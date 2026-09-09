@@ -1,10 +1,13 @@
 import { sellers } from "./sellers.ts";
 import { hasFeed } from "./feeds.ts";
+import { CrawlApproval } from "./documents.ts";
+import { APPROVAL_EVENT } from "./manufacturer-crawl.ts";
 import type { SellerCrawlParams } from "./seller-crawl.ts";
 
 export { SellerCrawl } from "./seller-crawl.ts";
 export { ClassifySightings } from "./classify-sightings.ts";
 export { PageCrawl } from "./page-crawl.ts";
+export { ManufacturerCrawl } from "./manufacturer-crawl.ts";
 
 /** Today as YYYY-MM-DD in UTC. Computed once per trigger and passed in, never inside a step. */
 function today(): string {
@@ -42,10 +45,31 @@ export default {
       const instance = await env.CLASSIFY_SIGHTINGS.create({ id: `classify-${instanceId(sellerId, checkedAt)}`, params: { sellerId, checkedAt } });
       return Response.json({ id: instance.id });
     }
+    if (request.method === "POST" && url.pathname === "/maker") {
+      const manufacturerId = url.searchParams.get("id");
+      const domains = (url.searchParams.get("domains") ?? "").split(",").map((d) => d.trim()).filter(Boolean);
+      if (!manufacturerId || domains.length === 0) return Response.json({ error: "id and domains required" }, { status: 400 });
+      const checkedAt = url.searchParams.get("date") ?? today();
+      const pages = url.searchParams.get("pages");
+      const instance = await env.MANUFACTURER_CRAWL.create({
+        id: `maker-${manufacturerId}-${checkedAt}`,
+        params: { manufacturerId, domains, checkedAt, ...(pages ? { pageLimit: Number(pages) } : {}) },
+      });
+      return Response.json({ id: instance.id });
+    }
+    if (request.method === "POST" && url.pathname === "/approve") {
+      const id = url.searchParams.get("id");
+      if (!id) return Response.json({ error: "id required" }, { status: 400 });
+      const parsed = CrawlApproval.safeParse(await request.json().catch(() => null));
+      if (!parsed.success) return Response.json({ error: "approval must name approvedBy and approved", detail: parsed.error.issues }, { status: 400 });
+      const instance = await env.MANUFACTURER_CRAWL.get(id);
+      await instance.sendEvent({ type: APPROVAL_EVENT, payload: parsed.data });
+      return Response.json({ sent: parsed.data.approved, to: id });
+    }
     if (request.method === "GET" && url.pathname === "/status") {
       const id = url.searchParams.get("id");
       if (!id) return Response.json({ error: "id required" }, { status: 400 });
-      const binding = id.startsWith("classify-") ? env.CLASSIFY_SIGHTINGS : id.startsWith("page-") ? env.PAGE_CRAWL : env.SELLER_CRAWL;
+      const binding = id.startsWith("classify-") ? env.CLASSIFY_SIGHTINGS : id.startsWith("page-") ? env.PAGE_CRAWL : id.startsWith("maker-") ? env.MANUFACTURER_CRAWL : env.SELLER_CRAWL;
       const instance = await binding.get(id);
       const status = await instance.status();
       return Response.json({ status: status.status, error: status.error ?? null });

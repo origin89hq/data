@@ -107,6 +107,8 @@ committed `scraper/sellers.json`.
   own JSON-LD or microdata, for the 7 on BigCommerce, Magento or neither.
 - **`ClassifySightings`** reads a finished crawl back and asks Workers AI, ten
   listings per step, what each one is.
+- **`ManufacturerCrawl`** is hop two: it finds the documents a maker publishes,
+  writes what it would fetch, and waits for a person to approve it.
 
 Each writes to R2 as JSONL with a manifest last, so a reader that finds a
 manifest knows the run finished. A weekly cron starts one instance per seller;
@@ -182,3 +184,18 @@ reviewer, or with a model named as the reviewer, fails validation.
 
 `records/manufacturers/` holds the companies. A manufacturer's `domains` are
 what hop two is allowed to crawl, so a reseller's domain does not go in one.
+
+## Approving a document crawl
+
+Hop two reads a maker's sitemap for document links, writes the plan, and stops.
+
+```sh
+curl -X POST 'localhost:8787/maker?id=victron-energy&domains=victronenergy.com&pages=40'
+wrangler r2 object get offgrid-equipment-archive/documents/victron-energy/<date>/plan.json --local --pipe
+curl -X POST 'localhost:8787/approve?id=maker-victron-energy-<date>'   -H 'content-type: application/json'   -d '{"approved":true,"approvedBy":"David","limit":50}'
+```
+
+Nothing is fetched until that event arrives. A refusal, an approval naming no
+host that was found, and no answer at all all end the run having downloaded
+nothing. An approval can narrow what discovery found and can never widen it,
+and one with no named approver is refused at the door.

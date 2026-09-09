@@ -53,12 +53,28 @@ person decides.
 
 ## Hop two: manufacturer to documents
 
-The confirmed domain is crawled from its sitemap. Every document lands in the
-archive under its hash, immutable, with a markdown conversion beside it keyed
-by converter and version. Model strings from hop one are matched against
-document titles and text, and a match is a candidate `documents` row: this
-model, this sheet, this page. It says when one family sheet covers six models
-rather than pretending each has its own.
+The confirmed domains are read from their sitemaps for links to documents, and
+a link that leaves those domains is not one of this maker's. That much only
+reads pages the site already publishes to search engines.
+
+**Then it stops.** The instance writes what it *would* fetch — how many
+documents, on which hosts, how many bytes where the host said — and waits for a
+person to approve it. The approval names who gave it, may narrow the hosts, and
+may cap the count. Nothing is fetched without one, and a timeout ends the
+instance rather than proceeding: silence is a refusal.
+
+The failure that prevents is a crawl pulling a gigabyte off somebody's server
+because a brand resolved at two in the morning. It is also the reason the
+instance carries no list of its own — it is created with the domains from a
+manufacturer record, and an un-approved instance has nothing to act on.
+
+What is fetched lands in the archive under the SHA-256 of its content, so a
+retry rewrites the same object and a document that moved to a new URL is stored
+once. A markdown conversion goes beside it, keyed by converter and version.
+Model strings from hop one are then matched against document titles and text,
+and a match is a candidate `documents` row: this model, this sheet, this page.
+It says when one family sheet covers six models rather than pretending each has
+its own.
 
 ## What runs where
 
@@ -73,6 +89,8 @@ rather than pretending each has its own.
 - **R2** holds sightings and documents. A document is served to users only
   when its source record says it may be redistributed; the default is the
   manufacturer's own URL plus our hash and retrieval date.
+- **`waitForEvent`** is what holds hop two open while a person looks at the
+  plan. An instance waiting on an event costs nothing and can wait for days.
 - **Outside the crawler:** the review, the records, and the build. A model's
   output is a candidate, and it becomes a record when a person attaches the
   source.
