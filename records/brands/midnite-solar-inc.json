@@ -1,0 +1,19 @@
+{
+  "id": "midnite-solar-inc",
+  "brand": "MidNite Solar Inc",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "signaturesolar"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Midnite Solar Lightning and Surge Arrestor | 300DC | MNSPD-300-DC"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

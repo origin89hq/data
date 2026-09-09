@@ -1,0 +1,22 @@
+{
+  "id": "unirac",
+  "brand": "Unirac",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 4,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Unirac EZ Rails SWH Rail Brackets With Bolts",
+      "Unirac EZ Rails Mids",
+      "Unirac EZ Rails Splice Kit",
+      "Unirac EZ Rails Ends"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "sok-battery",
+  "brand": "SOK Battery",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 5,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "SOK Battery 12V 206Ah LiFePO4 Battery With Built-In Heater",
+      "SOK Battery 12V 280Ah LiFePO4 Battery With Built-In Heater",
+      "SOK Battery 24V 150Ah LiFePO4 Battery With Built-In Heater",
+      "SOK Battery 12V 314Ah LiFePO4 Battery With Built-In Heater",
+      "SOK Battery 12V 100Ah LiFePO4 Battery With Clear Sealed Box"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

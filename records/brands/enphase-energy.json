@@ -1,0 +1,19 @@
+{
+  "id": "enphase-energy",
+  "brand": "Enphase Energy",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "signaturesolar"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Enphase Disconnect tool"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

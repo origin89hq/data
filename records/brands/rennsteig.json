@@ -1,0 +1,28 @@
+{
+  "id": "rennsteig",
+  "brand": "Rennsteig",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 3,
+    "inScope": 1,
+    "kinds": [
+      "out-of-scope 2",
+      "balance-of-system 1"
+    ],
+    "models": [
+      "R624 105-52",
+      "690 001",
+      "624 006 3 1 RT"
+    ],
+    "proposed": [],
+    "examples": [
+      "Rennsteig  MC4/H4 Kit for 14/12/10/8 AWG",
+      "Rennsteig Assembly Key for MC4",
+      "Rennsteig CSC Multi-Function MC4 Crimper"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

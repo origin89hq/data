@@ -1,0 +1,19 @@
+{
+  "id": "imo-solar",
+  "brand": "IMO Solar",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "signaturesolar"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "IMO Emergency Stop Button | Twist to release | 500VAC | 1NO + 1NC"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

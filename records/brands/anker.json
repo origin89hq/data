@@ -1,0 +1,24 @@
+{
+  "id": "anker",
+  "brand": "Anker",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 61,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Anker SOLIX Solar To XT60i Charging Cable",
+      "Anker SOLIX 1,500W 2,010Wh S2000 Portable Power Station",
+      "Anker SOLIX 288Wh C300 DC Portable Power Station",
+      "Anker SOLIX E10 Smart Inlet Box",
+      "Anker SOLIX E10 Smart Generator 5500 (Tri-Fuel)",
+      "Anker SOLIX E10 120V/240V Power Strip"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

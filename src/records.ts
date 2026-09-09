@@ -3,6 +3,8 @@ import { join } from "node:path";
 import { Dialect } from "../schema/dialect.ts";
 import { Family } from "../schema/family.ts";
 import { Source } from "../schema/source.ts";
+import { Manufacturer } from "../schema/manufacturer.ts";
+import { Brand } from "../schema/brand.ts";
 import { Family as FamilyId } from "../schema/enums.ts";
 
 export const RECORDS_DIR = new URL("../records/", import.meta.url).pathname;
@@ -11,6 +13,8 @@ export interface Records {
   families: Family[];
   dialects: Dialect[];
   sources: Source[];
+  manufacturers: Manufacturer[];
+  brands: Brand[];
 }
 
 /** A record's file, so a validation message can name the line to open. */
@@ -24,7 +28,9 @@ export function loadRecords(dir = RECORDS_DIR): Records {
   const families = readJsonDir(join(dir, "families"), Family);
   const dialects = FamilyId.options.flatMap((family) => readJsonDir(join(dir, "dialects", family), Dialect));
   const sources = readJsonDir(join(dir, "sources"), Source);
-  return { families, dialects, sources };
+  const manufacturers = readJsonDir(join(dir, "manufacturers"), Manufacturer);
+  const brands = readJsonDir(join(dir, "brands"), Brand);
+  return { families, dialects, sources, manufacturers, brands };
 }
 
 function readJsonDir<T>(dir: string, schema: { parse(value: unknown): T }): T[] {
@@ -48,12 +54,33 @@ function readJsonDir<T>(dir: string, schema: { parse(value: unknown): T }): T[] 
   });
 }
 
-/** Write records with a fixed key order and trailing newline, so a re-import of unchanged input is an empty diff. */
-export function writeRecords(records: Records, dir = RECORDS_DIR): void {
-  for (const sub of ["families", "dialects", "sources"]) rmSync(join(dir, sub), { recursive: true, force: true });
-  for (const family of records.families) writeJson(join(dir, "families", `${family.id}.json`), family);
-  for (const dialect of records.dialects) writeJson(join(dir, "dialects", dialect.family, `${dialect.id}.json`), dialect);
-  for (const source of records.sources) writeJson(join(dir, "sources", `${source.id}.json`), source);
+/** Write one record file, creating its directory. Used by the importer and the gate. */
+export function writeRecord(dir: string, kind: string, id: string, value: unknown): string {
+  const path = join(dir, kind, `${id}.json`);
+  writeJson(path, value);
+  return path;
+}
+
+/** The record kinds, each its own directory. A writer names the ones it owns and leaves the rest alone. */
+export type Kind = "families" | "dialects" | "sources" | "manufacturers" | "brands";
+export const KINDS: Kind[] = ["families", "dialects", "sources", "manufacturers", "brands"];
+
+/**
+ * Replace whole record kinds from `records`. Only the kinds in `replace` are touched: the
+ * catalogue importer rewrites families, dialects and sources every run, and must not take the
+ * gate's hand-reviewed manufacturers and brands with them.
+ */
+export function writeRecords(records: Records, dir = RECORDS_DIR, replace: Kind[] = KINDS): void {
+  for (const sub of replace) rmSync(join(dir, sub), { recursive: true, force: true });
+  const write = <T>(kind: Kind, items: T[], id: (item: T) => string, sub?: (item: T) => string) => {
+    if (!replace.includes(kind)) return;
+    for (const item of items) writeJson(join(dir, kind, ...(sub ? [sub(item)] : []), `${id(item)}.json`), item);
+  };
+  write("families", records.families, (f) => f.id);
+  write("dialects", records.dialects, (d) => d.id, (d) => d.family);
+  write("sources", records.sources, (s) => s.id);
+  write("manufacturers", records.manufacturers, (m) => m.id);
+  write("brands", records.brands, (b) => b.id);
 }
 
 function writeJson(path: string, value: unknown): void {

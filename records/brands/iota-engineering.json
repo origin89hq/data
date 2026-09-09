@@ -1,0 +1,21 @@
+{
+  "id": "iota-engineering",
+  "brand": "IOTA Engineering",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 3,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "IOTA Engineering 40A 24VDC Converter/Charger",
+      "IOTA Engineering 15A 24VDC Converter/Charger",
+      "IOTA Engineering 25A 24VDC Converter/Charger"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

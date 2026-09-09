@@ -1,0 +1,24 @@
+{
+  "id": "onsen",
+  "brand": "Onsen",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 11,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Onsen 7L Portable Tankless Water Heater",
+      "Onsen 26L Indoor Natural Gas Tankless Water Heater",
+      "Onsen 26L Indoor Natural Gas Tankless Water Heater",
+      "Onsen 14L Indoor Natural Gas Tankless Water Heater",
+      "Onsen 14L Indoor Natural Gas Tankless Water Heater",
+      "Onsen 26L Indoor Propane Tankless Water Heater"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

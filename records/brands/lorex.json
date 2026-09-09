@@ -1,0 +1,24 @@
+{
+  "id": "lorex",
+  "brand": "Lorex",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 11,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Lorex H20 4K IP Wired Dual Lens Security Camera With Security Lighting & Smart Motion Detection",
+      "Lorex Dual Lens Wi-Fi Camera",
+      "Lorex 4K Spotlight Wi-Fi Camera",
+      "Lorex 4K IP Wired Dome Security Camera With Smart Security Lighting And Smart Motion Detection",
+      "Lorex 4K IP Smart Detection Camera Bullet - White",
+      "Lorex 4K IP Eyeball Camera Dome Camera - White"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

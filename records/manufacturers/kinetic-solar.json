@@ -1,0 +1,12 @@
+{
+  "id": "kinetic-solar",
+  "name": "Kinetic Solar",
+  "website": "https://kineticsolar.com",
+  "domains": [
+    "kineticsolar.com"
+  ],
+  "sources": [
+    "kineticsolar-com-racking",
+    "kineticsolar-com"
+  ]
+}

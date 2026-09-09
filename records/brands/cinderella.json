@@ -1,0 +1,24 @@
+{
+  "id": "cinderella",
+  "brand": "Cinderella",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 105,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Cinderella® - Circuit board (E5 - V3.0)",
+      "Cinderella Comfort Incineration Toilet (OPEN BOX)",
+      "Cinderella Chimney Flue Cap",
+      "Cinderella® - Travel Incineration Toilet",
+      "Cinderella Travel Diesel Incineration Toilet",
+      "Cinderella - Spark Plug >2026"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

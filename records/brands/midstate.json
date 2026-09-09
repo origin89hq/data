@@ -1,0 +1,24 @@
+{
+  "id": "midstate",
+  "brand": "Midstate",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 10,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Midstate 15\" SS Pipe",
+      "Midstate 1/2 Frosted Gas Light Globe",
+      "Midstate Full Frosted Globe",
+      "Midstate Lamp Mantles (48 pack)",
+      "Midstate Lamp Mantles (96 pack)",
+      "Midstate Lamp Mantles (24 pack)"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

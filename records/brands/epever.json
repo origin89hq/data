@@ -1,0 +1,24 @@
+{
+  "id": "epever",
+  "brand": "EPEver",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 17,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "EPEver iTracer AN G3 60A MPPT Charge Controller",
+      "EPEver eBox-BLE-01 Bluetooth Remote Monitor",
+      "EPEver eBox-WIFI-01 WiFi Remote Monitor",
+      "EPEver Battery Temperature Sensor",
+      "EPEver Remote Meter",
+      "EPEver IPower-Plus 48V 4,000W Pure Sine Inverter *ETL Certified"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

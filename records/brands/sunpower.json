@@ -1,0 +1,23 @@
+{
+  "id": "sunpower",
+  "brand": "SunPower",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 1,
+    "inScope": 1,
+    "kinds": [
+      "panel 1"
+    ],
+    "models": [
+      "SPR-E-Flex-100"
+    ],
+    "proposed": [],
+    "examples": [
+      "SunPower SPR-E-Flex-100"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

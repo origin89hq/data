@@ -1,0 +1,24 @@
+{
+  "id": "martin",
+  "brand": "Martin",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 433,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Martin 4' Propane Hose With Regulator",
+      "Martin Flex Hose With Adapters 1/2\" FPT To 1/2\" MPT 24\"",
+      "Martin Flex Hose With Adapters 1/2\" FPT To 1/2\" MPT 12\"",
+      "Martin 3/8\" x 3/8\" Female Swivel Hose 10'",
+      "Martin Short Nut 3/8\" Tube x 3/8\" Flare",
+      "Martin 10' Hose With 3/8 FFL.SW x 3/8 MPT Fittings"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

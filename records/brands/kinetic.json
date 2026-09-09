@@ -1,0 +1,24 @@
+{
+  "id": "kinetic",
+  "brand": "Kinetic",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 8,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Kinetic KHGLUG-M Ground Lug With Standard Nut",
+      "Kinetic KFLK-42S Flashing Kit",
+      "Kinetic KJS2-M Joiners",
+      "Kinetic KLB3-M 3' L-Bracket Kit With K-Nut",
+      "Kinetic 92.5\" Rapid Rail",
+      "Kinetic 30-46mm KEC40-M Adjustable End Clamp"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

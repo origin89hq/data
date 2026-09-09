@@ -1,0 +1,22 @@
+{
+  "id": "tomcat",
+  "brand": "Tomcat",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 4,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Tomcat Mouse Trap Wood Snap 2 Pack",
+      "Tomcat 28g Mouse Killer Disposable Bait Station With Bait Blocks 4 Pack",
+      "Tomcat 28g Mouse Killer Refillable Bait Station With 8 Bait Block Refills",
+      "Tomcat 29.5ml Mouse And Rat Attractant Gel"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

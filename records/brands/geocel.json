@@ -1,0 +1,23 @@
+{
+  "id": "geocel",
+  "brand": "Geocel",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [
+      "out-of-scope 1"
+    ],
+    "models": [
+      "2300"
+    ],
+    "proposed": [],
+    "examples": [
+      "Geocel 2300 Roof Sealant"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

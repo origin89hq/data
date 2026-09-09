@@ -1,0 +1,19 @@
+{
+  "id": "emp-shield",
+  "brand": "EMP Shield",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "signaturesolar"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "EMP Shield Home EMP & Lightning Protection + CME Defense Concealed Model"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

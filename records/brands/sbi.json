@@ -1,0 +1,24 @@
+{
+  "id": "sbi",
+  "brand": "SBI",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 65,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "SBI 3” X 90° Pellet Elbow (Unpainted)",
+      "SBI 45 Degree Elbow 6\" Vortex Double Wall",
+      "SBI 6\" x 6\" L Vortex Double Wall Pipe - Black",
+      "SBI 6\" x 12\" L Vortex Double Wall Pipe - Black",
+      "SB BENT THERMOCOUPLE 80002057",
+      "SBI 6\" x 25' Flex Liner Kit For Appliances - Stainless Steel"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "id": "englander",
+  "brand": "Englander",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 7,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Englander GRIZZLY Camp Stove",
+      "Englander Grizzly Kit Wood Stove",
+      "Englander Cub Kit Wood Stove",
+      "Englander Cub Wood Stove",
+      "Englander Blue Ridge 100 Wood Stove",
+      "Englander Black Bear Camp Stove"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

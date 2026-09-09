@@ -1,0 +1,22 @@
+{
+  "id": "yozma",
+  "brand": "Yozma",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 4,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Yozma IN 10",
+      "Yozma IN 10",
+      "Yozma IN 10 Pro",
+      "Yozma IN 10 Pro"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

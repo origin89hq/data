@@ -1,0 +1,19 @@
+{
+  "id": "geosat",
+  "brand": "GEOSAT",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "GEOSAT Pro Antenna Or Satellite Installation Kits"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

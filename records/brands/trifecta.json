@@ -1,0 +1,19 @@
+{
+  "id": "trifecta",
+  "brand": "Trifecta",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Trifecta Ground Mount Extension Kit"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

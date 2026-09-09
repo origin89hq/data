@@ -1,0 +1,24 @@
+{
+  "id": "homestead-appliance",
+  "brand": "HomeStead Appliance",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 6,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Homestead Appliance Portable Toilet Structure Double",
+      "Homestead Appliance Portable Toilet Structure",
+      "HomeStead Appliance RV Toilet",
+      "HomeStead Appliance Portable Sink",
+      "HomeStead Appliance Portable Sink With Holding Tank",
+      "HomeStead Appliance OTTER Hand Powered 2-In-1 Washing Machine"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

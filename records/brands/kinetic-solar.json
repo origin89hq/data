@@ -1,0 +1,34 @@
+{
+  "id": "kinetic-solar",
+  "brand": "Kinetic Solar",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 40,
+    "inScope": 17,
+    "kinds": [
+      "out-of-scope 21",
+      "balance-of-system 17"
+    ],
+    "models": [
+      "KHRZ4-M",
+      "K3AGM10-G",
+      "KEC30-B",
+      "KEC30-M",
+      "KFLK-44S",
+      "KCMT-1"
+    ],
+    "proposed": [],
+    "examples": [
+      "Kinetic Z-bracket kit (KHRZ4-M)",
+      "Kinetic K3AGM-G",
+      "Kinetic Solar KEC30-B",
+      "Kinetic Solar KEC30-M",
+      "Kinetic Solar KFLK-44S",
+      "Kinetic Solar KCMT-1"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "id": "la-nordica",
+  "brand": "La Nordica",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 20,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "La Nordica Rosa XXL UL-C Steel - Anthracite Black",
+      "La Nordica Rosa XXL UL-C - Natural Stone",
+      "La Nordica Rosa XXL UL-C Majolica - Infinity White",
+      "La Nordica Rosa XXL UL-C Majolica - Bordeaux (Red)",
+      "La Nordica Rosa L UL-C Steel - Anthracite Black",
+      "La Nordica Rosa SX Reverse UL-C - Natural Stone"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

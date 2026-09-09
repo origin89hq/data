@@ -1,0 +1,27 @@
+{
+  "id": "outback",
+  "brand": "OutBack",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "signaturesolar",
+      "solacity",
+      "thecabindepot"
+    ],
+    "listings": 3,
+    "inScope": 1,
+    "kinds": [
+      "charge-controller 1"
+    ],
+    "models": [
+      "FM60-150"
+    ],
+    "proposed": [],
+    "examples": [
+      "OutBack FM60-150",
+      "Outback Battery Temperature Sensor",
+      "OutBack Power | EnergyCell 5 | Battery Base"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

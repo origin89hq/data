@@ -1,0 +1,37 @@
+{
+  "id": "midnite-solar",
+  "brand": "MidNite Solar",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity",
+      "thecabindepot"
+    ],
+    "listings": 67,
+    "inScope": 55,
+    "kinds": [
+      "balance-of-system 48",
+      "charge-controller 6",
+      "out-of-scope 3",
+      "shunt-monitor 1"
+    ],
+    "models": [
+      "MNEPV15-600-2PP",
+      "MN1/0LBBC-BLK",
+      "MNPV6-DISCO AC MICRO",
+      "MNCLASSIC FAN KIT",
+      "MNCLASSIC FAN KIT”,",
+      "MNEDC250"
+    ],
+    "proposed": [],
+    "examples": [
+      "MidNite Solar MNEPVxx-600-2PP (600 VDC)",
+      "MidNite Solar MN1/0BBC",
+      "MidNite Solar MNPV6-DISCO AC MICRO",
+      "MidNite Solar MNCLASSIC FAN KIT",
+      "MidNite Solar MNEDC250",
+      "MidNite Solar MNEDC125RT"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

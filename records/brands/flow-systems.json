@@ -1,0 +1,23 @@
+{
+  "id": "flow-systems",
+  "brand": "Flow Systems",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [
+      "out-of-scope 1"
+    ],
+    "models": [
+      "2000"
+    ],
+    "proposed": [],
+    "examples": [
+      "Water Miser 2000"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

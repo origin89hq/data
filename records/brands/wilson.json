@@ -1,0 +1,24 @@
+{
+  "id": "wilson",
+  "brand": "Wilson",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 10,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Wilson One Shot Jet Foam Wasp And Hornet Killer",
+      "Wilson 1L Bug-X Insecticidal Soap RTU Spray",
+      "Wilson One Shot Fly Sticky Ribbons 4 Pack",
+      "Wilson 400g Fly Out House And Indoor Garden Insect Killer Aerosol",
+      "Wilson 80g Predator Disposable Mouse Bait Station",
+      "Wilson 1L One Shot Spiderban Spider Killer RTU"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

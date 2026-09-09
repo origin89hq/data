@@ -1,0 +1,20 @@
+{
+  "id": "sawmill-structures",
+  "brand": "Sawmill Structures",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 2,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Loo Loo House Log Outhouse",
+      "Cube Loft 100"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

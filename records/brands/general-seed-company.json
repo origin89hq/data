@@ -1,0 +1,29 @@
+{
+  "id": "general-seed-company",
+  "brand": "General Seed Company",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 16,
+    "inScope": 0,
+    "kinds": [
+      "out-of-scope 16"
+    ],
+    "models": [
+      "Estate Lawn Seed 10 lbs",
+      "None"
+    ],
+    "proposed": [],
+    "examples": [
+      "Slow-Release Lawn Fertilizer 20kg (44lb)",
+      "Estate Lawn Seed 10 lbs",
+      "Quick Catch Lawn Seed 10 lbs",
+      "Quick Catch Lawn Seed 25 lbs",
+      "Quick Catch Lawn Seed 50 lbs",
+      "Sun &#038; Shade Lawn Seed 10 lbs"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

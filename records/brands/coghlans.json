@@ -1,0 +1,24 @@
+{
+  "id": "coghlans",
+  "brand": "Coghlans",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 112,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Coghlans Mesh Repair Kit",
+      "Coghlans Emergency Poncho",
+      "Coghlans Clothesline",
+      "Coghlans Bear Bell",
+      "Coghlans Tent Pole Kit",
+      "Coghlans Fire Paste"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

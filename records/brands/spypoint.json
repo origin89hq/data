@@ -1,0 +1,24 @@
+{
+  "id": "spypoint",
+  "brand": "SpyPoint",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 17,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Spypoint Force-4K 48MP Trail Camera",
+      "Spypoint FLEX-RANGE Trail Camera",
+      "Spypoint FLEX-M2 Trail Camera Twin Pack",
+      "Spypoint FLEX-M Trail Camera Twin Pack",
+      "Spypoint Flex-Plus Cellular Trail Camera",
+      "Spypoint Force-24 Trail Camera"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "id": "separett",
+  "brand": "Separett",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 32,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Separett Tiny 12V Power Cable With Clips",
+      "Separett Bio Drain Cleaner 5 x 1 oz Tabs",
+      "Separett Absorb Pads 5 Pack",
+      "Separett 75mm Vent Pipe Adaptor",
+      "Separett 75mm Vent Pipe",
+      "Separett 4 oz Bio Drain Cleaner Tabs"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

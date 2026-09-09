@@ -1,0 +1,14 @@
+{
+  "id": "rolls-battery",
+  "name": "Rolls Battery Engineering (Surrette Battery Company)",
+  "website": "https://rollsbattery.com",
+  "domains": [
+    "rollsbattery.com",
+    "surrette.com"
+  ],
+  "sources": [
+    "rollsbattery-com-battery-s48-100lfp-ess",
+    "rollsbattery-com-battery-s48-100lfp-stack-lv",
+    "surrette-com-manuals"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "id": "summum-pro",
+  "brand": "Summum Pro",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 44,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Summum Pro Cathedral Starting Kit",
+      "Summum Pro Indoor Starting Kit",
+      "Summum Pro Outdoor Starting Kit B",
+      "Summum Pro Outdoor Starting Kit",
+      "Summum Pro Trim Ring",
+      "Summum Pro Tee With Cap"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

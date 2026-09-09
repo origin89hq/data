@@ -1,0 +1,31 @@
+{
+  "id": "trojan",
+  "brand": "Trojan",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 5,
+    "inScope": 5,
+    "kinds": [
+      "battery 5"
+    ],
+    "models": [
+      "31-GEL",
+      "6V-GEL",
+      "L16H-AC",
+      "L16E-AC",
+      "T-105"
+    ],
+    "proposed": [],
+    "examples": [
+      "Trojan 31-GEL",
+      "Trojan 6V-GEL",
+      "Trojan L16H-AC",
+      "Trojan L16E-AC",
+      "Trojan T-105"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "id": "dry-flush",
+  "brand": "Dry Flush",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 22,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Laveo Dry Flush Pee Powder 8 Pack",
+      "Laveo Dry Flush Pee Powder 4 Pack",
+      "Laveo Dry Flush Portable Toilet Bundle",
+      "Laveo Dry Flush Portable Toilet Bundle",
+      "Laveo Dry Flush Portable Toilet Bundle",
+      "Laveo Dry Flush Portable Toilet Bundle"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

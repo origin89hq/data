@@ -1,0 +1,24 @@
+{
+  "id": "nwl",
+  "brand": "NWL",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 18,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "NWL Cube Puzzle Game",
+      "NWL Photo Album",
+      "NWL Journal",
+      "NWL Wooden Ornament",
+      "NWL Wooden Ornament",
+      "NWL Wooden Ornament"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

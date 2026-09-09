@@ -13,7 +13,9 @@
     "import:catalogue": "node tools/catalogue/import.ts",
     "render:catalogue": "node tools/catalogue/render-cli.ts",
     "roundtrip:catalogue": "node tools/catalogue/roundtrip.ts",
-    "test": "node --test test/*.test.ts"
+    "test": "node --test test/*.test.ts",
+    "gate:queue": "node tools/gate/queue.ts",
+    "gate": "node tools/gate/decide.ts"
   },
   "packageManager": "pnpm@10.0.0",
   "dependencies": {

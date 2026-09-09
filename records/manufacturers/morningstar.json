@@ -1,0 +1,12 @@
+{
+  "id": "morningstar",
+  "name": "Morningstar Corporation",
+  "website": "https://www.morningstarcorp.com",
+  "domains": [
+    "morningstarcorp.com"
+  ],
+  "sources": [
+    "morningstarcorp-com-ssd-app-modbus-en-03",
+    "morningstarcorp-com-wp-content-uploads-datasheet-sunlight-en"
+  ]
+}

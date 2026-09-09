@@ -1,0 +1,19 @@
+{
+  "id": "eco-worthy",
+  "brand": "Eco-Worthy",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "signaturesolar"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Eco-Worthy 100W Bifacial Solar Panel"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

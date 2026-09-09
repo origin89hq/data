@@ -1,0 +1,21 @@
+{
+  "id": "pacific-coast-wire",
+  "brand": "Pacific Coast Wire",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "signaturesolar"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [
+      "34-PCWC-24inchEXT"
+    ],
+    "proposed": [],
+    "examples": [
+      "24in 10 AWG Extension MC4 Connections | Solar Panel Cable Extensions"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

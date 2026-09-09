@@ -1,0 +1,12 @@
+{
+  "id": "xantrex",
+  "name": "Xantrex (Schneider Electric Solar)",
+  "website": "https://www.xantrex.com",
+  "domains": [
+    "xantrex.com"
+  ],
+  "sources": [
+    "xantrex-com-products-accessories-linkpro",
+    "xantrex-com-products-accessories-xantrex-gateway"
+  ]
+}

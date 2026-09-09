@@ -1,0 +1,24 @@
+{
+  "id": "gma-solar",
+  "brand": "GMA Solar",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 13,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "GMA Solar 170W Mono Solar Panel",
+      "Bundle of 32 - 275 Watt Poly GMA Solar Panel",
+      "Bundle of 12 - 275 Watt Poly GMA Solar Panel",
+      "Bundle of 6 - 275 Watt Poly GMA Solar Panel",
+      "GMA Solar 275W Poly Solar Panel",
+      "Bundle of 32 - 150 Watt Poly GMA Solar Panel"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

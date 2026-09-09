@@ -1,0 +1,33 @@
+{
+  "id": "rolls-surrette",
+  "brand": "Rolls/Surrette",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 18,
+    "inScope": 18,
+    "kinds": [
+      "battery 18"
+    ],
+    "models": [
+      "8 CS 27P",
+      "S-550",
+      "6 CS 21P",
+      "6 CS 25P",
+      "6 CS 27P",
+      "8 CS 17P"
+    ],
+    "proposed": [],
+    "examples": [
+      "Rolls-Surrette 8 CS 27P",
+      "Rolls-Surrette S6 L16-HC (was S-550)",
+      "Rolls-Surrette 6 CS 21P",
+      "Rolls-Surrette 6 CS 25P",
+      "Rolls-Surrette 6 CS 27P",
+      "Rolls-Surrette 8 CS 17P"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

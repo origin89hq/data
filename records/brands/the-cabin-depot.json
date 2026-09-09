@@ -1,0 +1,24 @@
+{
+  "id": "the-cabin-depot",
+  "brand": "The Cabin Depot",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 154,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Kedron 40' #10 PV To Controller (Pair)",
+      "Sol-Ark 15K + RUiXU Battery Bundle",
+      "Sol-Ark 12K + RUiXU Battery Bundle",
+      "Sol-Ark 5K + RUiXU Battery Bundle",
+      "EG4 12,000XP Inverter + RUiXU Server Rack Battery Bundle",
+      "EG4 12,000XP Inverter + RUiXU Server Rack Battery Bundle"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

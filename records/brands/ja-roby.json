@@ -1,0 +1,24 @@
+{
+  "id": "ja-roby",
+  "brand": "JA ROBY",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 109,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "J.A. ROBY ATM 2500F LX Wood Cookstove",
+      "J.A. ROBY ATM 2500F Wood Cookstove",
+      "J.A. ROBY Rigel Chrome Wood Cookstove",
+      "J.A. ROBY Rigel Wood Cookstove",
+      "J.A. ROBY Magnum Wood Stove",
+      "J.A. ROBY Sirius Chrome Wood Stove"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

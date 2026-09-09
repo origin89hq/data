@@ -1,0 +1,34 @@
+{
+  "id": "unique",
+  "brand": "Unique",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity",
+      "thecabindepot"
+    ],
+    "listings": 182,
+    "inScope": 0,
+    "kinds": [
+      "out-of-scope 6"
+    ],
+    "models": [
+      "UGP-325L B",
+      "UGP-275L DC W",
+      "UGP-265L1 DC",
+      "UGP-260L1 DC W",
+      "UGP-290L1 DC B",
+      "UGP-170L1 DC W"
+    ],
+    "proposed": [],
+    "examples": [
+      "Unique UGP-325L",
+      "Unique  UGP-275L DC W",
+      "Unique UGP-265L1 DC",
+      "Unique UGP-260L1 DC W",
+      "Unique UGP-290L1 DC",
+      "Unique UGP-170L1 DC W"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

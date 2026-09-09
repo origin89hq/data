@@ -1,0 +1,25 @@
+{
+  "id": "integrarack",
+  "brand": "IntegraRack",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "signaturesolar",
+      "thecabindepot"
+    ],
+    "listings": 12,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "IntegraRack Concrete Slab/Footing Anchor Bolt Mounting Kit For BallastRack Frames",
+      "IntegraRack AnchorSpike Mounting Kit For BallastRack Frames - 22 Pack",
+      "IntegraRack AnchorSpike Mounting Kit For BallastRack Frames - 10 Pack",
+      "IntegraRack EarthScrew 30\" Mounting Kit For BallastRack Frames - 10 Pack",
+      "IntegraRack EarthBallast Mounting Kit For BallastRack Frames",
+      "IntegraRack BallastRack Fixed Adjustable Solar Module Rack - Black Composite"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

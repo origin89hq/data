@@ -1,0 +1,19 @@
+{
+  "id": "piactive",
+  "brand": "Piactive",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Piactive 175ml Original Insect Repellent Deet-Free Pump 12HR"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

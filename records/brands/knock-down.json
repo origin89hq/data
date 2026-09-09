@@ -1,0 +1,20 @@
+{
+  "id": "knock-down",
+  "brand": "Knock Down",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 2,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Knock Down 400g Kilsol One Solution Multi-Insect Killer Aerosol",
+      "Knock Down 400g Hornet And Wasp Spray Foam"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

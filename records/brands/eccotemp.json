@@ -1,0 +1,24 @@
+{
+  "id": "eccotemp",
+  "brand": "Eccotemp",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 27,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Eccotemp i12LP Indoor Tankless Water Heater",
+      "Eccotemp i12LP Indoor Tankless Water Heater",
+      "Eccotemp EL10 Luxe 3.0 GPM 75,000 BTU Portable Tankless Water Heater With EccoFlo Pump And Strainer",
+      "Eccotemp 3\" Horizontal Vent Kit - Stainless Steel",
+      "Eccotemp SmartHome 6.8 GPM Outdoor Liquid Propane Tankless Water Heater",
+      "Eccotemp L10 Outdoor Tankless Water Heater w/ Seaflo Pump & Strainer"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

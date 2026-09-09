@@ -1,0 +1,21 @@
+{
+  "id": "swh",
+  "brand": "SWH",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 3,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "SWH EZ Rails SWH Regular Rails",
+      "SWH EZ Rails SWH Regular Rails",
+      "SWH EZ Rails SWH Regular Rails"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

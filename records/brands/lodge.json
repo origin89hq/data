@@ -1,0 +1,24 @@
+{
+  "id": "lodge",
+  "brand": "Lodge",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 42,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Lodge 7\" Silicone Square Trivet With Skillet Pattern - Red",
+      "Lodge 12\" Yellowstone Cast Iron Steer Skillet",
+      "Lodge 8\" Wildlife Series Cast Iron Duck Skillet",
+      "Lodge 10.25\" Yellowstone Authentic Cast Iron Y Skillet",
+      "Lodge Yellowstone Seasoned Cast Iron Bucking Bronco Combo Cooker",
+      "Lodge 12\" 8 Quart Yellowstone Seasoned Cast Iron Deep Camp Dutch Oven"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

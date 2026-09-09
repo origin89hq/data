@@ -1,0 +1,24 @@
+{
+  "id": "wildlife-creations",
+  "brand": "Wildlife Creations",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 6,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Wildlife Creations Deer Picture Frame",
+      "Wildlife Creations Lab Toilet Paper Holder",
+      "Wildlife Creations Antler Book Frame",
+      "Wildlife Creations Metal Duck Wood Picture Frame",
+      "Wildlife Creations Moose Coaster Set",
+      "Wildlife Creations LED Bird Candle"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

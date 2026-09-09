@@ -1,0 +1,24 @@
+{
+  "id": "firman",
+  "brand": "Firman",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 30,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Firman Generator Automatic Voltage Regulator (AVR)",
+      "Firman 4,550W Gas Remote Start Portable Generator With CO Alert (Open Box)",
+      "Firman 2,700-3,500W Generator Cover",
+      "Firman 4,550W Gas Remote Start Portable Generator With CO Alert",
+      "Firman 8,000W 120/240V Tri-Fuel Electric Start Portable Generator With CO Alert",
+      "Firman 4,200W Whisper Series Remote Start Open Frame Portable Generator With CO Alert"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

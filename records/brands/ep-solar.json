@@ -1,0 +1,34 @@
+{
+  "id": "ep-solar",
+  "brand": "EP Solar",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 6,
+    "inScope": 4,
+    "kinds": [
+      "charge-controller 4",
+      "out-of-scope 2"
+    ],
+    "models": [
+      "WiFi 2.4G RJ45 D",
+      "CC-USB-RS485-150U",
+      "CC-USB-RS485-150U”,",
+      "XTRA2210N-XDS2",
+      "XTRA3215N-XDS2",
+      "MT50"
+    ],
+    "proposed": [],
+    "examples": [
+      "EPSolar &#8211; EPEver WiFi 2.4G RJ45 D",
+      "EPSolar &#8211; EPEver CC-USB-RS485-150U",
+      "EPSolar &#8211; EPEver XTRA2210N-XDS2",
+      "EPSolar &#8211; EPEver XTRA3215N-XDS2",
+      "EP Solar MT50",
+      "EPSolar &#8211; EPEver RTS300R47K3.81A"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

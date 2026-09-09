@@ -1,0 +1,22 @@
+{
+  "id": "surecall",
+  "brand": "SureCall",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 4,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "SureCall Fusion Professional Signal Booster For Cottage/Office",
+      "SureCall Fusion2Go 3.0 RV Signal Booster Kit",
+      "SureCall Fusion2Go 3.0 Mobile Signal Booster",
+      "SureCall Flare 3.0 Signal Booster"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

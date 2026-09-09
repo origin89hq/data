@@ -1,0 +1,25 @@
+{
+  "id": "lux-power",
+  "brand": "Lux Power",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 2,
+    "inScope": 2,
+    "kinds": [
+      "inverter 2"
+    ],
+    "models": [
+      "SNA-US 6000",
+      "LXP-LB-US-12K"
+    ],
+    "proposed": [],
+    "examples": [
+      "Lux Power SNA-US 6000",
+      "Lux Power LXP-LB-US-12K"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

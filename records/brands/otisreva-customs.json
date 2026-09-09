@@ -1,0 +1,24 @@
+{
+  "id": "otisreva-customs",
+  "brand": "OTISREVA Customs",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 9,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Trifecta Ground Mount Panel Adapter Kit",
+      "Trifecta 12-Panel Ground Mount Kit - 3600W BUNDLE",
+      "Trifecta 12-Panel Ground Mount Kit",
+      "Trifecta 9-Panel Ground Mount Kit - 2700W BUNDLE",
+      "Trifecta 9-Panel Ground Mount Kit",
+      "Trifecta 6-Panel Ground Mount Kit - 1800W BUNDLE"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "id": "progressive-dynamics",
+  "brand": "Progressive Dynamics",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 10,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Progressive Dynamics 12V 60A 9360 Series Converter/Charger",
+      "Progressive Dynamics 12V 30A 9300 Series Converter/Charger",
+      "Progressive Dynamics 12V 80A 9380 Series Converter/Charger",
+      "Progressive Dynamics 12V 45A Converter/Charger - 9345V",
+      "Progressive Dynamics Remote Pendant",
+      "Progressive Dynamics Mighty Mini AC/DC Distribution Panel + 60 Amp 120v Charger"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

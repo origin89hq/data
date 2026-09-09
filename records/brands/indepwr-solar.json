@@ -1,0 +1,21 @@
+{
+  "id": "indepwr-solar",
+  "brand": "Indepwr Solar",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "signaturesolar"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [
+      "iPWR-M10-54BX2S-440W"
+    ],
+    "proposed": [],
+    "examples": [
+      "Indepwr 440W Pallet of Bifacial Solar Panels | 31 Panels"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

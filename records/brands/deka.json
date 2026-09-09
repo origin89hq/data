@@ -1,0 +1,23 @@
+{
+  "id": "deka",
+  "brand": "Deka",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 5,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Deka 95A Battery Isolator",
+      "Deka Battery Protection Spray",
+      "Deka Hydrometer",
+      "Deka Dial Type Battery Tester/Hydrometer",
+      "Deka Battery Cleaner"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

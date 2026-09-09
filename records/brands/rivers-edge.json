@@ -1,0 +1,24 @@
+{
+  "id": "rivers-edge",
+  "brand": "Rivers Edge",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 12,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Rivers Edge Bear Double Switch Plate Cover",
+      "Rivers Edge Sunglasses - Camo",
+      "Rivers Edge LED Solar Garden Lights/Wind Chime",
+      "Rivers Edge LED Solar Garden Lights/Wind Chime",
+      "Rivers Edge Bear Holding Tray",
+      "Rivers Edge Cute Deer Double Switch Plate Cover"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

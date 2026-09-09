@@ -1,0 +1,27 @@
+{
+  "id": "iota",
+  "brand": "Iota",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 3,
+    "inScope": 3,
+    "kinds": [
+      "ac-charger 3"
+    ],
+    "models": [
+      "DLS-15",
+      "IQ-AGM",
+      "DLS-27-15"
+    ],
+    "proposed": [],
+    "examples": [
+      "Iota DLS (12VDC)",
+      "Iota IQ",
+      "Iota DLS-27 (24VDC)"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

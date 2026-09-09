@@ -1,0 +1,19 @@
+{
+  "id": "ineo",
+  "brand": "INEO",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "INEO Fireplace Tool Set"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

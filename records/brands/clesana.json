@@ -1,0 +1,24 @@
+{
+  "id": "clesana",
+  "brand": "Clesana",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 24,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Clesana C1 L-Adapter",
+      "Clesana X1 High-Barrier Film Liner - 10 Pack",
+      "Clesana C1/X1 Super-Absorber - 32 Pack",
+      "Clesana C1/X1 1KG Super-Absorber - 9 Pack",
+      "Clesana C1 High-Barrier Film Liner - 10 Pack",
+      "Clesana C1 Bio High-Barrier Film Liner - 10 Pack"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

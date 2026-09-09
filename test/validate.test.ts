@@ -16,6 +16,8 @@ function fixture(): Records {
       { id: "b", family: "modbus-rs485", driver: { status: "shipped", id: "d" }, confidence: "unverified", refuter: "not-checked", sources: [{ source: "s1", citation: "https://x/1" }] },
     ],
     sources: [{ id: "s1", url: "https://x/1" }],
+    manufacturers: [],
+    brands: [],
   };
 }
 

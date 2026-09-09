@@ -1,0 +1,23 @@
+{
+  "id": "lorentz",
+  "brand": "Lorentz",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [
+      "out-of-scope 1"
+    ],
+    "models": [
+      "PS150-C KIT"
+    ],
+    "proposed": [],
+    "examples": [
+      "Lorentz PS150-C KIT"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

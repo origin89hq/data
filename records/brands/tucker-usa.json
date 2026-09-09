@@ -1,0 +1,19 @@
+{
+  "id": "tucker-usa",
+  "brand": "Tucker USA",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "signaturesolar"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Tucker One Half Cubic Foot of Virgin DI Resin"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "id": "pytes",
+  "brand": "Pytes",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 9,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Pytes 1/0 Power Cable 2M - Red",
+      "Pytes 1/0 Power Cable 2M - Black",
+      "Pytes 4/0 Power Cable 2M - Red",
+      "Pytes 4/0 Power Cable 2M - Black",
+      "Pytes 2/0 Power Cable 2M - Red",
+      "Pytes 2/0 Power Cable 2M - Black"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

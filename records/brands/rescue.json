@@ -1,0 +1,19 @@
+{
+  "id": "rescue",
+  "brand": "Rescue!",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Rescue! Disposable YellowJacket Trap"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

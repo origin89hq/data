@@ -1,0 +1,25 @@
+{
+  "id": "imo",
+  "brand": "IMO",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity",
+      "thecabindepot"
+    ],
+    "listings": 2,
+    "inScope": 1,
+    "kinds": [
+      "balance-of-system 1"
+    ],
+    "models": [
+      "SI32-PEL64R-2"
+    ],
+    "proposed": [],
+    "examples": [
+      "IMO SI32-PEL64R-x",
+      "IMO 2 String DC Disconnect Rooftop Isolator Switch"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

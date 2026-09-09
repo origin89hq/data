@@ -1,0 +1,34 @@
+{
+  "id": "enphase",
+  "brand": "Enphase",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 8,
+    "inScope": 8,
+    "kinds": [
+      "balance-of-system 6",
+      "inverter 2"
+    ],
+    "models": [
+      "IQ8PLUS-72-2-US",
+      "IQ8A-72-2-US",
+      "X-IQ-AM1-240-4",
+      "Q-12-10-240",
+      "Q-SEAL-10",
+      "Q-DISC-10"
+    ],
+    "proposed": [],
+    "examples": [
+      "Enphase IQ8PLUS-72-2-US",
+      "Enphase IQ8A-72-2-US",
+      "Enphase X-IQ-AM1-240-4",
+      "Enphase Q Cable",
+      "Enphase Q-SEAL-10",
+      "Enphase Q-DISC-10"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

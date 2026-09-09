@@ -1,0 +1,20 @@
+{
+  "id": "weboost",
+  "brand": "WeBoost",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 2,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "WeBoost Home Studio In-Building Signal Booster Kit",
+      "WeBoost Home MultiRoom In-Building Signal Booster Kit"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

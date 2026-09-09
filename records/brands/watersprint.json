@@ -1,0 +1,24 @@
+{
+  "id": "watersprint",
+  "brand": "Watersprint",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 7,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Watersprint Core 40 LED-Module Upgrade Kit",
+      "Watersprint Core 20 LED-Module Upgrade Kit",
+      "Watersprint ArrowMAX Home 10k",
+      "Watersprint Core 40",
+      "Watersprint Core 20",
+      "Watersprint Solo Nautic 2"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "victron-energy",
+  "brand": "Victron Energy",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "signaturesolar"
+    ],
+    "listings": 9,
+    "inScope": 0,
+    "kinds": [],
+    "models": [
+      "ORI121222110",
+      "PMP122305102",
+      "BAM030712000",
+      "CIP100400070",
+      "ORI124838110",
+      "CMP242200100"
+    ],
+    "proposed": [],
+    "examples": [
+      "Victron Orion-Tr 12/12-18A (220W) Isolated DC-DC converter | Voltage Regulator",
+      "Victron MultiPlus-II 12/3000 | 12V Input | 3000VA Output 120/240V | 120A Charger | Transfer Switch",
+      "Victron Battery Monitor | BMV-712 Smart | Bluetooth",
+      "Victron Busbar to connect 6 Modular Holders/CIP100200100",
+      "Victron Energy | Orion-Tr 12/48-8A Isolated | DC-DC converter",
+      "Victron Lynx Power In | M10"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

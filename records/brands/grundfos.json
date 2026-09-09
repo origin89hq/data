@@ -1,0 +1,22 @@
+{
+  "id": "grundfos",
+  "brand": "Grundfos",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 4,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Grundfos 3\" 115V Submersible Pump",
+      "Grundfos 3\" 115V Submersible Pump",
+      "Grundfos 3\" 115V Submersible Pump",
+      "Grundfos 3\" 115V Submersible Pump"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "samlex",
+  "brand": "Samlex",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity",
+      "thecabindepot"
+    ],
+    "listings": 61,
+    "inScope": 5,
+    "kinds": [
+      "inverter 3",
+      "out-of-scope 2",
+      "dc-dc-converter 1",
+      "charge-controller 1"
+    ],
+    "models": [
+      "EVO-RC-PLUS",
+      "SDC-5",
+      "PST-3000-12",
+      "PST-2000-12",
+      "PST-1500-12",
+      "RC-300"
+    ],
+    "proposed": [],
+    "examples": [
+      "Samlex EVO-RC-PLUS",
+      "Samlex SDC-5",
+      "Samlex PST-3000-12",
+      "Samlex PST-2000-12",
+      "Samlex PST-1500-12",
+      "Samlex RC-300"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

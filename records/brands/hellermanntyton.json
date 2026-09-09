@@ -1,0 +1,31 @@
+{
+  "id": "hellermanntyton",
+  "brand": "HellermannTyton",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 5,
+    "inScope": 5,
+    "kinds": [
+      "balance-of-system 5"
+    ],
+    "models": [
+      "151-02189",
+      "151-01699",
+      "156-00468",
+      "T50I0UVM4",
+      "T50I PA66UV BK 100"
+    ],
+    "proposed": [],
+    "examples": [
+      "HellermannTyton 151-02189 90-Degree Edge Clip (100 Pack)",
+      "HellermannTyton 151-01699 Edge Clip (100 Pack)",
+      "HellermannTyton 156-00468 Edge Clip and Cable Tie (100 Pack)",
+      "HellermannTyton PA66UV 12&#8243; Cable Tie (1000 pack)",
+      "HellermannTyton PA66UV 12&#8243; Cable Tie (100 pack)"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

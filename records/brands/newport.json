@@ -1,0 +1,19 @@
+{
+  "id": "newport",
+  "brand": "Newport",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Newport Explorer Propane Fireplace Heater"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

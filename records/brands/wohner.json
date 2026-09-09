@@ -1,0 +1,23 @@
+{
+  "id": "wohner",
+  "brand": "Wohner",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 1,
+    "inScope": 1,
+    "kinds": [
+      "balance-of-system 1"
+    ],
+    "models": [
+      "31110.000"
+    ],
+    "proposed": [],
+    "examples": [
+      "Wohner 31110.000"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

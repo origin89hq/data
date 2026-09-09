@@ -1,0 +1,25 @@
+{
+  "id": "worldwide",
+  "brand": "WorldWide",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 2,
+    "inScope": 2,
+    "kinds": [
+      "battery 2"
+    ],
+    "models": [
+      "WWLI-12V1280",
+      "WWLI-24V2560"
+    ],
+    "proposed": [],
+    "examples": [
+      "WorldWide WWLI-12V1280",
+      "WorldWide WWLI-24V2560"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

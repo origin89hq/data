@@ -1,0 +1,24 @@
+{
+  "id": "harper-collins",
+  "brand": "Harper Collins",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 9,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Wild Game Cooking",
+      "The Open Fire Cookbook",
+      "Survive! Essential Skills And Tactics",
+      "Les Stroud: Survive! Ultimate Edition",
+      "Will to Live: Dispatches from the Edge of Survival",
+      "SAS Survival Guide: The Ultimate Guide To Surviving Anywhere"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "id": "rolls",
+  "brand": "Rolls",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 6,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Rolls S48-100LFP STACK-LV 48V 100Ah Stackable Battery",
+      "Rolls 4V 1,404Ah Flooded Deep Cycle Battery",
+      "Rolls Battery Straps",
+      "Rolls 6V 260 AGM Battery",
+      "Rolls 12V 215AH Sealed Deep Cycle Battery",
+      "Rolls 2V 2,527AH 31P Flooded Deep Cycle Battery"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

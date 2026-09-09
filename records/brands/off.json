@@ -1,0 +1,19 @@
+{
+  "id": "off",
+  "brand": "Off!",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Off! Deep Woods Insect Repellent Spray"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

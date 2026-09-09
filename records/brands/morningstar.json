@@ -1,0 +1,35 @@
+{
+  "id": "morningstar",
+  "brand": "Morningstar",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 18,
+    "inScope": 16,
+    "kinds": [
+      "charge-controller 11",
+      "balance-of-system 5",
+      "out-of-scope 2"
+    ],
+    "models": [
+      "PS-MPPT-WB",
+      "PS-MPPT-25M",
+      "PS-MPPT-25",
+      "RSC-1",
+      "SSD-25",
+      "SS-6L-12V"
+    ],
+    "proposed": [],
+    "examples": [
+      "Morningstar PS-MPPT-WB",
+      "Morningstar ProStar PS-MPPT-M",
+      "Morningstar ProStar PS-MPPT",
+      "Morningstar RSC-1",
+      "Morningstar SunSaver Duo SSD-25",
+      "Morningstar SunSaver SS-6L-12V"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

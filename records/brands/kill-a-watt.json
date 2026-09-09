@@ -1,0 +1,19 @@
+{
+  "id": "kill-a-watt",
+  "brand": "Kill A Watt",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Kill A Watt EZ Power Monitor"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

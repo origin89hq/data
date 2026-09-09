@@ -1,0 +1,34 @@
+{
+  "id": "enerwatt",
+  "brand": "Enerwatt",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 8,
+    "inScope": 3,
+    "kinds": [
+      "panel 3",
+      "out-of-scope 2"
+    ],
+    "models": [
+      "EWT-301-121-BK",
+      "EWS-20P-C",
+      "EWS-100P-36-C",
+      "EWS-100P-36-C”,",
+      "EWL-LEDA60-8-WW",
+      "EWL-LEDA60-4-NWM"
+    ],
+    "proposed": [],
+    "examples": [
+      "Enerwatt EWS-200M-12VBK",
+      "Enerwatt EWS-20P-C",
+      "Enerwatt EWS-100P-36-C",
+      "Enerwatt EWL-LEDA60-8-WW",
+      "Enerwatt EWL-LEDA60-4-NWM",
+      "Enerwatt EWL-LEDG45-2-WW"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

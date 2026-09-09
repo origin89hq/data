@@ -1,0 +1,19 @@
+{
+  "id": "powell-river-books",
+  "brand": "Powell River Books",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Off the Grid - Getting Started, Wayne J. Lutz"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

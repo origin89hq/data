@@ -1,0 +1,24 @@
+{
+  "id": "mrcool",
+  "brand": "MRCOOL",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 8,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "MRCOOL 36k DIY 5th Generation Mini-split Air Handler & Condenser 115v",
+      "MRCOOL 24k DIY 5th Generation Mini-split Air Handler & Condenser 115v",
+      "MRCOOL 18k DIY 5th Generation Mini-split Air Handler & Condenser 115v",
+      "MRCOOL 12k DIY 5th Generation Mini-split Air Handler & Condenser 115v",
+      "MRCOOL 9k DIY 5th Generation Mini-split Air Handler & Condenser 115v",
+      "MRCOOL Condenser Wall Bracket For 9K/12K/18K"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "id": "noco",
+  "name": "NOCO",
+  "website": "https://no.co",
+  "domains": [
+    "no.co"
+  ],
+  "sources": [
+    "no-co-boost",
+    "no-co-collection-genius-gx"
+  ]
+}

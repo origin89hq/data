@@ -1,0 +1,23 @@
+{
+  "id": "powermax",
+  "brand": "PowerMax",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 1,
+    "inScope": 1,
+    "kinds": [
+      "ac-charger 1"
+    ],
+    "models": [
+      "PM3-100"
+    ],
+    "proposed": [],
+    "examples": [
+      "PowerMax PM3-12V"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

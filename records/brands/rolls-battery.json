@@ -1,0 +1,24 @@
+{
+  "id": "rolls-battery",
+  "brand": "Rolls Battery",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 12,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Rolls S48-100LFP STACK-LV Base + Top Assembly",
+      "Rolls 12V 100AH LifePO4 Battery",
+      "Rolls 12V 150AH LifePO4 Battery",
+      "Rolls R-CAP Water Saving Battery Vent Caps (48pcs)",
+      "Rolls R-CAP Water Saving Battery Vent Caps (24pcs)",
+      "Rolls Water Saving Battery Vent Caps"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

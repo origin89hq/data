@@ -1,0 +1,24 @@
+{
+  "id": "einhell",
+  "brand": "Einhell",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 14,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Einhell 18V 2 x 4.0AH Power X-Charge Battery & Dual Port Charger Starter Kit",
+      "Einhell 18V 4.0Ah PXC Battery And Charger Starting Kit",
+      "Einhell 18V 2.5Ah PXC Battery And Charger Starting Kit",
+      "Einhell 18V Cordless 1/2\" Drill 1/4\" Impact Kit Bag",
+      "Einhell 18V 1/2\" Impact Wrench",
+      "Einhell 18V 6\" Compact Pruning Chain Saw"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "s5",
+  "brand": "S5!",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "signaturesolar"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "S5! S-5-PVKIT-2.0-Mid | Black | Kit"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

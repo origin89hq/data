@@ -1,0 +1,20 @@
+{
+  "id": "flexmaster",
+  "brand": "Flexmaster",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 2,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Flexmaster 3\" Direct Vent Horizontal Wall Kit",
+      "Flexmaster 3\" Z-Vent Adapter With Back Flow Preventer"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "epever",
+  "name": "EPEver (Beijing Epsolar Technology)",
+  "website": "https://www.epever.com",
+  "domains": [
+    "epever.com",
+    "epsolarpv.com"
+  ],
+  "sources": [
+    "epever-com-download-duc-series-resources",
+    "epever-com-download-duoracer-series-resources"
+  ]
+}

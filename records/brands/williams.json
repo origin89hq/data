@@ -1,0 +1,24 @@
+{
+  "id": "williams",
+  "brand": "Williams",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 25,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Williams 14,000 BTU P147000 Direct Vent Furnace Gasket",
+      "Williams 14,000 BTU P147001 Direct Vent Furnace Gasket",
+      "Williams Conversion Kit For 35,000 BTU Hearth Heater (RH Series)",
+      "Williams LPG To NG Conversion Kit For 22DV",
+      "Williams 15\" Vent Extension For (22,000/30,000) Direct Vent",
+      "Williams Propane Vented Hearth Heater (RH Series)"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

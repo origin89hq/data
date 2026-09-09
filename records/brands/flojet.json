@@ -1,0 +1,27 @@
+{
+  "id": "flojet",
+  "brand": "Flojet",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 3,
+    "inScope": 0,
+    "kinds": [
+      "out-of-scope 3"
+    ],
+    "models": [
+      "02090-118",
+      "20381-002",
+      "3526-144A"
+    ],
+    "proposed": [],
+    "examples": [
+      "Flojet 02090-118",
+      "Flojet 20381-002",
+      "Flojet 3526-144D"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

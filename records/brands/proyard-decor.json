@@ -1,0 +1,19 @@
+{
+  "id": "proyard-decor",
+  "brand": "ProYard Decor",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "ProYard Decor 60Qt Patio Cooler Cart"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

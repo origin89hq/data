@@ -1,0 +1,29 @@
+{
+  "id": "noco",
+  "brand": "NOCO",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity",
+      "thecabindepot"
+    ],
+    "listings": 23,
+    "inScope": 1,
+    "kinds": [
+      "balance-of-system 1"
+    ],
+    "models": [
+      "CB104"
+    ],
+    "proposed": [],
+    "examples": [
+      "NOCO NCP2",
+      "NOCO Battery Treatment Kit",
+      "NOCO 14oz Battery Cleaner And Acid Detector",
+      "NOCO 4oz Brush-On Corrosion Compound",
+      "NOCO 12oz Corrosion Preventative",
+      "NOCO Group 30 Powersports Battery"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

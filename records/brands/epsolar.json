@@ -1,0 +1,20 @@
+{
+  "id": "epsolar",
+  "brand": "EPSolar",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 2,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "EPSolar IPower-Plus Remote For Inverters And XTRA Series Controllers",
+      "EP Solar 4215 BN 40 Amp MPPT Charge Controller with Remote"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

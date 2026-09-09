@@ -1,0 +1,24 @@
+{
+  "id": "sunstar",
+  "brand": "SunStar",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 11,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "SunStar 10CU Solar DC/AC Refrigerator - Black And Stainless Steel (Scratch & Dent)",
+      "SunStar 21CU Solar/DC Chest Freezer (Open Box)",
+      "SunStar 10CU Solar DC/AC Refrigerator - Black And Stainless Steel",
+      "SunStar 10CU Solar DC/AC Refrigerator - Black",
+      "SunStar 15CU Solar/DC Chest Freezer",
+      "SunStar 10CU Solar DC/AC Refrigerator - White"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "id": "king-canada",
+  "brand": "King Canada",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 7,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "King Canada 3\" x 50' PVC Discharge Hose Kit",
+      "King Canada 2\" x 25' PVC Suction Hose Kit",
+      "King Canada 3\" x 25' PVC Suction Hose Kit",
+      "King Canada 2\" x 50' PVC Discharge Hose Kit",
+      "King Canada 3\" Gasoline Water Pump",
+      "King Canada 2\" Gasoline Water Pump"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

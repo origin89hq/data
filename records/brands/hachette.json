@@ -1,0 +1,24 @@
+{
+  "id": "hachette",
+  "brand": "Hachette",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 6,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "The Family Camp Cookbook",
+      "Flavour By Fire - Recipes And Techniques For Bigger, Bolder BBQ And Grilling",
+      "The Campout Cookbook",
+      "How To Eat In The Woods",
+      "How To Stay Alive In The Woods",
+      "Cabin - How To Build A Retreat In The Wilderness And Learn To Live With Nature"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

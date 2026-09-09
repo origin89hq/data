@@ -1,0 +1,19 @@
+{
+  "id": "laveo",
+  "brand": "Laveo",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Laveo Dry Flush Floor Tray And Lift Kit"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

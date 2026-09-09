@@ -1,0 +1,23 @@
+{
+  "id": "mdi",
+  "brand": "MDI",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [
+      "out-of-scope 1"
+    ],
+    "models": [
+      "GW2CW1000"
+    ],
+    "proposed": [],
+    "examples": [
+      "MDI GW2CW1000"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

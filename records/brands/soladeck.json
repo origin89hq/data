@@ -1,0 +1,28 @@
+{
+  "id": "soladeck",
+  "brand": "SolaDeck",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "signaturesolar",
+      "solacity"
+    ],
+    "listings": 3,
+    "inScope": 1,
+    "kinds": [
+      "out-of-scope 1",
+      "balance-of-system 1"
+    ],
+    "models": [
+      "0399",
+      "0799-5B"
+    ],
+    "proposed": [],
+    "examples": [
+      "SolaDeck 0399",
+      "SolaDeck 0799-5B",
+      "SolaDeck 0799-5B | Solar Roof Mount PV Junction Box"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

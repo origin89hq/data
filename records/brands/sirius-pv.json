@@ -1,0 +1,21 @@
+{
+  "id": "sirius-pv",
+  "brand": "Sirius PV",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "signaturesolar"
+    ],
+    "listings": 3,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Sirius PV 630W Bifacial Solar Panel",
+      "Sirius PV Pallet of 630W Bifacial Solar Panels | 36 Panels",
+      "Sirius PV 450W Pallet of Monofacial Solar Panels | Domestic Content | 31 Panels"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

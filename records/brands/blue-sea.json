@@ -1,0 +1,33 @@
+{
+  "id": "blue-sea",
+  "brand": "Blue Sea",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 9,
+    "inScope": 7,
+    "kinds": [
+      "balance-of-system 7"
+    ],
+    "models": [
+      "2719",
+      "2127",
+      "5026",
+      "5025",
+      "2151",
+      "6006"
+    ],
+    "proposed": [],
+    "examples": [
+      "Blue Sea 2719",
+      "Blue Sea 2127",
+      "Blue Sea 5026",
+      "Blue Sea 5025",
+      "Blue Sea 2151",
+      "Blue Sea 6006"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

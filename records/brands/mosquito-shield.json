@@ -1,0 +1,19 @@
+{
+  "id": "mosquito-shield",
+  "brand": "Mosquito Shield",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Mosquito Shield 221g Combat Insect Repellent Aerosol With Deet"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

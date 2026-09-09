@@ -1,0 +1,34 @@
+{
+  "id": "multi-contact",
+  "brand": "Multi-Contact",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 6,
+    "inScope": 4,
+    "kinds": [
+      "balance-of-system 4",
+      "out-of-scope 2"
+    ],
+    "models": [
+      "32.0197",
+      "32.0196",
+      "32.0717 PV-SVK4",
+      "32.0716 PV-BVK4",
+      "32.0142P0001-UR",
+      "32.0143P0001-UR"
+    ],
+    "proposed": [],
+    "examples": [
+      "Staubli 32.0197 PV-AZS4-EVO 2-UR",
+      "Staubli 32.0196 PV-AZB4-EVO 2-UR",
+      "Multi-Contact 32.0717 PV-SVK4",
+      "Multi-Contact 32.0716 PV-BVK4",
+      "Multi-Contact MC4 32.0142P0001-UR",
+      "Multi-Contact MC4 32.0143P0001-UR"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

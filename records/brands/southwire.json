@@ -1,0 +1,25 @@
+{
+  "id": "southwire",
+  "brand": "Southwire",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 2,
+    "inScope": 1,
+    "kinds": [
+      "balance-of-system 1"
+    ],
+    "models": [
+      "58367003",
+      "58367103"
+    ],
+    "proposed": [],
+    "examples": [
+      "Southwire PV-Wire / RPVU 10 AWG Black",
+      "Southwire PV-Wire / RPVU 10 AWG Red"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

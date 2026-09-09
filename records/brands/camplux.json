@@ -1,0 +1,24 @@
+{
+  "id": "camplux",
+  "brand": "Camplux",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 37,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Camplux Climatech-7 6.86GPM Indoor Tankless Water Heater",
+      "Camplux JK-3206P 12V Water Pump Kit",
+      "Camplux 10L Propane Portable Outdoor Tankless Water Heater - Black",
+      "Camplux 22,000 BTU Portable Propane Griddle",
+      "Camplux 5.28 GPM WA528 Outdoor Tankless Water Heater",
+      "Camplux 16L 4.22 GPM (CSA) Indoor Tankless Water Heater"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

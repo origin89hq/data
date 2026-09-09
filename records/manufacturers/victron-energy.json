@@ -1,0 +1,12 @@
+{
+  "id": "victron-energy",
+  "name": "Victron Energy",
+  "website": "https://www.victronenergy.com",
+  "domains": [
+    "victronenergy.com"
+  ],
+  "sources": [
+    "victronenergy-com-accessories-bluesolar-pwm-pro-to-usb-interface-cable",
+    "victronenergy-com-accessories-outdoor-lte-m-wall-mount-antenna"
+  ]
+}

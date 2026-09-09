@@ -1,0 +1,27 @@
+{
+  "id": "longi",
+  "brand": "Longi",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 4,
+    "inScope": 4,
+    "kinds": [
+      "panel 4"
+    ],
+    "models": [
+      "LR7-72HGD-605M",
+      "LR5-54HPB-410M"
+    ],
+    "proposed": [],
+    "examples": [
+      "Longi LR7-72HGD-605M Bi-facial Pallet",
+      "Longi LR7-72HGD-605M Bi-facial",
+      "Longi LR5-54HPB-410M Pallet",
+      "Longi LR5-54HPB-410M"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

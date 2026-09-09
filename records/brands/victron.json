@@ -1,0 +1,42 @@
+{
+  "id": "victron",
+  "brand": "Victron",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity",
+      "thecabindepot"
+    ],
+    "listings": 151,
+    "inScope": 40,
+    "kinds": [
+      "balance-of-system 12",
+      "out-of-scope 12",
+      "bms 7",
+      "inverter-charger 6",
+      "charge-controller 5",
+      "dc-dc-converter 4",
+      "ac-charger 4",
+      "shunt-monitor 1",
+      "inverter 1"
+    ],
+    "models": [
+      "LYN020102010",
+      "ORI121222110",
+      "SCC125060221",
+      "SCC115035210",
+      "SCC110020160",
+      "LYN060102010"
+    ],
+    "proposed": [],
+    "examples": [
+      "Victron Lynx Power In (M10)",
+      "Victron Orion-Tr 12/12-18A",
+      "Victron Orion-Tr 12/12-18A",
+      "Victron SmartSolar MPPT 250V",
+      "Victron SmartSolar MPPT 150V",
+      "Victron SmartSolar MPPT 100V"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

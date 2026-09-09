@@ -1,0 +1,20 @@
+{
+  "id": "briggs-stratton",
+  "brand": "Briggs & Stratton",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "signaturesolar"
+    ],
+    "listings": 2,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Briggs & Stratton | 48V Stackable Battery | SimpliPHI 6.6",
+      "Briggs & Stratton | PowerProtect™ 13/11.5kW Home Standby Generator Bundle | 200A Whole-Home Automatic Transfer Switch | Symphony Choice Power Management | 120/240V | LP/NG"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

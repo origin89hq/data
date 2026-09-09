@@ -1,0 +1,30 @@
+{
+  "id": "sol-ark",
+  "brand": "Sol-Ark",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity",
+      "thecabindepot"
+    ],
+    "listings": 6,
+    "inScope": 2,
+    "kinds": [
+      "inverter 2"
+    ],
+    "models": [
+      "15K-2P-N",
+      "12K-2P-N"
+    ],
+    "proposed": [],
+    "examples": [
+      "Sol-Ark 15K-2P-N",
+      "Sol-Ark 12K-2P-N",
+      "Sol-Ark 18,000W All-In-One Hybrid Inverter",
+      "Sol-Ark 5,000W All-In-One Hybrid Inverter",
+      "Sol-Ark 12,000W All-In-One Hybrid Inverter",
+      "Sol-Ark 15,000W All-In-One Hybrid Inverter"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

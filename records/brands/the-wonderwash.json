@@ -1,0 +1,23 @@
+{
+  "id": "the-wonderwash",
+  "brand": "The Wonderwash",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 5,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "The Wonderwash Portable Washing Machine",
+      "The Wonderwash Portable Washing Machine",
+      "The Wonderwash Portable Washing Machine",
+      "The Wonderwash Portable Washing Machine",
+      "The Wonderwash Portable Washing Machine"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

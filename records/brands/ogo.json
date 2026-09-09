@@ -1,0 +1,24 @@
+{
+  "id": "ogo",
+  "brand": "OGO",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 16,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "OGO Charcoal Filter Pucks - 5 Pack",
+      "OGO Shell Vent",
+      "OGO Replacement Motor",
+      "OGO RV Flange Adapter Plate",
+      "OGO Replacement Timer",
+      "OGO Replacement Bushings-Solids Bin"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

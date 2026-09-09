@@ -1,0 +1,21 @@
+{
+  "id": "powerpulse",
+  "brand": "PowerPulse",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 3,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "PowerPulse 48V Battery Maintenance System",
+      "PowerPulse 12V Battery Maintenance System",
+      "PowerPulse 24V Battery Maintenance System"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

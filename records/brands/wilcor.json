@@ -1,0 +1,24 @@
+{
+  "id": "wilcor",
+  "brand": "Wilcor",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 35,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Wilcor Medium Gift Bags",
+      "Wilcor Medium Gift Bags",
+      "Wilcor Medium Gift Bags",
+      "Wilcor Medium Gift Bags",
+      "Wilcor Medium Gift Bags",
+      "Wilcor Camping Word Picture Frame"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

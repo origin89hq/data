@@ -1,0 +1,19 @@
+{
+  "id": "terro",
+  "brand": "Terro",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Terro Fly Magnet Sticky Fly Paper Ribbon 4 Pack"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

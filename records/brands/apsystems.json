@@ -1,0 +1,35 @@
+{
+  "id": "apsystems",
+  "brand": "APsystems",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 8,
+    "inScope": 6,
+    "kinds": [
+      "balance-of-system 4",
+      "out-of-scope 2",
+      "inverter 2"
+    ],
+    "models": [
+      "TRANSMITTER-PLC",
+      "RSD-S-PLC",
+      "DS3-L",
+      "AC Bus/Trunk Cable",
+      "AC Connector Unlock Tool",
+      "AC Bus Y-CONN Cap"
+    ],
+    "proposed": [],
+    "examples": [
+      "APsystems TRANSMITTER-PLC",
+      "APsystems RSD-S-PLC",
+      "APsystems DS3-L",
+      "APsystems AC Bus/Trunk Cable",
+      "APsystems AC Connector Unlock Tool",
+      "APsystems AC Bus Y-CONN Cap"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

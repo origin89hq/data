@@ -1,0 +1,24 @@
+{
+  "id": "kedron",
+  "brand": "Kedron",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 211,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "KEDRON 12VDC 5.0GPM 70PSI Diaphragm Water Pump",
+      "KEDRON 115VAC 5.0GPM 55PSI Diaphragm Water Pump",
+      "KEDRON 12VDC 5.0 GPM 60PSI Variable Speed Smart Water Pump",
+      "KEDRON PowerGEN Transfer Switch",
+      "KEDRON 20' #10 Cable PV To Controller (Pair)",
+      "KEDRON 24V 8A AC/DC Adapter With PFC For Large Unique DC Appliances"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

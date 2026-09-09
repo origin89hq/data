@@ -1,0 +1,24 @@
+{
+  "id": "gasland-chef",
+  "brand": "Gasland Chef",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 8,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "GaslandChef 24\" LPG/Natural Gas Built-In Gas Stovetop (ETL)-SS (Scratch & Dent)",
+      "Gaslandchef 30\" 5 Burner Gas Cooktop With Griddle - Stainless Steel",
+      "GaslandChef 30\" 5 Burner Gas Cooktop With Griddle - Black Enamel",
+      "GaslandChef G3 Pro 20,000 BTU GoShower 3 Portable Hot Water Heater",
+      "GaslandChef 24\" LPG/Natural Gas Built-In Gas Stovetop With 4 Sealed Burners (ETL) - Stainless Steel",
+      "GaslandChef 12\" LPG/Natural Gas Built-In Gas Stovetop With 2 Sealed Burners (ETL) - Stainless Steel"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

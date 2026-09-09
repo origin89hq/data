@@ -1,0 +1,19 @@
+{
+  "id": "champion",
+  "brand": "Champion",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "signaturesolar"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Champion 8500 Watt Dual Fuel Inverter Generator with Electric Start"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

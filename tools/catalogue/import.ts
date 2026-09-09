@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { Family } from "../../schema/enums.ts";
-import { writeRecords, RECORDS_DIR } from "../../src/records.ts";
+import { loadRecords, writeRecords, RECORDS_DIR } from "../../src/records.ts";
 import { parseFamilyFile } from "./parse.ts";
 import { SourceTable } from "./sources.ts";
 import type { Dialect } from "../../schema/dialect.ts";
@@ -29,5 +29,9 @@ for (const family of Family.options) {
   families.push(parsed.family);
   dialects.push(...parsed.dialects);
 }
-writeRecords({ families, dialects, sources: sources.all() }, RECORDS_DIR);
+// Only the kinds this importer owns. Manufacturers and brands are reviewed by hand and are
+// not the catalogue's to rewrite; passing them here once would have deleted the whole gate.
+const existing = loadRecords(RECORDS_DIR);
+writeRecords({ ...existing, families, dialects, sources: sources.all() }, RECORDS_DIR, ["families", "dialects", "sources"]);
 console.log(`${families.length} families, ${dialects.length} dialects, ${sources.all().length} sources → ${RECORDS_DIR}`);
+console.log(`left alone: ${existing.manufacturers.length} manufacturers, ${existing.brands.length} brands`);

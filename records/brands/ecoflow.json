@@ -1,0 +1,32 @@
+{
+  "id": "ecoflow",
+  "brand": "EcoFlow",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity",
+      "thecabindepot"
+    ],
+    "listings": 90,
+    "inScope": 3,
+    "kinds": [
+      "inverter-charger 2",
+      "balance-of-system 1"
+    ],
+    "models": [
+      "XT60i",
+      "DELTA Pro 3",
+      "DELTA 3 Plus"
+    ],
+    "proposed": [],
+    "examples": [
+      "EcoFlow XT60i",
+      "EcoFlow DELTA Pro 3",
+      "EcoFlow DELTA 3 Plus",
+      "EcoFlow 4,000W Dual Fuel Smart Generator",
+      "EcoFlow DELTA Pro Ultra X Smart Extra Battery",
+      "EcoFlow Power Kit Console"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

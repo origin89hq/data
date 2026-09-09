@@ -1,0 +1,24 @@
+{
+  "id": "srne",
+  "brand": "SRNE",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 11,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "SRNE Bluetooth For Solar Charge Controller",
+      "SRNE RS232 Remote Meter",
+      "SRNE 30A MPPT Charge Controller",
+      "SRNE 10A PWM Waterproof Charge Controller",
+      "SRNE 40A PWM Charge Controller",
+      "SRNE 30A PWM Charge Controller"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

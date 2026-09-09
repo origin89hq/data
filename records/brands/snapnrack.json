@@ -1,0 +1,23 @@
+{
+  "id": "snapnrack",
+  "brand": "SnapNrack",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "signaturesolar"
+    ],
+    "listings": 3,
+    "inScope": 0,
+    "kinds": [],
+    "models": [
+      "232-01106"
+    ],
+    "proposed": [],
+    "examples": [
+      "SnapNrack | MLPE Frame Attachment Kit",
+      "SnapNrack | Grounding Lug",
+      "SnapNRack | Ultra Rail | Snap-In Wire Retention Clip"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

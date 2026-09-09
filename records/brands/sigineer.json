@@ -1,0 +1,19 @@
+{
+  "id": "sigineer",
+  "brand": "Sigineer",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Sigineer 48V 100AH 5kWh Lithium LiFePO4 Battery"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

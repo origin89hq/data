@@ -1,0 +1,21 @@
+{
+  "id": "cwpi",
+  "brand": "CWPI",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 3,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "TCD Hat With Logo - Black",
+      "TCD Hat With Leather Patch - Black",
+      "TCD Hat With Leather Patch - Charcoal/White"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

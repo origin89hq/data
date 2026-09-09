@@ -1,0 +1,22 @@
+{
+  "id": "doktor-doom",
+  "brand": "Doktor Doom",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 4,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Doktor Doom 300g Maximum Strength Mosquito And Tick Repellant",
+      "Doktor Doom 500g The Original Rodent Repellent II",
+      "Doktor Doom 544g Supercharged Ant And Ant Nest Killer Jet Foam",
+      "Doktor Doom 544g Supercharged Wasp And Hornet Jet Foam"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

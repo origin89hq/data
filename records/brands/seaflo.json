@@ -1,0 +1,24 @@
+{
+  "id": "seaflo",
+  "brand": "SEAFLO",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 42,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "SEAFLO 12V 3.5GPM 56 Series Diaphragm Pump 70PSI *Variable Speed",
+      "SEAFLO 24V 3GPM 42 Series Diaphragm Pump 55PSI",
+      "SEAFLO Portable Toilet 20L",
+      "SEAFLO 24V 8L Accumulator Pressure Boost System",
+      "SEAFLO 12V 8L Accumulator Pressure Boost System",
+      "SEAFLO 24V 4GPM 52 Series Diaphragm Pump 60PSI"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

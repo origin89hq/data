@@ -1,0 +1,23 @@
+{
+  "id": "solstice",
+  "brand": "Solstice",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 2,
+    "inScope": 0,
+    "kinds": [],
+    "models": [
+      "393W",
+      "285F"
+    ],
+    "proposed": [],
+    "examples": [
+      "Solstice 393W",
+      "Solstice 285F"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

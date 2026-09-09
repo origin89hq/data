@@ -1,0 +1,19 @@
+{
+  "id": "z-flex",
+  "brand": "Z-Flex",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Z-Flex 3\" Horizontal Vent Kit"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

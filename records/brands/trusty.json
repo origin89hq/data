@@ -1,0 +1,24 @@
+{
+  "id": "trusty",
+  "brand": "Trusty",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 13,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Trusty Fan Remote",
+      "Trusty 12V DC Light Switch With Dimmer",
+      "Trusty 12V DC Light Switch With Dimmer",
+      "Trusty 12V DC Ceiling Fan",
+      "Trusty 12V DC Ceiling Fan",
+      "Trusty 12V DC Ceiling Fan"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

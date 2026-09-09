@@ -1,0 +1,24 @@
+{
+  "id": "empire",
+  "brand": "Empire",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 52,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Empire Wall Mounting Plate",
+      "Empire DV35 NG-LP Conversion Kit",
+      "Empire RH65 LPG To NG Conversion Kit",
+      "Empire DV35 LPG to NG Conversion Kit",
+      "Empire DV25 LPG To NG Conversion Kit",
+      "Empire Aftermarket Millivolt Thermostat"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

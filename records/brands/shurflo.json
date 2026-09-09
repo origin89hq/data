@@ -1,0 +1,33 @@
+{
+  "id": "shurflo",
+  "brand": "SHURflo",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 25,
+    "inScope": 0,
+    "kinds": [
+      "out-of-scope 25"
+    ],
+    "models": [
+      "5050-2301-C011",
+      "8000-443-136",
+      "8000-643-210",
+      "8000-813-238",
+      "8000-812-288",
+      "9325-043-101"
+    ],
+    "proposed": [],
+    "examples": [
+      "SHURflo 5050-2301-C011",
+      "SHURflo 8000-443-136",
+      "SHURflo 8000-643-210",
+      "SHURflo 8000-343-236",
+      "SHURflo 8000-813-238",
+      "SHURflo 8000-812-288"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

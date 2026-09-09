@@ -1,0 +1,19 @@
+{
+  "id": "ortho",
+  "brand": "Ortho",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Ortho 4L Ant B Gon Max Ant Eliminator With Wand Applicator RTU"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

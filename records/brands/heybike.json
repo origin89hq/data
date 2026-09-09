@@ -1,0 +1,22 @@
+{
+  "id": "heybike",
+  "brand": "Heybike",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 4,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Heybike Venus",
+      "Heybike Venus",
+      "Heybike Venus",
+      "Heybike Mars 3.0"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

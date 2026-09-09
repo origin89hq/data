@@ -1,0 +1,37 @@
+{
+  "id": "primus-wind-power",
+  "brand": "Primus Wind Power",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity",
+      "thecabindepot"
+    ],
+    "listings": 39,
+    "inScope": 11,
+    "kinds": [
+      "out-of-scope 11",
+      "balance-of-system 6",
+      "generator 4",
+      "charge-controller 1"
+    ],
+    "models": [
+      "2-ARAC-D-10",
+      "2-ARBR-103",
+      "2-ARAL-100-02",
+      "2-ARAC-106",
+      "1-ARSM-15-12",
+      "1-ARXM-15-12"
+    ],
+    "proposed": [],
+    "examples": [
+      "Primus Digital Wind Control Panel",
+      "Primus 2-ARBR-103",
+      "Primus Replacement Bearing Kit",
+      "Primus 2-ARAC-106",
+      "Primus AIR Silent X",
+      "Primus AIR X Marine"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

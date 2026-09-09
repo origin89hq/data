@@ -1,0 +1,23 @@
+{
+  "id": "k-spec",
+  "brand": "K-Spec",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 1,
+    "inScope": 1,
+    "kinds": [
+      "balance-of-system 1"
+    ],
+    "models": [
+      "MHSP-1-0-IIL"
+    ],
+    "proposed": [],
+    "examples": [
+      "K-Spec Heat-Shrink Tubing"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

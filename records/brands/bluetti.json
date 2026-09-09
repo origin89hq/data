@@ -1,0 +1,24 @@
+{
+  "id": "bluetti",
+  "brand": "Bluetti",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 27,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Bluetti Handsfree 2 Backpack Power Station",
+      "Bluetti X20 288W 153.6Wh Power Bank for Laptop",
+      "Bluetti EPANEL Smart Distribution Panel",
+      "Bluetti EPAD Central Control Screen",
+      "Bluetti PV100 100W FX Flexible Solar Panel",
+      "Bluetti B1232 12.8V 314Ah LifePO Battery"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

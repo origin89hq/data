@@ -1,0 +1,19 @@
+{
+  "id": "waaree",
+  "brand": "Waaree",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "signaturesolar"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Waaree 540W Pallet of Bifacial Solar Panels | 31 Panels"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

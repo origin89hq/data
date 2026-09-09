@@ -1,0 +1,36 @@
+{
+  "id": "fronius",
+  "brand": "Fronius",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 29,
+    "inScope": 24,
+    "kinds": [
+      "inverter 13",
+      "balance-of-system 10",
+      "out-of-scope 4",
+      "meter 1"
+    ],
+    "models": [
+      "4,210,140,800",
+      "4,210,144,800",
+      "4,210,142,800",
+      "4,210,141,800",
+      "43,0001,3591",
+      "4,210,092,801"
+    ],
+    "proposed": [],
+    "examples": [
+      "Fronius Primo GEN24 3.8",
+      "Fronius Primo GEN24 10.0",
+      "Fronius Primo GEN24 6.0",
+      "Fronius Primo GEN24 5.0",
+      "Fronius Smart Meter WR",
+      "Fronius Symo Advanced 15.0-3 480 Lite"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

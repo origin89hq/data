@@ -1,0 +1,24 @@
+{
+  "id": "midnite",
+  "brand": "MidNite",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 66,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "MidNite 3A 150VDC Breaker",
+      "MidNite 7A 150VDC Breaker",
+      "MidNite 15A 600VDC Breaker",
+      "MidNite 20A 600VDC Breaker",
+      "MidNite 30A 600VDC Breaker",
+      "Midnite 50A DC Breaker"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

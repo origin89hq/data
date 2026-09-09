@@ -1,0 +1,24 @@
+{
+  "id": "vosker",
+  "brand": "Vosker",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 12,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Vosker 12V AC Adapter",
+      "Vosker V-SBOX4 Steel Security Box For VKX Cameras",
+      "Vosker Solar Powered Power Bank",
+      "Vosker Cellular Camera For VKX-CA",
+      "Vosker V300 Ultimate 4G-LTE Live View Security Camera With External Solar Panel",
+      "Vosker V300 Rechargeable Battery"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

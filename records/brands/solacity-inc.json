@@ -1,0 +1,23 @@
+{
+  "id": "solacity-inc",
+  "brand": "Solacity Inc.",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [
+      "out-of-scope 1"
+    ],
+    "models": [
+      "12VENT"
+    ],
+    "proposed": [],
+    "examples": [
+      "Zephyr Vent Fan"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

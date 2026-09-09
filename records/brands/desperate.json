@@ -1,0 +1,23 @@
+{
+  "id": "desperate",
+  "brand": "Desperate",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 5,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Desperate Magnets",
+      "Desperate Large Bottle Cap",
+      "Desperate Tin Sign",
+      "Desperate Tin Sign",
+      "Desperate Tin Sign"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

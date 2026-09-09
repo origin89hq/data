@@ -1,0 +1,20 @@
+{
+  "id": "oem",
+  "brand": "OEM",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "signaturesolar"
+    ],
+    "listings": 2,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "72in 4 AWG Battery to Inverter Cables | Black and Red",
+      "72in 2/0 AWG Battery to Inverter Cables | Black and Red"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

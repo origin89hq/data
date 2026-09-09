@@ -1,0 +1,34 @@
+{
+  "id": "conext",
+  "brand": "Conext",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 8,
+    "inScope": 7,
+    "kinds": [
+      "balance-of-system 5",
+      "charge-controller 2"
+    ],
+    "models": [
+      "865-1016",
+      "865-1080",
+      "865-1013-01",
+      "C60",
+      "C35",
+      "865-1075"
+    ],
+    "proposed": [],
+    "examples": [
+      "Conext SW DC PDP",
+      "Conext 100A 125VDC Breaker",
+      "Conext XW Mini PDP",
+      "Conext Xantrex C60",
+      "Conext Xantrex C35",
+      "Conext 60A 160VDC Breaker"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

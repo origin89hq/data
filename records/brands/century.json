@@ -1,0 +1,24 @@
+{
+  "id": "century",
+  "brand": "Century",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 6,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Century FW2800 Wood Stove",
+      "Century CW2900 + Faceplate Wood Stove",
+      "Century S250 Wood Stove",
+      "Century FW3200 Wood Stove",
+      "Century FW3500 Wood Stove",
+      "Century FW2900 Wood Stove"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

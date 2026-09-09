@@ -1,0 +1,19 @@
+{
+  "id": "general-electric",
+  "brand": "General Electric",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Trusty 42\" Ceiling Fan Blades - Black 4 Pack"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

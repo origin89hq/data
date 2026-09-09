@@ -1,0 +1,19 @@
+{
+  "id": "dickinson",
+  "brand": "Dickinson",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Dickinson 2.5\" x 28\" Marine Flue Extension Kit"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

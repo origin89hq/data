@@ -1,0 +1,36 @@
+{
+  "id": "magnum",
+  "brand": "Magnum",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity",
+      "thecabindepot"
+    ],
+    "listings": 17,
+    "inScope": 14,
+    "kinds": [
+      "inverter 7",
+      "balance-of-system 7",
+      "out-of-scope 1"
+    ],
+    "models": [
+      "MP-CCB",
+      "A88-3202",
+      "MS2812-L-U",
+      "MP-HOOD",
+      "BP-MMP",
+      "MMP175-60S"
+    ],
+    "proposed": [],
+    "examples": [
+      "Magnum MP-CCB",
+      "Magnum Energy Fan Kit",
+      "Magnum MS2812-L-U",
+      "Magnum MP-HOOD",
+      "Magnum BP-MMP",
+      "Magnum MMP175-60S"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

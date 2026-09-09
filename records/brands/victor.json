@@ -1,0 +1,20 @@
+{
+  "id": "victor",
+  "brand": "Victor",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 2,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Victor Wooden Metal Pedal Mouse Trap",
+      "Victor Yellow Jacket And Flying Insect Reusable Jar With Attractant"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

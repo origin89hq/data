@@ -1,0 +1,28 @@
+{
+  "id": "eg4-electronics",
+  "brand": "EG4 Electronics",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "signaturesolar",
+      "thecabindepot"
+    ],
+    "listings": 75,
+    "inScope": 0,
+    "kinds": [],
+    "models": [
+      "EG4HYB6K00V2",
+      "EG4SPLP48FUD"
+    ],
+    "proposed": [],
+    "examples": [
+      "EG4 Chargeverter Plus",
+      "EG4 Wi-Fi Plus Ethernet Dongle",
+      "EG4 12,000XP 12K XP Inverter",
+      "EG4 Chargeverter Adapter Cables",
+      "EG4 FlexBOSS18 13kW AC Hybrid Inverter",
+      "EG4 GridBOSS 90A Breaker Kit"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

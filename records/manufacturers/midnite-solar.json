@@ -1,0 +1,12 @@
+{
+  "id": "midnite-solar",
+  "name": "MidNite Solar",
+  "website": "https://www.midnitesolar.com",
+  "domains": [
+    "midnitesolar.com"
+  ],
+  "sources": [
+    "midnitesolar-com-documents-php-act-model-mnbcm-productcatname-battery-accessories-productcat-id",
+    "midnitesolar-com-firmwareindex"
+  ]
+}

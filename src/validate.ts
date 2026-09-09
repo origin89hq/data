@@ -42,11 +42,45 @@ export function validate(records: Records): Report {
     if (d.possibleDuplicate) note("possible duplicate of a sibling id");
   }
 
+  for (const m of records.manufacturers) for (const s of m.sources ?? []) cited.add(s);
   for (const s of records.sources) {
     if (!cited.has(s.id)) errors.push(`source ${s.id} is cited by nothing`);
     if (!s.url && !s.path) note("source with no url or path");
     if (!s.title) note("source without a title");
     if (s.redistributable === undefined) note("source licence unchecked");
+  }
+
+  const makers = new Set(records.manufacturers.map((m) => m.id));
+  if (makers.size !== records.manufacturers.length) errors.push("duplicate manufacturer id");
+  const byBrandString = new Map<string, string>();
+  for (const b of records.brands) {
+    const key = b.brand.toLowerCase();
+    const other = byBrandString.get(key);
+    if (other) errors.push(`brands ${other} and ${b.id} both claim the string ${JSON.stringify(b.brand)}`);
+    byBrandString.set(key, b.id);
+    switch (b.decision) {
+      case "manufacturer":
+        if (!b.manufacturer) errors.push(`${b.id}: resolved to a manufacturer but names none`);
+        else if (!makers.has(b.manufacturer)) errors.push(`${b.id}: names manufacturer ${b.manufacturer}, which does not exist`);
+        if (b.reason) errors.push(`${b.id}: a resolved brand carries an out-of-scope reason`);
+        break;
+      case "out-of-scope":
+        if (!b.reason) errors.push(`${b.id}: out of scope with no reason`);
+        if (b.manufacturer) errors.push(`${b.id}: out of scope but names a manufacturer`);
+        break;
+      case "unresolved":
+        if (b.manufacturer || b.reason) errors.push(`${b.id}: unresolved but already carries an answer`);
+        if (b.checkedAt || b.reviewedBy) errors.push(`${b.id}: unresolved but marked reviewed`);
+        note("brand waiting at the gate");
+        break;
+    }
+    if (b.decision !== "unresolved" && !(b.checkedAt && b.reviewedBy)) errors.push(`${b.id}: decided with no reviewer or date; a decision is a person's`);
+    if (b.reviewedBy && /^ai:|^@cf\//.test(b.reviewedBy)) errors.push(`${b.id}: reviewed by a model, which is never a decision`);
+  }
+  for (const m of records.manufacturers) {
+    if (!records.brands.some((b) => b.manufacturer === m.id)) note("manufacturer no brand string resolves to");
+    if (m.domains.length === 0) note("manufacturer with no domain, so hop two cannot crawl it");
+    for (const s of m.sources ?? []) if (!sourceIds.has(s)) errors.push(`${m.id}: cites ${s}, which does not exist`);
   }
 
   const families = new Set(records.families.map((f) => f.id));
@@ -72,7 +106,7 @@ export function validate(records: Records): Report {
 
 export function reviewSummary(records: Records, report: Report): string {
   const lines = [
-    `${records.families.length} families · ${records.dialects.length} dialects · ${records.sources.length} sources`,
+    `${records.families.length} families · ${records.dialects.length} dialects · ${records.sources.length} sources · ${records.manufacturers.length} manufacturers · ${records.brands.length} brands`,
     "",
     "For review:",
     ...Object.entries(report.review)

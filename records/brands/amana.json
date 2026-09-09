@@ -1,0 +1,21 @@
+{
+  "id": "amana",
+  "brand": "Amana",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 3,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Amana 4.4 Cu/Ft Top Load Washer - White",
+      "Amana Propane Dryer & Top-Load Washer Pair",
+      "Amana Propane Clothes Dryer (With NG-LP Conversion)"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

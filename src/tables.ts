@@ -75,6 +75,29 @@ export function tables(records: Records): Table[] {
       rows: records.dialects.flatMap((d) => (d.seeAlso ?? []).map((o) => ({ dialect_id: d.id, other_id: o }))),
     },
     {
+      name: "manufacturers",
+      columns: [col("id"), col("name"), col("website"), col("country"), col("notes")],
+      rows: records.manufacturers.map((m) => ({ id: m.id, name: m.name, website: m.website, country: m.country, notes: m.notes })),
+    },
+    {
+      name: "manufacturer_domains",
+      columns: [col("manufacturer_id"), col("domain")],
+      rows: records.manufacturers.flatMap((m) => m.domains.map((domain) => ({ manufacturer_id: m.id, domain }))),
+    },
+    {
+      name: "brands",
+      columns: [col("id"), col("brand"), col("decision"), col("manufacturer_id"), col("reason"), col("listings", "INTEGER"), col("in_scope", "INTEGER"), col("seen_at"), col("checked_at"), col("reviewed_by")],
+      rows: records.brands.map((b) => ({
+        id: b.id, brand: b.brand, decision: b.decision, manufacturer_id: b.manufacturer, reason: b.reason,
+        listings: b.evidence.listings, in_scope: b.evidence.inScope, seen_at: b.evidence.seenAt, checked_at: b.checkedAt, reviewed_by: b.reviewedBy,
+      })),
+    },
+    {
+      name: "brand_sellers",
+      columns: [col("brand_id"), col("seller")],
+      rows: records.brands.flatMap((b) => b.evidence.sellers.map((seller) => ({ brand_id: b.id, seller }))),
+    },
+    {
       name: "sources",
       columns: [col("id"), col("url"), col("path"), col("title"), col("publisher"), col("revision"), col("sha256"), col("retrieved_at"), col("redistributable", "BOOLEAN")],
       rows: records.sources.map((s) => ({

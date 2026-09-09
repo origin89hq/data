@@ -1,0 +1,26 @@
+{
+  "id": "littelfuse",
+  "brand": "Littelfuse",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "solacity"
+    ],
+    "listings": 3,
+    "inScope": 3,
+    "kinds": [
+      "balance-of-system 3"
+    ],
+    "models": [
+      "JLLN300",
+      "JLLN200"
+    ],
+    "proposed": [],
+    "examples": [
+      "ATO Fuses",
+      "Littelfuse JLLN300",
+      "Littelfuse JLLN200"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

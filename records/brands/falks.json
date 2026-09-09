@@ -1,0 +1,24 @@
+{
+  "id": "falks",
+  "brand": "Falks",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 7,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Falks Felt Gasket 3 Pack",
+      "Falks Propane Double Ceiling Light",
+      "Falks Propane Single Wall Light",
+      "Falks Propane Double Wall Light",
+      "Falks Pre-Formed Propane Premium Mantle",
+      "Falks Pre-Formed Propane Mantle"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

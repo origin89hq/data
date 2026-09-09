@@ -1,0 +1,20 @@
+{
+  "id": "outback-power",
+  "brand": "Outback Power",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 2,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Outback Power FM80 Charge Controller",
+      "Outback Power FM60 Charge Controller"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

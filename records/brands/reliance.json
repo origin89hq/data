@@ -1,0 +1,24 @@
+{
+  "id": "reliance",
+  "brand": "Reliance",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 13,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "Reliance 5020TD Flush N Go Portable Toilet",
+      "Reliance 7822 Flush N Go Portable Toilet",
+      "Reliance Little Loo Portable Childs Toilet",
+      "Reliance Luggable Loo Seat & Cover",
+      "Reliance 16oz Bio Fluid",
+      "Reliance Bio-Blue Toilet Deodorant Chemicals 24 Pack"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}

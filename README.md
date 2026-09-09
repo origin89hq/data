@@ -156,3 +156,29 @@ pnpm gate solacity 2026-09-09 --all    # including the ones that look out of sco
 A guess is never a fact. It lives beside the sightings under the classifier's
 id, so a second model or a changed prompt writes a second set and the two can
 be compared before either is trusted.
+
+## The gate
+
+Between the two hops sits the one step a model does not get to take: deciding
+which company stands behind a brand string a seller printed. Nothing crawls a
+manufacturer's site until that is answered, so a reseller's own label and a
+rebadged generic cannot quietly become a maker.
+
+```sh
+pnpm gate:queue 2026-09-09 solacity thecabindepot   # fold crawls into the queue
+pnpm gate list                                       # what is waiting, most in-scope first
+pnpm gate show ep-solar                              # one entry with its evidence
+pnpm gate maker epever "EPEver" https://www.epever.com epever.com
+pnpm gate is ep-solar epever                         # this brand is made by that company
+pnpm gate skip lodge "cookware"                      # not equipment this database covers
+```
+
+`queue` never decides anything. A brand new to it arrives `unresolved` and a
+brand already answered keeps its answer and takes the fresh evidence, so the
+queue is a backlog under version control rather than a list that regrows every
+week. The classifier's proposed manufacturer is carried as evidence for the
+reviewer and is never written as the answer: a record decided with no named
+reviewer, or with a model named as the reviewer, fails validation.
+
+`records/manufacturers/` holds the companies. A manufacturer's `domains` are
+what hop two is allowed to crawl, so a reseller's domain does not go in one.

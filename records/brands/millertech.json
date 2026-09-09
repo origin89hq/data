@@ -1,0 +1,19 @@
+{
+  "id": "millertech",
+  "brand": "MillerTech",
+  "decision": "unresolved",
+  "evidence": {
+    "sellers": [
+      "thecabindepot"
+    ],
+    "listings": 1,
+    "inScope": 0,
+    "kinds": [],
+    "models": [],
+    "proposed": [],
+    "examples": [
+      "MillerTech 48V 18A Lithium Iron Phosphate Smart Battery Charger"
+    ],
+    "seenAt": "2026-09-09"
+  }
+}
