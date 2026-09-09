@@ -1,0 +1,9 @@
+{
+  "id": "the-cabin-depot-smart-batteryprotect-sbp-48-100--mounting-torque",
+  "model": "the-cabin-depot-smart-batteryprotect-sbp-48-100",
+  "name": "Mounting torque",
+  "value": "9 Nm",
+  "source": "doc-b608246df4554f554bc7557d5c63fdf5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

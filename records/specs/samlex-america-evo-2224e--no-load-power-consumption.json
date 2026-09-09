@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-evo-2224e--no-load-power-consumption",
+  "model": "samlex-america-evo-2224e",
+  "name": "NO LOAD POWER CONSUMPTION",
+  "value": "30",
+  "unit": "W",
+  "source": "doc-5e6e8e162810e20e7a25133fcf481770",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

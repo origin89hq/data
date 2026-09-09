@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-suresine-700--intervalo-de-temperatura-de-funcionamiento",
+  "model": "morningstar-suresine-700",
+  "name": "Intervalo de temperatura de funcionamiento*",
+  "value": "De -40°C a +60°C",
+  "source": "doc-90e77638723997755d70adce9061dc3b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

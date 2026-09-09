@@ -1,0 +1,10 @@
+{
+  "id": "noco-genius5--courant",
+  "model": "noco-genius5",
+  "name": "Courant",
+  "value": "5A | Batteries allant jusqu’à 120 Ah",
+  "source": "doc-2ac853c4c275423f39d96437b5ce7234",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

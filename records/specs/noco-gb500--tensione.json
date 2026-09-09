@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb500--tensione",
+  "model": "noco-gb500",
+  "name": "Tensione",
+  "value": "12V/24V",
+  "source": "doc-50f8e658b460dd4aff8e197e803d2e82",
+  "page": 36,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

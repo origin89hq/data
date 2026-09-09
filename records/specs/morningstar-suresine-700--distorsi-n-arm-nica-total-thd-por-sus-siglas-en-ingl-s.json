@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-suresine-700--distorsi-n-arm-nica-total-thd-por-sus-siglas-en-ingl-s",
+  "model": "morningstar-suresine-700",
+  "name": "Distorsión armónica total (THD, por sus siglas en inglés)",
+  "value": "<2 %",
+  "source": "doc-90e77638723997755d70adce9061dc3b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

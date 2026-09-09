@@ -2,7 +2,7 @@
   "id": "sol-ark-l3-hvr-60--ingress-rating",
   "model": "sol-ark-l3-hvr-60",
   "name": "Ingress Rating",
-  "value": "IP55 (NEMA 3R)",
+  "value": "IP55",
   "source": "doc-eb5e1344b9147f1306df49847b92af1a",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"

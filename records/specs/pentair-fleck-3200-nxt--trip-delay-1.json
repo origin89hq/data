@@ -1,0 +1,10 @@
+{
+  "id": "pentair-fleck-3200-nxt--trip-delay-1",
+  "model": "pentair-fleck-3200-nxt",
+  "name": "Trip Delay 1",
+  "value": "30 - 99 Seconds",
+  "source": "doc-2ce1ecd2853da35e817b1b000f7a1028",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

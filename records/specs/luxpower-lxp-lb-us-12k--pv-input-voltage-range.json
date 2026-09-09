@@ -1,0 +1,9 @@
+{
+  "id": "luxpower-lxp-lb-us-12k--pv-input-voltage-range",
+  "model": "luxpower-lxp-lb-us-12k",
+  "name": "PV input voltage range",
+  "value": "100~600 V",
+  "source": "doc-2e65808ce4d56472c8a566210957cd7a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

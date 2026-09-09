@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-30-cr-rh--capacit-nominale",
+  "model": "unique-appliances-ugp-30-cr-rh",
+  "name": "CAPACITÉ NOMINALE",
+  "value": "none",
+  "source": "doc-72841e9f5dc54690aa722e920f61e2d1",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "lorex-serie-lh070--temp-rature-de-fonctionnement",
+  "model": "lorex-serie-lh070",
+  "name": "Température de fonctionnement",
+  "value": "De 14° à 131°F / de -10° à 55°C",
+  "source": "doc-80464d95f5f711c239a57f6df5f360b7",
+  "page": 147,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

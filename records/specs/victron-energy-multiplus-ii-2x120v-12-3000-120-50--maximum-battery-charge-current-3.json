@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-multiplus-ii-2x120v-12-3000-120-50--maximum-battery-charge-current-3",
+  "model": "victron-energy-multiplus-ii-2x120v-12-3000-120-50",
+  "name": "Maximum battery charge current (3)",
+  "value": "120",
+  "unit": "A",
+  "source": "doc-5c10c68267673cefb4def711177e269c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

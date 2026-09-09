@@ -1,0 +1,10 @@
+{
+  "id": "pentair-268-762-150-1054--rated-capacity",
+  "model": "pentair-268-762-150-1054",
+  "name": "Rated Capacity",
+  "value": "21,411 @ 4.95",
+  "source": "doc-95c0eab24e6ac9cade74fa02b95db340",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

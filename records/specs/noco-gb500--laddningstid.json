@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb500--laddningstid",
+  "model": "noco-gb500",
+  "name": "Laddningstid",
+  "value": "6-10 tim",
+  "source": "doc-50f8e658b460dd4aff8e197e803d2e82",
+  "page": 113,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

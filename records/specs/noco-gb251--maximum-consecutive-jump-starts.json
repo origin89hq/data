@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb251--maximum-consecutive-jump-starts",
+  "model": "noco-gb251",
+  "name": "Maximum Consecutive Jump Starts",
+  "value": "5",
+  "source": "doc-ab38b66291679fbc3beaf203ecf65340",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

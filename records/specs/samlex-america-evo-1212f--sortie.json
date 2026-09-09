@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-evo-1212f--sortie",
+  "model": "samlex-america-evo-1212f",
+  "name": "SORTIE",
+  "value": "120",
+  "unit": "V",
+  "source": "doc-a6d490de66e8b3ab4fa2aec5dd4ddbf8",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

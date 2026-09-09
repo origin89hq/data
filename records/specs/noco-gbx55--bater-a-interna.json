@@ -1,0 +1,10 @@
+{
+  "id": "noco-gbx55--bater-a-interna",
+  "model": "noco-gbx55",
+  "name": "Batería interna",
+  "value": "46Wh Ión de litio",
+  "source": "doc-838c98d52f1f53b5aa463cd1d264c74a",
+  "page": 47,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

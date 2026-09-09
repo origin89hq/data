@@ -1,0 +1,10 @@
+{
+  "id": "pentair-fleck-3200-nxt--cpo-aux-relay-time",
+  "model": "pentair-fleck-3200-nxt",
+  "name": "CPO Aux Relay Time",
+  "value": "00:00:01 - 02:00:00",
+  "source": "doc-2ce1ecd2853da35e817b1b000f7a1028",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "noco-gb70--unit-weight",
+  "model": "noco-gb70",
+  "name": "UNIT WEIGHT",
+  "value": "4 lbs(1.81kg)",
+  "source": "doc-2b066399877e7c01eb0a5e1dfc3e1675",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

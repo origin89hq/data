@@ -1,0 +1,10 @@
+{
+  "id": "the-cabin-depot-smart-batteryprotect-sbp-48-100--default-thresholds-engage",
+  "model": "the-cabin-depot-smart-batteryprotect-sbp-48-100",
+  "name": "Default thresholds Engage",
+  "value": "48",
+  "unit": "V",
+  "source": "doc-b608246df4554f554bc7557d5c63fdf5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

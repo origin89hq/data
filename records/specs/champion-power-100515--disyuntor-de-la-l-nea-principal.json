@@ -1,0 +1,11 @@
+{
+  "id": "champion-power-100515--disyuntor-de-la-l-nea-principal",
+  "model": "champion-power-100515",
+  "name": "Disyuntor de la línea principal",
+  "value": "65",
+  "unit": "A",
+  "source": "doc-30b59cda24dee39e6477991af2197094",
+  "page": 27,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb40--speichertemperatur",
+  "model": "noco-gb40",
+  "name": "Speichertemperatur",
+  "value": "-20ºC bis +50ºC",
+  "source": "doc-919699b1eb41a8db72c0357712dbfdc0",
+  "page": 26,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

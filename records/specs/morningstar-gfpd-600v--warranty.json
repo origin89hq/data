@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-gfpd-600v--warranty",
+  "model": "morningstar-gfpd-600v",
+  "name": "Warranty",
+  "value": "5",
+  "source": "doc-370a54e068516036583dc21383a9aa41",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

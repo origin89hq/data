@@ -1,0 +1,10 @@
+{
+  "id": "noco-gbx35--usb",
+  "model": "noco-gbx35",
+  "name": "USB",
+  "value": "5VDC 2.1A Max / 10W Max",
+  "source": "doc-fdd7c021761d0ba8d6f06a4773f2e953",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

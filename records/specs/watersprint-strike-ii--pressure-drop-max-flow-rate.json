@@ -1,0 +1,9 @@
+{
+  "id": "watersprint-strike-ii--pressure-drop-max-flow-rate",
+  "model": "watersprint-strike-ii",
+  "name": "Pressure drop @ max. flow rate",
+  "value": "<25 psi",
+  "source": "doc-85b0b752834731dd5322bae5097045d5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

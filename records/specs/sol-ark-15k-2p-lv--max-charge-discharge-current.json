@@ -2,7 +2,7 @@
   "id": "sol-ark-15k-2p-lv--max-charge-discharge-current",
   "model": "sol-ark-15k-2p-lv",
   "name": "Max. Charge / Discharge Current",
-  "value": "275 / 275",
+  "value": "275 / 275 A",
   "source": "doc-488813d29230d2477a10368f2f72ad2c",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"

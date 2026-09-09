@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-150-w-und-300-w-modelle--nennleistung",
+  "model": "morningstar-150-w-und-300-w-modelle",
+  "name": "Nennleistung",
+  "value": "150 W / 300 W",
+  "source": "doc-ebbb37ac512ed1e68064fbd06d519717",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

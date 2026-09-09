@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-si-2500-48-120-60-hw02--ac-volts",
+  "model": "morningstar-si-2500-48-120-60-hw02",
+  "name": "AC volts",
+  "value": "120",
+  "unit": "V",
+  "source": "doc-06f5582f1c8a2eaecb58c51f9cd8eadd",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

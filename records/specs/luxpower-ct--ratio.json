@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-ct--ratio",
+  "model": "luxpower-ct",
+  "name": "Ratio",
+  "value": "1000:1",
+  "source": "doc-a39c07bd81b75f4263d3bc0a13773636",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

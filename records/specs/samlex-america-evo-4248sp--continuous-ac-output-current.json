@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-4248sp--continuous-ac-output-current",
+  "model": "samlex-america-evo-4248sp",
+  "name": "CONTINUOUS AC OUTPUT CURRENT",
+  "value": "17.5",
+  "unit": "A",
+  "source": "doc-f3a1815bce782c710df32d6b6bb58feb",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-rb-100-50--current-rating",
+  "model": "morningstar-rb-100-50",
+  "name": "Current rating",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-12e9e5caa78a1aabd300f5f6d984f076",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

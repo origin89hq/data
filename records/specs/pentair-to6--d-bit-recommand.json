@@ -1,0 +1,10 @@
+{
+  "id": "pentair-to6--d-bit-recommand",
+  "model": "pentair-to6",
+  "name": "Débit recommandé",
+  "value": "19 Lpm",
+  "source": "doc-d55409835a6f2287a259514fc51ce43f",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

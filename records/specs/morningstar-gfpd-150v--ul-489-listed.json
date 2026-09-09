@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-gfpd-150v--ul-489-listed",
+  "model": "morningstar-gfpd-150v",
+  "name": "UL-489 Listed",
+  "value": "Yes",
+  "source": "doc-370a54e068516036583dc21383a9aa41",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

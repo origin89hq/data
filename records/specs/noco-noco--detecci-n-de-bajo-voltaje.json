@@ -1,0 +1,10 @@
+{
+  "id": "noco-noco--detecci-n-de-bajo-voltaje",
+  "model": "noco-noco",
+  "name": "Detección de bajo voltaje",
+  "value": "<0.5 mA",
+  "source": "doc-0d609d0fd81c9e25694336f15e33a802",
+  "page": 32,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

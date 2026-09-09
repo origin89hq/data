@@ -1,0 +1,11 @@
+{
+  "id": "noco-gb500--corrente-nominal-de-pico",
+  "model": "noco-gb500",
+  "name": "Corrente nominal de pico",
+  "value": "6250",
+  "unit": "A",
+  "source": "doc-50f8e658b460dd4aff8e197e803d2e82",
+  "page": 61,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

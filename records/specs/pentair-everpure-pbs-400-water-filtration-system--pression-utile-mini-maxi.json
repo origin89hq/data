@@ -1,0 +1,10 @@
+{
+  "id": "pentair-everpure-pbs-400-water-filtration-system--pression-utile-mini-maxi",
+  "model": "pentair-everpure-pbs-400-water-filtration-system",
+  "name": "Pression utile mini. – maxi.",
+  "value": "0.7-8.6 bar",
+  "source": "doc-b5adf730962f1e54dc87ed3e4f69cd13",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

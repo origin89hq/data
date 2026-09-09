@@ -1,0 +1,11 @@
+{
+  "id": "luxpower-eco-beast-6000--battery-charge-current",
+  "model": "luxpower-eco-beast-6000",
+  "name": "Battery charge current",
+  "value": "0.2",
+  "unit": "°C",
+  "source": "doc-477b9b54c1dfbf7282538edcd5a99567",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

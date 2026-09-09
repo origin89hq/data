@@ -1,0 +1,9 @@
+{
+  "id": "noco-nlp9--weight",
+  "model": "noco-nlp9",
+  "name": "WEIGHT",
+  "value": "2.29 lbs(1.03 kg)",
+  "source": "doc-3a94b3703a985dedcdb106718e56b72e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

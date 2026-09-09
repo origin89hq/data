@@ -1,0 +1,9 @@
+{
+  "id": "sol-ark-30k-208v--frequency",
+  "model": "sol-ark-30k-208v",
+  "name": "Frequency",
+  "value": "50 / 60Hz",
+  "source": "doc-894e825af61235b9f3efc78f3f10aa6e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

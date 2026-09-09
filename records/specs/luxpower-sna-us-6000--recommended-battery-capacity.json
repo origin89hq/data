@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna-us-6000--recommended-battery-capacity",
+  "model": "luxpower-sna-us-6000",
+  "name": "Recommended battery capacity",
+  "value": "200AH-400AH",
+  "source": "doc-b4e8576ed83f8b7782451624f435d7dc",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

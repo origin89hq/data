@@ -1,0 +1,10 @@
+{
+  "id": "delta-lightning-arrestors-mo302--maximum-current",
+  "model": "delta-lightning-arrestors-mo302",
+  "name": "Maximum Current",
+  "value": "30,000",
+  "unit": "A",
+  "source": "doc-46921a96fb0ee85a0ccbf64c9d7e20d2",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

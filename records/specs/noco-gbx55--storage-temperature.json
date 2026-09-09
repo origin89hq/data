@@ -1,0 +1,10 @@
+{
+  "id": "noco-gbx55--storage-temperature",
+  "model": "noco-gbx55",
+  "name": "Storage Temperature",
+  "value": "-20°C to +50°C (avg Temp.)",
+  "source": "doc-838c98d52f1f53b5aa463cd1d264c74a",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

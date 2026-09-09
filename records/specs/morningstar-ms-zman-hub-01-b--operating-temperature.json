@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ms-zman-hub-01-b--operating-temperature",
+  "model": "morningstar-ms-zman-hub-01-b",
+  "name": "Operating Temperature",
+  "value": "-40C to +60C",
+  "source": "doc-67795a5d8bfe4db1e68aa1e613839dce",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

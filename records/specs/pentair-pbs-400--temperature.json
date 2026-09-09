@@ -1,0 +1,9 @@
+{
+  "id": "pentair-pbs-400--temperature",
+  "model": "pentair-pbs-400",
+  "name": "Temperature",
+  "value": "35-100° F",
+  "source": "doc-f60e42dd9f32c10e3458008c6b084cd9",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

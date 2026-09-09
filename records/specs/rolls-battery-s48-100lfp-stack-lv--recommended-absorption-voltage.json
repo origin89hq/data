@@ -1,7 +1,7 @@
 {
   "id": "rolls-battery-s48-100lfp-stack-lv--recommended-absorption-voltage",
   "model": "rolls-battery-s48-100lfp-stack-lv",
-  "name": "RECOMMENDED ABSORPTION VOLTAGE",
+  "name": "Recommended Absorption Voltage",
   "value": "55.4",
   "unit": "V",
   "source": "doc-3252cdb47d3cd644fed761109a7f12d2",

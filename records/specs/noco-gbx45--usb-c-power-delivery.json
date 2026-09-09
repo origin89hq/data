@@ -1,0 +1,10 @@
+{
+  "id": "noco-gbx45--usb-c-power-delivery",
+  "model": "noco-gbx45",
+  "name": "USB-C Power Delivery",
+  "value": "up to 60W",
+  "source": "doc-8bf3dfc2d80853b81c34c8ae652868a5",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

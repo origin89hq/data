@@ -1,0 +1,10 @@
+{
+  "id": "sigineer-m5000h-48bp--ambient-temperature-for-optimal-operation",
+  "model": "sigineer-m5000h-48bp",
+  "name": "Ambient temperature for optimal operation",
+  "value": "0℃ to 55℃', 'unit': '℃',",
+  "source": "doc-b6a47ab5519981fb3d3ffddf2512c4dd",
+  "page": 27,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

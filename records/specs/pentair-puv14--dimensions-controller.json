@@ -1,0 +1,10 @@
+{
+  "id": "pentair-puv14--dimensions-controller",
+  "model": "pentair-puv14",
+  "name": "Dimensions Controller",
+  "value": "17.2 cm x 8.1 cm x 6.4 cm (6.8\" x 3.2\" x 2.5\")",
+  "source": "doc-2c896787b30b1a198250e6cc6083ce40",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

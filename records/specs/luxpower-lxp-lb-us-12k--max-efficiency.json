@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-lxp-lb-us-12k--max-efficiency",
+  "model": "luxpower-lxp-lb-us-12k",
+  "name": "Max. efficiency",
+  "value": "97.5",
+  "unit": "%",
+  "source": "doc-2e65808ce4d56472c8a566210957cd7a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

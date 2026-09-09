@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna-4000w--capacity",
+  "model": "luxpower-sna-4000w",
+  "name": "Capacity",
+  "value": ">200 AH",
+  "source": "doc-c791d9b8edf8b540693faaea63b9a944",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

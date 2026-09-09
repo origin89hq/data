@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ms-zman-hub-01-b--self-consumption-per-port",
+  "model": "morningstar-ms-zman-hub-01-b",
+  "name": "Self-consumption (per port)",
+  "value": "8",
+  "unit": "mA",
+  "source": "doc-67795a5d8bfe4db1e68aa1e613839dce",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

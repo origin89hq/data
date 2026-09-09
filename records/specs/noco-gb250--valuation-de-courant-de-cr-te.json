@@ -1,0 +1,11 @@
+{
+  "id": "noco-gb250--valuation-de-courant-de-cr-te",
+  "model": "noco-gb250",
+  "name": "Évaluation de courant de crête",
+  "value": "5250",
+  "unit": "A",
+  "source": "doc-12fc201334315c4c41c495ec3ca639b3",
+  "page": 22,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

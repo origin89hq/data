@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multiplus-ii-2x120v-12-4k-160-50--continuous-output-power-at-65c-150-f",
+  "model": "victron-energy-multiplus-ii-2x120v-12-4k-160-50",
+  "name": "Continuous output power at 65C/150°F",
+  "value": "2.4",
+  "unit": "kW",
+  "source": "doc-a87cea7b7958e1652fae137815d1c995",
+  "page": 24,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

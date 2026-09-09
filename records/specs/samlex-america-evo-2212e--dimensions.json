@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-2212e--dimensions",
+  "model": "samlex-america-evo-2212e",
+  "name": "Dimensions",
+  "value": "12.79 x 16.77 x 8.15 in",
+  "source": "doc-e18143c6e1a1e16c4d7fc4262fb4d9de",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

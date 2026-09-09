@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-step-20--input-current-at-no-load",
+  "model": "samlex-america-step-20",
+  "name": "Input Current at No Load",
+  "value": "< 5mA",
+  "source": "doc-f09e92c49c1ab58709293d065881e9b6",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

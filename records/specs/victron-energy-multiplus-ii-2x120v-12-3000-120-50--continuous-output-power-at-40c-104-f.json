@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multiplus-ii-2x120v-12-3000-120-50--continuous-output-power-at-40c-104-f",
+  "model": "victron-energy-multiplus-ii-2x120v-12-3000-120-50",
+  "name": "Continuous output power at 40C/104°F",
+  "value": "2200",
+  "unit": "W",
+  "source": "doc-a87cea7b7958e1652fae137815d1c995",
+  "page": 24,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

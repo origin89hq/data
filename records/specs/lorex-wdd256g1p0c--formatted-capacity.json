@@ -1,0 +1,9 @@
+{
+  "id": "lorex-wdd256g1p0c--formatted-capacity",
+  "model": "lorex-wdd256g1p0c",
+  "name": "Formatted capacity",
+  "value": "256GB",
+  "source": "doc-4ad295b48c0f77bfc40b68a06b9a9f8e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

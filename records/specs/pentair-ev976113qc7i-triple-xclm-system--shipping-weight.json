@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ev976113qc7i-triple-xclm-system--shipping-weight",
+  "model": "pentair-ev976113qc7i-triple-xclm-system",
+  "name": "Shipping Weight",
+  "value": "19.81 lbs (8.99 kgs)",
+  "source": "doc-35c61b19c44461b8cbeb916ceee6f8d7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

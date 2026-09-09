@@ -1,0 +1,9 @@
+{
+  "id": "watersprint-arrow-max-home-10k--ip-rating",
+  "model": "watersprint-arrow-max-home-10k",
+  "name": "IP rating",
+  "value": "IP21",
+  "source": "doc-7eba679f1e5b485407c6037e24b97ea9",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

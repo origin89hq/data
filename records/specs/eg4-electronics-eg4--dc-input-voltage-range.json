@@ -1,9 +1,10 @@
 {
   "id": "eg4-electronics-eg4--dc-input-voltage-range",
   "model": "eg4-electronics-eg4",
-  "name": "DC INPUT VOLTAGE RANGE",
-  "value": "100-600 VDC',",
+  "name": "DC Input Voltage Range",
+  "value": "100 – 600 VDC",
   "source": "doc-8ed962a43d9d77f6868dec28807831c4",
+  "page": 11,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

@@ -1,0 +1,11 @@
+{
+  "id": "noco-gbx55--usb-c-inn-ut-port",
+  "model": "noco-gbx55",
+  "name": "USB-C INN-/UT-port",
+  "value": "60",
+  "unit": "W",
+  "source": "doc-838c98d52f1f53b5aa463cd1d264c74a",
+  "page": 84,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-5k-1p-n--voltaje-m-ximo-por-mppt",
+  "model": "sol-ark-sol-ark-5k-1p-n",
+  "name": "Voltaje máximo por MPPT",
+  "value": "500 VOC",
+  "source": "doc-d1bb62cfa20ccdc6108f0507c934303b",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

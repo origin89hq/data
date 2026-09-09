@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb251--ladetemperatur",
+  "model": "noco-gb251",
+  "name": "Ladetemperatur",
+  "value": "0ºC til +40ºC",
+  "source": "doc-ab38b66291679fbc3beaf203ecf65340",
+  "page": 113,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

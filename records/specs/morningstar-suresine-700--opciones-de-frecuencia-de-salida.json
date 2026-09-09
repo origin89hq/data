@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-suresine-700--opciones-de-frecuencia-de-salida",
+  "model": "morningstar-suresine-700",
+  "name": "Opciones de frecuencia de salida",
+  "value": "50/60 Hz",
+  "source": "doc-90e77638723997755d70adce9061dc3b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

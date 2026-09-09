@@ -1,7 +1,7 @@
 {
   "id": "samlex-america-pse-12275a--maximum-dc-input-current",
   "model": "samlex-america-pse-12275a",
-  "name": "Maximum DC Input Current",
+  "name": "MAXIMuM dc InPuT currEnT",
   "value": "< 360A",
   "source": "doc-f49fafbc908a498dd9ba251311c1e142",
   "page": 44,

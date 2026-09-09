@@ -1,0 +1,10 @@
+{
+  "id": "noco-genius1--cooling",
+  "model": "noco-genius1",
+  "name": "Cooling",
+  "value": "Natural Convection",
+  "source": "doc-0d609d0fd81c9e25694336f15e33a802",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

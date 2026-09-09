@@ -1,0 +1,10 @@
+{
+  "id": "lorex-serie-lh070--r-solution-d-enregistrement",
+  "model": "lorex-serie-lh070",
+  "name": "Résolution d’enregistrement",
+  "value": "1080p (1920 × 1072)",
+  "source": "doc-80464d95f5f711c239a57f6df5f360b7",
+  "page": 147,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "noco-gb40--tensione-della-batteria",
+  "model": "noco-gb40",
+  "name": "Tensione della batteria",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-919699b1eb41a8db72c0357712dbfdc0",
+  "page": 34,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

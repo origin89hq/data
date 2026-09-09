@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-evo-4024e--rendimiento-del-inversor",
+  "model": "samlex-america-evo-4024e",
+  "name": "RENDIMIENTO DEL INVERSOR",
+  "value": "94",
+  "unit": "%",
+  "source": "doc-6863836a8b4e426fdccf1f3276db594f",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

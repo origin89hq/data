@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-suresine-150--1-minuto-de-sobretensi-n-de-energ-a-a-40-c",
+  "model": "morningstar-suresine-150",
+  "name": "1 minuto de sobretensión de energía a 40° C",
+  "value": "225",
+  "unit": "W",
+  "source": "doc-90e77638723997755d70adce9061dc3b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-yf168f-2-000--displacement",
+  "model": "champion-power-yf168f-2-000",
+  "name": "Displacement",
+  "value": "196cc",
+  "source": "doc-eff3a920aba12fe72510b23ecdc80fd5",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "luxpower-pgem-max--rated-voltage",
+  "model": "luxpower-pgem-max",
+  "name": "Rated Voltage",
+  "value": "51.2",
+  "unit": "V",
+  "source": "doc-3c441370d0a36f9ea52b1357cd247a8b",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

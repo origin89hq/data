@@ -1,0 +1,10 @@
+{
+  "id": "noco-genius2x4--dimensiopner-l-x-b-x-h",
+  "model": "noco-genius2x4",
+  "name": "Dimensiopner (L x B x H)",
+  "value": "5,7 x 9,4 x 2,3 tommer",
+  "source": "doc-6eb9ac65e017cb3de2fdd095dded8666",
+  "page": 83,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

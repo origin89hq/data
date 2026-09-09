@@ -1,0 +1,9 @@
+{
+  "id": "unique-appliances-ugp-14c-b--btu",
+  "model": "unique-appliances-ugp-14c-b",
+  "name": "BTU",
+  "value": "1600 max., 700 min",
+  "source": "doc-9486dcda5d950bf3f43481b319893eb8",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

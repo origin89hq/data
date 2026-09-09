@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-suresine-150--opciones-del-modelo-de-voltaje-de-salida",
+  "model": "morningstar-suresine-150",
+  "name": "Opciones del modelo de voltaje de salida",
+  "value": "120/230 V +/-5 % V",
+  "source": "doc-90e77638723997755d70adce9061dc3b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

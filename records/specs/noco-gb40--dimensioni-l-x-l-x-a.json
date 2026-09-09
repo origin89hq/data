@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb40--dimensioni-l-x-l-x-a",
+  "model": "noco-gb40",
+  "name": "Dimensioni (L x L x A)",
+  "value": "6,7 x 3,2 x 1,7 pollici",
+  "source": "doc-919699b1eb41a8db72c0357712dbfdc0",
+  "page": 36,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

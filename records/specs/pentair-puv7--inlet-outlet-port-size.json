@@ -1,0 +1,10 @@
+{
+  "id": "pentair-puv7--inlet-outlet-port-size",
+  "model": "pentair-puv7",
+  "name": "Inlet/Outlet Port Size",
+  "value": "Combo 3/4\" FNPT/1\" MNPT",
+  "source": "doc-2c896787b30b1a198250e6cc6083ce40",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

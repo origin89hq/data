@@ -1,0 +1,9 @@
+{
+  "id": "lorentz-ps2-1800--nominal-voltage",
+  "model": "lorentz-ps2-1800",
+  "name": "nominal voltage",
+  "value": "84 – 96”,",
+  "source": "doc-0935f4d4b5e05c8a3f87920731fdde8c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

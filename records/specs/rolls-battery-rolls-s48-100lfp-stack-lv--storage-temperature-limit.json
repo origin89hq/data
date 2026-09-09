@@ -1,0 +1,10 @@
+{
+  "id": "rolls-battery-rolls-s48-100lfp-stack-lv--storage-temperature-limit",
+  "model": "rolls-battery-rolls-s48-100lfp-stack-lv",
+  "name": "Storage temperature limit",
+  "value": "45",
+  "unit": "°C",
+  "source": "doc-3252cdb47d3cd644fed761109a7f12d2",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

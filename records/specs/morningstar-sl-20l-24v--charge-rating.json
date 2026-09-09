@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-sl-20l-24v--charge-rating",
+  "model": "morningstar-sl-20l-24v",
+  "name": "Charge Rating",
+  "value": "20",
+  "unit": "A",
+  "source": "doc-1576e151ec844e19169aabe791000bf8",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

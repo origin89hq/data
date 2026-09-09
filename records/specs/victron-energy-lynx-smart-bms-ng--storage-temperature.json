@@ -2,7 +2,7 @@
   "id": "victron-energy-lynx-smart-bms-ng--storage-temperature",
   "model": "victron-energy-lynx-smart-bms-ng",
   "name": "Storage temperature",
-  "value": "-40 to 65",
+  "value": "-40°C to +65°C",
   "source": "doc-6652fcdf0e9f05f446c2f8eda5284b2b",
   "page": 7,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",

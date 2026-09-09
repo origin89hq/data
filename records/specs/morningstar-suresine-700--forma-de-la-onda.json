@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-suresine-700--forma-de-la-onda",
+  "model": "morningstar-suresine-700",
+  "name": "Forma de la onda",
+  "value": "Onda senoidal pura",
+  "source": "doc-90e77638723997755d70adce9061dc3b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

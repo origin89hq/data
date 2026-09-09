@@ -1,0 +1,9 @@
+{
+  "id": "lorentz-ps2-4000-hr--tension-nominale-fonctionnement-de-la-batterie",
+  "model": "lorentz-ps2-4000-hr",
+  "name": "tension nominale (fonctionnement de la batterie)",
+  "value": "N/A”,",
+  "source": "doc-9f87962aad823c9b3134b224611517f9",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

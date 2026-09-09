@@ -1,0 +1,10 @@
+{
+  "id": "pentair-255-742-100-948--sybron-c-249ns-ion-exchange-resin",
+  "model": "pentair-255-742-100-948",
+  "name": "Sybron C-249NS Ion Exchange Resin",
+  "value": "1.0 cu ft",
+  "source": "doc-95c0eab24e6ac9cade74fa02b95db340",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

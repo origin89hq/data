@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-hp-6m--rated-charge-current",
+  "model": "energizer-solar-hp-6m",
+  "name": "Rated Charge Current",
+  "value": "71 A d.c.",
+  "source": "doc-530a83fbaadea0b813c6d68f370d2600",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

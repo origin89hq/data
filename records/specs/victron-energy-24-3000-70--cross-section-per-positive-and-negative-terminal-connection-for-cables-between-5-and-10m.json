@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-24-3000-70--cross-section-per-positive-and-negative-terminal-connection-for-cables-between-5-and-10m",
+  "model": "victron-energy-24-3000-70",
+  "name": "Cross-section per positive and negative terminal connection for cables between 5 and 10m",
+  "value": "2x AWG 1/0",
+  "source": "doc-a87cea7b7958e1652fae137815d1c995",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "the-cabin-depot-sbp-100--mounting-torque",
+  "model": "the-cabin-depot-sbp-100",
+  "name": "Mounting Torque",
+  "value": "9 Nm",
+  "source": "doc-97b69a46f5f2222acd69f87f22aa3730",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

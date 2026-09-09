@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-r1--dimensiones",
+  "model": "samlex-america-sec-r1",
+  "name": "Dimensiones",
+  "value": "19 x 3.5 x 7.75",
+  "source": "doc-ad4d9329c7fead7d5d01c9522efab20c",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

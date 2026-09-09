@@ -1,0 +1,11 @@
+{
+  "id": "epever-ls1024b--rated-discharge-current",
+  "model": "epever-ls1024b",
+  "name": "Rated discharge current",
+  "value": "10",
+  "unit": "A",
+  "source": "doc-43d8ff4b950a645ed1d029030e75f75a",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-evo-4248sp--voltaje-nominal-de-salida-de-cd",
+  "model": "samlex-america-evo-4248sp",
+  "name": "VOLTAJE NOMINAL DE SALIDA DE CD",
+  "value": "36 - 68 VDC (57.6V Nom)",
+  "source": "doc-8a33b3870373382a88b6dd3da8dc970f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "luxpower-12k--max-solar-input-power",
+  "model": "luxpower-12k",
+  "name": "Max solar input power",
+  "value": "18",
+  "unit": "kW",
+  "source": "doc-35e67a9eab9a4ec64b26803d5861d126",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

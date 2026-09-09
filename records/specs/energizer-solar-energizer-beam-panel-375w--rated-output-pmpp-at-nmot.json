@@ -1,0 +1,9 @@
+{
+  "id": "energizer-solar-energizer-beam-panel-375w--rated-output-pmpp-at-nmot",
+  "model": "energizer-solar-energizer-beam-panel-375w",
+  "name": "Rated output (Pmpp) at NMOT",
+  "value": "279.6 Wp",
+  "source": "doc-27e65a2e49442c988cd8d943a5ecec69",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "lorentz-ps2-200-hr--hauteur-manom-trique-max",
+  "model": "lorentz-ps2-200-hr",
+  "name": "hauteur manométrique max.",
+  "value": "50”,",
+  "source": "doc-9f87962aad823c9b3134b224611517f9",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

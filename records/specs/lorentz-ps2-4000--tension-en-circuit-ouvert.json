@@ -1,0 +1,9 @@
+{
+  "id": "lorentz-ps2-4000--tension-en-circuit-ouvert",
+  "model": "lorentz-ps2-4000",
+  "name": "tension en circuit ouvert",
+  "value": "375 max.",
+  "source": "doc-6c4787a14f8590ecbb8595e8462306b1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

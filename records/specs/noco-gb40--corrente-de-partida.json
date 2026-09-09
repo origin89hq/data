@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb40--corrente-de-partida",
+  "model": "noco-gb40",
+  "name": "Corrente de partida",
+  "value": "até 1000 amperes",
+  "source": "doc-919699b1eb41a8db72c0357712dbfdc0",
+  "page": 53,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

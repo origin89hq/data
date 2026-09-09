@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-100683--rapport-de-m-lange-de-carburant-huile",
+  "model": "champion-power-100683",
+  "name": "Rapport de mélange de carburant/huile",
+  "value": "50 : 1",
+  "source": "doc-40d4c04d334fac5378a39062ad8d9ef4",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

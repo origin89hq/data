@@ -1,0 +1,10 @@
+{
+  "id": "pentair-rs22--d-bit-recommand",
+  "model": "pentair-rs22",
+  "name": "Débit recommandé",
+  "value": "38 Lpm",
+  "source": "doc-d55409835a6f2287a259514fc51ce43f",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "noco-genius5--current",
+  "model": "noco-genius5",
+  "name": "Current",
+  "value": "5",
+  "unit": "A",
+  "source": "doc-2ac853c4c275423f39d96437b5ce7234",
+  "page": 28,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

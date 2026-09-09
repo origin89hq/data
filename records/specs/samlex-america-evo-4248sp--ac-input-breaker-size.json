@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-4248sp--ac-input-breaker-size",
+  "model": "samlex-america-evo-4248sp",
+  "name": "AC INPUT BREAKER SIZE",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-f3a1815bce782c710df32d6b6bb58feb",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

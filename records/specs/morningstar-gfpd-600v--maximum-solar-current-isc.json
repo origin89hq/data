@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gfpd-600v--maximum-solar-current-isc",
+  "model": "morningstar-gfpd-600v",
+  "name": "Maximum Solar Current (Isc)",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-370a54e068516036583dc21383a9aa41",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

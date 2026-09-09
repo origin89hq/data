@@ -1,0 +1,11 @@
+{
+  "id": "noco-gb251--time-between-jump-start-attempts",
+  "model": "noco-gb251",
+  "name": "Time Between Jump Start Attempts",
+  "value": "15",
+  "unit": "min",
+  "source": "doc-ab38b66291679fbc3beaf203ecf65340",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

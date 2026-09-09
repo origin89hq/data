@@ -1,0 +1,10 @@
+{
+  "id": "pentair-fleck-3200-nxt--unit-capacity",
+  "model": "pentair-fleck-3200-nxt",
+  "name": "Unit Capacity",
+  "value": "1 - 9900000 Grains",
+  "source": "doc-2ce1ecd2853da35e817b1b000f7a1028",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

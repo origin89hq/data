@@ -1,0 +1,11 @@
+{
+  "id": "noco-gb20--rated-current",
+  "model": "noco-gb20",
+  "name": "Rated current",
+  "value": "2",
+  "unit": "A",
+  "source": "doc-21526244bd4f28f887cfb062e04edaf0",
+  "page": 109,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

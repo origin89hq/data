@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-step-10--wire-size-for-2-voltage-drop-on-24v-output-side",
+  "model": "samlex-america-step-10",
+  "name": "Wire size for 2% voltage drop on 24V output side",
+  "value": "#18",
+  "source": "doc-f09e92c49c1ab58709293d065881e9b6",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

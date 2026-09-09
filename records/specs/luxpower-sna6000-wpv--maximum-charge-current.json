@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna6000-wpv--maximum-charge-current",
+  "model": "luxpower-sna6000-wpv",
+  "name": "Maximum charge current",
+  "value": "50.0-59.0Vdc (Default: 56.4V)",
+  "source": "doc-382ae6d157ec388999d842200da8a1ed",
+  "page": 39,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

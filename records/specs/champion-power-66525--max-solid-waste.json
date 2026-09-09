@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-66525--max-solid-waste",
+  "model": "champion-power-66525",
+  "name": "Max Solid Waste",
+  "value": "3/4 in. diameter (1.9 cm)",
+  "source": "doc-eff3a920aba12fe72510b23ecdc80fd5",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

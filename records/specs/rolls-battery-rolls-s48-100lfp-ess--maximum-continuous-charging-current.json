@@ -1,7 +1,7 @@
 {
   "id": "rolls-battery-rolls-s48-100lfp-ess--maximum-continuous-charging-current",
   "model": "rolls-battery-rolls-s48-100lfp-ess",
-  "name": "Maximum Continuous Charging Current",
+  "name": "MAXIMUM CONTINUOUS CHARGING CURRENT",
   "value": "0.5",
   "unit": "°C",
   "source": "doc-fd8c6477275bdfd097c84ad5e66913ce",

@@ -1,0 +1,11 @@
+{
+  "id": "noco-gb50--l-mp-tila",
+  "model": "noco-gb50",
+  "name": "Lämpötila",
+  "value": "2",
+  "unit": "V",
+  "source": "doc-3823580d5ce87d787a3f780b59b9c1b0",
+  "page": 89,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

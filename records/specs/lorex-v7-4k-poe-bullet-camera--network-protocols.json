@@ -1,0 +1,9 @@
+{
+  "id": "lorex-v7-4k-poe-bullet-camera--network-protocols",
+  "model": "lorex-v7-4k-poe-bullet-camera",
+  "name": "Network Protocols",
+  "value": "TCP/IP, HTTP, DHCP, DNS, DDNS, RTP/RTSP, SMTP, NTP, UPnP, SNMP, HTTPS, FTP",
+  "source": "doc-201a2a6a0f5b0a6f2bcf4a6667795342",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

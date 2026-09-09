@@ -1,0 +1,10 @@
+{
+  "id": "noco-gbx55--dimensioni-l-x-l-x-a",
+  "model": "noco-gbx55",
+  "name": "Dimensioni (L x L x A)",
+  "value": "19,5 x 12,3 x 6,4 Centimetro",
+  "source": "doc-838c98d52f1f53b5aa463cd1d264c74a",
+  "page": 38,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna-eu-14k--recommend-capacity-of-battery-per-inverter",
+  "model": "luxpower-sna-eu-14k",
+  "name": "Recommend Capacity of Battery per Inverter",
+  "value": ">400AH",
+  "source": "doc-47011d0f25465eb3f46b75275a0ed18a",
+  "page": 59,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

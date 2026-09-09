@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb500--qu-mica-da-bateria",
+  "model": "noco-gb500",
+  "name": "Química da bateria",
+  "value": "chumbo-ácido",
+  "source": "doc-50f8e658b460dd4aff8e197e803d2e82",
+  "page": 59,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

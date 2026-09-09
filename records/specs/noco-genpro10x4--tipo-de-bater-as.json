@@ -1,0 +1,10 @@
+{
+  "id": "noco-genpro10x4--tipo-de-bater-as",
+  "model": "noco-genpro10x4",
+  "name": "Tipo de baterías",
+  "value": "Wet, Gel, MF, CA, EFB, AGM, Calcio, Litio",
+  "source": "doc-cf8d6e88f0e991f6dfcfeac716330de0",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "pentair-bf36c--inlet-pressure",
+  "model": "pentair-bf36c",
+  "name": "Inlet Pressure",
+  "value": "60",
+  "unit": "psi",
+  "source": "doc-d55409835a6f2287a259514fc51ce43f",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

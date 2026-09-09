@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb250--dimensions-lo-x-la-x-ha",
+  "model": "noco-gb250",
+  "name": "Dimensions (Lo x La x Ha)",
+  "value": "31,75 x 20,83 x 3,39 Centimètres",
+  "source": "doc-12fc201334315c4c41c495ec3ca639b3",
+  "page": 22,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

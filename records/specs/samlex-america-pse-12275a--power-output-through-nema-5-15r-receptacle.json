@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-pse-12275a--power-output-through-nema-5-15r-receptacle",
+  "model": "samlex-america-pse-12275a",
+  "name": "Power Output through NEMA 5-15R receptacle",
+  "value": "1500",
+  "unit": "W",
+  "source": "doc-f49fafbc908a498dd9ba251311c1e142",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

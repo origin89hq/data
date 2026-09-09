@@ -1,0 +1,10 @@
+{
+  "id": "eg4-electronics-eg4-12kpv-inverter--external-bus-bar-rating",
+  "model": "eg4-electronics-eg4-12kpv-inverter",
+  "name": "External bus bar rating",
+  "value": ">=250 Amps",
+  "source": "doc-3edb02be8d70fbc8671c6ebccf37ac0d",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

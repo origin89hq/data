@@ -1,0 +1,9 @@
+{
+  "id": "lorentz-ps2-600-c--tension-d-alimentation-max",
+  "model": "lorentz-ps2-600-c",
+  "name": "tension d'alimentation max.",
+  "value": "> 68",
+  "source": "doc-6c4787a14f8590ecbb8595e8462306b1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

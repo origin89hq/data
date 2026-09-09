@@ -1,9 +1,8 @@
 {
   "id": "samlex-america-pse-12125a--maximum-active-surge-power-output",
   "model": "samlex-america-pse-12125a",
-  "name": "Maximum Active Surge Power Output",
-  "value": "2500",
-  "unit": "W",
+  "name": "MAXIMuM AcTIVE SurgE PowEr ouTPuT",
+  "value": "2500w*',",
   "source": "doc-f49fafbc908a498dd9ba251311c1e142",
   "page": 44,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",

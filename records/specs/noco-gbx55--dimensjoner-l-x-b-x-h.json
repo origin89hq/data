@@ -1,0 +1,10 @@
+{
+  "id": "noco-gbx55--dimensjoner-l-x-b-x-h",
+  "model": "noco-gbx55",
+  "name": "Dimensjoner (L x B x H)",
+  "value": "19,5 x 12,3 x 6,4 Centimeter",
+  "source": "doc-838c98d52f1f53b5aa463cd1d264c74a",
+  "page": 88,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

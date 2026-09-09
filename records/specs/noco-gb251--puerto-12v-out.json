@@ -1,0 +1,11 @@
+{
+  "id": "noco-gb251--puerto-12v-out",
+  "model": "noco-gb251",
+  "name": "Puerto 12V-OUT",
+  "value": "15",
+  "unit": "A",
+  "source": "doc-ab38b66291679fbc3beaf203ecf65340",
+  "page": 59,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

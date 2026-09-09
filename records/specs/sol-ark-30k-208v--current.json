@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-30k-208v--current",
+  "model": "sol-ark-30k-208v",
+  "name": "Current",
+  "value": "83.4",
+  "unit": "A",
+  "source": "doc-894e825af61235b9f3efc78f3f10aa6e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

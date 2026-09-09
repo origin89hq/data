@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-eco-beast-6000--ratedac-output-current",
+  "model": "luxpower-eco-beast-6000",
+  "name": "RatedAC Output Current",
+  "value": "26.5",
+  "source": "doc-477b9b54c1dfbf7282538edcd5a99567",
+  "page": 45,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

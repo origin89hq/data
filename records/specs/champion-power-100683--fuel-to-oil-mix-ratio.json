@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-100683--fuel-to-oil-mix-ratio",
+  "model": "champion-power-100683",
+  "name": "Fuel to Oil Mix Ratio",
+  "value": "50:1",
+  "source": "doc-068d528eee991a399d0efadb81dab1a0",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

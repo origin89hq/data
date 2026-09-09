@@ -2,7 +2,8 @@
   "id": "sol-ark-15k-2p-lv--peak-surge-power-10-s",
   "model": "sol-ark-15k-2p-lv",
   "name": "Peak Surge Power (10 s)",
-  "value": "24,000 20,800",
+  "value": "24,000",
+  "unit": "W",
   "source": "doc-488813d29230d2477a10368f2f72ad2c",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"

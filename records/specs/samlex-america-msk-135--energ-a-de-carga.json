@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-msk-135--energ-a-de-carga",
+  "model": "samlex-america-msk-135",
+  "name": "Energía de Carga",
+  "value": "8.52",
+  "unit": "A",
+  "source": "doc-ad4d9329c7fead7d5d01c9522efab20c",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

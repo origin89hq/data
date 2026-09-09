@@ -1,0 +1,9 @@
+{
+  "id": "noco-genius2d--chemistry",
+  "model": "noco-genius2d",
+  "name": "CHEMISTRY",
+  "value": "Wet, Gel, MF, CA, EFB, AGM",
+  "source": "doc-db5a8fa850c6117a6f69b621b8e506aa",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

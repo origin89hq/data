@@ -1,0 +1,9 @@
+{
+  "id": "lorex-ic101a-2k-indoor-wi-fi-camera--infrared-ir-night-vision-range",
+  "model": "lorex-ic101a-2k-indoor-wi-fi-camera",
+  "name": "Infrared (IR) Night Vision Range",
+  "value": "Up to 32.8 feet / 10 m",
+  "source": "doc-a7d7741e6d879d5fda52e18daabba2ff",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

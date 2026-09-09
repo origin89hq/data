@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-gfpd-600v--ground-fault-threshold-current",
+  "model": "morningstar-gfpd-600v",
+  "name": "Ground Fault Threshold Current",
+  "value": "300 mA +/- 10%",
+  "source": "doc-370a54e068516036583dc21383a9aa41",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

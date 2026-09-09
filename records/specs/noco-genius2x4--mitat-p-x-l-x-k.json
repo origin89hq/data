@@ -1,0 +1,10 @@
+{
+  "id": "noco-genius2x4--mitat-p-x-l-x-k",
+  "model": "noco-genius2x4",
+  "name": "Mitat (P x L x K)",
+  "value": "5,7 x 9,4 x 2,3 tuumaa",
+  "source": "doc-6eb9ac65e017cb3de2fdd095dded8666",
+  "page": 103,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "noco-genpro10x4--peso",
+  "model": "noco-genpro10x4",
+  "name": "Peso",
+  "value": "7.02 kg (15.5 Lb)",
+  "source": "doc-cf8d6e88f0e991f6dfcfeac716330de0",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

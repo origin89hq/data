@@ -1,0 +1,9 @@
+{
+  "id": "lorex-v7-4k-poe-bullet-camera--image-sensor",
+  "model": "lorex-v7-4k-poe-bullet-camera",
+  "name": "Image Sensor",
+  "value": "1/1.8” CMOS",
+  "source": "doc-201a2a6a0f5b0a6f2bcf4a6667795342",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

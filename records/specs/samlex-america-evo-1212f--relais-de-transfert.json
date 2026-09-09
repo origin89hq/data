@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-evo-1212f--relais-de-transfert",
+  "model": "samlex-america-evo-1212f",
+  "name": "Relais de transfert",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-1113ce82e230f6f3cf77f45e6285e329",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "noco-gb150--chargement-usb",
+  "model": "noco-gb150",
+  "name": "Chargement USB",
+  "value": "10",
+  "unit": "W",
+  "source": "doc-053a1e6bf9b140c56d7d670f15461687",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

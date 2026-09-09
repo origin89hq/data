@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-lynx-smart-bms-ng--l-pin-on-level",
+  "model": "victron-energy-lynx-smart-bms-ng",
+  "name": "L pin On Level",
+  "value": "<5 V",
+  "source": "doc-6652fcdf0e9f05f446c2f8eda5284b2b",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

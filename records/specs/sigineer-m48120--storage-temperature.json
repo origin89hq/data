@@ -1,0 +1,10 @@
+{
+  "id": "sigineer-m48120--storage-temperature",
+  "model": "sigineer-m48120",
+  "name": "Storage temperature",
+  "value": "-15°C to 60°C",
+  "source": "doc-0f341b76769dec14304b2f3733c40c66",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

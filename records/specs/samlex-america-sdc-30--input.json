@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sdc-30--input",
+  "model": "samlex-america-sdc-30",
+  "name": "Input",
+  "value": "20-32 VDC",
+  "source": "doc-022b78fef6b9334895d043e4422c174e",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

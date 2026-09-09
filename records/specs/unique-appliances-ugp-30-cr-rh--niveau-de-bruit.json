@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-30-cr-rh--niveau-de-bruit",
+  "model": "unique-appliances-ugp-30-cr-rh",
+  "name": "NIVEAU DE BRUIT",
+  "value": "Inférieur à 65 dBA",
+  "source": "doc-72841e9f5dc54690aa722e920f61e2d1",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

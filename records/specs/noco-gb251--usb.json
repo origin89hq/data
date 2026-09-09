@@ -1,0 +1,9 @@
+{
+  "id": "noco-gb251--usb",
+  "model": "noco-gb251",
+  "name": "USB",
+  "value": "5V, 2.1A Max Each",
+  "source": "doc-766d3ef23757157b63f5f7dde641e805",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

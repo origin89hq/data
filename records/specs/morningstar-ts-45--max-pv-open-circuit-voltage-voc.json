@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-45--max-pv-open-circuit-voltage-voc",
+  "model": "morningstar-ts-45",
+  "name": "Max. PV Open Circuit Voltage (Voc)",
+  "value": "125",
+  "unit": "V",
+  "source": "doc-c28d97896ce5671ad3ebf4bcd2ff1d38",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

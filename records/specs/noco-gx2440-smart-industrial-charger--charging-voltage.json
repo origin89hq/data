@@ -1,0 +1,11 @@
+{
+  "id": "noco-gx2440-smart-industrial-charger--charging-voltage",
+  "model": "noco-gx2440-smart-industrial-charger",
+  "name": "Charging Voltage",
+  "value": "28.8",
+  "unit": "V",
+  "source": "doc-0c10c10b084534464968e23a64aea614",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

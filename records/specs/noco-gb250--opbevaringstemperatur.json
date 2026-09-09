@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb250--opbevaringstemperatur",
+  "model": "noco-gb250",
+  "name": "Opbevaringstemperatur",
+  "value": "-20°C - 50°C (0°C til +40°C gennemsnitstemperatur)",
+  "source": "doc-12fc201334315c4c41c495ec3ca639b3",
+  "page": 94,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

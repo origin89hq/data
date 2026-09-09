@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-br-dc100-bm--weight",
+  "model": "magnum-energy-br-dc100-bm",
+  "name": "Weight",
+  "value": "~9 oz. (255 grams)",
+  "source": "doc-2b167af456dcb1e98e5b096a79c762fd",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

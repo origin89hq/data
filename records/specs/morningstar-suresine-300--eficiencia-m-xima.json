@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-suresine-300--eficiencia-m-xima",
+  "model": "morningstar-suresine-300",
+  "name": "Eficiencia máxima",
+  "value": "89",
+  "unit": "%",
+  "source": "doc-90e77638723997755d70adce9061dc3b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

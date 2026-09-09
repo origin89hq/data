@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multiplus-ii--equalisation-voltage-increase-for-48v-battery",
+  "model": "victron-energy-multiplus-ii",
+  "name": "Equalisation voltage increase for 48V battery",
+  "value": "4",
+  "unit": "V",
+  "source": "doc-a87cea7b7958e1652fae137815d1c995",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

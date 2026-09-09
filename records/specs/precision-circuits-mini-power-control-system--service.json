@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-mini-power-control-system--service",
+  "model": "precision-circuits-mini-power-control-system",
+  "name": "Service",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-9621d3efa0d1611d854f33891b3420db",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

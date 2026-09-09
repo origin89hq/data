@@ -1,0 +1,9 @@
+{
+  "id": "pentair-us-1500--maximum-dimensions",
+  "model": "pentair-us-1500",
+  "name": "Maximum Dimensions",
+  "value": "15\" W x 11\" D x 6.5\" H (381mm W x 279mm D x 165mm H)",
+  "source": "doc-857f7fecd8c70e7c4ec09415117e940b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

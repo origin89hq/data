@@ -1,0 +1,10 @@
+{
+  "id": "noco-genius2--temp-rature-de-stockage",
+  "model": "noco-genius2",
+  "name": "Température de stockage",
+  "value": "-30 °C à 60 °C (-22 °F à 140 °F)",
+  "source": "doc-0add4d4e244f834e9ac9e85e22b6d81b",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

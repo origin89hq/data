@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-12k--mppt1-string-2",
+  "model": "luxpower-12k",
+  "name": "MPPT1 string 2",
+  "value": "600V/20A",
+  "source": "doc-35e67a9eab9a4ec64b26803d5861d126",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

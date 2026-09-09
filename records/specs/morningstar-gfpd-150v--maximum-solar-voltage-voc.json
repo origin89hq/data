@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gfpd-150v--maximum-solar-voltage-voc",
+  "model": "morningstar-gfpd-150v",
+  "name": "Maximum Solar Voltage (Voc)",
+  "value": "150",
+  "unit": "V",
+  "source": "doc-370a54e068516036583dc21383a9aa41",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

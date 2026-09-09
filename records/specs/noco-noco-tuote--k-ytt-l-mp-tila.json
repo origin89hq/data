@@ -1,0 +1,10 @@
+{
+  "id": "noco-noco-tuote--k-ytt-l-mp-tila",
+  "model": "noco-noco-tuote",
+  "name": "Käyttölämpötila",
+  "value": "-20°C – +50°C",
+  "source": "doc-21526244bd4f28f887cfb062e04edaf0",
+  "page": 93,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

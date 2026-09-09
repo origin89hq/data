@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-66525--net-weight",
+  "model": "champion-power-66525",
+  "name": "Net Weight",
+  "value": "81.3 lb. (36.9 kg)",
+  "source": "doc-eff3a920aba12fe72510b23ecdc80fd5",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

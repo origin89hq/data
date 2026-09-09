@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-l3-hvr-60kwh-30k--max-pv-input-voltage",
+  "model": "sol-ark-l3-hvr-60kwh-30k",
+  "name": "Max. PV Input Voltage",
+  "value": "550V d.c.'}, {",
+  "source": "doc-a4218aea875582eac245d35890fa7a19",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

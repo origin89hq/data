@@ -1,0 +1,11 @@
+{
+  "id": "bslbatt-hvs3--charge-upper-voltage",
+  "model": "bslbatt-hvs3",
+  "name": "Charge Upper Voltage",
+  "value": "307.2",
+  "unit": "V",
+  "source": "doc-123b395ec7325ab38cf76b9c44ae2a77",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

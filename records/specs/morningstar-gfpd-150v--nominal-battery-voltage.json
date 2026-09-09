@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-gfpd-150v--nominal-battery-voltage",
+  "model": "morningstar-gfpd-150v",
+  "name": "Nominal Battery Voltage",
+  "value": "12, 24, 36 or 48 Vdc",
+  "source": "doc-370a54e068516036583dc21383a9aa41",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

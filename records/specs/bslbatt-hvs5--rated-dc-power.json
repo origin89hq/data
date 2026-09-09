@@ -1,0 +1,11 @@
+{
+  "id": "bslbatt-hvs5--rated-dc-power",
+  "model": "bslbatt-hvs5",
+  "name": "Rated DC Power",
+  "value": "None",
+  "unit": "kW",
+  "source": "doc-123b395ec7325ab38cf76b9c44ae2a77",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-4248sp--corriente-m-xima-de-carga",
+  "model": "samlex-america-evo-4248sp",
+  "name": "CORRIENTE MÁXIMA DE CARGA",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-8a33b3870373382a88b6dd3da8dc970f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

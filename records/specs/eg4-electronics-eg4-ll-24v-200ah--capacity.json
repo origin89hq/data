@@ -5,6 +5,7 @@
   "value": "200",
   "unit": "Ah",
   "source": "doc-b748b4439ce996b2272bda864d3f91dd",
+  "page": 4,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

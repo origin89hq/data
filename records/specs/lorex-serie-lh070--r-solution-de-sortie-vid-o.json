@@ -1,0 +1,10 @@
+{
+  "id": "lorex-serie-lh070--r-solution-de-sortie-vid-o",
+  "model": "lorex-serie-lh070",
+  "name": "Résolution de sortie vidéo",
+  "value": "1920×1080, 1280×1024, 1280×720, 1024×768, 1440×900",
+  "source": "doc-80464d95f5f711c239a57f6df5f360b7",
+  "page": 147,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

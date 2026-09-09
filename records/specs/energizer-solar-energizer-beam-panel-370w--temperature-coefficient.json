@@ -1,0 +1,9 @@
+{
+  "id": "energizer-solar-energizer-beam-panel-370w--temperature-coefficient",
+  "model": "energizer-solar-energizer-beam-panel-370w",
+  "name": "Temperature coefficient",
+  "value": "-0.35%/°C",
+  "source": "doc-27e65a2e49442c988cd8d943a5ecec69",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

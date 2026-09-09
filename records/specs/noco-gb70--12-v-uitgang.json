@@ -1,0 +1,11 @@
+{
+  "id": "noco-gb70--12-v-uitgang",
+  "model": "noco-gb70",
+  "name": "12 V uitgang",
+  "value": "15",
+  "unit": "A",
+  "source": "doc-8190fc8c4dc8bedf0108c6acd6d8ac11",
+  "page": 64,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

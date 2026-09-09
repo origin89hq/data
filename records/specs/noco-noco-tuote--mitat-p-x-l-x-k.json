@@ -1,0 +1,10 @@
+{
+  "id": "noco-noco-tuote--mitat-p-x-l-x-k",
+  "model": "noco-noco-tuote",
+  "name": "Mitat (P x L x K)",
+  "value": "17 x 8.3 x 4.3 cm",
+  "source": "doc-21526244bd4f28f887cfb062e04edaf0",
+  "page": 93,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

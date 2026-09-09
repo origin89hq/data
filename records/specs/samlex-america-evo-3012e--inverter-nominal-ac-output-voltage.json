@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-3012e--inverter-nominal-ac-output-voltage",
+  "model": "samlex-america-evo-3012e",
+  "name": "INVERTER NOMINAL AC OUTPUT VOLTAGE",
+  "value": "230 ± 5% VAC",
+  "source": "doc-5e6e8e162810e20e7a25133fcf481770",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

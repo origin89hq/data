@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-energizer-beam-panel-375w--open-circuit-voltage-voc-at-stc",
+  "model": "energizer-solar-energizer-beam-panel-375w",
+  "name": "Open circuit voltage (Voc) at STC",
+  "value": "41.05",
+  "unit": "V",
+  "source": "doc-27e65a2e49442c988cd8d943a5ecec69",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

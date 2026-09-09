@@ -1,10 +1,9 @@
 {
   "id": "samlex-america-evo-4248sp--temperatura-de-funcionamiento",
   "model": "samlex-america-evo-4248sp",
-  "name": "Temperatura de funcionamiento",
-  "value": "-4 °F a 140 °F",
-  "source": "doc-2c1d439526d547578793b0327f475420",
-  "page": 3,
+  "name": "TEMPERATURA DE FUNCIONAMIENTO",
+  "value": "-20 a +60°C (-4 a 140°F)",
+  "source": "doc-8a33b3870373382a88b6dd3da8dc970f",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-sam-250-12--puissance-de-sortie",
+  "model": "samlex-america-sam-250-12",
+  "name": "Puissance de sortie",
+  "value": "250",
+  "unit": "W",
+  "source": "doc-80bd791f903b90b7841095e674546f03",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

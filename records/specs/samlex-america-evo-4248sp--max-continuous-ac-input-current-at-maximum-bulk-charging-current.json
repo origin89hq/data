@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-4248sp--max-continuous-ac-input-current-at-maximum-bulk-charging-current",
+  "model": "samlex-america-evo-4248sp",
+  "name": "MAX CONTINUOUS AC INPUT CURRENT AT MAXIMUM BULK CHARGING CURRENT",
+  "value": "17.5",
+  "unit": "A",
+  "source": "doc-f3a1815bce782c710df32d6b6bb58feb",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "luxpower-eco-beast-6000--rated-gen-voltage",
+  "model": "luxpower-eco-beast-6000",
+  "name": "Rated GEN voltage",
+  "value": "220 / 230 / 240 V",
+  "source": "doc-5fddd502a3eb76f1e02b2501bfb864d3",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

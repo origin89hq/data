@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-3012e--maximum-programmable-ac-input-current",
+  "model": "samlex-america-evo-3012e",
+  "name": "MAXIMUM PROGRAMMABLE AC INPUT CURRENT",
+  "value": "5-25A (Default 16A)",
+  "source": "doc-5e6e8e162810e20e7a25133fcf481770",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

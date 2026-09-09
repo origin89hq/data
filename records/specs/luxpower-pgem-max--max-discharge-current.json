@@ -1,0 +1,11 @@
+{
+  "id": "luxpower-pgem-max--max-discharge-current",
+  "model": "luxpower-pgem-max",
+  "name": "Max. Discharge Current",
+  "value": "200",
+  "unit": "A",
+  "source": "doc-3c441370d0a36f9ea52b1357cd247a8b",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

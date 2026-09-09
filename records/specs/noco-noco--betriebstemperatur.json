@@ -1,0 +1,10 @@
+{
+  "id": "noco-noco--betriebstemperatur",
+  "model": "noco-noco",
+  "name": "Betriebstemperatur",
+  "value": "-20 °C bis + 50 °C",
+  "source": "doc-fba580087222dc96f400743baa7798e0",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

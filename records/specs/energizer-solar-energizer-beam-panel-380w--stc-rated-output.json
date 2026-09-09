@@ -1,0 +1,9 @@
+{
+  "id": "energizer-solar-energizer-beam-panel-380w--stc-rated-output",
+  "model": "energizer-solar-energizer-beam-panel-380w",
+  "name": "STC rated output",
+  "value": "380 Wp",
+  "source": "doc-27e65a2e49442c988cd8d943a5ecec69",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

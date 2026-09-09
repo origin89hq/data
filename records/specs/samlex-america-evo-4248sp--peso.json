@@ -1,11 +1,9 @@
 {
   "id": "samlex-america-evo-4248sp--peso",
   "model": "samlex-america-evo-4248sp",
-  "name": "Peso",
-  "value": "64",
-  "unit": "lb",
-  "source": "doc-bbcafddfe3013c1cc841694c80bde644",
-  "page": 4,
+  "name": "PESO",
+  "value": "29 Kg / 64 lb",
+  "source": "doc-8a33b3870373382a88b6dd3da8dc970f",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

@@ -1,0 +1,10 @@
+{
+  "id": "epever-tracer5210lpli--water-temperature-difference",
+  "model": "epever-tracer5210lpli",
+  "name": "Water temperature difference",
+  "value": "5K",
+  "source": "doc-397879424e42270ceaef3942256ab3df",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

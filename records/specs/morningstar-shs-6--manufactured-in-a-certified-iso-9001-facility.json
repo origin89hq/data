@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-shs-6--manufactured-in-a-certified-iso-9001-facility",
+  "model": "morningstar-shs-6",
+  "name": "Manufactured in a Certified ISO 9001 Facility",
+  "value": "Yes",
+  "source": "doc-f8362b3c43d51a8f224f772e924383f5",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

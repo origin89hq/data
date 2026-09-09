@@ -2,7 +2,8 @@
   "id": "sol-ark-sol-ark-5k-48-st--m-x-corriente-de-entrada-por-mppt",
   "model": "sol-ark-sol-ark-5k-48-st",
   "name": "Máx. Corriente de Entrada por MPPT",
-  "value": "10A (autolimitado)”,",
+  "value": "10",
+  "unit": "A",
   "source": "doc-ab041ca4c66285a9f790085773008391",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"

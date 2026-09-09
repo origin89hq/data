@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-evo-4024--view-products",
+  "model": "samlex-america-evo-4024",
+  "name": "VIEW PRODUCTS",
+  "value": "EVO-4024 EVO-4024E (230VAC)",
+  "source": "doc-f87e1f5ec56ee2139791c31d8b1f901c",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

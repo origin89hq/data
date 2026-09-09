@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-66525--outlet-diameter",
+  "model": "champion-power-66525",
+  "name": "Outlet Diameter",
+  "value": "3 in. (7.6 cm) NPT",
+  "source": "doc-eff3a920aba12fe72510b23ecdc80fd5",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

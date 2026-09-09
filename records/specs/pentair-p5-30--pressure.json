@@ -1,0 +1,11 @@
+{
+  "id": "pentair-p5-30--pressure",
+  "model": "pentair-p5-30",
+  "name": "Pressure",
+  "value": "0.2",
+  "unit": "psi",
+  "source": "doc-d13ed423c334905afa8d4e151980c35e",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

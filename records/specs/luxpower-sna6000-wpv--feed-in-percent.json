@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna6000-wpv--feed-in-percent",
+  "model": "luxpower-sna6000-wpv",
+  "name": "Feed-In percent",
+  "value": "0-100% (Default: 0%)",
+  "source": "doc-382ae6d157ec388999d842200da8a1ed",
+  "page": 39,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

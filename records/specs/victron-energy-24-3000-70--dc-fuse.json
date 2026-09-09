@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-24-3000-70--dc-fuse",
+  "model": "victron-energy-24-3000-70",
+  "name": "DC fuse",
+  "value": "300",
+  "unit": "A",
+  "source": "doc-a87cea7b7958e1652fae137815d1c995",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

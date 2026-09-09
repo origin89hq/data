@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ev976113qc7i-triple-xclm-system--service-flow-rate",
+  "model": "pentair-ev976113qc7i-triple-xclm-system",
+  "name": "Service Flow Rate",
+  "value": "5.01 gpm (18.97 Lpm)",
+  "source": "doc-35c61b19c44461b8cbeb916ceee6f8d7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

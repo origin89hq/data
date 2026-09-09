@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-2224e--rango-de-voltaje-de-entrada-de-la-bater-a",
+  "model": "samlex-america-evo-2224e",
+  "name": "RANGO DE VOLTAJE DE ENTRADA DE LA BATERÍA",
+  "value": "18.1 - 34 VCD",
+  "source": "doc-6863836a8b4e426fdccf1f3276db594f",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

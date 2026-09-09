@@ -1,0 +1,10 @@
+{
+  "id": "pentair-255-762-150-1054--rated-service-flow",
+  "model": "pentair-255-762-150-1054",
+  "name": "Rated Service Flow",
+  "value": "10.0 gpm",
+  "source": "doc-95c0eab24e6ac9cade74fa02b95db340",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

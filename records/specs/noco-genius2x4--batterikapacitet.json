@@ -1,0 +1,10 @@
+{
+  "id": "noco-genius2x4--batterikapacitet",
+  "model": "noco-genius2x4",
+  "name": "Batterikapacitet",
+  "value": "Op til 40 Ah, klarer alle batteristørrelser",
+  "source": "doc-6eb9ac65e017cb3de2fdd095dded8666",
+  "page": 83,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

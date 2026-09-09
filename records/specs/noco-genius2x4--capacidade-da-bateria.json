@@ -1,0 +1,10 @@
+{
+  "id": "noco-genius2x4--capacidade-da-bateria",
+  "model": "noco-genius2x4",
+  "name": "Capacidade da bateria",
+  "value": "Até 40Ah, Mantém todos os tamanhos de bateria",
+  "source": "doc-6eb9ac65e017cb3de2fdd095dded8666",
+  "page": 60,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

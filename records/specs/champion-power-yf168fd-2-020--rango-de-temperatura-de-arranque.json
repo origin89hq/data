@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-yf168fd-2-020--rango-de-temperatura-de-arranque",
+  "model": "champion-power-yf168fd-2-020",
+  "name": "Rango de temperatura de arranque",
+  "value": "5 a 104°F (-15 a 40°C)",
+  "source": "doc-4579ee436316f66966ab8a3afbfbb2d5",
+  "page": 28,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

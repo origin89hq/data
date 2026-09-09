@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna-eu-14k--low-loss-voltage",
+  "model": "luxpower-sna-eu-14k",
+  "name": "Low Loss Voltage",
+  "value": "170Vac±7V",
+  "source": "doc-47011d0f25465eb3f46b75275a0ed18a",
+  "page": 59,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

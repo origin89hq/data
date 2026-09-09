@@ -1,0 +1,10 @@
+{
+  "id": "the-cabin-depot-smart-batteryprotect-sbp-48-100--peak-current",
+  "model": "the-cabin-depot-smart-batteryprotect-sbp-48-100",
+  "name": "Peak current",
+  "value": "250",
+  "unit": "A",
+  "source": "doc-b608246df4554f554bc7557d5c63fdf5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ev976113qc7i-triple-xclm-system--water-temperature",
+  "model": "pentair-ev976113qc7i-triple-xclm-system",
+  "name": "Water Temperature",
+  "value": "35 – 100°F (2 – 38°C)",
+  "source": "doc-35c61b19c44461b8cbeb916ceee6f8d7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

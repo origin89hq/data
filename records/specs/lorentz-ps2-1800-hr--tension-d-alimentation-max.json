@@ -1,0 +1,9 @@
+{
+  "id": "lorentz-ps2-1800-hr--tension-d-alimentation-max",
+  "model": "lorentz-ps2-1800-hr",
+  "name": "tension d’alimentation max.",
+  "value": "102”,",
+  "source": "doc-9f87962aad823c9b3134b224611517f9",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

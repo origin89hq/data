@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-suresine-300--sobretensi-n-de-energ-a-a-40-c-5-s",
+  "model": "morningstar-suresine-300",
+  "name": "Sobretensión de energía a 40° C (< 5 s)",
+  "value": "600",
+  "unit": "W",
+  "source": "doc-90e77638723997755d70adce9061dc3b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

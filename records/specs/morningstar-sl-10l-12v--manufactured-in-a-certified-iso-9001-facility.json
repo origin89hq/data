@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-sl-10l-12v--manufactured-in-a-certified-iso-9001-facility",
+  "model": "morningstar-sl-10l-12v",
+  "name": "Manufactured in a Certified ISO 9001 Facility",
+  "value": "Yes",
+  "source": "doc-1576e151ec844e19169aabe791000bf8",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

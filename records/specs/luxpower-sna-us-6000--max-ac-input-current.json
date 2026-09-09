@@ -1,0 +1,9 @@
+{
+  "id": "luxpower-sna-us-6000--max-ac-input-current",
+  "model": "luxpower-sna-us-6000",
+  "name": "Max. AC input current",
+  "value": "41A@220V/37.5A@240V A",
+  "source": "doc-e62113779c9dd507b4fcbd27fd3930f6",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

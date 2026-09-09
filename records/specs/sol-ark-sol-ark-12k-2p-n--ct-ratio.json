@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-12k-2p-n--ct-ratio",
+  "model": "sol-ark-sol-ark-12k-2p-n",
+  "name": "CT ratio",
+  "value": "2000:1",
+  "source": "doc-a6309d995ea95cdfb312cc5335f5fbe8",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}
