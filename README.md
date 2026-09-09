@@ -3,12 +3,14 @@
 Every model of off-grid equipment worth talking to — charge controllers,
 inverters, batteries, BMS, shunts, generators, meters — as one dataset with a
 source and a confidence on every fact. Published as Parquet, CSV and JSON so
-anything can read it. Working title; the name is not settled.
+anything can read it.
 
-**Licence: not yet decided.** Nothing here is released until it is. The
-recommendation on the table is CC BY 4.0 for the records and artefacts and MIT
-for the tooling; a non-commercial clause would stop the people most likely to
-send corrections back.
+**Licence: MIT**, for the tooling, the records and the built artefacts alike
+([LICENSE](LICENSE)). Use it for anything, keep the notice. Manufacturer
+documents in the archive are their owners' and are not covered; a source
+record says whether one may be redistributed, and the default is that it may
+not. Bulk feeds keep their own notices when they arrive: SAM's libraries are
+BSD-3-Clause.
 
 ## What is in it today
 
