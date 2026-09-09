@@ -8,8 +8,8 @@ import type { Dialect } from "../../schema/dialect.ts";
 import type { Family as FamilyRecord } from "../../schema/family.ts";
 
 /**
- * One-time migration: read the origin89 catalogue and write it as records. Re-running on the
- * same input rewrites identical files. Usage: import.ts <origin89 docs/catalog dir>
+ * One-time migration: read the catalogue's markdown form and write it as records. Re-running on the
+ * same input rewrites identical files. Usage: import.ts <catalogue dir>
  */
 const [catalogueDir] = process.argv.slice(2);
 if (!catalogueDir) {

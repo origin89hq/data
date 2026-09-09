@@ -10,7 +10,7 @@ export const Source = z
   .object({
     id: RecordId,
     url: z.string().url().optional(),
-    /** A file committed in the origin89 tree, relative to its root. Not redistributable unless `redistributable` says so. */
+    /** A document held in the private archive, by the path it was filed under. Not redistributable unless `redistributable` says so. */
     path: z.string().min(1).optional(),
     title: z.string().min(1).optional(),
     publisher: z.string().min(1).optional(),

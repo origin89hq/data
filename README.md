@@ -14,7 +14,7 @@ BSD-3-Clause.
 
 ## What is in it today
 
-The first import is the origin89 equipment catalogue: **288 dialects** across
+The first import is a hand-reviewed protocol catalogue: **288 dialects** across
 eight protocol families, citing **554 sources**, with every model each dialect
 is known or claimed to cover. A dialect is a register map or frame layout that
 owns a driver; a model lands on one only when a source shows matching
@@ -34,7 +34,7 @@ records/
   sources/<id>.json              one source: url or path; title, hash and licence once reviewed
 schema/                          zod schemas; the enums are the closed vocabularies
 src/                             validate, flatten to tables, build the release
-tools/catalogue/                 parse and render the origin89 catalogue markdown
+tools/catalogue/                 parse and render the catalogue's markdown form
 dist/                            built, never committed
 ```
 
@@ -47,8 +47,8 @@ change. Git is the review tool.
 pnpm validate            # schema, referential integrity, and a count of what needs a person
 pnpm build               # dist/: one CSV and one Parquet per table, dialects.json, sources.json, manifest.json
 pnpm test                # node --test
-pnpm roundtrip:catalogue <origin89>/docs/catalog   # parse and render every family file; must print "same" for each
-pnpm import:catalogue    <origin89>/docs/catalog   # rewrite records/ from the catalogue
+pnpm roundtrip:catalogue <catalogue dir>   # parse and render every family file; must print "same" for each
+pnpm import:catalogue    <catalogue dir>   # rewrite records/ from the catalogue
 ```
 
 `build` needs the `duckdb` CLI for the Parquet files and refuses to run with a
@@ -98,7 +98,7 @@ None of these block the build. They are the work.
 ## The spider
 
 `scraper/` is a Cloudflare Worker with one Workflow, `SellerCrawl`: hop one of
-the spider described in origin89's `docs/ideas/EQUIPMENT-DB.md`. Given a seller
+the spider described in [docs/SPIDER.md](docs/SPIDER.md). Given a seller
 from the committed `scraper/sellers.json` and a date, it walks the shop's
 product feed a page per step, writes each page of sightings to R2 as JSONL, and
 writes a manifest last so a reader that finds one knows the run finished. A

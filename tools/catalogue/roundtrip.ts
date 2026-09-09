@@ -7,7 +7,7 @@ import { SourceTable } from "./sources.ts";
 
 /**
  * Parse every family file and render it back. A byte-identical result is the proof that the
- * records hold everything the prose held. Usage: roundtrip.ts <origin89 docs/catalog dir> [out dir]
+ * records hold everything the prose held. Usage: roundtrip.ts <catalogue dir> [out dir]
  */
 const [catalogueDir, outDir] = process.argv.slice(2);
 if (!catalogueDir) {
