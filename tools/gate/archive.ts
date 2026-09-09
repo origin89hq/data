@@ -99,6 +99,12 @@ export async function keysUnder(prefix: string, remote: boolean): Promise<string
   return ((await response.json()) as { keys: string[] }).keys;
 }
 
+/** Which run is current for an entity, so a reader never has to guess from a date. */
+export async function currentRun(root: "documents" | "sightings", entity: string, remote: boolean): Promise<{ run: string; date: string } | undefined> {
+  const body = await object(`${root}/${entity}/current.json`, remote);
+  return body ? (JSON.parse(body) as { run: string; date: string }) : undefined;
+}
+
 export interface Crawl {
   sightings: Sighting[];
   guesses: Map<string, Guess>;
@@ -108,7 +114,9 @@ export interface Crawl {
 
 /** Read one seller's crawl and whatever the classifier made of it. */
 export async function readCrawl(seller: string, date: string, remote: boolean): Promise<Crawl | undefined> {
-  const prefix = `sightings/${seller}/${date}`;
+  const current = await currentRun("sightings", seller, remote);
+  if (!current) return undefined;
+  const prefix = `sightings/${seller}/runs/${current.run}`;
   const manifest = await object(`${prefix}/manifest.json`, remote);
   if (!manifest) return undefined;
   const pages = (JSON.parse(manifest) as { pages: { page: number }[] }).pages.map((p) => p.page);
@@ -118,7 +126,7 @@ export async function readCrawl(seller: string, date: string, remote: boolean): 
     sightings.push(Sighting.parse(JSON.parse(line)));
   }
 
-  const guessPrefix = `guesses/${seller}/${date}/${classifierKey()}`;
+  const guessPrefix = `guesses/${seller}/runs/${current.run}/${classifierKey()}`;
   const guesses = new Map<string, Guess>();
   const missingParts: string[] = [];
   const guessManifest = await object(`${guessPrefix}/manifest.json`, remote);

@@ -10,7 +10,7 @@ import { classifierKey } from "../../scraper/src/classify.ts";
  * Usage: pull-kinds.ts [--remote]
  */
 const remote = process.argv.includes("--remote");
-const prefix = `guesses/models/pending/${classifierKey()}`;
+const prefix = `guesses/models/runs/pending/${classifierKey()}`;
 const manifest = await object(`${prefix}/manifest.json`, remote);
 if (!manifest) {
   console.error(`no classification at ${prefix}; push the models and run the classify workflow first`);

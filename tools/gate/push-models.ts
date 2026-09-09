@@ -40,12 +40,15 @@ try {
     );
     const file = join(dir, `page-${String(i + 1).padStart(4, "0")}.jsonl`);
     writeFileSync(file, `${lines.join("\n")}\n`);
-    put(`sightings/models/pending/page-${String(i + 1).padStart(4, "0")}.jsonl`, file);
+    put(`sightings/models/runs/pending/page-${String(i + 1).padStart(4, "0")}.jsonl`, file);
     pages.push({ page: i + 1, count: slice.length });
   }
+  const pointerFile = join(dir, "current.json");
+  writeFileSync(pointerFile, JSON.stringify({ run: "pending", date: new Date().toISOString().slice(0, 10), startedAt: new Date().toISOString() }));
   const manifest = join(dir, "manifest.json");
   writeFileSync(manifest, JSON.stringify({ seller: "models", checkedAt: "pending", pages, sightings: pending.length }, null, 2));
-  put("sightings/models/pending/manifest.json", manifest);
+  put("sightings/models/runs/pending/manifest.json", manifest);
+  put("sightings/models/current.json", pointerFile);
   console.log(`${pending.length} models without a kind → ${pages.length} pages in the archive`);
   console.log(`classify with: curl -X POST 'localhost:8790/classify?seller=models&date=pending'`);
 } finally {

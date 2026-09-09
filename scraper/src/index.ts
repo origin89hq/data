@@ -8,6 +8,7 @@ import { classifyRun, convertRun, specPagesRun } from "./enqueue.ts";
 import specPages from "../../feeds/spec-pages.json" with { type: "json" };
 import { manufacturers } from "./manufacturers.ts";
 import { makerStates, sellerStates } from "./state.ts";
+import { newRun, pointerKey, readPointer } from "./runs.ts";
 import { supervise } from "./supervise.ts";
 import type { SellerCrawlParams } from "./seller-crawl.ts";
 
@@ -20,24 +21,9 @@ function today(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
-/** A deterministic instance id: one crawl per seller per day, and a second trigger the same day is refused as a duplicate rather than run twice. */
-function instanceId(sellerId: string, checkedAt: string): string {
-  return `${sellerId}-${checkedAt}`;
-}
-
-/**
- * A fresh id for each attempt. An instance id is unique for as long as the platform keeps it, so
- * re-running a maker on the same day cannot reuse one; the day belongs to the run's prefix, not
- * to its instance.
- */
-function attemptId(manufacturerId: string, checkedAt: string): string {
-  return `maker-${manufacturerId}-${checkedAt}-${crypto.randomUUID().slice(0, 8)}`;
-}
-
-/** Which instance currently owns a maker's run, so a caller can approve it without knowing the id. */
-async function currentInstance(env: Env, manufacturerId: string, checkedAt: string): Promise<string | undefined> {
-  const object = await env.ARCHIVE.get(`documents/${manufacturerId}/${checkedAt}/instance.json`);
-  return object ? ((await object.json()) as { instanceId: string }).instanceId : undefined;
+/** Which instance owns a maker's current run, so a caller can approve without knowing an id. */
+async function currentInstance(env: Env, manufacturerId: string): Promise<string | undefined> {
+  return (await readPointer(env.ARCHIVE, pointerKey.documents(manufacturerId)))?.instance;
 }
 
 export default {
@@ -56,12 +42,14 @@ export default {
       const seller = sellers.find((s) => s.id === sellerId);
       if (!seller) return Response.json({ error: "unknown seller" }, { status: 400 });
       if (hasFeed(seller)) {
-        const params: SellerCrawlParams = { sellerId, checkedAt };
-        const instance = await env.SELLER_CRAWL.create({ id: instanceId(sellerId, checkedAt), params });
+        const run = newRun();
+        const params: SellerCrawlParams = { sellerId, run: run.id, checkedAt: run.date };
+        const instance = await env.SELLER_CRAWL.create({ id: run.id, params });
         return Response.json({ id: instance.id, tier: "feed" });
       }
       const limit = url.searchParams.get("limit");
-      const instance = await env.PAGE_CRAWL.create({ id: `page-${instanceId(sellerId, checkedAt)}`, params: { sellerId, checkedAt, ...(limit ? { limit: Number(limit) } : {}) } });
+      const run = newRun();
+      const instance = await env.PAGE_CRAWL.create({ id: `page-${run.id}`, params: { sellerId, run: run.id, checkedAt: run.date, ...(limit ? { limit: Number(limit) } : {}) } });
       return Response.json({ id: instance.id, tier: "page" });
     }
     // Reading a run back one object at a time meant spawning wrangler once per part, which took
@@ -128,8 +116,9 @@ export default {
       if (!manufacturerId || domains.length === 0) return Response.json({ error: "id and domains required" }, { status: 400 });
       const checkedAt = url.searchParams.get("date") ?? today();
       const pages = url.searchParams.get("pages");
-      const id = attemptId(manufacturerId, checkedAt);
-      const instance = await env.MANUFACTURER_CRAWL.create({ id, params: { instanceId: id, manufacturerId, domains, checkedAt, ...(pages ? { pageLimit: Number(pages) } : {}) } });
+      const run = newRun();
+      const id = `maker-${manufacturerId}-${run.id}`;
+      const instance = await env.MANUFACTURER_CRAWL.create({ id, params: { instanceId: id, run: run.id, manufacturerId, domains, checkedAt: run.date, ...(pages ? { pageLimit: Number(pages) } : {}) } });
       return Response.json({ id: instance.id });
     }
     if (request.method === "POST" && url.pathname === "/convert") {
@@ -146,8 +135,9 @@ export default {
       const pages = Number(url.searchParams.get("pages") ?? "150");
       const started: string[] = [];
       for (const maker of manufacturers) {
-        const id = attemptId(maker.id, checkedAt);
-        await env.MANUFACTURER_CRAWL.create({ id, params: { instanceId: id, manufacturerId: maker.id, domains: maker.domains, checkedAt, pageLimit: pages } });
+        const run = newRun();
+        const id = `maker-${maker.id}-${run.id}`;
+        await env.MANUFACTURER_CRAWL.create({ id, params: { instanceId: id, run: run.id, manufacturerId: maker.id, domains: maker.domains, checkedAt: run.date, pageLimit: pages } });
         started.push(maker.id);
       }
       return Response.json({ started: started.length, checkedAt });
@@ -161,7 +151,7 @@ export default {
     if (request.method === "POST" && url.pathname === "/approve") {
       // A caller names the maker and the day; which instance is waiting is the run's business.
       const named = url.searchParams.get("maker");
-      const id = named ? await currentInstance(env, named, url.searchParams.get("date") ?? today()) : url.searchParams.get("id");
+      const id = named ? await currentInstance(env, named) : url.searchParams.get("id");
       if (!id) return Response.json({ error: named ? `no run recorded for ${named}` : "id or maker required" }, { status: 400 });
       const parsed = CrawlApproval.safeParse(await request.json().catch(() => null));
       if (!parsed.success) return Response.json({ error: "approval must name approvedBy and approved", detail: parsed.error.issues }, { status: 400 });
@@ -190,8 +180,9 @@ export default {
     const checkedAt = today();
     if (new Date(controller.scheduledTime).getUTCDate() === 1) {
       for (const maker of manufacturers) {
-        const id = attemptId(maker.id, checkedAt);
-        await env.MANUFACTURER_CRAWL.create({ id, params: { instanceId: id, manufacturerId: maker.id, domains: maker.domains, checkedAt, pageLimit: 150 } });
+        const run = newRun();
+        const id = `maker-${maker.id}-${run.id}`;
+        await env.MANUFACTURER_CRAWL.create({ id, params: { instanceId: id, run: run.id, manufacturerId: maker.id, domains: maker.domains, checkedAt: run.date, pageLimit: 150 } });
       }
     }
     // Every day: move anything whose precondition is met. The weekly crawl and the monthly
@@ -200,10 +191,12 @@ export default {
     if (new Date(controller.scheduledTime).getUTCHours() === 8) return;
     for (const seller of sellers) {
       if (hasFeed(seller)) {
-        const params: SellerCrawlParams = { sellerId: seller.id, checkedAt };
-        await env.SELLER_CRAWL.create({ id: instanceId(seller.id, checkedAt), params });
+        const run = newRun();
+        const params: SellerCrawlParams = { sellerId: seller.id, run: run.id, checkedAt: run.date };
+        await env.SELLER_CRAWL.create({ id: run.id, params });
       } else {
-        await env.PAGE_CRAWL.create({ id: `page-${instanceId(seller.id, checkedAt)}`, params: { sellerId: seller.id, checkedAt } });
+        const run = newRun();
+        await env.PAGE_CRAWL.create({ id: `page-${run.id}`, params: { sellerId: seller.id, run: run.id, checkedAt: run.date } });
       }
     }
   },

@@ -15,6 +15,8 @@ export const Work = z.discriminatedUnion("kind", [
       kind: z.literal("classify"),
       seller: z.string().min(1),
       date: z.string().min(1),
+      /** The run this work belongs to. Results land under it, so two runs cannot mix. */
+      run: z.string().min(1),
       /** Which part of the run this is, so its result has a key the reader can predict. */
       part: z.number().int().positive(),
       sightings: z.array(Sighting).min(1),
@@ -23,6 +25,8 @@ export const Work = z.discriminatedUnion("kind", [
   z
     .object({
       kind: z.literal("convert"),
+      /** The run this work belongs to. Results land under it, so two runs cannot mix. */
+      run: z.string().min(1),
       manufacturer: z.string().min(1),
       date: z.string().min(1),
       sha256: z.string().regex(/^[0-9a-f]{64}$/),
@@ -33,6 +37,8 @@ export const Work = z.discriminatedUnion("kind", [
   z
     .object({
       kind: z.literal("extract"),
+      /** The run this work belongs to. Results land under it, so two runs cannot mix. */
+      run: z.string().min(1),
       manufacturer: z.string().min(1),
       date: z.string().min(1),
       sha256: z.string().regex(/^[0-9a-f]{64}$/),
@@ -46,6 +52,8 @@ export const Work = z.discriminatedUnion("kind", [
   z
     .object({
       kind: z.literal("spec-table"),
+      /** The run this work belongs to. Results land under it, so two runs cannot mix. */
+      run: z.string().min(1),
       manufacturer: z.string().min(1),
       date: z.string().min(1),
       /** A page the maker publishes its own specification table on. */
@@ -60,8 +68,8 @@ export type Work = z.infer<typeof Work>;
  * look for and a missing part is visible as a gap rather than as a shorter answer.
  */
 export const partKey = {
-  classify: (classifier: string, seller: string, date: string, part: number) =>
-    `guesses/${seller}/${date}/${classifier}/page-${String(part).padStart(4, "0")}.jsonl`,
+  classify: (classifier: string, seller: string, run: string, part: number) =>
+    `guesses/${seller}/runs/${run}/${classifier}/page-${String(part).padStart(4, "0")}.jsonl`,
   /**
    * A classification keyed by what was classified, not by when. The same listing crawled every
    * week is the same question, and asking a model again each time is the whole cost of a re-run
@@ -69,9 +77,9 @@ export const partKey = {
    */
   classified: (classifier: string, input: string) => `guesses/by-input/${classifier}/${input}.json`,
   markdown: (sha256: string, converter: string) => `archive/${sha256}.${converter}.md`,
-  converted: (manufacturer: string, date: string, sha256: string) => `documents/${manufacturer}/${date}/converted/${sha256}.json`,
-  reading: (manufacturer: string, date: string, sha256: string, extractor: string) =>
-    `documents/${manufacturer}/${date}/readings/${extractor}/${sha256}.json`,
+  converted: (manufacturer: string, run: string, sha256: string) => `documents/${manufacturer}/runs/${run}/converted/${sha256}.json`,
+  reading: (manufacturer: string, run: string, sha256: string, extractor: string) =>
+    `documents/${manufacturer}/runs/${run}/readings/${extractor}/${sha256}.json`,
 };
 
 /**

@@ -1,6 +1,7 @@
 import { classifierKey } from "./classify.ts";
 import { EXTRACTOR_ID } from "./reading.ts";
 import { TABLE_READER } from "./spec-table.ts";
+import { currentRuns, runPrefix } from "./runs.ts";
 
 /**
  * What the spider knows and what it is waiting on, derived from the archive rather than kept
@@ -51,26 +52,14 @@ const json = async <T>(bucket: R2Bucket, key: string): Promise<T | undefined> =>
   return object ? ((await object.json()) as T) : undefined;
 };
 
-/** The most recent date a prefix holds, since every stage is keyed by the day it ran. */
-function latest(keys: string[], depth: number): Map<string, string> {
-  const out = new Map<string, string>();
-  for (const key of keys) {
-    const parts = key.split("/");
-    const entity = parts[1];
-    const date = parts[depth];
-    if (!entity || !date) continue;
-    const seen = out.get(entity);
-    if (!seen || date > seen) out.set(entity, date);
-  }
-  return out;
-}
-
 export async function sellerStates(bucket: R2Bucket): Promise<SellerState[]> {
-  const keys = await listAll(bucket, "sightings/");
   const out: SellerState[] = [];
-  for (const [seller, date] of [...latest(keys, 2)].sort()) {
-    const manifest = await json<{ sightings: number }>(bucket, `sightings/${seller}/${date}/manifest.json`);
-    const guessPrefix = `guesses/${seller}/${date}/${classifierKey()}`;
+  // Whatever each seller's pointer says is current. Guessing from the latest date was the same
+  // mistake in a reader that the crawls have already stopped making in their writes.
+  for (const { entity: seller, pointer } of await currentRuns(bucket, "sightings")) {
+    const date = pointer.date;
+    const manifest = await json<{ sightings: number }>(bucket, `${runPrefix.sightings(seller, pointer.run)}/manifest.json`);
+    const guessPrefix = runPrefix.guesses(seller, pointer.run, classifierKey());
     const guesses = await json<{ parts: number }>(bucket, `${guessPrefix}/manifest.json`);
     const written = guesses ? (await listAll(bucket, `${guessPrefix}/page-`)).length : 0;
     out.push({
@@ -84,10 +73,10 @@ export async function sellerStates(bucket: R2Bucket): Promise<SellerState[]> {
 }
 
 export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
-  const keys = await listAll(bucket, "documents/");
   const out: MakerState[] = [];
-  for (const [maker, date] of [...latest(keys, 2)].sort()) {
-    const base = `documents/${maker}/${date}`;
+  for (const { entity: maker, pointer } of await currentRuns(bucket, "documents")) {
+    const date = pointer.date;
+    const base = runPrefix.documents(maker, pointer.run);
     const plan = await json<{ documents: unknown[] }>(bucket, `${base}/plan.json`);
     const specPages = await json<{ candidates: number }>(bucket, `${base}/spec-pages.json`);
     const manifest = await json<{ approvedBy: string; fetched: number }>(bucket, `${base}/manifest.json`);

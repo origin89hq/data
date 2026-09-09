@@ -149,3 +149,28 @@ a maker's catalogue unasked — the same reason the download waits for a person.
   still says the model exists and what it cost.
 - **Regional variants.** The same name at 120 V and 230 V. The sighting keeps
   the seller's country and the document match keeps the sheet's region.
+
+## A run is a thing, not a date
+
+Runs were addressed by the day they happened, and that was wrong in four separate
+places before it was fixed properly.
+
+- Two crawls of one maker on one day collided, so I picked a different date for
+  the second — which put a day that had not happened into 148 records.
+- The workflow instance could not be created twice under the same name, so a
+  re-run was simply refused.
+- Two runs' readings landed in one directory, where a reader merged the output of
+  two different prompts as though it were one answer.
+- And "fixing" the dates by moving one run onto another's prefix merged two
+  crawls of EPEver into a single directory holding both.
+
+Each of those is the same mistake: an identity doing double duty as a name.
+
+So a run has an id of its own — the date it started, and a suffix that makes two
+runs today two runs — and writes only under it. Nothing is cleared, nothing is
+overwritten, and a run in progress cannot damage the last good one. A pointer per
+seller and per maker says which run is current, and moving that pointer is what
+makes a new run take effect.
+
+Readers follow the pointer. None of them may guess from a date, because that is
+the mistake in a different chair.

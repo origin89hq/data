@@ -1,10 +1,13 @@
 import { WorkflowEntrypoint, type WorkflowEvent, type WorkflowStep } from "cloudflare:workers";
 import { Seller, Sighting } from "../../schema/sighting.ts";
 import { sellers } from "./sellers.ts";
-import { clearPrefix, fetchFeedPage, hasFeed, todayUtc } from "./feeds.ts";
+import { fetchFeedPage, hasFeed, todayUtc } from "./feeds.ts";
+import { pointerKey, runPrefix, writePointer } from "./runs.ts";
 
 export interface SellerCrawlParams {
   sellerId: string;
+  /** The run this attempt writes under. */
+  run: string;
   /** The crawl date, fixed at creation so every step agrees on it after a hibernation. */
   checkedAt: string;
 }
@@ -16,14 +19,15 @@ export interface SellerCrawlParams {
  */
 export class SellerCrawl extends WorkflowEntrypoint<Env, SellerCrawlParams> {
   async run(event: WorkflowEvent<SellerCrawlParams>, step: WorkflowStep) {
-    const { sellerId, checkedAt } = event.payload;
+    const { sellerId, run, checkedAt } = event.payload;
     const seller = Seller.parse(sellers.find((s) => s.id === sellerId));
     if (!hasFeed(seller)) throw new Error(`${seller.id}: ${seller.platform} needs the page extractor, which is not written yet`);
     // The path carries the run label; every sighting carries the day it was really seen.
     const seenOn = todayUtc();
-    const prefix = `sightings/${seller.id}/${checkedAt}`;
-    // This run replaces any earlier run of the same seller on the same day.
-    await step.do("clear this run's prefix", () => clearPrefix(this.env.ARCHIVE, `${prefix}/`));
+    const prefix = runPrefix.sightings(seller.id, run);
+    await step.do("become this seller's current run", () =>
+      writePointer(this.env.ARCHIVE, pointerKey.sightings(seller.id), { run, date: checkedAt, instance: run, startedAt: new Date().toISOString() }),
+    );
     const pages: { page: number; count: number }[] = [];
 
     for (let page = 1; ; page += 1) {

@@ -40,7 +40,7 @@ export async function handle(message: Work, env: Env): Promise<void> {
   switch (message.kind) {
     case "classify": {
       const guesses = await classifyInHalves(env.AI, message.sightings);
-      await env.ARCHIVE.put(partKey.classify(classifierKey(), message.seller, message.date, message.part), `${guesses.map((g) => JSON.stringify(g)).join("\n")}\n`, {
+      await env.ARCHIVE.put(partKey.classify(classifierKey(), message.seller, message.run, message.part), `${guesses.map((g) => JSON.stringify(g)).join("\n")}\n`, {
         httpMetadata: { contentType: "application/x-ndjson" },
       });
       // The same answer again, keyed by the question rather than by the run, so next week's crawl
@@ -69,18 +69,18 @@ export async function handle(message: Work, env: Env): Promise<void> {
         if (!one || one.format === "error" || typeof one.data !== "string") {
           // A scanned manual with no text layer is an answer about the maker's catalogue, not a
           // failure to retry. It is recorded and the message is done.
-          await env.ARCHIVE.put(partKey.converted(message.manufacturer, message.date, message.sha256), JSON.stringify({ ...message, error: one?.error ?? "the converter returned no text" }), { httpMetadata: { contentType: "application/json" } });
+          await env.ARCHIVE.put(partKey.converted(message.manufacturer, message.run, message.sha256), JSON.stringify({ ...message, error: one?.error ?? "the converter returned no text" }), { httpMetadata: { contentType: "application/json" } });
           return;
         }
         await env.ARCHIVE.put(markdown, one.data, { httpMetadata: { contentType: "text/markdown" } });
       }
       const size = already?.size ?? (await env.ARCHIVE.head(markdown))?.size;
-      await env.ARCHIVE.put(partKey.converted(message.manufacturer, message.date, message.sha256), JSON.stringify({ sha256: message.sha256, url: message.url, key: markdown, characters: size ?? 0 }), {
+      await env.ARCHIVE.put(partKey.converted(message.manufacturer, message.run, message.sha256), JSON.stringify({ sha256: message.sha256, url: message.url, key: markdown, characters: size ?? 0 }), {
         httpMetadata: { contentType: "application/json" },
       });
       // Converting and reading are two units, and the second only exists once the first has
       // produced something. Chaining them here is what makes the pipeline run without a caller.
-      await env.WORK.send({ kind: "extract", manufacturer: message.manufacturer, date: message.date, sha256: message.sha256, url: message.url, key: markdown });
+      await env.WORK.send({ kind: "extract", manufacturer: message.manufacturer, date: message.date, run: message.run, sha256: message.sha256, url: message.url, key: markdown });
       return;
     }
     case "spec-table": {
@@ -93,13 +93,13 @@ export async function handle(message: Work, env: Env): Promise<void> {
       // it was read from even after the maker rewrites the page.
       await env.ARCHIVE.put(`archive/${sha256}`, html, { httpMetadata: { contentType: "text/html" } });
       const products = parseSpecTables(html);
-      await env.ARCHIVE.put(partKey.reading(message.manufacturer, message.date, sha256, TABLE_READER.replace(/[^\w.-]+/g, "_")), `${JSON.stringify({ sha256, url: message.url, products, windows: 0, failed: 0, extractedBy: TABLE_READER })}\n`, {
+      await env.ARCHIVE.put(partKey.reading(message.manufacturer, message.run, sha256, TABLE_READER.replace(/[^\w.-]+/g, "_")), `${JSON.stringify({ sha256, url: message.url, products, windows: 0, failed: 0, extractedBy: TABLE_READER })}\n`, {
         httpMetadata: { contentType: "application/json" },
       });
       return;
     }
     case "extract": {
-      const reading = partKey.reading(message.manufacturer, message.date, message.sha256, EXTRACTOR_ID.replace(/[^\w.-]+/g, "_"));
+      const reading = partKey.reading(message.manufacturer, message.run, message.sha256, EXTRACTOR_ID.replace(/[^\w.-]+/g, "_"));
       // Reading a document is the expensive step, and the document is addressed by its content,
       // so a reading that exists is a reading of exactly these bytes by exactly this extractor.
       if (await env.ARCHIVE.head(reading)) return;

@@ -3,7 +3,7 @@ import { specsFrom, type ReportedProduct } from "../../src/specs.ts";
 import { looksLikeModelName, modelId, normaliseModelName } from "../../src/models.ts";
 import { Model } from "../../schema/model.ts";
 import { Source } from "../../schema/source.ts";
-import { jsonValues, object, under } from "./archive.ts";
+import { currentRun, jsonValues, object, under } from "./archive.ts";
 import { EXTRACTOR_ID } from "../../scraper/src/reading.ts";
 
 /**
@@ -33,17 +33,25 @@ if (!manufacturer || !date) {
 // the maker's own table both land here, and each row records which one it was.
 // A maker may have specification pages and no approved documents at all, so a missing conversion
 // index is not a reason to stop; it only means nothing was downloaded.
-const index = await object(`documents/${manufacturer}/${date}/converting.json`, remote);
+// Whichever run the pointer says is current, never whichever shares a date. Two runs of one
+// maker used to land in one directory and their readings were merged as though one answer.
+const current = await currentRun("documents", manufacturer, remote);
+if (!current) {
+  console.error(`no current run for ${manufacturer}`);
+  process.exit(1);
+}
+const base = `documents/${manufacturer}/runs/${current.run}`;
+const index = await object(`${base}/converting.json`, remote);
 const converting = index ? (JSON.parse(index) as { documents: { sha256: string }[] }) : undefined;
 const expected = converting?.documents ?? [];
 // When the bytes were actually fetched, which the crawl records. The date in the path is a name
 // for the run and a person picks those loosely; a source that claims a day which has not happened
 // is worse than one that claims none.
-const manifest = await object(`documents/${manufacturer}/${date}/manifest.json`, remote);
+const manifest = await object(`${base}/manifest.json`, remote);
 const retrievedAt = manifest ? ((JSON.parse(manifest) as { retrievedAt?: string }).retrievedAt ?? undefined) : undefined;
 const readings: { readings: { sha256: string; url: string; extractedBy?: string; products: (ReportedProduct & { specs: { page?: number }[] })[] }[] } = { readings: [] };
 // Every reading of this run in one request, rather than one process per document.
-for (const value of jsonValues<(typeof readings.readings)[number]>(await under(`documents/${manufacturer}/${date}/readings/`, remote))) {
+for (const value of jsonValues<(typeof readings.readings)[number]>(await under(`${base}/readings/`, remote))) {
   readings.readings.push(value);
 }
 const pending = expected.length - readings.readings.length;

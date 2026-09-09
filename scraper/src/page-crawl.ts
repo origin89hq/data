@@ -1,12 +1,15 @@
 import { WorkflowEntrypoint, type WorkflowEvent, type WorkflowStep } from "cloudflare:workers";
 import { Seller, Sighting } from "../../schema/sighting.ts";
 import { sellers } from "./sellers.ts";
-import { clearPrefix, hasFeed, todayUtc } from "./feeds.ts";
+import { hasFeed, todayUtc } from "./feeds.ts";
+import { pointerKey, runPrefix, writePointer } from "./runs.ts";
 import { sightingFromPage } from "./page-product.ts";
 import { fetchText, isIndex, locations, pickProducts, pickSitemaps, sample, sitemapUrl } from "./sitemap.ts";
 
 export interface PageCrawlParams {
   sellerId: string;
+  /** The run this attempt writes under. */
+  run: string;
   checkedAt: string;
   /** Try this many urls, spread evenly across the shop, instead of all of them. For checking a seller before letting the whole shop through. */
   limit?: number;
@@ -22,14 +25,15 @@ export const PAGE_BATCH = 25;
  */
 export class PageCrawl extends WorkflowEntrypoint<Env, PageCrawlParams> {
   async run(event: WorkflowEvent<PageCrawlParams>, step: WorkflowStep) {
-    const { sellerId, checkedAt, limit } = event.payload;
+    const { sellerId, run, checkedAt, limit } = event.payload;
     const seller = Seller.parse(sellers.find((s) => s.id === sellerId));
     if (hasFeed(seller)) throw new Error(`${seller.id} publishes a feed; use the feed crawl, which is exact`);
     // The path carries the run label; every sighting carries the day it was really seen.
     const seenOn = todayUtc();
-    const prefix = `sightings/${seller.id}/${checkedAt}`;
-    // This run replaces any earlier run of the same seller on the same day.
-    await step.do("clear this run's prefix", () => clearPrefix(this.env.ARCHIVE, `${prefix}/`));
+    const prefix = runPrefix.sightings(seller.id, run);
+    await step.do("become this seller's current run", () =>
+      writePointer(this.env.ARCHIVE, pointerKey.sightings(seller.id), { run, date: checkedAt, instance: run, startedAt: new Date().toISOString() }),
+    );
 
     const found = await step.do("discover product urls", { retries: { limit: 3, delay: "10 seconds", backoff: "exponential" }, timeout: "2 minutes" }, async () => {
       const root = await fetchText(sitemapUrl(seller));

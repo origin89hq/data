@@ -1,6 +1,6 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { loadRecords } from "../../src/records.ts";
-import { object } from "../gate/archive.ts";
+import { currentRun, object } from "../gate/archive.ts";
 import { hostAllowed } from "../../scraper/src/documents.ts";
 
 /**
@@ -23,7 +23,8 @@ if (!manufacturer || !date) {
   process.exit(2);
 }
 
-const body = await object(`documents/${manufacturer}/${date}/spec-pages.json`, remote);
+const current = await currentRun("documents", manufacturer, remote);
+const body = current ? await object(`documents/${manufacturer}/runs/${current.run}/spec-pages.json`, remote) : undefined;
 if (!body) {
   console.error(`no specification pages found for ${manufacturer} at ${date}; run discovery first`);
   process.exit(1);
