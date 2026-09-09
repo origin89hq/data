@@ -2,9 +2,10 @@
   "id": "sol-ark-sol-ark-15k-2p-n--m-x-corriente-de-paso-de-la-red",
   "model": "sol-ark-sol-ark-15k-2p-n",
   "name": "Máx. Corriente de Paso de la Red",
-  "value": "200A",
+  "value": "200",
+  "unit": "A",
   "source": "doc-dcaad73dc01bbc114e274bc056fcfd85",
   "page": 6,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

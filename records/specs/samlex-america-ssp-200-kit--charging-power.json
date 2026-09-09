@@ -2,9 +2,10 @@
   "id": "samlex-america-ssp-200-kit--charging-power",
   "model": "samlex-america-ssp-200-kit",
   "name": "Charging Power",
-  "value": "9.97A",
+  "value": "9.97",
+  "unit": "A",
   "source": "doc-e18143c6e1a1e16c4d7fc4262fb4d9de",
   "page": 21,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

@@ -3,9 +3,9 @@
   "model": "samlex-america-sam-250-12",
   "name": "Dimensiones",
   "value": "4.5 x 5.9 x 1.8",
-  "unit": "pulgadas",
+  "unit": "in",
   "source": "doc-bbcafddfe3013c1cc841694c80bde644",
   "page": 13,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

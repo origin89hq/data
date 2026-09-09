@@ -1,0 +1,59 @@
+import { test } from "node:test";
+import assert from "node:assert/strict";
+import { canonicalUnit, concerns, isNumeric, splitValueUnit } from "../src/units.ts";
+
+test("a maker's own language reaches the same unit, since VCD and volts are volts", () => {
+  assert.equal(canonicalUnit("V"), "V");
+  assert.equal(canonicalUnit("VCD"), "V");
+  assert.equal(canonicalUnit("VDC"), "V");
+  assert.equal(canonicalUnit("pulgadas"), "in");
+  assert.equal(canonicalUnit("libras"), "lb");
+  assert.equal(canonicalUnit(" Ah "), "Ah");
+  assert.equal(canonicalUnit("AMPS"), "A");
+});
+
+test("a word that ended up in the unit field is not a unit", () => {
+  assert.equal(canonicalUnit("ACCEPTABLE"), undefined);
+  assert.equal(canonicalUnit("STC"), undefined);
+  assert.equal(canonicalUnit("DC"), undefined);
+  assert.equal(canonicalUnit(""), undefined);
+  assert.equal(canonicalUnit(undefined), undefined);
+});
+
+test("a figure is doubted when its unit is a word, or its value is not a number", () => {
+  assert.deepEqual(concerns({ name: "Rated capacity", value: "428", unit: "Ah" }), []);
+  assert.deepEqual(concerns({ name: "Battery type", value: "Flooded lead-acid" }), []);
+  assert.match(concerns({ name: "x", value: "1", unit: "ACCEPTABLE" })[0], /not a unit/);
+  assert.match(concerns({ name: "x", value: "> .95", unit: "A" })[0], /not a number/);
+  assert.match(concerns({ name: "x", value: "1200" })[0], /no unit/);
+});
+
+test("a sentence is not a figure, which is what the first version of this missed", () => {
+  assert.match(concerns({ name: "Charge voltage", value: "Default setting: 14.4V / 28.8V (adjustable)" })[0], /sentence/);
+  assert.match(concerns({ name: "Interrupting capacity", value: "10,000 amperes at 160VDC and 65,000 amperes at 65VDC" })[0], /sentence/);
+  assert.deepEqual(concerns({ name: "Battery type", value: "Flooded lead-acid" }), []);
+  assert.deepEqual(concerns({ name: "Automatic load disconnect", value: "Yes" }), []);
+});
+
+test("a count is legitimately a bare number, since cells are not measured in anything", () => {
+  assert.deepEqual(concerns({ name: "Cells in series", value: "60" }), []);
+  assert.deepEqual(concerns({ name: "Number of MPPT trackers", value: "2" }), []);
+  assert.match(concerns({ name: "Continuous power", value: "1200" })[0], /no unit/);
+});
+
+test("a number is a number whichever way the maker writes the decimal", () => {
+  assert.equal(isNumeric("428"), true);
+  assert.equal(isNumeric("-0.5"), true);
+  assert.equal(isNumeric("55,2"), true);
+  assert.equal(isNumeric("12/24"), false);
+  assert.equal(isNumeric("Yes"), false);
+});
+
+test("a unit glued to the value is pulled off, since the number and the unit are both already right", () => {
+  assert.deepEqual(splitValueUnit("57.6V", undefined), { value: "57.6", unit: "V" });
+  assert.deepEqual(splitValueUnit("400A", undefined), { value: "400", unit: "A" });
+  assert.deepEqual(splitValueUnit("428", "Ah"), { value: "428", unit: "Ah" });
+  assert.deepEqual(splitValueUnit("428", "pulgadas"), { value: "428", unit: "in" }, "the stated unit still wins, in whatever language");
+  assert.deepEqual(splitValueUnit("-4 °F a 140 °F", undefined), { value: "-4 °F a 140 °F" }, "a range is not a number with a unit");
+  assert.deepEqual(splitValueUnit("Yes", undefined), { value: "Yes" });
+});

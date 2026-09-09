@@ -2,9 +2,10 @@
   "id": "rolls-battery-s6-eh2p12k03-sv-yd-l-us--peak-continuous-charge-discharge",
   "model": "rolls-battery-s6-eh2p12k03-sv-yd-l-us",
   "name": "Peak Continuous Charge / Discharge",
-  "value": "250 A",
+  "value": "250",
+  "unit": "A",
   "source": "doc-c6fbe20e5b45fc94d82bd60f70a98ede",
   "page": 34,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

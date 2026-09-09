@@ -2,9 +2,10 @@
   "id": "epever-tracer1305lpli--load-over-voltage-protection",
   "model": "epever-tracer1305lpli",
   "name": "Load over-voltage protection",
-  "value": "50V",
+  "value": "50",
+  "unit": "V",
   "source": "doc-4dfc4053f84c56b9f38640f51657ddf1",
   "page": 2,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

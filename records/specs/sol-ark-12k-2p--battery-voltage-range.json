@@ -4,6 +4,6 @@
   "name": "Battery voltage range",
   "value": "43-63V",
   "source": "doc-29916489ea9eec4354576865244c08e1",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

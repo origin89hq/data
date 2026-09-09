@@ -2,9 +2,10 @@
   "id": "rolls-battery-s48-100lfp-stack-lv--abs-to-float",
   "model": "rolls-battery-s48-100lfp-stack-lv",
   "name": "ABS to FLOAT",
-  "value": "0.05C",
+  "value": "0.05",
+  "unit": "°C",
   "source": "doc-3252cdb47d3cd644fed761109a7f12d2",
   "page": 16,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

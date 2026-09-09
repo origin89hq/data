@@ -2,9 +2,10 @@
   "id": "samlex-america-ntx-1000-12--output-power",
   "model": "samlex-america-ntx-1000-12",
   "name": "OUTPUT POWER",
-  "value": "1000W",
+  "value": "1000",
+  "unit": "W",
   "source": "doc-d94bbb925dac3274d56a9b91f9d929e7",
   "page": 8,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

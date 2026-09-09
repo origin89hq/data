@@ -4,6 +4,6 @@
   "name": "DISCHARGING RANGE",
   "value": "-4°F – 122°F (-20°C – 50°C)",
   "source": "doc-284e1e821f738ee4a58ac896d5741d22",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

@@ -2,9 +2,10 @@
   "id": "sol-ark-sol-ark-5k-2p-n--real-power-max-continuous",
   "model": "sol-ark-sol-ark-5k-2p-n",
   "name": "Real Power, max continuous",
-  "value": "5,000W",
+  "value": "5,000",
+  "unit": "W",
   "source": "doc-759ca07ffded8018dcb7cbd8dcc55424",
   "page": 9,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

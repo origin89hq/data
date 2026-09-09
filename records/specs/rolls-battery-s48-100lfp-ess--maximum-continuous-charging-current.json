@@ -2,9 +2,10 @@
   "id": "rolls-battery-s48-100lfp-ess--maximum-continuous-charging-current",
   "model": "rolls-battery-s48-100lfp-ess",
   "name": "Maximum Continuous Charging Current",
-  "value": "0.5C",
+  "value": "0.5",
+  "unit": "°C",
   "source": "doc-fd8c6477275bdfd097c84ad5e66913ce",
   "page": 12,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

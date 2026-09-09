@@ -2,8 +2,9 @@
   "id": "sol-ark-60k-3p-480v--max-output-current",
   "model": "sol-ark-60k-3p-480v",
   "name": "Max. Output Current",
-  "value": "72.3A",
+  "value": "72.3",
+  "unit": "A",
   "source": "doc-fa1fb93d6e74e44d6bcb6a604e403c7e",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

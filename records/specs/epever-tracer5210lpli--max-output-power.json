@@ -2,9 +2,10 @@
   "id": "epever-tracer5210lpli--max-output-power",
   "model": "epever-tracer5210lpli",
   "name": "Max. output power",
-  "value": "200W",
+  "value": "200",
+  "unit": "W",
   "source": "doc-4dfc4053f84c56b9f38640f51657ddf1",
   "page": 2,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

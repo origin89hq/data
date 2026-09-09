@@ -2,8 +2,9 @@
   "id": "eg4-electronics-eg4-12kpv--recommended-maximum-solar-input",
   "model": "eg4-electronics-eg4-12kpv",
   "name": "RECOMMENDED MAXIMUM SOLAR INPUT",
-  "value": "15000W",
+  "value": "15000",
+  "unit": "W",
   "source": "doc-f8d6e94548fc59e6c81c2065997fda66",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

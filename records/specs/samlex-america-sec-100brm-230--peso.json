@@ -3,9 +3,9 @@
   "model": "samlex-america-sec-100brm-230",
   "name": "Peso",
   "value": "25.0",
-  "unit": "lbs",
+  "unit": "lb",
   "source": "doc-ad4d9329c7fead7d5d01c9522efab20c",
   "page": 22,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

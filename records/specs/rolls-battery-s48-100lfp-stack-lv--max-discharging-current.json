@@ -2,9 +2,10 @@
   "id": "rolls-battery-s48-100lfp-stack-lv--max-discharging-current",
   "model": "rolls-battery-s48-100lfp-stack-lv",
   "name": "Max Discharging Current",
-  "value": "100A",
+  "value": "100",
+  "unit": "A",
   "source": "doc-c6fbe20e5b45fc94d82bd60f70a98ede",
   "page": 13,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

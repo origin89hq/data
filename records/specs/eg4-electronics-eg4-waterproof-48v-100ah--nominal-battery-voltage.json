@@ -2,8 +2,9 @@
   "id": "eg4-electronics-eg4-waterproof-48v-100ah--nominal-battery-voltage",
   "model": "eg4-electronics-eg4-waterproof-48v-100ah",
   "name": "Nominal battery voltage",
-  "value": "48V",
+  "value": "48",
+  "unit": "V",
   "source": "doc-f700cd34b904f0ba15dbe54d8f7dbe20",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

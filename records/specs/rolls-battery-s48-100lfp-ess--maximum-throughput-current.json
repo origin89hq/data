@@ -2,9 +2,10 @@
   "id": "rolls-battery-s48-100lfp-ess--maximum-throughput-current",
   "model": "rolls-battery-s48-100lfp-ess",
   "name": "Maximum throughput current",
-  "value": "100A",
+  "value": "100",
+  "unit": "A",
   "source": "doc-fd8c6477275bdfd097c84ad5e66913ce",
   "page": 8,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

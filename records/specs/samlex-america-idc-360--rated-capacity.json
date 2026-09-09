@@ -2,8 +2,9 @@
   "id": "samlex-america-idc-360--rated-capacity",
   "model": "samlex-america-idc-360",
   "name": "Rated capacity",
-  "value": "360W",
+  "value": "360",
+  "unit": "W",
   "source": "doc-0e3c2b9e542f8aa4fec1aa06ea131fb9",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

@@ -2,10 +2,10 @@
   "id": "rolls-battery-spf-3000t-hvm-g2--continuous-charge-discharge-current",
   "model": "rolls-battery-spf-3000t-hvm-g2",
   "name": "Continuous Charge/Discharge Current",
-  "value": "62.5 A",
-  "unit": "DC",
+  "value": "62.5",
+  "unit": "A",
   "source": "doc-c6fbe20e5b45fc94d82bd60f70a98ede",
   "page": 73,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

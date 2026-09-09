@@ -4,6 +4,6 @@
   "name": "REVERSO DE POLARIDAD DE ENTRADA CC",
   "value": "Los fusibles interno y externo del lado de CD se botarán",
   "source": "doc-96ba76d8d3eae5bd526cdc46b990287c",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

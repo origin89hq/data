@@ -5,6 +5,6 @@
   "value": "60Hz ± 0.05%",
   "unit": "Hz",
   "source": "doc-8ea178f0a52e9d2e41071115652d4fd1",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

@@ -2,9 +2,10 @@
   "id": "victron-energy-lynx-smart-bms-ng--charge-current",
   "model": "victron-energy-lynx-smart-bms-ng",
   "name": "Charge current",
-  "value": "1 A",
+  "value": "1",
+  "unit": "A",
   "source": "doc-6652fcdf0e9f05f446c2f8eda5284b2b",
   "page": 42,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

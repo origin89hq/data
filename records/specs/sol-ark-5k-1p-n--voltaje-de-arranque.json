@@ -2,8 +2,9 @@
   "id": "sol-ark-5k-1p-n--voltaje-de-arranque",
   "model": "sol-ark-5k-1p-n",
   "name": "Voltaje de Arranque",
-  "value": "125V",
+  "value": "125",
+  "unit": "V",
   "source": "doc-d1bb62cfa20ccdc6108f0507c934303b",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

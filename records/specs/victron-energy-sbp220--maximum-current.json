@@ -2,9 +2,10 @@
   "id": "victron-energy-sbp220--maximum-current",
   "model": "victron-energy-sbp220",
   "name": "Maximum current",
-  "value": "300mA",
+  "value": "300",
+  "unit": "mA",
   "source": "doc-bdbaeb1e382ffddceb512c0a901dbf1d",
   "page": 1,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

@@ -2,8 +2,9 @@
   "id": "samlex-america-pst-1000f-12--salida-de-corriente-para-picos",
   "model": "samlex-america-pst-1000f-12",
   "name": "SALIDA DE CORRIENTE PARA PICOS",
-  "value": "2000 Watts",
+  "value": "2000",
+  "unit": "W",
   "source": "doc-96ba76d8d3eae5bd526cdc46b990287c",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

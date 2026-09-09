@@ -2,9 +2,10 @@
   "id": "rolls-battery-s48-800lfp-stack-lv--recommended-absorption-voltage",
   "model": "rolls-battery-s48-800lfp-stack-lv",
   "name": "RECOMMENDED ABSORPTION VOLTAGE",
-  "value": "55.4V",
+  "value": "55.4",
+  "unit": "V",
   "source": "doc-3252cdb47d3cd644fed761109a7f12d2",
   "page": 16,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

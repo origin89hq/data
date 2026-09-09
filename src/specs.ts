@@ -1,6 +1,7 @@
 import type { Model } from "../schema/model.ts";
 import type { Spec } from "../schema/model.ts";
 import { normaliseModelName } from "./models.ts";
+import { splitValueUnit } from "./units.ts";
 
 /** What a model reported reading out of a document, before anything checks it. */
 export interface ReportedSpec {
@@ -90,7 +91,12 @@ export function specsFrom({ reports, models, manufacturer, source, extractedBy, 
       const raw = s.name?.trim();
       const value = s.value?.trim();
       if (!raw || !value) continue;
-      const { name, unit } = splitUnit(raw, s.unit);
+      const split = splitUnit(raw, s.unit);
+      const name = split.name;
+      // A maker's own language reaches the same unit; a word that ended up in the unit field is
+      // dropped rather than published as another quantity; and a unit glued to the value —
+      // "57.6V" — is pulled off, since the number and the unit are both right already.
+      const { value: cleanValue, unit } = splitValueUnit(value, split.unit);
       const conditions = s.conditions?.trim() || undefined;
       const id = specId(model.id, name, conditions);
       // Two rows of one document that reduce to the same figure under the same conditions are
@@ -100,7 +106,7 @@ export function specsFrom({ reports, models, manufacturer, source, extractedBy, 
         id,
         model: model.id,
         name,
-        value,
+        value: cleanValue,
         ...(unit ? { unit } : {}),
         ...(conditions ? { conditions } : {}),
         source,

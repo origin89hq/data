@@ -2,9 +2,10 @@
   "id": "magnum-energy-mms-series--continuous-charger-output",
   "model": "magnum-energy-mms-series",
   "name": "Continuous Charger Output",
-  "value": "50 ADC",
+  "value": "50",
+  "unit": "A",
   "source": "doc-7a6d6878a05f1e83338e0b1383fdfba2",
   "page": 4,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

@@ -4,6 +4,6 @@
   "name": "OUTPUT VOLTAGE STABILLITY",
   "value": "+ 0% / -5%",
   "source": "doc-5baa8f61e1a2f967b48522fd5d1a313e",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

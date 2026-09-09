@@ -3,9 +3,9 @@
   "model": "samlex-america-ssw-350-12a",
   "name": "Salida",
   "value": "115",
-  "unit": "VCA",
+  "unit": "V",
   "source": "doc-bbcafddfe3013c1cc841694c80bde644",
   "page": 13,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

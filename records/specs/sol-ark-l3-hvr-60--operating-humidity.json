@@ -4,6 +4,6 @@
   "name": "Operating Humidity",
   "value": "-5%—85% RH",
   "source": "doc-eb5e1344b9147f1306df49847b92af1a",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

@@ -2,9 +2,10 @@
   "id": "sol-ark-sol-ark-8k--potencia-real-m-x-continua",
   "model": "sol-ark-sol-ark-8k",
   "name": "Potencia Real, máx. continua",
-  "value": "8,000W",
+  "value": "8,000",
+  "unit": "W",
   "source": "doc-d1bb62cfa20ccdc6108f0507c934303b",
   "page": 9,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

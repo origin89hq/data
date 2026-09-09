@@ -4,6 +4,6 @@
   "name": "FREQUENCY",
   "value": "50/60Hz', 'unit': 'Hz",
   "source": "doc-f415a505233ab81e4819b77f8b313c34",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

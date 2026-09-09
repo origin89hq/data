@@ -2,8 +2,9 @@
   "id": "samlex-america-pst-60s-48e--dc-input-current-at-no-load",
   "model": "samlex-america-pst-60s-48e",
   "name": "DC INPUT CURRENT AT NO LOAD",
-  "value": "0.3A",
+  "value": "0.3",
+  "unit": "A",
   "source": "doc-f5c6b9fb635b1d492f01610d87a48552",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

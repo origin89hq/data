@@ -2,8 +2,9 @@
   "id": "eg4-electronics-eg4-ll-12v-400ah--cell-balance",
   "model": "eg4-electronics-eg4-ll-12v-400ah",
   "name": "CELL BALANCE",
-  "value": "100mA",
+  "value": "100",
+  "unit": "mA",
   "source": "doc-b748b4439ce996b2272bda864d3f91dd",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

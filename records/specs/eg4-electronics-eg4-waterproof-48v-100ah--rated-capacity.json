@@ -2,8 +2,9 @@
   "id": "eg4-electronics-eg4-waterproof-48v-100ah--rated-capacity",
   "model": "eg4-electronics-eg4-waterproof-48v-100ah",
   "name": "Rated capacity",
-  "value": "100Ah",
+  "value": "100",
+  "unit": "Ah",
   "source": "doc-f700cd34b904f0ba15dbe54d8f7dbe20",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

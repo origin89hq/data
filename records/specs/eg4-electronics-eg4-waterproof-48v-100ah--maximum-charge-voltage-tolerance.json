@@ -4,6 +4,6 @@
   "name": "Maximum charge voltage tolerance",
   "value": "+/- 1%",
   "source": "doc-f700cd34b904f0ba15dbe54d8f7dbe20",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

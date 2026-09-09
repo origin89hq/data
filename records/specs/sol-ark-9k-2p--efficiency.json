@@ -2,8 +2,9 @@
   "id": "sol-ark-9k-2p--efficiency",
   "model": "sol-ark-9k-2p",
   "name": "Efficiency",
-  "value": "96.5%",
+  "value": "96.5",
+  "unit": "%",
   "source": "doc-cd862843e60630facc2d6a182ca63898",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

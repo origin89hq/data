@@ -4,6 +4,6 @@
   "name": "COMPATIBLE BATTERY TYPES",
   "value": "Lead-Acid/Lithium",
   "source": "doc-f8d6e94548fc59e6c81c2065997fda66",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

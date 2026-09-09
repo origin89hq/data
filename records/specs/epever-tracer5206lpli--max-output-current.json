@@ -2,9 +2,10 @@
   "id": "epever-tracer5206lpli--max-output-current",
   "model": "epever-tracer5206lpli",
   "name": "Max. output current",
-  "value": "6.6A",
+  "value": "6.6",
+  "unit": "A",
   "source": "doc-4dfc4053f84c56b9f38640f51657ddf1",
   "page": 2,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

@@ -2,9 +2,10 @@
   "id": "rolls-battery-s48-200lfp-stack-lv--c-rate",
   "model": "rolls-battery-s48-200lfp-stack-lv",
   "name": "C-Rate",
-  "value": "0.80C",
+  "value": "0.80",
+  "unit": "°C",
   "source": "doc-c6fbe20e5b45fc94d82bd60f70a98ede",
   "page": 13,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

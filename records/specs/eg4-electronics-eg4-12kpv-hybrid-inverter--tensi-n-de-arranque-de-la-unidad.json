@@ -2,8 +2,9 @@
   "id": "eg4-electronics-eg4-12kpv-hybrid-inverter--tensi-n-de-arranque-de-la-unidad",
   "model": "eg4-electronics-eg4-12kpv-hybrid-inverter",
   "name": "TENSIÓN DE ARRANQUE DE LA UNIDAD",
-  "value": "100 VCD",
+  "value": "100",
+  "unit": "V",
   "source": "doc-aa8826c86a6e13d8c5caea5e58d70661",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

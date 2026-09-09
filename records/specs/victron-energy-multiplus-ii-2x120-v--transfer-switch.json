@@ -2,8 +2,9 @@
   "id": "victron-energy-multiplus-ii-2x120-v--transfer-switch",
   "model": "victron-energy-multiplus-ii-2x120-v",
   "name": "Transfer switch",
-  "value": "50 A",
+  "value": "50",
+  "unit": "A",
   "source": "doc-5c10c68267673cefb4def711177e269c",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

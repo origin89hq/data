@@ -2,9 +2,10 @@
   "id": "rolls-battery-s48-300lfp-stack-lv--max-charging-current",
   "model": "rolls-battery-s48-300lfp-stack-lv",
   "name": "Max Charging Current",
-  "value": "240A",
+  "value": "240",
+  "unit": "A",
   "source": "doc-c6fbe20e5b45fc94d82bd60f70a98ede",
   "page": 13,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

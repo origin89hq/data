@@ -2,9 +2,10 @@
   "id": "rolls-battery-s48-600lfp--recommended-charge-and-discharge-current",
   "model": "rolls-battery-s48-600lfp",
   "name": "Recommended Charge and Discharge Current",
-  "value": "300A",
+  "value": "300",
+  "unit": "A",
   "source": "doc-3252cdb47d3cd644fed761109a7f12d2",
   "page": 19,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

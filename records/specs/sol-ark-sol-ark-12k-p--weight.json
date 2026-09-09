@@ -2,9 +2,10 @@
   "id": "sol-ark-sol-ark-12k-p--weight",
   "model": "sol-ark-sol-ark-12k-p",
   "name": "Weight",
-  "value": "74 lbs",
+  "value": "74",
+  "unit": "lb",
   "source": "doc-b9cf825ae0cfef0a2ad1544f230e4d72",
   "page": 19,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

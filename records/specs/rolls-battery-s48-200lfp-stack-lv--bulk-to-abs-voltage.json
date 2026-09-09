@@ -2,9 +2,10 @@
   "id": "rolls-battery-s48-200lfp-stack-lv--bulk-to-abs-voltage",
   "model": "rolls-battery-s48-200lfp-stack-lv",
   "name": "BULK to ABS VOLTAGE",
-  "value": "57.6V",
+  "value": "57.6",
+  "unit": "V",
   "source": "doc-3252cdb47d3cd644fed761109a7f12d2",
   "page": 16,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

@@ -4,6 +4,6 @@
   "name": "DIMENSION (H×W×D)",
   "value": "6.1 in×15.5 cm× 19 in×48.2 cm× 20.2 in×51.3 cm",
   "source": "doc-b748b4439ce996b2272bda864d3f91dd",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

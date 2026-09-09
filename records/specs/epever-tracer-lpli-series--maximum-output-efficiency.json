@@ -2,8 +2,9 @@
   "id": "epever-tracer-lpli-series--maximum-output-efficiency",
   "model": "epever-tracer-lpli-series",
   "name": "Maximum output efficiency",
-  "value": "96%",
+  "value": "96",
+  "unit": "%",
   "source": "doc-4dfc4053f84c56b9f38640f51657ddf1",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

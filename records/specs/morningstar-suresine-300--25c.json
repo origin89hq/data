@@ -4,6 +4,6 @@
   "name": "持續功率@25C",
   "value": "300",
   "source": "doc-378c9b680635e1fbbf1ecbd8049c7243",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

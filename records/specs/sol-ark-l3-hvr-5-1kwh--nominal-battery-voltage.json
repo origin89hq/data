@@ -2,8 +2,9 @@
   "id": "sol-ark-l3-hvr-5-1kwh--nominal-battery-voltage",
   "model": "sol-ark-l3-hvr-5-1kwh",
   "name": "Nominal battery voltage",
-  "value": "51,2V",
+  "value": "51,2",
+  "unit": "V",
   "source": "doc-5bd36ab6f3b3de877d39c5e223c5f826",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

@@ -2,8 +2,9 @@
   "id": "sol-ark-l3-hvr-5-1kwh--watt-hour-rate-of-the-battery",
   "model": "sol-ark-l3-hvr-5-1kwh",
   "name": "Watt-hour rate of the battery",
-  "value": "5120Wh",
+  "value": "5120",
+  "unit": "Wh",
   "source": "doc-5bd36ab6f3b3de877d39c5e223c5f826",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

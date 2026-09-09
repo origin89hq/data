@@ -4,6 +4,6 @@
   "name": "NOMINAL AC VOLTAGE",
   "value": "120/240VAC; 120/208VAC (L1/L2/N required)', 'FREQUENCY', '50/60Hz",
   "source": "doc-f8d6e94548fc59e6c81c2065997fda66",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

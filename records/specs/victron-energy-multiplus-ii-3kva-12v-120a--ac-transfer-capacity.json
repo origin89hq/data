@@ -2,9 +2,10 @@
   "id": "victron-energy-multiplus-ii-3kva-12v-120a--ac-transfer-capacity",
   "model": "victron-energy-multiplus-ii-3kva-12v-120a",
   "name": "AC transfer capacity",
-  "value": "32A",
+  "value": "32",
+  "unit": "A",
   "source": "doc-4188e44e47d90fdefc186f48dc1a513d",
   "page": 1,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

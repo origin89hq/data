@@ -2,9 +2,10 @@
   "id": "sol-ark-12k-2p-ll--ac-coupled-power",
   "model": "sol-ark-12k-2p-ll",
   "name": "AC coupled power",
-  "value": "8kW",
+  "value": "8",
+  "unit": "kW",
   "source": "doc-4d1ddeeb6b9dbf9d0111574b2c3d37de",
   "page": 19,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

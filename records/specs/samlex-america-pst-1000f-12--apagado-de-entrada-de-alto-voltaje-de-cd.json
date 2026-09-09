@@ -2,8 +2,9 @@
   "id": "samlex-america-pst-1000f-12--apagado-de-entrada-de-alto-voltaje-de-cd",
   "model": "samlex-america-pst-1000f-12",
   "name": "APAGADO DE ENTRADA DE ALTO VOLTAJE DE CD",
-  "value": "16.5V",
+  "value": "16.5",
+  "unit": "V",
   "source": "doc-96ba76d8d3eae5bd526cdc46b990287c",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

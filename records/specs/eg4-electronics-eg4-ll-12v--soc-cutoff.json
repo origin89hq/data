@@ -2,8 +2,9 @@
   "id": "eg4-electronics-eg4-ll-12v--soc-cutoff",
   "model": "eg4-electronics-eg4-ll-12v",
   "name": "SOC CUTOFF",
-  "value": "20%",
+  "value": "20",
+  "unit": "%",
   "source": "doc-284e1e821f738ee4a58ac896d5741d22",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

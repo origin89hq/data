@@ -1,5 +1,6 @@
 import { loadRecords, type Records } from "./records.ts";
 import { locatorOf } from "../tools/catalogue/sources.ts";
+import { concerns as figureConcerns } from "./units.ts";
 
 export interface Report {
   /** A defect. The build refuses to run while any exist. */
@@ -110,7 +111,7 @@ export function validate(records: Records): Report {
     if (!s.extractedBy && !s.reviewedBy) errors.push(`spec ${s.id}: neither extracted nor reviewed, so it came from nowhere`);
     if (s.reviewedBy && !s.checkedAt) errors.push(`spec ${s.id}: confirmed with no date`);
     if (!s.reviewedBy) note("figure a model read but nobody has confirmed");
-    if (!s.unit && !/type|chemistry|connector|protocol|material|mode|standard/i.test(s.name)) note("figure with no unit");
+    for (const concern of figureConcerns(s)) note(`figure doubted: ${concern}`);
   }
 
   const families = new Set(records.families.map((f) => f.id));

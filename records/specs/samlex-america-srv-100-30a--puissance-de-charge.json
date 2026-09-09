@@ -2,9 +2,10 @@
   "id": "samlex-america-srv-100-30a--puissance-de-charge",
   "model": "samlex-america-srv-100-30a",
   "name": "Puissance de charge",
-  "value": "100 W",
+  "value": "100",
+  "unit": "W",
   "source": "doc-1113ce82e230f6f3cf77f45e6285e329",
   "page": 21,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

@@ -2,9 +2,10 @@
   "id": "sol-ark-l3-hvr-60kwh-30k-l3-hvr-60kwh-30k-y--max-continuous-ac-passthrough-current",
   "model": "sol-ark-l3-hvr-60kwh-30k-l3-hvr-60kwh-30k-y",
   "name": "Max. Continuous AC Passthrough current",
-  "value": "200A",
+  "value": "200",
+  "unit": "A",
   "source": "doc-a4218aea875582eac245d35890fa7a19",
   "page": 3,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

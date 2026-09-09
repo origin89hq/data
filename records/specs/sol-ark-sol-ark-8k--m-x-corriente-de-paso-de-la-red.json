@@ -2,9 +2,10 @@
   "id": "sol-ark-sol-ark-8k--m-x-corriente-de-paso-de-la-red",
   "model": "sol-ark-sol-ark-8k",
   "name": "Máx. Corriente de Paso de la Red",
-  "value": "50A",
+  "value": "50",
+  "unit": "A",
   "source": "doc-d1bb62cfa20ccdc6108f0507c934303b",
   "page": 9,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

@@ -4,6 +4,6 @@
   "name": "RUIDO",
   "value": "<50 dB @ 3 ft",
   "source": "doc-aa8826c86a6e13d8c5caea5e58d70661",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

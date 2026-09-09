@@ -2,9 +2,10 @@
   "id": "sol-ark-l3-hvr-60--rated-energy",
   "model": "sol-ark-l3-hvr-60",
   "name": "Rated Energy",
-  "value": "61.44kWh",
+  "value": "61.44",
+  "unit": "kWh",
   "source": "doc-a4218aea875582eac245d35890fa7a19",
   "page": 3,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

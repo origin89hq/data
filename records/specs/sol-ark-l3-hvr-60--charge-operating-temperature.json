@@ -4,6 +4,6 @@
   "name": "Charge operating temperature",
   "value": "0 to 55 °C”,",
   "source": "doc-0865dbd9679501c82e0f7b2f50a2b6d5",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

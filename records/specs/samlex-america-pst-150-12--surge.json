@@ -2,9 +2,10 @@
   "id": "samlex-america-pst-150-12--surge",
   "model": "samlex-america-pst-150-12",
   "name": "SURGE",
-  "value": "300W",
+  "value": "300",
+  "unit": "W",
   "source": "doc-d94bbb925dac3274d56a9b91f9d929e7",
   "page": 8,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }
