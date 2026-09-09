@@ -92,12 +92,24 @@ export function splitValue(raw: string): TableSpec | undefined {
   return { name: "", value: match[1].replace(",", "."), unit: match[2] };
 }
 
-/** Whether a header row names products rather than describing the table. */
+/** Words a specification table uses for its attributes. A header full of these is a table on its side. */
+const ATTRIBUTE = /^(warranty|weight|voltage|capacity|current|power|dimensions?|size|colour|color|type|model|description|notes?|features?|price|part|sku|qty|quantity|series|温度|温度範囲)$/i;
+
+/** A measurement is a value, so a header cell that is one belongs in the body: "5 Years", "40°C". */
+const MEASUREMENT_CELL = /^\d+([.,]\d+)?\s*(years?|months?|days?|hours?|°?[cf]\b|kg|lbs?|mm|cm|m|in|v|a|w|ah|wh|kwh)\b/i;
+
+/**
+ * Whether a header row names products rather than describing the table. Model names repeat a
+ * family and differ in a number — "MPPT 75/10", "MPPT 75/15" — while a table written the other way
+ * up puts its attributes across the top, and Rolls' battery pages do exactly that: a header of
+ * "Warranty", "5 Years", "40°C" was read as three products until this looked at what the cells
+ * actually were.
+ */
 function looksLikeModels(header: string[]): boolean {
   const named = header.slice(1).filter(Boolean);
   if (named.length < 2) return false;
-  // Model names repeat a family and differ in a number: "MPPT 75/10", "MPPT 75/15". A header of
-  // prose — "Description", "Notes" — does not.
+  const attributes = named.filter((h) => ATTRIBUTE.test(h) || MEASUREMENT_CELL.test(h)).length;
+  if (attributes > 0) return false;
   const coded = named.filter((h) => /\d/.test(h) && h.length <= 48);
   return coded.length >= Math.max(2, Math.ceil(named.length / 2));
 }

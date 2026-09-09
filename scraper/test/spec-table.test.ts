@@ -70,3 +70,19 @@ test("a page is judged on what its tables actually yield, not on its address", a
   assert.deepEqual(good?.models, ["A-10", "A-20"]);
   assert.equal(judgeSpecPage("https://x.test/about", "<p>About us</p>"), undefined);
 });
+
+test("a table written on its side is not a table of products", () => {
+  // Rolls' battery pages put attributes across the top. Read as models they produced products
+  // called "Warranty" and "5 Years", each carrying the whole battery's figures.
+  const sideways = `<table>
+<tr><th>Model</th><th>FLA SERIES 5000</th><th>Warranty</th><th>5 Years</th><th>40&deg;C (104&deg;F)</th></tr>
+<tr><td>2-YS-62P</td><td>yes</td><td>5</td><td>x</td><td>y</td></tr></table>`;
+  assert.deepEqual(parseSpecTables(sideways), []);
+});
+
+test("a header of real model codes still reads", () => {
+  const upright = `<table>
+<tr><th></th><th>SL-10L-12V</th><th>SL-20L-24V</th></tr>
+<tr><td>Maximum current</td><td>10A</td><td>20A</td></tr></table>`;
+  assert.deepEqual(parseSpecTables(upright).map((p) => p.model), ["SL-10L-12V", "SL-20L-24V"]);
+});

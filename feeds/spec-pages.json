@@ -1,11 +1,49 @@
 {
   "note": "Pages where a manufacturer publishes its own specification table. Parsed, never read by a model: the maker wrote the figure names and attached the units, so there is nothing to infer. Add a page only under a manufacturer whose record already claims its domain.",
   "pages": [
-    { "manufacturer": "victron-energy", "url": "https://www.victronenergy.com/media/pg/Manual_BlueSolar_MPPT_75-10_up_to_100-20/en/technical-specifications.html" },
-    { "manufacturer": "victron-energy", "url": "https://www.victronenergy.com/media/pg/Manual_SmartSolar_MPPT_75-10_up_to_100-20/en/technical-specifications.html" },
-    { "manufacturer": "victron-energy", "url": "https://www.victronenergy.com/media/pg/Manual_SmartSolar_MPPT_150-60_up_to_250-70/en/technical-specifications.html" },
-    { "manufacturer": "victron-energy", "url": "https://www.victronenergy.com/media/pg/Manual_SmartSolar_MPPT_150-70_up_to_250-100_VE.Can/en/technical-specifications.html" },
-    { "manufacturer": "victron-energy", "url": "https://www.victronenergy.com/media/pg/Manual_BlueSolar_MPPT_150-70_up_to_250-100_VE.Can/en/technical-specifications.html" },
-    { "manufacturer": "victron-energy", "url": "https://www.victronenergy.com/media/pg/SmartShunt/en/technical-data.html" }
+    {
+      "manufacturer": "morningstar",
+      "url": "https://www.morningstarcorp.com/products/ground-fault-protection-device/"
+    },
+    {
+      "manufacturer": "morningstar",
+      "url": "https://www.morningstarcorp.com/products/shs/"
+    },
+    {
+      "manufacturer": "morningstar",
+      "url": "https://www.morningstarcorp.com/products/sunlight/"
+    },
+    {
+      "manufacturer": "morningstar",
+      "url": "https://www.morningstarcorp.com/products/tristar/"
+    },
+    {
+      "manufacturer": "samlex-america",
+      "url": "https://samlexamerica.com/evo-series-pure-sine-wave-power-inverter-chargers/"
+    },
+    {
+      "manufacturer": "victron-energy",
+      "url": "https://www.victronenergy.com/media/pg/Manual_BlueSolar_MPPT_150-70_up_to_250-100_VE.Can/en/technical-specifications.html"
+    },
+    {
+      "manufacturer": "victron-energy",
+      "url": "https://www.victronenergy.com/media/pg/Manual_BlueSolar_MPPT_75-10_up_to_100-20/en/technical-specifications.html"
+    },
+    {
+      "manufacturer": "victron-energy",
+      "url": "https://www.victronenergy.com/media/pg/Manual_SmartSolar_MPPT_150-60_up_to_250-70/en/technical-specifications.html"
+    },
+    {
+      "manufacturer": "victron-energy",
+      "url": "https://www.victronenergy.com/media/pg/Manual_SmartSolar_MPPT_150-70_up_to_250-100_VE.Can/en/technical-specifications.html"
+    },
+    {
+      "manufacturer": "victron-energy",
+      "url": "https://www.victronenergy.com/media/pg/Manual_SmartSolar_MPPT_75-10_up_to_100-20/en/technical-specifications.html"
+    },
+    {
+      "manufacturer": "victron-energy",
+      "url": "https://www.victronenergy.com/media/pg/SmartShunt/en/technical-data.html"
+    }
   ]
 }
