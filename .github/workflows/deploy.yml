@@ -3,11 +3,6 @@ name: Deploy the spider
 # money on a model, so it is a decision somebody makes rather than something a merge does.
 on:
   workflow_dispatch:
-    inputs:
-      rotate_control_token:
-        type: boolean
-        description: Replace the Worker's CONTROL_TOKEN with the value in repository secrets
-        default: false
 permissions:
   contents: read
 jobs:
@@ -28,17 +23,20 @@ jobs:
           persist-credentials: false
       - uses: ./.github/actions/setup
       - run: pnpm --filter offgrid-equipment-scraper test
-      - name: Deploy
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        working-directory: scraper
-        run: pnpm exec wrangler deploy
-      # Every control endpoint refuses a request without this, and a Worker with no token set
-      # refuses everything rather than allowing everything.
-      - name: Set the control token
-        if: inputs.rotate_control_token
+      # The token goes up with the version rather than in a step of its own. The Worker's config
+      # lists CONTROL_TOKEN as required, so a deploy without it is refused — which on a first
+      # deploy would otherwise be circular, the secret needing a Worker that does not exist yet.
+      - name: Deploy with the control token
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CONTROL_TOKEN: ${{ secrets.CONTROL_TOKEN }}
         working-directory: scraper
-        run: printf '%s' "$CONTROL_TOKEN" | pnpm exec wrangler secret put CONTROL_TOKEN
+        run: |
+          if [ -z "$CONTROL_TOKEN" ]; then
+            echo "CONTROL_TOKEN is not set in repository secrets; every control endpoint would refuse every request" >&2
+            exit 1
+          fi
+          umask 077
+          printf 'CONTROL_TOKEN=%s\n' "$CONTROL_TOKEN" > "$RUNNER_TEMP/secrets.env"
+          trap 'rm -f "$RUNNER_TEMP/secrets.env"' EXIT
+          pnpm exec wrangler deploy --secrets-file "$RUNNER_TEMP/secrets.env"

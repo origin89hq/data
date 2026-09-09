@@ -241,10 +241,11 @@ The Worker's config names `CONTROL_TOKEN` under `secrets.required`, so wrangler
 generates its binding type and warns in local development when it is missing.
 There is no hand-written `Env` to drift from what is actually deployed.
 
-Tick **rotate_control_token** on the first run to push the token to the Worker.
-Every endpoint that starts a crawl, spends money or releases a download requires
-it as a bearer token, and a Worker with no token set refuses everything rather
-than allowing everything — an unset secret is the state a fresh deploy is in.
+The token goes up with the version, so a first deploy is not circular. Every
+endpoint that starts a crawl, spends money or releases a download requires it as
+a bearer token, and a Worker with no token set refuses everything rather than
+allowing everything — an unset secret is the state a fresh deploy is in.
+Rotating means changing the repository secret and deploying again.
 
 ```sh
 curl -X POST "https://<worker>/run?seller=solacity" -H "authorization: Bearer $CONTROL_TOKEN"
