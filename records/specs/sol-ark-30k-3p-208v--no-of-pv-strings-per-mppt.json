@@ -1,9 +1,0 @@
-{
-  "id": "sol-ark-30k-3p-208v--no-of-pv-strings-per-mppt",
-  "model": "sol-ark-30k-3p-208v",
-  "name": "No. of PV Strings per MPPT",
-  "value": "2",
-  "source": "doc-d403bf65174c614a2c3a74925e4e5de7",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

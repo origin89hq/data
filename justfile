@@ -74,7 +74,7 @@ plan maker date:
 
 # Let the download start. Silence is a refusal, so this is the only way it runs.
 approve maker date approver limit="40":
-    @just _post_json "/approve?id=maker-{{maker}}-{{date}}" '{"approved":true,"approvedBy":"{{approver}}","limit":{{limit}}}'
+    @just _post_json "/approve?maker={{maker}}&date={{date}}" '{"approved":true,"approvedBy":"{{approver}}","limit":{{limit}}}'
 
 # Convert a maker's approved documents; each one enqueues its own reading.
 convert maker date:

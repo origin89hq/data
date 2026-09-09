@@ -1,9 +1,0 @@
-{
-  "id": "eg4-electronics-eg4-waterproof-48v-100ah--battery-charge-temperature-range",
-  "model": "eg4-electronics-eg4-waterproof-48v-100ah",
-  "name": "Battery charge temperature range",
-  "value": "32°F - 113°F",
-  "source": "doc-f700cd34b904f0ba15dbe54d8f7dbe20",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

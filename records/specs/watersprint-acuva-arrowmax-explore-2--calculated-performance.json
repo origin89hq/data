@@ -1,9 +1,0 @@
-{
-  "id": "watersprint-acuva-arrowmax-explore-2--calculated-performance",
-  "model": "watersprint-acuva-arrowmax-explore-2",
-  "name": "Calculated performance",
-  "value": "16 mJ/cm²",
-  "source": "doc-58e940db04b47884a527ac6d61304273",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

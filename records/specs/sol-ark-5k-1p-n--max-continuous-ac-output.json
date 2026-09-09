@@ -1,9 +1,0 @@
-{
-  "id": "sol-ark-5k-1p-n--max-continuous-ac-output",
-  "model": "sol-ark-5k-1p-n",
-  "name": "Max. continuous AC output",
-  "value": "9,000W (loads / grid sell) + DC output of 3,000W (batteries) = 12,000W total is incorrect, only Max. continuous AC output is given as 9,000 and DC output of 3,000W and total is 12,000W. Corrected to: Max. continuous AC output is 9,000, DC output of 3,000 and total is 12,000W. However, the total is not a figure that can be reported. Only Max. continuous AC output and DC output of 3,000W can be reported. So, the final specs are: Max. continuous AC output and DC output of 3,000W and the height at which derating occurs as 2000m and the height in ft as 6561 ft. The final answer is: {",
-  "source": "doc-d13cbce821bce013274cbf8fda54fe58",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

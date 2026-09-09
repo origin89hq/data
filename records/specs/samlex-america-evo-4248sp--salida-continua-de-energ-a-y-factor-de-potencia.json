@@ -1,9 +1,0 @@
-{
-  "id": "samlex-america-evo-4248sp--salida-continua-de-energ-a-y-factor-de-potencia",
-  "model": "samlex-america-evo-4248sp",
-  "name": "SALIDA CONTINUA DE ENERGÍA Y FACTOR DE POTENCIA",
-  "value": "2100 Watt (PF 0.95) 4200 Watt (PF 0.95)",
-  "source": "doc-8a33b3870373382a88b6dd3da8dc970f",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

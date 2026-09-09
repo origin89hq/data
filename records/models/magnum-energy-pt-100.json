@@ -1,8 +1,0 @@
-{
-  "id": "magnum-energy-pt-100",
-  "manufacturer": "magnum-energy",
-  "name": "PT-100",
-  "kind": "charge-controller",
-  "aliases": [],
-  "dialects": []
-}

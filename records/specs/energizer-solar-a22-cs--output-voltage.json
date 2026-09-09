@@ -1,9 +1,0 @@
-{
-  "id": "energizer-solar-a22-cs--output-voltage",
-  "model": "energizer-solar-a22-cs",
-  "name": "Output Voltage",
-  "value": "400V AC",
-  "source": "doc-e85caaafbcadcc9bf54b09b23d6aae02",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

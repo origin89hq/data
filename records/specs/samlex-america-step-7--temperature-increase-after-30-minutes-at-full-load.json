@@ -1,9 +1,0 @@
-{
-  "id": "samlex-america-step-7--temperature-increase-after-30-minutes-at-full-load",
-  "model": "samlex-america-step-7",
-  "name": "TEMPERATURE INCREASE AFTER 30 MINUTES AT FULL LOAD",
-  "value": "30oC",
-  "source": "doc-5baa8f61e1a2f967b48522fd5d1a313e",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

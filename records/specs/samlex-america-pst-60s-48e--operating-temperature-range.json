@@ -1,9 +1,0 @@
-{
-  "id": "samlex-america-pst-60s-48e--operating-temperature-range",
-  "model": "samlex-america-pst-60s-48e",
-  "name": "OPERATING TEMPERATURE RANGE",
-  "value": "-20 to 40oC / -4 to 104oF",
-  "source": "doc-f5c6b9fb635b1d492f01610d87a48552",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

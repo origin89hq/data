@@ -1,9 +1,0 @@
-{
-  "id": "sol-ark-15k-2p-lv--rated-mppt-operating-voltage-range",
-  "model": "sol-ark-15k-2p-lv",
-  "name": "Rated MPPT Operating Voltage Range",
-  "value": "150 - 425 V",
-  "source": "doc-488813d29230d2477a10368f2f72ad2c",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

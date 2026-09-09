@@ -1,9 +1,0 @@
-{
-  "id": "pentair-ev9761-11--pressure-requirements",
-  "model": "pentair-ev9761-11",
-  "name": "Pressure Requirements",
-  "value": "10 - 125 psi (0.7 – 8.6 bar)",
-  "source": "doc-cefbf15a0f8e64276fdf2e98cbbf663d",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

@@ -1,9 +1,0 @@
-{
-  "id": "morningstar-gfpd-600v--ul-1077-listed",
-  "model": "morningstar-gfpd-600v",
-  "name": "UL-1077 Listed",
-  "value": "Yes",
-  "source": "doc-370a54e068516036583dc21383a9aa41",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

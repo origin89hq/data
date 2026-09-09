@@ -1,8 +1,0 @@
-{
-  "id": "victron-energy-conv-dcdc-vic-orion-tr-ip67-24-12-100a",
-  "manufacturer": "victron-energy",
-  "name": "CONV-DCDC-VIC-ORION-TR-IP67-24/12-100A",
-  "kind": "dc-dc-converter",
-  "aliases": [],
-  "dialects": []
-}

@@ -1,8 +1,0 @@
-{
-  "id": "victron-energy-conv-dcdc-vic-buck-boost-25a",
-  "manufacturer": "victron-energy",
-  "name": "CONV-DCDC-VIC-BUCK-BOOST-25A",
-  "kind": "dc-dc-converter",
-  "aliases": [],
-  "dialects": []
-}

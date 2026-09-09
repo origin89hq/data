@@ -1,9 +1,0 @@
-{
-  "id": "watersprint-azure-bolt-ii--flow-rate-at-30-mj-cm-95-uvt",
-  "model": "watersprint-azure-bolt-ii",
-  "name": "Flow rate at 30 mJ/cm² @ 95% UVT",
-  "value": "1,9 l / min",
-  "source": "doc-9bb81c04ecf9a5920ce11711ed607e5d",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

@@ -1,9 +1,0 @@
-{
-  "id": "eg4-electronics-eg4-12kpv-hybrid-inverter--rango-de-temperatura-ambiente-de-funcionamiento",
-  "model": "eg4-electronics-eg4-12kpv-hybrid-inverter",
-  "name": "RANGO DE TEMPERATURA AMBIENTE DE FUNCIONAMIENTO",
-  "value": "-13 °F – 140 °F (-25 °C – 60 °C)",
-  "source": "doc-aa8826c86a6e13d8c5caea5e58d70661",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

@@ -1,8 +1,0 @@
-{
-  "id": "victron-energy-charg-ac-vic-bs-ip22-12v-30a-1",
-  "manufacturer": "victron-energy",
-  "name": "CHARG-AC-VIC-BS-IP22-12V-30A-1",
-  "aliases": [],
-  "dialects": [],
-  "kind": "ac-charger"
-}

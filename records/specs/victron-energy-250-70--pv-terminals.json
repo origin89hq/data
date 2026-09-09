@@ -1,9 +1,0 @@
-{
-  "id": "victron-energy-250-70--pv-terminals",
-  "model": "victron-energy-250-70",
-  "name": "PV terminals",
-  "value": "Tr models: 35 mm² / AWG2MC4 models: 2 pairs of MC4 connectors 3,6",
-  "source": "doc-a08e004abb7badfb9ca55abb38ecb534",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

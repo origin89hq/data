@@ -1,8 +1,0 @@
-{
-  "id": "victron-energy-mppt-vic-75v-15a-ss",
-  "manufacturer": "victron-energy",
-  "name": "MPPT-VIC-75V/15A-SS",
-  "kind": "charge-controller",
-  "aliases": [],
-  "dialects": []
-}

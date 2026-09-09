@@ -1,9 +1,0 @@
-{
-  "id": "lorex-v7-4k-poe-bullet-camera--camera-dimensions",
-  "model": "lorex-v7-4k-poe-bullet-camera",
-  "name": "Camera Dimensions",
-  "value": "3.9 × 6.7 × 3.9 in (100.57 × 170.80 × 100.57 mm)",
-  "source": "doc-201a2a6a0f5b0a6f2bcf4a6667795342",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

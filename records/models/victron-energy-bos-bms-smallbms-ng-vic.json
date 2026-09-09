@@ -1,8 +1,0 @@
-{
-  "id": "victron-energy-bos-bms-smallbms-ng-vic",
-  "manufacturer": "victron-energy",
-  "name": "BOS-BMS-SMALLBMS-NG-VIC",
-  "kind": "bms",
-  "aliases": [],
-  "dialects": []
-}

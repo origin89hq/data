@@ -1,8 +1,0 @@
-{
-  "id": "victron-energy-sdrpcsv",
-  "manufacturer": "victron-energy",
-  "name": "SDRPCSV",
-  "kind": "charge-controller",
-  "aliases": [],
-  "dialects": []
-}

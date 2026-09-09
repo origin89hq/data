@@ -1,9 +1,0 @@
-{
-  "id": "victron-energy-250-85--pollution-degree",
-  "model": "victron-energy-250-85",
-  "name": "Pollution degree",
-  "value": "PD3",
-  "source": "doc-a08e004abb7badfb9ca55abb38ecb534",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

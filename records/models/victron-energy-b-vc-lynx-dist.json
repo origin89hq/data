@@ -1,8 +1,0 @@
-{
-  "id": "victron-energy-b-vc-lynx-dist",
-  "manufacturer": "victron-energy",
-  "name": "B-VC-LYNX-DIST",
-  "aliases": [],
-  "dialects": [],
-  "kind": "bms"
-}

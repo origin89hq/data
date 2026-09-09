@@ -1,9 +1,0 @@
-{
-  "id": "noco-gbx55--housing-protection",
-  "model": "noco-gbx55",
-  "name": "HOUSING PROTECTION",
-  "value": "IP65 (w/Ports Closed)",
-  "source": "doc-c63f3ca75f55570254710fbc44637edb",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

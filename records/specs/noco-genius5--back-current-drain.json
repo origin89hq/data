@@ -1,9 +1,0 @@
-{
-  "id": "noco-genius5--back-current-drain",
-  "model": "noco-genius5",
-  "name": "BACK CURRENT DRAIN",
-  "value": "<0.5mA",
-  "source": "doc-39956c6d95099c125eb3a89ec10738e5",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

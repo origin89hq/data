@@ -1,9 +1,0 @@
-{
-  "id": "victron-energy-150-857--charge-voltage-equalize-4",
-  "model": "victron-energy-150-857",
-  "name": "Charge voltage 'equalize' 4",
-  "value": "Default setting: 16.2V / 32.4V / 64.8V (adjustable)",
-  "source": "doc-a08e004abb7badfb9ca55abb38ecb534",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

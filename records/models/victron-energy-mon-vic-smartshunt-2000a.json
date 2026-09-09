@@ -1,8 +1,0 @@
-{
-  "id": "victron-energy-mon-vic-smartshunt-2000a",
-  "manufacturer": "victron-energy",
-  "name": "MON-VIC-SMARTSHUNT-2000A",
-  "kind": "shunt-monitor",
-  "aliases": [],
-  "dialects": []
-}

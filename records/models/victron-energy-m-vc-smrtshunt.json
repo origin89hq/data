@@ -1,8 +1,0 @@
-{
-  "id": "victron-energy-m-vc-smrtshunt",
-  "manufacturer": "victron-energy",
-  "name": "M-VC-SMRTSHUNT",
-  "kind": "shunt-monitor",
-  "aliases": [],
-  "dialects": []
-}

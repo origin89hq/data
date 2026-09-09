@@ -1,9 +1,0 @@
-{
-  "id": "magnum-energy-win-12-300tl--efficiency",
-  "model": "magnum-energy-win-12-300tl",
-  "name": "Efficiency",
-  "value": "Up to 90%",
-  "source": "doc-2367015874a13cfead98e92db09c2e90",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

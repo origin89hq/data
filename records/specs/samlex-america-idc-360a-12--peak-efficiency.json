@@ -1,9 +1,0 @@
-{
-  "id": "samlex-america-idc-360a-12--peak-efficiency",
-  "model": "samlex-america-idc-360a-12",
-  "name": "PEAK EFFICIENCY",
-  "value": "≥ 85 %",
-  "source": "doc-5f38b3ed60cc8ec71d89b6b303245771",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

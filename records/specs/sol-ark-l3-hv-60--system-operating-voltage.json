@@ -1,9 +1,0 @@
-{
-  "id": "sol-ark-l3-hv-60--system-operating-voltage",
-  "model": "sol-ark-l3-hv-60",
-  "name": "System Operating Voltage",
-  "value": "588V–672V",
-  "source": "doc-67f0fdfdf297a330d9a78d67d1830b41",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

@@ -1,9 +1,0 @@
-{
-  "id": "morningstar-suresine-300--intervalo-de-voltaje-de-funcionamiento-de-la-bater-a",
-  "model": "morningstar-suresine-300",
-  "name": "Intervalo de voltaje de funcionamiento de la batería",
-  "value": "20-33 V",
-  "source": "doc-90e77638723997755d70adce9061dc3b",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

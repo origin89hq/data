@@ -1,9 +1,0 @@
-{
-  "id": "noco-gbx45--weight",
-  "model": "noco-gbx45",
-  "name": "WEIGHT",
-  "value": "1.3 lbs(0.59kg)",
-  "source": "doc-9f27b7442c0b44a56fa34527e71fff73",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

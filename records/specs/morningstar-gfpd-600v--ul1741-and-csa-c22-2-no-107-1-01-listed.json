@@ -1,9 +1,0 @@
-{
-  "id": "morningstar-gfpd-600v--ul1741-and-csa-c22-2-no-107-1-01-listed",
-  "model": "morningstar-gfpd-600v",
-  "name": "UL1741 and CSA C22.2 No. 107.1-01 Listed",
-  "value": "Yes",
-  "source": "doc-370a54e068516036583dc21383a9aa41",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

@@ -1,9 +1,0 @@
-{
-  "id": "magnum-energy-win-12x20b3r1t--dimensions",
-  "model": "magnum-energy-win-12x20b3r1t",
-  "name": "Dimensions",
-  "value": "14.5 x 11.5 x 7.75 inches",
-  "source": "doc-6a94487a839521293c737321791ce559",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

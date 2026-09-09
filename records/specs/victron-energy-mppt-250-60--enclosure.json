@@ -1,9 +1,0 @@
-{
-  "id": "victron-energy-mppt-250-60--enclosure",
-  "model": "victron-energy-mppt-250-60",
-  "name": "ENCLOSURE",
-  "value": "ENCLOSURE",
-  "source": "doc-75ef220cecc3e8483f079f6108e6bb5b",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

@@ -1,9 +1,0 @@
-{
-  "id": "victron-energy-mppt-250-70--1a-the-solar-charger-will-limit-input-power-if-more-pv-power-is-connected-1b-the-pv-voltage-must-exceed-vbat-5v-for-the-controller-t",
-  "model": "victron-energy-mppt-250-70",
-  "name": "1a) The solar charger will limit input power if more PV power is connected.1b) The PV voltage must exceed Vbat + 5V for the controller to start. Thereafter the minimum PV voltage is Vbat + 1V.2) A higher short circuit current may damage the solar charger in case of reverse polarity connection of the PV array.3) Equalization is by default disabled.4) For more information on data communication see the data communication paper in the Technical information section on our website.5) MC4 models: several splitter pairs may be needed to parallel the strings of solar panels. Maximum current per MC4 connector: 30A (the MC4 connectors are internally parallel connected to one MPPT tracker).",
-  "value": "1a) The solar charger will limit input power if more PV power is connected.1b) The PV voltage must exceed Vbat + 5V for the controller to start. Thereafter the minimum PV voltage is Vbat + 1V.2) A higher short circuit current may damage the solar charger in case of reverse polarity connection of the PV array.3) Equalization is by default disabled.4) For more information on data communication see the data communication paper in the Technical information section on our website.5) MC4 models: several splitter pairs may be needed to parallel the strings of solar panels. Maximum current per MC4 connector: 30A (the MC4 connectors are internally parallel connected to one MPPT tracker).",
-  "source": "doc-75ef220cecc3e8483f079f6108e6bb5b",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

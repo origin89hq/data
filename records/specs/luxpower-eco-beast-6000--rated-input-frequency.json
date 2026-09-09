@@ -1,9 +1,0 @@
-{
-  "id": "luxpower-eco-beast-6000--rated-input-frequency",
-  "model": "luxpower-eco-beast-6000",
-  "name": "Rated input frequency",
-  "value": "50 / 60 Hz",
-  "source": "doc-5fddd502a3eb76f1e02b2501bfb864d3",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

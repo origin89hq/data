@@ -1,9 +1,0 @@
-{
-  "id": "samlex-america-evo-4248sp--type-de-relais-et-capacit",
-  "model": "samlex-america-evo-4248sp",
-  "name": "Type de relais et capacité",
-  "value": "SPDT, 40A",
-  "source": "doc-8f1066e52d62d09fbee4f0bd6eb04a91",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

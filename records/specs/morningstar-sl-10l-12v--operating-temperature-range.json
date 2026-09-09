@@ -1,9 +1,0 @@
-{
-  "id": "morningstar-sl-10l-12v--operating-temperature-range",
-  "model": "morningstar-sl-10l-12v",
-  "name": "Operating Temperature Range",
-  "value": "-40 C to +60C",
-  "source": "doc-1576e151ec844e19169aabe791000bf8",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

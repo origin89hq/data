@@ -1,8 +1,0 @@
-{
-  "id": "victron-energy-conv-dcdc-vic-orion-tr-24v-24v-12a-iso",
-  "manufacturer": "victron-energy",
-  "name": "CONV-DCDC-VIC-ORION-TR-24V/24V-12A-ISO",
-  "kind": "dc-dc-converter",
-  "aliases": [],
-  "dialects": []
-}

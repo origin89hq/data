@@ -1,9 +1,0 @@
-{
-  "id": "eg4-electronics-eg4-12kpv--output-voltage",
-  "model": "eg4-electronics-eg4-12kpv",
-  "name": "OUTPUT VOLTAGE",
-  "value": "120/240VAC; 120/208VAC",
-  "source": "doc-f8d6e94548fc59e6c81c2065997fda66",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

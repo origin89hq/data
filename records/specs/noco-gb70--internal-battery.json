@@ -1,9 +1,0 @@
-{
-  "id": "noco-gb70--internal-battery",
-  "model": "noco-gb70",
-  "name": "INTERNAL BATTERY",
-  "value": "56 Watt-Hour Lithium Ion",
-  "source": "doc-2b066399877e7c01eb0a5e1dfc3e1675",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

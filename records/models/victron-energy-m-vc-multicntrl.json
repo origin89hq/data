@@ -1,8 +1,0 @@
-{
-  "id": "victron-energy-m-vc-multicntrl",
-  "manufacturer": "victron-energy",
-  "name": "M-VC-MULTICNTRL",
-  "kind": "balance-of-system",
-  "aliases": [],
-  "dialects": []
-}

@@ -1,8 +1,0 @@
-{
-  "id": "victron-energy-conv-dcdc-vic-orion-tr-24v-12v-70a-ip20-bp",
-  "manufacturer": "victron-energy",
-  "name": "CONV-DCDC-VIC-ORION-TR-24V/12V-70A-IP20-BP",
-  "kind": "dc-dc-converter",
-  "aliases": [],
-  "dialects": []
-}

@@ -1,9 +1,0 @@
-{
-  "id": "victron-energy-mppt-75-15--battery-voltage-auto-select",
-  "model": "victron-energy-mppt-75-15",
-  "name": "Battery voltage (auto select)",
-  "value": "12V or 24V",
-  "source": "doc-c967bfdb27ebea471739445a3d4c2c8d",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

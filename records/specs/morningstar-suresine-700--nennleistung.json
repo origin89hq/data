@@ -1,9 +1,0 @@
-{
-  "id": "morningstar-suresine-700--nennleistung",
-  "model": "morningstar-suresine-700",
-  "name": "Nennleistung",
-  "value": "700 W”,",
-  "source": "doc-58d43986dad594bace33d7ac07411e55",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

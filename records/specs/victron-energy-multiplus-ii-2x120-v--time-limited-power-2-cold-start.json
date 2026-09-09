@@ -1,9 +1,0 @@
-{
-  "id": "victron-energy-multiplus-ii-2x120-v--time-limited-power-2-cold-start",
-  "model": "victron-energy-multiplus-ii-2x120-v",
-  "name": "Time limited power 2 (cold start)",
-  "value": "4,5 kW/30min",
-  "source": "doc-5c10c68267673cefb4def711177e269c",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

@@ -1,8 +1,0 @@
-{
-  "id": "victron-energy-victronrvpack2",
-  "manufacturer": "victron-energy",
-  "name": "VictronRVPack2",
-  "kind": "inverter-charger",
-  "aliases": [],
-  "dialects": []
-}

@@ -25,6 +25,21 @@ function instanceId(sellerId: string, checkedAt: string): string {
   return `${sellerId}-${checkedAt}`;
 }
 
+/**
+ * A fresh id for each attempt. An instance id is unique for as long as the platform keeps it, so
+ * re-running a maker on the same day cannot reuse one; the day belongs to the run's prefix, not
+ * to its instance.
+ */
+function attemptId(manufacturerId: string, checkedAt: string): string {
+  return `maker-${manufacturerId}-${checkedAt}-${crypto.randomUUID().slice(0, 8)}`;
+}
+
+/** Which instance currently owns a maker's run, so a caller can approve it without knowing the id. */
+async function currentInstance(env: Env, manufacturerId: string, checkedAt: string): Promise<string | undefined> {
+  const object = await env.ARCHIVE.get(`documents/${manufacturerId}/${checkedAt}/instance.json`);
+  return object ? ((await object.json()) as { instanceId: string }).instanceId : undefined;
+}
+
 export default {
   /** `POST /run?seller=<id>` starts a crawl; `GET /status?id=<instance>` reports one. Local development and by-hand runs only; the cron is the real trigger. */
   async fetch(request: Request, env: Env): Promise<Response> {
@@ -113,10 +128,8 @@ export default {
       if (!manufacturerId || domains.length === 0) return Response.json({ error: "id and domains required" }, { status: 400 });
       const checkedAt = url.searchParams.get("date") ?? today();
       const pages = url.searchParams.get("pages");
-      const instance = await env.MANUFACTURER_CRAWL.create({
-        id: `maker-${manufacturerId}-${checkedAt}`,
-        params: { manufacturerId, domains, checkedAt, ...(pages ? { pageLimit: Number(pages) } : {}) },
-      });
+      const id = attemptId(manufacturerId, checkedAt);
+      const instance = await env.MANUFACTURER_CRAWL.create({ id, params: { instanceId: id, manufacturerId, domains, checkedAt, ...(pages ? { pageLimit: Number(pages) } : {}) } });
       return Response.json({ id: instance.id });
     }
     if (request.method === "POST" && url.pathname === "/convert") {
@@ -133,7 +146,8 @@ export default {
       const pages = Number(url.searchParams.get("pages") ?? "150");
       const started: string[] = [];
       for (const maker of manufacturers) {
-        await env.MANUFACTURER_CRAWL.create({ id: `maker-${maker.id}-${checkedAt}`, params: { manufacturerId: maker.id, domains: maker.domains, checkedAt, pageLimit: pages } });
+        const id = attemptId(maker.id, checkedAt);
+        await env.MANUFACTURER_CRAWL.create({ id, params: { instanceId: id, manufacturerId: maker.id, domains: maker.domains, checkedAt, pageLimit: pages } });
         started.push(maker.id);
       }
       return Response.json({ started: started.length, checkedAt });
@@ -145,8 +159,10 @@ export default {
       return Response.json(await specPagesRun(env, manufacturerId, checkedAt, specPages.pages));
     }
     if (request.method === "POST" && url.pathname === "/approve") {
-      const id = url.searchParams.get("id");
-      if (!id) return Response.json({ error: "id required" }, { status: 400 });
+      // A caller names the maker and the day; which instance is waiting is the run's business.
+      const named = url.searchParams.get("maker");
+      const id = named ? await currentInstance(env, named, url.searchParams.get("date") ?? today()) : url.searchParams.get("id");
+      if (!id) return Response.json({ error: named ? `no run recorded for ${named}` : "id or maker required" }, { status: 400 });
       const parsed = CrawlApproval.safeParse(await request.json().catch(() => null));
       if (!parsed.success) return Response.json({ error: "approval must name approvedBy and approved", detail: parsed.error.issues }, { status: 400 });
       const instance = await env.MANUFACTURER_CRAWL.get(id);
@@ -174,7 +190,8 @@ export default {
     const checkedAt = today();
     if (new Date(controller.scheduledTime).getUTCDate() === 1) {
       for (const maker of manufacturers) {
-        await env.MANUFACTURER_CRAWL.create({ id: `maker-${maker.id}-${checkedAt}`, params: { manufacturerId: maker.id, domains: maker.domains, checkedAt, pageLimit: 150 } });
+        const id = attemptId(maker.id, checkedAt);
+        await env.MANUFACTURER_CRAWL.create({ id, params: { instanceId: id, manufacturerId: maker.id, domains: maker.domains, checkedAt, pageLimit: 150 } });
       }
     }
     // Every day: move anything whose precondition is met. The weekly crawl and the monthly

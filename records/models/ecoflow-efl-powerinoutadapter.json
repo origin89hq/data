@@ -1,8 +1,0 @@
-{
-  "id": "ecoflow-efl-powerinoutadapter",
-  "manufacturer": "ecoflow",
-  "name": "EFL-PowerInOutAdapter",
-  "kind": "balance-of-system",
-  "aliases": [],
-  "dialects": []
-}

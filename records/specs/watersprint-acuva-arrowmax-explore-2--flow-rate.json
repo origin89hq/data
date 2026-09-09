@@ -1,9 +1,0 @@
-{
-  "id": "watersprint-acuva-arrowmax-explore-2--flow-rate",
-  "model": "watersprint-acuva-arrowmax-explore-2",
-  "name": "Flow rate",
-  "value": "2 l/min",
-  "source": "doc-58e940db04b47884a527ac6d61304273",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

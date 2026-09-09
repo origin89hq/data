@@ -1,9 +1,0 @@
-{
-  "id": "lorentz-ps2-200-hr--tension-en-circuit-ouvert",
-  "model": "lorentz-ps2-200-hr",
-  "name": "tension en circuit ouvert",
-  "value": "100”,",
-  "source": "doc-9f87962aad823c9b3134b224611517f9",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

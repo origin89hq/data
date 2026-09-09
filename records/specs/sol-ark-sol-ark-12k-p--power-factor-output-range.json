@@ -1,9 +1,0 @@
-{
-  "id": "sol-ark-sol-ark-12k-p--power-factor-output-range",
-  "model": "sol-ark-sol-ark-12k-p",
-  "name": "Power Factor Output Range",
-  "value": "+/- 0.9",
-  "source": "doc-a6309d995ea95cdfb312cc5335f5fbe8",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

@@ -1,9 +1,0 @@
-{
-  "id": "unique-appliances-unq-30cr-ic--dimensions",
-  "model": "unique-appliances-unq-30cr-ic",
-  "name": "DIMENSIONS",
-  "value": "H 41 po x L 30 po x P 27.5 po",
-  "source": "doc-df7088bbac32cea5ae4fcaefc45ab44e",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

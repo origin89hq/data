@@ -1,9 +1,0 @@
-{
-  "id": "noco-nlp9--chemistry",
-  "model": "noco-nlp9",
-  "name": "CHEMISTRY",
-  "value": "Lithium Iron Phosphate (LiFePO4)",
-  "source": "doc-3a94b3703a985dedcdb106718e56b72e",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

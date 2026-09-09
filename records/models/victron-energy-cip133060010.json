@@ -1,8 +1,0 @@
-{
-  "id": "victron-energy-cip133060010",
-  "manufacturer": "victron-energy",
-  "name": "CIP133060010",
-  "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
-}

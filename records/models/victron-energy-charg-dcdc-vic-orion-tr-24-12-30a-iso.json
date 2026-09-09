@@ -1,8 +1,0 @@
-{
-  "id": "victron-energy-charg-dcdc-vic-orion-tr-24-12-30a-iso",
-  "manufacturer": "victron-energy",
-  "name": "CHARG-DCDC-VIC-ORION-TR-24/12-30A-ISO",
-  "aliases": [],
-  "dialects": [],
-  "kind": "dc-dc-converter"
-}

@@ -1,9 +1,0 @@
-{
-  "id": "watersprint-strike-ii--connection-size-and-type",
-  "model": "watersprint-strike-ii",
-  "name": "Connection size and type",
-  "value": "1/8‘” FNPT",
-  "source": "doc-85b0b752834731dd5322bae5097045d5",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

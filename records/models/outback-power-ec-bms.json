@@ -1,8 +1,0 @@
-{
-  "id": "outback-power-ec-bms",
-  "manufacturer": "outback-power",
-  "name": "EC-BMS",
-  "kind": "bms",
-  "aliases": [],
-  "dialects": []
-}

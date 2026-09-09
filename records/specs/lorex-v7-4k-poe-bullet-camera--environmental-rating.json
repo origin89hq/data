@@ -1,9 +1,0 @@
-{
-  "id": "lorex-v7-4k-poe-bullet-camera--environmental-rating",
-  "model": "lorex-v7-4k-poe-bullet-camera",
-  "name": "Environmental Rating",
-  "value": "IP67 (Indoor / Outdoor Use)",
-  "source": "doc-201a2a6a0f5b0a6f2bcf4a6667795342",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

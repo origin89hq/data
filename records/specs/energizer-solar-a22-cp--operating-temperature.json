@@ -1,9 +1,0 @@
-{
-  "id": "energizer-solar-a22-cp--operating-temperature",
-  "model": "energizer-solar-a22-cp",
-  "name": "Operating Temperature",
-  "value": "-30 ~ 50°C",
-  "source": "doc-e85caaafbcadcc9bf54b09b23d6aae02",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

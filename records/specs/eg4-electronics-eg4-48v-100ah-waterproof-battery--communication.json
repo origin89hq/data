@@ -1,9 +1,0 @@
-{
-  "id": "eg4-electronics-eg4-48v-100ah-waterproof-battery--communication",
-  "model": "eg4-electronics-eg4-48v-100ah-waterproof-battery",
-  "name": "Communication",
-  "value": "Bluetooth",
-  "source": "doc-e9ad14d41ad106c9c5499368133e3088",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

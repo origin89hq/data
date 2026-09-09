@@ -1,9 +1,0 @@
-{
-  "id": "luxpower-eco-beast-6000--inverter-module-weight",
-  "model": "luxpower-eco-beast-6000",
-  "name": "Inverter module weight",
-  "value": "17.5 kg / 38.6 lbs",
-  "source": "doc-5fddd502a3eb76f1e02b2501bfb864d3",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

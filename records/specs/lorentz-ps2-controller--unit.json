@@ -1,9 +1,0 @@
-{
-  "id": "lorentz-ps2-controller--unit",
-  "model": "lorentz-ps2-controller",
-  "name": "unit",
-  "value": "None",
-  "source": "doc-0935f4d4b5e05c8a3f87920731fdde8c",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

@@ -1,9 +1,0 @@
-{
-  "id": "lorentz-ps2-4000-hr--tens-o-em-circuito-aberto-voc-m-x",
-  "model": "lorentz-ps2-4000-hr",
-  "name": "tensão em circuito aberto (Voc) máx.",
-  "value": "375”,",
-  "source": "doc-07c872cab18e37be0085bc6e88dde4ae",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

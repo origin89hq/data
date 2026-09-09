@@ -1,9 +1,0 @@
-{
-  "id": "samlex-america-evo-4248sp--temperatura-de-almacenamiento",
-  "model": "samlex-america-evo-4248sp",
-  "name": "TEMPERATURA DE ALMACENAMIENTO",
-  "value": "-40 a +70°C (-40 a 158°F)",
-  "source": "doc-8a33b3870373382a88b6dd3da8dc970f",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

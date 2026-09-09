@@ -1,9 +1,0 @@
-{
-  "id": "victron-energy-ng-lifepo4--chemistry",
-  "model": "victron-energy-ng-lifepo4",
-  "name": "Chemistry",
-  "value": "LiFePO4",
-  "source": "doc-131b9a2de292ef8ae2147340a325dffa",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

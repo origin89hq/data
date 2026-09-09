@@ -5,6 +5,8 @@ import { judgeSpecPage, type SpecPageCandidate } from "./spec-table.ts";
 import { clearPrefix, USER_AGENT, todayUtc } from "./feeds.ts";
 
 export interface ManufacturerCrawlParams {
+  /** This attempt's instance id, written into the run so a caller can find what to approve. */
+  instanceId: string;
   manufacturerId: string;
   /** Hosts this maker claims, from its record. The instance knows no others and can reach no others. */
   domains: string[];
@@ -33,12 +35,18 @@ export const FETCH_BATCH = 10;
  */
 export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawlParams> {
   async run(event: WorkflowEvent<ManufacturerCrawlParams>, step: WorkflowStep) {
-    const { manufacturerId, domains, checkedAt, pageLimit } = event.payload;
+    const { instanceId, manufacturerId, domains, checkedAt, pageLimit } = event.payload;
     if (domains.length === 0) throw new Error(`${manufacturerId}: no domains, so there is nothing this instance may reach`);
     const prefix = `documents/${manufacturerId}/${checkedAt}`;
     // This run replaces any earlier run of the same maker on the same day. Only what this run
     // produces lives under here; the documents themselves are keyed by content elsewhere.
     await step.do("clear this run's prefix", () => clearPrefix(this.env.ARCHIVE, `${prefix}/`));
+    // An instance id has to be unique per attempt, and a run's prefix is per day. Making one
+    // serve as the other is what made a second crawl of a maker collide with the first, so the
+    // run records which instance is currently its own and a caller looks it up.
+    await step.do("record which instance owns this run", async () => {
+      await this.env.ARCHIVE.put(`${prefix}/instance.json`, JSON.stringify({ instanceId, manufacturer: manufacturerId, checkedAt }), { httpMetadata: { contentType: "application/json" } });
+    });
 
     const pages = await step.do("discover pages", { retries: { limit: 2, delay: "20 seconds", backoff: "exponential" }, timeout: "3 minutes" }, async () => {
       const urls: string[] = [];

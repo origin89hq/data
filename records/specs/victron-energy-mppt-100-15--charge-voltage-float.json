@@ -1,9 +1,0 @@
-{
-  "id": "victron-energy-mppt-100-15--charge-voltage-float",
-  "model": "victron-energy-mppt-100-15",
-  "name": "Charge voltage 'float'",
-  "value": "13.8V / 27.6V / 55.2V (adjustable)",
-  "source": "doc-c967bfdb27ebea471739445a3d4c2c8d",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

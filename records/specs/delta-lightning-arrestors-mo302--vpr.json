@@ -1,9 +1,0 @@
-{
-  "id": "delta-lightning-arrestors-mo302--vpr",
-  "model": "delta-lightning-arrestors-mo302",
-  "name": "VPR",
-  "value": "150 / 300 Volts",
-  "source": "doc-46921a96fb0ee85a0ccbf64c9d7e20d2",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

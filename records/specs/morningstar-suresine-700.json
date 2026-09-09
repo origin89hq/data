@@ -1,9 +1,0 @@
-{
-  "id": "morningstar-suresine-700",
-  "model": "morningstar-suresine-700",
-  "name": "額定電池電壓",
-  "value": "12、24 或 48V",
-  "source": "doc-378c9b680635e1fbbf1ecbd8049c7243",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

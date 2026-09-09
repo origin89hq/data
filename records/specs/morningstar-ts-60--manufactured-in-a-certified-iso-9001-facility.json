@@ -1,9 +1,0 @@
-{
-  "id": "morningstar-ts-60--manufactured-in-a-certified-iso-9001-facility",
-  "model": "morningstar-ts-60",
-  "name": "Manufactured in a Certified ISO 9001 Facility",
-  "value": "Yes",
-  "source": "doc-c28d97896ce5671ad3ebf4bcd2ff1d38",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

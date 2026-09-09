@@ -1,9 +1,0 @@
-{
-  "id": "unique-appliances-ugp-36cr--poids",
-  "model": "unique-appliances-ugp-36cr",
-  "name": "POIDS",
-  "value": "256 lbs / 116 kg",
-  "source": "doc-96615a92c4251b0f16997244bd5d557d",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

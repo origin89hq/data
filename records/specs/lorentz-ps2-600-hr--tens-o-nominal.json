@@ -1,9 +1,0 @@
-{
-  "id": "lorentz-ps2-600-hr--tens-o-nominal",
-  "model": "lorentz-ps2-600-hr",
-  "name": "tensão nominal",
-  "value": "48 – 72”,",
-  "source": "doc-07c872cab18e37be0085bc6e88dde4ae",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

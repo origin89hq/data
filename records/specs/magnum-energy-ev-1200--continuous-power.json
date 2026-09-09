@@ -1,9 +1,0 @@
-{
-  "id": "magnum-energy-ev-1200--continuous-power",
-  "model": "magnum-energy-ev-1200",
-  "name": "Continuous Power",
-  "value": "1200",
-  "source": "doc-0ad3b29a6df2fd011128dd8a45b91f4c",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

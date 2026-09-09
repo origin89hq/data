@@ -1,9 +1,0 @@
-{
-  "id": "watersprint-arrow-max-home-10k--pressure-drop-max-flow-rate",
-  "model": "watersprint-arrow-max-home-10k",
-  "name": "Pressure drop @ max. flow rate",
-  "value": "< 0,4 bar",
-  "source": "doc-7eba679f1e5b485407c6037e24b97ea9",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

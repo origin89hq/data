@@ -1,9 +1,0 @@
-{
-  "id": "luxpower-eco-beast-6000--operating-temperature-range",
-  "model": "luxpower-eco-beast-6000",
-  "name": "Operating temperature range",
-  "value": "0 ~ 45 °C",
-  "source": "doc-5fddd502a3eb76f1e02b2501bfb864d3",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

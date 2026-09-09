@@ -1,9 +1,0 @@
-{
-  "id": "unique-appliances-unq-30cr-ic--poids",
-  "model": "unique-appliances-unq-30cr-ic",
-  "name": "POIDS",
-  "value": "89.7 kg / 197.75 lbs",
-  "source": "doc-df7088bbac32cea5ae4fcaefc45ab44e",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

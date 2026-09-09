@@ -1,9 +1,0 @@
-{
-  "id": "victron-energy-150-857--standards",
-  "model": "victron-energy-150-857",
-  "name": "STANDARDS",
-  "value": "STANDARDS",
-  "source": "doc-a08e004abb7badfb9ca55abb38ecb534",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

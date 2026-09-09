@@ -1,9 +1,0 @@
-{
-  "id": "sol-ark-5k-1p-n--default-grid-type",
-  "model": "sol-ark-5k-1p-n",
-  "name": "Default grid type",
-  "value": "120/240V Split-Phase at 60Hz",
-  "source": "doc-ba8e6898aea687488d99501bb1d5f230",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

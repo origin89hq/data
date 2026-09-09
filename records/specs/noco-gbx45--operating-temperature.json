@@ -1,9 +1,0 @@
-{
-  "id": "noco-gbx45--operating-temperature",
-  "model": "noco-gbx45",
-  "name": "OPERATING TEMPERATURE",
-  "value": "-4°F to +122°F(-20Â°C to +50Â°C)",
-  "source": "doc-9f27b7442c0b44a56fa34527e71fff73",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

@@ -1,8 +1,0 @@
-{
-  "id": "victron-energy-mppt-vic-250v-85a-ss",
-  "manufacturer": "victron-energy",
-  "name": "MPPT-VIC-250V/85A-SS",
-  "kind": "charge-controller",
-  "aliases": [],
-  "dialects": []
-}
