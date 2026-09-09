@@ -1,7 +1,7 @@
 import { WorkflowEntrypoint, type WorkflowEvent, type WorkflowStep } from "cloudflare:workers";
 import { Seller, Sighting } from "../../schema/sighting.ts";
 import { sellers } from "./sellers.ts";
-import { hasFeed } from "./feeds.ts";
+import { hasFeed, todayUtc } from "./feeds.ts";
 import { sightingFromPage } from "./page-product.ts";
 import { fetchText, isIndex, locations, pickProducts, pickSitemaps, sample, sitemapUrl } from "./sitemap.ts";
 
@@ -25,6 +25,8 @@ export class PageCrawl extends WorkflowEntrypoint<Env, PageCrawlParams> {
     const { sellerId, checkedAt, limit } = event.payload;
     const seller = Seller.parse(sellers.find((s) => s.id === sellerId));
     if (hasFeed(seller)) throw new Error(`${seller.id} publishes a feed; use the feed crawl, which is exact`);
+    // The path carries the run label; every sighting carries the day it was really seen.
+    const seenOn = todayUtc();
     const prefix = `sightings/${seller.id}/${checkedAt}`;
 
     const found = await step.do("discover product urls", { retries: { limit: 3, delay: "10 seconds", backoff: "exponential" }, timeout: "2 minutes" }, async () => {
@@ -57,7 +59,7 @@ export class PageCrawl extends WorkflowEntrypoint<Env, PageCrawlParams> {
           let errors = 0;
           for (const url of slice) {
             try {
-              const sighting = sightingFromPage(seller, url, await fetchText(url), checkedAt);
+              const sighting = sightingFromPage(seller, url, await fetchText(url), seenOn);
               if (sighting) sightings.push(Sighting.parse(sighting));
               else blank += 1;
             } catch {
@@ -82,7 +84,7 @@ export class PageCrawl extends WorkflowEntrypoint<Env, PageCrawlParams> {
 
     const total = pages.reduce((n, p) => n + p.count, 0);
     await step.do("write manifest", async () => {
-      await this.env.ARCHIVE.put(`${prefix}/manifest.json`, JSON.stringify({ seller: seller.id, checkedAt, tier: "page", urls: urls.length, capped: found.capped, pages: pages.map((p) => ({ page: p.batch, count: p.count })), sightings: total, withoutProductData: empty, unreachable: failed }, null, 2), {
+      await this.env.ARCHIVE.put(`${prefix}/manifest.json`, JSON.stringify({ seller: seller.id, checkedAt, retrievedAt: seenOn, tier: "page", urls: urls.length, capped: found.capped, pages: pages.map((p) => ({ page: p.batch, count: p.count })), sightings: total, withoutProductData: empty, unreachable: failed }, null, 2), {
         httpMetadata: { contentType: "application/json" },
       });
     });

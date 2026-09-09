@@ -2,7 +2,7 @@ import { WorkflowEntrypoint, type WorkflowEvent, type WorkflowStep } from "cloud
 import { CrawlApproval, documentLinks, hostAllowed, permitted, planFor, type Found } from "./documents.ts";
 import { fetchText, isIndex, locations, sample } from "./sitemap.ts";
 import { judgeSpecPage, type SpecPageCandidate } from "./spec-table.ts";
-import { USER_AGENT } from "./feeds.ts";
+import { USER_AGENT, todayUtc } from "./feeds.ts";
 
 export interface ManufacturerCrawlParams {
   manufacturerId: string;
@@ -159,7 +159,8 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
 
     await step.do("write manifest", async () => {
       await this.env.ARCHIVE.put(`${prefix}/manifest.json`, JSON.stringify({
-        manufacturer: manufacturerId, checkedAt, approvedBy: approval.approvedBy, ...(approval.note ? { note: approval.note } : {}),
+        // `checkedAt` names the run; `retrievedAt` is the day the bytes were actually fetched.
+        manufacturer: manufacturerId, checkedAt, retrievedAt: todayUtc(), approvedBy: approval.approvedBy, ...(approval.note ? { note: approval.note } : {}),
         offered: found.length, fetched: stored.length, unreachable: failed, documents: stored,
       }, null, 2), { httpMetadata: { contentType: "application/json" } });
     });

@@ -52,6 +52,17 @@ export function validate(records: Records): Report {
     if (s.redistributable === undefined) note("source licence unchecked");
   }
 
+  // Nothing may claim to have happened after today. A date read as "when this was fetched" that
+  // has not arrived yet is worse than no date, and 148 source records once carried one.
+  const today = new Date().toISOString().slice(0, 10);
+  for (const s of records.sources) if (s.retrievedAt && s.retrievedAt > today) errors.push(`source ${s.id}: retrieved on ${s.retrievedAt}, which has not happened`);
+  for (const b of records.brands) {
+    if (b.evidence.seenAt > today) errors.push(`${b.id}: seen on ${b.evidence.seenAt}, which has not happened`);
+    if (b.checkedAt && b.checkedAt > today) errors.push(`${b.id}: decided on ${b.checkedAt}, which has not happened`);
+  }
+  for (const s of records.specs) if (s.checkedAt && s.checkedAt > today) errors.push(`spec ${s.id}: confirmed on ${s.checkedAt}, which has not happened`);
+  for (const m of records.models) if (m.checkedAt && m.checkedAt > today) errors.push(`${m.id}: checked on ${m.checkedAt}, which has not happened`);
+
   const makers = new Set(records.manufacturers.map((m) => m.id));
   if (makers.size !== records.manufacturers.length) errors.push("duplicate manufacturer id");
   const byBrandString = new Map<string, string>();

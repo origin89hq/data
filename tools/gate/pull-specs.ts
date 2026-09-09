@@ -34,7 +34,13 @@ if (!manufacturer || !date) {
 // A maker may have specification pages and no approved documents at all, so a missing conversion
 // index is not a reason to stop; it only means nothing was downloaded.
 const index = await object(`documents/${manufacturer}/${date}/converting.json`, remote);
-const expected = index ? (JSON.parse(index) as { documents: { sha256: string }[] }).documents : [];
+const converting = index ? (JSON.parse(index) as { documents: { sha256: string }[] }) : undefined;
+const expected = converting?.documents ?? [];
+// When the bytes were actually fetched, which the crawl records. The date in the path is a name
+// for the run and a person picks those loosely; a source that claims a day which has not happened
+// is worse than one that claims none.
+const manifest = await object(`documents/${manufacturer}/${date}/manifest.json`, remote);
+const retrievedAt = manifest ? ((JSON.parse(manifest) as { retrievedAt?: string }).retrievedAt ?? undefined) : undefined;
 const readings: { readings: { sha256: string; url: string; extractedBy?: string; products: (ReportedProduct & { specs: { page?: number }[] })[] }[] } = { readings: [] };
 // Every reading of this run in one request, rather than one process per document.
 for (const value of jsonValues<(typeof readings.readings)[number]>(await under(`documents/${manufacturer}/${date}/readings/`, remote))) {

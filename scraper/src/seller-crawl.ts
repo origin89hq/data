@@ -1,7 +1,7 @@
 import { WorkflowEntrypoint, type WorkflowEvent, type WorkflowStep } from "cloudflare:workers";
 import { Seller, Sighting } from "../../schema/sighting.ts";
 import { sellers } from "./sellers.ts";
-import { fetchFeedPage, hasFeed } from "./feeds.ts";
+import { fetchFeedPage, hasFeed, todayUtc } from "./feeds.ts";
 
 export interface SellerCrawlParams {
   sellerId: string;
@@ -19,6 +19,8 @@ export class SellerCrawl extends WorkflowEntrypoint<Env, SellerCrawlParams> {
     const { sellerId, checkedAt } = event.payload;
     const seller = Seller.parse(sellers.find((s) => s.id === sellerId));
     if (!hasFeed(seller)) throw new Error(`${seller.id}: ${seller.platform} needs the page extractor, which is not written yet`);
+    // The path carries the run label; every sighting carries the day it was really seen.
+    const seenOn = todayUtc();
     const prefix = `sightings/${seller.id}/${checkedAt}`;
     const pages: { page: number; count: number }[] = [];
 
@@ -26,7 +28,7 @@ export class SellerCrawl extends WorkflowEntrypoint<Env, SellerCrawlParams> {
       const { sightings, last } = await step.do(
         `fetch page ${page}`,
         { retries: { limit: 3, delay: "10 seconds", backoff: "exponential" }, timeout: "1 minute" },
-        () => fetchFeedPage(seller, page, checkedAt),
+        () => fetchFeedPage(seller, page, seenOn),
       );
       for (const s of sightings) Sighting.parse(s);
 
@@ -45,7 +47,7 @@ export class SellerCrawl extends WorkflowEntrypoint<Env, SellerCrawlParams> {
 
     const total = pages.reduce((n, p) => n + p.count, 0);
     await step.do("write manifest", async () => {
-      await this.env.ARCHIVE.put(`${prefix}/manifest.json`, JSON.stringify({ seller: seller.id, checkedAt, pages, sightings: total }, null, 2), {
+      await this.env.ARCHIVE.put(`${prefix}/manifest.json`, JSON.stringify({ seller: seller.id, checkedAt, retrievedAt: seenOn, pages, sightings: total }, null, 2), {
         httpMetadata: { contentType: "application/json" },
       });
     });
