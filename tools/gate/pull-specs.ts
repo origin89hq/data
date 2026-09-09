@@ -29,16 +29,15 @@ if (!manufacturer || !date) {
 // One reading per document, written by the consumer that read it. The converting index says
 // which documents to expect, so a document still on the queue shows as pending rather than as
 // a maker with fewer figures than it has.
-const extractor = EXTRACTOR_ID.replace(/[^\w.-]+/g, "_");
+// Every reading of this run, whichever reader produced it: a model over prose and a parser over
+// the maker's own table both land here, and each row records which one it was.
+// A maker may have specification pages and no approved documents at all, so a missing conversion
+// index is not a reason to stop; it only means nothing was downloaded.
 const index = await object(`documents/${manufacturer}/${date}/converting.json`, remote);
-if (!index) {
-  console.error(`no conversion started for ${manufacturer} at ${date}; approve the documents and convert first`);
-  process.exit(1);
-}
-const expected = (JSON.parse(index) as { documents: { sha256: string }[] }).documents;
-const readings: { readings: { sha256: string; url: string; products: (ReportedProduct & { specs: { page?: number }[] })[] }[] } = { readings: [] };
+const expected = index ? (JSON.parse(index) as { documents: { sha256: string }[] }).documents : [];
+const readings: { readings: { sha256: string; url: string; extractedBy?: string; products: (ReportedProduct & { specs: { page?: number }[] })[] }[] } = { readings: [] };
 // Every reading of this run in one request, rather than one process per document.
-for (const value of jsonValues<(typeof readings.readings)[number]>(await under(`documents/${manufacturer}/${date}/readings/${extractor}/`, remote))) {
+for (const value of jsonValues<(typeof readings.readings)[number]>(await under(`documents/${manufacturer}/${date}/readings/`, remote))) {
   readings.readings.push(value);
 }
 const pending = expected.length - readings.readings.length;
@@ -83,7 +82,7 @@ for (const document of readings.readings) {
     models: records.models,
     manufacturer,
     source: sourceId,
-    extractedBy: EXTRACTOR_ID,
+    extractedBy: document.extractedBy ?? EXTRACTOR_ID,
     // A manufacturer's own document is a vendor document. What the figure is not is confirmed:
     // `extractedBy` with no reviewer says a model read it and nobody has checked the row.
     confidence: "vendor-doc",
@@ -106,7 +105,10 @@ for (const spec of collected.values()) {
 }
 
 console.log(`${written} figures and ${modelsAdded} new models${dryRun ? " (dry run, nothing written)" : " written"} for ${manufacturer}`);
-console.log(`${readings.readings.length} of ${expected.length} documents read${pending ? `, ${pending} still converting, queued or dead-lettered` : ""}`);
+const byReader = new Map<string, number>();
+for (const r of readings.readings) byReader.set(r.extractedBy ?? EXTRACTOR_ID, (byReader.get(r.extractedBy ?? EXTRACTOR_ID) ?? 0) + 1);
+console.log(`${readings.readings.length} readings${pending > 0 ? `, ${pending} approved documents still converting or queued` : ""}`);
+for (const [reader, n] of byReader) console.log(`  ${n} by ${reader}`);
 if (unmatched.size) {
   console.log(`\n${unmatched.size} products the documents name that still reach no model:`);
   for (const m of [...unmatched].sort().slice(0, 25)) console.log(`  ${m}`);

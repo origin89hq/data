@@ -43,6 +43,15 @@ export const Work = z.discriminatedUnion("kind", [
       maxWindows: z.number().int().positive().optional(),
     })
     .strict(),
+  z
+    .object({
+      kind: z.literal("spec-table"),
+      manufacturer: z.string().min(1),
+      date: z.string().min(1),
+      /** A page the maker publishes its own specification table on. */
+      url: z.string().url(),
+    })
+    .strict(),
 ]);
 export type Work = z.infer<typeof Work>;
 

@@ -135,3 +135,7 @@ _post path:
 
 _post_json path body:
     @curl -fsS -X POST "$(just _url){{path}}" -H "authorization: Bearer $(just _token)" -H 'content-type: application/json' -d '{{body}}'
+
+# Read a maker's own specification tables. A parser, not a model: nothing to approve, nothing spent.
+spec-pages maker date:
+    @just _post "/spec-pages?id={{maker}}&date={{date}}"

@@ -1,3 +1,5 @@
+import { parseSpecTables, TABLE_READER } from "./spec-table.ts";
+import { USER_AGENT } from "./feeds.ts";
 import { classifyBatch, classifierKey, CLASSIFIER_ID } from "./classify.ts";
 import { contentOf } from "./classify.ts";
 import { chunk, CONVERTER, EXTRACT_MODEL, EXTRACTOR_ID, RESPONSE_SCHEMA, SYSTEM, mergeReports, type Reported } from "./reading.ts";
@@ -79,6 +81,21 @@ export async function handle(message: Work, env: Env): Promise<void> {
       // Converting and reading are two units, and the second only exists once the first has
       // produced something. Chaining them here is what makes the pipeline run without a caller.
       await env.WORK.send({ kind: "extract", manufacturer: message.manufacturer, date: message.date, sha256: message.sha256, url: message.url, key: markdown });
+      return;
+    }
+    case "spec-table": {
+      const response = await fetch(message.url, { headers: { "user-agent": USER_AGENT }, redirect: "follow" });
+      if (!response.ok) throw new Error(`${message.url}: HTTP ${response.status}`);
+      const html = await response.text();
+      const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(html));
+      const sha256 = [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("");
+      // The page is archived like any other source, so a figure can be taken back to the bytes
+      // it was read from even after the maker rewrites the page.
+      await env.ARCHIVE.put(`archive/${sha256}`, html, { httpMetadata: { contentType: "text/html" } });
+      const products = parseSpecTables(html);
+      await env.ARCHIVE.put(partKey.reading(message.manufacturer, message.date, sha256, TABLE_READER.replace(/[^\w.-]+/g, "_")), `${JSON.stringify({ sha256, url: message.url, products, windows: 0, failed: 0, extractedBy: TABLE_READER })}\n`, {
+        httpMetadata: { contentType: "application/json" },
+      });
       return;
     }
     case "extract": {

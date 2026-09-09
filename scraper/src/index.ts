@@ -4,7 +4,8 @@ import { CrawlApproval } from "./documents.ts";
 import { authorised } from "./authorised.ts";
 import { APPROVAL_EVENT } from "./manufacturer-crawl.ts";
 import { consume } from "./consumer.ts";
-import { classifyRun, convertRun } from "./enqueue.ts";
+import { classifyRun, convertRun, specPagesRun } from "./enqueue.ts";
+import specPages from "../../feeds/spec-pages.json" with { type: "json" };
 import type { SellerCrawlParams } from "./seller-crawl.ts";
 
 export { SellerCrawl } from "./seller-crawl.ts";
@@ -112,6 +113,12 @@ export default {
       if (!manufacturerId || !checkedAt) return Response.json({ error: "id and date required" }, { status: 400 });
       // Reading follows conversion on its own: each converted document enqueues its own reading.
       return Response.json(await convertRun(env, manufacturerId, checkedAt));
+    }
+    if (request.method === "POST" && url.pathname === "/spec-pages") {
+      const manufacturerId = url.searchParams.get("id");
+      const checkedAt = url.searchParams.get("date");
+      if (!manufacturerId || !checkedAt) return Response.json({ error: "id and date required" }, { status: 400 });
+      return Response.json(await specPagesRun(env, manufacturerId, checkedAt, specPages.pages));
     }
     if (request.method === "POST" && url.pathname === "/approve") {
       const id = url.searchParams.get("id");

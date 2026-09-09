@@ -45,6 +45,17 @@ export async function classifyRun(env: Env, seller: string, date: string): Promi
 }
 
 /**
+ * Fill the queue with the maker's own specification pages. These are read by a parser rather than
+ * a model, so nothing is approved and nothing is spent: a page a maker publishes for people to
+ * read is a page that can be read.
+ */
+export async function specPagesRun(env: Env, manufacturer: string, date: string, pages: { manufacturer: string; url: string }[]): Promise<{ pages: number }> {
+  const mine = pages.filter((p) => p.manufacturer === manufacturer);
+  await sendAll(env.WORK, mine.map((p): Work => ({ kind: "spec-table", manufacturer, date, url: p.url })));
+  return { pages: mine.length };
+}
+
+/**
  * Fill the queue from the documents a person approved. Each converted document enqueues its own
  * reading, so one call runs both halves without anything supervising from above.
  */

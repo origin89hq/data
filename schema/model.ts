@@ -63,11 +63,12 @@ export const Spec = z
     conditions: z.string().min(1).optional(),
     source: RecordId,
     /**
-     * The model that read this figure out of the document, when one did. A figure a model
-     * extracted is usable and is not confirmed: the source is a manufacturer's own sheet, but
-     * nobody has checked that the number was read off the right row.
+     * What read this figure and how. `ai:` is a model reading prose, which is usable and not
+     * confirmed — the source is the maker's own sheet, but nobody checked the number came off
+     * the right row. `table:` is a parser reading the maker's own specification table, which is
+     * exact but still nobody's decision about whether the table says what it appears to.
      */
-    extractedBy: z.string().regex(/^ai:[\w./@:-]+$/).optional(),
+    extractedBy: z.string().regex(/^(ai|table):[\w./@:-]+$/).optional(),
     /** Who confirmed the figure against the document, and when. Absent until somebody has. */
     reviewedBy: z.string().min(1).optional(),
     checkedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
