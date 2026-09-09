@@ -43,10 +43,27 @@ change. Git is the review tool.
 
 ## Commands
 
+`just` lists everything, with a line each saying what it is for.
+
 ```sh
-pnpm validate            # schema, referential integrity, and a count of what needs a person
-pnpm build               # dist/: one CSV and one Parquet per table, dialects.json, sources.json, manifest.json
-pnpm test                # node --test
+just check                     # what CI runs: both test suites, validation, two builds compared
+just gate                      # what is waiting for a person, most in-scope first
+just is ep-solar epever "XTRA2210N matches the dialect the catalogue documents"
+just sync-sam                  # is the pinned dataset still what upstream publishes?
+just dev                       # the Worker locally, with a local R2
+just discover rolls-battery rollsbattery.com 2026-09-09
+just plan rolls-battery 2026-09-09        # read it before approving it
+just approve rolls-battery 2026-09-09 "David" 40
+just convert rolls-battery 2026-09-09     # each document then enqueues its own reading
+just specs rolls-battery 2026-09-09
+```
+
+Set `OFFGRID_BASE_URL` and `OFFGRID_CONTROL_TOKEN` and the same recipes drive
+the deployed spider; without them they talk to `just dev` on this machine.
+
+The catalogue migration keeps its own commands, since it runs once:
+
+```sh
 pnpm roundtrip:catalogue <catalogue dir>   # parse and render every family file; must print "same" for each
 pnpm import:catalogue    <catalogue dir>   # rewrite records/ from the catalogue
 ```
@@ -129,6 +146,11 @@ they never enter `records/` and never need a reviewer.
 | Feed | Licence | Products | Figures |
 |---|---|---|---|
 | SAM component libraries, CEC modules and inverters | BSD-3-Clause | 24,020 | 227,531 |
+
+`just sync-sam` checks the pin against what upstream publishes now. A changed
+file is reported — how many products arrived, left or moved — and the pin only
+moves with `just sync-sam-accept`. A feed that updated itself would mean the
+figures published here could change without anybody having looked.
 
 Every model and every figure carries a `tier`: `reviewed` for what a person
 checked, `feed` for a row a public dataset states. A reader that cannot tell
