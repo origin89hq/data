@@ -16,6 +16,13 @@ jobs:
         with:
           persist-credentials: false
       - uses: ./.github/actions/setup
+      # The build writes Parquet through the duckdb CLI, and a build test runs in the unit suite,
+      # so it has to be on PATH before anything runs rather than before the build step.
+      - name: Install the duckdb CLI
+        run: |
+          curl -fsSL https://install.duckdb.org | sh
+          echo "$HOME/.duckdb/cli/latest" >> "$GITHUB_PATH"
+      - run: duckdb -c "SELECT 1" > /dev/null
       - run: pnpm test
       - run: pnpm --filter offgrid-equipment-scraper test
       # The scraper's types come from its wrangler config, so a binding that is declared in code
@@ -29,8 +36,6 @@ jobs:
       # a Parquet writer is not deterministic by promise, so it is checked rather than assumed.
       - name: Build twice and compare
         run: |
-          sudo apt-get update && sudo apt-get install -y --no-install-recommends duckdb || curl -fsSL https://install.duckdb.org | sh
-          export PATH="$HOME/.duckdb/cli/latest:$PATH"
           pnpm build > /dev/null
           sha256sum dist/* | sort > "$RUNNER_TEMP/first.txt"
           pnpm build > /dev/null
