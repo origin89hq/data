@@ -38,6 +38,7 @@ export function sightingsFromShopify(seller: Seller, products: ShopifyProduct[],
       currency: seller.currency,
       ...(p.updated_at ? { updatedAt: p.updated_at } : {}),
       checkedAt,
+      extractor: "shopify-feed" as const,
     };
     const variants = p.variants?.length ? p.variants : [{}];
     for (const v of variants) {

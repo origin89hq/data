@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { sightingsFromShopify, shopifyPageUrl, type ShopifyProduct } from "../src/shopify.ts";
 import { Sighting, type Seller } from "../../schema/sighting.ts";
 
-const seller: Seller = { id: "shop", name: "Shop", url: "https://shop.example/", country: "CA", currency: "CAD", kind: "shopify" };
+const seller: Seller = { id: "shop", name: "Shop", url: "https://shop.example/", country: "CA", currency: "CAD", platform: "shopify" };
 
 test("a product with variants becomes one sighting per variant, each carrying its own sku and price", () => {
   const product: ShopifyProduct = {
@@ -14,6 +14,7 @@ test("a product with variants becomes one sighting per variant, each carrying it
   assert.equal(s.length, 2);
   assert.equal(s[0].url, "https://shop.example/products/rolls-s-550");
   assert.equal(s[0].sku, "S-550");
+  assert.equal(s[0].extractor, "shopify-feed");
   assert.equal(s[1].variant, "Pair");
   assert.equal(s[1].available, false);
   assert.deepEqual(s[0].tags, ["flooded", "6v"]);

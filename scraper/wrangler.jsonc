@@ -5,8 +5,10 @@
   "compatibility_date": "2026-09-09",
   "compatibility_flags": ["nodejs_compat"],
   "workflows": [
-    { "name": "seller-crawl", "binding": "SELLER_CRAWL", "class_name": "SellerCrawl" }
+    { "name": "seller-crawl", "binding": "SELLER_CRAWL", "class_name": "SellerCrawl" },
+    { "name": "classify-sightings", "binding": "CLASSIFY_SIGHTINGS", "class_name": "ClassifySightings" }
   ],
+  "ai": { "binding": "AI" },
   "r2_buckets": [
     { "binding": "ARCHIVE", "bucket_name": "offgrid-equipment-archive" }
   ],
