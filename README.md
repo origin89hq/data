@@ -237,6 +237,10 @@ It needs, once:
 | Repository secret | `CONTROL_TOKEN` | a random string; the Worker refuses every control endpoint without it |
 | Environment | `offgrid-equipment-production` | where the approval reviewers live, if you want a second pair of eyes on a deploy |
 
+The Worker's config names `CONTROL_TOKEN` under `secrets.required`, so wrangler
+generates its binding type and warns in local development when it is missing.
+There is no hand-written `Env` to drift from what is actually deployed.
+
 Tick **rotate_control_token** on the first run to push the token to the Worker.
 Every endpoint that starts a crawl, spends money or releases a download requires
 it as a bearer token, and a Worker with no token set refuses everything rather

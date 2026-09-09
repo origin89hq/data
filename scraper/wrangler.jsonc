@@ -17,7 +17,10 @@
     { "binding": "ARCHIVE", "bucket_name": "offgrid-equipment-archive" }
   ],
   "triggers": { "crons": ["0 6 * * 1"] },
-  "vars": {},
+  // Named here rather than in a hand-written type: wrangler generates the binding types from
+  // this, warns in local development when it is missing, and there is one place that says the
+  // Worker needs it.
+  "secrets": { "required": ["CONTROL_TOKEN"] },
   "observability": {
     "enabled": true,
     "logs": { "enabled": true, "head_sampling_rate": 1 },
