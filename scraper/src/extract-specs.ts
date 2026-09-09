@@ -46,12 +46,19 @@ export class ExtractSpecs extends WorkflowEntrypoint<Env, ExtractParams> {
           for (const window of windows) {
             try {
               const response = await this.env.AI.run(EXTRACT_MODEL, {
-                messages: [{ role: "system", content: SYSTEM }, { role: "user", content: window }],
+                messages: [{ role: "system", content: SYSTEM }, { role: "user", content: window.text }],
                 response_format: { type: "json_schema", json_schema: RESPONSE_SCHEMA },
                 max_tokens: 3072,
               } as never);
               const parsed = JSON.parse(contentOf(response)) as { products?: Reported[] };
-              if (Array.isArray(parsed.products)) reports.push(...parsed.products);
+              // The page comes from where the window started, not from the model: a page number
+              // it invented would be worse than none, because it looks checkable.
+              if (Array.isArray(parsed.products)) {
+                for (const product of parsed.products) {
+                  if (!Array.isArray(product?.specs)) continue;
+                  reports.push({ ...product, specs: product.specs.map((s) => ({ ...s, ...(window.page === undefined ? {} : { page: window.page }) })) });
+                }
+              }
             } catch {
               // One window that will not read costs its own figures. A document is many windows
               // and losing all of them because of one is worse than reporting the gap.

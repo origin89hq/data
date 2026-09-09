@@ -81,6 +81,31 @@ answer, not a gap to fill with a default: 5,889 of the current models came from
 crawls no classifier had run over, and calling them all balance-of-system would
 have been a guess wearing the shape of a fact.
 
+## Reading a maker's datasheets
+
+Hop two ends in figures. Once a manufacturer's documents are archived, two more
+Workflows finish the job:
+
+```sh
+curl -X POST 'localhost:8787/convert?id=rolls-battery&date=<date>'   # PDFs to markdown
+curl -X POST 'localhost:8787/extract?id=rolls-battery&date=<date>'   # markdown to readings
+pnpm specs:pull rolls-battery <date> --dry-run                        # see what would land
+pnpm specs:pull rolls-battery <date>                                  # write the figures
+```
+
+A figure is attached only when the document's own name for the product answers
+to a model held for that maker. A product the maker names and no shop we
+crawled sells becomes a model first, because a datasheet naming
+"S48-300LFP STACK-LV" is better evidence that the product exists than a listing
+is. Nothing extracted is confirmed: a spec row names the model that read it, and
+validation refuses one that is neither extracted nor reviewed.
+
+Two things the first real run taught. Rolls' lithium datasheet converts to 1,497
+characters of scrambled chart labels, because its ratings are pictures and not
+text — a maker's catalogue is not uniformly readable and the conversion index
+records which documents were. And the figures came out of a UL test report
+instead, which is where the ratings for that range are actually tabulated.
+
 `records/specs/` holds the ratings, one row per figure rather than a column per
 field. A battery and an inverter share almost no columns, and a single
 `capacity_ah` would have to pick one discharge rate and lie — the Rolls S-550
@@ -170,10 +195,10 @@ Nothing is deployed and no bucket exists yet. Local runs so far:
 
 | Seller | Tier | Result |
 |---|---|---|
-| The Cabin Depot | Shopify feed | 2,971 sightings, 2,226 products, 131 brand strings |
-| Solacity | WooCommerce feed | 493 sightings, 51 brands, 429 with a maker's model number |
+| 32 sellers with a feed | Shopify and WooCommerce | 32,160 sightings |
 | Signature Solar | microdata | 49 of 50 sampled pages |
 | NAZ Solar Electric | JSON-LD | 38 of 40 sampled pages |
+| Rolls Battery | hop two | 8 documents, 110 figures over 13 models |
 
 Most of the Cabin Depot's catalogue is wood stoves and composting toilets, and
 that is expected: the seller list is about where off-grid buyers shop, and the

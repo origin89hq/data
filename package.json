@@ -18,7 +18,8 @@
     "gate": "node tools/gate/decide.ts",
     "models": "node tools/gate/models.ts",
     "models:push": "node tools/gate/push-models.ts",
-    "models:kinds": "node tools/gate/pull-kinds.ts"
+    "models:kinds": "node tools/gate/pull-kinds.ts",
+    "specs:pull": "node tools/gate/pull-specs.ts"
   },
   "packageManager": "pnpm@10.0.0",
   "dependencies": {

@@ -8,12 +8,29 @@ export interface ReportedSpec {
   value: string;
   unit?: string;
   conditions?: string;
+  /** The page of the document the figure was read from, carried from the window rather than asked of the model. */
+  page?: number;
 }
 
 export interface ReportedProduct {
   /** The product name as the document prints it, which is not necessarily a name we hold. */
   model: string;
   specs: ReportedSpec[];
+}
+
+/**
+ * A datasheet's table header carries the unit with the name — "Rated Capacity (Ah)" — so the
+ * reading arrives with it there. Moving it into the unit field loses nothing and makes the figure
+ * comparable; a name with no trailing unit, or one that already has a unit, is left alone.
+ */
+export function splitUnit(name: string, unit: string | undefined): { name: string; unit?: string } {
+  if (unit?.trim()) return { name: name.trim(), unit: unit.trim() };
+  const match = /^(.*?)\s*[（(]\s*([^()（）]{1,12}?)\s*[）)]\s*$/.exec(name.trim());
+  if (!match) return { name: name.trim() };
+  const [, bare, candidate] = match;
+  // Only a unit, not a qualifier: "(Ah)" is one, "(at 25 °C)" and "(D*W*H)" are not.
+  if (!/^[A-Za-zΩ°µ%\/·.]+[0-9]?$/.test(candidate) || /^(d\*w\*h|l\*w\*h|max|min|typ|optional|nominal)$/i.test(candidate)) return { name: name.trim() };
+  return bare ? { name: bare, unit: candidate } : { name: name.trim() };
 }
 
 /** A stable id for a figure, so re-running an extraction rewrites rows rather than piling up duplicates. */
@@ -70,9 +87,10 @@ export function specsFrom({ reports, models, manufacturer, source, extractedBy, 
       continue;
     }
     for (const s of report.specs) {
-      const name = s.name?.trim();
+      const raw = s.name?.trim();
       const value = s.value?.trim();
-      if (!name || !value) continue;
+      if (!raw || !value) continue;
+      const { name, unit } = splitUnit(raw, s.unit);
       const conditions = s.conditions?.trim() || undefined;
       const id = specId(model.id, name, conditions);
       // Two rows of one document that reduce to the same figure under the same conditions are
@@ -83,9 +101,12 @@ export function specsFrom({ reports, models, manufacturer, source, extractedBy, 
         model: model.id,
         name,
         value,
-        ...(s.unit?.trim() ? { unit: s.unit.trim() } : {}),
+        ...(unit ? { unit } : {}),
         ...(conditions ? { conditions } : {}),
         source,
+        // The page travels with the figure. Looking it up afterwards by name matched the first
+        // row of any product that used that name, which quietly cited the wrong page.
+        ...(typeof s.page === "number" && s.page > 0 ? { page: s.page } : {}),
         extractedBy,
         confidence,
       });

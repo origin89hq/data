@@ -1,0 +1,10 @@
+{
+  "id": "rolls-battery-s48-700lfp-stack-lv--module-series-and-or-parallel-configuration",
+  "model": "rolls-battery-s48-700lfp-stack-lv",
+  "name": "Module series and/or parallel configuration",
+  "value": "1S7P",
+  "source": "doc-74344ec27e569e0678bb8346c1d16b06",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

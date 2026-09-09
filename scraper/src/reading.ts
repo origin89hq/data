@@ -79,13 +79,46 @@ export const RESPONSE_SCHEMA = {
   required: ["products"],
 };
 
-/** Split a document into windows that overlap, so a table straddling a boundary is seen whole once. */
-export function chunk(markdown: string, size = CHUNK_CHARACTERS, overlap = CHUNK_OVERLAP): string[] {
-  if (markdown.length <= size) return markdown.trim() ? [markdown] : [];
-  const out: string[] = [];
+/** One window of a document, and the page it starts on. */
+export interface Window {
+  text: string;
+  /** The converter writes "### Page N" headings, which is how a figure keeps a page to be checked against. */
+  page?: number;
+}
+
+const PAGE_HEADING = /^#{1,6}\s*Page\s+(\d+)\s*$/gim;
+
+/** Where each page of the converted document begins, so a window can say which page it started on. */
+export function pageOffsets(markdown: string): { page: number; at: number }[] {
+  PAGE_HEADING.lastIndex = 0;
+  const out: { page: number; at: number }[] = [];
+  for (let m = PAGE_HEADING.exec(markdown); m; m = PAGE_HEADING.exec(markdown)) out.push({ page: Number(m[1]), at: m.index });
+  return out;
+}
+
+/**
+ * Split a document into windows that overlap, so a ratings table straddling a boundary is seen
+ * whole at least once, and carry the page each window starts on. A figure without a page is a
+ * figure nobody can go back and check.
+ */
+export function chunk(markdown: string, size = CHUNK_CHARACTERS, overlap = CHUNK_OVERLAP): Window[] {
+  const pages = pageOffsets(markdown);
+  const pageAt = (offset: number): number | undefined => {
+    let page: number | undefined;
+    for (const p of pages) {
+      if (p.at > offset) break;
+      page = p.page;
+    }
+    return page;
+  };
+  if (markdown.length <= size) return markdown.trim() ? [{ text: markdown, ...(pageAt(0) === undefined ? {} : { page: pageAt(0) }) }] : [];
+  const out: Window[] = [];
   for (let start = 0; start < markdown.length; start += size - overlap) {
-    const piece = markdown.slice(start, start + size);
-    if (piece.trim()) out.push(piece);
+    const text = markdown.slice(start, start + size);
+    if (text.trim()) {
+      const page = pageAt(start);
+      out.push({ text, ...(page === undefined ? {} : { page }) });
+    }
     if (start + size >= markdown.length) break;
   }
   return out;
@@ -93,7 +126,7 @@ export function chunk(markdown: string, size = CHUNK_CHARACTERS, overlap = CHUNK
 
 export interface Reported {
   model: string;
-  specs: { name: string; value: string; unit?: string; conditions?: string }[];
+  specs: { name: string; value: string; unit?: string; conditions?: string; page?: number }[];
 }
 
 /** Merge what several windows reported about one document, so a product named twice is one entry. */

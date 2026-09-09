@@ -1,0 +1,10 @@
+{
+  "id": "rolls-battery-s48-200lfp-stack-lv--standard-charge-method-charge-current",
+  "model": "rolls-battery-s48-200lfp-stack-lv",
+  "name": "Standard charge method: Charge current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-74344ec27e569e0678bb8346c1d16b06",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

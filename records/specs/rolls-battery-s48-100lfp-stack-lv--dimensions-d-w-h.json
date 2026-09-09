@@ -1,0 +1,9 @@
+{
+  "id": "rolls-battery-s48-100lfp-stack-lv--dimensions-d-w-h",
+  "model": "rolls-battery-s48-100lfp-stack-lv",
+  "name": "Dimensions (D*W*H)",
+  "value": "600(±1) mm x 450(±1) mm x 320(±5) mm",
+  "source": "doc-74344ec27e569e0678bb8346c1d16b06",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}
