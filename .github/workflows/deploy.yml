@@ -1,0 +1,44 @@
+name: Deploy the spider
+# Deliberately manual. A deploy arms a weekly cron that crawls three dozen shops and can spend
+# money on a model, so it is a decision somebody makes rather than something a merge does.
+on:
+  workflow_dispatch:
+    inputs:
+      rotate_control_token:
+        type: boolean
+        description: Replace the Worker's CONTROL_TOKEN with the value in repository secrets
+        default: false
+permissions:
+  contents: read
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: offgrid-equipment-production
+    concurrency:
+      group: offgrid-equipment-production
+      cancel-in-progress: false
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - run: pnpm --filter offgrid-equipment-scraper test
+      - name: Deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        working-directory: scraper
+        run: pnpm exec wrangler deploy
+      # Every control endpoint refuses a request without this, and a Worker with no token set
+      # refuses everything rather than allowing everything.
+      - name: Set the control token
+        if: inputs.rotate_control_token
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CONTROL_TOKEN: ${{ secrets.CONTROL_TOKEN }}
+        working-directory: scraper
+        run: printf '%s' "$CONTROL_TOKEN" | pnpm exec wrangler secret put CONTROL_TOKEN

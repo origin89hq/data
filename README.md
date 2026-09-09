@@ -221,6 +221,31 @@ A guess is never a fact. It lives beside the sightings under the classifier's
 id, so a second model or a changed prompt writes a second set and the two can
 be compared before either is trusted.
 
+## Deploying
+
+The spider deploys from CI, not from a laptop, and the deploy is manual: it arms
+a weekly cron that crawls three dozen shops and can spend money on a model, so
+it is a decision somebody makes rather than something a merge does. Run
+**Deploy the spider** from the Actions tab on `main`.
+
+It needs, once:
+
+| Where | Name | What |
+|---|---|---|
+| Repository variable | `CLOUDFLARE_ACCOUNT_ID` | the account the Worker and bucket live in |
+| Repository secret | `CLOUDFLARE_API_TOKEN` | Workers Scripts edit, Workers R2 Storage edit, Workers AI read |
+| Repository secret | `CONTROL_TOKEN` | a random string; the Worker refuses every control endpoint without it |
+| Environment | `offgrid-equipment-production` | where the approval reviewers live, if you want a second pair of eyes on a deploy |
+
+Tick **rotate_control_token** on the first run to push the token to the Worker.
+Every endpoint that starts a crawl, spends money or releases a download requires
+it as a bearer token, and a Worker with no token set refuses everything rather
+than allowing everything — an unset secret is the state a fresh deploy is in.
+
+```sh
+curl -X POST "https://<worker>/run?seller=solacity" -H "authorization: Bearer $CONTROL_TOKEN"
+```
+
 ## The gate
 
 Between the two hops sits the one step a model does not get to take: deciding

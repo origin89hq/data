@@ -1,6 +1,7 @@
 import { sellers } from "./sellers.ts";
 import { hasFeed } from "./feeds.ts";
 import { CrawlApproval } from "./documents.ts";
+import { authorised } from "./authorised.ts";
 import { APPROVAL_EVENT } from "./manufacturer-crawl.ts";
 import type { SellerCrawlParams } from "./seller-crawl.ts";
 
@@ -25,6 +26,11 @@ export default {
   /** `POST /run?seller=<id>` starts a crawl; `GET /status?id=<instance>` reports one. Local development and by-hand runs only; the cron is the real trigger. */
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
+    // A liveness check tells a caller nothing it could not learn from a DNS lookup.
+    if (request.method === "GET" && url.pathname === "/") return Response.json({ ok: true });
+    if (!(await authorised(request, env.CONTROL_TOKEN))) {
+      return Response.json({ error: "a bearer token is required; set one with: wrangler secret put CONTROL_TOKEN" }, { status: 401 });
+    }
     if (request.method === "POST" && url.pathname === "/run") {
       const sellerId = url.searchParams.get("seller");
       if (!sellerId || !sellers.some((s) => s.id === sellerId)) return Response.json({ error: "unknown seller" }, { status: 400 });

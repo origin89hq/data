@@ -17,6 +17,7 @@
     { "binding": "ARCHIVE", "bucket_name": "offgrid-equipment-archive" }
   ],
   "triggers": { "crons": ["0 6 * * 1"] },
+  "vars": {},
   "observability": {
     "enabled": true,
     "logs": { "enabled": true, "head_sampling_rate": 1 },
