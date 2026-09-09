@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-multiplus-ii--ac-output",
+  "model": "victron-energy-multiplus-ii",
+  "name": "AC output",
+  "value": "3kVA 2x120VAC 12VDC 2x200Ah Li",
+  "source": "doc-131b9a2de292ef8ae2147340a325dffa",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

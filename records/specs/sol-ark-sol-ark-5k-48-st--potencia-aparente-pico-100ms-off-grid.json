@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-5k-48-st--potencia-aparente-pico-100ms-off-grid",
+  "model": "sol-ark-sol-ark-5k-48-st",
+  "name": "Potencia Aparente, pico (100ms, off-grid)",
+  "value": "25,000VA @ 240V",
+  "source": "doc-ab041ca4c66285a9f790085773008391",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

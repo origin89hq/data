@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-l3-hvr-5-1kwh--rated-capacity",
+  "model": "sol-ark-l3-hvr-5-1kwh",
+  "name": "Rated capacity",
+  "value": "5.1kWh",
+  "source": "doc-5bd36ab6f3b3de877d39c5e223c5f826",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

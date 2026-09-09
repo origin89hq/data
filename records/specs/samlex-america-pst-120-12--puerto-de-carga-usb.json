@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-120-12--puerto-de-carga-usb",
+  "model": "samlex-america-pst-120-12",
+  "name": "Puerto de carga USB",
+  "value": "5V, 500mA",
+  "source": "doc-bbcafddfe3013c1cc841694c80bde644",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-ms-series--input-voltage-range",
+  "model": "magnum-energy-ms-series",
+  "name": "Input Voltage Range",
+  "value": "9-16.8 VDC, 18-33.6 VDC, 36-67.6 VDC",
+  "source": "doc-7a6d6878a05f1e83338e0b1383fdfba2",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

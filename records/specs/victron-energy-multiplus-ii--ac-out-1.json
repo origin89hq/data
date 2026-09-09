@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-multiplus-ii--ac-out-1",
+  "model": "victron-energy-multiplus-ii",
+  "name": "AC OUT-1",
+  "value": "50A",
+  "source": "doc-131b9a2de292ef8ae2147340a325dffa",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

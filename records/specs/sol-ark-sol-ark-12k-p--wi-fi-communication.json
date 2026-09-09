@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-12k-p--wi-fi-communication",
+  "model": "sol-ark-sol-ark-12k-p",
+  "name": "Wi-Fi Communication",
+  "value": "included",
+  "source": "doc-b9cf825ae0cfef0a2ad1544f230e4d72",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

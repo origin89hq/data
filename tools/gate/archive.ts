@@ -55,6 +55,44 @@ export async function under(prefix: string, remote: boolean): Promise<string> {
   return response.status === 404 ? "" : await response.text();
 }
 
+/**
+ * Parse a stream of JSON values that may or may not be one per line. Objects written pretty
+ * spread over many lines, and splitting on newlines silently drops all of them; reading value by
+ * value works for both and cannot half-read one.
+ */
+export function jsonValues<T>(text: string): T[] {
+  const out: T[] = [];
+  let index = 0;
+  while (index < text.length) {
+    while (index < text.length && /\s/.test(text[index])) index += 1;
+    if (index >= text.length) break;
+    // JSON.parse cannot resume, so the end of each value is found by trying to parse the
+    // shortest balanced prefix. Values here are objects, so brace depth outside strings is enough.
+    let depth = 0;
+    let inString = false;
+    let escaped = false;
+    let end = index;
+    for (; end < text.length; end += 1) {
+      const c = text[end];
+      if (escaped) escaped = false;
+      else if (c === "\\") escaped = true;
+      else if (c === '"') inString = !inString;
+      else if (!inString && (c === "{" || c === "[")) depth += 1;
+      else if (!inString && (c === "}" || c === "]")) {
+        depth -= 1;
+        if (depth === 0) {
+          end += 1;
+          break;
+        }
+      }
+    }
+    if (depth !== 0) throw new Error("unbalanced JSON in the archive stream");
+    out.push(JSON.parse(text.slice(index, end)) as T);
+    index = end;
+  }
+  return out;
+}
+
 export async function keysUnder(prefix: string, remote: boolean): Promise<string[]> {
   const response = await get(`/archive?prefix=${encodeURIComponent(prefix)}&list=true`, remote);
   if (response.status === 404) return [];

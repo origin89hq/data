@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-60s-48e--external-battery-fuse-size",
+  "model": "samlex-america-pst-60s-48e",
+  "name": "External Battery Fuse Size",
+  "value": "20A",
+  "source": "doc-2f25fb174cda781428bc64719d088d65",
+  "page": 34,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

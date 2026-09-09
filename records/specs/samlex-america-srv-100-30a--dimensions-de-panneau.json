@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-srv-100-30a--dimensions-de-panneau",
+  "model": "samlex-america-srv-100-30a",
+  "name": "Dimensions de panneau",
+  "value": "21,73 x 47,25 x 1,39",
+  "source": "doc-1113ce82e230f6f3cf77f45e6285e329",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

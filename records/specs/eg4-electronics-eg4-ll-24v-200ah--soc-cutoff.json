@@ -1,0 +1,9 @@
+{
+  "id": "eg4-electronics-eg4-ll-24v-200ah--soc-cutoff",
+  "model": "eg4-electronics-eg4-ll-24v-200ah",
+  "name": "SOC CUTOFF",
+  "value": "20%",
+  "source": "doc-b748b4439ce996b2272bda864d3f91dd",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

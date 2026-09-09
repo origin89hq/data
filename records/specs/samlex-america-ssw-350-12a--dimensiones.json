@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-ssw-350-12a--dimensiones",
+  "model": "samlex-america-ssw-350-12a",
+  "name": "Dimensiones",
+  "value": "8.86 x 6.10 x 2.32",
+  "unit": "pulgadas",
+  "source": "doc-bbcafddfe3013c1cc841694c80bde644",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

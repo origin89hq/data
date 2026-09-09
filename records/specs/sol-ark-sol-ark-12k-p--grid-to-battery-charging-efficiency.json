@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-12k-p--grid-to-battery-charging-efficiency",
+  "model": "sol-ark-sol-ark-12k-p",
+  "name": "Grid to Battery Charging Efficiency",
+  "value": "96.0%",
+  "source": "doc-b9cf825ae0cfef0a2ad1544f230e4d72",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "eg4-electronics-eg4-chargeverter-plus--maximum-input-current",
+  "model": "eg4-electronics-eg4-chargeverter-plus",
+  "name": "MAXIMUM INPUT CURRENT",
+  "value": "26A @ 240 VAC l 28A @ 120 VAC",
+  "source": "doc-55f12b8f9ded3bc7664ee333a8178ac7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

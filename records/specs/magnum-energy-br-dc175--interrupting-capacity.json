@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-br-dc175--interrupting-capacity",
+  "model": "magnum-energy-br-dc175",
+  "name": "Interrupting Capacity",
+  "value": "10,000 amperes at 160VDC and 65,000 amperes at 65VDC",
+  "source": "doc-72e45b52a08c8555188a5487e040ec8c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

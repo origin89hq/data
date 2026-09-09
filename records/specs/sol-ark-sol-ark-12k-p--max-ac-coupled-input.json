@@ -1,0 +1,9 @@
+{
+  "id": "sol-ark-sol-ark-12k-p--max-ac-coupled-input",
+  "model": "sol-ark-sol-ark-12k-p",
+  "name": "Max. AC Coupled Input",
+  "value": "9,600W",
+  "source": "doc-a6309d995ea95cdfb312cc5335f5fbe8",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

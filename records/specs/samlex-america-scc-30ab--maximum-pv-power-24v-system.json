@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-scc-30ab--maximum-pv-power-24v-system",
+  "model": "samlex-america-scc-30ab",
+  "name": "Maximum PV power (24V system)",
+  "value": "1000W",
+  "source": "doc-022b78fef6b9334895d043e4422c174e",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

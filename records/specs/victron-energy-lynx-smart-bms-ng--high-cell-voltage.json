@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-lynx-smart-bms-ng--high-cell-voltage",
+  "model": "victron-energy-lynx-smart-bms-ng",
+  "name": "High cell voltage",
+  "value": "3.60V",
+  "source": "doc-6652fcdf0e9f05f446c2f8eda5284b2b",
+  "page": 42,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

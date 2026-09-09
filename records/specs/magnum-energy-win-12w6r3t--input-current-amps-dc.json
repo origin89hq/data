@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-win-12w6r3t--input-current-amps-dc",
+  "model": "magnum-energy-win-12w6r3t",
+  "name": "Input Current (Amps DC)",
+  "value": "Up to 60",
+  "source": "doc-8ea178f0a52e9d2e41071115652d4fd1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

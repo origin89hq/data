@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-ssp-150-kit--poids-de-panneau",
+  "model": "samlex-america-ssp-150-kit",
+  "name": "Poids de panneau",
+  "value": "26,4",
+  "source": "doc-1113ce82e230f6f3cf77f45e6285e329",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

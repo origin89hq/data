@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-l3-hv-40--usable-energy-capacity",
+  "model": "sol-ark-l3-hv-40",
+  "name": "Usable Energy Capacity",
+  "value": "36.86 kWh",
+  "unit": "DC",
+  "source": "doc-eb5e1344b9147f1306df49847b92af1a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

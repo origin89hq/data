@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-sam-3000-12--entrada",
+  "model": "samlex-america-sam-3000-12",
+  "name": "Entrada",
+  "value": "12",
+  "unit": "VCD",
+  "source": "doc-bbcafddfe3013c1cc841694c80bde644",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

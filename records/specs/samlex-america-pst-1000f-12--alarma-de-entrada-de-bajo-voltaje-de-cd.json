@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-pst-1000f-12--alarma-de-entrada-de-bajo-voltaje-de-cd",
+  "model": "samlex-america-pst-1000f-12",
+  "name": "ALARMA DE ENTRADA DE BAJO VOLTAJE DE CD",
+  "value": "10.7V ± 0.1V",
+  "source": "doc-96ba76d8d3eae5bd526cdc46b990287c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-4248sp--tension-nominale-de-sortie-cc",
+  "model": "samlex-america-evo-4248sp",
+  "name": "TENSION NOMINALE DE SORTIE CC",
+  "value": "36 - 68 VCC (57,6 V nom.)",
+  "source": "doc-8f1066e52d62d09fbee4f0bd6eb04a91",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

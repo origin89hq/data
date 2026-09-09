@@ -1,0 +1,10 @@
+{
+  "id": "eg4-electronics-12kpv--total-loads-from-the-main-breaker-panel-and-the-critical-loads-panel",
+  "model": "eg4-electronics-12kpv",
+  "name": "Total loads from the Main Breaker Panel and the Critical Loads Panel",
+  "value": "160 Amps",
+  "source": "doc-3edb02be8d70fbc8671c6ebccf37ac0d",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

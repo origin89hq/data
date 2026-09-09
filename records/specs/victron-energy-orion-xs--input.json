@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-orion-xs--input",
+  "model": "victron-energy-orion-xs",
+  "name": "Input",
+  "value": "9 - 17V",
+  "source": "doc-131b9a2de292ef8ae2147340a325dffa",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-15k-2p-lv--ac-coupled-power",
+  "model": "sol-ark-15k-2p-lv",
+  "name": "AC coupled power",
+  "value": "19.2kW",
+  "source": "doc-4d1ddeeb6b9dbf9d0111574b2c3d37de",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

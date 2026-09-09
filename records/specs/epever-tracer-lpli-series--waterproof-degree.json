@@ -1,0 +1,9 @@
+{
+  "id": "epever-tracer-lpli-series--waterproof-degree",
+  "model": "epever-tracer-lpli-series",
+  "name": "Waterproof degree",
+  "value": "IP68",
+  "source": "doc-4dfc4053f84c56b9f38640f51657ddf1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

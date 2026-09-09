@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-msk-90--charging-amps",
+  "model": "samlex-america-msk-90",
+  "name": "CHARGING AMPS",
+  "value": "5.68 Amps",
+  "source": "doc-d94bbb925dac3274d56a9b91f9d929e7",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

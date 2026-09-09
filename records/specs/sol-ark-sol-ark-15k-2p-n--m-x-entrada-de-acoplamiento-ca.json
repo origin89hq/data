@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-15k-2p-n--m-x-entrada-de-acoplamiento-ca",
+  "model": "sol-ark-sol-ark-15k-2p-n",
+  "name": "Máx. Entrada de Acoplamiento CA",
+  "value": "19,200 W",
+  "source": "doc-dcaad73dc01bbc114e274bc056fcfd85",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

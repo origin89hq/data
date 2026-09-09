@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-sam-2000-12--peso",
+  "model": "samlex-america-sam-2000-12",
+  "name": "Peso",
+  "value": "8.50",
+  "unit": "lbs",
+  "source": "doc-bbcafddfe3013c1cc841694c80bde644",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

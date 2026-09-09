@@ -1,0 +1,9 @@
+{
+  "id": "sol-ark-l3-hvr-60--battery-module-nominal-voltage-and-capacity",
+  "model": "sol-ark-l3-hvr-60",
+  "name": "Battery Module Nominal Voltage and Capacity",
+  "value": "51.2V / 100Ah",
+  "source": "doc-eb5e1344b9147f1306df49847b92af1a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

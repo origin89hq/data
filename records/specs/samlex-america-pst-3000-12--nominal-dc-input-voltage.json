@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-3000-12--nominal-dc-input-voltage",
+  "model": "samlex-america-pst-3000-12",
+  "name": "NOMINAL DC INPUT VOLTAGE",
+  "value": "12V",
+  "source": "doc-d94bbb925dac3274d56a9b91f9d929e7",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-5k-1p-n--m-x-potencia-fv-permitida",
+  "model": "sol-ark-5k-1p-n",
+  "name": "Máx. Potencia FV Permitida",
+  "value": "10,400W",
+  "unit": "STC",
+  "source": "doc-d1bb62cfa20ccdc6108f0507c934303b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

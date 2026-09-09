@@ -1,0 +1,9 @@
+{
+  "id": "eg4-electronics-eg4--nominal-ac-voltage",
+  "model": "eg4-electronics-eg4",
+  "name": "NOMINAL AC VOLTAGE",
+  "value": "120/240VAC; 120/208VAC (L1/L2/N required)', 'unit': 'VAC",
+  "source": "doc-8ed962a43d9d77f6868dec28807831c4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

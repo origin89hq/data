@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pse-12175a--input-dc-voltage",
+  "model": "samlex-america-pse-12175a",
+  "name": "Input DC Voltage",
+  "value": "> 10.5Vdc to < 16.5Vdc",
+  "source": "doc-f49fafbc908a498dd9ba251311c1e142",
+  "page": 44,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

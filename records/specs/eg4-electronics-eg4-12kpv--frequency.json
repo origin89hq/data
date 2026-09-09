@@ -1,0 +1,9 @@
+{
+  "id": "eg4-electronics-eg4-12kpv--frequency",
+  "model": "eg4-electronics-eg4-12kpv",
+  "name": "FREQUENCY",
+  "value": "50/60Hz', 'unit': 'Hz",
+  "source": "doc-f415a505233ab81e4819b77f8b313c34",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

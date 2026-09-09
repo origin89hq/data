@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-15k-2p-n--temperatura-ambiente",
+  "model": "sol-ark-sol-ark-15k-2p-n",
+  "name": "Temperatura Ambiente",
+  "value": "-25~55°C, > 45°C reducción de potencia",
+  "source": "doc-dcaad73dc01bbc114e274bc056fcfd85",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

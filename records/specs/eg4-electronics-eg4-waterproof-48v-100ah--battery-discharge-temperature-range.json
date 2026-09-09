@@ -1,0 +1,9 @@
+{
+  "id": "eg4-electronics-eg4-waterproof-48v-100ah--battery-discharge-temperature-range",
+  "model": "eg4-electronics-eg4-waterproof-48v-100ah",
+  "name": "Battery discharge temperature range",
+  "value": "-4°F - 131°F",
+  "source": "doc-f700cd34b904f0ba15dbe54d8f7dbe20",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

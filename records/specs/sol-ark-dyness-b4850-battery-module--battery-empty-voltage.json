@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-dyness-b4850-battery-module--battery-empty-voltage",
+  "model": "sol-ark-dyness-b4850-battery-module",
+  "name": "Battery Empty Voltage",
+  "value": "46V",
+  "source": "doc-b9cf825ae0cfef0a2ad1544f230e4d72",
+  "page": 36,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

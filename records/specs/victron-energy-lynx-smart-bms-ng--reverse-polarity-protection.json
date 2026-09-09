@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-lynx-smart-bms-ng--reverse-polarity-protection",
+  "model": "victron-energy-lynx-smart-bms-ng",
+  "name": "Reverse polarity protection",
+  "value": "No",
+  "source": "doc-745890312e031c1a60a065b1d60ee437",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-lynx-smart-bms-ng--tighten-the-nuts-using-a-torque-of",
+  "model": "victron-energy-lynx-smart-bms-ng",
+  "name": "Tighten the nuts using a torque of",
+  "value": "33 Nm”, “unit”:",
+  "source": "doc-6652fcdf0e9f05f446c2f8eda5284b2b",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

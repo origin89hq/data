@@ -1,0 +1,9 @@
+{
+  "id": "eg4-electronics-eg4--voltage-range",
+  "model": "eg4-electronics-eg4",
+  "name": "VOLTAGE RANGE",
+  "value": "40-60 VDC (Lithium); 40-60 VDC (Lead-Acid)',",
+  "source": "doc-8ed962a43d9d77f6868dec28807831c4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

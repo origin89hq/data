@@ -1,0 +1,10 @@
+{
+  "id": "rolls-battery-s48-300lfp-stack-lv--c-rate",
+  "model": "rolls-battery-s48-300lfp-stack-lv",
+  "name": "C-Rate",
+  "value": "0.80C",
+  "source": "doc-c6fbe20e5b45fc94d82bd60f70a98ede",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

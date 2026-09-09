@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-multiplus-ii--input-current",
+  "model": "victron-energy-multiplus-ii",
+  "name": "Input current",
+  "value": "50+25=75A",
+  "source": "doc-131b9a2de292ef8ae2147340a325dffa",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

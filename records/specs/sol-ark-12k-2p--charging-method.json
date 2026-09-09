@@ -1,0 +1,9 @@
+{
+  "id": "sol-ark-12k-2p--charging-method",
+  "model": "sol-ark-12k-2p",
+  "name": "Charging method",
+  "value": "3-Etapas con Ecualización",
+  "source": "doc-29916489ea9eec4354576865244c08e1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

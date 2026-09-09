@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-mpdh175-30d--output-voltage-in-vac",
+  "model": "magnum-energy-mpdh175-30d",
+  "name": "Output Voltage in VAC",
+  "value": "120",
+  "source": "doc-dfef85cde90a405f7ada22c6abf39231",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

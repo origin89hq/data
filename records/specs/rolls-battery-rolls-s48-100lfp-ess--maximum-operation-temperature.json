@@ -1,0 +1,9 @@
+{
+  "id": "rolls-battery-rolls-s48-100lfp-ess--maximum-operation-temperature",
+  "model": "rolls-battery-rolls-s48-100lfp-ess",
+  "name": "Maximum operation temperature",
+  "value": "60”,",
+  "source": "doc-fd8c6477275bdfd097c84ad5e66913ce",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

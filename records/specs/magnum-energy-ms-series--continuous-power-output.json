@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-ms-series--continuous-power-output",
+  "model": "magnum-energy-ms-series",
+  "name": "Continuous Power Output",
+  "value": "2000 W, 2800 W, 4000 W",
+  "source": "doc-7a6d6878a05f1e83338e0b1383fdfba2",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

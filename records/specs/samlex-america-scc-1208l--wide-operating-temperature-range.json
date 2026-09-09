@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-scc-1208l--wide-operating-temperature-range",
+  "model": "samlex-america-scc-1208l",
+  "name": "Wide operating temperature range",
+  "value": "-40 to 60",
+  "source": "doc-d94bbb925dac3274d56a9b91f9d929e7",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

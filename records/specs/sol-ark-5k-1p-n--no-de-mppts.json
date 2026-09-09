@@ -1,0 +1,9 @@
+{
+  "id": "sol-ark-5k-1p-n--no-de-mppts",
+  "model": "sol-ark-5k-1p-n",
+  "name": "No. de MPPTs",
+  "value": "2",
+  "source": "doc-d1bb62cfa20ccdc6108f0507c934303b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

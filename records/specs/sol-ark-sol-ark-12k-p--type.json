@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-12k-p--type",
+  "model": "sol-ark-sol-ark-12k-p",
+  "name": "Type",
+  "value": "Lead-Acid or Li-Ion",
+  "source": "doc-b9cf825ae0cfef0a2ad1544f230e4d72",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

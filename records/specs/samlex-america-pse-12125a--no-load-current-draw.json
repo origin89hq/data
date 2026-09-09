@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pse-12125a--no-load-current-draw",
+  "model": "samlex-america-pse-12125a",
+  "name": "No Load Current Draw",
+  "value": "320mA",
+  "source": "doc-f49fafbc908a498dd9ba251311c1e142",
+  "page": 44,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "sol-ark-30k-3p-208v--dimensions-h-x-w-x-d",
+  "model": "sol-ark-30k-3p-208v",
+  "name": "Dimensions (H x W x D)",
+  "value": "894 x 528 x 295 mm (35.2 x 20.8 x 11.6 in)",
+  "source": "doc-d403bf65174c614a2c3a74925e4e5de7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

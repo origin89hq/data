@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-csw-series--5-sec-surge-output",
+  "model": "magnum-energy-csw-series",
+  "name": "5 Sec Surge Output",
+  "value": "800 W, 2000 W and 4000 W",
+  "source": "doc-7a6d6878a05f1e83338e0b1383fdfba2",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

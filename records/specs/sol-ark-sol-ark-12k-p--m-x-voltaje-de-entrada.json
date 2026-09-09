@@ -1,0 +1,9 @@
+{
+  "id": "sol-ark-sol-ark-12k-p--m-x-voltaje-de-entrada",
+  "model": "sol-ark-sol-ark-12k-p",
+  "name": "Máx. Voltaje de Entrada",
+  "value": "1 500V",
+  "source": "doc-858309f67a6e0a5aada1effc8637b11b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

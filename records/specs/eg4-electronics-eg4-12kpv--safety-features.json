@@ -1,0 +1,9 @@
+{
+  "id": "eg4-electronics-eg4-12kpv--safety-features",
+  "model": "eg4-electronics-eg4-12kpv",
+  "name": "SAFETY FEATURES",
+  "value": "PV Arc Fault Protection, PV Ground Fault Protection, PV ReversePolarity Protection, Pole Sensitive Leakage Current Monitoring Unit,Surge Protection Device, integrated PV disconnect",
+  "source": "doc-f8d6e94548fc59e6c81c2065997fda66",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

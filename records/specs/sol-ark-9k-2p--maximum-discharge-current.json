@@ -1,0 +1,9 @@
+{
+  "id": "sol-ark-9k-2p--maximum-discharge-current",
+  "model": "sol-ark-9k-2p",
+  "name": "Maximum discharge current",
+  "value": "185A",
+  "source": "doc-cd862843e60630facc2d6a182ca63898",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

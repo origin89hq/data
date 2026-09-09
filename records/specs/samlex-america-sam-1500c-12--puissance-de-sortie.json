@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-sam-1500c-12--puissance-de-sortie",
+  "model": "samlex-america-sam-1500c-12",
+  "name": "Puissance de sortie",
+  "value": "1500",
+  "unit": "W",
+  "source": "doc-1113ce82e230f6f3cf77f45e6285e329",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

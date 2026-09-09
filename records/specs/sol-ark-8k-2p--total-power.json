@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-8k-2p--total-power",
+  "model": "sol-ark-8k-2p",
+  "name": "Total power",
+  "value": "15kW",
+  "source": "doc-4d1ddeeb6b9dbf9d0111574b2c3d37de",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

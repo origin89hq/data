@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-bbm-12100--voltaje-de-salida",
+  "model": "samlex-america-bbm-12100",
+  "name": "Voltaje de Salida",
+  "value": "0.4 VCD < input ≤ 100 A”,",
+  "source": "doc-ad4d9329c7fead7d5d01c9522efab20c",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

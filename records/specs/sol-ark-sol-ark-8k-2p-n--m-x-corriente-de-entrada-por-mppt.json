@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-8k-2p-n--m-x-corriente-de-entrada-por-mppt",
+  "model": "sol-ark-sol-ark-8k-2p-n",
+  "name": "Máx. Corriente de Entrada por MPPT",
+  "value": "18A",
+  "source": "doc-3931a07a1fde8cb08aaada359c6968fe",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

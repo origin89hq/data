@@ -3,7 +3,7 @@ import { specsFrom, type ReportedProduct } from "../../src/specs.ts";
 import { looksLikeModelName, modelId, normaliseModelName } from "../../src/models.ts";
 import { Model } from "../../schema/model.ts";
 import { Source } from "../../schema/source.ts";
-import { object, under } from "./archive.ts";
+import { jsonValues, object, under } from "./archive.ts";
 import { EXTRACTOR_ID } from "../../scraper/src/reading.ts";
 
 /**
@@ -38,8 +38,9 @@ if (!index) {
 const expected = (JSON.parse(index) as { documents: { sha256: string }[] }).documents;
 const readings: { readings: { sha256: string; url: string; products: (ReportedProduct & { specs: { page?: number }[] })[] }[] } = { readings: [] };
 // Every reading of this run in one request, rather than one process per document.
-const bodies = (await under(`documents/${manufacturer}/${date}/readings/${extractor}/`, remote)).split("\n").filter(Boolean);
-for (const body of bodies) readings.readings.push(JSON.parse(body));
+for (const value of jsonValues<(typeof readings.readings)[number]>(await under(`documents/${manufacturer}/${date}/readings/${extractor}/`, remote))) {
+  readings.readings.push(value);
+}
 const pending = expected.length - readings.readings.length;
 
 const records = loadRecords();
@@ -69,16 +70,14 @@ if (addModels) {
   }
 }
 
+// Every figure first, then the sources. Two datasheets can state the same figure for the same
+// model, and the id is the model and the figure, so the later document wins — writing each
+// document's source as it went left the earlier one cited by nothing.
+const collected = new Map<string, ReturnType<typeof specsFrom>["specs"][number]>();
+const usedSources = new Map<string, { url: string; sha256: string }>();
 for (const document of readings.readings) {
   if (document.products.length === 0) continue;
-  // One source record per archived document, named by its content hash so two shops linking the
-  // same PDF cite one source rather than two.
   const sourceId = `doc-${document.sha256.slice(0, 32)}`;
-  if (!sources.has(sourceId)) {
-    const source = Source.parse({ id: sourceId, url: document.url, sha256: document.sha256, retrievedAt: date });
-    if (!dryRun) writeRecord(RECORDS_DIR, "sources", sourceId, source);
-    sources.set(sourceId, source);
-  }
   const { specs, unmatched: missing } = specsFrom({
     reports: document.products,
     models: records.models,
@@ -89,11 +88,21 @@ for (const document of readings.readings) {
     // `extractedBy` with no reviewer says a model read it and nobody has checked the row.
     confidence: "vendor-doc",
   });
-  for (const spec of specs) {
-    if (!dryRun) writeRecord(RECORDS_DIR, "specs", spec.id, spec);
-    written += 1;
-  }
+  for (const spec of specs) collected.set(spec.id, spec);
+  usedSources.set(sourceId, { url: document.url, sha256: document.sha256 });
   for (const m of missing) unmatched.add(m);
+}
+
+const cited = new Set([...collected.values()].map((s) => s.source));
+for (const [sourceId, document] of usedSources) {
+  if (!cited.has(sourceId) || sources.has(sourceId)) continue;
+  const source = Source.parse({ id: sourceId, url: document.url, sha256: document.sha256, retrievedAt: date });
+  if (!dryRun) writeRecord(RECORDS_DIR, "sources", sourceId, source);
+  sources.set(sourceId, source);
+}
+for (const spec of collected.values()) {
+  if (!dryRun) writeRecord(RECORDS_DIR, "specs", spec.id, spec);
+  written += 1;
 }
 
 console.log(`${written} figures and ${modelsAdded} new models${dryRun ? " (dry run, nothing written)" : " written"} for ${manufacturer}`);

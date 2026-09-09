@@ -1,0 +1,9 @@
+{
+  "id": "sol-ark-sol-ark-5k-48-st--max-grid-passthrough-current",
+  "model": "sol-ark-sol-ark-5k-48-st",
+  "name": "Max. Grid Passthrough Current",
+  "value": "63A",
+  "source": "doc-759ca07ffded8018dcb7cbd8dcc55424",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-1000f-12--surge-output-power-at-power-factor-1-8-ms",
+  "model": "samlex-america-pst-1000f-12",
+  "name": "SURGE OUTPUT POWER (At Power Factor = 1; <8 ms)",
+  "value": "2000 Watts",
+  "source": "doc-6f3330bb5d3c8006d471bd848339919f",
+  "page": 50,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

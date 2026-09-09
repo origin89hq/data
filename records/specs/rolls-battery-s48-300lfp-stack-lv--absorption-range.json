@@ -1,0 +1,11 @@
+{
+  "id": "rolls-battery-s48-300lfp-stack-lv--absorption-range",
+  "model": "rolls-battery-s48-300lfp-stack-lv",
+  "name": "ABSORPTION RANGE",
+  "value": "54.0V - 57.0V",
+  "unit": "ACCEPTABLE",
+  "source": "doc-3252cdb47d3cd644fed761109a7f12d2",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

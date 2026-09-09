@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-4k--powerassist-setting-range-grid-in-line-topology",
+  "model": "victron-energy-4k",
+  "name": "PowerAssist setting range, grid in-line topology",
+  "value": "9.5 - 50A",
+  "source": "doc-a87cea7b7958e1652fae137815d1c995",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-br-ac30d--weight",
+  "model": "magnum-energy-br-ac30d",
+  "name": "Weight",
+  "value": "12 oz. (340.2 g)",
+  "source": "doc-237ecda18d8f082f4ba06884f25d5768",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

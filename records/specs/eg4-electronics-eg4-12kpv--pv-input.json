@@ -1,0 +1,9 @@
+{
+  "id": "eg4-electronics-eg4-12kpv--pv-input",
+  "model": "eg4-electronics-eg4-12kpv",
+  "name": "PV input",
+  "value": "12kW",
+  "source": "doc-2413f3088e45aea37b6f30d451881f6a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

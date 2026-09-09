@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-ev-1200--waveform",
+  "model": "magnum-energy-ev-1200",
+  "name": "Waveform",
+  "value": "Pure Sine Wave, <5% THD Typical",
+  "source": "doc-0ad3b29a6df2fd011128dd8a45b91f4c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

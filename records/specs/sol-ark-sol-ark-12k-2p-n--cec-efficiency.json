@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-12k-2p-n--cec-efficiency",
+  "model": "sol-ark-sol-ark-12k-2p-n",
+  "name": "CEC Efficiency",
+  "value": "96.5%",
+  "source": "doc-a6309d995ea95cdfb312cc5335f5fbe8",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

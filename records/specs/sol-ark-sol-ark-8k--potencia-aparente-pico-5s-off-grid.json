@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-8k--potencia-aparente-pico-5s-off-grid",
+  "model": "sol-ark-sol-ark-8k",
+  "name": "Potencia Aparente, pico (5s, off-grid)",
+  "value": "12,000VA",
+  "source": "doc-d1bb62cfa20ccdc6108f0507c934303b",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

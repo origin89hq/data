@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-60s-48e--continuous-output-power",
+  "model": "samlex-america-pst-60s-48e",
+  "name": "CONTINUOUS OUTPUT POWER",
+  "value": "600 Watts",
+  "source": "doc-2f25fb174cda781428bc64719d088d65",
+  "page": 43,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-15k-2p-n--operating-voltage-range",
+  "model": "sol-ark-sol-ark-15k-2p-n",
+  "name": "Operating voltage range",
+  "value": "43V to 63V",
+  "source": "doc-dcaad73dc01bbc114e274bc056fcfd85",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "rolls-battery-s48-100lfp-ess--optimal-current",
+  "model": "rolls-battery-s48-100lfp-ess",
+  "name": "Optimal Current",
+  "value": "≤ 0.2C",
+  "source": "doc-fd8c6477275bdfd097c84ad5e66913ce",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

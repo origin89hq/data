@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-sec-pspp--longitud",
+  "model": "samlex-america-sec-pspp",
+  "name": "Longitud",
+  "value": "10”,",
+  "unit": "inches",
+  "source": "doc-ad4d9329c7fead7d5d01c9522efab20c",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

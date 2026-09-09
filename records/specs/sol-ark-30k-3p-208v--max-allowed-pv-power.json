@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-30k-3p-208v--max-allowed-pv-power",
+  "model": "sol-ark-30k-3p-208v",
+  "name": "Max. Allowed PV Power",
+  "value": "39,000 W",
+  "unit": "STC",
+  "source": "doc-d403bf65174c614a2c3a74925e4e5de7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

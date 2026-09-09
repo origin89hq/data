@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-l3-hvr-60--nominal-charge-discharge-current",
+  "model": "sol-ark-l3-hvr-60",
+  "name": "Nominal Charge/Discharge Current",
+  "value": "100Ad.c.",
+  "source": "doc-a4218aea875582eac245d35890fa7a19",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

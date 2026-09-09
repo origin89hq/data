@@ -1,0 +1,11 @@
+{
+  "id": "rolls-battery-spf-3500tl-lvm-us--continuous-charge-discharge-current",
+  "model": "rolls-battery-spf-3500tl-lvm-us",
+  "name": "Continuous Charge/Discharge Current",
+  "value": "72.9 A",
+  "unit": "DC",
+  "source": "doc-c6fbe20e5b45fc94d82bd60f70a98ede",
+  "page": 73,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

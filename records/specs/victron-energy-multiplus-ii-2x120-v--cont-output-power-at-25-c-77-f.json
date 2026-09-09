@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-multiplus-ii-2x120-v--cont-output-power-at-25-c-77-f",
+  "model": "victron-energy-multiplus-ii-2x120-v",
+  "name": "Cont. output power at 25°C/77°F",
+  "value": "3000 VA",
+  "source": "doc-5c10c68267673cefb4def711177e269c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

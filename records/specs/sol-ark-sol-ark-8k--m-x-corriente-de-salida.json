@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-8k--m-x-corriente-de-salida",
+  "model": "sol-ark-sol-ark-8k",
+  "name": "Máx. Corriente de Salida",
+  "value": "33.3A",
+  "source": "doc-d1bb62cfa20ccdc6108f0507c934303b",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-15k-2p-n--dimensiones-h-x-w-x-d",
+  "model": "sol-ark-sol-ark-15k-2p-n",
+  "name": "Dimensiones (H x W x D)",
+  "value": "807 x 494 x 306 mm / 31.8 x 19.4 x 12 in",
+  "source": "doc-dcaad73dc01bbc114e274bc056fcfd85",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "sol-ark-30k-3p-208v--backup-transfer-time",
+  "model": "sol-ark-30k-3p-208v",
+  "name": "Backup Transfer Time",
+  "value": "15ms (adjustable)",
+  "source": "doc-d403bf65174c614a2c3a74925e4e5de7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-5k-48-st--eficiencia-m-xima",
+  "model": "sol-ark-sol-ark-5k-48-st",
+  "name": "Eficiencia Máxima",
+  "value": "97.5%",
+  "source": "doc-ab041ca4c66285a9f790085773008391",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

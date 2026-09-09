@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-pst-1000f-12--peso-lbs",
+  "model": "samlex-america-pst-1000f-12",
+  "name": "PESO LBS",
+  "value": "8.8",
+  "source": "doc-96ba76d8d3eae5bd526cdc46b990287c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

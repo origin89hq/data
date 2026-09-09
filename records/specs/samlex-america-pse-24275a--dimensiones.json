@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-pse-24275a--dimensiones",
+  "model": "samlex-america-pse-24275a",
+  "name": "Dimensiones",
+  "value": "8.07 x 19.49 x 6.30",
+  "unit": "pulgadas",
+  "source": "doc-bbcafddfe3013c1cc841694c80bde644",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

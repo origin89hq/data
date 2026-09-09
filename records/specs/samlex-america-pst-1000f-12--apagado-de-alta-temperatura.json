@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-pst-1000f-12--apagado-de-alta-temperatura",
+  "model": "samlex-america-pst-1000f-12",
+  "name": "APAGADO DE ALTA TEMPERATURA",
+  "value": "90°C ± 5°C",
+  "source": "doc-96ba76d8d3eae5bd526cdc46b990287c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

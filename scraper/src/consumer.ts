@@ -111,7 +111,9 @@ export async function handle(message: Work, env: Env): Promise<void> {
           failed += 1;
         }
       }
-      await env.ARCHIVE.put(reading, JSON.stringify({ sha256: message.sha256, url: message.url, products: mergeReports(reports), windows: windows.length, failed }, null, 2), {
+      // Compact, one object per line. Pretty-printing meant a run read back as a concatenation
+      // of multi-line objects, which is not the newline-delimited stream every reader expects.
+      await env.ARCHIVE.put(reading, `${JSON.stringify({ sha256: message.sha256, url: message.url, products: mergeReports(reports), windows: windows.length, failed })}\n`, {
         httpMetadata: { contentType: "application/json" },
       });
       return;

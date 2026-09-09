@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-evo-2212e--rel-de-transferencia",
+  "model": "samlex-america-evo-2212e",
+  "name": "Relé de Transferencia",
+  "value": "40",
+  "unit": "A",
+  "source": "doc-bbcafddfe3013c1cc841694c80bde644",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

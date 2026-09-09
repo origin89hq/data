@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evotm--rango-de-temperaturas-de-funcionamiento",
+  "model": "samlex-america-evotm",
+  "name": "Rango de Temperaturas de Funcionamiento",
+  "value": "-20°C a 60°C, -4°C a 140ºF",
+  "source": "doc-6863836a8b4e426fdccf1f3276db594f",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

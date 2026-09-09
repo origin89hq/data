@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-mppt-100-50--current",
+  "model": "victron-energy-mppt-100-50",
+  "name": "Current",
+  "value": "50A",
+  "source": "doc-131b9a2de292ef8ae2147340a325dffa",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

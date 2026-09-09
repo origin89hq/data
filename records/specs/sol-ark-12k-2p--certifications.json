@@ -1,0 +1,9 @@
+{
+  "id": "sol-ark-12k-2p--certifications",
+  "model": "sol-ark-12k-2p",
+  "name": "Certifications",
+  "value": "UL 1741 SB, UL 1741 SA11, UL 1741 CRD-PCS, IEEE 1547.1-2020, UL 1699B, UL 1998, FCC Part 15 Class B, CSIP, Ca Rule 21, HECO Rule 14H (SRD 2.0), CSA C22.2 107.1-16",
+  "source": "doc-29916489ea9eec4354576865244c08e1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "sol-ark-sol-ark-12k-p--rango-de-voltaje-de-mppt",
+  "model": "sol-ark-sol-ark-12k-p",
+  "name": "Rango de Voltaje de MPPT",
+  "value": "150 - 500V",
+  "source": "doc-858309f67a6e0a5aada1effc8637b11b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

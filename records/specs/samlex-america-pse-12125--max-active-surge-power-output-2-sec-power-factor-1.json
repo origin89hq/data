@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-pse-12125--max-active-surge-power-output-2-sec-power-factor-1",
+  "model": "samlex-america-pse-12125",
+  "name": "MAX. ACTIVE SURGE POWER OUTPUT (< 2 SEC, POWER FACTOR =1)",
+  "value": "2500W",
+  "source": "doc-1b66fece47a720197f81e14c20b8befa",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

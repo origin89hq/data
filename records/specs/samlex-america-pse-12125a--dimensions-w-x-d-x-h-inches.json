@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pse-12125a--dimensions-w-x-d-x-h-inches",
+  "model": "samlex-america-pse-12125a",
+  "name": "DIMENSIONS (W x D x H), INCHES",
+  "value": "9.45 x 13.19 x 3.35”,",
+  "source": "doc-1b66fece47a720197f81e14c20b8befa",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

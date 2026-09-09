@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-evo-3012e--cargador-de-bater-a",
+  "model": "samlex-america-evo-3012e",
+  "name": "Cargador de Batería",
+  "value": "130",
+  "unit": "A",
+  "source": "doc-bbcafddfe3013c1cc841694c80bde644",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

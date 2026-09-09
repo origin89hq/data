@@ -1,0 +1,10 @@
+{
+  "id": "eg4-electronics-12kpv--amp-rating-of-the-pv-system-disconnect",
+  "model": "eg4-electronics-12kpv",
+  "name": "Amp rating of the PV System Disconnect",
+  "value": "60 A",
+  "source": "doc-3edb02be8d70fbc8671c6ebccf37ac0d",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "eg4-electronics-12kpv--recommended-generator-capacity-for-1-inverter",
+  "model": "eg4-electronics-12kpv",
+  "name": "Recommended generator capacity for 1 inverter",
+  "value": ">12kW",
+  "source": "doc-8ed962a43d9d77f6868dec28807831c4",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p1",
+  "confidence": "vendor-doc"
+}
