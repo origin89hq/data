@@ -7,7 +7,8 @@
     "types": "wrangler types",
     "check": "wrangler types && tsc --noEmit",
     "test": "node --test test/*.test.ts",
-    "deploy:dry-run": "wrangler deploy --dry-run"
+    "deploy:dry-run": "wrangler deploy --dry-run",
+    "gate": "node scripts/gate-report.ts"
   },
   "devDependencies": {
     "typescript": "^7.0.2",

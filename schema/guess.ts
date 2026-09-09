@@ -32,6 +32,8 @@ export const Guess = z
     model: z.string().min(1).optional(),
     /** The manufacturer the model believes stands behind the brand string, which may differ from it. */
     manufacturer: z.string().min(1).optional(),
+    /** The model answered with something outside the enum, so the kind is a fallback and not its reading. */
+    unreadable: z.boolean().optional(),
     /** Which model and prompt version produced this row, so it can be re-run and compared. */
     by: z.string().regex(/^ai:[\w./@:-]+$/),
   })

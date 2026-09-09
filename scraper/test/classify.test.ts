@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { guessesFrom, promptFor, CLASSIFIER_ID } from "../src/classify.ts";
+import { guessesFrom, promptFor, contentOf, BatchMisalignedError, CLASSIFIER_ID } from "../src/classify.ts";
 import type { Sighting } from "../../schema/sighting.ts";
 
 const s = (productId: string, title: string, extra: Partial<Sighting> = {}): Sighting => ({
@@ -8,38 +8,44 @@ const s = (productId: string, title: string, extra: Partial<Sighting> = {}): Sig
 });
 const batch = [s("1", "EPEver XTRA4210N 40A MPPT", { brand: "EPEver", sku: "XTRA4210N" }), s("2", "Cast iron skillet 12in", { brand: "Lodge" })];
 
-test("a well-formed answer becomes one guess per listing, stamped with the classifier id", () => {
-  const { guesses, missing } = guessesFrom(batch, { items: [{ productId: "1", kind: "charge-controller", model: "XTRA4210N", manufacturer: "EPEver" }, { productId: "2", kind: "out-of-scope" }] });
-  assert.equal(guesses.length, 2);
+test("answers are matched to listings by position, because a model asked to echo an id invents one", () => {
+  const guesses = guessesFrom(batch, { items: [{ kind: "charge-controller", model: "XTRA4210N", manufacturer: "EPEver" }, { kind: "out-of-scope" }] });
+  assert.deepEqual(guesses.map((g) => g.productId), ["1", "2"]);
   assert.equal(guesses[0].model, "XTRA4210N");
   assert.equal(guesses[0].by, CLASSIFIER_ID);
-  assert.equal(guesses[1].model, undefined);
-  assert.deepEqual(missing, []);
+  assert.equal(guesses[1].kind, "out-of-scope");
 });
 
-test("an id the model invented, a kind outside the enum and a duplicate answer are all dropped", () => {
-  const { guesses, missing } = guessesFrom(batch, { items: [{ productId: "99", kind: "battery" }, { productId: "1", kind: "spaceship" }, { productId: "2", kind: "out-of-scope" }, { productId: "2", kind: "battery" }] });
-  assert.equal(guesses.length, 1);
-  assert.equal(guesses[0].productId, "2");
-  assert.equal(guesses[0].kind, "out-of-scope");
-  assert.deepEqual(missing, ["1"]);
+test("a short answer is refused whole rather than shifting every listing onto the wrong guess", () => {
+  assert.throws(() => guessesFrom(batch, { items: [{ kind: "charge-controller" }] }), (e: unknown) => e instanceof BatchMisalignedError && e.received === 1 && e.expected === 2);
+  assert.throws(() => guessesFrom(batch, { items: [{ kind: "battery" }, { kind: "battery" }, { kind: "battery" }] }), BatchMisalignedError);
+  assert.throws(() => guessesFrom(batch, "garbage"), BatchMisalignedError);
 });
 
-test("empty strings from the model are absence, not a model called empty", () => {
-  const { guesses } = guessesFrom(batch, { items: [{ productId: "1", kind: "charge-controller", model: "  ", manufacturer: "" }] });
-  assert.equal(guesses[0].model, undefined);
-  assert.equal(guesses[0].manufacturer, undefined);
+test("a kind outside the enum falls back to out-of-scope and is marked unreadable, never guessed at", () => {
+  const [g] = guessesFrom([batch[0]], { items: [{ kind: "spaceship", model: "X" }] });
+  assert.equal(g.kind, "out-of-scope");
+  assert.equal(g.unreadable, true);
+  assert.equal(g.model, "X");
 });
 
-test("a malformed answer yields no guesses and every listing missing, never a throw that hides which", () => {
-  const { guesses, missing } = guessesFrom(batch, "garbage");
-  assert.deepEqual(guesses, []);
-  assert.deepEqual(missing, ["1", "2"]);
+test("empty strings from the model are absence, not a model number called empty", () => {
+  const [g] = guessesFrom([batch[0]], { items: [{ kind: "charge-controller", model: "  ", manufacturer: "" }] });
+  assert.equal(g.model, undefined);
+  assert.equal(g.manufacturer, undefined);
+  assert.equal(g.unreadable, undefined);
 });
 
-test("the prompt carries only the fields with signal, one listing per line", () => {
+test("the prompt numbers each listing and carries only the fields with signal", () => {
   const p = promptFor(batch);
-  assert.equal(p.split("\n").length, 2);
-  assert.match(p, /id=1 title="EPEver XTRA4210N 40A MPPT" brand="EPEver" sku="XTRA4210N"/);
+  assert.match(p, /^1\. title="EPEver XTRA4210N 40A MPPT" brand="EPEver" sku="XTRA4210N"$/m);
+  assert.match(p, /^2\. title="Cast iron skillet 12in" brand="Lodge"$/m);
   assert.doesNotMatch(p, /https:/);
+});
+
+test("both Workers AI response shapes are read, and a fenced answer is unwrapped", () => {
+  assert.equal(contentOf({ response: '{"a":1}' }), '{"a":1}');
+  assert.equal(contentOf({ choices: [{ message: { content: '{"a":1}' } }] }), '{"a":1}');
+  assert.equal(contentOf({ choices: [{ message: { content: '```json\n{"a":1}\n```' } }] }), '{"a":1}');
+  assert.throws(() => contentOf({ choices: [] }), /no text/);
 });

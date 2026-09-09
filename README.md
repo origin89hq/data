@@ -123,3 +123,20 @@ Nothing is deployed. The first local run against the Cabin Depot returned
 2,971 sightings across 2,226 products and 131 brand strings, most of them wood
 stoves and composting toilets. That is expected: the seller list is about where
 off-grid buyers shop, and the gate is where the energy brands get picked out.
+
+### Reading the gate
+
+`scraper/scripts/gate-report.ts` prints what a person needs to resolve brand
+strings into manufacturers: every brand a seller printed, how many listings
+carry it, what kinds the classifier thinks they are, and the model numbers it
+read off the titles.
+
+```sh
+cd scraper
+pnpm gate solacity 2026-09-09          # brands with at least one in-scope listing
+pnpm gate solacity 2026-09-09 --all    # including the ones that look out of scope
+```
+
+A guess is never a fact. It lives beside the sightings under the classifier's
+id, so a second model or a changed prompt writes a second set and the two can
+be compared before either is trusted.

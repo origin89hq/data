@@ -8,7 +8,7 @@
     { "name": "seller-crawl", "binding": "SELLER_CRAWL", "class_name": "SellerCrawl" },
     { "name": "classify-sightings", "binding": "CLASSIFY_SIGHTINGS", "class_name": "ClassifySightings" }
   ],
-  "ai": { "binding": "AI" },
+  "ai": { "binding": "AI", "remote": true },
   "r2_buckets": [
     { "binding": "ARCHIVE", "bucket_name": "offgrid-equipment-archive" }
   ],
