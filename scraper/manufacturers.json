@@ -1,0 +1,523 @@
+[
+  {
+    "id": "abb",
+    "domains": [
+      "abb.com"
+    ]
+  },
+  {
+    "id": "anker",
+    "domains": [
+      "anker.com"
+    ]
+  },
+  {
+    "id": "apsystems",
+    "domains": [
+      "apsystems.com"
+    ]
+  },
+  {
+    "id": "baiway",
+    "domains": [
+      "shbaiway.com"
+    ]
+  },
+  {
+    "id": "blue-sea-systems",
+    "domains": [
+      "bluesea.com"
+    ]
+  },
+  {
+    "id": "bluetti",
+    "domains": [
+      "bluettipower.com"
+    ]
+  },
+  {
+    "id": "briggs-stratton",
+    "domains": [
+      "briggsandstratton.com",
+      "simpliphipower.com"
+    ]
+  },
+  {
+    "id": "bslbatt",
+    "domains": [
+      "bslbatt.com",
+      "bsl-battery.com"
+    ]
+  },
+  {
+    "id": "champion-power",
+    "domains": [
+      "championpowerequipment.com"
+    ]
+  },
+  {
+    "id": "delta-lightning-arrestors",
+    "domains": [
+      "deltala.com"
+    ]
+  },
+  {
+    "id": "east-penn",
+    "domains": [
+      "eastpennmanufacturing.com",
+      "dekabatteries.com"
+    ]
+  },
+  {
+    "id": "eco-worthy",
+    "domains": [
+      "eco-worthy.com"
+    ]
+  },
+  {
+    "id": "ecoflow",
+    "domains": [
+      "ecoflow.com"
+    ]
+  },
+  {
+    "id": "eg4-electronics",
+    "domains": [
+      "eg4electronics.com"
+    ]
+  },
+  {
+    "id": "emp-shield",
+    "domains": [
+      "empshield.com"
+    ]
+  },
+  {
+    "id": "emporia",
+    "domains": [
+      "emporiaenergy.com"
+    ]
+  },
+  {
+    "id": "energizer-solar",
+    "domains": [
+      "energizersolar.com",
+      "energizergenerators.com"
+    ]
+  },
+  {
+    "id": "enphase",
+    "domains": [
+      "enphase.com"
+    ]
+  },
+  {
+    "id": "epever",
+    "domains": [
+      "epever.com",
+      "epsolarpv.com"
+    ]
+  },
+  {
+    "id": "firman",
+    "domains": [
+      "firmanpowerequipment.com"
+    ]
+  },
+  {
+    "id": "fronius",
+    "domains": [
+      "fronius.com"
+    ]
+  },
+  {
+    "id": "gma-solar",
+    "domains": [
+      "gmasolar.com"
+    ]
+  },
+  {
+    "id": "grundfos",
+    "domains": [
+      "grundfos.com"
+    ]
+  },
+  {
+    "id": "honda-power",
+    "domains": [
+      "powerequipment.honda.com"
+    ]
+  },
+  {
+    "id": "imo",
+    "domains": [
+      "imopc.com"
+    ]
+  },
+  {
+    "id": "integrarack",
+    "domains": [
+      "integrarack.com"
+    ]
+  },
+  {
+    "id": "iota-engineering",
+    "domains": [
+      "iotaengineering.com"
+    ]
+  },
+  {
+    "id": "ja-solar",
+    "domains": [
+      "jasolar.com"
+    ]
+  },
+  {
+    "id": "kinetic-solar",
+    "domains": [
+      "kineticsolar.com"
+    ]
+  },
+  {
+    "id": "kohler-energy",
+    "domains": [
+      "kohlerenergy.com",
+      "kohlerpower.com"
+    ]
+  },
+  {
+    "id": "littelfuse",
+    "domains": [
+      "littelfuse.com"
+    ]
+  },
+  {
+    "id": "longi",
+    "domains": [
+      "longi.com"
+    ]
+  },
+  {
+    "id": "lorentz",
+    "domains": [
+      "lorentz.de"
+    ]
+  },
+  {
+    "id": "lorex",
+    "domains": [
+      "lorex.com"
+    ]
+  },
+  {
+    "id": "luxpower",
+    "domains": [
+      "luxpowertek.com"
+    ]
+  },
+  {
+    "id": "magnum-energy",
+    "domains": [
+      "magnum-dimensions.com"
+    ]
+  },
+  {
+    "id": "midnite-solar",
+    "domains": [
+      "midnitesolar.com"
+    ]
+  },
+  {
+    "id": "millertech",
+    "domains": [
+      "millertechenergy.com"
+    ]
+  },
+  {
+    "id": "morningstar",
+    "domains": [
+      "morningstarcorp.com"
+    ]
+  },
+  {
+    "id": "noco",
+    "domains": [
+      "no.co"
+    ]
+  },
+  {
+    "id": "outback-power",
+    "domains": [
+      "outbackpower.com"
+    ]
+  },
+  {
+    "id": "p3-international",
+    "domains": [
+      "p3international.com"
+    ]
+  },
+  {
+    "id": "pacific-coast-wire",
+    "domains": [
+      "pacificcoastwire.com"
+    ]
+  },
+  {
+    "id": "peimar",
+    "domains": [
+      "peimar.com"
+    ]
+  },
+  {
+    "id": "pentair",
+    "domains": [
+      "pentair.com",
+      "shurflo.com"
+    ]
+  },
+  {
+    "id": "powermax-converters",
+    "domains": [
+      "powermaxconverters.com"
+    ]
+  },
+  {
+    "id": "precision-circuits",
+    "domains": [
+      "precisioncircuitsinc.com"
+    ]
+  },
+  {
+    "id": "primus-wind-power",
+    "domains": [
+      "primuswindpower.com"
+    ]
+  },
+  {
+    "id": "progressive-dynamics",
+    "domains": [
+      "progressivedyn.com"
+    ]
+  },
+  {
+    "id": "pulsetech",
+    "domains": [
+      "pulsetech.net"
+    ]
+  },
+  {
+    "id": "pytes",
+    "domains": [
+      "pytesgroup.com"
+    ]
+  },
+  {
+    "id": "quickcable",
+    "domains": [
+      "quickcable.com"
+    ]
+  },
+  {
+    "id": "rolls-battery",
+    "domains": [
+      "rollsbattery.com",
+      "surrette.com"
+    ]
+  },
+  {
+    "id": "rstc-enterprises",
+    "domains": [
+      "soladeck.com"
+    ]
+  },
+  {
+    "id": "ruixu",
+    "domains": [
+      "ruixubattery.com"
+    ]
+  },
+  {
+    "id": "s5",
+    "domains": [
+      "s-5.com"
+    ]
+  },
+  {
+    "id": "samlex-america",
+    "domains": [
+      "samlexamerica.com"
+    ]
+  },
+  {
+    "id": "schneider-electric",
+    "domains": [
+      "se.com",
+      "solar.se.com"
+    ]
+  },
+  {
+    "id": "seaflo",
+    "domains": [
+      "seaflo.com"
+    ]
+  },
+  {
+    "id": "sigineer",
+    "domains": [
+      "sigineer.com"
+    ]
+  },
+  {
+    "id": "snapnrack",
+    "domains": [
+      "snapnrack.com"
+    ]
+  },
+  {
+    "id": "sok-battery",
+    "domains": [
+      "sokbattery.com"
+    ]
+  },
+  {
+    "id": "sol-ark",
+    "domains": [
+      "sol-ark.com"
+    ]
+  },
+  {
+    "id": "southwire",
+    "domains": [
+      "southwire.com"
+    ]
+  },
+  {
+    "id": "spypoint",
+    "domains": [
+      "spypoint.com"
+    ]
+  },
+  {
+    "id": "srne",
+    "domains": [
+      "srnesolar.com"
+    ]
+  },
+  {
+    "id": "staubli",
+    "domains": [
+      "staubli.com"
+    ]
+  },
+  {
+    "id": "sunpower",
+    "domains": [
+      "sunpower.com"
+    ]
+  },
+  {
+    "id": "sunstar-solar",
+    "domains": [
+      "sunstarsolarappliances.com"
+    ]
+  },
+  {
+    "id": "surecall",
+    "domains": [
+      "surecall.com"
+    ]
+  },
+  {
+    "id": "the-cabin-depot",
+    "domains": [
+      "thecabindepot.ca"
+    ]
+  },
+  {
+    "id": "trans-canada-energies",
+    "domains": [
+      "tced.ca"
+    ]
+  },
+  {
+    "id": "trifecta-solar",
+    "domains": [
+      "trifectasolar.com"
+    ]
+  },
+  {
+    "id": "trojan-battery",
+    "domains": [
+      "trojanbattery.com"
+    ]
+  },
+  {
+    "id": "unique-appliances",
+    "domains": [
+      "uniqueappliances.com"
+    ]
+  },
+  {
+    "id": "unirac",
+    "domains": [
+      "unirac.com"
+    ]
+  },
+  {
+    "id": "victron-energy",
+    "domains": [
+      "victronenergy.com"
+    ]
+  },
+  {
+    "id": "volthium",
+    "domains": [
+      "volthium.com"
+    ]
+  },
+  {
+    "id": "vosker",
+    "domains": [
+      "vosker.com"
+    ]
+  },
+  {
+    "id": "waaree",
+    "domains": [
+      "waaree.com"
+    ]
+  },
+  {
+    "id": "watersprint",
+    "domains": [
+      "watersprint.com"
+    ]
+  },
+  {
+    "id": "wilson-electronics",
+    "domains": [
+      "weboost.com",
+      "wilsonelectronics.com"
+    ]
+  },
+  {
+    "id": "wohner",
+    "domains": [
+      "woehner.com"
+    ]
+  },
+  {
+    "id": "xantrex",
+    "domains": [
+      "xantrex.com"
+    ]
+  },
+  {
+    "id": "xylem",
+    "domains": [
+      "xylem.com",
+      "flojet.com"
+    ]
+  }
+]

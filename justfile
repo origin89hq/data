@@ -143,3 +143,11 @@ spec-pages maker date:
 # What specification pages a maker's own site turned out to publish, from the last discovery.
 spec-pages-found maker date *args:
     node tools/feeds/adopt-spec-pages.ts {{maker}} {{date}} {{args}}
+
+# Write the manufacturer list the Worker bundles. Run after changing a maker's domains.
+export-makers:
+    node tools/feeds/export-makers.ts
+
+# Discovery over every maker at once. Reads only what they publish; downloads still wait for you.
+discover-all date pages="150":
+    @just _post "/discover-all?date={{date}}&pages={{pages}}"

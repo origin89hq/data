@@ -6,6 +6,7 @@ import { APPROVAL_EVENT } from "./manufacturer-crawl.ts";
 import { consume } from "./consumer.ts";
 import { classifyRun, convertRun, specPagesRun } from "./enqueue.ts";
 import specPages from "../../feeds/spec-pages.json" with { type: "json" };
+import { manufacturers } from "./manufacturers.ts";
 import type { SellerCrawlParams } from "./seller-crawl.ts";
 
 export { SellerCrawl } from "./seller-crawl.ts";
@@ -114,6 +115,18 @@ export default {
       // Reading follows conversion on its own: each converted document enqueues its own reading.
       return Response.json(await convertRun(env, manufacturerId, checkedAt));
     }
+    // One call rather than eighty-six. Discovery only reads pages a maker already publishes to
+    // search engines, so it needs no approval; the download after it still does.
+    if (request.method === "POST" && url.pathname === "/discover-all") {
+      const checkedAt = url.searchParams.get("date") ?? today();
+      const pages = Number(url.searchParams.get("pages") ?? "150");
+      const started: string[] = [];
+      for (const maker of manufacturers) {
+        await env.MANUFACTURER_CRAWL.create({ id: `maker-${maker.id}-${checkedAt}`, params: { manufacturerId: maker.id, domains: maker.domains, checkedAt, pageLimit: pages } });
+        started.push(maker.id);
+      }
+      return Response.json({ started: started.length, checkedAt });
+    }
     if (request.method === "POST" && url.pathname === "/spec-pages") {
       const manufacturerId = url.searchParams.get("id");
       const checkedAt = url.searchParams.get("date");
@@ -140,9 +153,19 @@ export default {
     return Response.json({ error: "not found" }, { status: 404 });
   },
 
-  /** Weekly: one instance per seller. Listings rot faster than register maps, and slower than a day. */
-  async scheduled(_controller: ScheduledController, env: Env): Promise<void> {
+  /**
+   * Weekly: one instance per seller. Listings rot faster than register maps, and slower than a day.
+   * On the first of the month, discovery over every maker as well — a maker's own pages change on
+   * the scale of a product launch, and re-reading them weekly would be asking a question whose
+   * answer has not moved.
+   */
+  async scheduled(controller: ScheduledController, env: Env): Promise<void> {
     const checkedAt = today();
+    if (new Date(controller.scheduledTime).getUTCDate() === 1) {
+      for (const maker of manufacturers) {
+        await env.MANUFACTURER_CRAWL.create({ id: `maker-${maker.id}-${checkedAt}`, params: { manufacturerId: maker.id, domains: maker.domains, checkedAt, pageLimit: 150 } });
+      }
+    }
     for (const seller of sellers) {
       if (hasFeed(seller)) {
         const params: SellerCrawlParams = { sellerId: seller.id, checkedAt };
