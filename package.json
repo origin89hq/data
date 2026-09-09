@@ -16,7 +16,9 @@
     "test": "node --test test/*.test.ts",
     "gate:queue": "node tools/gate/queue.ts",
     "gate": "node tools/gate/decide.ts",
-    "models": "node tools/gate/models.ts"
+    "models": "node tools/gate/models.ts",
+    "models:push": "node tools/gate/push-models.ts",
+    "models:kinds": "node tools/gate/pull-kinds.ts"
   },
   "packageManager": "pnpm@10.0.0",
   "dependencies": {

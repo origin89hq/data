@@ -95,6 +95,30 @@ its own.
   output is a candidate, and it becomes a record when a person attaches the
   source.
 
+## What the reading costs
+
+Turning a PDF into markdown is free while the document has a text layer.
+Cloudflare's converter says it is free for most formats and that image
+conversion may fall back to Workers AI models for object detection and
+summarisation, which is billable — so a scanned manual with no text layer is
+the expensive case, and this trade sees plenty of them.
+
+Reading the markdown is the real cost, and it is a 70B model over every window
+at $0.293 per million input tokens and $2.253 per million output:
+
+| | |
+|---|---|
+| A datasheet, about four windows | under a cent |
+| 300 documents from one maker | roughly two dollars |
+| Every maker at that rate | about a hundred and sixty |
+
+Classifying every model held here, 5,600 of them in batches of ten, is about
+sixty cents. So the classifier is free in practice and the reading is not.
+
+An extraction run therefore has a window budget. It stops at the budget, writes
+where it stopped, and reports that it stopped early rather than working through
+a maker's catalogue unasked — the same reason the download waits for a person.
+
 ## What fails, and how the shape handles it
 
 - **Rebranded generics.** The brand on the shelf is not the manufacturer. Only

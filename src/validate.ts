@@ -107,6 +107,10 @@ export function validate(records: Records): Report {
     if (!sourceIds.has(s.source)) errors.push(`spec ${s.id}: cites ${s.source}, which does not exist`);
     cited.add(s.source);
     if (s.confidence === "unverified") note("figure from an unverified source — do not size anything on it");
+    if (!s.extractedBy && !s.reviewedBy) errors.push(`spec ${s.id}: neither extracted nor reviewed, so it came from nowhere`);
+    if (s.reviewedBy && !s.checkedAt) errors.push(`spec ${s.id}: confirmed with no date`);
+    if (!s.reviewedBy) note("figure a model read but nobody has confirmed");
+    if (!s.unit && !/type|chemistry|connector|protocol|material|mode|standard/i.test(s.name)) note("figure with no unit");
   }
 
   const families = new Set(records.families.map((f) => f.id));

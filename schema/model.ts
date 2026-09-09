@@ -62,6 +62,15 @@ export const Spec = z
      */
     conditions: z.string().min(1).optional(),
     source: RecordId,
+    /**
+     * The model that read this figure out of the document, when one did. A figure a model
+     * extracted is usable and is not confirmed: the source is a manufacturer's own sheet, but
+     * nobody has checked that the number was read off the right row.
+     */
+    extractedBy: z.string().regex(/^ai:[\w./@:-]+$/).optional(),
+    /** Who confirmed the figure against the document, and when. Absent until somebody has. */
+    reviewedBy: z.string().min(1).optional(),
+    checkedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
     /** The page it was read from, when the source is a document. A figure nobody can find again is not checkable. */
     page: z.number().int().positive().optional(),
     confidence: SpecConfidence,

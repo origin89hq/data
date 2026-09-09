@@ -1,0 +1,117 @@
+/**
+ * Reading a manufacturer's documents: the prompt, the windowing and the merge. Kept apart from
+ * the workflow that runs them so they can be tested without a Workers runtime, which is the same
+ * split the classifier uses.
+ */
+
+/**
+ * Which converter produced a markdown file, in its key. A better converter later writes a second
+ * file beside the first and moves nothing, and every citation points at the document's hash
+ * rather than at the markdown, so a bad conversion can be thrown away without touching what
+ * cites it.
+ */
+export const CONVERTER = "cf-tomarkdown-v1";
+
+/** What one document's conversion produced, or why it produced nothing. */
+export interface Converted {
+  sha256: string;
+  url: string;
+  key?: string;
+  characters?: number;
+  error?: string;
+}
+
+export const EXTRACT_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
+export const EXTRACT_PROMPT_VERSION = "1";
+export const EXTRACTOR_ID = `ai:${EXTRACT_MODEL}@p${EXTRACT_PROMPT_VERSION}`;
+
+/**
+ * How much of a document goes into one call. A datasheet's ratings are usually in one table, and
+ * a long manual is mostly prose, so a window that catches a table whole beats a bigger one that
+ * splits it down the middle.
+ */
+export const CHUNK_CHARACTERS = 6000;
+export const CHUNK_OVERLAP = 600;
+
+/**
+ * How many windows one extraction run will read. Converting a PDF to markdown is free while the
+ * document has a text layer, but reading it is a 70B model over every window, at $0.293 per
+ * million input tokens and $2.253 per million output. That is about a cent for a datasheet and
+ * real money for a maker with a four-hundred-page manual, so a run stops at the budget and says
+ * it stopped rather than working through the catalogue unasked.
+ */
+export const MAX_WINDOWS = 400;
+
+export const SYSTEM = `You read manufacturer documents and report the rated figures they state.
+
+Report only figures the text actually gives. Never calculate, convert, round or infer one. If the text gives no ratings, answer with an empty list.
+
+For each product the text names, give its model as printed and its figures. For each figure:
+- name: what is measured, in the document's own words, e.g. "Rated capacity", "Maximum PV open circuit voltage", "Nominal battery voltage".
+- value: the number or text exactly as printed. Keep "12/24" as "12/24". Do not add units here.
+- unit: the unit alone, e.g. "Ah", "V", "A", "W", "kWh", "°C". Omit it for a figure that has none, such as a chemistry or a connector type.
+- conditions: what the figure is true under, when the text says — the discharge rate, the temperature, the bank voltage. A capacity without its rate is not a capacity.
+
+Do not report prices, warranty periods, part numbers, weights of packaging, or marketing claims.`;
+
+export const RESPONSE_SCHEMA = {
+  type: "object",
+  properties: {
+    products: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          model: { type: "string" },
+          specs: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: { name: { type: "string" }, value: { type: "string" }, unit: { type: "string" }, conditions: { type: "string" } },
+              required: ["name", "value"],
+            },
+          },
+        },
+        required: ["model", "specs"],
+      },
+    },
+  },
+  required: ["products"],
+};
+
+/** Split a document into windows that overlap, so a table straddling a boundary is seen whole once. */
+export function chunk(markdown: string, size = CHUNK_CHARACTERS, overlap = CHUNK_OVERLAP): string[] {
+  if (markdown.length <= size) return markdown.trim() ? [markdown] : [];
+  const out: string[] = [];
+  for (let start = 0; start < markdown.length; start += size - overlap) {
+    const piece = markdown.slice(start, start + size);
+    if (piece.trim()) out.push(piece);
+    if (start + size >= markdown.length) break;
+  }
+  return out;
+}
+
+export interface Reported {
+  model: string;
+  specs: { name: string; value: string; unit?: string; conditions?: string }[];
+}
+
+/** Merge what several windows reported about one document, so a product named twice is one entry. */
+export function mergeReports(reports: Reported[]): Reported[] {
+  const byModel = new Map<string, Reported>();
+  for (const r of reports) {
+    const model = r.model?.trim();
+    if (!model || !Array.isArray(r.specs)) continue;
+    const key = model.toLowerCase();
+    const existing = byModel.get(key) ?? { model, specs: [] };
+    for (const s of r.specs) {
+      if (typeof s?.name !== "string" || typeof s?.value !== "string") continue;
+      const seen = `${s.name.trim().toLowerCase()}|${s.value.trim()}|${(s.conditions ?? "").trim().toLowerCase()}`;
+      if (existing.specs.some((x) => `${x.name.trim().toLowerCase()}|${x.value.trim()}|${(x.conditions ?? "").trim().toLowerCase()}` === seen)) continue;
+      existing.specs.push(s);
+    }
+    byModel.set(key, existing);
+  }
+  return [...byModel.values()].filter((r) => r.specs.length > 0).sort((a, b) => a.model.localeCompare(b.model));
+}
+

@@ -8,6 +8,8 @@ export { SellerCrawl } from "./seller-crawl.ts";
 export { ClassifySightings } from "./classify-sightings.ts";
 export { PageCrawl } from "./page-crawl.ts";
 export { ManufacturerCrawl } from "./manufacturer-crawl.ts";
+export { DocumentConvert } from "./document-convert.ts";
+export { ExtractSpecs } from "./extract-specs.ts";
 
 /** Today as YYYY-MM-DD in UTC. Computed once per trigger and passed in, never inside a step. */
 function today(): string {
@@ -57,6 +59,20 @@ export default {
       });
       return Response.json({ id: instance.id });
     }
+    if (request.method === "POST" && url.pathname === "/convert") {
+      const manufacturerId = url.searchParams.get("id");
+      const checkedAt = url.searchParams.get("date");
+      if (!manufacturerId || !checkedAt) return Response.json({ error: "id and date required" }, { status: 400 });
+      const instance = await env.DOCUMENT_CONVERT.create({ id: `convert-${manufacturerId}-${checkedAt}`, params: { manufacturerId, checkedAt } });
+      return Response.json({ id: instance.id });
+    }
+    if (request.method === "POST" && url.pathname === "/extract") {
+      const manufacturerId = url.searchParams.get("id");
+      const checkedAt = url.searchParams.get("date");
+      if (!manufacturerId || !checkedAt) return Response.json({ error: "id and date required" }, { status: 400 });
+      const instance = await env.EXTRACT_SPECS.create({ id: `extract-${manufacturerId}-${checkedAt}`, params: { manufacturerId, checkedAt } });
+      return Response.json({ id: instance.id });
+    }
     if (request.method === "POST" && url.pathname === "/approve") {
       const id = url.searchParams.get("id");
       if (!id) return Response.json({ error: "id required" }, { status: 400 });
@@ -69,7 +85,7 @@ export default {
     if (request.method === "GET" && url.pathname === "/status") {
       const id = url.searchParams.get("id");
       if (!id) return Response.json({ error: "id required" }, { status: 400 });
-      const binding = id.startsWith("classify-") ? env.CLASSIFY_SIGHTINGS : id.startsWith("page-") ? env.PAGE_CRAWL : id.startsWith("maker-") ? env.MANUFACTURER_CRAWL : env.SELLER_CRAWL;
+      const binding = id.startsWith("classify-") ? env.CLASSIFY_SIGHTINGS : id.startsWith("page-") ? env.PAGE_CRAWL : id.startsWith("extract-") ? env.EXTRACT_SPECS : id.startsWith("convert-") ? env.DOCUMENT_CONVERT : id.startsWith("maker-") ? env.MANUFACTURER_CRAWL : env.SELLER_CRAWL;
       const instance = await binding.get(id);
       const status = await instance.status();
       return Response.json({ status: status.status, error: status.error ?? null });
