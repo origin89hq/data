@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-sl-20l-12v",
+  "manufacturer": "morningstar",
+  "name": "SL-20L-12V",
+  "aliases": [],
+  "dialects": [
+    "morningstar-pwm-no-comms"
+  ]
+}

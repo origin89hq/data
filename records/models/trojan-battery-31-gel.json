@@ -1,0 +1,10 @@
+{
+  "id": "trojan-battery-31-gel",
+  "manufacturer": "trojan-battery",
+  "name": "31-GEL",
+  "aliases": [
+    "TRJ-187-108"
+  ],
+  "dialects": [],
+  "kind": "battery"
+}

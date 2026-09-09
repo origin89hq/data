@@ -1,0 +1,9 @@
+{
+  "id": "srne-ml2440",
+  "manufacturer": "srne",
+  "name": "ML2440",
+  "aliases": [],
+  "dialects": [
+    "srne-controller-v3"
+  ]
+}

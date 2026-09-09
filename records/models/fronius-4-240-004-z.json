@@ -1,0 +1,10 @@
+{
+  "id": "fronius-4-240-004-z",
+  "manufacturer": "fronius",
+  "name": "4,240,004,Z",
+  "aliases": [
+    "FRO-221-155"
+  ],
+  "dialects": [],
+  "kind": "balance-of-system"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "enphase-q-disc-10",
+  "manufacturer": "enphase",
+  "name": "Q-DISC-10",
+  "aliases": [
+    "ENP-221-123"
+  ],
+  "dialects": [],
+  "kind": "balance-of-system"
+}

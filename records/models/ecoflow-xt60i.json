@@ -1,0 +1,10 @@
+{
+  "id": "ecoflow-xt60i",
+  "manufacturer": "ecoflow",
+  "name": "XT60i",
+  "aliases": [
+    "EFL-144-104"
+  ],
+  "dialects": [],
+  "kind": "balance-of-system"
+}

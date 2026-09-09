@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-ss-6l-12v",
+  "manufacturer": "morningstar",
+  "name": "SS-6L-12V",
+  "aliases": [
+    "MOR-164-115"
+  ],
+  "dialects": [
+    "morningstar-pwm-no-comms"
+  ],
+  "kind": "charge-controller"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "pentair-8000-812-288",
+  "manufacturer": "pentair",
+  "name": "8000-812-288",
+  "aliases": [
+    "SFL-324-112"
+  ],
+  "dialects": [
+    "shurflo-dc-diaphragm-pressure-switch"
+  ]
+}

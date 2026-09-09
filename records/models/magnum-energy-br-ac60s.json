@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-br-ac60s",
+  "manufacturer": "magnum-energy",
+  "name": "BR-AC60S",
+  "aliases": [
+    "MAG-103-119"
+  ],
+  "dialects": [],
+  "kind": "balance-of-system"
+}

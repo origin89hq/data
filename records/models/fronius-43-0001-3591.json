@@ -1,0 +1,10 @@
+{
+  "id": "fronius-43-0001-3591",
+  "manufacturer": "fronius",
+  "name": "43,0001,3591",
+  "aliases": [
+    "FRO-221-185"
+  ],
+  "dialects": [],
+  "kind": "meter"
+}

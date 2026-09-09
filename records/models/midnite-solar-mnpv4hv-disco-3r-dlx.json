@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-mnpv4hv-disco-3r-dlx",
+  "manufacturer": "midnite-solar",
+  "name": "MNPV4HV-DISCO 3R-DLX",
+  "aliases": [
+    "MID-108-170"
+  ],
+  "dialects": [],
+  "kind": "balance-of-system"
+}

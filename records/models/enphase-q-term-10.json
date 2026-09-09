@@ -1,0 +1,10 @@
+{
+  "id": "enphase-q-term-10",
+  "manufacturer": "enphase",
+  "name": "Q-TERM-10",
+  "aliases": [
+    "ENP-221-125"
+  ],
+  "dialects": [],
+  "kind": "balance-of-system"
+}

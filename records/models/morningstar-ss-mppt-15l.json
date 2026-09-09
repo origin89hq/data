@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-ss-mppt-15l",
+  "manufacturer": "morningstar",
+  "name": "SS-MPPT-15L",
+  "aliases": [
+    "MOR-163-125"
+  ],
+  "dialects": [
+    "morningstar-sunsaver-mppt"
+  ],
+  "kind": "charge-controller"
+}

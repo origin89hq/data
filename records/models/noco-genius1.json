@@ -1,0 +1,9 @@
+{
+  "id": "noco-genius1",
+  "manufacturer": "noco",
+  "name": "GENIUS1",
+  "aliases": [],
+  "dialects": [
+    "noco-charger-unread"
+  ]
+}

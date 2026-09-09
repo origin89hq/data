@@ -5,6 +5,7 @@ import { Family } from "../schema/family.ts";
 import { Source } from "../schema/source.ts";
 import { Manufacturer } from "../schema/manufacturer.ts";
 import { Brand } from "../schema/brand.ts";
+import { Model, Spec } from "../schema/model.ts";
 import { Family as FamilyId } from "../schema/enums.ts";
 
 export const RECORDS_DIR = new URL("../records/", import.meta.url).pathname;
@@ -15,6 +16,8 @@ export interface Records {
   sources: Source[];
   manufacturers: Manufacturer[];
   brands: Brand[];
+  models: Model[];
+  specs: Spec[];
 }
 
 /** A record's file, so a validation message can name the line to open. */
@@ -30,7 +33,9 @@ export function loadRecords(dir = RECORDS_DIR): Records {
   const sources = readJsonDir(join(dir, "sources"), Source);
   const manufacturers = readJsonDir(join(dir, "manufacturers"), Manufacturer);
   const brands = readJsonDir(join(dir, "brands"), Brand);
-  return { families, dialects, sources, manufacturers, brands };
+  const models = readJsonDir(join(dir, "models"), Model);
+  const specs = readJsonDir(join(dir, "specs"), Spec);
+  return { families, dialects, sources, manufacturers, brands, models, specs };
 }
 
 function readJsonDir<T>(dir: string, schema: { parse(value: unknown): T }): T[] {
@@ -62,8 +67,8 @@ export function writeRecord(dir: string, kind: string, id: string, value: unknow
 }
 
 /** The record kinds, each its own directory. A writer names the ones it owns and leaves the rest alone. */
-export type Kind = "families" | "dialects" | "sources" | "manufacturers" | "brands";
-export const KINDS: Kind[] = ["families", "dialects", "sources", "manufacturers", "brands"];
+export type Kind = "families" | "dialects" | "sources" | "manufacturers" | "brands" | "models" | "specs";
+export const KINDS: Kind[] = ["families", "dialects", "sources", "manufacturers", "brands", "models", "specs"];
 
 /**
  * Replace whole record kinds from `records`. Only the kinds in `replace` are touched: the
@@ -81,6 +86,8 @@ export function writeRecords(records: Records, dir = RECORDS_DIR, replace: Kind[
   write("sources", records.sources, (s) => s.id);
   write("manufacturers", records.manufacturers, (m) => m.id);
   write("brands", records.brands, (b) => b.id);
+  write("models", records.models, (m) => m.id, (m) => m.manufacturer);
+  write("specs", records.specs, (s) => s.id, (s) => s.model);
 }
 
 function writeJson(path: string, value: unknown): void {

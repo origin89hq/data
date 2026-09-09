@@ -1,0 +1,11 @@
+{
+  "id": "kinetic-solar-kmwc3046-mm",
+  "manufacturer": "kinetic-solar",
+  "name": "KMWC3046-MM",
+  "aliases": [
+    "KIN-284-218",
+    "KIN-284-219"
+  ],
+  "dialects": [],
+  "kind": "balance-of-system"
+}

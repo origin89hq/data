@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-mnpv6-breaker-bb",
+  "manufacturer": "midnite-solar",
+  "name": "MNPV6-BREAKER-BB",
+  "aliases": [
+    "MID-104-163"
+  ],
+  "dialects": [],
+  "kind": "balance-of-system"
+}

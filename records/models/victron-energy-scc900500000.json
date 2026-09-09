@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-scc900500000",
+  "manufacturer": "victron-energy",
+  "name": "SCC900500000",
+  "aliases": [
+    "VIC-161-132"
+  ],
+  "dialects": []
+}

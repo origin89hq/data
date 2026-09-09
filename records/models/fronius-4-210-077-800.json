@@ -1,0 +1,10 @@
+{
+  "id": "fronius-4-210-077-800",
+  "manufacturer": "fronius",
+  "name": "4,210,077,800",
+  "aliases": [
+    "FRO-224-170"
+  ],
+  "dialects": [],
+  "kind": "inverter"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "apsystems-rsd-s-plc",
+  "manufacturer": "apsystems",
+  "name": "RSD-S-PLC",
+  "aliases": [
+    "APS-221-117"
+  ],
+  "dialects": []
+}

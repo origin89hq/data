@@ -1,0 +1,11 @@
+{
+  "id": "epever-mt50",
+  "manufacturer": "epever",
+  "name": "MT50",
+  "aliases": [
+    "EPS-161-107"
+  ],
+  "dialects": [
+    "epever-mt50-display"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "id": "fronius-rj45",
+  "manufacturer": "fronius",
+  "name": "RJ45",
+  "aliases": [
+    "FRO-221-160"
+  ],
+  "dialects": [],
+  "kind": "balance-of-system"
+}

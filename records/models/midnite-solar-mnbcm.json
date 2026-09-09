@@ -1,0 +1,11 @@
+{
+  "id": "midnite-solar-mnbcm",
+  "manufacturer": "midnite-solar",
+  "name": "MNBCM",
+  "aliases": [
+    "MID-181-101"
+  ],
+  "dialects": [
+    "midnite-mnbcm"
+  ]
+}

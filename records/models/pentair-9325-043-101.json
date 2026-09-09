@@ -1,0 +1,11 @@
+{
+  "id": "pentair-9325-043-101",
+  "manufacturer": "pentair",
+  "name": "9325-043-101",
+  "aliases": [
+    "SFL-323-113"
+  ],
+  "dialects": [
+    "shurflo-9300-solar-submersible"
+  ]
+}

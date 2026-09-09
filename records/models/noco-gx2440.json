@@ -1,0 +1,9 @@
+{
+  "id": "noco-gx2440",
+  "manufacturer": "noco",
+  "name": "GX2440",
+  "aliases": [],
+  "dialects": [
+    "noco-gx-dryio"
+  ]
+}

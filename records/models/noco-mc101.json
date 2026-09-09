@@ -1,0 +1,9 @@
+{
+  "id": "noco-mc101",
+  "manufacturer": "noco",
+  "name": "MC101",
+  "aliases": [],
+  "dialects": [
+    "noco-out-of-scope"
+  ]
+}

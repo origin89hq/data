@@ -1,0 +1,14 @@
+{
+  "id": "ecoflow-delta-pro-3",
+  "manufacturer": "ecoflow",
+  "name": "DELTA Pro 3",
+  "aliases": [
+    "EFL-234-102"
+  ],
+  "dialects": [
+    "ecoflow-ble-local",
+    "ecoflow-gen3-protobuf",
+    "ecoflow-modbus-not-applicable"
+  ],
+  "kind": "inverter-charger"
+}

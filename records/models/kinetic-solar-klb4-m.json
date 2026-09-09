@@ -1,0 +1,10 @@
+{
+  "id": "kinetic-solar-klb4-m",
+  "manufacturer": "kinetic-solar",
+  "name": "KLB4-M",
+  "aliases": [
+    "KIN-284-107"
+  ],
+  "dialects": [],
+  "kind": "balance-of-system"
+}

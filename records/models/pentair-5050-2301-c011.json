@@ -1,0 +1,11 @@
+{
+  "id": "pentair-5050-2301-c011",
+  "manufacturer": "pentair",
+  "name": "5050-2301-C011",
+  "aliases": [
+    "SFL-324-105"
+  ],
+  "dialects": [
+    "shurflo-dc-diaphragm-pressure-switch"
+  ]
+}

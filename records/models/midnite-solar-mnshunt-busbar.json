@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-mnshunt-busbar",
+  "manufacturer": "midnite-solar",
+  "name": "MNSHUNT BUSBAR",
+  "aliases": [
+    "MID-101-219"
+  ],
+  "dialects": [],
+  "kind": "balance-of-system"
+}

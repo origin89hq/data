@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-mnedcquad",
+  "manufacturer": "midnite-solar",
+  "name": "MNEDCQUAD",
+  "aliases": [
+    "MID-102-162"
+  ],
+  "dialects": [],
+  "kind": "balance-of-system"
+}

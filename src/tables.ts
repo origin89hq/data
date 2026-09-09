@@ -98,6 +98,26 @@ export function tables(records: Records): Table[] {
       rows: records.brands.flatMap((b) => b.evidence.sellers.map((seller) => ({ brand_id: b.id, seller }))),
     },
     {
+      name: "models",
+      columns: [col("id"), col("manufacturer_id"), col("name"), col("kind"), col("variant"), col("family"), col("checked_at"), col("reviewed_by"), col("basis")],
+      rows: records.models.map((m) => ({ id: m.id, manufacturer_id: m.manufacturer, name: m.name, kind: m.kind, variant: m.variant, family: m.family, checked_at: m.checkedAt, reviewed_by: m.reviewedBy, basis: m.basis })),
+    },
+    {
+      name: "model_aliases",
+      columns: [col("model_id"), col("alias")],
+      rows: records.models.flatMap((m) => m.aliases.map((alias) => ({ model_id: m.id, alias }))),
+    },
+    {
+      name: "model_dialects",
+      columns: [col("model_id"), col("dialect_id")],
+      rows: records.models.flatMap((m) => m.dialects.map((dialect_id) => ({ model_id: m.id, dialect_id }))),
+    },
+    {
+      name: "specs",
+      columns: [col("id"), col("model_id"), col("name"), col("value"), col("unit"), col("conditions"), col("source_id"), col("page", "INTEGER"), col("confidence")],
+      rows: records.specs.map((s) => ({ id: s.id, model_id: s.model, name: s.name, value: s.value, unit: s.unit, conditions: s.conditions, source_id: s.source, page: s.page, confidence: s.confidence })),
+    },
+    {
       name: "sources",
       columns: [col("id"), col("url"), col("path"), col("title"), col("publisher"), col("revision"), col("sha256"), col("retrieved_at"), col("redistributable", "BOOLEAN")],
       rows: records.sources.map((s) => ({

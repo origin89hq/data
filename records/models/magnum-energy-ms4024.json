@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-ms4024",
+  "manufacturer": "magnum-energy",
+  "name": "MS4024",
+  "aliases": [
+    "MAG-227-103"
+  ],
+  "dialects": [],
+  "kind": "inverter"
+}

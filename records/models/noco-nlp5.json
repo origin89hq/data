@@ -1,0 +1,9 @@
+{
+  "id": "noco-nlp5",
+  "manufacturer": "noco",
+  "name": "NLP5",
+  "aliases": [],
+  "dialects": [
+    "noco-nlp-lithium"
+  ]
+}

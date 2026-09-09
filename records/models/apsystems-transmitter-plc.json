@@ -1,0 +1,9 @@
+{
+  "id": "apsystems-transmitter-plc",
+  "manufacturer": "apsystems",
+  "name": "TRANSMITTER-PLC",
+  "aliases": [
+    "APS-221-118"
+  ],
+  "dialects": []
+}

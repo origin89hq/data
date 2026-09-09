@@ -34,4 +34,4 @@ for (const family of Family.options) {
 const existing = loadRecords(RECORDS_DIR);
 writeRecords({ ...existing, families, dialects, sources: sources.all() }, RECORDS_DIR, ["families", "dialects", "sources"]);
 console.log(`${families.length} families, ${dialects.length} dialects, ${sources.all().length} sources → ${RECORDS_DIR}`);
-console.log(`left alone: ${existing.manufacturers.length} manufacturers, ${existing.brands.length} brands`);
+console.log(`left alone: ${existing.manufacturers.length} manufacturers, ${existing.brands.length} brands, ${existing.models.length} models, ${existing.specs.length} specs`);

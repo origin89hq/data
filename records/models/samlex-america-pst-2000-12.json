@@ -1,0 +1,12 @@
+{
+  "id": "samlex-america-pst-2000-12",
+  "manufacturer": "samlex-america",
+  "name": "PST-2000-12",
+  "aliases": [
+    "SLX-227-122"
+  ],
+  "dialects": [
+    "samlex-pst-1500-2000-ext-switch",
+    "samlex-pst-rc300-link"
+  ]
+}

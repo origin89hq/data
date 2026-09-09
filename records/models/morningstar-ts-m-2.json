@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-m-2",
+  "manufacturer": "morningstar",
+  "name": "TS-M-2",
+  "aliases": [
+    "MOR-161-147"
+  ],
+  "dialects": [],
+  "kind": "balance-of-system"
+}

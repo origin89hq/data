@@ -56,6 +56,40 @@ validation error. Two builds of the same records produce identical bytes; the
 test suite checks that, because a Parquet writer is not deterministic by
 promise.
 
+## Models and their ratings
+
+`records/models/` is what everything else joins to: one record per product a
+manufacturer makes, keyed by maker so two companies can both have an "X-1".
+Models are derived from the crawls — a listing contributes only when its brand
+string has been resolved at the gate, because a model with no owner is a
+string — and a derived model carries no reviewer until somebody checks it
+against the maker's own document.
+
+```sh
+pnpm models 2026-09-11 solacity thecabindepot --dry-run   # see what a crawl would yield
+pnpm models 2026-09-11 solacity thecabindepot             # write the records
+```
+
+The filter is deliberately strict, because a seller's model field is often just
+the title again. "Estate Lawn Seed 25 lbs" arrived in this repo as a model
+number, which is the case the rule is written against: a name wrongly rejected
+is a row somebody can add, while a sentence wrongly accepted is a product that
+does not exist and that a later reader has to disprove.
+
+A model's `kind` is absent until something classifies it. That is a real
+answer, not a gap to fill with a default: 5,889 of the current models came from
+crawls no classifier had run over, and calling them all balance-of-system would
+have been a guess wearing the shape of a fact.
+
+`records/specs/` holds the ratings, one row per figure rather than a column per
+field. A battery and an inverter share almost no columns, and a single
+`capacity_ah` would have to pick one discharge rate and lie — the Rolls S-550
+is 428 Ah at the 20-hour rate and 556 Ah at the 100-hour rate, which is two
+rows each carrying its own conditions. Every figure names its source, the page
+it was read from, and how much weight it carries. The table is empty: filling
+it is the next piece of work, and the numbers come from the archived
+datasheets rather than from a product title.
+
 ## The tables
 
 | Table | One row per |
@@ -66,6 +100,9 @@ promise.
 | `dialect_kinds` | metric a dialect reports or command it accepts |
 | `dialect_gotchas` | thing that bites, in order |
 | `dialect_see_also` | sibling id an entry may duplicate |
+| `models` | product a maker makes, with its kind where something has said, and the aliases other names reach it by |
+| `model_dialects` | dialect a model is known to speak, carrying the catalogue's own claim and its confidence |
+| `specs` | one rated figure, with its unit, the conditions it holds under, its source and page |
 | `sources` | source: url or repository path, plus title, publisher, revision, hash, retrieval date and licence once reviewed |
 
 Absence is an empty cell, never a default. `confidence` is one of `vendor-doc`,

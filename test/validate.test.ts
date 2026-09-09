@@ -18,6 +18,8 @@ function fixture(): Records {
     sources: [{ id: "s1", url: "https://x/1" }],
     manufacturers: [],
     brands: [],
+    models: [],
+    specs: [],
   };
 }
 

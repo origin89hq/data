@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-bba000100100",
+  "manufacturer": "victron-energy",
+  "name": "BBA000100100",
+  "aliases": [
+    "VIC-181-183"
+  ],
+  "dialects": []
+}

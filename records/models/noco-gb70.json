@@ -1,0 +1,9 @@
+{
+  "id": "noco-gb70",
+  "manufacturer": "noco",
+  "name": "GB70",
+  "aliases": [],
+  "dialects": [
+    "noco-out-of-scope"
+  ]
+}

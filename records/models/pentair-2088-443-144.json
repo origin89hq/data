@@ -1,0 +1,11 @@
+{
+  "id": "pentair-2088-443-144",
+  "manufacturer": "pentair",
+  "name": "2088-443-144",
+  "aliases": [
+    "SFL-324-100"
+  ],
+  "dialects": [
+    "shurflo-dc-diaphragm-pressure-switch"
+  ]
+}

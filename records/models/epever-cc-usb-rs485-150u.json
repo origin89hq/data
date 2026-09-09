@@ -1,0 +1,12 @@
+{
+  "id": "epever-cc-usb-rs485-150u",
+  "manufacturer": "epever",
+  "name": "CC-USB-RS485-150U",
+  "aliases": [
+    "EPS-161-112"
+  ],
+  "dialects": [
+    "epever-rj45-transport-usb"
+  ],
+  "kind": "charge-controller"
+}

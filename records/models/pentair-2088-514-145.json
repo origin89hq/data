@@ -1,0 +1,11 @@
+{
+  "id": "pentair-2088-514-145",
+  "manufacturer": "pentair",
+  "name": "2088-514-145",
+  "aliases": [
+    "SFL-324-101"
+  ],
+  "dialects": [
+    "shurflo-dc-diaphragm-pressure-switch"
+  ]
+}

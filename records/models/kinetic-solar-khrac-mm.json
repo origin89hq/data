@@ -1,0 +1,10 @@
+{
+  "id": "kinetic-solar-khrac-mm",
+  "manufacturer": "kinetic-solar",
+  "name": "KHRAC-MM",
+  "aliases": [
+    "KIN-284-123"
+  ],
+  "dialects": [],
+  "kind": "balance-of-system"
+}

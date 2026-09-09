@@ -1,0 +1,12 @@
+{
+  "id": "midnite-solar-classic-200",
+  "manufacturer": "midnite-solar",
+  "name": "CLASSIC 200",
+  "aliases": [
+    "MID-163-103"
+  ],
+  "dialects": [
+    "midnite-classic"
+  ],
+  "kind": "charge-controller"
+}

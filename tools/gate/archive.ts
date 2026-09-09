@@ -6,16 +6,34 @@ import { classifierKey } from "../../scraper/src/classify.ts";
 const BUCKET = "offgrid-equipment-archive";
 const SCRAPER = new URL("../../scraper/", import.meta.url).pathname;
 
-/** Read one object out of the crawl archive through wrangler, which owns the credentials. */
+/**
+ * How much of one object to accept. A page of sightings from a large shop runs past a megabyte,
+ * and the default buffer is exactly that: the first run of this reader reported a page as missing
+ * when it was there and simply too big, which is the kind of failure that quietly shortens a
+ * dataset instead of stopping it.
+ */
+const MAX_OBJECT_BYTES = 256 * 1024 * 1024;
+
+/**
+ * Read one object out of the crawl archive through wrangler, which owns the credentials. An
+ * object that is not there returns nothing; anything else throws, because a read that failed
+ * for another reason must not be mistaken for one that was never written.
+ */
 export function object(key: string, remote: boolean): string | undefined {
   try {
     return execFileSync("pnpm", ["exec", "wrangler", "r2", "object", "get", `${BUCKET}/${key}`, remote ? "--remote" : "--local", "--pipe"], {
       encoding: "utf8",
       cwd: SCRAPER,
-      stdio: ["ignore", "pipe", "ignore"],
+      stdio: ["ignore", "pipe", "pipe"],
+      maxBuffer: MAX_OBJECT_BYTES,
     });
-  } catch {
-    return undefined;
+  } catch (error) {
+    const err = error as { stderr?: string | Buffer; code?: string; message?: string };
+    const stderr = err.stderr?.toString() ?? "";
+    if (/not found|does not exist|NoSuchKey|The specified key/i.test(stderr)) return undefined;
+    if (err.code === "ENOBUFS") throw new Error(`${key}: larger than ${MAX_OBJECT_BYTES} bytes`);
+    if (!stderr.trim()) return undefined;
+    throw new Error(`${key}: ${stderr.trim().split("\n").slice(0, 3).join(" ")}`);
   }
 }
 

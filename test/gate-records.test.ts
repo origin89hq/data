@@ -17,6 +17,8 @@ function fixture(brands: Brand[] = [decided]): Records {
     sources: [{ id: "s1", url: "https://x/1" }],
     manufacturers: [{ id: "rolls-battery", name: "Rolls Battery", domains: ["rollsbattery.com"] }],
     brands,
+    models: [],
+    specs: [],
   };
 }
 

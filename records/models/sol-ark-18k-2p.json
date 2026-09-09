@@ -1,0 +1,11 @@
+{
+  "id": "sol-ark-18k-2p",
+  "manufacturer": "sol-ark",
+  "name": "18K-2P",
+  "aliases": [],
+  "dialects": [
+    "solark-18k-2p-unknown",
+    "solark-dongle-uart",
+    "solark-mysolark-cloud"
+  ]
+}

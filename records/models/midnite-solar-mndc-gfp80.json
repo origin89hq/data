@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-mndc-gfp80",
+  "manufacturer": "midnite-solar",
+  "name": "MNDC-GFP80",
+  "aliases": [
+    "MID-103-113"
+  ],
+  "dialects": [],
+  "kind": "balance-of-system"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "schneider-electric-865-1070",
+  "manufacturer": "schneider-electric",
+  "name": "865-1070",
+  "aliases": [
+    "CXT-103-120"
+  ],
+  "dialects": [],
+  "kind": "balance-of-system"
+}

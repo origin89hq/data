@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-mnpv6-disco-ac-micro",
+  "manufacturer": "midnite-solar",
+  "name": "MNPV6-DISCO AC MICRO",
+  "aliases": [
+    "MID-115-268"
+  ],
+  "dialects": [],
+  "kind": "balance-of-system"
+}

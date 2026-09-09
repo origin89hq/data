@@ -1,0 +1,11 @@
+{
+  "id": "pentair-8000-443-136",
+  "manufacturer": "pentair",
+  "name": "8000-443-136",
+  "aliases": [
+    "SFL-324-104"
+  ],
+  "dialects": [
+    "shurflo-dc-diaphragm-pressure-switch"
+  ]
+}

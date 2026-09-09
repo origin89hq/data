@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-ts-mppt-60",
+  "manufacturer": "morningstar",
+  "name": "TS-MPPT-60",
+  "aliases": [],
+  "dialects": [
+    "morningstar-tristar-mppt"
+  ]
+}

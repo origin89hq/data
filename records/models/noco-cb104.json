@@ -1,0 +1,12 @@
+{
+  "id": "noco-cb104",
+  "manufacturer": "noco",
+  "name": "CB104",
+  "aliases": [
+    "NOC-181-100"
+  ],
+  "dialects": [
+    "noco-out-of-scope"
+  ],
+  "kind": "balance-of-system"
+}

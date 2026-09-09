@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-ts-60",
+  "manufacturer": "morningstar",
+  "name": "TS-60",
+  "aliases": [],
+  "dialects": [
+    "morningstar-tristar-pwm"
+  ]
+}

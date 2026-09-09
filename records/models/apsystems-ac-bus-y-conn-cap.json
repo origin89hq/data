@@ -1,0 +1,10 @@
+{
+  "id": "apsystems-ac-bus-y-conn-cap",
+  "manufacturer": "apsystems",
+  "name": "AC Bus Y-CONN Cap",
+  "aliases": [
+    "APS-221-113"
+  ],
+  "dialects": [],
+  "kind": "balance-of-system"
+}

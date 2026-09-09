@@ -1,0 +1,9 @@
+{
+  "id": "rolls-battery-s6-220agm",
+  "manufacturer": "rolls-battery",
+  "name": "S6-220AGM",
+  "aliases": [],
+  "dialects": [
+    "rolls-lead-acid"
+  ]
+}

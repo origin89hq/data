@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-mnsbb-b",
+  "manufacturer": "midnite-solar",
+  "name": "MNSBB-B",
+  "aliases": [
+    "XXX-XXX-110"
+  ],
+  "dialects": [],
+  "kind": "balance-of-system"
+}

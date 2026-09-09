@@ -1,0 +1,9 @@
+{
+  "id": "noco-genpro10x4",
+  "manufacturer": "noco",
+  "name": "GENPRO10X4",
+  "aliases": [],
+  "dialects": [
+    "noco-gen-onboard"
+  ]
+}

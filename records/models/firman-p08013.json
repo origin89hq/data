@@ -1,0 +1,9 @@
+{
+  "id": "firman-p08013",
+  "manufacturer": "firman",
+  "name": "P08013",
+  "aliases": [],
+  "dialects": [
+    "firman-portable-no-comms"
+  ]
+}

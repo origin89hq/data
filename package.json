@@ -15,7 +15,8 @@
     "roundtrip:catalogue": "node tools/catalogue/roundtrip.ts",
     "test": "node --test test/*.test.ts",
     "gate:queue": "node tools/gate/queue.ts",
-    "gate": "node tools/gate/decide.ts"
+    "gate": "node tools/gate/decide.ts",
+    "models": "node tools/gate/models.ts"
   },
   "packageManager": "pnpm@10.0.0",
   "dependencies": {

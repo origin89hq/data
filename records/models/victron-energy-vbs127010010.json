@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-vbs127010010",
+  "manufacturer": "victron-energy",
+  "name": "VBS127010010",
+  "aliases": [
+    "VIC-110-173"
+  ],
+  "dialects": [],
+  "kind": "balance-of-system"
+}

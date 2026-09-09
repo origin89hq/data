@@ -43,6 +43,7 @@ export function validate(records: Records): Report {
   }
 
   for (const m of records.manufacturers) for (const s of m.sources ?? []) cited.add(s);
+  for (const s of records.specs) cited.add(s.source);
   for (const s of records.sources) {
     if (!cited.has(s.id)) errors.push(`source ${s.id} is cited by nothing`);
     if (!s.url && !s.path) note("source with no url or path");
@@ -85,6 +86,29 @@ export function validate(records: Records): Report {
     for (const s of m.sources ?? []) if (!sourceIds.has(s)) errors.push(`${m.id}: cites ${s}, which does not exist`);
   }
 
+  const modelIds = new Set(records.models.map((m) => m.id));
+  if (modelIds.size !== records.models.length) errors.push("duplicate model id");
+  const byMakerName = new Map<string, string>();
+  for (const m of records.models) {
+    if (!makers.has(m.manufacturer)) errors.push(`${m.id}: names manufacturer ${m.manufacturer}, which does not exist`);
+    const key = `${m.manufacturer}\t${m.name.toLowerCase()}\t${(m.variant ?? "").toLowerCase()}`;
+    const other = byMakerName.get(key);
+    if (other) errors.push(`models ${other} and ${m.id} are the same maker, name and variant`);
+    byMakerName.set(key, m.id);
+    for (const d of m.dialects) if (!dialectIds.has(d)) errors.push(`${m.id}: speaks ${d}, which is not a dialect`);
+    if (m.reviewedBy && !m.basis) errors.push(`${m.id}: reviewed with no basis`);
+    if (!m.reviewedBy) note("model nobody has confirmed");
+    if (m.dialects.length === 0) note("model with no dialect, so nothing can read it");
+    if (!m.kind) note("model nothing has classified, so its kind is unknown");
+    if (!records.specs.some((s) => s.model === m.id)) note("model with no rated figure");
+  }
+  for (const s of records.specs) {
+    if (!modelIds.has(s.model)) errors.push(`spec ${s.id}: names model ${s.model}, which does not exist`);
+    if (!sourceIds.has(s.source)) errors.push(`spec ${s.id}: cites ${s.source}, which does not exist`);
+    cited.add(s.source);
+    if (s.confidence === "unverified") note("figure from an unverified source — do not size anything on it");
+  }
+
   const families = new Set(records.families.map((f) => f.id));
   for (const f of records.families) {
     const seen = new Set<string>();
@@ -108,7 +132,7 @@ export function validate(records: Records): Report {
 
 export function reviewSummary(records: Records, report: Report): string {
   const lines = [
-    `${records.families.length} families · ${records.dialects.length} dialects · ${records.sources.length} sources · ${records.manufacturers.length} manufacturers · ${records.brands.length} brands`,
+    `${records.families.length} families · ${records.dialects.length} dialects · ${records.sources.length} sources · ${records.manufacturers.length} manufacturers · ${records.brands.length} brands · ${records.models.length} models · ${records.specs.length} specs`,
     "",
     "For review:",
     ...Object.entries(report.review)

@@ -1,0 +1,10 @@
+{
+  "id": "enphase-x-iq-am1-240-4",
+  "manufacturer": "enphase",
+  "name": "X-IQ-AM1-240-4",
+  "aliases": [
+    "ENP-221-128"
+  ],
+  "dialects": [],
+  "kind": "balance-of-system"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-mmp175-30d",
+  "manufacturer": "magnum-energy",
+  "name": "MMP175-30D",
+  "aliases": [
+    "MAG-222-131"
+  ],
+  "dialects": [],
+  "kind": "balance-of-system"
+}

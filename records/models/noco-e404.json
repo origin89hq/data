@@ -1,0 +1,9 @@
+{
+  "id": "noco-e404",
+  "manufacturer": "noco",
+  "name": "E404",
+  "aliases": [],
+  "dialects": [
+    "noco-out-of-scope"
+  ]
+}

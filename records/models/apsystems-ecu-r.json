@@ -1,0 +1,10 @@
+{
+  "id": "apsystems-ecu-r",
+  "manufacturer": "apsystems",
+  "name": "ECU-R",
+  "aliases": [
+    "APS-223-110"
+  ],
+  "dialects": [],
+  "kind": "inverter"
+}
