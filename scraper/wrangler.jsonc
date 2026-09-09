@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "offgrid-equipment-scraper",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-09",
+  "compatibility_flags": ["nodejs_compat"],
+  "workflows": [
+    { "name": "seller-crawl", "binding": "SELLER_CRAWL", "class_name": "SellerCrawl" }
+  ],
+  "r2_buckets": [
+    { "binding": "ARCHIVE", "bucket_name": "offgrid-equipment-archive" }
+  ],
+  "triggers": { "crons": ["0 6 * * 1"] },
+  "observability": {
+    "enabled": true,
+    "logs": { "enabled": true, "head_sampling_rate": 1 },
+    "traces": { "enabled": true, "head_sampling_rate": 1 }
+  }
+}

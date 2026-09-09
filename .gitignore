@@ -1,2 +1,4 @@
 node_modules/
 dist/
+.wrangler/
+scraper/worker-configuration.d.ts

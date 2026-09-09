@@ -92,3 +92,32 @@ the generator and the parser becomes a migration tool to delete.
 - 16 dialects are flagged as a possible duplicate of a sibling id.
 
 None of these block the build. They are the work.
+
+## The spider
+
+`scraper/` is a Cloudflare Worker with one Workflow, `SellerCrawl`: hop one of
+the spider described in origin89's `docs/ideas/EQUIPMENT-DB.md`. Given a seller
+from the committed `scraper/sellers.json` and a date, it walks the shop's
+product feed a page per step, writes each page of sightings to R2 as JSONL, and
+writes a manifest last so a reader that finds one knows the run finished. A
+weekly cron starts one instance per seller; a second trigger the same day is
+refused as a duplicate rather than run twice.
+
+A sighting is the listing as printed — brand, title, SKU, variant, price,
+category, tags, the seller's last-modified time and the crawl date — and needs
+no review to be stored. Resolving a brand string to a manufacturer is the gate
+a person keeps, and nothing crawls a manufacturer's site until it is confirmed.
+
+```sh
+cd scraper
+pnpm types && pnpm test           # generate binding types, unit tests
+pnpm dev                          # local Worker on :8787 with a local R2
+curl -X POST 'localhost:8787/run?seller=thecabindepot'
+curl 'localhost:8787/status?id=thecabindepot-<date>'
+wrangler r2 object get offgrid-equipment-archive/sightings/thecabindepot/<date>/manifest.json --local --pipe
+```
+
+Nothing is deployed. The first local run against the Cabin Depot returned
+2,971 sightings across 2,226 products and 131 brand strings, most of them wood
+stoves and composting toilets. That is expected: the seller list is about where
+off-grid buyers shop, and the gate is where the energy brands get picked out.

@@ -1,0 +1,19 @@
+{
+  "name": "offgrid-equipment-scraper",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "types": "wrangler types",
+    "check": "wrangler types && tsc --noEmit",
+    "test": "node --test test/*.test.ts",
+    "deploy:dry-run": "wrangler deploy --dry-run"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "wrangler": "4"
+  },
+  "dependencies": {
+    "zod": "4"
+  }
+}
