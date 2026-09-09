@@ -6,7 +6,8 @@
   "compatibility_flags": ["nodejs_compat"],
   "workflows": [
     { "name": "seller-crawl", "binding": "SELLER_CRAWL", "class_name": "SellerCrawl" },
-    { "name": "classify-sightings", "binding": "CLASSIFY_SIGHTINGS", "class_name": "ClassifySightings" }
+    { "name": "classify-sightings", "binding": "CLASSIFY_SIGHTINGS", "class_name": "ClassifySightings" },
+    { "name": "page-crawl", "binding": "PAGE_CRAWL", "class_name": "PageCrawl" }
   ],
   "ai": { "binding": "AI", "remote": true },
   "r2_buckets": [

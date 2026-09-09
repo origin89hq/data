@@ -97,13 +97,20 @@ None of these block the build. They are the work.
 
 ## The spider
 
-`scraper/` is a Cloudflare Worker with one Workflow, `SellerCrawl`: hop one of
-the spider described in [docs/SPIDER.md](docs/SPIDER.md). Given a seller
-from the committed `scraper/sellers.json` and a date, it walks the shop's
-product feed a page per step, writes each page of sightings to R2 as JSONL, and
-writes a manifest last so a reader that finds one knows the run finished. A
-weekly cron starts one instance per seller; a second trigger the same day is
-refused as a duplicate rather than run twice.
+`scraper/` is a Cloudflare Worker running hop one of the spider described in
+[docs/SPIDER.md](docs/SPIDER.md), over the 39 Canadian and US sellers in the
+committed `scraper/sellers.json`.
+
+- **`SellerCrawl`** walks a shop's product feed, a page per step, for the 32
+  sellers on Shopify or WooCommerce.
+- **`PageCrawl`** discovers product URLs from the sitemap and reads each page's
+  own JSON-LD or microdata, for the 7 on BigCommerce, Magento or neither.
+- **`ClassifySightings`** reads a finished crawl back and asks Workers AI, ten
+  listings per step, what each one is.
+
+Each writes to R2 as JSONL with a manifest last, so a reader that finds a
+manifest knows the run finished. A weekly cron starts one instance per seller;
+a second trigger the same day is refused as a duplicate rather than run twice.
 
 A sighting is the listing as printed — brand, title, SKU, variant, price,
 category, tags, the seller's last-modified time and the crawl date — and needs
@@ -112,17 +119,26 @@ a person keeps, and nothing crawls a manufacturer's site until it is confirmed.
 
 ```sh
 cd scraper
-pnpm types && pnpm test           # generate binding types, unit tests
-pnpm dev                          # local Worker on :8787 with a local R2
+pnpm types && pnpm test              # generate binding types, unit tests
+pnpm dev                             # local Worker with a local R2; AI runs against Cloudflare
 curl -X POST 'localhost:8787/run?seller=thecabindepot'
+curl -X POST 'localhost:8787/run?seller=nazsolarelectric&limit=40'   # a spread sample, for trying a seller
+curl -X POST 'localhost:8787/classify?seller=thecabindepot&date=<date>'
 curl 'localhost:8787/status?id=thecabindepot-<date>'
-wrangler r2 object get offgrid-equipment-archive/sightings/thecabindepot/<date>/manifest.json --local --pipe
 ```
 
-Nothing is deployed. The first local run against the Cabin Depot returned
-2,971 sightings across 2,226 products and 131 brand strings, most of them wood
-stoves and composting toilets. That is expected: the seller list is about where
-off-grid buyers shop, and the gate is where the energy brands get picked out.
+Nothing is deployed and no bucket exists yet. Local runs so far:
+
+| Seller | Tier | Result |
+|---|---|---|
+| The Cabin Depot | Shopify feed | 2,971 sightings, 2,226 products, 131 brand strings |
+| Solacity | WooCommerce feed | 493 sightings, 51 brands, 429 with a maker's model number |
+| Signature Solar | microdata | 49 of 50 sampled pages |
+| NAZ Solar Electric | JSON-LD | 38 of 40 sampled pages |
+
+Most of the Cabin Depot's catalogue is wood stoves and composting toilets, and
+that is expected: the seller list is about where off-grid buyers shop, and the
+gate is where the energy brands get picked out.
 
 ### Reading the gate
 

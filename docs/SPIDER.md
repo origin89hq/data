@@ -15,19 +15,30 @@ availability, the seller's category and tags, the seller's last-modified time,
 and the crawl date. A sighting is a fact about the seller. It needs no review
 to be stored, and it says nothing about who makes the product.
 
-Three extractors, tried in order, and every sighting records which one
-produced it:
+Two extractors, and every sighting records which one produced it:
 
-1. **A structured feed** where the platform has one. Shopify's products feed is
-   what runs today; WooCommerce, BigCommerce and Magento have equivalents.
-   Deterministic and free.
-2. **Structured data in the page.** Most stores embed a schema.org `Product`
-   block in JSON-LD: brand, SKU, price, availability. Deterministic and free;
-   discovery from the sitemap.
-3. **A model over the page's markdown**, for the rest. This is what makes "any
-   seller" true and the one that can be wrong, so it is measured against the
-   first two on a shop that has both, and it never overwrites an as-printed
-   field.
+1. **A structured feed** where the platform publishes one. Shopify serves
+   `products.json`, WooCommerce serves a Store API. Exact, complete, one
+   request per hundred products, and it carries fields a page does not: a
+   store's own brand and model attributes, every variant with its own price.
+2. **The page's own structured data** for the rest. Magento and Shopify emit a
+   schema.org `Product` in JSON-LD; BigCommerce emits the same vocabulary as
+   microdata. Product URLs come from the sitemap. Both are exact — the reader
+   takes what the page states about itself and nothing from its prose, so a
+   category page or an article yields nothing, which is the honest answer.
+
+A third tier, a model reading the page's markdown, is for shops that publish
+neither. It is not built. When it is, it must be measured against the first two
+on a shop that has both before anything trusts it.
+
+**Reading a page correctly is fiddlier than it looks.** A property belongs to
+its nearest enclosing scope, and a BigCommerce product element contains the
+breadcrumb trail, so a reader that takes the first `name` after the product tag
+publishes a product called "Home". A theme prints "Brand : IntegraRack" where
+the brand is IntegraRack. A Shopify store puts the barcode in `mpn`, and
+"990317712768" is not a model number. All three were found by running the
+reader over real pages after it passed its own fixtures, which is the argument
+for keeping a real page in the loop.
 
 ## The gate: brand to manufacturer
 
@@ -55,9 +66,10 @@ rather than pretending each has its own.
   fails retries alone, a step that succeeded never re-runs, and an instance
   waiting on a crawl costs nothing. Step results are capped, so steps pass
   storage keys and never page bytes.
-- **The crawl endpoint** does the fetching: sitemap discovery, robots.txt,
-  crawl-delay, skipping pages unchanged since the last run, rendering only
-  where a page needs it.
+- **Fetching** is a plain request per page today, a batch per step, with a
+  pause between batches. The crawl endpoint's sitemap discovery, crawl-delay
+  and unchanged-since skipping are the upgrade path, and rendering is what a
+  shop that builds its pages in the browser will need.
 - **R2** holds sightings and documents. A document is served to users only
   when its source record says it may be redistributed; the default is the
   manufacturer's own URL plus our hash and retrieval date.

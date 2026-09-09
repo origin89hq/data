@@ -2,7 +2,7 @@ import { z } from "zod";
 import { RecordId } from "./enums.ts";
 
 /** How a sighting was read. Feeds and JSON-LD are deterministic; a model is not, and says which model. */
-export const Extractor = z.string().regex(/^(shopify-feed|woocommerce-feed|json-ld|ai:[\w./@:-]+)$/);
+export const Extractor = z.string().regex(/^(shopify-feed|woocommerce-feed|json-ld|micro-data|ai:[\w./@:-]+)$/);
 export type Extractor = z.infer<typeof Extractor>;
 
 /** The shop platform, which decides the extractor: a feed where one exists, the page's JSON-LD otherwise. */
@@ -57,6 +57,12 @@ export const Seller = z
     platform: Platform,
     /** The maker's own store. Still a seller, but its brand column is one value and its prices are list prices. */
     makerDirect: z.boolean().optional(),
+    /** Where the sitemap lives when it is not at `/sitemap.xml`. BigCommerce serves `/xmlsitemap.php`. */
+    sitemapUrl: z.string().url().optional(),
+    /** Which entries of a sitemap index hold products. Without it every listed sitemap is opened. */
+    sitemapPattern: z.string().min(1).optional(),
+    /** Which page URLs are products. Without it every page is tried and the ones that publish no product yield nothing. */
+    productPattern: z.string().min(1).optional(),
   })
   .strict();
 export type Seller = z.infer<typeof Seller>;

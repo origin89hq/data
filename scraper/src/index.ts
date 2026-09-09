@@ -1,8 +1,10 @@
 import { sellers } from "./sellers.ts";
+import { hasFeed } from "./feeds.ts";
 import type { SellerCrawlParams } from "./seller-crawl.ts";
 
 export { SellerCrawl } from "./seller-crawl.ts";
 export { ClassifySightings } from "./classify-sightings.ts";
+export { PageCrawl } from "./page-crawl.ts";
 
 /** Today as YYYY-MM-DD in UTC. Computed once per trigger and passed in, never inside a step. */
 function today(): string {
@@ -22,9 +24,16 @@ export default {
       const sellerId = url.searchParams.get("seller");
       if (!sellerId || !sellers.some((s) => s.id === sellerId)) return Response.json({ error: "unknown seller" }, { status: 400 });
       const checkedAt = url.searchParams.get("date") ?? today();
-      const params: SellerCrawlParams = { sellerId, checkedAt };
-      const instance = await env.SELLER_CRAWL.create({ id: instanceId(sellerId, checkedAt), params });
-      return Response.json({ id: instance.id });
+      const seller = sellers.find((s) => s.id === sellerId);
+      if (!seller) return Response.json({ error: "unknown seller" }, { status: 400 });
+      if (hasFeed(seller)) {
+        const params: SellerCrawlParams = { sellerId, checkedAt };
+        const instance = await env.SELLER_CRAWL.create({ id: instanceId(sellerId, checkedAt), params });
+        return Response.json({ id: instance.id, tier: "feed" });
+      }
+      const limit = url.searchParams.get("limit");
+      const instance = await env.PAGE_CRAWL.create({ id: `page-${instanceId(sellerId, checkedAt)}`, params: { sellerId, checkedAt, ...(limit ? { limit: Number(limit) } : {}) } });
+      return Response.json({ id: instance.id, tier: "page" });
     }
     if (request.method === "POST" && url.pathname === "/classify") {
       const sellerId = url.searchParams.get("seller");
@@ -36,7 +45,7 @@ export default {
     if (request.method === "GET" && url.pathname === "/status") {
       const id = url.searchParams.get("id");
       if (!id) return Response.json({ error: "id required" }, { status: 400 });
-      const binding = id.startsWith("classify-") ? env.CLASSIFY_SIGHTINGS : env.SELLER_CRAWL;
+      const binding = id.startsWith("classify-") ? env.CLASSIFY_SIGHTINGS : id.startsWith("page-") ? env.PAGE_CRAWL : env.SELLER_CRAWL;
       const instance = await binding.get(id);
       const status = await instance.status();
       return Response.json({ status: status.status, error: status.error ?? null });
@@ -48,8 +57,12 @@ export default {
   async scheduled(_controller: ScheduledController, env: Env): Promise<void> {
     const checkedAt = today();
     for (const seller of sellers) {
-      const params: SellerCrawlParams = { sellerId: seller.id, checkedAt };
-      await env.SELLER_CRAWL.create({ id: instanceId(seller.id, checkedAt), params });
+      if (hasFeed(seller)) {
+        const params: SellerCrawlParams = { sellerId: seller.id, checkedAt };
+        await env.SELLER_CRAWL.create({ id: instanceId(seller.id, checkedAt), params });
+      } else {
+        await env.PAGE_CRAWL.create({ id: `page-${instanceId(seller.id, checkedAt)}`, params: { sellerId: seller.id, checkedAt } });
+      }
     }
   },
 } satisfies ExportedHandler<Env>;
