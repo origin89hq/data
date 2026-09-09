@@ -2,7 +2,7 @@ import { WorkflowEntrypoint, type WorkflowEvent, type WorkflowStep } from "cloud
 import { CrawlApproval, documentLinks, hostAllowed, permitted, planFor, type Found } from "./documents.ts";
 import { fetchText, isIndex, locations, sample } from "./sitemap.ts";
 import { judgeSpecPage, type SpecPageCandidate } from "./spec-table.ts";
-import { USER_AGENT, todayUtc } from "./feeds.ts";
+import { clearPrefix, USER_AGENT, todayUtc } from "./feeds.ts";
 
 export interface ManufacturerCrawlParams {
   manufacturerId: string;
@@ -36,6 +36,9 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     const { manufacturerId, domains, checkedAt, pageLimit } = event.payload;
     if (domains.length === 0) throw new Error(`${manufacturerId}: no domains, so there is nothing this instance may reach`);
     const prefix = `documents/${manufacturerId}/${checkedAt}`;
+    // This run replaces any earlier run of the same maker on the same day. Only what this run
+    // produces lives under here; the documents themselves are keyed by content elsewhere.
+    await step.do("clear this run's prefix", () => clearPrefix(this.env.ARCHIVE, `${prefix}/`));
 
     const pages = await step.do("discover pages", { retries: { limit: 2, delay: "20 seconds", backoff: "exponential" }, timeout: "3 minutes" }, async () => {
       const urls: string[] = [];

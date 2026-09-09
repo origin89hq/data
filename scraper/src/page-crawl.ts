@@ -1,7 +1,7 @@
 import { WorkflowEntrypoint, type WorkflowEvent, type WorkflowStep } from "cloudflare:workers";
 import { Seller, Sighting } from "../../schema/sighting.ts";
 import { sellers } from "./sellers.ts";
-import { hasFeed, todayUtc } from "./feeds.ts";
+import { clearPrefix, hasFeed, todayUtc } from "./feeds.ts";
 import { sightingFromPage } from "./page-product.ts";
 import { fetchText, isIndex, locations, pickProducts, pickSitemaps, sample, sitemapUrl } from "./sitemap.ts";
 
@@ -28,6 +28,8 @@ export class PageCrawl extends WorkflowEntrypoint<Env, PageCrawlParams> {
     // The path carries the run label; every sighting carries the day it was really seen.
     const seenOn = todayUtc();
     const prefix = `sightings/${seller.id}/${checkedAt}`;
+    // This run replaces any earlier run of the same seller on the same day.
+    await step.do("clear this run's prefix", () => clearPrefix(this.env.ARCHIVE, `${prefix}/`));
 
     const found = await step.do("discover product urls", { retries: { limit: 3, delay: "10 seconds", backoff: "exponential" }, timeout: "2 minutes" }, async () => {
       const root = await fetchText(sitemapUrl(seller));

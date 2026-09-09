@@ -12,6 +12,23 @@ export function todayUtc(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
+/**
+ * Empty a run's prefix before it writes. A run is one crawl of one seller or maker on one day,
+ * and running it again replaces it — the shop's stock today is today's answer, not today's added
+ * to this morning's. Without this a second run leaves the first's objects behind and the two read
+ * as one, which is how two crawls of EPEver became a single prefix holding both.
+ */
+export async function clearPrefix(bucket: R2Bucket, prefix: string): Promise<number> {
+  let removed = 0;
+  for (;;) {
+    const page = await bucket.list({ prefix, limit: 1000 });
+    if (page.objects.length === 0) return removed;
+    await bucket.delete(page.objects.map((o) => o.key));
+    removed += page.objects.length;
+    if (!page.truncated) return removed;
+  }
+}
+
 export const USER_AGENT = "offgrid-equipment/0.0 (+https://github.com/origin89hq/offgrid-equipment; hello@origin89.com)";
 
 export interface FeedPage {
