@@ -151,3 +151,7 @@ export-makers:
 # Discovery over every maker at once. Reads only what they publish; downloads still wait for you.
 discover-all date pages="150":
     @just _post "/discover-all?date={{date}}&pages={{pages}}"
+
+# What this knows, what the spider is waiting on, and what is waiting on you.
+status:
+    node tools/status.ts

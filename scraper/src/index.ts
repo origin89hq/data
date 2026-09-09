@@ -7,6 +7,7 @@ import { consume } from "./consumer.ts";
 import { classifyRun, convertRun, specPagesRun } from "./enqueue.ts";
 import specPages from "../../feeds/spec-pages.json" with { type: "json" };
 import { manufacturers } from "./manufacturers.ts";
+import { makerStates, sellerStates } from "./state.ts";
 import type { SellerCrawlParams } from "./seller-crawl.ts";
 
 export { SellerCrawl } from "./seller-crawl.ts";
@@ -50,6 +51,12 @@ export default {
     // Reading a run back one object at a time meant spawning wrangler once per part, which took
     // longer than producing the results. R2 can list and the Worker can stream, so a whole run
     // comes back in one request.
+    // What the spider knows and what it is waiting on, read out of the archive rather than kept
+    // beside it. A weekly cron can lose a dozen crawls and nothing would say so otherwise.
+    if (request.method === "GET" && url.pathname === "/state") {
+      const [sellers, makers] = await Promise.all([sellerStates(env.ARCHIVE), makerStates(env.ARCHIVE)]);
+      return Response.json({ sellers, makers });
+    }
     if (request.method === "GET" && url.pathname === "/archive") {
       const prefix = url.searchParams.get("prefix");
       if (!prefix || !/^(sightings|guesses|documents)\//.test(prefix)) {
