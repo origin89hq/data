@@ -30,7 +30,7 @@
   "r2_buckets": [
     { "binding": "ARCHIVE", "bucket_name": "offgrid-equipment-archive" }
   ],
-  "triggers": { "crons": ["0 6 * * 1", "0 7 1 * *"] },
+  "triggers": { "crons": ["0 6 * * 1", "0 7 1 * *", "0 8 * * *"] },
   // Named here rather than in a hand-written type: wrangler generates the binding types from
   // this, warns in local development when it is missing, and there is one place that says the
   // Worker needs it.

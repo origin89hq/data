@@ -8,6 +8,7 @@ import { classifyRun, convertRun, specPagesRun } from "./enqueue.ts";
 import specPages from "../../feeds/spec-pages.json" with { type: "json" };
 import { manufacturers } from "./manufacturers.ts";
 import { makerStates, sellerStates } from "./state.ts";
+import { supervise } from "./supervise.ts";
 import type { SellerCrawlParams } from "./seller-crawl.ts";
 
 export { SellerCrawl } from "./seller-crawl.ts";
@@ -53,6 +54,9 @@ export default {
     // comes back in one request.
     // What the spider knows and what it is waiting on, read out of the archive rather than kept
     // beside it. A weekly cron can lose a dozen crawls and nothing would say so otherwise.
+    if (request.method === "POST" && url.pathname === "/supervise") {
+      return Response.json(await supervise(env, url.searchParams.get("date") ?? today()));
+    }
     if (request.method === "GET" && url.pathname === "/state") {
       const [sellers, makers] = await Promise.all([sellerStates(env.ARCHIVE), makerStates(env.ARCHIVE)]);
       return Response.json({ sellers, makers });
@@ -173,6 +177,10 @@ export default {
         await env.MANUFACTURER_CRAWL.create({ id: `maker-${maker.id}-${checkedAt}`, params: { manufacturerId: maker.id, domains: maker.domains, checkedAt, pageLimit: 150 } });
       }
     }
+    // Every day: move anything whose precondition is met. The weekly crawl and the monthly
+    // discovery below produce work; this is what carries it through the stages after them.
+    await supervise(env, checkedAt);
+    if (new Date(controller.scheduledTime).getUTCHours() === 8) return;
     for (const seller of sellers) {
       if (hasFeed(seller)) {
         const params: SellerCrawlParams = { sellerId: seller.id, checkedAt };

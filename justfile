@@ -155,3 +155,7 @@ discover-all date pages="150":
 # What this knows, what the spider is waiting on, and what is waiting on you.
 status:
     node tools/status.ts
+
+# Move everything whose precondition is met. Never approves; that stays with you.
+supervise date="":
+    @just _post "/supervise?date={{date}}"
