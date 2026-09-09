@@ -22,7 +22,8 @@ export type Found = z.infer<typeof Found>;
 export const CrawlPlan = z
   .object({
     manufacturer: z.string().min(1),
-    hosts: z.array(z.string()).min(1),
+    /** Empty when nothing was found, which is an answer about the maker's site and not a failure. */
+    hosts: z.array(z.string()),
     documents: z.number().int().nonnegative(),
     /** Sum of the sizes that were reported. Undercounts when a host answers no HEAD, and says so. */
     knownBytes: z.number().int().nonnegative(),

@@ -52,6 +52,13 @@ test("the plan states what is unknown rather than counting it as zero", () => {
   assert.deepEqual(plan.hosts, ["a.victronenergy.com", "b.victronenergy.com"]);
 });
 
+test("a maker whose site offers nothing gets a plan saying so, not an error", () => {
+  const plan = planFor("volthium", []);
+  assert.deepEqual(plan.hosts, []);
+  assert.equal(plan.documents, 0);
+  assert.equal(plan.knownBytes, 0);
+});
+
 test("a refusal permits nothing, and so does an approval naming no host that was found", () => {
   const found: Found[] = [{ url: "https://a.victronenergy.com/1.pdf", host: "a.victronenergy.com" }];
   assert.deepEqual(permitted(found, CrawlApproval.parse({ approved: false, approvedBy: "David" })), []);
