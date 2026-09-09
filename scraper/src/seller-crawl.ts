@@ -10,7 +10,7 @@ export interface SellerCrawlParams {
 }
 
 /** Who we are when we knock. A crawler that cannot be contacted is one that gets blocked. */
-export const USER_AGENT = "offgrid-equipment/0.0 (+https://github.com/origin89hq/offgrid-equipment; david@lemarier.ca)";
+export const USER_AGENT = "offgrid-equipment/0.0 (+https://github.com/origin89hq/offgrid-equipment; hello@origin89.com)";
 
 /**
  * Hop one of the spider: one seller, one day, every product as printed. Each page is its own
