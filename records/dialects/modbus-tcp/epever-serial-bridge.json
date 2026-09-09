@@ -1,0 +1,62 @@
+{
+  "id": "epever-serial-bridge",
+  "family": "modbus-tcp",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "epever-ebox-wifi-01-datasheet-v1-0",
+      "citation": "docs/epever-ebox-wifi-01-datasheet-v1.0.pdf (committed) — Applicable Models table, port baud rate default 115200, RS485-to-WiFi, RJ45"
+    },
+    {
+      "source": "epever-wifi-2-4g-rj45-d-manual-v1-3",
+      "citation": "docs/epever-wifi-2.4g-rj45-d-manual-v1.3.pdf, docs/epever-wifi-2.4g-rj45-d-datasheet.pdf, docs/epever-ble-rj45-a-manual-v1.2.pdf, docs/epever-ble-rj45-d-manual-v1.2.pdf (all committed)"
+    },
+    {
+      "source": "epever-com-product-category-accessories",
+      "citation": "https://www.epever.com/product-category/accessories/ (checked: 2026-07-31)"
+    }
+  ],
+  "transport": "RS-485 to WiFi / Bluetooth transparent serial server. RJ45 to the controller or inverter, directly powered from the RS485 port's 5 VDC. Port baud rate 300 bps–230400 bps, default 115200. Range ≤ 50 m (eBox-WIFI-01) / ≤ 20 m (WiFi 2.4G RJ45 D). What the datasheet does NOT state: the TCP port number, and whether the LAN side speaks Modbus TCP or a raw socket carrying Modbus RTU frames. Both null.",
+  "blocks": "None of its own — it tunnels whichever dialect the attached device speaks.",
+  "models": [
+    {
+      "name": "eBox-WIFI-01 WiFi serial server (sold by The Cabin Depot, checked: 2026-07-31)"
+    },
+    {
+      "name": "eBox-BLE-01 Bluetooth remote monitor (sold by The Cabin Depot, checked: 2026-07-31)"
+    },
+    {
+      "name": "EPEVER WiFi Adapter 2.4G RJ45 D"
+    },
+    {
+      "name": "EPEVER BLE RJ45 D"
+    },
+    {
+      "name": "EPEVER BLE RJ45 A"
+    },
+    {
+      "name": "EPEVER TCP 306"
+    },
+    {
+      "name": "eLOG01-G3 logger"
+    },
+    {
+      "name": "RS485-1M2S extension module"
+    }
+  ],
+  "refutedOnReview": "Fully refuted. The five committed PDFs exist and the eBox-WIFI-01 \"Applicable Models\" table is quoted accurately (LS-B, VS-A, VS-BN, Tracer-A, Tracer-BN, SHI, STI on RJ45; eTracer-AD, eTracer-BND, iTracer-ND on 3.81-4P; port baud 300bps~230400bps default 115200; RS485-to-WiFi), but nothing supports a shared register map.  (1) ZERO REGISTER CONTENT. Grepping all five cited PDFs (/Users/lemarier/dev/solar/docs/epever-e",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "A bridge, not a device. It changes the transport under an existing dialect; it does not have a register map, a DeviceKind, or any metric of its own. Filed under lan-http because that is where the transport lands, but the register map on the far side is still epever-tracer-a or epever-inverter-v1.",
+    "The one genuinely useful consequence: it removes the RS-485 cable run without changing the driver, IF the LAN side turns out to be plain Modbus TCP. The datasheet does not say that it is. Until someone puts a packet capture on it, treat \"just point the Modbus TCP client at it\" as unverified.",
+    "eBox-BLE-01 is Bluetooth and is designed around EPEver's phone app rather than a generic client. Nothing read here documents a BLE GATT service or characteristic, so it is a dead end for a driver until a vendor document surfaces.",
+    "The bridge occupies the controller's single RJ45 port. It cannot coexist with an MT50 on the same socket, and putting both on the bus reintroduces the two-masters collision noted under epever-tracer-a.",
+    "The RS485-1M2S extension module (one master, two slaves) is the vendor's own answer to that problem and has its own datasheet at epever.com/upload/file/2109/EPEVER-Datasheet-RS485-1M2S.pdf. Not examined in this sweep."
+  ],
+  "refiledFrom": "lan-http"
+}

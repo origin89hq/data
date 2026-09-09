@@ -1,0 +1,64 @@
+{
+  "id": "epever-upower",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "raw-githubusercontent-com-fatyogi-epever-upower-tracer-master-epsolars-docs-upower-communication",
+      "citation": "EPEver/EPSolar \"Upower-communication-protocol-20190411.xlsx\" — https://raw.githubusercontent.com/fatyogi/epever-upower-tracer/master/epsolars-docs/Upower-communication-protocol-20190411.xlsx (NOT yet committed; this is t"
+    },
+    {
+      "source": "github-com-fatyogi-epever-upower-tracer",
+      "citation": "https://github.com/fatyogi/epever-upower-tracer — UPower.py, an implementation reading exactly these addresses (same author as the document copy, so corroborating rather than independent)"
+    },
+    {
+      "source": "epever-com-wp-content-uploads-2021-05-epever-datasheet-upower",
+      "citation": "https://www.epever.com/wp-content/uploads/2021/05/EPEVER-Datasheet_UPower.pdf — \"RS485 isolated communication interface with standard Modbus protocol\""
+    }
+  ],
+  "seeAlso": [
+    "epever-upower-hi"
+  ],
+  "transport": "RS-485 · Modbus RTU. The protocol document states NEITHER a baud rate NOR a default slave ID — both fields left null rather than borrowed from the controller map. The EPEver UPower datasheet says only \"RS485 isolated communication interface with standard Modbus protocol\". Connector not stated in the protocol document.",
+  "blocks": "Input registers (0x04): 0x3500–0x35FF real-time. Holding (0x03 read / 0x10 write): 0x9600–0x96FF settings. Coils (0x01 read / 0x05 write): 0x0100–0x010C. Discrete inputs (0x02): 0x2100 inverter bypass (grid present), 0x2101 day/night.",
+  "reports": [
+    "ac-voltage",
+    "ac-current",
+    "ac-apparent-power",
+    "ac-frequency",
+    "pv-voltage",
+    "pv-current",
+    "pv-power",
+    "pv-energy-total",
+    "battery-voltage",
+    "battery-temperature",
+    "state-of-charge",
+    "charge-stage",
+    "temperature"
+  ],
+  "accepts": [
+    "set-switch",
+    "clear-fault",
+    "reset-counter",
+    "set-charge-current-limit"
+  ],
+  "models": [
+    {
+      "name": "UPower series (UP) 1000~5000 W inverter/charger"
+    }
+  ],
+  "gotchas": [
+    "PROVENANCE CAVEAT, read before trusting this. The document is \"Upower-communication-protocol-20190411.xlsx\" and it is EPEver's own — the column headers (Number / Variable name / Program variable name / Function code(hex) / Address / Description / Unit / Times) are verbatim identical to the committed EPEver PDFs, the bi",
+    "The document gives no baud rate and no default slave ID. Both are null and must stay null. Do NOT borrow 115200 or ID 1 from the charge-controller map — this is a different product line with a different address space and EPEver has already forked it once (see epever-upower-hi).",
+    "CONTRADICTION inside the vendor document itself. 0x3550 is named \"Battery capacity\" with unit AH and Times 1, but its own description says \"Percentage of remaining battery power\" and the program variable is UP-BatSOC. Name and unit say amp-hours, description and variable name say percent. The catalogue reads it as stat",
+    "Completely different address space from every other EPEver dialect: real-time at 0x3500 (not 0x3100), settings at 0x9600 (not 0x9000), coils at 0x0100 (not 0x00), discretes at 0x2100 (not 0x2000). A UPower will answer nothing at Tracer addresses. This is the concrete proof that \"same vendor\" is not evidence.",
+    "set-switch is two writes as on the IPower, but at different addresses: coil 0x0108 (local/remote, 1 = remote) then coil 0x0106 (load output switch). The document adds \"Default local switch and power-saving mode enable after power off\" — remote control does NOT survive a power cycle, so a driver must re-assert 0x0108 af"
+  ],
+  "unmappedReports": "0x3500 grid charging input voltage AND 0x3533 inverter output voltage are both AC voltages on one device — the contract has a single ac-voltage. An inverter/charger has an AC INPUT and an AC OUTPUT and the contract cannot tell them apart. Same collision for ac-current (0x3534 output only; there is no grid input current register) and for the whole bypass group. This is the clearest contract finding in the sweep: DeviceKind::Inverter assumes one AC side., 0x3505/0x3506/0x3507-08 grid-charger DC output voltage, current and power — the AC→DC charger's contribution to the bank. No MetricKind. charger-power / grid-charge-power does not exist, so on a UPower you can see solar charging and you cannot see mains charging., 0x350F/0x3510 grid total generated energy (kWh ×100) — no MetricKind. pv-energy-total covers only the solar side., 0x3558–0x355B bypass voltage, current and power — the pass-through path when the grid is present. No MetricKind at all., 0x3511 grid charging device state bitfield (input voltage band, output power band, short circuit, over-temp, abnormal output voltage, fault) — no MetricKind., 0x3529 D15–D2 array charging device state (input voltage state, charging MOSFET short, anti-reverse MOSFET open/short, input over-current, fault) — only D3–D2 maps to charge-stage., 0x3535 inverter output state bitfield — no MetricKind., 0x3553 battery state bitfield (over-voltage, under-voltage, over-discharge, fault, over/low temperature, inner resistance abnormal, wrong rated-voltage identification) — no MetricKind., 0x2100 inverter bypass discrete (1 = grid present, 0 = no grid) — no MetricKind. This is the single most useful bit on the device for a cabin: it says whether the generator or mains is actually feeding. link-online exists for internet, nothing exists for grid presence., 0x2101 day/night discrete — no MetricKind., 0x9616 charging priority mode (1 = grid priority, 2 = solar priority, 4 = grid and solar, 8 = solar only) — readable AND writable, and there is neither a MetricKind to report it nor a CommandKind to set it. A real capability the contract cannot express., 0x0104 output priority mode (battery/inverter priority vs grid bypass priority) — writable coil, no CommandKind., 0x0105 inverter energy-saving mode — writable coil, no CommandKind., 0x9603/0x9604 dry-contact ON and OFF battery voltage — the device can drive an external relay off battery voltage entirely on its own. No CommandKind, and arguably it should stay that way, but it means rules engine and device may fight., 0x352C array-charger heat-sink temperature and 0x3512 grid-charger temperature — two more distinct temperatures competing for the single temperature wire name, alongside 0x354F battery temperature.",
+  "possibleDuplicate": true
+}

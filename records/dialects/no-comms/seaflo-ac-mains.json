@@ -1,0 +1,41 @@
+{
+  "id": "seaflo-ac-mains",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "manuals-plus-ae-1005002661407706",
+      "citation": "SEAFLO 51 Series Instruction Manual, listing 115 V/220 V variants SFDPA1-050-060-51 and SFDPA2-050-060-51 — https://manuals.plus/ae/1005002661407706"
+    },
+    {
+      "source": "seaflousa-com-product-500gph-air-conditioning-pump",
+      "citation": "SEAFLO USA 500 GPH air conditioning / circulation pump listing — https://www.seaflousa.com/product/500gph-air-conditioning-pump/"
+    },
+    {
+      "source": "westmarine-com-seaflo-marine-seaflo-250-gph-115v-marine-ac-circulation-pump-24193690",
+      "citation": "West Marine SEAFLO 250 GPH 115 V marine AC circulation pump listing — https://www.westmarine.com/seaflo-marine-seaflo-250-gph-115v-marine-ac-circulation-pump-24193690.html"
+    }
+  ],
+  "blocks": "No manual was read for either model. The 51 Series instruction sheet does cover 115 V and 220 V variants (SFDPA1-050-060-51, SFDPA2-050-060-51) and gives their connection as 'leads/plug', but whether the retailer's 115 VAC diaphragm pump IS that model is not established. The circulation pumps have no document at all.",
+  "models": [
+    {
+      "name": "115VAC diaphragm pump 5GPM 55PSI"
+    },
+    {
+      "name": "115VAC circulation pumps 250GPH / 500GPH"
+    }
+  ],
+  "refutedOnReview": "Fully refuted — the dialect should be dissolved, not downgraded.  CITED SOURCES, VERIFIED ONE BY ONE:  1. SEAFLO 51 Series Instruction Manual (https://manuals.plus/ae/1005002661407706) — EXISTS. Covers SFDP1-050-060-51 (12V), SFDP2-050-060-51 (24V), SFDP1-040-060-51, SFDP2-040-060-51, SFDPA1-050-060-51 (115V), SFDPA2-050-060-51 (220V). Ratings 4.0–5.0 GPM, 60 PSI shut-off. Contains ZERO references to Modbus, RS-485, ",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "CONTRADICTION, recorded rather than resolved: the retailer lists the 115 VAC diaphragm pump at 5 GPM / 55 PSI. The SEAFLO 51 Series manual's 115 V variant is SFDPA1-050-060-51, which the model number reads as 5.0 GPM / 60 PSI. 55 vs 60 PSI means these are probably NOT the same part, or the retailer's figure is the swit",
+    "The one thing this group has that the DC groups do not: an AC pump on its own branch circuit is directly observable by an AC energy meter. cabin-pzem already exists and its provenance is recorded in its own source — this catalogue entry should not re-derive it. `ac-power`, `ac-voltage`, `ac-current` and `ac-energy-tota",
+    "That observation is the METER's dialect, not SEAFLO's. The reading is attributed to the energy meter device; a pump inferred from it is an inference the rule engine makes, and it must not be published as a pump reading.",
+    "A circulation pump is usually a continuous-duty part with no pressure switch at all — it runs whenever it has power. Unconfirmed for these, but if true it means the same dry-run and run-time responsibility as the bare-motor group applies. Confirm before wiring a relay.",
+    "Missing evidence: the model number on either 115 VAC part, and any SEAFLO manual for the 250/500 GPH circulation pumps. The seaflousa.com listing gives only 'Available in 115V & 230V. Inlet: 3/4\" FPT. Outlet: 1/2\" MPT.'"
+  ]
+}

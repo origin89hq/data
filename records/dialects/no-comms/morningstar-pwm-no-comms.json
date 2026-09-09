@@ -1,0 +1,47 @@
+{
+  "id": "morningstar-pwm-no-comms",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "morningstar-product-connectivity-manual",
+      "citation": "Morningstar Product Connectivity Manual, Table 2 — committed at /Users/lemarier/dev/solar/docs/morningstar-product-connectivity-manual.pdf (41 pp)"
+    },
+    {
+      "source": "morningstarcorp-com-wp-content-uploads-datasheet-sunlight-en",
+      "citation": "https://www.morningstarcorp.com/wp-content/uploads/datasheet-sunlight-en.pdf"
+    },
+    {
+      "source": "morningstarcorp-com-wp-content-uploads-datasheet-sunsaver-en",
+      "citation": "https://www.morningstarcorp.com/wp-content/uploads/datasheet-sunsaver-en.pdf"
+    }
+  ],
+  "models": [
+    {
+      "name": "SS-6L-12V"
+    },
+    {
+      "name": "SS-10L-12V"
+    },
+    {
+      "name": "SS-20L-12V"
+    },
+    {
+      "name": "SL-10L-12V"
+    },
+    {
+      "name": "SL-20L-12V"
+    }
+  ],
+  "sharedMapEvidence": "Not a shared map — a shared absence, established three ways from vendor sources. (1) Table 2 of the Morningstar Product Connectivity Manual, headed 'Morningstar Device MeterBus Power Specifications', enumerates every Morningstar device that can be networked over MeterBus: SunSaver Duo, SunSaver MPPT, ProStar Gen 3, ProStar MPPT, TriStar, TriStar MPPT (150V & 600V), SureSine Classic. The SunSaver P",
+  "gotchas": [
+    "Name collision worth guarding against: the SunSaver MPPT (SS-MPPT-15L) does speak Modbus and shares the 'SunSaver' brand and the '-L' load-terminal suffix with these units. SS-20L-12V and SS-MPPT-15L look alike on a shelf and on an invoice; only one of them can be polled.",
+    "The SunLight is the SunSaver design plus lighting control. Its lighting state is visible on the unit's LEDs only — there is no register behind them.",
+    "ProStar Gen 1 and Gen 2 belong in this group too, by the same Table 2 evidence, but they are not listed under `models` because the retailer's 'PS-15 / PS-30' listing does not state a generation. See the gotchas on morningstar-prostar-pwm-gen3.",
+    "If one of these has to be visible to the gateway, it is visible only through something else — a shunt or an energy meter on its output. Nothing is coming out of the controller."
+  ]
+}

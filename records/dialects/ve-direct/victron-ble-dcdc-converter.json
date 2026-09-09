@@ -1,0 +1,46 @@
+{
+  "id": "victron-ble-dcdc-converter",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victron-ble-extra-manufacturer-data-2022-12-14",
+      "citation": "docs/victron-ble-extra-manufacturer-data-2022-12-14.pdf — DC/DC Converter section, p. 4 (already committed)."
+    },
+    {
+      "source": "github-com-keshavdv-victron-ble",
+      "citation": "https://github.com/keshavdv/victron-ble — `victron_ble/devices/dcdc_converter.py` (checked 2026-07-31)"
+    },
+    {
+      "source": "github-com-fabian-schmidt-esphome-victron-ble",
+      "citation": "https://github.com/Fabian-Schmidt/esphome-victron_ble — `components/victron_ble/victron_ble.h` (checked 2026-07-31)"
+    }
+  ],
+  "transport": "Same BLE advertisement container as record 0x08 above: manufacturer data byte 3 = 0x10, record starts at byte 8, header = record type 0x04 + 16-bit nonce + key byte 0, payload AES-CTR.",
+  "blocks": "Record 0x04, offsets from the start of the record: 32/8 device state (NA 0xFF, VE_REG_DEVICE_STATE) · 40/8 charger error (NA 0xFF, VE_REG_CHR_ERROR_CODE) · 48/16 input voltage 0.01 V, 0–655.34 V (NA 0xFFFF, VE_REG_DC_INPUT_VOLTAGE) · 64/16 output voltage 0.01 V, −327.68..327.66 V (NA 0x7FFF, VE_REG_DC_CHANNEL1_VOLTAGE) · 80/32 off reason (VE_REG_DEVICE_OFF_REASON_2) · 112/48 unused.",
+  "reports": [
+    "battery-voltage",
+    "charge-stage"
+  ],
+  "models": [
+    {
+      "name": "Orion-Tr Smart isolated — 12/12-18A (ORI121222120), 12/12-30A (ORI121236120), 24/12-30A (ORI241236120), 12/24-10A (ORI122424120), 12/24-15A (ORI122436120), 24/24-12A (ORI242428110), 48/24-16A (ORI4824"
+    },
+    {
+      "name": "Orion-Tr Smart non-isolated — 12/12-30A (ORI121236140), 12/24-15A (ORI122436140), 24/12-30A (ORI241236140), 24/24-17A (ORI242440140) — `dialect: unknown` per model"
+    }
+  ],
+  "sharedMapEvidence": "None. Record 0x04 is a device-class layout and the specification names no product — the same objection the catalogue already raised against record 0x01. The layout is `vendor-doc` and cross-checked by keshavdv/victron-ble `devices/dcdc_converter.py` and Fabian-Schmidt/esphome-victron_ble `VICTRON_BLE_RECORD_DCDC_CONVERTER`, which agree field-for-field including the asymmetric sentinels (0xFFFF on ",
+  "gotchas": [
+    "**This record carries no current and no power at all.** Two voltages, a state, an error and an off reason — that is the entire payload. An Orion-Tr Smart reached this way cannot tell you how many amps it is moving, which is the one number anybody installs a DC-DC charger to control. `battery-power` and `battery-current",
+    "**And there is no other route.** The Orion-Tr Smart product page states the communication story plainly: \"The name 'Smart' comes from its built-in Bluetooth connection, where the charger can be monitored and configured via Bluetooth and can be remotely controlled via a remote on/off switch.\" No VE.Direct port, no menti",
+    "**Do not carry the Orion XS map onto an Orion-Tr Smart.** They are different products with different record types (0x04 vs 0x0F), different field sets, and no shared document. The names are three characters apart and one Quebec retailer already lists both under headings that blur them.",
+    "Output voltage is signed (−327.68..327.66 V, NA 0x7FFF) while input voltage is unsigned (NA 0xFFFF). Two different sentinel widths in adjacent 16-bit fields; treating either as a value yields 655.34 V or 327.67 V, both plausible-looking on a 48 V system.",
+    "Same commissioning cost as every instant-readout dialect: per-device AES key from VictronConnect after pairing, off by default, key changes with the Bluetooth PIN."
+  ],
+  "unmappedReports": "Input voltage (0.01 V) — the starter-battery/alternator side. No MetricKind. Third independent transport on which this same gap appears., Off reason, 32-bit — on an Orion-Tr Smart this is the whole story: engine shutdown detection, input voltage lockout, remote input, BMS. Without it the device is simply reporting 0 V output and nothing explains why. No metric., Charger error code — the number., Device state values with no `ChargeStage` variant."
+}

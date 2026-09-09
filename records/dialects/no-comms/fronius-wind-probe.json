@@ -1,0 +1,37 @@
+{
+  "id": "fronius-wind-probe",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "fronius-sensor-box-card-quick-guide-2019",
+      "citation": "docs/fronius-sensor-box-card-quick-guide-2019.pdf - section 4 'DIGITAL INPUTS' (wind speed sensor worked example, pulses-per-second principle) and section 8, which gives the Fronius Wind Sensor calibration factor 1.45 = "
+    },
+    {
+      "source": "fronius-datcom-detail-42-0410-0968",
+      "citation": "docs/fronius-datcom-detail-42-0410-0968.pdf - chapter 'Fronius Sensor Card / Box', section 'Digital inputs' (terminals 1-4, the 'e.g., 7 pulses/second = one km/h' illustrative factor, 30 m cable limit); and the Technical"
+    },
+    {
+      "source": "fronius-com-en-ca-canada-solar-energy-installers-partners-technical-data-all-products-system-mon",
+      "citation": "https://www.fronius.com/en-ca/canada/solar-energy/installers-partners/technical-data/all-products/system-monitoring/hardware/fronius-sensor-box - Fronius Canada technical data, digital channel limits 5,5 V / 2500 Hz / 0,"
+    }
+  ],
+  "transport": "Pulse output, no protocol - an anemometer whose contact closures are counted. Wired into Sensor Card/Box digital input D1 (terminal 2) or D2 (terminal 3), installer's choice; powered from the card's +5 V (terminal 1) if it has no supply of its own, or referenced to GND (terminal 4) if it does. Channel limits: max level 5.5 V, max frequency 2500 Hz, min pulse duration 250 us, LOW threshold 0-0.5 V,",
+  "models": [
+    {
+      "name": "Fronius Wind Sensor"
+    }
+  ],
+  "gotchas": [
+    "VENDOR CALIBRATION FACTOR, stated for this specific product. Quick Guide, verbatim: 'The calibration factor for the Fronius Wind Sensor is 1.45 = 1km/h or 5.22 = 1/ms'. The '1/ms' is the document's own typo for m/s. Note the two figures are not a clean unit conversion of one another (1 m/s = 3.6 km/h would give 5.22, a",
+    "The factor is entered by the installer into Solar.Service and applied INSIDE the Datamanager. The Solar API returns an already-converted value in whatever unit was chosen from the list (km/h, mph or m/s are all offered). A driver must not apply 1.45 itself - doing so would scale the value twice.",
+    "WHICH CHANNEL IT LANDS ON IS NOT FIXED. Both vendor documents show 'Channel D2 for wind speed sensor' explicitly as a 'Channel assignment example'. D1 and D2 are electrically identical and either can hold the anemometer, the electricity meter, or nothing. The realtime response carries no channel name, so the assignment",
+    "DATCOM Detail note on terminal (1)/(4) is internally inconsistent between editions: the 2014 manual says 'Connect sensors without their own power supply to: D1 (2) or D2 (3), \"+5 V\" (1)', while the 2019 Quick Guide reprints the same list as '\"+5 V\" (4)' although its own terminal overview numbers +5 V as (1) and GND as ",
+    "2500 Hz ceiling and 250 us minimum pulse. At the vendor's 1.45 pulses/s per km/h that is far above any real wind, so the ceiling is not a practical limit for this probe - but it does bound what else can share a digital channel."
+  ],
+  "unmappedReports": "Wind speed - the entire output of this device. There is no `wind-speed` MetricKind, and `Unit` has no km/h, mph or m/s. This model can be catalogued and wired but its one reading has nowhere to go in the contract. It is the clearest argument in this survey for a new MetricKind plus a speed Unit, and it is why `reports` is empty rather than approximated onto something adjacent., Raw pulse frequency in Hz, which is what an uncalibrated digital channel returns (the vendor's MinMaxSensorData example shows channels 3 and 4 in Hz). `Unit::Hertz` exists but no MetricKind describes a counter rate., Pulse count / energy on the sibling digital channel. The vendor's paired example is an electricity meter on D1 converted to kWh (e.g. 10,240 pulses = one kWh). If a site uses that, the value would arrive on the same dialect. `ac-energy-total` exists but nothing in the response identifies the channel as an energy meter, so claiming it would be a guess."
+}

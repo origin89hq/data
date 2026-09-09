@@ -1,0 +1,37 @@
+{
+  "id": "samlex-evo-4024-unknown",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "samlex-evo-2212-3012-2224-4024-manual-fw0-82",
+      "citation": "Samlex Evolution Series Owner's Manual, Models EVO-2212 / EVO-3012 / EVO-2224 / EVO-4024, firmware rev 0.82 — committed at /Users/lemarier/dev/solar/docs/samlex-evo-2212-3012-2224-4024-manual-fw0.82.pdf"
+    },
+    {
+      "source": "samlexamerica-com-wp-content-uploads-2025-02-11025-evo-2212-3012-2224-4024-0326-lrez",
+      "citation": "https://samlexamerica.com/wp-content/uploads/2025/02/11025-EVO-2212-3012-2224-4024-0326-Lrez.pdf (source of the committed copy)"
+    },
+    {
+      "source": "manual-fig-2-1-legend-items-9a-9b-and-9c-9d-section-4-7-auto",
+      "citation": "Manual Fig 2.1 legend items 9A/9B and 9C/9D; section 4.7 Auto Generator Start / Stop; front-panel item 14 Status Relay"
+    }
+  ],
+  "transport": "RS-485 on two RJ-45 jacks marked COMM 1 and COMM 2, vendor-documented as \"For RS-485 networking and MODBUS Serial Communication Protocol\". Baud rate, framing, parity and default slave ID are NOT published by Samlex and are recorded here as null. Separate RJ-45 jacks COMM 3 and COMM 4 are documented as CANbus \"(for future use)\".",
+  "models": [
+    {
+      "name": "Samlex EVO-4024 — the inverter/charger half of MNEVO4024-CL150"
+    }
+  ],
+  "gotchas": [
+    "NO PUBLIC REGISTER MAP, same as the EVO-4248SP. The manual documents the ports and stops. Tagged unverified for the same reason: the map does not exist publicly, and the only claims about it are uncorroborated forum reports of an NDA-gated stack.",
+    "KEPT SEPARATE FROM THE EVO-4248SP DELIBERATELY, AND THE EVIDENCE POINTS THE SAME WAY. It would be easy to fold both EVO models into one \"samlex-evo\" dialect. Do not. There is no map for either, so there is nothing to share — and the vendor documentation actively suggests two firmware lines: the EVO-4024 ships in a manu",
+    "IF ANY GROUPING EVER BECOMES JUSTIFIED, IT IS 2212/3012/2224/4024 — NOT 4024+4248SP. Those four share one manual and one stated firmware rev, which is suggestive but is still only a shared MANUAL, not a shared register map. It does not meet the bar. Recorded so the possibility is not rediscovered as a finding.",
+    "Same dry-contact generator auto-start as the 4248SP: manual section 4.7, Status Relay Common/NO, external GSCM-Mini module required, logic chosen from options 2/3/4 on the EVO-RC. Front-panel legend item 14 reads \"Status Relay Terminals for initiating automatic generator start/stop\". Contacts 3 A at 125 VAC / 30 VDC. O",
+    "Same lithium-BMS stop-charging/stop-inverting input on the RJ-45 marked \"Battery Temp. Sensor\" (pins 1–4 shorted, pins 5–8 shorted)."
+  ],
+  "unmappedReports": "Same three as the EVO-4248SP entry, and for the same reason — AC source in use / transfer-switch position, Power Saving mode state, and the \"GS DETECT TIME\" pre-start countdown. All are EVO-RC display quantities with no MetricKind, and none is reachable over a wire today."
+}

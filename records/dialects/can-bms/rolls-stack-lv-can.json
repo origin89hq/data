@@ -1,0 +1,45 @@
+{
+  "id": "rolls-stack-lv-can",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "rollsbattery-com-wp-content-uploads-2025-01-s48-100lfp-stack-lv-battery-operating-manual",
+      "citation": "Rolls Battery, S48-100LFP STACK-LV BATTERY OPERATING MANUAL, rev V2/04/26, 33 pp. Origin https://rollsbattery.com/wp-content/uploads/2025/01/S48-100LFP-STACK-LV-Battery-Operating-Manual.pdf — downloaded, ready to commit "
+    },
+    {
+      "source": "rollsbattery-com-wp-content-uploads-rolls-s48-100lfp-stack-lv-battery-installation-guide-ver-1-2",
+      "citation": "Rolls Battery, Rolls S48-100LFP STACK-LV Battery Installation Guide, ver 1.2, 77 pp. Origin https://rollsbattery.com/wp-content/uploads/Rolls-S48-100LFP-STACK-LV-Battery-Installation-Guide-ver-1.2.pdf — downloaded, ready"
+    },
+    {
+      "source": "rollsbattery-com-wp-content-uploads-2024-01-rolls-lfp-ess-integration-with-vict",
+      "citation": "Rolls Battery, Installation, connection, and closed-loop configuration of Rolls LFP ESS with Victron Energy, Jan 2024, 10 pp. Origin https://rollsbattery.com/wp-content/uploads/2024/01/Rolls-LFP-ESS-Integration-with-Vict"
+    }
+  ],
+  "transport": "CAN bus RJ45 · 500 kbit/s · pins 7 = CAN-H, 8 = CAN-L, pins 1-6 NC · Victron \"CAN-bus BMS LV (500 kbit/s)\" GX profile is the factory default · pack address by 4-position DIP, module 1 is the leader and the only module wired to the inverter · ALTERNATIVE external RS-485 RJ45 · 9600 · pins 1 = RS-485-B, 2 = RS-485-A, pins 3-8 NC · vendor states CAN and RS-485 ports \"can only be used one at a time\" ·",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "state-of-charge",
+    "cycle-count"
+  ],
+  "models": [
+    {
+      "name": "S48-100LFP STACK-LV"
+    }
+  ],
+  "refutedOnReview": "REFUTED. The three cited PDFs are real, correctly described, and exactly the page counts claimed (33 / 77 / 10 pp). Every physical-layer fact attributed to them checks out verbatim. What does not exist is the register map.  1. NO REGISTER MAP EXISTS IN ANY CITED SOURCE. I extracted full text from all three PDFs and grepped for hex literals, \"register\", \"holding\", \"PGN\", \"CAN ID\", \"function code\", \"slave id/address\", ",
+  "gotchas": [
+    "NO REGISTER OR FRAME MAP EXISTS IN ANY ROLLS DOCUMENT. This is the central finding. Rolls publishes baud, pinout, DIP addressing and which profile to select — and nothing else. Not one CAN frame ID, not one register address, not one scale factor appears in the operating manual, the 77-page installation guide, or the Vi",
+    "The battery is a protocol chameleon, not a vendor with a map. It EMULATES a third-party protocol chosen in software. CAN options: PYLONTECH, SMA, SOLIS, VICTRON ENERGY (default), MEGAREVO, MUST. RS-485 options: PYLONTECH, LUXPOWERTEK, INHENERGY, GROWATT, VOLTRONIC. So the register map a driver targets is Victron's or P",
+    "The RS-485 path is NOT Modbus RTU. Every RS-485 option listed (Pylontech, LuxPowerTek, INHENERGY, Growatt, Voltronic) is a vendor-proprietary framed protocol. Nothing in any Rolls document says Modbus. Do not file this under modbus-rs485 on the strength of the words \"RS-485\".",
+    "TWO ROLLS DOCUMENTS CONTRADICT EACH OTHER ON THE HOST DIP ADDRESS. The STACK-LV operating manual Appendix B figure gives BATTERY 1 (LEADER/MASTER TO INVERTER) as switch 1 ON, switches 2-4 OFF. The Rolls LFP ESS Integration with Victron Energy guide (Jan 2024) says twice to \"Connect the host device (DIP 0000)\" and calls",
+    "The same DIP switch means two different things depending on what you are doing. The Victron guide instructs the installer to address packs \"for external CANbus communication (not for RS485 serial access)\", then separately tells them to set position 1 for the RS-485 service link, with a figure captioned \"Pack 1 DIP Addr"
+  ],
+  "unmappedReports": "Charge voltage limit — the battery publishes this to the inverter in closed loop (the Victron guide has the installer verify it on the GX Battery → parameters page). No MetricKind for a battery-reported charge voltage limit., Charge current limit — same. `set-charge-current-limit` exists as a CommandKind, i.e. a limit Cabin Hub sends to a charger; there is no MetricKind for a limit the battery reports outward. For a closed-loop BMS this is the single most important number on the wire and the contract cannot hold it., Discharge current limit — same, and the Sol-Ark section explicitly lists it among the battery status fields the inverter displays., BMS alarm / protection / fault code — the operating manual says the BMS logs alarm, protection and fault status and that \"the error information will be sent to the inverter over the applicable communication bus\"; the Sol-Ark section shows it as a two-byte alarm word (0x00 0x00 = no alarm). There is no MetricKind for a fault or error code at all. This independently reproduces the gap can-bms.md already records as \"the largest gap here\"., Charge-permitted / discharge-permitted flags — the manual states \"the switch architecture of the BMS allows charge and discharge to be stopped independently\", and the BMS protection table distinguishes Charge Interruption from discharge interruption. No MetricKind for either flag., Switch (MOSFET) over-temperature, distinct from cell temperature — the BMS protection summary and error code ER8 treat switch temperature as its own quantity. `battery-temperature` is the bank; there is no charger/BMS-internal equivalent. Same shape as the controller-internal-temperature finding already in can-bms.md., Cell imbalance / per-cell voltage — ER7 Imbalance and the manual's cell/pack overvoltage vs pack overvoltage distinction. No MetricKind for a cell delta or per-cell voltage., Pack address and number of modules in the parallel stack — up to 8 modules report through module 1. No MetricKind, and without it a stack cannot be distinguished from a single module., Secondary protection state (the UL 489 relay opening) and BMS on/off state. No MetricKind."
+}

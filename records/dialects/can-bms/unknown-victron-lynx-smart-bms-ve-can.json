@@ -1,0 +1,36 @@
+{
+  "id": "unknown-victron-lynx-smart-bms-ve-can",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victron-ve-can-registers-v20",
+      "citation": "docs/victron-ve-can-registers-v20.pdf — cited for what it does not contain: no mention of Lynx Smart BMS or NG."
+    },
+    {
+      "source": "victron-ble-extra-manufacturer-data-2022-12-14",
+      "citation": "docs/victron-ble-extra-manufacturer-data-2022-12-14.pdf — record type 0x0A \"(Lynx Smart) BMS\", the only committed document naming this product line."
+    },
+    {
+      "source": "retail-quebec-retailer-sweep-checked-2026-07-31",
+      "citation": "Retail: Quebec retailer sweep, checked: 2026-07-31."
+    }
+  ],
+  "transport": "VE.Can on RJ45 per the product line, plus Bluetooth. Neither bit rate, node address, nor register set is stated for this model in any committed document.",
+  "models": [
+    {
+      "name": "Lynx Smart BMS 500 NG (M10)"
+    }
+  ],
+  "gotchas": [
+    "Recorded so nobody researches it twice. docs/victron-ve-can-registers-v20.pdf names \"Lynx Ion\" for four messages — a predecessor product — and never names the Lynx Smart BMS or the NG generation. Version 20 of that document is old enough that an \"NG\" model cannot be assumed into it.",
+    "The one piece of protocol evidence that touches this product line is the BLE side: extra-manufacturer-data record type 0x0A is literally titled \"(Lynx Smart) BMS\" and its layout is fully specified. That is the `victron-ble-lynx-bms-record-0a` entry above, and even there the model binding is unverified because the 2022 ",
+    "The retail listing claims Bluetooth and VRM and does not name a protocol. VRM is Victron's cloud and reaches the device through a GX, not directly — that route is `victron-gx-modbus-tcp` in docs/catalog/lan-http.md, and it changes the question from \"what does this BMS speak\" to \"what does the GX expose about it\".",
+    "A BMS is the one device class where getting the map wrong is not just a wasted afternoon: allowed-to-charge and allowed-to-discharge are the fields a rules engine would act on, and no committed document states where they live for this model.",
+    "checked: 2026-07-31 — 1 Quebec retailer."
+  ]
+}

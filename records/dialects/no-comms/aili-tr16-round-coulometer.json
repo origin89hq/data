@@ -1,0 +1,33 @@
+{
+  "id": "aili-tr16-round-coulometer",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "elv-co-nz-wp-content-uploads-2022-10-aili-battery-monitor-instructions",
+      "citation": "https://www.elv.co.nz/wp-content/uploads/2022/10/AiLi-Battery-Monitor-Instructions.pdf — AiLi \"Battery Capacity Monitor — Instruction (English version)\", 6 pages, complete. Committed to /Users/lemarier/dev/solar/docs/ail"
+    },
+    {
+      "source": "shbaiway-com-wp-content-uploads-2025-04-tr16",
+      "citation": "https://www.shbaiway.com/wp-content/uploads/2025/04/TR16.pdf — Baiway TR16H Battery Capacity Tester Instruction V3.3 (2023-08-10), bilingual. Committed to /Users/lemarier/dev/solar/docs/baiway-tr16h-manual-v3.3.pdf"
+    },
+    {
+      "source": "manualslib-com-manual-2821372-aili-tk15",
+      "citation": "https://www.manualslib.com/manual/2821372/Aili-Tk15.html — AiLi TK15 instruction manual, cross-check on ranges and on the absence of any communications section"
+    }
+  ],
+  "models": [
+    {
+      "name": "AiLi round \"Battery Capacity Monitor\" coulometer — ø59 mm × 20 mm, ø54.50 mm panel cut-out, 8.0–100.0 V, 50 A current sampler or 100 A / 350 A shunt, capacity 1.0–999 Ah. Same casting and cut-out as B"
+    }
+  ],
+  "gotchas": [
+    "Both the AiLi-branded 6-page instruction sheet and Baiway's own TR16H manual V3.3 were read end to end. Neither has a communications section of any kind — no RS-485, no TTL, no Bluetooth, no app, no alarm output pins. The shunt-to-head link is a shielded analogue sampler cable (B+ / B− / Rs+ / Rs−), not a data bus. Thi",
+    "Recorded but not verified: a DIY Solar Power Forum thread (https://diysolarforum.com/threads/aili-monitor-shunt-data-connections.22212/, HTTP 403 to me, summarised second-hand from a search index) reports the sender board carries an NAU7802 24-bit ADC across the shunt and an INA219 for voltage. Even if true that descri",
+    "This is the classic AiLi that shows up in RV write-ups. If a bench unit turns out to be this one, the only way to get its numbers into Cabin Hub is a separate shunt on the same circuit — see the shunts section of no-comms.md."
+  ]
+}

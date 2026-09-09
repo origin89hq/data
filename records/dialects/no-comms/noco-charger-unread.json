@@ -1,0 +1,48 @@
+{
+  "id": "noco-charger-unread",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "no-co-collection-genius",
+      "citation": "https://no.co/collection/genius (checked: 2026-07-31)"
+    },
+    {
+      "source": "no-co-support-genius-battery-chargers-genius",
+      "citation": "https://no.co/support/genius-battery-chargers/genius (model index, checked: 2026-07-31)"
+    },
+    {
+      "source": "thecabindepot-ca-collections-noco",
+      "citation": "https://thecabindepot.ca/collections/noco (checked: 2026-07-31)"
+    }
+  ],
+  "blocks": "Five unread vendor PDFs. Nothing else.",
+  "models": [
+    {
+      "name": "GENIUS1"
+    },
+    {
+      "name": "GENIUS2"
+    },
+    {
+      "name": "GENIUS2D"
+    },
+    {
+      "name": "GENIUS2X2"
+    },
+    {
+      "name": "GENIUS2X4"
+    }
+  ],
+  "refutedOnReview": "All three cited sources exist and name most of the models, but none of them says anything about a register map — the entry admits this (\"Evidence given: NONE, deliberately\"). Grouping five models under one dialect with zero matching register addresses is precisely what the catalogue rule forbids; \"remaining consumer Genius SKUs\" is a product-family argument, which the rules exclude as evidence.  I then did the outsta",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "The GENIUS2X2 (4 A, 2 bank) and GENIUS2X4 (8 A, 4 bank) are multi-bank and therefore the most likely of the five to have grown an accessory port. Check those two first.",
+    "NOCO's support index also lists a GENIUS4, which does not appear in the current no.co/collection/genius product listing. Possibly discontinued or regional. Not researched.",
+    "GENIUS1 CA$49.99, GENIUS2D CA$64.99, GENIUS2X2 CA$159.99, GENIUS2X4 CA$315.99 at The Cabin Depot (checked: 2026-07-31)."
+  ]
+}

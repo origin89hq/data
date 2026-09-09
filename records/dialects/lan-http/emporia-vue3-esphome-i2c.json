@@ -1,0 +1,60 @@
+{
+  "id": "emporia-vue3-esphome-i2c",
+  "family": "lan-http",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "community-single",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "github-com-emporia-vue-local-esphome",
+      "citation": "https://github.com/emporia-vue-local/esphome (branch `dev`, last pushed 2026-04-19, 791 stars) — the single source for the frame map. esphome/components/emporia_vue/emporia_vue.h (the 284-byte `SensorReading` struct, `CT"
+    },
+    {
+      "source": "emporia-vue-local-github-io-docs-tutorial-intro",
+      "citation": "https://emporia-vue-local.github.io/docs/tutorial/intro — 'This project supports both the Emporia Vue 2 and the Emporia Vue 3.' Hardware-prep page for Vue 3 gives the RXD/TP3, TXD/TP4, GND/TP5 test points."
+    },
+    {
+      "source": "digiblur-com-2024-03-14-emporia-vue-gen3-esp32-esphome-home-assistant",
+      "citation": "https://digiblur.com/2024/03/14/emporia-vue-gen3-esp32-esphome-home-assistant/ — independent Gen 3 write-up on real hardware: ESP32 inside, packages with 0/8/16 CT clamps, 'you'll need to open it as there isn't a known O"
+    }
+  ],
+  "transport": "NOT a protocol the device ships with. The case must be opened and the on-board ESP32 reflashed with ESPHome over UART — test points RXD/TP3, TXD/TP4, GND/TP5, and the serial adapter's RX goes to RX and TX to TX (NOT crossed, unlike Vue 2 habit). There is no known OTA exploit. After reflashing, Cabin Hub would reach it over the LAN via the ESPHome native API or MQTT, over 2.4 GHz WiFi or the Gen 3 ",
+  "blocks": "One 284-byte packed little-endian frame read in a single I2C read, no register/command byte: bool is_unread (1) · uint8 checksum (1) · uint8 unknown (1) · uint8 sequence_num (1) · power[19] each { int32 phase_black, int32 phase_red, int32 phase_blue } (228) · uint16 voltage[3] (6) · uint16 frequency (2) · uint16 degrees[2] (4) · uint16 current[19] (38) · uint16 end (2, must read 0 or the frame is malformed). Conversions: voltage_V = voltage[wire] × calibration (default calibration 0.022, retuned per unit as old_cal × true_V / reported_V) · frequency_Hz = 19610.0 / frequency (Vue 3 constant; Vue 2 uses 25310.0) · phase_angle_deg = degrees[wire−1] × 360 / frequency · power_W = raw_power × calibration / correction_factor where correction_factor = 5.5 for the three mains ports and 22 for branch ports · current_A = raw_current × 775/42624 on mains ports and × 775/170496 on branch ports. CT port index → array slot on Vue 3: mains A=2, B=1, C=0 (REVERSED relative to Vue 2, where A=0, B=1, C=2); branches 1..16 → 3..18. Phase wire index: BLACK=0, RED=1, BLUE=2.",
+  "reports": [
+    "ac-voltage",
+    "ac-current",
+    "ac-power",
+    "ac-frequency"
+  ],
+  "models": [
+    {
+      "name": "Vue - Energy Monitor Gen 3"
+    },
+    {
+      "name": "Vue - Energy Monitor, 8 sensors, Gen 3"
+    },
+    {
+      "name": "Vue - Energy Monitor, 16 sensors, Gen 3"
+    },
+    {
+      "name": "Vue 8 - Energy Monitor (Gen 3), 3 Phase"
+    },
+    {
+      "name": "Vue 16 - Energy Monitor (Gen 3), 3 Phase"
+    },
+    {
+      "name": "Vue - Energy Monitor (Gen 3), 3 Phase"
+    }
+  ],
+  "sharedMapEvidence": "All six models are the same board. Emporia's Vue 3 tech spec describes one monitor with 3 voltage channels, 3× 200 A CT ports and 16× 50 A CT ports, and the 'What's in the box' line reads 'Energy monitor with main sensors-only or add 8 or 16 circuit-level sensors' — the 8/16 difference is how many CT clamps ship, not a different board. The three-phase retail variants are the same monitor in the ve",
+  "gotchas": [
+    "This is a hardware modification, not an integration. It voids the warranty, requires opening a device wired into a live electrical panel, and removes the Emporia app. Nothing here should be presented as 'the Vue 3 supports local access'.",
+    "The Vue 2 and the Vue 3 do NOT share this map, and that is the whole reason they are separate dialects. Three things differ in the same component: the frequency constant (19610.0 for Vue 3 vs 25310.0 for Vue 2), the mains CT port ordering (Vue 3 A=2/B=1/C=0, Vue 2 A=0/B=1/C=2), and the I2C pinout (Vue 3 SDA GPIO5 / SCL",
+    "Confidence is `community-single` for the frame map and the constants: everything traces to one implementation, github.com/emporia-vue-local/esphome. The apparent corroborators are not independent — rosenrot00/emporiavue credits '[emporia-vue-local/esphome] for the original local Vue metering work', and technowizardry.n",
+    "The Vue 3 I2C pinout (SDA GPIO5, SCL GPIO18) IS corroborated by two sources — digiblur's Gen 3 write-up and rosenrot00's vue3-i2c.yaml — so that one fact is `community-crosschecked`. They CONTRADICT each other on bus speed: digiblur recommends dropping to 150 kHz 'to reduce errors', rosenrot00 ships 400 kHz. Both are c",
+    "Serial pinout is the classic Gen 3 trap: 'do not transpose the RX/TX pins like you normally do. RX goes to RX and TX goes to TX this time around.' The test points are labelled from the ESP32's point of view (RXD/TP3 is the ESP32's TXD0)."
+  ],
+  "unmappedReports": "Phase angle in degrees (frame field `degrees[2]`, published by the component as a per-phase sensor) — no MetricKind, and no `Unit` for degrees either. This is what tells a split-phase install from a 120° three-phase one., Per-circuit power and current — 3 mains + 16 branch measurements per frame, all of which would collapse onto single-valued `ac-power` / `ac-current`. The largest shape mismatch on this device: a 19-circuit meter is the entire point of buying it., Per-phase voltage — 3 voltage slots per frame against a single-valued `ac-voltage`. A split-phase 120/240 V cabin loses the leg split; a Wye install loses two thirds of the reading., `sequence_num` — the frame counter the component uses to detect dropped readings ('Detected %d missing reading(s), data may not be accurate!'). A data-quality signal with no MetricKind. Arguably belongs in status rather than metrics., `checksum` and the `unknown` byte — the component reads them but validates neither (it validates only `end == 0` and `is_unread`). No contract home, and no documented meaning for `unknown`., Signed mains power / import vs export — the mains power fields are int32 and signed, which is how net metering and solar backfeed show up. There is no `grid-power` MetricKind and the sign convention carries the meaning, exactly as recorded for Victron GX., PV vs load on a branch CT — the retail claim is solar monitoring, but a clamp on a solar inverter's output is indistinguishable in the frame from any other branch. Calling one `pv-power` is a labelling decision made by whoever installed the clamp, not something the device reports., Reactive power, power factor from waveform, current THD, crest factor and displacement angle exist only on a third-party custom SAMD09 firmware path (rosenrot00), not on stock. `ac-power-factor` exists in the contract; there is no MetricKind or `Unit` for VAR / reactive power, THD or crest factor."
+}

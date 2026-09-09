@@ -1,0 +1,57 @@
+{
+  "id": "midnite-rosie-can",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "midnitesolar-com-pdfs-10-432-1-rev-c",
+      "citation": "MidNite Solar, Rosie Inverter/Charger Owner's Manual, MNROSIE7048RE - MNROSIE7048M, P/N 10-432-1 Rev C, 22 MAR 2024 — https://www.midnitesolar.com/pdfs/10-432-1_Rev_C_(MNROSIE7048_Manual)_22MAR2024.pdf (retrieved and rea"
+    },
+    {
+      "source": "midnitesolar-com-pdfs-10-607-1-rev-b-instructions-3-phase-stacking",
+      "citation": "MidNite Solar, Instructions, 3-Phase Stacking, P/N 10-607-1 Rev B, 21 JAN 2025 — https://www.midnitesolar.com/pdfs/10-607-1_Rev_B,_Instructions,_3-Phase_Stacking_(1-21-25a).pdf (CAN BUS vs STK BUS, Figures 3 and 4)"
+    },
+    {
+      "source": "midnitesolar-com-firmwareindex",
+      "citation": "MidNite Solar SOFTWARE index — https://www.midnitesolar.com/firmwareIndex.php and https://www.midnitesolar.com/firmware.php?firmwareProduct_ID=8 (negative evidence: no Rosie protocol document exists)"
+    }
+  ],
+  "transport": "CAN over RJ45 (CAN IN / CAN OUT) on Cat5/Cat6 straight-through patch cable · 120 Ω terminator plug at each end of the bus · the same RJ45 carries two separate buses, CAN BUS (inverter/charger messaging) and STK BUS (stacking) · extended 29-bit arbitration IDs, message id = (arbitration_id >> 18) & 0x7FF · bit rate NOT published by MidNite and not stated by the one community decoder · RJ45 pin-to-C",
+  "blocks": "No register map exists. The bus is message-oriented, and the only published id list is one community decoder's: 0x040 AC output voltage · 0x041 AC output watts · 0x101 AC input volts/amps/Hz · 0x102 AC input watts · 0x2A4 battery temperature · 0x331 and 0x261 FET + transformer temperature. System-wide frames shared with MidNite charge controllers on the same bus: 0xA0 battery V/A/W · 0xA3 charge stage · 0x2A3 WhizBang Jr. amps · 0x022 daily kWh · 0x81 PV voltage.",
+  "reports": [
+    "ac-voltage",
+    "ac-current",
+    "ac-power",
+    "ac-frequency",
+    "battery-voltage",
+    "battery-current",
+    "battery-power",
+    "battery-temperature",
+    "charge-stage"
+  ],
+  "models": [
+    {
+      "name": "MNROSIE7048RE (Rosie Inverter/Charger, 48 V / 7000 W, 120/240 VAC split phase, 120 A charger, 60 A AC transfer relay, UL 1741 residential)"
+    },
+    {
+      "name": "MNROSIE7048M (same ratings, UL 458 mobile/marine variant)"
+    },
+    {
+      "name": "MNROSIE7048-CL200-PW (Rosie pre-wired system — the same MNROSIE7048 inverter in a MidNite Rosie E-Panel, plus a Classic 200 charge controller, MNGP2, MNSPD-300 surge devices, BTS)"
+    }
+  ],
+  "refutedOnReview": "REFUTED as a shared-register-map claim at community-single. The sources exist and were read in full, but none of them ties a CAN id to any of the three named part numbers, so the catalogue rule \"a model joins a dialect ONLY when a source shows matching register addresses\" is not met for any of the three.  WHAT CHECKS OUT - The vendor manual is real and says what is claimed about the RE/M pairing. Retrieved PDF saved ",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "MidNite has published no protocol document for the Rosie, and this was checked at the source rather than inferred. midnitesolar.com/firmwareIndex.php has exactly one entry named \"MidNite Solar MODBUS Network Specifications\" (firmwareProduct_ID=6) and it contains a single file, REV-C5 — the Classic charge controller reg",
+    "THE TRAP: midnitesolar.com hosts two Modbus documents that look like they are the Rosie's and are not — /firmware/Solar_inverter_charger_register_definition.pdf (\"Modbus register address of integrated inverter controller V1.3\") and /pdfs/Solar_inverter_charger_communication_protocol.pdf (\"SRNE PV Inverter RS485 MODBUS ",
+    "You cannot make the tap cable from the manual. MidNite documents the CAN connectors as RJ45 CAN IN / CAN OUT with Cat5/Cat6 straight-through and a terminator plug, but publishes no pin-to-CAN-H/CAN-L assignment. The only pinout in circulation is a PDF (\"SA cable1.pdf\") posted by the MidNite forum admin on midniteftp.co",
+    "The RJ45 carries two buses. Per 10-607-1 Rev B (3-Phase Stacking), the Rosie cable has a CAN BUS section for inverter/charger messaging and an STK BUS section for stacking messaging, terminated independently — CAN by a plug at each end, STK by a jumper on the front-panel PCBA (shipped on TERM). A tap cable that bridges",
+    "The bus is shared, so a Rosie tap also sees charge-controller frames. 0xA0 (battery V/A/W), 0xA3 (charge stage), 0x2A3 (WhizBang Jr. amps), 0x022 (daily kWh) and 0x81 (PV voltage) are not the Rosie's — they belong to the Hawke's Bay/Barcelona controller and the WhizBang Jr. shunt. Attributing them to the inverter devic"
+  ],
+  "unmappedReports": "AC INPUT voltage / current / frequency / power, distinct from AC output. The Rosie is an inverter/charger with a 60 A transfer relay, so frames 0x101 and 0x102 (input) and 0x040/0x041 (output) are live at the same time. MetricKind has only one set of ac-voltage / ac-current / ac-frequency / ac-power. Two devices reporting into the same wire names, or a contract variant, is a real decision this dialect forces., Inverter power-FET heatsink temperature (0x331/0x261 byte 0-1). Nearest wire name is the generic `temperature`, which the contract documents as an environment reading. The EPEver driver hit the same wall — cabin-epever notes 0x3111 is \"the temperature inside the controller, not the room\"., Transformer temperature (0x331/0x261 byte 2-3). Same problem, and it is a second internal temperature on the same device, so one `temperature` slot cannot carry both., ChargeStage cannot express what the bus sends. The community decoder's table is 0 Resting, 1 Bulk MPPT, 2 Absorb, 3 Float, 4 Equalize, 5 Float MPPT, 6 EQ MPPT. `ChargeStage` has idle/bulk/absorption/float/equalize/fault/unknown, so 5 and 6 collapse onto float and equalize and the MPPT-vs-not distinction is lost. This is a ValueKind finding, not a MetricKind one., AUX relay state. The Rosie has programmable AUX terminals (manual p.26/p.45) driving an external relay. Nothing on the decoded bus carries it, and `switch-state` would be the wire name if it did., Auto Gen Start state. The MNGP2 has an Auto GEN Start menu with setpoints, so a Rosie installation may already be starting the generator on its own. Nothing decoded reports it, and `generator-run-state` would be the wire name."
+}

@@ -1,0 +1,29 @@
+{
+  "id": "genstart-honda-eu7000is-2wire",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "unrecorded",
+  "sources": [
+    {
+      "source": "genstart-ca-uploads-3-4-9-7-34974774-manual-eu7000is-standard",
+      "citation": "GenStart \"Honda EU7000is Standard 2 Wire Start System Manual\", https://genstart.ca/uploads/3/4/9/7/34974774/manual_eu7000is_standard.pdf (7 pp) and older revision (GS7000is2WS module) https://genstart.ca/uploads/3/4/9/7/34974774/manual_standard.pdf (6 pp); AutoStart harness sheet https://genstart.ca/uploads/3/4/9/7/34974774/manual_autostart_harness.pdf (checked: 2026-09-01)"
+    }
+  ],
+  "transport": "2-wire maintained dry contact (black/white of the 6 ft Control Harness) · open-circuit voltage: ? · closed-contact current: ? · polarity: none stated; module power red/black to battery (p6) · fusing: **the two revisions disagree** — older: \"internal contacts are rated for 30 amps and are NOT fused. Circuit protection is required\" (p6, repeated on the AutoStart harness sheet); newer: \"The control circuit is protected by the GenStart system 5A main fuse\" (p7) · ignition-switch position: **not stated** in the Standard manual · temperature: not in the manual (the -40 °C figure appears only on the store page) · fob: none in Standard.",
+  "models": [
+    {
+      "name": "Honda EU7000is (EU7000isN)",
+      "rating": "5.5 kVA rated / 7.0 kVA max, gasoline (EFI), electric start yes (12 V 11.2 Ah)",
+      "notes": "Honda OM 00X31Z376200 p101"
+    }
+  ],
+  "gotchas": [
+    "Module goes in-line with **both** the Honda ignition-switch and start-switch connectors behind the control panel (steps 7–8, p4–5) — it does not use Honda's factory remote coupler.",
+    "\"Touch the two wires ... together and the generator will start. Disconnect the wires and the generator will stop\" (p7). No crank time, retry or run-feedback documented.",
+    "Premium wireless variant, https://genstart.ca/uploads/3/4/9/7/34974774/manual_eu7000is_premium_wireless.pdf: \"It is NOT necessary to have the generator ignition switch on for the wireless start\" and \"The 2-wire start remains active when [wireless system] switch is off\" (p9). Fob-vs-contact precedence: not stated.",
+    "A 30 A unfused contact rating vs a 5 A fuse is the kind of disagreement to settle on the bench before sizing our series relays."
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "victron-vedirect-cabling",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "docs/victron-ve-direct-protocol-3.34.pdf (already committed by a parallel pass) and docs/DEVICES.md §'Victron VE.Direct' — 19200 8N1, unsolicited 1 Hz text frames, 4-pin JST-PH"
+    },
+    {
+      "source": "victron-data-communication",
+      "citation": "docs/victron-data-communication.pdf (committed) — Victron Energy, 'Data communication with Victron Energy products' — accessory tables listing ASS030530000 VE.Direct to USB interface and the VE.Direct interface range"
+    }
+  ],
+  "transport": "Passive/adapter only. Carries VE.Direct: 19200 baud 8N1, no flow control, 4-pin JST-PH (GND, RX, TX, power). The USB variants add a USB-serial bridge and present a tty; the plain cable is GX-to-product wiring with no electronics.",
+  "models": [
+    {
+      "name": "VE.Direct to USB interface (ASS030530010)"
+    },
+    {
+      "name": "VE.Direct to USB-C interface (ASS030530030)"
+    },
+    {
+      "name": "VE.Direct Cable 0.3 m–10 m (ASS0305302xx)"
+    }
+  ],
+  "refutedOnReview": "REFUTED on the model list, not on the protocol reasoning.  The substantive position is sound: a cable has no register map, and whatever appears on the tty belongs to the far-end MPPT/BMV/Phoenix. Nobody loses a bench day to that. But the entry is tagged `vendor-doc`, and the three model identifiers it names are in no vendor doc in this repo.  What the cited sources actually say: - docs/victron-ve-direct-protocol-3.34",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "A driver written for 'a VE.Direct to USB cable' is really a driver for whatever is on the other end. The dialect that matters is the MPPT's or the shunt's, and docs/DEVICES.md already records the VE.Direct text protocol and its committed spec — do not re-derive it here.",
+    "The USB-serial chipset in ASS030530010 / ASS030530030 is NOT recorded in any vendor document I found. That matters — the EPEver CC-USB-RS485-150U was rejected in docs/HARDWARE.md precisely because its Exar XR21B1411 has no mainline Linux driver. The equivalent question for these cables is open and is a bench question: ",
+    "A product has one VE.Direct port. If an MPPT Control or a Bluetooth dongle is on it, a cable to the GX cannot also be. The port is a single seat.",
+    "Pin 1 of the VE.Direct connector carries power. The same caution that applies to the EPEver RJ45 (+5 V on pins 1 and 2) applies in spirit: do not improvise splitters."
+  ]
+}

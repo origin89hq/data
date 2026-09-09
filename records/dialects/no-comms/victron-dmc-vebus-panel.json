@@ -1,0 +1,40 @@
+{
+  "id": "victron-dmc-vebus-panel",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victronenergy-com-upload-documents-digital-multi-control-153833-digital-multi-control-pdf-en",
+      "citation": "https://www.victronenergy.com/upload/documents/Digital_Multi_Control/153833-Digital_Multi_Control-pdf-en.pdf — Digital Multi Control 200/200A manual, rev 00, 10/2023. Vendor PDF, not yet committed to docs/."
+    },
+    {
+      "source": "victronenergy-com-display-and-panels-digital-multi-control-panel-gx",
+      "citation": "https://www.victronenergy.com/display-and-panels/digital-multi-control-panel-gx — product page, source of DMC000200000R."
+    },
+    {
+      "source": "victron-gx-modbus-tcp-register-list",
+      "citation": "docs/victron-gx-modbus-tcp-register-list.xlsx — Field list rows for registers 22 and 33, Remarks column."
+    }
+  ],
+  "transport": "A straight UTP cable with RJ45 connectors into any free RJ45 socket on the inverter/charger or on any unit of a VE.Bus system. No Ethernet, no IP, no Venus OS. Optional screw terminals on the back for an external transfer switch's auxiliary relay.",
+  "models": [
+    {
+      "name": "Digital Multi Control 200/200A GX (DMC000200010R per Quebec retailers; DMC000200000R per Victron's own product page) — 1 Quebec listing, checked: 2026-07-31"
+    },
+    {
+      "name": "Digital Multi Control 200/200A (REC020005010) — 2 Quebec listings, checked: 2026-07-31"
+    }
+  ],
+  "sharedMapEvidence": "One vendor manual covers both — Victron publishes a single document titled 'Digital Multi Control / Digital Multi Control 200/200A', rev 00, 10/2023, with no GX variant split anywhere in it. But there is no register map to share: the manual describes a knob, a display, a mode switch and a six-parameter configuration walk-through, and contains no addresses, no baud rate, no framing and no slave ID.",
+  "gotchas": [
+    "THE 'GX' IN THE NAME IS NOT A GX DEVICE. The vendor's own manual for this product is titled 'Digital Multi Control 200/200A' with no GX suffix, and it never uses the words Modbus, MQTT, VRM, Ethernet or Venus. It does not run Venus OS. Do not file it beside Cerbo/Ekrano/Nucleo, and do not let the model name earn it a r",
+    "IT IS THE REASON A GX WRITE CAN SILENTLY FAIL, and that is the only reason it matters to this project. The committed Modbus workbook's Remarks column on BOTH writable VE.Bus control registers — 22 Active input current limit and 33 Switch Position — reads 'See Venus-OS manual for limitations, for example when VE.Bus BMS",
+    "There is a matching setting in the inverter/charger, not in the panel. DMC manual §6.5 'Current limit overruled by remote': 'This setting exists in the inverter/charger. When enabled, the control panel can modify the AC input current limit, and when disabled, it can not. In the case of a Quattro, both inputs have an \"o",
+    "Part number contradiction, unresolved: Quebec retailers list DMC000200010R; Victron's own display-and-panels page for the product shows DMC000200000R. The vendor MANUAL gives no part number at all. Both are recorded; neither is picked. checked: 2026-07-31.",
+    "Compatibility per the manual: MultiCompact; MultiPlus, MultiPlus-II and MultiPlus-II GX; Quattro and Quattro-II; EasySolar and EasySolar-II GX; and legacy pre-VE.Bus Multi/MultiCompact/MultiPlus/Quattro from 2008 and earlier. The pre-VE.Bus case needs a scaling factor set that VE.Bus systems do not."
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "id": "morningstar-prostar-pwm-gen3",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "morningstar-prostar-modbus-specification",
+      "citation": "ProStar PWM MODBUS Specification v2.0, MS-001838, 22 March 2017 — committed at /Users/lemarier/dev/solar/docs/morningstar-prostar-modbus-specification.pdf (29 pp)"
+    },
+    {
+      "source": "morningstarcorp-com-wp-content-uploads-technical-doc-prostar-modbus-specification-en",
+      "citation": "https://www.morningstarcorp.com/wp-content/uploads/technical-doc-prostar-modbus-specification-en.pdf"
+    },
+    {
+      "source": "morningstar-product-connectivity-manual",
+      "citation": "Morningstar Product Connectivity Manual, Table 2 (lists 'ProStar Gen 3' only) — committed at /Users/lemarier/dev/solar/docs/morningstar-product-connectivity-manual.pdf"
+    }
+  ],
+  "transport": "MeterBus RJ-11 only, via a Morningstar MSC MeterBus-to-Serial Converter to isolated RS-232 · Modbus RTU · 9600 baud, 8 data bits, no parity, 2 stop bits, no flow control · default server address 0x01",
+  "blocks": "0x0000 version · 0x0004 raw ADC rails · 0x0011 filtered ADC · 0x001A temperatures · 0x0021 charger status · 0x002E load status · 0xE000 EEPROM settings · coils from 0x0000",
+  "reports": [
+    "pv-voltage",
+    "pv-current",
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "charge-stage",
+    "load-voltage",
+    "load-current",
+    "switch-state",
+    "temperature"
+  ],
+  "accepts": [
+    "start-equalize",
+    "set-switch",
+    "clear-fault"
+  ],
+  "models": [
+    {
+      "name": "PS-15 (Gen 3)"
+    },
+    {
+      "name": "PS-15M (Gen 3)"
+    },
+    {
+      "name": "PS-30 (Gen 3)"
+    },
+    {
+      "name": "PS-30M (Gen 3)"
+    }
+  ],
+  "sharedMapEvidence": "The Read Device Identification table in *ProStar PWM MODBUS Specification* v2.0 (MS-001838, 22 March 2017) lists all four product codes against this one map: \"PS-PWM-15\", \"PS-PWM-15M\", \"PS-PWM-30\", \"PS-PWM-30M\". The 15 A and 30 A units differ in rating only; the M suffix is the on-board meter.",
+  "gotchas": [
+    "GENERATION RISK, and it is the important one on this entry. Modbus exists on ProStar Gen 3 only. The Gen 2 was replaced by the Gen 3 in January 2017, both are sold as 'PS-15' / 'PS-30', both have an RJ-11 MeterBus port, and the retailer listing does not say which is on the shelf. Two independent pieces of vendor eviden",
+    "Values are Float16, as on the ProStar MPPT.",
+    "This map is a subset of the ProStar MPPT map, not a copy of it — the addresses that both define agree (0x0021 charge_state, 0x0023 vb_f, 0x0024 vb_ref, 0x002E load_state, 0x0030 V_lvd, the coil block), but the PWM marks RESERVED where the MPPT has real registers: 0x0010 (charge current), 0x0015 (net battery current), 0",
+    "Because 0x0015 is RESERVED here, net battery current is only available from adc_ib_f_1m at 0x0019 — a 60-second filtered value. There is no fast battery-current reading on this controller.",
+    "MeterBus RJ-11 is the only port; an MSC adapter is mandatory."
+  ],
+  "unmappedReports": "T_hs heatsink temperature (0x001A), Ahc_r / Ahc_t / Ahl_r / Ahl_t amp-hour counters and kWhc_r / kWhc_t (0x0026-0x002B, 0x0032-0x0035), vb_ref regulator reference voltage (0x0024), array_fault (0x0022), load_fault (0x002F) and alarm bitfields, V_lvd / V_lhvd live disconnect thresholds (0x0030/0x0031), Tb_lo_limit_100 / Tb_lo_limit_0 cold-battery foldback (0x002C/0x002D), state-of-charge — not reported"
+}

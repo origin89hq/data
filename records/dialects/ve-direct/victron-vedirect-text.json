@@ -1,0 +1,130 @@
+{
+  "id": "victron-vedirect-text",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "docs/victron-ve-direct-protocol-3.34.pdf — VE.Direct Protocol, rev 3.34, 14 April 2025 (committed). Serial config verified at extracted line 98-103: 19200 / 8 / None / 1 / None."
+    },
+    {
+      "source": "victron-mppt-ve-direct-hex-protocol-rev18",
+      "citation": "docs/victron-mppt-ve-direct-hex-protocol-rev18.pdf — VE.Direct Protocol, BlueSolar and SmartSolar MPPT chargers, rev 18, 15 Nov 2021 (committed). Product-id table read for ratings, load-output column and 'pv only' marks."
+    },
+    {
+      "source": "catalog-ve-direct",
+      "citation": "docs/catalog/ve-direct.md — this repo's existing entry, which this pass re-verified rather than re-derived."
+    }
+  ],
+  "seeAlso": [
+    "victron-vedirect-text-orion-xs",
+    "victron-vedirect-text-phoenix-charger"
+  ],
+  "transport": "VE.Direct 4-pin JST-PH (pin 1 GND, 2 RX, 3 TX, 4 Power+) · 19200 8N1, no flow control · unsolicited push from the device, no request framing, no slave ID, one device per port",
+  "blocks": "Repeating <0x0D 0x0A><Label><0x09><Value> lines. The last field in a block is always literally named `Checksum`; its byte makes the modulo-256 sum of every byte in the block equal 0. Maximum 22 fields per block (raised from 18 in rev 3.28). Vendor implementation guidance: 9-byte label buffer, 33-byte value buffer, >=22 temporary records.",
+  "reports": [
+    "pv-voltage",
+    "pv-power",
+    "pv-energy-today",
+    "pv-energy-total",
+    "battery-voltage",
+    "battery-current",
+    "load-current",
+    "switch-state",
+    "charge-stage"
+  ],
+  "models": [
+    {
+      "name": "SmartSolar MPPT 75/10"
+    },
+    {
+      "name": "SmartSolar MPPT 75/15"
+    },
+    {
+      "name": "SmartSolar MPPT 100/15"
+    },
+    {
+      "name": "SmartSolar MPPT 100/20"
+    },
+    {
+      "name": "SmartSolar MPPT 100/20-48V"
+    },
+    {
+      "name": "SmartSolar MPPT 100/30"
+    },
+    {
+      "name": "SmartSolar MPPT 100/50"
+    },
+    {
+      "name": "SmartSolar MPPT 150/35"
+    },
+    {
+      "name": "SmartSolar MPPT 150/45"
+    },
+    {
+      "name": "SmartSolar MPPT 150/60-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 150/60-MC4"
+    },
+    {
+      "name": "SmartSolar MPPT 150/70-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 150/85-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 150/100-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 250/60-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 250/60-MC4"
+    },
+    {
+      "name": "SmartSolar MPPT 250/70-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 250/85-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 250/100-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 150/70-Tr VE.Can (SCC115070411)"
+    },
+    {
+      "name": "SmartSolar MPPT 150/70-MC4 VE.Can"
+    },
+    {
+      "name": "SmartSolar MPPT 150/85-Tr VE.Can"
+    },
+    {
+      "name": "SmartSolar MPPT 150/85-MC4 VE.Can"
+    },
+    {
+      "name": "SmartSolar MPPT 150/100-Tr VE.Can"
+    },
+    {
+      "name": "SmartSolar MPPT 150/100-MC4 VE.Can"
+    },
+    {
+      "name": "*…and 15 more, in the journal*"
+    }
+  ],
+  "sharedMapEvidence": "Table I of VE.Direct Protocol 3.34, 'Supported Text-mode fields', has one column per device class (BMV 60x, BMV 70x, BMV 71x/SmartShunt, MPPT, Phoenix Inverter, Phoenix Charger, Smart BuckBoost). There is exactly ONE `MPPT` column, and the document's product-id list in the same PDF applies that column to every charger it names. That is the vendor's own tabulation of a shared field set, not an infe",
+  "gotchas": [
+    "An MPPT does not report state of charge. SOC, TTG and consumed-Ah are battery-monitor fields in Table I — BMV and SmartShunt columns only. If the reason for adding Victron is a coulomb-counted SoC, the charge controller cannot supply it.",
+    "There is no panel-current field in text mode. Only VPV (mV) and PPV (W). pv-current is reachable only over HEX at 0xEDBD, and rev 18 note 1 says that register is absent on the 10 A / 15 A / 20 A chargers — most of the cabin-sized list.",
+    "CONTRADICTION between two vendor documents on frame interval. 3.34 p. 4: 'The device transmits blocks of data at 1 second intervals' (verified verbatim, line 127 of the extracted text). Rev 18 section 1.53 changelog: 'the text messages will always be sent every 2 seconds.' Recorded, not resolved. Do not build a watchdo",
+    "The VE.Direct pins have alternate functions that silently kill the broadcast. 3.34 p. 3: the RX pin can be repurposed as a charger on/off input, and the TX pin can be configured to send a PWM dimming signal (set via HEX 0xED9E TX-port operation mode). A silent port is a configuration state, not necessarily a fault.",
+    "Older firmware drops out of text mode when it sees a HEX frame and only returns after several seconds of silence; from v1.53 text is always on. A poller mixing HEX queries with text parsing will see gaps on older units."
+  ],
+  "unmappedReports": "H21 / H23 — max PV power today / yesterday, W. `pv-power-ceiling` is a COMPUTED geometric ceiling, not an observed peak; mapping an observed peak onto it would be a lie., H22 — yield yesterday, 0.01 kWh. `pv-energy-today` and `pv-energy-total` exist; there is no yesterday bucket., ERR — charger error code (full numeric enumeration). `ChargeStage::Fault` keeps the fact and drops the number., MPPT — tracker mode: 0 off, 1 voltage/current limited, 2 MPP tracking. Nothing expresses 'the array is being tracked' vs 'the charge algorithm is clipping it'., OR — off-reason bitfield. No MetricKind for why a device is off., HSDS — day sequence number 0-364, the marker that history rolled over. No MetricKind., Relay — relay state. `switch-state` is already taken by the LOAD output; a second boolean output has nowhere to go., CS values 6, 11, 245, 246, 248, 252 — Storage, Power supply, Starting-up, Repeated absorption, BatterySafe, External control. No `ChargeStage` variant. Folding them into Idle or Unknown discards real information; 'External control' in particular means a GX or BMS is driving the setpoint., PID / SER# / FW — product id, serial, firmware. Identity, not measurement; no contract slot.",
+  "possibleDuplicate": true
+}

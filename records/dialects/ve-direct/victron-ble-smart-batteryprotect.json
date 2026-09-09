@@ -1,0 +1,54 @@
+{
+  "id": "victron-ble-smart-batteryprotect",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-ble-extra-manufacturer-data-2022-12-14",
+      "citation": "docs/victron-ble-extra-manufacturer-data-2022-12-14.pdf — Victron wiki, *Extra manufacturer Data*, printed 2022-12-14. Committed. Record-type table (0x09 = Smart Battery Protect) and the record 0x09 field table."
+    },
+    {
+      "source": "victronenergy-com-upload-documents-smart-batteryprotect-12v-24v-114439-smart-batteryprotect-pdf",
+      "citation": "Victron Energy, *Smart BatteryProtect 12/24V* manual, rev 05 - 02/2025 — https://www.victronenergy.com/upload/documents/Smart_BatteryProtect_12V_24V/114439-Smart_BatteryProtect-pdf-en.pdf (covers 65 A / 100 A / 220 A; In"
+    },
+    {
+      "source": "victronenergy-com-upload-documents-smart-batteryprotect-48v-114439-smart-batteryprotect-pdf-en",
+      "citation": "Victron Energy, *Smart BatteryProtect 48V 100A* manual, rev 05 - 02/2025 — https://www.victronenergy.com/upload/documents/Smart_BatteryProtect_48V/114439-Smart_BatteryProtect-pdf-en.pdf"
+    }
+  ],
+  "transport": "BLE advertisement · Victron manufacturer data, byte 3 = 0x10 (Product Advertisement) · extra-manufacturer-data record begins at byte 8 · record type 0x09 \"Smart Battery Protect\" · AES-CTR, 2-byte nonce taken from the record header, MSB counter starting at 0 · byte 0 of the 16-byte key echoed in the header for mismatch detection · no pairing needed to read, one pairing needed to obtain the key · no",
+  "blocks": "Single record 0x09. Field order and widths, verbatim from the committed vendor table: device state 8 bits (NA 0xFF, VE_REG_DEVICE_STATE) · output state 8 bits (NA 0xFF, VE_REG_DC_OUTPUT_STATUS) · error code 8 bits (NA 0xFF, VE_REG_CHR_ERROR_CODE) · alarm reason 16 bits, no NA (VE_REG_ALARM_REASON) · warning reason 16 bits, no NA (VE_REG_ALARM_REASON) · input voltage 16 bits, 0.01 V, signed, range -327.68..327.66 V, NA 0x7FFF (VE_REG_DC_CHANNEL1_VOLTAGE) · output voltage 16 bits, 0.01 V, unsigned, range 0..655.34 V, NA 0xFFFF (VE_REG_DC_OUTPUT_VOLTAGE) · off reason 32 bits, no NA (VE_REG_DEVICE_OFF_REASON_2) · 32 bits unused.",
+  "reports": [
+    "battery-voltage",
+    "load-voltage",
+    "switch-state"
+  ],
+  "models": [
+    {
+      "name": "Smart BatteryProtect 12/24V-65A (BPR065022000)"
+    },
+    {
+      "name": "Smart BatteryProtect 12/24V-100A (BPR110022000)"
+    },
+    {
+      "name": "Smart BatteryProtect 12/24V-220A (BPR122022000)"
+    },
+    {
+      "name": "Smart BatteryProtect 48V-100A (BPR110048000)"
+    }
+  ],
+  "sharedMapEvidence": "The record layout is keyed on record type 0x09, and the vendor's own record-type table names that type \"Smart Battery Protect\" — the product line itself, not a device category like the \"Solar Charger\" and \"Battery Monitor\" rows. One layout is therefore asserted by the vendor for the line. Beyond that, two vendor documents each cover several models in one file and each states Instant Readout for al",
+  "downgradedOnReview": "I could not refute this on sourcing — every cited source exists and says what the claim says it says. But the `vendor-doc` tag on a four-SKU membership list overstates, and I found a documented counterexample that kills one of the two evidence pillars outright.  WHAT VERIFIED CLEANLY  1. `/Users/lemarier/dev/solar/docs/victron-ble-extra-manufacturer-data-2022-12-14.pdf` is committed and real (wiki.victronenergy.com/r",
+  "gotchas": [
+    "**The vendor table's start-bit column for record 0x09 is inconsistent with every other record in the same document.** Records 0x00 Test, 0x01 Solar Charger, 0x02 Battery Monitor, 0x03 Inverter, 0x04 DC/DC, 0x05 SmartLithium, 0x06 Inverter RS, 0x07 GX and 0x08 AC Charger all begin their first field at start bit 32 (afte",
+    "**The two community implementations flatly contradict each other on what output state means, and the vendor gives no enumeration.** The vendor table says only \"0 .. 0xFE\". keshavdv/victron-ble defines OutputState as SHUTDOWN=0, ON=1, OFF=4. Fabian-Schmidt/esphome-victron_ble defines VE_REG_DC_OUTPUT_STATUS as OFF=0, AU",
+    "**Do not decode error code with the MPPT charger-error table.** keshavdv reuses its MPPT `ChargerError` enum (Err 1 = battery temperature too high, Err 2 = battery voltage too high, Err 3 = remote temperature sensor failure…) for this record. The SBP's own vendor manual documents a completely different set on the same ",
+    "**Device state is also a borrowed enum.** keshavdv decodes it with the MPPT `OperationMode` table (BULK, ABSORPTION, FLOAT, EQUALIZE_MANUAL…). Those states do not exist on a load disconnector. No source states what a Smart BatteryProtect puts in VE_REG_DEVICE_STATE.",
+    "**`accepts` is empty and it is not an oversight.** The advertisement is a one-way broadcast. VictronConnect programs the unit over a paired GATT connection whose protocol Victron does not publish (the same GATT service is documented as unsupported for the VE.Direct Bluetooth dongle). There is no documented way to comma"
+  ],
+  "unmappedReports": "VE_REG_DEVICE_STATE (8-bit device state) — no MetricKind. ChargeStage is the only enum-shaped metric and a switch does not charge., VE_REG_CHR_ERROR_CODE — the SBP's own error set is E0 calibration failure, E1 short circuit, E2 over temperature, E3 under voltage, E4 over voltage, E5 configuration failure, E6 reference voltage failure, E7 BMS lockout, E8 reverse current. There is no fault MetricKind for a `switch` at all; ChargeStage::Fault is not reachable from a switch device., VE_REG_ALARM_REASON (16-bit alarm bitfield) — no metric for why a device alarmed., Warning reason (16-bit, same register type) — the vendor manual documents P2 over-temperature warning and P3 under-voltage warning as distinct from alarms: a warning is the current state, an alarm is latched until re-engagement. Nothing in the contract expresses \"about to disconnect\"., VE_REG_DEVICE_OFF_REASON_2 (32-bit off reason) — no metric for why a device is off. This is the third Victron dialect to carry an off-reason field; docs/catalog/ve-direct.md already flags it as contract finding #1., Internal temperature — the device has over-temperature protection (E2/P2) but publishes no temperature value in this record. `temperature` cannot be filled."
+}

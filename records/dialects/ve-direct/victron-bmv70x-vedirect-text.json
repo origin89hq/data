@@ -1,0 +1,56 @@
+{
+  "id": "victron-bmv70x-vedirect-text",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "docs/victron-ve-direct-protocol-3.34.pdf — Victron Energy, VE.Direct Protocol, rev 3.34, 14 April 2025. Committed. Table I pp. 5–7, PID list, detailed field descriptions, serial port configuration, changelog."
+    },
+    {
+      "source": "catalog-ve-direct",
+      "citation": "docs/catalog/ve-direct.md — this repo's existing VE.Direct family file, which already establishes the transport, framing and checksum from the same PDF for the MPPT column."
+    },
+    {
+      "source": "retail-quebec-retailer-sweep-checked-2026-07-31-bmv-700-at-2",
+      "citation": "Retail: Quebec retailer sweep, checked: 2026-07-31 — BMV-700 at 2 retailers, BMV-700h and BMV-702 at 1 each."
+    }
+  ],
+  "transport": "VE.Direct 4-pin JST-PH · 19200 8N1, no parity, 1 stop bit, no flow control · unsolicited push from the device · no request framing, no slave ID, one device per port",
+  "blocks": "Repeating `<0x0D 0x0A><Field-Label><0x09><Field-Value>` lines. The last field in a block is always literally named `Checksum`; its byte makes the modulo-256 sum of every byte in the block equal 0. Multiple blocks carry different fields. Max 22 fields per block (raised from 18 in rev 3.28); vendor guidance is a 9-byte label buffer, 33-byte value buffer, and at least 22 temporary records discarded wholesale on a bad checksum.",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "battery-power",
+    "battery-temperature",
+    "state-of-charge",
+    "consumed-amp-hours",
+    "time-to-go",
+    "cycle-count",
+    "switch-state"
+  ],
+  "models": [
+    {
+      "name": "BMV-700 (BAM010700000) — PID 0x203"
+    },
+    {
+      "name": "BMV-702 (BAM010702000 grey / BAM010702200 black) — PID 0x204"
+    },
+    {
+      "name": "BMV-700H (BAM010700100) — PID 0x205"
+    }
+  ],
+  "sharedMapEvidence": "Table I of VE.Direct Protocol 3.34 (\"Supported Text-mode fields\") has exactly one column headed `BMV 70x`, alongside separate columns for `BMV 60x`, `BMV71x SmartShunt`, `MPPT`, `Phoenix Inverter`, `Phoenix Charger` and `Smart BuckBoost`. The same document's PID list names BMV-700 = 0x203, BMV-702 = 0x204, BMV-700H = 0x205. The vendor edits this column as one unit: changelog 3.1 (16 Aug 2013) \"Add",
+  "gotchas": [
+    "The column is an upper bound, not a per-model field list. VS (starter voltage), VM/DM (mid-point) and T (battery temperature) each carry a footnote making them conditional on how the AUX input is configured — footnote 3 Starter Battery, footnote 4 Mid Point, footnote 9 Temperature. A BMV-700 has no AUX input at all; on",
+    "SOC is per mille (‰), not percent. Text-mode `SOC` divided by 10 gives the `state-of-charge` percent. A driver that passes it straight through reports 1000% on a full bank.",
+    "TTG is minutes, and `MetricKind::TimeToGo` is seconds. Worse: 3.34 footnote 12 says \"When the battery is not discharging the time-to-go is infinite. This is represented as -1.\" Converting -1 gives -60 s of autonomy.",
+    "CE (consumed Ah) is in mAh and is negative or zero. `MetricKind::ConsumedAmpHours` is amp-hours.",
+    "\"---\" is a legal value, not a parse error. Footnote 10: when the BMV is not synchronised, CE/SOC/TTG and the H-statistics have no meaning and \"---\" is sent instead of a number. Footnote 8: `T` sends \"---\" when no temperature sensor is connected. Treating \"---\" as 0 fabricates a fully-discharged bank on an unsynchronise"
+  ],
+  "unmappedReports": "VS — auxiliary/starter battery voltage, mV. No MetricKind for a second DC channel voltage. On a cabin this is the truck or genset start battery, and it is invisible., VM — mid-point voltage of the bank, mV, and DM — mid-point deviation, ‰. No metric. DM is the single best early warning that one series pair in a 24 V or 48 V lead bank is failing, and there is nowhere to put it., Alarm — buzzer alarm condition active (ON/OFF). No metric for \"a device is in an alarm condition\"., AR — alarm reason bitfield: 1 low voltage, 2 high voltage, 4 low SOC, 8 low starter voltage, 16 high starter voltage, 32 low temperature, 64 high temperature, 128 mid voltage, 4096 short circuit, 8192 BMS lockout. No metric for a fault/alarm code. Same gap docs/catalog/can-bms.md already calls the largest one., H1/H2/H3 — deepest, last and average discharge, mAh. No metric; consumed-amp-hours is instantaneous., H5 — number of full discharges. cycle-count takes H4 (charge cycles); there is no second counter., H6 — cumulative amp hours drawn, mAh. No lifetime-throughput metric., H7/H8 — minimum and maximum main battery voltage seen, mV. No metric for an observed extreme., H9 — seconds since the last full charge. No metric. This is the sulfation clock for a lead bank and the number a Quebec winter makes matter., H10 — number of automatic synchronisations. No metric, and it is the quality signal behind every SoC reading the device emits., H11/H12 — count of low and high main voltage alarms. No metric., H15/H16 — minimum and maximum auxiliary battery voltage, mV. No metric., H17/H18 — discharged and charged energy, 0.01 kWh. No metric. There is pv-energy-today/total and ac-energy-today/total but no battery energy in/out, so round-trip efficiency cannot be expressed., BMV (deprecated model description), FW, PID, SER# — identity, not measurement. No contract slot."
+}

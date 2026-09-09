@@ -1,0 +1,46 @@
+{
+  "id": "volthium-can-bms-500k",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "volthium-com-wp-content-uploads-202",
+      "citation": "/Users/lemarier/dev/solar/docs/volthium-dongle-connection-manual.pdf — Volthium Energy inc., *User's Manual — Dongle Connection*, (c) 2022. Committed this pass. 9 pages. Origin https://volthium.com/wp-content/uploads/202"
+    },
+    {
+      "source": "solacity-com-docs-volthium-us",
+      "citation": "/Users/lemarier/dev/solar/docs/volthium-smart-bridge-manual-en.pdf — Volthium Energy inc., *Smart Bridge — User and Maintenance Manual* (EN). Committed this pass. 9 pages. Origin https://www.solacity.com/docs/Volthium/Us"
+    },
+    {
+      "source": "solacity-com-product-volthium-communications-hub",
+      "citation": "https://www.solacity.com/product/volthium-communications-hub/ — checked: 2026-07-31"
+    }
+  ],
+  "transport": "RJ45 · CAN · 500 kbit/s · Victron \"CAN-bus BMS\" profile · pin 7 = CAN High, pin 8 = CAN Low (Smart Bridge manual p.9) · no node address, no slave ID, no arbitration scheme documented",
+  "reports": [
+    "state-of-charge",
+    "battery-voltage",
+    "battery-current"
+  ],
+  "models": [
+    {
+      "name": "Communication HUB (Solacity VLT-181-127, $105.00 CAD, checked: 2026-07-31)"
+    },
+    {
+      "name": "Smart Bridge ACC-SBRIDGE / ACC-SBRIDGE-RJ45 (Solacity VLT-181-137 $199.98 CAD; Rematek-Energie 40-VH036, dealer pricing, checked: 2026-07-31)"
+    }
+  ],
+  "refutedOnReview": "REFUTED as a dialect, though the citations themselves are sound.  WHAT CHECKS OUT. Both PDFs exist and are byte-identical to the live originals: docs/volthium-dongle-connection-manual.pdf (9 pp., sha256 f50cc347…) matches the cited volthium.com URL exactly, and docs/volthium-smart-bridge-manual-en.pdf (9 pp., sha256 77f7c194…) matches solacity.com/docs/Volthium/User-manual_Smart-Bridge_EN.pdf exactly. Both quotes are",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "There is no frame map. Both manuals document the wire, the bit rate and the profile NAME, and nothing else. No CAN identifier, no byte offset, no scale, no sign convention appears in either PDF. A driver cannot be written from these documents; only a GX device can be pointed at them.",
+    "The realistic route for Cabin Hub is the GX, not the CAN bus. The Dongle Connection manual p.9 shows the Venus OS device list with the bank present as a battery service named \"HUB-RS485  99%  13.03V  16.4A\". That is the entire published evidence for `reports` on this dialect — a screenshot, not a spec table. Cabin Hub ",
+    "Which GX port to use differs by GX model, and the vendor states it per model (see sharedMapEvidence). Getting this wrong is silent: the bank simply never appears.",
+    "Termination rules differ between the two modules and this is the wiring trap. Smart Bridge manual p.8: \"Note: 120 Ohms termination is on the board. 1) No external termination needed. 2) Note: The SmartBridge must be at one end of the CAN network.\" The Communication HUB path is the opposite — the Dongle manual instructs",
+    "On the Communication HUB path the supplied VE.CAN flat cable (SKU ACC-CABLE-COMMHUB-VENUS-6P) is directional: \"It is very important that the cable's end with the Venus OS tag is plugged into the Victron device. The connection direction of the cable is very important.\" The same manual says twice, in capitals, DO NOT use"
+  ]
+}

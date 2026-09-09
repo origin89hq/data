@@ -1,0 +1,42 @@
+{
+  "id": "epever-ebox-wifi-01-bridge",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "community-crosschecked",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "epever-com-upload-cert-file-1904-ebox-wifi-01-sms-el-v1",
+      "citation": "EPEVER/Beijing EPSolar, PRODUCT INTRODUCTION eBox-WIFI-01 — WIFI Serial Server, V1.0 — committed at docs/epever-ebox-wifi-01-datasheet-v1.0.pdf (source https://www.epever.com/upload/cert/file/1904/eBox-WIFI-01-SMS-EL-V1."
+    },
+    {
+      "source": "github-com-gabrielpc1190-home-assistant-epever-ebox-wifi-01-modbus",
+      "citation": "https://github.com/gabrielpc1190/Home-Assistant_EPEver-eBox-Wifi-01-MODBUS — port 8088, slave 1, type tcp and rtuovertcp, register 12544/13082"
+    },
+    {
+      "source": "community-home-assistant-io-t-epever-modbus-rs-485-config-214397-80",
+      "citation": "https://community.home-assistant.io/t/epever-modbus-rs-485-config/214397/80 — independent user: rtuovertcp, port 8088, station mode; separate report of slave ID 10"
+    }
+  ],
+  "seeAlso": [
+    "epever-ebox-wifi-01"
+  ],
+  "transport": "In: RS-485 over RJ45, self-powered from the port's +5 V, vendor default 115200 baud (settable 300–230400). Out: WiFi, TCP socket on port 8088 carrying Modbus RTU frames (community-reported, not in the vendor datasheet). Slave ID is the attached device's, not the adapter's — 1 for a Tracer/XTRA controller, 3 for an EPEver inverter.",
+  "models": [
+    {
+      "name": "eBox-WIFI-01"
+    }
+  ],
+  "gotchas": [
+    "It defines no register map. It is a transport that carries the existing epever-tracer-a and epever-inverter-v1 maps unchanged — the community configs read input register 12544 (0x3100) through it and 13082 (0x331A) for battery voltage, which are exactly the addresses xtra.rs already uses. That is why it is not a new di",
+    "CONTRADICTION on framing. gabrielpc1190's Home Assistant README publishes both `type: tcp` (Modbus TCP, MBAP header) and `type: rtuovertcp` against port 8088. An openHAB thread states flatly that the eBox is *not* a true Modbus TCP gateway and recommends replacing it with a USR-N540/USR-W610. Every working configuratio",
+    "The vendor datasheet's applicable-models table lists LS-B, VS-A, VS-BN, Tracer-A, Tracer-BN, SHI, STI (RJ45) and eTracer-AD, eTracer-BND, iTracer-ND (3.81-4P). It does **not** name XTRA-N — the series installed at this site — nor IPower/NPower. Community reports are all Tracer-AN. Whether an XTRA4210N is served is a be",
+    "Slave ID is not always 1. One HA community user found their unit answered only at slave 10. The adapter passes the address through, so the ID is whatever the attached device was set to.",
+    "AP mode is the shipped behaviour: you disconnect from your own WiFi and join the dongle's SSID. Station mode exists but is reported hidden in the web UI. Default IP 11.11.11.254, web dashboard on port 80 with admin/admin — all community-single (diysolarforum), none of it in the vendor datasheet."
+  ],
+  "unmappedReports": "The adapter's own WiFi state — link up/down (front-panel Link indicator) and RSSI/SSID on the undocumented port-80 web page. MetricKind has link-online and link-signal-quality, but DeviceKind has no kind for a comms adapter (internet-link means the WAN uplink; gateway means the hub itself). Nothing to attach it to, and nothing polls it: only the web UI shows it, and no source documents that page's format.",
+  "possibleDuplicate": true
+}

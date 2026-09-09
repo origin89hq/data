@@ -1,0 +1,49 @@
+{
+  "id": "noco-nlp-lithium",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "no-co-media-wysiwyg-downloads-user-guides-powersport-nlp-user-guide-06-02-2025",
+      "citation": "https://no.co/media/wysiwyg/downloads/User_Guides/Powersport/NLP_User_Guide_06.02.2025.pdf (vendor, covers all five models)"
+    },
+    {
+      "source": "no-co-lithium-powersport",
+      "citation": "https://no.co/lithium/powersport (checked: 2026-07-31)"
+    },
+    {
+      "source": "thecabindepot-ca-collections-noco",
+      "citation": "https://thecabindepot.ca/collections/noco (checked: 2026-07-31)"
+    }
+  ],
+  "models": [
+    {
+      "name": "NLP5"
+    },
+    {
+      "name": "NLP9"
+    },
+    {
+      "name": "NLP14"
+    },
+    {
+      "name": "NLP20"
+    },
+    {
+      "name": "NLP30"
+    }
+  ],
+  "refutedOnReview": "Sources are genuine, but they refute the claim rather than support it.  VERIFIED TRUE: The PDF (NLP_User_Guide_06.02.2025.pdf) exists and was fetched and text-extracted locally. All five models (NLP5/9/14/20/30) appear 102 times each. The \"Battery Fitment\" table lists them as rows with OEM equivalents and spacer hardware. The \"Dynamic BMS.\" section and the Technical Specifications table are written once for the whole",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "THIS IS NOT A HOUSE BANK. NLP5 is 2 Ah, NLP30 is 7.8 Ah. They are powersport starter batteries (400-700 A cranking, 38-100 Wh). They belong in no-comms.md under batteries for inventory, not in can-bms.md, and the presence of a BMS must not be mistaken for the presence of a bus. The BMS is internal, sealed, and has no p",
+    "Charging below -10 °C is refused by the BMS. Relevant to a Quebec cabin: the battery is not broken in February, it is cold. Nothing reports why.",
+    "kind is `battery` — passive gear, ratings only.",
+    "The Cabin Depot stocks all five (CA$125.99-$315.99, checked: 2026-07-31), which is the single largest NOCO SKU presence found at any Quebec-region seller."
+  ],
+  "unmappedReports": "Everything the BMS knows: per-cell balance, over-charge / over-discharge / over-current / short-circuit / over-temperature / under-temperature fault state, and the -10 °C charge inhibit and 60 °C cutout. The contract has `battery-voltage`, `battery-temperature`, `state-of-charge`, `state-of-health`, `cycle-count` — the NLP publishes none of them anywhere., BMS disconnect state. A NOCO NLP that has tripped looks electrically identical to a dead battery, and there is no metric, no indicator and no reset. The guide says the BMS \"automatically recovers from fault conditions without user intervention\", which is also the reason there is nothing to read."
+}

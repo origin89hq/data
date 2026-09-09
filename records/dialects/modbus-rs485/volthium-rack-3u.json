@@ -1,0 +1,54 @@
+{
+  "id": "volthium-rack-3u",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "volthium-com-wp-content-uploads-2024-08-en-51-2-100-r-3u-c-manual",
+      "citation": "Volthium user manual EN_51.2-100-R-3U-C — https://volthium.com/wp-content/uploads/2024/08/EN_51.2-100-R-3U-C-Manual.pdf (valid for 51.2-100-R-3U-C and 51.2-100-R-H-3U-C; §3.3.3.2 pinout, §3.3.3.3 DIP addressing, Integrat"
+    },
+    {
+      "source": "volthium-com-wp-content-uploads-2024-05-en-20250305-25-6-200-r-h-3u-manual-1",
+      "citation": "Volthium user manual EN_20250305 25.6-200-R-H-3U — https://volthium.com/wp-content/uploads/2024/05/EN_20250305-25.6-200-R-H-3U-Manual-1.pdf. Local copy: .../scratchpad/rack256_3u.pdf"
+    },
+    {
+      "source": "sol-ark-com-wp-content-uploads-2024-06-sk140-0026-004-en-manual",
+      "citation": "Sol-Ark Battery Integration Guide, Low Voltage 48V Residential, SK140-0026-004, © 2025 — https://www.sol-ark.com/wp-content/uploads/2024/06/SK140-0026-004-EN-Manual.pdf, pp. 11 and 32-33 (Volthium Energy 51.2-100-R)"
+    }
+  ],
+  "transport": "RS-485 over RJ45 · 9600 or 115200 8N1, selected by DIP 1 (ON = 115200, OFF = 9600) · no default slave ID published — the pack advertises \"automatic dynamic addressing\" in parallel · alternatively CAN on a second RJ45, 500 kbit/s for the Victron profile",
+  "models": [
+    {
+      "name": "51.2-100-R-3U-C (51.2 V 100 Ah rack, 5.12 kWh)"
+    },
+    {
+      "name": "51.2-100-R-H-3U-C (51.2 V 100 Ah rack, self-heating)"
+    },
+    {
+      "name": "51.2-100-R-H-ST-3U-C (retail SKU; -ST not named in the manual)"
+    },
+    {
+      "name": "25.6-200-R-H-3U (25.6 V 200 Ah rack, self-heating; retail SKU 25.6-200-RH-3U-C)"
+    },
+    {
+      "name": "5kW 51,2V chauffante Rackmount 3U (retail name; = 51.2-100-R-H-3U-C by voltage/capacity/form factor)"
+    },
+    {
+      "name": "51.2V 100Ah Rackmount 3U 5.12 kWh (retail name; = 51.2-100-R-3U-C or -R-H-3U-C)"
+    }
+  ],
+  "refutedOnReview": "REFUTED as a register-map dialect, though most of the underlying document evidence is genuine.  VERIFIED TRUE: - EN_51.2-100-R-3U-C manual §1.1 says verbatim \"This document is valid for: 51.2-100-R-3U-C Battery Pack and 51.2-100-R-H-3U-C Battery Pack\" (vt_rack512_3u.txt:92). The 25.6 manual says \"This document is valid for:25.6-200-R-H-3U Battery Pack\" (vt_rack256_3u.txt:92). - I re-ran the diff of §3.3.3.2 (RJ45 pin",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "No register map exists. I grepped all four Volthium rack/pack manuals plus the dongle and Smart Bridge manuals for register addresses, function codes or CAN IDs: zero hits. Volthium publishes transport, pinout, baud and DIP settings and nothing else. reports and accepts are therefore empty — not because the pack report",
+    "The pack does not speak a Volthium protocol. DIP 2-3 (RS-485) and DIP 6-7 (CAN) select which third-party inverter protocol the BMS *emulates*. RS-485 protocol IDs: 0 = Voltronic/MPP/Alpha outback/Phocos/Kodak, 1 = Sol-Ark/SRNE, 2 = LUX power, 3 = Schneider. CAN protocol IDs: 0 = Victron/SMA/Studer Innotec/Sofar, 1 = So",
+    "Only the master battery's Protocol ID is set; slaves keep the default. A new DIP sequence needs a restart to take effect.",
+    "RS-485 RJ45 pinout: 1 = RS485-B1, 2 = RS485-A1, 3 = SGND, 6 = SGND, 7 = RS485-A1, 8 = RS485-B1 (A and B appear on two pin pairs). CAN RJ45 pinout: 3 = SGND, 4 = CAN-H, 5 = CAN-L, 6 = SGND. Pins 1, 2, 7, 8 are unused on the CAN port.",
+    "The BMS terminates BOTH ends of the CAN bus internally. The 51.2 V manual says so explicitly: \"The BMS inside the battery pack will automatically terminate BOTH end of CANBUS pins, DO NOT ...\" — adding an external terminator will over-terminate the segment."
+  ],
+  "unmappedReports": "dry-contact output 1 — charge enable/disable passive signal (§3.3.3.1). No MetricKind and no CommandKind; set-switch is the wrong semantic., dry-contact output 2 — discharge enable/disable passive signal. Same gap., Rapid Shut Down input (US market). No CommandKind., ALM pin / alarm-vs-protection state. There is ChargeStage::Fault but no fault-code or protection-bitmask MetricKind., M/S master-or-slave role in a parallel cluster. No MetricKind; matters because only the master carries the inverter link."
+}

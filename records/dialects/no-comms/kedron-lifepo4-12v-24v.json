@@ -1,0 +1,58 @@
+{
+  "id": "kedron-lifepo4-12v-24v",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "thecabindepot-ca-products-kedron-12v-lifepo4-100ah",
+      "citation": "https://thecabindepot.ca/products/kedron-12v-lifepo4-100ah (checked: 2026-07-31)"
+    },
+    {
+      "source": "thecabindepot-ca-products-kedron-12v-lifepo4-200ah",
+      "citation": "https://thecabindepot.ca/products/kedron-12v-lifepo4-200ah (checked: 2026-07-31)"
+    },
+    {
+      "source": "thecabindepot-ca-products-kedron-12v-lifepo4-300ah-1",
+      "citation": "https://thecabindepot.ca/products/kedron-12v-lifepo4-300ah-1 (checked: 2026-07-31)"
+    }
+  ],
+  "models": [
+    {
+      "name": "KEDRON 12V 100AH LiFePO4 — $299.00, 37 lb, Group 27/31 drop-in, 1280 Wh (checked: 2026-07-31)"
+    },
+    {
+      "name": "KEDRON 12V 200AH LiFePO4 — $579.00, 29.5 kg / 65 lb, 100 A max charge and discharge (checked: 2026-07-31)"
+    },
+    {
+      "name": "KEDRON 12V 300AH LiFePO4 — $849.00, ~3.8 kWh, up to 100 A charge, 14.6 V recommended charge (checked: 2026-07-31)"
+    },
+    {
+      "name": "KEDRON 12V 400AH LiFePO4 — $1249.00 (checked: 2026-07-31)"
+    },
+    {
+      "name": "KEDRON 24V 100AH LiFePO4 — $699.00, 20 kg / 44 lb, 2.56 kWh (checked: 2026-07-31)"
+    },
+    {
+      "name": "KEDRON 24V 200AH LiFePO4 — $1199.00 (checked: 2026-07-31)"
+    },
+    {
+      "name": "KEDRON 24V 300AH LiFePO4 — $1499.00, 7.68 kWh (checked: 2026-07-31)"
+    },
+    {
+      "name": "KEDRON 24V 400AH LiFePO4 — $1999.00, 10.24 kWh (checked: 2026-07-31)"
+    }
+  ],
+  "refutedOnReview": "Refuted as a dialect, not as a set of facts. All eight cited Cabin Depot URLs resolve, name the exact Kedron model, and match the quoted prices/weights/capacities; none mentions RS-485, RS-232, CAN, Modbus, Bluetooth, an app, or any port. So the underlying observation is sound — but nothing in any of the eight sources states a register address, scale, bit meaning, baud rate, or slave ID. There is no register map to s",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "The 'no comms' verdict rests on silence, not on a manufacturer saying so. There is no Kedron datasheet, manual, or protocol document for any of the eight — every product page was checked for a PDF link on 2026-07-31 and none has one. Only the 48 V wall mount has a manual.",
+    "The listing copy is machine-written and should be weighted accordingly. The page HTML carries the comment 'Author: Gemini · Date: Jan 2026 · Context: The Cabin Depot Ltd. Product Description' on six of the eight. A generated marketing description omitting a comms port is very weak evidence that the hardware lacks one.",
+    "Drop-in LiFePO4 in this price class routinely ships a Bluetooth BMS (JBD / Jiabaida, JiKong, Daly and their clones) with no mention on the sales page. If one of these lands on a bench, scan for a BLE advertisement before concluding the pack is mute — that is the cheapest possible way to turn this row into a real dialec",
+    "Nothing from the 48 V wall mount carries over. Different model number, different certification set, different vendor documentation, different form factor, and it is the only Kedron battery with any published protocol content. Do not let 'same brand' pull these onto that dialect.",
+    "Practical consequence for Cabin Hub: a Kedron 12 V or 24 V bank is reached indirectly or not at all. battery-voltage, battery-current, battery-power and state-of-charge would come from a shunt or the charge controller watching the bank, never from the battery — and state-of-charge inferred from LiFePO4 terminal voltage"
+  ]
+}

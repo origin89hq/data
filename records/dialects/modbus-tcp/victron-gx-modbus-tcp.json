@@ -1,0 +1,79 @@
+{
+  "id": "victron-gx-modbus-tcp",
+  "family": "modbus-tcp",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "github-com-victronenergy-dbus-modbustcp",
+      "citation": "docs/victron-gx-modbus-tcp-register-list.xlsx — Victron ModbusTCP Register list, from Victron's own repository https://github.com/victronenergy/dbus_modbustcp. Sheets: Field list (1010 rows − 2 header = 1008 registers), "
+    },
+    {
+      "source": "the-repository-s-live-attributes-csv-currently-carries-1194",
+      "citation": "The repository's live attributes.csv currently carries 1194 data rows against the committed sheet's 1008. The provenance is real but this is lineage, not a byte-identical file — the vendor's map has moved on."
+    },
+    {
+      "source": "victronenergy-com-live-ccgx-modbustcp-faq",
+      "citation": "https://www.victronenergy.com/live/ccgx:modbustcp_faq — GX Modbus-TCP manual/FAQ. Re-read 2026-07-31."
+    }
+  ],
+  "transport": "Ethernet or WiFi · Modbus TCP · TCP port 502 · unit-id selects the D-Bus service (unit-id 100 = com.victronenergy.system; any other unit-id is that attached device's D-Bus device instance) · OFF by default, enabled only at the device in Settings → Services/Integrations → Modbus TCP",
+  "blocks": "1008 registers keyed on D-Bus service name. System 800–918 · ESS/DVCC 2700–2722, 2900–2903 · gps 2800–2808 · tank 3000–3010 · genset (third-party) 3200–3250 and 5200–5350 · temperature 3300–3320 · digitalinput 3420–3430 · generator 3500–3512 · meteo 3600–3610 · pump 4700–4704 · multi 4531–4614 · acsystem 4921–4925 · Dynamic ESS 5400–5423 · system name 5700. Per-attached-device blocks for vebus, solarcharger, battery, inverter, multi, acsystem, grid, pvinverter, evcharger, alternator, dcdc, charger, genset, fuelcell, heatpump.",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "battery-power",
+    "state-of-charge",
+    "consumed-amp-hours",
+    "time-to-go",
+    "pv-power",
+    "ac-power",
+    "ac-voltage",
+    "ac-current",
+    "ac-frequency",
+    "ac-power-factor",
+    "switch-state",
+    "generator-run-state",
+    "generator-run-hours",
+    "temperature",
+    "humidity",
+    "pressure",
+    "tank-level",
+    "tank-volume",
+    "pv-irradiance"
+  ],
+  "accepts": [
+    "set-switch",
+    "start-generator",
+    "stop-generator",
+    "set-charge-current-limit",
+    "reset-counter"
+  ],
+  "models": [
+    {
+      "name": "Cerbo GX (BPP900450100) — 2 Quebec listings, checked: 2026-07-31"
+    },
+    {
+      "name": "Cerbo GX MK2 (BPP900450110 / BPP900451100) — 2 Quebec listings, checked: 2026-07-31"
+    },
+    {
+      "name": "Cerbo-S GX (BPP900450120) — 1 Quebec listing, checked: 2026-07-31"
+    },
+    {
+      "name": "Ekrano GX (BPP900480100) — up to 4 Quebec listings (2 by name, 2 by part number; the same retailer may appear in both rows), checked: 2026-07-31"
+    }
+  ],
+  "sharedMapEvidence": "Four independent strands, none of them 'same vendor'. (1) The vendor workbook's Field list header is exactly `dbus-service-name, description, Address, Type, Scalefactor, Range, dbus-obj-path, writable, dbus-unit, Remarks` — there is no model column anywhere in the sheet; the map is indexed by D-Bus service, not by model. (2) Verified a layer deeper: `attributes.csv` in Victron's own `dbus_modbustc",
+  "gotchas": [
+    "A Digital Multi Control panel on the VE.Bus silently defeats two of the four writes. The workbook's own Remarks column on register 22 (Active input current limit, int16, sf=10, writable) and register 33 (Switch Position, uint16, writable, 1=Charger Only;2=Inverter Only;3=On;4=Off) both read: 'See Venus-OS manual for li",
+    "Relay 2 on a Cerbo GX cannot start a generator. Cerbo GX manual technical-specifications footnote (5), verbatim: 'In Cerbo GX hardware there are two relays. Currently, Relay 1 can be used for programming as an alarm relay, generator start/stop, tank pump, temperature controlled relay or manual operation. Relay 2 is ava",
+    "Register 807 carries the workbook remark 'Relay 1 is available on Venus GX only.' and is a labelling trap in its own right: its description reads 'CCGX Relay 2 state' while its dbus-obj-path is /Relay/1/State. The label is 1-based, the path is 0-based. Trust the path.",
+    "The register list contradicts itself on unit-ID stability, and both sides are vendor text. The `Unit ID mapping` sheet: 'Please note that since Venus version 2.60, Unit Ids are assigned dynamically.' The GX Modbus-TCP FAQ, re-read 2026-07-31: 'Will unit-id's change after a reboot or loss of power? No.' Recorded, not re",
+    "The workbook does give a rule worth having: 'In general the unit ID will be equal to the device instance, except when the device instance exceeds 247. If the device instance is 0 you can use both 0 and 100 as unit ID.' Victron recommends 100 because many Modbus TCP clients cannot send unit-id 0. The device-instance-ove"
+  ],
+  "unmappedReports": "Active input source (826: 0=Unknown, 1=Grid, 2=Generator, 3=Shore power, 240=Not connected) — no MetricKind and no ValueKind for an AC source selector, Battery state (844: 0=idle, 1=charging, 2=discharging) — ChargeStage cannot express 'discharging', DC System Power (860) — DC loads that are neither battery nor charger, Charger power (855) and VE.Bus charge power (866) — DC watts into the bank; load-power and ac-power both mean something else, Inverter/Charger current and power (868/870) — signed and bidirectional; no MetricKind distinguishes inverter throughput from load, Grid import/export (820–822, 908–918, signed) — no grid-power MetricKind, and the sign convention carries the import/export meaning, Generator: condition that started it (3501), quiet hours active (3503), remote error (3507), not-detected-at-AC-input alarm (3508), service countdown (3510), auto-start enabled (3215/3509), status code (3213), error code (3214) — and note the contract defines generator-start-count and generator-fuel-remaining for which this map has NO register at all, Genset engine telemetry (3216–3224, 3228, 5207–5216): engine load %, engine speed RPM, coolant / winding / exhaust / oil temperature, oil pressure kPa, starter battery voltage — none has a MetricKind, Dynamic ESS 5400–5423 — state, allow grid feed-in, calculated rate of charge/discharge, error, active restrictions, strategy, target SOC, GPS 2800–2808 — latitude, longitude, course, speed, satellites, altitude, meteo 3601 wind speed and 3602 cell temperature (pv-irradiance covers 3600 only), digitalinput 3420 pulse count, 3423 alarm, 3424 type (door, bilge pump, bilge alarm, burglar alarm, smoke alarm, fire alarm, CO2 alarm, generator); switch-state is boolean-only and cannot carry the 11-value state enum at 3422, pump 4700 Pump State (0=Stopped, 1=Running) — the RunState ValueKind exists but there is no pump-run-state MetricKind; only pump-run-hours exists, and this map has no run-hours register for the pump, heatpump 5501 state, 5506 current medium temperature, 5507 target temperature — no target-temperature MetricKind, temperature service 3307 sensor battery voltage, 3309 CO2 ppm, 3310 lux, 3312 NOx index, 3313 PM2.5 ug/m3, 3314 VOC index — ppm, lux and ug/m3 are all absent from Unit as well as from MetricKind, SHAPE MISMATCH — per-phase AC (L1/L2/L3): registers 817–825, 872–918 and 3200–3208 are per-phase while ac-power, ac-voltage and ac-current are single-valued. A split-phase 120/240 V cabin loses the phase split, SHAPE MISMATCH — AC-coupled vs DC-coupled PV: 808–816 and 884–900 are AC-coupled PV inverter output, 850/851 are DC-coupled MPPT output. Both collapse onto pv-power and their sum is not the same physical quantity, SHAPE MISMATCH — tank 3003 fluid type and 3007 tank status (OK / open circuit / short circuited / reverse polarity / unknown): no MetricKind for sensor health. Tank capacity and remaining are m3 while Unit::Litre is the contract unit, a factor-1000 conversion, Device metadata, arguably correct to have no MetricKind: System time UTC (830), GX firmware major version (834), GX firmware beta release (835), Serial (800), System Name (5700), Custom Name (3250/5350)",
+  "refiledFrom": "lan-http"
+}

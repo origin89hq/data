@@ -1,0 +1,55 @@
+{
+  "id": "seaflo-dc-pressure-switch",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "community-single",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "manuals-plus-ae-1005002661407706",
+      "citation": "SEAFLO 51 Series Instruction Manual (SFDP1-050-060-51 / SFDP2-050-060-51 and 115 V/220 V variants) — https://manuals.plus/ae/1005002661407706"
+    },
+    {
+      "source": "manuals-plus-seaflo-52-diaphragm-pump-manual",
+      "citation": "SEAFLO 52 Diaphragm Pump User Manual (52 & 54 Series) — https://manuals.plus/seaflo/52-diaphragm-pump-manual"
+    },
+    {
+      "source": "manualslib-com-manual-2142709-seaflo-51-series",
+      "citation": "SEAFLO 51 Series manual, covers 51/52/54 — https://www.manualslib.com/manual/2142709/Seaflo-51-Series.html"
+    }
+  ],
+  "transport": "Two power leads only — red (+), black (-), 12 V or 24 V DC, 14 AWG, ~13 in / 33 cm. No signal terminal, no bus, no connector beyond the 2-pin power lead. Control is a mechanical pressure switch inside the pump head, adjusted with a 2 mm Allen key.",
+  "blocks": "Nothing to poll and nothing to command. There is no register map to find, so no driver is possible against the pump itself. Any Cabin Hub integration is against a relay upstream of it and a shunt or meter beside it — those are the relay's and the meter's dialects, not SEAFLO's.",
+  "models": [
+    {
+      "name": "51 Series 12V 5GPM diaphragm pump 60PSI (SFDP1-050-060-51)"
+    },
+    {
+      "name": "51 Series 12V 5.5GPM water pressure system"
+    },
+    {
+      "name": "52 Series 12V/24V 4-5GPM diaphragm pump 60PSI"
+    },
+    {
+      "name": "53 Series 12V/24V 7GPM diaphragm pump 60PSI (SFDP1-070-060-53)"
+    },
+    {
+      "name": "42 Series 24V 3-5GPM diaphragm pump 55PSI"
+    },
+    {
+      "name": "12V 7.0 GPM 60 PSI continuous duty pump (model number not confirmed)"
+    }
+  ],
+  "sharedMapEvidence": "Grouped on a shared ABSENCE of a map, not a shared map — this must not be read as a register-map claim. The grouping is nonetheless documented rather than assumed: SEAFLO's own 51 Series instruction sheet covers SFDP1-050-060-51, SFDP2-050-060-51, SFDP1-040-060-51, SFDP2-040-060-51, SFDPA1-050-060-51 and SFDPA2-050-060-51 under one document with one electrical section; SEAFLO's 52 Series manual co",
+  "downgradedOnReview": "The substantive claim survives: every cited source exists and says what is claimed about the absence of a data interface. The 51 Series manual (manuals.plus/ae/1005002661407706) names SFDP1-050-060-51 explicitly and gives leads as \"14 AWG, 13\\\" (33 cm) long with 2-Pin connector\" with no RS485/Modbus/CAN. The 52 Series manual covers 52 & 54 Series and the quoted wiring line is verbatim-accurate (2-wire DC, 40 A fuse).",
+  "gotchas": [
+    "SEAFLO publishes no protocol document for any pump, because there is no protocol. Its public Downloads page (seaflo.com, tid=332) offers exactly four items: the 2026 Marine Equipment Catalog, the 2026 Marine Lighting Catalog, the 2026 Ultrasonic Defense System Catalog and the 2025 RV Equipment Catalog. No wiring, proto",
+    "The pressure switch is the only intelligence in the pump and it is not electrically accessible. It is in series inside the head; it does not present its state on a terminal.",
+    "Cutting the supply with a relay is safe on this group specifically BECAUSE the pressure switch is internal — the pump self-regulates whenever it has power, so a relay only has to decide 'water system live / dead'. That is not true of the bare-motor group; do not carry the habit across.",
+    "SEAFLO's 52 Series manual calls for a 40 A fuse. Do not size the relay or the wiring off the retailer's GPM headline.",
+    "The '12V 7.0 GPM 60 PSI continuous duty pump' seen at one retailer matches the 53 Series 12V spec (7 GPM / 60 PSI) exactly. That is a coincidence-shaped match, not evidence — no source names them as the same part. Left as its own line until a model number is seen on a label."
+  ],
+  "unmappedReports": "water-system pressure in PSI / bar — NOT reported by these pumps (the switch acts on it internally and exposes nothing). Recorded because Cabin Hub has no wire name for it either: MetricKind::Pressure is Unit::Hectopascal, a barometric shape. A water-pressure transducer added later has nowhere to land., pump cycle count / duty cycle — not reported by the pump; also has no MetricKind. `pump-run-hours` exists, `flow-rate` exists, but a rapid-cycling pump (the classic failure signature) has no wire name., dry-run / no-prime fault — not reported by the pump; no MetricKind and no fault channel for a pump."
+}

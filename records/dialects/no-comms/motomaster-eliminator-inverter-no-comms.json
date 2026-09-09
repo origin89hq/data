@@ -1,0 +1,45 @@
+{
+  "id": "motomaster-eliminator-inverter-no-comms",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "manualslib-com-manual-2083662-motomaster-eliminator-011-2102",
+      "citation": "MotoMaster Eliminator 011-2102-0 Instruction Manual (Canadian Tire) — covers 011-2100-4 (1100 W), 011-2101-2 (2000 W), 011-2102-0 (4000 W). Read at https://www.manualslib.com/manual/2083662/Motomaster-Eliminator-011-2102"
+    },
+    {
+      "source": "manualslib-com-manual-2541561-motomaster-eliminator-011-2103-8",
+      "citation": "MotoMaster Eliminator 011-2103-8 Instruction Manual (Canadian Tire) — covers 011-2103-8 (1500 W) and 011-2104-6 (3000 W). Read at https://www.manualslib.com/manual/2541561/Motomaster-Eliminator-011-2103-8.html"
+    },
+    {
+      "source": "manualslib-com-products-motomaster-eliminator-pure-sine-011-2103-8-12368114",
+      "citation": "https://www.manualslib.com/products/Motomaster-Eliminator-Pure-Sine-011-2103-8-12368114.html (16-page PDF, same manual)"
+    }
+  ],
+  "blocks": "Nothing to build. Two Canadian Tire instruction manuals covering five part numbers between them document no RS-232, RS-485, Modbus, CAN, Bluetooth or WiFi port on any of these units. There is no register map to find because there is no bus. A driver author should stop here.",
+  "models": [
+    {
+      "name": "Eliminator Power Inverter 1100 W (CT 0112100p; unit marking 011-2100-4)"
+    },
+    {
+      "name": "Eliminator Pure Sine Wave Power Inverter 1500 W (CT 2995299p; manual 011-2103-8)"
+    },
+    {
+      "name": "Eliminator Pure Sine Wave Power Inverter 3000 W (unit marking 011-2104-6; CT 0112104p)"
+    }
+  ],
+  "refutedOnReview": "Partially refuted — one of the three named models is misidentified, and its cited source does not name it.  VERIFIED (both manuals exist and say what is claimed): - https://www.manualslib.com/manual/2083662/Motomaster-Eliminator-011-2102-0.html — real, covers 011-2100-4 (1100 W), 011-2101-2 (2000 W), 011-2102-0 (4000 W). Remote Control Receptacle on the rear panel plus two 2.4 A USB power ports. No Modbus, RS-232, RS",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "PROVENANCE CAVEAT: both manuals were read through manualslib mirrors, not from canadiantire.ca. canadiantire.ca returns HTTP 403 to automated fetch and media.canadiantire.ca did not resolve from this environment. The content is the vendor's own instruction manual, hence the vendor-doc tag, but no PDF has been committed",
+    "The 'wired remote' in every product title is an LED indicator plus a push button on a 20 ft (6 m) cable that plugs into a Remote Control Receptacle on the rear panel. It is a switch, not a data link. Neither manual states the connector type, wire count, or pin functions — do not guess them.",
+    "CONTRADICTION with the discovery pass, recorded rather than resolved: the brief lists 011-2103-8 as the 3000 W's manual. The manual itself calls 011-2103-8 the 1500 W continuous / 3000 W surge model and 011-2104-6 the 3000 W. Both statements can hold at once because the manual is shared between the two models, but the ",
+    "Canadian Tire SKU 2995299p (1500 W) is tied to unit marking 011-2103-8 by the discovery note only. No document printing both numbers was found. The no-comms finding is safe regardless; the SKU identity is not established.",
+    "The two USB ports on 011-2103-8 / 011-2104-6 are QC3.0 charging only (5 V/3 A, 9 V/2 A, 18 W max). Not a data interface. Do not read 'USB port' on a spec sheet as a comms claim."
+  ],
+  "unmappedReports": "Inverter shutdown/alarm reason (over-temperature, high-battery, low-battery, overload) — shown on the unit's own LCD per both manuals. No MetricKind carries an inverter fault or alarm state; ChargeStage::Fault is a charger stage, not an inverter one. Screen-only here, so nothing is lost on these models — recorded as a contract gap that will bite on the first inverter that does talk., LCD 'battery level' bar — a voltage-derived estimate. state-of-charge exists and would fit at quality=inferred. Screen-only., Output wattage / input voltage / output voltage on the LCD — these map cleanly to ac-power, battery-voltage, ac-voltage. Listed only to record that they are on glass, not on a wire."
+}

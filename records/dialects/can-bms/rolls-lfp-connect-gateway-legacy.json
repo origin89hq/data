@@ -1,0 +1,47 @@
+{
+  "id": "rolls-lfp-connect-gateway-legacy",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "rollsbattery-com-wp-content-uploads-2019-10-lfp-connect-card-victron-energy",
+      "citation": "LFP CONNECT CARD VICTRON ENERGY USER MANUAL, PN LFP-CCRD-VCTRN (https://rollsbattery.com/wp-content/uploads/2019/10/LFP-Connect-Card-Victron-Energy.pdf)"
+    },
+    {
+      "source": "rollsbattery-com-wp-content-uploads-2019-11-rolls-s24-2800lfp-s48-6650lfp-ess-operating-manual",
+      "citation": "Rolls S24-2800LFP & S48-6650LFP ESS Operating Manual (https://rollsbattery.com/wp-content/uploads/2019/11/Rolls-S24-2800LFP-S48-6650LFP-ESS-Operating-Manual.pdf) — referenced, not read; the comms chapter has not been che"
+    },
+    {
+      "source": "thecabindepot-ca-products-rolls-48v-6-65kwh-lifepo4-battery-s48-6650lfp",
+      "citation": "https://www.thecabindepot.ca/products/rolls-48v-6-65kwh-lifepo4-battery-s48-6650lfp — still stocked. checked: 2026-07-31"
+    }
+  ],
+  "transport": "Two hops, and neither is direct. Battery ↔ LFP Connect gateway over a proprietary 'AEBus' RJ-45 link (rate and framing never stated). Gateway ↔ Victron over a straight CAT5 from the LFP Connect Card for Victron (a Slot 0 card, left-hand slot only) into VE.Can port A on a CCGX/Venus GX, terminated in port B, with the GX set to CANbus profile 'VE.Can & CAN-bus BMS (250 kbit/s)'.",
+  "reports": [
+    "state-of-charge",
+    "battery-voltage",
+    "battery-current"
+  ],
+  "models": [
+    {
+      "name": "S24-2800LFP ESS"
+    },
+    {
+      "name": "S48-6650LFP ESS"
+    }
+  ],
+  "refutedOnReview": "REFUTED. Both cited PDFs exist and are correctly attributed, but I read both in full and neither contains a register map, so there is nothing for the two models to \"share.\"  1. LFP CONNECT CARD VICTRON ENERGY USER MANUAL (PN LFP-CCRD-VCTRN) — fetched and text-extracted, 10 pages, complete. It contains ZERO register addresses, zero Modbus registers, zero CAN IDs/PGNs, no slave/node ID, and no baud rate for the Rolls s",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "250 kbit/s, not 500. The legacy generation runs the GX on 'VE.Can & CAN-bus BMS (250 kbit/s)'; the current S48-100LFP ESS and STACK-LV run BMS-CAN at 500 kbit/s. Same vendor, same battery chemistry, half the bit rate. This alone makes it a separate dialect and it is a documented fact, not an inference.",
+    "There is no direct wire from the battery. Closed loop requires the LFP Connect gateway plus a brand-specific LFP Connect Card, and the battery-side link is a proprietary bus called AEBus. Cabin Hub cannot listen to this battery without the vendor's own hardware in the path.",
+    "The manual warns not to plug the AEBus RJ-45 terminator into the gateway's 10/100 ethernet port, and not to run the ethernet port to a router WAN/modem port. Both are RJ45 and both will damage equipment. Same shape, different bus — the recurring hazard across this whole catalogue.",
+    "'VE.Can MPPTs cannot be used and are not yet supported' in this configuration.",
+    "Still sold: The Cabin Depot lists a 'Rolls 48V 6.65kWh LiFePO4 Battery S48-6650LFP'. So this is not purely historical — a Quebec cabin could have one bought recently. checked: 2026-07-31"
+  ],
+  "unmappedReports": "charge-voltage-limit / charge-current-limit / discharge-current-limit — the gateway's whole purpose is publishing these to Victron DVCC and the contract cannot express any of them, BMS low-voltage threshold, which the doc warns is displayed but is not the actual discharge limit"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "dse-45xx-mkii-remote-start",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "unrecorded",
+  "sources": [
+    {
+      "source": "electrosynsc-cl-wp-content-uploads-2025-10-dse4510-mkii-dse4520-mkii-operator-manual-1",
+      "citation": "DSE \"DSE4510 MKII & DSE4520 MKII Operator Manual\" 057-260 Issue 9 https://electrosynsc.cl/wp-content/uploads/2025/10/DSE4510-MKII-DSE4520-MKII-Operator-Manual-1.pdf (checked: 2026-09-01)"
+    }
+  ],
+  "transport": "2-wire maintained dry contact (switch to negative) · open-circuit voltage: 12 V typical · current: 6 mA wetting typical · terminals 14–17 \"Configurable Digital Input A–D, Switch to negative\", 0.5 mm²; low ≤3.2 V, high ≥8.1 V, survives +60/−24 V (§2.8.1 p.17); configure as \"Remote Start On Load\" (source 1) or \"Off Load\" (25)",
+  "models": [
+    {
+      "name": "DSE4510/4520 MKII",
+      "rating": "universal genset controller",
+      "notes": "7320 uses the same input family (not read)"
+    }
+  ],
+  "gotchas": [
+    "Contact removed: \"Return Delay Timer\" then \"Cooling Timer\" then stop (p.50, §5.3.4 p.88); a re-close during return delay resumes on load.",
+    "\"If start signals are given, the input is ignored until Auto Mode is entered\" (p.85).",
+    "Electrical-trip alarms latch and need a reset (p.61)."
+  ]
+}

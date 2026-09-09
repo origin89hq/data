@@ -1,0 +1,27 @@
+{
+  "id": "victron-plugin-display",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-mppt-ve-direct-hex-protocol-rev18",
+      "citation": "docs/victron-mppt-ve-direct-hex-protocol-rev18.pdf (committed) — §'Pluggable display settings'"
+    }
+  ],
+  "transport": "Plugs into the charger's own display header. Not a network endpoint and not addressable from a gateway. Its settings are reachable only indirectly, as VE.Direct HEX registers on the host charger.",
+  "blocks": "Exposed on the host charger, not on the display: 0x0400 backlight mode (0 keypress / 1 on / 2 auto) · 0x0401 backlight intensity · 0x0402 scroll text speed (1 slow .. 5 fast) · 0x0403 setup lock · 0x0404 temperature unit (0 Celsius / 1 Fahrenheit, firmware v1.30+).",
+  "models": [
+    {
+      "name": "SmartSolar Control Display (SCC900650010)"
+    }
+  ],
+  "refutedOnReview": "REFUTED on two independent grounds.  1) The cited source exists, and the cited section exists, but neither names the model. The PDF is committed at /Users/lemarier/dev/solar/docs/victron-mppt-ve-direct-hex-protocol-rev18.pdf (32 pages; title page reads \"VE.Direct Protocol BlueSolar and SmartSolar MPPT chargers / VE.Direct protocol Rev 18\"). I decompressed its content streams and recovered the body text. The heading \"",
+  "gotchas": [
+    "Not a driver target. Recorded so nobody researches it twice. The vendor notes these registers exist 'primarily for settings migration to be used by the firmware updater'.",
+    "checked: 2026-07-31 — listed by 1 Quebec retailer."
+  ]
+}

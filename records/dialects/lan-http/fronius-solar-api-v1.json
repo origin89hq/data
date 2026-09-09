@@ -1,0 +1,77 @@
+{
+  "id": "fronius-solar-api-v1",
+  "family": "lan-http",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "fronius-com-downloads-solar-2",
+      "citation": "docs/fronius-solar-api-v1-42-0410-2012.pdf — Fronius, Operating Instructions, *Fronius Solar API V1*, document 42,0410,2012,EN, revision 021-15052025, 91 pages. Downloaded from https://www.fronius.com/~/downloads/Solar%2"
+    },
+    {
+      "source": "fronius-com-qr-link-0025",
+      "citation": "https://www.fronius.com/QR-link/0025 — vendor short link resolving to solarApiv1.zip, the OpenAPI interface specification for GEN24/Tauro/Verto client generation. Not downloaded in this pass."
+    },
+    {
+      "source": "fronius-com-en-help-center-solar-energy-solar-inverters-support-snapinverter",
+      "citation": "https://www.fronius.com/en/help-center/solar-energy/solar-inverters/support-snapinverter — establishes which inverters carry a Datamanager 2.0 and therefore reach this API at all."
+    }
+  ],
+  "transport": "Ethernet or WiFi · HTTP GET against CGI endpoints under /solar_api/v1/ at the inverter's or Datamanager's own LAN address · JSON responses, Content-Type text/javascript or application/json · HTTPS additionally offered on GEN24 firmware ≥ 1.35 with a Fronius-generated (therefore untrusted) certificate; requests from a non-private source IP are redirected to HTTPS, and the private ranges exempted ar",
+  "blocks": "Endpoints, not registers. Version probe: /solar_api/GetAPIVersion.cgi (unversioned path) returns APIVersion, BaseURL and CompatibilityRange. Under /solar_api/v1/ : GetInverterRealtimeData.cgi (Scope Device\\|System, DeviceId 0..99, DataCollection CumulationInverterData \\| CommonInverterData \\| 3PInverterData \\| MinMaxInverterData) · GetMeterRealtimeData.cgi · GetStorageRealtimeData.cgi · GetOhmPilotRealtimeData.cgi · GetSensorRealtimeData.cgi · GetStringRealtimeData.cgi · GetLoggerInfo.cgi · GetLoggerLEDInfo.cgi · GetInverterInfo.cgi · GetActiveDeviceInfo.cgi · GetArchiveData.cgi. And one exception: GetPowerFlowRealtimeData.fcgi — .fcgi, not .cgi, \"for performance reasons the URL extension is different to other Solar API requests\", no parameters, and a Version field of its own currently at 13. Field names inside the collections: PAC, SAC, IAC, UAC, FAC, IDC, IDC_2..4, UDC, UDC_2..4, DAY_ENERGY, YEAR_ENERGY, TOTAL_ENERGY, DeviceStatus (CumulationInverterData / CommonInverterData); IAC_L1..L3, UAC_L1..L3, T_AMBIENT, ROTATION_SPEED_FAN_FL/FR/BL/BR (3PInverterData); Site.P_Grid, P_Load, P_Akku, P_PV, E_Day, E_Year, E_Total, rel_SelfConsumption, rel_Autonomy, Mode, BatteryStandby, BackupMode, Meter_Location (PowerFlow); StateOfCharge_Relative, Capacity_Maximum, DesignedCapacity, Current_DC, Voltage_DC, Temperature_Cell, CycleCount_BatteryCell (Storage).",
+  "reports": [
+    "ac-power",
+    "ac-apparent-power",
+    "ac-current",
+    "ac-voltage",
+    "ac-frequency",
+    "ac-energy-today",
+    "ac-energy-total",
+    "pv-current",
+    "pv-voltage",
+    "pv-power",
+    "state-of-charge",
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "cycle-count"
+  ],
+  "models": [
+    {
+      "name": "Primo GEN24 (rating unstated by the retailer)"
+    },
+    {
+      "name": "Primo GEN24 3.8 208-240"
+    },
+    {
+      "name": "Primo GEN24 5.0"
+    },
+    {
+      "name": "Primo GEN24 6.0 / 6.0 208-240"
+    },
+    {
+      "name": "Primo GEN24 10.0 / 10.0 208-240"
+    },
+    {
+      "name": "Primo 11.4-1 208-240 (Full — Datamanager 2.0 fitted)"
+    },
+    {
+      "name": "Primo 12.5-1 208-240 (Full — Datamanager 2.0 fitted)"
+    },
+    {
+      "name": "Primo 15.0-1 208-240 (Full — Datamanager 2.0 fitted)"
+    }
+  ],
+  "sharedMapEvidence": "One vendor document, one set of URL paths, one set of channel names, for both hardware generations — and it says so explicitly rather than leaving it to be inferred. 42,0410,2012 §2.4: \"On GEN24/Tauro/Verto having version less than 1.35, Datamanagers, Snap Inverters and Symo Hybrids only HTTP requests can be handled\" — one sentence covering all four platforms with one behaviour. Every request sect",
+  "gotchas": [
+    "THE SAME FIELD MEANS DIFFERENT THINGS ON THE TWO GENERATIONS. Site.P_PV, verbatim: \"On GEN24 and SymoHybrid: reports production on DC side (PV generator). On SnapInverter: is ident to power generated on AC side (ac power output).\" DC before conversion losses on one, AC after them on the other, under one field name. Any",
+    "DAY_ENERGY AND YEAR_ENERGY ARE ALWAYS NULL ON A GEN24. Stated three separate times in the document: \"GEN24/Tauro/Verto: will always report null\". TOTAL_ENERGY works but only since firmware 1.14 and is \"updated every 5min\". So `ac-energy-today` is reachable on the Datamanager-era Primos and simply is not there on a GEN2",
+    "THE API IS OFF BY DEFAULT ON A NEW GEN24 AND SURVIVES A FACTORY RESET STILL OFF. \"For new devices with a bundle version of 1.14.1 or higher the Solar API is deactivated per default... If a factory reset is performed with existing devices running a bundle version of 1.14.1 or higher, the Solar API will be deactivated pe",
+    "THERE IS NO AUTHENTICATION AND NO WAY TO ADD ANY. FAQ 5: \"Can the API calls be password protected? No. The API is always accessible without authentication, regardless of the user or admin password set on the Webinterface.\" Anything on the LAN can read the whole system. Unlike Modbus TCP there is no source-IP restrictio",
+    "POLL SLOWLY AND SEQUENTIALLY. \"Up to 2 realtime requests are allowed to be performed in parallel with keeping a timeout of 4 seconds between two consecutive calls. Archive requests are not allowed to be performed in parallel and need to keep a timeout of 120 seconds between two consecutive calls.\""
+  ],
+  "unmappedReports": "Site.P_Grid — signed grid power, \"+ from grid, - to grid\", null when no meter is enabled. There is no grid-power MetricKind and the sign carries the import/export meaning. Same gap the Victron GX entry records., Site.P_Load — signed site load, \"+ generator, - consumer\". `load-power` in the contract means the DC load output of a charge controller; this is total AC-side household consumption. Mapping one to the other would be wrong., Site.P_Akku — signed battery power with the sign convention INVERTED relative to the contract: the API says \"- charge, + discharge\", MetricKind::BatteryPower says \"positive charges, negative discharges\". A driver must negate. This is the single easiest thing in the whole Fronius sweep to get backwards., Site.rel_SelfConsumption and Site.rel_Autonomy — relative self-consumption and autonomy in percent, null with no smart meter. No MetricKind. `pv-performance-ratio` is a different quantity., Site.Mode — \"produce-only\" \\| \"meter\" \\| \"vague-meter\" \\| \"bidirectional\" \\| \"ac-coupled\", which tells the client which of the other fields will be populated. No MetricKind and no ValueKind; it is a capability discriminator, and a driver needs it to know what to expect., Site.BatteryStandby — boolean, true when the battery is in standby. Distinct from any charge stage and from state-of-charge., Site.BackupMode — boolean, the island/backup-power flag, always available on GEN24. For a cabin this is arguably the single most interesting bit in the response and there is nowhere to put it., Site.Meter_Location — \"load\" \\| \"grid\" \\| \"unknown\" (during backup power). Determines the sign meaning of P_Grid., DeviceStatus object — StatusCode, ErrorCode, LEDColor, LEDState, MgmtTimerRemainingTime, StateToReset. No MetricKind for any of it, and no ValueKind that can carry an inverter status code., 3PInverterData ROTATION_SPEED_FAN_FL / FR / BL / BR — fan speeds, front and back, left and right. Explicitly \"not provided on GEN24/Tauro/Verto\"., 3PInverterData T_AMBIENT — ambient temperature. `temperature` exists, but the document says \"Most inverter like GEN24/Tauro/Verto do not provide it. Only provided by CL, XL and IG500/400\" — so none of the models in scope report it, and it is deliberately left out of this dialect's reports., MinMaxInverterData in full — DAY_PMAX, DAY_UACMAX, DAY_UACMIN, DAY_UDCMAX, YEAR_*, TOTAL_* — daily/yearly/lifetime extremes. No MetricKind for an extremum. Moot in practice: the collection is marked NO on both Hybrid and GEN24., Storage: Capacity_Maximum and DesignedCapacity (Ah) — present capacity versus as-designed capacity. Their ratio IS state of health, but neither is `state-of-health` and the contract has no capacity metric to hold either one., Storage: Status_BatteryCell, Voltage_DC_Maximum_Cell, Voltage_DC_Minimum_Cell, Temperature_Cell_Maximum, Temperature_Cell_Minimum, Enable — per-module cell extremes on the Fronius Solar Battery only (LG Chem and BYD report none of them). Cell spread is the metric that predicts a pack failure and there is nowhere to put it., Meter: PowerApparent_S_Phase_1..3 and _Sum, PowerReactive_Q_Phase_1..3, EnergyReactive_VArAC_*_Consumed/Produced — apparent and reactive power and energy. `ac-apparent-power` covers the sum only; reactive has no MetricKind and no Unit., Meter: Voltage_AC_PhaseToPhase_12 / _23 / _31 — line-to-line voltages alongside the line-to-neutral ones. `ac-voltage` is one number., Meter: EnergyReal_WAC_Plus_Absolute and _Minus_Absolute versus EnergyReal_WAC_Sum_Consumed and _Sum_Produced — the vendor explains these are two DIFFERENT views of the same energy, one \"system specific\" and one \"meter specific\", and which is which flips depending on where the meter is installed. No MetricKind can carry the distinction, and picking the wrong pair silently inverts import and export., Meter: Meter_Location_Current — 0 grid interconnection point, 1 load, 3 external generator, 256-511 sub-loads. Two full sign-convention tables in the document hang off this value., Meter: Enable and Visible — \"1...use values, 0...incomplete or outdated values\". A staleness flag on the reading itself, which the contract handles through its own freshness rules and cannot receive from the device., OhmPilot — GetOhmPilotRealtimeData.cgi exists and there is no DeviceKind for a resistive-heating diverter. It is neither a switch nor a charger nor a pump., GetSensorRealtimeData NowSensorData / MinMaxSensorData and GetStringRealtimeData — Sensor Card and String Control channels, same gaps as recorded on the Datamanager Modbus dialect."
+}

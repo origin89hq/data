@@ -1,0 +1,56 @@
+{
+  "id": "victron-vebus-interfaces",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-data-communication",
+      "citation": "/Users/lemarier/dev/solar/docs/victron-data-communication.pdf — accessory tables \"Accessories to communicate with VE.Bus (Inverter, Multi, Quattro)\", FAQ Q1/Q2, footnotes 1-3"
+    },
+    {
+      "source": "victron-mk2-protocol-3-14",
+      "citation": "/Users/lemarier/dev/solar/docs/victron-mk2-protocol-3.14.pdf — §3.5 jumpers, §3.6 power-up sequence, §6.4 MK3-only BOL support"
+    },
+    {
+      "source": "victron-gx-modbus-tcp-register-list",
+      "citation": "/Users/lemarier/dev/solar/docs/victron-gx-modbus-tcp-register-list.xlsx — DMC limitation remarks on registers 22 and 33"
+    }
+  ],
+  "transport": "Not applicable — these are transport, not protocol. MK2.2b presents RS232; MK2-USB and MK3-USB present USB-serial; both speak the MK2/MK3 protocol at 2400 8N1 (see victron-vebus-mk2). The VE.Bus Smart dongle presents BLE advertisements (see victron-ble-instant-readout-vebus). DMC is a VE.Bus remote panel with no third-party interface.",
+  "models": [
+    {
+      "name": "MK3-USB interface, ASS030140000 — VE.Bus to USB, 1 Quebec retailer, checked: 2026-07-31"
+    },
+    {
+      "name": "Victron Interface MK2-USB, ASS030130000 — \"an MK2.2b with built-in RS232 to USB Converter\""
+    },
+    {
+      "name": "Victron Interface MK2.2b - RS232, ASS030120200"
+    },
+    {
+      "name": "VE.Bus Smart dongle — 1 Quebec retailer, checked: 2026-07-31"
+    },
+    {
+      "name": "Digital Multi Control 200/200A — 1 Quebec retailer, checked: 2026-07-31"
+    },
+    {
+      "name": "Digital Multi Control 200/200A GX, DMC000200010 — 1 Quebec retailer, checked: 2026-07-31"
+    },
+    {
+      "name": "VE.Bus to NMEA2000 interface, ASS030520100 · VE.Bus to VE.Can interface, ASS030520105"
+    }
+  ],
+  "refutedOnReview": "Sources all exist and every named citation is accurate — the refutation is on the finding, not the paperwork.  VERIFIED CITATIONS (all real, all quoted correctly): - /Users/lemarier/dev/solar/docs/victron-data-communication.pdf p.4 — the table \"Accessories to communicate with VE.Bus (Inverter, Multi, Quattro)\" lists ASS030120200 MK2.2b–RS232, ASS030130000 MK2-USB, ASS030140000 MK3-USB, ASS030520100 VE.Bus to NMEA2000",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "A Digital Multi Control on the bus disables remote control of mode and input current limit. The GX register list says so against registers 22 and 33 (\"See Venus-OS manual for limitations, for example when VE.Bus BMS or DMC is installed\"), and the MK2 MasterMultiLED frame carries a \"DMC dedicated\" bit whose meaning is \"",
+    "One interface per VE.Bus SYSTEM, not per unit. Vendor FAQ Q1: \"Do I need an MK2 or MK3 for each product in a system with multiple VE.Bus products in parallel or three-phase? No. Per VE.Bus system you need only one of those interfaces.\"",
+    "There is no RS232 version of the MK3: \"The Victron interface MK3-USB also has a built-in RS232 to USB Converter. There is no RS232 version of the MK3 available.\" And there is no protocol difference between MK2 and MK3 — \"Note that there is no difference in protocol between the MK2 and MK3 interfaces.\" Only firmware-gat",
+    "The USB-serial chipset inside the MK3-USB is not stated in any vendor document found. That is a live risk, not a footnote: docs/HARDWARE.md already rejected the EPEver CC-USB-RS485-150U because its Exar XR21B1411 has no mainline Linux driver. Plug one into the Pi and read dmesg — bench question, unanswered.",
+    "The MK2/MK3 firmware is updated only by connecting it to a PC running VEConfigure3 and making a connection to a Multi. There is no Linux path documented. A Multi too new for the interface's firmware is a plausible first-day failure with no in-place fix."
+  ]
+}

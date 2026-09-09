@@ -1,0 +1,34 @@
+{
+  "id": "xantrex-nmea2000-unknown",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "xantrex-com-wp-content-uploads-2022-07-freedom-combox-owners-guide-975-1034-01-01-rev-e-eng",
+      "citation": "Freedom X Combox Owner's Guide 975-1034-01-01 Rev E: https://xantrex.com/wp-content/uploads/2022/07/Freedom-Combox-Owners-Guide-975-1034-01-01_Rev-E_ENG.pdf"
+    },
+    {
+      "source": "xantrex-com-wp-content-uploads-2022-07-datasheet-xantrex-freedomxcombox-20260715",
+      "citation": "Freedom X Combox datasheet: https://xantrex.com/wp-content/uploads/2022/07/DataSheet_Xantrex_FreedomXCombox_20260715.pdf"
+    }
+  ],
+  "transport": "NMEA 2000, Micro-C 4-pin male connector on the Combox and on the Xantrex Gateway. No bit rate, PGN list, or instance scheme in any Xantrex document.",
+  "models": [
+    {
+      "name": "Freedom X Combox Marine (808-0822-01)"
+    },
+    {
+      "name": "Freedom X / XC Marine inverters behind it (817-1050, 817-2080, 817-2080-12)"
+    }
+  ],
+  "gotchas": [
+    "Same product, two SKUs, two buses: 808-0822 is RV-C, 808-0822-01 is NMEA 2000. They are not interchangeable and the datasheet notes 817-1050 / 817-2080 / 817-2080-12 are 'compatible with 808-0822 only'.",
+    "PGN definitions are NMEA's, not Xantrex's, and NMEA 2000 message definitions are licensed. Vendor gives you the connector and nothing more.",
+    "Listed separately from the RV-C entry because a Combox on the marine SKU speaks a different application layer over the same CAN wire. Grouping them would be exactly the 'same vendor, same family name' error."
+  ],
+  "refiledFrom": "can-nmea2000"
+}

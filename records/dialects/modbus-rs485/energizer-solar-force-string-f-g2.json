@@ -1,0 +1,56 @@
+{
+  "id": "energizer-solar-force-string-f-g2",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "energizersolar-com-s-energizer-f-g2-usermanual-20260225",
+      "citation": "Energizer Force Series Inverter User Manual (F-G2), 20260225 — https://www.energizersolar.com/s/Energizer-F-G2-usermanual_20260225.pdf (downloaded to scratchpad/ez-fg2.pdf)"
+    },
+    {
+      "source": "manualslib-com-manual-3027348-energizer-solar-force-series",
+      "citation": "Energizer Solar Force Series manual on ManualsLib — https://www.manualslib.com/manual/3027348/Energizer-Solar-Force-Series.html"
+    }
+  ],
+  "transport": "RS-485 on the 8-pin CT/RS485/DRM0/ESTOP connector. Documented pinout: pin1 CT+, pin2 CT-, pin3 METER485-, pin4 METER485+, pin5 GND, pin6 DRM0, pin7 NC, pin8 ESTOP. Baud, framing, and slave ID are NOT stated. Named meter is Eastron SDM230-Modbus; named CTs are EM-EICT-120K-T210C and CTSA016.",
+  "reports": [
+    "ac-voltage",
+    "ac-current",
+    "ac-power",
+    "ac-frequency",
+    "pv-voltage",
+    "pv-current",
+    "pv-power",
+    "pv-energy-today",
+    "pv-energy-total"
+  ],
+  "models": [
+    {
+      "name": "Force 3S"
+    },
+    {
+      "name": "Force 3.6S"
+    },
+    {
+      "name": "Force 4.6S"
+    },
+    {
+      "name": "Force 5S"
+    },
+    {
+      "name": "Force 6S"
+    }
+  ],
+  "sharedMapEvidence": "The Force Series (F-G2) User Manual, revision 20260225, section 1.1 Scope: 'the following model(s) of Energizer products: Force 3S, Force 3.6S, Force 4.6S, Force 5S, Force 6S'. One communication chapter and one pinout table cover all five. Shared wiring only — no register map published for any of them.",
+  "gotchas": [
+    "CONTRADICTION, recorded not resolved: the manual's prose says 'RS485 is a standard communication interface which can transmit the real time data from inverter to PC or other monitoring devices' — implying an inverter data bus — but the only pins the pinout table labels are METER485- / METER485+. The manual does not say",
+    "Grid-tie only, 230 V single phase. No battery port, so nothing to report about a bank.",
+    "Firmware paths in the manual are Update\\master, Update\\slave, Update\\manager .hex — a three-MCU architecture. Same structure appears across the Force lines.",
+    "The manual is a 2026 revision but the copyright block still reads '© 2022 Energizer ... used under license by 8 Star Energy Pty Ltd'."
+  ],
+  "unmappedReports": "export-limit setpoint and CT mode (Disable/CT/Meter), DRM0 and ESTOP contact state, grid export power measured by CT"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "bslbatt-12v-lead-acid-replacement",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "bslbatt-com-wp-content-uploads-2025-05-b-lfp12-100-250513",
+      "citation": "BSLBATT, B-LFP12-100 datasheet 250513, https://bslbatt.com/wp-content/uploads/2025/05/B-LFP12-100-250513.pdf"
+    },
+    {
+      "source": "bslbatt-com-wp-content-uploads-2025-05-b-lfp12-200-250113",
+      "citation": "BSLBATT, B-LFP12-200 datasheet 250113, https://bslbatt.com/wp-content/uploads/2025/05/B-LFP12-200-250113.pdf — image-only PDF, read by rendering."
+    },
+    {
+      "source": "bslbatt-com-wp-content-uploads-2025-05-b-lfp12-100s-200s-240221",
+      "citation": "BSLBATT, B-LFP12-100S/200S ultra-thin RV datasheet, https://bslbatt.com/wp-content/uploads/2025/05/B-LFP12-100S-200S-240221.pdf — also no communication row."
+    }
+  ],
+  "models": [
+    {
+      "name": "B-LFP12-100, 12.8 V 100 Ah 1.28 kWh, 4S1P — stocked in QC"
+    },
+    {
+      "name": "B-LFP12-200, 12.8 V 200 Ah 2.56 kWh, 2P4S — stocked in QC"
+    }
+  ],
+  "refutedOnReview": "REFUTED. All four cited sources exist and were fetched (HTTP 200); the failure is in what they say, not whether they exist.  WHAT SURVIVES: Both datasheets are genuine, name their models, and genuinely contain no Communication row. 12.8 V / 100 Ah / 1280 Wh and 12.8 V / 200 Ah / 2560 Wh are accurate. \"2P4S\" is real - it appears on the B-LFP12-200 sheet as \"Serial-parallel module\".  GROUND 1 - No register map is in ev",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "'INTEGRATED BMS' IS NOT A PROTOCOL. Every QC retailer listing for these says integrated BMS, and every one of them means the pack protects itself against overcharge, over-discharge, over-current, short circuit and temperature — which is exactly what the datasheet's 'Protection Function' row says. It says nothing about ",
+    "The 12 V line is genuinely a different product family from the 24 V and 48 V lines, and the vendor's own datasheet template proves it: the 24 V and 48 V sheets carry a 'Communication Protocol' row reading 'CAN (500 Kb/s)/RS485 (9600 b/s)' and the 12 V sheets have no such row at all. The absence is structural, not an om",
+    "Consequence for a cabin: a 12 V BSLBATT bank is invisible to Cabin Hub on its own. State of charge has to come from a shunt-based battery-monitor on the bank, or be inferred from the charge controller's battery-voltage. That is a sizing decision, and it belongs in no-comms.md alongside the PowerMax charger.",
+    "Not looked for and therefore not claimed: some BSLBATT 12 V variants elsewhere in the range advertise a Bluetooth app. Neither of these two SKUs does, on the documents found. If a retailer's box has a Bluetooth logo, that is a new SKU, not this one."
+  ]
+}

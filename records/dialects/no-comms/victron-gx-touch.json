@@ -1,0 +1,45 @@
+{
+  "id": "victron-gx-touch",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victronenergy-com-display-and-panels-gx-touch-50",
+      "citation": "https://www.victronenergy.com/display-and-panels/gx-touch-50 — GX Touch 50 & GX Touch 70 product page"
+    },
+    {
+      "source": "victronenergy-com-media-pg-nucleo-gx-en-introduction",
+      "citation": "https://www.victronenergy.com/media/pg/Nucleo_GX/en/introduction.html — Nucleo GX manual (no HDMI; Android GX WiFi Display as the alternative)"
+    }
+  ],
+  "seeAlso": [
+    "victron-gx-touch-display"
+  ],
+  "transport": "One combined HDMI + USB cable to the GX device. HDMI carries video, USB carries touch input and power. No network interface of any kind.",
+  "models": [
+    {
+      "name": "GX Touch 50 (BPP900455050)"
+    },
+    {
+      "name": "GX Touch 50 Flush (BPP900455150)"
+    },
+    {
+      "name": "GX Touch 70 (BPP900455070)"
+    },
+    {
+      "name": "GX Touch 70 Flush (BPP900455170)"
+    }
+  ],
+  "refutedOnReview": "REFUTED — not on the identity of the parts, but on the register-map claim itself, which is self-contradictory.  What checks out: - https://www.victronenergy.com/display-and-panels/gx-touch-50 exists and is a single page titled \"GX Touch 50 & GX Touch 70\" (\"display accessories for our Cerbo GX\"). It names BPP900455150 (GX Touch 50 Flush) and BPP900455170 (GX Touch 70 Flush) and carries drilling jigs for both Flush var",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "This is a monitor, not a device. It renders the GX's local console over HDMI and sends touch events back over USB. There is nothing to poll and nothing to command. It appears in the catalogue only so a future reader does not spend an afternoon looking for its protocol.",
+    "It requires a GX with an HDMI port. The Nucleo GX has none — Victron's Nucleo manual points at an Android GX WiFi Display instead. Do not pair a GX Touch with a Nucleo GX.",
+    "Anything a GX Touch shows, Modbus TCP or MQTT already exposes. Adding one changes what a person at the cabin sees, not what Cabin Hub can read."
+  ],
+  "possibleDuplicate": true
+}

@@ -1,0 +1,41 @@
+{
+  "id": "victron-superpack-ng-efs",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victronenergy-com-upload-documents-lithium-superpack-ng-219778-lithium-superpack-ng-pd",
+      "citation": "docs/victron-lithium-superpack-ng-manual-rev02.pdf (newly downloaded) — Lithium SuperPack NG manual rev 02, 04/2026, from https://www.victronenergy.com/upload/documents/Lithium_SuperPack_NG/219778-Lithium_SuperPack_NG-pd"
+    },
+    {
+      "source": "victron-lithium-superpack-ng-datasheet",
+      "citation": "docs/victron-lithium-superpack-ng-datasheet.pdf (newly downloaded) — Datasheet Lithium SuperPack NG EN, part-number and Wired Communication rows"
+    }
+  ],
+  "transport": "M12 single-pole connector on the top panel · External Feedback Signal (EFS) · referenced to battery negative, output at battery-positive voltage, max 250 mA · Victron part number SPR00310 for the mating connector, included with the battery",
+  "blocks": "One signal, two configurable functions. Default: External Feedback Signal — asserted on the battery's internal fault flags for redundant system protection. Alternative, enabled in VictronConnect: External Charging Signal (ECS) — the EFS output is held continuously high at battery-positive and drops on the low-SoC pre-alarm, giving a steady ON/OFF level that can drive a charger or contactor directly.",
+  "models": [
+    {
+      "name": "Self-Heating SuperPack NG 12.8V/100Ah (BAT512110740)"
+    },
+    {
+      "name": "Self-Heating SuperPack NG 12.8V/200Ah (BAT512120740)"
+    },
+    {
+      "name": "Self-Heating SuperPack NG 25.6V/100Ah (BAT524110740)"
+    }
+  ],
+  "sharedMapEvidence": "One vendor datasheet covers all five NG SuperPack part numbers in a single specification table (BAT512110740, BAT512120740, BAT524110740, BAT524120740, BAT548110740) with one shared row 'Wired Communication: External Feedback Signal (EFS)' and one shared 'Bluetooth: Yes, VictronConnect App'. One manual (Lithium SuperPack NG rev 02, 04/2026) covers the same range and describes one EFS connector wit",
+  "gotchas": [
+    "This is a single wire, not a protocol. It is recorded because it is the only WIRED route into an NG SuperPack, and because in ECS mode it is genuinely useful: a level that says 'start charging' with no bus, no key and no pairing.",
+    "EFS sits at battery-positive when asserted — 12.8 V or 25.6 V. Same GPIO hazard as the BMS dry contacts: divide or opto-isolate, and size for the bank, not for 12 V.",
+    "250 mA is the ceiling. It drives a relay coil or a charger remote input, not a load.",
+    "EFS and ECS are alternative configurations of one output, selected in VictronConnect. A hub reading the wire cannot tell which mode the battery is in — that is a commissioning fact somebody has to write down.",
+    "These batteries also advertise Bluetooth Instant Readout with an unknown record type — see unknown-victron-ble-instant-readout. BLE would carry far more than this wire does, once somebody identifies the record."
+  ],
+  "unmappedReports": "Low-SoC pre-alarm as a signal — no MetricKind. The ECS mode turns 'the bank is getting low' into a wire the hub can read, and there is no metric to receive it into., Internal fault flags (the EFS default trigger, described by the manual as covering rare fail-short scenarios of the internal switching devices) — no MetricKind for a battery fault code."
+}

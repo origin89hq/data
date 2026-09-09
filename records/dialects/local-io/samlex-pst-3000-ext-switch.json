@@ -1,0 +1,39 @@
+{
+  "id": "samlex-pst-3000-ext-switch",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "samlexamerica-com-wp-content-uploads-2026-07-11001-pst-3000-12-24",
+      "citation": "Samlex America, PST-3000-12/24/48 DC-AC Pure Sine Wave Inverter Owner's Manual, doc 11001-PST-3000-12-24-48-0726 (§6 Layout item 10, §8.7, §9.1) — https://samlexamerica.com/wp-content/uploads/2026/07/11001-PST-3000-12-24"
+    },
+    {
+      "source": "staged-for-docs-private-tmp-claude-501-users-lemarier-dev-so-2",
+      "citation": "Staged for docs/: /private/tmp/claude-501/-Users-lemarier-dev-solar/01a009b6-aeb2-4d8b-8a84-65ee02fe099b/scratchpad/samlex-docs/samlex-pst-3000-owners-manual-11001-0726.pdf"
+    }
+  ],
+  "transport": "4-terminal block marked \"EXT Switch\" (item 10, Fig 6.1a) · 2-wire dry contact: short terminals 1 and 2 = ON, open = OFF · or 2-wire switched DC 10–60 VDC, positive to terminal 3 and negative to terminal 4, into an internal opto-isolator · or 1-wire switched battery voltage (12/24/48 V) to terminal 3 · front-panel 3-position rocker must FIRST be pushed to the bottom \"EXT. Switch\" position · wiring ",
+  "accepts": [
+    "set-switch"
+  ],
+  "models": [
+    {
+      "name": "PST-3000-12"
+    },
+    {
+      "name": "PST-3000-24"
+    }
+  ],
+  "sharedMapEvidence": "One Samlex owner's manual, 11001-PST-3000-12-24-48-0726, covers PST-3000-12, PST-3000-24 and PST-3000-48 in a single document with one layout figure (Fig 6.1a) and one external-control section (§8.7); the terminal numbering and the 10–60 VDC range are stated once for all three. PST-3000-48 is documented but was not seen at the Quebec retailers surveyed, so it is not listed as a model here.",
+  "gotchas": [
+    "Open loop, exactly as the PST-1500/2000 block: input only, no feedback of any kind.",
+    "Terminal numbering differs from the PST-1500/2000 block, which is labelled S / – / +. Here it is 1/2 for the dry contact and 3(+)/4(−) for switched DC. Wiring a PST-3000 from a PST-1500 drawing will not work.",
+    "Switched-DC range is 10–60 VDC here versus 10–33 VDC on the PST-1500/2000. Opto-isolated, reverse-polarity protected, 1 A fuse required close to the source.",
+    "§8.7 explicitly states there is NO battery drain when the inverter is switched off by opening the external contact — unlike switching off from the RC-300, which leaves 3 mA (PST-3000-12), 5 mA (-24) or 7 mA (-48) flowing. For an unattended cabin the relay on this block is the correct kill, not the remote.",
+    "The rocker must be in the EXT position or the external control is dead, and that condition is not observable over the wire."
+  ]
+}

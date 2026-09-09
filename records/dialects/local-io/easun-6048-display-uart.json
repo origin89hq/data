@@ -1,0 +1,49 @@
+{
+  "id": "easun-6048-display-uart",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "community-crosschecked",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "github-com-frankb415-easun6048-display-sniffer",
+      "citation": "https://github.com/frankB415/easun6048_display_sniffer"
+    },
+    {
+      "source": "github-com-profesor79-easun6040reader",
+      "citation": "https://github.com/profesor79/easun6040reader"
+    },
+    {
+      "source": "github-com-krahabb-esphome-easun-6048",
+      "citation": "https://github.com/krahabb/esphome-easun-6048"
+    }
+  ],
+  "transport": "3.3 V TTL UART tapped inside the case on the 4-wire main-board-to-display cable (GND / RX / TX / 3V3) · 9600 8N1 · framed, NOT Modbus: start byte 0x7D (125), length byte, type byte, payload, 8-bit sum checksum over bytes 1..end-2, stop byte 0x0D (13) · no device address · display polls every 600 ms (5 status requests then 1 config request)",
+  "blocks": "type 3 = status/measurement frame · type 2 = active-settings frame · type 1 = write-settings frame",
+  "reports": [
+    "battery-voltage",
+    "pv-voltage",
+    "battery-current",
+    "temperature",
+    "state-of-charge"
+  ],
+  "models": [
+    {
+      "name": "EASUN 6048"
+    },
+    {
+      "name": "EASUN 6040"
+    }
+  ],
+  "sharedMapEvidence": "Two independent reverse-engineering efforts on two different units decode the identical frame. frankB415/easun6048_display_sniffer worked on an EASUN 6048 with a Wemos Lolin32; profesor79/easun6040reader worked on an EASUN 6040 with an Arduino and SoftwareSerial. Both use 9600 baud, both hunt for start byte 125, and both place battery voltage at bytes 8-9 (/10), PV voltage at bytes 10-11 (/10), ba",
+  "gotchas": [
+    "NO POWMR MODEL IS CONFIRMED ON THIS DIALECT. It is listed because it is the only working route anyone has published for a 60 A / 48 V controller of this class, and because krahabb's component is titled 'EspHome external component to interface EASun PowMr MakeSkyBlue MPPT charge controllers'. That title is a claim about",
+    "Evidence points the other way for at least one PowMr unit. jokamm/PowMr-MPPT-Solar-Charge-Controller-read-display is the only PowMr-specific MPPT implementation found, and its PowMr controller has no main-board-to-display UART at all: jokamm taps the HT1621 segment-LCD driver's 3-wire nCS/nWR/Data bus with a Pi Pico an",
+    "The Modbus frames jokamm's device emits are HIS invention, deliberately shaped to look like a DALY BMS so his PC software could reuse a parser. They are not the controller's protocol. Do not mine that repo for register addresses.",
+    "Requires opening the case and soldering to an internal cable. Not a plug-in integration.",
+    "Master-only operation is blocked by a handshake. frankB415 reports the display sends a ~100-byte start token to the main board that changes every power-up and that he could not replay; without the display the bus does not come up. Writes therefore have to be injected into the live display conversation, sharing the TX l"
+  ],
+  "unmappedReports": "Status-frame offset 3: detected nominal battery voltage (12/24/36/48 V). A configured system rating, not a measurement — no MetricKind covers it., Status-frame offset 5: controller error/alarm code. No MetricKind carries a fault bitmask; faults would have to become events instead., Status-frame offsets 1 and 2: undecoded status bytes. krahabb believes the top bit of offset 1 is load output state and that other bits track charging phase, but he could not decode charge-stage — so this dialect cannot report charge-stage even though the controller clearly knows it., Status-frame offset 13: a 16-bit Wh energy counter. Its reset period is not established (today vs lifetime), so it maps to neither pv-energy-today nor pv-energy-total until somebody watches it across a midnight., Config-frame writes have no CommandKind: equalize / boost / float / boost-recharge / load-reconnect / load-disconnect setpoint voltages, battery type, nominal system voltage, and load working mode are all settable over this bus and none of them is expressible in CommandKind. Only set-charge-current-limit and start-equalize exist, and neither is present here."
+}

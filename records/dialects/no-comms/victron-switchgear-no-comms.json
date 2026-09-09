@@ -1,0 +1,62 @@
+{
+  "id": "victron-switchgear-no-comms",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victronenergy-com-upload-documents-datasheet-cyrix-ct-120a-230a-en",
+      "citation": "Victron Energy, *Cyrix-ct 120A/230A* datasheet — https://www.victronenergy.com/upload/documents/Datasheet-Cyrix-ct-120A-230A-EN.pdf"
+    },
+    {
+      "source": "victronenergy-com-upload-documents-datasheet-cyrix-i-400a-en",
+      "citation": "Victron Energy, *Cyrix-i 400A* datasheet — https://www.victronenergy.com/upload/documents/Datasheet-Cyrix-i-400A-EN.pdf (the \"Micro switch for remote monitoring — Yes\" line)"
+    },
+    {
+      "source": "victronenergy-com-battery-isolators-and-combiners-cyrix-battery-combiners",
+      "citation": "https://www.victronenergy.com/battery-isolators-and-combiners/cyrix-battery-combiners — model list and the explicit statement that no model has Bluetooth, VE.Direct or a data port"
+    }
+  ],
+  "models": [
+    {
+      "name": "Cyrix-ct 12/24V-120A intelligent battery combiner (CYR010120011)"
+    },
+    {
+      "name": "Cyrix-ct 12/24V-230A (CYR010230010)"
+    },
+    {
+      "name": "Cyrix-i 12/24V-400A (CYR010400000)"
+    },
+    {
+      "name": "Cyrix-i 24/48V-400A (CYR020400000)"
+    },
+    {
+      "name": "Cyrix-Li-charge 12/24V-230A"
+    },
+    {
+      "name": "Cyrix-Li-ct 12/24V-230A"
+    },
+    {
+      "name": "Cyrix-Li-load 12/24V-230A"
+    },
+    {
+      "name": "Battery Switch ON/OFF 275A (VBS127010010)"
+    },
+    {
+      "name": "Inverter Control Remote Switch (REC040010210R)"
+    }
+  ],
+  "refutedOnReview": "Refuted on four independent grounds.  (1) FABRICATED SOURCE STATEMENT. The evidence asserts \"Victron's own combiners product page states that none of the Cyrix line has Bluetooth, VE.Direct or a data port.\" I downloaded the raw HTML of https://www.victronenergy.com/battery-isolators-and-combiners/cyrix-battery-combiners and case-insensitively searched it: \"bluetooth\" = absent, \"ve.direct\" = absent, \"data port\" = abse",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "**Cyrix-Li-charge, Cyrix-Li-ct and Cyrix-Li-load were not verified against their own vendor documents in this pass.** They are marketed for control by a VE.Bus BMS, which implies a control input of the same dry-contact shape as `victron-remote-onoff-dry-contact`. That is an inference, not a source, and they are deliber",
+    "**The Inverter Control Remote Switch REC040010210R is already recorded in docs/catalog/no-comms.md, and this pass narrows the claim there.** That entry says it \"Speaks VE.Direct\". The vendor manual (Rev00, 2023-10-11) says only: \"This panel is intended for remote on/off control of all the VE.Direct inverter models.\" It",
+    "**A manual battery switch is not a `switch` in the contract sense.** The Battery Switch ON/OFF 275A (VBS127010010) has no DeviceKind: nothing can set it and nothing reports its position. docs/catalog/no-comms.md already makes this argument for manual transfer switches and the same reasoning applies. It is here so nobod",
+    "**Cyrix part numbers are retail-grade.** CYR010120011, CYR010230010, CYR010400000, CYR020400000 and VBS127010010 appear in none of the vendor datasheets read in this pass. `checked: 2026-07-31`.",
+    "**Absence of a stated interface is not proof of absence, and the confidence tag reflects the documents, not the silicon.** What is `vendor-doc` here is that the feature lists and the vendor product page name no interface. The Cyrix is a microprocessor-controlled relay; it has firmware. Nothing suggests a service port, "
+  ],
+  "unmappedReports": "Cyrix-i 400A only: the datasheet lists \"Micro switch for remote monitoring — Yes\". That is a dry contact reflecting whether the combiner is engaged, and a gateway GPIO input could read it. It maps cleanly to `switch-state`, which makes the Cyrix-i 400A the one member of this group with a route into the contract — via cabin-gpio, not via anything Victron. The Cyrix-ct datasheets do not list this feature; do not assume it., Cyrix status is otherwise indicated by a bicolour LED only. \"Start Assist\" (Cyrix remains engaged for 30 seconds, on the ct; \"Emergency start, Yes, 30 s\" on the i-400A) has no metric and no command."
+}

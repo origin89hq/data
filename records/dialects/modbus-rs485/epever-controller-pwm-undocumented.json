@@ -1,0 +1,55 @@
+{
+  "id": "epever-controller-pwm-undocumented",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "epever-com-product-category-charge-controller",
+      "citation": "https://www.epever.com/product-category/charge-controller/ (checked: 2026-07-31)"
+    },
+    {
+      "source": "epever-com-support-documents",
+      "citation": "https://www.epever.com/support/documents/ (checked: 2026-07-31)"
+    }
+  ],
+  "models": [
+    {
+      "name": "LS-E (EU) series 5-30A"
+    },
+    {
+      "name": "VS-AU series 10-60A"
+    },
+    {
+      "name": "VS-BN series 10-60A"
+    },
+    {
+      "name": "LS-EPD series 10/20A"
+    },
+    {
+      "name": "LandStar-EPD series 10/20A"
+    },
+    {
+      "name": "LS-LPLI series 10/20A"
+    },
+    {
+      "name": "LS-LPLW series 10/20A"
+    },
+    {
+      "name": "EPIPDB-COM series 10/20A dual battery"
+    },
+    {
+      "name": "GoMate series 30A (GM3024N)"
+    }
+  ],
+  "refutedOnReview": "REFUTED — the grouping is not supported and should not exist as a shared-map dialect.  SOURCES DO NOT CHECK OUT. Both cited URLs (epever.com/product-category/charge-controller/ and epever.com/support/documents/) return HTTP 403 to this fetcher, as does the epever.com root — the whole domain blocks automated fetch, so neither page was actually read on 2026-07-31. That alone is not proof of nonexistence, but it means \"",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "Several of these ship with no communication port at all; the PWM line is where EPEver drops RS-485 to hit a price. Check the specific SKU before assuming a driver is even possible.",
+    "None of these appeared at the Canadian retailers checked. Low priority regardless of protocol status."
+  ]
+}

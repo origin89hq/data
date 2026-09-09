@@ -1,0 +1,27 @@
+{
+  "id": "eg4-wallmount-all-weather-unknown",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "eg4-powerpro-wallmount-all-weather-manual-v1-0-3",
+      "citation": "docs/eg4-powerpro-wallmount-all-weather-manual-v1.0.3.pdf — EG4 PowerPro WallMount All Weather User Manual v1.0.3 (vendor, committed): §9.1 DIP switch ID table, §9.3 communication protocol selection, §10.2 BMS Tools at 9"
+    }
+  ],
+  "transport": "RS-485 and CAN on one RJ45 (Pin 1 & 8 = RS485_B, Pin 2 & 7 = RS485_A, Pin 4 = CAN_H, Pin 5 = CAN_L), plus a separate parallel Battery-Comm port carrying the same RS485 pair with E-Stop on pins 3 & 6 · 6-position DIP address, range 1–64, master is address 1 · BMS Tools connects over RS485 at 9600 baud · all of this is vendor-doc; the register map on top of it is not.",
+  "models": [
+    {
+      "name": "EG4 PowerPro WallMount All Weather 14.3 kWh (UL 9540A / UL 1973)"
+    }
+  ],
+  "gotchas": [
+    "DIALECT UNKNOWN. The vendor manual establishes the physical layer, the pinout, the addressing and the BMS Tools baud rate, and stops there. No EG4 document and no community implementation states a register map for the All Weather.",
+    "It is TEMPTING to put it on eg4-ll-modbus because the Indoor 280Ah sibling lands there. Do not. The evidence for the Indoor 280Ah is a firmware image carrying the string 'WM-48\\|280-LL-00'; nothing equivalent exists for the All Weather, which is a different enclosure and a different cell count. 'Same vendor, same WallM",
+    "What would resolve it: a firmware dump with model strings, or any implementation that polls an All Weather at named addresses.",
+    "The protocol-selection menu is password protected on the 280Ah sibling (default 123456). The All Weather manual describes the same menu without mentioning the password."
+  ]
+}

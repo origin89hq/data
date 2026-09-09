@@ -1,0 +1,60 @@
+{
+  "id": "powmr-mppt-no-comms",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "cdn-shopify-com-s-files-1-0746-0415-1079-files-pow-m60-pro-user-manual-v1-4-0327",
+      "citation": "POW-M60-PRO User Manual V1.4.0327 (PowMr) — https://cdn.shopify.com/s/files/1/0746/0415/1079/files/POW-M60-PRO_User_Manual_V1.4.0327.pdf"
+    },
+    {
+      "source": "cdn-shopify-com-s-files-1-0746-0415-1079-files-pow-m60-max-user-manual-v1-7-0430",
+      "citation": "POW-M60-MAX User Manual V1.7.0430 (PowMr) — https://cdn.shopify.com/s/files/1/0746/0415/1079/files/POW-M60-MAX_User_Manual_V1.7.0430.pdf"
+    },
+    {
+      "source": "cdn-shopify-com-s-files-1-0746-0415-1079-files-pow-m25-pro-pow-m35-pro-pow-m45-pro-user-manual-v",
+      "citation": "POW-M25-PRO / POW-M35-PRO / POW-M45-PRO User Manual V1.2.0925 (PowMr) — https://cdn.shopify.com/s/files/1/0746/0415/1079/files/POW-M25-PRO_POW-M35-PRO_POW-M45-PRO_User_Manual_V1.2.0925.pdf"
+    }
+  ],
+  "models": [
+    {
+      "name": "POW-M60-PRO"
+    },
+    {
+      "name": "POW-M60-MAX"
+    },
+    {
+      "name": "POW-M25-PRO"
+    },
+    {
+      "name": "POW-M35-PRO"
+    },
+    {
+      "name": "POW-M45-PRO"
+    },
+    {
+      "name": "POW-KEEPER 1220"
+    },
+    {
+      "name": "POW-KEEPER 1230"
+    },
+    {
+      "name": "POW-KEEPER 1240"
+    },
+    {
+      "name": "MPPT-60A (pre-PRO generation)"
+    }
+  ],
+  "sharedMapEvidence": "This is not a shared register map — the finding is that no map exists. Each model's own PowMr user manual was downloaded from powmr.com/pages/powmr-user-manual and read in full on 2026-07-31: POW-M60-PRO V1.4.0327, POW-M60-MAX V1.7.0430, POW-M25/35/45-PRO V1.2.0925, KEEPER series V2.1.0703, plus the pre-PRO MPPT-60A manual on ManualsLib. A case-insensitive text search of all five PDFs for rs485, r",
+  "gotchas": [
+    "Covers three of the seven Quebec retail listings: '60A MPPT (max PV 160V, 2880W)' (= POW-M60-PRO or POW-M60-MAX, both 160 Vdc max PV), '20A MPPT 12V/24V auto' (= POW-KEEPER 1220) and '40A MPPT 12V/24V auto' (= POW-KEEPER 1240).",
+    "Retail wattage contradicts the vendor manual. Every PowMr 60 A manual states 2800 W at 48 V (720 W/12 V, 1440 W/24 V, 2100 W/36 V); the retailer's 2880 W appears nowhere in PowMr documentation and is exactly 60 A x 48 V, i.e. arithmetic rather than a spec. Recorded, not resolved.",
+    "The KEEPER's two USB ports are 5 V/1 A power outputs for phones, per the manual. They are not a data interface. Do not mistake them for one.",
+    "POW-M60-PRO and POW-M60-MAX are electrically near-identical (both 160 Vdc PV, 2800 W @ 48 V, 60 A, 9-70 V battery range); they differ in DC load output (6 A vs 25 A rated) and LCD size. Neither gains a port from the other.",
+    "PowMr hybrid *inverters* (POW-HVM, POW-SunSmart, 4500 W/6500 W) genuinely do speak Modbus — see leodesigner/powmr_comm (RS232, 2400 baud, slave 5) and odya/esphome-powmr-hybrid-inverter. Those are a different DeviceKind on different hardware. Do not transplant an inverter register map onto a charge controller because t"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "id": "victron-pwm-lcd-usb-unknown",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "quebec-retailer-listings-checked-2026-07-31-claims-usb",
+      "citation": "Quebec retailer listings, checked 2026-07-31 (claims: 'USB')"
+    }
+  ],
+  "models": [
+    {
+      "name": "BlueSolar PWM DUO 12/24V-20A LCD & USB"
+    },
+    {
+      "name": "BlueSolar PWM-LCD&USB 48V-30A"
+    }
+  ],
+  "sharedMapEvidence": "None, and none is claimed. These two are grouped only by the negative property 'has a USB socket, no published wire protocol'. There is no register map, so there is nothing for them to share. Do not read this grouping as a statement that one driver would serve both.",
+  "gotchas": [
+    "The 'USB' in these model names is, per the retail listings, a 5 V phone-charging outlet — it is not established that it is a data port at all. No Victron protocol document, and no software manual equivalent to the PWM-Pro's, was found for either model. What is missing: any vendor statement that data can be read from th",
+    "Marked unverified rather than no-comms-confirmed, because absence of a found document is not proof of absence of a protocol.",
+    "checked: 2026-07-31 — 1 Quebec retailer each."
+  ]
+}

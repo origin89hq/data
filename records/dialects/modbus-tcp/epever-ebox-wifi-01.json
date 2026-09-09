@@ -1,0 +1,56 @@
+{
+  "id": "epever-ebox-wifi-01",
+  "family": "modbus-tcp",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "community-single",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "github-com-gabrielpc1190-home-assistant-epever-ebox-wifi-01-modbus",
+      "citation": "https://github.com/gabrielpc1190/Home-Assistant_EPEver-eBox-Wifi-01-MODBUS (port 8088, rtuovertcp and tcp, slave 1, tested on a Tracer AN)"
+    },
+    {
+      "source": "community-openhab-org-t-modbus-tcp-connection-to-epever-solar-controller-104184",
+      "citation": "https://community.openhab.org/t/modbus-tcp-connection-to-epever-solar-controller/104184 (port 502, reports plain Modbus TCP failing)"
+    },
+    {
+      "source": "community-home-assistant-io-t-epever-modbus-rs-485-config-214397",
+      "citation": "https://community.home-assistant.io/t/epever-modbus-rs-485-config/214397"
+    }
+  ],
+  "seeAlso": [
+    "epever-ebox-wifi-01-bridge"
+  ],
+  "transport": "CONTRADICTED between sources. Most community configs use RTU-over-TCP (and sometimes plain Modbus TCP) to port 8088, slave ID 1. One openHAB thread reports the adapter answering on port 502 and plain Modbus TCP failing outright, requiring a virtual COM port or a separate RTU-to-TCP gateway. Both are recorded; neither is vendor-stated.",
+  "blocks": "Same as epever-tracer-a — the adapter tunnels the controller's own register map unchanged. Community configs show decimal 12544 (0x3100), 12545 (0x3101), 12546 (0x3102), 12558 (0x310E), 12560 (0x3110), 12570 (0x311A), 13082 (0x331A), 12800–12802 (0x3200–0x3202).",
+  "reports": [
+    "pv-voltage",
+    "pv-current",
+    "pv-power",
+    "battery-voltage",
+    "battery-temperature",
+    "state-of-charge",
+    "load-power",
+    "charge-stage"
+  ],
+  "models": [
+    {
+      "name": "eBox-WIFI-01 WiFi remote monitor"
+    },
+    {
+      "name": "(EPEVER WiFi 2.4G RJ45 A / DB9 B are the current equivalents)"
+    }
+  ],
+  "sharedMapEvidence": "Not a distinct register map — a transport adapter. It plugs into the controller's RS-485 RJ45 and re-serves the same Modbus frames over the LAN, which is why the register numbers in every community config decode to the epever-tracer-a addresses (12544 = 0x3100, 13082 = 0x331A, 12570 = 0x311A). Recorded as its own entry only because the transport, port, and framing are separate unknowns from the ma",
+  "gotchas": [
+    "CONTRADICTION on the port and the framing: 8088 with RTU-over-TCP in the Home Assistant configs, 502 with plain Modbus TCP failing in the openHAB thread. Nothing vendor-stated settles it. Probe both before wiring a driver to either.",
+    "The adapter occupies the controller's single RS-485 port. It is an alternative to a wired gateway, not an addition to one — and it is a Modbus master while the app is polling, so the collision hazard is the same as the MT50's.",
+    "No vendor document defines the network side. Everything about port, framing, and behaviour here is community-derived; the datasheet describes the product, not a protocol.",
+    "A LAN-attached bridge with an unauthenticated Modbus port and a web dashboard on port 80 is a different security posture from a serial cable. Worth deciding deliberately rather than by default."
+  ],
+  "refiledFrom": "lan-http",
+  "possibleDuplicate": true
+}

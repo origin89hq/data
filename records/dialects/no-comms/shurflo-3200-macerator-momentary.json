@@ -1,0 +1,28 @@
+{
+  "id": "shurflo-3200-macerator-momentary",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "pentair-com-content-dam-extranet-web-nam-shurflo-manuals-911-566-3200-macerator-pump-iom",
+      "citation": "Pentair/SHURflo doc 911-566 REV. P, 'SHURFLO 3200 Macerator Pump — Installation, Operation & Repair Manual' — https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-566-3200-macerator-pump-iom.pdf (stag"
+    }
+  ],
+  "transport": "Two 14 GA lead wires, 12 V or 24 V DC, on a separate circuit, fused per the motor label. No data interface.",
+  "models": [
+    {
+      "name": "3200-001"
+    }
+  ],
+  "gotchas": [
+    "Split from the other no-comms pumps deliberately, because for a device with no bus the line semantics ARE the map, and these are the opposite of the diaphragm pumps'. 911-566 REV. P p.2: 'Pump should be connected to properly sized momentary switch. This prevents pump damage due to long periods of dry run condition.' A ",
+    "'Do not run pump dry for more than 15 - 20 seconds' or damage to impeller and housing will occur. Combined with 'INTERMITTENT DUTY ONLY', this is not a device to automate. The failure window is shorter than most polling intervals.",
+    "Flexible-impeller design, not diaphragm, and it grinds waste — it is a black-water pump. Nothing in the contract models a holding tank's contents, and it is not a device Cabin Hub should be switching unattended regardless of protocol.",
+    "17 A at 12 V (9 A at 24 V) at zero head. Larger than any of the fresh-water pumps and larger than typical relay-board ratings."
+  ],
+  "unmappedReports": "Pump run state — same gap; here it is acute, because the vendor's stated method of knowing when to stop is that the operator listens to the pump ('Pump switch must be near pump and tank so operator can hear pump running' / 'when tank is empty, pump will get louder with a high pitch sound')."
+}

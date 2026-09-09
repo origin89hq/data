@@ -1,0 +1,38 @@
+{
+  "id": "volthium-bluetooth-dongle-ble-unknown",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "volthium-dongle-connection-manual",
+      "citation": "/Users/lemarier/dev/solar/docs/volthium-dongle-connection-manual.pdf — pp. 2-4. Committed this pass."
+    },
+    {
+      "source": "solacity-com-product-volthium-bluetooth-dongle",
+      "citation": "https://www.solacity.com/product/volthium-bluetooth-dongle/ — checked: 2026-07-31"
+    },
+    {
+      "source": "volthium-com-en-categorie-produit-accessoires-en",
+      "citation": "https://volthium.com/en/categorie-produit/accessoires-en/ — checked: 2026-07-31, for the negative availability finding"
+    }
+  ],
+  "reports": [
+    "state-of-charge"
+  ],
+  "models": [
+    {
+      "name": "Bluetooth Dongle (Solacity VLT-181-124, $149.95 CAD, checked: 2026-07-31)"
+    }
+  ],
+  "gotchas": [
+    "TAXONOMY GAP, read before filing: there is no protocol-family file for vendor-proprietary BLE. `can-bms` is set here only because this module is physically a node on the Volthium CAN segment and its entry wants to sit beside the other Volthium modules. The Bluetooth link is not CAN. docs/catalog/README.md's family list",
+    "No protocol of any kind is published — no service UUID, no characteristic, no advertisement layout, no frame. The manual documents the app's SCREENS, not the link. `confidence: unverified` and `transport: null` are the honest values.",
+    "`reports` lists only `state-of-charge` because that is the only field the manual actually labels (\"State of charge (SOC) indicator\"). The other callout reads just \"Additional information on the battery\" with no field list printed. Nothing further can be claimed from this document.",
+    "It is not a Bluetooth-only device, contrary to the retailer's one-word claim. Vendor manual p.4: four RJ45 female ports — 1 for battery DATA (RS485), 1 \"reserved for the technical service department\", and 2 daisy-chain CAN.",
+    "Unresolved: the app's Config screen carries a toggle described as \"Toggle this option if your battery isn't connected to a Victron VE.CAN device\", so the Dongle alone has some VE.CAN-aware behaviour — but every Victron wiring scheme in the manual routes the VE.CAN cable off the CommunicationHUB, never off the Dongle. R"
+  ]
+}

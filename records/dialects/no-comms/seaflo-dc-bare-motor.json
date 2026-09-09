@@ -1,0 +1,41 @@
+{
+  "id": "seaflo-dc-bare-motor",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "manualslib-com-brand-seaflo",
+      "citation": "SEAFLO manual library, browsed for a matching submersible or deep-well manual, none found — https://www.manualslib.com/brand/seaflo/"
+    },
+    {
+      "source": "seaflo-com-index-php-m-home-c-lists-a-index-tid-332",
+      "citation": "SEAFLO downloads page, catalogues only — https://www.seaflo.com/index.php?m=home&c=Lists&a=index&tid=332"
+    },
+    {
+      "source": "thecabindepot-ca-search-q-seaflo",
+      "citation": "The Cabin Depot SEAFLO listings (retail, checked: 2026-07-31) — https://www.thecabindepot.ca/search?q=seaflo"
+    }
+  ],
+  "blocks": "No vendor document was located for either model. Nothing about these two is confirmed beyond the retailer's listing. Wire count, lead colours, fuse rating and whether either ships with a separate controller are all unknown — leave them unknown.",
+  "models": [
+    {
+      "name": "24V submersible solar deep well pump 103GPH"
+    },
+    {
+      "name": "12V 280GPH submersible/in-line combo water pump"
+    }
+  ],
+  "refutedOnReview": "REFUTED. The dialect should be dissolved, not downgraded — there is no confidence tag low enough to make it correct, because the error is not \"weak evidence for a shared map\" but \"asserting a map exists at all\".  **1. The claim is self-refuting on its own stated evidence.** The proposal says \"Evidence given: NONE\" and that the two models are grouped because neither has a document and neither has a pressure switch. /U",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "This is the group with the least evidence and the most risk. Do not assume the two-lead red/black pattern from the diaphragm pumps applies here just because it is the same vendor — that is precisely the family-name reasoning the catalogue rules forbid.",
+    "A '24V submersible solar deep well pump' is the shape of product that sometimes ships with a separate MPPT-ish or dry-run controller box, and sometimes does not. Community video content on 24 V solar well pumps references a '15A controller'. That is not a SEAFLO source and says nothing about this SKU. If a controller b",
+    "Missing evidence, stated plainly, so the next person knows what to go find: (1) the SEAFLO model number on the label of each, (2) a SEAFLO manual for either, (3) whether either ships with a controller in the box, (4) lead count and colours.",
+    "No pressure switch means no self-regulation. Unlike the 51/52/53/42 group, a relay left closed on one of these runs it until something fails. Any rule that powers one of these must own the dry-run and the run-time limit itself.",
+    "The SEAFLO manual library does list 'Control Systems' and 'Security System' categories — SFWAS1-20-03, SFWAS2-10-03, SFWAS1-20-01, all water-level alarm systems. None of them is a model in this sweep, and an alarm system with contacts is not a communication interface. Noted so nobody chases it as a protocol lead."
+  ]
+}

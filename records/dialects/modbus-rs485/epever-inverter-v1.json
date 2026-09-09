@@ -1,0 +1,64 @@
+{
+  "id": "epever-inverter-v1",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "epever-inverter-protocol-v1-0",
+      "citation": "docs/epever-inverter-protocol-v1.0.pdf (committed) — EPEver \"Inverter communication protocol V1.0\""
+    },
+    {
+      "source": "crates-drivers-cabin-epever-src-ipower",
+      "citation": "crates/drivers/cabin-epever/src/ipower.rs (existing driver, own provenance section)"
+    },
+    {
+      "source": "devices",
+      "citation": "docs/DEVICES.md — full transcription of the register, coil and bitfield tables"
+    }
+  ],
+  "transport": "RS-485 over RJ45 · Modbus RTU · 115200 baud, 8 data bits, 1 stop bit, no flow control · default slave ID 3. RJ45 pins: 1/2 = +5 VDC (200 mA), 3/4 = RS485-B, 5/6 = RS485-A, 7/8 = GND.",
+  "blocks": "Input registers (0x04): 0x3100 real-time (0x3108–0x3112), 0x3200 status. Discrete input (0x02): 0x2000 device over-temperature. Holding (0x03/0x10): 0x9022 output AC voltage, 0x9023 output AC frequency, 0x902F–0x9036 over-discharge and over-voltage thresholds. Coils (0x01/0x05): 0x04, 0x0F, 0x11, 0x13.",
+  "reports": [
+    "battery-voltage",
+    "load-current",
+    "load-power",
+    "ac-voltage",
+    "ac-current",
+    "ac-power",
+    "temperature",
+    "switch-state"
+  ],
+  "accepts": [
+    "set-switch",
+    "clear-fault"
+  ],
+  "models": [
+    {
+      "name": "IPower (IP) series — 110/120 VAC 350~2000 W, 220/230 VAC 350~2000 W"
+    },
+    {
+      "name": "IPower-Plus (IP-Plus) series — 110/120 VAC 350~4000 W, 220/230 VAC 350~5000 W"
+    },
+    {
+      "name": "NPower (NP) series — 110/120 VAC 600~2500 W, 220/230 VAC 260~5000 W"
+    },
+    {
+      "name": "SHI series (named only by the power-saving coil 0x04)"
+    }
+  ],
+  "refutedOnReview": "The sources exist and the central claim survives; two things bolted onto it do not, and both are the failure mode the rules single out.  WHAT CHECKS OUT  `/Users/lemarier/dev/solar/docs/epever-inverter-protocol-v1.0.pdf` exists (123 KB, committed in `ed658a4`) and is text-extractable. Line 2 reads verbatim:      Compatible products: IP series, IP-Plus series, and NP series  Both self-named exceptions are quoted accur",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "EPEver's wording reads backwards until you take the inverter's point of view: \"load input\" is the DC side (the inverter drawing from the bank) and \"load output\" is the AC side. Reversing them reports the bank at 120 V and still looks plausible on a dashboard. driver tests in ipower.rs pin this down deliberately.",
+    "0x310A/0x310B is the inverter's own DC draw from the bank with conversion losses and idle consumption already inside it. This is the register that settles what an always-on satellite terminal actually costs, with no meter added.",
+    "set-switch is two writes, not one: coil 0x11 (local/remote) must be 1 before coil 0x0F (output on/off) is honoured. The device has no transaction, so a failure between the two leaves it in remote control with the output unchanged. driver.rs handles the ordering and the rollback.",
+    "Communication isolation is fitted to 48 V models only. At 12 V the RS-485 port is NOT isolated.",
+    "Pins 1 and 2 of the RJ45 carry +5 V. A straight-through cable or a plain splitter between the controller and the inverter ties their supply rails together. Wire only 3/4, 5/6 and 7/8."
+  ],
+  "unmappedReports": "0x3202 D15–D14 input voltage band (normal / low / high / no input) — no MetricKind., 0x3202 D13–D12 output load band (light / medium / nominal / overload) — no MetricKind. This is the inverter telling you it is near its limit, and nothing in the contract can carry it., 0x3202 D11 short circuit, D10 unable to discharge, D9 unable to stop discharging, D8 abnormal output voltage, D7 input over-current, D6 high-voltage-side short circuit, D5 output fail — seven fault flags with no MetricKind. Only D0 (running/standby → switch-state) is mapped., 0x2000 discrete over-temperature — no fault or alarm MetricKind., 0x3112 heat-sink temperature — a second distinct temperature; temperature is already taken by 0x3111., ac-frequency is in the contract but this map has no frequency register to fill it — the reverse gap. 0x9023 sets output frequency but is a holding register, not a measurement."
+}

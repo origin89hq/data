@@ -1,0 +1,49 @@
+{
+  "id": "morningstar-sunsaver-duo",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "morningstar-sunsaver-duo-modbus-specification",
+      "citation": "SunSaver Duo MODBUS Specification V03, 4 March 2010 — committed at /Users/lemarier/dev/solar/docs/morningstar-sunsaver-duo-modbus-specification.pdf (17 pp)"
+    },
+    {
+      "source": "morningstarcorp-com-ssd-app-modbus-en-03",
+      "citation": "https://www.morningstarcorp.com/ssd-app_-modbus-en_-03/"
+    },
+    {
+      "source": "morningstar-product-connectivity-manual",
+      "citation": "Morningstar Product Connectivity Manual, Table 2 — committed at /Users/lemarier/dev/solar/docs/morningstar-product-connectivity-manual.pdf"
+    }
+  ],
+  "transport": "MeterBus RJ-11 only, via a Morningstar MSC MeterBus-to-Serial Converter to isolated RS-232 · Modbus RTU · 9600 baud, 8 data bits, no parity, 2 stop bits, no flow control · default server address 0x01",
+  "blocks": "0x0000 live values, both banks · 0x001B battery 1 configuration · 0x0023 battery 2 configuration · 0x0100 pre-scaled values and state · coils from 0x0010",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "pv-voltage",
+    "battery-temperature",
+    "temperature",
+    "charge-stage"
+  ],
+  "accepts": [
+    "clear-fault"
+  ],
+  "models": [
+    {
+      "name": "SSD-25"
+    }
+  ],
+  "gotchas": [
+    "THE DOCUMENT'S DEVICE IDENTIFICATION TABLE IS WRONG. On page 7 of *SunSaver Duo MODBUS Specification* V03 the Product Code for object 0x01 reads \"TS-45\" or \"TS-60\" — copied verbatim from the TriStar document. A driver identifying a Duo by product code has no correct value to expect from this source.",
+    "Scaling is plain integer division, not the 2^-15 shift used everywhere else in the Morningstar range: voltages n/1800, solar voltage n/1032, currents n/673, amp-hours n/10. Reusing any other Morningstar decode path produces silently wrong numbers.",
+    "There are TWO representations of the same data. 0x0000-0x0028 are raw scaled values; 0x0100-0x0110 are 'pre-scaled values' where temperatures arrive ready in both °F (0x0100, 0x0102, 0x0104) and °C (0x0101, 0x0103, 0x0105). Reading the °F register and treating it as °C is an easy and invisible mistake.",
+    "There is no single charge_state. Overall state at 0x0108 is 1 = normal, 3 = night, 4 = Fault — note 0 and 2 are not documented. Per-bank stage is at 0x010D/0x010E as 0 = normal, 1 = Eq, 2 = Float. Neither enumeration has a bulk or absorption value, so ChargeStage cannot be filled faithfully from this device.",
+    "There is no equalize coil. The coil list is only 0x0010 reset amp-hours, 0x0014 clear faults, 0x0016 force EE update, 0x0017 reset min/max, 0x00F1, 0x00FF reset controller. Equalize is configured by voltage and timer registers (veql1 0x001E, teq1 0x0022, veql2 0x0024, teq2 0x0028), not triggered — so start-equalize has"
+  ],
+  "unmappedReports": "PER-BANK EVERYTHING — this is the contract finding on this device. One Modbus unit reports vb1 (0x0000) and vb2 (0x0001), ia1 (0x0003) and ia2 (0x0004), ah.b1 (0x0017/0x0018) and ah.b2 (0x0019/0x001A), b1_state (0x010D) and b2_state (0x010E), b1_detect (0x010F) and b2_detect (0x0110). MetricKind has one battery-voltage, one battery-current, one charge-stage. The new Bank type in cabin-contract links a device to one bank; a Duo is one device watching two. Either it publishes as two devices, or per-bank metrics need a home., priority — charging priority as a battery-1 percentage (0x001C), dutcyc1 / dutcyc2 PWM duty cycle (0x000A/0x000B, and pre-scaled at 0x0106/0x0107), b1_detect / b2_detect battery presence (0x010F/0x0110) — 'is a second bank even connected' has no metric, vmaxb1/vminb1/vmaxb2/vminb2 and iamax (0x000C-0x0010), ah.total (0x0015/0x0016) and hourmeter (0x0013/0x0014), vref1 / vref2 charging reference voltages (0x0008/0x0009), faults (0x0109), flags (0x010A), DIPs (0x010B) bitfields, ths_C heatsink temperature (0x0105), state-of-charge — not reported"
+}

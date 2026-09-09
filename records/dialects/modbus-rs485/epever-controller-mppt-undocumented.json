@@ -1,0 +1,64 @@
+{
+  "id": "epever-controller-mppt-undocumented",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "epever-com-product-category-charge-controller",
+      "citation": "https://www.epever.com/product-category/charge-controller/ (checked: 2026-07-31)"
+    },
+    {
+      "source": "epever-duoracer-manual-v2-5",
+      "citation": "docs/epever-duoracer-manual-v2.5.pdf (committed in repo — model list, \"standard Modbus protocol and RS485 (5V/200mA)\", no register table)"
+    },
+    {
+      "source": "epever-com-download-duoracer-series-resources",
+      "citation": "https://www.epever.com/download/duoracer-series-resources/ — only DuoRacer-Manual-EN-V2.5.pdf and DuoRacer-Accessories-EN-V1.0.pdf are offered; no protocol document (checked: 2026-07-31)"
+    }
+  ],
+  "transport": "RS-485, RJ45, 5 V / 200 mA on the port (DuoRacer manual v2.5: \"Standard Modbus protocol and RS485 (5V/200mA) communication port\"). Baud rate, framing and default slave ID are not stated in any manual read.",
+  "models": [
+    {
+      "name": "DuoRacer series 10-30A dual battery (DR1106N/DR1206N/DR2106N/DR2206N -DDB/-DDS; DR3210N-DDS 30A sold at The Cabin Depot, checked: 2026-07-31)"
+    },
+    {
+      "name": "Tracer BP series 10-30A IoT"
+    },
+    {
+      "name": "Tracer BPL series 10-20A IoT solar controller + LED driver"
+    },
+    {
+      "name": "Tracer LPLI series 10-20A solar controller + LED driver"
+    },
+    {
+      "name": "Tracer-CPN series 20-30A"
+    },
+    {
+      "name": "TRC series 10-50A"
+    },
+    {
+      "name": "TEP series 60-100A"
+    },
+    {
+      "name": "TES series 60-100A"
+    },
+    {
+      "name": "TIS series 60-100A with load control"
+    },
+    {
+      "name": "MSC-N series 20-40A"
+    }
+  ],
+  "refutedOnReview": "REFUTED — not because the \"no register map exists\" observation is wrong (it checks out), but because the entry is a dialect, and a dialect in this repo is an assertion the entry cannot support. Four grounds.  **1. The construct itself violates the non-negotiable rule.** `/Users/lemarier/dev/solar/docs/catalog/README.md:19` defines Dialect as \"the register map, owns the driver.\" A dialect ID asserts these models share",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "DuoRacer is the interesting one for a Quebec cabin: a dual-battery controller that trickle-charges a vehicle start battery (BATT2) alongside the house bank, and drives an AES signal for absorption-type fridges. Two banks on one controller has no clean representation in the contract today, and BATT2 supports lead-acid o",
+    "Tracer BP and BPL are marketed as 'IoT' - they likely reach a cloud rather than exposing a local map. Confirm before assuming an RS-485 poll is possible.",
+    "None of these lines should be assumed to be an afternoon's work. Without a register map, each is a bench-reverse-engineering job, which is a different cost class from adding a model to epever-tracer-a."
+  ]
+}

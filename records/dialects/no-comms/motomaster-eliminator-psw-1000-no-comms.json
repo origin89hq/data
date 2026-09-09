@@ -1,0 +1,28 @@
+{
+  "id": "motomaster-eliminator-psw-1000-no-comms",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "community-single",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "diysolarforum-com-threads-motomaster-eliminator-inverter-remote-switch-pinout-21007",
+      "citation": "DIY Solar Power Forum, 'Motomaster Eliminator inverter remote switch pinout' — https://diysolarforum.com/threads/motomaster-eliminator-inverter-remote-switch-pinout.21007/"
+    }
+  ],
+  "blocks": "No vendor manual was located for this part number, and the only source that speaks to its remote is an unresolved forum thread. The existence of a thread whose entire purpose is to work out the remote's pinout is itself the finding: there is no published interface. Nothing to build, but the evidence is one step weaker than for the 1100/1500/3000 W units.",
+  "models": [
+    {
+      "name": "Eliminator Pure Sine Wave Power Inverter 1000 W (CT 0111892p; unit marking 011-1892-4)"
+    }
+  ],
+  "gotchas": [
+    "The thread names 011-1892-4 specifically and ended unresolved. The original poster said he would open the inverter and reverse-engineer it, and never posted a result.",
+    "Thread consensus, not measurement: a momentary push button, one participant guessing 'a 5 V wire that you connect to a ground wire to activate the switch'. That is a guess by a stranger. Tagged community-single and it should not be wired to on this basis.",
+    "A participant noted the remote 'looks a lot like a Xantrex Prosine' and suggested checking Fangpusan models. That is a rebadge hint about the plastic, not evidence of a shared electrical interface. Do NOT fold this model into any Xantrex dialect on the strength of it — visual resemblance of a remote housing is exactly ",
+    "Neither of the two manuals backing the 1100/1500/3000 W dialect names 011-1892-4. It is not covered by them and does not inherit their vendor-doc tag.",
+    "WHAT WOULD SETTLE IT: the 011-1892-4 instruction manual, or a photo of the rear panel. Neither was found."
+  ]
+}

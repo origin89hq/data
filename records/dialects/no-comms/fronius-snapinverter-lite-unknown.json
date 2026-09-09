@@ -1,0 +1,55 @@
+{
+  "id": "fronius-snapinverter-lite-unknown",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "fronius-symo-advanced-install-42-0410-0249",
+      "citation": "docs/fronius-symo-advanced-install-42-0410-0249.pdf — Fronius, Installation Instructions, *Fronius Symo Advanced - Installation 10.0-3 208-240 / 12.0-3 208-240 / 15.0-3 480 / 20.0-3 480 / 22.7-3 480 / 24.0-3 480*, docume"
+    },
+    {
+      "source": "fronius-com-en-help-center-solar-energy-solar-inverters-support-snapinverter",
+      "citation": "https://www.fronius.com/en/help-center/solar-energy/solar-inverters/support-snapinverter — Fronius help centre. \"Fronius SnapINverters are equipped with the Fronius Datamanager 2.0 as standard, but are also available as "
+    },
+    {
+      "source": "manuals-fronius-com-html-4204260426-en",
+      "citation": "https://manuals.fronius.com/html/4204260426/en.html — Fronius Symo Advanced manual, ROW model set (10.0-3-M through 20.0-3-M). \"Fronius Datamanager 2.0 is only available as an option.\" Does NOT cover the North American r"
+    }
+  ],
+  "models": [
+    {
+      "name": "Symo Advanced 10.0-3 208-240 Lite"
+    },
+    {
+      "name": "Symo Advanced 12.0-3 208-240 Lite"
+    },
+    {
+      "name": "Symo Advanced 15.0-3 480 Lite"
+    },
+    {
+      "name": "Symo Advanced 20.0-3 480 Lite"
+    },
+    {
+      "name": "Symo Advanced 22.7-3 480 Lite"
+    },
+    {
+      "name": "Symo Advanced 24.0-3 480 Lite"
+    },
+    {
+      "name": "Symo 15.0-3 Lite — retailer string reads \"Symo 15.0-3 Lite ECO\", which does not resolve to a Fronius product name and is recorded verbatim rather than corrected"
+    }
+  ],
+  "sharedMapEvidence": "Not applicable — this is not a register map, it is the absence of one. What these models share is a vendor-documented hardware fact: \"Lite\" means the Datamanager 2.0 is not fitted. Fronius help centre: \"Fronius SnapINverters are equipped with the Fronius Datamanager 2.0 as standard, but are also available as a Lite version without the Datamanager\" and \"The Datamanager can be retrofitted in a Lite ",
+  "gotchas": [
+    "DIALECT `unknown`, DELIBERATELY. Two separate things are missing and they should not be conflated. FIRST: as shipped, a Lite has no data card, so there is no protocol to be right about. SECOND, and this is the one that would survive a retrofit: NO VENDOR DOCUMENT READ IN THIS PASS SHOWS A REGISTER ADDRESS BESIDE A SYMO",
+    "WHAT WOULD SETTLE IT, so nobody researches it twice: (a) any Fronius page or manual naming a Symo Advanced beside a Modbus register address or beside the Datamanager Modbus manual 42,0410,2049 the way the Primo UL manual does for the DATCOM device-ID rule; or (b) a Symo Advanced operating-instructions PDF whose DATCOM ",
+    "THE MODEL LIST MATCHES A VENDOR DOCUMENT EXACTLY, which is worth having even though it settles nothing about protocol. Fronius installation instructions 42,0410,0249, revision 025-04032026, cover \"Fronius Symo Advanced 10.0-3 208-240, 12.0-3 208-240, 15.0-3 480, 20.0-3 480, 22.7-3 480, 24.0-3 480\" — the six ratings the",
+    "\"Symo 15.0-3 Lite ECO\" DOES NOT RESOLVE. Fronius Eco is a separate SnapINverter line rated 25.0-3 and 27.0-3, so a 15.0-3 is not an Eco. The string is most likely a Symo Advanced 15.0-3 480 Lite with a stray word, but that is a guess and it is not made here. Recorded verbatim so whoever revisits the retailer can settle",
+    "THE QUÉBEC TERRITORIAL RESTRICTION IS IN THE SYMO ADVANCED INSTALLATION INSTRUCTIONS IN THREE LANGUAGES, and the French text is the one that matters for the argument: \"Ce produit est destiné à être vendu et utilisé en dehors de la province de Québec. Il ne répond pas aux exigences de la Charte de la langue française du"
+  ],
+  "unmappedReports": "Nothing to record. The device reports nothing over any interface Cabin Hub could speak to until a card is fitted. Once one is, this group's unmapped metrics become the fronius-datamanager-sunspec list."
+}

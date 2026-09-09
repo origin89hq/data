@@ -1,0 +1,28 @@
+{
+  "id": "champion-flex-2wire-start",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "unrecorded",
+  "sources": [
+    {
+      "source": "championpowerequipment-com-wp-content-uploads-2025-09-hsb-flex-combined-im-english",
+      "citation": "Champion \"Installation Manual Home Standby Generator … fleX Controller\" 4655-M-OP REV 20260410 https://www.championpowerequipment.com/wp-content/uploads/2025/09/HSB-fleX-combined-IM-english.pdf (checked: 2026-09-01)"
+    }
+  ],
+  "transport": "2-wire maintained dry contact · open-circuit voltage: ? · current: ? · Terminal Block 2 \"2-wire (START)\" and \"COM (Ground)\" (p.71–72); controller pin 8 (brown) and pin 16 B- \"Used for two-wire start\" (p.68) — so the contact pulls the input to battery negative",
+  "models": [
+    {
+      "name": "201391 / 201249 / 201202 / 201244",
+      "rating": "10 / 18 / 22 / 26 kW / NG-LP / fleX",
+      "notes": "all four in one manual"
+    }
+  ],
+  "gotchas": [
+    "\"the HSB will turn on and off based on the signal it is receiving from the ATS\" (p.72); PLC COMM must be turned OFF for two-wire start (p.66).",
+    "Two-wire mode loses load management, Wi-Fi and exercise programming (p.69); exercise then comes from the contact.",
+    "No voltage, current or cool-down figure stated. Older non-fleX Champion units reportedly need an interposing relay — `unverified`."
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "onan-rv-qg-3wire-start",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "unrecorded",
+  "sources": [
+    {
+      "source": "cummins-com-sites-default-files-rv-manuals-0983-0600",
+      "citation": "Cummins Onan 983-0600 Issue 10 Installation HGJAA/HGJAB/HGJAC https://www.cummins.com/sites/default/files/rv-manuals/0983-0600.pdf ; 0983-0101 Operator https://www.cummins.com/sites/default/files/rv-manuals/0983-0101.pdf (checked: 2026-09-01)"
+    }
+  ],
+  "transport": "3-wire momentary START + STOP contacts · open-circuit voltage: ? · current: ? · 8-pin remote connector: A STOP, B B-, C START, E REMOTE RUN, F STATUS LAMP (Fig. 29 p.40); as drawn, the switch common is the B- line, so START/STOP are pulled to battery negative; 18 AWG to 30 ft (p.38)",
+  "models": [
+    {
+      "name": "RV QG 5500/6500/7000 (HGJAA/B/C)",
+      "rating": "5.5–7 kW / gasoline or LP",
+      "notes": "12 VDC negative-ground control"
+    }
+  ],
+  "gotchas": [
+    "\"Push and hold the switch at START until the genset starts\" (0983-0101 §3.3); STOP is a press.",
+    "Holding STOP \"for 30 seconds\" runs the fuel pump to prime (§3.2) — a relay stuck on STOP primes continuously.",
+    "No cool-down: stop is immediate. Faults are shown by lamp blink codes and need a manual restart. Voltage/current on the pins: not stated."
+  ]
+}

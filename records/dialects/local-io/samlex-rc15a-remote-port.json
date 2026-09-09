@@ -1,0 +1,43 @@
+{
+  "id": "samlex-rc15a-remote-port",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "samlexamerica-com-wp-content-uploads-2020-01-1100",
+      "citation": "Samlex America, RC-15A Remote Control for Inverter Owner's Manual, doc 11001-RC-15A-1019 (§2 Description, §3 Fig. 1 and Fig. 2, pin-mapping table, §5 Operation) — https://samlexamerica.com/wp-content/uploads/2020/01/1100"
+    },
+    {
+      "source": "samlexamerica-com-pst-power-inverters",
+      "citation": "Samlex America, PST Power Inverters product page (RC-15A paired with PST-1000-12HD and PST-1000-F12) — https://samlexamerica.com/pst-power-inverters/"
+    },
+    {
+      "source": "staged-for-docs-private-tmp-claude-501-users-lemarier-dev-so-3",
+      "citation": "Staged for docs/: /private/tmp/claude-501/-Users-lemarier-dev-solar/01a009b6-aeb2-4d8b-8a84-65ee02fe099b/scratchpad/samlex-docs/samlex-rc-15a-owners-manual-11001-1019.pdf"
+    }
+  ],
+  "transport": "RJ-12 / RJ-25 (6P6C) modular jack · crossed-over (rolled-over) cable set, 5 m / 16.5 ft · discrete lines, no data bus · pinout AT THE INVERTER JACK (mirror of the remote's, per the vendor's own table): pin 1 = OVER TEMP LED, pin 2 = POWER ON LED, pin 3 = Vbattery, pin 4 = Ground/Common, pin 5 = Toggle, pin 6 = OVER LOAD LED",
+  "reports": [
+    "switch-state"
+  ],
+  "accepts": [
+    "set-switch"
+  ],
+  "models": [
+    {
+      "name": "RC-15A"
+    }
+  ],
+  "gotchas": [
+    "CONTRADICTION with the retailer listing. The Quebec retailer offers the RC-15A alongside the PST-1500 as a \"wired remote sold separately\". Samlex's RC-15A manual lists compatibility as PST-600-12, PST-600-24, PST-1000-12 and PST-1000-24 only, and Samlex's PST landing page pairs RC-15A with PST-1000-12HD / PST-1000-F12 ",
+    "This is the only Samlex interface here with a full vendor pinout, and it is genuinely drivable by cabin-gpio: pull the Toggle line to command on/off, read the POWER ON line for switch-state. Vbattery and Ground are on the connector to power the panel.",
+    "What the manual does NOT state, and what a bench session must establish before any driver: the electrical behaviour of the four signal lines — drive level, polarity, active-high or active-low, source or sink, current limit, and whether Vbattery is raw pack voltage or regulated. The pin FUNCTIONS are vendor-documented; ",
+    "The three LED lines are the inverter's own indicator drives, so reading them is passive; the Toggle line is the only output. `reports: switch-state` is what the map supports — whether the level shifter reads it cleanly is a bench question.",
+    "The inverter's own front-panel ON/OFF switch must be ON for the remote to do anything, and turning off from the remote still leaves control circuitry alive drawing current. Same caveat as the RC-300."
+  ],
+  "unmappedReports": "Overload shutdown flag — a dedicated pin exists (pin 6 at the inverter jack) and MetricKind has no fault, alarm, or protection-status wire name to carry it. This is a real contract gap: the wire is right there and there is nowhere to put it., Over-temperature shutdown flag — dedicated pin (pin 1 at the inverter jack), same gap."
+}

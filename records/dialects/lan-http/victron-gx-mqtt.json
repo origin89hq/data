@@ -1,0 +1,75 @@
+{
+  "id": "victron-gx-mqtt",
+  "family": "lan-http",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "github-com-victronenergy-dbus-flashmq",
+      "citation": "https://github.com/victronenergy/dbus-flashmq — vendor's own repository. README documents the ports, the N/ R/ W/ topic scheme, keepalive and authentication."
+    },
+    {
+      "source": "github-com-victronenergy-dbus-mqtt",
+      "citation": "https://github.com/victronenergy/dbus-mqtt — vendor's own repository, records the deprecation at Venus OS v3.20."
+    },
+    {
+      "source": "victronenergy-com-media-pg-cerbo-gx-en",
+      "citation": "https://www.victronenergy.com/media/pg/Cerbo_GX/en/ — Cerbo GX manual MQTT section: local broker on 8883 (SSL) and 1883 (plain), depending on the security profile."
+    }
+  ],
+  "transport": "Ethernet or WiFi · MQTT against the GX's own broker (dbus-flashmq) · TCP 1883 plain, 8883 TLS, 9001 websockets · no authentication for local connections · OFF by default; which ports are offered depends on the configured network security profile — 1883 appears only on 'weak' or 'unsecured'",
+  "blocks": "A topic tree, not registers; the topic path IS the D-Bus path. N/<VRM portal ID>/<service_type>/<device instance>/<D-Bus path> for notifications · W/… to write · R/… to force a re-read · R/<VRM portal ID>/keepalive or the broker goes quiet (60 s timeout) · N/<VRM portal ID>/full_publish_completed marks the end of a full dump.",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "battery-power",
+    "state-of-charge",
+    "consumed-amp-hours",
+    "time-to-go",
+    "pv-power",
+    "ac-power",
+    "ac-voltage",
+    "ac-current",
+    "switch-state",
+    "generator-run-state",
+    "generator-run-hours",
+    "temperature",
+    "humidity",
+    "pressure",
+    "tank-level",
+    "tank-volume",
+    "pv-irradiance"
+  ],
+  "accepts": [
+    "set-switch",
+    "start-generator",
+    "stop-generator",
+    "set-charge-current-limit"
+  ],
+  "models": [
+    {
+      "name": "Cerbo GX (BPP900450100) — 2 Quebec listings, checked: 2026-07-31"
+    },
+    {
+      "name": "Cerbo GX MK2 (BPP900450110 / BPP900451100) — 2 Quebec listings, checked: 2026-07-31"
+    },
+    {
+      "name": "Cerbo-S GX (BPP900450120) — 1 Quebec listing, checked: 2026-07-31"
+    },
+    {
+      "name": "Ekrano GX (BPP900480100) — up to 4 Quebec listings, checked: 2026-07-31"
+    }
+  ],
+  "sharedMapEvidence": "Same Venus OS D-Bus tree, different encoding. The MQTT topic path is literally the D-Bus path that the Modbus workbook lists in its `dbus-obj-path` column, so the two dialects are two views of one map — and the model evidence therefore transfers wholesale from the Modbus dialect above (workbook has no model column, attributes.csv has no model dimension, Ekrano's own §17.2). `dbus-flashmq`'s README",
+  "gotchas": [
+    "dbus-mqtt is deprecated. Victron: 'Since Venus OS v3.20, this project has been replaced with dbus-flashmq.' Anything written against the old dbus-mqtt README describes a service that is no longer running.",
+    "The broker goes quiet unless the client republishes R/<portal ID>/keepalive. The vendor states the 60 s timeout only. The 55 s republish interval is a community convention and a driver choice — do not cite 55 s as vendor-doc.",
+    "Topics are addressed by VRM portal ID, derived from the GX's MAC address. A driver must discover it (it is also register 800 over Modbus) rather than have it configured, or the config rots the day the hardware is replaced.",
+    "Port 1883 does not exist under the default security profile. A driver that hardcodes 1883 fails on a stock GX; 8883 with TLS is what a default install offers.",
+    "full-publish-completed-echo only exists from Venus OS 3.50. Version-gate anything that depends on it."
+  ],
+  "unmappedReports": "Identical to victron-gx-modbus-tcp — both dialects expose the same D-Bus tree, so that entire list applies unchanged, Plus everything under per-device /Alarms/*, /History/* and /Settings/* that has no Modbus register at all — not enumerated in any vendor document and deliberately not guessed at here"
+}

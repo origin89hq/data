@@ -1,0 +1,35 @@
+{
+  "id": "honda-eu7000is-factory-remote-connector",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "unrecorded",
+  "sources": [
+    {
+      "source": "cdn-powerequipment-honda-com-pe-pdf-manuals-00x31z376200",
+      "citation": "Honda EU7000is Owner's Manual 00X31Z376200 (2020), https://cdn.powerequipment.honda.com/pe/pdf/manuals/00X31Z376200.pdf pp54–56, 102 (wiring), 117–119; Honda Generator Accessories catalogue https://cdn.powerequipment.honda.com/pe/pdf/Accessories/generators.pdf p5-15; Magnum ME-AGS-N note https://www.magnum-dimensions.com/sites/default/files/MagDocs/ME-AGS-N%20(Honda%20EU7000is%20with%20remote%20plug)%20Rev%202-13-2018DM.PDF (checked: 2026-09-01)"
+    }
+  ],
+  "transport": "maintained RUN contact + momentary START contact (closest catalogue class: \"3-wire momentary START + STOP contacts\") — wiring diagram p102 shows the remote box as MAIN SW across `MAIN_SW+` (Br/Bu) / `MAIN_SW−` (W/Bu), START SW across `PUSH_SW2` (W/G) / GND (G), and a pilot-lamp output `PL(REM)` (G/Bu); Magnum: \"ON = Maintain close, START = Momentary close\" · open-circuit voltage: ? · contact current: ? (Magnum shows a ≤5 A fuse on its relay side only) · generator MAIN switch must be ON (p54; Magnum: \"Turn and leave generator key in ON Position\") · factory shorting plug must be removed for a remote and refitted without one — \"the generator will not start without it\" (PII54855 p2).",
+  "models": [
+    {
+      "name": "EU7000is EEJD-1000001–1299999",
+      "rating": "5.5/7.0 kVA, gasoline, electric start",
+      "notes": "Wired kits 32380-Z37-800ZA (33 ft) / -820ZA (98 ft); \"not applicable to CO-Minder (AG) models\" (cat. p5-15)"
+    },
+    {
+      "name": "EU7000is EEJD-1300001+ (CO-Minder)",
+      "rating": "same",
+      "notes": "\"built-in wireless start/stop\" (cat. p5-15); remote-kit page still present in 2020 OM"
+    }
+  ],
+  "gotchas": [
+    "\"The ENGINE START button functions for 5 seconds. As soon as the engine starts, the starter will stop automatically ... wait at least 10 seconds before operating the starter again\" (p54). Cranking is internally timed; a controller on this input only pulses START.",
+    "Remote MAIN OFF vetoes the panel: \"pressing the ENGINE START button on the control panel will crank the engine, but the engine will not start\" (p56).",
+    "After a CO-Minder shutdown the engine \"cannot be started remotely ... unless the engine is started using the ENGINE START button on the control panel once\" (p56) — a remote site cannot recover from this.",
+    "Connector naming drifts: 2019 OM says \"plug\", 2020 OM \"6-pin coupler\" + \"4-pin coupler\" (p117), Honda's PII54855 says \"8-pin remote connector\". Verify on the unit.",
+    "Magnum's suggested timing on this input: start 5 s, 2 min between attempts, 4 attempts."
+  ]
+}

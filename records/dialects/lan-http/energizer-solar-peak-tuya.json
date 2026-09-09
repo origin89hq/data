@@ -1,0 +1,63 @@
+{
+  "id": "energizer-solar-peak-tuya",
+  "family": "lan-http",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "energizersolar-com-s-energizer-solar-peak-300-application-manual",
+      "citation": "Energizer Solar Peak 300 Application Manual — https://www.energizersolar.com/s/Energizer-Solar_Peak-300-Application-Manual.pdf (downloaded to scratchpad/ez-peak300.pdf)"
+    },
+    {
+      "source": "energizersolar-com-s-energizer-solar-peak-300-user-manual-final",
+      "citation": "Energizer Solar Peak 300 User Manual FINAL — https://www.energizersolar.com/s/Energizer-Solar-Peak-300-User-Manual_FINAL.pdf (downloaded to scratchpad/ez-peakum.pdf)"
+    },
+    {
+      "source": "energizersolar-com-resources",
+      "citation": "Energizer Solar resources index — https://www.energizersolar.com/resources"
+    }
+  ],
+  "transport": "2.4 GHz Wi-Fi with Bluetooth used for pairing and for direct control once paired. Onboarding is through the Tuya 'Smart Life' app — the vendor's own application manual instructs the user to 'Search for Smart Life within your mobile devices app store'. An 'Energizer Solar Portables App' is also named in the same document for Bluetooth control after Wi-Fi setup. No local API, port, or key-extraction",
+  "reports": [
+    "state-of-charge",
+    "battery-temperature",
+    "pv-power",
+    "pv-energy-total",
+    "ac-power",
+    "load-power",
+    "time-to-go",
+    "switch-state"
+  ],
+  "accepts": [
+    "set-switch"
+  ],
+  "models": [
+    {
+      "name": "Peak 300"
+    },
+    {
+      "name": "Peak 600"
+    },
+    {
+      "name": "Peak 1800"
+    },
+    {
+      "name": "Peak 3000"
+    },
+    {
+      "name": "Peak 2500 (expansion battery)"
+    }
+  ],
+  "sharedMapEvidence": "The vendor publishes a separate 'Application Manual' per model (Peak 300, 600, 1800, 3000), but they are the same document body — the Peak 300 application manual's own page headers read 'ENERGIZER SOLAR PEAK 3000 - MOBILE APPLICATION' throughout, i.e. one file was rebadged across the range. That is a single vendor document describing one identical app dashboard and one identical pairing flow for a",
+  "gotchas": [
+    "This is the only Energizer device found in the whole sweep with a documented, reachable-without-a-cloud-account local path — and only because 'Smart Life' means Tuya. A local driver would ride the community Tuya LAN protocol (tinytuya / localtuya, TCP 6668, per-device local key). Those implementations were NOT cross-ch",
+    "The vendor names two different apps for the same device (Tuya Smart Life for setup, 'Energizer Solar Portables App' for Bluetooth control). Both appear in the same manual. Recorded rather than resolved.",
+    "Peak 300 is 204.8 Wh / 25.6 V / 8 Ah LiFePO4 despite the '300' in the name — the number is the AC watt rating, not the capacity. Do not size a bank off the model number.",
+    "US models are 120 V/60 Hz; EU/UK/FR/AU/ZA models are 220-240 V/50-60 Hz. Same model name, different hardware.",
+    "Regional availability listed is AU / EU / ZA / US. No Canadian datasheet variant is published."
+  ],
+  "unmappedReports": "per-port output power — the dashboard shows separate figures for each USB outlet, the 12 V car-charger output, and the Anderson output; the contract has only a single load-power, estimated time to FULL charge — the contract has time-to-go (discharge) with no charging counterpart, CO2 emissions avoided, bypass mode vs. inverter mode (AC output sourced from grid vs. from battery), LED torch state — set-switch covers the command, but there is no metric for which of several switchable outputs is on, 'Never off' AC-output setting (keeps output alive through a fridge's power fluctuation)"
+}

@@ -1,0 +1,43 @@
+{
+  "id": "energizer-en-power-inverter-no-comms",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "homedepot-ca-product-energizer-12v-2000-watt-power-inverter-1000682144",
+      "citation": "Energizer 12V 2000 Watt Power Inverter (EN2000), Home Depot Canada — https://www.homedepot.ca/product/energizer-12v-2000-watt-power-inverter/1000682144"
+    },
+    {
+      "source": "homedepot-ca-product-energizer-3000w-12v-power-inverter-1000682143",
+      "citation": "Energizer 12V 900/1100/1500/3000 W listings, Home Depot Canada — https://www.homedepot.ca/product/energizer-3000w-12v-power-inverter/1000682143"
+    }
+  ],
+  "models": [
+    {
+      "name": "EN900"
+    },
+    {
+      "name": "EN1100"
+    },
+    {
+      "name": "EN1500"
+    },
+    {
+      "name": "EN2000"
+    },
+    {
+      "name": "EN3000"
+    }
+  ],
+  "sharedMapEvidence": "Not applicable — no protocol. Grouped as one retail line (12 V DC to 120 V AC modified-sine inverters, identical feature list across wattages at Home Depot Canada).",
+  "gotchas": [
+    "The bundled 'remote control' is a wired on/off pendant, not a data link. The LCD shows output watts, input voltage and battery level locally and exports none of it.",
+    "Modified sine wave on EN2000. Worth recording for a cabin: it is not a substitute for a pure-sine inverter on sensitive loads.",
+    "checked: 2026-07-31. Retail listing only; no manual was opened, so 'no comms' is unverified rather than vendor-doc.",
+    "12 V DC input only — this is a vehicle/portable inverter, not a house inverter, and will not appear as a house AC source."
+  ]
+}

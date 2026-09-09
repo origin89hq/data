@@ -1,0 +1,60 @@
+{
+  "id": "victron-phoenix-inverter-vedirect-text",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "/Users/lemarier/dev/solar/docs/victron-ve-direct-protocol-3.34.pdf — VE.Direct Protocol rev 3.34, 14 April 2025, Table I and the PID list (already committed)"
+    }
+  ],
+  "transport": "VE.Direct 4-pin JST-PH · 19200 8N1, no flow control · unsolicited push, no request framing, no slave ID (one device per port)",
+  "blocks": "Repeating <0x0D 0x0A><Label><0x09><Value> lines; the last field of a block is literally named `Checksum` and its byte makes the modulo-256 sum of every byte in the block equal 0. Maximum 22 fields per block; label buffer 9 bytes, value buffer 33 bytes.",
+  "reports": [
+    "ac-voltage",
+    "ac-current",
+    "ac-apparent-power",
+    "battery-voltage",
+    "switch-state"
+  ],
+  "models": [
+    {
+      "name": "Phoenix Inverter 12/250 120V (PIN122510500) · 24/250 (PIN242510500) · 48/250 (PIN482510500) and the GFCI variants PIN122510510 / PIN242510510"
+    },
+    {
+      "name": "Phoenix Inverter 12/375 120V (PIN123750500) · 24/375 (PIN243750500) · 48/375 (PIN483750500) · 12/375 GFCI (PIN123750510)"
+    },
+    {
+      "name": "Phoenix Inverter 12/500 120V (PIN125010500) · 24/500 (PIN245010500) · 48/500 (PIN485010500) · GFCI PIN125010510 / PIN245010510 · 12/500 230V Schuko (PIN121501200)"
+    },
+    {
+      "name": "Phoenix Inverter 12/800 120V (PIN121800500) · 24/800 (PIN241800500) · 48/800 (PIN481800500) · GFCI PIN121800510 / PIN241800510 · 24/800 230V IEC"
+    },
+    {
+      "name": "Phoenix Inverter 12/1200 120V · 24/1200 (PIN242122500) · 48/1200 (PIN482122500) · GFCI PIN122122510 / PIN242122510 / PIN482122510"
+    },
+    {
+      "name": "Phoenix Inverter Smart 12/1600 (PIN122161500) · 24/1600 (PIN242161500)"
+    },
+    {
+      "name": "Phoenix Inverter Smart 24/3000 230V · 48/3000 230V"
+    },
+    {
+      "name": "Phoenix Inverter 24/250 230V AU/NZ"
+    }
+  ],
+  "refutedOnReview": "REFUTED as stated. The cited source exists (/Users/lemarier/dev/solar/docs/victron-ve-direct-protocol-3.34.pdf) and Table I does have one column headed \"Phoenix Inverter\", but the claim's load-bearing sentence — \"Every field marked in that column applies to every product in the document's Phoenix Inverter PID list, 0xA201 through 0xA2A4\" — is false on the document's own face.  1. THE COLUMN IS NOT UNIFORM. Three mark",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "The Phoenix Inverter column is a genuinely different field set from the MPPT column, which is why this is a separate dialect and not a model added to `victron-vedirect-text`. Checked field by field against Table I: the inverter reports V, Relay, AR, OR, CS, FW, PID, SER#, MODE, AC_OUT_V, AC_OUT_I, AC_OUT_S, WARN — and ",
+    "There is NO battery current. Table I's `I` row is marked for BMV 60x/70x/71x, MPPT, Phoenix Charger and Smart BuckBoost — not Phoenix Inverter. Verified by mapping the bullet character positions against the header column offsets, not by eye. A Phoenix Inverter over VE.Direct cannot tell you how hard it is pulling on th",
+    "No temperature, no state of charge, no energy counters, no `P` instantaneous power. This is a thin dialect: five mappable metrics.",
+    "`Relay` is marked footnote 14, \"Available on Smart Phoenix Inverter\" — the non-Smart 250-1200 VA units, which is most of the Quebec retail list, do not report it. And the vendor warns the polarity is inverted relative to a BMV: \"Phoenix Smart Inverter: during normal operation (inverting) the relay is 'ON'.\" On a BMV, O",
+    "`AC_OUT_S` is footnote 18, \"Available on Phoenix Inverter (some models) since firmware version v1.16\" — the vendor does not say which models. `OR` is footnote 16, v1.16 and later. On older firmware both fields are simply absent from the block, not zero."
+  ],
+  "unmappedReports": "`AR` Alarm reason — a summed bitfield, and for inverters the vendor gives it its own column of bit meanings: Low Voltage 1, High Voltage 2, Low Temperature 32, High Temperature 64, Overload 256, DC-ripple 512, Low V AC out 1024, High V AC out 2048. AR is sticky: it \"remembers the reason what caused the inverter to switch off (active protection) until it is switched on again\". Nothing in the contract remembers why something tripped., `WARN` Warning reason — same bit definitions as AR but live rather than latched, and \"implemented for inverters only\". The difference between AR and WARN is the difference between \"it tripped on overload an hour ago\" and \"it is overloading right now\", and neither is expressible., `OR` Off reason bitfield: No input power 0x01, Switched off by power switch 0x02, Switched off by device mode register 0x04, Remote input 0x08, Protection active 0x10, Paygo 0x20, BMS 0x40, Engine shutdown detection 0x80, Analysing input voltage 0x100. Available on Phoenix Inverter from firmware v1.16. The catalogue already flagged off-reason as a contract gap for MPPTs; this is the second dialect that carries it., `CS` State of operation, inverter column: 0 Off, 1 Low power (load search), 2 Fault, 9 Inverting. `ChargeStage` is the wrong axis entirely for an inverter — there is nothing to charge. Low power / load search has no home in `ChargeStage` or `RunState`., `MODE` Device mode, inverter column: 2 VE_REG_MODE_INVERTER, 4 VE_REG_MODE_OFF, 5 VE_REG_MODE_ECO, 253 VE_REG_MODE_HIBERNATE (Smart only). `switch-state` is a boolean and cannot say Eco or Hibernate., `FW`, `PID`, `SER#` — identity, not measurement. No contract slot. Same finding as the MPPT text dialect., AC apparent power `AC_OUT_S` is in VA and maps to `ac-apparent-power`, but there is no real-power field at all in this column — no `ac-power`, no power factor. A Phoenix Inverter over text mode cannot tell you watts."
+}

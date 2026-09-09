@@ -1,0 +1,33 @@
+{
+  "id": "cummins-quietconnect-remote-start",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "unrecorded",
+  "sources": [
+    {
+      "source": "bnhgenerators-com-wp-content-uploads-2022-03-installation-manual-rs13a-rs17a-rs20a-rs20ac",
+      "citation": "Cummins \"Installation Manual Generator Set for Home Standby C13N6H/C17N6H/C20N6H/C20N6HC\" A053X172 Issue 16 https://bnhgenerators.com/wp-content/uploads/2022/03/Installation-Manual-RS13A-RS17A-RS20A-RS20AC.pdf (checked: 2026-09-01)"
+    }
+  ],
+  "transport": "switched DC input (switch to ground) · open-circuit voltage: 14 VDC design · current: ? · TB6 \"REMOTE START INPUT — DIGITAL INPUT (SWITCH TO GROUND), DESIGN VOLTAGE: 14VDC, NOMINAL CURRENT: 1A\"; TB7 \"CUSTOMER GROUND (1A MAX)\"; TB8 B+ 12 VDC 1 A protected (Fig. 42 p.105)",
+  "models": [
+    {
+      "name": "RS13A / RS17A / RS20A / RS20AC",
+      "rating": "13–20 kW / NG-LP / SAAC board",
+      "notes": "contact goes TB6→TB7"
+    },
+    {
+      "name": "RS30 (PowerCommand)",
+      "rating": "30 kW",
+      "notes": "has a \"Remote Start\" DC customer connection; figures not read"
+    }
+  ],
+  "gotchas": [
+    "\"generic 2-wire switches\" wiring is in Appendix C (p.27); the 1 A is a terminal rating, not the wetting current — the actual pull-up current is not stated.",
+    "Remote and Standby modes must be enabled at the local display or starts are refused (§5.9 p.73–74).",
+    "Cool-down on contact opening: not stated in this manual."
+  ]
+}

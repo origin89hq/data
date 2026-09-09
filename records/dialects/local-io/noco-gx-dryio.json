@@ -1,0 +1,45 @@
+{
+  "id": "noco-gx-dryio",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "batterystuff-com-files-1187-noco-gx4820-user-manual",
+      "citation": "NOCO Genius GX Series User Guide, doc GXS021716A — https://www.batterystuff.com/files/1187-noco-gx4820-user-manual.pdf (vendor document; PDF suitable for committing to docs/)"
+    },
+    {
+      "source": "no-co-collection-genius-gx",
+      "citation": "https://no.co/collection/genius/gx — GX2440 / GX3626 / GX4820, US$549.95 each (checked: 2026-07-31)"
+    },
+    {
+      "source": "thecabindepot-ca-collections-noco",
+      "citation": "https://thecabindepot.ca/collections/noco — GX2440 CA$859.99 (checked: 2026-07-31)"
+    }
+  ],
+  "transport": "Two optional screw-terminal dry-I/O ports on the charger body, next to the DC Output Connection Port · Inhibit Port = internal relay contact rated 20 A, closed while the charger has AC power, opens ~15 s after AC removal (capacitor discharge) · Remote LEDs Port = 2-LED output, polarity reverses between \"Charging\" and \"Charged\" · no bus, no addressing, no baud, no framing. Connector type, terminal ",
+  "blocks": "No pinout, terminal voltage or connector type is published for either port, so the electrical interface to a GPIO cannot be designed from the document — it has to be metered on the unit. Also, nothing in the contract can express \"charger has AC power\", so even a working driver has no honest wire name to publish on.",
+  "models": [
+    {
+      "name": "GX2440"
+    },
+    {
+      "name": "GX3626"
+    },
+    {
+      "name": "GX4820"
+    }
+  ],
+  "sharedMapEvidence": "One vendor document covers all three: NOCO Genius GX Series User Guide, doc code GXS021716A (https://www.batterystuff.com/files/1187-noco-gx4820-user-manual.pdf, mirrored from NOCO). Every mode table in it carries a three-row sub-table naming GX2440 / GX3626 / GX4820 with per-model voltage and current (e.g. NORM: 28.8 V/40 A, 43.2 V/26 A, 57.6 V/20 A), and the Inhibit Port / Remote LEDs Port secti",
+  "gotchas": [
+    "The Inhibit relay tracks AC PRESENCE, not charging. It is closed the whole time the charger is plugged in, including Standby. It cannot tell you the charger is doing anything to the battery.",
+    "The ~15 s open delay after AC loss is documented and is long enough to matter for any rule keyed on generator or shore-power dropout.",
+    "20 A is a power contact, not a logic output. The guide gives no contact voltage rating, no coil data, no terminal pinout and no connector part number, so the interface to a Pi GPIO input (opto, pull-up, series resistor) cannot be designed from the document. Bench question.",
+    "The Remote LEDs Port SOURCES current to drive LEDs at an unstated voltage and reverses polarity between states. Reading it as a logic input needs two opto-isolators back-to-back, or a meter first. Do not assume 5 V or 3.3 V.",
+    "GX chargers are single-voltage per model. GX4820 is 48 V only, GX3626 36 V only, GX2440 24 V only — none will charge a 12 V cabin bank. Kind is `charger`, not `solar-charger`."
+  ],
+  "unmappedReports": "charger AC-present / mains-present — the Inhibit relay's only signal. No MetricKind covers \"this charger is energised\". `switch-state` is the only boolean but its doc comment says \"Position of a controllable switch or relay\", and this relay is not controllable. A driver author today would have to abuse `switch-state`., Charging vs Charged (two-state, from the Remote LEDs Port polarity). `charge-stage` exists but cannot be filled faithfully: the port cannot distinguish bulk from absorption, and \"Charged\" is only approximately `float`. Encoding \"Charging\" as `unknown` throws the information away., NOCO's 9-step cycle steps with no ChargeStage variant: Analyze, Diagnose, Recovery, Initialize, Opportunity, Optimization, Maintenance. ChargeStage has idle/bulk/absorption/float/equalize/fault/unknown only. `equalize` is NOT a synonym for NOCO REPAIR/Recovery — NOCO never uses the word equalize and describes a pulsed desulfation, not a controlled overcharge., SUPPLY mode — the charger converting to a constant-voltage DC power supply (GX2440 27.2 V/13 A, GX3626 40.8 V/13 A, GX4820 54.4 V/10 A). Not a charge stage at all; no `charger-mode` metric exists., AC grid fault (Quadruple Flash = VAC <85 V or >250 V, or frequency <45 Hz or >65 Hz). No fault-code MetricKind exists; `charge-stage: fault` loses which fault., The DeviceKind `charger` has no charger-specific MetricKind at all — nothing named `charger-*` in metric.rs. Charger output volts/amps would have to borrow `battery-voltage`/`battery-current`, which are documented as bank measurements taken at the bank."
+}

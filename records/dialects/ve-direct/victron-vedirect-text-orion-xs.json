@@ -1,0 +1,48 @@
+{
+  "id": "victron-vedirect-text-orion-xs",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "docs/victron-ve-direct-protocol-3.34.pdf — Table I pp. 5–7 (`Smart BuckBoost` column), PID list p. 13, changelog p. 20."
+    },
+    {
+      "source": "victron-orion-xs-ve-direct-hex-protocol-2025-06-16",
+      "citation": "docs/victron-orion-xs-ve-direct-hex-protocol-2025-06-16.pdf — newly committed, see next dialect."
+    }
+  ],
+  "seeAlso": [
+    "victron-vedirect-text"
+  ],
+  "transport": "VE.Direct — same 19200 8N1 unsolicited text push as every other VE.Direct product. The Orion XS HEX document confirms the two modes share the port: \"when connecting to the VE.Direct port, the charger always periodically sends TEXT data to the serial port … this periodic TEXT data is interleaved with the response of the HEX protocol\".",
+  "blocks": "Same text framing as above. Fields used, quoted from the 3.34 changelog for rev 3.33: PID, FWE, SER#, V, I, P, DC_IN_V, DC_IN_I, DC_IN_P, CS, OR, ERR.",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "battery-power",
+    "charge-stage"
+  ],
+  "models": [
+    {
+      "name": "Orion XS 12V/12V-50A — PID 0xA3F0 (retail ORI121217050)"
+    },
+    {
+      "name": "Orion XS 1400 — PID 0xA3F1 (retail ORI242417040)"
+    }
+  ],
+  "sharedMapEvidence": "VE.Direct Protocol 3.34 Table I has exactly one column headed `Smart BuckBoost` and both product ids sit under it. The 3.34 changelog is explicit that 0xA3F1 was added to that existing column rather than given its own: rev 3.33 (06 June 2023) \"Added new Smart BuckBoost: Added to the PID list (0xA3F0), Added to the Fields table, Fields used: PID, FEW[sic], SER#, V, I, P, DC_IN_V, DC_IN_I, DC_IN_P, ",
+  "gotchas": [
+    "The product name in the PID list changed under a stable id. 0xA3F0 was published as `Smart BuckBoost` from June 2023 and renamed `Orion XS 12V/12V-50A` in April 2025. Any implementation built against 3.33 has the old string.",
+    "`I` here is the *output* current to the service battery, and `P` the output power — that is what the `Smart BuckBoost` column of Table I means by \"Main or channel 1 battery current\" / \"Instantaneous power\". The input side is the separate DC_IN_* trio. Do not sum them.",
+    "Two catalogue-level naming traps in the retailer list. `Orion XS 1400 DC-DC charger` appears twice under two different SKUs, and one retailer lists `100A Buck-Boost (Orion XS, ORI121217040)` — 0xA3F0's real SKU is ORI121217050 and Victron's separate `Buck-Boost DC-DC Converter 25A/50A/100A` is a different product line ",
+    "`Orion XS 24/24-140A DC-DC Charger` (1 Quebec retailer, checked 2026-07-31) is not in the 3.34 PID list nor in the HEX document's product-id table, and 140 A at 24 V is 3.4 kW, which no Orion XS spec supports. Victron's site also now carries an Orion XS 12/12-70A manual (Rev 01, 06/2026) that postdates both documents. ",
+    "3.34's own changelog contains a typo — it lists field `FEW` where it means `FWE`. Recorded rather than silently corrected."
+  ],
+  "unmappedReports": "DC_IN_V (0.01 V), DC_IN_I (0.1 A), DC_IN_P (1 W) — the DC input side, i.e. what the unit is drawing from the alternator or starter bank. **There is no MetricKind for it.** `pv-*` is wrong (the source is not an array) and `load-*` is wrong (the contract's load side is a charger's output). This is the single largest contract gap this sweep found: a DC-DC charger's whole reason to exist is the relationship between its two ports, and the contract can only express one of them., OR — off reason bitfield, including 0x00000080 Engine shutdown detection and 0x00000100 Analysing input voltage. On a DC-DC charger these are the normal, expected reasons it is idle. No metric., ERR — charger error code. `ChargeStage::Fault` drops the number., MODE — Table I marks MODE for the Smart BuckBoost column, but the MODE value table only has Inverter and Charger columns. Nothing states what an Orion XS puts there., CS values 6 Storage, 11 Power supply, 246 Repeated absorption, 248 BatterySafe — no `ChargeStage` variant. Likewise the CS value table has no BuckBoost column at all (only MPPT / Inverter / Charger), so which of those values an Orion XS can emit is not stated in 3.34., PID / SER# / FWE — identity.",
+  "possibleDuplicate": true
+}

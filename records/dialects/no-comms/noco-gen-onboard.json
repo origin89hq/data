@@ -1,0 +1,56 @@
+{
+  "id": "noco-gen-onboard",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "no-co-media-wysiwyg-downloads-user-guides-gen-gen-series-na-user-guide-10-30-2024a",
+      "citation": "https://no.co/media/wysiwyg/downloads/User_Guides/GEN/GEN_Series_NA_User_Guide_10.30.2024A.pdf (vendor)"
+    },
+    {
+      "source": "no-co-media-wysiwyg-downloads-user-guides-gen-genpro-series-na-user-guide-10-30-2024a",
+      "citation": "https://no.co/media/wysiwyg/downloads/User_Guides/GEN/GENPRO_Series_NA_User_Guide_10.30.2024A.pdf (vendor)"
+    },
+    {
+      "source": "thecabindepot-ca-collections-noco",
+      "citation": "https://thecabindepot.ca/collections/noco — GEN5X2 CA$219.99, GENPRO10X2 CA$354.99, GENPRO10X4 CA$664.99 (checked: 2026-07-31)"
+    }
+  ],
+  "models": [
+    {
+      "name": "GEN5X1"
+    },
+    {
+      "name": "GEN5X2"
+    },
+    {
+      "name": "GEN5X3"
+    },
+    {
+      "name": "GENPRO10X1"
+    },
+    {
+      "name": "GENPRO10X2"
+    },
+    {
+      "name": "GENPRO10X3"
+    },
+    {
+      "name": "GENPRO10X4"
+    }
+  ],
+  "refutedOnReview": "REFUTED as a register-map claim — but note the sources are unusually solid, and the failure is one of classification, not fabrication.  WHAT I DID: fetched both cited PDFs (they exist at the exact URLs, 546.9KB and 553.1KB), extracted full text with pdftotext -layout, and read both guides end to end (674 and 680 lines, EN/FR/ES).  CONFIRMED — every model-naming and isolation fact checks out verbatim: - GEN_Series_NA_",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "Same \"Canbus is enabled in Standby mode\" sentence. Same non-answer.",
+    "IP68 and natural convection, 12 V only, up to 230 Ah per bank, -20 °C to +40 °C. These are the NOCO parts most plausible in a cabin battery box, and they are exactly the ones with nothing to read.",
+    "GENPRO10X4 is 40 A across four isolated 10 A banks — NOT 40 A into one bank. Sizing trap.",
+    "NOCO's GCP AC Ports are a plug-n-play AC extension accessory referenced on the GENPRO support page. Power only; not a data accessory.",
+    "LEGACY, source dead: the Quebec off-grid retailer Alt-Énergie (altenergie.ca) was found in search results carrying a NOCO \"Gen-4\" 4-bank onboard charger — the predecessor of GENPRO10X4. The product URL returns HTTP 404 as of 2026-07-31. Recorded so nobody chases it; a used Gen-4 in a cabin is plausible and its guide wa"
+  ],
+  "unmappedReports": "Per-bank state of charge on the faceplate Charge LEDs, with each bank isolated — a multi-bank device with per-bank SOC and no way to publish either. The contract's `state-of-charge` would need a per-bank device instance; see the new crates/cabin-contract/src/bank.rs work in progress., Built-in temperature sensor doing thermal compensation. `battery-temperature` exists; the reading never leaves the unit., REPAIR / SUPPLY / FORCE modes — no ChargeStage variants, as above."
+}

@@ -1,0 +1,50 @@
+{
+  "id": "eg4-ll-modbus",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "eg4-ll-battery-modbus-protocol-v1-06",
+      "citation": "docs/eg4-ll-battery-modbus-protocol-v1.06.pdf — 'EG4-LL Battery MODBUS Protocol between UPS(SMPS) and BMS', Version V01.06, 2017-06-21 (vendor, committed)"
+    },
+    {
+      "source": "eg4-wallmount-indoor-280ah-start-guide-2024-03",
+      "citation": "docs/eg4-wallmount-indoor-280ah-start-guide-2024-03.pdf — EG4 WallMount Indoor 280Ah Lithium Battery Start Guide (vendor, committed)"
+    },
+    {
+      "source": "github-com-gonzalop-wombatt",
+      "citation": "https://github.com/gonzalop/wombatt — internal/bms/eg4llv2.go"
+    }
+  ],
+  "transport": "RS-485 over RJ45 (Pin 1 & 8 = RS485_B, Pin 2 & 7 = RS485_A) · Modbus RTU · FC 0x03 read, FC 0x10 write · 9600 8N1 default, doc states 9600–19200 range · 100 ms minimum read interval · slave address 0x01–0x0F for modules, 0x10 = master BMS (module ID 0) per the protocol doc",
+  "blocks": "0x0000–0x0026 runtime, 39 registers (slave path, unit ID 2+) · 0x0069–0x007F model / FW version / serial, 23 registers · master unit (ID 1) instead serves 0x0013–0x0029 aggregates plus 0x0071–0x0080 its own cell voltages",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "state-of-charge",
+    "state-of-health",
+    "cycle-count"
+  ],
+  "models": [
+    {
+      "name": "EG4-LL 48V 100Ah (server rack)"
+    },
+    {
+      "name": "EG4 WallMount Indoor 51.2V 280Ah (14.3 kWh) — firmware model string WM-48\\|280-LL-00"
+    }
+  ],
+  "sharedMapEvidence": "Not a family-name inference. (1) The vendor doc EG4-LL MODBUS Protocol V01.06 defines registers 0000–0038 and 0105–0127; wombatt eg4llv2.go reads exactly address 0 count 39 and address 105 count 23 against the same field order, and dbus-serialbattery eg4_ll.py issues the identical frames (03 00 00 00 27 and 03 00 69 00 17). (2) joyfulhouse/pylxpweb reverse-engineered the HC32 BMS firmware pulled f",
+  "gotchas": [
+    "The master battery uses a COMPLETELY DIFFERENT register map from the slaves. On unit ID 1 registers 0–18 read as zeros and the data lives at 19–41 with cell voltages at 113–128; on unit ID 2+ the data starts at 0 with cells at 2–17. Three independent sources say so: pylxpweb (firmware RE), Sleeper85/esphome-yambms ('BM",
+    "Master registers are aggregates, not that battery's own values: reg 22 voltage is the MINIMUM across the bank, reg 23 current is the SUM, reg 24 temperature is the MAX, reg 30 cycle count is the MAX, reg 21 SOC is capacity-weighted across the whole bank. Only cells 113–128, SOH and the min/max cell values are the maste",
+    "Master regs 26/27 (total remaining / total full capacity, ×100 Ah) overflow uint16 on banks above roughly 655 Ah. pylxpweb documents an unwrap formula. Do not read them as plain unsigned.",
+    "CONTRADICTION on register 21. The vendor doc gives 'Cap Remaining' with no unit; wombatt tags it as a percentage; pylxpweb and ricardocello's eg4_waveshare.py read it as Ah. Unresolved — this is a bench question.",
+    "CONTRADICTION on registers 19 and 20. wombatt's source carries the comment 'MaxTemp and AvgTemp seem to be swapped in the PDF doc'. The catalogue records both readings rather than picking one."
+  ],
+  "unmappedReports": "16 individual cell voltages (regs 2–17, mV) — no per-cell MetricKind exists, max / min cell voltage and cell voltage spread (master regs 37/38), cell balance bitmap (reg 38) and per-cell balancing state, remaining capacity in Ah (reg 21) — consumed-amp-hours is charge drawn since full, not capacity remaining, full capacity (regs 31–32) and designed capacity (reg 37) in Ah, max allowed charging current (reg 22, A), warning / protection / error bitfields (regs 26/27/28) — no fault-code MetricKind, battery status bitfield (reg 25: standby / charging / discharging / protect / charge-limited, plus heater on-off) — charge-stage is a charger stage, not a pack state, PCB temperature vs pack average vs pack maximum are three distinct sensors (regs 18/19/20) collapsing onto one battery-temperature, six raw temperature sensor bytes (regs 33–35), cell count (reg 36), model string, firmware version, serial number (regs 105–127)"
+}

@@ -1,0 +1,47 @@
+{
+  "id": "ecoflow-ble-local",
+  "family": "lan-http",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "github-com-rabits-ha-ef-ble",
+      "citation": "https://github.com/rabits/ha-ef-ble — supported model list, local-operation and account-binding statements"
+    },
+    {
+      "source": "github-com-rabits-ef-ble-reverse",
+      "citation": "https://github.com/rabits/ef-ble-reverse — same author's EcoFlow BLE protocol V2 reverse-engineering notes"
+    }
+  ],
+  "transport": "Bluetooth LE, fully local, no internet path. Reverse-engineered EcoFlow BLE protocol (the author maintains a separate repository for protocol V2 specifically). Setup still requires the device to be bound to an EcoFlow account in the app and the owner's User ID to be copied out of the app.",
+  "models": [
+    {
+      "name": "DELTA Pro"
+    },
+    {
+      "name": "DELTA 2 Max"
+    },
+    {
+      "name": "DELTA Pro Ultra"
+    },
+    {
+      "name": "DELTA Pro 3"
+    },
+    {
+      "name": "DELTA 3 Plus"
+    }
+  ],
+  "refutedOnReview": "REFUTED — and refuted by the cited source itself, not by absence of evidence.  Both sources exist and were fetched: - https://github.com/rabits/ha-ef-ble — real, active HA custom integration, lists Delta Pro, Delta 2 (incl. Max), Delta Pro Ultra, Delta Pro 3, Delta 3 series, plus SHP2/3, STREAM, Wave, Smart Generator, etc. - https://github.com/rabits/ef-ble-reverse — real, same author's \"EcoFlow BLE protocol V2\" RE n",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "This is the only offline path for DELTA 2 Max, DELTA Pro 3, DELTA 3 Plus, DELTA Pro Ultra and Power Kits. Everything else EcoFlow makes on this list needs EcoFlow's cloud. For an off-grid cabin that reframes the whole vendor: EcoFlow gear is app-first hardware, and local integration is something the community built des",
+    "BLE range and a Raspberry-Pi-class gateway in a metal enclosure are a real constraint. RS-485 to an EPEver runs the length of a cabin; BLE to a power station in the next room may not.",
+    "'Fully local' still means account-bound: the pairing needs a User ID that only the EcoFlow app will show you, which means the device has to have been online at least once.",
+    "The author's own framing is that this 'relies on reverse-engineered Bluetooth protocols'. A firmware update can break it.",
+    "Single implementation. Two would be needed before this is worth more than a note. rabits/ef-ble-reverse is the same author's protocol notes, not an independent second source."
+  ],
+  "unmappedReports": "Not enumerated — no field map was extracted, so nothing is claimed. Whatever a gen-1/gen-2/gen-3 unit reports over the cloud is the right starting list for what it would report over BLE, but that is an assumption, not a finding."
+}

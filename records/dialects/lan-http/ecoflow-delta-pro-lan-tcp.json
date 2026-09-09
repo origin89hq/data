@@ -1,0 +1,33 @@
+{
+  "id": "ecoflow-delta-pro-lan-tcp",
+  "family": "lan-http",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "community-single",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "github-com-vwt12eh8-hassio-ecoflow",
+      "citation": "https://github.com/vwt12eh8/hassio-ecoflow — custom_components/ecoflow/ecoflow/__init__.py (PORT = 8055, PRODUCTS table, CRC8/CRC16 tables), send.py (build2 frame builder), receive.py (_merge_packet frame validator)"
+    }
+  ],
+  "transport": "Raw TCP to the unit's own LAN address, port 8055. Binary framing, not HTTP and not Modbus: 0xAA 0x02 magic, uint16-LE payload length, CRC8 over those first 4 bytes, then a 12-byte header (0x0D 00 00 00 00 00 00 0x20 <dst> <cmdSet> <cmdId>), then payload, then CRC16-LE over the first 16+len bytes. Total frame = 18 + payload length. Example: cmdSet 0x20 / cmdId 0x02 polls the power-distribution bloc",
+  "blocks": "Addressed by (dst, cmdSet, cmdId) triples rather than register ranges. dst 2 is the main controller. cmdSet 0x01 = identity (0x05 product info, 0x40 CPU ID, 0x41 serial), cmdSet 0x20 = power distribution (0x02 read, 0x03 reset, 0x21 standby timeout, 0x22 USB switch).",
+  "accepts": [
+    "set-switch"
+  ],
+  "models": [
+    {
+      "name": "DELTA Pro"
+    }
+  ],
+  "gotchas": [
+    "This is the ONLY genuinely offline, no-cloud, no-Bluetooth path found for any model on the list. It matters a lot for a cabin and it rests on exactly one implementation, which is why it is community-single and not crosschecked.",
+    "Supported product IDs are hardcoded and stop at the first generation: 5 RIVER, 7 RIVER 600 Pro, 12 RIVER Pro, 13 DELTA Max, 14 DELTA Pro, 15 DELTA Mini, 17 RIVER Mini, 18 RIVER Plus, 20 Smart Generator. DELTA 2 Max, DELTA Pro 3, DELTA 3 Plus, DELTA Pro Ultra and Power Kits are all absent — no LAN path is known for any ",
+    "The author's own warning: 'This integration uses a private API. Future device updates may prevent integration.' A firmware update can close port 8055 without notice.",
+    "Whether the DELTA Pro units sold in Quebec in 2026 still ship firmware that opens 8055 is a bench question, not a documentation question. The repo's last broad activity predates the current DELTA Pro 3 line.",
+    "The 0xAA framing is not unique to this port — a CAN capture in bulldog5046/EcoFlow-CanBus-Reverse-Engineering shows payloads beginning AA 03 on the PowerStream battery bus. Suggestive of one internal EcoFlow frame family across transports; not evidence of a shared map, and recorded only so nobody mistakes the resemblan"
+  ],
+  "unmappedReports": "Not enumerated. Only one implementation exists and the decode is in a reactive-stream style that binds struct offsets rather than named fields; I did not extract a field list, so no reports are claimed here. The gen-1 cloud dialect above is the one with a verified field vocabulary."
+}

@@ -1,0 +1,48 @@
+{
+  "id": "starlink-dish-grpc",
+  "family": "lan-http",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-starlink"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "crates-drivers-cabin-starlink-proto-starlink-proto-already-c",
+      "citation": "crates/drivers/cabin-starlink/proto/starlink.proto — already committed in this repo; header records the provenance (SpaceX publishes no .proto; field numbers read from the definitions bundled with starlink-grpc-client 0."
+    },
+    {
+      "source": "crates-drivers-cabin-starlink-src-driver",
+      "citation": "crates/drivers/cabin-starlink/src/driver.rs — shipped driver, endpoint constant, metric mapping, ring-cursor handling and its tests"
+    },
+    {
+      "source": "github-com-clarkzjw-starlink-grpc-golang",
+      "citation": "https://github.com/clarkzjw/starlink-grpc-golang — proto/spacex_api/device/dish.proto and device.proto, described as archived protosets extracted from Starlink firmware. Independent second recovery; verified this pass, e"
+    }
+  ],
+  "transport": "Ethernet or WiFi on the terminal's own management address · gRPC over HTTP/2 cleartext (h2c) · http://192.168.100.1:9200 · unauthenticated on the LAN · service SpaceX.API.Device.Device with one RPC, Handle(Request) -> Response · no baud, no slave ID, no framing — this is not a serial protocol. Terminal answers whether or not it has a route to space. 192.168.100.1 is vendor-doc (Starlink Help Cente",
+  "blocks": "Field numbers, not registers. Request oneof: get_status = 1004, get_history = 1007. Response oneof: dish_get_status = 2004, dish_get_history = 2006. DishGetStatusResponse: pop_ping_drop_rate = 1003, obstruction_stats = 1004, alerts = 1005, downlink_throughput_bps = 1007, uplink_throughput_bps = 1008, pop_ping_latency_ms = 1009, outage = 1014, upsu_stats = 1043, aps_stats = 1048. DishObstructionStats: fraction_obstructed = 1, valid_s = 4, currently_obstructed = 5, time_obstructed = 9. DishAlerts: thermal_shutdown = 2, thermal_throttle = 3, is_power_save_idle = 11. DishOutage: cause = 1, start_timestamp_ns = 2, duration_ns = 3, did_switch = 4. DishUpsuStats: dish_power = 6, router_power = 7. DishApsStats: dish_power = 6. DishGetHistoryResponse: current = 1, pop_ping_drop_rate = 1001, pop_ping_latency_ms = 1002, downlink_throughput_bps = 1003, uplink_throughput_bps = 1004, outages = 1009, power_in = 1010. Sample interval 1 s; `current` is the total count of samples written since reboot, so the newest sample is at (current - 1) mod len, not at the end of the slice. Outage Cause enum: UNKNOWN 0, BOOTING 1, STOWED 2, THERMAL_SHUTDOWN 3, NO_SCHEDULE 4, NO_SATS 5, OBSTRUCTED 6, NO_DOWNLINK 7, NO_PINGS 8, ACTUATOR_ACTIVITY 9, CABLE_TEST 10, SLEEPING 11, SKY_SEARCH 13, INHIBIT_RF 14 (value 12 — see gotchas). Every number above is byte-for-byte identical between the two independent recoveries; this is not a scaled-integer map, so there are no scale factors to get wrong.",
+  "reports": [
+    "link-online",
+    "link-latency",
+    "link-downlink",
+    "link-uplink",
+    "link-signal-quality",
+    "load-power"
+  ],
+  "models": [
+    {
+      "name": "Starlink Mini Kit — \"Starlink with Integrated WiFi\" + kickstand + pipe adapter/flat mount + 15 m DC power cable + power supply + Starlink plug (vendor spec sheet, Mini Kit page)"
+    }
+  ],
+  "refutedOnReview": "Sources all exist and the quotes are verbatim accurate, but the model roster is not supported at the claimed confidence.  VERIFIED: sparky8512 issue #112 quote is exact (\"past models have all used the same protocol to communicate between the mobile app and the dish, and that's what the tools in this project use\", 2025-01-22); digas99 confirms Mini 2025-02-19. Issue #94 is real: trinler007 \"It works on my starlink min",
+  "gotchas": [
+    "SpaceX publishes NO protocol document. Confirmed again this pass: no .proto, no field list, no register map, nothing on starlink.com describing the local gRPC service. Every field number in this entry is community-recovered from gRPC reflection against real hardware. There is no vendor-doc path to this dialect and ther",
+    "The two independent recoveries disagree on Outage Cause value 12. The proto already committed at crates/drivers/cabin-starlink/proto/starlink.proto (from starlink-grpc-client 0.4.1) declares MOVING_WHILE_NOT_ALLOWED = 12 and stops there; clarkzjw/starlink-grpc-golang's firmware-extracted protoset has no value 12 at all",
+    "power_in being watts is an educated guess, not a documented fact. sparky8512, the author of the most-used community implementation, wrote in the thread that added the field: \"I am making an assumption that the data is reporting in watts, which is just an educated guess.\" Nobody has since produced a vendor statement. Th",
+    "On hardware that does not support it, power_in is an array of ZEROS, not an absent field. sparky8512's module documents it verbatim: \"Not all user terminal hardware supports this functionality. On unsupported hardware, the values will all report as 0.0.\" The shipped driver's power_watts() falls through to newest_power(",
+    "Instantaneous power is generation-dependent and the Mini's source is unconfirmed. upsu_stats (1043) is the UPSU-equipped generation; aps_stats (1048) is another. Which of the two, if either, a Mini Kit populates was NOT established in this pass. What IS established is that a Mini populates history power_in: a user (tri"
+  ],
+  "unmappedReports": "Obstruction — fraction_obstructed, currently_obstructed, time_obstructed, valid_s, patches_valid, avg_prolonged_obstruction_duration_s/interval_s. No MetricKind for obstruction; link-signal-quality is a different quantity and is already spoken for., Outage cause — the enum that says WHY the link is down (booting, stowed, thermally shut down, no satellites, obstructed, sleeping, sky search, RF inhibited). This is the single most valuable thing the terminal reports at an off-grid site and there is no MetricKind, no ValueKind and no wire name for it. link-online collapses fourteen distinct causes into one boolean., Outage duration_ns and start_timestamp_ns — how long the current outage has run., DishAlerts — 23 booleans in the recovered schema (motors_stuck, thermal_throttle, thermal_shutdown, mast_not_near_vertical, unexpected_location, slow_ethernet_speeds, slow_ethernet_speeds_100, roaming, install_pending, is_heating, power_supply_thermal_throttle, is_power_save_idle, dbf_telem_stale, low_motor_current, lower_signal_than_predicted, obstruction_map_reset, dish_water_detected, router_water_detected, upsu_router_port_slow, no_ethernet_link). No fault or alert MetricKind exists at all, and clear-fault is the only fault-shaped CommandKind., is_heating / snow-melt draw — a heating dish is the largest transient load in the whole cabin and the contract cannot express that the extra watts are heater watts., Power split — upsu_stats.dish_power vs upsu_stats.router_power are separate figures on the same supply. Only their sum can be published; there is no MetricKind for per-sub-device consumption, so the router share is lost., DishBatteryStats (battery_stats = 1054): state_of_charge, is_charging, power_source. state-of-charge exists as a MetricKind, but it means the house bank; publishing a terminal's internal SOC under the same wire name would silently corrupt the energy model. is_charging and power_source have no kind at all., eth_speed_mbps — negotiated Ethernet link speed. link-downlink is bit/s of measured throughput, a different quantity; using it here would be wrong., SNR health — is_snr_above_noise_floor, is_snr_persistently_low (booleans; the numeric phy_rx_beam_snr_avg is `reserved`, i.e. SpaceX removed it). No MetricKind, and no Unit for dB anywhere in the contract., Alignment — boresight_azimuth_deg, boresight_elevation_deg, tilt_angle_deg, attitude_uncertainty_deg, actuator_state. No MetricKind and no degree Unit., GPS — gps_valid, gps_sats, latitude/longitude. No MetricKind (and being removed by SpaceX anyway; see gotchas)., Service state — class_of_service, mobility_class, disablement_code, dl_/ul_bandwidth_restricted_reason, is_cell_disabled, treat_as_metered. Whether the plan is being deprioritised is exactly the sort of thing a cabin operator wants surfaced, and nothing in MetricKind carries it., Readiness and boot — ready_states (cady, scp, l1l2, xphy, aap, rf), seconds_to_first_nonempty_slot, InitializationDurationSeconds (10 named boot milestones)., Software update — software_update_state, software_update_progress, update_requires_reboot, reboot_scheduled_utc_time, swupdate_reboot_ready, seconds_until_swupdate_reboot_possible, reboot_reason., Topology — connected_routers (repeated string), downstream_routers map, plc_stats. No MetricKind for a device count., Uptime is NOT in this list: MetricKind::Uptime (\"uptime\") exists and both device_state.uptime_s and upsu_stats.uptime/aps_stats.uptime could feed it. The driver simply does not read it yet — a gap in cabin-starlink, not in the contract., Commands: the terminal accepts DishStowRequest, RebootRequest, DishInhibitRfRequest, DishFactoryResetRequest and ~60 other request types. No CommandKind wire name matches any of them (set-switch, start-generator, stop-generator, clear-fault, set-charge-current-limit, start-equalize, mark-refuelled, reset-counter, identify). accepts is empty and correctly so."
+}

@@ -1,0 +1,59 @@
+{
+  "id": "ecoflow-modbus-not-applicable",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "github-com-maxgrmm-ef-powerocean-tcpmodbus",
+      "citation": "https://github.com/MaxGrmm/EF-PowerOcean-TcpModbus"
+    },
+    {
+      "source": "github-com-maxgrmm-ecoflow-poweroceanplus-modbus",
+      "citation": "https://github.com/MaxGrmm/ecoflow-poweroceanplus-modbus"
+    },
+    {
+      "source": "github-com-bulldog5046-ecoflow-canbus-reverse-engineering",
+      "citation": "https://github.com/bulldog5046/EcoFlow-CanBus-Reverse-Engineering"
+    }
+  ],
+  "models": [
+    {
+      "name": "DELTA Pro"
+    },
+    {
+      "name": "DELTA 2 Max"
+    },
+    {
+      "name": "DELTA Pro Ultra"
+    },
+    {
+      "name": "DELTA Pro 3"
+    },
+    {
+      "name": "DELTA 3 Plus"
+    },
+    {
+      "name": "Power Kits 2 kWh"
+    },
+    {
+      "name": "Power Kits 5 kWh"
+    },
+    {
+      "name": "Power Kits 10 kWh"
+    },
+    {
+      "name": "Power Kits 15 kWh"
+    }
+  ],
+  "refutedOnReview": "REFUTED — the entry's own third citation contradicts its central assertion.  WHAT THE CITED SOURCES ACTUALLY SAY  1. https://github.com/MaxGrmm/EF-PowerOcean-TcpModbus — exists (~25 stars). Supported devices table lists ONLY \"EcoFlow PowerOcean Plus\" (confirmed), \"EcoFlow PowerOcean\" (confirmed), \"EcoFlow PowerOcean Connect\" (untested). Modbus TCP port 502, IEEE-754 32-bit floats, tested firmware 3.0.15.10 — a single",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "EcoFlow does have a Modbus TCP product — PowerOcean and PowerOcean Plus, the whole-home ESS line, with two community integrations (MaxGrmm/EF-PowerOcean-TcpModbus and MaxGrmm/ecoflow-poweroceanplus-modbus) explicitly offering local Modbus TCP with no cloud. PowerOcean is NOT on the Quebec retail list and shares nothing",
+    "The only CAN bus found is the PowerStream battery port (6-pin: pin 2 CAN-H, pin 5 CAN-L, pin 6 GND), reverse-engineered in bulldog5046/EcoFlow-CanBus-Reverse-Engineering. PowerStream is a microinverter and is not on the list. No bitrate is stated in that repository, and none is invented here.",
+    "No RS-485 anywhere. A GitHub search for EcoFlow RS-485 work returned nothing at all."
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "id": "pzem-004t-v1-v2-legacy",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-pzem"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "github-com-olehs-pzem004t",
+      "citation": "https://github.com/olehs/PZEM004T — PZEM004T.h / PZEM004T.cpp: PZEM_VOLTAGE 0xB0, PZEM_CURRENT 0xB1, PZEM_POWER 0xB2, PZEM_ENERGY 0xB3, PZEM_SET_ADDRESS 0xB4, PZEM_POWER_ALARM 0xB5; RESP_* 0xA0–0xA5; PZEM_BAUD_RATE 9600;"
+    },
+    {
+      "source": "github-com-esphome-esphome",
+      "citation": "https://github.com/esphome/esphome — components/pzem004t/pzem004t.cpp: independent implementation, same 0xA0–0xA5 response headers, same 7-byte frame with 'byte 6: checksum (sum of other bytes)', same four quantities"
+    },
+    {
+      "source": "esphome-io-components-sensor-pzem004t",
+      "citation": "https://esphome.io/components/sensor/pzem004t/ and https://esphome.io/components/sensor/pzemac/ — ESPHome ships two separate components for the two protocols, which is itself evidence the map forked"
+    }
+  ],
+  "transport": "5 V TTL UART · 9600 baud · NOT Modbus. Fixed 7-byte request and 7-byte response frames with an 8-bit additive checksum (sum of the preceding bytes, low byte). The meter is addressed by a 4-byte address carried in the request and handled as an IPAddress by both libraries; the factory default value was not confirmed by a source and is left unrecorded.",
+  "blocks": "No registers. Command bytes 0xB0 voltage, 0xB1 current, 0xB2 power, 0xB3 energy, 0xB4 set address, 0xB5 power alarm; matching response headers 0xA0–0xA5. One request per quantity — four round trips for a full reading, against one for the v3.0 map.",
+  "reports": [
+    "ac-voltage",
+    "ac-current",
+    "ac-power",
+    "ac-energy-total"
+  ],
+  "models": [
+    {
+      "name": "PZEM-004T v1.0"
+    },
+    {
+      "name": "PZEM-004T v2.0"
+    }
+  ],
+  "refutedOnReview": "The register map is real; the two-model grouping is not.  VERIFIED (sources exist and say what is claimed): - olehs/PZEM004T PZEM004T.cpp genuinely defines PZEM_VOLTAGE 0xB0, PZEM_CURRENT 0xB1, PZEM_POWER 0xB2, PZEM_ENERGY 0xB3, PZEM_SET_ADDRESS 0xB4, PZEM_POWER_ALARM 0xB5, RESP_* 0xA0-0xA5, PZEM_BAUD_RATE 9600, and checksum `crc += *data++; return (uint8_t)(crc & 0xFF)`. (Citation error: these are in the .cpp, not t",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "This is a genuine protocol fork inside one product name, not a revision of one map. A v1/v2 unit will not answer a Modbus read at all, and a v3.0 unit will not answer 0xB0. There is no address or scale here that can be carried across from the pzem-ac-014-016-004t-v3 dialect.",
+    "Recorded so nobody researches it twice. No Quebec listing surveyed was confirmed to be v1 or v2 — this dialect exists to explain why the unversioned listings are unresolvable, and it is the reason they are.",
+    "No vendor protocol document was located for v1/v2. Confidence is community-crosschecked on two independent implementations agreeing, and should not be upgraded without one.",
+    "Filed under modbus-rs485 to sit beside its siblings; the protocol is neither Modbus nor RS-485. The family label here is a filing decision only."
+  ],
+  "unmappedReports": "Nothing. This dialect reports strictly fewer quantities than MetricKind can express — it has no frequency and no power factor at all, which is the measurement gap that makes it unsuitable for watching a generator."
+}

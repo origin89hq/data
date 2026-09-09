@@ -1,0 +1,43 @@
+{
+  "id": "unknown-epever-duoracer",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "epever-duoracer-manual-v2-5",
+      "citation": "docs/epever-duoracer-manual-v2.5.pdf (committed) — baud 115200 default, RS485 3.81-4P port, AES port, BATT2 lead-acid only. No register map."
+    },
+    {
+      "source": "epever-com-wp-content-uploads-2021-05-epever-datasheet-duoracer",
+      "citation": "https://www.epever.com/wp-content/uploads/2021/05/EPEVER-Datasheet_DuoRacer.pdf — \"Standard Modbus protocol and RS485 (5V/200mA) communication port\""
+    },
+    {
+      "source": "thecabindepot-ca-products-epever-dr3210n-dds-30a-mppt-dual-battery-controller-etl-certified",
+      "citation": "https://thecabindepot.ca/products/epever-dr3210n-dds-30a-mppt-dual-battery-controller-etl-certified (checked: 2026-07-31)"
+    }
+  ],
+  "transport": "RS-485 · Modbus RTU · 115200 default baud (vendor manual, DuoRacer V2.5: \"Com. baud rate 115200 (default)\", settable only via PC software) · default slave ID NOT stated anywhere. Connector is a 3.81 mm 4-pin plug (CC-RS485-RS485-3.81-4P-150 cable supplied), NOT RJ45. On DR1106/2106/3106N the AES port outputs 12 V/200 mA and shares the 5 VDC/200 mA budget with the RS485 port.",
+  "models": [
+    {
+      "name": "DuoRacer DR3210N-DDS 30 A dual battery (sold by The Cabin Depot as \"EPEver 30A MPPT Dual Battery Controller, ETL Certified\", checked: 2026-07-31)"
+    },
+    {
+      "name": "DuoRacer DR1106N, DR2106N, DR3106N"
+    },
+    {
+      "name": "DuoRacer DR1206N, DR2206N, DR3206N, DR2210N, DR3210N"
+    }
+  ],
+  "gotchas": [
+    "DIALECT UNKNOWN — deliberately not landed on epever-tracer-a. What is missing: no vendor register map, and no community implementation located. The manual (docs/epever-duoracer-manual-v2.5.pdf, committed) says \"Standard Modbus protocol and RS485 (5V/200mA) communication port\" and gives the baud rate, and that is the en",
+    "There is positive reason to EXPECT a fork rather than assume reuse: the DuoRacer charges a second, separate start battery (BATT2, lead-acid only, max 1 A trickle) and drives an AES refrigerator signal. Neither has any register in the 0x3100/0x3200/0x3300 map, so at minimum the map is extended, and EPEver's habit — demo",
+    "Different connector (3.81 mm 4-pin) from the Tracer/XTRA RJ45, which is a weak but real signal of a separately developed comms design.",
+    "This one matters more than its evidence suggests, because it is one of only five EPEver controllers a Quebec buyer can actually get from The Cabin Depot. Worth an email to EPEver support asking for the DuoRacer communication protocol document; that is a cheaper path than a bench sweep.",
+    "epever.com/download/duoracer-series-resources/ exists but its file list is loaded by JavaScript and could not be retrieved here. A browser session may well find the protocol document there — check before assuming none exists."
+  ],
+  "unmappedReports": "BATT2 — the vehicle start battery. Whatever registers the DuoRacer uses for its second battery's voltage, current and charging state have no counterpart in any EPEver map read in this sweep, and the contract has no way to say WHICH battery a battery-voltage belongs to on a single device. A dual-battery controller is a device reporting two banks through a one-bank vocabulary. This is a contract finding independent of whether the register map is ever found., AES control signal state — the DuoRacer switches a car refrigerator on surplus solar. That is a switch output and a refrigerator interaction with no MetricKind and no CommandKind, on a device the local retailer actually stocks."
+}

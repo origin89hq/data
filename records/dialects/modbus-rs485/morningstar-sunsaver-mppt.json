@@ -1,0 +1,55 @@
+{
+  "id": "morningstar-sunsaver-mppt",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "morningstar-sunsaver-mppt-modbus-specification",
+      "citation": "SunSaver MPPT MODBUS Specification v11, 3 April 2017 — committed at /Users/lemarier/dev/solar/docs/morningstar-sunsaver-mppt-modbus-specification.pdf (28 pp)"
+    },
+    {
+      "source": "morningstarcorp-com-wp-content-uploads-technical-doc-sunsaver-mppt-modbus-specification-en",
+      "citation": "https://www.morningstarcorp.com/wp-content/uploads/technical-doc-sunsaver-mppt-modbus-specification-en.pdf"
+    },
+    {
+      "source": "morningstar-product-connectivity-manual",
+      "citation": "Morningstar Product Connectivity Manual, Table 2 — committed at /Users/lemarier/dev/solar/docs/morningstar-product-connectivity-manual.pdf"
+    }
+  ],
+  "transport": "MeterBus RJ-11 only, via a Morningstar MSC MeterBus-to-Serial Converter to isolated RS-232 · Modbus RTU · 9600 baud, 8 data bits, no parity, 2 stop bits, no flow control · default server address 0x01",
+  "blocks": "0x0008 filtered ADC · 0x000D temperatures · 0x0011 charger status · 0x001A load status · 0x0021 misc · 0x0027 MPPT · 0x002B daily logger · 0xE000 EEPROM settings · coils from 0x0000",
+  "reports": [
+    "pv-voltage",
+    "battery-voltage",
+    "battery-current",
+    "battery-power",
+    "load-voltage",
+    "load-current",
+    "battery-temperature",
+    "temperature",
+    "charge-stage",
+    "switch-state"
+  ],
+  "accepts": [
+    "start-equalize",
+    "set-switch",
+    "set-charge-current-limit"
+  ],
+  "models": [
+    {
+      "name": "SS-MPPT-15L"
+    }
+  ],
+  "gotchas": [
+    "0x000B Adc_ic_f is CHARGING current — current into the battery, not array current. There is no array-current register on this controller. Publishing it as pv-current is wrong; it belongs on battery-current.",
+    "Scaling constants are fixed and per-quantity: voltages n·100·2^-15, currents n·79.16·2^-15, Power_out and Sweep_Pmax n·989.5·2^-16 (note 2^-16, not 2^-15). Vb_ref at 0x0014 is the exception among voltages — it scales n·96.667·2^-15, a different constant from every other voltage in the same map.",
+    "COIL 0x0014 IS RESERVED ON THIS CONTROLLER. On the TriStar, TriStar MPPT, ProStar PWM and ProStar MPPT that coil is 'Clear Faults'. Here 0x0013, 0x0014 and 0x0015 are all reserved. There is no clear-fault path, so clear-fault is deliberately absent from `accepts` above.",
+    "charge_state (0x0011) uses BULK_CHARGE for value 5 — where the TriStar MPPT and ProStar MPPT call the same value MPPT. Same number, different vendor name, same meaning; the enum lists are otherwise identical for 0-8 and this map has no value 9.",
+    "load_state (0x001A) tops out at 5 (DISCONNECT) — it has none of the LOAD_OFF/OVERRIDE values the ProStar line adds."
+  ],
+  "unmappedReports": "T_hs heatsink temperature (0x000D), Ahc_r / Ahc_t / Ahl_r / Ahl_t amp-hour counters (0x0015-0x0018, 0x001D-0x0020) and kWhc (0x0019), Vb_ref battery regulator reference voltage (0x0014), V_lvd live low-voltage-disconnect threshold (0x001C), array_fault (0x0012), load_fault (0x001B), alarm HI/LO (0x0023/0x0024), Sweep_Vmp / Sweep_Pmax / Sweep_Voc (0x0028-0x002A) and va_ref_fixed / va_ref_fixed_pct (0x0039/0x003A), hourmeter (0x0021/0x0022), dip_switch (0x0025), led_state (0x0026), lighting_should_be_on (0x0038, v08 firmware and later), state-of-charge — not reported"
+}

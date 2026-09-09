@@ -1,0 +1,43 @@
+{
+  "id": "starlink-device-diagnostics",
+  "family": "lan-http",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-starlink"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "github-com-spaceexplorationtechnologies-enterprise-api-blob-master-device-api-device-proto",
+      "citation": "https://github.com/SpaceExplorationTechnologies/enterprise-api/blob/master/device-api/device.proto — SpaceX's own proto. 269 lines, package SpaceX.API.Device. Every field number above is read from this file."
+    },
+    {
+      "source": "github-com-spaceexplorationtechnologies-enterprise-api-blob-master-device-api-readme-md",
+      "citation": "https://github.com/SpaceExplorationTechnologies/enterprise-api/blob/master/device-api/README.md — endpoints, ports, minimum software versions, and the worked sample output showing dish hardware_version 'rev3_proto2' and "
+    },
+    {
+      "source": "github-com-spaceexplorationtechnologies-enterprise-api-blob-master-device-api-demo-py",
+      "citation": "https://github.com/SpaceExplorationTechnologies/enterprise-api/blob/master/device-api/demo.py — SpaceX's own client: grpc.insecure_channel against both 192.168.1.1:9000 and 192.168.100.1:9200."
+    }
+  ],
+  "transport": "gRPC over plaintext HTTP/2 · same service as the dish dialect: package SpaceX.API.Device, service Device, rpc Handle(Request) returns (Response) · dish at 192.168.100.1:9200, router at 192.168.1.1:9000 (router default subnet 192.168.1.1/24) · no TLS, no authentication (SpaceX's demo.py uses grpc.insecure_channel)",
+  "blocks": "Request oneof: 6000 get_diagnostics (GetDiagnosticsRequest, empty). Response oneof: 6000 wifi_get_diagnostics, 6001 dish_get_diagnostics. DishGetDiagnosticsResponse: 1 id · 2 hardware_version · 3 software_version · 4 utc_offset_s · 5 alerts · 6 disablement_code · 7 hardware_self_test · 8 location · 9 alignment_stats · 10 stowed · 11 hardware_self_test_codes · 14 overage_rate_limited. Alerts sub-message fields 1–10: dish_is_heating, dish_thermal_throttle, dish_thermal_shutdown, power_supply_thermal_throttle, motors_stuck, mast_not_near_vertical, slow_ethernet_speeds, software_install_pending, moving_too_fast_for_policy, obstructed. Location sub-message fields 1–7: enabled, latitude, longitude, altitude_meters, uncertainty_meters_valid, uncertainty_meters, gps_time_s. AlignmentStats fields 1–4: boresight_azimuth_deg, boresight_elevation_deg, desired_boresight_azimuth_deg, desired_boresight_elevation_deg. WifiGetDiagnosticsResponse: 1 id · 2 hardware_version · 3 software_version · 4 networks (repeated Network: 1 domain, 2 ipv4, 3 ipv6, 10 clients_ethernet, 11 clients_2ghz, 12 clients_5ghz).",
+  "models": [
+    {
+      "name": "Starlink user terminal — any model, software > 2023.51.0 (SpaceX states the requirement by software version, never by model)"
+    },
+    {
+      "name": "Starlink WiFi router — any model, software > 2023.55"
+    }
+  ],
+  "sharedMapEvidence": "One SpaceX-published device.proto describes one Handle RPC served by both the dish and the router, with a single GetDiagnosticsRequest at Request field 6000 answered by WifiGetDiagnosticsResponse (6000) from the router and DishGetDiagnosticsResponse (6001) from the dish. device-api/demo.py in the same folder sends the identical request object to both 192.168.1.1:9000 and 192.168.100.1:9200 and pri",
+  "gotchas": [
+    "This is the ONLY vendor-documented local API for a Starlink terminal, and it reports nothing the contract can hold. That is the headline: the map with the best provenance is the least useful, and the map the shipped driver uses has no vendor document behind it at all. They are separate dialects here precisely so one co",
+    "Minimum software versions are hard requirements, stated by SpaceX: WiFi router > 2023.55 (late December 2023), user terminal > 2023.51.0 (early January 2024). Below those the call returns UNIMPLEMENTED — not an error a driver should retry.",
+    "Location.enabled gates the rest of the Location message: 'If location is not enabled, the remainder of this message is invalid.' Separately, starlink-grpc-tools reports that as of 2026-05 location is no longer available over gRPC for most service plans, so on a consumer or Roam plan expect this sub-message to be dead r",
+    "DisablementCode reserves 5 and 9 and the names INVALID_COUNTRY and UNLICENSED_COUNTRY — SpaceX has already retired values in this published enum. Do not assume the enum is stable.",
+    "The repository README says these are 'APIs available to enterprise Starlink customers. If you do not have an enterprise Starlink account, access to these APIs may be limited.' The local device API is nonetheless described as 'Starlink's officially supported local API' and the demo needs no credentials; whether a consum"
+  ],
+  "unmappedReports": "Every field in this dialect. Nothing it returns maps to a MetricKind, which is the finding: SpaceX's only officially supported local API reports zero contract metrics., Dish alerts — the same ten booleans that have no MetricKind and no ValueKind in the dish dialect, here in a vendor-blessed form: dish_is_heating, dish_thermal_throttle, dish_thermal_shutdown, power_supply_thermal_throttle, motors_stuck, mast_not_near_vertical, slow_ethernet_speeds, software_install_pending, moving_too_fast_for_policy, obstructed., disablement_code — 13 values including NO_ACTIVE_ACCOUNT, TOO_FAR_FROM_SERVICE_ADDRESS, DATA_OVERAGE_SANDBOX_POLICY, ROAM_RESTRICTED, ACCOUNT_DISABLED. Vendor-documented with per-value prose, and no contract variant can hold it., hardware_self_test (NO_RESULT / PASSED / FAILED) plus 20 hardware_self_test_codes (CPU_VOLTAGE, DBF_T_DIE_0, EIRP, FEM_CUT, FUSE_AVS, GPS, IMU, PHY, TEMPERATURE, VTSENS …). No MetricKind for a self-test result., Location: latitude, longitude, altitude_meters, uncertainty_meters, gps_time_s. No MetricKind, and Unit has no degree or metre., AlignmentStats: current and desired boresight azimuth and elevation. No MetricKind and no Unit::Degree., stowed (bool) and overage_rate_limited (bool — 'consumed all purchased data … rate limited to 1mbps down and 0.5mbps down', vendor wording, including its own typo). Neither maps., utc_offset_s — 'approximate time zone of the device in relation to UTC'. Device metadata., Router side: clients_ethernet, clients_2ghz, clients_5ghz per network. Unit::Count exists but no MetricKind names a connected-client count. ipv4 / ipv6 CIDRs and network domain are metadata."
+}

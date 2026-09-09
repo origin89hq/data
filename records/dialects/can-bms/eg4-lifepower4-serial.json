@@ -1,0 +1,50 @@
+{
+  "id": "eg4-lifepower4-serial",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "eg4-lifepower4-battery-communication-protocol",
+      "citation": "docs/eg4-lifepower4-battery-communication-protocol.pdf — 'LifePower4 Battery Communication Protocol', 21 pages, first version, no revision number (vendor, committed; original URL eg4electronics.com/backend/wp-content/upl"
+    },
+    {
+      "source": "eg4-ll-s-48v-100ah-manual",
+      "citation": "docs/eg4-ll-s-48v-100ah-manual.pdf — EG4 LL-S 100Ah User Manual (vendor, committed)"
+    },
+    {
+      "source": "github-com-gonzalop-wombatt",
+      "citation": "https://github.com/gonzalop/wombatt — internal/bms/lifepower4.go and README.md supported-battery table"
+    }
+  ],
+  "transport": "RS-485 · NOT Modbus despite the vendor's filename: PACE/Pylontech-style HEX-ASCII frames, SOI 0x7E … EOI 0x0D, VER 0x20, CID1 0x4A · every field except SOI/EOI transmitted as two ASCII characters per byte · 9600 baud (doc: 9.6 kb/s), 1 start bit, 8 data bits, 1 stop bit, no parity · module address 1–15 set by 4 DIP switches, 0x00 = master",
+  "blocks": "CID2 0x42 get analog values (fixed point) · 0x44 get alarm info · 0x47 get system parameters · 0x49 set system parameters · 0x51 get manufacturer info · 0x4D get date-time · 0x4E set date-time. Response payload is a fixed field sequence, not addressed registers: DATA_FLAG, pack group, cell count, 16 cell voltages (1 mV), sensor count, 4 cell temps, environment temp, MOSFET temp (all 0.1 K), pack current (10 mA, charge positive), pack voltage (10 mV), remaining and full capacity (10 mAh), cycle count, SOC, SOH, min/max cell voltage, cell spread, min/max cell temp, then six 32-bit cumulative counters.",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "state-of-charge",
+    "state-of-health",
+    "cycle-count"
+  ],
+  "models": [
+    {
+      "name": "EG4 LifePower4 (the document names no SKU or revision beyond 'LifePower4 Battery')"
+    },
+    {
+      "name": "EG4 LL-S 48V 100Ah — binding is community-single, see sharedMapEvidence"
+    }
+  ],
+  "sharedMapEvidence": "The field layout is vendor-doc for 'LifePower4'. The LL-S binding is NOT. It rests on a single source: wombatt's README lists 'EG4-LL-S (BMS Type: lifepower4)', routing LL-S to this 0x7E/0x4A command set rather than to eg4-ll-modbus. No second implementation and no vendor statement confirms it, and the vendor LL-S manual (committed) documents the RS485 port and protocol menu without ever naming a ",
+  "gotchas": [
+    "The vendor file is published as 'EG4-LifePower4-MODBUS-Communication-Protocol.pdf' but the protocol inside is not Modbus at all — no function codes, no register addresses, no CRC-16. It is a PACE/Pylontech ASCII frame with an LCHKSUM nibble-sum and a 16-bit sum-complement CHKSUM. Anyone who trusts the filename will poi",
+    "Cell count field returns 16 or 8. wombatt's source warns that when it reports 8, its fixed-size struct decode fails outright. Any parser must be length-driven, not struct-shaped.",
+    "Temperatures are in 0.1 K with a 2731 offset (25.5 °C encodes as 2986). Negative Celsius still encodes positive. Do not sign-extend.",
+    "Pack current is 10 mA with charge positive — the opposite sign convention from some sibling packs, and the same as the contract's battery-current.",
+    "Documented address range is 1–15 (4 DIP switches). The LL-S and WallMount manuals describe a 1–64 range on 6-DIP models. If LL-S really does speak this protocol, the address encoding above 15 has no source."
+  ],
+  "unmappedReports": "16 individual cell voltages (1 mV) and 4 individual cell temperatures, environment temperature and MOSFET temperature as distinct sensors, min / max cell voltage and cell voltage difference, min / max cell temperature, remaining capacity and full capacity in Ah, cumulative charging capacity and cumulative discharge capacity (0.01 Ah), cumulative charging energy and cumulative discharge energy (0.001 kWh) — there is no battery-energy-in / battery-energy-out MetricKind; pv-energy-total and ac-energy-total are the wrong meters, cumulative charging time and cumulative discharge time (hours) — no battery run-hours MetricKind, cumulative charge count and cumulative discharge count, per-cell balancing bitmap (32-bit, cell 1–16 equalisation on), FET status (charge MOS, discharge MOS, charge current limiter, heater), system status (standby / charging / discharging), voltage, temperature, current and capacity alarm/protection bitfields from CID2 0x44"
+}

@@ -1,0 +1,85 @@
+{
+  "id": "generac-evolution-nexus",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "jgyates-genmon-genmonlib-generac-evolution-py-self-baseregis",
+      "citation": "jgyates/genmon — genmonlib/generac_evolution.py (self.BaseRegisters, self.PrimeRegisters, GetModelInfo, SetGeneratorRemoteCommand, WriteIndexedRegister, GetFrequency, GetVoltageOutput, GetCurrentOutput, GetPowerOutput, G"
+    },
+    {
+      "source": "raw-githubusercontent-com-jgyates-genmon-master-genmonlib-modbus",
+      "citation": "jgyates/genmon — genmonlib/modbusbase.py (address=0x9D and rate=9600 constructor defaults; serial_rate / address / response_address config reads) — https://raw.githubusercontent.com/jgyates/genmon/master/genmonlib/modbus"
+    },
+    {
+      "source": "raw-githubusercontent-com-jgyates-genmon-master-genmonlib-myserial-py",
+      "citation": "jgyates/genmon — genmonlib/myserial.py (rate=9600, PARITY_NONE, STOPBITS_ONE defaults) — https://raw.githubusercontent.com/jgyates/genmon/master/genmonlib/myserial.py"
+    }
+  ],
+  "transport": "RS-232 at the controller's 8-pin Molex aux port (pin 8 = controller TX → Pi RX, pin 7 = controller RX ← Pi TX, pin 2 = ground; Evolution 2.0 adds pin 3 = +12 V accessory, pin 4 = RS-232 ground, pins 5/6 = RS-485 to the built-in WiFi module) · Modbus RTU, function 0x03 read / 0x06 and 0x10 write · 9600 8N1 · slave 0x9D · NOT RS-485 despite the family filename; a TTL↔RS-232 level converter (MAX3232-",
+  "blocks": "0x0000–0x0062 base + status (0x0001 alarm/status, 4 bytes spanning 0x0001–0x0002) · 0x01f4 serial number (5 words) · 0x0208–0x025a settings (mostly EvoLC) · 0x05ed–0x05f7 sensors and EvoAC current · 0x07e5 / 0x07ed / 0x1f75 Power Zone 200 only · command path is an indexed-write pair: value → 0x0004, then target index → 0x0003",
+  "reports": [
+    "generator-run-state",
+    "generator-run-hours",
+    "ac-voltage",
+    "ac-frequency",
+    "ac-current",
+    "ac-power",
+    "battery-voltage",
+    "temperature"
+  ],
+  "accepts": [
+    "start-generator",
+    "stop-generator",
+    "clear-fault"
+  ],
+  "models": [
+    {
+      "name": "Guardian 10 kW standby"
+    },
+    {
+      "name": "Guardian 13 kW standby"
+    },
+    {
+      "name": "Guardian 16 kW standby"
+    },
+    {
+      "name": "Guardian 20 kW standby"
+    },
+    {
+      "name": "Guardian 22 kW standby"
+    },
+    {
+      "name": "Guardian 10kW Home Backup Generator, WiFi-Enabled"
+    },
+    {
+      "name": "Guardian 10kW WiFi-Enabled Home Backup Generator with 16-Circuit Transfer Switch"
+    },
+    {
+      "name": "Guardian 14kW Home Backup Generator, WiFi-Enabled"
+    },
+    {
+      "name": "Guardian 14kW Home Backup Generator with 16-circuit Transfer Switch, WiFi-Enabled"
+    },
+    {
+      "name": "Guardian 18kW Home Backup Generator, WiFi-Enabled"
+    },
+    {
+      "name": "Guardian 24kW Automatic Home Standby Generator, Wi-Fi Enabled (10011109)"
+    }
+  ],
+  "sharedMapEvidence": "jgyates/genmon `genmonlib/generac_evolution.py` defines exactly ONE register table — `self.BaseRegisters` plus `self.PrimeRegisters` — with no per-model branching on address, used for every controller it groups under `controllertype = generac_evo_nexus` (Nexus AC/LC, Evolution 1.0 AC, Evolution 2.0 AC, Evolution LC, PowerPact, Synergy). In the SAME file, `GetModelInfo()` carries `ModelLookUp_Nexus",
+  "downgradedOnReview": "Could not refute the underlying evidence — every primary source exists and says what the claim quotes, verbatim. I downloaded genmon master's genmonlib/generac_evolution.py (5613 lines) and confirmed: a single self.BaseRegisters (line 154) + self.PrimeRegisters (line 287) with no per-model address branching in the poll list; the literal comment \"# This should cover the guardian line\" at line 943 directly above ModelL",
+  "gotchas": [
+    "NO GENERAC VENDOR DOCUMENT WAS FOUND for the residential Nexus/Evolution protocol, and none is referenced by any implementation. Every address here is reverse-engineered. genmon's own register table carries 126 hedges ('Unknown', 'possibly', 'I believe', 'appears to', 'Looks like some status bits') — that density is it",
+    "THE TWO OTHER IMPLEMENTATIONS I FOUND ARE DERIVED FROM genmon, NOT INDEPENDENT — so this does not reach community-crosschecked. sofar/esphome_configs `config/generac-cbd934.yaml` reproduces genmon's code comments verbatim as ESPHome sensor names ('Hours until Service A', 'Date Service A Due'). pengels22/home_controller",
+    "FREQUENCY SCALE — CONTRADICTION INSIDE genmon ITSELF. The comment beside register 0x0008 in `BaseRegisters` reads 'Freq - value includes Hz to the tenths place i.e. 59.9 Hz' (implying ÷10), but `GetFrequency()` applies `Divider=10.0` ONLY for Evolution Liquid Cooled / Synergy / PowerZone200 and explicitly uses `Divisor",
+    "AC CURRENT AND POWER ARE NOT TRUSTWORTHY WITHOUT BENCH CALIBRATION. genmon's per-model current-divisor table `ModelLookUp_EvoAC` inside `GetCurrentOutput()` is populated entirely with `None` — the author knows the model IDs and does not know the scale for any of them. The fallback is an empirical `Divisor = 20.0` for b",
+    "RUN HOURS ARE NOT ONE REGISTER ACROSS THE FAMILY. Air-cooled reads 0x000b (declared 4 bytes: 0x000b high, 0x000c low) as whole hours; Evolution Liquid Cooled and PowerZone200 read 0x005e (4 bytes) as total engine MINUTES and divide by 60. Picking the wrong branch is off by 60×."
+  ],
+  "unmappedReports": "engine RPM (0x0007) — no `engine-rpm` MetricKind exists; the most direct proof a genset is spinning has nowhere to land, utility / mains voltage (0x0009) as distinct from generator output voltage (0x0012) — the contract has a single `ac-voltage`, so one of these two must be dropped or overloaded. This is a real contract gap for any device that straddles a transfer switch, hours-until-service-A (0x001a), hours-until-service-B (0x001e), service-due dates (0x001b, 0x0020, 0x0021, 0x0022) — no maintenance-countdown MetricKind, front-panel switch position Auto / Manual / Off (decoded from 0x0001) — `switch-state` is a two-state metric; a three-position controller mode does not fit it, alarm / status code (0x0001, 4 bytes) and last alarm code (0x05f1) — `generator-run-state` has a `faulted` variant but there is no MetricKind carrying the numeric fault code, so the one field a person actually needs at 3 a.m. is lost, weekly / biweekly / monthly exercise schedule (0x0005, 0x0006, 0x002c–0x002f) — no MetricKind to report it and no CommandKind to set it, though genmon writes it, Wi-Fi RSSI on Evolution 2.0 (0x0213) — `link-signal-quality` exists but is scoped to `internet-link`, not to a `generator`, hardware / firmware version (0x002a) and bootcode version (0x0051) — arguably not metrics, but genmon surfaces them and there is no home for them, transfer-switch position and output relay states — starter, fuel relay, battery charger (0x0052, 0x0053, EvoLC) — no MetricKind, hours of protection since activation (0x0054, EvoLC) — no MetricKind, COMMAND gaps: genmon exposes start-with-transfer (index 0x0002), run-exercise-now (index 0x0003), reset-maintenance-timer, reset-maintenance-alarm, and set-panel-to-auto/manual/off (indices 0x000F / 0x000E / 0x0010). CommandKind has none of these. `reset-counter` is the nearest thing to the maintenance-timer reset and is probably not the same intent"
+}

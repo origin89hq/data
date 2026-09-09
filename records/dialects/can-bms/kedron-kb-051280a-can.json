@@ -1,0 +1,45 @@
+{
+  "id": "kedron-kb-051280a-can",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "kedron-lifepo4-battery-energy-storage-system-user-manual-ver",
+      "citation": "KEDRON LiFePO4 Battery Energy Storage System User Manual, Version 1.4 — Wall Mounted LiFePO4 battery 51.2v 280Ah / 14.34Kwh, Model No: KB-051280A-B-GBP2. 39 pages. Committed at /Users/lemarier/dev/solar/docs/kedron-280ah"
+    },
+    {
+      "source": "thecabindepot-ca-cdn-shop-files-kedron-280ah-48v-manual-rev-1-4",
+      "citation": "https://thecabindepot.ca/cdn/shop/files/Kedron_280AH_48V_Manual_Rev_1.4.pdf (source of the committed PDF)"
+    },
+    {
+      "source": "thecabindepot-ca-products-kedron-48v-lifepo4-280ah-indoor-14-34kw-ul-certified",
+      "citation": "https://thecabindepot.ca/products/kedron-48v-lifepo4-280ah-indoor-14-34kw-ul-certified (retail listing, checked: 2026-07-31)"
+    }
+  ],
+  "transport": "CAN 500 kbit/s or RS-485 9600 baud (DIP #5 OFF) · CAN 250 kbit/s or RS-485 115200 baud (DIP #5 ON) · 8P8C RJ45 to inverter · master/slave role and address on DIP #1–#4, factory default 00000000 = master · up to 16 packs in parallel, only the master faces the inverter · RS-485 framing (data/parity/stop bits) not stated · no frame IDs, no register addresses, no scales published",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "battery-power",
+    "state-of-charge",
+    "battery-temperature"
+  ],
+  "models": [
+    {
+      "name": "KEDRON KB-051280A-B-GBP2 — 51.2 V 280 Ah 14.34 kWh wall-mount LiFePO4 (sold as \"KEDRON 48V 280AH 14.34kW LiFePO4 Indoor Battery UL Certified\", Cabin Depot, $2999.99 on sale from $3799.99, checked: 202"
+    }
+  ],
+  "refutedOnReview": "The cited sources exist and are authentic, and the manual does name the model — but it contains no register map, so it cannot support a dialect at any confidence level.  VERIFIED AS GENUINE: - /Users/lemarier/dev/solar/docs/kedron-280ah-48v-manual-rev1.4.pdf exists, pdfinfo confirms 39 pages (matches the cited page count). Title page: \"LiFePO4 Battery Energy Storage System User Manual, Version: 1.4, Wall Mounted LiFe",
+  "gotchas": [
+    "THERE IS NO MESSAGE MAP. The vendor manual documents wiring, connector pinouts, bit rates and DIP settings, and nothing else. It publishes no CAN frame IDs, no Modbus register addresses, no scales, no byte layouts, and does not even name the protocol. Every fact recorded here is transport-level. Nobody can write a driv",
+    "The manual never names the protocol it speaks. Its tested-inverter list (EG4, GoodWe, Solis, LuxPower, Sofar, Deye, Victron, Growatt SPF, Schneider Conext series) is the familiar Pylontech-compatible set, and the obvious inference is that this is a Pylontech-protocol emulation. The document does not say that, so it is ",
+    "Kedron's own answer to monitoring is to not talk to the battery at all: §3.2.3 states 'Monitoring of battery system performance is achieved via inverter monitoring portal / app'. The pack is designed to be read through whatever inverter it is bonded to.",
+    "A direct path does exist and is the biggest documented gap. The RS485-A / RS485-B ports (§3.2.2, §3.4) are described as 'using a computer for USB to RS485 for dynamic monitoring data of the battery' and 'smart BMS software with computer connection'. The manual names no software, no protocol, no baud rate for that link,",
+    "Baud rate is a hardware DIP switch, not a software setting: #5 OFF = CAN 500K / RS-485 9600, #5 ON = CAN 250K / RS-485 115200. A driver cannot renegotiate it, and a mismatch presents as silence rather than as an error."
+  ],
+  "unmappedReports": "Individual cell voltages in millivolts, plus live max and min cell values — the LCD 'Voltage' page. No MetricKind carries per-cell data or a cell spread., Four separate internal pack temperatures, a BMS MOSFET temperature, and an enclosure 'Environment' temperature — the LCD 'Temperature' page. The contract has one battery-temperature and one ambient temperature; five distinct sensors have nowhere to go., Remaining capacity in amp-hours — the LCD 'Capacity' page. consumed-amp-hours is the complement, not the same number, and converting between them needs a full-capacity figure the contract does not carry., Design capacity (Ah, from the factory) and Full capacity (Ah, at present operating conditions) — the LCD 'Capacity' page. state-of-health is a percent and would have to be derived from these two rather than reported., BMS protection flags OVP, UVP, OTP, UTP, OCC, OCD, SCD — the LCD 'Status' page, each shown as N for normal. No MetricKind and no ValueKind exists for a fault or alarm bitfield., Heating-film state — a ~100 W (48 V @ 2 A) internal heater that self-activates at 0 °C only when an external charge source is present. Not switch-state, which is a controllable output; there is no metric for an autonomous internal load., Module index and parallel-string membership (up to 16 packs behind one master). Nothing in MetricKind identifies which module a reading came from., Charge and discharge current limits the BMS advertises to the inverter. set-charge-current-limit exists as a CommandKind, but there is no MetricKind for the limit the pack itself is asking for — which is the whole point of closed-loop BMS comms."
+}

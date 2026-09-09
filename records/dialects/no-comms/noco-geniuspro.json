@@ -1,0 +1,38 @@
+{
+  "id": "noco-geniuspro",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "no-co-media-wysiwyg-downloads-user-guides-geniuspro-geniuspro25-user-guide-4-9-2024a-1",
+      "citation": "https://no.co/media/wysiwyg/downloads/User_Guides/GeniusPRO/geniuspro25_user_guide_4.9.2024a_1.pdf (vendor)"
+    },
+    {
+      "source": "no-co-media-wysiwyg-downloads-user-guides-geniuspro-geniuspro50-user-guide-1-6-2026a",
+      "citation": "https://no.co/media/wysiwyg/downloads/User_Guides/GeniusPRO/GeniusPro50_User_Guide_1.6.2026A.pdf (vendor)"
+    },
+    {
+      "source": "thecabindepot-ca-collections-noco",
+      "citation": "https://thecabindepot.ca/collections/noco — GENIUSPRO25 CA$949.99, GENIUSPRO50 CA$1,449.99 (checked: 2026-07-31)"
+    }
+  ],
+  "models": [
+    {
+      "name": "GENIUSPRO25"
+    },
+    {
+      "name": "GENIUSPRO50"
+    }
+  ],
+  "sharedMapEvidence": "Two vendor guides read in full — geniuspro25_user_guide_4.9.2024a_1.pdf and GeniusPro50_User_Guide_1.6.2026A.pdf. Both enumerate the identical 14-item numbered UI (Mode Button, Standby LED, Overvoltage / Bad Battery / Reverse Polarity / Hot error LEDs, Charge LED, Optimization Bar LED, 12V/24V Supply LED, Mode LED, Press-and-Hold Mode LED, 6V/12V/24V Repair LED, reduced-current Mode Button and its",
+  "gotchas": [
+    "Same \"Canbus is enabled in Standby mode\" sentence as the consumer Genius line, same non-answer. See noco-genius-portable.",
+    "IP20 and forced-air cooled. This is a shop charger; it is not rated for a damp cabin battery box, unlike the GEN/GENPRO onboard units at IP68.",
+    "The GENIUSPRO50 guide is dated 1.6.2026A — the most recently revised NOCO document found in this sweep, and it still shows no data interface. That is the strongest available evidence that NOCO has not added connectivity to the charger line as of 2026-07."
+  ],
+  "unmappedReports": "Reduced Charge Current Mode — a user-selected current cap. `set-charge-current-limit` exists as a CommandKind but the charger has no way to receive it; the mode is a physical button and reports nothing., 24 V REPAIR / 12 V REPAIR / 6 V REPAIR (up to 32 V / 16.5 V / 8 V at 1.5-3 A). No ChargeStage variant. Not equalization., 12V SUPPLY 13.6 V / 24V SUPPLY 27.2 V power-supply modes — no ChargeStage variant, no charger-mode metric., Optimization stage (the chasing green bar) — a real distinct stage in NOCO's cycle with no ChargeStage variant; nearest is `float`, which is not what NOCO describes."
+}

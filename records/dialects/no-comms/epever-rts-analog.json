@@ -1,0 +1,44 @@
+{
+  "id": "epever-rts-analog",
+  "family": "no-comms",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "epever-com-product-category-accessories",
+      "citation": "https://www.epever.com/product-category/accessories/ — RTS300R47K3.81A Remote Temperature Sensor, the only environment-sensing item in the accessories line (checked: 2026-07-31)"
+    },
+    {
+      "source": "epever-controller-protocol-b-series-v2-3",
+      "citation": "docs/epever-controller-protocol-b-series-v2.3.pdf (committed) — 0x311B \"The battery temperature measured by remote temperature sensor\""
+    },
+    {
+      "source": "epsolar-ls-b-series-protocol-v1-1-same-0x311b-description",
+      "citation": "EPsolar LS-B Series Protocol V1.1 — same 0x311B description"
+    }
+  ],
+  "transport": "None. A 47 kΩ NTC thermistor on a two-wire lead into the controller's RTS port. No bus, no address, no protocol.",
+  "reports": [
+    "battery-temperature"
+  ],
+  "models": [
+    {
+      "name": "RTS300R47K3.81A remote temperature sensor (3 m cable, 3.81 mm 2-pin connector)"
+    },
+    {
+      "name": "RTS300R47K3.81A-2 and similar cable-length variants"
+    }
+  ],
+  "refutedOnReview": "REFUTED — the dialect should not exist at all, and its model list is partly invented.  1. Category error: an RTS has no register map. RTS300R47K3.81A is a passive NTC thermistor probe (\"R47K\" = 47 kΩ NTC) that plugs into the controller's RTS port. It has no Modbus interface, no slave ID, no baud rate, no registers. Register 0x311B belongs to the *controller's* map, not the sensor's: /Users/lemarier/dev/solar/docs/epe",
+  "gotchas": [
+    "THIS ENTRY EXISTS TO ANSWER THE environment-sensor CATEGORY, and the answer is that EPEver does not make one. The brand wall listed EPEver under solar-charger, inverter and environment-sensor. Walking EPEver's entire current catalogue — charge controllers, pure sine wave inverters, energy storage inverters, on-grid inv",
+    "It is not a device and cannot become one. It has no protocol; it is read by the charge controller and surfaces on the controller's own Modbus map. Creating a DeviceKind::EnvironmentSensor entry for EPEver would invent a device that does not exist.",
+    "Which register carries it is genuinely disputed and is recorded under epever-tracer-a: B-Series v2.3, the LS-B V1.1 doc and kasbert all put the RTS reading at 0x311B (\"The battery temperature measured by remote temperature sensor\") while 0x3110 is plain \"Battery Temperature\"; the shipping driver maps 0x3110. A/B v2.5 o",
+    "It reads the BATTERY, not the room. Even mapped correctly it is battery-temperature, never temperature. A cabin that wants an air temperature reading needs the 1-Wire or GPIO path, not EPEver.",
+    "The Cabin Depot's EPEver listing (21 results, checked: 2026-07-31) does not stock the RTS at all — it carries controllers, IPower-Plus inverters, eBox monitors, MT11/MT50 meters and the PC comms cable. So the environment-sensor tag on the brand wall may simply be a category the distributor applies to the line rather th"
+  ]
+}

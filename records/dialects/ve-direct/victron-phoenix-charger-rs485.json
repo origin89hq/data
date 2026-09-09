@@ -1,0 +1,46 @@
+{
+  "id": "victron-phoenix-charger-rs485",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victronenergy-com-upload-documents-datasheet-battery-charger-en",
+      "citation": "https://www.victronenergy.com/upload/documents/Datasheet-Battery-Charger-EN.pdf — Phoenix Charger datasheet, \"Computer interface\" section (checked 2026-07-31)"
+    },
+    {
+      "source": "victron-mk2-protocol-3-14",
+      "citation": "docs/victron-mk2-protocol-3.14.pdf — *Interfacing with VE.Bus products – MK2 Protocol* 3.14, §1–2 (already committed)"
+    },
+    {
+      "source": "victron-data-communication",
+      "citation": "docs/victron-data-communication.pdf (already committed)"
+    }
+  ],
+  "transport": "RS-485. The datasheet: \"Every Charger is ready to communicate with a computer through its RS-485 data port. Together with our VEConfigure software … and the data link MK2-USB (see accessories), all parameters of the chargers can be customised.\" Baud, framing and addressing are not stated in any document found.",
+  "models": [
+    {
+      "name": "Phoenix Charger 12/50 (2+1) — PCH012050001 — `dialect: unknown`"
+    },
+    {
+      "name": "Phoenix Charger 12/30 (2+1) — PCH012030001 — `dialect: unknown`"
+    },
+    {
+      "name": "Phoenix Charger 24/16 (2+1) — PCH024016001 — `dialect: unknown`"
+    },
+    {
+      "name": "Phoenix Charger 24/25 (2+1) — PCH024025001 — `dialect: unknown`"
+    }
+  ],
+  "gotchas": [
+    "**Two committed documents disagree about whether this charger is a VE.Bus product, and the contradiction is recorded rather than resolved.** The datasheet points at MK2-USB, which is the VE.Bus interface — but `victron-mk2-protocol-3.14.pdf` §2 *Supported devices* lists exactly three product types and the Phoenix Charg",
+    "**`victron-data-communication.pdf`'s own \"Products with data communication\" table does not list the Phoenix Charger at all** — it lists Multis, Quattros, Phoenix Inverters, Skylla-i/-IP44, BlueSolar, Lynx and Peak Power Pack. For a 2013-era document covering a 2013-era product, that omission is meaningful, though it is",
+    "**Do not confuse this with the Smart IP43.** \"Phoenix Charger 12/50\" (PCH012050001, RS-485, VEConfigure, no Bluetooth) and \"Phoenix Smart IP43 Charger 12\\|50\" (PID 0xA340, VE.Direct, Bluetooth) are different products from different decades that a retailer search will return side by side. Only the second is in the 3.34 ",
+    "Even on the VE.Bus reading, the MK2 protocol document opens with a warning worth quoting before anyone starts: \"implementing the MK2 protocol is a task which is not to be underestimated. It is a complicated protocol.\" It also requires an MK2.2/MK2-USB/MK3-USB interface — the RS-485 pins are not directly addressable.",
+    "1 Quebec retailer, listing states no protocol. checked: 2026-07-31."
+  ],
+  "refiledFrom": "ve-bus"
+}

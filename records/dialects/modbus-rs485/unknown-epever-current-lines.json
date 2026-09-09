@@ -1,0 +1,47 @@
+{
+  "id": "unknown-epever-current-lines",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "epever-com-products-product-cat-charge-controller",
+      "citation": "https://www.epever.com/products/?product_cat=charge-controller (checked: 2026-07-31)"
+    },
+    {
+      "source": "epever-com-products-product-cat-inverter",
+      "citation": "https://www.epever.com/products/?product_cat=inverter (checked: 2026-07-31)"
+    },
+    {
+      "source": "epever-com-products",
+      "citation": "https://www.epever.com/products/ — Energy Storage Inverter section, HP series (checked: 2026-07-31)"
+    }
+  ],
+  "models": [
+    {
+      "name": "MPPT, current generation: TRC series (10~50A), TEP series (60~100A), TES series (60~100A), TIS series (60~100A with load control), IT-NC G3 series (50~100A), ET-NC G3 series (50~100A), Tracer BP serie"
+    },
+    {
+      "name": "DC-DC: DUC series 12 V battery charger 30A/40A/50A"
+    },
+    {
+      "name": "PWM, current generation: LS-E(EU) series (5~30A), VS-AU series (10~60A), LS-EPD series (10/20A), LS-LPLI series (10/20A), LS-LPLW series (10/20A), EPIPDB-COM series (10/20A dual battery)"
+    },
+    {
+      "name": "Inverters, newer than the V1.0 protocol document: IPT series, IPB series, IPS series, IPR series"
+    },
+    {
+      "name": "Inverter/chargers: HP series 20A, 20SA, 20BR, 65A/C (2000~5500 W)"
+    }
+  ],
+  "gotchas": [
+    "THIS IS NOT A DIALECT. It is one row so nobody researches these thirty-odd series twice. Grouping them together asserts NOTHING about a shared register map — it asserts only that no register map source was found for any of them in this sweep. Do not read the shared id as a shared map.",
+    "What is missing, uniformly: EPEver publishes exactly three controller/inverter protocol documents that name their scope (A/B-series v2.5, B-series v2.3, Inverter V1.0), plus the UPower spreadsheet. Between them they name LS-B, VS-B, Tracer-A, Tracer-B, iTracer, eTracer, IP, IP-Plus, NP, SHI and UP. Every series listed ",
+    "The temptation to fold LS-E, VS-AU and LS-EPD into epever-tracer-a because \"LS-B is in the doc and these are all LandStar PWM\" should be resisted for exactly the reason this catalogue exists. Product-family name is not evidence.",
+    "The G3 question cuts across this row and epever-tracer-a both: EPEver has moved its whole controller line to a G3 generation (XTRA-N G3, Tracer AN G3, IT-NC G3, ET-NC G3) whose manuals add a BMS Primary/Secondary mode and an RS485 enable/disable menu that the pre-G3 units did not have. Whether G3 kept the 0x3100 map is",
+    "Cheapest way to close most of this: EPEver's support site lists \"Communication Address V1.6\" and \"Communication Protocols & Fixed ID-EN-V1.5\" documents (epever.com/support/documents/, under bms-link-communication-address and bms-link-communication-protocols-fixed-id). Those are the vendor's own per-line address and fix"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "briggs-gc1031-2wire-start",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "unrecorded",
+  "sources": [
+    {
+      "source": "images-thdstatic-com-catalog-pdfimages-a7-a7c84f48-fcdf-4914-8777-a9c071f50096",
+      "citation": "Briggs & Stratton 12 kW standby Installation/Operator manual 80079504 Rev B https://images.thdstatic.com/catalog/pdfImages/a7/a7c84f48-fcdf-4914-8777-a9c071f50096.pdf ; \"Operation Instructions GC1031 GENSET Controller\" 80086364 https://gatewayelectricmotors.com/websites/gatewayelectricmotors.com/ecommerce/products/9/files/Operators-Manual-040587-00.pdf (checked: 2026-09-01)"
+    }
+  ],
+  "transport": "2-wire maintained dry contact · open-circuit voltage: ? · current: ? · field terminal block pins 4 and 5 \"2 Wire-Start\", \"Contact Close for Genset Start\", 18 AWG twisted pair 300 V 90 °C (80079504 p.21); input is \"active low\" (GC1031 §4.1.2 p.15) so one side is battery negative",
+  "models": [
+    {
+      "name": "040627-class 12 kW",
+      "rating": "12 kW / NG-LP / GC1031",
+      "notes": "pins 6/7 are E-Stop, \"Contact Open to Shutdown\""
+    }
+  ],
+  "gotchas": [
+    "\"Mains monitoring must be disabled in the controller\" (p.21) — otherwise the utility-sense logic overrides the contact.",
+    "GC1031 §4.1.2: start/stop by \"activating/deactivating the preconfigured Remote Start/Stop input (active low) in a continuous state\"; deactivating stops \"with a pre-defined sequence\" (cool-down length not stated).",
+    "No voltage or current figure in either document."
+  ]
+}

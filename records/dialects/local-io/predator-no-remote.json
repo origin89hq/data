@@ -1,0 +1,31 @@
+{
+  "id": "predator-no-remote",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "unrecorded",
+  "sources": [
+    {
+      "source": "manuals-harborfreight-com-manuals-59000-59999-59188-193175495617",
+      "citation": "Predator 9500 (59188) Manual https://manuals.harborfreight.com/manuals/59000-59999/59188-193175495617.pdf; 8750 (57480) https://manuals.harborfreight.com/manuals/57000-57999/57480-193175412331.pdf (checked: 2026-09-01)"
+    }
+  ],
+  "transport": "none — no wired input, no fob · n/a · n/a · 9500: Combination Switch to START, Engine Switch START \"within 3 seconds\", wait 10 s (p.13); 8750: \"short starting cycles (5 seconds maximum)\" (p.15).",
+  "models": [
+    {
+      "name": "9500 (59188)",
+      "rating": "7.6 kW gas, electric yes (12 V 12 Ah)",
+      "notes": "the CR2032 in specs is a \"non-replaceable battery\", not a fob"
+    },
+    {
+      "name": "8750 (57480)",
+      "rating": "7.0 kW gas, electric yes (LiFePO4)",
+      "notes": "manual choke knob"
+    }
+  ],
+  "gotchas": [
+    "Aftermarket \"dry contact\" kits exist (forum/vendor); nothing from Harbor Freight — `unverified`."
+  ]
+}

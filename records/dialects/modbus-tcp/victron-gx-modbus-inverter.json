@@ -1,0 +1,46 @@
+{
+  "id": "victron-gx-modbus-inverter",
+  "family": "modbus-tcp",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victron-gx-modbus-tcp-register-list",
+      "citation": "/Users/lemarier/dev/solar/docs/victron-gx-modbus-tcp-register-list.xlsx — Field list rows for com.victronenergy.inverter, Rev 53"
+    }
+  ],
+  "transport": "Modbus TCP to the GX device. Unit ID is the device instance of the VE.Direct port the inverter is plugged into — legacy assignments 247 (CCGX VE.Direct 1), 245 (CCGX VE.Direct 2 / Venus GX 1), 243, 239 and 231-238 (VE.Direct via USB), 223/224/226 (Cerbo GX VE.Direct 3/2/1), 229/230 (MultiPlus-II GX / EasySolar-II GX VE.Direct ports). Dynamic since Venus OS 2.60. TCP port not stated in the register",
+  "blocks": "3100-3102 AC output I/V/P · 3105-3106 battery V/I · 3110-3117 alarms · 3125 firmware version · 3126 mode (writable) · 3127 product id · 3128 state · 3130-3136 energy counters · 3138-3167 PV / per-tracker (RS only) · 3168 low-SoC alarm · 3169-3176 MPP operation mode and tracker enable (RS only) · 3177-3179 RESERVED · 3180 custom name.",
+  "reports": [
+    "ac-voltage",
+    "ac-current",
+    "ac-power",
+    "battery-voltage",
+    "battery-current",
+    "ac-energy-total"
+  ],
+  "accepts": [
+    "set-switch"
+  ],
+  "models": [
+    {
+      "name": "Phoenix Inverter VE.Direct, all ratings, when connected to a GX device rather than read directly — the whole PIN122510500 / PIN242510500 / PIN482510500 … PIN242161500 retail list"
+    },
+    {
+      "name": "Inverter RS (registers 3138-3176 only; not in the Quebec retail list, recorded because it shares this block)"
+    }
+  ],
+  "sharedMapEvidence": "One address block, 3100-3180, on one D-Bus service `com.victronenergy.inverter`, in the vendor's own single register list. The RS-only extensions are additive annotations inside that same block, marked by the vendor: register 3173 carries the remark \"Only available on Inverter RS\" and registers 3138-3176 are the PV-tracker registers a Phoenix inverter has no hardware for. That is a superset of one",
+  "gotchas": [
+    "This is a different map from the VE.Direct one it is derived from, at different addresses, with different scales. `com.victronenergy.inverter` register 3105 is battery voltage at scale 100; the wired VE.Direct HEX register for the same quantity is 0xED8D at scale 0.01 V. They agree in value and share nothing else. Do n",
+    "The GX path REPORTS battery current at register 3106 — and the Phoenix Inverter's own VE.Direct HEX map has no battery current register at all (see victron-phoenix-inverter-vedirect-hex). Two vendor documents describing the same physical inverter disagree on whether battery current is available. Recorded as a contradic",
+    "Registers 3103, 3104, 3107-3109, 3118-3124, 3129, 3137, 3139, 3144-3147 are absent from the sheet — the block is not contiguous. A block read across the gaps will return whatever the GX puts there, which is undocumented.",
+    "Same dynamic unit-id problem as the VE.Bus service, worse: a Cerbo GX has three VE.Direct ports plus USB adapters, and which id a given inverter lands on depends on which socket somebody used.",
+    "Register 3138 is documented as \"PV voltage (for single tracker units)\" and 3140-3143 as per-tracker. Both exist. Which one a given unit populates is not stated."
+  ],
+  "unmappedReports": "Register 3128 Inverter state: 0 Off, 1 Low power mode (search mode), 2 Fault, 9 Inverting. \"Search mode\" — the eco load-search state where the inverter is pulsing the output looking for a load — has no wire name, and reads as neither on nor off., Register 3126 Mode has values `set-switch` cannot express: 5 Low Power/Eco, 251 Passthrough, 252 Standby, 253 Hibernate, alongside 1 Charger only / 2 Inverter only / 3 On / 4 Off. `set-switch` is a boolean., Registers 3110-3117 and 3168: nine alarm registers (high temperature, high battery voltage, high AC-out voltage, low temperature, low battery voltage, low AC-out voltage, overload, ripple, low SoC), each 0/1/2. No alarm concept in the contract. Ripple is the loose-DC-connection warning., Registers 3130-3136: four directional energy counters — InverterToAcOut, OutToInverter, SolarToAcOut, SolarToBattery. One `ac-energy-total`., Registers 3138-3167 and 3169-3176 (Inverter RS): per-tracker PV voltage, power, daily and yesterday yield, daily max power, MPP operation mode, tracker enable. Same per-string problem already recorded for the MPPT RS — one `pv-power` cannot express four independent arrays., Register 3169-3172 MPP operation mode (0 Off, 1 Voltage/current limited, 2 MPPT active, 255 Not available). No metric; this is the \"sunny day, low output\" answer., Register 3127 Inverter model / product id, 3125 firmware version, 3180 custom name — identity, not measurement.",
+  "refiledFrom": "lan-http"
+}

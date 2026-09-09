@@ -1,0 +1,37 @@
+{
+  "id": "xantrex-gateway-lan-unknown",
+  "family": "lan-http",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "xantrex-com-wp-content-uploads-2023-01-ds20240910-xantrex-gateway",
+      "citation": "Xantrex Gateway datasheet (808-1888), v4 dated 2024-09-10: https://xantrex.com/wp-content/uploads/2023/01/DS20240910_Xantrex_Gateway.pdf"
+    },
+    {
+      "source": "xantrex-com-wp-content-uploads-2023-07-ds20230808-xantrex-gateway-touchscreenpanel",
+      "citation": "Xantrex Gateway Touchscreen Panel datasheet: https://xantrex.com/wp-content/uploads/2023/07/DS20230808_Xantrex_Gateway_TouchscreenPanel.pdf"
+    },
+    {
+      "source": "xantrex-com-products-accessories-xantrex-gateway",
+      "citation": "Product page: https://xantrex.com/products/accessories/xantrex-gateway/"
+    }
+  ],
+  "transport": "Ethernet, Wi-Fi client and Wi-Fi access point, Bluetooth; plus RV-C RJ-45 and 4-pin Molex, NMEA 2000 Micro-C, and an RS-485 Modbus RJ-45 port. Talks to a phone/tablet/PC app. No documented HTTP API, no port, no auth scheme, no Modbus register map published.",
+  "models": [
+    {
+      "name": "Xantrex Gateway (808-1888)"
+    },
+    {
+      "name": "Xantrex Gateway Touchscreen Panel (808-0890)"
+    }
+  ],
+  "gotchas": [
+    "This is the single highest-value target in the Xantrex line and the least documented one. It is the aggregation point for Freedom X/XC, Freedom XC PRO, Freedom EX 4000, Freedom SW RV-C, both Solar MPPT controllers, and the lithium batteries. If it exposed a LAN API you would get the whole system from one endpoint. Xant",
+    "It has an RS-485 Modbus RJ-45 port, but the datasheet does not say whether the Gateway is a Modbus master (polling the 60A controller) or a slave (answering an external master). Do not assume either.",
+    "Do not confuse the Xantrex Gateway (808-1888) with the Schneider Conext Gateway / InsightHome / InsightFacility, which does have a published Modbus map bundle. Different vendor branding, different product, no evidence of a shared map."
+  ]
+}

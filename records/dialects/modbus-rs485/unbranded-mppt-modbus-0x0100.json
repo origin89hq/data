@@ -1,0 +1,52 @@
+{
+  "id": "unbranded-mppt-modbus-0x0100",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "github-com-krahabb-esphome-easun-6048-blob-main-components-m3-easun6048-docs-mppt-modbus",
+      "citation": "'MPPT Solar Charge Controller MODBUS Protocol' (English version), 15 pp., no manufacturer named, PDF created 2021-07-07 — https://github.com/krahabb/esphome-easun-6048/blob/main/components/m3_easun6048/docs/MPPT%20MODBUS"
+    },
+    {
+      "source": "scribd-com-document-824457765-mppt-modbus-protocol-english-version",
+      "citation": "Same document mirrored — https://www.scribd.com/document/824457765/MPPT-MODBUS-Protocol-English-Version"
+    },
+    {
+      "source": "srne-modbus-protocol-v3-9",
+      "citation": "SRNE_MODBUS Protocol V3.9, 2020-04-21, SRNE Solar Co. Ltd — already committed at docs/srne-modbus-protocol-v3.9.pdf (used here only as the contrasting map)"
+    }
+  ],
+  "transport": "Modbus RTU. Function codes 03H read, 06H write single, 10H write N, plus vendor codes 78H restore factory defaults and 79H clear history; error code = function code \\| 80H. Slave address range 01H-F7H with 00H broadcast, and the device address lives at register 0x0201. Frame delimited by >10 ms idle. BAUD RATE, PARITY, STOP BITS, ELECTRICAL INTERFACE AND DEFAULT SLAVE ID ARE NOT STATED ANYWHERE IN",
+  "blocks": "0x000C-0x0013 product alias (16 ASCII) · 0x0014-0x0017 firmware/hardware version, production year/month · 0x0100-0x0113 real-time · 0x0120 load force-on (write) · 0x0201-0x0211 controller settings · 0x0300-0x0310 street-lamp parameters · 0x0400-0x042C 300-day history",
+  "reports": [
+    "battery-voltage",
+    "state-of-charge",
+    "battery-current",
+    "battery-temperature",
+    "temperature",
+    "pv-voltage",
+    "load-voltage",
+    "load-current",
+    "load-power",
+    "pv-energy-today",
+    "pv-energy-total",
+    "charge-stage",
+    "switch-state"
+  ],
+  "accepts": [
+    "set-switch",
+    "reset-counter"
+  ],
+  "gotchas": [
+    "NO MODEL IS ASSIGNED TO THIS DIALECT ON PURPOSE. The document is committed in krahabb/esphome-easun-6048 as 'MPPT MODBUS Protocol - English Version.pdf' and referenced only as a source of 'hints'. Its PDF metadata is Title 'PDU地址' (PDU address), Author 'Administrator', Creator 'WPS 文字', dated 2021-07-07. A text search ",
+    "IT IS DEMONSTRABLY NOT THE SRNE MAP, so the forum claim that 'MakeskyBlue, PowMR or EASUN Solar Charge Controllers are all re-brands of SRNE' cannot be used to reach for docs/srne-modbus-protocol-v3.9.pdf. Compared directly: SRNE puts SOC at 0x0100, battery voltage 0x0101, charge current 0x0102, temperatures 0x0103, lo",
+    "Where they DO agree is the charge-stage encoding: 0 none, 1 activated/open, 2 MPPT, 3 equalize, 4 boost, 5 float, 6 current-limit. Both documents list it identically. That is the one field a driver could share.",
+    "INTERNAL CONTRADICTION IN THE DOCUMENT: register 0x0104 is described as 'Charging power' but its Unit column reads 'A', not 'W'. The neighbouring 0x0108 'Street lamp (load) power' correctly reads 'W'. One of the two is a typo and the document does not resolve it. Do not assume.",
+    "There is no PV current register. 0x0103 is the charger's output current into the battery and 0x0104 its output power — same trap as EPEver 0x3105/0x3106: never negative, so they cannot express a bank being discharged, and they are not array-side figures. pv-power is deliberately omitted from reports for this reason."
+  ],
+  "unmappedReports": "0x0100 configured system nominal voltage (12/24/36/48 V) — a rating, not a measurement., 0x010A maximum charging power of the day (W) — no MetricKind for a daily peak., 0x010C DC-load energy consumed today (Wh) — pv-energy-today is solar-side and ac-energy-today is AC; there is no DC-load-energy-today metric., 0x0112/0x0113 lifetime DC-load energy consumed (32-bit Wh) — same gap on the lifetime side., 0x010F total operating days — Uptime is seconds since the device last restarted, which is a different quantity., 0x010D high byte: street-lamp dimming level 0-100 % — switch-state is boolean and cannot carry a brightness., 0x010E fault/alarm bitmask, 13 defined bits (battery over-discharge, battery over-voltage, low-voltage alarm, load short circuit, load over-power/open circuit, controller over-temperature, ambient over-temperature, input over-power, input short circuit, PV over-voltage, PV reverse polarity, battery reverse polarity) — no MetricKind carries faults., 0x0105 high byte controller internal temperature — MetricKind::Temperature is documented as *ambient* temperature. Reporting the controller's own die temperature under it repeats the EPEver 0x3111 mistake the catalogue already warns about., Daily history record fields sMaxBatVolt, sMinBatVolt, sMaxChargeWH, sLoad_W_H_Today and the 300-day ring buffer at 0x0400+ — no MetricKind expresses a per-day historical extreme., 0x0116/0x0117-equivalents are absent here, but 0x0202-0x0211 expose battery type, system voltage, six charge setpoint voltages, equalize/boost durations, equalize interval, temperature compensation coefficient and load working mode. Only set-charge-current-limit and start-equalize exist in CommandKind and neither is settable here, so every one of these is an unmapped write., 78H restore-factory-defaults has no CommandKind and probably should not get one."
+}

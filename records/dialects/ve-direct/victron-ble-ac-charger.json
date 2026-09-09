@@ -1,0 +1,56 @@
+{
+  "id": "victron-ble-ac-charger",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-ble-extra-manufacturer-data-2022-12-14",
+      "citation": "docs/victron-ble-extra-manufacturer-data-2022-12-14.pdf — Victron wiki *Extra manufacturer Data*, printed 2022-12-14 (already committed). AC Charger section, p. 5."
+    },
+    {
+      "source": "github-com-keshavdv-victron-ble",
+      "citation": "https://github.com/keshavdv/victron-ble — `victron_ble/devices/ac_charger.py` (checked 2026-07-31)"
+    },
+    {
+      "source": "github-com-fabian-schmidt-esphome-victron-ble",
+      "citation": "https://github.com/Fabian-Schmidt/esphome-victron_ble — `components/victron_ble/victron_ble.h` and README (checked 2026-07-31)"
+    }
+  ],
+  "transport": "BLE advertisement, no connection and no pairing session needed to read — but pairing once is needed to obtain the key. Victron manufacturer data, byte 3 = 0x10 Product Advertisement; the extra-manufacturer-data record starts at byte 8. Header: bits 0–7 record type (0x08 here), 8–23 nonce LSB-first, 24–31 byte 0 of the encryption key. Payload AES-CTR, 2-byte header nonce, MSB counter from 0. Max re",
+  "blocks": "Record 0x08, offsets from the start of the record: 32/8 device state (NA 0xFF, VE_REG_DEVICE_STATE) · 40/8 charger error (NA 0xFF, VE_REG_CHR_ERROR_CODE) · 48/13 battery voltage 1, 0.01 V, 0–81.90 V (NA 0x1FFF) · 61/11 battery current 1, 0.1 A, 0–204.6 A (NA 0x7FF) · 72/13 battery voltage 2 · 85/11 battery current 2 · 96/13 battery voltage 3 · 109/11 battery current 3 · 120/7 temperature °C, −40..86, value = record − 40 (NA 0x7F) · 127/9 AC current 0.1 A, 0–51.0 A (NA 0x1FF, VE_REG_AC_ACTIVE_INPUT_L1_CURRENT) · 136/24 unused.",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "temperature",
+    "ac-current",
+    "charge-stage"
+  ],
+  "models": [
+    {
+      "name": "Blue Smart IP22 Charger — 12/15(1), 12/20(1), 12/30(1), 12/15(3), 12/20(3), 12/30(3), 24/8(1), 24/12(1), 24/16(1), 24/16(3) — `dialect: unknown` per model, see gotchas"
+    },
+    {
+      "name": "Blue Smart IP65 Charger — 12/5(1), 12/7(1), 12/10(1), 12/15(1), 24/5(1), 24/8(1), 24/13(1) — `dialect: unknown` per model"
+    },
+    {
+      "name": "Blue Smart IP67 Charger — 12/7(1), 12/13(1), 12/17(1), 12/25(1), 24/5(1), 24/8(1), 24/12(1) — `dialect: unknown` per model"
+    },
+    {
+      "name": "Smart IP43 Charger — all variants — `dialect: unknown` per model, and reachable over VE.Direct anyway (see `victron-vedirect-text-phoenix-charger`)"
+    }
+  ],
+  "refutedOnReview": "REFUTED — the bit layout is real, but the `community-crosschecked` tag is unsupported and the evidence statement has a material omission plus fabricated model detail.  WHAT SURVIVES: The vendor table is genuine and matches. The committed PDF's AC Charger section gives start bits 32/40/48/61/72/85/96/109/120/127 → widths 8, 8, 13, 11, 13, 11, 13, 11, 7, 9, with registers VE_REG_DEVICE_STATE, VE_REG_CHR_ERROR_CODE, DC_",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "**The vendor prints the full field table and then disclaims it.** The record-type table row reads \"0x08 AC Charger (Record layout TBD)\" and the section body repeats \"Record layout is still to be determined and might change\" — yet a complete table with start bits and widths follows. That is why this entry is tagged `com",
+    "**Nothing in any vendor document says a Blue Smart charger emits record 0x08.** The one source that names the binding is Fabian-Schmidt/esphome-victron_ble's README, which lists \"Blue Smart Chargers → AC Charger\" and adds a hard prerequisite: **\"Firmware v3.61 or higher. Available in VictronConnect App v6.10beta14 (202",
+    "**Blue Smart IP22, IP65 and IP67 have no wired data port of any kind.** The IP22 datasheet lists Bluetooth Smart and VE.Smart Networking and no VE.Direct; the IP67 datasheet lists Bluetooth only; none of the three appears anywhere in the 3.34 PID list. BLE is not the convenient option for these chargers, it is the only",
+    "**VE.Smart Networking is not instant readout and is not this record.** Victron staff, in the community post that released this specification: manufacturer-data values 0x01, 0x02, 0x03 \"are used for VE.Smart Networking\" and \"only messages with the value 0x10 contain instant readout data\". A scanner that keys on the wron",
+    "The IP22 datasheet carries a serial-number gate of its own: \"The VE.Smart Network feature is enabled on all IP22 chargers with serial number HQ2024xxxxx and later.\" Older stock is a different device from a networking standpoint. checked: 2026-07-31."
+  ],
+  "unmappedReports": "Battery voltage 2 / current 2 and battery voltage 3 / current 3 — a (1+1) or (3) charger's second and third outputs. One `battery-voltage` per device cannot carry three banks. Same gap as the VE.Direct V2/V3/I2/I3 fields, reached from a second transport, which is what makes it a contract problem rather than a driver problem., Charger error code — the number, not the bit., Device state values with no `ChargeStage` variant: Storage, Power supply, Repeated absorption, BatterySafe, External control."
+}

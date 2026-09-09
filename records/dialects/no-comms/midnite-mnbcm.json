@@ -1,0 +1,43 @@
+{
+  "id": "midnite-mnbcm",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "solar-electric-com-lib-wind-sun-mnbcmmanual",
+      "citation": "MidNite Solar 'Battery Capacity Meter MNBCM / MNBCMS' installation manual, P/N 10-188-1 Rev C, dated 12-23-14 — https://www.solar-electric.com/lib/wind-sun/MNBCMmanual.pdf — committed at /Users/lemarier/dev/solar/docs/mi"
+    },
+    {
+      "source": "midnitesolar-com-pdfs-batcapmeter-frontback",
+      "citation": "MidNite Solar Battery Capacity Meter brochure — https://www.midnitesolar.com/pdfs/batCapMeter_frontBack.pdf"
+    },
+    {
+      "source": "midnitesolar-com-documents-php-act-model-mnbcm-productcatname-battery-accessories-productcat-id",
+      "citation": "MidNite Solar product documents page for MNBCM — https://midnitesolar.com/documents.php?act=&model=MNBCM&productCatName=Battery+Accessories&productCat_ID=39&product_ID=444"
+    }
+  ],
+  "models": [
+    {
+      "name": "MNBCM"
+    },
+    {
+      "name": "MNBCMS"
+    },
+    {
+      "name": "Battery Capacity Meter"
+    }
+  ],
+  "sharedMapEvidence": "There is no register map, so there is nothing to share — but the model identity does need evidence, and it exists. The vendor manual is titled 'Battery Capacity Meter MNBCM / MNBCMS' (P/N 10-188-1 Rev C, dated 12-23-14) and covers both part numbers in one document, so the retailer listing 'Battery Capacity Meter' and the listings for 'MNBCM' are the same product under MidNite's own product name. M",
+  "gotchas": [
+    "No comms of any kind. Two wires — red to the bank positive after a fuse, black to negative. The manual specifies no port, no bus, no connector and no data output. This cannot become a driver, and no protocol document exists because there is no protocol.",
+    "Voltage-derived SOC from a fixed table: at 12 V, 11.65 V = 10% through 12.75 V = 100%, scaled ×2 / ×3 / ×4 for 24 / 36 / 48 V. Accurate only at rest. This is exactly the complaint already recorded against the MidNite SoC meter at this site in docs/INVENTORY.md ('Voltage-based; unreliable under load').",
+    "Auto-detects 12 / 24 / 36 / 48 V. Maximum input 70 V, reverse-polarity protected. Draws 12.5 mA average; the MNBCMS draws 6 mA (0.07 W at 12 V) with the LEDs switched off. Requires a DC-rated fuse or breaker of no more than 2 A in the positive lead.",
+    "Battery chemistry is set by a jumper on the PCB, not in software: Gel = jumper on the two left pins, AGM = two right pins, Flooded = no jumper. The jumper only moves the full-charge threshold (14.2 / 14.4 / 14.7 V at 12 V, held 1 h for the sealed types, 2 h for flooded). Lead-acid only — the manual has no lithium setti",
+    "This is very likely the unnamed 'MidNite Solar SoC meter' already in docs/catalog/no-comms.md line 53 and docs/INVENTORY.md line 14, where the model number was never recorded. Confirming that needs someone to read the part number off the unit on the wall — it is not established here, and the catalogue should not merge "
+  ],
+  "unmappedReports": "'Battery care' state — three LEDs meaning fully charged / not fully charged for 1 week / not charged for 2 weeks or more. No MetricKind covers staleness-of-last-full-charge, and no DeviceKind covers a device whose only output is a lamp. Readable by eye only., The 10-LED arc is labelled state of charge but is a fixed voltage lookup, not a coulomb count. If it were ever digitised it would be `state-of-charge` in name only, and would disagree with a shunt-derived one under load."
+}

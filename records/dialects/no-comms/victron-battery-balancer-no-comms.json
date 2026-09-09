@@ -1,0 +1,31 @@
+{
+  "id": "victron-battery-balancer-no-comms",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "retail-quebec-retailer-sweep-checked-2026-07-31",
+      "citation": "Retail: Quebec retailer sweep, checked: 2026-07-31."
+    },
+    {
+      "source": "victron-ble-extra-manufacturer-data-2022-12-14",
+      "citation": "docs/victron-ble-extra-manufacturer-data-2022-12-14.pdf — record-type table, cited for absence."
+    }
+  ],
+  "models": [
+    {
+      "name": "Battery Balancer"
+    }
+  ],
+  "refutedOnReview": "REFUTED on four independent grounds.  1. The dialect does not exist. No `victron-battery-balancer-no-comms` appears anywhere in /Users/lemarier/dev/solar/docs/catalog/. The Victron Battery Balancer (BBA000100100) exists only as a passive ratings row at /Users/lemarier/dev/solar/docs/catalog/no-comms.md:406, whose note reads \"Balances two 12 V batteries in series. It has an alarm relay output, not a data port.\"  2. Ca",
+  "gotchas": [
+    "Passive gear. It equalises the charge across two series 12 V batteries in a 24 V bank and has an alarm LED and a relay contact; it has no data port, no radio and no protocol. The retail listing claims none, and the committed BLE record-type table has no entry that could cover it.",
+    "It appears in this survey only because one Quebec retailer bundles it with a BMV-712. The bundle is two devices, one of which is a battery monitor on the `victron-bmv71x-smartshunt-vedirect-text` dialect and one of which is this. Do not let the bundle SKU create a phantom model.",
+    "The alarm relay contact is reachable as a dry contact on a GPIO input — that is `local-io`, not a Victron dialect, and it is the only route to knowing this device has tripped.",
+    "checked: 2026-07-31 — 1 Quebec retailer standalone, 1 as part of a BMV-712 bundle."
+  ]
+}

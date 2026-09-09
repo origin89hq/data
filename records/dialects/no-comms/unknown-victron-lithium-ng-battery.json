@@ -1,0 +1,60 @@
+{
+  "id": "unknown-victron-lithium-ng-battery",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victronenergy-com-upload-documents-lithium-ng-battery-12-8-v-173204-lithium-ng-battery-man",
+      "citation": "docs/victron-lithium-ng-battery-manual-rev11.pdf (newly downloaded) — Lithium NG battery manual rev 11, 03/2026, from https://www.victronenergy.com/upload/documents/Lithium_NG_battery_12,8_V/173204-Lithium_NG_battery_man"
+    },
+    {
+      "source": "victron-lithium-ng-datasheet",
+      "citation": "docs/victron-lithium-ng-datasheet.pdf (newly downloaded) — Datasheet Lithium NG batteries 12,8V 25,6V 51,2V EN, 'Battery BMS interface' and 'Bluetooth: In the BMS' rows"
+    },
+    {
+      "source": "victron-lynx-smart-bms-ng-manual-rev14",
+      "citation": "docs/victron-lynx-smart-bms-ng-manual-rev14.pdf (newly downloaded) — the mandatory-BMS side of the same system"
+    }
+  ],
+  "transport": "Battery-to-BMS only. 'Male + female cable with M8 circular connector with high-speed digital communication, length 50 cm', daisy-chained between packs. NO protocol name, NO bit rate, NO framing, NO addressing is given in any Victron document found. There is no port on the battery that a hub can attach to.",
+  "models": [
+    {
+      "name": "Lithium NG 12.8V/100Ah"
+    },
+    {
+      "name": "Lithium NG 12.8V/200Ah"
+    },
+    {
+      "name": "Lithium NG 12.8V/300Ah"
+    },
+    {
+      "name": "Lithium NG 25.6V/100Ah"
+    },
+    {
+      "name": "Lithium NG 25.6V/200Ah"
+    },
+    {
+      "name": "Lithium NG 51.2V/100Ah"
+    },
+    {
+      "name": "LiFePO4 Lithium Battery Smart NG 12.8V/200Ah (retailer naming; same Victron product as Lithium NG 12.8V/200Ah)"
+    },
+    {
+      "name": "LiFePO4 Lithium Battery Smart NG 12.8V/300Ah (retailer naming; same Victron product as Lithium NG 12.8V/300Ah)"
+    }
+  ],
+  "refutedOnReview": "REFUTED on two independent grounds: the \"single manual for the whole range\" evidence is false, and no register map exists in any cited source.  1) The cited manual is NOT one document covering 12,8/25,6/51,2 V. /Users/lemarier/dev/solar/docs/victron-lithium-ng-battery-manual-rev11.pdf (4,863,892 bytes) has cover title \"Lithium NG 12,8V battery manual / 100Ah \\| 150Ah \\| 200Ah \\| 300Ah, Rev 11 - 03/2026\". Its section ",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "THE BATTERY HAS NO BLUETOOTH. The datasheet row reads 'Bluetooth: In the BMS'. This is the single most likely thing to be got wrong about this product line, because the previous generation (Lithium Battery Smart) does have its own radio and the retailer listings call these 'Smart NG'.",
+    "A BMS IS MANDATORY, not optional. Datasheet: 'BMS (from now on Lynx Smart BMS NG 500 A/1000 A, further models to follow) is mandatory'. The manual names three compatible models: Lynx Smart BMS NG, VE.Bus BMS NG, smallBMS NG. Cost of reading an NG bank therefore includes a BMS, and which BMS decides which of this sweep'",
+    "The M8 link is described as 'high-speed digital communication' and nothing more. It is not VE.Direct, not VE.Can, and no document says what it is. Do not attempt to tap it. There is no map, and inventing one is exactly the failure mode this catalogue exists to prevent.",
+    "'LiFePO4 Lithium Battery Smart NG 12.8V/200Ah' and 'Lithium NG 12.8V/200Ah' appear as separate lines on the Quebec retail survey from different retailers. Victron's own naming for the line is 'Lithium Battery NG' / 'Lithium NG batteries' at 12,8 V 100/200/300 Ah, 25,6 V and 51,2 V. They are the same products under two ",
+    "Battery firmware is updated by the BMS, not by the app: 'Battery firmware automatically updated by BMS'. A firmware-mismatch fault is therefore a BMS-side event."
+  ],
+  "unmappedReports": "Not applicable — nothing is reachable. Whatever these packs report (cell status, cell voltages, current, temperature, and a coulomb-counted SoC, per the datasheet) arrives only after the BMS has re-published it, and what survives that hop is the BMS's question, not the battery's."
+}

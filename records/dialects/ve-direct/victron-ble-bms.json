@@ -1,0 +1,50 @@
+{
+  "id": "victron-ble-bms",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victron-ble-extra-manufacturer-data-2022-12-14",
+      "citation": "docs/victron-ble-extra-manufacturer-data-2022-12-14.pdf (already committed) — record type table and the 0x0A layout"
+    },
+    {
+      "source": "victronenergy-com-upload-documents-lynx-smart-bms-109358-lynx",
+      "citation": "docs/victron-lynx-smart-bms-manual-rev17.pdf (newly downloaded) — Lynx Smart BMS manual rev 17, 01/2026, §7.8 VictronConnect Instant readout, from https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx"
+    },
+    {
+      "source": "github-com-keshavdv-victron-ble",
+      "citation": "https://github.com/keshavdv/victron-ble — lynx_smart_bms.py reads 8/16/s16/s16/16/18/10/20/7 bits in that order, matching the vendor table exactly"
+    }
+  ],
+  "transport": "BLE advertisement · Victron manufacturer data byte 3 = 0x10 · record type 0x0A · same AES-CTR container, nonce and key-byte check as record 0x05 · per-device 16-byte key required · one-way, no commands",
+  "blocks": "Record 0x0A '(Lynx Smart) BMS', bit offsets from record start: 32/8 Error (VE_REG_BMS_ERROR, NA 0x0) · 40/16 TTG, 1 min, 0-45.5 days, NA 0xFFFF · 56/16 battery voltage, 0.01 V, -327.68..327.66 V, NA 0x7FFF · 72/16 battery current, 0.1 A, -3276.8..3276.6 A, NA 0x7FFF · 88/16 IO status (VE_REG_BMS_IO, NA 0x0) · 104/18 warnings/alarms (VE_REG_BMS_WARNINGS_ALARMS, NA 0x0) · 122/10 SOC, 0.1 %, 0-100.0 %, NA 0x3FF · 132/20 consumed Ah, 0.1 Ah, -104,857..0 Ah, value = −record, NA 0xFFFFF · 152/7 temperature, °C, -40..86, value = record − 40, NA 0x7F · 159/1 unused",
+  "reports": [
+    "state-of-charge",
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "time-to-go",
+    "consumed-amp-hours"
+  ],
+  "models": [
+    {
+      "name": "Lynx Smart BMS 500 (LYN034160200 M8 / LYN034160210 M10)"
+    },
+    {
+      "name": "Lynx Smart BMS 1000 (LYN034170210 M10)"
+    }
+  ],
+  "sharedMapEvidence": "Two models, one map, on the strength of the record's own vendor-assigned name: the Victron BLE specification's record-type table calls 0x0A '(Lynx Smart) BMS'. That is the vendor naming the Lynx Smart BMS product by name against a record layout — the one place in that entire document where a Victron product line is named rather than a device category. The 500 A and 1000 A variants are covered by O",
+  "gotchas": [
+    "The record is named for the Lynx Smart BMS, but the specification is dated 2022-12-14 and the Lynx Smart BMS NG (LYN034160310 / LYN034170310) did not exist then. Do NOT assume an NG unit emits 0x0A — see the unknown-victron-ble-instant-readout entry.",
+    "Battery current at bit 72 is signed 0.1 A. The SOC at bit 122 is 10 bits, not 8 or 16 — a byte-aligned parse silently misreads it.",
+    "Consumed Ah is stored positive and negated on read (vendor remark: 'Consumed Ah = -Record value'). Reading it straight gives the wrong sign.",
+    "Temperature is offset-encoded: value = record − 40. Reading it raw reports a frozen bank as +40 °C above truth.",
+    "Same commissioning cost as every Instant Readout record: per-device AES key from VictronConnect after pairing, and Instant readout is off by default."
+  ],
+  "unmappedReports": "VE_REG_BMS_ERROR (8-bit error code) — no MetricKind for a fault code. ChargeStage::Fault is a charger concept and does not apply., VE_REG_BMS_IO, 16-bit IO status — this is where 'allowed to charge', 'allowed to discharge' and the main contactor state live. A cabin rules engine that wants to know whether the bank is even connected has no wire name for it. Largest gap in this entry., VE_REG_BMS_WARNINGS_ALARMS, 18 bits — no MetricKind. Neither Victron nor either community implementation decodes these bits; Fabian-Schmidt/esphome-victron_ble explicitly lists 'Missing definition for error, io_status and warnings_alarms'., Mode / State (BMS operational state, from the manual's parameter table) — no MetricKind., Allowed to charge / Allowed to discharge — no MetricKind, and these are the two booleans that decide whether a rules engine may start a load or a charger at all., Relay status (programmable relay) — switch-state exists but is already the load-output boolean elsewhere in the catalogue; a second output has nowhere to go., Balancer status, min/max cell voltage, min/max cell temperature, individual cell voltages, number of batteries / cells / in series / in parallel — no MetricKind for any of them., Deepest discharge, cumulative Ah drawn, discharged energy, charged energy, synchronisations, number of full discharges, min/max battery voltage, last error — history records, a different contract shape entirely, not new MetricKind variants."
+}

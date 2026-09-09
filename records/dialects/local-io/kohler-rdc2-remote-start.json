@@ -1,0 +1,33 @@
+{
+  "id": "kohler-rdc2-remote-start",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "unrecorded",
+  "sources": [
+    {
+      "source": "resources-kohler-com-power-kohler-residential-pdf-8resvl-installation",
+      "citation": "Kohler TP-6984 8/10/12RESV(L) Installation https://resources.kohler.com/power/kohler/residential/pdf/8RESVL_INSTALLATION.pdf ; TP-7092 14–26RCA Operation https://resources.kohler.com/power/kohler/residential/pdf/tp7092.pdf ; TP-6345 RDT ATS http://www.fireelectronics.com/docs/Kohler%20Literature/lit/tp6345.pdf (checked: 2026-09-01)"
+    }
+  ],
+  "transport": "2-wire maintained dry contact · open-circuit voltage: ? · current: ? · terminals 3 and 4 on generator terminal block TB3; \"See the ATS manual for cable size\" (TP-6984 Fig 1-21); ATS-side contact rated 0.5 A @ 125 VAC / 2 A @ 30 VDC, #12–24 AWG, max 213 m (TP-6345 Fig 2-15 p.23)",
+  "models": [
+    {
+      "name": "8/10/12RESV(L)",
+      "rating": "8–12 kW / NG-LP / RDC2 or DC2",
+      "notes": "terminals 3/4 unused with RXT (RBUS) ATS"
+    },
+    {
+      "name": "14/20/26RCA, 48RCLC/60RCLB",
+      "rating": "14–60 kW / RDC2",
+      "notes": "same 3/4 leads"
+    }
+  ],
+  "gotchas": [
+    "TP-7092 §2.3.3: \"Close the switch to start and run the generator set. Open the switch to stop the generator set.\" Controller must be in AUTO (§2.3.8).",
+    "Opening the contact runs the \"smart engine cooldown\", 5 min default, ends early on temperature (§2.3.6); set any ATS cool-down to zero.",
+    "No Kohler document read states the voltage or wetting current on 3/4; a forum claim of \"12 V\" is `unverified`. Fault shutdowns latch until OFF is pressed (§2.5.2)."
+  ]
+}

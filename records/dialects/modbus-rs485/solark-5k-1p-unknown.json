@@ -1,0 +1,37 @@
+{
+  "id": "solark-5k-1p-unknown",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "sol-ark-com-wp-content-uploads-2024-06-ma-00015-rev3-5k-1p-n-usermanual-v13-en-16june2025",
+      "citation": "https://sol-ark.com/wp-content/uploads/2024/06/MA-00015_Rev3_5K-1P-N_UserManual_v13_EN_16June2025.pdf — 5K-1P-N User Manual MA-00015 Rev 3, §4.2 Battery Communication with MODBUS/CANBUS: RJ45 pinout, on-request READ-only"
+    },
+    {
+      "source": "solark-modbus-rtu-protocol-v1-4",
+      "citation": "docs/solark-modbus-rtu-protocol-v1.4.pdf — the ambiguity: \"Outdoor Sol-Ark 5K, 8K & 12K\", no model suffixes."
+    }
+  ],
+  "transport": "RJ45 pins 1=B-, 2=A+, 6=GND, 7=A+, 8=B- on the \"Battery CANBus\" port — stated by the vendor 5K-1P-N user manual. Baud rate, framing, slave ID and register addresses: no source names this model. Not inferred.",
+  "models": [
+    {
+      "name": "5K-1P"
+    },
+    {
+      "name": "5K-1P-N"
+    },
+    {
+      "name": "SA-5K-1P (retailer SKU for the same unit)"
+    }
+  ],
+  "gotchas": [
+    "Parked here rather than on solark-hybrid-rtu-v1 because V1.4 writes only \"Outdoor Sol-Ark 5K, 8K & 12K\" with no -1P/-2P suffix anywhere in the document, and Sol-Ark ships two outdoor 5 kW units. Assigning the wrong one costs a bench day, which is exactly what the rule against family-name inference exists to prevent.",
+    "What is missing: a vendor document that writes \"5K-1P\" (or \"5K-1P-N\") next to a register map, or an implementation reading a 5K-1P. Sol-Ark's own 5K-1P-N manual points at support@sol-ark.com for the map.",
+    "The specific worry is not academic. The V1.4 map is built around split-phase L1/L2 (regs 150–151, 154–155, 157–158, 160–161, 164–165, 167–168, 173–174, 176–177, 179–180). The 5K-1P-N manual states it \"has a wide selection of (single phase) AC voltages it can operate in, including: 120V, 127V, 220V, 230V and 240V\" — it ",
+    "Circumstantial only: the 5K-1P-N has the same 2 MPPTs, the same single \"Battery CANBus\" RJ45, the same pin table, and the same §4.2 on-request-map wording as the 5K-2P-N. Platform similarity, not address evidence."
+  ]
+}

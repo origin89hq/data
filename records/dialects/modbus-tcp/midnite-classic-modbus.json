@@ -1,0 +1,71 @@
+{
+  "id": "midnite-classic-modbus",
+  "family": "modbus-tcp",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "midnite-classic-modbus-register-map-rev-c5",
+      "citation": "MidNite Solar MODBUS Network Spec. Rev C.4 — Dec 9, 2013. Committed at docs/midnite-classic-modbus-register-map-rev-c5.pdf (identical sha1 26ddfce7 to the file I downloaded)."
+    },
+    {
+      "source": "midnitesolar-com-pdfs-classic-register-map-rev-c5-december-8-2013",
+      "citation": "https://www.midnitesolar.com/pdfs/classic_register_map_Rev-C5-December-8-2013.pdf"
+    },
+    {
+      "source": "s3-amazonaws-com-proddoc-classicmanual",
+      "citation": "MidNite Solar Classic Owner's Manual (10-001-1 REV-V) — https://s3.amazonaws.com/ProdDoc/classicManual.pdf — carries an embedded, slightly later copy of the same map plus the RS-232 RJ-11 pinout, the Ethernet/Local App c"
+    }
+  ],
+  "seeAlso": [
+    "midnite-classic",
+    "midnite-classic-modbus-tcp"
+  ],
+  "transport": "Ethernet 10/100 · Modbus TCP · default TCP port 502 (register 4137 modbus_port_register, R/W, \"0 to 65,535. Default = 502\") · default Modbus unit/slave ID 10 (register 4326 ClassicModbusAddr, \"0 to 255 … Default address = 10 (ten)\"); the doc also states \"Classics will always treat address 255 as if it is for it as well as its set modbus address\". Second physical port: an RJ-11 RS-232 Modbus jack (",
+  "blocks": "Whole map is expressed in REGISTER numbers; the wire address is register − 1 (\"The main Classic address map starts at register 4101 but the packet itself sends out address 4100\"). 4101–4144 identity, MAC, real-time values · 4145–4230 setpoints, Aux 1/2 config, MPPT mode · 4231–4384 internals, logs index, Whizbang Jr · 10001–10064 comm statistics (4 bus interfaces) · 16385–16390 firmware/net versions · 20481–20493 network config + Ethernet write-unlock · 28673–28674 serial number (read over RS-232) · 61441–61442 reserved. Log retrieval uses MidNite's own function codes 0x68 (104, Read Internal) and 0x69 (105, Write Internal), not the standard Modbus 0x14/0x15 file transfer.",
+  "reports": [
+    "pv-voltage",
+    "pv-current",
+    "battery-voltage",
+    "battery-current",
+    "battery-power",
+    "battery-temperature",
+    "temperature",
+    "charge-stage",
+    "pv-energy-today",
+    "pv-energy-total",
+    "consumed-amp-hours",
+    "switch-state"
+  ],
+  "accepts": [
+    "start-equalize",
+    "clear-fault",
+    "set-charge-current-limit",
+    "set-switch"
+  ],
+  "models": [
+    {
+      "name": "Classic 150 (MPPT)"
+    },
+    {
+      "name": "Classic 200 (MPPT)"
+    },
+    {
+      "name": "Classic 250 (MPPT)"
+    }
+  ],
+  "sharedMapEvidence": "One vendor document covers all three retail models by name. Table 4101-1 \"Device Type\" decodes the LSB of register 4101 as Classic150 = 150, Classic200 = 200, Classic250 = 250, Classic250 KS = 251 — i.e. the model is a field inside a single shared map, not a separate map. Table 4275-1 \"Reason For Resting\" reinforces this: codes 17/18/19 are \"PV input is higher than operation range\" for the 150 V, ",
+  "gotchas": [
+    "This is Modbus framing but NOT RS-485. The primary transport is Modbus TCP over 10/100 Ethernet; the secondary is Modbus over an RJ-11 RS-232 jack. There is no RS-485 port on a Classic. If the catalogue keeps one family file per physical layer, this does not belong in modbus-rs485.md — it wants a modbus-tcp.md (which w",
+    "The document contradicts itself about its own revision. The published filename is classic_register_map_Rev-C5-December-8-2013.pdf; every page header inside reads \"MidNite Solar MODBUS Network Spec. Rev C.4 --- Dec 9, 2013\". Rev C5/Dec 8 vs Rev C.4/Dec 9. Cite it by the URL, not by a revision number.",
+    "Register vs. address off-by-one, stated by the vendor: \"The main Classic address map starts at register 4101 but the packet itself sends out address 4100.\" Both cross-checked implementations subtract one. A driver that sends 4101 on the wire reads the software build year where it expects the PCB revision — every value ",
+    "Writing any register over Ethernet is locked by default. InfoFlagBits3 bit 0x00000004 SerialWriteLock = \"Ethernet modbus register change is locked (password)\". To unlock, read the serial number from 28673/28674 and write it back to 20492/20493; the unlock \"will last until the TCP/IP connection is dropped\". A physical L",
+    "There is no PV-power register. 4119 Watts is \"Average Power to the Battery\" — charger output, after conversion losses. Reporting it as pv-power overstates array yield. It is mapped to battery-power above. Likewise 4118 (daily kWh) and 4126/4127 (lifetime kWh) are energy TO THE BATTERY, not energy harvested; mapping the"
+  ],
+  "unmappedReports": "state-of-charge — the Classic shows SoC on the MNGP when a Whizbang Jr shunt is fitted, but Rev C.4 has NO SoC register: 4247 EndingSoc, 4250 BattMonVolts, 4251 BattMonSOC are all annotated \"Future SOC use\", and 4373–4384 are \"Reserved\". ClassicMQTT reads 4373 as SOC, 4377 as RemainingAmpHours and 4381 as TotalAmpHours — all inside that reserved block. See gotchas; do not treat those three addresses as vendor-backed., Charge-stage timers — 4139/4154 Absorb time, 4138 FloatTimeTodaySeconds, 4143/4162 Equalize time remaining. No MetricKind expresses \"seconds left in this stage\", which is exactly what tells you whether a bank actually finished absorb., Open-circuit PV voltage — 4122 VocLastMeasured and 4231 VocRD. Distinct from pv-voltage and useful for array-fault detection; no MetricKind., Daily / lifetime amp-hour throughput — 4125 AmpHours (daily), 4128/4129 LifetimeAmpHours. consumed-amp-hours is the only Ah metric and means something else (net drawn from the bank)., Highest PV input voltage ever seen — 4123 HighestVinputLog. The single number that tells you whether a string is over-VOC in cold weather; no MetricKind., MPPT operating mode — 4164, Table 4164-1: PV U-Set / Dynamic / Wind Track / Legacy P&O / Solar / Hydro. The Classic is a wind and micro-hydro controller too; there is no MetricKind or DeviceKind that carries that., Reason-for-resting diagnostic code — 4275, Table 4275-1, 30+ enumerated causes (ground fault, arc fault, HyperVOC, FET over-temp, low light, battery under 8.0 V, …). This is the richest fault channel on the device and there is no fault/alarm MetricKind at all; clear-fault exists as a command with nothing to read back., Fault and condition flags — 4130/4131 Table 4130-1: GroundFaultF, ArcFaultF, OCP, HyperVoc, Current Limit, LowBatteryVF, NegBatCurrentF, TempCompShortedF, PvPartialShadeF. Same gap as above., Two distinct internal temperatures — 4133 FETtemperature and 4134 PCBTemperature both have to collapse onto the single `temperature` MetricKind; one of them has to be dropped or renamed by the driver., Whizbang Jr shunt temperature — 4372 LSB, °C − 50. A third temperature with nowhere to go., PWM duty cycle — 4141 PWM_ReadOnly, 0–1023 (\"NOT Percent\")., Minutes at night with no power — 4135 NiteMinutesNoPwr., Communication health — 10001–10064 rx_ok / rx_crc_err / dropped_busy per bus interface. Useful for deciding whether a flaky reading is the controller or the cable; no MetricKind.",
+  "refiledFrom": "modbus-rs485",
+  "possibleDuplicate": true
+}

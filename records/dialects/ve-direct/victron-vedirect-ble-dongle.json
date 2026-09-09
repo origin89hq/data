@@ -1,0 +1,37 @@
+{
+  "id": "victron-vedirect-ble-dongle",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victronenergy-com-media-pg-ve-direct-bluetooth-smart-dongle-manual-en-introduction",
+      "citation": "https://www.victronenergy.com/media/pg/VE.Direct_Bluetooth_Smart_dongle_manual/en/introduction.html"
+    },
+    {
+      "source": "victronenergy-com-upload-documents-ve-direct-bluetooth-smart-dongle-manual-32970-ve-direct-bluet",
+      "citation": "https://www.victronenergy.com/upload/documents/VE.Direct_Bluetooth_Smart_dongle_manual/32970-VE_Direct_Bluetooth_Smart_dongle_-_Manual-pdf-en.pdf"
+    },
+    {
+      "source": "victron-mppt-ve-direct-hex-protocol-rev18",
+      "citation": "docs/victron-mppt-ve-direct-hex-protocol-rev18.pdf (committed) — product-id table note 4"
+    }
+  ],
+  "transport": "Plugs into any product's VE.Direct port and republishes it over BLE. Two distinct BLE behaviours: (a) live-data advertisement, which is the victron-ble-instant-readout record above, requiring dongle firmware 2.41 or later and explicit activation; (b) a connected GATT session used by the VictronConnect app, for which Victron publishes no specification.",
+  "models": [
+    {
+      "name": "VE.Direct Bluetooth Smart dongle (ASS030536011)"
+    }
+  ],
+  "refutedOnReview": "REFUTED on four independent grounds. The cited sources all exist, but none of them says what the claim says, and the strongest cited source says something different enough that the citation looks misread.  1. THE CITED \"note 4\" IS MISATTRIBUTED. I extracted the committed PDF (/Users/lemarier/dev/solar/docs/victron-mppt-ve-direct-hex-protocol-rev18.pdf). Note 4 reads in full: \"Bluetooth communication channel multiplex",
+  "gotchas": [
+    "This is an accessory, not a solar-charger dialect. It exists in the catalogue because it is the ONLY way to get any wireless telemetry out of a BlueSolar MPPT, which has no built-in Bluetooth. It is listed by one Quebec retailer.",
+    "It occupies the VE.Direct port. Once the dongle is fitted, a wired gateway cannot also read that port — the choice is BLE advertisement (fewer fields, encrypted, needs the key) or a serial cable (full text and HEX), not both.",
+    "The connected VictronConnect protocol is undocumented. Do not plan a driver against it. The advertisement path is the only specified one.",
+    "Separately, product-id note 4 in the MPPT HEX doc records that on the phased-out SmartSolar 150/100 (0xA051) and 150/85 (0xA052) the internal Bluetooth is multiplexed with the VE.Direct port: using the VE.Direct port disables the built-in Bluetooth. Newer models do not have this restriction.",
+    "checked: 2026-07-31."
+  ]
+}

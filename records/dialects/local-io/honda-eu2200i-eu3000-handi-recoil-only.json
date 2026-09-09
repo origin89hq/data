@@ -1,0 +1,33 @@
+{
+  "id": "honda-eu2200i-eu3000-handi-recoil-only",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "unrecorded",
+  "sources": [
+    {
+      "source": "cdn-powerequipment-honda-com-pe-pdf-manuals-00x31z446010",
+      "citation": "Honda EU2200i OM 00X31Z446010 (http://cdn.powerequipment.honda.com/pe/pdf/manuals/00X31Z446010.pdf); EU3000i Handi OM 00X31Z286131 (http://cdn.powerequipment.honda.com/pe/pdf/manuals/00X31Z286131.pdf); Honda accessories catalogue p5-15 (checked: 2026-09-01)"
+    }
+  ],
+  "transport": "none — no electric starter, no remote input.",
+  "models": [
+    {
+      "name": "EU2200iT",
+      "rating": "1.8/2.2 kVA, gasoline, electric start **no**",
+      "notes": "recoil only"
+    },
+    {
+      "name": "EU3000i Handi (EU3000iK1)",
+      "rating": "2.6/3.0 kVA, gasoline, electric start **no**",
+      "notes": "recoil, manual choke"
+    }
+  ],
+  "gotchas": [
+    "Honda: remote kits are \"for use with generators equipped with electric start and automatic choke only\" — neither model listed (cat. p5-15). GenStart's manuals page lists no kit for either.",
+    "Hutch Mountain sells no start kit of any kind (https://www.hutchmountain.com/collections/all). Frog Products electric-start kits exist but their site returned a placeholder/404 — `unverified`.",
+    "Pinellas EU2200i kit is **stop-only**, 40–100 °F (https://www.pinellaspowerproducts.com/product/honda-eu2000i-eu2200i-wireless-remote-shut-off-kit/)."
+  ]
+}

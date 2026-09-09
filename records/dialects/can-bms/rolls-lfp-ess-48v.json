@@ -1,0 +1,44 @@
+{
+  "id": "rolls-lfp-ess-48v",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "rollsbattery-com-wp-content-uploads-2023-09-rolls-s48-100lfp-e",
+      "citation": "ROLLS S48-100LFP ESS BATTERY OPERATING MANUAL, ver. 1.1 09/23 — committed at /Users/lemarier/dev/solar/docs/rolls-s48-100lfp-ess-manual-v1.1.pdf (https://www.rollsbattery.com/wp-content/uploads/2023/09/Rolls-S48-100LFP-E"
+    },
+    {
+      "source": "rollsbattery-com-wp-content-uploads-2024-0",
+      "citation": "ROLLS LFP ESS INTEGRATION WITH VICTRON ENERGY USER MANUAL, rev 2.1 2026/03/13 — committed at /Users/lemarier/dev/solar/docs/rolls-lfp-ess-victron-integration-rev2.1.pdf (https://rollsbattery.com/wp-content/uploads/2024/0"
+    },
+    {
+      "source": "rollsbattery-com-battery-s48-100lfp-ess",
+      "citation": "https://www.rollsbattery.com/battery/s48-100lfp-ess/ — connectivity stated as '2x RS-485, 1 x CAN bus'. checked: 2026-07-31"
+    }
+  ],
+  "transport": "CAN bus · 500 kbit/s · RJ45 pins 4,5 = CAN-L/CAN-H, pins 3,6 = ground, pins 1,2,7,8 = NC \\|\\| RS-485 · 19200 · RJ45 pins 2,7 = RS-485-A, pins 1,8 = RS-485-B, pins 3,6 = ground, pins 4,5 = NC · two RS-485 ports, one CAN port · pack address set by a 4-position DIP switch, host pack = 0000 · up to 16 packs in parallel",
+  "reports": [
+    "state-of-charge",
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "cycle-count"
+  ],
+  "models": [
+    {
+      "name": "S48-100LFP ESS"
+    }
+  ],
+  "gotchas": [
+    "NO REGISTER MAP EXISTS FROM ROLLS. This is the single most important fact about the line. Every Rolls document states the transport and then names a third-party protocol by title and version; not one CAN ID, Modbus address, scale factor or bit meaning appears in any Rolls publication. A driver must be written against t",
+    "The pack impersonates a protocol chosen in Rolls LFP Desktop V2 software over the RS-485 port. Appendix A of the operating manual lists, verbatim: Deye 'ENQ CAN protocol V1.0' CAN 500K · Goodwe 'Goodwe Communication Protocol' CAN 500K V1.5 · Growatt-SPF 'Growatt BMS CAN-Busprotocol-low-voltage' CAN 500K V1.05 and 'SPF ",
+    "Two of those entries are the practical route for Cabin Hub and both are widely implemented outside Rolls: Pylontech RS-485 low-voltage V3.5 at 9600, and Pylontech CAN V1.3 at 500K. Neither is a Rolls document and neither is verified against a Rolls pack here.",
+    "The manual's Solis row says 'CAN, 9600'. 9600 is not a CAN bit rate. Recorded as printed rather than corrected — it is either a typo for 500K or a genuine oddity, and guessing would be exactly the fabrication this catalogue forbids.",
+    "The SRNE row names 'PACE BMS Modbus Protocol' as a selectable output. That hints the BMS is PACE-derived, which would matter because PACE has multiple community implementations. It is a hint, not evidence — the manual lists it as an inverter-side option, not as a statement about internal architecture. Tagged unverified"
+  ],
+  "unmappedReports": "charge-voltage-limit (CVL) — the BMS publishes it and Victron DVCC consumes it; no MetricKind exists to read a limit back, only the CommandKind set-charge-current-limit to write one, charge-current-limit (CCL) — same gap, discharge-current-limit (DCL) — same gap, BMS alarm / protection flags (over-voltage, under-voltage, over-temperature, under-temperature, over-current). ChargeStage::Fault is the charger's fault, not a battery protection state. Appendix B error codes ER0-ER4 have nowhere to land., per-cell voltages and cell delta — battery-voltage is pack terminal voltage only, remaining capacity in Ah and full-charge capacity in Ah — consumed-amp-hours is the inverse and is not the same number, internal heater state (S-Series packs have self-heating; the display shows a Heating indicator), BMS switch / breaker position — switch-state could carry it but nothing currently maps it, pack address / number of packs in a parallel string"
+}

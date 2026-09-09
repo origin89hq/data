@@ -1,0 +1,39 @@
+{
+  "id": "bslbatt-golf-cart-gc",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "bslbatt-com-wp-content-uploads-2025-05-b-lfp-48-150gc",
+      "citation": "BSLBATT, B-LFP-48-150GC datasheet, https://bslbatt.com/wp-content/uploads/2025/05/B-LFP-48-150GC.pdf — image-only PDF, read by rendering. 'CAN-Bus Communication', 'SOC can check the power at any time', 'Bluetooth@ (MOS s"
+    },
+    {
+      "source": "bslbatt-com-wp-content-uploads-2025-05-golf-cart-user-manual-24-7-30",
+      "citation": "BSLBATT, Golf Cart User Manual 24.7.30, https://bslbatt.com/wp-content/uploads/2025/05/Golf-Cart-User-Manual.24.7.30.pdf — image-only PDF, read by rendering. Overview names B-LFP48-105GC, B-LFP48-135GC, B-LFP48-150GC and"
+    },
+    {
+      "source": "bslbatt-com-golf-cart-product-page-checked-2026-07-31-compat",
+      "citation": "bslbatt.com golf-cart product page, checked: 2026-07-31 — 'Compatible with USB to CAN communication for fleet monitoring.'"
+    }
+  ],
+  "models": [
+    {
+      "name": "B-LFP48-150GC, 51.2 V 150 Ah 7.68 kWh, 16S1P — stocked in QC; vendor spells it B-LFP-48-150GC"
+    },
+    {
+      "name": "B-LFP48-104GC — stocked in QC, and this exact string appears in NO BSLBATT document"
+    }
+  ],
+  "gotchas": [
+    "THE VENDOR CONTRADICTS ITSELF ON THE TRANSPORT. The B-LFP-48-150GC datasheet lists 'CAN-Bus Communication' under Safety & Intelligence. The Golf Cart User Manual, covering that same model by name, lists as a feature 'Pre-warning when battery is almost empty (communication by means of RS485)'. Two BSLBATT documents, one",
+    "B-LFP48-104GC IS NOT A BSLBATT MODEL as far as any document found goes. The 48 V golf-cart line is 52 / 72 / 105 / 135 / 150 / 205 Ah. '104' is most likely a retailer transcription of 105GC — but 'most likely' is how a bench day gets lost, so it is written down as unmatched rather than corrected.",
+    "The connector is not RJ45. The manual's port table gives 'Comm — GX16-4 — Charging communication interface' and 'Screen — GX16-6 — Display screen interface'. GX16 is a 16 mm circular aviation connector. Note also that the comm port is described as the CHARGING communication interface — it may exist to talk to the match",
+    "The display is a Samkoom touch panel on a separate '(J6)' port running a vendor BMS screen. It shows total voltage, current, capacity, per-cell max/min voltage with cell index, Tmax and an ISO insulation reading. That is a proprietary HMI link, not a documented protocol.",
+    "No baud rate, no address, no protocol name, no register. Nothing here is buildable. If somebody wants these, the route is a bench capture on the GX16-4 pins, not more reading."
+  ],
+  "unmappedReports": "Insulation resistance (ISO). The datasheet specifies '≥20 MΩ/1000 VDC' and the BMS screen displays a live ISO value. No MetricKind, and on a traction pack it is the safety-relevant number., Per-cell voltage with cell index (Vmax/Vmin and 'No: M: B:' on the screen) — same gap as the PACE dialect., Passive balancing current, specified as 30 mA ±10. No MetricKind., Cumulative charge and discharge hours ('Send Times / DisCharge Times', shown in hours on the version screen). MetricKind has GeneratorRunHours and PumpRunHours but nothing equivalent for a battery."
+}

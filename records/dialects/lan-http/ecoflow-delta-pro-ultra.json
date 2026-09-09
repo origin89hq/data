@@ -1,0 +1,51 @@
+{
+  "id": "ecoflow-delta-pro-ultra",
+  "family": "lan-http",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "community-crosschecked",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "github-com-tolwi-hassio-ecoflow-cloud",
+      "citation": "https://github.com/tolwi/hassio-ecoflow-cloud — devices/public/delta_pro_ultra.py (hs_yj751_* key paths and YJ751_PD_*_SET command names), devices/internal/proto/ef_delta_pro_ultra_x.proto"
+    },
+    {
+      "source": "github-com-foxthefox-iobroker-ecoflow-mqtt",
+      "citation": "https://github.com/foxthefox/ioBroker.ecoflow-mqtt — lib/dict_data/ef_deltaproultra_data.js (AppShowHeartbeatReport / BPInfo message groups, leaf names bpSoc, bpNum, chgC20SetWatts, chgMaxSoc, bmsModeSet)"
+    }
+  ],
+  "transport": "Same EcoFlow cloud REST + MQTT. Payload is a hybrid: the developer-API path delivers dotted keys under hs_yj751_* structs; the app path delivers protobuf (DPUXPack, DPUXBpInfo, DPUXDisplayPropertyExtra) carrying the same leaves. Writes go as named commands (YJ751_PD_AC_CHG_SET, YJ751_PD_DC_SWITCH_SET, YJ751_PD_CHG_SOC_MAX_SET, YJ751_PD_DSG_SOC_MIN_SET, YJ751_PD_BP_HEAT_SET, YJ751_PD_4G_SWITCH_SET)",
+  "blocks": "hs_yj751_pd_appshow_addr.* (what the app screen shows), hs_yj751_pd_backend_addr.* (per-rail volts and amps), hs_yj751_pd_app_set_info_addr.* (setpoints), plus per-pack BPInfo1..3. 'yj751' is EcoFlow's internal model code for this unit and appears in every key.",
+  "reports": [
+    "state-of-charge",
+    "pv-power",
+    "pv-voltage",
+    "pv-current",
+    "ac-power",
+    "ac-voltage",
+    "ac-current",
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "time-to-go",
+    "switch-state"
+  ],
+  "accepts": [
+    "set-switch"
+  ],
+  "models": [
+    {
+      "name": "DELTA Pro Ultra"
+    }
+  ],
+  "gotchas": [
+    "The two implementations expose different subsets and different container names for the same leaves. tolwi reads hs_yj751_pd_appshow_addr.soc / .bpNum / .access5p8InType; ioBroker reads the protobuf messages AppShowHeartbeatReport / AppParaHeartbeatReport / BackendRecordHeartbeatReport / BPInfo and names the leaves bpSo",
+    "ioBroker reports acInFreq and acOutFreq for this unit; tolwi's developer-API file does not. AC frequency is therefore community-single here and is deliberately left out of reports above.",
+    "Note the leaf-name spelling drift between the two paths: access5p8InType versus access_5p8InType. Whichever path a driver takes, the other spelling will not match.",
+    "tolwi also carries a separate delta_pro_ultra_x internal device with its own protobuf (DPUXPack). Whether the plain 'DELTA Pro Ultra' sold in Quebec is the X variant is not established by anything I read.",
+    "Cloud-only. No LAN path."
+  ],
+  "unmappedReports": "outAcL11Pwr / outAcL12Pwr / outAcL14Pwr / outAcL21Pwr / outAcL22Pwr / outAcTtPwr — per-NEMA-outlet output power (L14-30, TT-30 and friends). MetricKind ac-power is scalar; a split-phase unit with six metered outlets cannot be represented., inAcC20Pwr and inAc5p8Pwr — two separate AC inputs (the C20 inlet and the 5.8 mm expansion port), each with its own volts and amps. Same scalar problem on the input side., inHvMpptPwr and inLvMpptPwr — two MPPT inputs at different voltage ranges, again against a scalar pv-power., outTypec1Pwr / outTypec2Pwr / outUsb1Pwr / outUsb2Pwr / outAdsPwr — per-port output power., bpNum, bpOnlinePos, remainCombo, fullCombo — how many battery packs are attached and which slots are populated. No MetricKind for pack count., wireless4GSta, wireless4gCon, wirelesss4gErrCode, simIccid — the unit has its OWN built-in 4G modem. link-online, link-signal-quality and friends exist only on DeviceKind internet-link; there is no way to say 'this inverter contains a cellular modem and here is its state'. Note the vendor's own typo in wirelesss4gErrCode (three s) — it is on the wire that way., sysErrCode, bpErrCode, adsErrCode — fault codes. CommandKind clear-fault exists but there is no fault-code MetricKind to report what is wrong., enBpHeat / BatteryPreCond_ON — battery pack heater, which is exactly the feature a Quebec winter cares about. No MetricKind, no CommandKind., chgC20SetWatts / chg5p8SetWatts — charge caps in watts, not amps, so set-charge-current-limit does not apply., chgMaxSoc / dsgMinSoc — SoC window setpoints, no CommandKind., Same all-in-one DeviceKind gap, more acutely: this is marketed and was retailed as an 'inverter' but it is an inverter, a charger, two solar chargers, a battery stack and a modem."
+}

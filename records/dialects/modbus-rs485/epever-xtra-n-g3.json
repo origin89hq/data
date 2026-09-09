@@ -1,0 +1,49 @@
+{
+  "id": "epever-xtra-n-g3",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "epever-com-wp-content-uploads-2024-01-xtra-n-g3-ble-manual-en-v1-8",
+      "citation": "EPEVER 'USER MANUAL MPPT Solar Charge Controller XTRA1206/…/4415N G3 / G3 BLE' V1.8 — committed at docs/epever-xtra-n-g3-manual-v1.8.pdf (https://www.epever.com/wp-content/uploads/2024/01/XTRA-N-G3-BLE-Manual-EN-V1.8.pdf"
+    },
+    {
+      "source": "epever-com-wp-content-uploads-2024-01-epever-datasheet-xtra-n-g3-series",
+      "citation": "EPEVER XTRA-N G3 series datasheet, https://www.epever.com/wp-content/uploads/2024/01/EPEVER-DataSheet-XTRA-N-G3-Series.pdf"
+    },
+    {
+      "source": "epever-com-product-xtra-n-g3-mppt-charge-controller",
+      "citation": "EPEVER product page, https://www.epever.com/product/xtra-n-g3-mppt-charge-controller/"
+    }
+  ],
+  "transport": "RS-485 over RJ45 · Modbus RTU · pinout confirmed by the G3 manual (1,2 = +5 VDC 200 mA; 3,4 = RS485-B; 5,6 = RS485-A; 7,8 = GND). Baud rate, framing and default slave ID are NOT stated in any G3 document I could obtain — left absent rather than copied from the pre-G3 series.",
+  "models": [
+    {
+      "name": "XTRA2210N-G3 (XDS2) 20 A"
+    },
+    {
+      "name": "XTRA4210N-G3 (XDS2) 40 A"
+    },
+    {
+      "name": "XTRA4415N-G3 (XDS2) 40 A"
+    },
+    {
+      "name": "full G3 line per the manual cover: XTRA1206/1210/2206/2210/3210/3215/3415/4210/4215/4415N G3 and the same list in G3 BLE"
+    }
+  ],
+  "refutedOnReview": "REFUTED — the sources exist and are genuine, but none contains a register map at all, so nothing supports \"these models share one.\"  WHAT I CHECKED  1. Sources exist. Both cited URLs return HTTP 200. The committed manual at /Users/lemarier/dev/solar/docs/epever-xtra-n-g3-manual-v1.8.pdf is byte-identical in size to the vendor URL (4,706,147 bytes). The datasheet URL also resolves (1,011,267 bytes). Provenance is clea",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "The RS-485 port can be TURNED OFF from the front panel. The G3 manual: 'The RS485 communication port supports 5V output and communication function when enabled. And it has no output and communication function when disabled.' Set via PV parameters → hold for 5 s → CON → EN/DIS. A G3 that answers nothing may simply be se",
+    "Primary / Secondary mode. 'The Primary mode is used for BMS communication; the Secondary mode is used for RS485 communication.' Set at the same CON menu, nnS interface: 'nn' = primary, 'S' = secondary. A unit left in Primary mode is talking to a battery BMS, not listening for a gateway.",
+    "Models with PV open-circuit voltage ≤ 60 V have a NON-ISOLATED RS-485 interface; only models rated ≥ 100 V Voc are isolated and may be connected directly. This flips the isolation assumption depending on which G3 you bought.",
+    "The G3's remote meter is the MT52, not the MT50. The XTRA-N G3 manual names MT52 throughout.",
+    "'XDS2' in a retail title is the display unit (advanced LCD), not a protocol variant. XTRA-N controllers ship with XDB1, XDS1 or XDS2 displays on the same hardware."
+  ],
+  "unmappedReports": "Cannot be assessed — no register list. If the G3 does expose the BMS-Link lithium data (pack SoC, cell voltages, BMS protocol number) over RS-485, most of it would have no MetricKind: state-of-health and cycle-count exist, per-cell voltages do not."
+}

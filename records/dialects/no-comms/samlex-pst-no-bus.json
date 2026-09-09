@@ -1,0 +1,53 @@
+{
+  "id": "samlex-pst-no-bus",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "samlexamerica-com-wp-content-uploads-2020-01-12001-rc-300-1220",
+      "citation": "https://samlexamerica.com/wp-content/uploads/2020/01/12001-RC-300-1220.pdf — RC-300 datasheet, compatibility and feature list"
+    },
+    {
+      "source": "samlexamerica-com-wp-content-uploads-2020-01-11001-rc-300-1220-hrez",
+      "citation": "https://samlexamerica.com/wp-content/uploads/2020/01/11001-RC-300-1220_Hrez.pdf"
+    }
+  ],
+  "blocks": "The PST remotes are display-and-switch accessories on a proprietary wired link. The RC-300 vendor datasheet describes it completely as: LCD showing AC volts, AC amps, frequency, watts and power factor; LEDs for overload, over-temperature and power; 25 ft cable included; 'Optional wired remote control for use with PST Series 1500-3000W inverter models.' It documents no bus, no baud, no framing, and no protocol. The RC-15-A is a plain on/off switch with no display.",
+  "models": [
+    {
+      "name": "PST-300"
+    },
+    {
+      "name": "PST-600"
+    },
+    {
+      "name": "PST-1000"
+    },
+    {
+      "name": "PST-1500"
+    },
+    {
+      "name": "PST-2000"
+    },
+    {
+      "name": "PST-3000"
+    },
+    {
+      "name": "RC-300"
+    },
+    {
+      "name": "RC-15-A"
+    }
+  ],
+  "refutedOnReview": "REFUTED. Both cited PDFs exist and are authentic Samlex documents (12001-RC-300-1220 = RC-300 datasheet, 200/262KB; 11001-RC-300-1220_Hrez = RC-300 Owner's Manual, 200/392KB). I extracted and read the full text of both. They do not support the claim on any axis.  (1) NO REGISTER MAP EXISTS IN THESE SOURCES. Neither document contains the strings \"Modbus\", \"RS-485\", \"RS485\", \"baud\", \"register\", or \"slave\" — zero occurr",
+  "gotchas": [
+    "The RC-300 fits only PST-1500 through PST-3000, per its own datasheet. A retailer listing 'optional remote' against a PST-300 or PST-600 means the RC-15-A on/off switch, not the LCD unit.",
+    "PST is a plain inverter, not an inverter/charger — DeviceKind inverter, no charge-stage, no charger side at all. Do not confuse with SAM-1500C-12.",
+    "The PST owner's manual PDF was not located on samlexamerica.com during this pass (several URL patterns returned 404 and the web-search budget was exhausted). The no-bus conclusion rests on the RC-300 vendor datasheet and on the fact that no Samlex non-EVO product reviewed here has an RS-485 port. Confidence is vendor-d"
+  ],
+  "unmappedReports": "The RC-300 LCD proves the inverter measures AC volts, amps, frequency, watts and power factor — every one of which has a MetricKind (ac-voltage, ac-current, ac-frequency, ac-power, ac-power-factor). None is reachable. This is the frustrating case: the data exists, the contract has a home for it, and there is no wire format to get it."
+}

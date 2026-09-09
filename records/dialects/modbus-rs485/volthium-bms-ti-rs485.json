@@ -1,0 +1,41 @@
+{
+  "id": "volthium-bms-ti-rs485",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "volthium-smart-bridge-manual-en",
+      "citation": "/Users/lemarier/dev/solar/docs/volthium-smart-bridge-manual-en.pdf — pp. 8-9, port tables and octopus adapter pinout. Committed this pass."
+    },
+    {
+      "source": "volthium-dongle-connection-manual",
+      "citation": "/Users/lemarier/dev/solar/docs/volthium-dongle-connection-manual.pdf — p.4, module port descriptions (names the RS485 port, gives no electrical detail). Committed this pass."
+    },
+    {
+      "source": "volthium-com-en-produit-usb-to-rs485-rj45-cable",
+      "citation": "https://volthium.com/en/produit/usb-to-rs485-rj45-cable/ — checked: 2026-07-31"
+    }
+  ],
+  "transport": "RJ45 · RS-485 · 9600 8N1 · one dedicated differential pair per battery, up to 6 · battery-side \"BMS-TI (ABS)\" port: pin 7 = RS485 H, pin 8 = RS485 L, pin 3 not used (open) · no slave ID, no function code, no framing above the UART is stated",
+  "models": [
+    {
+      "name": "Smart Bridge ACC-SBRIDGE (master side, pinout and framing published)"
+    },
+    {
+      "name": "Volthium ABS batteries with a \"BMS-TI (ABS)\" RJ45 communication port (slave side, pinout published)"
+    }
+  ],
+  "refutedOnReview": "REFUTED — the sources are real and quoted accurately, but they do not support a shared *register map*. They support a shared *wire*.  What I verified (all citations check out as text): - /Users/lemarier/dev/solar/docs/volthium-smart-bridge-manual-en.pdf exists (9 pp., \"NEW_User manual_Smart Bridge_EN\", Mar 2025). p.8 does carry the heading \"RJ45-Volthium «BMS-TI» RS485 pinout / Each female RJ45 / Pins / #7 : RS485 H ",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "The manual never says Modbus. It says \"RS485 Comm.\" and \"9600 bauds, n, 8 1\". This is filed under `modbus-rs485` because that is where RS-485 lives in this catalogue's taxonomy, NOT because the framing is known. No slave ID, no function code, and no register address appears anywhere in either Volthium PDF. `reports` is",
+    "This is not a multi-drop bus. Each battery gets its own dedicated pair, and battery position is decided by which pin pair it lands on rather than by an address. Port \"RS485 Comm. Ports 1 -> 4\": pins 1(high)/2(low) = battery #1, 3/4 = #2, 5/6 = #3, 7/8 = #4. Port \"RS485 Comm. Ports 1 & 4 / CTRL 1 @ 4\": pins 1/2 = batter",
+    "Dangerous adjacency: on the second RJ45, pins 5-8 are dry control outputs rated max 30 VDC / 50 mA, on a connector physically identical to the one where pins 5-8 carry battery RS-485. Plugging a battery cable into the wrong socket puts RS-485 onto control outputs.",
+    "An \"Octopus Adapter\" (1 RJ45 to 4 RJ45) fans one master port out to four batteries; the manual prints its full pin mapping — female #1 gets master pins 1/2, #2 gets 3/4, #3 gets 5/6, #4 gets 7/8, and every branch presents 7(high)/8(low) to the battery.",
+    "The Communication HUB (4 battery ports) and the Bluetooth Dongle (1 port labelled \"Batterie Data RS485\") plainly run the same class of link, but the Dongle Connection manual gives NO pinout and NO baud rate. Do not carry 9600 8N1 across to them from the Smart Bridge document — that would be exactly the interpolation th"
+  ]
+}

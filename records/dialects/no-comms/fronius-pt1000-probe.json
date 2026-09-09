@@ -1,0 +1,44 @@
+{
+  "id": "fronius-pt1000-probe",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "fronius-datcom-detail-42-0410-0968",
+      "citation": "docs/fronius-datcom-detail-42-0410-0968.pdf - chapter 'Fronius Sensor Card / Box', section 'Temperature channels'; and the 'Sensor Card / Box' Technical Data table, block 'Channels T1, T2'. Reseller mirror of a genuine F"
+    },
+    {
+      "source": "fronius-sensor-box-card-quick-guide-2019",
+      "citation": "docs/fronius-sensor-box-card-quick-guide-2019.pdf - section 6 'TEMPERATURE CHANNELS (T1 / T2)', and section 8 which shows the Solar.Service screen offering Temperature 1 and Temperature 2 with unit degC / degF."
+    },
+    {
+      "source": "fronius-com-en-ca-canada-solar-energy-installers-partners-technical-data-all-products-system-mon-2",
+      "citation": "https://www.fronius.com/en-ca/canada/solar-energy/installers-partners/technical-data/all-products/system-monitoring/hardware/fronius-sensor-card-box/fronius-sensor-box - Fronius Canada technical data, independently confi"
+    }
+  ],
+  "transport": "Two-wire Pt1000 RTD, resistive, no protocol. Wired into Sensor Card/Box screw terminals T1 (6) or T2 (7); the card drives a constant current and derives temperature from the voltage drop. Max conductor 1.5 mm2 (AWG 17). Reachable only through the Sensor Box/Card and thence the Datamanager Solar API.",
+  "reports": [
+    "temperature"
+  ],
+  "models": [
+    {
+      "name": "Fronius Ambient Temperature Sensor"
+    },
+    {
+      "name": "Fronius Module Temperature Sensor"
+    }
+  ],
+  "sharedMapEvidence": "One vendor channel spec covers both, and the vendor names both uses in the same sentence. DATCOM Detail, verbatim: 'Channels T1 (6) and T2 (7) are used for temperature measurements using Pt1000 temperature sensors' and 'Channel T1 is used for the solar module temperature and channel T2 is used for the ambient temperature.' The Quick Guide section 6 repeats this with one diagram and one procedure c",
+  "gotchas": [
+    "Pt100 IS NOT PERMITTED. DATCOM Detail states this explicitly for channels T1 and T2. Pt100 and Pt1000 probes are physically interchangeable and visually identical; fitting the wrong one yields readings that look sane and are wrong by roughly a factor of ten in resistance.",
+    "NO PER-PRODUCT DATASHEET WAS FOUND for either probe in this pass. Everything recorded here is the Sensor Card/Box CHANNEL specification, which is what actually bounds the reading: -25..+75 C, +/-0.5 C accuracy, 1 C resolution. The probes' own element tolerance class, cable length as shipped, mounting method and IP rati",
+    "1 C resolution. Whatever the probe can do, the channel quantises to whole degrees. Anything wanting finer temperature resolution should not come through this path.",
+    "Sensor cable must not exceed 20 m 'so that measurement results are not distorted' (vendor). Shorter than the 30 m allowed on the irradiance and digital channels - the limits are per-channel, not global.",
+    "No part number found on any vendor or retail page consulted. Retail rating and price are `?`."
+  ],
+  "unmappedReports": "Module / cell temperature. The Module Temperature Sensor measures the back-of-panel temperature, which drives derating and is not the same physical quantity as cabin or outdoor air temperature. MetricKind offers only generic `temperature`; `battery-temperature` is the sole qualified variant. Both Fronius probes therefore report as `temperature` and become indistinguishable in the contract."
+}

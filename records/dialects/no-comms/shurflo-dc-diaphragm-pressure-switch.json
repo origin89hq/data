@@ -1,0 +1,78 @@
+{
+  "id": "shurflo-dc-diaphragm-pressure-switch",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "pentair-com-content-dam-extranet-web-nam-shurflo-manuals-911-396-series-2088-industrial-pumps-io",
+      "citation": "Pentair/SHURflo doc 911-396 (09-01-2021), 'Industrial Series 2088 Pumps — Installation and Operation Manual' — https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-396-series-2088-industrial-pumps-iom"
+    },
+    {
+      "source": "pentair-com-content-dam-extranet-web-nam-shurflo-manuals-911-314-series-8000-pump-iom",
+      "citation": "Pentair/SHURflo doc 911-314 (06/12), 'Series 8000 Pump — Installation and Operation Manual' — https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-314-series-8000-pump-iom.pdf (staged: .../shurflo-ven"
+    },
+    {
+      "source": "pentair-com-content-dam-extranet-web-nam-shurflo-manuals-911-1008-4008-rv-by-pass-pump-iom",
+      "citation": "Pentair/SHURflo doc 911-1008 REV. K, '4008 RV Revolution By-Pass Pump — Installation and Maintenance Manual' — https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-1008-4008-rv-by-pass-pump-iom.pdf (s"
+    }
+  ],
+  "transport": "Two motor leads. DC models: RED (+), BLACK (-), 14-16 AWG. AC models in the 8000 series: BLACK/WHITE/GREEN (115 V) or BROWN/BLUE/GRN-YELL (230 V). No signal conductor of any kind.",
+  "models": [
+    {
+      "name": "2088-443-144"
+    },
+    {
+      "name": "2088-474-144"
+    },
+    {
+      "name": "2088-514-145"
+    },
+    {
+      "name": "2088-514-500"
+    },
+    {
+      "name": "2088-573-534"
+    },
+    {
+      "name": "2088-594-154"
+    },
+    {
+      "name": "8000-443-136"
+    },
+    {
+      "name": "8000-343-236"
+    },
+    {
+      "name": "8000-643-210"
+    },
+    {
+      "name": "8000-812-288"
+    },
+    {
+      "name": "8000-813-238"
+    },
+    {
+      "name": "5050-2301-C011"
+    },
+    {
+      "name": "4008-101-A65"
+    },
+    {
+      "name": "4008-101-A65/E65 (with strainer bundle)"
+    }
+  ],
+  "refutedOnReview": "REFUTED on the load-bearing claim (\"confirmed model-by-model\"). The sources are real and the quotes are largely accurate, but not one of the 14 listed model numbers appears in any of them.  WHAT CHECKS OUT - All four staged PDFs exist at /private/tmp/claude-501/-Users-lemarier-dev-solar/01a009b6-aeb2-4d8b-8a84-65ee02fe099b/scratchpad/shurflo-vendor-docs/ and are the documents claimed. - 911-396 p.3 quote is verbatim:",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "Nothing here reports. If Cabin Hub is to know anything about one of these pumps it comes from a sensor somebody else installs — a DC current shunt or clamp on the pump lead, a dry contact wired in parallel with the pressure switch, or a flow meter. That is a `local-io` / `energy-meter` job, and the pump is not the devi",
+    "8000-series voltage cannot be read off the part number by eye. 911-314 p.2 gives a table keyed on masked part numbers (80XX-X0X-XXX = 12/24/36 VDC, 80XX-X1X-XXX and 800X-X2X-XXX = 115 VAC, 80XX-X3X-XXX etc. = 230 VAC) and the manual explicitly says its content 'is general, and not specific to all 8000 series pumps'. Tw",
+    "Rapid cycling is the documented killer, in both the 2088 and 8000 manuals, in identical wording: 'If the pump is subjected to rapid cycling during normal operation, or for infrequent periods, damage may occur.' Any rule that switches one of these pumps needs hysteresis and a minimum off-time, not a bare threshold.",
+    "911-1008 (4008) notes that an RV with an Intellitec pump controller needs a 10 A or 15 A controller, and that a 7.5 A controller must be replaced or fronted by a high-current relay. Intellitec is a third-party RV load-control panel, not a SHURflo interface — if a cabin already has one, the pump is already behind someth",
+    "The 4008's bypass adjustment screw and the pressure switch adjustment screw are two different screws with an interlock: 911-1008 warns that if full bypass pressure is reached before the shut-off setpoint, THE PUMP NEVER STOPS. A pump-run-hours reading that climbs forever is as likely to be this misadjustment as a leak."
+  ],
+  "unmappedReports": "Water-system pressure. Every one of these pumps is governed by an outlet pressure setpoint the vendor states in PSI/bar (4008 bypass ~40 psi opening / ~55 psi shut-off; 5050 shut-off 60 PSI +/-2, restart 45 PSI +/-2; 2088/8000 'typically 15-20 psi below shut-off'). MetricKind has `pressure` but it is Unit::Hectopascal with display name 'Pressure', modelled for barometric readings by cabin-forecast. There is no `water-pressure` wire name, and reusing `pressure` would put a well-pump reading on the same axis as the weather., Pump run state. `pump-run-hours` exists; `pump-run-state` does not. ValueKind::RunState exists and is used by `generator-run-state`. This is the same gap already recorded in docs/catalog/lan-http.md lines 354-356 for the Victron 4700 pump register, now seen from a second direction., Pressure-switch cycle count. `cycle-count` is Unit::Count but its doc comment ties it to battery cycles. The 2088/8000 manuals make rapid cycling ('ON/OFF WITHIN 2 seconds') the named failure mode, so cycles-per-hour is the diagnostic a cabin owner would want and there is no wire name for it., Thermal-breaker trip. 2088/8000/5050/3200 motors are thermally protected and self-resetting; a trip is a real degraded state with no MetricKind and no `clear-fault` path (nothing to clear it through)."
+}

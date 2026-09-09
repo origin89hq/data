@@ -1,0 +1,35 @@
+{
+  "id": "victron-vedirect-display-panel",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victronenergy-com-upload-documents-mppt-control-display-mppt-control-display-manual-en",
+      "citation": "https://www.victronenergy.com/upload/documents/MPPT_Control_Display/MPPT_Control_display_manual-en.pdf — MPPT Control display manual Rev 00, 04/2021"
+    },
+    {
+      "source": "victronenergy-com-display-and-panels-mppt-control",
+      "citation": "https://www.victronenergy.com/display-and-panels/mppt-control — MPPT Control product page"
+    }
+  ],
+  "transport": "MPPT Control: plugs into the charge controller's VE.Direct port and consumes it. SmartSolar Pluggable Display: seats into the display slot on the front of a SmartSolar MPPT. Neither offers a data port outward.",
+  "models": [
+    {
+      "name": "MPPT Control (SCC900500000)"
+    },
+    {
+      "name": "SmartSolar Pluggable Display (SCC900650010)"
+    }
+  ],
+  "refutedOnReview": "REFUTED — the dialect should be dissolved, not downgraded.  Source verification: both citations are real. The PDF at https://www.victronenergy.com/upload/documents/MPPT_Control_Display/MPPT_Control_display_manual-en.pdf downloads (1.6 MB, 17 pages, PDF title \"MPPT Control display manual\", \"Rev 00 04/2021\" — matches the citation). The product page https://www.victronenergy.com/display-and-panels/mppt-control is live a",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "The MPPT Control OCCUPIES the charge controller's single VE.Direct port. With one fitted, that MPPT cannot also be cabled to a GX or to a VE.Direct-USB adapter. This is the one fact about it that changes a system design, and it is the reason it is recorded rather than ignored.",
+    "The SmartSolar Pluggable Display uses the MPPT's front display slot rather than the VE.Direct port, so it does not have the same conflict — but I found no vendor statement confirming that explicitly during this pass, so treat the distinction as unconfirmed.",
+    "Neither listing at the surveyed Quebec retailers states any protocol, and the vendor manuals describe them as displays. Nothing to build."
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "eg4-lifepower4-v2-unknown",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "github-com-gonzalop-wombatt",
+      "citation": "https://github.com/gonzalop/wombatt — README.md and internal/bms/bms.go"
+    },
+    {
+      "source": "eg4electronics-com-backend-wp-content-uploads-2022-07-eg4-lifepower4-48v-manual-2-4-0",
+      "citation": "https://eg4electronics.com/backend/wp-content/uploads/2022/07/EG4-Lifepower4-48V-Manual-2.4.0.pdf (vendor manual, Wayback capture 2024-03-09) — DIP switch ID settings, RS485 host battery, PC software section"
+    },
+    {
+      "source": "eg4-lifepower4-battery-communication-protocol",
+      "citation": "docs/eg4-lifepower4-battery-communication-protocol.pdf (vendor, committed) — does not name a revision"
+    }
+  ],
+  "transport": "RS-485 over RJ45, and CAN, both confirmed present by the vendor manual for the LifePower4 48V. Framing, baud and addressing for the V2 revision specifically: not established.",
+  "models": [
+    {
+      "name": "EG4 LifePower4 V2 48V 100Ah LFP"
+    }
+  ],
+  "gotchas": [
+    "DIALECT UNKNOWN. Three EG4 battery protocols exist and no source ties the V2 revision to one of them at better than single-implementation confidence.",
+    "The only model-specific claim found is wombatt's README line: 'EG4 Lifepower v2 (BMS Type: lifepowerv2) (protocol switches: 1-off, 2 thru 6-on)', and in wombatt's bms.go `lifepowerv2` resolves to `NewEG4LLv2()` with the comment 'Same protocol as EG4LLv2 BMS' — i.e. the eg4-ll-modbus register map. One implementation. No",
+    "Contradicting that, the same README routes plain 'EG4 Lifepower' to EG4LLv2 as well, while EG4's own document titled 'LifePower4 Battery Communication Protocol' describes the HEX-ASCII 0x4A protocol, and slim-bean's sniff of EG4's BMS tool against a LifePower4 shows a third, group-framed protocol. Three sources, three ",
+    "What is missing to resolve this: a vendor document that names the V2 revision, or a second independent implementation confirming which DIP combination selects which framing. Until then a driver author must sniff the bench unit.",
+    "The V1 manual (EG4-Lifepower4-48V-Manual-2.4.0) has no LCD and therefore no protocol-selection menu — DIP switches are the only selector, and the manual documents them for ADDRESS only, never for protocol. Whatever wombatt's 'switches 1-off, 2 thru 6-on' does is undocumented by the vendor."
+  ]
+}

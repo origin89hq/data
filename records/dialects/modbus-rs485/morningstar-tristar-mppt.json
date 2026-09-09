@@ -1,0 +1,61 @@
+{
+  "id": "morningstar-tristar-mppt",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "morningstar-tristar-mppt-modbus-specification",
+      "citation": "TriStar MPPT MODBUS Specification v11, MS-002582, 21 August 2018 — committed at /Users/lemarier/dev/solar/docs/morningstar-tristar-mppt-modbus-specification.pdf (29 pp)"
+    },
+    {
+      "source": "morningstarcorp-com-wp-content-uploads-technical-doc-tristar-mppt-modbus-specification-en",
+      "citation": "https://www.morningstarcorp.com/wp-content/uploads/technical-doc-tristar-mppt-modbus-specification-en.pdf"
+    },
+    {
+      "source": "morningstarcorp-com-wp-content-uploads-datasheet-tristar-mppt-en",
+      "citation": "TriStar MPPT datasheet (model/port matrix) — https://www.morningstarcorp.com/wp-content/uploads/datasheet-tristar-mppt-en.pdf"
+    }
+  ],
+  "transport": "MeterBus RJ-11 (needs a Morningstar MSC/UMC MeterBus-to-serial adapter) or the on-board RS-232 port · Modbus RTU · 9600 baud, 8 data bits, no parity, 1 or 2 stop bits, no flow control · default serial slave ID NOT stated by the document",
+  "blocks": "0x0000 scaling constants (V_PU hi/lo, I_PU hi/lo) · 0x0018 filtered ADC · 0x0023 temperatures · 0x0026 status · 0x0032 charger · 0x003A MPPT · 0x0040 daily logger · 0xE000 EEPROM settings · coils from 0x0000",
+  "reports": [
+    "pv-voltage",
+    "pv-current",
+    "pv-power",
+    "battery-voltage",
+    "battery-current",
+    "battery-power",
+    "battery-temperature",
+    "charge-stage"
+  ],
+  "accepts": [
+    "start-equalize",
+    "clear-fault",
+    "set-charge-current-limit"
+  ],
+  "models": [
+    {
+      "name": "TS-MPPT-30"
+    },
+    {
+      "name": "TS-MPPT-45"
+    },
+    {
+      "name": "TS-MPPT-60"
+    }
+  ],
+  "refutedOnReview": "Sources all check out — the failure is the dialect membership of TS-MPPT-30, not the sourcing.  VERIFIED TRUE: - /Users/lemarier/dev/solar/docs/morningstar-tristar-mppt-modbus-specification.pdf exists, 29 pages, PDF title \"TriStar MPPT\", cover reads \"V11 / MS-002582 / 21 August 2018\". Matches the citation exactly. - Read Device Identification (0x2B, subcode 0x0E), object 0x01 Product Code: \"TS-MPPT-45\" or \"TS-MPPT-60",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "The document states a default MODBUS ID of 1 only for MODBUS TCP (port 502, DHCP). It gives NO default slave ID for the serial interface. Emodbus_id lives at 0xE019 with range 1-247 and no stated factory value. Do not assume 1 on serial.",
+    "MODBUS TCP and the Ethernet port exist on TS-MPPT-60 only. EIA-485 is also 60-only. TS-MPPT-30 and TS-MPPT-45 are MeterBus + RS-232 only — the Quebec retailer's two models are exactly the serial-only ones.",
+    "Nothing can be read without first reading 0x0000-0x0003. Unlike EPEver, scales are not constants — they are per-unit values the controller reports, and every value in the map is expressed relative to them.",
+    "0x003A power_out is the charger's output into the battery; 0x003B power_in is array input. They are different numbers and neither can go negative, so neither expresses a bank being discharged.",
+    "0x0024 T_rts reads 0x80 when the remote temperature probe is disconnected."
+  ],
+  "unmappedReports": "V_PU hi/lo and I_PU hi/lo (0x0000-0x0003) — not readings, but a driver MUST read them first; every voltage and current is n·V_PU·2^-15 / n·I_PU·2^-15 and power is n·V_PU·I_PU·2^-17, T_hs heatsink temperature (0x0023) — distinct from ambient; `temperature` is the only near match and it means something else, Ahc_r / Ahc_t amp-hours charged, resettable and total (0x0034-0x0037) — `consumed-amp-hours` is discharge, there is no charged-Ah kind, kwhc_r / kwhc_t (0x0038, 0x0039) — arguably pv-energy-total, but the register is energy INTO the battery, not out of the array, hourmeter (0x002A/0x002B) — `uptime` is a link/session metric, not a lifetime hour counter, vb_ref target regulation voltage (0x0033) — the setpoint the charger is aiming at; no setpoint metric exists, sweep_vmp / sweep_voc / sweep_Pin_max (0x003C-0x003E) — array sweep results, no MPPT-specific kinds, fault.all (0x002C) and alarm_HI/LO (0x002E/0x002F) bitfields — no fault or alarm metric kind at all, dip.all DIP switch positions (0x0030) and led.state (0x0031), vb_min/vb_max and the whole daily logger block (0x0040-0x004F, incl. time in absorption/float/equalize), state-of-charge — this controller does not report it in any register"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "bslbatt-24v-100-unknown",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "bslbatt-com-wp-content-uploads-2025-05-b-lfp24-100e-250328",
+      "citation": "BSLBATT, B-LFP24-100E datasheet 250328, https://bslbatt.com/wp-content/uploads/2025/05/B-LFP24-100E%EF%BC%88%E7%99%BD%EF%BC%89-250328.pdf"
+    },
+    {
+      "source": "bsl-battery-com-uploads-bsl-b-lfp-pw-ym-user-manual",
+      "citation": "BSLBATT, B-LFP-PW YM User Manual, https://www.bsl-battery.com/uploads/BSL-B-LFP-PW-YM-User-Manual.pdf — §2.3 covers B-LFP24-100PW / B-LFP24-200PW / B-LFP48-100PW; §4.2 host computer over RS232-USB."
+    },
+    {
+      "source": "bslbatt-com-download",
+      "citation": "BSLBATT download index, https://bslbatt.com/download/ — lists B-LFP24-100E, B-LFP24-200E and B-LFP-24-100FM as separate documents."
+    }
+  ],
+  "transport": "For B-LFP24-100E only: 'Communication Protocol CAN (500 Kb/s)/RS485 (9600 b/s)', 'Host Software RS232'. For B-LFP24-100PW only: the PW/YM manual gives CAN 500 K, RS485 9600, RS232 host, DIP address range 1–63. Which of these the retailer sells is unresolved, so no transport is asserted for the model as listed.",
+  "models": [
+    {
+      "name": "B-LFP24-100 as the QC retailer names it — the vendor has no such SKU"
+    },
+    {
+      "name": "B-LFP24-100E, 25.6 V 100 Ah 2.56 kWh, 8S2P rack — candidate"
+    },
+    {
+      "name": "B-LFP24-100PW, 25.6 V 100 Ah 2.56 kWh portable/wheeled — candidate"
+    },
+    {
+      "name": "B-LFP-24-100FM forklift — third candidate, less likely"
+    }
+  ],
+  "gotchas": [
+    "THE MODEL STRING IS AMBIGUOUS AND THAT ALONE BLOCKS A DIALECT. 'B-LFP24-100' matches three different BSLBATT products with three different manuals: a rack -100E, a portable -100PW, and a forklift -100FM. Assigning any dialect requires knowing which box is on the shelf.",
+    "Even taking the most likely candidate, B-LFP24-100E, there is NO manual for it in the vendor's download index — only a two-page datasheet. The datasheet gives transport and nothing else: no protocol-selection table, no default, no pinout, no addresses. A 25.6 V pack cannot plausibly be speaking the 48 V PYLON CAN LV or",
+    "The B-LFP-PW YM manual (the -100PW candidate) does have a 'Protocol selection function' screen and a DIP table 1–63, but its own protocol appendix was not read in this pass and its model list is a different family from the 51.2 V wall manual.",
+    "WHAT WOULD SETTLE IT: the retailer's actual part number or a photo of the label. That is a five-minute question to the retailer, not a research task."
+  ]
+}

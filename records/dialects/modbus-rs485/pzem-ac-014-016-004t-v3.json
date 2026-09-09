@@ -1,0 +1,57 @@
+{
+  "id": "pzem-ac-014-016-004t-v3",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-pzem"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "pzem-014-016-manual",
+      "citation": "docs/pzem-014-016-manual.pdf — Peacefair, 'PZEM-014/016 AC communication module' (downloaded and committed during this survey; mirrors at lechacal.com/modwrt/pzem-016_pzem014_user_manual.pdf and images-na.ssl-images-amaz"
+    },
+    {
+      "source": "pzem-004t-v3-0-manual",
+      "citation": "docs/pzem-004t-v3.0-manual.pdf — Peacefair, 'PZEM-004T V3.0 User Manual' (downloaded and committed during this survey; from github.com/vortigont/pzem-edl/docs/)"
+    },
+    {
+      "source": "crates-drivers-cabin-pzem-src-pzem-016",
+      "citation": "crates/drivers/cabin-pzem/src/pzem_016.rs — existing driver; its own provenance note cited 'Peacefair's published table' plus mandulaj/PZEM-004T-v30 and rated itself community-crosschecked"
+    }
+  ],
+  "transport": "Modbus RTU · 9600 8N1 · default slave 1 (range 0x01–0xF7; 0x00 broadcast, 0xF8 general). Physical layer forks by model: PZEM-014/016 are RS-485; PZEM-004T v3.0 is 5 V TTL UART and needs its own converter — it cannot join an RS-485 bus as sold.",
+  "blocks": "Input registers 0x0000–0x0009 read with FC 0x04 (measurement) · holding 0x0001 power alarm threshold @1 W and 0x0002 Modbus address, FC 0x03 read / FC 0x06 write · FC 0x42 reset energy · FC 0x41 calibration, 0xF8 only, password 0x3721 · CRC-16 poly 0xA001",
+  "reports": [
+    "ac-voltage",
+    "ac-current",
+    "ac-power",
+    "ac-energy-total",
+    "ac-frequency",
+    "ac-power-factor"
+  ],
+  "accepts": [
+    "reset-counter"
+  ],
+  "models": [
+    {
+      "name": "PZEM-016 (AC, 100 A external CT — coil / split CT / split CT + USB variants)"
+    },
+    {
+      "name": "PZEM-014 (AC, 10 A built-in shunt, with USB adapter)"
+    },
+    {
+      "name": "PZEM-004T v3.0 (AC, 10 A built-in or 100 A external CT — split/closed CT kits)"
+    }
+  ],
+  "sharedMapEvidence": "Two separate Peacefair documents, each naming its own models, carry measurement-register tables that are identical address-for-address and resolution-for-resolution. (1) 'PZEM-014/016 AC communication module' names both 014 and 016 in its title and overview and gives one table for the pair, distinguishing them only by range (014 = 10 A built-in shunt, 016 = 100 A external transformer). (2) 'PZEM-0",
+  "gotchas": [
+    "This survey UPGRADES the existing driver's confidence. crates/drivers/cabin-pzem/src/pzem_016.rs documents itself as cross-checked against a community library because no vendor PDF was in hand. Two vendor PDFs are now committed and they confirm every address, scale, and the 8N1 framing. The module doc-comment should be",
+    "8N1, against the DC meters' 8N2, at the same 9600 baud. Same-baud/different-framing is the failure that looks like a wiring fault and is not. A 016 needs its own adapter, not a share of the 017s'.",
+    "Current is 0.001 A/LSB here but 0.01 A/LSB on the DC meters, and current is a 32-bit pair here but a single register there. The two PZEM halves do not share a map; nothing about the AC table can be reused on a 017.",
+    "Both AC tables put the LOW word at the LOWER address for the 32-bit quantities. That is the meter's order, not a convention to assume.",
+    "CONTRADICTION inside the vendor doc: the PZEM-004T V3.0 manual's overview says 'the data is read through the TTL interface' and §5.1 says 'The TTL interface of this module is a passive interface', but §1.8 says 'RS485 interface' and §2.1 says 'Physical layer use UART to RS485 communication interface' — both left unedit"
+  ],
+  "unmappedReports": "Over-power alarm status (0x0009, 0xFFFF = alarm) — no MetricKind for a device-side alarm flag. cabin-pzem reads the register (block count 0x0A) and deliberately drops it., Power alarm threshold (holding 0x0001, 1 W/LSB) — settable over the wire, no CommandKind covers setting a device threshold"
+}

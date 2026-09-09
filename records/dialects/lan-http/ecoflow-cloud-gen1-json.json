@@ -1,0 +1,58 @@
+{
+  "id": "ecoflow-cloud-gen1-json",
+  "family": "lan-http",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "community-crosschecked",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "github-com-tolwi-hassio-ecoflow-cloud",
+      "citation": "https://github.com/tolwi/hassio-ecoflow-cloud — custom_components/ecoflow_cloud/api/public_api.py (endpoint, signing, topics), devices/public/delta_pro.py and devices/internal/delta_pro.py (field paths)"
+    },
+    {
+      "source": "github-com-foxthefox-iobroker-ecoflow-mqtt",
+      "citation": "https://github.com/foxthefox/ioBroker.ecoflow-mqtt — lib/dict_data/ef_deltapro_data.js, independently naming bmsMaster.f32ShowSoc / designCap / remainCap / vol / amp with the same units"
+    },
+    {
+      "source": "github-com-berezhinskiy-ecoflow-exporter",
+      "citation": "https://github.com/berezhinskiy/ecoflow_exporter — third implementation, tested against DELTA Pro, exporting ecoflow_inv_ac_in_vol / ecoflow_mppt_in_watts"
+    }
+  ],
+  "transport": "HTTPS + MQTT over the public internet, EcoFlow cloud only. REST: GET https://api.ecoflow.com/iot-open/sign/<endpoint> (api-e.ecoflow.com EU, api-a.ecoflow.com APAC) with headers accessKey/nonce/timestamp/sign, sign = HMAC-SHA256(secretKey, sortedQueryParams + \"accessKey=..&nonce=..&timestamp=..\") hex. MQTT: broker host+port are ISSUED at runtime by GET /iot-open/sign/certification (fields data.url",
+  "blocks": "Dotted JSON key namespaces, not registers: bmsMaster.* (pack BMS), ems.* (energy management), inv.* (inverter), mppt.* (solar + 12 V DC), pd.* (power distribution / ports). On the MQTT quota topic the same data also arrives keyed by typeCode: bmsStatus, emsStatus, invStatus, mpptStatus, pdStatus. Topics: /open/{certificateAccount}/{sn}/quota \\| /set \\| /set_reply \\| /status.",
+  "reports": [
+    "state-of-charge",
+    "state-of-health",
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "cycle-count",
+    "pv-power",
+    "pv-voltage",
+    "pv-current",
+    "ac-power",
+    "ac-voltage",
+    "load-power",
+    "time-to-go",
+    "switch-state"
+  ],
+  "accepts": [
+    "set-switch",
+    "set-charge-current-limit"
+  ],
+  "models": [
+    {
+      "name": "DELTA Pro"
+    }
+  ],
+  "gotchas": [
+    "There is no vendor protocol PDF. EcoFlow's own document is the IoT Developer Platform web app at https://developer.ecoflow.com/us/document/<model>. I fetched it: it returns only a JavaScript shell (<title>Ecoflow Developer</title>, single main.60e2b751.js bundle) and renders nothing to a non-browser client, and no down",
+    "This is a CLOUD protocol filed under lan-http because that is the closest family. It is not LAN. The power station opens an outbound TLS MQTT session to EcoFlow's broker; the gateway then talks to EcoFlow's servers, not to the unit. Starlink down or EcoFlow account suspended means no telemetry and no control. For a Que",
+    "Access requires an accessKey/secretKey pair issued from the developer portal, on top of the EcoFlow app account the device is bound to.",
+    "tolwi documents a hard limit relayed from EcoFlow: only 10 unique MQTT client IDs are allowed per day. A gateway that generates a fresh client ID per reconnect will lock itself out within a day of testing. Pick a static client ID.",
+    "The MQTT broker hostname and port are not constants — they are handed out by /certification per credential set. Do not hardcode them. (The app-account path used by the older exporters is a different, unofficial broker at mqtt.ecoflow.com.)"
+  ],
+  "unmappedReports": "pd.wattsInSum / pd.wattsOutSum — whole-unit total power in and out across every port at once. No MetricKind expresses a device total as distinct from ac-power or load-power., pd.usb1Watts, pd.usb2Watts, pd.qcUsb1Watts, pd.qcUsb2Watts, pd.typec1Watts, pd.typec2Watts — per-port USB/USB-C output power. No per-port MetricKind., bmsMaster.remainCap / fullCap / designCap (mAh) — remaining, full and design pack capacity. consumed-amp-hours is the complement, not the same number; there is no remaining-capacity or design-capacity MetricKind., bmsMaster.maxCellVol / minCellVol / maxCellTemp / minCellTemp — per-cell extremes from the BMS. No MetricKind., ems.chgRemainTime and ems.dsgRemainTime are two separate directional estimates (minutes). MetricKind time-to-go is a single value in seconds, so one of the two has to be dropped or the direction inferred., ems.maxChargeSoc / minDsgSoc / pd.bppowerSoc — SoC limit setpoints. Neither a MetricKind nor a CommandKind covers an SoC limit; set-charge-current-limit is amps., ems.minOpenOilEbSoc / maxCloseOilEbSoc — SoC thresholds that auto-start and auto-stop an attached EcoFlow Smart Generator. This is the retail listing's 'generator auto-start integration'. CommandKind start-generator exists but the API exposes no trigger, only thresholds; there is no generator-start-soc metric either., inv.cfgAcXboost — X-Boost surge mode on/off. No MetricKind, no CommandKind., inv.cfgSlowChgWatts — AC charge power cap in WATTS. set-charge-current-limit is amps, so it does not fit; the DC cap mppt.cfgDcChgCurrent (mA) does., DeviceKind gap: a DELTA Pro is a battery, a battery-monitor, an inverter, a charger and a solar-charger in one enclosure with one serial number. No DeviceKind covers an all-in-one portable power station, so one physical unit has to be registered as several devices or squeezed into 'inverter'."
+}

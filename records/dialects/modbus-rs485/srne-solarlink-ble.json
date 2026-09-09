@@ -1,0 +1,58 @@
+{
+  "id": "srne-solarlink-ble",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "github-com-olen-solar-monitor",
+      "citation": "https://github.com/Olen/solar-monitor — plugins/SolarLink/__init__.py, README.md"
+    },
+    {
+      "source": "github-com-cyrils-renogy-bt",
+      "citation": "https://github.com/cyrils/renogy-bt — README.md logged request frames and characteristic UUIDs"
+    }
+  ],
+  "transport": "BLE GATT, not RS-485 — the same Modbus PDU is written whole into characteristic 0000ffd1-0000-1000-8000-00805f9b34fb (service 0000ffd0) and the reply arrives as a notification on 0000fff1-0000-1000-8000-00805f9b34fb (service 0000fff0). Slave address 0xFF, function codes 03 and 06. No baud rate, no serial framing, no inter-frame gap.",
+  "blocks": "Same PDU addresses as srne-controller-v3: 0x0100 (256), 0x0107 (263), 0x010A (266), 0x0120 (288), 0xE001 (57345)",
+  "reports": [
+    "state-of-charge",
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "load-voltage",
+    "load-current",
+    "load-power",
+    "pv-voltage",
+    "pv-current",
+    "pv-power",
+    "pv-energy-today",
+    "pv-energy-total",
+    "charge-stage",
+    "switch-state"
+  ],
+  "accepts": [
+    "set-switch"
+  ],
+  "models": [
+    {
+      "name": "BT-1 Bluetooth module"
+    },
+    {
+      "name": "built-in Bluetooth on some SRNE ML/MC models (which models is unrecorded)"
+    }
+  ],
+  "refutedOnReview": "The protocol facts survive verification; the model list does not, and the claim is stated as a model-membership claim.  VERIFIED (both sources exist and say what is quoted, and I checked more than the claim offered): - Olen/solar-monitor plugins/SolarLink/__init__.py: DEVICE_ID=255, function_READ=3, function_WRITE=6; reads REG_ADDR 256 (7w), 263 (4w), 288 (3w), 57345 (33w); writes 266 for load on/off. Notify service/",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "This is one dialect with srne-controller-v3 at the register level and a completely different transport. It cannot live inside an RS-485 driver — it needs a BLE central, GATT subscription, and reconnect handling. The family tag above is the closest of the six the catalogue defines; the honest description is 'Modbus PDU ",
+    "The two crosschecking implementations are not equally on-topic. cyrils/renogy-bt is a Renogy library; its README says it 'might also work with other SRNE like devices'. Olen/solar-monitor targets SRNE directly (the SolarLink app is com.shuorigf, Shenzhen Shuori / SRNE) and its README asserts 'Renogy BT-1 uses the same ",
+    "Neither implementation is covered by the SRNE vendor PDF. The PDF documents RS-232, two RS-485 pinouts and TTL, at 9600 8N1. It says nothing about Bluetooth, the GATT UUIDs, or the 0xFF-addressed framing. Everything transport-side here is reconstructed.",
+    "Slave address 0xFF is used, which the vendor doc (§2.2 remarks) describes as bypassing the configured device address — explicitly 'not suitable for multiple 485 bus access'. Fine for one module talking to one controller, and a reason the same module cannot be daisy-chained.",
+    "Olen reads 33 words starting at 0xE001, but the vendor doc marks 0xE001 write-only. Either the doc understates it or the module tolerates the read. Unverified either way."
+  ],
+  "unmappedReports": "same set as srne-controller-v3, additionally the BLE device alias itself (BT-TH-xxxxxxxx), which is how the module is discovered and has no metric home"
+}

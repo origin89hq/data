@@ -1,0 +1,57 @@
+{
+  "id": "samlex-pst-rc300-link",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "samlexamerica-com-wp-content-uploads-2020-01-12001-rc-300-1220",
+      "citation": "Samlex America, RC-300 Inverter Remote Control datasheet, doc 12001-RC-300-1220 — https://samlexamerica.com/wp-content/uploads/2020/01/12001-RC-300-1220.pdf"
+    },
+    {
+      "source": "samlexamerica-com-wp-content-uploads-2026-07-11001-pst-3000-12-24-48-0726-lrez",
+      "citation": "Samlex America, PST-3000 Owner's Manual doc 11001-PST-3000-12-24-48-0726, §6 Layout item 9 and §8.6 — https://samlexamerica.com/wp-content/uploads/2026/07/11001-PST-3000-12-24-48-0726-Lrez.pdf"
+    },
+    {
+      "source": "samlexamerica-com-wp-content-uploads-2020-01-11001-pst-1500-2000-12-24-1221-lrez",
+      "citation": "Samlex America, PST-1500/2000 Owner's Manual doc 11001-PST-1500-2000-12-24_1221, §6 Layout item 10, §8.8, §12 Specifications — https://samlexamerica.com/wp-content/uploads/2020/01/11001-PST-1500-2000-12-24_1221_Lrez.pdf"
+    }
+  ],
+  "transport": "RJ-50 (10P10C) modular jack marked \"Remote\" · crossed-over / rolled-over cable set, 7.62 m / 25 ft, ferrite core at the inverter end · remote is powered from the inverter over the same cable · NO pinout, signal names, framing, baud rate, or register map published by Samlex, and no community implementation found",
+  "models": [
+    {
+      "name": "PST-1500-12"
+    },
+    {
+      "name": "PST-1500-24"
+    },
+    {
+      "name": "PST-2000-12"
+    },
+    {
+      "name": "PST-2000-24"
+    },
+    {
+      "name": "PST-3000-12"
+    },
+    {
+      "name": "PST-3000-24"
+    },
+    {
+      "name": "RC-300"
+    }
+  ],
+  "refutedOnReview": "REFUTED as a register-map dialect, though the underlying documents are genuine.  SOURCES VERIFIED (all real, all say what is attributed to them): - https://samlexamerica.com/wp-content/uploads/2020/01/12001-RC-300-1220.pdf returns HTTP 200; staged copy at scratchpad/samlex-docs/samlex-rc-300-datasheet-12001-1220.pdf is genuine. The \"COMPATIBLE INVERTERS / MODEL NUMBERS\" table exists and reads verbatim: \"PST-1500-12, ",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "FILED AS no-comms DELIBERATELY. A digital link demonstrably exists — the RC-300 shows six live AC measurements over it — but Samlex publishes no protocol document, no pinout, and no baud rate for it, and zero community implementations exist. From Cabin Hub's side these inverters report nothing. This is the honest class",
+    "Anyone wanting these numbers has two routes: sniff the RJ-50 at the bench (unknown signalling, unknown framing — a real project), or put a PZEM-017/PZEM-004T on the AC output, which is already a shipped driver and gives ac-voltage, ac-current, ac-power and ac-frequency for less effort.",
+    "CONTRADICTION, unresolved on paper: the PST-1500/2000 manual's specification table says the RC-300 connects \"through Modular Jack (6P6C)\". The RC-300 datasheet and the PST-3000 manual both say RJ-50 (10P10C). Both are Samlex documents. Do not order a cable on the strength of either — measure the jack.",
+    "CONTRADICTION, same manual against itself: PST-1500/2000 §8.8 says the RC-300 ships with 16.5 ft / 5 m of cable; the specification table in that same manual, and the RC-300 datasheet, both say 25 ft / 7.62 m. 5 m / 16.5 ft is the RC-15A's cable length — this looks like text carried over from the RC-15A.",
+    "The RC-300 has no internal power supply; it is fed from the inverter over the RJ-50. The inverter must be powered on first (rocker to ON, or rocker to EXT plus the external contact closed) or the remote is dead. It therefore cannot be used to wake a fully-off inverter."
+  ],
+  "unmappedReports": "Overload shutdown indication — the RC-300 has a dedicated OVER LOAD LED, and MetricKind has no fault, alarm, or protection-status wire name at all. Nothing in the contract can carry \"this inverter shut down on overload\"., Over-temperature shutdown indication — same gap. It is distinct from `temperature`: it is a latched protection state, not a reading, and the RC-300 exposes no numeric temperature., (For the record, the six numeric values the RC-300 displays all DO map: AC Volts → ac-voltage, AC Amps → ac-current, Hz → ac-frequency, Active Power W → ac-power, Apparent Power VA → ac-apparent-power, Power Factor → ac-power-factor. If this link is ever reverse-engineered, no contract change is needed for the numbers — only for the two fault flags.)"
+}

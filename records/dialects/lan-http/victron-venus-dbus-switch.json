@@ -1,0 +1,44 @@
+{
+  "id": "victron-venus-dbus-switch",
+  "family": "lan-http",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victronenergy-com-media-pg-gx-io-extender-150-en-appendix",
+      "citation": "Victron Energy, *GX IO-Extender 150* manual, appendix — https://www.victronenergy.com/media/pg/GX_IO-Extender_150/en/appendix.html (service name and all /SwitchableOutput paths quoted above)"
+    },
+    {
+      "source": "victronenergy-com-media-pg-gx-io-extender-150-en-technical-specifications",
+      "citation": "Victron Energy, *GX IO-Extender 150* manual, technical specifications — https://www.victronenergy.com/media/pg/GX_IO-Extender_150/en/technical-specifications.html"
+    },
+    {
+      "source": "victron-gx-modbus-tcp-register-list",
+      "citation": "docs/victron-gx-modbus-tcp-register-list.xlsx and victronenergy/dbus_modbustcp attributes.csv — searched for `com.victronenergy.switch` and `SwitchableOutput`; zero occurrences in either. Negative evidence, and it is the"
+    }
+  ],
+  "blocks": "D-Bus service `com.victronenergy.switch.<serial>`, announced by the extender itself. Paths, quoted from the vendor manual: digital outputs `/SwitchableOutput/output_1/State` through `/SwitchableOutput/output_8/State`, 0 = Off, 1 = On · PWM outputs `/SwitchableOutput/pwm_1/State` (binary) and `/SwitchableOutput/pwm_1/Dimming` (integer 0–100, percent) · bi-stable relays 1–2, 0 = A, 1 = B · solid-switch relay 3, load state control.",
+  "reports": [
+    "switch-state"
+  ],
+  "accepts": [
+    "set-switch"
+  ],
+  "models": [
+    {
+      "name": "GX IO-Extender 150 (BPP900800150) — outputs, PWM and relays"
+    }
+  ],
+  "sharedMapEvidence": "One model, so no shared-map claim is being made. This exists as a separate dialect rather than as part of `victron-gx-modbus-tcp` because it is a different map on a different wire: the paths above appear in the GX ModbusTCP register list nowhere at all. `grep -c '^com.victronenergy.switch' attributes.csv` returns 0, and the committed workbook's 33 D-Bus services do not include `.switch`. The servi",
+  "gotchas": [
+    "**This is the only documented way to command an IO-Extender output, and it is not reachable over the protocol the rest of the GX work uses.** Everything in `victron-gx-modbus-tcp` is Modbus TCP on port 502. These paths are not in that map. A driver built on the committed register list can read the extender's inputs and",
+    "**`transport` is deliberately null.** The vendor manual gives the D-Bus service and the paths; it does not state how to reach D-Bus from off the GX. The plausible routes — the Venus MQTT broker, dbus-spy over SSH, Node-RED on the GX — were not verified against any vendor document in this pass, and the MQTT topic constr",
+    "**The vendor manual misspells its own service name.** It reads \"com.victronergy.digitalinput.<input>\" — one character short — in the sentence describing non-pulse input functions, while spelling `com.victronenergy.switch.<serial>` and `com.victronenergy.pulsemeter.<input>` correctly elsewhere on the same page. The regi",
+    "**The manual points onward rather than finishing the job.** For the remaining path meanings it refers the reader to the Venus D-Bus wiki. Anything not quoted above is not sourced.",
+    "**Relay ratings are the real limit, not the logic.** 2 bi-stable relays at 3 A @ 30 VDC or 2 A @ 60 VAC; a separate solid switch rated 70 VDC max battery voltage and 4 A load. Digital outputs are 5 V at 4 mA max — signal pins, not loads. The whole unit is USB-powered and draws under 1 W."
+  ],
+  "unmappedReports": "The bi-stable relays are documented as \"0 = A, 1 = B\", not off/on. A latching changeover relay has two energised positions and no rest state; `switch-state` is a boolean named Switch and will render position B as \"on\", which is a category error rather than an inversion. There is no MetricKind for a changeover position., PWM dimming 0–100 % has no CommandKind. See the previous entry."
+}

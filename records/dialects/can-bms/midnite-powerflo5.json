@@ -1,0 +1,43 @@
+{
+  "id": "midnite-powerflo5",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "cdn-shopify-com-s-files-1-0850-1801-8067-files-6613-10-000053-user-manual-mnpowerflo5-a2-compres",
+      "citation": "MidNite Solar, MNPowerflo 5 Server Rack Battery User Manual, doc 6613-10-000053 rev A2, VERSION V1.2.0-BETA — https://cdn.shopify.com/s/files/1/0850/1801/8067/files/6613-10-000053_User_Manual_MNPowerflo5__A2-compressed.p"
+    },
+    {
+      "source": "midnitepower-com-files-ugd-b640e6-5f151a2561b94d6b91662d1885f1afec",
+      "citation": "MidNite Power, MNPowerflo 5 Server Rack Battery User Manual, VERSION V1.3.0-BETA — https://www.midnitepower.com/_files/ugd/b640e6_5f151a2561b94d6b91662d1885f1afec.pdf (newer revision; different pinouts, LINK-IN/LINK-OUT "
+    },
+    {
+      "source": "cdn-currentconnected-com-2024-09-05130401-mnpowerflo5-v1-1-3-240813",
+      "citation": "MidNite Solar, MNPowerflo5 Server Rack Battery datasheet v1.1.3, dated 240813 — https://cdn.currentconnected.com/2024/09/05130401/MNPowerflo5-v1.1.3-240813.pdf (vendor origin https://www.midnitesolar.com/pdfs/MNPowerflo5"
+    }
+  ],
+  "transport": "RJ45 combo CAN/RS485 port to the inverter + RJ45 RS-232 CONSOLE + LINK-IN/LINK-OUT RS-485 parallel bus between batteries. Bit rate, baud, framing and protocol version are stated in NO MidNite document. Addresses are auto-assigned by the battery; there are no DIP switches and no documented way to set or read an ID.",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "state-of-charge"
+  ],
+  "models": [
+    {
+      "name": "MNPOWERFLO5 (MNPowerflo 5) — 51.2 V nominal, 100 Ah, 5,120 Wh LFP server rack battery, 3U, up to 16 in parallel"
+    }
+  ],
+  "gotchas": [
+    "NO MidNite protocol document exists. Two manual revisions and one datasheet were retrieved and read end to end. Between them they give ports, pinouts and torque specs, and zero frames, CAN IDs, register addresses, baud rates or bit rates. Nothing in this entry is buildable without a bench capture.",
+    "'Compatible with the \"PYLON\" protocol' appears exactly ONCE in all four MidNite documents — one bullet on the datasheet, in scare quotes. The word does not appear in either manual revision, and MidNite's own MN 15-12KW-AIO inverter manual contains the strings 'Pylon', 'protocol' and 'MNPowerflo' zero times each. The ve",
+    "'PYLON protocol' names at least three mutually incompatible Pylontech documents — RS-232 V2.8, RS-485 V2.8 / low-voltage V3.3 (ASCII-framed, SOI 0x7E), and CAN Bus Protocol PYLON Low Voltage V1.2 (500 kbit/s, IDs 0x351/0x355/0x356/0x359/0x35C). MidNite states neither the variant, the version, nor which of its three phy",
+    "The two manual revisions CONTRADICT each other on the CAN/RS485 RJ45 pinout. V1.2.0-BETA: pin2 RS485_A, pin3 RS485_B, pin4 CAN_H, pin5 CAN_L. V1.3.0-BETA: pin1 RS485-B, pin2 RS485-A, pin4 CANH, pin5 CANL, pin6 GND, pin7 RS485-A, pin8 RS485-B. Only pin2 = RS485_A and pins 4/5 = CAN survive both revisions. Do not crimp a",
+    "The RS-232 CONSOLE pinout contradicts itself too, and V1.3.0 contradicts itself internally. V1.2.0-BETA: pin6 RS232_RX, pin7 RS232_GND, pin8 RS232_TX. V1.3.0-BETA: pin1 GND, pin2 RS232-TX, pin3 RS232-RX, pin6 RS232-RX, pin7 RS232-TX, pin8 GND — RX listed on two pins and TX on two pins. At least one of these is an editi"
+  ],
+  "unmappedReports": "Per-cell voltage and cell-voltage imbalance — the manual says the BMS 'monitor[s] the voltage of each individual cell', and an alarm exists for 'Unbalanced voltage within a cell'. No MetricKind for a per-cell voltage or a cell spread., BMS alarm / protection / fault code — the ALM LED and the whole troubleshooting table are fault states, and MetricKind has no error/fault-code variant at all. Same gap already recorded at the bottom of docs/catalog/can-bms.md; this is the second device to hit it., Charge voltage limit, charge current limit, discharge current limit — the substance of any closed-loop pack link. CommandKind has set-charge-current-limit, but there is no MetricKind for a limit the pack is *asking for*. Without one, 'closed loop' cannot be represented in the contract even if the wire format were known., Master/slave role and auto-assigned battery ID within a parallel bank — the manual distinguishes a master unit from slaves and blames 'battery ID setting' for comms failure, but nothing in the contract can carry either., Module count and per-module state in a bank of up to 16 — only the master's gauge is active and it reports the whole bank, so per-module data (if the LINK bus exposes it) has no home., BMS firmware version — the datasheet advertises remote BMS firmware upgrade via the MidNite AIO inverter. No MetricKind for a firmware or software version., Cell temperature spread — there is a distinct 'Unbalanced temperature' alarm separate from over-temperature. battery-temperature is a single scalar."
+}

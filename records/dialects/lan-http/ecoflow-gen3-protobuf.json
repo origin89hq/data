@@ -1,0 +1,64 @@
+{
+  "id": "ecoflow-gen3-protobuf",
+  "family": "lan-http",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "github-com-tolwi-hassio-ecoflow-cloud",
+      "citation": "https://github.com/tolwi/hassio-ecoflow-cloud — devices/internal/proto/ef_delta3.proto and ef_dp3_iobroker.proto (schemas diffed), devices/public/delta_pro_3.py and delta3_max_plus.py (developer-API JSON key names)"
+    },
+    {
+      "source": "github-com-foxthefox-iobroker-ecoflow-mqtt",
+      "citation": "https://github.com/foxthefox/ioBroker.ecoflow-mqtt — lib/dict_data/ef_deltapro3_data.js, ef_delta3plus_data.js, ef_delta3maxplus_data.js (independent property names and units)"
+    },
+    {
+      "source": "developer-ecoflow-com-us-document-delta3maxplus",
+      "citation": "https://developer.ecoflow.com/us/document/delta3maxplus — cited by name in tolwi devices/public/delta3_max_plus.py:102; not retrievable as text"
+    }
+  ],
+  "transport": "Same EcoFlow cloud REST + MQTT as the other cloud dialects. What differs is the payload: gen-3 units send protobuf, not JSON. On the app/private MQTT path the quota topic carries a protobuf envelope (Delta3Header / DP3Header) whose pdata field holds the serialised property message. On the official developer-API path the same properties arrive as flat JSON keys.",
+  "blocks": "Protobuf messages, not registers: DisplayPropertyUpload (app-visible state), RuntimePropertyUpload (fast telemetry), CMSHeartBeatReport (energy-management heartbeat), BMSHeartBeatReport / BMSHeartBeatReport0..2 (per-pack BMS), SetCommand / SetReply (writes). Property names are flat within a message: powGet*, cms*, bms*, plugInInfo*, cfg*.",
+  "reports": [
+    "state-of-charge",
+    "state-of-health",
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "cycle-count",
+    "pv-power",
+    "pv-voltage",
+    "pv-current",
+    "ac-power",
+    "ac-frequency",
+    "load-power",
+    "load-voltage",
+    "time-to-go",
+    "switch-state"
+  ],
+  "accepts": [
+    "set-switch",
+    "set-charge-current-limit"
+  ],
+  "models": [
+    {
+      "name": "DELTA Pro 3"
+    },
+    {
+      "name": "DELTA 3 Plus"
+    }
+  ],
+  "refutedOnReview": "REFUTED — the pairing is wrong, and the one measurement that tests it points the other way.  The sources all exist and the honest caveat was correctly stated. tolwi ships ef_delta3.proto and ef_dp3_iobroker.proto; ioBroker ships ef_delta3plus_data.js, ef_deltapro3_data.js, ef_delta3maxplus_data.js. I downloaded both repos and re-ran the diff.  WHAT REPRODUCES (evidence 1, exactly as claimed — but for the wrong pair):",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "Two different wire encodings for one device depending on which credential you hold. Developer-API credentials give flat JSON; app credentials give protobuf that must be decoded with a reverse-engineered .proto. A driver built against one will read nothing on the other.",
+    "The PV inputs are named differently per model even inside this shared dialect. DELTA Pro 3 has powGetPvH / powGetPvL with powGetPvHVol, powGetPvHAmp, powGetPvLVol, powGetPvLAmp — a high-voltage and a low-voltage MPPT. DELTA 3 Plus (and DELTA 3 Max Plus) instead have powGetPv and powGetPv2. Confirmed independently in io",
+    "The two protobuf schemas I diffed are NOT fully independent sources. tolwi's file is literally named ef_dp3_iobroker.proto — it came from the ioBroker project. The tag-level agreement is therefore evidence that the two models share one schema, not evidence that two teams independently arrived at that schema. The indepe",
+    "The DELTA Pro 3 listing was seen at 2 retailers with no connectivity claims stated at all. The absence of an 'EcoFlow app' claim on the listing says nothing about the device — every gen-3 unit is app-bound.",
+    "Cloud-only. No LAN path; BLE is the only offline option (see ecoflow-ble-local)."
+  ],
+  "unmappedReports": "powInSumW / powOutSumW — whole-unit totals, same gap as pd.wattsInSum on the older dialects., cmsChgDsgState and cmsBmsRunState — charging / discharging / idle direction and BMS run state. This is NOT charge-stage: MetricKind ChargeStage is Idle/Bulk/Absorption/Float/Equalize/Fault and these units never report a stage. There is no charge-direction MetricKind., bmsMaxCellVol / bmsMinCellVol / bmsMaxCellTemp / bmsMinCellTemp / bmsMaxMosTemp — cell and MOSFET extremes. bmsMaxMosTemp in particular is the FET temperature, not a pack or room temperature, and mapping it to battery-temperature would be wrong., bmsRemainCapMah / bmsFullCapMah / bmsDesignCap — capacity in mAh, same gap as gen-1., cmsChgRemTime and cmsDsgRemTime — again two directional estimates against one time-to-go., powGetQcusb1 / powGetQcusb2 / powGetTypec1..3 / powGet4p81 / powGet4p82 / powGet5p8 — per-port and per-connector output power, including the 4.8 mm and 5.8 mm expansion connectors used for extra battery packs and the Smart Generator., cfgCmsOilSelfStart / cmsOilOnSoc / cmsOilOffSoc — generator self-start enable plus its start and stop SoC. Same shape as the gen-1 minOpenOilEbSoc pair: CommandKind start-generator exists but the device offers only thresholds, no trigger., backupReverseSoc / energyBackupEn / cfgMaxChgSoc / cfgMinDsgSoc — backup reserve and SoC window setpoints. No MetricKind and no CommandKind., xboostEn, bypassOutDisable, enBeep, screenOffTime, acEnergySavingOpen — behaviour toggles with no CommandKind., cfgPlugInInfoAcInChgPowMax — AC charge cap in watts. Only the PV input caps (maxinputcurrentPVhighVolt / maxinputcurrentPVlowVolt) are in amps and therefore fit set-charge-current-limit., Same all-in-one DeviceKind gap."
+}

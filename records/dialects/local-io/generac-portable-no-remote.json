@@ -1,0 +1,28 @@
+{
+  "id": "generac-portable-no-remote",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "unrecorded",
+  "sources": [
+    {
+      "source": "generac-com-globalassets-products-residential-portable-generators-owners-manual-gp15000e-gp17500",
+      "citation": "GP15000E/GP17500E Owner's Manual https://www.generac.com/globalassets/products/residential/portable-generators/owners-manual/gp15000e-gp17500e-owners-manual.pdf; iQ3500 https://www.generac.com/globalassets/products/residential/portable-generators/owners-manual/7723-iq3500-cosense-portable-generator-owners-manual.pdf (checked: 2026-09-01)"
+    }
+  ],
+  "transport": "none — no wired input, no fob · n/a · n/a · GP: \"Press and hold Start/Run/Stop switch in the Start position\" plus hand choke knob (p.16); iQ3500: hold Off/On switch ON (p.14).",
+  "models": [
+    {
+      "name": "GP15000E / GP17500E",
+      "rating": "15.1 / 17.5 kW gas, electric yes",
+      "notes": "manual choke; 0 °F lower limit"
+    },
+    {
+      "name": "iQ3500",
+      "rating": "3.0 kW gas, electric yes",
+      "notes": "8 °F lower limit"
+    }
+  ]
+}

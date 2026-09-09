@@ -1,0 +1,39 @@
+{
+  "id": "xantrex-xanbus-ags-unknown",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "modbus-map-ags-device-503-0247-01-01-revision-a-4-staged-at",
+      "citation": "Modbus Map: AGS Device, 503-0247-01-01 Revision A.4 — staged at .../vendor-docs/conext-ags-modbus-map-503-0247-01-01_RevA.4.pdf (applicable products: 865-1060 only)"
+    },
+    {
+      "source": "xantrex-com-wp-content-uploads-2021-12-datasheet-xantrex-freedomswxanbusautomaticgeneratorstart",
+      "citation": "Freedom SW Xanbus Automatic Generator Start datasheet (809-0915, 809-0916): https://xantrex.com/wp-content/uploads/2021/12/DataSheet_Xantrex_FREEDOMSWXanbusAutomaticGeneratorStart_20260715.pdf"
+    },
+    {
+      "source": "xantrex-com-wp-content-uploads-2021-12-datasheet-xantrex-xanbusscp-8-5x11in-20260720",
+      "citation": "Xanbus SCP datasheet (809-0910, 809-0921): https://xantrex.com/wp-content/uploads/2021/12/DataSheet_Xantrex_XanbusSCP_8.5x11in_20260720.pdf"
+    }
+  ],
+  "transport": "Xanbus device behind the ComBox, same Modbus bridging as the Freedom SW — IF the map applies. That is exactly what is unproven.",
+  "models": [
+    {
+      "name": "Freedom SW Xanbus Automatic Generator Start (809-0915, for 815-2012 / 815-3012)"
+    },
+    {
+      "name": "Freedom SW Xanbus Automatic Generator Start (809-0916, for first-generation 815-3000)"
+    }
+  ],
+  "gotchas": [
+    "A complete AGS Modbus map exists (503-0247-01-01 Rev A.4: generator mode 0x004D 0=Off 1=On 2=Automatic, quiet-time windows, preheat/crank/cooldown timers, run-hours at 0x006A scale 0.01666 hours, starting-battery voltage at 0x0078) — but its Table 1 'Applicable Products' lists exactly one product: 865-1060, Conext AGS.",
+    "This is the classic trap: same bus, same accessory role, same ComBox, plausible shared map — and zero evidence. Assigning 809-0915 to 503-0247 would cost a bench day if the maps forked. Left unknown on purpose.",
+    "What would settle it: an AGS owner's guide or ComBox device list naming 809-0915/809-0916 against the 503-0247 map, or two independent implementations reading those addresses from a Xantrex-branded AGS. Neither found.",
+    "Same situation for the Xanbus System Control Panel: map 503-0251 lists only 865-1050 (Conext SCP) and 865-1050-01 (XW SCP); the Xantrex parts are 809-0910 and 809-0921. Not filed as its own dialect because an SCP is a display panel, not a data source worth a driver.",
+    "Likewise the ComBox aggregate map 503-0253 lists 865-1058 / 865-1059 (Conext ComBox and Modbus Converter) — NOT the Xantrex Freedom SW ComBox 809-0918. So the system-level summary registers (PV Harvest Power, DC Charging Power, Grid/Load aggregate) are not confirmed available on the Xantrex ComBox."
+  ]
+}

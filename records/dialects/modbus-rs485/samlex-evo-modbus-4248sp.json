@@ -1,0 +1,44 @@
+{
+  "id": "samlex-evo-modbus-4248sp",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "samlex-evo-4248sp-manual-fw0-77",
+      "citation": "docs/samlex-evo-4248sp-manual-fw0.77.pdf — Fig 2.1 legend 9a/9b (RS-485/MODBUS), 9c/9d (CANbus, future use); Table 6.6 COMM ID 1-255 default 1"
+    },
+    {
+      "source": "samlex-evo-rc-plus-remote-manual-2021",
+      "citation": "docs/samlex-evo-rc-plus-remote-manual-2021.pdf — §5.2.2.3 Fig 5.3, 4248SP-specific data-logging field list"
+    }
+  ],
+  "transport": "RS-485 RJ-45 (jacks \"COMM 1\" / \"COMM 2\") · Modbus RTU · baud unknown · slave ID = \"COMM ID\" parameter, range 1-255, default 1",
+  "blocks": "Same NDA wall as the 22xx/40xx dialect, and worse: no community implementation covers the 4248SP at all, so there is not even a baud rate for it. Nothing exists to build from.",
+  "reports": [
+    "ac-voltage",
+    "ac-current",
+    "ac-power",
+    "ac-apparent-power",
+    "ac-frequency",
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "charge-stage"
+  ],
+  "models": [
+    {
+      "name": "EVO-4248SP"
+    }
+  ],
+  "gotchas": [
+    "KEPT SEPARATE FROM THE 22xx/40xx DIALECT DELIBERATELY. The EVO-RC-PLUS manual gives the 4248SP its own data-logging figure (§5.2.2.3, Fig 5.3) with a materially different field set from Fig 5.2 — dual-leg output/input, CAN status, CAN watt, AVG watt, two heat-sink sensors, and no busbar temperature. Different telemetry",
+    "No baud rate from any source for this model. Do not carry 9600 over from the 22xx dialect — that would be interpolation.",
+    "Modbus presence is vendor-doc: docs/samlex-evo-4248sp-manual-fw0.77.pdf Fig 2.1 legend items 9a/9b, identical wording to the 22xx manual.",
+    "This is the only 48 V, 120/240 V split-phase model in the Samlex line and the one most likely to be the whole-cabin inverter, which makes the missing map the most expensive gap on this page."
+  ],
+  "unmappedReports": "Split-phase L1/L2 dimension — the vendor logs 'Output watt 1'/'Output watt 2', 'Output VA 1'/'2', 'Output Amp 1'/'2', 'Input Amp 1'/'2', 'Input VA 1'/'2', 'Input watt 1'/'2'. MetricKind has no per-leg or per-phase qualifier. A 120/240 V unit reports every AC quantity twice and the contract can hold one of them., 'CAN status' and 'CAN watt' — 4248SP-only fields, present in no other EVO model's log. Suggests a CAN-attached device (BMS? second unit?) whose power the 4248SP reports. Undocumented in the owner's manual, which calls COMM 3/COMM 4 'for future use'., 'AVG watt' — averaged output power, 4248SP-only., AC input side, 'Grid status', 'Grid freq', 'External Amp', 'Mode', 'Error code', 'Event', 'Fan speed', 'Transformer (c)', 'Heat sink 1 (c)', 'Heat sink 2 (c)' — same gaps as the 22xx/40xx dialect."
+}

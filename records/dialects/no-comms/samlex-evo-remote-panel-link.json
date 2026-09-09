@@ -1,0 +1,40 @@
+{
+  "id": "samlex-evo-remote-panel-link",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "samlex-evo-rc-plus-remote-manual-2021",
+      "citation": "docs/samlex-evo-rc-plus-remote-manual-2021.pdf — §1.0 covered models, §5 SD Card, §5.2.2 field lists, §4.8.2.6 COMM ID"
+    },
+    {
+      "source": "samlex-evo-rc-remote-manual-2022",
+      "citation": "docs/samlex-evo-rc-remote-manual-2022.pdf — §1.0 covered models, §4.8.2.6 COMM ID"
+    },
+    {
+      "source": "samlexamerica-com-wp-content-uploads-2020-01-11025-evo-rc-0722-lrez",
+      "citation": "https://samlexamerica.com/wp-content/uploads/2020/01/11025-EVO-RC-0722_Lrez.pdf"
+    }
+  ],
+  "transport": "Proprietary serial over straight-wired RJ-45, 10 m / 33 ft cable supplied. Framing, baud and message format are documented nowhere.",
+  "blocks": "No protocol document exists for the inverter-to-remote link, from Samlex or anyone else. Samlex publishes full owner's manuals for both remotes and neither describes the wire format. Nobody has published a sniff. Recorded so it is not researched twice: the answer to 'can we just tap the remote panel cable' is currently no.",
+  "models": [
+    {
+      "name": "EVO RC PLUS"
+    },
+    {
+      "name": "EVO-RC"
+    }
+  ],
+  "gotchas": [
+    "EVO RC PLUS supersedes EVO-RC and covers the whole current line: its manual §1.0 names '(i) EVO-1212F / 1212F-HW / 1224F / 1224F-HW, (ii) EVO-2212 / 3012 / 2224 / 4024 (iii) EVO-2212E / 3012E / 2224E / 4024E and (iv) EVO-4248SP'. The older EVO-RC manual covers only the 2212/3012/2224/4024 pair of voltage variants. A re",
+    "The remote plugs into a dedicated 'Remote Control' RJ-45, physically separate from COMM 1/COMM 2 on the models that have those. Do not assume the remote link and the Modbus link are the same bus — but note they DO share the COMM ID parameter, which is the one hint that they are related.",
+    "On the 2212-family manual: if the remote is plugged in, some front-panel programming procedures are locked out. Expect the remote to take precedence over local button sequences.",
+    "The remote is also the only way to set RELAY FUNCTION, REMOTE SWITCH, COMM ID and the charge profile — i.e. everything the samlex-evo-signal-io dialect depends on. Commissioning an EVO into the gateway effectively requires borrowing one."
+  ],
+  "unmappedReports": "The EVO-RC-PLUS does have a documented data path that is not a live one: an SD card slot (FAT16/32, up to 32 GB) writing semicolon-separated CSV at a DATALOG TIME interval of 1 s / 10 s / 30 s / 60 s / 5 min / 10 min, default 1 s, and the field lists are fully specified per model group in §5.2.2.1-5.2.2.3. That is a vendor-documented schema for every quantity an EVO measures — useful as the definitive answer to 'what does this device actually report', which is how it was used to fill the unmappedMetrics on the other EVO dialects. It is not ingestible without physically fetching the card."
+}

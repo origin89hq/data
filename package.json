@@ -1,0 +1,22 @@
+{
+  "name": "offgrid-equipment",
+  "version": "0.0.0",
+  "description": "Every model of off-grid equipment worth talking to: dialects, ports, ratings and sources, with a confidence on every fact.",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "validate": "node src/validate.ts",
+    "build": "node src/build.ts",
+    "import:catalogue": "node tools/catalogue/import.ts",
+    "render:catalogue": "node tools/catalogue/render-cli.ts",
+    "roundtrip:catalogue": "node tools/catalogue/roundtrip.ts",
+    "test": "node --test test/*.test.ts"
+  },
+  "packageManager": "pnpm@10.0.0",
+  "dependencies": {
+    "zod": "4"
+  }
+}

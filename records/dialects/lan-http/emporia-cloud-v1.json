@@ -1,0 +1,62 @@
+{
+  "id": "emporia-cloud-v1",
+  "family": "lan-http",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "github-com-emporiaenergy-emporia-mcp",
+      "citation": "https://github.com/emporiaenergy/emporia-mcp — Emporia Energy's own GitHub organisation. src/config.ts (origins, Cognito URL, client id), src/services/auth.ts (InitiateAuth flows, IdToken), src/services/api.ts (endpoint "
+    },
+    {
+      "source": "link-emporiaenergy-com-sell-sheets-vue3",
+      "citation": "docs/emporia-vue3-tech-spec.pdf — Emporia, *Vue 3 Home Energy Monitor Tech Spec*, downloaded 2026-07-31 from https://link.emporiaenergy.com/sell-sheets/vue3 (redirects to https://cdn.emporiaenergy.com/products/vue3/vue3-"
+    },
+    {
+      "source": "link-emporiaenergy-com-installation-guides-vue3",
+      "citation": "docs/emporia-vue3-installation-guide.pdf — Emporia, *Vue 3 Home Energy Monitor Installation Guide*, from https://link.emporiaenergy.com/installation-guides/vue3. Also copied into docs/ and untracked."
+    }
+  ],
+  "transport": "Internet (HTTPS) to Emporia's cloud. There is NO local protocol. Auth: AWS Cognito, region us-east-2, https://cognito-idp.us-east-2.amazonaws.com/, X-Amz-Target AWSCognitoIdentityProviderService.InitiateAuth, AuthFlow USER_PASSWORD_AUTH then REFRESH_TOKEN_AUTH, ClientId 4qte47jbstod8apnfic0bunmrq. The Cognito **IdToken** (not the access token, and not prefixed with `Bearer`) is the credential. Two",
+  "blocks": "Legacy origin: GET /customers/devices (device discovery). c-api /v1: GET /v1/devices/energy-monitors?device_ids=… · GET /v1/customers/devices/channels · GET /v1/devices/energy-monitors/circuits/usages/power?device_ids=&circuit_ids=&start=&end=&power_resolution= (power_resolution ∈ MINUTES \\| FIFTEEN_MINUTES) · GET /v1/devices/energy-monitors/circuits/usages/energy?…&energy_resolution= (MINUTES \\| FIFTEEN_MINUTES \\| HOURS \\| DAYS \\| WEEKS \\| MONTHS \\| YEARS) · GET /v1/devices/batteries/state-of-charge (Emporia home battery, not the Vue) · GET /v1/devices/outlets, /v1/devices/evses, /v1/customers/ev-charging-report, /v1/devices/evses/sessions.",
+  "reports": [
+    "ac-power",
+    "ac-energy-today"
+  ],
+  "models": [
+    {
+      "name": "Vue - Energy Monitor Gen 3"
+    },
+    {
+      "name": "Vue - Energy Monitor, 8 sensors, Gen 3"
+    },
+    {
+      "name": "Vue - Energy Monitor, 16 sensors, Gen 3"
+    },
+    {
+      "name": "Vue 8 - Energy Monitor (Gen 3), 3 Phase"
+    },
+    {
+      "name": "Vue 16 - Energy Monitor (Gen 3), 3 Phase"
+    },
+    {
+      "name": "Vue - Energy Monitor (Gen 3), 3 Phase"
+    },
+    {
+      "name": "Whole Home Energy Monitoring"
+    }
+  ],
+  "sharedMapEvidence": "Emporia's own published client (github.com/emporiaenergy/emporia-mcp, src/constants/deviceTypes.ts) enumerates device types vue1, vue2, vue3 and vueutility and maps EVERY one of them to the identical endpoint set — `energy-monitors` for details, `energy-monitors/circuits/usages/power` and `.../usages/energy` for data — with one shared response type (EnergyMonitorsResponse). The only per-generation",
+  "downgradedOnReview": "I tried hard to break this and could not break the core of it. Both cited primary sources exist and say exactly what is claimed — but one roster entry fails and one sourcing note is factually wrong.  WHAT I VERIFIED DIRECTLY  1. Vendor code — confirmed byte-for-byte, not paraphrased. `https://raw.githubusercontent.com/emporiaenergy/emporia-mcp/main/src/constants/deviceTypes.ts` (HTTP 200) contains exactly four energy",
+  "gotchas": [
+    "The stock Gen 3 device speaks NOTHING on the LAN. Every value goes to Emporia's cloud and comes back over the internet. The Gen 3 gained a 10/100Base-T RJ45 LAN port (vendor spec) but it is an uplink to the same cloud, not a local API. For a cabin on intermittent Starlink this is the whole story: no internet, no data.",
+    "Emporia's own MCP README calls the implementation 'in BETA and is subject to change moving forwards'. This is vendor-published code, not a versioned protocol specification. Treat the endpoints as vendor-sourced but mutable, and re-check before building.",
+    "Two origins with two different header names for the SAME token. c-api.emporiaenergy.com wants `Authorization: <IdToken>`; api.emporiaenergy.com wants `AuthToken: <IdToken>`. The vendor client still uses the legacy origin for device discovery (GET /customers/devices) while using c-api /v1 for everything else, so a drive",
+    "Power resolution on the vendor v1 API bottoms out at MINUTES / FIFTEEN_MINUTES. The community-documented legacy /AppAPI path can ask for 1-second instant data (see the emporia-cloud-appapi dialect). If sub-minute power matters, the vendor path is the wrong one — a real capability difference between the two dialects, re",
+    "`circuit_ids` is REQUIRED and must be non-empty when querying power or energy usage for any energy-monitor device type; the vendor client throws before making the request otherwise. So a driver must call /v1/customers/devices/channels first and cannot poll blind."
+  ],
+  "unmappedReports": "Per-circuit power — the device measures 3 mains channels plus up to 16 branch circuits and the API returns them keyed by circuit_id. `ac-power` is single-valued per device, so 19 measurements collapse to one. This is the central shape mismatch for this device, not a missing kind., Channel/circuit identity itself — `/v1/customers/devices/channels` returns mains vs branch channels, channel_id, channel_num, parent_channel_id and merged channels. The contract has no notion of sub-channels on one device., Per-phase AC voltage — the hardware has 3 voltage-measurement channels (vendor spec); `ac-voltage` is single-valued. A split-phase 120/240 V cabin loses the leg split. (The cloud API does not expose voltage at all — see gotchas — so this bites only via the ESPHome path.), Import vs export / net metering — the retail claim is solar and net-metering monitoring, and a mains CT reads signed. There is no `grid-power` MetricKind and the sign convention is what carries the import/export meaning. Same gap already recorded for Victron GX., Energy over an arbitrary window at an arbitrary resolution — the API's natural unit is energy between `start` and `end` at MINUTES…YEARS. The contract offers only `ac-energy-today` and `ac-energy-total`; the mapping to `ac-energy-today` requires asking for DAYS resolution and is a driver convention, not something the device reports., Device state-of-charge for the Emporia home battery (/v1/devices/batteries/state-of-charge) maps cleanly to `state-of-charge`, but it belongs to a different DeviceKind (`battery`) that is not one of the models surveyed here., EV charging sessions and reports (/v1/devices/evses/sessions, /v1/customers/ev-charging-report) — no MetricKind, and arguably correct to have none."
+}

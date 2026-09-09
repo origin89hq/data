@@ -1,0 +1,130 @@
+{
+  "id": "victron-vebus-mk2",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-mk2-protocol-3-14",
+      "citation": "/Users/lemarier/dev/solar/docs/victron-mk2-protocol-3.14.pdf — Interfacing with VE.Bus products – MK2 Protocol, rev 3.14, 22 June 2017 (downloaded this session and committed to docs/)"
+    },
+    {
+      "source": "victronenergy-com-upload-documents-technical-information-interfacing-with-ve-bus-products-mk2-pr",
+      "citation": "https://www.victronenergy.com/upload/documents/Technical-Information-Interfacing-with-VE-Bus-products-MK2-Protocol-3-14.pdf"
+    },
+    {
+      "source": "victron-data-communication",
+      "citation": "/Users/lemarier/dev/solar/docs/victron-data-communication.pdf — Data communication with Victron Energy products (already committed)"
+    }
+  ],
+  "transport": "MK2.2 / MK2-USB / MK3-USB interface presents RS232 or USB-serial · 2400 baud 8N1 · point-to-point to the interface; the interface bridges to the RS-485 VE.Bus daisy chain. No slave ID in the MK2 framing. Per-device VE.Bus addressing is a mode set on the interface with the 'A' command, valid range 0x00-0x1F, default 0xFF (invalid, must be set before any 'W' command). One interface per VE.Bus system",
+  "blocks": "Frame: <Length> 0xFF <Command> <Data0>..<Datan-1> <Checksum>, checksum makes the sum of all bytes including length and checksum equal 0; little-endian for multi-byte values; MSB of <Length> set means LED status is appended. Command groups: 'V' version · 'L' LED status (8 bits: Mains, Absorption, Bulk, Float, Inverter, Overload, Low battery, Temperature) · 'S' panel state (switch position + input current limit) · 'F' special VE.Bus frames (0 DC info, 1-4 AC L1-L4 info, 5 MasterMultiLED, 6 RAM snapshot, 8 reset device, 9 Battery Operational Limits) · 'A' set device address · 'W'/'X'/'Y'/'Z'/'x'/'y'/'z' Winmon commands to a specific device. Winmon sub-commands: 0x05 software version · 0x0E get/set device state · 0x30 read RAM var · 0x31 read setting · 0x32 write RAM var · 0x33 write setting · 0x34 write data · 0x35 get setting info · 0x36 get RAM var info · 0x37 write via ID · 0x38 read snapshot. RAM variable IDs: 0 UMainsRMS, 1 IMainsRMS, 2 UInverterRMS, 3 IInverterRMS, 4 UBat, 5 IBat, 6 UBatRMS (ripple), 7 inverter period time (0.1 s base), 8 mains period time (0.1 s base), 9 signed AC load current, 10 virtual switch position, 11 ignore-AC-input state, 12 multi-functional relay state, 13 charge state, 14/15 inverter power filtered (sn16, + = AC->DC charging), 16 output power filtered (sn16, + = out to load), 17-19 the unfiltered twins of 14-16.",
+  "reports": [
+    "ac-voltage",
+    "ac-current",
+    "ac-frequency",
+    "ac-power",
+    "battery-voltage",
+    "battery-current",
+    "charge-stage",
+    "state-of-charge",
+    "switch-state"
+  ],
+  "accepts": [
+    "set-switch",
+    "start-equalize"
+  ],
+  "models": [
+    {
+      "name": "MultiPlus 12/500/20-16"
+    },
+    {
+      "name": "MultiPlus 12/800/35-16"
+    },
+    {
+      "name": "MultiPlus 12/1200/50-16"
+    },
+    {
+      "name": "MultiPlus 12/2000/80-50 120V (UL 458)"
+    },
+    {
+      "name": "MultiPlus Compact 12/2000/80-50 120V (UL)"
+    },
+    {
+      "name": "MultiPlus 12/3000/120-50 (UL)"
+    },
+    {
+      "name": "MultiPlus 24/2000/50-50 120V (UL 458)"
+    },
+    {
+      "name": "MultiPlus Compact 24/2000/50-50"
+    },
+    {
+      "name": "MultiPlus 24/3000/70-50 120V (UL)"
+    },
+    {
+      "name": "MultiPlus 48/2000/25-50 (UL)"
+    },
+    {
+      "name": "MultiPlus-II 12/3000/120-50 (UL)"
+    },
+    {
+      "name": "MultiPlus-II 12/3000/120-50 2x120V (UL 458)"
+    },
+    {
+      "name": "MultiPlus-II 24/3000/70-50 120V (UL 458)"
+    },
+    {
+      "name": "MultiPlus-II 24/3000/70-50 2x120V (UL)"
+    },
+    {
+      "name": "MultiPlus-II 24/5000/120-95"
+    },
+    {
+      "name": "MultiPlus-II 48/3000/35-50 120V (UL 1741)"
+    },
+    {
+      "name": "MultiPlus-II 48/5000/70-95 120V (UL 1741)"
+    },
+    {
+      "name": "Quattro 12/5000/220-100/100"
+    },
+    {
+      "name": "Quattro 24/5000/120-100/100"
+    },
+    {
+      "name": "Quattro 48/3000/35-50/50"
+    },
+    {
+      "name": "Quattro 48/5000/70-100/100"
+    },
+    {
+      "name": "Quattro 48/10000/140-100/100 (UL)"
+    },
+    {
+      "name": "Quattro-II 12/3000/120-50/50 2x120V"
+    },
+    {
+      "name": "Quattro-II 24/3000/70-50/50 2x120V"
+    },
+    {
+      "name": "Phoenix Inverter 12/3000 120V VE.Bus"
+    },
+    {
+      "name": "*…and 1 more, in the journal*"
+    }
+  ],
+  "refutedOnReview": "Sources exist and every quote is verbatim accurate — but not one of the 26 models is named by any of them, and two models are named by no source at all.  WHAT CHECKS OUT (I extracted both PDFs with pdftotext -layout)  `/Users/lemarier/dev/solar/docs/victron-mk2-protocol-3.14.pdf` exists (278 KB, \"Interfacing with VE.Bus products – MK2 Protocol\", rev 3.14, page footer \"Interfacing with VE Bus products - MK2 Protocol 3",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "The document is dated 22 June 2017 and names Phoenix Multi, Phoenix Inverter and Quattro. It does NOT name MultiPlus-II, Quattro-II, MultiGrid-II or EasySolar-II, all of which postdate it. Those models are on this dialect at the FAMILY level only — Victron's own VE.Bus Smart dongle page lists \"Multis, MultiPlusses, Mul",
+    "Victron's own position is that this is the wrong road. victron-data-communication.pdf: \"VE.Bus ... Direct third-party connections are not allowed. All interfacing has to be done via Modbus TCP (preferred) ...\" and \"implementing the MK2/MK3 protocol is a task which is not to be underestimated. It is a complicated protoc",
+    "There are no fixed scales in this protocol. DisplayValue := Scale * (x + Offset), where Scale and Offset come from CommandGetRAMVarInfo per RAM ID per device, and the two commands interpret <Sc> differently: for settings, Scale := Sc if Sc>0 else 1/(-Sc); for RAM variables, Scale := Abs(Sc), and if Scale >= 0x4000 then",
+    "2400 baud. Not 19200. This is a different port and a different physical layer from VE.Direct, on the same brand of equipment, and the two are easy to confuse.",
+    "With an MK2.2 (the RS232, non-USB variant) the DTR line on DB9 pin 4 must be driven high or nothing is received at all — and \"most RS232 drivers are inverting so the logic level of the DTR must be programmed to zero in most cases\". Same failure mode as the VE.Direct-to-RS232 interface already recorded in the catalogue:"
+  ],
+  "unmappedReports": "MK2 device state 0-9: Down, Startup, Off, Slave, InvertFull, InvertHalf, InvertAES, PowerAssist, Bypass, Charge — only the Charge state maps to ChargeStage. There is no wire name for \"the inverter is in AES/eco search\", \"the unit is a slave\", \"the unit is in bypass\" or \"power assist is running\". PowerAssist in particular is the one state where the shore supply and the battery are both feeding the load, and it is invisible in the contract., Charge sub-state 0-8: Initializing, Bulk, Absorption, Float, Storage, Repeated Absorption, Forced Absorption, Equalise, Bulk stopped. ChargeStage has no Storage, Repeated/Forced Absorption, or Bulk stopped. Bulk stopped is a real diagnosis (bulk time limit hit) and folding it into Bulk is a lie., Input current limit — MasterMultiLED frame bytes 5-10 give minimum, maximum and actual AC input current limit in deci-amps, and the 'S' command writes it. There is no MetricKind for shore/generator current limit and no CommandKind for setting it. `set-charge-current-limit` is a DC charge current and is NOT the same quantity; wiring one to the other would be wrong., MasterMultiLED <AC input configuration> bits: last active input, input-current-overridden-by-panel, DMC dedicated, number of AC inputs, remote panel detected. \"Which AC source am I on, and is something else already controlling me\" has no wire name — and it is exactly what a rules engine must know before it writes., MasterMultiLED <Switch register> bits: DirectRemoteSwitchCharge/Invert, FrontSwitchUp/Down, SwitchCharge/SwitchInvert current state, OnboardRemoteInvertSwitch, RemoteGeneratorSelected. The physical front-panel switch position is not expressible., RAM 6 UBatRMS — battery ripple voltage. No metric. Standard early warning for a failing cell or a loose DC terminal., RAM 10 virtual switch position and RAM 11 ignore-AC-input state — the Multi's own assistant logic. No metric., RAM 12 multi-functional relay state — `switch-state` is already claimed by the inverter on/off. A second output has nowhere to go., AC info frame <BF factor> and <Inverter factor> — scaling multipliers that must be applied to mains current and inverter current respectively. Not a measurement, but a driver that ignores them reports currents that are wrong by an integer factor., <Phase info> 0x05-0x0C — which phase this frame describes and how many phases exist. No metric, and no contract shape for a 3-phase or split-phase system: MetricKind has one `ac-voltage`, and a 2x120V MultiPlus-II has two legs., Battery Operational Limits ('F' 9) — charge/discharge voltage and current ceilings, un16 cV and un24 dA. This is a BMS control surface with no CommandKind, and it has a 5-minute deadman (see gotchas)., Force to Absorption and Force to Float (CommandGetSetDeviceState states 2 and 3) — `start-equalize` exists, its two siblings do not., Device state Down/Startup — no RunState for the inverter itself; `generator-run-state` is spoken for."
+}

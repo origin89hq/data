@@ -1,0 +1,25 @@
+{
+  "id": "energizer-lead-acid-and-jump-start-no-comms",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "ids-energie-com",
+      "citation": "IDS Énergie (Trois-Rivières, QC) — https://ids-energie.com/ — brand wall lists 'Energizer, Noco' among battery/energy-storage suppliers, alongside Volthium, Pylontech, Trojan, Rolls, Magnacharge, Evolithium, Drive Motion"
+    },
+    {
+      "source": "energizer-com-more-energizer-power-products",
+      "citation": "Energizer licensed power products index — https://energizer.com/more-energizer-power-products/"
+    }
+  ],
+  "gotchas": [
+    "THIS is the entry that matches the original Quebec sighting, and it has no models. IDS Énergie names Energizer on its brand wall next to NOCO — a jump-starter and charger brand — not next to the deep-cycle names (Trojan, Rolls, Volthium). The most likely referent is Energizer-branded automotive/marine batteries, jump s",
+    "Energizer Holdings' own page confirms the whole power category is licensed out: automotive batteries, jump starters, inverters, generators, portable solar, home automation — each to a different licensee, each with its own model scheme. 'Energizer' is a brand wall entry, not a manufacturer. That is the single most impor",
+    "At least four distinct licensees were identified: 8 Star Energy Pty Ltd (Energizer Solar — inverters, HV batteries, Peak/Everest portables, panels, EV chargers), the energizergenerators.com / energizerarc.com North American licensee (Arc power stations, eZV generators, EN-series inverters, distributed via Home Depot Ca",
+    "What is missing to close this entry: a model number off an actual unit at an IDS Énergie site, or a product listing from IDS with an Energizer part number. Until then it stays a brand-wall sighting with no hardware behind it."
+  ]
+}

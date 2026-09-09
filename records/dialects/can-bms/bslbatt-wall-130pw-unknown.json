@@ -1,0 +1,30 @@
+{
+  "id": "bslbatt-wall-130pw-unknown",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "bslbatt-com-wp-content-uploads-2025-09-b-lfp48-130pw-250725",
+      "citation": "BSLBATT, B-LFP48-130PW datasheet 250725, https://bslbatt.com/wp-content/uploads/2025/09/B-LFP48-130PW-250725.pdf — 'Communication: RS232, RS485, CAN, WIFI(Optional), Bluetooth(Optional)'; 'Up to 32 units in parallel'."
+    },
+    {
+      "source": "bsl-battery-com-uploads-wall-battery-user-manual-v2-7-zxl",
+      "citation": "BSLBATT, Powerwall Battery User Manual V2.7, https://www.bsl-battery.com/uploads/Wall-Battery-User-Manual-V2.7-ZXL.pdf — cover page: 'Model No: B-LFP48-52/100/156/174/200/280/300PW'."
+    }
+  ],
+  "models": [
+    {
+      "name": "B-LFP48-130PW wall battery, 51.2 V 127 Ah 6.5 kWh, 16S1P — stocked in QC"
+    }
+  ],
+  "gotchas": [
+    "DIALECT UNKNOWN, AND THE OBVIOUS ASSIGNMENT IS REFUTED. The tempting move is to file the 130PW under the wall-battery dialect: same vendor, same PW suffix, same 51.2 V. The vendor's own wall-battery manual V2.7 names its covered models on the cover page — 52, 100, 156, 174, 200, 280 and 300PW. 130 is not among them. No",
+    "What the datasheet DOES give is a bare list of physical interfaces. No baud rate, no protocol name, no default, no DIP range, no pinout, no map. A driver cannot be started from it.",
+    "The 130PW also differs from the manual's models in a way that matters: 'Up to 32 units in parallel', where the wall manual's DIP table runs to 63 and the rack line claims 40 or 63. A different parallel ceiling suggests a different BMS generation, which is exactly what would fork the map.",
+    "WHAT WOULD SETTLE IT: a BSLBATT manual whose cover page includes 130PW, or a second BSLBATT document showing the 130PW's protocol-selection menu. Either would move this to vendor-doc in an afternoon. Until then it stays unknown — the 130PW is a Tier C model with no dialect, not a wall-dialect model."
+  ]
+}

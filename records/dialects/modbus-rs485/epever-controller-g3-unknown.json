@@ -1,0 +1,50 @@
+{
+  "id": "epever-controller-g3-unknown",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "epever-com-product-category-charge-controller",
+      "citation": "https://www.epever.com/product-category/charge-controller/ (current line, checked: 2026-07-31)"
+    },
+    {
+      "source": "epever-com-support-documents",
+      "citation": "https://www.epever.com/support/documents/ (no controller protocol document published, checked: 2026-07-31)"
+    },
+    {
+      "source": "epever-xtra-n-g3-manual-v1-8",
+      "citation": "docs/epever-xtra-n-g3-manual-v1.8.pdf (committed in repo — pinout, RS-485 enable, Primary/Secondary mode, BMS protocol number)"
+    }
+  ],
+  "transport": "RS-485 over RJ45, pins 1/2 +5 VDC 200 mA, 3/4 RS485-B, 5/6 RS485-A, 7/8 GND (XTRA-N G3 manual v1.8, section 3). Baud rate, framing and default slave ID are NOT stated anywhere in the G3 manual.",
+  "models": [
+    {
+      "name": "XTRA-N G3 series 10-40A (XTRA1206/1210/2206/2210/3210/3215/3415/4210/4215/4415N G3, and the N G3 BLE variants)"
+    },
+    {
+      "name": "XTRA4210N-G3 40A, XTRA4415N-G3 40A (retail SKUs, The Cabin Depot, checked: 2026-07-31)"
+    },
+    {
+      "name": "Tracer AN G3 series 10-40A"
+    },
+    {
+      "name": "IT-NC G3 series 50-100A (sold in Canada as \"iTracer AN G3 60A\")"
+    },
+    {
+      "name": "ET-NC G3 series 50-100A"
+    }
+  ],
+  "sharedMapEvidence": "None. This is a deliberate split from epever-tracer-a, not an oversight. G3 is a new generation - it adds BMS-Link lithium-BMS bridging, a Primary/Secondary port mode, and an enable/disable switch on the RS-485 port, none of which exist on the XTRA-N or Tracer AN the community implementations were written against. No source read a single G3 register. The rule is that a model joins a dialect only w",
+  "gotchas": [
+    "The RS-485 port can be switched off from the LCD (PV parameters -> CON -> DIS). Disabled, it supplies neither the 5 V nor any communication, and the manual notes self-consumption drops - so a silent bus may be a setting, not a fault.",
+    "Primary/Secondary port mode: 'The Primary mode is used for BMS communication; the Secondary mode is used for RS485 communication.' A G3 left in Primary (nn) mode will not answer a host poll. It must show S.",
+    "G3 units pair with a BMS-Link module and carry a per-manufacturer 'BMS protocol number' for translating third-party lithium BMS protocols. That is a second protocol surface on the same controller, entirely undocumented publicly.",
+    "The Canadian retail name 'iTracer AN G3 60A' does not match EPEver's own catalogue name for the same rating ('IT-NC G3 Series 50~100A'). Do not assume the retail name maps to the vendor series - confirm on the label.",
+    "EPEver's current documents page (epever.com/support/documents/, checked 2026-07-31) publishes no controller Modbus protocol PDF at all. The only protocol documents it offers are BMS-Link ones. The controller protocol documents that exist are all older and hosted by third parties."
+  ]
+}

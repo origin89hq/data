@@ -1,0 +1,61 @@
+{
+  "id": "xantrex-rv-c-unknown",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "xantrex-com-wp-content-uploads-2021-12-975-0799-01-01-rev-dfreedom-xc-pro-owners-guide-eng",
+      "citation": "Freedom XC PRO Owner's Guide 975-0799-01-01 Rev D: https://xantrex.com/wp-content/uploads/2021/12/975-0799-01-01_Rev-DFreedom-XC-PRO-Owners-Guide_ENG.pdf (20-pin CC port pinout, CANbus/RV-C J1939)"
+    },
+    {
+      "source": "xantrex-com-wp-content-uploads-2022-07-freedom-combox-owners-guide-975-1034-01-01-rev-e-eng",
+      "citation": "Freedom X Combox Owner's Guide 975-1034-01-01 Rev E: https://xantrex.com/wp-content/uploads/2022/07/Freedom-Combox-Owners-Guide-975-1034-01-01_Rev-E_ENG.pdf"
+    },
+    {
+      "source": "xantrex-com-wp-content-uploads-2022-07-datasheet-xantrex-freedomxcombox-20260715",
+      "citation": "Freedom X Combox datasheet: https://xantrex.com/wp-content/uploads/2022/07/DataSheet_Xantrex_FreedomXCombox_20260715.pdf"
+    }
+  ],
+  "transport": "CAN, RV-C application layer (RV-C is layered on SAE J1939). Freedom XC PRO exposes it on the 20-pin Communications and Control port via harness 808-0820: pin 1 CAN_L (yellow), pin 11 CAN_H (white/black), pin 12 CAN_Shield (white/green) — the owner's guide states 'connect to a vehicle's onboard display via three wires using the CANbus/RV-C, J1939 protocol'. Freedom X Combox uses a 4-pin RV-C connec",
+  "models": [
+    {
+      "name": "Freedom XC PRO 2000 / 3000 (818-2010, 818-3010)"
+    },
+    {
+      "name": "Freedom XC PRO Marine"
+    },
+    {
+      "name": "Freedom X / XC series (817-1000, 817-2000, 817-2000-12, 817-2000-21, 817-3000) via Freedom X Combox 808-0822"
+    },
+    {
+      "name": "Freedom SW RV-C (815-3012-02)"
+    },
+    {
+      "name": "Freedom EX 4000 (820-4080-41)"
+    },
+    {
+      "name": "Xantrex Solar Charge Controller MPPT 30 PRO (710-3044-01)"
+    },
+    {
+      "name": "Xantrex Solar MPPT Charge Controller 60A (710-6048-01)"
+    },
+    {
+      "name": "XanLink RV-C Battery Monitor"
+    },
+    {
+      "name": "Xantrex Lithium-Ion batteries 12V/24V/51V (884-0310-12, 884-0410-12-01, 884-0205-24, 884-0100-51)"
+    }
+  ],
+  "gotchas": [
+    "Dialect is deliberately 'unknown'. Xantrex publishes that these products speak RV-C and, for the XC PRO, the CAN pinout — and nothing else. No DGN list, no scaling, no instance numbering, in any document on xantrex.com. The message definitions live in the RVIA RV-C specification, which is a third-party standard, not a ",
+    "These models are grouped here by BUS, not by map, and that grouping is explicitly not a shared-map claim. RV-C assigns different DGNs per device class (inverter, charger, solar controller, DC source), so a battery monitor and an MPPT on this list certainly do NOT share a register map. Anyone building this needs a per-d",
+    "The 30 PRO datasheet contradicts itself. The feature bullet says 'RV-C, Modbus and Bluetooth built-in'; the Communication row of the specification table on the same PDF says only 'Bluetooth, CAN Network (RV-C)' — no Modbus. The 60A datasheet is consistent about all three ('Built-in: CAN RV-C, RS-485 Modbus, and Bluetoo",
+    "The plain Solar MPPT 30 (710-3024-01) is a different unit from the 30 PRO (710-3044-01). Its datasheet and owner's guide list only a BTS port and a proprietary remote-panel port (710-0010) — no Modbus, no RV-C, no Bluetooth. Yet the Xantrex Gateway datasheet lists 710-3024-01 as a supported device. Contradiction record",
+    "'Freedom SW' spans two incompatible buses: the Xanbus 815-3012 (Modbus map exists, see xantrex-freedom-sw-modbus) and the RV-C 815-3012-02. The part-number suffix is the only thing telling them apart."
+  ],
+  "refiledFrom": "can-rv-c"
+}

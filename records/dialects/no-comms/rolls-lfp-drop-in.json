@@ -1,0 +1,121 @@
+{
+  "id": "rolls-lfp-drop-in",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "rollsbattery-com-wp-content-uploads-202",
+      "citation": "ROLLS R-SERIES, G-SERIES & S-SERIES LFP DROP-IN BATTERY OPERATING MANUAL, ver. 4 05-05-26 — committed at /Users/lemarier/dev/solar/docs/rolls-lfp-drop-in-manual-v4.pdf (https://www.rollsbattery.com/wp-content/uploads/202"
+    },
+    {
+      "source": "rollsbattery-com-wp-content-uploads-2021-04-rolls-12v-24v-lfp-operating-manual",
+      "citation": "Rolls S-Series 12V & 24V LFP Operating Manual, 2021 (https://www.rollsbattery.com/wp-content/uploads/2021/04/ROLLS-12V-24V-LFP-OPERATING-MANUAL.pdf) — no comms section at all"
+    },
+    {
+      "source": "rollsbattery-com-catalog",
+      "citation": "https://rollsbattery.com/catalog/ — full current LFP model list. checked: 2026-07-31"
+    }
+  ],
+  "transport": "Bluetooth LE to the Rolls LFP Connect app (Android/iOS) only. No RS-485. No Modbus. No documented CAN. G-Series metal-case 48 V golf and light-EV models have a CAN bus port, but its only documented use is driving the SOC indicator shipped with the battery; the manual's Appendix C gives the pinout of the INDICATOR's 11-pin Molex, not the frame format on the wire.",
+  "reports": [
+    "state-of-charge",
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "cycle-count"
+  ],
+  "models": [
+    {
+      "name": "R12-100LFP"
+    },
+    {
+      "name": "R12-135LFP"
+    },
+    {
+      "name": "R12-150LFP"
+    },
+    {
+      "name": "R12-200LFP"
+    },
+    {
+      "name": "R12-300LFP"
+    },
+    {
+      "name": "S12-100LFP"
+    },
+    {
+      "name": "S12-135LFP"
+    },
+    {
+      "name": "S12-150LFP"
+    },
+    {
+      "name": "S12-200LFP"
+    },
+    {
+      "name": "S12-300LFP"
+    },
+    {
+      "name": "G12-450LFP"
+    },
+    {
+      "name": "R24-50LFP"
+    },
+    {
+      "name": "R24-100LFP"
+    },
+    {
+      "name": "R24-150LFP"
+    },
+    {
+      "name": "S24-50LFP"
+    },
+    {
+      "name": "S24-100LFP"
+    },
+    {
+      "name": "S24-150LFP"
+    },
+    {
+      "name": "G24-40LFP"
+    },
+    {
+      "name": "G24-130LFP"
+    },
+    {
+      "name": "R36-60LFP"
+    },
+    {
+      "name": "R36-100LFP"
+    },
+    {
+      "name": "G36-50LFP"
+    },
+    {
+      "name": "G36-95LFP"
+    },
+    {
+      "name": "R48-35LFP"
+    },
+    {
+      "name": "R48-90LFP"
+    },
+    {
+      "name": "*…and 7 more, in the journal*"
+    }
+  ],
+  "refutedOnReview": "Refuted on two independent grounds.  GROUND 1 — the claim refutes itself. A dialect asserts \"these models share one register map.\" The evidence explicitly concedes there is no map: \"it is a shared ABSENCE of any published protocol, not a shared register map. There is no map to share.\" I confirmed this: grep for modbus\\|rs485\\|rs-485\\|register over the full extracted text of docs/rolls-lfp-drop-in-manual-v4.pdf return",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "Filed under no-comms because from Cabin Hub's side there is nothing to speak to, not because the battery is dumb. It has a BMS, a display and a phone app — but the BLE service, characteristics and payload format are unpublished, and a search for community reverse-engineering of the Rolls LFP Connect app turned up nothi",
+    "Do NOT guess that the BMS is a rebadged JBD/JK/Daly and reuse one of those BLE drivers. Nothing observed supports it and a wrong pack-level BMS decode is worse than no reading.",
+    "R-Series has no display and no reset button: it wakes only when a charger or load is attached. G-Series and S-Series have an onboard screen and a reset button. That difference matters for any bench session before it matters for a driver.",
+    "The 12 V/24 V generation documented in the 2021 manual (S-Series 12V & 24V LFP Operating Manual) describes no Bluetooth and no comms at all. If a cabin has an older Rolls drop-in, expect nothing.",
+    "S12-100LFP and a generic 'Rolls 12V 100Ah LiFePO4' are stocked at The Cabin Depot; R12-100LFP is on shop.rollsbattery.ca. This is the Rolls line most likely to actually turn up in a Quebec cabin, and it is the one with the least to talk to. checked: 2026-07-31"
+  ],
+  "unmappedReports": "BMS error codes ER0 Other/Unknown, ER1 Over Voltage, ER2 Under Voltage, ER3 Over Temperature, ER4 Under Temperature — no MetricKind carries a battery fault state, internal heater state (S-Series drop-ins are the self-heating ones; the onboard screen shows a Heating indicator), Bluetooth link status shown on the onboard display, per-cell voltages"
+}

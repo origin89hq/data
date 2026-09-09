@@ -1,0 +1,29 @@
+{
+  "id": "shurflo-9300-solar-submersible",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "s1-solacity-com-docs-s",
+      "citation": "Pentair/SHURflo doc 911-415 REV.K 4/09 (ECO# 16282), '9300 Series Submersible Pump D.C. Powered — Owners Manual'. Technical Specifications p.16 names MODEL NUMBER 9325-043-101 explicitly. — https://s1.solacity.com/docs/S"
+    }
+  ],
+  "transport": "Two conductors. #10 AWG jacketed submersible cable, flat-parallel or round, terminated into a screw-set plug/receptacle cable adapter at the pump. 911-415 Rev.K p.3 step 2b instructs the installer to 'Cut ONE of the lead wires 1.0 in.' to stagger the pair — there are exactly two. 24 VDC nominal, 120 W, 4.0 A max, 7.5 A automotive fuse.",
+  "models": [
+    {
+      "name": "9325-043-101"
+    }
+  ],
+  "refutedOnReview": "REFUTED. The cited source exists and is authentic, and it does name the model — but it documents no register map of any kind, because the device has no digital interface.  Verification performed on the staged PDF (/private/tmp/claude-501/-Users-lemarier-dev-solar/01a009b6-aeb2-4d8b-8a84-65ee02fe099b/scratchpad/shurflo-vendor-docs/911-415-revK-9300-series-submersible-owners-manual.pdf):  1. Source is genuine. 19 pages",
+  "gotchas": [
+    "Filed separately from the diaphragm pumps because the control semantics differ, not because of the model number: the 9300 has no pressure switch at all. It has a mechanical internal bypass at 105-110 PSI and it runs whenever the LCB feeds it power. Everything about when it starts and stops lives in the controller, so a",
+    "911-415 Rev.K p.2 lists the controller under 'Components needed for installation': 'CONTROLLER: Use of an LCB (Linear Current Booster) Unit is required for optimum performance.' The 902-100 and 902-200 are those units. This is the vendor naming the pairing, which is why the two dialects are recorded together.",
+    "This pump is the one on the retailer list that is actually an off-grid solar product rather than an RV/marine one — 24 V, 230 ft (70 m) max lift, 100 ft (30 m) max submersion, and the whole manual is drawn around a solar array feeding a controller feeding a well.",
+    "A WebFetch summariser asserted during this sweep that the 9300 uses 'a 4-conductor submersible cable' for 'power delivery and system communication'. Reading the actual PDF shows a two-conductor cable and no communication of any kind. Recorded because it is exactly the fabricated-fact failure mode the catalogue rules ex"
+  ],
+  "unmappedReports": "Pump run state — same `pump-run-state` gap as the diaphragm dialect., Well drawdown / static water level. The vendor's own application worksheet is built on H1 discharge head, H2 water level, H3 submergence and 'draw down'. `tank-level` and `tank-volume` exist for tanks; nothing models a well's water column, which is the number that actually predicts whether this pump is about to run dry."
+}

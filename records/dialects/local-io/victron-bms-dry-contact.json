@@ -1,0 +1,64 @@
+{
+  "id": "victron-bms-dry-contact",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-bms-overview-datasheet",
+      "citation": "docs/victron-bms-overview-datasheet.pdf (newly downloaded) — Victron 'Battery Management System (BMS) Overview', the full comparison table"
+    },
+    {
+      "source": "victronenergy-com-upload-documents-smallbms-with-pre-alarm-128558-smallbms-with-pre-alarm-pdf-en",
+      "citation": "docs/victron-smallbms-pre-alarm-manual-rev02.pdf (newly downloaded) — rev 02, 01/2023, from https://www.victronenergy.com/upload/documents/smallBMS_with_pre-alarm/128558-smallBMS_with_pre-alarm-pdf-en.pdf"
+    },
+    {
+      "source": "victron-smallbms-ng-manual-rev05",
+      "citation": "docs/victron-smallbms-ng-manual-rev05.pdf, docs/victron-vebus-bms-v2-manual-rev07.pdf, docs/victron-vebus-bms-ng-manual-rev05.pdf, docs/victron-smart-bms-cl-12-100-manual-rev11.pdf, docs/victron-smart-bms-12-200-manual-r"
+    }
+  ],
+  "transport": "Screw terminals, no bus, no framing, no addressing. Two output drive types per the vendor comparison table: 'High/free floating' (a terminal that sits at battery-positive and goes open-circuit on alarm) on every model except the Lynx Smart BMS, which uses relay contacts. A GPIO input with a divider and a pull-down reads these directly; the hub is a passive observer.",
+  "blocks": "Terminals and their vendor-stated current ratings. Allowed-to-discharge: smallBMS 1 A, VE.Bus BMS V2 1 A, VE.Bus BMS 2 A, Lynx Smart BMS relay 0.5 A, Smart BMS CL 12/100 10 mA, Smart BMS 12/200 10 mA. Allowed-to-charge: 10 mA on every model except the Lynx Smart BMS relay 0.5 A. Pre-alarm: free floating/high 1 A on all except Lynx Smart BMS, which is a programmable relay 2 A. Remote on/off: present on every model listed (the original VE.Bus BMS is the one exception — the comparison table marks its remote on/off terminal 'No'). Auxiliary output: VE.Bus BMS V2 1 A, Lynx Smart BMS 1.1 A. Auxiliary input: VE.Bus BMS V2 only, 1 A.",
+  "accepts": [
+    "set-switch"
+  ],
+  "models": [
+    {
+      "name": "smallBMS with pre-alarm (BMS400100000)"
+    },
+    {
+      "name": "smallBMS NG (BMS400100300)"
+    },
+    {
+      "name": "VE.Bus BMS (BMS300200000)"
+    },
+    {
+      "name": "VE.Bus BMS V2 (BMS300200200)"
+    },
+    {
+      "name": "VE.Bus BMS NG (BMS300200300)"
+    },
+    {
+      "name": "Lynx Smart BMS 500 / 1000 (all part numbers, incl. NG)"
+    },
+    {
+      "name": "Smart BMS CL 12/100 (BMS110022000)"
+    },
+    {
+      "name": "Smart BMS 12/200 (BMS210055000)"
+    }
+  ],
+  "refutedOnReview": "REFUTED on membership. The sources exist and were read; the problem is what they actually say.  SOURCES VERIFIED PRESENT (all under /Users/lemarier/dev/solar/docs/): victron-bms-overview-datasheet.pdf, victron-smallbms-pre-alarm-manual-rev02.pdf, victron-smallbms-ng-manual-rev05.pdf, victron-vebus-bms-v2-manual-rev07.pdf, victron-vebus-bms-ng-manual-rev05.pdf, victron-smart-bms-cl-12-100-manual-rev11.pdf, victron-sma",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "THIS IS NOT A REGISTER MAP AND MUST NOT BE PRESENTED AS ONE. It is three or four booleans on wires. It is recorded because for the smallBMS with pre-alarm and the VE.Bus BMS V1 it is the ONLY route that exists, and because for every other model it is a zero-cost second opinion that survives a dead Bluetooth stack.",
+    "The outputs are 'high / free floating', not dry contacts, on every model except the Lynx Smart BMS. High means battery-positive — 12 V, 24 V or 48 V depending on the bank. Wiring one straight to a 3.3 V GPIO destroys the pin. A divider or an opto is mandatory, and at 48 V the divider ratio is not the one you sized for ",
+    "Free-floating is not the same as low. An open-circuit input floats, and a GPIO without a pull-down will read whatever noise is nearest. Every one of these inputs needs a defined pull.",
+    "The charge-disconnect terminals are rated 10 mA on most models. They are signal outputs for a charger's remote port, not switching outputs. Loading one is a way to destroy a BMS.",
+    "Direction matters: reading these terminals is observation. Driving the remote on/off terminal is control, and turning a BMS off disconnects the bank. accepts set-switch is listed for completeness and should be treated as a dangerous command, not a convenience."
+  ],
+  "unmappedReports": "'Allowed to charge' (ATC) — no MetricKind. This is a hard yes/no from the pack's own cell monitoring and it is the single most decision-relevant bit a BMS produces. A rules engine that fires a generator or opens a charger contactor needs it and the contract cannot carry it., 'Allowed to discharge' (ATD) — no MetricKind. Same shape: the difference between 'the loads are off because nobody is home' and 'the loads are off because the bank is at cell undervoltage'., 'Pre-alarm' — no MetricKind. Vendor-stated as ~30 s of warning before load disconnect on the smallBMS. That is precisely the window in which a cabin hub could start a generator or shed a load, and there is nowhere to put it., Contactor / main switch state on the Lynx Smart BMS — switch-state is the nearest wire name but is spoken for by load outputs elsewhere in this catalogue."
+}

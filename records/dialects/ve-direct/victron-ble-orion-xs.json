@@ -1,0 +1,42 @@
+{
+  "id": "victron-ble-orion-xs",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "community-crosschecked",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "github-com-keshavdv-victron-ble",
+      "citation": "https://github.com/keshavdv/victron-ble — `victron_ble/devices/orion_xs.py` and `victron_ble/devices/__init__.py` (0xF → OrionXS) (checked 2026-07-31)"
+    },
+    {
+      "source": "github-com-fabian-schmidt-esphome-victron-ble",
+      "citation": "https://github.com/Fabian-Schmidt/esphome-victron_ble — `components/victron_ble/victron_ble.h`, `VICTRON_BLE_RECORD_TYPE::ORION_XS = 0x0F` (checked 2026-07-31)"
+    }
+  ],
+  "transport": "Same BLE advertisement container as records 0x04 and 0x08; record type 0x0F.",
+  "blocks": "Record 0x0F, offsets from the start of the record body (bit 32 in the vendor container's numbering): 0/8 device state (NA 0xFF) · 8/8 charger error (NA 0xFF) · 16/16 output voltage 0.01 V (NA 0xFFFF) · 32/16 output current 0.1 A (NA 0xFFFF) · 48/16 input voltage 0.01 V (NA 0xFFFF) · 64/16 input current 0.1 A (NA 0xFFFF) · 80/32 off reason.",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "charge-stage"
+  ],
+  "models": [
+    {
+      "name": "Orion XS 12V/12V-50A (ORI121217050) — binding unattested, see gotchas"
+    },
+    {
+      "name": "Orion XS 1400 (ORI242417040) — binding unattested"
+    }
+  ],
+  "sharedMapEvidence": "Two independent implementations define record type 0x0F as Orion XS with an identical layout: keshavdv/victron-ble `devices/orion_xs.py` (offsets 0, 8, 16, 32, 48, 64, 80 with widths 8, 8, 16, 16, 16, 16, 32 and scales 1, 1, 0.01, 0.1, 0.01, 0.1, 1) and Fabian-Schmidt/esphome-victron_ble `VICTRON_BLE_RECORD_ORION_XS` (device_state, charger_error, output_voltage 16b 0.01, output_current 16b 0.1, in",
+  "gotchas": [
+    "**Record type 0x0F is in no Victron document this sweep could find.** The committed 2022-12-14 specification stops at 0x0D and marks 0x0E..0xFF \"Unassigned / Reserved for future extensions, possibly with a second type byte\". Victron's whitepapers index publishes no BLE document at all as of 2026-07-31. So the vendor ha",
+    "**Prefer the wire.** Unlike the Blue Smart and Orion-Tr Smart lines, the Orion XS has a VE.Direct port and a purpose-written vendor HEX protocol PDF (`victron-orion-xs-hex`, committed by this sweep). BLE here gets you four numbers with a per-device AES key and no commands; the cable gets you the full register map, hist",
+    "**The BLE record and the HEX map disagree about what a 16-bit current is.** BLE output current is 0.1 A un16; HEX 0xED8F output current is 0.1 A un16 as well, but HEX 0x200A battery charge current is 0.001 A sn32 and text `I` is mA. Four encodings of the same physical quantity across three transports on one product. Re",
+    "Only one Quebec retailer stated \"Bluetooth / VE.Smart networking\" against an Orion XS listing; the rest state nothing or name VE.Direct. Retail claims are not protocol evidence and are not used here. checked: 2026-07-31."
+  ],
+  "unmappedReports": "Input voltage and input current — the alternator side, again with no MetricKind., Off reason, 32-bit — includes engine shutdown detection, which on an Orion XS is the normal reason it is idle., Charger error code number., Device state values with no `ChargeStage` variant."
+}

@@ -1,0 +1,40 @@
+{
+  "id": "unknown-victron-lynx-shunt-ve-can",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victron-ve-can-registers-v20",
+      "citation": "docs/victron-ve-can-registers-v20.pdf — Victron Energy, VREGS: VE.Can registers, Victron Registers in NMEA 2000, version 20. Committed. §1.2 proprietary messages, §1.10 Battery Monitor settings, §1.14 DC channel settings"
+    },
+    {
+      "source": "catalog-can-bms",
+      "citation": "docs/catalog/can-bms.md — existing dialect `victron-ve-can-vreg` and its \"Known gaps\" section, which records this exact missing binding and the retail prices. Not re-derived."
+    },
+    {
+      "source": "retail-cosolaris-m8-lyn040102100-485-02-and-m10-lyn040102110",
+      "citation": "Retail: Écosolaris M8 LYN040102100 $485.02 and M10 LYN040102110 $498.84; The Cabin Depot M10 $488.57. checked: 2026-07-31, currency CAD."
+    }
+  ],
+  "transport": "VE.Can — CAN bus on RJ45, NMEA 2000 based, Victron proprietary PGNs 0xEF00 addressable single frame / 0xFF00–0xFFFF broadcast single frame / 0x1EF00 addressable transport, priority 7, Victron NMEA 2000 manufacturer code 358. **No bit rate and no default node address for this model is stated in any committed document.** The VE.Can registers PDF does not give a bus speed at all.",
+  "models": [
+    {
+      "name": "Lynx Shunt VE.Can M8 (LYN040102100)"
+    },
+    {
+      "name": "Lynx Shunt VE.Can M10 (LYN040102110)"
+    }
+  ],
+  "gotchas": [
+    "The register map almost certainly exists and the model binding does not. docs/victron-ve-can-registers-v20.pdf §1.10 \"Battery Monitor settings\" is plainly written for a device like this — 0x0FFE time-to-go (un16, minutes, read only), 0x0FFF state of charge (un16, 0.01 %, read/write), 0x1000 battery capacity (un16, Ah),",
+    "What is missing is one sentence naming the Lynx Shunt. The document names \"Lynx Ion\" for four specific messages, names a \"BMV to NMEA2000 interface\", and mentions the Lynx Shunt exactly once — as alarm bit 6, \"Lynx Shunt not found\", inside a Lynx Ion message. It never says the Lynx Shunt implements §1.10. docs/catalog/",
+    "This is the highest-value open question in the Victron battery-monitor set. Two Quebec retailers stock it at roughly $485–$499 CAD (checked: 2026-07-31), the register block is fully transcribed and vendor-authored, and the whole thing turns on a single bench observation: put a Lynx Shunt on a CAN bus and see whether 0x",
+    "§1.14's own preamble is the nearest thing to a binding and it is not one: \"The following vregs are only relevant for specific charger models that have bi-directional ports (e.g. battery monitor) or a unit containing a FET splitter.\" A parenthetical example of a device *category* is not a statement that this SKU impleme",
+    "0x0FFF state of charge is read/write. Writing it is a manual SoC synchronise, which is a real operation a rules engine would want and which has no CommandKind — the nearest existing verbs are `reset-counter` and `clear-fault` and neither means this. Recorded as a contract gap, not silently mapped."
+  ],
+  "unmappedReports": "Channel 2 and channel 3 voltage / current / power, 0xED7D–0xED7F and 0xED6D–0xED6F — no MetricKind for a second or third DC channel. docs/catalog/can-bms.md predicted this would matter \"the day a Lynx Shunt is catalogued\"; this is that day., 0x1005 Peukert coefficient, 0x1004 charge efficiency, 0x1000 battery capacity — configuration a driver needs to interpret state-of-charge, with no contract slot. Not metrics, but not nothing either., 0x1008 / 0x1009 low state-of-charge set and clear thresholds — the device's own alarm setpoints. No slot."
+}

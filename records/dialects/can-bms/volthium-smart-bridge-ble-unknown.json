@@ -1,0 +1,43 @@
+{
+  "id": "volthium-smart-bridge-ble-unknown",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "volthium-smart-bridge-manual-en",
+      "citation": "/Users/lemarier/dev/solar/docs/volthium-smart-bridge-manual-en.pdf — pp. 3, 6, 9. Committed this pass."
+    },
+    {
+      "source": "solacity-com-product-volthium-smart-bridge",
+      "citation": "https://www.solacity.com/product/volthium-smart-bridge/ — checked: 2026-07-31"
+    },
+    {
+      "source": "rematek-energie-com-eng-solar-battery-accessory-volthium-acc-sbridge-rj45-p-7864",
+      "citation": "https://rematek-energie.com/eng/Solar-battery/Accessory/Volthium-ACC-SBRIDGE-RJ45/p/7864 — checked: 2026-07-31"
+    }
+  ],
+  "reports": [
+    "state-of-charge",
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "cycle-count"
+  ],
+  "models": [
+    {
+      "name": "Smart Bridge ACC-SBRIDGE (Solacity VLT-181-137, $199.98 CAD; Rematek-Energie 40-VH036, checked: 2026-07-31)"
+    }
+  ],
+  "gotchas": [
+    "Same taxonomy gap as the Bluetooth Dongle entry: `can-bms` is set only so the entry files beside the other Volthium modules. The Bluetooth link is not CAN and no family file covers vendor BLE.",
+    "No protocol is published — the manual documents app screens only. The metric LIST above is vendor-doc (Smart Bridge manual p.6, \"Detailed information about your battery\"); the WIRE that carries it is not documented at all, which is why confidence is `unverified` and `transport` is null.",
+    "Explicitly NOT grouped with the Bluetooth Dongle's BLE path. Different app entirely — \"Volthium Smart\" (com.volthium.VolthiumSmart, iOS id 6689523265) versus \"Volthium Monitor\". Two apps is a reason to assume two protocols, not one. Nothing was found linking them.",
+    "The vendor manual lists its own known bugs: connection fails if the blue LED on the SmartBridge is permanently on, and on Android the Bluetooth radio must be cycled off and on if the scan fails. Worth knowing before anyone concludes a module is dead.",
+    "One field, \"Battery status\", is annotated in the vendor manual as \"To be deleted\". Do not build on it."
+  ],
+  "unmappedReports": "Initial capacity — the battery's nameplate maximum capacity in Ah. No MetricKind carries installed capacity; `state-of-charge` and `consumed-amp-hours` both exist and neither is this., Remaining capacity — real-time Ah remaining. No MetricKind. `consumed-amp-hours` is its complement, so mapping it would require the nameplate capacity, which is itself unmapped., Status: charging / discharging — the direction of battery current as a discrete state. No MetricKind. `charge-stage` is a lead-acid CHARGER stage (idle/bulk/absorption/float/equalize) and using it for a LiFePO4 pack's direction flag would be a lie; the manual's own note that a lithium pack must never be equalized is in cabin-contract's ChargeStage doc comment., Charging current and discharging current are reported as two separate unsigned figures. `battery-current` is a single signed value, so a driver must combine them and pick a sign convention the vendor never states., Voltage monitoring #1 and #2 — two auxiliary DC inputs on the power terminal block, range 6-120 VDC, jumper-selected. No MetricKind for an arbitrary auxiliary bus voltage; `battery-voltage` would misattribute them to the pack., CTRL #1 through #4 — four dry outputs, max 30 VDC / 50 mA, for external visual and audible alarms and relays (the manual cites ABYC / the boat industry). `switch-state` and `set-switch` exist and would fit, but nothing published says these are commandable over any link, so they are not in `accepts`."
+}

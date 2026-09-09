@@ -1,0 +1,44 @@
+{
+  "id": "baiway-tf03k-serial",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "shbaiway-com-wp-content-uploads-2025-05-tf03k-ttl-rs485-v1-1-240403",
+      "citation": "https://shbaiway.com/wp-content/uploads/2025/05/TF03K库仑计TTL串口RS485通讯说明V1.1中英文-240403.pdf — \"TF03K Coulometer TTL Serial Port / RS485 Communication Instruction\" V1.1 (2024-04-03), Shanghai Baiway Electronic Co., Ltd. Bili"
+    },
+    {
+      "source": "shbaiway-com-page-id-69",
+      "citation": "https://www.shbaiway.com/?page_id=69 — Baiway download index, used to confirm the TF03K/TK15H/TR16H product line and that no other communication document is published for the rest of it"
+    },
+    {
+      "source": "manuals-plus-asin-b081sxh9tk",
+      "citation": "https://manuals.plus/asin/B081SXH9TK.pdf — \"AiLi 500A Battery Monitor Instruction Manual\", aggregator page. Load-bearing only for the back-label photo tying the AiLi 500A to the Baiway TF03K, and for the programmable-ala"
+    }
+  ],
+  "transport": "RS-485 twisted pair (A / B / GND shield, 120 Ω terminator fitted internally) OR 5 V TTL UART on TXD/GND — the same 6-pin header carries RXD, TXD, GND, VCC 5 V, OUT, OUT. 19200 bps. NOT Modbus: it is a one-way 16-byte broadcast, one frame per second, with no device address and no request/response. Data bits, parity and stop bits are NOT stated in the vendor document — leave unset and confirm at the",
+  "blocks": "No registers. One fixed 16-byte frame, \"Communication Protocol V2.0\", big-endian throughout: byte 1 = index/start 0xA5 · byte 2 = capacity percentage, 1 byte, 0–100 % (example 0x02 = 2 %) · bytes 3–4 = total battery-pack voltage, scale 0.01 V, range 0–500.00 V (example 0x07D0 = 2000 = 20.00 V) · bytes 5–8 = current remaining battery capacity in mAh, range 0.1 Ah–5000 Ah (example 0x00000A87 = 2695 mAh = 2.695 Ah) · bytes 9–12 = current in mA, signed, negatives are two's complement, range −750000…+750000 mA (example 0x00002405 = 9221 mA = 9.221 A) · bytes 13–15 = remaining time in seconds, 3 bytes, range 00:00:00–99:59:59 (example 0x009411 = 37905 s = 10:31:45) · byte 16 = check sum, \"8 bit cumulative sum from the first byte to fifteenth byte\".",
+  "reports": [
+    "state-of-charge",
+    "battery-voltage",
+    "battery-current",
+    "time-to-go"
+  ],
+  "models": [
+    {
+      "name": "AiLi 500A battery monitor with programmable high/low voltage and low capacity alarm — rectangular LCD head, 10.0–120.0 V, −500…+500 A, 0–9999 Ah, 100×61×17 mm, 94×57 mm cut-out. Back label reads \"TF03"
+    }
+  ],
+  "gotchas": [
+    "It is not Modbus. Filed under the RS-485 family because of the wiring and framing only. A Modbus client will read nothing — the driver must be a raw serial line reader that hunts for 0xA5, takes 16 bytes, and validates the 8-bit sum of bytes 1–15.",
+    "One-way. The vendor document states plainly: \"At present, the communication output of this product is only valid for TXD, RXD has no receiving function, so it can be disconnected\" and \"Receive command: None (Batch customers can increase upon request)\". There are no commands, no configuration writes, no polling. accepts",
+    "Silence does not mean offline. \"Sending Interval: One second per time. Only send when coulometer working (Current current>backlight on current)\". Below the backlight-on threshold the head sleeps and stops transmitting. A driver that treats a missing frame as a dead device will mark a healthy idle cabin offline every ni",
+    "No device address in the frame. Two of these on one RS-485 bus will interleave frames indistinguishably. One head per port, or one per bus.",
+    "Serial line format is unspecified. The document gives 19200 bps and nothing else — no data bits, no parity, no stop bits. Do not assume 8N1; it is the obvious guess and it is still a guess."
+  ],
+  "unmappedReports": "Remaining battery capacity (bytes 5–8, mAh). MetricKind has consumed-amp-hours but no remaining-amp-hours. The frame carries remaining, not consumed, and does not carry the configured rated capacity, so the two cannot be converted from the wire alone — the rated capacity is a front-panel setting. This is a real contract gap: either add a remaining-amp-hours MetricKind or make the rated capacity a per-device config value., Alarm state. The head has programmable high-voltage / low-voltage / low-capacity alarms driving an internal buzzer and an opto-isolated OUT pin (60 VDC / 40 VAC, 0.5 A DC, 1500 V isolation). The alarm is not in the 16-byte frame and there is no MetricKind for \"alarm asserted\" anyway."
+}

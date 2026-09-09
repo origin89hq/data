@@ -1,0 +1,36 @@
+{
+  "id": "epever-ebox-ble-01",
+  "family": "no-comms",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "epever-com-upload-file-1909-epever-datasheet-ebox-ble-01",
+      "citation": "EPEVER eBox-BLE-01 datasheet, https://www.epever.com/upload/file/1909/EPEVER-Datasheet-eBox-BLE-01.pdf"
+    },
+    {
+      "source": "epever-com-upload-cert-file-1904-ebox-ble-01-sms-el-v1-0",
+      "citation": "EPEVER eBox-BLE-01 user manual V1.0, https://www.epever.com/upload/cert/file/1904/eBox-BLE-01-SMS-EL-V1.0.pdf"
+    },
+    {
+      "source": "epever-ble-rj45-a-manual-v1-2",
+      "citation": "docs/epever-ble-rj45-a-manual-v1.2.pdf and docs/epever-ble-rj45-d-manual-v1.2.pdf (already in this repo)"
+    }
+  ],
+  "transport": "Bluetooth 4.0 / BLE on the phone side, RS-485 on the controller side. The GATT service and characteristic UUIDs, and whether Modbus frames pass through transparently, are not documented in any source found.",
+  "models": [
+    {
+      "name": "eBox-BLE-01 Bluetooth remote monitor"
+    }
+  ],
+  "sharedMapEvidence": "Like the eBox-WIFI-01 this is a transport adapter, not a map — but unlike it, nothing found describes the wire format. EPEVER publishes a datasheet and a user manual, both of which describe the phone app, not the BLE protocol. No reverse-engineering work was found. Filed as no-comms in the sense that matters here: there is no protocol Cabin Hub could implement against today. Do not confuse this wi",
+  "gotchas": [
+    "Occupies the controller's only RS-485 port, same as the WiFi box.",
+    "The Pi 5's onboard BLE could in principle reach it (docs/DEVICES.md already notes the Pi covers Victron BLE with no extra hardware), so the hardware cost is zero — the blocker is entirely that no protocol is published.",
+    "The XTRA-N G3 BLE models have Bluetooth built in and do not need this adapter at all. Their BLE protocol is equally undocumented."
+  ]
+}

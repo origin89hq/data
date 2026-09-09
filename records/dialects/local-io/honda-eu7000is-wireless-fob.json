@@ -1,0 +1,27 @@
+{
+  "id": "honda-eu7000is-wireless-fob",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "unrecorded",
+  "sources": [
+    {
+      "source": "images-thdstatic-com-catalog-pdfimages-a8-a8145d77-bd34-418d-a98e-a6dfc0197afd",
+      "citation": "Honda PII54855 \"Wireless Remote Starter, 06612-Z37-000AH\" (Feb 2020), https://images.thdstatic.com/catalog/pdfImages/a8/a8145d77-bd34-418d-a98e-a6dfc0197afd.pdf (Honda CDN copy pci54908.pdf returns 403) (checked: 2026-09-01)"
+    }
+  ],
+  "transport": "wireless fob only, no wired input · MAIN switch must be ON (p4) · fob storage −30 to 60 °C (p6) · no electrical figures.",
+  "models": [
+    {
+      "name": "EU7000is EEJD-1000001–1299999",
+      "rating": "5.5/7.0 kVA",
+      "notes": "Receiver occupies the 8-pin remote connector"
+    }
+  ],
+  "gotchas": [
+    "Occupies the same connector as the wired kit; \"Bluetooth connection and remote control kit cannot be used together\" (OM p54). Not usable alongside a dry-contact controller.",
+    "Phone app in range disables the fob (p5). No status output."
+  ]
+}

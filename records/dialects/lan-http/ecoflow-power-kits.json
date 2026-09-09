@@ -1,0 +1,63 @@
+{
+  "id": "ecoflow-power-kits",
+  "family": "lan-http",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "github-com-tolwi-hassio-ecoflow-cloud",
+      "citation": "https://github.com/tolwi/hassio-ecoflow-cloud — devices/public/powerkit.py (module names, moduleType/moduleSn addressing, dcChRelay.1-6, device_support_sub_devices)"
+    },
+    {
+      "source": "github-com-foxthefox-iobroker-ecoflow-mqtt",
+      "citation": "https://github.com/foxthefox/ioBroker.ecoflow-mqtt — lib/dict_data/ef_powerkit_data.js (bp1/bp2/bp3 verified identical at 61 keys each; kitscc, ldac, lddc, ichigh, iclow, bbcin, bbcout, bmsTotal field lists)"
+    }
+  ],
+  "transport": "Same EcoFlow cloud REST + MQTT, with one structural difference: a Power Kit is a parent serial number with child modules underneath. Writes carry moduleType and moduleSn to address a specific module (moduleType values 15362 and 15365 appear in tolwi's payloads) rather than addressing the kit as a whole.",
+  "blocks": "Per-module JSON namespaces: kitscc (MPPT solar charge controller — pv1InVol/pv1InCurr/pv1InWatts, pv2*, batVol/batCurr/batWatts, chgEnergy/dsgEnergy/dayEnergy, hs1Temp/hs2Temp/pcbTemp, mppt1SwSta/mppt2SwSta), iclow and ichigh (inverter-chargers), ldac (AC distribution, acChWatt[0..5], acChCur[0..5], acChSta), lddc (DC distribution, dcChCur[0..11], dcChRelay.1..6), bbcin and bbcout (DC-DC converters, alternator charging), bp1/bp2/bp3 (battery packs), bmsTotal, wireless, onLineModuleSnList.",
+  "reports": [
+    "state-of-charge",
+    "battery-voltage",
+    "battery-current",
+    "battery-power",
+    "pv-power",
+    "pv-voltage",
+    "pv-current",
+    "ac-voltage",
+    "ac-power",
+    "ac-energy-today",
+    "temperature",
+    "switch-state"
+  ],
+  "accepts": [
+    "set-switch",
+    "set-charge-current-limit"
+  ],
+  "models": [
+    {
+      "name": "Power Kits 2 kWh"
+    },
+    {
+      "name": "Power Kits 5 kWh"
+    },
+    {
+      "name": "Power Kits 10 kWh"
+    },
+    {
+      "name": "Power Kits 15 kWh"
+    }
+  ],
+  "refutedOnReview": "Sources verified as real and largely accurate, but the claim's model list is unsupported.  VERIFIED (I cloned tolwi and evaluated ef_powerkit_data.js in a VM): - devices/public/powerkit.py exists, 764 lines. Module names bbcin, bbcout, ichigh, iclow, kitscc, ldac, lddc all present as device_type branches; packs matched by device_type.startswith(\"bp\"). moduleSn/moduleType addressing (types 15362 and 15365) at lines 11",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "Cloud-only, same as every other EcoFlow dialect here. A Power Kit is a permanent installation in a cabin or RV, so 'needs EcoFlow's servers to be reachable to read your own battery' is a harder constraint here than on a portable unit.",
+    "Addressing is two-level. Every write needs moduleType and moduleSn; a driver that models a Power Kit as one device with one address will not be able to write anything.",
+    "The kWh figures in the retail listings are pack configurations, not distinct products. Do not research them as four models.",
+    "The retail listing claims Bluetooth, WiFi and EcoFlow app. The WiFi is the hub's outbound uplink to EcoFlow, not a LAN server.",
+    "ioBroker has powerkitbp2000 and powerkitbp5000 entries, but they are stubs of under 200 characters containing a single key — they do not constitute per-pack-type maps and should not be read as evidence of one."
+  ],
+  "unmappedReports": "dcChCur[0..11] and acChWatt[0..5] / acChCur[0..5] — per-circuit current and power in the DC and AC distribution modules. This is a metered breaker panel and it is the most useful thing a Power Kit reports, and MetricKind has no indexed per-circuit metric at all. A driver would have to mint twelve devices or twelve metric names., dcChRelay.1..6 — per-circuit relay control. switch-state and set-switch fit a single relay; six of them on one module do not, for the same indexing reason., chgEnergy / dsgEnergy on the solar charge controller and dayEnergy on several modules — cumulative energy in and out per module. ac-energy-today and pv-energy-today are close but are not per-module and not bidirectional., busVol — the DC bus voltage tying the modules together, distinct from any single pack voltage., altCableLen / altCableUnit and alt1VoltLmt / alt2VoltLmt on kitscc — alternator cable length and voltage limits, used to derate alternator charging. No MetricKind, no CommandKind., pv1ErrCode / pv2ErrCode / eventCode1 / eventCode2 / warnCode1 / warnCode2 — module fault and warning codes., passByModeEn, passByCurrMax, pfcDsgModeEn, dsgLowPwrEn — shore-power pass-through and discharge behaviour modes., onLineModuleSnList — which modules are currently present. There is no notion in the contract of a device whose sub-device list changes at runtime., DeviceKind gap, differently shaped from the portable stations: a Power Kit is a solar-charger, an inverter, a charger, a battery and a metered distribution panel. There is no DeviceKind for a distribution panel or breaker box at all, which is the piece with no home."
+}

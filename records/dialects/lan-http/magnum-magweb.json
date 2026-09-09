@@ -1,0 +1,36 @@
+{
+  "id": "magnum-magweb",
+  "family": "lan-http",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "quebec-retailer-listing-for-the-ms4448pae-checked-2026-07-31",
+      "citation": "Quebec retailer listing for the MS4448PAE, checked: 2026-07-31 — names ME-MW-E (Ethernet) and ME-MW-W (wireless web) monitoring kits as separately sold accessories. This is a retail fact, not a protocol fact."
+    },
+    {
+      "source": "quebec-retailer-faq-for-the-ms-range-checked-2026-07-31-stat",
+      "citation": "Quebec retailer FAQ for the MS range, checked: 2026-07-31 — states the MS range integrates a Battery Monitoring Kit (BMK) and offers \"un suivi en ligne de ces données\" plus automatic generator start on low battery voltag"
+    }
+  ],
+  "models": [
+    {
+      "name": "ME-MW-E (Ethernet monitoring kit)"
+    },
+    {
+      "name": "ME-MW-W (wireless web monitoring kit)"
+    }
+  ],
+  "refutedOnReview": "REFUTED. The dialect `magnum-magweb` should not exist as a dialect at all.  1. No protocol source of any kind, by the claim's own admission. Both citations are retail facts. `README.md` defines a dialect as \"the register map, owns the driver\" and states the rule in bold: a model lands on a dialect \"only when a source shows matching register addresses — never because the vendor matches\". Zero addresses, zero transport",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "NOTHING IS ESTABLISHED HERE. No vendor document, no community implementation, and no local-API description was found for ME-MW-E or ME-MW-W. Every field above is null or empty deliberately. Do not let the lan-http family assignment imply a local HTTP endpoint exists — that is the question, not the answer.",
+    "What is missing, specifically: (1) whether either device serves anything on the LAN at all, or only pushes to a Magnum/Sensata cloud portal; (2) if it serves something, whether it is HTML, JSON, or Modbus TCP; (3) whether the portal is still operated at all after Sensata's acquisition of Magnum Energy — a cloud-only de",
+    "The retailer FAQ's \"suivi en ligne\" almost certainly refers to this cloud path rather than to any local capability, but no source says so. Recorded as the retailer's claim, not as fact.",
+    "Whatever these boxes do upstream, the data still originates on the Magnum ME network described in the magnum-me-network dialect, and that dialect is fully vendor-documented and needs no cloud. A direct RS-485 tap is the lower-risk path to the same numbers and should be preferred unless MagWeb is shown to offer somethin",
+    "The 2009 vendor protocol document predates MagWeb and does not mention it."
+  ]
+}

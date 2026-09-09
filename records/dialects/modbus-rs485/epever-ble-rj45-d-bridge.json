@@ -1,0 +1,38 @@
+{
+  "id": "epever-ble-rj45-d-bridge",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "epever-com-wp-content-uploads-2023-04-epever-ble-rj45-d-manual-en-v",
+      "citation": "HUIZHOU EPEVER TECHNOLOGY, EPEVER BLE RJ45 D Bluetooth Adapter manual, EN V1.2 — committed at docs/epever-ble-rj45-d-manual-v1.2.pdf (source https://www.epever.com/wp-content/uploads/2023/04/EPEVER-BLE-RJ45-D-Manual-EN-V"
+    },
+    {
+      "source": "sunshinesolar-co-uk-media-ecom-prodpdf-epever-ble-rj45-d-manual-en-v1-0",
+      "citation": "EPEVER BLE RJ45 D manual EN V1.0 (https://www.sunshinesolar.co.uk/media/ecom/prodpdf/EPEVER-BLE-RJ45-D-Manual-EN-V1.0.pdf) — LS-B exclusion, metal-enclosure warning"
+    },
+    {
+      "source": "github-com-eliasweingaertner-epever-ble",
+      "citation": "https://github.com/eliasweingaertner/epever-ble — BLE-as-Modbus-bridge evidence, but for the built-in HN module, explicitly not this dongle"
+    }
+  ],
+  "transport": "In: RS-485 over RJ45, self-powered from the port (5 V ±0.5 V, avg 10 mA / peak 60 mA), serial baud 115200. Vendor pinout: 1/2 = +5 VDC, 3/4 = RS485-B, 5/6 = RS485-A, 7/8 = GND. Out: Bluetooth 5.0 / BLE, ≤10 m. GATT service and characteristic UUIDs: no source — left null.",
+  "models": [
+    {
+      "name": "EPEVER-BLE-RJ45-D"
+    }
+  ],
+  "gotchas": [
+    "The physical and electrical facts above are vendor-doc; the part you need to write a driver — the BLE GATT layout — has **no source at all**. That is why this entry is tagged unverified. Nobody has published service/characteristic UUIDs, handles, or framing for this dongle.",
+    "Do not copy the one BLE implementation that exists. eliasweingaertner/epever-ble reverse-engineered the **built-in HN-series BLE module** on a Tracer CPN 7810 (device name prefix HN_), not this external dongle. Its README says so explicitly and warns that \"models using external BLE dongles (eBox-BLE-01) may use differe",
+    "What that implementation *does* establish, for the HN module, is that the BLE side is a transparent Modbus RTU bridge — standard frames with CRC16 written to one characteristic, responses arriving as notifications — over the ordinary EPEver Tracer register map (0x3100 PV voltage, 0x3104 battery voltage, 0x3110/0x3111 t",
+    "Vendor says the adapter \"supports data encryption\". No detail is given. If the link is encrypted or the app performs a handshake, a raw GATT write may not be enough, and the RS-485-transparent assumption fails.",
+    "Vendor warning: not available to the LS-B series. Marketing copy (Amazon, epever.com product page) claims TracerAN, TracerBN, TrironN and XTRA-N — that copy is not the manual, which names only \"the RJ45 port of the controller, inverter, or inverter/charger\"."
+  ],
+  "unmappedReports": "Nothing measurable is exposed by the adapter itself. Its Link indicator (green solid = power only, slow flash = data refreshing) is a link-state signal with no DeviceKind to hang link-online on, the same gap as the eBox."
+}

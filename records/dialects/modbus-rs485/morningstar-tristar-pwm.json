@@ -1,0 +1,57 @@
+{
+  "id": "morningstar-tristar-pwm",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "morningstar-tristar-modbus-specification",
+      "citation": "TriStar MODBUS Specification v07, 31 January 2020 — committed at /Users/lemarier/dev/solar/docs/morningstar-tristar-modbus-specification.pdf (30 pp)"
+    },
+    {
+      "source": "morningstarcorp-com-wp-content-uploads-technical-doc-tristar-modbus-specification-en",
+      "citation": "https://www.morningstarcorp.com/wp-content/uploads/technical-doc-tristar-modbus-specification-en.pdf"
+    },
+    {
+      "source": "morningstar-product-connectivity-manual",
+      "citation": "Morningstar Product Connectivity Manual — committed at /Users/lemarier/dev/solar/docs/morningstar-product-connectivity-manual.pdf"
+    }
+  ],
+  "transport": "On-board serial RS-232 · Modbus RTU · 9600 baud, 8 data bits, no parity, 2 stop bits, no flow control · default server address 0x01",
+  "blocks": "0x0008 filtered ADC · 0x000E temperatures · 0x0011 counters · 0x0017 status · 0x001A control mode/state · 0xE000 EEPROM charge & diversion · 0xE00F EEPROM load mode · 0xE015 lighting mode · coils from 0x0000",
+  "reports": [
+    "battery-voltage",
+    "pv-voltage",
+    "pv-current",
+    "load-voltage",
+    "load-current",
+    "battery-temperature",
+    "charge-stage",
+    "switch-state"
+  ],
+  "accepts": [
+    "start-equalize",
+    "clear-fault",
+    "set-switch"
+  ],
+  "models": [
+    {
+      "name": "TS-45"
+    },
+    {
+      "name": "TS-60"
+    }
+  ],
+  "sharedMapEvidence": "The Read Device Identification table in *TriStar MODBUS Specification* v07 (31 January 2020) gives product codes \"TS-45\" or \"TS-60\" against this single register map. The two differ in current rating only; no register is documented as model-conditional.",
+  "gotchas": [
+    "0x000A adc_vx_f is 'Array/Load voltage' — one register whose meaning flips with control_mode at 0x001A. A driver MUST read 0x001A before it can label 0x000A as pv-voltage or load-voltage. Publishing it as pv-voltage unconditionally is wrong on any TriStar wired as a load controller, which is a normal way to use this bo",
+    "control_state (0x001B) is TWO different enumerations selected by control_mode. In charge/diversion mode: 0 START, 1 NIGHT CHECK, 2 DISCONNECT, 3 NIGHT, 4 FAULT, 5 BULK, 6 PWM, 7 FLOAT, 8 EQUALIZE. In load/lighting mode: 0 START, 1 NORMAL, 2 LVD WARN, 3 LVD, 4 FAULT, 5 DISCONNECT, 6 NORMAL OFF, 7 OVERRIDE LVD (6 and 7 l",
+    "Scaling is by fixed constants that differ per quantity, and they are not round numbers: battery and sense voltage n·96.667·2^-15, array/load voltage n·139.15·2^-15, charging current n·66.667·2^-15, load current n·316.67·2^-15. Using one voltage constant for both voltage registers gives a plausible-looking wrong answer.",
+    "EV_tempcomp (0xE00A) is the one register with 2^-16 scaling instead of 2^-15, and its negative sign is implied — write a positive value.",
+    "Alarm_HI at 0x001D is not addressable on software version 1.04.02 or older. Reading it on an old unit is an exception, not a zero."
+  ],
+  "unmappedReports": "control_mode (0x001A) — 0 = charge, 1 = load, 2 = diversion. Not a reading, but it reinterprets the whole device, and there is no DeviceKind or metric that expresses 'this box is currently a diversion regulator', d_filt PWM duty cycle (0x001C, 0-255), V_ref charge regulator reference voltage (0x0010), Ah_r / Ah_t amp-hour counters (0x0011-0x0014) and hourmeter (0x0015/0x0016), T_hs heatsink temperature (0x000E), alarm bitfield split across 0x0017 (LO) and 0x001D (HI), and fault bitfield (0x0018), dip_switch (0x0019), state-of-charge — not reported"
+}

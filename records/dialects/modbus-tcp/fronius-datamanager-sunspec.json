@@ -1,0 +1,63 @@
+{
+  "id": "fronius-datamanager-sunspec",
+  "family": "modbus-tcp",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "fronius-com-en-downloads-solar-en",
+      "citation": "docs/fronius-datamanager-modbus-tcp-rtu-42-0410-2049.pdf — Fronius, Operating Instructions, *Fronius Datamanager Modbus TCP & RTU*, document 42,0410,2049. Downloaded from https://www.fronius.com/en/~/downloads/Solar%20En"
+    },
+    {
+      "source": "fronius-datamanager-sunspec-register-maps-1-1-7-0",
+      "citation": "docs/fronius-datamanager-sunspec-register-maps-1.1.7-0.zip — Fronius archive *SE_EI_Modbus_Sunspec_Maps_State_Codes_Events*, version 1.1.7-0 per _INFO.TXT, files dated 2020-11-25 to 2024-04-16, resolved from the vendor s"
+    },
+    {
+      "source": "fronius-primo-208-240-ul-manual-42-0410-2116",
+      "citation": "docs/fronius-primo-208-240-ul-manual-42-0410-2116.pdf — Fronius, Operating Instructions, *Fronius Primo 208-240 3.8-1 / 5.0-1 / 6.0-1 / 7.6-1 / 8.2-1 / 10.0-1 / 11.4-1 / 12.5-1 / 15.0-1*, document 42,0410,2116, revision "
+    }
+  ],
+  "transport": "Ethernet or WiFi · Modbus TCP · port preset 502, port 80 not permitted · OR RS-485 · Modbus RTU · available on the Datamanager 2.0 only, never on Datamanager 1 · baud and parity operator-selected, NO factory default stated · inverter Modbus device ID = the inverter's DATCOM number set on the inverter's own display, range 00–99 with factory setting 01, and the single exception that number 00 become",
+  "blocks": "SunSpec chain from 40001, plus a Fronius-proprietary block that has no SunSpec equivalent. Float (11x/21x): common(1) ID@40003 L=65 · inverter(111/112/113) ID@40070 L=60 · nameplate(120) ID@40132 L=26 · settings(121) ID@40160 L=30 · status(122) ID@40192 L=44 · controls(123) ID@40238 L=24 · mppt(160) ID@40264 L=48, always exactly 2 modules · storage(124) ID@40314 L=24, Fronius Hybrid inverters only · End Block ID@40340. Int+SF (10x/20x): each model 10 registers lower. Fronius-proprietary registers, outside the SunSpec chain and below 40001: 212 F_Delete_Data (write 0xFFFF), 213 F_Store_Data (write 0xFFFF), 214 F_Active_State_Code, 215 F_Reset_All_Event_Flags (write 0xFFFF), 216 F_ModelType (1 float / 2 int+SF, write then immediately 6 to acknowledge), 217 F_Storage_Restrictions_View_Mode (0 local default / 1 global), 500-501 F_Site_Power uint32 W, 502-505 F_Site_Energy_Day uint64 Wh, 506-509 F_Site_Energy_Year uint64 Wh, 510-513 F_Site_Energy_Total uint64 Wh. Meter chain on its own device ID: common(1)@40003, meter(211/212/213)@40070 L=124, End Block@40196.",
+  "reports": [
+    "ac-current",
+    "ac-voltage",
+    "ac-power",
+    "ac-apparent-power",
+    "ac-frequency",
+    "ac-power-factor",
+    "ac-energy-total",
+    "pv-voltage",
+    "pv-current",
+    "pv-power",
+    "pv-energy-total",
+    "state-of-charge"
+  ],
+  "accepts": [
+    "set-switch"
+  ],
+  "models": [
+    {
+      "name": "Primo 11.4-1 208-240 (Full — Datamanager 2.0 fitted)"
+    },
+    {
+      "name": "Primo 12.5-1 208-240 (Full — Datamanager 2.0 fitted)"
+    },
+    {
+      "name": "Primo 15.0-1 208-240 (Full — Datamanager 2.0 fitted)"
+    }
+  ],
+  "sharedMapEvidence": "Three vendor documents chain the three Primo models onto this map, and the link is an addressing rule rather than a family name. (1) The register map itself, `Inverter_Register_Map_Float_v1.0_with_SYMOHYBRID_MODEL_124.xlsx`, is titled \"Fronius Datamanager Register Map\" — it is keyed on the Datamanager card, not on any inverter, and there is no model column anywhere in it. (2) The Primo UL operatin",
+  "gotchas": [
+    "THIS IS A DIFFERENT DIALECT FROM THE GEN24 ONE EVEN THOUGH SIX MODELS SIT AT IDENTICAL ADDRESSES. Models 1, 11x, 120, 121, 122, 123 and 160 are at exactly 40003/40070/40132/40160/40192/40238/40264 in both — that is the SunSpec standard doing the work, not Fronius sharing a map. What actually differs, and why one driver",
+    "MODBUS TCP IS NOT ON BY DEFAULT — AND THE DEFAULT IS NOT \"OFF\" EITHER. Manual NOTE: \"In the case of Fronius Datamanager 2.0, the 'Data output via Modbus' is set to rtu in the factory.\" A Datamanager 2.0 out of the box is talking RS-485 and ignoring port 502. A Datamanager 1 has no rtu option at all.",
+    "AND CONFIGURING A SMART METER SILENTLY DISABLES RTU. \"If there is a Modbus energy meter (e.g., Fronius Smart Meter) configured under Settings/Meter on the system, it will not be possible to use the 'rtu' setting. In this case, data output via Modbus will be deactivated automatically upon selection of 'rtu'. This change",
+    "RESPONSE TIMES ARE MEASURED IN SECONDS, NOT MILLISECONDS. \"If there are several devices in the Fronius Solar Net ring, a timeout of at least 10 seconds should be used when querying inverter data.\" Ten seconds, vendor's own figure, because the Datamanager is proxying over Solar Net to reach the inverter. The GEN24, talk",
+    "FRONIUS RECOMMENDS AT MOST 6 INVERTERS PER DATAMANAGER for acceptable response times, though the ring allows 100. Unrelated to a single-inverter cabin but it explains where the 10-second figure comes from."
+  ],
+  "unmappedReports": "Everything in the fronius-gen24-sunspec unmapped list that comes from SunSpec models 11x, 120, 121, 122, 123, 160 and 124 applies here unchanged — the offsets inside those models are identical. Only the additions and subtractions are listed below., TmpCab @40110 is marked \"Not supported\" on this map, along with TmpSnk, TmpTrns and TmpOt. So this dialect reports NO temperature at all. The GEN24 map supports TmpCab. Same register, opposite answer, and the reason `temperature` is absent from this dialect's reports while present on the GEN24 one., Fronius register 214 F_Active_State_Code — the vendor's own active state code, decoded by the per-model CSV tables shipped in the same archive (Primo_State_Codes.csv, Symo_State_Codes.csv). No MetricKind. Marked \"not supported for Fronius Hybrid inverters\", with the note that inverter status may therefore be reported differently at night., Fronius registers 212 F_Delete_Data, 213 F_Store_Data, 216 F_ModelType, 217 F_Storage_Restrictions_View_Mode — device management writes. 216 in particular reconfigures the entire register map at runtime (float ↔ int+SF), which no CommandKind can express and which no driver should ever send., Fronius register 215 F_Reset_All_Event_Flags — \"Write 0xFFFF to reset all event flags and active state code.\" This is the closest thing in either Modbus dialect to `clear-fault`, and it is NOT the same thing: it clears the reporting, not the condition. Deliberately not claimed as clear-fault., Fronius registers 500 F_Site_Power, 502 F_Site_Energy_Day, 506 F_Site_Energy_Year, 510 F_Site_Energy_Total — site-wide sums across every inverter on the Solar Net ring, at uint32/uint64 width. The contract has no notion of a site aggregate distinct from a device reading, and no device to hang them on. This is the strongest argument in the whole Fronius sweep for a `gateway` DeviceKind reading, the way the Victron GX entry uses one., inverter(11x) WH @40102 carries the vendor note \"may be imprecise\" — added deliberately in archive changelog 1.1.1-0. ac-energy-total has no way to carry a precision caveat., mppt(160) 1_DCWH / 2_DCWH / DCWH_SF marked not supported for Fronius Hybrid inverters (changelog 1.1.4-0), so pv-energy-total disappears on a Hybrid while remaining present on a non-Hybrid — same dialect, same addresses, different data., String Combiner model 403 and its event flags (LOW_VOLTAGE, LOW_POWER, LOW_EFFICIENCY, CURRENT, VOLTAGE, POWER, PR, DISCONNECTED, FUSE_FAULT, COMBINER_FUSE_FAULT, COMBINER_CABINET_OPEN, TEMP, GROUNDFAULT, REVERSED_POLARITY) — a string combiner has no DeviceKind and its fuse/ground-fault flags have no MetricKind., Sensor Card models — Irradiance model, Back of Module Temperature model, Base Meteorological model. pv-irradiance exists as a MetricKind; back-of-module temperature does not, and the Sensor Card reaches a different device ID (245+) so it is a separate device in contract terms.",
+  "refiledFrom": "modbus-rs485"
+}

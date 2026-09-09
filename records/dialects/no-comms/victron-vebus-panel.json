@@ -1,0 +1,41 @@
+{
+  "id": "victron-vebus-panel",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-data-communication",
+      "citation": "docs/victron-data-communication.pdf (committed) — Victron Energy, 'Data communication with Victron Energy products' — protocol overview table (VE.Bus: 3rd party connections allowed = No) and the VE.Bus / MK2-MK3 sections"
+    },
+    {
+      "source": "victronenergy-com-display-and-panels-digital-multi-control-panel-gx",
+      "citation": "https://www.victronenergy.com/display-and-panels/digital-multi-control-panel-gx — Digital Multi Control 200/200A GX product page"
+    },
+    {
+      "source": "victronenergy-com-upload-documents-technical-information-interfacing-with-ve-bus-products-mk2-pr",
+      "citation": "https://www.victronenergy.com/upload/documents/Technical-Information-Interfacing-with-VE-Bus-products-MK2-Protocol-3-14.pdf — 'Interfacing with VE.Bus products – MK2 Protocol' rev 3.14"
+    }
+  ],
+  "transport": "VE.Bus (RS-485 daisy chain, proprietary framing) over RJ45 to a MultiPlus/Quattro. Not addressable by third parties.",
+  "models": [
+    {
+      "name": "Digital Multi Control 200/200A GX (DMC000200010R)"
+    },
+    {
+      "name": "Digital Multi Control 200/200A (REC020005010)"
+    }
+  ],
+  "refutedOnReview": "REFUTED — not because the two units differ, but because the entry asserts a shared *register map* at `vendor-doc` confidence when no cited source states a register map for either model, and its own evidence text concedes \"there is no map to share.\"  **What checks out** - Both part numbers are real Victron order codes. `REC020005010` = Digital Multi Control 200/200A; `DMC000200010R` = Digital Multi Control 200/200A GX",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "Victron's protocol overview table states plainly that VE.Bus third-party connections are 'No'. Their words: 'The synchronization feature is mission-critical. Direct third-party connections are not allowed.' This is not a licensing nicety — putting another talker on the bus breaks parallel and three-phase sync.",
+    "'Even at Victron we are not talking directly to VE.Bus' — the whitepaper notes that the Color Control GX and the VE.Bus-to-NMEA2000 interface both contain an MK2/MK3 IC. Any route to a MultiPlus goes through a GX, an MK3-USB, or a VE.Bus-to-CANbus interface.",
+    "The 'GX' in the DMC part number is a Victron model-naming suffix for the redesigned enclosure. It does NOT mean the panel is a GX device, does not mean it runs Venus OS, and does not mean it speaks anything a GX speaks. Filed here specifically so the name does not mislead a future reader.",
+    "The MK2/MK3 protocol IS publicly documented ('Interfacing with VE.Bus products – MK2 Protocol', rev 3.14) and does allow reading, on/off, current limits and configuration — but Victron warns 'implementing the MK2/MK3 protocol is a task which is not to be underestimated... unless there is a huge commercial interest, we ",
+    "One MK2/MK3 or one VE.Bus-to-NMEA2000 interface serves an entire VE.Bus system, however many units are paralleled — not one per unit."
+  ]
+}

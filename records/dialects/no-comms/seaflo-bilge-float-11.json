@@ -1,0 +1,38 @@
+{
+  "id": "seaflo-bilge-float-11",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "marinestore-co-uk-mm5-graphics-pdf-seaflo-11-series-automatic-bilge-pump-manual",
+      "citation": "SEAFLO® Automatic Bilge Pump Manual-11 Series, 4-page vendor PDF, read in full — https://marinestore.co.uk/mm5/graphics/pdf/Seaflo-11-series-automatic-bilge-pump-manual.pdf (local copy: /Users/lemarier/.claude/projects/-"
+    },
+    {
+      "source": "manualslib-com-manual-4266013-seaflo-11-series",
+      "citation": "SEAFLO 11 Series manual — https://www.manualslib.com/manual/4266013/Seaflo-11-Series.html"
+    },
+    {
+      "source": "seaflo-com-index-php-m-home-c-view-a-index-aid-534",
+      "citation": "SEAFLO 11 Series product page — https://www.seaflo.com/index.php?m=home&c=View&a=index&aid=534"
+    }
+  ],
+  "transport": "Three leads, 18 AWG, 1 m: brown = manual / non-automatic (battery +, bypasses the float), brown-white = automatic (battery +, gated by the internal float switch), black = negative. Vendor wiring figure uses a 3-way switch (auto / off / manual) plus a fuse. 12 V 1,100 GPH draws 3.0 A, 5.0 A fuse; 24 V draws 1.8 A, 3.0 A fuse. No data terminal.",
+  "blocks": "The float switch state is the one genuinely interesting signal in the whole SEAFLO range and it is not brought out to a terminal. It gates the brown-white lead internally via a reed switch and relay PCB inside the motor cover. The only way to observe it is to measure current on the brown-white lead, which is an external meter's dialect, not the pump's.",
+  "models": [
+    {
+      "name": "11 Series 1,100GPH automatic bilge pump with magnetic float switch (SFBP1-G1100-11 12V / SFBP2-G1100-11 24V)"
+    }
+  ],
+  "gotchas": [
+    "'Automatic' means the pump decides, not that anything can be read. The float closes above 40–50 mm of water and opens at 20–30 mm — vendor manual, Operation section. Neither transition is visible outside the housing.",
+    "If Cabin Hub is ever to know the bilge ran, the sensing has to go on the brown-white lead with a DC current sensor, and the rule engine must treat it as an inference. Do not model it as a pump reading.",
+    "Wiring the brown lead instead of the brown-white gives a dumb always-on pump: 'the black wire is connected to the battery negative (-), which is the same as the ordinary submersible pump and has no automatic function.' A relay driving the brown lead therefore takes full responsibility for dry-run protection — and the m",
+    "The vendor manual is emphatic that reversed connections spin the impeller backwards, drastically reduce capacity and cause premature failure. Polarity is not a formality on this part.",
+    "One vendor manual covers six models (SFBP1/2-G600-11, SFBP1/2-G750-11, SFBP1/2-G1100-11) with one wiring section, so any of the 600/750/1100 GPH variants that turn up later land here without new research."
+  ],
+  "unmappedReports": "bilge water level / high-water alarm — the magnetic float acts on it and reports nothing. Recorded because Cabin Hub has no wire name for it either: `tank-level` is a percentage of a storage tank, which is the wrong shape for 'there is water where there should not be'. A bilge or sump high-water condition has no MetricKind and no DeviceKind that fits (`tank` is storage, `pump` is the mover)., pump cycle count — the count of float activations is the leak signature, and there is no MetricKind for it."
+}

@@ -1,0 +1,57 @@
+{
+  "id": "pzem-dc-003-017",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-pzem"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "pzem-003-017-manual",
+      "citation": "docs/pzem-003-017-manual.pdf — Peacefair, 'PZEM-003/017 DC communication module' (already committed to this repo before this survey)"
+    },
+    {
+      "source": "crates-drivers-cabin-pzem-src-pzem-017",
+      "citation": "crates/drivers/cabin-pzem/src/pzem_017.rs — existing driver, cites the same PDF"
+    },
+    {
+      "source": "downloads-vodnici-net-uploads-wpforo-attachments-214-6221-peacefair-pzem-003-dc-elektromr",
+      "citation": "https://downloads.vodnici.net/uploads/wpforo/attachments/214/6221-Peacefair-PZEM-003-DC-elektromr.pdf — same manual, second host"
+    }
+  ],
+  "transport": "RS-485 · Modbus RTU · 9600 8N2 · default slave 1 (valid range 0x01–0xF7; 0x00 is broadcast with no reply, 0xF8 is the general address usable only in a single-slave bus)",
+  "blocks": "Input registers 0x0000–0x0007 read with FC 0x04 (measurement) · holding registers 0x0000–0x0003 read with FC 0x03 and written with FC 0x06 (parameters) · FC 0x42 reset energy (4-byte frame, no register) · FC 0x41 factory calibration, address 0xF8 only, password 0x3721 · CRC-16 poly 0xA001",
+  "reports": [
+    "load-voltage",
+    "load-current",
+    "load-power",
+    "battery-voltage",
+    "battery-current",
+    "battery-power"
+  ],
+  "accepts": [
+    "reset-counter"
+  ],
+  "models": [
+    {
+      "name": "PZEM-017 (DC, 50/100/200/300 A external shunt)"
+    },
+    {
+      "name": "PZEM-017 (AliExpress generic listings, multiple resellers)"
+    },
+    {
+      "name": "PZEM-003 (DC, 10 A built-in shunt)"
+    }
+  ],
+  "sharedMapEvidence": "One vendor document covers both, by name: docs/pzem-003-017-manual.pdf is titled 'PZEM-003/017 DC communication module' and its section 2.3 gives a single measurement-register table (0x0000 voltage @0.01 V, 0x0001 current @0.01 A, 0x0002/0x0003 power lo/hi @0.1 W, 0x0004/0x0005 energy lo/hi @1 Wh, 0x0006 high-voltage alarm, 0x0007 low-voltage alarm) with no per-model split. The two models are dist",
+  "gotchas": [
+    "Resolutions are not uniform inside one block: voltage and current are hundredths but power is TENTHS, and energy is already whole watt-hours. Assuming one scale for the block reports a 65 W load as 6.5 W.",
+    "8N2, not 8N1 — the DC meters are the odd ones out in the whole PZEM line. Framing belongs to the port, so a 017 cannot share a USB-485 adapter with a 016 despite both running 9600.",
+    "Holding register 0x0003 (shunt range) defaults to 0x0000 = 100 A. A 50 A shunt left at the default reports half the amps that are flowing, silently and plausibly. Note the encoding is not ascending: 0=100 A, 1=50 A, 2=200 A, 3=300 A.",
+    "Every unit leaves the factory at slave address 1. Several on one bus must be readdressed one at a time via holding 0x0002.",
+    "Manual §5.1: the RS-485 side is a PASSIVE interface needing an external 5 V supply over 100 mA. §5.2/note: below 7 V input the meter must be fed 5 V through its micro-USB port, and the manual warns in bold not to use a PC's USB port for this."
+  ],
+  "unmappedReports": "High-voltage alarm status (0x0006, 0xFFFF = alarm) — no MetricKind for a device-side alarm flag, Low-voltage alarm status (0x0007, 0xFFFF = alarm) — no MetricKind, High/low voltage alarm thresholds (holding 0x0000/0x0001, 0.01 V) — settable over the wire, no CommandKind covers setting a device threshold, Shunt current range select (holding 0x0003) — settable over the wire, no CommandKind covers it; done out-of-band by the `pzem set-shunt` CLI"
+}

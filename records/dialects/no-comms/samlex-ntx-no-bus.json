@@ -1,0 +1,49 @@
+{
+  "id": "samlex-ntx-no-bus",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "samlexamerica-com-wp-content-uploads-2025-02-11002-ntx-1000-1500-2000-3000-3000s-12-24-0524-r1",
+      "citation": "https://samlexamerica.com/wp-content/uploads/2025/02/11002-NTX-1000-1500-2000-3000-3000S-12-24-0524_R1.pdf — jack list, §4.14 Remote Control"
+    },
+    {
+      "source": "samlexamerica-com-wp-content-uploads-2025-02-11002-ntx-400-600-12-24-0825-lrez",
+      "citation": "https://samlexamerica.com/wp-content/uploads/2025/02/11002-NTX-400-600-12-24-0825_Lrez.pdf"
+    }
+  ],
+  "blocks": "The owner's manual lists exactly one modular jack: '8P8C Modular Jack (Also called RJ-45 Jack) for connecting Remote Control Model NTX-RC'. The words Modbus, RS-485 and RS-232 do not appear in the manual. The NTX-RC is a bundled LCD remote on a proprietary link with no published protocol.",
+  "models": [
+    {
+      "name": "NTX-600"
+    },
+    {
+      "name": "NTX-1000"
+    },
+    {
+      "name": "NTX-1500"
+    },
+    {
+      "name": "NTX-2000"
+    },
+    {
+      "name": "NTX-3000"
+    },
+    {
+      "name": "NTX-3000S"
+    },
+    {
+      "name": "NTX-RC"
+    }
+  ],
+  "sharedMapEvidence": "One vendor manual (11002-NTX-1000-1500-2000-3000-3000S-12-24) covers NTX-1000 through NTX-3000S in both 12 V and 24 V, and describes a single NTX-RC jack for all of them. A companion manual covers NTX-400/600. Grouping is by shared absence of a bus, not by a shared map.",
+  "gotchas": [
+    "The retailer claim 'included wired remote' is accurate — §4.14: 'Remote Control Model NTX-RC has been provided with the unit.' That makes NTX look more connected than it is. It is a panel, not a port.",
+    "Interlock worth knowing if anyone ever automates around one: §4.14 warns that when NTX-RC is used, the inverter's own ON/OFF switch must be left OFF, otherwise switching off at the remote does not switch off the inverter.",
+    "Plain inverter, DeviceKind inverter. Monitor it the same way as any passive AC source: a PZEM or a Shelly downstream."
+  ]
+}

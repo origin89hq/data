@@ -1,0 +1,37 @@
+{
+  "id": "samlex-evo-4248sp-unknown",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "samlex-evo-4248sp-manual-fw0-77",
+      "citation": "Samlex Evolution Series Owner's Manual, Model EVO-4248SP, firmware rev 0.77 — committed at /Users/lemarier/dev/solar/docs/samlex-evo-4248sp-manual-fw0.77.pdf"
+    },
+    {
+      "source": "samlexamerica-com-wp-content-uploads-2022-04-11027-evo-4248sp-0722-lrez",
+      "citation": "https://samlexamerica.com/wp-content/uploads/2022/04/11027-EVO-4248SP-0722_Lrez.pdf (source of the committed copy)"
+    },
+    {
+      "source": "manual-fig-2-1-legend-items-9a-9b-comm-1-comm-2-rs-485-modbu",
+      "citation": "Manual Fig 2.1 legend items 9a/9b (COMM 1/COMM 2, RS-485 + MODBUS Serial) and 9c/9d (COM 3/COM 4, CANbus for future use); section 4.7 Auto Generator Start / Stop; front-panel item 14 Status Relay"
+    }
+  ],
+  "transport": "RS-485 on two RJ-45 jacks marked COMM 1 and COMM 2, vendor-documented as \"For RS-485 networking and MODBUS Serial Communication Protocol\". Baud rate, framing, parity and default slave ID are NOT published by Samlex and are recorded here as null. A separate pair of RJ-45 jacks, COM 3 and COM 4, is documented as CANbus \"(for future use)\".",
+  "models": [
+    {
+      "name": "Samlex EVO-4248SP — the inverter/charger half of MNEVO4248SP-CL150"
+    }
+  ],
+  "gotchas": [
+    "THERE IS NO PUBLIC REGISTER MAP. This is the finding. The vendor manual documents the physical Modbus RS-485 ports and then documents nothing else — no addresses, no scales, no baud rate, no slave ID, no function codes. Multiple DIY Solar Power Forum threads report Samlex's position consistently: the protocol stack is ",
+    "A FORUM POST CLAIMS 9600 8N1, AND THIS ENTRY DELIBERATELY DOES NOT RECORD IT AS FACT. One DIY Solar Power Forum contributor states the EVO's Modbus ports run \"serial RS485 running at 9600 8/1 and none for parity\". That is a single uncorroborated community claim, it appears in NO Samlex document, and the transport field",
+    "THE GENERATOR AUTO-START IS A DRY CONTACT, NOT A COMMAND — and this is what the retailer's \"generator auto-start\" claim actually refers to. Manual section 4.7 AUTO GENERATOR START / STOP: the function uses the \"Common\" and Normally Open \"NO\" contacts of the Status Relay (item 14 on the front panel), SPDT, rated 3 A at ",
+    "THAT DRY CONTACT IS THE ONE THING CABIN HUB CAN ACTUALLY OBSERVE TODAY. The Status Relay's Common/NO pair is a potential-free contact. Wired to a GPIO input it yields generator-run-state (or at least generator-demanded state) with no protocol at all — local-io / cabin-gpio territory, not a Modbus driver. It is read-onl",
+    "There is a second potential-free path INTO the unit: the RJ-45 marked \"Battery Temp. Sensor\" doubles as a lithium BMS stop-charging/stop-inverting input (pins 1–4 internally shorted, pins 5–8 internally shorted). That is an input the Hub could drive to force the inverter down — a crude but real emergency stop. Not a Co"
+  ],
+  "unmappedReports": "\"AC source in use\" / transfer-switch position — whether the unit is inverting, passing shore AC through, or passing generator AC through. Displayed on the EVO-RC-PLUS, not readable over any wire. There is no MetricKind for which AC source is feeding the loads, and on a cabin with a generator input that is the single most operationally important fact about the inverter., \"Power Saving\" mode state — the EVO's low-idle mode, distinct from off and from inverting. No MetricKind covers a three-state inverter run mode; switch-state is boolean., \"GS DETECT TIME\" countdown before the generator-start logic fires — a pre-trigger timer with no MetricKind. Note: these three are read off the EVO-RC-PLUS display, NOT off a communications port. Nothing in this list is reachable over a cable today."
+}

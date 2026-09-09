@@ -1,0 +1,59 @@
+{
+  "id": "energizer-solar-force-hs-plus",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "energizersolar-com-s-energizer-solar-hs-plus-installation-manual-2024",
+      "citation": "Energizer Solar HS+ Hybrid Inverter User Manual, 2024 — https://www.energizersolar.com/s/Energizer-Solar_HS-Plus_Installation-Manual_2024.pdf (downloaded to /private/tmp/claude-501/-Users-lemarier-dev-solar/01a009b6-aeb2"
+    },
+    {
+      "source": "energizersolar-com-resources",
+      "citation": "Energizer Solar resources index — https://www.energizersolar.com/resources"
+    }
+  ],
+  "transport": "RS-485. Inverter monitoring bus on the 16-pin Meter/CT/RS485 connector, pin 3 = 485B, pin 4 = 485A (pins 1/2 = Meter485A/Meter485B are the separate meter bus). Meter bus is Modbus RTU; default Modbus slave 1 for Meter1, 2 for Meter2. Baud, parity, and the inverter's own slave ID are NOT stated in the manual. Battery link is a separate RJ45 BMS port: pin1 BMS-AWAKEN, pin2 GND, pin3 BMS-485B, pin4 B",
+  "reports": [
+    "ac-voltage",
+    "ac-current",
+    "ac-power",
+    "ac-frequency",
+    "pv-voltage",
+    "pv-current",
+    "pv-power",
+    "battery-voltage",
+    "battery-current",
+    "battery-power",
+    "state-of-charge"
+  ],
+  "models": [
+    {
+      "name": "Force HS+ 7.0"
+    },
+    {
+      "name": "Force HS+ 8.0"
+    },
+    {
+      "name": "Force HS+ 9.0"
+    },
+    {
+      "name": "Force HS+ 10.0"
+    },
+    {
+      "name": "Force HS+ 10.5"
+    }
+  ],
+  "sharedMapEvidence": "The vendor manual (Energizer Solar HS+ Hybrid Inverter User Manual, 2024, section 1.1 Scope of Validity) names all five models — HS+ 7.0, 8.0, 9.0, 10.0, 10.5 — and gives ONE connector pinout and ONE communication chapter for all of them. That is shared wiring and shared connector definition, not a shared register map: no register map is published for any of these models. Treat the dialect as unkn",
+  "gotchas": [
+    "No Modbus register list exists anywhere on the vendor's document portal. The resources page carries 300+ PDFs (manuals, datasheets, quick-install, warranty, monitoring, advanced-configuration) and not one protocol/register document. Everything below the connector pinout is undocumented.",
+    "The 'Advanced Configuration Guide' and 'Monitoring Manual' PDFs are image-only scans with zero extractable text; they were checked and contain no searchable protocol content.",
+    "Two RS-485 buses share one 16-pin connector — the meter bus (pins 1/2) and the inverter's monitoring bus (pins 3/4). Wiring a logger to the wrong pair silently gets you the CHINT/Eastron meter instead of the inverter.",
+    "Named compatible meters are CHINT DDSU666 and Eastron SDM230-Modbus. Eastron SDM230 is itself a documented Modbus device, so on an Energizer install the meter is reachable and register-documented even though the inverter is not. That is the cheapest path to grid power on these sites.",
+    "Certification list is G99 / AS4777.2 / EN50549-1 / CEI 0-21 / NRS 097-2-1 — no UL 1741 and no CSA. 220/230/240 V, 50/60 Hz. This line is not certified for Canada; a Quebec sighting of it would be surprising."
+  ],
+  "unmappedReports": "EPS (backup) output power and EPS switch-time state — contract has ac-power but no distinct backup-port metric, grid import vs. export power measured by the CT/meter — no MetricKind distinguishes direction of AC energy, export-limit setpoint (W) readback, DRM0 / ESTOP dry-contact state, K1/K2, K3/K4 heat-pump dry-contact state and DI/COM external input, insulation resistance / RCD leakage current (protection reports RCD trip thresholds of 30 mA and 300 mA), parallel-machine address and role (CAN address 1-249, 250 = standalone)"
+}

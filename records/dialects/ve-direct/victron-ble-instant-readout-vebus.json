@@ -1,0 +1,53 @@
+{
+  "id": "victron-ble-instant-readout-vebus",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victron-ble-extra-manufacturer-data-2022-12-14",
+      "citation": "/Users/lemarier/dev/solar/docs/victron-ble-extra-manufacturer-data-2022-12-14.pdf — record type 0x0C field table"
+    },
+    {
+      "source": "github-com-keshavdv-victron-ble",
+      "citation": "https://github.com/keshavdv/victron-ble — victron_ble/devices/vebus.py, independent implementation whose offsets and widths match the vendor table exactly"
+    },
+    {
+      "source": "victronenergy-com-accessories-ve-bus-smart-dongle",
+      "citation": "https://www.victronenergy.com/accessories/ve-bus-smart-dongle — vendor statement that the dongle adds Instant Readout to VE.Bus products, and its product scope"
+    }
+  ],
+  "seeAlso": [
+    "victron-ble-instant-readout"
+  ],
+  "transport": "Same BLE container as record 0x03 — Victron manufacturer data, byte 3 = 0x10, record from byte 8, AES-CTR with the 2-byte header nonce, per-device 16-byte key from VictronConnect. In practice the radio is the VE.Bus Smart dongle plugged into the inverter's VE.Bus RJ45; MultiPlus/Quattro have no integrated Bluetooth.",
+  "blocks": "Record type 0x0C, offsets from the start of the record: bit 32 width 8 device state (NA 0xFF) · bit 40 width 8 VE.Bus error (NA 0xFF, VE_REG_VEBUS_VEBUS_ERROR) · bit 48 width 16 battery current, 0.1 A, -3276.8..3276.6 A, NA 0x7FFF · bit 64 width 14 battery voltage, 0.01 V, 0..163.83 V, NA 0x3FFF · bit 78 width 2 active AC in (0 = AC in 1, 1 = AC in 2, 2 = not connected, 3 = unknown, NA 0x3) · bit 80 width 19 active AC in power, 1 W, -262144..262142 W, NA 0x3FFFF · bit 99 width 19 AC out power, 1 W, same range, NA 0x3FFFF · bit 118 width 2 alarm (0 none, 1 warning, 2 alarm, NA 3, VE_REG_ALARM_NOTIFICATION \"to be defined\") · bit 120 width 7 battery temperature, 1 °C, -40..86 °C, NA 0x7F, value is record value minus 40 · bit 127 width 7 SOC, 1 %, 0..126 %, NA 0x7F · bits 134-159 unused.",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "state-of-charge",
+    "ac-power"
+  ],
+  "models": [
+    {
+      "name": "dialect: unknown at model level, but with better evidence than record 0x03. Victron's VE.Bus Smart dongle product page states the dongle \"adds Instant Readout to the VE.Bus product\" and names its scop"
+    },
+    {
+      "name": "VE.Bus Smart dongle (ASS030537010) — 1 Quebec retailer, checked: 2026-07-31"
+    }
+  ],
+  "sharedMapEvidence": "One vendor field table for record type 0x0C, keyed by device class. Independently corroborated: keshavdv/victron-ble decodes this record with offsets 0, 8, 16, 32, 46, 48, 67, 86, 88, 95 and widths 8, 8, 16, 14, 2, 19, 19, 2, 7, 7 — exactly the vendor's 32, 40, 48, 64, 78, 80, 99, 118, 120, 127 minus the 32-bit header, with identical widths, scales and NA sentinels. Vendor document plus one indepe",
+  "gotchas": [
+    "The offset encoding on battery temperature (bit 120, 7 bits, temperature = record value - 40) and the 7-bit SoC at bit 127 straddling a byte boundary are the two places a byte-oriented parser silently produces wrong numbers rather than an error.",
+    "SoC range is documented as 0..126 % with NA 0x7F. Values above 100 are within the encodable range; the document does not say what they mean.",
+    "Battery voltage is 14 bits, not 16 — range 0..163.83 V with NA 0x3FFF. Reading it as a 16-bit field pulls in the two low bits of the active-AC-in field.",
+    "This record needs the VE.Bus Smart dongle on the VE.Bus port. A MultiPlus or Quattro has no integrated Bluetooth. The dongle occupies an RJ45 and also \"work[s] as a Voltage- and Temperature-sense device for the inverter/charger\" — so removing it later changes charging behaviour, not just telemetry.",
+    "Everything in the record 0x03 gotchas about the AES key, instant readout being off by default, the PIN-change key invalidation, and not bounds-checking the record length applies identically here."
+  ],
+  "unmappedReports": "Bit 40 VE.Bus error, 8 bits — the same 17-value enumeration the GX register list spells out. One byte carrying the entire diagnosis, and `ChargeStage::Fault` keeps none of it., Bit 32 device state — the 14-value VE.Bus state (Off, Low Power, Fault, Bulk, Absorption, Float, Storage, Equalize, Passthru, Inverting, Power assist, Power supply, Sustain, External control). Nine of the fourteen have no wire name., Bit 78 active AC in — shore versus generator versus disconnected. No metric, and on a Quattro this is the single most load-bearing fact about the system's state., Bit 80 active AC IN power alongside bit 99 AC OUT power. MetricKind has one `ac-power`. Mapping the output and dropping the input loses the whole energy balance; there is no way to say both., Bit 118 alarm, 2 bits — and the vendor marks its register \"VE_REG_ALARM_NOTIFICATION (to be defined)\". Even the vendor has not finished this field., Battery temperature is offset-encoded (value minus 40) with a 7-bit field, so a naive read reports 40 °C too high across the board.",
+  "possibleDuplicate": true
+}

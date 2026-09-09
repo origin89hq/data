@@ -1,0 +1,59 @@
+{
+  "id": "victron-lynx-bms-n2k",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victron-lynx-smart-bms-manual-rev17",
+      "citation": "docs/victron-lynx-smart-bms-manual-rev17.pdf (newly downloaded) — Lynx Smart BMS manual rev 17, 01/2026, §3 Communication and interfacing, §11.2 Supported NMEA 2000 PGNs, §11.3 List of battery monitor settings"
+    },
+    {
+      "source": "vi",
+      "citation": "docs/victron-lynx-smart-bms-ng-manual-rev14.pdf (newly downloaded) — Lynx Smart BMS NG manual rev 14, 07/2026, §9.2 Supported NMEA 2000 PGNs, and the BMS/History/Battery parameter availability tables, from https://www.vi"
+    },
+    {
+      "source": "victron-bms-overview-datasheet",
+      "citation": "docs/victron-bms-overview-datasheet.pdf (newly downloaded) — Victron 'Battery Management System (BMS) Overview' comparison table: Lynx Smart BMS row reads 'VE.Can communication with a GX device / NMEA 2000'"
+    }
+  ],
+  "transport": "VE.Can, RJ45 · CAN bus carrying NMEA 2000 · GX CAN-bus profile must be set to 'VE.Can & Lynx Ion BMS (250kbit/s)' (Settings → Services → VE.Can port) · daisy chain, RJ45 bus terminator required at the first and last device · N2K device class: Electrical generation, device function: Battery · NMEA 2000 reached via a VE.Can-to-NMEA2000 micro-C cable · no slave id; multiple units are separated by VE.",
+  "blocks": "Supported NMEA 2000 PGNs, identical in both manuals: 126996 Product Information · 127506 DC Detailed Status · 127508 DC/Battery Status · 127501 Switch Bank Status, with Status 1 = Contactor, Status 2 = Alarm, Status 3 = Battery voltage low, Status 4 = Battery voltage high, Status 5 = Programmable relay status",
+  "reports": [
+    "state-of-charge",
+    "battery-voltage",
+    "battery-current",
+    "battery-power",
+    "battery-temperature",
+    "time-to-go",
+    "consumed-amp-hours",
+    "cycle-count",
+    "switch-state"
+  ],
+  "models": [
+    {
+      "name": "Lynx Smart BMS 500 (LYN034160210 M10)"
+    },
+    {
+      "name": "Lynx Smart BMS 1000 (LYN034170210 M10)"
+    },
+    {
+      "name": "Lynx Smart BMS 500 NG (LYN034160310 M10)"
+    },
+    {
+      "name": "Lynx Smart BMS 1000 NG (LYN034170310 M10)"
+    }
+  ],
+  "sharedMapEvidence": "TWO separate vendor manuals print an identical map. Lynx Smart BMS manual rev 17 (01/2026) §11.2 and Lynx Smart BMS NG manual rev 14 (07/2026) §9.2 both carry a table headed 'Supported NMEA 2000 PGNs' listing the same four PGNs — 126996, 127506, 127508, 127501 — in the same order, with the same five Switch Bank Status assignments spelled identically (Contactor / Alarm / Battery voltage low / Batte",
+  "gotchas": [
+    "THE PGN FIELD LAYOUTS ARE NOT IN ANY VICTRON DOCUMENT. Both manuals name the four PGNs and stop. Field offsets, widths, scales and resolutions for 126996 / 127506 / 127508 / 127501 live in the NMEA 2000 standard, which is a paid document. The reports list above is drawn from the manuals' own parameter-availability tabl",
+    "'VE.Can & Lynx Ion BMS (250kbit/s)' is a bus-profile name, not evidence of a register map. The committed docs/victron-ve-can-registers-v20.pdf (VREGS v20, 2015) defines BMS registers 0x0370 BMS Flags, 0x0371 BMS State, 0x0372 BMS Error flags — and marks each 'NOTE: This message is only implemented in the Lynx Ion'. The",
+    "VE.Can and BMS-Can cannot be combined on the same bus, and the Lynx Smart BMS must go on the GX's VE.Can port, NOT its BMS-Can port. The manual calls this out as a specific failure mode. Two separate buses need a GX with two, each with two terminators.",
+    "Do not hand-make the RJ45 cables. Manual rev 17: 'always use \"manufactured\" RJ45 UTP cables. Do not manufacture these cables yourself.'",
+    "Multiple Lynx BMSes on one VE.Can network with the SAME instance are treated by the GX as one parallel-redundant virtual battery and collapsed into a single device. If you want them separate you must assign unique VE.Can instances by hand. A driver counting devices will miscount otherwise."
+  ],
+  "unmappedReports": "Allowed to charge / Allowed to discharge (ATC / ATD) — the two booleans that gate everything a rules engine might do, and there is no wire name for either., Mode and State (BMS operational state) — no MetricKind., Relay status (programmable relay) — no second-output slot., Contactor state (PGN 127501 Status 1) — this is 'is the bank physically connected'. switch-state is the closest wire name but is semantically the load output elsewhere in this catalogue., Balancer status, individual cell voltages, min/max cell voltage, min/max cell temperature — no MetricKind., Number of batteries, number of cells, number in series, number in parallel — bank topology, no MetricKind., Deepest discharge, cumulative Ah drawn, discharged energy, charged energy, synchronisations, number of full discharges, min/max battery voltage, last error — history records, not instantaneous metrics., Lynx Distributor fuse status (up to 4 modules) — no MetricKind for 'a fuse blew'."
+}

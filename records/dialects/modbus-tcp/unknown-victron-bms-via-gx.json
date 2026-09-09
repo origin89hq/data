@@ -1,0 +1,51 @@
+{
+  "id": "unknown-victron-bms-via-gx",
+  "family": "modbus-tcp",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victronenergy-com-upload-documents-ve-bus-bms-v2-111619-ve-bus-bms-v2-ma",
+      "citation": "docs/victron-vebus-bms-v2-manual-rev07.pdf (newly downloaded) — rev 07, 06/2025, §3.5 GX device, §3.2.1 Minimal VE.Bus firmware, from https://www.victronenergy.com/upload/documents/VE.Bus_BMS_V2/111619-VE_Bus_BMS_V2_-_Ma"
+    },
+    {
+      "source": "victron-vebus-bms-ng-manual-rev05",
+      "citation": "docs/victron-vebus-bms-ng-manual-rev05.pdf (newly downloaded) — rev 05, 06/2026, §3.5 GX device, §8.2 Displaying VE.Bus BMS NG SoC on a GX Device"
+    },
+    {
+      "source": "victron-bms-overview-datasheet",
+      "citation": "docs/victron-bms-overview-datasheet.pdf (newly downloaded) — Data communication and 'Control via GX device (DVCC)' rows"
+    }
+  ],
+  "transport": "None of its own. VE.Bus BMS V2 and VE.Bus BMS NG reach a GX device by RJ45 from the GX's VE.Bus port to the BMS 'Remote panel' port (Venus OS ≥ 2.80 for V2), then require a 'VE.Bus re-detect system' action. Lynx Smart BMS reaches a GX over VE.Can. The hub then reads the GX, not the BMS — see the already-catalogued victron-gx-modbus-tcp and victron-gx-mqtt dialects in docs/catalog/lan-http.md. Not ",
+  "accepts": [
+    "set-switch"
+  ],
+  "models": [
+    {
+      "name": "VE.Bus BMS V2 (BMS300200200)"
+    },
+    {
+      "name": "VE.Bus BMS NG (BMS300200300)"
+    },
+    {
+      "name": "Lynx Smart BMS 500 / 1000 (LYN034160200 / LYN034160210 / LYN034170210)"
+    },
+    {
+      "name": "Lynx Smart BMS 500 NG / 1000 NG (LYN034160310 / LYN034170310)"
+    }
+  ],
+  "sharedMapEvidence": "NONE, and none is claimed. These four part numbers are grouped only by the fact that their sole wired telemetry route is a GX device. The GX Modbus-TCP register list and the GX MQTT topic tree are keyed by D-Bus service name (com.victronenergy.battery, com.victronenergy.vebus) and device instance — NOT by model. No vendor document found states which D-Bus service, unit-id or device-instance any of",
+  "gotchas": [
+    "VE.Bus BMS V1 (BMS300200000) is NOT in this list and must not be added to it. The vendor BMS overview datasheet's Data communication row reads, for VE.Bus BMS: 'VE.Bus communication only direct with inverter/charger(s), not with a GX device.' It is also marked 'End-of-life, use a VE.Bus BMS V2 instead'. It has no route",
+    "VE.Bus BMS V2's own manual is explicit that it does NOT pass battery data through itself the way the V1 did: its GX role is 'On/off/charger-only control of VE.Bus products via a GX device' and 'GX DVCC control of solar chargers'. Whether battery voltage, cell state or alarms appear as readable values on the GX is not s",
+    "VE.Bus BMS V2 requires inverter/charger VE.Bus firmware ≥ xxxx415 or the system throws VE.Bus error 15 and the BMS cannot be used at all. Devices below that and not updatable must use the V1 instead.",
+    "The VE.Bus BMS V2 and NG cannot run without a VE.Bus inverter/charger: 'the BMS cannot be used without a VE.Bus Inverter/charger or a VE.Bus inverter' — it takes its negative from the VE.Bus. That is a hard system prerequisite before any of this telemetry exists.",
+    "docs/victron-mk2-protocol-3.14.pdf is committed and is the VE.Bus protocol document — but it describes MultiPlus/Quattro inverter/chargers. Its only mention of a BMS is 'Battery Operational Limits (BOL) should only be used to implement BMS functionality.' It does NOT define a VE.Bus BMS device map. Do not mine it for o"
+  ],
+  "unmappedReports": "Not established — depends entirely on the D-Bus service each model registers as, which no source states.",
+  "refiledFrom": "lan-http"
+}

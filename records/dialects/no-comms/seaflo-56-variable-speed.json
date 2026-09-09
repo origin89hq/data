@@ -1,0 +1,46 @@
+{
+  "id": "seaflo-56-variable-speed",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "manuals-plus-asin-b0bxrjjxnd",
+      "citation": "SEAFLO 12V 56A Series 5.0 GPM Variable Speed Smart On Demand Marine/RV 5-Chamber Diaphragm Pump User Manual, model SFDP1-050-070-56A, 8 sections, read in full — https://manuals.plus/asin/B0BXRJJXND.pdf (local copy: /User"
+    },
+    {
+      "source": "manualslib-com-manual-3212927-seaflo-56a-series",
+      "citation": "SEAFLO 56A Series Instruction Manual, 'Variable Speed Smart Pump', also for 56C Series — https://www.manualslib.com/manual/3212927/Seaflo-56a-Series.html"
+    },
+    {
+      "source": "pdf-nauticexpo-com-pdf-seaflo-boat-pump-56a-series-56c-series-37870-131802",
+      "citation": "SEAFLO 56A/56C Series catalogue page — https://pdf.nauticexpo.com/pdf/seaflo/boat-pump-56a-series-56c-series/37870-131802.html"
+    }
+  ],
+  "transport": "Two power leads only — 'Observe correct polarity: Red wire to positive (+), Black wire to negative (-)' (56A manual, section 4.3 Electrical Wiring). 12 V draw 10.0 A max, 24 V draw 5.5 A max. There is a microcontroller on a PCB inside the motor cover, but it has no exposed pins, no connector and no documented interface of any kind.",
+  "blocks": "The pump has real electronics and still exposes nothing. The whole eight-section vendor manual — overview, specifications, components, installation, operating instructions, maintenance, troubleshooting, warranty — contains no data terminal, no signal input, no display and no communication section.",
+  "models": [
+    {
+      "name": "56 Series 12V 5.0GPM variable speed diaphragm pump 70PSI (SFDP1-050-070-56A)"
+    },
+    {
+      "name": "56 Series 24V 5.0GPM variable speed diaphragm pump 70PSI (SFDP2-050-070-56A)"
+    },
+    {
+      "name": "56 Series 12V/24V 3.5GPM variable speed diaphragm pump 70PSI (model number not confirmed)"
+    }
+  ],
+  "refutedOnReview": "Refuted as a three-model group; the two-model core survives intact.  VERIFIED (do not discard): The cited local PDF at /Users/lemarier/.claude/projects/-Users-lemarier-dev-solar/01a009b6-aeb2-4d8b-8a84-65ee02fe099b/tool-results/webfetch-1785519728882-rf1tm2.pdf exists and its page-6 image is a genuine SEAFLO dimension drawing with the exact model table the evidence describes: SFDP1-050-070-56A / 12V / Variable Speed ",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "This is the one SEAFLO pump in the sweep with a real control board, and it is exactly as mute as the dumb ones. Do not let 'Variable Speed Smart Pump' on the label imply a port — the marketing photo in the manual shows a bare PCB precisely to sell the idea of intelligence. There is no header on it that anybody has docu",
+    "The 'smart' claim is closed-loop against water demand, entirely internal: 'The pump's variable speed technology automatically adjusts the motor's speed based on water demand... There is no need for manual adjustment.' Nothing about that loop is observable or settable from outside.",
+    "A DC current shunt on the supply reads MORE here than on the fixed-speed group — draw tracks demand rather than sitting at one value while the switch is closed — but it is still an inference, not a reading. Never publish a derived number as if it came off a pump.",
+    "The manual credits the pump with low-voltage protection but gives no threshold. Do NOT interpolate one. A rule that cuts power on low battery has no documented pump-side number to coordinate with.",
+    "Relay-cycling the supply is worse here than on the fixed-speed group. There is a soft-start controller and its own low-voltage cutoff between the terminals and the motor; a rule that chatters a relay is fighting two control loops. If cycling is needed, put a long minimum-off in the rule."
+  ],
+  "unmappedReports": "motor speed / RPM — the controller varies it continuously and reports it nowhere. Recorded because Cabin Hub has no matching wire name and no RPM unit at all in Unit (volt, ampere, watt, hertz, celsius, percent, ratio, second, hour, litre, litre-per-minute, millisecond, bit-per-second, hectopascal, watt-per-square-metre, count, none)., water-system pressure in PSI / bar — not reported; MetricKind::Pressure is Unit::Hectopascal, barometric-shaped, so there is no wire name for it., low-voltage cutoff state — the manual credits the controller with 'low voltage protection'. It is not reported and there is no MetricKind or fault channel for it."
+}

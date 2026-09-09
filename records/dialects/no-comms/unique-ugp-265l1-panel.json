@@ -1,0 +1,38 @@
+{
+  "id": "unique-ugp-265l1-panel",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "uniqueappliances-com-cdn-shop-files-ugp-265l1-solar-chest-freezer-manual-eng",
+      "citation": "https://uniqueappliances.com/cdn/shop/files/UGP-265L1_Solar_Chest_Freezer_Manual_Eng.pdf"
+    },
+    {
+      "source": "uniqueappliances-com-cdn-shop-files-spec-sheet-unique-265-litre-white-12-24-dc-chest-freezer-jul",
+      "citation": "https://uniqueappliances.com/cdn/shop/files/Spec_Sheet-Unique_265_Litre_White_12_24_DC_Chest_freezer_July2024.pdf"
+    },
+    {
+      "source": "uniqueappliances-com-products-unique-265-litre-white-12-24-dc-chest-freezer",
+      "citation": "https://uniqueappliances.com/products/unique-265-litre-white-12-24-dc-chest-freezer (checked: 2026-07-31)"
+    }
+  ],
+  "blocks": "Same shape as the 325L and, importantly, a DIFFERENT panel — which is why it is not grouped with it. UGP-265L1_Solar_Chest_Freezer_Manual_Eng.pdf shows an electrical diagram of three parts only: DC 12V/24V in, a CONTROLLER, and a DIGITAL THERMOSTAT, plus a fan, wired red/green/blue. The panel is on the outside of the cabinet and has Set / up / down / power buttons, a temperature & error code display, a voltage & power display, Max (quick-freeze) and Eco modes, and a three-position under-voltage-protection selector. No port, connector, or protocol appears anywhere; the comms grep returns zero across the document.",
+  "models": [
+    {
+      "name": "UGP-265L1 DC W (9.3 cu ft, 265 L DC chest freezer)"
+    }
+  ],
+  "refutedOnReview": "REFUTED — fully, not partially. All three cited sources exist and were fetched and text-extracted on 2026-07-31, so this is not a dead-link failure. The problem is that the sources say the opposite of the claim.  The owner's manual (UGP-265L1_Solar_Chest_Freezer_Manual_Eng.pdf) is genuine and DOES name the model — \"TECHNICAL SPECIFICATIONS / MODEL UGP-265L1\". I extracted all 33,783 chars via pdftotext and grepped for",
+  "gotchas": [
+    "Do NOT fold this into unique-ugp-325l-panel just because both have digital panels. The two firmwares are visibly different in the vendor's own documents: the 265L1 exposes Max/Eco modes and a user-selectable UVP threshold and has no error-code table at all in its manual, while the 325L exposes per-compartment C/F setpo",
+    "The UVP selector is a user-settable low-voltage cutoff — High 26 V, Medium 25 V, Low 23 V — and the manual explicitly recommends 'Low'. This sits on top of the compressor's own LVD (cut-out 10.4 V / 22.8 V, restart 11.7 V / 23.4 V — note 23.4 V here, not the 24.2 V the fridges use). Two protection layers, the outer one",
+    "The manual warns that Max (quick-freezing) mode 'is not recommended for solar and battery use'. That is a vendor statement about a setting no remote system can observe or change, so a load model for this unit carries an unresolvable unknown.",
+    "The retailer listing that produced this entry, '9 cu ft solar powered DC fridge / 9.3 cu ft DC chest freezer', merges TWO different products into one line. The 9 cu ft fridge is UGP-260L1 (mechanical thermostat, unique-ugp-dc-thermostat above); the 9.3 cu ft chest freezer is UGP-265L1 (digital panel, this dialect). The",
+    "One further sloppiness on the vendor's own store, worth knowing before trusting an auto-scraped spec: the UGP-260L1 refrigerator product page links UGP_175_UF_SPECSHEET2023.pdf — the 175 L upright freezer's spec sheet — as its spec document. Its manual link (UGP-260L1_Solar_Fridge_Manual_Eng_V4.pdf) is correct. Spec sh"
+  ],
+  "unmappedReports": "Fault / error code — the panel has a 'Temperature & Error Code Display' but this manual publishes no code table, so even the meanings are undocumented. MetricKind still has no fault-code member regardless., Appliance operating mode (Max quick-freeze / Eco power-saving / normal). Nothing in MetricKind expresses a duty-cycle or performance mode, and nothing in CommandKind sets one., User-selected under-voltage cutoff threshold (26 / 25 / 23 V). MetricKind has no cutoff/threshold concept, and CommandKind's nearest neighbour `set-charge-current-limit` is about charging, not load shedding — there is no `set-low-voltage-cutoff`., Freezer temperature setpoint (Set + up/down). No setpoint MetricKind, no set-temperature CommandKind., Instantaneous power draw and supply voltage — the panel has a 'Voltage & Power Display'. These two would in principle map to `load-voltage` and `load-power`, which is the one case here where the contract already has the right wire names; they are listed only because the appliance genuinely computes them and still cannot hand them over., NOTE: as with the 325L, everything above is local-display-only. Listing it records what the hardware knows and the contract cannot name — it is not a claim that any of it is obtainable."
+}

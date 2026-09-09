@@ -1,0 +1,40 @@
+{
+  "id": "fronius-irradiance-probe",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "fronius-datcom-detail-42-0410-0968",
+      "citation": "docs/fronius-datcom-detail-42-0410-0968.pdf - chapter 'Fronius Sensor Card / Box', section 'Analog input for voltage signal'; and the Technical Data 'Irradiance channel' block (0...100 mV, 0...200 mV, 0...1 V, accuracy 3"
+    },
+    {
+      "source": "fronius-sensor-box-card-quick-guide-2019",
+      "citation": "docs/fronius-sensor-box-card-quick-guide-2019.pdf - section 7 'ANALOG INPUT FOR VOLTAGE SIGNAL' and section 8, which states the calibration factor is on the sensor's own label and shows Insolation = W/m2 with range 0-100"
+    },
+    {
+      "source": "fronius-com-en-ca-canada-solar-energy-installers-partners-technical-data-all-products-system-mon",
+      "citation": "https://www.fronius.com/en-ca/canada/solar-energy/installers-partners/technical-data/all-products/system-monitoring/hardware/fronius-sensor-box - Fronius Canada technical data, 'Measuring range: 0 - 100 mV / 0 - 200 mV /"
+    }
+  ],
+  "transport": "Active analogue millivolt output, no protocol. Wired into Sensor Card/Box analog input (8), the voltage-signal input. Three ranges selected in Fronius Solar.Service: 0-100 mV, 0-200 mV, 0-1000 mV. Channel accuracy 3% of reading. Reachable only through the Sensor Box/Card and thence the Datamanager Solar API.",
+  "reports": [
+    "pv-irradiance"
+  ],
+  "models": [
+    {
+      "name": "Fronius Irradiance Sensor"
+    }
+  ],
+  "gotchas": [
+    "THE CALIBRATION FACTOR IS PER-UNIT AND PRINTED ON THE SENSOR. Quick Guide, verbatim: 'It is necessary to enter the calibration factor. The calibration factor for the Fronius Insolation Sensor is at the label on the insolation sensor.' There is no fleet-wide constant. A driver cannot compute W/m2 from anything it knows;",
+    "DO NOT USE 70 mV = 1000 W/m2. DATCOM Detail contains that figure, but as an illustration - 'The conversion factor depends on the irradiance sensor and is specified in the sensor datasheet (e.g., 70 mV corresponds to 1000 W/ m2)'. It is an example value, not the Fronius sensor's sensitivity. Hardcoding it would be exact",
+    "Channel accuracy is 3% of reading, before whatever the probe's own uncertainty is. The probe's own accuracy, spectral response, temperature coefficient and tilt/soiling behaviour are NOT recorded - no per-product datasheet was found. MISSING EVIDENCE: a Fronius datasheet for the irradiance sensor product.",
+    "The measuring range (0-100 / 0-200 / 0-1000 mV) is a Solar.Service setting, not autoranging. Wrong range selected means clipping or a tenth of the resolution, with no error reported.",
+    "Sensor cable must not exceed 30 m 'so that measurement results are not distorted' (vendor)."
+  ],
+  "unmappedReports": "Cumulative irradiation energy (Wh/m2, kWh/m2). Not produced by this probe on its own channel - channel 2 is instantaneous W/m2 - but it is in the Solar.Service unit list and appears in the vendor's own NowSensorData example, so a site may well be logging insolation energy. No MetricKind and no Unit for energy per area."
+}

@@ -1,0 +1,29 @@
+{
+  "id": "eg4-48v-100ah-indoor-wallmount-unidentified",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "quebec-retailer-listing-one-seller-checked-2026-07-31",
+      "citation": "Quebec retailer listing, one seller, `checked: 2026-07-31`"
+    },
+    {
+      "source": "github-com-joyfulhouse-pylxpweb",
+      "citation": "https://github.com/joyfulhouse/pylxpweb — docs/BATTERY_RS485_PROTOCOLS.md, firmware model strings at offset 0x1FA60"
+    }
+  ],
+  "models": [
+    {
+      "name": "'48V 100Ah indoor wall mount battery' as listed by one Quebec retailer — SKU not resolved"
+    }
+  ],
+  "gotchas": [
+    "MODEL IDENTITY UNRESOLVED, so dialect is unknown by definition. EG4's WallMount line is 280 Ah and 314 Ah; the firmware model strings recovered from the EG4-LL BMS are 'WM-48\\|280-LL-00' and 'SR-24\\|200-LL-00' — no 48 V 100 Ah WallMount part appears anywhere in EG4's own documentation set.",
+    "Most likely this retail listing is an LL-S 48V 100Ah or a LifePower4 48V 100Ah sold with a wall bracket, but that is a guess and is recorded as one. Resolve it by reading the label on the unit or asking the retailer for the EG4 part number, then assign the dialect from the resolved model — not from the listing text.",
+    "Do not create a driver row for this until the SKU is known. `checked: 2026-07-31`."
+  ]
+}

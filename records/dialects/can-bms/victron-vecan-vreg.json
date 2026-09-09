@@ -1,0 +1,34 @@
+{
+  "id": "victron-vecan-vreg",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victron-ve-can-registers-v20",
+      "citation": "docs/victron-ve-can-registers-v20.pdf — 'Victron Registers in NMEA 2000, version 20' (committed). Sections 1.1-1.3 for framing and the manufacturer code, 1.11 charger settings, 1.12 DC input settings, 1.13 DC output sett"
+    },
+    {
+      "source": "victron-mppt-ve-direct-hex-protocol-rev18",
+      "citation": "docs/victron-mppt-ve-direct-hex-protocol-rev18.pdf — read side by side to establish the shared VREG id space and to expose the 0xEDBD contradiction."
+    },
+    {
+      "source": "catalog-ve-direct",
+      "citation": "docs/catalog/ve-direct.md — notes VE.Can as 'a different family and a different document' with no file written; this entry is that gap filled."
+    }
+  ],
+  "transport": "NMEA 2000 / CAN. Victron proprietary messages: PGN 0xEF00 addressable single frame (actual value 0xEFnn on the bus, the PDU-specific byte being the destination address), 0xFF00-0xFFFF broadcast single frame, 0x1EF00 addressable transport (fast packet), 0x1FF00-0x1FFFF broadcast transport. VREGs specifically use 0xEFnn (dest-specific SF), 0xEFFF (broadcast SF), 0x1EFnn and 0x1EFFF (fast packet). Fi",
+  "blocks": "The SAME VREG id space as victron-mppt-vedirect-hex. Verified identical ids, types and scales by reading both PDFs side by side: charger settings 0xEDDF max current (0.1 A un16), 0xEDDE number of physical outputs, 0xEDDD system yield, 0xEDDC user yield, 0xEDDB internal temperature, 0xEDDA error code, 0xEDD9 relay mode, 0xEDD8 relay state (deprecated), 0xEDD7 charger current (0.1 A un16), 0xEDD6 charger power, 0xEDD5 charger voltage, 0xEDD4 additional state, 0xEDD3 yield today, 0xEDD2 max power today, 0xEDD1 yield yesterday, 0xEDD0 max power yesterday · DC input 0xEDBF, 0xEDBD, 0xEDBC (un32 @ 0.01 W), 0xEDBB (un16 @ 0.01 V), 0xEDBA, 0xEDB9 · DC output / load 0xEDAF, 0xEDAE, 0xEDAD, 0xEDAC, 0xEDAB, 0xEDAA, 0xEDA9, 0xEDA8 · product info 0x0100 product id, device state 0x0201, device mode.",
+  "sharedMapEvidence": "NOT ESTABLISHED FOR ANY MODEL, deliberately. Victron Registers in NMEA 2000 v20 NAMES ZERO SOLAR-CHARGER MODELS — grepping the full extracted text for SmartSolar, BlueSolar, MPPT, or any 75/15-style rating returns nothing; the only product-shaped hits are the generic phrase 'a Solar charger does not have the...' and 'Product Id' as a register name. It is a transport-and-register spec for the whole",
+  "gotchas": [
+    "THE VENDOR DOCUMENT CONTRADICTS ITSELF ON 0xEDBD. v20 section 1.12 prints 0xEDBD TWICE, consecutively: once as 'Input current limit, read write, un16, current in 0.1A' and immediately again as 'Input current, read only, un16, actual current, current in 0.1A'. Rev 18 of the MPPT HEX document has 0xEDBD as 'Panel current",
+    "THIS DOCUMENT NAMES NO MODELS. That is why `models` is empty. Do not populate it by pattern-matching 'VE.Can' in a retailer's product name — that is exactly the 'same product family name' inference the catalogue rule forbids.",
+    "The bit rate is NOT stated in this document. NMEA 2000 is 250 kbit/s by standard, but no committed Victron source in docs/ says so, so it is left null rather than interpolated.",
+    "There is no slave ID. NMEA 2000 uses dynamic node addresses, so a driver cannot be configured with 'address 1' the way the Modbus drivers in crates/drivers/cabin-epever are.",
+    "Fast packets may legitimately be DROPPED. The vendor: NMEA 2000 defines two fast packets as a minimum requirement with no control over the actual number on the bus, so single CAN messages are preferred and consumers must handle a dropped-then-refetched fast packet without storming the bus."
+  ],
+  "unmappedReports": "0xEDDA charger error code, full enumeration including errors 17-27 (charger temperature too high, over-current, current reversed, current sensor issue, temperature sensor miswired, temperature sensor disconnected, fan missing, fan over-current, terminal overheated, short circuit) — no MetricKind carries the number., 0xEDD4 charger additional state information, including the low-power-mode flag added in v19 — no MetricKind., 0xEDD9 charger relay mode, including value 9 'dark/light feedback (solar only)' — no MetricKind., 0xEDDE charger number of physical outputs — capability, not a metric, and there is no capability slot., 0x0201 device state values and the VE.Bus 'another panel controls the system' condition — no `ChargeStage` variant and no way to say 'something else is in control'."
+}

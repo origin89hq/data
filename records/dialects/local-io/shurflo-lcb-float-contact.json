@@ -1,0 +1,40 @@
+{
+  "id": "shurflo-lcb-float-contact",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "pentair-com-content-dam-extranet-web-nam-shurflo-manuals-911-193-lcb-go-902-100-iom",
+      "citation": "SHURflo doc 911-193 Rev. C 1/98, 'Installation Manual for the SHURflo 902-100 LCB-GO Pump Controller' — https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-193-lcb-go-902-100-iom.pdf (staged: /privat"
+    },
+    {
+      "source": "pentair-com-content-dam-extranet-web-nam-shurflo-manuals-911-193-lcb-g",
+      "citation": "SHURflo doc 911-193 Rev. C 1/98 (wiring diagram dated August 1999), 'Installation Manual for the SHURflo 902-200 LCB-G Pump Controller' — https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-193-lcb-g"
+    }
+  ],
+  "transport": "Screw terminals only. 902-100: FLOAT SWITCH, FLOAT SWITCH, -PUMP, -PV, +PUMP, +PV. 902-200 adds HI / LOW / GRD conductive water-level electrode terminals, a 4-position DIP for system voltage (25 V solar direct / 22 V battery / 12.5 V solar direct / 11 V battery), and an internal manual ON/OFF switch. Neither has a data port. The only line a gateway can own is the two-terminal FLOAT SWITCH contact.",
+  "accepts": [
+    "set-switch"
+  ],
+  "models": [
+    {
+      "name": "902-100 (LCB-GO)"
+    },
+    {
+      "name": "902-200 (LCB-G)"
+    }
+  ],
+  "sharedMapEvidence": "Both vendor IOMs carry the same publication number, '911-193 Rev. C 1/98', and state the float-switch contact in verbatim-identical wording: 'Float switch (remote) ON/OFF Circuit is used to turn the pump on and off from a remote location, e.g. a float switch in a reservoir. (Short the two terminals to turn the pump off.)' Both wiring-diagram pages repeat it as '\"Bridged\", stops the pump'. One publ",
+  "gotchas": [
+    "`accepts: set-switch` is a claim about the terminal, not about a driver. The LCB accepts nothing digitally. A gateway would have to supply its own relay or opto-isolated contact across the FLOAT SWITCH pair via cabin-gpio; SHURflo supplies the terminals and nothing else. Whether a given relay can sit there is a bench q",
+    "The logic is inverted from every other switch in the contract. BRIDGED = pump OFF, OPEN = pump RUNS. A relay that fails open, loses power, or is de-energised at boot leaves the pump free to run. Anything Cabin Hub drives here must be normally-closed on the LCB side if the desired failure mode is 'pump stops', and the G",
+    "902-200 only: 'The resistant on the wire should not exceed 250 ohms' for the float-switch loop. A long run of thin pair to a gateway in another building can miss that on its own, before any relay contact resistance is added.",
+    "902-200 only: 'If the HI/LOW/GRD terminals are not used with level sensors they must be bridged.' An installer who leaves them open gets a controller that looks broken. This is the single most common way one of these is mis-commissioned.",
+    "The 902-200 electrodes are conductive probes in the well, not a switch — 'The distance between the HIGH and GROUND sensor should not exceed 60cm (2 feet). It depends on the water conductivity.' Sensor wires must not exceed 300 ft (100 m) total. Water conductivity varies with the season, so this is not a set-and-forget "
+  ],
+  "unmappedReports": "Pump run state — the 902-200's red LED is the device's only status output and it means 'pump is being held off'. Neither `pump-run-state` nor any inverse exists, and the LED is not brought out to a terminal, so it cannot be read without soldering to the board., Low-water / dry-run protection active. 902-200 feature 7 is a 'Low water cut off circuit with adjustable set points' driving the same red LED. No MetricKind covers a protection-engaged state for anything but a battery., Reservoir full. The float-switch contact carries this in installations where a real float is fitted. `tank-level` is Unit::Percent; a bare full/not-full contact has no boolean wire name of its own — `switch-state` is the only Boolean and it means a switch, not a level."
+}

@@ -1,0 +1,38 @@
+{
+  "id": "volthium-rack-5u-ess",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "volthium-com-wp-content-uploads-2024-10-user-manual-rackmount-51-2v-en",
+      "citation": "Volthium user manual, Rackmount 51.2V ESS — https://volthium.com/wp-content/uploads/2024/10/User-manual_Rackmount-51.2V_EN.pdf. Local copy: /private/tmp/claude-501/-Users-lemarier-dev-solar/01a009b6-aeb2-4d8b-8a84-65ee02"
+    },
+    {
+      "source": "volthium-com-en-produit-51-2v-100ah-rackmount-battery-5-12kwh-ess",
+      "citation": "Volthium product page, 51.2V 100Ah Rackmount 5.12kWh ESS — https://volthium.com/en/produit/51-2v-100ah-rackmount-battery-5-12kwh-ess/ (states 5U form factor; checked: 2026-07-31)"
+    }
+  ],
+  "transport": "RS-485 over RJ45, pin 7 = RS485-A (white-brown), pin 8 = RS485-B (brown) · baud not stated by Volthium; the Schneider integration sets the *Schneider* Modbus port to 19200 · address 1-15 via four DIP switches, numbering rules differ per inverter protocol · CAN 500 kbit/s BMS-CAN to Victron · RS-485 and CAN run simultaneously and independently",
+  "models": [
+    {
+      "name": "51.2V 100Ah Rackmount 5.12 kWh ESS (5U form factor)"
+    },
+    {
+      "name": "10 kW ESS variant (named in the same manual by its pushed current limits)"
+    }
+  ],
+  "refutedOnReview": "Sources check out; the grouping does not.  VERIFIED TRUE: Both sources exist and say what is quoted. The local PDF (/private/tmp/claude-501/-Users-lemarier-dev-solar/01a009b6-aeb2-4d8b-8a84-65ee02fe099b/scratchpad/rack512_ess.pdf, text at vt_rack512_ess.txt) is \"USER MANUAL / RACKMOUNT BATTERIES 51.2V\" and states verbatim that \"The 5 KW batteries will push a current parameter: - of recharge at 50 AMP. - of discharge ",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "Recorded so nobody researches it twice: this is NOT the 3U rack. It is 5U, has two RS-485 RJ45 ports rather than one, uses four DIP switches for a plain address rather than seven for baud-plus-protocol-menu, and has a separate Battery-COMM inter-pack port. None of the models on the Quebec retail list appear to be this ",
+    "Schneider support is a firmware fork. The manual says to \"update the battery with the Schneider firmware available from Volthium technical service\" using an RS485-USB cable. The same physical pack runs different firmware for different inverters, so a bench reading proves nothing about another unit of the same SKU.",
+    "Address numbering is protocol-dependent, and the rules contradict each other across sections: Growatt wants the master at ID 2 and explicitly says \"No battery has the #1 position, that's normal!\"; Sol-Ark and Victron want the master at ID 1 and say to skip ID 2; Schneider wants ID 1 then consecutive. There is no single",
+    "Which physical port carries the daisy chain also changes per protocol: Growatt chains over the RS-485 ports, Sol-Ark/Victron/Schneider chain over the Battery-COMM ports.",
+    "The Victron VE.CAN cable is not straight-through. The manual gives battery side B-V, Green, B-Orange, Blue, B-Blue, Orange, B-Brown, Brown against Victron side B-Green, Green, Orange, B-Brown, B-Orange, Brown, Blue, B-Blue. The pack cannot be the terminated end."
+  ],
+  "unmappedReports": "BMS-pushed bulk charge voltage (default 55.0 V) — no MetricKind. This is a limit the pack advertises to the charger, not a measurement., BMS-pushed float voltage (default 54 V) — no MetricKind., BMS-pushed charge current limit (50 A on 5 kW packs, 90 A on 10 kW) — set-charge-current-limit exists as a CommandKind, but there is no MetricKind for *reading back* the limit the BMS is asking for., BMS-pushed discharge current limit (100 A / 150 A) — no MetricKind and no CommandKind."
+}

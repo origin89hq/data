@@ -1,0 +1,47 @@
+{
+  "id": "solark-dongle-uart",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "github-com-judasgutenberg-solark-live-data",
+      "citation": "https://github.com/judasgutenberg/SolArk_Live_Data — Arduino sketch that intercepted the dongle UART; README carries the November 2025 breakage notice and the full Sol-Ark support reply quoted above."
+    },
+    {
+      "source": "github-com-judasgutenberg-solark-copilot",
+      "citation": "https://github.com/judasgutenberg/SolArk_Copilot — the author's reconfigurable successor parser (configurable without firmware changes, precisely because the format moves)."
+    },
+    {
+      "source": "github-com-stephanjoubert-home-assistant-solarman",
+      "citation": "https://github.com/StephanJoubert/home_assistant_solarman and https://github.com/davidrapan/ha-solarman — negative evidence: no Sol-Ark inverter definition in either."
+    }
+  ],
+  "transport": "UART tap on the serial link between the inverter and its WiFi dongle. Undocumented, unsupported, and broken since the 2025-10-15 firmware.",
+  "models": [
+    {
+      "name": "12K-2P"
+    },
+    {
+      "name": "15K-2P"
+    },
+    {
+      "name": "18K-2P"
+    },
+    {
+      "name": "any Sol-Ark with the MySolArk WiFi dongle fitted"
+    }
+  ],
+  "refutedOnReview": "REFUTED — the sources are real and were read in full, but none of them supports the claim; two of them actively contradict it.  WHAT THE SOURCES ACTUALLY SAY  1. https://github.com/judasgutenberg/SolArk_Live_Data — exists. Full README read (raw). It confirms the November 2025 breakage notice and the quoted Sol-Ark support reply verbatim: \"as of November 13 2025, SolArk quietly changed their internal serial protocol, ",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "DO NOT BUILD ON THIS. Recorded only so the idea is not researched a second time. It is superficially attractive — local, fast, no cloud, no spare RS-485 port needed — and it is a trap.",
+    "Sol-Ark technical support, quoted verbatim by the implementer: \"beginning with the October 15, 2025 firmware release, the internal communication protocol between the Wi-Fi dongle and the inverter was updated. This update included packet restructuring, encapsulation changes, and data-handling improvements. Because this ",
+    "Also from support: \"The UART/serial data exchanged between the dongle and the inverter is considered an internal protocol. It is not documented, and it can change at any time as part of normal firmware development. For this reason, engineering does not provide or support access to that stream for third-party automation",
+    "So the failure mode is the worst kind — a silent, unannounced, un-rollback-able break arriving via automatic firmware update on a device at a remote cabin. The vendor-documented Modbus dialect has none of these properties.",
+    "No local Solarman-stick path either. Sol-Ark's dongle is not covered by the Solarman ecosystem: neither StephanJoubert/home_assistant_solarman (which carries deye_2mppt, deye_4mppt, deye_hybrid, deye_sg04lp3, deye_string profiles) nor davidrapan/ha-solarman ships any Sol-Ark profile. Checked 2026-07-31."
+  ]
+}

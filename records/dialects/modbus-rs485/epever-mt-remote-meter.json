@@ -1,0 +1,36 @@
+{
+  "id": "epever-mt-remote-meter",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "w",
+      "citation": "EPEver, *MT75 Remote Meter User Manual*, EN V2.0. Staged at /private/tmp/claude-501/-Users-lemarier-dev-solar/01a009b6-aeb2-4d8b-8a84-65ee02fe099b/scratchpad/epever-docs/epever-mt75-manual-v2.0.pdf — source URL https://w"
+    },
+    {
+      "source": "epever-com-upload-file-2109-epever-datasheet-mt75",
+      "citation": "EPEver, *MT75 Remote Meter* datasheet — https://www.epever.com/upload/file/2109/EPEVER-Datasheet-MT75.pdf"
+    },
+    {
+      "source": "devices",
+      "citation": "docs/DEVICES.md in this repo, which already records the MT50-as-second-master collision."
+    }
+  ],
+  "models": [
+    {
+      "name": "MT75 remote meter"
+    }
+  ],
+  "gotchas": [
+    "The MT75 is not a device Cabin Hub can poll. It is a display that acts as a Modbus MASTER on the bus — the same collision docs/DEVICES.md already records for the MT50. Its own manual confirms the role: \"Check whether the solar controller's ID is 1; if not, set it to 1. Check whether the ID of the inverter is 3; if not,",
+    "One master per RS-485 segment. A gateway and an MT75 on the same wire will collide; tolerate the retries or unplug the meter. The MT75 has two RJ45 RS-485 ports and is designed to poll a controller on one and an inverter on the other — the vendor's own topology assumes it is the only master.",
+    "Its slave-ID expectations are a free confirmation of cabin-epever's defaults: controller = 1, inverter = 3, which is exactly what xtra.rs and ipower.rs ship and why the two EPEver devices at this site coexist on one bus untouched.",
+    "The MT75 takes its 5 VDC from the connected controller or inverter over the RJ45 — pins 1 and 2, the same pins that must never be carried through to a third device. Self-consumption 14 mA at 5 V without backlight, 26 mA with, 100 mA peak with backlight and dry contact.",
+    "Vendor compatibility list, verbatim from the MT75 manual §10: controllers — XTRA-N series, TRIRON series, Tracer-AN series, Tracer-BN series (cables shipped with the MT75); iTracer-AD / iTracer-ND series (cables sold separately). Inverters — IPower series (1 kW or above), IPower-Plus series, NPower series, SHI series. "
+  ]
+}

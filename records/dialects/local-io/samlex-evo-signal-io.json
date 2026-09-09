@@ -1,0 +1,69 @@
+{
+  "id": "samlex-evo-signal-io",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "samlex-evo-2212-3012-2224-4024-manual-fw0-82",
+      "citation": "docs/samlex-evo-2212-3012-2224-4024-manual-fw0.82.pdf — Fig 2.1 legend 14 (Status Relay, contact ratings, NO/COM/NC semantics), 15 (Remote On Off 9-15 V 3 mA), 16 (12.5-11.5 VDC 100 mA source)"
+    },
+    {
+      "source": "samlex-evo-1212f-1224f-manual-fw0-79",
+      "citation": "docs/samlex-evo-1212f-1224f-manual-fw0.79.pdf — Table 6.6 RELAY FUNCTION options 0-4 in full, REMOTE SWITCH, REMOTE SW DELAY; §6.7"
+    },
+    {
+      "source": "samlex-evo-4248sp-manual-fw0-77",
+      "citation": "docs/samlex-evo-4248sp-manual-fw0.77.pdf — Table 6.6, §6.7, §6.6 powering off in fault mode"
+    }
+  ],
+  "transport": "Dry contact + 12 V logic on screw terminals. Status Relay: NO / Common / NC, rated 125 VAC or 30 VDC, 3 A, wire to AWG #12. \"Remote On Off\": +12 V input terminals, 9-15 V at 3 mA. Onboard source: 12.5-11.5 VDC up to 100 mA, live only while the unit is ON.",
+  "reports": [
+    "switch-state"
+  ],
+  "accepts": [
+    "set-switch"
+  ],
+  "models": [
+    {
+      "name": "EVO-1212F"
+    },
+    {
+      "name": "EVO-1212F-HW"
+    },
+    {
+      "name": "EVO-1224F"
+    },
+    {
+      "name": "EVO-1224F-HW"
+    },
+    {
+      "name": "EVO-2212"
+    },
+    {
+      "name": "EVO-3012"
+    },
+    {
+      "name": "EVO-2224"
+    },
+    {
+      "name": "EVO-4024"
+    },
+    {
+      "name": "EVO-4248SP"
+    }
+  ],
+  "refutedOnReview": "REFUTED by the claim's own cited source. docs/samlex-evo-rc-plus-remote-manual-2021.pdf §4.8.2.5 states verbatim: \"Menu 'RELAY FUNCTION' will be displayed only for Models (i) EVO-2212 / 3012 / 2224 / 4024, (ii) EVO-2212E / 3012E / 2224E / 4024E and (iii) EVO-4248SP. It will NOT be displayed for Models EVO-1212F / 1212F-HW / 1224F / 1224F-HW.\" The same section says the SPDT Status Relay \"has been provided in Model Nos",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "THIS IS THE ONLY SAMLEX INTERFACE THAT CAN BE DRIVEN TODAY. Every Modbus path is behind an NDA. If an EVO needs to appear in the gateway before that is resolved, it appears through these terminals plus a PZEM or a Shelly on the AC side.",
+    "The Remote On/Off input has two behaviours set by the REMOTE SWITCH parameter: 0 = push-button type (momentary; contacts open for 2 s switches the unit off, and the on-signal is held only while pressed) and 1 = switch type (maintained). Also on 1212F/1224F there is a REMOTE SW DELAY parameter, 0-300 s, default 000, whi",
+    "Powering OFF is gated by AC input. The manuals state that to power off manually — panel button OR remote — the AC input must be absent or below roughly 70 VAC (12 V/24 V models) / 140 VAC (others). Switch off the shore AC first, then command off. A set-switch(false) issued while shore power is live will silently do not",
+    "The relay is not opto-isolated logic; it is a real relay rated for 125 VAC. Feeding it into a 3.3 V GPIO needs the usual dry-contact conditioning. §6.7 in each manual suggests routing the unit's own 12 V/100 mA source through the relay contacts to make a 12 V on/off signal — that is the vendor's intended pattern, and i",
+    "The 12 V source is present only when the unit is ON, so relay-derived signalling and the on/off command share a chicken-and-egg: an EVO that is off cannot power its own wake signal. Use gateway-side 12 V for the Remote On Off input."
+  ],
+  "unmappedReports": "The Status Relay's meaning is a config value, not a wire value. RELAY FUNCTION selects 0 = Charge/Other (off while charging, on while inverting/power-saving/standby), 1 = Normal/Fault (on in fault), 2/3/4 = Generator 0/1/2 (on = start the engine, with three different stop rules). A single switch-state bit cannot say which of those five things it currently means, and the gateway has no way to read the setting back. Whoever wires this must record the RELAY FUNCTION value in config by hand."
+}

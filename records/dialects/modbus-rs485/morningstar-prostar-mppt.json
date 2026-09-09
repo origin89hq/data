@@ -1,0 +1,67 @@
+{
+  "id": "morningstar-prostar-mppt",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "morningstar-prostar-mppt-modbus-specification",
+      "citation": "ProStar MPPT MODBUS Specification v05, MS-001723, 2 March 2021 — committed at /Users/lemarier/dev/solar/docs/morningstar-prostar-mppt-modbus-specification.pdf (32 pp)"
+    },
+    {
+      "source": "morningstarcorp-com-wp-content-uploads-technical-doc-prostar-mppt-modbus-specification-en",
+      "citation": "https://www.morningstarcorp.com/wp-content/uploads/technical-doc-prostar-mppt-modbus-specification-en.pdf"
+    },
+    {
+      "source": "morningstar-product-connectivity-manual",
+      "citation": "Morningstar Product Connectivity Manual, Table 2 — committed at /Users/lemarier/dev/solar/docs/morningstar-product-connectivity-manual.pdf"
+    }
+  ],
+  "transport": "MeterBus RJ-11 only, via a Morningstar MSC MeterBus-to-Serial Converter to isolated RS-232 · Modbus RTU · 9600 baud, 8 data bits, no parity, 2 stop bits, no flow control · default server address 0x01",
+  "blocks": "0x0000 version · 0x0004 raw ADC rails · 0x0010 filtered ADC · 0x001A temperatures · 0x0021 charger status · 0x002E load status · 0x0036 misc · 0x003C MPPT · 0x0041 daily logger · 0xE000 EEPROM settings · coils from 0x0000",
+  "reports": [
+    "pv-voltage",
+    "pv-current",
+    "battery-voltage",
+    "battery-current",
+    "battery-power",
+    "battery-temperature",
+    "charge-stage",
+    "load-voltage",
+    "load-current",
+    "switch-state",
+    "temperature"
+  ],
+  "accepts": [
+    "start-equalize",
+    "set-switch",
+    "clear-fault",
+    "set-charge-current-limit"
+  ],
+  "models": [
+    {
+      "name": "PS-MPPT-25"
+    },
+    {
+      "name": "PS-MPPT-25M"
+    },
+    {
+      "name": "PS-MPPT-40"
+    },
+    {
+      "name": "PS-MPPT-40M"
+    }
+  ],
+  "sharedMapEvidence": "The Read Device Identification table in *ProStar MPPT MODBUS Specification* v05 (MS-001723, 2 March 2021) lists all four product codes against this one register map: \"PS-MPPT-25\", \"PS-MPPT-25M\", \"PS-MPPT-40\", \"PS-MPPT-40M\". The only stated difference between 25 A and 40 A units is that register 0x0020 (T_ind[W], phase-W inductor temperature) is \"only present in 40A models\", and the range of the ch",
+  "gotchas": [
+    "Values are IEEE half-precision floats (Float16) in a single 16-bit register, NOT scaled integers. This is the opposite convention from the TriStar MPPT (per-unit integers) and from the TriStar PWM and SunSaver MPPT (fixed-constant integers). A driver cannot share a decode path across Morningstar lines.",
+    "The document contradicts itself on the charge-current limit. The EEPROM table has TWO registers: Eib_lim at 0xE013 \"Battery Charge Current Limit\" (units A, Float16) and Eic_lim at 0xE038 \"Charge Current Limit\" (units A, Float16). The glossary entry for Eib_lim then reads \"[57364][0xE013] (V). Battery current.\" — units ",
+    "MeterBus RJ-11 is the only port. There is no RS-232, no EIA-485 and no Ethernet on a ProStar MPPT — an MSC adapter (the 'PC MeterBus adapter' the retailer sells alongside) is mandatory, not optional.",
+    "charge_state (0x0021) adds a tenth value the TriStar MPPT does not have: 10 = FIXED (fixed-Vmp mode). Values 0-9 match the TriStar MPPT list, but do not take that as licence to share the map — every other address differs.",
+    "load_state (0x002E) has eight values: 0 START, 1 LOAD_ON, 2 LVD_WARNING, 3 LVD, 4 FAULT, 5 DISCONNECT, 6 LOAD_OFF, 7 OVERRIDE. Collapsing this to a boolean switch-state loses the LVD distinction, which is the one a cabin actually cares about."
+  ],
+  "unmappedReports": "T_hs heatsink temperature (0x001A) and the three phase inductor temperatures T_ind[U]/[V]/[W] (0x001E-0x0020), Ahc_r / Ahc_t / Ahl_r / Ahl_t amp-hour counters (0x0026-0x0029, 0x0032-0x0035) — charge Ah and load Ah, neither has a kind, kWhc_r / kWhc_t (0x002A/0x002B), vb_ref regulator reference voltage (0x0024) and vb_ref_charge_slave (0x0025), array_fault (0x0022), load_fault (0x002F), alarm_HI/LO (0x0038/0x0039) bitfields, V_lvd and V_lhvd, the live low/high-voltage-disconnect thresholds (0x0030/0x0031), Tb_lo_limit_100 / Tb_lo_limit_0 cold-battery charge foldback limits (0x002C/0x002D), Sweep_Vmp / Sweep_Pmax / Sweep_Voc / va_ref (0x003D-0x0040), hourmeter (0x0036/0x0037), dip_switch (0x003A), led_state (0x003B), charge_led_state (0x004D), lighting_should_be_on (0x004E) — lighting-mode intent, distinct from actual load state, state-of-charge — not reported"
+}

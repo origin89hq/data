@@ -1,0 +1,84 @@
+{
+  "id": "firman-portable-no-comms",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "firmanpowerequipment-com-products-p08008",
+      "citation": "https://firmanpowerequipment.com/products/p08008"
+    },
+    {
+      "source": "firmanpowerequipment-com-products-p08013",
+      "citation": "https://firmanpowerequipment.com/products/p08013"
+    },
+    {
+      "source": "firmanpowerequipment-com-products-t08072",
+      "citation": "https://firmanpowerequipment.com/products/t08072"
+    }
+  ],
+  "blocks": "Nothing to block. There is no data interface to drive, so no driver is possible and none is pending. Run state for these units gets proved the way docs/catalog/no-comms.md already prescribes for gensets: an energy meter on the AC the generator produces (cabin-pzem), reporting ac-voltage / ac-frequency / ac-power against a `generator` device. That is an inference from the AC path, not a reading from the machine.",
+  "models": [
+    {
+      "name": "P08008"
+    },
+    {
+      "name": "P08013"
+    },
+    {
+      "name": "T08072"
+    },
+    {
+      "name": "H05753"
+    },
+    {
+      "name": "H08052"
+    },
+    {
+      "name": "W03383"
+    },
+    {
+      "name": "W03386"
+    },
+    {
+      "name": "W03082"
+    },
+    {
+      "name": "W03083"
+    },
+    {
+      "name": "W01781"
+    },
+    {
+      "name": "W01782"
+    },
+    {
+      "name": "W01784"
+    },
+    {
+      "name": "P01202"
+    },
+    {
+      "name": "P03628"
+    },
+    {
+      "name": "W03663OF"
+    },
+    {
+      "name": "WH03042"
+    }
+  ],
+  "refutedOnReview": "REFUTED as stated — the core conclusion (no data interface) survives, but the claim covers 16 models on evidence for 11, and two of its specific evidentiary assertions are false when checked against the staged PDFs.  WHAT HOLDS UP - Both staged PDFs exist and are real: /private/tmp/claude-501/-Users-lemarier-dev-solar/01a009b6-aeb2-4d8b-8a84-65ee02fe099b/scratchpad/firman/T08072_Manual_English.pdf and W03383_Manual_E",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "'Data-Minder' is a trap in the name only. The T08072 manual, section 3-1, reads: 'Push the SELECT button to show the Voltage, Hertz and running hours.' It is a three-value LCD on the control panel with no port behind it. Those three values do map to ac-voltage, ac-frequency and generator-run-hours — which makes it temp",
+    "Remote start is a one-way RF fob, not a link. W03383 manual, Starting the Generator (Remote Start): the fob is factory-paired, 'Push and release the START button on the remote control. The generator will turn over for 3 to 5 seconds and start', with a 15-second output delay after run. Nothing travels back to the fob. T",
+    "Same series name, different SKU, different hardware. W03082 and W03083 are one retail pairing but the vendor page for W03082 states recoil and electric start and no remote start, while the retailer claims a fob on W03083. Not a contradiction, but proof that the series name predicts nothing — do not carry a finding side",
+    "W03082 is advertised 'parallel ready'. A parallel kit port is a power-sync connector between two generators, not a data port. Do not mistake it for a bus.",
+    "CO Alert is a shutdown sensor with an indicator lamp, exactly as no-comms.md already records for Champion's CO Shield. T08072 manual item 14: 'CO Alert Carbon Monoxide (CO) Shutdown Indicator Light — Indicates the engine shutdown due to carbon monoxide accumulation ... or a CO Alert system fault occurred.' It kills the"
+  ],
+  "unmappedReports": "co-alert-shutdown — the CO Alert lamp distinguishes 'engine shut down for CO' from 'CO Alert system fault'. RunState has Faulted and MetricKind has generator-run-state, but there is no fault-reason metric to carry which fault. Panel lamp only, not readable over any wire; noted as a contract gap, not as something this dialect could ever deliver., low-oil-shutdown — same shape. The oil warning lamp latches the engine off (W03383 manual item 9: 'Engine will not run when indicator is lit'). Collapses to RunState::Faulted with the cause lost., output-ready / overload — W03383 manual item 7, 'Output Ready Indicator Light ... Shuts OFF when generator is overloaded'. No MetricKind for a generator overload flag. Lamp only."
+}

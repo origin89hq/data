@@ -1,0 +1,42 @@
+{
+  "id": "victron-smart-battery-sense-ble",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "community-single",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victronenergy-com-upload-documents-smart-battery-sense-17801-smart-battery-sense-manual-pdf-en",
+      "citation": "Smart Battery Sense Manual rev 02, 05/2023 — committed at docs/victron-smart-battery-sense-manual-rev02.pdf (from https://www.victronenergy.com/upload/documents/Smart_Battery_Sense/17801-Smart_Battery_Sense_Manual-pdf-en"
+    },
+    {
+      "source": "victron-victronconnect-manual-rev22",
+      "citation": "VictronConnect app manual rev 22, 07/2026, §11 'Stored trends & Instant readout', including the §11.3 compatibility table — committed at docs/victron-victronconnect-manual-rev22.pdf (22.0 MB)"
+    },
+    {
+      "source": "victron-temperature-sensors-wiki-2026-05-21",
+      "citation": "victronenergy.com/live/temperature_sensors, last modified 2026-05-21 — committed at docs/victron-temperature-sensors-wiki-2026-05-21.pdf"
+    }
+  ],
+  "transport": "Two separate radios' worth of behaviour on one device, and only one of them is reachable by a third party. (1) VE.Smart Networking — 'a wireless technology based on Bluetooth Smart' (Smart Battery Sense Manual rev 02, §1), the path by which it feeds voltage and temperature to Victron MPPTs. Encrypted, proprietary, no published record format; not readable by anything that is not a Victron charger. ",
+  "blocks": "Asserted, not proven: extra-manufacturer-data record type 0x02 'Battery Monitor', whose layout IS in the committed vendor PDF — battery voltage 16 bits at 0.01 V, an aux-input union selected by a 2-bit `aux_input_type` where value 2 means VE_REG_BAT_TEMPERATURE at 0.01 K. What no vendor document states is that a Smart Battery Sense emits record 0x02. That link comes from one implementation only.",
+  "reports": [
+    "battery-voltage",
+    "battery-temperature"
+  ],
+  "models": [
+    {
+      "name": "Smart Battery Sense Long Range, up to 10 m (SBS050150200)"
+    }
+  ],
+  "gotchas": [
+    "**Confidence is deliberately split and the weakest link sets the tag.** Vendor-doc: that this model supports Instant Readout at all (VictronConnect app manual rev 22 §11.3 compatibility table, row 'Smart Battery Sense' — Stored trends Yes, Instant readout Yes), and that what it measures is 'Battery voltage and temperat",
+    "The committed vendor BLE specification (extra-manufacturer-data, 2022-12-14) has **no Battery Sense record type**. Its table runs 0x00 Test, 0x01 Solar Charger, 0x02 Battery Monitor, 0x03 Inverter, 0x04 DC/DC, 0x05 SmartLithium, 0x06 Inverter RS, 0x07 GX-Device, 0x08 AC Charger, 0x09 Smart Battery Protect, 0x0A (Lynx S",
+    "**Instant readout is off by default.** VictronConnect app manual rev 22 §11.2: 'Instant readout is not enabled by default', and enabling it is a per-device manual step (connect, settings, three dots, Product info, toggle). A gateway pointed at a boxed-fresh Smart Battery Sense sees nothing, and that is correct behaviou",
+    "**Unreadable without the per-device 16-byte AES key**, which only VictronConnect can produce, after pairing, with a phone at the device. Commissioning cost is one bench visit per unit. Changing the Bluetooth PIN invalidates the key.",
+    "**A GX device cannot see its temperature.** Victron's temperature-sensor table, 'Temperature on VRM' row for both Smart Battery Sense variants: 'No'. And the manual §1 goes further: 'Smart Battery Sense is not needed, or allowed, in systems which are already controlled by a Color Control GX or Venus GX'. If the cabin h"
+  ],
+  "unmappedReports": "`alarm_reason` — record 0x02 carries a 16-bit VE_REG_ALARM_REASON bitfield. Low-temperature and high-temperature alarms live in there, which is the one thing a Quebec cabin most wants from a battery temperature sensor, and there is no MetricKind for an alarm bitfield or for any single alarm bit., Stored trends: roughly 181 days of history at 30-minute resolution held in the device's non-volatile memory (VictronConnect app manual rev 22 §11.1 — the Smart Battery Sense's store is far longer than the ~46 days of other products). Same finding docs/catalog/ve-direct.md already reached about MPPT day records: this is a different contract shape, not a missing MetricKind., Whether the device is currently contributing to a VE.Smart network. The manual's LED table treats 'measuring but not joined' and 'measuring and contributing' as distinct states. Nothing in the contract can say a sensor is measuring correctly but its data is going nowhere."
+}

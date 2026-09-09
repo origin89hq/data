@@ -1,0 +1,39 @@
+{
+  "id": "epever-it-nc-g3",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "thecabindepot-ca-products-epever-itracer-an-g3-60a-mppt-charge-controller",
+      "citation": "The Cabin Depot listing, https://thecabindepot.ca/products/epever-itracer-an-g3-60a-mppt-charge-controller (model number IT6415NC G3), checked: 2026-07-31"
+    },
+    {
+      "source": "epever-com-product-it-nc-g3-series-50100a-mppt-charge-controller",
+      "citation": "EPEVER product page, https://www.epever.com/product/it-nc-g3-series-50100a-mppt-charge-controller/"
+    },
+    {
+      "source": "epever-com-wp-content-uploads-2021-05-itracer-nd-sms-el-v3-0",
+      "citation": "EPEVER iTracer ND series manual (the OLD iTracer, for contrast), https://www.epever.com/wp-content/uploads/2021/05/iTracer-ND-SMS-EL-V3.0.pdf"
+    }
+  ],
+  "transport": "Isolated RS-485 plus CAN-PARA In/Out ports and a BMS port, per the vendor product page and the retailer listing. Baud, framing, slave ID and CAN bit rate: no source found — absent.",
+  "models": [
+    {
+      "name": "IT6415NC G3 60 A — sold by The Cabin Depot as 'EPEver iTracer AN G3 60A MPPT Charge Controller', CAD $382.80, checked: 2026-07-31"
+    },
+    {
+      "name": "IT-NC G3 series 50–100 A (rest of line)"
+    }
+  ],
+  "sharedMapEvidence": "DIALECT UNKNOWN, and the retail name is actively misleading. The Cabin Depot's 'iTracer AN G3' is model IT6415NC G3 — a member of EPEVER's IT-NC G3 series (50–100 A). That is NOT the 'iTracer' named on the cover of protocol v2.5; that document's iTracer is the older iTracer ND series (iTracer-ND manual, https://www.epever.com/wp-content/uploads/2021/05/iTracer-ND-SMS-EL-V3.0.pdf). Landing IT6415NC",
+  "gotchas": [
+    "The retailer's name and the manufacturer's part number disagree about which product line this is. Buy on the part number IT6415NC G3, and research the protocol against IT-NC G3, not against 'iTracer'.",
+    "Three separate ports that all say 'communication': isolated RS-485 (monitoring), CAN-PARA In/Out (parallelling up to six identical controllers), and a BMS port (lithium pack). They are not interchangeable and only the RS-485 is plausibly a gateway target.",
+    "The retailer notes the RS-485 and CAN modules are sold separately."
+  ]
+}

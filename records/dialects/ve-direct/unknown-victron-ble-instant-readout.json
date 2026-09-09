@@ -1,0 +1,62 @@
+{
+  "id": "unknown-victron-ble-instant-readout",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-bms-overview-datasheet",
+      "citation": "docs/victron-bms-overview-datasheet.pdf (newly downloaded) — Victron 'Battery Management System (BMS) Overview'"
+    },
+    {
+      "source": "victron-smallbms-ng-manual-rev05",
+      "citation": "docs/victron-smallbms-ng-manual-rev05.pdf (newly downloaded), §5.1.1 Instant Readout — the parameter list quoted above"
+    },
+    {
+      "source": "victron-vebus-bms-ng-manual-rev05",
+      "citation": "docs/victron-vebus-bms-ng-manual-rev05.pdf (newly downloaded) — 'Bluetooth Smart ... includes Instant Readout ... SoC, battery temperature, warnings, and alarms'"
+    }
+  ],
+  "transport": "BLE advertisement, Victron Instant Readout. Container is certainly the 0x10 Product Advertisement with the AES-CTR record described in the committed BLE PDF. THE RECORD TYPE IS NOT STATED BY ANY SOURCE FOUND for any model in this list.",
+  "models": [
+    {
+      "name": "smallBMS NG (BMS400100300)"
+    },
+    {
+      "name": "VE.Bus BMS NG (BMS300200300)"
+    },
+    {
+      "name": "Lynx Smart BMS 500 NG (LYN034160310)"
+    },
+    {
+      "name": "Lynx Smart BMS 1000 NG (LYN034170310)"
+    },
+    {
+      "name": "Smart BMS CL 12/100 (BMS110022000)"
+    },
+    {
+      "name": "Smart BMS 12/200 (BMS210055000)"
+    },
+    {
+      "name": "Self-Heating SuperPack NG 12.8V/100Ah (BAT512110740)"
+    },
+    {
+      "name": "Self-Heating SuperPack NG 12.8V/200Ah (BAT512120740)"
+    },
+    {
+      "name": "Self-Heating SuperPack NG 25.6V/100Ah (BAT524110740)"
+    }
+  ],
+  "sharedMapEvidence": "NONE — that is the finding, and these models are grouped here only because they share the same missing evidence, not because they share a map. Every one of them is vendor-documented as having Bluetooth with Instant Readout: the BMS overview datasheet says 'All \"Smart\" BMS models are equipped with Bluetooth ... They all support Instant Readout'; the smallBMS NG manual rev 05 and VE.Bus BMS NG manua",
+  "gotchas": [
+    "dialect: unknown. Do not write a decoder against any of these. One bench capture per model — decrypt with the device's own key and read the first byte of the record — settles each one in minutes, and that is the only thing that will.",
+    "Bluetooth on the NG BMS models can be deactivated in VictronConnect and, on the Lynx Smart BMS NG, 'can only be reactivated via a GX device'. On smallBMS NG and VE.Bus BMS NG reactivation is a power-cycle timing procedure. Losing BLE is recoverable but not obvious.",
+    "Instant Readout is disabled by default on every Victron product that has it. Bluetooth present ≠ advertising.",
+    "Per-device 16-byte AES key still required, from VictronConnect after pairing. No vendor-supported derivation.",
+    "Smart BMS CL 12/100 and Smart BMS 12/200 have Bluetooth but the BMS overview datasheet's 'Data communication' row reads 'No' for both — meaning no wired data link to a GX or an inverter/charger. BLE is the ONLY telemetry route to these two, which makes the unknown record type the whole question for them."
+  ],
+  "unmappedReports": "Unknowable until the record type is known. Note that smallBMS NG — a wire-output BMS with no shunt of its own — nonetheless reports state of charge, consumed Ah and remaining time over Instant Readout, which means the NG battery packs are feeding coulomb-counted data up the M8 link. If that holds, an NG bank gives real SoC with no shunt added, which would be a genuinely useful finding once the record is identified."
+}

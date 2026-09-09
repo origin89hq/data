@@ -1,0 +1,59 @@
+{
+  "id": "eg4-3000ehv",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "eg4-3000ehv-modbus-protocol-v1-0",
+      "citation": "EG4 3000 EHV-48 — 'Modbus_RTU RS232 communication protocol', Version: June 2022 Version 1.0 (vendor document). Committed at docs/eg4-3000ehv-modbus-protocol-v1.0.pdf"
+    },
+    {
+      "source": "github-com-hotnoob-pythonprotocolgateway-blob-main-documentation-3rdparty-protocols-eg4-3000-ehv",
+      "citation": "https://github.com/HotNoob/PythonProtocolGateway/blob/main/documentation/3rdparty/protocols/EG4-3000-EHV%20-%20MODBUS%20Communication%20Protocol.pdf"
+    },
+    {
+      "source": "github-com-hotnoob-pythonprotocolgateway-blob-main-protocols-eg4-eg4-3000ehv-v1-holding-registry",
+      "citation": "https://github.com/HotNoob/PythonProtocolGateway/blob/main/protocols/eg4/eg4_3000ehv_v1.holding_registry_map.csv (transcription verified line-by-line against the vendor PDF for regs 201–234, 313, 332, 420, 426)"
+    }
+  ],
+  "transport": "RS-232 · Modbus RTU · FC 0x03 read / 0x10 write · device address 1–247 (example frames use 01H) · baud NOT stated in the vendor document",
+  "blocks": "hold 100–101 32-bit fault bitmap · 108–109 32-bit warning bitmap · 186–197 serial number ASCII · 201–234 real-time measurements · 300–337 configuration · 406/420/426 remote control · 643 rated power. All registers are holding registers read with 0x03; there is no input-register space.",
+  "reports": [
+    "pv-voltage",
+    "pv-current",
+    "pv-power",
+    "battery-voltage",
+    "battery-current",
+    "battery-power",
+    "state-of-charge",
+    "ac-voltage",
+    "ac-current",
+    "ac-power",
+    "ac-apparent-power",
+    "ac-frequency",
+    "temperature"
+  ],
+  "accepts": [
+    "set-switch",
+    "clear-fault",
+    "set-charge-current-limit",
+    "start-equalize"
+  ],
+  "models": [
+    {
+      "name": "3000 EHV-48"
+    }
+  ],
+  "gotchas": [
+    "This is a COMPLETELY different map from the XP/kPV/FlexBOSS line. Nothing overlaps: the 3000EHV uses holding registers in the 100–643 range read with 0x03, the Luxpower-based line uses input registers 0–174 read with 0x04. Do not reuse a driver.",
+    "The vendor document is titled 'Modbus_RTU RS232 communication protocol' — the host protocol port is RS-232, not RS-485, contradicting the Quebec retailer's 'RS-485, RS-232' claim. The RS-485 port on this unit is the battery BMS bus: jstormes/eg3000-s9 sniffs RS-485 between a 3000EHV-48 and LiFePower4 packs, not between",
+    "The vendor document does NOT state a baud rate, parity or stop bits anywhere. HotNoob/PythonProtocolGateway's eg4_3000ehv_v1.json declares baud 9600 — that is community-single and must be bench-confirmed. Left null here deliberately.",
+    "Block-alignment rule: a read must not start or end inside the serial-number block (186–197). The doc says the start address and (start + count) must both fall outside 186–198 or the returned data is wrong.",
+    "A parse failure does NOT return a Modbus exception. The doc's error case returns a normal-looking 0x03 response of N zero bytes with a valid CRC. A driver that only checks for exception codes will silently ingest zeros as real readings."
+  ],
+  "unmappedReports": "working-mode enum (201: 0 power-on, 1 standby, 2 mains, 3 off-grid, 4 bypass, 5 charging, 6 fault) — not a charge-stage and not a run-state, three separate AC rails each with their own voltage/current/frequency/power: mains 202–204, inverter 205–209, output 210–214 — only one ac-* family of MetricKinds, inverter charging power (209) and inverter charging average current (233) — the AC-charger leg, PV charging average power (224) and PV charging average current (234), distinct from PV average power (223), load percentage (225, % of rated) — no load-percent MetricKind, two device temperatures: DCDC module (226) and inverter (227) — temperature is one kind, output mode (300: single / parallel / 3-phase P1–P3 / split-phase P1–P2) and output priority (301: Utility-PV-Battery, PV-Utility-Battery, PV-Battery-Utility), battery charging priority (331: utility / PV / equal / PV-only), 32-bit fault bitmap (100–101, 27 defined bits) and 32-bit warning bitmap (108–109, 19 defined bits), rated power (643) and 12-register ASCII serial number (186–197), no state-of-health, no cycle count, no energy totals or daily energy anywhere on this map"
+}

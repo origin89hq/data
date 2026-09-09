@@ -1,0 +1,37 @@
+{
+  "id": "aili-dc-combo-panel-meter",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "retailer-listing-descriptions-only-1-quebec-retailer-each-ch",
+      "citation": "Retailer listing descriptions only (1 Quebec retailer each, checked: 2026-07-31)"
+    },
+    {
+      "source": "web-search-for-a-communication-output-on-dc-combo-voltmeter",
+      "citation": "Web search for a communication output on DC combo voltmeter/ammeter panel meters of the 20 V 200 A / 20 V 500 A type returned nothing documenting any digital protocol"
+    }
+  ],
+  "models": [
+    {
+      "name": "DC 20V 500A bidirectional combo meter + shunt"
+    },
+    {
+      "name": "DC combo meter 20V 200A"
+    },
+    {
+      "name": "Bidirectional current meter 100V ±50A"
+    }
+  ],
+  "sharedMapEvidence": "NOT a shared register map — no map exists for any of the three, so there is nothing to share. They are grouped only because each was checked separately and no vendor or community source documents any digital output for any of them. If a map ever turns up for one of them it does not transfer to the other two; split this entry at that point.",
+  "gotchas": [
+    "These are panel voltmeter/ammeter modules — a dual display fed from a shunt, with no processor state worth talking to. No manual, forum post, or implementation was found describing a serial, RS-485, Modbus or Bluetooth output on any of the three.",
+    "Confidence is unverified rather than vendor-doc because no manufacturer document was located at all, not because a document was found and read. Absence of evidence, recorded as such.",
+    "The 20 V ranges are the giveaway that these are low-voltage bench/12 V-system parts, not battery-bank instruments — the 100 V ±50 A unit is the only one that would sit on a 48 V bank, and at ±50 A it cannot see a cabin's full charge current anyway.",
+    "The bidirectional 500 A unit ships with its own shunt. If the shunt is a standard 500 A / 50 mV part it is worth more to Cabin Hub than the meter is: it can feed a device that does talk. See the shunts section of no-comms.md."
+  ]
+}

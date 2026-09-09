@@ -1,0 +1,50 @@
+{
+  "id": "volthium-abs-unknown",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "volthium-smart-bridge-user-manual-local-copy-private-tmp-cla",
+      "citation": "Volthium Smart Bridge user manual (local copy: /private/tmp/claude-501/-Users-lemarier-dev-solar/01a009b6-aeb2-4d8b-8a84-65ee02fe099b/scratchpad/volthium-smartbridge.pdf) — 'RJ45-Volthium «BMS-TI» RS485 pinout', 'Compati"
+    },
+    {
+      "source": "volthium-com-wp-content-uploads-2024-04-user-manual-4d-8d-en",
+      "citation": "Volthium user manual, 4D and 8D format batteries — https://volthium.com/wp-content/uploads/2024/04/User-manual_4D-8D_EN.pdf ('The battery has two RJ45 ports … Both ports offer RS485 communication'; Texas Instrument BMS e"
+    },
+    {
+      "source": "volthium-com-wp-content-uploads-2024-04-user-manual-12v-150ah-en",
+      "citation": "Volthium user manual, 12V 150Ah — https://volthium.com/wp-content/uploads/2024/04/User-manual_12V-150Ah_EN.pdf (single RJ45 comm port; Bluetooth requires a separately-sold module)"
+    }
+  ],
+  "transport": "RS-485 over RJ45, Volthium «BMS-TI» pinout: pin 7 = RS485 H, pin 8 = RS485 L, pin 3 unused/open. Baud, framing and addressing are not published. Group-31 packs have one RJ45; 4D/8D packs have two, both RS-485 and interchangeable.",
+  "models": [
+    {
+      "name": "12.8-150-G31Y-CHSS / -CSS (Aventura, 12 V 150 Ah, group 31)"
+    },
+    {
+      "name": "12.8-200-G4DY-CH20 / -CL (Aventura, 12 V 200 Ah, group 4D)"
+    },
+    {
+      "name": "12.8-400-G8DY-CH2O / -CO (Aventura, 12 V 400 Ah, group 8D)"
+    },
+    {
+      "name": "12V 400Ah chauffante (retail name for the 12.8-400-G8DY)"
+    },
+    {
+      "name": "25.6-100-G4DY-CH2OSS (Aventura, 24 V 100 Ah, group 4D)"
+    }
+  ],
+  "sharedMapEvidence": "Deliberately null — this is a dialect: unknown bucket, not a claim that these five share a map. What IS documented across them is a pinout and a BMS silicon vendor: the Smart Bridge manual states 'All Volthium batteries in ABS format, equipped with a communication port, are compatible with the Smart Bridge' and prints one 'RJ45-Volthium «BMS-TI» RS485 pinout' labelled 'Compatible: BMS-TI (ABS)' fo",
+  "gotchas": [
+    "This entry exists to stop these five models being folded into volthium-abs-ej-ble on the strength of 'same vendor, same ABS case'. Nothing shows their frames match. What would settle it, cheaply: put a Volthium Bluetooth Dongle or Smart Bridge on one and read the BLE advertised name. If it matches 'V-12V???Ah-*', aiobm",
+    "The 24 V pack (25.6-100-G4DY-CH2OSS) is the least likely to join: aiobmsble's Volthium pattern is 12 V only.",
+    "The family is provisional. RS-485 is the documented transport — vendor-doc, from the pinout above — but nothing establishes the framing is Modbus. Placing this in modbus-rs485.md asserts half a fact; say so in the file rather than letting the filename imply a map exists.",
+    "Volthium's own manuals contradict the 'BMS-TI (ABS)' label at one point: the 4D-8D and 12V-150Ah manuals both say 'Note that the 51.2V 100AH battery is equipped with a Microchip Technology BMS', so at least one ABS pack is not TI. The 12 V and 24 V packs on this list are stated to be TI.",
+    "Each battery gets its own RS-485 pair, not a shared bus. The Smart Bridge octopus adapter maps four separate RS-485 pairs (1-2, 3-4, 5-6, 7-8) from one RJ45 onto four battery RJ45s, each landing on that battery's pins 7-8. So the packs are not multi-drop and are not addressed; a bank of four is four point-to-point link"
+  ],
+  "unmappedReports": "Nothing can be listed. No source states what these packs report over RS-485, so any list would be invented. If the E&J frame map turns out to apply, the gaps are the ones recorded under volthium-abs-ej-ble."
+}

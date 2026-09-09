@@ -1,0 +1,51 @@
+{
+  "id": "bslbatt-lv-rs485-emulated",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "bsl-battery-com-uploads-b-lfp48-rack-usersmanual-es-zx",
+      "citation": "BSLBATT, B-LFP48 Rack Battery User Manual V2.7, https://www.bsl-battery.com/uploads/B-LFP48-Rack-UsersManual-ES-ZX.pdf — §3.6.3 'Comunicación independiente RS485', tables 3.6.3-4/-5, Appendix B RS485 table."
+    },
+    {
+      "source": "bsl-battery-com-uploads-wall-battery-user-manual-v2-7-zxl",
+      "citation": "BSLBATT, Powerwall Battery User Manual V2.7, https://www.bsl-battery.com/uploads/Wall-Battery-User-Manual-V2.7-ZXL.pdf — table 6, RS485A external port pinout."
+    },
+    {
+      "source": "bsl-battery-com-uploads-inverter-compatible-240626",
+      "citation": "BSLBATT, Approved Compatibility List of Inverter Brands, https://www.bsl-battery.com/uploads/Inverter-Compatible-240626.pdf — Lux Power, Deye, Phocos, SUNSYNK, Growatt, Voltronic, SRNE and Sorotec are listed with an RS48"
+    }
+  ],
+  "transport": "RS-485 over RJ45, the 'RS485A' / independent port · 9600 bps · protocol selected from an 18-entry menu, default = 'PYLON RS485 LV-BPB V3.5-2019.08.07' · pack address by the same 6-way DIP, master pack address 1 · character framing (8N1 or otherwise) is NOT stated in any BSLBATT document and is left null rather than assumed",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "state-of-charge"
+  ],
+  "models": [
+    {
+      "name": "B-LFP48-200E — stocked in QC"
+    },
+    {
+      "name": "B-LFP48-300E — stocked in QC"
+    },
+    {
+      "name": "B-LFP48-100E 3U (same manual, not seen at a QC retailer)"
+    }
+  ],
+  "refutedOnReview": "REFUTED. All three cited PDFs exist and were downloaded and text-extracted (pdftotext), but they do not say what the claim says.  **1. Appendix B is not a register table — it is an inverter compatibility list.** Its actual title is \"Apéndice B: Protocolo de soporte para inversores\" (Supported protocol for inverters). Its RS485 section does have exactly 18 entries — so the \"18-entry\" count is numerically right — but t",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "THE RACK MANUAL'S RS485-TO-INVERTER PINOUT IS WRONG AS PRINTED. Table 3.6.3-3, headed 'Comunicación independiente RS485', lists pin 4 = CAN-H and pin 5 = CAN-L — byte-for-byte the CAN table 3.6.3-2 above it. An RS485 port has no CAN-H. The Powerwall manual V2.7 gives the port correctly as 1,8 = RS485-B1; 2,7 = RS485-A1",
+    "The label 'Tabla 3.6.3-3' is used for two different tables in the rack manual (the RS485 pinout and the communication-cable list). Cite by page, not by table number.",
+    "The inverter-facing RS485 port and the parallel-cluster RS485-1/2 ports are different connectors. Plugging a gateway into RS485-1 puts it on the inter-pack bus, where the master is already polling.",
+    "The default 'PYLON RS485 LV-BPB V3.5-2019.08.07' is a Pylontech document Cabin Hub does not hold. The version and date are recorded because BSLBATT states them; the registers are not, because nobody has read them.",
+    "9600 bps is stated repeatedly and the wall manual's LCD says 'Baud Rate: 9600, Can not be set.' Parity/stop bits are nowhere. Left null."
+  ],
+  "unmappedReports": "Same set as the CAN dialect: fault/alarm code, reported CCL/DCL, pack index, MOSFET temperature, cluster size., Dry-contact alarm outputs. The wall manual defines pin1–pin2 as normally open and closing on break/protection, and pin3–pin4 as normally open and closing on low-SOC alarm. MetricKind::SwitchState is a boolean but means 'is this switch closed', not 'is this alarm relay asserted'; there is no alarm-output kind and no way to say which alarm."
+}

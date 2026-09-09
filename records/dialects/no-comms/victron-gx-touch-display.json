@@ -1,0 +1,51 @@
+{
+  "id": "victron-gx-touch-display",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victronenergy-com-media-pg-cerbo-gx-en-installation",
+      "citation": "https://www.victronenergy.com/media/pg/Cerbo_GX/en/installation.html §3.5 'GX Touch 50 series & GX Touch 70 series' and §3.6 'Deactivating touch input control'."
+    },
+    {
+      "source": "victronenergy-com-media-pg-cerbo-gx-en-technical-specifications",
+      "citation": "https://www.victronenergy.com/media/pg/Cerbo_GX/en/technical-specifications.html — GX Touch 50/70 and GX Touch 50/70 Flush spec blocks."
+    },
+    {
+      "source": "victronenergy-com-media-pg-cerbo-gx-en-troubleshooting",
+      "citation": "https://www.victronenergy.com/media/pg/Cerbo_GX/en/troubleshooting.html §20.2.22 Q22 — cable extension."
+    }
+  ],
+  "seeAlso": [
+    "victron-gx-touch"
+  ],
+  "transport": "Not a network device. One 2 m captive cable splitting into an HDMI connector for video and a USB-A connector for power, both plugged into the GX. Nothing else.",
+  "models": [
+    {
+      "name": "GX Touch 50 (BPP900455050) — 3 Quebec listings across name and part-number rows, checked: 2026-07-31"
+    },
+    {
+      "name": "GX Touch 50 Flush (BPP900455150) — 1 Quebec listing, checked: 2026-07-31"
+    },
+    {
+      "name": "GX Touch 70 (BPP900455070) — 3 Quebec listings, checked: 2026-07-31"
+    },
+    {
+      "name": "GX Touch 70 Flush (BPP900455170) — 1 Quebec listing, checked: 2026-07-31"
+    }
+  ],
+  "refutedOnReview": "REFUTED as a dialect. The sources are real and I verified them, and they refute the framing rather than support it.  What I checked, live, on 2026-07-31:  1. https://www.victronenergy.com/media/pg/Cerbo_GX/en/installation.html — §3.5 exists and is titled \"GX Touch 50 series & GX Touch 70 series\". It states verbatim: \"The GX Touch is connected using a single combined cable with: An HDMI connector (for video) A USB con",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "There is nothing to drive here. It renders the GX's own Remote Console over HDMI. Any data a driver wants is on the GX, over victron-gx-modbus-tcp or victron-gx-mqtt.",
+    "Cable length is fixed at 2 m and the Cerbo GX manual carries a dedicated FAQ, Q22, 'Can I extend the cable between the Cerbo GX and the GX Touch 50 or 70?' — treat extension as a documented constraint, not an assumption.",
+    "USB port choice is model-dependent. Cerbo GX manual: on the first-generation Cerbo GX (BPP900450100) 'connect the USB connector to the USB port located right next to the HDMI port'; on the Cerbo GX MK2 (BPP900450110 / BPP900451100) 'you can connect the GX Touch to any of the three USB ports.'",
+    "Part numbers BPP900455050 / BPP900455150 / BPP900455070 / BPP900455170 are RETAIL-SOURCED. The Cerbo GX manual's technical-specifications tables give GX Touch resolutions, dimensions, IP ratings and cable length but print no part numbers for them. The one GX Touch part number that did surface on a Victron page is BPP90",
+    "There is also a protection cover (included from serial HQ2242 onwards) which 'does not fit the GX Touch 50 Flush and GX Touch 70 Flush versions' — irrelevant to a driver, recorded so the Flush/non-Flush split is not mistaken for a functional one."
+  ],
+  "possibleDuplicate": true
+}

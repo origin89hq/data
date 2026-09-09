@@ -1,0 +1,25 @@
+{
+  "id": "unknown-aili-500a-shunt-monitor",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "retailer-listing-description-only-1-quebec-retailer-checked",
+      "citation": "Retailer listing description only (1 Quebec retailer, checked: 2026-07-31) — no manufacturer document identifies which head this listing ships"
+    }
+  ],
+  "models": [
+    {
+      "name": "500A battery monitor (voltmeter/ammeter with shunt) — LCD head unit on a wired link to the shunt, no claims stated by the retailer"
+    }
+  ],
+  "gotchas": [
+    "Dialect genuinely unknown. The listing description fits at least two different heads: the round TR16-family coulometer, which has no communications at all, and the rectangular TF03K, which has an optional 19200 bps broadcast. Filed under no-comms as the conservative default — assuming comms and finding none costs a ben",
+    "Missing evidence to resolve it, in order of cheapness: (1) the model string moulded or printed on the back label — TF03K vs TR16/TK15 settles it outright; (2) the head's shape and panel cut-out — ø54.5 mm round is TR16, 94×57 mm rectangular is TF03K; (3) a photo of the rear showing whether a second 6-pin header sits be",
+    "Do not merge this into baiway-tf03k-serial on the strength of the 500 A number and the AiLi name. Same vendor and same family name are explicitly not evidence."
+  ]
+}

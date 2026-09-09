@@ -1,0 +1,42 @@
+{
+  "id": "epever-rts300",
+  "family": "no-comms",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "epever-com-wp-content-uploads-2021-05-tracer-an50-100a-manual-en-v3-1",
+      "citation": "EPEver Tracer-AN 50-100A MPPT Solar Controller User Manual EN V3.1 (vendor PDF) — https://www.epever.com/wp-content/uploads/2021/05/Tracer-AN50-100A-Manual-EN-V3.1.pdf — §1.5 Optional accessories, §2.5 Step 5, §4.1 Prote"
+    },
+    {
+      "source": "epever-com-wp-content-uploads-2021-04-xtra-n-manual-en-v4-5etl",
+      "citation": "EPEver XTRA N Series MPPT Solar Charge Controller User Manual EN V4.5 ETL (vendor PDF) — https://www.epever.com/wp-content/uploads/2021/04/XTRA-N-Manual-EN-V4.5ETL.pdf — Step 4 Connect accessories, §5 Protections. Downlo"
+    },
+    {
+      "source": "epever-com-product-accessories-remote-temperature-sensor",
+      "citation": "EPEver product page, RTS300R47K3.81A Remote Temperature Sensor — https://www.epever.com/product/accessories-remote-temperature-sensor/ (compatibility list and 3 m cable length; no spec table, no downloadable datasheet — "
+    }
+  ],
+  "transport": "None of its own — a passive 47 kΩ NTC thermistor on a 2-pin 3.81 mm plug into the controller's temperature port (❽ \"RTS interface\" on Tracer-AN 50-100A, ① on XTRA-N). 3 m standard cable, customizable; vendor caps the sampling run at 20 m. No address, no baud, no framing — the reading reaches the hub only through the host charge controller's own Modbus map.",
+  "reports": [
+    "battery-temperature"
+  ],
+  "models": [
+    {
+      "name": "RTS300R47K3.81A"
+    }
+  ],
+  "refutedOnReview": "REFUTED — and not on a technicality. The cited sources are real and do name the model, but none of them documents a register map, and the device cannot have one.  WHAT THE SOURCES ACTUALLY SAY (both PDFs verified on disk, text extracted with pdftotext):  1. /private/tmp/.../scratchpad/tracer-an.pdf (Tracer-AN 50-100A EN V3.1) — §1.5 \"Optional accessories\" lists \"Remote temperature sensor RTS300R47K3.81A\" with the ins",
+  "gotchas": [
+    "Not a device. It is a two-wire NTC thermistor with no protocol at all — nothing to poll, address, or discover, and no driver to write. It does not create a device record; it changes what an existing solar-charger reports. If the catalogue files it as an environment-sensor it will imply a driver that cannot exist. It be",
+    "The reading surfaces only through the host controller's existing map: input register 0x3110 in epever-tracer-a, already mapped to battery-temperature in crates/drivers/cabin-epever/src/xtra.rs. Nothing to add to the driver for this part; fitting it is a wiring change, not a code change.",
+    "CONTRADICTION with the repo, worth recording rather than resolving. xtra.rs comments that 0x3110 \"reads 0xFFFF when the remote temperature sensor is not fitted.\" Both vendor manuals show the temperature port shipping already occupied by a factory-fitted short local probe — Tracer-AN 50-100A §1.4 lists \"Local temperatur",
+    "The failure mode this part fixes is a plausible-but-wrong number, which is the worst kind. Without the RTS300 fitted, whatever 0x3110 reports is the temperature of the factory probe inside or beside the controller — but it arrives on the wire named battery-temperature. A controller in a warm shed reporting 18 °C while ",
+    "Vendor-doc control behaviour that depends on this probe: absent, short-circuited or damaged → the controller charges and discharges at a default 25 °C with no temperature compensation (both manuals). Battery over-heat protection stops at >65 °C and resumes below 55 °C. Lithium Low Temperature Protection Threshold defau"
+  ],
+  "unmappedReports": "Probe fitted / probe fault. The manuals define a real degraded state — probe missing, short-circuited or damaged → silent fallback to an assumed 25 °C with compensation off — and there is no MetricKind or fault signal that can express it. The system cannot tell a measured 25 °C from an assumed one, so the degradation is invisible exactly when it matters., No MetricKind distinguishes a battery temperature sensed at the bank from one sensed at the controller's own local probe. Both land on battery-temperature, and that distinction is the entire reason this part is sold. A variant, or a per-reading provenance flag, would let the hub say which one it is holding., Temperature compensation coefficient (-3 mV/°C/2V default, forced to 0 for lithium) and the lithium Low Temperature Protection Threshold (0 °C default, range 10 ~ -40 °C) are controller settings this probe drives. Neither has a MetricKind to read it back nor a CommandKind to set it — so the hub cannot report or change how the charger is acting on the temperature it is being handed."
+}

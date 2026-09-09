@@ -1,0 +1,37 @@
+{
+  "id": "unknown-victron-nucleo-gx",
+  "family": "modbus-tcp",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victronenergy-com-media-pg-nucleo-gx-en-troubleshooting",
+      "citation": "https://www.victronenergy.com/media/pg/Nucleo_GX/en/troubleshooting.html §18.2.15 — the Q15 networking FAQ quoted above."
+    },
+    {
+      "source": "victronenergy-com-media-pg-nucleo-gx-en-technical-specifications",
+      "citation": "https://www.victronenergy.com/media/pg/Nucleo_GX/en/technical-specifications.html §19.1–19.3 — port complement, the 'no built-in I/O interfaces' statement, Bluetooth footnote (4), and the RED 3.3d service table."
+    },
+    {
+      "source": "victronenergy-com-media-pg-nucleo-gx-en-index-en",
+      "citation": "https://www.victronenergy.com/media/pg/Nucleo_GX/en/index-en.html — full table of contents; no Modbus TCP or MQTT chapter, only appendices 20.3/20.4 for third-party gensets."
+    }
+  ],
+  "transport": "Ethernet or WiFi · Modbus TCP on port 502 and a local MQTT broker on 8883 (SSL) / 1883 (plain), both stated by the Nucleo GX's own manual — but no source ties the model to the register map. Ports: 2× VE.Direct (always isolated, max 25 VE.Direct devices), VE.Can 1 isolated, VE.Can 2 non-isolated, Ethernet, WiFi, Bluetooth Smart, 3× USB-A, microSD. NO VE.Bus port and no I/O.",
+  "models": [
+    {
+      "name": "Nucleo GX (BPP900453100) — 1 Quebec listing, checked: 2026-07-31. Part number is retail-sourced only; it appears on no cited Victron page."
+    }
+  ],
+  "gotchas": [
+    "DIALECT DELIBERATELY LEFT UNKNOWN. This model is one citation short of joining victron-gx-modbus-tcp and victron-gx-mqtt, and that gap is the whole point of the entry. What IS now attested per-model, and is an upgrade on the previous record (which rested only on the generic sentence 'They run the Venus OS operating sys",
+    "What was re-checked on 2026-07-31 and still refutes an assignment: zero occurrences of 'Nucleo' anywhere in the committed workbook, including its per-model Unit ID mapping sheet; still absent from Victron's own GX Family list at venus-os:start, which names Ekrano GX, Cerbo GX, Cerbo GX MK2, Cerbo-S GX, Color Control GX",
+    "It has no VE.Bus port. Vendor tech-spec table lists VE.Direct, VE.Can 1, VE.Can 2, Ethernet, WiFi, Bluetooth, USB, microSD — and no VE.Bus row. The whole com.victronenergy.vebus register block, including registers 22 and 33, would simply be absent unless an MK3-USB interface is fitted.",
+    "It has no I/O at all. Vendor tech-spec, verbatim: 'The Nucleo GX has no built-in I/O interfaces. For analogue, digital, or relay connectivity, use a GX I/O Extender 150 and/or a GX Tank 140, or alternatively select a Cerbo GX or Ekrano GX.' So tank, temperature, digitalinput and relay blocks are absent, which also mean",
+    "Its Bluetooth is setup-only, same footnote (4) as the Cerbo: 'Bluetooth functionality is intended to be used to assist with initial connection and networking configuration. You cannot use Bluetooth to connect to other Victron products (e.g. SmartSolar charge controllers).'"
+  ],
+  "refiledFrom": "lan-http"
+}

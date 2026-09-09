@@ -1,0 +1,36 @@
+{
+  "id": "victron-skylla-ip65-vecan",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victronenergy-com-upload-documents-datasheet-skylla-ip65-en",
+      "citation": "https://www.victronenergy.com/upload/documents/Datasheet-Skylla-IP65-EN.pdf (checked 2026-07-31)"
+    },
+    {
+      "source": "victron-ve-can-registers-v20",
+      "citation": "docs/victron-ve-can-registers-v20.pdf (already committed — names Skylla-i only)"
+    },
+    {
+      "source": "victron-data-communication",
+      "citation": "docs/victron-data-communication.pdf (already committed — Skylla-i/-IP44 PGNs; revision history ends 2013)"
+    }
+  ],
+  "transport": "VE.Can. The Skylla-IP65 datasheet states it verbatim: \"CAN-bus communication port (VE.Can) — Two RJ45 connectors, NMEA2000 protocol, not isolated\", plus \"Synchronised parallel operation — Yes, with VE.Can\" and \"Remote on-off port — Yes (can be connected to a Li-Ion BMS)\". Bit rate is not stated in any committed document.",
+  "models": [
+    {
+      "name": "Skylla-IP65 12/70 (1+1), 12/70 (3), 24/35 (1+1), 24/35 (3) — `dialect: unknown`"
+    }
+  ],
+  "gotchas": [
+    "**`dialect: unknown`, and this is the honest answer rather than a shortfall of effort.** The committed VE.Can register document (`victron-ve-can-registers-v20.pdf`) names exactly one charger in its prose — the Skylla-i, used as a worked example of a model whose rotary switch makes most vregs read-only. It never names a",
+    "**Skylla-i, Skylla-IP44 and Skylla-IP65 are three products, not one family with one map.** \"Same vendor, same family name\" is exactly the evidence the catalogue rejects. `docs/catalog/can-bms.md` already refuted the parallel claim for VE.Can MPPTs on the same grounds; do not now make it for chargers.",
+    "**Not a VE.Direct product at all** — it belongs in `can-bms.md` alongside `victron-ve-can-vreg`, not in `ve-direct.md`. Recorded here only because the sweep was scoped to chargers.",
+    "CAN is a shared bus. Whatever lands here inherits the node-addressing and termination problems `can-bms.md` already documents, and the RJ45 pins carry bus power (the Skylla-i uses pins 3 and 6; later products use 1, 2, 3 and 6) — a plain patch cable is not automatically safe.",
+    "1 Quebec retailer, listing states no protocol. checked: 2026-07-31."
+  ]
+}

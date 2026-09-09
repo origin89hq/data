@@ -1,0 +1,44 @@
+{
+  "id": "xantrex-xbm-serial",
+  "family": "other-serial",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "xantrex-com-wp-content-uploads-2021-12-xbm-communication-interface-specification",
+      "citation": "XBM Communication Interface Specification, Application Note 976-0133-01-01 Rev A, July 2006, Xantrex — https://xantrex.com/wp-content/uploads/2021/12/XBM-Communication-Interface-Specification.pdf (staged at .../vendor-do"
+    }
+  ],
+  "transport": "RJ12 rear expansion port, TTL-level TX/RX on pins 2 and 3 · 2400 bps, 8 data bits, 1 stop bit, EVEN parity · optional isolated RS-232 interface kit converts to PC levels (>1000 V isolation, draws 16-30 mA from the battery). Not Modbus, not addressed: framing is header/destination byte (MSB=1), source address, Device ID (XBM = 0x20), message type, 0..27 data bytes with MSB=0, terminated by 0xFF.",
+  "blocks": "Message types: 0x00-0x0F handshake · 0x10-0x1F common commands · 0x20-0x3F device commands · 0x40-0x5F data requests · 0x60-0x7F data",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "consumed-amp-hours",
+    "state-of-charge",
+    "time-to-go",
+    "battery-temperature"
+  ],
+  "accepts": [
+    "reset-counter",
+    "identify"
+  ],
+  "models": [
+    {
+      "name": "Xantrex Battery Monitor (XBM), firmware 1.00 and 1.01+"
+    }
+  ],
+  "refutedOnReview": "REFUTED — and unusually, not because the source is missing. The source is real, matches every citation field, names the model, and then says the opposite of the claim.  ## 1. Source verification: PASSES (this part of the claim is honest)  The URL is live. I pulled the PDF and extracted it myself rather than trusting a summarizer: - PDF: `/Users/lemarier/.claude/projects/-Users-lemarier-dev-solar/01a009b6-aeb2-4d8b-8a",
+  "gotchas": [
+    "This does not fit any existing catalogue protocol family. It is a proprietary 7-bit-payload async serial protocol, cousin to TBS Electronics gear (the spec repeatedly says 'TBS equipment' and assigns Device IDs per TBS product type). It needs its own file, the way ve-direct has one.",
+    "Even parity at 2400 bps. Almost nothing else in this catalogue uses parity; a driver defaulting to 8N1 will see nothing but framing errors.",
+    "Data is packed 7 bits per byte, MSB reserved as the header/trailer marker. Three data bytes carry a 21-bit number. Naive 16-bit big-endian decoding gives wrong values, not obviously-wrong values.",
+    "Two modes. Factory default is automatic: it broadcasts firmware version once at power-up then voltage/current/Ah/SoC/TTG/temperature/status once per second, unprompted. 'Request only mode' (command 0x27) exists only on firmware 1.01+. On firmware 1.00 the polling commands 0x42/0x44/0x45/0x46/0x4F do not exist at all.",
+    "Current sign lives in a dedicated bit (Databyte1<2>), not in two's complement. Same for Amphours."
+  ],
+  "unmappedReports": "MonitorStatus (0x67) is a 21-bit status word with 19 named flags: ChargedVoltage, ChargedCurrent, AlarmTest, BacklightTest, DisplayTest, NoTemperatureSensor, SetupMode, HistoryMode, SuperLock, OverVoltage, UnderVoltage, BatteryLow, BatteryFlat, BatteryFull, ChargeBattery, MonitorOutOfSync, MonitorReset. No MetricKind covers monitor sync state, discharge-floor reached, or 'no temperature sensor fitted'., HistoryDump (0x72, 25 bytes) — deepest discharge, total Ah drawn, full/deep discharge counts, calculated charge efficiency. MetricKind has cycle-count but nothing for charge efficiency or cumulative Ah., FunctionDump (0x71, 24 bytes) — all settings., ParameterSelect (0x70) — which parameter the physical display is showing., Negative TimeToGo flag (Databyte1<2> of 0x65) means 'infinite, battery is charging'. TimeToGo is Unit::Second Float in the contract with no way to express infinity except by convention.",
+  "refiledFrom": "serial-proprietary"
+}

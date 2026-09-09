@@ -1,0 +1,39 @@
+{
+  "id": "xantrex-linkpro-unknown",
+  "family": "other-serial",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "xantrex-com-wp-content-uploads-2021-12-975-0430-01-01-rev-glinkpro-owners-guide",
+      "citation": "LinkPRO Owner's Guide 975-0430-01-01 Rev G: https://xantrex.com/wp-content/uploads/2021/12/975-0430-01-01_Rev-GLinkPRO-Owners-Guide.pdf"
+    },
+    {
+      "source": "xantrex-com-wp-content-uploads-2021-12-20211112-linkpro-linklite-datasheet",
+      "citation": "LinkPRO / LinkLITE datasheet: https://xantrex.com/wp-content/uploads/2021/12/20211112_LinkPRO_LinkLITE_Datasheet.pdf"
+    },
+    {
+      "source": "xantrex-com-products-accessories-linkpro",
+      "citation": "Product pages: https://xantrex.com/products/accessories/linkpro/ and https://xantrex.com/products/accessories/linklite/"
+    }
+  ],
+  "transport": "A data output exists — function F6.8 in the owner's guide is 'Communication mode … used to configure the data output', and an accessory 'LinkPRO Communication kit' is sold as part 854-2019-01. No baud rate, framing, or message format is published anywhere by Xantrex.",
+  "models": [
+    {
+      "name": "Xantrex LinkPRO battery monitor"
+    },
+    {
+      "name": "Xantrex LinkLITE battery monitor"
+    }
+  ],
+  "gotchas": [
+    "It is tempting to reuse the XBM specification here — both are TBS Electronics designs sold under the Xantrex name, and the XBM spec talks generically about 'TBS equipment' with per-product Device IDs. That is a family-resemblance argument, not evidence, and the rules forbid landing a model on a map for that reason. The",
+    "The LinkPRO owner's guide is a Schneider Electric copyright (2015) document and documents F6.8 without saying what protocol the mode selects.",
+    "What would settle it: the LinkPRO communication-kit documentation, or a TBS Expert Pro protocol document naming the LinkPRO. Neither found on xantrex.com.",
+    "F6.5 'Voltage prescaler' matters if anyone does decode it — the raw voltage scaling is user-configurable."
+  ],
+  "refiledFrom": "serial-proprietary"
+}

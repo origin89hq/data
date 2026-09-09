@@ -1,0 +1,60 @@
+{
+  "id": "generac-mobilelink-cloud",
+  "family": "lan-http",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "openhab-openhab-addons-bundles-org-openhab-binding-generacmo",
+      "citation": "openhab/openhab-addons — bundles/org.openhab.binding.generacmobilelink/README.md (channel list: statusLabel, statusText, activationDate, deviceSsid, status, isConnected, isConnecting, showWarning, hasMaintenanceAlert, la"
+    },
+    {
+      "source": "github-com-bentekkie-ha-generac-blob-main-custom-components-generac-const-py",
+      "citation": "bentekkie/ha-generac — custom_components/generac/const.py (API_BASE, LOGIN_BASE, and the ATTRIBUTION crediting the openHAB binding) — https://github.com/bentekkie/ha-generac/blob/main/custom_components/generac/const.py"
+    },
+    {
+      "source": "github-com-bentekkie-ha-generac-blob-main-custom",
+      "citation": "bentekkie/ha-generac — custom_components/generac/api.py (/v2/Apparatus/list, /v1/Apparatus/details/{apparatusId}, X-Csrf-Token, B2C_1A_SignUpOrSigninOnline flow) — https://github.com/bentekkie/ha-generac/blob/main/custom"
+    }
+  ],
+  "transport": "HTTPS to Generac's cloud at https://app.mobilelinkgen.com/api — NOT a LAN address and NOT the device. Auth is an interactive Azure AD B2C scrape: login base https://generacconnectivity.b2clogin.com/generacconnectivity.onmicrosoft.com/B2C_1A_MobileLink_SignIn, POST to /SelfAsserted then GET /api/CombinedSigninAndSignup/confirmed with query param p=B2C_1A_SignUpOrSigninOnline, CSRF token scraped fro",
+  "blocks": "GET /v2/Apparatus/list (returns apparatus objects; type != 0 is not a generator) · GET /v1/Apparatus/details/{apparatusId} (returns the live properties). There are no registers — the payload is JSON with a `properties` array of name/value/type triples.",
+  "reports": [
+    "generator-run-state",
+    "generator-run-hours",
+    "battery-voltage"
+  ],
+  "models": [
+    {
+      "name": "Guardian 10kW Home Backup Generator, WiFi-Enabled"
+    },
+    {
+      "name": "Guardian 10kW WiFi-Enabled Home Backup Generator with 16-Circuit Transfer Switch"
+    },
+    {
+      "name": "Guardian 14kW Home Backup Generator, WiFi-Enabled"
+    },
+    {
+      "name": "Guardian 14kW Home Backup Generator with 16-circuit Transfer Switch, WiFi-Enabled"
+    },
+    {
+      "name": "Guardian 18kW Home Backup Generator, WiFi-Enabled"
+    },
+    {
+      "name": "Guardian 24kW Automatic Home Standby Generator, Wi-Fi Enabled (10011109)"
+    }
+  ],
+  "refutedOnReview": "REFUTED — the sources are real and mostly quoted accurately, but not one of them names a single one of the six models. The model roster is unsourced.  WHAT CHECKED OUT - openhab/openhab-addons bundles/org.openhab.binding.generacmobilelink README.md and src/main/resources/OH-INF/thing/thing-types.xml: exist; exactly two thing types (`account` bridge, `generator`); one generator channel list; \"All channels are read-onl",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "NO VENDOR API DOCUMENT EXISTS. bentekkie/ha-generac's own ATTRIBUTION string says it plainly: 'This is reversed engineered.'",
+    "THE THREE IMPLEMENTATIONS ARE ONE CHAIN, NOT THREE OPINIONS — hence community-single. openHAB's `org.openhab.binding.generacmobilelink` (digitaldan) is the origin. bentekkie/ha-generac credits it explicitly: 'Heavily inspired by https://github.com/digitaldan/openhab-addons/blob/generac-2.0/bundles/org.openhab.binding.g",
+    "READ-ONLY. openHAB's README states 'All channels are read-only.' There is no remote start, no remote stop, no fault clear. If the requirement is 'start the generator when the bank runs low', THIS DIALECT CANNOT DO IT — that needs the serial dialect. This is the deciding fact between the two.",
+    "AUTH IS AN HTML SCRAPE OF AN AZURE B2C LOGIN FLOW, using BeautifulSoup to find a CSRF token and hidden form state in the login page. It stores the user's Generac account password. It breaks whenever Generac restyles the login page, and it is indistinguishable from credential stuffing to Generac's side.",
+    "A CLOUD ROUND TRIP FOR A DEVICE TEN METRES AWAY. Data goes generator → Generac cloud → the internet → back. On a cabin whose internet link is itself a monitored device, the generator becomes unreadable exactly when the link drops — which is plausibly the same event that made the generator start. This is a structural ar"
+  ],
+  "unmappedReports": "hoursOfProtection — cumulative hours the home has been covered; no MetricKind, signalStrength — the generator's own Wi-Fi RSSI as reported to the cloud; `link-signal-quality` is scoped to `internet-link`, not `generator`, isConnected / isConnecting / lastSeen / connectionTimestamp — cloud reachability of the device, which is NOT the same as the generator being healthy. Nothing in MetricKind expresses 'the telemetry path is stale', and this is the single most important caveat for a cloud-sourced generator, statusLabel / statusText / eCodeLabel — human-readable status and error-code strings; no MetricKind, and `generator-run-state` cannot carry the E-code, apparatusStatus — an integer status enum. Neither implementation documents the integer→state mapping, so mapping it onto `generator-run-state` is guesswork, hasMaintenanceAlert / showWarning — booleans with no MetricKind, deviceSsid / shortDeviceId / panelId / serialNumber — identity, not metrics, but surfaced as channels by openHAB, subscription (status, isLegacy, isDunning) — whether the paid Mobile Link tier is current. A commercial fact that determines whether data flows at all, with nowhere to live, enrolledInVpp / hasActiveVppEvent — virtual-power-plant enrolment and whether a utility event is running. Relevant to a cabin only if the utility can command the set, but it has no MetricKind, preferredDealerName / Phone / Email, isDealerManaged, isDealerUnmonitored, heroImageUrl — dealer and presentation metadata, weather (temperature + iconCode) — this is the site's WEATHER from the cloud, not a device sensor. `temperature` and the `weather` ValueKind exist but attaching them to a `generator` device would be a lie about provenance"
+}

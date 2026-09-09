@@ -1,0 +1,41 @@
+{
+  "id": "rolls-drop-in-lfp-12v",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "rollsbattery-com-wp-content-uploads-2021-12-rolls-r-series-s-series-drop-in-lfp-battery-operatin",
+      "citation": "Rolls Battery, Rolls R-Series, G-Series & S-Series LFP Drop-in Battery Operating Manual, 36 pp. Origin https://rollsbattery.com/wp-content/uploads/2021/12/Rolls-R-Series-S-Series-Drop-in-LFP-Battery-Operating-Manual.pdf "
+    },
+    {
+      "source": "surrette-com-manuals",
+      "citation": "Rolls Battery manuals index, https://www.surrette.com/manuals/, checked: 2026-07-31. No S12- or R12-specific manual, no protocol or communication document, is published."
+    },
+    {
+      "source": "thecabindepot-ca-collections-rolls-battery",
+      "citation": "The Cabin Depot, https://thecabindepot.ca/collections/rolls-battery, checked: 2026-07-31. \"Rolls 12V 100AH LifePO4 Battery\" $799.00 CAD (reg. $1,199.00); \"Rolls 12V 150AH LifePO4 Battery\" $999.00 CAD. One retailer only; "
+    }
+  ],
+  "models": [
+    {
+      "name": "12V 100Ah LiFePO4 (S12-100LFP or R12-100LFP — SKU unresolved)"
+    },
+    {
+      "name": "12V 150Ah LiFePO4 (S12-150LFP)"
+    }
+  ],
+  "refutedOnReview": "VERIFIED AS CLAIMED (the document-level facts hold up): - The manual is real and is exactly what is described. `/private/tmp/claude-501/-Users-lemarier-dev-solar/01a009b6-aeb2-4d8b-8a84-65ee02fe099b/scratchpad/dropin.pdf` is 3.1 MB, 36 pages (counted `/Type /Page` objects), titled \"ROLLS R-SERIES, G-SERIES & S-SERIES LFP DROP-IN BATTERY OPERATING MANUAL\", covering 12V/24V/36V/48V drop-ins. - S12-100LFP and S12-150LFP",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "There is no wired protocol on these models at all. The only interface is Bluetooth to the Rolls LFP Connect phone app. No RS-485 port, no CAN port, no Modbus. Filed under no-comms because that is what Cabin Hub can speak to them: nothing. The alternative reading — that BLE is a protocol family — is not available, becau",
+    "The retailer does not publish model numbers. The Cabin Depot lists these as plain \"Rolls 12V 100AH LifePO4 Battery\" and \"Rolls 12V 150AH LifePO4 Battery\", so whether the 100 Ah unit is the R-Series R12-100LFP or the S-Series S12-100LFP is unresolved. It does not change the protocol answer — the same drop-in manual cove",
+    "Waking the battery differs by series and matters for any future BLE work. R-Series units in shipping sleep will not advertise at all until a charger or load is connected; G- and S-Series need the reset button under the screen pressed. A scanner that finds nothing has not proven the battery is absent.",
+    "This dialect is explicitly NOT related to rolls-stack-lv-can. Same vendor, same chemistry, same phone app brand — and the drop-in manual states outright that it \"IS NOT APPLICABLE TO\" the 51.2 V LFP ESS and STACK models, listing them by name. That is the vendor refuting the family-resemblance assumption for us.",
+    "Rolls G-Series 48 V metal-case golf/light-EV models do have a CAN port per the same manual. Not applicable to the 12 V models here, but noted so nobody reads \"the drop-in manual mentions CAN\" and attaches it to the wrong row."
+  ],
+  "unmappedReports": "BMS error codes ER0 Other/Unknown, ER1 Over Voltage, ER2 Under Voltage, ER3 Over Temperature, ER4 Under Temperature, ER5 Charge Over Current, ER6 Short Circuit/Discharge Overcurrent, ER7 Imbalance, ER8 Switch Over Temperature — the app displays these as active fault codes. No MetricKind for a fault or error code., Internal cell temperature as distinct from case/ambient — the app dashboard labels it \"internal cell temperature\". `battery-temperature` is the closest MetricKind and is documented as measured at the bank., Switch (MOSFET) temperature — ER8 makes it a separately protected quantity. No MetricKind., Cell imbalance — ER7. No MetricKind for a cell delta., Heater state — the S-Series has internal low-temperature heating and the on-case display shows a heating indicator (\"S-Series only\"). No MetricKind for a heater being on, which for a Quebec cabin is exactly the thing you would want to see., Sleep / storage mode state — a 3-second button press puts the battery in or out of sleep mode, and in sleep the BLE radio is off and terminal voltage reads 2-10 V. No MetricKind, and no way to distinguish a sleeping battery from a dead one."
+}

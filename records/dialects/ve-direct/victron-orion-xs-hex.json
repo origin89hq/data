@@ -1,0 +1,54 @@
+{
+  "id": "victron-orion-xs-hex",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victron-orion-xs-ve-direct-hex-protocol-2025-06-16",
+      "citation": "docs/victron-orion-xs-ve-direct-hex-protocol-2025-06-16.pdf — *VE.Direct Protocol — Orion XS DC-DC battery charger*, changes page: \"16-06-2025 / Initial version derived from BlueSolar HEX protocol - rev 18.docx\". **Newly"
+    },
+    {
+      "source": "victronenergy-com-upload-documents-orion-xs-hex-protocol",
+      "citation": "https://www.victronenergy.com/upload/documents/Orion-XS-HEX-protocol.pdf (source URL, checked 2026-07-31)"
+    },
+    {
+      "source": "victronenergy-com-support-and-downloads-whitepapers",
+      "citation": "https://www.victronenergy.com/support-and-downloads/whitepapers (checked 2026-07-31 — the index that publishes it)"
+    }
+  ],
+  "transport": "VE.Direct, same physical port and same 19200 8N1 as the text dialect, interleaved with it. Framing `':' <command nibble> <hex-ASCII data, uppercase, little-endian> <hex-ASCII check> '\\n'`, sum of data bytes plus check = 0x55. No slave id — one device per port. Framing errors answer 0xAAAA.",
+  "blocks": "Product info 0x0100–0x0140 (+ 0x0150/0x0090 BLE) · generic device control 0x0200/0x0201/0x0206/0x0207 · battery settings 0xEDCA–0xEDFF (non-volatile) · engine shutdown 0xEE36–0xEE39 · input voltage lockout 0x0320/0x0321 · charger data 0xEDBB/0xEDBC/0xEDBD, 0xED8D/0xED8E/0xED8F, 0xD18D, 0xEDDB, 0xEDEC, 0xEE12 · error 0xEDDA · history 0x1030, 0x1042, 0x1043, 0x106F, 0x1070–0x1098, 0x1099 · remote control 0x2000–0x2015 · restore defaults 0x0004. Commands 0 boot, 1 ping, 3 app version (deprecated), 4 product id, 6 restart, 7 get, 8 set, A async. Get/set flags 0x01 unknown id, 0x02 read-only, 0x04 parameter error.",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "battery-power",
+    "battery-temperature",
+    "temperature",
+    "charge-stage"
+  ],
+  "accepts": [
+    "set-switch",
+    "set-charge-current-limit"
+  ],
+  "models": [
+    {
+      "name": "Orion XS 12V/12V-50A — 0xA3F0 — 7-17 V in / 10-17 V out, 50 A (retail ORI121217050)"
+    },
+    {
+      "name": "Orion XS 1400 — 0xA3F1 — 9-35 V in / 10-35 V out, 50 A (retail ORI242417040)"
+    }
+  ],
+  "sharedMapEvidence": "The document's own product-id table (§1, p. 4) lists exactly two ids — 0xA3F0 and 0xA3F1 — against the single register table that follows, with per-id columns for input/output voltage range and max current and an empty Remark column for both. There is no second table and no per-model annotation anywhere in the register sections. That is the vendor asserting one map over both models, in one documen",
+  "gotchas": [
+    "**0xEDBB / 0xEDBD / 0xEDBC and 0xED8D / 0xED8F mean different physical things here than on the MPPT map, at the same addresses.** On the committed MPPT HEX rev 18, 0xEDBB/0xEDBD/0xEDBC are panel voltage/current/power and 0xED8D/0xED8F are the MPPT RS's battery voltage/current. On the Orion XS they are the DC *input* (a",
+    "**0xEDEC battery temperature never has a value.** Note 2, verbatim: \"Battery temperature will be 0xFFFF\". `battery-temperature` is listed in reports only because the register exists; on this hardware it is permanently N/A.",
+    "**0xEE12 is named \"Estimated battery temperature\" and note 3 says \"This will be the charger temperature\".** Reading it as a battery temperature is reading the wrong body of metal. Use 0xEDDB, which is honestly named.",
+    "**0xD18D battery voltage is 0.001 V sn32 and reads 0x7FFFFFFF unless a Victron Smart Battery Sense is paired.** Three different voltages exist on this device — 0xED8D output voltage at the charger terminals, 0xD18D sensed battery voltage, and 0x2002 remote sense written in by a master — and they are legitimately differ",
+    "**The battery-settings block wears out.** The document repeats rev 18's warning above 0xEDCA–0xEDFF: \"stored in non-volatile memory. Continuous writing, for example from a control loop, will lead to early failure.\" A rules engine must drive 0x2015, not 0xEDF0."
+  ],
+  "unmappedReports": "0xEDBB input voltage (0.01 V), 0xEDBD input current (0.1 A), 0xEDBC input power (0.01 W un32) — the alternator/source side. No MetricKind, same gap as DC_IN_* above., 0x0207 device off reason bitmask — bit 5 pay-as-you-go out of credit, bit 6 BMS shutdown, bit 7 engine shutdown detection, bit 8 error. No metric for why a device is off., 0xEDDA charger error and warning code — 22 enumerated values including four warning-class entries (150 battery temperature too high, 151 battery temperature too low, 160 charger overtemperature derating, 161 short circuit detected, 162 converter issue). `ChargeStage::Fault` is one bit and cannot represent a warning at all, which is what 160 derating is: the unit is working and under-producing., 0x0140 capabilities bitmask, 27 defined bits — exactly what a driver needs to decide which registers to poll, and there is no slot for advertised capability., 0x0150 BLE capabilities and 0x0090 BLE mode. Not metrics, but 0x0090 is the register that says whether instant readout is even on., 0x200D network info and 0x200F network status — who is deciding the setpoint right now (BMS, ESS, charge master, stand-alone). No wire name., 0x1042 / 0x1043 cumulative service and user history — operation time, Ah charged, charge cycles started, charge cycles completed, power-ups, deep discharges. `cycle-count` exists but there is no counterpart for the other five, and these are cumulative records rather than instantaneous metrics., 0x1070–0x1098 cycle history, 41 cycles deep — time and Ah in each of bulk/absorption/recondition/float/storage, start and end voltage, battery type, error. A different contract shape entirely, not a new MetricKind., 0x0206 device function — Charger vs PSU. A unit in PSU mode is not charging anything and nothing in the contract can say so."
+}

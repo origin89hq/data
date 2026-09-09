@@ -1,0 +1,35 @@
+{
+  "id": "victron-outdoor-lte-antenna",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victronenergy-com-accessories-outdoor-lte-m-wall-mount-antenna",
+      "citation": "https://www.victronenergy.com/accessories/outdoor-lte-m-wall-mount-antenna — part number ANT100200100, 'Outdoor LTE-M wall-mount antenna. Length: 5 meters.'"
+    },
+    {
+      "source": "victron-globallink-520-530-datasheet",
+      "citation": "docs/victron-globallink-520-530-datasheet.pdf — lists the optional external LTE-M SMA-M antennas."
+    },
+    {
+      "source": "victron-gx-lte-4g-manual-rev04",
+      "citation": "docs/victron-gx-lte-4g-manual-rev04.pdf §2.5 and §7.1 — the GX LTE's own, different antenna part numbers."
+    }
+  ],
+  "models": [
+    {
+      "name": "Outdoor LTE-M wall-mount antenna (ANT100200100)"
+    }
+  ],
+  "gotchas": [
+    "Passive RF part. No protocol, no electronics to address. Catalogued so it is never mistaken for a device.",
+    "It belongs to the GlobalLink line, not to the GX LTE line. The vendor links it from the GlobalLink 520/530 product page as the optional external SMA-M antenna; the GX LTE 4G manual names entirely different part numbers for its own optional antennas — GSM900100400 (Outdoor 4G GSM Antenna) and GSM900200100 (Active GPS An",
+    "Cable length contradiction, unresolved: the joint 520/530 datasheet says 'Outdoor wall mount antenna : 3 meter'; the ANT100200100 product page says 'Length: 5 meters'. Both are Victron. Recorded rather than picked.",
+    "A sibling exists in the datasheet — 'Outdoor LTE (M) puck antenna' — with no part number given on either source checked.",
+    "The GlobalLink's antenna selector switch must be moved to 'external' to use it, and the manual warns that setting the switch to external with no antenna attached 'can permanently damage' the unit."
+  ]
+}

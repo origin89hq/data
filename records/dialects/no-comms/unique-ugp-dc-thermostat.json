@@ -1,0 +1,49 @@
+{
+  "id": "unique-ugp-dc-thermostat",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "uniqueappliances-com-cdn-shop-files-ugp-170l1-solar-fridge-manual-eng-v1",
+      "citation": "https://uniqueappliances.com/cdn/shop/files/UGP-170L1_Solar_Fridge_Manual_Eng_V1.pdf"
+    },
+    {
+      "source": "uniqueappliances-com-cdn-shop-files-ugp-260l1-solar-fridge-manual-eng-v4",
+      "citation": "https://uniqueappliances.com/cdn/shop/files/UGP-260L1_Solar_Fridge_Manual_Eng_V4.pdf"
+    },
+    {
+      "source": "uniqueappliances-com-cdn-shop-files-ugp-275l-w-solar-fridge-manual-eng-v4",
+      "citation": "https://uniqueappliances.com/cdn/shop/files/UGP-275L_W_Solar_Fridge_Manual_Eng_V4.pdf"
+    }
+  ],
+  "blocks": "There is nothing to block. Each of these five models has its own English vendor installation & user manual, and every one of them documents the complete electrical interface as exactly two conductors — DC+ and DC- from a battery or charge controller, through an in-line automotive fuse (15 A on the 170/260/265/275 class, 30 A on the 325) — plus an optional AC/DC wall adapter sold separately. Temperature is set with a mechanical thermostat dial numbered 0-7 (0-6 on the 385L1) mounted inside the cabinet, wired directly to the compressor electronics. No connector, no display, no MCU exposed to the outside of the cabinet. A driver is not merely undocumented here, it is not physically possible.",
+  "models": [
+    {
+      "name": "UGP-170L1 DC W (6 cu ft, 170 L fridge/freezer)"
+    },
+    {
+      "name": "UGP-260L1 DC W (9 cu ft, 260 L fridge/freezer)"
+    },
+    {
+      "name": "UGP-275L DC W (10 cu ft, 275 L Classic Retro bottom-mount; also Summer Mint Green)"
+    },
+    {
+      "name": "UGP-290L1 DC B / S-S / W (10.3 cu ft, 290 L fridge/freezer)"
+    },
+    {
+      "name": "UGP-385L1 CR W (13.6 cu ft, 385 L Classic Retro fridge/freezer)"
+    }
+  ],
+  "sharedMapEvidence": "There is no register map, so nothing is shared in the usual sense; the claim being grouped is the ABSENCE of a data interface, and it was established separately for each model rather than inferred from the vendor name. Five distinct vendor PDFs were downloaded and text-extracted individually: UGP-170L1_Solar_Fridge_Manual_Eng_V1.pdf, UGP-260L1_Solar_Fridge_Manual_Eng_V4.pdf, UGP-275L_W_Solar_Fridg",
+  "gotchas": [
+    "The only integration point that exists is the DC feed itself. The manuals' wiring diagrams show a plain two-conductor supply with an in-line fuse in the positive lead, which means an external DC energy meter is the sole way to observe this appliance. crates/drivers/cabin-pzem/src/pzem_017.rs already covers exactly that",
+    "The second path already in the tree is crates/drivers/cabin-onewire. docs/catalog/local-io.md line 41-43 already records that DS18B20 probe device kind is per-probe and settable in config, with `refrigerator` as an explicit option alongside the `environment-sensor` default, and ORDER-LIST.md already has a fifth probe e",
+    "The compressor's own low-voltage disconnect will act before any Cabin Hub rule can. Cut-out 10.4 V / restart 11.7 V in 12 V mode, cut-out 22.8 V / restart 24.2 V in 24 V mode, identical across the 170/260/275/290/325/385 manuals (the 265L1 chest freezer restarts at 23.4 V instead of 24.2 V in 24 V mode). This hysteresi",
+    "CONTRADICTION, vendor-internal, unresolved: the UGP_290L_SPECSHEET2023.pdf feature list advertises an 'Operational error code warning system', but UGP-290L_manual_English_V3.pdf's parts list contains only item 4 'Thermostat 0 - 7' and no display panel, and its operation section describes nothing but the dial. The catal",
+    "Unique OEMs these cabinets rather than building them. A parts SKU on their own store is titled 'DC Socket for all DC Jinsong refrigerators' (handle dc-socket-for-all-dc-jinsong-refrigerators), naming Jinsong as the manufacturer behind the 108/170/175/260/265/370 L bodies. If a Jinsong protocol document ever surfaces it"
+  ]
+}

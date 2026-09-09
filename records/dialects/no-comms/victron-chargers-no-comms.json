@@ -1,0 +1,48 @@
+{
+  "id": "victron-chargers-no-comms",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victronenergy-com-upload-documents-datasheet-skylla-charger-en",
+      "citation": "https://www.victronenergy.com/upload/documents/Datasheet-Skylla-Charger-EN.pdf — Skylla TG Charger 24/48V datasheet (checked 2026-07-31)"
+    },
+    {
+      "source": "victronenergy-com-upload-documents-datasheet-centaur-charger-en",
+      "citation": "https://www.victronenergy.com/upload/documents/Datasheet-Centaur-Charger-EN.pdf (checked 2026-07-31)"
+    },
+    {
+      "source": "victronenergy-com-dc-dc-converters",
+      "citation": "https://www.victronenergy.com/dc-dc-converters (checked 2026-07-31)"
+    }
+  ],
+  "models": [
+    {
+      "name": "Centaur Charger 12/30(3), 12/50(3), 12/60(3), 24/40(3), 24/60(3)"
+    },
+    {
+      "name": "Skylla-TG 24/30(1+1), 24/50(1+1), 24/100(1+1), 24/100(1+1) 400V 3-phase"
+    },
+    {
+      "name": "Orion IP67 24/12-20A (240W) — non-Smart"
+    },
+    {
+      "name": "Orion-Tr 12/12-18A (ORI121222110) — non-Smart"
+    },
+    {
+      "name": "Orion 24/12-40 (ORI241240021) — non-Smart"
+    }
+  ],
+  "refutedOnReview": "REFUTED. Two of the cited sources exist and were read in full; neither supports the grouping, and two members of the model list are affirmatively wrong.  **1. No source shows a register map — the dialect is asserted, not evidenced.** The \"evidence given\" is literally \"(none — the claim is the vendor-doc confidence itself)\". Per `/Users/lemarier/dev/solar/docs/catalog/README.md`: \"A model lands on an existing dialect ",
+  "gotchas": [
+    "**A retailer claim was refuted here, and it is the reason this row exists.** One Quebec retailer lists all four Skylla-TG models as \"VE.Direct\". The Victron Skylla-TG datasheet describes no data port of any kind — its only external interfaces are a battery temperature sensor, a voltage-sense pair, potential-free remote",
+    "The Centaur datasheet likewise names no communication port, no panel bus and no Bluetooth. The retailer listing states no protocol either, so nothing is contradicted — it is simply passive gear.",
+    "**Non-Smart Orion variants are not Orion-Tr Smart and not Orion XS.** ORI121222110 (Orion-Tr 12/12-18A), ORI241240021 (Orion 24/12-40) and the Orion IP67 24/12-20A have no radio and no port; the retailer listings say \"none — non-smart converter\" and the product line pages separate them from the Smart lines. The three-c",
+    "These belong in `docs/catalog/no-comms.md` with ratings only. Recorded so the question is not asked a third time.",
+    "Retail: Centaur 1 retailer, Skylla-TG 1 retailer (4 SKUs), Orion IP67 1 retailer, Orion-Tr non-Smart 1 retailer, Orion 24/12-40 1 retailer. checked: 2026-07-31."
+  ]
+}

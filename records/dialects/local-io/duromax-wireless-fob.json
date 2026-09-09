@@ -1,0 +1,31 @@
+{
+  "id": "duromax-wireless-fob",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "unrecorded",
+  "sources": [
+    {
+      "source": "images-thdstatic-com-catalog-pdfimages-c8-c85f788c-34c1-40c8-9ae5-ff2aaf5e17ce",
+      "citation": "DuroMax XP13000HXT User Manual https://images.thdstatic.com/catalog/pdfImages/c8/c85f788c-34c1-40c8-9ae5-ff2aaf5e17ce.pdf; XP13000EH User Manual https://norwall.com/content/norwall-pim-app/assets/documents/87612bd4-483f-4797-b143-3cf0ac1a8172_DuroMaxXP13000EHOwnerManualRev06172022.pdf (checked: 2026-09-01)"
+    }
+  ],
+  "transport": "wireless fob only, no wired input · n/a · n/a · battery switch ON, idle control OFF, then \"Press the start button two times in succession\" (p.43); red sync button under the panel cover; no range, retry or electrical figures.",
+  "models": [
+    {
+      "name": "XP13000HXT",
+      "rating": "10.5 kW gas / 9.5 LPG / 8.5 NG, electric yes",
+      "notes": "fob"
+    },
+    {
+      "name": "XP13000EH",
+      "rating": "10.5 kW gas / 9.975 LPG, electric yes",
+      "notes": "push-button only, \"Hold for 3 seconds to stop\" (p.16); no remote"
+    }
+  ],
+  "gotchas": [
+    "Neither manual mentions any external start terminal."
+  ]
+}

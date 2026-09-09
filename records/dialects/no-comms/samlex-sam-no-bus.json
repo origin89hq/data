@@ -1,0 +1,55 @@
+{
+  "id": "samlex-sam-no-bus",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "samlexamerica-com-wp-content-uploads-2020-01-11002-sam-1500c-12-0517-hrez",
+      "citation": "https://samlexamerica.com/wp-content/uploads/2020/01/11002-SAM-1500C-12-0517_Hrez.pdf — full-text search for Modbus / RS-485 / RS-232 / baud / RJ jacks returned nothing"
+    }
+  ],
+  "blocks": "The SAM-1500C-12 inverter/charger owner's manual contains no occurrence of Modbus, RS-485, RS-232, baud, or any RJ-style jack — the only hits for 'remote' are marketing copy about remote housing and the standard FCC radio-interference boilerplate. It has no remote-control jack at all. The optional SAM RC on the plain SAM inverters is an on/off accessory with no published protocol.",
+  "models": [
+    {
+      "name": "SAM-100-12"
+    },
+    {
+      "name": "SAM-250-12"
+    },
+    {
+      "name": "SAM-450-12"
+    },
+    {
+      "name": "SAM-800-12"
+    },
+    {
+      "name": "SAM-1000-12"
+    },
+    {
+      "name": "SAM-1500-12"
+    },
+    {
+      "name": "SAM-2000-12"
+    },
+    {
+      "name": "SAM-3000-12"
+    },
+    {
+      "name": "SAM-1500C-12"
+    },
+    {
+      "name": "SAM RC"
+    }
+  ],
+  "refutedOnReview": "REFUTED — and not merely unsupported: the grouping's own stated rationale is contradicted by Samlex's own documentation.  WHAT CHECKS OUT The cited PDF exists and is genuine. I downloaded it and extracted 117 KB of text (`/private/tmp/claude-501/-Users-lemarier-dev-solar/01a009b6-aeb2-4d8b-8a84-65ee02fe099b/scratchpad/sam1500c.txt`). The stated negative result is accurate for that one model: zero hits for modbus / rs",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "SAM-1500C-12 is the odd one: it is an inverter/CHARGER (DeviceKind would be inverter, with a charger side), which normally implies charge-stage and a reason to want telemetry. It has none. Modified sine wave, no comms, no remote jack. Tier D — recorded so nobody hopes.",
+    "Modified sine wave across the SAM line. Relevant to load compatibility notes elsewhere in the catalogue, not to protocol.",
+    "The retailer's SAM-1500C-12 entry carried no protocol claim at all, which turns out to be the honest listing."
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "id": "victron-ble-instant-readout",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-ble-extra-manufacturer-data-2022-12-14",
+      "citation": "docs/victron-ble-extra-manufacturer-data-2022-12-14.pdf — Victron wiki page 'Extra manufacturer Data', printed 2022-12-14 (committed)."
+    },
+    {
+      "source": "communityarchive-victronenergy-com-questions-187303-victron-bluetooth-advertising-protocol",
+      "citation": "https://communityarchive.victronenergy.com/questions/187303/victron-bluetooth-advertising-protocol.html — the Victron staff post releasing it."
+    },
+    {
+      "source": "victronenergy-com-media-pg-ve-direct-bluetooth-smart-dongle-manual-en-introduction",
+      "citation": "https://www.victronenergy.com/media/pg/VE.Direct_Bluetooth_Smart_dongle_manual/en/introduction.html"
+    }
+  ],
+  "seeAlso": [
+    "victron-ble-instant-readout-inverter",
+    "victron-ble-instant-readout-vebus"
+  ],
+  "transport": "BLE advertisement — no connection and no pairing session needed to READ, though pairing is needed once to obtain the per-device key. Victron manufacturer data, byte 3 must be 0x10 (Product Advertisement). The extra-manufacturer-data record begins at byte 8 and runs to the end. Header: bits 0-7 record type, bits 8-23 nonce/data counter LSB-first, bits 24-31 byte 0 of the encryption key. Payload is ",
+  "blocks": "Record type 0x01 = Solar Charger. Field layout, offsets from the start of the record: bit 32 width 8 device state (NA 0xFF, VE_REG_DEVICE_STATE) · bit 40 width 8 charger error (NA 0xFF, VE_REG_CHR_ERROR_CODE) · bit 48 width 16 battery voltage 0.01 V (NA 0x7FFF, VE_REG_DC_CHANNEL1_VOLTAGE) · bit 64 width 16 battery current 0.1 A signed (NA 0x7FFF, VE_REG_DC_CHANNEL1_CURRENT) · bit 80 width 16 yield today 0.01 kWh (NA 0xFFFF, VE_REG_CHR_TODAY_YIELD) · bit 96 width 16 PV power 1 W (NA 0xFFFF, VE_REG_DC_INPUT_POWER) · bit 112 width 9 load current 0.1 A range 0-51.0 A (NA 0x1FF, VE_REG_DC_OUTPUT_CURRENT) · bits 121-159 unused. Other record types defined but belonging to other catalogue files: 0x00 Test, 0x02 Battery Monitor, 0x03 Inverter, 0x04 DC/DC, 0x05 SmartLithium, 0x06 Inverter RS, 0x07 GX-Device (layout TBD), 0x08 AC Charger, 0x09 Smart Battery Protect, 0x0A Lynx Smart BMS, 0x0B Multi RS, 0x0C VE.Bus, 0x0D DC Energy Meter. 0x0E-0xFF unassigned as of the 2022 snapshot.",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "pv-power",
+    "pv-energy-today",
+    "load-current",
+    "charge-stage"
+  ],
+  "models": [
+    {
+      "name": "SmartSolar MPPT 75/10"
+    },
+    {
+      "name": "SmartSolar MPPT 75/15"
+    },
+    {
+      "name": "SmartSolar MPPT 100/15"
+    },
+    {
+      "name": "SmartSolar MPPT 100/20"
+    },
+    {
+      "name": "SmartSolar MPPT 100/20-48V"
+    },
+    {
+      "name": "SmartSolar MPPT 100/30"
+    },
+    {
+      "name": "SmartSolar MPPT 100/50"
+    },
+    {
+      "name": "SmartSolar MPPT 150/35"
+    },
+    {
+      "name": "SmartSolar MPPT 150/45"
+    },
+    {
+      "name": "SmartSolar MPPT 150/60-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 150/70-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 150/85-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 150/100-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 250/60-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 250/70-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 250/85-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 250/100-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT (all VE.Can variants — built-in Bluetooth per rev 18 'ble net' column)"
+    },
+    {
+      "name": "BlueSolar MPPT (all — only via VE.Direct Bluetooth Smart dongle ASS030536011, no built-in radio)"
+    },
+    {
+      "name": "SmartSolar MPPT RS 450/100-MC4"
+    },
+    {
+      "name": "SmartSolar MPPT RS 450/200-MC4"
+    }
+  ],
+  "refutedOnReview": "Sources all exist and are quoted accurately, but they do not support the dialect grouping.  DISQUALIFYING FACT: the committed vendor doc (/Users/lemarier/dev/solar/docs/victron-ble-extra-manufacturer-data-2022-12-14.pdf) names ZERO product models. Grepping the full extracted text for dongle\\|ASS030\\|VE.Direct\\|instant\\|readout\\|Phoenix\\|SmartShunt\\|product returns only VE_REG_BMV_* register names and one incidental \"",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "UNREADABLE WITHOUT THE PER-DEVICE 16-BYTE AES KEY, which comes out of VictronConnect's product-info page after pairing (or its SQLite advertisementKeys table). There is no vendor-supported way to derive it. A gateway that has never been paired sees ciphertext. This is a commissioning step PER DEVICE, at the bench, with",
+    "INSTANT READOUT IS OFF BY DEFAULT. VictronConnect's manual says so. A SmartSolar out of the box does not advertise a 0x01 record until somebody opts in. Built-in Bluetooth is necessary, not sufficient.",
+    "CHANGING THE BLUETOOTH PIN CHANGES THE KEY. Byte 0 of the key is echoed in every advertisement so a receiver can detect the mismatch; the vendor's instruction is then to DISCARD the stored key and stop decoding, not retry.",
+    "DO NOT BOUNDS-CHECK THE RECORD LENGTH. The vendor: 'an implementation should not perform an upper bound check on the length ... a length check should be performed for all items when retrieving data from the record.' Bit offsets are stable; presence is not. A fixed-size struct parse breaks on a firmware update.",
+    "FIELDS ARE BIT-PACKED ACROSS BYTE BOUNDARIES and every field has its own NA sentinel sized to its width. Byte-oriented parsing is wrong here, and treating a sentinel as a value produces plausible garbage."
+  ],
+  "unmappedReports": "Charger error (bit 40, VE_REG_CHR_ERROR_CODE) — the numeric code. `ChargeStage::Fault` keeps the fact and drops the number., Device state (bit 32) values with no `ChargeStage` variant — Storage, Power supply, Starting-up, Repeated absorption, BatterySafe, External control., The off-reason carried in sibling record types — no MetricKind for why a device is off.",
+  "possibleDuplicate": true
+}

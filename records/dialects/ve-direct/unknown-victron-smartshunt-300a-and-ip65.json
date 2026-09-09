@@ -1,0 +1,43 @@
+{
+  "id": "unknown-victron-smartshunt-300a-and-ip65",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "docs/victron-ve-direct-protocol-3.34.pdf — Victron Energy, VE.Direct Protocol, rev 3.34, 14 April 2025. Committed. Cited here for what it does not contain: the PID list, in full, for SmartShunt."
+    },
+    {
+      "source": "retail-quebec-retailer-sweep-checked-2026-07-31-skus-shu0501",
+      "citation": "Retail: Quebec retailer sweep, checked: 2026-07-31 — SKUs SHU050130050, SHU065130050, SHU065150050, SHU065210050, SHU065220050."
+    }
+  ],
+  "models": [
+    {
+      "name": "SmartShunt 300A (SHU050130050)"
+    },
+    {
+      "name": "SmartShunt IP65 300A (SHU065130050)"
+    },
+    {
+      "name": "SmartShunt IP65 500A (SHU065150050)"
+    },
+    {
+      "name": "SmartShunt IP65 1000A (SHU065210050)"
+    },
+    {
+      "name": "SmartShunt IP65 2000A (SHU065220050)"
+    }
+  ],
+  "gotchas": [
+    "This is the finding, not a placeholder. VE.Direct Protocol 3.34's PID list — revised April 2025, so five years after the SmartShunt line was added — names exactly three SmartShunts: 500A/50mV 0xA389, 1000A/50mV 0xA38A, 2000A/50mV 0xA38B. It names no 300A and no IP65 variant. Grepping the full text of the committed PDF ",
+    "Table I's column header is the class name `BMV71x SmartShunt`, so a class-level reading would sweep these in. The PID list is the model-level binding, and it does not. Those two readings disagree; both are recorded, and the catalogue follows the PID list because PID is the field a driver actually reads to decide what i",
+    "What would settle it: a bench capture of `PID` from a 300A or an IP65 SmartShunt, or a Victron document revision whose PID list names them. One capture closes this. It is an afternoon, not a week.",
+    "Five of the twelve SmartShunt SKUs in the Quebec retail set fall in this gap — the retailers stock ratings the protocol document has not caught up with. checked: 2026-07-31, 1 retailer each.",
+    "Do not guess a PID. Interpolating 0xA388 or 0xA38C from the surrounding ids would be exactly the fabrication the catalogue rules forbid, and it would cost whoever trusts it a day at the bench."
+  ]
+}

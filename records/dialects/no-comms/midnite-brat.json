@@ -1,0 +1,27 @@
+{
+  "id": "midnite-brat",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "solaris-shop-com-content-mnbrat-installation",
+      "citation": "The Brat Solar Charge Controller Instructions, MidNite Solar — https://www.solaris-shop.com/content/MNBRAT%20Installation.pdf (full text searched: zero occurrences of MODBUS, RS-232, RS-485, Ethernet, USB, serial, baud, "
+    }
+  ],
+  "models": [
+    {
+      "name": "MNBRAT (BRAT PWM charge controller)"
+    }
+  ],
+  "refutedOnReview": "REFUTED — the cited source does not support a register map at all, let alone a shared one.  1. The evidence field is empty by its own admission (\"(none — the claim is the vendor-doc confidence itself)\"). A confidence tag is not evidence; \"vendor-doc\" has to point at a vendor document that states register addresses, and none is offered.  2. The one source cited — \"The Brat Solar Charge Controller Instructions\" (MNBRAT",
+  "gotchas": [
+    "Positive finding, not an absence of research: the complete vendor manual was extracted and searched, and it documents no communications hardware of any kind. The Brat's entire user interface is four LEDs (Bulk, Float, Load On, Low Battery) with patterned blinking for fault codes, plus DIP-style switches. 30 A PWM, 12/2",
+    "It does have interesting behaviour worth recording for the no-comms file — a \"Solar Clock\" that learns sunrise and sunset over a seven-day monitoring cycle and then switches loads at dusk and dawn — but all of it is internal. There is no way to read it.",
+    "Recorded here so nobody researches it twice. A driver is not possible without added hardware (a shunt and a separate meter), which makes it a no-comms entry, not a future dialect.",
+    "checked: 2026-07-31."
+  ]
+}

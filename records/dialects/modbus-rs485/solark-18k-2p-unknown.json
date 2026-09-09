@@ -1,0 +1,37 @@
+{
+  "id": "solark-18k-2p-unknown",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "sol-ark-com-wp-content-uploads-2026-01-18k-installation-manual-rev-13-16july2026",
+      "citation": "https://sol-ark.com/wp-content/uploads/2026/01/18K_Installation_Manual_rev_13_16July2026.pdf — 18K Installation Manual MA-00037 Rev. 13, §2.3 Battery Communication: RJ45 pinout, on-request READ-only Modbus map, Modbus SN"
+    },
+    {
+      "source": "solark-modbus-rtu-protocol-v1-4",
+      "citation": "docs/solark-modbus-rtu-protocol-v1.4.pdf — the negative evidence: title and pinout sections cover 5k/8k/12k/15k only, no 18K anywhere."
+    }
+  ],
+  "transport": "RJ45 pins 1=B-, 2=A+, 6=GND, 7=A+, 8=B- on the \"Battery CANBus\" port — stated by the vendor 18K installation manual. Baud rate, framing, slave ID and register addresses: no source. Not inferred.",
+  "models": [
+    {
+      "name": "18K-2P"
+    },
+    {
+      "name": "18K-2P-LV / \"Limitless 18K\""
+    },
+    {
+      "name": "18000W all-in-one hybrid (retailer wording for the same unit)"
+    }
+  ],
+  "gotchas": [
+    "Deliberately NOT placed on solark-hybrid-rtu-v1. The only Sol-Ark register map in existence publicly is V1.4, dated 2023-10-13, whose title enumerates \"5k, 8k, 12k, 15k\" and whose pinout sections cover 8K, 12K indoor, outdoor 5K/8K/12K and 15K. The 18K postdates it and appears nowhere in it. Same vendor and same \"-2P\" ",
+    "What is missing to resolve it: a V1.5-or-later Sol-Ark Modbus RTU Protocol document naming the 18K, or two independent implementations reading an 18K at specific addresses. Sol-Ark will send the map on request — 18K Installation Manual Rev 13 §2.3: \"Modbus map is available upon request for READ operations only. Contact",
+    "Circumstantial only, and NOT sufficient to assign: the 18K manual's §2.3 text, RJ45 pin table and Modbus-SN wording are word-for-word identical to the 15K Rev 13 manual, and the 18K's parallel/Modbus-SN and fault-code sections match too. That suggests a shared platform, not a verified shared register map. Note the 18K ",
+    "Same read-only expectation applies if a map does arrive: the vendor's blanket statement across every manual is \"READ operations only.\""
+  ]
+}

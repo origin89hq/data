@@ -1,0 +1,38 @@
+{
+  "id": "champion-wireless-fob",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "unrecorded",
+  "sources": [
+    {
+      "source": "championpowerequipment-com-wp-content-uploads-2022-06-201218-om-english",
+      "citation": "Champion 201218 Operator's Manual https://www.championpowerequipment.com/wp-content/uploads/2022/06/201218-om-english.pdf; 200988 https://www.championpowerequipment.com/wp-content/uploads/2021/03/200988-om-english.pdf; 100519 https://www.championpowerequipment.com/wp-content/uploads/2018/08/100519-om-english.pdf (checked: 2026-09-01)"
+    }
+  ],
+  "transport": "wireless fob only, no wired input · n/a · n/a · enabled only when \"Ignition Switch is in the ON position, AND the Battery Switch is in the ON position\" (p.17); \"within 80 feet\" (p.25); \"The engine will attempt to start (6) times. The RCM controls the Auto-Choke during each attempt\" (p.17).",
+  "models": [
+    {
+      "name": "201218 (also 100573, 201155, 201001, 100554, 201423 \"Wireless Remote Start\")",
+      "rating": "9 kW gas, electric yes",
+      "notes": "RCM + fob"
+    },
+    {
+      "name": "200988",
+      "rating": "4.5/3.5 kW gas, 4.5/3.15 kW LPG (p.36), electric yes (Li-ion)",
+      "notes": "no remote of any kind"
+    },
+    {
+      "name": "100519",
+      "rating": "6.25 kW inverter, recoil only (p.11)",
+      "notes": "no electric start"
+    }
+  ],
+  "gotchas": [
+    "Standby drain: RCM \"still consumes approximately 2 mA\" with ignition OFF; battery switch OFF removes it (p.17).",
+    "Fob stop cuts panel voltage first, engine stops \"approximately 5 seconds\" later; start delays output \"approximately 15 seconds\" (p.17).",
+    "No Champion portable manual found documents a wired start terminal."
+  ]
+}

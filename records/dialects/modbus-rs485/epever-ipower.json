@@ -1,0 +1,70 @@
+{
+  "id": "epever-ipower",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "epever-inverter-protocol-v1-0",
+      "citation": "/Users/lemarier/dev/solar/docs/epever-inverter-protocol-v1.0.pdf — EPEver, 'Inverter communication protocol V1.0'. Manufacturer's own document, committed to the repo. Every address, scale, bit meaning, baud rate and defa"
+    },
+    {
+      "source": "crates-drivers-cabin-epever-src-ipower",
+      "citation": "/Users/lemarier/dev/solar/crates/drivers/cabin-epever/src/ipower.rs — existing register map for this dialect, with its provenance section naming the PDF above. MODELS = IPower (IP), IPower-Plus (IP-Plus), NPower (NP); DE"
+    },
+    {
+      "source": "crates-drivers-cabin-epever-src-driver",
+      "citation": "/Users/lemarier/dev/solar/crates/drivers/cabin-epever/src/driver.rs — Model::IPower maps to DeviceKind::Inverter and accepts [CommandKind::SetSwitch, CommandKind::ClearFault]."
+    }
+  ],
+  "transport": "RS-485 on RJ45 · Modbus RTU · 115200 bps 8 data bits 1 stop bit, no flow control · default slave ID 3 · 32-bit values span two registers, low word at the lower address",
+  "blocks": "Input registers (fn 0x04): 0x3100 block read 0x3100-0x3112 — 0x3108 load input voltage (DC bus, V ×100), 0x3109 load input current (A ×100), 0x310A/0x310B load input power L/H (W ×100), 0x310C load output voltage (AC, V ×100), 0x310D load output current (A ×100), 0x310E/0x310F load output power L/H (W ×100), 0x3111 device temperature (°C ×100), 0x3112 heat sink temperature (°C ×100). 0x3200 block read 0x3200-0x3202 — 0x3202 load status bitfield (D0 1=run/0=standby, D1 0=normal/1=fault, D5 output fail, D6 high-voltage-side short circuit, D7 input over-current, D8 abnormal output voltage, D9 unable to stop discharging, D10 unable to discharge, D11 short circuit, D13..D12 output load band 00 light/01 medium/02 nominal/03 overload, D15..D14 input voltage band 00 normal/01 low/02 high/03 no input). Discrete input (fn 0x02): 0x2000 device over-temperature. Holding registers (fn 0x03/0x10): 0x902F-0x9036 over-discharge and over-voltage thresholds (V/A ×100) — must be written as one 8-register block, several read-only; 0x9022 output AC voltage setting (×100), 0x9023 output AC frequency setting (×100). Coils (fn 0x01/0x05): 0x11 local(0)/remote(1) control, 0x0F inverter output on/off (only once remote enabled), 0x13 clear current and historical faults, 0x04 power-saving mode (SHI series only). Note EPEver's naming reads backwards: 'load input' is the DC/battery side (the inverter is itself a load on the bank), 'load output' is the AC side.",
+  "reports": [
+    "battery-voltage",
+    "load-current",
+    "load-power",
+    "ac-voltage",
+    "ac-current",
+    "ac-power",
+    "temperature",
+    "switch-state"
+  ],
+  "accepts": [
+    "set-switch",
+    "clear-fault"
+  ],
+  "models": [
+    {
+      "name": "IPower-Plus 12V 500W pure sine inverter"
+    },
+    {
+      "name": "IPower-Plus 12V 1500W GFCI pure sine inverter"
+    },
+    {
+      "name": "IPower-Plus 12V 2000W GFCI pure sine inverter"
+    },
+    {
+      "name": "IPower-Plus 12V 3000W pure sine inverter"
+    },
+    {
+      "name": "IPower-Plus 24V 3000W pure sine inverter"
+    },
+    {
+      "name": "IPower-Plus 48V 4000W pure sine inverter"
+    }
+  ],
+  "sharedMapEvidence": "EPEver 'Inverter communication protocol V1.0' states on its second line: 'Compatible products: IP series, IP-Plus series, and NP series'. All six retailer models are IPower-Plus, i.e. the IP-Plus series the document names. One vendor document covering the series is the evidence — not the shared vendor and not the shared family name. The weakest link in that chain is the retailer label: the documen",
+  "downgradedOnReview": "Not refuted: the cited vendor document exists in the repo and says what is claimed. docs/epever-inverter-protocol-v1.0.pdf line 2 reads verbatim \"Compatible products: IP series, IP-Plus series, and NP series\", and every register the dialect uses (0x3108-0x3112, 0x3202, 0x2000, 0x902F-0x9036, coils 0x04/0x0F/0x11/0x13), the 115200 8N1 baud and the default ID 3 are printed in it. crates/drivers/cabin-epever/src/ipower.",
+  "gotchas": [
+    "Coil ordering is mandatory: write 0x11 = 1 (remote control) before 0x0F (output on/off). The inverter ignores output commands while in local control. The driver returns 0x11 to 0 on shutdown.",
+    "EPEver's wording inverts the intuition — 'load input' is the DC/battery side and 'load output' is the AC side. Swapping them yields a plausible-looking dashboard reporting the bank at 120 V. `ipower.rs` has a dedicated test guarding this.",
+    "The vendor document explicitly warns that 0x3108/0x3109 (DC input voltage and current) may read a constant 0 because 'the hardware does not support this model'. Do not treat a zero there as a dead bank; it may mean the register is unpopulated on that unit. Which IP-Plus SKUs are affected is not stated — a bench questio",
+    "0x902F-0x9036 must be written as a single 8-register block. Several of those addresses are read-only and take their existing value or 0; writing them piecemeal is not supported by the document.",
+    "0x9022 / 0x9023 (output AC voltage and frequency) apply to the IP-Plus series, NP4000-22 and NP5000-42 only — plain IP series and other NPower models use hardware DIP switches. All six models here are IP-Plus, so these apply, but the carve-out shows the map is not uniform across the document's three series."
+  ],
+  "unmappedReports": "Heat sink temperature (0x3112) — no MetricKind distinguishes it from device temperature (0x3111); both would have to land on `temperature`, so one of the two must be dropped. The driver currently reads the register and maps only 0x3111., Fault state (0x3202 D1, and the seven fault bits D5-D11: output fail, HV-side short circuit, input over-current, abnormal output voltage, unable to stop discharging, unable to discharge, short circuit) — there is no fault or alarm MetricKind at all. The contract has `clear-fault` as a CommandKind but nothing to report the fault that would justify sending it. This is the biggest contract gap this device exposes., Input voltage band (0x3202 D15..D14: normal / low / high / no input) — a four-state enum with no MetricKind and no ValueKind that fits., Output load band (0x3202 D13..D12: light / medium / nominal / overload) — no MetricKind; `ac-power` carries the watts but not the vendor's own overload judgement., Device over-temperature flag (discrete input 0x2000) — no boolean MetricKind for an over-temperature trip; `temperature` carries the number but not the protection state., Over-discharge and over-voltage thresholds (0x902F-0x9036) are writable settings with no CommandKind — the contract has `set-charge-current-limit` but nothing for an inverter's low/high input cut-off and recovery thresholds., Output AC voltage (0x9022) and output AC frequency (0x9023) are writable settings with no CommandKind. Note 0x9023 is a *setting*, not a measurement — the inverter does not report a measured `ac-frequency` anywhere in this map., No state-of-charge, no ac-energy-today/total, no ac-power-factor, no ac-apparent-power in this map — the inverter reports instantaneous values only, with no energy counters at all."
+}

@@ -1,0 +1,44 @@
+{
+  "id": "epever-remote-meter",
+  "family": "no-comms",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "epever-mt50-manual-v2-1",
+      "citation": "docs/epever-mt50-manual-v2.1.pdf (already in this repo)"
+    },
+    {
+      "source": "epever-com-wp-content-uploads-2021-06-mt50-manual-en-v3-5",
+      "citation": "EPEVER MT50 manual V3.5, https://www.epever.com/wp-content/uploads/2021/06/MT50-Manual-EN-V3.5.pdf"
+    },
+    {
+      "source": "epever-com-wp-content-uploads-2021-08-epever-datasheet-mt11",
+      "citation": "EPEVER MT11 datasheet, https://www.epever.com/wp-content/uploads/2021/08/EPEVER-Datasheet-MT11.pdf"
+    }
+  ],
+  "transport": "RS-485, Modbus RTU — but as the bus MASTER, not as a slave.",
+  "models": [
+    {
+      "name": "MT50 remote meter (XTRA, TRIRON, TracerAN, Tracer BN — RJ45)"
+    },
+    {
+      "name": "MT11 remote meter (DR N / DuoRacer series only — 3.81 mm 4-pin)"
+    },
+    {
+      "name": "MT52 (the XTRA-N G3 generation's meter, named in the G3 manual)"
+    }
+  ],
+  "refutedOnReview": "REFUTED on the central claim. The dialect header asserts MT50/MT11/MT52 \"share one register map\", but no cited source contains a register map for any of the three, and the entry's own evidence text concedes \"it is not a register map.\" These are Modbus masters (displays); EPEver publishes maps for the controllers (docs/epever-controller-protocol-a-b-series-v2.5.pdf, docs/epever-controller-protocol-b-series-v2.3.pdf), ",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "A second Modbus master on the bus. It will collide with the gateway's polling — tolerate the retries or unplug it. This is already in docs/DEVICES.md and docs/INVENTORY.md; it is repeated here because it is the single most likely cause of a driver that 'works on the bench and not at the cabin'.",
+    "MT50 does not support lithium battery parameters (stated in the XTRA-N manual's accessory table).",
+    "MT11 is DR-N-only by vendor statement; MT52 is the G3's meter. They are not interchangeable across product lines.",
+    "MT11 costs the shared 5 V rail 13 mA when on, 4 mA off — and on DR1206/2206/3206/2210/3210N that rail is shared with the AES refrigerator signal port."
+  ]
+}

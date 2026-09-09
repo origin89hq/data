@@ -1,0 +1,32 @@
+{
+  "id": "victron-pwm-pro-usb",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-bluesolar-pwm-pro-software-manual",
+      "citation": "docs/victron-bluesolar-pwm-pro-software-manual.pdf (committed) — Victron Energy, 'Blue Solar PWM Pro setup and monitoring software Manual EN Appendix', p. 10"
+    },
+    {
+      "source": "victronenergy-com-accessories-bluesolar-pwm-pro-to-usb-interface-cable",
+      "citation": "https://www.victronenergy.com/accessories/bluesolar-pwm-pro-to-usb-interface-cable"
+    }
+  ],
+  "transport": "BlueSolar PWM-Pro to USB interface cable (SCC940100200). The vendor's own PC software manual states the port setting as 115200 baud. Data bits, parity, stop bits, framing, addressing and register map are NOT published anywhere I could find — left null rather than assumed to match VE.Direct's 19200 8N1.",
+  "models": [
+    {
+      "name": "BlueSolar PWM-Pro 12/24V-20A"
+    }
+  ],
+  "refutedOnReview": "REFUTED on three independent grounds, any one of which is sufficient.  1. The cited document contains no register map at all. `/Users/lemarier/dev/solar/docs/victron-bluesolar-pwm-pro-software-manual.pdf` exists (22 pages, \"Version: 01, Date: 12 January 2015\"), and I extracted every page of text. Full-document string search returns ZERO hits for \"register\", \"Register\", \"Modbus\", \"MODBUS\", \"address\", \"Address\", \"holdi",
+  "gotchas": [
+    "This is emphatically NOT VE.Direct. It is a different physical connector, a different cable part number, and a different baud rate (115200 vs 19200). Any assumption that a PWM-Pro will answer a VE.Direct parser is wrong and will cost a bench day.",
+    "The only vendor material is a GUI manual for Windows setup-and-monitoring software. There is no protocol appendix — I searched the document for 'protocol', 'register', 'Modbus' and 'address' and the only hit in the whole 22 pages was the baud-rate line. No map exists to write a driver against.",
+    "A web search result asserted that the PWM-Pro speaks the VE.Direct text protocol at 115200 with the 1-second block format. That claim is a conflation of two unrelated documents by the search engine and is NOT supported by either. Recorded here so it does not get repeated.",
+    "checked: 2026-07-31 — listed by 1 Quebec retailer."
+  ]
+}

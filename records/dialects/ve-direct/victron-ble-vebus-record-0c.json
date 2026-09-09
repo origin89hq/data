@@ -1,0 +1,45 @@
+{
+  "id": "victron-ble-vebus-record-0c",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victron-ble-extra-manufacturer-data-2022-12-14",
+      "citation": "docs/victron-ble-extra-manufacturer-data-2022-12-14.pdf — committed. Victron wiki page 'Extra manufacturer Data', printed 2022-12-14. Record-type table 0x00–0x0D and the full 0x0C VE.Bus bit layout quoted above were read"
+    },
+    {
+      "source": "victronenergy-com-upload-documents-ve-bus-smart-dongle-106441-ve-bus-smart-dongle-pdf-en",
+      "citation": "https://www.victronenergy.com/upload/documents/VE.Bus_Smart_Dongle/106441-VE_Bus_Smart_Dongle-pdf-en.pdf — VE.Bus Smart Dongle manual, rev 07, 04/2024. Source for Instant Readout, the primary/background mode arbitration "
+    },
+    {
+      "source": "victronenergy-com-accessories-ve-bus-smart-dongle",
+      "citation": "https://www.victronenergy.com/accessories/ve-bus-smart-dongle — product page. Names the compatible families: 'Multis, MultiPlusses, MultiPlus-II, MultiGrid, MultiGrid-II, Quattros, and our series of Phoenix Inverters wit"
+    }
+  ],
+  "transport": "BLE advertisement, no connection and no pairing session needed to read — but the per-device 16-byte AES key, obtained once by pairing with VictronConnect, is required to decrypt. Victron manufacturer data, byte 3 must be 0x10 (Product Advertisement); the extra-manufacturer-data record starts at byte 8. Header: bits 0–7 record type (0x0C here), bits 8–23 nonce/data counter LSB-first, bits 24–31 byt",
+  "blocks": "Extra-manufacturer-data record type 0x0C, VE.Bus. Bit offsets from the start of the record: 32 (8 bits) Device state, NA 0xFF, VE_REG_DEVICE_STATE · 40 (8) VE.Bus error, NA 0xFF, VE_REG_VEBUS_VEBUS_ERROR · 48 (16) Battery current 0.1 A, −3276.8..3276.6 A, NA 0x7FFF, VE_REG_DC_CHANNEL1_CURRENT · 64 (14) Battery voltage 0.01 V, 0..163.83 V, NA 0x3FFF, VE_REG_DC_CHANNEL1_VOLTAGE · 78 (2) Active AC in, NA 0x3, 0=AC in 1, 1=AC in 2, 2=Not connected, 3=unknown · 80 (19) Active AC in power 1 W, −262144..262142 W, NA 0x3FFFF, VE_REG_AC_IN_1_REAL_POWER or VE_REG_AC_IN_2_REAL_POWER depending on VE_REG_AC_IN_ACTIVE · 99 (19) AC out power 1 W, NA 0x3FFFF, VE_REG_AC_OUT_REAL_POWER · 118 (2) Alarm, 0=no alarm, 1=warning, 2=alarm, NA 3 · 120 (7) Battery temperature 1 °C, −40..86 °C, NA 0x7F, temperature = record value − 40 · 127 (7) SOC 1 %, 0..126 %, NA 0x7F · 134 (26) Unused.",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "state-of-charge",
+    "ac-power"
+  ],
+  "models": [
+    {
+      "name": "VE.Bus Smart Dongle (ASS030537010) — 2 Quebec listings, checked: 2026-07-31. Part number is retail-sourced; it does not appear in the committed BLE specification."
+    }
+  ],
+  "gotchas": [
+    "CONFIDENCE IS SPLIT AND THE SPLIT IS THE POINT. The bit layout above is vendor-doc: it is printed in full in the committed Victron wiki PDF, and it is the only VE.Bus record type in the document's 0x00–0x0D table. What is UNVERIFIED is the binding to any product: the specification names zero product models anywhere, an",
+    "Unreadable without the per-device 16-byte AES key, which comes out of VictronConnect's product-info page after pairing (or its SQLite advertisementKeys table). There is no vendor-supported way to derive it. A gateway that has never been paired sees ciphertext — this is a commissioning step per device, at the bench, wit",
+    "Changing the Bluetooth PIN changes the key. Byte 0 of the key is echoed in every advertisement so a receiver can detect the mismatch; the vendor's instruction is then to DISCARD the stored key and stop decoding, not retry.",
+    "Do not bounds-check the record length. The vendor: 'an implementation should not perform an upper bound check on the length … a length check should be performed for all items when retrieving data from the record.' Bit offsets are stable; presence is not. A fixed-size struct parse breaks on a firmware update.",
+    "Fields are bit-packed across byte boundaries and every field has its own NA sentinel sized to its width — 0x7FFF, 0x3FFF, 0x3FFFF, 0x7F, 0x3. Byte-oriented parsing is wrong here, and treating a sentinel as a value produces plausible garbage. Battery temperature in particular is an offset encoding: subtract 40."
+  ],
+  "unmappedReports": "Device state (bit 32, VE_REG_DEVICE_STATE) — the VE.Bus device-state enumeration has no ChargeStage equivalent, VE.Bus error code (bit 40) — ChargeStage::Fault keeps the fact and drops the number, and there is no fault-code MetricKind, Active AC in selector (bit 78: 0=AC in 1, 1=AC in 2, 2=Not connected, 3=unknown) — same missing 'AC source selector' kind as GX register 826, Alarm notification (bit 118: 0=no alarm, 1=warning, 2=alarm) — the spec itself marks VE_REG_ALARM_NOTIFICATION 'to be defined'. No MetricKind for a three-level alarm severity, SHAPE MISMATCH — the record carries Active AC IN power (bit 80) and AC OUT power (bit 99) as two independent signed 19-bit values. MetricKind has one ac-power. Collapsing them loses the direction of flow through the inverter/charger, which is the single most useful thing this record says, Battery temperature is present here (bit 120) but only as whole degrees over −40..86 °C with an offset encoding — narrower than battery-temperature implies"
+}

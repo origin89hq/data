@@ -1,0 +1,84 @@
+{
+  "id": "magnum-me-network",
+  "family": "other-serial",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "magnum-networking-communications-protocol-2009-10-15",
+      "citation": "docs/magnum-networking-communications-protocol-2009-10-15.pdf — \"Magnum Networking Communications Protocol\", Magnum Energy Inc., revision 2009-10-15, © 2003-2009 Magnum Energy. 6 pages. VENDOR DOCUMENT, now committed to "
+    },
+    {
+      "source": "github-com-charlesgodwin-pymagnum",
+      "citation": "https://github.com/CharlesGodwin/pymagnum — pymagnum v2.0.8, BSD-3-Clause, \"A read only interface for Magnum Energy Network devices\". Files used: magnum/magnum.py (serial settings, packet classification, unpack masks), m"
+    },
+    {
+      "source": "github-com-linuxkidd-magnum2mqtt",
+      "citation": "https://github.com/linuxkidd/magnum2mqtt — etc/magnum/magnum-spec.yml, a declarative byte-offset protocol spec; separate codebase, described by its author as a complete rewrite driven by a Magnum spec PDF he holds."
+    }
+  ],
+  "transport": "RS-485, true 2-wire, 5 V differential, half-duplex, multi-drop to 32 transceivers, over 4-conductor RJ11/RJ14 phone cable · proprietary Magnum \"ME network\" framing (NOT Modbus: no addressing, no function codes, no CRC, no request/response) · 19200 8N1 · inverter is master and broadcasts every 100 ms; remote replies 10 ms after the master frame ends · third parties listen only",
+  "blocks": "Inverter frame 21 bytes (16 bytes on MS firmware rev ≤3.9 and all ME/RD/MM/MMS). Remote frame 21 bytes (16 bytes on ME-RC rev ≤1.4 and all MM-R/MM-RC/MM-RB/ME-MR); remote sub-packet selected by its last byte: 0x00, 0x11, 0x80, 0xA0–0xA4, 0xC0–0xC3, 0xD0. BMK 0x81, 18 bytes. AGS 0xA1 and 0xA2, 6 bytes. RTR 0x91, 2 bytes. PT-100 0xC1 16 B / 0xC2 13 B / 0xC3 14 B and ACLD 0xD1 8 B — community only, absent from the vendor doc. Inverter frame byte map (vendor doc): 0 status, 1 fault, 2–3 DC volts @0.1 V/count, 4–5 DC amps @1 A/count, 6 AC output volts RMS, 7 AC input volts PEAK, 8 inverter LED, 9 charger LED, 10 revision @0.1, 11 battery °C, 12 transformer °C, 13 FET °C, 14 model ID, 15 stack mode, 16 AC input amps @1 A, 17 AC output amps @1 A, 18–19 AC Hz @0.1 Hz, 20 unused. All 16-bit fields big-endian. BMK 0x81: 1 SoC %, 2–3 volts @0.01 V, 4–5 amps @0.1 A, 6–7 min volts @0.01 V, 8–9 max volts @0.01 V, 10–11 net amp-hours @1 Ah, 12–13 trip amp-hours @0.1 Ah, 14–15 lifetime amp-hours out @100 Ah, 16 revision, 17 fault. AGS 0xA1: 1 status, 2 revision, 3 temperature °F, 4 run hours @0.1 h, 5 battery volts @0.1 V scaled to 12 V terms.",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "ac-voltage",
+    "ac-current",
+    "ac-frequency",
+    "charge-stage",
+    "state-of-charge",
+    "consumed-amp-hours",
+    "generator-run-state",
+    "generator-run-hours",
+    "temperature"
+  ],
+  "models": [
+    {
+      "name": "MS4448PAE (model byte 0x73 / 115)"
+    },
+    {
+      "name": "MS4024PAE (0x6B / 107)"
+    },
+    {
+      "name": "MS4024 — sold as MS4024-U (0x69 / 105)"
+    },
+    {
+      "name": "MS2812 — sold as MS2812-L-U (0x2D / 45)"
+    },
+    {
+      "name": "MS2024 — sold as MS2024-L-U (0x5B / 91)"
+    },
+    {
+      "name": "MS series generic (MS2012 0x23, MS2012E 0x28, MS2712E 0x2F, MS4124E 0x5A, MS4024AE 0x6A, MS4448AE 0x6F, MS3748AEJ 0x70, MS3748PAEJ 0x74)"
+    },
+    {
+      "name": "ME / RD / MM / MMS series inverters (same packet, 16-byte form)"
+    },
+    {
+      "name": "ME-BMK battery monitor kit (0x81 packet) — accessory"
+    },
+    {
+      "name": "ME-AGS-N automatic generator start (0xA1/0xA2 packets) — accessory"
+    },
+    {
+      "name": "ME-RC / ME-ARC / ME-RTR / ME-ARTR remotes and routers (0x91 and remote packets) — accessory"
+    },
+    {
+      "name": "PT-100 charge controller (0xC1/0xC2/0xC3 packets) — accessory, NOT covered by the vendor doc"
+    }
+  ],
+  "sharedMapEvidence": "The vendor document defines ONE inverter frame layout and gives a single \"Inverter Model\" table for byte 14 that lists MS4448PAE 0x73, MS4024PAE 0x6B, MS4024 0x69, MS2024 0x5B and MS2812 0x2D alongside the ME/RD/MM/MMS parts — the model byte is an identifier within one map, not a selector for different maps (docs/magnum-networking-communications-protocol-2009-10-15.pdf, pages 2–3). Both independen",
+  "gotchas": [
+    "CATALOGUE FILING PROBLEM — this dialect fits none of the six protocol-family files. It is RS-485 electrically but it is NOT Modbus: no slave address, no function codes, no CRC, no request/response, no registers. Filing it in modbus-rs485.md would send a driver author reaching for a Modbus library, which cannot read thi",
+    "LISTEN-ONLY, so `accepts` is empty. The inverter is master and transmits every 100 ms; the remote (ME-RC/ME-ARC) is the single slave allowed to reply. Commands DO exist on the wire — the remote→inverter frame carries byte 0 bit 0 = toggle inverter on/off, bit 1 = toggle charger on/off, bits 1 and 3 together (0x0A) = fo",
+    "The network does not run at all without an inverter — the inverter regulates every device's timing (pymagnum). A bench rig with only a remote and a BMK produces nothing.",
+    "NO FRAMING, NO LENGTH FIELD, NO CHECKSUM. Frames are delimited purely by inter-packet dead time: 10 ms between the inverter and remote frames, an 8–14 ms variable AGS/BMK tail, 14 ms dead time after a BMK transmission, 18 ms after an RTR. Both implementations recover frames only from a serial read timeout (pymagnum def",
+    "Packet type is inferred from LENGTH first, then first byte (0x81 BMK, 0x91 RTR, 0xA1/0xA2 AGS, 0xC1/0xC2/0xC3 PT-100, 0xD1 ACLD) or last byte (remote sub-packets 0x00/0x11/0x80/0xA0–0xA4/0xC0–0xC3/0xD0). Inverter and remote frames are BOTH 21 bytes and are separated only by heuristics — pymagnum requires byte 10 ≤ 0x27"
+  ],
+  "unmappedReports": "Inverter fault code (byte 1, 22 defined values incl. STUCKRELAY, DC_OVERLOAD, BACKFEED, STACKER_PH_LOSS, OPEN_SELCO_TCO, CB3 OPEN) — there is no fault/alarm MetricKind at all, only the clear-fault CommandKind, Inverter operating mode when not charging (Off 0x20, INVERTMODE 0x40, Inverter Standby 0x50, SEARCHMODE 0x80, plus Load Support VDC/AAC in the community tables) — ChargeStage cannot express an inverter's operating mode, so byte 0 is lossy in both directions, AC input voltage vs AC output voltage both collapse onto ac-voltage, and AC input amps vs AC output amps both collapse onto ac-current — the contract has no input/output (shore-or-generator vs load) side discriminator on an inverter-charger, Transformer temperature (byte 12) — no MetricKind; `temperature` is documented as ambient, FET temperature (byte 13) — no MetricKind, Inverter LED and charger LED (bytes 8, 9: is the inverter enabled, is the charger enabled) — switch-state is for a controllable relay, not for a subsystem-enabled flag, Stack mode (byte 15: standalone / parallel master / parallel slave / series master / series slave) — no MetricKind for a device's role in a stack, BMK minimum and maximum bank voltage since reset (bytes 6–9) — no MetricKind, BMK resettable \"trip\" amp-hours (bytes 12–13) and lifetime cumulative amp-hours out (bytes 14–15) — consumed-amp-hours covers only the net figure, BMK fault code (byte 17) and BMK SoC sentinel 255 = \"Think'n\" (still learning) — no MetricKind can say \"reading not yet trustworthy\", AGS status detail (28 states incl. quiet time, warm-up, cool-down, exercise, top-off, start-on-amp, and eleven distinct fault-start reasons) — RunState has six states, so the reason a generator started or failed is lost, AGS days since last generator run and days since the bank last reached full SoC (0xA2 bytes 1–2) — the second is a real lead-acid sulfation signal with no wire name, Generator start count — the AGS reports run hours and days-since-run but nothing maps to generator-start-count, and the protocol carries no start counter, Remote setting readback carried continuously on the wire: LBCO, absorb voltage and time, float voltage, EQ voltage, charger amps %, AC shore amps limit, battery size in Ah, battery type, plus the full AGS schedule (start/stop SoC, start/stop volts, quiet hours, exercise days, max run time) — the contract has no config-readback surface, so a driver can see how the system is configured but has nowhere to put it, PT-100 lifetime and resettable kWh, ground-fault current, DIP switch state, nominal battery voltage (if a PT-100 is on the wire)",
+  "refiledFrom": "magnum-me-network"
+}

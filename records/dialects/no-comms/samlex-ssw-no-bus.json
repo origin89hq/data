@@ -1,0 +1,42 @@
+{
+  "id": "samlex-ssw-no-bus",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "samlexamerica-com-wp-content-uploads-2020-01-11002-ssw-350-600-1000-1500-2000-12a-0117-lrez-1",
+      "citation": "https://samlexamerica.com/wp-content/uploads/2020/01/11002-SSW-350-600-1000-1500-2000-12A-0117-Lrez-1.pdf — jack list, §4.9 Remote Control"
+    }
+  ],
+  "blocks": "The combined SSW owner's manual lists one jack — '8P8C Modular Jack (Also called RJ-45 Jack) for connecting Remote Control Model SSW-R1-12B' — and mentions no Modbus, RS-485 or RS-232 anywhere. The remote link format is unpublished.",
+  "models": [
+    {
+      "name": "SSW-350-12A"
+    },
+    {
+      "name": "SSW-600-12A"
+    },
+    {
+      "name": "SSW-1000-12A"
+    },
+    {
+      "name": "SSW-1500-12A"
+    },
+    {
+      "name": "SSW-2000-12A"
+    },
+    {
+      "name": "SSW-R1-12B"
+    }
+  ],
+  "sharedMapEvidence": "One vendor manual (11002-SSW-350-600-1000-1500-2000-12A) covers all five ratings and describes a single SSW-R1-12B jack across them. Absence of a bus, shared.",
+  "gotchas": [
+    "The retailer's 'digital remote on the 1500 W model' is right but under-stated: the manual says SSW-R1-12B is provided only for SSW-1000-12A, SSW-1500-12A and SSW-2000-12A. The SSW-600 sold here has no remote option.",
+    "12 V only across the whole SSW line, and modified... no — SSW is pure sine; SAM is the modified-sine line. Keep them apart when reading a retailer's page, the model prefixes are one letter different in feel and the waveform claim differs.",
+    "Same remote/switch interlock warning as NTX: leave the inverter's own switch OFF when the remote is wired."
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "id": "victron-gx-modbus-temperature",
+  "family": "modbus-tcp",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victron-gx-modbus-tcp-register-list",
+      "citation": "Victron GX Modbus-TCP register list, rev 53 — already committed at docs/victron-gx-modbus-tcp-register-list.xlsx. Sheet 'Field list' (the 3300 and 3600 blocks quoted above) and sheet 'Unit ID mapping' (dynamic unit IDs s"
+    },
+    {
+      "source": "victron-cerbo-gx-manual-rev40",
+      "citation": "Cerbo GX Manual rev 40, 04/2026 — §5.11 hardwired temperature sensors, §6.7 Bluetooth connectivity requirements, and the Settings -> Integrations reference table. Committed at docs/victron-cerbo-gx-manual-rev40.pdf"
+    },
+    {
+      "source": "victron-temperature-sensors-wiki-2026-05-21",
+      "citation": "victronenergy.com/live/temperature_sensors ('Temperature on VRM' column) — committed at docs/victron-temperature-sensors-wiki-2026-05-21.pdf"
+    }
+  ],
+  "transport": "Modbus TCP to the GX device. Unit ID is the service's /DeviceInstance and is **assigned dynamically since Venus OS 2.60** — the register list's Unit-ID sheet says so outright and directs you to Settings -> Integrations -> Modbus TCP server -> Available services on the GX to read the current one. Its printed table of preferred unit IDs is retained only for pre-2.60 versions. Do not hard-code a unit",
+  "blocks": "`com.victronenergy.temperature` 3300–3320 · `com.victronenergy.meteo` 3600–3610. Verbatim from the register list rev 53: 3300 Product ID uint16; 3301 Temperature scale factor uint16 /100; 3302 Temperature offset int16 /100; 3303 Temperature type uint16 (0=Battery, 1=Fridge, 2=Generic, 3=Room, 4=Outdoor, 5=WaterHeater, 6=Freezer); 3304 Temperature int16 /100 degrees Celsius; 3305 Temperature status uint16 (0=OK, 1=Open circuit, 2=Short circuited, 3=Reverse Polarity, 4=Unknown); 3306 Humidity uint16 /10 percent; 3307 Sensor battery voltage uint16 /100 V; 3308 Atmospheric pressure uint16 hPa; 3309 CO2 uint16 ppm; 3310 Luminosity uint32 lux; 3312 NOX uint16; 3313 PM2.5 uint16 µg/m³; 3314 VOC uint16; 3315–3319 RESERVED; 3320 Custom Name String[8], writable. Meteo: 3600 Solar irradiance uint16 /10 W/m²; 3601 Wind speed uint16 /10 m/s; 3602 Cell temperature of sensor int16 /10 °C; 3603 External temperature int16 /10 °C; 3604 External temperature second sensor int16 /10 °C; 3605–3609 RESERVED; 3610 Custom Name String[8] writable.",
+  "reports": [
+    "temperature",
+    "humidity",
+    "pressure"
+  ],
+  "models": [
+    {
+      "name": "Cerbo GX, Cerbo-S GX, Venus GX, Ekrano GX — temperature inputs carrying ASS000001000"
+    },
+    {
+      "name": "Any sensor a GX device presents as the com.victronenergy.temperature service"
+    }
+  ],
+  "sharedMapEvidence": "One map by construction, and the vendor says so structurally: the GX Modbus TCP register list is keyed by *dbus service name*, not by product. Every device the GX resolves to `com.victronenergy.temperature` is read through the identical block at 3300–3320 regardless of what it physically is — the hardwired ASS000001000 on a GX input, or a Ruuvi, or a Ruuvi Air. The register list makes that explici",
+  "gotchas": [
+    "**The two temperature blocks use different scale factors.** `com.victronenergy.temperature` register 3304 is scale 100 (0.01 °C); every `com.victronenergy.meteo` temperature — 3602, 3603, 3604 — is scale 10 (0.1 °C), as are the battery temperatures elsewhere in the list (61, 262, 773). Applying one divisor across both ",
+    "3305 is the fault channel and it is the reason to poll this block at all rather than infer temperature from something else. Open circuit, short circuited and reverse polarity are three separate values. Reverse polarity in particular is the mistake the GX manual's 'Red wire -> Top terminal, Black wire -> Bottom terminal",
+    "3301 Scale and 3302 Offset are *applied at the GX*, not by you. The GX manual says the user can set an offset and 'the scale can be adjusted using a multiplier between 1 and 10'. Register 3304 is the corrected value; re-applying 3301/3302 to it double-corrects. Read them for provenance, not for arithmetic.",
+    "3303 Temperature type has **seven** values in the register list (Battery, Fridge, Generic, Room, Outdoor, WaterHeater, Freezer) but Cerbo GX Manual rev 40 §5.11 says of a hardwired probe: 'The available options are Battery, Fridge, or Generic.' Two current vendor documents, different lists. Recorded as a contradiction,",
+    "3310 Luminosity is declared `unit32` in the vendor spreadsheet. That is a typo for uint32; recorded rather than silently corrected, as docs/catalog/ve-direct.md does for rev 18's '12..48V-7100A'. It occupies 3310–3311, which is why 3312 is the next used address."
+  ],
+  "unmappedReports": "3305 Temperature status. Open circuit / short circuited / reverse polarity — the single most useful non-temperature fact this map exposes, and there is no MetricKind for sensor health. This is the same shape as the missing off-reason and fault-code findings docs/catalog/ve-direct.md already raised against the contract., 3307 Sensor battery voltage. A wireless sensor's own cell going flat has no wire name, and its symptom — the sensor stops reporting — is indistinguishable from a radio problem., 3303 Temperature type. Battery / Fridge / Room / Outdoor / WaterHeater / Freezer is a DeviceKind-adjacent statement made by the *device*, and the contract carries kind as configuration only. A GX-side re-type silently changes what a reading means with nothing on the wire to notice., 3309 CO2 (ppm), 3310 Luminosity (lux), 3312 NOX index, 3313 PM2.5 (µg/m³), 3314 VOC index. Five air-quality metrics with no MetricKind. Not needed by the models in this survey, but they are in the same block a temperature driver must already parse, and any Ruuvi Air on a GX would produce them., 3601 Wind speed (m/s). No MetricKind. `pv-irradiance` exists and covers 3600, so a meteo device is half-expressible and half not., 3602 vs 3603 vs 3604 — cell temperature, external temperature, and a second external temperature in one service. `MetricKind` has one `temperature`, so a three-probe meteo device collapses to one number. Precisely the per-string PV problem docs/catalog/ve-direct.md recorded for the 4-tracker MPPT RS, in a different block.",
+  "refiledFrom": "lan-http"
+}

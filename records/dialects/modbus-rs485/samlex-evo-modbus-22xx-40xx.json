@@ -1,0 +1,72 @@
+{
+  "id": "samlex-evo-modbus-22xx-40xx",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "samlex-evo-2212-3012-2224-4024-manual-fw0-82",
+      "citation": "docs/samlex-evo-2212-3012-2224-4024-manual-fw0.82.pdf — Owner's Manual, Fig 2.1 legend items 9A/9B: 'RJ-45 Jacks for Communication Ports COMM 1 and COMM 2 - For RS-485 networking and MODBUS Serial Communication Protocol'"
+    },
+    {
+      "source": "samlex-evo-rc-plus-remote-manual-2021",
+      "citation": "docs/samlex-evo-rc-plus-remote-manual-2021.pdf — §4.8.2.6 COMM ID; §5.2.2.2 Fig 5.2 data-logging field list (NEWLY ADDED to docs/ this pass)"
+    },
+    {
+      "source": "samlex-evo-rc-remote-manual-2022",
+      "citation": "docs/samlex-evo-rc-remote-manual-2022.pdf — §4.8.2.6 COMM ID, wording for the 120 V / 230 V pairs (NEWLY ADDED to docs/ this pass)"
+    }
+  ],
+  "transport": "RS-485 RJ-45 (jacks \"COMM 1\" / \"COMM 2\") · Modbus RTU · 9600 8N1 · slave ID = \"COMM ID\" parameter, range 1-255, default 1",
+  "blocks": "NO REGISTER MAP IS OBTAINABLE FROM ANY PUBLIC SOURCE. Samlex holds the EVO \"Modbus Communication Protocol Guide\" under NDA and releases it only to individuals who contact tech support (604-525-3836 / techsupport@samlexamerica.com) and sign one. The single community implementation that exists (logicminds/dbus-serialinverter) is architected specifically to keep the addresses out of git: config.ini ships every register as the literal string '???' and the real values live in a git-ignored config.ini.private. So the driver cost here is not a bench day, it is a phone call plus a legal review of whether an NDA-derived map can live in this repo at all. Nothing can be written until that is resolved.",
+  "reports": [
+    "ac-voltage",
+    "ac-current",
+    "ac-power",
+    "ac-apparent-power",
+    "ac-frequency",
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "charge-stage"
+  ],
+  "models": [
+    {
+      "name": "EVO-2212"
+    },
+    {
+      "name": "EVO-3012"
+    },
+    {
+      "name": "EVO-2224"
+    },
+    {
+      "name": "EVO-4024"
+    },
+    {
+      "name": "EVO-2212E"
+    },
+    {
+      "name": "EVO-3012E"
+    },
+    {
+      "name": "EVO-2224E"
+    },
+    {
+      "name": "EVO-4024E"
+    }
+  ],
+  "refutedOnReview": "REFUTED. The sources exist and the claim quotes them honestly, but they do not support grouping eight models into one register map — and by the catalogue's own non-negotiable rule (\"a model joins an existing dialect ONLY when a source shows matching register addresses\"), zero of the eight qualify.  WHAT I VERIFIED (all files present, text extracted with pdftotext -layout):  1. /Users/lemarier/dev/solar/docs/samlex-ev",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "REGISTER ADDRESSES: none. Absent, not guessed. vendor-doc that Modbus exists; nothing at any confidence for what is in it.",
+    "Slave ID default 1 is vendor-doc: EVO-RC-PLUS manual §4.8.2.6 states 'Parameter COMM ID (Communication ID) sets the ID number for the COMM Port and EVO-RC-PLUS Remote Control', and Table 6.6 in the EVO owner's manuals gives range 1-255, default 1. Note this one parameter addresses BOTH the Modbus COMM port and the remo",
+    "9600 8N1 is community-single. Only logicminds/dbus-serialinverter states it (0 stars, last pushed 2026-03-30). No Samlex document reviewed here states a baud rate. A GitHub code search for a second independent Samlex Modbus implementation returned nothing. Do not treat as crosschecked.",
+    "CONTRADICTION — state of charge: dbus-serialinverter defines REG_SOC 'uint16, state of charge 0-100 %' and publishes /Soc. But NO Samlex data-logging field list, for any EVO model, includes state of charge; the vendor logs battery volt and battery current only. Either the register exists and Samlex simply does not log ",
+    "COMM 3 / COMM 4 are also RJ-45 and are labelled 'For CANbus Serial Communication Protocol (for future use)' in the fw 0.82 manual. Not a CAN BMS port. Do not plug a battery into them."
+  ],
+  "unmappedReports": "AC INPUT side entirely — the vendor logs 'Grid volt', 'Grid freq', 'Input current', 'Input VA', 'Input watt', 'Gen volt', 'Gen freq' alongside the output values. MetricKind's ac-voltage / ac-current / ac-power / ac-frequency are single-sided and cannot carry input and output simultaneously. Every multi-mode inverter/charger in the catalogue hits this; it is the largest contract gap Samlex exposes., 'Grid status' and 'Gen status' — AC-source present-and-within-limits flags. Not generator-run-state, which is about an engine; these are about whether the EVO will accept transfer., 'External current' — DC amps on the External Charger / DC I/O studs, a second DC path distinct from the battery. No MetricKind for a secondary DC branch., 'Transformer temperature', 'Busbar temperature', 'Heat sink temperature' — device-internal thermals. MetricKind has battery-temperature and temperature (ambient); neither means 'this component inside the box'., 'Fan speed', 'Mode' — operating mode enum (0=Power Save, 1=AC Normal, 2=AC Abnormal, 3=Inverting, 4=Fault). charge-stage covers only the charging half; there is no MetricKind for inverter operating mode., 'Error code' — numeric fault code. No MetricKind carries a device fault code, only clear-fault exists on the command side., 'Event' — discrete event log entries."
+}

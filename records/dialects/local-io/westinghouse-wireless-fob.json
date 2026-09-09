@@ -1,0 +1,34 @@
+{
+  "id": "westinghouse-wireless-fob",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "unrecorded",
+  "sources": [
+    {
+      "source": "cdn-westinghouseoutdoorpower-com-owners-manuals-igen4500df-manual-web",
+      "citation": "iGen4500DF User Manual https://cdn.westinghouseoutdoorpower.com/owners_manuals/iGen4500DF_manual_web.pdf; WGen9500DFc manual p.18 https://www.manualslib.com/manual/2207614/Westinghouse-Wgen9500dfc.html?page=18 (checked: 2026-09-01)"
+    }
+  ],
+  "transport": "wireless fob only, no wired input · n/a · n/a · battery switch \"Must be ON before electric start or remote start\"; fob range \"up to 99 feet (30 meter)\" (iGen4500DF p.15); WGen12000DF: \"will attempt to start the engine two more times\" (p.18).",
+  "models": [
+    {
+      "name": "iGen4500 / 4500DF",
+      "rating": "3.7 kW gas / 3.33 kW LPG, electric yes",
+      "notes": "fob, push-button, recoil"
+    },
+    {
+      "name": "WGen9500DF / DFc",
+      "rating": "9.5 kW gas, electric yes",
+      "notes": "fob; DFc also has ST outlet above"
+    }
+  ],
+  "gotchas": [
+    "Auto-choke: \"The engine will automatically set the choke and begin the start sequence.\"",
+    "Stop is a fob button, not contact-open; no wired terminal exists on iGen models (only parallel ports, 507PC cable).",
+    "Unattended trap: \"Remote start-equipped generators must be restarted with the START/STOP button on the control panel after an automatic shut-down occurs\" (WGen9500DFc p.18).",
+    "Westinghouse's pairing bulletin claims \"109 yards (100 meters)\"; the manuals say 99 ft — contradiction, use the manual."
+  ]
+}

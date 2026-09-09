@@ -1,0 +1,36 @@
+{
+  "id": "rolls-vb-series-lfp",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "rollsbattery-com-wp-content-uploads-2026-02-rolls-vb-series-lfp-drop-in-battery-operating-manual",
+      "citation": "Rolls VB-Series LFP Drop-In Battery Operating Manual, 2026/02 (https://rollsbattery.com/wp-content/uploads/2026/02/Rolls-VB-Series-LFP-Drop-In-Battery-Operating-Manual.pdf)"
+    },
+    {
+      "source": "surrette-com-manuals",
+      "citation": "https://www.surrette.com/manuals/ — manuals index. checked: 2026-07-31"
+    }
+  ],
+  "transport": "Bluetooth LE to the Rolls LFP Connect app only. No wired data port documented.",
+  "reports": [
+    "state-of-charge",
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature"
+  ],
+  "models": [
+    {
+      "name": "VB-Series LFP drop-in (model numbers not enumerated on the manuals index)"
+    }
+  ],
+  "gotchas": [
+    "OUT OF SCOPE FOR QUEBEC and recorded only so nobody researches it twice. The manual's first line is 'Note: Product is limited to Rolls distributors in the UK and European Union only.'",
+    "New line — manual published 2026/02, the most recent Rolls LFP document found. Same Bluetooth-only story as the R/G/S drop-ins; no protocol published.",
+    "If it ever reaches Canada, check whether it lands on rolls-lfp-drop-in rather than assuming — it has its own manual rather than being folded into the drop-in manual, which is itself a small signal that the firmware differs."
+  ]
+}

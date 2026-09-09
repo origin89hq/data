@@ -1,0 +1,86 @@
+{
+  "id": "solark-hybrid-rtu-v1",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "solark-modbus-rtu-protocol-v1-4",
+      "citation": "docs/solark-modbus-rtu-protocol-v1.4.pdf — Sol-Ark LLC, \"Modbus RTU Protocol, Sol-Ark Hybrid Inverters: 5k, 8k, 12k, 15k\", V1.4, 2023-10-13, editors Jonathan Nesbitt / Daniel Oyedapo (committed to this repo from the mirr"
+    },
+    {
+      "source": "github-com-chuyskywalker-solark-esphome",
+      "citation": "https://github.com/chuyskywalker/solark-esphome — public mirror of that PDF (\"Modbus Sol-Ark V1.4 (Public Release).pdf\"); README records it was requested from Sol-Ark by email on 2025-01-15 and that Sol-Ark said it was t"
+    },
+    {
+      "source": "github-com-aaronmelton-solark-monitor",
+      "citation": "https://github.com/aaronmelton/solark_monitor — independent Python implementation; solark_monitor/solark_modbus.py register_table matches the vendor addresses, descriptions, scales and signedness (checked at 60, 63, 64, "
+    }
+  ],
+  "transport": "RS-485 over RJ45 · Modbus RTU · 9600 bps, 8 data bits, no parity, 1 stop bit · slave ID 0x01, stated fixed · function code 0x03 only (read holding registers), 1–125 registers per request · RJ45 pins 1=B-, 2=A+, 6=GND, 7=A+, 8=B- · 120 Ω terminator on the master side only, inverter is internally terminated · GND must be bonded master-to-inverter",
+  "blocks": "regs 3–7 serial number (10 ASCII chars, 2 per register) · regs 60–114 running data, energy totals and temperatures · regs 103–106 fault bitfield (4 words = 64 bits, one bit per fault code F08…F64) · regs 150–196 real-time AC / battery / PV / relay data",
+  "reports": [
+    "pv-voltage",
+    "pv-current",
+    "pv-power",
+    "pv-energy-today",
+    "pv-energy-total",
+    "battery-voltage",
+    "battery-current",
+    "battery-power",
+    "battery-temperature",
+    "state-of-charge",
+    "ac-voltage",
+    "ac-current",
+    "ac-power",
+    "ac-frequency",
+    "ac-energy-today",
+    "ac-energy-total",
+    "load-voltage",
+    "load-current",
+    "load-power",
+    "temperature"
+  ],
+  "models": [
+    {
+      "name": "5K-2P"
+    },
+    {
+      "name": "5K-2P-N"
+    },
+    {
+      "name": "12K-2P"
+    },
+    {
+      "name": "12K-2P-N"
+    },
+    {
+      "name": "15K-2P"
+    },
+    {
+      "name": "15K-2P-N"
+    },
+    {
+      "name": "15K-2P-LV (same hardware as 15K-2P-N)"
+    },
+    {
+      "name": "8K-2P (named in the vendor doc; not seen at the QC retailers surveyed)"
+    },
+    {
+      "name": "12K Indoor legacy (named in the vendor doc; used market only)"
+    }
+  ],
+  "sharedMapEvidence": "One vendor document carries one register table for all of them. Sol-Ark, \"Modbus RTU Protocol, Sol-Ark Hybrid Inverters: 5k, 8k, 12k, 15k\", V1.4, 2023-10-13 — the title names the four ratings, the Inverter Pinouts section gives per-variant RJ45 diagrams for \"Sol-Ark 8K\", \"Sol-Ark 12K\" (indoor), \"Outdoor Sol-Ark 5K, 8K & 12K\" and \"Sol-Ark 15K\", and then a SINGLE Intrinsic Attribute / Real-time Data",
+  "downgradedOnReview": "REFUTATION ATTEMPT FAILED on the core claim. I downloaded and text-extracted all five cited PDFs; every one exists at the cited URL (HTTP 200) and says verbatim what the claim says it says. But three real defects warrant a downgrade and corrections.  VERIFIED VERBATIM (local: /Users/lemarier/dev/solar/docs/solark-modbus-rtu-protocol-v1.4.pdf) - Title \"Modbus RTU Protocol, Sol-Ark Hybrid Inverters: 5k, 8k, 12k, 15k\"; ",
+  "gotchas": [
+    "READ ONLY, no exceptions. V1.4 states \"The inverter only supports read operations\" and lists function code 0x03 as the sole supported code. No CommandKind can be honoured on this dialect — set-switch, set-charge-current-limit, start-generator, start-equalize and clear-fault all have no write path. A Sol-Ark driver is a",
+    "CONTRADICTION — slave ID. V1.4 note 5: \"The inverter's Slave ID is 0x01. This cannot be changed. The 'Modbus SN' under the 'Parallel' tab does not affect the Slave ID for this map and is only relevant to parallel configurations.\" Every current installation manual says the opposite: 15K Rev 13 and 18K Rev 13 — \"When usi",
+    "CONTRADICTION — which port. V1.4 says twice that the port labelled \"Modbus RS-485\" on the outdoor units and on the 15K \"is not for battery communications and is currently not implemented\"; its pinout sections route Modbus to the single \"Battery CAN Bus\" RJ45. The Battery Communications Guide v3.1 repeats \"The outdoor-r",
+    "CONTRADICTION — RJ45 pin 1/2 assignment. V1.4 (all four pinouts), the 15K Rev 13, 18K Rev 13, 5K-1P-N, 5K-2P-N, 12K-2P-N and 15K-2P-N manuals all agree: pin1 = RS-485 B-, pin2 = RS-485 A+. The Battery Communications Installation Guide v3.1 Table I (15K-2P-N only) uniquely says pin1 = RS-485 A+, pin2 = RS-485 B- while l",
+    "PRECONDITION — the inverter must have \"BMS Lithium Batt\" set to mode 00 or the protocol does not answer at all. The checkbox next to the field may be checked or unchecked; the value must be 00."
+  ],
+  "unmappedReports": "Directional grid energy: Day Grid Buy (reg 76), Day Grid Sell (77), Total Grid Buy (78 low / 80 high), Total Grid Sell (81 low / 82 high). MetricKind has ac-energy-today and ac-energy-total but neither carries an import/export direction, so buy and sell would collide., Battery energy throughput: Day Batt Charge (70), Day Batt Discharge (71), Total Batt Charge (72/73), Total Batt Discharge (74/75). No battery-energy-charged / battery-energy-discharged kind exists., Load energy: Day Load Power Wh (84), Total Load Power Wh (85/86). load-power is instantaneous only; there is no load-energy-today / load-energy-total., Per-leg L1/L2 split of everything: grid voltage L1-N/L2-N (150/151), inverter output voltage L1-N/L2-N (154/155), load voltage L1/L2 (157/158), grid current L1/L2 (160/161), inverter output current L1/L2 (164/165), grid power L1/L2 (167/168), inverter output power L1/L2 (173/174), load power L1/L2 (176/177), load current L1/L2 (179/180). MetricKind has no phase or leg dimension — a split-phase inverter's per-leg imbalance is exactly what a cabin owner wants to see and there is nowhere to put it., Line-to-line voltage: grid L1-L2 (152), relay mid-point L1-L2 (153), inverter output L1-L2 (156), gen port L1-L2 (181). No ac-voltage-line-to-line kind., Three distinct AC power domains that MetricKind cannot separate: grid-side total (169, signed, >0 buy / <0 sell), inverter output total (175) and load-side total (178). Only ac-power and load-power exist, so grid flow and inverter output would both have to be ac-power., External CT / \"Limiter\" channels: limiter current L1/L2 (162/163), limiter power CT1/CT2 (170/171), limiter total power (172). No ct-power or grid-limiter metric., Generator / AC-coupled port electricals: gen or AC-coupled power input (166, sign encodes load-output vs AC-input), gen port voltage (181), generator relay frequency (196). MetricKind has generator-run-state, -run-hours, -start-count and -fuel-remaining but no generator voltage, current, power or frequency., Generator-side relay status (195): 0 open, 1 closed, 2 no connection, 3 closed-when-generator-on. RunState (stopped/starting/running/stopping/faulted/unknown) has no \"not connected\" and no \"conditionally closed\" state, so this cannot round-trip., Grid-side relay status (194): 1 open / 2 closed. switch-state is a plain Boolean with switch semantics; there is no grid-relay-state or grid-connected kind., Two distinct inverter-internal temperatures — DC/DC transformer (90) and IGBT heat sink (91) — both collapse onto the generic `temperature` kind. No inverter-temperature / heatsink-temperature to tell them apart on one device., 64-bit fault bitfield (103–106), 30-odd documented codes F08…F64 with vendor-written remediation text. There is no fault-code or active-faults MetricKind; ChargeStage::Fault is the only fault surface in the contract and it is a solar-charger concept, not an inverter one. CommandKind::ClearFault exists with nothing to report against., Corrected Batt Capacity in Ah (107). Unit::AmpHour exists but there is no battery-capacity MetricKind — consumed-amp-hours is a different quantity., Three separate frequencies: grid frequency (79), load frequency (192), inverter output frequency (193). Only one ac-frequency., Inverter serial number (regs 3–7, 10 ASCII chars). Identity rather than telemetry, but worth noting there is no channel for it."
+}

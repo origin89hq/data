@@ -1,0 +1,53 @@
+{
+  "id": "energizer-solar-force-s-t-ht-unknown",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "energizersolar-com-resources",
+      "citation": "Energizer Solar resources index (manual URLs for each series) — https://www.energizersolar.com/resources"
+    },
+    {
+      "source": "energizersolar-com-solar-inverters",
+      "citation": "Energizer Solar inverter overview — https://www.energizersolar.com/solar-inverters"
+    },
+    {
+      "source": "us-energizersolar-com-solar-inverters",
+      "citation": "Energizer Solar USA inverter page — https://www.us.energizersolar.com/solar-inverters"
+    }
+  ],
+  "models": [
+    {
+      "name": "Force S Series (7-10.5 kW)"
+    },
+    {
+      "name": "Force T Series (5-25 kW, three-phase)"
+    },
+    {
+      "name": "Force HT Series (5-12 kW)"
+    },
+    {
+      "name": "Force HT+ Series (5-15 kW)"
+    },
+    {
+      "name": "Force HT Pro Series"
+    },
+    {
+      "name": "Force D/A Series (North America, split phase, 3.8-11.4 kW)"
+    },
+    {
+      "name": "Force EPS Box 63A"
+    }
+  ],
+  "refutedOnReview": "REFUTED as a shared-register-map claim — and the entry refutes itself.  **Sources exist, but say nothing about registers.** - https://www.energizersolar.com/resources — real page. Names Force, Force S, Force T, Force HS, Force HS+, Force HT, Force HT+, Force HT Pro, Force EPS Box, and links per-series datasheets, user manuals, quick-install guides, warranty docs, advanced-config guides, monitoring manuals. Contains *",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "The Force D/A split-phase series is the only Energizer Solar inverter aimed at 120/240 V North America. Its own page marks it 'pending Energizer approval' and publishes no certifications and no protocol detail. It is the only member of this brand that could plausibly reach a Quebec install, and it is the least document",
+    "What is missing to place any of these: a register map, or a register dump from one unit compared against another. Vendor publishes neither.",
+    "Same OEM lead as the rest of the line (Android package com.fox.energizer → FoxESS). Unverified; not usable as dialect evidence."
+  ]
+}

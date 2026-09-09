@@ -1,0 +1,33 @@
+{
+  "id": "generac-evolution-2wire-start",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "unrecorded",
+  "sources": [
+    {
+      "source": "apelectric-com-content-pdf-generac-generac-15kw-ecogen-installation-manual",
+      "citation": "Generac \"Installation Guidelines 60 Hz Air-Cooled Generators 15 kW EcoGen\" 0K6047 Rev E https://apelectric.com/content/PDF/Generac/Generac_15kw_Ecogen_Installation_Manual.pdf ; Generac \"TX Automatic Transfer Switch Owner's Manual\" https://legacy.genconnect.generac.com/Media/vwDoc.axd?d=e576da30-a978-44c7-a002-7fbcd69e5a7a (checked: 2026-09-01)"
+    }
+  ],
+  "transport": "2-wire maintained dry contact · open-circuit voltage: ? · current: ? · wires 178 and 183, two female Fastons \"Hanging from controller above battery compartment\" (Table 6.2 p.23); no isolation or contact rating stated; wire 18 AWG to 115 ft, 12 AWG to 460 ft (Table 6.4 p.23)",
+  "models": [
+    {
+      "name": "EcoGen 15 kW",
+      "rating": "15 kW / LP / Evolution",
+      "notes": "2-wire start is the standard interface"
+    },
+    {
+      "name": "Guardian 9–22 kW",
+      "rating": "air-cooled / NG-LP / Evolution",
+      "notes": "10000006541 Rev E never mentions 178/183; only N1/N2/T1/23/194"
+    }
+  ],
+  "gotchas": [
+    "TX ATS p.16: \"closure of Wire J3:8 and J3:9 circuit by switch circuit action must result in generator engine cranking and startup\" — the ATS side is a Form C dry contact, so the generator input is the only source of voltage.",
+    "EcoGen p.34: open the \"remote two-wire start test switch\" and \"In approximately one minute the generator will automatically shut down\" — a cool-down, not an instant stop.",
+    "Neither document states voltage or current on 178/183. Fail-safe note from TX p.16: with the ATS unpowered \"the 2-wire start system is active (closed)\" — an ATS sends *run* on loss of its own power."
+  ]
+}

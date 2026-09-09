@@ -1,0 +1,57 @@
+{
+  "id": "bslbatt-pace-modbus-rs485",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "community-single",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "github-com-syssi-esphome-pace-bms",
+      "citation": "syssi/esphome-pace-bms, https://github.com/syssi/esphome-pace-bms — README supported-device list; esp32-example.yaml for the sensor set, baud and slave address; docs/PACE-BMS-Modbus-Protocol-for-RS485-V1.3-20170627.pdf f"
+    },
+    {
+      "source": "syssi-esphome-pace-bms-discussion-74-the-bslbatt-reports",
+      "citation": "syssi/esphome-pace-bms discussion #74 — the BSLBATT reports."
+    },
+    {
+      "source": "bslbatt-b-lfp48-rack-battery-user-manual-v2-7-appendix-b-rs4",
+      "citation": "BSLBATT, B-LFP48 Rack Battery User Manual V2.7, Appendix B, RS485 entry 7 — 'SRNE / WOW RS48 5 Modbus V1.3-2017.06.27'."
+    }
+  ],
+  "transport": "RS-485 on the port next to the CAN port · Modbus RTU · 9600 · slave address 0x01 · must first be enabled with PbmsTools.exe under System Config → Inverter protocol → RS485 Protocol",
+  "blocks": "PACE BMS Modbus Protocol for RS485 V1.3, dated 2017-06-27 — the register table lives in that PDF, committed inside the ESPHome repo at docs/PACE-BMS-Modbus-Protocol-for-RS485-V1.3-20170627.pdf. No address, scale or bit meaning is transcribed here, because reading that document was outside this survey.",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "battery-power",
+    "state-of-charge",
+    "state-of-health",
+    "cycle-count",
+    "battery-temperature"
+  ],
+  "models": [
+    {
+      "name": "BSL Batt B-LFP-48-100E 3U rack mount, firmware 1.51"
+    },
+    {
+      "name": "BSL Batt B-LFP51V-125Ah rack mount, firmware 1.51"
+    },
+    {
+      "name": "BSL Batt B-LFP48-135E-7kw rack mount, firmware 1.51"
+    },
+    {
+      "name": "NOT B-LFP48-200E and NOT B-LFP48-300E — neither of the two models actually stocked in Quebec appears in this list"
+    }
+  ],
+  "sharedMapEvidence": "One implementation, syssi/esphome-pace-bms, reports all three BSLBATT models working against the same PACE_MODBUS register set at the same firmware level (1.51), all from discussion #74. That is one source covering three models, not two sources agreeing — which is why the tag is community-single and not community-crosschecked.",
+  "gotchas": [
+    "THE STRONGEST LEAD IN THIS SURVEY, AND IT IS STILL NOT PROVEN. BSLBATT's own Appendix B lists RS485 protocol #7 as 'WOW RS485 Modbus V1.3-2017.06.27'. The PACE BMS Modbus protocol document shipped in the ESPHome repo is 'V1.3' dated '20170627'. Same version, same date, to the day. That is a very strong hint that BSLBAT",
+    "The same repo separately lists 'Jakiper/BSLBATT 100Ah, PACE BMS P16S100A' under UNTESTED devices. Its own author does not vouch for it.",
+    "This path is mutually exclusive with the inverter-facing emulation on that port. Selecting the Modbus protocol so Cabin Hub can poll the pack means the inverter is no longer being spoken to on RS485. On these units CAN and RS485 are separate ports, so CAN-to-inverter plus RS485-to-Cabin-Hub is plausible — plausible, un",
+    "Enabling it requires PbmsTools.exe over RS232 and, per the rack manual §4.4.2, an administrator password (the manual prints 123456). A field deployment that depends on a Windows tool and a printed password is a deployment risk, not just a protocol note.",
+    "Slave address 0x01 in the community config versus BSLBATT's DIP scheme where a lone pack is address 0 and a cluster master is 1. Unreconciled."
+  ],
+  "unmappedReports": "Per-cell voltage, 16 of them, plus min/max/average/delta cell voltage and the INDEX of the min and max cell. MetricKind has nothing below pack level. This is the largest single gap the PACE map exposes and it is the whole reason people fit a BMS monitor., Per-cell balancing state, 16 booleans, plus a balancer status word. No MetricKind., Warnings bitmask, protections bitmask, fault status bitmask — three separate 16-bit words. Reinforces the missing fault-code kind from every other dialect in this file., Remaining capacity, full capacity and design capacity in amp-hours. MetricKind::ConsumedAmpHours is the inverse of one of these and there is nothing for pack capacity, so state-of-health cannot be derived or cross-checked., Four separate battery temperature probes, plus MOSFET temperature, plus environment temperature. MetricKind::BatteryTemperature is scalar; there is no probe index., Charging / discharging operation flags as distinct from current sign. Not fatal — battery-current sign carries it — but the BMS states them and they are lost."
+}

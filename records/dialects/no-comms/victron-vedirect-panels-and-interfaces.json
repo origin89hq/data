@@ -1,0 +1,53 @@
+{
+  "id": "victron-vedirect-panels-and-interfaces",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "docs/victron-ve-direct-protocol-3.34.pdf — committed. p. 3 pinout, p. 4 interface cables, the only committed attestation of ASS030530000."
+    },
+    {
+      "source": "victron-data-communication",
+      "citation": "docs/victron-data-communication.pdf — accessory tables; revision history ends 2013."
+    },
+    {
+      "source": "victronenergy-com-panel-systems-remote-monitoring-mppt-control",
+      "citation": "https://www.victronenergy.com/panel-systems-remote-monitoring/mppt-control — MPPT Control product page."
+    }
+  ],
+  "transport": "Each of these either occupies a VE.Direct port or presents whatever is on the far end of one. A cable and an adapter have no register map; the dialect that matters is the connected product's — victron-vedirect-text or victron-mppt-vedirect-hex, both already documented in docs/catalog/ve-direct.md.",
+  "models": [
+    {
+      "name": "MPPT Control (SCC900500000) — 2 Quebec listings, checked: 2026-07-31"
+    },
+    {
+      "name": "SmartSolar Pluggable Display (SCC900650010) — 1 Quebec listing, checked: 2026-07-31"
+    },
+    {
+      "name": "VE.Direct Bluetooth Smart dongle (ASS030536011) — 3 Quebec listings, checked: 2026-07-31"
+    },
+    {
+      "name": "VE.Direct to USB interface (ASS030530000 vendor-attested; ASS030530010 retail-listed) — 1 Quebec listing, checked: 2026-07-31"
+    },
+    {
+      "name": "VE.Direct to USB-C interface (ASS030530030) — 1 Quebec listing, checked: 2026-07-31"
+    },
+    {
+      "name": "VE.Direct cable, 0.3 m–10 m (ASS0305302xx) — 1 Quebec listing, checked: 2026-07-31"
+    }
+  ],
+  "refutedOnReview": "Refuted on six independent grounds.  (1) SELF-REFUTING. A dialect asserts \"these models share one register map.\" The claim's own evidence field says \"No map to share. Grouped only because they all contend for, or ride on, the single VE.Direct port.\" Sharing a physical port is not sharing a map. No register address, scale, or bit meaning is offered for any of the six entries, so the catalog rule (\"a model joins a dial",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "A product has ONE VE.Direct port. If an MPPT Control, a Bluetooth dongle or a GX cable is on it, nothing else can be. That is the real trade a cabin faces: BLE advertisement (fewer fields, encrypted, needs the paired key) OR the serial cable (full text and HEX), never both.",
+    "The SmartSolar Pluggable Display is the exception and it is worth knowing. Victron: 'The SmartSolar Control Display is a pluggable LCD display for the SmartSolar Charge Controllers… Simply remove the rubber seal that protects the plug on the front of the controller and plug-in the display.' It uses a dedicated front co",
+    "The MPPT Control does occupy the VE.Direct port. Victron describes it as connecting via the 'VE.Direct communications port'; the vendor page names it a monitoring and setup device for BlueSolar MPPT charge controllers, housed in the BMV-700 series case. The page does not confirm the retail part number SCC900500000.",
+    "PART NUMBERS HERE ARE MOSTLY RETAIL-GRADE AND ONE IS PROVABLY ANACHRONISTIC. Of the interface SKUs, only ASS030530000 (VE.Direct to USB) is attested in a committed vendor document — VE.Direct Protocol 3.34 p. 4 and the accessory table of victron-data-communication.pdf. ASS030530010, ASS030530030 and ASS0305302xx appear",
+    "ASS030530000 is the vendor's own isolation answer — 3.34: 'provides a virtual comport through USB as well as galvanic isolation'. Prefer it over a bare three-wire tap on the JST-PH header. Note pin 4 carries Power+ and pin 1 is GND; run only GND/RX/TX to a gateway."
+  ]
+}

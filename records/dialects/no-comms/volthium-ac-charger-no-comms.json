@@ -1,0 +1,35 @@
+{
+  "id": "volthium-ac-charger-no-comms",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "volthium-com-en-produit-51-2v-9ah-charger-csa",
+      "citation": "Volthium (vendor, EN) — \"51.2V 9AH CHARGER – CSA\", SKU EQP-VOL-C58.4V9A: https://volthium.com/en/produit/51-2v-9ah-charger-csa/"
+    },
+    {
+      "source": "volthium-com-fr-produit-chargeur-51-2v-9ah-csa",
+      "citation": "Volthium (vendor, FR) — \"CHARGEUR 51.2V 9AH – CSA\", UGS EQP-VOL-C58.4V9A: https://volthium.com/fr/produit/chargeur-51-2v-9ah-csa/"
+    },
+    {
+      "source": "volthium-com-en-documents",
+      "citation": "Volthium (vendor) — Documents index, complete list of published technical sheets and manuals; contains no charger document and no protocol document of any kind: https://volthium.com/en/documents/"
+    }
+  ],
+  "models": [
+    {
+      "name": "EQP-VOL-C58.4V9A"
+    }
+  ],
+  "gotchas": [
+    "NO VENDOR PROTOCOL DOCUMENT EXISTS. Volthium's own Documents index publishes a technical sheet and a user manual for every battery line and for the power station, and zero charger documents. There is no PDF to commit to docs/ for this device. That absence is the strongest evidence available and it is the finding.",
+    "NO COMMS CLAIMED ON ANY WIRE. Both vendor pages (EN and FR, same SKU) describe a 110-120 VAC cord in and crocodile clamps out. No port, no display, no LEDs described, no app, no Bluetooth, no RS-485, no CAN. The retailer page agrees. reports and accepts are therefore both empty: this device can only ever be an inventor",
+    "VERDICT IS NOT BENCH-CONFIRMED, hence confidence `unverified` rather than `vendor-doc`. The no-comms conclusion rests on vendor marketing copy plus the absence of any vendor document — not on a protocol document and not on inspection. No teardown, rear-panel photo, or community report of a hidden serial port was found.",
+    "DO NOT INHERIT THE VOLTHIUM BATTERY PROTOCOL. Volthium batteries are already recorded in docs/DEVICES.md: E&J Technology BMS over BLE (Nordic UART, ASCII-hex frames delimited `:` ... `~`), with RJ45 RS-485 and daisy-chain CAN via the Bluetooth Dongle and CommunicationHUB. The two Volthium PDFs already in docs/ cover th",
+    "VOLTHIUM'S CHARGER CATEGORY RESELLS VICTRON. Blue Smart LiFePO4 12V 10A/15A and 24V 8A, Orion XS 12/12-50A, Orion XS 1400, and a 50A Buck-Boost all appear under volthium.com's chargeur category. Those are Victron units with Victron connectivity and belong in ve-direct.md under Victron. A rebadged retail listing is not "
+  ]
+}

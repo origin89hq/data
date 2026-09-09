@@ -1,0 +1,38 @@
+{
+  "id": "epever-rj45-transport-wifi",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "epever-com-wp-content-uploads-2022-07-epever-wifi-2-4g-rj45-d-manual-en-v1",
+      "citation": "EPEVER WiFi 2.4G RJ45 D Manual EN V1.3, committed at /Users/lemarier/dev/solar/docs/epever-wifi-2.4g-rj45-d-manual-v1.3.pdf (source: https://www.epever.com/wp-content/uploads/2022/07/EPEVER-WiFi-2.4G-RJ45-D-Manual-EN-V1."
+    },
+    {
+      "source": "epever-com-wp-content-uploads-2023-04-epever-datasheet-wifi-2-4g-rj45-d",
+      "citation": "EPEVER WiFi 2.4G RJ45 D datasheet, committed at /Users/lemarier/dev/solar/docs/epever-wifi-2.4g-rj45-d-datasheet.pdf (source: https://www.epever.com/wp-content/uploads/2023/04/EPEVER-DataSheet-WiFi-2.4G-RJ45-D.pdf)"
+    },
+    {
+      "source": "epever-com-upload-file-1903-ebox-wifi-01-sms-el-v1-0",
+      "citation": "eBox-WIFI-01 SMS-EL V1.0 spec sheet, https://www.epever.com/upload/file/1903/eBox-WIFI-01-SMS-EL-V1.0.pdf — previous generation, different SKU"
+    }
+  ],
+  "transport": "RJ45 RS-485 to 2.4 GHz WiFi (2.4–2.4835 GHz) · serial side 115200 bps 8N1 · vendor calls the interface standard 'EPEVER communication standard V1-1.0', not Modbus · powered 5 V ±0.5 V from the RS-485 comms port, peak emission 150 mA, idle 310 µA · RJ45 pins 1,2 = +5VDC · 3,4 = RS485-B · 5,6 = RS485-A · 7,8 = GND",
+  "models": [
+    {
+      "name": "WiFi 2.4G RJ45 D"
+    }
+  ],
+  "sharedMapEvidence": "NOT A DIALECT. It has no register map of its own. The one time community evidence shows register content passing through an EPEver WiFi adapter (the older eBox-WIFI-01), the addresses are the `epever-tracer-a` map unchanged — 12544/12545/12546/12558/12560/12570 decimal are 0x3100/0x3101/0x3102/0x310E/0x3110/0x311A, and 13082 is 0x331A. That is the point: the adapter forwards a map, it does not def",
+  "gotchas": [
+    "THE BLOCKING FACT: the vendor manual names two working modes — 'Local monitoring' and 'EPEVER Cloud' — and states NO TCP port, NO listening service, NO framing, and NO register access for either. The only documented client is the Solar Guardian phone app. Nothing about a gateway reading this adapter is vendor-documente",
+    "EPEver support, quoted by a Home Assistant user who owns this exact model on a Tracer 1206AN: 'their dongle only supports the mobile phone app.' The same user's port scan of the D found only 80 and 8899 open, and an attempt to speak Modbus on 8899 returned 'No response received, expected at least 8 bytes (0 received)'.",
+    "CONTRADICTION, recorded not resolved. A second Home Assistant poster reports a working `type: rtuovertcp`, `port: 9999`, `slave: 10` against a UPower-Hi behind a D adapter. But port 9999 with a browser config page at http://<ip>/ offering 'Protocol = TCP-Server, Port ID = 9999' is the signature of a third-party Elfin E",
+    "A third, different route exists: the D dials OUT to hncomm.epsolarpv.com:15000 as a client. One developer redirected that hostname to a local Python server, sent an init sequence `20020000` after each adapter restart, and then spoke RTU-over-TCP over the hijacked connection. `community-single`. Note this is a client, n",
+    "The port-8088 story belongs to the OLDER eBox-WIFI-01, a different SKU: one Home Assistant repo documents host:8088 with slave 1 (and hedges by showing both `type: tcp` and `type: rtuovertcp`), while an openHAB thread using port 502 got 'Premature end of stream (Header truncated)' and concluded the server translates fr"
+  ]
+}

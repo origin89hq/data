@@ -1,0 +1,61 @@
+{
+  "id": "victron-phoenix-inverter-vedirect-hex",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-vedirect-hex-phoenix-inverter",
+      "citation": "/Users/lemarier/dev/solar/docs/victron-vedirect-hex-phoenix-inverter.pdf — VE.Direct Protocol, Phoenix Inverters, Rev 5, 2021-09-06 (downloaded this session and committed to docs/)"
+    },
+    {
+      "source": "victronenergy-com-upload-documents-ve-direct-hex-protocol-phoenix-inverter",
+      "citation": "https://www.victronenergy.com/upload/documents/VE.Direct-HEX-Protocol-Phoenix-Inverter.pdf"
+    },
+    {
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "/Users/lemarier/dev/solar/docs/victron-ve-direct-protocol-3.34.pdf — for the 19200 8N1 line settings, which the HEX document does not restate"
+    }
+  ],
+  "transport": "Same VE.Direct port as the text dialect. The HEX doc does not restate the line settings; 19200 8N1 comes from VE.Direct Protocol 3.34. Framing: ':' <command nibble> <hex-ASCII data, uppercase, little-endian> <check> '\\n', where the sum of the data bytes plus the check equals 0x55. No slave ID. The vendor states the transport is interchangeable: \"Whether the connection is established by using the a",
+  "blocks": "Commands 0 enter boot · 1 ping · 3 app version · 4 product id · 6 restart · 7 get · 8 set · A async; 2, 5, 9, B-F reserved. Responses 1 done · 3 unknown · 4 error · 5 ping · 7 get · 8 set. Get/set flags 0x01 unknown id, 0x02 not supported (read-only), 0x04 parameter error. Register groups: NVM command 0xEB99 and restore defaults 0x0004 · product info 0x0100, 0x0101, 0x0102, 0x010A, 0x010B, 0x0140, 0x0150, 0x2202, 0x2203, 0xEDEF · device status 0x0201, 0x0207, 0x031C, 0x031E · device control 0x0090, 0x0200, 0xEC41 · inverter operation 0x1040, 0x1041, 0x2200, 0x2201, 0x2205, 0xEB4E, 0xED8D · AC-out settings 0x0230-0x0232, 0x2206, 0x2207, 0xEB03, 0xEB04, 0xEB06, 0xEB10 · battery settings 0x0320, 0x0321, 0x2210-0x2212, 0xEBB1-0xEBBA · relay 0x034E, 0x034F.",
+  "reports": [
+    "ac-voltage",
+    "ac-current",
+    "ac-apparent-power",
+    "battery-voltage",
+    "switch-state"
+  ],
+  "accepts": [
+    "set-switch"
+  ],
+  "models": [
+    {
+      "name": "Phoenix Inverter 12/24/48V 250VA, 375VA, 500VA — 230 Vac PIDs 0xA231/0xA232/0xA234, 0xA241/0xA242/0xA244, 0xA251/0xA252/0xA254 and 120 Vac PIDs 0xA239/0xA23A/0xA23C, 0xA249/0xA24A/0xA24C, 0xA259/0xA25"
+    },
+    {
+      "name": "Phoenix Inverter 12/24/48V 800VA — 0xA261/0xA262/0xA264 (230 V), 0xA269/0xA26A/0xA26C (120 V), redesign \"HS\" 0xA2E1/0xA2E2/0xA2E4 and 0xA2E9/0xA2EA/0xA2EC"
+    },
+    {
+      "name": "Phoenix Inverter 12/24/48V 1200VA — 0xA271/0xA272/0xA274 (230 V), 0xA279/0xA27A/0xA27C (120 V), redesign \"HS\" 0xA2F1/0xA2F2/0xA2F4 and 0xA2F9/0xA2FA/0xA2FC"
+    },
+    {
+      "name": "Phoenix Inverter Smart 1600VA 0xA281/0xA282/0xA284, 2000VA 0xA291/0xA292/0xA294, 3000VA 0xA2A1/0xA2A2/0xA2A4, 5000VA 0xA2B1/0xA2B2/0xA2B4 — 230 Vac only in this table"
+    },
+    {
+      "name": "Obsolete 32k units 0xA201/0xA202/0xA204, 0xA211/0xA212/0xA214, 0xA221/0xA222/0xA224 — listed by the vendor, production stopped November 2016"
+    }
+  ],
+  "sharedMapEvidence": "The document's own §1 Product ID table is headed \"Next a list of all VE.Direct and Smart inverters who support the VE.Direct Protocol as described in this document\", and then enumerates 66 PIDs from 0xA201 to 0xA2FC. One register table, one explicit list of every model it covers. Where a model differs, the vendor says so as a per-register footnote and as capability bits in 0x0140 (32k / 64k <=1200",
+  "gotchas": [
+    "Settings do not persist by themselves, and this inverter is the exception in Victron's range: \"Unlike for most Victron products a register with a changed setting is not automatically saved. After changing one or more settings it is required to execute the NvmSave command via 0xEB99.\" Write 1 to 0xEB99 or every change r",
+    "The document contradicts itself on one register address. The product-information table lists `0x0150 VE_REG_CAPABILITIES_BLE`; the section that describes it is headed \"2.2.5 Capabilities BLE (register 0x0160)\". One of the two is wrong and the vendor does not say which. Recorded, not resolved — read neither blind.",
+    "There is no battery-current register in this document. 0xED8D gives battery voltage (sn16, 0.01 V) and that is the only DC measurement. Note that 0xED8D is the same address the MPPT RS uses for battery voltage in the rev 18 HEX map, and NOT the MPPT's usual 0xEDD5 — a coincidence of address reuse across two different V",
+    "Hibernate mode (0x0200 = 0xFD) breaks communication by design: \"Communication can only be started when the device sends a text frame, at least once per 30 seconds, or after pressing the User-button. As long as a VE.Direct message is received every 24 seconds the device will not enter the hibernation mode.\" A polling dr",
+    "0x2205 AC_OUT_APPARENT_POWER needs firmware >= 1.15 AND capability bit 29, which is set only on Smart inverters and on VE.Direct inverters with product revision >= 7 (read 0x0101). On a 2019 12/500 it may simply not exist. Same gate applies to 0x2206/0x2207."
+  ],
+  "unmappedReports": "0x0201 VE_REG_DEVICE_STATE: 0 Off, 1 Low Power (eco load search active), 2 Fault, 9 Inverting. The vendor distinguishes Off (\"will automatically start again when the cause is solved\") from Fault (\"A turn OFF-ON cycle is required\") — auto-recoverable versus latched. That distinction has no wire name and it is the difference between waiting and driving to the cabin., 0x0207 VE_REG_DEVICE_OFF_REASON_2, un32 bitfield: bit 0 no input power, bit 2 soft power button or SW controlled, bit 3 HW remote input connector, bit 4 internal reason, bit 5 PayGo out of credit. Third dialect in this catalogue carrying an off-reason with nowhere to put it., 0x031C VE_REG_WARNING_REASON and 0x031E VE_REG_ALARM_REASON, un16, same bit layout: 0 low battery voltage, 1 high battery voltage, 5 low temperature, 6 high temperature, 8 overload, 9 poor DC connection (battery current ripple or hot DC terminal), 10 low AC-output voltage, 11 high AC-output voltage. Bit 9 is a wiring fault the contract cannot report at all., 0x1040 VE_REG_HISTORY_TIME (un32, 1 s) and 0x1041 VE_REG_HISTORY_ENERGY (un32, 0.01 kVAh) — lifetime counters since firmware 1.17. `ac-energy-total` is in watt-hours; this is APPARENT energy in kVAh. Not the same quantity, so not mappable without lying., 0xEB4E VE_REG_INV_LOOP_GET_IINV, sn16 at 0.001 A — the inverter loop current. Not battery current and not AC output current; the vendor gives it no unit context beyond amps. Left unmapped deliberately., 0x0140 VE_REG_CAPABILITIES1 bits 8, 17, 27, 28, 29 — remote input available, user relay available, OpenPaygo, hibernation support, improved load-current measurement. A driver must read this to know which registers exist, and there is no slot for advertised capability. Identical finding to the MPPT `0x0140`., 0xEBB1 VE_REG_INV_PROT_UBAT_DYN_CUTOFF_VOLTAGE (un16, 0.001 V) — the currently effective low-voltage shutdown threshold when dynamic cut-off is on. It moves with load. \"The voltage at which this inverter will shut down right now\" is exactly what a low-battery rule needs and cannot ask for., 0x0200 VE_REG_DEVICE_MODE values 2 Inverter On, 3 Device On (multi compliant), 4 Device Off, 5 Eco mode, 0xFD Hibernate. `set-switch` is a boolean; Eco and Hibernate are lost., 0x034F VE_REG_RELAY_MODE: 4 normal operation, 0 warnings and alarms, 5 battery low, 6 external fan, 3 disabled, 2 remote. Configuring what a relay means has no CommandKind., 0x2203 AC_OUT_RATED_POWER (VA), 0x2202 AC_OUT_NOM_VOLTAGE, 0xEDEF BAT_VOLTAGE (nominal, un8 V) — nameplate ratings. No slot., 0x0230-0x0232 AC output voltage setpoint and its min/max limits, 0xEB03 50/60 Hz selection, 0x2206/0x2207 eco load-sense thresholds, 0x2210/0x0320/0x0321 low-voltage shutdown and alarm thresholds. A whole configuration surface with no CommandKind. `set-charge-current-limit` is the nearest thing in the contract and it is unrelated."
+}

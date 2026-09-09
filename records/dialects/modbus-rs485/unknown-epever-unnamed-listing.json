@@ -1,0 +1,44 @@
+{
+  "id": "unknown-epever-unnamed-listing",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "retail-listings-only-checked-2026-07-31-no-vendor-or-communi",
+      "citation": "Retail listings only, checked: 2026-07-31. No vendor or community protocol source is reachable without a part number."
+    }
+  ],
+  "models": [
+    {
+      "name": "'XTRA N series' (listing text 'Epever XTRA N', no part number; listing mentions only the MT50 and no connectivity)"
+    },
+    {
+      "name": "40 A MPPT 12 V/24 V auto, model number absent from listing title"
+    },
+    {
+      "name": "20 A MPPT 12 V/24 V auto, 100 V PV, negative grounded, model number absent"
+    },
+    {
+      "name": "40 A MPPT bundle with MT50 + RTS + RS485 PC cable"
+    },
+    {
+      "name": "30 A MPPT max PV 150 V bundle with MT50 + RTS + RS485 cable"
+    },
+    {
+      "name": "20 A MPPT IP67 waterproof kit with MT50 + RS485"
+    },
+    {
+      "name": "30 A MPPT IP67 waterproof kit with MT50 + RS485"
+    }
+  ],
+  "sharedMapEvidence": "DIALECT UNKNOWN because the MODEL is unknown. These listings give a current rating and a PV voltage ceiling but no part number, and 'Modbus' or 'RS485' in listing prose is marketing copy, not evidence of a register map. A 40 A 100 V unit could be an XTRA4210N (epever-tracer-a, driver exists), an XTRA4210N-G3 (unverified), or a Tracer4210AN — three different answers with the same rating. The IP67 w",
+  "gotchas": [
+    "Do not infer the dialect from the current rating. EPEVER sells 40 A MPPT units across at least three lines with at least two different protocol documents between them.",
+    "'Includes RS485 cable' and 'MT50 compatible' narrow the family to something with an RJ45 RS-485 port, which is most of the range, and prove nothing about addresses.",
+    "The IP67 kits are the least trustworthy: no matching enclosure rating appears on any EPEVER product page found (XTRA-N is IP32, XTRA-N G3 is IP33, IT-NC G3 is IP43)."
+  ]
+}

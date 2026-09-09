@@ -1,0 +1,52 @@
+{
+  "id": "starlink-router-grpc",
+  "family": "lan-http",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-starlink"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "github-com-spaceexplorationtechnologies-enterprise-api-blob-master-device-api-readme-md",
+      "citation": "https://github.com/SpaceExplorationTechnologies/enterprise-api/blob/master/device-api/README.md — SpaceX stating the router endpoint: 'The Starlink router hosts the server at port 9000. The default subnet for the Starlin"
+    },
+    {
+      "source": "github-com-clarkzjw-starlink-grpc-golang",
+      "citation": "https://github.com/clarkzjw/starlink-grpc-golang — proto/spacex_api/device/wifi.proto (the only source read for WifiGetStatusResponse field numbers) and common.proto (the HardwareIndex enum)."
+    },
+    {
+      "source": "github-com-ewilken-starlink-rs",
+      "citation": "https://github.com/ewilken/starlink-rs and https://github.com/dishy-community/proto — independent confirmation of wifi_get_status 3004 and wifi_get_history 3006 in the Request/Response oneofs, and nothing further."
+    }
+  ],
+  "transport": "Ethernet or WiFi LAN · gRPC over plaintext HTTP/2 · 192.168.1.1:9000 (router default subnet 192.168.1.1/24, per SpaceX's own README) · same package SpaceX.API.Device, service Device, rpc Handle · no TLS, no authentication",
+  "blocks": "Request/Response oneof numbers wifi_get_status 3004 and wifi_get_history 3006 are agreed by three dumps (ewilken 2024, dishy-community 2020, clarkzjw 2026). WifiGetStatusResponse contents were read from ONE source only (clarkzjw): 3 device_info · 4 device_state · 1 captive_portal_enabled · 1003 ipv4_wan_address · 1004 ping_drop_rate · 1005 ping_latency_ms · 1008 rf_2ghz_status · 1009 rf_5ghz_status · 1010 alerts · 1012 dish_ping_drop_rate · 1013 dish_ping_latency_ms · 1014 pop_ping_drop_rate · 1015 pop_ping_latency_ms · 1019 dhcp_servers · 1020 pop_ping_drop_rate_5m · 1022 poe_stats · 1023 dish_id · 1031 dish_disablement_code · 1035 no_wan_link · 3000 clients.",
+  "reports": [
+    "link-online",
+    "link-latency",
+    "link-signal-quality"
+  ],
+  "models": [
+    {
+      "name": "Starlink Router Gen 2 (ships with Standard Actuated / Gen 2 kits)"
+    },
+    {
+      "name": "Router 3 (ships with Standard Gen 3 kit) — WiFi 6, tri-band 4x4 MU-MIMO, two RJ45 LAN ports, up to 235 clients (vendor spec sheet)"
+    },
+    {
+      "name": "Starlink Mini integrated router — schema-level evidence only, no bench confirmation"
+    }
+  ],
+  "refutedOnReview": "REFUTED as a shared-map claim. The sources all exist and most quotes are accurate, but the load-bearing inference fails and two stated facts are wrong.  WHAT CHECKED OUT - SpaceX enterprise-api README exists and contains the endpoint sentence verbatim: \"The Starlink router hosts the server at port `9000`. The default subnet for the Starlink router is `192.168.1.1/24`, so the default gRPC server address is `192.168.1.",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "Rated community-single on purpose, and it should not be built on without a bench check. The call numbers 3004/3006 are agreed across three dumps, but every field inside WifiGetStatusResponse was read from a single repository. That is a weaker footing than the dish dialect and is a different fact from 'the router answer",
+    "The router is a second device on a second subnet, not a second view of the dish. It sits at 192.168.1.1:9000 while the dish is at 192.168.100.1:9200, and cabin-starlink talks only to the dish. Nothing here reuses the dish dialect's driver.",
+    "In bypass mode the Starlink router is out of the path entirely and this endpoint is gone, while the dish at 192.168.100.1:9200 remains. Anything built on the router is the more fragile of the two.",
+    "On a Mini the router is co-housed with the terminal (HardwareIndex ROUTER_MINI_COHOUSED_1/2, ROUTER_MINI_1), so whether it answers on a separate address at all is unverified. Do not assume 192.168.1.1:9000 on a Mini.",
+    "The one vendor-documented call this endpoint serves is GetDiagnostics — see the starlink-device-diagnostics dialect, which covers the router explicitly and returns per-network client counts. If you only need 'how many things are on the WiFi', use that one and inherit its vendor-doc confidence instead of this dialect's."
+  ],
+  "unmappedReports": "Connected client counts and the WifiClient list (3000) — who is on the WiFi. Unit::Count exists; no MetricKind does., Per-band radio state: rf_2ghz_status (1008), rf_5ghz_status (1009) — WifiBandStatus sub-messages., WifiAlerts (1010)., dish_disablement_code (1031) — the router's copy of the terminal's service-disablement reason. Same gap as the dish dialect., poe_stats (1022), dhcp_servers (1019), hops_from_controller (1034), captive_portal_enabled (1), is_aviation (1011)., ipv4_wan_address (1003), ipv6_wan_addresses (1017), secs_since_last_public_ipv4_change (1030) — WAN addressing and how recently it changed. Metadata, but the change timer is the kind of thing an intermittent link makes interesting., Three separate ping paths — router-to-x (1004/1005), dish (1012/1013), PoP (1014/1015), plus IPv6 PoP (1027/1029) and 5-minute averages (1018/1020/1021/1028). link-latency and link-signal-quality are single-valued, so a driver has to pick one hop and discard the rest — and picking the wrong one hides where the link actually broke."
+}

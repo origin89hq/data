@@ -1,0 +1,73 @@
+{
+  "id": "fronius-gen24-sunspec",
+  "family": "modbus-tcp",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "fronius-com-en-downloads",
+      "citation": "docs/fronius-gen24-modbus-tcp-rtu-42-0410-2649.pdf — Fronius, Operating Instructions, *Fronius GEN24 Modbus TCP & RTU*, document 42,0410,2649, revision 033-24022026. Downloaded from https://www.fronius.com/en/~/downloads"
+    },
+    {
+      "source": "fronius-c",
+      "citation": "docs/fronius-gen24-primo-symo-sunspec-register-maps-1.2.7-2.zip — Fronius register-map archive, version 1.2.7-2 per its _INFO.TXT, 22 files dated 2025-11-12, resolved from the vendor's own short link http://www.fronius.c"
+    },
+    {
+      "source": "manuals-fronius-com-html-4204260312-en-us",
+      "citation": "https://manuals.fronius.com/html/4204260312/en-US.html — Fronius Primo GEN24 7.7-10.0 kW 208-240 / Plus manual. Source of the \"Modbus TCP/IP is an unsecured interface\" quote, the MB0/MB1 terminating-resistor switches, an"
+    }
+  ],
+  "transport": "RS-485 on port M0 or M1 · Modbus RTU · slave-id 1–247, factory setting 1, set in the inverter WebUI · baud and parity operator-selected, NO factory default stated in any Fronius document read · OR Ethernet/WiFi · Modbus TCP · port 502 or 1502 (selectable) · TCP unit-id of the inverter is ALWAYS 0x01 (the IP address identifies the unit) · a Smart Meter behind the inverter answers on its own unit-id",
+  "blocks": "SunSpec chain from 40001 (SID = 0x53756E53 'SunS'). Float (models 11x/21x): common(1) ID@40003 L=65 · inverter(111/113) ID@40070 L=60 · nameplate(120) ID@40132 L=26 · settings(121) ID@40160 L=30 · status(122) ID@40192 L=44 · controls(123) ID@40238 L=24 · mppt(160) ID@40264, L=48 with 2 MPPT (ROW, no storage) or L=88 with 4 MPPT (all US units, and any unit with storage — MPPT 3 = 'StCha 3', MPPT 4 = 'StDisCha 4') · storage(124) ID@40354 L=24 · US only: DERMeasureAC(701)@40380, DERCapacity(702)@40535, DEREnterService(703)@40587, DERCtlAC(704)@40606, DERVoltVar(705)@40673, DERVoltWatt(706)@40760, DERTripLV(707)@40819, DERTripHV(708)@41024, DERTripLF(709)@41229, DERTripHF(710)@41494, DERFreqDroop(711)@41759, DERWattVar(712)@41813, DERStorageCapacity(713)@41891. Int+SF (models 10x/20x): every model above sits exactly 10 registers lower — common@40003, inverter(101/103)@40070, 120@40122, 121@40150, 122@40182, 123@40228, 160@40254, 124@40344, 701@40370 … 713@41881. Smart Meter is its own SunSpec chain on its own unit-id: common(1)@40003, ac_meter(211/212/213/214)@40070 L=124, End Block@40196.",
+  "reports": [
+    "ac-current",
+    "ac-voltage",
+    "ac-power",
+    "ac-apparent-power",
+    "ac-frequency",
+    "ac-power-factor",
+    "ac-energy-total",
+    "pv-voltage",
+    "pv-current",
+    "pv-power",
+    "pv-energy-total",
+    "temperature",
+    "state-of-charge",
+    "battery-voltage",
+    "battery-current",
+    "battery-power"
+  ],
+  "accepts": [
+    "set-switch"
+  ],
+  "models": [
+    {
+      "name": "Primo GEN24 (rating unstated by the retailer)"
+    },
+    {
+      "name": "Primo GEN24 3.8 208-240"
+    },
+    {
+      "name": "Primo GEN24 5.0"
+    },
+    {
+      "name": "Primo GEN24 6.0 / 6.0 208-240"
+    },
+    {
+      "name": "Primo GEN24 10.0 / 10.0 208-240"
+    }
+  ],
+  "sharedMapEvidence": "One vendor register-map file covers the whole group and names the members inside itself. `Gen24_Primo_Symo_Inverter_Register_Map_Float_US.xlsx` (and its ROW / Int&SF / storage siblings) is titled \"Fronius Gen24 Primo/Symo Inverter Register Map\", and its common-block register Md at 40021 carries the model list as the range-of-values column: \"e.g. Primo GEN24 6.0, Primo GEN24 10.0, Primo GEN24 10.0 ",
+  "gotchas": [
+    "THE MODELS DO NOT SIT AT FIXED ADDRESSES AND FRONIUS SAYS SO IN CAPITALS. From the manual: \"Register addresses do not remain constant. The actual register addresses depend on the composition of the dynamic SunSpec register list. Correct procedure: Search for the model by making a request (determine start address), then",
+    "THE MOVING PART IS MODEL 160. It is L=48 with 2 MPPT modules on a ROW unit with no storage, and L=88 with 4 modules on every US unit and on every unit with a battery. That 40-register difference is what shifts model 124 from 40314 (Datamanager map) to 40354 (GEN24 with storage). Everything after 160 moves with it.",
+    "THE MANUAL'S \"START ADDRESS\" IS ONE LESS THAN THE MODEL'S FIRST REGISTER. Manual: Nameplate 120 float start address 40131. The register map: model 120's ID register is at 40132. The manual's own worked example resolves it — \"the register WRtg has an offset of 4, the start address is 40131, therefore the correct registe",
+    "AND THEN THERE IS A SECOND OFF-BY-ONE ON THE WIRE. Manual: \"To read register 40001, use address 40000 (0x9C40). The register address that is output therefore always has 1 number less than the actual register number.\" So a driver applies the 1-based model offset AND subtracts one for the PDU. Two independent off-by-ones",
+    "THE MANUAL'S END BLOCK FIGURES ARE ONLY TRUE FOR ONE CONFIGURATION. It states inverter End Block at 40313 (float) / 40303 (int+SF). That arithmetic works out only for a 2-MPPT ROW unit with no storage (40264 + 2 + 48 = 40314 = 40313 + 1). On a US or storage unit the End Block is hundreds of registers further along. Not"
+  ],
+  "unmappedReports": "inverter(11x) St / StVnd @40118/40119 — operating state (1 OFF, 2 SLEEPING, 3 STARTING, 4 MPPT, 5 THROTTLED, 6 SHUTTING_DOWN, 7 FAULT, 8 STANDBY). No MetricKind for an inverter run state; ValueKind::RunState exists but no metric carries it for an inverter, and ChargeStage is the wrong home., inverter(11x) Evt1/Evt2 @40120/40122 and EvtVnd1/EvtVnd2 @40124/40126 — event bitfields. EvtVnd1 is a Customer-view severity superposition (bit 0 Error, bit 1 Warning, bit 2 Info), EvtVnd2 the Technician view. No MetricKind for fault or alarm state at all. EvtVnd3/EvtVnd4 are marked not supported., inverter(11x) VAr @40098 — AC reactive power. No MetricKind, and no Unit for var/VAR., status(122) Ris — isolation resistance in ohms, with its own auto-scaled Ris_SF. No MetricKind and no Unit::Ohm. This is the one metric that would actually catch a wet or failing array., status(122) PVConn / StorConn / ECPConn — connection bitfields (bit 0 Connected, bit 1 Available, bit 2 Operating). No MetricKind; switch-state is boolean and cannot carry three independent bits., status(122) StActCtl — bitmask of which controls are currently active (bit 0 FixedW, bit 1 FixedVAR, bit 2 FixedPF). No MetricKind., status(122) ActWh — acc64 AC lifetime real energy. Duplicates ac-energy-total at a different width; the 64-bit one is the non-saturating read and the contract cannot express the choice., storage(124) ChaSt — charge status enum (1 OFF, 2 EMPTY, 3 DISCHARGING, 4 CHARGING, 5 FULL, 6 HOLDING, 7 TESTING). ChargeStage cannot express DISCHARGING, HOLDING or TESTING. Same gap the Victron GX entry records for register 844., storage(124) WChaMax, WChaGra, WDisChaGra, MinRsvPct, InWRte, OutWRte, ChaGriSet — the whole storage control surface. No CommandKind for a charge/discharge power window expressed as a signed percentage of a reference power, for a minimum-SoC reserve, or for a charge-from-grid flag. set-charge-current-limit is a current limit; these are percentages of watts., controls(123) WMaxLimPct + WMaxLim_Ena — AC output power limit as % of WMax, scale factor -2. No CommandKind for an export or output power cap., controls(123) OutPFSet, VArMaxPct, VArPct_Ena — constant power factor and constant reactive power setpoints. No CommandKind. ac-power-factor exists as a metric but there is no command counterpart., controls(123) Conn_WinTms / Conn_RvrtTms / *_RvrtTms / *_RmpTms — every control carries a start window, a revert timeout and a ramp time. The contract's commands are fire-and-forget with no timing envelope., nameplate(120) WRtg, VARtg, VArRtgQ1-Q4, ARtg, PFRtgQ1-Q4 — nameplate ratings. Arguably correct to have no MetricKind; recorded because a setup screen wants them., settings(121) WMax, VRef, VRefOfs, VMin, VMax — configuration, and VRef is read-only on this map despite being writable in SunSpec., mppt(160) module/x/DCWH — per-string lifetime energy. pv-energy-total is single-valued, so two strings collapse into one number., mppt(160) module/x/DCSt, module/x/DCEvt, module/x/Tmp, Evt, TmsPer — all marked not supported on this map. Recorded so nobody goes looking., DER models 701, 702, 704, 705, 706, 707, 708, 709, 710, 711, 712 (US units only) — volt-var and volt-watt curves, low/high voltage and frequency trip points, frequency droop, watt-var, enter-service. Roughly 1500 registers of grid-support behaviour with no analogue anywhere in the contract. Four curve sets per model, with reversion timers., DERStorageCapacity(713) SoH — state-of-health. The contract HAS state-of-health; this map marks the register not supported, so the metric exists and the data does not., Smart Meter model 21x — grid import/export is signed and its meaning depends on Meter_Location (0 grid, 1 load, 3 external generator, 256-511 sub-load). There is no grid-power MetricKind, and the sign convention is what carries the import/export meaning. Same gap as Victron GX 820-822., SHAPE MISMATCH — per-phase AC. AphA/AphB/AphC, PhVphA/PhVphB/PhVphC and PPVphAB/PPVphBC/PPVphCA are all per-phase while ac-voltage and ac-current are single-valued. A 208/240 V split-phase cabin loses the split entirely., SHAPE MISMATCH — battery direction. On a storage build, charge lives in mppt module/3 (DCA/DCW zeroed while discharging) and discharge in module/4 (zeroed while charging), both unsigned. battery-current and battery-power are single signed values, so a driver must fuse two registers and invent the sign., SHAPE MISMATCH — battery voltage changed meaning mid-firmware. module/3/DCV and module/4/DCV read 0 in the inactive direction up to software 1.30; from 1.31 both report the inverter battery-port voltage regardless of direction. The same register address means two different things depending on firmware., state-of-charge is reachable two ways with different scales — storage(124) ChaState (% of AhrRtg, SF -2) and DERStorageCapacity(713) SoC (Pct, Pct_SF -2, US only). They are not documented as identical.",
+  "refiledFrom": "modbus-rs485"
+}

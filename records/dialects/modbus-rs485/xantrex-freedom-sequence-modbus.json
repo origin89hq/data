@@ -1,0 +1,31 @@
+{
+  "id": "xantrex-freedom-sequence-modbus",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "modbus-map-freedom-sequence-device-503-0262-01-01-revision-a",
+      "citation": "Modbus Map: Freedom Sequence Device, 503-0262-01-01 Revision A.4 — staged at .../vendor-docs/xantrex-freedom-sequence-modbus-map-503-0262-01-01_RevA.4.pdf"
+    },
+    {
+      "source": "xantrex-com-wp-content-uploads-2021-12-975-0593-01-01-rev-bfreedom-sequence-owners-guide",
+      "citation": "Freedom Sequence Owner's Guide 975-0593-01-01 Rev B: https://xantrex.com/wp-content/uploads/2021/12/975-0593-01-01_Rev-BFreedom-Sequence-Owners-Guide.pdf"
+    }
+  ],
+  "transport": "Same path as the Freedom SW: Xanbus device, Modbus only via the ComBox gateway (TCP 502 / RS-485 19200 8-N-? 2-wire). Slave ID assigned by the ComBox per device type; default not stated.",
+  "blocks": "0x0000 identity · 0x0040 device state · 0x0046-0x004B breaker sizing · 0x0050 refresh",
+  "models": [
+    {
+      "name": "Freedom Sequence Intelligent Power Manager (809-0913)"
+    }
+  ],
+  "gotchas": [
+    "This map is nearly empty. Twelve registers, of which ten are AC breaker current setpoints. If someone hopes to read six AC load circuits over Modbus, this document says they cannot.",
+    "Carries the same ComBox byte/word-order setting hazard as the Freedom SW map."
+  ],
+  "unmappedReports": "Shore Breaker Size and Generator Breaker Size setpoints, three each (0x0046-0x004B), uint16 in amps scale 0.01. These are configuration, not telemetry., Device State enum at 0x0040. No MetricKind., The Freedom Sequence owner's guide says the unit monitors current draw and On/Off status for each AC load circuit and exposes it on the Xanbus SCP. NONE of those per-circuit registers appear in 503-0262. The Modbus surface is breaker setpoints only — the interesting data is visible on the panel but not on the wire."
+}

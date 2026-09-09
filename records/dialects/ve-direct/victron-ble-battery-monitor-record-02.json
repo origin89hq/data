@@ -1,0 +1,42 @@
+{
+  "id": "victron-ble-battery-monitor-record-02",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-ble-extra-manufacturer-data-2022-12-14",
+      "citation": "docs/victron-ble-extra-manufacturer-data-2022-12-14.pdf — Victron wiki page \"Extra manufacturer Data\", printed 2022-12-14. Committed. Record-type table (0x00–0x0D) and the Battery Monitor record layout, pp. 1 and 4."
+    },
+    {
+      "source": "catalog-ve-direct",
+      "citation": "docs/catalog/ve-direct.md — existing entry `victron-ble-instant-readout`, which establishes the container, the key handling and the model-binding gap from the same PDF for record 0x01. Not re-derived here."
+    },
+    {
+      "source": "communityarchive-victronenergy-com-questions-187303-victron-bluetooth-advertising-protocol",
+      "citation": "https://communityarchive.victronenergy.com/questions/187303/victron-bluetooth-advertising-protocol.html — the Victron staff post releasing the format, already cited by the existing entry."
+    }
+  ],
+  "transport": "BLE advertisement, no connection and no pairing session needed to read — but see gotchas, a per-device AES key is needed to decrypt. Victron manufacturer data, byte 3 = 0x10 (Product Advertisement). Extra-manufacturer-data record starts at byte 8. Header: bits 0–7 record type (0x02 here), bits 8–23 nonce/data counter LSB-first, bits 24–31 byte 0 of the encryption key. Payload AES-CTR, 2-byte heade",
+  "blocks": "Record type 0x02, Battery Monitor. Bit offsets from the start of the record, transcribed from the committed PDF: 32/16 TTG, 1 min, range 0..45.5 days, NA 0xFFFF (VE_REG_TTG) · 48/16 Battery voltage, 0.01 V, -327.68..327.66 V, NA 0x7FFF (VE_REG_DC_CHANNEL1_VOLTAGE) · 64/16 Alarm reason, 0..0xFFFF, no NA (VE_REG_ALARM_REASON) · 80/16 selector-dependent: Aux voltage 0.01 V -327.68..327.64 V (VE_REG_DC_CHANNEL2_VOLTAGE) or Mid voltage 0.01 V 0..655.34 V (VE_REG_BATTERY_MID_POINT_VOLTAGE) or Temperature 0.01 K 0..655.34 K (VE_REG_BAT_TEMPERATURE), no NA · 96/2 Aux input selector, NA 0x3, values 0 aux voltage, 1 mid voltage, 2 temperature, 3 none (VE_REG_BMV_AUX_INPUT) · 98/22 Battery current, 0.001 A, -4194..4194 A, NA 0x3FFFFF (VE_REG_DC_CHANNEL1_CURRENT_MA) · 120/20 Consumed Ah, 0.1 Ah, -104857..0 Ah, NA 0xFFFFF (VE_REG_CAH) · 140/10 SOC, 0.1 %, 0..100.0 %, NA 0x3FF (VE_REG_SOC) · 150/10 unused.",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "state-of-charge",
+    "consumed-amp-hours",
+    "time-to-go"
+  ],
+  "refutedOnReview": "REFUTED — the source exists and the layout is real, but it cannot carry a model-binding claim at `vendor-doc`.  **1. The claim has no model list.** As handed to me, \"claims these models share one register map:\" is followed by nothing. There is no set of models to check. Under the standing rule (default to refuted when uncertain), an empty assertion cannot be admitted at any confidence, let alone `vendor-doc`.  **2. T",
+  "gotchas": [
+    "Which models emit record 0x02 is `unverified`, and the models list is deliberately empty. The committed specification names zero product models anywhere — it is a device-category spec keyed by record type. docs/catalog/ve-direct.md reached the same conclusion for record 0x01 and it holds here. The plausible emitters ar",
+    "Consumed Ah is sign-inverted. The vendor's own remark, verbatim: \"Consumed Ah = -Record value\". The field's stated range is -104,857..0 Ah while the raw is unsigned 20-bit. Read it straight and every discharge reads as a charge.",
+    "Bits 80–95 have three different meanings and you cannot tell which without bits 96–97. Aux voltage (0.01 V, signed), mid-point voltage (0.01 V, unsigned) and battery temperature (0.01 K) share one 16-bit slot, selected by the 2-bit Aux input field that sits *after* it. Parse the selector first. Selector 3 means the slo",
+    "Temperature here is Kelvin at 0.01 scale. The MPPT HEX register 0xEDEC is also Kelvin-at-0.01 with 0xFFFF meaning N/A; this field has no NA value listed. Do not decode a sentinel as 655.35 K, and do not forget the 273.15 offset.",
+    "SOC here is 0.1 %, while the same quantity over the VE.Direct cable is ‰. Two transports, two scales, same device. Read the scale from the transport, never from the register name — the same warning docs/catalog/ve-direct.md records for PV power across three encodings."
+  ],
+  "unmappedReports": "Alarm reason at bit 64, 16 bits (VE_REG_ALARM_REASON) — the same bitfield as text-mode AR, including low SOC, low/high starter voltage, mid voltage, short circuit and BMS lockout. No fault/alarm-code MetricKind., Aux input selector at bits 96–97 (VE_REG_BMV_AUX_INPUT) — not a measurement, but without it bits 80–95 cannot be interpreted at all. There is no contract slot for \"what this channel is currently configured to measure\"., Aux voltage (VE_REG_DC_CHANNEL2_VOLTAGE) — no second-DC-channel voltage metric., Mid-point voltage (VE_REG_BATTERY_MID_POINT_VOLTAGE) — no metric. Unlike text mode there is no mid-point *deviation* field here either, so the derived quantity has to be computed from bank voltage."
+}

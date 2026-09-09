@@ -1,0 +1,66 @@
+{
+  "id": "victron-remote-onoff-dry-contact",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-energy-smart-batteryprotect-12-24v-manual-rev-05-02",
+      "citation": "Victron Energy, *Smart BatteryProtect 12/24V* manual, rev 05 - 02/2025 — installation note 10, §3.3.2, §4.4, §4.5, §7.1"
+    },
+    {
+      "source": "victron-energy-smart-batteryprotect-48v-100a-manual-rev-05-0",
+      "citation": "Victron Energy, *Smart BatteryProtect 48V 100A* manual, rev 05 - 02/2025 — same note 10 wording"
+    },
+    {
+      "source": "victronenergy-com-upload-documents-batteryprotect-12v-24v-114439-smart-batteryprotect-pdf-en",
+      "citation": "Victron Energy, *BatteryProtect 12/24V* manual, rev 05 - 02/2025 — https://www.victronenergy.com/upload/documents/BatteryProtect_12V_24V/114439-Smart_BatteryProtect-pdf-en.pdf"
+    }
+  ],
+  "transport": "Dry contact, no bus, no framing, no addressing. On a BatteryProtect: a switch between terminal Remote H and terminal Remote L; alternatively H switched high to battery positive, or L switched low to battery negative. Default state from the factory is a wire loop between L and H. On the ASS030550320 cable: signal high enables, signal <1 V or free floating disables; switch-on threshold approximately",
+  "accepts": [
+    "set-switch"
+  ],
+  "models": [
+    {
+      "name": "Smart BatteryProtect 12/24V-65A (BPR065022000)"
+    },
+    {
+      "name": "Smart BatteryProtect 12/24V-100A (BPR110022000)"
+    },
+    {
+      "name": "Smart BatteryProtect 12/24V-220A (BPR122022000)"
+    },
+    {
+      "name": "Smart BatteryProtect 48V-100A (BPR110048000)"
+    },
+    {
+      "name": "BatteryProtect 12/24V-65A (BPR000065400)"
+    },
+    {
+      "name": "BatteryProtect 12/24V-100A (BPR000100400)"
+    },
+    {
+      "name": "BatteryProtect 12/24V-220A (BPR000220400)"
+    },
+    {
+      "name": "BatteryProtect 48V-100A (BPR048100400)"
+    },
+    {
+      "name": "VE.Direct non-inverting remote on-off cable (ASS030550320)"
+    }
+  ],
+  "refutedOnReview": "REFUTED on the load-bearing evidentiary claim, verified by downloading and text-extracting all four manuals plus the datasheet.  WHAT CHECKS OUT: 1. Smart BatteryProtect 12/24V manual, rev 05 - 02/2025, at https://www.victronenergy.com/upload/documents/Smart_BatteryProtect_12V_24V/114439-Smart_BatteryProtect-pdf-en.pdf covers 65A/100A/220A. Note 10 is EXACTLY as quoted: \"A remote on/off switch can be connected betwee",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "**Open and close are not symmetric in time.** The Smart BatteryProtect manual §4.4: the load is connected 1 second after the remote input closes, and disconnected *immediately* when the remote input opens. A rules engine that toggles on a 1 Hz tick can command a state the device has not reached yet.",
+    "**Li-ion mode adds a 30-second dead period.** In Li-ion mode the SBP observes a dead period of 30 seconds after the remote input becomes free floating. A retry loop that re-asserts the relay inside that window sees nothing happen and may escalate.",
+    "**Three consecutive disengage/re-engage cycles latch the unit off.** Error E7 (BMS lockout) fires when the remote input is cycled three times consecutively — the manual describes this as typical BMS behaviour during a low-cell-voltage shutdown. Once E7 is latched the SBP stays disengaged until input voltage exceeds 13 ",
+    "**The factory wire loop must come out.** The manual: \"The wire loop in the remote on/off terminal block must be removed\" before the remote input can be used. A gateway relay wired in parallel with an intact loop does nothing.",
+    "**Never wire an inverter's DC input through a BatteryProtect.** The manual is unambiguous: \"Under no circumstances is it permitted to connect inverters or inverter/chargers to a SBP via their DC inputs, a reverse current may flow that damages the SBP.\" The sanctioned pattern is the inverse — use the SBP to drive the *i"
+  ],
+  "unmappedReports": "Nothing is reported over this interface at all — it is an input to the device, not an output. `switch-state` can only be published as the state the gateway *commanded*, never as a state read back from the device. That is a real distinction the contract cannot express: there is no way to say \"this value is open-loop\". Any switch-state a driver publishes here is an assertion about its own relay, not an observation of the BatteryProtect., The alarm output is the one thing that flows the other way: an open-collector output to the negative rail, max 50 mA, short-circuit proof, present on both Smart and non-Smart BatteryProtect, asserted when the battery voltage stays below the disconnect level for more than 12 seconds. A gateway GPIO input could sense it. It is a *warning*, not a switch position, and the contract has no metric for it — `switch-state` would be a lie about what it means."
+}

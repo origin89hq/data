@@ -1,0 +1,45 @@
+{
+  "id": "samlex-evo-1212f-no-bus",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "samlex-evo-1212f-1224f-manual-fw0-79",
+      "citation": "docs/samlex-evo-1212f-1224f-manual-fw0.79.pdf — Fig 2.1 legend items 6, 7, 8 (NEWLY ADDED to docs/ this pass)"
+    },
+    {
+      "source": "samlexamerica-com-wp-content-uploads-2020-01-11027-evo-1212f-1224f-0722-lrez",
+      "citation": "https://samlexamerica.com/wp-content/uploads/2020/01/11027-EVO-1212F-1224F-0722_Lrez.pdf"
+    },
+    {
+      "source": "samlex-evo-rc-plus-remote-manual-2021",
+      "citation": "docs/samlex-evo-rc-plus-remote-manual-2021.pdf — §5.2.2.1 Fig 5.1"
+    }
+  ],
+  "blocks": "There is no data bus to talk to. The owner's manual (fw 0.79) Fig 2.1 legend item 8 reads, in full: 'RJ-45 Jack (marked \"COMM\") - for future use.' The words 'Modbus', 'RS-485', 'COMM 1', 'COMM 2' and 'CANbus' do not appear anywhere in that manual. The only other RJ-45s are item 6 (battery temp sensor / lithium BMS dry contact) and item 7 (EVO-RC-PLUS remote).",
+  "models": [
+    {
+      "name": "EVO-1212F"
+    },
+    {
+      "name": "EVO-1212F-HW"
+    },
+    {
+      "name": "EVO-1224F"
+    },
+    {
+      "name": "EVO-1224F-HW"
+    }
+  ],
+  "sharedMapEvidence": "One vendor manual covers all four models (docs/samlex-evo-1212f-1224f-manual-fw0.79.pdf, cover page lists EVO-1212F / 1212F-HW / 1224F / 1224F-HW), and the EVO-RC-PLUS manual §5.2.2.1 Fig 5.1 gives them one shared data-logging field list. Both documents name all four together.",
+  "gotchas": [
+    "These are the models a Quebec retailer sells as 'EVO 1200 W with remote panel referenced', and the remote reference is true — but it is the EVO-RC-PLUS on the dedicated Remote Control jack, not a data port. Do not let 'EVO series' plus 'Modbus' from the 2200 W manual leak onto these. The vendor put a jack labelled COMM",
+    "Firmware rev 0.79 as documented. If Samlex ships a later firmware that activates the COMM jack, this entry is stale — the claim is scoped to that revision.",
+    "Reachable via the samlex-evo-signal-io dialect instead: these models do have the Status Relay, the Remote On/Off input, and the 12 V signalling source (manual §6.7)."
+  ],
+  "unmappedReports": "Nothing is reported over a wire, but for the record the RC-PLUS SD-card log for these models carries: Output Volt/current/watt/freq, Grid volt, Input current/VA/watt, Battery volt/current, External current, Battery temperature, Transformer temperature, Heat sink temperature 1 and 2, Fan speed, Mode, Error code, Charge stage, Event. Same contract gaps as the other EVO dialects (AC input side, internal thermals, mode, error code, fan speed) — they just are not reachable."
+}

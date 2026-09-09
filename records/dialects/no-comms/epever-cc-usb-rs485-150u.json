@@ -1,0 +1,31 @@
+{
+  "id": "epever-cc-usb-rs485-150u",
+  "family": "no-comms",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "epever-xtra-n-manual-v1-3",
+      "citation": "EPEVER XTRA-N manual V1.3 accessory table — docs/epever-xtra-n-manual-v1.3.pdf"
+    },
+    {
+      "source": "hardware",
+      "citation": "docs/HARDWARE.md (existing assessment — do not re-derive)"
+    }
+  ],
+  "transport": "USB to RS-485, RJ45 at the controller end, 1.5 m. No protocol of its own.",
+  "models": [
+    {
+      "name": "CC-USB-RS485-150U PC communication cable"
+    }
+  ],
+  "gotchas": [
+    "Already ruled out in docs/HARDWARE.md and the reason stands: it uses an Exar XR21B1411 with no mainline Linux driver. The in-tree `vizzini` driver was removed; what remains is an out-of-tree DKMS module that must rebuild on every kernel update and takes the charge controller offline when it does not. Disqualifying on a",
+    "A `-B` revision exists. docs/HARDWARE.md says assume nothing about its chip without checking — that check has still not been done.",
+    "The repo's standing recommendation is an isolated adapter with a mainline chip plus a hand-crimped Cat5e carrying only A, B and ground, which also removes the shared +5 V hazard between two EPEver devices by construction."
+  ]
+}

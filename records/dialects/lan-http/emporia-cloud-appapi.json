@@ -1,0 +1,63 @@
+{
+  "id": "emporia-cloud-appapi",
+  "family": "lan-http",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "github-com-magico13-pyemvue",
+      "citation": "https://github.com/magico13/PyEmVue — api_docs.md (base URL, auth model, full endpoint table, VUE001/SSO001 device model strings), pyemvue/auth.py (CLIENT_ID 4qte47jbstod8apnfic0bunmrq, USER_POOL us-east-2_ghlOXVLi1, us-"
+    },
+    {
+      "source": "github-com-alistairpialek-emporia-go",
+      "citation": "https://github.com/alistairpialek/emporia-go — emporia/common.go (apiRoot https://api.emporiaenergy.com, userPoolRegion us-east-2, `authtoken` header, aws-sdk-go InitiateAuth), emporia/energy.go and emporia/power.go (get"
+    },
+    {
+      "source": "github-com-emporiaenergy-emporia-mcp",
+      "citation": "https://github.com/emporiaenergy/emporia-mcp — src/services/api.ts uses this origin for GET /customers/devices with the `AuthToken` header, which is the vendor corroboration for the origin and the credential."
+    }
+  ],
+  "transport": "Internet (HTTPS) to https://api.emporiaenergy.com. Same AWS Cognito us-east-2 credential as emporia-cloud-v1 (client id 4qte47jbstod8apnfic0bunmrq, pool us-east-2_ghlOXVLi1, IdToken). Credential carried in the `authtoken` request header (HTTP headers are case-insensitive, so this is the same header the vendor spells `AuthToken`).",
+  "blocks": "GET /customers?email=… · GET /customers/devices · GET /devices/{deviceGid}/locationProperties · GET /AppAPI?apiMethod=getDeviceListUsages&deviceGids=&instant=&scale=&energyUnit= · GET /AppAPI?apiMethod=getChartUsage&deviceGid=&channel=&start=&end=&scale=&energyUnit= · GET /customers/outlets · PUT /devices/outlet · GET /customers/evchargers · GET /customers/partners?customerGid= · GET /customers/thermostats?customerGid= · GET /remoteconfig?appVersion=. Observed scale values include `1S` and `1D`; observed energyUnit values include `KilowattHours`.",
+  "reports": [
+    "ac-power",
+    "ac-energy-today",
+    "ac-energy-total"
+  ],
+  "models": [
+    {
+      "name": "Vue - Energy Monitor Gen 3"
+    },
+    {
+      "name": "Vue - Energy Monitor, 8 sensors, Gen 3"
+    },
+    {
+      "name": "Vue - Energy Monitor, 16 sensors, Gen 3"
+    },
+    {
+      "name": "Vue 8 - Energy Monitor (Gen 3), 3 Phase"
+    },
+    {
+      "name": "Vue 16 - Energy Monitor (Gen 3), 3 Phase"
+    },
+    {
+      "name": "Vue - Energy Monitor (Gen 3), 3 Phase"
+    },
+    {
+      "name": "Whole Home Energy Monitoring"
+    }
+  ],
+  "refutedOnReview": "VERDICT: refuted for the six Gen 3 models. The sources are real and every quoted constant is accurate, but the load-bearing inference is contradicted by the vendor source the claim leans on.  SOURCE AUTHENTICITY — all verified, all accurate: - magico13/PyEmVue exists (240 stars, pushed 2025-12-26). auth.py:10-12 has exactly CLIENT_ID \"4qte47jbstod8apnfic0bunmrq\", USER_POOL \"us-east-2_ghlOXVLi1\", region us-east-2. pye",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "This is the OLD path. Emporia's own client names this origin `EMPORIA_LEGACY_API_ORIGIN` and uses it for one call only (device discovery), having moved measurement onto c-api /v1. Expect it to be withdrawn. Nothing in a vendor document promises /AppAPI will keep working.",
+    "The one reason to care: `scale=1S` with `instant=` returns 1-second data, which the vendor's v1 power endpoint cannot do (its floor is MINUTES). Vendor and community paths genuinely differ in capability; this is recorded rather than resolved in favour of one.",
+    "The Cognito USER_POOL value `us-east-2_ghlOXVLi1` is `community-single` — PyEmVue hardcodes it and Emporia's own config.ts publishes only the client id and the region, not the pool id. emporia-go accepts the pool id as user-supplied configuration and hardcodes nothing, so it does not corroborate the value. The origin, ",
+    "Most of the other 'independent' clients are not independent: yanavery/emporia-vue-lib ('a port of the popular PyEmVue library'), pcartwright81/EmporiaVueSharp ('C# Port of PyEmVue'), jertel/vuegraf, thebaron/vueprom and BME-nodeservers/udi-emporia-vue-poly all wrap or vendor PyEmVue. The crosscheck here rests on PyEmVu",
+    "Nothing in this dialect is a local protocol either. Same internet dependency as emporia-cloud-v1."
+  ],
+  "unmappedReports": "Per-channel usage — getDeviceListUsages/getChartUsage return a value per `channel`, same 19-measurement-to-one-MetricKind collapse as the v1 dialect., `instant` + scale `1S` gives second-resolution power, which the contract has no problem representing as `ac-power`, but there is no MetricKind or contract concept for the sampling resolution itself — and here it is the whole reason to prefer this dialect over the vendor one., Smart plug switching (PUT /devices/outlet) maps to `set-switch`, but on a `switch` DeviceKind — not on any model surveyed here., Thermostats (/customers/thermostats) and EV chargers (/customers/evchargers) have no MetricKind coverage at all; they are outside the contract's device vocabulary., /customers/partners — account/business metadata, correctly has no MetricKind."
+}

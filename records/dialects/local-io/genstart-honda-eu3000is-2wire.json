@@ -1,0 +1,31 @@
+{
+  "id": "genstart-honda-eu3000is-2wire",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "unrecorded",
+  "sources": [
+    {
+      "source": "genstart-ca-uploads-3-4-9-7-34974774-manual-eu3000is-standard-2ws-pdf-new-gear-actuator-v2",
+      "citation": "GenStart \"EU3000is 2 Wire Start System Standard\" manual (new gear actuator v2), https://genstart.ca/uploads/3/4/9/7/34974774/manual_eu3000is_standard_2ws_pdf_new_gear_actuator_v2.pdf, linked from https://genstart.ca/manuals.html (checked: 2026-09-01)"
+    }
+  ],
+  "crossReference": "[`CONTROLLER-V1.md`](../CONTROLLER-V1.md), \"Still to confirm with GenStart\" — the site's own generator, and the open measurement this entry cannot close.",
+  "transport": "2-wire maintained dry contact (black/white wires of the supplied Control Harness) · open-circuit voltage on the input: ? (not stated) · current through a closed contact: ? (not stated) · polarity: none stated for the control pair; module power is red (+)/black (−) to the generator battery (p6–7); fusing: a 5 A fuse ships in the kit (p2) and \"Start Module internal contacts are fused with the start module main fuse. Additional circuit protection may be required\" (p7); ignition switch: \"MUST be left on for the 2-wire start to operate. This puts the generator in standby mode and will not drain the battery\" (p7); temperature: choke actuator \"-20C - 60C. It is not recommended to start the generator with the remote start outside this range. Choke actuator failure may result\" (p7); fob: Standard kit has none.",
+  "models": [
+    {
+      "name": "Honda EU3000is (EU3000is1)",
+      "rating": "2.8 kVA rated / 3.0 kVA max, gasoline, electric start yes (12 V 8.6 Ah battery)",
+      "notes": "Honda OM 00X31ZS96120 p82; factory choke is a manual knob, so the kit adds a choke actuator"
+    }
+  ],
+  "gotchas": [
+    "\"Closing the circuit between the black and white wires of the Control Harness will start the generator and opening the circuit will shut it off\" (p7). Nothing about a run-confirm output, crank duration, or retry count — the module is a black box.",
+    "The module unplugs and replaces the Honda ignition-switch connector (step 4); Honda's EU3000is has no factory remote connector at all (no \"remote\" anywhere in the OM).",
+    "The \"MUST be left on\" requirement contradicts Honda's OM p34: \"Do not leave the engine switch in the ON position when the generator is not operating as the battery will discharge.\" GenStart claims its standby mode avoids the drain; unmeasured.",
+    "Premium (wireless) variant, https://genstart.ca/uploads/3/4/9/7/34974774/manual_eu3000is_premium_wireless_start_pdf_new_gear_actuator_v2.pdf: same 2-wire module plus 1000 m transmitter; \"The 2-wire system will operate with the WIRELESS START SYSTEM SWITCH 'OFF'\" and the wireless receiver \"will drain the battery in a few days\" (p9). Whether opening the 2-wire contact stops a fob-started engine is **not stated**.",
+    "Honda's Oil Alert stops the engine with the switch left ON (OM, \"Oil Alert\" section) — the contact stays closed, so the controller must detect the stop itself. Proof of running at the panel is what catches it."
+  ]
+}

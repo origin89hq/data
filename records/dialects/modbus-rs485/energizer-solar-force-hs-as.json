@@ -1,0 +1,74 @@
+{
+  "id": "energizer-solar-force-hs-as",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "energizersolar-com-s-energizer-hs-as-user-manual-au-230224-lr",
+      "citation": "Energizer HS/AS User Manual AU, 230224 — https://www.energizersolar.com/s/Energizer-HS-AS-User-Manual-AU_230224_LR.pdf (downloaded to scratchpad/ez-hsas.pdf)"
+    },
+    {
+      "source": "energizersolar-com-resources",
+      "citation": "Energizer Solar resources index — https://www.energizersolar.com/resources"
+    }
+  ],
+  "transport": "Battery link is CAN over RJ45 ('CAN (communicate with inverter, upgrade BMS)' is the only battery communication interface listed). Bit rate not stated. Inverter monitoring RS-485 exists per the product spec but no pinout, baud, framing, or slave ID is given in the manual for this series. Meter bus default Modbus addresses 1 (Meter1) and 2 (Meter2).",
+  "reports": [
+    "ac-voltage",
+    "ac-current",
+    "ac-power",
+    "ac-frequency",
+    "pv-voltage",
+    "pv-current",
+    "pv-power",
+    "battery-voltage",
+    "battery-current",
+    "battery-power",
+    "state-of-charge"
+  ],
+  "models": [
+    {
+      "name": "Force HS-3.0"
+    },
+    {
+      "name": "Force HS-3.7"
+    },
+    {
+      "name": "Force HS-4.6"
+    },
+    {
+      "name": "Force HS-5.0"
+    },
+    {
+      "name": "Force HS-6.0"
+    },
+    {
+      "name": "Force AS-3.0"
+    },
+    {
+      "name": "Force AS-3.7"
+    },
+    {
+      "name": "Force AS-4.6"
+    },
+    {
+      "name": "Force AS-5.0"
+    },
+    {
+      "name": "Force AS-6.0"
+    }
+  ],
+  "refutedOnReview": "REFUTED. The cited source is real and I read all 50 pages (text layer + OCR of the image-only pages) of scratchpad/ez-hsas.pdf, but it contains no register map, so it cannot support a shared-register-map dialect at vendor-doc confidence.  What the manual does contain: §1.1 \"Scope of Validity\" names all ten models (HS-3.0/3.7/4.6/5.0/6.0, AS-3.0/3.7/4.6/5.0/6.0); §4 technical-data tables and §6.3 AC cable/breaker tabl",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "Battery voltage range 80-480 V, recommended 300 VDC — this is a HIGH-VOLTAGE battery inverter, not a 12/24/48 V cabin device. Nothing in this line talks to a 48 V bank.",
+    "The AS variants are AC-coupled retrofit units with no PV input; pv-* metrics do not exist on them.",
+    "As with HS+, no register list is published by the vendor for any Force model.",
+    "This series is the AU/EU/DE line. No CSA/UL certification found."
+  ],
+  "unmappedReports": "EPS/backup output power, grid import vs. export direction, battery charge/discharge current limit readback (40 A max charge, 40 A max discharge)"
+}

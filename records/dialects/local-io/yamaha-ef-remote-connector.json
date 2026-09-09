@@ -1,0 +1,34 @@
+{
+  "id": "yamaha-ef-remote-connector",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "unrecorded",
+  "sources": [
+    {
+      "source": "library-ymcapps-net-library-om-contents-pdf-30-7ux-28199-1b-02",
+      "citation": "EF12000DE Owner's Manual https://library.ymcapps.net/library/om/contents/pdf/30/7UX-28199-1B_02.pdf; Yamaha option page https://global.yamaha-motor.com/business/pp/generator/lineup/option/; kit 7VW-Y8720-A0-00 https://blog.yamahagenuineparts.com/2015/01/generator-remote-start-kit.html (checked: 2026-09-01)"
+    }
+  ],
+  "confidenceNote": "— Yamaha documents that the connector exists and what it is for; nothing electrical about it is published, and that is the fact a relay needs",
+  "transport": "3-wire momentary START + STOP contacts (inferred from \"engine switch\" + \"starter switch\" on the remote; the manual gives no pinout) · ? · ? · \"CONNECTOR FOR REMOTE CONTROL\" on the control box (p.15); \"Remote controller terminal: Standard (Auto choke)\" (p.44); no voltage, current or fuse stated.",
+  "models": [
+    {
+      "name": "EF12000DE",
+      "rating": "9.5 kVA rated / 12 kVA max, electric yes",
+      "notes": "connector standard"
+    },
+    {
+      "name": "EF7200DE",
+      "rating": "6.0 kVA, electric yes",
+      "notes": "Yamaha lists \"Remote starter kit\" for EF4000–EF7200; 32 ft wired kit 7VW-Y8720-A0-00 fits EF5200/6600"
+    }
+  ],
+  "gotchas": [
+    "Interlock: \"the engine will not start unless both starter switch on the control panel and the engine switch on the remote control unit are switched on\" (p.17) — panel key must stay ON.",
+    "Crank limits: starter cuts at 1,050 r/min; stops if no run in 3 s / 21 s (p.17).",
+    "Wiring diagram shows the connector with Blk and R leads only (p.46); kit-side schematic not published."
+  ]
+}

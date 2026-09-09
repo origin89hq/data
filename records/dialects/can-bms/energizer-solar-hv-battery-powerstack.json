@@ -1,0 +1,89 @@
+{
+  "id": "energizer-solar-hv-battery-powerstack",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "energizersolar-com-s-energizer-powerstack-user-manual-110423-en",
+      "citation": "Energizer Powerstack User Manual 110423-EN (covers 4.0 kWh and the stacks) — https://www.energizersolar.com/s/Energizer-Powerstack_User-Manual_110423-EN.pdf (downloaded to scratchpad/ez-bat40.pdf)"
+    },
+    {
+      "source": "energizersolar-com-s-energizer-ps2900h-user-manual-2024-a36h",
+      "citation": "Energizer PS2900H User Manual 2024 — https://www.energizersolar.com/s/Energizer-PS2900H_User-Manual_2024-a36h.pdf (downloaded to scratchpad/ez-bat29.pdf)"
+    },
+    {
+      "source": "enfsolar-com-pv-storage-system-datasheet-14640",
+      "citation": "ENF storage datasheet listing (403 to automated fetch) — https://www.enfsolar.com/pv/storage-system-datasheet/14640"
+    }
+  ],
+  "transport": "CAN to the inverter over RJ45 (same 8-pin BMS connector as the inverter side: CANL on pins 4/7, CANH on pins 5/6, RS-485 on pins 3/8, BMS-AWAKEN on pin 1). Master module lists 'CAN*2 / RS485'; slave modules list 'CAN/RS485'. CAN bit rate, frame IDs, and byte layout are NOT stated anywhere in the vendor documents.",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "state-of-charge",
+    "battery-temperature"
+  ],
+  "models": [
+    {
+      "name": "PS2900H-S"
+    },
+    {
+      "name": "PS2900H-M"
+    },
+    {
+      "name": "PS4000H-S"
+    },
+    {
+      "name": "PS4000H-M"
+    },
+    {
+      "name": "PS2900-H2"
+    },
+    {
+      "name": "PS2900-H3"
+    },
+    {
+      "name": "PS2900-H4"
+    },
+    {
+      "name": "PS2900-H5"
+    },
+    {
+      "name": "PS2900-H6"
+    },
+    {
+      "name": "PS2900-H7"
+    },
+    {
+      "name": "PS4000-H2"
+    },
+    {
+      "name": "PS4000-H3"
+    },
+    {
+      "name": "PS4000-H4"
+    },
+    {
+      "name": "PS4000-H5"
+    },
+    {
+      "name": "PS4000-H6"
+    },
+    {
+      "name": "PS4000-H7"
+    }
+  ],
+  "refutedOnReview": "REFUTED. Both PDFs exist and are genuine Energizer manuals, but they do not establish a shared register map for any pair of these 16 models, and the evidence statement misdescribes its own source.  (1) No register/frame map in either document. Full-text grep of scratchpad/ez-bat40.txt (21 pp) for modbus\\|CAN ID\\|baud\\|register\\|0x[hex]\\|RS485\\|PGN\\|slave returns exactly 3 hits: two spec-table rows \"Communication inte",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "HIGH VOLTAGE. Module nominal 57.6 V, module range 48.6-65.7 V, stacks of 2-7 modules give 115.2 V to 403.2 V nominal. This is not a cabin 48 V pack and it is dangerous to bench-probe casually.",
+    "Marketing states the HV battery works exclusively with Energizer Solar hybrid inverters. No third-party compatibility list is published — meaning no Pylontech-style protocol claim to lean on.",
+    "Master/slave split matters: only the -M (master) module carries the second CAN port and the RS-485 port. A slave module alone will not answer an inverter.",
+    "Marketing capacity names (2.9 kWh / 3.97 kWh / 4.0 kWh / 4.8 kWh) do not map cleanly onto the model numbers in the manuals (PS2900H, PS4000H). The 3.97 and 4.8 kWh entries on the website reuse the PS4000H manual. Record the model number, not the marketing kWh."
+  ],
+  "unmappedReports": "per-module cell voltage min/max, module count and module addressing state — the alarm table has a dedicated 'Module Addressing failed' fault with no matching MetricKind, BMS fault/alarm bitfield (under-voltage, over-voltage, over-current, over-temperature, internal short) — ChargeStage::Fault is the only fault channel in the contract and it collapses all of these to one flag, state-of-health is in the contract but the manual never says the BMS reports it"
+}

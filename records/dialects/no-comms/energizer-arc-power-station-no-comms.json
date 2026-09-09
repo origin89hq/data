@@ -1,0 +1,50 @@
+{
+  "id": "energizer-arc-power-station-no-comms",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "energizergenerators-com-products-energizer-arc-1200-pro-power-station-with-lfp-battery-and-fast",
+      "citation": "Energizer Arc 1200 Pro product page — https://energizergenerators.com/products/energizer-arc-1200-pro-power-station-with-lfp-battery-and-fast-charging"
+    },
+    {
+      "source": "energizergenerators-com",
+      "citation": "Energizer Generators — https://energizergenerators.com/"
+    },
+    {
+      "source": "energizerarc-com",
+      "citation": "Energizer Arc — https://energizerarc.com/"
+    }
+  ],
+  "models": [
+    {
+      "name": "Arc 300 Pro"
+    },
+    {
+      "name": "Arc 600 Pro"
+    },
+    {
+      "name": "Arc 1200 Pro (EN0193)"
+    },
+    {
+      "name": "Arc200"
+    },
+    {
+      "name": "Arc3"
+    },
+    {
+      "name": "Arc5"
+    }
+  ],
+  "sharedMapEvidence": "Not applicable — no protocol found on any model. Grouped as one line because they are one licensee's product family, which is explicitly NOT dialect evidence; here it costs nothing because there is no dialect.",
+  "gotchas": [
+    "Different licensee from Energizer Solar. energizergenerators.com / energizerarc.com is a separate North American brand licensee with its own model numbering (EN0193 style). Its Arc line and Energizer Solar's Peak/Everest line are unrelated hardware that both say 'Energizer' on the case.",
+    "Arc 1200 Pro is 1075 Wh / 1200 W pure sine, LiFePO4, 12 ports including 100 W USB-C and wireless charging. No data port, Bluetooth, or app is listed on the product page.",
+    "Confidence is unverified because the only source is a retailer/vendor product page, not a manual. Absence of a mention is weaker than a manual with no connectivity chapter. checked: 2026-07-31.",
+    "This is the line actually sold through Canadian big-box (Home Depot Canada, KMS Tools) and therefore the one most likely to be behind the 'battery' tag on the Quebec brand wall."
+  ]
+}

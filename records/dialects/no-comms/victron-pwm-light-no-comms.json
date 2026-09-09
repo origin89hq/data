@@ -1,0 +1,35 @@
+{
+  "id": "victron-pwm-light-no-comms",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "quebec-retailer-listings-checked-2026-07-31-claims-none-stat",
+      "citation": "Quebec retailer listings, checked 2026-07-31 (claims: none stated / LCD only)"
+    }
+  ],
+  "models": [
+    {
+      "name": "BlueSolar PWM 12/24V-5A Light"
+    },
+    {
+      "name": "BlueSolar PWM-Light 12/24V-20A"
+    },
+    {
+      "name": "BlueSolar PWM LCD 12/24-10"
+    },
+    {
+      "name": "BlueSolar PWM LCD 12/24-20"
+    }
+  ],
+  "sharedMapEvidence": "None, and none is claimed — there is no map. Grouped as 'no communications port of any kind', the same bucket the catalogue README reserves for passive gear.",
+  "gotchas": [
+    "The Light models are the bottom of the Victron range and the retail listings state no comms capability at all; the LCD models add a local display only. Recorded so nobody researches them twice.",
+    "Tagged unverified because the evidence is the absence of a claim on a retail listing, not a vendor datasheet line reading 'no communication interface'. If one of these turns up on a wall, confirm by looking at the case for a port before writing it off.",
+    "checked: 2026-07-31."
+  ]
+}

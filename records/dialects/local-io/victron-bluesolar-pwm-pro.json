@@ -1,0 +1,34 @@
+{
+  "id": "victron-bluesolar-pwm-pro",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victron-bluesolar-pwm-pro-software-manual",
+      "citation": "docs/victron-bluesolar-pwm-pro-software-manual.pdf — 'Blue Solar PWM Pro setup and monitoring software', Appendix EN (committed). Sections 5.1 (cable), 6.1 (baud 115200), 6.2/6.5 (Device ID 1, stations) read directly."
+    },
+    {
+      "source": "catalog-local-io",
+      "citation": "docs/catalog/local-io.md — for the prior SCC940100200 sighting."
+    }
+  ],
+  "transport": "USB, via the BlueSolar PWM-Pro to USB interface cable SCC940100200 into a PC USB port, presenting a COM port. Baud rate 115200 (vendor-stated). DATA BITS, PARITY AND STOP BITS ARE NOT STATED — the manual only says 'If needed, click on Device Manager to set the correct Data Bits, Stop Bits and Parity', without giving values. Device ID: the manual instructs 'always enter the number 1 (other numbers ",
+  "models": [
+    {
+      "name": "BlueSolar PWM-Pro 12/24V-20A"
+    }
+  ],
+  "sharedMapEvidence": "Single model, so no shared-map claim is made. The document is titled 'Blue Solar PWM Pro setup and monitoring software' and names exactly one interface cable (SCC940100200) and no model numbers beyond the PWM-Pro line. The other PWM products on the Quebec retail list — BlueSolar PWM DUO 12/24V-20A LCD & USB, BlueSolar PWM-LCD&USB 48V-30A, BlueSolar PWM-Light 12/24V-20A, BlueSolar PWM 12/24V-5A Lig",
+  "gotchas": [
+    "THIS IS NOT A REGISTER MAP AND MUST NOT BE TREATED AS ONE. The committed PDF is an appendix-format setup guide for a Windows application. It gives exactly three protocol-shaped facts — 115200 baud, cable part number SCC940100200, and 'Device ID: always enter the number 1' — and no framing, no addresses, no scales, no b",
+    "The 'stations' / 'Device ID' concept and the 115200 baud figure resemble a serial multi-drop addressed protocol, and this product line is an OEM rebadge in shape. RESIST THE INFERENCE. No source in docs/ says Modbus, and asserting it because it looks like Modbus is exactly the failure mode the catalogue rule forbids. d",
+    "MISSING EVIDENCE, precisely: (1) framing — is it Modbus RTU, an ASCII protocol, or proprietary binary; (2) any register or address; (3) serial data bits/parity/stop bits; (4) whether Device ID 1 is a Modbus slave address or an application-layer station number; (5) the USB-serial chipset, which decides whether it enumer",
+    "The manual's section 1 requires the Windows region and language to be set to English (United States) for the software to parse its own character format. That is a strong hint the tool is a localised OEM build, and a further reason not to assume anything about the wire.",
+    "docs/catalog/local-io.md already notes that the only SCC9... string anywhere in this repo's document corpus is SCC940100200 in the PWM-Pro manual. This entry is that thread followed to its end."
+  ],
+  "unmappedReports": "The whole telemetry set is unmappable in the sense that matters: the manual describes a Windows GUI ('Real-time monitoring', 'Real Time Curve', 'Global Monitoring', a Read button showing station name, model, version and serial number) and NEVER states which values cross the wire, in what units, at what address. There is nothing to map to a MetricKind because there is nothing documented to decode."
+}

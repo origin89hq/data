@@ -1,0 +1,67 @@
+{
+  "id": "epever-tracer-a",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "EPEver, *B-Series MODBUS Specification*, V2.3, 12 June 2015 — the document cabin-epever/src/xtra.rs already cites. Retrieved and staged at /private/tmp/claude-501/-Users-lemarier-dev-solar/01a009b6-aeb2-4d8b-8a84-65ee02f"
+    },
+    {
+      "source": "epever-ls-b-vs-b-tracer-b-tracer-a-itracer-etracer-series-co",
+      "citation": "EPEver, *LS-B、VS-B、Tracer-B、Tracer-A、iTracer、eTracer Series Controller Communication Instruction*, V2.5 — same lineage as v2.3, fuller table, coils, RJ45 pinout. Staged at .../epever-docs/epever-controller-communication-"
+    },
+    {
+      "source": "beijing-epsolar-technology-ls-b-series-protocol-modbus-regis",
+      "citation": "Beijing Epsolar Technology, *LS-B Series Protocol — ModBus Register Address List*, V1.1 (1733_modbus_protocol.pdf). Staged at .../epever-docs/epsolar-ls-b-series-modbus-register-address-list-v1.1.pdf — retrieved from git"
+    }
+  ],
+  "transport": "RS-485 over RJ45 · Modbus RTU · 115200 baud, 8 data bits, 1 stop bit, no parity, no flow control · default slave ID 1 (see contradiction in gotchas)",
+  "blocks": "0x3000 rated data (FC 0x04) · 0x3100 real-time data (FC 0x04) · 0x3200-0x3202 real-time status bitfields (FC 0x04) · 0x3300 statistics (FC 0x04) · 0x9000+ setting parameters (FC 0x03/0x10) · coils 0x0000-0x000E (FC 0x01/0x05) · discrete inputs 0x2000 over-temperature, 0x200C day/night (FC 0x02)",
+  "reports": [
+    "pv-voltage",
+    "pv-current",
+    "pv-power",
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "temperature",
+    "load-voltage",
+    "load-current",
+    "load-power",
+    "state-of-charge",
+    "charge-stage",
+    "pv-energy-today",
+    "pv-energy-total"
+  ],
+  "accepts": [
+    "set-switch",
+    "reset-counter"
+  ],
+  "models": [
+    {
+      "name": "Tracer 4215BN"
+    },
+    {
+      "name": "XTRA2210N-XDS2"
+    },
+    {
+      "name": "XTRA3215N-XDS2"
+    }
+  ],
+  "refutedOnReview": "The dialect's core is sound but the claim as written overreaches, and the header tag `vendor-doc` is wrong for most of the models it lists.  WHAT VERIFIES. All ten cited artefacts exist and say what is claimed. docs/epever-controller-protocol-a-b-series-v2.5.pdf carries the six series on its title line verbatim (\"LS-B、VS-B、Tracer-B、Tracer-A、iTracer、eTracer Series Controller Communication Instruction\"), presents one a",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "CONTRADICTION — default slave ID. B-Series MODBUS Specification v2.3 says \"The B-Series controller defaults to server address of 0x00\". The v2.5 Controller Communication Instruction, the LS-B register list v1.1, and EPEver's own MT75 manual (\"Check whether the solar controller's ID is 1; if not, set it to 1\") all say 1",
+    "CONTRADICTION — state-of-charge scale at 0x311A. v2.3 lists Times = 100; v2.5 lists Times = 1; toggio and the ESPHome XTRA-N config both read it raw (/1). The catalogue follows 1, which is what xtra.rs uses. A driver that took v2.3 literally would report 0.65 % on a full bank.",
+    "CONTRADICTION — which register is the remote temperature probe. v2.3 lists 0x3110 \"Battery Temperature\" AND 0x311B \"Remote battery temperature — the battery temperature measured by remote temperature sensor\" as two different things; v2.5 lists only 0x3110. cabin-epever maps 0x3110 to battery-temperature with a 0xFFFF s",
+    "0x3104 (battery voltage) does not appear in the v2.3 register table at all — the table's own row numbering jumps B4 → B7, skipping the rows for 0x3104 and 0x3105. The address is confirmed only by the document's worked example (\"Read real-time battery voltage … Register Address: 0x3104\"). v2.5 omits 0x3104 as well and g",
+    "THE DRIVER IS WRONG THAT A CHARGE CONTROLLER HAS NO COILS. cabin-epever/src/driver.rs returns an empty accepts list for the Xtra model with the comment \"A charge controller has no coils\", and a test named a_charge_controller_refuses_commands_it_has_no_coils_for. The vendor document defines eight: coil 0 charging device"
+  ],
+  "unmappedReports": "Consumed energy today / this month / this year / total (0x3304-0x330B) — load-side energy. MetricKind has ac-energy-today and ac-energy-total, but these are DC load energy on a charge controller; there is no load-energy-today / load-energy-total., Generated energy this month (0x330E) and this year (0x3310) — only pv-energy-today and pv-energy-total exist., Maximum / minimum PV array voltage today (0x3300 / 0x3301) and maximum / minimum battery voltage today (0x3302 / 0x3303) — daily extrema have no MetricKind., Battery status bitfield 0x3200: D3-D0 over-voltage / under-voltage / over-discharge / fault, D7-D4 battery over- and low-temperature warning, D8 battery inner resistance abnormal, D15 wrong identification for rated voltage. No fault, alarm or diagnostic MetricKind exists to carry any of it., Charging equipment status 0x3201 beyond the D3-D2 charge stage: D15-D14 PV input voltage status, D13 charging MOSFET short, D12 charging/anti-reverse MOSFET open, D11 anti-reverse MOSFET short, D10 input over-current, D9 load over-current, D8 load short, D7 load MOSFET short, D6 three-circuit disequilibrium, D4 PV input short, D1 fault, D0 running/standby. Same gap., Discharging equipment status 0x3202 in full: input voltage band, output power band (light/moderate/rated/overload), short circuit, unable to discharge, unable to stop discharging, abnormal output voltage, boost over-voltage, output over-voltage., Day/Night flag, discrete input 0x200C (1 = night, 0 = day). A charge controller knows sunrise and sunset for free and there is no metric to say so., Over-temperature inside the device, discrete input 0x2000. Distinct from the temperature reading — it is the protection point having been crossed., Battery's real rated system voltage, 0x311D (1200/2400/3600/4800 = 12/24/36/48 V). Useful for auto-configuring a bank; no MetricKind., Heat sink temperature 0x3112 — a second, distinct temperature. MetricKind::Temperature is already spent on the controller-internal reading at 0x3111., Remote battery temperature 0x311B, which v2.3 defines as separate from battery temperature at 0x3110 (see gotchas). Two battery temperatures, one battery-temperature metric., Carbon dioxide reduction, 0x3314-0x3315 (present in toggio's implementation, not in the v2.3/v2.5 tables I read). Almost certainly not worth a variant — recorded so nobody chases it twice., Charging mode 0x3008 (0000H connect/disconnect, 0001H PWM, 0002H MPPT) — the controller's own topology, not a charge stage., Load working mode 0x903D (manual / light on-off / light+timer / timing) — a device configuration state, no MetricKind and no CommandKind."
+}

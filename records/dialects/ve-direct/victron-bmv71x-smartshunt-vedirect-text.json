@@ -1,0 +1,61 @@
+{
+  "id": "victron-bmv71x-smartshunt-vedirect-text",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "docs/victron-ve-direct-protocol-3.34.pdf — Victron Energy, VE.Direct Protocol, rev 3.34, 14 April 2025. Committed. Table I (`BMV71x SmartShunt` column), PID list, MON value table, changelog entry 3.32."
+    },
+    {
+      "source": "retail-quebec-retailer-sweep-checked-2026-07-31-smartshunt-5",
+      "citation": "Retail: Quebec retailer sweep, checked: 2026-07-31 — SmartShunt 500A/50mV at 2 retailers; BMV-712 Smart at 1 retailer under several listings plus a bundle."
+    }
+  ],
+  "transport": "VE.Direct 4-pin JST-PH · 19200 8N1, no parity, 1 stop bit, no flow control · unsolicited push · no request framing, no slave ID, one device per port",
+  "blocks": "Identical framing to the BMV 70x dialect: `<0x0D 0x0A><Label><0x09><Value>` lines terminated by a `Checksum` field whose byte makes the modulo-256 sum of the block equal 0. Field set is the BMV 70x set plus `MON`.",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "battery-power",
+    "battery-temperature",
+    "state-of-charge",
+    "consumed-amp-hours",
+    "time-to-go",
+    "cycle-count",
+    "switch-state"
+  ],
+  "models": [
+    {
+      "name": "BMV-712 Smart (BAM030712000 grey / BAM030712200 black) — PID 0xA381"
+    },
+    {
+      "name": "BMV-710H Smart — PID 0xA382"
+    },
+    {
+      "name": "BMV-712 Smart Rev2 — PID 0xA383"
+    },
+    {
+      "name": "SmartShunt 500A/50mV (SHU050150050) — PID 0xA389"
+    },
+    {
+      "name": "SmartShunt 1000A/50mV (SHU050210050) — PID 0xA38A"
+    },
+    {
+      "name": "SmartShunt 2000A/50mV (SHU050220050) — PID 0xA38B"
+    }
+  ],
+  "sharedMapEvidence": "Table I of VE.Direct Protocol 3.34 puts the BMV-71x and the SmartShunt under a single shared column heading — `BMV71x SmartShunt` — separate from `BMV 60x` and `BMV 70x`. That is the vendor's own tabulation, not a family-name inference. It is corroborated by the changelog: rev 3.32 (30 June 2021) reads \"Added label MON / Added new PIDs for BMV-71x and SmartShunt\" as one entry, and the PID list gai",
+  "gotchas": [
+    "MON turns the SmartShunt into a different device and takes the state of charge with it. MON values run -9 solar charger, -8 wind turbine, -7 shaft generator, -6 alternator, -5 fuel cell, -4 water generator, -3 DC/DC charger, -2 AC charger, -1 generic source, 0 battery monitor (BMV), 1 generic load, 2 electric drive, 3 ",
+    "H17/H18 change meaning with MON, in the vendor's own row text: H17 is \"Amount of discharged energy (BMV) / Amount of produced energy (DC monitor)\" and H18 is \"Amount of charged energy (BMV) / Amount of consumed energy (DC monitor)\". Same label, opposite sign convention, decided by a different field.",
+    "Every scale trap from the BMV 70x dialect applies unchanged: SOC in ‰ not %, TTG in minutes with -1 meaning infinite, CE in mAh and negative, V in mV, I in mA, \"---\" as a legal value when unsynchronised.",
+    "The SmartShunt is a BMV-712 without a display. That is a hardware statement, not a protocol one — the protocol evidence is the shared Table I column above, and it is what this entry rests on.",
+    "There is no LOAD output and no IL field here. `IL` and `LOAD` in Table I are marked MPPT-only. Do not expect load-current from a shunt; what it measures is battery current, and consumption has to be inferred elsewhere."
+  ],
+  "unmappedReports": "MON — DC monitor mode, 18 enumerated values. No MetricKind, and it is the field that decides what the device is measuring. Reporting a SmartShunt's numbers without it is reporting numbers whose meaning is unknown., VS — auxiliary/starter battery voltage, mV. No second-DC-channel metric., VM / DM — mid-point voltage (mV) and mid-point deviation (‰). No metric., Alarm — alarm condition active. No metric., AR — alarm reason bitfield including 4096 short circuit and 8192 BMS lockout. No fault-code metric., H1/H2/H3 — deepest, last, average discharge, mAh. No metric., H5 — number of full discharges. No metric., H6 — cumulative amp hours drawn, mAh. No metric., H7/H8 — min/max main battery voltage, mV. No metric., H9 — seconds since last full charge. No metric., H10 — number of automatic synchronisations. No metric, and it is the confidence signal behind SOC., H11/H12 — low/high main voltage alarm counts. No metric., H15/H16 — min/max auxiliary battery voltage, mV. No metric., H17/H18 — discharged/charged energy, 0.01 kWh, meaning flipped by MON. No battery-energy-in / battery-energy-out metric, so round-trip efficiency is unsayable., BMV / FW / PID / SER# — identity, not measurement."
+}

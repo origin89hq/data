@@ -1,0 +1,75 @@
+{
+  "id": "victron-vedirect-text-phoenix-charger",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "docs/victron-ve-direct-protocol-3.34.pdf — VE.Direct Protocol rev 3.34, 14 April 2025 (already committed). Table I pp. 5–7, PID list p. 12, CS/ERR/MODE tables pp. 13–15, changelog p. 20."
+    },
+    {
+      "source": "victronenergy-com-upload-documents-datasheet-smart-ip43-charger-120-240v-en",
+      "citation": "https://www.victronenergy.com/upload/documents/Datasheet-Smart-IP43-Charger-120-240V-EN-.pdf — Smart IP43 Charger 120-240V datasheet (checked 2026-07-31)"
+    },
+    {
+      "source": "victronenergy-com-chargers-phoenix-smart-ip43-charger",
+      "citation": "https://www.victronenergy.com/chargers/phoenix-smart-ip43-charger (checked 2026-07-31)"
+    }
+  ],
+  "seeAlso": [
+    "victron-vedirect-text"
+  ],
+  "transport": "VE.Direct — 4-pin JST-PH, 19200 8N1 no flow control, unsolicited text push, no request framing, no slave ID. Producer TX to consumer RX.",
+  "blocks": "Repeating <0x0D 0x0A><Label><0x09><Value> lines; last field of a block is literally named `Checksum` and its byte makes the modulo-256 sum of the whole block 0. Max 22 fields per block (raised from 18 in rev 3.28).",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "charge-stage"
+  ],
+  "models": [
+    {
+      "name": "Smart IP43 Charger 12/50(1+1) — PID 0xA340 (retail PSC125051095)"
+    },
+    {
+      "name": "Smart IP43 Charger 12/50(3) — PID 0xA341 (retail PSC125053095)"
+    },
+    {
+      "name": "Smart IP43 Charger 24/25(1+1) — PID 0xA342 (retail PSC242551095)"
+    },
+    {
+      "name": "Smart IP43 Charger 24/25(3) — PID 0xA343 (retail PSC242553095)"
+    },
+    {
+      "name": "Smart IP43 Charger 12/30(1+1) — PID 0xA344"
+    },
+    {
+      "name": "Smart IP43 Charger 12/30(3) — PID 0xA345 (retail PSC123053095)"
+    },
+    {
+      "name": "Smart IP43 Charger 24/16(1+1) — PID 0xA346 (retail PSC241651095)"
+    },
+    {
+      "name": "Smart IP43 Charger 24/16(3) — PID 0xA347"
+    },
+    {
+      "name": "Smart IP43 Charger 36/15(1) — retail PSC361550095 — dialect: unknown, no PID published"
+    },
+    {
+      "name": "Smart IP43 Charger 48/13(1) — retail PSC481350095 — dialect: unknown, no PID published"
+    }
+  ],
+  "sharedMapEvidence": "VE.Direct Protocol 3.34 Table I *Supported Text-mode fields* has exactly one column headed `Phoenix Charger`, and the 3.34 PID list carries all eight 0xA340–0xA347 ids as one contiguous block of `Phoenix Smart IP43 Charger` entries. Within that single column the vendor scopes the per-output fields itself — footnote 2: \"Available on Phoenix Smart Chargers with triple outputs only\" against V2, V3, I",
+  "gotchas": [
+    "Text mode is read-only. There is no request frame and no vendor HEX document for this charger — the whitepapers page publishes HEX protocol PDFs for BMV, MPPT (BlueSolar), Orion XS and Phoenix Inverter, and none for any Phoenix/Smart IP43 charger. So `accepts` is empty and will stay empty until Victron publishes one. C",
+    "The product was renamed. Victron's PID list and 3.34 changelog say `Phoenix Smart IP43 Charger`; the current product page, datasheet and every Quebec retailer say `Smart IP43 Charger`. Same product, two names — a driver matching on the model-name string will miss half the fleet.",
+    "36/15 and 48/13 are NOT in the PID list and must not be assumed onto this map. The datasheet does confirm they exist as single-output `(1)` models and that they carry the same VE.Direct interface (\"For a wired data connection to a GX device such as the Cerbo GX, PC or other devices\"), and their spec column is identical",
+    "This charger reports no power, no temperature and no AC-side quantity in text mode. Table I leaves P, T, AC_OUT_V, AC_OUT_I and AC_OUT_S blank for the Phoenix Charger column. Anything wanting AC input draw must meter it externally — the BLE record (see `victron-ble-ac-charger`) is the only Victron route to an AC curren",
+    "Table I marks MODE for the Phoenix Charger column, and the MODE value table has a Charger column giving only 1 (charger) and 4 (off). There is no value for the third state the datasheet advertises — \"Can be used as power supply, output voltage can be set with Bluetooth and/or VE.Direct\" — even though CS has value 11 Po"
+  ],
+  "unmappedReports": "V2 / V3 — channel 2 and channel 3 battery voltage, mV. The contract has one `battery-voltage` per device; a (1+1) or (3) model charges two or three electrically separate banks and there is no way to say which reading belongs to which., I2 / I3 — channel 2 and channel 3 battery current, mA. Same problem., Relay — relay state. The vendor description is behavioural, not a controllable output: \"Phoenix Smart Chargers: during normal operation (charging) the relay is ON\". Mapping it to `switch-state` would claim a commandable switch that text mode cannot command., ERR — charger error code. `ChargeStage::Fault` keeps the fact and drops the number., MODE — device mode (VE_REG_MODE_CHARGER 1 / VE_REG_MODE_OFF 4). No metric for commanded mode as distinct from observed stage., CS values 6 Storage, 11 Power supply, 246 Repeated absorption, 248 BatterySafe — no `ChargeStage` variant. Power supply in particular means the unit is not charging a battery at all., PID / SER# / FWE — identity, not measurement.",
+  "possibleDuplicate": true
+}

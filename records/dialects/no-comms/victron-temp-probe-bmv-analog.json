@@ -1,0 +1,47 @@
+{
+  "id": "victron-temp-probe-bmv-analog",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victron-temperature-sensors-wiki-2026-05-21",
+      "citation": "victronenergy.com/live/temperature_sensors, last modified 2026-05-21 — committed at docs/victron-temperature-sensors-wiki-2026-05-21.pdf"
+    },
+    {
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "VE.Direct Protocol rev 3.34, 14 April 2025, Table I and notes 8 and 9 — already committed at docs/victron-ve-direct-protocol-3.34.pdf"
+    },
+    {
+      "source": "victron-cerbo-gx-manual-rev40",
+      "citation": "Cerbo GX Manual rev 40 §5.11 (for the incompatibility statement) — docs/victron-cerbo-gx-manual-rev40.pdf"
+    }
+  ],
+  "transport": "Two-wire analog probe into the BMV/SmartShunt AUX input. No bus, no framing, no address. Nothing further is stated in any vendor document found — no thermistor curve, no resistance table, no voltage range.",
+  "reports": [
+    "battery-temperature"
+  ],
+  "models": [
+    {
+      "name": "Temperature sensor for BMV-702/712 (ASS000100000)"
+    },
+    {
+      "name": "Temperature Sensor for BMV-702 / BMV-712 (ASS000100000)"
+    },
+    {
+      "name": "Temperature Sensor for BMV-702/712, wired to BMV aux input (ASS000100000)"
+    }
+  ],
+  "sharedMapEvidence": "Not a shared register map — one part under three retailer titles. All three sweep listings carry, or resolve to, part ASS000100000. Konergie's listing gives SKU 'ASS000100000' verbatim and its own spec row reads 'Victron Temperature Sensor for BMV (Part: ASS000100000)'. Victron's temperature-sensor table gives one column 'Temp. Sensor for BMV' with 'Victron Part Number: ASS000100000'. The part is ",
+  "gotchas": [
+    "It only produces a reading once the host's AUX input is switched to Temperature. VE.Direct Protocol 3.34 (committed) Table I, note 9 against the `T` field: 'Available when the AUX input is configured as Temperature'. Wire it correctly to a BMV still set to Starter Battery or Mid Point and the `T` field never appears.",
+    "The absent-sensor sentinel is the string `---`, not a number and not a missing field. VE.Direct Protocol 3.34 note 8: 'When no temperature sensor is connected, \"---\" will be sent instead of a value.' A parser expecting a float on the `T` line will either crash or, worse, coerce it.",
+    "`T` exists in only two columns of 3.34 Table I: BMV 70x and BMV71x/SmartShunt. It is not an MPPT field and it is not a BMV 60x field. This is already recorded in docs/catalog/ve-direct.md under `victron-vedirect-text`; the probe is what makes that field appear.",
+    "The AUX input is one input with three mutually exclusive jobs — starter-battery voltage (`VS`), mid-point deviation (`VM`/`DM`), or temperature (`T`). Fitting this probe costs you the other two. Nothing in the contract records that trade.",
+    "Wireless reach differs by host model. Victron's temperature-sensor table, 'VE.Smart Networking' row for ASS000100000: 'Yes with BMV-712; Yes with dongle for BMV-702'. A BMV-702 needs a VE.Direct Bluetooth Smart dongle to put the temperature on the VE.Smart network at all."
+  ],
+  "unmappedReports": "The `---` sentinel itself. The contract can carry 'no value', but not 'the host is healthy and is telling you the probe is unplugged', which is a different and actionable fact., Which AUX mode the host is in. A driver that sees no `T` cannot tell 'no probe fitted' from 'probe fitted, AUX set to Starter Battery'. No metric, and it is the single most likely commissioning mistake with this part."
+}

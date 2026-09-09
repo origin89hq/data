@@ -1,0 +1,77 @@
+{
+  "id": "xantrex-freedom-sw-modbus",
+  "family": "modbus-tcp",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "modbus-map-conext-freedom-sw-device-503-0245-01-01-revision",
+      "citation": "Modbus Map: Conext Freedom SW Device, 503-0245-01-01 Revision A.4 (Schneider Electric / Xantrex) — staged at /private/tmp/claude-501/-Users-lemarier-dev-solar/01a009b6-aeb2-4d8b-8a84-65ee02fe099b/scratchpad/xantrex/vendo"
+    },
+    {
+      "source": "web-archive-org-web-2018id-http-cdn-solar-schneider-electric-com-wp-content-uploads-2016-08-cone",
+      "citation": "Retrieved from https://web.archive.org/web/2018id_/http://cdn.solar.schneider-electric.com/wp-content/uploads/2016/08/Conext-Modbus-Maps-V4.zip (live URL now redirects to solar.se.com marketing page)"
+    },
+    {
+      "source": "donrowe-com-v-vspfiles-pdf-conext-combox",
+      "citation": "Conext ComBox – Freedom SW Owner's Guide, 975-0704-01-01 Revision A — staged at .../vendor-docs/conext-combox-freedom-sw-owners-guide-975-0704-01-01_RevA.pdf (mirror: https://www.donrowe.com/v/vspfiles/pdf/conext_combox_"
+    }
+  ],
+  "transport": "Xanbus (CAN, 250 kbps) inverter/charger reached only through the Conext ComBox – Freedom SW (809-0918), which is the Modbus slave. Modbus TCP default port 502 · ComBox's own server Modbus address 201 · RS-485 2-wire 19200 bps (ComBox datasheet). Per-device slave IDs are auto-assigned by the ComBox per device type; the default start addresses are shown only in a screenshot image in the owner's guid",
+  "blocks": "0x0000 identity/addressing · 0x0040 device state, faults, live measurements · 0x0090-0x00EF energy and runtime counters · 0x00F0 control · 0x00FB-0x012F charge and AC setpoints",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "battery-power",
+    "battery-temperature",
+    "charge-stage",
+    "ac-voltage",
+    "ac-current",
+    "ac-power",
+    "ac-apparent-power",
+    "ac-frequency",
+    "load-voltage",
+    "load-current",
+    "load-power"
+  ],
+  "accepts": [
+    "set-switch",
+    "start-equalize",
+    "clear-fault",
+    "set-charge-current-limit",
+    "identify"
+  ],
+  "models": [
+    {
+      "name": "Freedom SW 2012-120V (815-2012)"
+    },
+    {
+      "name": "Freedom SW 2024-120V (815-2024)"
+    },
+    {
+      "name": "Freedom SW 2524-230V (815-2524-02)"
+    },
+    {
+      "name": "Freedom SW 3012-120V (815-3012)"
+    },
+    {
+      "name": "Freedom SW 3024-120V (815-3024)"
+    },
+    {
+      "name": "Freedom SW 3524-230V (815-3524-02)"
+    }
+  ],
+  "sharedMapEvidence": "Direct. Table 1 'Applicable Products' of 503-0245-01-01 Rev A.4 (Modbus Map: Freedom SW Device) names all six product IDs under the single map in that document. This is a vendor table naming the models, not a family-name inference.",
+  "gotchas": [
+    "Xantrex disclaims its own Modbus. The Conext ComBox – Freedom SW owner's guide says three times, verbatim: 'The Modbus Communications option available with this Conext ComBox – Freedom SW (Part Number 809-0918), is not required for operation or supported by Xantrex technical support', and earlier: 'Although Modbus feat",
+    "Byte and word order is a user setting, not fixed. The ComBox has a 'Modbus Byte Order' option with two values, LSB-first and MSB-first, affecting both packed ASCII strings and all 32-bit values. Every 32-bit register in this map (battery voltage, current, power, all AC values, all energy counters) is affected. A driver",
+    "Battery Temperature at 0x0054 is uint16, scale 0.01, offset -273.0 — i.e. hundredths of a Kelvin. Applying the scale without the offset yields ~2.9 instead of ~20 degC.",
+    "First-generation Freedom SW 3000 (815-3000) is NOT in the applicable-products table. Only the 2012/2024/2524/3012/3024/3524 generation is covered. Do not land an 815-3000 on this map.",
+    "Freedom SW RV-C (815-3012-02) is a different product from Freedom SW 3012 (815-3012). The Xantrex Gateway datasheet lists 815-3012-02 as an RV-C device. Same marketing name, different bus, and no evidence it answers this Modbus map."
+  ],
+  "unmappedReports": "Inverter Status enum at 0x004B — 15 values 1024..1038 (Invert, AC Pass Through, APS Only, Load Sense, Inverter Disabled, Load Sense Ready, Engaging Inverter, Invert Fault, Inverter Standby, Grid-Tied, Grid Support, Gen Support, Sell-to-Grid, Load Shaving, Grid Frequency Stabilization). No MetricKind covers inverter operating mode; RunState only has stopped/starting/running/stopping/faulted/unknown., Device State enum at 0x0040 — 0=Hibernate 1=Power Save 2=Safe Mode 3=Operating 4=Diagnostic Mode 5=Remote Power Off 255=Data Not Available. No MetricKind., Charger Status at 0x0055 has 21 values (768..788). ChargeStage only has idle/bulk/absorption/float/equalize/fault/unknown, so Overcharge (771), No Float (774), Constant VI (775), Charger Disabled (776), Qualifying AC (777), Qualifying APS (778), Engaging Charger (779), Charger Suspend (781), AC Good (782), APS Good (783), AC Fault (784), Absorption Exit Pending (786), Ground Fault (787), AC Good Pending (788) have no ChargeStage variant. Fourteen of twenty-one states would collapse to unknown., Fault Bitmap 0/1/2 (0x0047-0x0049) and Warning Bitmap 0 (0x004A) — 39 named fault codes F01..F93 and warnings W48/W69. No MetricKind for a fault code or fault set., Invert DC Current/Power (0x0056/0x0058) and Charge DC Current/Power (0x005A/0x005C) — the inverter's own DC draw and the charger's own DC output, separate from net battery-current at 0x0050. No MetricKind distinguishes these directions., Charge DC Power Percent (0x005E, %) — charge rate as a percentage of maximum. No MetricKind., Six-bucket energy and runtime history: Energy From Battery / Battery Discharge Time / Energy To Battery / Battery Charge Time / AC1 Input Energy / AC1 Input Active Time / Load Output Energy / Load Output Time, each repeated six times across 0x0090-0x00EF (presumably today/week/month/… buckets, the period labels are truncated in the PDF text layer). MetricKind has only ac-energy-today and ac-energy-total, and nothing for accumulated seconds in a state., AC1 Voltage Qualified / AC1 Frequency Qualified state enums (0x0070/0x0071) and AC1 Qualified Time in seconds (0x0072). No MetricKind for grid/generator qualification., No state-of-charge anywhere in this map. A Freedom SW cannot report SoC over Modbus; that requires a separate battery monitor on the bus.",
+  "refiledFrom": "modbus-rs485"
+}

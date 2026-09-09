@@ -1,0 +1,38 @@
+{
+  "id": "unique-ugp-325l-panel",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "uniqueappliances-com-cdn-shop-files-325l-dc-fridge-en-manual-june2024",
+      "citation": "https://uniqueappliances.com/cdn/shop/files/325L_DC_fridge_EN_manual_June2024.pdf"
+    },
+    {
+      "source": "uniqueappliances-com-cdn-shop-files-ugp-325l-specsheet",
+      "citation": "https://uniqueappliances.com/cdn/shop/files/UGP-325L_SPECSHEET.pdf"
+    },
+    {
+      "source": "uniqueappliances-com-products-unique-325litre-white-12-24-dc-bottom-mount-refrigerator",
+      "citation": "https://uniqueappliances.com/products/unique-325litre-white-12-24-dc-bottom-mount-refrigerator (checked: 2026-07-31)"
+    }
+  ],
+  "blocks": "This unit genuinely has an MCU that measures things — four temperature sensors, supply voltage, door state, compressor faults — and it renders all of it on a front display panel. What is missing is any way off the appliance. 325L_DC_fridge_EN_manual_June2024.pdf's component list is: 1 Fuse 30A, 2 Driver Board, 3 Compressor Grounding, 4 Fuse 10A, 5 Frosting Heater, 6 Fan, 7 Damper, 8 Main Control Board, 9 Display Panel, 10 Fridge LED Light, 11 Lamp Light, 12 No Frost Sensor, 13 Freezer Sensor, 14 Fridge Sensor, 15 Ambient Sensor. No connector, terminal, or port appears anywhere in that list or in the wiring section, and the same comms grep (modbus / rs-485 / CAN / bluetooth / wi-fi / ethernet / USB / app) returns zero hits across the whole document. What blocks a driver is therefore a hardware gap, not a documentation gap, and no amount of further research closes it — only a teardown would.",
+  "models": [
+    {
+      "name": "UGP-325L B / W (11.4-12 cu ft, 325 L frost-free DC bottom-mount refrigerator)"
+    }
+  ],
+  "refutedOnReview": "REFUTED — not for lack of evidence, but by positive evidence of absence. All four cited sources exist and were read in full (both PDFs downloaded and text-extracted with pdftotext).  WHAT IS SUPPORTED: the model grouping. The manual's cover states \"MODEL NUMBER: UGP-325L W, UGP-325L B\" — one manual covers both colour variants, vendor-doc quality. B and W are the same product.  WHAT IS REFUTED: that any register map e",
+  "gotchas": [
+    "FALSE LEAD, flagged deliberately: this manual's error table contains 'EC — The appliance has internal communication failure.' That is a Main Control Board to Display Panel link, almost certainly a proprietary UART between two boards inside the cabinet. It is not an external bus and it has no vendor document. Anyone ski",
+    "Panel behaviour is fully specified and it is all local: hold Power to switch off; hold Mode 5 s to switch on; fridge setpoint cycles +1 to +7 C in 1 C steps; freezer setpoint cycles -18 to -12 C in 1 C steps; hold Fridge + Freezer together 3 s toggles C/F; hold Mode 3 s toggles the door alarm. Every one of these is a f",
+    "The panel's voltage thresholds differ from the compressor's own LVD and both are in the same manual. Panel battery monitor: normal 10.9-15 V (12 V mode) / 22.8-28 V (24 V mode); under-voltage alarm below 10.9 V / 22.8 V; over-voltage alarm above 15 V / 28 V; hard shut-off below 9.7 V / 21.5 V with alarm clearing at 11.",
+    "CONTRADICTION, retail, vendor-internal: UGP-325L_SPECSHEET.pdf headlines '12 CU. FT.' while its own spec field reads 'FRIDGE SIZE 11.4 cu ft/325L', and the current Shopify product title reads '11.7 cu. ft.'. Three capacities from one vendor on one date. Not a protocol fact, but it makes the retailer's '12 cu ft 325L' l",
+    "The 325L runs a different compressor family from the rest of the DC line. A Unique parts SKU is titled 'Compressor Controller for EKV90DC Compressor UGP-325L', whereas the 290L spec sheet names a Danfoss/Secop compressor. Two compressor electronics families in one vendor's DC range is precisely the reason this model is"
+  ],
+  "unmappedReports": "Fault / error code. The panel emits E1 ambient sensor failure, E2 fridge sensor failure, E3 freezer sensor failure, E4 frosting sensor failure, HI over-voltage, LO under-voltage, Ed door not closed, EC internal comms failure, E6 fan failure, EP supply over 29 V, E7 compressor failure, E8 compressor start overload, E9 compressor start overheat. MetricKind has no fault-code or alarm-state member at all — the nearest thing in the contract is the CommandKind `clear-fault`, which implies a fault concept the metric vocabulary never defines. Contract gap., Door open state (error Ed and the door-alarm feature). No `door-state` MetricKind. `switch-state` is the only boolean of the right shape and it is semantically wrong — a door is not a switch the system controls., Compressor run state. ValueKind::RunState already exists but the only MetricKind wired to it is `generator-run-state`. There is no `compressor-run-state`, so a fridge cannot report whether it is currently drawing., Temperature setpoints, fridge (+1..+7 C) and freezer (-18..-12 C). MetricKind::Temperature is a measurement; the contract has no setpoint/target concept and no `set-temperature` CommandKind. Both a metric gap and a command gap., Four distinct compartment temperatures — fridge sensor, freezer sensor, ambient sensor, no-frost sensor. MetricKind::Temperature is a single undifferentiated Celsius kind, so four physically different readings from one device would collide on one wire name. Same shape of problem the DS18B20 per-probe device-kind config in local-io.md works around., Under-voltage / over-voltage alarm state as a distinct latched condition, separate from the voltage value itself. No alarm MetricKind exists., NOTE ON ALL OF THE ABOVE: these are displayed on the appliance's own front panel and are not readable over any wire. They are recorded as contract findings — gaps that DeviceKind::Refrigerator will hit the moment any fridge with a real port is catalogued — not as a claim that a driver could obtain them from a UGP-325L."
+}

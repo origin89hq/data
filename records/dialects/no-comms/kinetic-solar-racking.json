@@ -1,0 +1,78 @@
+{
+  "id": "kinetic-solar-racking",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "kineticsolar-com",
+      "citation": "https://kineticsolar.com/ — manufacturer product index: racking, shingled roof, metal roof, ground, wall, carport, top-of-pole, K-Flash, accessories. No electronics, monitoring, or communications category exists. checked"
+    },
+    {
+      "source": "kineticsolar-com-racking",
+      "citation": "https://kineticsolar.com/racking/ — rail line enumeration with part-number prefixes. checked: 2026-07-31"
+    },
+    {
+      "source": "s1-solacity-com-docs-kinetic-k-rack-installation-guide",
+      "citation": "https://s1.solacity.com/docs/Kinetic/K-Rack_Installation%20Guide.pdf — KINETIC SOLAR K-RACK Installation Guide (vendor document, PDF, committable to docs/). Mechanical assembly only; no wiring, no terminals, no protocol."
+    }
+  ],
+  "models": [
+    {
+      "name": "Rapid 1 Rail (KRAPID1-XX-F) — mill / black anodized / clear anodized, up to 20 ft"
+    },
+    {
+      "name": "Ground Hog Rail (KMGHR-XX-M) — up to 24 ft"
+    },
+    {
+      "name": "Venture Rail (KVRRXX-M) — up to 30 ft, two-sided cable management"
+    },
+    {
+      "name": "Bifacial Rail (KBRRXX-M) — up to 30 ft"
+    },
+    {
+      "name": "York Rail (KYRRXX-M) — up to 30 ft, extra-long span"
+    },
+    {
+      "name": "K-Rack (roof and ground rack system)"
+    },
+    {
+      "name": "K-Flash (KFLK-42S) flashing kit"
+    },
+    {
+      "name": "K3AGM-G adjustable ground mount — 0-60 degree tilt, portrait, hot-dip galvanized steel"
+    },
+    {
+      "name": "Top of Pole Ground Mount"
+    },
+    {
+      "name": "Wall Mount"
+    },
+    {
+      "name": "Carport Mount"
+    },
+    {
+      "name": "Barn Rail / standing seam clamps (metal roof)"
+    },
+    {
+      "name": "KVLM-4S-MM universal L mount, KSRB roof plate, KJS2-M joiner, KHGLUG-M ground lug"
+    },
+    {
+      "name": "End and mid clamps (KEC30/32/35/38/40, 80mm mid clamp, KCMT-1 edge clip)"
+    },
+    {
+      "name": "KAGMM-G micro-inverter mounting bracket for Hat Rail ground mounts"
+    }
+  ],
+  "sharedMapEvidence": "Not applicable — there is no register map to share. These models are grouped because none of them contains electronics of any kind, not because a source shows matching addresses. No model in this group may later be promoted onto a communicating dialect without a source showing an actual electrical interface, which none currently does.",
+  "gotchas": [
+    "There is nothing to talk to. Kinetic Solar manufactures structural aluminium and stainless racking, mounting and flashing only. No product in the line has a port, a radio, a controller, or a power connection. No protocol document exists because no protocol exists. Tier D — recorded so nobody researches it twice.",
+    "The brand-wall listings at cabin-depot, ecosolaris and solacity carried no model numbers not because the distributors withhold them but because the SKUs are hardware part numbers (KEC30-M, KJS2-M, KRAPID1) with ratings expressed in millimetres and feet, not volts and amps. The absent model list was correct information,",
+    "KAGMM-G is named a \"micro-inverter mount\" and will surface in searches for inverter hardware. It is an $7.35 steel bracket that holds somebody else's micro-inverter onto a Hat Rail. It is not an inverter and reports nothing. Do not let the name pull this vendor into the inverter category on a future sweep.",
+    "Kinetic Solar racking is genuinely relevant to one thing in this system: the ground mount K3AGM-G has a 0-60 degree adjustable tilt, and the tilt actually set is an input the `forecast` device needs. That value belongs in configuration, entered by a person, and cannot be read from the hardware — the mount has no positi",
+    "Contract finding: `DeviceKind` has no variant that fits passive structural hardware, and none should be added. `docs/catalog/no-comms.md` is the correct home. Adding a kind here would create devices that report nothing and accept nothing, which the panels layer would then have to special-case."
+  ]
+}

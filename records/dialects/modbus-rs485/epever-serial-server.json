@@ -1,0 +1,74 @@
+{
+  "id": "epever-serial-server",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "epever-ebox-wifi-01-datasheet-v1-0",
+      "citation": "docs/epever-ebox-wifi-01-datasheet-v1.0.pdf (committed in repo)"
+    },
+    {
+      "source": "epever-wifi-2-4g-rj45-d-manual-v1-3",
+      "citation": "docs/epever-wifi-2.4g-rj45-d-manual-v1.3.pdf and docs/epever-wifi-2.4g-rj45-d-datasheet.pdf (committed in repo)"
+    },
+    {
+      "source": "epever-ble-rj45-a-manual-v1-2",
+      "citation": "docs/epever-ble-rj45-a-manual-v1.2.pdf and docs/epever-ble-rj45-d-manual-v1.2.pdf (committed in repo)"
+    }
+  ],
+  "transport": "RS-485 side is vendor-documented: RJ45, powered from the port at 5 V ±0.5 V, 115200 bps 8N1 (WiFi 2.4G RJ45 D manual v1.3 and datasheet; BLE RJ45 A manual v1.2 gives 2400-115200 bps, default 115200). eBox-WIFI-01 datasheet: 300 bps-230400 bps, default 115200. The LAN/BLE side is NOT documented by any vendor paper in hand — no TCP port, no GATT service or characteristic UUIDs, no framing.",
+  "blocks": "None of its own. These are transparent bridges, not Modbus slaves — whatever map the attached controller or inverter has is what you get, unchanged.",
+  "models": [
+    {
+      "name": "eBox-WIFI-01 WiFi serial server (sold at The Cabin Depot, checked: 2026-07-31)"
+    },
+    {
+      "name": "eBox-BLE-01 Bluetooth remote monitor (sold at The Cabin Depot, checked: 2026-07-31)"
+    },
+    {
+      "name": "EPEVER WiFi Adapter 2.4G RJ45 D"
+    },
+    {
+      "name": "EPEVER WiFi 2.4G RJ45 A"
+    },
+    {
+      "name": "EPEVER WiFi 2.4G DB9 B"
+    },
+    {
+      "name": "EPEVER BLE RJ45 A"
+    },
+    {
+      "name": "EPEVER BLE RJ45 D"
+    },
+    {
+      "name": "EPEVER TCP 306"
+    },
+    {
+      "name": "EPEVER TCP RJ45 A"
+    },
+    {
+      "name": "eLOG01-G3 / eLOG-01 logger"
+    },
+    {
+      "name": "EPEVER RTU 4G A / RTU 2G A GPRS transmission terminal"
+    },
+    {
+      "name": "EPEVER LORA solar wireless collector"
+    }
+  ],
+  "refutedOnReview": "Refuted on every axis, including by its own evidence field, which states these devices \"have no register map to share\" — so a dialect entry (which by the skill's definition means matching register addresses) must not exist for them.  1. No register map in any cited source. I extracted all five committed PDFs at /Users/lemarier/dev/solar/docs/ and counted keywords: epever-ebox-wifi-01-datasheet-v1.0.pdf, epever-wifi-2",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "eBox-WIFI-01: one community Home Assistant configuration reaches it as Modbus RTU-over-TCP on port 8088 (gabrielpc1190/Home-Assistant_EPEver-eBox-Wifi-01-MODBUS). That is community-single — a GitHub code search turned up no second independent implementation using the same port. Do not commit it to a config default; con",
+    "The BLE adapters are one-to-one only (BLE RJ45 A manual v1.2: 'the Bluetooth module only supports one-to-one communication'), and the BLE RJ45 D manual states it supports Offline Mode only. A phone app connected to the dongle is a client holding the only slot.",
+    "The WiFi 2.4G RJ45 D manual says the adapter works only with EPEver's own Solar Guardian app. That is a cloud path, not a local API, and is the opposite of what a cabin gateway needs.",
+    "All of these draw their 5 V from pins 1/2 of the controller's RJ45 — the same pins the v2.5 protocol document warns must never be used by a host cable ('Do not use the Vcc pins (+5v), or the controller may be damaged permanently'). A dongle and a USB-RS485 adapter on the same bus via a naive splitter is the failure mod",
+    "A plain USB-to-RS485 cable (CC-USB-RS485-150U, also sold at The Cabin Depot) sidesteps this whole category and keeps the map at epever-tracer-a. That is the cheap path and the one already taken by cabin-epever."
+  ],
+  "unmappedReports": "None of these expose readings of their own in any documented way. If a driver ever wraps one as DeviceKind gateway, the obvious metrics — link-online, uptime — exist in the contract already, but nothing published says the device reports them."
+}

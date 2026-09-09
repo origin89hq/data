@@ -1,0 +1,59 @@
+{
+  "id": "solark-mysolark-cloud",
+  "family": "lan-http",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "community-single",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "github-com-judasgutenberg-solarkmonitor",
+      "citation": "https://github.com/judasgutenberg/SolArkMonitor — PHP implementation, README documents the PowerView→solarkcloud.com backend migration of 2024-06-07 and the minute-granularity limitation."
+    },
+    {
+      "source": "github-com-hammondautomationhub-homeassistant-solark",
+      "citation": "https://github.com/HammondAutomationHub/HomeAssistant_SolArk — Home Assistant custom component; custom_components/solark/const.py pins DEFAULT_BASE_URL=https://www.mysolark.com and DEFAULT_API_URL=https://ecsprod-api-new"
+    },
+    {
+      "source": "github-com-matthew-dresden-solark-cloud-cli",
+      "citation": "https://github.com/matthew-dresden/solark-cloud-cli and https://github.com/matthew-dresden/solark-cloud-ha — third target of the same API (single author, so counted once)."
+    }
+  ],
+  "transport": "HTTPS to Sol-Ark's cloud, not to the inverter. OAuth token from https://ecsprod-api-new.solarkcloud.com/oauth/token, plant-scoped JSON endpoints thereafter; web front end at https://www.mysolark.com. Reverse-engineered — no vendor document, no published schema, no stability guarantee.",
+  "models": [
+    {
+      "name": "5K-2P"
+    },
+    {
+      "name": "5K-2P-N"
+    },
+    {
+      "name": "12K-2P"
+    },
+    {
+      "name": "12K-2P-N"
+    },
+    {
+      "name": "15K-2P"
+    },
+    {
+      "name": "15K-2P-N"
+    },
+    {
+      "name": "18K-2P"
+    },
+    {
+      "name": "5K-1P (any Sol-Ark fitted with the MySolArk WiFi dongle)"
+    }
+  ],
+  "sharedMapEvidence": "Not a register map — a per-plant cloud API keyed on account credentials and plant_id, so model coverage follows whatever the dongle uploads rather than any per-model map. Listed against all models only to record that this path exists for them; it carries no per-model protocol claim and no model is assigned a register map by it.",
+  "gotchas": [
+    "Misfiled under lan-http because the family list has no cloud category. This is emphatically NOT a LAN protocol — it is Sol-Ark's internet-hosted cloud, reached over the public internet, requiring the customer's MySolArk credentials. For an off-grid cabin on a metered or intermittent uplink, that is close to a disqualif",
+    "Latency and granularity are poor. The author of the longest-running implementation writes: \"The data in that app is not real-time and has a granularity measured in minutes.\" Adequate for \"is the sun out\" style automation, useless for anything that reacts to load.",
+    "No vendor sanction whatsoever. Same author: \"SolArk publishes no information about an API for the data going to the cloud from their inverters. So I managed to figure one out using information in the PowerView web app they provide their customers.\"",
+    "Already proven to move under Sol-Ark: the backend migrated from PowerView to solarkcloud.com in June 2024, breaking implementations. Marked community-single rather than community-crosschecked because although three repos target it, their endpoint paths were not compared field-by-field and independence could not be esta",
+    "Recorded so nobody researches it twice, not recommended. Tier-D shaped: the Modbus dialect gives local, second-resolution, vendor-documented data over a wire that costs eight dollars."
+  ],
+  "unmappedReports": "Not enumerated. The response schema was not verified field-by-field against MetricKind, and doing so from an unofficial API would produce facts with no source behind them. Left empty deliberately."
+}

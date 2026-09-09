@@ -1,0 +1,51 @@
+{
+  "id": "bslbatt-lv-can-emulated",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "community-single",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "bsl-battery-com-uploads-b-lfp48-rack-usersmanual-es-zx",
+      "citation": "BSLBATT, B-LFP48 Rack Battery User Manual V2.7 (Spanish), https://www.bsl-battery.com/uploads/B-LFP48-Rack-UsersManual-ES-ZX.pdf — 2.2 MB, §2.4 table 2.4, §3.6.3 pinouts and DIP table, §4.4.2 protocol selection, Appendix"
+    },
+    {
+      "source": "bslbatt-com-wp-content-uploads-2025-05-b-lfp48-200e-240614",
+      "citation": "BSLBATT, B-LFP48-200E datasheet 240614, https://bslbatt.com/wp-content/uploads/2025/05/B-LFP48-200E-240614.pdf — 'Communication: RS232, RS485, CAN, WIFI(Optional), Bluetooth(Optional)'; 'up to 63 units in parallel'."
+    },
+    {
+      "source": "bsl-battery-com-uploads-inverter-compatible-240626",
+      "citation": "BSLBATT, Approved Compatibility List of Inverter Brands, https://www.bsl-battery.com/uploads/Inverter-Compatible-240626.pdf — per-brand CAN/RS485 column for wall and rack batteries."
+    }
+  ],
+  "transport": "CAN over RJ45 · 500 kbit/s · frame set NOT native: selected from a 20-entry inverter-protocol menu, factory default = 'Victron CAN 2021.01.07' · pin 4 CAN-H, pin 5 CAN-L · pack address by 6-way DIP, 0–63, LSB = switch #1, master pack address 1 · up to 40 or 63 packs in parallel (the manual contradicts itself)",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "state-of-charge"
+  ],
+  "models": [
+    {
+      "name": "B-LFP48-200E (rack mount, 51.2 V 200 Ah 10.24 kWh, 16S2P) — stocked in QC"
+    },
+    {
+      "name": "B-LFP48-300E (rack mount, 51.2 V 300 Ah 15.36 kWh, 16S1P) — stocked in QC"
+    },
+    {
+      "name": "B-LFP48-100E 3U (same manual, not seen at a QC retailer on the checked date)"
+    }
+  ],
+  "sharedMapEvidence": "One document names all three: BSLBATT B-LFP48 Rack Battery User Manual V2.7, table 2.4, whose columns are B-LFP48-100E 3U / B-LFP48-200E / B-LFP48-300E and whose single spanning row reads 'Protocolo de comunicación: CAN (500 Kbps)/RS485 (9600 b/s)'. The same manual's Appendix B (one protocol-selection table, one default statement, one DIP address table) is scoped to the whole manual, i.e. to all t",
+  "downgradedOnReview": "I could not refute the model grouping — I pulled the manual and read the Spanish text directly (pdftotext -layout; WebFetch's extractor failed on it, the PDF itself is fine). The load-bearing evidence checks out verbatim:  VERIFIED - The manual exists at the cited URL, 2,283,403 bytes (\"2.2 MB\" as claimed). - Table 2.4 column headers are exactly \"B-LFP48-100E 3U \\| B-LFP48-200E \\| B-LFP48-300E\". - The single spanning",
+  "gotchas": [
+    "THERE IS NO BSLBATT REGISTER OR FRAME MAP. Not one address, scale or bit meaning appears in any BSLBATT document found. The battery emulates somebody else's protocol, chosen from a menu of 20 CAN and 18 RS485 entries on the LCD or over RS232. A driver must target the SELECTED protocol's specification (e.g. Victron's CA",
+    "The factory default is stated TWICE AND DIFFERENTLY in the same manual. Appendix B opens 'Configuración predeterminada: CANBUS - Victron, RS485-Pylon' and closes 'Configuración predeterminada: CANBUS - Victron, RS485-DEYE'. Both point to the same CAN default. On the RS485 side the two named brands resolve to the identi",
+    "The two manuals disagree on the CAN RJ45 GND pin. Rack manual table 3.6.3-2: pin 2 = GND, pins 1,3,6,7,8 = NC. Wall manual table 6: pins 1,2,3,6,8 grouped, pin 7 = GND. Both agree pin 4 = CAN-H and pin 5 = CAN-L. Do not solder a cable from one document alone.",
+    "Parallel-count contradiction inside one manual: table 2.4 says 'hasta 63 unidades en paralelo', §3.6.4 says 'permite operar hasta 40 dispositivos en paralelo'. The 200E datasheet says 63. The DIP table enumerates 0–63.",
+    "DIP-range contradiction inside one manual: the component table (item 4) says 'Configuración de dirección (rango 2 a 15)', while table 3.6.3-3 that it points at enumerates addresses 0 through 63 across six switches. The wall manual repeats the same '2~15' claim next to its own 0–63 table."
+  ],
+  "unmappedReports": "Fault / alarm / protection code. The manuals carry a Fault Alarm Handling Table naming ~15 distinct alarms (charging high-temperature, MOSFET high-temperature, single-cell overvoltage, ambient low-temperature, …) and there is no MetricKind for a fault or alarm code at all. This is the same gap can-bms.md already flagged for EPEver and Victron; three vendors now., Charge-current limit and discharge-current limit as REPORTED values. CommandKind::SetChargeCurrentLimit exists to write one; no MetricKind exists to read back what the pack is asking for, which is the single most important number a BMS sends an inverter., Pack index within a parallel cluster. The DIP sets an address 0–63 and readings are polled per pack; nothing in the contract expresses which of N packs a value came from., MOSFET temperature. 'MOSFET High-Temperature Alarm' is a named fault; MetricKind has battery-temperature and temperature (ambient), neither of which is a FET junction., Number of packs online / cluster size. Without it a summed bank reading cannot be sanity-checked."
+}

@@ -1,0 +1,58 @@
+{
+  "id": "ecoflow-cloud-gen2-json",
+  "family": "lan-http",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "community-crosschecked",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "github-com-tolwi-hassio-ecoflow-cloud",
+      "citation": "https://github.com/tolwi/hassio-ecoflow-cloud — devices/internal/delta2_max.py (field paths), devices/public/delta2_max.py (public API reuses the internal map verbatim, adding only to_plain flattening — a direct statemen"
+    },
+    {
+      "source": "github-com-foxthefox-iobroker-ecoflow-mqtt",
+      "citation": "https://github.com/foxthefox/ioBroker.ecoflow-mqtt — lib/dict_data/ef_delta2max_data.js; leaf names wattsInSum, wattsOutSum, inputWatts, outputWatts, inWatts, acInVol, invOutVol, soc, designCap, remainCap, f32ShowSoc, lc"
+    },
+    {
+      "source": "github-com-berezhinskiy-ecoflow-exporter",
+      "citation": "https://github.com/berezhinskiy/ecoflow_exporter — third implementation, DELTA 2 Max listed as tested, exporting ecoflow_bms_bms_status_amp (= bms_bmsStatus.amp)"
+    }
+  ],
+  "transport": "Identical to ecoflow-cloud-gen1-json — same REST host and HMAC-SHA256 signing, same /certification-issued MQTT broker, same /open/{certificateAccount}/{sn}/quota topics. Only the payload key namespace differs.",
+  "blocks": "bms_bmsStatus.* (pack BMS), bms_bmsInfo.* (lifetime counters), bms_emsStatus.* (energy management), inv.*, mppt.*, pd.*. typeCode equivalents on MQTT: bmsStatus, bmsInfo, emsStatus, invStatus, mpptStatus, pdStatus.",
+  "reports": [
+    "state-of-charge",
+    "state-of-health",
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "cycle-count",
+    "pv-power",
+    "pv-voltage",
+    "pv-current",
+    "ac-power",
+    "ac-voltage",
+    "load-power",
+    "temperature",
+    "time-to-go",
+    "switch-state"
+  ],
+  "accepts": [
+    "set-switch"
+  ],
+  "models": [
+    {
+      "name": "DELTA 2 Max"
+    }
+  ],
+  "gotchas": [
+    "The gen-1 to gen-2 change is a container rename, not a new vocabulary. Every leaf name is the same: soc, soh, vol, amp, temp, cycles, designCap, fullCap, remainCap, maxCellVol, minCellVol, maxCellTemp, minCellTemp, f32ShowSoc, chgRemainTime, dsgRemainTime, lcdShowSoc, maxChargeSoc, minDsgSoc, maxCloseOilEbSoc, minOpenO",
+    "ioBroker normalises bms_bmsStatus back to a bmsMaster channel in its own object tree while still matching on both spellings at runtime (lib/ecoflow_utils.js checks bmsMaster.bqSysStatReg and bms_bmsStatus.bqSysStatReg in adjacent branches). Read its object names as its own naming, not as evidence the device emits bmsMa",
+    "Neither implementation exposes an AC frequency reading on this dialect — out_freq appears only as a write parameter. Do not assume ac-frequency is available.",
+    "No AC current is reported either, only AC volts and AC watts.",
+    "Cloud-only, same as gen-1. No LAN path exists for this model in any implementation reviewed."
+  ],
+  "unmappedReports": "Everything unmapped in the gen-1 dialect applies unchanged, under the new prefixes (bms_bmsStatus.remainCap, bms_bmsStatus.maxCellVol, bms_emsStatus.chgRemainTime / dsgRemainTime, bms_emsStatus.minOpenOilEbSoc, pd.wattsInSum / wattsOutSum, the USB per-port watts)., bms_bmsInfo.accuChgCap / accuDsgCap (cumulative amp-hours charged and discharged over the pack's life) and accuChgEnergy / accuDsgEnergy (cumulative watt-hours in and out). These are pack lifetime totals; ac-energy-total and pv-energy-total are the wrong side of the meter, and there is no battery-energy-in / battery-energy-out MetricKind., mppt.pv2InVol / pv2InAmp / pv2InWatts — a second, independent MPPT input. MetricKind pv-power is scalar; a two-string charger needs either two devices or an indexed metric., pd.carWatts and mppt.carStandbyMin — 12 V car socket output and its idle timeout., inv.SlowChgWatts and the fastChgWatts setpoint — AC charge power in watts, again not expressible as set-charge-current-limit., Same all-in-one DeviceKind gap as the DELTA Pro."
+}

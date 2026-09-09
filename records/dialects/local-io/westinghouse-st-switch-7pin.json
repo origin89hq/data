@@ -1,0 +1,34 @@
+{
+  "id": "westinghouse-st-switch-7pin",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "unrecorded",
+  "sources": [
+    {
+      "source": "images-thdstatic-com-catalog-pdfimages-1f-1fd67b34-1554-4a74-8ec1-f913ef137229",
+      "citation": "Westinghouse ST Switch User Manual (Home Depot PDF) https://images.thdstatic.com/catalog/pdfImages/1f/1fd67b34-1554-4a74-8ec1-f913ef137229.pdf; WGen12000DF User Manual https://cdn.westinghouseoutdoorpower.com/owners_manuals/Westinghouse_WGen12000DF_manual_web.pdf (checked: 2026-09-01)"
+    }
+  ],
+  "transport": "none of the four — proprietary 7-pin control connector, not a documented dry contact · open-circuit voltage: ? · contact current: ? · cable `STCORD25 25' Generator Control Cable: 7 Pin ST Outlet Connector` (p.15); no pinout, voltage, fusing or crank-retry figures anywhere in either manual.",
+  "models": [
+    {
+      "name": "WGen12000DF",
+      "rating": "12.0 kW gas / 10.8 kW LPG, electric+fob",
+      "notes": "\"Smart Switch Outlet: Connects the Westinghouse ST Switch\" (p.10)"
+    },
+    {
+      "name": "WGen9500DFc",
+      "rating": "9.5 kW gas / 8.5 kW LPG, electric+fob",
+      "notes": "product page lists \"ST Switch Ready\""
+    }
+  ],
+  "gotchas": [
+    "The cable also back-feeds the battery: \"The generators battery is charged by this cable when the ST Switch is being powered by utility\" (p.9) — so it carries power, not just a signal; do not treat it as two wires.",
+    "Required state: \"Switch the generator engine control switch to RUN and confirm the battery indicator light illuminates\" (p.11); ST Switch starts the set \"5-10 seconds after utility loss\" and allows \"45-50 seconds to cool down before shutting it off\" (p.12).",
+    "\"Never use longer than 50ft total of generator control or power cables\" (p.15). Storage 50–95 °F only.",
+    "No document reverse-engineers the 7 pins; wiring a relay to it is `?` on every figure."
+  ]
+}

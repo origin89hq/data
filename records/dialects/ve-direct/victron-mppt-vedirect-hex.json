@@ -1,0 +1,135 @@
+{
+  "id": "victron-mppt-vedirect-hex",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-mppt-ve-direct-hex-protocol-rev18",
+      "citation": "docs/victron-mppt-ve-direct-hex-protocol-rev18.pdf — VE.Direct Protocol, BlueSolar and SmartSolar MPPT chargers, rev 18, 15 November 2021 (committed). Register table, product-id table, notes 1/3/4/6/8 and changelog all r"
+    },
+    {
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "docs/victron-ve-direct-protocol-3.34.pdf — for the shared serial parameters and the PID-list divergence."
+    },
+    {
+      "source": "catalog-ve-direct",
+      "citation": "docs/catalog/ve-direct.md — existing repo entry, re-verified."
+    }
+  ],
+  "transport": "Same physical VE.Direct port and same 19200 8N1 as the text dialect. Framing: ':' <command nibble> <hex-ASCII data, uppercase, little-endian> <hex-ASCII check> '\\n', where the sum of the data bytes plus the check equals 0x55. No slave ID — one device per port.",
+  "blocks": "VREG id space. Commands: 1 ping, 3 app version, 4 product id, 6 restart, 7 get, 8 set, A async. Responses: 1 done, 3 unknown, 4 error, 5 ping, 7 get, 8 set. Get/set flags: 0x01 unknown id, 0x02 read-only, 0x04 out of range. Blocks: product info 0x0100-0x0140 · generic device control 0x0200-0x0207 · battery settings 0xEDCA-0xEDFF (non-volatile, see gotchas) · charger data 0xEDC6-0xEDEC and 0x2211/0x2212 · panel data 0xEDB1-0xEDBF · load output 0xED90-0xEDAD · relay 0x0350-0x0353, 0xEDB9/0xEDBA, 0xEDD9, 0x100A · lighting timer 0xED90-0xEDA7, 0x2030, 0x2031 · port function 0xED98/0xED9E · history 0x1030, 0x104F, 0x1050-0x106E · remote control and VE.Smart networking 0x2000-0x2027 · restore defaults 0x0004. MPPT RS additions: per-tracker 0xECC3-0xECFD, 0x0244 tracker count, 0xED8D/0xED8F, 0xED8B, 0xD01F, 0xD0C0, 0x10A0-0x10BE.",
+  "reports": [
+    "pv-voltage",
+    "pv-current",
+    "pv-power",
+    "pv-energy-today",
+    "pv-energy-total",
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "charge-stage",
+    "load-voltage",
+    "load-current",
+    "switch-state",
+    "temperature"
+  ],
+  "accepts": [
+    "start-equalize",
+    "set-switch",
+    "set-charge-current-limit"
+  ],
+  "models": [
+    {
+      "name": "SmartSolar MPPT 75/10"
+    },
+    {
+      "name": "SmartSolar MPPT 75/15"
+    },
+    {
+      "name": "SmartSolar MPPT 100/15"
+    },
+    {
+      "name": "SmartSolar MPPT 100/20"
+    },
+    {
+      "name": "SmartSolar MPPT 100/20-48V"
+    },
+    {
+      "name": "SmartSolar MPPT 100/30"
+    },
+    {
+      "name": "SmartSolar MPPT 100/50"
+    },
+    {
+      "name": "SmartSolar MPPT 150/35"
+    },
+    {
+      "name": "SmartSolar MPPT 150/45"
+    },
+    {
+      "name": "SmartSolar MPPT 150/60-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 150/60-MC4"
+    },
+    {
+      "name": "SmartSolar MPPT 150/70-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 150/85-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 150/100-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 250/60-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 250/60-MC4"
+    },
+    {
+      "name": "SmartSolar MPPT 250/70-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 250/85-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 250/100-Tr"
+    },
+    {
+      "name": "SmartSolar MPPT 150/70-Tr VE.Can (SCC115070411)"
+    },
+    {
+      "name": "SmartSolar MPPT 150/70-MC4 VE.Can"
+    },
+    {
+      "name": "SmartSolar MPPT 150/85-Tr VE.Can"
+    },
+    {
+      "name": "SmartSolar MPPT 150/85-MC4 VE.Can"
+    },
+    {
+      "name": "SmartSolar MPPT 150/100-Tr VE.Can"
+    },
+    {
+      "name": "SmartSolar MPPT 150/100-MC4 VE.Can"
+    },
+    {
+      "name": "*…and 17 more, in the journal*"
+    }
+  ],
+  "refutedOnReview": "REFUTED — not on sourcing, but on scope. Both cited PDFs exist, are committed, and are genuine; most of the evidence checks out verbatim. The claim's *exclusion* is backwards, and its \"same model list as victron-vedirect-text\" premise is false.  Files verified (extracted with pypdf, 32 pages): - /Users/lemarier/dev/solar/docs/victron-mppt-ve-direct-hex-protocol-rev18.pdf - /Users/lemarier/dev/solar/docs/victron-ve-di",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "0xEDD7 'Charger current' IS NOT BATTERY CURRENT. Rev 18 note 3: 'The charger current is the sum of the current flowing to the battery and the load output. To report the battery current the load current (0xEDAD) must be subtracted manually.' This is the exact trap already documented for EPEver's 0x3105 in crates/drivers",
+    "On an MPPT RS, 0xEDD5 and 0xEDD7 are the WRONG registers. The doc says 'replaces': 0xED8D battery voltage replaces 0xEDD5, 0xED8F battery current replaces 0xEDD7 — AND THE TYPE CHANGES from un16 to sn16. Reading the old address, or reading the new one as unsigned, misreports a discharging bank as a large positive numbe",
+    "The battery-settings block will PHYSICALLY WEAR OUT. Rev 18 warns above 0xEDCA-0xEDFF: 'stored in non-volatile memory. Continuous writing, for example from a control loop, will lead to early failure.' A rules engine nudging 0xEDF7 (absorption voltage) every tick destroys the charger. Setpoint control belongs on the vol",
+    "set-charge-current-limit IS NOT STICKY. 0x2015 (0.1 A, un16) only takes effect once 0x200E is set to external control (b0000101) or BMS mode (b0001001), and 0x2001/0x2002 time out after 60 s, after which the charger reverts to internal control. The limit must be re-sent on a heartbeat.",
+    "Writing a setpoint with the BMS-mode bit set STORES 'BMS present' TO FLASH. The charger then refuses stand-alone operation: with no BMS data it charges in Float for 45 seconds to allow a black start, then stops and shows error #67. Recoverable — note 6 on 0xEDE8 says that register 'can be used to clear the BMS present "
+  ],
+  "unmappedReports": "0xEDDA — charger error code, full enumeration (errors 17-27 alone cover charger temperature too high, over-current, current reversed, current sensor issue, temperature sensor miswired/disconnected, fan missing, fan over-current, terminal overheated, short circuit). `ChargeStage::Fault` keeps the fact and drops the code., 0xEDB3 — tracker mode. No MetricKind., 0xEDD2 / 0xEDD0 — max power today / yesterday, 1 W. No MetricKind., 0xEDD1 — yield yesterday, 0.01 kWh. No MetricKind., 0x0205 / 0x0207 — device off-reason bitmask, INCLUDING bit 9 'battery temperature too low (charging not allowed)'. No MetricKind. In a Quebec cabin this is the difference between 'the sun isn't up' and 'the charger has refused to charge a frozen bank'. Rev 18 marks these bits available on SmartSolar models only., 0xED91 — load-output off reason. No MetricKind., 0xEDD4 — additional charger state: safe mode, automatic equalisation, temperature dimming, input current dimming, low power mode. No MetricKind. Dimming is why a charger under-produces on a sunny day, and it is invisible in the contract., 0x104F, 0x1050-0x106E — total and daily history records: time in bulk/absorption/float, daily max battery current, max panel voltage, min/max battery voltage, last four error codes. Not instantaneous metrics — needs a different contract SHAPE, not a new MetricKind., 0x0140 — capabilities bitmask, 20+ feature bits. Not a metric, but there is no slot for advertised device capability either, and this is exactly what a driver needs to decide which registers to poll., 0x200D / 0x200F — network info and status: BMS-controlled, remotely set, charge slave, stand-alone. 'Who is deciding the charge voltage right now' has no wire name., Device state values 6, 11, 245, 246, 248, 249, 250, 252, 255 — Storage, Power supply, Wake-up, Repeated absorption, BatterySafe, Load detect, Blocked, External control, Unavailable. No `ChargeStage` variant., 0xECC3...0xECFD — per-tracker panel voltage, current, power and tracker mode (MPPT RS). MetricKind has one `pv-power`, not one per string. A 4-tracker RS 450/200 has four independent arrays and the contract can only express their sum — shading on one string is invisible., 0xED8B — battery ripple voltage (MPPT RS). No MetricKind. It is the standard early warning for a failing cell or a loose DC connection., 0xD01F — 2-wire BMS input state (MPPT RS). No MetricKind., 0x10A0-0x10BE — per-tracker daily history: energy, peak power, Voc max. No MetricKind., 0xEDDE — charger number of physical outputs. No MetricKind (and no capability slot)., 0xEDDD / 0xEDDC — charger system yield and user-resettable yield. `pv-energy-total` covers one of these at best; there is no notion of a resettable user counter alongside a lifetime one."
+}

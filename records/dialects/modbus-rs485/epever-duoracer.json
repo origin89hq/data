@@ -1,0 +1,56 @@
+{
+  "id": "epever-duoracer",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "community-single",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "github-com-eisber-lox-cli",
+      "citation": "https://github.com/eisber/lox-cli — docs/library/plugins/epever-duoracer/epever-duoracer.xml (the single community source)"
+    },
+    {
+      "source": "epever-com-wp-content-uploads-2021-05-duoracer-manual-en-v2-5",
+      "citation": "EPEVER 'MPPT Dual Battery Solar Charge Controller User Manual' DuoRacer V2.5 — committed at docs/epever-duoracer-manual-v2.5.pdf (https://www.epever.com/wp-content/uploads/2021/05/DuoRacer-Manual-EN-V2.5.pdf)"
+    },
+    {
+      "source": "epever-com-product-duoracer-10-30a-mppt-charge-controller-dual-battery",
+      "citation": "EPEVER product page, https://www.epever.com/product/duoracer-10-30a-mppt-charge-controller-dual-battery/"
+    }
+  ],
+  "transport": "RS-485 via a 3.81 mm 4-pin connector (NOT RJ45) · Modbus RTU per the vendor manual's feature list. Baud, framing and default slave ID: not stated in any source found — absent. Cable is CC-RS485-RS485-3.81-4P-150/1000/2000.",
+  "blocks": "Claimed by one community source only: input regs 0x3100, 0x3101, 0x3102-3, 0x310C–0x310F, 0x3110, 0x3111, 0x311A, 0x311D, 0x3302, 0x3303, 0x3304, 0x331A, 0x331B — i.e. the epever-tracer-a addresses. No block covering BATT2.",
+  "reports": [
+    "pv-voltage",
+    "pv-current",
+    "pv-power",
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "state-of-charge",
+    "load-voltage",
+    "load-current",
+    "load-power",
+    "temperature"
+  ],
+  "models": [
+    {
+      "name": "DR3210N-DDS 30 A dual battery"
+    },
+    {
+      "name": "DR N series per the manual cover: DR1106N, DR1206N, DR2106N, DR2206N, DR3106N, DR3206N, DR2210N, DR3210N — each in -DDB and -DDS variants"
+    }
+  ],
+  "sharedMapEvidence": "ONE community implementation, which is below the bar to merge into epever-tracer-a. The Loxone plugin at eisber/lox-cli (docs/library/plugins/epever-duoracer/epever-duoracer.xml) is titled 'EPEVER DuoRacer' and polls decimal 12544/12545/12546/12556/12557/12558/12560/12561/12570/12573/13058/13059/13060/13082/13083 — which are exactly 0x3100/0x3101/0x3102/0x310C/0x310D/0x310E/0x3110/0x3111/0x311A/0x",
+  "gotchas": [
+    "No vendor protocol document for the DuoRacer was found — only the user manual, which says 'Standard Modbus protocol and RS485 (5V/200mA) communication port' and gives no registers. Baud and slave ID are therefore absent here rather than copied from the Tracer map.",
+    "The dual-battery data — BATT2 voltage, current, and its ≤1 A trickle charge state — has no known register in any source. If the second battery is the reason for buying this controller, the protocol side of it is unsolved.",
+    "Not an RJ45 port. DR N uses a 3.81 mm 4-pin plug-in terminal, so none of the EPEver RJ45 cables or the CC-USB-RS485-150U fit without rework.",
+    "On DR1206/2206/3206/2210/3210N the AES signal port and the RS-485 port SHARE one 5 VDC / 200 mA budget. An MT11 draws 13 mA on / 4 mA off. On DR1106/2106/3106N they are independent and AES outputs 12 V.",
+    "Charging-stage documentation in the manual is explicitly for BATT1 only; BATT2 charges by a different, separately described scheme."
+  ],
+  "unmappedReports": "Starter battery (BATT2) voltage / current / charge state — no MetricKind would even be reachable, because there is no register. Worth noting that the contract has no way to express two banks under one solar-charger device either; that is a modelling question, not just a naming one., AES refrigerator control signal — the controller drives a car fridge directly. DeviceKind has 'refrigerator', but there is no CommandKind or MetricKind for 'surplus-power signal to a load'."
+}

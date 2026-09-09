@@ -1,0 +1,38 @@
+{
+  "id": "epever-rj45-transport-ble",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "epever-com-download-epever-ble-rj45-a",
+      "citation": "EPEVER BLE RJ45 A Manual EN V1.2, committed at /Users/lemarier/dev/solar/docs/epever-ble-rj45-a-manual-v1.2.pdf (source: https://www.epever.com/download/epever-ble-rj45-a/)"
+    },
+    {
+      "source": "epever-com-wp-content-uploads-2023-04-epever-ble-rj45-d-manual-en-v1-2",
+      "citation": "EPEVER BLE RJ45 D Manual EN V1.2, committed at /Users/lemarier/dev/solar/docs/epever-ble-rj45-d-manual-v1.2.pdf (source: https://www.epever.com/wp-content/uploads/2023/04/EPEVER-BLE-RJ45-D-Manual-EN-V1.2.pdf) — a DIFFERE"
+    },
+    {
+      "source": "epever-com-upload-cert-file-1904-ebox-ble-01-sms-el-v1-0",
+      "citation": "EPEVER-Datasheet-eBox-BLE-01 SMS-EL V1.0, https://www.epever.com/upload/cert/file/1904/eBox-BLE-01-SMS-EL-V1.0.pdf — the previous generation, also a different SKU"
+    }
+  ],
+  "transport": "RJ45 RS-485 to Bluetooth 5.0 / BLE (compatible with 4.0) · serial side 2400–115200 bps, default 115200 · powered 5 V ±0.5 V from the RS-485 comms port, 5 V @ 30 mA · one adapter serves exactly one controller, inverter or inverter/charger (one-to-one only)",
+  "models": [
+    {
+      "name": "BLE RJ45 A"
+    }
+  ],
+  "sharedMapEvidence": "NOT A DIALECT, and unreachable as recorded. It has no register map of its own; it fronts whatever is on the RJ45. The far-end map is the controller's. But unlike the USB cable, the near side is a BLE link whose service UUIDs, characteristic UUIDs, and frame layout are stated in NO document found — vendor or community — so there is currently no route from a Linux gateway to the controller through i",
+  "gotchas": [
+    "THE BLOCKING FACT: no EPEver document gives a GATT service UUID, a characteristic UUID, an advertisement layout, or a frame format for this adapter. The only statement the manual makes about the wire is the bullet 'Support data encryption', which is not a specification. Compare Victron, which publishes a record-layout ",
+    "No community implementation was found either. Searches for a decoder, a GATT dump, or a Python client for the EPEver BLE RJ45 adapters returned nothing but reprints of the same user manual. That is a hard `unverified` — not one weak source, zero sources.",
+    "The vendor manual contradicts itself on range inside one revision (V1.2): the Features list says 'Up to 30 meters communication distance', the specification table says '≤ 10m', and the step-4 note says 'The phone and the Bluetooth module can't be placed more than 10 meters away.' Recorded, not resolved. If range matter",
+    "One-to-one, and it occupies the controller's only RJ45 port. It cannot coexist with the USB-RS485 cable on the same port, and the MT50 bus-contention note in docs/INVENTORY.md applies unchanged.",
+    "The A manual publishes NO RJ45 pin definition. The BLE RJ45 D manual does (1,2 = +5VDC · 3,4 = RS485-B · 5,6 = RS485-A · 7,8 = GND — the same pinout docs/DEVICES.md already records from the IPower-Plus manual). Do not carry D's pinout onto A. Ring it out with a meter, as docs/HARDWARE.md already instructs."
+  ]
+}

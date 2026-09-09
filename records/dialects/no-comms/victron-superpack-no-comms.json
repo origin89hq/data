@@ -1,0 +1,51 @@
+{
+  "id": "victron-superpack-no-comms",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victronenergy-com-upload-documents-datasheet-12-8v-25-6-lithium-superpack-en-p",
+      "citation": "docs/victron-lithium-superpack-datasheet.pdf (newly downloaded) — Datasheet 12,8 V & 25,6 V Lithium Super Pack batteries, from https://www.victronenergy.com/upload/documents/Datasheet-12,8V-&-25,6-Lithium-SuperPack-EN-.p"
+    },
+    {
+      "source": "victronenergy-com-upload-documents-lithium-superpack-2024-08-20",
+      "citation": "https://www.victronenergy.com/upload/documents/Lithium-SuperPack-2024-08-20.pdf — Declaration of Conformity, CE mark date 27 Oct 2014, signed 25 Jul 2024, listing the five part numbers"
+    },
+    {
+      "source": "victronenergy-com-batteries-12-8v-lithium-superpack",
+      "citation": "https://www.victronenergy.com/batteries/12,8v-lithium-superpack — vendor product page, checked 2026-07-31"
+    }
+  ],
+  "models": [
+    {
+      "name": "Lithium SuperPack 12.8V/20Ah (BAT512020705)"
+    },
+    {
+      "name": "Lithium SuperPack 12.8V/60Ah (BAT512060705)"
+    },
+    {
+      "name": "Lithium SuperPack 12.8V/100Ah (BAT512110710; BAT512110712 also appears on the vendor product page)"
+    },
+    {
+      "name": "Lithium SuperPack 12.8V/100Ah High Current (part number NOT attested in any document read)"
+    },
+    {
+      "name": "Lithium SuperPack 12.8V/200Ah (BAT512120705)"
+    },
+    {
+      "name": "Lithium SuperPack 25.6V/50Ah (BAT524050705)"
+    }
+  ],
+  "sharedMapEvidence": "One vendor datasheet covers all five attested part numbers in a single specification table (12,8/20, 12,8/60, 12,8/100, 12,8/200, 25,6/50) and one Declaration of Conformity lists exactly those five part numbers together. The table has no communication row of any kind — no Bluetooth, no port, no BMS cable, no connector. The datasheet's opening claim is the whole story: 'Integrated BMS and safety sw",
+  "gotchas": [
+    "Nothing to talk to. No Bluetooth, no VE.Direct, no CAN, no M8 BTV link, not even a dry contact. The internal BMS disconnects the battery and tells nobody. If a SuperPack cuts out at 03:00 the hub learns about it as a voltage that went to zero on some other device.",
+    "The ONLY way to instrument these is externally: a shunt on the bank (SmartShunt over VE.Direct, or the existing PZEM/EPEver paths already in this repo), or a voltage/current measurement the hub already makes. That is a cost worth stating plainly before somebody buys four of them expecting telemetry.",
+    "Do NOT confuse this line with Lithium SuperPack NG. The NG is a different product with built-in Bluetooth, a built-in battery monitor and an EFS signal output. Same brand name, opposite answer to 'can I read it'.",
+    "The 'High Current' 100 Ah variant on the Quebec retail listing has no part number in any document read. The vendor product page exposes both BAT512110710 and BAT512110712 for 100 Ah without labelling either 'High Current'. Recorded as unresolved rather than guessed.",
+    "Series connection is not allowed on this line — parallel only. That constrains bank design before any comms question arises."
+  ]
+}

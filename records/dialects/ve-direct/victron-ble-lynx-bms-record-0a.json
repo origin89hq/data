@@ -1,0 +1,33 @@
+{
+  "id": "victron-ble-lynx-bms-record-0a",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victron-ble-extra-manufacturer-data-2022-12-14",
+      "citation": "docs/victron-ble-extra-manufacturer-data-2022-12-14.pdf — Victron wiki page \"Extra manufacturer Data\", printed 2022-12-14. Committed. Record-type table and the (Lynx Smart) BMS record layout, pp. 1 and 6–7."
+    }
+  ],
+  "transport": "Same BLE container as record 0x02 — Victron manufacturer data type 0x10, extra-manufacturer-data record from byte 8, AES-CTR with the 2-byte header nonce, per-device 16-byte key required. Record type 0x0A.",
+  "blocks": "Record type 0x0A, \"(Lynx Smart) BMS\". Bit offsets transcribed from the committed PDF: 32/8 Error, NA 0x0 (VE_REG_BMS_ERROR) · 40/16 TTG, 1 min, 0..45.5 days, NA 0xFFFF (VE_REG_TTG) · 56/16 Battery voltage, 0.01 V, -327.68..327.66 V, NA 0x7FFF (VE_REG_DC_CHANNEL1_VOLTAGE) · 72/16 Battery current, 0.1 A, -3276.8..3276.6, NA 0x7FFF (VE_REG_DC_CHANNEL1_CURRENT) · 88/16 IO status, NA 0x0 (VE_REG_BMS_IO) · 104/18 Warnings/Alarms, NA 0x0 (VE_REG_BMS_WARNINGS_ALARMS) · 122/10 SOC, 0.1 %, 0..100.0 %, NA 0x3FF (VE_REG_SOC) · 132/20 Consumed Ah, 0.1 Ah, -104857..0 Ah, NA 0xFFFFF (VE_REG_CAH) · 152/7 Temperature, °C, -40..86 °C, NA 0x7F (VE_REG_BAT_TEMPERATURE) · 159/1 unused.",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "state-of-charge",
+    "consumed-amp-hours",
+    "time-to-go"
+  ],
+  "gotchas": [
+    "The models list is empty and that is the honest answer. The record type is named \"(Lynx Smart) BMS\" — the only place in this document where a record name contains a Victron product line, which is weak but real evidence — yet no part number, no model number and no firmware minimum appears anywhere in it. The Quebec list",
+    "Different bit layout from record 0x02, not a variant of it. Every field after the header sits at a different offset — TTG at 40 not 32, battery voltage at 56 not 48, SOC at 122 not 140. A shared decoder that keys on record type is fine; one that assumes battery monitors are battery monitors is not.",
+    "Battery current here is 0.1 A signed 16-bit. In record 0x02 it is 0.001 A over 22 bits. Same quantity, two encodings, one document.",
+    "Temperature here is degrees C with a -40 offset — vendor remark: \"Temperature = Record value - 40\", 7 bits, range -40..86 °C. Record 0x02 uses 0.01 K over 16 bits. Three temperature encodings now exist across Victron transports (0.01 K over HEX, 0.01 K over BLE 0x02, °C-minus-40 over BLE 0x0A).",
+    "Consumed Ah is sign-inverted here too: \"Consumed Ah = -Record value\"."
+  ],
+  "unmappedReports": "Error at bit 32 (VE_REG_BMS_ERROR) — no fault-code MetricKind., IO status at bit 88, 16 bits (VE_REG_BMS_IO) — no metric. This is where allowed-to-charge / allowed-to-discharge / contactor state live on a BMS, and they are the difference between a healthy bank and a disconnected one., Warnings/Alarms at bit 104, 18 bits (VE_REG_BMS_WARNINGS_ALARMS) — no metric., The record carries no state-of-health, no cell voltages and no cell balance, so nothing is lost there — but note that `state-of-health` exists in MetricKind and this record cannot fill it."
+}

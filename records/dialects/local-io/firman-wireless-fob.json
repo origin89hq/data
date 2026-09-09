@@ -1,0 +1,33 @@
+{
+  "id": "firman-wireless-fob",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "unrecorded",
+  "sources": [
+    {
+      "source": "cdn-shopify-com-s-files-1-0527-3350-9822-files-p03632-manual-english-pdf-v-1739807699",
+      "citation": "Firman P03632 Manual https://cdn.shopify.com/s/files/1/0527/3350/9822/files/P03632_Manual_English.pdf?v=1739807699; T07571 Manual https://content.syndigo.com/asset/70545e8b-9df3-419a-a5bd-d14cfdaa77ab/original.pdf (checked: 2026-09-01)"
+    }
+  ],
+  "transport": "wireless fob only, no wired input · n/a · n/a · \"Remote Start Program Button\" pairs the fob (p.10); \"turn over for 3 to 5 seconds\", then \"five additional times\", total six per button push (p.17); no range or electrical figures stated.",
+  "models": [
+    {
+      "name": "P03632",
+      "rating": "4.55/3.65 kW gas, electric yes",
+      "notes": "fob; \"delay of electrical output for 15 seconds\""
+    },
+    {
+      "name": "T07571 / T07573 / T08071 tri-fuel",
+      "rating": "7.5 kW gas / 6.75 LPG / 5.5 NG (T07571), electric yes",
+      "notes": "no remote, wired or wireless; hold switch in START (p.8)"
+    }
+  ],
+  "gotchas": [
+    "Choke: fob start skips manual choke step (\"For remote start move to step (11)\", p.17); recoil/electric use hand choke.",
+    "Fob STOP runs \"an additional 15 seconds\" cool-down (p.19).",
+    "Firman's tri-fuel collection lists every model as \"Electric Start\", none \"Remote Start\"."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "epever-duc-dcdc",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "epever-com-product-duc-series-dc-dc-battery-charger",
+      "citation": "https://www.epever.com/product/duc-series-dc-dc-battery-charger/ (checked: 2026-07-31)"
+    },
+    {
+      "source": "epever-com-download-duc-series-resources",
+      "citation": "https://www.epever.com/download/duc-series-resources/ (checked: 2026-07-31)"
+    }
+  ],
+  "models": [
+    {
+      "name": "DUC series 12 V DC-DC battery charger 30A/40A/50A"
+    }
+  ],
+  "gotchas": [
+    "This is DeviceKind charger, not solar-charger — a DC-DC B2B charger for an alternator or a second bank, which is a genuinely common RV/cabin fitment in Quebec.",
+    "EPEver files it under charge controllers in its own catalogue, which is a naming trap: it has nothing to do with the MPPT register map.",
+    "No protocol document, no register address, and no confirmation that it has a communication port at all. Recorded so nobody researches it twice."
+  ]
+}

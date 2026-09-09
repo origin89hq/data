@@ -1,0 +1,36 @@
+{
+  "id": "victron-gx-wifi-dongle",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victronenergy-com-media-pg-cerbo-gx-en-internet-connectivity",
+      "citation": "https://www.victronenergy.com/media/pg/Cerbo_GX/en/internet-connectivity.html — Cerbo GX / Cerbo GX MK2 manual, supported WiFi USB dongle table with part numbers."
+    },
+    {
+      "source": "github-com-victronenergy-venus-wiki-dbus",
+      "citation": "https://github.com/victronenergy/venus/wiki/dbus — com.victronenergy.platform Networking section, Network/Wifi/SignalStrength and Network/Wifi/State."
+    },
+    {
+      "source": "victron-gx-modbus-tcp-register-list",
+      "citation": "docs/victron-gx-modbus-tcp-register-list.xlsx — cited for a negative: com.victronenergy.platform has only 5800–5812 (VE.Bus restore), no networking registers."
+    }
+  ],
+  "models": [
+    {
+      "name": "CCGX WiFi module simple, Nano USB (BPP900100200)"
+    }
+  ],
+  "gotchas": [
+    "It is a USB WiFi stick, not a device. It has no protocol, no addresses, and no driver surface. It exists in this catalogue so that a future pass does not research it twice.",
+    "Carried by a vendor table: Cerbo GX manual, Internet connectivity — BPP900100200 'CCGX WiFi Module Simple (Nano USB)', 'Compact, low cost.' The same table lists BPP900200300 (Asus USB-N14, 'Higher cost; better reception than Nano USB') and BPP900200400 (WiFi module long range, Netgear AC1200, 'Supports Wireless AC, G, ",
+    "Largely redundant on modern hardware — the Cerbo GX and Cerbo GX MK2 already have built-in WiFi; the manual lists Ethernet, built-in WiFi, mobile network and USB tethering as the four connection methods, with these dongles as range extenders. Its live use is an older CCGX or a GX sited badly.",
+    "Do not confuse with cellular. The same manual page: 'The Cerbo GX does not support mobile broadband USB dongles, except for the official GX GSM and GX LTE 4G accessories.'",
+    "checked: 2026-07-31 — one Quebec retailer."
+  ],
+  "unmappedReports": "Nothing of its own. Worth knowing where the nearest thing lives: the HOST GX exposes com.victronenergy.platform Network/Wifi/SignalStrength, documented in Victron's Venus D-Bus wiki as 'Normalized value of the wifi signal strength. Value is between 0 and 100', alongside Network/Wifi/State ('ready', 'online', 'idle', 'association', 'configuration') and Network/Services. That percent value would map cleanly onto link-signal-quality — note the contrast with the GX LTE modem's 0–31 scale., Network/Wifi/State is a five-value connection state with no MetricKind and no ValueKind; RunState is the wrong domain., com.victronenergy.platform HAS registers in the Modbus TCP workbook — but only 5800–5812, the VE.Bus backup/restore block. No networking registers at all. Verified by parsing the committed workbook. So even the WiFi signal strength is MQTT-only."
+}

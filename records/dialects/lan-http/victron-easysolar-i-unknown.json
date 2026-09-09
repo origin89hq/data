@@ -1,0 +1,31 @@
+{
+  "id": "victron-easysolar-i-unknown",
+  "family": "lan-http",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "quebec-retailer-listing-only-checked-2026-07-31-no-vendor-pr",
+      "citation": "Quebec retailer listing only, checked: 2026-07-31. No vendor protocol document names this product."
+    }
+  ],
+  "transport": "Presumed two independent devices behind one faceplate: the inverter/charger on VE.Bus (which would put it on victron-vebus-mk2 or victron-gx-modbus-vebus) and the charge controller on VE.Direct or VE.Can (which would put it on victron-vedirect-text / victron-mppt-vedirect-hex). Neither assignment is attested. Nothing is claimed about baud, addressing or framing.",
+  "models": [
+    {
+      "name": "EasySolar 24/3000/70-50 MPPT 150/70 — 1 Quebec retailer, claims Color Control (GX) integration, checked: 2026-07-31"
+    },
+    {
+      "name": "EasySolar 48/5000/70-100 MPPT 150/100 — 1 Quebec retailer, claims Color Control (GX) integration, checked: 2026-07-31"
+    }
+  ],
+  "sharedMapEvidence": "None. dialect: unknown, deliberately. An EasySolar (first generation) is a MultiPlus, a BlueSolar MPPT and an AC distribution board in one enclosure, and by construction the Multi part sits on VE.Bus and the MPPT part on its own port — but NO committed Victron document names \"EasySolar\" anywhere. The MK2 protocol's supported-devices list names Phoenix Multi, Phoenix Inverter and Quattro. The data-",
+  "gotchas": [
+    "Do not fold these two models into victron-vebus-mk2 on the strength of the word \"MultiPlus\" in a marketing description. That is precisely the \"same vendor, same family name\" reasoning the catalogue forbids.",
+    "The retailer's only protocol claim is \"Color Control (GX) integration\", which if true routes to victron-gx-modbus-vebus for the inverter half and to the solar-charger service for the MPPT half — two dialects, two unit IDs, one box. A driver author who expects one device will be surprised.",
+    "The MPPT inside the 48/5000 is a 150/100. Four BlueSolar models are PV-only (no communication without sun) per rev 18, and 0xA047 BlueSolar MPPT 150/100 is NOT among them — but which PID the integrated unit reports is unknown, so even that is not settled.",
+    "What would settle it: a Victron document naming EasySolar (first generation) against a VE.Bus port or against com.victronenergy.vebus, or a bench capture of the PIDs the two internal devices report on a GX. Neither exists in this sweep."
+  ]
+}

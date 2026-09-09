@@ -1,0 +1,41 @@
+{
+  "id": "victron-globallink-vrm",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-globallink-520-manual-rev18",
+      "citation": "docs/victron-globallink-520-manual-rev18.pdf — Victron Energy, GlobalLink 520, Rev. 18 - 05/2026, footer ASS030543020. Downloaded this pass into docs/; commit it. Note the vendor's own advertised filename says '520___530"
+    },
+    {
+      "source": "victron-globallink-530-manual-rev00",
+      "citation": "docs/victron-globallink-530-manual-rev00.pdf — Victron Energy, GlobalLink 530, Rev 00 - 07/2026, footer ASS030543030. Downloaded this pass into docs/; commit it."
+    },
+    {
+      "source": "victron-globallink-520-530-datasheet",
+      "citation": "docs/victron-globallink-520-530-datasheet.pdf — Victron Energy, 'GlobalLink 520 and GlobalLink 530' datasheet, one merged spec table. Downloaded this pass into docs/; commit it. This is the shared-map evidence."
+    }
+  ],
+  "models": [
+    {
+      "name": "GlobalLink 520 (ASS030543020)"
+    },
+    {
+      "name": "GlobalLink 530 (ASS030543030)"
+    }
+  ],
+  "refutedOnReview": "Refuted on the framing, not on the sourcing. Every cited artefact exists in docs/ and says exactly what the claim reports — I confirmed the joint datasheet's merged spec table row by row, diffed §5 between the two manuals (identical after normalising the model name, 59 lines each), confirmed footers ASS030543020/ASS030543030, confirmed Rev. 18 - 05/2026 and Rev 00 - 07/2026, confirmed the 520 manual contains zero occ",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "THERE IS NO LOCAL PROTOCOL. Not Modbus, not MQTT, not HTTP, not a local API. Data goes to VRM and only to VRM. Reading a GlobalLink means the VRM JSON API over the internet — the cloud path the catalogue already argues against for a cabin on intermittent Starlink. Recorded under no-comms because from Cabin Hub's positi",
+    "It is mutually exclusive with a GX. Vendor FAQ Q9, verbatim: 'No, it is impossible to use a GlobalLink with a GX device.' … 'You cannot connect the GlobalLink directly to a GX device, it is designed to connect to the supported VE.Direct devices (such as BMV or MPPT) directly. If you would like to connect your GX device",
+    "It EATS the VE.Direct port. It occupies the same physical port a cabin-hub VE.Direct driver would use, on the same MPPT or SmartShunt, and a VE.Direct port serves one master. Fitting a GlobalLink takes a charger off Cabin Hub's bus. Max two VE.Direct devices (vendor FAQ: 'You can connect up to two VE.Direct devices.').",
+    "15 minutes, in both directions. 'Data attributes transmitted to VRM every 15 minutes'; queued relay changes 'will be propagated the next time the device connects … and can thus take up to 15 minutes to take effect (or longer if the device has no connection)'. The manual itself warns the digital-input alarm path 'may no",
+    "Local Bluetooth exists but is not a documented protocol. VictronConnect can show a live status screen (firmware v2.05+): SIM status, LTE status, signal strength, antenna selection, operator, both VE.Direct port states, BLE device count, both digital input states. That is VictronConnect's connected GATT protocol, which "
+  ],
+  "unmappedReports": "Everything. This device has no local protocol, so nothing it measures reaches a MetricKind by any local path. The list below is what it does measure, recorded so the gap is visible rather than silently dropped., Digital inputs ×2, which are also pulse counters — 'you can view their current state and the number of detected pulses (rising edge, 1000Hz max) in VRM'. switch-state is boolean and there is no pulse-count MetricKind., Relay position — switch-state and set-switch both exist in the contract, but the relay is only operable from VRM's device list page with up to 15 min of queueing latency, so neither can be claimed., Cellular signal strength, operator name and number, SIM status, LTE connection status, and which antenna is selected (internal vs external switch) — visible in VRM and on the VictronConnect status screen, with no local read path. link-signal-quality and link-online have no source here., Count of connected Bluetooth smart devices — no MetricKind., Input voltage on its own power connector — the vendor calls this 'not very accurate' (±0.2 V at 14 V, ±0.5 V at 24 V, ±1 V at 48 V) and uses it in VRM only as a fallback when no attached device can measure voltage. battery-voltage would be a lie: it is the GlobalLink's own supply rail., For every attached product the uploaded attribute set is dominated by 'state', 'mode', 'off reason', 'error code', 'alarm reason', 'warning reason'. The contract has no MetricKind for a fault or off-reason code; ChargeStage cannot carry it., 'Active AC input' (VE.Bus Smart Dongle, Multi RS) — no MetricKind, same gap already recorded for the GX at register 826., Per-cell voltages (Lithium Battery Smart, cells 1–8) and balancer status — no MetricKind., Aux voltage (BMV/SmartShunt) — no MetricKind."
+}

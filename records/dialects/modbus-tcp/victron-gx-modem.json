@@ -1,0 +1,47 @@
+{
+  "id": "victron-gx-modem",
+  "family": "modbus-tcp",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victronenergy-com-upload-documents-gx-lte-4g-1208",
+      "citation": "docs/victron-gx-lte-4g-manual-rev04.pdf — Victron Energy, GX LTE 4G manual, rev 04 - 09/2024. Downloaded this pass and placed in docs/; commit it. Source URL: https://www.victronenergy.com/upload/documents/GX_LTE_4G/1208"
+    },
+    {
+      "source": "github-com-victronenergy-dbus-modem",
+      "citation": "https://github.com/victronenergy/dbus-modem — Victron's own repository. README.md carries the complete com.victronenergy.modem path table and the SimStatus/RegStatus/PPPStatus enums. Pinned at commit 53dd46919845c52218ec"
+    },
+    {
+      "source": "github-com-victronenergy-dbus-flashmq",
+      "citation": "https://github.com/victronenergy/dbus-flashmq — Victron's own repository. README documents the N/<portal ID>/<service_type>/<device instance>/<D-Bus path> scheme; src/utils.cpp get_instance_from_items() supplies the inst"
+    }
+  ],
+  "transport": "USB (integrated cable) into any GX device running Venus OS v2.60+ · no protocol of its own · host GX publishes it on D-Bus as com.victronenergy.modem · readable over that GX's MQTT broker at N/<VRM portal ID>/modem/0/<D-Bus path> (1883 plain / 8883 TLS, off by default) · NOT present in the GX Modbus TCP register list",
+  "blocks": "D-Bus service com.victronenergy.modem, read-only unless noted: /Model, /IMEI, /NetworkName, /NetworkType, /SignalStrength, /Roaming, /Connected, /IP, /SimStatus, /RegStatus, /PPPStatus, /Debug (writable). Settings under localsettings: /Settings/Modem/Connect (0/1), /Settings/Modem/RoamingPermitted (0/1), /Settings/Modem/PIN, /Settings/Modem/APN, /Settings/Modem/User, /Settings/Modem/Password. Enums: SimStatus 10=SIM not inserted, 11=SIM PIN required, 12=SIM PUK required, 13=SIM failure, 14=SIM busy, 15=SIM wrong, 16=incorrect password, 1000=ready, 1001=unknown error (values <1000 otherwise are 3GPP TS 27.007 §9.2 error codes). RegStatus = +CREG codes per 3GPP TS 27.007 §7.2: 0=not registered/not searching, 1=registered home, 2=not registered/searching, 3=registration denied, 4=unknown, 5=registered roaming. PPPStatus 0=down, 1=init, 2=up. NetworkType 0=NONE,1=GSM,2=GPRS,3=EDGE,4=UMTS,5=HSDPA,6=HSUPA,7=HSPA,8=LTE,9=TDS-CDMA,10=TDS-HSDPA,11=TDS-HSUPA,12=TDS-HSPA,13=CDMA,14=EVDO,15=CDMA/EVDO,16=CDMA/LTE,23=eHRPD,24=CDMA/eHRPD,30=HSPA+. Separately, the built-in GPS receiver lands on com.victronenergy.gps, which IS in the Modbus TCP map at 2800 latitude / 2802 longitude / 2804 course / 2805 speed / 2806 fix / 2807 satellites / 2808 altitude.",
+  "reports": [
+    "link-online",
+    "link-signal-quality"
+  ],
+  "models": [
+    {
+      "name": "GX LTE 4G-A (GSM100200400) — North America"
+    },
+    {
+      "name": "GX LTE 4G-E (GSM100100400) — EMEA/Korea/Thailand"
+    }
+  ],
+  "sharedMapEvidence": "One vendor table carries both models: GX LTE 4G manual rev 04 - 09/2024, §1.1, columns 'Part number \\| Name \\| Region \\| Used module \\| Supported LTE bands' — GSM100100400 = GX LTE 4G-E (SIMCom SIM7600E), GSM100200400 = GX LTE 4G-A (SIMCom SIM7600A), GSM100300400 = GX LTE 4G-SA (SIMCom SIM7600SA). The three differ only in radio bands. Victron's own dbus-modem README lists its supported modules as ",
+  "gotchas": [
+    "BUY THE RIGHT REGION. GX LTE 4G-E (GSM100100400) is the EMEA model: LTE bands 1, 3, 5, 7, 8, 20, 38, 40, 41. GX LTE 4G-A (GSM100200400) is the North America model: bands 2, 4, 12. A Quebec retailer stocking the 4G-E is stocking a unit that will likely never register on Bell/Telus/Rogers. Vendor table, GX LTE 4G manual ",
+    "/SignalStrength is 0–31, the raw AT+CSQ scale, stated as '(0-31)' in the vendor README. MetricKind::LinkSignalQuality is Unit::Percent. A driver must rescale, and there is no vendor-stated conversion. Do not publish 0–31 into a percent field.",
+    "com.victronenergy.modem IS NOT IN THE MODBUS TCP REGISTER LIST. Verified by parsing the committed workbook docs/victron-gx-modbus-tcp-register-list.xlsx: its 1008 registers span exactly 33 dbus-service-names and 'modem' is not one of them; a case-insensitive search of the whole shared-strings table for modem/gsm/lte/ce",
+    "com.victronenergy.modem is ALSO absent from Victron's own Venus D-Bus wiki (github.com/victronenergy/venus/wiki/dbus), which documents 35 com.victronenergy.* services and not this one. The dbus-modem README is the only vendor documentation of these paths. Contradiction recorded rather than resolved.",
+    "MQTT device instance is 0, and that is derived from vendor source code, not from vendor prose. dbus-modem.py registers VeDbusService('com.victronenergy.modem') and adds no /DeviceInstance and no /ProductId path. dbus-flashmq's get_instance_from_items() (src/utils.cpp) initialises deviceInstance = 0, looks for /DeviceIn"
+  ],
+  "unmappedReports": "/NetworkType — 21-value radio-access-technology enum (GSM…LTE…HSPA+). No MetricKind and no ValueKind for it., /RegStatus — network registration state (+CREG 0–5). No MetricKind; ValueKind::RunState is the wrong domain., /PPPStatus — data-link state (down/init/up). No MetricKind., /SimStatus — SIM health, 3GPP error codes plus 1000/1001. No MetricKind, no ValueKind., /Roaming — 0/1. No MetricKind. Matters for a cabin on a metered SIM., /NetworkName — operator name, a string. No MetricKind, and MetricValue has no String variant at all., /Model, /IMEI, /IP — device metadata, all strings. Same missing String variant. Arguably correct to have no MetricKind., link-downlink and link-uplink have no source here — the modem measures no throughput, it only reports link state and RSSI. A GX-fronted cellular link cannot fill the two MetricKinds cabin-starlink fills., GPS from the built-in receiver (com.victronenergy.gps 2800–2808: latitude, longitude, course, speed, satellites, altitude) — no MetricKind. Already recorded in docs/catalog/lan-http.md; repeated because the GX LTE is what populates it., /Settings/Modem/Connect is a writable 0/1 that raises and drops the data connection. No CommandKind fits — set-switch means a relay. Recording it as a contract gap rather than claiming set-switch.",
+  "refiledFrom": "lan-http"
+}

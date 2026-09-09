@@ -1,0 +1,27 @@
+{
+  "id": "magnum-ags-honda-eu3000is-combination-switch",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "unrecorded",
+  "sources": [
+    {
+      "source": "magnum-dimensions-com-sites-default-files-magags-me-ags-s-honda-eu3000is-rev-11-08-2011",
+      "citation": "Magnum \"ME-AGS-S Wiring Diagram for Honda (EU3000is)\" 11-8-2011, https://www.magnum-dimensions.com/sites/default/files/MagAGS/ME-AGS-S-Honda-EU3000is-Rev-11-08-2011.pdf (sold as a harness by Pinellas, https://www.pinellaspowerproducts.com/product/honda-eu3000is-to-magnum-ags-harness-kit/) (checked: 2026-09-01)"
+    }
+  ],
+  "transport": "3-wire momentary START + maintained RUN via three 30 A SPDT relays onto the Honda combination switch (FS/ST/BAT/E/IG) · voltages ? (switch carries battery +12 V; 5 A fuse shown) · no kit choke.",
+  "models": [
+    {
+      "name": "EU3000is",
+      "rating": "2.8/3.0 kVA",
+      "notes": "\"has a manual choke and may not automatically start if the engine is cold\""
+    }
+  ],
+  "gotchas": [
+    "Timing: 10 s crank, 2 min between, 4 attempts. Honda OM p34 limits cranking to 5 s.",
+    "Not a dry-contact input on the generator — the controller must pulse the ST relay and hold/ground the IG circuit itself. Not suitable for an unattended cold site by Magnum's own note."
+  ]
+}

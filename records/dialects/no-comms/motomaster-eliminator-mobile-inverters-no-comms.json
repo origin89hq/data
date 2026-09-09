@@ -1,0 +1,35 @@
+{
+  "id": "motomaster-eliminator-mobile-inverters-no-comms",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "canadian-tire-product-listings-0111871p-0112004p-0111870p-re",
+      "citation": "Canadian Tire product listings 0111871p, 0112004p, 0111870p (retail titles only, checked: 2026-07-31). PDPs return HTTP 403 to automated fetch; the claims come from the discovery pass, not from a page read here."
+    }
+  ],
+  "blocks": "No manual located for any of the three. The only evidence is that the retail titles claim no remote and no port. Absence of a claim is not absence of a port, which is why this is unverified rather than vendor-doc — but a data bus on a cigarette-lighter-class inverter would be unprecedented, and no driver work should be scheduled against these.",
+  "models": [
+    {
+      "name": "Eliminator Mobile Power Inverter 1000 W (CT 0111871p)"
+    },
+    {
+      "name": "Eliminator Mobile Power Inverter 2000 W (CT 0112004p)"
+    },
+    {
+      "name": "300 W Inverter with USB Port, Power-On Indicator (CT 0111870p)"
+    }
+  ],
+  "refutedOnReview": "REFUTED — and refuted by the claim's own text, before any external check.  **1. The claim is self-refuting.** The dialect asserts these three models \"share one register map.\" Its own evidence field says: \"None, and that is the honest answer. These three are grouped by a shared absence of evidence — no manual found, no port claimed — not by shared evidence.\" A shared *absence* of a register map is not a shared registe",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "0111870p is a 300 W cigarette-lighter-class unit. Its 'USB Port' is device charging and its 'Power-On Indicator' is an LED. Neither is a comms feature.",
+    "0112004p (2000 W, CT SKU 011-2004) must not be confused with 011-2101-2, the 2000 W covered by manual 011-2102-0 in the vendor-doc dialect above. Different part numbers. Whether they are the same product is unestablished, and assuming so would launder a vendor-doc tag onto a model that has not earned it.",
+    "docs/catalog/no-comms.md already carries used-market Motomaster inverter rows (011-2106-2 1500 W, a portable digital 3000 W, an Eliminator 2000 W, 400 W, 100 W, 75 W) under 'Inverters with no comms'. These retail SKUs belong on the same page; check for duplicate rows before adding.",
+    "WHAT WOULD SETTLE IT: any instruction manual, or a rear-panel photo showing only AC outlets and DC terminals."
+  ]
+}

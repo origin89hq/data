@@ -1,0 +1,56 @@
+{
+  "id": "powermax-pm3-12v",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "powermax-converters-ac-to-dc-converter-charger-pm3-models-15",
+      "citation": "PowerMax Converters, 'AC to DC Converter/Charger - PM3 models 15, 35, 45, 55, 60, 65, 75, 100 and 120 Amp with Built-in 3 Stage Smart Charging and Fixed Output Modes - Installation & Maintenance Instructions' (manufactur"
+    },
+    {
+      "source": "powermaxconverters-com-wp-content-uploads-2023-11-pm3-spec-sheet-nov-23",
+      "citation": "PowerMax Converters, 'PM3 Series Converter / Charger 110v AC to 12v DC' spec sheet, Nov 2023 - https://powermaxconverters.com/wp-content/uploads/2023/11/PM3-Spec-Sheet_Nov-23.pdf - committed as docs/powermax-pm3-spec-she"
+    },
+    {
+      "source": "batterystuff-com-files-1130-pm3-12v-lk-manual",
+      "citation": "PowerMax Converters, earlier PM3 LK revision ('3 Stage Charging Option'), mirrored by BatteryStuff - https://www.batterystuff.com/files/1130-pm3-12v-lk-manual.pdf - committed as docs/powermax-pm3-lk-manual-3-stage-option"
+    }
+  ],
+  "blocks": "There is no port to talk to. The PM3 12V series is a switch-mode AC/DC converter/charger whose entire external interface, per the manufacturer's own manual, is: a captive 120 VAC line cord, a chassis bonding lug, + and - 12 VDC output terminals, two reversed-battery fuses, one LED status light, a temperature-controlled fan, and two internal adjusters (switch A = three-stage vs. fixed-voltage, switch B = output trim 13-16.5 V). No RS-485, no RS-232, no CAN, no Bluetooth, no WiFi, no remote-panel jack, no dry contact, no battery temperature sense lead. No driver is possible and none should be planned. The only way this unit becomes observable is indirectly, from a metered AC source upstream (a smart plug on the AC feed) or a DC shunt downstream - which is exactly the arrangement already recorded for the PM4-55LK installed at this site in docs/catalog/no-comms.md.",
+  "models": [
+    {
+      "name": "PM3-15"
+    },
+    {
+      "name": "PM3-35"
+    },
+    {
+      "name": "PM3-45"
+    },
+    {
+      "name": "PM3-55"
+    },
+    {
+      "name": "PM3-75"
+    },
+    {
+      "name": "PM3-85"
+    },
+    {
+      "name": "PM3-100"
+    }
+  ],
+  "refutedOnReview": "REFUTED — on two independent grounds.  1. THERE IS NO REGISTER MAP. All three cited PDFs exist in the repo and genuinely say what the evidence claims (verified verbatim):    - docs/powermax-pm3-owners-manual.pdf: title line reads \"PM3 models 15, 35, 45, 55, 60, 65, 75, 100 and 120 Amp with Built-in 3 Stage Smart Charging and Fixed Output Modes\". Single terminal/switch/LED layout, single procedure.    - docs/powermax-",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "PM3-85 is a contradiction and is recorded rather than resolved. The retail sighting and PowerMax's own PM3 12V product page both list an 85 A option, but neither vendor document names one: the owner's manual enumerates 15/35/45/55/60/65/75/100/120 and the Nov-2023 spec sheet tabulates only 35/45/55/60/65/75/100. Treat ",
+    "Coverage is wider than the retail sighting. The vendor documents also cover PM3-60, PM3-65 and PM3-120, and 220 VAC variants (PM3-55E/75E/100E) have a separate spec sheet. All the same no-comms entry; the catalogue does not need a second pass for them.",
+    "PM3-15 is in the owner's manual and on the product page but absent from the Nov-2023 spec sheet table. Likely dropped from the current line rather than a documentation error, but the vendor does not say.",
+    "Retail SKUs carry an LK suffix (PM3-55LK) that the manual drops (PM3-55). The spec sheet uses LK throughout. Same unit; the suffix is not a comms variant.",
+    "Do not infer comms from other PowerMax products. PowerMax does sell Bluetooth-capable gear - the PCW wireless RV power centres, the PMDP-30/50-BT distribution panel, and their LiFePO4 smart batteries - and the PM3-SME carries an on-unit meter. None of that reaches the PM3 12V converter, which has an LED and nothing els"
+  ]
+}

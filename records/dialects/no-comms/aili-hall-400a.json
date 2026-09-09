@@ -1,0 +1,29 @@
+{
+  "id": "aili-hall-400a",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "amazon-com-battery-monitor-voltage-remaining-capacity-dp-b01lc5uxr6",
+      "citation": "https://www.amazon.com/Battery-Monitor-Voltage-Remaining-Capacity/dp/B01LC5UXR6 — retail listing, \"No need Shunt\", 5–120 V, ±400 A"
+    },
+    {
+      "source": "shbaiway-com-page-id-69",
+      "citation": "https://www.shbaiway.com/?page_id=69 — Baiway download index, checked for a matching Hall model: none published"
+    }
+  ],
+  "models": [
+    {
+      "name": "Hall-sensor battery monitor 5–120 V, ±400 A, no shunt (\"No need Shunt\" split-core / Hall current sensor head; matches Amazon ASIN B01LC5UXR6)"
+    }
+  ],
+  "gotchas": [
+    "No vendor manual for the Hall variant was located, and nothing in Baiway's published catalogue or download index corresponds to a 5–120 V ±400 A Hall head. No source states a communications interface, so none is recorded.",
+    "Do not assume it shares the TF03K frame because the display looks similar. The current front end is entirely different — a Hall sensor rather than a shunt — which is exactly the kind of product-line fork that gets a new firmware and a new link.",
+    "Independent of protocol: a Hall sensor has offset drift with temperature and needs periodic zeroing. Even if a link were found, the current figure would be the weakest number in the cabin."
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "id": "epever-rts-probe",
+  "family": "no-comms",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "epever-xtra-n-manual-v1-3",
+      "citation": "docs/epever-xtra-n-manual-v1.3.pdf — §Step 4 'Connect accessories' and §4.3 'Accessories (optional)': 'Remote Temperature Sensor (RTS300R47K3.81A) … Acquisition of battery temperature for undertaking temperature compensa"
+    },
+    {
+      "source": "epever-xtra-n-g3-manual-v1-8",
+      "citation": "docs/epever-xtra-n-g3-manual-v1.8.pdf — 'Optional Accessory / Remote temperature sensor / Model: RTS300R47K3.81A'"
+    },
+    {
+      "source": "epever-duoracer-manual-v2-5",
+      "citation": "docs/epever-duoracer-manual-v2.5.pdf — 'Remoter temperature sensor (Model:RTS300R47K3.81A)'"
+    }
+  ],
+  "transport": "None. Passive analog NTC thermistor on a 2-conductor lead terminated in a 3.81 mm-pitch plug, into the controller's RTS port. No bus, no address, no baud, no framing, no slave ID — the gateway never talks to this part.",
+  "models": [
+    {
+      "name": "RTS300R47K3.81A"
+    }
+  ],
+  "refutedOnReview": "REFUTED — category error. RTS300R47K3.81A is not a Modbus device and has no register map of its own; it is a passive NTC thermistor probe on a cable. A dialect entry for it is not a \"maybe\", it is wrong in kind.  The cited files all exist under /Users/lemarier/dev/solar/docs/ and every quoted string is verbatim (verified with pdftotext -layout). The problem is what they say.  1. Every vendor quote describes an access",
+  "gotchas": [
+    "This is not a device. It is an accessory to a charge controller and has no protocol of its own. It should not become a DeviceKind entry, and specifically not `environment-sensor` — its reading is the BATTERY's temperature, surfacing as `battery-temperature` on the host `solar-charger`. No new driver, no new dialect map",
+    "What fitting it actually changes: input register 0x3110 on the EPEver A/B-series map stops returning the 0xFFFF sentinel and starts returning a real value. `cabin-epever` (xtra.rs, offset 0x10, I16 scale 0.01, sentinel 0xFFFF) already handles both states, so the only observable effect of buying one is that an existing ",
+    "Two registers, not one, and the two committed protocol revisions disagree on whether the second exists. B-series v2.3 documents BOTH 0x3110 'Battery Temperature' and 0x311B 'Remote battery temperature … measured by remote temperature sensor', °C ×100. A&B-series v2.5 documents 0x3110 only and omits 0x311B entirely. The",
+    "Electrical spec is NOT stated in any committed vendor document: NTC nominal resistance, B-value, tolerance, accuracy, and temperature range are all `?`. The model string is suggestive ('R47K' reading as a 47 kΩ NTC, '3.81A' as the connector pitch) but that is inference from a part number, not a source — do not record i",
+    "Vendor manuals contradict each other on WHICH numbered port it plugs into. XTRA-N v1.3 says 'interface ①' in the install steps but 'the port (4th) on the controller' in the accessories chapter; XTRA-N G3 v1.8 says 'port 1'; DuoRacer v2.5 says 'port ❹'. The port index is per-model diagram numbering, not a constant. Inst"
+  ]
+}

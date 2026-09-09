@@ -1,0 +1,41 @@
+{
+  "id": "epever-rj45-transport-usb",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "shipped",
+    "id": "cabin-epever"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "epever-com-product-150u-accessories-communication-cable",
+      "citation": "https://www.epever.com/product/150u-accessories-communication-cable/ — EPEVER product page, CC-USB-RS485-150U-B PC Communication Cable (checked: 2026-07-31)"
+    },
+    {
+      "source": "epever-com-product-rs485-4llt-accessories-communication-cable",
+      "citation": "https://www.epever.com/product/rs485-4llt-accessories-communication-cable/ — CC-USB-RS485-150U-4LLT (checked: 2026-07-31)"
+    },
+    {
+      "source": "hardware",
+      "citation": "/Users/lemarier/dev/solar/docs/HARDWARE.md lines 99-113 — existing repo decision against this cable"
+    }
+  ],
+  "transport": "USB-A host side · RJ45 RS-485 device side · 1.5 m · presents a serial tty; baud, framing and slave ID are the attached controller's, not the cable's",
+  "models": [
+    {
+      "name": "CC-USB-RS485-150U"
+    },
+    {
+      "name": "CC-USB-RS485-150U-B"
+    }
+  ],
+  "sharedMapEvidence": "NOT A DIALECT. This is a cable. It carries no register map of its own — whatever appears on the tty is the attached device's, and the dialect that matters is that device's (`epever-tracer-a` or `epever-inverter-v1`, both already recorded with vendor-doc provenance in docs/catalog/README.md). Recorded here so the question is not asked twice, following the precedent set by the 'Not a dialect — cable",
+  "gotchas": [
+    "No vendor document states a baud rate, a default slave ID, a framing, or a pinout for this cable. Nothing to record. The cable is transparent; the numbers belong to the controller.",
+    "docs/HARDWARE.md already rejected this part for this project: it uses an Exar XR21B1411 with no mainline Linux driver (the `vizzini` driver was removed from the kernel tree; what remains is an out-of-tree DKMS module that rebuilds on every kernel update). That chipset claim carries no citation in the repo and none was ",
+    "EPEver's product page lists a long applicability set — XTRA-N G3, Tracer-AN G3, XTRA-N, Tracer-AN, IT, ET-NC G3, TEP, TIS, TES, TRC, TRIRON, Tracer-BN, MSC-N, GoMate, LS-B, VS-BN, IP-Plus, IPT, IPB, IPower, IP-Plus-PD65, NPower, ICR, UPower, HPS-AHL, HP-AL-S. That is a *connector and voltage* compatibility list. It is ",
+    "CC-USB-RS485-150U-3.81 and CC-USB-RS485-150U-4LLT are the same USB-RS485 cable with a different device-side connector (3.81 mm 4-pin, and a waterproof connector for Tracer-BP/BPL). They are not RJ45 parts and do not fit the XTRA4210N or the IPower.",
+    "One cable is one master on one port. The two-EPEver-devices-one-bus plan in docs/INVENTORY.md still requires readdressing one of them, and an MT50 remote meter on the same bus is still a second master that will collide."
+  ]
+}

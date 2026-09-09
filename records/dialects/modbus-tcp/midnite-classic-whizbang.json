@@ -1,0 +1,53 @@
+{
+  "id": "midnite-classic-whizbang",
+  "family": "modbus-tcp",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "midnitesolar-com-pdfs-classic-register-map-rev-c5-december-8-2013",
+      "citation": "MidNite Solar MODBUS Network Spec. Rev C.4 (file labelled Rev-C5, dated Dec 8–9 2013) — https://www.midnitesolar.com/pdfs/classic_register_map_Rev-C5-December-8-2013.pdf — committed at /Users/lemarier/dev/solar/docs/midn"
+    },
+    {
+      "source": "midnitesolar-com-pdfs-10-269-1-rev-a-communication-adapter-manual-preliminary",
+      "citation": "MidNite Solar Communication Adapter User Manual P/N 10-269-1 Rev-A — https://www.midnitesolar.com/pdfs/10-269-1_Rev_A_Communication_Adapter_Manual_preliminary.pdf (confirms Modbus address 10 as the first Classic's defaul"
+    },
+    {
+      "source": "invertersupply-com-media-data-10-268-1-rev-d-the-kid-manual-solar-4-30-15-fw-1797",
+      "citation": "The Kid Solar Charge Controller Instruction Manual, 10-268-1 Rev D, 4-30-15 FW 1797 — https://www.invertersupply.com/media/data/10-268-1_REV_D_The_Kid_Manual_Solar_4-30-15_FW_1797.pdf (establishes that the Kid has no dat"
+    }
+  ],
+  "seeAlso": [
+    "midnite-classic"
+  ],
+  "transport": "Ethernet · Modbus TCP · default port 502 (settable at register 4137) · default unit/slave address 10 (register 4326, vendor-doc). Also Modbus RTU over RS-232 on an RJ-11 jack, 19200 8N1 (vendor-doc, \"Default RS-232 format is Baud Rate 19.2K, No parity, 8 bits, 1 stop bit\"). NOT RS-485.",
+  "blocks": "4361–4382 Whiz Bang Jr block (both known implementations read 22 words from raw address 4360) · 4101–4144 Classic real-time · 4104 bit 0x0001 WhizBangJrCrcGood · 4165 Aux2Function (18 = Whiz Bang Jr) · 4182 EnableFlags3 · 4326 ClassicModbusAddr · 4354 ClearLogsCat",
+  "reports": [
+    "battery-current",
+    "state-of-charge",
+    "consumed-amp-hours",
+    "temperature"
+  ],
+  "accepts": [
+    "reset-counter"
+  ],
+  "models": [
+    {
+      "name": "MNWBJR Whiz Bang Jr current sense module (read only through a MidNite Classic / Classic Lite host controller)"
+    }
+  ],
+  "refutedOnReview": "Refuted as stated, not because the register block is fake — it is real and vendor-documented — but because two load-bearing parts of the entry have no source behind them, and the blanket vendor-doc tag over-claims.  WHAT SURVIVES. The local PDF (/Users/lemarier/dev/solar/docs/midnite-classic-modbus-register-map-rev-c5.pdf, 1354 lines of extracted text) genuinely carries a Whiz Bang Jr block inside the Classic map: 41",
+  "gotchas": [
+    "The Whiz Bang Jr has no protocol of its own and no address. It is a shunt amplifier that speaks a proprietary link into the host controller's Aux 2 port (Aux2Function = 18, register 4165). Every number below is read from the host Classic over the Classic's Modbus, never from the module.",
+    "On The Kid there is no path at all. The Kid manual (10-268-1 Rev D, FW 1797) documents a USB Mini-B connector for firmware updates and nothing else — no Ethernet, no Modbus, no register map. A Whiz Bang Jr on a Kid shows SOC and remaining Ah on the Kid's own LCD and is unreachable from software. For Kid hosts the diale",
+    "MidNite's addressing convention: register = address + 1. The map is written in register numbers; a Modbus library that takes raw PDU addresses must be given one less. ClassicMonitor reads raw address 4360 for 22 words, landing on registers 4361–4382, and its temperature decode at index 11 (register 4372) confirms the o",
+    "SOC is NOT in the vendor document. Rev C.4/C.5 marks registers 4373–4384 as Reserved, and register 4251 'BattMonSOC' is labelled 'Future SOC use'. The working SOC percent is at register 4373 (raw address 4372), 16-bit, no scaling. Source: ClassicDIY's ClassicMonitor and ClassicMQTT — same author, so one source, not two",
+    "Remaining amp-hours (4377) and total amp-hours (4381) are in the same Reserved range and carry the same community-single tag as SOC. Both ClassicDIY projects and the forum thread ('remaining amps is 4376' by raw address = register 4377) agree on 4377."
+  ],
+  "unmappedReports": "Whiz Bang Jr POSITIVE amp-hours (registers 4365/4366, unsigned 32-bit) — a charge-only Ah accumulator. MetricKind has no directional amp-hour counter., Whiz Bang Jr NEGATIVE amp-hours (registers 4367/4368, signed 32-bit) — the discharge-only counterpart. Same gap., Remaining amp-hours (register 4377) — Ah left in the bank. `consumed-amp-hours` is the inverse quantity, not this one; there is no `remaining-amp-hours`., Total amp-hours / configured bank capacity (register 4381) — an installer-entered Ah rating rather than a reading. Nothing in MetricKind carries a nameplate capacity., Shunt board temperature (register 4372 LSB, value minus 50 °C) — falls back to the generic `temperature`, but it is neither `battery-temperature` (that is the BTS at 4132) nor room temperature. It is the temperature of the electronics clamped to the shunt., Whiz Bang Jr link health — register 4104 bit 0x0001 WhizBangJrCrcGood, plus the raw CRC byte in 4372 MSB. This is per-device comms integrity; MetricKind only has `link-*` names and those are scoped to `internet-link`. A stale SOC with a bad CRC is indistinguishable from a good one without this., NET amp-hours (registers 4369/4370, signed) maps onto `consumed-amp-hours` only loosely — the register map never states the sign convention, so which direction is 'consumed' is a bench question.",
+  "refiledFrom": "modbus-rs485",
+  "possibleDuplicate": true
+}

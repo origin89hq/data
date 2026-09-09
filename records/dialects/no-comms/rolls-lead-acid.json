@@ -1,0 +1,68 @@
+{
+  "id": "rolls-lead-acid",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "catalog-no-comms",
+      "citation": "/Users/lemarier/dev/solar/docs/catalog/no-comms.md lines 54, 143-147, 166-170 — existing catalogue rows, checked: 2026-07-31"
+    },
+    {
+      "source": "inventory",
+      "citation": "/Users/lemarier/dev/solar/docs/INVENTORY.md line 17 — this site's bank"
+    },
+    {
+      "source": "rollsbattery-com-catalog",
+      "citation": "https://rollsbattery.com/catalog/ — FLA / AGM / GEL model ranges. checked: 2026-07-31"
+    }
+  ],
+  "models": [
+    {
+      "name": "S6-GC2-HC"
+    },
+    {
+      "name": "S6-L16-HC"
+    },
+    {
+      "name": "2-YS-31P"
+    },
+    {
+      "name": "4-KS-25P"
+    },
+    {
+      "name": "CS / KS / OS / YS series flooded cells and batteries (2/4/6/8/12 V)"
+    },
+    {
+      "name": "S12-116 AGM"
+    },
+    {
+      "name": "S12-230 AGM"
+    },
+    {
+      "name": "S12-240AGM-RE"
+    },
+    {
+      "name": "S6-460AGM-RE"
+    },
+    {
+      "name": "S6-220AGM"
+    },
+    {
+      "name": "S6-260AGM-RE"
+    },
+    {
+      "name": "S-Series Gel (2/4/6/8/12 V)"
+    }
+  ],
+  "refutedOnReview": "REFUTED on four independent grounds.  1. CATEGORY ERROR against the repo's own schema. /Users/lemarier/dev/solar/docs/catalog/README.md line 19 defines a dialect as \"the register map, owns the driver\", and line 22 states a model joins a dialect \"only when a source shows matching register addresses\". The claim's own evidence field says \"no map exists for any of them\". A dialect with no register map is not a dialect. n",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "ALREADY RECORDED — do not re-derive. docs/catalog/no-comms.md already carries these rows with Quebec prices from Cabin Depot and Solacity, and INVENTORY.md line 17 records this site's own bank as '6x Rolls 6 V flooded, 12 V, 3 parallel strings of 2, ~6 years old' with the exact SKU noted as unread. The two candidates a",
+    "This is why Rolls appeared on the IDS Énergie brand wall under 'battery' with no model numbers: the overwhelming majority of what Rolls sells and what a Quebec installer specifies is passive lead-acid. The LFP line above is the small comms-capable minority.",
+    "Anything monitoring a Rolls lead-acid bank is a separate device — a shunt or a charge controller — never the battery."
+  ]
+}

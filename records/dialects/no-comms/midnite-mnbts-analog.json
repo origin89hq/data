@@ -1,0 +1,42 @@
+{
+  "id": "midnite-mnbts-analog",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "midnitesolar-com-pdfs-10-001-1-rev-u-classic-manual-19jan2022",
+      "citation": "MidNite Solar Classic Owner's Manual, doc 10-001-1 REV U, 19 Jan 2022, firmware 2193 — https://www.midnitesolar.com/pdfs/10-001-1_REV_U_Classic_Manual_19Jan2022.pdf (committable; staged at /private/tmp/claude-501/-Users-"
+    },
+    {
+      "source": "midnitesolar-com-pdfs-classic-register-map-rev-c5-december-8-2013",
+      "citation": "MidNite Solar MODBUS Network Spec. Rev C.4, 9 Dec 2013 (published at a URL naming it Rev C.5, 8 Dec 2013) — https://www.midnitesolar.com/pdfs/classic_register_map_Rev-C5-December-8-2013.pdf (committable; staged at /priva"
+    },
+    {
+      "source": "the-kid-solar-charge-controller-instructions-doc-10-268-1-re",
+      "citation": "The Kid Solar Charge Controller Instructions, doc 10-268-1 REV D — 'MNBTS Battery Temperature sensor' p.18 and MNKID-ASSY-KIT contents p.50. Names MNBTS explicitly; this is the vendor basis for the Kid compatibility clai"
+    }
+  ],
+  "transport": "No transport. Two-conductor analogue thermistor on a 15 ft lead, adhesive-mounted to a battery case, plugged into the host controller's 6-pin jack labelled \"Batt Temp\". No bus, no address, no framing, no protocol — nothing to talk to. The reading is only obtainable through the host charge controller. On a MidNite Classic that host path is Modbus TCP (port register 4137, vendor default 502) or Modb",
+  "blocks": "Host-side only — these are MidNite Classic registers, not the sensor's. 4132 BATTtemperature = ([4132]/10) degC, \"Temperature measured at the external Battery Temperature Sensor (if installed, else 25C)\". 4130/4131 InfoFlagsBits, read as one 32-bit value ([4131]<<16)+[4130]: bit 0x00002000 \"Battery Temp Sensor Installed\", bit 0x08000000 \"TempCompShortedF\". 4327 BatteryTempPassed = Follow-Me temp sensor value shared from a neighbouring Classic. Adjacent but NOT this sensor: 4133 FETtemperature, 4134 PCBTemperature. Charger-side temp-comp settings 4155 max comp voltage, 4156 min comp voltage, 4157 mV/degC per 2 V cell (manual: typically -5 mV). All addresses transcribed from the vendor register map PDF via pdftotext, not inferred.",
+  "reports": [
+    "battery-temperature"
+  ],
+  "models": [
+    {
+      "name": "MNBTS"
+    }
+  ],
+  "refutedOnReview": "REFUTED. Verified all three staged vendor PDFs directly.  1. MNBTS has no register map at all. It is a passive analog thermistor on a 6-pin RJ plug, not a Modbus device — no slave ID, no baud rate, no registers. A \"dialect\" asserting a shared register map is a category error, and a one-member \"these models share one map\" set is vacuous regardless.  2. The two cited documents that actually contain registers never name",
+  "gotchas": [
+    "SILENT 25 C FALLBACK — the one that costs a bench day. Classic manual: \"If the BTS is disconnected or shorted the Classic will automatically default to 25C on the battery temperature.\" Register 4132's own note repeats it: \"(if installed, else 25C)\". So 4132 read alone returns a completely plausible 25.0 degC for an unp",
+    "NOT INTERCHANGEABLE WITH THE MAGNUM GREY SENSOR. Classic manual FAQ, verbatim: \"No, the Magnum sensor has a different resistance value so those Classics where modified to use those sensors. Call MidNite Tech Support if you need help with a new sensor.\" A Classic built for the grey Magnum probe will read a blue MNBTS wr",
+    "ONE PROBE PER BANK, NOT PER CONTROLLER. Classic manual: \"You will only need one BTS and it can be on any of the Classics.\" Follow-Me/BTSNET propagates the value (reg 4327). Polling three stacked Classics yields three copies of one physical probe; treat them as one device or the dashboard averages a number with itself a",
+    "The \"Batt Temp\" jack has 6 pins, not 2. Classic manual FAQ describes shorting \"all 6 pins inside the jack\" with a flat-blade screwdriver as the fan self-test — which means that diagnostic also spins every fan up, and that the jack is not simply two thermistor conductors. The vendor never names the connector standard (6",
+    "It measures a battery CASE, not a room. The manual has you clean a spot mid-bank, half-way up the side, and stick the probe to it. Filing it under environment-sensor is a catalogue convenience; it is a battery-temperature probe and reports battery-temperature, not temperature."
+  ],
+  "unmappedReports": "FETtemperature (Classic reg 4133) — power-FET die temperature. No MetricKind fits: `temperature` is documented as ambient, `battery-temperature` is explicitly at the bank. Same gap cabin-epever hit with 0x3111 (temperature inside the controller), so this is the second independent occurrence — worth a contract variant rather than two drivers each mislabelling it., PCBTemperature (Classic reg 4134) — controller top-PCB temperature. Same gap as above., \"Battery Temp Sensor Installed\" (InfoFlagsBits 0x00002000) — probe presence. No MetricKind, and no way to express \"this metric's source hardware is absent\" other than the driver reporting the metric unavailable., \"TempCompShortedF\" (InfoFlagsBits 0x08000000) — probe or wiring shorted. A fault about a sensor, not a value; no MetricKind and no fault channel for it., BatteryTempPassed (Classic reg 4327) — battery temperature received from another Classic over Follow-Me/BTSNET. Same MetricKind, different provenance; the contract has no way to mark a reading as relayed rather than measured, which matters because it is how one probe becomes three identical readings (see gotchas)."
+}

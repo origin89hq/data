@@ -1,0 +1,74 @@
+{
+  "id": "midnite-classic",
+  "family": "modbus-tcp",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "midnite-classic-modbus-register-map-rev-c5",
+      "citation": "MidNite Solar MODBUS Network Spec. Rev C.4 / C.5, Dec 2013 — committed at /Users/lemarier/dev/solar/docs/midnite-classic-modbus-register-map-rev-c5.pdf"
+    },
+    {
+      "source": "midnitesolar-com-pdfs-classic-register-map-rev-c5-december-8-2013",
+      "citation": "https://www.midnitesolar.com/pdfs/classic_register_map_Rev-C5-December-8-2013.pdf (verified byte-identical to the committed copy, SHA-256 08d2ca806bc95e982320648a1a0d721f8a2911e29f9223b894b4253a95f159c6)"
+    },
+    {
+      "source": "midnitesolar-com-pdfs-classic-manual-rev-1933",
+      "citation": "MidNite Solar Classic Owner's Manual, firmware rev 1933 — https://www.midnitesolar.com/pdfs/classic_manual_Rev_1933.pdf (not committed; ratings and wiring only, no register content used here)"
+    }
+  ],
+  "seeAlso": [
+    "midnite-classic-modbus",
+    "midnite-classic-modbus-tcp",
+    "midnite-classic-whizbang"
+  ],
+  "transport": "Modbus TCP over Ethernet · default TCP port 502 (register 4137 modbus_port_register, R/W, 0–65535) · unit/slave ID default 10 decimal (register 4326 ClassicModbusAddr, R/W, 0–255). ALSO Modbus RTU over RS-232 on an RJ-11 phone jack — \"Default RS-232 format is Baud Rate 19.2K, No parity, 8 bits, 1 stop bit (N81)\". There is NO RS-485 port on a Classic.",
+  "blocks": "4101–4251 real-time values and charge setpoints · 4252–4384 logs, wind tables, factory calibration, Follow-Me, WhizBang Jr · 10001–10064 per-interface communication statistics (Master/In, Slave/Out, Remote, TCP) · 20481+ Ethernet configuration · 28673/28674 serial number (readable over RS-232 only) · file-transfer via non-standard function codes 104 (0x68) read-internal and 105 (0x69) write-internal, device fields 4–7, used for daily and minutely log retrieval",
+  "reports": [
+    "pv-voltage",
+    "pv-current",
+    "battery-voltage",
+    "battery-current",
+    "battery-power",
+    "battery-temperature",
+    "charge-stage",
+    "pv-energy-today",
+    "pv-energy-total",
+    "consumed-amp-hours",
+    "temperature"
+  ],
+  "accepts": [
+    "set-charge-current-limit",
+    "start-equalize",
+    "clear-fault",
+    "set-switch"
+  ],
+  "models": [
+    {
+      "name": "Classic 150 — the charge-controller half of BOTH MNEVO4248SP-CL150 and MNEVO4024-CL150"
+    },
+    {
+      "name": "Classic 200"
+    },
+    {
+      "name": "Classic 250"
+    },
+    {
+      "name": "Classic 250 KS (120 V battery bank capable)"
+    }
+  ],
+  "sharedMapEvidence": "One vendor document covers all four, and it says so structurally rather than by assertion: Table 4101-1 \"Device Type\" defines the LOW byte of register 4101 as Classic150=150, Classic200=200, Classic250=250, Classic250 KS=251. All four are read out of the same register in the same map, and the document has no per-model variant sections, no per-model address offsets, and no per-model exceptions anyw",
+  "gotchas": [
+    "FAMILY PLACEMENT IS IMPERFECT — read this before ordering parts. The Classic has NO RS-485 port. It speaks Modbus TCP on Ethernet (default port 502) and Modbus RTU on an RJ-11 RS-232 jack at 19200 8N1. It is filed under modbus-rs485 because a register map owns the driver and that is where the Modbus maps live, not beca",
+    "OFF-BY-ONE, STATED BY THE VENDOR. The document warns: \"The modbus specification adds one (1) to the address sent to the unit in the packet command to access a register... The main Classic address map starts at register 4101 but the packet itself sends out address 4100.\" Every number in this entry is a REGISTER. Subtrac",
+    "THE CLASSIC DOES NOT REPORT STATE OF CHARGE. Registers 4247 EndingSoc, 4248 EndAmpSocMBaddress, 4250 BattMonVolts, 4251 BattMonSOC and 4253 BattMonAHefficiency are every one of them annotated \"Future SOC use\" in the vendor doc. Do not map state-of-charge. The closest real number is WbJrAmpHourNET at 4369/4370 (signed 3",
+    "THE WHIZBANG JR IS NOT OPTIONAL FOR THE INTERESTING NUMBERS — and both MNEVO bundles ship one (MNWBJR). Without it, 4117 IbattDisplayS is the CHARGER's output current, which is never negative and therefore cannot express a bank being discharged (exactly the EPEver 0x3105 problem already recorded in the catalogue). With",
+    "THERE IS NO PV WATTS REGISTER. 4119 \"Watts\" is documented as \"Average Power to the Battery\" — charger output, after conversion losses. PV power must be computed as 4116 × 4121. Likewise 4118 kWh and 4126/4127 lifetime kWh are energy TO THE BATTERY, mapped here to pv-energy-today / pv-energy-total for lack of a better w"
+  ],
+  "unmappedReports": "Absorb time remaining (4139, seconds, counts down to Float) and Equalize time remaining (4143, seconds) — a countdown inside a charge stage has no MetricKind; charge-stage carries the stage but not how long is left in it., Seconds spent in Float today (4138, reset at 23:59) — no MetricKind., Last measured PV open-circuit voltage (4122 VocLastMeasured, 4231 VocRD, 4224 PreVoc, /10 V) — pv-voltage is the loaded terminal voltage; Voc is a different quantity and is the number that tells you a string is disconnected., Daily amp-hours generated (4125) and lifetime amp-hours generated (4128/4129) — consumed-amp-hours is a battery-monitor drawdown figure, not generation. There is no \"amp-hours generated\" MetricKind., PWM duty cycle command (4141, raw 0–1023, explicitly \"NOT Percent\") — no MetricKind., Arc-fault and ground-fault status, over-temperature, EEPROM error, HyperVoc, and ~30 other condition bits in InfoFlagsBits (4130/4131) and InfoFlagsBits3 (4104) — the contract has no fault or alarm MetricKind at all, only the clear-fault CommandKind. Everything a Classic knows about why it stopped is currently unrepresentable., Reason-for-resting (4275) and reason-for-reset (4142) enumerations — no MetricKind; these are the difference between \"night\" and \"tripped\"., Sliding current limit (4152, A) — the live derated ceiling, distinct from the configured limit at 4148. pv-power-ceiling exists but is a forecast-side concept., WhizBang Jr shunt internal temperature (4372, low byte, °C − 50) — battery-temperature is the 4132 external probe; this is a third temperature., Aux 1 / Aux 2 configured function and Off/Auto/On position (4165) — switch-state covers the position but not which of the 21 Aux 1 functions (diversion, vent fan, night light, GFP trip, …) is programmed., Temperature-compensated battery regulation target (4244, /10 V) — the moving setpoint the controller is actually aiming at; no MetricKind.",
+  "refiledFrom": "modbus-rs485",
+  "possibleDuplicate": true
+}

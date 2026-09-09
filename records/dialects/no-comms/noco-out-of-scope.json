@@ -1,0 +1,102 @@
+{
+  "id": "noco-out-of-scope",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "no-co",
+      "citation": "https://no.co/ (product category index, checked: 2026-07-31)"
+    },
+    {
+      "source": "no-co-boost",
+      "citation": "https://no.co/boost and https://no.co/compare/family/boost (checked: 2026-07-31)"
+    },
+    {
+      "source": "no-co-xgrid",
+      "citation": "https://no.co/xgrid (checked: 2026-07-31)"
+    }
+  ],
+  "models": [
+    {
+      "name": "GB40"
+    },
+    {
+      "name": "GB50"
+    },
+    {
+      "name": "GB70"
+    },
+    {
+      "name": "GB150"
+    },
+    {
+      "name": "GBX45"
+    },
+    {
+      "name": "GBX55"
+    },
+    {
+      "name": "GBX75"
+    },
+    {
+      "name": "GBX155"
+    },
+    {
+      "name": "AL5"
+    },
+    {
+      "name": "XDP3W"
+    },
+    {
+      "name": "XDS3W"
+    },
+    {
+      "name": "X30W"
+    },
+    {
+      "name": "X65W"
+    },
+    {
+      "name": "X100W"
+    },
+    {
+      "name": "X140W"
+    },
+    {
+      "name": "XC1W"
+    },
+    {
+      "name": "XC2W"
+    },
+    {
+      "name": "XC3W"
+    },
+    {
+      "name": "MC101"
+    },
+    {
+      "name": "NCP2"
+    },
+    {
+      "name": "E404"
+    },
+    {
+      "name": "CB104"
+    },
+    {
+      "name": "A202"
+    }
+  ],
+  "sharedMapEvidence": "No shared-map claim is being made. This is a Tier-D holding pen so these lines are not researched a second time. The Boost / Boost X jump starters, the AL5 lithium tyre inflator, the whole XGRID line (Qi2 phone docks, GaN USB-C wall chargers, USB-C cables) and the chemical accessories were each checked against the NOCO product pages on 2026-07-31 and none maps to a DeviceKind a cabin gateway would",
+  "gotchas": [
+    "XGRID is phone charging. XC1/XC2/XC3 cables are advertised as carrying 240 W \"for charging and data transfer\" — that is USB data between a phone and a laptop, not a device protocol. Do not let the word 'data' pull this into scope.",
+    "GBX Boost X models have USB-C PD in and out. Power delivery negotiation is a protocol, but it is not a telemetry interface and there is no NOCO document describing anything readable.",
+    "No Boost, AL5 or XGRID user guide was read. The no-comms claim for this group is `unverified`, not vendor-doc. It is filed D because none of these is a cabin device, not because the protocol question was answered.",
+    "Solacity's NOCO listing — the brand-wall hit that triggered this sweep — turned out to be the NCP2 corrosion preventative, a 4 oz tube of chemical (checked: 2026-07-31). Not hardware. The Solacity signal was a false positive for comms-capable gear.",
+    "IDS Énergie: no NOCO product or bill-of-material reference was found in this pass. The brand-wall sighting is unconfirmed. Recorded as unverified rather than dropped."
+  ]
+}

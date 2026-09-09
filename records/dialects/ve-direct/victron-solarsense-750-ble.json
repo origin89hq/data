@@ -1,0 +1,41 @@
+{
+  "id": "victron-solarsense-750-ble",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victronenergy-com-upload-documents-datasheet-solarsense-750-en",
+      "citation": "Datasheet-SolarSense-750-EN — committed at docs/victron-solarsense-750-datasheet.pdf (https://www.victronenergy.com/upload/documents/Datasheet-SolarSense-750-EN.pdf)"
+    },
+    {
+      "source": "victron-victronconnect-manual-rev22",
+      "citation": "VictronConnect app manual rev 22, 07/2026, §11.3 compatibility table — committed at docs/victron-victronconnect-manual-rev22.pdf"
+    },
+    {
+      "source": "victron-cerbo-gx-manual-rev40",
+      "citation": "Cerbo GX Manual rev 40, 04/2026 — committed at docs/victron-cerbo-gx-manual-rev40.pdf. Cited here as a NEGATIVE result: it does not mention SolarSense."
+    }
+  ],
+  "transport": "BLE advertisement, vendor-confirmed as Instant Readout: 'uses Instant Readout wireless communication (via BLE advertisements)' (Datasheet-SolarSense-750-EN, Fully wireless and self-powered). Self-powered from an integrated PV cell and a 40 mAh / 3.6 V rechargeable cell — no wiring at all. **The framing above is the total of what is published.** No record type, no bit offsets, no field widths, no s",
+  "reports": [
+    "pv-irradiance",
+    "temperature"
+  ],
+  "models": [
+    {
+      "name": "SolarSense 750 (SLS300175100)"
+    }
+  ],
+  "gotchas": [
+    "**`dialect: unknown` is the honest verdict on the payload, and the confidence tag says so.** What is vendor-doc: that the device exists (SLS300175100), that it supports Instant Readout and Stored trends (VictronConnect app manual rev 22 §11.3 table, row 'SolarSense 750' — Yes/Yes), and what it measures with what resolu",
+    "The committed 2022 extra-manufacturer-data specification **cannot** cover this device — it predates it by years, its record-type table stops at 0x0D with 0x0E–0xFF unassigned, and the product only appeared at Quebec retailers in June 2026. A newer revision of that specification must exist (community decoders already kn",
+    "No implementation supports it either. Checked keshavdv/victron-ble (device modules: ac_charger, battery_monitor, battery_sense, dc_energy_meter, dcdc_converter, inverter, lynx_smart_bms, multirs, orion_xs, smart_battery_protect, smart_lithium, solar_charger, vebus — no SolarSense, and its record dispatch tops out at 0x",
+    "**There is no manual.** The product page carries only Datasheet-SolarSense-750-EN.pdf and two dimension drawings. The datasheet's back page doubles as the installation and configuration sheet. That is the entire published corpus.",
+    "The GX route is asserted by the datasheet alone and is not in the GX manual. Datasheet note ***: 'The minimum supported Venus OS version to connect the SolarSense 750 to a GX device is v3.60 or later', then 'On the Remote Console, go to Settings > Integrations > Bluetooth Sensors and enable the SolarSense 750'. I grepp"
+  ],
+  "unmappedReports": "Estimated solar power (1 W). `pv-power-forecast` exists but means 'Solar Expected' from the weather-forecast driver — a modelled future value. This is a present-tense estimate derived from a measured reference cell. Mapping one onto the other would silently merge two different kinds of claim, so it is left unmapped rather than forced., Estimated daily yield (1 Wh). `pv-energy-today` exists but every current producer of it reports *measured* production. This device reports what the array should have made. Same objection, deliberately not mapped., Sensor cell temperature versus ambient. The contract has one `temperature`; a PV reference cell in the sun reads far above air temperature, and there is no way to label which one a reading is., Stored trends — irradiance, estimated power and temperature at 31 days — and stored history — max daily irradiance, min/max daily estimated solar power, min/max daily temperature, daily estimated yield, at 730 days. Two years of daily extremes is a genuinely useful record for sizing a cabin array and the contract has no shape for it, which is the same conclusion docs/catalog/ve-direct.md reached about MPPT registers 0x1050–0x106E., Internal battery state. A self-powered sensor that runs >2 years in no light and >2 months in very low light will eventually go flat, and there is no metric for 'the sensor's own battery'. Its silence is indistinguishable from nightfall."
+}

@@ -1,0 +1,36 @@
+{
+  "id": "unknown-victron-smart-battery-sense",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victron-ble-extra-manufacturer-data-2022-12-14",
+      "citation": "docs/victron-ble-extra-manufacturer-data-2022-12-14.pdf — cited for the complete record-type table, which contains no battery-sense type."
+    },
+    {
+      "source": "catalog-ve-direct",
+      "citation": "docs/catalog/ve-direct.md — the 0xEDEC gotcha, which is where Smart Battery Sense data actually surfaces."
+    },
+    {
+      "source": "retail-quebec-retailer-sweep-checked-2026-07-31-2-retailers",
+      "citation": "Retail: Quebec retailer sweep, checked: 2026-07-31 — 2 retailers, SBS050150200."
+    }
+  ],
+  "transport": "Bluetooth only. No VE.Direct port, no CAN, no wired data connection — two wires to the battery for power and voltage sense, and a built-in temperature sensor.",
+  "models": [
+    {
+      "name": "Smart Battery Sense (SBS050150200)"
+    }
+  ],
+  "gotchas": [
+    "No documented protocol at all in any committed source, and this is the cleanest negative result in the set. The committed BLE specification's record-type table runs 0x00 Test, 0x01 Solar Charger, 0x02 Battery Monitor, 0x03 Inverter, 0x04 DC/DC, 0x05 SmartLithium, 0x06 Inverter RS, 0x07 GX-Device (TBD), 0x08 AC Charger ",
+    "What it actually does is feed battery voltage and temperature to a Victron charger over VE.Smart networking — Victron's proprietary Bluetooth mesh between its own products. docs/catalog/ve-direct.md already records the receiving end of that: MPPT HEX register 0xEDEC battery temperature is populated \"only from firmware ",
+    "That indirection is the practical answer and it costs nothing: a cabin that already has a Victron MPPT on VE.Direct gets battery temperature through a register it is already reading.",
+    "It is a `environment-sensor`/`battery`-adjacent device by function but reports through another device's map, which the catalogue's dialect model does not have a shape for. Worth noting when the format is next revised.",
+    "checked: 2026-07-31 — 2 Quebec retailers, which puts it above most of this file on ownership probability and at the bottom on protocol tractability."
+  ]
+}

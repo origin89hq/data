@@ -1,0 +1,50 @@
+{
+  "id": "generac-evo2-wifi-rs485",
+  "family": "modbus-rs485",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "github-com-jgyates-genmon-wiki-3-1-making-a-cab",
+      "citation": "jgyates/genmon wiki — '3.1 Making a Cable': 'Pin 5 - RS-485 Data (-), Used for built in WiFi support' / 'Pin 6 - RS-485 Data (+), Used for built in WiFi support' — https://github.com/jgyates/genmon/wiki/3.1--Making-a-Cab"
+    },
+    {
+      "source": "github-com-jgyates-genmon-issues-183",
+      "citation": "jgyates/genmon issue #183 — discussion of re-pinning the connector so the Wi-Fi module and a third-party board can share it — https://github.com/jgyates/genmon/issues/183"
+    },
+    {
+      "source": "github-com-jgyates-genmon-wiki-appendix-r-replacing-generac-mobilelink-with-genmon-on-a-powerpac",
+      "citation": "jgyates/genmon wiki — 'Appendix R: Replacing Generac MobileLink with Genmon on a PowerPact 7.5 KW' — https://github.com/jgyates/genmon/wiki/Appendix-R---Replacing-Generac-MobileLink-with-Genmon-on-a-PowerPact-7.5-KW"
+    }
+  ],
+  "transport": "RS-485 on pins 5 (Data −) and 6 (Data +) of the Evolution 2.0 aux Molex, described by genmon's wiring page only as 'Used for built in WiFi support'. Baud, framing, slave ID and protocol are ALL UNKNOWN — no source states any of them, and none are guessed here.",
+  "models": [
+    {
+      "name": "Guardian 10kW Home Backup Generator, WiFi-Enabled"
+    },
+    {
+      "name": "Guardian 10kW WiFi-Enabled Home Backup Generator with 16-Circuit Transfer Switch"
+    },
+    {
+      "name": "Guardian 14kW Home Backup Generator, WiFi-Enabled"
+    },
+    {
+      "name": "Guardian 14kW Home Backup Generator with 16-circuit Transfer Switch, WiFi-Enabled"
+    },
+    {
+      "name": "Guardian 18kW Home Backup Generator, WiFi-Enabled"
+    },
+    {
+      "name": "Guardian 24kW Automatic Home Standby Generator, Wi-Fi Enabled (10011109)"
+    }
+  ],
+  "gotchas": [
+    "RECORDED SO NOBODY RESEARCHES IT TWICE, not because it is usable. This is the private link between an Evolution 2.0 controller and Generac's own Mobile Link Wi-Fi module. It is the only path that would give local, LAN-free, real-time data from a Wi-Fi Guardian without occupying the RS-232 pins — which is exactly why so",
+    "MISSING EVIDENCE, precisely: (1) any capture of traffic on pins 5/6; (2) any statement of its baud rate or framing; (3) any claim, from anyone, that it is Modbus at all — the family assignment here is a guess from the physical layer and nothing more; (4) whether the module is a bus master, a slave, or neither. Find a l",
+    "NOT THE SAME WIRE AS `generac-evolution-nexus`. That dialect uses pins 7/8 (RS-232). These are separate signals on the same connector. Do not let the shared Molex housing suggest a shared protocol — it is the same reasoning this catalogue refuses everywhere else.",
+    "PRACTICAL CONSEQUENCE FOR THE WI-FI MODELS: because this link is undocumented, a Wi-Fi Guardian offers exactly two real choices — take the RS-232 port (unplugging or re-pinning Generac's Wi-Fi module, per genmon's wiki, and forfeiting over-the-air firmware updates) and get the full read/write serial dialect; or leave t"
+  ]
+}

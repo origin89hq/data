@@ -1,0 +1,47 @@
+{
+  "id": "shurflo-service-parts",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "pentair-shurflo-doc-911-415-rev-k-4-09-9300-series-submersib",
+      "citation": "Pentair/SHURflo doc 911-415 REV.K 4/09, '9300 Series Submersible Pump — Owners Manual', REPLACEMENT PART KITS, p.6"
+    },
+    {
+      "source": "pentair-shurflo-doc-911-1008-rev-k-4008-rv-revolution-repair",
+      "citation": "Pentair/SHURflo doc 911-1008 REV. K, '4008 RV Revolution', REPAIR KITS table, p.3"
+    },
+    {
+      "source": "pentair-datasheet-pds-5050-1311-d011-04-14-repair-kits-table",
+      "citation": "Pentair datasheet PDS-5050-1311-D011 (04/14), REPAIR KITS table"
+    }
+  ],
+  "models": [
+    {
+      "name": "94-136-00"
+    },
+    {
+      "name": "94-800-05 (4008 pressure switch)"
+    },
+    {
+      "name": "94-910-02 (5050 pressure switch)"
+    },
+    {
+      "name": "94-571-00 / 94-570-00 (3200 impeller / pump head)"
+    },
+    {
+      "name": "94-137-00 / 94-138-00 / 94-139-00 / 94-140-00 / 94-141-00 / 94-142-00 / 94-143-00 (9300 spares)"
+    }
+  ],
+  "refutedOnReview": "REFUTED — and refuted by its own evidence field. This should not become a dialect row at any confidence.  **1. The claim contradicts itself.** The header asserts `dialect: shurflo-service-parts` at `confidence: vendor-doc`, which in this repo is a positive assertion that a shared register map exists — `/Users/lemarier/dev/solar/docs/catalog/README.md:19` defines the term as \"**Dialect** — the register map, owns the d",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "CONTRADICTION, unresolved. The sweep list describes 94-136-00 as a 'pressure switch'. SHURflo doc 911-415 REV.K p.6 lists 94-136-00 as 'CABLE PLUG KIT *[B,C,D,J,K,PLUG(CABLE ADAPTER) W/ SET SCREWS]' — the submersible cable-boot and plug assembly for the 9300 solar pump, which has no pressure switch at all. Both are rec",
+    "SHURflo pressure switches that ARE pressure switches, per the vendor docs read in this sweep: 94-800-05 for the 4008 (911-1008 repair-kit table) and 94-910-02 for the 5050 (PDS-5050-1311-D011 repair-kit table). Neither is 94-136-00.",
+    "A pressure switch is a mechanical contact pair. It is the one part in this whole vendor's catalogue a gateway could genuinely sense — wire a pair in parallel with it and cabin-gpio sees the pump demand. That makes it interesting to the catalogue for the same reason the Plumb Eeze 33002854 already recorded in no-comms.m"
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "id": "victron-gx-modbus-vebus",
+  "family": "modbus-tcp",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victron-gx-modbus-tcp-register-list",
+      "citation": "/Users/lemarier/dev/solar/docs/victron-gx-modbus-tcp-register-list.xlsx — CCGX/Venus GX Modbus-TCP register list, Rev 53, xlsx last modified 2026-05-14, creator Matthijs Vader (already committed). Sheets: Field list (100"
+    },
+    {
+      "source": "victron-data-communication",
+      "citation": "/Users/lemarier/dev/solar/docs/victron-data-communication.pdf — names Modbus TCP as the preferred and only sanctioned third-party route to VE.Bus"
+    }
+  ],
+  "transport": "Modbus TCP to the GX device over Ethernet or Wi-Fi. Unit ID is the device instance. Since Venus OS 2.60 unit IDs are assigned DYNAMICALLY; the sheet's table is the preferred/legacy assignment only, and the vendor's instruction is to read the live value from Settings -> Integrations -> Modbus TCP server -> Available services. Legacy VE.Bus-port unit ids: 246 (CCGX), 242 (Venus GX), 227 (Cerbo GX), ",
+  "blocks": "com.victronenergy.vebus, registers 3-246. AC input 3-14 (V/I/F/P per phase) · AC output 15-25 · active input current limit 22 (writable) · battery 26-27 · phase count 28 · active input 29 · SoC 30 (writable) · VE.Bus state 31 · VE.Bus error 32 · switch position 33 (writable) · alarms 34-36, 42-55, 63, 64, 94 · ESS/Hub4 37-41, 65-73, 96-101 · BMS 57-60 · battery temperature 61 · system reset 62 · energy counters 74-93 (uint32, scale 100, kWh) · charge state 95 · generator selection 103-104 · redetect 105 · settings 106-109 · relay-test 110-121 · nominal inverter power 130-136 · custom name 140 · microgrid 200-246.",
+  "reports": [
+    "ac-voltage",
+    "ac-current",
+    "ac-power",
+    "ac-frequency",
+    "ac-energy-total",
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "state-of-charge",
+    "charge-stage"
+  ],
+  "accepts": [
+    "set-switch"
+  ],
+  "models": [
+    {
+      "name": "Every VE.Bus inverter/charger reached through a GX device — the same retail list as victron-vebus-mk2: MultiPlus, MultiPlus Compact, MultiPlus-II (12/24/48 V, 3000 and 5000 VA, 120 V and 2x120 V), Qua"
+    },
+    {
+      "name": "MultiPlus-II GX and EasySolar-II GX (integrated GX; the register list's unit-id sheet names their internal VE.Bus port explicitly)"
+    }
+  ],
+  "sharedMapEvidence": "The vendor register list is keyed by D-Bus service name, not by model. There is exactly one address block, registers 3-246, for `com.victronenergy.vebus`, and every VE.Bus inverter/charger a GX enumerates lands on it. The unit-id sheet names two concrete products against that service's port — \"EasySolar-II/Multiplus-II GX VE.Bus port (ttyS3)\" at unit id 228 and \"CCGX VE.Bus port (ttyO1)\" at 246, \"",
+  "gotchas": [
+    "Unit IDs are dynamic since Venus OS 2.60. A driver that hardcodes 246 will work on an old CCGX and silently address the wrong service, or nothing, on anything current. The vendor's instruction is to look the id up on the GX's own Modbus TCP server page. There is no discovery register documented.",
+    "The energy counters are volatile and the register list says so four times in a row across registers 74-90: \"Energy counters from the Multi(s) are volatile.\" / \"These energy counters reset to zero when the Multi is switched off.\" / \"These energy counters ALSO reset to zero when the GX-device reboots.\" A monotonic-counte",
+    "Writes to register 33 (switch position) and register 22 (input current limit) both carry the caveat \"See Venus-OS manual for limitations, for example when VE.Bus BMS or DMC is installed.\" With a Digital Multi Control on the bus the write is accepted and ignored. Both are sold in Quebec.",
+    "This route needs hardware that is not the inverter: a GX device (Cerbo GX, CCGX, Venus GX, or a Raspberry Pi running Venus OS). None of the retail listings surveyed includes one. The cheapest path from zero to a MultiPlus reading is a GX or an MK3-USB, and that is a purchasing decision, not a driver decision.",
+    "Scale factors in this sheet are DIVISORS for most rows but not all: battery voltage scale 100 means value/100 volts, while AC power registers 12-14 and 23-25 carry scale 0.1 with a range of -327680 to 327670 W — i.e. multiply by 10. Register 66-68 max feed-in power is scale 0.01. Reading the scale column as \"always div"
+  ],
+  "unmappedReports": "Register 31 VE.Bus state, 13 values: 0 Off, 1 Low Power, 2 Fault, 3 Bulk, 4 Absorption, 5 Float, 6 Storage, 7 Equalize, 8 Passthru, 9 Inverting, 10 Power assist, 11 Power supply, 244 Sustain, 252 External control. ChargeStage covers 5 of them. Passthru, Inverting, Power assist, Power supply, Sustain and External control all describe what the inverter is doing with AC, and none has a wire name. External control means a GX or a BMS is already driving the setpoint., Register 32 VE.Bus Error — a 17-value enumeration the vendor spells out in full (mixed MK2 types, missing devices, DDC program error, dongle missing, master failover, firmware incompatibility...). `ChargeStage::Fault` keeps the bit and drops the number, and here the number is the whole diagnosis., Register 22 Active input current limit (int16, 0.1 A, writable) — the shore/generator current limit. This is the single most useful control on a Multi in a cabin and there is no CommandKind for it. It is not `set-charge-current-limit`., Registers 34-36, 42-55, 63, 64, 94: eighteen separate alarm registers, each 0=Ok / 1=Warning / 2=Alarm — high temperature, low battery, overload, ripple, temperature sensor, voltage sensor, phase rotation, grid lost, BMS pre-alarm, per-phase L1/L2/L3. The contract has no alarm concept at all. Ripple and grid-lost in particular are not derivable from any metric that is mapped., Registers 74-93: nine DIRECTIONAL energy counters (AcIn1ToAcOut, AcIn1ToInverter, AcIn2ToAcOut, AcIn2ToInverter, AcOutToAcIn1, AcOutToAcIn2, InverterToAcIn1, InverterToAcIn2, InverterToAcOut), uint32 at scale 100 in kWh. MetricKind has one scalar `ac-energy-total`. Mapping InverterToAcOut onto it discards the whole flow direction matrix that makes a Multi legible., Register 95 VebusChargeState 0-9: Initialising, Bulk, Absorption, Float, Storage, Absorb repeat, Forced absorb, Equalise, Bulk stopped, Unknown. Same missing variants as the MK2 dialect., Registers 57-60: BMS AllowToCharge, AllowToDischarge, BmsExpected, Bms/Error. \"A BMS is present and it is currently forbidding charge\" is a fact a rules engine needs and cannot say., Register 29 Active input (0=AC In 1, 1=AC In 2, 240=Disconnected) and registers 69/70 AC input ignored. On a Quattro this is shore-vs-generator. No metric., Registers 103/104 Select Remote Generator (writable) and Remote generator selected. This SELECTS the generator input; it does not start a generator. Deliberately not mapped to `start-generator` — the semantics differ and a wrong mapping here starts nothing while looking like it should., Register 30 VE.Bus state of charge is writable. `state-of-charge` is a read-only MetricKind, and there is no CommandKind for seeding an SoC., Register 28 Phase count and the per-phase L1/L2/L3 triplicates of every AC register. A 2x120V MultiPlus-II has two output legs; the contract has one `ac-voltage`., Registers 130-136 Nominal inverter power (uint32, W) — the unit's rating. Not a measurement; there is no slot for advertised capability, the same gap the MPPT `0x0140` capabilities bitmask exposed., Registers 37-41, 65-73, 96-101: the whole ESS / Hub4 control surface (AC power setpoint, disable charge, disable feed-in, max feed-in power, sustain active, DoNotFeedInOvervoltage). Grid-tie behaviour with no contract representation. Mostly irrelevant off-grid, recorded so nobody maps `set-charge-current-limit` onto an ESS setpoint., Registers 200-246 microgrid droop-mode parameters, plus register 230 which \"Must be written every 2 seconds\" to keep grid-forming alive. A heartbeat-gated control surface has no shape in the contract., Register 62 VE.Bus Reset — \"Any write action will cause a reset\". Explicitly NOT `clear-fault`: it reboots the inverter/charger.",
+  "refiledFrom": "lan-http"
+}

@@ -1,0 +1,75 @@
+{
+  "id": "xantrex-no-comms",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "xantrex-com-products-inverters",
+      "citation": "https://xantrex.com/products/inverters/"
+    },
+    {
+      "source": "xantrex-com-products-inverter-chargers",
+      "citation": "https://xantrex.com/products/inverter-chargers/"
+    },
+    {
+      "source": "xantrex-com-products-battery-chargers",
+      "citation": "https://xantrex.com/products/battery-chargers/"
+    }
+  ],
+  "models": [
+    {
+      "name": "PROwatt SW / PROwatt SW-I inverters"
+    },
+    {
+      "name": "PROsine / PROsine-I inverters"
+    },
+    {
+      "name": "XPower, XPower Digital, XPower-I, XPower 450 inverters"
+    },
+    {
+      "name": "Pro Series inverters"
+    },
+    {
+      "name": "Freedom X 1200, Freedom X, Freedom X 230V inverters"
+    },
+    {
+      "name": "Freedom XC, Freedom XC 230V inverter/chargers"
+    },
+    {
+      "name": "Freedom HF inverter/charger"
+    },
+    {
+      "name": "Freedom 458 inverter/charger"
+    },
+    {
+      "name": "TRUEcharge2 (10A 12V, 12V, 24V) battery chargers"
+    },
+    {
+      "name": "TRUEcharge3 (12V, 24V) battery chargers"
+    },
+    {
+      "name": "XPLORE 120A 12V battery charger"
+    },
+    {
+      "name": "PowerHub 1800"
+    },
+    {
+      "name": "XPower PowerPack 1500"
+    },
+    {
+      "name": "Xantrex Max Solar Panels"
+    }
+  ],
+  "refutedOnReview": "REFUTED on four independent grounds. The single technical document cited actively contradicts the claim, and the vendor's own site contradicts it for the Freedom line.  **1. The claim is a category error.** `docs/catalog/README.md:19` defines **Dialect** as \"the register map, owns the driver\". `docs/catalog/no-comms.md:3-4` defines the page as \"Ratings only. No protocol, no dialect, no driver, and none coming.\" A `no",
+  "gotchas": [
+    "Several of these have a REMOTE PANEL port that is not a data bus: PROwatt SW remote panel, TRUEcharge2 remote panel, TRUEcharge3 remote panel, Freedom X remote panel (RJ12, PN 808-0817), Solar MPPT remote panel (710-0010). Proprietary, undocumented, and driving one is a reverse-engineering project, not an integration.",
+    "Freedom X and Freedom XC are listed here as no-comms ON THEIR OWN. Add a Freedom X Combox (808-0822 / -01) and they become RV-C or NMEA 2000 devices — see xantrex-rv-c-unknown. The inverter alone has no bus.",
+    "Freedom X Bluetooth Remote Panel exists and pairs with a phone app, but no BLE service/characteristic documentation is published, so it is not a protocol the catalogue can act on.",
+    "The Xantrex brand today is Xantrex LLC, part of Mission Critical Electronics / Power Products LLC, and the line is aimed at RV, marine, and work trucks. The legacy off-grid residential line (XW, Conext SW, MPPT 60-150 / 80-600, C-series controllers, Trace SW) went to Schneider Electric and is no longer sold under the X",
+    "docs/catalog/no-comms.md already carries two Xantrex entries from an earlier sweep — a 1000 W 12 V mobile inverter (used-market, Montreal) and a regulated DC bench supply. Neither is contradicted by anything here; the existing note that 'Xantrex's comms-capable lines (Freedom, XW) are a different matter' is now backed "
+  ]
+}

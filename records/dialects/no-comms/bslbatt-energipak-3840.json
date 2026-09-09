@@ -1,0 +1,34 @@
+{
+  "id": "bslbatt-energipak-3840",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "bslbatt-com-wp-content-uploads-2025-05-energipak-3840-user-manual-en",
+      "citation": "BSLBATT, EnergiPak 3840 User Manual (EN), https://bslbatt.com/wp-content/uploads/2025/05/EnergiPak-3840-User-Manual-en.pdf — 16 pages, image-only, read by rendering. Contents page lists Packing List, Product Introduction"
+    },
+    {
+      "source": "bslbatt-com-wp-content-uploads-2025-05-energipak-3840-240614",
+      "citation": "BSLBATT, EnergiPak 3840 datasheet 240614, https://bslbatt.com/wp-content/uploads/2025/05/%E4%BE%BF%E6%90%BAEnergipak-3840-240614.pdf"
+    },
+    {
+      "source": "bslbatt-com-energipak-3840-product-page-checked-2026-07-31",
+      "citation": "bslbatt.com EnergiPak 3840 product page, checked: 2026-07-31."
+    }
+  ],
+  "models": [
+    {
+      "name": "EnergiPak 3840 portable power station / solar generator, 3840 Wh, 48 V pack of 40135 LiFePO4 cells, 3300 W @ 120 V AC out"
+    }
+  ],
+  "gotchas": [
+    "NO COMMUNICATION OF ANY KIND IS DOCUMENTED, and the manual is thorough enough that the silence is meaningful. Its Product Specifications table lists ten interfaces — AC charging, XT90 input, AC output, two USB-A, two USB-C, car charging — and every one is a POWER port. The contents page has no app, Bluetooth, Wi-Fi, or",
+    "USB-C PD100W is a charging port with the PD3.0 protocol. PD is a power-delivery negotiation, not a data link a host can read a state of charge from. Do not let the word 'protocol' on the spec sheet promote this device.",
+    "The unit has a display showing state of charge and the manual documents a UPS mode, so the information exists inside the box — it just never leaves it. If somebody wants this in Cabin Hub, the only honest route is a clamp or a plug-in energy meter on its AC output, which is a cabin-pzem job, not a BSLBATT driver.",
+    "Filed in no-comms.md with the PowerMax charger. Recorded so nobody researches it twice."
+  ]
+}

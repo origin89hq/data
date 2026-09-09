@@ -1,0 +1,46 @@
+{
+  "id": "rolls-lfp-stack-lv-he-e-314",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "rollsbattery-com-battery-s48-314lfp-stack-lv-he",
+      "citation": "https://rollsbattery.com/battery/s48-314lfp-stack-lv-he/ — '1x CAN bus (external), 1x RS-485 (external)'; references 'S48-314LFP STACK-LV HE Battery Operating Manual' with no URL. checked: 2026-07-31"
+    },
+    {
+      "source": "rollsbattery-com-catalog",
+      "citation": "https://rollsbattery.com/catalog/ — model list. checked: 2026-07-31"
+    },
+    {
+      "source": "surrette-com-manuals",
+      "citation": "https://www.surrette.com/manuals/ — the published manuals index; none of these five models is on it. checked: 2026-07-31"
+    }
+  ],
+  "models": [
+    {
+      "name": "S48-100LFP ESS HE"
+    },
+    {
+      "name": "S48-100LFP STACK-LV HE"
+    },
+    {
+      "name": "S48-100LFP STACK-LV E"
+    },
+    {
+      "name": "S48-314LFP STACK-LV HE"
+    },
+    {
+      "name": "S48-314LFP STACK-LV E"
+    }
+  ],
+  "gotchas": [
+    "Dialect deliberately left UNKNOWN. These five models are in the current Rolls catalogue, their product pages state '1x CAN bus (external), 1x RS-485 (external)', and each page references its OWN operating manual and installation guide by title — but none of those manuals appears on the Rolls manuals index at surrette.c",
+    "It would be very easy and completely unjustified to fold them into rolls-lfp-stack-lv-48v on the strength of the shared 'STACK-LV' name. Rolls has already forked its own pinout once between the ESS and the STACK-LV — pins 4/5 versus pins 7/8 for CAN — inside the same 48 V LFP family and the same calendar year. A name i",
+    "MISSING EVIDENCE, specifically: the CAN and RS-485 RJ45 pinout tables, the external RS-485 baud rate, and the Appendix A protocol-selection list from each model's own operating manual. Any one of those, matching the STACK-LV manual, would settle it. Ask Rolls technical support or a dealer for the PDFs.",
+    "The 314 Ah models are a different cell format from the 100 Ah module and are the least likely of the five to share firmware."
+  ]
+}

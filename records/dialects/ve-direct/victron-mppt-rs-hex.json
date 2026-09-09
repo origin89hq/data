@@ -1,0 +1,53 @@
+{
+  "id": "victron-mppt-rs-hex",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-mppt-ve-direct-hex-protocol-rev18",
+      "citation": "docs/victron-mppt-ve-direct-hex-protocol-rev18.pdf (committed) — §'DC channel registers - MPPT RS models only', §'Solar panel data individual MPPT trackers registers', §'2-wire BMS input', product-id table p. 5"
+    },
+    {
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "docs/victron-ve-direct-protocol-3.34.pdf (committed) — PID list pp. 12-14, which omits 0xA110/0xA111"
+    }
+  ],
+  "transport": "Same VE.Direct HEX framing and line settings as victron-mppt-vedirect-hex. The MPPT RS also carries a VE.Can port and a user I/O connector with REMOTE_L / REMOTE_H pins.",
+  "blocks": "Core VREG map as victron-mppt-vedirect-hex, with documented replacements and additions: DC channel 0xED8B ripple / 0xED8D battery voltage (REPLACES 0xEDD5, and changes type un16 -> sn16) / 0xED8F battery current (REPLACES 0xEDD7, un16 -> sn16) · per-tracker panel data 0xECC3/0xECCB/0xECCC/0xECCD (tracker 1) through 0xECF3/0xECFB/0xECFC/0xECFD (tracker 4) · 0x0244 tracker count · 0xEDB1 panel input resistance, 0xEDB2 panel starting voltage, 0xEDBF panel maximum current · 0xEDC6/0xEDC7 equalise voltage and current maximum · 2-wire BMS 0xD0C0/0xD01F · per-tracker daily history 0x10A0-0x10BE.",
+  "reports": [
+    "pv-voltage",
+    "pv-current",
+    "pv-power",
+    "pv-energy-today",
+    "pv-energy-total",
+    "battery-voltage",
+    "battery-current",
+    "charge-stage",
+    "temperature"
+  ],
+  "accepts": [
+    "start-equalize",
+    "set-charge-current-limit"
+  ],
+  "models": [
+    {
+      "name": "SmartSolar MPPT RS 450/100-MC4 (PID 0xA110, 48V-100A, 2 trackers)"
+    },
+    {
+      "name": "SmartSolar MPPT RS 450/200-MC4 (PID 0xA111, 48V-200A, 4 trackers)"
+    }
+  ],
+  "sharedMapEvidence": "Both models are named in the same product-id table (rev 18, p. 5) as the rest of the MPPT line, and every 'MPPT RS models only' annotation in that document applies to both without distinguishing 450/100 from 450/200 — the only stated difference is tracker count, which the vendor makes discoverable at runtime via register 0x0244 rather than by forking the map. Retailer listing 'SmartSolar MPPT SS 4",
+  "gotchas": [
+    "This is a separate dialect precisely because the vendor doc uses the word 'replaces'. A driver written for the standard map that reads 0xEDD5/0xEDD7 on an RS is reading registers the vendor has redirected — and the replacements changed sign: 0xED8D and 0xED8F are sn16 where 0xEDD5/0xEDD7 are un16. Reading the old addre",
+    "The RS product ids 0xA110 and 0xA111 are in the HEX protocol document but are ABSENT from the PID list in VE.Direct-Protocol-3.34.pdf (pp. 12-14). Recorded as a contradiction, not resolved: no vendor document I found states which text-mode fields an MPPT RS emits, or whether it emits them at all. Treat text-mode suppor",
+    "The RS has its own battery-type enumeration (1 AGM_NORMAL 57.6 V, 2 AGM_HIGH 58.8 V, 3 LITHIUM 56.8 V, 255 USER) that does not match the 30A-100A rotary-switch table or the 10A-20A table. Three battery-type encodings live in one document.",
+    "0xD0C0 remote input mode is only writable while a user-defined battery type (0xEDF1 = 0xFF) is selected.",
+    "48 V only. The RS does not do 12 V or 24 V, so it is not a drop-in comparison for the rest of the retail list."
+  ],
+  "unmappedReports": "Per-tracker pv-power / pv-voltage / pv-current (0xECCC etc.) — MetricKind has one pv-power, not one per string. A 4-tracker RS 450/200 has four independent arrays and the contract can only express their sum. This is the sharpest contract gap in the Victron line: shading on one string is invisible., 0x0244 number of MPPT trackers — no MetricKind, and needed before the per-tracker registers mean anything., 0xED8B battery ripple voltage — no MetricKind. It is the standard early-warning signal for a failing cell or a loose DC connection., 0xD01F 2-wire BMS input state (input enabled / allow-to-discharge / allow-to-charge) — no MetricKind., 0x10A0..0x10BE per-tracker daily history: energy, peak power and Voc-max per tracker. No MetricKind., 0x0207 off-reason bit 1 'physical power switch' — RS-only, and no MetricKind for off reason at all."
+}

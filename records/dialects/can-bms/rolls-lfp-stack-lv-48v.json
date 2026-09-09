@@ -1,0 +1,67 @@
+{
+  "id": "rolls-lfp-stack-lv-48v",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "rollsbattery-com-wp-content-uploads-2025-01-s48-10",
+      "citation": "ROLLS S48-100LFP STACK-LV BATTERY OPERATING MANUAL, rev 2.0 2026/04/08 — committed at /Users/lemarier/dev/solar/docs/rolls-s48-100lfp-stack-lv-manual-rev2.0.pdf (https://rollsbattery.com/wp-content/uploads/2025/01/S48-10"
+    },
+    {
+      "source": "rollsbattery-com-wp-content-uploads-rolls-s48-100lfp-stack-lv-battery-installation-guide-ver-1-2",
+      "citation": "Rolls S48-100LFP STACK-LV Battery Installation Guide, ver 1.2 (https://rollsbattery.com/wp-content/uploads/Rolls-S48-100LFP-STACK-LV-Battery-Installation-Guide-ver-1.2.pdf)"
+    },
+    {
+      "source": "rollsbattery-com-battery-s48-100lfp-stack-lv",
+      "citation": "https://rollsbattery.com/battery/s48-100lfp-stack-lv/ — '1x CAN bus (external), 1x RS-485 (external), 1x Link In (internal), 1x Link Out (internal)'. checked: 2026-07-31"
+    }
+  ],
+  "transport": "CAN bus · 500 kbit/s · RJ45 pin 7 = CAN-H, pin 8 = CAN-L, pins 1-6 NC (a straight ethernet cable reaches a Victron GX as-is) \\|\\| external RS-485 · 9600 · RJ45 pin 1 = RS-485-B, pin 2 = RS-485-A, pins 3-8 NC \\|\\| inter-pack 'Link Up'/'Link Down' RS-485 · rate stated only as INTERNAL · pin 7 = RS-485-A, pin 8 = RS-485-B · pack address set by a 4-position DIP switch, bottom pack first, up to 8 packs",
+  "reports": [
+    "state-of-charge",
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "cycle-count"
+  ],
+  "models": [
+    {
+      "name": "S48-100LFP STACK-LV"
+    },
+    {
+      "name": "S48-200LFP STACK-LV"
+    },
+    {
+      "name": "S48-300LFP STACK-LV"
+    },
+    {
+      "name": "S48-400LFP STACK-LV"
+    },
+    {
+      "name": "S48-500LFP STACK-LV"
+    },
+    {
+      "name": "S48-600LFP STACK-LV"
+    },
+    {
+      "name": "S48-700LFP STACK-LV"
+    },
+    {
+      "name": "S48-800LFP STACK-LV"
+    }
+  ],
+  "refutedOnReview": "REFUTED — not on the model grouping, which holds up well, but on the thing the dialect claims to be. There is no register map in either cited document, so there is no map for these eight SKUs to share.  ## What survived verification  - The Operating Manual exists at the committed path /Users/lemarier/dev/solar/docs/rolls-s48-100lfp-stack-lv-manual-rev2.0.pdf. Its changelog page confirms `2.0 \\| Storage Instructions \\",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "NO REGISTER MAP FROM ROLLS, same as the ESS. The manual names protocols; it defines none.",
+    "This is a SEPARATE DIALECT FROM rolls-lfp-ess-48v and the evidence is hard, not inferred. Three documented differences in the same vendor's own manuals: CAN sits on RJ45 pins 7/8 here versus pins 4/5 on the ESS; the external RS-485 runs at 9600 here versus 19200 on the ESS; and RS-485 A/B sit on pins 2/1 here versus pi",
+    "The protocol menu is also different. STACK-LV Appendix A lists the selection by name in Rolls LFP Desktop V2: full support — Deye/Goodwe/Pylontech/Sol-Ark/TBB → PYLONTECH (CAN 500K), SMA → SMA (CAN 500K), Solis → SOLIS (CAN 500K), Victron Energy → VICTRON ENERGY, marked (DEFAULT) (CAN 500K), Deye/Pylontech → PYLONTECH ",
+    "The default protocol is VICTRON ENERGY out of the box. For a Cabin Hub listener that means the bus is speaking Victron's CAN-bus BMS protocol unless somebody changed it — and Victron does not publish that protocol openly either.",
+    "Bluetooth exists on this model and the Rolls LFP Connect app can SET the inverter protocol on an ESS device. The BLE protocol itself is undocumented and no community implementation of it was found."
+  ],
+  "unmappedReports": "charge-voltage-limit / charge-current-limit / discharge-current-limit — the closed-loop payload, and the whole point of connecting; no MetricKind can hold any of them, BMS alarm / protection / fault flags, per-cell voltages and cell delta, remaining and full-charge capacity in Ah, internal heater state, selected inverter protocol (settable from the app, readable nowhere in the contract)"
+}

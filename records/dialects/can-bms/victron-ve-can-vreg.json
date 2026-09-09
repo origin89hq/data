@@ -1,0 +1,80 @@
+{
+  "id": "victron-ve-can-vreg",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-ve-can-registers-v20",
+      "citation": "docs/victron-ve-can-registers-v20.pdf (committed) — Victron Energy, 'VREGS — VE.Can registers, Victron Registers in NMEA 2000', version 20"
+    },
+    {
+      "source": "victronenergy-com-upload-documents-ve-can-registers-public",
+      "citation": "https://www.victronenergy.com/upload/documents/VE.Can-registers-public.pdf"
+    },
+    {
+      "source": "victron-mppt-ve-direct-hex-protocol-rev18",
+      "citation": "docs/victron-mppt-ve-direct-hex-protocol-rev18.pdf (committed) — for the model-named product-id table and the conflicting register definitions"
+    }
+  ],
+  "transport": "VE.Can — CAN bus running NMEA 2000. Victron proprietary PGNs: 0xEFnn destination-specific single frame, 0xEFFF broadcast single frame, 0x1EFnn / 0x1EFFF fast-packet transport. Priority 7. Payload: 0x66 0x99 (Victron manufacturer code 358 packed with reserved bit and Marine industry group, little-endian on the wire) then regId.L regId.H then data. All fields little-endian. Single frame leaves 4 dat",
+  "blocks": "Same VREG id space as the VE.Direct HEX dialect. Charger settings §1.11 (0xEDD0-0xEDDF) · DC input settings §1.12 (0xEDB9-0xEDBF) · DC output / load output §1.13 (0xEDA8-0xEDAF) · DC channel §1.14 (0xED6D-0xED8F).",
+  "reports": [
+    "pv-voltage",
+    "pv-current",
+    "pv-power",
+    "pv-energy-today",
+    "pv-energy-total",
+    "battery-voltage",
+    "battery-current",
+    "charge-stage",
+    "load-voltage",
+    "load-current",
+    "load-power",
+    "switch-state",
+    "temperature"
+  ],
+  "accepts": [
+    "set-switch",
+    "set-charge-current-limit"
+  ],
+  "models": [
+    {
+      "name": "SmartSolar MPPT 150/70-Tr VE.Can (SCC115070411) and 150/70-MC4 VE.Can"
+    },
+    {
+      "name": "SmartSolar MPPT 150/85-Tr VE.Can and 150/85-MC4 VE.Can"
+    },
+    {
+      "name": "SmartSolar MPPT 150/100-Tr VE.Can and 150/100-MC4 VE.Can"
+    },
+    {
+      "name": "SmartSolar MPPT 250/70-Tr VE.Can and 250/70-MC4 VE.Can"
+    },
+    {
+      "name": "SmartSolar MPPT 250/85-Tr VE.Can and 250/85-MC4 VE.Can"
+    },
+    {
+      "name": "SmartSolar MPPT 250/100-Tr VE.Can and 250/100-MC4 VE.Can"
+    },
+    {
+      "name": "SmartSolar MPPT 150/35 (retailer claims VE.Can; NOT corroborated — see gotchas)"
+    },
+    {
+      "name": "SmartSolar MPPT RS 450/100-MC4 and RS 450/200-MC4 (VE.Can port present per model naming; VREG binding not corroborated)"
+    }
+  ],
+  "refutedOnReview": "REFUTED. Both cited PDFs exist and are correctly identified, but they do not support the claim.  VERIFIED (the good part) - /Users/lemarier/dev/solar/docs/victron-ve-can-registers-v20.pdf is real: 43 pages, p.1 reads \"VREGS / VE.Can registers / Victron Registers in NMEA 2000 – version 20\". Sections are as cited: 1.11 Charger settings, 1.12 DC input settings, 1.13 DC output settings, 1.14 DC channel settings. - /Users",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "NO Victron document I found names a specific SmartSolar VE.Can MPPT model alongside a VE.Can VREG id. The VE.Can registers document is written generically for 'chargers' and its examples are Skylla-i, Multi and Quattro; the MPPT VE.Can models are named only in the VE.Direct HEX document. The register space overlaps exa",
+    "Contradiction between the two vendor documents on 0xEDBD. VE.Can registers v20 §1.12 defines 0xEDBD twice on the same page — 'Input current limit, read write' and 'Input current, read only'. The MPPT HEX doc rev 18 defines 0xEDBD once, as 'Panel current, 0.1, un16'. The catalogue follows the MPPT HEX doc for solar char",
+    "Contradiction on load output. VE.Can v20 §1.13 lists 0xEDAF (load output maximum current), 0xEDAE (load output current limit) and 0xEDAA (load output power, un16, 0.01 W). None of the three appear in the MPPT HEX doc's load-output table. load-power is listed under reports here on the strength of the VE.Can doc alone; i",
+    "Contradiction on 0xEDAB load output control mode. VE.Can v20 lists values 0-4 only. The MPPT HEX doc lists 0-7, adding 5 USER1, 6 USER2 and 7 AES, and warns that the low 4 bits must be masked because the upper 4 are reserved with bit 7 flagging the lighting-controller timer. The MPPT HEX doc is the more recent and more",
+    "Retailer copy claims VE.Can on the SmartSolar MPPT 150/35. Victron's product-id tables list 150/35 only as 0xA058 / 0xA04B / 0xA078, none of which are in the 0xA1xx VE.Can range. Recorded as an unverified retail claim; the 150/35 appears to be VE.Direct + Bluetooth only."
+  ],
+  "unmappedReports": "0xEDDE charger number of physical outputs — no MetricKind, and needed to interpret multi-output chargers., 0xEDDA error enumeration extends beyond the VE.Direct list with 24 (charger fan missing) and 25 (charger fan over-current) — no MetricKind for error code at all, and these two values do not appear in the VE.Direct HEX doc., 0xEDD9 relay mode including value 9 'dark/light feedback (solar only)' — no MetricKind., Channel 2 and channel 3 voltage/current/power (0xED6D-0xED7F) — no MetricKind for a second or third DC channel."
+}

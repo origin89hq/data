@@ -1,0 +1,40 @@
+{
+  "id": "noco-genius-portable",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "no-co-media-wysiwyg-downloads-user-guides-genius-genius10na-user-guide-4-9-2024a",
+      "citation": "https://no.co/media/wysiwyg/downloads/User_Guides/Genius/genius10na_user_guide_4.9.2024a.pdf (vendor)"
+    },
+    {
+      "source": "no-co-media-wysiwyg-downloads-user-guides-genius-genius5na-user-guide-4-18-2024a",
+      "citation": "https://no.co/media/wysiwyg/downloads/User_Guides/Genius/genius5na_user_guide_4.18.2024a.pdf (vendor)"
+    },
+    {
+      "source": "thecabindepot-ca-collections-noco",
+      "citation": "https://thecabindepot.ca/collections/noco — GENIUS10 CA$159.99 (checked: 2026-07-31)"
+    }
+  ],
+  "blocks": "Nothing to unblock. There is no port. A Genius charger is monitored the way this site already monitors its PowerMax PM4-55LK: by watching the AC feeding it, from a Shelly plug or an energy meter upstream.",
+  "models": [
+    {
+      "name": "GENIUS5"
+    },
+    {
+      "name": "GENIUS10"
+    }
+  ],
+  "sharedMapEvidence": "Two separate vendor user guides read in full — genius5na_user_guide_4.18.2024a.pdf and genius10na_user_guide_4.9.2024a.pdf — each enumerating its COMPLETE user interface as a numbered callout list (Mode Button, Standby LED, Overvoltage/Bad Battery/Reverse Polarity error LEDs, Charge LED, Mode LEDs, Supply and Repair mode LEDs). Neither list contains a data port, a radio, or any connector other tha",
+  "gotchas": [
+    "CONTRADICTION, resolved against the vendor. batteryskills.com (\"Where Can I Download the NOCO Genius 10 App?\") claims the GENIUS10 has Bluetooth, a NOCO Genius iOS/Android app, and \"a Bluetooth button on the charger\". The NOCO GENIUS10 user guide dated 4.9.2024 enumerates all 11 UI items and there is no Bluetooth butto",
+    "CONTRADICTION / TRAP: every Genius, GeniusPRO, GEN and GENPRO guide contains the sentence \"Canbus is enabled in Standby mode.\" NOCO never defines it anywhere in any guide read here — no connector, no bitrate, no message list, no pinout. It appears in the Standby row of the charge-mode table alongside Energy Save, i.e. ",
+    "Charging voltages are stated per mode in the guide (GENIUS10: 14.5 V 12V, 14.8 V 12V AGM, 14.6 V 12V LITHIUM, 7.25 V 6V, 7.4 V 6V AGM, 13.6 V SUPPLY, up to 16.5 V REPAIR) — useful for sizing, useless for a driver.",
+    "IP65, 150 W max, 10 A at 12 V, up to 230 Ah. Auto-memory returns to the last mode on power-up, which means a power cycle does not reset a unit left in SUPPLY or REPAIR."
+  ],
+  "unmappedReports": "State of charge (25/50/75/100 %) IS computed and displayed on the faceplate LEDs. `state-of-charge` exists as a MetricKind but nothing electrical carries the value off the unit. This is the whole no-comms finding in one line: the device knows, and cannot tell you., Charge modes with no ChargeStage variant: REPAIR (desulfation), SUPPLY (13.6 V DC power supply), FORCE (charging below 1 V with safety features disabled), 12V LITHIUM / 6V AGM etc. (chemistry selection, not a stage)., Error conditions surfaced only as LED colours: overvoltage, bad battery, reverse polarity, internal over-temperature, ambient over-temperature. No fault-code MetricKind exists."
+}

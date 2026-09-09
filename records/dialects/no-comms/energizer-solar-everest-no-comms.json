@@ -1,0 +1,61 @@
+{
+  "id": "energizer-solar-everest-no-comms",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "energizersolar-com-s-everest-1100-global-manual-zc93",
+      "citation": "Everest 1100 Global Manual — https://www.energizersolar.com/s/Everest-1100-GLOBAL-Manual-zc93.pdf (downloaded to scratchpad/ez-everest.pdf)"
+    },
+    {
+      "source": "energizersolar-com-resources",
+      "citation": "Energizer Solar resources index — https://www.energizersolar.com/resources"
+    }
+  ],
+  "models": [
+    {
+      "name": "Everest 100"
+    },
+    {
+      "name": "Everest 300"
+    },
+    {
+      "name": "Everest 500"
+    },
+    {
+      "name": "Everest 1100"
+    },
+    {
+      "name": "Everest 1800"
+    },
+    {
+      "name": "Sunpack 80W"
+    },
+    {
+      "name": "Sunpack 100W"
+    },
+    {
+      "name": "Sunpack 120W"
+    },
+    {
+      "name": "Sunpack 180W"
+    },
+    {
+      "name": "Sunpack 200W"
+    },
+    {
+      "name": "Sunpack 400W"
+    }
+  ],
+  "refutedOnReview": "REFUTED as a dialect grouping, though the underlying \"no port\" observation survives per model.  Sources exist but do not say what is claimed: - The cited Everest 1100 Global Manual (https://www.energizersolar.com/s/Everest-1100-GLOBAL-Manual-zc93.pdf) is real and names ONLY \"Everest 1100\". It names none of the other 10 models. Per the skill's rule, a vendor doc that does not name the model does not support the claim ",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "The Everest manual has no Bluetooth, Wi-Fi, or app section at all — checked, not assumed. State of charge appears only as a percentage on the front LCD.",
+    "Everest 1100 is 54000 mAh / 21.6 V = 1166 Wh. The model number is watts of AC output, same trap as the Peak line.",
+    "Everest and Peak are BOTH Energizer Solar portable power stations from the same licensee, and they differ on the one thing that matters: Peak has Wi-Fi/Tuya, Everest has nothing. Do not generalise from one to the other."
+  ]
+}

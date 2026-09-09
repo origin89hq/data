@@ -1,0 +1,65 @@
+{
+  "id": "midnite-classic-modbus-tcp",
+  "family": "modbus-tcp",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "midnitesolar-com-pdfs-classic-register-map-rev-c5-dece",
+      "citation": "MidNite Solar MODBUS Network Spec. Rev C.4 --- Dec 9, 2013 — already committed at docs/midnite-classic-modbus-register-map-rev-c5.pdf; vendor original at https://www.midnitesolar.com/pdfs/classic_register_map_Rev-C5-Dece"
+    },
+    {
+      "source": "midnite-solar-classic-classic-sl-owner-s-manual-p-n-10-001-1",
+      "citation": "MidNite Solar Classic / Classic SL Owner's Manual, P/N 10-001-1 Rev U (firmware 2193) — Ethernet section, WEB ACCESS / advertise-every-10-seconds note, Classic SL feature exclusions, WBjr SOC% troubleshooting row"
+    },
+    {
+      "source": "thecabindepot-ca-products-midnite-mnems4448paecl150-magnum-4448pae-off-grid-4400w-48vdc-inverter",
+      "citation": "The Cabin Depot — MNEMS4448PAECL150 product page, https://thecabindepot.ca/products/midnite-mnems4448paecl150-magnum-4448pae-off-grid-4400w-48vdc-inverter-system (checked: 2026-07-31; $8,399.99 CAD on sale from $11,390.0"
+    }
+  ],
+  "seeAlso": [
+    "midnite-classic",
+    "midnite-classic-modbus"
+  ],
+  "transport": "Ethernet 10/100-base T · Modbus TCP · TCP port 502 (register 4137 modbus_port_register, \"0 to 65,535. Default = 502\") · default Modbus address 10, set in register 4326 ClassicModbusAddr, \"0 to 255 Classic Modbus Addr, Default address = 10 (ten)\"; the spec also states \"Classics will always treat address 255 as if it is for it as well as its set modbus address\". A second documented transport exists:",
+  "blocks": "4101–4384 main map (Base Registers) · 10001–10064 per-interface communication statistics (Master/Slave/Remote/TCP buses) · 20492–20493 Ethernet write-unlock (write the Classic's serial number here) · 28673–28674 Classic serial number, readable over RS-232 · MidNite-private function codes 0x68 (file read) and 0x69 (file write) replace the standard Modbus 0x14/0x15 for log and wind-curve transfer",
+  "reports": [
+    "pv-voltage",
+    "pv-current",
+    "battery-voltage",
+    "battery-current",
+    "battery-power",
+    "battery-temperature",
+    "temperature",
+    "charge-stage",
+    "pv-energy-today",
+    "pv-energy-total"
+  ],
+  "accepts": [
+    "start-equalize",
+    "clear-fault",
+    "set-charge-current-limit"
+  ],
+  "models": [
+    {
+      "name": "MidNite Classic 150 (as shipped in MNEMS4024PAECL150)"
+    },
+    {
+      "name": "MidNite Classic 150 (as shipped in MNEMS4448PAECL150)"
+    }
+  ],
+  "sharedMapEvidence": "The same part is in both kits, per each kit's own published component list: the MNEMS4024PAECL150 bill of materials names \"Classic 150 charge controller\" and the MNEMS4448PAECL150 names \"MidNite Classic 150 MPPT charge controller\" (The Cabin Depot, Soligent, altE, Fire Mountain Solar, all agreeing). It is not two similar controllers — it is one SKU appearing in two pre-wired panels. The register m",
+  "gotchas": [
+    "**Register number is address plus one.** The spec is explicit: \"The modbus specification adds one (1) to the 'address' sent to the unit in the packet command to access a 'register'. … The main Classic address map starts at register 4101 but the packet itself sends out address 4100.\" Every number in this entry is a *reg",
+    "**Writes over Ethernet are locked until you unlock them.** Write the Classic's own serial number (MSB to 20492, LSB to 20493) to enable register writes over TCP; the unlock \"will last until the TCP/IP connection is dropped\". InfoFlag 0x00000004 SerialWriteLock reports the locked state. Installing the physical Lock Jump",
+    "**There is no read/write discipline to lean on.** The spec's own disclaimer: \"You may write to any register in the system including registers THAT MAY DAMAGE OR DESTROY your Classic and attached equipment like battery banks.\" It adds that registers marked read-only are still writable and that writing the Absorb Time co",
+    "**Endianness is not uniform.** \"Due to the nature of the Classic's operation, there is not a uniform convention as far as data endianness so you may find some classes of values that follow a Most Significant Byte (MSB) first convention and others that use the Least Significant Byte (LSB) first convention.\" 32-bit value",
+    "**4119 Watts is battery-side, not PV-side.** It is \"Average Power to the Battery\" — post-conversion. There is no PV power register at all; `pv-power` has to be computed from 4116 × 4121. This is the mirror image of the EPEver 0x3105/0x3106 gotcha already recorded in the catalogue."
+  ],
+  "unmappedReports": "State of charge. The Classic *does* compute and display SOC% when a WhizBang Jr is fitted — the owner's manual has a troubleshooting row \"I have a WBJr and the SOC% is not showing on the main status screen … The SOC% will not show up until the Classic with the WBjr goes to Float once so it can calibrate\" — and both kits ship a WhizBang Jr. But the Rev C.4/C5 map does not say which register carries it: 4251 BattMonSOC and 4247 EndingSoc are both annotated \"Future SOC use\". The address is unknown. Do not guess it., Charge-stage timers: 4139 AbsorbTime remaining (s), 4143 Equalize Time remaining (s), 4138 FloatTimeTodaySeconds. No MetricKind for time-remaining-in-stage., 4122 VocLastMeasured and 4123 HighestVinputLog — last open-circuit PV voltage and lifetime highest PV voltage. No MetricKind., 4125 AmpHours (daily, reset 23:59) and 4128/4129 LifetimeAmpHours — amp-hours *into* the bank. `consumed-amp-hours` is the discharge side; there is no charged-amp-hours or amp-hours-today., 4365/4366 WbJrAmpHourPOSitive, 4367/4368 WbJrAmpHourNEGative, 4369/4370 WbJrAmpHourNET — the WhizBang Jr shunt's cumulative counters. Same gap; and NET is cumulative-signed, not \"since last full\", so it is not `consumed-amp-hours` either., 4371 WzBangJrCurrent32Signed — a genuinely bidirectional battery current from the shunt, distinct from 4117 IbattDisplayS which is the charger's own output. Both would collapse onto `battery-current`; only one of them is the truth about the bank., Fault and alarm state generally. 4130/4131 InfoFlagsBits carries Classic Over Temperature, EEPROM error, Current Limit, HyperVoc, Battery Temp Sensor Installed; 4187 EnableFlagsBits carries GroundFaultEn and ArcFaultEn; 4275 ReasonForResting and 4142 Reason_For_Reset are enumerated codes. There is no fault-code or alarm MetricKind — ChargeStage::Fault is one bit of information for a controller with two dedicated protection circuits., Aux 1 and Aux 2 relay/PWM output state (4165 Aux 1 and 2 Function, Tables 4165-1/4165-2). `switch-state` exists but only as a whole-device metric; there is no per-channel relay reporting on a `solar-charger`. These are the outputs a cabin would use for a diversion load or a vent fan., 4141 PWM_ReadOnly (duty cycle 0–1023, explicitly \"NOT Percent\"), 4152 Sliding Current Limit, 4191 VpvTargetRd (present MPP target voltage). No MetricKind for any of them., Three distinct temperatures — 4132 BATTtemperature, 4133 FETtemperature, 4134 PCBTemperature — and one generic `temperature` to hold two of them., 4135 NiteMinutesNoPwr (minutes since power was last seen). No MetricKind; it is the cleanest \"is the array dead or is it just night\" signal the device offers.",
+  "refiledFrom": "lan-http",
+  "possibleDuplicate": true
+}

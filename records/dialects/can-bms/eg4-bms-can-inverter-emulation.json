@@ -1,0 +1,45 @@
+{
+  "id": "eg4-bms-can-inverter-emulation",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "eg4-ll-s-48v-100ah-manual",
+      "citation": "docs/eg4-ll-s-48v-100ah-manual.pdf — §6.3.2 pinout, §7.2 Communication Protocol Selection (vendor, committed)"
+    },
+    {
+      "source": "eg4-wallmount-indoor-280ah-start-guide-2024-03",
+      "citation": "docs/eg4-wallmount-indoor-280ah-start-guide-2024-03.pdf — CAN and RS485 protocol lists, password note, per-inverter cable pinout table (vendor, committed)"
+    },
+    {
+      "source": "eg4-powerpro-wallmount-all-weather-manual-v1-0-3",
+      "citation": "docs/eg4-powerpro-wallmount-all-weather-manual-v1.0.3.pdf — §9.3 Communication Protocol Selection (vendor, committed)"
+    }
+  ],
+  "transport": "CAN on the shared RJ45 (Pin 4 = CAN_H, Pin 5 = CAN_L) · bit rate NOT STATED in any EG4 manual — left null rather than assumed from the 500 kbit/s that Pylontech-style BMS links usually run · master battery only (DIP address 1); the rest of the bank talks to the master over RS485",
+  "blocks": "No EG4 frame layout is published. The battery instead EMULATES a chosen inverter vendor's BMS-CAN protocol, selected from an on-screen menu. Menu contents differ between models: LL-S offers P01-GRW Growatt, P02-SLK Sol-Ark, P03-DY Deye, P04-MGR Megarevo, P05-VCT Victron, P06-LUX Luxpower. The WallMount Indoor 280Ah offers P01-EG4/LUX, P02-GRW, P03-SLK, P04-DY, P05-MGR, P06-VCT, P07-LUX, P08-SMA.",
+  "models": [
+    {
+      "name": "EG4 LL-S 48V 100Ah"
+    },
+    {
+      "name": "EG4 WallMount Indoor 51.2V 280Ah"
+    },
+    {
+      "name": "EG4 PowerPro WallMount All Weather"
+    }
+  ],
+  "sharedMapEvidence": "The three models are grouped here because the same selection procedure and the same menu mechanism appear verbatim in each one's vendor manual (hold Return 5 s at DIP address 64 to reach 'Protocol Setting'), not because they share a register map — there is no EG4 register map on this bus at all. The menu OPTIONS differ between LL-S and the 280Ah, which is itself evidence that these are separate fi",
+  "gotchas": [
+    "This is the most promising read path for a Cabin Hub gateway and the least documented. Setting P05-VCT (LL-S) or P06-VCT (280Ah) makes the battery speak Victron BMS-CAN, a protocol documented elsewhere and already relevant to this catalogue's can-bms family. That is an inference about which protocol the mode selects, n",
+    "Selecting an emulation mode CONSUMES it. The battery cannot serve the inverter and a monitoring gateway in the same mode on the same bus, and the manuals state the battery cannot talk to BMS Tools and a closed-loop inverter at once. Reading over CAN means either sharing the inverter's bus passively or giving up closed-",
+    "Protocol change requires physically moving the host DIP to address 64 (or 16 on 4-DIP models), power-cycling the BMS, changing the menu, moving the DIP back, and power-cycling again. Not a remote operation.",
+    "The RS485 and CAN protocol menus are password protected on the WallMount Indoor 280Ah; the vendor start guide prints the default as 123456.",
+    "CONTRADICTION in the WallMount All Weather manual: §10.2 step 2 says set the 6-pin DIP to Address 64, while step 7 says set BMS Tools 'PACK ID' to 16. The LL-S manual says 64 in both places. Unresolved."
+  ],
+  "unmappedReports": "Everything. Nothing can be listed under reports until it is decided which emulation mode the bank will be set to, because the metric set is then whichever the emulated vendor's protocol carries — not EG4's choice."
+}

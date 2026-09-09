@@ -1,0 +1,45 @@
+{
+  "id": "victron-ble-instant-readout-inverter",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victron-ble-extra-manufacturer-data-2022-12-14",
+      "citation": "/Users/lemarier/dev/solar/docs/victron-ble-extra-manufacturer-data-2022-12-14.pdf — Victron wiki, Extra manufacturer Data, printed 2022-12-14 (already committed)"
+    },
+    {
+      "source": "victron-vedirect-hex-phoenix-inverter",
+      "citation": "/Users/lemarier/dev/solar/docs/victron-vedirect-hex-phoenix-inverter.pdf — PID table marking 0xA281-0xA2B4 \"Smart, integrated Bluetooth\""
+    }
+  ],
+  "seeAlso": [
+    "victron-ble-instant-readout"
+  ],
+  "transport": "BLE advertisement, no connection or pairing session needed to read — but the per-device 16-byte AES key is needed to decrypt, and that comes from VictronConnect after pairing. Victron manufacturer data, byte 3 must be 0x10 (Product Advertisement). Extra-manufacturer-data record starts at byte 8. Header: bits 0-7 record type, 8-23 nonce/data counter LSB-first, 24-31 byte 0 of the encryption key. Pa",
+  "blocks": "Record type 0x03, offsets from the start of the record: bit 32 width 8 device state (NA 0xFF, VE_REG_DEVICE_STATE) · bit 40 width 16 alarm reason (VE_REG_ALARM_REASON, no NA value given) · bit 56 width 16 battery voltage, 0.01 V, range -327.68..327.66 V, NA 0x7FFF (VE_REG_DC_CHANNEL1_VOLTAGE) · bit 72 width 16 AC apparent power, 1 VA, 0..65534 VA, NA 0xFFFF (VE_REG_AC_OUT_APPARENT_POWER) · bit 88 width 15 AC voltage, 0.01 V, 0..327.66 V, NA 0x7FFF (VE_REG_AC_OUT_VOLTAGE) · bit 103 width 11 AC current, 0.1 A, 0..204.6 A, NA 0x7FF (VE_REG_AC_OUT_CURRENT) · bits 114-159 unused.",
+  "reports": [
+    "battery-voltage",
+    "ac-apparent-power",
+    "ac-voltage",
+    "ac-current"
+  ],
+  "models": [
+    {
+      "name": "dialect: unknown at model level. The specification names ZERO products. Candidates by inference only: Phoenix Inverter Smart 1600/2000/3000/5000 VA (PIDs 0xA281-0xA2B4, which the Phoenix HEX document "
+    }
+  ],
+  "sharedMapEvidence": "None available for models. The record layout is a single vendor table keyed by DEVICE CLASS (record type 0x03 \"Inverter\"), not by model. No committed document states that any named product emits record type 0x03. This is the same gap the catalogue already recorded for record 0x01, and it is stated here rather than papered over.",
+  "gotchas": [
+    "Which models emit record 0x03 is UNVERIFIED. The specification names no product; grepping its full text for MultiPlus, Phoenix, BMV, SmartShunt or Cerbo returns only two \"Lynx\" hits from the record-type table itself. A document that never enumerates models cannot establish that a given model conforms.",
+    "Instant readout is off by default per VictronConnect's manual, and integrated Bluetooth is necessary but not sufficient. A Smart inverter out of the box does not advertise until somebody opts in — at the bench, with a phone.",
+    "Unreadable without the per-device 16-byte AES key, obtained from VictronConnect's product-info page after pairing. No vendor-supported derivation. This is a commissioning step per device.",
+    "Changing the Bluetooth PIN changes the key. Byte 0 of the key is echoed in every advertisement so a receiver can detect the mismatch; the vendor's instruction is then to discard the stored key and STOP decoding, not to retry.",
+    "\"An implementation should not perform an upper bound check on the length … a length check should be performed for all items when retrieving data from the record.\" Bit offsets are stable, presence is not. A fixed-size struct parse breaks on a firmware update."
+  ],
+  "unmappedReports": "Device state at bit 32 — same four-value inverter enumeration as the wired dialects (Off / Low Power search / Fault / Inverting), same absence of a wire name for search mode., Alarm reason at bit 40, 16 bits — the AR bitfield. No alarm concept in the contract, and here it is the only fault information in the whole record., No real power. The record carries apparent power in VA and nothing else, so `ac-power` is unreachable over BLE on a Phoenix Inverter., No battery current, no temperature, no energy counters. The BLE record is strictly poorer than the cable, and the four mappable metrics above are a per-model upper bound.",
+  "possibleDuplicate": true
+}

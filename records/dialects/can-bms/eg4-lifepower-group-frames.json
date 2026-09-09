@@ -1,0 +1,41 @@
+{
+  "id": "eg4-lifepower-group-frames",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "community-single",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "github-com-slim-bean-powermon",
+      "citation": "https://github.com/slim-bean/powermon — README.md 'EG4 Protocol' section"
+    },
+    {
+      "source": "github-com-mr-manuel-venus-os-dbus-serialbattery",
+      "citation": "https://github.com/mr-manuel/venus-os_dbus-serialbattery — dbus-serialbattery/bms/eg4_lifepower.py (derived from the above, per its own header)"
+    }
+  ],
+  "transport": "RS-485 · binary 0x7E-framed request `7E <addr> 01 00 <chk> 0D`, response `7E <addr> 01 <len>` followed by length-tagged groups and terminated by 0x0D · baud rate NOT STATED by either source",
+  "blocks": "Group 0x01 = 16 cell voltages (mV, mask high bits with 0x3FFF) · 0x02 = current, value is (30000 − raw)/100 A · 0x03 = SOC ÷100 · 0x04 = full capacity ÷100 Ah · 0x05 = six temperatures, (byte & 0xFF) − 50 °C · 0x06 = alarm bitfields · 0x07 = cycle count · 0x08 = pack voltage ÷100 · 0x09, 0x0A = unidentified",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "battery-temperature",
+    "state-of-charge",
+    "cycle-count"
+  ],
+  "models": [
+    {
+      "name": "EG4 LifePower4 48V 100Ah (the unit slim-bean sniffed; exact revision not stated)"
+    }
+  ],
+  "gotchas": [
+    "This is a THIRD EG4 battery protocol, distinct from both eg4-ll-modbus and eg4-lifepower4-serial, and it shares the 0x7E start byte with the latter while being structurally unrelated — raw binary, group-tagged, no HEX-ASCII, no CID1/CID2, different checksum.",
+    "NOT crosschecked. dbus-serialbattery's eg4_lifepower.py is not an independent second implementation: its source comment cites slim-bean/powermon as the origin of the field meanings. One observation, two copies.",
+    "Provenance is a sniff of EG4's own BMS_TEST.exe traffic, not a document. slim-bean's own README labels several fields with question marks — the current formula (30000 − raw)/100 and the group 0x05 temperature offset of −50 were inferred by adding and removing load, not read from a spec.",
+    "Cell voltage high bits get set intermittently; both implementations mask with 0x3FFF and neither knows what the bits mean. dbus-serialbattery issue #155 tracks it.",
+    "No baud rate in either source. Left null rather than assumed from the sibling protocols."
+  ],
+  "unmappedReports": "16 individual cell voltages, six individual temperature sensors, full capacity in Ah, protection bitfield (over-current, over/under voltage, charge over/under temperature), two response groups (0x09, 0x0A) whose meaning nobody has identified"
+}

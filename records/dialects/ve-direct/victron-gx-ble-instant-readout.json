@@ -1,0 +1,46 @@
+{
+  "id": "victron-gx-ble-instant-readout",
+  "family": "ve-direct",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "unverified",
+  "refuter": "checked",
+  "sources": [
+    {
+      "source": "victron-ble-extra-manufacturer-data-2022-12-14",
+      "citation": "docs/victron-ble-extra-manufacturer-data-2022-12-14.pdf (committed) — Victron Energy, 'Extra manufacturer Data', section 'GX-Device'"
+    }
+  ],
+  "transport": "Bluetooth Low Energy · same 0x10 Product Advertisement container and AES-CTR scheme as victron-ble-instant-readout · record type 0x07 'GX-Device'",
+  "blocks": "Record type 0x07: battery voltage at bit 32 (16 b, 0.01 V), PV power at 48 (20 b, W), SOC at 68 (7 b, 1 %), battery power at 75 (21 b, W), DC power at 96 (21 b, W). AC in power, AC out power and warnings/alarms are listed as TBD with no bit positions assigned.",
+  "reports": [
+    "battery-voltage",
+    "pv-power",
+    "state-of-charge",
+    "battery-power"
+  ],
+  "models": [
+    {
+      "name": "Cerbo GX (BPP900450100)"
+    },
+    {
+      "name": "Cerbo GX MK2 (BPP900450110 / BPP900451100)"
+    },
+    {
+      "name": "Ekrano GX (BPP900480100)"
+    },
+    {
+      "name": "Nucleo GX (BPP900453100)"
+    }
+  ],
+  "refutedOnReview": "REFUTED — and the cited source refutes more than the claim's own hedge admits.  WHAT CHECKS OUT: The PDF exists at /Users/lemarier/dev/solar/docs/victron-ble-extra-manufacturer-data-2022-12-14.pdf (Victron wiki export, \"Extra manufacturer Data\", last update 2022/12/14). It contains a section headed \"GX-Device\", and the record-type table does assign 0x07 to GX-Device. That much of the citation is honest.  WHY IT IS RE",
+  "sharedMapClaimDropped": true,
+  "gotchas": [
+    "Victron marks this record 'Record layout is still to be determined and might change.' It is vendor-authored text saying the vendor has not finished. Confidence is unverified for that reason alone — a field that moves by one bit silently produces wrong numbers, not an error.",
+    "Three declared fields (AC in power, AC out power, warnings/alarms) carry the literal text TBD with no start bit and no width. There is nothing to implement for them and nothing to guess.",
+    "This dialect is strictly worse than victron-gx-modbus-tcp for the same hardware: five values versus a thousand registers, encrypted with a key that must be typed in by hand, over a link with no delivery guarantee. It is recorded so nobody researches it twice, not because it is a route worth taking.",
+    "Which GX models actually advertise, and whether advertising is even enabled by default on a GX, is unrecorded. Both are bench questions."
+  ],
+  "unmappedReports": "'DC power' at bit 96 — the same DC-system quantity as Modbus register 860, still with no MetricKind, AC in power, AC out power and warnings/alarms are declared in the record but have no bit positions — they are unmapped in the vendor document itself, not merely in our contract"
+}

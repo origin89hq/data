@@ -1,0 +1,29 @@
+{
+  "id": "lan-http",
+  "intro": "# LAN — HTTP, Modbus TCP, MQTT, gRPC\n\nFormat is defined in [`README.md`](README.md). Written 2026-07-31 from the\n`equipment-catalog-sweep` journal.\n\n**How complete this is.** The sweep was stopped during verification, so\nrefutation is partial. Every dialect below says whether a refuter actually\nchecked it. Anything unchecked is marked `unverified` and must not be built\non — that is the same thing the workflow would have done, not a shortcut.\n\n**Tiers and prices are absent.** Retail sightings were deduped per *model*\nduring discovery, but the research phase returns model names as plain\nstrings, so a model here cannot be joined back to the shop that sold it. A\nTier column would have to be guessed, and a guessed tier is worse than none.",
+  "order": [
+    "energizer-solar-peak-tuya",
+    "fronius-solar-api-sensorcard",
+    "fronius-solar-api-v1",
+    "starlink-device-diagnostics",
+    "victron-gx-mqtt",
+    "victron-venus-dbus-switch",
+    "ecoflow-cloud-gen1-json",
+    "ecoflow-cloud-gen2-json",
+    "ecoflow-delta-pro-ultra",
+    "ecoflow-delta-pro-lan-tcp",
+    "emporia-vue3-esphome-i2c",
+    "solark-mysolark-cloud",
+    "ecoflow-ble-local",
+    "ecoflow-gen3-protobuf",
+    "ecoflow-power-kits",
+    "emporia-cloud-appapi",
+    "emporia-cloud-v1",
+    "generac-mobilelink-cloud",
+    "magnum-magweb",
+    "starlink-dish-grpc",
+    "starlink-router-grpc",
+    "victron-easysolar-i-unknown",
+    "xantrex-gateway-lan-unknown"
+  ]
+}

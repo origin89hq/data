@@ -1,0 +1,44 @@
+{
+  "id": "victron-temp-probe-gx-analog",
+  "family": "no-comms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "victron-temperature-sensors-wiki-2026-05-21",
+      "citation": "victronenergy.com/live/temperature_sensors, Victron's own documentation wiki, last modified 2026-05-21 — committed at docs/victron-temperature-sensors-wiki-2026-05-21.pdf"
+    },
+    {
+      "source": "victron-cerbo-gx-manual-rev40",
+      "citation": "Cerbo GX Manual rev 40, 04/2026, §5.11 'Connecting hardwired Victron temperature sensors' and the Settings -> Integrations settings table — committed at docs/victron-cerbo-gx-manual-rev40.pdf (24.7 MB; covers Ekrano GX, "
+    },
+    {
+      "source": "victronenergy-com-meters-and-sensors-temperature-sensor-qua-pmp-venus-gx",
+      "citation": "https://www.victronenergy.com/meters-and-sensors/temperature-sensor-qua-pmp-venus-gx"
+    }
+  ],
+  "transport": "Two-wire analog probe into a host temperature input. Cerbo GX Manual rev 40 §5.11: red wire to the top terminal, black to the bottom, ferrule or >=10 mm exposed copper into the removable terminal block. No bus, no framing, no baud rate, no slave ID — none exist and none are guessed here.",
+  "reports": [
+    "temperature"
+  ],
+  "models": [
+    {
+      "name": "Temperature Sensor for Quattro, MultiPlus and GX Devices (ASS000001000)"
+    },
+    {
+      "name": "Temperature Sensor QUA/PMP/Venus GX (ASS000001000)"
+    }
+  ],
+  "sharedMapEvidence": "Not a shared register map — a shared part number. Both retailer titles resolve to Victron part ASS000001000. Victron's own comparison table at victronenergy.com/live/temperature_sensors (last modified 2026-05-21, committed as victron-temperature-sensors-wiki-2026-05-21.pdf) has one column headed 'Temp. Sensor for Quattro, MultiPlus & GX Device' with 'Victron Part Number: ASS000001000', and its 'Pr",
+  "gotchas": [
+    "It is not interchangeable with the BMV probe. Cerbo GX Manual rev 40 §5.11, verbatim: 'This is not the same as the BMV temperature sensor accessory, which is not compatible with these inputs.' That sentence is the reason ASS000001000 and ASS000100000 are two entries in this survey and not one.",
+    "Vendor-stated measurement range is -40 °C to +70 °C (Cerbo GX Manual rev 40 §5.11) — narrower than the room-sensor range a cabin dashboard might assume, and it is the *host input's* stated range, not a probe datasheet figure. No standalone datasheet for ASS000001000 exists on its Victron product page; the page carries ",
+    "Despite looking like a battery lug it is a general-purpose probe: 'Although the sensor resembles a battery lug, it does not need to be installed on a battery' (same section). Whether the reading means battery-temperature or room temperature is a configuration choice on the host, not a property of the part — the GX offe",
+    "Inputs are disabled by default. Cerbo GX Manual rev 40 settings table: Settings -> Integrations -> Tank and Temperature Sensors, 'Temperature input (number depends on device)' default 'Disabled'. A correctly wired probe reads nothing until somebody enables it.",
+    "Input count differs per GX: Ekrano GX and Venus GX have two temperature inputs, Cerbo GX has four (Cerbo GX Manual rev 40 §5.11)."
+  ],
+  "unmappedReports": "Sensor fault state — the GX distinguishes open circuit, short circuited and reverse polarity (see the Modbus entry, register 3305). The contract has no way to say 'this temperature reading is absent because the probe is cut' as distinct from 'the driver has not polled yet'. A frozen cabin and a severed probe look identical., The Battery / Fridge / Generic type selector. It is closer to DeviceKind than MetricKind, but nothing in the contract records that the *device itself* was told what it is measuring, so a probe re-typed at the GX silently changes meaning."
+}

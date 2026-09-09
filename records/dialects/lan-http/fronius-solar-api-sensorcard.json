@@ -1,0 +1,46 @@
+{
+  "id": "fronius-solar-api-sensorcard",
+  "family": "lan-http",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "fronius-solar-api-v1-42-0410-2012",
+      "citation": "docs/fronius-solar-api-v1-42-0410-2012.pdf - Fronius Solar API V1, Operating Instructions, doc 42,0410,2012,EN, revision 021-15052025. Sections 2.4 (requests/HTTPS), 3 (enable/disable default), 4.2 (GetSensorRealtimeData"
+    },
+    {
+      "source": "fronius-datcom-detail-42-0410-0968",
+      "citation": "docs/fronius-datcom-detail-42-0410-0968.pdf - Fronius DATCOM Detail, Operating Instructions, doc 42,0410,0968, EN-US, revision 003-23122014. Chapter 'Fronius Sensor Card / Box' (six inputs, terminal numbering 1-8, per-ch"
+    },
+    {
+      "source": "fronius-sensor-box-card-quick-guide-2019",
+      "citation": "docs/fronius-sensor-box-card-quick-guide-2019.pdf - 'How to setup Fronius Sensor Box/Card for Fronius SnapINVERTER (Fronius Galvo, Primo, Symo, Eco)', Quick Guide, Fronius International GmbH, Version 1.0 / 2019. Section "
+    }
+  ],
+  "transport": "Ethernet or WiFi to a Fronius Datamanager / Datalogger Web · HTTP JSON Solar API v1 · GET /solar_api/v1/GetSensorRealtimeData.cgi?Scope=Device&DeviceId=<0..9>&DataCollection=NowSensorData\\|MinMaxSensorData · the sensor hardware itself sits on Fronius Solar.Net (RS-422 over RJ45, IN/OUT daisy chain with termination plugs at both ends), addressed 0..9 by a mechanical setting wheel turned with a scre",
+  "blocks": "Not registers - a JSON object keyed by channel index 0..5. Index 0 Temperature 1 (module temp by convention, deg C/F) · 1 Temperature 2 (ambient temp by convention, deg C/F) · 2 Irradiation / Insolation (W/m2) · 3 Digital 1 · 4 Digital 2 · 5 Current (A). NowSensorData returns {Value, Unit} per channel; MinMaxSensorData returns SensorActive plus Day/Month/Year/Total each with Max and (temperature channels only) Min. Historic counterpart via GetArchiveData channel names Temperature_Channel_1, Temperature_Channel_2, Radiation, Digital_Channel_1, Digital_Channel_2 (Solar API Table 5). Device enumeration via GetActiveDeviceInfo.cgi?DeviceClass=SensorCard, which returns DT 254 and ChannelNames.",
+  "reports": [
+    "pv-irradiance",
+    "temperature"
+  ],
+  "models": [
+    {
+      "name": "Fronius Sensor Box"
+    },
+    {
+      "name": "Fronius Sensor Card"
+    }
+  ],
+  "sharedMapEvidence": "A single vendor document names both and gives them one interface. Fronius DATCOM Detail (42,0410,0968) opens its Sensor Card/Box chapter with 'The Fronius Sensor Card is available as a card or box' and thereafter describes ONE set of six measurement inputs for both. Its Technical Data table has one 'Sensor Card / Box' block: the channel specs (T1/T2 Pt1000 -25..75 C, 0.5 C, 1 C res; irradiance 0-1",
+  "gotchas": [
+    "THE SENSOR HARDWARE CANNOT BE READ DIRECTLY. Quick Guide section 1, verbatim: 'It is not possible to retrieve data directly from the Fronius Sensor Box/Card without a Fronius Datamanager Box/Card to manage communication.' There is no serial, Modbus or IP path to the box itself. Every fact in this dialect is about talki",
+    "DEAD END ON MODERN INVERTERS. Solar API section 4.2.1: 'API is available but returns an error on GEN24/Tauro/Verto', and GetActiveDeviceInfo footnote 4 marks SensorCard 'Not listed and provided on GEN24/Tauro/Verto'. Section 4.2.1 also: 'This API is useless on Fronius Hybrid systems which are unable to get connected to",
+    "THE UNIT IS NOT A PROPERTY OF THE DEVICE. Channels 3, 4 and 5 (and the display unit of 0/1) are configured by the installer in Fronius Solar.Service, picking from a fixed list: Wh, V, W/m2, A, degC, degF, kg CO2/kWh, km/h, mph, mbar, W, l, m3, m/s, %, hPa, ohm, Hz, kg, t, Wh/m2, kWh/m2, h, min, s, rpm, Ah, VA, var. A d",
+    "The vendor's own two examples disagree on channel 4: NowSensorData (Listing 17) shows unit 'KWh/m2', MinMaxSensorData (Listing 19) shows 'Hz'. Both are in the same document. This is not a documentation error - it is the previous gotcha made visible: channel 4 is Digital 2, and two different installations configured it ",
+    "AN UNCONFIGURED INPUT STILL PRODUCES A NUMBER. DATCOM Detail, verbatim: 'Always connect an appropriate sensor to activated inputs. Otherwise, free inputs will also be recorded by the datalogger. The result is a misleading value for the parameter that is not based on a measurement signal.' A plausible-looking reading fr"
+  ],
+  "unmappedReports": "Module / cell temperature (channel 0, T1). The vendor assigns T1 to solar module temperature and T2 to ambient. MetricKind has only the generic `temperature` and the qualified `battery-temperature`; there is no `module-temperature` or `cell-temperature`, so the two channels collapse onto one wire name and the physically distinct quantity is lost., Wind speed. The Fronius Wind Sensor is read as pulses on a digital channel and the Datamanager converts it to km/h, mph or m/s. There is no `wind-speed` MetricKind and no `Unit` for km/h, mph or m/s. This is the single largest contract gap for this dialect - the Wind Sensor is a catalogued retail model with nowhere to land., Cumulative irradiation energy (Wh/m2, kWh/m2). Offered as a digital-channel unit and actually present in the vendor's own NowSensorData example (channel 4, unit KWh/m2). `pv-irradiance` is instantaneous W/m2; there is no energy-per-area MetricKind and no Wh/m2 or kWh/m2 `Unit`., Carbon intensity (kg CO2/kWh). In the vendor's digital/current channel unit list. No MetricKind, no Unit., Raw pulse frequency (Hz). Digital channels report Hz when no calibration factor has been applied - the vendor's MinMaxSensorData example shows channels 3 and 4 in Hz with SensorActive false. `Unit::Hertz` exists (used for ac-frequency) but there is no MetricKind for a pulse/counter rate., Sensor health / channel liveness. MinMaxSensorData carries a per-channel `SensorActive` boolean, and NowSensorData silently omits inactive channels and channels with damaged sensors. There is no MetricKind for sensor-present or sensor-faulted, so a driver cannot report the difference between 'zero irradiance' and 'the pyranometer fell off the rail'., Device-side min/max aggregates. MinMaxSensorData is a Day/Month/Year/Total extremum set computed inside the Datamanager. The contract has series and trend machinery but no MetricKind shape for a vendor-computed period extremum, so this collection has no home even though it is half of what the API offers., Reactive power (var) and rotational speed (rpm), both in the vendor's selectable unit list. `Unit::VoltAmpere` exists for apparent power but there is no var; no MetricKind for either., Resistance (ohm), mass (kg, t) and volume in cubic metres, also in the selectable unit list. `Unit::Litre` exists but m3 does not (the same factor-1000 mismatch already recorded for Victron GX tanks); ohm, kg and t are absent entirely., Generic installer-named channels. Channels 3, 4 and 5 carry an installer-assigned free-text channel name and an installer-chosen unit. The contract has no representation for a channel whose meaning is configuration rather than a fixed wire name - this is a shape problem, not a missing variant."
+}

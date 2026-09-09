@@ -1,0 +1,28 @@
+{
+  "id": "comap-intelilite-remote-start",
+  "family": "local-io",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "vendor-doc",
+  "refuter": "unrecorded",
+  "sources": [
+    {
+      "source": "cial-no-file-andre-il-nt-amf-2-1-reference-guide-en",
+      "citation": "ComAp \"InteliLite NT AMF20/25 Reference Guide\" SW 2.1 https://www.cial.no/file/andre/il-nt-amf-2.1-reference-guide-en.pdf ; \"InteliLite 4 AMF 25 Datasheet\" https://hsaoy.com/wp-content/uploads/InteliLite-4-AMF-25-Datasheet.pdf (checked: 2026-09-01)"
+    }
+  ],
+  "transport": "2-wire maintained dry contact (switch to negative) · open-circuit voltage: ? · current: ? (4.2 kΩ input resistance, 0–36 VDC range, p.132) · closed <0.8 VDC, open >2 VDC (IL-NT); InteliLite 4: \"0-2 VDC close contact, 6-36 VDC open contact\", 8+1 inputs; binary input REM START/STOP",
+  "models": [
+    {
+      "name": "IL-NT AMF20/25, InteliLite 4 AMF 8/9/20/25",
+      "rating": "universal genset controller",
+      "notes": "AMF and MRS applications"
+    }
+  ],
+  "gotchas": [
+    "\"Rem Start/Stop — External request for engine run. AUT mode only\" and \"Gen-set remains running as long as Rem Start/Stop is active\" (p.47–48).",
+    "Binary and analog input wiring \"must not be run with power cables\", shielded above 3 m (p.28).",
+    "Wetting current not published; derived ~3 mA at 12 V from 4.2 kΩ (not vendor). Cool-down is the `Cooling time` setpoint."
+  ]
+}

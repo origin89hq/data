@@ -1,0 +1,46 @@
+{
+  "id": "volthium-abs-ej-ble",
+  "family": "can-bms",
+  "driver": {
+    "status": "possible"
+  },
+  "confidence": "community-single",
+  "refuter": "not-checked",
+  "sources": [
+    {
+      "source": "raw-githubusercontent-com-patman15-aiobmsble-main-aiobmsble-bms-ej-bms-py",
+      "citation": "patman15/aiobmsble, aiobmsble/bms/ej_bms.py — https://raw.githubusercontent.com/patman15/aiobmsble/main/aiobmsble/bms/ej_bms.py (Apache-2.0; matcher list, UUIDs, frame delimiters, command frames, CRC, field offsets and s"
+    },
+    {
+      "source": "github-com-kaanow-volthium-reader",
+      "citation": "kaanow/volthium_reader — https://github.com/kaanow/volthium_reader (field rig against two SC12200G4DPH in series; states 'same Nordic UART service, same :...~ ASCII-hex frames')"
+    },
+    {
+      "source": "devices",
+      "citation": "docs/DEVICES.md §'Volthium — the battery replacement' in this repo, which already records the E&J binding and is not re-derived here"
+    }
+  ],
+  "transport": "BLE, Nordic UART service 6e400001-b5a3-f393-e0a9-e50e24dcca9e (notify 6e400003, write 6e400002), reached through a Volthium Bluetooth Dongle or Smart Bridge — the ABS packs have no radio of their own · ASCII-hex frames opening 0x3A ':' and closing 0x7E '~'",
+  "blocks": "Two request frames: RT (command 0x02) sent as ':000250000E03~' and CAP (command 0x10) sent as ':001031000E05~'. Some variants answer RT with a single 0x45-byte frame carrying both.",
+  "reports": [
+    "battery-voltage",
+    "battery-current",
+    "state-of-charge",
+    "battery-temperature",
+    "cycle-count"
+  ],
+  "models": [
+    {
+      "name": "SC12200G4DPH (Volthium 12 V 200 Ah, group 4D)"
+    }
+  ],
+  "gotchas": [
+    "Confidence is community-single, not crosschecked. patman15/aiobmsble's ej_bms.py is the only implementation of the frame format I found. kaanow/volthium_reader is a *consumer* of aiobmsble, not an independent decode — it is good evidence that a Volthium pack answers these frames, and no evidence at all that the frame l",
+    "The Volthium binding is a name-pattern match, not a documented one. ej_bms.py's matcher list carries the comment '# Lithtech Energy (2x), Volthium' over the patterns ('L-12V???AH-*', 'LT-12V-*', 'V-12V???Ah-*'). Volthium is the 'V-12V???Ah-*' one. Nothing from Volthium confirms it, and Volthium never mentions E&J Techn",
+    "The pattern covers 12 V packs only. A 24 V pack would advertise as V-24V…, which the matcher does not accept — so nothing here transfers to 25.6-100-G4DY.",
+    "No Volthium document describes this protocol. Volthium's own manuals stop at 'the battery has RJ45 ports that allow communication to Volthium compatible accessories'. Every byte offset above comes from one Python file.",
+    "current at offset 44 is four bytes decoded as ((x >> 16) - (x & 0xFFFF)) / 100 — a charge half minus a discharge half, not a signed value. A naive signed read gives nonsense."
+  ],
+  "unmappedReports": "heater — the self-heating pad on/off flag, decoded at offset 54. No MetricKind. This is the highest-value gap for this site: docs/DEVICES.md already argues the heater is why a February recharge takes three hours instead of two, and this is the one field that would let the system say so instead of guessing., cell_voltages — up to 16 per-cell voltages from offset 12. No MetricKind; battery-voltage is pack-level only. Per-cell spread is how you see a pack going bad before SOC does., balancer — cell-balancing bitmask at offset 55. No MetricKind., chrg_mosfet / dischrg_mosfet — charge and discharge FET enabled, bits 0x20 and 0x10 at offset 52. No MetricKind; switch-state is Boolean but means a load switch, not a BMS protection FET. These are exactly the flags that explain a generator running while the BMS refuses the charge., problem_code — BMS protection/alarm bitmask, offset 52 masked 0x0FFC. ChargeStage::Fault exists but there is no fault-code MetricKind to carry which fault., design_capacity — rated Ah at offset 66, single-frame variants only. No MetricKind., cycle_charge — remaining charge in Ah from the CAP frame, offset 7, scale /10. consumed-amp-hours is the complement, not the same number.",
+  "refiledFrom": "ble-bms"
+}
