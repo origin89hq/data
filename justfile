@@ -161,5 +161,5 @@ supervise date="":
     @just _post "/supervise?date={{date}}"
 
 # Put the archive's dates right. Reports by default; `apply=true` moves things.
-repair-dates apply="false":
-    @just _post "/repair-dates?apply={{apply}}"
+repair-dates apply="false" after="":
+    @just _post "/repair-dates?apply={{apply}}&after={{after}}"

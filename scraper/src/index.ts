@@ -58,7 +58,7 @@ export default {
     // Narrow on purpose: it only ever moves a date that is in the future back to today, and
     // writes the new key before deleting the old.
     if (request.method === "POST" && url.pathname === "/repair-dates") {
-      return Response.json(await repairDates(env, url.searchParams.get("apply") !== "true"));
+      return Response.json(await repairDates(env, url.searchParams.get("apply") !== "true", url.searchParams.get("after") ?? undefined));
     }
     if (request.method === "POST" && url.pathname === "/supervise") {
       return Response.json(await supervise(env, url.searchParams.get("date") ?? today()));

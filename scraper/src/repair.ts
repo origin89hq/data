@@ -12,9 +12,16 @@ import { todayUtc } from "./feeds.ts";
  * prefix, which anybody browsing the bucket reads as a date. A same-day re-run overwrites, which
  * is what it should always have done — a crawl of a shop today replaces this morning's crawl of it.
  */
+/** How many objects one call touches. A whole archive in one request would run out of CPU. */
+export const REPAIR_BATCH = 300;
+
 export interface RepairReport {
   today: string;
   dry: boolean;
+  /** Objects looked at this call, and where to carry on from. */
+  examined: number;
+  done: boolean;
+  nextAfter?: string;
   /** Objects whose stored dates were in the future. */
   fields: { key: string; from: string }[];
   /** Objects moved from a label that never happened to the day they ran. */
@@ -53,12 +60,21 @@ async function keysUnder(bucket: R2Bucket, prefix: string): Promise<string[]> {
   return keys;
 }
 
-export async function repairDates(env: Env, dry: boolean): Promise<RepairReport> {
+export async function repairDates(env: Env, dry: boolean, after?: string): Promise<RepairReport> {
   const today = todayUtc();
-  const report: RepairReport = { today, dry, fields: [], moved: [], overwritten: [], concerns: [] };
+  const report: RepairReport = { today, dry, examined: 0, done: false, fields: [], moved: [], overwritten: [], concerns: [] };
 
-  for (const root of ["sightings/", "documents/", "guesses/", "supervision/"]) {
-    for (const key of await keysUnder(env.ARCHIVE, root)) {
+  const all: string[] = [];
+  for (const root of ["sightings/", "documents/", "guesses/", "supervision/"]) all.push(...(await keysUnder(env.ARCHIVE, root)));
+  all.sort();
+  const start = after ? all.findIndex((k) => k > after) : 0;
+  const slice = start < 0 ? [] : all.slice(start, start + REPAIR_BATCH);
+  report.done = start < 0 || start + slice.length >= all.length;
+  if (slice.length > 0) report.nextAfter = slice[slice.length - 1];
+
+  {
+    for (const key of slice) {
+      report.examined += 1;
       const label = DATE_IN_PATH.exec(key)?.[1];
       const stale = label !== undefined && label > today;
       const target = stale ? key.replace(`/${label}/`, `/${today}/`) : key;
@@ -70,13 +86,22 @@ export async function repairDates(env: Env, dry: boolean): Promise<RepairReport>
       if (key.endsWith(".json") || key.endsWith(".jsonl")) {
         const text = new TextDecoder().decode(body as ArrayBuffer);
         const changed = { any: false };
-        // JSONL is many values; JSON is one. Both are corrected line by line, so a page of
-        // sightings does not have to be parsed as a single document.
-        const lines = text.split("\n");
-        const fixed = lines.map((line) => (line.trim() ? JSON.stringify(correct(JSON.parse(line), today, changed)) : line)).join("\n");
-        if (changed.any) {
-          report.fields.push({ key, from: label ?? "inside" });
-          body = fixed;
+        try {
+          // JSONL is many values; JSON is one. Both are corrected line by line, so a page of
+          // sightings does not have to be parsed as a single document.
+          const fixed = text
+            .split("\n")
+            .map((line) => (line.trim() ? JSON.stringify(correct(JSON.parse(line), today, changed)) : line))
+            .join("\n");
+          if (changed.any) {
+            report.fields.push({ key, from: label ?? "inside" });
+            body = fixed;
+          }
+        } catch (error) {
+          // One object that will not parse is one object. Stopping the repair of the other
+          // eighteen hundred because of it is how a fix becomes a second outage.
+          report.concerns.push(`${key}: not readable as JSON (${error instanceof Error ? error.message.slice(0, 60) : "unknown"}); left as it is`);
+          continue;
         }
       }
 
