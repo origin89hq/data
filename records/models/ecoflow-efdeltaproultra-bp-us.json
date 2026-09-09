@@ -2,6 +2,7 @@
   "id": "ecoflow-efdeltaproultra-bp-us",
   "manufacturer": "ecoflow",
   "name": "EFDeltaProUltra-BP-US",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

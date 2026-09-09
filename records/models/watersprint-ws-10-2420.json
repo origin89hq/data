@@ -2,6 +2,7 @@
   "id": "watersprint-ws-10-2420",
   "manufacturer": "watersprint",
   "name": "WS-10-2420",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

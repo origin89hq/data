@@ -2,6 +2,7 @@
   "id": "grundfos-10sq05-160-120v",
   "manufacturer": "grundfos",
   "name": "10SQ05-160-120V",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

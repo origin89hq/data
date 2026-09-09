@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-beer-decal",
   "manufacturer": "the-cabin-depot",
   "name": "BEER-decal",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "pytes-py-vbox-ic",
   "manufacturer": "pytes",
   "name": "PY-VBOX-IC",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

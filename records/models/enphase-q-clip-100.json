@@ -2,6 +2,7 @@
   "id": "enphase-q-clip-100",
   "manufacturer": "enphase",
   "name": "Q-CLIP-100",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

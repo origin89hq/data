@@ -2,6 +2,7 @@
   "id": "midnite-solar-mnpo-3b-18p415-pro",
   "manufacturer": "midnite-solar",
   "name": "MNPO-3B-18P415-PRO",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

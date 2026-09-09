@@ -3,7 +3,7 @@ import { specsFrom, type ReportedProduct } from "../../src/specs.ts";
 import { looksLikeModelName, modelId, normaliseModelName } from "../../src/models.ts";
 import { Model } from "../../schema/model.ts";
 import { Source } from "../../schema/source.ts";
-import { object } from "./archive.ts";
+import { object, under } from "./archive.ts";
 import { EXTRACTOR_ID } from "../../scraper/src/reading.ts";
 
 /**
@@ -26,15 +26,21 @@ if (!manufacturer || !date) {
   process.exit(2);
 }
 
-const key = `documents/${manufacturer}/${date}/specs.${EXTRACTOR_ID.replace(/[^\w.-]+/g, "_")}.json`;
-const body = object(key, remote);
-if (!body) {
-  console.error(`no readings at ${key}; convert and extract first`);
+// One reading per document, written by the consumer that read it. The converting index says
+// which documents to expect, so a document still on the queue shows as pending rather than as
+// a maker with fewer figures than it has.
+const extractor = EXTRACTOR_ID.replace(/[^\w.-]+/g, "_");
+const index = await object(`documents/${manufacturer}/${date}/converting.json`, remote);
+if (!index) {
+  console.error(`no conversion started for ${manufacturer} at ${date}; approve the documents and convert first`);
   process.exit(1);
 }
-const readings = JSON.parse(body) as {
-  readings: { sha256: string; url: string; products: (ReportedProduct & { specs: { page?: number }[] })[] }[];
-};
+const expected = (JSON.parse(index) as { documents: { sha256: string }[] }).documents;
+const readings: { readings: { sha256: string; url: string; products: (ReportedProduct & { specs: { page?: number }[] })[] }[] } = { readings: [] };
+// Every reading of this run in one request, rather than one process per document.
+const bodies = (await under(`documents/${manufacturer}/${date}/readings/${extractor}/`, remote)).split("\n").filter(Boolean);
+for (const body of bodies) readings.readings.push(JSON.parse(body));
+const pending = expected.length - readings.readings.length;
 
 const records = loadRecords();
 const sources = new Map(records.sources.map((s) => [s.id, s]));
@@ -91,6 +97,7 @@ for (const document of readings.readings) {
 }
 
 console.log(`${written} figures and ${modelsAdded} new models${dryRun ? " (dry run, nothing written)" : " written"} for ${manufacturer}`);
+console.log(`${readings.readings.length} of ${expected.length} documents read${pending ? `, ${pending} still converting, queued or dead-lettered` : ""}`);
 if (unmatched.size) {
   console.log(`\n${unmatched.size} products the documents name that still reach no model:`);
   for (const m of [...unmatched].sort().slice(0, 25)) console.log(`  ${m}`);

@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "CHARG-DCDC-VIC-ORION-XS-12-12-50A-NISO-EMC",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "dc-dc-converter"
 }

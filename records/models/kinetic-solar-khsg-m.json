@@ -2,6 +2,7 @@
   "id": "kinetic-solar-khsg-m",
   "manufacturer": "kinetic-solar",
   "name": "KHSG-M",
+  "kind": "inverter-charger",
   "aliases": [
     "KIN-281-133"
   ],

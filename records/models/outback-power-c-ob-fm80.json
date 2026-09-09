@@ -2,6 +2,7 @@
   "id": "outback-power-c-ob-fm80",
   "manufacturer": "outback-power",
   "name": "C-OB-FM80",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

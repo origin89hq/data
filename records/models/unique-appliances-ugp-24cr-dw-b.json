@@ -2,6 +2,7 @@
   "id": "unique-appliances-ugp-24cr-dw-b",
   "manufacturer": "unique-appliances",
   "name": "UGP-24CR DW B",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

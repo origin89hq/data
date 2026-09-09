@@ -2,6 +2,7 @@
   "id": "anker-sgkit-c1000gen2-4",
   "manufacturer": "anker",
   "name": "SGKIT-C1000Gen2-4",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

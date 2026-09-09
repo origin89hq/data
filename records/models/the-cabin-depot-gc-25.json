@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-gc-25",
   "manufacturer": "the-cabin-depot",
   "name": "GC-25",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

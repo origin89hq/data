@@ -2,6 +2,7 @@
   "id": "ecoflow-riveramprosp161",
   "manufacturer": "ecoflow",
   "name": "RIVERAMPROSP161",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

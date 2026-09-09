@@ -2,6 +2,7 @@
   "id": "victron-energy-o-vc-ved-bms-a-1-8",
   "manufacturer": "victron-energy",
   "name": "O-VC-VED-BMS/A-1.8",
+  "kind": "bms",
   "aliases": [],
   "dialects": []
 }

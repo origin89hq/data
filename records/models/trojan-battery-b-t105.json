@@ -2,6 +2,7 @@
   "id": "trojan-battery-b-t105",
   "manufacturer": "trojan-battery",
   "name": "B-T105",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

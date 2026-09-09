@@ -2,6 +2,7 @@
   "id": "victron-energy-m-vc-gx70",
   "manufacturer": "victron-energy",
   "name": "M-VC-GX70",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

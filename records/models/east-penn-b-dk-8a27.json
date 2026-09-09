@@ -2,6 +2,7 @@
   "id": "east-penn-b-dk-8a27",
   "manufacturer": "east-penn",
   "name": "B-DK-8A27",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

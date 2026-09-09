@@ -2,6 +2,7 @@
   "id": "ecoflow-eco-dpppssk",
   "manufacturer": "ecoflow",
   "name": "ECO-dpppssk",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

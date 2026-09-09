@@ -2,6 +2,7 @@
   "id": "anker-a24v1011",
   "manufacturer": "anker",
   "name": "A24V1011",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "midnite-solar-104-mn-2211",
   "manufacturer": "midnite-solar",
   "name": "104-MN-2211",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

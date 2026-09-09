@@ -2,6 +2,7 @@
   "id": "victron-energy-mppt-vic-150v-70a-bs",
   "manufacturer": "victron-energy",
   "name": "MPPT-VIC-150V/70A-BS",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

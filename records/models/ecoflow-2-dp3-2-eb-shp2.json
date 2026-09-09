@@ -2,6 +2,7 @@
   "id": "ecoflow-2-dp3-2-eb-shp2",
   "manufacturer": "ecoflow",
   "name": "2-DP3-2-EB-SHP2",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

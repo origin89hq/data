@@ -2,6 +2,7 @@
   "id": "pentair-9300wellkit2",
   "manufacturer": "pentair",
   "name": "9300wellkit2",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

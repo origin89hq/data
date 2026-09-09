@@ -2,6 +2,7 @@
   "id": "sol-ark-sol-ark8kpytessolarkit",
   "manufacturer": "sol-ark",
   "name": "Sol-Ark8KPytesSolarKit",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

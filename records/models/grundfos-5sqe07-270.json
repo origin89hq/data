@@ -2,6 +2,7 @@
   "id": "grundfos-5sqe07-270",
   "manufacturer": "grundfos",
   "name": "5SQE07-270",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

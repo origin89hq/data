@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-k12dc5vs",
   "manufacturer": "the-cabin-depot",
   "name": "K12DC5VS",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

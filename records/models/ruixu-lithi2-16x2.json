@@ -2,6 +2,7 @@
   "id": "ruixu-lithi2-16x2",
   "manufacturer": "ruixu",
   "name": "Lithi2-16x2",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "sok-battery-sk12v206h",
   "manufacturer": "sok-battery",
   "name": "SK12V206H",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "ecoflow-r3p-160w",
   "manufacturer": "ecoflow",
   "name": "R3P-160W",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

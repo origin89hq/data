@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "CMP122020100",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

@@ -2,6 +2,7 @@
   "id": "pulsetech-pp-48-l",
   "manufacturer": "pulsetech",
   "name": "PP-48-L",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

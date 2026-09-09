@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-gc-75",
   "manufacturer": "the-cabin-depot",
   "name": "GC-75",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

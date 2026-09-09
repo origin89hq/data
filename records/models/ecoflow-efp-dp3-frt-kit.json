@@ -2,6 +2,7 @@
   "id": "ecoflow-efp-dp3-frt-kit",
   "manufacturer": "ecoflow",
   "name": "EFP-DP3-FRT-KIT",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

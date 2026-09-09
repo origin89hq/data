@@ -2,6 +2,7 @@
   "id": "victron-energy-ond-vic-multiplus-12v-800w",
   "manufacturer": "victron-energy",
   "name": "OND-VIC-MULTIPLUS-12V/800W",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

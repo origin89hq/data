@@ -2,6 +2,7 @@
   "id": "ecoflow-efmm305-30a-us",
   "manufacturer": "ecoflow",
   "name": "EFMM305-30A-US",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

@@ -4,14 +4,28 @@
   "main": "src/index.ts",
   "compatibility_date": "2026-09-09",
   "compatibility_flags": ["nodejs_compat"],
+  // Workflows are for a sequence with a wait in it. Crawling a shop is ordered pagination, and
+  // the maker pipeline pauses for a person; everything that merely fans out is on the queue.
   "workflows": [
     { "name": "seller-crawl", "binding": "SELLER_CRAWL", "class_name": "SellerCrawl" },
-    { "name": "classify-sightings", "binding": "CLASSIFY_SIGHTINGS", "class_name": "ClassifySightings" },
     { "name": "page-crawl", "binding": "PAGE_CRAWL", "class_name": "PageCrawl" },
-    { "name": "manufacturer-crawl", "binding": "MANUFACTURER_CRAWL", "class_name": "ManufacturerCrawl" },
-    { "name": "document-convert", "binding": "DOCUMENT_CONVERT", "class_name": "DocumentConvert" },
-    { "name": "extract-specs", "binding": "EXTRACT_SPECS", "class_name": "ExtractSpecs" }
+    { "name": "manufacturer-crawl", "binding": "MANUFACTURER_CRAWL", "class_name": "ManufacturerCrawl" }
   ],
+  "queues": {
+    "producers": [{ "queue": "offgrid-work", "binding": "WORK" }],
+    "consumers": [
+      {
+        "queue": "offgrid-work",
+        // Ten at a time, because each message is a model call and the point is concurrency
+        // across consumers rather than a long batch inside one.
+        "max_batch_size": 10,
+        "max_batch_timeout": 5,
+        "max_concurrency": 20,
+        "max_retries": 3,
+        "dead_letter_queue": "offgrid-work-dead"
+      }
+    ]
+  },
   "ai": { "binding": "AI", "remote": true },
   "r2_buckets": [
     { "binding": "ARCHIVE", "bucket_name": "offgrid-equipment-archive" }

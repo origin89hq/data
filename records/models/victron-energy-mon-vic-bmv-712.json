@@ -2,6 +2,7 @@
   "id": "victron-energy-mon-vic-bmv-712",
   "manufacturer": "victron-energy",
   "name": "MON-VIC-BMV-712",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

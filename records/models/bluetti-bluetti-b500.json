@@ -2,6 +2,7 @@
   "id": "bluetti-bluetti-b500",
   "manufacturer": "bluetti",
   "name": "BLUETTI-B500",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

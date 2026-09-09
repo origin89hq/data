@@ -2,6 +2,7 @@
   "id": "ecoflow-ef-power-kit-epk-4-folding",
   "manufacturer": "ecoflow",
   "name": "EF-POWER-KIT-EPK-4-FOLDING",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

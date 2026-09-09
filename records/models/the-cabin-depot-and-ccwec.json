@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-and-ccwec",
   "manufacturer": "the-cabin-depot",
   "name": "AND-ccwec",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

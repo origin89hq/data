@@ -2,6 +2,7 @@
   "id": "pentair-255-568-50",
   "manufacturer": "pentair",
   "name": "255-568-50",
+  "kind": "out-of-scope",
   "aliases": [
     "SFL-321-121"
   ],

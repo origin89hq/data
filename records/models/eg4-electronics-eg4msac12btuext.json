@@ -2,6 +2,7 @@
   "id": "eg4-electronics-eg4msac12btuext",
   "manufacturer": "eg4-electronics",
   "name": "EG4MSAC12BTUEXT",
+  "kind": "ac-charger",
   "aliases": [],
   "dialects": []
 }

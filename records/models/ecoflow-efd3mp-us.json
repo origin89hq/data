@@ -2,6 +2,7 @@
   "id": "ecoflow-efd3mp-us",
   "manufacturer": "ecoflow",
   "name": "EFD3MP-US",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

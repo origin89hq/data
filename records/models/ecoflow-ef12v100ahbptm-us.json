@@ -2,6 +2,7 @@
   "id": "ecoflow-ef12v100ahbptm-us",
   "manufacturer": "ecoflow",
   "name": "EF12V100AhBPTM-US",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

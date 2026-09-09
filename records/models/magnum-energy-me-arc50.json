@@ -2,6 +2,7 @@
   "id": "magnum-energy-me-arc50",
   "manufacturer": "magnum-energy",
   "name": "ME-ARC50",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

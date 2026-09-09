@@ -2,6 +2,7 @@
   "id": "ecoflow-ecf09glr35l",
   "manufacturer": "ecoflow",
   "name": "ECF09GLR35L",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "spypoint-01851",
   "manufacturer": "spypoint",
   "name": "01851",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "ecoflow-deltapro-1600w-usx2",
   "manufacturer": "ecoflow",
   "name": "DELTAPro-1600W-USx2",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

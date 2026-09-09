@@ -2,6 +2,7 @@
   "id": "victron-energy-i-vc-qu48-5k-u",
   "manufacturer": "victron-energy",
   "name": "I-VC-QU48-5K-U",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

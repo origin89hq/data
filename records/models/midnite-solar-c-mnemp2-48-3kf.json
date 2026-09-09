@@ -2,6 +2,7 @@
   "id": "midnite-solar-c-mnemp2-48-3kf",
   "manufacturer": "midnite-solar",
   "name": "C-MNEMP2-48/3KF",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

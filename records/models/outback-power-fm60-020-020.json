@@ -2,6 +2,7 @@
   "id": "outback-power-fm60-020-020",
   "manufacturer": "outback-power",
   "name": "FM60/020-020",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

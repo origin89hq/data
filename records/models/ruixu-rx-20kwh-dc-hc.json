@@ -2,6 +2,7 @@
   "id": "ruixu-rx-20kwh-dc-hc",
   "manufacturer": "ruixu",
   "name": "RX-20kWH-DC-HC",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

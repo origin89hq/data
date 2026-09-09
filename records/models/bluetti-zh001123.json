@@ -2,6 +2,7 @@
   "id": "bluetti-zh001123",
   "manufacturer": "bluetti",
   "name": "ZH001123",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

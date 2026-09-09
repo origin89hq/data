@@ -2,6 +2,7 @@
   "id": "outback-power-030-04205dc",
   "manufacturer": "outback-power",
   "name": "030-04205DC",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

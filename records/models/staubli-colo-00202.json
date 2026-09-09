@@ -2,6 +2,7 @@
   "id": "staubli-colo-00202",
   "manufacturer": "staubli",
   "name": "COLO-00202",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

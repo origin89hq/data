@@ -2,6 +2,7 @@
   "id": "srne-ml2440",
   "manufacturer": "srne",
   "name": "ML2440",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": [
     "srne-controller-v3"

@@ -2,6 +2,7 @@
   "id": "victron-energy-ond-acc-vic-dmc",
   "manufacturer": "victron-energy",
   "name": "OND-ACC-VIC-DMC",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

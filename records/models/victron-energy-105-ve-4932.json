@@ -2,6 +2,7 @@
   "id": "victron-energy-105-ve-4932",
   "manufacturer": "victron-energy",
   "name": "105-VE-4932",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

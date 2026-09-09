@@ -2,6 +2,7 @@
   "id": "pytes-pytes-bat-bat",
   "manufacturer": "pytes",
   "name": "PYTES-BAT-BAT",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

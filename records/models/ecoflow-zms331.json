@@ -2,6 +2,7 @@
   "id": "ecoflow-zms331",
   "manufacturer": "ecoflow",
   "name": "ZMS331",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "bluetti-eb3a-car-charging-cable",
   "manufacturer": "bluetti",
   "name": "EB3A-CAR-CHARGING-CABLE",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

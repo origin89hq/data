@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "CHARG-AC-VIC-BS-IP22-12V/15A-1",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "ac-charger"
 }

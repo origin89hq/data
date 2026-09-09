@@ -2,6 +2,7 @@
   "id": "victron-energy-104-vt-2210",
   "manufacturer": "victron-energy",
   "name": "104-VT-2210",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

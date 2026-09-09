@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-kpg20kw",
   "manufacturer": "the-cabin-depot",
   "name": "KPG20KW",
+  "kind": "generator",
   "aliases": [],
   "dialects": []
 }

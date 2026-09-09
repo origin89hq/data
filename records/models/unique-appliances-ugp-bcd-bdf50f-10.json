@@ -2,6 +2,7 @@
   "id": "unique-appliances-ugp-bcd-bdf50f-10",
   "manufacturer": "unique-appliances",
   "name": "UGP-BCD-BDF50F-10",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

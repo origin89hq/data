@@ -2,6 +2,7 @@
   "id": "eg4-electronics-chargerverter",
   "manufacturer": "eg4-electronics",
   "name": "CHARGERVERTER",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

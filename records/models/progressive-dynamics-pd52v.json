@@ -2,6 +2,7 @@
   "id": "progressive-dynamics-pd52v",
   "manufacturer": "progressive-dynamics",
   "name": "PD52V",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

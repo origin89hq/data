@@ -2,6 +2,7 @@
   "id": "enphase-q-12-raw-300",
   "manufacturer": "enphase",
   "name": "Q-12-RAW-300",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

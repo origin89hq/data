@@ -2,6 +2,7 @@
   "id": "midnite-solar-mne125lr-120s",
   "manufacturer": "midnite-solar",
   "name": "MNE125LR-120S",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

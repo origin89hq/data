@@ -2,6 +2,7 @@
   "id": "kinetic-solar-kin-3107",
   "manufacturer": "kinetic-solar",
   "name": "KIN-3107",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

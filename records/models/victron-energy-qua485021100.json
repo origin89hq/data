@@ -2,6 +2,7 @@
   "id": "victron-energy-qua485021100",
   "manufacturer": "victron-energy",
   "name": "QUA485021100",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

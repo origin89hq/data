@@ -2,6 +2,7 @@
   "id": "ecoflow-deltaprobc-rm15a",
   "manufacturer": "ecoflow",
   "name": "DELTAProBC-RM15A",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

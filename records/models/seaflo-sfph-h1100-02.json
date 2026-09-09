@@ -2,6 +2,7 @@
   "id": "seaflo-sfph-h1100-02",
   "manufacturer": "seaflo",
   "name": "SFPH-H1100-02",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

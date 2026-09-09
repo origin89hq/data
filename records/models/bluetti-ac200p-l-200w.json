@@ -2,6 +2,7 @@
   "id": "bluetti-ac200p-l-200w",
   "manufacturer": "bluetti",
   "name": "AC200P L+200W",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "sol-ark-sark-15k-10-16-py-c",
   "manufacturer": "sol-ark",
   "name": "SARK-15K-10-16-PY-C",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "unique-appliances-unq-310l-b-ac",
   "manufacturer": "unique-appliances",
   "name": "UNQ-310L B AC",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

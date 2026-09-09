@@ -2,6 +2,7 @@
   "id": "rolls-battery-s6-l16-hc",
   "manufacturer": "rolls-battery",
   "name": "S6 L16-HC",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

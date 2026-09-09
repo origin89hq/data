@@ -2,6 +2,7 @@
   "id": "ecoflow-2dp-dvh-ts",
   "manufacturer": "ecoflow",
   "name": "2DP-DVH-TS",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

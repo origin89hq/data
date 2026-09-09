@@ -2,6 +2,7 @@
   "id": "ecoflow-efa-50amphub",
   "manufacturer": "ecoflow",
   "name": "EFA-50AmpHub",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

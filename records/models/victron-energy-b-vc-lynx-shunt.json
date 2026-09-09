@@ -2,6 +2,7 @@
   "id": "victron-energy-b-vc-lynx-shunt",
   "manufacturer": "victron-energy",
   "name": "B-VC-LYNX-SHUNT",
+  "kind": "shunt-monitor",
   "aliases": [],
   "dialects": []
 }

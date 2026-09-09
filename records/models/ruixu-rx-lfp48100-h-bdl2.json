@@ -2,6 +2,7 @@
   "id": "ruixu-rx-lfp48100-h-bdl2",
   "manufacturer": "ruixu",
   "name": "RX-LFP48100-H-BDL2",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

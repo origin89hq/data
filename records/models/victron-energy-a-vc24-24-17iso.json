@@ -2,6 +2,7 @@
   "id": "victron-energy-a-vc24-24-17iso",
   "manufacturer": "victron-energy",
   "name": "A-VC24/24-17ISO",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

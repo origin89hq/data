@@ -2,6 +2,7 @@
   "id": "unirac-303019d",
   "manufacturer": "unirac",
   "name": "303019D",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

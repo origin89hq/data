@@ -2,6 +2,7 @@
   "id": "sunstar-solar-r-st-8cf",
   "manufacturer": "sunstar-solar",
   "name": "R-ST-8CF",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

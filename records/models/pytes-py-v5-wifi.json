@@ -2,6 +2,7 @@
   "id": "pytes-py-v5-wifi",
   "manufacturer": "pytes",
   "name": "PY-V5-WIFI",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

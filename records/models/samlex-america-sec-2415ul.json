@@ -2,6 +2,7 @@
   "id": "samlex-america-sec-2415ul",
   "manufacturer": "samlex-america",
   "name": "SEC-2415UL",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

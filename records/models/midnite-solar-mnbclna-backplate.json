@@ -2,6 +2,7 @@
   "id": "midnite-solar-mnbclna-backplate",
   "manufacturer": "midnite-solar",
   "name": "MNBCLNA BACKPLATE",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

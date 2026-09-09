@@ -2,6 +2,7 @@
   "id": "midnite-solar-disj-midnite-mnepv50",
   "manufacturer": "midnite-solar",
   "name": "DISJ-MIDNITE-MNEPV50",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

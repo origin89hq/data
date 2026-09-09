@@ -2,6 +2,7 @@
   "id": "pytes-py-vbox-oc",
   "manufacturer": "pytes",
   "name": "PY-VBOX-OC",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

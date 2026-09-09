@@ -2,6 +2,7 @@
   "id": "victron-energy-b-vc-lynxdist2",
   "manufacturer": "victron-energy",
   "name": "B-VC-LYNXDIST2",
+  "kind": "bms",
   "aliases": [],
   "dialects": []
 }

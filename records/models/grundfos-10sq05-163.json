@@ -2,6 +2,7 @@
   "id": "grundfos-10sq05-163",
   "manufacturer": "grundfos",
   "name": "10SQ05-163",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

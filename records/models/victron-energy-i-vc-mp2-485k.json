@@ -2,6 +2,7 @@
   "id": "victron-energy-i-vc-mp2-485k",
   "manufacturer": "victron-energy",
   "name": "I-VC-MP2-485K",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

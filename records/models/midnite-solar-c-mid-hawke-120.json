@@ -2,6 +2,7 @@
   "id": "midnite-solar-c-mid-hawke-120",
   "manufacturer": "midnite-solar",
   "name": "C-MID-HAWKE-120",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

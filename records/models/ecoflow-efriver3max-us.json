@@ -2,6 +2,7 @@
   "id": "ecoflow-efriver3max-us",
   "manufacturer": "ecoflow",
   "name": "EFRIVER3Max-US",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "kinetic-solar-kin-kgrgclp-b",
   "manufacturer": "kinetic-solar",
   "name": "KIN-KGRGCLP-B",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

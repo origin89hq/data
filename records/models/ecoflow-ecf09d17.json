@@ -2,6 +2,7 @@
   "id": "ecoflow-ecf09d17",
   "manufacturer": "ecoflow",
   "name": "ECF09D17",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

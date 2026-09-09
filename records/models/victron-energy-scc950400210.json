@@ -2,6 +2,7 @@
   "id": "victron-energy-scc950400210",
   "manufacturer": "victron-energy",
   "name": "SCC950400210",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

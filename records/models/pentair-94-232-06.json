@@ -2,6 +2,7 @@
   "id": "pentair-94-232-06",
   "manufacturer": "pentair",
   "name": "94-232-06",
+  "kind": "out-of-scope",
   "aliases": [
     "SFL-321-115"
   ],

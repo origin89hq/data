@@ -2,6 +2,7 @@
   "id": "victron-energy-c-vc-ss450100m",
   "manufacturer": "victron-energy",
   "name": "C-VC-SS450100M",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

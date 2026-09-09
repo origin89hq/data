@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "CHARG-DCDC-VIC-ORION-XS-1400",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "dc-dc-converter"
 }

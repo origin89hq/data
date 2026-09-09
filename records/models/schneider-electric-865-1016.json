@@ -2,6 +2,7 @@
   "id": "schneider-electric-865-1016",
   "manufacturer": "schneider-electric",
   "name": "865-1016",
+  "kind": "charge-controller",
   "aliases": [
     "CXT-222-127"
   ],

@@ -2,6 +2,7 @@
   "id": "victron-energy-mon-vic-gx-antenna-4g-wallmount",
   "manufacturer": "victron-energy",
   "name": "MON-VIC-GX-ANTENNA-4G-WALLMOUNT",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

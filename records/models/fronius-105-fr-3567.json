@@ -2,6 +2,7 @@
   "id": "fronius-105-fr-3567",
   "manufacturer": "fronius",
   "name": "105-FR-3567",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

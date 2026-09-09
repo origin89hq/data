@@ -2,6 +2,7 @@
   "id": "enphase-comms-kit-01",
   "manufacturer": "enphase",
   "name": "COMMS-KIT-01",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

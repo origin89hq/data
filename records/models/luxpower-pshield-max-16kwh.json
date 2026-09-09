@@ -2,6 +2,7 @@
   "id": "luxpower-pshield-max-16kwh",
   "manufacturer": "luxpower",
   "name": "PSHIELD-MAX-16KWH",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

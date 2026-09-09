@@ -2,6 +2,7 @@
   "id": "victron-energy-mon-vic-bmv-wall-mount",
   "manufacturer": "victron-energy",
   "name": "MON-VIC-BMV-WALL-MOUNT",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

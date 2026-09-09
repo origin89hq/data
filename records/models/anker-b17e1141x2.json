@@ -2,6 +2,7 @@
   "id": "anker-b17e1141x2",
   "manufacturer": "anker",
   "name": "B17E1141x2",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

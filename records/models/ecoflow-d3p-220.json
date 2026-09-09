@@ -2,6 +2,7 @@
   "id": "ecoflow-d3p-220",
   "manufacturer": "ecoflow",
   "name": "D3P-220",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

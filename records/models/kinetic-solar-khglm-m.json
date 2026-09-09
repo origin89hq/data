@@ -2,6 +2,7 @@
   "id": "kinetic-solar-khglm-m",
   "manufacturer": "kinetic-solar",
   "name": "KHGLM-M",
+  "kind": "charge-controller",
   "aliases": [
     "KIN-284-130"
   ],

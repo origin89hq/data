@@ -2,6 +2,7 @@
   "id": "victron-energy-isol-bat-vic-argofet-200-2",
   "manufacturer": "victron-energy",
   "name": "ISOL-BAT-VIC-ARGOFET-200-2",
+  "kind": "bms",
   "aliases": [],
   "dialects": []
 }

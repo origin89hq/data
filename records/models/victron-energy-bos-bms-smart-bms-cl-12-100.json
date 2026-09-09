@@ -2,6 +2,7 @@
   "id": "victron-energy-bos-bms-smart-bms-cl-12-100",
   "manufacturer": "victron-energy",
   "name": "BOS-BMS-SMART-BMS-CL-12-100",
+  "kind": "bms",
   "aliases": [],
   "dialects": []
 }

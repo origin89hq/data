@@ -2,6 +2,7 @@
   "id": "bluetti-bluetti-ac240p-double",
   "manufacturer": "bluetti",
   "name": "BLUETTI-AC240P-DOUBLE",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

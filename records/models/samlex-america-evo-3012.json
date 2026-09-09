@@ -2,6 +2,7 @@
   "id": "samlex-america-evo-3012",
   "manufacturer": "samlex-america",
   "name": "EVO-3012",
+  "kind": "inverter",
   "aliases": [],
   "dialects": [
     "samlex-evo-modbus-22xx-40xx",

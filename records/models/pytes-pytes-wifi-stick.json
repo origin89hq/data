@@ -2,6 +2,7 @@
   "id": "pytes-pytes-wifi-stick",
   "manufacturer": "pytes",
   "name": "PYTES-WIFI-STICK",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

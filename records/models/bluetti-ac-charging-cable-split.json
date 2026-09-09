@@ -2,6 +2,7 @@
   "id": "bluetti-ac-charging-cable-split",
   "manufacturer": "bluetti",
   "name": "AC-CHARGING-CABLE-SPLIT",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

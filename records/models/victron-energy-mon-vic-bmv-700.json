@@ -2,6 +2,7 @@
   "id": "victron-energy-mon-vic-bmv-700",
   "manufacturer": "victron-energy",
   "name": "MON-VIC-BMV-700",
+  "kind": "meter",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "seaflo-sea-cscap",
   "manufacturer": "seaflo",
   "name": "SEA-cscap",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

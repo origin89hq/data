@@ -11,12 +11,6 @@ export function classifierKey(id = CLASSIFIER_ID): string {
   return id.replace(/[^\w.-]+/g, "_");
 }
 
-/**
- * How many listings go into one model call. Ten, not twenty: the answers are matched to the
- * listings by position, and a long list is where a model starts skipping one.
- */
-export const CLASSIFY_BATCH = 10;
-
 const SYSTEM = `You classify product listings from off-grid energy retailers.
 
 Answer with one item per listing, in the same order as the numbered listings, and exactly as many items as there are listings. Never merge, skip or reorder listings.

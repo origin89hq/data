@@ -2,6 +2,7 @@
   "id": "midnite-solar-101-so-2604",
   "manufacturer": "midnite-solar",
   "name": "101-SO-2604",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

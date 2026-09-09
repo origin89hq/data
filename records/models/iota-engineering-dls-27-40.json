@@ -2,6 +2,7 @@
   "id": "iota-engineering-dls-27-40",
   "manufacturer": "iota-engineering",
   "name": "DLS-27/40",
+  "kind": "ac-charger",
   "aliases": [],
   "dialects": []
 }

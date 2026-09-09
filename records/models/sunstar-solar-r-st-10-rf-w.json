@@ -2,6 +2,7 @@
   "id": "sunstar-solar-r-st-10-rf-w",
   "manufacturer": "sunstar-solar",
   "name": "R-ST-10-RF-W",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

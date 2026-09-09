@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-20w-24i-12vdc-cool",
   "manufacturer": "the-cabin-depot",
   "name": "20W-24I-12VDC-COOL",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

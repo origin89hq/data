@@ -2,6 +2,7 @@
   "id": "blue-sea-systems-bs5187",
   "manufacturer": "blue-sea-systems",
   "name": "BS5187",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

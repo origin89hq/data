@@ -2,6 +2,7 @@
   "id": "srne-hp2410",
   "manufacturer": "srne",
   "name": "HP2410",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

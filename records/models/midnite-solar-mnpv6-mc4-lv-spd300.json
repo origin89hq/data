@@ -2,6 +2,7 @@
   "id": "midnite-solar-mnpv6-mc4-lv-spd300",
   "manufacturer": "midnite-solar",
   "name": "MNPV6-MC4-LV-SPD300",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

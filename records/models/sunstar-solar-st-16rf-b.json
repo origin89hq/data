@@ -2,6 +2,7 @@
   "id": "sunstar-solar-st-16rf-b",
   "manufacturer": "sunstar-solar",
   "name": "ST-16RF-B",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

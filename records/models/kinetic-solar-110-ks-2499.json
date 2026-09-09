@@ -2,6 +2,7 @@
   "id": "kinetic-solar-110-ks-2499",
   "manufacturer": "kinetic-solar",
   "name": "110-KS-2499",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "midnite-solar-mnpv6-mc4-lv",
   "manufacturer": "midnite-solar",
   "name": "MNPV6-MC4-LV",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

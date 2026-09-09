@@ -2,6 +2,7 @@
   "id": "iota-engineering-dls-15-iq5",
   "manufacturer": "iota-engineering",
   "name": "DLS-15/IQ5",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

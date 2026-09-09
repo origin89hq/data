@@ -2,6 +2,7 @@
   "id": "ecoflow-ef-rapid5000-l-us",
   "manufacturer": "ecoflow",
   "name": "EF-RAPID5000-L-US",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

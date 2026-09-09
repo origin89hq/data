@@ -2,6 +2,7 @@
   "id": "victron-energy-ond-vic-multiplus-ii-24v-5000w",
   "manufacturer": "victron-energy",
   "name": "OND-VIC-MULTIPLUS-II-24V/5000W",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

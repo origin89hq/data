@@ -2,6 +2,7 @@
   "id": "victron-energy-b-vc-lynx-pi-2",
   "manufacturer": "victron-energy",
   "name": "B-VC-LYNX-PI-2",
+  "kind": "bms",
   "aliases": [],
   "dialects": []
 }

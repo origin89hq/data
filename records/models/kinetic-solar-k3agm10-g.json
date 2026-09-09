@@ -2,6 +2,7 @@
   "id": "kinetic-solar-k3agm10-g",
   "manufacturer": "kinetic-solar",
   "name": "K3AGM10-G",
+  "kind": "battery",
   "aliases": [
     "XXX-XXX-263"
   ],

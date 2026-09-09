@@ -2,6 +2,7 @@
   "id": "victron-energy-mon-vic-smartshunt-300a",
   "manufacturer": "victron-energy",
   "name": "MON-VIC-SMARTSHUNT-300A",
+  "kind": "shunt-monitor",
   "aliases": [],
   "dialects": []
 }

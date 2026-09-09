@@ -2,6 +2,7 @@
   "id": "ecoflow-d3-xt60i",
   "manufacturer": "ecoflow",
   "name": "D3-XT60i",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "kinetic-solar-kin-k3agm12-g",
   "manufacturer": "kinetic-solar",
   "name": "KIN-K3AGM12-G",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

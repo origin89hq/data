@@ -2,6 +2,7 @@
   "id": "seaflo-51s01",
   "manufacturer": "seaflo",
   "name": "51S01",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

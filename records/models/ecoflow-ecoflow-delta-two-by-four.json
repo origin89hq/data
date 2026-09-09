@@ -2,6 +2,7 @@
   "id": "ecoflow-ecoflow-delta-two-by-four",
   "manufacturer": "ecoflow",
   "name": "ECOFLOW-DELTA-TWO-BY-FOUR",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

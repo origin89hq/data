@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-rmc-sc",
   "manufacturer": "the-cabin-depot",
   "name": "RMC-SC",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

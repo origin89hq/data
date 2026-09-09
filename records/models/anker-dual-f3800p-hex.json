@@ -2,6 +2,7 @@
   "id": "anker-dual-f3800p-hex",
   "manufacturer": "anker",
   "name": "DUAL-F3800P-HEX",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

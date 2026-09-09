@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-lvp-100w",
   "manufacturer": "the-cabin-depot",
   "name": "LVP-100W",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "sunstar-solar-st-15cf",
   "manufacturer": "sunstar-solar",
   "name": "ST-15CF",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "srne-srne-60a-mppt",
   "manufacturer": "srne",
   "name": "srne 60A mppt",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

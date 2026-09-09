@@ -2,6 +2,7 @@
   "id": "epever-mt-50",
   "manufacturer": "epever",
   "name": "MT-50",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "fronius-105-fr-2522",
   "manufacturer": "fronius",
   "name": "105-FR-2522",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

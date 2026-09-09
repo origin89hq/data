@@ -2,6 +2,7 @@
   "id": "victron-energy-sdfi0000110",
   "manufacturer": "victron-energy",
   "name": "SDFI0000110",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

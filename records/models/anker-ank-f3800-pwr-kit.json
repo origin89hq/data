@@ -2,6 +2,7 @@
   "id": "anker-ank-f3800-pwr-kit",
   "manufacturer": "anker",
   "name": "ANK-F3800-PWR-KIT",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

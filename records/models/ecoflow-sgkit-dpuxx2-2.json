@@ -2,6 +2,7 @@
   "id": "ecoflow-sgkit-dpuxx2-2",
   "manufacturer": "ecoflow",
   "name": "SGKIT-DPUXx2-2",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

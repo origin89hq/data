@@ -2,6 +2,7 @@
   "id": "unique-appliances-ugp-r30oclpss",
   "manufacturer": "unique-appliances",
   "name": "UGP-R30OCLPSS",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

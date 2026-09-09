@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-tcd-mc4c-5-pair-bdl",
   "manufacturer": "the-cabin-depot",
   "name": "TCD-mc4c(5 pair)bdl",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

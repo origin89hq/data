@@ -2,6 +2,7 @@
   "id": "victron-energy-bpr065022000",
   "manufacturer": "victron-energy",
   "name": "BPR065022000",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

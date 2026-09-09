@@ -2,6 +2,7 @@
   "id": "ecoflow-efsolar125w-2",
   "manufacturer": "ecoflow",
   "name": "EFSOLAR125W-2",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

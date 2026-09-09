@@ -2,6 +2,7 @@
   "id": "anker-g-ak-3800",
   "manufacturer": "anker",
   "name": "G-AK-3800",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

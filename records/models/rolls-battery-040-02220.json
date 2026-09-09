@@ -2,6 +2,7 @@
   "id": "rolls-battery-040-02220",
   "manufacturer": "rolls-battery",
   "name": "040-02220",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

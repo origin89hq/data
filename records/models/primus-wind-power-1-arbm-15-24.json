@@ -2,6 +2,7 @@
   "id": "primus-wind-power-1-arbm-15-24",
   "manufacturer": "primus-wind-power",
   "name": "1-ARBM-15-24",
+  "kind": "generator",
   "aliases": [],
   "dialects": []
 }

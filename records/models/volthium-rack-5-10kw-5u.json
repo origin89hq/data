@@ -2,6 +2,7 @@
   "id": "volthium-rack-5-10kw-5u",
   "manufacturer": "volthium",
   "name": "Rack-5-10KW-5U",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

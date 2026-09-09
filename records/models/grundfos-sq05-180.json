@@ -2,6 +2,7 @@
   "id": "grundfos-sq05-180",
   "manufacturer": "grundfos",
   "name": "SQ05-180",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "vosker-v-ant01",
   "manufacturer": "vosker",
   "name": "V-ANT01",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

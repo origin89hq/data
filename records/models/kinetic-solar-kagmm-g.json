@@ -2,6 +2,7 @@
   "id": "kinetic-solar-kagmm-g",
   "manufacturer": "kinetic-solar",
   "name": "KAGMM-G",
+  "kind": "battery",
   "aliases": [
     "KIN-284-217"
   ],

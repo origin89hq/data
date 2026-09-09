@@ -2,6 +2,7 @@
   "id": "victron-energy-c-vc-ss100-030",
   "manufacturer": "victron-energy",
   "name": "C-VC-SS100-030",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

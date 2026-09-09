@@ -2,6 +2,7 @@
   "id": "ecoflow-efdeltaproux-us-4eb",
   "manufacturer": "ecoflow",
   "name": "EFDELTAPROUX-US-4EB",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

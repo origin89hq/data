@@ -2,6 +2,7 @@
   "id": "east-penn-dek-bps",
   "manufacturer": "east-penn",
   "name": "DEK-bps",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "bluetti-a-pab-huba1-0370",
   "manufacturer": "bluetti",
   "name": "A-PAB-HUBA1-0370",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

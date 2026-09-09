@@ -2,6 +2,7 @@
   "id": "ecoflow-3efdeltaproux-us-15eb",
   "manufacturer": "ecoflow",
   "name": "3EFDELTAPROUX-US-15EB",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

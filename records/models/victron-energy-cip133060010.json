@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "CIP133060010",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

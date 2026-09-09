@@ -2,6 +2,7 @@
   "id": "magnum-energy-magn-00341",
   "manufacturer": "magnum-energy",
   "name": "MAGN-00341",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

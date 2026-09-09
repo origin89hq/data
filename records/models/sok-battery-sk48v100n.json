@@ -2,6 +2,7 @@
   "id": "sok-battery-sk48v100n",
   "manufacturer": "sok-battery",
   "name": "SK48V100N",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

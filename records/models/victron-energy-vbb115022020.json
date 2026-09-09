@@ -2,6 +2,7 @@
   "id": "victron-energy-vbb115022020",
   "manufacturer": "victron-energy",
   "name": "VBB115022020",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

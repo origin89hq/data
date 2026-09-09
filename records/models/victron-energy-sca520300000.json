@@ -2,6 +2,7 @@
   "id": "victron-energy-sca520300000",
   "manufacturer": "victron-energy",
   "name": "SCA520300000",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "midnite-solar-mngp-dummy",
   "manufacturer": "midnite-solar",
   "name": "MNGP DUMMY",
+  "kind": "out-of-scope",
   "aliases": [
     "MID-161-253"
   ],

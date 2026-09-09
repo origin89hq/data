@@ -2,6 +2,7 @@
   "id": "midnite-solar-i-mid-rosie-ep",
   "manufacturer": "midnite-solar",
   "name": "I-MID-ROSIE-EP",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

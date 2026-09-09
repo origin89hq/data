@@ -2,6 +2,7 @@
   "id": "volthium-vlt-181-127",
   "manufacturer": "volthium",
   "name": "VLT-181-127",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

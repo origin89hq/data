@@ -2,6 +2,7 @@
   "id": "midnite-solar-mnwrench",
   "manufacturer": "midnite-solar",
   "name": "MNWRENCH",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

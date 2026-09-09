@@ -2,6 +2,7 @@
   "id": "ecoflow-deltaprocc-lv",
   "manufacturer": "ecoflow",
   "name": "DELTAProCC-LV",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

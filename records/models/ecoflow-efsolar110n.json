@@ -2,6 +2,7 @@
   "id": "ecoflow-efsolar110n",
   "manufacturer": "ecoflow",
   "name": "EFSOLAR110N",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

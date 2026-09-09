@@ -2,6 +2,7 @@
   "id": "victron-energy-cip138080020",
   "manufacturer": "victron-energy",
   "name": "CIP138080020",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

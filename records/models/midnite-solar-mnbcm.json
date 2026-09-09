@@ -2,6 +2,7 @@
   "id": "midnite-solar-mnbcm",
   "manufacturer": "midnite-solar",
   "name": "MNBCM",
+  "kind": "out-of-scope",
   "aliases": [
     "MID-181-101"
   ],

@@ -2,6 +2,7 @@
   "id": "victron-energy-arg080201000",
   "manufacturer": "victron-energy",
   "name": "ARG080201000",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

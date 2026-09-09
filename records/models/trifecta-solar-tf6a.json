@@ -2,6 +2,7 @@
   "id": "trifecta-solar-tf6a",
   "manufacturer": "trifecta-solar",
   "name": "TF6A",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

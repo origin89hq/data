@@ -2,6 +2,7 @@
   "id": "ecoflow-zmr330eb",
   "manufacturer": "ecoflow",
   "name": "ZMR330EB",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

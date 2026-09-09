@@ -2,6 +2,7 @@
   "id": "victron-energy-transf-vic-autotransfo-115v-230v-3600w",
   "manufacturer": "victron-energy",
   "name": "TRANSF-VIC-AUTOTRANSFO-115V-230V-3600W",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

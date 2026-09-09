@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "CIP132080010",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

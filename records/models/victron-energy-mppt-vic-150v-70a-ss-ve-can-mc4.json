@@ -2,6 +2,7 @@
   "id": "victron-energy-mppt-vic-150v-70a-ss-ve-can-mc4",
   "manufacturer": "victron-energy",
   "name": "MPPT-VIC-150V/70A-SS-VE.CAN-MC4",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

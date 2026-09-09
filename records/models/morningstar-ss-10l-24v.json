@@ -2,6 +2,7 @@
   "id": "morningstar-ss-10l-24v",
   "manufacturer": "morningstar",
   "name": "SS-10L-24V",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

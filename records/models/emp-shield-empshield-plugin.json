@@ -2,6 +2,7 @@
   "id": "emp-shield-empshield-plugin",
   "manufacturer": "emp-shield",
   "name": "EMPSHIELD-PLUGIN",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

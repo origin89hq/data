@@ -2,6 +2,7 @@
   "id": "unique-appliances-ugp-dl20001077",
   "manufacturer": "unique-appliances",
   "name": "UGP-DL20001077",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

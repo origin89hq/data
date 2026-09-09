@@ -2,6 +2,7 @@
   "id": "ecoflow-d3up-d3mpeb",
   "manufacturer": "ecoflow",
   "name": "D3UP-D3MPEB",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

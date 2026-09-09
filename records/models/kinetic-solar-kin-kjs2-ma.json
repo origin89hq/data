@@ -2,6 +2,7 @@
   "id": "kinetic-solar-kin-kjs2-ma",
   "manufacturer": "kinetic-solar",
   "name": "KIN-KJS2-MA",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

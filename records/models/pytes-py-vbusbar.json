@@ -2,6 +2,7 @@
   "id": "pytes-py-vbusbar",
   "manufacturer": "pytes",
   "name": "PY-VBUSBAR",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

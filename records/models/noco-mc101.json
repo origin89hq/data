@@ -2,6 +2,7 @@
   "id": "noco-mc101",
   "manufacturer": "noco",
   "name": "MC101",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": [
     "noco-out-of-scope"

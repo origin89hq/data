@@ -2,6 +2,7 @@
   "id": "magnum-energy-mp-ccb",
   "manufacturer": "magnum-energy",
   "name": "MP-CCB",
+  "kind": "out-of-scope",
   "aliases": [
     "MAG-161-194"
   ],

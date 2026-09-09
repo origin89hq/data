@@ -2,6 +2,7 @@
   "id": "noco-geniuspro25",
   "manufacturer": "noco",
   "name": "GENIUSPRO25",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": [
     "noco-geniuspro"

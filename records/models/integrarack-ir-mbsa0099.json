@@ -2,6 +2,7 @@
   "id": "integrarack-ir-mbsa0099",
   "manufacturer": "integrarack",
   "name": "IR-MBSA0099",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

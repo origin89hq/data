@@ -2,6 +2,7 @@
   "id": "primus-wind-power-1-tww-12-02",
   "manufacturer": "primus-wind-power",
   "name": "1-TWW-12-02",
+  "kind": "generator",
   "aliases": [
     "PWP-345-107"
   ],

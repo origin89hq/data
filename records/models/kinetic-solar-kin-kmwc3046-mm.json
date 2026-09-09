@@ -2,6 +2,7 @@
   "id": "kinetic-solar-kin-kmwc3046-mm",
   "manufacturer": "kinetic-solar",
   "name": "KIN-KMWC3046-MM",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

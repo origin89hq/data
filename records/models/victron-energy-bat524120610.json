@@ -2,6 +2,7 @@
   "id": "victron-energy-bat524120610",
   "manufacturer": "victron-energy",
   "name": "BAT524120610",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

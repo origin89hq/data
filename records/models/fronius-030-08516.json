@@ -2,6 +2,7 @@
   "id": "fronius-030-08516",
   "manufacturer": "fronius",
   "name": "030-08516",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

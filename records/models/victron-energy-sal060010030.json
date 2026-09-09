@@ -2,6 +2,7 @@
   "id": "victron-energy-sal060010030",
   "manufacturer": "victron-energy",
   "name": "SAL060010030",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

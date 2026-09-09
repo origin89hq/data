@@ -2,6 +2,7 @@
   "id": "ecoflow-efdphpk",
   "manufacturer": "ecoflow",
   "name": "EFDPHPK",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

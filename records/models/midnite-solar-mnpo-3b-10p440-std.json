@@ -2,6 +2,7 @@
   "id": "midnite-solar-mnpo-3b-10p440-std",
   "manufacturer": "midnite-solar",
   "name": "MNPO-3B-10P440-STD",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

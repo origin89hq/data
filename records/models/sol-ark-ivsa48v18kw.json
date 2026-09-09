@@ -2,6 +2,7 @@
   "id": "sol-ark-ivsa48v18kw",
   "manufacturer": "sol-ark",
   "name": "IVSA48V18KW",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

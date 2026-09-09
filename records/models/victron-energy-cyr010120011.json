@@ -2,6 +2,7 @@
   "id": "victron-energy-cyr010120011",
   "manufacturer": "victron-energy",
   "name": "CYR010120011",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

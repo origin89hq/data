@@ -2,6 +2,7 @@
   "id": "ecoflow-d3mp-800wa",
   "manufacturer": "ecoflow",
   "name": "D3MP-800WA",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

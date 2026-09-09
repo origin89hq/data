@@ -2,6 +2,7 @@
   "id": "east-penn-8gu1h",
   "manufacturer": "east-penn",
   "name": "8GU1H",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

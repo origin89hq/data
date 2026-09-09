@@ -2,6 +2,7 @@
   "id": "bluetti-bluetti-apex300-nomad",
   "manufacturer": "bluetti",
   "name": "BLUETTI-APEX300-NOMAD",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

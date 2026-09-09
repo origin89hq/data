@@ -2,6 +2,7 @@
   "id": "ecoflow-ecoflow-delta-2-max-double",
   "manufacturer": "ecoflow",
   "name": "ECOFLOW-DELTA-2-MAX-DOUBLE",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

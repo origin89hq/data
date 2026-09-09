@@ -2,6 +2,7 @@
   "id": "ecoflow-d3up-400wsp-2",
   "manufacturer": "ecoflow",
   "name": "D3UP-400WSP-2",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "anker-b17831a1",
   "manufacturer": "anker",
   "name": "B17831A1",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

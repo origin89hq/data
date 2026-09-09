@@ -2,6 +2,7 @@
   "id": "volthium-51-2-200-r-h",
   "manufacturer": "volthium",
   "name": "51.2-200-R-H",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

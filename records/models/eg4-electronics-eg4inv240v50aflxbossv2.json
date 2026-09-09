@@ -2,6 +2,7 @@
   "id": "eg4-electronics-eg4inv240v50aflxbossv2",
   "manufacturer": "eg4-electronics",
   "name": "EG4INV240V50AFLXBOSSV2",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

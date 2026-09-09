@@ -2,6 +2,7 @@
   "id": "ruixu-ruixu-inverter-cable-2",
   "manufacturer": "ruixu",
   "name": "ruixu-inverter-cable-2",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

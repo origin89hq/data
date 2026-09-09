@@ -2,6 +2,7 @@
   "id": "anker-e10-dual-6",
   "manufacturer": "anker",
   "name": "E10-DUAL-6",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

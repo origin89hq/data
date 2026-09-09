@@ -2,6 +2,7 @@
   "id": "victron-energy-bam030712200",
   "manufacturer": "victron-energy",
   "name": "BAM030712200",
+  "kind": "bms",
   "aliases": [],
   "dialects": []
 }

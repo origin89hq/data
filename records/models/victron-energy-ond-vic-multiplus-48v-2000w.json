@@ -2,6 +2,7 @@
   "id": "victron-energy-ond-vic-multiplus-48v-2000w",
   "manufacturer": "victron-energy",
   "name": "OND-VIC-MULTIPLUS-48V/2000W",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

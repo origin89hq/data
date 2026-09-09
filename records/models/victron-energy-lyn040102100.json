@@ -2,6 +2,7 @@
   "id": "victron-energy-lyn040102100",
   "manufacturer": "victron-energy",
   "name": "LYN040102100",
+  "kind": "out-of-scope",
   "aliases": [
     "VIC-181-181"
   ],

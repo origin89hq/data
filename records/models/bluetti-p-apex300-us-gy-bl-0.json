@@ -2,6 +2,7 @@
   "id": "bluetti-p-apex300-us-gy-bl-0",
   "manufacturer": "bluetti",
   "name": "P-APEX300-US-GY-BL-0",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

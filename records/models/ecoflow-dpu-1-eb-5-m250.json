@@ -2,6 +2,7 @@
   "id": "ecoflow-dpu-1-eb-5-m250",
   "manufacturer": "ecoflow",
   "name": "DPU-1-EB-5-M250",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "grundfos-15sqf290x6-ps",
   "manufacturer": "grundfos",
   "name": "15sqf290x6-ps",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

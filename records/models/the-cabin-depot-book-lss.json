@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-book-lss",
   "manufacturer": "the-cabin-depot",
   "name": "BOOK-lss",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-tcd-12-2awg-g",
   "manufacturer": "the-cabin-depot",
   "name": "TCD-12/2awg+g",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

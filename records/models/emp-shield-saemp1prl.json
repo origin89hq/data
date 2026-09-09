@@ -2,6 +2,7 @@
   "id": "emp-shield-saemp1prl",
   "manufacturer": "emp-shield",
   "name": "SAEMP1PRL",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

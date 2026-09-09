@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-kopt-c",
   "manufacturer": "the-cabin-depot",
   "name": "KOPT-C",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

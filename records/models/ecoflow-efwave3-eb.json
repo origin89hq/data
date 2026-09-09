@@ -2,6 +2,7 @@
   "id": "ecoflow-efwave3-eb",
   "manufacturer": "ecoflow",
   "name": "EFWAVE3-EB",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

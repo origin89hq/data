@@ -2,6 +2,7 @@
   "id": "sol-ark-105-sa-2597",
   "manufacturer": "sol-ark",
   "name": "105-SA-2597",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

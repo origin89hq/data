@@ -2,6 +2,7 @@
   "id": "enphase-en-q-term-end",
   "manufacturer": "enphase",
   "name": "EN-Q-TERM-END",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

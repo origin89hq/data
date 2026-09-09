@@ -2,6 +2,7 @@
   "id": "epever-mt75-remote",
   "manufacturer": "epever",
   "name": "MT75 Remote",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

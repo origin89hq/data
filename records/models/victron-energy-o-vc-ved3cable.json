@@ -2,6 +2,7 @@
   "id": "victron-energy-o-vc-ved3cable",
   "manufacturer": "victron-energy",
   "name": "O-VC-VED3CABLE",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

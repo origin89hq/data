@@ -2,6 +2,7 @@
   "id": "ecoflow-ecoflow-delta-pro-advanced-kit",
   "manufacturer": "ecoflow",
   "name": "ECOFLOW-DELTA-PRO-ADVANCED-KIT",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

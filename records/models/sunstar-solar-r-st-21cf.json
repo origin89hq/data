@@ -2,6 +2,7 @@
   "id": "sunstar-solar-r-st-21cf",
   "manufacturer": "sunstar-solar",
   "name": "R-ST-21CF",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

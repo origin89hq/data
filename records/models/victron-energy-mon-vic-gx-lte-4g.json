@@ -2,6 +2,7 @@
   "id": "victron-energy-mon-vic-gx-lte-4g",
   "manufacturer": "victron-energy",
   "name": "MON-VIC-GX-LTE-4G",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

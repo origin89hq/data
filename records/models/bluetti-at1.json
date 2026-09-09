@@ -2,6 +2,7 @@
   "id": "bluetti-at1",
   "manufacturer": "bluetti",
   "name": "AT1",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

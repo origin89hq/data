@@ -2,6 +2,7 @@
   "id": "midnite-solar-mnlbc",
   "manufacturer": "midnite-solar",
   "name": "MNLBC",
+  "kind": "bms",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "victron-energy-scc010005010",
   "manufacturer": "victron-energy",
   "name": "SCC010005010",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

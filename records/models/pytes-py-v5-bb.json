@@ -2,6 +2,7 @@
   "id": "pytes-py-v5-bb",
   "manufacturer": "pytes",
   "name": "PY-V5-BB",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

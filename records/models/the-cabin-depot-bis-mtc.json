@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-bis-mtc",
   "manufacturer": "the-cabin-depot",
   "name": "BIS-mtc",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

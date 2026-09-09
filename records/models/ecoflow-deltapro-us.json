@@ -2,6 +2,7 @@
   "id": "ecoflow-deltapro-us",
   "manufacturer": "ecoflow",
   "name": "DELTAPro-US",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

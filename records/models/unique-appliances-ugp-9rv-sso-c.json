@@ -2,6 +2,7 @@
   "id": "unique-appliances-ugp-9rv-sso-c",
   "manufacturer": "unique-appliances",
   "name": "UGP-9RV-SSO-C",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

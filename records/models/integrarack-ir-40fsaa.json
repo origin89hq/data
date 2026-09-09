@@ -2,6 +2,7 @@
   "id": "integrarack-ir-40fsaa",
   "manufacturer": "integrarack",
   "name": "IR-40FSAA",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

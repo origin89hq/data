@@ -2,6 +2,7 @@
   "id": "abb-saabms200au",
   "manufacturer": "abb",
   "name": "SAABMS200AU",
+  "kind": "bms",
   "aliases": [],
   "dialects": []
 }

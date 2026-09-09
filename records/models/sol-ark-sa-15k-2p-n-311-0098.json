@@ -2,6 +2,7 @@
   "id": "sol-ark-sa-15k-2p-n-311-0098",
   "manufacturer": "sol-ark",
   "name": "SA-15K-2P-N 311-0098",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "outback-power-fm100-300vdc-afci",
   "manufacturer": "outback-power",
   "name": "FM100-300VDC-AFCI",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

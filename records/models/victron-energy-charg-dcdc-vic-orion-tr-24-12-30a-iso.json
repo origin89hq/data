@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "CHARG-DCDC-VIC-ORION-TR-24/12-30A-ISO",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "dc-dc-converter"
 }

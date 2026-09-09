@@ -2,6 +2,7 @@
   "id": "morningstar-104-ms-2123",
   "manufacturer": "morningstar",
   "name": "104-MS-2123",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

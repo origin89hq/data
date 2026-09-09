@@ -2,6 +2,7 @@
   "id": "ecoflow-ef-pkc",
   "manufacturer": "ecoflow",
   "name": "EF-PKC",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

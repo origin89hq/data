@@ -2,6 +2,7 @@
   "id": "victron-energy-itr000100052",
   "manufacturer": "victron-energy",
   "name": "ITR000100052",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

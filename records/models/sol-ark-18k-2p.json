@@ -2,6 +2,7 @@
   "id": "sol-ark-18k-2p",
   "manufacturer": "sol-ark",
   "name": "18K-2P",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": [
     "solark-18k-2p-unknown",

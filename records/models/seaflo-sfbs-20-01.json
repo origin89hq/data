@@ -2,6 +2,7 @@
   "id": "seaflo-sfbs-20-01",
   "manufacturer": "seaflo",
   "name": "SFBS-20-01",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

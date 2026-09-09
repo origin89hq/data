@@ -2,6 +2,7 @@
   "id": "ecoflow-ecoflow-river-pro-basecamp",
   "manufacturer": "ecoflow",
   "name": "ECOFLOW-RIVER-PRO-BASECAMP",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "grundfos-075-01027-wc",
   "manufacturer": "grundfos",
   "name": "075-01027-WC",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

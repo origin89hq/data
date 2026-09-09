@@ -2,6 +2,7 @@
   "id": "outback-power-030-04267",
   "manufacturer": "outback-power",
   "name": "030-04267",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

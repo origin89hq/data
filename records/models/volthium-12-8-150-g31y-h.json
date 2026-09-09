@@ -2,6 +2,7 @@
   "id": "volthium-12-8-150-g31y-h",
   "manufacturer": "volthium",
   "name": "12.8-150-G31Y-H",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

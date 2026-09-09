@@ -2,6 +2,7 @@
   "id": "midnite-solar-c-mid-kid-b",
   "manufacturer": "midnite-solar",
   "name": "C-MID-KID-B",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

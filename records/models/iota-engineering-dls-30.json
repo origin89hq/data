@@ -2,6 +2,7 @@
   "id": "iota-engineering-dls-30",
   "manufacturer": "iota-engineering",
   "name": "DLS-30",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

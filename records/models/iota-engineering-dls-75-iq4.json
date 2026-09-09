@@ -2,6 +2,7 @@
   "id": "iota-engineering-dls-75-iq4",
   "manufacturer": "iota-engineering",
   "name": "DLS-75/IQ4",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

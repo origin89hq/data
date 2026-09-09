@@ -2,6 +2,7 @@
   "id": "eg4-electronics-eg412kpv8lv",
   "manufacturer": "eg4-electronics",
   "name": "EG412KPV8LV",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

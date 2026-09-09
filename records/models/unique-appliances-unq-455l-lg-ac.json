@@ -2,6 +2,7 @@
   "id": "unique-appliances-unq-455l-lg-ac",
   "manufacturer": "unique-appliances",
   "name": "UNQ-455L LG AC",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

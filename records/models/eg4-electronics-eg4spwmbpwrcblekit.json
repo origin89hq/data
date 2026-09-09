@@ -2,6 +2,7 @@
   "id": "eg4-electronics-eg4spwmbpwrcblekit",
   "manufacturer": "eg4-electronics",
   "name": "EG4SPWMBPWRCBLEKIT",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

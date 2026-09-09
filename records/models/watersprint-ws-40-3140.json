@@ -2,6 +2,7 @@
   "id": "watersprint-ws-40-3140",
   "manufacturer": "watersprint",
   "name": "WS-40-3140",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

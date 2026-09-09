@@ -2,6 +2,7 @@
   "id": "firman-1009",
   "manufacturer": "firman",
   "name": "1009",
+  "kind": "generator",
   "aliases": [],
   "dialects": []
 }

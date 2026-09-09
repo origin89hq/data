@@ -2,6 +2,7 @@
   "id": "srne-rm-5",
   "manufacturer": "srne",
   "name": "RM-5",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

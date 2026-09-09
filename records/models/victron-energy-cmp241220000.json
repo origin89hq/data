@@ -2,6 +2,7 @@
   "id": "victron-energy-cmp241220000",
   "manufacturer": "victron-energy",
   "name": "CMP241220000",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

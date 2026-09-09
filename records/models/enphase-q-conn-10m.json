@@ -2,6 +2,7 @@
   "id": "enphase-q-conn-10m",
   "manufacturer": "enphase",
   "name": "Q-CONN-10M",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

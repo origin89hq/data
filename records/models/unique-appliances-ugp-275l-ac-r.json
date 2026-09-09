@@ -2,6 +2,7 @@
   "id": "unique-appliances-ugp-275l-ac-r",
   "manufacturer": "unique-appliances",
   "name": "UGP-275L AC R",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

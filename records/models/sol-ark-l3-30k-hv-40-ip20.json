@@ -2,6 +2,7 @@
   "id": "sol-ark-l3-30k-hv-40-ip20",
   "manufacturer": "sol-ark",
   "name": "L3 30K-HV-40-IP20",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

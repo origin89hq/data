@@ -2,6 +2,7 @@
   "id": "victron-energy-isol-bat-vic-cyrix-ct-230a",
   "manufacturer": "victron-energy",
   "name": "ISOL-BAT-VIC-CYRIX-CT-230A",
+  "kind": "bms",
   "aliases": [],
   "dialects": []
 }

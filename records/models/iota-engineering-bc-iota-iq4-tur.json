@@ -2,6 +2,7 @@
   "id": "iota-engineering-bc-iota-iq4-tur",
   "manufacturer": "iota-engineering",
   "name": "BC-IOTA-IQ4-TUR",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

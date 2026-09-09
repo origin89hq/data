@@ -2,6 +2,7 @@
   "id": "ecoflow-efp-dp-end-kit",
   "manufacturer": "ecoflow",
   "name": "EFP-DP-END-KIT",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

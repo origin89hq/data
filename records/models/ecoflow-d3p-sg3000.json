@@ -2,6 +2,7 @@
   "id": "ecoflow-d3p-sg3000",
   "manufacturer": "ecoflow",
   "name": "D3P-SG3000",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

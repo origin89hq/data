@@ -2,6 +2,7 @@
   "id": "sol-ark-sark-12k-7-20-4-dsc-c",
   "manufacturer": "sol-ark",
   "name": "SARK-12K-7-20.4-DSC-C",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

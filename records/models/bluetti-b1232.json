@@ -2,6 +2,7 @@
   "id": "bluetti-b1232",
   "manufacturer": "bluetti",
   "name": "B1232",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

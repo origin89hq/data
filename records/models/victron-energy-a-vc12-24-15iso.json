@@ -2,6 +2,7 @@
   "id": "victron-energy-a-vc12-24-15iso",
   "manufacturer": "victron-energy",
   "name": "A-VC12/24-15ISO",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

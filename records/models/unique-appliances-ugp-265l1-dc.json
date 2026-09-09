@@ -2,6 +2,7 @@
   "id": "unique-appliances-ugp-265l1-dc",
   "manufacturer": "unique-appliances",
   "name": "UGP-265L1 DC",
+  "kind": "out-of-scope",
   "aliases": [
     "UNQ-202-111"
   ],

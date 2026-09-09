@@ -2,6 +2,7 @@
   "id": "ecoflow-zmm100-combo1-us",
   "manufacturer": "ecoflow",
   "name": "ZMM100-Combo1-US",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

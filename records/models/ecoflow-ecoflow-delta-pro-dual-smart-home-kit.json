@@ -2,6 +2,7 @@
   "id": "ecoflow-ecoflow-delta-pro-dual-smart-home-kit",
   "manufacturer": "ecoflow",
   "name": "ECOFLOW-DELTA-PRO-DUAL-SMART-HOME-KIT",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "victron-energy-sdtg2400801",
   "manufacturer": "victron-energy",
   "name": "SDTG2400801",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

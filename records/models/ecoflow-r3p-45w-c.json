@@ -2,6 +2,7 @@
   "id": "ecoflow-r3p-45w-c",
   "manufacturer": "ecoflow",
   "name": "R3P-45W-C",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

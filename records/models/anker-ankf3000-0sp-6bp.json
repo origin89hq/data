@@ -2,6 +2,7 @@
   "id": "anker-ankf3000-0sp-6bp",
   "manufacturer": "anker",
   "name": "ANKF3000-0SP-6BP",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

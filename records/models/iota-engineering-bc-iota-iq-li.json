@@ -2,6 +2,7 @@
   "id": "iota-engineering-bc-iota-iq-li",
   "manufacturer": "iota-engineering",
   "name": "BC-IOTA-IQ-LI",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

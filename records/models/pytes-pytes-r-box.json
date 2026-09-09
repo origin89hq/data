@@ -2,6 +2,7 @@
   "id": "pytes-pytes-r-box",
   "manufacturer": "pytes",
   "name": "PYTES-R-BOX",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

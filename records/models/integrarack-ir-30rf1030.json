@@ -2,6 +2,7 @@
   "id": "integrarack-ir-30rf1030",
   "manufacturer": "integrarack",
   "name": "IR-30RF1030",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

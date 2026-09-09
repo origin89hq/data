@@ -2,6 +2,7 @@
   "id": "bluetti-bluetti-ac200pl-nomad",
   "manufacturer": "bluetti",
   "name": "BLUETTI-AC200PL-NOMAD",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

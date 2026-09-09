@@ -2,6 +2,7 @@
   "id": "samlex-america-sts-30",
   "manufacturer": "samlex-america",
   "name": "STS-30",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

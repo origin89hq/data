@@ -2,6 +2,7 @@
   "id": "kinetic-solar-106-ks-0006",
   "manufacturer": "kinetic-solar",
   "name": "106-KS-0006",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

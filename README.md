@@ -167,10 +167,18 @@ committed `scraper/sellers.json`.
   sellers on Shopify or WooCommerce.
 - **`PageCrawl`** discovers product URLs from the sitemap and reads each page's
   own JSON-LD or microdata, for the 7 on BigCommerce, Magento or neither.
-- **`ClassifySightings`** reads a finished crawl back and asks Workers AI, ten
-  listings per step, what each one is.
 - **`ManufacturerCrawl`** is hop two: it finds the documents a maker publishes,
   writes what it would fetch, and waits for a person to approve it.
+
+Everything that merely fans out is on a queue instead: classifying a batch of
+listings, converting a document, reading one. Those were workflow steps once,
+which meant five hundred model calls running strictly one after another inside a
+single instance — durable, and half an hour of wall clock for work that shares
+nothing. A queue runs them concurrently, retries each message on its own, and
+puts what never works into a dead-letter queue where it can be looked at.
+
+The rule that sorts them: a workflow is for a sequence with a wait in it, and a
+queue is for work with no order between its units.
 
 Each writes to R2 as JSONL with a manifest last, so a reader that finds a
 manifest knows the run finished. A weekly cron starts one instance per seller;

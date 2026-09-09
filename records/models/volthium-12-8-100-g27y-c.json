@@ -2,6 +2,7 @@
   "id": "volthium-12-8-100-g27y-c",
   "manufacturer": "volthium",
   "name": "12.8-100-G27Y-C",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

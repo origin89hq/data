@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-bom-t",
   "manufacturer": "the-cabin-depot",
   "name": "BOM-t",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

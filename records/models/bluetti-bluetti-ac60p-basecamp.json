@@ -2,6 +2,7 @@
   "id": "bluetti-bluetti-ac60p-basecamp",
   "manufacturer": "bluetti",
   "name": "BLUETTI-AC60P-BASECAMP",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

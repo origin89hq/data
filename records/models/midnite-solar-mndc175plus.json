@@ -2,6 +2,7 @@
   "id": "midnite-solar-mndc175plus",
   "manufacturer": "midnite-solar",
   "name": "MNDC175PLUS",
+  "kind": "dc-dc-converter",
   "aliases": [],
   "dialects": []
 }

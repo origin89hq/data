@@ -2,6 +2,7 @@
   "id": "ecoflow-zydkt210-us-dm2000",
   "manufacturer": "ecoflow",
   "name": "ZYDKT210-US-DM2000",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

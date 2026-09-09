@@ -2,6 +2,7 @@
   "id": "enphase-en-q-disc-tool",
   "manufacturer": "enphase",
   "name": "EN-Q-DISC-TOOL",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

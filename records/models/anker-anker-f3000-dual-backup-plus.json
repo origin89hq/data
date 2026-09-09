@@ -2,6 +2,7 @@
   "id": "anker-anker-f3000-dual-backup-plus",
   "manufacturer": "anker",
   "name": "ANKER-F3000-DUAL-BACKUP-PLUS",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

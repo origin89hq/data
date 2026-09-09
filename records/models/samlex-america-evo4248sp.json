@@ -2,6 +2,7 @@
   "id": "samlex-america-evo4248sp",
   "manufacturer": "samlex-america",
   "name": "EVO4248SP",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

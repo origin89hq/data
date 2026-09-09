@@ -2,6 +2,7 @@
   "id": "morningstar-104-ms-2381",
   "manufacturer": "morningstar",
   "name": "104-MS-2381",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

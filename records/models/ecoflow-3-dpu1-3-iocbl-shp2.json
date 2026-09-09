@@ -2,6 +2,7 @@
   "id": "ecoflow-3-dpu1-3-iocbl-shp2",
   "manufacturer": "ecoflow",
   "name": "3-DPU1-3-IOCBL-SHP2",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

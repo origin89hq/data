@@ -2,6 +2,7 @@
   "id": "victron-energy-i-vc-mk3-usb",
   "manufacturer": "victron-energy",
   "name": "I-VC-MK3-USB",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

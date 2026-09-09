@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-cpbook",
   "manufacturer": "the-cabin-depot",
   "name": "CPBOOK",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

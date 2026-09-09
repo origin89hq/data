@@ -2,6 +2,7 @@
   "id": "pytes-solark5k-pytesv5-10kwh",
   "manufacturer": "pytes",
   "name": "Solark5K-PytesV5-10kWh",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

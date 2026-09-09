@@ -2,6 +2,7 @@
   "id": "morningstar-104-ms-2132",
   "manufacturer": "morningstar",
   "name": "104-MS-2132",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

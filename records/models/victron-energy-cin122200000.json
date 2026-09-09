@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "CIN122200000",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

@@ -2,6 +2,7 @@
   "id": "ecoflow-bdeltapro",
   "manufacturer": "ecoflow",
   "name": "BDELTAPRO",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

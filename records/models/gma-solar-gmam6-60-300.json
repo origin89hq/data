@@ -2,6 +2,7 @@
   "id": "gma-solar-gmam6-60-300",
   "manufacturer": "gma-solar",
   "name": "GMAM6-60-300",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

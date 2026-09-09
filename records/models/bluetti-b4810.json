@@ -2,6 +2,7 @@
   "id": "bluetti-b4810",
   "manufacturer": "bluetti",
   "name": "B4810",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "victron-energy-gsm100200400",
   "manufacturer": "victron-energy",
   "name": "GSM100200400",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

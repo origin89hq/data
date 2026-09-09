@@ -2,6 +2,7 @@
   "id": "briggs-stratton-sphi-b-6-6ba",
   "manufacturer": "briggs-stratton",
   "name": "SPHI-B-6.6BA",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

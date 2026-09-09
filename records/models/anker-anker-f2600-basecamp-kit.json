@@ -2,6 +2,7 @@
   "id": "anker-anker-f2600-basecamp-kit",
   "manufacturer": "anker",
   "name": "ANKER-F2600-BASECAMP-KIT",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

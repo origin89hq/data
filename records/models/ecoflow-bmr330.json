@@ -2,6 +2,7 @@
   "id": "ecoflow-bmr330",
   "manufacturer": "ecoflow",
   "name": "BMR330",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

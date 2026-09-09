@@ -2,6 +2,7 @@
   "id": "ecoflow-efmc4-xt60cbl5m",
   "manufacturer": "ecoflow",
   "name": "EFMC4-XT60CBL5M",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

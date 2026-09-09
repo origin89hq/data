@@ -2,6 +2,7 @@
   "id": "ecoflow-ecoflow-relay-module",
   "manufacturer": "ecoflow",
   "name": "ECOFLOW-RELAY-MODULE",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

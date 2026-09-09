@@ -2,6 +2,7 @@
   "id": "victron-energy-ctr110000550",
   "manufacturer": "victron-energy",
   "name": "CTR110000550",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

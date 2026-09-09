@@ -2,6 +2,7 @@
   "id": "integrarack-1654006",
   "manufacturer": "integrarack",
   "name": "1654006",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

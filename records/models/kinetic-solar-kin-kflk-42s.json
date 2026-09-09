@@ -2,6 +2,7 @@
   "id": "kinetic-solar-kin-kflk-42s",
   "manufacturer": "kinetic-solar",
   "name": "KIN-KFLK-42S",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

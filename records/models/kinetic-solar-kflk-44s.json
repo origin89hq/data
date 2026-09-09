@@ -2,6 +2,7 @@
   "id": "kinetic-solar-kflk-44s",
   "manufacturer": "kinetic-solar",
   "name": "KFLK-44S",
+  "kind": "panel",
   "aliases": [
     "KIN-284-243"
   ],

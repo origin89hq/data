@@ -2,6 +2,7 @@
   "id": "eg4-electronics-eg4adev1-1",
   "manufacturer": "eg4-electronics",
   "name": "EG4ADEV1.1",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

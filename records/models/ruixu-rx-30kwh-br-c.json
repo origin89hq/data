@@ -2,6 +2,7 @@
   "id": "ruixu-rx-30kwh-br-c",
   "manufacturer": "ruixu",
   "name": "RX-30kWH-BR-C",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

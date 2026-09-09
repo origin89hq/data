@@ -2,6 +2,7 @@
   "id": "kinetic-solar-kin-khrguc-b",
   "manufacturer": "kinetic-solar",
   "name": "KIN-KHRGUC-B",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "pytes-sol-arkpytesv5lfp30kwh",
   "manufacturer": "pytes",
   "name": "Sol-ArkPytesV5LFP30kWh",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

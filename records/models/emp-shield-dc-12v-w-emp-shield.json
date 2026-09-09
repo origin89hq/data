@@ -2,6 +2,7 @@
   "id": "emp-shield-dc-12v-w-emp-shield",
   "manufacturer": "emp-shield",
   "name": "DC-12V-W-EMP-SHIELD",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

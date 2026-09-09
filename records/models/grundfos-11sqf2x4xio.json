@@ -2,6 +2,7 @@
   "id": "grundfos-11sqf2x4xio",
   "manufacturer": "grundfos",
   "name": "11sqf2x4xIO",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

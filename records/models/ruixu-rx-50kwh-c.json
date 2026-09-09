@@ -2,6 +2,7 @@
   "id": "ruixu-rx-50kwh-c",
   "manufacturer": "ruixu",
   "name": "RX-50kWh-C",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

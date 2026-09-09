@@ -2,6 +2,7 @@
   "id": "victron-energy-sdrpskc",
   "manufacturer": "victron-energy",
   "name": "SDRPSKC",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

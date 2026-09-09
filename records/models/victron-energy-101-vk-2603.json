@@ -2,6 +2,7 @@
   "id": "victron-energy-101-vk-2603",
   "manufacturer": "victron-energy",
   "name": "101-VK-2603",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "kinetic-solar-kin-klb20-mm",
   "manufacturer": "kinetic-solar",
   "name": "KIN-KLB20-MM",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

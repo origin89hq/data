@@ -2,6 +2,7 @@
   "id": "apsystems-aps-ecu-r",
   "manufacturer": "apsystems",
   "name": "APS-ECU-R",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

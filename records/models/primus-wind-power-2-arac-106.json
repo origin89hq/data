@@ -2,6 +2,7 @@
   "id": "primus-wind-power-2-arac-106",
   "manufacturer": "primus-wind-power",
   "name": "2-ARAC-106",
+  "kind": "generator",
   "aliases": [
     "PWP-341-150"
   ],

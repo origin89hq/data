@@ -2,6 +2,7 @@
   "id": "outback-power-fm60mppt",
   "manufacturer": "outback-power",
   "name": "FM60MPPT",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

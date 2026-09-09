@@ -2,6 +2,7 @@
   "id": "victron-energy-c-vc450200-mc4",
   "manufacturer": "victron-energy",
   "name": "C-VC450200-MC4",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

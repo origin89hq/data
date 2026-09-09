@@ -2,6 +2,7 @@
   "id": "ecoflow-efultra-dual-hex",
   "manufacturer": "ecoflow",
   "name": "EFULTRA-DUAL-HEX",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

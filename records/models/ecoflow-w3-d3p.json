@@ -2,6 +2,7 @@
   "id": "ecoflow-w3-d3p",
   "manufacturer": "ecoflow",
   "name": "W3-D3P",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

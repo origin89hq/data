@@ -2,6 +2,7 @@
   "id": "seaflo-sfbp2-g103-01",
   "manufacturer": "seaflo",
   "name": "SFBP2-G103-01",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

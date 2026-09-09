@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-40w-48i-120vac-cooll",
   "manufacturer": "the-cabin-depot",
   "name": "40W-48I-120VAC-COOLL",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

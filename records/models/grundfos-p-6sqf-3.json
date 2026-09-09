@@ -2,6 +2,7 @@
   "id": "grundfos-p-6sqf-3",
   "manufacturer": "grundfos",
   "name": "P-6SQF-3",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

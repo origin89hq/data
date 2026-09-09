@@ -2,6 +2,7 @@
   "id": "ecoflow-efsolar175w-1-akit-1-xt60i",
   "manufacturer": "ecoflow",
   "name": "EFSOLAR175W-1-AKIT-1-XT60I",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

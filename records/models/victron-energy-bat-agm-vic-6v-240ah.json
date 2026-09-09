@@ -2,6 +2,7 @@
   "id": "victron-energy-bat-agm-vic-6v-240ah",
   "manufacturer": "victron-energy",
   "name": "BAT-AGM-VIC-6V-240AH",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

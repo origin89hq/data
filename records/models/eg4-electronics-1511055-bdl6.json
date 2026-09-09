@@ -2,6 +2,7 @@
   "id": "eg4-electronics-1511055-bdl6",
   "manufacturer": "eg4-electronics",
   "name": "1511055-BDL6",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

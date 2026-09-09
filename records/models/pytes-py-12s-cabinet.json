@@ -2,6 +2,7 @@
   "id": "pytes-py-12s-cabinet",
   "manufacturer": "pytes",
   "name": "PY- 12S Cabinet",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

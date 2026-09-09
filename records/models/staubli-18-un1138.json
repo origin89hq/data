@@ -2,6 +2,7 @@
   "id": "staubli-18-un1138",
   "manufacturer": "staubli",
   "name": "18-UN1138",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

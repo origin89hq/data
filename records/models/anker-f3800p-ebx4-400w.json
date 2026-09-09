@@ -2,6 +2,7 @@
   "id": "anker-f3800p-ebx4-400w",
   "manufacturer": "anker",
   "name": "F3800P-EBx4-400W",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

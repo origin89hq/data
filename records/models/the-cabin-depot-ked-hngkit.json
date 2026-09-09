@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-ked-hngkit",
   "manufacturer": "the-cabin-depot",
   "name": "KED-HNGKIT",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

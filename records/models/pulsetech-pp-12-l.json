@@ -2,6 +2,7 @@
   "id": "pulsetech-pp-12-l",
   "manufacturer": "pulsetech",
   "name": "PP-12-L",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

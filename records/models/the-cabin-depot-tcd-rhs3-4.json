@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-tcd-rhs3-4",
   "manufacturer": "the-cabin-depot",
   "name": "TCD-rhs3/4",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

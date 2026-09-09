@@ -2,6 +2,7 @@
   "id": "blue-sea-systems-bs8059",
   "manufacturer": "blue-sea-systems",
   "name": "BS8059",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

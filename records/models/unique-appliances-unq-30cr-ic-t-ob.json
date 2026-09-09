@@ -2,6 +2,7 @@
   "id": "unique-appliances-unq-30cr-ic-t-ob",
   "manufacturer": "unique-appliances",
   "name": "UNQ-30CR IC T OB",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

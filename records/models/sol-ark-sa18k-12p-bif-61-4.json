@@ -2,6 +2,7 @@
   "id": "sol-ark-sa18k-12p-bif-61-4",
   "manufacturer": "sol-ark",
   "name": "SA18K-12P-BIF-61.4",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

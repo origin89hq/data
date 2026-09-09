@@ -2,6 +2,7 @@
   "id": "ruixu-rx-sunon7-2-bdl1",
   "manufacturer": "ruixu",
   "name": "RX-SUNON7.2-BDL1",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

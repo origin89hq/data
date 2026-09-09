@@ -2,6 +2,7 @@
   "id": "ecoflow-r2p-700-220w",
   "manufacturer": "ecoflow",
   "name": "R2P-700-220W",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

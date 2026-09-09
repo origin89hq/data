@@ -2,6 +2,7 @@
   "id": "midnite-solar-mnmppt60diy",
   "manufacturer": "midnite-solar",
   "name": "MNMPPT60DIY",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

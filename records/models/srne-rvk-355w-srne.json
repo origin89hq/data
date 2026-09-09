@@ -2,6 +2,7 @@
   "id": "srne-rvk-355w-srne",
   "manufacturer": "srne",
   "name": "RVK-355W-SRNE",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

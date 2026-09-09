@@ -2,6 +2,7 @@
   "id": "ecoflow-bdeltamaxeb-us",
   "manufacturer": "ecoflow",
   "name": "BDELTAMaxEB-US",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

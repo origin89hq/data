@@ -2,6 +2,7 @@
   "id": "victron-energy-bpp900600100",
   "manufacturer": "victron-energy",
   "name": "BPP900600100",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "victron-energy-bpc240831024r",
   "manufacturer": "victron-energy",
   "name": "BPC240831024R",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

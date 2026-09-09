@@ -2,6 +2,7 @@
   "id": "midnite-solar-mn1000fuse-5",
   "manufacturer": "midnite-solar",
   "name": "MN1000FUSE-5",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

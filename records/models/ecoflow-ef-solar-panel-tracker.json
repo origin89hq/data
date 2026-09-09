@@ -2,6 +2,7 @@
   "id": "ecoflow-ef-solar-panel-tracker",
   "manufacturer": "ecoflow",
   "name": "EF-SOLAR-PANEL-TRACKER",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

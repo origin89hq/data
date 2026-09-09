@@ -2,6 +2,7 @@
   "id": "samlex-america-evo1224f",
   "manufacturer": "samlex-america",
   "name": "EVO1224F",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

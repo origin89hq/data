@@ -2,6 +2,7 @@
   "id": "victron-energy-pin242200000",
   "manufacturer": "victron-energy",
   "name": "PIN242200000",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

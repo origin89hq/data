@@ -2,6 +2,7 @@
   "id": "integrarack-ir-w5mbcb0094",
   "manufacturer": "integrarack",
   "name": "IR-W5MBCB0094",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

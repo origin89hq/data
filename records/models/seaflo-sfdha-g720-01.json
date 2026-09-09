@@ -2,6 +2,7 @@
   "id": "seaflo-sfdha-g720-01",
   "manufacturer": "seaflo",
   "name": "SFDHA-G720-01",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "victron-energy-ond-vic-phoenix-12v-375w",
   "manufacturer": "victron-energy",
   "name": "OND-VIC-PHOENIX-12V/375W",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

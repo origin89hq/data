@@ -2,6 +2,7 @@
   "id": "ecoflow-delta-pro-ultra-x-max-none",
   "manufacturer": "ecoflow",
   "name": "DELTA-PRO-ULTRA-X-MAX-NONE",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

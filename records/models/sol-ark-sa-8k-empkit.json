@@ -2,6 +2,7 @@
   "id": "sol-ark-sa-8k-empkit",
   "manufacturer": "sol-ark",
   "name": "SA-8K-EMPKIT",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

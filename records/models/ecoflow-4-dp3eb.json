@@ -2,6 +2,7 @@
   "id": "ecoflow-4-dp3eb",
   "manufacturer": "ecoflow",
   "name": "4-DP3EB",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

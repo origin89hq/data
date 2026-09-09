@@ -2,6 +2,7 @@
   "id": "victron-energy-shp307700280",
   "manufacturer": "victron-energy",
   "name": "SHP307700280",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

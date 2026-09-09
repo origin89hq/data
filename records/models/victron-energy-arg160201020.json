@@ -2,6 +2,7 @@
   "id": "victron-energy-arg160201020",
   "manufacturer": "victron-energy",
   "name": "ARG160201020",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

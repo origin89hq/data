@@ -2,6 +2,7 @@
   "id": "sol-ark-sa-05k-1p-n",
   "manufacturer": "sol-ark",
   "name": "SA-05k-1P-N",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

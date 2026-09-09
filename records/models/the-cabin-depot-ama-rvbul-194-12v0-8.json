@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-ama-rvbul-194-12v0-8",
   "manufacturer": "the-cabin-depot",
   "name": "AMA-RVBUL/194-12V0.8",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

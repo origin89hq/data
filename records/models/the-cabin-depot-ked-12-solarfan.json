@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-ked-12-solarfan",
   "manufacturer": "the-cabin-depot",
   "name": "KED-12\"SolarFan",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

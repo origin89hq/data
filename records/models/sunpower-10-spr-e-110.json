@@ -2,6 +2,7 @@
   "id": "sunpower-10-spr-e-110",
   "manufacturer": "sunpower",
   "name": "10-SPR-E-110",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

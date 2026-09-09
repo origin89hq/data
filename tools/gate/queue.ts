@@ -22,13 +22,13 @@ if (!date || sellers.length === 0) {
 const sightings: Sighting[] = [];
 const guesses = new Map<string, Guess>();
 for (const seller of sellers) {
-  const crawl = readCrawl(seller, date, remote);
+  const crawl = await readCrawl(seller, date, remote);
   if (!crawl) {
     console.error(`${seller}: no crawl at ${date}`);
     process.exit(1);
   }
-  if (crawl.missingPages.length) {
-    console.error(`${seller}: ${crawl.missingPages.length} pages named by the manifest are missing; refusing a partial queue`);
+  if (crawl.missingParts.length) {
+    console.error(`${seller}: ${crawl.missingParts.length} classifier parts are not written yet; the evidence would be short, so refusing`);
     process.exit(1);
   }
   sightings.push(...crawl.sightings);

@@ -2,6 +2,7 @@
   "id": "ecoflow-efsmarthomepanel3-40-us",
   "manufacturer": "ecoflow",
   "name": "EFSMARTHOMEPANEL3-40-US",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

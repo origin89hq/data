@@ -2,6 +2,7 @@
   "id": "ecoflow-efa-20w-gan-charger-us",
   "manufacturer": "ecoflow",
   "name": "EFA-20W-GAN-CHARGER-US",
+  "kind": "ac-charger",
   "aliases": [],
   "dialects": []
 }

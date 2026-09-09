@@ -2,6 +2,7 @@
   "id": "midnite-solar-020-02400",
   "manufacturer": "midnite-solar",
   "name": "020-02400",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

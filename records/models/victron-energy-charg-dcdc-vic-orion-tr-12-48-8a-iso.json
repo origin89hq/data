@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "CHARG-DCDC-VIC-ORION-TR-12/48-8A-ISO",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "dc-dc-converter"
 }

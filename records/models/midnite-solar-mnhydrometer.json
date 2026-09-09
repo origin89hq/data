@@ -2,6 +2,7 @@
   "id": "midnite-solar-mnhydrometer",
   "manufacturer": "midnite-solar",
   "name": "MNHYDROMETER",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "ruixu-rx-45kwh-br-hc",
   "manufacturer": "ruixu",
   "name": "RX-45kWH-BR-HC",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "ecoflow-eftrolley-dpu",
   "manufacturer": "ecoflow",
   "name": "EFTrolley-DPU",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

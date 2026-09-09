@@ -2,6 +2,7 @@
   "id": "ecoflow-deltapro-deltaproeb-us-6-m200-30102",
   "manufacturer": "ecoflow",
   "name": "DELTAPro-DELTAProEB-US-6-M200-30102",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

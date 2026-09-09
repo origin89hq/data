@@ -2,6 +2,7 @@
   "id": "eg4-electronics-eg4-flexboss",
   "manufacturer": "eg4-electronics",
   "name": "EG4 FlexBOSS",
+  "kind": "bms",
   "aliases": [],
   "dialects": []
 }

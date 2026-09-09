@@ -2,6 +2,7 @@
   "id": "ecoflow-delta-3-max-plus-quad",
   "manufacturer": "ecoflow",
   "name": "DELTA-3-MAX-PLUS-QUAD",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

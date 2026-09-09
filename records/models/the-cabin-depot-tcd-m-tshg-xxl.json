@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-tcd-m-tshg-xxl",
   "manufacturer": "the-cabin-depot",
   "name": "TCD-M-TSHG-XXL",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

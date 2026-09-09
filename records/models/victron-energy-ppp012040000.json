@@ -2,6 +2,7 @@
   "id": "victron-energy-ppp012040000",
   "manufacturer": "victron-energy",
   "name": "PPP012040000",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

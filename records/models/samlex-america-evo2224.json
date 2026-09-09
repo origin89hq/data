@@ -2,6 +2,7 @@
   "id": "samlex-america-evo2224",
   "manufacturer": "samlex-america",
   "name": "EVO2224",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "midnite-solar-mnedcrt",
   "manufacturer": "midnite-solar",
   "name": "MNEDCRT",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

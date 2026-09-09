@@ -2,6 +2,7 @@
   "id": "victron-energy-charg-bat-vic-ip43-36v-15a-1",
   "manufacturer": "victron-energy",
   "name": "CHARG-BAT-VIC-IP43-36V-15A-1",
+  "kind": "ac-charger",
   "aliases": [],
   "dialects": []
 }

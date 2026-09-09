@@ -2,6 +2,7 @@
   "id": "bluetti-bluetti-ac60p-b80p",
   "manufacturer": "bluetti",
   "name": "BLUETTI-AC60P+B80P",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

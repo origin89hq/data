@@ -2,6 +2,7 @@
   "id": "trans-canada-energies-ewl-leda60-4-nwm",
   "manufacturer": "trans-canada-energies",
   "name": "EWL-LEDA60-4-NWM",
+  "kind": "panel",
   "aliases": [
     "EWT-264-108"
   ],

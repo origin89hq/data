@@ -2,6 +2,7 @@
   "id": "gma-solar-gmam6-36-170w",
   "manufacturer": "gma-solar",
   "name": "GMAM6-36-170W",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

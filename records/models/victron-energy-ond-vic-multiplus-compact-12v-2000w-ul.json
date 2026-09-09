@@ -2,6 +2,7 @@
   "id": "victron-energy-ond-vic-multiplus-compact-12v-2000w-ul",
   "manufacturer": "victron-energy",
   "name": "OND-VIC-MULTIPLUS-COMPACT-12V/2000W-UL",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

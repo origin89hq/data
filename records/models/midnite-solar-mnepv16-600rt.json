@@ -2,6 +2,7 @@
   "id": "midnite-solar-mnepv16-600rt",
   "manufacturer": "midnite-solar",
   "name": "MNEPV16-600RT",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

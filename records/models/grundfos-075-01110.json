@@ -2,6 +2,7 @@
   "id": "grundfos-075-01110",
   "manufacturer": "grundfos",
   "name": "075-01110",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

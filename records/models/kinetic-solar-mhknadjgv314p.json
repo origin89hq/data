@@ -2,6 +2,7 @@
   "id": "kinetic-solar-mhknadjgv314p",
   "manufacturer": "kinetic-solar",
   "name": "MHKNADJGV314P",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

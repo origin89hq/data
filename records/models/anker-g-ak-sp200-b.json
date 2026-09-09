@@ -2,6 +2,7 @@
   "id": "anker-g-ak-sp200-b",
   "manufacturer": "anker",
   "name": "G-AK-SP200-B",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

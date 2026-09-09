@@ -2,6 +2,7 @@
   "id": "ecoflow-efl-50ampgeneratorcord",
   "manufacturer": "ecoflow",
   "name": "EFL-50AmpGeneratorCord",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

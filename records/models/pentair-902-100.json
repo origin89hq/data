@@ -2,6 +2,7 @@
   "id": "pentair-902-100",
   "manufacturer": "pentair",
   "name": "902-100",
+  "kind": "out-of-scope",
   "aliases": [
     "SFL-321-127"
   ],

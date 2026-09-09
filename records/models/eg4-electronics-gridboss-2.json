@@ -2,6 +2,7 @@
   "id": "eg4-electronics-gridboss-2",
   "manufacturer": "eg4-electronics",
   "name": "GridBoss-2",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

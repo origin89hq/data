@@ -2,6 +2,7 @@
   "id": "midnite-solar-comb-midnite-mnpv3",
   "manufacturer": "midnite-solar",
   "name": "COMB-MIDNITE-MNPV3",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

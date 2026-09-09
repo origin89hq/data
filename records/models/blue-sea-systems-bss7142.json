@@ -2,6 +2,7 @@
   "id": "blue-sea-systems-bss7142",
   "manufacturer": "blue-sea-systems",
   "name": "BSS7142",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

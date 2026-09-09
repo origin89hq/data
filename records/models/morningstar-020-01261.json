@@ -2,6 +2,7 @@
   "id": "morningstar-020-01261",
   "manufacturer": "morningstar",
   "name": "020-01261",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

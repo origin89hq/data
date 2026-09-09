@@ -2,6 +2,7 @@
   "id": "samlex-america-rc-300",
   "manufacturer": "samlex-america",
   "name": "RC-300",
+  "kind": "charge-controller",
   "aliases": [
     "SLX-221-105"
   ],

@@ -2,6 +2,7 @@
   "id": "lorex-e871ab",
   "manufacturer": "lorex",
   "name": "E871AB",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

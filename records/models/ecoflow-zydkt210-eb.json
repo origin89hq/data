@@ -2,6 +2,7 @@
   "id": "ecoflow-zydkt210-eb",
   "manufacturer": "ecoflow",
   "name": "ZYDKT210-EB",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "midnite-solar-053-03149",
   "manufacturer": "midnite-solar",
   "name": "053-03149",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "victron-energy-i-vc-qu-485000",
   "manufacturer": "victron-energy",
   "name": "I-VC-QU-485000",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-ama-timswi-pro-12v",
   "manufacturer": "the-cabin-depot",
   "name": "AMA-TIMSWI/PRO-12V",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

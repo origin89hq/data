@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-tcd-lbws",
   "manufacturer": "the-cabin-depot",
   "name": "TCD-lbws",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "bluetti-rv5-b4810-epanel-epad",
   "manufacturer": "bluetti",
   "name": "RV5+B4810+Epanel+Epad",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

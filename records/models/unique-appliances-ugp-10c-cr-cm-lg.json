@@ -2,6 +2,7 @@
   "id": "unique-appliances-ugp-10c-cr-cm-lg",
   "manufacturer": "unique-appliances",
   "name": "UGP-10C CR CM LG",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

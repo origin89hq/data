@@ -2,6 +2,7 @@
   "id": "victron-energy-rcd000300200",
   "manufacturer": "victron-energy",
   "name": "RCD000300200",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

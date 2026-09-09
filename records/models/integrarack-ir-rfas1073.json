@@ -2,6 +2,7 @@
   "id": "integrarack-ir-rfas1073",
   "manufacturer": "integrarack",
   "name": "IR-RFAS1073",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "kinetic-solar-kec43-b",
   "manufacturer": "kinetic-solar",
   "name": "KEC43-B",
+  "kind": "charge-controller",
   "aliases": [
     "KIN-284-111-B"
   ],

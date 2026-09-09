@@ -2,6 +2,7 @@
   "id": "ecoflow-efdeltapro-ultra-12kwh-hex",
   "manufacturer": "ecoflow",
   "name": "EFDELTAPRO-ULTRA-12KWH-HEX",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

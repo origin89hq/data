@@ -2,6 +2,7 @@
   "id": "ecoflow-efdelta1000-am",
   "manufacturer": "ecoflow",
   "name": "EFDELTA1000-AM",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "kinetic-solar-khmnl-ma",
   "manufacturer": "kinetic-solar",
   "name": "KHMNL-MA",
+  "kind": "out-of-scope",
   "aliases": [
     "XXX-XXX-241"
   ],

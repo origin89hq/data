@@ -2,6 +2,7 @@
   "id": "anker-f3800p-ebx6-400wx3",
   "manufacturer": "anker",
   "name": "F3800P-EBx6-400Wx3",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

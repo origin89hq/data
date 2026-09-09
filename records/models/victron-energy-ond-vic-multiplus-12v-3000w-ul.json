@@ -2,6 +2,7 @@
   "id": "victron-energy-ond-vic-multiplus-12v-3000w-ul",
   "manufacturer": "victron-energy",
   "name": "OND-VIC-MULTIPLUS-12V/3000W-UL",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

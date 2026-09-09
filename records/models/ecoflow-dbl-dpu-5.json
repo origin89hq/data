@@ -2,6 +2,7 @@
   "id": "ecoflow-dbl-dpu-5",
   "manufacturer": "ecoflow",
   "name": "DBL-DPU-5",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

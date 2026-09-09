@@ -2,6 +2,7 @@
   "id": "xylem-3526-144a",
   "manufacturer": "xylem",
   "name": "3526-144A",
+  "kind": "out-of-scope",
   "aliases": [
     "FLO-324-100"
   ],

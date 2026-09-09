@@ -2,6 +2,7 @@
   "id": "ecoflow-deltaprorc",
   "manufacturer": "ecoflow",
   "name": "DELTAProRC",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

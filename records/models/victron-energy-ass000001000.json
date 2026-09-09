@@ -2,6 +2,7 @@
   "id": "victron-energy-ass000001000",
   "manufacturer": "victron-energy",
   "name": "ASS000001000",
+  "kind": "balance-of-system",
   "aliases": [
     "VIC-221-174"
   ],

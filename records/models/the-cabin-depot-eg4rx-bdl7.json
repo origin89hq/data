@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-eg4rx-bdl7",
   "manufacturer": "the-cabin-depot",
   "name": "EG4RX-BDL7",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

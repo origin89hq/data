@@ -2,6 +2,7 @@
   "id": "ecoflow-efsg4000-us-epa",
   "manufacturer": "ecoflow",
   "name": "EFSG4000-US-EPA",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

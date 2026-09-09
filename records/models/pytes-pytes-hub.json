@@ -2,6 +2,7 @@
   "id": "pytes-pytes-hub",
   "manufacturer": "pytes",
   "name": "PYTES-HUB",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

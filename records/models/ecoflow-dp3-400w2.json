@@ -2,6 +2,7 @@
   "id": "ecoflow-dp3-400w2",
   "manufacturer": "ecoflow",
   "name": "DP3-400W2",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

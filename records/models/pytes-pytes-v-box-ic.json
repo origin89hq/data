@@ -2,6 +2,7 @@
   "id": "pytes-pytes-v-box-ic",
   "manufacturer": "pytes",
   "name": "Pytes-V-Box-IC",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

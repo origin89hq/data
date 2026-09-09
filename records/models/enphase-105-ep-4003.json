@@ -2,6 +2,7 @@
   "id": "enphase-105-ep-4003",
   "manufacturer": "enphase",
   "name": "105-EP-4003",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

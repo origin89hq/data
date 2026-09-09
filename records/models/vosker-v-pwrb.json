@@ -2,6 +2,7 @@
   "id": "vosker-v-pwrb",
   "manufacturer": "vosker",
   "name": "V-PWRB",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

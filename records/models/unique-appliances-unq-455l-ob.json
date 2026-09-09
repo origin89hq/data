@@ -2,6 +2,7 @@
   "id": "unique-appliances-unq-455l-ob",
   "manufacturer": "unique-appliances",
   "name": "UNQ-455L OB",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

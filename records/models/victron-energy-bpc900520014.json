@@ -2,6 +2,7 @@
   "id": "victron-energy-bpc900520014",
   "manufacturer": "victron-energy",
   "name": "BPC900520014",
+  "kind": "bms",
   "aliases": [],
   "dialects": []
 }

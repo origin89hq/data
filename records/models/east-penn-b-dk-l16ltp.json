@@ -2,6 +2,7 @@
   "id": "east-penn-b-dk-l16ltp",
   "manufacturer": "east-penn",
   "name": "B-DK-L16LTP",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

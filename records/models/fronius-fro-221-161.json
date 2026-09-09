@@ -2,6 +2,7 @@
   "id": "fronius-fro-221-161",
   "manufacturer": "fronius",
   "name": "FRO-221-161",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

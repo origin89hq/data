@@ -2,6 +2,7 @@
   "id": "eg4-electronics-bndl-e0011-3",
   "manufacturer": "eg4-electronics",
   "name": "BNDL-E0011-3",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

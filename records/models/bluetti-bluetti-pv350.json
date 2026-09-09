@@ -2,6 +2,7 @@
   "id": "bluetti-bluetti-pv350",
   "manufacturer": "bluetti",
   "name": "BLUETTI-PV350",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

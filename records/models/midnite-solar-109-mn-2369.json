@@ -2,6 +2,7 @@
   "id": "midnite-solar-109-mn-2369",
   "manufacturer": "midnite-solar",
   "name": "109-MN-2369",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

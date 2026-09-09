@@ -2,6 +2,7 @@
   "id": "samlex-america-pst-1500-12",
   "manufacturer": "samlex-america",
   "name": "PST-1500-12",
+  "kind": "inverter-charger",
   "aliases": [
     "SLX-227-120"
   ],

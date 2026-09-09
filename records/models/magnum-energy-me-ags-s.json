@@ -2,6 +2,7 @@
   "id": "magnum-energy-me-ags-s",
   "manufacturer": "magnum-energy",
   "name": "ME-AGS-S",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "kinetic-solar-khrt25-m",
   "manufacturer": "kinetic-solar",
   "name": "KHRT25-M",
+  "kind": "out-of-scope",
   "aliases": [
     "KIN-284-197"
   ],

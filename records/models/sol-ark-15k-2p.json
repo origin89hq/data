@@ -2,6 +2,7 @@
   "id": "sol-ark-15k-2p",
   "manufacturer": "sol-ark",
   "name": "15K-2P",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": [
     "solark-dongle-uart",

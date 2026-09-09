@@ -2,6 +2,7 @@
   "id": "ecoflow-dpu-400w-2",
   "manufacturer": "ecoflow",
   "name": "DPU-400W-2",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

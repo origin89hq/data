@@ -2,6 +2,7 @@
   "id": "ecoflow-efdelta3uplus-us",
   "manufacturer": "ecoflow",
   "name": "EFDELTA3UPLUS-US",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

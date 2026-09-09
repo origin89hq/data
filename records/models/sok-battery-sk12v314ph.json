@@ -2,6 +2,7 @@
   "id": "sok-battery-sk12v314ph",
   "manufacturer": "sok-battery",
   "name": "SK12V314PH",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

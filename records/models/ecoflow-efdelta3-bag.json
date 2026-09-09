@@ -2,6 +2,7 @@
   "id": "ecoflow-efdelta3-bag",
   "manufacturer": "ecoflow",
   "name": "EFDELTA3-BAG",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

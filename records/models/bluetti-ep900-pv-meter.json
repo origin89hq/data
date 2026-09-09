@@ -2,6 +2,7 @@
   "id": "bluetti-ep900-pv-meter",
   "manufacturer": "bluetti",
   "name": "EP900-PV-METER",
+  "kind": "meter",
   "aliases": [],
   "dialects": []
 }

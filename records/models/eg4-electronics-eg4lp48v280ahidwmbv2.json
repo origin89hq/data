@@ -2,6 +2,7 @@
   "id": "eg4-electronics-eg4lp48v280ahidwmbv2",
   "manufacturer": "eg4-electronics",
   "name": "EG4LP48V280AHIDWMBV2",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "grundfos-77sqf3x4-ps",
   "manufacturer": "grundfos",
   "name": "77sqf3x4-ps",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

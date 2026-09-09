@@ -2,6 +2,7 @@
   "id": "staubli-32-0716-pv-bvk4",
   "manufacturer": "staubli",
   "name": "32.0716 PV-BVK4",
+  "kind": "balance-of-system",
   "aliases": [
     "MUC-141-104"
   ],

@@ -2,6 +2,7 @@
   "id": "victron-energy-vmii24v3000wck",
   "manufacturer": "victron-energy",
   "name": "VMii24V3000WCK",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

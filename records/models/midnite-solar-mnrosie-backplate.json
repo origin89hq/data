@@ -2,6 +2,7 @@
   "id": "midnite-solar-mnrosie-backplate",
   "manufacturer": "midnite-solar",
   "name": "MNROSIE BACKPLATE",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

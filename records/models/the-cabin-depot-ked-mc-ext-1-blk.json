@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-ked-mc-ext-1-blk",
   "manufacturer": "the-cabin-depot",
   "name": "KED-MC-EXT-1-BLK",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

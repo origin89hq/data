@@ -2,6 +2,7 @@
   "id": "ecoflow-efa-glacierit",
   "manufacturer": "ecoflow",
   "name": "EFA-GlacierIT",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

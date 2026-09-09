@@ -2,6 +2,7 @@
   "id": "ecoflow-zmm100ld-us",
   "manufacturer": "ecoflow",
   "name": "ZMM100LD-US",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "enphase-brk-20a-2p-240v-b",
   "manufacturer": "enphase",
   "name": "BRK-20A-2P-240V-B",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "midnite-solar-mnhbb-afgf-kit",
   "manufacturer": "midnite-solar",
   "name": "MNHBB-AFGF KIT",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

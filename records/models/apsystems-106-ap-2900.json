@@ -2,6 +2,7 @@
   "id": "apsystems-106-ap-2900",
   "manufacturer": "apsystems",
   "name": "106-AP-2900",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

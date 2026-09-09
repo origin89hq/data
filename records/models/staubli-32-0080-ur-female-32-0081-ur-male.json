@@ -2,6 +2,7 @@
   "id": "staubli-32-0080-ur-female-32-0081-ur-male",
   "manufacturer": "staubli",
   "name": "32.0080-UR (Female) 32.0081-UR (Male)",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

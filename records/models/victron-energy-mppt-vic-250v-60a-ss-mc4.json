@@ -2,6 +2,7 @@
   "id": "victron-energy-mppt-vic-250v-60a-ss-mc4",
   "manufacturer": "victron-energy",
   "name": "MPPT-VIC-250V/60A-SS-MC4",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

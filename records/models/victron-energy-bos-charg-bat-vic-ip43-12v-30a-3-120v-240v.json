@@ -2,6 +2,7 @@
   "id": "victron-energy-bos-charg-bat-vic-ip43-12v-30a-3-120v-240v",
   "manufacturer": "victron-energy",
   "name": "BOS-CHARG-BAT-VIC-IP43-12V-30A-3-120v-240v",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "unique-appliances-cbp2dp01",
   "manufacturer": "unique-appliances",
   "name": "CBP2DP01",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

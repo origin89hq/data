@@ -2,6 +2,7 @@
   "id": "victron-energy-mppt-vic-150v-35a-ss",
   "manufacturer": "victron-energy",
   "name": "MPPT-VIC-150V/35A-SS",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "victron-energy-victron200wrvkit",
   "manufacturer": "victron-energy",
   "name": "Victron200WRVKit",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

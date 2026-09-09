@@ -2,6 +2,7 @@
   "id": "victron-energy-mppt-vic-wirebox-s",
   "manufacturer": "victron-energy",
   "name": "MPPT-VIC-WIREBOX-S",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

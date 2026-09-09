@@ -2,6 +2,7 @@
   "id": "eg4-electronics-eg4sp100awmbcblkit",
   "manufacturer": "eg4-electronics",
   "name": "EG4SP100AWMBCBLKIT",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

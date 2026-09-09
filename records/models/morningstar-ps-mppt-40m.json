@@ -2,6 +2,7 @@
   "id": "morningstar-ps-mppt-40m",
   "manufacturer": "morningstar",
   "name": "PS-MPPT-40M",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": [
     "morningstar-prostar-mppt"

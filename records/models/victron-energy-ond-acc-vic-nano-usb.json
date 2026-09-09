@@ -2,6 +2,7 @@
   "id": "victron-energy-ond-acc-vic-nano-usb",
   "manufacturer": "victron-energy",
   "name": "OND-ACC-VIC-NANO-USB",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

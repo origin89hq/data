@@ -2,6 +2,7 @@
   "id": "midnite-solar-cfb-400",
   "manufacturer": "midnite-solar",
   "name": "CFB-400",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

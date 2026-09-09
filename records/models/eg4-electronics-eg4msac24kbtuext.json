@@ -2,6 +2,7 @@
   "id": "eg4-electronics-eg4msac24kbtuext",
   "manufacturer": "eg4-electronics",
   "name": "EG4MSAC24KBTUEXT",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

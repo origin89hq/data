@@ -2,6 +2,7 @@
   "id": "ecoflow-ecoflow-river-pro-eclipse",
   "manufacturer": "ecoflow",
   "name": "ECOFLOW-RIVER-PRO-ECLIPSE",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

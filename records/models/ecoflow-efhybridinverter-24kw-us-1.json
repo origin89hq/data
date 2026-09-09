@@ -2,6 +2,7 @@
   "id": "ecoflow-efhybridinverter-24kw-us-1",
   "manufacturer": "ecoflow",
   "name": "EFHYBRIDINVERTER-24kW-US-1",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "pentair-5050-2301-c011",
   "manufacturer": "pentair",
   "name": "5050-2301-C011",
+  "kind": "out-of-scope",
   "aliases": [
     "SFL-324-105"
   ],

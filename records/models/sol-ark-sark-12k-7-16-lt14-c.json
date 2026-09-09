@@ -2,6 +2,7 @@
   "id": "sol-ark-sark-12k-7-16-lt14-c",
   "manufacturer": "sol-ark",
   "name": "SARK-12K-7-16-LT14-C",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

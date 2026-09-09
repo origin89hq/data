@@ -2,6 +2,7 @@
   "id": "ecoflow-ecoflow-bdeltamini-us",
   "manufacturer": "ecoflow",
   "name": "ECOFLOW-BDELTAMINI-US",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "victron-energy-mppt-vic-450v-100a-rs-mc4",
   "manufacturer": "victron-energy",
   "name": "MPPT-VIC-450V/100A-RS-MC4",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

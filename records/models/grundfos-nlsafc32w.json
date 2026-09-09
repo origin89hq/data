@@ -2,6 +2,7 @@
   "id": "grundfos-nlsafc32w",
   "manufacturer": "grundfos",
   "name": "NLSAFC32W",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "ecoflow-efl-nema-5-15pto5p8-us",
   "manufacturer": "ecoflow",
   "name": "EFL-NEMA 5-15Pto5P8-US",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

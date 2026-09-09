@@ -2,6 +2,7 @@
   "id": "volthium-vol-sc48200rmph",
   "manufacturer": "volthium",
   "name": "VOL-SC48200RMPH",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "enphase-q-12-20-200",
   "manufacturer": "enphase",
   "name": "Q-12-20-200",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

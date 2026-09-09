@@ -2,6 +2,7 @@
   "id": "progressive-dynamics-pd4045kv",
   "manufacturer": "progressive-dynamics",
   "name": "PD4045KV",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

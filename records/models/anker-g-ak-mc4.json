@@ -2,6 +2,7 @@
   "id": "anker-g-ak-mc4",
   "manufacturer": "anker",
   "name": "G-AK-MC4",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

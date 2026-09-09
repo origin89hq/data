@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-hic-bws",
   "manufacturer": "the-cabin-depot",
   "name": "HIC-bws",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

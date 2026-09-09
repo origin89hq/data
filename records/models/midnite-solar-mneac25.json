@@ -2,6 +2,7 @@
   "id": "midnite-solar-mneac25",
   "manufacturer": "midnite-solar",
   "name": "MNEAC25",
+  "kind": "ac-charger",
   "aliases": [],
   "dialects": []
 }

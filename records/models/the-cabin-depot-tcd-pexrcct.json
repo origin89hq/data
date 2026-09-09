@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-tcd-pexrcct",
   "manufacturer": "the-cabin-depot",
   "name": "TCD-PEXRCCT",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "bluetti-p-ac180p-us-gy-bl-01",
   "manufacturer": "bluetti",
   "name": "P-AC180P-US-GY-BL-01",
+  "kind": "ac-charger",
   "aliases": [],
   "dialects": []
 }

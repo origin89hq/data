@@ -2,6 +2,7 @@
   "id": "victron-energy-pin121220400",
   "manufacturer": "victron-energy",
   "name": "PIN121220400",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "ecoflow-delta2max-1-m200-1-50102",
   "manufacturer": "ecoflow",
   "name": "DELTA2MAX-1-M200-1-50102",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

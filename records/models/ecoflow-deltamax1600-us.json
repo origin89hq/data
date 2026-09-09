@@ -2,6 +2,7 @@
   "id": "ecoflow-deltamax1600-us",
   "manufacturer": "ecoflow",
   "name": "DELTAMax1600-US",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

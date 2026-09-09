@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-bis-gnpftk",
   "manufacturer": "the-cabin-depot",
   "name": "BIS-gnpftk",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

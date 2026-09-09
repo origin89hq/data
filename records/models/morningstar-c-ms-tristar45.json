@@ -2,6 +2,7 @@
   "id": "morningstar-c-ms-tristar45",
   "manufacturer": "morningstar",
   "name": "C-MS-TRISTAR45",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

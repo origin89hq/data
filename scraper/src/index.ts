@@ -3,14 +3,13 @@ import { hasFeed } from "./feeds.ts";
 import { CrawlApproval } from "./documents.ts";
 import { authorised } from "./authorised.ts";
 import { APPROVAL_EVENT } from "./manufacturer-crawl.ts";
+import { consume } from "./consumer.ts";
+import { classifyRun, convertRun } from "./enqueue.ts";
 import type { SellerCrawlParams } from "./seller-crawl.ts";
 
 export { SellerCrawl } from "./seller-crawl.ts";
-export { ClassifySightings } from "./classify-sightings.ts";
 export { PageCrawl } from "./page-crawl.ts";
 export { ManufacturerCrawl } from "./manufacturer-crawl.ts";
-export { DocumentConvert } from "./document-convert.ts";
-export { ExtractSpecs } from "./extract-specs.ts";
 
 /** Today as YYYY-MM-DD in UTC. Computed once per trigger and passed in, never inside a step. */
 function today(): string {
@@ -46,12 +45,54 @@ export default {
       const instance = await env.PAGE_CRAWL.create({ id: `page-${instanceId(sellerId, checkedAt)}`, params: { sellerId, checkedAt, ...(limit ? { limit: Number(limit) } : {}) } });
       return Response.json({ id: instance.id, tier: "page" });
     }
+    // Reading a run back one object at a time meant spawning wrangler once per part, which took
+    // longer than producing the results. R2 can list and the Worker can stream, so a whole run
+    // comes back in one request.
+    if (request.method === "GET" && url.pathname === "/archive") {
+      const prefix = url.searchParams.get("prefix");
+      if (!prefix || !/^(sightings|guesses|documents)\//.test(prefix)) {
+        return Response.json({ error: "prefix must start with sightings/, guesses/ or documents/" }, { status: 400 });
+      }
+      if (url.searchParams.get("list") === "true") {
+        const keys: string[] = [];
+        let cursor: string | undefined;
+        do {
+          const page = await env.ARCHIVE.list({ prefix, cursor, limit: 1000 });
+          for (const object of page.objects) keys.push(object.key);
+          cursor = page.truncated ? page.cursor : undefined;
+        } while (cursor);
+        return Response.json({ prefix, keys: keys.sort() });
+      }
+      // Each object separated by a newline, so a caller can split whatever the objects hold:
+      // JSONL parts concatenate into JSONL, and JSON documents into one per line.
+      const stream = new ReadableStream({
+        async start(controller) {
+          const encoder = new TextEncoder();
+          let cursor: string | undefined;
+          try {
+            do {
+              const page = await env.ARCHIVE.list({ prefix, cursor, limit: 1000 });
+              for (const listed of [...page.objects].sort((a, b) => a.key.localeCompare(b.key))) {
+                const object = await env.ARCHIVE.get(listed.key);
+                if (!object) continue;
+                const text = (await object.text()).replace(/\n+$/, "");
+                if (text) controller.enqueue(encoder.encode(`${text}\n`));
+              }
+              cursor = page.truncated ? page.cursor : undefined;
+            } while (cursor);
+            controller.close();
+          } catch (error) {
+            controller.error(error);
+          }
+        },
+      });
+      return new Response(stream, { headers: { "content-type": "application/x-ndjson" } });
+    }
     if (request.method === "POST" && url.pathname === "/classify") {
       const sellerId = url.searchParams.get("seller");
       const checkedAt = url.searchParams.get("date");
       if (!sellerId || !checkedAt) return Response.json({ error: "seller and date required" }, { status: 400 });
-      const instance = await env.CLASSIFY_SIGHTINGS.create({ id: `classify-${instanceId(sellerId, checkedAt)}`, params: { sellerId, checkedAt } });
-      return Response.json({ id: instance.id });
+      return Response.json(await classifyRun(env, sellerId, checkedAt));
     }
     if (request.method === "POST" && url.pathname === "/maker") {
       const manufacturerId = url.searchParams.get("id");
@@ -69,15 +110,8 @@ export default {
       const manufacturerId = url.searchParams.get("id");
       const checkedAt = url.searchParams.get("date");
       if (!manufacturerId || !checkedAt) return Response.json({ error: "id and date required" }, { status: 400 });
-      const instance = await env.DOCUMENT_CONVERT.create({ id: `convert-${manufacturerId}-${checkedAt}`, params: { manufacturerId, checkedAt } });
-      return Response.json({ id: instance.id });
-    }
-    if (request.method === "POST" && url.pathname === "/extract") {
-      const manufacturerId = url.searchParams.get("id");
-      const checkedAt = url.searchParams.get("date");
-      if (!manufacturerId || !checkedAt) return Response.json({ error: "id and date required" }, { status: 400 });
-      const instance = await env.EXTRACT_SPECS.create({ id: `extract-${manufacturerId}-${checkedAt}`, params: { manufacturerId, checkedAt } });
-      return Response.json({ id: instance.id });
+      // Reading follows conversion on its own: each converted document enqueues its own reading.
+      return Response.json(await convertRun(env, manufacturerId, checkedAt));
     }
     if (request.method === "POST" && url.pathname === "/approve") {
       const id = url.searchParams.get("id");
@@ -91,7 +125,7 @@ export default {
     if (request.method === "GET" && url.pathname === "/status") {
       const id = url.searchParams.get("id");
       if (!id) return Response.json({ error: "id required" }, { status: 400 });
-      const binding = id.startsWith("classify-") ? env.CLASSIFY_SIGHTINGS : id.startsWith("page-") ? env.PAGE_CRAWL : id.startsWith("extract-") ? env.EXTRACT_SPECS : id.startsWith("convert-") ? env.DOCUMENT_CONVERT : id.startsWith("maker-") ? env.MANUFACTURER_CRAWL : env.SELLER_CRAWL;
+      const binding = id.startsWith("page-") ? env.PAGE_CRAWL : id.startsWith("maker-") ? env.MANUFACTURER_CRAWL : env.SELLER_CRAWL;
       const instance = await binding.get(id);
       const status = await instance.status();
       return Response.json({ status: status.status, error: status.error ?? null });
@@ -110,5 +144,9 @@ export default {
         await env.PAGE_CRAWL.create({ id: `page-${instanceId(seller.id, checkedAt)}`, params: { sellerId: seller.id, checkedAt } });
       }
     }
+  },
+  /** Every unit of fan-out work. Acknowledged or retried per message, never per batch. */
+  async queue(batch: MessageBatch<unknown>, env: Env): Promise<void> {
+    await consume(batch, env);
   },
 } satisfies ExportedHandler<Env>;

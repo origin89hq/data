@@ -2,6 +2,7 @@
   "id": "ecoflow-efdpupcs-bp",
   "manufacturer": "ecoflow",
   "name": "EFDPUPCS-BP",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

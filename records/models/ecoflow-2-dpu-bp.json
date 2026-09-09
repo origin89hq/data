@@ -2,6 +2,7 @@
   "id": "ecoflow-2-dpu-bp",
   "manufacturer": "ecoflow",
   "name": "2-DPU-BP",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

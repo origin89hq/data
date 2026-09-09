@@ -2,6 +2,7 @@
   "id": "midnite-solar-mne175stm",
   "manufacturer": "midnite-solar",
   "name": "MNE175STM",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

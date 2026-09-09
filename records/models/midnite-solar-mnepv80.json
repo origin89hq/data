@@ -2,6 +2,7 @@
   "id": "midnite-solar-mnepv80",
   "manufacturer": "midnite-solar",
   "name": "MNEPV80",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

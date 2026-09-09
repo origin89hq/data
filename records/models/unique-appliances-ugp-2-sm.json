@@ -2,6 +2,7 @@
   "id": "unique-appliances-ugp-2-sm",
   "manufacturer": "unique-appliances",
   "name": "UGP-2 SM",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "sol-ark-sa15k-1ppwm",
   "manufacturer": "sol-ark",
   "name": "SA15K-1PPWM",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

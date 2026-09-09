@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-tcd-8bet-pair",
   "manufacturer": "the-cabin-depot",
   "name": "TCD-#8bet(pair)",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

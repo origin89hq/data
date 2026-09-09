@@ -2,6 +2,7 @@
   "id": "noco-a202",
   "manufacturer": "noco",
   "name": "A202",
+  "kind": "battery",
   "aliases": [],
   "dialects": [
     "noco-out-of-scope"

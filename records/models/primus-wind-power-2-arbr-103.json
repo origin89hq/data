@@ -2,6 +2,7 @@
   "id": "primus-wind-power-2-arbr-103",
   "manufacturer": "primus-wind-power",
   "name": "2-ARBR-103",
+  "kind": "generator",
   "aliases": [
     "PWP-341-163"
   ],

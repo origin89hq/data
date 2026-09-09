@@ -2,6 +2,7 @@
   "id": "ecoflow-ecoflow-delta-2-max-nomad",
   "manufacturer": "ecoflow",
   "name": "ECOFLOW-DELTA-2-MAX-NOMAD",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

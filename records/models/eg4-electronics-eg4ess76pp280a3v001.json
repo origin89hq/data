@@ -2,6 +2,7 @@
   "id": "eg4-electronics-eg4ess76pp280a3v001",
   "manufacturer": "eg4-electronics",
   "name": "EG4ESS76PP280A3V001",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

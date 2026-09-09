@@ -2,6 +2,7 @@
   "id": "victron-energy-shu050220050",
   "manufacturer": "victron-energy",
   "name": "SHU050220050",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

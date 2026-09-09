@@ -2,6 +2,7 @@
   "id": "victron-energy-shu067210050",
   "manufacturer": "victron-energy",
   "name": "SHU067210050",
+  "kind": "shunt-monitor",
   "aliases": [],
   "dialects": []
 }

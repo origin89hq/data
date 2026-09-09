@@ -2,6 +2,7 @@
   "id": "emp-shield-sp-120-240-rl",
   "manufacturer": "emp-shield",
   "name": "SP-120-240-RL",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "ecoflow-efultra-dual-platinum-1",
   "manufacturer": "ecoflow",
   "name": "EFULTRA-DUAL-PLATINUM-1",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

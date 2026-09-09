@@ -2,6 +2,7 @@
   "id": "pentair-8000-812-288",
   "manufacturer": "pentair",
   "name": "8000-812-288",
+  "kind": "out-of-scope",
   "aliases": [
     "SFL-324-112"
   ],

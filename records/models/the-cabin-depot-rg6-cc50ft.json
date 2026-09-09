@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-rg6-cc50ft",
   "manufacturer": "the-cabin-depot",
   "name": "RG6-cc50ft",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

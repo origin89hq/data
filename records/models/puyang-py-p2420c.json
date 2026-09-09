@@ -2,6 +2,7 @@
   "id": "puyang-py-p2420c",
   "manufacturer": "puyang",
   "name": "PY-P2420C",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

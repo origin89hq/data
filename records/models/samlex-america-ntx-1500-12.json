@@ -2,6 +2,7 @@
   "id": "samlex-america-ntx-1500-12",
   "manufacturer": "samlex-america",
   "name": "NTX-1500-12",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "volthium-25-6-200-rh-3u",
   "manufacturer": "volthium",
   "name": "25.6-200-RH-3U",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

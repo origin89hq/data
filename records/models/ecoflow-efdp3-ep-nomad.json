@@ -2,6 +2,7 @@
   "id": "ecoflow-efdp3-ep-nomad",
   "manufacturer": "ecoflow",
   "name": "EFDP3+EP-NOMAD",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

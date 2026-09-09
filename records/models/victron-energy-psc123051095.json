@@ -2,6 +2,7 @@
   "id": "victron-energy-psc123051095",
   "manufacturer": "victron-energy",
   "name": "PSC123051095",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

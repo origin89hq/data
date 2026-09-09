@@ -2,6 +2,7 @@
   "id": "kinetic-solar-kin-ktpm6060-m",
   "manufacturer": "kinetic-solar",
   "name": "KIN-KTPM6060-M",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

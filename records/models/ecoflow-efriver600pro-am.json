@@ -2,6 +2,7 @@
   "id": "ecoflow-efriver600pro-am",
   "manufacturer": "ecoflow",
   "name": "EFRIVER600PRO-AM",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

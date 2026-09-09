@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "CCH024040000",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

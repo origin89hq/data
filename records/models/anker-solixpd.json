@@ -2,6 +2,7 @@
   "id": "anker-solixpd",
   "manufacturer": "anker",
   "name": "SOLIXPD",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

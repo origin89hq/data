@@ -2,6 +2,7 @@
   "id": "morningstar-sk-12",
   "manufacturer": "morningstar",
   "name": "SK-12",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

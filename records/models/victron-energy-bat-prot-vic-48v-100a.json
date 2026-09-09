@@ -2,6 +2,7 @@
   "id": "victron-energy-bat-prot-vic-48v-100a",
   "manufacturer": "victron-energy",
   "name": "BAT-PROT-VIC-48V-100A",
+  "kind": "bms",
   "aliases": [],
   "dialects": []
 }

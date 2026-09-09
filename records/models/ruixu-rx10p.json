@@ -2,6 +2,7 @@
   "id": "ruixu-rx10p",
   "manufacturer": "ruixu",
   "name": "RX10P",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "anker-bs220114",
   "manufacturer": "anker",
   "name": "BS220114",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

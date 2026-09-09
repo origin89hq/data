@@ -2,6 +2,7 @@
   "id": "anker-solixsg",
   "manufacturer": "anker",
   "name": "SOLIXSG",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

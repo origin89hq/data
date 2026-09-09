@@ -2,6 +2,7 @@
   "id": "sol-ark-sark-18k-16-32-dsh-c",
   "manufacturer": "sol-ark",
   "name": "SARK-18K-16-32-DSH-C",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "ruixu-op200",
   "manufacturer": "ruixu",
   "name": "OP200",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "pytes-pytes-junctionbox",
   "manufacturer": "pytes",
   "name": "PYTES-JUNCTIONBOX",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

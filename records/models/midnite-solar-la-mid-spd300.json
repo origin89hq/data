@@ -2,6 +2,7 @@
   "id": "midnite-solar-la-mid-spd300",
   "manufacturer": "midnite-solar",
   "name": "LA-MID-SPD300",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

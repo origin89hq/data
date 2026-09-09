@@ -2,6 +2,7 @@
   "id": "kinetic-solar-kin-kflr-415",
   "manufacturer": "kinetic-solar",
   "name": "KIN-KFLR-415",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

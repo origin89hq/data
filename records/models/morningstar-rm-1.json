@@ -2,6 +2,7 @@
   "id": "morningstar-rm-1",
   "manufacturer": "morningstar",
   "name": "RM-1",
+  "kind": "out-of-scope",
   "aliases": [
     "MOR-161-149"
   ],

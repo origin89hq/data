@@ -2,6 +2,7 @@
   "id": "eg4-electronics-eg4b3s1gbbrkr50av1",
   "manufacturer": "eg4-electronics",
   "name": "EG4B3S1GBBRKR50AV1",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "victron-energy-dist-vic-lynx-distributor-m10",
   "manufacturer": "victron-energy",
   "name": "DIST-VIC-LYNX-DISTRIBUTOR-M10",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

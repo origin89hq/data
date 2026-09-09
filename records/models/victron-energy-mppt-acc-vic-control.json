@@ -2,6 +2,7 @@
   "id": "victron-energy-mppt-acc-vic-control",
   "manufacturer": "victron-energy",
   "name": "MPPT-ACC-VIC-CONTROL",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

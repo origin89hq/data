@@ -2,6 +2,7 @@
   "id": "ecoflow-efl-generatorchargingadapter",
   "manufacturer": "ecoflow",
   "name": "EFL-GeneratorChargingAdapter",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "victron-energy-ski024100000",
   "manufacturer": "victron-energy",
   "name": "SKI024100000",
+  "kind": "shunt-monitor",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "morningstar-sl-20l-24v",
   "manufacturer": "morningstar",
   "name": "SL-20L-24V",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

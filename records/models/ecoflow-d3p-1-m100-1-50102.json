@@ -2,6 +2,7 @@
   "id": "ecoflow-d3p-1-m100-1-50102",
   "manufacturer": "ecoflow",
   "name": "D3P-1-M100-1-50102",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "victron-energy-dist-vic-lynx-bms-500-m10",
   "manufacturer": "victron-energy",
   "name": "DIST-VIC-LYNX-BMS-500-M10",
+  "kind": "bms",
   "aliases": [],
   "dialects": []
 }

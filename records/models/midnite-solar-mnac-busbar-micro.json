@@ -2,6 +2,7 @@
   "id": "midnite-solar-mnac-busbar-micro",
   "manufacturer": "midnite-solar",
   "name": "MNAC BUSBAR MICRO",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

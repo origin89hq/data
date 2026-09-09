@@ -2,6 +2,7 @@
   "id": "pytes-pytv5",
   "manufacturer": "pytes",
   "name": "PYTV5",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

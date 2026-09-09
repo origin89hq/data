@@ -2,6 +2,7 @@
   "id": "victron-energy-bat-lit-vic-sp-ng-12v-100ah",
   "manufacturer": "victron-energy",
   "name": "BAT-LIT-VIC-SP-NG-12V-100AH",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

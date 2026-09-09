@@ -2,6 +2,7 @@
   "id": "eg4-electronics-eg418kpv12lv",
   "manufacturer": "eg4-electronics",
   "name": "EG418KPV12LV",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

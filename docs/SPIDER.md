@@ -95,6 +95,27 @@ its own.
   output is a candidate, and it becomes a record when a person attaches the
   source.
 
+## What a second run costs
+
+Almost nothing, and getting there took two corrections.
+
+**A classification is keyed by what was classified, not by when.** The fields a
+model is shown — title, brand, SKU, model, category, variant — become the key of
+its answer. A weekly crawl of a shop that did not change asks nothing and pays
+nothing; only a listing whose text actually moved reaches a model. A price
+change is not a reason to ask again.
+
+**A document is read once.** Conversion already skipped what it had, because the
+markdown is keyed by the document's content hash. Reading now skips too: a
+reading that exists is a reading of exactly those bytes by exactly that
+extractor.
+
+**Reading results back was the real bottleneck**, and it was not the pipeline.
+The first version fetched one object per request through the wrangler CLI, which
+spent about a second of process startup per file — ten minutes to read a run
+that took minutes to produce. R2 can list and a Worker can stream, so a run now
+comes back in one request: 5,230 answers in a third of a second.
+
 ## What the reading costs
 
 Turning a PDF into markdown is free while the document has a text layer.

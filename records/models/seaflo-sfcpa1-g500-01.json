@@ -2,6 +2,7 @@
   "id": "seaflo-sfcpa1-g500-01",
   "manufacturer": "seaflo",
   "name": "SFCPA1-G500-01",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "firman-w01781",
   "manufacturer": "firman",
   "name": "W01781",
+  "kind": "generator",
   "aliases": [],
   "dialects": [
     "firman-portable-no-comms"

@@ -2,6 +2,7 @@
   "id": "victron-energy-dist-vic-lynx-shunt-m8",
   "manufacturer": "victron-energy",
   "name": "DIST-VIC-LYNX-SHUNT-M8",
+  "kind": "shunt-monitor",
   "aliases": [],
   "dialects": []
 }

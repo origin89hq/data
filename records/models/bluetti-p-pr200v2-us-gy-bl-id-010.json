@@ -2,6 +2,7 @@
   "id": "bluetti-p-pr200v2-us-gy-bl-id-010",
   "manufacturer": "bluetti",
   "name": "P-PR200V2-US-GY-BL-ID-010",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

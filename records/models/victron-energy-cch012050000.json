@@ -2,6 +2,7 @@
   "id": "victron-energy-cch012050000",
   "manufacturer": "victron-energy",
   "name": "CCH012050000",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

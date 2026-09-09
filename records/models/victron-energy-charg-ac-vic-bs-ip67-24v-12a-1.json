@@ -2,6 +2,7 @@
   "id": "victron-energy-charg-ac-vic-bs-ip67-24v-12a-1",
   "manufacturer": "victron-energy",
   "name": "CHARG-AC-VIC-BS-IP67-24V/12A-1",
+  "kind": "ac-charger",
   "aliases": [],
   "dialects": []
 }

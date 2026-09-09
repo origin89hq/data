@@ -2,6 +2,7 @@
   "id": "kinetic-solar-kin-kbfgm28l-ga",
   "manufacturer": "kinetic-solar",
   "name": "KIN-KBFGM28L-GA",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "ecoflow-ef-ocean-pro-20kwh",
   "manufacturer": "ecoflow",
   "name": "EF-OCEAN-PRO-20KWH",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

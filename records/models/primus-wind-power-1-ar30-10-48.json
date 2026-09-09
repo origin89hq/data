@@ -2,6 +2,7 @@
   "id": "primus-wind-power-1-ar30-10-48",
   "manufacturer": "primus-wind-power",
   "name": "1-AR30-10 (48)",
+  "kind": "generator",
   "aliases": [],
   "dialects": []
 }

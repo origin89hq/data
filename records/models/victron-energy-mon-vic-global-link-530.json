@@ -2,6 +2,7 @@
   "id": "victron-energy-mon-vic-global-link-530",
   "manufacturer": "victron-energy",
   "name": "MON-VIC-GLOBAL-LINK-530",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "anker-ankf3000-4rs200-1bp",
   "manufacturer": "anker",
   "name": "ANKF3000-4RS200-1BP",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

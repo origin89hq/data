@@ -2,6 +2,7 @@
   "id": "ecoflow-efpowerhat-m-l",
   "manufacturer": "ecoflow",
   "name": "EFPowerHat-M-L",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

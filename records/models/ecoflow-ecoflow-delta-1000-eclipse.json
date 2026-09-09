@@ -2,6 +2,7 @@
   "id": "ecoflow-ecoflow-delta-1000-eclipse",
   "manufacturer": "ecoflow",
   "name": "ECOFLOW-DELTA-1000-ECLIPSE",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "victron-energy-bat-prot-vic-12v-24v-220a-smart",
   "manufacturer": "victron-energy",
   "name": "BAT-PROT-VIC-12V/24V-220A-SMART",
+  "kind": "bms",
   "aliases": [],
   "dialects": []
 }

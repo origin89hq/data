@@ -2,6 +2,7 @@
   "id": "enphase-env2-iq-am1-240",
   "manufacturer": "enphase",
   "name": "ENV2-IQ-AM1-240",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

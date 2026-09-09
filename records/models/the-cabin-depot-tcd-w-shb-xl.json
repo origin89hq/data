@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-tcd-w-shb-xl",
   "manufacturer": "the-cabin-depot",
   "name": "TCD-W-SHB-XL",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

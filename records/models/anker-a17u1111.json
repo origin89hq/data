@@ -2,6 +2,7 @@
   "id": "anker-a17u1111",
   "manufacturer": "anker",
   "name": "A17U1111",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

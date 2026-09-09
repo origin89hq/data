@@ -2,6 +2,7 @@
   "id": "ecoflow-efalternatorcharger",
   "manufacturer": "ecoflow",
   "name": "EFAlternatorCharger",
+  "kind": "ac-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "ecoflow-delta-pro-ultra-x-pro-roof",
   "manufacturer": "ecoflow",
   "name": "DELTA-PRO-ULTRA-X-PRO-ROOF",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

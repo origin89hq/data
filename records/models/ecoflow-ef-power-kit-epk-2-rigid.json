@@ -2,6 +2,7 @@
   "id": "ecoflow-ef-power-kit-epk-2-rigid",
   "manufacturer": "ecoflow",
   "name": "EF-POWER-KIT-EPK-2-RIGID",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "victron-energy-vog-10k-sp-450200-eg4pp280",
   "manufacturer": "victron-energy",
   "name": "VOG-10K-SP-450200-EG4PP280",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

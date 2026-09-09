@@ -2,6 +2,7 @@
   "id": "victron-energy-mppt-vic-250v-100a-ss",
   "manufacturer": "victron-energy",
   "name": "MPPT-VIC-250V/100A-SS",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

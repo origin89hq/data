@@ -2,6 +2,7 @@
   "id": "ecoflow-d3u-400w",
   "manufacturer": "ecoflow",
   "name": "D3U-400W",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

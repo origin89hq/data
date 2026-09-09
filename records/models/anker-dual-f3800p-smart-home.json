@@ -2,6 +2,7 @@
   "id": "anker-dual-f3800p-smart-home",
   "manufacturer": "anker",
   "name": "DUAL-F3800P-SMART-HOME",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

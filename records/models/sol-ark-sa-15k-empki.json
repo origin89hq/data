@@ -2,6 +2,7 @@
   "id": "sol-ark-sa-15k-empki",
   "manufacturer": "sol-ark",
   "name": "SA-15K-EMPKI",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

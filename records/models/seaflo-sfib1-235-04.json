@@ -2,6 +2,7 @@
   "id": "seaflo-sfib1-235-04",
   "manufacturer": "seaflo",
   "name": "SFIB1-235-04",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

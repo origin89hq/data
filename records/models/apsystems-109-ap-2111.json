@@ -2,6 +2,7 @@
   "id": "apsystems-109-ap-2111",
   "manufacturer": "apsystems",
   "name": "109-AP-2111",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

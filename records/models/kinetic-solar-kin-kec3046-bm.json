@@ -2,6 +2,7 @@
   "id": "kinetic-solar-kin-kec3046-bm",
   "manufacturer": "kinetic-solar",
   "name": "KIN-KEC3046-BM",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

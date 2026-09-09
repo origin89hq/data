@@ -2,6 +2,7 @@
   "id": "ecoflow-efdeltapro3-shp2-us",
   "manufacturer": "ecoflow",
   "name": "EFDELTAPRO3-SHP2-US",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

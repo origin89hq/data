@@ -2,6 +2,7 @@
   "id": "bluetti-bluetti-folding-trolley",
   "manufacturer": "bluetti",
   "name": "BLUETTI-FOLDING-TROLLEY",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

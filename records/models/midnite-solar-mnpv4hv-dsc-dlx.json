@@ -2,6 +2,7 @@
   "id": "midnite-solar-mnpv4hv-dsc-dlx",
   "manufacturer": "midnite-solar",
   "name": "MNPV4HV-DSC-DLX",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "noco-e404",
   "manufacturer": "noco",
   "name": "E404",
+  "kind": "battery",
   "aliases": [],
   "dialects": [
     "noco-out-of-scope"

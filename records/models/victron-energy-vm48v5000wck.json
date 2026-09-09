@@ -2,6 +2,7 @@
   "id": "victron-energy-vm48v5000wck",
   "manufacturer": "victron-energy",
   "name": "VM48V5000WCK",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

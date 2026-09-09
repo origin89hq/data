@@ -2,6 +2,7 @@
   "id": "victron-energy-i-vc-remote",
   "manufacturer": "victron-energy",
   "name": "I-VC-REMOTE",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

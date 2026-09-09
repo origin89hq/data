@@ -2,6 +2,7 @@
   "id": "trojan-battery-b-spre06415",
   "manufacturer": "trojan-battery",
   "name": "B-SPRE06415",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

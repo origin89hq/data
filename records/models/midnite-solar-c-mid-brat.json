@@ -2,6 +2,7 @@
   "id": "midnite-solar-c-mid-brat",
   "manufacturer": "midnite-solar",
   "name": "C-MID-BRAT",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

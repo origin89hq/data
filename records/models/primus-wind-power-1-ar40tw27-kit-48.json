@@ -2,6 +2,7 @@
   "id": "primus-wind-power-1-ar40tw27-kit-48",
   "manufacturer": "primus-wind-power",
   "name": "1-AR40TW27-KIT-48",
+  "kind": "generator",
   "aliases": [],
   "dialects": []
 }

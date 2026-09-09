@@ -2,6 +2,7 @@
   "id": "ecoflow-ef-power-kit-epk-6",
   "manufacturer": "ecoflow",
   "name": "EF-POWER-KIT-EPK-6",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

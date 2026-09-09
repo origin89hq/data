@@ -2,6 +2,7 @@
   "id": "rolls-battery-r-cap48",
   "manufacturer": "rolls-battery",
   "name": "R-CAP48",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

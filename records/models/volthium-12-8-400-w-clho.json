@@ -2,6 +2,7 @@
   "id": "volthium-12-8-400-w-clho",
   "manufacturer": "volthium",
   "name": "12.8-400-W-CLHO",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

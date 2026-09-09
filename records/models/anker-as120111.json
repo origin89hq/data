@@ -2,6 +2,7 @@
   "id": "anker-as120111",
   "manufacturer": "anker",
   "name": "AS120111",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "integrarack-mhir2pgmf6m",
   "manufacturer": "integrarack",
   "name": "MHIR2PGMF6M",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

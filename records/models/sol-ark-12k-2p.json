@@ -2,6 +2,7 @@
   "id": "sol-ark-12k-2p",
   "manufacturer": "sol-ark",
   "name": "12K-2P",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": [
     "solark-dongle-uart",

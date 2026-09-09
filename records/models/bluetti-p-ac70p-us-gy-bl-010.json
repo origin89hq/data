@@ -2,6 +2,7 @@
   "id": "bluetti-p-ac70p-us-gy-bl-010",
   "manufacturer": "bluetti",
   "name": "P-AC70P-US-GY-BL-010",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "ecoflow-tmr500-2ms430-us",
   "manufacturer": "ecoflow",
   "name": "TMR500-2MS430-US",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

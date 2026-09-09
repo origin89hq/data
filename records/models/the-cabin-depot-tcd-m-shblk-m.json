@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-tcd-m-shblk-m",
   "manufacturer": "the-cabin-depot",
   "name": "TCD-M-SHBLK-M",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

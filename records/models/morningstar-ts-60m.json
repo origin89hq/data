@@ -2,6 +2,7 @@
   "id": "morningstar-ts-60m",
   "manufacturer": "morningstar",
   "name": "TS-60M",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

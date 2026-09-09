@@ -2,6 +2,7 @@
   "id": "midnite-solar-o-mne-baby",
   "manufacturer": "midnite-solar",
   "name": "O-MNE-BABY",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

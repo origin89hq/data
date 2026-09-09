@@ -2,6 +2,7 @@
   "id": "abb-saacou600a",
   "manufacturer": "abb",
   "name": "SAACOU600A",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

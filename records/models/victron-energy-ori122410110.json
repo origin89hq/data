@@ -2,6 +2,7 @@
   "id": "victron-energy-ori122410110",
   "manufacturer": "victron-energy",
   "name": "ORI122410110",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

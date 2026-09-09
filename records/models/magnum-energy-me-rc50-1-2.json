@@ -2,6 +2,7 @@
   "id": "magnum-energy-me-rc50-1-2",
   "manufacturer": "magnum-energy",
   "name": "ME-RC50 1.2",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

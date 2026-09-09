@@ -2,6 +2,7 @@
   "id": "grundfos-15sqf290",
   "manufacturer": "grundfos",
   "name": "15sqf290",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

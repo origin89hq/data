@@ -2,6 +2,7 @@
   "id": "ecoflow-efdpu-bp-400w-us",
   "manufacturer": "ecoflow",
   "name": "EFDPU-BP-400W-US",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

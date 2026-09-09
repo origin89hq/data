@@ -2,6 +2,7 @@
   "id": "ecoflow-ef-grounding-adapter",
   "manufacturer": "ecoflow",
   "name": "EF-GROUNDING-ADAPTER",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "luxpower-sna-us-12k",
   "manufacturer": "luxpower",
   "name": "SNA-US-12K",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

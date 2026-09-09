@@ -2,6 +2,7 @@
   "id": "bluetti-charger-1-dc-input-cable",
   "manufacturer": "bluetti",
   "name": "Charger 1+DC Input Cable",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

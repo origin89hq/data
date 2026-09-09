@@ -2,6 +2,7 @@
   "id": "pytes-pytes-busbar",
   "manufacturer": "pytes",
   "name": "PYTES-BUSBAR",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

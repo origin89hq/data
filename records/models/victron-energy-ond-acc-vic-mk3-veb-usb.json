@@ -2,6 +2,7 @@
   "id": "victron-energy-ond-acc-vic-mk3-veb-usb",
   "manufacturer": "victron-energy",
   "name": "OND-ACC-VIC-MK3-VEB/USB",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

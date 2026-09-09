@@ -2,6 +2,7 @@
   "id": "samlex-america-sec-1223",
   "manufacturer": "samlex-america",
   "name": "SEC-1223",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

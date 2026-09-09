@@ -2,6 +2,7 @@
   "id": "ecoflow-zppmr350-us-4",
   "manufacturer": "ecoflow",
   "name": "ZPPMR350-US-4",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

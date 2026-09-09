@@ -2,6 +2,7 @@
   "id": "ecoflow-ef-batterypack-10kwh-us",
   "manufacturer": "ecoflow",
   "name": "EF-BATTERYPACK-10kWh-US",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

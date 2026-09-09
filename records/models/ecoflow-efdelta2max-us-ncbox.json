@@ -2,6 +2,7 @@
   "id": "ecoflow-efdelta2max-us-ncbox",
   "manufacturer": "ecoflow",
   "name": "EFDELTA2Max-US-NCBox",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "magnum-energy-mmp250-30d",
   "manufacturer": "magnum-energy",
   "name": "MMP250-30D",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

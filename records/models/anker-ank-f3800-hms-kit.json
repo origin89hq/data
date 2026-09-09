@@ -2,6 +2,7 @@
   "id": "anker-ank-f3800-hms-kit",
   "manufacturer": "anker",
   "name": "ANK-F3800-HMS-KIT",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

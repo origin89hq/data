@@ -2,6 +2,7 @@
   "id": "anker-asolix",
   "manufacturer": "anker",
   "name": "ASOLIX",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

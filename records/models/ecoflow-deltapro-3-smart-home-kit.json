@@ -2,6 +2,7 @@
   "id": "ecoflow-deltapro-3-smart-home-kit",
   "manufacturer": "ecoflow",
   "name": "DELTAPRO-3-SMART-HOME-KIT",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

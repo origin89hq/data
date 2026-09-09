@@ -2,6 +2,7 @@
   "id": "vosker-v150-can",
   "manufacturer": "vosker",
   "name": "V150 CAN",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

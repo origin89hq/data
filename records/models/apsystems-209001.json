@@ -2,6 +2,7 @@
   "id": "apsystems-209001",
   "manufacturer": "apsystems",
   "name": "209001",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

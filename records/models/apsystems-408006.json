@@ -2,6 +2,7 @@
   "id": "apsystems-408006",
   "manufacturer": "apsystems",
   "name": "408006",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

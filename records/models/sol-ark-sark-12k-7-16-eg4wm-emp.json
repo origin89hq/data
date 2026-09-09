@@ -2,6 +2,7 @@
   "id": "sol-ark-sark-12k-7-16-eg4wm-emp",
   "manufacturer": "sol-ark",
   "name": "SARK-12K-7-16-EG4WM-EMP",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

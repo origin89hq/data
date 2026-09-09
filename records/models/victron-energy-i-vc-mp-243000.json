@@ -2,6 +2,7 @@
   "id": "victron-energy-i-vc-mp-243000",
   "manufacturer": "victron-energy",
   "name": "I-VC-MP-243000",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "victron-energy-charg-bat-vic-ip43-12v-50a-1-1-120v-240v",
   "manufacturer": "victron-energy",
   "name": "CHARG-BAT-VIC-IP43-12V-50A-1-1-120V-240V",
+  "kind": "ac-charger",
   "aliases": [],
   "dialects": []
 }

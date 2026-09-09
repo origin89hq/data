@@ -2,6 +2,7 @@
   "id": "apsystems-105-ap-3010",
   "manufacturer": "apsystems",
   "name": "105-AP-3010",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

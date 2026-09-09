@@ -2,6 +2,7 @@
   "id": "ecoflow-dpu-4-shp2",
   "manufacturer": "ecoflow",
   "name": "DPU-4-SHP2",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

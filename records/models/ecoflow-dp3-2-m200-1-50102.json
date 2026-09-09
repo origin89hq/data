@@ -2,6 +2,7 @@
   "id": "ecoflow-dp3-2-m200-1-50102",
   "manufacturer": "ecoflow",
   "name": "DP3-2-M200-1-50102",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "bluetti-bluetti-ac60p-eclipse",
   "manufacturer": "bluetti",
   "name": "BLUETTI-AC60P-ECLIPSE",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

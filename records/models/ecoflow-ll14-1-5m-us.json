@@ -2,6 +2,7 @@
   "id": "ecoflow-ll14-1-5m-us",
   "manufacturer": "ecoflow",
   "name": "LL14-1.5m-US",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

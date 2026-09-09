@@ -2,6 +2,7 @@
   "id": "ruixu-rx-cb-us",
   "manufacturer": "ruixu",
   "name": "RX-CB-US",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "victron-energy-gsm900200100",
   "manufacturer": "victron-energy",
   "name": "GSM900200100",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

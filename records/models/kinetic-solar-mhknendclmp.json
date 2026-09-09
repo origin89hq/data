@@ -2,6 +2,7 @@
   "id": "kinetic-solar-mhknendclmp",
   "manufacturer": "kinetic-solar",
   "name": "MHKNENDCLMP",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

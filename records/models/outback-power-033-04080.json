@@ -2,6 +2,7 @@
   "id": "outback-power-033-04080",
   "manufacturer": "outback-power",
   "name": "033-04080",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

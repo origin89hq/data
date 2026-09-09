@@ -2,6 +2,7 @@
   "id": "victron-energy-bos-fuse-anl300-80v-vic",
   "manufacturer": "victron-energy",
   "name": "BOS-FUSE-ANL300-80V-VIC",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

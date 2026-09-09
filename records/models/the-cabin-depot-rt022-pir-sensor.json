@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-rt022-pir-sensor",
   "manufacturer": "the-cabin-depot",
   "name": "RT022 PIR sensor",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

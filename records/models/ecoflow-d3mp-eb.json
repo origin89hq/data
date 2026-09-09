@@ -2,6 +2,7 @@
   "id": "ecoflow-d3mp-eb",
   "manufacturer": "ecoflow",
   "name": "D3MP-EB",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "blue-sea-systems-bss7185",
   "manufacturer": "blue-sea-systems",
   "name": "BSS7185",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "anker-f3000-eb-400x3",
   "manufacturer": "anker",
   "name": "F3000-EB-400x3",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

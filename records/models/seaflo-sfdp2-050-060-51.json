@@ -2,6 +2,7 @@
   "id": "seaflo-sfdp2-050-060-51",
   "manufacturer": "seaflo",
   "name": "SFDP2-050-060-51",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

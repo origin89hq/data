@@ -25,14 +25,13 @@ if (!date || sellers.length === 0) {
 const sightings: Sighting[] = [];
 const guesses = new Map<string, Guess>();
 for (const seller of sellers) {
-  const crawl = readCrawl(seller, date, remote);
+  const crawl = await readCrawl(seller, date, remote);
   if (!crawl) {
     console.error(`${seller}: no crawl at ${date}`);
     continue;
   }
-  if (crawl.missingPages.length) {
-    console.error(`${seller}: ${crawl.missingPages.length} pages missing; refusing a partial derivation`);
-    process.exit(1);
+  if (crawl.missingParts.length) {
+    console.error(`${seller}: ${crawl.missingParts.length} classifier parts are not written; deriving anyway, those models get no kind`);
   }
   sightings.push(...crawl.sightings);
   for (const [k, v] of crawl.guesses) guesses.set(k, v);

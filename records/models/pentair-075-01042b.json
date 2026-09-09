@@ -2,6 +2,7 @@
   "id": "pentair-075-01042b",
   "manufacturer": "pentair",
   "name": "075-01042b",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

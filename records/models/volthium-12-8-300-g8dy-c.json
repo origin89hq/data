@@ -2,6 +2,7 @@
   "id": "volthium-12-8-300-g8dy-c",
   "manufacturer": "volthium",
   "name": "12.8-300-G8DY-C",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

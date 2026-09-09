@@ -2,6 +2,7 @@
   "id": "bluetti-a-pcover-uk-c10",
   "manufacturer": "bluetti",
   "name": "A-PCOVER-UK-C10",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

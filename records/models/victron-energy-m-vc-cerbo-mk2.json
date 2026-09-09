@@ -2,6 +2,7 @@
   "id": "victron-energy-m-vc-cerbo-mk2",
   "manufacturer": "victron-energy",
   "name": "M-VC-CERBO-MK2",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

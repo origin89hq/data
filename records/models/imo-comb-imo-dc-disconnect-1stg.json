@@ -2,6 +2,7 @@
   "id": "imo-comb-imo-dc-disconnect-1stg",
   "manufacturer": "imo",
   "name": "COMB-IMO-DC-DISCONNECT-1STG",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

@@ -2,6 +2,7 @@
   "id": "ecoflow-zma003-c14",
   "manufacturer": "ecoflow",
   "name": "ZMA003-C14",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

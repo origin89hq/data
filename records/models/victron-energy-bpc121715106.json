@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "BPC121715106",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-100ah-t-f",
   "manufacturer": "the-cabin-depot",
   "name": "100AH-T-F",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

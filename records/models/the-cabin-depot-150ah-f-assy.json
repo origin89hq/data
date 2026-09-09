@@ -2,6 +2,7 @@
   "id": "the-cabin-depot-150ah-f-assy",
   "manufacturer": "the-cabin-depot",
   "name": "150AH-F-ASSY",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

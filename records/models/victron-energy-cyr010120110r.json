@@ -2,6 +2,7 @@
   "id": "victron-energy-cyr010120110r",
   "manufacturer": "victron-energy",
   "name": "CYR010120110R",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

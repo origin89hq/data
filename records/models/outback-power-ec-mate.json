@@ -2,6 +2,7 @@
   "id": "outback-power-ec-mate",
   "manufacturer": "outback-power",
   "name": "EC-MATE",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

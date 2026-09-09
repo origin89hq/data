@@ -2,6 +2,7 @@
   "id": "east-penn-88agc2",
   "manufacturer": "east-penn",
   "name": "88AGC2",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

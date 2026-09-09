@@ -2,6 +2,7 @@
   "id": "east-penn-8a31dt-dual-terminal",
   "manufacturer": "east-penn",
   "name": "8A31DT (DUAL TERMINAL)",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

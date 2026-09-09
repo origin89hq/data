@@ -2,6 +2,7 @@
   "id": "pytes-sapyhvbcu",
   "manufacturer": "pytes",
   "name": "SAPYHVBCU",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

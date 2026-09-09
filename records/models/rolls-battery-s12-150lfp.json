@@ -2,6 +2,7 @@
   "id": "rolls-battery-s12-150lfp",
   "manufacturer": "rolls-battery",
   "name": "S12-150LFP",
+  "kind": "battery",
   "aliases": [],
   "dialects": [
     "rolls-lfp-drop-in"

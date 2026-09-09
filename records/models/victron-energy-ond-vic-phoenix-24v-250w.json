@@ -2,6 +2,7 @@
   "id": "victron-energy-ond-vic-phoenix-24v-250w",
   "manufacturer": "victron-energy",
   "name": "OND-VIC-PHOENIX-24V/250W",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }
