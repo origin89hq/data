@@ -2,7 +2,7 @@
   "id": "victron-energy-bat512120705",
   "manufacturer": "victron-energy",
   "name": "BAT512120705",
-  "kind": "battery",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

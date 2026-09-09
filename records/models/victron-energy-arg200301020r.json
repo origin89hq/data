@@ -2,7 +2,7 @@
   "id": "victron-energy-arg200301020r",
   "manufacturer": "victron-energy",
   "name": "ARG200301020R",
-  "kind": "balance-of-system",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

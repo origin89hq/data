@@ -2,7 +2,7 @@
   "id": "victron-energy-ass070400100",
   "manufacturer": "victron-energy",
   "name": "ASS070400100",
-  "kind": "inverter-charger",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }
