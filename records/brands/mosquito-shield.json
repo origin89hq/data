@@ -1,7 +1,8 @@
 {
   "id": "mosquito-shield",
   "brand": "Mosquito Shield",
-  "decision": "unresolved",
+  "decision": "out-of-scope",
+  "reason": "pest control products, not equipment",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -15,5 +16,8 @@
       "Mosquito Shield 221g Combat Insect Repellent Aerosol With Deet"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "pest control products, not equipment"
 }

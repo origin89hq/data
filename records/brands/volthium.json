@@ -1,7 +1,8 @@
 {
   "id": "volthium",
   "brand": "Volthium",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "volthium",
   "evidence": {
     "sellers": [
       "solacity"
@@ -31,5 +32,8 @@
       "Volthium 51.2-100-R-H-ST-3U-C"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "the Smart Bridge and the 51.2-100-RH rack packs are the products the volthium-* dialects document"
 }

@@ -1,7 +1,8 @@
 {
   "id": "fronius",
   "brand": "Fronius",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "fronius",
   "evidence": {
     "sellers": [
       "solacity"
@@ -32,5 +33,8 @@
       "Fronius Symo Advanced 15.0-3 480 Lite"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "Primo GEN24 is the model the fronius-gen24-sunspec dialect documents from Fronius's own register map"
 }

@@ -1,7 +1,8 @@
 {
   "id": "midnite-solar-inc",
   "brand": "MidNite Solar Inc",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "midnite-solar",
   "evidence": {
     "sellers": [
       "signaturesolar"
@@ -15,5 +16,8 @@
       "Midnite Solar Lightning and Surge Arrestor | 300DC | MNSPD-300-DC"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "MNSPD is a MidNite surge arrestor; the suffix is the shop's, not a different company"
 }

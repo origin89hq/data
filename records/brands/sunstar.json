@@ -1,7 +1,8 @@
 {
   "id": "sunstar",
   "brand": "SunStar",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "sunstar-solar",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -20,5 +21,8 @@
       "SunStar 10CU Solar DC/AC Refrigerator - White"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "SunStar's own solar DC/AC refrigerators"
 }

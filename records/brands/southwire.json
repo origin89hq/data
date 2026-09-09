@@ -1,7 +1,8 @@
 {
   "id": "southwire",
   "brand": "Southwire",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "southwire",
   "evidence": {
     "sellers": [
       "solacity"
@@ -21,5 +22,8 @@
       "Southwire PV-Wire / RPVU 10 AWG Red"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "PV-Wire / RPVU is Southwire's photovoltaic cable line and 58367xxx are its own part numbers"
 }

@@ -1,7 +1,8 @@
 {
   "id": "ja-solar",
   "brand": "JA Solar",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "ja-solar",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -20,5 +21,8 @@
       "JA Solar 440W Bifacial Solar Panel - 36 Pack Bundle"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "a JA Solar bifacial module"
 }

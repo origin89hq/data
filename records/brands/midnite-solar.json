@@ -1,7 +1,8 @@
 {
   "id": "midnite-solar",
   "brand": "MidNite Solar",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "midnite-solar",
   "evidence": {
     "sellers": [
       "solacity",
@@ -33,5 +34,8 @@
       "MidNite Solar MNEDC125RT"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "MNEPV, MNEDC and MNCLASSIC are MidNite part prefixes; the midnite-classic dialects cite midnitesolar.com"
 }

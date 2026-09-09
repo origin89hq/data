@@ -1,7 +1,8 @@
 {
   "id": "sok-battery",
   "brand": "SOK Battery",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "sok-battery",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -19,5 +20,8 @@
       "SOK Battery 12V 100Ah LiFePO4 Battery With Clear Sealed Box"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "SOK's own 12V 206Ah heated LiFePO4 pack"
 }

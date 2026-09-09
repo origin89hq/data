@@ -1,7 +1,8 @@
 {
   "id": "sirius-pv",
   "brand": "Sirius PV",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "gma-solar",
   "evidence": {
     "sellers": [
       "signaturesolar"
@@ -17,5 +18,8 @@
       "Sirius PV 450W Pallet of Monofacial Solar Panels | Domestic Content | 31 Panels"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "Sirius PV is GMA Solar's module brand, sold through the same channel and numbering"
 }

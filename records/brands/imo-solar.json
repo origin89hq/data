@@ -1,7 +1,8 @@
 {
   "id": "imo-solar",
   "brand": "IMO Solar",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "imo",
   "evidence": {
     "sellers": [
       "signaturesolar"
@@ -15,5 +16,8 @@
       "IMO Emergency Stop Button | Twist to release | 500VAC | 1NO + 1NC"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "an IMO emergency stop, the same IMO Precision Controls line as the SI32 isolator"
 }

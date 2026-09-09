@@ -1,7 +1,8 @@
 {
   "id": "seaflo",
   "brand": "SEAFLO",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "seaflo",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -20,5 +21,8 @@
       "SEAFLO 24V 4GPM 52 Series Diaphragm Pump 60PSI"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "the 56 Series diaphragm pump, SEAFLO's own line, cited by the seaflo-dc-pressure-switch dialect"
 }

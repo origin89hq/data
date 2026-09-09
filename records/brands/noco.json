@@ -1,7 +1,8 @@
 {
   "id": "noco",
   "brand": "NOCO",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "noco",
   "evidence": {
     "sellers": [
       "solacity",
@@ -25,5 +26,8 @@
       "NOCO Group 30 Powersports Battery"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "the noco-gx-dryio and noco-genius-portable dialects are taken from NOCO's own user guides"
 }

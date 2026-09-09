@@ -1,7 +1,8 @@
 {
   "id": "wilcor",
   "brand": "Wilcor",
-  "decision": "unresolved",
+  "decision": "out-of-scope",
+  "reason": "camping, gift and household goods, not equipment with a specification",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -20,5 +21,8 @@
       "Wilcor Camping Word Picture Frame"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "camping, gift and household goods, not equipment with a specification"
 }

@@ -1,7 +1,8 @@
 {
   "id": "epsolar",
   "brand": "EPSolar",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "epever",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -16,5 +17,8 @@
       "EP Solar 4215 BN 40 Amp MPPT Charge Controller with Remote"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "IPower-Plus and the XTRA series are EPEver's own lines, sold under the older EPSolar name"
 }

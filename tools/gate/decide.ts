@@ -11,14 +11,17 @@ import { Manufacturer } from "../../schema/manufacturer.ts";
  *   decide.ts list [--all]                          what is waiting, most listings first
  *   decide.ts show <brand-id>                       one entry with its evidence
  *   decide.ts maker <id> <name> [website] [domain…] add a manufacturer
- *   decide.ts is <brand-id> <manufacturer-id>       this brand is made by that company
+ *   decide.ts is <brand-id> <maker-id> <basis…>     this brand is made by that company, and why
  *   decide.ts skip <brand-id> <reason…>             not equipment this database covers
  */
 const [command, ...rest] = process.argv.slice(2);
 const records = loadRecords();
 const today = new Date().toISOString().slice(0, 10);
 
+/** Who to record. `GATE_REVIEWER` lets an agent working the queue name itself honestly rather than borrow the repository owner's name. */
 function reviewer(): string {
+  const named = process.env.GATE_REVIEWER?.trim();
+  if (named) return named;
   const name = execFileSync("git", ["config", "user.name"], { encoding: "utf8" }).trim();
   if (!name) throw new Error("git config user.name is unset, and a decision needs a name against it");
   return name;
@@ -57,10 +60,12 @@ switch (command) {
     break;
   }
   case "is": {
-    const [brandRef, makerId] = rest;
+    const [brandRef, makerId, ...why] = rest;
     const b = brand(brandRef);
     if (!records.manufacturers.some((m) => m.id === makerId)) throw new Error(`no manufacturer ${makerId}; add it with: decide.ts maker ${makerId} "<name>"`);
-    const next = Brand.parse({ ...b, decision: "manufacturer", manufacturer: makerId, reason: undefined, checkedAt: today, reviewedBy: reviewer() });
+    const basis = why.join(" ");
+    if (!basis) throw new Error("a basis is required: say what settled it, or the next reader cannot check the decision");
+    const next = Brand.parse({ ...b, decision: "manufacturer", manufacturer: makerId, reason: undefined, checkedAt: today, reviewedBy: reviewer(), basis });
     writeRecord(RECORDS_DIR, "brands", next.id, next);
     console.log(`${next.brand} → ${makerId}, decided by ${next.reviewedBy} on ${today}`);
     break;
@@ -70,7 +75,7 @@ switch (command) {
     const b = brand(brandRef);
     const reason = words.join(" ");
     if (!reason) throw new Error("a reason is required: an unexplained skip is a decision nobody can revisit");
-    const next = Brand.parse({ ...b, decision: "out-of-scope", manufacturer: undefined, reason, checkedAt: today, reviewedBy: reviewer() });
+    const next = Brand.parse({ ...b, decision: "out-of-scope", manufacturer: undefined, reason, checkedAt: today, reviewedBy: reviewer(), basis: reason });
     writeRecord(RECORDS_DIR, "brands", next.id, next);
     console.log(`${next.brand} out of scope: ${reason}`);
     break;

@@ -1,7 +1,8 @@
 {
   "id": "blue-sea",
   "brand": "Blue Sea",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "blue-sea-systems",
   "evidence": {
     "sellers": [
       "solacity"
@@ -29,5 +30,8 @@
       "Blue Sea 6006"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "2719, 5026 and 6006 are Blue Sea Systems catalogue numbers"
 }

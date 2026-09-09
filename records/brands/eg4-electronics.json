@@ -1,7 +1,8 @@
 {
   "id": "eg4-electronics",
   "brand": "EG4 Electronics",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "eg4-electronics",
   "evidence": {
     "sellers": [
       "signaturesolar",
@@ -24,5 +25,8 @@
       "EG4 GridBOSS 90A Breaker Kit"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "the Chargeverter is EG4's own product, and this repo documents four EG4 dialects from EG4's protocol PDFs"
 }

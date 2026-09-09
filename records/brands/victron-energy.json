@@ -1,7 +1,8 @@
 {
   "id": "victron-energy",
   "brand": "Victron Energy",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "victron-energy",
   "evidence": {
     "sellers": [
       "signaturesolar"
@@ -27,5 +28,8 @@
       "Victron Lynx Power In | M10"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "Orion-Tr 12/12-18A, the same converter Solacity lists under the shorter 'Victron'"
 }

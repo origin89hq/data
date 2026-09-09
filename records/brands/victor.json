@@ -1,7 +1,8 @@
 {
   "id": "victor",
   "brand": "Victor",
-  "decision": "unresolved",
+  "decision": "out-of-scope",
+  "reason": "pest control products, not equipment",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -16,5 +17,8 @@
       "Victor Yellow Jacket And Flying Insect Reusable Jar With Attractant"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "pest control products, not equipment"
 }

@@ -1,7 +1,8 @@
 {
   "id": "bluetti",
   "brand": "Bluetti",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "bluetti",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -20,5 +21,8 @@
       "Bluetti B1232 12.8V 314Ah LifePO Battery"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "the Handsfree 2 is Bluetti's own portable power station"
 }

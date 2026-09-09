@@ -1,7 +1,8 @@
 {
   "id": "cwpi",
   "brand": "CWPI",
-  "decision": "unresolved",
+  "decision": "out-of-scope",
+  "reason": "appliances, tools and household goods with no off-grid electrical specification this database tracks",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -17,5 +18,8 @@
       "TCD Hat With Leather Patch - Charcoal/White"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "appliances, tools and household goods with no off-grid electrical specification this database tracks"
 }

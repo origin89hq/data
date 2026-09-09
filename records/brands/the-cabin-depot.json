@@ -1,7 +1,8 @@
 {
   "id": "the-cabin-depot",
   "brand": "The Cabin Depot",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "the-cabin-depot",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -20,5 +21,8 @@
       "EG4 12,000XP Inverter + RUiXU Server Rack Battery Bundle"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "the retailer's own label on bundles and accessories; there is no maker named on them"
 }

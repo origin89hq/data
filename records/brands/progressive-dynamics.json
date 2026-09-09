@@ -1,7 +1,8 @@
 {
   "id": "progressive-dynamics",
   "brand": "Progressive Dynamics",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "progressive-dynamics",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -20,5 +21,8 @@
       "Progressive Dynamics Mighty Mini AC/DC Distribution Panel + 60 Amp 120v Charger"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "the 9360 Series converter-charger is Progressive Dynamics' own"
 }

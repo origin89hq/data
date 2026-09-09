@@ -1,7 +1,8 @@
 {
   "id": "primal-power-method",
   "brand": "Primal Power Method",
-  "decision": "unresolved",
+  "decision": "out-of-scope",
+  "reason": "camping, gift and household goods, not equipment with a specification",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -16,5 +17,8 @@
       "Living Off Grid - What To Expect While Living The Life Of Ultimate Freedom And Tranquility"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "camping, gift and household goods, not equipment with a specification"
 }

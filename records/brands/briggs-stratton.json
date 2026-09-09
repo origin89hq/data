@@ -1,7 +1,8 @@
 {
   "id": "briggs-stratton",
   "brand": "Briggs & Stratton",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "briggs-stratton",
   "evidence": {
     "sellers": [
       "signaturesolar"
@@ -16,5 +17,8 @@
       "Briggs & Stratton | PowerProtect™ 13/11.5kW Home Standby Generator Bundle | 200A Whole-Home Automatic Transfer Switch | Symphony Choice Power Management | 120/240V | LP/NG"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "SimpliPHI is a Briggs & Stratton brand, and this repo documents the briggs-gc1031-2wire-start input"
 }

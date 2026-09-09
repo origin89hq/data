@@ -1,7 +1,8 @@
 {
   "id": "magnum",
   "brand": "Magnum",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "magnum-energy",
   "evidence": {
     "sellers": [
       "solacity",
@@ -32,5 +33,8 @@
       "Magnum MMP175-60S"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "MS2812-L-U is a model the magnum-me-network dialect lists from Magnum's own protocol document"
 }

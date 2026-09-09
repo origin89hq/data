@@ -1,7 +1,8 @@
 {
   "id": "soladeck",
   "brand": "SolaDeck",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "rstc-enterprises",
   "evidence": {
     "sellers": [
       "signaturesolar",
@@ -24,5 +25,8 @@
       "SolaDeck 0799-5B | Solar Roof Mount PV Junction Box"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "SolaDeck enclosures are made by RSTC Enterprises, which publishes them at soladeck.com"
 }

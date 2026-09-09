@@ -1,7 +1,8 @@
 {
   "id": "worldwide",
   "brand": "WorldWide",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "trans-canada-energies",
   "evidence": {
     "sellers": [
       "solacity"
@@ -21,5 +22,8 @@
       "WorldWide WWLI-24V2560"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "a Trans-Canada Energies house brand: tced.ca lists WWLI-12V1280 and the identical EWLI-12V1280 under its Enerwatt label, so the cell maker is not named anywhere and is unknown"
 }

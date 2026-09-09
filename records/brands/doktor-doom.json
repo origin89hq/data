@@ -1,7 +1,8 @@
 {
   "id": "doktor-doom",
   "brand": "Doktor Doom",
-  "decision": "unresolved",
+  "decision": "out-of-scope",
+  "reason": "pest control products, not equipment",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -18,5 +19,8 @@
       "Doktor Doom 544g Supercharged Wasp And Hornet Jet Foam"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "pest control products, not equipment"
 }

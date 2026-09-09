@@ -1,7 +1,8 @@
 {
   "id": "s5",
   "brand": "S5!",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "s5",
   "evidence": {
     "sellers": [
       "signaturesolar"
@@ -15,5 +16,8 @@
       "S5! S-5-PVKIT-2.0-Mid | Black | Kit"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "S-5-PVKIT is S-5!'s own metal-roof mounting kit"
 }

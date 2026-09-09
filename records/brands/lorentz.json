@@ -1,7 +1,8 @@
 {
   "id": "lorentz",
   "brand": "Lorentz",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "lorentz",
   "evidence": {
     "sellers": [
       "solacity"
@@ -19,5 +20,8 @@
       "Lorentz PS150-C KIT"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "PS150-C is a Lorentz solar pump controller kit"
 }

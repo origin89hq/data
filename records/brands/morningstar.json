@@ -1,7 +1,8 @@
 {
   "id": "morningstar",
   "brand": "Morningstar",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "morningstar",
   "evidence": {
     "sellers": [
       "solacity"
@@ -31,5 +32,8 @@
       "Morningstar SunSaver SS-6L-12V"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "PS-MPPT is the ProStar MPPT, whose register map this repo cites from Morningstar's own specification"
 }

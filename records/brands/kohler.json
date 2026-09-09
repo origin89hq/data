@@ -1,7 +1,8 @@
 {
   "id": "kohler",
   "brand": "Kohler",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "kohler-energy",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -15,5 +16,8 @@
       "Kohler 14kW LPG Generator: Off-Grid Edition BUNDLE"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "a Kohler LPG generator; this repo already documents the kohler-rdc2-remote-start interface"
 }

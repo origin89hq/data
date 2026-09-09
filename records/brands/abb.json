@@ -1,7 +1,8 @@
 {
   "id": "abb",
   "brand": "ABB",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "abb",
   "evidence": {
     "sellers": [
       "signaturesolar"
@@ -15,5 +16,8 @@
       "ABB ReliaHome Smart Panel | Indoor HEM2"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "ReliaHome is ABB's own smart panel"
 }

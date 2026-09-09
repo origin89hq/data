@@ -1,7 +1,8 @@
 {
   "id": "flojet",
   "brand": "Flojet",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "xylem",
   "evidence": {
     "sellers": [
       "solacity"
@@ -23,5 +24,8 @@
       "Flojet 3526-144D"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "Flojet is a Xylem brand, and 02090-118 is its own pump numbering"
 }

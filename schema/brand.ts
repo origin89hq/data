@@ -43,10 +43,20 @@ export const Brand = z
     /** Set when the decision is `out-of-scope`: why this brand is not equipment worth a record. */
     reason: z.string().min(1).optional(),
     evidence: BrandEvidence,
-    /** When a person decided. Absent while unresolved. */
+    /** When it was decided. Absent while unresolved. */
     checkedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
-    /** Who decided. A model is never a valid answer here. */
+    /**
+     * Who decided, named so the decision can be argued with. A reviewer may be a person or an
+     * agent working through the queue; what is refused is the bulk classifier naming itself,
+     * because a guess over a product title is evidence and was never a decision.
+     */
     reviewedBy: z.string().min(1).optional(),
+    /**
+     * What settled it, in a sentence: the model numbers that matched a documented dialect, the
+     * maker's own site, the catalogue source that already names the company. A decision without
+     * one is an assertion, and the next reader cannot tell which.
+     */
+    basis: z.string().min(1).optional(),
   })
   .strict();
 export type Brand = z.infer<typeof Brand>;

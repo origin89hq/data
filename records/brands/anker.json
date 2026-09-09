@@ -1,7 +1,8 @@
 {
   "id": "anker",
   "brand": "Anker",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "anker",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -20,5 +21,8 @@
       "Anker SOLIX E10 120V/240V Power Strip"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "SOLIX is Anker's power-station line"
 }

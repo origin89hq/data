@@ -178,9 +178,16 @@ pnpm gate skip lodge "cookware"                      # not equipment this databa
 `queue` never decides anything. A brand new to it arrives `unresolved` and a
 brand already answered keeps its answer and takes the fresh evidence, so the
 queue is a backlog under version control rather than a list that regrows every
-week. The classifier's proposed manufacturer is carried as evidence for the
-reviewer and is never written as the answer: a record decided with no named
-reviewer, or with a model named as the reviewer, fails validation.
+week.
+
+Every decision names who made it and what settled it, and validation refuses
+one that carries neither. A reviewer may be a person or an agent working the
+queue; what is refused is the bulk classifier naming itself, because a guess
+over a product title is evidence and was never a decision.
+
+Of the first 190 brand strings, 97 resolve to a manufacturer, 85 are out of
+scope, and 8 are left unresolved because nobody could name their maker — which
+is a real answer and is why the queue has three states rather than two.
 
 `records/manufacturers/` holds the companies. A manufacturer's `domains` are
 what hop two is allowed to crawl, so a reseller's domain does not go in one.

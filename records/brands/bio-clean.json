@@ -1,7 +1,8 @@
 {
   "id": "bio-clean",
   "brand": "Bio-Clean",
-  "decision": "unresolved",
+  "decision": "out-of-scope",
+  "reason": "composting and waterless toilets, washing and water-treatment consumables; not electrical equipment",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -15,5 +16,8 @@
       "Bio-Clean 2 Lbs."
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "composting and waterless toilets, washing and water-treatment consumables; not electrical equipment"
 }

@@ -1,7 +1,8 @@
 {
   "id": "unique",
   "brand": "Unique",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "unique-appliances",
   "evidence": {
     "sellers": [
       "solacity",
@@ -30,5 +31,8 @@
       "Unique UGP-170L1 DC W"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "UGP-325L is a Unique Appliances propane refrigerator model"
 }

@@ -1,7 +1,8 @@
 {
   "id": "longi",
   "brand": "Longi",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "longi",
   "evidence": {
     "sellers": [
       "solacity"
@@ -23,5 +24,8 @@
       "Longi LR5-54HPB-410M"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "LR5 and LR7 are LONGi module series"
 }

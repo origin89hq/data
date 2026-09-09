@@ -1,7 +1,8 @@
 {
   "id": "quickcable",
   "brand": "QuickCable",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "quickcable",
   "evidence": {
     "sellers": [
       "solacity"
@@ -21,5 +22,8 @@
       "QuickCable MAX Copper Lug"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "850116 and 5950F are QuickCable terminal and lug part numbers"
 }

@@ -1,7 +1,8 @@
 {
   "id": "samlex",
   "brand": "Samlex",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "samlex-america",
   "evidence": {
     "sellers": [
       "solacity",
@@ -33,5 +34,8 @@
       "Samlex RC-300"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "PST-3000-12 and EVO-RC-PLUS match the samlex-* dialects taken from Samlex owner's manuals"
 }

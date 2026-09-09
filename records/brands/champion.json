@@ -1,7 +1,8 @@
 {
   "id": "champion",
   "brand": "Champion",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "champion-power",
   "evidence": {
     "sellers": [
       "signaturesolar"
@@ -15,5 +16,8 @@
       "Champion 8500 Watt Dual Fuel Inverter Generator with Electric Start"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "an 8500 W dual-fuel inverter generator, Champion Power Equipment's own"
 }

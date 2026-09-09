@@ -1,7 +1,8 @@
 {
   "id": "primus-wind-power",
   "brand": "Primus Wind Power",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "primus-wind-power",
   "evidence": {
     "sellers": [
       "solacity",
@@ -33,5 +34,8 @@
       "Primus AIR X Marine"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "the 2-AR and 1-AR part numbers are Primus AIR turbine assemblies"
 }

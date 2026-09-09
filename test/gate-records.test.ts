@@ -8,7 +8,7 @@ import { validate } from "../src/validate.ts";
 import type { Brand } from "../schema/brand.ts";
 
 const evidence = { sellers: ["shop"], listings: 3, inScope: 3, kinds: ["battery 3"], models: ["S-550"], proposed: [], examples: [], seenAt: "2026-09-09" };
-const decided: Brand = { id: "rolls", brand: "Rolls", decision: "manufacturer", manufacturer: "rolls-battery", evidence, checkedAt: "2026-09-09", reviewedBy: "David" };
+const decided: Brand = { id: "rolls", brand: "Rolls", decision: "manufacturer", manufacturer: "rolls-battery", evidence, checkedAt: "2026-09-09", reviewedBy: "David", basis: "S-550 is a Rolls model in the catalogue" };
 
 function fixture(brands: Brand[] = [decided]): Records {
   return {
@@ -33,12 +33,19 @@ test("a decision with no reviewer or no date is refused, because a decision is a
   assert.match(validate(fixture([{ ...decided, checkedAt: undefined }])).errors.join("\n"), /no reviewer or date/);
 });
 
-test("a model named as the reviewer is refused, which is the whole point of the gate", () => {
-  assert.match(validate(fixture([{ ...decided, reviewedBy: "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2" }])).errors.join("\n"), /reviewed by a model/);
+test("the bulk classifier cannot name itself as the reviewer, because a guess over a title is evidence", () => {
+  assert.match(validate(fixture([{ ...decided, reviewedBy: "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2" }])).errors.join("\n"), /bulk classifier named as the reviewer/);
+  assert.deepEqual(validate(fixture([{ ...decided, reviewedBy: "Claude (agent review)" }])).errors, [], "a named agent working the queue is attributable, which is what the rule is for");
+});
+
+test("a decision with no basis is refused, because nobody can check an assertion", () => {
+  assert.match(validate(fixture([{ ...decided, basis: undefined }])).errors.join("\n"), /no basis/);
+  const waiting: Brand = { id: "mystery", brand: "Mystery", decision: "unresolved", evidence, basis: "premature" };
+  assert.match(validate(fixture([waiting])).errors.join("\n"), /unresolved but already carries a basis/);
 });
 
 test("an out-of-scope brand needs a reason, so the decision can be revisited", () => {
-  const skipped: Brand = { id: "lodge", brand: "Lodge", decision: "out-of-scope", evidence, checkedAt: "2026-09-09", reviewedBy: "David" };
+  const skipped: Brand = { id: "lodge", brand: "Lodge", decision: "out-of-scope", evidence, checkedAt: "2026-09-09", reviewedBy: "David", basis: "cookware" };
   assert.match(validate(fixture([skipped])).errors.join("\n"), /out of scope with no reason/);
   assert.deepEqual(validate(fixture([{ ...skipped, reason: "cookware" }])).errors.filter((e) => e.includes("lodge")), []);
 });

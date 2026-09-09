@@ -1,7 +1,8 @@
 {
   "id": "ogo",
   "brand": "OGO",
-  "decision": "unresolved",
+  "decision": "out-of-scope",
+  "reason": "composting and waterless toilets, washing and water-treatment consumables; not electrical equipment",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -20,5 +21,8 @@
       "OGO Replacement Bushings-Solids Bin"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "composting and waterless toilets, washing and water-treatment consumables; not electrical equipment"
 }

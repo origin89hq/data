@@ -74,8 +74,10 @@ export function validate(records: Records): Report {
         note("brand waiting at the gate");
         break;
     }
-    if (b.decision !== "unresolved" && !(b.checkedAt && b.reviewedBy)) errors.push(`${b.id}: decided with no reviewer or date; a decision is a person's`);
-    if (b.reviewedBy && /^ai:|^@cf\//.test(b.reviewedBy)) errors.push(`${b.id}: reviewed by a model, which is never a decision`);
+    if (b.decision !== "unresolved" && !(b.checkedAt && b.reviewedBy)) errors.push(`${b.id}: decided with no reviewer or date; a decision has to be attributable`);
+    if (b.decision !== "unresolved" && !b.basis) errors.push(`${b.id}: decided with no basis; a decision nobody can check is an assertion`);
+    if (b.reviewedBy && /^ai:@cf\//.test(b.reviewedBy)) errors.push(`${b.id}: the bulk classifier named as the reviewer; its guess over a title is evidence, not a decision`);
+    if (b.decision === "unresolved" && b.basis) errors.push(`${b.id}: unresolved but already carries a basis`);
   }
   for (const m of records.manufacturers) {
     if (!records.brands.some((b) => b.manufacturer === m.id)) note("manufacturer no brand string resolves to");

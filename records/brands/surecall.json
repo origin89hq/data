@@ -1,7 +1,8 @@
 {
   "id": "surecall",
   "brand": "SureCall",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "surecall",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -18,5 +19,8 @@
       "SureCall Flare 3.0 Signal Booster"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "SureCall's own Fusion booster line"
 }

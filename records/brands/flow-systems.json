@@ -1,7 +1,8 @@
 {
   "id": "flow-systems",
   "brand": "Flow Systems",
-  "decision": "unresolved",
+  "decision": "out-of-scope",
+  "reason": "propane hoses, regulators and water-handling parts with no electrical specification",
   "evidence": {
     "sellers": [
       "solacity"
@@ -19,5 +20,8 @@
       "Water Miser 2000"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "propane hoses, regulators and water-handling parts with no electrical specification"
 }

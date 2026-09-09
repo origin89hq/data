@@ -1,7 +1,8 @@
 {
   "id": "conext",
   "brand": "Conext",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "schneider-electric",
   "evidence": {
     "sellers": [
       "solacity"
@@ -30,5 +31,8 @@
       "Conext 60A 160VDC Breaker"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "Conext is Schneider Electric's line, from its 2008 acquisition of Xantrex; the C35/C60 and 865-xxxx parts are Schneider Solar's"
 }

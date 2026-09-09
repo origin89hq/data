@@ -1,7 +1,8 @@
 {
   "id": "iota",
   "brand": "Iota",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "iota-engineering",
   "evidence": {
     "sellers": [
       "solacity"
@@ -23,5 +24,8 @@
       "Iota DLS-27 (24VDC)"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "DLS-15 and DLS-27-15 are IOTA Engineering converter-chargers"
 }

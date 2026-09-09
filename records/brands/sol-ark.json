@@ -1,7 +1,8 @@
 {
   "id": "sol-ark",
   "brand": "Sol-Ark",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "sol-ark",
   "evidence": {
     "sellers": [
       "solacity",
@@ -26,5 +27,8 @@
       "Sol-Ark 15,000W All-In-One Hybrid Inverter"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "15K-2P-N and 12K-2P-N are Sol-Ark's own model numbers, and sol-ark.com is cited by this repo"
 }

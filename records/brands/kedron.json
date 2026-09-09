@@ -1,7 +1,8 @@
 {
   "id": "kedron",
   "brand": "Kedron",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "the-cabin-depot",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -20,5 +21,8 @@
       "KEDRON 24V 8A AC/DC Adapter With PFC For Large Unique DC Appliances"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "a Cabin Depot house brand: the pumps and wire carry no maker's name anywhere, so the OEM is unknown and the shop is where the specifications are published"
 }

@@ -1,7 +1,8 @@
 {
   "id": "epever",
   "brand": "EPEver",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "epever",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -20,5 +21,8 @@
       "EPEver IPower-Plus 48V 4,000W Pure Sine Inverter *ETL Certified"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "iTracer AN G3 is a model the epever-it-nc-g3 dialect documents"
 }

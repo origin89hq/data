@@ -1,7 +1,8 @@
 {
   "id": "imperial",
   "brand": "Imperial",
-  "decision": "unresolved",
+  "decision": "out-of-scope",
+  "reason": "wood and gas heating appliances, chimney and venting parts; outside this database's electrical scope",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -20,5 +21,8 @@
       "Imperial 40\" x 48\" Pebble Stove Board - Black"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "wood and gas heating appliances, chimney and venting parts; outside this database's electrical scope"
 }

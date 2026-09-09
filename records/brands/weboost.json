@@ -1,7 +1,8 @@
 {
   "id": "weboost",
   "brand": "WeBoost",
-  "decision": "unresolved",
+  "decision": "manufacturer",
+  "manufacturer": "wilson-electronics",
   "evidence": {
     "sellers": [
       "thecabindepot"
@@ -16,5 +17,8 @@
       "WeBoost Home MultiRoom In-Building Signal Booster Kit"
     ],
     "seenAt": "2026-09-09"
-  }
+  },
+  "checkedAt": "2026-09-09",
+  "reviewedBy": "Claude (agent review, session 01HT7bR4)",
+  "basis": "weBoost is Wilson Electronics' consumer booster brand"
 }
