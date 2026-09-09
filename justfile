@@ -159,3 +159,7 @@ status:
 # Move everything whose precondition is met. Never approves; that stays with you.
 supervise date="":
     @just _post "/supervise?date={{date}}"
+
+# Put the archive's dates right. Reports by default; `apply=true` moves things.
+repair-dates apply="false":
+    @just _post "/repair-dates?apply={{apply}}"

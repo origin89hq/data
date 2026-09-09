@@ -9,6 +9,7 @@ import specPages from "../../feeds/spec-pages.json" with { type: "json" };
 import { manufacturers } from "./manufacturers.ts";
 import { makerStates, sellerStates } from "./state.ts";
 import { supervise } from "./supervise.ts";
+import { repairDates } from "./repair.ts";
 import type { SellerCrawlParams } from "./seller-crawl.ts";
 
 export { SellerCrawl } from "./seller-crawl.ts";
@@ -54,6 +55,11 @@ export default {
     // comes back in one request.
     // What the spider knows and what it is waiting on, read out of the archive rather than kept
     // beside it. A weekly cron can lose a dozen crawls and nothing would say so otherwise.
+    // Narrow on purpose: it only ever moves a date that is in the future back to today, and
+    // writes the new key before deleting the old.
+    if (request.method === "POST" && url.pathname === "/repair-dates") {
+      return Response.json(await repairDates(env, url.searchParams.get("apply") !== "true"));
+    }
     if (request.method === "POST" && url.pathname === "/supervise") {
       return Response.json(await supervise(env, url.searchParams.get("date") ?? today()));
     }
