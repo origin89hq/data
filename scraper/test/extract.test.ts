@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { chunk, mergeReports, pageOffsets, CHUNK_CHARACTERS } from "../src/reading.ts";
+import { chunk, mergeReports, namesOneProduct, pageOffsets, statesOneFigure, CHUNK_CHARACTERS } from "../src/reading.ts";
 
 test("a short document is one window, and an empty one is none", () => {
   assert.deepEqual(chunk("short"), [{ text: "short" }]);
@@ -48,4 +48,28 @@ test("a product with no readable figures, or a malformed entry, is dropped rathe
   assert.deepEqual(mergeReports([{ model: "X", specs: [] }]), []);
   assert.deepEqual(mergeReports([{ model: "  ", specs: [{ name: "a", value: "1" }] }]), []);
   assert.deepEqual(mergeReports([{ model: "X", specs: [{ name: 1 as never, value: "1" }] }]), []);
+});
+
+test("a series is not a model, because its figures belong to its members", () => {
+  assert.equal(namesOneProduct("XTRA4210N"), true);
+  assert.equal(namesOneProduct("S48-100LFP STACK-LV"), true);
+  assert.equal(namesOneProduct("MS Series"), false);
+  assert.equal(namesOneProduct("CSW SERIES"), false);
+  assert.equal(namesOneProduct("Freedom SW product family"), false);
+  assert.equal(namesOneProduct(""), false);
+  assert.deepEqual(mergeReports([{ model: "MSH-M Series", specs: [{ name: "Power factor", value: "0.95" }] }]), []);
+});
+
+test("three products' figures written together are not one value", () => {
+  assert.equal(statesOneFigure("428"), true);
+  assert.equal(statesOneFigure("12/24"), true);
+  assert.equal(statesOneFigure("216 x 295 x 103mm"), true, "a dimension is one measurement, not a list");
+  assert.equal(statesOneFigure("400 W, 1000 W, and 2000 W"), false);
+  assert.equal(statesOneFigure("10,000 amperes at 160VDC and 65,000 amperes at 65VDC"), false);
+  assert.equal(statesOneFigure(""), false);
+  const merged = mergeReports([{ model: "EV-1200", specs: [
+    { name: "Continuous power", value: "1200", unit: "W" },
+    { name: "Output", value: "400 W, 1000 W and 2000 W" },
+  ] }]);
+  assert.deepEqual(merged[0].specs.map((s) => s.value), ["1200"]);
 });

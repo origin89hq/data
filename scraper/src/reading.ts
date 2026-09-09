@@ -22,7 +22,7 @@ export interface Converted {
 }
 
 export const EXTRACT_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
-export const EXTRACT_PROMPT_VERSION = "1";
+export const EXTRACT_PROMPT_VERSION = "2";
 export const EXTRACTOR_ID = `ai:${EXTRACT_MODEL}@p${EXTRACT_PROMPT_VERSION}`;
 
 /**
@@ -46,13 +46,41 @@ export const SYSTEM = `You read manufacturer documents and report the rated figu
 
 Report only figures the text actually gives. Never calculate, convert, round or infer one. If the text gives no ratings, answer with an empty list.
 
-For each product the text names, give its model as printed and its figures. For each figure:
-- name: what is measured, in the document's own words, e.g. "Rated capacity", "Maximum PV open circuit voltage", "Nominal battery voltage".
-- value: the number or text exactly as printed. Keep "12/24" as "12/24". Do not add units here.
-- unit: the unit alone, e.g. "Ah", "V", "A", "W", "kWh", "°C". Omit it for a figure that has none, such as a chemistry or a connector type.
-- conditions: what the figure is true under, when the text says — the discharge rate, the temperature, the bank voltage. A capacity without its rate is not a capacity.
+MODEL. Give the model exactly as printed, and only for a single product. A family or a series — "MS Series", "CSW SERIES", "Tracer AN" — is not a model: if the text gives a table of several products under one family, report each product separately under its own model. If you cannot tell which product a figure belongs to, do not report the figure.
 
-Do not report prices, warranty periods, part numbers, weights of packaging, or marketing claims.`;
+VALUE. One figure, one value. "400 W, 1000 W and 2000 W" is three products' figures written together, not one value: report them under their own models, or not at all. Keep a value exactly as printed otherwise, so "12/24" stays "12/24".
+
+UNIT. Give the unit on its own, not inside the name and not inside the value: "Rated capacity" with value "428" and unit "Ah", never "Rated Capacity (Ah)" with value "428 Ah". A figure with no unit is only right for something that has none — a chemistry, a connector type, a protocol name, a yes or no.
+
+CONDITIONS. What the figure is true under, when the text says: the discharge rate, the temperature, the bank voltage. A capacity without its rate is not a capacity.
+
+Do not report prices, warranty periods, part numbers, packaging weights, ordering codes or marketing claims.`;
+
+/** A name that describes a line of products rather than one of them. */
+const SERIES = /\b(series|family|range|line-?up)\b/i;
+
+/** Whether a reported model names one product. A family's figures belong to its members, not to it. */
+export function namesOneProduct(model: string): boolean {
+  const name = model.trim();
+  if (!name || name.length > 60) return false;
+  return !SERIES.test(name);
+}
+
+const NUMBER_WITH_UNIT = /\d[\d.,]*\s*[A-Za-zΩ°µ%]+/g;
+const JOINER = /(,|\band\b|\bor\b|;)/i;
+
+/**
+ * Whether a value states one figure. "400 W, 1000 W and 2000 W" is three products' figures written
+ * together and attaching it to any one of them is wrong. A dimension is not a list — "216 x 295 x
+ * 103mm" is one measurement — and neither is a range written with a dash.
+ */
+export function statesOneFigure(value: string): boolean {
+  const text = value.trim();
+  if (!text || text.length > 120) return false;
+  if (/[x×]/i.test(text)) return true;
+  const numbers = text.match(NUMBER_WITH_UNIT) ?? [];
+  return numbers.length < 2 || !JOINER.test(text);
+}
 
 export const RESPONSE_SCHEMA = {
   type: "object",
@@ -135,10 +163,14 @@ export function mergeReports(reports: Reported[]): Reported[] {
   for (const r of reports) {
     const model = r.model?.trim();
     if (!model || !Array.isArray(r.specs)) continue;
+    // The prompt asks for one product and one figure. These refuse the answers that ignore it,
+    // because a series' figures belong to its members and a list of three belongs to three.
+    if (!namesOneProduct(model)) continue;
     const key = model.toLowerCase();
     const existing = byModel.get(key) ?? { model, specs: [] };
     for (const s of r.specs) {
       if (typeof s?.name !== "string" || typeof s?.value !== "string") continue;
+      if (!statesOneFigure(s.value)) continue;
       const seen = `${s.name.trim().toLowerCase()}|${s.value.trim()}|${(s.conditions ?? "").trim().toLowerCase()}`;
       if (existing.specs.some((x) => `${x.name.trim().toLowerCase()}|${x.value.trim()}|${(x.conditions ?? "").trim().toLowerCase()}` === seen)) continue;
       existing.specs.push(s);

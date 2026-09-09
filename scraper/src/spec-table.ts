@@ -37,6 +37,34 @@ const text = (html: string): string =>
     .replace(/\s+/g, " ")
     .trim();
 
+/** What a page turned out to be worth, so a candidate can be judged rather than guessed at. */
+export interface SpecPageCandidate {
+  url: string;
+  products: number;
+  figures: number;
+  /** How many figures came out with a unit, which is what separates a specification table from prose. */
+  withUnit: number;
+  models: string[];
+}
+
+/**
+ * Judge a page as a source of figures. Discovery already fetches these pages to look for document
+ * links, so testing each one for a specification table costs nothing extra and turns a hand-typed
+ * feed list into an evidenced one.
+ */
+export function judgeSpecPage(url: string, html: string): SpecPageCandidate | undefined {
+  const products = parseSpecTables(html);
+  if (products.length === 0) return undefined;
+  const specs = products.flatMap((p) => p.specs);
+  return {
+    url,
+    products: products.length,
+    figures: specs.length,
+    withUnit: specs.filter((s) => s.unit).length,
+    models: products.slice(0, 6).map((p) => p.model),
+  };
+}
+
 /** A cell that spans several columns fills each of them, so a row still lines up with its header. */
 function cells(row: string): string[] {
   const out: string[] = [];

@@ -57,3 +57,16 @@ test("a unit is split off a plain number and left alone on anything else", () =>
   assert.equal(splitValue("n/a"), undefined);
   assert.equal(splitValue("  "), undefined);
 });
+
+test("a page is judged on what its tables actually yield, not on its address", async () => {
+  const { judgeSpecPage } = await import("../src/spec-table.ts");
+  const good = judgeSpecPage("https://x.test/spec", `<table>
+<tr><th></th><th>A-10</th><th>A-20</th></tr>
+<tr><td>Maximum current</td><td>10A</td><td>20A</td></tr>
+<tr><td>Colour</td><td>Blue</td><td>Blue</td></tr></table>`);
+  assert.equal(good?.products, 2);
+  assert.equal(good?.figures, 4);
+  assert.equal(good?.withUnit, 2, "a unit is what separates a specification table from prose");
+  assert.deepEqual(good?.models, ["A-10", "A-20"]);
+  assert.equal(judgeSpecPage("https://x.test/about", "<p>About us</p>"), undefined);
+});

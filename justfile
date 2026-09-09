@@ -139,3 +139,7 @@ _post_json path body:
 # Read a maker's own specification tables. A parser, not a model: nothing to approve, nothing spent.
 spec-pages maker date:
     @just _post "/spec-pages?id={{maker}}&date={{date}}"
+
+# What specification pages a maker's own site turned out to publish, from the last discovery.
+spec-pages-found maker date *args:
+    node tools/feeds/adopt-spec-pages.ts {{maker}} {{date}} {{args}}

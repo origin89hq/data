@@ -1,6 +1,7 @@
 import { WorkflowEntrypoint, type WorkflowEvent, type WorkflowStep } from "cloudflare:workers";
 import { CrawlApproval, documentLinks, hostAllowed, permitted, planFor, type Found } from "./documents.ts";
 import { fetchText, isIndex, locations, sample } from "./sitemap.ts";
+import { judgeSpecPage, type SpecPageCandidate } from "./spec-table.ts";
 import { USER_AGENT } from "./feeds.ts";
 
 export interface ManufacturerCrawlParams {
@@ -66,23 +67,40 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     });
 
     const found: Found[] = [];
+    const specPages: SpecPageCandidate[] = [];
     for (let b = 0; b * DISCOVER_BATCH < pages.length; b += 1) {
       const slice = pages.slice(b * DISCOVER_BATCH, (b + 1) * DISCOVER_BATCH);
       const batch = await step.do(`read pages ${b + 1}`, { retries: { limit: 2, delay: "15 seconds", backoff: "exponential" }, timeout: "3 minutes" }, async () => {
         const links: Found[] = [];
+        const tables: SpecPageCandidate[] = [];
         for (const page of slice) {
           try {
-            links.push(...documentLinks(await fetchText(page), page, domains));
+            const html = await fetchText(page);
+            links.push(...documentLinks(html, page, domains));
+            // The page is already here for its links. Judging it as a specification table too
+            // costs nothing and is how the feed list stops being hand-typed.
+            const candidate = judgeSpecPage(page, html);
+            if (candidate) tables.push(candidate);
           } catch {
             // One page that will not load costs its own links and nothing else.
           }
         }
-        return links;
+        return { links, tables };
       });
-      for (const f of batch) if (!found.some((x) => x.url === f.url)) found.push(f);
+      for (const f of batch.links) if (!found.some((x) => x.url === f.url)) found.push(f);
+      specPages.push(...batch.tables);
       await step.sleep(`politeness after pages ${b + 1}`, "2 seconds");
     }
+    if (specPages.length > 0) {
+      await step.do("write the specification pages this maker publishes", async () => {
+        const ranked = specPages.sort((a, b) => b.withUnit - a.withUnit || b.figures - a.figures);
+        await this.env.ARCHIVE.put(`${prefix}/spec-pages.json`, JSON.stringify({ manufacturer: manufacturerId, checkedAt, candidates: ranked.length, pages: ranked }, null, 2), {
+          httpMetadata: { contentType: "application/json" },
+        });
+      });
+    }
 
+    console.log(JSON.stringify({ message: "discovery finished", manufacturer: manufacturerId, documents: found.length, specPages: specPages.length }));
     const plan = planFor(manufacturerId, found);
     await step.do("write the plan", async () => {
       await this.env.ARCHIVE.put(`${prefix}/plan.json`, JSON.stringify({ ...plan, checkedAt, documents: found }, null, 2), { httpMetadata: { contentType: "application/json" } });
