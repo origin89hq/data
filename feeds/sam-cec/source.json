@@ -1,0 +1,15 @@
+{
+  "id": "sam-cec",
+  "title": "SAM component libraries (CEC modules and inverters)",
+  "publisher": "Alliance for Energy Innovation (System Advisor Model)",
+  "repository": "https://github.com/NatLabRockies/SAM",
+  "commit": "6ef6c5b2e42b202cee73582ae8ac74e830fff495",
+  "retrievedAt": "2026-09-08",
+  "license": "BSD-3-Clause",
+  "licenseFile": "LICENSE",
+  "note": "Redistributed here under BSD-3-Clause with the notice kept. Every figure carries the unit the library's own units row states, so nothing is inferred.",
+  "files": [
+    { "name": "CEC Modules.csv", "sha256": "a28cf8956a839ed98bb941809b439e4907f5b4c237bd9299bc123fb502c29aff", "kind": "panel" },
+    { "name": "CEC Inverters.csv", "sha256": "0c1b2188415dad6928f91f1a4c9a820dadc80962549f903d57d9282ba3753760", "kind": "inverter" }
+  ]
+}

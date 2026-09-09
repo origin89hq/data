@@ -1,4 +1,5 @@
 import type { Records } from "./records.ts";
+import { attachMakers, readFeeds } from "./feeds.ts";
 
 export type Row = Record<string, string | boolean | number | undefined>;
 
@@ -11,6 +12,15 @@ export interface Table {
 
 /** Flatten the nested records into narrow tables joined by id. Every list becomes a table with a position column, so order survives. */
 export function tables(records: Records): Table[] {
+  // Two tiers in one table, told apart by a column. What a person reviewed and what a public
+  // dataset states are both figures worth publishing, and a reader that cannot tell them apart
+  // will quote the wrong one — so `tier` is on every model and every figure, never implied.
+  const brandsByMaker = new Map<string, string[]>();
+  for (const b of records.brands) if (b.decision === "manufacturer" && b.manufacturer) brandsByMaker.set(b.manufacturer, [...(brandsByMaker.get(b.manufacturer) ?? []), b.brand]);
+  const feedRows = readFeeds().flatMap(({ feed, models }) =>
+    attachMakers(models, records.manufacturers.map((m) => ({ id: m.id, name: m.name, aliases: brandsByMaker.get(m.id) ?? [] }))).map((m) => ({ feed, model: m })),
+  );
+
   const V = "VARCHAR" as const;
   const dialects = records.dialects.map((d) => ({
     id: d.id,
@@ -99,8 +109,11 @@ export function tables(records: Records): Table[] {
     },
     {
       name: "models",
-      columns: [col("id"), col("manufacturer_id"), col("name"), col("kind"), col("variant"), col("family"), col("checked_at"), col("reviewed_by"), col("basis")],
-      rows: records.models.map((m) => ({ id: m.id, manufacturer_id: m.manufacturer, name: m.name, kind: m.kind, variant: m.variant, family: m.family, checked_at: m.checkedAt, reviewed_by: m.reviewedBy, basis: m.basis })),
+      columns: [col("id"), col("tier"), col("source_feed"), col("manufacturer_id"), col("manufacturer_name"), col("name"), col("kind"), col("variant"), col("family"), col("checked_at"), col("reviewed_by"), col("basis")],
+      rows: [
+        ...records.models.map((m) => ({ id: m.id, tier: "reviewed", source_feed: undefined, manufacturer_id: m.manufacturer, manufacturer_name: undefined, name: m.name, kind: m.kind, variant: m.variant, family: m.family, checked_at: m.checkedAt, reviewed_by: m.reviewedBy, basis: m.basis })),
+        ...feedRows.map(({ feed, model }) => ({ id: model.id, tier: "feed", source_feed: feed.id, manufacturer_id: model.manufacturer, manufacturer_name: model.manufacturerName, name: model.name, kind: model.kind, variant: undefined, family: undefined, checked_at: feed.retrievedAt, reviewed_by: undefined, basis: undefined })),
+      ],
     },
     {
       name: "model_aliases",
@@ -114,8 +127,25 @@ export function tables(records: Records): Table[] {
     },
     {
       name: "specs",
-      columns: [col("id"), col("model_id"), col("name"), col("value"), col("unit"), col("conditions"), col("source_id"), col("page", "INTEGER"), col("confidence")],
-      rows: records.specs.map((s) => ({ id: s.id, model_id: s.model, name: s.name, value: s.value, unit: s.unit, conditions: s.conditions, source_id: s.source, page: s.page, confidence: s.confidence })),
+      columns: [col("id"), col("tier"), col("model_id"), col("name"), col("value"), col("unit"), col("conditions"), col("source_id"), col("page", "INTEGER"), col("confidence"), col("extracted_by"), col("reviewed_by")],
+      rows: [
+        ...records.specs.map((s) => ({ id: s.id, tier: "reviewed", model_id: s.model, name: s.name, value: s.value, unit: s.unit, conditions: s.conditions, source_id: s.source, page: s.page, confidence: s.confidence, extracted_by: s.extractedBy, reviewed_by: s.reviewedBy })),
+        ...feedRows.flatMap(({ feed, model }) =>
+          model.specs.map((spec, i) => ({
+            id: `${model.id}--${String(i).padStart(2, "0")}-${spec.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`.slice(0, 180),
+            tier: "feed", model_id: model.id, name: spec.name, value: spec.value, unit: spec.unit, conditions: undefined,
+            source_id: feed.id, page: undefined,
+            // A public dataset's own figure, stated with its unit. Nobody here read it out of a
+            // document, so nothing extracted it and nobody has confirmed it either.
+            confidence: "vendor-doc", extracted_by: undefined, reviewed_by: undefined,
+          })),
+        ),
+      ],
+    },
+    {
+      name: "feeds",
+      columns: [col("id"), col("title"), col("publisher"), col("license"), col("retrieved_at"), col("models", "INTEGER"), col("figures", "INTEGER")],
+      rows: readFeeds().map(({ feed, models }) => ({ id: feed.id, title: feed.title, publisher: feed.publisher, license: feed.license, retrieved_at: feed.retrievedAt, models: models.length, figures: models.reduce((n, m) => n + m.specs.length, 0) })),
     },
     {
       name: "sources",

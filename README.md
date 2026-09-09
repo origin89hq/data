@@ -115,6 +115,28 @@ it was read from, and how much weight it carries. The table is empty: filling
 it is the next piece of work, and the numbers come from the archived
 datasheets rather than from a product title.
 
+## Public feeds
+
+Some products come from a dataset that already states its figures with their
+units, and reading those is worth more per row than anything taken out of a PDF.
+`feeds/` holds each one redistributed with its licence and pinned by hash; a
+changed file fails the pin rather than quietly becoming a different dataset.
+
+Twenty-five thousand rows are not twenty-five thousand records. What is reviewed
+is the adapter and the pin, and the build regenerates the rows every time, so
+they never enter `records/` and never need a reviewer.
+
+| Feed | Licence | Products | Figures |
+|---|---|---|---|
+| SAM component libraries, CEC modules and inverters | BSD-3-Clause | 24,020 | 227,531 |
+
+Every model and every figure carries a `tier`: `reviewed` for what a person
+checked, `feed` for a row a public dataset states. A reader that cannot tell
+them apart will quote the wrong one, so it is a column and never implied. A feed
+attaches to a manufacturer only when its printed name answers to one somebody
+confirmed — 762 rows do — and an unknown name stays a name, because minting
+makers is the gate's decision.
+
 ## The tables
 
 | Table | One row per |
