@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-mppt-75-10--1a-the-solar-charger-will-limit-input-power-if-more-pv-power-is-connected-1b-the-pv-voltage-must-exceed-vbat-5v-for-the-controller-to",
+  "model": "victron-energy-mppt-75-10",
+  "name": "1a) The solar charger will limit input power if more PV power is connected.1b) The PV voltage must exceed Vbat + 5V for the controller to start. Thereafter the minimum PV voltage is Vbat + 1V.2) A higher short circuit current may damage the solar charger in case of reverse polarity connection of the PV array.3) Equalization is by default disabled.4) For more information on data communication see the data communication paper in the Technical information section on our website.",
+  "value": "1a) The solar charger will limit input power if more PV power is connected.1b) The PV voltage must exceed Vbat + 5V for the controller to start. Thereafter the minimum PV voltage is Vbat + 1V.2) A higher short circuit current may damage the solar charger in case of reverse polarity connection of the PV array.3) Equalization is by default disabled.4) For more information on data communication see the data communication paper in the Technical information section on our website.",
+  "source": "doc-c967bfdb27ebea471739445a3d4c2c8d",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

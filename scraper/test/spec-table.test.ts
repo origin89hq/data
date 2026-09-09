@@ -37,6 +37,17 @@ test("a table of footnotes is not a table of products", () => {
   assert.deepEqual(parseSpecTables("<table><tr><th>Description</th><th>Notes</th></tr><tr><td>a</td><td>b</td></tr></table>"), []);
 });
 
+test("a section header dividing the table is not a figure about the models under it", () => {
+  const withHeader = `<table>
+<tr><th></th><th>MPPT 75/10</th><th>MPPT 75/15</th></tr>
+<tr><td>ENCLOSURE</td><td>ENCLOSURE</td><td>ENCLOSURE</td></tr>
+<tr><td>Colour</td><td>Blue</td><td>Blue</td></tr>
+</table>`;
+  const products = parseSpecTables(withHeader);
+  assert.equal(products[0].specs.some((s) => s.name === "ENCLOSURE"), false);
+  assert.equal(products[0].specs.find((s) => s.name === "Colour")?.value, "Blue");
+});
+
 test("a unit is split off a plain number and left alone on anything else", () => {
   assert.deepEqual(splitValue("145W"), { name: "", value: "145", unit: "W" });
   assert.deepEqual(splitValue("-0.5 %/°C"), { name: "", value: "-0.5", unit: "%/°C" });

@@ -92,10 +92,14 @@ export function parseSpecTables(html: string): TableProduct[] {
     for (const row of rows.slice(1)) {
       const name = row[0]?.trim();
       if (!name || row.length < 2) continue;
+      // A section header spans the table and repeats itself in every column — "ENCLOSURE" against
+      // "ENCLOSURE". It divides the rows below it; it is not a figure about any of them.
+      const spanning = row.slice(1).filter(Boolean);
+      if (spanning.length > 0 && spanning.every((c) => c === name)) continue;
       for (let column = 1; column < header.length; column += 1) {
         const model = header[column]?.trim();
         const raw = row[column]?.trim();
-        if (!model || !raw) continue;
+        if (!model || !raw || raw === name) continue;
         const spec = splitValue(raw);
         if (!spec) continue;
         const product = products.get(model) ?? { model, specs: [] };

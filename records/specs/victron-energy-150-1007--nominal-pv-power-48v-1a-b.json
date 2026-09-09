@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-150-1007--nominal-pv-power-48v-1a-b",
+  "model": "victron-energy-150-1007",
+  "name": "Nominal PV power, 48V 1a,b",
+  "value": "5800",
+  "unit": "W",
+  "source": "doc-a08e004abb7badfb9ca55abb38ecb534",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

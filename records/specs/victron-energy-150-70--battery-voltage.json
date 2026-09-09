@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-150-70--battery-voltage",
+  "model": "victron-energy-150-70",
+  "name": "Battery Voltage",
+  "value": "12/24/48V7 auto select, 36V: manual select",
+  "source": "doc-a08e004abb7badfb9ca55abb38ecb534",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

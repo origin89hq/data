@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-mppt-100-20--low-voltage-load-reconnect",
+  "model": "victron-energy-mppt-100-20",
+  "name": "Low voltage load reconnect",
+  "value": "13.1V / 26.2V / 52.4V or 14V / 28V / 56V or BatteryLife algorithm",
+  "source": "doc-c967bfdb27ebea471739445a3d4c2c8d",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

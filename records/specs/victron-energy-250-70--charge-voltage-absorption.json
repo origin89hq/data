@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-250-70--charge-voltage-absorption",
+  "model": "victron-energy-250-70",
+  "name": "Charge voltage 'absorption'",
+  "value": "Default setting: 14.4V / 28.8V / 57.6V (adjustable)",
+  "source": "doc-a08e004abb7badfb9ca55abb38ecb534",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

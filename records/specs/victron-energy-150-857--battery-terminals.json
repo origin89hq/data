@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-150-857--battery-terminals",
+  "model": "victron-energy-150-857",
+  "name": "Battery terminals",
+  "value": "35 mm² / AWG2",
+  "source": "doc-a08e004abb7badfb9ca55abb38ecb534",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

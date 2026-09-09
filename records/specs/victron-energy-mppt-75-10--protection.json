@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-mppt-75-10--protection",
+  "model": "victron-energy-mppt-75-10",
+  "name": "Protection",
+  "value": "PV reverse polarity, output short circuit, over temperature",
+  "source": "doc-c967bfdb27ebea471739445a3d4c2c8d",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

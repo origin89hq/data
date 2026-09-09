@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-mppt-250-70--humidity",
+  "model": "victron-energy-mppt-250-70",
+  "name": "Humidity",
+  "value": "95%, non-condensing",
+  "source": "doc-75ef220cecc3e8483f079f6108e6bb5b",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

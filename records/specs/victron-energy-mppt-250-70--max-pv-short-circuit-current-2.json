@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-mppt-250-70--max-pv-short-circuit-current-2",
+  "model": "victron-energy-mppt-250-70",
+  "name": "Max. PV short circuit current 2",
+  "value": "70",
+  "unit": "A",
+  "source": "doc-75ef220cecc3e8483f079f6108e6bb5b",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

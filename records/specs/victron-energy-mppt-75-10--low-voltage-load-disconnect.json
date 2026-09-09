@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-mppt-75-10--low-voltage-load-disconnect",
+  "model": "victron-energy-mppt-75-10",
+  "name": "Low voltage load disconnect",
+  "value": "11.1V / 22.2V / 44.4V or 11.8V / 23.6V / 47.2V or BatteryLife algorithm",
+  "source": "doc-c967bfdb27ebea471739445a3d4c2c8d",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}
