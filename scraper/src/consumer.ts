@@ -120,12 +120,16 @@ export async function handle(message: Work, env: Env): Promise<void> {
 }
 
 /**
- * The queue handler. Each message is acknowledged or retried on its own, so one bad document
- * cannot take a batch of ninety-nine good ones down with it.
+ * The queue handler. Messages are taken one at a time, not with Promise.all: a batch of ten
+ * documents converted at once put ten PDFs into one isolate's memory and lost half of them. The
+ * parallelism worth having is across consumers, which the queue's own concurrency provides;
+ * inside one invocation it only shares a single memory and CPU budget between ten heavy jobs.
+ *
+ * Each message is acknowledged or retried on its own, so one bad document cannot take the rest
+ * of its batch down with it.
  */
 export async function consume(batch: MessageBatch<unknown>, env: Env): Promise<void> {
-  await Promise.all(
-    batch.messages.map(async (message) => {
+  for (const message of batch.messages) {
       try {
         await handle(Work.parse(message.body), env);
         message.ack();
@@ -139,8 +143,7 @@ export async function consume(batch: MessageBatch<unknown>, env: Env): Promise<v
         }
         message.retry();
       }
-    }),
-  );
+  }
 }
 
 export { CLASSIFIER_ID };

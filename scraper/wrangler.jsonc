@@ -16,9 +16,9 @@
     "consumers": [
       {
         "queue": "offgrid-work",
-        // Ten at a time, because each message is a model call and the point is concurrency
-        // across consumers rather than a long batch inside one.
-        "max_batch_size": 10,
+        // Small batches on purpose. A message can be a PDF to convert, and the parallelism
+        // worth having is the twenty consumers below, not ten heavy jobs sharing one isolate.
+        "max_batch_size": 3,
         "max_batch_timeout": 5,
         "max_concurrency": 20,
         "max_retries": 3,
