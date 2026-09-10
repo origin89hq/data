@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { type StoredLogin, saveLogin } from "./credential.ts";
+import { originOf, type StoredLogin, saveLogin } from "./credential.ts";
 
 /**
  * Sign in with GitHub from a terminal.
@@ -7,7 +7,7 @@ import { type StoredLogin, saveLogin } from "./credential.ts";
  * GitHub's device flow: this prints a code, you enter it at github.com/login/device, and GitHub
  * hands this a token for the origin89hq app. The Worker is then asked who that token belongs to,
  * so a sign-in that would be refused at every route is refused here instead, and the token is
- * kept only when it works. It lasts eight hours.
+ * kept only when it works, for that Worker only. It lasts eight hours.
  *
  * Usage: login.ts   (OFFGRID_BASE_URL picks the Worker, as for every other recipe)
  */
@@ -120,6 +120,7 @@ export async function login({
   const stored = {
     token: token.value,
     login: answer.login,
+    origin: originOf(base),
     expiresAt: new Date(now() + token.seconds * 1000).toISOString(),
   };
   saveLogin(stored);

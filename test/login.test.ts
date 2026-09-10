@@ -97,6 +97,7 @@ test("a member's sign-in is kept, readable by them alone, once the Worker accept
   assert.deepEqual(signedIn, {
     token: "ghu_ada",
     login: "ada",
+    origin: WORKER,
     expiresAt: new Date(START + 30_000 + 28_800_000).toISOString(),
   });
   assert.deepEqual(readLogin(), signedIn);
@@ -164,7 +165,12 @@ test("a Worker without sign-in configured says so before anybody is sent to GitH
 test("a deployment gets the stored sign-in until it expires, then is told to sign in again", (t) => {
   isolated(t);
   assert.throws(() => bearerFor(WORKER), /sign in with: just login/);
-  saveLogin({ token: "ghu_ada", login: "ada", expiresAt: new Date(START + 1000).toISOString() });
+  saveLogin({
+    token: "ghu_ada",
+    login: "ada",
+    origin: WORKER,
+    expiresAt: new Date(START + 1000).toISOString(),
+  });
   assert.equal(bearerFor(WORKER, START), "ghu_ada");
   assert.throws(
     () => bearerFor(WORKER, START + 1000),
@@ -174,9 +180,37 @@ test("a deployment gets the stored sign-in until it expires, then is told to sig
 
 test("OFFGRID_CONTROL_TOKEN, where a job still sets it, comes before the stored sign-in", (t) => {
   isolated(t);
-  saveLogin({ token: "ghu_ada", login: "ada", expiresAt: new Date(START + 1000).toISOString() });
+  saveLogin({
+    token: "ghu_ada",
+    login: "ada",
+    origin: WORKER,
+    expiresAt: new Date(START + 1000).toISOString(),
+  });
   process.env.OFFGRID_CONTROL_TOKEN = "the-shared-token";
   assert.equal(bearerFor(WORKER, START), "the-shared-token");
+});
+
+test("a stored sign-in goes only to the Worker that accepted it", (t) => {
+  isolated(t);
+  saveLogin({
+    token: "ghu_ada",
+    login: "ada",
+    origin: WORKER,
+    expiresAt: new Date(START + 1000).toISOString(),
+  });
+  assert.equal(bearerFor(`${WORKER}/`, START), "ghu_ada");
+  for (const elsewhere of [
+    "https://worker.example.evil.test",
+    "http://worker.example",
+    "https://worker.example:8443",
+    "https://data.origin89.co",
+  ])
+    assert.throws(
+      () => bearerFor(elsewhere, START),
+      /the stored sign-in is for https:\/\/worker\.example, not /,
+      `${elsewhere} was sent the token`,
+    );
+  assert.throws(() => bearerFor("not a url", START), /is not a URL; check OFFGRID_BASE_URL/);
 });
 
 test("a stored file that is not a sign-in is an error, never an empty token", (t) => {

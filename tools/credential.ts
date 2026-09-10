@@ -16,6 +16,8 @@ import { z } from "zod";
 const StoredLogin = z.object({
   token: z.string().min(1),
   login: z.string().min(1),
+  /** The Worker that accepted the token. It is sent to no other. */
+  origin: z.url(),
   expiresAt: z.iso.datetime(),
 });
 export type StoredLogin = z.infer<typeof StoredLogin>;
@@ -66,9 +68,25 @@ export function bearerFor(base: string, now: number = Date.now()): string {
         ? "put CONTROL_TOKEN in apps/worker/.dev.vars, or sign in with: just login"
         : "sign in with: just login",
     );
+  // A mistyped or borrowed OFFGRID_BASE_URL would otherwise receive a token the real Worker
+  // accepts for hours.
+  const origin = originOf(base);
+  if (stored.origin !== origin)
+    throw new Error(
+      `the stored sign-in is for ${stored.origin}, not ${origin}; to use it, run: OFFGRID_BASE_URL=${origin} just login`,
+    );
   if (Date.parse(stored.expiresAt) <= now)
     throw new Error(`the GitHub sign-in for ${stored.login} has expired; run: just login`);
   return stored.token;
+}
+
+/** Where a base URL points, as the stored sign-in records it. */
+export function originOf(base: string): string {
+  try {
+    return new URL(base).origin;
+  } catch {
+    throw new Error(`${base || "the Worker's address"} is not a URL; check OFFGRID_BASE_URL`);
+  }
 }
 
 function devControlToken(): string | undefined {
