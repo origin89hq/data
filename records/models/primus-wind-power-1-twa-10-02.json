@@ -2,7 +2,7 @@
   "id": "primus-wind-power-1-twa-10-02",
   "manufacturer": "primus-wind-power",
   "name": "1-TWA-10-02",
-  "kind": "out-of-scope",
+  "kind": "generator",
   "aliases": [],
   "dialects": []
 }

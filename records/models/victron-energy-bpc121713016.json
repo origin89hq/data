@@ -2,7 +2,7 @@
   "id": "victron-energy-bpc121713016",
   "manufacturer": "victron-energy",
   "name": "BPC121713016",
-  "kind": "out-of-scope",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }
