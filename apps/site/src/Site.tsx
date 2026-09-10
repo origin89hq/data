@@ -1,4 +1,5 @@
 import avatar from "@origin89/brand/art/avatar-round.webp";
+import favicon from "@origin89/brand/icons/favicon.svg";
 import logo from "@origin89/brand/logos/origin89-horizontal-blue.svg";
 import mark from "@origin89/brand/logos/plate-89-blue.svg";
 import { useEffect, useState } from "react";
@@ -29,6 +30,7 @@ export function Site() {
 
   return (
     <>
+      <link rel="icon" type="image/svg+xml" href={favicon} />
       <a className="skip" href="#main">
         Skip to content
       </a>
