@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-qua125021100",
+  "manufacturer": "victron-energy",
+  "name": "QUA125021100",
+  "kind": "inverter-charger",
+  "aliases": [
+    "XXX-XXX-220"
+  ],
+  "dialects": []
+}

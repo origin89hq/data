@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-bat-prot-vic-12v-24v-100a",
+  "manufacturer": "victron-energy",
+  "name": "BAT-PROT-VIC-12V/24V-100A",
+  "kind": "bms",
+  "aliases": [],
+  "dialects": []
+}

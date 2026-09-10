@@ -1,0 +1,9 @@
+{
+  "id": "pentair-fxi11-cr--pressure-requirements",
+  "model": "pentair-fxi11-cr",
+  "name": "Pressure Requirements",
+  "value": "10 – 125 psi (0.7 – 8.6 bar)",
+  "source": "doc-7613cb790e791a0bc32c3a3f723d5608",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

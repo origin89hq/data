@@ -1,0 +1,8 @@
+{
+  "id": "ecoflow-dpu-us",
+  "manufacturer": "ecoflow",
+  "name": "DPU-US",
+  "kind": "inverter-charger",
+  "aliases": [],
+  "dialects": []
+}

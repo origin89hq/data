@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ps-15",
+  "manufacturer": "morningstar",
+  "name": "PS-15",
+  "kind": "charge-controller",
+  "aliases": [
+    "XXX-XXX-126"
+  ],
+  "dialects": []
+}

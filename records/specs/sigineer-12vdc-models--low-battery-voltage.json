@@ -1,0 +1,11 @@
+{
+  "id": "sigineer-12vdc-models--low-battery-voltage",
+  "model": "sigineer-12vdc-models",
+  "name": "Low Battery Voltage",
+  "value": "10",
+  "unit": "V",
+  "source": "doc-9d43e1c9e9fbe92127603e1bde44d15c",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

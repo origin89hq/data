@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-gx-io-extender-150--output-current",
+  "model": "victron-energy-gx-io-extender-150",
+  "name": "Output current",
+  "value": "4",
+  "unit": "mA",
+  "source": "doc-c6c2b554c6df77852e8acc4d0ebfc2f1",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

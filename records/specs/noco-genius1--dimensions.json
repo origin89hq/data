@@ -1,0 +1,9 @@
+{
+  "id": "noco-genius1--dimensions",
+  "model": "noco-genius1",
+  "name": "DIMENSIONS",
+  "value": "2.32\"(59mm) x 4.5\"(114mm) x 3.6\"(92mm) x 1.26\"(32mm) x 0.8\"(20mm)",
+  "source": "doc-983cc0b229675edcd6588b6db6bb1490",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

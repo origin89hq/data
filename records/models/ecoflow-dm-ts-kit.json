@@ -1,0 +1,8 @@
+{
+  "id": "ecoflow-dm-ts-kit",
+  "manufacturer": "ecoflow",
+  "name": "DM-TS-Kit",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

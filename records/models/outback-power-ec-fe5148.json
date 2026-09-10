@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-ec-fe5148",
+  "manufacturer": "outback-power",
+  "name": "EC-FE5148",
+  "kind": "battery",
+  "aliases": [
+    "1600001"
+  ],
+  "dialects": []
+}

@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-15s-12e--voltage-between-top-socket-l1-and-bottom-socket-l2",
+  "model": "samlex-america-pst-15s-12e",
+  "name": "Voltage between top socket \"L1\" and bottom socket \"L2\"",
+  "value": "230 VAC ± 3%",
+  "source": "doc-ba38822ce0d2141ef91209c2c145787c",
+  "page": 36,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

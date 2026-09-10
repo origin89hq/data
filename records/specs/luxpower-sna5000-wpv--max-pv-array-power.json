@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna5000-wpv--max-pv-array-power",
+  "model": "luxpower-sna5000-wpv",
+  "name": "Max. PV Array Power",
+  "value": "8000(4000/4000)W",
+  "source": "doc-382ae6d157ec388999d842200da8a1ed",
+  "page": 55,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

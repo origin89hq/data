@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-cch012030000",
+  "manufacturer": "victron-energy",
+  "name": "CCH012030000",
+  "kind": "ac-charger",
+  "aliases": [],
+  "dialects": []
+}

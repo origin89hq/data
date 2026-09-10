@@ -1,0 +1,10 @@
+{
+  "id": "pentair-pbs-400--pressure-requirement",
+  "model": "pentair-pbs-400",
+  "name": "Pressure Requirement",
+  "value": "10-125 psi",
+  "source": "doc-b5adf730962f1e54dc87ed3e4f69cd13",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

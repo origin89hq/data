@@ -1,0 +1,10 @@
+{
+  "id": "srne-sr-eot02s--weight",
+  "model": "srne-sr-eot02s",
+  "name": "Weight",
+  "value": "40",
+  "unit": "kg",
+  "source": "doc-8168e8725aedf662dc97c4e90e35f829",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

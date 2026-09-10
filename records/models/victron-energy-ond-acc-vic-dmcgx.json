@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-ond-acc-vic-dmcgx",
+  "manufacturer": "victron-energy",
+  "name": "OND-ACC-VIC-DMCGX",
+  "kind": "meter",
+  "aliases": [],
+  "dialects": []
+}

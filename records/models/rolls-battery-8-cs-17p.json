@@ -1,0 +1,10 @@
+{
+  "id": "rolls-battery-8-cs-17p",
+  "manufacturer": "rolls-battery",
+  "name": "8 CS 17P",
+  "kind": "battery",
+  "aliases": [
+    "SUR-190-132"
+  ],
+  "dialects": []
+}

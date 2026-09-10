@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-250-100--environmental-condition",
+  "model": "victron-energy-250-100",
+  "name": "Environmental condition",
+  "value": "Indoor, unconditioned",
+  "source": "doc-a08e004abb7badfb9ca55abb38ecb534",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

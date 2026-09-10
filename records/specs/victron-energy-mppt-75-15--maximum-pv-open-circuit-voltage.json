@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-mppt-75-15--maximum-pv-open-circuit-voltage",
+  "model": "victron-energy-mppt-75-15",
+  "name": "Maximum PV open circuit voltage",
+  "value": "75",
+  "unit": "V",
+  "source": "doc-c967bfdb27ebea471739445a3d4c2c8d",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

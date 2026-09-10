@@ -1,0 +1,10 @@
+{
+  "id": "noco-gen5x2",
+  "manufacturer": "noco",
+  "name": "GEN5X2",
+  "kind": "ac-charger",
+  "aliases": [],
+  "dialects": [
+    "noco-gen-onboard"
+  ]
+}

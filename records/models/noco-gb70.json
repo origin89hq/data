@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb70",
+  "manufacturer": "noco",
+  "name": "GB70",
+  "kind": "charge-controller",
+  "aliases": [],
+  "dialects": [
+    "noco-out-of-scope"
+  ]
+}

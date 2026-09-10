@@ -1,0 +1,10 @@
+{
+  "id": "noco-geniuspro25--output-power",
+  "model": "noco-geniuspro25",
+  "name": "Output Power",
+  "value": "375 W Max",
+  "source": "doc-ad1950f6bd60aa9bc23134b99d74b0db",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

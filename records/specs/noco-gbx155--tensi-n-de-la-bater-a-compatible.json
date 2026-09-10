@@ -1,0 +1,11 @@
+{
+  "id": "noco-gbx155--tensi-n-de-la-bater-a-compatible",
+  "model": "noco-gbx155",
+  "name": "Tensión de la batería compatible",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
+  "page": 50,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

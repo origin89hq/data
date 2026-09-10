@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-iq-agm",
+  "manufacturer": "iota-engineering",
+  "name": "IQ-AGM",
+  "kind": "ac-charger",
+  "aliases": [
+    "XXX-XXX-185"
+  ],
+  "dialects": []
+}

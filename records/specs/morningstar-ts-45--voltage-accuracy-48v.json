@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-ts-45--voltage-accuracy-48v",
+  "model": "morningstar-ts-45",
+  "name": "Voltage Accuracy (48V)",
+  "value": "<=0.1% +/- 100mV",
+  "source": "doc-8e8065bdb7830e18e75a84d3208eb4d0",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

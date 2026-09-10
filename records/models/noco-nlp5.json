@@ -1,0 +1,10 @@
+{
+  "id": "noco-nlp5",
+  "manufacturer": "noco",
+  "name": "NLP5",
+  "kind": "battery",
+  "aliases": [],
+  "dialects": [
+    "noco-nlp-lithium"
+  ]
+}

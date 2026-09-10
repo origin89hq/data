@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb50--refroidissement",
+  "model": "noco-gb50",
+  "name": "Refroidissement",
+  "value": "Convection naturelles",
+  "source": "doc-3823580d5ce87d787a3f780b59b9c1b0",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-mnpv12",
+  "manufacturer": "midnite-solar",
+  "name": "MNPV12",
+  "kind": "balance-of-system",
+  "aliases": [
+    "MID-108-166"
+  ],
+  "dialects": []
+}

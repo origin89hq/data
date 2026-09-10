@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-rel300100000",
+  "manufacturer": "victron-energy",
+  "name": "REL300100000",
+  "kind": "meter",
+  "aliases": [],
+  "dialects": []
+}

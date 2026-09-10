@@ -1,0 +1,8 @@
+{
+  "id": "morningstar-ts45mppt",
+  "manufacturer": "morningstar",
+  "name": "TS45MPPT",
+  "kind": "charge-controller",
+  "aliases": [],
+  "dialects": []
+}

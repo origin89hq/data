@@ -1,0 +1,9 @@
+{
+  "id": "srne-abp4850u120-h--rated-output-voltage",
+  "model": "srne-abp4850u120-h",
+  "name": "Rated Output Voltage",
+  "value": "120/240 Vac",
+  "source": "doc-96bf56e2f44affbc505fa95e23a410ae",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

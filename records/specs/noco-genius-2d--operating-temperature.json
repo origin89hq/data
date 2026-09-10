@@ -1,0 +1,10 @@
+{
+  "id": "noco-genius-2d--operating-temperature",
+  "model": "noco-genius-2d",
+  "name": "Operating temperature",
+  "value": "-20 a +60ºC",
+  "source": "doc-9c256d83fe825b45b91cbebd24faaad5",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

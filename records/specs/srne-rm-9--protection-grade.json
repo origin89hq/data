@@ -1,0 +1,9 @@
+{
+  "id": "srne-rm-9--protection-grade",
+  "model": "srne-rm-9",
+  "name": "Protection grade",
+  "value": "IP32",
+  "source": "doc-5fee8dc7db277122e32e4707b27e6e8d",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

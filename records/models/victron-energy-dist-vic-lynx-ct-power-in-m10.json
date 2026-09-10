@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-dist-vic-lynx-ct-power-in-m10",
+  "manufacturer": "victron-energy",
+  "name": "DIST-VIC-LYNX-CT-POWER-IN-M10",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

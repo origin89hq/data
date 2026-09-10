@@ -1,0 +1,9 @@
+{
+  "id": "unique-appliances-unq-310l--weight",
+  "model": "unique-appliances-unq-310l",
+  "name": "WEIGHT",
+  "value": "136.7 lbs. / 62 kg",
+  "source": "doc-3da45bcd98ad485263fdcb35bea3c264",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

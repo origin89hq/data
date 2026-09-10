@@ -1,0 +1,9 @@
+{
+  "id": "rolls-battery-hl12-580wagm--internal-resistance",
+  "model": "rolls-battery-hl12-580wagm",
+  "name": "Internal Resistance",
+  "value": "3.0 mΩ",
+  "source": "doc-49ebfa347ebe408edd86449062e6f635",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

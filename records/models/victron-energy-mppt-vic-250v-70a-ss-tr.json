@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-mppt-vic-250v-70a-ss-tr",
+  "manufacturer": "victron-energy",
+  "name": "MPPT-VIC-250V/70A-SS-Tr",
+  "kind": "charge-controller",
+  "aliases": [],
+  "dialects": []
+}

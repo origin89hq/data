@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-sdc-30--input-voltage",
+  "model": "samlex-america-sdc-30",
+  "name": "INPUT VOLTAGE",
+  "value": "20 to 32 VDC",
+  "source": "doc-a055a877e58ed7340ed4d8420efd2ca2",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

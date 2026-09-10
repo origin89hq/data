@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna6000-wpv--battery-voltage-range",
+  "model": "luxpower-sna6000-wpv",
+  "name": "Battery Voltage Range",
+  "value": "46.4V-60V(Li) 38.4V-60V(Lead_Acid)",
+  "source": "doc-382ae6d157ec388999d842200da8a1ed",
+  "page": 55,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

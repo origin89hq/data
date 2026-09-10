@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-bmv-700h--operating-temperature-range",
+  "model": "victron-energy-bmv-700h",
+  "name": "Operating temperature range",
+  "value": "-40 +50°C (-40 - 120°F)",
+  "source": "doc-78cd786cab877c02fb33e2b0c402cceb",
+  "page": 41,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

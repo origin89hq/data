@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-ass030064900",
+  "manufacturer": "victron-energy",
+  "name": "ASS030064900",
+  "kind": "balance-of-system",
+  "aliases": [
+    "XXX-XXX-227"
+  ],
+  "dialects": []
+}

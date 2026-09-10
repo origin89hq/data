@@ -1,0 +1,10 @@
+{
+  "id": "the-cabin-depot-ugp-290l--dc-power",
+  "model": "the-cabin-depot-ugp-290l",
+  "name": "DC Power",
+  "value": "12V/24V",
+  "source": "doc-b63b39a139da970d7d756649fde12037",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

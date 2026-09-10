@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-rel100100000",
+  "manufacturer": "victron-energy",
+  "name": "REL100100000",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

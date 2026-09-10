@@ -1,0 +1,11 @@
+{
+  "id": "noco-nlp14--dimensions-inches",
+  "model": "noco-nlp14",
+  "name": "Dimensions: Inches",
+  "value": "3.64x 5.87x3.43 (9.25x14.9x8.71)”,",
+  "unit": "cm",
+  "source": "doc-b4a4093277c2ef8cf6ebe6ae331cea0a",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

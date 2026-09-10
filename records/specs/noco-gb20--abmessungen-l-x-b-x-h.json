@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb20--abmessungen-l-x-b-x-h",
+  "model": "noco-gb20",
+  "name": "Abmessungen (L x B x H)",
+  "value": "17 x 8,3 x 4,3 Zentimeter",
+  "source": "doc-21526244bd4f28f887cfb062e04edaf0",
+  "page": 26,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

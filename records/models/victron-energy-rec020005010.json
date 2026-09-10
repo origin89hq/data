@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-rec020005010",
+  "manufacturer": "victron-energy",
+  "name": "REC020005010",
+  "kind": "meter",
+  "aliases": [
+    "VIC-223-107"
+  ],
+  "dialects": []
+}

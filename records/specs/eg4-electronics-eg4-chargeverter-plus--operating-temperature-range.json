@@ -1,0 +1,9 @@
+{
+  "id": "eg4-electronics-eg4-chargeverter-plus--operating-temperature-range",
+  "model": "eg4-electronics-eg4-chargeverter-plus",
+  "name": "OPERATING TEMPERATURE RANGE",
+  "value": "-40° – 131°F (-40° – 55°C)",
+  "source": "doc-55f12b8f9ded3bc7664ee333a8178ac7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

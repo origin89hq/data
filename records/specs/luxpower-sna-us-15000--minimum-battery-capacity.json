@@ -1,0 +1,11 @@
+{
+  "id": "luxpower-sna-us-15000--minimum-battery-capacity",
+  "model": "luxpower-sna-us-15000",
+  "name": "Minimum battery capacity",
+  "value": "400",
+  "unit": "Ah",
+  "source": "doc-0cbf8e5570a36c77dc28d9febac9e585",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

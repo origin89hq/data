@@ -1,0 +1,10 @@
+{
+  "id": "noco-geniuspro50--latausj-nnite",
+  "model": "noco-geniuspro50",
+  "name": "Latausjännite",
+  "value": "14.5V | 50A | Korkeintaan 2000 Ah akut",
+  "source": "doc-acc6023faea6c05091589f8fe0a7930d",
+  "page": 142,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

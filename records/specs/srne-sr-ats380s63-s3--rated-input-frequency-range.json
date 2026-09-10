@@ -1,0 +1,10 @@
+{
+  "id": "srne-sr-ats380s63-s3--rated-input-frequency-range",
+  "model": "srne-sr-ats380s63-s3",
+  "name": "Rated input frequency range",
+  "value": "50~60HZ(±0.3HZ)",
+  "source": "doc-5f8a630c9469b6458b1def44b5c72181",
+  "page": 22,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

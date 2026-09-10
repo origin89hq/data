@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-mppt-150-60--peak-efficiency",
+  "model": "victron-energy-mppt-150-60",
+  "name": "Peak efficiency",
+  "value": "98",
+  "unit": "%",
+  "source": "doc-75ef220cecc3e8483f079f6108e6bb5b",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

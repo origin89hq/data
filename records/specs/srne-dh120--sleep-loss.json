@@ -1,0 +1,10 @@
+{
+  "id": "srne-dh120--sleep-loss",
+  "model": "srne-dh120",
+  "name": "Sleep loss",
+  "value": "<0.8MA/12V；<8MA/24V",
+  "source": "doc-37a3a90d1b0934e893e0c84c7fd372e8",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

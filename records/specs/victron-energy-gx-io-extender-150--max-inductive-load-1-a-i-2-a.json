@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-gx-io-extender-150--max-inductive-load-1-a-i-2-a",
+  "model": "victron-energy-gx-io-extender-150",
+  "name": "Max. inductive load - 1 A < I < 2 A",
+  "value": "100 mH",
+  "source": "doc-c6c2b554c6df77852e8acc4d0ebfc2f1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

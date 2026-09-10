@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-12v-lifepo4-battery--rated-voltage",
+  "model": "victron-energy-12v-lifepo4-battery",
+  "name": "Rated voltage",
+  "value": "12.8",
+  "unit": "V",
+  "source": "doc-f0482c5b4273a177fbb1359f8db2b635",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

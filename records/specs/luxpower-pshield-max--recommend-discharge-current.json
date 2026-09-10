@@ -1,0 +1,11 @@
+{
+  "id": "luxpower-pshield-max--recommend-discharge-current",
+  "model": "luxpower-pshield-max",
+  "name": "Recommend Discharge Current",
+  "value": "160",
+  "unit": "A",
+  "source": "doc-2cf2c02c43a05a0e5e252d9b5efb4a88",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

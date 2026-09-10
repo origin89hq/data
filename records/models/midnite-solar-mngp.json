@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-mngp",
+  "manufacturer": "midnite-solar",
+  "name": "MNGP",
+  "kind": "balance-of-system",
+  "aliases": [
+    "MID-161-120"
+  ],
+  "dialects": []
+}

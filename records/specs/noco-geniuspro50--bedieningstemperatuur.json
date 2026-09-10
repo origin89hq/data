@@ -1,0 +1,10 @@
+{
+  "id": "noco-geniuspro50--bedieningstemperatuur",
+  "model": "noco-geniuspro50",
+  "name": "Bedieningstemperatuur",
+  "value": "-20°C en 50°C",
+  "source": "doc-723933e9ae36ac87b561b12fafebcf3f",
+  "page": 48,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "trojan-battery-l16e-ac",
+  "manufacturer": "trojan-battery",
+  "name": "L16E-AC",
+  "kind": "battery",
+  "aliases": [
+    "TRJ-184-104"
+  ],
+  "dialects": []
+}

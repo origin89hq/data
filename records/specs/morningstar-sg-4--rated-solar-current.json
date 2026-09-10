@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-sg-4--rated-solar-current",
+  "model": "morningstar-sg-4",
+  "name": "Rated Solar Current",
+  "value": "4.5",
+  "unit": "A",
+  "source": "doc-d750c051efee498703d3df89c12fef64",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-mppt-100-15--self-consumption",
+  "model": "victron-energy-mppt-100-15",
+  "name": "Self consumption",
+  "value": "12V: 20mA / 24V: 10mA",
+  "source": "doc-c967bfdb27ebea471739445a3d4c2c8d",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

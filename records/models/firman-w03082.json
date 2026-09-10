@@ -1,0 +1,10 @@
+{
+  "id": "firman-w03082",
+  "manufacturer": "firman",
+  "name": "W03082",
+  "kind": "generator",
+  "aliases": [],
+  "dialects": [
+    "firman-portable-no-comms"
+  ]
+}

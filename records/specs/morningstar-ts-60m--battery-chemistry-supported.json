@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-ts-60m--battery-chemistry-supported",
+  "model": "morningstar-ts-60m",
+  "name": "Battery Chemistry Supported*",
+  "value": "L/A, Li, NiCd, others",
+  "source": "doc-8e8065bdb7830e18e75a84d3208eb4d0",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

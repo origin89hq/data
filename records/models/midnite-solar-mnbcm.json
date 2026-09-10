@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-mnbcm",
+  "manufacturer": "midnite-solar",
+  "name": "MNBCM",
+  "kind": "meter",
+  "aliases": [],
+  "dialects": [
+    "midnite-mnbcm"
+  ]
+}

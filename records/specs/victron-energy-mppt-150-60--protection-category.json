@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-mppt-150-60--protection-category",
+  "model": "victron-energy-mppt-150-60",
+  "name": "Protection category",
+  "value": "IP43 (electronic components), IP22 (connection area)",
+  "source": "doc-75ef220cecc3e8483f079f6108e6bb5b",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

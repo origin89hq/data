@@ -1,0 +1,8 @@
+{
+  "id": "magnum-energy-bp-d",
+  "manufacturer": "magnum-energy",
+  "name": "BP-D",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

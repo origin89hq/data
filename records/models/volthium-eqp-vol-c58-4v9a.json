@@ -1,0 +1,12 @@
+{
+  "id": "volthium-eqp-vol-c58-4v9a",
+  "manufacturer": "volthium",
+  "name": "EQP-VOL-C58.4V9A",
+  "kind": "ac-charger",
+  "aliases": [
+    "VLT-162-138"
+  ],
+  "dialects": [
+    "volthium-ac-charger-no-comms"
+  ]
+}

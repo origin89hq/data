@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-8k-2p-n--battery-bank-voltage",
+  "model": "sol-ark-sol-ark-8k-2p-n",
+  "name": "Battery bank voltage",
+  "value": "43VDC - 63VDC",
+  "source": "doc-2d78833f0dfd3579b769cf106c70364e",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

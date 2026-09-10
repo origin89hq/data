@@ -1,0 +1,10 @@
+{
+  "id": "noco-nlp14--charging-voltage",
+  "model": "noco-nlp14",
+  "name": "CHARGING VOLTAGE",
+  "value": "14.6V",
+  "unit": "V",
+  "source": "doc-ef531b57aaa68322a057f145ac61e704",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

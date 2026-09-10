@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-mnshunt-sh-500-50",
+  "manufacturer": "midnite-solar",
+  "name": "MNSHUNT SH-500-50",
+  "kind": "shunt-monitor",
+  "aliases": [
+    "MID-101-213"
+  ],
+  "dialects": []
+}

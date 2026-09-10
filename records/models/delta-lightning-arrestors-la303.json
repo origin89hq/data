@@ -1,0 +1,10 @@
+{
+  "id": "delta-lightning-arrestors-la303",
+  "manufacturer": "delta-lightning-arrestors",
+  "name": "LA303",
+  "kind": "balance-of-system",
+  "aliases": [
+    "DEL-109-100"
+  ],
+  "dialects": []
+}

@@ -1,0 +1,9 @@
+{
+  "id": "srne-sr-eot01s--charging-temperature-range",
+  "model": "srne-sr-eot01s",
+  "name": "Charging temperature range",
+  "value": "0℃《45℃",
+  "source": "doc-8168e8725aedf662dc97c4e90e35f829",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

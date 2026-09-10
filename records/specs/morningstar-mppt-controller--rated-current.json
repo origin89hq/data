@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-mppt-controller--rated-current",
+  "model": "morningstar-mppt-controller",
+  "name": "Rated current",
+  "value": "15A at up to 75Voc",
+  "source": "doc-d750c051efee498703d3df89c12fef64",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

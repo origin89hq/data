@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-pst-300s-24e--overload-shutdown",
+  "model": "samlex-america-pst-300s-24e",
+  "name": "OVERLOAD SHUTDOWN",
+  "value": "At overload of 110% to 115% for 2 to 2.5 sec",
+  "source": "doc-3daa6ca3a04ac3fcc0d80cfd5b630967",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "noco-gbx45--fast-charge-rate",
+  "model": "noco-gbx45",
+  "name": "Fast Charge Rate",
+  "value": "up to 60W",
+  "source": "doc-8bf3dfc2d80853b81c34c8ae652868a5",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

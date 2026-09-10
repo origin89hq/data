@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-sc-10--nominal-rated-power",
+  "model": "samlex-america-sc-10",
+  "name": "NOMINAL RATED POWER",
+  "value": "10W ± 3%",
+  "source": "doc-44042e397160d0f7eac168446e3f7137",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-ms2024-l-u",
+  "manufacturer": "magnum-energy",
+  "name": "MS2024-L-U",
+  "kind": "inverter",
+  "aliases": [
+    "MAG-227-101"
+  ],
+  "dialects": []
+}

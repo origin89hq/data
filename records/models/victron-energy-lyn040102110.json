@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-lyn040102110",
+  "manufacturer": "victron-energy",
+  "name": "LYN040102110",
+  "kind": "shunt-monitor",
+  "aliases": [],
+  "dialects": []
+}

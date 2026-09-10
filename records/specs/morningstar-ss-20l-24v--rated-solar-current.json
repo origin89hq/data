@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ss-20l-24v--rated-solar-current",
+  "model": "morningstar-ss-20l-24v",
+  "name": "Rated Solar Current",
+  "value": "20",
+  "unit": "A",
+  "source": "doc-d750c051efee498703d3df89c12fef64",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

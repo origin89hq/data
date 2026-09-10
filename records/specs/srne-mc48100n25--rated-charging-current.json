@@ -1,0 +1,10 @@
+{
+  "id": "srne-mc48100n25--rated-charging-current",
+  "model": "srne-mc48100n25",
+  "name": "Rated Charging Current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-765a44d61bec0045ffdc487503ae89f7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "srne-sr-eot02s--max-pv-power",
+  "model": "srne-sr-eot02s",
+  "name": "Max. PV Power",
+  "value": "1500",
+  "unit": "W",
+  "source": "doc-e8f64a65f81600c3701dc9a662972c35",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

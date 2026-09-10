@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-150-24--salida-de-corriente-continua-a-factor-de-poder-1",
+  "model": "samlex-america-pst-150-24",
+  "name": "SALIDA DE CORRIENTE CONTINUA (A Factor de Poder = 1)",
+  "value": "150",
+  "unit": "W",
+  "source": "doc-7dcc90eed47951ddb9aa2a11262a07de",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

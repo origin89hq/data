@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ecoboost-mppt-20--courant-nominal-en-charge",
+  "model": "morningstar-ecoboost-mppt-20",
+  "name": "Courant nominal en charge",
+  "value": "20",
+  "unit": "A",
+  "source": "doc-a9fd8761598c4ef070dba436d7ba680a",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

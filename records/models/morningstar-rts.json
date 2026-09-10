@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-rts",
+  "manufacturer": "morningstar",
+  "name": "RTS",
+  "kind": "balance-of-system",
+  "aliases": [
+    "MOR-161-144"
+  ],
+  "dialects": []
+}

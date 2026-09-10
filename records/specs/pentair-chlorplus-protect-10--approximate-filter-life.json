@@ -1,0 +1,9 @@
+{
+  "id": "pentair-chlorplus-protect-10--approximate-filter-life",
+  "model": "pentair-chlorplus-protect-10",
+  "name": "Approximate Filter Life",
+  "value": "4 - 5 months",
+  "source": "doc-ec671d29ef13598fd0c86129616fa3dc",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

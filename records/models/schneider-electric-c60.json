@@ -1,0 +1,10 @@
+{
+  "id": "schneider-electric-c60",
+  "manufacturer": "schneider-electric",
+  "name": "C60",
+  "kind": "charge-controller",
+  "aliases": [
+    "CXT-164-118"
+  ],
+  "dialects": []
+}

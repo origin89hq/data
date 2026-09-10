@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sc-10--maximum-power-voltage-vmp",
+  "model": "samlex-america-sc-10",
+  "name": "MAXIMUM POWER VOLTAGE, VMP",
+  "value": "13.3",
+  "unit": "V",
+  "source": "doc-44042e397160d0f7eac168446e3f7137",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

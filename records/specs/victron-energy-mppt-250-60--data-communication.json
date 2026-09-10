@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-mppt-250-60--data-communication",
+  "model": "victron-energy-mppt-250-60",
+  "name": "Data communication",
+  "value": "VE.Direct port 4Bluetooth, via the VictronConnect app",
+  "source": "doc-75ef220cecc3e8483f079f6108e6bb5b",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

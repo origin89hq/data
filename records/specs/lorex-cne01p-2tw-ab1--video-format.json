@@ -1,0 +1,9 @@
+{
+  "id": "lorex-cne01p-2tw-ab1--video-format",
+  "model": "lorex-cne01p-2tw-ab1",
+  "name": "Video Format",
+  "value": "NTSC",
+  "source": "doc-3dc5fa00b453c9acaf2aff170b3f9d92",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "sol-ark-sol-ark-5k-48-st--mppt-voltage-range",
+  "model": "sol-ark-sol-ark-5k-48-st",
+  "name": "MPPT Voltage Range",
+  "value": "150 - 500V",
+  "source": "doc-759ca07ffded8018dcb7cbd8dcc55424",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "noco-genius2x2--batteriechemie",
+  "model": "noco-genius2x2",
+  "name": "Batteriechemie",
+  "value": "Nass, Gel, MF, CA, EFB, AGM, Lithium",
+  "source": "doc-6eb9ac65e017cb3de2fdd095dded8666",
+  "page": 30,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

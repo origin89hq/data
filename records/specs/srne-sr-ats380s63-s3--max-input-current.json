@@ -1,0 +1,11 @@
+{
+  "id": "srne-sr-ats380s63-s3--max-input-current",
+  "model": "srne-sr-ats380s63-s3",
+  "name": "Max input current",
+  "value": "63",
+  "unit": "A",
+  "source": "doc-5f8a630c9469b6458b1def44b5c72181",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

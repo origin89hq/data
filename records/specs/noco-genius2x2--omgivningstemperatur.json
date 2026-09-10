@@ -1,0 +1,10 @@
+{
+  "id": "noco-genius2x2--omgivningstemperatur",
+  "model": "noco-genius2x2",
+  "name": "Omgivningstemperatur",
+  "value": "-20°C till +40°C",
+  "source": "doc-6eb9ac65e017cb3de2fdd095dded8666",
+  "page": 114,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

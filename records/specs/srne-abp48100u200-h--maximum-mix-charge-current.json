@@ -1,0 +1,11 @@
+{
+  "id": "srne-abp48100u200-h--maximum-mix-charge-current",
+  "model": "srne-abp48100u200-h",
+  "name": "Maximum mix charge current",
+  "value": "200",
+  "unit": "A",
+  "source": "doc-c4c399615a1701447232063fd6925d20",
+  "page": 66,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

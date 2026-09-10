@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-mnpv3-busbar",
+  "manufacturer": "midnite-solar",
+  "name": "MNPV3-BUSBAR",
+  "kind": "balance-of-system",
+  "aliases": [
+    "MID-104-248"
+  ],
+  "dialects": []
+}

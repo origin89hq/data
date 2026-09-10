@@ -1,0 +1,11 @@
+{
+  "id": "noco-gbx155--classifica-o-do-carregador",
+  "model": "noco-gbx155",
+  "name": "Classificação do carregador",
+  "value": "60",
+  "unit": "W",
+  "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
+  "page": 62,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

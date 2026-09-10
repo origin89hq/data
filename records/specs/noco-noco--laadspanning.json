@@ -1,0 +1,10 @@
+{
+  "id": "noco-noco--laadspanning",
+  "model": "noco-noco",
+  "name": "Laadspanning",
+  "value": "Verschillend",
+  "source": "doc-acc6023faea6c05091589f8fe0a7930d",
+  "page": 106,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-pc-meterbus-adapter",
+  "manufacturer": "morningstar",
+  "name": "PC MeterBus Adapter",
+  "kind": "balance-of-system",
+  "aliases": [
+    "MOR-161-143"
+  ],
+  "dialects": []
+}

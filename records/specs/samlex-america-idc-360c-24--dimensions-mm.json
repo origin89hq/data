@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-idc-360c-24--dimensions-mm",
+  "model": "samlex-america-idc-360c-24",
+  "name": "DIMENSIONS, MM",
+  "value": "132.8 x 190.5 x 83",
+  "source": "doc-2a8ec59453bcd60e098da07dd94998b1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

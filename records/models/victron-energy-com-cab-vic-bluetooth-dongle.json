@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-com-cab-vic-bluetooth-dongle",
+  "manufacturer": "victron-energy",
+  "name": "COM-CAB-VIC-BLUETOOTH-DONGLE",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

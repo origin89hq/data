@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-15k-2p-n--peso",
+  "model": "sol-ark-sol-ark-15k-2p-n",
+  "name": "Peso",
+  "value": "61.2 Kg / 135 lb.",
+  "source": "doc-dcaad73dc01bbc114e274bc056fcfd85",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

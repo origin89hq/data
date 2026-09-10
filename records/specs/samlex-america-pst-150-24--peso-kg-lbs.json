@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-pst-150-24--peso-kg-lbs",
+  "model": "samlex-america-pst-150-24",
+  "name": "PESO KG / LBS",
+  "value": "1.27 / 2.8",
+  "source": "doc-7dcc90eed47951ddb9aa2a11262a07de",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

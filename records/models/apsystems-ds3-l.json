@@ -1,0 +1,10 @@
+{
+  "id": "apsystems-ds3-l",
+  "manufacturer": "apsystems",
+  "name": "DS3-L",
+  "kind": "inverter",
+  "aliases": [
+    "APS-229-116"
+  ],
+  "dialects": []
+}

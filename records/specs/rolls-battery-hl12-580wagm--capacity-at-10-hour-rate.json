@@ -1,0 +1,10 @@
+{
+  "id": "rolls-battery-hl12-580wagm--capacity-at-10-hour-rate",
+  "model": "rolls-battery-hl12-580wagm",
+  "name": "Capacity at 10 Hour Rate",
+  "value": "145",
+  "unit": "Ah",
+  "source": "doc-49ebfa347ebe408edd86449062e6f635",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

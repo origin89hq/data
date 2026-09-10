@@ -1,0 +1,8 @@
+{
+  "id": "outback-power-fm80mppt",
+  "manufacturer": "outback-power",
+  "name": "FM80MPPT",
+  "kind": "charge-controller",
+  "aliases": [],
+  "dialects": []
+}

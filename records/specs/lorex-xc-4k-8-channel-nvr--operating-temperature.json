@@ -1,0 +1,9 @@
+{
+  "id": "lorex-xc-4k-8-channel-nvr--operating-temperature",
+  "model": "lorex-xc-4k-8-channel-nvr",
+  "name": "Operating Temperature",
+  "value": "14°F to 122°F (-10°C to 50°C)",
+  "source": "doc-f315aed54eb5b2a9e644a3acdfc49ae9",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

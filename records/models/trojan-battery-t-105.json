@@ -1,0 +1,10 @@
+{
+  "id": "trojan-battery-t-105",
+  "manufacturer": "trojan-battery",
+  "name": "T-105",
+  "kind": "battery",
+  "aliases": [
+    "TRJ-184-102"
+  ],
+  "dialects": []
+}

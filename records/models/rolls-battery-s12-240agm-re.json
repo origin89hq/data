@@ -1,0 +1,10 @@
+{
+  "id": "rolls-battery-s12-240agm-re",
+  "manufacturer": "rolls-battery",
+  "name": "S12-240AGM-RE",
+  "kind": "battery",
+  "aliases": [],
+  "dialects": [
+    "rolls-lead-acid"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-ond-vic-multiplus-12v-1200w",
+  "manufacturer": "victron-energy",
+  "name": "OND-VIC-MULTIPLUS-12V/1200W",
+  "kind": "inverter-charger",
+  "aliases": [],
+  "dialects": []
+}

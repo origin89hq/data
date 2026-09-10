@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-bpc900110014",
+  "manufacturer": "victron-energy",
+  "name": "BPC900110014",
+  "kind": "balance-of-system",
+  "aliases": [
+    "VIC-161-135"
+  ],
+  "dialects": []
+}

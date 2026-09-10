@@ -1,0 +1,9 @@
+{
+  "id": "sigineer-m48120--battery-voltage",
+  "model": "sigineer-m48120",
+  "name": "Battery voltage",
+  "value": "12V/24V/48V",
+  "source": "doc-0f341b76769dec14304b2f3733c40c66",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

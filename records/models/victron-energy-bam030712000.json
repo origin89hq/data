@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-bam030712000",
+  "manufacturer": "victron-energy",
+  "name": "BAM030712000",
+  "kind": "shunt-monitor",
+  "aliases": [
+    "1593006",
+    "XXX-XXX-217"
+  ],
+  "dialects": []
+}

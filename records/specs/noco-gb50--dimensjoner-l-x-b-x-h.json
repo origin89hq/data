@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb50--dimensjoner-l-x-b-x-h",
+  "model": "noco-gb50",
+  "name": "Dimensjoner (L x B x H)",
+  "value": "7,6 x 3,2 x 1,9 tommer",
+  "source": "doc-3823580d5ce87d787a3f780b59b9c1b0",
+  "page": 81,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

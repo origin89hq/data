@@ -1,0 +1,10 @@
+{
+  "id": "staubli-32-0717-pv-svk4",
+  "manufacturer": "staubli",
+  "name": "32.0717 PV-SVK4",
+  "kind": "balance-of-system",
+  "aliases": [
+    "MUC-141-105"
+  ],
+  "dialects": []
+}

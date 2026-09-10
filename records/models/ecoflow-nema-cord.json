@@ -1,0 +1,8 @@
+{
+  "id": "ecoflow-nema-cord",
+  "manufacturer": "ecoflow",
+  "name": "NEMA-CORD",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

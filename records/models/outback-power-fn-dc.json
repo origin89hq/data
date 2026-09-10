@@ -1,0 +1,8 @@
+{
+  "id": "outback-power-fn-dc",
+  "manufacturer": "outback-power",
+  "name": "FN-DC",
+  "kind": "shunt-monitor",
+  "aliases": [],
+  "dialects": []
+}

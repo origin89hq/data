@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-pst-300s-24e--dimensions-w-x-d-x-h-mm",
+  "model": "samlex-america-pst-300s-24e",
+  "name": "DIMENSIONS (W X D X H), MM",
+  "value": "263 x 456.5 x 145",
+  "source": "doc-aee9e0827e07c54b82988dac4adc43ea",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "rstc-enterprises-0766-41ad--ambient-temperature-rating",
+  "model": "rstc-enterprises-0766-41ad",
+  "name": "Ambient temperature rating",
+  "value": "75C°",
+  "source": "doc-757b32549928df239567c265134c9fb2",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-pst-300s-24e--continuous-output-power",
+  "model": "samlex-america-pst-300s-24e",
+  "name": "CONTINUOUS OUTPUT POWER",
+  "value": "3000",
+  "unit": "W",
+  "source": "doc-8e07d8858f33039f4fd7613283dad7ed",
+  "page": 49,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

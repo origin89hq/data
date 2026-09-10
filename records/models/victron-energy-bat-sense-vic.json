@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-bat-sense-vic",
+  "manufacturer": "victron-energy",
+  "name": "BAT-SENSE-VIC",
+  "kind": "bms",
+  "aliases": [],
+  "dialects": []
+}

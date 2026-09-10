@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-pin485020000",
+  "manufacturer": "victron-energy",
+  "name": "PIN485020000",
+  "kind": "inverter",
+  "aliases": [],
+  "dialects": []
+}

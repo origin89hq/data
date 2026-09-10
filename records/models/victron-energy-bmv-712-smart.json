@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-bmv-712-smart",
+  "manufacturer": "victron-energy",
+  "name": "BMV-712 SMART",
+  "kind": "meter",
+  "aliases": [],
+  "dialects": []
+}

@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-gx-io-extender-150--max-capacitive-load-15-v-vbat-30-v",
+  "model": "victron-energy-gx-io-extender-150",
+  "name": "Max. capacitive load - 15 V < Vbat < 30 V",
+  "value": "400 μF",
+  "source": "doc-c6c2b554c6df77852e8acc4d0ebfc2f1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

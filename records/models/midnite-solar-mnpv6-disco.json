@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-mnpv6-disco",
+  "manufacturer": "midnite-solar",
+  "name": "MNPV6-DISCO",
+  "kind": "balance-of-system",
+  "aliases": [
+    "MID-108-173"
+  ],
+  "dialects": []
+}

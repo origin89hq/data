@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-2-arct-101-01",
+  "manufacturer": "primus-wind-power",
+  "name": "2-ARCT-101-01",
+  "kind": "charge-controller",
+  "aliases": [
+    "XXX-XXX-215"
+  ],
+  "dialects": []
+}

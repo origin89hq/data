@@ -1,0 +1,10 @@
+{
+  "id": "east-penn-2-butoxyethanol--cas-no",
+  "model": "east-penn-2-butoxyethanol",
+  "name": "CAS No.",
+  "value": "111-76-2",
+  "source": "doc-3148b384a843645e4a1c1e733849cb35",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

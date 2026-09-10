@@ -1,0 +1,8 @@
+{
+  "id": "ruixu-rs485",
+  "manufacturer": "ruixu",
+  "name": "RS485",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

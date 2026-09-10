@@ -1,0 +1,9 @@
+{
+  "id": "delta-lightning-arrestors-mo302--response-time",
+  "model": "delta-lightning-arrestors-mo302",
+  "name": "Response Time",
+  "value": "5 nanoseconds",
+  "source": "doc-46921a96fb0ee85a0ccbf64c9d7e20d2",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

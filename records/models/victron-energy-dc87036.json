@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-dc87036",
+  "manufacturer": "victron-energy",
+  "name": "DC87036",
+  "kind": "ac-charger",
+  "aliases": [],
+  "dialects": []
+}

@@ -1,0 +1,11 @@
+{
+  "id": "noco-geniuspro25--ladespenning-12v-agm",
+  "model": "noco-geniuspro25",
+  "name": "Ladespenning 12V AGM",
+  "value": "14,8",
+  "unit": "V",
+  "source": "doc-ad1950f6bd60aa9bc23134b99d74b0db",
+  "page": 126,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

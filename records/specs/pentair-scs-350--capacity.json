@@ -1,0 +1,9 @@
+{
+  "id": "pentair-scs-350--capacity",
+  "model": "pentair-scs-350",
+  "name": "Capacity",
+  "value": "150 gal. (568 L)",
+  "source": "doc-ed38f087dcef2e99fc2da8f66168eeaf",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "noco-gbx155--dimensioni-l-x-l-x-a",
+  "model": "noco-gbx155",
+  "name": "Dimensioni (L x L x A)",
+  "value": "30,6 x 16,3 x 6,9 Centimetro",
+  "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
+  "page": 43,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

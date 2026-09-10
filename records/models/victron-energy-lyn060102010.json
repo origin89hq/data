@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-lyn060102010",
+  "manufacturer": "victron-energy",
+  "name": "LYN060102010",
+  "kind": "balance-of-system",
+  "aliases": [
+    "VIC-104-211"
+  ],
+  "dialects": []
+}

@@ -1,0 +1,10 @@
+{
+  "id": "noco-geniuspro50--temperatura-operacional",
+  "model": "noco-geniuspro50",
+  "name": "Temperatura operacional",
+  "value": "-4° F e 122° F",
+  "source": "doc-723933e9ae36ac87b561b12fafebcf3f",
+  "page": 41,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

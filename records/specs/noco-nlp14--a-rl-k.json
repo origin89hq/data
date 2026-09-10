@@ -1,0 +1,10 @@
+{
+  "id": "noco-nlp14--a-rl-k",
+  "model": "noco-nlp14",
+  "name": "Ağırlık",
+  "value": "2,58 (1,17)",
+  "source": "doc-bcc4cd5bc6e865f5d2bef2a50ef7f569",
+  "page": 128,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

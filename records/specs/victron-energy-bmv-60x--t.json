@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-bmv-60x--t",
+  "model": "victron-energy-bmv-60x",
+  "name": "T",
+  "value": "°C",
+  "source": "doc-07e2878acda139a3b6c5f7d9f99e450b",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

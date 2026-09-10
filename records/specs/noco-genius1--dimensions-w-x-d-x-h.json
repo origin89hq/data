@@ -1,0 +1,10 @@
+{
+  "id": "noco-genius1--dimensions-w-x-d-x-h",
+  "model": "noco-genius1",
+  "name": "Dimensions (W x D x H)",
+  "value": "2.32 x 1.26 x 3.62 Inches (59 x 32 x 92mm)",
+  "source": "doc-0d609d0fd81c9e25694336f15e33a802",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

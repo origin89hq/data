@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ps-mppt-25--terminal",
+  "model": "morningstar-ps-mppt-25",
+  "name": "Terminal",
+  "value": "16 mm2/ 2 AWG",
+  "source": "doc-d750c051efee498703d3df89c12fef64",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

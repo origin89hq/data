@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-pst-300s-24e--alarma-de-bajo-voltaje-de-entrada",
+  "model": "samlex-america-pst-300s-24e",
+  "name": "ALARMA DE BAJO VOLTAJE DE ENTRADA",
+  "value": "21.4V ± 0.2V",
+  "source": "doc-3daa6ca3a04ac3fcc0d80cfd5b630967",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-multiplus-ii-24-3000-70-32-230v--electrical-system-rated-voltage",
+  "model": "victron-energy-multiplus-ii-24-3000-70-32-230v",
+  "name": "Electrical system rated voltage",
+  "value": "12/24 V pos./neg. ground",
+  "source": "doc-41a8b30589f229bb5d1d8047c506a3fd",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-bos-bms-ve-bus-vic",
+  "manufacturer": "victron-energy",
+  "name": "BOS-BMS-VE-BUS-VIC",
+  "kind": "bms",
+  "aliases": [],
+  "dialects": []
+}

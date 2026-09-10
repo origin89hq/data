@@ -1,0 +1,10 @@
+{
+  "id": "sigineer-esf48l40--turn-on-the-charging-voltage-point",
+  "model": "sigineer-esf48l40",
+  "name": "Turn on the charging voltage point",
+  "value": "3V higher than battery voltage",
+  "source": "doc-0d3e50facf97007d55c11238f6d4de49",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

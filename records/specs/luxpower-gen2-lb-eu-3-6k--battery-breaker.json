@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-gen2-lb-eu-3-6k--battery-breaker",
+  "model": "luxpower-gen2-lb-eu-3-6k",
+  "name": "Battery Breaker",
+  "value": "100V/250A",
+  "source": "doc-88eb712fd500c98931327f35645b956e",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

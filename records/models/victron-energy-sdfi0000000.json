@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-sdfi0000000",
+  "manufacturer": "victron-energy",
+  "name": "SDFI0000000",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

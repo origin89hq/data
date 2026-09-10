@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-pst-300s-12e--corriente-de-entrada-cd-sin-carga",
+  "model": "samlex-america-pst-300s-12e",
+  "name": "CORRIENTE DE ENTRADA CD SIN CARGA",
+  "value": "< 1.6A",
+  "source": "doc-3daa6ca3a04ac3fcc0d80cfd5b630967",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

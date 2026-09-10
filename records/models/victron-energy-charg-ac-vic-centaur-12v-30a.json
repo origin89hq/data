@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-charg-ac-vic-centaur-12v-30a",
+  "manufacturer": "victron-energy",
+  "name": "CHARG-AC-VIC-CENTAUR-12V/30A",
+  "kind": "ac-charger",
+  "aliases": [],
+  "dialects": []
+}

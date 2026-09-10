@@ -1,0 +1,9 @@
+{
+  "id": "lorex-epr-111--transmission-rate",
+  "model": "lorex-epr-111",
+  "name": "Transmission Rate",
+  "value": "100Mbps Full Duplex",
+  "source": "doc-b4d6a8397af46d96e6ef08e9d58f088d",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

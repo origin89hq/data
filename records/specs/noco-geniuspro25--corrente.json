@@ -1,0 +1,11 @@
+{
+  "id": "noco-geniuspro25--corrente",
+  "model": "noco-geniuspro25",
+  "name": "Corrente",
+  "value": "25",
+  "unit": "A",
+  "source": "doc-ad1950f6bd60aa9bc23134b99d74b0db",
+  "page": 82,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

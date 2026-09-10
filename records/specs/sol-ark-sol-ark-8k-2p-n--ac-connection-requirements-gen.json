@@ -1,0 +1,11 @@
+{
+  "id": "sol-ark-sol-ark-8k-2p-n--ac-connection-requirements-gen",
+  "model": "sol-ark-sol-ark-8k-2p-n",
+  "name": "AC Connection Requirements - GEN",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-2d78833f0dfd3579b769cf106c70364e",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

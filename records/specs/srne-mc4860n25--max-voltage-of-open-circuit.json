@@ -1,0 +1,10 @@
+{
+  "id": "srne-mc4860n25--max-voltage-of-open-circuit",
+  "model": "srne-mc4860n25",
+  "name": "Max.Voltage of Open Circuit",
+  "value": "150",
+  "unit": "V",
+  "source": "doc-3a2212e35e1763cbf8ea2ed4821f568a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

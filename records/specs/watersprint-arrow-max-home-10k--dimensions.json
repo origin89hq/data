@@ -1,0 +1,9 @@
+{
+  "id": "watersprint-arrow-max-home-10k--dimensions",
+  "model": "watersprint-arrow-max-home-10k",
+  "name": "Dimensions",
+  "value": "120 mm x 580 mm",
+  "source": "doc-7eba679f1e5b485407c6037e24b97ea9",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

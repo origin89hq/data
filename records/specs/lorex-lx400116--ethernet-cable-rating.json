@@ -1,0 +1,10 @@
+{
+  "id": "lorex-lx400116--ethernet-cable-rating",
+  "model": "lorex-lx400116",
+  "name": "Ethernet cable rating",
+  "value": "CAT5e or higher",
+  "source": "doc-3f1e3931b40ff68d739a5c193373056d",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

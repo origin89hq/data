@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna6000-wpv--no-load-power-consumption",
+  "model": "luxpower-sna6000-wpv",
+  "name": "No Load Power Consumption",
+  "value": "<60W",
+  "source": "doc-382ae6d157ec388999d842200da8a1ed",
+  "page": 55,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

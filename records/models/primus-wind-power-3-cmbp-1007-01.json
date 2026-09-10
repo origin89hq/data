@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-3-cmbp-1007-01",
+  "manufacturer": "primus-wind-power",
+  "name": "3-CMBP-1007-01",
+  "kind": "balance-of-system",
+  "aliases": [
+    "XXX-XXX-214"
+  ],
+  "dialects": []
+}

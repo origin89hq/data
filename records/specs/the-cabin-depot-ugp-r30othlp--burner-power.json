@@ -1,0 +1,10 @@
+{
+  "id": "the-cabin-depot-ugp-r30othlp--burner-power",
+  "model": "the-cabin-depot-ugp-r30othlp",
+  "name": "Burner power",
+  "value": "8,500, 3,000, 8,500, 18,000, 7,500, 17,000, 55,000 BTU/h",
+  "source": "doc-a31ecf2a5fbe4eb72b52060eb2c34db2",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

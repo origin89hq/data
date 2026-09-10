@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-step-20--output-current",
+  "model": "samlex-america-step-20",
+  "name": "Output Current",
+  "value": "20",
+  "unit": "A",
+  "source": "doc-f09e92c49c1ab58709293d065881e9b6",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

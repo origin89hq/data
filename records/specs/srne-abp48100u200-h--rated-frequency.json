@@ -1,0 +1,10 @@
+{
+  "id": "srne-abp48100u200-h--rated-frequency",
+  "model": "srne-abp48100u200-h",
+  "name": "Rated frequency",
+  "value": "50/60 Hz",
+  "source": "doc-c4c399615a1701447232063fd6925d20",
+  "page": 66,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-vicmp10030",
+  "manufacturer": "victron-energy",
+  "name": "VICMP10030",
+  "kind": "charge-controller",
+  "aliases": [],
+  "dialects": []
+}

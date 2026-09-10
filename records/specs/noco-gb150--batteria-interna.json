@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb150--batteria-interna",
+  "model": "noco-gb150",
+  "name": "Batteria interna",
+  "value": "Ioni di litio",
+  "source": "doc-053a1e6bf9b140c56d7d670f15461687",
+  "page": 35,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

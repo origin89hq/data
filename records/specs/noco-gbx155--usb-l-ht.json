@@ -1,0 +1,10 @@
+{
+  "id": "noco-gbx155--usb-l-ht",
+  "model": "noco-gbx155",
+  "name": "USB (lähtö)",
+  "value": "5Vdc 2.1A Max / 10W Max",
+  "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
+  "page": 107,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-bp-mmp",
+  "manufacturer": "magnum-energy",
+  "name": "BP-MMP",
+  "kind": "balance-of-system",
+  "aliases": [
+    "MAG-222-141"
+  ],
+  "dialects": []
+}

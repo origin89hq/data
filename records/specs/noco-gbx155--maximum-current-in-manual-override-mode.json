@@ -1,0 +1,11 @@
+{
+  "id": "noco-gbx155--maximum-current-in-manual-override-mode",
+  "model": "noco-gbx155",
+  "name": "Maximum current in manual override mode",
+  "value": "4250",
+  "unit": "A",
+  "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

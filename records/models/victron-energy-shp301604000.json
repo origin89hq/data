@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-shp301604000",
+  "manufacturer": "victron-energy",
+  "name": "SHP301604000",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

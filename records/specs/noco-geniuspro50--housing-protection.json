@@ -1,0 +1,9 @@
+{
+  "id": "noco-geniuspro50--housing-protection",
+  "model": "noco-geniuspro50",
+  "name": "HOUSING PROTECTION",
+  "value": "IP20",
+  "source": "doc-15e4e9c169010b78192efb920ea629fa",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "noco-genius10--input",
+  "model": "noco-genius10",
+  "name": "Input",
+  "value": "100-240, 50-60 Hz",
+  "source": "doc-e56ff4867f97c6f89af7ba14dbf99ffe",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

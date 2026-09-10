@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-15k-2p-lv--max-operating-pv-input-current",
+  "model": "sol-ark-15k-2p-lv",
+  "name": "Max. Operating PV Input Current",
+  "value": "26",
+  "unit": "A",
+  "source": "doc-488813d29230d2477a10368f2f72ad2c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

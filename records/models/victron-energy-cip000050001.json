@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-cip000050001",
+  "manufacturer": "victron-energy",
+  "name": "CIP000050001",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

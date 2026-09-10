@@ -1,0 +1,10 @@
+{
+  "id": "noco-geniuspro25",
+  "manufacturer": "noco",
+  "name": "GENIUSPRO25",
+  "kind": "ac-charger",
+  "aliases": [],
+  "dialects": [
+    "noco-geniuspro"
+  ]
+}

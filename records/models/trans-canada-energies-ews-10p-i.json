@@ -1,0 +1,10 @@
+{
+  "id": "trans-canada-energies-ews-10p-i",
+  "manufacturer": "trans-canada-energies",
+  "name": "EWS-10P-I",
+  "kind": "panel",
+  "aliases": [
+    "EWT-301-105"
+  ],
+  "dialects": []
+}

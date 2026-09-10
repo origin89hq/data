@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-mppt-150-60--charge-voltage-equalization-3",
+  "model": "victron-energy-mppt-150-60",
+  "name": "Charge voltage 'equalization' 3",
+  "value": "Default setting: 16.2V / 32.4V / 48.6V / 64.8V",
+  "source": "doc-75ef220cecc3e8483f079f6108e6bb5b",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

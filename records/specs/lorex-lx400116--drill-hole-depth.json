@@ -1,0 +1,10 @@
+{
+  "id": "lorex-lx400116--drill-hole-depth",
+  "model": "lorex-lx400116",
+  "name": "Drill hole depth",
+  "value": "2.8\"/70mm",
+  "source": "doc-3f1e3931b40ff68d739a5c193373056d",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

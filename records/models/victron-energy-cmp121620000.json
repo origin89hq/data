@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-cmp121620000",
+  "manufacturer": "victron-energy",
+  "name": "CMP121620000",
+  "kind": "inverter-charger",
+  "aliases": [],
+  "dialects": []
+}

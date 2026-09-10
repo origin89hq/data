@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb20--dimensions-lo-x-la-x-ha",
+  "model": "noco-gb20",
+  "name": "Dimensions (Lo x La x Ha)",
+  "value": "6.7 x 3.2 x 1.7 pouces",
+  "source": "doc-21526244bd4f28f887cfb062e04edaf0",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

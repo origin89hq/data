@@ -1,0 +1,10 @@
+{
+  "id": "noco-geniuspro50--tensione-di-picco",
+  "model": "noco-geniuspro50",
+  "name": "Tensione di picco",
+  "value": "29V | 50A | Per batterie fino a 1000 Ah",
+  "source": "doc-acc6023faea6c05091589f8fe0a7930d",
+  "page": 51,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "noco-genius1--storage-temperature",
+  "model": "noco-genius1",
+  "name": "STORAGE TEMPERATURE",
+  "value": "-22° to 140° F(-30° to +60° C)",
+  "source": "doc-983cc0b229675edcd6588b6db6bb1490",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-dmc000200010r",
+  "manufacturer": "victron-energy",
+  "name": "DMC000200010R",
+  "kind": "meter",
+  "aliases": [
+    "1593087"
+  ],
+  "dialects": []
+}

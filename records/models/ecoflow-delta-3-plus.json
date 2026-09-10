@@ -1,0 +1,14 @@
+{
+  "id": "ecoflow-delta-3-plus",
+  "manufacturer": "ecoflow",
+  "name": "DELTA 3 Plus",
+  "kind": "inverter-charger",
+  "aliases": [
+    "EFL-234-100"
+  ],
+  "dialects": [
+    "ecoflow-ble-local",
+    "ecoflow-gen3-protobuf",
+    "ecoflow-modbus-not-applicable"
+  ]
+}

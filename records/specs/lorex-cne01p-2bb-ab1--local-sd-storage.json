@@ -1,0 +1,9 @@
+{
+  "id": "lorex-cne01p-2bb-ab1--local-sd-storage",
+  "model": "lorex-cne01p-2bb-ab1",
+  "name": "Local SD Storage",
+  "value": "MicroSD Slot (Up to 1 TB)",
+  "source": "doc-d677ac8749943041f40ee2f8ba4bdcef",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

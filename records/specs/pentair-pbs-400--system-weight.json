@@ -1,0 +1,10 @@
+{
+  "id": "pentair-pbs-400--system-weight",
+  "model": "pentair-pbs-400",
+  "name": "System Weight",
+  "value": "3.8",
+  "unit": "lb",
+  "source": "doc-f60e42dd9f32c10e3458008c6b084cd9",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

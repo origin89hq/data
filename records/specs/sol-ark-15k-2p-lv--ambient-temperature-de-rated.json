@@ -1,0 +1,9 @@
+{
+  "id": "sol-ark-15k-2p-lv--ambient-temperature-de-rated",
+  "model": "sol-ark-15k-2p-lv",
+  "name": "Ambient Temperature / De-rated",
+  "value": "-25 to 55 °C",
+  "source": "doc-488813d29230d2477a10368f2f72ad2c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

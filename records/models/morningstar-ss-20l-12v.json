@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ss-20l-12v",
+  "manufacturer": "morningstar",
+  "name": "SS-20L-12V",
+  "kind": "charge-controller",
+  "aliases": [],
+  "dialects": [
+    "morningstar-pwm-no-comms"
+  ]
+}

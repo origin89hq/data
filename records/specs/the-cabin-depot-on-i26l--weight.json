@@ -1,0 +1,11 @@
+{
+  "id": "the-cabin-depot-on-i26l--weight",
+  "model": "the-cabin-depot-on-i26l",
+  "name": "Weight",
+  "value": "18",
+  "unit": "kg",
+  "source": "doc-8364bd1e2dbdabf0e64d513b1ff13f4f",
+  "page": 40,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

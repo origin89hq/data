@@ -1,0 +1,10 @@
+{
+  "id": "enphase-q-seal-10",
+  "manufacturer": "enphase",
+  "name": "Q-SEAL-10",
+  "kind": "balance-of-system",
+  "aliases": [
+    "ENP-221-124"
+  ],
+  "dialects": []
+}

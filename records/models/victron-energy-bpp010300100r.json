@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-bpp010300100r",
+  "manufacturer": "victron-energy",
+  "name": "BPP010300100R",
+  "kind": "meter",
+  "aliases": [
+    "1593099"
+  ],
+  "dialects": []
+}

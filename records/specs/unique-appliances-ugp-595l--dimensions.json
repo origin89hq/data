@@ -1,0 +1,9 @@
+{
+  "id": "unique-appliances-ugp-595l--dimensions",
+  "model": "unique-appliances-ugp-595l",
+  "name": "DIMENSIONS",
+  "value": "71.9” x 35.7” x 27.9”",
+  "source": "doc-efa4a2a9fc1f9ad6984b4c93e4c84a97",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

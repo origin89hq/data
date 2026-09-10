@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-40brm--dimensiones",
+  "model": "samlex-america-sec-40brm",
+  "name": "Dimensiones",
+  "value": "19 x 15.9 x 3.6 pulgadas",
+  "source": "doc-bbcafddfe3013c1cc841694c80bde644",
+  "page": 30,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

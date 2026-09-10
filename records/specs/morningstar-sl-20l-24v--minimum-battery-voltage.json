@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-sl-20l-24v--minimum-battery-voltage",
+  "model": "morningstar-sl-20l-24v",
+  "name": "Minimum Battery Voltage",
+  "value": "6",
+  "unit": "V",
+  "source": "doc-50e4fa7f392e8af66c76d2ca33af94e7",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

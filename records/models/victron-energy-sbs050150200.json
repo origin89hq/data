@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-sbs050150200",
+  "manufacturer": "victron-energy",
+  "name": "SBS050150200",
+  "kind": "bms",
+  "aliases": [
+    "VIC-181-143"
+  ],
+  "dialects": []
+}

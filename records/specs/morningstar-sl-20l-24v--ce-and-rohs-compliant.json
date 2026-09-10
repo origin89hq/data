@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-sl-20l-24v--ce-and-rohs-compliant",
+  "model": "morningstar-sl-20l-24v",
+  "name": "CE and RoHS compliant",
+  "value": "Yes",
+  "source": "doc-50e4fa7f392e8af66c76d2ca33af94e7",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

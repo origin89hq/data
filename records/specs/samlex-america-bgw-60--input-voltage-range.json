@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-bgw-60--input-voltage-range",
+  "model": "samlex-america-bgw-60",
+  "name": "Input voltage range",
+  "value": "6 … 35 V",
+  "source": "doc-8baee870e493b569dd4a9403f75f5d80",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

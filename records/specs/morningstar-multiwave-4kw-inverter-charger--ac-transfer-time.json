@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-multiwave-4kw-inverter-charger--ac-transfer-time",
+  "model": "morningstar-multiwave-4kw-inverter-charger",
+  "name": "AC Transfer Time",
+  "value": "<10 ms",
+  "source": "doc-d750c051efee498703d3df89c12fef64",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

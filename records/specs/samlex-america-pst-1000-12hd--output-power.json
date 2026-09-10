@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-1000-12hd--output-power",
+  "model": "samlex-america-pst-1000-12hd",
+  "name": "OUTPUT POWER",
+  "value": "1000",
+  "unit": "W",
+  "source": "doc-54be132c0ee77e40a4ee48ff0088a535",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

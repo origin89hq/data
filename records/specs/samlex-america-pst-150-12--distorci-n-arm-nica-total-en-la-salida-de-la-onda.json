@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-pst-150-12--distorci-n-arm-nica-total-en-la-salida-de-la-onda",
+  "model": "samlex-america-pst-150-12",
+  "name": "DISTORCIÓN ARMÓNICA TOTAL EN LA SALIDA DE LA ONDA",
+  "value": "< 3%",
+  "source": "doc-7dcc90eed47951ddb9aa2a11262a07de",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

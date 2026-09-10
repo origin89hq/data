@@ -1,0 +1,10 @@
+{
+  "id": "noco-noco--j-hdytys",
+  "model": "noco-noco",
+  "name": "Jäähdytys",
+  "value": "Luonnollinen lämmön virtaus",
+  "source": "doc-21526244bd4f28f887cfb062e04edaf0",
+  "page": 93,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "wilson-electronics-drive-x-rv--frequencies",
+  "model": "wilson-electronics-drive-x-rv",
+  "name": "FREQUENCIES",
+  "value": "Band 12/17 700 MHz",
+  "source": "doc-841fa14a71a2fcf198c85f2909ab387b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

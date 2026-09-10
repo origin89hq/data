@@ -1,0 +1,11 @@
+{
+  "id": "eg4-electronics-eg4-12k-mini-split--max-pv-voc",
+  "model": "eg4-electronics-eg4-12k-mini-split",
+  "name": "Max PV Voc",
+  "value": "380",
+  "unit": "V",
+  "source": "doc-9da6e95be24a9b9e9e5f403134dbf615",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

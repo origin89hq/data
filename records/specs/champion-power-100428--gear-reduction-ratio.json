@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-100428--gear-reduction-ratio",
+  "model": "champion-power-100428",
+  "name": "Gear Reduction Ratio",
+  "value": "171:1",
+  "source": "doc-b7a025d0c8d715a43c9d66d47cb1d468",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "noco-genius2x2",
+  "manufacturer": "noco",
+  "name": "GENIUS2X2",
+  "kind": "ac-charger",
+  "aliases": [],
+  "dialects": [
+    "noco-charger-unread"
+  ]
+}

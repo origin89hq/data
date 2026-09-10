@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-60",
+  "manufacturer": "morningstar",
+  "name": "TS-60",
+  "kind": "charge-controller",
+  "aliases": [],
+  "dialects": [
+    "morningstar-tristar-pwm"
+  ]
+}

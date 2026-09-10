@@ -1,0 +1,9 @@
+{
+  "id": "sol-ark-60k-3p-480v--weight",
+  "model": "sol-ark-60k-3p-480v",
+  "name": "Weight",
+  "value": "80 Kg / 176 lb",
+  "source": "doc-fa1fb93d6e74e44d6bcb6a604e403c7e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

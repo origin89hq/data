@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-15s-24e--voltage-between-bottom-socket-l2-and-metal-chassis-grounding-spring-contact",
+  "model": "samlex-america-pst-15s-24e",
+  "name": "Voltage between bottom socket \"L2\" and metal chassis / Grounding Spring Contact",
+  "value": "90 ± 10 VAC",
+  "source": "doc-ba38822ce0d2141ef91209c2c145787c",
+  "page": 36,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

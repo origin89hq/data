@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-bbm-1225--voltaje-de-entrada",
+  "model": "samlex-america-bbm-1225",
+  "name": "Voltaje de Entrada",
+  "value": "≤ 28 VCD",
+  "source": "doc-bbcafddfe3013c1cc841694c80bde644",
+  "page": 30,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

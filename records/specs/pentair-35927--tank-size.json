@@ -1,0 +1,9 @@
+{
+  "id": "pentair-35927--tank-size",
+  "model": "pentair-35927",
+  "name": "Tank Size",
+  "value": "10\" x 54\"",
+  "source": "doc-5652a217ea7b81f19943cab51d24b3a3",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

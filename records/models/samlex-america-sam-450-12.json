@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sam-450-12",
+  "manufacturer": "samlex-america",
+  "name": "SAM-450-12",
+  "kind": "inverter",
+  "aliases": [],
+  "dialects": [
+    "samlex-sam-no-bus"
+  ]
+}

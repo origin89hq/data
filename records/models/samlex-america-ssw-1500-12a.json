@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-ssw-1500-12a",
+  "manufacturer": "samlex-america",
+  "name": "SSW-1500-12A",
+  "kind": "inverter",
+  "aliases": [],
+  "dialects": [
+    "samlex-ssw-no-bus"
+  ]
+}

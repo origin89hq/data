@@ -1,0 +1,11 @@
+{
+  "id": "sigineer-esf48h100--rated-input-power-36v-system",
+  "model": "sigineer-esf48h100",
+  "name": "Rated input power 36V system",
+  "value": "3900",
+  "unit": "W",
+  "source": "doc-0d3e50facf97007d55c11238f6d4de49",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

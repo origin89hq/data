@@ -1,0 +1,10 @@
+{
+  "id": "srne-ml2430",
+  "manufacturer": "srne",
+  "name": "ML2430",
+  "kind": "charge-controller",
+  "aliases": [],
+  "dialects": [
+    "srne-controller-v3"
+  ]
+}

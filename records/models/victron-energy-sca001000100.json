@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-sca001000100",
+  "manufacturer": "victron-energy",
+  "name": "SCA001000100",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

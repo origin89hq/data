@@ -1,0 +1,12 @@
+{
+  "id": "midnite-solar-mnbts",
+  "manufacturer": "midnite-solar",
+  "name": "MNBTS",
+  "kind": "balance-of-system",
+  "aliases": [
+    "MID-161-119"
+  ],
+  "dialects": [
+    "midnite-mnbts-analog"
+  ]
+}

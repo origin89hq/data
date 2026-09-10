@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna5000-wpv--ac-output-voltage",
+  "model": "luxpower-sna5000-wpv",
+  "name": "AC Output voltage",
+  "value": "200Vac / 208Vac / 220Vac /230Vac / 240Vac",
+  "source": "doc-382ae6d157ec388999d842200da8a1ed",
+  "page": 39,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

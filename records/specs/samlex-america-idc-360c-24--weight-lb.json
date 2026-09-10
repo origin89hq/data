@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-idc-360c-24--weight-lb",
+  "model": "samlex-america-idc-360c-24",
+  "name": "WEIGHT, LB",
+  "value": "3.1",
+  "source": "doc-2a8ec59453bcd60e098da07dd94998b1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

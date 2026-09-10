@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-multiwave-4kw-inverter-charger--peak-efficiency",
+  "model": "morningstar-multiwave-4kw-inverter-charger",
+  "name": "Peak Efficiency",
+  "value": "95",
+  "unit": "%",
+  "source": "doc-d750c051efee498703d3df89c12fef64",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-8k-2p-n--peso-del-sistema",
+  "model": "sol-ark-sol-ark-8k-2p-n",
+  "name": "Peso del sistema",
+  "value": "78lb/35.4kg",
+  "source": "doc-3931a07a1fde8cb08aaada359c6968fe",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

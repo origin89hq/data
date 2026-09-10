@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-2-arac-d-10",
+  "manufacturer": "primus-wind-power",
+  "name": "2-ARAC-D-10",
+  "kind": "balance-of-system",
+  "aliases": [
+    "XXX-XXX-243"
+  ],
+  "dialects": []
+}

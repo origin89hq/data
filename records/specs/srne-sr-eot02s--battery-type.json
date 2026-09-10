@@ -1,0 +1,9 @@
+{
+  "id": "srne-sr-eot02s--battery-type",
+  "model": "srne-sr-eot02s",
+  "name": "Battery Type",
+  "value": "LiFePO4",
+  "source": "doc-8168e8725aedf662dc97c4e90e35f829",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

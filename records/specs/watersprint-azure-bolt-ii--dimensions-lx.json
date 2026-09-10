@@ -1,0 +1,9 @@
+{
+  "id": "watersprint-azure-bolt-ii--dimensions-lx",
+  "model": "watersprint-azure-bolt-ii",
+  "name": "Dimensions (LxØ)",
+  "value": "5 3/8 “ x 2 1/8 “",
+  "source": "doc-cf473b180c6fec9945c1e70675f892df",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

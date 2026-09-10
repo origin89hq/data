@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ecoboost-mppt-30--tension-maximale-de-circuit-ouvert-pv",
+  "model": "morningstar-ecoboost-mppt-30",
+  "name": "Tension maximale de circuit ouvert PV",
+  "value": "120",
+  "unit": "V",
+  "source": "doc-a9fd8761598c4ef070dba436d7ba680a",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

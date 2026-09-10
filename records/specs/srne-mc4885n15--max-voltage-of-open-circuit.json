@@ -1,0 +1,10 @@
+{
+  "id": "srne-mc4885n15--max-voltage-of-open-circuit",
+  "model": "srne-mc4885n15",
+  "name": "Max.Voltage of Open Circuit",
+  "value": "150",
+  "unit": "V",
+  "source": "doc-765a44d61bec0045ffdc487503ae89f7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

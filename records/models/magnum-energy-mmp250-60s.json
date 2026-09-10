@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-mmp250-60s",
+  "manufacturer": "magnum-energy",
+  "name": "MMP250-60S",
+  "kind": "balance-of-system",
+  "aliases": [
+    "MAG-222-130"
+  ],
+  "dialects": []
+}

@@ -1,0 +1,10 @@
+{
+  "id": "lorex-lx400075--weight-camera-alone",
+  "model": "lorex-lx400075",
+  "name": "Weight (Camera Alone)",
+  "value": "1.20lbs / 0.54kg",
+  "source": "doc-631b0847bc403c1b42002eb32d1ad514",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

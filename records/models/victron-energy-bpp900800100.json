@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-bpp900800100",
+  "manufacturer": "victron-energy",
+  "name": "BPP900800100",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

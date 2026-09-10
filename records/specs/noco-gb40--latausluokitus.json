@@ -1,0 +1,11 @@
+{
+  "id": "noco-gb40--latausluokitus",
+  "model": "noco-gb40",
+  "name": "Latausluokitus",
+  "value": "2",
+  "unit": "A",
+  "source": "doc-919699b1eb41a8db72c0357712dbfdc0",
+  "page": 90,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

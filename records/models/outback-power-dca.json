@@ -1,0 +1,8 @@
+{
+  "id": "outback-power-dca",
+  "manufacturer": "outback-power",
+  "name": "DCA",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

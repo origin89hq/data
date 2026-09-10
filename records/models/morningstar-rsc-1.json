@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-rsc-1",
+  "manufacturer": "morningstar",
+  "name": "RSC-1",
+  "kind": "balance-of-system",
+  "aliases": [
+    "MOR-161-139"
+  ],
+  "dialects": []
+}

@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-bmv-710h-smart--charged-voltage",
+  "model": "victron-energy-bmv-710h-smart",
+  "name": "Charged voltage",
+  "value": "158.4",
+  "unit": "V",
+  "source": "doc-9f0a7ae148b389daba98388e94515cf3",
+  "page": 27,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

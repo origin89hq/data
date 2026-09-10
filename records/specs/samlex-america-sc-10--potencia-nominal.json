@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-sc-10--potencia-nominal",
+  "model": "samlex-america-sc-10",
+  "name": "POTENCIA NOMINAL",
+  "value": "10W ± 3%",
+  "source": "doc-2f0615c1ae93694bd3f5140e4591b5bf",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

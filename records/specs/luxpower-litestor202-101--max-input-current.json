@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-litestor202-101--max-input-current",
+  "model": "luxpower-litestor202-101",
+  "name": "Max. input current",
+  "value": "75",
+  "unit": "A",
+  "source": "doc-9b4295d39e3771f05a2ff57df3010a74",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

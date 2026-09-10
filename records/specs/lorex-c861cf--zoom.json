@@ -1,0 +1,9 @@
+{
+  "id": "lorex-c861cf--zoom",
+  "model": "lorex-c861cf",
+  "name": "Zoom",
+  "value": "4x Optical Zoom",
+  "source": "doc-e9db2a8b2c9b9dcc98af21fea0afaa31",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

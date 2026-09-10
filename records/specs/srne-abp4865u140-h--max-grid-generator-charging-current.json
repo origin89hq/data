@@ -1,0 +1,10 @@
+{
+  "id": "srne-abp4865u140-h--max-grid-generator-charging-current",
+  "model": "srne-abp4865u140-h",
+  "name": "Max. Grid/Generator Charging Current",
+  "value": "80",
+  "unit": "A",
+  "source": "doc-96bf56e2f44affbc505fa95e23a410ae",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

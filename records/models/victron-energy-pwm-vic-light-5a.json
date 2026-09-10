@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-pwm-vic-light-5a",
+  "manufacturer": "victron-energy",
+  "name": "PWM-VIC-LIGHT-5A",
+  "kind": "charge-controller",
+  "aliases": [],
+  "dialects": []
+}

@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-scc110020170r",
+  "manufacturer": "victron-energy",
+  "name": "SCC110020170R",
+  "kind": "charge-controller",
+  "aliases": [],
+  "dialects": []
+}

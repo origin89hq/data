@@ -1,0 +1,10 @@
+{
+  "id": "schneider-electric-c35",
+  "manufacturer": "schneider-electric",
+  "name": "C35",
+  "kind": "charge-controller",
+  "aliases": [
+    "CXT-164-116"
+  ],
+  "dialects": []
+}

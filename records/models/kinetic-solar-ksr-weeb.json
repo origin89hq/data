@@ -1,0 +1,10 @@
+{
+  "id": "kinetic-solar-ksr-weeb",
+  "manufacturer": "kinetic-solar",
+  "name": "KSR-WEEB",
+  "kind": "balance-of-system",
+  "aliases": [
+    "KIN-284-125"
+  ],
+  "dialects": []
+}

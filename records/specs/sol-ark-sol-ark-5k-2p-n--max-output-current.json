@@ -1,0 +1,11 @@
+{
+  "id": "sol-ark-sol-ark-5k-2p-n--max-output-current",
+  "model": "sol-ark-sol-ark-5k-2p-n",
+  "name": "Max. Output Current",
+  "value": "20.8",
+  "unit": "A",
+  "source": "doc-759ca07ffded8018dcb7cbd8dcc55424",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

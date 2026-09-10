@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-60--charge-rating",
+  "model": "morningstar-ts-60",
+  "name": "Charge Rating",
+  "value": "60",
+  "unit": "A",
+  "source": "doc-8e8065bdb7830e18e75a84d3208eb4d0",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

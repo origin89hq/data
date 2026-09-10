@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-30cr-ec--1200w-rear-right-rear-left-ceramic-heating-element",
+  "model": "unique-appliances-ugp-30cr-ec",
+  "name": "1200W Rear Right/Rear Left Ceramic Heating Element",
+  "value": "1200",
+  "unit": "W",
+  "source": "doc-0fc079c384d84bde5a4605c23064ddfe",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

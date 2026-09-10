@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-win-12x20b3r1t--efficiency",
+  "model": "magnum-energy-win-12x20b3r1t",
+  "name": "Efficiency",
+  "value": "Up to 93%",
+  "source": "doc-6a94487a839521293c737321791ce559",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

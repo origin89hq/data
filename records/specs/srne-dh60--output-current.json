@@ -1,0 +1,10 @@
+{
+  "id": "srne-dh60--output-current",
+  "model": "srne-dh60",
+  "name": "Output current",
+  "value": "50mA～2000mA",
+  "source": "doc-37a3a90d1b0934e893e0c84c7fd372e8",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "watersprint-watersprintsolo-40-fs--16-mj-cm-95-uvt",
+  "model": "watersprint-watersprintsolo-40-fs",
+  "name": "16 mJ/cm² @ 95% UVT",
+  "value": "2.6 gpm",
+  "source": "doc-1c34d429779316455fe36aac66834ba4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

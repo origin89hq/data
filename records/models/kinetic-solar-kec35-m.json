@@ -1,0 +1,10 @@
+{
+  "id": "kinetic-solar-kec35-m",
+  "manufacturer": "kinetic-solar",
+  "name": "KEC35-M",
+  "kind": "balance-of-system",
+  "aliases": [
+    "KIN-284-108"
+  ],
+  "dialects": []
+}

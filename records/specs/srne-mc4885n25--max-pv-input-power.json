@@ -1,0 +1,9 @@
+{
+  "id": "srne-mc4885n25--max-pv-input-power",
+  "model": "srne-mc4885n25",
+  "name": "Max.PV Input Power",
+  "value": "1100W/12V",
+  "source": "doc-765a44d61bec0045ffdc487503ae89f7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

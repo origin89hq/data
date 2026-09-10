@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-ps-mppt-25m",
+  "manufacturer": "morningstar",
+  "name": "PS-MPPT-25M",
+  "kind": "charge-controller",
+  "aliases": [
+    "XXX-XXX-135"
+  ],
+  "dialects": [
+    "morningstar-prostar-mppt"
+  ]
+}

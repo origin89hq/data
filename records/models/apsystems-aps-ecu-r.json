@@ -1,0 +1,8 @@
+{
+  "id": "apsystems-aps-ecu-r",
+  "manufacturer": "apsystems",
+  "name": "APS-ECU-R",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

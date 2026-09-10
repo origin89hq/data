@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-30g-of1--operating-pressure-on-natural-gas",
+  "model": "unique-appliances-ugp-30g-of1",
+  "name": "Operating pressure on natural gas",
+  "value": "4 inches water column",
+  "source": "doc-bb67fbe3ecb98d47289f94bf686d8109",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

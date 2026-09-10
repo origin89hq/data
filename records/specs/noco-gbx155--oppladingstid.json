@@ -1,0 +1,11 @@
+{
+  "id": "noco-gbx155--oppladingstid",
+  "model": "noco-gbx155",
+  "name": "Oppladingstid",
+  "value": "64",
+  "unit": "h",
+  "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
+  "page": 94,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

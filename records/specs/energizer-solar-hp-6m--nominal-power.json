@@ -1,0 +1,11 @@
+{
+  "id": "energizer-solar-hp-6m--nominal-power",
+  "model": "energizer-solar-hp-6m",
+  "name": "Nominal Power",
+  "value": "3600",
+  "unit": "W",
+  "source": "doc-c5339a3854dcd025325dcfea9e57b597",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

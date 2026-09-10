@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-mppt-acc-vic-display",
+  "manufacturer": "victron-energy",
+  "name": "MPPT-ACC-VIC-DISPLAY",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

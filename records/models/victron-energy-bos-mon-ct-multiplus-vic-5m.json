@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-bos-mon-ct-multiplus-vic-5m",
+  "manufacturer": "victron-energy",
+  "name": "BOS-MON-CT-MULTIPLUS-VIC-5M",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

@@ -1,0 +1,10 @@
+{
+  "id": "noco-geniuspro50--minimum-clearance",
+  "model": "noco-geniuspro50",
+  "name": "Minimum clearance",
+  "value": "12 pulgadas (304 mm)",
+  "source": "doc-723933e9ae36ac87b561b12fafebcf3f",
+  "page": 33,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

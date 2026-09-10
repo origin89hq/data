@@ -1,0 +1,9 @@
+{
+  "id": "pentair-fxi11-cr--inlet-connection",
+  "model": "pentair-fxi11-cr",
+  "name": "Inlet Connection",
+  "value": "1/2\" FNPT",
+  "source": "doc-7613cb790e791a0bc32c3a3f723d5608",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

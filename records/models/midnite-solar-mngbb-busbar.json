@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-mngbb-busbar",
+  "manufacturer": "midnite-solar",
+  "name": "MNGBB-BUSBAR",
+  "kind": "balance-of-system",
+  "aliases": [
+    "MID-104-225"
+  ],
+  "dialects": []
+}

@@ -1,0 +1,8 @@
+{
+  "id": "ecoflow-efl-dpu-batterycable",
+  "manufacturer": "ecoflow",
+  "name": "EFL-DPU-BatteryCable",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

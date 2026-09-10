@@ -1,0 +1,9 @@
+{
+  "id": "eg4-electronics-eg4-12v-100ah-waterproof-battery--cycle-measurement",
+  "model": "eg4-electronics-eg4-12v-100ah-waterproof-battery",
+  "name": "Cycle Measurement",
+  "value": "Integral calculation",
+  "source": "doc-13416a9188fa36442fcec4187f973406",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

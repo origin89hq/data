@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-300s-24e--storage-temperature",
+  "model": "samlex-america-pst-300s-24e",
+  "name": "STORAGE TEMPERATURE",
+  "value": "-30 to 70˚C",
+  "source": "doc-8e07d8858f33039f4fd7613283dad7ed",
+  "page": 49,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

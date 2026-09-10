@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-sc-05--power-temperature-coefficient",
+  "model": "samlex-america-sc-05",
+  "name": "POWER TEMPERATURE COEFFICIENT",
+  "value": "-0.39% / oC",
+  "source": "doc-44042e397160d0f7eac168446e3f7137",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

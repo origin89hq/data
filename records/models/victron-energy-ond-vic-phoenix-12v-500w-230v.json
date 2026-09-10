@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-ond-vic-phoenix-12v-500w-230v",
+  "manufacturer": "victron-energy",
+  "name": "OND-VIC-PHOENIX-12V/500W-230V",
+  "kind": "inverter",
+  "aliases": [],
+  "dialects": []
+}

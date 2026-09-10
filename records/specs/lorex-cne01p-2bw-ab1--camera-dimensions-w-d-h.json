@@ -1,0 +1,9 @@
+{
+  "id": "lorex-cne01p-2bw-ab1--camera-dimensions-w-d-h",
+  "model": "lorex-cne01p-2bw-ab1",
+  "name": "Camera Dimensions (W × D × H)",
+  "value": "7.4 × 3.15 × 3.03 in",
+  "source": "doc-d677ac8749943041f40ee2f8ba4bdcef",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

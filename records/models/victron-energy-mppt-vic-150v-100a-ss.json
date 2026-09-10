@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-mppt-vic-150v-100a-ss",
+  "manufacturer": "victron-energy",
+  "name": "MPPT-VIC-150V/100A-SS",
+  "kind": "charge-controller",
+  "aliases": [],
+  "dialects": []
+}

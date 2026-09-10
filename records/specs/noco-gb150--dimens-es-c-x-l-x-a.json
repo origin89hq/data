@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb150--dimens-es-c-x-l-x-a",
+  "model": "noco-gb150",
+  "name": "Dimensões (C x L x A)",
+  "value": "12,3 x 7 x 2,7 polegadas",
+  "source": "doc-053a1e6bf9b140c56d7d670f15461687",
+  "page": 54,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

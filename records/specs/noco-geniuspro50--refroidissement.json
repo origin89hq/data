@@ -1,0 +1,10 @@
+{
+  "id": "noco-geniuspro50--refroidissement",
+  "model": "noco-geniuspro50",
+  "name": "Refroidissement",
+  "value": "Air foré",
+  "source": "doc-723933e9ae36ac87b561b12fafebcf3f",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

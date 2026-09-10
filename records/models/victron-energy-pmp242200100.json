@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-pmp242200100",
+  "manufacturer": "victron-energy",
+  "name": "PMP242200100",
+  "kind": "inverter-charger",
+  "aliases": [],
+  "dialects": []
+}

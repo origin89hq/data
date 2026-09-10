@@ -1,0 +1,9 @@
+{
+  "id": "srne-sr-ats380s63-s3--overvoltage-category",
+  "model": "srne-sr-ats380s63-s3",
+  "name": "Overvoltage Category",
+  "value": "III",
+  "source": "doc-aa03b313c4e04adf67fcb10af435b743",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

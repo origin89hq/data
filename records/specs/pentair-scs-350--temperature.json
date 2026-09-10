@@ -1,0 +1,9 @@
+{
+  "id": "pentair-scs-350--temperature",
+  "model": "pentair-scs-350",
+  "name": "Temperature",
+  "value": "35-100° F (2-38° C)",
+  "source": "doc-ed38f087dcef2e99fc2da8f66168eeaf",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

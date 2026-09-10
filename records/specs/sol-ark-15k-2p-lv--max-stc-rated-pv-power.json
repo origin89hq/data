@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-15k-2p-lv--max-stc-rated-pv-power",
+  "model": "sol-ark-15k-2p-lv",
+  "name": "Max. STC Rated PV Power",
+  "value": "23,400",
+  "unit": "W",
+  "source": "doc-488813d29230d2477a10368f2f72ad2c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-5k-48-st--potencia-real-m-x-continua",
+  "model": "sol-ark-sol-ark-5k-48-st",
+  "name": "Potencia Real, máx. continua",
+  "value": "5,000",
+  "unit": "W",
+  "source": "doc-ab041ca4c66285a9f790085773008391",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

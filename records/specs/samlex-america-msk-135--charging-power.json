@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-msk-135--charging-power",
+  "model": "samlex-america-msk-135",
+  "name": "Charging Power",
+  "value": "8.52",
+  "unit": "A",
+  "source": "doc-9edc7f452ba04b90b26a02a4cd2143ab",
+  "page": 24,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "noco-gb70--tens-o-nominal-da-porta-usb-in",
+  "model": "noco-gb70",
+  "name": "Tensão nominal da porta USB IN",
+  "value": "2.1",
+  "unit": "A",
+  "source": "doc-8190fc8c4dc8bedf0108c6acd6d8ac11",
+  "page": 52,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

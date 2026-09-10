@@ -1,0 +1,10 @@
+{
+  "id": "rolls-battery-8-cs-25p",
+  "manufacturer": "rolls-battery",
+  "name": "8 CS 25P",
+  "kind": "battery",
+  "aliases": [
+    "SUR-190-133"
+  ],
+  "dialects": []
+}

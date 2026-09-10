@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-me-mw-e",
+  "manufacturer": "magnum-energy",
+  "name": "ME-MW-E",
+  "kind": "inverter",
+  "aliases": [
+    "MAG-223-171"
+  ],
+  "dialects": []
+}

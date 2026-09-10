@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-bpc123048012",
+  "manufacturer": "victron-energy",
+  "name": "BPC123048012",
+  "kind": "ac-charger",
+  "aliases": [],
+  "dialects": []
+}

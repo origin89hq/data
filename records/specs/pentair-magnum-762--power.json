@@ -1,0 +1,11 @@
+{
+  "id": "pentair-magnum-762--power",
+  "model": "pentair-magnum-762",
+  "name": "Power",
+  "value": "4",
+  "unit": "W",
+  "source": "doc-540e33a644dbaf25f0a870d771aa63d9",
+  "page": 23,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

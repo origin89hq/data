@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-mp-hood",
+  "manufacturer": "magnum-energy",
+  "name": "MP-HOOD",
+  "kind": "balance-of-system",
+  "aliases": [
+    "MAG-222-143"
+  ],
+  "dialects": []
+}

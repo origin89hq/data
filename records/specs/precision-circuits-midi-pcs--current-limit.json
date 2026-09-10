@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-midi-pcs--current-limit",
+  "model": "precision-circuits-midi-pcs",
+  "name": "Current Limit",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-ee1ce06ed25b46152fdaba517061568b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

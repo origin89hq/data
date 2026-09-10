@@ -1,0 +1,13 @@
+{
+  "id": "epever-rts300r47k3-81a",
+  "manufacturer": "epever",
+  "name": "RTS300R47K3.81A",
+  "kind": "charge-controller",
+  "aliases": [
+    "EPS-161-106"
+  ],
+  "dialects": [
+    "epever-rts-probe",
+    "epever-rts300"
+  ]
+}

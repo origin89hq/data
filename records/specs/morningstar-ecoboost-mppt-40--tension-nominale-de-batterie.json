@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ecoboost-mppt-40--tension-nominale-de-batterie",
+  "model": "morningstar-ecoboost-mppt-40",
+  "name": "Tension nominale de batterie",
+  "value": "12 V ou 24 V",
+  "source": "doc-a9fd8761598c4ef070dba436d7ba680a",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

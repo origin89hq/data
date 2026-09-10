@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-mnbabybox",
+  "manufacturer": "midnite-solar",
+  "name": "MNBABYBOX",
+  "kind": "balance-of-system",
+  "aliases": [
+    "MID-102-181"
+  ],
+  "dialects": []
+}

@@ -1,0 +1,10 @@
+{
+  "id": "eg4-electronics-eg4-brightmount-adjustable-cat1--torque",
+  "model": "eg4-electronics-eg4-brightmount-adjustable-cat1",
+  "name": "torque",
+  "value": "115 in-lbs. (13Nm)",
+  "source": "doc-2b015f4ee091756893fa6795d1abc984",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

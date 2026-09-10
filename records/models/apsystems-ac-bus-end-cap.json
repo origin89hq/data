@@ -1,0 +1,10 @@
+{
+  "id": "apsystems-ac-bus-end-cap",
+  "manufacturer": "apsystems",
+  "name": "AC Bus End Cap",
+  "kind": "balance-of-system",
+  "aliases": [
+    "APS-221-112"
+  ],
+  "dialects": []
+}

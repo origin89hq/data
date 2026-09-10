@@ -1,0 +1,13 @@
+{
+  "id": "samlex-america-pst-3000-24",
+  "manufacturer": "samlex-america",
+  "name": "PST-3000-24",
+  "kind": "inverter",
+  "aliases": [
+    "SLX-227-103"
+  ],
+  "dialects": [
+    "samlex-pst-3000-ext-switch",
+    "samlex-pst-rc300-link"
+  ]
+}

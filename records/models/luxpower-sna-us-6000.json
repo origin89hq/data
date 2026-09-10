@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna-us-6000",
+  "manufacturer": "luxpower",
+  "name": "SNA-US 6000",
+  "kind": "inverter",
+  "aliases": [
+    "LXP-227-101"
+  ],
+  "dialects": []
+}

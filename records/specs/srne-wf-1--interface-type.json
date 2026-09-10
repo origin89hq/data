@@ -1,0 +1,9 @@
+{
+  "id": "srne-wf-1--interface-type",
+  "model": "srne-wf-1",
+  "name": "Interface type",
+  "value": "PH2.0",
+  "source": "doc-803616c8ce13c565ee9c00279d5a75c4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

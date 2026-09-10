@@ -1,0 +1,9 @@
+{
+  "id": "pentair-chlorplus-protect-10--pressure-range",
+  "model": "pentair-chlorplus-protect-10",
+  "name": "Pressure Range",
+  "value": "30–100 psi (2.1–8.6 bar)",
+  "source": "doc-04d7cfc138c01174b5f28518e2a27301",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

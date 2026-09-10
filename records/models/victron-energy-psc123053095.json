@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-psc123053095",
+  "manufacturer": "victron-energy",
+  "name": "PSC123053095",
+  "kind": "ac-charger",
+  "aliases": [],
+  "dialects": []
+}

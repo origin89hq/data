@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-cos230502100",
+  "manufacturer": "victron-energy",
+  "name": "COS230502100",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

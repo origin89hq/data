@@ -1,0 +1,10 @@
+{
+  "id": "rolls-battery-rolls-r48-32lfp--discharge-current",
+  "model": "rolls-battery-rolls-r48-32lfp",
+  "name": "Discharge current",
+  "value": "0.5",
+  "unit": "°C",
+  "source": "doc-d338d54485ef3d03ef4b8ea4b81e6ce4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

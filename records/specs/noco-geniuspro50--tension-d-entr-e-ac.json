@@ -1,0 +1,10 @@
+{
+  "id": "noco-geniuspro50--tension-d-entr-e-ac",
+  "model": "noco-geniuspro50",
+  "name": "Tension d’entrée AC",
+  "value": "100-240, 50-60Hz",
+  "source": "doc-723933e9ae36ac87b561b12fafebcf3f",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

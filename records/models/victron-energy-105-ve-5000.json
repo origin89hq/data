@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-105-ve-5000",
+  "manufacturer": "victron-energy",
+  "name": "105-VE-5000",
+  "kind": "shunt-monitor",
+  "aliases": [],
+  "dialects": []
+}

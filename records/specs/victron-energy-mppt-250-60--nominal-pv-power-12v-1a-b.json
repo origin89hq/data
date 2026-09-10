@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-mppt-250-60--nominal-pv-power-12v-1a-b",
+  "model": "victron-energy-mppt-250-60",
+  "name": "Nominal PV power, 12V 1a,b",
+  "value": "860",
+  "unit": "W",
+  "source": "doc-75ef220cecc3e8483f079f6108e6bb5b",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

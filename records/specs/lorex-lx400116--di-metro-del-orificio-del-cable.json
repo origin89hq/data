@@ -1,0 +1,10 @@
+{
+  "id": "lorex-lx400116--di-metro-del-orificio-del-cable",
+  "model": "lorex-lx400116",
+  "name": "Diámetro del orificio del cable",
+  "value": "2 in/50 mm",
+  "source": "doc-4546468035dced2c311b5d29a30acbfd",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

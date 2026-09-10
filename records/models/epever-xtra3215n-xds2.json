@@ -1,0 +1,12 @@
+{
+  "id": "epever-xtra3215n-xds2",
+  "manufacturer": "epever",
+  "name": "XTRA3215N-XDS2",
+  "kind": "charge-controller",
+  "aliases": [
+    "EPS-163-109"
+  ],
+  "dialects": [
+    "epever-tracer-a"
+  ]
+}

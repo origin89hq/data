@@ -1,0 +1,10 @@
+{
+  "id": "eg4-electronics-eg4scc500vdc100amppt",
+  "manufacturer": "eg4-electronics",
+  "name": "EG4SCC500VDC100AMPPT",
+  "kind": "charge-controller",
+  "aliases": [
+    "1570006"
+  ],
+  "dialects": []
+}

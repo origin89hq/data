@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-2212-evo-2224--3x-surge",
+  "model": "samlex-america-evo-2212-evo-2224",
+  "name": "3X SURGE",
+  "value": "6600",
+  "unit": "W",
+  "source": "doc-f87e1f5ec56ee2139791c31d8b1f901c",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

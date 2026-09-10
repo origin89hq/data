@@ -1,0 +1,11 @@
+{
+  "id": "noco-gb40",
+  "model": "noco-gb40",
+  "name": "Χρόνος επαναφόρτισης",
+  "value": "6",
+  "unit": "h",
+  "source": "doc-919699b1eb41a8db72c0357712dbfdc0",
+  "page": 109,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "noco-geniuspro50--faixa-de-temperaturas-de-armazenamento",
+  "model": "noco-geniuspro50",
+  "name": "Faixa de temperaturas de armazenamento",
+  "value": "-30ºC – 60ºC",
+  "source": "doc-723933e9ae36ac87b561b12fafebcf3f",
+  "page": 41,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-evo-1212f-hw",
+  "manufacturer": "samlex-america",
+  "name": "EVO-1212F-HW",
+  "kind": "inverter-charger",
+  "aliases": [],
+  "dialects": [
+    "samlex-evo-1212f-no-bus",
+    "samlex-evo-signal-io"
+  ]
+}

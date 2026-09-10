@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-ms2812-l-u",
+  "manufacturer": "magnum-energy",
+  "name": "MS2812-L-U",
+  "kind": "inverter",
+  "aliases": [
+    "MAG-227-122"
+  ],
+  "dialects": []
+}

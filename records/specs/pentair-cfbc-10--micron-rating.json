@@ -1,0 +1,10 @@
+{
+  "id": "pentair-cfbc-10--micron-rating",
+  "model": "pentair-cfbc-10",
+  "name": "Micron rating",
+  "value": "0.5 micron",
+  "source": "doc-94b402b3e564d0f4f02b20646e575630",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

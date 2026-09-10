@@ -1,0 +1,10 @@
+{
+  "id": "rolls-battery-4-ks-27p",
+  "manufacturer": "rolls-battery",
+  "name": "4 KS 27P",
+  "kind": "battery",
+  "aliases": [
+    "SUR-183-120"
+  ],
+  "dialects": []
+}

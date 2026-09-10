@@ -1,0 +1,10 @@
+{
+  "id": "lorex-aex16--power-supply",
+  "model": "lorex-aex16",
+  "name": "Power Supply",
+  "value": "260",
+  "unit": "W",
+  "source": "doc-a2d2b00ca5499330095bc46c71a390c0",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

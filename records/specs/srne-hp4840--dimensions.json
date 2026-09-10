@@ -1,0 +1,9 @@
+{
+  "id": "srne-hp4840--dimensions",
+  "model": "srne-hp4840",
+  "name": "Dimensions",
+  "value": "189.27*127.2*54.0mm",
+  "source": "doc-88c9af6ef651787aca2bd32da8133af8",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "noco-geniuspro50--laadspanning",
+  "model": "noco-geniuspro50",
+  "name": "Laadspanning",
+  "value": "14.5",
+  "unit": "V",
+  "source": "doc-723933e9ae36ac87b561b12fafebcf3f",
+  "page": 49,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

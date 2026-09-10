@@ -1,0 +1,10 @@
+{
+  "id": "noco-gbx55--usb-sa-da",
+  "model": "noco-gbx55",
+  "name": "USB (saída)",
+  "value": "5Vcc 2.1A Máx / 10W Máx",
+  "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
+  "page": 65,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

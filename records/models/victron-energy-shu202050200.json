@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-shu202050200",
+  "manufacturer": "victron-energy",
+  "name": "SHU202050200",
+  "kind": "shunt-monitor",
+  "aliases": [],
+  "dialects": []
+}

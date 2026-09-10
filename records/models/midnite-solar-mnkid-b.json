@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-mnkid-b",
+  "manufacturer": "midnite-solar",
+  "name": "MNKID-B",
+  "kind": "charge-controller",
+  "aliases": [
+    "XXX-XXX-107"
+  ],
+  "dialects": []
+}

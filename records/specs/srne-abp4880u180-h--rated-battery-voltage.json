@@ -1,0 +1,11 @@
+{
+  "id": "srne-abp4880u180-h--rated-battery-voltage",
+  "model": "srne-abp4880u180-h",
+  "name": "Rated battery voltage",
+  "value": "48",
+  "unit": "V",
+  "source": "doc-c4c399615a1701447232063fd6925d20",
+  "page": 66,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

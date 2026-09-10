@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-sk-6--terminal",
+  "model": "morningstar-sk-6",
+  "name": "Terminal",
+  "value": "2.0mm2/ 14 AWG",
+  "source": "doc-d0e875dec70c9b017e0e9e1236fb4cdd",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

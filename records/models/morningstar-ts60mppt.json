@@ -1,0 +1,8 @@
+{
+  "id": "morningstar-ts60mppt",
+  "manufacturer": "morningstar",
+  "name": "TS60MPPT",
+  "kind": "charge-controller",
+  "aliases": [],
+  "dialects": []
+}

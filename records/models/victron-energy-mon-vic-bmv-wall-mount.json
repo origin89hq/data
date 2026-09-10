@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-mon-vic-bmv-wall-mount",
+  "manufacturer": "victron-energy",
+  "name": "MON-VIC-BMV-WALL-MOUNT",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-smart-bms-12-200--weight",
+  "model": "victron-energy-smart-bms-12-200",
+  "name": "weight",
+  "value": "2",
+  "unit": "kg",
+  "source": "doc-ff28472a83b35196ce2e7478b3a7f05c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

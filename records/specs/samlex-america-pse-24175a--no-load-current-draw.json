@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-pse-24175a--no-load-current-draw",
+  "model": "samlex-america-pse-24175a",
+  "name": "No Load Current Draw",
+  "value": "370",
+  "unit": "mA",
+  "source": "doc-4797b5a9a7d895c8883e2b5f1a4dbab5",
+  "page": 43,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

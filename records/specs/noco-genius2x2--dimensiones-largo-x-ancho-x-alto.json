@@ -1,0 +1,10 @@
+{
+  "id": "noco-genius2x2--dimensiones-largo-x-ancho-x-alto",
+  "model": "noco-genius2x2",
+  "name": "Dimensiones (largo x ancho x alto)",
+  "value": "4.4 x 5.1 x 1.9 Pulgadas",
+  "source": "doc-6eb9ac65e017cb3de2fdd095dded8666",
+  "page": 49,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

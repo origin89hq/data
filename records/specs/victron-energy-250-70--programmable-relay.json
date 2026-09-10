@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-250-70--programmable-relay",
+  "model": "victron-energy-250-70",
+  "name": "Programmable relay",
+  "value": "DPST AC rating: 4A up to 240Vac / DC rating: 4A up to 35Vdc, 1A up to 60Vdc",
+  "source": "doc-a08e004abb7badfb9ca55abb38ecb534",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

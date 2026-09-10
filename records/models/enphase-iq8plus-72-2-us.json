@@ -1,0 +1,10 @@
+{
+  "id": "enphase-iq8plus-72-2-us",
+  "manufacturer": "enphase",
+  "name": "IQ8PLUS-72-2-US",
+  "kind": "inverter",
+  "aliases": [
+    "ENP-229-130"
+  ],
+  "dialects": []
+}

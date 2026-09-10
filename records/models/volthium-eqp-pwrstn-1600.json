@@ -1,0 +1,8 @@
+{
+  "id": "volthium-eqp-pwrstn-1600",
+  "manufacturer": "volthium",
+  "name": "EQP-PWRSTN-1600",
+  "kind": "inverter-charger",
+  "aliases": [],
+  "dialects": []
+}

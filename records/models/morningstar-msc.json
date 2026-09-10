@@ -1,0 +1,8 @@
+{
+  "id": "morningstar-msc",
+  "manufacturer": "morningstar",
+  "name": "MSC",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

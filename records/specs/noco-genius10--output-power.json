@@ -1,0 +1,9 @@
+{
+  "id": "noco-genius10--output-power",
+  "model": "noco-genius10",
+  "name": "OUTPUT POWER",
+  "value": "150 Watts Max",
+  "source": "doc-b9a61e548cd33d14cdf65432c9fe9d95",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

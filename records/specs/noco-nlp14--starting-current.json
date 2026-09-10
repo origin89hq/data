@@ -1,0 +1,9 @@
+{
+  "id": "noco-nlp14--starting-current",
+  "model": "noco-nlp14",
+  "name": "STARTING CURRENT",
+  "value": "500",
+  "source": "doc-ef531b57aaa68322a057f145ac61e704",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

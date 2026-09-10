@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-sc-05--coeficiente-de-la-temperatura-de-la-corriente",
+  "model": "samlex-america-sc-05",
+  "name": "COEFICIENTE DE LA TEMPERATURA DE LA CORRIENTE",
+  "value": "+0.05% / °C",
+  "source": "doc-2f0615c1ae93694bd3f5140e4591b5bf",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "eg4-electronics-flexboss18",
+  "manufacturer": "eg4-electronics",
+  "name": "FLEXBOSS18",
+  "kind": "inverter-charger",
+  "aliases": [],
+  "dialects": [
+    "eg4-luxpower-v58"
+  ]
+}

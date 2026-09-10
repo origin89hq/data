@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-12k-p--max-operating-input-current-per-mppt",
+  "model": "sol-ark-sol-ark-12k-p",
+  "name": "Max. Operating Input Current per MPPT",
+  "value": "20",
+  "unit": "A",
+  "source": "doc-a6309d995ea95cdfb312cc5335f5fbe8",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

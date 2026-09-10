@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-mppt-100-20--charge-algorithm",
+  "model": "victron-energy-mppt-100-20",
+  "name": "Charge algorithm",
+  "value": "Multi-stage adaptive or user defined algorithm",
+  "source": "doc-c967bfdb27ebea471739445a3d4c2c8d",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

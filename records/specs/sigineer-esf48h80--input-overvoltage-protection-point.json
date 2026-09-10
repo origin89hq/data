@@ -1,0 +1,11 @@
+{
+  "id": "sigineer-esf48h80--input-overvoltage-protection-point",
+  "model": "sigineer-esf48h80",
+  "name": "Input overvoltage protection point",
+  "value": "250",
+  "unit": "V",
+  "source": "doc-0d3e50facf97007d55c11238f6d4de49",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

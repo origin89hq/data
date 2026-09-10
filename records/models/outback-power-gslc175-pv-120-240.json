@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gslc175-pv-120-240",
+  "manufacturer": "outback-power",
+  "name": "GSLC175-PV-120/240",
+  "kind": "balance-of-system",
+  "aliases": [
+    "1600011"
+  ],
+  "dialects": []
+}

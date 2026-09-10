@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-ond-vic-phoenix-24v-250w-gfci",
+  "manufacturer": "victron-energy",
+  "name": "OND-VIC-PHOENIX-24V/250W-GFCI",
+  "kind": "inverter",
+  "aliases": [],
+  "dialects": []
+}

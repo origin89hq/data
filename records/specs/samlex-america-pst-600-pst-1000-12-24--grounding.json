@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-600-pst-1000-12-24--grounding",
+  "model": "samlex-america-pst-600-pst-1000-12-24",
+  "name": "Grounding",
+  "value": "Chassis Ground Terminal: Wing Nut and Bolt (M5)",
+  "source": "doc-8e07d8858f33039f4fd7613283dad7ed",
+  "page": 36,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

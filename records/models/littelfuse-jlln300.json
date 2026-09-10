@@ -1,0 +1,10 @@
+{
+  "id": "littelfuse-jlln300",
+  "manufacturer": "littelfuse",
+  "name": "JLLN300",
+  "kind": "balance-of-system",
+  "aliases": [
+    "LTL-106-102"
+  ],
+  "dialects": []
+}

@@ -1,0 +1,11 @@
+{
+  "id": "srne-abp4880u180-h--maximum-peak-power",
+  "model": "srne-abp4880u180-h",
+  "name": "Maximum peak power",
+  "value": "16,000",
+  "unit": "W",
+  "source": "doc-c4c399615a1701447232063fd6925d20",
+  "page": 66,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

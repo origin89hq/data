@@ -1,0 +1,10 @@
+{
+  "id": "pentair-pbs-400--espace-requis",
+  "model": "pentair-pbs-400",
+  "name": "Espace requis",
+  "value": "13 cm (5 po) de larg. x 51 cm (20 po) de haut. x 13 cm (5 po) de prof.",
+  "source": "doc-b5adf730962f1e54dc87ed3e4f69cd13",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

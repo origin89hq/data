@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-sdrpskc",
+  "manufacturer": "victron-energy",
+  "name": "SDRPSKC",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

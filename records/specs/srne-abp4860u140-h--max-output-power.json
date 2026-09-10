@@ -1,0 +1,10 @@
+{
+  "id": "srne-abp4860u140-h--max-output-power",
+  "model": "srne-abp4860u140-h",
+  "name": "Max. Output Power",
+  "value": "12,000",
+  "unit": "VA",
+  "source": "doc-96bf56e2f44affbc505fa95e23a410ae",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

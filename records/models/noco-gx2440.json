@@ -1,0 +1,10 @@
+{
+  "id": "noco-gx2440",
+  "manufacturer": "noco",
+  "name": "GX2440",
+  "kind": "ac-charger",
+  "aliases": [],
+  "dialects": [
+    "noco-gx-dryio"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-mon-vic-bmv-702-712-sonde",
+  "manufacturer": "victron-energy",
+  "name": "MON-VIC-BMV-702/712-SONDE",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

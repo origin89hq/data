@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-mnbrat",
+  "manufacturer": "midnite-solar",
+  "name": "MNBRAT",
+  "kind": "charge-controller",
+  "aliases": [
+    "MID-164-212"
+  ],
+  "dialects": []
+}

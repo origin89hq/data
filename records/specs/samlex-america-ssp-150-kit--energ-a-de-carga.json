@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-ssp-150-kit--energ-a-de-carga",
+  "model": "samlex-america-ssp-150-kit",
+  "name": "Energía de Carga",
+  "value": "8.82",
+  "unit": "A",
+  "source": "doc-bbcafddfe3013c1cc841694c80bde644",
+  "page": 22,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

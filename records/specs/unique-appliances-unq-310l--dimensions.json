@@ -1,0 +1,9 @@
+{
+  "id": "unique-appliances-unq-310l--dimensions",
+  "model": "unique-appliances-unq-310l",
+  "name": "DIMENSIONS",
+  "value": "23.82“ x 68.96“ x 26.81”",
+  "source": "doc-3da45bcd98ad485263fdcb35bea3c264",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

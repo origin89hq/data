@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-sunsaver-mppt--maximum-battery-current",
+  "model": "morningstar-sunsaver-mppt",
+  "name": "Maximum Battery Current",
+  "value": "15",
+  "unit": "A",
+  "source": "doc-d750c051efee498703d3df89c12fef64",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

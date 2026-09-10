@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb40--dimensiones-largo-x-ancho-x-alto",
+  "model": "noco-gb40",
+  "name": "Dimensiones (largo x ancho x alto)",
+  "value": "6.7 x 3.2 x 1.7 pulgadas",
+  "source": "doc-919699b1eb41a8db72c0357712dbfdc0",
+  "page": 45,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

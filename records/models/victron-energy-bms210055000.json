@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-bms210055000",
+  "manufacturer": "victron-energy",
+  "name": "BMS210055000",
+  "kind": "bms",
+  "aliases": [],
+  "dialects": []
+}

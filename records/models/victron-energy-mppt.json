@@ -1,0 +1,7 @@
+{
+  "id": "victron-energy-mppt",
+  "manufacturer": "victron-energy",
+  "name": "MPPT",
+  "aliases": [],
+  "dialects": []
+}

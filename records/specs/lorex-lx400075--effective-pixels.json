@@ -1,0 +1,10 @@
+{
+  "id": "lorex-lx400075--effective-pixels",
+  "model": "lorex-lx400075",
+  "name": "Effective Pixels",
+  "value": "1928 (H) x 1088 (V)",
+  "source": "doc-631b0847bc403c1b42002eb32d1ad514",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

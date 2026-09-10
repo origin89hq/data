@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-r210p--start-type",
+  "model": "champion-power-r210p",
+  "name": "Start Type",
+  "value": "Recoil",
+  "source": "doc-afc06f8f6bea8bb3790425b0716c080c",
+  "page": 24,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

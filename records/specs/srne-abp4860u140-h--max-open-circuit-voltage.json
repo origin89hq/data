@@ -1,0 +1,9 @@
+{
+  "id": "srne-abp4860u140-h--max-open-circuit-voltage",
+  "model": "srne-abp4860u140-h",
+  "name": "Max. Open Circuit Voltage",
+  "value": "550Vdc+550Vdc",
+  "source": "doc-96bf56e2f44affbc505fa95e23a410ae",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

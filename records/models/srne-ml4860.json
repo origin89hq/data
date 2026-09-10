@@ -1,0 +1,10 @@
+{
+  "id": "srne-ml4860",
+  "manufacturer": "srne",
+  "name": "ML4860",
+  "kind": "charge-controller",
+  "aliases": [],
+  "dialects": [
+    "srne-controller-v3"
+  ]
+}

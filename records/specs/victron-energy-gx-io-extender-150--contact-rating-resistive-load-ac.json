@@ -1,0 +1,9 @@
+{
+  "id": "victron-energy-gx-io-extender-150--contact-rating-resistive-load-ac",
+  "model": "victron-energy-gx-io-extender-150",
+  "name": "Contact rating (resistive load) - AC",
+  "value": "2 A @ 60 V, 1 A @ 125 V, 0,5 A @ 250 V (max. 125 VA)",
+  "source": "doc-c6c2b554c6df77852e8acc4d0ebfc2f1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

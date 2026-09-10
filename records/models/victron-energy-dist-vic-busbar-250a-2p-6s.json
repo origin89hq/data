@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-dist-vic-busbar-250a-2p-6s",
+  "manufacturer": "victron-energy",
+  "name": "DIST-VIC-BUSBAR-250A-2P-6S",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

@@ -1,0 +1,10 @@
+{
+  "id": "sigineer-esf48l50--mppt-efficiency",
+  "model": "sigineer-esf48l50",
+  "name": "MPPT efficiency",
+  "value": "≥99.5%",
+  "source": "doc-0d3e50facf97007d55c11238f6d4de49",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

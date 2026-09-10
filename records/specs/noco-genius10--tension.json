@@ -1,0 +1,11 @@
+{
+  "id": "noco-genius10--tension",
+  "model": "noco-genius10",
+  "name": "Tension",
+  "value": "14.5",
+  "unit": "V",
+  "source": "doc-e56ff4867f97c6f89af7ba14dbf99ffe",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

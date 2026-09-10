@@ -1,0 +1,11 @@
+{
+  "id": "the-cabin-depot-ugp-290l--average-run-current",
+  "model": "the-cabin-depot-ugp-290l",
+  "name": "Average Run Current",
+  "value": "6.5",
+  "unit": "A",
+  "source": "doc-b63b39a139da970d7d756649fde12037",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

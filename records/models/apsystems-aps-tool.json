@@ -1,0 +1,8 @@
+{
+  "id": "apsystems-aps-tool",
+  "manufacturer": "apsystems",
+  "name": "APS-TOOL",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

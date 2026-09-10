@@ -1,0 +1,9 @@
+{
+  "id": "unique-appliances-ugp-24-cr-rh--air-flow",
+  "model": "unique-appliances-ugp-24-cr-rh",
+  "name": "AIR FLOW",
+  "value": "500 CFM",
+  "source": "doc-04fa358cfad4b9ea50b8c3c936b8d90c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

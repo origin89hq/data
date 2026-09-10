@@ -1,0 +1,10 @@
+{
+  "id": "lorex-lx400116--distancia-vertical-entre-orificios-marcados",
+  "model": "lorex-lx400116",
+  "name": "Distancia vertical entre orificios marcados",
+  "value": "5.3 in/135 mm",
+  "source": "doc-4546468035dced2c311b5d29a30acbfd",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

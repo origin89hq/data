@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-45--minimum-voltage-to-operate",
+  "model": "morningstar-ts-45",
+  "name": "Minimum Voltage To Operate",
+  "value": "9",
+  "unit": "V",
+  "source": "doc-8e8065bdb7830e18e75a84d3208eb4d0",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

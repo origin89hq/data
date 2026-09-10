@@ -1,0 +1,8 @@
+{
+  "id": "enphase-iq-evse-na-1040-0100-0100",
+  "manufacturer": "enphase",
+  "name": "IQ-EVSE-NA-1040-0100-0100",
+  "kind": "ac-charger",
+  "aliases": [],
+  "dialects": []
+}

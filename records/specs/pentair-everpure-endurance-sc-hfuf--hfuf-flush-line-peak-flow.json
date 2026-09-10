@@ -1,0 +1,10 @@
+{
+  "id": "pentair-everpure-endurance-sc-hfuf--hfuf-flush-line-peak-flow",
+  "model": "pentair-everpure-endurance-sc-hfuf",
+  "name": "HFUF Flush Line peak flow",
+  "value": "12-15 gpm (45-57 Lpm)",
+  "source": "doc-9cd3d4d0349489bd538be975e8dbb6a7",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "victron-energy-mppt-vic-wirebox-m",
+  "manufacturer": "victron-energy",
+  "name": "MPPT-VIC-WIREBOX-M",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-2-arbl-101-01",
+  "manufacturer": "primus-wind-power",
+  "name": "2-ARBL-101-01",
+  "kind": "balance-of-system",
+  "aliases": [
+    "PWP-341-111"
+  ],
+  "dialects": []
+}

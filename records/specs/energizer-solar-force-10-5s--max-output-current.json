@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-force-10-5s--max-output-current",
+  "model": "energizer-solar-force-10-5s",
+  "name": "Max. Output Current",
+  "value": "47.7",
+  "unit": "A",
+  "source": "doc-5b9795ea4c41c1cb4b14578f25c263d2",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

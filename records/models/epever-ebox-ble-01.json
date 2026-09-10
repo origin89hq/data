@@ -1,0 +1,8 @@
+{
+  "id": "epever-ebox-ble-01",
+  "manufacturer": "epever",
+  "name": "eBox-BLE-01",
+  "kind": "shunt-monitor",
+  "aliases": [],
+  "dialects": []
+}

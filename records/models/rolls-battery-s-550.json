@@ -1,0 +1,10 @@
+{
+  "id": "rolls-battery-s-550",
+  "manufacturer": "rolls-battery",
+  "name": "S-550",
+  "kind": "battery",
+  "aliases": [
+    "SUR-184-139"
+  ],
+  "dialects": []
+}

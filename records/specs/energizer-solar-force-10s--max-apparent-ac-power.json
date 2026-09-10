@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-force-10s--max-apparent-ac-power",
+  "model": "energizer-solar-force-10s",
+  "name": "Max. Apparent AC Power",
+  "value": "10500",
+  "unit": "VA",
+  "source": "doc-5b9795ea4c41c1cb4b14578f25c263d2",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

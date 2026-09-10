@@ -1,0 +1,9 @@
+{
+  "id": "watersprint-azure-bolt-ii--ip-rating",
+  "model": "watersprint-azure-bolt-ii",
+  "name": "IP rating",
+  "value": "IP21",
+  "source": "doc-cf473b180c6fec9945c1e70675f892df",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

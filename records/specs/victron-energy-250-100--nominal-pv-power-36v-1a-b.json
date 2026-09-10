@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-250-100--nominal-pv-power-36v-1a-b",
+  "model": "victron-energy-250-100",
+  "name": "Nominal PV power, 36V 1a,b",
+  "value": "4350",
+  "unit": "W",
+  "source": "doc-a08e004abb7badfb9ca55abb38ecb534",
+  "extractedBy": "table:spec-table@v1",
+  "confidence": "vendor-doc"
+}

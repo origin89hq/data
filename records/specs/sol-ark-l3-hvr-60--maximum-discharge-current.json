@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-l3-hvr-60--maximum-discharge-current",
+  "model": "sol-ark-l3-hvr-60",
+  "name": "Maximum discharge current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-0865dbd9679501c82e0f7b2f50a2b6d5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

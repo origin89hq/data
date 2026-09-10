@@ -1,0 +1,10 @@
+{
+  "id": "sigineer-esf48h100--system-voltage",
+  "model": "sigineer-esf48h100",
+  "name": "System voltage",
+  "value": "12V/24V/36V/48V",
+  "source": "doc-0d3e50facf97007d55c11238f6d4de49",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

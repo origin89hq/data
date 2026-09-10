@@ -1,0 +1,11 @@
+{
+  "id": "noco-gb20--charger-rating",
+  "model": "noco-gb20",
+  "name": "Charger Rating",
+  "value": "2",
+  "unit": "A",
+  "source": "doc-21526244bd4f28f887cfb062e04edaf0",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

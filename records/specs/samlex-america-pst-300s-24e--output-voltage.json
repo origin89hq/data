@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-pst-300s-24e--output-voltage",
+  "model": "samlex-america-pst-300s-24e",
+  "name": "OUTPUT VOLTAGE",
+  "value": "230 VAC ± 3%",
+  "source": "doc-aee9e0827e07c54b82988dac4adc43ea",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

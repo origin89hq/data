@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-bgw-60--maximum-continuous-output-current",
+  "model": "samlex-america-bgw-60",
+  "name": "Maximum continuous output current",
+  "value": "60",
+  "unit": "A",
+  "source": "doc-8baee870e493b569dd4a9403f75f5d80",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-smart-bms-12-200--humidity-maximum-average",
+  "model": "victron-energy-smart-bms-12-200",
+  "name": "Humidity, maximum / average",
+  "value": "100% / 95%",
+  "source": "doc-f8d08140489d21ee544ff1e80fbc1699",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

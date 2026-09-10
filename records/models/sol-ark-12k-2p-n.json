@@ -1,0 +1,13 @@
+{
+  "id": "sol-ark-12k-2p-n",
+  "manufacturer": "sol-ark",
+  "name": "12K-2P-N",
+  "kind": "inverter",
+  "aliases": [
+    "SAK-224-101"
+  ],
+  "dialects": [
+    "solark-hybrid-rtu-v1",
+    "solark-mysolark-cloud"
+  ]
+}

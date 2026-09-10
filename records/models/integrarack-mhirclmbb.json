@@ -1,0 +1,8 @@
+{
+  "id": "integrarack-mhirclmbb",
+  "manufacturer": "integrarack",
+  "name": "MHIRCLMBB",
+  "kind": "balance-of-system",
+  "aliases": [],
+  "dialects": []
+}

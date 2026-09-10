@@ -1,0 +1,9 @@
+{
+  "id": "lorex-e881ap--video-compression",
+  "model": "lorex-e881ap",
+  "name": "Video Compression",
+  "value": "H.265/H.264H",
+  "source": "doc-b6a410f8fb728802664f56b5c0cae791",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

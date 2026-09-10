@@ -1,0 +1,10 @@
+{
+  "id": "rolls-battery-s12-100lfp",
+  "manufacturer": "rolls-battery",
+  "name": "S12-100LFP",
+  "kind": "battery",
+  "aliases": [],
+  "dialects": [
+    "rolls-lfp-drop-in"
+  ]
+}

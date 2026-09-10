@@ -1,0 +1,10 @@
+{
+  "id": "noco-nlp30--boyutlar",
+  "model": "noco-nlp30",
+  "name": "Boyutlar",
+  "value": "3,35x4,45x2,76",
+  "source": "doc-bcc4cd5bc6e865f5d2bef2a50ef7f569",
+  "page": 128,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}
