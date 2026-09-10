@@ -199,9 +199,9 @@ status:
 supervise date="":
     @just _post "/supervise?date=$1"
 
-# The same on the deployed spider, through its workflow, so the token stays in GitHub. 0 passes only reports.
-supervise-prod passes="1":
-    gh workflow run "Supervise the spider" --repo origin89hq/offgrid-equipment --ref main -f passes="$1"
+# The same on the deployed spider, through its workflow, so the token stays in GitHub. `true` also offers every converted maker to the page reader.
+supervise-prod offer_all="false":
+    gh workflow run "Supervise the spider" --repo origin89hq/offgrid-equipment --ref main -f offer_all="$1"
 
 
 # Refresh the shared skills once at the start of a task.

@@ -1,48 +1,63 @@
 name: Supervise the spider
-# The Worker supervises itself at 08:00 UTC every day. This is the same pass on demand, followed by
-# a report of where every maker stands, so nobody needs the control token on their own machine.
-# A pass moves whatever stage is ready, which can start a classification or the page reader, and
-# those spend money on a model. It never approves a download: that stays with a person.
+# The Worker supervises itself at 08:00 UTC every day. This runs the same pass on demand, can offer
+# every converted maker to the page reader at once, and reports where every maker stands, so nobody
+# needs the control token on their own machine. A pass moves whatever stage is ready, which can
+# start a classification or the page reader, and those spend money on a model. It never approves a
+# download: that stays with a person.
 on:
   workflow_dispatch:
     inputs:
-      passes:
-        description: Passes to run first. Each offers the page reader up to twenty more makers; 0 only reports.
-        type: choice
-        options: ["0", "1", "2", "3", "4", "5"]
-        default: "1"
-permissions:
-  contents: read
+      supervise:
+        description: Run the supervisor's pass before reporting.
+        type: boolean
+        default: true
+      offer_all:
+        description: Offer every converted maker to the page reader, not only the twenty a pass offers.
+        type: boolean
+        default: false
+permissions: {}
 concurrency:
   group: supervise
   cancel-in-progress: false
 jobs:
   supervise:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # The requests' own limits: a pass (300 s), two reads of /state (120 s each), and one offer per
+    # maker (15 s each, about 85 makers) come to under 35 minutes.
+    timeout-minutes: 35
     env:
       BASE: https://data.origin89.com
       CONTROL_TOKEN: ${{ secrets.CONTROL_TOKEN }}
-      PASSES: ${{ inputs.passes }}
     steps:
       - name: Supervise
-        if: inputs.passes != '0'
+        if: inputs.supervise
         run: |
-          for pass in $(seq 1 "$PASSES"); do
-            report=$(curl --fail-with-body --silent --show-error --connect-timeout 10 --max-time 300 \
-              -X POST "$BASE/supervise" -H "authorization: Bearer $CONTROL_TOKEN") || { echo "$report" >&2; exit 1; }
-            {
-              echo "### Pass $pass"
-              echo "$report" | jq -r '
-                "\(.started | length) started, \(.blocked | length) waiting, \(.concerns | length) concerns",
-                (.started[] | "- \(.what) **\(.entity)**: \(.detail)"),
-                (.concerns[] | "- concern: \(.)")'
-            } >> "$GITHUB_STEP_SUMMARY"
-            # Nothing more offered to the page reader: another pass would only repeat this one.
-            if [ "$(echo "$report" | jq '[.started[] | select(.what == "vision")] | length')" = "0" ]; then
-              break
-            fi
-          done
+          report=$(curl --fail-with-body --silent --show-error --connect-timeout 10 --max-time 300 \
+            -X POST "$BASE/supervise" -H "authorization: Bearer $CONTROL_TOKEN") || { echo "$report" >&2; exit 1; }
+          {
+            echo "### The pass"
+            echo "$report" | jq -r '
+              "\(.started | length) started, \(.blocked | length) waiting, \(.concerns | length) concerns",
+              (.started[] | "- \(.what) **\(.entity)**: \(.detail)"),
+              (.concerns[] | "- concern: \(.)")'
+          } >> "$GITHUB_STEP_SUMMARY"
+      # Offers go to the page reader one maker at a time, not through repeated passes: a pass also
+      # re-queues the specification pages of makers with no document readings, and each queued page
+      # is fetched from the maker's site again.
+      - name: Offer every converted maker to the page reader
+        if: inputs.offer_all
+        run: |
+          state=$(curl --fail-with-body --silent --show-error --connect-timeout 10 --max-time 120 \
+            "$BASE/state" -H "authorization: Bearer $CONTROL_TOKEN") || { echo "$state" >&2; exit 1; }
+          makers=$(echo "$state" | jq -r '.makers[] | select(.converted != null and .converted > (.seeing // 0)) | "\(.maker) \(.date)"')
+          echo "### Offered to the page reader" >> "$GITHUB_STEP_SUMMARY"
+          [ -n "$makers" ] || { echo "Every converted maker had already been offered." >> "$GITHUB_STEP_SUMMARY"; exit 0; }
+          while read -r maker date; do
+            offered=$(curl --fail-with-body --silent --show-error --connect-timeout 10 --max-time 15 \
+              -X POST -G --data-urlencode "id=$maker" --data-urlencode "date=$date" "$BASE/vision" \
+              -H "authorization: Bearer $CONTROL_TOKEN") || { echo "$maker: $offered" >&2; exit 1; }
+            echo "- **$maker**: $(echo "$offered" | jq -r '.documents') documents" >> "$GITHUB_STEP_SUMMARY"
+          done <<< "$makers"
       - name: Report where every maker stands
         run: |
           state=$(curl --fail-with-body --silent --show-error --connect-timeout 10 --max-time 120 \
