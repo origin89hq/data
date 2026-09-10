@@ -26,7 +26,10 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
+          # Every branch, so the check below sees figures/pull without a second fetch; and no
+          # credential left in git config for the steps that run this repository's code.
           fetch-depth: 0
+          persist-credentials: false
       - uses: ./.github/actions/setup
       # The build writes Parquet through the duckdb CLI, and the unit suite runs a build.
       - uses: ./.github/actions/setup-duckdb
@@ -35,8 +38,7 @@ jobs:
       - name: Leave a branch somebody has worked on alone
         id: branch
         run: |
-          if git ls-remote --exit-code --heads origin "$BRANCH" > /dev/null; then
-            git fetch --quiet origin "$BRANCH"
+          if git rev-parse --verify --quiet "refs/remotes/origin/$BRANCH" > /dev/null; then
             people=$(git log "origin/main..origin/$BRANCH" --format='%ae' | grep -v 'github-actions\[bot\]' || true)
             if [ -n "$people" ]; then
               echo "::warning::$BRANCH has commits a person pushed. Merge or close its pull request, and the next run rebuilds it."
@@ -66,6 +68,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          # The one step that writes to the repository, and the one given a credential for it.
+          # Checkout kept none, so nothing earlier, dependencies' install scripts included, could push.
+          gh auth setup-git
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -C "$BRANCH"
