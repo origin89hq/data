@@ -1,9 +1,0 @@
-{
-  "id": "sol-ark-15k-2p-lv--espacio-libre-vertical",
-  "model": "sol-ark-15k-2p-lv",
-  "name": "Espacio libre vertical",
-  "value": "6” (15.2 cm)",
-  "source": "doc-9bcaf609070d127ca9dcf9905aa2940b",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

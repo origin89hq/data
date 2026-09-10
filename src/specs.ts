@@ -3,7 +3,7 @@ import type { Spec } from "../schema/model.ts";
 import { normaliseModelName } from "./models.ts";
 import { looksTruncated, splitValueUnit, statesNothing } from "./units.ts";
 import { repairMojibake } from "./text.ts";
-import { looksForeign } from "./language.ts";
+import { englishWords, looksForeign } from "./language.ts";
 import { englishName } from "./translations.ts";
 
 /** What a model reported reading out of a document, before anything checks it. */
@@ -135,10 +135,16 @@ export function specsFrom({ reports, models, manufacturer, source, extractedBy, 
       });
     }
   }
-  // A multilingual manual states one figure several times. Pentair's solar drive manual gives the
-  // same output current as "Maximum output current", "Corriente máxima de salida" and "Courant de
-  // sortie maximum", all from one document. Where a model's figure appears under both an English
-  // name and a foreign one with the same value and unit, the English one is the row.
+  // A multilingual manual states one figure once per language. NOCO's GB150 gives the same 60 W as
+  // "12 V snel opladen", "12V-Schnellladefunktion", "Chargement rapide 12V" and "Effekt", and none
+  // of those four is detectably foreign on its own.
+  //
+  // What makes it safe to collapse them is knowing the document is multilingual, which this one
+  // proves by producing at least one name that is. A Champion generator states 120 V three times
+  // in one monolingual sheet — "Gasoline Volts", "Natural Gas Volts", "Propane Volts" — and those
+  // are three real figures that happen to agree. Same shape, opposite meaning, and the document
+  // tells them apart.
+  const multilingual = [...specs.values()].some((row) => looksForeign(row.name) || row.english);
   const repeated = new Set<string>();
   const byFigure = new Map<string, Spec[]>();
   for (const spec of specs.values()) {
@@ -147,6 +153,18 @@ export function specsFrom({ reports, models, manufacturer, source, extractedBy, 
   }
   for (const rows of byFigure.values()) {
     if (rows.length < 2) continue;
+    if (multilingual) {
+      // Keep one: a name that does not read as foreign, and of those the plainest.
+      const [keep] = [...rows].sort(
+        (a, b) =>
+          Number(looksForeign(a.name)) - Number(looksForeign(b.name)) ||
+          englishWords(b.name) - englishWords(a.name) ||
+          [...a.name].filter((c) => c.charCodeAt(0) > 127).length - [...b.name].filter((c) => c.charCodeAt(0) > 127).length ||
+          a.id.localeCompare(b.id),
+      );
+      for (const row of rows) if (row.id !== keep?.id) repeated.add(row.id);
+      continue;
+    }
     const english = rows.filter((row) => !looksForeign(row.name));
     if (english.length > 0) {
       for (const row of rows.filter((r) => looksForeign(r.name))) repeated.add(row.id);

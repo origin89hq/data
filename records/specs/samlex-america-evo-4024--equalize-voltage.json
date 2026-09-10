@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-4024--equalize-voltage",
+  "model": "samlex-america-evo-4024",
+  "name": "EQUALIZE VOLTAGE",
+  "value": "28.00V - 33.00V",
+  "source": "doc-23df0d2727e9f35278efcb9ffbc0e9f6",
+  "page": 119,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

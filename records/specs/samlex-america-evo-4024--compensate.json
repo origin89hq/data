@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-4024--compensate",
+  "model": "samlex-america-evo-4024",
+  "name": "COMPENSATE",
+  "value": "2mV to 5mV /C/Cell",
+  "source": "doc-23df0d2727e9f35278efcb9ffbc0e9f6",
+  "page": 119,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

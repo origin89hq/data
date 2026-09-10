@@ -168,3 +168,24 @@ export function withoutRedundantTranslations<T extends { id: string; model: stri
     kept: specs.filter(orphaned),
   };
 }
+
+/**
+ * Words an English specification uses and its translations do not.
+ *
+ * A positive test, because the negative one cannot settle a tie. NOCO states one figure as "12 V
+ * snel opladen", "12V-Schnellladefunktion", "Chargement rapide 12V" and "12V Fast Charge", and
+ * none of the four reads as foreign on its own, so choosing between them alphabetically kept the
+ * Dutch. This asks which of them is English rather than which is not.
+ */
+const ENGLISH_TERMS = new Set([
+  "charge", "charging", "output", "input", "voltage", "current", "power", "temperature", "weight",
+  "capacity", "time", "battery", "fast", "device", "protection", "cooling", "fuse", "dimensions",
+  "lumens", "operating", "storage", "internal", "maximum", "minimum", "rated", "nominal", "peak",
+  "size", "type", "range", "chemistry", "housing", "case", "duty", "cycle", "motor", "air", "flow",
+  "pressure", "humidity", "altitude", "efficiency", "frequency", "phase", "cylinders", "port",
+]);
+
+/** How many English specification words a name uses. Higher wins a tie between languages. */
+export function englishWords(name: string): number {
+  return wordsOf(name).filter((word) => ENGLISH_TERMS.has(word)).length;
+}

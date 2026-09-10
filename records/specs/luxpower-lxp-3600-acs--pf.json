@@ -1,0 +1,9 @@
+{
+  "id": "luxpower-lxp-3600-acs--pf",
+  "model": "luxpower-lxp-3600-acs",
+  "name": "PF",
+  "value": "0.99 (Adjustable from 0.8 leading to 0.8 lagging)",
+  "source": "doc-863296de3b51cb17dbfbf2244df36565",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

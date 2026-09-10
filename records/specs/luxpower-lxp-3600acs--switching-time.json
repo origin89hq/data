@@ -1,9 +1,0 @@
-{
-  "id": "luxpower-lxp-3600acs--switching-time",
-  "model": "luxpower-lxp-3600acs",
-  "name": "Switching time",
-  "value": "20 ms",
-  "source": "doc-863296de3b51cb17dbfbf2244df36565",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

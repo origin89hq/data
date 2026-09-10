@@ -1,9 +1,0 @@
-{
-  "id": "luxpower-lxp-3600acs--operating-temperature",
-  "model": "luxpower-lxp-3600acs",
-  "name": "Operating temperature",
-  "value": "-25°C to +60°C",
-  "source": "doc-398ff4aebbfdeef577ed94bef55f08d0",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

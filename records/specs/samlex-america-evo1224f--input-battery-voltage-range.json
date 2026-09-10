@@ -1,9 +1,0 @@
-{
-  "id": "samlex-america-evo1224f--input-battery-voltage-range",
-  "model": "samlex-america-evo1224f",
-  "name": "INPUT BATTERY VOLTAGE RANGE",
-  "value": "18.1 - 34 VDC",
-  "source": "doc-3542ec518aff9a7e5996bee035615049",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}
