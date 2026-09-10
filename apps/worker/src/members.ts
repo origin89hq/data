@@ -18,7 +18,7 @@ export const TEAM = "working-group";
  * within this, and in the meantime their requests do not each cost two calls to GitHub.
  */
 export const MEMBERSHIP_TTL_MS = 5 * 60_000;
-/** Answers kept at once. Enough for every member's terminal and browser many times over. */
+/** Answers kept at once, of each kind. Enough for every member's terminal and browser many times over. */
 const REMEMBERED = 1000;
 /** What GitHub prefixes a GitHub App's user tokens with. */
 const USER_TOKEN_PREFIX = "ghu_";
@@ -37,7 +37,7 @@ export interface GitHubApp {
 
 export type Membership =
   | { ok: true; login: string }
-  | { ok: false; status: 401 | 403; reason: string };
+  | { ok: false; status: 401 | 403 | 429; reason: string };
 
 /** GitHub could not be asked, so there is no answer to give, and none is remembered. */
 export class GitHubUnavailable extends Error {}
@@ -50,9 +50,21 @@ const TokenCheck = z.object({
 
 const TeamMembership = z.object({ state: z.string() });
 
-/** Two answers GitHub gives about a token, remembered by the token's hash. */
+/** An answer from GitHub, and when the token it is about stops working, if GitHub said. */
+interface Asked {
+  answer: Membership;
+  expiresAt?: number;
+}
+
+/**
+ * Two answers GitHub gives about a token, remembered by the token's hash.
+ *
+ * Members and refusals are remembered apart. Every token the Worker has not seen costs calls to
+ * GitHub, so made-up tokens could otherwise fill the memory and push members' answers out.
+ */
 export class Memberships {
-  readonly #answers = new Map<string, { answer: Membership; until: number }>();
+  readonly #members = new Map<string, { answer: Membership; until: number }>();
+  readonly #refusals = new Map<string, { answer: Membership; until: number }>();
   readonly #now: () => number;
 
   constructor(now: () => number = Date.now) {
@@ -63,27 +75,40 @@ export class Memberships {
    * Whether `token` is a user token this app issued, to an active member of the team.
    *
    * A token somebody gave another app, `gh`'s included, is refused: GitHub answers the first
-   * question only for tokens issued to the app asking.
+   * question only for tokens issued to the app asking. `ration` is asked before GitHub is: an
+   * answer not remembered spends the app's allowance with GitHub, which a caller sending made-up
+   * tokens would otherwise use up for everybody.
    */
-  async check(token: string, app: GitHubApp): Promise<Membership> {
+  async check(
+    token: string,
+    app: GitHubApp,
+    ration: () => Promise<boolean> = async () => true,
+  ): Promise<Membership> {
     const key = await digest(token);
-    const remembered = this.#answers.get(key);
-    if (remembered && remembered.until > this.#now()) return remembered.answer;
-    this.#answers.delete(key);
-    const answer = await this.#ask(token, app);
-    if (this.#answers.size >= REMEMBERED) {
-      const oldest = this.#answers.keys().next();
-      if (!oldest.done) this.#answers.delete(oldest.value);
+    for (const remembered of [this.#members, this.#refusals]) {
+      const entry = remembered.get(key);
+      if (entry && entry.until > this.#now()) return entry.answer;
+      remembered.delete(key);
     }
-    this.#answers.set(key, { answer, until: this.#now() + MEMBERSHIP_TTL_MS });
+    if (!(await ration()))
+      return { ok: false, status: 429, reason: "too many sign-in checks from here; wait a minute" };
+    const { answer, expiresAt } = await this.#ask(token, app);
+    // Never past the token's own end: a success remembered beyond it would outlive the token.
+    const until = Math.min(this.#now() + MEMBERSHIP_TTL_MS, expiresAt ?? Number.POSITIVE_INFINITY);
+    const remember = answer.ok ? this.#members : this.#refusals;
+    if (remember.size >= REMEMBERED) {
+      const oldest = remember.keys().next();
+      if (!oldest.done) remember.delete(oldest.value);
+    }
+    remember.set(key, { answer, until });
     return answer;
   }
 
-  async #ask(token: string, app: GitHubApp): Promise<Membership> {
+  async #ask(token: string, app: GitHubApp): Promise<Asked> {
     // Every GitHub App user token starts so. Anything else, `gh`'s own token or a string somebody
     // is trying, is refused here rather than spending the app's calls to GitHub on it.
     if (!token.startsWith(USER_TOKEN_PREFIX))
-      return { ok: false, status: 401, reason: "not a GitHub App user token" };
+      return { answer: { ok: false, status: 401, reason: "not a GitHub App user token" } };
     const checked = await github(`/applications/${encodeURIComponent(app.clientId)}/token`, {
       method: "POST",
       headers: {
@@ -94,23 +119,28 @@ export class Memberships {
     });
     // 404 is GitHub's answer for a token this app did not issue, and for one that has expired.
     if (checked.status === 404 || checked.status === 422)
-      return { ok: false, status: 401, reason: "not a token from this app, or it has expired" };
+      return {
+        answer: { ok: false, status: 401, reason: "not a token from this app, or it has expired" },
+      };
     if (!checked.ok) throw new GitHubUnavailable(`GitHub's token check answered ${checked.status}`);
     const issued = TokenCheck.safeParse(await checked.json());
     if (!issued.success)
       throw new GitHubUnavailable("GitHub's token check answered in a new shape");
     const { app: issuer, user, expires_at } = issued.data;
     if (issuer.client_id !== app.clientId || !user)
-      return { ok: false, status: 401, reason: "not a user token from this app" };
-    if (expires_at && Date.parse(expires_at) <= this.#now())
-      return { ok: false, status: 401, reason: "the token has expired; sign in again" };
+      return { answer: { ok: false, status: 401, reason: "not a user token from this app" } };
+    const expiresAt = expires_at ? Date.parse(expires_at) : undefined;
+    if (expiresAt !== undefined && expiresAt <= this.#now())
+      return { answer: { ok: false, status: 401, reason: "the token has expired; sign in again" } };
 
     const member = await github(
       `/orgs/${ORG}/teams/${TEAM}/memberships/${encodeURIComponent(user.login)}`,
       { headers: { authorization: `Bearer ${token}` } },
     );
     if (member.status === 404)
-      return { ok: false, status: 403, reason: `${user.login} is not in ${ORG}/${TEAM}` };
+      return {
+        answer: { ok: false, status: 403, reason: `${user.login} is not in ${ORG}/${TEAM}` },
+      };
     if (!member.ok) throw new GitHubUnavailable(`GitHub's team check answered ${member.status}`);
     const membership = TeamMembership.safeParse(await member.json());
     if (!membership.success)
@@ -118,11 +148,16 @@ export class Memberships {
     // An invitation not yet accepted is `pending`, and is not membership.
     if (membership.data.state !== "active")
       return {
-        ok: false,
-        status: 403,
-        reason: `${user.login}'s membership of ${ORG}/${TEAM} is ${membership.data.state}`,
+        answer: {
+          ok: false,
+          status: 403,
+          reason: `${user.login}'s membership of ${ORG}/${TEAM} is ${membership.data.state}`,
+        },
       };
-    return { ok: true, login: user.login };
+    return {
+      answer: { ok: true, login: user.login },
+      ...(expiresAt === undefined ? {} : { expiresAt }),
+    };
   }
 }
 

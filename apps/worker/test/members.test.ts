@@ -154,3 +154,54 @@ test("GitHub not answering at all is reported, not thrown past the caller", asyn
     /GitHub did not answer: fetch failed/,
   );
 });
+
+test("a remembered success ends when its token does, not five minutes later", async (t) => {
+  // Two minutes of life left when first checked.
+  const { github, check, wait } = checking(t, {
+    tokens: { ghu_ending: { login: "ada", expiresAt: "2026-09-10T12:02:00Z" } },
+    team: { ada: "active" },
+  });
+  assert.equal((await check("ghu_ending")).ok, true);
+  const asked = github.calls.length;
+  wait(2 * 60_000 - 1);
+  assert.equal((await check("ghu_ending")).ok, true, "forgot a success before the token ended");
+  assert.equal(github.calls.length, asked);
+  wait(1);
+  assert.deepEqual(await check("ghu_ending"), {
+    ok: false,
+    status: 401,
+    reason: "the token has expired; sign in again",
+  });
+});
+
+test("made-up tokens cannot push a member's remembered answer out", async (t) => {
+  const { github, check } = checking(t, {
+    tokens: { ghu_ada_kept: { login: "ada" } },
+    team: { ada: "active" },
+  });
+  assert.equal((await check("ghu_ada_kept")).ok, true);
+  for (let i = 0; i <= 1000; i += 1) await check(`ghu_made_up_${i}`);
+  const asked = github.calls.length;
+  assert.equal((await check("ghu_ada_kept")).ok, true);
+  assert.equal(github.calls.length, asked, "the member's answer was pushed out by refusals");
+});
+
+test("past its ration a caller is refused without GitHub being asked, and remembered answers stand", async (t) => {
+  const github = githubApi({
+    tokens: { ghu_ada_rationed: { login: "ada" } },
+    team: { ada: "active" },
+  });
+  t.mock.method(globalThis, "fetch", github.fetch);
+  const members = new Memberships();
+  const allowed = async () => true;
+  const spent = async () => false;
+  assert.equal((await members.check("ghu_ada_rationed", APP, allowed)).ok, true);
+  const asked = github.calls.length;
+  assert.deepEqual(await members.check("ghu_never_seen", APP, spent), {
+    ok: false,
+    status: 429,
+    reason: "too many sign-in checks from here; wait a minute",
+  });
+  assert.equal((await members.check("ghu_ada_rationed", APP, spent)).ok, true);
+  assert.equal(github.calls.length, asked, "GitHub was asked past the ration");
+});

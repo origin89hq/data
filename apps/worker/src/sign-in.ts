@@ -24,7 +24,7 @@ export type Caller = { kind: "member"; login: string } | { kind: "control token"
 
 export type Identified =
   | { ok: true; caller: Caller }
-  | { ok: false; status: 401 | 403 | 502; error: string };
+  | { ok: false; status: 401 | 403 | 429 | 502; error: string };
 
 /** Both cookies are `__Host-`: HTTPS only, this host only, the whole path. */
 const SESSION = "offgrid-session";
@@ -74,7 +74,7 @@ export async function identify<E extends { Bindings: Env }>(c: Context<E>): Prom
       error: "not the control token, and GitHub sign-in is not configured on this Worker",
     };
   try {
-    const membership = await memberships.check(presented, app);
+    const membership = await memberships.check(presented, app, () => ration(c));
     return membership.ok
       ? { ok: true, caller: { kind: "member", login: membership.login } }
       : { ok: false, status: membership.status, error: membership.reason };
@@ -82,6 +82,17 @@ export async function identify<E extends { Bindings: Env }>(c: Context<E>): Prom
     if (error instanceof GitHubUnavailable) return { ok: false, status: 502, error: error.message };
     throw error;
   }
+}
+
+/**
+ * Whether this caller may make the Worker ask GitHub something it has not asked before. Each such
+ * question spends the app's allowance with GitHub, so they are rationed per address.
+ */
+async function ration<E extends { Bindings: Env }>(c: Context<E>): Promise<boolean> {
+  const { success } = await c.env.SIGN_IN_CHECKS.limit({
+    key: c.req.header("cf-connecting-ip") ?? "no address given",
+  });
+  return success;
 }
 
 /** A read carries no risk from another site. Anything else must name this origin. */
@@ -153,6 +164,11 @@ authRoutes.get("/auth/callback", async (c) => {
       `GitHub did not sign you in: ${c.req.query("error") ?? "no code came back"}`,
       400,
     );
+  if (!(await ration(c)))
+    return c.text(
+      "Too many sign-ins from here. Wait a minute, then start again at /auth/login.",
+      429,
+    );
 
   let answer: Response;
   try {
@@ -186,7 +202,7 @@ authRoutes.get("/auth/callback", async (c) => {
 
   let membership: Membership;
   try {
-    membership = await memberships.check(token, app);
+    membership = await memberships.check(token, app, () => ration(c));
   } catch (error) {
     if (error instanceof GitHubUnavailable) return c.text(error.message, 502);
     throw error;

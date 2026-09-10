@@ -11,13 +11,23 @@ import { world } from "./world.ts";
 
 const ORIGIN = "https://data.example";
 
-/** The Worker with sign-in configured, in front of the GitHub `github` describes. */
-function signingIn(t: TestContext, github: GitHubWorld = {}) {
+/**
+ * The Worker with sign-in configured, in front of the GitHub `github` describes. `allowance` is
+ * how many new questions to GitHub each address may cause before the ration runs out.
+ */
+function signingIn(t: TestContext, github: GitHubWorld = {}, allowance = Number.POSITIVE_INFINITY) {
   const api = githubApi(github);
   t.mock.method(globalThis, "fetch", api.fetch);
   const approvals: { id: string; event: unknown }[] = [];
+  const spent = new Map<string, number>();
   const env = {
     ...world().env,
+    SIGN_IN_CHECKS: {
+      limit: async ({ key }: { key: string }) => {
+        spent.set(key, (spent.get(key) ?? 0) + 1);
+        return { success: (spent.get(key) ?? 0) <= allowance };
+      },
+    },
     GITHUB_CLIENT_ID: APP.clientId,
     GITHUB_CLIENT_SECRET: APP.clientSecret,
     CONTROL_TOKEN: "local-control-token",
@@ -33,7 +43,7 @@ function signingIn(t: TestContext, github: GitHubWorld = {}) {
   } as unknown as Env;
   const request = (path: string, init: RequestInit = {}) =>
     app.request(`${ORIGIN}${path}`, init, env);
-  return { api, request, approvals };
+  return { api, request, approvals, spent };
 }
 
 /** Each Set-Cookie line of a response, by cookie name. */
@@ -303,4 +313,32 @@ test("the runs page is for members: others are sent to sign in, or told why not"
   assert.equal(member.status, 200);
   assert.equal(await member.text(), "the page at /ops");
   assert.equal(member.headers.get("cache-control"), "private, no-store");
+});
+
+test("an address sending made-up tokens is rationed, and a member elsewhere is not", async (t) => {
+  const { request, api, spent } = signingIn(
+    t,
+    { tokens: { ghu_ada_elsewhere: { login: "ada" } }, team: { ada: "active" } },
+    3,
+  );
+  const from = (address: string, token: string) =>
+    request("/state", {
+      headers: { authorization: `Bearer ${token}`, "cf-connecting-ip": address },
+    });
+  for (let i = 0; i < 3; i += 1)
+    assert.equal((await from("203.0.113.9", `ghu_junk_${i}`)).status, 401);
+  const asked = api.calls.length;
+  const cut = await from("203.0.113.9", "ghu_junk_3");
+  assert.equal(cut.status, 429);
+  assert.equal(api.calls.length, asked, "GitHub was asked past the ration");
+  assert.equal((await from("198.51.100.4", "ghu_ada_elsewhere")).status, 200);
+  assert.deepEqual([...spent.keys()].sort(), ["198.51.100.4", "203.0.113.9"]);
+});
+
+test("a sign-in past the ration stops before the code is exchanged", async (t) => {
+  const { request, api } = signingIn(t, { codes: { "code-ada": { token: "ghu_ada_late" } } }, 0);
+  const { state, cookie } = await start(request);
+  const res = await request(`/auth/callback?code=code-ada&state=${state}`, { headers: { cookie } });
+  assert.equal(res.status, 429);
+  assert.deepEqual(api.calls, [], "the code was exchanged past the ration");
 });
