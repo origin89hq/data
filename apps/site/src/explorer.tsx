@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { count, type Index } from "./api.ts";
+import { DataLoading, DataProblem, Skeleton } from "./DataState.tsx";
 import { Icon } from "./icons.tsx";
 import type { State } from "./useDuckDb.ts";
+import { useQuery } from "./useQuery.ts";
 
 type Row = Record<string, unknown>;
 
@@ -74,9 +76,6 @@ export function Explorer({
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");
   const [page, setPage] = useState(0);
-  const [rows, setRows] = useState<Row[]>([]);
-  const [total, setTotal] = useState(0);
-  const [choices, setChoices] = useState<string[]>([]);
   const [chosen, setChosen] = useState<Row>();
   const spec = TABLES[tab];
 
@@ -98,41 +97,25 @@ export function Explorer({
     return clauses.join(" AND ");
   }, [scope, search, filter, spec]);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: Changing the selected table resets its page and filter.
-  useEffect(() => {
-    setPage(0);
-    setFilter("");
-  }, [tab]);
-
-  useEffect(() => {
-    if (!db.ready) return;
-    void db
-      .run(`SELECT DISTINCT ${spec.filter.column} AS value FROM ${spec.table}
-            WHERE ${scope} AND ${spec.filter.column} IS NOT NULL ORDER BY 1 LIMIT 40`)
-      .then((answer) => setChoices(answer.rows.map((row) => String(row.value))))
-      .catch(() => setChoices([]));
-  }, [db, scope, spec]);
-
-  useEffect(() => {
-    if (!db.ready) return;
-    let stale = false;
-    void Promise.all([
-      db.run(`SELECT count(*) AS n FROM ${spec.table} WHERE ${where}`),
-      db.run(`SELECT ${spec.columns.join(", ")} FROM ${spec.table} WHERE ${where}
-              ORDER BY ${spec.order} LIMIT ${PAGE} OFFSET ${page * PAGE}`),
-    ])
-      .then(([counted, listed]) => {
-        if (stale) return;
-        setTotal(Number(counted.rows[0]?.n ?? 0));
-        setRows(listed.rows);
-      })
-      .catch(() => {
-        if (!stale) setRows([]);
-      });
-    return () => {
-      stale = true;
-    };
-  }, [db, where, page, spec]);
+  const options = useQuery(
+    db,
+    `SELECT DISTINCT ${spec.filter.column} AS value FROM ${spec.table}
+    WHERE ${scope} AND ${spec.filter.column} IS NOT NULL ORDER BY 1 LIMIT 40`,
+  );
+  const choices =
+    options.status === "ready" ? (options.data[0]?.rows ?? []).map((row) => String(row.value)) : [];
+  const result = useQuery(
+    db,
+    `SELECT count(*) AS n FROM ${spec.table} WHERE ${where}`,
+    `SELECT ${spec.columns.join(", ")} FROM ${spec.table} WHERE ${where}
+      ORDER BY ${spec.order} LIMIT ${PAGE} OFFSET ${page * PAGE}`,
+  );
+  const rows = result.status === "ready" ? (result.data[1]?.rows ?? []) : [];
+  const total = result.status === "ready" ? Number(result.data[0]?.rows[0]?.n ?? 0) : 0;
+  const loading = result.status === "loading";
+  const loadingLabel = !db.ready
+    ? (db.message ?? "Loading the data…")
+    : `Finding ${spec.label.toLowerCase()}…`;
 
   const pages = Math.max(1, Math.ceil(total / PAGE));
   return (
@@ -146,18 +129,24 @@ export function Explorer({
               role="tab"
               aria-selected={tab === name}
               tabIndex={tab === name ? 0 : -1}
-              onClick={() => setTab(name)}
+              onClick={() => {
+                setTab(name);
+                setPage(0);
+                setFilter("");
+                setChosen(undefined);
+              }}
             >
-              {TABLES[name].label} <span>{count(index?.files[`${name}.parquet`]?.rows ?? 0)}</span>
+              {TABLES[name].label}{" "}
+              <span>{index ? count(index.files[`${name}.parquet`]?.rows ?? 0) : "—"}</span>
             </button>
           ))}
         </div>
         <span className="sample-label">
-          {db.ready
-            ? "LIVE FROM THE PUBLISHED TABLES"
-            : db.error
-              ? "DATA UNAVAILABLE"
-              : "READING THE DATA"}
+          {result.status === "error"
+            ? "DATA UNAVAILABLE"
+            : loading
+              ? "READING THE DATA"
+              : "LIVE FROM THE PUBLISHED TABLES"}
         </span>
       </div>
       <div className="explorer-tools">
@@ -165,6 +154,7 @@ export function Explorer({
           <Icon name="search" />
           <input
             type="search"
+            disabled={!db.ready}
             value={search}
             onChange={(event) => {
               setSearch(event.target.value);
@@ -179,6 +169,7 @@ export function Explorer({
         </label>
         <select
           id="filter"
+          disabled={options.status !== "ready"}
           value={filter}
           onChange={(event) => {
             setFilter(event.target.value);
@@ -193,8 +184,15 @@ export function Explorer({
           ))}
         </select>
       </div>
-      <div role="tabpanel">
-        <div className="table-scroll">
+      {options.status === "error" && db.ready && (
+        <DataProblem label="The filters couldn’t be loaded." retry={options.retry} />
+      )}
+      <div role="tabpanel" aria-label={spec.label}>
+        {loading && <DataLoading label={loadingLabel} />}
+        {result.status === "error" && (
+          <DataProblem label="These records couldn’t be loaded." retry={result.retry} />
+        )}
+        <div className="table-scroll" aria-busy={loading}>
           <table>
             <thead>
               <tr>
@@ -203,7 +201,7 @@ export function Explorer({
                 ))}
               </tr>
             </thead>
-            <tbody>
+            <tbody aria-hidden={loading || undefined}>
               {rows.map((row) => (
                 <tr
                   key={JSON.stringify(row)}
@@ -222,14 +220,20 @@ export function Explorer({
                   })}
                 </tr>
               ))}
-              {rows.length === 0 && (
+              {loading &&
+                [0, 1, 2, 3, 4, 5].map((row) => (
+                  <tr key={row} className="skeleton-row">
+                    {spec.columns.map((column, position) => (
+                      <td key={column}>
+                        <Skeleton width={position === 0 ? "84%" : "62%"} />
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              {result.status === "ready" && rows.length === 0 && (
                 <tr>
                   <td colSpan={spec.columns.length}>
-                    {db.ready
-                      ? "Nothing matches that."
-                      : db.error
-                        ? "The data couldn’t be loaded. Reload the page to try again, or download the files below."
-                        : "Reading the tables…"}
+                    Nothing matches that. Try another search or filter.
                   </td>
                 </tr>
               )}
@@ -239,24 +243,26 @@ export function Explorer({
       </div>
       <div className="explorer-bottom">
         <span role="status" aria-live="polite">
-          {count(total)} records
+          {result.status === "ready"
+            ? `${count(total)} records`
+            : loading
+              ? "Results will appear here"
+              : "Records unavailable"}
         </span>
         <div className="pagination">
           <button
             type="button"
             onClick={() => setPage((p) => Math.max(0, p - 1))}
-            disabled={page === 0}
+            disabled={result.status !== "ready" || page === 0}
             aria-label="Previous page"
           >
             <Icon name="arrowLeft" />
           </button>
-          <span>
-            {page + 1} / {count(pages)}
-          </span>
+          <span>{result.status === "ready" ? `${page + 1} / ${count(pages)}` : "— / —"}</span>
           <button
             type="button"
             onClick={() => setPage((p) => Math.min(pages - 1, p + 1))}
-            disabled={page + 1 >= pages}
+            disabled={result.status !== "ready" || page + 1 >= pages}
             aria-label="Next page"
           >
             <Icon name="arrowRight" />
@@ -434,18 +440,24 @@ function RecordDialog({
 
 /** Every figure a model has, with the page each was read off. */
 function ModelFigures({ model, db }: { model: string; db: State }) {
-  const [figures, setFigures] = useState<Row[]>([]);
-  useEffect(() => {
-    if (!db.ready || !model) return;
-    void db
-      .run(`SELECT coalesce(english, name) AS figure, value, unit, page, doubt
-            FROM specs WHERE model_id = '${model.replaceAll("'", "''")}' AND tier = 'reviewed'
-            ORDER BY CASE WHEN doubt IS NULL THEN 0 ELSE 1 END, figure LIMIT 60`)
-      .then((answer) => setFigures(answer.rows))
-      .catch(() => setFigures([]));
-  }, [db, model]);
-
-  if (figures.length === 0) return null;
+  const result = useQuery(
+    db,
+    `SELECT coalesce(english, name) AS figure, value, unit, page, doubt
+    FROM specs WHERE model_id = '${model.replaceAll("'", "''")}' AND tier = 'reviewed'
+    ORDER BY CASE WHEN doubt IS NULL THEN 0 ELSE 1 END, figure LIMIT 60`,
+  );
+  if (result.status === "loading")
+    return (
+      <DataLoading label="Loading the rated figures…">
+        <Skeleton />
+        <Skeleton width="72%" />
+        <Skeleton width="88%" />
+      </DataLoading>
+    );
+  if (result.status === "error")
+    return <DataProblem label="The rated figures couldn’t be loaded." retry={result.retry} />;
+  const figures = result.data[0]?.rows ?? [];
+  if (figures.length === 0) return <p>No rated figures are recorded for this model.</p>;
   return (
     <>
       <p className="eyebrow" style={{ marginTop: "26px" }}>

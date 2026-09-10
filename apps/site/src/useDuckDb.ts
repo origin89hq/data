@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { Index } from "./api.ts";
 import { queryRow } from "./query-row.ts";
 
@@ -9,7 +9,7 @@ export interface Query {
 }
 
 export type State =
-  | { ready: false; error?: string }
+  | { ready: false; message?: string; error?: string; retry?: () => void }
   | { ready: true; tables: string[]; run: (sql: string) => Promise<Query> };
 
 /**
@@ -20,13 +20,19 @@ export type State =
  * question asks the file rather than a copy of it.
  */
 export function useDuckDb(index: Index | undefined): State {
-  const [state, setState] = useState<State>({ ready: false });
+  const [attempt, setAttempt] = useState(0);
+  const retry = useCallback(() => setAttempt((value) => value + 1), []);
+  const [state, setState] = useState<State>({
+    ready: false,
+    message: "Finding the published data…",
+  });
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: The retry counter deliberately restarts this read after failure.
   useEffect(() => {
     if (!index) return;
     let closed = false;
     let cleanup: (() => void) | undefined;
-    setState({ ready: false });
+    setState({ ready: false, message: "Preparing the data explorer…" });
 
     void (async () => {
       try {
@@ -61,6 +67,7 @@ export function useDuckDb(index: Index | undefined): State {
         const connection = await db.connect();
         if (closed) return;
 
+        setState({ ready: false, message: "Connecting to the published tables…" });
         const views = parquetViews(index.files).filter(({ name }) =>
           ["models", "specs", "sources", "dialects", "model_dialects"].includes(name),
         );
@@ -93,7 +100,7 @@ export function useDuckDb(index: Index | undefined): State {
       } catch (error) {
         cleanup?.();
         cleanup = undefined;
-        if (!closed) setState({ ready: false, error: String(error).slice(0, 140) });
+        if (!closed) setState({ ready: false, error: String(error).slice(0, 140), retry });
       }
     })();
 
@@ -101,7 +108,7 @@ export function useDuckDb(index: Index | undefined): State {
       closed = true;
       cleanup?.();
     };
-  }, [index]);
+  }, [index, attempt, retry]);
 
   return state;
 }
