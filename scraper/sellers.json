@@ -5,7 +5,8 @@
     "url": "https://thecabindepot.ca",
     "country": "CA",
     "currency": "CAD",
-    "platform": "shopify"
+    "platform": "shopify",
+    "brandPagePath": "/pages/shop-by-brand"
   },
   {
     "id": "solacity",
@@ -61,7 +62,8 @@
     "url": "https://solarpowerstore.ca",
     "country": "CA",
     "currency": "CAD",
-    "platform": "shopify"
+    "platform": "shopify",
+    "brandPagePath": "/pages/shop-by-brand"
   },
   {
     "id": "volts",
@@ -210,7 +212,8 @@
     "url": "https://offgridstores.com",
     "country": "US",
     "currency": "USD",
-    "platform": "shopify"
+    "platform": "shopify",
+    "brandPagePath": "/pages/brands"
   },
   {
     "id": "thesolarstore",
@@ -218,7 +221,8 @@
     "url": "https://thesolarstore.com",
     "country": "US",
     "currency": "USD",
-    "platform": "shopify"
+    "platform": "shopify",
+    "brandPagePath": "/pages/brands"
   },
   {
     "id": "theinverterstore",
@@ -234,7 +238,8 @@
     "url": "https://offgridsource.com",
     "country": "US",
     "currency": "USD",
-    "platform": "shopify"
+    "platform": "shopify",
+    "brandPagePath": "/pages/brands"
   },
   {
     "id": "sungoldpower",
@@ -260,7 +265,8 @@
     "url": "https://shopsolarkits.com",
     "country": "US",
     "currency": "USD",
-    "platform": "shopify"
+    "platform": "shopify",
+    "brandPagePath": "/pages/brands"
   },
   {
     "id": "backwoodssolar",

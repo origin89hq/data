@@ -63,6 +63,12 @@ export const Seller = z
     sitemapPattern: z.string().min(1).optional(),
     /** Which page URLs are products. Without it every page is tried and the ones that publish no product yield nothing. */
     productPattern: z.string().min(1).optional(),
+    /**
+     * Path to this shop's page of brand logos, when it publishes one. Six of them do, and a tile
+     * there pairs a maker's mark with the maker's own name, which is how the makers who publish no
+     * usable icon of their own get one. Absent means this shop has no such page.
+     */
+    brandPagePath: z.string().regex(/^\/[\w/-]+$/).optional(),
   })
   .strict();
 export type Seller = z.infer<typeof Seller>;

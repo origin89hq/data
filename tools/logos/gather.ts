@@ -6,6 +6,7 @@ import { loadRecords, writeRecord, RECORDS_DIR } from "../../src/records.ts";
 import { Manufacturer } from "../../schema/manufacturer.ts";
 import { brandTiles, GOOD_ICON, iconsInPage, LOGO_WIDTHS, logoKey, matchTile, nameKey } from "../../src/logos.ts";
 import { USER_AGENT } from "../../scraper/src/feeds.ts";
+import { sellers } from "../../scraper/src/sellers.ts";
 
 /**
  * Find a logo for every manufacturer and write it to disk at the published widths.
@@ -19,7 +20,7 @@ import { USER_AGENT } from "../../scraper/src/feeds.ts";
  * manufacturer somebody confirmed, because the first attempt at this used a general icon set and
  * its near-matches offered a cryptocurrency's logo for IOTA Engineering's power converters.
  *
- * Usage: gather.ts [--out <dir>] [--only <manufacturer>] [--sellers-only] [--makers-only]
+ * Usage: gather.ts [--out <dir>] [--only <id>] [--sellers-only] [--makers-only] [--refresh]
  */
 const args = process.argv.slice(2);
 const flag = (name: string, fallback: string) => (args.includes(name) ? (args[args.indexOf(name) + 1] ?? fallback) : fallback);
@@ -27,15 +28,14 @@ const outDir = flag("--out", "dist/logos");
 const only = args.includes("--only") ? flag("--only", "") : undefined;
 const today = new Date().toISOString().slice(0, 10);
 
-/** Shops that publish a page of brand logos, and where it is. */
-const BRAND_PAGES = [
-  { seller: "thecabindepot", url: "https://thecabindepot.ca/pages/shop-by-brand" },
-  { seller: "offgridstores", url: "https://offgridstores.com/pages/brands" },
-  { seller: "shopsolarkits", url: "https://shopsolarkits.com/pages/brands" },
-  { seller: "solarpowerstore", url: "https://solarpowerstore.ca/pages/shop-by-brand" },
-  { seller: "offgridsource", url: "https://offgridsource.com/pages/brands" },
-  { seller: "thesolarstore", url: "https://thesolarstore.com/pages/brands" },
-];
+/**
+ * The shops that publish a page of brand logos, read off the seller records rather than listed
+ * here. A shop's id, its host and whether it has such a page are one fact about that shop, and
+ * holding them in two places is how the two come to disagree.
+ */
+const BRAND_PAGES = sellers
+  .filter((seller) => seller.brandPagePath)
+  .map((seller) => ({ seller: seller.id, url: new URL(seller.brandPagePath as string, seller.url).href }));
 
 /** Below the smallest width we publish, a source is a tab glyph and there is nothing to publish. */
 const MIN_SOURCE = LOGO_WIDTHS[0];
@@ -107,13 +107,29 @@ interface Candidate {
   from: string;
   /** Higher is tried first. A maker's own mark beats a shop's copy; a tab glyph beats nothing. */
   rank: number;
+  /** Already recorded and already checked, so it needs no fetching to win. */
+  held?: boolean;
 }
+
+/** What a source is worth, so the same ordering decides a fresh run and a re-run. */
+const rankOf = (from: string): number => (from === "maker" ? 3 : 2);
 /** Every candidate for each maker, best first, so a source that cannot be read falls through. */
 const found = new Map<string, Candidate[]>();
 const offer = (id: string, candidate: Candidate) => {
   const list = [...(found.get(id) ?? []), candidate].sort((a, b) => b.rank - a.rank);
   found.set(id, list);
 };
+
+// What each maker already has, as a candidate in its own right. Without this a run that asked the
+// shops alone rewrote 20 makers' own marks with a shop's copy of them, quietly and for the worse.
+// `--refresh` fetches them again instead, which is what rebuilds the image files from a clean
+// checkout: the records travel in git and the images do not.
+const refresh = args.includes("--refresh");
+for (const maker of records.manufacturers) {
+  if (maker.logo && (!only || maker.id === only)) {
+    offer(maker.id, { source: maker.logo.source, from: maker.logo.from, rank: rankOf(maker.logo.from), held: !refresh });
+  }
+}
 
 // The shops first, so the maker's own icon can overwrite a shop's copy rather than the other way.
 if (!args.includes("--makers-only")) {
@@ -129,7 +145,7 @@ if (!args.includes("--makers-only")) {
       const id = matchTile(tile, byName);
       if (!id || (only && id !== only)) continue;
       // A shop's brand page carries a proper wordmark, so it beats a maker's bare favicon.
-      offer(id, { source: tile.image, from: `seller:${page.seller}`, rank: 2 });
+      offer(id, { source: tile.image, from: `seller:${page.seller}`, rank: rankOf("seller") });
       matched += 1;
     }
     console.log(`${page.seller}: ${tiles.length} tiles, ${matched} new manufacturers`);
@@ -164,6 +180,12 @@ for (const [id, candidates] of [...found].sort()) {
   let done = false;
   const why: string[] = [];
   for (const candidate of candidates) {
+    // Already recorded, already checked, and nothing better turned up: leave the record alone.
+    if (candidate.held) {
+      taken.set(id, candidate.from);
+      done = true;
+      break;
+    }
     const source = original(candidate.source);
     const res = await get(source);
     if (!res) {
@@ -217,10 +239,12 @@ for (const [id, candidates] of [...found].sort()) {
   if (!done) failed.push(`${id}: ${why.join("; ") || "no candidate"}`);
 }
 
-// A record that claims a logo we can no longer produce is pointing at nothing. This run tightened
-// what counts as a mark, and seven records were left naming a file the archive would not have.
+// A record that claims a logo we can no longer produce is pointing at nothing, so a full run drops
+// it. A run that looked at only one source must not: asking the shops alone once cleared 29 marks
+// that the makers' own sites had supplied and this run never went looking for.
+const wholeSweep = !args.includes("--sellers-only") && !args.includes("--makers-only");
 let cleared = 0;
-for (const maker of records.manufacturers) {
+for (const maker of wholeSweep ? records.manufacturers : []) {
   if (!maker.logo || taken.has(maker.id) || (only && maker.id !== only)) continue;
   const { logo, ...rest } = maker;
   writeRecord(RECORDS_DIR, "manufacturers", maker.id, Manufacturer.parse(rest));
