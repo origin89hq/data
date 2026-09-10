@@ -1,9 +1,0 @@
-{
-  "id": "victron-energy-150-1007--dimensions-h-x-w-x-d",
-  "model": "victron-energy-150-1007",
-  "name": "Dimensions (h x w x d)",
-  "value": "Tr models: 216 x 295 x 103mmMC4 models: 246 x 295 x 103mm",
-  "source": "doc-a08e004abb7badfb9ca55abb38ecb534",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

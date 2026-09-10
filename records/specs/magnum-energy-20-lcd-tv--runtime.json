@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-20-lcd-tv--runtime",
+  "model": "magnum-energy-20-lcd-tv",
+  "name": "runtime",
+  "value": "11.5",
+  "unit": "h",
+  "source": "doc-e7c1a12e59e951e52bb96998ad6a5492",
+  "page": 28,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

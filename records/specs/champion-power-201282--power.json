@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201282--power",
+  "model": "champion-power-201282",
+  "name": "Power",
+  "value": "4000",
+  "unit": "W",
+  "source": "doc-0427988c28ee34744303085d33a1dbc6",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

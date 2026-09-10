@@ -3,8 +3,8 @@
   "model": "energizer-solar-hp-6m-3s",
   "name": "Dimensions",
   "value": "1244/1098/183 mm",
-  "source": "doc-c5339a3854dcd025325dcfea9e57b597",
+  "source": "doc-530a83fbaadea0b813c6d68f370d2600",
+  "page": 4,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "page": 7,
   "confidence": "vendor-doc"
 }

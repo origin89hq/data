@@ -1,0 +1,10 @@
+{
+  "id": "noco-ax65--mode-air-manuel",
+  "model": "noco-ax65",
+  "name": "Mode Air manuel",
+  "value": "0,0",
+  "source": "doc-7cd619ec8cb5a7083981933be601e7a3",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-shs-10--low-voltage-disconnect",
+  "model": "morningstar-shs-10",
+  "name": "Low Voltage Disconnect",
+  "value": "11.5",
+  "unit": "V",
+  "source": "doc-5fe0ccd3c33c0523554389eaa09ab6f4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

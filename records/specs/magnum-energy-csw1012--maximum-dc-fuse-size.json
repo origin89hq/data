@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-csw1012--maximum-dc-fuse-size",
+  "model": "magnum-energy-csw1012",
+  "name": "Maximum DC Fuse Size",
+  "value": "150 amps with time delay",
+  "source": "doc-abb867ed73e7670deecec56a23da42cc",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

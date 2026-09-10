@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-msk-135--rated-power",
+  "model": "samlex-america-msk-135",
+  "name": "Rated power",
+  "value": "135",
+  "unit": "W",
+  "source": "doc-2d91135ec9fecfb8f02f4aaac737bcda",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

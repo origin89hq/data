@@ -1,9 +1,0 @@
-{
-  "id": "magnum-energy-win-12w6r3t--relay-transfer-time",
-  "model": "magnum-energy-win-12w6r3t",
-  "name": "Relay Transfer Time",
-  "value": "Less than 60 milliseconds typical",
-  "source": "doc-8ea178f0a52e9d2e41071115652d4fd1",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

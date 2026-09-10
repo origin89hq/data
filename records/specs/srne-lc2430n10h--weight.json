@@ -1,0 +1,9 @@
+{
+  "id": "srne-lc2430n10h--weight",
+  "model": "srne-lc2430n10h",
+  "name": "Weight",
+  "value": "1.2kg (2.65lb)",
+  "source": "doc-6e0bb23a609370429de1a686eb8e8528",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

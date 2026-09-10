@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-multiplus-ii-48-5000-70-50-gx--input-frequency",
+  "model": "victron-energy-multiplus-ii-48-5000-70-50-gx",
+  "name": "Input frequency",
+  "value": "45 – 65 Hz",
+  "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
+  "page": 49,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "xantrex-ms2000--lo-dc-volt",
+  "model": "xantrex-ms2000",
+  "name": "Lo DC Volt",
+  "value": "10.0",
+  "unit": "V",
+  "source": "doc-495564447702e3b0d09d07cbfddea5f2",
+  "page": 71,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

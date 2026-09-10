@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-hbx--grid-disconnect-soc",
+  "model": "outback-power-hbx",
+  "name": "Grid Disconnect SOC",
+  "value": "50% to 100%",
+  "source": "doc-f7787bac8f166d53734533b55e034ae6",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

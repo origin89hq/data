@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201489--gasoline-capacity",
+  "model": "champion-power-201489",
+  "name": "Gasoline Capacity",
+  "value": "4.7",
+  "source": "doc-776ac620b7ebf32bf01c313566978f64",
+  "page": 35,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-7-seg-display-panel--ac-in",
+  "model": "magnum-energy-7-seg-display-panel",
+  "name": "AC In",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-c204665cac0dc20d71b1b22d74f1013e",
+  "page": 33,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

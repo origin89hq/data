@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-adi-24m11--output-voltage-volts-dc",
+  "model": "magnum-energy-adi-24m11",
+  "name": "Output Voltage (Volts DC)",
+  "value": "Regulated and temperature compensated end of charge at 27.6",
+  "source": "doc-7c08d06a1be637fbe334d312f6dccdff",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

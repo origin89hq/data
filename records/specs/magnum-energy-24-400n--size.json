@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-24-400n--size",
+  "model": "magnum-energy-24-400n",
+  "name": "Size",
+  "value": "12.5\" x 6\" x 5\"",
+  "source": "doc-2ab491e8810dd0b326ad2bc5a5b1b3ac",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,9 +1,0 @@
-{
-  "id": "watersprint-arrow-max-home-10k--connection-size-and-type",
-  "model": "watersprint-arrow-max-home-10k",
-  "name": "Connection size and type",
-  "value": "Inlet: 3/4‘” FNPTOutlet: 3/4‘” MNPT",
-  "source": "doc-a8e914a602727a8061c4379fbb15439d",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

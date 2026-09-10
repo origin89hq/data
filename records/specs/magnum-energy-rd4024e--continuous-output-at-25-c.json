@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-rd4024e--continuous-output-at-25-c",
+  "model": "magnum-energy-rd4024e",
+  "name": "Continuous Output at 25°C",
+  "value": "105",
+  "unit": "A",
+  "source": "doc-59913717517cfc30d8016a9d401af737",
+  "page": 44,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "srne-asp48160uh3--battery-type",
+  "model": "srne-asp48160uh3",
+  "name": "Battery Type",
+  "value": "Lead-Acid Battery / Lithium-Ion Battery / User Defined",
+  "source": "doc-c66577858b57e36ab9434bda68cbf999",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "outback-power-gs8048--ac-output-voltage",
+  "model": "outback-power-gs8048",
+  "name": "AC Output Voltage",
+  "value": "120/240VAC",
+  "source": "doc-4b3051ab19029ab9f768921db0921099",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

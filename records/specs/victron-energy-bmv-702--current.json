@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-bmv-702--current",
+  "model": "victron-energy-bmv-702",
+  "name": "Current",
+  "value": "± 0.01A",
+  "source": "doc-ef2f7dced74eb8effae599078724a2e5",
+  "page": 55,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

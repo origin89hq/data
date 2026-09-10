@@ -1,0 +1,9 @@
+{
+  "id": "srne-mf48100n50--dimensions",
+  "model": "srne-mf48100n50",
+  "name": "Dimensions",
+  "value": "440*340*124mm",
+  "source": "doc-e89c2dad95a7f0d406b56c2220eef102",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

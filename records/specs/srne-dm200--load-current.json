@@ -1,0 +1,10 @@
+{
+  "id": "srne-dm200--load-current",
+  "model": "srne-dm200",
+  "name": "Load current",
+  "value": "50mA　 6600mA",
+  "source": "doc-3dbe47a45a0a541f0603f5ea2a08a2fb",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

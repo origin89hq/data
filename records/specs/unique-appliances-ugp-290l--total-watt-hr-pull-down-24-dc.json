@@ -4,7 +4,7 @@
   "name": "Total Watt Hr. Pull Down (24 DC)",
   "value": "604 Wh/24hrs",
   "source": "doc-9bcc835ee16f5f3131b2c08dbbe935fc",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

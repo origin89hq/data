@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-emc-1--dimensions",
+  "model": "morningstar-emc-1",
+  "name": "Dimensions",
+  "value": "15.3 x 8.60 x 3.0 cm",
+  "source": "doc-adf516f58956bd6c9353392aad42fd1b",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

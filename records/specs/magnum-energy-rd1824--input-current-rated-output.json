@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-rd1824--input-current-rated-output",
+  "model": "magnum-energy-rd1824",
+  "name": "Input Current - Rated Output",
+  "value": "15",
+  "source": "doc-a15d7fa6c3003adeec0d1f7c7304a558",
+  "page": 48,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

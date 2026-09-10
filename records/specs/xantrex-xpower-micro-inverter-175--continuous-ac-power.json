@@ -1,0 +1,9 @@
+{
+  "id": "xantrex-xpower-micro-inverter-175--continuous-ac-power",
+  "model": "xantrex-xpower-micro-inverter-175",
+  "name": "Continuous AC power",
+  "value": "140 watts or less",
+  "source": "doc-fec1d130f2559ea6fb71249462ff60b6",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

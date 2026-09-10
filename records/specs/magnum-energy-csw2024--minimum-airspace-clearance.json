@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-csw2024--minimum-airspace-clearance",
+  "model": "magnum-energy-csw2024",
+  "name": "Minimum airspace clearance",
+  "value": "3\" (7.6 cm)",
+  "source": "doc-5d23b565fc01f5a55cbdfd6fa7d6ca63",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

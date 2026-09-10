@@ -1,0 +1,11 @@
+{
+  "id": "east-penn-ht125-33--max-charge-current",
+  "model": "east-penn-ht125-33",
+  "name": "Max. Charge Current",
+  "value": "352",
+  "unit": "A",
+  "source": "doc-3f647cc98401cd9fe55494ba874140a4",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

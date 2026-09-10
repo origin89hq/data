@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-itr040252042--input-voltage",
+  "model": "victron-energy-itr040252042",
+  "name": "Input voltage",
+  "value": "115/230VAC",
+  "source": "doc-f18f9c07d3a132dd81ee8dcba040cfa7",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

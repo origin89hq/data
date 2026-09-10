@@ -1,0 +1,9 @@
+{
+  "id": "outback-power-pnl-50d-ac-120-240--voltage",
+  "model": "outback-power-pnl-50d-ac-120-240",
+  "name": "Voltage",
+  "value": "120/240VAC",
+  "source": "doc-24699452c2da04a92cceb392139ea3d1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

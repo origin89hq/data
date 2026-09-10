@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-fwpv-12--maximum-pv-array-fuse-rating",
+  "model": "outback-power-fwpv-12",
+  "name": "Maximum PV array fuse rating",
+  "value": "15 amp/600 VDC",
+  "source": "doc-f6906163939daa9276e5f80c172ea95f",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

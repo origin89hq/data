@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-12avr145et--nominal-voltage",
+  "model": "east-penn-12avr145et",
+  "name": "Nominal Voltage",
+  "value": "12-Volts",
+  "source": "doc-2625df763b9b311843c42567bade4765",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

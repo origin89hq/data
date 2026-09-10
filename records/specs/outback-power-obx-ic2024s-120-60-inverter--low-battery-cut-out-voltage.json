@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-obx-ic2024s-120-60-inverter--low-battery-cut-out-voltage",
+  "model": "outback-power-obx-ic2024s-120-60-inverter",
+  "name": "LOW BATTERY CUT-OUT VOLTAGE",
+  "value": "not specified",
+  "source": "doc-110cda8af19121ddd70a826f5f1c1fcc",
+  "page": 28,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "pentair-hpgr200--maximum-stator-temperature",
+  "model": "pentair-hpgr200",
+  "name": "Maximum Stator Temperature",
+  "value": "130",
+  "source": "doc-eb3fd76a2b590aa88c89226f9f9ddeda",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

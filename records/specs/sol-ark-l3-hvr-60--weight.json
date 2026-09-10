@@ -1,0 +1,11 @@
+{
+  "id": "sol-ark-l3-hvr-60--weight",
+  "model": "sol-ark-l3-hvr-60",
+  "name": "Weight",
+  "value": "950",
+  "unit": "kg",
+  "source": "doc-69d0f66662e6db78b44496fead97c2e2",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

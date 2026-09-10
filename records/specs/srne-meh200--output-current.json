@@ -1,0 +1,10 @@
+{
+  "id": "srne-meh200--output-current",
+  "model": "srne-meh200",
+  "name": "Output current",
+  "value": "50mA～5600mA",
+  "source": "doc-75077a09f7e5d9c323659eb6e1106063",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

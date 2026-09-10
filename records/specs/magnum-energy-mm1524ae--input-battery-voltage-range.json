@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-mm1524ae--input-battery-voltage-range",
+  "model": "magnum-energy-mm1524ae",
+  "name": "Input battery voltage range",
+  "value": "18 to 32 VDC",
+  "source": "doc-48882fa88ab64f9231fd416f82425d7c",
+  "page": 38,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

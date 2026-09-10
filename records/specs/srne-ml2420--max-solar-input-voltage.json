@@ -1,0 +1,11 @@
+{
+  "id": "srne-ml2420--max-solar-input-voltage",
+  "model": "srne-ml2420",
+  "name": "Max. solar input voltage",
+  "value": "100",
+  "unit": "V",
+  "source": "doc-4d63c5a2bc3fda1eadb6226ba8bf469e",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

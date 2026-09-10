@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-skybox-sbx5048-120-240--maximum-input-voltage",
+  "model": "outback-power-skybox-sbx5048-120-240",
+  "name": "Maximum input voltage",
+  "value": "600",
+  "unit": "V",
+  "source": "doc-5e79e2c2ee4068b9e9360b231625f40b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

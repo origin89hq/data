@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-vm-3p75ct--altitude",
+  "model": "victron-energy-vm-3p75ct",
+  "name": "Altitude",
+  "value": "2000 m (6562 ft)",
+  "source": "doc-b85efd37542ae0ac61967de6d4c474f3",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

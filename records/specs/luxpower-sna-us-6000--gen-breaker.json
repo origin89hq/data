@@ -1,0 +1,9 @@
+{
+  "id": "luxpower-sna-us-6000--gen-breaker",
+  "model": "luxpower-sna-us-6000",
+  "name": "GEN breaker",
+  "value": "50A/230V/AC",
+  "source": "doc-4425db27fb0f68923853724329009041",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

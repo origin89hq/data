@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-emc-1--maximum-self-consumption",
+  "model": "morningstar-emc-1",
+  "name": "Maximum Self-consumption",
+  "value": "2",
+  "unit": "W",
+  "source": "doc-adf516f58956bd6c9353392aad42fd1b",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

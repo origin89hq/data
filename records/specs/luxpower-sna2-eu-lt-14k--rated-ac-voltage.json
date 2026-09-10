@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna2-eu-lt-14k--rated-ac-voltage",
+  "model": "luxpower-sna2-eu-lt-14k",
+  "name": "Rated AC voltage",
+  "value": "230",
+  "unit": "V",
+  "source": "doc-0fb3b6d24054ca6e6382410b593f6648",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

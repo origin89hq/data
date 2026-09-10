@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-br-dc100-bm--recommended-torque",
+  "model": "magnum-energy-br-dc100-bm",
+  "name": "Recommended Torque",
+  "value": "35 in. lbs.",
+  "source": "doc-582a636cf5ce69705407bd13695efe33",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

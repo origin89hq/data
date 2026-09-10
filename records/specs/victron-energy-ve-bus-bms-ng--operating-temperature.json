@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-ve-bus-bms-ng--operating-temperature",
+  "model": "victron-energy-ve-bus-bms-ng",
+  "name": "Operating temperature",
+  "value": "-20 to +50 °C",
+  "source": "doc-a9a3a94bb984445b806be4daf53ba3e8",
+  "page": 30,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

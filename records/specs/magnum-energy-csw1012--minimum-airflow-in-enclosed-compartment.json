@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-csw1012--minimum-airflow-in-enclosed-compartment",
+  "model": "magnum-energy-csw1012",
+  "name": "Minimum airflow in enclosed compartment",
+  "value": "59 cfm",
+  "source": "doc-1d17c93430369e55a57f023cd179bde0",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

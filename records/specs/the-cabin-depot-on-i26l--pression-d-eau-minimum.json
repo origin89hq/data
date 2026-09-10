@@ -5,7 +5,7 @@
   "value": "15",
   "unit": "psi",
   "source": "doc-8364bd1e2dbdabf0e64d513b1ff13f4f",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "page": 88,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

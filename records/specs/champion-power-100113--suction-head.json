@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-100113--suction-head",
+  "model": "champion-power-100113",
+  "name": "Suction Head",
+  "value": "26 ft. (7.9 m)",
+  "source": "doc-e6e49d8cdc34b5735f4e6f9c2287706d",
+  "page": 22,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

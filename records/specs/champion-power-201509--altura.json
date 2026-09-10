@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201509--altura",
+  "model": "champion-power-201509",
+  "name": "Altura",
+  "value": "26 in. (66.1 cm)",
+  "source": "doc-d997a2c00a76170defa7d1fdd28b44b1",
+  "page": 35,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

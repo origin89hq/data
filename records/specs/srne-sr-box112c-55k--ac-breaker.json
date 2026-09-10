@@ -1,0 +1,9 @@
+{
+  "id": "srne-sr-box112c-55k--ac-breaker",
+  "model": "srne-sr-box112c-55k",
+  "name": "AC Breaker",
+  "value": "250A * 4",
+  "source": "doc-3610cd6be34dd35de19dabdea1ebc796",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

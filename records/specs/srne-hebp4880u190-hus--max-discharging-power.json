@@ -1,0 +1,11 @@
+{
+  "id": "srne-hebp4880u190-hus--max-discharging-power",
+  "model": "srne-hebp4880u190-hus",
+  "name": "Max. Discharging Power",
+  "value": "8000",
+  "unit": "W",
+  "source": "doc-528ad5de468b15551255cb5a75fa2bc6",
+  "page": 67,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

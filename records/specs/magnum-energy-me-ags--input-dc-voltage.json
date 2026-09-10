@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-me-ags--input-dc-voltage",
+  "model": "magnum-energy-me-ags",
+  "name": "Input DC Voltage",
+  "value": "12/24/48V",
+  "source": "doc-b10b37c8295b0a08a13e567ae32ac98d",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

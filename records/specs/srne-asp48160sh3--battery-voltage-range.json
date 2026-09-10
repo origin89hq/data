@@ -1,0 +1,10 @@
+{
+  "id": "srne-asp48160sh3--battery-voltage-range",
+  "model": "srne-asp48160sh3",
+  "name": "Battery Voltage Range",
+  "value": "40-60Vdc",
+  "source": "doc-5aed4fb4d801b1348f9fda8464502049",
+  "page": 50,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

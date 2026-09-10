@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-sam-800-12--maximum-continuous-current-draw",
+  "model": "samlex-america-sam-800-12",
+  "name": "Maximum continuous current draw",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-6057a7a186894a280962a77cae5f9c93",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

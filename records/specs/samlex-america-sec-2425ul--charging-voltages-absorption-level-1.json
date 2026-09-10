@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-2425ul--charging-voltages-absorption-level-1",
+  "model": "samlex-america-sec-2425ul",
+  "name": "Charging Voltages Absorption, Level 1",
+  "value": "27.0 ± 0.05VDC",
+  "source": "doc-89bd30b3b437461f2ec212d378a26017",
+  "page": 66,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

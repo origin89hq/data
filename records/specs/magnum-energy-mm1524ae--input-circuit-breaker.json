@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-mm1524ae--input-circuit-breaker",
+  "model": "magnum-energy-mm1524ae",
+  "name": "Input circuit breaker",
+  "value": "20",
+  "unit": "A",
+  "source": "doc-48882fa88ab64f9231fd416f82425d7c",
+  "page": 38,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "srne-ml4860n15--conversion-efficiency",
+  "model": "srne-ml4860n15",
+  "name": "Conversion efficiency",
+  "value": "≤ 98%",
+  "source": "doc-fb6b76ba8d915051c36ed378ff1a812b",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

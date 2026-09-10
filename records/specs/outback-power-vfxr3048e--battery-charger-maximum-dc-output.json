@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-vfxr3048e--battery-charger-maximum-dc-output",
+  "model": "outback-power-vfxr3048e",
+  "name": "Battery Charger Maximum DC Output",
+  "value": "40",
+  "unit": "A",
+  "source": "doc-6b9af970c505a87eca557fa24cbec4e3",
+  "page": 61,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

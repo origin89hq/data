@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-mm1324e--suggested-output-breaker-size",
+  "model": "magnum-energy-mm1324e",
+  "name": "Suggested Output Breaker Size",
+  "value": "15",
+  "unit": "A",
+  "source": "doc-59042192a20fd2fa13de26ecc01ba03d",
+  "page": 25,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

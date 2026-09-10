@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-12np12--motor-starting-rating",
+  "model": "magnum-energy-12np12",
+  "name": "Motor Starting Rating",
+  "value": "1/2",
+  "source": "doc-d289bbfa7fd86d5b767fc9663c46cbe4",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

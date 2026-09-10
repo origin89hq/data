@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-me-sbctm--maximum-storage-temperature",
+  "model": "magnum-energy-me-sbctm",
+  "name": "Maximum Storage Temperature",
+  "value": "-40 to 194F (-40 to 90C)",
+  "source": "doc-3bd9174db7652364c49a66f859be9cc9",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

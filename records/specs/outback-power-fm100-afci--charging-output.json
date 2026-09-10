@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-fm100-afci--charging-output",
+  "model": "outback-power-fm100-afci",
+  "name": "Charging output",
+  "value": "6,000",
+  "unit": "W",
+  "source": "doc-a544c576abcd8306b24190dad52e8dfd",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

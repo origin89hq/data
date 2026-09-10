@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-sunpack-80w--weight",
+  "model": "energizer-solar-sunpack-80w",
+  "name": "Weight",
+  "value": "3",
+  "unit": "kg",
+  "source": "doc-a3e1b4c614c08a72fb212168782cda4c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

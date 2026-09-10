@@ -1,9 +1,0 @@
-{
-  "id": "victron-energy-150-70--self-consumption",
-  "model": "victron-energy-150-70",
-  "name": "Self-consumption",
-  "value": "12V: less than 35mA / 48V: less than 20mA",
-  "source": "doc-a08e004abb7badfb9ca55abb38ecb534",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

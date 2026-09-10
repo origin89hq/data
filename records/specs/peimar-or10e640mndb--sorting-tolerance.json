@@ -1,0 +1,9 @@
+{
+  "id": "peimar-or10e640mndb--sorting-tolerance",
+  "model": "peimar-or10e640mndb",
+  "name": "Sorting Tolerance",
+  "value": "0/+5 W",
+  "source": "doc-b10eb650a20b2d27c30fe0979e21cffd",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

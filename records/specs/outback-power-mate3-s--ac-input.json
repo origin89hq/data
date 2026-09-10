@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-mate3-s--ac-input",
+  "model": "outback-power-mate3-s",
+  "name": "AC INPUT",
+  "value": "115",
+  "unit": "V",
+  "source": "doc-6b3194c1fd365a40d329d9e079822b7e",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "pentair-7fc5-s--overall-dimensions",
+  "model": "pentair-7fc5-s",
+  "name": "Overall Dimensions",
+  "value": "20.75\" H x 3.25\" D (52.7 cm x 8.3 cm)",
+  "source": "doc-6b11d5576908ca167ddf735ffa1f427f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

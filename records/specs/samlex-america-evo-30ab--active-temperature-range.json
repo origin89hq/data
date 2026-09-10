@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-evo-30ab--active-temperature-range",
+  "model": "samlex-america-evo-30ab",
+  "name": "ACTIVE TEMPERATURE RANGE",
+  "value": "-20°C to 50°C",
+  "source": "doc-42f1c27846355778aa506ae7eb22d99c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

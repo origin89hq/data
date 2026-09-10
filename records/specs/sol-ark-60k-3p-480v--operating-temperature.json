@@ -1,9 +1,10 @@
 {
   "id": "sol-ark-60k-3p-480v--operating-temperature",
   "model": "sol-ark-60k-3p-480v",
-  "name": "Operating Temperature",
-  "value": "-40 – 60°C",
-  "source": "doc-fa1fb93d6e74e44d6bcb6a604e403c7e",
+  "name": "Operating temperature",
+  "value": "-40°C to 60°C",
+  "source": "doc-bc0135a643a0f04a6b415b6ff7c18fbe",
+  "page": 7,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

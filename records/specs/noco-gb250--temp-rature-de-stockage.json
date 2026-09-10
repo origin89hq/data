@@ -1,0 +1,11 @@
+{
+  "id": "noco-gb250--temp-rature-de-stockage",
+  "model": "noco-gb250",
+  "name": "Température de stockage",
+  "english": "Storage temperature",
+  "value": "-20ºC à +50°C (temp. moy.)",
+  "source": "doc-12fc201334315c4c41c495ec3ca639b3",
+  "page": 22,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

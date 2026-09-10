@@ -1,0 +1,11 @@
+{
+  "id": "pentair-sc-115--maximum-continuous-working-pressure",
+  "model": "pentair-sc-115",
+  "name": "Maximum Continuous Working Pressure",
+  "value": "3,500",
+  "unit": "psi",
+  "source": "doc-e52fbb13118d95b3ee9c71d320de22f6",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

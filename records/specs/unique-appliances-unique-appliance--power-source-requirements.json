@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-unique-appliance--power-source-requirements",
+  "model": "unique-appliances-unique-appliance",
+  "name": "POWER SOURCE REQUIREMENTS",
+  "value": "240V120Vac/60Hz/50A",
+  "source": "doc-e0d93c43d8af6e89c5ab752e83021da7",
+  "page": 26,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pentair-155h--avg-liquid-velocity-450-rpm-thru-discharge-manifold",
+  "model": "pentair-155h",
+  "name": "Avg. Liquid Velocity @ 450 rpm thru Discharge Manifold",
+  "value": "7.4 fps",
+  "source": "doc-63ede5d11870425ff771c12606630cb5",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

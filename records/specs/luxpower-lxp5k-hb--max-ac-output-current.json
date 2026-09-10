@@ -1,0 +1,11 @@
+{
+  "id": "luxpower-lxp5k-hb--max-ac-output-current",
+  "model": "luxpower-lxp5k-hb",
+  "name": "Max. AC Output Current",
+  "value": "21.7",
+  "unit": "A",
+  "source": "doc-d959ddc2ab2665f97ac299682122cb09",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

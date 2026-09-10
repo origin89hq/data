@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-fxr2012e--power",
+  "model": "outback-power-fxr2012e",
+  "name": "Power",
+  "value": "2.0",
+  "unit": "kVA",
+  "source": "doc-b1a3cb0e21b5ab94de806f436934d036",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-rd4024e--inverter-efficiency",
+  "model": "magnum-energy-rd4024e",
+  "name": "Inverter efficiency",
+  "value": "93",
+  "unit": "%",
+  "source": "doc-59913717517cfc30d8016a9d401af737",
+  "page": 44,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

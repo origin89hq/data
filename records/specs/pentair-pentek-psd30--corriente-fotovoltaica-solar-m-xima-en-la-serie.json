@@ -1,0 +1,11 @@
+{
+  "id": "pentair-pentek-psd30--corriente-fotovoltaica-solar-m-xima-en-la-serie",
+  "model": "pentair-pentek-psd30",
+  "name": "Corriente fotovoltaica solar máxima en la serie",
+  "english": "Maximum solar PV current in series",
+  "value": "9 A por panel solar",
+  "source": "doc-4b1d27aef309608e3654de99f4a58e5a",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

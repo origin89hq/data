@@ -1,0 +1,9 @@
+{
+  "id": "millertech-36v-60ah-lifepo4-millertech-battery--self-discharge-rate",
+  "model": "millertech-36v-60ah-lifepo4-millertech-battery",
+  "name": "SELF DISCHARGE RATE",
+  "value": "< 4% / MONTH",
+  "source": "doc-b6199d0d5d57f25fa37c93a618d9ce68",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

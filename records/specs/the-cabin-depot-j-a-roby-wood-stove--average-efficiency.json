@@ -1,0 +1,10 @@
+{
+  "id": "the-cabin-depot-j-a-roby-wood-stove--average-efficiency",
+  "model": "the-cabin-depot-j-a-roby-wood-stove",
+  "name": "Average efficiency",
+  "value": "76.6",
+  "unit": "%",
+  "source": "doc-ab46fd8414ad6c37df9f6f3d687c74e6",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

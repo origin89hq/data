@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gfx1312e--nominal-dc-amps-derated-125",
+  "model": "outback-power-gfx1312e",
+  "name": "Nominal DC Amps (Derated 125%)",
+  "value": "130",
+  "source": "doc-4a05b854a8c9fb000dde4e785390b357",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

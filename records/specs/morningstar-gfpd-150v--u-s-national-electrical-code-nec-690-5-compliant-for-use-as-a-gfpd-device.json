@@ -1,9 +1,0 @@
-{
-  "id": "morningstar-gfpd-150v--u-s-national-electrical-code-nec-690-5-compliant-for-use-as-a-gfpd-device",
-  "model": "morningstar-gfpd-150v",
-  "name": "U.S. National Electrical Code (NEC) 690.5 Compliant for use as a GFPD device",
-  "value": "Yes",
-  "source": "doc-7a9471416aafe55325ed4cd72bf31cd8",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

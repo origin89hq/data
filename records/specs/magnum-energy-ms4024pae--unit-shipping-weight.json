@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-ms4024pae--unit-shipping-weight",
+  "model": "magnum-energy-ms4024pae",
+  "name": "Unit/Shipping weight",
+  "value": "55 lb (24.9 kg) / 62 lb (28.2 kg)",
+  "source": "doc-90b14882b7428b66e0286aec3f86a08b",
+  "page": 57,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

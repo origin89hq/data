@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-ve-bus-bms-ng--dimension-h-x-w-x-d",
+  "model": "victron-energy-ve-bus-bms-ng",
+  "name": "Dimension (h x w x d)",
+  "value": "23,8 mm x 94,5 mm x 105,5 mm",
+  "source": "doc-a9a3a94bb984445b806be4daf53ba3e8",
+  "page": 30,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { repairMojibake } from "../src/text.ts";
 import { englishName } from "../src/translations.ts";
 import { looksTruncated } from "../src/units.ts";
+import { looksForeign } from "../src/language.ts";
 import { loadRecords } from "../src/records.ts";
 
 const records = loadRecords();
@@ -36,9 +37,25 @@ test("no committed figure carries a fragment as its value or an undecoded accent
 });
 
 test("every figure a maker printed in another language carries the English name beside it", () => {
-  // The printed name stays; this is the aligned name a consumer groups by. A new language reaching
-  // the records without a translation fails here rather than in somebody's query.
-  const foreign = records.specs.filter((s) => /[áéíóúñàèêôçÁÉÍÓÚÑ]/.test(s.name));
-  const missing = foreign.filter((s) => !s.english && !englishName(s.name));
-  assert.deepEqual(missing.map((s) => s.name), [], "these printed names have no English equivalent in src/translations.ts");
+  // The printed name stays; this is the aligned name a consumer groups by. A figure named in
+  // another language with no English beside it cannot be grouped with the same figure in English,
+  // which is the whole point of publishing the table.
+  const foreign = records.specs.filter((s) => looksForeign(s.name));
+  const missing = [...new Set(foreign.filter((s) => !s.english && !englishName(s.name)).map((s) => s.name))];
+  assert.deepEqual(missing, [], "these printed names have no English equivalent in src/translations.ts");
+});
+
+test("a model is never described only in a language nobody can group by", () => {
+  // A multilingual manual states each figure several times. The redundant rows go, so what is left
+  // must be either English or aligned to it, for every model that has any figure at all.
+  const byModel = new Map<string, { english: number; aligned: number; stranded: number }>();
+  for (const spec of records.specs) {
+    const row = byModel.get(spec.model) ?? { english: 0, aligned: 0, stranded: 0 };
+    if (!looksForeign(spec.name)) row.english += 1;
+    else if (spec.english) row.aligned += 1;
+    else row.stranded += 1;
+    byModel.set(spec.model, row);
+  }
+  const stranded = [...byModel].filter(([, row]) => row.stranded > 0).map(([model]) => model);
+  assert.deepEqual(stranded, []);
 });

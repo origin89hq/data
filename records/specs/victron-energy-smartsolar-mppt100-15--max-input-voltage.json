@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-smartsolar-mppt100-15--max-input-voltage",
+  "model": "victron-energy-smartsolar-mppt100-15",
+  "name": "Max Input Voltage",
+  "value": "100",
+  "unit": "V",
+  "source": "doc-2e7fc7951fa26349edd7be50e25e0643",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

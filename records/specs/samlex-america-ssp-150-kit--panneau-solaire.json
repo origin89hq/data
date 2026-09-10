@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-ssp-150-kit--panneau-solaire",
+  "model": "samlex-america-ssp-150-kit",
+  "name": "Panneau Solaire",
+  "value": "150",
+  "unit": "W",
+  "source": "doc-f72ba93f0ca8ecd6b16c6bd31c3e5d58",
+  "page": 28,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

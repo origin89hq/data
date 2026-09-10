@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-12avr100--float-voltage",
+  "model": "east-penn-12avr100",
+  "name": "Float Voltage",
+  "value": "13.50V per battery ± 0.5% @ 77°F (25°C)",
+  "source": "doc-0f14dc1620e1e9653a0b9b493f322b5c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

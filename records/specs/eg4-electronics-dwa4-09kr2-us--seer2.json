@@ -1,0 +1,9 @@
+{
+  "id": "eg4-electronics-dwa4-09kr2-us--seer2",
+  "model": "eg4-electronics-dwa4-09kr2-us",
+  "name": "SEER2",
+  "value": "25.00",
+  "source": "doc-4155970473a7a1dd46cb3a2f9b05e4d0",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

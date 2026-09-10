@@ -1,0 +1,10 @@
+{
+  "id": "srne-meh200-r--boost-charging-voltage-lead-acid",
+  "model": "srne-meh200-r",
+  "name": "Boost charging voltage (lead acid)",
+  "value": "9.00V -17.00V settable; x2/24V",
+  "source": "doc-75077a09f7e5d9c323659eb6e1106063",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

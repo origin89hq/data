@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201463--rated-power",
+  "model": "champion-power-201463",
+  "name": "Rated Power",
+  "value": "6250",
+  "unit": "W",
+  "source": "doc-fe5e2a0560fe99382f113a0d5a71ce77",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

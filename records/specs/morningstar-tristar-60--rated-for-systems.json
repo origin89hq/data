@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-tristar-60--rated-for-systems",
+  "model": "morningstar-tristar-60",
+  "name": "Rated for systems",
+  "value": "12, 24, 48 Vdc systems",
+  "source": "doc-702ce615ba67f91b8517e2943c8a61fc",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

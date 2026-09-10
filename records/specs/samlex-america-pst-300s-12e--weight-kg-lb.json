@@ -1,9 +1,0 @@
-{
-  "id": "samlex-america-pst-300s-12e--weight-kg-lb",
-  "model": "samlex-america-pst-300s-12e",
-  "name": "WEIGHT KG / LB",
-  "value": "9.8 / 21.6",
-  "source": "doc-aee9e0827e07c54b82988dac4adc43ea",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

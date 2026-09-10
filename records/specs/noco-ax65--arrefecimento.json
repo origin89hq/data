@@ -1,0 +1,10 @@
+{
+  "id": "noco-ax65--arrefecimento",
+  "model": "noco-ax65",
+  "name": "Arrefecimento",
+  "value": "Convecção natural",
+  "source": "doc-7cd619ec8cb5a7083981933be601e7a3",
+  "page": 80,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

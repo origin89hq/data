@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ma-155h-hd--max-psi",
+  "model": "pentair-ma-155h-hd",
+  "name": "MAX psi",
+  "value": "3715, 4265, 4946, 5000",
+  "source": "doc-982937007006e56277dee355a02d2f04",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "pentair-b4zrks--npshr",
+  "model": "pentair-b4zrks",
+  "name": "NPSHR",
+  "value": "8",
+  "unit": "ft",
+  "source": "doc-d41e86f4401939f14899953edd68199f",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

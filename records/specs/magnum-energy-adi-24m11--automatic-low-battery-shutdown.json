@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-adi-24m11--automatic-low-battery-shutdown",
+  "model": "magnum-energy-adi-24m11",
+  "name": "Automatic low battery shutdown",
+  "value": "21",
+  "unit": "V",
+  "source": "doc-7c08d06a1be637fbe334d312f6dccdff",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

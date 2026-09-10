@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-8d--battery-ahrs",
+  "model": "magnum-energy-8d",
+  "name": "Battery AHrs",
+  "value": "225 AHrs",
+  "source": "doc-70efe9912b3b9305b43ee3006713dac4",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

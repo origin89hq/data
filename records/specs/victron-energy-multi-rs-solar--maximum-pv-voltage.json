@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-multi-rs-solar--maximum-pv-voltage",
+  "model": "victron-energy-multi-rs-solar",
+  "name": "Maximum PV voltage",
+  "value": "450V DC",
+  "source": "doc-e1ae7450eae21a41f7f792498e3f6aa2",
+  "page": 70,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,9 +1,0 @@
-{
-  "id": "victron-energy-gx-io-extender-150--contact-rating-resistive-load-dc",
-  "model": "victron-energy-gx-io-extender-150",
-  "name": "Contact rating (resistive load) - DC",
-  "value": "3 A @ 30 V, 1 A @ 60 V, 0,3 A @ 220 V (max. 90 W)",
-  "source": "doc-c6c2b554c6df77852e8acc4d0ebfc2f1",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

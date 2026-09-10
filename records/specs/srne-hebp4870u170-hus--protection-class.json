@@ -1,0 +1,10 @@
+{
+  "id": "srne-hebp4870u170-hus--protection-class",
+  "model": "srne-hebp4870u170-hus",
+  "name": "Protection Class",
+  "value": "NEMA 4X",
+  "source": "doc-528ad5de468b15551255cb5a75fa2bc6",
+  "page": 67,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

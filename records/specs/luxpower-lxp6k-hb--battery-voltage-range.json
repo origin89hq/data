@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-lxp6k-hb--battery-voltage-range",
+  "model": "luxpower-lxp6k-hb",
+  "name": "Battery Voltage Range",
+  "value": "90 - 450V.d.c",
+  "source": "doc-d959ddc2ab2665f97ac299682122cb09",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

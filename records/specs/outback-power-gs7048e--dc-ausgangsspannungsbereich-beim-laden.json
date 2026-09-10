@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gs7048e--dc-ausgangsspannungsbereich-beim-laden",
+  "model": "outback-power-gs7048e",
+  "name": "DC-Ausgangsspannungsbereich (beim Laden)",
+  "value": "44 bis 68 VDC",
+  "source": "doc-a6f1fde00f99fc6d5b81ec8f95129fc2",
+  "page": 67,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

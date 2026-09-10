@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-lxp-4k-hybrid--eps-nominal-current",
+  "model": "luxpower-lxp-4k-hybrid",
+  "name": "EPS nominal current",
+  "value": "13",
+  "unit": "A",
+  "source": "doc-c9468be14740afb2b50766463b7405a8",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

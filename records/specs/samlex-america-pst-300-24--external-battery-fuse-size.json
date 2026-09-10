@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-pst-300-24--external-battery-fuse-size",
+  "model": "samlex-america-pst-300-24",
+  "name": "External Battery Fuse Size",
+  "value": "20",
+  "unit": "A",
+  "source": "doc-b2821aedc24b1794f9112ad63830df14",
+  "page": 43,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

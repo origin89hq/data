@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-ctc240--discharge-ratings",
+  "model": "east-penn-ctc240",
+  "name": "Discharge Ratings",
+  "value": "85.2",
+  "source": "doc-fbb4a6400392e7df529a22b56fc1b349",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

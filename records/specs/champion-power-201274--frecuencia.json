@@ -1,0 +1,11 @@
+{
+  "id": "champion-power-201274--frecuencia",
+  "model": "champion-power-201274",
+  "name": "Frecuencia",
+  "value": "60",
+  "unit": "Hz",
+  "source": "doc-f9e9bd5b06c8205653b948c8766f5bf1",
+  "page": 33,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-rs3000--minimum-recommended-cable-size",
+  "model": "xantrex-rs3000",
+  "name": "Minimum Recommended Cable Size",
+  "value": "No. 4/0 AWG",
+  "source": "doc-ba676906c32b170e12ff2950b4072ec3",
+  "page": 28,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

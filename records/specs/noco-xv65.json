@@ -1,0 +1,11 @@
+{
+  "id": "noco-xv65",
+  "model": "noco-xv65",
+  "name": "درجة حرارة التشغيل",
+  "value": "0 إىل 40",
+  "conditions": "درجات حرارة محيطة",
+  "source": "doc-d4f19aba51fd0e487c8d9c0449e4de92",
+  "page": 184,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

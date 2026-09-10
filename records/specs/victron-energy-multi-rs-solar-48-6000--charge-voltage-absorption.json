@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multi-rs-solar-48-6000--charge-voltage-absorption",
+  "model": "victron-energy-multi-rs-solar-48-6000",
+  "name": "Charge voltage 'absorption'",
+  "value": "57,6",
+  "unit": "V",
+  "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
+  "page": 52,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

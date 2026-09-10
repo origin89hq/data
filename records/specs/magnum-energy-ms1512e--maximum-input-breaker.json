@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-ms1512e--maximum-input-breaker",
+  "model": "magnum-energy-ms1512e",
+  "name": "Maximum input breaker",
+  "value": "30A (single pole)",
+  "source": "doc-e9e14e0de522971088c845cbcf8aa242",
+  "page": 26,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

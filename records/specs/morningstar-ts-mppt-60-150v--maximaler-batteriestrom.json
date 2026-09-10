@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-mppt-60-150v--maximaler-batteriestrom",
+  "model": "morningstar-ts-mppt-60-150v",
+  "name": "Maximaler Batteriestrom",
+  "value": "60 Ampere",
+  "source": "doc-364f18ecff8bf9386cfad6ee669de2fe",
+  "page": 30,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-hr3000--discharge-rating-at-1-70-v-p-c-and-1-min",
+  "model": "east-penn-hr3000",
+  "name": "Discharge Rating at 1.70 V.P.C. and 1 MIN.",
+  "value": "924",
+  "source": "doc-4a6baab0bb871e80af4e31c7910222f4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

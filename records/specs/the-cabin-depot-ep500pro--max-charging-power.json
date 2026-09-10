@@ -1,0 +1,11 @@
+{
+  "id": "the-cabin-depot-ep500pro--max-charging-power",
+  "model": "the-cabin-depot-ep500pro",
+  "name": "Max charging power",
+  "value": "3000",
+  "unit": "W",
+  "source": "doc-122fc0cac9e612414fae178c780b8663",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

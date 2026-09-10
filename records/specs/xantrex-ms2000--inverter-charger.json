@@ -1,0 +1,11 @@
+{
+  "id": "xantrex-ms2000--inverter-charger",
+  "model": "xantrex-ms2000",
+  "name": "Inverter/Charger",
+  "value": "2000",
+  "unit": "W",
+  "source": "doc-495564447702e3b0d09d07cbfddea5f2",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

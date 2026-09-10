@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-sec-2440ul--relative-humidity",
+  "model": "samlex-america-sec-2440ul",
+  "name": "RELATIVE HUMIDITY",
+  "value": "Up to 90%, non condensing",
+  "source": "doc-f33fd648e833561e44577eb63ca7ea6a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

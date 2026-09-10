@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-mmsa1012--maximum-dc-fuse-size",
+  "model": "magnum-energy-mmsa1012",
+  "name": "Maximum DC Fuse Size",
+  "value": "150",
+  "unit": "A",
+  "source": "doc-60865693bb309d49ec74819086d84180",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

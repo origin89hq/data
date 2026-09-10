@@ -1,0 +1,11 @@
+{
+  "id": "srne-mpl1215-r--output-current",
+  "model": "srne-mpl1215-r",
+  "name": "Output current",
+  "value": "10",
+  "unit": "A",
+  "source": "doc-ff15d4bee64c0ebcc140f0570e0f252d",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

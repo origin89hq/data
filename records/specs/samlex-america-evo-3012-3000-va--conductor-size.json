@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-3012-3000-va--conductor-size",
+  "model": "samlex-america-evo-3012-3000-va",
+  "name": "Conductor Size",
+  "value": "AWG #8",
+  "source": "doc-23df0d2727e9f35278efcb9ffbc0e9f6",
+  "page": 56,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-obx-ic2024p-230-50--ac-overload-capability-30-minutes",
+  "model": "outback-power-obx-ic2024p-230-50",
+  "name": "AC Overload Capability - 30 Minutes",
+  "value": "3100",
+  "unit": "VA",
+  "source": "doc-0ebaf4052e4975b1e5bc3fab2ab0ac91",
+  "page": 25,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "srne-sr-eos10b--weight",
+  "model": "srne-sr-eos10b",
+  "name": "Weight",
+  "value": "90.5",
+  "unit": "kg",
+  "source": "doc-6055268fc20ea60af0916897ee79c0f2",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

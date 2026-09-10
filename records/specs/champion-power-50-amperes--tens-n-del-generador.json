@@ -1,0 +1,11 @@
+{
+  "id": "champion-power-50-amperes--tens-n-del-generador",
+  "model": "champion-power-50-amperes",
+  "name": "Tensíón del Generador",
+  "english": "Generator voltage",
+  "value": "240 V CA",
+  "source": "doc-d0aab3fee82623dd5eb61033f3638390",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

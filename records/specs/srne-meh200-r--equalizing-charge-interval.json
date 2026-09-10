@@ -1,0 +1,10 @@
+{
+  "id": "srne-meh200-r--equalizing-charge-interval",
+  "model": "srne-meh200-r",
+  "name": "Equalizing charge interval",
+  "value": "1 minute/10 minutes",
+  "source": "doc-75077a09f7e5d9c323659eb6e1106063",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

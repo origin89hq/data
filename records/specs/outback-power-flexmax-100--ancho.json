@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-flexmax-100--ancho",
+  "model": "outback-power-flexmax-100",
+  "name": "Ancho",
+  "value": "22,4",
+  "unit": "cm",
+  "source": "doc-545e5059e2cf4bf222cc323b1f51f252",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

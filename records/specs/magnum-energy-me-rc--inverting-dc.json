@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-me-rc--inverting-dc",
+  "model": "magnum-energy-me-rc",
+  "name": "Inverting DC",
+  "value": "12.6V 50A",
+  "source": "doc-178a63d1bb8785b3f2e49960149ea4a9",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

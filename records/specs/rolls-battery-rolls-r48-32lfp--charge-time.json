@@ -1,0 +1,9 @@
+{
+  "id": "rolls-battery-rolls-r48-32lfp--charge-time",
+  "model": "rolls-battery-rolls-r48-32lfp",
+  "name": "Charge Time",
+  "value": "not given (the text gives a graph of charge time, but does not give the actual values, so not reported here)",
+  "source": "doc-d338d54485ef3d03ef4b8ea4b81e6ce4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

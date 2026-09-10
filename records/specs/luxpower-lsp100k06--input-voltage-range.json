@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-lsp100k06--input-voltage-range",
+  "model": "luxpower-lsp100k06",
+  "name": "Input voltage range",
+  "value": "300-1000V",
+  "source": "doc-e97e6d0ccb26c328fff95ce05ec8c3d8",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "lorex-e842cd--total-darkness",
+  "model": "lorex-e842cd",
+  "name": "Total Darkness",
+  "value": "98ft (30m)",
+  "source": "doc-438013606bf3a85701c2910405f96fc7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

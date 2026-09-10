@@ -1,0 +1,9 @@
+{
+  "id": "srne-hp2430--operating-temperature-range",
+  "model": "srne-hp2430",
+  "name": "Operating Temperature Range",
+  "value": "-25°C ~ +55°C (-13°F ~ 131°F)",
+  "source": "doc-73ee8f5a169ed2fb651295e1892ef758",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

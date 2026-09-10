@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-pro480v-8k--pv-start-voltage",
+  "model": "outback-power-pro480v-8k",
+  "name": "PV start voltage",
+  "value": "200",
+  "unit": "V",
+  "source": "doc-67ea451046845987293d3a58ca025bea",
+  "page": 41,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

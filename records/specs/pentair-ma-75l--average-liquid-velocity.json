@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ma-75l--average-liquid-velocity",
+  "model": "pentair-ma-75l",
+  "name": "Average Liquid Velocity",
+  "value": "3.2 fps",
+  "source": "doc-e52fbb13118d95b3ee9c71d320de22f6",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

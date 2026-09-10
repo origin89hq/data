@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-12001-pst-600-12-24-48-0726--thd",
+  "model": "samlex-america-12001-pst-600-12-24-48-0726",
+  "name": "THD",
+  "value": "<3%",
+  "source": "doc-7d2831d88c0f95a0262a489bc5f4c831",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

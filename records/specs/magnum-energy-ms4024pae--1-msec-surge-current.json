@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-ms4024pae--1-msec-surge-current",
+  "model": "magnum-energy-ms4024pae",
+  "name": "1 msec surge current",
+  "value": "L-N: 120, L-L 70",
+  "unit": "A",
+  "source": "doc-90b14882b7428b66e0286aec3f86a08b",
+  "page": 57,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gs7048e--minimum-voltage",
+  "model": "outback-power-gs7048e",
+  "name": "Minimum Voltage",
+  "value": "200",
+  "unit": "V",
+  "source": "doc-755f68aadbfb1dfde0e2460ddd2ffe01",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

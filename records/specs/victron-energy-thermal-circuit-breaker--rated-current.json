@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-thermal-circuit-breaker--rated-current",
+  "model": "victron-energy-thermal-circuit-breaker",
+  "name": "rated current",
+  "value": "100 AMPERE",
+  "source": "doc-3c840784cccb24bf9c38da111c20e2b0",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

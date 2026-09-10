@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-pro480v-8k--full-power-mppt-range-per-string",
+  "model": "outback-power-pro480v-8k",
+  "name": "Full power MPPT range, per string",
+  "value": "425 to 850 Vdc",
+  "source": "doc-67ea451046845987293d3a58ca025bea",
+  "page": 41,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

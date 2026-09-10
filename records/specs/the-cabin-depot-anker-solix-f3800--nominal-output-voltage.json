@@ -1,0 +1,10 @@
+{
+  "id": "the-cabin-depot-anker-solix-f3800--nominal-output-voltage",
+  "model": "the-cabin-depot-anker-solix-f3800",
+  "name": "Nominal Output Voltage",
+  "value": "120/240V",
+  "source": "doc-dd1a2146cb7759bd3a71a18ab9ae665e",
+  "page": 23,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

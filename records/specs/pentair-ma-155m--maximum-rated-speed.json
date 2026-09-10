@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ma-155m--maximum-rated-speed",
+  "model": "pentair-ma-155m",
+  "name": "Maximum rated speed",
+  "value": "450 rpm",
+  "source": "doc-63ede5d11870425ff771c12606630cb5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

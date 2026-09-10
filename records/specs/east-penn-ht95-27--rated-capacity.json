@@ -1,0 +1,10 @@
+{
+  "id": "east-penn-ht95-27--rated-capacity",
+  "model": "east-penn-ht95-27",
+  "name": "Rated Capacity",
+  "value": "1138",
+  "source": "doc-7285025ce9f0bcb5b68489da924e1733",
+  "page": 79,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

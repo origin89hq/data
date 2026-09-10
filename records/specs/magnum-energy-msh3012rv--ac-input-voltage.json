@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-msh3012rv--ac-input-voltage",
+  "model": "magnum-energy-msh3012rv",
+  "name": "AC input voltage",
+  "value": "90",
+  "unit": "V",
+  "source": "doc-d30af05b560c3d63ebacd99c3ff4abbe",
+  "page": 42,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

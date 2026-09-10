@@ -1,0 +1,11 @@
+{
+  "id": "luxpower-sna-us-600033--max-inv-current",
+  "model": "luxpower-sna-us-600033",
+  "name": "Max inv current",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-cf960ded572aadc4d8ca98068ce9df16",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

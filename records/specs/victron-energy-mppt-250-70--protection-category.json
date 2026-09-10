@@ -2,8 +2,9 @@
   "id": "victron-energy-mppt-250-70--protection-category",
   "model": "victron-energy-mppt-250-70",
   "name": "Protection category",
-  "value": "IP43 (electronic components)IP22 (connection area)",
-  "source": "doc-75ef220cecc3e8483f079f6108e6bb5b",
-  "extractedBy": "table:spec-table@v1",
+  "value": "IP43",
+  "source": "doc-d57c25947d20b07fdaeab0465bc6cf6a",
+  "page": 71,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-color-control-gx--power-supply-voltage-range",
+  "model": "victron-energy-color-control-gx",
+  "name": "Power supply voltage range",
+  "value": "8 – 70V DC",
+  "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
+  "page": 108,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -2,9 +2,9 @@
   "id": "srne-dh60--zero-load-loss",
   "model": "srne-dh60",
   "name": "Zero load loss",
-  "value": "<10mA/12V；<15mA/24V",
+  "value": "<32mA/12V；<38mA/24V",
   "source": "doc-37a3a90d1b0934e893e0c84c7fd372e8",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

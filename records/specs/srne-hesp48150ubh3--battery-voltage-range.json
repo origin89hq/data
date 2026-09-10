@@ -1,0 +1,9 @@
+{
+  "id": "srne-hesp48150ubh3--battery-voltage-range",
+  "model": "srne-hesp48150ubh3",
+  "name": "Battery Voltage Range",
+  "value": "40–60Vdc",
+  "source": "doc-74fe5e734c239b54b682a1ae27f9ac63",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

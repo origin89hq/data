@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-1250ul--charging-voltage-bulk-stage",
+  "model": "samlex-america-sec-1250ul",
+  "name": "Charging Voltage Bulk Stage",
+  "value": "13.5",
+  "unit": "V",
+  "source": "doc-651acd3305eb8788e6455a6845e63705",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

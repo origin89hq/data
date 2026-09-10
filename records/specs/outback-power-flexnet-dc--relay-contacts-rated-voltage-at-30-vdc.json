@@ -1,0 +1,12 @@
+{
+  "id": "outback-power-flexnet-dc--relay-contacts-rated-voltage-at-30-vdc",
+  "model": "outback-power-flexnet-dc",
+  "name": "Relay contacts rated voltage",
+  "value": "30",
+  "unit": "V",
+  "conditions": "at 30 Vdc",
+  "source": "doc-86c93d8b637da705d77f108c2d47395a",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

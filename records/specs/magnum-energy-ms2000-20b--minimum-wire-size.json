@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-ms2000-20b--minimum-wire-size",
+  "model": "magnum-energy-ms2000-20b",
+  "name": "Minimum Wire Size",
+  "value": "#10 AWG",
+  "unit": "in",
+  "source": "doc-7e36ad92c8b99c483d83017d6c378cdb",
+  "page": 51,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

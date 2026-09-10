@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ev9337-44--temperature",
+  "model": "pentair-ev9337-44",
+  "name": "Temperature",
+  "value": "35 - 100°F (2 - 38°C)",
+  "source": "doc-39026b699137369c1c5e932e903c3e9f",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

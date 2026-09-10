@@ -1,0 +1,9 @@
+{
+  "id": "srne-lc2430n10h--battery-voltage",
+  "model": "srne-lc2430n10h",
+  "name": "Battery voltage",
+  "value": "12V/24V",
+  "source": "doc-a5fd2ca443cd73029f1bc15011f7bd34",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "srne-sr-eoc05b-ul--dimension",
+  "model": "srne-sr-eoc05b-ul",
+  "name": "Dimension",
+  "value": "580*440*140mm",
+  "source": "doc-ec18fdf70561880c30afab7e9ae0eeb3",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

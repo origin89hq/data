@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-me-ags--off-delay-time",
+  "model": "magnum-energy-me-ags",
+  "name": "OFF Delay Time",
+  "value": "4",
+  "unit": "s",
+  "source": "doc-5121d66c85ddc6b0f7b048479422dd88",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

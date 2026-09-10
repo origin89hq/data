@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-vfxr3524a--power",
+  "model": "outback-power-vfxr3524a",
+  "name": "Power",
+  "value": "3.5",
+  "unit": "kVA",
+  "source": "doc-314c0bf6c308b6725dc921f30c30fff9",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

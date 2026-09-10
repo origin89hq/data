@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-tristar-mppt-600v--storage-temperature",
+  "model": "morningstar-tristar-mppt-600v",
+  "name": "Storage Temperature",
+  "value": "-55 °C to +85 °C",
+  "source": "doc-420eea28369dfe7d5159e739006c0ff5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-sec-80brm--output-ripple-peak-to-peak",
+  "model": "samlex-america-sec-80brm",
+  "name": "Output Ripple, Peak To Peak",
+  "value": "150",
+  "unit": "mV",
+  "source": "doc-bde0f3bfe26d3bd33a11cbb0bc649efd",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

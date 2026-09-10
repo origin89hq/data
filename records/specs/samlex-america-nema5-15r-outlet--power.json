@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-nema5-15r-outlet--power",
+  "model": "samlex-america-nema5-15r-outlet",
+  "name": "Power",
+  "value": "1725",
+  "unit": "VA",
+  "source": "doc-9e46c2c4fc7a4de5c1fe40c28302a76e",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

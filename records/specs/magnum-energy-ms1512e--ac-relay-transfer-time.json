@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-ms1512e--ac-relay-transfer-time",
+  "model": "magnum-energy-ms1512e",
+  "name": "AC relay transfer time",
+  "value": "16 mSec",
+  "source": "doc-e9e14e0de522971088c845cbcf8aa242",
+  "page": 47,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

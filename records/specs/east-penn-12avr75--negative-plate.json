@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-12avr75--negative-plate",
+  "model": "east-penn-12avr75",
+  "name": "Negative Plate",
+  "value": "Pure lead, calcium alloy",
+  "source": "doc-92b14d456f0dc855a9919d845431f3c1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

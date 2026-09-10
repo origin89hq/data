@@ -1,9 +1,0 @@
-{
-  "id": "morningstar-gfpd-600v--number-of-poles",
-  "model": "morningstar-gfpd-600v",
-  "name": "Number of Poles",
-  "value": "2",
-  "source": "doc-7a9471416aafe55325ed4cd72bf31cd8",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

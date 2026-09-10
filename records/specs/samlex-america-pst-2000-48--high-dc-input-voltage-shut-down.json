@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-pst-2000-48--high-dc-input-voltage-shut-down",
+  "model": "samlex-america-pst-2000-48",
+  "name": "High DC input voltage shut-down",
+  "value": "60",
+  "unit": "V",
+  "source": "doc-c72772bed0c6dcc9ae28dce89166bfe9",
+  "page": 58,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

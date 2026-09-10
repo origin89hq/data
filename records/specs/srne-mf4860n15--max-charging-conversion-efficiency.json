@@ -1,0 +1,9 @@
+{
+  "id": "srne-mf4860n15--max-charging-conversion-efficiency",
+  "model": "srne-mf4860n15",
+  "name": "Max. Charging Conversion Efficiency",
+  "value": "≤98%",
+  "source": "doc-234aa003fa0448e8511f4867023d902e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

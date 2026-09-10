@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-ms4448pae--max-continuous-input-current",
+  "model": "magnum-energy-ms4448pae",
+  "name": "Max. continuous input current",
+  "value": "144",
+  "unit": "A",
+  "source": "doc-90b14882b7428b66e0286aec3f86a08b",
+  "page": 57,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

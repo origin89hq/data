@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-msh3012rv--load-support-current",
+  "model": "magnum-energy-msh3012rv",
+  "name": "Load support current",
+  "value": "60",
+  "unit": "A",
+  "source": "doc-7fa1abfe0df67050065ddf5af1d831dc",
+  "page": 45,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

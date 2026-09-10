@@ -1,0 +1,10 @@
+{
+  "id": "pentair-s8d110--nsf-public-pool-flow-rate",
+  "model": "pentair-s8d110",
+  "name": "NSF Public Pool Flow Rate",
+  "value": "106 (401) GPM (LPM)",
+  "source": "doc-9a40c75488a452445cc2399187dfa9d3",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

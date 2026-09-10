@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-me-ags-s--clock-am-pm",
+  "model": "magnum-energy-me-ags-s",
+  "name": "CLOCK AM/PM",
+  "value": "8",
+  "unit": "A",
+  "source": "doc-710b25c272ace824a0308dbfe86a4469",
+  "page": 23,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-freedom-xc-1800-12vdc--frequency",
+  "model": "xantrex-freedom-xc-1800-12vdc",
+  "name": "Frequency",
+  "value": "60 (or 50) Hz",
+  "source": "doc-ded9b3d04a9dd3e5385bb5596a4d6c55",
+  "page": 83,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

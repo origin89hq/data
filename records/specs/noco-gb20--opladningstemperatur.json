@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb20--opladningstemperatur",
+  "model": "noco-gb20",
+  "name": "Opladningstemperatur",
+  "value": "0°C til +40°C",
+  "source": "doc-21526244bd4f28f887cfb062e04edaf0",
+  "page": 74,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

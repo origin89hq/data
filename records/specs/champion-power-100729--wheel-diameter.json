@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-100729--wheel-diameter",
+  "model": "champion-power-100729",
+  "name": "Wheel Diameter",
+  "value": "14 in. (35.5 cm)",
+  "source": "doc-138d837f3335498acd0e09b15f51058b",
+  "page": 27,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

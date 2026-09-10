@@ -1,0 +1,10 @@
+{
+  "id": "pentair-fps-10-system--temperature",
+  "model": "pentair-fps-10-system",
+  "name": "Temperature",
+  "value": "40-100°F (4.4-37.8°C)",
+  "source": "doc-2f52d26f45b91306bb077199ada56783",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

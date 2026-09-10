@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-vfxr3648a--array-wattage",
+  "model": "outback-power-vfxr3648a",
+  "name": "Array Wattage",
+  "value": "1000",
+  "source": "doc-030638d1c39d5bffb3e6e9f03aa68ed3",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

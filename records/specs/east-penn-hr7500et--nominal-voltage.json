@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-hr7500et--nominal-voltage",
+  "model": "east-penn-hr7500et",
+  "name": "Nominal Voltage",
+  "value": "12-Volts",
+  "source": "doc-37aac781062280568bd080c1190a3113",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ma-155l--weight",
+  "model": "pentair-ma-155l",
+  "name": "Weight",
+  "value": "2680",
+  "unit": "lb",
+  "source": "doc-63ede5d11870425ff771c12606630cb5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

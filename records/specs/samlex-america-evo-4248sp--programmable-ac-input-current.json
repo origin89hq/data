@@ -3,7 +3,7 @@
   "model": "samlex-america-evo-4248sp",
   "name": "PROGRAMMABLE AC INPUT CURRENT",
   "value": "5 - 30A",
-  "source": "doc-f3a1815bce782c710df32d6b6bb58feb",
+  "source": "doc-6d4b2ef12a981a4b92af6d7dd6c47cd4",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

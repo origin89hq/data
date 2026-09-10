@@ -1,0 +1,9 @@
+{
+  "id": "srne-hesp48160ubh3--input-frequency-range",
+  "model": "srne-hesp48160ubh3",
+  "name": "Input Frequency Range",
+  "value": "50/60Hz",
+  "source": "doc-74fe5e734c239b54b682a1ae27f9ac63",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

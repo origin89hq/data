@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-force-9-9ht--max-mppt-short-circuit-current",
+  "model": "energizer-solar-force-9-9ht",
+  "name": "Max. MPPT Short Circuit Current",
+  "value": "25/25/25",
+  "source": "doc-d1b544c417a120cd7088da098339d437",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

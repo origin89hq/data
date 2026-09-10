@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-xpower--ambient-operating-temperature-range",
+  "model": "xantrex-xpower",
+  "name": "Ambient operating temperature range",
+  "value": "0 ±⁰C–40 ±⁰C",
+  "source": "doc-7d3686766955e5405f7f092061d97e7f",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

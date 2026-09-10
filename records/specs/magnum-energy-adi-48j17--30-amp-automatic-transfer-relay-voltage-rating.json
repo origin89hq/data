@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-adi-48j17--30-amp-automatic-transfer-relay-voltage-rating",
+  "model": "magnum-energy-adi-48j17",
+  "name": "30 AMP AUTOMATIC TRANSFER RELAY Voltage Rating",
+  "value": "240",
+  "unit": "V",
+  "source": "doc-019f2332e07e456037fc2191cf520ee9",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

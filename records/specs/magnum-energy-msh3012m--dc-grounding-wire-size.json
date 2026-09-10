@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-msh3012m--dc-grounding-wire-size",
+  "model": "magnum-energy-msh3012m",
+  "name": "DC Grounding Wire Size",
+  "value": "#6 AWG (13.3 mm2)",
+  "source": "doc-4060c3f17cf8fdb351afd2eafcbc24a4",
+  "page": 23,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-ensp54ndgt2445--open-circuit-voltage-voc-at-stc",
+  "model": "energizer-solar-ensp54ndgt2445",
+  "name": "Open circuit voltage (Voc) at STC",
+  "value": "40.27",
+  "unit": "V",
+  "source": "doc-547c993041231447083492d7f12dd7a8",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

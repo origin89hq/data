@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-ms4448pae--inverting",
+  "model": "magnum-energy-ms4448pae",
+  "name": "Inverting",
+  "value": "48.0Vdc 24Adc",
+  "source": "doc-b580b209a0560cc778747fadfd894bbd",
+  "page": 47,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

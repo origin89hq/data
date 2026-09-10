@@ -1,0 +1,9 @@
+{
+  "id": "noco-xc1--data-rate",
+  "model": "noco-xc1",
+  "name": "DATA RATE",
+  "value": "480 Mbps",
+  "source": "doc-4d123cff48cc54c686d49545507cf34e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

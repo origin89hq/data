@@ -1,0 +1,10 @@
+{
+  "id": "pentair-5812-1-25-ft3--resin-volume",
+  "model": "pentair-5812-1-25-ft3",
+  "name": "Resin Volume",
+  "value": "1.25 ft3",
+  "source": "doc-557a66ea229e80b824d6c846e05420ba",
+  "page": 46,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

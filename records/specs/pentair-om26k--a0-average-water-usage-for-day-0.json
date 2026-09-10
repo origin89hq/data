@@ -1,0 +1,10 @@
+{
+  "id": "pentair-om26k--a0-average-water-usage-for-day-0",
+  "model": "pentair-om26k",
+  "name": "A0 Average water usage for day 0",
+  "value": "no value given",
+  "source": "doc-e94ba6bdcf0826ae0549b4b473eb1683",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "millertech-36v-60ah-lifepo4-millertech-battery--charge-temperature-range",
+  "model": "millertech-36v-60ah-lifepo4-millertech-battery",
+  "name": "CHARGE TEMPERATURE RANGE",
+  "value": "25-131°F",
+  "source": "doc-b6199d0d5d57f25fa37c93a618d9ce68",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-hrc800--float-voltage",
+  "model": "east-penn-hrc800",
+  "name": "Float Voltage",
+  "value": "13.50V per battery ± 0.5% @ 77°F (25°C)",
+  "source": "doc-2ed66d05fe6edc6580dafa06ee677b5b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

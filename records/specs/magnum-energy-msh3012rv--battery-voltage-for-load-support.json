@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-msh3012rv--battery-voltage-for-load-support",
+  "model": "magnum-energy-msh3012rv",
+  "name": "Battery voltage for load support",
+  "value": "≥0.5 volts above the LBCO setting",
+  "source": "doc-7fa1abfe0df67050065ddf5af1d831dc",
+  "page": 45,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

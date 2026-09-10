@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-northstar-nsb190ft-blue--12v-ampere-hour-capacity",
+  "model": "outback-power-northstar-nsb190ft-blue",
+  "name": "12V Ampere Hour Capacity",
+  "value": "134.9, 152.2, 160.7, 166.2, 170.4, 179.5, 184.2, 202.4, 202.4, unit:",
+  "source": "doc-c0e23d5e42fba70ed8abc2015d8822e0",
+  "page": 25,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

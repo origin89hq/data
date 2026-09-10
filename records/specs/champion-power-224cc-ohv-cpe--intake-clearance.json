@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-224cc-ohv-cpe--intake-clearance",
+  "model": "champion-power-224cc-ohv-cpe",
+  "name": "Intake Clearance",
+  "value": "0.0039-0.0059 in. (0.10-0.15 mm)",
+  "source": "doc-0526e32da2ad895c9c6c250e0f9a5547",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

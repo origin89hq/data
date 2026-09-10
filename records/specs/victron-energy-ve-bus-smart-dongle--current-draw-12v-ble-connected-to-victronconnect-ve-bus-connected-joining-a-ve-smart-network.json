@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-ve-bus-smart-dongle--current-draw-12v-ble-connected-to-victronconnect-ve-bus-connected-joining-a-ve-smart-network",
+  "model": "victron-energy-ve-bus-smart-dongle",
+  "name": "Current draw (@12V) BLE connected to VictronConnect, VE.Bus connected Joining a VE.Smart network",
+  "value": "<9mA",
+  "source": "doc-f8bc6237e1d4723fc3107f0068c5e398",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

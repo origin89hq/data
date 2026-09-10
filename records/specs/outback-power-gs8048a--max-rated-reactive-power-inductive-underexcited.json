@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gs8048a--max-rated-reactive-power-inductive-underexcited",
+  "model": "outback-power-gs8048a",
+  "name": "Max rated reactive Power (inductive, underexcited)",
+  "value": "-4320 VAr",
+  "source": "doc-dcbd246ed4a1bd3988f688bd04c13e7c",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

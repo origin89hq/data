@@ -1,0 +1,9 @@
+{
+  "id": "pentair-wgx20--discharge-npt",
+  "model": "pentair-wgx20",
+  "name": "Discharge, NPT",
+  "value": "1-1⁄4 in.",
+  "source": "doc-4a98b79bfc14dfe399d0ec1d318e4862",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sdc-15--operating-temperature-range",
+  "model": "samlex-america-sdc-15",
+  "name": "OPERATING TEMPERATURE RANGE",
+  "value": "0 - 40°C / 32 - 104°F",
+  "source": "doc-03617752e43b9339337a2140e23a57af",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

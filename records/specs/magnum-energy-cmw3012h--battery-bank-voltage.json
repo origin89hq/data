@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-cmw3012h--battery-bank-voltage",
+  "model": "magnum-energy-cmw3012h",
+  "name": "Battery bank voltage",
+  "value": "10.5-15.5",
+  "source": "doc-e7c1a12e59e951e52bb96998ad6a5492",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201445--spark-plug-gap",
+  "model": "champion-power-201445",
+  "name": "Spark Plug Gap",
+  "value": "0.024-0.031",
+  "source": "doc-92e681899c9658a3f3a8fdcabd688559",
+  "page": 34,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

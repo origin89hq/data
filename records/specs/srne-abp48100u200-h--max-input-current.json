@@ -1,0 +1,9 @@
+{
+  "id": "srne-abp48100u200-h--max-input-current",
+  "model": "srne-abp48100u200-h",
+  "name": "Max. Input Current",
+  "value": "22/22A",
+  "source": "doc-b253e0aed4feaeae4ee86b1b7bd20255",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

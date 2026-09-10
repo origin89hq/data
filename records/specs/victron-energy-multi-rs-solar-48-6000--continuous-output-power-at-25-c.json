@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-multi-rs-solar-48-6000--continuous-output-power-at-25-c",
+  "model": "victron-energy-multi-rs-solar-48-6000",
+  "name": "Continuous output power at 25 °C",
+  "value": "4800 - 5300 W",
+  "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
+  "page": 52,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

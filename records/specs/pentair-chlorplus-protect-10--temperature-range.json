@@ -2,8 +2,8 @@
   "id": "pentair-chlorplus-protect-10--temperature-range",
   "model": "pentair-chlorplus-protect-10",
   "name": "Temperature Range",
-  "value": "40° - 100°F",
-  "source": "doc-ec671d29ef13598fd0c86129616fa3dc",
+  "value": "40–100°F (4.4–37.7°C)",
+  "source": "doc-04d7cfc138c01174b5f28518e2a27301",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

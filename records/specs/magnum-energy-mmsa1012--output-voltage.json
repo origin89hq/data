@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-mmsa1012--output-voltage",
+  "model": "magnum-energy-mmsa1012",
+  "name": "Output Voltage",
+  "value": "120-volt",
+  "source": "doc-60865693bb309d49ec74819086d84180",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

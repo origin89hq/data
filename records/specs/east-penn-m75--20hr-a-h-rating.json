@@ -1,0 +1,10 @@
+{
+  "id": "east-penn-m75--20hr-a-h-rating",
+  "model": "east-penn-m75",
+  "name": "20HR. A.H. Rating",
+  "value": "184",
+  "source": "doc-cc38591f8f35dc866f6d5735315b53d0",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

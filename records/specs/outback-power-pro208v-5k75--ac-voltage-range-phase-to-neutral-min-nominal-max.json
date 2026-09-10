@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-pro208v-5k75--ac-voltage-range-phase-to-neutral-min-nominal-max",
+  "model": "outback-power-pro208v-5k75",
+  "name": "AC voltage range, phase to neutral (min / nominal / max)",
+  "value": "106 / 120 / 132 V",
+  "source": "doc-d4b9114284d2fc0da4b61c00c23661e7",
+  "page": 41,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-discover-aes--battery-total-amp-hours",
+  "model": "outback-power-discover-aes",
+  "name": "Battery Total Amp-Hours",
+  "value": "130 × (Number of Batteries)",
+  "source": "doc-378db370a1c7648d49caf9eb96824748",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-kp-15s--monitored-battery-bank-voltage",
+  "model": "magnum-energy-kp-15s",
+  "name": "Monitored battery bank voltage",
+  "value": "12/24/48V",
+  "source": "doc-382a6d9d471a10adeffb7c026105de11",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

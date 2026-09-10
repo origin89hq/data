@@ -1,9 +1,0 @@
-{
-  "id": "magnum-energy-csw-ts15--tungsten-filament-load",
-  "model": "magnum-energy-csw-ts15",
-  "name": "Tungsten filament load",
-  "value": "not to exceed 30% of switch rating (4.5 AAC)",
-  "source": "doc-fa9f8e81e67af1bab01df3efce3d423f",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

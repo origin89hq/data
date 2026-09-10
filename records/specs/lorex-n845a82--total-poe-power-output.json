@@ -1,0 +1,10 @@
+{
+  "id": "lorex-n845a82--total-poe-power-output",
+  "model": "lorex-n845a82",
+  "name": "Total PoE Power Output",
+  "value": "PoE: Max 25.5W for single port,72W total",
+  "source": "doc-a77987d436409e8ee6bdca32fc554d1a",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

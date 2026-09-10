@@ -1,0 +1,11 @@
+{
+  "id": "luxpower-li-5--system-energy",
+  "model": "luxpower-li-5",
+  "name": "System Energy",
+  "value": "5.12",
+  "unit": "kWh",
+  "source": "doc-be31bb7aba4e0569191775c986a84d90",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

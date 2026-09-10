@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-bmv-712-smart--battery-capacity",
+  "model": "victron-energy-bmv-712-smart",
+  "name": "Battery capacity",
+  "value": "1 - 9999 Ah",
+  "unit": "Ah",
+  "source": "doc-2375e9a6ed181d8a7987453c98e92412",
+  "page": 83,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

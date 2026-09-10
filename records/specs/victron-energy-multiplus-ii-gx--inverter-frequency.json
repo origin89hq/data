@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multiplus-ii-gx--inverter-frequency",
+  "model": "victron-energy-multiplus-ii-gx",
+  "name": "Inverter frequency",
+  "value": "50",
+  "unit": "Hz",
+  "source": "doc-00676a15f342c943f610ab6fefeac16d",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

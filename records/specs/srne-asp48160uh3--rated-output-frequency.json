@@ -1,0 +1,10 @@
+{
+  "id": "srne-asp48160uh3--rated-output-frequency",
+  "model": "srne-asp48160uh3",
+  "name": "Rated Output Frequency",
+  "value": "50/60Hz",
+  "source": "doc-71f23a4d5114065ab243f984205d0078",
+  "page": 48,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

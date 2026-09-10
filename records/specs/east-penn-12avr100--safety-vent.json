@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-12avr100--safety-vent",
+  "model": "east-penn-12avr100",
+  "name": "Safety Vent",
+  "value": "Low positive pressure,self-sealing w/ flame arrestor",
+  "source": "doc-0f14dc1620e1e9653a0b9b493f322b5c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

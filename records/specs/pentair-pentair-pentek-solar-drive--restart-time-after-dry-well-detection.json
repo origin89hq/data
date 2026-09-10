@@ -1,0 +1,11 @@
+{
+  "id": "pentair-pentair-pentek-solar-drive--restart-time-after-dry-well-detection",
+  "model": "pentair-pentair-pentek-solar-drive",
+  "name": "Restart time after dry well detection",
+  "value": "30",
+  "unit": "min",
+  "source": "doc-ad792b6bb4700d48e2ae347798e185bb",
+  "page": 43,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-mm1324e--30-min-surge-power",
+  "model": "magnum-energy-mm1324e",
+  "name": "30 min surge power",
+  "value": "1650",
+  "source": "doc-59042192a20fd2fa13de26ecc01ba03d",
+  "page": 38,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

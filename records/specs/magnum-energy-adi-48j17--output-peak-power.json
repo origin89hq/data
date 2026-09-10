@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-adi-48j17--output-peak-power",
+  "model": "magnum-energy-adi-48j17",
+  "name": "Output Peak Power",
+  "value": "53 Amps AC",
+  "source": "doc-019f2332e07e456037fc2191cf520ee9",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

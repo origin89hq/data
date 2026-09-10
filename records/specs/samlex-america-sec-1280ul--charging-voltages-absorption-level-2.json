@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-1280ul--charging-voltages-absorption-level-2",
+  "model": "samlex-america-sec-1280ul",
+  "name": "Charging Voltages Absorption, Level 2",
+  "value": "14.4 ± 0.05VDC (Default) 14.0 ± 0.05VDC (By DIP Switch setting)",
+  "source": "doc-a0ff036cae0aeae79aaa16d19a5f2a82",
+  "page": 30,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

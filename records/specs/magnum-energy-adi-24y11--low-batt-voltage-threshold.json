@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-adi-24y11--low-batt-voltage-threshold",
+  "model": "magnum-energy-adi-24y11",
+  "name": "Low Batt voltage threshold",
+  "value": "21",
+  "unit": "V",
+  "source": "doc-1eff1af1029a2baaa7dd2c6f2a8bca3f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

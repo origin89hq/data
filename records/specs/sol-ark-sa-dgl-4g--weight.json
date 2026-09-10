@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sa-dgl-4g--weight",
+  "model": "sol-ark-sa-dgl-4g",
+  "name": "Weight",
+  "value": "0.31",
+  "unit": "lb",
+  "source": "doc-d6446ba7cddff20b38dfd67228b21db6",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

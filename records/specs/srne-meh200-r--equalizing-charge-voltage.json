@@ -1,0 +1,10 @@
+{
+  "id": "srne-meh200-r--equalizing-charge-voltage",
+  "model": "srne-meh200-r",
+  "name": "Equalizing charge voltage",
+  "value": "Lead-acid battery: 16V; lithium battery: charging voltage +2V; x2/24V",
+  "source": "doc-75077a09f7e5d9c323659eb6e1106063",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

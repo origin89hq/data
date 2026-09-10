@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-csw2012-x--maximum-tightening-torque",
+  "model": "magnum-energy-csw2012-x",
+  "name": "Maximum tightening torque",
+  "value": "16 lbf-in (1.8 N-m)",
+  "source": "doc-3b79136e8fe45bb7ee697862e442d130",
+  "page": 22,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

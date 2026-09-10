@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-12avr150et--discharge-rating-at-1-75v-3hr",
+  "model": "east-penn-12avr150et",
+  "name": "Discharge Rating at 1.75V, 3HR",
+  "value": "40.6",
+  "source": "doc-f57e10cf730189da911e3da4b09ba5fd",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

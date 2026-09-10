@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-12ue12nr--output-current",
+  "model": "magnum-energy-12ue12nr",
+  "name": "Output Current",
+  "value": "Up to 25* Up to 56",
+  "source": "doc-7cf336a775f507b37f2edef15ae97eca",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

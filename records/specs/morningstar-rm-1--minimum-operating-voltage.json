@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-rm-1--minimum-operating-voltage",
+  "model": "morningstar-rm-1",
+  "name": "Minimum operating voltage",
+  "value": "8",
+  "unit": "V",
+  "source": "doc-4fc632e711c816b451b74db332b75b5c",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

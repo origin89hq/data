@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-fx2524t--continuous-power-rating-at-25c-ambient",
+  "model": "outback-power-fx2524t",
+  "name": "Continuous Power Rating at 25C Ambient",
+  "value": "3000",
+  "unit": "VA",
+  "source": "doc-2a27792e0a18d640f19761da24ca22ae",
+  "page": 31,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

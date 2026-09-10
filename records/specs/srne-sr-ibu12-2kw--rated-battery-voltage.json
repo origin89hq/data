@@ -1,0 +1,10 @@
+{
+  "id": "srne-sr-ibu12-2kw--rated-battery-voltage",
+  "model": "srne-sr-ibu12-2kw",
+  "name": "Rated battery voltage",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-8c81255e02a6e0a9095fd60786d92943",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

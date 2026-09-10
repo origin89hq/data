@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-12uv12b3rt--full-load",
+  "model": "magnum-energy-12uv12b3rt",
+  "name": "Full Load",
+  "value": "120 Amps DC",
+  "source": "doc-df796a4a961ed831d7b19394ffe03b42",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

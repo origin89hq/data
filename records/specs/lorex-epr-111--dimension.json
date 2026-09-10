@@ -1,9 +1,0 @@
-{
-  "id": "lorex-epr-111--dimension",
-  "model": "lorex-epr-111",
-  "name": "Dimension",
-  "value": "66.4(L) x 40.9(W) x 21.8(H)mm",
-  "source": "doc-b4d6a8397af46d96e6ef08e9d58f088d",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

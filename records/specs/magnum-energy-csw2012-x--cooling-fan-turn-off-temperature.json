@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-csw2012-x--cooling-fan-turn-off-temperature",
+  "model": "magnum-energy-csw2012-x",
+  "name": "Cooling fan turn-off temperature",
+  "value": "122°F (50°C)",
+  "source": "doc-3b79136e8fe45bb7ee697862e442d130",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

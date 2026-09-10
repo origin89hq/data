@@ -2,9 +2,9 @@
   "id": "samlex-america-idc-100a-12--input",
   "model": "samlex-america-idc-100a-12",
   "name": "Input",
-  "value": "9 - 18 VDC",
-  "source": "doc-9edc7f452ba04b90b26a02a4cd2143ab",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "value": "9 - 18",
+  "source": "doc-e18143c6e1a1e16c4d7fc4262fb4d9de",
   "page": 24,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

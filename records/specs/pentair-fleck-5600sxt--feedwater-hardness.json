@@ -1,0 +1,10 @@
+{
+  "id": "pentair-fleck-5600sxt--feedwater-hardness",
+  "model": "pentair-fleck-5600sxt",
+  "name": "Feedwater Hardness",
+  "value": "1-199 hardness",
+  "source": "doc-6117fcfac8021a4804b25fd05035dafe",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

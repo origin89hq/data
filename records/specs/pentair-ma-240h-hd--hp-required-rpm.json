@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ma-240h-hd--hp-required-rpm",
+  "model": "pentair-ma-240h-hd",
+  "name": "hp REQUIRED @ rpm",
+  "value": "153.0",
+  "source": "doc-4b1237cb5e14a1f7dfd699c0f51d4b52",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

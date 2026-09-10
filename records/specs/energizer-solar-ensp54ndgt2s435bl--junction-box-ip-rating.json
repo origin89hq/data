@@ -1,0 +1,9 @@
+{
+  "id": "energizer-solar-ensp54ndgt2s435bl--junction-box-ip-rating",
+  "model": "energizer-solar-ensp54ndgt2s435bl",
+  "name": "Junction box IP rating",
+  "value": "IP 68",
+  "source": "doc-baa70c08d04e859a050dcca55732f9bd",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

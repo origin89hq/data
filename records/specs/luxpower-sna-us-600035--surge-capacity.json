@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna-us-600035--surge-capacity",
+  "model": "luxpower-sna-us-600035",
+  "name": "Surge Capacity",
+  "value": "2* rated power within 5 seconds",
+  "source": "doc-cf960ded572aadc4d8ca98068ce9df16",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

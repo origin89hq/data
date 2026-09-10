@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-me-ags--time-between-start-attempts",
+  "model": "magnum-energy-me-ags",
+  "name": "Time between start attempts",
+  "value": "2",
+  "unit": "min",
+  "source": "doc-5121d66c85ddc6b0f7b048479422dd88",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

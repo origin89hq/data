@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-obx-ic2524p--continuous-power-rating-at-25-c",
+  "model": "outback-power-obx-ic2524p",
+  "name": "Continuous Power Rating at 25°C",
+  "value": "2500",
+  "source": "doc-0432b80951ffb8d990821df196dc00c6",
+  "page": 27,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

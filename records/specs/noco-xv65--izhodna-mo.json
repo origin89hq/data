@@ -1,0 +1,10 @@
+{
+  "id": "noco-xv65--izhodna-mo",
+  "model": "noco-xv65",
+  "name": "Izhodna moč",
+  "value": "samodejno prilagodil",
+  "source": "doc-d4f19aba51fd0e487c8d9c0449e4de92",
+  "page": 96,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

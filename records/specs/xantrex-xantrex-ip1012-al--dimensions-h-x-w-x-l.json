@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-xantrex-ip1012-al--dimensions-h-x-w-x-l",
+  "model": "xantrex-xantrex-ip1012-al",
+  "name": "Dimensions (H x W x L)",
+  "value": "8.56 x 7.25 x 13.00”",
+  "source": "doc-37534a5cc18e3ea4db01ca22e646e423",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

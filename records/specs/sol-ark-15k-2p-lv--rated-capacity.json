@@ -1,0 +1,11 @@
+{
+  "id": "sol-ark-15k-2p-lv--rated-capacity",
+  "model": "sol-ark-15k-2p-lv",
+  "name": "Rated capacity",
+  "value": "15",
+  "unit": "kW",
+  "source": "doc-9bcaf609070d127ca9dcf9905aa2940b",
+  "page": 35,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

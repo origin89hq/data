@@ -2,8 +2,8 @@
   "id": "watersprint-watersprintsolo-40--maximum-flow-rate",
   "model": "watersprint-watersprintsolo-40",
   "name": "Maximum flow rate",
-  "value": "16 liters per minute",
-  "source": "doc-de811e2431583322de98ebeaa763c571",
+  "value": "4.2 gallons per minute",
+  "source": "doc-39325226750057ea4456261c249411aa",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

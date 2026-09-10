@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-ps4000h-s--lagertemperatur",
+  "model": "energizer-solar-ps4000h-s",
+  "name": "Lagertemperatur",
+  "value": "-20 ~ 55 °C",
+  "source": "doc-b2846e9e3ad48b46e3f6b12c54b52e4b",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

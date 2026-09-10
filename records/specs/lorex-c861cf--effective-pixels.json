@@ -1,9 +1,0 @@
-{
-  "id": "lorex-c861cf--effective-pixels",
-  "model": "lorex-c861cf",
-  "name": "Effective Pixels",
-  "value": "H:3840 x V:2160 (CVI)",
-  "source": "doc-e9db2a8b2c9b9dcc98af21fea0afaa31",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

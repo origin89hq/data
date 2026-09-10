@@ -1,0 +1,11 @@
+{
+  "id": "lorex-cb120urb1a--cable-length",
+  "model": "lorex-cb120urb1a",
+  "name": "Cable Length",
+  "value": "120",
+  "unit": "ft",
+  "source": "doc-c9e7411d3125e60b387ed9d1a8ca949b",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

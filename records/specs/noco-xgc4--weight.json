@@ -1,0 +1,10 @@
+{
+  "id": "noco-xgc4--weight",
+  "model": "noco-xgc4",
+  "name": "WEIGHT",
+  "value": "0.83",
+  "unit": "lb",
+  "source": "doc-d26f696596be37569d64635dbd05579a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-pst-3000-12--low-dc-input-voltage-warning-threshold",
+  "model": "samlex-america-pst-3000-12",
+  "name": "Low DC input voltage warning threshold",
+  "value": "10.7",
+  "unit": "V",
+  "source": "doc-93a02915496c6ca4270b92e343150cd5",
+  "page": 54,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

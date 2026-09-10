@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-12u12--automatic-low-battery-shutdown",
+  "model": "magnum-energy-12u12",
+  "name": "Automatic Low Battery Shutdown",
+  "value": "10.5",
+  "unit": "V",
+  "source": "doc-98db73b74585e3dc41f72c9e9d669d12",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "noco-gx3626--back-current-drain",
+  "model": "noco-gx3626",
+  "name": "Back Current Drain",
+  "value": "<5mA",
+  "source": "doc-a5688fb0f8fa3bde1c5fcd8c43234ff7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

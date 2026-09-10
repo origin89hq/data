@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-flexmax-charge-controller--eq-auto-eq-interval",
+  "model": "outback-power-flexmax-charge-controller",
+  "name": "Eq auto eq interval",
+  "value": "0 days",
+  "source": "doc-48b5d38b7ea82ccabb6610a8ba809765",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

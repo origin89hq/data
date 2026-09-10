@@ -1,0 +1,9 @@
+{
+  "id": "peimar-or10h440mn-bf--temperaturkoeffizient-von-isc",
+  "model": "peimar-or10h440mn-bf",
+  "name": "Temperaturkoeffizient von Isc",
+  "value": "0,046 %/°C",
+  "source": "doc-02566ecb281d06217c976268099100d6",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

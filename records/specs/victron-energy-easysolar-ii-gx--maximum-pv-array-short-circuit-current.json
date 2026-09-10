@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-easysolar-ii-gx--maximum-pv-array-short-circuit-current",
+  "model": "victron-energy-easysolar-ii-gx",
+  "name": "Maximum PV Array short circuit current",
+  "value": "35",
+  "unit": "A",
+  "source": "doc-b932e357fd2035b7f74c7452cc3d3ada",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

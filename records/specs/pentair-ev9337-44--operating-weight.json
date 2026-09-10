@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ev9337-44--operating-weight",
+  "model": "pentair-ev9337-44",
+  "name": "Operating Weight",
+  "value": "82 lbs (37.2 kgs)",
+  "source": "doc-39026b699137369c1c5e932e903c3e9f",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

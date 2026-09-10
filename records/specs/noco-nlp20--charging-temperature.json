@@ -1,0 +1,9 @@
+{
+  "id": "noco-nlp20--charging-temperature",
+  "model": "noco-nlp20",
+  "name": "CHARGING TEMPERATURE",
+  "value": "-10°C to 50°C",
+  "source": "doc-12a00a9dd43ad9d7569fae858f536c4e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-adi-250-3000--output-voltage",
+  "model": "magnum-energy-adi-250-3000",
+  "name": "Output Voltage",
+  "value": "120/240 VAC",
+  "source": "doc-3cb93536066b7fe2249322456524fdd5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-pro480v-8k--power-consumption-standby-night",
+  "model": "outback-power-pro480v-8k",
+  "name": "Power consumption standby/ night",
+  "value": "<4.5 W / <4.5 W",
+  "source": "doc-67ea451046845987293d3a58ca025bea",
+  "page": 41,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

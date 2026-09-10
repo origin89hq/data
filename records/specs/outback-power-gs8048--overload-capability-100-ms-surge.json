@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gs8048--overload-capability-100-ms-surge",
+  "model": "outback-power-gs8048",
+  "name": "Overload Capability (100 ms surge)",
+  "value": "16.97",
+  "unit": "kVA",
+  "source": "doc-3bd692c678d3cf4d2557752cb1b5ee4f",
+  "page": 45,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

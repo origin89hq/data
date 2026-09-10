@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201223--voltios-ca",
+  "model": "champion-power-201223",
+  "name": "Voltios CA",
+  "value": "120",
+  "source": "doc-76da6e7f1fd35c4d9e8f35f58bf29305",
+  "page": 36,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

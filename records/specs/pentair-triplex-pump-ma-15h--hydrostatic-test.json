@@ -1,0 +1,11 @@
+{
+  "id": "pentair-triplex-pump-ma-15h--hydrostatic-test",
+  "model": "pentair-triplex-pump-ma-15h",
+  "name": "Hydrostatic Test",
+  "value": "7,500",
+  "unit": "psi",
+  "source": "doc-17900052de74eb9fc01960d9f44a60bf",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

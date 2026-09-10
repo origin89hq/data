@@ -1,0 +1,9 @@
+{
+  "id": "energizer-solar-ps2900h--energiedurchsatz",
+  "model": "energizer-solar-ps2900h",
+  "name": "Energiedurchsatz",
+  "value": "17.4MWh",
+  "source": "doc-20a8aa383fa91764541165c46b7b3d26",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

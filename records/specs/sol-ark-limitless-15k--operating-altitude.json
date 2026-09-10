@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-limitless-15k--operating-altitude",
+  "model": "sol-ark-limitless-15k",
+  "name": "Operating Altitude",
+  "value": "> 2,000 (6561)",
+  "source": "doc-488813d29230d2477a10368f2f72ad2c",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

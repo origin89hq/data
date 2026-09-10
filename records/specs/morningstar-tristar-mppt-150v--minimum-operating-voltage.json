@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-tristar-mppt-150v--minimum-operating-voltage",
+  "model": "morningstar-tristar-mppt-150v",
+  "name": "Minimum Operating Voltage",
+  "value": "8",
+  "unit": "V",
+  "source": "doc-d77891330c761670b3824d171460f71b",
+  "page": 23,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

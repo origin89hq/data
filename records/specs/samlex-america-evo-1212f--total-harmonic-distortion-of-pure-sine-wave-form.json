@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-evo-1212f--total-harmonic-distortion-of-pure-sine-wave-form",
+  "model": "samlex-america-evo-1212f",
+  "name": "TOTAL HARMONIC DISTORTION OF PURE SINE WAVE FORM",
+  "value": "< 5%",
+  "source": "doc-3542ec518aff9a7e5996bee035615049",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

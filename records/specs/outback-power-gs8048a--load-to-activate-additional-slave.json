@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gs8048a--load-to-activate-additional-slave",
+  "model": "outback-power-gs8048a",
+  "name": "Load to activate additional slave",
+  "value": "5",
+  "unit": "kW",
+  "source": "doc-3bd692c678d3cf4d2557752cb1b5ee4f",
+  "page": 30,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

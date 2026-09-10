@@ -1,0 +1,9 @@
+{
+  "id": "luxpower-sna-4000w--rated-pv-input-voltage",
+  "model": "luxpower-sna-4000w",
+  "name": "Rated PV input voltage",
+  "value": "90/90",
+  "source": "doc-bbb9da655d195897e1b36068cc176ffd",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

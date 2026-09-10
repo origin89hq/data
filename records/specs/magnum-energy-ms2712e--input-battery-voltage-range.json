@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-ms2712e--input-battery-voltage-range",
+  "model": "magnum-energy-ms2712e",
+  "name": "Input battery voltage range",
+  "value": "9 to 17 VDC",
+  "source": "doc-7311835ef715888effe1995a6575bdcc",
+  "page": 48,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

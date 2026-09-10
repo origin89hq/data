@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-mppt-60-600v-48-db--voltage-accuracy",
+  "model": "morningstar-ts-mppt-60-600v-48-db",
+  "name": "Voltage Accuracy",
+  "value": "± 0.1 % ± 100 mV",
+  "source": "doc-abff1de971730785bffa93069310d809",
+  "page": 39,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

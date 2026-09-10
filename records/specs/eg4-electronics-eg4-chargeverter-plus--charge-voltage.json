@@ -1,9 +1,0 @@
-{
-  "id": "eg4-electronics-eg4-chargeverter-plus--charge-voltage",
-  "model": "eg4-electronics-eg4-chargeverter-plus",
-  "name": "CHARGE VOLTAGE",
-  "value": "40 – 60 VDC (default 57 VDC)",
-  "source": "doc-55f12b8f9ded3bc7664ee333a8178ac7",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-5kva-model--fuse-or-magnetic-circuit-breaker-rating",
+  "model": "victron-energy-5kva-model",
+  "name": "Fuse or magnetic circuit breaker rating",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-1234f81434cacfd8ae9d42376bf42321",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

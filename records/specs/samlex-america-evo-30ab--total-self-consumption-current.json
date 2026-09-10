@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-30ab--total-self-consumption-current",
+  "model": "samlex-america-evo-30ab",
+  "name": "TOTAL SELF CONSUMPTION CURRENT",
+  "value": "50",
+  "unit": "mA",
+  "source": "doc-42f1c27846355778aa506ae7eb22d99c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

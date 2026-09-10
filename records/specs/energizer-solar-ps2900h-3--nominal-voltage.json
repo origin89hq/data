@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-ps2900h-3--nominal-voltage",
+  "model": "energizer-solar-ps2900h-3",
+  "name": "Nominal Voltage",
+  "value": "172.8",
+  "unit": "V",
+  "source": "doc-3047d8e300c7fe1b8c28128e3f13f13f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

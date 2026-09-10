@@ -1,0 +1,11 @@
+{
+  "id": "srne-sr-eos10b--standard-discharging-current",
+  "model": "srne-sr-eos10b",
+  "name": "standard discharging current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-0303b2602619fa39868f3412d178a927",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

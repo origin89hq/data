@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-hr5500et--rating",
+  "model": "east-penn-hr5500et",
+  "name": "Rating",
+  "value": "550 Watts/Cell @ 15 min. rate",
+  "source": "doc-ed439b13868160231676fe2040a672b0",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

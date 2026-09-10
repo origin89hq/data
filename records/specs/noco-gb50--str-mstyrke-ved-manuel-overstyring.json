@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb50--str-mstyrke-ved-manuel-overstyring",
+  "model": "noco-gb50",
+  "name": "Strømstyrke ved manuel overstyring",
+  "value": "op til 1500 ampere",
+  "source": "doc-3823580d5ce87d787a3f780b59b9c1b0",
+  "page": 71,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

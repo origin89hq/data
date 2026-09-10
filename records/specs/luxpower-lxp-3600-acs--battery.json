@@ -1,0 +1,9 @@
+{
+  "id": "luxpower-lxp-3600-acs--battery",
+  "model": "luxpower-lxp-3600-acs",
+  "name": "Battery",
+  "value": "40-60Vdc, Lead-acid/Lithium",
+  "source": "doc-398ff4aebbfdeef577ed94bef55f08d0",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

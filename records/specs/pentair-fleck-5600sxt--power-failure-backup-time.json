@@ -1,0 +1,11 @@
+{
+  "id": "pentair-fleck-5600sxt--power-failure-backup-time",
+  "model": "pentair-fleck-5600sxt",
+  "name": "power failure backup time",
+  "value": "8",
+  "unit": "h",
+  "source": "doc-c4587408d782041e6ed0a5c0cd02315f",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

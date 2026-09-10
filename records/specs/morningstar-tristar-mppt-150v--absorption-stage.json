@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-tristar-mppt-150v--absorption-stage",
+  "model": "morningstar-tristar-mppt-150v",
+  "name": "Absorption Stage",
+  "value": "14.00, 14.15, 14.30, 14.40, 14.60, 14.70, 15.40",
+  "source": "doc-d77891330c761670b3824d171460f71b",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

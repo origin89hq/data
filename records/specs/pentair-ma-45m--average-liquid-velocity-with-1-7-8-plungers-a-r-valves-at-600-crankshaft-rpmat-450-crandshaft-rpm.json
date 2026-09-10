@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ma-45m--average-liquid-velocity-with-1-7-8-plungers-a-r-valves-at-600-crankshaft-rpmat-450-crandshaft-rpm",
+  "model": "pentair-ma-45m",
+  "name": "Average Liquid Velocity with 1-7/8\"plungers & a/r valves:At 600 crankshaft rpmAt 450 crandshaft rpm",
+  "value": "10.81 fps8.11 fps",
+  "source": "doc-e52fbb13118d95b3ee9c71d320de22f6",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

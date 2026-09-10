@@ -1,0 +1,9 @@
+{
+  "id": "outback-power-skybox-sbx5048-120-240--maximum-short-circuit-fault-current-a-ac-or-dc",
+  "model": "outback-power-skybox-sbx5048-120-240",
+  "name": "Maximum short circuit fault current (A ac or dc)",
+  "value": "705 A peak 128 μs",
+  "source": "doc-5e79e2c2ee4068b9e9360b231625f40b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

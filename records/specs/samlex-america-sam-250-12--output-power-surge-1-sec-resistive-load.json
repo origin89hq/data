@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-sam-250-12--output-power-surge-1-sec-resistive-load",
+  "model": "samlex-america-sam-250-12",
+  "name": "OUTPUT POWER, SURGE (<1 SEC., RESISTIVE LOAD)",
+  "value": "500",
+  "unit": "W",
+  "source": "doc-6057a7a186894a280962a77cae5f9c93",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

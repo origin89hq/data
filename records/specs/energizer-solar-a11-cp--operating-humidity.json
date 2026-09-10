@@ -1,0 +1,9 @@
+{
+  "id": "energizer-solar-a11-cp--operating-humidity",
+  "model": "energizer-solar-a11-cp",
+  "name": "Operating Humidity",
+  "value": "5% ~ 95% (no condensation)",
+  "source": "doc-f9219718a68accb2d3c894c58873ea26",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

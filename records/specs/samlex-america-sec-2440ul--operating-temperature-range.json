@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-sec-2440ul--operating-temperature-range",
+  "model": "samlex-america-sec-2440ul",
+  "name": "OPERATING TEMPERATURE RANGE",
+  "value": "-20°C to +40°C / -4°F to +104°F",
+  "source": "doc-f33fd648e833561e44577eb63ca7ea6a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

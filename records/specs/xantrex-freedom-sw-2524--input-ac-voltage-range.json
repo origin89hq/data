@@ -1,0 +1,9 @@
+{
+  "id": "xantrex-freedom-sw-2524--input-ac-voltage-range",
+  "model": "xantrex-freedom-sw-2524",
+  "name": "Input AC voltage range",
+  "value": "170-270 V",
+  "source": "doc-5519eac23098982576268643f6e073a6",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

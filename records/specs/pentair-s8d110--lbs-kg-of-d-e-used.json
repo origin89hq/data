@@ -1,0 +1,10 @@
+{
+  "id": "pentair-s8d110--lbs-kg-of-d-e-used",
+  "model": "pentair-s8d110",
+  "name": "Lbs. (Kg) of D.E. Used",
+  "value": "5.3 (2.4)",
+  "source": "doc-9a40c75488a452445cc2399187dfa9d3",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "millertech-12v-40ah-lifepo4-millertech-battery--cold-cranking-amps",
+  "model": "millertech-12v-40ah-lifepo4-millertech-battery",
+  "name": "COLD CRANKING AMPS",
+  "value": "1200",
+  "source": "doc-5a198568d4ecbe53dc24e6db9db6b4cd",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

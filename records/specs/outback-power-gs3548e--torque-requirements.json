@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gs3548e--torque-requirements",
+  "model": "outback-power-gs3548e",
+  "name": "Torque Requirements",
+  "value": "6.9 Nm (60 in-lb)",
+  "source": "doc-d583fe6a7bbe0cc5d51cf86efee31a1d",
+  "page": 23,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

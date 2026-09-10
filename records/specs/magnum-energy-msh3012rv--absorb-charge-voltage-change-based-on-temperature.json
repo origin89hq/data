@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-msh3012rv--absorb-charge-voltage-change-based-on-temperature",
+  "model": "magnum-energy-msh3012rv",
+  "name": "Absorb charge voltage change based on temperature",
+  "value": "see Figure 3-10",
+  "source": "doc-7fa1abfe0df67050065ddf5af1d831dc",
+  "page": 46,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

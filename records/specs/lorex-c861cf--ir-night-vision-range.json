@@ -1,9 +1,0 @@
-{
-  "id": "lorex-c861cf--ir-night-vision-range",
-  "model": "lorex-c861cf",
-  "name": "IR Night Vision Range",
-  "value": "150ft (45m)/ 98ft (30m)",
-  "source": "doc-e9db2a8b2c9b9dcc98af21fea0afaa31",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

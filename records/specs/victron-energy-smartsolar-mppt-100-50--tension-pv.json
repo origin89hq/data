@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-smartsolar-mppt-100-50--tension-pv",
+  "model": "victron-energy-smartsolar-mppt-100-50",
+  "name": "Tension PV",
+  "value": "jusqu’à 100 V",
+  "source": "doc-1d40d0c97542ed70d60191464362121c",
+  "page": 64,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

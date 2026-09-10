@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-avr125-33--watts-per-cell-77-25-20-min",
+  "model": "east-penn-avr125-33",
+  "name": "Watts per cell @ 77˚ (25˚), 20 MIN.",
+  "value": "3138",
+  "source": "doc-58bdb9581de1fef7602fab94d1ae255c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

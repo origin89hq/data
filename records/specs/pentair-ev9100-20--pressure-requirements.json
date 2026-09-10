@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ev9100-20--pressure-requirements",
+  "model": "pentair-ev9100-20",
+  "name": "Pressure Requirements",
+  "value": "30 – 125 psi (2.1 – 8.6 bar)",
+  "source": "doc-6bda2be356316614b588462387c9e04e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

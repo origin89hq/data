@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-bbm-12100--weight-kg",
+  "model": "samlex-america-bbm-12100",
+  "name": "WEIGHT, KG",
+  "value": "1.0",
+  "source": "doc-df4bdc486e07a058a08dec0635bbc471",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

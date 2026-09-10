@@ -1,0 +1,9 @@
+{
+  "id": "champion-power-201244--rated-power",
+  "model": "champion-power-201244",
+  "name": "Rated power",
+  "value": "26-kW",
+  "source": "doc-bddf780ff661dd19660aa9abe0b80a90",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

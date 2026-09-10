@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-mate3--auxiliary-output",
+  "model": "outback-power-mate3",
+  "name": "Auxiliary Output",
+  "value": "0.2",
+  "unit": "A",
+  "source": "doc-f7787bac8f166d53734533b55e034ae6",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

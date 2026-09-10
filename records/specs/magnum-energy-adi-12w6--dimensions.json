@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-adi-12w6--dimensions",
+  "model": "magnum-energy-adi-12w6",
+  "name": "Dimensions",
+  "value": "15 x 8¾ x 4½",
+  "source": "doc-bed448fa3cafb768e2e3653266694def",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

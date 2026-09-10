@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201202--fuel-supply-pressure",
+  "model": "champion-power-201202",
+  "name": "Fuel Supply Pressure",
+  "value": "10 - 12 inch-H2O (2.5 - 3.0 kPa) (LPG)",
+  "source": "doc-6c0d34790d696d440861753457af3fdc",
+  "page": 31,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

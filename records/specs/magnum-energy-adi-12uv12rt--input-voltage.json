@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-adi-12uv12rt--input-voltage",
+  "model": "magnum-energy-adi-12uv12rt",
+  "name": "Input Voltage",
+  "value": "11 to 14 VDC",
+  "source": "doc-df796a4a961ed831d7b19394ffe03b42",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

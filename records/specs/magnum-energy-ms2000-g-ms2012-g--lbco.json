@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-ms2000-g-ms2012-g--lbco",
+  "model": "magnum-energy-ms2000-g-ms2012-g",
+  "name": "LBCO",
+  "value": "8.5",
+  "unit": "V",
+  "source": "doc-de082b2f15d2b0e37407dc7efe5cfd9a",
+  "page": 54,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

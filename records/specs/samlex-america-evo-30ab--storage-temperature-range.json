@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-evo-30ab--storage-temperature-range",
+  "model": "samlex-america-evo-30ab",
+  "name": "STORAGE TEMPERATURE RANGE",
+  "value": "-55°C to 85°C",
+  "source": "doc-42f1c27846355778aa506ae7eb22d99c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

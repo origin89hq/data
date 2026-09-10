@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-multiplus-ii-gx--boostfactor",
+  "model": "victron-energy-multiplus-ii-gx",
+  "name": "BoostFactor",
+  "value": "2",
+  "source": "doc-00676a15f342c943f610ab6fefeac16d",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

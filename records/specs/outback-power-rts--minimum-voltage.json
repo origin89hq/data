@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-rts--minimum-voltage",
+  "model": "outback-power-rts",
+  "name": "Minimum voltage",
+  "value": "13.8",
+  "unit": "V",
+  "source": "doc-986fcb1b58ec2bd116ae119b6cca65fc",
+  "page": 54,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

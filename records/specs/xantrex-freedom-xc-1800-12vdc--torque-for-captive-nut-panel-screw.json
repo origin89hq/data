@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-freedom-xc-1800-12vdc--torque-for-captive-nut-panel-screw",
+  "model": "xantrex-freedom-xc-1800-12vdc",
+  "name": "torque for captive nut panel screw",
+  "value": "5 in-lb (0.56 N-m)",
+  "source": "doc-ded9b3d04a9dd3e5385bb5596a4d6c55",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

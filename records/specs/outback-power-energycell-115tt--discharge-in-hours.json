@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-energycell-115tt--discharge-in-hours",
+  "model": "outback-power-energycell-115tt",
+  "name": "Discharge in Hours",
+  "value": "75.2 hours @ 100% DoD",
+  "source": "doc-b780a047b8d2eb52fdf7ef1e7768ddd3",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

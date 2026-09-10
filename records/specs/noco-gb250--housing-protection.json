@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb250--housing-protection",
+  "model": "noco-gb250",
+  "name": "Housing Protection",
+  "value": "IP65 (w/Ports Closed)",
+  "source": "doc-12fc201334315c4c41c495ec3ca639b3",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

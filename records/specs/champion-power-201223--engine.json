@@ -1,0 +1,9 @@
+{
+  "id": "champion-power-201223--engine",
+  "model": "champion-power-201223",
+  "name": "Engine",
+  "value": "224 cc",
+  "source": "doc-02122124e480795725d916b972861fb7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

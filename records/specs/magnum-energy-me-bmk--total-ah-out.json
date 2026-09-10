@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-me-bmk--total-ah-out",
+  "model": "magnum-energy-me-bmk",
+  "name": "Total AH Out",
+  "value": "9.7k AH",
+  "source": "doc-d765ec6b8f451e0f664d5fa9dc081216",
+  "page": 100,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

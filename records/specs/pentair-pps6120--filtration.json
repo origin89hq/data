@@ -1,0 +1,9 @@
+{
+  "id": "pentair-pps6120--filtration",
+  "model": "pentair-pps6120",
+  "name": "Filtration",
+  "value": "5 microns",
+  "source": "doc-260342b79cce1531660eb61b7437be0e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

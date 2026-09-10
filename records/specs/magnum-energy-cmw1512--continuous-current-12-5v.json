@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-cmw1512--continuous-current-12-5v",
+  "model": "magnum-energy-cmw1512",
+  "name": "Continuous Current @ 12.5V",
+  "value": "140",
+  "unit": "A",
+  "source": "doc-e10b57caaf3b9e833e76928e9503dbbd",
+  "page": 25,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-vm-3p75ct--circuit-breaker",
+  "model": "victron-energy-vm-3p75ct",
+  "name": "Circuit breaker",
+  "value": "16",
+  "unit": "A",
+  "source": "doc-b85efd37542ae0ac61967de6d4c474f3",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pentair-puv14--flow-rate-viqua-standard",
+  "model": "pentair-puv14",
+  "name": "Flow Rate VIQUA Standard",
+  "value": "18 gpm (70 lpm) (4.2 m3/hr)",
+  "source": "doc-2c896787b30b1a198250e6cc6083ce40",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

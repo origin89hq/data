@@ -1,0 +1,11 @@
+{
+  "id": "noco-gb251--prote-o-da-caixa",
+  "model": "noco-gb251",
+  "name": "Proteção da caixa",
+  "english": "Enclosure protection",
+  "value": "IP65 (com as portas fechadas)",
+  "source": "doc-ab38b66291679fbc3beaf203ecf65340",
+  "page": 74,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

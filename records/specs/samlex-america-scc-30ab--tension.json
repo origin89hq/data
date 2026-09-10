@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-scc-30ab--tension",
+  "model": "samlex-america-scc-30ab",
+  "name": "Tension",
+  "value": "12V/24V",
+  "source": "doc-718cdb5463ad51b2309052bdd7a00cc8",
+  "page": 102,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

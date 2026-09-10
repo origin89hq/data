@@ -1,0 +1,11 @@
+{
+  "id": "luxpower-gen-lb-us-16k--max-solar-input-power",
+  "model": "luxpower-gen-lb-us-16k",
+  "name": "Max solar input power",
+  "value": "21",
+  "unit": "kW",
+  "source": "doc-8c07d17a676bcac4dde692d18936430c",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

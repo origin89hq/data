@@ -1,0 +1,10 @@
+{
+  "id": "pentair-s7d75--max-operating-pressure",
+  "model": "pentair-s7d75",
+  "name": "Max. Operating Pressure",
+  "value": "50 (345) PSI (kPa)",
+  "source": "doc-9a40c75488a452445cc2399187dfa9d3",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

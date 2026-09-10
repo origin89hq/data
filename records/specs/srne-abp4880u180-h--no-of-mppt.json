@@ -1,0 +1,9 @@
+{
+  "id": "srne-abp4880u180-h--no-of-mppt",
+  "model": "srne-abp4880u180-h",
+  "name": "No. Of MPPT",
+  "value": "1+1",
+  "source": "doc-b253e0aed4feaeae4ee86b1b7bd20255",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

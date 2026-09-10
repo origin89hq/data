@@ -1,0 +1,11 @@
+{
+  "id": "xantrex-ps3-0-24--chassis-ground-wire-size-75-c-wire",
+  "model": "xantrex-ps3-0-24",
+  "name": "Chassis Ground wire size",
+  "value": "1",
+  "conditions": "75 C wire",
+  "source": "doc-893690388dfd7f5fdac0a1dd1ec17cda",
+  "page": 66,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

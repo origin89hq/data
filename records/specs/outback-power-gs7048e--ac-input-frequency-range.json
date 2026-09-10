@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gs7048e--ac-input-frequency-range",
+  "model": "outback-power-gs7048e",
+  "name": "AC Input Frequency Range",
+  "value": "55 to 65 Hz (60-Hz setting)",
+  "source": "doc-fda963efd83b4fc2faf57024b5e6becd",
+  "page": 57,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201193--width",
+  "model": "champion-power-201193",
+  "name": "Width",
+  "value": "15.3 in / 389 mm",
+  "source": "doc-187dc62e34d8a3e1f7cb9899aca40981",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

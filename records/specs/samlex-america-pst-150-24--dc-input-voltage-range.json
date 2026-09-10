@@ -1,9 +1,0 @@
-{
-  "id": "samlex-america-pst-150-24--dc-input-voltage-range",
-  "model": "samlex-america-pst-150-24",
-  "name": "DC INPUT VOLTAGE RANGE",
-  "value": "21 - 33 VDC",
-  "source": "doc-4b92303de73f4a000c9b77ca744910ed",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

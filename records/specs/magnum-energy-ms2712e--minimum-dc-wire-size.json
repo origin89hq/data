@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-ms2712e--minimum-dc-wire-size",
+  "model": "magnum-energy-ms2712e",
+  "name": "Minimum DC Wire Size",
+  "value": "#4/0 AWG",
+  "source": "doc-7311835ef715888effe1995a6575bdcc",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-12avr75--discharge-rating-at-1-75-v-p-c-and-3-hr",
+  "model": "east-penn-12avr75",
+  "name": "Discharge Rating at 1.75 V.P.C. and 3 HR.",
+  "value": "20.8",
+  "source": "doc-92b14d456f0dc855a9919d845431f3c1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -2,9 +2,9 @@
   "id": "noco-noco--abmessungen-l-x-b-x-h",
   "model": "noco-noco",
   "name": "Abmessungen (L x B x H)",
-  "value": "31,24 x 17,53 x 9,14 Zentimeter",
-  "source": "doc-acc6023faea6c05091589f8fe0a7930d",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "value": "23,49 x 13,05 x 7,52 Zentimeter",
+  "source": "doc-ad1950f6bd60aa9bc23134b99d74b0db",
   "page": 45,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

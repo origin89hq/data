@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-mppt-250-60--max-pv-short-circuit-current",
+  "model": "victron-energy-mppt-250-60",
+  "name": "Max. PV short circuit current",
+  "value": "60",
+  "unit": "A",
+  "source": "doc-d57c25947d20b07fdaeab0465bc6cf6a",
+  "page": 71,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

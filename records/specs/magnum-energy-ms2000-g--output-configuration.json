@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-ms2000-g--output-configuration",
+  "model": "magnum-energy-ms2000-g",
+  "name": "Output Configuration",
+  "value": "20A @ 120 VAC (GFCI outlet)",
+  "source": "doc-de082b2f15d2b0e37407dc7efe5cfd9a",
+  "page": 36,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

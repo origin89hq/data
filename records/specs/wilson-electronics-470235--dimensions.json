@@ -1,9 +1,0 @@
-{
-  "id": "wilson-electronics-470235--dimensions",
-  "model": "wilson-electronics-470235",
-  "name": "DIMENSIONS",
-  "value": ".65 x 1.60 x 7 in.",
-  "source": "doc-7c76503782c5144706e4dd400764566e",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

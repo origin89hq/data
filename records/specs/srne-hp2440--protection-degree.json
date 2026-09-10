@@ -1,0 +1,9 @@
+{
+  "id": "srne-hp2440--protection-degree",
+  "model": "srne-hp2440",
+  "name": "Protection Degree",
+  "value": "IP30",
+  "source": "doc-73ee8f5a169ed2fb651295e1892ef758",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

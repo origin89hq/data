@@ -2,9 +2,9 @@
   "id": "the-cabin-depot-ugp-r30othlp--manifold-pressure",
   "model": "the-cabin-depot-ugp-r30othlp",
   "name": "Manifold Pressure",
-  "value": "4\" WC, 10\" WC",
+  "value": "4\" WC / 10\" WC",
   "source": "doc-a31ecf2a5fbe4eb72b52060eb2c34db2",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201226--volts-dc",
+  "model": "champion-power-201226",
+  "name": "Volts DC",
+  "value": "12",
+  "source": "doc-007f8550a1fa848750ca20028fab44ac",
+  "page": 26,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-ekrano-gx--display-resolution",
+  "model": "victron-energy-ekrano-gx",
+  "name": "Display resolution",
+  "value": "1024 x 600 pixels",
+  "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
+  "page": 104,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

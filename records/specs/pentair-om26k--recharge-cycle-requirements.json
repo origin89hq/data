@@ -1,0 +1,11 @@
+{
+  "id": "pentair-om26k--recharge-cycle-requirements",
+  "model": "pentair-om26k",
+  "name": "Recharge Cycle Requirements",
+  "value": "2.6",
+  "unit": "lb",
+  "source": "doc-e94ba6bdcf0826ae0549b4b473eb1683",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

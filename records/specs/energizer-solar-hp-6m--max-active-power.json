@@ -1,0 +1,11 @@
+{
+  "id": "energizer-solar-hp-6m--max-active-power",
+  "model": "energizer-solar-hp-6m",
+  "name": "Max. Active Power",
+  "value": "6000",
+  "unit": "W",
+  "source": "doc-530a83fbaadea0b813c6d68f370d2600",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

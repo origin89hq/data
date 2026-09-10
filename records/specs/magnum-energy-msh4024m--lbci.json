@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-msh4024m--lbci",
+  "model": "magnum-energy-msh4024m",
+  "name": "LBCI",
+  "value": "25.0",
+  "unit": "V",
+  "source": "doc-4060c3f17cf8fdb351afd2eafcbc24a4",
+  "page": 45,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-lf105--allowed-max-charge-current",
+  "model": "xantrex-lf105",
+  "name": "Allowed Max Charge Current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-5ad769d57c759da97aeca4f5ef44497d",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

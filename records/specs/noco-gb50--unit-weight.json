@@ -1,9 +1,0 @@
-{
-  "id": "noco-gb50--unit-weight",
-  "model": "noco-gb50",
-  "name": "UNIT WEIGHT",
-  "value": "1.65 lbs(0.74kg)",
-  "source": "doc-a5c41b7f4bb6a1f9ac58c6b34cb2f54d",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

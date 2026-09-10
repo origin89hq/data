@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-2425ul--weight",
+  "model": "samlex-america-sec-2425ul",
+  "name": "Weight",
+  "value": "4.1 Kg / 9.0 lb",
+  "source": "doc-89bd30b3b437461f2ec212d378a26017",
+  "page": 69,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-freedom-xc-2000-230v--operating-temperature-range",
+  "model": "xantrex-freedom-xc-2000-230v",
+  "name": "Operating temperature range",
+  "value": "-20 – 60 °C",
+  "source": "doc-036c5f6612112ac25d8de1273f543052",
+  "page": 98,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

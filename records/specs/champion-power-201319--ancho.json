@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201319--ancho",
+  "model": "champion-power-201319",
+  "name": "Ancho",
+  "value": "17.7 in. (45 cm)",
+  "source": "doc-1273a187214cae382985cfb44c8bef06",
+  "page": 39,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

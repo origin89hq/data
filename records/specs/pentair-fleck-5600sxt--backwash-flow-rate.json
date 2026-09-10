@@ -1,0 +1,10 @@
+{
+  "id": "pentair-fleck-5600sxt--backwash-flow-rate",
+  "model": "pentair-fleck-5600sxt",
+  "name": "Backwash flow rate",
+  "value": "7 gpm (26.5 Lpm)",
+  "source": "doc-6117fcfac8021a4804b25fd05035dafe",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

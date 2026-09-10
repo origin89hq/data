@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-flexmax-100--over-current-fault",
+  "model": "outback-power-flexmax-100",
+  "name": "Over Current Fault",
+  "value": "120",
+  "unit": "A",
+  "source": "doc-5638fdcd10bd758b7a5e1ee8f6c4299d",
+  "page": 44,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "outback-power-fw-x240--primary-and-secondary-side",
+  "model": "outback-power-fw-x240",
+  "name": "Primary and secondary side",
+  "value": "120 volt/25 amp",
+  "source": "doc-82eed1fa5c861f3df9a4a5e1c390382d",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

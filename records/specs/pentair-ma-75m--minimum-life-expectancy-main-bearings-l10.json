@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ma-75m--minimum-life-expectancy-main-bearings-l10",
+  "model": "pentair-ma-75m",
+  "name": "Minimum Life Expectancy, Main Bearings, L10",
+  "value": "100,000+ hrs.",
+  "source": "doc-79ec5f5b6a90d8466428c9ebc33a21ba",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

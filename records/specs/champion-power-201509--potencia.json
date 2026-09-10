@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201509--potencia",
+  "model": "champion-power-201509",
+  "name": "Potencia",
+  "value": "8500",
+  "unit": "W",
+  "source": "doc-d997a2c00a76170defa7d1fdd28b44b1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

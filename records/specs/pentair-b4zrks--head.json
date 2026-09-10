@@ -1,0 +1,11 @@
+{
+  "id": "pentair-b4zrks--head",
+  "model": "pentair-b4zrks",
+  "name": "Head",
+  "value": "95",
+  "unit": "ft",
+  "source": "doc-d41e86f4401939f14899953edd68199f",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

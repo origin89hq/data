@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gs3548e--cut-out-delay",
+  "model": "outback-power-gs3548e",
+  "name": "Cut-Out Delay",
+  "value": "6.0",
+  "unit": "s",
+  "source": "doc-fda963efd83b4fc2faf57024b5e6becd",
+  "page": 65,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

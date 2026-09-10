@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ev9100-20--overall-dimensions",
+  "model": "pentair-ev9100-20",
+  "name": "Overall Dimensions",
+  "value": "25\" H x 9.25\" W x 5.25\" D (63.5 cm x 23.4 cm x 13.3 cm)",
+  "source": "doc-6bda2be356316614b588462387c9e04e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

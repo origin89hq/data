@@ -1,0 +1,11 @@
+{
+  "id": "srne-sr-eos02b-24--max-charging-current",
+  "model": "srne-sr-eos02b-24",
+  "name": "Max. charging current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-b486c14bce46e1006e4e135b53bf57a8",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

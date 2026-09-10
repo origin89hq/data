@@ -1,0 +1,9 @@
+{
+  "id": "pentair-4clm--chloramines-reduction",
+  "model": "pentair-4clm",
+  "name": "Chloramines Reduction",
+  "value": "Yes",
+  "source": "doc-86c4dc5b77692a463b01d106446c406a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

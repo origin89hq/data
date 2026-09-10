@@ -1,0 +1,10 @@
+{
+  "id": "srne-sh20--charge-voltage",
+  "model": "srne-sh20",
+  "name": "Charge voltage",
+  "value": "3.40V (lithium iron phosphate battery) 3.90V (ternary lithium battery)",
+  "source": "doc-3dbe47a45a0a541f0603f5ea2a08a2fb",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

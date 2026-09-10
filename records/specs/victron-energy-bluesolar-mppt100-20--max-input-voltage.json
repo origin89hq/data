@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-bluesolar-mppt100-20--max-input-voltage",
+  "model": "victron-energy-bluesolar-mppt100-20",
+  "name": "Max. input voltage",
+  "value": "100",
+  "unit": "V",
+  "source": "doc-8f2352ecaab0933083dd152589e28504",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

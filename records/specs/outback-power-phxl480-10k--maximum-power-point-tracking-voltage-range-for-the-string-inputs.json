@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-phxl480-10k--maximum-power-point-tracking-voltage-range-for-the-string-inputs",
+  "model": "outback-power-phxl480-10k",
+  "name": "Maximum power point tracking voltage range for the string inputs",
+  "value": "450 to 850 Vdc",
+  "source": "doc-a0826d57efb20951ec50c728f9bb7411",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "srne-mc2420n10--dimension",
+  "model": "srne-mc2420n10",
+  "name": "Dimension",
+  "value": "150*105.6*61.5mm",
+  "source": "doc-e39aa32b1478e369d8bfaaa046f860eb",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

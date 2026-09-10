@@ -1,0 +1,11 @@
+{
+  "id": "pentair-h-54--reducci-n-de-micropl-sticos",
+  "model": "pentair-h-54",
+  "name": "Reducción de microplásticos",
+  "english": "Microplastic reduction",
+  "value": "≥ 85%",
+  "source": "doc-5e88498c858725830f3cba1baa363aa3",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-ms4024--ac-pass-thru",
+  "model": "magnum-energy-ms4024",
+  "name": "AC pass-thru",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-2f059ab69905f90ad9ac8f58a9494f76",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

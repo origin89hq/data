@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gs7048e--ac-output-frequency",
+  "model": "outback-power-gs7048e",
+  "name": "AC Output Frequency",
+  "value": "50",
+  "unit": "Hz",
+  "source": "doc-fda963efd83b4fc2faf57024b5e6becd",
+  "page": 57,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

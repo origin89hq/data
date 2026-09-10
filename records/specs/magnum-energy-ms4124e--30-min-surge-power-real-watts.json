@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-ms4124e--30-min-surge-power-real-watts",
+  "model": "magnum-energy-ms4124e",
+  "name": "30 min surge power (real watts)",
+  "value": "4600",
+  "source": "doc-7311835ef715888effe1995a6575bdcc",
+  "page": 48,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

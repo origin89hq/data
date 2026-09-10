@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-sun-inverter-24-250--continuous-power-at-40-c",
+  "model": "victron-energy-sun-inverter-24-250",
+  "name": "Continuous power at 40°C",
+  "value": "175",
+  "unit": "W",
+  "source": "doc-d24d494bf3eaf457223ca56d50881834",
+  "page": 26,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

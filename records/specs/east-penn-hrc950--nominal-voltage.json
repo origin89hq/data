@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-hrc950--nominal-voltage",
+  "model": "east-penn-hrc950",
+  "name": "Nominal Voltage",
+  "value": "12-Volts",
+  "source": "doc-a87e9ed52054edd331982d34251dbb0b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

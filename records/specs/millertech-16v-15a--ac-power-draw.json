@@ -1,0 +1,10 @@
+{
+  "id": "millertech-16v-15a--ac-power-draw",
+  "model": "millertech-16v-15a",
+  "name": "AC POWER DRAW",
+  "value": "295.2",
+  "unit": "W",
+  "source": "doc-c953279623571708106331d6ae2ce062",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

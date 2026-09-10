@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-mm612ae--transfer-time",
+  "model": "magnum-energy-mm612ae",
+  "name": "Transfer time",
+  "value": "16",
+  "source": "doc-48882fa88ab64f9231fd416f82425d7c",
+  "page": 38,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

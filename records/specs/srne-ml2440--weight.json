@@ -1,0 +1,11 @@
+{
+  "id": "srne-ml2440--weight",
+  "model": "srne-ml2440",
+  "name": "Weight",
+  "value": "2",
+  "unit": "kg",
+  "source": "doc-4d63c5a2bc3fda1eadb6226ba8bf469e",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

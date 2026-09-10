@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-orion-xs-12v-12v-50a--delayed-start-voltage-delay",
+  "model": "victron-energy-orion-xs-12v-12v-50a",
+  "name": "Delayed start voltage delay",
+  "value": "120",
+  "unit": "s",
+  "source": "doc-71a56abfc5676d9106eb2c3f2962e47a",
+  "page": 22,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

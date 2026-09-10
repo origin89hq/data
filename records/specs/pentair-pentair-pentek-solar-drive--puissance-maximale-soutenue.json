@@ -1,0 +1,11 @@
+{
+  "id": "pentair-pentair-pentek-solar-drive--puissance-maximale-soutenue",
+  "model": "pentair-pentair-pentek-solar-drive",
+  "name": "Puissance maximale soutenue",
+  "value": "2000",
+  "unit": "W",
+  "source": "doc-ad792b6bb4700d48e2ae347798e185bb",
+  "page": 33,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "millertech-1215-2--product-size",
+  "model": "millertech-1215-2",
+  "name": "Product Size",
+  "value": "15” x 9.64” x 3.89”",
+  "source": "doc-d709cb6f2f4f60942f0abf59407db360",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

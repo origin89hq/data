@@ -1,0 +1,10 @@
+{
+  "id": "east-penn-avr95-23--w-c",
+  "model": "east-penn-avr95-23",
+  "name": "W/C",
+  "value": "260",
+  "source": "doc-7285025ce9f0bcb5b68489da924e1733",
+  "page": 77,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

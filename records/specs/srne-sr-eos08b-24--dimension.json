@@ -1,0 +1,9 @@
+{
+  "id": "srne-sr-eos08b-24--dimension",
+  "model": "srne-sr-eos08b-24",
+  "name": "Dimension",
+  "value": "549*380*253mm",
+  "source": "doc-0d6478c24f22037f47f56b1e40048ff5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "luxpower-sna-us-12000--max-pv-input-voltage",
+  "model": "luxpower-sna-us-12000",
+  "name": "Max. PV Input Voltage",
+  "value": "320",
+  "unit": "V",
+  "source": "doc-0cbf8e5570a36c77dc28d9febac9e585",
+  "page": 47,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

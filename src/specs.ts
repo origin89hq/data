@@ -3,6 +3,7 @@ import type { Spec } from "../schema/model.ts";
 import { normaliseModelName } from "./models.ts";
 import { looksTruncated, splitValueUnit } from "./units.ts";
 import { repairMojibake } from "./text.ts";
+import { looksForeign } from "./language.ts";
 import { englishName } from "./translations.ts";
 
 /** What a model reported reading out of a document, before anything checks it. */
@@ -79,6 +80,8 @@ export interface SpecsFromResult {
   unmatched: string[];
   /** Figures refused because their value was a fragment of the JSON they were read out of. */
   truncated: string[];
+  /** Figures dropped because a multilingual document stated them again in another language. */
+  repeated: number;
 }
 
 /** Turn a document's reported figures into spec rows, keeping only those whose product we already hold. */
@@ -132,5 +135,22 @@ export function specsFrom({ reports, models, manufacturer, source, extractedBy, 
       });
     }
   }
-  return { specs: [...specs.values()].sort((a, b) => a.id.localeCompare(b.id)), unmatched, truncated };
+  // A multilingual manual states one figure several times. Pentair's solar drive manual gives the
+  // same output current as "Maximum output current", "Corriente máxima de salida" and "Courant de
+  // sortie maximum", all from one document. Where a model's figure appears under both an English
+  // name and a foreign one with the same value and unit, the English one is the row.
+  const repeated = new Set<string>();
+  const byFigure = new Map<string, Spec[]>();
+  for (const spec of specs.values()) {
+    const key = `${spec.model}|${spec.value}|${spec.unit ?? ""}`;
+    byFigure.set(key, [...(byFigure.get(key) ?? []), spec]);
+  }
+  for (const rows of byFigure.values()) {
+    if (rows.length < 2) continue;
+    if (!rows.some((row) => !looksForeign(row.name))) continue;
+    for (const row of rows.filter((r) => looksForeign(r.name))) repeated.add(row.id);
+  }
+  for (const id of repeated) specs.delete(id);
+
+  return { specs: [...specs.values()].sort((a, b) => a.id.localeCompare(b.id)), unmatched, truncated, repeated: repeated.size };
 }

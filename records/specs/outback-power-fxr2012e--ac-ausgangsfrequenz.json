@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-fxr2012e--ac-ausgangsfrequenz",
+  "model": "outback-power-fxr2012e",
+  "name": "AC-Ausgangsfrequenz",
+  "value": "50",
+  "unit": "Hz",
+  "source": "doc-8452ddb9bd444900edca4f8d20f075e4",
+  "page": 67,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

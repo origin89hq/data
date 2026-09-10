@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-300-24--continuous-output-power-at-power-factor-1",
+  "model": "samlex-america-pst-300-24",
+  "name": "CONTINUOUS OUTPUT POWER (At Power Factor = 1)",
+  "value": "300",
+  "unit": "W",
+  "source": "doc-326cac3c9d588367d330ba60e61d44bd",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

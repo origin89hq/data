@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-evo-30ab--high-battery-voltage-threshold-for-12v-system",
+  "model": "samlex-america-evo-30ab",
+  "name": "High battery voltage threshold for 12V system",
+  "value": "17",
+  "unit": "V",
+  "source": "doc-523f50977d18566d06eb5191ecd0bd1f",
+  "page": 40,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

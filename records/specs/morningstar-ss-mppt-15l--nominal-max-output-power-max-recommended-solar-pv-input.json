@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ss-mppt-15l--nominal-max-output-power-max-recommended-solar-pv-input",
+  "model": "morningstar-ss-mppt-15l",
+  "name": "Nominal Max. Output Power / Max Recommended Solar PV Input",
+  "value": "200W / 260W",
+  "source": "doc-d0e875dec70c9b017e0e9e1236fb4cdd",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

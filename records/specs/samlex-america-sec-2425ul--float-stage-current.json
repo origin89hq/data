@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-2425ul--float-stage-current",
+  "model": "samlex-america-sec-2425ul",
+  "name": "Float Stage current",
+  "value": "0.1% of the Ah capacity of the battery",
+  "source": "doc-89bd30b3b437461f2ec212d378a26017",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

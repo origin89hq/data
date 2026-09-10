@@ -1,0 +1,9 @@
+{
+  "id": "srne-sr-dcb-2--ingress-protection",
+  "model": "srne-sr-dcb-2",
+  "name": "Ingress Protection",
+  "value": "IP30",
+  "source": "doc-9504d3c2a168205e121c8ea86a074ecf",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

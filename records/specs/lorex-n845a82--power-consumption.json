@@ -1,0 +1,10 @@
+{
+  "id": "lorex-n845a82--power-consumption",
+  "model": "lorex-n845a82",
+  "name": "Power Consumption",
+  "value": "Approx. 8.3W (HDD excl.)",
+  "source": "doc-a77987d436409e8ee6bdca32fc554d1a",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

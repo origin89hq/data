@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-mm1012e--inverter-efficiency",
+  "model": "magnum-energy-mm1012e",
+  "name": "Inverter efficiency",
+  "value": "0.87",
+  "source": "doc-59042192a20fd2fa13de26ecc01ba03d",
+  "page": 38,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "millertech-16v-150ah-lifepo4-millertech-battery--nominal-voltage",
+  "model": "millertech-16v-150ah-lifepo4-millertech-battery",
+  "name": "NOMINAL VOLTAGE",
+  "value": "16",
+  "unit": "V",
+  "source": "doc-11956d8d961e4ebb6ed10a613446ab1a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

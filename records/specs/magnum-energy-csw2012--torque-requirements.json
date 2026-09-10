@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-csw2012--torque-requirements",
+  "model": "magnum-energy-csw2012",
+  "name": "Torque Requirements",
+  "value": "16 to 21 lbf-ft (22 to 28 N-m)",
+  "source": "doc-796bad03daee7bbd65b7a04782c79c4d",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

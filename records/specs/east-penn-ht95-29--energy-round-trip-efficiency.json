@@ -1,0 +1,10 @@
+{
+  "id": "east-penn-ht95-29--energy-round-trip-efficiency",
+  "model": "east-penn-ht95-29",
+  "name": "Energy Round Trip Efficiency",
+  "value": "80",
+  "source": "doc-7285025ce9f0bcb5b68489da924e1733",
+  "page": 79,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

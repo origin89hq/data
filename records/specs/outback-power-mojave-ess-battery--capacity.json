@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-mojave-ess-battery--capacity",
+  "model": "outback-power-mojave-ess-battery",
+  "name": "Capacity",
+  "value": "296 Ah (14.8 KWh) Nameplate",
+  "source": "doc-04f638945bb5646d35ce77ec46e5aa28",
+  "page": 89,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

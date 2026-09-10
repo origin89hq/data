@@ -1,0 +1,10 @@
+{
+  "id": "east-penn-p49--finish-rate-amps",
+  "model": "east-penn-p49",
+  "name": "FINISH RATE—AMPS",
+  "value": "5, 7, 10, 12, 15, 17, 20, 22, 24, 27, 29, 32, 34, 37, 39",
+  "source": "doc-b278495f190b8ddc3f32b75b9ccc8381",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

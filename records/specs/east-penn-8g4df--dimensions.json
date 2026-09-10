@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-8g4df--dimensions",
+  "model": "east-penn-8g4df",
+  "name": "Dimensions",
+  "value": "20.77\" x 8.43\" x 9.35\"",
+  "source": "doc-5a7b2ed8c29fb3212eccdf6e00fe5c83",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sdc-15--input-current-at-no-load",
+  "model": "samlex-america-sdc-15",
+  "name": "INPUT CURRENT AT NO LOAD",
+  "value": "< 150mA",
+  "source": "doc-03617752e43b9339337a2140e23a57af",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

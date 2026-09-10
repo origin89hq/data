@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-srv-150-30a--dimensions",
+  "model": "samlex-america-srv-150-30a",
+  "name": "DIMENSIONS",
+  "value": "660 x 1474 x 35.3 mm (26.0 x 58.03 x 1.39 in)",
+  "source": "doc-d94bbb925dac3274d56a9b91f9d929e7",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

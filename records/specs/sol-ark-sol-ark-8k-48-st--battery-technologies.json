@@ -4,7 +4,7 @@
   "name": "Battery Technologies",
   "value": "Lithium / Lead Acid",
   "source": "doc-2d78833f0dfd3579b769cf106c70364e",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

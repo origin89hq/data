@@ -1,9 +1,0 @@
-{
-  "id": "pentair-35926--calcium-carbonate-media",
-  "model": "pentair-35926",
-  "name": "Calcium Carbonate Media",
-  "value": "1.0 cu ft",
-  "source": "doc-5652a217ea7b81f19943cab51d24b3a3",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

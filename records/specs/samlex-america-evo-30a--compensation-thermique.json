@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-30a--compensation-thermique",
+  "model": "samlex-america-evo-30a",
+  "name": "COMPENSATION THERMIQUE",
+  "value": "30 mV / °C pour une batterie de 12V",
+  "source": "doc-523f50977d18566d06eb5191ecd0bd1f",
+  "page": 92,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

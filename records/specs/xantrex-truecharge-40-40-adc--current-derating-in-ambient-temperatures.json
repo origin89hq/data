@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-truecharge-40-40-adc--current-derating-in-ambient-temperatures",
+  "model": "xantrex-truecharge-40-40-adc",
+  "name": "Current derating in ambient temperatures",
+  "value": "40 A at 30 °C to 20 A at 50 °C",
+  "source": "doc-70704d817272e64661853442900628f2",
+  "page": 53,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

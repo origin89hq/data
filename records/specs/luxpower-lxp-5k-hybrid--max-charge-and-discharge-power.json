@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-lxp-5k-hybrid--max-charge-and-discharge-power",
+  "model": "luxpower-lxp-5k-hybrid",
+  "name": "Max. charge and discharge power",
+  "value": "3600",
+  "unit": "W",
+  "source": "doc-c9468be14740afb2b50766463b7405a8",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

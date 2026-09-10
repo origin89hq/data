@@ -1,9 +1,0 @@
-{
-  "id": "eg4-electronics-eg4-chargeverter-plus--net-weight",
-  "model": "eg4-electronics-eg4-chargeverter-plus",
-  "name": "NET WEIGHT",
-  "value": "13.67 lbs. (6.2 kg)",
-  "source": "doc-55f12b8f9ded3bc7664ee333a8178ac7",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

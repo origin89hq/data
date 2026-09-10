@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-evo-rc-plus--maximum-charging-current-on-ext-charger-terminals",
+  "model": "samlex-america-evo-rc-plus",
+  "name": "Maximum charging current on EXT Charger terminals",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-e4b7bca81a862471e87ee06ee31c2690",
+  "page": 91,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gs7048e--grid-input-ac-limit",
+  "model": "outback-power-gs7048e",
+  "name": "Grid Input AC Limit",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-a6f1fde00f99fc6d5b81ec8f95129fc2",
+  "page": 72,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

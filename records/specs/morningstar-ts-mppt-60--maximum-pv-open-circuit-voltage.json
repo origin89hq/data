@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-ts-mppt-60--maximum-pv-open-circuit-voltage",
+  "model": "morningstar-ts-mppt-60",
+  "name": "Maximum PV Open Circuit Voltage",
+  "value": "150 volts DC",
+  "source": "doc-d909fca27911a10e86c6dff57445411a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

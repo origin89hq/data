@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-mma1212--continuous-output-at-45-c",
+  "model": "magnum-energy-mma1212",
+  "name": "Continuous output at 45°C",
+  "value": "60",
+  "unit": "A",
+  "source": "doc-ca778ff0aed26ca57f4be77fc4382235",
+  "page": 48,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

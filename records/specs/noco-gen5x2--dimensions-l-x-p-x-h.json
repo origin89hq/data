@@ -1,0 +1,10 @@
+{
+  "id": "noco-gen5x2--dimensions-l-x-p-x-h",
+  "model": "noco-gen5x2",
+  "name": "Dimensions (L x P x H)",
+  "value": "6,4 x 4,7 x 2,1 pouces (163 x 119 x 53 mm)",
+  "source": "doc-00ff466d0b0d3154c3a2e609718dee8b",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

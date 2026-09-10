@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-ctc240--range",
+  "model": "east-penn-ctc240",
+  "name": "Range",
+  "value": "13.42V to 13.57V per battery",
+  "source": "doc-fbb4a6400392e7df529a22b56fc1b349",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

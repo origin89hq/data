@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-tristar-mppt--ahc-t-hi-ahc-t-lo",
+  "model": "morningstar-tristar-mppt",
+  "name": "Ahc_t_HI / Ahc_t_LO",
+  "value": "ah",
+  "source": "doc-2a1d378eabfc66486926f2fecfd0f84d",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

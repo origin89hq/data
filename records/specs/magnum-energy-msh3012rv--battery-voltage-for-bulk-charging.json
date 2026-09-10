@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-msh3012rv--battery-voltage-for-bulk-charging",
+  "model": "magnum-energy-msh3012rv",
+  "name": "Battery voltage for bulk charging",
+  "value": "≤12.8 VDC",
+  "source": "doc-7fa1abfe0df67050065ddf5af1d831dc",
+  "page": 44,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

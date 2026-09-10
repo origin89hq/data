@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-csw1012--torque-for-dc-cable-connections",
+  "model": "magnum-energy-csw1012",
+  "name": "Torque for DC cable connections",
+  "value": "79 to 96 lbf-in (8.9 to 10.9 N-m)",
+  "source": "doc-1d17c93430369e55a57f023cd179bde0",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

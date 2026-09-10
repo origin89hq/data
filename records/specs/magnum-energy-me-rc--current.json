@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-me-rc--current",
+  "model": "magnum-energy-me-rc",
+  "name": "Current",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-500fbb3f4db5fffac69cbb7b33677f7a",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

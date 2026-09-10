@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-fm80--system-voltage",
+  "model": "outback-power-fm80",
+  "name": "System Voltage",
+  "value": "48",
+  "unit": "V",
+  "source": "doc-030638d1c39d5bffb3e6e9f03aa68ed3",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

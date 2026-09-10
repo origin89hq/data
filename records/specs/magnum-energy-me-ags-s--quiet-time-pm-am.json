@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-me-ags-s--quiet-time-pm-am",
+  "model": "magnum-energy-me-ags-s",
+  "name": "QUIET TIME PM/AM",
+  "value": "OFF",
+  "source": "doc-710b25c272ace824a0308dbfe86a4469",
+  "page": 23,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

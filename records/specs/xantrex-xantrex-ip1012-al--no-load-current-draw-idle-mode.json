@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-xantrex-ip1012-al--no-load-current-draw-idle-mode",
+  "model": "xantrex-xantrex-ip1012-al",
+  "name": "No-load current draw (idle mode)",
+  "value": "<650 mA",
+  "source": "doc-37534a5cc18e3ea4db01ca22e646e423",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

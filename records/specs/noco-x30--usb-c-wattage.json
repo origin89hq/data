@@ -1,0 +1,10 @@
+{
+  "id": "noco-x30--usb-c-wattage",
+  "model": "noco-x30",
+  "name": "USB-C Wattage",
+  "value": "30",
+  "unit": "W",
+  "source": "doc-7c967ef22e1539944c1869a7db79586e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

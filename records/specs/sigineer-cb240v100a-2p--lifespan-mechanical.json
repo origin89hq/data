@@ -1,9 +1,0 @@
-{
-  "id": "sigineer-cb240v100a-2p--lifespan-mechanical",
-  "model": "sigineer-cb240v100a-2p",
-  "name": "Lifespan, Mechanical",
-  "value": "20000 times",
-  "source": "doc-82aa755b9d92a5fbe4ff14f2b1575f9e",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

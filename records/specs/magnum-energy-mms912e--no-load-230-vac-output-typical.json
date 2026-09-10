@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-mms912e--no-load-230-vac-output-typical",
+  "model": "magnum-energy-mms912e",
+  "name": "No load (230 VAC output, typical)",
+  "value": "19 watts at 12.6 V",
+  "source": "doc-1e0e63b473222d8d5aa4a4f4b74ef46b",
+  "page": 40,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

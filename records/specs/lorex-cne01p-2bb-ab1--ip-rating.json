@@ -1,9 +1,0 @@
-{
-  "id": "lorex-cne01p-2bb-ab1--ip-rating",
-  "model": "lorex-cne01p-2bb-ab1",
-  "name": "IP Rating",
-  "value": "IP66",
-  "source": "doc-d677ac8749943041f40ee2f8ba4bdcef",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

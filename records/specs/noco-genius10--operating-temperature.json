@@ -2,9 +2,9 @@
   "id": "noco-genius10--operating-temperature",
   "model": "noco-genius10",
   "name": "Operating Temperature",
-  "value": "-20 °C à 40 °C (-4 °F à 104 °F)",
+  "value": "-4°F to 104°F (-20°C to 40°C)",
   "source": "doc-e56ff4867f97c6f89af7ba14dbf99ffe",
+  "page": 7,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "page": 19,
   "confidence": "vendor-doc"
 }

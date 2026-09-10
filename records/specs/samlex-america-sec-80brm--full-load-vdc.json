@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-sec-80brm--full-load-vdc",
+  "model": "samlex-america-sec-80brm",
+  "name": "Full Load, VDC",
+  "value": "13.45",
+  "unit": "V",
+  "source": "doc-bde0f3bfe26d3bd33a11cbb0bc649efd",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

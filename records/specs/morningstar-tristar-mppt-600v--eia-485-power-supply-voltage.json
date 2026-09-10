@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-tristar-mppt-600v--eia-485-power-supply-voltage",
+  "model": "morningstar-tristar-mppt-600v",
+  "name": "EIA-485 Power Supply Voltage",
+  "value": "8-16 Vdc",
+  "source": "doc-abff1de971730785bffa93069310d809",
+  "page": 31,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "noco-ax65--usb-c",
+  "model": "noco-ax65",
+  "name": "USB-C",
+  "value": "5V 1.5A/9V 3A/12V 3A/15V 3A/20V 3A",
+  "unit": "in",
+  "source": "doc-7cd619ec8cb5a7083981933be601e7a3",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

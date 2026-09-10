@@ -1,0 +1,9 @@
+{
+  "id": "millertech-12v-100ah-lifepo4-millertech-battery--self-discharge-rate",
+  "model": "millertech-12v-100ah-lifepo4-millertech-battery",
+  "name": "SELF DISCHARGE RATE",
+  "value": "< 4% / MONTH",
+  "source": "doc-247cb836361e6a9574f28b01f4df950d",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

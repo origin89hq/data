@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-ensp48ndg3460bl--short-circuit-current",
+  "model": "energizer-solar-ensp48ndg3460bl",
+  "name": "Short Circuit Current",
+  "value": "15.81",
+  "unit": "A",
+  "source": "doc-d3aa21e32a4019551df4a8ae51605af9",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

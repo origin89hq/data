@@ -1,0 +1,12 @@
+{
+  "id": "outback-power-fx--ac-input-three-phase",
+  "model": "outback-power-fx",
+  "name": "AC input",
+  "value": "230/400",
+  "unit": "V",
+  "conditions": "three-phase",
+  "source": "doc-5caed8fb37e9f8fa0dc614b6c4f54625",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

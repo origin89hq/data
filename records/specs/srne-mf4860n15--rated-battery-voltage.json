@@ -1,0 +1,9 @@
+{
+  "id": "srne-mf4860n15--rated-battery-voltage",
+  "model": "srne-mf4860n15",
+  "name": "Rated Battery Voltage",
+  "value": "12/24/36/48Vdc",
+  "source": "doc-234aa003fa0448e8511f4867023d902e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

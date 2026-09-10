@@ -1,0 +1,11 @@
+{
+  "id": "srne-asp48150uh3--rated-ac-output-current",
+  "model": "srne-asp48150uh3",
+  "name": "Rated AC Output Current",
+  "value": "41.7",
+  "unit": "A",
+  "source": "doc-71f23a4d5114065ab243f984205d0078",
+  "page": 48,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

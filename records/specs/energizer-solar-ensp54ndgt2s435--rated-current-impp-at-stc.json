@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-ensp54ndgt2s435--rated-current-impp-at-stc",
+  "model": "energizer-solar-ensp54ndgt2s435",
+  "name": "Rated current (Impp) at STC",
+  "value": "13.23",
+  "unit": "A",
+  "source": "doc-2b3f5ebcea5a5a012f550928b4d355b4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-xantrex-ip1012-al--output-frequency-regulation",
+  "model": "xantrex-xantrex-ip1012-al",
+  "name": "Output frequency regulation",
+  "value": "60 +/- 0.1 Hz",
+  "source": "doc-37534a5cc18e3ea4db01ca22e646e423",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

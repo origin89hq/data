@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-flexmax-60--pv-array-voltage",
+  "model": "outback-power-flexmax-60",
+  "name": "PV array voltage",
+  "value": "150 Voc",
+  "source": "doc-9ad2253f663deb28090828e648601ec8",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

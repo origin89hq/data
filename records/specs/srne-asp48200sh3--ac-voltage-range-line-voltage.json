@@ -1,0 +1,10 @@
+{
+  "id": "srne-asp48200sh3--ac-voltage-range-line-voltage",
+  "model": "srne-asp48200sh3",
+  "name": "AC Voltage Range Line Voltage",
+  "value": "305~485Vac",
+  "source": "doc-5aed4fb4d801b1348f9fda8464502049",
+  "page": 50,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

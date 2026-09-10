@@ -1,0 +1,11 @@
+{
+  "id": "noco-ax65--ladetid",
+  "model": "noco-ax65",
+  "name": "Ladetid",
+  "value": "8",
+  "unit": "h",
+  "source": "doc-7cd619ec8cb5a7083981933be601e7a3",
+  "page": 116,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

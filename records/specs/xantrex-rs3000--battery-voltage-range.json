@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-rs3000--battery-voltage-range",
+  "model": "xantrex-rs3000",
+  "name": "Battery voltage range",
+  "value": "10.3–15.3 volts DC",
+  "source": "doc-ba676906c32b170e12ff2950b4072ec3",
+  "page": 49,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-shs-6--rated-current",
+  "model": "morningstar-shs-6",
+  "name": "Rated Current",
+  "value": "6",
+  "unit": "A",
+  "source": "doc-5fe0ccd3c33c0523554389eaa09ab6f4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

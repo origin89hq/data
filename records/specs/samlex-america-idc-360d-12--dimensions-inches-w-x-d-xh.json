@@ -1,9 +1,0 @@
-{
-  "id": "samlex-america-idc-360d-12--dimensions-inches-w-x-d-xh",
-  "model": "samlex-america-idc-360d-12",
-  "name": "DIMENSIONS, INCHES(W x D xH)",
-  "value": "5.23 x 7.5 x 3.27",
-  "source": "doc-37907b5198bf1b74b601fc76828291c8",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

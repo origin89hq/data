@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-12avr100et--discharge-rating-at-1-90v-5-hr",
+  "model": "east-penn-12avr100et",
+  "name": "Discharge Rating at 1.90V, 5 HR",
+  "value": "16.3",
+  "source": "doc-c5307972f9ff968b008e50629c27f34e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

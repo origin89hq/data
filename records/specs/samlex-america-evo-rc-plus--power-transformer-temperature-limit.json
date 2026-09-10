@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-evo-rc-plus--power-transformer-temperature-limit",
+  "model": "samlex-america-evo-rc-plus",
+  "name": "Power Transformer temperature limit",
+  "value": "130",
+  "unit": "°C",
+  "source": "doc-e4b7bca81a862471e87ee06ee31c2690",
+  "page": 91,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

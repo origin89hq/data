@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-ntx-2000-12--dc-input-voltage-range",
+  "model": "samlex-america-ntx-2000-12",
+  "name": "DC INPUT VOLTAGE RANGE",
+  "value": "10.5 - 16.3 VDC (± 0.3 VDC)",
+  "source": "doc-e29402cf33991470ec6bee4538f8b1be",
+  "page": 33,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

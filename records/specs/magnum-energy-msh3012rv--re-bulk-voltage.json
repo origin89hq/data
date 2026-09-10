@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-msh3012rv--re-bulk-voltage",
+  "model": "magnum-energy-msh3012rv",
+  "name": "Re-bulk voltage",
+  "value": "12.1",
+  "unit": "V",
+  "source": "doc-7fa1abfe0df67050065ddf5af1d831dc",
+  "page": 44,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

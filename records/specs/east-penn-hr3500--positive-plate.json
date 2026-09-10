@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-hr3500--positive-plate",
+  "model": "east-penn-hr3500",
+  "name": "Positive Plate",
+  "value": ">98% Pure lead with tin-calcium alloy",
+  "source": "doc-d39364f45b4bb10c8c4ca1056aed086b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

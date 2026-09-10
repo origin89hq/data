@@ -1,0 +1,9 @@
+{
+  "id": "luxpower-lxp-5k-hybrid--max-dc-current-input-a-input-b",
+  "model": "luxpower-lxp-5k-hybrid",
+  "name": "Max. DC current (input A/ input B)",
+  "value": "11A/ 11A",
+  "source": "doc-c9468be14740afb2b50766463b7405a8",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

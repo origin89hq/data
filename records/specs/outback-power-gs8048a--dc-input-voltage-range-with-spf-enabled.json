@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gs8048a--dc-input-voltage-range-with-spf-enabled",
+  "model": "outback-power-gs8048a",
+  "name": "DC Input voltage range with SPF enabled",
+  "value": "44 to 68 Vdc",
+  "source": "doc-dcbd246ed4a1bd3988f688bd04c13e7c",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

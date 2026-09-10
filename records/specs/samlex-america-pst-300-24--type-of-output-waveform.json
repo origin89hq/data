@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-pst-300-24--type-of-output-waveform",
+  "model": "samlex-america-pst-300-24",
+  "name": "TYPE OF OUTPUT WAVEFORM",
+  "value": "Pure Sine Wave",
+  "source": "doc-326cac3c9d588367d330ba60e61d44bd",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

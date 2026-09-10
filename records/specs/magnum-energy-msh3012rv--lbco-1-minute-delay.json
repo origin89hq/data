@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-msh3012rv--lbco-1-minute-delay",
+  "model": "magnum-energy-msh3012rv",
+  "name": "LBCO (1 minute delay)",
+  "value": "10.0",
+  "unit": "V",
+  "source": "doc-d30af05b560c3d63ebacd99c3ff4abbe",
+  "page": 49,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

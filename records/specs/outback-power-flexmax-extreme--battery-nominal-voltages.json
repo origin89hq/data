@@ -1,0 +1,9 @@
+{
+  "id": "outback-power-flexmax-extreme--battery-nominal-voltages",
+  "model": "outback-power-flexmax-extreme",
+  "name": "Battery Nominal Voltages",
+  "value": "12-volt, 24-volt, 36-volt, 48-volt, 60-volt",
+  "source": "doc-42aac16b36ab4e10b2b241d5cfbe1f23",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

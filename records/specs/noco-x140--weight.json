@@ -1,0 +1,9 @@
+{
+  "id": "noco-x140--weight",
+  "model": "noco-x140",
+  "name": "WEIGHT",
+  "value": "0.73 lbs (0.33 kg)",
+  "source": "doc-7c554377f36c7773f4c05aa7da193005",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

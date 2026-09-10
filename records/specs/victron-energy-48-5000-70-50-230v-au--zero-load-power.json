@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-48-5000-70-50-230v-au--zero-load-power",
+  "model": "victron-energy-48-5000-70-50-230v-au",
+  "name": "Zero load power",
+  "value": "18",
+  "unit": "W",
+  "source": "doc-7c9b773afaadf5f30008ca3c861523f8",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

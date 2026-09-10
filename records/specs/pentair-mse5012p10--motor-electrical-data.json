@@ -1,0 +1,9 @@
+{
+  "id": "pentair-mse5012p10--motor-electrical-data",
+  "model": "pentair-mse5012p10",
+  "name": "Motor/Electrical Data",
+  "value": "115V 9A 1Ø/230V 4.6A 1Ø",
+  "source": "doc-9b681389f4d4804ee152ce22e27c2777",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

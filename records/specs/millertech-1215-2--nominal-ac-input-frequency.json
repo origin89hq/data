@@ -1,0 +1,10 @@
+{
+  "id": "millertech-1215-2--nominal-ac-input-frequency",
+  "model": "millertech-1215-2",
+  "name": "Nominal AC Input Frequency",
+  "value": "60",
+  "unit": "Hz",
+  "source": "doc-d709cb6f2f4f60942f0abf59407db360",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

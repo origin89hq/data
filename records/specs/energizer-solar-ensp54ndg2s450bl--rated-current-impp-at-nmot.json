@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-ensp54ndg2s450bl--rated-current-impp-at-nmot",
+  "model": "energizer-solar-ensp54ndg2s450bl",
+  "name": "Rated current (Impp) at NMOT",
+  "value": "10.77",
+  "unit": "A",
+  "source": "doc-c6bebb90bf4abeb3c1454062e1c571d9",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

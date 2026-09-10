@@ -1,0 +1,9 @@
+{
+  "id": "luxpower-lxp-3600-acs--input",
+  "model": "luxpower-lxp-3600-acs",
+  "name": "Input",
+  "value": "230V~ 50/60Hz 3600W, Max 16A",
+  "source": "doc-398ff4aebbfdeef577ed94bef55f08d0",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

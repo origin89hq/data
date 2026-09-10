@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ma-75h--stroke",
+  "model": "pentair-ma-75h",
+  "name": "Stroke",
+  "value": "2-3/4\"",
+  "source": "doc-e52fbb13118d95b3ee9c71d320de22f6",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

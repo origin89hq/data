@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-sec-2440ul--bulk-stage-current-rating",
+  "model": "samlex-america-sec-2440ul",
+  "name": "Bulk Stage Current rating",
+  "value": "40",
+  "unit": "A",
+  "source": "doc-a0ff036cae0aeae79aaa16d19a5f2a82",
+  "page": 27,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

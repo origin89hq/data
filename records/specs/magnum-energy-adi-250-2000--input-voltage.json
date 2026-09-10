@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-adi-250-2000--input-voltage",
+  "model": "magnum-energy-adi-250-2000",
+  "name": "Input voltage",
+  "value": "250",
+  "unit": "V",
+  "source": "doc-f0b43ba05de3b4d62bbc76f134d4e554",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

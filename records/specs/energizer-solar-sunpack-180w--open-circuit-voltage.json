@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-sunpack-180w--open-circuit-voltage",
+  "model": "energizer-solar-sunpack-180w",
+  "name": "Open Circuit Voltage",
+  "value": "21.6",
+  "unit": "V",
+  "source": "doc-26ff2a73b6a65f512a7df48c4d1b421c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

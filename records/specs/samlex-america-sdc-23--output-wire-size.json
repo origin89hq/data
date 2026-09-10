@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sdc-23--output-wire-size",
+  "model": "samlex-america-sdc-23",
+  "name": "OUTPUT WIRE SIZE",
+  "value": "#8 AWG",
+  "source": "doc-03617752e43b9339337a2140e23a57af",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

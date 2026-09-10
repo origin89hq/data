@@ -1,0 +1,9 @@
+{
+  "id": "millertech-dark-speed-12v-36v--waterproof",
+  "model": "millertech-dark-speed-12v-36v",
+  "name": "WATERPROOF",
+  "value": "IP65",
+  "source": "doc-e4256f5a81b592cbf2321d2012fb05ee",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

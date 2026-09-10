@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-tristar-mppt-150v--float-stage-voltage",
+  "model": "morningstar-tristar-mppt-150v",
+  "name": "Float Stage Voltage",
+  "value": "13.70",
+  "source": "doc-d77891330c761670b3824d171460f71b",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

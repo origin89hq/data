@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-pro208v-5k75--ac-synchronization-in-rush-current",
+  "model": "outback-power-pro208v-5k75",
+  "name": "AC synchronization in-rush current",
+  "value": "0",
+  "unit": "A",
+  "source": "doc-d4b9114284d2fc0da4b61c00c23661e7",
+  "page": 41,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

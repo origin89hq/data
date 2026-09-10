@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-rm-1--faceplate-dimensions",
+  "model": "morningstar-rm-1",
+  "name": "Faceplate dimensions",
+  "value": "9.5 x 9.5 cm / 3.8 x 3.8 in.",
+  "source": "doc-7212a13aeb8c5e69c9a7f9bfed41f218",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

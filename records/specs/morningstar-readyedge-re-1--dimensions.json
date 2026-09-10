@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-readyedge-re-1--dimensions",
+  "model": "morningstar-readyedge-re-1",
+  "name": "Dimensions",
+  "value": "15.8 × 10.6 × 5.4 cm (6.2 × 4.2 × 2.1 in)",
+  "source": "doc-76bb5fbe053c398368d2a0ae041740e1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

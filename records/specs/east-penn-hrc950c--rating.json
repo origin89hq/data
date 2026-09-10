@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-hrc950c--rating",
+  "model": "east-penn-hrc950c",
+  "name": "Rating",
+  "value": "914 Watts/Cell @ 5 min. rate to 1.67 V.P.C.",
+  "source": "doc-6f68fbe2d2bba00aa0fcd1b67cf6dbbe",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "noco-ax65--maks-luftmengde-ved-0-psi",
+  "model": "noco-ax65",
+  "name": "Maks luftmengde ved 0 PSI",
+  "value": "67 SLPM",
+  "source": "doc-7cd619ec8cb5a7083981933be601e7a3",
+  "page": 120,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

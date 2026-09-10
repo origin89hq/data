@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-ms2000--continuous-charger-current",
+  "model": "magnum-energy-ms2000",
+  "name": "Continuous Charger Current",
+  "value": "100ADC @ 11-14VDC",
+  "source": "doc-953c67134d63eac7f190a1f49999b892",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

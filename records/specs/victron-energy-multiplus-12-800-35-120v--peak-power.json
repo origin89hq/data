@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multiplus-12-800-35-120v--peak-power",
+  "model": "victron-energy-multiplus-12-800-35-120v",
+  "name": "Peak power",
+  "value": "1600",
+  "unit": "W",
+  "source": "doc-841ce12fa0666bfb259be1d0438d2492",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

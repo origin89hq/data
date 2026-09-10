@@ -1,0 +1,11 @@
+{
+  "id": "pentair-b3tqkhs-14--practical-vertical-suction-lift-limit",
+  "model": "pentair-b3tqkhs-14",
+  "name": "Practical vertical suction lift limit",
+  "value": "15",
+  "unit": "ft",
+  "source": "doc-7fccea203d81d24af6716f20e37132ec",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-100304--potencia",
+  "model": "champion-power-100304",
+  "name": "Potencia",
+  "value": "22-kW",
+  "source": "doc-92388a10f3dfbaa6e40d4840d867763b",
+  "page": 42,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

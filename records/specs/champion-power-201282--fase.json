@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201282--fase",
+  "model": "champion-power-201282",
+  "name": "Fase",
+  "value": "Singular",
+  "source": "doc-ee7a9206b2cdcdddd4f51d625df40399",
+  "page": 29,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

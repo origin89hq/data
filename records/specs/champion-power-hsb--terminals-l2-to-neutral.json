@@ -1,0 +1,11 @@
+{
+  "id": "champion-power-hsb--terminals-l2-to-neutral",
+  "model": "champion-power-hsb",
+  "name": "Terminals L2 to NEUTRAL",
+  "value": "120",
+  "unit": "V",
+  "source": "doc-55435a2b8c3f68111a248e951782be7b",
+  "page": 49,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

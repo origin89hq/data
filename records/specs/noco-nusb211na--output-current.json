@@ -1,0 +1,10 @@
+{
+  "id": "noco-nusb211na--output-current",
+  "model": "noco-nusb211na",
+  "name": "Output Current",
+  "value": "2.1",
+  "unit": "A",
+  "source": "doc-b24be40df780100238370be027573e05",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

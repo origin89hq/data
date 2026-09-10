@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-acld-40--rated-power",
+  "model": "magnum-energy-acld-40",
+  "name": "Rated power",
+  "value": "4000",
+  "unit": "W",
+  "source": "doc-69af865df31fc5e05ffd3496abebde68",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

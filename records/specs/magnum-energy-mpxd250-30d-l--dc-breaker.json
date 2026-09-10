@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-mpxd250-30d-l--dc-breaker",
+  "model": "magnum-energy-mpxd250-30d-l",
+  "name": "DC Breaker",
+  "value": "250",
+  "unit": "A",
+  "source": "doc-dfef85cde90a405f7ada22c6abf39231",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

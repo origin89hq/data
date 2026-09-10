@@ -1,0 +1,10 @@
+{
+  "id": "millertech-12v-135ah-lifepo4-millertech-battery--discharge-current-5s",
+  "model": "millertech-12v-135ah-lifepo4-millertech-battery",
+  "name": "DISCHARGE CURRENT 5S",
+  "value": "300",
+  "unit": "A",
+  "source": "doc-694a3af5bc4faccae737e13cf69ebc35",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

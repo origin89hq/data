@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-obx-ic--dimensions",
+  "model": "outback-power-obx-ic",
+  "name": "Dimensions",
+  "value": "20.95 cm x 41.27 cm x 33.02 cm (8.25” x 16.25” x 13”)",
+  "source": "doc-0ebaf4052e4975b1e5bc3fab2ab0ac91",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

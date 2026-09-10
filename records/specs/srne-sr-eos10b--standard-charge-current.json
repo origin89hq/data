@@ -1,0 +1,10 @@
+{
+  "id": "srne-sr-eos10b--standard-charge-current",
+  "model": "srne-sr-eos10b",
+  "name": "Standard charge current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-8bbb4b31ebad00c9c481b84341d98511",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

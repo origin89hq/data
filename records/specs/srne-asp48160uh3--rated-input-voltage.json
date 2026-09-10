@@ -1,0 +1,10 @@
+{
+  "id": "srne-asp48160uh3--rated-input-voltage",
+  "model": "srne-asp48160uh3",
+  "name": "Rated Input Voltage",
+  "value": "120/208Vac (L1+L2+L3+N+PE)",
+  "source": "doc-71f23a4d5114065ab243f984205d0078",
+  "page": 48,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

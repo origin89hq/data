@@ -1,0 +1,11 @@
+{
+  "id": "noco-gbx75--top-str-m-bed-mmelse",
+  "model": "noco-gbx75",
+  "name": "Top strøm bedømmelse",
+  "value": "2500",
+  "unit": "A",
+  "source": "doc-9da28ee8030be3fa7122b62f0ae81f95",
+  "page": 85,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "luxpower-lxp5k-hb--max-efficiency",
+  "model": "luxpower-lxp5k-hb",
+  "name": "Max. Efficiency",
+  "value": "97.5",
+  "unit": "%",
+  "source": "doc-d959ddc2ab2665f97ac299682122cb09",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

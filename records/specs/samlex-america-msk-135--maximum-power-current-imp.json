@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-msk-135--maximum-power-current-imp",
+  "model": "samlex-america-msk-135",
+  "name": "MAXIMUM POWER CURRENT, Imp",
+  "value": "7.71A (2.57A per 45W Panel)",
+  "source": "doc-503896f682b597431325314f4b8e9035",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

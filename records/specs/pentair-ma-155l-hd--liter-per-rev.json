@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ma-155l-hd--liter-per-rev",
+  "model": "pentair-ma-155l-hd",
+  "name": "LITER PER/REV.",
+  "value": "2.780, 2.610, 2.444, 2.283, 2.129, 1.979, 1.835, 1.697, 1.564, 1.436",
+  "source": "doc-982937007006e56277dee355a02d2f04",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

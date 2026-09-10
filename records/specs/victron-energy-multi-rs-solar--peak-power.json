@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multi-rs-solar--peak-power",
+  "model": "victron-energy-multi-rs-solar",
+  "name": "Peak power",
+  "value": "9000",
+  "unit": "W",
+  "source": "doc-e1ae7450eae21a41f7f792498e3f6aa2",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

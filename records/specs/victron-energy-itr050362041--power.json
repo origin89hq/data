@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-itr050362041--power",
+  "model": "victron-energy-itr050362041",
+  "name": "Power",
+  "value": "3600",
+  "unit": "W",
+  "source": "doc-3adf20884d2c28a9a5ddf67383370d7d",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

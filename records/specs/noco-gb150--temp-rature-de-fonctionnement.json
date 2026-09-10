@@ -2,10 +2,10 @@
   "id": "noco-gb150--temp-rature-de-fonctionnement",
   "model": "noco-gb150",
   "name": "Température de fonctionnement",
+  "english": "Operating temperature",
   "value": "-20°C à +50°C",
   "source": "doc-053a1e6bf9b140c56d7d670f15461687",
+  "page": 14,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "page": 17,
-  "confidence": "vendor-doc",
-  "english": "Operating temperature"
+  "confidence": "vendor-doc"
 }

@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-msh3012rv--hbci-high-battery-cut-in-level",
+  "model": "magnum-energy-msh3012rv",
+  "name": "HBCI (High Battery Cut In) level",
+  "value": "see Table 3-1",
+  "source": "doc-7fa1abfe0df67050065ddf5af1d831dc",
+  "page": 46,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

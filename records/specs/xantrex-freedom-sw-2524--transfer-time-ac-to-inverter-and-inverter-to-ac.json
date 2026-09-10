@@ -1,0 +1,9 @@
+{
+  "id": "xantrex-freedom-sw-2524--transfer-time-ac-to-inverter-and-inverter-to-ac",
+  "model": "xantrex-freedom-sw-2524",
+  "name": "Transfer time (AC to inverter and inverter to AC)",
+  "value": "< 20 ms",
+  "source": "doc-5519eac23098982576268643f6e073a6",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

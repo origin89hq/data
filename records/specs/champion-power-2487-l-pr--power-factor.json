@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-2487-l-pr--power-factor",
+  "model": "champion-power-2487-l-pr",
+  "name": "Power Factor",
+  "value": "1.0",
+  "source": "doc-a972bdc707a4609bfe955bd34cf5b55d",
+  "page": 27,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gs3548e--ac-maximum-output-fault-current-and-duration",
+  "model": "outback-power-gs3548e",
+  "name": "AC Maximum Output Fault Current and Duration",
+  "value": "54.5 Aac for 0.364 seconds",
+  "source": "doc-fda963efd83b4fc2faf57024b5e6becd",
+  "page": 57,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

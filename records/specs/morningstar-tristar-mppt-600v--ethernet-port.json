@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-tristar-mppt-600v--ethernet-port",
+  "model": "morningstar-tristar-mppt-600v",
+  "name": "Ethernet Port",
+  "value": "HTTP, MODBUS TCP/IP, SMTP, SNMP",
+  "source": "doc-abff1de971730785bffa93069310d809",
+  "page": 31,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

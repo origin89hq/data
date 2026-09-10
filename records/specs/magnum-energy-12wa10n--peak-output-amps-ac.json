@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-12wa10n--peak-output-amps-ac",
+  "model": "magnum-energy-12wa10n",
+  "name": "Peak Output (Amps AC)",
+  "value": "16",
+  "source": "doc-d211eecf376ec3b4bad289440c313d1e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

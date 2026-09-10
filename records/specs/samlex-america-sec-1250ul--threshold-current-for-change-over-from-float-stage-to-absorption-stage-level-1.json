@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-1250ul--threshold-current-for-change-over-from-float-stage-to-absorption-stage-level-1",
+  "model": "samlex-america-sec-1250ul",
+  "name": "Threshold current for change over from Float Stage to Absorption Stage (Level 1)",
+  "value": "10A +/- 0.5A",
+  "source": "doc-89bd30b3b437461f2ec212d378a26017",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-sec-2440ul--input-overload",
+  "model": "samlex-america-sec-2440ul",
+  "name": "INPUT OVERLOAD",
+  "value": "20A input side fuse will blow (120 VAC input)",
+  "source": "doc-f33fd648e833561e44577eb63ca7ea6a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

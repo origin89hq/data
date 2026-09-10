@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-msh3012rv--lbco-lbci-low-battery-cut-out-in",
+  "model": "magnum-energy-msh3012rv",
+  "name": "LBCO/LBCI (Low Battery Cut Out/In)",
+  "value": "9.0 VDC (adj) / 12.5 VDC",
+  "source": "doc-d30af05b560c3d63ebacd99c3ff4abbe",
+  "page": 58,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

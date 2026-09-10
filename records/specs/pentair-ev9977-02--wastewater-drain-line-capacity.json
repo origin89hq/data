@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ev9977-02--wastewater-drain-line-capacity",
+  "model": "pentair-ev9977-02",
+  "name": "Wastewater Drain Line Capacity",
+  "value": "0.05 gpm (200 ml/m)",
+  "source": "doc-82ba7edb82fa1b5c8f27cf42bc0df17c",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

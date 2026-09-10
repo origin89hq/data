@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-truecharge-20-20-adc--ac-input-voltage-range",
+  "model": "xantrex-truecharge-20-20-adc",
+  "name": "AC input voltage range",
+  "value": "90 – 135 VAC",
+  "source": "doc-70704d817272e64661853442900628f2",
+  "page": 53,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

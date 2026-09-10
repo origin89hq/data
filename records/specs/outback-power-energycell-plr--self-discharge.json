@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-energycell-plr--self-discharge",
+  "model": "outback-power-energycell-plr",
+  "name": "Self-Discharge",
+  "value": "up to 18 months",
+  "source": "doc-840f1b43cc52ee6fe491cf95b2cbbdd5",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

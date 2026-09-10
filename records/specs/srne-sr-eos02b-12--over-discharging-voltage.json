@@ -1,0 +1,10 @@
+{
+  "id": "srne-sr-eos02b-12--over-discharging-voltage",
+  "model": "srne-sr-eos02b-12",
+  "name": "Over Discharging Voltage",
+  "value": "11.2",
+  "unit": "V",
+  "source": "doc-0d6478c24f22037f47f56b1e40048ff5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

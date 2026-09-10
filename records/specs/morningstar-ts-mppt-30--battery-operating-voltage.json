@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-ts-mppt-30--battery-operating-voltage",
+  "model": "morningstar-ts-mppt-30",
+  "name": "Battery Operating Voltage",
+  "value": "8 to 72 V",
+  "source": "doc-4d6183bef1084b0d4bb289695403fac8",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

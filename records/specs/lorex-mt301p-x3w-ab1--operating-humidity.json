@@ -1,0 +1,9 @@
+{
+  "id": "lorex-mt301p-x3w-ab1--operating-humidity",
+  "model": "lorex-mt301p-x3w-ab1",
+  "name": "Operating Humidity",
+  "value": "≤ 90% RH",
+  "source": "doc-6ea206e13f1c7d4aff662b5260b0391b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

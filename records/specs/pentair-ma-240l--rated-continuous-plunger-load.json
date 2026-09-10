@@ -1,0 +1,11 @@
+{
+  "id": "pentair-ma-240l--rated-continuous-plunger-load",
+  "model": "pentair-ma-240l",
+  "name": "Rated Continuous Plunger Load",
+  "value": "8,937",
+  "unit": "lb",
+  "source": "doc-0c49c01bf02d1ebbf404fc1db30acb36",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

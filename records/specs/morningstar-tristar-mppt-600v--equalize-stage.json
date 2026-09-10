@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-tristar-mppt-600v--equalize-stage",
+  "model": "morningstar-tristar-mppt-600v",
+  "name": "Equalize Stage",
+  "value": "57.60, 58.40, 60.40, 61.20, 61.60, 64.00, Custom",
+  "source": "doc-abff1de971730785bffa93069310d809",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "lorex-e842cd--ambient-nighttimeconditions",
+  "model": "lorex-e842cd",
+  "name": "Ambient NighttimeConditions",
+  "value": "150ft (45m)",
+  "source": "doc-438013606bf3a85701c2910405f96fc7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

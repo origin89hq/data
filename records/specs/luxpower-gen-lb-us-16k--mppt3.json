@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-gen-lb-us-16k--mppt3",
+  "model": "luxpower-gen-lb-us-16k",
+  "name": "MPPT3",
+  "value": "600V/20A",
+  "source": "doc-8c07d17a676bcac4dde692d18936430c",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

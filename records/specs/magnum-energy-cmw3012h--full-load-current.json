@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-cmw3012h--full-load-current",
+  "model": "magnum-energy-cmw3012h",
+  "name": "Full Load Current",
+  "value": "190",
+  "unit": "A",
+  "source": "doc-e7c1a12e59e951e52bb96998ad6a5492",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

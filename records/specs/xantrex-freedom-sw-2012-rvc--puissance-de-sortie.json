@@ -1,0 +1,12 @@
+{
+  "id": "xantrex-freedom-sw-2012-rvc--puissance-de-sortie",
+  "model": "xantrex-freedom-sw-2012-rvc",
+  "name": "Puissance de sortie",
+  "english": "Output power",
+  "value": "2000",
+  "unit": "W",
+  "source": "doc-ee469adf96a31687a03350bde08292ed",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

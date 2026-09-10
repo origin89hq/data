@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-ve-bus-smart-dongle--operating-temperature",
+  "model": "victron-energy-ve-bus-smart-dongle",
+  "name": "Operating temperature",
+  "value": "-20 to +50°C / 0 to 120°F",
+  "source": "doc-f8bc6237e1d4723fc3107f0068c5e398",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

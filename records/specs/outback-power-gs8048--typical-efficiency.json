@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gs8048--typical-efficiency",
+  "model": "outback-power-gs8048",
+  "name": "Typical Efficiency",
+  "value": "93",
+  "unit": "%",
+  "source": "doc-4b3051ab19029ab9f768921db0921099",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

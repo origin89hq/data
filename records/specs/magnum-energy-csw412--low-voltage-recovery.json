@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-csw412--low-voltage-recovery",
+  "model": "magnum-energy-csw412",
+  "name": "Low Voltage Recovery",
+  "value": "12.0",
+  "unit": "V",
+  "source": "doc-99173ac940c31c21b646a0772d0d7ece",
+  "page": 28,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

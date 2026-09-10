@@ -1,0 +1,11 @@
+{
+  "id": "noco-geniuspro50--qu-micas-das-baterias",
+  "model": "noco-geniuspro50",
+  "name": "Químicas das baterias",
+  "english": "Battery chemistry",
+  "value": "baterias úmidas, gel, MF, CA, EFB, AGM, Cálcio, Lítio (LiFePO4)",
+  "source": "doc-723933e9ae36ac87b561b12fafebcf3f",
+  "page": 44,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

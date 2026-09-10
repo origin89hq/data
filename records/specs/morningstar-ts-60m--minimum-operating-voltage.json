@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ts-60m--minimum-operating-voltage",
+  "model": "morningstar-ts-60m",
+  "name": "Minimum operating voltage",
+  "value": "9",
+  "unit": "V",
+  "source": "doc-0c117c994478b79ddc1c5e3f43e1a8ea",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

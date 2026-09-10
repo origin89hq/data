@@ -1,0 +1,10 @@
+{
+  "id": "pentair-blfc-assy-1-2-1-0-gpm--flow-rate",
+  "model": "pentair-blfc-assy-1-2-1-0-gpm",
+  "name": "Flow rate",
+  "value": "1.0 GPM",
+  "source": "doc-b60d32dd0dd95ddce71ef6c3ff760f52",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

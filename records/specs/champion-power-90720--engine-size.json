@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-90720--engine-size",
+  "model": "champion-power-90720",
+  "name": "Engine size",
+  "value": "79cc",
+  "source": "doc-6e0245a61eeeda35e092fb415431131f",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

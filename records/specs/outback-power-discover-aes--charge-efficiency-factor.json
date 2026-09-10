@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-discover-aes--charge-efficiency-factor",
+  "model": "outback-power-discover-aes",
+  "name": "Charge Efficiency Factor",
+  "value": "98",
+  "unit": "%",
+  "source": "doc-378db370a1c7648d49caf9eb96824748",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

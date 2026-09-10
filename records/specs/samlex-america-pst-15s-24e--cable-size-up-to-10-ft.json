@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-15s-24e--cable-size-up-to-10-ft",
+  "model": "samlex-america-pst-15s-24e",
+  "name": "Cable size up to 10 ft.",
+  "value": "2.0 mm2/ AWG#14",
+  "source": "doc-ba38822ce0d2141ef91209c2c145787c",
+  "page": 32,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

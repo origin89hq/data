@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-northstar-nsb-blue--depth-of-discharge",
+  "model": "outback-power-northstar-nsb-blue",
+  "name": "Depth of discharge",
+  "value": "50",
+  "unit": "%",
+  "source": "doc-c0e23d5e42fba70ed8abc2015d8822e0",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-tristar-mppt-600v--nominal-maximum-operating-power",
+  "model": "morningstar-tristar-mppt-600v",
+  "name": "Nominal Maximum Operating Power",
+  "value": "3200Wp",
+  "source": "doc-420eea28369dfe7d5159e739006c0ff5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "noco-gx3626--battery-chemistries",
+  "model": "noco-gx3626",
+  "name": "Battery Chemistries",
+  "value": "Wet, Gel, MF, AGM, EFB, LIB",
+  "source": "doc-a5688fb0f8fa3bde1c5fcd8c43234ff7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "lorex-ic101a-2k-indoor-wi-fi-camera--ir-wavelength",
+  "model": "lorex-ic101a-2k-indoor-wi-fi-camera",
+  "name": "IR Wavelength",
+  "value": "845-855 nm",
+  "source": "doc-a7d7741e6d879d5fda52e18daabba2ff",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

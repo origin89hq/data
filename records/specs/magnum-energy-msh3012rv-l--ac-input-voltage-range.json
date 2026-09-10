@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-msh3012rv-l--ac-input-voltage-range",
+  "model": "magnum-energy-msh3012rv-l",
+  "name": "AC input voltage range",
+  "value": "60 to 140 VAC",
+  "source": "doc-e6c4fda0948d9fe9d5d8553938625297",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

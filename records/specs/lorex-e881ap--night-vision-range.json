@@ -1,9 +1,0 @@
-{
-  "id": "lorex-e881ap--night-vision-range",
-  "model": "lorex-e881ap",
-  "name": "Night Vision Range",
-  "value": "150ft (46m)/ 98ft (30m)",
-  "source": "doc-b6a410f8fb728802664f56b5c0cae791",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

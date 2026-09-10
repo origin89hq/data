@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-100642--saw-chain-gauge",
+  "model": "champion-power-100642",
+  "name": "Saw Chain Gauge",
+  "value": "0.050 in. (1.3 mm)",
+  "source": "doc-85b8909092abc870a0fd68732a095bf5",
+  "page": 29,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

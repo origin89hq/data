@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-tristar-pwm-45--maximum-dc-fuse-or-breaker-rating",
+  "model": "morningstar-tristar-pwm-45",
+  "name": "Maximum DC fuse or breaker rating",
+  "value": "70",
+  "unit": "A",
+  "source": "doc-702ce615ba67f91b8517e2943c8a61fc",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

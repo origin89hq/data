@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-csw1012--high-voltage-shutdown",
+  "model": "magnum-energy-csw1012",
+  "name": "High Voltage Shutdown",
+  "value": "15.5",
+  "unit": "V",
+  "source": "doc-99173ac940c31c21b646a0772d0d7ece",
+  "page": 28,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

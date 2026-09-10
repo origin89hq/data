@@ -1,0 +1,11 @@
+{
+  "id": "luxpower-lsp100k06--start-voltage",
+  "model": "luxpower-lsp100k06",
+  "name": "Start voltage",
+  "value": "330",
+  "unit": "V",
+  "source": "doc-e97e6d0ccb26c328fff95ce05ec8c3d8",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "east-penn-ht125-33--internal-resistance",
+  "model": "east-penn-ht125-33",
+  "name": "Internal Resistance",
+  "value": "0.000177",
+  "source": "doc-7285025ce9f0bcb5b68489da924e1733",
+  "page": 79,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

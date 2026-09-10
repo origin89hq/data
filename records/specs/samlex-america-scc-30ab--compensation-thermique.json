@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-scc-30ab--compensation-thermique",
+  "model": "samlex-america-scc-30ab",
+  "name": "COMPENSATION THERMIQUE",
+  "value": "- 30 mV / °C pour une batterie de 12V",
+  "source": "doc-718cdb5463ad51b2309052bdd7a00cc8",
+  "page": 111,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

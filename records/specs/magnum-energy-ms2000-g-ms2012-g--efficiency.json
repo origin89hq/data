@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-ms2000-g-ms2012-g--efficiency",
+  "model": "magnum-energy-ms2000-g-ms2012-g",
+  "name": "Efficiency",
+  "value": "60",
+  "unit": "%",
+  "source": "doc-de082b2f15d2b0e37407dc7efe5cfd9a",
+  "page": 62,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

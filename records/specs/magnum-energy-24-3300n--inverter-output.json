@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-24-3300n--inverter-output",
+  "model": "magnum-energy-24-3300n",
+  "name": "Inverter Output",
+  "value": "120",
+  "source": "doc-6a33d39125c7d435859f405586cee897",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

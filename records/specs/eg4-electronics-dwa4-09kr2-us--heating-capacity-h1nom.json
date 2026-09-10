@@ -1,0 +1,9 @@
+{
+  "id": "eg4-electronics-dwa4-09kr2-us--heating-capacity-h1nom",
+  "model": "eg4-electronics-dwa4-09kr2-us",
+  "name": "Heating Capacity (H1Nom)",
+  "value": "7200",
+  "source": "doc-4155970473a7a1dd46cb3a2f9b05e4d0",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

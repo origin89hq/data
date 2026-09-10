@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-rd4024e--transfer-relay-capability",
+  "model": "magnum-energy-rd4024e",
+  "name": "Transfer relay capability",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-59913717517cfc30d8016a9d401af737",
+  "page": 44,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-24-5600--inverter-input",
+  "model": "magnum-energy-24-5600",
+  "name": "Inverter Input",
+  "value": "25.2",
+  "unit": "V",
+  "source": "doc-0288b99761b8613b2229d5a306dcb27d",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

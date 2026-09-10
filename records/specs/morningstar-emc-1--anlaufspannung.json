@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-emc-1--anlaufspannung",
+  "model": "morningstar-emc-1",
+  "name": "Anlaufspannung",
+  "value": "≥ 9 VDC",
+  "source": "doc-289e9bdd3f628b34e4592c1ad401d4f2",
+  "page": 32,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

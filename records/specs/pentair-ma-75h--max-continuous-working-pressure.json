@@ -1,0 +1,11 @@
+{
+  "id": "pentair-ma-75h--max-continuous-working-pressure",
+  "model": "pentair-ma-75h",
+  "name": "Max. Continuous Working Pressure",
+  "value": "5,000",
+  "unit": "psi",
+  "source": "doc-79ec5f5b6a90d8466428c9ebc33a21ba",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

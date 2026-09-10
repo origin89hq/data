@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ma-15m--maximum-rod-load",
+  "model": "pentair-ma-15m",
+  "name": "Maximum Rod Load",
+  "value": "1828 lbs.",
+  "source": "doc-1acd9c15e6f3719500624ec6751dd44f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

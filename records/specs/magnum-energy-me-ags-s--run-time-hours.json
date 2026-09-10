@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-me-ags-s--run-time-hours",
+  "model": "magnum-energy-me-ags-s",
+  "name": "RUN TIME HOURS",
+  "value": "2",
+  "unit": "h",
+  "source": "doc-710b25c272ace824a0308dbfe86a4469",
+  "page": 23,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

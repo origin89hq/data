@@ -1,0 +1,9 @@
+{
+  "id": "srne-sr-eos10b--dimensions-unit",
+  "model": "srne-sr-eos10b",
+  "name": "Dimensions unit",
+  "value": "mm",
+  "source": "doc-6055268fc20ea60af0916897ee79c0f2",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

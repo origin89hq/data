@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ma-45m--approximate-weights-with-aluminum-bronze-liquid-endwith-ductile-iron-liquid-endwith-forged-steel-liquid-end",
+  "model": "pentair-ma-45m",
+  "name": "Approximate Weights:With Aluminum Bronze Liquid EndWith Ductile Iron Liquid EndWith Forged Steel Liquid End",
+  "value": "710 lbs690 lbs720 lbs",
+  "source": "doc-e52fbb13118d95b3ee9c71d320de22f6",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

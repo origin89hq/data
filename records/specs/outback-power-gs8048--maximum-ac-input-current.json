@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gs8048--maximum-ac-input-current",
+  "model": "outback-power-gs8048",
+  "name": "Maximum AC Input Current",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-4b3051ab19029ab9f768921db0921099",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

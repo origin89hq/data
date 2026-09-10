@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-mppt-60--nominal-output-power",
+  "model": "morningstar-ts-mppt-60",
+  "name": "Nominal Output Power",
+  "value": "1200",
+  "unit": "W",
+  "source": "doc-4d6183bef1084b0d4bb289695403fac8",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-600-24--minimum-cable-size-for-2-voltage-drop-and-3-ft-0-9-m-length",
+  "model": "samlex-america-pst-600-24",
+  "name": "Minimum Cable Size for 2% Voltage Drop and 3 ft (0.9 m) Length",
+  "value": "AWG 10",
+  "source": "doc-37ffa60e7fd589771984ee1e00b53949",
+  "page": 40,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

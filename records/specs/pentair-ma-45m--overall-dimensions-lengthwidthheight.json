@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ma-45m--overall-dimensions-lengthwidthheight",
+  "model": "pentair-ma-45m",
+  "name": "Overall Dimensions:LengthWidthHeight",
+  "value": "31-3/4\"29\"12-3/8\"",
+  "source": "doc-e52fbb13118d95b3ee9c71d320de22f6",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

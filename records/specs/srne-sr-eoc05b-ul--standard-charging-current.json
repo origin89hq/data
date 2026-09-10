@@ -1,0 +1,10 @@
+{
+  "id": "srne-sr-eoc05b-ul--standard-charging-current",
+  "model": "srne-sr-eoc05b-ul",
+  "name": "Standard Charging Current",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-ec18fdf70561880c30afab7e9ae0eeb3",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

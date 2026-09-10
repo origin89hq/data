@@ -1,0 +1,11 @@
+{
+  "id": "sol-ark-sol-ark-12k-2p-n--grid-input-voltage",
+  "model": "sol-ark-sol-ark-12k-2p-n",
+  "name": "Grid input voltage",
+  "value": "120",
+  "unit": "V",
+  "source": "doc-a6309d995ea95cdfb312cc5335f5fbe8",
+  "page": 22,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

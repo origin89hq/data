@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-gb225m-2--tipo",
+  "model": "champion-power-gb225m-2",
+  "name": "Tipo",
+  "value": "4-tiempos OHV",
+  "source": "doc-75da469cea299cb8260b6242eb37504d",
+  "page": 41,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

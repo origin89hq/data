@@ -1,0 +1,10 @@
+{
+  "id": "peimar-or12h725mndb--current-at-pmax",
+  "model": "peimar-or12h725mndb",
+  "name": "Current at Pmax",
+  "value": "17,53",
+  "unit": "A",
+  "source": "doc-db2c56fbc95770d806868af5622a43e5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

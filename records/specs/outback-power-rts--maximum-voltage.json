@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-rts--maximum-voltage",
+  "model": "outback-power-rts",
+  "name": "Maximum voltage",
+  "value": "14.1",
+  "unit": "V",
+  "source": "doc-986fcb1b58ec2bd116ae119b6cca65fc",
+  "page": 54,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-cmw3012h--wire-temperature-rating",
+  "model": "magnum-energy-cmw3012h",
+  "name": "Wire temperature rating",
+  "value": "75°C (194°F)",
+  "source": "doc-e7c1a12e59e951e52bb96998ad6a5492",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

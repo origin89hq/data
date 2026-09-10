@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-tristar-mppt-600v--maximum-battery-current",
+  "model": "morningstar-tristar-mppt-600v",
+  "name": "Maximum Battery Current",
+  "value": "60",
+  "unit": "A",
+  "source": "doc-420eea28369dfe7d5159e739006c0ff5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

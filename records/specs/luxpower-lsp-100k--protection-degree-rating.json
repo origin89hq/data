@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-lsp-100k--protection-degree-rating",
+  "model": "luxpower-lsp-100k",
+  "name": "Protection degree rating",
+  "value": "IP65",
+  "source": "doc-3654e99afad3437afe3cc28a9b5ac664",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-adi-24j11--operating-temperature",
+  "model": "magnum-energy-adi-24j11",
+  "name": "Operating Temperature",
+  "value": "-37° to 74° C (-35° to 165° F)",
+  "source": "doc-99fa09871821c8aa4ac53de52a44f7ed",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

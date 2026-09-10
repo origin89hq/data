@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-sun-inverter-12-250--output-ac-voltage",
+  "model": "victron-energy-sun-inverter-12-250",
+  "name": "Output AC voltage",
+  "value": "230 Vac +/- 3 %",
+  "source": "doc-d24d494bf3eaf457223ca56d50881834",
+  "page": 26,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

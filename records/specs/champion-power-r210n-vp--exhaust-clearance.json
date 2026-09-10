@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-r210n-vp--exhaust-clearance",
+  "model": "champion-power-r210n-vp",
+  "name": "Exhaust Clearance",
+  "value": "0.002-0.006 in. (0.05-0.15 mm)",
+  "source": "doc-bf655baf17ca2167e5333b675c58463c",
+  "page": 37,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "noco-gen5x1--capacit-de-la-batterie",
+  "model": "noco-gen5x1",
+  "name": "Capacité de la batterie",
+  "english": "Battery capacity",
+  "value": "Jusqu’à 120Ah, Maintient toutes les tailles de batterie",
+  "source": "doc-00ff466d0b0d3154c3a2e609718dee8b",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

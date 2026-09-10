@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-me-rc--power-save",
+  "model": "magnum-energy-me-rc",
+  "name": "Power Save",
+  "value": "15",
+  "unit": "min",
+  "source": "doc-500fbb3f4db5fffac69cbb7b33677f7a",
+  "page": 34,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

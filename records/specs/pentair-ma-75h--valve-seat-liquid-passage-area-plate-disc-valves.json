@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ma-75h--valve-seat-liquid-passage-area-plate-disc-valves",
+  "model": "pentair-ma-75h",
+  "name": "Valve Seat, Liquid Passage Area, Plate (Disc) Valves",
+  "value": "1.4 sq.in.",
+  "source": "doc-79ec5f5b6a90d8466428c9ebc33a21ba",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

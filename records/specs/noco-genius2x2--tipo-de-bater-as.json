@@ -2,10 +2,10 @@
   "id": "noco-genius2x2--tipo-de-bater-as",
   "model": "noco-genius2x2",
   "name": "Tipo de baterías",
+  "english": "Battery type",
   "value": "Wet, Gel, MF, CA, EFB, AGM, Litio",
   "source": "doc-6eb9ac65e017cb3de2fdd095dded8666",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "page": 49,
-  "confidence": "vendor-doc",
-  "english": "Battery type"
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
 }

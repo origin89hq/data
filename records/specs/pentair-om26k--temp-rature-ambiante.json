@@ -1,0 +1,11 @@
+{
+  "id": "pentair-om26k--temp-rature-ambiante",
+  "model": "pentair-om26k",
+  "name": "Température ambiante",
+  "english": "Ambient temperature",
+  "value": "supérieure à 1 °C (34 °F) et inférieure à 49 °C (120 °F)",
+  "source": "doc-e94ba6bdcf0826ae0549b4b473eb1683",
+  "page": 42,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

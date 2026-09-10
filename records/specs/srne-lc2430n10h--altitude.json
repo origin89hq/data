@@ -1,0 +1,10 @@
+{
+  "id": "srne-lc2430n10h--altitude",
+  "model": "srne-lc2430n10h",
+  "name": "Altitude",
+  "value": "≥ 3000m",
+  "source": "doc-a5fd2ca443cd73029f1bc15011f7bd34",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

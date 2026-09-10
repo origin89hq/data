@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-frs-esw1--rated-input-frequency",
+  "model": "outback-power-frs-esw1",
+  "name": "Rated Input Frequency",
+  "value": "47-63Hz",
+  "source": "doc-bcdf2c161a318660a582541ffe13e889",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

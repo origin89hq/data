@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-emc-1--input-voltage",
+  "model": "morningstar-emc-1",
+  "name": "Input Voltage",
+  "value": "8-80 Vdc (start-up ≥ 9vdc)",
+  "source": "doc-bc3af57d3160900a8db5259e8fcb9efc",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

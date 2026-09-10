@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-lxp8k-spec--max-charge-current",
+  "model": "luxpower-lxp8k-spec",
+  "name": "Max. charge current",
+  "value": "167",
+  "source": "doc-4bcff39131a5ddeeb90857a4b4f924e8",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

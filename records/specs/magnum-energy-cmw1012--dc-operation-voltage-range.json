@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-cmw1012--dc-operation-voltage-range",
+  "model": "magnum-energy-cmw1012",
+  "name": "DC Operation Voltage Range",
+  "value": "10.5 - 15.5 VDC",
+  "source": "doc-e10b57caaf3b9e833e76928e9503dbbd",
+  "page": 27,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

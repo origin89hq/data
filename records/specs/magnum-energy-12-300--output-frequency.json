@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-12-300--output-frequency",
+  "model": "magnum-energy-12-300",
+  "name": "Output Frequency",
+  "value": "60 HZ + 0.6Hz",
+  "source": "doc-b0f540b4cb874e4f7c65d0e80ad94fef",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

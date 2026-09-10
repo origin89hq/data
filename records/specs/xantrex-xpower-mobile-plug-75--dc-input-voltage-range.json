@@ -1,0 +1,9 @@
+{
+  "id": "xantrex-xpower-mobile-plug-75--dc-input-voltage-range",
+  "model": "xantrex-xpower-mobile-plug-75",
+  "name": "DC input voltage range",
+  "value": "10-15 volts DC",
+  "source": "doc-af6958e7d309d00ec2bab67d8626912d",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

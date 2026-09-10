@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb250--kotelosuojaus",
+  "model": "noco-gb250",
+  "name": "Kotelosuojaus",
+  "value": "IP65 (w/Läpät suljettuna)",
+  "source": "doc-b62a0dca76d9ee06431ee2d2fa567791",
+  "page": 123,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

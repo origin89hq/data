@@ -1,0 +1,9 @@
+{
+  "id": "srne-sr-ibu12-2kw--thd",
+  "model": "srne-sr-ibu12-2kw",
+  "name": "THD",
+  "value": "THD<4%（resistive load）",
+  "source": "doc-8c81255e02a6e0a9095fd60786d92943",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

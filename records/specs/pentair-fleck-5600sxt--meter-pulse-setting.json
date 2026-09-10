@@ -1,0 +1,10 @@
+{
+  "id": "pentair-fleck-5600sxt--meter-pulse-setting",
+  "model": "pentair-fleck-5600sxt",
+  "name": "Meter Pulse Setting",
+  "value": "pulses per gallon",
+  "source": "doc-6117fcfac8021a4804b25fd05035dafe",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

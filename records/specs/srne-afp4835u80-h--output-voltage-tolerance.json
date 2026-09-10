@@ -1,0 +1,10 @@
+{
+  "id": "srne-afp4835u80-h--output-voltage-tolerance",
+  "model": "srne-afp4835u80-h",
+  "name": "Output Voltage Tolerance",
+  "value": "±5%",
+  "source": "doc-e5f986442b822353c503f29a76068121",
+  "page": 52,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-ht7500et--dimensions",
+  "model": "east-penn-ht7500et",
+  "name": "Dimensions",
+  "value": "Length - 24.00\" (609.6 mm)Width - 4.97\" (126.3 mm)Height - 12.74\" (323.5 mm)",
+  "source": "doc-7e5756912b2b115084b8dbbf1b140211",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

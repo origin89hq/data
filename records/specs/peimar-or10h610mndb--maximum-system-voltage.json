@@ -1,0 +1,10 @@
+{
+  "id": "peimar-or10h610mndb--maximum-system-voltage",
+  "model": "peimar-or10h610mndb",
+  "name": "Maximum System Voltage",
+  "value": "1500",
+  "unit": "V",
+  "source": "doc-aecd5c7ab72761d5dd00fb4683006902",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

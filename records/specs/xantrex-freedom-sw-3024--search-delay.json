@@ -1,0 +1,11 @@
+{
+  "id": "xantrex-freedom-sw-3024--search-delay",
+  "model": "xantrex-freedom-sw-3024",
+  "name": "Search Delay",
+  "value": "2",
+  "unit": "s",
+  "source": "doc-ee469adf96a31687a03350bde08292ed",
+  "page": 42,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

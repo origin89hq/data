@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-orion-xs-1400--continuous-output-power-up-to-40-c",
+  "model": "victron-energy-orion-xs-1400",
+  "name": "Continuous output power up to 40 °C",
+  "value": "1400",
+  "unit": "W",
+  "source": "doc-f09a27c85ec5887dacb79ca0fb1ad988",
+  "page": 42,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

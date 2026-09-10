@@ -1,10 +1,9 @@
 {
   "id": "samlex-america-pse-24275a--output-frequency",
   "model": "samlex-america-pse-24275a",
-  "name": "Output Frequency",
-  "value": "60hz ± 5%",
-  "source": "doc-4797b5a9a7d895c8883e2b5f1a4dbab5",
+  "name": "OUTPUT FREQUENCY",
+  "value": "60Hz ± 5%",
+  "source": "doc-2cf5aae40ea21adb7e697615a0314ef7",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "page": 43,
   "confidence": "vendor-doc"
 }

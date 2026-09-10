@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-ve-bus-bms-ng--aux-in-input",
+  "model": "victron-energy-ve-bus-bms-ng",
+  "name": "Aux-in input",
+  "value": "1",
+  "unit": "A",
+  "source": "doc-a9a3a94bb984445b806be4daf53ba3e8",
+  "page": 27,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

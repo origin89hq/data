@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-orion-12-12-360w--rated-power",
+  "model": "victron-energy-orion-12-12-360w",
+  "name": "Rated power",
+  "value": "360",
+  "unit": "W",
+  "source": "doc-5233da56a86df9adea01ae19225cd23e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

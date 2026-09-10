@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-tristar-mppt-150v--equalize-interval",
+  "model": "morningstar-tristar-mppt-150v",
+  "name": "Equalize Interval",
+  "value": "28, 14",
+  "source": "doc-d77891330c761670b3824d171460f71b",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

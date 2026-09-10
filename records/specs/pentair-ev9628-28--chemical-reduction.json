@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ev9628-28--chemical-reduction",
+  "model": "pentair-ev9628-28",
+  "name": "Chemical Reduction",
+  "value": "Taste & Odor",
+  "source": "doc-cffec056783bc430070a207613073cd4",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

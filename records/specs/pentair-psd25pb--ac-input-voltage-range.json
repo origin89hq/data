@@ -1,0 +1,9 @@
+{
+  "id": "pentair-psd25pb--ac-input-voltage-range",
+  "model": "pentair-psd25pb",
+  "name": "AC input voltage range",
+  "value": "120-240Vac single phase",
+  "source": "doc-71c7c82ddb32d1a364d8baa45191c274",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

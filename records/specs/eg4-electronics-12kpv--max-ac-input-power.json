@@ -1,0 +1,11 @@
+{
+  "id": "eg4-electronics-12kpv--max-ac-input-power",
+  "model": "eg4-electronics-12kpv",
+  "name": "Max. AC input power",
+  "value": "8000",
+  "unit": "W",
+  "source": "doc-b59d76309a3dac891d71710425748ac2",
+  "page": 24,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

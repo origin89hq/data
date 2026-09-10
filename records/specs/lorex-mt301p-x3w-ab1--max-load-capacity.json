@@ -1,0 +1,9 @@
+{
+  "id": "lorex-mt301p-x3w-ab1--max-load-capacity",
+  "model": "lorex-mt301p-x3w-ab1",
+  "name": "Max Load Capacity",
+  "value": "8.82 lb / 4 kg",
+  "source": "doc-6ea206e13f1c7d4aff662b5260b0391b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

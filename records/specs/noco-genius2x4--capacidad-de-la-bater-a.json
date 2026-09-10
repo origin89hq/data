@@ -2,10 +2,10 @@
   "id": "noco-genius2x4--capacidad-de-la-bater-a",
   "model": "noco-genius2x4",
   "name": "Capacidad de la batería",
+  "english": "Battery capacity",
   "value": "Hasta 40Ah (12V)",
   "source": "doc-6eb9ac65e017cb3de2fdd095dded8666",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "page": 49,
-  "confidence": "vendor-doc",
-  "english": "Battery capacity"
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
 }

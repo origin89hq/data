@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-msh4024re--start-volts-delay",
+  "model": "magnum-energy-msh4024re",
+  "name": "Start Volts Delay",
+  "value": "120",
+  "unit": "s",
+  "source": "doc-d765ec6b8f451e0f664d5fa9dc081216",
+  "page": 68,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

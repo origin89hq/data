@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-ensp54ndgt2s450--short-circuit-current-isc-at-nmot",
+  "model": "energizer-solar-ensp54ndgt2s450",
+  "name": "Short circuit current (Isc) at NMOT",
+  "value": "11.53",
+  "unit": "A",
+  "source": "doc-2b3f5ebcea5a5a012f550928b4d355b4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

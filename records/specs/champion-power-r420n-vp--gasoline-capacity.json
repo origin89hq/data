@@ -1,0 +1,11 @@
+{
+  "id": "champion-power-r420n-vp--gasoline-capacity",
+  "model": "champion-power-r420n-vp",
+  "name": "Gasoline Capacity",
+  "value": "5.33",
+  "unit": "gal",
+  "source": "doc-998e02d73ad6c6644884a98a7b0812b4",
+  "page": 38,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

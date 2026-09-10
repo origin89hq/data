@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multiplus-12-500-20-120-vac--continuous-output-power-at-65-c",
+  "model": "victron-energy-multiplus-12-500-20-120-vac",
+  "name": "Continuous output power at 65 °C",
+  "value": "300",
+  "unit": "W",
+  "source": "doc-5470761ebbd7431515aa5d85f3f78c6a",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-48m18-wbe--peak-output",
+  "model": "magnum-energy-48m18-wbe",
+  "name": "Peak Output",
+  "value": "50",
+  "source": "doc-8bd088b86fa4268a0d810ff229ce69f6",
+  "page": 26,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

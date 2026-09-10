@@ -2,9 +2,9 @@
   "id": "noco-genius2x2--gewicht",
   "model": "noco-genius2x2",
   "name": "Gewicht",
-  "value": "1,1 Pfund",
+  "value": "1,1 pond",
   "source": "doc-6eb9ac65e017cb3de2fdd095dded8666",
+  "page": 71,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "page": 30,
   "confidence": "vendor-doc"
 }

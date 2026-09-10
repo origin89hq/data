@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-freedom-xc-1800-12vdc--operating-voltage-range",
+  "model": "xantrex-freedom-xc-1800-12vdc",
+  "name": "Operating voltage range",
+  "value": "LBCO voltage–18.0 VDC",
+  "source": "doc-ded9b3d04a9dd3e5385bb5596a4d6c55",
+  "page": 83,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

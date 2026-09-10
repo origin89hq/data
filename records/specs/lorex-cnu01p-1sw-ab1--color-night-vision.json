@@ -1,0 +1,9 @@
+{
+  "id": "lorex-cnu01p-1sw-ab1--color-night-vision",
+  "model": "lorex-cnu01p-1sw-ab1",
+  "name": "Color Night Vision",
+  "value": "Yes",
+  "source": "doc-a278fb338bb743e8b546ddd322471cde",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-obx-ic--torque-setting",
+  "model": "outback-power-obx-ic",
+  "name": "Torque setting",
+  "value": "13.6 Nm/10-foot pounds",
+  "source": "doc-0ebaf4052e4975b1e5bc3fab2ab0ac91",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

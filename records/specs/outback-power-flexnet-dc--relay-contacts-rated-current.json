@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-flexnet-dc--relay-contacts-rated-current",
+  "model": "outback-power-flexnet-dc",
+  "name": "Relay contacts rated current",
+  "value": "5",
+  "unit": "A",
+  "source": "doc-86c93d8b637da705d77f108c2d47395a",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

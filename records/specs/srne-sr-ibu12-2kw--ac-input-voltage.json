@@ -1,0 +1,9 @@
+{
+  "id": "srne-sr-ibu12-2kw--ac-input-voltage",
+  "model": "srne-sr-ibu12-2kw",
+  "name": "AC Input Voltage",
+  "value": "Single-Phase：90VAC～140VAC/Split-Phase：180VAC～280VAC",
+  "source": "doc-8c81255e02a6e0a9095fd60786d92943",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

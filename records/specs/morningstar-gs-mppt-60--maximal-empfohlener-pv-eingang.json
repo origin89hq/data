@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-gs-mppt-60--maximal-empfohlener-pv-eingang",
+  "model": "morningstar-gs-mppt-60",
+  "name": "Maximal empfohlener PV-Eingang",
+  "value": "1200-2400-4800 W",
+  "source": "doc-6739e7d19f336032814971b4696fd318",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

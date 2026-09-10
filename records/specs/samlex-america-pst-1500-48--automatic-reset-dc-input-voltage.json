@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-1500-48--automatic-reset-dc-input-voltage",
+  "model": "samlex-america-pst-1500-48",
+  "name": "Automatic reset DC input voltage",
+  "value": "46 V ± 1.0 V",
+  "source": "doc-c72772bed0c6dcc9ae28dce89166bfe9",
+  "page": 58,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

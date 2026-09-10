@@ -1,0 +1,11 @@
+{
+  "id": "srne-asp48160uh3--bypass-overload-current",
+  "model": "srne-asp48160uh3",
+  "name": "Bypass Overload Current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-71f23a4d5114065ab243f984205d0078",
+  "page": 48,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

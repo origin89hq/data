@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-csw2012--maximum-continuous-current",
+  "model": "magnum-energy-csw2012",
+  "name": "Maximum Continuous Current",
+  "value": "187",
+  "unit": "A",
+  "source": "doc-abb867ed73e7670deecec56a23da42cc",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

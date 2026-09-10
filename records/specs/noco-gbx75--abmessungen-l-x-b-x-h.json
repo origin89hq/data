@@ -1,0 +1,10 @@
+{
+  "id": "noco-gbx75--abmessungen-l-x-b-x-h",
+  "model": "noco-gbx75",
+  "name": "Abmessungen (L x B x H)",
+  "value": "21,3 x 13,6 x 6,4 Zentimeter",
+  "source": "doc-9da28ee8030be3fa7122b62f0ae81f95",
+  "page": 32,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

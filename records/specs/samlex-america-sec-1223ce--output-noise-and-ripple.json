@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-1223ce--output-noise-and-ripple",
+  "model": "samlex-america-sec-1223ce",
+  "name": "Output Noise and Ripple",
+  "value": "< 150 mV Peak to Peak",
+  "source": "doc-298343fbb41f85a40614490ade90c7a0",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

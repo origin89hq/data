@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-12004-acr-160-1125--continuous-rated-current",
+  "model": "samlex-america-12004-acr-160-1125",
+  "name": "Continuous rated current",
+  "value": "160",
+  "unit": "A",
+  "source": "doc-7420e064ffeab2be5d8e84817dd60536",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

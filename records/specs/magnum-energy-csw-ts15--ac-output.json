@@ -1,9 +1,0 @@
-{
-  "id": "magnum-energy-csw-ts15--ac-output",
-  "model": "magnum-energy-csw-ts15",
-  "name": "AC Output",
-  "value": "120VAC/60Hz (15A max)",
-  "source": "doc-fa9f8e81e67af1bab01df3efce3d423f",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

@@ -1,9 +1,0 @@
-{
-  "id": "champion-power-100428--unit",
-  "model": "champion-power-100428",
-  "name": "Unit",
-  "value": "lb. (kg)",
-  "source": "doc-cbccbf3d3675f4a6c35d87badbad22c8",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

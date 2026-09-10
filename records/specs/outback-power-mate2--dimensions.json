@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-mate2--dimensions",
+  "model": "outback-power-mate2",
+  "name": "Dimensions",
+  "value": "15.875 cm (6 1/4\")",
+  "source": "doc-2c0231269626972b9cfe12dda7867858",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

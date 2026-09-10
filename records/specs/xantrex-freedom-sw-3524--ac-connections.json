@@ -1,0 +1,9 @@
+{
+  "id": "xantrex-freedom-sw-3524--ac-connections",
+  "model": "xantrex-freedom-sw-3524",
+  "name": "AC connections",
+  "value": "Single phase in / out",
+  "source": "doc-5519eac23098982576268643f6e073a6",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

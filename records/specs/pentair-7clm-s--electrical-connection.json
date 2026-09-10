@@ -1,9 +1,0 @@
-{
-  "id": "pentair-7clm-s--electrical-connection",
-  "model": "pentair-7clm-s",
-  "name": "Electrical Connection",
-  "value": "None required",
-  "source": "doc-d9f0a4c9997140802ae161f5f020029e",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

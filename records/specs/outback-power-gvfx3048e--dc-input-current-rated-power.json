@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gvfx3048e--dc-input-current-rated-power",
+  "model": "outback-power-gvfx3048e",
+  "name": "DC Input Current – Rated Power",
+  "value": "75 amps DC",
+  "source": "doc-781835b79c5d63aaf99fc1ae2d721459",
+  "page": 37,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

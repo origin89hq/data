@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ma-120m-hd--stroke-length",
+  "model": "pentair-ma-120m-hd",
+  "name": "Stroke Length",
+  "value": "4.25 in. 108.0 mm",
+  "source": "doc-6e5e3bb6d9ff32850ef97d4bae41927a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

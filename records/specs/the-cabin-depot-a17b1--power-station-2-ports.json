@@ -1,0 +1,10 @@
+{
+  "id": "the-cabin-depot-a17b1--power-station-2-ports",
+  "model": "the-cabin-depot-a17b1",
+  "name": "Power Station 2 Ports",
+  "value": "6kW Max",
+  "source": "doc-1f41e157e28102595556db42c37f9bdd",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-cmw1512--low-voltage-shutdown",
+  "model": "magnum-energy-cmw1512",
+  "name": "Low Voltage Shutdown",
+  "value": "10.5",
+  "unit": "V",
+  "source": "doc-e10b57caaf3b9e833e76928e9503dbbd",
+  "page": 27,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "noco-air10--arbejdsstr-m",
+  "model": "noco-air10",
+  "name": "Arbejdsstrøm",
+  "value": "10",
+  "unit": "A",
+  "source": "doc-6dd46de5e7001e0b599ba588d005e589",
+  "page": 66,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

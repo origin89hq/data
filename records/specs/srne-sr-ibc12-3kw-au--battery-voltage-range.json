@@ -1,0 +1,9 @@
+{
+  "id": "srne-sr-ibc12-3kw-au--battery-voltage-range",
+  "model": "srne-sr-ibc12-3kw-au",
+  "name": "Battery voltage range",
+  "value": "10.8～16.0Vdc",
+  "source": "doc-65dd7ddadb1d2aa7938ab1c236ebbff0",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

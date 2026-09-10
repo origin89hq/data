@@ -1,0 +1,9 @@
+{
+  "id": "outback-power-flexmax-100--minimum-wire-size-for-controller-output-terminals-to-batteries",
+  "model": "outback-power-flexmax-100",
+  "name": "Minimum wire size for controller output terminals to batteries",
+  "value": "#4 AWG (25 mm2)",
+  "source": "doc-78c3e146711337c92825158e79a2e841",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

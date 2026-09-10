@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ev9100-20--rate-capacity",
+  "model": "pentair-ev9100-20",
+  "name": "Rate Capacity",
+  "value": "Varies according to filter cartridge used",
+  "source": "doc-6bda2be356316614b588462387c9e04e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

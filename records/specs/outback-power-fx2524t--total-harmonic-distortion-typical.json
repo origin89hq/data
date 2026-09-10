@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-fx2524t--total-harmonic-distortion-typical",
+  "model": "outback-power-fx2524t",
+  "name": "Total Harmonic Distortion - Typical",
+  "value": "2",
+  "unit": "%",
+  "source": "doc-2a27792e0a18d640f19761da24ca22ae",
+  "page": 31,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

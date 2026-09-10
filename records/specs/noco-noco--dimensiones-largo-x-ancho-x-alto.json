@@ -2,9 +2,9 @@
   "id": "noco-noco--dimensiones-largo-x-ancho-x-alto",
   "model": "noco-noco",
   "name": "Dimensiones (largo x ancho x alto)",
-  "value": "183 x 59 x 94 mm (7.20 x 2.32 x 3.70 pulgadas)",
-  "source": "doc-e56ff4867f97c6f89af7ba14dbf99ffe",
+  "value": "94 x 43 x 61 mm (3.7 x 1.7 x 2.4 pulgadas)",
+  "source": "doc-0add4d4e244f834e9ac9e85e22b6d81b",
+  "page": 31,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "page": 34,
   "confidence": "vendor-doc"
 }

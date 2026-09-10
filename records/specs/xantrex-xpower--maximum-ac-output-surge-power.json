@@ -1,0 +1,11 @@
+{
+  "id": "xantrex-xpower--maximum-ac-output-surge-power",
+  "model": "xantrex-xpower",
+  "name": "Maximum AC output surge power",
+  "value": "160",
+  "unit": "W",
+  "source": "doc-7d3686766955e5405f7f092061d97e7f",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

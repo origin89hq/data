@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-12avr170et--discharge-rating-at-1-88-v-p-c-and-12-hr",
+  "model": "east-penn-12avr170et",
+  "name": "Discharge rating at 1.88 V.P.C. and 12 HR.",
+  "value": "13.5",
+  "source": "doc-d69d65e162d8e1e27c21d2048b75ed8a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

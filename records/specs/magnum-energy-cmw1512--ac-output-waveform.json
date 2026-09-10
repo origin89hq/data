@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-cmw1512--ac-output-waveform",
+  "model": "magnum-energy-cmw1512",
+  "name": "AC Output Waveform",
+  "value": "Modified Sinewave",
+  "source": "doc-e10b57caaf3b9e833e76928e9503dbbd",
+  "page": 25,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

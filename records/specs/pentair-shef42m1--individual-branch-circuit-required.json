@@ -1,0 +1,11 @@
+{
+  "id": "pentair-shef42m1--individual-branch-circuit-required",
+  "model": "pentair-shef42m1",
+  "name": "Individual Branch Circuit Required",
+  "value": "15",
+  "unit": "A",
+  "source": "doc-f232d33dc77786f1fd3a619d3b896189",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,9 +1,0 @@
-{
-  "id": "morningstar-gfpd-600v--trip-method",
-  "model": "morningstar-gfpd-600v",
-  "name": "Trip Method",
-  "value": "Relay",
-  "source": "doc-7a9471416aafe55325ed4cd72bf31cd8",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

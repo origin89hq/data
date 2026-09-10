@@ -1,0 +1,11 @@
+{
+  "id": "noco-gbx75--potenzanominale",
+  "model": "noco-gbx75",
+  "name": "Potenzanominale",
+  "value": "5",
+  "unit": "W",
+  "source": "doc-9da28ee8030be3fa7122b62f0ae81f95",
+  "page": 39,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

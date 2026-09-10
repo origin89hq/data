@@ -2,9 +2,9 @@
   "id": "luxpower-gen2-lb-eu-3-6k--load-breaker",
   "model": "luxpower-gen2-lb-eu-3-6k",
   "name": "Load Breaker",
-  "value": "40A/230V",
+  "value": "40A/230Vac",
   "source": "doc-88eb712fd500c98931327f35645b956e",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

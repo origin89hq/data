@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-adi-48m17--efficiency",
+  "model": "magnum-energy-adi-48m17",
+  "name": "Efficiency",
+  "value": "Up to 85%",
+  "source": "doc-7f5e92dd2f777699cb36642c9e8bda81",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

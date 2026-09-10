@@ -1,0 +1,12 @@
+{
+  "id": "noco-gbx35--recharge-time-2-5w",
+  "model": "noco-gbx35",
+  "name": "Recharge Time",
+  "value": "16",
+  "unit": "h",
+  "conditions": "2.5W",
+  "source": "doc-fdd7c021761d0ba8d6f06a4773f2e953",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

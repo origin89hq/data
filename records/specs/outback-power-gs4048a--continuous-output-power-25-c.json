@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gs4048a--continuous-output-power-25-c",
+  "model": "outback-power-gs4048a",
+  "name": "Continuous Output Power (@ 25°C)",
+  "value": "4000",
+  "unit": "VA",
+  "source": "doc-bf3dd8b81cdeb8d630cf47b838f71149",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

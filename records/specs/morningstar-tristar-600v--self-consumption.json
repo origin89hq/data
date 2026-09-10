@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-tristar-600v--self-consumption",
+  "model": "morningstar-tristar-600v",
+  "name": "Self-Consumption",
+  "value": "1.75 - 2.50W",
+  "source": "doc-1c0980b96d6e7a2d869b2c333a468538",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

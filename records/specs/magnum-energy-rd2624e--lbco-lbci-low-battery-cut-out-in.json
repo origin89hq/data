@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-rd2624e--lbco-lbci-low-battery-cut-out-in",
+  "model": "magnum-energy-rd2624e",
+  "name": "LBCO/LBCI (Low Battery Cut Out/In)",
+  "value": "18 VDC (adj)/25 VDC",
+  "source": "doc-59913717517cfc30d8016a9d401af737",
+  "page": 44,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

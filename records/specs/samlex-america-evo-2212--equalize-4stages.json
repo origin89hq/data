@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-2212--equalize-4stages",
+  "model": "samlex-america-evo-2212",
+  "name": "EQUALIZE-4STAGES",
+  "value": "0 = No (3-Stage / 2-Stage)1 = Yes (4-Stage Equalization)",
+  "source": "doc-23df0d2727e9f35278efcb9ffbc0e9f6",
+  "page": 119,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

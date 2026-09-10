@@ -1,0 +1,10 @@
+{
+  "id": "pentair-three-phase-200v--winding-resistance",
+  "model": "pentair-three-phase-200v",
+  "name": "Winding resistance",
+  "value": "2.79, 2.79, 2.79 ohms",
+  "source": "doc-b3ed4697dde259bf8ffe93db12fca96b",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

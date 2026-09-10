@@ -1,0 +1,10 @@
+{
+  "id": "pentair-fps-10-system--turbidity",
+  "model": "pentair-fps-10-system",
+  "name": "Turbidity",
+  "value": "5 NTU Max.",
+  "source": "doc-2f52d26f45b91306bb077199ada56783",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

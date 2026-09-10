@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-tristar-mppt-150v--cable-length",
+  "model": "morningstar-tristar-mppt-150v",
+  "name": "Cable length",
+  "value": "33 ft (10 m)",
+  "source": "doc-d77891330c761670b3824d171460f71b",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -2,10 +2,9 @@
   "id": "srne-dh60--equalizing-charge-voltage",
   "model": "srne-dh60",
   "name": "Equalizing charge voltage",
-  "value": "14.6",
-  "unit": "V",
+  "value": "Lead-acid battery: 14.6V; lithium battery: no equalizing charge",
   "source": "doc-37a3a90d1b0934e893e0c84c7fd372e8",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

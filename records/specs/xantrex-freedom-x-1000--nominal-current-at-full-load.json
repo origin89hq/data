@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-freedom-x-1000--nominal-current-at-full-load",
+  "model": "xantrex-freedom-x-1000",
+  "name": "Nominal Current at Full Load",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-056c5ba04a41ca5186949014b417496b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

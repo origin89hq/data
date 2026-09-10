@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multi-rs-solar--maximum-efficiency",
+  "model": "victron-energy-multi-rs-solar",
+  "name": "Maximum efficiency",
+  "value": "96",
+  "unit": "%",
+  "source": "doc-e1ae7450eae21a41f7f792498e3f6aa2",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

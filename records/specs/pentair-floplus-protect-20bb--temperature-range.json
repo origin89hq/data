@@ -1,0 +1,9 @@
+{
+  "id": "pentair-floplus-protect-20bb--temperature-range",
+  "model": "pentair-floplus-protect-20bb",
+  "name": "Temperature Range",
+  "value": "40° - 100°F (4.4 - 37.8°C)",
+  "source": "doc-c838fb5967d99ddd9d30e6a3dc62f62d",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

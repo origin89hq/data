@@ -1,0 +1,9 @@
+{
+  "id": "pentair-fleck-5600sxt--water-pressure-unit",
+  "model": "pentair-fleck-5600sxt",
+  "name": "Water Pressure Unit",
+  "value": "psi (bar)",
+  "source": "doc-c4587408d782041e6ed0a5c0cd02315f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

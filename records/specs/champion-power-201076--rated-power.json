@@ -1,0 +1,11 @@
+{
+  "id": "champion-power-201076--rated-power",
+  "model": "champion-power-201076",
+  "name": "Rated Power",
+  "value": "3650",
+  "unit": "W",
+  "source": "doc-c0b124861a408d3e59e73ab9b7a4d342",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

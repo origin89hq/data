@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sam-450-12--cable-size-for-5-voltage-drop-for-distance-between-battery-and-inverter-10-ft",
+  "model": "samlex-america-sam-450-12",
+  "name": "Cable Size for 5% Voltage Drop for Distance Between Battery and Inverter = 10 ft.",
+  "value": "AWG #6",
+  "source": "doc-6057a7a186894a280962a77cae5f9c93",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

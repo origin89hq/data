@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-vm-3p75ct--input-voltage-range-l-n",
+  "model": "victron-energy-vm-3p75ct",
+  "name": "Input voltage range L-N",
+  "value": "85 to 265 VAC",
+  "source": "doc-b85efd37542ae0ac61967de6d4c474f3",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

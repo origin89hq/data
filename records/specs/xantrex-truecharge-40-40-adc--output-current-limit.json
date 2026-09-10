@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-truecharge-40-40-adc--output-current-limit",
+  "model": "xantrex-truecharge-40-40-adc",
+  "name": "Output current limit",
+  "value": "41.0 – 44.0 Adc",
+  "source": "doc-70704d817272e64661853442900628f2",
+  "page": 53,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-mrbf-100--current-rating",
+  "model": "samlex-america-mrbf-100",
+  "name": "Current rating",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-4eae5e04829677c693d0676452221eed",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

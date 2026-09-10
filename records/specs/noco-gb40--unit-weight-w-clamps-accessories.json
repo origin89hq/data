@@ -1,0 +1,9 @@
+{
+  "id": "noco-gb40--unit-weight-w-clamps-accessories",
+  "model": "noco-gb40",
+  "name": "UNIT WEIGHT W/ CLAMPS & ACCESSORIES",
+  "value": "2.4 lbs(1.08kg)",
+  "source": "doc-cdaf3fb5fab59158cf95509c8672eeac",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

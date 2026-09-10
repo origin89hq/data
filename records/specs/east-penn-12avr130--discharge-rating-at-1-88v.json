@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-12avr130--discharge-rating-at-1-88v",
+  "model": "east-penn-12avr130",
+  "name": "Discharge Rating at 1.88V",
+  "value": "71.4",
+  "source": "doc-94c8c1a0357f20a81f6a1a76117213e7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

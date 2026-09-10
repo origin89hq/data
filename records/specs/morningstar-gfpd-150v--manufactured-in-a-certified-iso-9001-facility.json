@@ -1,9 +1,0 @@
-{
-  "id": "morningstar-gfpd-150v--manufactured-in-a-certified-iso-9001-facility",
-  "model": "morningstar-gfpd-150v",
-  "name": "Manufactured in a Certified ISO 9001 Facility",
-  "value": "Yes",
-  "source": "doc-7a9471416aafe55325ed4cd72bf31cd8",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

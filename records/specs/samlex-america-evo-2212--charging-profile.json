@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-2212--charging-profile",
+  "model": "samlex-america-evo-2212",
+  "name": "CHARGING PROFILE",
+  "value": "0 = 3 Stage Adaptive1 = 3 Stage Type 12 = 3 Stage Type 23 = 2 Stage Type 14 = 2 Stage Type 25 = 2 Stage Type 3",
+  "source": "doc-23df0d2727e9f35278efcb9ffbc0e9f6",
+  "page": 119,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

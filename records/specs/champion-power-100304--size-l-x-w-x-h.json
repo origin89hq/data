@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-100304--size-l-x-w-x-h",
+  "model": "champion-power-100304",
+  "name": "Size (L x W x H)",
+  "value": "53 x 28.2 x 28.4 in. (134.7 x 71.6 x 72.1 cm)",
+  "source": "doc-55435a2b8c3f68111a248e951782be7b",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

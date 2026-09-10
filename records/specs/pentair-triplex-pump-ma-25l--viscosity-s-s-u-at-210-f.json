@@ -1,0 +1,10 @@
+{
+  "id": "pentair-triplex-pump-ma-25l--viscosity-s-s-u-at-210-f",
+  "model": "pentair-triplex-pump-ma-25l",
+  "name": "Viscosity, S.S.U. at 210°F",
+  "value": "70 to 84",
+  "source": "doc-17900052de74eb9fc01960d9f44a60bf",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

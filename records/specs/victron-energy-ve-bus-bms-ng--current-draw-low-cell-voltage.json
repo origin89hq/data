@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-ve-bus-bms-ng--current-draw-low-cell-voltage",
+  "model": "victron-energy-ve-bus-bms-ng",
+  "name": "Current draw - low cell voltage",
+  "value": "2",
+  "unit": "mA",
+  "source": "doc-a9a3a94bb984445b806be4daf53ba3e8",
+  "page": 27,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

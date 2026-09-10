@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-60k-3p-480v--max-a-discharge",
+  "model": "sol-ark-60k-3p-480v",
+  "name": "Max A Discharge",
+  "value": "50 A máximo por puerto. 100 A en total si se utilizan ambos terminales de batería",
+  "source": "doc-ff3d0434d5824232faa1d69dda1473ed",
+  "page": 41,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

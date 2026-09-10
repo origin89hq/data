@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gfx1548--overload-capability-30-minute",
+  "model": "outback-power-gfx1548",
+  "name": "Overload Capability (30 minute)",
+  "value": "2000",
+  "unit": "VA",
+  "source": "doc-520f2d6027eb30d6e4c346e43930a8ea",
+  "page": 42,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

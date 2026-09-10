@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna-pro-eu-3k--noise-emission",
+  "model": "luxpower-sna-pro-eu-3k",
+  "name": "Noise Emission",
+  "value": "<45dB",
+  "source": "doc-1538195a833c237eb931300a70201349",
+  "page": 62,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ec-20m--maximaler-batterieladestrom",
+  "model": "morningstar-ec-20m",
+  "name": "Maximaler Batterieladestrom",
+  "value": "20",
+  "unit": "A",
+  "source": "doc-ddde29da9a3959c0164bdf60012b4a75",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-csw2012-x--minimum-wire-size",
+  "model": "magnum-energy-csw2012-x",
+  "name": "Minimum wire size",
+  "value": "14 AWG (2.1 mm2) CU stranded wire",
+  "source": "doc-3b79136e8fe45bb7ee697862e442d130",
+  "page": 22,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-mil-24u10an--input-voltage",
+  "model": "magnum-energy-mil-24u10an",
+  "name": "Input Voltage",
+  "value": "22 to 30 VDC",
+  "source": "doc-f2685115d03f90c0ccf35d5df3d6f1f0",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

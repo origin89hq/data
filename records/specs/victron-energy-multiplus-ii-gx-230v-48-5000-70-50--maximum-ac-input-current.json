@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multiplus-ii-gx-230v-48-5000-70-50--maximum-ac-input-current",
+  "model": "victron-energy-multiplus-ii-gx-230v-48-5000-70-50",
+  "name": "Maximum AC input current",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-8201ea053d318023ffda9fd7a4060344",
+  "page": 27,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

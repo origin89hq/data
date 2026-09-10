@@ -1,0 +1,9 @@
+{
+  "id": "srne-hesp48180ubh3--rated-output-voltage",
+  "model": "srne-hesp48180ubh3",
+  "name": "Rated Output Voltage",
+  "value": "230/400VAC",
+  "source": "doc-74fe5e734c239b54b682a1ae27f9ac63",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

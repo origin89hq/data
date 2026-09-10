@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-adi-24j11--output-voltage",
+  "model": "magnum-energy-adi-24j11",
+  "name": "Output Voltage",
+  "value": "27.6",
+  "source": "doc-adff524ee25d1b58a39918e2c446d741",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb500--stuetemperatur",
+  "model": "noco-gb500",
+  "name": "Stuetemperatur",
+  "value": "-20°C til +50°C (-4°F til +122°F)",
+  "source": "doc-50f8e658b460dd4aff8e197e803d2e82",
+  "page": 83,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

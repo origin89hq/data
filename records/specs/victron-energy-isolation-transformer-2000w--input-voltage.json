@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-isolation-transformer-2000w--input-voltage",
+  "model": "victron-energy-isolation-transformer-2000w",
+  "name": "Input voltage",
+  "value": "115/230VAC",
+  "source": "doc-9565a705780601a03e615361dca32fbf",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

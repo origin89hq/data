@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-24m11-wbe--operating-temperature",
+  "model": "magnum-energy-24m11-wbe",
+  "name": "Operating Temperature",
+  "value": "-40°C to 74°C (-40°F to 165°F)",
+  "source": "doc-a08d19de5b757a9472c80f257d957fe2",
+  "page": 27,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

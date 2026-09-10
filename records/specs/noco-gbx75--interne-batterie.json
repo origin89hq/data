@@ -1,0 +1,10 @@
+{
+  "id": "noco-gbx75--interne-batterie",
+  "model": "noco-gbx75",
+  "name": "Interne Batterie",
+  "value": "74Wh Lithium-Ionen",
+  "source": "doc-9da28ee8030be3fa7122b62f0ae81f95",
+  "page": 32,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

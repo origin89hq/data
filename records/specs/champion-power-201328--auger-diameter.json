@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201328--auger-diameter",
+  "model": "champion-power-201328",
+  "name": "Auger Diameter",
+  "value": "10 in. (25.5 cm)",
+  "source": "doc-6447db107e40d32cb40cf6a20b50958c",
+  "page": 34,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

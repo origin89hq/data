@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gs8048a--maximum-open-loop-response-time",
+  "model": "outback-power-gs8048a",
+  "name": "Maximum Open-Loop Response Time",
+  "value": "< 2 seconds",
+  "source": "doc-7d6af4fdc633610a345d7823b90dd62b",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-12lp10--output-frequency",
+  "model": "magnum-energy-12lp10",
+  "name": "Output Frequency",
+  "value": "60 +/- .05%",
+  "source": "doc-b91c486314e257114bf7c702074c2717",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

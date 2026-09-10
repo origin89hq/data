@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-scc-30ab--over-temperature-of-heat-sink",
+  "model": "samlex-america-scc-30ab",
+  "name": "OVER TEMPERATURE OF HEAT SINK",
+  "value": "> 90°C",
+  "source": "doc-718cdb5463ad51b2309052bdd7a00cc8",
+  "page": 54,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

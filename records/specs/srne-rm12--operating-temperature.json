@@ -1,0 +1,9 @@
+{
+  "id": "srne-rm12--operating-temperature",
+  "model": "srne-rm12",
+  "name": "Operating temperature",
+  "value": "-35 ℃~+65℃",
+  "source": "doc-4d5d21846c8d624beac557148e3a5c3f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "srne-sr-eoc05b-ul--max-charging-voltage",
+  "model": "srne-sr-eoc05b-ul",
+  "name": "Max.Charging Voltage",
+  "value": "57.6",
+  "unit": "V",
+  "source": "doc-d0aa03d8407a690eb487e2a47a4a8b08",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

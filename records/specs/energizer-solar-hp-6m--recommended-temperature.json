@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-hp-6m--recommended-temperature",
+  "model": "energizer-solar-hp-6m",
+  "name": "Recommended Temperature",
+  "value": "0 to 30 °C",
+  "source": "doc-530a83fbaadea0b813c6d68f370d2600",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

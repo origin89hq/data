@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gs7048e--ac-maximum-output-current-1-ms-peak",
+  "model": "outback-power-gs7048e",
+  "name": "AC Maximum Output Current (1 ms peak)",
+  "value": "100 Aac @240 Vac",
+  "source": "doc-fda963efd83b4fc2faf57024b5e6becd",
+  "page": 57,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

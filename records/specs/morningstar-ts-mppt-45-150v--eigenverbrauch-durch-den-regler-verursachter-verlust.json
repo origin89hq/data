@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-mppt-45-150v--eigenverbrauch-durch-den-regler-verursachter-verlust",
+  "model": "morningstar-ts-mppt-45-150v",
+  "name": "Eigenverbrauch (durch den Regler verursachter Verlust)",
+  "value": "1,3 - 2,7 Watt",
+  "source": "doc-364f18ecff8bf9386cfad6ee669de2fe",
+  "page": 30,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

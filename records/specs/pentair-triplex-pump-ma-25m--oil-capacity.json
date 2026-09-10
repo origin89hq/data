@@ -1,0 +1,10 @@
+{
+  "id": "pentair-triplex-pump-ma-25m--oil-capacity",
+  "model": "pentair-triplex-pump-ma-25m",
+  "name": "Oil Capacity",
+  "value": "5 U.S. Quarts",
+  "source": "doc-17900052de74eb9fc01960d9f44a60bf",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

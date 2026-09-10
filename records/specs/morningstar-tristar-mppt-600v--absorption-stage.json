@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-tristar-mppt-600v--absorption-stage",
+  "model": "morningstar-tristar-mppt-600v",
+  "name": "Absorption Stage",
+  "value": "56.00, 56.60, 57.20, 57.60, 58.40, 58.80, 61.60, Custom",
+  "source": "doc-abff1de971730785bffa93069310d809",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

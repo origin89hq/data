@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-multi-rs-solar--ac-output-terminals-protection",
+  "model": "victron-energy-multi-rs-solar",
+  "name": "AC output terminals protection",
+  "value": "50 A or less",
+  "source": "doc-e1ae7450eae21a41f7f792498e3f6aa2",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

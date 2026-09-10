@@ -1,0 +1,9 @@
+{
+  "id": "eg4-electronics-eg4-lfp-12-100--temperature-storage-range",
+  "model": "eg4-electronics-eg4-lfp-12-100",
+  "name": "Temperature Storage range",
+  "value": "-20~55",
+  "source": "doc-b114664a3c9c6089363137ed512a8900",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

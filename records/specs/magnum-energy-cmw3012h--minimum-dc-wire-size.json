@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-cmw3012h--minimum-dc-wire-size",
+  "model": "magnum-energy-cmw3012h",
+  "name": "Minimum DC Wire Size",
+  "value": "#2/0 AWG (67.4 mm2)",
+  "source": "doc-e7c1a12e59e951e52bb96998ad6a5492",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

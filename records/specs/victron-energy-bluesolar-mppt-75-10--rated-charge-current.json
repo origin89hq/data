@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-bluesolar-mppt-75-10--rated-charge-current",
+  "model": "victron-energy-bluesolar-mppt-75-10",
+  "name": "Rated charge current",
+  "value": "10",
+  "unit": "A",
+  "source": "doc-0d320d076acb8bd6ce2bed1547480e51",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

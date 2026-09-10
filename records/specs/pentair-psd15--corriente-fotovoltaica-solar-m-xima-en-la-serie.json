@@ -1,0 +1,12 @@
+{
+  "id": "pentair-psd15--corriente-fotovoltaica-solar-m-xima-en-la-serie",
+  "model": "pentair-psd15",
+  "name": "Corriente fotovoltaica solar máxima en la serie",
+  "english": "Maximum solar PV current in series",
+  "value": "9",
+  "unit": "A",
+  "source": "doc-ad792b6bb4700d48e2ae347798e185bb",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-tristar-mppt-600v--wire-size",
+  "model": "morningstar-tristar-mppt-600v",
+  "name": "Wire Size",
+  "value": "14 - 2 AWG (2.5 - 34 mm2)",
+  "source": "doc-abff1de971730785bffa93069310d809",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

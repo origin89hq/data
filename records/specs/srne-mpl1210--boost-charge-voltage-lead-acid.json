@@ -1,0 +1,10 @@
+{
+  "id": "srne-mpl1210--boost-charge-voltage-lead-acid",
+  "model": "srne-mpl1210",
+  "name": "Boost charge voltage (lead-acid)",
+  "value": "PB-14.6V；LI-without balanced charge；×2/24V system",
+  "source": "doc-ff15d4bee64c0ebcc140f0570e0f252d",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

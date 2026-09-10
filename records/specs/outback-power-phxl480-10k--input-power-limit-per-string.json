@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-phxl480-10k--input-power-limit-per-string",
+  "model": "outback-power-phxl480-10k",
+  "name": "Input power limit per string",
+  "value": "6",
+  "unit": "kW",
+  "source": "doc-a0826d57efb20951ec50c728f9bb7411",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

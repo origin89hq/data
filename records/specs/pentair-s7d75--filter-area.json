@@ -1,0 +1,10 @@
+{
+  "id": "pentair-s7d75--filter-area",
+  "model": "pentair-s7d75",
+  "name": "Filter Area",
+  "value": "37 Sq. Ft. (3.44 M2)",
+  "source": "doc-9a40c75488a452445cc2399187dfa9d3",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

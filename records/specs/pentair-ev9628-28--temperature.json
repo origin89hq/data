@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ev9628-28--temperature",
+  "model": "pentair-ev9628-28",
+  "name": "Temperature",
+  "value": "35 – 100°F (2 – 38°C)",
+  "source": "doc-cffec056783bc430070a207613073cd4",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

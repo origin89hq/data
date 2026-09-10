@@ -1,0 +1,11 @@
+{
+  "id": "srne-afp4835u80-h--rated-output-active-power",
+  "model": "srne-afp4835u80-h",
+  "name": "Rated Output Active Power",
+  "value": "3500",
+  "unit": "W",
+  "source": "doc-e5f986442b822353c503f29a76068121",
+  "page": 52,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

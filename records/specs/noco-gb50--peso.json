@@ -2,9 +2,9 @@
   "id": "noco-gb50--peso",
   "model": "noco-gb50",
   "name": "Peso",
-  "value": "3 libras (1.3 kg)",
+  "value": "3 libbre",
   "source": "doc-3823580d5ce87d787a3f780b59b9c1b0",
+  "page": 37,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "page": 45,
   "confidence": "vendor-doc"
 }

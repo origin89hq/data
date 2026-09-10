@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-pst-1000f-12--output-frequency",
+  "model": "samlex-america-pst-1000f-12",
+  "name": "OUTPUT FREQUENCY",
+  "value": "60 Hz ± 1%",
+  "source": "doc-d5512201191ec612dbac5fc49340975c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

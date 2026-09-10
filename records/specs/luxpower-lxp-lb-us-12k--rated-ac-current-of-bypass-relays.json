@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-lxp-lb-us-12k--rated-ac-current-of-bypass-relays",
+  "model": "luxpower-lxp-lb-us-12k",
+  "name": "Rated AC current of BYPASS relays",
+  "value": "200",
+  "unit": "A",
+  "source": "doc-4ceaa54587f6daa918f0196ed906c9a8",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

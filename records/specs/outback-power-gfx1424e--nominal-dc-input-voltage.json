@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gfx1424e--nominal-dc-input-voltage",
+  "model": "outback-power-gfx1424e",
+  "name": "Nominal DC Input Voltage",
+  "value": "24",
+  "unit": "V",
+  "source": "doc-c004e556be205cec5a5f1a30f391feb1",
+  "page": 43,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

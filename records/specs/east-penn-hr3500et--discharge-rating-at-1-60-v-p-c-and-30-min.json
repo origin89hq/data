@@ -1,0 +1,10 @@
+{
+  "id": "east-penn-hr3500et--discharge-rating-at-1-60-v-p-c-and-30-min",
+  "model": "east-penn-hr3500et",
+  "name": "Discharge Rating at 1.60 V.P.C. and 30 MIN.",
+  "value": "231",
+  "unit": "W",
+  "source": "doc-25ed8c58553a0a5f060795db8fc3e8b2",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

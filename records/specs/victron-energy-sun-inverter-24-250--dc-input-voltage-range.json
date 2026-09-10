@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-sun-inverter-24-250--dc-input-voltage-range",
+  "model": "victron-energy-sun-inverter-24-250",
+  "name": "DC Input voltage range",
+  "value": "9.2 - 17 Vdc",
+  "source": "doc-d24d494bf3eaf457223ca56d50881834",
+  "page": 26,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

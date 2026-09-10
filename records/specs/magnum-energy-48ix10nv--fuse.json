@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-48ix10nv--fuse",
+  "model": "magnum-energy-48ix10nv",
+  "name": "Fuse",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-71120d7878f2f143a74c8f2c644726e2",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

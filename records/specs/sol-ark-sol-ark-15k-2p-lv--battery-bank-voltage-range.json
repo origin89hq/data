@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-15k-2p-lv--battery-bank-voltage-range",
+  "model": "sol-ark-sol-ark-15k-2p-lv",
+  "name": "battery bank voltage range",
+  "value": "43 VDC to 59 VDC",
+  "source": "doc-e8a5f883b41371b0b427044b95831d40",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

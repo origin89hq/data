@@ -1,0 +1,10 @@
+{
+  "id": "pentair-155m--valve-seat-liquid-passage-areas-disc-valves",
+  "model": "pentair-155m",
+  "name": "Valve Seat, Liquid Passage Areas Disc Valves",
+  "value": "3.9 sq.in",
+  "source": "doc-63ede5d11870425ff771c12606630cb5",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-vfxr2612e--kontinuierliche-ausgangsleistung-bei-25-c",
+  "model": "outback-power-vfxr2612e",
+  "name": "Kontinuierliche Ausgangsleistung bei 25 °C",
+  "value": "2800",
+  "unit": "VA",
+  "source": "doc-8452ddb9bd444900edca4f8d20f075e4",
+  "page": 67,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

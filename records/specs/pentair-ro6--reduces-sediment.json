@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ro6--reduces-sediment",
+  "model": "pentair-ro6",
+  "name": "Reduces Sediment",
+  "value": "Yes",
+  "source": "doc-bfcd97b25194021848ab20a173877e0f",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "outback-power-gs8048--thd-of-rms-current",
+  "model": "outback-power-gs8048",
+  "name": "THD of RMS current",
+  "value": "less than 5%",
+  "source": "doc-26e09264b91c6b11bb2f9fd3e78673af",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

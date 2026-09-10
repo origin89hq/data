@@ -1,0 +1,10 @@
+{
+  "id": "the-cabin-depot-ugp-r30othlp--electrical-rating",
+  "model": "the-cabin-depot-ugp-r30othlp",
+  "name": "Electrical Rating",
+  "value": "1.5V DC. 1.0 A",
+  "source": "doc-a31ecf2a5fbe4eb72b52060eb2c34db2",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

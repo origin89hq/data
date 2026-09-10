@@ -1,0 +1,9 @@
+{
+  "id": "lorex-c861xc-e--viewing-angle",
+  "model": "lorex-c861xc-e",
+  "name": "Viewing Angle",
+  "value": "105˚",
+  "source": "doc-59708a1a564b92f3dff6867283b01908",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

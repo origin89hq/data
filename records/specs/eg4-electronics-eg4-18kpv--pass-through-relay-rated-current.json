@@ -1,0 +1,9 @@
+{
+  "id": "eg4-electronics-eg4-18kpv--pass-through-relay-rated-current",
+  "model": "eg4-electronics-eg4-18kpv",
+  "name": "Pass-through relay rated current",
+  "value": "90 Amps max",
+  "source": "doc-c17d9de79a584e15cb0de95fb2ac3ce3",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

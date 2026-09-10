@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-14560--line-speed-12v-dc",
+  "model": "champion-power-14560",
+  "name": "Line Speed (12V DC)",
+  "value": "12.8 FPM",
+  "source": "doc-68cdc2b5c9953fdb60b6be9e191fd33a",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "pentair-pps6120--length",
+  "model": "pentair-pps6120",
+  "name": "Length",
+  "value": "12 1/16”",
+  "source": "doc-260342b79cce1531660eb61b7437be0e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

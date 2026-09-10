@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-1223ce--fuse-rating",
+  "model": "samlex-america-sec-1223ce",
+  "name": "FUSE RATING",
+  "value": "4",
+  "unit": "A",
+  "source": "doc-c827bf734b61047f8fd96fd0ae2c4333",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

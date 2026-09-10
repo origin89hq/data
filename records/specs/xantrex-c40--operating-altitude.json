@@ -1,0 +1,9 @@
+{
+  "id": "xantrex-c40--operating-altitude",
+  "model": "xantrex-c40",
+  "name": "Operating Altitude",
+  "value": "15000ft (4572m)",
+  "source": "doc-446d67c905bd9d8ad4440cf4b03248b2",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

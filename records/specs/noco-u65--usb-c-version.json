@@ -1,0 +1,9 @@
+{
+  "id": "noco-u65--usb-c-version",
+  "model": "noco-u65",
+  "name": "USB-C Version",
+  "value": "USB-C PD 3.0/3.1",
+  "source": "doc-a112efa9d761b440cd517fcf9dab47c3",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

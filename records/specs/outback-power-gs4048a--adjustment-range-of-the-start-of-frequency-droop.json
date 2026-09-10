@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gs4048a--adjustment-range-of-the-start-of-frequency-droop",
+  "model": "outback-power-gs4048a",
+  "name": "Adjustment range of the start of frequency droop",
+  "value": "59.0, 61.0 Hz",
+  "source": "doc-dcbd246ed4a1bd3988f688bd04c13e7c",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

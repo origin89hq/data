@@ -1,0 +1,11 @@
+{
+  "id": "xantrex-freedom-xc-2000--continuous-power",
+  "model": "xantrex-freedom-xc-2000",
+  "name": "Continuous Power",
+  "value": "2000",
+  "unit": "W",
+  "source": "doc-5256bdfcc12fe738186919b92491ccdb",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

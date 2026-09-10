@@ -1,9 +1,0 @@
-{
-  "id": "victron-energy-150-70--operating-temperature",
-  "model": "victron-energy-150-70",
-  "name": "Operating temperature",
-  "value": "-30°C to +60°C (full rated output up to 40°C)",
-  "source": "doc-a08e004abb7badfb9ca55abb38ecb534",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

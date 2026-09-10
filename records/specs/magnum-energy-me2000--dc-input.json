@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-me2000--dc-input",
+  "model": "magnum-energy-me2000",
+  "name": "DC Input",
+  "value": "10.0-15.5VDC",
+  "source": "doc-953c67134d63eac7f190a1f49999b892",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

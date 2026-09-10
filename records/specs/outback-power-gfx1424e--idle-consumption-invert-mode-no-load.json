@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gfx1424e--idle-consumption-invert-mode-no-load",
+  "model": "outback-power-gfx1424e",
+  "name": "Idle Consumption - Invert mode, no load",
+  "value": "18",
+  "unit": "W",
+  "source": "doc-c004e556be205cec5a5f1a30f391feb1",
+  "page": 43,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

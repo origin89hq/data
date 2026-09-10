@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ev9977-01--inlet-temperature",
+  "model": "pentair-ev9977-01",
+  "name": "Inlet Temperature",
+  "value": "32-100°F (0 – 37.7°C)",
+  "source": "doc-82ba7edb82fa1b5c8f27cf42bc0df17c",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

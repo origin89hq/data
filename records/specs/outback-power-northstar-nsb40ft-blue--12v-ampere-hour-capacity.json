@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-northstar-nsb40ft-blue--12v-ampere-hour-capacity",
+  "model": "outback-power-northstar-nsb40ft-blue",
+  "name": "12V Ampere Hour Capacity",
+  "value": "29.5, 32.4, 33.9, 34.8, 35.6, 37.1, 37.8, 40.4, 40.4, unit:",
+  "source": "doc-c0e23d5e42fba70ed8abc2015d8822e0",
+  "page": 25,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

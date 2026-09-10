@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-csw2024--gfci-outlet-current",
+  "model": "magnum-energy-csw2024",
+  "name": "GFCI outlet current",
+  "value": "20-amp",
+  "source": "doc-5d23b565fc01f5a55cbdfd6fa7d6ca63",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

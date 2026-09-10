@@ -1,0 +1,10 @@
+{
+  "id": "srne-lc2430n10h--operating-temperature",
+  "model": "srne-lc2430n10h",
+  "name": "Operating temperature",
+  "value": "-35℃ ～ +65℃",
+  "source": "doc-a5fd2ca443cd73029f1bc15011f7bd34",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

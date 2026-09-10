@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna-us-6000--rated-ac-current-of-bypass-relays",
+  "model": "luxpower-sna-us-6000",
+  "name": "Rated AC current of BYPASS relays",
+  "value": "60",
+  "unit": "A",
+  "source": "doc-4b650ee091163d473d76ca215076d757",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

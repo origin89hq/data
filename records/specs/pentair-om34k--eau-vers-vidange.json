@@ -1,0 +1,11 @@
+{
+  "id": "pentair-om34k--eau-vers-vidange",
+  "model": "pentair-om34k",
+  "name": "Eau vers vidange",
+  "value": "46.3",
+  "unit": "gal",
+  "source": "doc-a05d04ac4987139b1e825e769688c178",
+  "page": 47,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

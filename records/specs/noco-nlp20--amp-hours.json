@@ -1,0 +1,9 @@
+{
+  "id": "noco-nlp20--amp-hours",
+  "model": "noco-nlp20",
+  "name": "AMP-HOURS",
+  "value": "7",
+  "source": "doc-12a00a9dd43ad9d7569fae858f536c4e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

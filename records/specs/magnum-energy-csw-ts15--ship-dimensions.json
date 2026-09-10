@@ -1,9 +1,0 @@
-{
-  "id": "magnum-energy-csw-ts15--ship-dimensions",
-  "model": "magnum-energy-csw-ts15",
-  "name": "Ship Dimensions",
-  "value": "9.6 x 7.3 x 2.4 (inches) / 243 x 186 x 62 (mm)",
-  "source": "doc-fa9f8e81e67af1bab01df3efce3d423f",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

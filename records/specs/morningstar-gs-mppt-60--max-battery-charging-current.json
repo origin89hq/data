@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-60--max-battery-charging-current",
+  "model": "morningstar-gs-mppt-60",
+  "name": "Max. Battery Charging Current",
+  "value": "60",
+  "unit": "A",
+  "source": "doc-3c6c284318c045cf3e87c0f37104f855",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

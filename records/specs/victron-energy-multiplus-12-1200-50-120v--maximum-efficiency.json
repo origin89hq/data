@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multiplus-12-1200-50-120v--maximum-efficiency",
+  "model": "victron-energy-multiplus-12-1200-50-120v",
+  "name": "Maximum efficiency",
+  "value": "93",
+  "unit": "%",
+  "source": "doc-841ce12fa0666bfb259be1d0438d2492",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

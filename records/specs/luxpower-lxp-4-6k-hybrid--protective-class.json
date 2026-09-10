@@ -1,0 +1,9 @@
+{
+  "id": "luxpower-lxp-4-6k-hybrid--protective-class",
+  "model": "luxpower-lxp-4-6k-hybrid",
+  "name": "Protective Class",
+  "value": "I",
+  "source": "doc-c9468be14740afb2b50766463b7405a8",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

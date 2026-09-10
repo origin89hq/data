@@ -1,0 +1,10 @@
+{
+  "id": "pentair-155l--avg-liquid-velocity-450-rpm-thru-valves",
+  "model": "pentair-155l",
+  "name": "Avg. Liquid Velocity @ 450 rpm thru Valves",
+  "value": "10.8 fps",
+  "source": "doc-63ede5d11870425ff771c12606630cb5",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

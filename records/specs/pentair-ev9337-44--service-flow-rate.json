@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ev9337-44--service-flow-rate",
+  "model": "pentair-ev9337-44",
+  "name": "Service Flow Rate",
+  "value": "13.36 gpm (50.57 Lpm)",
+  "source": "doc-39026b699137369c1c5e932e903c3e9f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

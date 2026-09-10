@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ev9100-20--temperature",
+  "model": "pentair-ev9100-20",
+  "name": "Temperature",
+  "value": "40 – 100°F (4.4 – 38°C)",
+  "source": "doc-6bda2be356316614b588462387c9e04e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

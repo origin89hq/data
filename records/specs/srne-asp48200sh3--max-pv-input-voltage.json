@@ -1,0 +1,11 @@
+{
+  "id": "srne-asp48200sh3--max-pv-input-voltage",
+  "model": "srne-asp48200sh3",
+  "name": "Max. PV Input Voltage",
+  "value": "1000",
+  "unit": "V",
+  "source": "doc-5aed4fb4d801b1348f9fda8464502049",
+  "page": 50,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

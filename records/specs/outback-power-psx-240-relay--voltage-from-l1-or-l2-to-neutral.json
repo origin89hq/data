@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-psx-240-relay--voltage-from-l1-or-l2-to-neutral",
+  "model": "outback-power-psx-240-relay",
+  "name": "Voltage from L1 or L2 to neutral",
+  "value": "120",
+  "unit": "V",
+  "source": "doc-d39bde04f3848e1890bb38e0a006430d",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

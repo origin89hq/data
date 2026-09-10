@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-100113--fuel-capacity",
+  "model": "champion-power-100113",
+  "name": "Fuel Capacity",
+  "value": "0.9 gal. (3.4 L)",
+  "source": "doc-e6e49d8cdc34b5735f4e6f9c2287706d",
+  "page": 22,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

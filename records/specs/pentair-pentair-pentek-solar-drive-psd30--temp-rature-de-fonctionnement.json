@@ -1,0 +1,11 @@
+{
+  "id": "pentair-pentair-pentek-solar-drive-psd30--temp-rature-de-fonctionnement",
+  "model": "pentair-pentair-pentek-solar-drive-psd30",
+  "name": "Température de fonctionnement",
+  "english": "Operating temperature",
+  "value": "-40˚C à 40˚C",
+  "source": "doc-4b1d27aef309608e3654de99f4a58e5a",
+  "page": 35,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

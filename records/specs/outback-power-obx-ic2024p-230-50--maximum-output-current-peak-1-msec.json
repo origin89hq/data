@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-obx-ic2024p-230-50--maximum-output-current-peak-1-msec",
+  "model": "outback-power-obx-ic2024p-230-50",
+  "name": "Maximum Output Current - Peak (1 mSec)",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-0ebaf4052e4975b1e5bc3fab2ab0ac91",
+  "page": 25,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

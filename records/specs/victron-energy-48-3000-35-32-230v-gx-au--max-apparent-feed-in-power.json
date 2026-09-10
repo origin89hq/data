@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-48-3000-35-32-230v-gx-au--max-apparent-feed-in-power",
+  "model": "victron-energy-48-3000-35-32-230v-gx-au",
+  "name": "Max apparent feed-in power",
+  "value": "3000",
+  "unit": "VA",
+  "source": "doc-7c9b773afaadf5f30008ca3c861523f8",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

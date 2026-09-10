@@ -1,9 +1,0 @@
-{
-  "id": "morningstar-ts-60--etl-listed-ul-1741-and-canadian-csa-c22-2-no-107-1-01",
-  "model": "morningstar-ts-60",
-  "name": "ETL Listed [UL-1741 and Canadian CSA C22.2 No.107.1.01]",
-  "value": "Yes",
-  "source": "doc-8e8065bdb7830e18e75a84d3208eb4d0",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

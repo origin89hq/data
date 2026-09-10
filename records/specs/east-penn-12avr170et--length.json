@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-12avr170et--length",
+  "model": "east-penn-12avr170et",
+  "name": "Length",
+  "value": "22.17\"",
+  "source": "doc-d69d65e162d8e1e27c21d2048b75ed8a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "srne-hesp4860s100-h--rated-battery-voltage",
+  "model": "srne-hesp4860s100-h",
+  "name": "Rated Battery Voltage",
+  "value": "48",
+  "unit": "V",
+  "source": "doc-ed6f2d00f341721db10496c178d2e2ba",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

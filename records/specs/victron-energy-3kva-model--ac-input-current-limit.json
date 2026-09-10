@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-3kva-model--ac-input-current-limit",
+  "model": "victron-energy-3kva-model",
+  "name": "AC input current limit",
+  "value": "32",
+  "unit": "A",
+  "source": "doc-b932e357fd2035b7f74c7452cc3d3ada",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

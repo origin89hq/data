@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-ensp60ndg2475--rated-voltage-vmpp-at-stc",
+  "model": "energizer-solar-ensp60ndg2475",
+  "name": "Rated voltage (Vmpp) at STC",
+  "value": "36.39",
+  "unit": "V",
+  "source": "doc-36f14528b83079b8628c635e0f01546f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-cmw3012h--usb-port-current",
+  "model": "magnum-energy-cmw3012h",
+  "name": "USB Port Current",
+  "value": "750",
+  "unit": "mA",
+  "source": "doc-e7c1a12e59e951e52bb96998ad6a5492",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

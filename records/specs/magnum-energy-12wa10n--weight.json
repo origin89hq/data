@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-12wa10n--weight",
+  "model": "magnum-energy-12wa10n",
+  "name": "Weight",
+  "value": "26",
+  "unit": "lb",
+  "source": "doc-d211eecf376ec3b4bad289440c313d1e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

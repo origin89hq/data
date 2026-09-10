@@ -1,0 +1,10 @@
+{
+  "id": "pentair-om40k--media-tank-size",
+  "model": "pentair-om40k",
+  "name": "Media Tank Size",
+  "value": "10\" x 44\"",
+  "source": "doc-a05d04ac4987139b1e825e769688c178",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ma-75m--oil-capacity",
+  "model": "pentair-ma-75m",
+  "name": "Oil Capacity",
+  "value": "12 U.S. quarts",
+  "source": "doc-e52fbb13118d95b3ee9c71d320de22f6",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

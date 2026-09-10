@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-srv-200-30a--solar-panel-weight",
+  "model": "samlex-america-srv-200-30a",
+  "name": "SOLAR PANEL WEIGHT",
+  "value": "12.0 kg (26.4 lbs)",
+  "source": "doc-d94bbb925dac3274d56a9b91f9d929e7",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

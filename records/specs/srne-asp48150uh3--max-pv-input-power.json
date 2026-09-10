@@ -1,0 +1,10 @@
+{
+  "id": "srne-asp48150uh3--max-pv-input-power",
+  "model": "srne-asp48150uh3",
+  "name": "Max. PV Input Power",
+  "value": "14.4kW + 14.4kW",
+  "source": "doc-71f23a4d5114065ab243f984205d0078",
+  "page": 48,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

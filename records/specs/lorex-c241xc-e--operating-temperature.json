@@ -1,0 +1,9 @@
+{
+  "id": "lorex-c241xc-e--operating-temperature",
+  "model": "lorex-c241xc-e",
+  "name": "Operating Temperature",
+  "value": "-40 ~ 140˚F /-40 ~ 60˚C",
+  "source": "doc-2c8204997e8e4f434a7fa681b381fcd4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

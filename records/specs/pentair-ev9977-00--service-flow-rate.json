@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ev9977-00--service-flow-rate",
+  "model": "pentair-ev9977-00",
+  "name": "Service Flow Rate",
+  "value": "0.5 gpm @ 50 – 85 psi(1.9 L @ 3.4 – 5.8 bar)",
+  "source": "doc-82ba7edb82fa1b5c8f27cf42bc0df17c",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

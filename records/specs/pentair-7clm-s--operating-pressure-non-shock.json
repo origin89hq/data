@@ -1,9 +1,0 @@
-{
-  "id": "pentair-7clm-s--operating-pressure-non-shock",
-  "model": "pentair-7clm-s",
-  "name": "Operating Pressure (non-shock)",
-  "value": "10 – 125 psi (0.7 – 8.6 bar)",
-  "source": "doc-d9f0a4c9997140802ae161f5f020029e",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

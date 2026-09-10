@@ -1,0 +1,10 @@
+{
+  "id": "srne-4860sh3--load-motor-capacity",
+  "model": "srne-4860sh3",
+  "name": "Load Motor Capacity",
+  "value": "6HP",
+  "source": "doc-0064802073548432d1d4b96bc751c06c",
+  "page": 51,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

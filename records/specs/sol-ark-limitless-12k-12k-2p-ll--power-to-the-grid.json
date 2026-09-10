@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-limitless-12k-12k-2p-ll--power-to-the-grid",
+  "model": "sol-ark-limitless-12k-12k-2p-ll",
+  "name": "Power to the grid",
+  "value": "12",
+  "unit": "kW",
+  "source": "doc-e40cc4b47ab5791fac6df3c7c64cd785",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

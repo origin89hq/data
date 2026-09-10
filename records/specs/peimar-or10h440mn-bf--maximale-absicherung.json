@@ -1,0 +1,10 @@
+{
+  "id": "peimar-or10h440mn-bf--maximale-absicherung",
+  "model": "peimar-or10h440mn-bf",
+  "name": "Maximale Absicherung",
+  "value": "25",
+  "unit": "A",
+  "source": "doc-02566ecb281d06217c976268099100d6",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

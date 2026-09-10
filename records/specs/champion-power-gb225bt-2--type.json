@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-gb225bt-2--type",
+  "model": "champion-power-gb225bt-2",
+  "name": "Type",
+  "value": "4-Stroke OHV",
+  "source": "doc-1dbd55d6b2aae348ded6e573f6848c18",
+  "page": 36,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

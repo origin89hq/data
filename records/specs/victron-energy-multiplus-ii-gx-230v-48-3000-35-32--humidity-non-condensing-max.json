@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multiplus-ii-gx-230v-48-3000-35-32--humidity-non-condensing-max",
+  "model": "victron-energy-multiplus-ii-gx-230v-48-3000-35-32",
+  "name": "Humidity (non-condensing) max",
+  "value": "95",
+  "unit": "%",
+  "source": "doc-8201ea053d318023ffda9fd7a4060344",
+  "page": 28,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

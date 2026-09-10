@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-ntx-1000-12--peak-efficiency",
+  "model": "samlex-america-ntx-1000-12",
+  "name": "PEAK EFFICIENCY",
+  "value": "90.5",
+  "unit": "%",
+  "source": "doc-e29402cf33991470ec6bee4538f8b1be",
+  "page": 33,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

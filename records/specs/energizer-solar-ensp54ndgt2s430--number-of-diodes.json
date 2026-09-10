@@ -1,0 +1,9 @@
+{
+  "id": "energizer-solar-ensp54ndgt2s430--number-of-diodes",
+  "model": "energizer-solar-ensp54ndgt2s430",
+  "name": "Number of diodes",
+  "value": "3",
+  "source": "doc-2b3f5ebcea5a5a012f550928b4d355b4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

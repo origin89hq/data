@@ -1,0 +1,11 @@
+{
+  "id": "noco-gen5x2--type-of-batteries",
+  "model": "noco-gen5x2",
+  "name": "Type of Batteries",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-00ff466d0b0d3154c3a2e609718dee8b",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

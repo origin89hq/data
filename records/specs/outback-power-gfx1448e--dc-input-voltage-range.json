@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gfx1448e--dc-input-voltage-range",
+  "model": "outback-power-gfx1448e",
+  "name": "DC Input Voltage Range",
+  "value": "42.0 to 68.0 Vdc",
+  "source": "doc-c004e556be205cec5a5f1a30f391feb1",
+  "page": 43,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-12avr75--rate",
+  "model": "east-penn-12avr75",
+  "name": "Rate",
+  "value": "8 hr. rate to 1.75 V.P.C.",
+  "source": "doc-92b14d456f0dc855a9919d845431f3c1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

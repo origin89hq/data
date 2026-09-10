@@ -2,9 +2,9 @@
   "id": "noco-gb40--battery-type",
   "model": "noco-gb40",
   "name": "Battery type",
-  "value": "plomb-acide",
+  "value": "μολύβδου-οξέος",
   "source": "doc-919699b1eb41a8db72c0357712dbfdc0",
+  "page": 109,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "page": 14,
   "confidence": "vendor-doc"
 }

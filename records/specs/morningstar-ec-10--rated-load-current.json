@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ec-10--rated-load-current",
+  "model": "morningstar-ec-10",
+  "name": "Rated Load Current",
+  "value": "10",
+  "unit": "A",
+  "source": "doc-a1665d61c8d4fc25b649bb55148b3ca1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

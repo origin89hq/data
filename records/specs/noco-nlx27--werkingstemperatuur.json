@@ -1,0 +1,10 @@
+{
+  "id": "noco-nlx27--werkingstemperatuur",
+  "model": "noco-nlx27",
+  "name": "Werkingstemperatuur",
+  "value": "-20°C tot 50°C (-4°F tot 122°F)",
+  "source": "doc-49d5f4612175f746c61e8098fa689c66",
+  "page": 35,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

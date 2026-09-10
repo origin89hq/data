@@ -2,10 +2,9 @@
   "id": "srne-mc2420n10--weight",
   "model": "srne-mc2420n10",
   "name": "Weight",
-  "value": "650",
-  "unit": "g",
-  "source": "doc-3b55fd7ec7f0697efe5021f35d25fb4f",
+  "value": "0.65",
+  "unit": "kg",
+  "source": "doc-e39aa32b1478e369d8bfaaa046f860eb",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "page": 7,
   "confidence": "vendor-doc"
 }

@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-c40--maximum-pv-open-circuit-array-voltage",
+  "model": "xantrex-c40",
+  "name": "Maximum PV Open Circuit Array Voltage",
+  "value": "125",
+  "unit": "V",
+  "source": "doc-446d67c905bd9d8ad4440cf4b03248b2",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

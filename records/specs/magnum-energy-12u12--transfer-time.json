@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-12u12--transfer-time",
+  "model": "magnum-energy-12u12",
+  "name": "Transfer Time",
+  "value": "Less than 16 ms typical",
+  "source": "doc-98db73b74585e3dc41f72c9e9d669d12",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

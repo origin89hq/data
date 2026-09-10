@@ -1,0 +1,11 @@
+{
+  "id": "pentair-pentair-pentek-solar-drive-psd30--maximum-solar-pv-current-in-series",
+  "model": "pentair-pentair-pentek-solar-drive-psd30",
+  "name": "Maximum Solar PV Current in Series",
+  "value": "9",
+  "unit": "A",
+  "source": "doc-4b1d27aef309608e3654de99f4a58e5a",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

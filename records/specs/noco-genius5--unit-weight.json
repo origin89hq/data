@@ -1,0 +1,9 @@
+{
+  "id": "noco-genius5--unit-weight",
+  "model": "noco-genius5",
+  "name": "UNIT WEIGHT",
+  "value": "1.5 lbs(0.68 kg)",
+  "source": "doc-39956c6d95099c125eb3a89ec10738e5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

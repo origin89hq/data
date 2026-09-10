@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-tristar-mppt-150v--hole-dimension-for-1-knockout",
+  "model": "morningstar-tristar-mppt-150v",
+  "name": "Hole dimension for 1\" knockout",
+  "value": "1 - 23/64",
+  "source": "doc-d77891330c761670b3824d171460f71b",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

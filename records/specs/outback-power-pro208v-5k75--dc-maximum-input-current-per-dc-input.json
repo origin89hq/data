@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-pro208v-5k75--dc-maximum-input-current-per-dc-input",
+  "model": "outback-power-pro208v-5k75",
+  "name": "DC maximum input current, per DC input",
+  "value": "10",
+  "unit": "A",
+  "source": "doc-d4b9114284d2fc0da4b61c00c23661e7",
+  "page": 41,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

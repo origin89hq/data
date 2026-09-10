@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201244--size-l-x-w-x-h",
+  "model": "champion-power-201244",
+  "name": "Size (L x W x H)",
+  "value": "56.3 x 28 x 28.5 in",
+  "source": "doc-6c0d34790d696d440861753457af3fdc",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

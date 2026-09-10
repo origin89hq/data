@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-csw2012-x--maximum-pass-thru-current-from-ac-output-terminals-l1-n1",
+  "model": "magnum-energy-csw2012-x",
+  "name": "Maximum pass-thru current from AC output terminals L1/N1",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-3b79136e8fe45bb7ee697862e442d130",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

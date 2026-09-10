@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-mate--voltage",
+  "model": "outback-power-mate",
+  "name": "Voltage",
+  "value": "less than 30 VDC",
+  "source": "doc-2c0231269626972b9cfe12dda7867858",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

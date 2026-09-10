@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ss-imf--overall-dimensions",
+  "model": "pentair-ss-imf",
+  "name": "Overall Dimensions",
+  "value": "6.875\" L x 1.312\" D(17.4 cm x 4.9 cm)",
+  "source": "doc-cffec056783bc430070a207613073cd4",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

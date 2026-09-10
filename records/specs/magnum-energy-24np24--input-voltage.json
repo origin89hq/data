@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-24np24--input-voltage",
+  "model": "magnum-energy-24np24",
+  "name": "Input Voltage",
+  "value": "21-34 VDC",
+  "source": "doc-8d69d7a719cf621d6c57d802aede1987",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

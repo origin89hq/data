@@ -1,0 +1,9 @@
+{
+  "id": "srne-sr-rm-5--operating-temperature",
+  "model": "srne-sr-rm-5",
+  "name": "Operating temperature",
+  "value": "-35°C TO+65°C",
+  "source": "doc-2f03b8f4a1f93654db350a8ae75ca167",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

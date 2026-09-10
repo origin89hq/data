@@ -1,0 +1,9 @@
+{
+  "id": "srne-sr-eos10b--voltage-range",
+  "model": "srne-sr-eos10b",
+  "name": "Voltage Range",
+  "value": "44.8~57.6Vdc",
+  "source": "doc-eae8a8090d999d05059cb72bb400a641",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-cmw3012h--dc-input-voltage-nominal",
+  "model": "magnum-energy-cmw3012h",
+  "name": "DC Input Voltage (Nominal)",
+  "value": "12.5",
+  "unit": "V",
+  "source": "doc-e7c1a12e59e951e52bb96998ad6a5492",
+  "page": 28,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

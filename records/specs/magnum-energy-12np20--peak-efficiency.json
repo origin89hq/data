@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-12np20--peak-efficiency",
+  "model": "magnum-energy-12np20",
+  "name": "Peak Efficiency",
+  "value": "Up to 88%",
+  "source": "doc-9a84b1be4fbc1aac0a3338b26205a78e",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

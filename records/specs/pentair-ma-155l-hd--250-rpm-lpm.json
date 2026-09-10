@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ma-155l-hd--250-rpm-lpm",
+  "model": "pentair-ma-155l-hd",
+  "name": "250 RPM LPM",
+  "value": "695.0, 652.5, 610.9, 570.9, 532.1, 494.8, 458.8, 424.2, 391.0, 359.0",
+  "source": "doc-982937007006e56277dee355a02d2f04",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

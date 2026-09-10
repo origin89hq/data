@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-sec-40brm--input-current",
+  "model": "samlex-america-sec-40brm",
+  "name": "Input Current",
+  "value": "8",
+  "unit": "A",
+  "source": "doc-bde0f3bfe26d3bd33a11cbb0bc649efd",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

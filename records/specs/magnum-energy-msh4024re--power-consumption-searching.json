@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-msh4024re--power-consumption-searching",
+  "model": "magnum-energy-msh4024re",
+  "name": "Power consumption – searching",
+  "value": "<7 watts",
+  "source": "doc-b3cec6d01f565ae5106812f0d96efd4b",
+  "page": 51,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

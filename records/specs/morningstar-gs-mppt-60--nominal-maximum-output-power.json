@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-gs-mppt-60--nominal-maximum-output-power",
+  "model": "morningstar-gs-mppt-60",
+  "name": "Nominal Maximum Output Power",
+  "value": "800-1600-3200W",
+  "source": "doc-3c6c284318c045cf3e87c0f37104f855",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-freedom-xc-1800-12vdc--minimum-cable-size",
+  "model": "xantrex-freedom-xc-1800-12vdc",
+  "name": "Minimum Cable Size",
+  "value": "No. 2/0 AWG",
+  "source": "doc-ded9b3d04a9dd3e5385bb5596a4d6c55",
+  "page": 32,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

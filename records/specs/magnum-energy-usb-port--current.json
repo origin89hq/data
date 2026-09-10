@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-usb-port--current",
+  "model": "magnum-energy-usb-port",
+  "name": "Current",
+  "value": "2.1",
+  "unit": "A",
+  "source": "doc-6ab55324b88b792cc1f0e718cc8e9d2d",
+  "page": 25,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

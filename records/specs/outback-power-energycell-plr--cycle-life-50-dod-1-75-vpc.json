@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-energycell-plr--cycle-life-50-dod-1-75-vpc",
+  "model": "outback-power-energycell-plr",
+  "name": "Cycle Life (50% DoD, 1.75 Vpc)",
+  "value": "1500",
+  "unit": "cycles",
+  "source": "doc-840f1b43cc52ee6fe491cf95b2cbbdd5",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

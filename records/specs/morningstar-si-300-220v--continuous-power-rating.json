@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-si-300-220v--continuous-power-rating",
+  "model": "morningstar-si-300-220v",
+  "name": "Continuous Power Rating",
+  "value": "300W @ 25 °C",
+  "source": "doc-d750c051efee498703d3df89c12fef64",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

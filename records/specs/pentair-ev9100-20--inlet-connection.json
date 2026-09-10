@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ev9100-20--inlet-connection",
+  "model": "pentair-ev9100-20",
+  "name": "Inlet Connection",
+  "value": "3/8\"",
+  "source": "doc-6bda2be356316614b588462387c9e04e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

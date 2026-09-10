@@ -1,0 +1,12 @@
+{
+  "id": "noco-ax65--arresto-automatico-quando-la-tensione-della-batteria-scende-sotto",
+  "model": "noco-ax65",
+  "name": "arresto automatico",
+  "value": "10.0",
+  "unit": "V",
+  "conditions": "quando la tensione della batteria scende sotto",
+  "source": "doc-7cd619ec8cb5a7083981933be601e7a3",
+  "page": 49,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-orion-xs-12-12-70a--input-current-limit",
+  "model": "victron-energy-orion-xs-12-12-70a",
+  "name": "Input current limit",
+  "value": "1-70 A",
+  "source": "doc-d95ddd85aefa0df02416887864242e01",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

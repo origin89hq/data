@@ -1,0 +1,9 @@
+{
+  "id": "srne-mc2440n10--battery-voltage-range",
+  "model": "srne-mc2440n10",
+  "name": "Battery Voltage Range",
+  "value": "9~32Vdc",
+  "source": "doc-e39aa32b1478e369d8bfaaa046f860eb",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

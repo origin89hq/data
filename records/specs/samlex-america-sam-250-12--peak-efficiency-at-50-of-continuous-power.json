@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-sam-250-12--peak-efficiency-at-50-of-continuous-power",
+  "model": "samlex-america-sam-250-12",
+  "name": "PEAK EFFICIENCY (AT 50% OF CONTINUOUS POWER)",
+  "value": "90",
+  "unit": "%",
+  "source": "doc-6057a7a186894a280962a77cae5f9c93",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

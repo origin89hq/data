@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-pst-30s-24e--size-of-external-fuse",
+  "model": "samlex-america-pst-30s-24e",
+  "name": "Size of external fuse",
+  "value": "20",
+  "unit": "A",
+  "source": "doc-ba38822ce0d2141ef91209c2c145787c",
+  "page": 32,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

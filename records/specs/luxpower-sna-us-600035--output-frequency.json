@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna-us-600035--output-frequency",
+  "model": "luxpower-sna-us-600035",
+  "name": "Output Frequency",
+  "value": "50Hz / 60Hz",
+  "source": "doc-cf960ded572aadc4d8ca98068ce9df16",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

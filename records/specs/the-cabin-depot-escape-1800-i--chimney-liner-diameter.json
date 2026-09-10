@@ -1,0 +1,10 @@
+{
+  "id": "the-cabin-depot-escape-1800-i--chimney-liner-diameter",
+  "model": "the-cabin-depot-escape-1800-i",
+  "name": "Chimney liner diameter",
+  "value": "6\"",
+  "source": "doc-bf704e185bd8b7dc10f4d58105b415ae",
+  "page": 29,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

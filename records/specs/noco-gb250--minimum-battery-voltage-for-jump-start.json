@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb250--minimum-battery-voltage-for-jump-start",
+  "model": "noco-gb250",
+  "name": "Minimum Battery Voltage for Jump Start",
+  "value": "2-volts",
+  "source": "doc-12fc201334315c4c41c495ec3ca639b3",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

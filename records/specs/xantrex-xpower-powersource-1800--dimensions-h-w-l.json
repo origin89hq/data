@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-xpower-powersource-1800--dimensions-h-w-l",
+  "model": "xantrex-xpower-powersource-1800",
+  "name": "Dimensions (H × W × L)",
+  "value": "19.25 × 8.25 × 11.25\"",
+  "source": "doc-fad3dce3198875dbc2544ffc968cff3e",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

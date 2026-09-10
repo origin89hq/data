@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-100593--ac-charger-output-watts",
+  "model": "champion-power-100593",
+  "name": "AC Charger Output Watts",
+  "value": "440",
+  "source": "doc-c1cd5905fe00565c7067438c2acb2a95",
+  "page": 24,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

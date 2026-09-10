@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-fw-x240--weight",
+  "model": "outback-power-fw-x240",
+  "name": "weight",
+  "value": "25",
+  "unit": "lb",
+  "source": "doc-82eed1fa5c861f3df9a4a5e1c390382d",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

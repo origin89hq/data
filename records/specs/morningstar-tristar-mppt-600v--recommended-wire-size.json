@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-tristar-mppt-600v--recommended-wire-size",
+  "model": "morningstar-tristar-mppt-600v",
+  "name": "Recommended wire size",
+  "value": "16 to 24 AWG (1.0 to 0.25 mm2)",
+  "source": "doc-abff1de971730785bffa93069310d809",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

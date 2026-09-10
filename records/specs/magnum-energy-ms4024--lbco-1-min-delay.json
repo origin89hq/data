@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-ms4024--lbco-1-min-delay",
+  "model": "magnum-energy-ms4024",
+  "name": "LBCO (1 min. delay)",
+  "value": "20.0",
+  "unit": "V",
+  "source": "doc-7e36ad92c8b99c483d83017d6c378cdb",
+  "page": 71,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

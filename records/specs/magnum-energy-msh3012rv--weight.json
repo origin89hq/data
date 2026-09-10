@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-msh3012rv--weight",
+  "model": "magnum-energy-msh3012rv",
+  "name": "Weight",
+  "value": "55 lb (24.9 kg) / Shipping: 63 lb (28.6 kg)",
+  "source": "doc-d30af05b560c3d63ebacd99c3ff4abbe",
+  "page": 58,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

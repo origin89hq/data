@@ -1,0 +1,9 @@
+{
+  "id": "peimar-or10e640mndb--temperature-coefficient-of-isc",
+  "model": "peimar-or10e640mndb",
+  "name": "Temperature Coefficient of Isc",
+  "value": "0,046 %/°C",
+  "source": "doc-b10eb650a20b2d27c30fe0979e21cffd",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

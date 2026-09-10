@@ -1,0 +1,11 @@
+{
+  "id": "eg4-electronics-eg4-flexboss21--battery-charger-load",
+  "model": "eg4-electronics-eg4-flexboss21",
+  "name": "battery charger load",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-22046aec6a8b52e3f9daaef246354f01",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "lorex-lbv8541x--environmental-rating",
+  "model": "lorex-lbv8541x",
+  "name": "Environmental Rating",
+  "value": "Weatherproof (IP67)",
+  "source": "doc-0e4c5ab2df892d18e116dc2bd4ab761e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

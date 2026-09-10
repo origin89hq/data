@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-12avr200et--terminal",
+  "model": "east-penn-12avr200et",
+  "name": "Terminal",
+  "value": "1/4\" – 20 threaded insert",
+  "source": "doc-1b7082efa8c3ae3032d23ca7485b43c2",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

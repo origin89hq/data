@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-ms4448ae--lbco-1-minute-delay",
+  "model": "magnum-energy-ms4448ae",
+  "name": "LBCO (1 minute delay)",
+  "value": "40.0",
+  "unit": "V",
+  "source": "doc-0124fd7dabb36420d1bdc8f33336fa90",
+  "page": 37,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201508--voltios-ca",
+  "model": "champion-power-201508",
+  "name": "Voltios CA",
+  "value": "120/240",
+  "source": "doc-6e2a68274ebd51918fe3acc8eb95c2d5",
+  "page": 35,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

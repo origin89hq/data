@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-ctc240--nominal-voltage",
+  "model": "east-penn-ctc240",
+  "name": "Nominal Voltage",
+  "value": "12-Volts",
+  "source": "doc-fbb4a6400392e7df529a22b56fc1b349",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

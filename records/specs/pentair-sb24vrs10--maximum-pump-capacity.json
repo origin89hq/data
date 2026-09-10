@@ -1,0 +1,9 @@
+{
+  "id": "pentair-sb24vrs10--maximum-pump-capacity",
+  "model": "pentair-sb24vrs10",
+  "name": "Maximum Pump Capacity",
+  "value": "52 GPM (185 LPM )",
+  "source": "doc-e89eb92143d86f95f550052a414f71eb",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "outback-power-fx--load-three-phase-all-three-legs",
+  "model": "outback-power-fx",
+  "name": "LOAD",
+  "value": "9 kW",
+  "unit": "W",
+  "conditions": "three-phase, all three legs",
+  "source": "doc-5caed8fb37e9f8fa0dc614b6c4f54625",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

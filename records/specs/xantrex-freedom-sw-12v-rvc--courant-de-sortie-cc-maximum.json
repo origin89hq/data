@@ -1,0 +1,11 @@
+{
+  "id": "xantrex-freedom-sw-12v-rvc--courant-de-sortie-cc-maximum",
+  "model": "xantrex-freedom-sw-12v-rvc",
+  "name": "Courant de sortie CC maximum",
+  "english": "Maximum DC output current",
+  "value": "150 A CC",
+  "source": "doc-ee469adf96a31687a03350bde08292ed",
+  "page": 58,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

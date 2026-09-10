@@ -1,0 +1,9 @@
+{
+  "id": "energizer-solar-ensp60ndg2480--rated-output-pmpp-at-nmot",
+  "model": "energizer-solar-ensp60ndg2480",
+  "name": "Rated output (Pmpp) at NMOT",
+  "value": "361.0 Wp",
+  "source": "doc-36f14528b83079b8628c635e0f01546f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

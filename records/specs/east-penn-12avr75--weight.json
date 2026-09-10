@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-12avr75--weight",
+  "model": "east-penn-12avr75",
+  "name": "Weight",
+  "value": "54 Ibs.",
+  "source": "doc-92b14d456f0dc855a9919d845431f3c1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

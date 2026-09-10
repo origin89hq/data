@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-24tx60--total-harmonic-distortion",
+  "model": "magnum-energy-24tx60",
+  "name": "Total harmonic distortion",
+  "value": "35",
+  "unit": "%",
+  "source": "doc-fac0015a0ed8b796a311c78489b7d65e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

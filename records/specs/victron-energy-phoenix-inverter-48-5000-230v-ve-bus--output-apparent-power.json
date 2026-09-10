@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-phoenix-inverter-48-5000-230v-ve-bus--output-apparent-power",
+  "model": "victron-energy-phoenix-inverter-48-5000-230v-ve-bus",
+  "name": "Output apparent power",
+  "value": "5000",
+  "unit": "VA",
+  "source": "doc-aca7aa938d82046533c656821175a6f5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

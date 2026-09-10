@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-relay-aux-klemmen--max-voltage",
+  "model": "outback-power-relay-aux-klemmen",
+  "name": "Max. voltage",
+  "value": "30 VDC oder 250 VAC",
+  "source": "doc-da34e1fe4838f187635baa4073902a9b",
+  "page": 27,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "millertech-24v-80ah-lifepo4-millertech-battery--charge-temperature-range",
+  "model": "millertech-24v-80ah-lifepo4-millertech-battery",
+  "name": "CHARGE TEMPERATURE RANGE",
+  "value": "25-131°F",
+  "source": "doc-549c0fcb0b33cfe86b9ccae7c14b9291",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

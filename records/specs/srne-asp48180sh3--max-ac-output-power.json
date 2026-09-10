@@ -1,0 +1,11 @@
+{
+  "id": "srne-asp48180sh3--max-ac-output-power",
+  "model": "srne-asp48180sh3",
+  "name": "Max. AC Output Power",
+  "value": "19800",
+  "unit": "VA",
+  "source": "doc-5aed4fb4d801b1348f9fda8464502049",
+  "page": 50,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-scc-30ab--maximum-open-circuit-voltage-voc-of-solar-panel-array",
+  "model": "samlex-america-scc-30ab",
+  "name": "MAXIMUM OPEN CIRCUIT VOLTAGE (Voc) OF SOLAR PANEL / ARRAY",
+  "value": "50",
+  "unit": "V",
+  "source": "doc-11f746f898f56196faa31cda4c3ca280",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

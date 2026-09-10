@@ -1,0 +1,11 @@
+{
+  "id": "sol-ark-sol-ark-30k-3p-208v--maximum-total-battery-charge-discharge-current",
+  "model": "sol-ark-sol-ark-30k-3p-208v",
+  "name": "Maximum total battery charge/discharge current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-f9e5e1efd77f09bd7d0d99c798b9dfc5",
+  "page": 34,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-2440ul--input-over-current",
+  "model": "samlex-america-sec-2440ul",
+  "name": "Input Over Current",
+  "value": "20A input side fuse will blow (120 VAC input)",
+  "source": "doc-a0ff036cae0aeae79aaa16d19a5f2a82",
+  "page": 30,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

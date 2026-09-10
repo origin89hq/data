@@ -1,0 +1,10 @@
+{
+  "id": "the-cabin-depot-ir-30-solar-racking-system--max-force",
+  "model": "the-cabin-depot-ir-30-solar-racking-system",
+  "name": "MAX. FORCE",
+  "value": "2385 lbf",
+  "source": "doc-761b89c703c385b74854cad98f340751",
+  "page": 22,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

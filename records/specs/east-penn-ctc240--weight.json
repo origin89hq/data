@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-ctc240--weight",
+  "model": "east-penn-ctc240",
+  "name": "Weight",
+  "value": "68.0 lbs. (31.0 kg)",
+  "source": "doc-fbb4a6400392e7df529a22b56fc1b349",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

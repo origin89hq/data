@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-adi-24j11--input-voltage",
+  "model": "magnum-energy-adi-24j11",
+  "name": "Input Voltage",
+  "value": "21 to 28",
+  "source": "doc-99fa09871821c8aa4ac53de52a44f7ed",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

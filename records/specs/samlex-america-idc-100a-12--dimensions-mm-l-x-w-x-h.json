@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-idc-100a-12--dimensions-mm-l-x-w-x-h",
+  "model": "samlex-america-idc-100a-12",
+  "name": "DIMENSIONS, MM (L x W x H)",
+  "value": "151 x 88 x 50",
+  "source": "doc-2eabf138f8763c38a74e0d02e9a5b5ef",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

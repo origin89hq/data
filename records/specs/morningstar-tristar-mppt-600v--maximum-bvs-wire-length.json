@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-tristar-mppt-600v--maximum-bvs-wire-length",
+  "model": "morningstar-tristar-mppt-600v",
+  "name": "Maximum BVS wire length",
+  "value": "98 ft (30 m)",
+  "source": "doc-abff1de971730785bffa93069310d809",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

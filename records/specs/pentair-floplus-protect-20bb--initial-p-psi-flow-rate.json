@@ -1,0 +1,9 @@
+{
+  "id": "pentair-floplus-protect-20bb--initial-p-psi-flow-rate",
+  "model": "pentair-floplus-protect-20bb",
+  "name": "Initial ∆P (PSI) @ Flow Rate",
+  "value": "13 psi @ 5.0 gpm (0.21 bar @ 18.9 lpm)",
+  "source": "doc-c838fb5967d99ddd9d30e6a3dc62f62d",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

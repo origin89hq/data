@@ -1,0 +1,9 @@
+{
+  "id": "pentair-hpgr200--locked-rotor-amps",
+  "model": "pentair-hpgr200",
+  "name": "Locked Rotor Amps",
+  "value": "57",
+  "source": "doc-eb3fd76a2b590aa88c89226f9f9ddeda",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

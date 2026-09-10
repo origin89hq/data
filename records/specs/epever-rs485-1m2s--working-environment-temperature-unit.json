@@ -1,9 +1,0 @@
-{
-  "id": "epever-rs485-1m2s--working-environment-temperature-unit",
-  "model": "epever-rs485-1m2s",
-  "name": "Working environment temperature unit",
-  "value": "℃",
-  "source": "doc-ecdbbc1828c5e7bccbb367c0a4987f97",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

@@ -1,0 +1,9 @@
+{
+  "id": "noco-xc1--weight",
+  "model": "noco-xc1",
+  "name": "WEIGHT",
+  "value": "0.07 lbs(0.03 kg)",
+  "source": "doc-4d123cff48cc54c686d49545507cf34e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

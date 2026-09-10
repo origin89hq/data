@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201223--vcc",
+  "model": "champion-power-201223",
+  "name": "VCC",
+  "value": "12",
+  "source": "doc-68b3d5e1e1768ee490f51ed013a58c82",
+  "page": 38,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

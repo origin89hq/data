@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-ms2000-g--maximum-input-breaker-required",
+  "model": "magnum-energy-ms2000-g",
+  "name": "Maximum Input Breaker Required",
+  "value": "30A (single pole)",
+  "source": "doc-de082b2f15d2b0e37407dc7efe5cfd9a",
+  "page": 36,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

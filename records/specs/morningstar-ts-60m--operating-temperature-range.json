@@ -1,9 +1,10 @@
 {
   "id": "morningstar-ts-60m--operating-temperature-range",
   "model": "morningstar-ts-60m",
-  "name": "Operating Temperature Range",
-  "value": "-40 C to +60C",
-  "source": "doc-8e8065bdb7830e18e75a84d3208eb4d0",
-  "extractedBy": "table:spec-table@v1",
+  "name": "Operating temperature range",
+  "value": "-40°C bis +60°C",
+  "source": "doc-0c117c994478b79ddc1c5e3f43e1a8ea",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

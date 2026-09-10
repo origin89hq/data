@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-1500-48--low-dc-input-voltage-shut-down",
+  "model": "samlex-america-pst-1500-48",
+  "name": "Low DC input voltage shut-down",
+  "value": "40.0 ± 0.4 V",
+  "source": "doc-c72772bed0c6dcc9ae28dce89166bfe9",
+  "page": 58,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

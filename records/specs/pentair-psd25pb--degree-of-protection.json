@@ -1,0 +1,9 @@
+{
+  "id": "pentair-psd25pb--degree-of-protection",
+  "model": "pentair-psd25pb",
+  "name": "Degree of protection",
+  "value": "NEMA3R/IP65",
+  "source": "doc-71c7c82ddb32d1a364d8baa45191c274",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

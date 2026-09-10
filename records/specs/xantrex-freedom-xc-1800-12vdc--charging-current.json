@@ -1,0 +1,11 @@
+{
+  "id": "xantrex-freedom-xc-1800-12vdc--charging-current",
+  "model": "xantrex-freedom-xc-1800-12vdc",
+  "name": "Charging current",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-ded9b3d04a9dd3e5385bb5596a4d6c55",
+  "page": 48,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

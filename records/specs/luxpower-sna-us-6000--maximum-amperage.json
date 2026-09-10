@@ -1,0 +1,11 @@
+{
+  "id": "luxpower-sna-us-6000--maximum-amperage",
+  "model": "luxpower-sna-us-6000",
+  "name": "Maximum Amperage",
+  "value": "140",
+  "unit": "A",
+  "source": "doc-cf960ded572aadc4d8ca98068ce9df16",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

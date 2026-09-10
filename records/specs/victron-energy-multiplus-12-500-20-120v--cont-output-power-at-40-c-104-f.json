@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multiplus-12-500-20-120v--cont-output-power-at-40-c-104-f",
+  "model": "victron-energy-multiplus-12-500-20-120v",
+  "name": "Cont. output power at 40°C (104°F)",
+  "value": "400",
+  "unit": "W",
+  "source": "doc-841ce12fa0666bfb259be1d0438d2492",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

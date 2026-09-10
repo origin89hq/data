@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201463--amperios-ca-120v",
+  "model": "champion-power-201463",
+  "name": "Amperios CA @ 120V",
+  "value": "52.1",
+  "source": "doc-fe5e2a0560fe99382f113a0d5a71ce77",
+  "page": 32,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

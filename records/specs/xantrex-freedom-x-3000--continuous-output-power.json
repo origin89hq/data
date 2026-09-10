@@ -1,0 +1,9 @@
+{
+  "id": "xantrex-freedom-x-3000--continuous-output-power",
+  "model": "xantrex-freedom-x-3000",
+  "name": "Continuous Output Power",
+  "value": "3000 W @40ºC",
+  "source": "doc-056c5ba04a41ca5186949014b417496b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

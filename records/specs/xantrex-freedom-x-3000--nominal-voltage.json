@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-freedom-x-3000--nominal-voltage",
+  "model": "xantrex-freedom-x-3000",
+  "name": "Nominal Voltage",
+  "value": "12.0",
+  "unit": "V",
+  "source": "doc-056c5ba04a41ca5186949014b417496b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

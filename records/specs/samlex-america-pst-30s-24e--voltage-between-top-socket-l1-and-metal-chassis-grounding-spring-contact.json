@@ -1,10 +1,10 @@
 {
   "id": "samlex-america-pst-30s-24e--voltage-between-top-socket-l1-and-metal-chassis-grounding-spring-contact",
   "model": "samlex-america-pst-30s-24e",
-  "name": "Voltage between top socket \"L1\" and metal chassis / Grounding Spring Contact",
+  "name": "Voltage between top socket L1 and metal chassis / Grounding Spring Contact",
   "value": "140 ± 10 VAC",
   "source": "doc-ba38822ce0d2141ef91209c2c145787c",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "page": 36,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

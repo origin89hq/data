@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-1000f-12--operating-temperature-range",
+  "model": "samlex-america-pst-1000f-12",
+  "name": "OPERATING TEMPERATURE RANGE",
+  "value": "-13°F to 131°F / -25°C to +55°C",
+  "source": "doc-6f3330bb5d3c8006d471bd848339919f",
+  "page": 50,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

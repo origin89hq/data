@@ -1,0 +1,11 @@
+{
+  "id": "xantrex-ms2000--echo-charger-stop-charge-time",
+  "model": "xantrex-ms2000",
+  "name": "Echo Charger stop charge time",
+  "value": "3",
+  "unit": "min",
+  "source": "doc-495564447702e3b0d09d07cbfddea5f2",
+  "page": 43,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

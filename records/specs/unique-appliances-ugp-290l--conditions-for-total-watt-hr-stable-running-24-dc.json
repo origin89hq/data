@@ -4,7 +4,7 @@
   "name": "Conditions for Total Watt Hr. Stable Running (24 DC)",
   "value": "set to -14˚C freezer/+4˚C fridge performance in a +25˚C ambient",
   "source": "doc-9bcc835ee16f5f3131b2c08dbbe935fc",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

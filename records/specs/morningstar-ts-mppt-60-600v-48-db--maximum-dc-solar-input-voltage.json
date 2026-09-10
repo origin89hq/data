@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ts-mppt-60-600v-48-db--maximum-dc-solar-input-voltage",
+  "model": "morningstar-ts-mppt-60-600v-48-db",
+  "name": "Maximum DC solar input voltage",
+  "value": "600",
+  "unit": "V",
+  "source": "doc-abff1de971730785bffa93069310d809",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

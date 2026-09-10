@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-c40--rated-pv-current",
+  "model": "xantrex-c40",
+  "name": "Rated PV Current",
+  "value": "40",
+  "unit": "A",
+  "source": "doc-446d67c905bd9d8ad4440cf4b03248b2",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

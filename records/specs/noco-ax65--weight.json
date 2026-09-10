@@ -1,0 +1,10 @@
+{
+  "id": "noco-ax65--weight",
+  "model": "noco-ax65",
+  "name": "Weight",
+  "value": "6.95lb (3.15kg)",
+  "source": "doc-7cd619ec8cb5a7083981933be601e7a3",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

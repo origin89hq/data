@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gfx1312--maximum-output-current-1-ms-peak",
+  "model": "outback-power-gfx1312",
+  "name": "Maximum Output Current (1 ms peak)",
+  "value": "56",
+  "unit": "A",
+  "source": "doc-520f2d6027eb30d6e4c346e43930a8ea",
+  "page": 42,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

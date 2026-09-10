@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-cmw3012h--wire-size",
+  "model": "magnum-energy-cmw3012h",
+  "name": "Wire size",
+  "value": "#14 to #10 AWG (2.1 to 5.3 mm2) CU stranded wire",
+  "source": "doc-e7c1a12e59e951e52bb96998ad6a5492",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "east-penn-p82--6-hr-a-h-rating",
+  "model": "east-penn-p82",
+  "name": "6 HR. A.H. RATING",
+  "value": "164, 246, 328, 410, 492, 574, 656, 738, 820, 902, 984, 1066, 1148, 1230, 1312",
+  "source": "doc-b278495f190b8ddc3f32b75b9ccc8381",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

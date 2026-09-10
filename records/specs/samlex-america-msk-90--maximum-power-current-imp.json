@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-msk-90--maximum-power-current-imp",
+  "model": "samlex-america-msk-90",
+  "name": "MAXIMUM POWER CURRENT, Imp",
+  "value": "5.13A (1.71A per 30W Panel)",
+  "source": "doc-503896f682b597431325314f4b8e9035",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

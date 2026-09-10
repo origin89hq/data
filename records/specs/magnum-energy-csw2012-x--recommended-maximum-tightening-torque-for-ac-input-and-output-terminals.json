@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-csw2012-x--recommended-maximum-tightening-torque-for-ac-input-and-output-terminals",
+  "model": "magnum-energy-csw2012-x",
+  "name": "Recommended maximum tightening torque for AC input and output terminals",
+  "value": "5 to 8 lbf-in (0.6 to 0.9 N-m)",
+  "source": "doc-3b79136e8fe45bb7ee697862e442d130",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

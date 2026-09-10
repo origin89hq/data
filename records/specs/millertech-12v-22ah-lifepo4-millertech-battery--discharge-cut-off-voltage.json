@@ -1,0 +1,9 @@
+{
+  "id": "millertech-12v-22ah-lifepo4-millertech-battery--discharge-cut-off-voltage",
+  "model": "millertech-12v-22ah-lifepo4-millertech-battery",
+  "name": "DISCHARGE CUT OFF VOLTAGE",
+  "value": "10V (ANY CELL 2.5)",
+  "source": "doc-9f8a485034abff666d53cb79314a2ad0",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

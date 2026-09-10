@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-skylla-tg-24-100-3-phase--charge-current-house-batt",
+  "model": "victron-energy-skylla-tg-24-100-3-phase",
+  "name": "Charge current house batt.",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-2375e9a6ed181d8a7987453c98e92412",
+  "page": 71,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

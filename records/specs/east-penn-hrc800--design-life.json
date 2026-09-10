@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-hrc800--design-life",
+  "model": "east-penn-hrc800",
+  "name": "Design life",
+  "value": "10 years in float applications @ 77°F (25°C)",
+  "source": "doc-2ed66d05fe6edc6580dafa06ee677b5b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

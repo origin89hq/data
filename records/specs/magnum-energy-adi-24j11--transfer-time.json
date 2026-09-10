@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-adi-24j11--transfer-time",
+  "model": "magnum-energy-adi-24j11",
+  "name": "Transfer Time",
+  "value": "40",
+  "source": "doc-adff524ee25d1b58a39918e2c446d741",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

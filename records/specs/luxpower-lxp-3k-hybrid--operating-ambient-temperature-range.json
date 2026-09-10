@@ -1,0 +1,9 @@
+{
+  "id": "luxpower-lxp-3k-hybrid--operating-ambient-temperature-range",
+  "model": "luxpower-lxp-3k-hybrid",
+  "name": "Operating ambient temperature range",
+  "value": "-25 to 60˚C",
+  "source": "doc-c9468be14740afb2b50766463b7405a8",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

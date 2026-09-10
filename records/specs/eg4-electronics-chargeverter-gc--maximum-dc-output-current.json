@@ -1,0 +1,11 @@
+{
+  "id": "eg4-electronics-chargeverter-gc--maximum-dc-output-current",
+  "model": "eg4-electronics-chargeverter-gc",
+  "name": "Maximum DC Output Current",
+  "value": "45",
+  "unit": "A",
+  "source": "doc-f0b2ed205965be71dd20402bf570ed32",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

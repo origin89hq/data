@@ -1,0 +1,9 @@
+{
+  "id": "pentair-2fc5-s--diameter",
+  "model": "pentair-2fc5-s",
+  "name": "Diameter",
+  "value": "3.25\" (8.26 cm)",
+  "source": "doc-c5012b5b68d2544fe496114dae16722b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

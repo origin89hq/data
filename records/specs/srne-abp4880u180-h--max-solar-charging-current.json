@@ -1,0 +1,10 @@
+{
+  "id": "srne-abp4880u180-h--max-solar-charging-current",
+  "model": "srne-abp4880u180-h",
+  "name": "Max. Solar Charging Current",
+  "value": "180",
+  "unit": "A",
+  "source": "doc-b253e0aed4feaeae4ee86b1b7bd20255",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

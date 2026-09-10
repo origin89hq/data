@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ma-240m-hd--kw-required-rpm",
+  "model": "pentair-ma-240m-hd",
+  "name": "kW REQUIRED @ rpm",
+  "value": "114",
+  "source": "doc-4b1237cb5e14a1f7dfd699c0f51d4b52",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

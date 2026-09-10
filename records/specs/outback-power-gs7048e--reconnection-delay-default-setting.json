@@ -1,0 +1,9 @@
+{
+  "id": "outback-power-gs7048e--reconnection-delay-default-setting",
+  "model": "outback-power-gs7048e",
+  "name": "Reconnection delay default setting",
+  "value": "1 minute",
+  "source": "doc-755f68aadbfb1dfde0e2460ddd2ffe01",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

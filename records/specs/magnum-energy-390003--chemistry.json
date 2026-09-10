@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-390003--chemistry",
+  "model": "magnum-energy-390003",
+  "name": "Chemistry",
+  "value": "AGM",
+  "source": "doc-adff524ee25d1b58a39918e2c446d741",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

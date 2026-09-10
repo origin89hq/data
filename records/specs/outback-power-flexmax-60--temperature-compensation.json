@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-flexmax-60--temperature-compensation",
+  "model": "outback-power-flexmax-60",
+  "name": "Temperature Compensation",
+  "value": "5 mV per °C per 2 V cell",
+  "source": "doc-9ad2253f663deb28090828e648601ec8",
+  "page": 86,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

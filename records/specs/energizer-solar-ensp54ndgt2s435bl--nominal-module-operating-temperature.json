@@ -1,0 +1,9 @@
+{
+  "id": "energizer-solar-ensp54ndgt2s435bl--nominal-module-operating-temperature",
+  "model": "energizer-solar-ensp54ndgt2s435bl",
+  "name": "Nominal module operating temperature",
+  "value": "41±2°C",
+  "source": "doc-baa70c08d04e859a050dcca55732f9bd",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

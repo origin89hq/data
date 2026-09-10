@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-orion-xs-1400--ambient-temperature-for-full-rated-output-with-force-air-flow",
+  "model": "victron-energy-orion-xs-1400",
+  "name": "Ambient temperature for full rated output with force air flow",
+  "value": "60",
+  "unit": "°C",
+  "source": "doc-f09a27c85ec5887dacb79ca0fb1ad988",
+  "page": 36,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

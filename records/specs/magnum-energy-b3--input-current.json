@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-b3--input-current",
+  "model": "magnum-energy-b3",
+  "name": "Input Current",
+  "value": "Up to 15 Amps AC",
+  "source": "doc-233f7ce7fcea4d085ffe96c7d2fe1ed9",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

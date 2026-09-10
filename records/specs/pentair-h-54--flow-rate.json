@@ -1,0 +1,10 @@
+{
+  "id": "pentair-h-54--flow-rate",
+  "model": "pentair-h-54",
+  "name": "Flow Rate",
+  "value": "0.5 gpm (1.9 Lpm)",
+  "source": "doc-5e88498c858725830f3cba1baa363aa3",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

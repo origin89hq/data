@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-csw2012-x--ac-output-voltage-12-5v",
+  "model": "magnum-energy-csw2012-x",
+  "name": "AC Output Voltage (12.5V)",
+  "value": "120 VAC RMS ± 5%",
+  "source": "doc-3b79136e8fe45bb7ee697862e442d130",
+  "page": 38,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

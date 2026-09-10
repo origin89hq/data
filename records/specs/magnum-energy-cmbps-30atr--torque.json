@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-cmbps-30atr--torque",
+  "model": "magnum-energy-cmbps-30atr",
+  "name": "Torque",
+  "value": "7 in/lbs",
+  "source": "doc-849d3ef05b02bf3a71554c7c8a8b2715",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

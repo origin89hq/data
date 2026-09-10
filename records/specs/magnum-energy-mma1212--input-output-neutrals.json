@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-mma1212--input-output-neutrals",
+  "model": "magnum-energy-mma1212",
+  "name": "input/output neutrals",
+  "value": "isolated",
+  "source": "doc-ca778ff0aed26ca57f4be77fc4382235",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

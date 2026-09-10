@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-tristar-mppt-150v--cable-diameter",
+  "model": "morningstar-tristar-mppt-150v",
+  "name": "Cable diameter",
+  "value": "22 AWG (0.34 mm2)",
+  "source": "doc-d77891330c761670b3824d171460f71b",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

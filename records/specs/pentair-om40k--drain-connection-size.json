@@ -1,0 +1,10 @@
+{
+  "id": "pentair-om40k--drain-connection-size",
+  "model": "pentair-om40k",
+  "name": "Drain Connection Size",
+  "value": "1/2\" NPT",
+  "source": "doc-a05d04ac4987139b1e825e769688c178",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

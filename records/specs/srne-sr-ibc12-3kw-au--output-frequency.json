@@ -1,0 +1,9 @@
+{
+  "id": "srne-sr-ibc12-3kw-au--output-frequency",
+  "model": "srne-sr-ibc12-3kw-au",
+  "name": "Output Frequency",
+  "value": "50/60Hz",
+  "source": "doc-65dd7ddadb1d2aa7938ab1c236ebbff0",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gs4048a--reactive-power-accuracy",
+  "model": "outback-power-gs4048a",
+  "name": "Reactive Power Accuracy",
+  "value": "31.2",
+  "unit": "%",
+  "source": "doc-dcbd246ed4a1bd3988f688bd04c13e7c",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

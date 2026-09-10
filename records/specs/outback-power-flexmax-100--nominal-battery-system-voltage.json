@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-flexmax-100--nominal-battery-system-voltage",
+  "model": "outback-power-flexmax-100",
+  "name": "Nominal battery system voltage",
+  "value": "24",
+  "unit": "V",
+  "source": "doc-78c3e146711337c92825158e79a2e841",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

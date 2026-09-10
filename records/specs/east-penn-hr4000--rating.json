@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-hr4000--rating",
+  "model": "east-penn-hr4000",
+  "name": "Rating",
+  "value": "420 Watts/Cell @ 15 min. rate to 1.67 V.P.C.",
+  "source": "doc-93550d300ed725c735b21fb42370e53d",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-vfxr3648a--generator-type-ac-size",
+  "model": "outback-power-vfxr3648a",
+  "name": "Generator Type AC Size",
+  "value": "5.0",
+  "unit": "kW",
+  "source": "doc-318f90204b0cb707956830cab3727713",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

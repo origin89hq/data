@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-2440ul--charging-voltages-float-stage",
+  "model": "samlex-america-sec-2440ul",
+  "name": "Charging Voltages Float Stage",
+  "value": "27.0 ± 0.05VDC",
+  "source": "doc-a0ff036cae0aeae79aaa16d19a5f2a82",
+  "page": 30,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

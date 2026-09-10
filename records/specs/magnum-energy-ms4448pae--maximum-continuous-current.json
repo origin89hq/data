@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-ms4448pae--maximum-continuous-current",
+  "model": "magnum-energy-ms4448pae",
+  "name": "Maximum Continuous Current",
+  "value": "122",
+  "unit": "A",
+  "source": "doc-90b14882b7428b66e0286aec3f86a08b",
+  "page": 23,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

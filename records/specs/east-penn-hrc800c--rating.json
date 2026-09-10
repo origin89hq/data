@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-hrc800c--rating",
+  "model": "east-penn-hrc800c",
+  "name": "Rating",
+  "value": "780 Watts/Cell @ 5 min. rate to 1.67 V.P.C.",
+  "source": "doc-8e1c5995d618771ec6d023c44a926342",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

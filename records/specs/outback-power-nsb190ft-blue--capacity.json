@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-nsb190ft-blue--capacity",
+  "model": "outback-power-nsb190ft-blue",
+  "name": "Capacity",
+  "value": "202.4",
+  "unit": "Ah",
+  "source": "doc-c0e23d5e42fba70ed8abc2015d8822e0",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

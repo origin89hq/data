@@ -2,8 +2,9 @@
   "id": "victron-energy-mppt-250-60--self-consumption",
   "model": "victron-energy-mppt-250-60",
   "name": "Self-consumption",
-  "value": "12V: less than 35mA 48V: less than 20mA",
-  "source": "doc-75ef220cecc3e8483f079f6108e6bb5b",
-  "extractedBy": "table:spec-table@v1",
+  "value": "less than 35mA",
+  "source": "doc-d57c25947d20b07fdaeab0465bc6cf6a",
+  "page": 71,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

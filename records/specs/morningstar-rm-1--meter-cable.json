@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-rm-1--meter-cable",
+  "model": "morningstar-rm-1",
+  "name": "Meter cable",
+  "value": "10 m / 33 ft (6 conductor)",
+  "source": "doc-7212a13aeb8c5e69c9a7f9bfed41f218",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

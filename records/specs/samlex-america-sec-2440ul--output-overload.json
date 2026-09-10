@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-sec-2440ul--output-overload",
+  "model": "samlex-america-sec-2440ul",
+  "name": "OUTPUT OVERLOAD",
+  "value": "Electronic current limit at 40A (Full Power Mode) / 20± 1A (Half Power Mode)",
+  "source": "doc-f33fd648e833561e44577eb63ca7ea6a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

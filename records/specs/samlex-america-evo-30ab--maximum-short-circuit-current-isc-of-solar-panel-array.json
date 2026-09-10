@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-30ab--maximum-short-circuit-current-isc-of-solar-panel-array",
+  "model": "samlex-america-evo-30ab",
+  "name": "MAXIMUM SHORT CIRCUIT CURRENT (Isc) OF SOLAR PANEL /ARRAY",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-42f1c27846355778aa506ae7eb22d99c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

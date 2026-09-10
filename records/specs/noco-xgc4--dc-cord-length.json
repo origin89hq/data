@@ -1,0 +1,10 @@
+{
+  "id": "noco-xgc4--dc-cord-length",
+  "model": "noco-xgc4",
+  "name": "DC CORD LENGTH",
+  "value": "60",
+  "unit": "in",
+  "source": "doc-d26f696596be37569d64635dbd05579a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

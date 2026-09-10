@@ -1,11 +1,10 @@
 {
   "id": "srne-abp4880u180-h--rated-output-power",
   "model": "srne-abp4880u180-h",
-  "name": "Rated output power",
+  "name": "Rated Output Power",
   "value": "8,000",
   "unit": "W",
-  "source": "doc-c4c399615a1701447232063fd6925d20",
+  "source": "doc-b253e0aed4feaeae4ee86b1b7bd20255",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "page": 66,
   "confidence": "vendor-doc"
 }

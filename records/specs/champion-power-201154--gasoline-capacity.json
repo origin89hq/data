@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201154--gasoline-capacity",
+  "model": "champion-power-201154",
+  "name": "Gasoline Capacity",
+  "value": "2.25 gal. (8.50 L)",
+  "source": "doc-29986ee174ffb3da5d36b5fbf1745ad0",
+  "page": 29,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

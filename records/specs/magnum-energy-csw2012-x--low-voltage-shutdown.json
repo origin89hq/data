@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-csw2012-x--low-voltage-shutdown",
+  "model": "magnum-energy-csw2012-x",
+  "name": "Low voltage shutdown",
+  "value": "10.5",
+  "unit": "V",
+  "source": "doc-3b79136e8fe45bb7ee697862e442d130",
+  "page": 33,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

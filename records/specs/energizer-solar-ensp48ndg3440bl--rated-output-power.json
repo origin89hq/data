@@ -1,0 +1,9 @@
+{
+  "id": "energizer-solar-ensp48ndg3440bl--rated-output-power",
+  "model": "energizer-solar-ensp48ndg3440bl",
+  "name": "Rated output power",
+  "value": "440 Wp",
+  "source": "doc-3a48f46212e3821622000d64b87b0d0e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

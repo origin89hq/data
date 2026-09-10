@@ -1,0 +1,9 @@
+{
+  "id": "sol-ark-sa-dgl-4g--storage-temperature",
+  "model": "sol-ark-sa-dgl-4g",
+  "name": "Storage Temperature",
+  "value": "∔0 °F to 185 °F",
+  "source": "doc-d6446ba7cddff20b38dfd67228b21db6",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

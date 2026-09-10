@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-ms2000-inverter-charger--power-factor",
+  "model": "magnum-energy-ms2000-inverter-charger",
+  "name": "Power Factor",
+  "value": "> .95",
+  "source": "doc-581058ac5b7ba00aba402020db26c75b",
+  "page": 52,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

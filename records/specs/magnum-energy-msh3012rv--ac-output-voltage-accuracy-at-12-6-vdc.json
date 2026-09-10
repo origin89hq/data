@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-msh3012rv--ac-output-voltage-accuracy-at-12-6-vdc",
+  "model": "magnum-energy-msh3012rv",
+  "name": "AC Output Voltage Accuracy (at 12.6 VDC)",
+  "value": "120 VAC ± 3%",
+  "source": "doc-d30af05b560c3d63ebacd99c3ff4abbe",
+  "page": 58,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

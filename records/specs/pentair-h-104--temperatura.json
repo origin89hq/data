@@ -1,0 +1,10 @@
+{
+  "id": "pentair-h-104--temperatura",
+  "model": "pentair-h-104",
+  "name": "Temperatura",
+  "value": "35-100°F (2°-38°C)",
+  "source": "doc-5e88498c858725830f3cba1baa363aa3",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-orion-xs-12-12-50--power",
+  "model": "victron-energy-orion-xs-12-12-50",
+  "name": "Power",
+  "value": "850W (50A)max",
+  "source": "doc-7116ca06d52e21a00924ca2c1ad8da1b",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

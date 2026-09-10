@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-12avr130--positive-plate",
+  "model": "east-penn-12avr130",
+  "name": "Positive Plate",
+  "value": ">98% Pure lead with tin-calcium alloy",
+  "source": "doc-94c8c1a0357f20a81f6a1a76117213e7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

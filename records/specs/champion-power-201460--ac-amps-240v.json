@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201460--ac-amps-240v",
+  "model": "champion-power-201460",
+  "name": "AC Amps @ 240V",
+  "value": "33.3",
+  "source": "doc-707e7424f1246c32d1a0c90d51cbcadd",
+  "page": 30,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

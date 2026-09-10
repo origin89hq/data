@@ -1,0 +1,9 @@
+{
+  "id": "energizer-solar-sunpack-80w--dimensions",
+  "model": "energizer-solar-sunpack-80w",
+  "name": "Dimensions",
+  "value": "46.6” x 20.6” x 0.3”",
+  "source": "doc-1551c0cc4a943f4d284305267c60fff7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

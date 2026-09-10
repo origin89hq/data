@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-csw1012--minimum-temperature-rating-of-copper-wires",
+  "model": "magnum-energy-csw1012",
+  "name": "Minimum temperature rating of copper wires",
+  "value": "75",
+  "unit": "°C",
+  "source": "doc-1d17c93430369e55a57f023cd179bde0",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

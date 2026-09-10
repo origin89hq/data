@@ -1,9 +1,0 @@
-{
-  "id": "pentair-ev9437-41--rated-service-flow",
-  "model": "pentair-ev9437-41",
-  "name": "Rated Service Flow",
-  "value": "11.25 gpm (42.6 Lpm)",
-  "source": "doc-5255b363894bfca1af5a61ab025cc53d",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

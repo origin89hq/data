@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-12avr100--rating",
+  "model": "east-penn-12avr100",
+  "name": "Rating",
+  "value": "94.1 Ampere-Hours@ 8 hr. rate to 1.75 V.P.C.",
+  "source": "doc-0f14dc1620e1e9653a0b9b493f322b5c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

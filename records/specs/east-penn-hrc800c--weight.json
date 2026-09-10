@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-hrc800c--weight",
+  "model": "east-penn-hrc800c",
+  "name": "Weight",
+  "value": "71 lbs (32.5 kg)",
+  "source": "doc-8e1c5995d618771ec6d023c44a926342",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

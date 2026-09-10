@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb250--betriebstemperatur",
+  "model": "noco-gb250",
+  "name": "Betriebstemperatur",
+  "value": "-20°C bis +50°C",
+  "source": "doc-b62a0dca76d9ee06431ee2d2fa567791",
+  "page": 36,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

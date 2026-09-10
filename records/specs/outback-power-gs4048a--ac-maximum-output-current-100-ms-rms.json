@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gs4048a--ac-maximum-output-current-100-ms-rms",
+  "model": "outback-power-gs4048a",
+  "name": "AC Maximum Output Current (100 ms RMS)",
+  "value": "35.35",
+  "unit": "A",
+  "source": "doc-7d6af4fdc633610a345d7823b90dd62b",
+  "page": 63,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

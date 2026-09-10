@@ -1,0 +1,10 @@
+{
+  "id": "noco-gbx75--temperatura-operacional",
+  "model": "noco-gbx75",
+  "name": "Temperatura operacional",
+  "value": "-20°C a +50°C",
+  "source": "doc-9da28ee8030be3fa7122b62f0ae81f95",
+  "page": 66,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

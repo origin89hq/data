@@ -1,0 +1,9 @@
+{
+  "id": "pentair-2fc5-s--pressure-requirements",
+  "model": "pentair-2fc5-s",
+  "name": "Pressure Requirements",
+  "value": "10 - 125 psi (0.7 – 8.6 bar)",
+  "source": "doc-c5012b5b68d2544fe496114dae16722b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

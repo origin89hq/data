@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-energycell-nano-carbon-2v-batteries--freshening-equalization-charging-time",
+  "model": "outback-power-energycell-nano-carbon-2v-batteries",
+  "name": "Freshening / Equalization Charging Time",
+  "value": "12 to 24 Hours",
+  "source": "doc-6079799e02211598560a81b29efee022",
+  "page": 22,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

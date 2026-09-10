@@ -1,0 +1,11 @@
+{
+  "id": "srne-4850sh3--max-apparent-power",
+  "model": "srne-4850sh3",
+  "name": "Max. Apparent Power",
+  "value": "5000",
+  "unit": "VA",
+  "source": "doc-0064802073548432d1d4b96bc751c06c",
+  "page": 51,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

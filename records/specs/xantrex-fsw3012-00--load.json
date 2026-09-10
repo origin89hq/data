@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-fsw3012-00--load",
+  "model": "xantrex-fsw3012-00",
+  "name": "Load",
+  "value": "900W 120V 7A",
+  "source": "doc-ee469adf96a31687a03350bde08292ed",
+  "page": 32,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,10 +1,9 @@
 {
   "id": "srne-mc2430n10--mppt-tracking-efficiency",
   "model": "srne-mc2430n10",
-  "name": "MPPT tracking efficiency",
-  "value": "≥99%",
-  "source": "doc-3b55fd7ec7f0697efe5021f35d25fb4f",
+  "name": "MPPT Tracking Efficiency",
+  "value": ">99%",
+  "source": "doc-e39aa32b1478e369d8bfaaa046f860eb",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "page": 7,
   "confidence": "vendor-doc"
 }

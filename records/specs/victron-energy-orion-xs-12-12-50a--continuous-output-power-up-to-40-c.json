@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-orion-xs-12-12-50a--continuous-output-power-up-to-40-c",
+  "model": "victron-energy-orion-xs-12-12-50a",
+  "name": "Continuous output power up to 40 °C",
+  "value": "700",
+  "unit": "W",
+  "source": "doc-71a56abfc5676d9106eb2c3f2962e47a",
+  "page": 41,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

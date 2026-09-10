@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-mppt-250-60--charge-voltage-equalization",
+  "model": "victron-energy-mppt-250-60",
+  "name": "Charge voltage 'equalization'",
+  "value": "16.2V / 32.4V / 48.6V / 64.8V",
+  "source": "doc-d57c25947d20b07fdaeab0465bc6cf6a",
+  "page": 71,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

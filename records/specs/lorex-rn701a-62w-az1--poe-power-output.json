@@ -1,0 +1,9 @@
+{
+  "id": "lorex-rn701a-62w-az1--poe-power-output",
+  "model": "lorex-rn701a-62w-az1",
+  "name": "PoE Power Output",
+  "value": "25.5 W per port",
+  "source": "doc-8707568b99b21a0354ca8c6334eac620",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

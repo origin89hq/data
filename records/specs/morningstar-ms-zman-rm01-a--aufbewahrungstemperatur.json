@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ms-zman-rm01-a--aufbewahrungstemperatur",
+  "model": "morningstar-ms-zman-rm01-a",
+  "name": "Aufbewahrungstemperatur",
+  "value": "-30°C bis +80°C / -22°F bis +176°F",
+  "source": "doc-5122f86cec7a56c6eb35cd1bcc1d83e2",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

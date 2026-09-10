@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-gb225bt-2--cilindrada",
+  "model": "champion-power-gb225bt-2",
+  "name": "Cilindrada",
+  "value": "224 cc",
+  "source": "doc-76da6e7f1fd35c4d9e8f35f58bf29305",
+  "page": 38,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

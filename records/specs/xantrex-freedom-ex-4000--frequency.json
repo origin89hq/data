@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-freedom-ex-4000--frequency",
+  "model": "xantrex-freedom-ex-4000",
+  "name": "Frequency",
+  "value": "60",
+  "unit": "Hz",
+  "source": "doc-e3f26fb957d9c58b8bac04cefa051973",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

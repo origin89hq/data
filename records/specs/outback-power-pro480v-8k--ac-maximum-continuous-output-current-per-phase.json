@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-pro480v-8k--ac-maximum-continuous-output-current-per-phase",
+  "model": "outback-power-pro480v-8k",
+  "name": "AC maximum continuous output current, per phase",
+  "value": "9.6",
+  "unit": "A",
+  "source": "doc-67ea451046845987293d3a58ca025bea",
+  "page": 41,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

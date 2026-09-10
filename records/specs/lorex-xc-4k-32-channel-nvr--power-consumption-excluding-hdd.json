@@ -1,0 +1,9 @@
+{
+  "id": "lorex-xc-4k-32-channel-nvr--power-consumption-excluding-hdd",
+  "model": "lorex-xc-4k-32-channel-nvr",
+  "name": "Power Consumption (Excluding HDD)",
+  "value": "< 15 W",
+  "source": "doc-73ed3eeb2336e74ee814f484825d5017",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-12wa10n--input-current-amps-dc",
+  "model": "magnum-energy-12wa10n",
+  "name": "Input Current (Amps DC)",
+  "value": "Up to 100",
+  "source": "doc-d211eecf376ec3b4bad289440c313d1e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-flexmax-100--output-fets-temperature",
+  "model": "outback-power-flexmax-100",
+  "name": "Output FETs temperature",
+  "value": "90",
+  "unit": "°C",
+  "source": "doc-545e5059e2cf4bf222cc323b1f51f252",
+  "page": 63,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

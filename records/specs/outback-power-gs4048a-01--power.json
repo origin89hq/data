@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gs4048a-01--power",
+  "model": "outback-power-gs4048a-01",
+  "name": "Power",
+  "value": "4.0",
+  "unit": "kW",
+  "source": "doc-b3d898b26725c2d5202edb955ad37cd4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

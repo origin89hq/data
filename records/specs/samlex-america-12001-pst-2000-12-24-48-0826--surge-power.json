@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-12001-pst-2000-12-24-48-0826--surge-power",
+  "model": "samlex-america-12001-pst-2000-12-24-48-0826",
+  "name": "Surge power",
+  "value": "3500",
+  "unit": "W",
+  "source": "doc-335a6eab57679e93295eb39d71b73997",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

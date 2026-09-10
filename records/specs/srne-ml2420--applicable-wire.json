@@ -1,0 +1,10 @@
+{
+  "id": "srne-ml2420--applicable-wire",
+  "model": "srne-ml2420",
+  "name": "Applicable wire",
+  "value": "max. 8 AWG",
+  "source": "doc-4d63c5a2bc3fda1eadb6226ba8bf469e",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

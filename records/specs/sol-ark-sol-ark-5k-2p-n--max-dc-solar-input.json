@@ -4,7 +4,7 @@
   "name": "Max DC solar input",
   "value": "6.5 kW (± 5%)",
   "source": "doc-759ca07ffded8018dcb7cbd8dcc55424",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

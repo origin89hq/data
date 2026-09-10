@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-me-sbctm--transfer-current",
+  "model": "magnum-energy-me-sbctm",
+  "name": "Transfer current",
+  "value": "25",
+  "unit": "A",
+  "source": "doc-3bd9174db7652364c49a66f859be9cc9",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

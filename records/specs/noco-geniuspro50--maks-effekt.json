@@ -1,0 +1,11 @@
+{
+  "id": "noco-geniuspro50--maks-effekt",
+  "model": "noco-geniuspro50",
+  "name": "Maks. effekt",
+  "value": "750",
+  "unit": "W",
+  "source": "doc-723933e9ae36ac87b561b12fafebcf3f",
+  "page": 67,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

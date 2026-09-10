@@ -1,0 +1,9 @@
+{
+  "id": "srne-sr-eos10b--charging-temp-range",
+  "model": "srne-sr-eos10b",
+  "name": "Charging Temp. Range",
+  "value": "0～55℃",
+  "source": "doc-8bbb4b31ebad00c9c481b84341d98511",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

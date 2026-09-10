@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-pro480v-8k--ac-de-rate-with-temperature-45-to-65-c",
+  "model": "outback-power-pro480v-8k",
+  "name": "AC de-rate with temperature, 45 to +65°C",
+  "value": "–150 W/°C",
+  "source": "doc-67ea451046845987293d3a58ca025bea",
+  "page": 41,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

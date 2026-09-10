@@ -1,0 +1,11 @@
+{
+  "id": "luxpower-gen-lb-eu-3-6k--max-ac-input",
+  "model": "luxpower-gen-lb-eu-3-6k",
+  "name": "Max. AC input",
+  "value": "52.7",
+  "unit": "A",
+  "source": "doc-b6c6af377b57b72399cec5e13864c9e7",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

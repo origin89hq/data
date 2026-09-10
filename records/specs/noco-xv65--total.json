@@ -1,0 +1,9 @@
+{
+  "id": "noco-xv65--total",
+  "model": "noco-xv65",
+  "name": "Total",
+  "value": "65W Max",
+  "source": "doc-66f9a4857e6f3749090880fb606c437f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

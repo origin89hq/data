@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-flexware-pv-8-and-pv-12-combiners--maximum-circuit-breaker-rating-unit",
+  "model": "outback-power-flexware-pv-8-and-pv-12-combiners",
+  "name": "Maximum Circuit Breaker Rating unit",
+  "value": "150",
+  "unit": "V",
+  "source": "doc-f6906163939daa9276e5f80c172ea95f",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

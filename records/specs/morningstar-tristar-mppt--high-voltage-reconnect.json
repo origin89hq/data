@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-tristar-mppt--high-voltage-reconnect",
+  "model": "morningstar-tristar-mppt",
+  "name": "High Voltage Reconnect",
+  "value": "EV_hvr (V)",
+  "source": "doc-175cffda01cb215999fec2bdd6a7d963",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-freedom-xc-1800-12vdc--inverter-power-save",
+  "model": "xantrex-freedom-xc-1800-12vdc",
+  "name": "Inverter Power Save",
+  "value": "1 to 25 h",
+  "source": "doc-ded9b3d04a9dd3e5385bb5596a4d6c55",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

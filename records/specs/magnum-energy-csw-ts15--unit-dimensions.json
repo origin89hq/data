@@ -1,9 +1,0 @@
-{
-  "id": "magnum-energy-csw-ts15--unit-dimensions",
-  "model": "magnum-energy-csw-ts15",
-  "name": "Unit Dimensions",
-  "value": "6.6 x 4.3 x 1.8 (inches) / 168 x 110 x 46 (mm)",
-  "source": "doc-fa9f8e81e67af1bab01df3efce3d423f",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

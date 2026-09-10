@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna-pro-eu-6-5k--rated-gen-frequency",
+  "model": "luxpower-sna-pro-eu-6-5k",
+  "name": "Rated GEN Frequency",
+  "value": "50/60",
+  "source": "doc-1538195a833c237eb931300a70201349",
+  "page": 62,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

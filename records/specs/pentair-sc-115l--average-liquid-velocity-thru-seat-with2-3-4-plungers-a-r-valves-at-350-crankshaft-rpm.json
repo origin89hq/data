@@ -1,0 +1,10 @@
+{
+  "id": "pentair-sc-115l--average-liquid-velocity-thru-seat-with2-3-4-plungers-a-r-valves-at-350-crankshaft-rpm",
+  "model": "pentair-sc-115l",
+  "name": "Average Liquid Velocity thru Seat with2-3/4\" plungers & A/R valves:At 350 crankshaft rpm",
+  "value": "6.8 fps",
+  "source": "doc-e52fbb13118d95b3ee9c71d320de22f6",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "xantrex-rs3000--surge-rating",
+  "model": "xantrex-rs3000",
+  "name": "Surge rating",
+  "value": "7500",
+  "unit": "VA",
+  "source": "doc-ba676906c32b170e12ff2950b4072ec3",
+  "page": 58,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

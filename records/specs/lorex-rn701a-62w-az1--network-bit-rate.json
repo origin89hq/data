@@ -1,0 +1,9 @@
+{
+  "id": "lorex-rn701a-62w-az1--network-bit-rate",
+  "model": "lorex-rn701a-62w-az1",
+  "name": "Network Bit Rate",
+  "value": "320 Mbps",
+  "source": "doc-8707568b99b21a0354ca8c6334eac620",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

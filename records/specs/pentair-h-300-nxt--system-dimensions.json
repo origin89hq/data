@@ -1,0 +1,9 @@
+{
+  "id": "pentair-h-300-nxt--system-dimensions",
+  "model": "pentair-h-300-nxt",
+  "name": "System Dimensions",
+  "value": "3.5\" W x 17.1\" H x 4.25\" D",
+  "source": "doc-ae79d1d800b593984524d2328c5b2c9a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

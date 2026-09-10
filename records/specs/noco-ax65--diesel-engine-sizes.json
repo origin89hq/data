@@ -1,0 +1,9 @@
+{
+  "id": "noco-ax65--diesel-engine-sizes",
+  "model": "noco-ax65",
+  "name": "DIESEL ENGINE SIZES",
+  "value": "Up to 6.0L",
+  "source": "doc-9485107b3a129c50a775216b87ffe9a7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

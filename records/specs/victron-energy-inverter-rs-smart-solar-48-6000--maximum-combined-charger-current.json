@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-inverter-rs-smart-solar-48-6000--maximum-combined-charger-current",
+  "model": "victron-energy-inverter-rs-smart-solar-48-6000",
+  "name": "Maximum combined charger current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-2375e9a6ed181d8a7987453c98e92412",
+  "page": 50,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

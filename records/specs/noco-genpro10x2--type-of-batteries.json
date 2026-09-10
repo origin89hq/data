@@ -1,0 +1,11 @@
+{
+  "id": "noco-genpro10x2--type-of-batteries",
+  "model": "noco-genpro10x2",
+  "name": "Type of Batteries",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-cf8d6e88f0e991f6dfcfeac716330de0",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

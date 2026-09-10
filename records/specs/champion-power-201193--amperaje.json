@@ -1,0 +1,11 @@
+{
+  "id": "champion-power-201193--amperaje",
+  "model": "champion-power-201193",
+  "name": "Amperaje",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-d0aab3fee82623dd5eb61033f3638390",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

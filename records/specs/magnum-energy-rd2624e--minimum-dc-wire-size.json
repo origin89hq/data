@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-rd2624e--minimum-dc-wire-size",
+  "model": "magnum-energy-rd2624e",
+  "name": "Minimum DC Wire Size",
+  "value": "#4/0 AWG",
+  "source": "doc-59913717517cfc30d8016a9d401af737",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

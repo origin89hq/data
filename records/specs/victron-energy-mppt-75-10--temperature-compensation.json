@@ -1,9 +1,0 @@
-{
-  "id": "victron-energy-mppt-75-10--temperature-compensation",
-  "model": "victron-energy-mppt-75-10",
-  "name": "Temperature compensation",
-  "value": "12V: -16mV/°C / 24V: -32mV/°C / 48V: -64 mV/°C",
-  "source": "doc-c967bfdb27ebea471739445a3d4c2c8d",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

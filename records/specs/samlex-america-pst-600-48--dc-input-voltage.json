@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-600-48--dc-input-voltage",
+  "model": "samlex-america-pst-600-48",
+  "name": "DC input voltage",
+  "value": "V ± 1.0 V or higher",
+  "source": "doc-37ffa60e7fd589771984ee1e00b53949",
+  "page": 57,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

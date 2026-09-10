@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-12-30--fuse-circuit-breaker-rating",
+  "model": "victron-energy-12-30",
+  "name": "Fuse / circuit breaker rating",
+  "value": "40",
+  "unit": "A",
+  "source": "doc-22e5225e9583fa35570650fea69c58de",
+  "page": 23,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

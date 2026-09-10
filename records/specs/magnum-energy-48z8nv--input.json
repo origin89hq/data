@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-48z8nv--input",
+  "model": "magnum-energy-48z8nv",
+  "name": "Input",
+  "value": "50.4",
+  "unit": "V",
+  "source": "doc-1d54c267467e05f25ba01d1fc53ea1d4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

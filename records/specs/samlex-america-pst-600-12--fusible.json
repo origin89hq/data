@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-pst-600-12--fusible",
+  "model": "samlex-america-pst-600-12",
+  "name": "Fusible",
+  "value": "80",
+  "unit": "A",
+  "source": "doc-37ffa60e7fd589771984ee1e00b53949",
+  "page": 61,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-ssi-12hf3-5n--input-voltage-regulation",
+  "model": "magnum-energy-ssi-12hf3-5n",
+  "name": "Input Voltage Regulation",
+  "value": "10.5-15 VDC",
+  "source": "doc-b16c58de7f10d36042c9d47b46d0d80b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -6,6 +6,7 @@ import { Source } from "../../schema/source.ts";
 import { currentRun, jsonValues, object, under } from "./archive.ts";
 import { EXTRACTOR_ID } from "../../scraper/src/reading.ts";
 import { withoutTranslations } from "../../scraper/src/documents.ts";
+import { withoutTranslatedReadings, withoutRedundantTranslations } from "../../src/language.ts";
 
 /**
  * Fold a manufacturer's extracted readings into spec records. A figure is written only when the
@@ -68,6 +69,10 @@ const pending = expected.length - readings.readings.length;
 // publishes something not marked as a translation.
 const { keep, dropped } = withoutTranslations(readings.readings);
 readings.readings = keep;
+// And the ones whose file name says nothing. Pentair marks a Spanish manual "_SPA_" in one place
+// and "-s-" in another, so the language a document is in is read off what it stated, not its name.
+const byLanguage = withoutTranslatedReadings(readings.readings, (r) => r.products.flatMap((p) => p.specs.map((x) => (x as { name?: string }).name ?? "")));
+readings.readings = byLanguage.keep;
 
 const records = loadRecords();
 const sources = new Map(records.sources.map((s) => [s.id, s]));
@@ -101,10 +106,11 @@ if (addModels) {
 // document's source as it went left the earlier one cited by nothing.
 const collected = new Map<string, ReturnType<typeof specsFrom>["specs"][number]>();
 const usedSources = new Map<string, { url: string; sha256: string }>();
+let repeatedTotal = 0;
 for (const document of readings.readings) {
   if (document.products.length === 0) continue;
   const sourceId = `doc-${document.sha256.slice(0, 32)}`;
-  const { specs, unmatched: missing } = specsFrom({
+  const { specs, unmatched: missing, repeated } = specsFrom({
     reports: document.products,
     models: records.models,
     manufacturer,
@@ -114,10 +120,19 @@ for (const document of readings.readings) {
     // `extractedBy` with no reviewer says a model read it and nobody has checked the row.
     confidence: "vendor-doc",
   });
+  repeatedTotal += repeated;
   for (const spec of specs) collected.set(spec.id, spec);
-  usedSources.set(sourceId, { url: document.url, sha256: document.sha256 });
+  // Only a document that produced a figure is cited. Refusing a fragment or a repeat can empty a
+  // document, and a source nothing cites is an orphan the validator refuses.
+  if (specs.length > 0) usedSources.set(sourceId, { url: document.url, sha256: document.sha256 });
   for (const m of missing) unmatched.add(m);
 }
+
+// Once the maker's whole set is in hand: a foreign-named figure on a model that already has
+// English ones is a multilingual manual saying the same thing twice.
+const aligned = withoutRedundantTranslations([...collected.values()]);
+collected.clear();
+for (const spec of aligned.keep) collected.set(spec.id, spec);
 
 const cited = new Set([...collected.values()].map((s) => s.source));
 for (const [sourceId, document] of usedSources) {
@@ -133,6 +148,13 @@ for (const spec of collected.values()) {
 
 console.log(`${written} figures and ${modelsAdded} new models${dryRun ? " (dry run, nothing written)" : " written"} for ${manufacturer}`);
 for (const { url, language } of dropped) console.log(`  skipped the ${language} edition, which this maker also publishes in English: ${url.split("/").pop()}`);
+for (const reading of byLanguage.dropped) console.log(`  skipped a translated edition its file name did not declare: ${reading.url.split("/").pop()}`);
+if (repeatedTotal) console.log(`  ${repeatedTotal} figures dropped where a multilingual document stated them again in another language`);
+if (aligned.dropped.length) console.log(`  ${aligned.dropped.length} figures dropped: named in another language on a model that already has English figures`);
+if (aligned.kept.length) {
+  console.log(`  ${aligned.kept.length} figures kept with a name nobody has translated, because their model has no English figure at all:`);
+  for (const spec of [...new Set(aligned.kept.map((s) => s.name))].slice(0, 10)) console.log(`      ${spec}`);
+}
 const byReader = new Map<string, number>();
 for (const r of readings.readings) byReader.set(r.extractedBy ?? EXTRACTOR_ID, (byReader.get(r.extractedBy ?? EXTRACTOR_ID) ?? 0) + 1);
 console.log(`${readings.readings.length} readings${pending > 0 ? `, ${pending} approved documents still converting or queued` : ""}`);

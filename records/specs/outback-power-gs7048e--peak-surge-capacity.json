@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gs7048e--peak-surge-capacity",
+  "model": "outback-power-gs7048e",
+  "name": "peak surge capacity",
+  "value": "16.3",
+  "unit": "kVA",
+  "source": "doc-fda963efd83b4fc2faf57024b5e6becd",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

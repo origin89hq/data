@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-ms4448pae--recommended-dc-wire-size",
+  "model": "magnum-energy-ms4448pae",
+  "name": "Recommended DC Wire Size",
+  "value": "#2/0 AWG",
+  "source": "doc-90b14882b7428b66e0286aec3f86a08b",
+  "page": 23,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

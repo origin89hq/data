@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-xplore-120-12-battery-charger--default-absorption-voltage",
+  "model": "xantrex-xplore-120-12-battery-charger",
+  "name": "Default Absorption Voltage",
+  "value": "14.4",
+  "source": "doc-d89af51d26e69e6db83e3b74a038b24a",
+  "page": 46,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

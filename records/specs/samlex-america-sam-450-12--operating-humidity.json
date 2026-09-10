@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sam-450-12--operating-humidity",
+  "model": "samlex-america-sam-450-12",
+  "name": "OPERATING HUMIDITY",
+  "value": "< 80%; Non-condensing",
+  "source": "doc-6057a7a186894a280962a77cae5f9c93",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

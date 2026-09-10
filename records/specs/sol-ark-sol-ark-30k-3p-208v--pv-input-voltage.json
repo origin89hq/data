@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-30k-3p-208v--pv-input-voltage",
+  "model": "sol-ark-sol-ark-30k-3p-208v",
+  "name": "PV input voltage",
+  "value": "above 180 VDC",
+  "source": "doc-69da757b50746ca11ac81fd6741cab8c",
+  "page": 33,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

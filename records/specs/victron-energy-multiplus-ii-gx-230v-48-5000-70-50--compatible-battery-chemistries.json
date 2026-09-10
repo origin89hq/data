@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-multiplus-ii-gx-230v-48-5000-70-50--compatible-battery-chemistries",
+  "model": "victron-energy-multiplus-ii-gx-230v-48-5000-70-50",
+  "name": "Compatible battery chemistries",
+  "value": "Lead-acid, Lithium, Zinc-Bromine and others",
+  "source": "doc-8201ea053d318023ffda9fd7a4060344",
+  "page": 28,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

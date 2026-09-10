@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-24x36u--output-rating",
+  "model": "magnum-energy-24x36u",
+  "name": "Output Rating",
+  "value": "1½ hp",
+  "source": "doc-05a7a72e52800f5f1fd2e71d09cc6d40",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

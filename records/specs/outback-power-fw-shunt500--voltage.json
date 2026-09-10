@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-fw-shunt500--voltage",
+  "model": "outback-power-fw-shunt500",
+  "name": "Voltage",
+  "value": "50",
+  "unit": "mV",
+  "source": "doc-ca05ae5ac90cf324a38cd269ca280f02",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

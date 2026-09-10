@@ -1,0 +1,10 @@
+{
+  "id": "srne-mf48100n50--system-voltage-range",
+  "model": "srne-mf48100n50",
+  "name": "System voltage range",
+  "value": "36V~64V",
+  "source": "doc-ba9d883ccb6ee64646c2831829be63b9",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

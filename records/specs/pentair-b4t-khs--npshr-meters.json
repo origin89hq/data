@@ -1,0 +1,9 @@
+{
+  "id": "pentair-b4t-khs--npshr-meters",
+  "model": "pentair-b4t-khs",
+  "name": "NPSHr - Meters",
+  "value": "12.2, 10.7, 9.1, 7.6, 6.1, 4.6, 3, 1.5",
+  "source": "doc-3d6c7748573a93305b97e3da12f93dd5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

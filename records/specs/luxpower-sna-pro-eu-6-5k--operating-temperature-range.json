@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna-pro-eu-6-5k--operating-temperature-range",
+  "model": "luxpower-sna-pro-eu-6-5k",
+  "name": "Operating Temperature Range",
+  "value": "-20°C to 60°C (>45°C load derating)",
+  "source": "doc-1538195a833c237eb931300a70201349",
+  "page": 62,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

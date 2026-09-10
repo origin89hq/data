@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-100729--weight",
+  "model": "champion-power-100729",
+  "name": "Weight",
+  "value": "76 lbs. (34.3 kg)",
+  "source": "doc-138d837f3335498acd0e09b15f51058b",
+  "page": 27,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

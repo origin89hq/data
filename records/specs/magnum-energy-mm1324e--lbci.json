@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-mm1324e--lbci",
+  "model": "magnum-energy-mm1324e",
+  "name": "LBCI",
+  "value": "µ25.0 VDC",
+  "source": "doc-59042192a20fd2fa13de26ecc01ba03d",
+  "page": 35,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

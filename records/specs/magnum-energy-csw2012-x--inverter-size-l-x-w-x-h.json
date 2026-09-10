@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-csw2012-x--inverter-size-l-x-w-x-h",
+  "model": "magnum-energy-csw2012-x",
+  "name": "Inverter Size (L x W x H)",
+  "value": "17.1 x 9.1 x 4.5” (43.5 x 23 x 11.5 cm)",
+  "source": "doc-3b79136e8fe45bb7ee697862e442d130",
+  "page": 38,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

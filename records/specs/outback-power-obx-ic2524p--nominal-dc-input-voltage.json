@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-obx-ic2524p--nominal-dc-input-voltage",
+  "model": "outback-power-obx-ic2524p",
+  "name": "Nominal DC Input Voltage",
+  "value": "24",
+  "source": "doc-0432b80951ffb8d990821df196dc00c6",
+  "page": 27,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

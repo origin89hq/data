@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-511016-2--automatic-transfer-relay",
+  "model": "magnum-energy-511016-2",
+  "name": "Automatic Transfer Relay",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-adff524ee25d1b58a39918e2c446d741",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

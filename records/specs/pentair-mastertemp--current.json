@@ -1,0 +1,10 @@
+{
+  "id": "pentair-mastertemp--current",
+  "model": "pentair-mastertemp",
+  "name": "Current",
+  "value": "2.0A Max",
+  "source": "doc-a51d53fa470a503770a42053ad26e6f5",
+  "page": 39,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

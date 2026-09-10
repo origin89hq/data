@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-freedom-xc-2000-230v--safe-non-operating-voltage-range",
+  "model": "xantrex-freedom-xc-2000-230v",
+  "name": "Safe non-operating voltage range",
+  "value": "up to 300 V",
+  "source": "doc-036c5f6612112ac25d8de1273f543052",
+  "page": 103,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-f7rtc--espacio",
+  "model": "champion-power-f7rtc",
+  "name": "Espacio",
+  "value": "0.0276-0.0315 in. (0.7-0.8 mm)",
+  "source": "doc-d997a2c00a76170defa7d1fdd28b44b1",
+  "page": 35,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

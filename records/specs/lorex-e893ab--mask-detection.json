@@ -1,0 +1,9 @@
+{
+  "id": "lorex-e893ab--mask-detection",
+  "model": "lorex-e893ab",
+  "name": "Mask Detection",
+  "value": "Yes",
+  "source": "doc-cb49a2575c5506fcca4f804de90b4640",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

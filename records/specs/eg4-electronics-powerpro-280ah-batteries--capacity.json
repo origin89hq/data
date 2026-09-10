@@ -1,0 +1,11 @@
+{
+  "id": "eg4-electronics-powerpro-280ah-batteries--capacity",
+  "model": "eg4-electronics-powerpro-280ah-batteries",
+  "name": "Capacity",
+  "value": "280",
+  "unit": "Ah",
+  "source": "doc-22046aec6a8b52e3f9daaef246354f01",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

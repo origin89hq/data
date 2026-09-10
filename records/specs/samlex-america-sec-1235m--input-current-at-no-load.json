@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-1235m--input-current-at-no-load",
+  "model": "samlex-america-sec-1235m",
+  "name": "Input Current at No Load",
+  "value": "120 mA ± 10% @120VAC",
+  "source": "doc-99b98c3e0979d9dd34d0fbbfd935b5e6",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "luxpower-sna-3000w--recommend-capacity-of-battery-per-inverter",
+  "model": "luxpower-sna-3000w",
+  "name": "Recommend capacity of battery per inverter",
+  "value": ">100AH",
+  "source": "doc-bbb9da655d195897e1b36068cc176ffd",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

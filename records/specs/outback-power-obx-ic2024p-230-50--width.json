@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-obx-ic2024p-230-50--width",
+  "model": "outback-power-obx-ic2024p-230-50",
+  "name": "Width",
+  "value": "20.95",
+  "unit": "cm",
+  "source": "doc-0ebaf4052e4975b1e5bc3fab2ab0ac91",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

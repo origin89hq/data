@@ -1,9 +1,0 @@
-{
-  "id": "watersprint-strike-ii--dimensions",
-  "model": "watersprint-strike-ii",
-  "name": "Dimensions",
-  "value": "38 mm x 216,6 mm",
-  "source": "doc-58dbc12a496927a0a99432bc685884f6",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

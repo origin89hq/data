@@ -4,7 +4,8 @@
   "name": "Battery Rated Voltage",
   "value": "25.6",
   "unit": "V",
-  "source": "doc-8168e8725aedf662dc97c4e90e35f829",
+  "source": "doc-e8f64a65f81600c3701dc9a662972c35",
+  "page": 34,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

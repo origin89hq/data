@@ -1,0 +1,11 @@
+{
+  "id": "noco-genius2--capacit-de-batterie",
+  "model": "noco-genius2",
+  "name": "Capacité de batterie",
+  "english": "Battery capacity",
+  "value": "jusquâ 40 Ah",
+  "source": "doc-0add4d4e244f834e9ac9e85e22b6d81b",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

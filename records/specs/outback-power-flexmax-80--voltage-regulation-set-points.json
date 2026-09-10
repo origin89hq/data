@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-flexmax-80--voltage-regulation-set-points",
+  "model": "outback-power-flexmax-80",
+  "name": "Voltage Regulation Set Points",
+  "value": "13-80 Vdc",
+  "source": "doc-9ad2253f663deb28090828e648601ec8",
+  "page": 86,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "lorex-c241xc-e--night-vision-range",
+  "model": "lorex-c241xc-e",
+  "name": "Night Vision Range",
+  "value": "120ft (37m)/ 82ft (25m)",
+  "source": "doc-2c8204997e8e4f434a7fa681b381fcd4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

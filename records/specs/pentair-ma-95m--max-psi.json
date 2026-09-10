@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ma-95m--max-psi",
+  "model": "pentair-ma-95m",
+  "name": "Max psi",
+  "value": "1572",
+  "source": "doc-9150ccd3faf776a05d60d89485ac3805",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

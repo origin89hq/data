@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-flexmax-100--temperature-compensation-slope",
+  "model": "outback-power-flexmax-100",
+  "name": "Temperature compensation slope",
+  "value": "5 mV/°C",
+  "source": "doc-5638fdcd10bd758b7a5e1ee8f6c4299d",
+  "page": 76,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

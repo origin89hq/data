@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-fsw3012-00--battery",
+  "model": "xantrex-fsw3012-00",
+  "name": "Battery",
+  "value": "11.8V -88.0A N/A",
+  "source": "doc-ee469adf96a31687a03350bde08292ed",
+  "page": 32,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

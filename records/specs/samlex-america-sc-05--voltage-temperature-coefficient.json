@@ -2,7 +2,7 @@
   "id": "samlex-america-sc-05--voltage-temperature-coefficient",
   "model": "samlex-america-sc-05",
   "name": "VOLTAGE TEMPERATURE COEFFICIENT",
-  "value": "-0.29% / oC",
+  "value": "-0.29% / °C",
   "source": "doc-44042e397160d0f7eac168446e3f7137",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"

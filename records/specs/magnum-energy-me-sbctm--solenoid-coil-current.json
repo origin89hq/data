@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-me-sbctm--solenoid-coil-current",
+  "model": "magnum-energy-me-sbctm",
+  "name": "Solenoid coil current",
+  "value": "less than 2 Amps",
+  "source": "doc-3bd9174db7652364c49a66f859be9cc9",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

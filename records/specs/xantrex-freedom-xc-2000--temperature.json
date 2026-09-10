@@ -1,0 +1,11 @@
+{
+  "id": "xantrex-freedom-xc-2000--temperature",
+  "model": "xantrex-freedom-xc-2000",
+  "name": "Temperature",
+  "value": "105",
+  "unit": "°C",
+  "source": "doc-036c5f6612112ac25d8de1273f543052",
+  "page": 48,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

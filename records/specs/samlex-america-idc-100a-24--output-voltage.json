@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-idc-100a-24--output-voltage",
+  "model": "samlex-america-idc-100a-24",
+  "name": "OUTPUT VOLTAGE",
+  "value": "24.5",
+  "unit": "V",
+  "source": "doc-31fdbfafbc1bddefa1bca06efa6e6527",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,9 +1,0 @@
-{
-  "id": "wilson-electronics-470210--booster-weight",
-  "model": "wilson-electronics-470210",
-  "name": "BOOSTER WEIGHT",
-  "value": "0.77 lbs.",
-  "source": "doc-b3904e641cd8119e2f94214dd883afd2",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

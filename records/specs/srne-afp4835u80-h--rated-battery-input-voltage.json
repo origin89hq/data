@@ -1,0 +1,10 @@
+{
+  "id": "srne-afp4835u80-h--rated-battery-input-voltage",
+  "model": "srne-afp4835u80-h",
+  "name": "Rated Battery Input Voltage",
+  "value": "48V ( Min. Startup Voltage 44V)",
+  "source": "doc-e5f986442b822353c503f29a76068121",
+  "page": 52,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

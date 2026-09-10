@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-avr125-33--amperes-77-f-25-12-hr",
+  "model": "east-penn-avr125-33",
+  "name": "Amperes @ 77˚F (25˚), 12 HR",
+  "value": "182",
+  "source": "doc-58bdb9581de1fef7602fab94d1ae255c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

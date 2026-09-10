@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-12-2000-80--zero-load-power",
+  "model": "victron-energy-12-2000-80",
+  "name": "Zero load power",
+  "value": "9 / 11 W",
+  "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
+  "page": 56,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

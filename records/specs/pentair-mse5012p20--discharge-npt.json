@@ -1,0 +1,9 @@
+{
+  "id": "pentair-mse5012p20--discharge-npt",
+  "model": "pentair-mse5012p20",
+  "name": "Discharge NPT",
+  "value": "2” (50.8 mm)",
+  "source": "doc-9b681389f4d4804ee152ce22e27c2777",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

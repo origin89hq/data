@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-390003--type",
+  "model": "magnum-energy-390003",
+  "name": "Type",
+  "value": "Group 24 AGM batteries",
+  "source": "doc-99fa09871821c8aa4ac53de52a44f7ed",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "luxpower-lxp5k-hb--nominal-ac-voltage",
+  "model": "luxpower-lxp5k-hb",
+  "name": "Nominal AC Voltage",
+  "value": "230",
+  "unit": "V",
+  "source": "doc-d959ddc2ab2665f97ac299682122cb09",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

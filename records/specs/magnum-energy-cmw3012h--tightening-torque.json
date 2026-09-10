@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-cmw3012h--tightening-torque",
+  "model": "magnum-energy-cmw3012h",
+  "name": "Tightening torque",
+  "value": "5 to 8 lbf-in (0.6 to 0.9 N-m)",
+  "source": "doc-e7c1a12e59e951e52bb96998ad6a5492",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

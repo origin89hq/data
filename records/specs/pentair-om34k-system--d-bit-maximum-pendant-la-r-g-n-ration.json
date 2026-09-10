@@ -1,0 +1,11 @@
+{
+  "id": "pentair-om34k-system--d-bit-maximum-pendant-la-r-g-n-ration",
+  "model": "pentair-om34k-system",
+  "name": "Débit maximum pendant la régénération",
+  "english": "Maximum flow during regeneration",
+  "value": "2.1 gpm",
+  "source": "doc-a05d04ac4987139b1e825e769688c178",
+  "page": 55,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

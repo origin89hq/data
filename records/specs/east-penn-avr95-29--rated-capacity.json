@@ -1,0 +1,10 @@
+{
+  "id": "east-penn-avr95-29--rated-capacity",
+  "model": "east-penn-avr95-29",
+  "name": "Rated Capacity",
+  "value": "1330",
+  "source": "doc-7285025ce9f0bcb5b68489da924e1733",
+  "page": 77,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

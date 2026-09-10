@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-csw2012-x--branch-rated-circuit-breaker",
+  "model": "magnum-energy-csw2012-x",
+  "name": "branch rated circuit breaker",
+  "value": "30-amp",
+  "source": "doc-3b79136e8fe45bb7ee697862e442d130",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

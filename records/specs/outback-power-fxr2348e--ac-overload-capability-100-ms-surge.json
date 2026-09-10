@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-fxr2348e--ac-overload-capability-100-ms-surge",
+  "model": "outback-power-fxr2348e",
+  "name": "AC Overload Capability (100 ms surge)",
+  "value": "5750",
+  "unit": "VA",
+  "source": "doc-6b9af970c505a87eca557fa24cbec4e3",
+  "page": 61,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

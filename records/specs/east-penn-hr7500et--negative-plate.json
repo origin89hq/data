@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-hr7500et--negative-plate",
+  "model": "east-penn-hr7500et",
+  "name": "Negative Plate",
+  "value": "Pure lead, calcium alloy",
+  "source": "doc-37aac781062280568bd080c1190a3113",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

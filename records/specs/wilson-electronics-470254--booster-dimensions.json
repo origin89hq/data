@@ -1,9 +1,0 @@
-{
-  "id": "wilson-electronics-470254--booster-dimensions",
-  "model": "wilson-electronics-470254",
-  "name": "BOOSTER DIMENSIONS",
-  "value": "6 x 4.5 x 1.5 in.",
-  "source": "doc-db2cb2a9b46455192613f8dcb1723e52",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

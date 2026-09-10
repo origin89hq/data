@@ -1,0 +1,10 @@
+{
+  "id": "noco-noco-product--behuizingsbescherming",
+  "model": "noco-noco-product",
+  "name": "Behuizingsbescherming",
+  "value": "IP65 (met poorten gesloten)",
+  "source": "doc-b62a0dca76d9ee06431ee2d2fa567791",
+  "page": 88,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-12-400n--peak-output",
+  "model": "magnum-energy-12-400n",
+  "name": "Peak Output",
+  "value": "800",
+  "unit": "W",
+  "source": "doc-1b56b81a72cee8dd5253422da01c40d2",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

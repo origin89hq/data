@@ -1,0 +1,9 @@
+{
+  "id": "pentair-2fc5-s--length",
+  "model": "pentair-2fc5-s",
+  "name": "Length",
+  "value": "10.25\" (26.0 cm)",
+  "source": "doc-c5012b5b68d2544fe496114dae16722b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

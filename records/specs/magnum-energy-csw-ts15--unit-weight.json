@@ -1,9 +1,0 @@
-{
-  "id": "magnum-energy-csw-ts15--unit-weight",
-  "model": "magnum-energy-csw-ts15",
-  "name": "Unit Weight",
-  "value": "1.8 lbs (0.8kg)",
-  "source": "doc-fa9f8e81e67af1bab01df3efce3d423f",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

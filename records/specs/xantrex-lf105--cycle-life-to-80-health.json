@@ -1,0 +1,9 @@
+{
+  "id": "xantrex-lf105--cycle-life-to-80-health",
+  "model": "xantrex-lf105",
+  "name": "Cycle Life to 80% Health",
+  "value": "2800",
+  "source": "doc-5ad769d57c759da97aeca4f5ef44497d",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sam-250-12--low-input-voltage-alarm",
+  "model": "samlex-america-sam-250-12",
+  "name": "LOW INPUT VOLTAGE ALARM",
+  "value": "10.8 VDC. ± 0.3VDC",
+  "source": "doc-6057a7a186894a280962a77cae5f9c93",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "energizer-solar-sunpack-180w--dc-cable-output",
+  "model": "energizer-solar-sunpack-180w",
+  "name": "DC Cable Output",
+  "value": "28V⎓6.6A",
+  "source": "doc-26ff2a73b6a65f512a7df48c4d1b421c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

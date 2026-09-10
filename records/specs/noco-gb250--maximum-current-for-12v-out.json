@@ -1,0 +1,11 @@
+{
+  "id": "noco-gb250--maximum-current-for-12v-out",
+  "model": "noco-gb250",
+  "name": "Maximum current for 12V-Out",
+  "value": "15",
+  "unit": "A",
+  "source": "doc-b62a0dca76d9ee06431ee2d2fa567791",
+  "page": 85,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

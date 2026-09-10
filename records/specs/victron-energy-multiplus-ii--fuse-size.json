@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multiplus-ii--fuse-size",
+  "model": "victron-energy-multiplus-ii",
+  "name": "Fuse size",
+  "value": "400",
+  "unit": "A",
+  "source": "doc-074934ae911539d98397eaa7a06c807a",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

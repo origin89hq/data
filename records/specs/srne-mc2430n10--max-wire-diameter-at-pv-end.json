@@ -1,0 +1,10 @@
+{
+  "id": "srne-mc2430n10--max-wire-diameter-at-pv-end",
+  "model": "srne-mc2430n10",
+  "name": "Max. wire diameter at PV end",
+  "value": "8/8",
+  "source": "doc-3b55fd7ec7f0697efe5021f35d25fb4f",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

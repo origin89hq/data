@@ -1,0 +1,10 @@
+{
+  "id": "east-penn-12avr200et--max-charge-current",
+  "model": "east-penn-12avr200et",
+  "name": "Max. Charge Current",
+  "value": "38.3",
+  "source": "doc-ab6d2f027a263012b22ac0eb9bac87e9",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

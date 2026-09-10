@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gs4048a--ac-frequency-range-with-function-enabled",
+  "model": "outback-power-gs4048a",
+  "name": "AC frequency range with function enabled",
+  "value": "54.5, 65.5 Hz",
+  "source": "doc-dcbd246ed4a1bd3988f688bd04c13e7c",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

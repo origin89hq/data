@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-ms2000--ac-current-distortion-at-rated-power",
+  "model": "magnum-energy-ms2000",
+  "name": "AC current distortion at rated power",
+  "value": "<5% THD",
+  "source": "doc-953c67134d63eac7f190a1f49999b892",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

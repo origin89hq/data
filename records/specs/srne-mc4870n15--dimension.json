@@ -1,0 +1,9 @@
+{
+  "id": "srne-mc4870n15--dimension",
+  "model": "srne-mc4870n15",
+  "name": "Dimension",
+  "value": "266*194*119mm",
+  "source": "doc-3a2212e35e1763cbf8ea2ed4821f568a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

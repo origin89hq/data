@@ -1,0 +1,11 @@
+{
+  "id": "luxpower-sna-us-15000--no-load-power-consumption",
+  "model": "luxpower-sna-us-15000",
+  "name": "No Load Power Consumption",
+  "value": "70",
+  "unit": "W",
+  "source": "doc-0cbf8e5570a36c77dc28d9febac9e585",
+  "page": 47,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

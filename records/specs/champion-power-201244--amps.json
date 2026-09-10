@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201244--amps",
+  "model": "champion-power-201244",
+  "name": "Amps",
+  "value": "216.6/108.3",
+  "source": "doc-6c0d34790d696d440861753457af3fdc",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

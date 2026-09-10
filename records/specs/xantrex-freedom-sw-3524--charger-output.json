@@ -1,0 +1,11 @@
+{
+  "id": "xantrex-freedom-sw-3524--charger-output",
+  "model": "xantrex-freedom-sw-3524",
+  "name": "Charger Output",
+  "value": "90",
+  "unit": "A",
+  "source": "doc-5256bdfcc12fe738186919b92491ccdb",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-rsi--normal-operation-power-draw",
+  "model": "outback-power-rsi",
+  "name": "Normal Operation Power Draw",
+  "value": "0.06",
+  "unit": "A",
+  "source": "doc-90a478ee7f89288c12400e5192437830",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

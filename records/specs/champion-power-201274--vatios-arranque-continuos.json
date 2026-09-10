@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201274--vatios-arranque-continuos",
+  "model": "champion-power-201274",
+  "name": "Vatios (arranque/continuos)",
+  "value": "4250/3500",
+  "source": "doc-f9e9bd5b06c8205653b948c8766f5bf1",
+  "page": 33,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

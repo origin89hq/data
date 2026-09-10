@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-mm1512ae--unit",
+  "model": "magnum-energy-mm1512ae",
+  "name": "unit",
+  "value": "amps AC",
+  "source": "doc-48882fa88ab64f9231fd416f82425d7c",
+  "page": 38,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

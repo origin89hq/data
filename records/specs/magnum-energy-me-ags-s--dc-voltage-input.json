@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-me-ags-s--dc-voltage-input",
+  "model": "magnum-energy-me-ags-s",
+  "name": "DC voltage input",
+  "value": "9-64 VDC",
+  "source": "doc-710b25c272ace824a0308dbfe86a4469",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

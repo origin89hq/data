@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-me-mr--bat-ahrs",
+  "model": "magnum-energy-me-mr",
+  "name": "BAT AHRS",
+  "value": "400",
+  "unit": "Ah",
+  "source": "doc-b2034e6440499c4a43f237e7e1ad1dfa",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

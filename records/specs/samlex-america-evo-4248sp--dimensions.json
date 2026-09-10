@@ -2,8 +2,8 @@
   "id": "samlex-america-evo-4248sp--dimensions",
   "model": "samlex-america-evo-4248sp",
   "name": "DIMENSIONS",
-  "value": "12.8 x 16.8 x 8.15 (in) 325 x 426 x 207 (mm)",
-  "source": "doc-f87e1f5ec56ee2139791c31d8b1f901c",
-  "extractedBy": "table:spec-table@v1",
+  "value": "324 x 415 x 212 mm ; 12.8 x 16.3 x 8.35 in",
+  "source": "doc-6d4b2ef12a981a4b92af6d7dd6c47cd4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

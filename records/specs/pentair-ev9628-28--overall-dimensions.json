@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ev9628-28--overall-dimensions",
+  "model": "pentair-ev9628-28",
+  "name": "Overall Dimensions",
+  "value": "20\" L x 4\" D (50.8 cm x 10.1 cm)",
+  "source": "doc-cffec056783bc430070a207613073cd4",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

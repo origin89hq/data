@@ -1,0 +1,9 @@
+{
+  "id": "outback-power-flexmax-100--torque-for-wire-lugs-and-ground-terminals",
+  "model": "outback-power-flexmax-100",
+  "name": "Torque for wire lugs and ground terminals",
+  "value": "4 Nm (35 in-lb)",
+  "source": "doc-78c3e146711337c92825158e79a2e841",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

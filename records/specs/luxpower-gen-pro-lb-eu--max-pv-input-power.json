@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-gen-pro-lb-eu--max-pv-input-power",
+  "model": "luxpower-gen-pro-lb-eu",
+  "name": "Max. PV input power",
+  "value": "21",
+  "unit": "kW",
+  "source": "doc-9f204b417d17082c7bcfc0c943a5f816",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

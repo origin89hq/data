@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-ensp60mbl2440bf--rated-output",
+  "model": "energizer-solar-ensp60mbl2440bf",
+  "name": "Rated output",
+  "value": "440",
+  "unit": "W",
+  "source": "doc-7fc2503a65cca8d57b849adebcf8d815",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

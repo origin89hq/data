@@ -1,0 +1,11 @@
+{
+  "id": "energizer-solar-ps4000h-m--cc-cv-standard-charging-current",
+  "model": "energizer-solar-ps4000h-m",
+  "name": "(CC-CV) Standard charging current",
+  "value": "35",
+  "unit": "A",
+  "source": "doc-21ead3d0928ce6785b842898acedbbfb",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

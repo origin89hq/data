@@ -1,0 +1,10 @@
+{
+  "id": "pentair-sc-115--minimum-speed",
+  "model": "pentair-sc-115",
+  "name": "Minimum Speed",
+  "value": "100 rpm",
+  "source": "doc-e52fbb13118d95b3ee9c71d320de22f6",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

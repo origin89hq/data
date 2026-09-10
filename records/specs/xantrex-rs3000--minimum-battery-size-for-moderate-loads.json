@@ -1,0 +1,11 @@
+{
+  "id": "xantrex-rs3000--minimum-battery-size-for-moderate-loads",
+  "model": "xantrex-rs3000",
+  "name": "Minimum battery size for moderate loads",
+  "value": "200",
+  "unit": "Ah",
+  "source": "doc-ba676906c32b170e12ff2950b4072ec3",
+  "page": 49,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

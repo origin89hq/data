@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ssd-25--min-battery-voltage",
+  "model": "morningstar-ssd-25",
+  "name": "Min. Battery Voltage",
+  "value": "1",
+  "unit": "V",
+  "source": "doc-53d7a2114d5ddf7530aae6a730965443",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

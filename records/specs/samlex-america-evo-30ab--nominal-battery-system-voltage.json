@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-evo-30ab--nominal-battery-system-voltage",
+  "model": "samlex-america-evo-30ab",
+  "name": "NOMINAL BATTERY SYSTEM VOLTAGE",
+  "value": "12V / 24V",
+  "source": "doc-42f1c27846355778aa506ae7eb22d99c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

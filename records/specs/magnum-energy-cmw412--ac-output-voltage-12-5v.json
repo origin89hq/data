@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-cmw412--ac-output-voltage-12-5v",
+  "model": "magnum-energy-cmw412",
+  "name": "AC Output Voltage @ 12.5V",
+  "value": "120",
+  "unit": "V",
+  "source": "doc-e10b57caaf3b9e833e76928e9503dbbd",
+  "page": 25,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

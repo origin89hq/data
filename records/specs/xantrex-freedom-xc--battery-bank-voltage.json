@@ -1,0 +1,11 @@
+{
+  "id": "xantrex-freedom-xc--battery-bank-voltage",
+  "model": "xantrex-freedom-xc",
+  "name": "Battery bank voltage",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-036c5f6612112ac25d8de1273f543052",
+  "page": 36,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

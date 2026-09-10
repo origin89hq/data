@@ -1,0 +1,10 @@
+{
+  "id": "noco-genius2x2--accucapaciteit",
+  "model": "noco-genius2x2",
+  "name": "Accucapaciteit",
+  "value": "Tot 40 Ah, onderhoudt alle accucapaciteiten",
+  "source": "doc-6eb9ac65e017cb3de2fdd095dded8666",
+  "page": 71,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

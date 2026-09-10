@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-40brm--input",
+  "model": "samlex-america-sec-40brm",
+  "name": "INPUT",
+  "value": "120",
+  "unit": "V",
+  "source": "doc-8242fffd507df2e8785dc6ec96e4e164",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

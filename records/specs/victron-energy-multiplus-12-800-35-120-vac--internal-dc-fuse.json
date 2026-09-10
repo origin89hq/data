@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multiplus-12-800-35-120-vac--internal-dc-fuse",
+  "model": "victron-energy-multiplus-12-800-35-120-vac",
+  "name": "Internal DC fuse",
+  "value": "150",
+  "unit": "A",
+  "source": "doc-5470761ebbd7431515aa5d85f3f78c6a",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

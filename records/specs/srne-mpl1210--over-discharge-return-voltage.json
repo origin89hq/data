@@ -1,0 +1,10 @@
+{
+  "id": "srne-mpl1210--over-discharge-return-voltage",
+  "model": "srne-mpl1210",
+  "name": "Over discharge return voltage",
+  "value": "No value given",
+  "source": "doc-ff15d4bee64c0ebcc140f0570e0f252d",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

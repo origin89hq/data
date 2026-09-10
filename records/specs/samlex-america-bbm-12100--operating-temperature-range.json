@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-bbm-12100--operating-temperature-range",
+  "model": "samlex-america-bbm-12100",
+  "name": "OPERATING TEMPERATURE RANGE",
+  "value": "0°C to 40°C / 32°F to 104°F",
+  "source": "doc-df4bdc486e07a058a08dec0635bbc471",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

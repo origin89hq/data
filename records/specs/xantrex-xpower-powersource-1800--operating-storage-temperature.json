@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-xpower-powersource-1800--operating-storage-temperature",
+  "model": "xantrex-xpower-powersource-1800",
+  "name": "Operating/Storage temperature",
+  "value": "32–86 °F / 32–104 °F",
+  "source": "doc-fad3dce3198875dbc2544ffc968cff3e",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

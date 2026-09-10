@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-24m11-wbe--input",
+  "model": "magnum-energy-24m11-wbe",
+  "name": "Input",
+  "value": "80/160 BT0.0 VAC",
+  "source": "doc-8bd088b86fa4268a0d810ff229ce69f6",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

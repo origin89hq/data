@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gs8048--continuous-ac-output-current-at-25-c",
+  "model": "outback-power-gs8048",
+  "name": "Continuous AC Output Current at 25°C",
+  "value": "33.3 Aac at 240 Vac",
+  "source": "doc-3bd692c678d3cf4d2557752cb1b5ee4f",
+  "page": 45,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "millertech-12v10a-24v15a--weight",
+  "model": "millertech-12v10a-24v15a",
+  "name": "WEIGHT",
+  "value": "13.1",
+  "unit": "lb",
+  "source": "doc-9342a71aaf45fe7d3b5883cef4541774",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

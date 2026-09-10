@@ -1,0 +1,9 @@
+{
+  "id": "pentair-psd25pb--solar-pv-operating-voltage-range",
+  "model": "pentair-psd25pb",
+  "name": "Solar PV operating voltage range",
+  "value": "100-400Vdc",
+  "source": "doc-71c7c82ddb32d1a364d8baa45191c274",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

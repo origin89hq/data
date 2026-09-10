@@ -1,0 +1,11 @@
+{
+  "id": "noco-gbx75--spitzenstrombelastbarkeit",
+  "model": "noco-gbx75",
+  "name": "Spitzenstrombelastbarkeit",
+  "value": "2500",
+  "unit": "A",
+  "source": "doc-9da28ee8030be3fa7122b62f0ae81f95",
+  "page": 32,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

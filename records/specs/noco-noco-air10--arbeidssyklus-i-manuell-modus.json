@@ -1,0 +1,10 @@
+{
+  "id": "noco-noco-air10--arbeidssyklus-i-manuell-modus",
+  "model": "noco-noco-air10",
+  "name": "Arbeidssyklus i manuell modus",
+  "value": "5 min på-tid/30 min av-tid",
+  "source": "doc-6dd46de5e7001e0b599ba588d005e589",
+  "page": 73,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

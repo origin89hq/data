@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-energycell-plr--cells-per-unit",
+  "model": "outback-power-energycell-plr",
+  "name": "Cells Per Unit",
+  "value": "6",
+  "source": "doc-840f1b43cc52ee6fe491cf95b2cbbdd5",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

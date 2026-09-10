@@ -1,0 +1,10 @@
+{
+  "id": "the-cabin-depot-ep500proeu-uk-au--battery-cell-voltage-range",
+  "model": "the-cabin-depot-ep500proeu-uk-au",
+  "name": "Battery Cell Voltage Range",
+  "value": "44.8-57.6VDC",
+  "source": "doc-122fc0cac9e612414fae178c780b8663",
+  "page": 39,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

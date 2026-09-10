@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-msh3012rv--power-consumption-inverting-no-load",
+  "model": "magnum-energy-msh3012rv",
+  "name": "Power consumption – inverting (no load)",
+  "value": "36",
+  "unit": "W",
+  "source": "doc-d30af05b560c3d63ebacd99c3ff4abbe",
+  "page": 58,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

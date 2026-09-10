@@ -1,9 +1,0 @@
-{
-  "id": "epever-rs485-1m2s--mounting-dimension",
-  "model": "epever-rs485-1m2s",
-  "name": "Mounting dimension",
-  "value": "69",
-  "source": "doc-ecdbbc1828c5e7bccbb367c0a4987f97",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

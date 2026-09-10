@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-truecharge-40-40-adc--no-load-ac-power-draw",
+  "model": "xantrex-truecharge-40-40-adc",
+  "name": "No-load AC power draw",
+  "value": "less than 3 watts",
+  "source": "doc-70704d817272e64661853442900628f2",
+  "page": 53,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

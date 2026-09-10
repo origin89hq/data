@@ -1,0 +1,11 @@
+{
+  "id": "luxpower-lsp-100k--max-charge-discharge-efficiency",
+  "model": "luxpower-lsp-100k",
+  "name": "Max. charge/discharge efficiency",
+  "value": "98.1",
+  "unit": "%",
+  "source": "doc-3654e99afad3437afe3cc28a9b5ac664",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "lorex-e893ab--image-sensor",
+  "model": "lorex-e893ab",
+  "name": "Image Sensor",
+  "value": "8MP/4K 1/2.8” CMOS",
+  "source": "doc-cb49a2575c5506fcca4f804de90b4640",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

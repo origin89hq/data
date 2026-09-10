@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-flexmax-100--nominal-system-voltage-detection-range-for-24-volt-system",
+  "model": "outback-power-flexmax-100",
+  "name": "Nominal system voltage detection range for 24-volt system",
+  "value": "15.7 Vdc to 31.4 Vdc",
+  "source": "doc-5638fdcd10bd758b7a5e1ee8f6c4299d",
+  "page": 31,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

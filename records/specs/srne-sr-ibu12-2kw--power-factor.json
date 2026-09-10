@@ -1,0 +1,9 @@
+{
+  "id": "srne-sr-ibu12-2kw--power-factor",
+  "model": "srne-sr-ibu12-2kw",
+  "name": "Power Factor",
+  "value": "0.2-1（load power ≤ continuous output power）",
+  "source": "doc-8c81255e02a6e0a9095fd60786d92943",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

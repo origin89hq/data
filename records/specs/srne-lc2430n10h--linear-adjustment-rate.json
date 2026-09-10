@@ -1,0 +1,11 @@
+{
+  "id": "srne-lc2430n10h--linear-adjustment-rate",
+  "model": "srne-lc2430n10h",
+  "name": "Linear adjustment rate",
+  "value": "1.5",
+  "unit": "%",
+  "source": "doc-a5fd2ca443cd73029f1bc15011f7bd34",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

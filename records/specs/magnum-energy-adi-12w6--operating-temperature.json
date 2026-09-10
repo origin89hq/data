@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-adi-12w6--operating-temperature",
+  "model": "magnum-energy-adi-12w6",
+  "name": "Operating Temperature",
+  "value": "-20° to 40° C",
+  "source": "doc-bed448fa3cafb768e2e3653266694def",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

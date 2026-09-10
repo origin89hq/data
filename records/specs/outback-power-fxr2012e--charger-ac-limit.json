@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-fxr2012e--charger-ac-limit",
+  "model": "outback-power-fxr2012e",
+  "name": "Charger AC Limit",
+  "value": "6",
+  "unit": "A",
+  "source": "doc-6b9af970c505a87eca557fa24cbec4e3",
+  "page": 66,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

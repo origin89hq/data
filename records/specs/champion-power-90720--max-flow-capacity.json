@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-90720--max-flow-capacity",
+  "model": "champion-power-90720",
+  "name": "Max Flow Capacity",
+  "value": "3 GPM",
+  "source": "doc-6e0245a61eeeda35e092fb415431131f",
+  "page": 25,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

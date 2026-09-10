@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ma-240k-hd--maximum-rated-speed",
+  "model": "pentair-ma-240k-hd",
+  "name": "Maximum Rated Speed",
+  "value": "450 rpm",
+  "source": "doc-4b1237cb5e14a1f7dfd699c0f51d4b52",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

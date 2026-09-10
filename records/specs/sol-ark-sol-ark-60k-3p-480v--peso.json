@@ -1,0 +1,11 @@
+{
+  "id": "sol-ark-sol-ark-60k-3p-480v--peso",
+  "model": "sol-ark-sol-ark-60k-3p-480v",
+  "name": "Peso",
+  "value": "176",
+  "unit": "lb",
+  "source": "doc-ff3d0434d5824232faa1d69dda1473ed",
+  "page": 28,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

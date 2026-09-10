@@ -1,0 +1,10 @@
+{
+  "id": "noco-ax65--chemische-samenstelling",
+  "model": "noco-ax65",
+  "name": "Chemische samenstelling",
+  "value": "loodzuur",
+  "source": "doc-7cd619ec8cb5a7083981933be601e7a3",
+  "page": 88,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

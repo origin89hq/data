@@ -1,0 +1,10 @@
+{
+  "id": "srne-sr-box112c-55k--peak-power-off-grid",
+  "model": "srne-sr-box112c-55k",
+  "name": "Peak Power (off-grid)",
+  "value": "80",
+  "unit": "kW",
+  "source": "doc-3610cd6be34dd35de19dabdea1ebc796",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "eg4-electronics-eg4-18kpv--export-amount",
+  "model": "eg4-electronics-eg4-18kpv",
+  "name": "Export Amount",
+  "value": "1",
+  "unit": "kW",
+  "source": "doc-327797953f18258d13ad4888105b4c75",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

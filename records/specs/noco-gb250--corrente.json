@@ -1,0 +1,11 @@
+{
+  "id": "noco-gb250--corrente",
+  "model": "noco-gb250",
+  "name": "Corrente",
+  "value": "5250",
+  "unit": "A",
+  "source": "doc-b62a0dca76d9ee06431ee2d2fa567791",
+  "page": 70,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

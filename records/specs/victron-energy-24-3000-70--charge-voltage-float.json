@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-24-3000-70--charge-voltage-float",
+  "model": "victron-energy-24-3000-70",
+  "name": "Charge voltage 'float'",
+  "value": "13,8 / 27,6 VDC",
+  "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
+  "page": 56,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

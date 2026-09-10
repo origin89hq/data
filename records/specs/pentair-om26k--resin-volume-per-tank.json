@@ -1,0 +1,10 @@
+{
+  "id": "pentair-om26k--resin-volume-per-tank",
+  "model": "pentair-om26k",
+  "name": "Resin Volume per tank",
+  "value": "0.82 ft3",
+  "source": "doc-e94ba6bdcf0826ae0549b4b473eb1683",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

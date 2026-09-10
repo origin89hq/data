@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201244--taille-l-x-l-x-h",
+  "model": "champion-power-201244",
+  "name": "Taille (L x l x H)",
+  "value": "143 x 71 x 72,5 cm",
+  "source": "doc-bddf780ff661dd19660aa9abe0b80a90",
+  "page": 40,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

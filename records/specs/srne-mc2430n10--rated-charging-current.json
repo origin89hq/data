@@ -1,10 +1,10 @@
 {
   "id": "srne-mc2430n10--rated-charging-current",
   "model": "srne-mc2430n10",
-  "name": "Rated charging current",
-  "value": "520W/24V",
-  "source": "doc-3b55fd7ec7f0697efe5021f35d25fb4f",
+  "name": "Rated Charging Current",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-e39aa32b1478e369d8bfaaa046f860eb",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "page": 7,
   "confidence": "vendor-doc"
 }

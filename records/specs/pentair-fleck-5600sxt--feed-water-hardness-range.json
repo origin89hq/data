@@ -1,0 +1,10 @@
+{
+  "id": "pentair-fleck-5600sxt--feed-water-hardness-range",
+  "model": "pentair-fleck-5600sxt",
+  "name": "feed water hardness range",
+  "value": "1-199",
+  "source": "doc-c4587408d782041e6ed0a5c0cd02315f",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-xpower-mobile-plug-75--ac-output-power-5-min",
+  "model": "xantrex-xpower-mobile-plug-75",
+  "name": "AC output power (5 min.)",
+  "value": "75",
+  "unit": "W",
+  "source": "doc-af6958e7d309d00ec2bab67d8626912d",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

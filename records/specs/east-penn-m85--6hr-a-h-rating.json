@@ -1,0 +1,10 @@
+{
+  "id": "east-penn-m85--6hr-a-h-rating",
+  "model": "east-penn-m85",
+  "name": "6HR. A.H. Rating",
+  "value": "170",
+  "source": "doc-cc38591f8f35dc866f6d5735315b53d0",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

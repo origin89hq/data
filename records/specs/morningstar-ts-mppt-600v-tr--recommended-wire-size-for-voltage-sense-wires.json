@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-mppt-600v-tr--recommended-wire-size-for-voltage-sense-wires",
+  "model": "morningstar-ts-mppt-600v-tr",
+  "name": "Recommended Wire Size for Voltage Sense Wires",
+  "value": "16 to 24",
+  "source": "doc-8653ccb85e062f82e1e9622513e69920",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

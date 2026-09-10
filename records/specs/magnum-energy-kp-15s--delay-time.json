@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-kp-15s--delay-time",
+  "model": "magnum-energy-kp-15s",
+  "name": "Delay time",
+  "value": "4",
+  "unit": "s",
+  "source": "doc-382a6d9d471a10adeffb7c026105de11",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-orion-xs-12-12-50a--output-voltage-tolerance",
+  "model": "victron-energy-orion-xs-12-12-50a",
+  "name": "Output voltage tolerance",
+  "value": "+/- 0.25%",
+  "source": "doc-71a56abfc5676d9106eb2c3f2962e47a",
+  "page": 41,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

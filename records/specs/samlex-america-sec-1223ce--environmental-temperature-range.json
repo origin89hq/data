@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-sec-1223ce--environmental-temperature-range",
+  "model": "samlex-america-sec-1223ce",
+  "name": "ENVIRONMENTAL TEMPERATURE RANGE",
+  "value": "0°C to 40°C / 32oF to 104°F",
+  "source": "doc-c827bf734b61047f8fd96fd0ae2c4333",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

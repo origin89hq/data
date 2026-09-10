@@ -1,0 +1,11 @@
+{
+  "id": "east-penn-ctc240--maximum-discharge-current",
+  "model": "east-penn-ctc240",
+  "name": "Maximum Discharge Current",
+  "value": "375",
+  "unit": "A",
+  "source": "doc-3db298556bbddc07302977cff2b613a9",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

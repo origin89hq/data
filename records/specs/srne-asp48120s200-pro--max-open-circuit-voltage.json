@@ -1,0 +1,11 @@
+{
+  "id": "srne-asp48120s200-pro--max-open-circuit-voltage",
+  "model": "srne-asp48120s200-pro",
+  "name": "Max.Open Circuit Voltage",
+  "value": "500",
+  "unit": "V",
+  "source": "doc-13b4732391b7e0841abd517d4aad0fea",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

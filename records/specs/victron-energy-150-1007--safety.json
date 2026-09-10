@@ -1,9 +1,0 @@
-{
-  "id": "victron-energy-150-1007--safety",
-  "model": "victron-energy-150-1007",
-  "name": "Safety",
-  "value": "EN/IEC 62109-1, UL 1741, CSA C22.2",
-  "source": "doc-a08e004abb7badfb9ca55abb38ecb534",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

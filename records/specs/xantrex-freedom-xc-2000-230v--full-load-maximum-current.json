@@ -1,0 +1,11 @@
+{
+  "id": "xantrex-freedom-xc-2000-230v--full-load-maximum-current",
+  "model": "xantrex-freedom-xc-2000-230v",
+  "name": "Full load maximum current",
+  "value": "5.6",
+  "unit": "A",
+  "source": "doc-036c5f6612112ac25d8de1273f543052",
+  "page": 103,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

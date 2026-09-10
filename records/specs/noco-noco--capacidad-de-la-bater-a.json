@@ -2,10 +2,10 @@
   "id": "noco-noco--capacidad-de-la-bater-a",
   "model": "noco-noco",
   "name": "Capacidad de la batería",
-  "value": "Hasta 120 Ah (12 V)",
-  "source": "doc-2ac853c4c275423f39d96437b5ce7234",
+  "english": "Battery capacity",
+  "value": "Hasta 40 Ah (12 V)",
+  "source": "doc-0add4d4e244f834e9ac9e85e22b6d81b",
+  "page": 31,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "page": 34,
-  "confidence": "vendor-doc",
-  "english": "Battery capacity"
+  "confidence": "vendor-doc"
 }

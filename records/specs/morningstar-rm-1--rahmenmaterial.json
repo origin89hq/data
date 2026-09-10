@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-rm-1--rahmenmaterial",
+  "model": "morningstar-rm-1",
+  "name": "Rahmenmaterial",
+  "value": "PBT-Kunststoff",
+  "source": "doc-ea9dfd1598ee40f1e16960ae192e46ca",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

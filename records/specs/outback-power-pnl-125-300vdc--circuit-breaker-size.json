@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-pnl-125-300vdc--circuit-breaker-size",
+  "model": "outback-power-pnl-125-300vdc",
+  "name": "Circuit breaker size",
+  "value": "125",
+  "unit": "A",
+  "source": "doc-5638fdcd10bd758b7a5e1ee8f6c4299d",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

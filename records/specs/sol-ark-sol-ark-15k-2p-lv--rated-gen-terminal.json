@@ -1,0 +1,11 @@
+{
+  "id": "sol-ark-sol-ark-15k-2p-lv--rated-gen-terminal",
+  "model": "sol-ark-sol-ark-15k-2p-lv",
+  "name": "Rated GEN terminal",
+  "value": "80",
+  "unit": "A",
+  "source": "doc-e8a5f883b41371b0b427044b95831d40",
+  "page": 23,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

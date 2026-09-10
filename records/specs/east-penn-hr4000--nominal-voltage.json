@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-hr4000--nominal-voltage",
+  "model": "east-penn-hr4000",
+  "name": "Nominal Voltage",
+  "value": "12-Volts",
+  "source": "doc-93550d300ed725c735b21fb42370e53d",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

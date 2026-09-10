@@ -1,0 +1,10 @@
+{
+  "id": "pentair-om26k--h2-current-flow-rate",
+  "model": "pentair-om26k",
+  "name": "H2 Current flow rate",
+  "value": "9999 max value displayed, 65,535 max value stored (gallons per minute)",
+  "source": "doc-e94ba6bdcf0826ae0549b4b473eb1683",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "champion-power-201121--puissance",
+  "model": "champion-power-201121",
+  "name": "Puissance",
+  "value": "8000",
+  "unit": "W",
+  "source": "doc-8fc5b14e68a980714daf4d09bf995eee",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

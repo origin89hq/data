@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-inverter-rs-smart-solar-48-6000--maximum-efficiency-at-1-kw-load",
+  "model": "victron-energy-inverter-rs-smart-solar-48-6000",
+  "name": "Maximum efficiency at 1 kW load",
+  "value": "96.5",
+  "unit": "%",
+  "source": "doc-fd80ac3e853c11a37a302972a9689ce7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

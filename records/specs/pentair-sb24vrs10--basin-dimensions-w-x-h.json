@@ -1,0 +1,9 @@
+{
+  "id": "pentair-sb24vrs10--basin-dimensions-w-x-h",
+  "model": "pentair-sb24vrs10",
+  "name": "Basin Dimensions (W x H)",
+  "value": "24“ x 24” (609 mm x 609 mm)",
+  "source": "doc-e89eb92143d86f95f550052a414f71eb",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

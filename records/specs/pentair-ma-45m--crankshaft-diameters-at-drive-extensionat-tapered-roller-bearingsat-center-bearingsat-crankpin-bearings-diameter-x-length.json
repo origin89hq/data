@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ma-45m--crankshaft-diameters-at-drive-extensionat-tapered-roller-bearingsat-center-bearingsat-crankpin-bearings-diameter-x-length",
+  "model": "pentair-ma-45m",
+  "name": "Crankshaft Diameters:At Drive ExtensionAt Tapered Roller BearingsAt Center BearingsAt Crankpin Bearings, Diameter x Length",
+  "value": "2.250/2.249\"3.06\"4.99\"2-1/4\" x 1-5/8\"",
+  "source": "doc-e52fbb13118d95b3ee9c71d320de22f6",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

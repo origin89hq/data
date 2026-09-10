@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-ekrano-gx--power-draw-display-off",
+  "model": "victron-energy-ekrano-gx",
+  "name": "Power draw display off",
+  "value": "2.6 W @ 12 V | 3.0 W @ 24 V | 3.7 W @ 48 V",
+  "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
+  "page": 104,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

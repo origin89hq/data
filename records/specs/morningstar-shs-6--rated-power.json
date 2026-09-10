@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-shs-6--rated-power",
+  "model": "morningstar-shs-6",
+  "name": "Rated Power",
+  "value": "100",
+  "unit": "W",
+  "source": "doc-5fe0ccd3c33c0523554389eaa09ab6f4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

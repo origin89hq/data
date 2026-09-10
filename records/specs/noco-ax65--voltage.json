@@ -1,0 +1,10 @@
+{
+  "id": "noco-ax65--voltage",
+  "model": "noco-ax65",
+  "name": "Voltage",
+  "value": "14.8V Nominal",
+  "source": "doc-7cd619ec8cb5a7083981933be601e7a3",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

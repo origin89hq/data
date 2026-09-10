@@ -2,10 +2,10 @@
   "id": "noco-genius2x2--detecci-n-de-bajo-voltaje",
   "model": "noco-genius2x2",
   "name": "Detección de bajo voltaje",
+  "english": "Low voltage detection",
   "value": "<0,5mA",
   "source": "doc-6eb9ac65e017cb3de2fdd095dded8666",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "page": 49,
-  "confidence": "vendor-doc",
-  "english": "Low voltage detection"
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
 }

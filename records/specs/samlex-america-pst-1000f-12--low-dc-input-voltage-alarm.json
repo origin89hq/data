@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-1000f-12--low-dc-input-voltage-alarm",
+  "model": "samlex-america-pst-1000f-12",
+  "name": "LOW DC INPUT VOLTAGE ALARM",
+  "value": "10.7V ± 0.1V",
+  "source": "doc-6f3330bb5d3c8006d471bd848339919f",
+  "page": 50,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

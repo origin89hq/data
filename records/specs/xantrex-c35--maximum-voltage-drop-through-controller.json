@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-c35--maximum-voltage-drop-through-controller",
+  "model": "xantrex-c35",
+  "name": "Maximum Voltage Drop Through Controller",
+  "value": "0.3",
+  "unit": "V",
+  "source": "doc-446d67c905bd9d8ad4440cf4b03248b2",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

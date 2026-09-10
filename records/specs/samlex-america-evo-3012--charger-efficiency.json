@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-evo-3012--charger-efficiency",
+  "model": "samlex-america-evo-3012",
+  "name": "CHARGER EFFICIENCY",
+  "value": "75",
+  "unit": "%",
+  "source": "doc-71e314a57ad30e32cecb8a0926b9c589",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

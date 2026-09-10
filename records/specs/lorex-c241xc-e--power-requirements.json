@@ -1,0 +1,9 @@
+{
+  "id": "lorex-c241xc-e--power-requirements",
+  "model": "lorex-c241xc-e",
+  "name": "Power Requirements",
+  "value": "12 V DC +/- 10%",
+  "source": "doc-2c8204997e8e4f434a7fa681b381fcd4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

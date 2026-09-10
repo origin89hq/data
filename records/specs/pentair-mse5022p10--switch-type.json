@@ -1,0 +1,9 @@
+{
+  "id": "pentair-mse5022p10--switch-type",
+  "model": "pentair-mse5022p10",
+  "name": "Switch Type",
+  "value": "Vertical",
+  "source": "doc-9b681389f4d4804ee152ce22e27c2777",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

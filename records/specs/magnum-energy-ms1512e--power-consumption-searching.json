@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-ms1512e--power-consumption-searching",
+  "model": "magnum-energy-ms1512e",
+  "name": "Power consumption - searching",
+  "value": "8",
+  "unit": "W",
+  "source": "doc-e9e14e0de522971088c845cbcf8aa242",
+  "page": 47,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

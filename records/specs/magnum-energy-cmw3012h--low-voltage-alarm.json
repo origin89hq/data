@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-cmw3012h--low-voltage-alarm",
+  "model": "magnum-energy-cmw3012h",
+  "name": "Low Voltage Alarm",
+  "value": "11.0/12.1 VDC",
+  "source": "doc-e7c1a12e59e951e52bb96998ad6a5492",
+  "page": 28,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

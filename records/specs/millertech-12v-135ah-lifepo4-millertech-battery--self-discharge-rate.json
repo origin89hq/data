@@ -1,0 +1,9 @@
+{
+  "id": "millertech-12v-135ah-lifepo4-millertech-battery--self-discharge-rate",
+  "model": "millertech-12v-135ah-lifepo4-millertech-battery",
+  "name": "SELF DISCHARGE RATE",
+  "value": "< 4% / MONTH",
+  "source": "doc-694a3af5bc4faccae737e13cf69ebc35",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

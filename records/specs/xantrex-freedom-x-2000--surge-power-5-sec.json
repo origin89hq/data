@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-freedom-x-2000--surge-power-5-sec",
+  "model": "xantrex-freedom-x-2000",
+  "name": "Surge Power (5 sec)",
+  "value": "4000",
+  "unit": "W",
+  "source": "doc-056c5ba04a41ca5186949014b417496b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

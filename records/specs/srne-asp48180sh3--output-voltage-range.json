@@ -1,0 +1,10 @@
+{
+  "id": "srne-asp48180sh3--output-voltage-range",
+  "model": "srne-asp48180sh3",
+  "name": "Output Voltage Range",
+  "value": "230/400Vac ± 5%",
+  "source": "doc-5aed4fb4d801b1348f9fda8464502049",
+  "page": 50,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

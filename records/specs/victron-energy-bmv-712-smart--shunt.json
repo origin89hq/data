@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-bmv-712-smart--shunt",
+  "model": "victron-energy-bmv-712-smart",
+  "name": "Shunt",
+  "value": "500 A / 50 mV",
+  "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
+  "page": 121,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

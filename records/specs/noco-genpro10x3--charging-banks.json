@@ -1,0 +1,9 @@
+{
+  "id": "noco-genpro10x3--charging-banks",
+  "model": "noco-genpro10x3",
+  "name": "CHARGING BANKS",
+  "value": "3",
+  "source": "doc-2f02f39f16332472288e4dc1cdf55b32",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

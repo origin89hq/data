@@ -1,0 +1,10 @@
+{
+  "id": "eg4-electronics-pp-48-280a4-12k3-in--input-short-circuit-current-rating",
+  "model": "eg4-electronics-pp-48-280a4-12k3-in",
+  "name": "INPUT SHORT-CIRCUIT CURRENT RATING",
+  "value": "10kA",
+  "source": "doc-a0b0581e8c975d15a23046001ff6b80b",
+  "page": 26,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

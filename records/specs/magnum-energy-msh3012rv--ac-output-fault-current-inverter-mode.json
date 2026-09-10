@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-msh3012rv--ac-output-fault-current-inverter-mode",
+  "model": "magnum-energy-msh3012rv",
+  "name": "AC Output Fault Current - Inverter Mode",
+  "value": "76.08",
+  "unit": "A",
+  "source": "doc-7fa1abfe0df67050065ddf5af1d831dc",
+  "page": 59,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

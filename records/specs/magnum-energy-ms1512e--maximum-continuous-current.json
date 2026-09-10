@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-ms1512e--maximum-continuous-current",
+  "model": "magnum-energy-ms1512e",
+  "name": "Maximum Continuous Current",
+  "value": "200",
+  "unit": "A",
+  "source": "doc-e9e14e0de522971088c845cbcf8aa242",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

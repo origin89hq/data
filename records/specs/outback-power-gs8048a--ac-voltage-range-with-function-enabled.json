@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gs8048a--ac-voltage-range-with-function-enabled",
+  "model": "outback-power-gs8048a",
+  "name": "AC voltage range with function enabled",
+  "value": "246, 264 Vac",
+  "source": "doc-dcbd246ed4a1bd3988f688bd04c13e7c",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

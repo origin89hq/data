@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-rsi--voltage",
+  "model": "outback-power-rsi",
+  "name": "Voltage",
+  "value": "24-volt",
+  "source": "doc-90a478ee7f89288c12400e5192437830",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

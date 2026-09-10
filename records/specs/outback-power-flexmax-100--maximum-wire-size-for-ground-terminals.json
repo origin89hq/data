@@ -1,0 +1,9 @@
+{
+  "id": "outback-power-flexmax-100--maximum-wire-size-for-ground-terminals",
+  "model": "outback-power-flexmax-100",
+  "name": "Maximum wire size for ground terminals",
+  "value": "#6 AWG (16 mm2)",
+  "source": "doc-78c3e146711337c92825158e79a2e841",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-31hr5000--discharge-rating-at-1-75-v-p-c-and-60-min",
+  "model": "east-penn-31hr5000",
+  "name": "Discharge Rating at 1.75 V.P.C. and 60 MIN.",
+  "value": "173 Watts/Cell",
+  "source": "doc-f3b14f395cea3a448741fdc2d2266d7c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,9 +1,0 @@
-{
-  "id": "eg4-electronics-eg4-chargeverter-plus--humidity",
-  "model": "eg4-electronics-eg4-chargeverter-plus",
-  "name": "HUMIDITY",
-  "value": "5% – 95% relative humidity (non-condensing)",
-  "source": "doc-55f12b8f9ded3bc7664ee333a8178ac7",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

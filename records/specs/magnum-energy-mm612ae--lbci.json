@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-mm612ae--lbci",
+  "model": "magnum-energy-mm612ae",
+  "name": "LBCI",
+  "value": "≥12.5 VDC",
+  "source": "doc-48882fa88ab64f9231fd416f82425d7c",
+  "page": 33,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

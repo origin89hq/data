@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multiplus-ii--maximum-voltage-drop-compensation-during-charging",
+  "model": "victron-energy-multiplus-ii",
+  "name": "Maximum voltage drop compensation during charging",
+  "value": "1",
+  "unit": "V",
+  "source": "doc-1234f81434cacfd8ae9d42376bf42321",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "champion-power-201223--oil-type",
+  "model": "champion-power-201223",
+  "name": "Oil type",
+  "value": "5W-30",
+  "source": "doc-479526a136ae7a985fa7108ff618f833",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

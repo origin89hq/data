@@ -2,7 +2,7 @@
   "id": "pentair-chlorplus-protect-10--system-dimensions",
   "model": "pentair-chlorplus-protect-10",
   "name": "System Dimensions",
-  "value": "5.13\" H x 12.23\" W",
+  "value": "5.13” H x 12.23” W",
   "source": "doc-ec671d29ef13598fd0c86129616fa3dc",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"

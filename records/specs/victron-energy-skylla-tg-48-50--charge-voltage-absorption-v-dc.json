@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-skylla-tg-48-50--charge-voltage-absorption-v-dc",
+  "model": "victron-energy-skylla-tg-48-50",
+  "name": "Charge voltage 'absorption' (V DC)",
+  "value": "57",
+  "source": "doc-2375e9a6ed181d8a7987453c98e92412",
+  "page": 71,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

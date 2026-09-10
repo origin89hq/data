@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-avr125-33--dimensions",
+  "model": "east-penn-avr125-33",
+  "name": "Dimensions",
+  "value": "26.60\" (676) x 28.63\" (727) x 11.91\" (303)",
+  "source": "doc-58bdb9581de1fef7602fab94d1ae255c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ma-155l-hd--max-press-bar",
+  "model": "pentair-ma-155l-hd",
+  "name": "MAX PRESS.BAR",
+  "value": "56.3, 60.0, 64.0, 68.6, 73.6, 79.1, 85.3, 92.3, 100.0, 108.9",
+  "source": "doc-982937007006e56277dee355a02d2f04",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

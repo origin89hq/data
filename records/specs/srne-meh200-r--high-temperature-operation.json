@@ -1,0 +1,10 @@
+{
+  "id": "srne-meh200-r--high-temperature-operation",
+  "model": "srne-meh200-r",
+  "name": "High temperature operation",
+  "value": "40℉ ⁻ +90℉",
+  "source": "doc-75077a09f7e5d9c323659eb6e1106063",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna-pro-eu-3-6-5k--cable-size-for-ot-terminal",
+  "model": "luxpower-sna-pro-eu-3-6-5k",
+  "name": "Cable Size for OT Terminal",
+  "value": "6 mm²",
+  "source": "doc-1538195a833c237eb931300a70201349",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

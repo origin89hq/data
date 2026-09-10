@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gslc175-ac-120-240--dc-cable",
+  "model": "outback-power-gslc175-ac-120-240",
+  "name": "DC Cable",
+  "value": "125, 1/0 (70 mm2)",
+  "source": "doc-cb139d0fb278bde162bac91da772c805",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

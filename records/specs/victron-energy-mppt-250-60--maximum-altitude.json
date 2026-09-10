@@ -2,8 +2,10 @@
   "id": "victron-energy-mppt-250-60--maximum-altitude",
   "model": "victron-energy-mppt-250-60",
   "name": "Maximum altitude",
-  "value": "5000m (full rated output up to 2000m)",
-  "source": "doc-75ef220cecc3e8483f079f6108e6bb5b",
-  "extractedBy": "table:spec-table@v1",
+  "value": "5000",
+  "unit": "m",
+  "source": "doc-d57c25947d20b07fdaeab0465bc6cf6a",
+  "page": 71,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

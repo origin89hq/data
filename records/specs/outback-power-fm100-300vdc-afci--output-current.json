@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-fm100-300vdc-afci--output-current",
+  "model": "outback-power-fm100-300vdc-afci",
+  "name": "Output current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-24699452c2da04a92cceb392139ea3d1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

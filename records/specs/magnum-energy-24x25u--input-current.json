@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-24x25u--input-current",
+  "model": "magnum-energy-24x25u",
+  "name": "Input Current",
+  "value": "Up to 125 Amps DC",
+  "source": "doc-05a7a72e52800f5f1fd2e71d09cc6d40",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

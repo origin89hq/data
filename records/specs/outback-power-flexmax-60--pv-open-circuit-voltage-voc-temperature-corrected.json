@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-flexmax-60--pv-open-circuit-voltage-voc-temperature-corrected",
+  "model": "outback-power-flexmax-60",
+  "name": "PV Open Circuit Voltage (Voc) temperature corrected",
+  "value": "145",
+  "unit": "V",
+  "source": "doc-986fcb1b58ec2bd116ae119b6cca65fc",
+  "page": 86,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

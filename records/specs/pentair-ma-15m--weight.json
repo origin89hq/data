@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ma-15m--weight",
+  "model": "pentair-ma-15m",
+  "name": "Weight",
+  "value": "235 lbs.",
+  "source": "doc-1acd9c15e6f3719500624ec6751dd44f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

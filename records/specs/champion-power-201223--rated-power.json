@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201223--rated-power",
+  "model": "champion-power-201223",
+  "name": "Rated power",
+  "value": "4000",
+  "unit": "W",
+  "source": "doc-479526a136ae7a985fa7108ff618f833",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "xantrex-freedom-xc--maximum-battery-fuse-size",
+  "model": "xantrex-freedom-xc",
+  "name": "Maximum battery Fuse Size",
+  "value": "250",
+  "unit": "A",
+  "source": "doc-036c5f6612112ac25d8de1273f543052",
+  "page": 34,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-45hr2000--nominal-voltage",
+  "model": "east-penn-45hr2000",
+  "name": "Nominal Voltage",
+  "value": "12-Volts",
+  "source": "doc-a1f7346ece9e59db575d8ce0c79d1bef",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

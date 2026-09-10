@@ -1,0 +1,10 @@
+{
+  "id": "srne-mpl2440--output-power",
+  "model": "srne-mpl2440",
+  "name": "Output power",
+  "value": "550W/12V",
+  "source": "doc-ff15d4bee64c0ebcc140f0570e0f252d",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

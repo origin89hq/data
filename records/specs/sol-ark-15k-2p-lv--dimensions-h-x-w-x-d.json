@@ -1,9 +1,0 @@
-{
-  "id": "sol-ark-15k-2p-lv--dimensions-h-x-w-x-d",
-  "model": "sol-ark-15k-2p-lv",
-  "name": "Dimensions, H x W x D",
-  "value": "838 x 494 x 306 mm",
-  "source": "doc-488813d29230d2477a10368f2f72ad2c",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

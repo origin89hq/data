@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gs8048a--minimum-capacitive-overexcited-power-factor",
+  "model": "outback-power-gs8048a",
+  "name": "Minimum Capacitive (overexcited) Power Factor",
+  "value": "0.80",
+  "source": "doc-dcbd246ed4a1bd3988f688bd04c13e7c",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

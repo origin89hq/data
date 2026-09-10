@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multiplus-ii-gx-230v-48-6k5-100-50--maximum-battery-charge-current",
+  "model": "victron-energy-multiplus-ii-gx-230v-48-6k5-100-50",
+  "name": "Maximum battery charge current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-ddf85898ede80f791ec80e54ffd85c9c",
+  "page": 29,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-phxl480-10k--nominal-power-output",
+  "model": "outback-power-phxl480-10k",
+  "name": "Nominal power output",
+  "value": "9.975",
+  "unit": "kW",
+  "source": "doc-a0826d57efb20951ec50c728f9bb7411",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

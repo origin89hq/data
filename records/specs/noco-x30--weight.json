@@ -1,0 +1,9 @@
+{
+  "id": "noco-x30--weight",
+  "model": "noco-x30",
+  "name": "WEIGHT",
+  "value": "0.15 lbs (0.07 kg)",
+  "source": "doc-3a504fa1caa5fab347b2ea6319368e38",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

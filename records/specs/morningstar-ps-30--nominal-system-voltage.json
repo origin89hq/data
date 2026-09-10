@@ -3,8 +3,8 @@
   "model": "morningstar-ps-30",
   "name": "Nominal System Voltage",
   "value": "12/24 Vdc",
-  "source": "doc-d750c051efee498703d3df89c12fef64",
+  "source": "doc-d0e875dec70c9b017e0e9e1236fb4cdd",
+  "page": 13,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "page": 9,
   "confidence": "vendor-doc"
 }

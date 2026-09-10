@@ -1,0 +1,10 @@
+{
+  "id": "noco-gen5x3--weight",
+  "model": "noco-gen5x3",
+  "name": "Weight",
+  "value": "5.76 Pounds",
+  "source": "doc-00ff466d0b0d3154c3a2e609718dee8b",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

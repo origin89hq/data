@@ -1,0 +1,10 @@
+{
+  "id": "millertech-16v-15a--output-voltage",
+  "model": "millertech-16v-15a",
+  "name": "OUTPUT VOLTAGE",
+  "value": "18",
+  "unit": "V",
+  "source": "doc-c953279623571708106331d6ae2ce062",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-224cc-ohv-cpe--ancho",
+  "model": "champion-power-224cc-ohv-cpe",
+  "name": "Ancho",
+  "value": "10.8 in. (27.5 cm)",
+  "source": "doc-0526e32da2ad895c9c6c250e0f9a5547",
+  "page": 39,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

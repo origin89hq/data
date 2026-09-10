@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-frs-esw2--input-fuse",
+  "model": "outback-power-frs-esw2",
+  "name": "Input Fuse",
+  "value": "T1A (250VAC)",
+  "source": "doc-bcdf2c161a318660a582541ffe13e889",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-435-cca-battery--cold-cranking-amps",
+  "model": "champion-power-435-cca-battery",
+  "name": "Cold Cranking Amps",
+  "value": "435 CCA min",
+  "source": "doc-6c0d34790d696d440861753457af3fdc",
+  "page": 41,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

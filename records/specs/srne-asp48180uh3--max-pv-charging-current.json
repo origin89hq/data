@@ -1,0 +1,11 @@
+{
+  "id": "srne-asp48180uh3--max-pv-charging-current",
+  "model": "srne-asp48180uh3",
+  "name": "Max. PV Charging Current",
+  "value": "360",
+  "unit": "A",
+  "source": "doc-71f23a4d5114065ab243f984205d0078",
+  "page": 48,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

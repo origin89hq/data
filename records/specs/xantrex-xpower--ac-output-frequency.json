@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-xpower--ac-output-frequency",
+  "model": "xantrex-xpower",
+  "name": "AC output frequency",
+  "value": "60 ± 1 Hz",
+  "source": "doc-7d3686766955e5405f7f092061d97e7f",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

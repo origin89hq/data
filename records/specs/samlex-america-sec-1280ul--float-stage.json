@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-1280ul--float-stage",
+  "model": "samlex-america-sec-1280ul",
+  "name": "Float Stage",
+  "value": "13.5± 0.05VDC",
+  "source": "doc-a0ff036cae0aeae79aaa16d19a5f2a82",
+  "page": 66,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

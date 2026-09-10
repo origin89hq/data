@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-ms2712e--input-current-at-rated-output-ac-amps",
+  "model": "magnum-energy-ms2712e",
+  "name": "Input current at rated output (AC amps)",
+  "value": "8.5",
+  "source": "doc-7311835ef715888effe1995a6575bdcc",
+  "page": 48,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

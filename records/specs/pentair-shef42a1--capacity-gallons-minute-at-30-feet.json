@@ -1,0 +1,10 @@
+{
+  "id": "pentair-shef42a1--capacity-gallons-minute-at-30-feet",
+  "model": "pentair-shef42a1",
+  "name": "Capacity Gallons/Minute at 30 feet",
+  "value": "21",
+  "source": "doc-f232d33dc77786f1fd3a619d3b896189",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

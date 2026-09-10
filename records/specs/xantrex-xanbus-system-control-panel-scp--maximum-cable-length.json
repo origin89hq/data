@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-xanbus-system-control-panel-scp--maximum-cable-length",
+  "model": "xantrex-xanbus-system-control-panel-scp",
+  "name": "Maximum cable length",
+  "value": "40 m (130 ft)",
+  "source": "doc-be9dc5e60a0bba9877f195fc8bd39dfc",
+  "page": 39,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

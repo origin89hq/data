@@ -1,0 +1,11 @@
+{
+  "id": "noco-gb20--top-str-m-bed-mmelse",
+  "model": "noco-gb20",
+  "name": "Top strøm bedømmelse",
+  "value": "500",
+  "unit": "A",
+  "source": "doc-21526244bd4f28f887cfb062e04edaf0",
+  "page": 74,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

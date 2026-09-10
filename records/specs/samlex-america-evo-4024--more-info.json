@@ -1,9 +1,0 @@
-{
-  "id": "samlex-america-evo-4024--more-info",
-  "model": "samlex-america-evo-4024",
-  "name": "MORE INFO",
-  "value": "2 AC Inputs 50A DC Input",
-  "source": "doc-f87e1f5ec56ee2139791c31d8b1f901c",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

@@ -2,10 +2,10 @@
   "id": "noco-noco--qu-mica-de-la-bater-a",
   "model": "noco-noco",
   "name": "Química de la batería",
-  "value": "Vario",
-  "source": "doc-e56ff4867f97c6f89af7ba14dbf99ffe",
+  "english": "Battery chemistry",
+  "value": "Wet, Gel, MF, CA, EFB, AGM, Litio, Calcio",
+  "source": "doc-0add4d4e244f834e9ac9e85e22b6d81b",
+  "page": 31,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "page": 34,
-  "confidence": "vendor-doc",
-  "english": "Battery chemistry"
+  "confidence": "vendor-doc"
 }

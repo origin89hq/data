@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-csw412--torque-requirements",
+  "model": "magnum-energy-csw412",
+  "name": "Torque Requirements",
+  "value": "52 to 58 lbf-in (5.9 to 6.5 N-m)",
+  "source": "doc-796bad03daee7bbd65b7a04782c79c4d",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

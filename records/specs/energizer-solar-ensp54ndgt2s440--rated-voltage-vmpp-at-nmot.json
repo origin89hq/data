@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-ensp54ndgt2s440--rated-voltage-vmpp-at-nmot",
+  "model": "energizer-solar-ensp54ndgt2s440",
+  "name": "Rated voltage (Vmpp) at NMOT",
+  "value": "31.11",
+  "unit": "V",
+  "source": "doc-2b3f5ebcea5a5a012f550928b4d355b4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

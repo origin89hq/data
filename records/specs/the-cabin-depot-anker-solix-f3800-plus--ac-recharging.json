@@ -1,9 +1,0 @@
-{
-  "id": "the-cabin-depot-anker-solix-f3800-plus--ac-recharging",
-  "model": "the-cabin-depot-anker-solix-f3800-plus",
-  "name": "AC Recharging",
-  "value": "1800W Max",
-  "source": "doc-dff5b8aacce787293d475c41c9b7c7c9",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

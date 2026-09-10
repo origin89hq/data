@@ -1,0 +1,9 @@
+{
+  "id": "millertech-16v-150ah-lifepo4-millertech-battery--torque-setting",
+  "model": "millertech-16v-150ah-lifepo4-millertech-battery",
+  "name": "TORQUE SETTING",
+  "value": "10 FT-LBS.",
+  "source": "doc-11956d8d961e4ebb6ed10a613446ab1a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

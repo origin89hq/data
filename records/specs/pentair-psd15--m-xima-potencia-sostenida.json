@@ -1,0 +1,12 @@
+{
+  "id": "pentair-psd15--m-xima-potencia-sostenida",
+  "model": "pentair-psd15",
+  "name": "Máxima potencia sostenida",
+  "english": "Maximum sustained power",
+  "value": "2000",
+  "unit": "W",
+  "source": "doc-ad792b6bb4700d48e2ae347798e185bb",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

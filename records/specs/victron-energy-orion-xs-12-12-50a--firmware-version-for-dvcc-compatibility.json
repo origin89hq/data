@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-orion-xs-12-12-50a--firmware-version-for-dvcc-compatibility",
+  "model": "victron-energy-orion-xs-12-12-50a",
+  "name": "Firmware version for DVCC compatibility",
+  "value": "v1.03",
+  "source": "doc-71a56abfc5676d9106eb2c3f2962e47a",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

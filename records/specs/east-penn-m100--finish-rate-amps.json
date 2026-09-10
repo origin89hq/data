@@ -1,0 +1,10 @@
+{
+  "id": "east-penn-m100--finish-rate-amps",
+  "model": "east-penn-m100",
+  "name": "Finish Rate - AMPS",
+  "value": "10",
+  "source": "doc-cc38591f8f35dc866f6d5735315b53d0",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

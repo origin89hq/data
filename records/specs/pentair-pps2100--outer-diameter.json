@@ -1,0 +1,9 @@
+{
+  "id": "pentair-pps2100--outer-diameter",
+  "model": "pentair-pps2100",
+  "name": "Outer Diameter",
+  "value": "2 3/4”",
+  "source": "doc-260342b79cce1531660eb61b7437be0e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

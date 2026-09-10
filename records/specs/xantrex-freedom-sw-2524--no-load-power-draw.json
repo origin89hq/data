@@ -1,0 +1,9 @@
+{
+  "id": "xantrex-freedom-sw-2524--no-load-power-draw",
+  "model": "xantrex-freedom-sw-2524",
+  "name": "No-load power draw",
+  "value": "<1.9 Adc",
+  "source": "doc-5519eac23098982576268643f6e073a6",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

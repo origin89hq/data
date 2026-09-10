@@ -1,0 +1,9 @@
+{
+  "id": "noco-xv65--dimensions",
+  "model": "noco-xv65",
+  "name": "Dimensions",
+  "value": "2.87in x 1.2in x 1.2in (73mm x 30.25mm x 30.25mm)",
+  "source": "doc-66f9a4857e6f3749090880fb606c437f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

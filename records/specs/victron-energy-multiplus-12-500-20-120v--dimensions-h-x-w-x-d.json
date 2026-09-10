@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-multiplus-12-500-20-120v--dimensions-h-x-w-x-d",
+  "model": "victron-energy-multiplus-12-500-20-120v",
+  "name": "Dimensions (h x w x d)",
+  "value": "311 x 182 x 100 mm",
+  "source": "doc-841ce12fa0666bfb259be1d0438d2492",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-sec-1212ce--output-current",
+  "model": "samlex-america-sec-1212ce",
+  "name": "Output Current",
+  "value": "10",
+  "unit": "A",
+  "source": "doc-298343fbb41f85a40614490ade90c7a0",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

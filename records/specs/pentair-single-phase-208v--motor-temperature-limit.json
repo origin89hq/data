@@ -1,0 +1,11 @@
+{
+  "id": "pentair-single-phase-208v--motor-temperature-limit",
+  "model": "pentair-single-phase-208v",
+  "name": "Motor temperature limit",
+  "value": "221",
+  "unit": "°F",
+  "source": "doc-b3ed4697dde259bf8ffe93db12fca96b",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

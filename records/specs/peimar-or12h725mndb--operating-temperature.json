@@ -1,0 +1,9 @@
+{
+  "id": "peimar-or12h725mndb--operating-temperature",
+  "model": "peimar-or12h725mndb",
+  "name": "Operating Temperature",
+  "value": "-40 °C ~ +85 °C",
+  "source": "doc-db2c56fbc95770d806868af5622a43e5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

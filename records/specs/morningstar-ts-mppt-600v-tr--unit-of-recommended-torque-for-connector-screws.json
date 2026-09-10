@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-mppt-600v-tr--unit-of-recommended-torque-for-connector-screws",
+  "model": "morningstar-ts-mppt-600v-tr",
+  "name": "Unit of Recommended Torque for Connector Screws",
+  "value": "in-lb",
+  "source": "doc-8653ccb85e062f82e1e9622513e69920",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

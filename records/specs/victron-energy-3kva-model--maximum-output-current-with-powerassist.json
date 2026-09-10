@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-3kva-model--maximum-output-current-with-powerassist",
+  "model": "victron-energy-3kva-model",
+  "name": "Maximum output current with PowerAssist",
+  "value": "45",
+  "unit": "A",
+  "source": "doc-1234f81434cacfd8ae9d42376bf42321",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201391--phase",
+  "model": "champion-power-201391",
+  "name": "Phase",
+  "value": "Simple",
+  "source": "doc-f58a81190be444495a5ab34ff84bb65b",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

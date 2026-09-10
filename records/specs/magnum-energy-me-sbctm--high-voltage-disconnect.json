@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-me-sbctm--high-voltage-disconnect",
+  "model": "magnum-energy-me-sbctm",
+  "name": "High Voltage Disconnect",
+  "value": "14.0-15.0 VDC",
+  "source": "doc-3bd9174db7652364c49a66f859be9cc9",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

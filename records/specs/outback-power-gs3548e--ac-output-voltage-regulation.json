@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gs3548e--ac-output-voltage-regulation",
+  "model": "outback-power-gs3548e",
+  "name": "AC Output Voltage Regulation",
+  "value": "± 2%",
+  "source": "doc-fda963efd83b4fc2faf57024b5e6becd",
+  "page": 57,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

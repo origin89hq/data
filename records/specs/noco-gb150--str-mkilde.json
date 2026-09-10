@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb150--str-mkilde",
+  "model": "noco-gb150",
+  "name": "Strømkilde",
+  "value": "5A @ 12V (60W)",
+  "source": "doc-053a1e6bf9b140c56d7d670f15461687",
+  "page": 81,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

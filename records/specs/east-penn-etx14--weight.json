@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-etx14--weight",
+  "model": "east-penn-etx14",
+  "name": "WEIGHT",
+  "value": "11.5",
+  "source": "doc-63530a77a82c84aa0c68ddebed1a3659",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

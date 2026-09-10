@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-energycell-plr--weight",
+  "model": "outback-power-energycell-plr",
+  "name": "Weight",
+  "value": "132.3 lb (59.9 kg)",
+  "source": "doc-840f1b43cc52ee6fe491cf95b2cbbdd5",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-ensp60ndg2495--short-circuit-current-isc-at-stc",
+  "model": "energizer-solar-ensp60ndg2495",
+  "name": "Short circuit current (Isc) at STC",
+  "value": "14.22",
+  "unit": "A",
+  "source": "doc-36f14528b83079b8628c635e0f01546f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

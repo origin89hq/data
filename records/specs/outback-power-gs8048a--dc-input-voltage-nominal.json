@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gs8048a--dc-input-voltage-nominal",
+  "model": "outback-power-gs8048a",
+  "name": "DC Input Voltage (nominal)",
+  "value": "48",
+  "unit": "V",
+  "source": "doc-7d6af4fdc633610a345d7823b90dd62b",
+  "page": 63,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

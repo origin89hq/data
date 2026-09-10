@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-ensp60mbl2450bf--rated-voltage",
+  "model": "energizer-solar-ensp60mbl2450bf",
+  "name": "Rated voltage",
+  "value": "34.83",
+  "unit": "V",
+  "source": "doc-7fc2503a65cca8d57b849adebcf8d815",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

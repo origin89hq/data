@@ -1,0 +1,10 @@
+{
+  "id": "pentair-h-104--espace-requis",
+  "model": "pentair-h-104",
+  "name": "Espace requis",
+  "value": "13 x 13 x 51 cm (5 x 5 x 20 po)",
+  "source": "doc-5e88498c858725830f3cba1baa363aa3",
+  "page": 26,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

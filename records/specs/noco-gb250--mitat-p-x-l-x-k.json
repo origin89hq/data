@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb250--mitat-p-x-l-x-k",
+  "model": "noco-gb250",
+  "name": "Mitat (P x L x K)",
+  "value": "31,75 x 20,83 x 3,39 Senttimetrit",
+  "source": "doc-b62a0dca76d9ee06431ee2d2fa567791",
+  "page": 123,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

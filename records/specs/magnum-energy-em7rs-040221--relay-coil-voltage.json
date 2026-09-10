@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-em7rs-040221--relay-coil-voltage",
+  "model": "magnum-energy-em7rs-040221",
+  "name": "Relay coil voltage",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-d56c620b764929dab4a6b8aa4d05c89f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

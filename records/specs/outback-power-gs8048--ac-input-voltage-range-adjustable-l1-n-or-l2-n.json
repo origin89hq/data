@@ -1,0 +1,9 @@
+{
+  "id": "outback-power-gs8048--ac-input-voltage-range-adjustable-l1-n-or-l2-n",
+  "model": "outback-power-gs8048",
+  "name": "AC Input Voltage Range (Adjustable) (L1-N or L2-N)",
+  "value": "70 to 140VAC",
+  "source": "doc-4b3051ab19029ab9f768921db0921099",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

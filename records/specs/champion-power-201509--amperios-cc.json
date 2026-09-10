@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201509--amperios-cc",
+  "model": "champion-power-201509",
+  "name": "Amperios CC",
+  "value": "8",
+  "source": "doc-d997a2c00a76170defa7d1fdd28b44b1",
+  "page": 35,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

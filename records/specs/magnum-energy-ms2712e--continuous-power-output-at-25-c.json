@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-ms2712e--continuous-power-output-at-25-c",
+  "model": "magnum-energy-ms2712e",
+  "name": "Continuous power output (at 25° C)",
+  "value": "2700",
+  "unit": "VA",
+  "source": "doc-7311835ef715888effe1995a6575bdcc",
+  "page": 48,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

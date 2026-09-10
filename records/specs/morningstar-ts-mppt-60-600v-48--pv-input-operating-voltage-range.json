@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-mppt-60-600v-48--pv-input-operating-voltage-range",
+  "model": "morningstar-ts-mppt-60-600v-48",
+  "name": "PV Input Operating Voltage Range",
+  "value": "100-525",
+  "source": "doc-1c0980b96d6e7a2d869b2c333a468538",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

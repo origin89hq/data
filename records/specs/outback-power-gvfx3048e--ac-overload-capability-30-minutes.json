@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gvfx3048e--ac-overload-capability-30-minutes",
+  "model": "outback-power-gvfx3048e",
+  "name": "AC Overload Capability - 30 Minutes",
+  "value": "3300",
+  "unit": "VA",
+  "source": "doc-781835b79c5d63aaf99fc1ae2d721459",
+  "page": 37,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

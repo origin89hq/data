@@ -3,8 +3,8 @@
   "model": "champion-power-r210p",
   "name": "Displacement",
   "value": "212 cc",
-  "source": "doc-afc06f8f6bea8bb3790425b0716c080c",
+  "source": "doc-138d837f3335498acd0e09b15f51058b",
+  "page": 27,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "page": 24,
   "confidence": "vendor-doc"
 }

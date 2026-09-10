@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-ms4348pe--lbci",
+  "model": "magnum-energy-ms4348pe",
+  "name": "LBCI",
+  "value": "50,0 VCC",
+  "source": "doc-15cdae42ade3ebbe3338729331af68b3",
+  "page": 42,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

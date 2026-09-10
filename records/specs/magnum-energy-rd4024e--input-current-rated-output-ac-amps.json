@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-rd4024e--input-current-rated-output-ac-amps",
+  "model": "magnum-energy-rd4024e",
+  "name": "Input Current - Rated Output (AC amps)",
+  "value": "16",
+  "source": "doc-59913717517cfc30d8016a9d401af737",
+  "page": 44,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

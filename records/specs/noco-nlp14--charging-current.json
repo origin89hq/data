@@ -1,10 +1,11 @@
 {
   "id": "noco-nlp14--charging-current",
   "model": "noco-nlp14",
-  "name": "CHARGING CURRENT",
-  "value": "12A (Max)",
+  "name": "Charging Current",
+  "value": "24A (Max)",
   "unit": "A",
-  "source": "doc-ef531b57aaa68322a057f145ac61e704",
+  "source": "doc-b4a4093277c2ef8cf6ebe6ae331cea0a",
+  "page": 5,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

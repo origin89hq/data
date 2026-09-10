@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-freedom-sw-3524--storage-ambient-temperature-range",
+  "model": "xantrex-freedom-sw-3524",
+  "name": "Storage ambient temperature range",
+  "value": "- 40°C to 85°C",
+  "source": "doc-5519eac23098982576268643f6e073a6",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

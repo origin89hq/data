@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-pshield--discharge-peak-current",
+  "model": "luxpower-pshield",
+  "name": "Discharge Peak Current",
+  "value": "105A / 15s",
+  "source": "doc-d15545c69d25a3aea5b57b8bff6a9c80",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

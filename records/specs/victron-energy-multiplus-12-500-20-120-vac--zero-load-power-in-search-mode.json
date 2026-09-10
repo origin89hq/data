@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multiplus-12-500-20-120-vac--zero-load-power-in-search-mode",
+  "model": "victron-energy-multiplus-12-500-20-120-vac",
+  "name": "Zero-load power in search mode",
+  "value": "2",
+  "unit": "W",
+  "source": "doc-5470761ebbd7431515aa5d85f3f78c6a",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

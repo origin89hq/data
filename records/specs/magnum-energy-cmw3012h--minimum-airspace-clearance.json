@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-cmw3012h--minimum-airspace-clearance",
+  "model": "magnum-energy-cmw3012h",
+  "name": "Minimum airspace clearance",
+  "value": "3° (7.6 cm)",
+  "source": "doc-e7c1a12e59e951e52bb96998ad6a5492",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

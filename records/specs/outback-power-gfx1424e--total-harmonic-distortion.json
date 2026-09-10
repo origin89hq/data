@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gfx1424e--total-harmonic-distortion",
+  "model": "outback-power-gfx1424e",
+  "name": "Total Harmonic Distortion",
+  "value": "2",
+  "unit": "%",
+  "source": "doc-c004e556be205cec5a5f1a30f391feb1",
+  "page": 43,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

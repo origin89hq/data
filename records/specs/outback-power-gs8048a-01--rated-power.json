@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gs8048a-01--rated-power",
+  "model": "outback-power-gs8048a-01",
+  "name": "Rated power",
+  "value": "8000",
+  "unit": "W",
+  "source": "doc-24699452c2da04a92cceb392139ea3d1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201460--watts-glp-arranque-continuos",
+  "model": "champion-power-201460",
+  "name": "Watts (GLP) (arranque/continuos)",
+  "value": "9 000/7 200",
+  "source": "doc-e9d50546c1fba62bee5b75eb10eae7d5",
+  "page": 32,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

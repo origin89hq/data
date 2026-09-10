@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-2440ul--absorption-level-2",
+  "model": "samlex-america-sec-2440ul",
+  "name": "Absorption, Level 2",
+  "value": "28.8 ± 0.05VDC (Default) 28.0 ± 0.05VDC (By DIP Switch setting)",
+  "source": "doc-a0ff036cae0aeae79aaa16d19a5f2a82",
+  "page": 66,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

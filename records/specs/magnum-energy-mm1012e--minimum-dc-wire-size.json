@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-mm1012e--minimum-dc-wire-size",
+  "model": "magnum-energy-mm1012e",
+  "name": "Minimum DC Wire Size",
+  "value": "# 1 AWG (42.39 mm²)",
+  "source": "doc-59042192a20fd2fa13de26ecc01ba03d",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

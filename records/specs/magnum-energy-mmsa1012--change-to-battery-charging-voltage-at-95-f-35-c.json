@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-mmsa1012--change-to-battery-charging-voltage-at-95-f-35-c",
+  "model": "magnum-energy-mmsa1012",
+  "name": "Change to battery charging voltage at 95°F (35°C)",
+  "value": "-0.3",
+  "unit": "V",
+  "source": "doc-60865693bb309d49ec74819086d84180",
+  "page": 43,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

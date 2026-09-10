@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-c35--power-consumption-night-time",
+  "model": "xantrex-c35",
+  "name": "Power Consumption (night time)",
+  "value": "3",
+  "unit": "mA",
+  "source": "doc-446d67c905bd9d8ad4440cf4b03248b2",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

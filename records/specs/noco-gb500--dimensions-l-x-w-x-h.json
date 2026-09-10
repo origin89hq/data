@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb500--dimensions-l-x-w-x-h",
+  "model": "noco-gb500",
+  "name": "Dimensions (L x W x H)",
+  "value": "12.25 x 8.25 x 2.25 Inches (311.15 x 209.55 x 57.15 mm)",
+  "source": "doc-50f8e658b460dd4aff8e197e803d2e82",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "lorex-e893ab-e--humidity",
+  "model": "lorex-e893ab-e",
+  "name": "Humidity",
+  "value": "< 95% RH",
+  "source": "doc-cb49a2575c5506fcca4f804de90b4640",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

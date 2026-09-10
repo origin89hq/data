@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ms33pt--gpm-lpm-at-10-3m-feet-of-lift",
+  "model": "pentair-ms33pt",
+  "name": "GPM (LPM) at 10(3m) feet of lift",
+  "value": "45(170)",
+  "source": "doc-a99c401813ea54309cfb791b2f84682b",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

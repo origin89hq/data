@@ -1,0 +1,12 @@
+{
+  "id": "noco-ax65--charger-rating-charging-usb-devices",
+  "model": "noco-ax65",
+  "name": "Charger Rating",
+  "value": "5",
+  "unit": "W",
+  "conditions": "Charging USB devices",
+  "source": "doc-7cd619ec8cb5a7083981933be601e7a3",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-sdc-23--output-voltage",
+  "model": "samlex-america-sdc-23",
+  "name": "OUTPUT VOLTAGE",
+  "value": "13.8 VDC ± 0.1V",
+  "source": "doc-2379bbccfee7dd86058f19912a2ea3fd",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

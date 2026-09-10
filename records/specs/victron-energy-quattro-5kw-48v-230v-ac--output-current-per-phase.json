@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-quattro-5kw-48v-230v-ac--output-current-per-phase",
+  "model": "victron-energy-quattro-5kw-48v-230v-ac",
+  "name": "Output current per phase",
+  "value": "121",
+  "unit": "A",
+  "source": "doc-3c840784cccb24bf9c38da111c20e2b0",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

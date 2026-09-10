@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-ms4448pae--shipping-dimensions-l-x-w-x-h",
+  "model": "magnum-energy-ms4448pae",
+  "name": "Shipping dimensions (L x W x H)",
+  "value": "18.5” x 17.5” x 12.5” (47 cm x 44.5 cm x 31.8 cm)",
+  "source": "doc-90b14882b7428b66e0286aec3f86a08b",
+  "page": 57,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

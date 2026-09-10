@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-24-2000-50--cont-output-power-at-25-c-77-f",
+  "model": "victron-energy-24-2000-50",
+  "name": "Cont. output power at 25 °C / 77 °F",
+  "value": "2000",
+  "unit": "VA",
+  "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
+  "page": 56,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

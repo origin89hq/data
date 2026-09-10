@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna-pro-eu-3-6-5k--torque-value-for-pe",
+  "model": "luxpower-sna-pro-eu-3-6-5k",
+  "name": "Torque Value for PE",
+  "value": "2.0 N·m",
+  "source": "doc-1538195a833c237eb931300a70201349",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

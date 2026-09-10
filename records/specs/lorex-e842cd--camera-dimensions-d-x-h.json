@@ -1,0 +1,9 @@
+{
+  "id": "lorex-e842cd--camera-dimensions-d-x-h",
+  "model": "lorex-e842cd",
+  "name": "Camera Dimensions(D x H)",
+  "value": "3.3” x 4.0” (83mm x 102mm)",
+  "source": "doc-438013606bf3a85701c2910405f96fc7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

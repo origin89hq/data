@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ma-75l--valve-seat-liquid-passage-area-abrasion-resistant-valve",
+  "model": "pentair-ma-75l",
+  "name": "Valve Seat, Liquid Passage Area, Abrasion Resistant Valve",
+  "value": "2.40 sq.in.",
+  "source": "doc-79ec5f5b6a90d8466428c9ebc33a21ba",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-lxp4k-hb--nominal-battery-voltage",
+  "model": "luxpower-lxp4k-hb",
+  "name": "Nominal Battery Voltage",
+  "value": "250V.d.c",
+  "source": "doc-d959ddc2ab2665f97ac299682122cb09",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

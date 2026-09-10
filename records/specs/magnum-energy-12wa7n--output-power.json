@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-12wa7n--output-power",
+  "model": "magnum-energy-12wa7n",
+  "name": "Output Power",
+  "value": "700",
+  "unit": "W",
+  "source": "doc-d211eecf376ec3b4bad289440c313d1e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

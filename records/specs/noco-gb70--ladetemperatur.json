@@ -2,9 +2,9 @@
   "id": "noco-gb70--ladetemperatur",
   "model": "noco-gb70",
   "name": "Ladetemperatur",
-  "value": "0ºC bis+40ºC",
+  "value": "0°C bis+40°C",
   "source": "doc-8190fc8c4dc8bedf0108c6acd6d8ac11",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "page": 25,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

@@ -1,0 +1,11 @@
+{
+  "id": "srne-hyp4850u100-h--maximum-pv-input-current",
+  "model": "srne-hyp4850u100-h",
+  "name": "Maximum PV input current",
+  "value": "22",
+  "unit": "A",
+  "source": "doc-d05a2490e4ea319c224e885740ae33bf",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

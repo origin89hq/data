@@ -1,9 +1,0 @@
-{
-  "id": "samlex-america-sdc-30--input-current-at-no-load",
-  "model": "samlex-america-sdc-30",
-  "name": "INPUT CURRENT AT NO LOAD",
-  "value": "< 25 mA",
-  "source": "doc-a055a877e58ed7340ed4d8420efd2ca2",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

@@ -1,0 +1,9 @@
+{
+  "id": "luxpower-lxp-lb-us-12k--switching-time",
+  "model": "luxpower-lxp-lb-us-12k",
+  "name": "Switching time",
+  "value": "20ms",
+  "source": "doc-4ceaa54587f6daa918f0196ed906c9a8",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

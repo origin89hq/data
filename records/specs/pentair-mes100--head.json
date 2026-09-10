@@ -1,0 +1,10 @@
+{
+  "id": "pentair-mes100--head",
+  "model": "pentair-mes100",
+  "name": "Head",
+  "value": "90",
+  "unit": "ft",
+  "source": "doc-ad2e30f8ee91e3c766fd0928469628a1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "outback-power-flexmax-extreme--maximum-wire-size",
+  "model": "outback-power-flexmax-extreme",
+  "name": "Maximum wire size",
+  "value": "#2 AWG",
+  "source": "doc-42aac16b36ab4e10b2b241d5cfbe1f23",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

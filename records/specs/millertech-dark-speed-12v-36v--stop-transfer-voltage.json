@@ -1,0 +1,10 @@
+{
+  "id": "millertech-dark-speed-12v-36v--stop-transfer-voltage",
+  "model": "millertech-dark-speed-12v-36v",
+  "name": "STOP TRANSFER VOLTAGE",
+  "value": "13.3",
+  "unit": "V",
+  "source": "doc-e4256f5a81b592cbf2321d2012fb05ee",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

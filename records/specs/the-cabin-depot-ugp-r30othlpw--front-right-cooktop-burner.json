@@ -1,0 +1,9 @@
+{
+  "id": "the-cabin-depot-ugp-r30othlpw--front-right-cooktop-burner",
+  "model": "the-cabin-depot-ugp-r30othlpw",
+  "name": "Front Right Cooktop Burner",
+  "value": "18,000",
+  "source": "doc-fafa05a1a8c0252b401d31a130be80ea",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

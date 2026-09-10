@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-energycell-1000xlc--operating-temperature-range",
+  "model": "outback-power-energycell-1000xlc",
+  "name": "Operating Temperature Range",
+  "value": "–4°F to 104°F (–20° to 40° C)",
+  "source": "doc-8f888711145dfb393a31a26b9fe2f6ae",
+  "page": 29,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

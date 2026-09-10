@@ -1,0 +1,11 @@
+{
+  "id": "srne-sr-eos02b-12--rated-capacity",
+  "model": "srne-sr-eos02b-12",
+  "name": "Rated capacity",
+  "value": "200",
+  "unit": "Ah",
+  "source": "doc-b486c14bce46e1006e4e135b53bf57a8",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

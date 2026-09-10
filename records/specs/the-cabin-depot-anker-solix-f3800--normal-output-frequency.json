@@ -1,0 +1,11 @@
+{
+  "id": "the-cabin-depot-anker-solix-f3800--normal-output-frequency",
+  "model": "the-cabin-depot-anker-solix-f3800",
+  "name": "Normal Output Frequency",
+  "value": "60",
+  "unit": "Hz",
+  "source": "doc-dd1a2146cb7759bd3a71a18ab9ae665e",
+  "page": 23,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

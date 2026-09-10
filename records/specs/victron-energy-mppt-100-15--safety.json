@@ -1,9 +1,0 @@
-{
-  "id": "victron-energy-mppt-100-15--safety",
-  "model": "victron-energy-mppt-100-15",
-  "name": "Safety",
-  "value": "EN/IEC 62109-1 / UL 1741 / CSA C22.2 NO.107.1-16",
-  "source": "doc-c967bfdb27ebea471739445a3d4c2c8d",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

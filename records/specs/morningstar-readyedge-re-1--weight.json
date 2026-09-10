@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-readyedge-re-1--weight",
+  "model": "morningstar-readyedge-re-1",
+  "name": "Weight",
+  "value": "0.41 kg (0.91 lb)",
+  "source": "doc-76bb5fbe053c398368d2a0ae041740e1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

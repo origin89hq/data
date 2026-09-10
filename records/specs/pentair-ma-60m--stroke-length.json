@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ma-60m--stroke-length",
+  "model": "pentair-ma-60m",
+  "name": "Stroke length",
+  "value": "3.00",
+  "unit": "in",
+  "source": "doc-f0311c333eeb3ce5b4f00409fefd83c7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

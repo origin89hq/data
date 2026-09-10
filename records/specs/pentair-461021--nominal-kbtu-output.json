@@ -1,0 +1,10 @@
+{
+  "id": "pentair-461021--nominal-kbtu-output",
+  "model": "pentair-461021",
+  "name": "Nominal kBTU Output",
+  "value": "400 (117.23)",
+  "source": "doc-eefee20972e5d65190b6963432faf663",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "srne-mf4860n15--rated-load-voltage",
+  "model": "srne-mf4860n15",
+  "name": "Rated Load Voltage",
+  "value": "12V/24V/36V/48V",
+  "source": "doc-234aa003fa0448e8511f4867023d902e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

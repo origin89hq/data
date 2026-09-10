@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-mppt-250-60--dimensions",
+  "model": "victron-energy-mppt-250-60",
+  "name": "Dimensions",
+  "value": "185 x 250 x 95 mm",
+  "source": "doc-d57c25947d20b07fdaeab0465bc6cf6a",
+  "page": 71,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-adi-12uv12rt--output-power",
+  "model": "magnum-energy-adi-12uv12rt",
+  "name": "Output Power",
+  "value": "1,200",
+  "source": "doc-df796a4a961ed831d7b19394ffe03b42",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

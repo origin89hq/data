@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multiplus-ii-2x120-v-12-3000-120-50--maximum-efficiency",
+  "model": "victron-energy-multiplus-ii-2x120-v-12-3000-120-50",
+  "name": "Maximum efficiency",
+  "value": "93",
+  "unit": "%",
+  "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
+  "page": 56,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-fx2012mt--maximum-ac-input",
+  "model": "outback-power-fx2012mt",
+  "name": "Maximum AC Input",
+  "value": "12",
+  "unit": "A",
+  "source": "doc-a97c7bbc1e29b727840e83336cf29581",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

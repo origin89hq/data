@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-48np36--output-power",
+  "model": "magnum-energy-48np36",
+  "name": "Output Power",
+  "value": "120",
+  "unit": "V",
+  "source": "doc-021c2d390f60ad1d57a68ab5f5df25b3",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

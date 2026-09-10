@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-frs-02--maximum-isolation-voltage",
+  "model": "outback-power-frs-02",
+  "name": "Maximum Isolation Voltage",
+  "value": "1500",
+  "unit": "V",
+  "source": "doc-bcdf2c161a318660a582541ffe13e889",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

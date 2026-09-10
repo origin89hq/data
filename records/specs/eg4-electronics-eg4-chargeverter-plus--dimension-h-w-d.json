@@ -1,9 +1,0 @@
-{
-  "id": "eg4-electronics-eg4-chargeverter-plus--dimension-h-w-d",
-  "model": "eg4-electronics-eg4-chargeverter-plus",
-  "name": "DIMENSION H × W × D",
-  "value": "4.3 × 16.1 × 7.1 in. (110 × 410 × 180 mm)",
-  "source": "doc-55f12b8f9ded3bc7664ee333a8178ac7",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gs4048a--continuous-output-power",
+  "model": "outback-power-gs4048a",
+  "name": "Continuous Output Power",
+  "value": "4000",
+  "unit": "VA",
+  "source": "doc-7d6af4fdc633610a345d7823b90dd62b",
+  "page": 63,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

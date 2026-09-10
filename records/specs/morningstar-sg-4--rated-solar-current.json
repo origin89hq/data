@@ -4,8 +4,8 @@
   "name": "Rated Solar Current",
   "value": "4.5",
   "unit": "A",
-  "source": "doc-d750c051efee498703d3df89c12fef64",
+  "source": "doc-d0e875dec70c9b017e0e9e1236fb4cdd",
+  "page": 16,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "page": 10,
   "confidence": "vendor-doc"
 }

@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-kp-15s--total-start-attempts",
+  "model": "magnum-energy-kp-15s",
+  "name": "Total Start attempts",
+  "value": "4",
+  "source": "doc-382a6d9d471a10adeffb7c026105de11",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-avr125-33--float-voltage",
+  "model": "east-penn-avr125-33",
+  "name": "Float Voltage",
+  "value": "2.25 +/– .01 per cell",
+  "source": "doc-58bdb9581de1fef7602fab94d1ae255c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

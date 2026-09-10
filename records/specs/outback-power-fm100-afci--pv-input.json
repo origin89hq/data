@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-fm100-afci--pv-input",
+  "model": "outback-power-fm100-afci",
+  "name": "PV input",
+  "value": "7,000",
+  "unit": "W",
+  "source": "doc-a544c576abcd8306b24190dad52e8dfd",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

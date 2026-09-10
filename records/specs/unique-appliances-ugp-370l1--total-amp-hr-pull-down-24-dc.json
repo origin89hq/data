@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-370l1--total-amp-hr-pull-down-24-dc",
+  "model": "unique-appliances-ugp-370l1",
+  "name": "TOTAL AMP HR. PULL DOWN (24 DC)",
+  "value": "24 Wh/24hrs",
+  "source": "doc-b83aa402a22866c0a598b459f2a43088",
+  "page": 23,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-12avr145et--weight",
+  "model": "east-penn-12avr145et",
+  "name": "Weight",
+  "value": "102.5 Ibs. (46 kg)",
+  "source": "doc-2625df763b9b311843c42567bade4765",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

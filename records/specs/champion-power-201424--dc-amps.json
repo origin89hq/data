@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201424--dc-amps",
+  "model": "champion-power-201424",
+  "name": "DC Amps",
+  "value": "8",
+  "source": "doc-7b1975b9b750b4d2927664e61ee71e34",
+  "page": 45,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

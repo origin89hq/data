@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-energycell-plr--optimal-operating-temperature-range",
+  "model": "outback-power-energycell-plr",
+  "name": "Optimal Operating Temperature Range",
+  "value": "68°F (20°C) to 77°F (25°C)",
+  "source": "doc-840f1b43cc52ee6fe491cf95b2cbbdd5",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

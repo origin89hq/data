@@ -1,0 +1,9 @@
+{
+  "id": "pentair-120h-hd--weight",
+  "model": "pentair-120h-hd",
+  "name": "Weight",
+  "value": "2,025 lbs.",
+  "source": "doc-6e5e3bb6d9ff32850ef97d4bae41927a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

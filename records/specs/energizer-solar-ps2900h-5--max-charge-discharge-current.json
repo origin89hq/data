@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-ps2900h-5--max-charge-discharge-current",
+  "model": "energizer-solar-ps2900h-5",
+  "name": "Max. Charge / Discharge Current",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-3047d8e300c7fe1b8c28128e3f13f13f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

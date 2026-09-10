@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gs3548e--dc-input-power",
+  "model": "outback-power-gs3548e",
+  "name": "DC Input Power",
+  "value": "3.817",
+  "unit": "kVA",
+  "source": "doc-fda963efd83b4fc2faf57024b5e6becd",
+  "page": 57,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-rm-1--frame-dimensions",
+  "model": "morningstar-rm-1",
+  "name": "Frame dimensions",
+  "value": "11.4 x 11.4 x 3.5 cm, 4.5 x 4.5 x 1.4 in.",
+  "source": "doc-7212a13aeb8c5e69c9a7f9bfed41f218",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

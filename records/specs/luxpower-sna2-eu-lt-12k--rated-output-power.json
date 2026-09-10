@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna2-eu-lt-12k--rated-output-power",
+  "model": "luxpower-sna2-eu-lt-12k",
+  "name": "Rated output power",
+  "value": "12000",
+  "unit": "W",
+  "source": "doc-0fb3b6d24054ca6e6382410b593f6648",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

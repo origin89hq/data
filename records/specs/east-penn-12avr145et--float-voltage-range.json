@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-12avr145et--float-voltage-range",
+  "model": "east-penn-12avr145et",
+  "name": "Float Voltage Range",
+  "value": "13.42V to 13.57V per battery",
+  "source": "doc-2625df763b9b311843c42567bade4765",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

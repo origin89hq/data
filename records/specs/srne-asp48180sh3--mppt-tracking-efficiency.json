@@ -1,0 +1,10 @@
+{
+  "id": "srne-asp48180sh3--mppt-tracking-efficiency",
+  "model": "srne-asp48180sh3",
+  "name": "MPPT Tracking Efficiency",
+  "value": ">99.9%",
+  "source": "doc-5aed4fb4d801b1348f9fda8464502049",
+  "page": 50,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

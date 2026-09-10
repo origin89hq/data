@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-outback-24v--float",
+  "model": "outback-power-outback-24v",
+  "name": "Float",
+  "value": "27.6",
+  "unit": "V",
+  "source": "doc-9e29bb317a11cdce3e7c9bee44287287",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

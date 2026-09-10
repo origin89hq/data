@@ -1,0 +1,9 @@
+{
+  "id": "lorex-lbv8541x--field-of-view",
+  "model": "lorex-lbv8541x",
+  "name": "Field of view",
+  "value": "87°",
+  "source": "doc-0e4c5ab2df892d18e116dc2bd4ab761e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

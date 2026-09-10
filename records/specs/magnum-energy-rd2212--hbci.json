@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-rd2212--hbci",
+  "model": "magnum-energy-rd2212",
+  "name": "HBCI",
+  "value": "15.5",
+  "unit": "V",
+  "source": "doc-a15d7fa6c3003adeec0d1f7c7304a558",
+  "page": 44,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

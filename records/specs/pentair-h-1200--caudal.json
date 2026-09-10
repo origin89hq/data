@@ -1,0 +1,10 @@
+{
+  "id": "pentair-h-1200--caudal",
+  "model": "pentair-h-1200",
+  "name": "Caudal",
+  "value": "0.5 gpm (1.9 Lpm)",
+  "source": "doc-5e88498c858725830f3cba1baa363aa3",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

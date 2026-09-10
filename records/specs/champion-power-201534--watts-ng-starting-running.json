@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201534--watts-ng-starting-running",
+  "model": "champion-power-201534",
+  "name": "Watts (NG) (Starting/Running)",
+  "value": "5500/3240",
+  "source": "doc-3c7471db8a766bf539a35d18dfd71abd",
+  "page": 36,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

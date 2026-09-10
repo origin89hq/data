@@ -1,9 +1,0 @@
-{
-  "id": "watersprint-watersprintsolo-40-fs--max-flow-rate",
-  "model": "watersprint-watersprintsolo-40-fs",
-  "name": "Max. flow rate",
-  "value": "16 l/min",
-  "source": "doc-96851511477433d0220adf78052a6a5f",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

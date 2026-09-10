@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-mms912e--output-frequency-and-accuracy",
+  "model": "magnum-energy-mms912e",
+  "name": "Output frequency and accuracy",
+  "value": "50 Hz +/- 0.1 Hz",
+  "source": "doc-1e0e63b473222d8d5aa4a4f4b74ef46b",
+  "page": 40,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-12k-2p-n--preferred-thd-for-generators",
+  "model": "sol-ark-sol-ark-12k-2p-n",
+  "name": "Preferred THD for generators",
+  "value": "less than 15%",
+  "source": "doc-a6309d995ea95cdfb312cc5335f5fbe8",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

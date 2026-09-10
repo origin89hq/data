@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-fx2012t--ac-overload-capability-30-minutes",
+  "model": "outback-power-fx2012t",
+  "name": "AC Overload Capability - 30 Minutes",
+  "value": "2500",
+  "unit": "VA",
+  "source": "doc-2a27792e0a18d640f19761da24ca22ae",
+  "page": 31,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

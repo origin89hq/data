@@ -1,0 +1,10 @@
+{
+  "id": "srne-sr-eoc05b-ul--max-parallel-capacity",
+  "model": "srne-sr-eoc05b-ul",
+  "name": "Max. Parallel Capacity",
+  "value": "1–16 units",
+  "source": "doc-d0aa03d8407a690eb487e2a47a4a8b08",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

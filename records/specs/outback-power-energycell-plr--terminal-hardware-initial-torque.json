@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-energycell-plr--terminal-hardware-initial-torque",
+  "model": "outback-power-energycell-plr",
+  "name": "Terminal Hardware Initial Torque",
+  "value": "44 ± 4 in-lb (5 ± 0.5 Nm)",
+  "source": "doc-840f1b43cc52ee6fe491cf95b2cbbdd5",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

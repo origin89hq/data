@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-smartsolar-mppt-rs-450-100--maximum-charge-power",
+  "model": "victron-energy-smartsolar-mppt-rs-450-100",
+  "name": "Maximum charge power",
+  "value": "5.8 kW at 57.6 V",
+  "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
+  "page": 85,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

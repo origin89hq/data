@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-ms2000--continuous-input-current",
+  "model": "magnum-energy-ms2000",
+  "name": "Continuous Input current",
+  "value": "225A @ 12.6VDC",
+  "source": "doc-953c67134d63eac7f190a1f49999b892",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

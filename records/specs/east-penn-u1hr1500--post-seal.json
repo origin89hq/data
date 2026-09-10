@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-u1hr1500--post-seal",
+  "model": "east-penn-u1hr1500",
+  "name": "Post Seal",
+  "value": "Epoxy-sealed",
+  "source": "doc-cd5356e0c96faa5ccd9fd4f9b9164928",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

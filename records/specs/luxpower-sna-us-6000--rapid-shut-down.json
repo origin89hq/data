@@ -1,0 +1,9 @@
+{
+  "id": "luxpower-sna-us-6000--rapid-shut-down",
+  "model": "luxpower-sna-us-6000",
+  "name": "Rapid shut down",
+  "value": "YES",
+  "source": "doc-4425db27fb0f68923853724329009041",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

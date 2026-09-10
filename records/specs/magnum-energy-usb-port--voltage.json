@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-usb-port--voltage",
+  "model": "magnum-energy-usb-port",
+  "name": "Voltage",
+  "value": "5",
+  "unit": "V",
+  "source": "doc-6ab55324b88b792cc1f0e718cc8e9d2d",
+  "page": 25,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

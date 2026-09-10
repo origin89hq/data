@@ -1,0 +1,9 @@
+{
+  "id": "eg4-electronics-eg4-18kpv--power-handling-capability-from-generator",
+  "model": "eg4-electronics-eg4-18kpv",
+  "name": "Power handling capability from generator",
+  "value": "90 Amps (21kW)",
+  "source": "doc-327797953f18258d13ad4888105b4c75",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

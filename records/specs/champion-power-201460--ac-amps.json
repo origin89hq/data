@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201460--ac-amps",
+  "model": "champion-power-201460",
+  "name": "AC AMPS",
+  "value": "66.7/33.3",
+  "source": "doc-e9d50546c1fba62bee5b75eb10eae7d5",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

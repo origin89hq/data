@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-14560--bolt-pattern",
+  "model": "champion-power-14560",
+  "name": "Bolt Pattern",
+  "value": "4.9 in. x 3 in. (12.4 cm x 7.6 cm)",
+  "source": "doc-68cdc2b5c9953fdb60b6be9e191fd33a",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

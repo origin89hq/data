@@ -1,0 +1,9 @@
+{
+  "id": "noco-x140--ac-line-frequency",
+  "model": "noco-x140",
+  "name": "AC LINE FREQUENCY",
+  "value": "50-60HZ",
+  "source": "doc-7c554377f36c7773f4c05aa7da193005",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

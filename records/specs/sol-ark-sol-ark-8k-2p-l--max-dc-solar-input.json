@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-8k-2p-l--max-dc-solar-input",
+  "model": "sol-ark-sol-ark-8k-2p-l",
+  "name": "Max DC solar input",
+  "value": "10.4 kW (± 5%)",
+  "source": "doc-0b346392991c16a78a997e17cc32f647",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

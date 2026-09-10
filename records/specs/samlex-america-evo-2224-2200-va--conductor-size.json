@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-2224-2200-va--conductor-size",
+  "model": "samlex-america-evo-2224-2200-va",
+  "name": "Conductor Size",
+  "value": "AWG #10",
+  "source": "doc-23df0d2727e9f35278efcb9ffbc0e9f6",
+  "page": 56,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

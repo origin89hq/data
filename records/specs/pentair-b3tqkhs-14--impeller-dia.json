@@ -1,0 +1,10 @@
+{
+  "id": "pentair-b3tqkhs-14--impeller-dia",
+  "model": "pentair-b3tqkhs-14",
+  "name": "Impeller Dia.",
+  "value": "6.59”",
+  "source": "doc-7fccea203d81d24af6716f20e37132ec",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

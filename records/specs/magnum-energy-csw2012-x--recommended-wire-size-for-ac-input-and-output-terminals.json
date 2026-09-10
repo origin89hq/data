@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-csw2012-x--recommended-wire-size-for-ac-input-and-output-terminals",
+  "model": "magnum-energy-csw2012-x",
+  "name": "Recommended wire size for AC input and output terminals",
+  "value": "#14 to #10 AWG (2.1 to 5.3 mm2) CU stranded wire",
+  "source": "doc-3b79136e8fe45bb7ee697862e442d130",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

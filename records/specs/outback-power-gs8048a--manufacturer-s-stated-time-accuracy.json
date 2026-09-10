@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gs8048a--manufacturer-s-stated-time-accuracy",
+  "model": "outback-power-gs8048a",
+  "name": "Manufacturer's stated time accuracy",
+  "value": "0.033",
+  "unit": "s",
+  "source": "doc-dcbd246ed4a1bd3988f688bd04c13e7c",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "pentair-h-300-nxt--system-weight",
+  "model": "pentair-h-300-nxt",
+  "name": "System Weight",
+  "value": "3.5 lbs (1.58 kg)",
+  "source": "doc-ae79d1d800b593984524d2328c5b2c9a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

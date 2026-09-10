@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ssd-25r--float-voltage",
+  "model": "morningstar-ssd-25r",
+  "name": "Float Voltage",
+  "value": "13.7",
+  "unit": "V",
+  "source": "doc-53d7a2114d5ddf7530aae6a730965443",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

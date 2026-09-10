@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-15s-12e--cable-size-up-to-3-ft",
+  "model": "samlex-america-pst-15s-12e",
+  "name": "Cable size up to 3 ft.",
+  "value": "1.5 mm2/ AWG#16",
+  "source": "doc-ba38822ce0d2141ef91209c2c145787c",
+  "page": 32,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

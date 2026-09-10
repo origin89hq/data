@@ -1,9 +1,0 @@
-{
-  "id": "lorex-cne01p-2tb-ab1--housing-material",
-  "model": "lorex-cne01p-2tb-ab1",
-  "name": "Housing Material",
-  "value": "Aluminum Alloy",
-  "source": "doc-3dc5fa00b453c9acaf2aff170b3f9d92",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

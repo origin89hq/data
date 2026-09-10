@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-600-24--low-dc-input-voltage-warning",
+  "model": "samlex-america-pst-600-24",
+  "name": "Low DC input voltage warning",
+  "value": "21.4 V ± 0.2 V",
+  "source": "doc-37ffa60e7fd589771984ee1e00b53949",
+  "page": 54,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

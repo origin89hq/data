@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-ms2000--maximum-output-current",
+  "model": "xantrex-ms2000",
+  "name": "Maximum output current",
+  "value": "100 amps DC",
+  "source": "doc-495564447702e3b0d09d07cbfddea5f2",
+  "page": 51,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-fx2012t--continuous-battery-charger-output",
+  "model": "outback-power-fx2012t",
+  "name": "Continuous Battery Charger Output",
+  "value": "80 Amps DC",
+  "source": "doc-2a27792e0a18d640f19761da24ca22ae",
+  "page": 31,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

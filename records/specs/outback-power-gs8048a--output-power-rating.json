@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gs8048a--output-power-rating",
+  "model": "outback-power-gs8048a",
+  "name": "Output power rating",
+  "value": "7200",
+  "unit": "W",
+  "source": "doc-dcbd246ed4a1bd3988f688bd04c13e7c",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ma-45m--average-liquid-velocity-1-7-8-plungersat-600-rpm-suction-manifolddischarge-manifold",
+  "model": "pentair-ma-45m",
+  "name": "Average Liquid Velocity, 1-7/8\" plungersat 600 rpm:Suction ManifoldDischarge Manifold",
+  "value": "5.40 fps14.65 fps",
+  "source": "doc-e52fbb13118d95b3ee9c71d320de22f6",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

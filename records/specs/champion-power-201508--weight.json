@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201508--weight",
+  "model": "champion-power-201508",
+  "name": "Weight",
+  "value": "216",
+  "source": "doc-97eb53beea7716261a072bddabfc5ef6",
+  "page": 32,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

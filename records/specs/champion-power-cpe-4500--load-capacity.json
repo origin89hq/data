@@ -1,0 +1,11 @@
+{
+  "id": "champion-power-cpe-4500--load-capacity",
+  "model": "champion-power-cpe-4500",
+  "name": "Load capacity",
+  "value": "2041",
+  "unit": "kg",
+  "source": "doc-68cdc2b5c9953fdb60b6be9e191fd33a",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

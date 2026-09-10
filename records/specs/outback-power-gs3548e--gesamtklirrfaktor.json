@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gs3548e--gesamtklirrfaktor",
+  "model": "outback-power-gs3548e",
+  "name": "Gesamtklirrfaktor",
+  "value": "< 5 %",
+  "source": "doc-a6f1fde00f99fc6d5b81ec8f95129fc2",
+  "page": 67,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

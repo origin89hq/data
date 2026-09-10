@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-acr-160--battery-connection",
+  "model": "samlex-america-acr-160",
+  "name": "Battery connection",
+  "value": "M8",
+  "source": "doc-84765f51c59a8cc146e59702b8256c2a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

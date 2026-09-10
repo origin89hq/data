@@ -1,0 +1,11 @@
+{
+  "id": "srne-meh200-r--load-current-accuracy",
+  "model": "srne-meh200-r",
+  "name": "Load current accuracy",
+  "value": "15",
+  "unit": "A",
+  "source": "doc-be593cd050421133fe83d90756a420c0",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

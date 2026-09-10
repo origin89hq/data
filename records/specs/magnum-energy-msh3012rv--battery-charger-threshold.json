@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-msh3012rv--battery-charger-threshold",
+  "model": "magnum-energy-msh3012rv",
+  "name": "Battery charger threshold",
+  "value": "≤ 12.8 VDC",
+  "source": "doc-7fa1abfe0df67050065ddf5af1d831dc",
+  "page": 41,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

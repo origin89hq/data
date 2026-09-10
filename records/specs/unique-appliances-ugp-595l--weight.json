@@ -1,9 +1,0 @@
-{
-  "id": "unique-appliances-ugp-595l--weight",
-  "model": "unique-appliances-ugp-595l",
-  "name": "WEIGHT",
-  "value": "260 lbs / 118 kg",
-  "source": "doc-efa4a2a9fc1f9ad6984b4c93e4c84a97",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

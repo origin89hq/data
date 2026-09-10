@@ -1,0 +1,9 @@
+{
+  "id": "srne-sr-eoc05b-ul--storage-condition",
+  "model": "srne-sr-eoc05b-ul",
+  "name": "Storage Condition",
+  "value": "6 months@25°C",
+  "source": "doc-ec18fdf70561880c30afab7e9ae0eeb3",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

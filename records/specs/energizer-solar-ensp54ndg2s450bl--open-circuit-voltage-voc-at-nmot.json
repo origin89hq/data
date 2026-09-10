@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-ensp54ndg2s450bl--open-circuit-voltage-voc-at-nmot",
+  "model": "energizer-solar-ensp54ndg2s450bl",
+  "name": "Open circuit voltage (Voc) at NMOT",
+  "value": "37.42",
+  "unit": "V",
+  "source": "doc-c6bebb90bf4abeb3c1454062e1c571d9",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

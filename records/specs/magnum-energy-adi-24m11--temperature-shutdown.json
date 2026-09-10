@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-adi-24m11--temperature-shutdown",
+  "model": "magnum-energy-adi-24m11",
+  "name": "Temperature shutdown",
+  "value": "50°C (122°F)",
+  "source": "doc-7c08d06a1be637fbe334d312f6dccdff",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

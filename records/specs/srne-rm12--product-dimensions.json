@@ -1,0 +1,9 @@
+{
+  "id": "srne-rm12--product-dimensions",
+  "model": "srne-rm12",
+  "name": "Product dimensions",
+  "value": "209mm*74.5mm*29.4mm",
+  "source": "doc-4d5d21846c8d624beac557148e3a5c3f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

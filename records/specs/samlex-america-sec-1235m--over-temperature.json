@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-1235m--over-temperature",
+  "model": "samlex-america-sec-1235m",
+  "name": "Over Temperature",
+  "value": "≥ 105°C ± 5°C / 221°F ± 9°F",
+  "source": "doc-99b98c3e0979d9dd34d0fbbfd935b5e6",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

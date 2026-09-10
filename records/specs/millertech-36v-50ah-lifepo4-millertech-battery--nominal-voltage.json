@@ -1,0 +1,10 @@
+{
+  "id": "millertech-36v-50ah-lifepo4-millertech-battery--nominal-voltage",
+  "model": "millertech-36v-50ah-lifepo4-millertech-battery",
+  "name": "NOMINAL VOLTAGE",
+  "value": "38.4",
+  "unit": "V",
+  "source": "doc-1100ac14df8c1daf12a05f6bb3c2bcd0",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

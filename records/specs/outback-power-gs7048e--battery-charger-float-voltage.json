@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gs7048e--battery-charger-float-voltage",
+  "model": "outback-power-gs7048e",
+  "name": "Battery Charger Float Voltage",
+  "value": "54.4",
+  "unit": "V",
+  "source": "doc-fda963efd83b4fc2faf57024b5e6becd",
+  "page": 65,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

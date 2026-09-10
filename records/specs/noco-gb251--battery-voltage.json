@@ -1,0 +1,10 @@
+{
+  "id": "noco-gb251--battery-voltage",
+  "model": "noco-gb251",
+  "name": "Battery Voltage",
+  "value": "24-volt",
+  "source": "doc-ab38b66291679fbc3beaf203ecf65340",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

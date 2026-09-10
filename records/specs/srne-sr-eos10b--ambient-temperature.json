@@ -1,0 +1,10 @@
+{
+  "id": "srne-sr-eos10b--ambient-temperature",
+  "model": "srne-sr-eos10b",
+  "name": "Ambient temperature",
+  "value": "25",
+  "unit": "°C",
+  "source": "doc-0303b2602619fa39868f3412d178a927",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

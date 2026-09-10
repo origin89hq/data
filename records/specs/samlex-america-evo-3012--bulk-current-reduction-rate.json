@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-3012--bulk-current-reduction-rate",
+  "model": "samlex-america-evo-3012",
+  "name": "BULK CURRENT reduction rate",
+  "value": "20 A every 10 sec",
+  "source": "doc-23df0d2727e9f35278efcb9ffbc0e9f6",
+  "page": 88,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

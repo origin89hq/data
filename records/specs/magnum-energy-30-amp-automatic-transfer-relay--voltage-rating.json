@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-30-amp-automatic-transfer-relay--voltage-rating",
+  "model": "magnum-energy-30-amp-automatic-transfer-relay",
+  "name": "Voltage Rating",
+  "value": "240",
+  "unit": "V",
+  "source": "doc-7f5e92dd2f777699cb36642c9e8bda81",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

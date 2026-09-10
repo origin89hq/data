@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-fxr2024e--over-voltage-trip",
+  "model": "outback-power-fxr2024e",
+  "name": "Over Voltage Trip",
+  "value": "252",
+  "unit": "V",
+  "source": "doc-8452ddb9bd444900edca4f8d20f075e4",
+  "page": 81,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

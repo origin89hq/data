@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-scc-30ab--humidity",
+  "model": "samlex-america-scc-30ab",
+  "name": "HUMIDITY",
+  "value": "95",
+  "unit": "%",
+  "source": "doc-11f746f898f56196faa31cda4c3ca280",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

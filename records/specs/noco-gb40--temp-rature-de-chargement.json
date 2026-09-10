@@ -2,10 +2,10 @@
   "id": "noco-gb40--temp-rature-de-chargement",
   "model": "noco-gb40",
   "name": "Température de chargement",
+  "english": "Charging temperature",
   "value": "0ºC à +40ºC",
   "source": "doc-919699b1eb41a8db72c0357712dbfdc0",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "page": 16,
-  "confidence": "vendor-doc",
-  "english": "Charging temperature"
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
 }

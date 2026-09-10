@@ -1,9 +1,0 @@
-{
-  "id": "victron-energy-mppt-250-70--remote-on-off",
-  "model": "victron-energy-mppt-250-70",
-  "name": "Remote on/off",
-  "value": "Yes, 2 pole terminal",
-  "source": "doc-75ef220cecc3e8483f079f6108e6bb5b",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

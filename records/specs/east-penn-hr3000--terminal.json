@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-hr3000--terminal",
+  "model": "east-penn-hr3000",
+  "name": "Terminal",
+  "value": "Top access, 1/4\" – 20 threaded insert",
+  "source": "doc-4a6baab0bb871e80af4e31c7910222f4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

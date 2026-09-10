@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-u1hr1500--discharge-rating-at-1-63-v-p-c-and-40-min",
+  "model": "east-penn-u1hr1500",
+  "name": "Discharge Rating at 1.63 V.P.C. and 40 MIN.",
+  "value": "56.4",
+  "source": "doc-cd5356e0c96faa5ccd9fd4f9b9164928",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

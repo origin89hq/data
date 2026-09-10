@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-48ix10nv--frequency",
+  "model": "magnum-energy-48ix10nv",
+  "name": "Frequency",
+  "value": "60 HZ + 0.05%",
+  "source": "doc-71120d7878f2f143a74c8f2c644726e2",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

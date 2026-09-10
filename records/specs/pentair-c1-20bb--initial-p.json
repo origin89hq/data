@@ -1,0 +1,9 @@
+{
+  "id": "pentair-c1-20bb--initial-p",
+  "model": "pentair-c1-20bb",
+  "name": "INITIAL ∆P",
+  "value": "2 psi @ 4 gpm (0.14 bar @ 15 Lpm)",
+  "source": "doc-4454dabbe7df0d261871b737c8105389",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-orion-xs-12v-12v-50a--input-voltage-lock-out",
+  "model": "victron-energy-orion-xs-12v-12v-50a",
+  "name": "Input voltage lock-out",
+  "value": "12.5V/25V",
+  "source": "doc-f09a27c85ec5887dacb79ca0fb1ad988",
+  "page": 22,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

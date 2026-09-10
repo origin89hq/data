@@ -1,0 +1,9 @@
+{
+  "id": "pentair-7clm--overall-dimensions",
+  "model": "pentair-7clm",
+  "name": "Overall Dimensions",
+  "value": "20.70\" L x 3.34\" dia', '52.58 x 8.48 cm",
+  "source": "doc-f7124102aba37e9e2c86460fa25a25be",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

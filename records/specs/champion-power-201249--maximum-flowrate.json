@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201249--maximum-flowrate",
+  "model": "champion-power-201249",
+  "name": "Maximum flowrate",
+  "value": "12.33 l/hr@18 kW (LPG)",
+  "source": "doc-6c0d34790d696d440861753457af3fdc",
+  "page": 31,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

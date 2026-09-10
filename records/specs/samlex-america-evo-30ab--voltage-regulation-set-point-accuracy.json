@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-evo-30ab--voltage-regulation-set-point-accuracy",
+  "model": "samlex-america-evo-30ab",
+  "name": "VOLTAGE REGULATION SET POINT ACCURACY",
+  "value": "± 50mV",
+  "source": "doc-42f1c27846355778aa506ae7eb22d99c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

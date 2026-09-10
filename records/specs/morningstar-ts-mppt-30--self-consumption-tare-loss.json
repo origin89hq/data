@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-mppt-30--self-consumption-tare-loss",
+  "model": "morningstar-ts-mppt-30",
+  "name": "Self consumption (tare loss)",
+  "value": "1.3 - 2.7 Watts",
+  "source": "doc-d77891330c761670b3824d171460f71b",
+  "page": 33,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-sunpack-120w--cell-efficiency",
+  "model": "energizer-solar-sunpack-120w",
+  "name": "Cell Efficiency",
+  "value": "23",
+  "unit": "%",
+  "source": "doc-98d2643785254c9a66d623e97fc7b31b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

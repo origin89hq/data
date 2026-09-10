@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-orion-xs-1400--input-and-output-current-setting-range",
+  "model": "victron-energy-orion-xs-1400",
+  "name": "Input and output current setting range",
+  "value": "1 - 50A",
+  "source": "doc-f09a27c85ec5887dacb79ca0fb1ad988",
+  "page": 42,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

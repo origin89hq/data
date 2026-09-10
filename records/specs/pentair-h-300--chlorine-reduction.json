@@ -1,0 +1,11 @@
+{
+  "id": "pentair-h-300--chlorine-reduction",
+  "model": "pentair-h-300",
+  "name": "Chlorine Reduction",
+  "value": "86.8",
+  "unit": "%",
+  "source": "doc-5e88498c858725830f3cba1baa363aa3",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

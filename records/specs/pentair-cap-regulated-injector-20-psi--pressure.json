@@ -1,0 +1,11 @@
+{
+  "id": "pentair-cap-regulated-injector-20-psi--pressure",
+  "model": "pentair-cap-regulated-injector-20-psi",
+  "name": "Pressure",
+  "value": "20",
+  "unit": "psi",
+  "source": "doc-b60d32dd0dd95ddce71ef6c3ff760f52",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

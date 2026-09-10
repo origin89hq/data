@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-idc-100c-12--input-voltage-range",
+  "model": "samlex-america-idc-100c-12",
+  "name": "INPUT VOLTAGE RANGE",
+  "value": "30 - 60 VDC",
+  "source": "doc-31fdbfafbc1bddefa1bca06efa6e6527",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

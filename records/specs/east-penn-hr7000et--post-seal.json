@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-hr7000et--post-seal",
+  "model": "east-penn-hr7000et",
+  "name": "Post Seal",
+  "value": "Epoxy-sealed",
+  "source": "doc-1f3ba37fb796516639da4c127df65c5a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

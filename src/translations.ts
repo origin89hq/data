@@ -42,6 +42,18 @@ export const ENGLISH: Record<string, string> = {
   "Température prédéfinie – High": "Preset temperature, High",
   "Température prédéfinie – Low": "Preset temperature, Low",
   "CAPACITÉ NOMINALE": "Rated capacity",
+  "Capacité nominale": "Rated capacity",
+  "Chute de pression au débit de service nominal": "Pressure drop at rated service flow",
+  "Écoulement de service nominal": "Rated service flow",
+  "Débit maximum pendant la régénération": "Maximum flow during regeneration",
+  "Dimensions du réservoir": "Tank dimensions",
+  "Efficacité nominale": "Rated efficiency",
+  "Pression de fonctionnement": "Operating pressure",
+  "Résine échangeuse d'ions": "Ion exchange resin",
+  "Type de sel acceptable": "Acceptable salt type",
+  "Puissance de sortie": "Output power",
+  "Courant de sortie CC maximum": "Maximum DC output current",
+
   "POIDS (DÉBALLÉ)": "Weight, unpacked",
   "CONSOMMATION D’ÉLECTRICITÉ": "Power consumption",
   "PLAGE DE TEMPÉRATURE DE CONGÉLATEUR": "Freezer temperature range",
@@ -77,6 +89,14 @@ export const ENGLISH: Record<string, string> = {
   "Reducción de plomo 6.5": "Lead reduction at pH 6.5",
   "Reducción de plomo 8.5": "Lead reduction at pH 8.5",
   "Reducción de quistes": "Cyst reduction",
+
+  // Pentair's solar drives, whose Spanish sheet is the only one we reached.
+  "Tensíón del Generador": "Generator voltage",
+  "Corriente fotovoltaica solar máxima en la serie": "Maximum solar PV current in series",
+  "Corriente máxima de salida": "Maximum output current",
+  "Máxima potencia sostenida": "Maximum sustained power",
+  "Tensión máxima del circuito abierto solar": "Maximum solar open-circuit voltage",
+  "Máximo voltaje del circuito abierto solar": "Maximum solar open-circuit voltage",
 
   // Portuguese
   "Potência da recarga rápida de 12 V": "12 V fast charge power",

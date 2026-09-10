@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-12004-acr-160-1125--peak-current-duration",
+  "model": "samlex-america-12004-acr-160-1125",
+  "name": "Peak current duration",
+  "value": "250 msec",
+  "source": "doc-7420e064ffeab2be5d8e84817dd60536",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-pse-12125ao--output-frequency",
+  "model": "samlex-america-pse-12125ao",
+  "name": "OUTPUT FREQUENCY",
+  "value": "60Hz ± 5%",
+  "source": "doc-1b66fece47a720197f81e14c20b8befa",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

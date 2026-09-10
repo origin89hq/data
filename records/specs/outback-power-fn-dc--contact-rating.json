@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-fn-dc--contact-rating",
+  "model": "outback-power-fn-dc",
+  "name": "Contact rating",
+  "value": "5 amps @ 30 Vdc",
+  "source": "doc-80a58b97b2636cab9d4f43f72aeec8b4",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

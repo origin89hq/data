@@ -1,0 +1,11 @@
+{
+  "id": "luxpower-gen-lb-us-16k--maximum-input-current-for-mppt3",
+  "model": "luxpower-gen-lb-us-16k",
+  "name": "Maximum input current for MPPT3",
+  "value": "15",
+  "unit": "A",
+  "source": "doc-8c07d17a676bcac4dde692d18936430c",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

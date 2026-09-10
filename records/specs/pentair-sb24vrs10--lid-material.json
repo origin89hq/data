@@ -1,0 +1,9 @@
+{
+  "id": "pentair-sb24vrs10--lid-material",
+  "model": "pentair-sb24vrs10",
+  "name": "Lid Material",
+  "value": "Polyethylene",
+  "source": "doc-e89eb92143d86f95f550052a414f71eb",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

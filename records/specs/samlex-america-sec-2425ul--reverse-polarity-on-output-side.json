@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-2425ul--reverse-polarity-on-output-side",
+  "model": "samlex-america-sec-2425ul",
+  "name": "Reverse Polarity on Output Side",
+  "value": "2x20A output side fuses will blow",
+  "source": "doc-89bd30b3b437461f2ec212d378a26017",
+  "page": 69,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

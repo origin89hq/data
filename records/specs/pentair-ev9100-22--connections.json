@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ev9100-22--connections",
+  "model": "pentair-ev9100-22",
+  "name": "Connections",
+  "value": "1/2\"",
+  "source": "doc-eb90b8089105853bbe2ff54f16583532",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

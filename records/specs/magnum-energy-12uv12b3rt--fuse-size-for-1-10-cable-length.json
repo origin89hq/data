@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-12uv12b3rt--fuse-size-for-1-10-cable-length",
+  "model": "magnum-energy-12uv12b3rt",
+  "name": "Fuse size for 1’ – 10’ cable length",
+  "value": "200",
+  "unit": "A",
+  "source": "doc-df796a4a961ed831d7b19394ffe03b42",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

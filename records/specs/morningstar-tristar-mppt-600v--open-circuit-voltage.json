@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-tristar-mppt-600v--open-circuit-voltage",
+  "model": "morningstar-tristar-mppt-600v",
+  "name": "Open-circuit voltage",
+  "value": "500",
+  "unit": "V",
+  "source": "doc-abff1de971730785bffa93069310d809",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

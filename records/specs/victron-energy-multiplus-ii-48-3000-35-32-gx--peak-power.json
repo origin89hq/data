@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multiplus-ii-48-3000-35-32-gx--peak-power",
+  "model": "victron-energy-multiplus-ii-48-3000-35-32-gx",
+  "name": "Peak power",
+  "value": "5500",
+  "unit": "W",
+  "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
+  "page": 49,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

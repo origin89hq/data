@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-smartsolar-mppt-75-10--max-pv-power-12vdc",
+  "model": "victron-energy-smartsolar-mppt-75-10",
+  "name": "Max. PV Power 12Vdc",
+  "value": "145",
+  "unit": "W",
+  "source": "doc-0d320d076acb8bd6ce2bed1547480e51",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-2425ul--internal-dc-output-side-fuse",
+  "model": "samlex-america-sec-2425ul",
+  "name": "Internal DC Output Side Fuse",
+  "value": "2 x (32V, 20A)",
+  "source": "doc-89bd30b3b437461f2ec212d378a26017",
+  "page": 66,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

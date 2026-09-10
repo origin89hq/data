@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-hr5500--discharge-rating",
+  "model": "east-penn-hr5500",
+  "name": "Discharge Rating",
+  "value": "1366",
+  "source": "doc-14f911dd66a16d004beb895e3ea66142",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

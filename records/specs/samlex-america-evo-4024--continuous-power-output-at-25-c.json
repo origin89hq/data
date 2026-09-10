@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-evo-4024--continuous-power-output-at-25-c",
+  "model": "samlex-america-evo-4024",
+  "name": "CONTINUOUS POWER OUTPUT AT 25° C",
+  "value": "4000",
+  "unit": "VA",
+  "source": "doc-71e314a57ad30e32cecb8a0926b9c589",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

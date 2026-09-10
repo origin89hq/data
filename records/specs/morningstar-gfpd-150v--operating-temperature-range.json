@@ -1,9 +1,0 @@
-{
-  "id": "morningstar-gfpd-150v--operating-temperature-range",
-  "model": "morningstar-gfpd-150v",
-  "name": "Operating Temperature Range",
-  "value": "-40 C to +50C",
-  "source": "doc-7a9471416aafe55325ed4cd72bf31cd8",
-  "extractedBy": "table:spec-table@v1",
-  "confidence": "vendor-doc"
-}

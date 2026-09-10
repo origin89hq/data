@@ -1,0 +1,9 @@
+{
+  "id": "pentair-wg20--specific-gravity",
+  "model": "pentair-wg20",
+  "name": "Specific Gravity",
+  "value": ".9–1.1",
+  "source": "doc-4a98b79bfc14dfe399d0ec1d318e4862",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

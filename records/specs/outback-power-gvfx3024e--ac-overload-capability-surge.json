@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gvfx3024e--ac-overload-capability-surge",
+  "model": "outback-power-gvfx3024e",
+  "name": "AC Overload Capability - Surge",
+  "value": "5750",
+  "unit": "VA",
+  "source": "doc-781835b79c5d63aaf99fc1ae2d721459",
+  "page": 37,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

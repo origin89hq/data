@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-msh3012rv--input-current-for-continuous-rated-output",
+  "model": "magnum-energy-msh3012rv",
+  "name": "Input current for continuous rated output",
+  "value": "18",
+  "unit": "A",
+  "source": "doc-d30af05b560c3d63ebacd99c3ff4abbe",
+  "page": 58,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

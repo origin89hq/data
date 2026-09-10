@@ -1,0 +1,9 @@
+{
+  "id": "outback-power-psx-240-relay--insulation-temperature-rating",
+  "model": "outback-power-psx-240-relay",
+  "name": "Insulation temperature rating",
+  "value": "75˚ C",
+  "source": "doc-d39bde04f3848e1890bb38e0a006430d",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

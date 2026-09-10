@@ -1,0 +1,9 @@
+{
+  "id": "pentair-7fc5-s--temperature-requirements",
+  "model": "pentair-7fc5-s",
+  "name": "Temperature Requirements",
+  "value": "35 - 100°F (2 - 38°C)",
+  "source": "doc-6b11d5576908ca167ddf735ffa1f427f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

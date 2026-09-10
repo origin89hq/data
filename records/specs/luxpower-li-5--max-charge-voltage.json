@@ -1,0 +1,11 @@
+{
+  "id": "luxpower-li-5--max-charge-voltage",
+  "model": "luxpower-li-5",
+  "name": "Max. Charge Voltage",
+  "value": "57.2",
+  "unit": "V",
+  "source": "doc-be31bb7aba4e0569191775c986a84d90",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

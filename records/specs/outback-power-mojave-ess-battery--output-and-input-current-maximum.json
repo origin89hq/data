@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-mojave-ess-battery--output-and-input-current-maximum",
+  "model": "outback-power-mojave-ess-battery",
+  "name": "Output and Input Current, Maximum",
+  "value": "200",
+  "unit": "A",
+  "source": "doc-04f638945bb5646d35ce77ec46e5aa28",
+  "page": 89,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-msh4024m--maximum-dc-fuse-size-with-time-delay",
+  "model": "magnum-energy-msh4024m",
+  "name": "Maximum DC Fuse Size with time delay",
+  "value": "300",
+  "unit": "A",
+  "source": "doc-4060c3f17cf8fdb351afd2eafcbc24a4",
+  "page": 23,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-mil-24dm50dn--inverter-output",
+  "model": "magnum-energy-mil-24dm50dn",
+  "name": "Inverter Output",
+  "value": "120/240 VAC, RMS",
+  "source": "doc-38f45932676d77747c3e6c4a5d4de2d2",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

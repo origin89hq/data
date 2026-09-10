@@ -1,0 +1,10 @@
+{
+  "id": "the-cabin-depot-ugp-r30othlpw--burner-input-rating-btu-rear-left",
+  "model": "the-cabin-depot-ugp-r30othlpw",
+  "name": "BURNER INPUT RATING (BTU) - REAR LEFT",
+  "value": "8500",
+  "source": "doc-a31ecf2a5fbe4eb72b52060eb2c34db2",
+  "page": 34,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

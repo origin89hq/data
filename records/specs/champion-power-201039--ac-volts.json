@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-201039--ac-volts",
+  "model": "champion-power-201039",
+  "name": "AC VOLTS",
+  "value": "120/240",
+  "source": "doc-06c7e83c401060ebed812796ba1815f8",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

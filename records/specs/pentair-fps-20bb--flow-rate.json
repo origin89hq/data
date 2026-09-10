@@ -1,0 +1,10 @@
+{
+  "id": "pentair-fps-20bb--flow-rate",
+  "model": "pentair-fps-20bb",
+  "name": "Flow Rate",
+  "value": "25 gpm (94.6 Lpm)",
+  "source": "doc-2f52d26f45b91306bb077199ada56783",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

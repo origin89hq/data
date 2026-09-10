@@ -1,0 +1,9 @@
+{
+  "id": "srne-mf4860n15--max-pv-input-power",
+  "model": "srne-mf4860n15",
+  "name": "Max.PV Input Power",
+  "value": "800W/12V、1600W/24V、2400W/36V、3200W/48V",
+  "source": "doc-234aa003fa0448e8511f4867023d902e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gs8048--inverter-dimensions-h-x-w-x-l",
+  "model": "outback-power-gs8048",
+  "name": "Inverter Dimensions (H x W x L)",
+  "value": "16” x 28” x 8.75” (40.6 cm x 71.1 cm x 22.2 cm)",
+  "source": "doc-3bd692c678d3cf4d2557752cb1b5ee4f",
+  "page": 45,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

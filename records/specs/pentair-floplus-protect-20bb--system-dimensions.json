@@ -1,0 +1,9 @@
+{
+  "id": "pentair-floplus-protect-20bb--system-dimensions",
+  "model": "pentair-floplus-protect-20bb",
+  "name": "System Dimensions",
+  "value": "23.22” H x 7.45” W (590 mm x 189 mm)",
+  "source": "doc-c838fb5967d99ddd9d30e6a3dc62f62d",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

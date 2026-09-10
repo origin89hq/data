@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-ht7500et--warranted-life",
+  "model": "east-penn-ht7500et",
+  "name": "Warranted life",
+  "value": "5 years in float applications @ 95°F (35°C)",
+  "source": "doc-7e5756912b2b115084b8dbbf1b140211",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

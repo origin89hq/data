@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-ve-bus-smart-dongle--protection-grade",
+  "model": "victron-energy-ve-bus-smart-dongle",
+  "name": "Protection grade",
+  "value": "IP20",
+  "source": "doc-f8bc6237e1d4723fc3107f0068c5e398",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

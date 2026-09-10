@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gs3548e--maximum-output-current-1ms-peak",
+  "model": "outback-power-gs3548e",
+  "name": "Maximum Output Current 1ms Peak",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-bf3dd8b81cdeb8d630cf47b838f71149",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

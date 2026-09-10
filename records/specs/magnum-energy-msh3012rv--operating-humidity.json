@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-msh3012rv--operating-humidity",
+  "model": "magnum-energy-msh3012rv",
+  "name": "Operating humidity",
+  "value": "0 to 95% RH non-condensing",
+  "source": "doc-d30af05b560c3d63ebacd99c3ff4abbe",
+  "page": 58,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

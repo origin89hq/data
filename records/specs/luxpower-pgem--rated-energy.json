@@ -1,0 +1,11 @@
+{
+  "id": "luxpower-pgem--rated-energy",
+  "model": "luxpower-pgem",
+  "name": "Rated Energy",
+  "value": "5.12",
+  "unit": "kWh",
+  "source": "doc-16703d55933ae3859585b3145968f2c4",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

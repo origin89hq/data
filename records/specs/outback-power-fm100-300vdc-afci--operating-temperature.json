@@ -1,0 +1,9 @@
+{
+  "id": "outback-power-fm100-300vdc-afci--operating-temperature",
+  "model": "outback-power-fm100-300vdc-afci",
+  "name": "Operating Temperature",
+  "value": "25 ◦C",
+  "source": "doc-ca05ae5ac90cf324a38cd269ca280f02",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

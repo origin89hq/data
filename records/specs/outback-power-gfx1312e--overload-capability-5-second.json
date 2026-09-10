@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gfx1312e--overload-capability-5-second",
+  "model": "outback-power-gfx1312e",
+  "name": "Overload Capability (5 second)",
+  "value": "2900",
+  "unit": "VA",
+  "source": "doc-c004e556be205cec5a5f1a30f391feb1",
+  "page": 43,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

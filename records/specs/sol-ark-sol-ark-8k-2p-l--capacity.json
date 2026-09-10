@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-ark-8k-2p-l--capacity",
+  "model": "sol-ark-sol-ark-8k-2p-l",
+  "name": "Capacity",
+  "value": "50 — 9900Ah",
+  "source": "doc-0b346392991c16a78a997e17cc32f647",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

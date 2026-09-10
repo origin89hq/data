@@ -1,0 +1,10 @@
+{
+  "id": "noco-xv100",
+  "model": "noco-xv100",
+  "name": "工作温度",
+  "value": "0ºC 至 35ºC",
+  "source": "doc-82cc25c95851959cac8578ff516d8b7b",
+  "page": 179,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

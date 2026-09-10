@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-msh4024re--hbco-hbci-high-battery-cut-out-in",
+  "model": "magnum-energy-msh4024re",
+  "name": "HBCO/HBCI (High Battery Cut Out/In)",
+  "value": "33.6 VDC/33.0 VDC",
+  "source": "doc-b3cec6d01f565ae5106812f0d96efd4b",
+  "page": 51,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

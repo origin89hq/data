@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-ensp48ndg3445bl--module-efficiency",
+  "model": "energizer-solar-ensp48ndg3445bl",
+  "name": "Module efficiency",
+  "value": "22.3",
+  "unit": "%",
+  "source": "doc-3a48f46212e3821622000d64b87b0d0e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

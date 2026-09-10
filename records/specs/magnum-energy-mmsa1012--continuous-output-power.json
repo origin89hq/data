@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-mmsa1012--continuous-output-power",
+  "model": "magnum-energy-mmsa1012",
+  "name": "Continuous output power",
+  "value": "1000-watt",
+  "source": "doc-60865693bb309d49ec74819086d84180",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

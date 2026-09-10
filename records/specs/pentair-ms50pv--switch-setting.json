@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ms50pv--switch-setting",
+  "model": "pentair-ms50pv",
+  "name": "Switch Setting",
+  "value": "3 (7.6)",
+  "source": "doc-a99c401813ea54309cfb791b2f84682b",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

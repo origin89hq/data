@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-48np36--torque",
+  "model": "magnum-energy-48np36",
+  "name": "Torque",
+  "value": "14.6 in/Lbs",
+  "source": "doc-021c2d390f60ad1d57a68ab5f5df25b3",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

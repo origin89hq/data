@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-gs7048e--harmonic-distortion-maximum-single-voltage",
+  "model": "outback-power-gs7048e",
+  "name": "Harmonic Distortion (maximum single voltage)",
+  "value": "< 2%",
+  "source": "doc-fda963efd83b4fc2faf57024b5e6becd",
+  "page": 57,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

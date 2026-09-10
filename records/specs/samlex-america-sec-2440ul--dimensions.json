@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-sec-2440ul--dimensions",
+  "model": "samlex-america-sec-2440ul",
+  "name": "DIMENSIONS",
+  "value": "331 x 244 x 97 mm / 13.03 x 9.61 x 3.82 in",
+  "source": "doc-f33fd648e833561e44577eb63ca7ea6a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

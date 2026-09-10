@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-mate3-s--battery-for-real-time-clock-and-internal-memory",
+  "model": "outback-power-mate3-s",
+  "name": "Battery (for real-time clock and internal memory)",
+  "value": "CR2032",
+  "source": "doc-c9da591e5e1c893ce8470e0dca51037c",
+  "page": 27,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

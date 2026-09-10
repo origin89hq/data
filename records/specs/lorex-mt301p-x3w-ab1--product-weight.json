@@ -1,0 +1,9 @@
+{
+  "id": "lorex-mt301p-x3w-ab1--product-weight",
+  "model": "lorex-mt301p-x3w-ab1",
+  "name": "Product Weight",
+  "value": "0.9 lb / 0.41 kg",
+  "source": "doc-6ea206e13f1c7d4aff662b5260b0391b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

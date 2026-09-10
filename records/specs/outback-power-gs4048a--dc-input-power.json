@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-gs4048a--dc-input-power",
+  "model": "outback-power-gs4048a",
+  "name": "DC Input Power",
+  "value": "4.8",
+  "unit": "kVA",
+  "source": "doc-7d6af4fdc633610a345d7823b90dd62b",
+  "page": 63,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-1000xlc--float-voltage-per-cell",
+  "model": "outback-power-1000xlc",
+  "name": "float voltage per cell",
+  "value": "2.21-2.25 Vpc",
+  "source": "doc-8f888711145dfb393a31a26b9fe2f6ae",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

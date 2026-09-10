@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-ms4024pae--30-sec-surge-power-real-watts",
+  "model": "magnum-energy-ms4024pae",
+  "name": "30 sec surge power (real watts)",
+  "value": "5200",
+  "source": "doc-90b14882b7428b66e0286aec3f86a08b",
+  "page": 57,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

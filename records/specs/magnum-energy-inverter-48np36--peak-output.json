@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-inverter-48np36--peak-output",
+  "model": "magnum-energy-inverter-48np36",
+  "name": "Peak Output",
+  "value": "100 Amps AC",
+  "source": "doc-021c2d390f60ad1d57a68ab5f5df25b3",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

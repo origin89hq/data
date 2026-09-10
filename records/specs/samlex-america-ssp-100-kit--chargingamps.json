@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-ssp-100-kit--chargingamps",
+  "model": "samlex-america-ssp-100-kit",
+  "name": "CHARGINGAMPS",
+  "value": "6.07",
+  "unit": "A",
+  "source": "doc-a16dae2a6068271d511c47b46101e237",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}
