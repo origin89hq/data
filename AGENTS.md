@@ -51,4 +51,4 @@ missing shared context instead of claiming it loaded.
   Require distinct behavioral tests rather than repeated successful examples.
 - Trace a suspected defect through callers and guards before reporting it.
   Give its trigger, consequence, and precise location. Use CI evidence for the
-  reviewed head, leave formatting and metadata to CI, and avoid duplicate findings.
+  reviewed head, leave formatting to Biome, and avoid duplicate findings.

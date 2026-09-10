@@ -14,5 +14,5 @@ skills refresh there.
 Check callers and existing guards before reporting a defect. Give the trigger,
 consequence, and precise location; do not repeat an existing finding without new
 evidence. Report which checks ran and which evidence is missing. Leave formatting
-and metadata to CI. Keep each comment paragraph on one physical line. Review
+to Biome. Keep each comment paragraph on one physical line. Review
 does not authorize code changes, deployments, publication, or crawler operation.
