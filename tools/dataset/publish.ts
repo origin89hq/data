@@ -1,9 +1,8 @@
-import { execFile } from "node:child_process";
 import { createHash } from "node:crypto";
-import { readdirSync, readFileSync, statSync } from "node:fs";
+import { openAsBlob, readdirSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
-import { promisify } from "node:util";
-import { datasetKey, datasetType } from "../../apps/worker/src/runs.ts";
+import { AUDIENCE } from "../../apps/worker/src/oidc.ts";
+import { datasetKey } from "../../apps/worker/src/runs.ts";
 
 /**
  * Put the built tables where anybody can fetch them.
@@ -13,14 +12,20 @@ import { datasetKey, datasetType } from "../../apps/worker/src/runs.ts";
  *
  * Every file is checked against the manifest the build wrote before it goes up, because the
  * manifest is what the front door quotes back: a byte count or a hash that disagrees would be the
- * index describing a file that is not there.
+ * index describing a file that is not there. The Worker checks again as it writes, and takes the
+ * manifest, sent last, only once every file it names is stored as it says.
+ *
+ * Only publish.yml on main can write. Each request carries a token GitHub issued to that job, and
+ * the Worker accepts nothing else here, so this runs in that job, or anywhere with --dry-run.
  *
  * Usage: publish.ts [--dir dist] [--dry-run]
  */
 const args = process.argv.slice(2);
 const dir = args.includes("--dir") ? (args[args.indexOf("--dir") + 1] ?? "dist") : "dist";
 const dryRun = args.includes("--dry-run");
-const run = promisify(execFile);
+const base = (process.env.OFFGRID_BASE_URL || "https://data.origin89.com").replace(/\/$/, "");
+/** specs.csv is tens of megabytes; a stalled upload should fail the job, not hold it. */
+const PUT_TIMEOUT_MS = 5 * 60_000;
 
 const manifest = JSON.parse(readFileSync(resolve(dir, "manifest.json"), "utf8")) as {
   files: Record<string, { rows: number; bytes: number; sha256: string }>;
@@ -49,56 +54,63 @@ if (missing.length) {
   process.exit(1);
 }
 
-// The manifest goes up too, because the front door reads it to say what it is serving.
-const publishing = [...Object.keys(manifest.files), "manifest.json"];
-let put = 0;
-for (const name of publishing) {
-  const path = resolve(dir, name);
-  if (dryRun) {
-    console.log(`would put ${datasetKey(name)}  ${(statSync(path).size / 1024).toFixed(0)} KB`);
-    put += 1;
-    continue;
-  }
-  try {
-    await run(
-      "pnpm",
-      [
-        "exec",
-        "wrangler",
-        "r2",
-        "object",
-        "put",
-        `offgrid-equipment-archive/${datasetKey(name)}`,
-        "--file",
-        path,
-        "--content-type",
-        datasetType(name),
-        "--remote",
-      ],
-      {
-        cwd: new URL("../../apps/worker/", import.meta.url),
-        timeout: 60_000,
-        maxBuffer: 128 * 1024 * 1024,
-      },
+if (dryRun) {
+  // The manifest goes up too, last, because the front door reads it to say what it is serving.
+  for (const name of [...Object.keys(manifest.files), "manifest.json"])
+    console.log(
+      `would put ${datasetKey(name)}  ${(statSync(resolve(dir, name)).size / 1024).toFixed(0)} KB`,
     );
-  } catch (error) {
-    // Wrangler answers a permissions problem with a screenful of account tables and a raw 403,
-    // which in CI reads as a broken publish rather than a token missing one scope.
-    const said = `${(error as { stdout?: string }).stdout ?? ""}${(error as { stderr?: string }).stderr ?? ""}`;
-    if (said.includes("403") || said.includes("Authentication error")) {
-      console.error(
-        `Cloudflare refused to write ${datasetKey(name)}.\n` +
-          "The API token can deploy a Worker and cannot write to R2. Add the\n" +
-          '"Workers R2 Storage: Edit" permission to the token in CLOUDFLARE_API_TOKEN,\n' +
-          "at https://dash.cloudflare.com/profile/api-tokens",
-      );
-      process.exit(1);
-    }
-    throw error;
-  }
-  put += 1;
-  if (put % 10 === 0) console.log(`  ${put} of ${publishing.length}`);
+  console.log(`${Object.keys(manifest.files).length + 1} files would be published to /v1/`);
+  process.exit(0);
 }
 
-console.log(`${put} files ${dryRun ? "would be published" : "published"} to /v1/`);
-if (!dryRun) console.log(`check it: curl -s https://data.origin89.com/ | head -c 400`);
+/**
+ * A token GitHub issues to this job, naming its repository, branch and workflow. Asked for again
+ * for each file, because one lasts minutes and a slow upload can outlive it.
+ */
+async function jobToken(): Promise<string> {
+  const url = process.env.ACTIONS_ID_TOKEN_REQUEST_URL;
+  const request = process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN;
+  if (!url || !request)
+    throw new Error(
+      "publishing needs a GitHub Actions token, so it runs in publish.yml, which has id-token: write.\n" +
+        "Run with --dry-run to see what would go up.",
+    );
+  const asking = new URL(url);
+  asking.searchParams.set("audience", AUDIENCE);
+  const response = await fetch(asking, {
+    headers: { authorization: `Bearer ${request}` },
+    signal: AbortSignal.timeout(30_000),
+  });
+  if (!response.ok) throw new Error(`GitHub would not issue a job token: HTTP ${response.status}`);
+  const body: unknown = await response.json();
+  const value = typeof body === "object" && body !== null && "value" in body ? body.value : null;
+  if (typeof value !== "string" || !value)
+    throw new Error("GitHub answered a token request without a token");
+  return value;
+}
+
+async function put(name: string, headers: Record<string, string> = {}): Promise<void> {
+  const response = await fetch(`${base}/v1/${name}`, {
+    method: "PUT",
+    headers: { authorization: `Bearer ${await jobToken()}`, ...headers },
+    // A blob reads from disk as it is sent, and tells fetch its length, which R2 needs up front.
+    body: await openAsBlob(resolve(dir, name)),
+    signal: AbortSignal.timeout(PUT_TIMEOUT_MS),
+  });
+  if (!response.ok)
+    throw new Error(`${base} refused ${name}: HTTP ${response.status} ${await response.text()}`);
+}
+
+try {
+  const files = Object.entries(manifest.files);
+  for (const [name, meta] of files) {
+    await put(name, { "x-content-sha256": meta.sha256 });
+    console.log(`put ${name}`);
+  }
+  await put("manifest.json");
+  console.log(`${files.length + 1} files published to ${base}/v1/`);
+} catch (error) {
+  console.error(error instanceof Error ? error.message : String(error));
+  process.exit(1);
+}

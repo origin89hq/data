@@ -15,10 +15,11 @@
     "wrangler": "4.130.0"
   },
   "dependencies": {
-    "hono": "^4.13.7",
-    "zod": "4",
+    "@embedpdf/pdfium": "2.15.0",
     "@origin89/equipment-schema": "workspace:*",
     "entities": "8.1.0",
-    "@embedpdf/pdfium": "2.15.0"
+    "hono": "^4.13.7",
+    "jose": "6.2.12",
+    "zod": "4"
   }
 }

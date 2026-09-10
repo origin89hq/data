@@ -109,7 +109,7 @@ logos *args:
 logos-upload *args:
     node tools/logos/upload.ts "$@"
 
-# Publish the built tables to data.origin89.com, where anybody can fetch them.
+# Publish the built tables to data.origin89.com. Only publish.yml can; --dry-run lists what would go up.
 publish *args:
     node tools/dataset/publish.ts "$@"
 

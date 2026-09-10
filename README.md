@@ -270,6 +270,20 @@ Rotating means changing the repository secret and deploying again.
 curl -X POST "https://<worker>/run?seller=solacity" -H "authorization: Bearer $CONTROL_TOKEN"
 ```
 
+### Publishing the dataset
+
+**Publish the dataset** runs on every push to `main` that changes what the
+tables are built from, and holds no Cloudflare credential. The job asks GitHub
+for an OIDC token with the audience `https://data.origin89.com`. The Worker's
+`PUT /v1/:file` accepts only a token from `publish.yml` on `main`, in this
+repository and owner by ID, in the `offgrid-equipment-production` environment,
+from a push or a manual run. The control token cannot publish.
+
+Each file declares its sha256, and R2 refuses a body that does not match it.
+The manifest goes last, and the Worker refuses it unless every file it names is
+stored at the size and digest it states. `just publish --dry-run` lists what
+would go up; without `--dry-run` the command works only inside that job.
+
 ## The gate
 
 Between the two hops sits the one step a model does not get to take: deciding

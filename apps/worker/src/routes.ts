@@ -1,11 +1,13 @@
 import { APPROVAL_EVENT, CrawlApproval } from "@origin89/equipment-schema/documents";
 import { READS_PER_REQUEST } from "@origin89/equipment-schema/provenance";
-import { Hono } from "hono";
+import { type Context, Hono } from "hono";
+import { z } from "zod";
 import specPages from "../../../feeds/spec-pages.json" with { type: "json" };
-import { authorised } from "./authorised.ts";
+import { authorised, bearer } from "./authorised.ts";
 import { classifyRun, convertRun, specPagesRun, visionRun } from "./enqueue.ts";
 import { hasFeed } from "./feeds.ts";
 import { manufacturers } from "./manufacturers.ts";
+import { verifyWorkflow } from "./oidc.ts";
 import {
   ARCHIVE_ROOTS,
   DATASET_PATH,
@@ -29,8 +31,9 @@ import { partKey } from "./work.ts";
  * The split is the point. This was a chain of ifs with one `authorised` check partway down, so
  * whether a route was public depended on where somebody wrote it — above the check or below it.
  * A route added in the wrong place would have been silently open, and nothing would have said so.
- * Now `public` holds the three anyone may call and `control` holds the rest behind a middleware
- * that runs before any of its handlers, and a test walks both tables rather than a list of names.
+ * Now `public` holds the three anyone may call, `control` holds the rest behind a middleware that
+ * runs before any of its handlers, and `workflow` holds what only a named GitHub workflow may call.
+ * A test walks the tables rather than a list of names.
  */
 
 type Env = Cloudflare.Env;
@@ -461,12 +464,148 @@ controlRoutes.get("/status", async (c) => {
 });
 
 /**
+ * What a workflow on main writes. No person and no shared secret reaches these: each route names
+ * the one workflow file it accepts, and the caller proves it is that workflow with a token GitHub
+ * signed for the job. The control token is not accepted, so holding it does not let anyone publish.
+ */
+export const workflowRoutes: App = new Hono<{ Bindings: Env }>();
+
+/** Every route a workflow calls, and the one workflow file each accepts. */
+export const WORKFLOW_ROUTES = [
+  { method: "PUT", path: "/v1/:file", workflow: "publish.yml" },
+] as const;
+
+// On the method as well as the path: GET on the same path is public, and must stay so.
+for (const route of WORKFLOW_ROUTES) {
+  workflowRoutes.on(route.method, route.path, async (c, next) => {
+    const token = bearer(c.req.raw);
+    const check = token
+      ? await verifyWorkflow(token, route.workflow)
+      : { ok: false as const, reason: `a GitHub Actions token from ${route.workflow} is required` };
+    if (!check.ok) return c.json({ error: check.reason }, 401);
+    console.log(
+      JSON.stringify({
+        message: "workflow call",
+        method: route.method,
+        path: new URL(c.req.url).pathname,
+        workflow: check.run.workflowRef,
+        run: check.run.runId,
+        sha: check.run.sha,
+      }),
+    );
+    await next();
+  });
+}
+
+const MANIFEST = "manifest.json";
+/** The manifest is a few kilobytes. A body far past that is not one. */
+const MANIFEST_MAX_BYTES = 1024 * 1024;
+const SHA256 = /^[0-9a-f]{64}$/;
+
+/** The part of the build's manifest the front door quotes back: each file's size and digest. */
+const DatasetManifest = z.object({
+  files: z.record(
+    z
+      .string()
+      .refine((name) => name !== MANIFEST && DATASET_PATH.test(`/v1/${name}`), "not a table name"),
+    z.object({
+      rows: z.number().int().nonnegative().optional(),
+      bytes: z.number().int().nonnegative(),
+      sha256: z.string().regex(SHA256),
+    }),
+  ),
+});
+
+/**
+ * Publish one file of the dataset, or, last, the manifest that describes them.
+ *
+ * A file declares its sha256 and R2 checks the body against it as it is written. The manifest is
+ * written only when every file it names is stored at the size and digest it states: the manifest
+ * is what the front door quotes, and a hash there that disagrees with the file served is the
+ * index describing a file that is not there.
+ */
+workflowRoutes.put("/v1/:file", async (c) => {
+  const path = new URL(c.req.url).pathname;
+  if (!DATASET_PATH.test(path)) return c.json({ error: "not a dataset file" }, 404);
+  const name = path.slice("/v1/".length);
+  return name === MANIFEST ? putManifest(c) : putFile(c, name);
+});
+
+async function putFile(c: Context<{ Bindings: Env }>, name: string): Promise<Response> {
+  const sha256 = c.req.header("x-content-sha256");
+  if (!sha256 || !SHA256.test(sha256))
+    return c.json({ error: "x-content-sha256 must be the file's sha256, in hex" }, 400);
+  // R2 has to know a streamed body's length before it starts writing it.
+  const length = Number(c.req.header("content-length"));
+  const body = c.req.raw.body;
+  if (!body || !Number.isSafeInteger(length) || length <= 0)
+    return c.json({ error: "the file must be sent with its content-length" }, 411);
+  try {
+    const object = await c.env.ARCHIVE.put(datasetKey(name), body, {
+      sha256,
+      httpMetadata: { contentType: datasetType(name) },
+    });
+    return c.json({ file: name, bytes: object.size, sha256 });
+  } catch (error) {
+    // R2 refuses a body whose digest is not the declared one, and the object already there stays.
+    // 10037 is R2's code for that. Anything else is not the caller's to fix.
+    if (error instanceof Error && error.message.endsWith("(10037)"))
+      return c.json({ error: `${name} is not the file whose sha256 was declared` }, 422);
+    throw error;
+  }
+}
+
+async function putManifest(c: Context<{ Bindings: Env }>): Promise<Response> {
+  const length = Number(c.req.header("content-length"));
+  if (!Number.isSafeInteger(length) || length <= 0 || length > MANIFEST_MAX_BYTES)
+    return c.json(
+      { error: `the manifest must be sent with a content-length under ${MANIFEST_MAX_BYTES}` },
+      413,
+    );
+  const text = await c.req.text();
+  let json: unknown;
+  try {
+    json = JSON.parse(text);
+  } catch {
+    return c.json({ error: "the manifest is not JSON" }, 400);
+  }
+  const parsed = DatasetManifest.safeParse(json);
+  if (!parsed.success)
+    return c.json({ error: "not a dataset manifest", detail: parsed.error.issues }, 400);
+  const files = Object.entries(parsed.data.files);
+  if (files.length === 0)
+    return c.json({ error: "a manifest that names no files would unpublish the dataset" }, 400);
+
+  const disagree: string[] = [];
+  for (const [name, meta] of files) {
+    const stored = await c.env.ARCHIVE.head(datasetKey(name));
+    const sha256 = stored?.checksums.toJSON().sha256;
+    if (!stored) disagree.push(`${name}: not uploaded`);
+    else if (stored.size !== meta.bytes)
+      disagree.push(`${name}: ${stored.size} bytes stored, the manifest says ${meta.bytes}`);
+    else if (sha256 !== meta.sha256)
+      disagree.push(
+        `${name}: stored sha256 is ${sha256 ?? "unrecorded"}, the manifest says ${meta.sha256}`,
+      );
+  }
+  if (disagree.length > 0)
+    return c.json({ error: "the manifest does not describe what is stored", files: disagree }, 409);
+
+  await c.env.ARCHIVE.put(datasetKey(MANIFEST), text, {
+    httpMetadata: { contentType: datasetType(MANIFEST) },
+  });
+  return c.json({ file: MANIFEST, files: files.length });
+}
+
+/**
  * The whole surface. Public first, then everything else behind the token, so a path that matches
  * no public route falls through to a handler that demands one — the safe direction to fail in.
+ * Workflow routes last: they answer only the methods they name.
  */
 export const app: App = new Hono<{ Bindings: Env }>();
 app.route("/", publicRoutes);
 app.route("/", controlRoutes);
+app.route("/", workflowRoutes);
 // Whatever is left is the site's: its stylesheet, its scripts, its own 404. A path that is neither
 // the Worker's nor a file it holds gets the site's answer, not a bare JSON error.
 app.notFound(async (c) => {
