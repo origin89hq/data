@@ -2,7 +2,6 @@ import { classifierKey } from "./classify.ts";
 import { EXTRACTOR_ID } from "./reading.ts";
 import { TABLE_READER } from "./spec-table.ts";
 import { currentRuns, runPrefix } from "./runs.ts";
-import { partKey } from "./work.ts";
 
 /**
  * What the spider knows and what it is waiting on, derived from the archive rather than kept
@@ -48,6 +47,17 @@ const listAll = async (bucket: R2Bucket, prefix: string): Promise<string[]> => {
   return keys;
 };
 
+/** The sha256 of every document that has a reading by the current reader. */
+const readingsPresent = async (bucket: R2Bucket): Promise<Set<string>> => {
+  const reader = EXTRACTOR_ID.replace(/[^\w.-]+/g, "_");
+  const suffix = `.${reader}.reading.json`;
+  const present = new Set<string>();
+  for (const key of await listAll(bucket, "archive/")) {
+    if (key.endsWith(suffix)) present.add(key.slice("archive/".length, -suffix.length));
+  }
+  return present;
+};
+
 const json = async <T>(bucket: R2Bucket, key: string): Promise<T | undefined> => {
   const object = await bucket.get(key);
   return object ? ((await object.json()) as T) : undefined;
@@ -75,6 +85,10 @@ export async function sellerStates(bucket: R2Bucket): Promise<SellerState[]> {
 
 export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
   const out: MakerState[] = [];
+  // Every reading there is, listed once. This used to be a HEAD per approved document per maker,
+  // which is thousands of requests for one status call and a miss logged for each of the documents
+  // not read yet — the normal answer, reported by R2 as a failed HeadObject.
+  const readings = await readingsPresent(bucket);
   for (const { entity: maker, pointer } of await currentRuns(bucket, "documents")) {
     const date = pointer.date;
     const base = runPrefix.documents(maker, pointer.run);
@@ -88,8 +102,7 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
     let read = 0;
     for (const doc of converting?.documents ?? []) {
       const sha = (doc as { sha256?: string }).sha256;
-      if (!sha) continue;
-      if (await bucket.head(partKey.reading(sha, EXTRACTOR_ID.replace(/[^\w.-]+/g, "_")))) read += 1;
+      if (sha && readings.has(sha)) read += 1;
     }
 
     const offered = plan?.documents?.length ?? 0;
