@@ -36,8 +36,10 @@ export const ENGLISH: Record<string, string> = {
   "Débit d’eau minimum": "Minimum water flow",
   "Dispositifs de sécurité": "Safety devices",
   "Système d’évacuation": "Drain system",
-  "Consommation électrique(avec système de protection contre le gel activé)": "Power consumption, freeze protection active",
-  "Consommation électrique(en mode de fonctionnement normal)": "Power consumption, normal operation",
+  "Consommation électrique(avec système de protection contre le gel activé)":
+    "Power consumption, freeze protection active",
+  "Consommation électrique(en mode de fonctionnement normal)":
+    "Power consumption, normal operation",
   "Température prédéfinie – Comf": "Preset temperature, Comfort",
   "Température prédéfinie – High": "Preset temperature, High",
   "Température prédéfinie – Low": "Preset temperature, Low",

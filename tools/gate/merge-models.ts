@@ -1,8 +1,8 @@
 import { readdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
-import { loadRecords, writeRecord, RECORDS_DIR } from "../../src/records.ts";
-import { Model, Spec } from "../../schema/model.ts";
+import { Model, Spec } from "@origin89/equipment-schema/model";
 import { preferredName, productKey } from "../../src/models.ts";
+import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 
 /**
  * Fold the records that are one product filed several times into one.
@@ -33,7 +33,8 @@ for (const model of records.models) {
 }
 
 const specsOf = new Map<string, Spec[]>();
-for (const spec of records.specs) specsOf.set(spec.model, [...(specsOf.get(spec.model) ?? []), spec]);
+for (const spec of records.specs)
+  specsOf.set(spec.model, [...(specsOf.get(spec.model) ?? []), spec]);
 
 const merged: { keep: Model; drop: Model[] }[] = [];
 const disputed: Model[][] = [];
@@ -45,7 +46,8 @@ for (const group of groups.values()) {
     continue;
   }
   const name = preferredName(group.map((m) => m.name));
-  const keep = group.find((m) => m.name === name) ?? group[0]!;
+  const keep = group.find((m) => m.name === name) ?? group[0];
+  if (!keep) throw new Error("Duplicate group has no keeper");
   merged.push({ keep, drop: group.filter((m) => m.id !== keep.id) });
 }
 
@@ -74,7 +76,8 @@ for (const { keep, drop } of merged) {
       } else {
         held.add(id);
         movedSpecs += 1;
-        if (!dryRun) writeRecord(RECORDS_DIR, "specs", id, Spec.parse({ ...spec, id, model: keep.id }));
+        if (!dryRun)
+          writeRecord(RECORDS_DIR, "specs", id, Spec.parse({ ...spec, id, model: keep.id }));
       }
       if (!dryRun) rmSync(join(RECORDS_DIR, "specs", `${spec.id}.json`), { force: true });
     }
@@ -96,19 +99,34 @@ if (!dryRun) {
 }
 
 console.log(`${records.models.length} models in`);
-console.log(`  ${merged.length} groups merged, ${merged.reduce((n, g) => n + g.drop.length, 0)} records folded into the name the maker uses`);
-console.log(`  ${movedSpecs} figures moved to the surviving model, ${droppedSpecs} dropped as the same figure said twice`);
+console.log(
+  `  ${merged.length} groups merged, ${merged.reduce((n, g) => n + g.drop.length, 0)} records folded into the name the maker uses`,
+);
+console.log(
+  `  ${movedSpecs} figures moved to the surviving model, ${droppedSpecs} dropped as the same figure said twice`,
+);
 for (const { keep, drop } of merged.slice(0, 12)) {
   console.log(`      ${keep.id}  ←  ${drop.map((m) => JSON.stringify(m.name)).join(", ")}`);
 }
 if (disputed.length) {
-  console.log(`\n${disputed.length} groups left alone because their records disagree about what the product is:`);
+  console.log(
+    `\n${disputed.length} groups left alone because their records disagree about what the product is:`,
+  );
   for (const group of disputed) {
-    console.log(`  ${group[0]!.manufacturer}: ${group.map((m) => `${JSON.stringify(m.name)} ${m.kind ?? "no kind"}`).join("  |  ")}`);
+    const first = group[0];
+    if (!first) throw new Error("Disputed group is empty");
+    console.log(
+      `  ${first.manufacturer}: ${group.map((m) => `${JSON.stringify(m.name)} ${m.kind ?? "no kind"}`).join("  |  ")}`,
+    );
   }
-  console.log("  A duplicate that two answers disagree about is a classification to settle, not a merge to force.");
+  console.log(
+    "  A duplicate that two answers disagree about is a classification to settle, not a merge to force.",
+  );
 }
-if (orphans) console.log(`  ${orphans} source documents dropped, cited by nothing once their figure was a repeat`);
+if (orphans)
+  console.log(
+    `  ${orphans} source documents dropped, cited by nothing once their figure was a repeat`,
+  );
 if (dryRun) console.log("\nnothing written");
 else {
   const left = readdirSync(join(RECORDS_DIR, "models")).length;

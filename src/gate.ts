@@ -1,6 +1,6 @@
-import type { Brand, BrandEvidence } from "../schema/brand.ts";
-import type { Guess } from "../schema/guess.ts";
-import type { Sighting } from "../schema/sighting.ts";
+import type { Brand, BrandEvidence } from "@origin89/equipment-schema/brand";
+import type { Guess } from "@origin89/equipment-schema/guess";
+import type { Sighting } from "@origin89/equipment-schema/sighting";
 
 /** A brand string turned into a record id: lower case, one hyphen per run of anything else. */
 export function brandId(brand: string): string {
@@ -27,13 +27,38 @@ export interface GateInput {
  * brand behind forty charge controllers is worth a reviewer's minute and the one behind a single
  * cast-iron skillet is not.
  */
-export function gatherBrands({ sightings, guesses, seenAt }: GateInput): { id: string; brand: string; evidence: BrandEvidence }[] {
-  const rows = new Map<string, { brand: string; sellers: Set<string>; listings: number; inScope: number; kinds: Map<string, number>; models: Set<string>; proposed: Set<string>; examples: string[] }>();
+export function gatherBrands({
+  sightings,
+  guesses,
+  seenAt,
+}: GateInput): { id: string; brand: string; evidence: BrandEvidence }[] {
+  const rows = new Map<
+    string,
+    {
+      brand: string;
+      sellers: Set<string>;
+      listings: number;
+      inScope: number;
+      kinds: Map<string, number>;
+      models: Set<string>;
+      proposed: Set<string>;
+      examples: string[];
+    }
+  >();
   for (const s of sightings) {
     const brand = s.brand?.trim();
     if (!brand) continue;
     const id = brandId(brand);
-    const row = rows.get(id) ?? { brand, sellers: new Set(), listings: 0, inScope: 0, kinds: new Map(), models: new Set(), proposed: new Set(), examples: [] };
+    const row = rows.get(id) ?? {
+      brand,
+      sellers: new Set(),
+      listings: 0,
+      inScope: 0,
+      kinds: new Map(),
+      models: new Set(),
+      proposed: new Set(),
+      examples: [],
+    };
     row.sellers.add(s.seller);
     row.listings += 1;
     if (row.examples.length < EVIDENCE_LIMIT) row.examples.push(s.title);
@@ -62,7 +87,12 @@ export function gatherBrands({ sightings, guesses, seenAt }: GateInput): { id: s
         seenAt,
       } satisfies BrandEvidence,
     }))
-    .sort((a, b) => b.evidence.inScope - a.evidence.inScope || b.evidence.listings - a.evidence.listings || a.id.localeCompare(b.id));
+    .sort(
+      (a, b) =>
+        b.evidence.inScope - a.evidence.inScope ||
+        b.evidence.listings - a.evidence.listings ||
+        a.id.localeCompare(b.id),
+    );
 }
 
 /**
@@ -70,14 +100,19 @@ export function gatherBrands({ sightings, guesses, seenAt }: GateInput): { id: s
  * gets new evidence; a new one arrives unresolved. Nothing here ever writes a decision — that is
  * the gate, and a model's proposal is carried as evidence, never as the answer.
  */
-export function mergeBrand(existing: Brand | undefined, found: { id: string; brand: string; evidence: BrandEvidence }): Brand {
-  if (!existing) return { id: found.id, brand: found.brand, decision: "unresolved", evidence: found.evidence };
+export function mergeBrand(
+  existing: Brand | undefined,
+  found: { id: string; brand: string; evidence: BrandEvidence },
+): Brand {
+  if (!existing)
+    return { id: found.id, brand: found.brand, decision: "unresolved", evidence: found.evidence };
   const merged: Brand = { ...existing, evidence: mergeEvidence(existing.evidence, found.evidence) };
   return merged;
 }
 
 function mergeEvidence(old: BrandEvidence, fresh: BrandEvidence): BrandEvidence {
-  const union = (a: string[], b: string[], limit = EVIDENCE_LIMIT) => [...new Set([...a, ...b])].slice(0, limit);
+  const union = (a: string[], b: string[], limit = EVIDENCE_LIMIT) =>
+    [...new Set([...a, ...b])].slice(0, limit);
   return {
     sellers: [...new Set([...old.sellers, ...fresh.sellers])].sort(),
     listings: fresh.listings,

@@ -1,0 +1,24 @@
+{
+  "name": "offgrid-equipment-worker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "types": "wrangler types",
+    "check": "wrangler types && tsc --noEmit",
+    "test": "node --test test/*.test.ts",
+    "deploy:dry-run": "wrangler deploy --dry-run",
+    "gate": "node scripts/gate-report.ts"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2",
+    "wrangler": "4.130.0"
+  },
+  "dependencies": {
+    "hono": "^4.13.7",
+    "zod": "4",
+    "@origin89/equipment-schema": "workspace:*",
+    "entities": "8.1.0",
+    "@embedpdf/pdfium": "2.15.0"
+  }
+}

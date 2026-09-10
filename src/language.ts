@@ -21,7 +21,8 @@ const ACCENTED = /[áàâäéèêëíìîïóòôöúùûüñçőűąćęłńś�
  * Portuguese, and none of the 27 that also contain an English technical word is English — they are
  * French cognates like "Type de batterie" and "Courant de charge maximum".
  */
-const ROMANCE = /(^|[\s(])(de|del|la|las|los|el|du|des|le|les|pour|avec|sans|da|dos|das|di|della|dello|delle|nel|en|por|para)([\s)]|$)/i;
+const ROMANCE =
+  /(^|[\s(])(de|del|la|las|los|el|du|des|le|les|pour|avec|sans|da|dos|das|di|della|dello|delle|nel|en|por|para)([\s)]|$)/i;
 
 /**
  * Words that name a quantity in Spanish, French or Portuguese and in no English specification.
@@ -34,31 +35,151 @@ const ROMANCE = /(^|[\s(])(de|del|la|las|los|el|du|des|le|les|pour|avec|sans|da|
  */
 const FOREIGN_TERMS = new Set([
   // Spanish
-  "altura", "anchura", "ancho", "largo", "longitud", "profundidad", "peso", "voltaje", "voltios",
-  "vatios", "amperaje", "amperios", "corriente", "potencia", "frecuencia", "fase", "capacidad",
-  "cilindrada", "arranque", "gasolina", "propano", "aceite", "tanque", "combustible", "ruido",
-  "humedad", "salida", "entrada", "bateria", "descarga", "eficiencia", "rendimiento", "velocidad",
-  "medidas", "continuos", "encendido", "marca", "modelo", "presion", "sonido", "consumo",
+  "altura",
+  "anchura",
+  "ancho",
+  "largo",
+  "longitud",
+  "profundidad",
+  "peso",
+  "voltaje",
+  "voltios",
+  "vatios",
+  "amperaje",
+  "amperios",
+  "corriente",
+  "potencia",
+  "frecuencia",
+  "fase",
+  "capacidad",
+  "cilindrada",
+  "arranque",
+  "gasolina",
+  "propano",
+  "aceite",
+  "tanque",
+  "combustible",
+  "ruido",
+  "humedad",
+  "salida",
+  "entrada",
+  "bateria",
+  "descarga",
+  "eficiencia",
+  "rendimiento",
+  "velocidad",
+  "medidas",
+  "continuos",
+  "encendido",
+  "marca",
+  "modelo",
+  "presion",
+  "sonido",
+  "consumo",
   // French
-  "hauteur", "largeur", "longueur", "profondeur", "poids", "courant", "puissance", "pression",
-  "sortie", "batterie", "essence", "huile", "carburant", "bruit", "garantie", "taille", "vitesse",
-  "plage", "niveau", "rendement", "tuyau", "sel", "chute",
+  "hauteur",
+  "largeur",
+  "longueur",
+  "profondeur",
+  "poids",
+  "courant",
+  "puissance",
+  "pression",
+  "sortie",
+  "batterie",
+  "essence",
+  "huile",
+  "carburant",
+  "bruit",
+  "garantie",
+  "taille",
+  "vitesse",
+  "plage",
+  "niveau",
+  "rendement",
+  "tuyau",
+  "sel",
+  "chute",
   // Portuguese
-  "largura", "comprimento", "tensao", "frequencia", "capacidade", "partida", "oleo", "combustivel",
-  "tamanho", "pressao", "umidade", "saida",
+  "largura",
+  "comprimento",
+  "tensao",
+  "frequencia",
+  "capacidade",
+  "partida",
+  "oleo",
+  "combustivel",
+  "tamanho",
+  "pressao",
+  "umidade",
+  "saida",
   // German, Dutch, Danish, Norwegian, Swedish, Finnish, Polish, Hungarian. NOCO and Champion
   // publish one manual in eight languages, and none of the rules above can see a word like
   // "Spannung" or "Lagringstemperatur": no accent, no Romance function word, one token.
-  "spannung", "sicherung", "gewicht", "abmessungen", "arbeitsstrom", "arbeitszyklus",
-  "betriebstemperatur", "lagertemperatur", "motorleistung", "anzahl", "zylinder", "luftstrom",
-  "spanning", "afmetingen", "koeling", "opslagtemperatuur", "werkingstemperatuur", "aantal",
-  "cilinders", "behuizing", "bescherming", "activiteitscyclus", "motorclassificatie", "stroomverbruik",
-  "luchtstroom", "beskyttelse", "beskyttelseshus", "opbevaringstemperatur", "driftstemperatur",
-  "arbejdscyklus", "arbejdsstrom", "sikring", "dimensioner", "antal", "cylindre", "luftflow",
-  "motorklassificering", "lagringstemperatur", "deksel", "spaending", "kotelon", "suojaus",
-  "lagringstemperatuur", "mitat", "sulake", "sylinterien", "moottorin", "pulssisuhde", "manuaalitilan",
-  "lumenit", "koeling", "kolning", "bezpiecznik", "obudowa", "ochronna", "przechowywania", "robocza",
-  "silnika", "lumeny", "cykl", "pracy", "munkaciklus", "temperatura", "maks",
+  "spannung",
+  "sicherung",
+  "gewicht",
+  "abmessungen",
+  "arbeitsstrom",
+  "arbeitszyklus",
+  "betriebstemperatur",
+  "lagertemperatur",
+  "motorleistung",
+  "anzahl",
+  "zylinder",
+  "luftstrom",
+  "spanning",
+  "afmetingen",
+  "koeling",
+  "opslagtemperatuur",
+  "werkingstemperatuur",
+  "aantal",
+  "cilinders",
+  "behuizing",
+  "bescherming",
+  "activiteitscyclus",
+  "motorclassificatie",
+  "stroomverbruik",
+  "luchtstroom",
+  "beskyttelse",
+  "beskyttelseshus",
+  "opbevaringstemperatur",
+  "driftstemperatur",
+  "arbejdscyklus",
+  "arbejdsstrom",
+  "sikring",
+  "dimensioner",
+  "antal",
+  "cylindre",
+  "luftflow",
+  "motorklassificering",
+  "lagringstemperatur",
+  "deksel",
+  "spaending",
+  "kotelon",
+  "suojaus",
+  "lagringstemperatuur",
+  "mitat",
+  "sulake",
+  "sylinterien",
+  "moottorin",
+  "pulssisuhde",
+  "manuaalitilan",
+  "lumenit",
+  "koeling",
+  "kolning",
+  "bezpiecznik",
+  "obudowa",
+  "ochronna",
+  "przechowywania",
+  "robocza",
+  "silnika",
+  "lumeny",
+  "cykl",
+  "pracy",
+  "munkaciklus",
+  "temperatura",
+  "maks",
 ]);
 
 /** The name's words, lowercased and stripped of accents, so "Presión" and "presion" are one word. */
@@ -80,11 +201,36 @@ const wordsOf = (name: string): string[] =>
  * inside "temperature", and that one substring would have flagged a thousand English rows.
  */
 const FOREIGN_STEMS = [
-  "spannung", "feuchtigkeit", "feuchte", "abmessung", "strom", "leistung", "temperatuur",
-  "temperaturbereich", "aufbewahrung", "umgebungs", "anschluss", "zulassig", "zugelassen",
-  "energieverbrauch", "eigenverbrauch", "nennspannung", "betriebs", "halterung", "gehause",
-  "opslag", "werking", "afmeting", "vermogen", "spanningsbereik",
-  "temperatuurbereik", "opbevaring", "arbejds", "spaending", "lagring", "kapasitet",
+  "spannung",
+  "feuchtigkeit",
+  "feuchte",
+  "abmessung",
+  "strom",
+  "leistung",
+  "temperatuur",
+  "temperaturbereich",
+  "aufbewahrung",
+  "umgebungs",
+  "anschluss",
+  "zulassig",
+  "zugelassen",
+  "energieverbrauch",
+  "eigenverbrauch",
+  "nennspannung",
+  "betriebs",
+  "halterung",
+  "gehause",
+  "opslag",
+  "werking",
+  "afmeting",
+  "vermogen",
+  "spanningsbereik",
+  "temperatuurbereik",
+  "opbevaring",
+  "arbejds",
+  "spaending",
+  "lagring",
+  "kapasitet",
 ];
 
 /** Whether this name reads as something other than English. */
@@ -140,12 +286,20 @@ export function withoutTranslatedReadings<T>(
  * goes. Where a model has nothing else, it stays: an untranslated label beats no model at all,
  * and it is reported so somebody can add the name to the table.
  */
-export function withoutRedundantTranslations<T extends { id: string; model: string; name: string; value: string; unit?: string; english?: string }>(
-  specs: readonly T[],
-): { keep: T[]; dropped: T[]; kept: T[] } {
+export function withoutRedundantTranslations<
+  T extends {
+    id: string;
+    model: string;
+    name: string;
+    value: string;
+    unit?: string;
+    english?: string;
+  },
+>(specs: readonly T[]): { keep: T[]; dropped: T[]; kept: T[] } {
   const hasEnglish = new Set<string>();
   for (const spec of specs) if (!looksForeign(spec.name)) hasEnglish.add(spec.model);
-  const redundant = (spec: T) => looksForeign(spec.name) && !spec.english && hasEnglish.has(spec.model);
+  const redundant = (spec: T) =>
+    looksForeign(spec.name) && !spec.english && hasEnglish.has(spec.model);
 
   // One figure said in two languages, in two documents. NOCO's GENIUSPRO50 states its battery
   // capacity in a Spanish manual and again in a French one; neither repeats an English row, so
@@ -158,10 +312,13 @@ export function withoutRedundantTranslations<T extends { id: string; model: stri
     said.set(key, [...(said.get(key) ?? []), spec]);
   }
   const twice = new Set<string>();
-  for (const rows of said.values()) for (const row of [...rows].sort((a, b) => a.id.localeCompare(b.id)).slice(1)) twice.add(row.id);
+  for (const rows of said.values())
+    for (const row of [...rows].sort((a, b) => a.id.localeCompare(b.id)).slice(1))
+      twice.add(row.id);
 
   const gone = (spec: T) => redundant(spec) || twice.has(spec.id);
-  const orphaned = (spec: T) => looksForeign(spec.name) && !spec.english && !hasEnglish.has(spec.model);
+  const orphaned = (spec: T) =>
+    looksForeign(spec.name) && !spec.english && !hasEnglish.has(spec.model);
   return {
     keep: specs.filter((spec) => !gone(spec)),
     dropped: specs.filter(gone),
@@ -178,11 +335,52 @@ export function withoutRedundantTranslations<T extends { id: string; model: stri
  * Dutch. This asks which of them is English rather than which is not.
  */
 const ENGLISH_TERMS = new Set([
-  "charge", "charging", "output", "input", "voltage", "current", "power", "temperature", "weight",
-  "capacity", "time", "battery", "fast", "device", "protection", "cooling", "fuse", "dimensions",
-  "lumens", "operating", "storage", "internal", "maximum", "minimum", "rated", "nominal", "peak",
-  "size", "type", "range", "chemistry", "housing", "case", "duty", "cycle", "motor", "air", "flow",
-  "pressure", "humidity", "altitude", "efficiency", "frequency", "phase", "cylinders", "port",
+  "charge",
+  "charging",
+  "output",
+  "input",
+  "voltage",
+  "current",
+  "power",
+  "temperature",
+  "weight",
+  "capacity",
+  "time",
+  "battery",
+  "fast",
+  "device",
+  "protection",
+  "cooling",
+  "fuse",
+  "dimensions",
+  "lumens",
+  "operating",
+  "storage",
+  "internal",
+  "maximum",
+  "minimum",
+  "rated",
+  "nominal",
+  "peak",
+  "size",
+  "type",
+  "range",
+  "chemistry",
+  "housing",
+  "case",
+  "duty",
+  "cycle",
+  "motor",
+  "air",
+  "flow",
+  "pressure",
+  "humidity",
+  "altitude",
+  "efficiency",
+  "frequency",
+  "phase",
+  "cylinders",
+  "port",
 ]);
 
 /** How many English specification words a name uses. Higher wins a tie between languages. */

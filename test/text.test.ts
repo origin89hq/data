@@ -1,10 +1,10 @@
-import { test } from "node:test";
 import assert from "node:assert/strict";
+import { test } from "node:test";
+import { looksForeign } from "../src/language.ts";
+import { loadRecords } from "../src/records.ts";
 import { repairMojibake } from "../src/text.ts";
 import { englishName } from "../src/translations.ts";
 import { looksTruncated } from "../src/units.ts";
-import { looksForeign } from "../src/language.ts";
-import { loadRecords } from "../src/records.ts";
 
 const records = loadRecords();
 
@@ -32,7 +32,11 @@ test("a value that is a fragment of its own JSON is refused, and an inch mark is
 test("no committed figure carries a fragment as its value or an undecoded accent in its name", () => {
   for (const spec of records.specs) {
     assert.equal(looksTruncated(spec.value), false, `${spec.id} = ${spec.value}`);
-    assert.equal(repairMojibake(spec.name), spec.name, `${spec.id} has an undecoded name: ${spec.name}`);
+    assert.equal(
+      repairMojibake(spec.name),
+      spec.name,
+      `${spec.id} has an undecoded name: ${spec.name}`,
+    );
   }
 });
 
@@ -41,8 +45,14 @@ test("every figure a maker printed in another language carries the English name 
   // another language with no English beside it cannot be grouped with the same figure in English,
   // which is the whole point of publishing the table.
   const foreign = records.specs.filter((s) => looksForeign(s.name));
-  const missing = [...new Set(foreign.filter((s) => !s.english && !englishName(s.name)).map((s) => s.name))];
-  assert.deepEqual(missing, [], "these printed names have no English equivalent in src/translations.ts");
+  const missing = [
+    ...new Set(foreign.filter((s) => !s.english && !englishName(s.name)).map((s) => s.name)),
+  ];
+  assert.deepEqual(
+    missing,
+    [],
+    "these printed names have no English equivalent in src/translations.ts",
+  );
 });
 
 test("a model is never described only in a language nobody can group by", () => {

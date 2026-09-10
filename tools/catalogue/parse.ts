@@ -1,6 +1,10 @@
-import type { Dialect, DialectModel } from "../../schema/dialect.ts";
-import type { Family } from "../../schema/family.ts";
-import type { Confidence, Family as FamilyId, RefuterStatus } from "../../schema/enums.ts";
+import type { Dialect, DialectModel } from "@origin89/equipment-schema/dialect";
+import type {
+  Confidence,
+  Family as FamilyId,
+  RefuterStatus,
+} from "@origin89/equipment-schema/enums";
+import type { Family } from "@origin89/equipment-schema/family";
 
 /** The catalogue's fixed cross-reference paragraph, after the ids. Identical in every file. */
 export const SEE_ALSO_TAIL =
@@ -54,7 +58,8 @@ export function parseFamilyFile(
   let pendingSection: string | undefined;
   for (const chunk of chunks) {
     const separator = chunk.indexOf("\n---\n");
-    if (separator < 0) throw new CatalogueParseError(family, undefined, "entry without a closing rule");
+    if (separator < 0)
+      throw new CatalogueParseError(family, undefined, "entry without a closing rule");
     const entry = chunk.slice(0, separator);
     const trailing = chunk.slice(separator + "\n---\n".length).trim();
     const dialect = parseEntry(family, entry, sourceId);
@@ -67,12 +72,23 @@ export function parseFamilyFile(
     dialects.push(dialect);
     if (trailing) pendingSection = trailing;
   }
-  if (pendingSection) throw new CatalogueParseError(family, undefined, "prose after the last entry");
+  if (pendingSection)
+    throw new CatalogueParseError(family, undefined, "prose after the last entry");
   for (const id of refiled.keys()) {
-    if (!dialects.some((d) => d.id === id)) throw new CatalogueParseError(family, id, "refiled list names an entry that is not in the file");
+    if (!dialects.some((d) => d.id === id))
+      throw new CatalogueParseError(
+        family,
+        id,
+        "refiled list names an entry that is not in the file",
+      );
   }
   for (const id of duplicates) {
-    if (!dialects.some((d) => d.id === id)) throw new CatalogueParseError(family, id, "duplicates list names an entry that is not in the file");
+    if (!dialects.some((d) => d.id === id))
+      throw new CatalogueParseError(
+        family,
+        id,
+        "duplicates list names an entry that is not in the file",
+      );
   }
   const familyRecord: Family = {
     id: family,
@@ -111,14 +127,24 @@ function parsePreamble(family: FamilyId, preamble: string) {
     }
     rest = rest.replace(/^\n+/, "");
   }
-  if (rest.trim() !== "---") throw new CatalogueParseError(family, undefined, `unexpected preamble tail: ${JSON.stringify(rest.slice(0, 80))}`);
+  if (rest.trim() !== "---")
+    throw new CatalogueParseError(
+      family,
+      undefined,
+      `unexpected preamble tail: ${JSON.stringify(rest.slice(0, 80))}`,
+    );
   return { intro, claimedCount: Number(countMatch[1]), refiled, duplicates };
 }
 
 function parseEntry(family: FamilyId, entry: string, sourceId: (c: string) => string): Dialect {
   const paragraphs = entry.replace(/\n+$/, "").split(/\n\n+/);
   const heading = HEADING.exec(paragraphs[0] ?? "");
-  if (!heading) throw new CatalogueParseError(family, undefined, `bad heading ${JSON.stringify(paragraphs[0])}`);
+  if (!heading)
+    throw new CatalogueParseError(
+      family,
+      undefined,
+      `bad heading ${JSON.stringify(paragraphs[0])}`,
+    );
   const id = heading[1];
   const fail = (message: string) => new CatalogueParseError(family, id, message);
 
@@ -197,7 +223,8 @@ function parseEntry(family: FamilyId, entry: string, sourceId: (c: string) => st
       d.downgradedOnReview = p.slice("**Downgraded on review.** ".length);
     } else if (p.startsWith("- ")) {
       d.gotchas = p.split("\n").map((line) => {
-        if (!line.startsWith("- ")) throw fail(`gotcha continuation line ${JSON.stringify(line.slice(0, 60))}`);
+        if (!line.startsWith("- "))
+          throw fail(`gotcha continuation line ${JSON.stringify(line.slice(0, 60))}`);
         return line.slice(2);
       });
     } else if (p.startsWith("**Reports with no `MetricKind`:** ")) {
@@ -242,9 +269,13 @@ function parseTable(p: string, fail: (m: string) => Error): DialectModel[] {
   if (!columns) throw fail(`unknown table header ${JSON.stringify(lines[0])}`);
   if (lines[1] !== `|${"---|".repeat(columns.length)}`) throw fail("bad table rule");
   return lines.slice(2).map((line) => {
-    if (!line.startsWith("| ") || !line.endsWith(" |")) throw fail(`bad table row ${JSON.stringify(line.slice(0, 60))}`);
+    if (!line.startsWith("| ") || !line.endsWith(" |"))
+      throw fail(`bad table row ${JSON.stringify(line.slice(0, 60))}`);
     const cells = line.slice(2, -2).split(" | ");
-    if (cells.length !== columns.length) throw fail(`row has ${cells.length} cells, header has ${columns.length}: ${JSON.stringify(line.slice(0, 60))}`);
+    if (cells.length !== columns.length)
+      throw fail(
+        `row has ${cells.length} cells, header has ${columns.length}: ${JSON.stringify(line.slice(0, 60))}`,
+      );
     const model: DialectModel = { name: cells[0] };
     columns.slice(1).forEach((column, index) => {
       const cell = cells[index + 1];

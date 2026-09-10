@@ -1,15 +1,18 @@
 import { rmSync } from "node:fs";
 import { join } from "node:path";
-import { loadRecords, writeRecord, RECORDS_DIR } from "../../src/records.ts";
-import { specsFrom, type ReportedProduct } from "../../src/specs.ts";
+import { withoutTranslations } from "@origin89/equipment-schema/documents";
+import { Model } from "@origin89/equipment-schema/model";
+import {
+  EXTRACTOR_ID,
+  readerKey,
+  VISION_EXTRACTOR_ID,
+} from "@origin89/equipment-schema/provenance";
+import { Source } from "@origin89/equipment-schema/source";
+import { withoutRedundantTranslations, withoutTranslatedReadings } from "../../src/language.ts";
 import { looksLikeModelName, modelId, normaliseModelName } from "../../src/models.ts";
-import { Model } from "../../schema/model.ts";
-import { Source } from "../../schema/source.ts";
-import { currentRun, jsonValues, object, under } from "./archive.ts";
-import { EXTRACTOR_ID, VISION_EXTRACTOR_ID } from "../../worker/src/reading.ts";
-import { readerKey } from "../../worker/src/work.ts";
-import { withoutTranslations } from "../../worker/src/documents.ts";
-import { withoutTranslatedReadings, withoutRedundantTranslations } from "../../src/language.ts";
+import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
+import { type ReportedProduct, specsFrom } from "../../src/specs.ts";
+import { currentRun, jsonValues, object } from "./archive.ts";
 
 /**
  * Fold a manufacturer's extracted readings into spec records. A figure is written only when the
@@ -49,22 +52,30 @@ const base = `documents/${manufacturer}/runs/${current.run}`;
 const index = await object(`${base}/converting.json`, remote);
 const converting = index ? (JSON.parse(index) as { documents: { sha256: string }[] }) : undefined;
 const expected = converting?.documents ?? [];
-// When the bytes were actually fetched, which the crawl records. The date in the path is a name
-// for the run and a person picks those loosely; a source that claims a day which has not happened
-// is worse than one that claims none.
-const manifest = await object(`${base}/manifest.json`, remote);
-const retrievedAt = manifest ? ((JSON.parse(manifest) as { retrievedAt?: string }).retrievedAt ?? undefined) : undefined;
-const readings: { readings: { sha256: string; url: string; extractedBy?: string; products: (ReportedProduct & { specs: { page?: number }[] })[] }[] } = { readings: [] };
+const readings: {
+  readings: {
+    sha256: string;
+    url: string;
+    extractedBy?: string;
+    products: (ReportedProduct & { specs: { page?: number }[] })[];
+  }[];
+} = { readings: [] };
 // Every reading of this run in one request, rather than one process per document.
 // A reading lives beside its document, so this run's readings are those of the documents it
 // converted. Nothing is re-read because a run asked again.
 // A scan has two: the text reader's, which found nothing, and the page reader's, which drew it.
 const refused: { url: string; refused: string }[] = [];
 for (const doc of expected) {
-  for (const reader of [readerKey(EXTRACTOR_ID), readerKey(VISION_EXTRACTOR_ID), "table_spec-table_v1"]) {
+  for (const reader of [
+    readerKey(EXTRACTOR_ID),
+    readerKey(VISION_EXTRACTOR_ID),
+    "table_spec-table_v1",
+  ]) {
     const body = await object(`archive/${doc.sha256}.${reader}.reading.json`, remote);
     if (!body) continue;
-    for (const value of jsonValues<(typeof readings.readings)[number] & { refused?: string }>(body)) {
+    for (const value of jsonValues<(typeof readings.readings)[number] & { refused?: string }>(
+      body,
+    )) {
       readings.readings.push(value);
       if (value.refused) refused.push({ url: value.url, refused: value.refused });
     }
@@ -83,7 +94,9 @@ const { keep, dropped } = withoutTranslations(readings.readings);
 readings.readings = keep;
 // And the ones whose file name says nothing. Pentair marks a Spanish manual "_SPA_" in one place
 // and "-s-" in another, so the language a document is in is read off what it stated, not its name.
-const byLanguage = withoutTranslatedReadings(readings.readings, (r) => r.products.flatMap((p) => p.specs.map((x) => (x as { name?: string }).name ?? "")));
+const byLanguage = withoutTranslatedReadings(readings.readings, (r) =>
+  r.products.flatMap((p) => p.specs.map((x) => (x as { name?: string }).name ?? "")),
+);
 readings.readings = byLanguage.keep;
 
 const records = loadRecords();
@@ -122,7 +135,11 @@ let repeatedTotal = 0;
 for (const document of readings.readings) {
   if (document.products.length === 0) continue;
   const sourceId = `doc-${document.sha256.slice(0, 32)}`;
-  const { specs, unmatched: missing, repeated } = specsFrom({
+  const {
+    specs,
+    unmatched: missing,
+    repeated,
+  } = specsFrom({
     reports: document.products,
     models: records.models,
     manufacturer,
@@ -149,7 +166,12 @@ for (const spec of aligned.keep) collected.set(spec.id, spec);
 const cited = new Set([...collected.values()].map((s) => s.source));
 for (const [sourceId, document] of usedSources) {
   if (!cited.has(sourceId) || sources.has(sourceId)) continue;
-  const source = Source.parse({ id: sourceId, url: document.url, sha256: document.sha256, retrievedAt: date });
+  const source = Source.parse({
+    id: sourceId,
+    url: document.url,
+    sha256: document.sha256,
+    retrievedAt: date,
+  });
   if (!dryRun) writeRecord(RECORDS_DIR, "sources", sourceId, source);
   sources.set(sourceId, source);
 }
@@ -163,7 +185,9 @@ for (const spec of collected.values()) {
 // disk anyway, because writing is not the same as replacing.
 let stale = 0;
 if (!dryRun) {
-  const mine = new Set(records.models.filter((m) => m.manufacturer === manufacturer).map((m) => m.id));
+  const mine = new Set(
+    records.models.filter((m) => m.manufacturer === manufacturer).map((m) => m.id),
+  );
   const produced = new Set(collected.keys());
   for (const spec of records.specs) {
     if (!mine.has(spec.model) || produced.has(spec.id)) continue;
@@ -175,7 +199,9 @@ if (!dryRun) {
   }
 }
 
-console.log(`${written} figures and ${modelsAdded} new models${dryRun ? " (dry run, nothing written)" : " written"} for ${manufacturer}`);
+console.log(
+  `${written} figures and ${modelsAdded} new models${dryRun ? " (dry run, nothing written)" : " written"} for ${manufacturer}`,
+);
 if (stale) console.log(`  ${stale} figures removed, which this run no longer produces`);
 
 // A document whose last figure just went is cited by nothing, and the validator refuses an orphan.
@@ -189,18 +215,40 @@ if (!dryRun) {
     orphans += 1;
   }
 }
-if (orphans) console.log(`  ${orphans} source documents removed, cited by nothing once their figures went`);
-for (const { url, language } of dropped) console.log(`  skipped the ${language} edition, which this maker also publishes in English: ${url.split("/").pop()}`);
-for (const reading of byLanguage.dropped) console.log(`  skipped a translated edition its file name did not declare: ${reading.url.split("/").pop()}`);
-if (repeatedTotal) console.log(`  ${repeatedTotal} figures dropped where a multilingual document stated them again in another language`);
-if (aligned.dropped.length) console.log(`  ${aligned.dropped.length} figures dropped: named in another language on a model that already has English figures`);
+if (orphans)
+  console.log(`  ${orphans} source documents removed, cited by nothing once their figures went`);
+for (const { url, language } of dropped)
+  console.log(
+    `  skipped the ${language} edition, which this maker also publishes in English: ${url.split("/").pop()}`,
+  );
+for (const reading of byLanguage.dropped)
+  console.log(
+    `  skipped a translated edition its file name did not declare: ${reading.url.split("/").pop()}`,
+  );
+if (repeatedTotal)
+  console.log(
+    `  ${repeatedTotal} figures dropped where a multilingual document stated them again in another language`,
+  );
+if (aligned.dropped.length)
+  console.log(
+    `  ${aligned.dropped.length} figures dropped: named in another language on a model that already has English figures`,
+  );
 if (aligned.kept.length) {
-  console.log(`  ${aligned.kept.length} figures kept with a name nobody has translated, because their model has no English figure at all:`);
-  for (const spec of [...new Set(aligned.kept.map((s) => s.name))].slice(0, 10)) console.log(`      ${spec}`);
+  console.log(
+    `  ${aligned.kept.length} figures kept with a name nobody has translated, because their model has no English figure at all:`,
+  );
+  for (const spec of [...new Set(aligned.kept.map((s) => s.name))].slice(0, 10))
+    console.log(`      ${spec}`);
 }
 const byReader = new Map<string, number>();
-for (const r of readings.readings) byReader.set(r.extractedBy ?? EXTRACTOR_ID, (byReader.get(r.extractedBy ?? EXTRACTOR_ID) ?? 0) + 1);
-console.log(`${readings.readings.length} readings${pending > 0 ? `, ${pending} approved documents still converting or queued` : ""}`);
+for (const r of readings.readings)
+  byReader.set(
+    r.extractedBy ?? EXTRACTOR_ID,
+    (byReader.get(r.extractedBy ?? EXTRACTOR_ID) ?? 0) + 1,
+  );
+console.log(
+  `${readings.readings.length} readings${pending > 0 ? `, ${pending} approved documents still converting or queued` : ""}`,
+);
 for (const [reader, n] of byReader) console.log(`  ${n} by ${reader}`);
 for (const r of refused) console.log(`  not drawn, ${r.refused}: ${r.url.split("/").pop()}`);
 if (unmatched.size) {

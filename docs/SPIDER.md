@@ -8,7 +8,7 @@ retailers is a few hundred.
 
 ## Hop one: sellers to sightings
 
-A committed list of retailers, `worker/sellers.json`, hand-written and never
+A committed list of retailers, `apps/worker/sellers.json`, hand-written and never
 extended by the spider. Each is crawled and every product becomes one
 **sighting**: brand as printed, title, SKU, variant, price, currency,
 availability, the seller's category and tags, the seller's last-modified time,
@@ -124,7 +124,7 @@ scanned manual comes back as a title, a metadata block and empty page headings.
 The text reader reads that, finds nothing, and the document counts as read:
 365 approved documents went that way before anybody looked.
 
-Those are read a second way, from their pages. `worker/src/vision.ts` draws
+Those are read a second way, from their pages. `apps/worker/src/vision.ts` draws
 each page with PDFium compiled to WebAssembly, has Kimi K2.7 write the page down
 as Markdown, and has it read the figures out of what it wrote. The pages are put
 together as a conversion of their own beside `toMarkdown`'s —

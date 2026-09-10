@@ -1,9 +1,9 @@
 import { execFile } from "node:child_process";
-import { readdirSync, readFileSync, statSync } from "node:fs";
 import { createHash } from "node:crypto";
+import { readdirSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { promisify } from "node:util";
-import { datasetKey, datasetType } from "../../worker/src/runs.ts";
+import { datasetKey, datasetType } from "../../apps/worker/src/runs.ts";
 
 /**
  * Put the built tables where anybody can fetch them.
@@ -31,12 +31,15 @@ const disagree: string[] = [];
 for (const [name, meta] of Object.entries(manifest.files)) {
   const path = resolve(dir, name);
   const bytes = readFileSync(path);
-  if (bytes.length !== meta.bytes) disagree.push(`${name}: ${bytes.length} bytes, the manifest says ${meta.bytes}`);
+  if (bytes.length !== meta.bytes)
+    disagree.push(`${name}: ${bytes.length} bytes, the manifest says ${meta.bytes}`);
   const sha256 = createHash("sha256").update(bytes).digest("hex");
   if (sha256 !== meta.sha256) disagree.push(`${name}: sha256 disagrees with the manifest`);
 }
 if (disagree.length) {
-  console.error(`the build directory does not match its own manifest; run "just build" first\n  ${disagree.slice(0, 5).join("\n  ")}`);
+  console.error(
+    `the build directory does not match its own manifest; run "just build" first\n  ${disagree.slice(0, 5).join("\n  ")}`,
+  );
   process.exit(1);
 }
 
@@ -59,8 +62,24 @@ for (const name of publishing) {
   try {
     await run(
       "pnpm",
-      ["exec", "wrangler", "r2", "object", "put", `offgrid-equipment-archive/${datasetKey(name)}`, "--file", path, "--content-type", datasetType(name), "--remote"],
-      { cwd: "worker", maxBuffer: 128 * 1024 * 1024 },
+      [
+        "exec",
+        "wrangler",
+        "r2",
+        "object",
+        "put",
+        `offgrid-equipment-archive/${datasetKey(name)}`,
+        "--file",
+        path,
+        "--content-type",
+        datasetType(name),
+        "--remote",
+      ],
+      {
+        cwd: new URL("../../apps/worker/", import.meta.url),
+        timeout: 60_000,
+        maxBuffer: 128 * 1024 * 1024,
+      },
     );
   } catch (error) {
     // Wrangler answers a permissions problem with a screenful of account tables and a raw 403,
@@ -70,7 +89,7 @@ for (const name of publishing) {
       console.error(
         `Cloudflare refused to write ${datasetKey(name)}.\n` +
           "The API token can deploy a Worker and cannot write to R2. Add the\n" +
-          "\"Workers R2 Storage: Edit\" permission to the token in CLOUDFLARE_API_TOKEN,\n" +
+          '"Workers R2 Storage: Edit" permission to the token in CLOUDFLARE_API_TOKEN,\n' +
           "at https://dash.cloudflare.com/profile/api-tokens",
       );
       process.exit(1);

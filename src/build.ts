@@ -4,7 +4,7 @@ import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { toCsv } from "./csv.ts";
 import { loadRecords, type Records } from "./records.ts";
-import { tables, type Table } from "./tables.ts";
+import { type Table, tables } from "./tables.ts";
 import { validate } from "./validate.ts";
 
 export const DIST_DIR = new URL("../dist/", import.meta.url).pathname;
@@ -15,23 +15,40 @@ export const DIST_DIR = new URL("../dist/", import.meta.url).pathname;
  */
 export function build(records: Records, dist = DIST_DIR): Record<string, unknown> {
   const report = validate(records);
-  if (report.errors.length) throw new Error(`refusing to build with ${report.errors.length} validation errors; run validate`);
+  if (report.errors.length)
+    throw new Error(
+      `refusing to build with ${report.errors.length} validation errors; run validate`,
+    );
   rmSync(dist, { recursive: true, force: true });
   mkdirSync(dist, { recursive: true });
 
   const manifest: Record<string, unknown> = {
-    counts: { families: records.families.length, dialects: records.dialects.length, sources: records.sources.length },
+    counts: {
+      families: records.families.length,
+      dialects: records.dialects.length,
+      sources: records.sources.length,
+    },
     files: {} as Record<string, { rows?: number; sha256: string; bytes: number }>,
   };
   const files = manifest.files as Record<string, { rows?: number; sha256: string; bytes: number }>;
   const record = (name: string, rows?: number) => {
     const bytes = readFileSync(join(dist, name));
-    files[name] = { ...(rows === undefined ? {} : { rows }), sha256: createHash("sha256").update(bytes).digest("hex"), bytes: bytes.length };
+    files[name] = {
+      ...(rows === undefined ? {} : { rows }),
+      sha256: createHash("sha256").update(bytes).digest("hex"),
+      bytes: bytes.length,
+    };
   };
 
   for (const table of tables(records)) {
     const csv = `${table.name}.csv`;
-    writeFileSync(join(dist, csv), toCsv(table.columns.map((c) => c.name), table.rows));
+    writeFileSync(
+      join(dist, csv),
+      toCsv(
+        table.columns.map((c) => c.name),
+        table.rows,
+      ),
+    );
     record(csv, table.rows.length);
     writeParquet(dist, table);
     record(`${table.name}.parquet`, table.rows.length);
@@ -58,7 +75,11 @@ function writeParquet(dist: string, table: Table): void {
 
 if (process.argv[1] && import.meta.url.endsWith(process.argv[1].split("/").pop() ?? "")) {
   const manifest = build(loadRecords());
-  for (const [name, f] of Object.entries(manifest.files as Record<string, { rows?: number; bytes: number }>)) {
-    console.log(`${name.padEnd(28)} ${String(f.rows ?? "").padStart(5)} rows ${String(f.bytes).padStart(9)} bytes`);
+  for (const [name, f] of Object.entries(
+    manifest.files as Record<string, { rows?: number; bytes: number }>,
+  )) {
+    console.log(
+      `${name.padEnd(28)} ${String(f.rows ?? "").padStart(5)} rows ${String(f.bytes).padStart(9)} bytes`,
+    );
   }
 }

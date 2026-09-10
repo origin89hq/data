@@ -1,10 +1,9 @@
-import type { Model } from "../schema/model.ts";
-import type { Spec } from "../schema/model.ts";
-import { normaliseModelName } from "./models.ts";
-import { looksTruncated, splitValueUnit, statesNothing } from "./units.ts";
-import { repairMojibake } from "./text.ts";
+import type { Model, Spec } from "@origin89/equipment-schema/model";
 import { englishWords, looksForeign } from "./language.ts";
+import { normaliseModelName } from "./models.ts";
+import { repairMojibake } from "./text.ts";
 import { englishName } from "./translations.ts";
+import { looksTruncated, splitValueUnit, statesNothing } from "./units.ts";
 
 /** What a model reported reading out of a document, before anything checks it. */
 export interface ReportedSpec {
@@ -33,7 +32,11 @@ export function splitUnit(name: string, unit: string | undefined): { name: strin
   if (!match) return { name: name.trim() };
   const [, bare, candidate] = match;
   // Only a unit, not a qualifier: "(Ah)" is one, "(at 25 °C)" and "(D*W*H)" are not.
-  if (!/^[A-Za-zΩ°µ%\/·.]+[0-9]?$/.test(candidate) || /^(d\*w\*h|l\*w\*h|max|min|typ|optional|nominal)$/i.test(candidate)) return { name: name.trim() };
+  if (
+    !/^[A-Za-zΩ°µ%/·.]+[0-9]?$/.test(candidate) ||
+    /^(d\*w\*h|l\*w\*h|max|min|typ|optional|nominal)$/i.test(candidate)
+  )
+    return { name: name.trim() };
   return bare ? { name: bare, unit: candidate } : { name: name.trim() };
 }
 
@@ -49,7 +52,10 @@ export function specId(modelId: string, name: string, conditions?: string): stri
 
 /** Compare two names the way a person would: ignoring case, spacing and the punctuation between parts. */
 export function sameName(a: string, b: string): boolean {
-  const key = (s: string) => normaliseModelName(s).toLowerCase().replace(/[^a-z0-9]/g, "");
+  const key = (s: string) =>
+    normaliseModelName(s)
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "");
   return key(a) !== "" && key(a) === key(b);
 }
 
@@ -59,9 +65,16 @@ export function sameName(a: string, b: string): boolean {
  * of its aliases. A near match is not a match: attaching a rating to the wrong variant is how
  * somebody sizes a bank from a sheet for a different battery.
  */
-export function matchModel(models: Model[], manufacturer: string, reported: string): Model | undefined {
+export function matchModel(
+  models: Model[],
+  manufacturer: string,
+  reported: string,
+): Model | undefined {
   const ours = models.filter((m) => m.manufacturer === manufacturer);
-  return ours.find((m) => sameName(m.name, reported)) ?? ours.find((m) => m.aliases.some((a) => sameName(a, reported)));
+  return (
+    ours.find((m) => sameName(m.name, reported)) ??
+    ours.find((m) => m.aliases.some((a) => sameName(a, reported)))
+  );
 }
 
 export interface SpecsFromInput {
@@ -85,7 +98,14 @@ export interface SpecsFromResult {
 }
 
 /** Turn a document's reported figures into spec rows, keeping only those whose product we already hold. */
-export function specsFrom({ reports, models, manufacturer, source, extractedBy, confidence }: SpecsFromInput): SpecsFromResult {
+export function specsFrom({
+  reports,
+  models,
+  manufacturer,
+  source,
+  extractedBy,
+  confidence,
+}: SpecsFromInput): SpecsFromResult {
   const specs = new Map<string, Spec>();
   const unmatched: string[] = [];
   const truncated: string[] = [];
@@ -159,7 +179,8 @@ export function specsFrom({ reports, models, manufacturer, source, extractedBy, 
         (a, b) =>
           Number(looksForeign(a.name)) - Number(looksForeign(b.name)) ||
           englishWords(b.name) - englishWords(a.name) ||
-          [...a.name].filter((c) => c.charCodeAt(0) > 127).length - [...b.name].filter((c) => c.charCodeAt(0) > 127).length ||
+          [...a.name].filter((c) => c.charCodeAt(0) > 127).length -
+            [...b.name].filter((c) => c.charCodeAt(0) > 127).length ||
           a.id.localeCompare(b.id),
       );
       for (const row of rows) if (row.id !== keep?.id) repeated.add(row.id);
@@ -182,5 +203,10 @@ export function specsFrom({ reports, models, manufacturer, source, extractedBy, 
   }
   for (const id of repeated) specs.delete(id);
 
-  return { specs: [...specs.values()].sort((a, b) => a.id.localeCompare(b.id)), unmatched, truncated, repeated: repeated.size };
+  return {
+    specs: [...specs.values()].sort((a, b) => a.id.localeCompare(b.id)),
+    unmatched,
+    truncated,
+    repeated: repeated.size,
+  };
 }

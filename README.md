@@ -9,21 +9,19 @@ anything can read it.
 ([LICENSE](LICENSE)). Use it for anything, keep the notice. Manufacturer
 documents in the archive are their owners' and are not covered; a source
 record says whether one may be redistributed, and the default is that it may
-not. Bulk feeds keep their own notices when they arrive: SAM's libraries are
+not. Bulk feeds keep their own notices; SAM's libraries are
 BSD-3-Clause.
 
-## What is in it today
+## Data and evidence
 
-The first import is a hand-reviewed protocol catalogue: **288 dialects** across
-eight protocol families, citing **554 sources**, with every model each dialect
-is known or claimed to cover. A dialect is a register map or frame layout that
-owns a driver; a model lands on one only when a source shows matching
-addresses. Transport, register blocks and gotchas are carried as the catalogue
-wrote them. Splitting them into typed columns is per-row review work and has
-not been done.
+The dataset joins equipment models, rated figures, protocol dialects,
+manufacturers, and source documents. Authored records and imported feeds keep
+their provenance and review state. The [published index](https://data.origin89.com/manifest.json)
+reports current row counts and file hashes; `src/tables.ts` defines the exports.
 
-Not yet in it: the bulk feeds (SAM panels and inverters, the CEC battery list),
-per-model ratings, ports as structured rows, and the Origin89 support table.
+A dialect is a register map or frame layout. A model belongs to one only when
+a source supports matching addresses. Missing values stay absent, and imported
+or extracted claims do not become human-reviewed evidence automatically.
 
 ## Layout
 
@@ -32,9 +30,11 @@ records/
   families/<family>.json         the prose around a family's entries, and their order
   dialects/<family>/<id>.json    one dialect: driver, confidence, sources, models, gotchas
   sources/<id>.json              one source: url or path; title, hash and licence once reviewed
-schema/                          zod schemas; the enums are the closed vocabularies
+packages/schema/src/             shared Zod schemas; the enums are the closed vocabularies
 src/                             validate, flatten to tables, build the release
 tools/catalogue/                 parse and render the catalogue's markdown form
+apps/site/                       React site
+apps/worker/                     Cloudflare crawler and public data endpoints
 dist/                            built, never committed
 ```
 
@@ -203,68 +203,34 @@ None of these block the build. They are the work.
 
 ## The spider
 
-`worker/` is a Cloudflare Worker running hop one of the spider described in
-[docs/SPIDER.md](docs/SPIDER.md), over the 39 Canadian and US sellers in the
-committed `worker/sellers.json`.
+`apps/worker/` contains the crawler, archive API, and site server described in
+[docs/SPIDER.md](docs/SPIDER.md). The committed seller list selects the shops it
+can crawl. Manufacturer discovery lists documents for a person to approve
+before download. Classification, conversion, and document reading run through
+bounded queue jobs; failed jobs remain visible in the dead-letter queue.
 
-- **`SellerCrawl`** walks a shop's product feed, a page per step, for the 32
-  sellers on Shopify or WooCommerce.
-- **`PageCrawl`** discovers product URLs from the sitemap and reads each page's
-  own JSON-LD or microdata, for the 7 on BigCommerce, Magento or neither.
-- **`ManufacturerCrawl`** is hop two: it finds the documents a maker publishes,
-  writes what it would fetch, and waits for a person to approve it.
+Each crawl has a run ID. Archive readers follow the current pointer and keep
+sightings and classifier results within that run. A sighting records what a
+seller printed; resolving its brand to a manufacturer remains a review decision.
 
-Everything that merely fans out is on a queue instead: classifying a batch of
-listings, converting a document, reading one. Those were workflow steps once,
-which meant five hundred model calls running strictly one after another inside a
-single instance — durable, and half an hour of wall clock for work that shares
-nothing. A queue runs them concurrently, retries each message on its own, and
-puts what never works into a dead-letter queue where it can be looked at.
-
-The rule that sorts them: a workflow is for a sequence with a wait in it, and a
-queue is for work with no order between its units.
-
-Each writes to R2 as JSONL with a manifest last, so a reader that finds a
-manifest knows the run finished. A weekly cron starts one instance per seller;
-a second trigger the same day is refused as a duplicate rather than run twice.
-
-A sighting is the listing as printed — brand, title, SKU, variant, price,
-category, tags, the seller's last-modified time and the crawl date — and needs
-no review to be stored. Resolving a brand string to a manufacturer is the gate
-a person keeps, and nothing crawls a manufacturer's site until it is confirmed.
-
-```sh
-cd worker
-pnpm types && pnpm test              # generate binding types, unit tests
-pnpm dev                             # local Worker with a local R2; AI runs against Cloudflare
-curl -X POST 'localhost:8787/run?seller=thecabindepot'
-curl -X POST 'localhost:8787/run?seller=nazsolarelectric&limit=40'   # a spread sample, for trying a seller
-curl -X POST 'localhost:8787/classify?seller=thecabindepot&date=<date>'
-curl 'localhost:8787/status?id=thecabindepot-<date>'
-```
-
-Nothing is deployed and no bucket exists yet. Local runs so far:
-
-| Seller | Tier | Result |
-|---|---|---|
-| 32 sellers with a feed | Shopify and WooCommerce | 32,160 sightings |
-| Signature Solar | microdata | 49 of 50 sampled pages |
-| NAZ Solar Electric | JSON-LD | 38 of 40 sampled pages |
-| Rolls Battery | hop two | 8 documents, 110 figures over 13 models |
-
-Most of the Cabin Depot's catalogue is wood stoves and composting toilets, and
-that is expected: the seller list is about where off-grid buyers shop, and the
-gate is where the energy brands get picked out.
+Run `just test` for local tests and `just dev` to start the Worker. Copy
+`apps/worker/.dev.vars.example` to `apps/worker/.dev.vars` and set a local control
+token first. The local AI binding calls Cloudflare, so crawler commands can
+spend money. Use `just --list` for the available operations; download approval
+and deployment are separate commands.
 
 ### Reading the gate
 
-`worker/scripts/gate-report.ts` prints what a person needs to resolve brand
+`apps/worker/scripts/gate-report.ts` prints what a person needs to resolve brand
 strings into manufacturers: every brand a seller printed, how many listings
 carry it, what kinds the classifier thinks they are, and the model numbers it
-read off the titles.
+read off the titles. It uses the same archive reader as the queue and model commands.
+Run `just dev` for local reads, or set `OFFGRID_BASE_URL` and
+`OFFGRID_CONTROL_TOKEN` for a deployment. The supplied date must match the current
+crawl; a mismatch or missing archive part stops the report.
 
 ```sh
-cd worker
+cd apps/worker
 pnpm gate solacity 2026-09-09          # brands with at least one in-scope listing
 pnpm gate solacity 2026-09-09 --all    # including the ones that look out of scope
 ```

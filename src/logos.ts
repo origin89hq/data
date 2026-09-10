@@ -43,9 +43,7 @@ export function brandTiles(html: string, pageUrl: string): BrandTile[] {
       // Shopify writes "&amp;" in the attribute and appends its own width; drop the query and ask
       // for the size we want later.
       out.push({ slug, image: new URL(image.split("&amp;")[0], pageUrl).href });
-    } catch {
-      continue;
-    }
+    } catch {}
   }
   return out;
 }
@@ -56,7 +54,11 @@ export function brandOfSlug(slug: string): string {
 }
 
 /** The comparable form of a name, so "EG4 Electronics" and "eg4-electronics" are one string. */
-export const nameKey = (name: string): string => name.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]/g, "");
+export const nameKey = (name: string): string =>
+  name
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[^a-z0-9]/g, "");
 
 /**
  * Which manufacturer a tile names, or undefined when none does.
@@ -95,9 +97,7 @@ export function iconsInPage(html: string, pageUrl: string): PageIcon[] {
     const declared = sizes ? Number(sizes) : /apple-touch/i.test(tag) ? 180 : 32;
     try {
       out.push({ url: new URL(href, pageUrl).href, size: declared });
-    } catch {
-      continue;
-    }
+    } catch {}
   }
   return [...new Map(out.sort((a, b) => b.size - a.size).map((i) => [i.url, i])).values()];
 }
@@ -109,4 +109,5 @@ export const GOOD_ICON = 64;
 export const LOGO_WIDTHS = [64, 128, 256] as const;
 
 /** Where a logo of this maker at this width lives in the archive. */
-export const logoKey = (manufacturer: string, width: number): string => `logos/${manufacturer}-${width}.png`;
+export const logoKey = (manufacturer: string, width: number): string =>
+  `logos/${manufacturer}-${width}.png`;

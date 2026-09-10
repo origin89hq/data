@@ -1,29 +1,113 @@
-import { test } from "node:test";
 import assert from "node:assert/strict";
-import { deriveModels, looksLikeModelName, modelId, normaliseModelName, preferredName, productKey } from "../src/models.ts";
-import { Model } from "../schema/model.ts";
-import type { Brand } from "../schema/brand.ts";
-import type { Sighting } from "../schema/sighting.ts";
-import type { Guess } from "../schema/guess.ts";
-import type { Dialect } from "../schema/dialect.ts";
+import { test } from "node:test";
+import type { Brand } from "@origin89/equipment-schema/brand";
+import type { Dialect } from "@origin89/equipment-schema/dialect";
+import type { Guess } from "@origin89/equipment-schema/guess";
+import { Model } from "@origin89/equipment-schema/model";
+import type { Sighting } from "@origin89/equipment-schema/sighting";
+import {
+  deriveModels,
+  looksLikeModelName,
+  modelId,
+  normaliseModelName,
+  preferredName,
+  productKey,
+} from "../src/models.ts";
 
 const brands: Brand[] = [
-  { id: "epever", brand: "EPEver", decision: "manufacturer", manufacturer: "epever", checkedAt: "2026-09-09", reviewedBy: "D", basis: "x", evidence: { sellers: ["a"], listings: 1, inScope: 1, kinds: [], models: [], proposed: [], examples: [], seenAt: "2026-09-09" } },
-  { id: "lodge", brand: "Lodge", decision: "out-of-scope", reason: "cookware", checkedAt: "2026-09-09", reviewedBy: "D", basis: "cookware", evidence: { sellers: ["a"], listings: 1, inScope: 0, kinds: [], models: [], proposed: [], examples: [], seenAt: "2026-09-09" } },
-  { id: "mystery", brand: "Mystery", decision: "unresolved", evidence: { sellers: ["a"], listings: 1, inScope: 1, kinds: [], models: [], proposed: [], examples: [], seenAt: "2026-09-09" } },
+  {
+    id: "epever",
+    brand: "EPEver",
+    decision: "manufacturer",
+    manufacturer: "epever",
+    checkedAt: "2026-09-09",
+    reviewedBy: "D",
+    basis: "x",
+    evidence: {
+      sellers: ["a"],
+      listings: 1,
+      inScope: 1,
+      kinds: [],
+      models: [],
+      proposed: [],
+      examples: [],
+      seenAt: "2026-09-09",
+    },
+  },
+  {
+    id: "lodge",
+    brand: "Lodge",
+    decision: "out-of-scope",
+    reason: "cookware",
+    checkedAt: "2026-09-09",
+    reviewedBy: "D",
+    basis: "cookware",
+    evidence: {
+      sellers: ["a"],
+      listings: 1,
+      inScope: 0,
+      kinds: [],
+      models: [],
+      proposed: [],
+      examples: [],
+      seenAt: "2026-09-09",
+    },
+  },
+  {
+    id: "mystery",
+    brand: "Mystery",
+    decision: "unresolved",
+    evidence: {
+      sellers: ["a"],
+      listings: 1,
+      inScope: 1,
+      kinds: [],
+      models: [],
+      proposed: [],
+      examples: [],
+      seenAt: "2026-09-09",
+    },
+  },
 ];
 const dialects: Dialect[] = [
-  { id: "epever-tracer-a", family: "modbus-rs485", driver: { status: "possible" }, confidence: "vendor-doc", refuter: "checked", sources: [{ source: "s", citation: "c" }], models: [{ name: "XTRA4210N" }] },
+  {
+    id: "epever-tracer-a",
+    family: "modbus-rs485",
+    driver: { status: "possible" },
+    confidence: "vendor-doc",
+    refuter: "checked",
+    sources: [{ source: "s", citation: "c" }],
+    models: [{ name: "XTRA4210N" }],
+  },
 ];
-const s = (brand: string, model: string | undefined, sku?: string, extra: Partial<Sighting> = {}): Sighting => ({
-  seller: "a", productId: `${brand}-${model ?? sku}`, handle: "h", url: "https://a.example/p", title: "t", brand, currency: "CAD", checkedAt: "2026-09-09", extractor: "shopify-feed",
-  ...(model ? { model } : {}), ...(sku ? { sku } : {}), ...extra,
+const s = (
+  brand: string,
+  model: string | undefined,
+  sku?: string,
+  extra: Partial<Sighting> = {},
+): Sighting => ({
+  seller: "a",
+  productId: `${brand}-${model ?? sku}`,
+  handle: "h",
+  url: "https://a.example/p",
+  title: "t",
+  brand,
+  currency: "CAD",
+  checkedAt: "2026-09-09",
+  extractor: "shopify-feed",
+  ...(model ? { model } : {}),
+  ...(sku ? { sku } : {}),
+  ...extra,
 });
-const derive = (sightings: Sighting[], guesses: Map<string, Guess> = new Map()) => deriveModels({ sightings, guesses, brands, dialects });
+const derive = (sightings: Sighting[], guesses: Map<string, Guess> = new Map()) =>
+  deriveModels({ sightings, guesses, brands, dialects });
 
 test("a listing becomes a model only when its brand resolves to a maker", () => {
   const got = derive([s("EPEver", "XTRA4210N"), s("Mystery", "ZZ-100"), s("Nobody", "QQ-9")]);
-  assert.deepEqual(got.map((g) => g.model.id), ["epever-xtra4210n"]);
+  assert.deepEqual(
+    got.map((g) => g.model.id),
+    ["epever-xtra4210n"],
+  );
   assert.equal(got[0].model.manufacturer, "epever");
   Model.parse(got[0].model);
 });
@@ -32,11 +116,15 @@ test("a model named in a dialect's table is linked to it, carrying the catalogue
   const [got] = derive([s("EPEver", "XTRA4210N")]);
   assert.deepEqual(got.model.dialects, ["epever-tracer-a"]);
   const [other] = derive([s("EPEver", "XTRA9999Z")]);
-  assert.deepEqual(other.model.dialects, [], "a model the catalogue does not list is not put on a dialect");
+  assert.deepEqual(
+    other.model.dialects,
+    [],
+    "a model the catalogue does not list is not put on a dialect",
+  );
 });
 
 test("transcription damage is stripped without changing the name", () => {
-  assert.equal(normaliseModelName('CC-USB-RS485-150U”,'), "CC-USB-RS485-150U");
+  assert.equal(normaliseModelName("CC-USB-RS485-150U”,"), "CC-USB-RS485-150U");
   assert.equal(normaliseModelName("  MNEDC250  "), "MNEDC250");
   assert.equal(normaliseModelName("PV-AZS4 &amp; PV-AZB4"), "PV-AZS4 & PV-AZB4");
 });
@@ -62,7 +150,12 @@ test("a purely numeric name is kept, because Blue Sea and Wöhner really do numb
 });
 
 test("a listing classified out of scope contributes nothing, because a skillet has a SKU too", () => {
-  const guesses = new Map<string, Guess>([["a/EPEver-CAST-IRON-12", { seller: "a", productId: "EPEver-CAST-IRON-12", kind: "out-of-scope", by: "ai:@cf/x@p1" }]]);
+  const guesses = new Map<string, Guess>([
+    [
+      "a/EPEver-CAST-IRON-12",
+      { seller: "a", productId: "EPEver-CAST-IRON-12", kind: "out-of-scope", by: "ai:@cf/x@p1" },
+    ],
+  ]);
   assert.deepEqual(derive([s("EPEver", "CAST-IRON-12")], guesses), []);
 });
 
@@ -73,7 +166,11 @@ test("a model nothing classified has no kind, rather than a default that reads l
 });
 
 test("the kind is what most classifiers agreed on, so one odd answer does not decide it", () => {
-  const listings = [s("EPEver", "XTRA4210N", undefined, { productId: "p1" }), s("EPEver", "XTRA4210N", undefined, { productId: "p2" }), s("EPEver", "XTRA4210N", undefined, { productId: "p3" })];
+  const listings = [
+    s("EPEver", "XTRA4210N", undefined, { productId: "p1" }),
+    s("EPEver", "XTRA4210N", undefined, { productId: "p2" }),
+    s("EPEver", "XTRA4210N", undefined, { productId: "p3" }),
+  ];
   const guesses = new Map<string, Guess>([
     ["a/p1", { seller: "a", productId: "p1", kind: "charge-controller", by: "ai:@cf/x@p1" }],
     ["a/p2", { seller: "a", productId: "p2", kind: "charge-controller", by: "ai:@cf/x@p1" }],
@@ -103,7 +200,10 @@ test("a derived model carries no reviewer, because nothing has checked it agains
 
 test("ids are unique per maker and stable across runs", () => {
   assert.equal(modelId("epever", "XTRA4210N"), "epever-xtra4210n");
-  assert.equal(modelId("victron-energy", "SmartSolar MPPT 100/30"), "victron-energy-smartsolar-mppt-100-30");
+  assert.equal(
+    modelId("victron-energy", "SmartSolar MPPT 100/30"),
+    "victron-energy-smartsolar-mppt-100-30",
+  );
   assert.notEqual(modelId("epever", "X-1"), modelId("victron-energy", "X-1"));
 });
 
@@ -144,9 +244,15 @@ test("punctuation inside a part number does not make a second product either", (
 
 test("two genuinely different products keep their own records", () => {
   // A bundle is not the inverter inside it, and a 6000XP is not a 12kPV.
-  assert.notEqual(productKey("EG4 Electronics", "6000XP"), productKey("EG4 Electronics", "EG4RX-6000XP-BDL1"));
+  assert.notEqual(
+    productKey("EG4 Electronics", "6000XP"),
+    productKey("EG4 Electronics", "EG4RX-6000XP-BDL1"),
+  );
   assert.notEqual(productKey("EG4 Electronics", "6000XP"), productKey("EG4 Electronics", "12kPV"));
-  assert.notEqual(productKey("MidNite Solar", "CLASSIC 150"), productKey("MidNite Solar", "CLASSIC 250"));
+  assert.notEqual(
+    productKey("MidNite Solar", "CLASSIC 150"),
+    productKey("MidNite Solar", "CLASSIC 250"),
+  );
   assert.notEqual(productKey("Sol-Ark", "15K-2P-LV"), productKey("Sol-Ark", "15K-2P-N"));
 });
 

@@ -1,5 +1,5 @@
-import { test } from "node:test";
 import assert from "node:assert/strict";
+import { test } from "node:test";
 import { canonicalUnit, concerns, isNumeric, splitValueUnit, statesNothing } from "../src/units.ts";
 
 test("a maker's own language reaches the same unit, since VCD and volts are volts", () => {
@@ -29,8 +29,17 @@ test("a figure is doubted when its unit is a word, or its value is not a number"
 });
 
 test("a sentence is not a figure, which is what the first version of this missed", () => {
-  assert.match(concerns({ name: "Charge voltage", value: "Default setting: 14.4V / 28.8V (adjustable)" })[0], /sentence/);
-  assert.match(concerns({ name: "Interrupting capacity", value: "10,000 amperes at 160VDC and 65,000 amperes at 65VDC" })[0], /sentence/);
+  assert.match(
+    concerns({ name: "Charge voltage", value: "Default setting: 14.4V / 28.8V (adjustable)" })[0],
+    /sentence/,
+  );
+  assert.match(
+    concerns({
+      name: "Interrupting capacity",
+      value: "10,000 amperes at 160VDC and 65,000 amperes at 65VDC",
+    })[0],
+    /sentence/,
+  );
   assert.deepEqual(concerns({ name: "Battery type", value: "Flooded lead-acid" }), []);
   assert.deepEqual(concerns({ name: "Automatic load disconnect", value: "Yes" }), []);
 });
@@ -53,8 +62,16 @@ test("a unit glued to the value is pulled off, since the number and the unit are
   assert.deepEqual(splitValueUnit("57.6V", undefined), { value: "57.6", unit: "V" });
   assert.deepEqual(splitValueUnit("400A", undefined), { value: "400", unit: "A" });
   assert.deepEqual(splitValueUnit("428", "Ah"), { value: "428", unit: "Ah" });
-  assert.deepEqual(splitValueUnit("428", "pulgadas"), { value: "428", unit: "in" }, "the stated unit still wins, in whatever language");
-  assert.deepEqual(splitValueUnit("-4 °F a 140 °F", undefined), { value: "-4 °F a 140 °F" }, "a range is not a number with a unit");
+  assert.deepEqual(
+    splitValueUnit("428", "pulgadas"),
+    { value: "428", unit: "in" },
+    "the stated unit still wins, in whatever language",
+  );
+  assert.deepEqual(
+    splitValueUnit("-4 °F a 140 °F", undefined),
+    { value: "-4 °F a 140 °F" },
+    "a range is not a number with a unit",
+  );
   assert.deepEqual(splitValueUnit("Yes", undefined), { value: "Yes" });
 });
 

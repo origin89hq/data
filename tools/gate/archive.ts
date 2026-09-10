@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
-import { Sighting } from "../../schema/sighting.ts";
-import { Guess } from "../../schema/guess.ts";
-import { classifierKey } from "../../worker/src/classify.ts";
+import { Guess } from "@origin89/equipment-schema/guess";
+import { classifierKey } from "@origin89/equipment-schema/provenance";
+import { Sighting } from "@origin89/equipment-schema/sighting";
 
 /**
  * Read a crawl back through the Worker rather than one object at a time. The first version of
@@ -17,7 +17,8 @@ const DEV_URL = "http://localhost:8790";
 function base(remote: boolean): string {
   const configured = process.env.OFFGRID_BASE_URL;
   if (configured) return configured.replace(/\/$/, "");
-  if (remote) throw new Error("set OFFGRID_BASE_URL to the deployed Worker to read the remote archive");
+  if (remote)
+    throw new Error("set OFFGRID_BASE_URL to the deployed Worker to read the remote archive");
   return DEV_URL;
 }
 
@@ -25,19 +26,24 @@ function token(): string {
   const configured = process.env.OFFGRID_CONTROL_TOKEN;
   if (configured) return configured;
   try {
-    const vars = readFileSync(new URL("../../worker/.dev.vars", import.meta.url), "utf8");
+    const vars = readFileSync(new URL("../../apps/worker/.dev.vars", import.meta.url), "utf8");
     const match = /^CONTROL_TOKEN=(.*)$/m.exec(vars);
     if (match) return match[1].trim();
   } catch {
     // Falls through to the error below, which says what to set.
   }
-  throw new Error("set OFFGRID_CONTROL_TOKEN, or put CONTROL_TOKEN in worker/.dev.vars for local reads");
+  throw new Error(
+    "set OFFGRID_CONTROL_TOKEN, or put CONTROL_TOKEN in apps/worker/.dev.vars for local reads",
+  );
 }
 
 async function get(path: string, remote: boolean): Promise<Response> {
-  const response = await fetch(`${base(remote)}${path}`, { headers: { authorization: `Bearer ${token()}` } });
+  const response = await fetch(`${base(remote)}${path}`, {
+    headers: { authorization: `Bearer ${token()}` },
+  });
   if (response.status === 404) return response;
-  if (!response.ok) throw new Error(`${path}: HTTP ${response.status} ${(await response.text()).slice(0, 200)}`);
+  if (!response.ok)
+    throw new Error(`${path}: HTTP ${response.status} ${(await response.text()).slice(0, 200)}`);
   return response;
 }
 
@@ -100,7 +106,11 @@ export async function keysUnder(prefix: string, remote: boolean): Promise<string
 }
 
 /** Which run is current for an entity, so a reader never has to guess from a date. */
-export async function currentRun(root: "documents" | "sightings", entity: string, remote: boolean): Promise<{ run: string; date: string } | undefined> {
+export async function currentRun(
+  root: "documents" | "sightings",
+  entity: string,
+  remote: boolean,
+): Promise<{ run: string; date: string } | undefined> {
   const body = await object(`${root}/${entity}/current.json`, remote);
   return body ? (JSON.parse(body) as { run: string; date: string }) : undefined;
 }
@@ -113,9 +123,18 @@ export interface Crawl {
 }
 
 /** Read one seller's crawl and whatever the classifier made of it. */
-export async function readCrawl(seller: string, date: string, remote: boolean): Promise<Crawl | undefined> {
+export async function readCrawl(
+  seller: string,
+  date: string,
+  remote: boolean,
+): Promise<Crawl | undefined> {
   const current = await currentRun("sightings", seller, remote);
   if (!current) return undefined;
+  if (current.date !== date) {
+    throw new Error(
+      `${seller}: current crawl is dated ${current.date}, requested ${date}; refusing to read a different crawl`,
+    );
+  }
   const prefix = `sightings/${seller}/runs/${current.run}`;
   const manifest = await object(`${prefix}/manifest.json`, remote);
   if (!manifest) return undefined;
@@ -132,17 +151,22 @@ export async function readCrawl(seller: string, date: string, remote: boolean): 
   const guessManifest = await object(`${guessPrefix}/manifest.json`, remote);
   if (guessManifest) {
     const { parts } = JSON.parse(guessManifest) as { parts: number };
-    const written = new Set((await keysUnder(`${guessPrefix}/page-`, remote)).map((k) => k.split("/").pop()));
+    const written = new Set(
+      (await keysUnder(`${guessPrefix}/page-`, remote)).map((k) => k.split("/").pop()),
+    );
     for (let part = 1; part <= parts; part += 1) {
-      if (!written.has(`page-${String(part).padStart(4, "0")}.jsonl`)) missingParts.push(`part ${part}`);
+      if (!written.has(`page-${String(part).padStart(4, "0")}.jsonl`))
+        missingParts.push(`part ${part}`);
     }
     for (const line of (await under(`${guessPrefix}/page-`, remote)).split("\n").filter(Boolean)) {
       const guess = Guess.parse(JSON.parse(line));
       guesses.set(`${guess.seller}/${guess.productId}`, guess);
     }
   }
-  // Pages are read by prefix rather than by number, so a page the manifest named and the store
-  // does not hold shows up as a shortfall in the count rather than as a silently shorter answer.
-  if (pages.length > 0 && sightings.length === 0) missingParts.push("every sightings page");
+  const sightingKeys = new Set(await keysUnder(`${prefix}/page-`, remote));
+  for (const page of pages) {
+    const key = `${prefix}/page-${String(page).padStart(4, "0")}.jsonl`;
+    if (!sightingKeys.has(key)) missingParts.push(`sightings page ${page}`);
+  }
   return { sightings, guesses, missingParts };
 }

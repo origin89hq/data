@@ -1,5 +1,5 @@
-import type { Dialect } from "../../schema/dialect.ts";
-import type { Family } from "../../schema/family.ts";
+import type { Dialect } from "@origin89/equipment-schema/dialect";
+import type { Family } from "@origin89/equipment-schema/family";
 import { CLAIM_DROPPED, DUPLICATES_HEAD, REFILED_HEAD, SEE_ALSO_TAIL } from "./parse.ts";
 
 /** Render a family file from its records. The inverse of `parseFamilyFile`, byte for byte. */
@@ -44,9 +44,15 @@ function countLine(dialects: Dialect[]): string {
 
 export function renderEntry(d: Dialect): string {
   const paragraphs: string[] = [`## Dialect: \`${d.id}\``];
-  if (d.seeAlso) paragraphs.push(`**See also** ${d.seeAlso.map((id) => `\`${id}\``).join(", ")} ${SEE_ALSO_TAIL}`);
+  if (d.seeAlso)
+    paragraphs.push(
+      `**See also** ${d.seeAlso.map((id) => `\`${id}\``).join(", ")} ${SEE_ALSO_TAIL}`,
+    );
 
-  const header: string[] = [`**Driver** ${renderDriver(d)}`, `**Confidence** ${renderConfidence(d)}`];
+  const header: string[] = [
+    `**Driver** ${renderDriver(d)}`,
+    `**Confidence** ${renderConfidence(d)}`,
+  ];
   for (const s of d.sources) header.push(`**Source** ${s.citation}`);
   if (d.crossReference) header.push(`**See also** ${d.crossReference}`);
   if (d.transport !== undefined) header.push(`**Transport** ${d.transport}`);
@@ -59,12 +65,16 @@ export function renderEntry(d: Dialect): string {
   if (kinds.length) paragraphs.push(kinds.join("\n"));
 
   if (d.models) paragraphs.push(renderTable(d.models));
-  if (d.sharedMapEvidence !== undefined) paragraphs.push(`**Shared-map evidence** ${d.sharedMapEvidence}`);
-  if (d.refutedOnReview !== undefined) paragraphs.push(`**REFUTED on review.** ${d.refutedOnReview}`);
+  if (d.sharedMapEvidence !== undefined)
+    paragraphs.push(`**Shared-map evidence** ${d.sharedMapEvidence}`);
+  if (d.refutedOnReview !== undefined)
+    paragraphs.push(`**REFUTED on review.** ${d.refutedOnReview}`);
   if (d.sharedMapClaimDropped) paragraphs.push(CLAIM_DROPPED);
-  if (d.downgradedOnReview !== undefined) paragraphs.push(`**Downgraded on review.** ${d.downgradedOnReview}`);
+  if (d.downgradedOnReview !== undefined)
+    paragraphs.push(`**Downgraded on review.** ${d.downgradedOnReview}`);
   if (d.gotchas) paragraphs.push(d.gotchas.map((g) => `- ${g}`).join("\n"));
-  if (d.unmappedReports !== undefined) paragraphs.push(`**Reports with no \`MetricKind\`:** ${d.unmappedReports}`);
+  if (d.unmappedReports !== undefined)
+    paragraphs.push(`**Reports with no \`MetricKind\`:** ${d.unmappedReports}`);
   return paragraphs.join("\n\n");
 }
 
@@ -101,8 +111,17 @@ function renderTable(models: Dialect["models"] & object): string {
     : medium
       ? ["name", "rating", "notes"]
       : ["name"];
-  const titles = { name: "Model", tier: "Tier", rating: "Rating", soldBy: "Sold by", notes: "Notes" };
-  const lines = [`| ${columns.map((c) => titles[c]).join(" | ")} |`, `|${"---|".repeat(columns.length)}`];
+  const titles = {
+    name: "Model",
+    tier: "Tier",
+    rating: "Rating",
+    soldBy: "Sold by",
+    notes: "Notes",
+  };
+  const lines = [
+    `| ${columns.map((c) => titles[c]).join(" | ")} |`,
+    `|${"---|".repeat(columns.length)}`,
+  ];
   for (const m of models) lines.push(`| ${columns.map((c) => m[c] ?? "").join(" | ")} |`);
   return lines.join("\n");
 }

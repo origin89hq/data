@@ -1,12 +1,20 @@
 import { createHash } from "node:crypto";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { Manufacturer } from "@origin89/equipment-schema/manufacturer";
 import sharp from "sharp";
-import { loadRecords, writeRecord, RECORDS_DIR } from "../../src/records.ts";
-import { Manufacturer } from "../../schema/manufacturer.ts";
-import { brandTiles, GOOD_ICON, iconsInPage, LOGO_WIDTHS, logoKey, matchTile, nameKey } from "../../src/logos.ts";
-import { USER_AGENT } from "../../worker/src/feeds.ts";
-import { sellers } from "../../worker/src/sellers.ts";
+import { USER_AGENT } from "../../apps/worker/src/feeds.ts";
+import { sellers } from "../../apps/worker/src/sellers.ts";
+import {
+  brandTiles,
+  GOOD_ICON,
+  iconsInPage,
+  LOGO_WIDTHS,
+  logoKey,
+  matchTile,
+  nameKey,
+} from "../../src/logos.ts";
+import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 
 /**
  * Find a logo for every manufacturer and write it to disk at the published widths.
@@ -23,7 +31,8 @@ import { sellers } from "../../worker/src/sellers.ts";
  * Usage: gather.ts [--out <dir>] [--only <id>] [--sellers-only] [--makers-only] [--refresh]
  */
 const args = process.argv.slice(2);
-const flag = (name: string, fallback: string) => (args.includes(name) ? (args[args.indexOf(name) + 1] ?? fallback) : fallback);
+const flag = (name: string, fallback: string) =>
+  args.includes(name) ? (args[args.indexOf(name) + 1] ?? fallback) : fallback;
 const outDir = flag("--out", "dist/logos");
 const only = args.includes("--only") ? flag("--only", "") : undefined;
 const today = new Date().toISOString().slice(0, 10);
@@ -35,7 +44,10 @@ const today = new Date().toISOString().slice(0, 10);
  */
 const BRAND_PAGES = sellers
   .filter((seller) => seller.brandPagePath)
-  .map((seller) => ({ seller: seller.id, url: new URL(seller.brandPagePath as string, seller.url).href }));
+  .map((seller) => ({
+    seller: seller.id,
+    url: new URL(seller.brandPagePath as string, seller.url).href,
+  }));
 
 /** Below the smallest width we publish, a source is a tab glyph and there is nothing to publish. */
 const MIN_SOURCE = LOGO_WIDTHS[0];
@@ -57,7 +69,8 @@ const usable = async (bytes: Buffer): Promise<string | undefined> => {
   if (ratio > 2.6 || ratio < 1 / 2.6) return `${width}x${height} is a banner, not a mark`;
   // Lorex's own URL asks to be served at 32 pixels, which upscales to a smear. Above this floor a
   // source is published only at the widths it can carry, rather than blown up to all of them.
-  if (Math.max(width, height) < MIN_SOURCE) return `only ${width}x${height}, below the smallest width we publish`;
+  if (Math.max(width, height) < MIN_SOURCE)
+    return `only ${width}x${height}, below the smallest width we publish`;
   // How much of the image is still visible once it sits on a white page. The first version of this
   // asked sharp for statistics after flattening, which does not work — `stats()` reads the input
   // rather than the pipeline, so it reported plenty of contrast for Anker's reverse logo and that
@@ -72,7 +85,8 @@ const usable = async (bytes: Buffer): Promise<string | undefined> => {
 const original = (url: string): string => {
   try {
     const u = new URL(url);
-    for (const p of ["width", "height", "w", "h", "fit", "resize", "crop"]) u.searchParams.delete(p);
+    for (const p of ["width", "height", "w", "h", "fit", "resize", "crop"])
+      u.searchParams.delete(p);
     return u.href;
   } catch {
     return url;
@@ -81,7 +95,11 @@ const original = (url: string): string => {
 
 const get = async (url: string): Promise<Response | undefined> => {
   try {
-    const res = await fetch(url, { headers: { "user-agent": USER_AGENT }, redirect: "follow", signal: AbortSignal.timeout(25_000) });
+    const res = await fetch(url, {
+      headers: { "user-agent": USER_AGENT },
+      redirect: "follow",
+      signal: AbortSignal.timeout(25_000),
+    });
     return res.ok ? res : undefined;
   } catch {
     return undefined;
@@ -94,7 +112,8 @@ const makers = records.manufacturers.filter((m) => !only || m.id === only);
 // Every string a manufacturer answers to, including the brands sellers print for it.
 const byName = new Map<string, string>();
 for (const m of records.manufacturers) {
-  for (const name of [m.name, m.name.replace(/\s*\(.*\)\s*$/, ""), m.id]) byName.set(nameKey(name), m.id);
+  for (const name of [m.name, m.name.replace(/\s*\(.*\)\s*$/, ""), m.id])
+    byName.set(nameKey(name), m.id);
 }
 for (const brand of records.brands ?? []) {
   const id = (brand as { manufacturer?: string }).manufacturer;
@@ -127,7 +146,12 @@ const offer = (id: string, candidate: Candidate) => {
 const refresh = args.includes("--refresh");
 for (const maker of records.manufacturers) {
   if (maker.logo && (!only || maker.id === only)) {
-    offer(maker.id, { source: maker.logo.source, from: maker.logo.from, rank: rankOf(maker.logo.from), held: !refresh });
+    offer(maker.id, {
+      source: maker.logo.source,
+      from: maker.logo.from,
+      rank: rankOf(maker.logo.from),
+      held: !refresh,
+    });
   }
 }
 
@@ -164,7 +188,11 @@ if (!args.includes("--sellers-only")) {
       for (const icon of icons) {
         // An .ico is a browser-tab glyph and cannot even be decoded here; it is a last resort.
         const ico = /\.ico(\?|$)/i.test(icon.url);
-        offer(m.id, { source: icon.url, from: "maker", rank: ico ? 1 : icon.size >= GOOD_ICON ? 3 : 1.5 });
+        offer(m.id, {
+          source: icon.url,
+          from: "maker",
+          rank: ico ? 1 : icon.size >= GOOD_ICON ? 3 : 1.5,
+        });
       }
       fromMakers += 1;
     }),
@@ -198,7 +226,11 @@ for (const [id, candidates] of [...found].sort()) {
       why.push(`${candidate.from} served ${res.headers.get("content-type") ?? "nothing"}`);
       continue;
     }
-    const unusable = await usable(bytes).catch((e) => String(e).replace(/^Error: /, "").slice(0, 44));
+    const unusable = await usable(bytes).catch((e) =>
+      String(e)
+        .replace(/^Error: /, "")
+        .slice(0, 44),
+    );
     if (unusable) {
       why.push(`${candidate.from} ${unusable}`);
       continue;
@@ -212,12 +244,24 @@ for (const [id, candidates] of [...found].sort()) {
       for (const width of LOGO_WIDTHS.filter((w) => w <= largest)) {
         // Fitted inside the box rather than cropped: a wordmark is wider than it is tall and
         // cropping it to a square cuts the name in half.
-        const png = await sharp(bytes).resize({ width, height: width, fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
+        const png = await sharp(bytes)
+          .resize({
+            width,
+            height: width,
+            fit: "contain",
+            background: { r: 0, g: 0, b: 0, alpha: 0 },
+          })
+          .png()
+          .toBuffer();
         writeFileSync(join(outDir, `${id}-${width}.png`), png);
         widths.push(width);
       }
     } catch (error) {
-      why.push(`${candidate.from} ${String(error).replace(/^Error: /, "").slice(0, 44)}`);
+      why.push(
+        `${candidate.from} ${String(error)
+          .replace(/^Error: /, "")
+          .slice(0, 44)}`,
+      );
       continue;
     }
     const maker = records.manufacturers.find((m) => m.id === id);
@@ -228,7 +272,13 @@ for (const [id, candidates] of [...found].sort()) {
       id,
       Manufacturer.parse({
         ...maker,
-        logo: { source, from: candidate.from, sha256: createHash("sha256").update(bytes).digest("hex"), widths, checkedAt: today },
+        logo: {
+          source,
+          from: candidate.from,
+          sha256: createHash("sha256").update(bytes).digest("hex"),
+          widths,
+          checkedAt: today,
+        },
       }),
     );
     taken.set(id, candidate.from);
@@ -252,8 +302,12 @@ for (const maker of wholeSweep ? records.manufacturers : []) {
 }
 if (cleared) console.log(`${cleared} records no longer claim a logo this run could not produce`);
 
-console.log(`\n${written} manufacturers have a logo, written to ${outDir} at ${LOGO_WIDTHS.join(", ")} px`);
-console.log(`  ${[...taken.values()].filter((f) => f === "maker").length} from the maker's own site, ${[...taken.values()].filter((f) => f.startsWith("seller:")).length} from a shop's brand page`);
+console.log(
+  `\n${written} manufacturers have a logo, written to ${outDir} at ${LOGO_WIDTHS.join(", ")} px`,
+);
+console.log(
+  `  ${[...taken.values()].filter((f) => f === "maker").length} from the maker's own site, ${[...taken.values()].filter((f) => f.startsWith("seller:")).length} from a shop's brand page`,
+);
 if (failed.length) {
   console.log(`\n${failed.length} could not be fetched or read:`);
   for (const line of failed.slice(0, 15)) console.log(`  ${line}`);

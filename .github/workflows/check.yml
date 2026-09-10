@@ -18,31 +18,8 @@ jobs:
       - uses: ./.github/actions/setup
       # The build writes Parquet through the duckdb CLI, and a build test runs in the unit suite,
       # so it has to be on PATH before anything runs rather than before the build step.
-      - name: Install the duckdb CLI
-        run: |
-          curl -fsSL https://install.duckdb.org | sh
-          echo "$HOME/.duckdb/cli/latest" >> "$GITHUB_PATH"
-      - run: duckdb -c "SELECT 1" > /dev/null
-      - run: pnpm test
-      - run: pnpm --filter offgrid-equipment-worker test
-      - run: pnpm --filter offgrid-equipment-site build
-      - run: pnpm --filter offgrid-equipment-site check
-      # The Worker's types come from its wrangler config, so a binding that is declared in code
-      # and missing from the config fails here rather than at deploy.
-      - name: Type-check the Worker against its own bindings
-        working-directory: worker
-        run: pnpm exec wrangler types && pnpm exec tsc --noEmit
-      # Every record against its schema, then every reference between them.
-      - run: pnpm validate
-      # A build proves the records flatten, and two builds prove the artefacts are reproducible:
-      # a Parquet writer is not deterministic by promise, so it is checked rather than assumed.
-      - name: Build twice and compare
-        run: |
-          pnpm build > /dev/null
-          sha256sum dist/* | sort > "$RUNNER_TEMP/first.txt"
-          pnpm build > /dev/null
-          sha256sum dist/* | sort > "$RUNNER_TEMP/second.txt"
-          diff "$RUNNER_TEMP/first.txt" "$RUNNER_TEMP/second.txt"
+      - uses: ./.github/actions/setup-duckdb
+      - run: just check
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: offgrid-equipment-${{ github.sha }}
