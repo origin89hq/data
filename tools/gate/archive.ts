@@ -36,7 +36,10 @@ async function get(path: string, remote: boolean): Promise<Response> {
 async function post(path: string, body: unknown, remote: boolean): Promise<Response> {
   const response = await fetch(`${base(remote)}${path}`, {
     method: "POST",
-    headers: { authorization: `Bearer ${token()}`, "content-type": "application/json" },
+    headers: {
+      authorization: `Bearer ${bearerFor(base(remote))}`,
+      "content-type": "application/json",
+    },
     body: JSON.stringify(body),
   });
   if (!response.ok)
