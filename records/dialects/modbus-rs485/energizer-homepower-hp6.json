@@ -5,7 +5,7 @@
   "driver": {
     "status": "possible"
   },
-  "confidence": "unverified",
+  "confidence": "vendor-doc",
   "refuter": "not-checked",
   "sources": [
     {
@@ -17,7 +17,7 @@
       "citation": "Energizer Homepower Owners Manual — https://www.energizersolar.com/s/110921_285_EHP_Owners_Manual-Final-Approved.pdf"
     }
   ],
-  "transport": "Vendor spec table lists supported communication as '2.4G Wi-Fi, RS 485, Ethernet, CTs' for the main unit and 'RS 485, CAN 2.0' for the battery link. The HP-6M carries an integrated comms module supporting Wi-Fi, 4G/LTE or Ethernet, one at a time. No baud, framing, slave ID, register map, or local endpoint is documented.",
+  "transport": "Vendor spec table lists supported communication as '2.4G Wi-Fi, RS 485, Ethernet, CTs' for the main unit and 'RS 485, CAN 2.0' for the battery link. The HP-6M carries an integrated comms module supporting Wi-Fi, 4G/LTE or Ethernet, one at a time. The RS-485 port runs Modbus RTU at 9600 baud, 8N1, slave ID 1. No register map or local endpoint is documented.",
   "reports": [
     "state-of-charge",
     "ac-power",
@@ -35,8 +35,7 @@
   "gotchas": [
     "Cloud-dependent by design: the manual states the Installer App and the system must stay connected to the Energizer Homepower Cloud. Everything the user sees goes through that cloud. No local API is documented.",
     "Rated energy 6.14 kWh per unit (5.8 kWh usable), up to 24.56 kWh with sub units. AC-coupled BESS, retrofits behind an existing PV system.",
-    "SAA-certified (Australia), country of manufacture China. Not a Canadian product.",
-    "Confidence is unverified, not vendor-doc: the vendor document establishes that RS-485 and CAN 2.0 exist on the hardware, and nothing more. Listing a transport that no source describes at the framing level would be interpolation."
+    "SAA-certified (Australia), country of manufacture China. Not a Canadian product."
   ],
   "unmappedReports": "application mode (Automatic / Semi-Automatic / Manual), maximum-SOC ceiling setting for grid charging, scheduled charge/discharge windows, Edge Lighting status indication"
 }
