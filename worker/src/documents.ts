@@ -174,3 +174,12 @@ export function withoutTranslations<T extends { url: string }>(documents: T[]): 
     dropped: translated.filter((row) => row.language !== undefined).map((row) => ({ url: row.document.url, language: row.language as string })),
   };
 }
+
+/**
+ * The event a person sends to release a maker's download.
+ *
+ * It lives beside the approval it carries rather than inside the workflow that waits for it: the
+ * router needs the name to send one, and importing a `WorkflowEntrypoint` for a string pulls the
+ * Cloudflare runtime into everything that touches the routes, tests included.
+ */
+export const APPROVAL_EVENT = "crawl-approved";

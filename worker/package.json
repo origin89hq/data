@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "entities": "^8.1.0",
+    "hono": "^4.13.7",
     "zod": "4"
   }
 }

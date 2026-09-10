@@ -1,5 +1,5 @@
 import { WorkflowEntrypoint, type WorkflowEvent, type WorkflowStep } from "cloudflare:workers";
-import { CrawlApproval, documentLinks, hostAllowed, permitted, planFor, type Found } from "./documents.ts";
+import { APPROVAL_EVENT, CrawlApproval, documentLinks, hostAllowed, permitted, planFor, type Found } from "./documents.ts";
 import { fetchText, isIndex, locations, sample } from "./sitemap.ts";
 import { judgeSpecPage, type SpecPageCandidate } from "./spec-table.ts";
 import { USER_AGENT, todayUtc } from "./feeds.ts";
@@ -19,7 +19,6 @@ export interface ManufacturerCrawlParams {
 }
 
 /** The event a person sends to let the download start. Nothing happens without it. */
-export const APPROVAL_EVENT = "crawl-approved";
 
 /** How long an instance waits for a person. Long enough to be answered on a working day, short enough not to linger. */
 export const APPROVAL_TIMEOUT = "3 days";
