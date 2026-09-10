@@ -56,11 +56,27 @@ for (const name of publishing) {
     put += 1;
     continue;
   }
-  await run(
-    "pnpm",
-    ["exec", "wrangler", "r2", "object", "put", `offgrid-equipment-archive/${datasetKey(name)}`, "--file", path, "--content-type", datasetType(name), "--remote"],
-    { cwd: "worker", maxBuffer: 128 * 1024 * 1024 },
-  );
+  try {
+    await run(
+      "pnpm",
+      ["exec", "wrangler", "r2", "object", "put", `offgrid-equipment-archive/${datasetKey(name)}`, "--file", path, "--content-type", datasetType(name), "--remote"],
+      { cwd: "worker", maxBuffer: 128 * 1024 * 1024 },
+    );
+  } catch (error) {
+    // Wrangler answers a permissions problem with a screenful of account tables and a raw 403,
+    // which in CI reads as a broken publish rather than a token missing one scope.
+    const said = `${(error as { stdout?: string }).stdout ?? ""}${(error as { stderr?: string }).stderr ?? ""}`;
+    if (said.includes("403") || said.includes("Authentication error")) {
+      console.error(
+        `Cloudflare refused to write ${datasetKey(name)}.\n` +
+          "The API token can deploy a Worker and cannot write to R2. Add the\n" +
+          "\"Workers R2 Storage: Edit\" permission to the token in CLOUDFLARE_API_TOKEN,\n" +
+          "at https://dash.cloudflare.com/profile/api-tokens",
+      );
+      process.exit(1);
+    }
+    throw error;
+  }
   put += 1;
   if (put % 10 === 0) console.log(`  ${put} of ${publishing.length}`);
 }
