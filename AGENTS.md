@@ -20,6 +20,12 @@ and exceptions below. Internal RFCs and research belong in
 [internal-research](https://github.com/origin89hq/internal-research). Add documentation
 only when its value and upkeep are clear; remove AI filler from every message.
 
+Confirmed problems left outside the current fix need an issue in the owning
+repository: search with `gh`, reuse a matching issue or create one with evidence,
+and return its URL. Follow the shared working skill's unfinished-work rule.
+Respect posting restrictions; if filing is blocked, provide the draft and say why.
+Finish authorized fixes instead of replacing them with backlog issues.
+
 ## Data and application boundaries
 
 `records/` holds sourced equipment claims, `packages/schema/src/` defines their contracts,
@@ -52,3 +58,6 @@ missing shared context instead of claiming it loaded.
 - Trace a suspected defect through callers and guards before reporting it.
   Give its trigger, consequence, and precise location. Use CI evidence for the
   reviewed head, leave formatting to Biome, and avoid duplicate findings.
+- Keep current PR defects in the review. Track confirmed pre-existing or explicitly
+  deferred problems as issues when filing is authorized; comments-only reviewers
+  provide a draft and state that it was not filed.
