@@ -1,5 +1,6 @@
 {
   "id": "baiway-tf03k-serial",
+  "manufacturer": "baiway",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

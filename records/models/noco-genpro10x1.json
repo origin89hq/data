@@ -2,7 +2,9 @@
   "id": "noco-genpro10x1",
   "manufacturer": "noco",
   "name": "GENPRO10X1",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": [
+    "noco-gen-onboard"
+  ]
 }

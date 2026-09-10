@@ -2,7 +2,11 @@
   "id": "victron-energy-ekrano-gx",
   "manufacturer": "victron-energy",
   "name": "Ekrano GX",
+  "kind": "balance-of-system",
   "aliases": [],
-  "dialects": [],
-  "kind": "balance-of-system"
+  "dialects": [
+    "victron-gx-ble-instant-readout",
+    "victron-gx-modbus-tcp",
+    "victron-gx-mqtt"
+  ]
 }

@@ -7,5 +7,8 @@
     "Sol-Ark 5K-2P-N",
     "Sol-Ark5K-2P-N"
   ],
-  "dialects": []
+  "dialects": [
+    "solark-hybrid-rtu-v1",
+    "solark-mysolark-cloud"
+  ]
 }

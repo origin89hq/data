@@ -1,5 +1,6 @@
 {
   "id": "noco-nlp-lithium",
+  "manufacturer": "noco",
   "family": "no-comms",
   "driver": {
     "status": "possible"

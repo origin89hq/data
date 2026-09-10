@@ -48,6 +48,16 @@ export const Driver = z
 export const Dialect = z
   .object({
     id: RecordId,
+    /**
+     * The company whose device speaks this. Absent when it is one we do not hold a record for, or
+     * when the entry is not a maker's map at all.
+     *
+     * The catalogue was written with the maker as a prefix on the id — `victron-mppt-vedirect-hex`
+     * — which is a convention and not a key. Nothing could join a protocol to a product: 1,124
+     * model entries lived inside dialects and not one reached a model record, because there was
+     * nothing to scope a name against.
+     */
+    manufacturer: RecordId.optional(),
     family: Family,
     driver: Driver,
     confidence: Confidence,

@@ -1,5 +1,6 @@
 {
   "id": "energizer-en-power-inverter-no-comms",
+  "manufacturer": "energizer-solar",
   "family": "no-comms",
   "driver": {
     "status": "possible"

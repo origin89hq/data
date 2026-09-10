@@ -1,5 +1,6 @@
 {
   "id": "midnite-mngp",
+  "manufacturer": "midnite-solar",
   "family": "no-comms",
   "driver": {
     "status": "possible"

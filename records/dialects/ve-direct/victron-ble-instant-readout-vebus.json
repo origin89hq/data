@@ -1,11 +1,15 @@
 {
   "id": "victron-ble-instant-readout-vebus",
+  "manufacturer": "victron-energy",
   "family": "ve-direct",
   "driver": {
     "status": "possible"
   },
   "confidence": "vendor-doc",
   "refuter": "not-checked",
+  "seeAlso": [
+    "victron-ble-instant-readout"
+  ],
   "sources": [
     {
       "source": "victron-ble-extra-manufacturer-data-2022-12-14",
@@ -19,9 +23,6 @@
       "source": "victronenergy-com-accessories-ve-bus-smart-dongle",
       "citation": "https://www.victronenergy.com/accessories/ve-bus-smart-dongle — vendor statement that the dongle adds Instant Readout to VE.Bus products, and its product scope"
     }
-  ],
-  "seeAlso": [
-    "victron-ble-instant-readout"
   ],
   "transport": "Same BLE container as record 0x03 — Victron manufacturer data, byte 3 = 0x10, record from byte 8, AES-CTR with the 2-byte header nonce, per-device 16-byte key from VictronConnect. In practice the radio is the VE.Bus Smart dongle plugged into the inverter's VE.Bus RJ45; MultiPlus/Quattro have no integrated Bluetooth.",
   "blocks": "Record type 0x0C, offsets from the start of the record: bit 32 width 8 device state (NA 0xFF) · bit 40 width 8 VE.Bus error (NA 0xFF, VE_REG_VEBUS_VEBUS_ERROR) · bit 48 width 16 battery current, 0.1 A, -3276.8..3276.6 A, NA 0x7FFF · bit 64 width 14 battery voltage, 0.01 V, 0..163.83 V, NA 0x3FFF · bit 78 width 2 active AC in (0 = AC in 1, 1 = AC in 2, 2 = not connected, 3 = unknown, NA 0x3) · bit 80 width 19 active AC in power, 1 W, -262144..262142 W, NA 0x3FFFF · bit 99 width 19 AC out power, 1 W, same range, NA 0x3FFFF · bit 118 width 2 alarm (0 none, 1 warning, 2 alarm, NA 3, VE_REG_ALARM_NOTIFICATION \"to be defined\") · bit 120 width 7 battery temperature, 1 °C, -40..86 °C, NA 0x7F, value is record value minus 40 · bit 127 width 7 SOC, 1 %, 0..126 %, NA 0x7F · bits 134-159 unused.",

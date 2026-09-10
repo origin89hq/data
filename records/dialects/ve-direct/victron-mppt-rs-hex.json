@@ -1,5 +1,6 @@
 {
   "id": "victron-mppt-rs-hex",
+  "manufacturer": "victron-energy",
   "family": "ve-direct",
   "driver": {
     "status": "possible"

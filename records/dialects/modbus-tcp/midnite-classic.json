@@ -1,11 +1,17 @@
 {
   "id": "midnite-classic",
+  "manufacturer": "midnite-solar",
   "family": "modbus-tcp",
   "driver": {
     "status": "possible"
   },
   "confidence": "vendor-doc",
   "refuter": "checked",
+  "seeAlso": [
+    "midnite-classic-modbus",
+    "midnite-classic-modbus-tcp",
+    "midnite-classic-whizbang"
+  ],
   "sources": [
     {
       "source": "midnite-classic-modbus-register-map-rev-c5",
@@ -19,11 +25,6 @@
       "source": "midnitesolar-com-pdfs-classic-manual-rev-1933",
       "citation": "MidNite Solar Classic Owner's Manual, firmware rev 1933 — https://www.midnitesolar.com/pdfs/classic_manual_Rev_1933.pdf (not committed; ratings and wiring only, no register content used here)"
     }
-  ],
-  "seeAlso": [
-    "midnite-classic-modbus",
-    "midnite-classic-modbus-tcp",
-    "midnite-classic-whizbang"
   ],
   "transport": "Modbus TCP over Ethernet · default TCP port 502 (register 4137 modbus_port_register, R/W, 0–65535) · unit/slave ID default 10 decimal (register 4326 ClassicModbusAddr, R/W, 0–255). ALSO Modbus RTU over RS-232 on an RJ-11 phone jack — \"Default RS-232 format is Baud Rate 19.2K, No parity, 8 bits, 1 stop bit (N81)\". There is NO RS-485 port on a Classic.",
   "blocks": "4101–4251 real-time values and charge setpoints · 4252–4384 logs, wind tables, factory calibration, Follow-Me, WhizBang Jr · 10001–10064 per-interface communication statistics (Master/In, Slave/Out, Remote, TCP) · 20481+ Ethernet configuration · 28673/28674 serial number (readable over RS-232 only) · file-transfer via non-standard function codes 104 (0x68) read-internal and 105 (0x69) write-internal, device fields 4–7, used for daily and minutely log retrieval",

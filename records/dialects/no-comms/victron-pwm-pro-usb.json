@@ -1,5 +1,6 @@
 {
   "id": "victron-pwm-pro-usb",
+  "manufacturer": "victron-energy",
   "family": "no-comms",
   "driver": {
     "status": "possible"

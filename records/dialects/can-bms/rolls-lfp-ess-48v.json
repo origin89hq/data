@@ -1,5 +1,6 @@
 {
   "id": "rolls-lfp-ess-48v",
+  "manufacturer": "rolls-battery",
   "family": "can-bms",
   "driver": {
     "status": "possible"

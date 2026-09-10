@@ -2,7 +2,9 @@
   "id": "noco-gbx75",
   "manufacturer": "noco",
   "name": "GBX75",
+  "kind": "inverter-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": [
+    "noco-out-of-scope"
+  ]
 }

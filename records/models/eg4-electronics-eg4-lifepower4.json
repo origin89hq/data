@@ -2,7 +2,9 @@
   "id": "eg4-electronics-eg4-lifepower4",
   "manufacturer": "eg4-electronics",
   "name": "EG4 LifePower4",
+  "kind": "battery",
   "aliases": [],
-  "dialects": [],
-  "kind": "battery"
+  "dialects": [
+    "eg4-lifepower4-serial"
+  ]
 }

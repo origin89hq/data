@@ -1,5 +1,6 @@
 {
   "id": "seaflo-dc-pressure-switch",
+  "manufacturer": "seaflo",
   "family": "no-comms",
   "driver": {
     "status": "possible"

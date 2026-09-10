@@ -1,5 +1,6 @@
 {
   "id": "magnum-me-network",
+  "manufacturer": "magnum-energy",
   "family": "other-serial",
   "driver": {
     "status": "possible"

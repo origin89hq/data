@@ -1,5 +1,6 @@
 {
   "id": "epever-rts-analog",
+  "manufacturer": "epever",
   "family": "no-comms",
   "driver": {
     "status": "shipped",

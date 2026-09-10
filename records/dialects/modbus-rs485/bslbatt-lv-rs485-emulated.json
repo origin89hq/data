@@ -1,5 +1,6 @@
 {
   "id": "bslbatt-lv-rs485-emulated",
+  "manufacturer": "bslbatt",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

@@ -1,5 +1,6 @@
 {
   "id": "victron-vecan-vreg",
+  "manufacturer": "victron-energy",
   "family": "can-bms",
   "driver": {
     "status": "possible"

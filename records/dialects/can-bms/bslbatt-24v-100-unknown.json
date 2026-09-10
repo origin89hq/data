@@ -1,5 +1,6 @@
 {
   "id": "bslbatt-24v-100-unknown",
+  "manufacturer": "bslbatt",
   "family": "can-bms",
   "driver": {
     "status": "possible"

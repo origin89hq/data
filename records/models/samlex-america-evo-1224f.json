@@ -3,5 +3,8 @@
   "manufacturer": "samlex-america",
   "name": "EVO-1224F",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "samlex-evo-1212f-no-bus",
+    "samlex-evo-signal-io"
+  ]
 }

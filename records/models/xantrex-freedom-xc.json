@@ -2,7 +2,9 @@
   "id": "xantrex-freedom-xc",
   "manufacturer": "xantrex",
   "name": "Freedom XC",
+  "kind": "inverter-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": [
+    "xantrex-no-comms"
+  ]
 }

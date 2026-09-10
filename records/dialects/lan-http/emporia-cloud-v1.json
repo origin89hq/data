@@ -1,5 +1,6 @@
 {
   "id": "emporia-cloud-v1",
+  "manufacturer": "emporia",
   "family": "lan-http",
   "driver": {
     "status": "possible"

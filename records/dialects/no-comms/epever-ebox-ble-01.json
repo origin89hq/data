@@ -1,5 +1,6 @@
 {
   "id": "epever-ebox-ble-01",
+  "manufacturer": "epever",
   "family": "no-comms",
   "driver": {
     "status": "shipped",

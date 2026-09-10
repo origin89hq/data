@@ -1,5 +1,6 @@
 {
   "id": "epever-ebox-wifi-01-bridge",
+  "manufacturer": "epever",
   "family": "modbus-rs485",
   "driver": {
     "status": "shipped",
@@ -7,6 +8,9 @@
   },
   "confidence": "community-crosschecked",
   "refuter": "not-checked",
+  "seeAlso": [
+    "epever-ebox-wifi-01"
+  ],
   "sources": [
     {
       "source": "epever-com-upload-cert-file-1904-ebox-wifi-01-sms-el-v1",
@@ -20,9 +24,6 @@
       "source": "community-home-assistant-io-t-epever-modbus-rs-485-config-214397-80",
       "citation": "https://community.home-assistant.io/t/epever-modbus-rs-485-config/214397/80 — independent user: rtuovertcp, port 8088, station mode; separate report of slave ID 10"
     }
-  ],
-  "seeAlso": [
-    "epever-ebox-wifi-01"
   ],
   "transport": "In: RS-485 over RJ45, self-powered from the port's +5 V, vendor default 115200 baud (settable 300–230400). Out: WiFi, TCP socket on port 8088 carrying Modbus RTU frames (community-reported, not in the vendor datasheet). Slave ID is the attached device's, not the adapter's — 1 for a Tracer/XTRA controller, 3 for an EPEver inverter.",
   "models": [

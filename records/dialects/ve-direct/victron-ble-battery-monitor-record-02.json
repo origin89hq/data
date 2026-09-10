@@ -1,5 +1,6 @@
 {
   "id": "victron-ble-battery-monitor-record-02",
+  "manufacturer": "victron-energy",
   "family": "ve-direct",
   "driver": {
     "status": "possible"

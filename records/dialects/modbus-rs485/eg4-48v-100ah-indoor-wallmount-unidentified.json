@@ -1,5 +1,6 @@
 {
   "id": "eg4-48v-100ah-indoor-wallmount-unidentified",
+  "manufacturer": "eg4-electronics",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

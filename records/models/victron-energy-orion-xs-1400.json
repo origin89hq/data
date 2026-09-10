@@ -2,7 +2,11 @@
   "id": "victron-energy-orion-xs-1400",
   "manufacturer": "victron-energy",
   "name": "Orion XS 1400",
+  "kind": "dc-dc-converter",
   "aliases": [],
-  "dialects": [],
-  "kind": "dc-dc-converter"
+  "dialects": [
+    "victron-ble-orion-xs",
+    "victron-orion-xs-hex",
+    "victron-vedirect-text-orion-xs"
+  ]
 }

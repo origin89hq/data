@@ -1,5 +1,6 @@
 {
   "id": "samlex-pst-3000-ext-switch",
+  "manufacturer": "samlex-america",
   "family": "local-io",
   "driver": {
     "status": "possible"

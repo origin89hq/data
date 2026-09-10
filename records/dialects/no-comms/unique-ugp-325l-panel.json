@@ -1,5 +1,6 @@
 {
   "id": "unique-ugp-325l-panel",
+  "manufacturer": "unique-appliances",
   "family": "no-comms",
   "driver": {
     "status": "possible"

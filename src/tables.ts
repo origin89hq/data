@@ -30,6 +30,7 @@ export function tables(records: Records): Table[] {
   const dialects = records.dialects.map((d) => ({
     id: d.id,
     family: d.family,
+    manufacturer: d.manufacturer,
     driver_status: d.driver.status,
     driver_id: d.driver.id,
     driver_note: d.driver.note,
@@ -52,7 +53,7 @@ export function tables(records: Records): Table[] {
     {
       name: "dialects",
       columns: [
-        col("id"), col("family"), col("driver_status"), col("driver_id"), col("driver_note"), col("confidence"), col("refuter"),
+        col("id"), col("manufacturer"), col("family"), col("driver_status"), col("driver_id"), col("driver_note"), col("confidence"), col("refuter"),
         col("confidence_note"), col("cross_reference"), col("transport"), col("blocks"), col("shared_map_evidence"),
         col("refuted_on_review"), col("shared_map_claim_dropped", "BOOLEAN"), col("downgraded_on_review"), col("unmapped_reports"),
         col("refiled_from"), col("possible_duplicate", "BOOLEAN"),

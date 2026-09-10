@@ -6,5 +6,7 @@
   "aliases": [
     "MAG-227-105"
   ],
-  "dialects": []
+  "dialects": [
+    "magnum-me-network"
+  ]
 }

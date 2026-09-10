@@ -1,5 +1,6 @@
 {
   "id": "fronius-solar-api-v1",
+  "manufacturer": "fronius",
   "family": "lan-http",
   "driver": {
     "status": "possible"

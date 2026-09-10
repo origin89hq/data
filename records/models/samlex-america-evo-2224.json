@@ -3,5 +3,8 @@
   "manufacturer": "samlex-america",
   "name": "EVO-2224",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "samlex-evo-modbus-22xx-40xx",
+    "samlex-evo-signal-io"
+  ]
 }

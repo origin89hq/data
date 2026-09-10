@@ -1,5 +1,6 @@
 {
   "id": "firman-portable-no-comms",
+  "manufacturer": "firman",
   "family": "no-comms",
   "driver": {
     "status": "possible"

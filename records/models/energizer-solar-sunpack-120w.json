@@ -2,7 +2,9 @@
   "id": "energizer-solar-sunpack-120w",
   "manufacturer": "energizer-solar",
   "name": "Sunpack 120W",
+  "kind": "panel",
   "aliases": [],
-  "dialects": [],
-  "kind": "panel"
+  "dialects": [
+    "energizer-solar-everest-no-comms"
+  ]
 }

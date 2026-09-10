@@ -1,5 +1,6 @@
 {
   "id": "kinetic-solar-racking",
+  "manufacturer": "kinetic-solar",
   "family": "no-comms",
   "driver": {
     "status": "possible"

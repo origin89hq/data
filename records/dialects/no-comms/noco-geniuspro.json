@@ -1,5 +1,6 @@
 {
   "id": "noco-geniuspro",
+  "manufacturer": "noco",
   "family": "no-comms",
   "driver": {
     "status": "possible"

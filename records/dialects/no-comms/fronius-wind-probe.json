@@ -1,5 +1,6 @@
 {
   "id": "fronius-wind-probe",
+  "manufacturer": "fronius",
   "family": "no-comms",
   "driver": {
     "status": "possible"

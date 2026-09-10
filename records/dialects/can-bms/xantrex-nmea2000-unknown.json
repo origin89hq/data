@@ -1,5 +1,6 @@
 {
   "id": "xantrex-nmea2000-unknown",
+  "manufacturer": "xantrex",
   "family": "can-bms",
   "driver": {
     "status": "possible"

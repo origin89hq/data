@@ -1,5 +1,6 @@
 {
   "id": "victron-pwm-light-no-comms",
+  "manufacturer": "victron-energy",
   "family": "no-comms",
   "driver": {
     "status": "possible"

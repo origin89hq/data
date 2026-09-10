@@ -1,5 +1,6 @@
 {
   "id": "ecoflow-ble-local",
+  "manufacturer": "ecoflow",
   "family": "lan-http",
   "driver": {
     "status": "possible"

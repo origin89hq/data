@@ -1,5 +1,6 @@
 {
   "id": "fronius-datamanager-sunspec",
+  "manufacturer": "fronius",
   "family": "modbus-tcp",
   "driver": {
     "status": "possible"

@@ -1,5 +1,6 @@
 {
   "id": "victron-ble-orion-xs",
+  "manufacturer": "victron-energy",
   "family": "ve-direct",
   "driver": {
     "status": "possible"

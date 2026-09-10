@@ -1,5 +1,6 @@
 {
   "id": "epever-remote-meter",
+  "manufacturer": "epever",
   "family": "no-comms",
   "driver": {
     "status": "shipped",

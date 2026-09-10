@@ -1,5 +1,6 @@
 {
   "id": "noco-gx-dryio",
+  "manufacturer": "noco",
   "family": "local-io",
   "driver": {
     "status": "possible"

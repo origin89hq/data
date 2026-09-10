@@ -4,5 +4,8 @@
   "name": "EVO-RC PLUS",
   "kind": "balance-of-system",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "samlex-evo-rc-plus-link",
+    "samlex-evo-remote-panel-link"
+  ]
 }

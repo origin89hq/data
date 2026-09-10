@@ -1,5 +1,6 @@
 {
   "id": "xantrex-xanbus-ags-unknown",
+  "manufacturer": "xantrex",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

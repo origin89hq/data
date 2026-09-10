@@ -1,5 +1,6 @@
 {
   "id": "victron-phoenix-inverter-vedirect-text",
+  "manufacturer": "victron-energy",
   "family": "ve-direct",
   "driver": {
     "status": "possible"

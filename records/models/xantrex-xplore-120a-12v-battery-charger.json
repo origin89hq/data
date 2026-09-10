@@ -2,7 +2,9 @@
   "id": "xantrex-xplore-120a-12v-battery-charger",
   "manufacturer": "xantrex",
   "name": "XPLORE 120A 12V Battery Charger",
+  "kind": "ac-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "ac-charger"
+  "dialects": [
+    "xantrex-no-comms"
+  ]
 }

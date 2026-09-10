@@ -1,5 +1,6 @@
 {
   "id": "fronius-irradiance-probe",
+  "manufacturer": "fronius",
   "family": "no-comms",
   "driver": {
     "status": "possible"

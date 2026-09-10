@@ -4,5 +4,7 @@
   "name": "MNPowerFlo5",
   "kind": "battery",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "midnite-powerflo5"
+  ]
 }

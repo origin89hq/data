@@ -1,5 +1,6 @@
 {
   "id": "solark-hybrid-rtu-v1",
+  "manufacturer": "sol-ark",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

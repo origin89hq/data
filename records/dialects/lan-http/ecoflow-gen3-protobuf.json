@@ -1,5 +1,6 @@
 {
   "id": "ecoflow-gen3-protobuf",
+  "manufacturer": "ecoflow",
   "family": "lan-http",
   "driver": {
     "status": "possible"

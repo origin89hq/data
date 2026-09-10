@@ -1,5 +1,6 @@
 {
   "id": "solark-dongle-uart",
+  "manufacturer": "sol-ark",
   "family": "local-io",
   "driver": {
     "status": "possible"

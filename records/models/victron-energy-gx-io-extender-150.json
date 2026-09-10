@@ -2,7 +2,9 @@
   "id": "victron-energy-gx-io-extender-150",
   "manufacturer": "victron-energy",
   "name": "GX IO-Extender 150",
+  "kind": "balance-of-system",
   "aliases": [],
-  "dialects": [],
-  "kind": "balance-of-system"
+  "dialects": [
+    "victron-venus-dbus-switch"
+  ]
 }

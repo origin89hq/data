@@ -1,5 +1,6 @@
 {
   "id": "energizer-lead-acid-and-jump-start-no-comms",
+  "manufacturer": "energizer-solar",
   "family": "no-comms",
   "driver": {
     "status": "possible"

@@ -4,5 +4,7 @@
   "name": "EG418KPV12LV",
   "kind": "inverter-charger",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "eg4-luxpower-v58"
+  ]
 }

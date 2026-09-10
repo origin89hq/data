@@ -1,5 +1,6 @@
 {
   "id": "bslbatt-pace-modbus-rs485",
+  "manufacturer": "bslbatt",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

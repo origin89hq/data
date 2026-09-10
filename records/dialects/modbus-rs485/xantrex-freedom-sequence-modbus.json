@@ -1,5 +1,6 @@
 {
   "id": "xantrex-freedom-sequence-modbus",
+  "manufacturer": "xantrex",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

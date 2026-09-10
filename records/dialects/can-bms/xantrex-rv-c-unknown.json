@@ -1,5 +1,6 @@
 {
   "id": "xantrex-rv-c-unknown",
+  "manufacturer": "xantrex",
   "family": "can-bms",
   "driver": {
     "status": "possible"

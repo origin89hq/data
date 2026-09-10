@@ -1,5 +1,6 @@
 {
   "id": "honda-eu2200i-eu3000-handi-recoil-only",
+  "manufacturer": "honda-power",
   "family": "local-io",
   "driver": {
     "status": "possible"

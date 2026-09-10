@@ -1,5 +1,6 @@
 {
   "id": "champion-wireless-fob",
+  "manufacturer": "champion-power",
   "family": "local-io",
   "driver": {
     "status": "possible"

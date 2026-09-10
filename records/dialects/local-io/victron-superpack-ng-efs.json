@@ -1,5 +1,6 @@
 {
   "id": "victron-superpack-ng-efs",
+  "manufacturer": "victron-energy",
   "family": "local-io",
   "driver": {
     "status": "possible"

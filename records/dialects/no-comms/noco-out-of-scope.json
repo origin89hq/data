@@ -1,5 +1,6 @@
 {
   "id": "noco-out-of-scope",
+  "manufacturer": "noco",
   "family": "no-comms",
   "driver": {
     "status": "possible"

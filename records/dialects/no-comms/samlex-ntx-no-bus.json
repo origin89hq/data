@@ -1,5 +1,6 @@
 {
   "id": "samlex-ntx-no-bus",
+  "manufacturer": "samlex-america",
   "family": "no-comms",
   "driver": {
     "status": "possible"

@@ -1,5 +1,6 @@
 {
   "id": "rolls-lfp-drop-in",
+  "manufacturer": "rolls-battery",
   "family": "no-comms",
   "driver": {
     "status": "possible"

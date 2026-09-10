@@ -1,5 +1,6 @@
 {
   "id": "magnum-ags-honda-eu3000is-combination-switch",
+  "manufacturer": "magnum-energy",
   "family": "local-io",
   "driver": {
     "status": "possible"

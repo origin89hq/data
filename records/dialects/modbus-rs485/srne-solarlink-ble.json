@@ -1,5 +1,6 @@
 {
   "id": "srne-solarlink-ble",
+  "manufacturer": "srne",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

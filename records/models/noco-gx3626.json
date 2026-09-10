@@ -2,7 +2,9 @@
   "id": "noco-gx3626",
   "manufacturer": "noco",
   "name": "GX3626",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": [
+    "noco-gx-dryio"
+  ]
 }

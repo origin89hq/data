@@ -2,7 +2,9 @@
   "id": "energizer-solar-ps2900h-5",
   "manufacturer": "energizer-solar",
   "name": "PS2900H-5",
+  "kind": "battery",
   "aliases": [],
-  "dialects": [],
-  "kind": "battery"
+  "dialects": [
+    "energizer-solar-hv-battery-powerstack"
+  ]
 }

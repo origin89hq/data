@@ -1,5 +1,6 @@
 {
   "id": "eg4-bms-can-inverter-emulation",
+  "manufacturer": "eg4-electronics",
   "family": "can-bms",
   "driver": {
     "status": "possible"

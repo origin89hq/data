@@ -1,5 +1,6 @@
 {
   "id": "victron-temp-probe-bmv-analog",
+  "manufacturer": "victron-energy",
   "family": "no-comms",
   "driver": {
     "status": "possible"

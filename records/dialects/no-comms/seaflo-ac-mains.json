@@ -1,5 +1,6 @@
 {
   "id": "seaflo-ac-mains",
+  "manufacturer": "seaflo",
   "family": "no-comms",
   "driver": {
     "status": "possible"

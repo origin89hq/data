@@ -2,7 +2,11 @@
   "id": "victron-energy-smartsolar-mppt-75-15",
   "manufacturer": "victron-energy",
   "name": "SmartSolar MPPT 75|15",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": [
+    "victron-ble-instant-readout",
+    "victron-mppt-vedirect-hex",
+    "victron-vedirect-text"
+  ]
 }

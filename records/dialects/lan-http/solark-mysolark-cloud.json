@@ -1,5 +1,6 @@
 {
   "id": "solark-mysolark-cloud",
+  "manufacturer": "sol-ark",
   "family": "lan-http",
   "driver": {
     "status": "possible"

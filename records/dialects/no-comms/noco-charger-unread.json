@@ -1,5 +1,6 @@
 {
   "id": "noco-charger-unread",
+  "manufacturer": "noco",
   "family": "no-comms",
   "driver": {
     "status": "possible"

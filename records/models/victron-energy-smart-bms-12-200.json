@@ -2,7 +2,9 @@
   "id": "victron-energy-smart-bms-12-200",
   "manufacturer": "victron-energy",
   "name": "Smart BMS 12-200",
+  "kind": "bms",
   "aliases": [],
-  "dialects": [],
-  "kind": "bms"
+  "dialects": [
+    "victron-bms-dry-contact"
+  ]
 }

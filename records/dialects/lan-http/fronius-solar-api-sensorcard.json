@@ -1,5 +1,6 @@
 {
   "id": "fronius-solar-api-sensorcard",
+  "manufacturer": "fronius",
   "family": "lan-http",
   "driver": {
     "status": "possible"

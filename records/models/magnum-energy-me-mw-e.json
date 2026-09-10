@@ -6,5 +6,7 @@
   "aliases": [
     "MAG-223-171"
   ],
-  "dialects": []
+  "dialects": [
+    "magnum-magweb"
+  ]
 }

@@ -1,5 +1,6 @@
 {
   "id": "emporia-vue3-esphome-i2c",
+  "manufacturer": "emporia",
   "family": "lan-http",
   "driver": {
     "status": "possible"

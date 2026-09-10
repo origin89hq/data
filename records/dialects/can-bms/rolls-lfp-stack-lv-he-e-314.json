@@ -1,5 +1,6 @@
 {
   "id": "rolls-lfp-stack-lv-he-e-314",
+  "manufacturer": "rolls-battery",
   "family": "can-bms",
   "driver": {
     "status": "possible"

@@ -1,5 +1,6 @@
 {
   "id": "rolls-stack-lv-can",
+  "manufacturer": "rolls-battery",
   "family": "can-bms",
   "driver": {
     "status": "possible"

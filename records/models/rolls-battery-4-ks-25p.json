@@ -6,5 +6,7 @@
   "aliases": [
     "SUR-183-119"
   ],
-  "dialects": []
+  "dialects": [
+    "rolls-lead-acid"
+  ]
 }

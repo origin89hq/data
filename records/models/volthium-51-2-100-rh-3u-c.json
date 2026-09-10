@@ -6,5 +6,7 @@
   "aliases": [
     "VLT-188-133"
   ],
-  "dialects": []
+  "dialects": [
+    "volthium-rack-3u"
+  ]
 }

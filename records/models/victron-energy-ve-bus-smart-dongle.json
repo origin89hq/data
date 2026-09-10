@@ -2,7 +2,11 @@
   "id": "victron-energy-ve-bus-smart-dongle",
   "manufacturer": "victron-energy",
   "name": "VE.Bus Smart Dongle",
+  "kind": "balance-of-system",
   "aliases": [],
-  "dialects": [],
-  "kind": "balance-of-system"
+  "dialects": [
+    "victron-ble-instant-readout-vebus",
+    "victron-ble-vebus-record-0c",
+    "victron-vebus-interfaces"
+  ]
 }

@@ -1,5 +1,6 @@
 {
   "id": "bslbatt-golf-cart-gc",
+  "manufacturer": "bslbatt",
   "family": "can-bms",
   "driver": {
     "status": "possible"

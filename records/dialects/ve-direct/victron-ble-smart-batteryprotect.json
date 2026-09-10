@@ -1,5 +1,6 @@
 {
   "id": "victron-ble-smart-batteryprotect",
+  "manufacturer": "victron-energy",
   "family": "ve-direct",
   "driver": {
     "status": "possible"

@@ -1,5 +1,6 @@
 {
   "id": "morningstar-pwm-no-comms",
+  "manufacturer": "morningstar",
   "family": "no-comms",
   "driver": {
     "status": "possible"

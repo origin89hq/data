@@ -1,5 +1,6 @@
 {
   "id": "honda-eu7000is-wireless-fob",
+  "manufacturer": "honda-power",
   "family": "local-io",
   "driver": {
     "status": "possible"

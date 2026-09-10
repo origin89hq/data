@@ -1,5 +1,6 @@
 {
   "id": "victron-ble-bms",
+  "manufacturer": "victron-energy",
   "family": "ve-direct",
   "driver": {
     "status": "possible"

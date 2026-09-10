@@ -4,5 +4,7 @@
   "name": "PS-30M",
   "kind": "charge-controller",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "morningstar-prostar-pwm-gen3"
+  ]
 }

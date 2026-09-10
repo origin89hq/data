@@ -4,5 +4,9 @@
   "name": "SOL-ARK-12K-2P",
   "kind": "inverter-charger",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "solark-dongle-uart",
+    "solark-hybrid-rtu-v1",
+    "solark-mysolark-cloud"
+  ]
 }

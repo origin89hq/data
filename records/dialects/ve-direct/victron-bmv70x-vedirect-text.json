@@ -1,5 +1,6 @@
 {
   "id": "victron-bmv70x-vedirect-text",
+  "manufacturer": "victron-energy",
   "family": "ve-direct",
   "driver": {
     "status": "possible"

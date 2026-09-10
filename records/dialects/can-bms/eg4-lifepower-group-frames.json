@@ -1,5 +1,6 @@
 {
   "id": "eg4-lifepower-group-frames",
+  "manufacturer": "eg4-electronics",
   "family": "can-bms",
   "driver": {
     "status": "possible"

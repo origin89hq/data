@@ -1,5 +1,6 @@
 {
   "id": "noco-gen-onboard",
+  "manufacturer": "noco",
   "family": "no-comms",
   "driver": {
     "status": "possible"

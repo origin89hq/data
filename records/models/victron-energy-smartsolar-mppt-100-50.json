@@ -2,7 +2,11 @@
   "id": "victron-energy-smartsolar-mppt-100-50",
   "manufacturer": "victron-energy",
   "name": "SmartSolar MPPT 100/50",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": [
+    "victron-ble-instant-readout",
+    "victron-mppt-vedirect-hex",
+    "victron-vedirect-text"
+  ]
 }

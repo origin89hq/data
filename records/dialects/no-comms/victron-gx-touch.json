@@ -1,11 +1,15 @@
 {
   "id": "victron-gx-touch",
+  "manufacturer": "victron-energy",
   "family": "no-comms",
   "driver": {
     "status": "possible"
   },
   "confidence": "unverified",
   "refuter": "checked",
+  "seeAlso": [
+    "victron-gx-touch-display"
+  ],
   "sources": [
     {
       "source": "victronenergy-com-display-and-panels-gx-touch-50",
@@ -15,9 +19,6 @@
       "source": "victronenergy-com-media-pg-nucleo-gx-en-introduction",
       "citation": "https://www.victronenergy.com/media/pg/Nucleo_GX/en/introduction.html — Nucleo GX manual (no HDMI; Android GX WiFi Display as the alternative)"
     }
-  ],
-  "seeAlso": [
-    "victron-gx-touch-display"
   ],
   "transport": "One combined HDMI + USB cable to the GX device. HDMI carries video, USB carries touch input and power. No network interface of any kind.",
   "models": [

@@ -1,5 +1,6 @@
 {
   "id": "victron-globallink-vrm",
+  "manufacturer": "victron-energy",
   "family": "no-comms",
   "driver": {
     "status": "possible"

@@ -3,5 +3,7 @@
   "manufacturer": "samlex-america",
   "name": "EVO-RC",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "samlex-evo-remote-panel-link"
+  ]
 }

@@ -4,5 +4,7 @@
   "name": "SC12200G4DPH",
   "kind": "battery",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "volthium-abs-ej-ble"
+  ]
 }

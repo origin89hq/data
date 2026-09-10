@@ -1,5 +1,6 @@
 {
   "id": "epever-upower-hi",
+  "manufacturer": "epever",
   "family": "modbus-rs485",
   "driver": {
     "status": "shipped",
@@ -7,6 +8,9 @@
   },
   "confidence": "community-single",
   "refuter": "not-checked",
+  "seeAlso": [
+    "epever-upower"
+  ],
   "sources": [
     {
       "source": "community-home-assistant-io-t-epever-upower-hi-modbus-setting-if-you-need-483184",
@@ -20,9 +24,6 @@
       "source": "epever-com-upload-file-2108-upower-hi-manual-en-v2-1",
       "citation": "https://www.epever.com/upload/file/2108/UPower-Hi-Manual-EN-V2.1.pdf — vendor manual: DB9 pinout, BMS-Link, no register map"
     }
-  ],
-  "seeAlso": [
-    "epever-upower"
   ],
   "transport": "RS-485 over DB9 female · Modbus RTU · baud rate NOT stated in the vendor manual · slave ID 4 per one community configuration only, unconfirmed. DB9 pinout from docs (vendor manual, UPower-Hi V2.1): pins 1-4 = NC, 5 = GND, 6 = NC, 7 = RS-485-A, 8 = RS-485-B, 9 = +5 VDC. An 8-pin RJ45 pinout (1/2 = 5 VDC, 3/4 = B, 5/6 = A, 7/8 = GND) also appears in the same manual for the BMS-Link side.",
   "blocks": "Community reports place real-time data in the 0x3500 range and settings at 0x9607+, with a discrete input at 0x2100. No block boundaries are documented. Treat every address as unverified.",

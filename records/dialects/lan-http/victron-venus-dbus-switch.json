@@ -1,5 +1,6 @@
 {
   "id": "victron-venus-dbus-switch",
+  "manufacturer": "victron-energy",
   "family": "lan-http",
   "driver": {
     "status": "possible"

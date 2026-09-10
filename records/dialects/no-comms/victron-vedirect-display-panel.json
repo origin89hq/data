@@ -1,5 +1,6 @@
 {
   "id": "victron-vedirect-display-panel",
+  "manufacturer": "victron-energy",
   "family": "no-comms",
   "driver": {
     "status": "possible"

@@ -1,5 +1,6 @@
 {
   "id": "ecoflow-cloud-gen2-json",
+  "manufacturer": "ecoflow",
   "family": "lan-http",
   "driver": {
     "status": "possible"

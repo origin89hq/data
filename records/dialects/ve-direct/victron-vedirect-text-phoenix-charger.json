@@ -1,11 +1,15 @@
 {
   "id": "victron-vedirect-text-phoenix-charger",
+  "manufacturer": "victron-energy",
   "family": "ve-direct",
   "driver": {
     "status": "possible"
   },
   "confidence": "vendor-doc",
   "refuter": "checked",
+  "seeAlso": [
+    "victron-vedirect-text"
+  ],
   "sources": [
     {
       "source": "victron-ve-direct-protocol-3-34",
@@ -19,9 +23,6 @@
       "source": "victronenergy-com-chargers-phoenix-smart-ip43-charger",
       "citation": "https://www.victronenergy.com/chargers/phoenix-smart-ip43-charger (checked 2026-07-31)"
     }
-  ],
-  "seeAlso": [
-    "victron-vedirect-text"
   ],
   "transport": "VE.Direct — 4-pin JST-PH, 19200 8N1 no flow control, unsolicited text push, no request framing, no slave ID. Producer TX to consumer RX.",
   "blocks": "Repeating <0x0D 0x0A><Label><0x09><Value> lines; last field of a block is literally named `Checksum` and its byte makes the modulo-256 sum of the whole block 0. Max 22 fields per block (raised from 18 in rev 3.28).",

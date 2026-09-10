@@ -2,7 +2,9 @@
   "id": "noco-gb50",
   "manufacturer": "noco",
   "name": "GB50",
+  "kind": "inverter-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": [
+    "noco-out-of-scope"
+  ]
 }

@@ -1,5 +1,6 @@
 {
   "id": "samlex-evo-remote-panel-link",
+  "manufacturer": "samlex-america",
   "family": "no-comms",
   "driver": {
     "status": "possible"

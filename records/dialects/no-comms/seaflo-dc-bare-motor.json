@@ -1,5 +1,6 @@
 {
   "id": "seaflo-dc-bare-motor",
+  "manufacturer": "seaflo",
   "family": "no-comms",
   "driver": {
     "status": "possible"

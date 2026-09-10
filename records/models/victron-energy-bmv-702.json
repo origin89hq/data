@@ -2,7 +2,9 @@
   "id": "victron-energy-bmv-702",
   "manufacturer": "victron-energy",
   "name": "BMV-702",
+  "kind": "bms",
   "aliases": [],
-  "dialects": [],
-  "kind": "bms"
+  "dialects": [
+    "victron-bmv70x-vedirect-text"
+  ]
 }

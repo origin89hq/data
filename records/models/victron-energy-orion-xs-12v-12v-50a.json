@@ -2,7 +2,11 @@
   "id": "victron-energy-orion-xs-12v-12v-50a",
   "manufacturer": "victron-energy",
   "name": "Orion XS 12V/12V-50A",
+  "kind": "dc-dc-converter",
   "aliases": [],
-  "dialects": [],
-  "kind": "dc-dc-converter"
+  "dialects": [
+    "victron-ble-orion-xs",
+    "victron-orion-xs-hex",
+    "victron-vedirect-text-orion-xs"
+  ]
 }

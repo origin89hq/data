@@ -6,5 +6,7 @@
   "aliases": [
     "MID-161-120"
   ],
-  "dialects": []
+  "dialects": [
+    "midnite-mngp"
+  ]
 }

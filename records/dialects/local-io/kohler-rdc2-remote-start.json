@@ -1,5 +1,6 @@
 {
   "id": "kohler-rdc2-remote-start",
+  "manufacturer": "kohler-energy",
   "family": "local-io",
   "driver": {
     "status": "possible"

@@ -2,7 +2,9 @@
   "id": "victron-energy-bmv-710h-smart",
   "manufacturer": "victron-energy",
   "name": "BMV-710H Smart",
+  "kind": "bms",
   "aliases": [],
-  "dialects": [],
-  "kind": "bms"
+  "dialects": [
+    "victron-bmv71x-smartshunt-vedirect-text"
+  ]
 }

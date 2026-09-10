@@ -4,5 +4,7 @@
   "name": "3000EHV-48",
   "kind": "inverter",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "eg4-3000ehv"
+  ]
 }

@@ -1,5 +1,6 @@
 {
   "id": "epever-ble-rj45-d-bridge",
+  "manufacturer": "epever",
   "family": "modbus-rs485",
   "driver": {
     "status": "shipped",

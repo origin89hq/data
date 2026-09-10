@@ -1,11 +1,15 @@
 {
   "id": "midnite-classic-whizbang",
+  "manufacturer": "midnite-solar",
   "family": "modbus-tcp",
   "driver": {
     "status": "possible"
   },
   "confidence": "unverified",
   "refuter": "checked",
+  "seeAlso": [
+    "midnite-classic"
+  ],
   "sources": [
     {
       "source": "midnitesolar-com-pdfs-classic-register-map-rev-c5-december-8-2013",
@@ -19,9 +23,6 @@
       "source": "invertersupply-com-media-data-10-268-1-rev-d-the-kid-manual-solar-4-30-15-fw-1797",
       "citation": "The Kid Solar Charge Controller Instruction Manual, 10-268-1 Rev D, 4-30-15 FW 1797 — https://www.invertersupply.com/media/data/10-268-1_REV_D_The_Kid_Manual_Solar_4-30-15_FW_1797.pdf (establishes that the Kid has no dat"
     }
-  ],
-  "seeAlso": [
-    "midnite-classic"
   ],
   "transport": "Ethernet · Modbus TCP · default port 502 (settable at register 4137) · default unit/slave address 10 (register 4326, vendor-doc). Also Modbus RTU over RS-232 on an RJ-11 jack, 19200 8N1 (vendor-doc, \"Default RS-232 format is Baud Rate 19.2K, No parity, 8 bits, 1 stop bit\"). NOT RS-485.",
   "blocks": "4361–4382 Whiz Bang Jr block (both known implementations read 22 words from raw address 4360) · 4101–4144 Classic real-time · 4104 bit 0x0001 WhizBangJrCrcGood · 4165 Aux2Function (18 = Whiz Bang Jr) · 4182 EnableFlags3 · 4326 ClassicModbusAddr · 4354 ClearLogsCat",

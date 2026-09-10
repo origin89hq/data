@@ -4,5 +4,7 @@
   "name": "MT-50",
   "kind": "balance-of-system",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "epever-mt50-display"
+  ]
 }

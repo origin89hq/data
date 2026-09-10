@@ -1,5 +1,6 @@
 {
   "id": "victron-lynx-bms-n2k",
+  "manufacturer": "victron-energy",
   "family": "can-bms",
   "driver": {
     "status": "possible"

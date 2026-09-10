@@ -1,5 +1,6 @@
 {
   "id": "briggs-gc1031-2wire-start",
+  "manufacturer": "briggs-stratton",
   "family": "local-io",
   "driver": {
     "status": "possible"

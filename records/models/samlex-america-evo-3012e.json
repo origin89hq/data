@@ -2,7 +2,9 @@
   "id": "samlex-america-evo-3012e",
   "manufacturer": "samlex-america",
   "name": "EVO-3012E",
+  "kind": "inverter-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": [
+    "samlex-evo-modbus-22xx-40xx"
+  ]
 }

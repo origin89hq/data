@@ -4,5 +4,7 @@
   "name": "MNROSIE7048-CL200-PW",
   "kind": "balance-of-system",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "midnite-rosie-can"
+  ]
 }

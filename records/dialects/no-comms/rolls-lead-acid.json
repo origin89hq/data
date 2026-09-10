@@ -1,5 +1,6 @@
 {
   "id": "rolls-lead-acid",
+  "manufacturer": "rolls-battery",
   "family": "no-comms",
   "driver": {
     "status": "possible"

@@ -1,5 +1,6 @@
 {
   "id": "victron-vedirect-ble-dongle",
+  "manufacturer": "victron-energy",
   "family": "ve-direct",
   "driver": {
     "status": "possible"

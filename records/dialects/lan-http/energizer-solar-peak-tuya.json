@@ -1,5 +1,6 @@
 {
   "id": "energizer-solar-peak-tuya",
+  "manufacturer": "energizer-solar",
   "family": "lan-http",
   "driver": {
     "status": "possible"

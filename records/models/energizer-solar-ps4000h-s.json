@@ -2,7 +2,9 @@
   "id": "energizer-solar-ps4000h-s",
   "manufacturer": "energizer-solar",
   "name": "PS4000H-S",
+  "kind": "battery",
   "aliases": [],
-  "dialects": [],
-  "kind": "battery"
+  "dialects": [
+    "energizer-solar-hv-battery-powerstack"
+  ]
 }

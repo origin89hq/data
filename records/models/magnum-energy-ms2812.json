@@ -4,5 +4,7 @@
   "name": "MS2812",
   "kind": "inverter-charger",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "magnum-me-network"
+  ]
 }

@@ -1,5 +1,6 @@
 {
   "id": "victron-easysolar-i-unknown",
+  "manufacturer": "victron-energy",
   "family": "lan-http",
   "driver": {
     "status": "possible"

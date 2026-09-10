@@ -1,5 +1,6 @@
 {
   "id": "xantrex-xbm-serial",
+  "manufacturer": "xantrex",
   "family": "other-serial",
   "driver": {
     "status": "possible"

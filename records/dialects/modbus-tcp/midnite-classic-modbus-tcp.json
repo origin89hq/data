@@ -1,11 +1,16 @@
 {
   "id": "midnite-classic-modbus-tcp",
+  "manufacturer": "midnite-solar",
   "family": "modbus-tcp",
   "driver": {
     "status": "possible"
   },
   "confidence": "vendor-doc",
   "refuter": "checked",
+  "seeAlso": [
+    "midnite-classic",
+    "midnite-classic-modbus"
+  ],
   "sources": [
     {
       "source": "midnitesolar-com-pdfs-classic-register-map-rev-c5-dece",
@@ -19,10 +24,6 @@
       "source": "thecabindepot-ca-products-midnite-mnems4448paecl150-magnum-4448pae-off-grid-4400w-48vdc-inverter",
       "citation": "The Cabin Depot — MNEMS4448PAECL150 product page, https://thecabindepot.ca/products/midnite-mnems4448paecl150-magnum-4448pae-off-grid-4400w-48vdc-inverter-system (checked: 2026-07-31; $8,399.99 CAD on sale from $11,390.0"
     }
-  ],
-  "seeAlso": [
-    "midnite-classic",
-    "midnite-classic-modbus"
   ],
   "transport": "Ethernet 10/100-base T · Modbus TCP · TCP port 502 (register 4137 modbus_port_register, \"0 to 65,535. Default = 502\") · default Modbus address 10, set in register 4326 ClassicModbusAddr, \"0 to 255 Classic Modbus Addr, Default address = 10 (ten)\"; the spec also states \"Classics will always treat address 255 as if it is for it as well as its set modbus address\". A second documented transport exists:",
   "blocks": "4101–4384 main map (Base Registers) · 10001–10064 per-interface communication statistics (Master/Slave/Remote/TCP buses) · 20492–20493 Ethernet write-unlock (write the Classic's serial number here) · 28673–28674 Classic serial number, readable over RS-232 · MidNite-private function codes 0x68 (file read) and 0x69 (file write) replace the standard Modbus 0x14/0x15 for log and wind-curve transfer",

@@ -1,5 +1,6 @@
 {
   "id": "victron-remote-onoff-dry-contact",
+  "manufacturer": "victron-energy",
   "family": "local-io",
   "driver": {
     "status": "possible"

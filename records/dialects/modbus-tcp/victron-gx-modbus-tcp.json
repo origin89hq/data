@@ -1,5 +1,6 @@
 {
   "id": "victron-gx-modbus-tcp",
+  "manufacturer": "victron-energy",
   "family": "modbus-tcp",
   "driver": {
     "status": "possible"

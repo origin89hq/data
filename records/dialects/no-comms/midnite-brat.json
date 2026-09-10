@@ -1,5 +1,6 @@
 {
   "id": "midnite-brat",
+  "manufacturer": "midnite-solar",
   "family": "no-comms",
   "driver": {
     "status": "possible"

@@ -1,11 +1,16 @@
 {
   "id": "midnite-classic-modbus",
+  "manufacturer": "midnite-solar",
   "family": "modbus-tcp",
   "driver": {
     "status": "possible"
   },
   "confidence": "vendor-doc",
   "refuter": "checked",
+  "seeAlso": [
+    "midnite-classic",
+    "midnite-classic-modbus-tcp"
+  ],
   "sources": [
     {
       "source": "midnite-classic-modbus-register-map-rev-c5",
@@ -19,10 +24,6 @@
       "source": "s3-amazonaws-com-proddoc-classicmanual",
       "citation": "MidNite Solar Classic Owner's Manual (10-001-1 REV-V) — https://s3.amazonaws.com/ProdDoc/classicManual.pdf — carries an embedded, slightly later copy of the same map plus the RS-232 RJ-11 pinout, the Ethernet/Local App c"
     }
-  ],
-  "seeAlso": [
-    "midnite-classic",
-    "midnite-classic-modbus-tcp"
   ],
   "transport": "Ethernet 10/100 · Modbus TCP · default TCP port 502 (register 4137 modbus_port_register, R/W, \"0 to 65,535. Default = 502\") · default Modbus unit/slave ID 10 (register 4326 ClassicModbusAddr, \"0 to 255 … Default address = 10 (ten)\"); the doc also states \"Classics will always treat address 255 as if it is for it as well as its set modbus address\". Second physical port: an RJ-11 RS-232 Modbus jack (",
   "blocks": "Whole map is expressed in REGISTER numbers; the wire address is register − 1 (\"The main Classic address map starts at register 4101 but the packet itself sends out address 4100\"). 4101–4144 identity, MAC, real-time values · 4145–4230 setpoints, Aux 1/2 config, MPPT mode · 4231–4384 internals, logs index, Whizbang Jr · 10001–10064 comm statistics (4 bus interfaces) · 16385–16390 firmware/net versions · 20481–20493 network config + Ethernet write-unlock · 28673–28674 serial number (read over RS-232) · 61441–61442 reserved. Log retrieval uses MidNite's own function codes 0x68 (104, Read Internal) and 0x69 (105, Write Internal), not the standard Modbus 0x14/0x15 file transfer.",

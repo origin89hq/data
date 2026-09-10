@@ -1,5 +1,6 @@
 {
   "id": "volthium-rack-5u-ess",
+  "manufacturer": "volthium",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

@@ -4,5 +4,7 @@
   "name": "XTRA2210N-G3",
   "kind": "charge-controller",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "epever-xtra-n-g3"
+  ]
 }

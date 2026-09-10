@@ -1,5 +1,6 @@
 {
   "id": "bslbatt-lv-can-emulated",
+  "manufacturer": "bslbatt",
   "family": "can-bms",
   "driver": {
     "status": "possible"

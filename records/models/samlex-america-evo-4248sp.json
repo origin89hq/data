@@ -3,5 +3,9 @@
   "manufacturer": "samlex-america",
   "name": "EVO-4248SP",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "samlex-evo-4248sp-unknown",
+    "samlex-evo-modbus-4248sp",
+    "samlex-evo-signal-io"
+  ]
 }

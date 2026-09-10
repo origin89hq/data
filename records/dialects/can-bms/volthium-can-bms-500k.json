@@ -1,5 +1,6 @@
 {
   "id": "volthium-can-bms-500k",
+  "manufacturer": "volthium",
   "family": "can-bms",
   "driver": {
     "status": "possible"

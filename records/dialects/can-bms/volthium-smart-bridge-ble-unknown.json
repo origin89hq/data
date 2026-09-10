@@ -1,5 +1,6 @@
 {
   "id": "volthium-smart-bridge-ble-unknown",
+  "manufacturer": "volthium",
   "family": "can-bms",
   "driver": {
     "status": "possible"

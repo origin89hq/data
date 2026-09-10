@@ -1,5 +1,6 @@
 {
   "id": "xantrex-linkpro-unknown",
+  "manufacturer": "xantrex",
   "family": "other-serial",
   "driver": {
     "status": "possible"

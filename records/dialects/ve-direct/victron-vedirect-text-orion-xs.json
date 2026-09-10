@@ -1,11 +1,15 @@
 {
   "id": "victron-vedirect-text-orion-xs",
+  "manufacturer": "victron-energy",
   "family": "ve-direct",
   "driver": {
     "status": "possible"
   },
   "confidence": "vendor-doc",
   "refuter": "checked",
+  "seeAlso": [
+    "victron-vedirect-text"
+  ],
   "sources": [
     {
       "source": "victron-ve-direct-protocol-3-34",
@@ -15,9 +19,6 @@
       "source": "victron-orion-xs-ve-direct-hex-protocol-2025-06-16",
       "citation": "docs/victron-orion-xs-ve-direct-hex-protocol-2025-06-16.pdf — newly committed, see next dialect."
     }
-  ],
-  "seeAlso": [
-    "victron-vedirect-text"
   ],
   "transport": "VE.Direct — same 19200 8N1 unsolicited text push as every other VE.Direct product. The Orion XS HEX document confirms the two modes share the port: \"when connecting to the VE.Direct port, the charger always periodically sends TEXT data to the serial port … this periodic TEXT data is interleaved with the response of the HEX protocol\".",
   "blocks": "Same text framing as above. Fields used, quoted from the 3.34 changelog for rev 3.33: PID, FWE, SER#, V, I, P, DC_IN_V, DC_IN_I, DC_IN_P, CS, OR, ERR.",

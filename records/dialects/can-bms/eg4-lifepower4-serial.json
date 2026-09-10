@@ -1,5 +1,6 @@
 {
   "id": "eg4-lifepower4-serial",
+  "manufacturer": "eg4-electronics",
   "family": "can-bms",
   "driver": {
     "status": "possible"

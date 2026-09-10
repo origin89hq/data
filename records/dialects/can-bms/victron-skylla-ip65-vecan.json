@@ -1,5 +1,6 @@
 {
   "id": "victron-skylla-ip65-vecan",
+  "manufacturer": "victron-energy",
   "family": "can-bms",
   "driver": {
     "status": "possible"

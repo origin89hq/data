@@ -1,5 +1,6 @@
 {
   "id": "epever-rj45-transport-wifi",
+  "manufacturer": "epever",
   "family": "modbus-rs485",
   "driver": {
     "status": "shipped",

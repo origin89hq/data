@@ -1,5 +1,6 @@
 {
   "id": "fronius-gen24-sunspec",
+  "manufacturer": "fronius",
   "family": "modbus-tcp",
   "driver": {
     "status": "possible"

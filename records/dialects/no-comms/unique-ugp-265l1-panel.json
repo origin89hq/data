@@ -1,5 +1,6 @@
 {
   "id": "unique-ugp-265l1-panel",
+  "manufacturer": "unique-appliances",
   "family": "no-comms",
   "driver": {
     "status": "possible"

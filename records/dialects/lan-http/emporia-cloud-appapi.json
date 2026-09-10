@@ -1,5 +1,6 @@
 {
   "id": "emporia-cloud-appapi",
+  "manufacturer": "emporia",
   "family": "lan-http",
   "driver": {
     "status": "possible"

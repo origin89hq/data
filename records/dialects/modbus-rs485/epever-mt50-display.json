@@ -1,5 +1,6 @@
 {
   "id": "epever-mt50-display",
+  "manufacturer": "epever",
   "family": "modbus-rs485",
   "driver": {
     "status": "shipped",

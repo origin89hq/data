@@ -1,5 +1,6 @@
 {
   "id": "eg4-luxpower-v58",
+  "manufacturer": "eg4-electronics",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

@@ -1,5 +1,6 @@
 {
   "id": "unique-ugp-dc-thermostat",
+  "manufacturer": "unique-appliances",
   "family": "no-comms",
   "driver": {
     "status": "possible"

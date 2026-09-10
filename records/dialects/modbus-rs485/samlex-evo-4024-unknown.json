@@ -1,5 +1,6 @@
 {
   "id": "samlex-evo-4024-unknown",
+  "manufacturer": "samlex-america",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

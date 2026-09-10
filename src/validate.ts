@@ -140,6 +140,14 @@ export function validate(records: Records): Report {
     }
   }
   for (const d of records.dialects) {
+    // A no-comms dialect says there is no protocol here a controller can speak to. "possible" is
+    // then a claim about a driver for nothing: 80 of 86 say it, which is what a field looks like
+    // when nobody decided rather than when somebody did. `not-planned` is the enum's word for it.
+    if (d.family === "no-comms" && d.driver.status === "possible") note("a no-comms dialect says a driver is possible, which is a driver for no protocol");
+    // A dialect the catalogue cannot attach to a maker cannot be joined to any product.
+    if (!d.manufacturer) note("a dialect names no manufacturer, so nothing can join it to a product");
+    // A protocol with no model named against it describes nothing anybody can look up.
+    if ((d.models ?? []).length === 0) note("a dialect names no model at all");
     if (!families.has(d.family)) errors.push(`${d.id}: family ${d.family} has no family record`);
     else if (!records.families.find((f) => f.id === d.family)?.order.includes(d.id)) errors.push(`${d.id}: not in ${d.family}'s order`);
   }

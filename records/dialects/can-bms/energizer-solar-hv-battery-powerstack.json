@@ -1,5 +1,6 @@
 {
   "id": "energizer-solar-hv-battery-powerstack",
+  "manufacturer": "energizer-solar",
   "family": "can-bms",
   "driver": {
     "status": "possible"

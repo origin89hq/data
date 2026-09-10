@@ -1,5 +1,6 @@
 {
   "id": "xantrex-gateway-lan-unknown",
+  "manufacturer": "xantrex",
   "family": "lan-http",
   "driver": {
     "status": "possible"

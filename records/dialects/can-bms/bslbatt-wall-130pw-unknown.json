@@ -1,5 +1,6 @@
 {
   "id": "bslbatt-wall-130pw-unknown",
+  "manufacturer": "bslbatt",
   "family": "can-bms",
   "driver": {
     "status": "possible"

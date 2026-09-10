@@ -1,5 +1,6 @@
 {
   "id": "noco-genius-portable",
+  "manufacturer": "noco",
   "family": "no-comms",
   "driver": {
     "status": "possible"

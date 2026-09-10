@@ -2,7 +2,9 @@
   "id": "eg4-electronics-12kpv",
   "manufacturer": "eg4-electronics",
   "name": "12kPV",
+  "kind": "inverter-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": [
+    "eg4-luxpower-v58"
+  ]
 }

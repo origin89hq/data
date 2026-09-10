@@ -1,11 +1,16 @@
 {
   "id": "victron-vedirect-text",
+  "manufacturer": "victron-energy",
   "family": "ve-direct",
   "driver": {
     "status": "possible"
   },
   "confidence": "vendor-doc",
   "refuter": "checked",
+  "seeAlso": [
+    "victron-vedirect-text-orion-xs",
+    "victron-vedirect-text-phoenix-charger"
+  ],
   "sources": [
     {
       "source": "victron-ve-direct-protocol-3-34",
@@ -19,10 +24,6 @@
       "source": "catalog-ve-direct",
       "citation": "docs/catalog/ve-direct.md — this repo's existing entry, which this pass re-verified rather than re-derived."
     }
-  ],
-  "seeAlso": [
-    "victron-vedirect-text-orion-xs",
-    "victron-vedirect-text-phoenix-charger"
   ],
   "transport": "VE.Direct 4-pin JST-PH (pin 1 GND, 2 RX, 3 TX, 4 Power+) · 19200 8N1, no flow control · unsolicited push from the device, no request framing, no slave ID, one device per port",
   "blocks": "Repeating <0x0D 0x0A><Label><0x09><Value> lines. The last field in a block is always literally named `Checksum`; its byte makes the modulo-256 sum of every byte in the block equal 0. Maximum 22 fields per block (raised from 18 in rev 3.28). Vendor implementation guidance: 9-byte label buffer, 33-byte value buffer, >=22 temporary records.",

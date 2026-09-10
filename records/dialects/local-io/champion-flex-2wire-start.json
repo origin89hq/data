@@ -1,5 +1,6 @@
 {
   "id": "champion-flex-2wire-start",
+  "manufacturer": "champion-power",
   "family": "local-io",
   "driver": {
     "status": "possible"

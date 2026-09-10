@@ -1,11 +1,15 @@
 {
   "id": "victron-ble-instant-readout-inverter",
+  "manufacturer": "victron-energy",
   "family": "ve-direct",
   "driver": {
     "status": "possible"
   },
   "confidence": "vendor-doc",
   "refuter": "not-checked",
+  "seeAlso": [
+    "victron-ble-instant-readout"
+  ],
   "sources": [
     {
       "source": "victron-ble-extra-manufacturer-data-2022-12-14",
@@ -15,9 +19,6 @@
       "source": "victron-vedirect-hex-phoenix-inverter",
       "citation": "/Users/lemarier/dev/solar/docs/victron-vedirect-hex-phoenix-inverter.pdf — PID table marking 0xA281-0xA2B4 \"Smart, integrated Bluetooth\""
     }
-  ],
-  "seeAlso": [
-    "victron-ble-instant-readout"
   ],
   "transport": "BLE advertisement, no connection or pairing session needed to read — but the per-device 16-byte AES key is needed to decrypt, and that comes from VictronConnect after pairing. Victron manufacturer data, byte 3 must be 0x10 (Product Advertisement). Extra-manufacturer-data record starts at byte 8. Header: bits 0-7 record type, 8-23 nonce/data counter LSB-first, 24-31 byte 0 of the encryption key. Pa",
   "blocks": "Record type 0x03, offsets from the start of the record: bit 32 width 8 device state (NA 0xFF, VE_REG_DEVICE_STATE) · bit 40 width 16 alarm reason (VE_REG_ALARM_REASON, no NA value given) · bit 56 width 16 battery voltage, 0.01 V, range -327.68..327.66 V, NA 0x7FFF (VE_REG_DC_CHANNEL1_VOLTAGE) · bit 72 width 16 AC apparent power, 1 VA, 0..65534 VA, NA 0xFFFF (VE_REG_AC_OUT_APPARENT_POWER) · bit 88 width 15 AC voltage, 0.01 V, 0..327.66 V, NA 0x7FFF (VE_REG_AC_OUT_VOLTAGE) · bit 103 width 11 AC current, 0.1 A, 0..204.6 A, NA 0x7FF (VE_REG_AC_OUT_CURRENT) · bits 114-159 unused.",

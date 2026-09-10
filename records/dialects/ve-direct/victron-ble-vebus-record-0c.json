@@ -1,5 +1,6 @@
 {
   "id": "victron-ble-vebus-record-0c",
+  "manufacturer": "victron-energy",
   "family": "ve-direct",
   "driver": {
     "status": "possible"

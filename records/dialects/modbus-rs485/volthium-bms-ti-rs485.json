@@ -1,5 +1,6 @@
 {
   "id": "volthium-bms-ti-rs485",
+  "manufacturer": "volthium",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

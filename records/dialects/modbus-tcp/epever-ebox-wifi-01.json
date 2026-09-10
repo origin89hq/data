@@ -1,5 +1,6 @@
 {
   "id": "epever-ebox-wifi-01",
+  "manufacturer": "epever",
   "family": "modbus-tcp",
   "driver": {
     "status": "shipped",
@@ -7,6 +8,9 @@
   },
   "confidence": "community-single",
   "refuter": "not-checked",
+  "seeAlso": [
+    "epever-ebox-wifi-01-bridge"
+  ],
   "sources": [
     {
       "source": "github-com-gabrielpc1190-home-assistant-epever-ebox-wifi-01-modbus",
@@ -20,9 +24,6 @@
       "source": "community-home-assistant-io-t-epever-modbus-rs-485-config-214397",
       "citation": "https://community.home-assistant.io/t/epever-modbus-rs-485-config/214397"
     }
-  ],
-  "seeAlso": [
-    "epever-ebox-wifi-01-bridge"
   ],
   "transport": "CONTRADICTED between sources. Most community configs use RTU-over-TCP (and sometimes plain Modbus TCP) to port 8088, slave ID 1. One openHAB thread reports the adapter answering on port 502 and plain Modbus TCP failing outright, requiring a virtual COM port or a separate RTU-to-TCP gateway. Both are recorded; neither is vendor-stated.",
   "blocks": "Same as epever-tracer-a — the adapter tunnels the controller's own register map unchanged. Community configs show decimal 12544 (0x3100), 12545 (0x3101), 12546 (0x3102), 12558 (0x310E), 12560 (0x3110), 12570 (0x311A), 13082 (0x331A), 12800–12802 (0x3200–0x3202).",

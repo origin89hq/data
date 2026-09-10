@@ -1,5 +1,6 @@
 {
   "id": "victron-gx-mqtt",
+  "manufacturer": "victron-energy",
   "family": "lan-http",
   "driver": {
     "status": "possible"

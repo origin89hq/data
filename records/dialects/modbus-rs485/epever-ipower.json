@@ -1,5 +1,6 @@
 {
   "id": "epever-ipower",
+  "manufacturer": "epever",
   "family": "modbus-rs485",
   "driver": {
     "status": "shipped",

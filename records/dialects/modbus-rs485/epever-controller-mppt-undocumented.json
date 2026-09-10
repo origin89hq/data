@@ -1,5 +1,6 @@
 {
   "id": "epever-controller-mppt-undocumented",
+  "manufacturer": "epever",
   "family": "modbus-rs485",
   "driver": {
     "status": "shipped",

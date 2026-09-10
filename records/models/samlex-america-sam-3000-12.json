@@ -2,7 +2,9 @@
   "id": "samlex-america-sam-3000-12",
   "manufacturer": "samlex-america",
   "name": "SAM-3000-12",
+  "kind": "inverter",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter"
+  "dialects": [
+    "samlex-sam-no-bus"
+  ]
 }

@@ -3,5 +3,7 @@
   "manufacturer": "morningstar",
   "name": "TS-60",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "morningstar-tristar-pwm"
+  ]
 }

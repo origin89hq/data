@@ -1,5 +1,6 @@
 {
   "id": "eg4-wallmount-all-weather-unknown",
+  "manufacturer": "eg4-electronics",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

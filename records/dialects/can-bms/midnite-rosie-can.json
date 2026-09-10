@@ -1,5 +1,6 @@
 {
   "id": "midnite-rosie-can",
+  "manufacturer": "midnite-solar",
   "family": "can-bms",
   "driver": {
     "status": "possible"

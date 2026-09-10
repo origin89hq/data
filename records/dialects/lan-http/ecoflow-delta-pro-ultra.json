@@ -1,5 +1,6 @@
 {
   "id": "ecoflow-delta-pro-ultra",
+  "manufacturer": "ecoflow",
   "family": "lan-http",
   "driver": {
     "status": "possible"

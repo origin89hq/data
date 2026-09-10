@@ -1,5 +1,6 @@
 {
   "id": "firman-wireless-fob",
+  "manufacturer": "firman",
   "family": "local-io",
   "driver": {
     "status": "possible"

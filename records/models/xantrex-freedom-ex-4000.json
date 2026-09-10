@@ -2,7 +2,9 @@
   "id": "xantrex-freedom-ex-4000",
   "manufacturer": "xantrex",
   "name": "Freedom EX 4000",
+  "kind": "inverter-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": [
+    "xantrex-rv-c-unknown"
+  ]
 }

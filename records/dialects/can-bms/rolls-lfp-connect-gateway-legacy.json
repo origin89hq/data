@@ -1,5 +1,6 @@
 {
   "id": "rolls-lfp-connect-gateway-legacy",
+  "manufacturer": "rolls-battery",
   "family": "can-bms",
   "driver": {
     "status": "possible"

@@ -2,7 +2,9 @@
   "id": "rolls-battery-s48-200lfp-stack-lv",
   "manufacturer": "rolls-battery",
   "name": "S48-200LFP STACK-LV",
+  "kind": "battery",
   "aliases": [],
-  "dialects": [],
-  "kind": "battery"
+  "dialects": [
+    "rolls-lfp-stack-lv-48v"
+  ]
 }

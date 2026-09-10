@@ -1,5 +1,6 @@
 {
   "id": "epever-controller-g3-unknown",
+  "manufacturer": "epever",
   "family": "modbus-rs485",
   "driver": {
     "status": "shipped",

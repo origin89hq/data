@@ -4,5 +4,8 @@
   "name": "SOL-5K-2P",
   "kind": "inverter",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "solark-hybrid-rtu-v1",
+    "solark-mysolark-cloud"
+  ]
 }

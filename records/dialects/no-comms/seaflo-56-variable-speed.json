@@ -1,5 +1,6 @@
 {
   "id": "seaflo-56-variable-speed",
+  "manufacturer": "seaflo",
   "family": "no-comms",
   "driver": {
     "status": "possible"

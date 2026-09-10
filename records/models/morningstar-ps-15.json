@@ -6,5 +6,7 @@
   "aliases": [
     "XXX-XXX-126"
   ],
-  "dialects": []
+  "dialects": [
+    "morningstar-prostar-pwm-gen3"
+  ]
 }

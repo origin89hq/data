@@ -1,5 +1,6 @@
 {
   "id": "morningstar-prostar-pwm-gen3",
+  "manufacturer": "morningstar",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

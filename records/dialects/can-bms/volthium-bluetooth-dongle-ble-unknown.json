@@ -1,5 +1,6 @@
 {
   "id": "volthium-bluetooth-dongle-ble-unknown",
+  "manufacturer": "volthium",
   "family": "can-bms",
   "driver": {
     "status": "possible"

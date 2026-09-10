@@ -1,5 +1,6 @@
 {
   "id": "eg4-ll-modbus",
+  "manufacturer": "eg4-electronics",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

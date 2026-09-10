@@ -1,5 +1,6 @@
 {
   "id": "victron-dmc-vebus-panel",
+  "manufacturer": "victron-energy",
   "family": "no-comms",
   "driver": {
     "status": "possible"

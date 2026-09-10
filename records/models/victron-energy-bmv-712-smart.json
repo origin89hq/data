@@ -4,5 +4,7 @@
   "name": "BMV-712 SMART",
   "kind": "meter",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "victron-bmv71x-smartshunt-vedirect-text"
+  ]
 }

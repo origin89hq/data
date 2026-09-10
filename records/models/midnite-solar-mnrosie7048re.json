@@ -4,5 +4,7 @@
   "name": "MNROSIE7048RE",
   "kind": "inverter-charger",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "midnite-rosie-can"
+  ]
 }

@@ -1,5 +1,6 @@
 {
   "id": "victron-gx-wifi-dongle",
+  "manufacturer": "victron-energy",
   "family": "no-comms",
   "driver": {
     "status": "possible"

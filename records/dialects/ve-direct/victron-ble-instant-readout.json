@@ -1,11 +1,16 @@
 {
   "id": "victron-ble-instant-readout",
+  "manufacturer": "victron-energy",
   "family": "ve-direct",
   "driver": {
     "status": "possible"
   },
   "confidence": "unverified",
   "refuter": "checked",
+  "seeAlso": [
+    "victron-ble-instant-readout-inverter",
+    "victron-ble-instant-readout-vebus"
+  ],
   "sources": [
     {
       "source": "victron-ble-extra-manufacturer-data-2022-12-14",
@@ -19,10 +24,6 @@
       "source": "victronenergy-com-media-pg-ve-direct-bluetooth-smart-dongle-manual-en-introduction",
       "citation": "https://www.victronenergy.com/media/pg/VE.Direct_Bluetooth_Smart_dongle_manual/en/introduction.html"
     }
-  ],
-  "seeAlso": [
-    "victron-ble-instant-readout-inverter",
-    "victron-ble-instant-readout-vebus"
   ],
   "transport": "BLE advertisement — no connection and no pairing session needed to READ, though pairing is needed once to obtain the per-device key. Victron manufacturer data, byte 3 must be 0x10 (Product Advertisement). The extra-manufacturer-data record begins at byte 8 and runs to the end. Header: bits 0-7 record type, bits 8-23 nonce/data counter LSB-first, bits 24-31 byte 0 of the encryption key. Payload is ",
   "blocks": "Record type 0x01 = Solar Charger. Field layout, offsets from the start of the record: bit 32 width 8 device state (NA 0xFF, VE_REG_DEVICE_STATE) · bit 40 width 8 charger error (NA 0xFF, VE_REG_CHR_ERROR_CODE) · bit 48 width 16 battery voltage 0.01 V (NA 0x7FFF, VE_REG_DC_CHANNEL1_VOLTAGE) · bit 64 width 16 battery current 0.1 A signed (NA 0x7FFF, VE_REG_DC_CHANNEL1_CURRENT) · bit 80 width 16 yield today 0.01 kWh (NA 0xFFFF, VE_REG_CHR_TODAY_YIELD) · bit 96 width 16 PV power 1 W (NA 0xFFFF, VE_REG_DC_INPUT_POWER) · bit 112 width 9 load current 0.1 A range 0-51.0 A (NA 0x1FF, VE_REG_DC_OUTPUT_CURRENT) · bits 121-159 unused. Other record types defined but belonging to other catalogue files: 0x00 Test, 0x02 Battery Monitor, 0x03 Inverter, 0x04 DC/DC, 0x05 SmartLithium, 0x06 Inverter RS, 0x07 GX-Device (layout TBD), 0x08 AC Charger, 0x09 Smart Battery Protect, 0x0A Lynx Smart BMS, 0x0B Multi RS, 0x0C VE.Bus, 0x0D DC Energy Meter. 0x0E-0xFF unassigned as of the 2022 snapshot.",

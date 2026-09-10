@@ -3,5 +3,7 @@
   "manufacturer": "noco",
   "name": "GX4820",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "noco-gx-dryio"
+  ]
 }

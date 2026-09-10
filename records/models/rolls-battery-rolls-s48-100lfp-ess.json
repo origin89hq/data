@@ -3,5 +3,7 @@
   "manufacturer": "rolls-battery",
   "name": "Rolls S48-100LFP ESS",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "rolls-lfp-ess-48v"
+  ]
 }

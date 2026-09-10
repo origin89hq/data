@@ -1,5 +1,6 @@
 {
   "id": "fronius-pt1000-probe",
+  "manufacturer": "fronius",
   "family": "no-comms",
   "driver": {
     "status": "possible"

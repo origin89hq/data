@@ -1,5 +1,6 @@
 {
   "id": "epever-mt-remote-meter",
+  "manufacturer": "epever",
   "family": "modbus-rs485",
   "driver": {
     "status": "shipped",

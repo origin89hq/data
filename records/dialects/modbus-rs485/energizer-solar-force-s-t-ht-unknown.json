@@ -1,5 +1,6 @@
 {
   "id": "energizer-solar-force-s-t-ht-unknown",
+  "manufacturer": "energizer-solar",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

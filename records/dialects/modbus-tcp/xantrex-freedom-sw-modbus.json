@@ -1,5 +1,6 @@
 {
   "id": "xantrex-freedom-sw-modbus",
+  "manufacturer": "xantrex",
   "family": "modbus-tcp",
   "driver": {
     "status": "possible"

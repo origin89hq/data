@@ -1,5 +1,6 @@
 {
   "id": "epever-upower",
+  "manufacturer": "epever",
   "family": "modbus-rs485",
   "driver": {
     "status": "shipped",
@@ -7,6 +8,9 @@
   },
   "confidence": "vendor-doc",
   "refuter": "not-checked",
+  "seeAlso": [
+    "epever-upower-hi"
+  ],
   "sources": [
     {
       "source": "raw-githubusercontent-com-fatyogi-epever-upower-tracer-master-epsolars-docs-upower-communication",
@@ -20,9 +24,6 @@
       "source": "epever-com-wp-content-uploads-2021-05-epever-datasheet-upower",
       "citation": "https://www.epever.com/wp-content/uploads/2021/05/EPEVER-Datasheet_UPower.pdf — \"RS485 isolated communication interface with standard Modbus protocol\""
     }
-  ],
-  "seeAlso": [
-    "epever-upower-hi"
   ],
   "transport": "RS-485 · Modbus RTU. The protocol document states NEITHER a baud rate NOR a default slave ID — both fields left null rather than borrowed from the controller map. The EPEver UPower datasheet says only \"RS485 isolated communication interface with standard Modbus protocol\". Connector not stated in the protocol document.",
   "blocks": "Input registers (0x04): 0x3500–0x35FF real-time. Holding (0x03 read / 0x10 write): 0x9600–0x96FF settings. Coils (0x01 read / 0x05 write): 0x0100–0x010C. Discrete inputs (0x02): 0x2100 inverter bypass (grid present), 0x2101 day/night.",

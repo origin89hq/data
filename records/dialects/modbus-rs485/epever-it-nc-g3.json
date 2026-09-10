@@ -1,5 +1,6 @@
 {
   "id": "epever-it-nc-g3",
+  "manufacturer": "epever",
   "family": "modbus-rs485",
   "driver": {
     "status": "shipped",

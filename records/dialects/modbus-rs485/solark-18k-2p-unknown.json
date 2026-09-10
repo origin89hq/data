@@ -1,5 +1,6 @@
 {
   "id": "solark-18k-2p-unknown",
+  "manufacturer": "sol-ark",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

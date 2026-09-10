@@ -1,5 +1,6 @@
 {
   "id": "victron-plugin-display",
+  "manufacturer": "victron-energy",
   "family": "local-io",
   "driver": {
     "status": "possible"

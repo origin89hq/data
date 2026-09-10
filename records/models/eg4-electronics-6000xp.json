@@ -6,5 +6,7 @@
   "aliases": [
     "EG4 6000xp"
   ],
-  "dialects": []
+  "dialects": [
+    "eg4-luxpower-v58"
+  ]
 }

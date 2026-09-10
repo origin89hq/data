@@ -1,5 +1,6 @@
 {
   "id": "fronius-snapinverter-lite-unknown",
+  "manufacturer": "fronius",
   "family": "no-comms",
   "driver": {
     "status": "possible"

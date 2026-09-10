@@ -4,5 +4,7 @@
   "name": "S6 GC2-HC",
   "kind": "battery",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "rolls-lead-acid"
+  ]
 }

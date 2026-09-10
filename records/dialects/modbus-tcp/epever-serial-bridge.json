@@ -1,5 +1,6 @@
 {
   "id": "epever-serial-bridge",
+  "manufacturer": "epever",
   "family": "modbus-tcp",
   "driver": {
     "status": "shipped",

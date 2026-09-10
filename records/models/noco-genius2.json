@@ -2,7 +2,9 @@
   "id": "noco-genius2",
   "manufacturer": "noco",
   "name": "GENIUS2",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": [
+    "noco-charger-unread"
+  ]
 }

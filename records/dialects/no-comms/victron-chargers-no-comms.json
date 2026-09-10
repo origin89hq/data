@@ -1,5 +1,6 @@
 {
   "id": "victron-chargers-no-comms",
+  "manufacturer": "victron-energy",
   "family": "no-comms",
   "driver": {
     "status": "possible"

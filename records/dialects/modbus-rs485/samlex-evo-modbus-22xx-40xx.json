@@ -1,5 +1,6 @@
 {
   "id": "samlex-evo-modbus-22xx-40xx",
+  "manufacturer": "samlex-america",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

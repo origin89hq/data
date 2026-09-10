@@ -1,5 +1,6 @@
 {
   "id": "morningstar-tristar-mppt",
+  "manufacturer": "morningstar",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

@@ -1,5 +1,6 @@
 {
   "id": "bslbatt-12v-lead-acid-replacement",
+  "manufacturer": "bslbatt",
   "family": "no-comms",
   "driver": {
     "status": "possible"

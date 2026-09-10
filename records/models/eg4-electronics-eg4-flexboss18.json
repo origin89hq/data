@@ -2,7 +2,9 @@
   "id": "eg4-electronics-eg4-flexboss18",
   "manufacturer": "eg4-electronics",
   "name": "EG4 FlexBOSS18",
+  "kind": "balance-of-system",
   "aliases": [],
-  "dialects": [],
-  "kind": "balance-of-system"
+  "dialects": [
+    "eg4-luxpower-v58"
+  ]
 }

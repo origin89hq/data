@@ -2,7 +2,9 @@
   "id": "xantrex-xpower",
   "manufacturer": "xantrex",
   "name": "XPower",
+  "kind": "inverter",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter"
+  "dialects": [
+    "xantrex-no-comms"
+  ]
 }

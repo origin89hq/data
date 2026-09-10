@@ -4,5 +4,7 @@
   "name": "SA-5K-1P",
   "kind": "inverter-charger",
   "aliases": [],
-  "dialects": []
+  "dialects": [
+    "solark-5k-1p-unknown"
+  ]
 }

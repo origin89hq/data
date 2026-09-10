@@ -2,7 +2,9 @@
   "id": "victron-energy-smartsolar-mppt",
   "manufacturer": "victron-energy",
   "name": "SmartSolar MPPT",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": [
+    "victron-ble-instant-readout"
+  ]
 }

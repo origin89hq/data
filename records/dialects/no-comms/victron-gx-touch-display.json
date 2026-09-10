@@ -1,11 +1,15 @@
 {
   "id": "victron-gx-touch-display",
+  "manufacturer": "victron-energy",
   "family": "no-comms",
   "driver": {
     "status": "possible"
   },
   "confidence": "unverified",
   "refuter": "checked",
+  "seeAlso": [
+    "victron-gx-touch"
+  ],
   "sources": [
     {
       "source": "victronenergy-com-media-pg-cerbo-gx-en-installation",
@@ -19,9 +23,6 @@
       "source": "victronenergy-com-media-pg-cerbo-gx-en-troubleshooting",
       "citation": "https://www.victronenergy.com/media/pg/Cerbo_GX/en/troubleshooting.html §20.2.22 Q22 — cable extension."
     }
-  ],
-  "seeAlso": [
-    "victron-gx-touch"
   ],
   "transport": "Not a network device. One 2 m captive cable splitting into an HDMI connector for video and a USB-A connector for power, both plugged into the GX. Nothing else.",
   "models": [

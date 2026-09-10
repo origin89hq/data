@@ -6,5 +6,7 @@
   "aliases": [
     "Sol-Ark 15K-2P-LV"
   ],
-  "dialects": []
+  "dialects": [
+    "solark-hybrid-rtu-v1"
+  ]
 }

@@ -1,5 +1,6 @@
 {
   "id": "victron-bluesolar-pwm-pro",
+  "manufacturer": "victron-energy",
   "family": "local-io",
   "driver": {
     "status": "possible"

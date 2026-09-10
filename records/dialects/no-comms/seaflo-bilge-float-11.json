@@ -1,5 +1,6 @@
 {
   "id": "seaflo-bilge-float-11",
+  "manufacturer": "seaflo",
   "family": "no-comms",
   "driver": {
     "status": "possible"

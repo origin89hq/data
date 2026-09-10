@@ -1,5 +1,6 @@
 {
   "id": "energizer-homepower-hp6",
+  "manufacturer": "energizer-solar",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

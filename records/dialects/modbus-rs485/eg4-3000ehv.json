@@ -1,5 +1,6 @@
 {
   "id": "eg4-3000ehv",
+  "manufacturer": "eg4-electronics",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

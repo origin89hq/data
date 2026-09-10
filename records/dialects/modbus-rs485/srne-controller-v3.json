@@ -1,5 +1,6 @@
 {
   "id": "srne-controller-v3",
+  "manufacturer": "srne",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

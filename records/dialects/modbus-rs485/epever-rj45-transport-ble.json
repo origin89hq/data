@@ -1,5 +1,6 @@
 {
   "id": "epever-rj45-transport-ble",
+  "manufacturer": "epever",
   "family": "modbus-rs485",
   "driver": {
     "status": "shipped",
