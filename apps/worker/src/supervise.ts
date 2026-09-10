@@ -1,5 +1,5 @@
 import specPages from "../../../feeds/spec-pages.json" with { type: "json" };
-import { classifyRun, convertRun, specPagesRun, visionRun } from "./enqueue.ts";
+import { answeredInputs, classifyRun, convertRun, specPagesRun, visionRun } from "./enqueue.ts";
 import { makerStates, sellerStates } from "./state.ts";
 
 /**
@@ -30,6 +30,26 @@ export interface SupervisionReport {
  */
 export const VISION_OFFERS_PER_PASS = 20;
 
+const reason = (error: unknown): string => (error instanceof Error ? error.message : String(error));
+
+/**
+ * One seller's or one maker's step. A step that throws is a concern about that entity, and the pass
+ * goes on to the next. One seller's classification throwing once ended the whole pass: the sellers
+ * after it, every maker, and the report that would have said what went wrong.
+ */
+async function step(
+  report: SupervisionReport,
+  what: string,
+  entity: string,
+  run: () => Promise<void>,
+): Promise<void> {
+  try {
+    await run();
+  } catch (error) {
+    report.concerns.push(`${entity}: ${what} failed: ${reason(error)}`);
+  }
+}
+
 export async function supervise(env: Env, today: string): Promise<SupervisionReport> {
   const report: SupervisionReport = {
     at: new Date().toISOString(),
@@ -38,16 +58,23 @@ export async function supervise(env: Env, today: string): Promise<SupervisionRep
     concerns: [],
   };
 
+  // Listed once for the pass, and only if a seller needs it. A listing that fails is left unset,
+  // so the next seller lists again rather than taking the failure as nothing answered.
+  let answered: Set<string> | undefined;
   for (const seller of await sellerStates(env.ARCHIVE)) {
-    if (!seller.date || !seller.sightings) continue;
+    const date = seller.date;
+    if (!date || !seller.sightings) continue;
     if (!seller.classified) {
       // A crawl that finished and was never classified. Listings already answered cost nothing,
       // so re-running is cheap even when most of the shop is unchanged.
-      const { parts, alreadyAnswered } = await classifyRun(env, seller.seller, seller.date);
-      report.started.push({
-        what: "classify",
-        entity: seller.seller,
-        detail: `${parts} batches, ${alreadyAnswered} listings already answered`,
+      await step(report, "classify", seller.seller, async () => {
+        answered ??= await answeredInputs(env.ARCHIVE);
+        const { parts, alreadyAnswered } = await classifyRun(env, seller.seller, date, answered);
+        report.started.push({
+          what: "classify",
+          entity: seller.seller,
+          detail: `${parts} batches, ${alreadyAnswered} listings already answered`,
+        });
       });
       continue;
     }
@@ -63,18 +90,21 @@ export async function supervise(env: Env, today: string): Promise<SupervisionRep
   const pages = new Set(specPages.pages.map((p) => p.manufacturer));
   let offeredToVision = 0;
   for (const maker of await makerStates(env.ARCHIVE)) {
-    if (!maker.date) continue;
+    const date = maker.date;
+    if (!date) continue;
 
     // A maker's own specification pages need no approval: they are pages it publishes for people
     // to read, and a parser reads them. Only pages already adopted into the feed list are fetched.
     if (pages.has(maker.maker) && !maker.read) {
-      const { pages: sent } = await specPagesRun(env, maker.maker, maker.date, specPages.pages);
-      if (sent > 0)
-        report.started.push({
-          what: "spec-pages",
-          entity: maker.maker,
-          detail: `${sent} pages the maker publishes`,
-        });
+      await step(report, "spec-pages", maker.maker, async () => {
+        const { pages: sent } = await specPagesRun(env, maker.maker, date, specPages.pages);
+        if (sent > 0)
+          report.started.push({
+            what: "spec-pages",
+            entity: maker.maker,
+            detail: `${sent} pages the maker publishes`,
+          });
+      });
     }
 
     if (maker.waitingOn.startsWith("somebody to approve")) {
@@ -86,11 +116,13 @@ export async function supervise(env: Env, today: string): Promise<SupervisionRep
     }
     // Approved and fetched, and nothing has started turning it into figures.
     if (maker.fetched && maker.converted === undefined) {
-      const { documents } = await convertRun(env, maker.maker, maker.date);
-      report.started.push({
-        what: "convert",
-        entity: maker.maker,
-        detail: `${documents} approved documents`,
+      await step(report, "convert", maker.maker, async () => {
+        const { documents } = await convertRun(env, maker.maker, date);
+        report.started.push({
+          what: "convert",
+          entity: maker.maker,
+          detail: `${documents} approved documents`,
+        });
       });
     }
 
@@ -101,12 +133,15 @@ export async function supervise(env: Env, today: string): Promise<SupervisionRep
       if (offeredToVision >= VISION_OFFERS_PER_PASS) {
         report.blocked.push({ entity: maker.maker, waitingOn: "its turn with the page reader" });
       } else {
-        const { documents } = await visionRun(env, maker.maker, maker.date);
+        // Counted before the offer, so offers that fail still bound the pass.
         offeredToVision += 1;
-        report.started.push({
-          what: "vision",
-          entity: maker.maker,
-          detail: `${documents} converted documents offered to the page reader`,
+        await step(report, "vision", maker.maker, async () => {
+          const { documents } = await visionRun(env, maker.maker, date);
+          report.started.push({
+            what: "vision",
+            entity: maker.maker,
+            detail: `${documents} converted documents offered to the page reader`,
+          });
         });
       }
     }
