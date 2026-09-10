@@ -4,5 +4,15 @@
   "website": "https://www.primuswindpower.com",
   "domains": [
     "primuswindpower.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://www.airwindpower.com/wp-content/uploads/2024/07/cropped-android-chrome-512x512-1-192x192.png",
+    "from": "maker",
+    "sha256": "f48ebe0b70841792a945366dd5340b47f5227514c6c93a9be15156baa1f23319",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

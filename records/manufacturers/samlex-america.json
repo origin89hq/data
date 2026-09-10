@@ -8,5 +8,15 @@
   "sources": [
     "samlexamerica-com-pst-power-inverters",
     "samlexamerica-com-wp-content-uploads-2020-01-1100"
-  ]
+  ],
+  "logo": {
+    "source": "https://samlexamerica.com/wp-content/uploads/2021/03/cropped-android-chrome-512x512-1-192x192.png",
+    "from": "maker",
+    "sha256": "c71b7ab78e9d471bf19471480b5d1c31da551ee647d9db15ebccbc3324c47904",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

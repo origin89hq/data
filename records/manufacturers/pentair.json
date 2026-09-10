@@ -5,5 +5,15 @@
   "domains": [
     "pentair.com",
     "shurflo.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://www.pentair.com/content/dam/extranet/enterprise/images/logos/pentair-logo-color-180x180.png",
+    "from": "maker",
+    "sha256": "bace930d0987ec09b18caf690fcaba6fa391adaae770dfbc5e7e15509cd5dd6a",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

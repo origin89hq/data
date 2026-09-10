@@ -11,5 +11,15 @@
     "bslbatt-com-wp-content-uploads-2025-05-b-lfp-48-150gc",
     "bsl-battery-com-uploads-b-lfp48-rack-usersmanual-es-zx",
     "bsl-battery-com-uploads-bsl-b-lfp-pw-ym-user-manual"
-  ]
+  ],
+  "logo": {
+    "source": "https://bslbatt.com/wp-content/uploads/2020/02/BSLBATT-200.jpg",
+    "from": "maker",
+    "sha256": "61d92d64740788800425271ee667cdc1af3f625ee2d3252b0b24359c23d38a6c",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

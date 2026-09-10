@@ -4,5 +4,14 @@
   "website": "https://www.tced.ca",
   "domains": [
     "tced.ca"
-  ]
+  ],
+  "logo": {
+    "source": "https://assets.1.commercebuild.com/52dd5812b32192d0e93eb0dee465ca88/contents/global/TCED-favicon.png",
+    "from": "maker",
+    "sha256": "68c30d44410bfbeda3c215e34f7e3861c296a419fe1931977f1fc1b29c94d021",
+    "widths": [
+      64
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

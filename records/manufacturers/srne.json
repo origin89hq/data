@@ -4,5 +4,16 @@
   "website": "https://www.srnesolar.com",
   "domains": [
     "srnesolar.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://thecabindepot.ca/cdn/shop/files/35_7a8ecf9b-e4d3-4277-9e08-971ad4f8805c.png?v=1764254500",
+    "from": "seller:thecabindepot",
+    "sha256": "bafd34d39e1403a5d92b255ab66009b41d27bbf04a670d900aafe672fdf986de",
+    "widths": [
+      64,
+      128,
+      256
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

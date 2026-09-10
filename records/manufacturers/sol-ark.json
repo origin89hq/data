@@ -8,5 +8,15 @@
   "sources": [
     "sol-ark-com-wp-content-uploads-2024-06-ma-00015-rev3-5k-1p-n-usermanual-v13-en-16june2025",
     "sol-ark-com-wp-content-uploads-2024-06-sk140-0026-004-en-manual"
-  ]
+  ],
+  "logo": {
+    "source": "https://sol-ark.com/wp-content/uploads/2025/09/cropped-Logomark_SolArk_CMYK-192x192.png",
+    "from": "maker",
+    "sha256": "b249c33f4d549332640980bad4c8885c9acec04a2b8af5223df1790406ad6cd0",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

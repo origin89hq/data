@@ -8,5 +8,15 @@
   "sources": [
     "midnitesolar-com-documents-php-act-model-mnbcm-productcatname-battery-accessories-productcat-id",
     "midnitesolar-com-firmwareindex"
-  ]
+  ],
+  "logo": {
+    "source": "https://offgridstores.com/cdn/shop/files/MidNite_Solar_Logo_160x160.png?v=1772729831",
+    "from": "seller:offgridstores",
+    "sha256": "6ef5b16a9f511a9cd50d6b3fd6c60a3136cddab136df632cf2217efbdc9f7351",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

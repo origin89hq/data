@@ -4,5 +4,15 @@
   "website": "https://snapnrack.com",
   "domains": [
     "snapnrack.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://www.snapnrack.com/apple-touch-icon.png",
+    "from": "maker",
+    "sha256": "ae76155762d827ac7ccb86caa14d8889b0b091b5e130f1dfd45d55233de7c6f5",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

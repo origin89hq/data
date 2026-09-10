@@ -4,5 +4,16 @@
   "website": "https://gmasolar.com",
   "domains": [
     "gmasolar.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://thecabindepot.ca/cdn/shop/files/22_005020b6-f45f-48b4-a221-1af5f3b98ff9.png?v=1764254454",
+    "from": "seller:thecabindepot",
+    "sha256": "874174032b95bc060c1faaca863898ce0fa9448756b84286a5e196b22e47b878",
+    "widths": [
+      64,
+      128,
+      256
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

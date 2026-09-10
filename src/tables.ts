@@ -1,3 +1,7 @@
+import { logoKey } from "./logos.ts";
+
+/** Where a published logo is served from. The Worker is the only thing that reads the archive. */
+const LOGO_BASE = "https://offgrid-equipment-scraper.mashin.workers.dev";
 import type { Records } from "./records.ts";
 import { attachMakers, readFeeds } from "./feeds.ts";
 import { canonicalUnit, concerns as figureConcerns } from "./units.ts";
@@ -87,8 +91,21 @@ export function tables(records: Records): Table[] {
     },
     {
       name: "manufacturers",
-      columns: [col("id"), col("name"), col("website"), col("country"), col("notes")],
-      rows: records.manufacturers.map((m) => ({ id: m.id, name: m.name, website: m.website, country: m.country, notes: m.notes })),
+      // `logo` is the address of a copy, not the image. A mark is a trademark rather than a work
+      // this licence can give away, so `logo_from` says who published it and `logo_source` where it
+      // was fetched, and anybody who needs different terms can go to the maker.
+      columns: [col("id"), col("name"), col("website"), col("country"), col("notes"), col("logo"), col("logo_widths"), col("logo_from"), col("logo_source")],
+      rows: records.manufacturers.map((m) => ({
+        id: m.id,
+        name: m.name,
+        website: m.website,
+        country: m.country,
+        notes: m.notes,
+        logo: m.logo ? `${LOGO_BASE}/${logoKey(m.id, m.logo.widths[m.logo.widths.length - 1])}` : undefined,
+        logo_widths: m.logo?.widths.join(" "),
+        logo_from: m.logo?.from,
+        logo_source: m.logo?.source,
+      })),
     },
     {
       name: "manufacturer_domains",

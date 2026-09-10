@@ -4,5 +4,15 @@
   "website": "https://www.lorentz.de",
   "domains": [
     "lorentz.de"
-  ]
+  ],
+  "logo": {
+    "source": "https://www.lorentz.de/favicon/apple-touch-icon.png",
+    "from": "maker",
+    "sha256": "dda5ff87b91f604b8a27eefd6eb5cb16f5528473845a41c70d1ebcedf2ee395b",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

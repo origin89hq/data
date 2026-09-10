@@ -8,5 +8,15 @@
   "sources": [
     "no-co-boost",
     "no-co-collection-genius-gx"
-  ]
+  ],
+  "logo": {
+    "source": "https://no.co/apple-icon.png?fa2ff9ce95b1b284=",
+    "from": "maker",
+    "sha256": "c0fe57f87e61e736e3ad78733b93ceb8202c89efb8663b01d02f3cdaf1c9ca4d",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

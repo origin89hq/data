@@ -4,5 +4,14 @@
   "website": "https://www.anker.com",
   "domains": [
     "anker.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://www.anker.com/favicon.png",
+    "from": "maker",
+    "sha256": "f350fc7fa13776b86f4da2e11b7ce055b754a22efc10f5b809b93fdf9e799f78",
+    "widths": [
+      64
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

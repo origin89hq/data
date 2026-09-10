@@ -4,5 +4,15 @@
   "website": "https://progressivedyn.com",
   "domains": [
     "progressivedyn.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://www.progressivedyn.com/wp-content/uploads/2017/04/apple-touch-icon.png",
+    "from": "maker",
+    "sha256": "8c68c1e9d748b0141f7e75d47f71259f2157f2a936d712a686a748701eacc051",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

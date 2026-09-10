@@ -4,5 +4,16 @@
   "website": "https://www.bluettipower.com",
   "domains": [
     "bluettipower.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://thecabindepot.ca/cdn/shop/files/BLUETTI_Square_Logo.webp?v=1758294167",
+    "from": "seller:thecabindepot",
+    "sha256": "e620def58becd5a84601e593bf67a3ff1f7e02070d9eecea3990efe39ab2fbb2",
+    "widths": [
+      64,
+      128,
+      256
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

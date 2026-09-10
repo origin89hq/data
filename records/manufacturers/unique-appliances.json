@@ -8,5 +8,16 @@
   "sources": [
     "uniqueappliances-com-cdn-shop-files-325l-dc-fridge-en-manual-june2024",
     "uniqueappliances-com-cdn-shop-files-spec-sheet-unique-265-litre-white-12-24-dc-chest-freezer-jul"
-  ]
+  ],
+  "logo": {
+    "source": "https://uniqueappliances.com/cdn/shop/files/unique-favicon.png?v=1702044955",
+    "from": "maker",
+    "sha256": "c49e9e4f5a4f8e974ad83bbaef196af69c5b58023ef077d2fec4522c370ec83a",
+    "widths": [
+      64,
+      128,
+      256
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

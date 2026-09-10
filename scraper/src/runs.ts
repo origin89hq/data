@@ -89,3 +89,12 @@ export function readable(prefix: string): boolean {
   if (prefix.includes("..")) return false;
   return ARCHIVE_ROOTS.some((root) => prefix.startsWith(`${root}/`));
 }
+
+/**
+ * The one archive key anybody may read without the control token.
+ *
+ * A page that renders the catalogue has to show a maker's mark, and a token shipped to a browser
+ * is a token published. So logos are public and nothing else is: the pattern names the whole key,
+ * anchored at both ends, which is what stops `logos/../documents/...` reaching the rest.
+ */
+export const LOGO_PATH = /^\/logos\/[a-z0-9-]+-\d{2,4}\.png$/;

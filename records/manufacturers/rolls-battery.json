@@ -10,5 +10,15 @@
     "rollsbattery-com-battery-s48-100lfp-ess",
     "rollsbattery-com-battery-s48-100lfp-stack-lv",
     "surrette-com-manuals"
-  ]
+  ],
+  "logo": {
+    "source": "https://rollsbattery.com/wp-content/uploads/2025/08/cropped-icon_64-192x192.png",
+    "from": "maker",
+    "sha256": "a91f31c8a5fcaa9fb48c116cebc07df4d4c4c3bbaf45eb08343c47a9fd66b92b",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

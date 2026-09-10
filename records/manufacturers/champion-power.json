@@ -8,5 +8,15 @@
   "sources": [
     "championpowerequipment-com-wp-content-uploads-2022-06-201218-om-english",
     "championpowerequipment-com-wp-content-uploads-2025-09-hsb-flex-combined-im-english"
-  ]
+  ],
+  "logo": {
+    "source": "https://cdn-ilefmem.nitrocdn.com/sHORTOmvRBgkJZctRMqGWCHgGUYkKxJS/assets/images/optimized/rev-7203bb1/www.championpowerequipment.com/wp-content/uploads/2024/02/cropped-Champion-Favicon-Black-on-Yellow-192x192.png",
+    "from": "maker",
+    "sha256": "9b485be93a338db7f71a6cce07b112360f181ac6f030af8ee3feb5b869035855",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

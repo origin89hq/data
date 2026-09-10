@@ -4,5 +4,15 @@
   "website": "https://www.spypoint.com",
   "domains": [
     "spypoint.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://www.spypoint.com/on/demandware.static/-/Library-Sites-spypointSharedLibrary/default/dwfb098884/images/logos/favicon/favicon.png",
+    "from": "maker",
+    "sha256": "88d0cbfbbe7dd49e1eec3c8cb6e7529fa459e3b95d985ef45c34c42c2a49bad3",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

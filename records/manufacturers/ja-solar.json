@@ -4,5 +4,16 @@
   "website": "https://www.jasolar.com",
   "domains": [
     "jasolar.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://thecabindepot.ca/cdn/shop/files/119_1affbc8c-ac9b-4127-af9c-001d0c47f59a.png?v=1770139867",
+    "from": "seller:thecabindepot",
+    "sha256": "e882915843036197bdceecb61f50833e57d49006dea11cc4b0f5dfde5cc57df7",
+    "widths": [
+      64,
+      128,
+      256
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

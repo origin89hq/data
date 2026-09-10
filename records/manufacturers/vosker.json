@@ -4,5 +4,16 @@
   "website": "https://www.vosker.com",
   "domains": [
     "vosker.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://www.vosker.com/on/demandware.static/Sites-vosker_ca-Site/-/default/dwfb179048/images/favicon.png",
+    "from": "maker",
+    "sha256": "ddbaf5a74fa4ca117e7a330e0ad5a67611503fb279c2e8cd5d959ab30d5006b6",
+    "widths": [
+      64,
+      128,
+      256
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

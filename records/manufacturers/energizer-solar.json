@@ -11,5 +11,14 @@
     "energizersolar-com-s-110921-285-ehp-owners-manual-final-approved",
     "energizergenerators-com-products-energizer-arc-1200-pro-power-station-with-lfp-battery-and-fast",
     "energizergenerators-com"
-  ]
+  ],
+  "logo": {
+    "source": "https://images.squarespace-cdn.com/content/v1/63d304418862e11aa8e46c62/59344741-d799-491a-9b74-8ae822ca0c8d/favicon.ico?format=100w",
+    "from": "maker",
+    "sha256": "a8d786f8cdfc9e143b81f4f6353f04529161b65f0de03e546496c46c68bc2c7e",
+    "widths": [
+      64
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

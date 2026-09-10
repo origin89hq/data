@@ -4,5 +4,15 @@
   "website": "https://www.bluesea.com",
   "domains": [
     "bluesea.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://offgridstores.com/cdn/shop/files/Blue_Sea_Systems_Logo_160x160.png?v=1729611836",
+    "from": "seller:offgridstores",
+    "sha256": "6a46fc711c9956b19fa94d1d3992f64e2a22a0aa1f3da6206cc673a651fb06eb",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

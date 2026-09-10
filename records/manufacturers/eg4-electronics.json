@@ -4,5 +4,16 @@
   "website": "https://eg4electronics.com",
   "domains": [
     "eg4electronics.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://eg4electronics.com/wp-content/uploads/2025/09/EG4-Favicon-300x300.png",
+    "from": "maker",
+    "sha256": "45f0f397e1c3cd271554e46c579651df5c9145eb2aa4a4e1a394f3e22e9fd8cd",
+    "widths": [
+      64,
+      128,
+      256
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

@@ -4,5 +4,15 @@
   "website": "https://enphase.com",
   "domains": [
     "enphase.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://enphase.com/apple-touch-icon.png",
+    "from": "maker",
+    "sha256": "65510d2e9a7b8d3c0243ab2948237c6125cd1e84f0ed39774e5535ff48c09740",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

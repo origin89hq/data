@@ -4,5 +4,15 @@
   "website": "https://www.powermaxconverters.com",
   "domains": [
     "powermaxconverters.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://powermaxconverters.com/wp-content/uploads/2022/02/cropped-PowerMax-Gator-192x192.png",
+    "from": "maker",
+    "sha256": "3d229a755b35ebf827f2bbc8387f6654536c057f334897bb8b5bd0f5101ac06f",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

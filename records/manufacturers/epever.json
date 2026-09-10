@@ -9,5 +9,15 @@
   "sources": [
     "epever-com-download-duc-series-resources",
     "epever-com-download-duoracer-series-resources"
-  ]
+  ],
+  "logo": {
+    "source": "https://www.epever.com/wp-content/uploads/2021/05/cropped-Logo-OpenGraph-192x192.jpg",
+    "from": "maker",
+    "sha256": "56779352ed740daa422f899fa96c0f9c8a47f2da488be2bdfecba634a9167d31",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

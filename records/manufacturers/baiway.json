@@ -8,5 +8,16 @@
   "sources": [
     "shbaiway-com-page-id-69",
     "shbaiway-com-wp-content-uploads-2025-04-tr16"
-  ]
+  ],
+  "logo": {
+    "source": "https://www.shbaiway.com/wp-content/uploads/2025/05/Group-429-1.png",
+    "from": "maker",
+    "sha256": "4dbc87cb60b8e41bb050aa3f3a7c61653d6de25f69e972baca0907fec8326e70",
+    "widths": [
+      64,
+      128,
+      256
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

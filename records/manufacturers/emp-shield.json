@@ -4,5 +4,15 @@
   "website": "https://www.empshield.com",
   "domains": [
     "empshield.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://www.empshield.com/wp-content/uploads/2018/11/cropped-Shield-Small-Independant-192x192.png",
+    "from": "maker",
+    "sha256": "45bc5372bcee5290b2cad9856f774c8a708123416e1095cc704b34f929c0febd",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

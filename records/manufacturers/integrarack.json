@@ -4,5 +4,14 @@
   "website": "https://integrarack.com",
   "domains": [
     "integrarack.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://img1.wsimg.com/isteam/ip/a053742a-0309-4d8e-b466-2d4e7b01a03f/favicon/a87342aa-78f9-4197-895c-17c10edd8349.jpg/:/rs=w:64,h:64,m",
+    "from": "maker",
+    "sha256": "a0af47cf64d60900ca5bb7cf3ab1a8f858df7c176f9528f4e04c0292eee9c253",
+    "widths": [
+      64
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

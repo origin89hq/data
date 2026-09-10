@@ -8,5 +8,14 @@
   "sources": [
     "xantrex-com-products-accessories-linkpro",
     "xantrex-com-products-accessories-xantrex-gateway"
-  ]
+  ],
+  "logo": {
+    "source": "https://xantrex.com/wp-content/uploads/2021/12/xantrex-favicon.png",
+    "from": "maker",
+    "sha256": "53bf538f1bd67bed24b1e5151a503832c8905c05ac2f3becf1266efbf38a595d",
+    "widths": [
+      64
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

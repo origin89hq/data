@@ -4,5 +4,15 @@
   "website": "https://www.luxpowertek.com",
   "domains": [
     "luxpowertek.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://luxpowertek.com/wp-content/uploads/2023/03/cropped-website_icon-192x192.webp",
+    "from": "maker",
+    "sha256": "060c6a087dd691997fb6c6b5b4185b46c619326e382720bf0efe8099c8c998c7",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

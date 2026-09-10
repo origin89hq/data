@@ -4,5 +4,15 @@
   "website": "https://www.ecoflow.com",
   "domains": [
     "ecoflow.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://websiteoss.ecoflow.com/e12981ae13b758cae5b5068362d376e4.png",
+    "from": "maker",
+    "sha256": "4be1854be84bb7c91a3233b75b384f934218f202d39abaf9bb410395b809eb13",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

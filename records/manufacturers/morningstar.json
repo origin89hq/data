@@ -8,5 +8,15 @@
   "sources": [
     "morningstarcorp-com-ssd-app-modbus-en-03",
     "morningstarcorp-com-wp-content-uploads-datasheet-sunlight-en"
-  ]
+  ],
+  "logo": {
+    "source": "https://www.morningstarcorp.com/wp-content/uploads/cropped-Morningstar-favicon-192x192.png",
+    "from": "maker",
+    "sha256": "a9145a9e4f39c93ad0f98cb711803eee1603e116b27e1181f601a8e521a27107",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

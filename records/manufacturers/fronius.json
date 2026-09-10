@@ -8,5 +8,15 @@
   "sources": [
     "fronius-com-downloads-solar-2",
     "fronius-com-en-ca-canada-solar-energy-installers-partners-technical-data-all-products-system-mon-2"
-  ]
+  ],
+  "logo": {
+    "source": "https://www.fronius.com/-/media/system/favicons/appletouchicon-fronius.png",
+    "from": "maker",
+    "sha256": "1165e8ef3bd42fde1ba2e7f5dc350e44aeb1afc225ad185061fa76d1eda20037",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

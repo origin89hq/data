@@ -4,5 +4,15 @@
   "website": "https://www.southwire.com",
   "domains": [
     "southwire.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://www.southwire.com/_ui/southwireb2c/images/apple-touch-icon.png",
+    "from": "maker",
+    "sha256": "bb0fabf8d30325297fd856bdf2288824ebbf0c1aab9cb1d43625541a70ff7091",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

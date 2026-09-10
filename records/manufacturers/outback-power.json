@@ -4,5 +4,15 @@
   "website": "https://outbackpower.com",
   "domains": [
     "outbackpower.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://outbackpower.com/wp-content/uploads/2024/10/Group-797.png",
+    "from": "maker",
+    "sha256": "7d9814756ab45365af1cc7643f6519923e2b55a0d147e366a7bfaa6d866dfa25",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

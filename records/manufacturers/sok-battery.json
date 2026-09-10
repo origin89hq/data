@@ -4,5 +4,15 @@
   "website": "https://www.sokbattery.com",
   "domains": [
     "sokbattery.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://static.wixstatic.com/media/0fa809_b2342b72cce94d02a25a709f2bf75985%7Emv2.jpg/v1/fill/w_192%2Ch_192%2Clg_1%2Cusm_0.66_1.00_0.01/0fa809_b2342b72cce94d02a25a709f2bf75985%7Emv2.jpg",
+    "from": "maker",
+    "sha256": "5f2fd64bea1ed139cbb87c643672f08de252390b3792afc23c45e8b0e65f5ab2",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

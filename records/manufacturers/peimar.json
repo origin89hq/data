@@ -4,5 +4,16 @@
   "website": "https://www.peimar.com",
   "domains": [
     "peimar.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://www.peimar.com/wp-content/uploads/2025/02/cropped-favicon-300x300.png",
+    "from": "maker",
+    "sha256": "4f975535e1ae63f32b21fd6483d3e52b73464ee8f8a5b5effa50ad606b080487",
+    "widths": [
+      64,
+      128,
+      256
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

@@ -4,5 +4,15 @@
   "website": "https://usa.apsystems.com",
   "domains": [
     "apsystems.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://usa.apsystems.com/wp-content/uploads/fbrfg/apple-touch-icon.png",
+    "from": "maker",
+    "sha256": "c91634d95a98d272545ea06b70a1f8e00dfcf9f34f7ccdf0a10cafff478a4e0a",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

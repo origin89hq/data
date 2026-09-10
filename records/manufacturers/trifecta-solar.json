@@ -4,5 +4,15 @@
   "website": "https://trifectasolar.com",
   "domains": [
     "trifectasolar.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://trifectasolar.com/wp-content/uploads/2025/01/cropped-favicon-2024-192x192.png",
+    "from": "maker",
+    "sha256": "0f12d4479b42ae42d4091033a73e5b7d2decde4632475fafcf2f6e58ca7c15a9",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

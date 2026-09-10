@@ -4,5 +4,16 @@
   "website": "https://www.lorex.com",
   "domains": [
     "lorex.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://www.lorex.com/cdn/shop/files/35-favicon.jpg?v=1786380064",
+    "from": "maker",
+    "sha256": "09e4b6c0699339d7b73410cda8fab4c545a09388e87276d19eaec7e3bcea768a",
+    "widths": [
+      64,
+      128,
+      256
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

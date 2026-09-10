@@ -8,7 +8,7 @@ import { classifyRun, convertRun, specPagesRun } from "./enqueue.ts";
 import specPages from "../../feeds/spec-pages.json" with { type: "json" };
 import { manufacturers } from "./manufacturers.ts";
 import { makerStates, sellerStates } from "./state.ts";
-import { newRun, pointerKey, readPointer, ARCHIVE_ROOTS, readable } from "./runs.ts";
+import { newRun, pointerKey, readPointer, ARCHIVE_ROOTS, LOGO_PATH, readable } from "./runs.ts";
 import { supervise } from "./supervise.ts";
 import type { SellerCrawlParams } from "./seller-crawl.ts";
 
@@ -32,6 +32,22 @@ export default {
     const url = new URL(request.url);
     // A liveness check tells a caller nothing it could not learn from a DNS lookup.
     if (request.method === "GET" && url.pathname === "/") return Response.json({ ok: true });
+    // A maker's logo is served to anyone, because a page that shows the catalogue has to render it
+    // and a token in a browser is a token published. Only these keys, only GET, and nothing else in
+    // the archive is reachable this way.
+    if ((request.method === "GET" || request.method === "HEAD") && LOGO_PATH.test(url.pathname)) {
+      const object = await env.ARCHIVE.get(url.pathname.slice(1));
+      if (!object) return new Response("no such logo", { status: 404 });
+      // A HEAD asks the same question without the bytes, and a cache in front of this will use it.
+      return new Response(request.method === "HEAD" ? null : object.body, {
+        headers: {
+          "content-type": "image/png",
+          // Addressed by maker and width, and a maker's mark changes about never.
+          "cache-control": "public, max-age=86400, stale-while-revalidate=604800",
+          "access-control-allow-origin": "*",
+        },
+      });
+    }
     if (!(await authorised(request, env.CONTROL_TOKEN))) {
       return Response.json({ error: "a bearer token is required; set one with: wrangler secret put CONTROL_TOKEN" }, { status: 401 });
     }

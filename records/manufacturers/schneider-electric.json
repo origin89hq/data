@@ -5,5 +5,15 @@
   "domains": [
     "se.com",
     "solar.se.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://solar.se.com/apple-touch-icon.png",
+    "from": "maker",
+    "sha256": "32948c5ab1b0e416dcb7878d6b4f4d14725432021f84937acee3a82966c1513d",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

@@ -4,5 +4,15 @@
   "website": "https://unirac.com",
   "domains": [
     "unirac.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://unirac.com/wp-content/smush-webp/2025/12/cropped-favicon-192x192.png.webp",
+    "from": "maker",
+    "sha256": "bec7b3a25ea1604f673f35d76cdaac77b34ea135db1cc61de9048a81e9a6da1b",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

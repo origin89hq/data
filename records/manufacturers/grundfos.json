@@ -4,5 +4,16 @@
   "website": "https://www.grundfos.com",
   "domains": [
     "grundfos.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://thecabindepot.ca/cdn/shop/files/23_38a3c4ab-08cb-4d42-99c7-6613f2e8e708.png?v=1764254457",
+    "from": "seller:thecabindepot",
+    "sha256": "32a92098ffe5ba5a88b7ac81f07667abc5df43692234d2c3bc2853aa6ff9a177",
+    "widths": [
+      64,
+      128,
+      256
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

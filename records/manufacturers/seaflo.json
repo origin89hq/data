@@ -8,5 +8,16 @@
   "sources": [
     "seaflo-com-index-php-m-home-c-lists-a-index-tid-332",
     "seaflo-com-index-php-m-home-c-view-a-index-aid-534"
-  ]
+  ],
+  "logo": {
+    "source": "https://thecabindepot.ca/cdn/shop/files/34_8aef7db7-3ce5-4625-bb23-eb3c71a47f0f.png?v=1764254497",
+    "from": "seller:thecabindepot",
+    "sha256": "57cb865c1d5b1add40bfc11f9f4a4af4b7acca1803ddf89c45cea05a2b027a07",
+    "widths": [
+      64,
+      128,
+      256
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

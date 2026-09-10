@@ -4,5 +4,16 @@
   "website": "https://www.pytesgroup.com",
   "domains": [
     "pytesgroup.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://thecabindepot.ca/cdn/shop/files/133_82f37281-3c02-4d78-99a0-532d96de509f.png?v=1770139926",
+    "from": "seller:thecabindepot",
+    "sha256": "7bceeb0d693cab09fe332fb515255cce626735b2980c6d368920e5e6a5b45e56",
+    "widths": [
+      64,
+      128,
+      256
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

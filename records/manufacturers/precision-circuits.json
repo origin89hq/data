@@ -4,5 +4,16 @@
   "website": "https://precisioncircuitsinc.com",
   "domains": [
     "precisioncircuitsinc.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://i0.wp.com/www.precisioncircuitsinc.com/wp-content/uploads/2023/05/White-PCI-Logo-1.png#038;ssl=1",
+    "from": "maker",
+    "sha256": "5a8f30a670203be827c6f2d461e6e5a0e20ebbc0544b09013c4374c3bcbdb604",
+    "widths": [
+      64,
+      128,
+      256
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

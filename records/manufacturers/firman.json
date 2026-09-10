@@ -8,5 +8,15 @@
   "sources": [
     "firmanpowerequipment-com-products-p08008",
     "firmanpowerequipment-com-products-p08013"
-  ]
+  ],
+  "logo": {
+    "source": "https://firmanpowerequipment.com/cdn/shop/files/Vimeo_pic-02_180x180.png?v=1625088321",
+    "from": "maker",
+    "sha256": "5153d9777dee2df5f956a87303274fedece13fa9cb3318d47fd561ef91e2b8dd",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

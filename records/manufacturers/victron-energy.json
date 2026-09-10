@@ -8,5 +8,15 @@
   "sources": [
     "victronenergy-com-accessories-bluesolar-pwm-pro-to-usb-interface-cable",
     "victronenergy-com-accessories-outdoor-lte-m-wall-mount-antenna"
-  ]
+  ],
+  "logo": {
+    "source": "https://www.victronenergy.com/apple-touch-icon.png",
+    "from": "maker",
+    "sha256": "e4694bdf496585dd024e7b392e09ef291e7124839bf3e775063e2861e9888481",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

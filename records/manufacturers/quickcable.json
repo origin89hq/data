@@ -4,5 +4,15 @@
   "website": "https://www.quickcable.com",
   "domains": [
     "quickcable.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://www.quickcable.com/wp-content/uploads/2022/05/cropped-QuickCable_Favicon-1-192x192.png",
+    "from": "maker",
+    "sha256": "514a8f77e0d89823358f3ca0da7ed9b3c6fb18f5dd4334c50f1e8f5a55b15daf",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

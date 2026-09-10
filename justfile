@@ -80,6 +80,16 @@ approve maker date approver limit="40":
 convert maker date:
     @just _post "/convert?id={{maker}}&date={{date}}"
 
+# ---- logos ----
+
+# Find a logo for every maker: its own site first, a shop's brand page where that fails.
+logos *args:
+    node tools/logos/gather.ts {{args}}
+
+# Put the gathered logos in the archive, where the Worker serves them without a token.
+logos-upload *args:
+    node tools/logos/upload.ts {{args}}
+
 # ---- feeds ----
 
 # Check the pinned SAM libraries against upstream. Reports a change, never takes it.

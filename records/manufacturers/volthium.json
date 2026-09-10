@@ -8,5 +8,15 @@
   "sources": [
     "volthium-com-en-categorie-produit-accessoires-en",
     "volthium-com-en-documents"
-  ]
+  ],
+  "logo": {
+    "source": "https://volthium.com/wp-content/uploads/2024/07/cropped-Favicon-Volthium_512-X-512-192x192.png",
+    "from": "maker",
+    "sha256": "7698831315875e9b9f38e3870529e73b6afc3cb9433ac3ab8c0418b79226318e",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

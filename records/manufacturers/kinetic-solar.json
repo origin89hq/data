@@ -8,5 +8,16 @@
   "sources": [
     "kineticsolar-com-racking",
     "kineticsolar-com"
-  ]
+  ],
+  "logo": {
+    "source": "https://kineticsolar.com/wp-content/uploads/2018/08/ms-icon-310x310-300x300.png",
+    "from": "maker",
+    "sha256": "fcf3750ecb91fc6b16f76d0a7b26665618d409d387de49b8e0fe758982d6263e",
+    "widths": [
+      64,
+      128,
+      256
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

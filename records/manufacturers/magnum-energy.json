@@ -4,5 +4,14 @@
   "website": "https://www.magnum-dimensions.com",
   "domains": [
     "magnum-dimensions.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://www.magnum-dimensions.com/sites/all/themes/custom/dim/assets/images/apple-touch-icon.png",
+    "from": "maker",
+    "sha256": "c76360578458ddbcad1d5c387e0fba6d61c54e93a5784d096481667e0367c4df",
+    "widths": [
+      64
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

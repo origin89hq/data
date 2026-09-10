@@ -4,5 +4,15 @@
   "website": "https://www.sigineer.com",
   "domains": [
     "sigineer.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://sigineer.com/wp-content/uploads/2020/12/cropped-SG-Site-Icon-512-192x192.jpg",
+    "from": "maker",
+    "sha256": "b9a56127f3f511a786b9e02d4a139b9d590d19d85efe2bf5d10c555b8f4086b5",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

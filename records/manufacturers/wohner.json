@@ -4,5 +4,15 @@
   "website": "https://www.woehner.com",
   "domains": [
     "woehner.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://www.woehner.de/TouchIcon_152x152-precomposed.png",
+    "from": "maker",
+    "sha256": "19a931db64f9e30a38b85f5a9c069fc46a81b15fa1a1e0b3b0c83de68158505d",
+    "widths": [
+      64,
+      128
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }

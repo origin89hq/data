@@ -4,5 +4,16 @@
   "website": "https://watersprint.com",
   "domains": [
     "watersprint.com"
-  ]
+  ],
+  "logo": {
+    "source": "https://watersprint.com/wp-content/uploads/2024/06/cropped-favicon.png",
+    "from": "maker",
+    "sha256": "034f4bc93d3228a2ae23563aefbdb127e347ee7cdacbaa55e974a974f1db4de0",
+    "widths": [
+      64,
+      128,
+      256
+    ],
+    "checkedAt": "2026-09-10"
+  }
 }
