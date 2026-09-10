@@ -22,17 +22,19 @@ concurrency:
 jobs:
   supervise:
     runs-on: ubuntu-latest
-    # The requests' own limits: a pass (300 s), two reads of /state (120 s each), and one offer per
-    # maker (15 s each, about 85 makers) come to under 35 minutes.
-    timeout-minutes: 35
+    # The requests' own limits: a pass (900 s), two reads of /state (120 s each), and one offer per
+    # maker (15 s each, about 85 makers) come to about 40 minutes.
+    timeout-minutes: 45
     env:
       BASE: https://data.origin89.com
       CONTROL_TOKEN: ${{ secrets.CONTROL_TOKEN }}
     steps:
+      # The pass runs inside this request, and hanging up ends it partway: cut off at five minutes, a
+      # pass that had classified every seller never offered a maker or wrote its report.
       - name: Supervise
         if: inputs.supervise
         run: |
-          report=$(curl --fail-with-body --silent --show-error --connect-timeout 10 --max-time 300 \
+          report=$(curl --fail-with-body --silent --show-error --connect-timeout 10 --max-time 900 \
             -X POST "$BASE/supervise" -H "authorization: Bearer $CONTROL_TOKEN") || { echo "$report" >&2; exit 1; }
           {
             echo "### The pass"
