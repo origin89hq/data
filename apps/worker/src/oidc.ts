@@ -59,6 +59,9 @@ export interface WorkflowRun {
 
 export type WorkflowCheck = { ok: true; run: WorkflowRun } | { ok: false; reason: string };
 
+/** GitHub's signing keys could not be had, so no token can be checked either way. */
+export class GitHubKeysUnavailable extends Error {}
+
 /**
  * Whether a token came from `workflow`, a file under `.github/workflows/`, running on main in this
  * repository and deploying to production.
@@ -81,10 +84,20 @@ export async function verifyWorkflow(
       clockTolerance: CLOCK_TOLERANCE,
     }));
   } catch (error) {
-    // A bad signature, an expired token, a key GitHub never published. A network failure reaching
-    // GitHub is not the caller's fault and is not reported as though it were.
-    if (error instanceof errors.JOSEError) return { ok: false, reason: error.message };
-    throw error;
+    // GitHub's key set could not be fetched or read. That says nothing about the token, so it is
+    // not answered as a refusal. `jose` raises its generic error only for a key-set response that
+    // is not a 200 or not JSON.
+    if (
+      !(error instanceof errors.JOSEError) ||
+      error instanceof errors.JWKSTimeout ||
+      error instanceof errors.JWKSInvalid ||
+      error.code === errors.JOSEError.code
+    )
+      throw new GitHubKeysUnavailable(
+        `GitHub's signing keys could not be read: ${error instanceof Error ? error.message : String(error)}`,
+      );
+    // A bad signature, an expired token, a key GitHub never published.
+    return { ok: false, reason: error.message };
   }
   const claims = JobClaims.safeParse(payload);
   if (!claims.success) return { ok: false, reason: "the token is missing a claim GitHub sets" };

@@ -7,7 +7,7 @@ import { authorised, bearer } from "./authorised.ts";
 import { classifyRun, convertRun, specPagesRun, visionRun } from "./enqueue.ts";
 import { hasFeed } from "./feeds.ts";
 import { manufacturers } from "./manufacturers.ts";
-import { verifyWorkflow } from "./oidc.ts";
+import { GitHubKeysUnavailable, verifyWorkflow, type WorkflowCheck } from "./oidc.ts";
 import {
   ARCHIVE_ROOTS,
   DATASET_PATH,
@@ -479,9 +479,15 @@ export const WORKFLOW_ROUTES = [
 for (const route of WORKFLOW_ROUTES) {
   workflowRoutes.on(route.method, route.path, async (c, next) => {
     const token = bearer(c.req.raw);
-    const check = token
-      ? await verifyWorkflow(token, route.workflow)
-      : { ok: false as const, reason: `a GitHub Actions token from ${route.workflow} is required` };
+    let check: WorkflowCheck;
+    try {
+      check = token
+        ? await verifyWorkflow(token, route.workflow)
+        : { ok: false, reason: `a GitHub Actions token from ${route.workflow} is required` };
+    } catch (error) {
+      if (error instanceof GitHubKeysUnavailable) return c.json({ error: error.message }, 503);
+      throw error;
+    }
     if (!check.ok) return c.json({ error: check.reason }, 401);
     console.log(
       JSON.stringify({

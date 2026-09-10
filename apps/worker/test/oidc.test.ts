@@ -1,8 +1,11 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { test } from "node:test";
-import { createLocalJWKSet, generateKeyPair, UnsecuredJWT } from "jose";
-import { AUDIENCE, GITHUB_ISSUER, verifyWorkflow } from "../src/oidc.ts";
+import { createLocalJWKSet, createRemoteJWKSet, generateKeyPair, UnsecuredJWT } from "jose";
+import { AUDIENCE, GITHUB_ISSUER, GitHubKeysUnavailable, verifyWorkflow } from "../src/oidc.ts";
+import { app } from "../src/routes.ts";
 import { jobToken, jwks, publishJob } from "./github-token.ts";
+import { world } from "./world.ts";
 
 const keys = createLocalJWKSet(jwks);
 const verify = (token: string, workflow = "publish.yml") => verifyWorkflow(token, workflow, keys);
@@ -94,4 +97,58 @@ test("an unsigned token is refused, however right its claims", async () => {
 test("a token that is not a JWT is refused rather than thrown", async () => {
   await refused("not-a-token", /Invalid Compact JWS/);
   await refused("", /Invalid Compact JWS/);
+});
+
+test("a key set GitHub cannot serve is an outage, not a refusal of the token", async (t) => {
+  const token = await jobToken();
+  let respond: (init?: RequestInit) => Promise<Response> = async () => Response.json(jwks);
+  t.mock.method(globalThis, "fetch", (_input: unknown, init?: RequestInit) => respond(init));
+  const cases: [string, (init?: RequestInit) => Promise<Response>][] = [
+    ["a 500", async () => new Response("down", { status: 500 })],
+    ["not JSON", async () => new Response("<html>")],
+    ["not a key set", async () => Response.json({ keys: "none" })],
+    [
+      "no connection",
+      async () => {
+        throw new TypeError("fetch failed");
+      },
+    ],
+    [
+      "no answer in time",
+      (init) =>
+        new Promise((_, reject) =>
+          init?.signal?.addEventListener("abort", () => reject(init.signal?.reason)),
+        ),
+    ],
+  ];
+  for (const [what, answer] of cases) {
+    respond = answer;
+    const keys = createRemoteJWKSet(new URL("https://keys.example/jwks"), { timeoutDuration: 20 });
+    await assert.rejects(
+      verifyWorkflow(token, "publish.yml", keys),
+      GitHubKeysUnavailable,
+      `${what} was answered as though the token were bad`,
+    );
+  }
+});
+
+test("publishing while GitHub's keys cannot be read answers 503 and writes nothing", async (t) => {
+  t.mock.method(globalThis, "fetch", async () => new Response("down", { status: 502 }));
+  const archive = world();
+  const res = await app.request(
+    "https://data.example/v1/models.csv",
+    {
+      method: "PUT",
+      headers: {
+        authorization: `Bearer ${await jobToken()}`,
+        "x-content-sha256": createHash("sha256").update("abc").digest("hex"),
+        "content-length": "3",
+      },
+      body: "abc",
+    },
+    archive.env,
+  );
+  assert.equal(res.status, 503);
+  assert.match(((await res.json()) as { error: string }).error, /signing keys could not be read/);
+  assert.deepEqual([...archive.store.keys()], []);
 });
