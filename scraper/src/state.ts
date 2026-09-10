@@ -2,6 +2,7 @@ import { classifierKey } from "./classify.ts";
 import { EXTRACTOR_ID } from "./reading.ts";
 import { TABLE_READER } from "./spec-table.ts";
 import { currentRuns, runPrefix } from "./runs.ts";
+import { partKey } from "./work.ts";
 
 /**
  * What the spider knows and what it is waiting on, derived from the archive rather than kept
@@ -80,11 +81,16 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
     const plan = await json<{ documents: unknown[] }>(bucket, `${base}/plan.json`);
     const specPages = await json<{ candidates: number }>(bucket, `${base}/spec-pages.json`);
     const manifest = await json<{ approvedBy: string; fetched: number }>(bucket, `${base}/manifest.json`);
-    const converting = await json<{ documents: unknown[] }>(bucket, `${base}/converting.json`);
+    const converting = await json<{ documents: { sha256: string }[] }>(bucket, `${base}/converting.json`);
     const converted = (await listAll(bucket, `${base}/converted/`)).length;
-    const readModel = (await listAll(bucket, `${base}/readings/${EXTRACTOR_ID.replace(/[^\w.-]+/g, "_")}/`)).length;
-    const readTable = (await listAll(bucket, `${base}/readings/${TABLE_READER.replace(/[^\w.-]+/g, "_")}/`)).length;
-    const read = readModel + readTable;
+    // Readings live beside their documents, so this run's progress is how many of the documents
+    // it approved have one.
+    let read = 0;
+    for (const doc of converting?.documents ?? []) {
+      const sha = (doc as { sha256?: string }).sha256;
+      if (!sha) continue;
+      if (await bucket.head(partKey.reading(sha, EXTRACTOR_ID.replace(/[^\w.-]+/g, "_")))) read += 1;
+    }
 
     const offered = plan?.documents?.length ?? 0;
     let waitingOn = "nothing";

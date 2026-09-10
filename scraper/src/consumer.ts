@@ -93,15 +93,16 @@ export async function handle(message: Work, env: Env): Promise<void> {
       // it was read from even after the maker rewrites the page.
       await env.ARCHIVE.put(`archive/${sha256}`, html, { httpMetadata: { contentType: "text/html" } });
       const products = parseSpecTables(html);
-      await env.ARCHIVE.put(partKey.reading(message.manufacturer, message.run, sha256, TABLE_READER.replace(/[^\w.-]+/g, "_")), `${JSON.stringify({ sha256, url: message.url, products, windows: 0, failed: 0, extractedBy: TABLE_READER })}\n`, {
+      await env.ARCHIVE.put(partKey.reading(sha256, TABLE_READER.replace(/[^\w.-]+/g, "_")), `${JSON.stringify({ sha256, url: message.url, products, windows: 0, failed: 0, extractedBy: TABLE_READER })}\n`, {
         httpMetadata: { contentType: "application/json" },
       });
       return;
     }
     case "extract": {
-      const reading = partKey.reading(message.manufacturer, message.run, message.sha256, EXTRACTOR_ID.replace(/[^\w.-]+/g, "_"));
-      // Reading a document is the expensive step, and the document is addressed by its content,
-      // so a reading that exists is a reading of exactly these bytes by exactly this extractor.
+      const reading = partKey.reading(message.sha256, EXTRACTOR_ID.replace(/[^\w.-]+/g, "_"));
+      // Reading a document is the expensive step, and both the document and the reading are
+      // addressed by content, so a reading that exists is a reading of exactly these bytes by
+      // exactly this reader — whichever run asked for it.
       if (await env.ARCHIVE.head(reading)) return;
       const object = await env.ARCHIVE.get(message.key);
       if (!object) throw new Error(`${message.key} is gone`);

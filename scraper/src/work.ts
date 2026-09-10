@@ -78,8 +78,12 @@ export const partKey = {
   classified: (classifier: string, input: string) => `guesses/by-input/${classifier}/${input}.json`,
   markdown: (sha256: string, converter: string) => `archive/${sha256}.${converter}.md`,
   converted: (manufacturer: string, run: string, sha256: string) => `documents/${manufacturer}/runs/${run}/converted/${sha256}.json`,
-  reading: (manufacturer: string, run: string, sha256: string, extractor: string) =>
-    `documents/${manufacturer}/runs/${run}/readings/${extractor}/${sha256}.json`,
+  /**
+   * A reading is a function of the document's bytes and the reader, and of nothing else — so it
+   * lives beside the document, not inside a run. Keying it per run meant a second run re-read
+   * nine hundred documents it had already paid to read, for the same answer.
+   */
+  reading: (sha256: string, extractor: string) => `archive/${sha256}.${extractor}.reading.json`,
 };
 
 /**

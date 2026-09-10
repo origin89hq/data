@@ -23,7 +23,7 @@ test("result keys are derived from the run, so a reader knows what to look for a
   assert.equal(partKey.classify("cls", "solacity", "2026-09-09-abcd1234", 7), "guesses/solacity/runs/2026-09-09-abcd1234/cls/page-0007.jsonl");
   assert.equal(partKey.markdown("a".repeat(64), "conv"), `archive/${"a".repeat(64)}.conv.md`, "a document is keyed by its own bytes and belongs to no run");
   assert.equal(partKey.converted("rolls", "r1", "b".repeat(64)), `documents/rolls/runs/r1/converted/${"b".repeat(64)}.json`);
-  assert.equal(partKey.reading("rolls", "r1", "c".repeat(64), "ex"), `documents/rolls/runs/r1/readings/ex/${"c".repeat(64)}.json`);
+  assert.equal(partKey.reading("c".repeat(64), "ex"), `archive/${"c".repeat(64)}.ex.reading.json`, "a reading depends on the document and the reader, not on the run that asked");
 });
 
 test("batching covers every item exactly once, whatever the remainder", () => {

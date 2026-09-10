@@ -51,8 +51,13 @@ const manifest = await object(`${base}/manifest.json`, remote);
 const retrievedAt = manifest ? ((JSON.parse(manifest) as { retrievedAt?: string }).retrievedAt ?? undefined) : undefined;
 const readings: { readings: { sha256: string; url: string; extractedBy?: string; products: (ReportedProduct & { specs: { page?: number }[] })[] }[] } = { readings: [] };
 // Every reading of this run in one request, rather than one process per document.
-for (const value of jsonValues<(typeof readings.readings)[number]>(await under(`${base}/readings/`, remote))) {
-  readings.readings.push(value);
+// A reading lives beside its document, so this run's readings are those of the documents it
+// converted. Nothing is re-read because a run asked again.
+for (const doc of expected) {
+  for (const reader of [EXTRACTOR_ID.replace(/[^\w.-]+/g, "_"), "table_spec-table_v1"]) {
+    const body = await object(`archive/${doc.sha256}.${reader}.reading.json`, remote);
+    if (body) for (const value of jsonValues<(typeof readings.readings)[number]>(body)) readings.readings.push(value);
+  }
 }
 const pending = expected.length - readings.readings.length;
 

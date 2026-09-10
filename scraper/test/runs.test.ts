@@ -24,11 +24,18 @@ test("a run writes only under itself, so nothing needs clearing and nothing is o
   }
 });
 
-test("results are keyed by run, which is what stopped two prompts' readings sharing a directory", () => {
-  const p1 = partKey.reading("epever", "2026-09-09-aaaaaaaa", "a".repeat(64), "p1");
-  const p2 = partKey.reading("epever", "2026-09-09-bbbbbbbb", "a".repeat(64), "p1");
-  assert.notEqual(p1, p2);
-  assert.match(p1, /documents\/epever\/runs\/2026-09-09-aaaaaaaa\//);
+test("a run's own results are keyed by run, so two runs never share a directory", () => {
+  const a = partKey.converted("epever", "2026-09-09-aaaaaaaa", "a".repeat(64));
+  const b = partKey.converted("epever", "2026-09-09-bbbbbbbb", "a".repeat(64));
+  assert.notEqual(a, b);
+  assert.match(a, /documents\/epever\/runs\/2026-09-09-aaaaaaaa\//);
+});
+
+test("a reading is keyed by the document and the reader, because that is all it depends on", () => {
+  const one = partKey.reading("a".repeat(64), "p2");
+  assert.equal(one, `archive/${"a".repeat(64)}.p2.reading.json`);
+  // Two prompts still keep their answers apart; two runs asking the same question do not pay twice.
+  assert.notEqual(partKey.reading("a".repeat(64), "p1"), one);
 });
 
 test("a pointer is per entity, and says which run is current", () => {
