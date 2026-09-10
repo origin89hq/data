@@ -29,6 +29,7 @@
       "!**/dist",
       "!**/.origin89",
       "!**/.agents",
+      "!**/.claude",
       "!**/.wrangler",
       "!pnpm-lock.yaml",
       "!records",
