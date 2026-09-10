@@ -20,11 +20,14 @@ import {
 type Env = Cloudflare.Env;
 
 /** Who is calling a control route, as far as the Worker could establish. */
-export type Caller = { kind: "member"; login: string } | { kind: "control token" };
+export type Caller =
+  | { kind: "member"; login: string }
+  | { kind: "workflow"; workflow: string; runId: string }
+  | { kind: "control token" };
 
 export type Identified =
   | { ok: true; caller: Caller }
-  | { ok: false; status: 401 | 403 | 429 | 502; error: string };
+  | { ok: false; status: 401 | 403 | 429 | 502 | 503; error: string };
 
 /** Both cookies are `__Host-`: HTTPS only, this host only, the whole path. */
 const SESSION = "offgrid-session";
@@ -52,13 +55,16 @@ function githubApp(env: Env): GitHubApp | undefined {
 /**
  * Whether a request may use the control routes, and who it is.
  *
- * A bearer token is either the control token, which only `just dev` sets, or a GitHub token from
+ * A bearer token is either the control token, which only `just dev` has, or a GitHub token from
  * `just login`. A browser carries the session cookie instead. A cookie goes with any request the
  * browser makes to this host, including one another site's page provoked, so a request that
  * changes something must also say it came from here.
  */
 export async function identify<E extends { Bindings: Env }>(c: Context<E>): Promise<Identified> {
-  if (await authorised(c.req.raw, c.env.CONTROL_TOKEN))
+  // Only `just dev` has a control token, from .dev.vars. Production has none, so the binding types
+  // wrangler generates do not name it.
+  const { CONTROL_TOKEN } = c.env as Env & { CONTROL_TOKEN?: string };
+  if (await authorised(c.req.raw, CONTROL_TOKEN))
     return { ok: true, caller: { kind: "control token" } };
   const token = bearer(c.req.raw);
   const session = token ? undefined : getCookie(c, SESSION, "host");

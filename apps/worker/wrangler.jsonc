@@ -62,7 +62,9 @@
   // Named here rather than in a hand-written type: wrangler generates the binding types from
   // this, warns in local development when one is missing, and there is one place that says the
   // Worker needs them.
-  "secrets": { "required": ["CONTROL_TOKEN", "GITHUB_CLIENT_SECRET"] },
+  // The control token is not here: it is for `just dev` only, from .dev.vars, and the deploy
+  // removes it from the Worker if an older deploy left one.
+  "secrets": { "required": ["GITHUB_CLIENT_SECRET"] },
   "observability": {
     "enabled": true,
     "logs": { "enabled": true, "head_sampling_rate": 1 },

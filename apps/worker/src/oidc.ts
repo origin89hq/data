@@ -24,10 +24,13 @@ const REPOSITORY = "origin89hq/offgrid-equipment";
 const OWNER_ID = "313416861";
 const REPOSITORY_ID = "1362856140";
 const BRANCH = "refs/heads/main";
-const ENVIRONMENT = "offgrid-equipment-production";
 
-/** A pull request runs a workflow from its own branch, so only these events are accepted. */
-const EVENTS: ReadonlySet<string> = new Set(["push", "workflow_dispatch"]);
+/** The environment the deploy and the publish run in, with the production secrets. */
+export const PRODUCTION = "offgrid-equipment-production";
+
+/** A workflow file on main in this repository, as `workflow_ref` names it. */
+const WORKFLOW_REF =
+  /^origin89hq\/offgrid-equipment\/\.github\/workflows\/([\w.-]+)@refs\/heads\/main$/;
 
 /** Clocks disagree a little. Seconds either side of `exp` and `nbf`. */
 const CLOCK_TOLERANCE = 30;
@@ -50,29 +53,42 @@ const JobClaims = z.object({
   sha: z.string(),
 });
 
-/** The job that asked, once its token has been checked. */
-export interface WorkflowRun {
-  workflowRef: string;
+/** A job on main in this repository, once its token has been checked. */
+export interface Job {
+  /** Its workflow's file under `.github/workflows/`. */
+  workflow: string;
+  event: string;
+  environment?: string;
   runId: string;
   sha: string;
 }
 
-export type WorkflowCheck = { ok: true; run: WorkflowRun } | { ok: false; reason: string };
+export type JobCheck = { ok: true; job: Job } | { ok: false; reason: string };
+
+/**
+ * Which workflow a route takes, and how it must have been started. A pull request is never among
+ * the events: it runs a workflow as its own branch has it.
+ */
+export interface WorkflowRule {
+  /** The file under `.github/workflows/`, on main. */
+  workflow: string;
+  events: readonly string[];
+  /** The environment the job must run in, when the route needs one. */
+  environment?: string;
+}
 
 /** GitHub's signing keys could not be had, so no token can be checked either way. */
 export class GitHubKeysUnavailable extends Error {}
 
 /**
- * Whether a token came from `workflow`, a file under `.github/workflows/`, running on main in this
- * repository and deploying to production.
+ * Whether a token is GitHub's, for this Worker, from a job on main in this repository.
  *
  * `keys` is GitHub's key set unless a test supplies its own.
  */
-export async function verifyWorkflow(
+export async function verifyJob(
   token: string,
-  workflow: string,
   keys: JWTVerifyGetKey = githubKeys,
-): Promise<WorkflowCheck> {
+): Promise<JobCheck> {
   let payload: unknown;
   try {
     ({ payload } = await jwtVerify(token, keys, {
@@ -102,24 +118,60 @@ export async function verifyWorkflow(
   const claims = JobClaims.safeParse(payload);
   if (!claims.success) return { ok: false, reason: "the token is missing a claim GitHub sets" };
   const job = claims.data;
-  const expected = {
-    repository_owner_id: OWNER_ID,
-    repository_id: REPOSITORY_ID,
-    ref: BRANCH,
-    workflow_ref: `${REPOSITORY}/.github/workflows/${workflow}@${BRANCH}`,
-    environment: ENVIRONMENT,
-  } as const;
-  for (const claim of Object.keys(expected) as (keyof typeof expected)[]) {
-    if (job[claim] !== expected[claim])
-      return {
-        ok: false,
-        reason: `${claim} is ${job[claim] ?? "absent"}; this route needs ${expected[claim]}`,
-      };
-  }
-  if (!EVENTS.has(job.event_name))
+  if (job.repository_owner_id !== OWNER_ID)
+    return { ok: false, reason: `repository_owner_id is ${job.repository_owner_id}; not ours` };
+  if (job.repository_id !== REPOSITORY_ID)
+    return { ok: false, reason: `repository_id is ${job.repository_id}; not ${REPOSITORY}` };
+  if (job.ref !== BRANCH)
+    return { ok: false, reason: `ref is ${job.ref}; only ${BRANCH} is taken` };
+  const workflow = WORKFLOW_REF.exec(job.workflow_ref)?.[1];
+  if (!workflow)
     return {
       ok: false,
-      reason: `event_name is ${job.event_name}; this route needs push or workflow_dispatch`,
+      reason: `workflow_ref is ${job.workflow_ref}; not a workflow of ${REPOSITORY} on main`,
     };
-  return { ok: true, run: { workflowRef: job.workflow_ref, runId: job.run_id, sha: job.sha } };
+  return {
+    ok: true,
+    job: {
+      workflow,
+      event: job.event_name,
+      ...(job.environment === undefined ? {} : { environment: job.environment }),
+      runId: job.run_id,
+      sha: job.sha,
+    },
+  };
+}
+
+/** Whether a checked job is the workflow `rule` names, started as the rule allows. */
+export function admits(rule: WorkflowRule, job: Job): { ok: true } | { ok: false; reason: string } {
+  if (job.workflow !== rule.workflow)
+    return {
+      ok: false,
+      reason: `the token is from ${job.workflow}; this route takes ${rule.workflow}`,
+    };
+  if (!rule.events.includes(job.event))
+    return {
+      ok: false,
+      reason: `${job.workflow} was started by ${job.event}; this route takes ${rule.events.join(" or ")}`,
+    };
+  if (rule.environment !== undefined && job.environment !== rule.environment)
+    return {
+      ok: false,
+      reason: `environment is ${job.environment ?? "absent"}; this route takes ${rule.environment}`,
+    };
+  return { ok: true };
+}
+
+export type WorkflowCheck = JobCheck;
+
+/** Whether a token is from the job `rule` names. */
+export async function verifyWorkflow(
+  token: string,
+  rule: WorkflowRule,
+  keys: JWTVerifyGetKey = githubKeys,
+): Promise<WorkflowCheck> {
+  const checked = await verifyJob(token, keys);
+  if (!checked.ok) return checked;
+  const admitted = admits(rule, checked.job);
+  return admitted.ok ? checked : admitted;
 }

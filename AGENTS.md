@@ -30,7 +30,7 @@ stays missing, and shared vendors do not establish protocol compatibility.
 Run `just check` before committing. The gate includes source lint, tests, app
 type checks, record validation, and repeatable dataset builds. The DuckDB CLI
 is required for Parquet output. Worker binding types come from its Wrangler
-configuration. Keep the crawl approval gate, the control and workflow token
+configuration. Keep the crawl approval gate, the sign-in and workflow token
 checks, and resource bounds intact. Ordinary checks must not invoke remote AI,
 approve downloads, publish data, or deploy the scheduled crawler.
 
@@ -43,7 +43,7 @@ missing shared context instead of claiming it loaded.
 - Preserve source provenance and review state. Missing values stay absent;
   inferred or extracted claims must not become human-reviewed evidence without
   the documented review. Shared vendors do not prove protocol compatibility.
-- Preserve control- and workflow-token checks, crawl approval, and resource
+- Preserve sign-in and workflow-token checks, crawl approval, and resource
   bounds. A change must not start downloads, spend remote AI credits, publish
   data, or deploy the crawler through ordinary validation or review commands.
 - Check schema consumers, invalid inputs, exact limits, and failure paths. Flag

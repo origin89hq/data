@@ -1,7 +1,7 @@
 name: Supervise the spider
 # The Worker supervises itself at 08:00 UTC every day. This runs the same pass on demand, can offer
 # every converted maker to the page reader at once, and reports where every maker stands, so nobody
-# needs the control token on their own machine. A pass moves whatever stage is ready, which can
+# needs to call the Worker from their own machine. A pass moves whatever stage is ready, which can
 # start a classification or the page reader, and those spend money on a model. It never approves a
 # download: that stays with a person.
 on:
@@ -15,7 +15,9 @@ on:
         description: Offer every converted maker to the page reader, not only the twenty a pass offers.
         type: boolean
         default: false
-permissions: {}
+# A job token for the Worker, which takes this workflow's on /supervise, /state and /vision only.
+permissions:
+  id-token: write
 concurrency:
   group: supervise
   cancel-in-progress: false
@@ -27,15 +29,27 @@ jobs:
     timeout-minutes: 45
     env:
       BASE: https://data.origin89.com
-      CONTROL_TOKEN: ${{ secrets.CONTROL_TOKEN }}
     steps:
+      # A job token lasts minutes and this job can run for most of an hour, so each request asks
+      # for a fresh one.
+      - name: Ask GitHub for a job token before each request
+        run: |
+          cat > "$RUNNER_TEMP/job-token" <<'SCRIPT'
+          #!/usr/bin/env bash
+          set -euo pipefail
+          curl --fail --silent --show-error --connect-timeout 10 --max-time 30 \
+            -H "authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=https://data.origin89.com" | jq -er .value
+          SCRIPT
+          chmod +x "$RUNNER_TEMP/job-token"
       # The pass runs inside this request, and hanging up ends it partway: cut off at five minutes, a
       # pass that had classified every seller never offered a maker or wrote its report.
       - name: Supervise
         if: inputs.supervise
         run: |
+          token=$("$RUNNER_TEMP/job-token")
           report=$(curl --fail-with-body --silent --show-error --connect-timeout 10 --max-time 900 \
-            -X POST "$BASE/supervise" -H "authorization: Bearer $CONTROL_TOKEN") || { echo "$report" >&2; exit 1; }
+            -X POST "$BASE/supervise" -H "authorization: Bearer $token") || { echo "$report" >&2; exit 1; }
           {
             echo "### The pass"
             echo "$report" | jq -r '
@@ -49,21 +63,24 @@ jobs:
       - name: Offer every converted maker to the page reader
         if: inputs.offer_all
         run: |
+          token=$("$RUNNER_TEMP/job-token")
           state=$(curl --fail-with-body --silent --show-error --connect-timeout 10 --max-time 120 \
-            "$BASE/state" -H "authorization: Bearer $CONTROL_TOKEN") || { echo "$state" >&2; exit 1; }
+            "$BASE/state" -H "authorization: Bearer $token") || { echo "$state" >&2; exit 1; }
           makers=$(echo "$state" | jq -r '.makers[] | select(.converted != null and .converted > (.seeing // 0)) | "\(.maker) \(.date)"')
           echo "### Offered to the page reader" >> "$GITHUB_STEP_SUMMARY"
           [ -n "$makers" ] || { echo "Every converted maker had already been offered." >> "$GITHUB_STEP_SUMMARY"; exit 0; }
           while read -r maker date; do
+            token=$("$RUNNER_TEMP/job-token")
             offered=$(curl --fail-with-body --silent --show-error --connect-timeout 10 --max-time 15 \
               -X POST -G --data-urlencode "id=$maker" --data-urlencode "date=$date" "$BASE/vision" \
-              -H "authorization: Bearer $CONTROL_TOKEN") || { echo "$maker: $offered" >&2; exit 1; }
+              -H "authorization: Bearer $token") || { echo "$maker: $offered" >&2; exit 1; }
             echo "- **$maker**: $(echo "$offered" | jq -r '.documents') documents" >> "$GITHUB_STEP_SUMMARY"
           done <<< "$makers"
       - name: Report where every maker stands
         run: |
+          token=$("$RUNNER_TEMP/job-token")
           state=$(curl --fail-with-body --silent --show-error --connect-timeout 10 --max-time 120 \
-            "$BASE/state" -H "authorization: Bearer $CONTROL_TOKEN") || { echo "$state" >&2; exit 1; }
+            "$BASE/state" -H "authorization: Bearer $token") || { echo "$state" >&2; exit 1; }
           {
             echo "### Where it stands"
             echo "$state" | jq -r '

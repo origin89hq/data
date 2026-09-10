@@ -25,26 +25,32 @@ jobs:
       - run: pnpm --filter offgrid-equipment-worker test
       # The Worker serves the built site from its asset store, so there has to be one to serve.
       - run: pnpm --filter offgrid-equipment-site build
-      # The secrets go up with the version rather than in a step of their own. The Worker's config
-      # lists them as required, so a deploy without them is refused — which on a first deploy
-      # would otherwise be circular, a secret needing a Worker that does not exist yet.
-      - name: Deploy with its secrets
+      # The secret goes up with the version rather than in a step of its own. The Worker's config
+      # lists it as required, so a deploy without it is refused — which on a first deploy would
+      # otherwise be circular, a secret needing a Worker that does not exist yet.
+      - name: Deploy with its secret
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CONTROL_TOKEN: ${{ secrets.CONTROL_TOKEN }}
           # GitHub reserves names that start with GITHUB_, so the Worker's secret is named here only.
           APP_CLIENT_SECRET: ${{ secrets.GH_APP_CLIENT_SECRET }}
         working-directory: apps/worker
         run: |
-          if [ -z "$CONTROL_TOKEN" ]; then
-            echo "CONTROL_TOKEN is not set in repository secrets; every control endpoint would refuse every request" >&2
-            exit 1
-          fi
           if [ -z "$APP_CLIENT_SECRET" ]; then
             echo "GH_APP_CLIENT_SECRET is not set; nobody could sign in with GitHub" >&2
             exit 1
           fi
           umask 077
-          printf 'CONTROL_TOKEN=%s\nGITHUB_CLIENT_SECRET=%s\n' "$CONTROL_TOKEN" "$APP_CLIENT_SECRET" > "$RUNNER_TEMP/secrets.env"
+          printf 'GITHUB_CLIENT_SECRET=%s\n' "$APP_CLIENT_SECRET" > "$RUNNER_TEMP/secrets.env"
           trap 'rm -f "$RUNNER_TEMP/secrets.env"' EXIT
           pnpm exec wrangler deploy --secrets-file "$RUNNER_TEMP/secrets.env"
+      # The control token is for `just dev` only. A secret stays on a Worker until it is deleted,
+      # so one an older deploy left would still open every control route.
+      - name: Remove the control token from the Worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        working-directory: apps/worker
+        run: |
+          secrets=$(pnpm exec wrangler secret list --format json)
+          if echo "$secrets" | jq -e 'any(.[]; .name == "CONTROL_TOKEN")' > /dev/null; then
+            pnpm exec wrangler secret delete CONTROL_TOKEN
+          fi

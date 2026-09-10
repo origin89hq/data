@@ -255,16 +255,20 @@ It needs, once:
 |---|---|---|
 | Repository variable | `CLOUDFLARE_ACCOUNT_ID` | the account the Worker and bucket live in |
 | Repository secret | `CLOUDFLARE_API_TOKEN` | Workers Scripts edit, Workers R2 Storage edit, Workers AI read |
-| Repository secret | `CONTROL_TOKEN` | a random string; still accepted on the control routes, and on its way out |
 | Environment secret | `GH_APP_CLIENT_SECRET` | a client secret of the Origin89 Data GitHub App; the Worker's `GITHUB_CLIENT_SECRET` |
 | Environment | `offgrid-equipment-production` | where the approval reviewers live, if you want a second pair of eyes on a deploy |
 | GitHub App | Origin89 Data | owned by and installed on origin89hq; Members read, device flow on, callbacks `https://data.origin89.com/auth/callback` and `http://localhost:8790/auth/callback` |
 | Team | `origin89hq/working-group` | who may use the control routes |
 
-The Worker's config names its secrets under `secrets.required`, so wrangler
-generates their binding types and warns in local development when one is
-missing. There is no hand-written `Env` to drift from what is actually deployed.
-The secrets go up with the version, so a first deploy is not circular.
+The Worker's config names its secret under `secrets.required`, so wrangler
+generates its binding type and warns in local development when it is missing.
+There is no hand-written `Env` to drift from what is actually deployed. The
+secret goes up with the version, so a first deploy is not circular.
+
+No workflow holds a long-lived credential for the Worker; the deploy's
+Cloudflare token is for Cloudflare's API. The deploy also deletes a
+`CONTROL_TOKEN` secret from the Worker if an older deploy left one there, since
+a secret stays on a Worker until it is removed.
 
 Every endpoint that starts a crawl, spends money or releases a download needs a
 member of `origin89hq/working-group`. A terminal sends the token `just login`
@@ -280,24 +284,35 @@ supervisor's last pass, and each seller's and maker's current run with the
 status of the workflow behind it. It is read-only, and anybody else is sent to
 sign in.
 
-`just dev` still takes the control token from `apps/worker/.dev.vars`, and a
-Worker with neither refuses everything rather than allowing everything. To try
-sign-in locally, add `GITHUB_CLIENT_SECRET` to `.dev.vars` and use Chrome or
-Firefox, which accept a secure cookie from `http://localhost`.
+Only `just dev` has a control token, from `apps/worker/.dev.vars`, and a Worker
+with neither a control token nor sign-in configured refuses everything rather
+than allowing everything. To try sign-in locally, add `GITHUB_CLIENT_SECRET` to
+`.dev.vars` and use Chrome or Firefox, which accept a secure cookie from
+`http://localhost`.
 
-### Publishing the dataset
+### Workflows
+
+A workflow that calls the Worker holds no secret for it. The job asks GitHub
+for an OIDC token with the audience `https://data.origin89.com`, and the Worker
+takes it only from a job on `main` in this repository, checked by repository and
+owner ID, and only from the workflow each route names:
+
+| Workflow | Routes | Started by | Environment |
+|---|---|---|---|
+| `publish.yml` | `PUT /v1/:file` | a push, or by hand | `offgrid-equipment-production` |
+| `pull-figures.yml` | `/state`, `/archive`, `/readings` | its schedule, or by hand | any |
+| `supervise.yml` | `/supervise`, `/state`, `/vision` | by hand | any |
+
+A pull request never gets in: it runs a workflow as its own branch has it. The
+tools ask for a job token themselves when they run in a job with
+`id-token: write`, and ask again for each request, since a token lasts minutes.
 
 **Publish the dataset** runs on every push to `main` that changes what the
-tables are built from, and holds no Cloudflare credential. The job asks GitHub
-for an OIDC token with the audience `https://data.origin89.com`. The Worker's
-`PUT /v1/:file` accepts only a token from `publish.yml` on `main`, in this
-repository and owner by ID, in the `offgrid-equipment-production` environment,
-from a push or a manual run. The control token cannot publish.
-
-Each file declares its sha256, and R2 refuses a body that does not match it.
-The manifest goes last, and the Worker refuses it unless every file it names is
-stored at the size and digest it states. `just publish --dry-run` lists what
-would go up; without `--dry-run` the command works only inside that job.
+tables are built from. Each file declares its sha256, and R2 refuses a body
+that does not match it. The manifest goes last, and the Worker refuses it
+unless every file it names is stored at the size and digest it states.
+`just publish --dry-run` lists what would go up; without `--dry-run` the
+command works only inside that job.
 
 ## The gate
 

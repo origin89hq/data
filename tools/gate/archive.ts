@@ -25,7 +25,7 @@ function base(remote: boolean): string {
 
 async function get(path: string, remote: boolean): Promise<Response> {
   const response = await fetch(`${base(remote)}${path}`, {
-    headers: { authorization: `Bearer ${bearerFor(base(remote))}` },
+    headers: { authorization: `Bearer ${await bearerFor(base(remote))}` },
   });
   if (response.status === 404) return response;
   if (!response.ok)
@@ -37,7 +37,7 @@ async function post(path: string, body: unknown, remote: boolean): Promise<Respo
   const response = await fetch(`${base(remote)}${path}`, {
     method: "POST",
     headers: {
-      authorization: `Bearer ${bearerFor(base(remote))}`,
+      authorization: `Bearer ${await bearerFor(base(remote))}`,
       "content-type": "application/json",
     },
     body: JSON.stringify(body),

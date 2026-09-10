@@ -292,7 +292,7 @@ test("publishing without publish.yml's token is refused, and the control token i
     authorization: `Bearer ${await jobToken({ workflow_ref: "origin89hq/offgrid-equipment/.github/workflows/deploy.yml@refs/heads/main" })}`,
   });
   assert.equal(deploy.status, 401);
-  assert.match(await errorOf(deploy), /workflow_ref/);
+  assert.match(await errorOf(deploy), /from deploy\.yml; this route takes publish\.yml/);
   assert.deepEqual([...store.keys()], [], "a refused publish wrote something");
 });
 
@@ -517,4 +517,81 @@ test("the supervisor's last report is readable by a member, and its absence is a
   assert.equal((await read(bucket().env)).status, 404);
   const anonymous = await app.request("https://data.example/supervision", {}, bucket().env);
   assert.equal(anonymous.status, 401);
+});
+
+/** A job token from `workflow` on main, started by `event`, outside any environment. */
+const jobFrom = (workflow: string, event: string, claims: Record<string, unknown> = {}) =>
+  jobToken({
+    workflow_ref: `origin89hq/offgrid-equipment/.github/workflows/${workflow}@refs/heads/main`,
+    event_name: event,
+    environment: undefined,
+    ...claims,
+  });
+const asJob = (token: string, path: string, init: RequestInit = {}) =>
+  app.request(
+    `https://data.example${path}`,
+    {
+      ...init,
+      headers: {
+        authorization: `Bearer ${token}`,
+        "content-type": "application/json",
+        ...init.headers,
+      },
+    },
+    bucket().env,
+  );
+const readOne = {
+  method: "POST",
+  body: JSON.stringify({ documents: [digest(1)], readers: ["text"] }),
+};
+
+test("the daily pull's job token reads the three routes it needs, and opens nothing else", async () => {
+  const token = await jobFrom("pull-figures.yml", "schedule");
+  assert.equal((await asJob(token, "/state")).status, 200);
+  assert.equal(
+    (await asJob(token, "/archive?prefix=documents/victron-energy/current.json")).status,
+    200,
+  );
+  assert.equal((await asJob(token, "/readings", readOne)).status, 200);
+  for (const path of ["/supervise", "/approve", "/run", "/vision", "/discover-all"]) {
+    const res = await asJob(token, path, { method: "POST" });
+    assert.equal(res.status, 403, `${path} answered ${res.status}`);
+    assert.equal(await errorOf(res), `pull-figures.yml may not call ${path}`);
+  }
+});
+
+test("the supervisor's job token reads state when started by hand, and not on a schedule", async () => {
+  assert.equal(
+    (await asJob(await jobFrom("supervise.yml", "workflow_dispatch"), "/state")).status,
+    200,
+  );
+  const scheduled = await asJob(await jobFrom("supervise.yml", "schedule"), "/state");
+  assert.equal(scheduled.status, 403);
+  assert.match(await errorOf(scheduled), /started by schedule; this route takes workflow_dispatch/);
+  const reading = await asJob(
+    await jobFrom("supervise.yml", "workflow_dispatch"),
+    "/readings",
+    readOne,
+  );
+  assert.equal(reading.status, 403);
+});
+
+test("a job token from another workflow, event or branch opens no control route", async () => {
+  // Publishing runs with the production secrets in reach; it has no business reading the archive.
+  const publishing = await asJob(await jobToken(), "/state");
+  assert.equal(publishing.status, 403);
+  assert.equal(await errorOf(publishing), "publish.yml may not call /state");
+  const pullRequest = await asJob(await jobFrom("pull-figures.yml", "pull_request"), "/state");
+  assert.equal(pullRequest.status, 403);
+  const check = await asJob(await jobFrom("check.yml", "workflow_dispatch"), "/state");
+  assert.equal(check.status, 403);
+  const branch = await asJob(
+    await jobFrom("pull-figures.yml", "workflow_dispatch", {
+      ref: "refs/heads/figures/pull",
+      workflow_ref:
+        "origin89hq/offgrid-equipment/.github/workflows/pull-figures.yml@refs/heads/figures/pull",
+    }),
+    "/state",
+  );
+  assert.equal(branch.status, 401, "a job on another branch is not a job this Worker knows");
 });

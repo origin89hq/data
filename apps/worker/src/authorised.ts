@@ -1,7 +1,7 @@
 /**
- * Every endpoint here starts a crawl, spends money on a model, or releases a download that a
- * person was supposed to approve. On a public URL that makes the gate decorative, so all of them
- * are behind one shared secret set with `wrangler secret put CONTROL_TOKEN`.
+ * The control token: one shared secret that local development uses in place of signing in. It
+ * lives in apps/worker/.dev.vars and nowhere else. A deployment has none, so there people sign in
+ * with GitHub (`sign-in.ts`) and workflows present a job token (`oidc.ts`).
  */
 export const AUTH_HEADER = "authorization";
 

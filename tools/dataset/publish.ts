@@ -1,8 +1,8 @@
 import { createHash } from "node:crypto";
 import { openAsBlob, readdirSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
-import { AUDIENCE } from "../../apps/worker/src/oidc.ts";
 import { datasetKey } from "../../apps/worker/src/runs.ts";
+import { inActionsJob, jobToken } from "../credential.ts";
 
 /**
  * Put the built tables where anybody can fetch them.
@@ -64,32 +64,6 @@ if (dryRun) {
   process.exit(0);
 }
 
-/**
- * A token GitHub issues to this job, naming its repository, branch and workflow. Asked for again
- * for each file, because one lasts minutes and a slow upload can outlive it.
- */
-async function jobToken(): Promise<string> {
-  const url = process.env.ACTIONS_ID_TOKEN_REQUEST_URL;
-  const request = process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN;
-  if (!url || !request)
-    throw new Error(
-      "publishing needs a GitHub Actions token, so it runs in publish.yml, which has id-token: write.\n" +
-        "Run with --dry-run to see what would go up.",
-    );
-  const asking = new URL(url);
-  asking.searchParams.set("audience", AUDIENCE);
-  const response = await fetch(asking, {
-    headers: { authorization: `Bearer ${request}` },
-    signal: AbortSignal.timeout(30_000),
-  });
-  if (!response.ok) throw new Error(`GitHub would not issue a job token: HTTP ${response.status}`);
-  const body: unknown = await response.json();
-  const value = typeof body === "object" && body !== null && "value" in body ? body.value : null;
-  if (typeof value !== "string" || !value)
-    throw new Error("GitHub answered a token request without a token");
-  return value;
-}
-
 async function put(name: string, headers: Record<string, string> = {}): Promise<void> {
   const response = await fetch(`${base}/v1/${name}`, {
     method: "PUT",
@@ -100,6 +74,14 @@ async function put(name: string, headers: Record<string, string> = {}): Promise<
   });
   if (!response.ok)
     throw new Error(`${base} refused ${name}: HTTP ${response.status} ${await response.text()}`);
+}
+
+if (!inActionsJob()) {
+  console.error(
+    "publishing needs a GitHub Actions token, so it runs in publish.yml, which has id-token: write.\n" +
+      "Run with --dry-run to see what would go up.",
+  );
+  process.exit(1);
 }
 
 try {

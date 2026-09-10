@@ -9,15 +9,22 @@ import { login } from "../tools/login.ts";
 const WORKER = "https://worker.example";
 const START = Date.parse("2026-09-10T12:00:00Z");
 
-/** A config directory of the test's own, and no control token from the shell running it. */
+/**
+ * A config directory of the test's own, and no control token or job token from whatever runs it:
+ * the daily pull runs these tests inside a job that may ask GitHub for one.
+ */
 function isolated(t: TestContext) {
   const dir = mkdtempSync(join(tmpdir(), "offgrid-login-"));
   const before = {
     XDG_CONFIG_HOME: process.env.XDG_CONFIG_HOME,
     OFFGRID_CONTROL_TOKEN: process.env.OFFGRID_CONTROL_TOKEN,
+    ACTIONS_ID_TOKEN_REQUEST_URL: process.env.ACTIONS_ID_TOKEN_REQUEST_URL,
+    ACTIONS_ID_TOKEN_REQUEST_TOKEN: process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN,
   };
   process.env.XDG_CONFIG_HOME = dir;
   delete process.env.OFFGRID_CONTROL_TOKEN;
+  delete process.env.ACTIONS_ID_TOKEN_REQUEST_URL;
+  delete process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN;
   t.after(() => {
     for (const [name, value] of Object.entries(before)) {
       if (value === undefined) delete process.env[name];
@@ -102,7 +109,7 @@ test("a member's sign-in is kept, readable by them alone, once the Worker accept
   });
   assert.deepEqual(readLogin(), signedIn);
   assert.equal(statSync(loginPath()).mode & 0o777, 0o600);
-  assert.equal(bearerFor(WORKER, START + 60_000), "ghu_ada");
+  assert.equal(await bearerFor(WORKER, START + 60_000), "ghu_ada");
 });
 
 test("a sign-in the Worker refuses is reported and not kept", async (t) => {
@@ -162,23 +169,23 @@ test("a Worker without sign-in configured says so before anybody is sent to GitH
   assert.deepEqual(asked, [`${WORKER}/auth/app`]);
 });
 
-test("a deployment gets the stored sign-in until it expires, then is told to sign in again", (t) => {
+test("a deployment gets the stored sign-in until it expires, then is told to sign in again", async (t) => {
   isolated(t);
-  assert.throws(() => bearerFor(WORKER), /sign in with: just login/);
+  await assert.rejects(bearerFor(WORKER), /sign in with: just login/);
   saveLogin({
     token: "ghu_ada",
     login: "ada",
     origin: WORKER,
     expiresAt: new Date(START + 1000).toISOString(),
   });
-  assert.equal(bearerFor(WORKER, START), "ghu_ada");
-  assert.throws(
-    () => bearerFor(WORKER, START + 1000),
+  assert.equal(await bearerFor(WORKER, START), "ghu_ada");
+  await assert.rejects(
+    bearerFor(WORKER, START + 1000),
     /sign-in for ada has expired; run: just login/,
   );
 });
 
-test("OFFGRID_CONTROL_TOKEN, where a job still sets it, comes before the stored sign-in", (t) => {
+test("OFFGRID_CONTROL_TOKEN, where somebody sets it, comes before the stored sign-in", async (t) => {
   isolated(t);
   saveLogin({
     token: "ghu_ada",
@@ -187,10 +194,10 @@ test("OFFGRID_CONTROL_TOKEN, where a job still sets it, comes before the stored 
     expiresAt: new Date(START + 1000).toISOString(),
   });
   process.env.OFFGRID_CONTROL_TOKEN = "the-shared-token";
-  assert.equal(bearerFor(WORKER, START), "the-shared-token");
+  assert.equal(await bearerFor(WORKER, START), "the-shared-token");
 });
 
-test("a stored sign-in goes only to the Worker that accepted it", (t) => {
+test("a stored sign-in goes only to the Worker that accepted it", async (t) => {
   isolated(t);
   saveLogin({
     token: "ghu_ada",
@@ -198,18 +205,18 @@ test("a stored sign-in goes only to the Worker that accepted it", (t) => {
     origin: WORKER,
     expiresAt: new Date(START + 1000).toISOString(),
   });
-  assert.equal(bearerFor(`${WORKER}/`, START), "ghu_ada");
+  assert.equal(await bearerFor(`${WORKER}/`, START), "ghu_ada");
   for (const elsewhere of [
     "https://worker.example.evil.test",
     "https://worker.example:8443",
     "https://data.origin89.co",
   ])
-    assert.throws(
-      () => bearerFor(elsewhere, START),
+    await assert.rejects(
+      bearerFor(elsewhere, START),
       /the stored sign-in is for https:\/\/worker\.example, not /,
       `${elsewhere} was sent the token`,
     );
-  assert.throws(() => bearerFor("not a url", START), /is not a URL; check OFFGRID_BASE_URL/);
+  await assert.rejects(bearerFor("not a url", START), /is not a URL; check OFFGRID_BASE_URL/);
 });
 
 test("no token is sent in the clear, except to this machine", async (t) => {
@@ -225,14 +232,45 @@ test("no token is sent in the clear, except to this machine", async (t) => {
   );
   assert.deepEqual(asked, [], "a sign-in over plain HTTP was started");
   process.env.OFFGRID_CONTROL_TOKEN = "the-shared-token";
-  assert.throws(() => bearerFor("http://data.origin89.com"), /is not HTTPS/);
+  await assert.rejects(bearerFor("http://data.origin89.com"), /is not HTTPS/);
   for (const here of ["http://localhost:8790", "http://127.0.0.1:8790", "http://[::1]:8790"])
-    assert.equal(bearerFor(here), "the-shared-token", `${here} was refused`);
+    assert.equal(await bearerFor(here), "the-shared-token", `${here} was refused`);
 });
 
-test("a stored file that is not a sign-in is an error, never an empty token", (t) => {
+test("a stored file that is not a sign-in is an error, never an empty token", async (t) => {
   isolated(t);
   mkdirSync(dirname(loginPath()), { recursive: true });
   writeFileSync(loginPath(), JSON.stringify({ token: "" }));
-  assert.throws(() => bearerFor(WORKER), /is not a sign-in; run just login/);
+  await assert.rejects(bearerFor(WORKER), /is not a sign-in; run just login/);
+});
+
+test("inside a GitHub Actions job the tools send a fresh job token, for this Worker's audience", async (t) => {
+  isolated(t);
+  saveLogin({
+    token: "ghu_ada",
+    login: "ada",
+    origin: WORKER,
+    expiresAt: new Date(START + 1000).toISOString(),
+  });
+  process.env.ACTIONS_ID_TOKEN_REQUEST_URL = "https://actions.example/token?api-version=2.0";
+  process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN = "runner-request-token";
+  const asked: { url: string; authorization: string | null }[] = [];
+  t.mock.method(globalThis, "fetch", async (input: RequestInfo | URL, init?: RequestInit) => {
+    const request = new Request(input, init);
+    asked.push({ url: request.url, authorization: request.headers.get("authorization") });
+    return Response.json({ value: `eyJ.job-token-${asked.length}.sig` });
+  });
+  // A job has no stored sign-in to lend; the job token is what the Worker's rules are about.
+  assert.equal(await bearerFor(WORKER, START), "eyJ.job-token-1.sig");
+  assert.equal(await bearerFor(WORKER, START), "eyJ.job-token-2.sig");
+  assert.deepEqual(asked, [
+    {
+      url: "https://actions.example/token?api-version=2.0&audience=https%3A%2F%2Fdata.origin89.com",
+      authorization: "Bearer runner-request-token",
+    },
+    {
+      url: "https://actions.example/token?api-version=2.0&audience=https%3A%2F%2Fdata.origin89.com",
+      authorization: "Bearer runner-request-token",
+    },
+  ]);
 });
