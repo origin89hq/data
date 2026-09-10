@@ -5,7 +5,7 @@ import { Model } from "../../schema/model.ts";
 import { Source } from "../../schema/source.ts";
 import { currentRun, jsonValues, object, under } from "./archive.ts";
 import { EXTRACTOR_ID } from "../../scraper/src/reading.ts";
-import { withoutTranslations } from "../../src/documents.ts";
+import { withoutTranslations } from "../../scraper/src/documents.ts";
 
 /**
  * Fold a manufacturer's extracted readings into spec records. A figure is written only when the

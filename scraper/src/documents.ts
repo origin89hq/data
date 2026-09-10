@@ -1,3 +1,4 @@
+import { decodeHTMLStrict } from "entities";
 import { z } from "zod";
 
 /** What a maker's site publishes that is worth archiving. A page is read for links; only these are stored. */
@@ -79,12 +80,10 @@ const HREF = /\bhref\s*=\s*["']([^"']+)["']/gi;
  * "TERMS-&amp;-CONDITIONS-OF-SALE.pdf", and fetching that literally returns nothing.
  */
 export function decodeEntities(value: string): string {
-  return value
-    .replace(/&(?:#(\d+)|#[xX]([0-9a-fA-F]+)|(amp|lt|gt|quot|apos|#39));/g, (whole, dec: string, hex: string, name: string) => {
-      if (dec) return String.fromCodePoint(Number(dec));
-      if (hex) return String.fromCodePoint(Number.parseInt(hex, 16));
-      return { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", "#39": "'" }[name] ?? whole;
-    });
+  // Strict, meaning the semicolon is required. The forgiving form reads "?a=1&param=2" as
+  // "?a=1\u00b6m=2", because "&para" is a legacy entity a browser accepts without one — which would
+  // rewrite the query string of any link whose parameter happens to start with a named entity.
+  return decodeHTMLStrict(value);
 }
 
 /** Every link on a page, absolute, deduplicated, and only on hosts the maker claims. */
@@ -125,4 +124,53 @@ export function permitted(found: Found[], approval: CrawlApproval): Found[] {
   const hosts = approval.hosts.length ? approval.hosts : [...new Set(found.map((f) => f.host))];
   const allowed = found.filter((f) => hostAllowed(f.host, hosts));
   return approval.limit ? allowed.slice(0, approval.limit) : allowed;
+}
+
+/**
+ * Which language a document is written in, when its own file name says so.
+ *
+ * Sol-Ark publishes the 8K manual twice, as `..._UserManual_v1.0_ES_...pdf` and
+ * `...-8K-2P-N-EN-Manual...pdf`, and reading both gave that inverter a nominal voltage of 48 V
+ * under "Nominal system voltage" and again under "Voltaje nominal". The figures were right and the
+ * dataset still counted the product twice, which is the shape of the whole problem: a translation
+ * is the same specification said again, so it is not a second source, and converting it is a
+ * reading paid for twice.
+ */
+/** The languages seen in these makers' file names. Deliberately short: a guess here drops a document. */
+const LANGUAGES = ["es", "fr", "pt", "it", "nl", "zh", "ja", "ko", "ru", "pl", "sv", "tr"] as const;
+
+/** Delimited, so "Manual-ES-1.pdf" matches and "GENESIS.pdf" does not. */
+const tokenIn = (name: string, token: string): boolean =>
+  new RegExp(`(?:^|[-_. ])${token}(?:[-_][A-Za-z]{2})?(?:$|[-_. ])`, "i").test(name);
+
+/**
+ * The language a document's file name declares, or undefined when it declares none. A file naming
+ * English as well — `GB10_Userguide_EN_ES_10.20.2022.pdf` is one bilingual guide — is not a
+ * translation of anything, so it declares nothing.
+ */
+export function declaredLanguage(url: string): string | undefined {
+  let name: string;
+  try {
+    name = new URL(url).pathname.split("/").pop() ?? "";
+  } catch {
+    return undefined;
+  }
+  name = name.replace(/\.[A-Za-z0-9]+$/, "");
+  if (tokenIn(name, "en")) return undefined;
+  return LANGUAGES.find((language) => tokenIn(name, language));
+}
+
+/**
+ * The documents worth reading, with a translation dropped when the maker also publishes something
+ * not marked as one. A maker who publishes only in French keeps every document it has: the choice
+ * is between one language and two, never between a language and nothing.
+ */
+export function withoutTranslations<T extends { url: string }>(documents: T[]): { keep: T[]; dropped: { url: string; language: string }[] } {
+  const translated = documents.map((document) => ({ document, language: declaredLanguage(document.url) }));
+  const anyUntranslated = translated.some((row) => row.language === undefined);
+  if (!anyUntranslated) return { keep: documents, dropped: [] };
+  return {
+    keep: translated.filter((row) => row.language === undefined).map((row) => row.document),
+    dropped: translated.filter((row) => row.language !== undefined).map((row) => ({ url: row.document.url, language: row.language as string })),
+  };
 }

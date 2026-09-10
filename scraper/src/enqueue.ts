@@ -3,6 +3,7 @@ import { classifierKey } from "./classify.ts";
 import { CONVERTER, EXTRACTOR_ID } from "./reading.ts";
 import { batches, inputKey, sendAll, type Work } from "./work.ts";
 import { pointerKey, readPointer, runPrefix } from "./runs.ts";
+import { withoutTranslations } from "./documents.ts";
 
 /** Listings per model call. Ten, because answers are matched to listings by position and a long list is where a model starts skipping one. */
 export const CLASSIFY_BATCH = 10;
@@ -66,7 +67,7 @@ export async function specPagesRun(env: Env, manufacturer: string, date: string,
  * Fill the queue from the documents a person approved. Each converted document enqueues its own
  * reading, so one call runs both halves without anything supervising from above.
  */
-export async function convertRun(env: Env, manufacturer: string, date: string): Promise<{ documents: number }> {
+export async function convertRun(env: Env, manufacturer: string, date: string): Promise<{ documents: number; translations: number }> {
   const pointer = await readPointer(env.ARCHIVE, pointerKey.documents(manufacturer));
   if (!pointer) throw new Error(`${manufacturer}: no current run`);
   const prefix = runPrefix.documents(manufacturer, pointer.run);
@@ -74,10 +75,14 @@ export async function convertRun(env: Env, manufacturer: string, date: string): 
   if (!manifest) throw new Error(`${prefix}: nothing approved to convert`);
   const { documents } = await manifest.json<{ documents: { url: string; sha256: string; contentType: string }[] }>();
   // Two shops can link the same PDF; the archive keys by content, so one document is one message.
-  const unique = [...new Map(documents.map((d) => [d.sha256, d])).values()];
+  const deduplicated = [...new Map(documents.map((d) => [d.sha256, d])).values()];
+  // A maker's Spanish edition of a manual it also publishes in English states the same figures in
+  // another language. Converting it costs a reading and a model call for figures already held, so
+  // it is dropped here rather than after the money is spent.
+  const { keep: unique, dropped } = withoutTranslations(deduplicated);
   await env.ARCHIVE.put(`${prefix}/converting.json`, JSON.stringify({ manufacturer, checkedAt: date, converter: CONVERTER, extractedBy: EXTRACTOR_ID, documents: unique }, null, 2), {
     httpMetadata: { contentType: "application/json" },
   });
   await sendAll(env.WORK, unique.map((d): Work => ({ kind: "convert", manufacturer, date, run: pointer.run, sha256: d.sha256, url: d.url, contentType: d.contentType })));
-  return { documents: unique.length };
+  return { documents: unique.length, translations: dropped.length };
 }

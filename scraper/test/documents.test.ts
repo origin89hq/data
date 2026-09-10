@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { CrawlApproval, decodeEntities, documentLinks, hostAllowed, isDocument, permitted, planFor, type Found } from "../src/documents.ts";
+import { CrawlApproval, decodeEntities, documentLinks, hostAllowed, isDocument, permitted, planFor, withoutTranslations, type Found } from "../src/documents.ts";
 
 const domains = ["victronenergy.com"];
 
@@ -79,4 +79,24 @@ test("an approval with no named approver is refused, because an unattributed go-
   assert.throws(() => CrawlApproval.parse({ approved: true }));
   assert.throws(() => CrawlApproval.parse({ approved: true, approvedBy: "" }));
   assert.throws(() => CrawlApproval.parse({ approved: true, approvedBy: "D", extra: "field" }));
+});
+
+test("a maker's translated edition is not converted, since its figures are the English ones said again", () => {
+  const documents = [
+    { url: "https://x.com/EU_Recall-Poster_Snapper_ES.pdf", sha256: "a" },
+    { url: "https://x.com/EU_Recall-Poster_Snapper_FR.pdf", sha256: "b" },
+    { url: "https://x.com/EU_Recall-Poster_Snapper.pdf", sha256: "c" },
+  ];
+  const { keep, dropped } = withoutTranslations(documents);
+  assert.deepEqual(keep.map((d) => d.sha256), ["c"]);
+  assert.deepEqual(dropped.map((d) => d.language).sort(), ["es", "fr"]);
+});
+
+test("a query parameter that begins with an entity name survives, since a URL is decoded strictly", () => {
+  // The forgiving decode a browser applies to text would read "&param=" as a pilcrow.
+  assert.equal(decodeEntities("https://x.com/doc?a=1&param=2"), "https://x.com/doc?a=1&param=2");
+  assert.equal(decodeEntities("https://x.com/doc?section=1&notice=x"), "https://x.com/doc?section=1&notice=x");
+  assert.equal(decodeEntities("https://x.com/a?x=1&amp;y=2"), "https://x.com/a?x=1&y=2");
+  // And it now knows every named entity, not the six that were written out by hand.
+  assert.equal(decodeEntities("https://x.com/caf&eacute;.pdf"), "https://x.com/café.pdf");
 });
