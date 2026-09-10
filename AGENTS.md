@@ -1,10 +1,12 @@
 # Working in this repository
 
-At the start of each new task, run `just skills-sync` from the repository root.
+For hosted PR reviews, follow `Code Review Rules` below without running the local
+skills refresh. For other tasks, run `just skills-sync` from the repository root.
 Read `skills/origin89-working/SKILL.md` and the relevant domain skills under the
 immutable `path` printed by that command. Keep that snapshot for the task; do not
-refresh it halfway through work. Read local instructions and preserve stronger
-project constraints and project-specific skills.
+refresh it halfway through work. Before branch, commit, push, or PR operations,
+read `skills/origin89-commits/SKILL.md` from that snapshot. Read local instructions
+and preserve stronger project constraints and project-specific skills.
 
 If refresh reports cached content, continue with that verified cache and mention
 that the script could not check for updates. If no cache is available or
@@ -31,3 +33,22 @@ is required for Parquet output. Worker binding types come from its Wrangler
 configuration. Keep the crawl approval gate, control token checks, and resource
 bounds intact. Ordinary checks must not invoke remote AI, approve downloads,
 publish data, or deploy the scheduled crawler.
+
+## Code Review Rules
+
+Use the shared `origin89-review` skill when it is available in the review context.
+Hosted reviews may not have the local skill cache; apply these rules and disclose
+missing shared context instead of claiming it loaded.
+
+- Preserve source provenance and review state. Missing values stay absent;
+  inferred or extracted claims must not become human-reviewed evidence without
+  the documented review. Shared vendors do not prove protocol compatibility.
+- Preserve control-token checks, crawl approval, and resource bounds. A change
+  must not start downloads, spend remote AI credits, publish data, or deploy the
+  crawler through ordinary validation or review commands.
+- Check schema consumers, invalid inputs, exact limits, and failure paths. Flag
+  silent truncation or partial results that callers mistake for complete data.
+  Require distinct behavioral tests rather than repeated successful examples.
+- Trace a suspected defect through callers and guards before reporting it.
+  Give its trigger, consequence, and precise location. Use CI evidence for the
+  reviewed head, leave formatting to Biome, and avoid duplicate findings.

@@ -5,6 +5,7 @@ dist/
 
 /.origin89/engineering/
 /.agents/skills/origin89-*
+/.claude/skills/origin89-*
 
 **/.dev.vars
 **/.dev.vars.*
