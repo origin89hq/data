@@ -21,7 +21,10 @@ function signingIn(t: TestContext, github: GitHubWorld = {}) {
     GITHUB_CLIENT_ID: APP.clientId,
     GITHUB_CLIENT_SECRET: APP.clientSecret,
     CONTROL_TOKEN: "local-control-token",
-    SITE: { fetch: async () => new Response("the site") },
+    SITE: {
+      fetch: async (request: Request) =>
+        new Response(`the page at ${new URL(request.url).pathname}`),
+    },
     MANUFACTURER_CRAWL: {
       get: async (id: string) => ({
         sendEvent: async (event: unknown) => void approvals.push({ id, event }),
@@ -277,4 +280,27 @@ test("the device flow learns the app from the Worker, and a Worker without one s
   });
   const bare = await app.request(`${ORIGIN}/auth/app`, {}, world().env);
   assert.equal(bare.status, 503);
+});
+
+test("the runs page is for members: others are sent to sign in, or told why not", async (t) => {
+  const { request } = signingIn(t, {
+    tokens: { ghu_ada_ops: { login: "ada" }, ghu_eve_ops: { login: "eve" } },
+    team: { ada: "active" },
+  });
+  const anonymous = await request("/ops");
+  assert.equal(anonymous.status, 302);
+  assert.equal(anonymous.headers.get("location"), "/auth/login?next=%2Fops");
+
+  const outsider = await request("/ops", {
+    headers: { cookie: "__Host-offgrid-session=ghu_eve_ops" },
+  });
+  assert.equal(outsider.status, 403);
+  assert.match(await outsider.text(), /eve is not in origin89hq\/working-group/);
+
+  const member = await request("/ops", {
+    headers: { cookie: "__Host-offgrid-session=ghu_ada_ops" },
+  });
+  assert.equal(member.status, 200);
+  assert.equal(await member.text(), "the page at /ops");
+  assert.equal(member.headers.get("cache-control"), "private, no-store");
 });

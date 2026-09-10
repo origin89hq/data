@@ -275,6 +275,11 @@ removing somebody from the team locks them out within five minutes. A token
 somebody gave another app, `gh`'s included, is refused. An approval records the
 login GitHub vouched for.
 
+Members can watch the spider at `https://data.origin89.com/ops`: the
+supervisor's last pass, and each seller's and maker's current run with the
+status of the workflow behind it. It is read-only, and anybody else is sent to
+sign in.
+
 `just dev` still takes the control token from `apps/worker/.dev.vars`, and a
 Worker with neither refuses everything rather than allowing everything. To try
 sign-in locally, add `GITHUB_CLIENT_SECRET` to `.dev.vars` and use Chrome or

@@ -1,14 +1,36 @@
+import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+
+const worker = "http://localhost:8790";
 
 /**
  * The site is a plain single-page build served by the Worker's asset store. It talks to the same
  * public endpoints as anybody else — `/` for the index, `/v1/*` for the tables, `/logos/*` for the
  * marks — so nothing it shows is a copy of a number held somewhere in this repo.
+ *
+ * The runs page is a second entry, so the public page's bundle does not carry it. The Worker
+ * serves it at `/ops`, to members only.
  */
 export default defineConfig({
   plugins: [react()],
-  build: { outDir: "dist", emptyOutDir: true, target: "es2022" },
-  // In development the Worker is the API; without this every fetch would hit Vite instead.
-  server: { proxy: { "/v1": "http://localhost:8790", "/logos": "http://localhost:8790" } },
+  build: {
+    outDir: "dist",
+    emptyOutDir: true,
+    target: "es2022",
+    rolldownOptions: {
+      input: {
+        site: fileURLToPath(new URL("index.html", import.meta.url)),
+        ops: fileURLToPath(new URL("ops.html", import.meta.url)),
+      },
+    },
+  },
+  // In development the Worker is the API; without this every fetch would hit Vite instead. The
+  // runs page's routes want a session: sign in at the Worker's /auth/login first, and the cookie
+  // it sets for localhost comes along.
+  server: {
+    proxy: Object.fromEntries(
+      ["/v1", "/logos", "/auth", "/state", "/runs", "/supervision"].map((path) => [path, worker]),
+    ),
+  },
 });

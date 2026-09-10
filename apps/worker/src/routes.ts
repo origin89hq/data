@@ -10,6 +10,7 @@ import { manufacturers } from "./manufacturers.ts";
 import { GitHubKeysUnavailable, verifyWorkflow, type WorkflowCheck } from "./oidc.ts";
 import {
   ARCHIVE_ROOTS,
+  currentRuns,
   DATASET_PATH,
   datasetKey,
   datasetType,
@@ -186,10 +187,12 @@ export const CONTROL_PATHS = [
   "/maker",
   "/readings",
   "/run",
+  "/runs",
   "/spec-pages",
   "/state",
   "/status",
   "/supervise",
+  "/supervision",
   "/vision",
 ] as const;
 
@@ -455,17 +458,97 @@ controlRoutes.post("/approve", async (c) => {
   return c.json({ sent: parsed.data.approved, to: id });
 });
 
+/** The workflow an instance belongs to, told by the prefix it was created with. */
+function workflowOf(env: Env, id: string): Workflow {
+  return id.startsWith("page-")
+    ? env.PAGE_CRAWL
+    : id.startsWith("maker-")
+      ? env.MANUFACTURER_CRAWL
+      : env.SELLER_CRAWL;
+}
+
 controlRoutes.get("/status", async (c) => {
   const id = c.req.query("id");
   if (!id) return c.json({ error: "id required" }, 400);
-  const binding = id.startsWith("page-")
-    ? c.env.PAGE_CRAWL
-    : id.startsWith("maker-")
-      ? c.env.MANUFACTURER_CRAWL
-      : c.env.SELLER_CRAWL;
-  const instance = await binding.get(id);
+  const instance = await workflowOf(c.env, id).get(id);
   const status = await instance.status();
   return c.json({ status: status.status, error: status.error ?? null });
+});
+
+/** Instances asked about at once. Each is a call to the Workflows service. */
+const STATUSES_AT_ONCE = 8;
+
+/**
+ * The workflow behind every current run, and where it is. A binding can fetch an instance by id
+ * and cannot list them, so this reads the ids the runs recorded on their pointers.
+ */
+controlRoutes.get("/runs", async (c) => {
+  const [makers, sellers] = await Promise.all([
+    currentRuns(c.env.ARCHIVE, "documents"),
+    currentRuns(c.env.ARCHIVE, "sightings"),
+  ]);
+  const current = [
+    ...makers.map((run) => ({ kind: "maker" as const, ...run })),
+    ...sellers.map((run) => ({ kind: "seller" as const, ...run })),
+  ].flatMap(({ kind, entity, pointer }) =>
+    pointer.instance ? [{ kind, entity, pointer, instance: pointer.instance }] : [],
+  );
+  const runs = [];
+  for (let i = 0; i < current.length; i += STATUSES_AT_ONCE) {
+    const batch = current.slice(i, i + STATUSES_AT_ONCE).map(async (run) => {
+      const described = {
+        kind: run.kind,
+        entity: run.entity,
+        run: run.pointer.run,
+        date: run.pointer.date,
+        instance: run.instance,
+      };
+      try {
+        const status = await (await workflowOf(c.env, run.instance).get(run.instance)).status();
+        return { ...described, status: status.status, error: status.error?.message ?? null };
+      } catch (error) {
+        // An instance past the Workflows retention, or one recorded under the wrong id, is not
+        // there to ask. That is worth showing, not a reason to fail the whole list.
+        return {
+          ...described,
+          status: "unknown",
+          error: error instanceof Error ? error.message : String(error),
+        };
+      }
+    });
+    runs.push(...(await Promise.all(batch)));
+  }
+  return c.json({ runs });
+});
+
+/** What the supervisor did on its last pass, and what it could not do. */
+controlRoutes.get("/supervision", async (c) => {
+  const report = await c.env.ARCHIVE.get("supervision/latest.json");
+  if (!report) return c.json({ error: "the supervisor has not reported yet" }, 404);
+  return new Response(report.body, {
+    headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" },
+  });
+});
+
+/**
+ * Pages for members of the working group. Somebody not signed in is sent to sign in rather than
+ * shown an error, and somebody signed in who is not a member is told why.
+ */
+export const memberPages: App = new Hono<{ Bindings: Env }>();
+
+memberPages.get("/ops", async (c) => {
+  const who = await identify(c);
+  if (!who.ok)
+    return who.status === 401
+      ? c.redirect(`/auth/login?next=${encodeURIComponent("/ops")}`, 302)
+      : c.text(who.error, who.status);
+  // The page is built into the asset store with the site. It is fetched from there by this route
+  // rather than served by it, so it reaches nobody the check above turned away; the store answers
+  // `/ops.html` with a redirect back here.
+  const page = await c.env.SITE.fetch(new Request(new URL("/ops", c.req.url)));
+  const served = new Response(page.body, page);
+  served.headers.set("cache-control", "private, no-store");
+  return served;
 });
 
 /**
@@ -618,6 +701,7 @@ async function putManifest(c: Context<{ Bindings: Env }>): Promise<Response> {
 export const app: App = new Hono<{ Bindings: Env }>();
 app.route("/", publicRoutes);
 app.route("/", authRoutes);
+app.route("/", memberPages);
 app.route("/", controlRoutes);
 app.route("/", workflowRoutes);
 // Whatever is left is the site's: its stylesheet, its scripts, its own 404. A path that is neither

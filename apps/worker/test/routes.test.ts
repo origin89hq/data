@@ -7,6 +7,7 @@ import {
   app,
   CONTROL_PATHS,
   controlRoutes,
+  memberPages,
   publicRoutes,
   WORKFLOW_ROUTES,
   workflowRoutes,
@@ -91,6 +92,11 @@ test("a control route with no token is refused rather than run, and says how to 
   assert.equal(res.status, 401);
   const body = await res.json();
   assert.match(String((body as { error?: string }).error), /just login/);
+});
+
+test("the only member page is the runs page, and it is not also public", () => {
+  assert.deepEqual(paths(memberPages.routes), ["/ops"]);
+  assert.ok(!paths(publicRoutes.routes).includes("/ops"));
 });
 
 test("the sign-in routes are these, and none of them is a control path", () => {
@@ -419,4 +425,96 @@ test("GitHub's keys are fetched once and reused, not fetched per request", async
   const { env } = bucket();
   for (let i = 0; i < 3; i += 1) await putFile(env, "models.csv", `model\n${i}\n`);
   assert.equal(jwksFetches, 1);
+});
+
+/** An instance whose status is `status`, or one the Workflows service no longer has. */
+const instances = (statuses: Record<string, { status: string; error?: { message: string } }>) => ({
+  get: async (id: string) => {
+    const status = statuses[id];
+    if (!status) throw new Error(`instance.not_found: ${id}`);
+    return { status: async () => status };
+  },
+});
+
+test("every current run that recorded an instance comes back with its workflow's status", async () => {
+  const pointer = (run: string, instance?: string) =>
+    JSON.stringify({
+      run,
+      date: run.slice(0, 10),
+      startedAt: "",
+      ...(instance ? { instance } : {}),
+    });
+  const env = {
+    ...bucket({
+      "documents/victron-energy/current.json": pointer(
+        "2026-09-01-aaaa",
+        "maker-victron-energy-2026-09-01-aaaa",
+      ),
+      "documents/rolls-battery/current.json": pointer("2026-09-01-bbbb"),
+      "sightings/solacity/current.json": pointer("2026-09-07-cccc", "2026-09-07-cccc"),
+      "sightings/thecabindepot/current.json": pointer("2026-09-07-dddd", "page-2026-09-07-dddd"),
+    }).env,
+    MANUFACTURER_CRAWL: instances({
+      "maker-victron-energy-2026-09-01-aaaa": { status: "waiting" },
+    }),
+    SELLER_CRAWL: instances({
+      "2026-09-07-cccc": { status: "errored", error: { message: "the feed answered 503" } },
+    }),
+    PAGE_CRAWL: instances({}),
+  } as unknown as Env;
+  const res = await app.request(
+    "https://data.example/runs",
+    { headers: { authorization: "Bearer the-real-token" } },
+    env,
+  );
+  assert.equal(res.status, 200);
+  // Rolls recorded no instance, so there is nothing to ask. The page crawl's instance is gone,
+  // which is shown rather than failing the list.
+  assert.deepEqual(await res.json(), {
+    runs: [
+      {
+        kind: "maker",
+        entity: "victron-energy",
+        run: "2026-09-01-aaaa",
+        date: "2026-09-01",
+        instance: "maker-victron-energy-2026-09-01-aaaa",
+        status: "waiting",
+        error: null,
+      },
+      {
+        kind: "seller",
+        entity: "solacity",
+        run: "2026-09-07-cccc",
+        date: "2026-09-07",
+        instance: "2026-09-07-cccc",
+        status: "errored",
+        error: "the feed answered 503",
+      },
+      {
+        kind: "seller",
+        entity: "thecabindepot",
+        run: "2026-09-07-dddd",
+        date: "2026-09-07",
+        instance: "page-2026-09-07-dddd",
+        status: "unknown",
+        error: "instance.not_found: page-2026-09-07-dddd",
+      },
+    ],
+  });
+});
+
+test("the supervisor's last report is readable by a member, and its absence is a 404", async () => {
+  const report = { at: "2026-09-10T08:00:03Z", started: [], blocked: [], concerns: ["one"] };
+  const read = (env: Env) =>
+    app.request(
+      "https://data.example/supervision",
+      { headers: { authorization: "Bearer the-real-token" } },
+      env,
+    );
+  const present = await read(bucket({ "supervision/latest.json": JSON.stringify(report) }).env);
+  assert.equal(present.status, 200);
+  assert.deepEqual(await present.json(), report);
+  assert.equal((await read(bucket().env)).status, 404);
+  const anonymous = await app.request("https://data.example/supervision", {}, bucket().env);
+  assert.equal(anonymous.status, 401);
 });
