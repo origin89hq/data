@@ -18,8 +18,36 @@
       "url": "https://www.morningstarcorp.com/products/tristar/"
     },
     {
+      "manufacturer": "noco",
+      "url": "https://no.co/support/genius1"
+    },
+    {
+      "manufacturer": "noco",
+      "url": "https://no.co/support/genius2x4"
+    },
+    {
+      "manufacturer": "noco",
+      "url": "https://no.co/support/genius5"
+    },
+    {
+      "manufacturer": "noco",
+      "url": "https://no.co/support/geniuspro50"
+    },
+    {
       "manufacturer": "samlex-america",
       "url": "https://samlexamerica.com/evo-series-pure-sine-wave-power-inverter-chargers/"
+    },
+    {
+      "manufacturer": "sigineer",
+      "url": "https://sigineer.com/product/24kw-30kw-36kw-45kw-48v-to-220-380v-230-400v-240-415v-3-phase-inverter-charger-pure-sine-wave/"
+    },
+    {
+      "manufacturer": "sigineer",
+      "url": "https://sigineer.com/product/24kw-48v-to-120-208v-3-phase-inverter-charger-pure-sine-wave/"
+    },
+    {
+      "manufacturer": "sigineer",
+      "url": "https://sigineer.com/product/5000w-off-grid-european-solar-inverter-100a-mppt-solar-charger-dc-48v-to-220v-230v-240v-support-batteryless-operation/"
     },
     {
       "manufacturer": "victron-energy",

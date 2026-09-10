@@ -2,6 +2,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { loadRecords } from "../../src/records.ts";
 import { currentRun, object } from "../gate/archive.ts";
 import { hostAllowed } from "../../scraper/src/documents.ts";
+import { refuses, type Candidate } from "../../src/spec-pages.ts";
 
 /**
  * Take the specification pages a maker's own site turned out to publish and add them to the feed
@@ -29,7 +30,7 @@ if (!body) {
   console.error(`no specification pages found for ${manufacturer} at ${date}; run discovery first`);
   process.exit(1);
 }
-const found = JSON.parse(body) as { pages: { url: string; products: number; figures: number; withUnit: number; models: string[] }[] };
+const found = JSON.parse(body) as { pages: Candidate[] };
 
 const maker = loadRecords().manufacturers.find((m) => m.id === manufacturer);
 if (!maker) throw new Error(`no manufacturer ${manufacturer}`);
@@ -38,11 +39,14 @@ const path = new URL("../../feeds/spec-pages.json", import.meta.url);
 const feed = JSON.parse(readFileSync(path, "utf8")) as { note: string; pages: { manufacturer: string; url: string }[] };
 const already = new Set(feed.pages.map((p) => p.url));
 
+const refused = new Map<string, string>();
 const worth = found.pages.filter((p) => {
   if (already.has(p.url)) return false;
-  if (p.figures < minFigures || p.withUnit < minWithUnit) return false;
   // A page on a host the maker does not claim is not this maker's page, whatever it says.
-  return hostAllowed(new URL(p.url).hostname, maker.domains);
+  if (!hostAllowed(new URL(p.url).hostname, maker.domains)) return false;
+  const why = refuses(p, { minFigures, minWithUnit });
+  if (why) refused.set(p.url, why);
+  return why === undefined;
 });
 
 console.log(`${found.pages.length} pages with a table, ${worth.length} worth adding (at least ${minFigures} figures and ${minWithUnit} with a unit)`);
@@ -50,6 +54,7 @@ for (const p of worth.slice(0, 20)) {
   console.log(`  ${String(p.products).padStart(3)} products ${String(p.figures).padStart(4)} figures ${String(p.withUnit).padStart(4)} with a unit  ${p.url.slice(-72)}`);
   console.log(`      ${p.models.slice(0, 4).join(", ")}`);
 }
+for (const [url, why] of [...refused].slice(0, 12)) console.log(`  refused  ${why}\n           ${url.slice(-72)}`);
 if (!write) {
   console.log(`\nnothing written. Add them with --write once the models above look like this maker's products.`);
   process.exit(0);
