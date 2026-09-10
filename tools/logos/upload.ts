@@ -52,4 +52,4 @@ for (const [file, key] of expected) {
 }
 
 console.log(`${put} logo files ${dryRun ? "would be uploaded" : "uploaded"} for ${records.manufacturers.filter((m) => m.logo).length} manufacturers`);
-if (!dryRun) console.log(`check one: curl -sI https://offgrid-equipment-worker.mashin.workers.dev/${logoKey("victron-energy", 128)}`);
+if (!dryRun) console.log(`check one: curl -sI https://data.origin89.com/${logoKey("victron-energy", 128)}`);
