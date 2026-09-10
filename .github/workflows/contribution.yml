@@ -1,0 +1,22 @@
+name: Contribution
+
+# Metadata only: never check out or execute the PR head in this workflow.
+on:
+  pull_request_target:
+    branches: [main]
+    types: [opened, edited, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: contribution-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  contribution:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: origin89hq/engineering/.github/actions/contribution@70dd2a5567b60acb8592db2ed37170ac26df70e5

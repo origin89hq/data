@@ -58,7 +58,7 @@ jobs:
             AGENTS.md holds the rules that CLAUDE.md points to, so treat it as part of CLAUDE.md.
             Changes under records/ must also follow CONTRIBUTING.md.
             The shared Origin89 rules are already checked out under .origin89/engineering/skills/, so do not run just skills-sync.
-            Read origin89-working/SKILL.md and origin89-review/SKILL.md there, plus origin89-typescript, origin89-testing or origin89-writing when the change touches their area.
+            Read origin89-working/SKILL.md, origin89-commits/SKILL.md and origin89-review/SKILL.md there, plus origin89-typescript, origin89-testing or origin89-writing when the change touches their area.
             Give every review subagent these file paths. A finding based on one of these rules must quote the rule and name its file.
             The Check workflow runs just check, so do not try to run it. This workflow authorizes posting the review comments."
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md

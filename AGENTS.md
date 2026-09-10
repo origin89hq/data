@@ -3,8 +3,9 @@
 At the start of each new task, run `just skills-sync` from the repository root.
 Read `skills/origin89-working/SKILL.md` and the relevant domain skills under the
 immutable `path` printed by that command. Keep that snapshot for the task; do not
-refresh it halfway through work. Read local instructions and preserve stronger
-project constraints and project-specific skills.
+refresh it halfway through work. Before branch, commit, push, or PR operations,
+read `skills/origin89-commits/SKILL.md` from that snapshot. Read local instructions
+and preserve stronger project constraints and project-specific skills.
 
 If refresh reports cached content, continue with that verified cache and mention
 that the script could not check for updates. If no cache is available or

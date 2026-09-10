@@ -141,33 +141,33 @@ def current_state(cache):
 
 
 def activate(project, cache, state, previous):
-    directory(project / ".agents")
-    discovery = project / ".agents" / "skills"
-    directory(discovery)
     old_names = set(previous["skills"]) if previous else set()
     new_names = set(state["skills"])
     targets = {}
-    for name in old_names | new_names:
-        link = discovery / name
-        target = os.path.relpath(cache / "current" / "skills" / name, discovery)
-        if link.is_symlink():
-            if os.readlink(link) != target:
-                raise ValueError(f"Refusing to replace a custom skill link: {link}")
-        elif link.exists():
-            raise ValueError(f"Refusing to replace local skill files: {link}")
-        targets[name] = target
+    # Check every discovery directory before changing links or the shared pointer.
+    for assistant in (".agents", ".claude"):
+        directory(project / assistant)
+        discovery = project / assistant / "skills"
+        directory(discovery)
+        for name in sorted(old_names | new_names):
+            link = discovery / name
+            target = os.path.relpath(cache / "current" / "skills" / name, discovery)
+            if link.is_symlink():
+                if os.readlink(link) != target:
+                    raise ValueError(f"Refusing to replace a custom skill link: {link}")
+            elif link.exists():
+                raise ValueError(f"Refusing to replace local skill files: {link}")
+            targets[link] = target
     next_pointer = cache / "next"
     if next_pointer.exists() or next_pointer.is_symlink():
         raise ValueError("Unexpected pending cache pointer; inspect it before retrying")
-    for name in sorted(new_names):
-        link = discovery / name
-        if not link.is_symlink():
-            link.symlink_to(targets[name], target_is_directory=True)
+    for link, target in targets.items():
+        if link.name in new_names and not link.is_symlink():
+            link.symlink_to(target, target_is_directory=True)
     next_pointer.symlink_to(f"versions/{state['revision']}", target_is_directory=True)
     os.replace(next_pointer, cache / "current")
-    for name in sorted(old_names - new_names):
-        link = discovery / name
-        if link.is_symlink():
+    for link in targets:
+        if link.name not in new_names and link.is_symlink():
             link.unlink()
 
 
