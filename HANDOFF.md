@@ -31,6 +31,28 @@ Publishing is automatic: a push to `main` touching `records/`, `feeds/`, `schema
 validates, tests, builds twice and compares, publishes to R2, then fetches `specs.parquet` back and
 checks the bytes match. Deploying the Worker stays manual, because it arms the crawler.
 
+## In flight right now
+
+**A classification run under prompt p3.** Every model was pushed and is being classified again;
+`alreadyAnswered` was 0, so nothing is cached. When it finishes:
+
+```sh
+node tools/gate/pull-kinds.ts --remote     # then validate, build, publish
+```
+
+The prompt changed because the classifier was answering `out-of-scope` where it meant it could not
+tell. A run under p2 produced 2,543 of them, mostly bare part numbers like "ABB 1666001", which is
+a positive claim that two and a half thousand products are furniture. That run is reverted and was
+never published. `out-of-scope` now says explicitly that it is a claim about what a product is.
+
+Expect `pull-kinds` to change a lot of answers: the p2 run replaced 2,342. It can also clear a kind
+now, which it could not before, so a model the classifier declines loses whatever an older prompt
+guessed at it.
+
+One thing p2 did not fix: a NOCO GB70 is a jump starter and the vocabulary has no kind for one. It
+moved from `charge-controller` to `inverter-charger`, which is closer and still wrong. That is an
+enum decision, not a prompt one.
+
 ## The next thing, which was interrupted mid-sentence
 
 **A vision fallback for documents that convert to nothing.** Some approved PDFs are scanned images;
