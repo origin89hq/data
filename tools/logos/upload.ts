@@ -44,7 +44,7 @@ for (const [file, key] of expected) {
   // Absolute, because wrangler runs from the Worker's directory and the gathered files may not be
   // under it. Joining ".." onto an absolute path is how the first version of this silently failed.
   await run("pnpm", ["exec", "wrangler", "r2", "object", "put", `offgrid-equipment-archive/${key}`, "--file", resolve(dir, file), "--content-type", "image/png", "--remote"], {
-    cwd: "scraper",
+    cwd: "worker",
     maxBuffer: 64 * 1024 * 1024,
   });
   put += 1;
@@ -52,4 +52,4 @@ for (const [file, key] of expected) {
 }
 
 console.log(`${put} logo files ${dryRun ? "would be uploaded" : "uploaded"} for ${records.manufacturers.filter((m) => m.logo).length} manufacturers`);
-if (!dryRun) console.log(`check one: curl -sI https://offgrid-equipment-scraper.mashin.workers.dev/${logoKey("victron-energy", 128)}`);
+if (!dryRun) console.log(`check one: curl -sI https://offgrid-equipment-worker.mashin.workers.dev/${logoKey("victron-energy", 128)}`);

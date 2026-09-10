@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { Sighting } from "../../schema/sighting.ts";
 import { Guess } from "../../schema/guess.ts";
-import { classifierKey } from "../../scraper/src/classify.ts";
+import { classifierKey } from "../../worker/src/classify.ts";
 
 /**
  * Read a crawl back through the Worker rather than one object at a time. The first version of
@@ -25,13 +25,13 @@ function token(): string {
   const configured = process.env.OFFGRID_CONTROL_TOKEN;
   if (configured) return configured;
   try {
-    const vars = readFileSync(new URL("../../scraper/.dev.vars", import.meta.url), "utf8");
+    const vars = readFileSync(new URL("../../worker/.dev.vars", import.meta.url), "utf8");
     const match = /^CONTROL_TOKEN=(.*)$/m.exec(vars);
     if (match) return match[1].trim();
   } catch {
     // Falls through to the error below, which says what to set.
   }
-  throw new Error("set OFFGRID_CONTROL_TOKEN, or put CONTROL_TOKEN in scraper/.dev.vars for local reads");
+  throw new Error("set OFFGRID_CONTROL_TOKEN, or put CONTROL_TOKEN in worker/.dev.vars for local reads");
 }
 
 async function get(path: string, remote: boolean): Promise<Response> {

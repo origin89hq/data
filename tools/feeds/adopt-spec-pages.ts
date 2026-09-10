@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { loadRecords } from "../../src/records.ts";
 import { currentRun, object } from "../gate/archive.ts";
-import { hostAllowed } from "../../scraper/src/documents.ts";
+import { hostAllowed } from "../../worker/src/documents.ts";
 import { refuses, type Candidate } from "../../src/spec-pages.ts";
 
 /**

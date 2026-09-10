@@ -16,7 +16,7 @@ importers:
         specifier: ^0.35.4
         version: 0.35.4
 
-  scraper:
+  worker:
     dependencies:
       entities:
         specifier: ^8.1.0

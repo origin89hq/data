@@ -54,7 +54,7 @@ specs maker date *args:
 
 # Run the Worker locally, with a local R2 and the AI binding proxied to Cloudflare.
 dev:
-    cd scraper && pnpm exec wrangler dev --port 8790
+    cd worker && pnpm exec wrangler dev --port 8790
 
 # Crawl one seller.
 crawl seller date="" *args:
@@ -111,8 +111,8 @@ check: test validate build-twice
 
 test:
     node --test test/*.test.ts
-    cd scraper && node --test test/*.test.ts
-    cd scraper && pnpm exec wrangler types && pnpm exec tsc --noEmit
+    cd worker && node --test test/*.test.ts
+    cd worker && pnpm exec wrangler types && pnpm exec tsc --noEmit
 
 # Every record against its schema, then every reference between them.
 validate:
@@ -139,7 +139,7 @@ _url:
     @echo "${OFFGRID_BASE_URL:-http://localhost:8790}"
 
 _token:
-    @if [ -n "$OFFGRID_CONTROL_TOKEN" ]; then echo "$OFFGRID_CONTROL_TOKEN"; else sed -n 's/^CONTROL_TOKEN=//p' scraper/.dev.vars; fi
+    @if [ -n "$OFFGRID_CONTROL_TOKEN" ]; then echo "$OFFGRID_CONTROL_TOKEN"; else sed -n 's/^CONTROL_TOKEN=//p' worker/.dev.vars; fi
 
 _get path:
     @curl -fsS "$(just _url){{path}}" -H "authorization: Bearer $(just _token)"

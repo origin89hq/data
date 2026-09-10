@@ -24,11 +24,11 @@ jobs:
           echo "$HOME/.duckdb/cli/latest" >> "$GITHUB_PATH"
       - run: duckdb -c "SELECT 1" > /dev/null
       - run: pnpm test
-      - run: pnpm --filter offgrid-equipment-scraper test
-      # The scraper's types come from its wrangler config, so a binding that is declared in code
+      - run: pnpm --filter offgrid-equipment-worker test
+      # The Worker's types come from its wrangler config, so a binding that is declared in code
       # and missing from the config fails here rather than at deploy.
-      - name: Type-check the scraper against its own bindings
-        working-directory: scraper
+      - name: Type-check the Worker against its own bindings
+        working-directory: worker
         run: pnpm exec wrangler types && pnpm exec tsc --noEmit
       # Every record against its schema, then every reference between them.
       - run: pnpm validate

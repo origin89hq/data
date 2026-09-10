@@ -1,7 +1,7 @@
 import { loadRecords, writeRecord, RECORDS_DIR } from "../../src/records.ts";
 import { Guess } from "../../schema/guess.ts";
 import { keysUnder, object, under } from "./archive.ts";
-import { classifierKey } from "../../scraper/src/classify.ts";
+import { classifierKey } from "../../worker/src/classify.ts";
 
 /**
  * Fold the classifier's answers back onto the models. A kind is the only field taken: the model

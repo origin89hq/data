@@ -4,8 +4,8 @@ import { looksLikeModelName, modelId, normaliseModelName } from "../../src/model
 import { Model } from "../../schema/model.ts";
 import { Source } from "../../schema/source.ts";
 import { currentRun, jsonValues, object, under } from "./archive.ts";
-import { EXTRACTOR_ID } from "../../scraper/src/reading.ts";
-import { withoutTranslations } from "../../scraper/src/documents.ts";
+import { EXTRACTOR_ID } from "../../worker/src/reading.ts";
+import { withoutTranslations } from "../../worker/src/documents.ts";
 import { withoutTranslatedReadings, withoutRedundantTranslations } from "../../src/language.ts";
 
 /**

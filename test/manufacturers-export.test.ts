@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { loadRecords } from "../src/records.ts";
 
-const exported = JSON.parse(readFileSync(new URL("../scraper/manufacturers.json", import.meta.url), "utf8")) as { id: string; domains: string[] }[];
+const exported = JSON.parse(readFileSync(new URL("../worker/manufacturers.json", import.meta.url), "utf8")) as { id: string; domains: string[] }[];
 const records = loadRecords();
 
 test("the bundled list matches the records it was generated from", () => {

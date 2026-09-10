@@ -2,6 +2,7 @@ import { sellers } from "./sellers.ts";
 import { hasFeed } from "./feeds.ts";
 import { CrawlApproval } from "./documents.ts";
 import { authorised } from "./authorised.ts";
+import { PAGE } from "./page.ts";
 import { APPROVAL_EVENT } from "./manufacturer-crawl.ts";
 import { consume } from "./consumer.ts";
 import { classifyRun, convertRun, specPagesRun } from "./enqueue.ts";
@@ -33,6 +34,13 @@ export default {
     // The front door. A liveness check tells a caller nothing a DNS lookup would not, so the root
     // says what the dataset is, what licence it carries and where every table can be fetched.
     if ((request.method === "GET" || request.method === "HEAD") && url.pathname === "/") {
+      // A browser gets the page, a client gets the index. Same URL, because the thing a person
+      // wants to read and the thing a program wants to parse are descriptions of the same dataset.
+      if (request.headers.get("accept")?.includes("text/html")) {
+        return new Response(request.method === "HEAD" ? null : PAGE, {
+          headers: { "content-type": "text/html; charset=utf-8", "cache-control": "public, max-age=300" },
+        });
+      }
       const manifest = await env.ARCHIVE.get(datasetKey("manifest.json"));
       const published = manifest ? await manifest.json<{ counts?: Record<string, number>; files?: Record<string, { rows: number; bytes: number; sha256: string }> }>() : undefined;
       const base = `${url.origin}/v1`;
@@ -75,12 +83,31 @@ export default {
     // existed only in a build directory that git ignores.
     if ((request.method === "GET" || request.method === "HEAD") && DATASET_PATH.test(url.pathname)) {
       const name = url.pathname.slice("/v1/".length);
-      const object = await env.ARCHIVE.get(datasetKey(name));
+      // A range, because that is how a query engine reads Parquet: the footer first, then the row
+      // groups it actually needs. Serving only whole files would make every question cost the file.
+      const range = request.headers.get("range") ?? undefined;
+      const object = await env.ARCHIVE.get(datasetKey(name), range ? { range: request.headers } : undefined);
       if (!object) return new Response("no such file", { status: 404 });
+      // Only what the caller asked for. R2 reports a range on every object, covering the whole file
+      // when none was requested, and answering 206 to a request that carried no Range header is a
+      // partial response to a question nobody asked.
+      const asked = range ? object.range : undefined;
+      // A suffix range comes back without an offset, so both ends are resolved before they reach a
+      // header: a Content-Range that disagrees with the body is worse than no range at all.
+      const whole =
+        asked && "offset" in asked && asked.offset !== undefined && asked.length !== undefined
+          ? { offset: asked.offset, length: asked.length }
+          : asked && "suffix" in asked && asked.suffix !== undefined
+            ? { offset: object.size - asked.suffix, length: asked.suffix }
+            : undefined;
+      const part = whole && whole.length < object.size ? whole : undefined;
       return new Response(request.method === "HEAD" ? null : object.body, {
+        status: part ? 206 : 200,
         headers: {
           "content-type": datasetType(name),
-          "content-length": String(object.size),
+          "content-length": String(part ? part.length : object.size),
+          "accept-ranges": "bytes",
+          ...(part ? { "content-range": `bytes ${part.offset}-${part.offset + part.length - 1}/${object.size}` } : {}),
           // A build is reproducible and its bytes are pinned by the manifest, so a stale copy is a
           // wrong answer rather than an old one. Short, and revalidated.
           "cache-control": "public, max-age=300, stale-while-revalidate=3600",

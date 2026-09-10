@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { declaredLanguage, withoutTranslations } from "../scraper/src/documents.ts";
+import { declaredLanguage, withoutTranslations } from "../worker/src/documents.ts";
 import { loadRecords } from "../src/records.ts";
 import { withoutTranslatedReadings } from "../src/language.ts";
 

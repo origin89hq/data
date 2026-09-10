@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { loadRecords } from "../src/records.ts";
-import { hostAllowed } from "../scraper/src/documents.ts";
+import { hostAllowed } from "../worker/src/documents.ts";
 import { refuses } from "../src/spec-pages.ts";
 
 const pages = (JSON.parse(readFileSync(new URL("../feeds/spec-pages.json", import.meta.url), "utf8")) as { pages: { manufacturer: string; url: string }[] }).pages;

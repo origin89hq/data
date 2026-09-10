@@ -3,7 +3,7 @@ import { readdirSync, readFileSync, statSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { resolve } from "node:path";
 import { promisify } from "node:util";
-import { datasetKey, datasetType } from "../../scraper/src/runs.ts";
+import { datasetKey, datasetType } from "../../worker/src/runs.ts";
 
 /**
  * Put the built tables where anybody can fetch them.
@@ -59,7 +59,7 @@ for (const name of publishing) {
   await run(
     "pnpm",
     ["exec", "wrangler", "r2", "object", "put", `offgrid-equipment-archive/${datasetKey(name)}`, "--file", path, "--content-type", datasetType(name), "--remote"],
-    { cwd: "scraper", maxBuffer: 128 * 1024 * 1024 },
+    { cwd: "worker", maxBuffer: 128 * 1024 * 1024 },
   );
   put += 1;
   if (put % 10 === 0) console.log(`  ${put} of ${publishing.length}`);

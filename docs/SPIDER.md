@@ -8,7 +8,7 @@ retailers is a few hundred.
 
 ## Hop one: sellers to sightings
 
-A committed list of retailers, `scraper/sellers.json`, hand-written and never
+A committed list of retailers, `worker/sellers.json`, hand-written and never
 extended by the spider. Each is crawled and every product becomes one
 **sighting**: brand as printed, title, SKU, variant, price, currency,
 availability, the seller's category and tags, the seller's last-modified time,

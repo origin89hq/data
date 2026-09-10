@@ -1,0 +1,58 @@
+name: Publish the dataset
+# Unlike the deploy, this runs itself. A deploy arms a weekly cron that crawls three dozen shops
+# and can spend money on a model, so somebody decides it. Publishing only copies tables that were
+# already built from records already reviewed and merged, and a dataset nobody can fetch is not
+# published at all — so the moment the records change on main, the tables follow.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'records/**'
+      - 'feeds/**'
+      - 'schema/**'
+      - 'src/**'
+      - '.github/workflows/publish.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: offgrid-equipment-production
+    concurrency:
+      group: offgrid-equipment-dataset
+      cancel-in-progress: false
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      # Nothing is published that the records themselves would not survive.
+      - run: node src/validate.ts
+      - run: node --test test/*.test.ts
+      # Twice, and the second must match the first. A build that is not reproducible would publish
+      # a hash in the manifest that the next build disagrees with.
+      - name: Build the tables twice and compare
+        run: |
+          node src/build.ts
+          sha256sum dist/* | sort > "$RUNNER_TEMP/build-1"
+          node src/build.ts > /dev/null
+          sha256sum dist/* | sort > "$RUNNER_TEMP/build-2"
+          diff "$RUNNER_TEMP/build-1" "$RUNNER_TEMP/build-2"
+      - name: Publish to data.origin89.com
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: node tools/dataset/publish.ts
+      - name: Check the front door serves what was just published
+        run: |
+          published=$(node -e "console.log(JSON.parse(require('fs').readFileSync('dist/manifest.json','utf8')).files['specs.parquet'].sha256)")
+          served=$(curl -sf --max-time 60 "https://data.origin89.com/v1/specs.parquet" | shasum -a 256 | cut -d' ' -f1)
+          if [ "$published" != "$served" ]; then
+            echo "data.origin89.com is serving $served, the build made $published" >&2
+            exit 1
+          fi
+          echo "specs.parquet matches: $served"

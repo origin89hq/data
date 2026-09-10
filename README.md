@@ -203,9 +203,9 @@ None of these block the build. They are the work.
 
 ## The spider
 
-`scraper/` is a Cloudflare Worker running hop one of the spider described in
+`worker/` is a Cloudflare Worker running hop one of the spider described in
 [docs/SPIDER.md](docs/SPIDER.md), over the 39 Canadian and US sellers in the
-committed `scraper/sellers.json`.
+committed `worker/sellers.json`.
 
 - **`SellerCrawl`** walks a shop's product feed, a page per step, for the 32
   sellers on Shopify or WooCommerce.
@@ -234,7 +234,7 @@ no review to be stored. Resolving a brand string to a manufacturer is the gate
 a person keeps, and nothing crawls a manufacturer's site until it is confirmed.
 
 ```sh
-cd scraper
+cd worker
 pnpm types && pnpm test              # generate binding types, unit tests
 pnpm dev                             # local Worker with a local R2; AI runs against Cloudflare
 curl -X POST 'localhost:8787/run?seller=thecabindepot'
@@ -258,13 +258,13 @@ gate is where the energy brands get picked out.
 
 ### Reading the gate
 
-`scraper/scripts/gate-report.ts` prints what a person needs to resolve brand
+`worker/scripts/gate-report.ts` prints what a person needs to resolve brand
 strings into manufacturers: every brand a seller printed, how many listings
 carry it, what kinds the classifier thinks they are, and the model numbers it
 read off the titles.
 
 ```sh
-cd scraper
+cd worker
 pnpm gate solacity 2026-09-09          # brands with at least one in-scope listing
 pnpm gate solacity 2026-09-09 --all    # including the ones that look out of scope
 ```

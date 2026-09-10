@@ -5,8 +5,8 @@ import sharp from "sharp";
 import { loadRecords, writeRecord, RECORDS_DIR } from "../../src/records.ts";
 import { Manufacturer } from "../../schema/manufacturer.ts";
 import { brandTiles, GOOD_ICON, iconsInPage, LOGO_WIDTHS, logoKey, matchTile, nameKey } from "../../src/logos.ts";
-import { USER_AGENT } from "../../scraper/src/feeds.ts";
-import { sellers } from "../../scraper/src/sellers.ts";
+import { USER_AGENT } from "../../worker/src/feeds.ts";
+import { sellers } from "../../worker/src/sellers.ts";
 
 /**
  * Find a logo for every manufacturer and write it to disk at the published widths.

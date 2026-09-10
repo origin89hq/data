@@ -14,7 +14,7 @@ const args = process.argv.slice(2);
 const remote = args.includes("--remote");
 const all = args.includes("--all");
 const BUCKET = "offgrid-equipment-archive";
-const SCRAPER = new URL("../../scraper/", import.meta.url).pathname;
+const SCRAPER = new URL("../../worker/", import.meta.url).pathname;
 const PAGE = 500;
 
 const records = loadRecords();

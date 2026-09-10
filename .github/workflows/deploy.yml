@@ -22,7 +22,7 @@ jobs:
         with:
           persist-credentials: false
       - uses: ./.github/actions/setup
-      - run: pnpm --filter offgrid-equipment-scraper test
+      - run: pnpm --filter offgrid-equipment-worker test
       # The token goes up with the version rather than in a step of its own. The Worker's config
       # lists CONTROL_TOKEN as required, so a deploy without it is refused — which on a first
       # deploy would otherwise be circular, the secret needing a Worker that does not exist yet.
@@ -30,7 +30,7 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CONTROL_TOKEN: ${{ secrets.CONTROL_TOKEN }}
-        working-directory: scraper
+        working-directory: worker
         run: |
           if [ -z "$CONTROL_TOKEN" ]; then
             echo "CONTROL_TOKEN is not set in repository secrets; every control endpoint would refuse every request" >&2
