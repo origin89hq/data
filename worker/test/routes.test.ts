@@ -11,7 +11,7 @@ const paths = (rows: { path: string }[]) => [...new Set(rows.map((r) => r.path))
 test("exactly three paths are public, and nothing was added to that list by accident", () => {
   // A page that renders the catalogue cannot carry the token, so these are open. Everything else
   // in the archive is a crawl, a document or a reading, and none of that is anybody's business.
-  assert.deepEqual(paths(publicRoutes.routes), ["/", "/logos/:file", "/v1/:file"]);
+  assert.deepEqual(paths(publicRoutes.routes), ["/", "/logos/:file", "/manifest.json", "/v1/:file"]);
 });
 
 test("every control route is behind the middleware, whatever order it was written in", () => {

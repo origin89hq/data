@@ -42,10 +42,14 @@ async function currentInstance(env: Env, manufacturerId: string): Promise<string
  */
 export const publicRoutes: App = new Hono<{ Bindings: Env }>();
 
-publicRoutes.on(["GET", "HEAD"], "/", async (c) => {
-  // A browser gets the site, a client gets the index. Same URL, because the thing a person wants to
-  // read and the thing a program wants to parse describe the same dataset.
-  if (c.req.header("accept")?.includes("text/html")) return c.env.SITE.fetch(c.req.raw);
+/**
+ * What is published, as JSON, at an address of its own.
+ *
+ * It used to answer on "/" whenever a caller did not ask for HTML, which meant `curl` on the front
+ * door returned a wall of JSON to somebody who wanted the page. An Accept header is a preference,
+ * not an address: "/" is the site, and this is the index.
+ */
+publicRoutes.on(["GET", "HEAD"], "/manifest.json", async (c) => {
   const manifest = await c.env.ARCHIVE.get(datasetKey("manifest.json"));
   const published = manifest ? await manifest.json<{ counts?: Record<string, number>; files?: Record<string, { rows: number; bytes: number; sha256: string }> }>() : undefined;
   const origin = new URL(c.req.url).origin;
@@ -62,12 +66,16 @@ publicRoutes.on(["GET", "HEAD"], "/", async (c) => {
         url: `${origin}/logos/<manufacturer>-<width>.png`,
       },
       ...(published?.counts ? { counts: published.counts } : {}),
+      index: `${origin}/manifest.json`,
       files: Object.fromEntries(Object.entries(published?.files ?? {}).map(([name, meta]) => [name, { ...meta, url: `${origin}/v1/${name}` }])),
     },
     200,
     { "cache-control": "public, max-age=300", "access-control-allow-origin": "*" },
   );
 });
+
+/** The front door is the site. Always. */
+publicRoutes.on(["GET", "HEAD"], "/", async (c) => c.env.SITE.fetch(c.req.raw));
 
 publicRoutes.on(["GET", "HEAD"], "/logos/:file", async (c) => {
   const path = new URL(c.req.url).pathname;

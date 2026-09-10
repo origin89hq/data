@@ -1,4 +1,4 @@
-/** What the front door publishes about itself. Fetched, never held as a copy in this repo. */
+/** What is published, fetched from the index rather than held as a copy in this repo. */
 export interface Index {
   name: string;
   description: string;
@@ -24,7 +24,7 @@ export interface Maker {
 export const base = "";
 
 export async function fetchIndex(): Promise<Index> {
-  const res = await fetch(`${base}/`, { headers: { accept: "application/json" } });
+  const res = await fetch(`${base}/manifest.json`);
   if (!res.ok) throw new Error(`the index answered ${res.status}`);
   return (await res.json()) as Index;
 }

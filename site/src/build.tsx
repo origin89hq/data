@@ -27,7 +27,7 @@ print(df.head())`,
   curl: {
     label: "cURL",
     code: `# the index says what is published, with a hash for every file
-curl -s ${origin}/ | jq '.files | keys'
+curl -s ${origin}/manifest.json | jq '.files | keys'
 
 # a table
 curl -O ${origin}/v1/specs.parquet
@@ -99,7 +99,7 @@ export function Build({ index }: { index?: Index }) {
           <a className="button small" href="/v1/specs.csv">
             specs.csv <span>↓ {index?.files["specs.csv"] ? kb(index.files["specs.csv"].bytes) : ""}</span>
           </a>
-          <a className="text-link" href="/" target="_blank" rel="noopener">View the index <span>↗</span></a>
+          <a className="text-link" href="/manifest.json" target="_blank" rel="noopener">View the index <span>↗</span></a>
         </div>
       </section>
 

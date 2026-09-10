@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { count, type Index } from "./api.ts";
 import { useDuckDb } from "./useDuckDb.ts";
 
@@ -178,42 +178,66 @@ export function Explorer({ index, tier }: { index?: Index; tier: "reviewed" | "a
           <button onClick={() => setPage((p) => Math.min(pages - 1, p + 1))} disabled={page + 1 >= pages} aria-label="Next page">→</button>
         </div>
       </div>
-      {chosen && <RecordDialog row={chosen} onClose={() => setChosen(undefined)} />}
+      {chosen && <RecordDialog row={chosen} table={tab} onClose={() => setChosen(undefined)} />}
     </div>
   );
 }
 
-/** One record, every column it has, with nothing summarised away. */
-function RecordDialog({ row, onClose }: { row: Row; onClose: () => void }) {
+/**
+ * One record, in the dialog the design already has.
+ *
+ * A native `<dialog>`, because the stylesheet styles the element and its backdrop rather than a
+ * class. The first version of this invented `record-dialog` and `record-dialog-backdrop`, which
+ * the stylesheet had never heard of, so it rendered as an unstyled list dumped under the table.
+ */
+function RecordDialog({ row, table, onClose }: { row: Row; table: TabName; onClose: () => void }) {
+  const dialog = useRef<HTMLDialogElement>(null);
+
   useEffect(() => {
-    const escape = (event: KeyboardEvent) => event.key === "Escape" && onClose();
-    window.addEventListener("keydown", escape);
-    return () => window.removeEventListener("keydown", escape);
-  }, [onClose]);
+    const element = dialog.current;
+    if (element && !element.open) element.showModal();
+  }, []);
+
+  const text = (key: string) => {
+    const value = row[key];
+    return value === null || value === undefined || value === "" ? undefined : String(value);
+  };
+  const title = text(table === "specs" ? "name" : "id") ?? "Record";
+  const under = text(table === "specs" ? "model_id" : "manufacturer_id") ?? "";
+
   return (
-    <div className="record-dialog-backdrop" role="presentation" onClick={onClose}>
-      <div className="record-dialog" role="dialog" aria-modal="true" aria-label="Record detail" onClick={(event) => event.stopPropagation()}>
-        <div className="panel-cap">
-          <span>RECORD</span>
-          <button onClick={onClose} aria-label="Close">✕</button>
-        </div>
-        <dl>
-          {Object.entries(row).map(([key, value]) => (
-            <div key={key}>
-              <dt>{key.replace(/_/g, " ")}</dt>
-              <dd>
-                {value === null || value === undefined || value === "" ? (
-                  <span className="amber-text">not recorded</span>
-                ) : /^https?:\/\//.test(String(value)) ? (
-                  <a href={String(value)} target="_blank" rel="noopener">{String(value)}</a>
-                ) : (
-                  String(value)
-                )}
-              </dd>
+    <dialog ref={dialog} aria-labelledby="detail-title" onClose={onClose} onClick={(event) => event.target === dialog.current && onClose()}>
+      <div className="dialog-top">
+        <span className="eyebrow">ORIGIN89 DATA / RECORD DETAIL</span>
+        <button className="close-dialog" aria-label="Close record details" onClick={onClose}>×</button>
+      </div>
+      <div id="detail-content">
+        <p className="eyebrow">{table === "specs" ? "SPECIFICATION" : table === "dialects" ? "PROTOCOL DIALECT" : "EQUIPMENT"}</p>
+        <h2 id="detail-title">{title}</h2>
+        <p className="detail-sub">{under}</p>
+        {Object.entries(row)
+          .filter(([key]) => key !== (table === "specs" ? "name" : "id"))
+          .map(([key, value]) => (
+            <div key={key} className="detail-spec">
+              <header>
+                <h3>{key.replace(/_/g, " ")}</h3>
+                <strong>
+                  {value === null || value === undefined || value === "" ? (
+                    <span className="amber-text">not recorded</span>
+                  ) : /^https?:\/\//.test(String(value)) ? (
+                    <a href={String(value)} target="_blank" rel="noopener">open ↗</a>
+                  ) : (
+                    String(value)
+                  )}
+                </strong>
+              </header>
             </div>
           ))}
-        </dl>
+        <div className="detail-notice">
+          This is the value recorded in the dataset. Consult the original document and its conditions before using it
+          for equipment sizing.
+        </div>
       </div>
-    </div>
+    </dialog>
   );
 }
