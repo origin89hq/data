@@ -144,6 +144,12 @@ export function validate(records: Records): Report {
     // then a claim about a driver for nothing: 80 of 86 say it, which is what a field looks like
     // when nobody decided rather than when somebody did. `not-planned` is the enum's word for it.
     if (d.family === "no-comms" && d.driver.status === "possible") note("a no-comms dialect says a driver is possible, which is a driver for no protocol");
+    // The thing this catalogue exists to answer: could somebody write a driver from this entry?
+    // A dialect with no blocks is a wiring note. Volthium has four Modbus entries, one per product
+    // shape, every one unverified and none carrying a register map — useful research, not a map.
+    if (d.family !== "no-comms" && !d.blocks) note("a bus dialect with no register map, so it is a wiring note rather than something to implement");
+    if (d.family !== "no-comms" && d.blocks && d.confidence !== "vendor-doc") note("a register map nobody has checked against the maker own document");
+
     // A dialect the catalogue cannot attach to a maker cannot be joined to any product.
     if (!d.manufacturer) note("a dialect names no manufacturer, so nothing can join it to a product");
     // A protocol with no model named against it describes nothing anybody can look up.
