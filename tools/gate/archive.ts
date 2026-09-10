@@ -211,7 +211,13 @@ export async function readingsOf(
   readers: readonly string[],
   remote: boolean,
 ): Promise<string> {
-  const perRequest = Math.max(1, Math.floor(READS_PER_REQUEST / readers.length));
+  // No readers divides by nothing and asks for every document in one request; more readers than
+  // the cap sizes every batch at one and has each refused in turn. Both are a mistake at the call
+  // site, and both would otherwise be reported by the Worker, a long way from the line that made
+  // them.
+  if (readers.length === 0 || readers.length > READS_PER_REQUEST)
+    throw new Error(`readingsOf needs 1 to ${READS_PER_REQUEST} readers, not ${readers.length}`);
+  const perRequest = Math.floor(READS_PER_REQUEST / readers.length);
   let ndjson = "";
   for (let i = 0; i < documents.length; i += perRequest) {
     const response = await post(

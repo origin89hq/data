@@ -102,3 +102,19 @@ test("a batch the Worker refuses stops the pull rather than returning the ones t
     /\/readings: HTTP 400 over the cap/,
   );
 });
+
+test("a reader list that cannot be batched is refused here, not by the Worker", async () => {
+  // No readers divides by nothing: the batch became the whole document list, which the Worker
+  // refuses for a reason that says nothing about the readers. More readers than the cap sizes
+  // every batch at one document and has each of them refused in turn.
+  await assert.rejects(readingsOf([digest(1)], [], true), /needs 1 to 2000 readers, not 0/);
+  await assert.rejects(
+    readingsOf(
+      [digest(1)],
+      Array.from({ length: READS_PER_REQUEST + 1 }, (_, i) => `r${i}`),
+      true,
+    ),
+    /needs 1 to 2000 readers, not 2001/,
+  );
+  assert.equal(asked.length, 0, "neither may reach the Worker");
+});
