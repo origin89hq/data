@@ -61,11 +61,7 @@ function githubApp(env: Env): GitHubApp | undefined {
  * changes something must also say it came from here.
  */
 export async function identify<E extends { Bindings: Env }>(c: Context<E>): Promise<Identified> {
-  // Only `just dev` has a control token, from .dev.vars. Production has none, so the binding types
-  // wrangler generates do not name it.
-  const { CONTROL_TOKEN } = c.env as Env & { CONTROL_TOKEN?: string };
-  if (await authorised(c.req.raw, CONTROL_TOKEN))
-    return { ok: true, caller: { kind: "control token" } };
+  if (await localControlToken(c)) return { ok: true, caller: { kind: "control token" } };
   const token = bearer(c.req.raw);
   const session = token ? undefined : getCookie(c, SESSION, "host");
   const presented = token ?? session;
@@ -99,6 +95,22 @@ async function ration<E extends { Bindings: Env }>(c: Context<E>): Promise<boole
     key: c.req.header("cf-connecting-ip") ?? "no address given",
   });
   return success;
+}
+
+const LOOPBACK: ReadonlySet<string> = new Set(["localhost", "127.0.0.1", "[::1]"]);
+
+/**
+ * Whether a request carries the control token and is addressed to this machine. Only `just dev`
+ * has one, from .dev.vars; production has none, so the binding types wrangler generates do not name
+ * it. Were an older deploy's secret still on the Worker, it would open nothing there, because no
+ * request to data.origin89.com is addressed to this machine.
+ */
+export async function localControlToken<E extends { Bindings: Env }>(
+  c: Context<E>,
+): Promise<boolean> {
+  if (!LOOPBACK.has(new URL(c.req.url).hostname)) return false;
+  const { CONTROL_TOKEN } = c.env as Env & { CONTROL_TOKEN?: string };
+  return authorised(c.req.raw, CONTROL_TOKEN);
 }
 
 /** A read carries no risk from another site. Anything else must name this origin. */

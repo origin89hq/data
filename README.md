@@ -266,9 +266,10 @@ There is no hand-written `Env` to drift from what is actually deployed. The
 secret goes up with the version, so a first deploy is not circular.
 
 No workflow holds a long-lived credential for the Worker; the deploy's
-Cloudflare token is for Cloudflare's API. The deploy also deletes a
-`CONTROL_TOKEN` secret from the Worker if an older deploy left one there, since
-a secret stays on a Worker until it is removed.
+Cloudflare token is for Cloudflare's API. The Worker takes a control token only
+on a request addressed to this machine, so one left on the deployed Worker
+opens nothing, and the deploy deletes it anyway, since a secret stays on a
+Worker until it is removed.
 
 Every endpoint that starts a crawl, spends money or releases a download needs a
 member of `origin89hq/working-group`. A terminal sends the token `just login`

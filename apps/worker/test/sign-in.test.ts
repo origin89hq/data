@@ -43,7 +43,7 @@ function signingIn(t: TestContext, github: GitHubWorld = {}, allowance = Number.
   } as unknown as Env;
   const request = (path: string, init: RequestInit = {}) =>
     app.request(`${ORIGIN}${path}`, init, env);
-  return { api, request, approvals, spent };
+  return { api, request, approvals, spent, env };
 }
 
 /** Each Set-Cookie line of a response, by cookie name. */
@@ -192,10 +192,12 @@ test("a member's terminal token opens the control routes, and an approval record
 });
 
 test("the control token still works where it is set, and approves as itself", async (t) => {
-  const { request, approvals, api } = signingIn(t);
-  const res = await request(
-    "/approve?id=maker-x",
+  const { approvals, api, env } = signingIn(t);
+  // Only on this machine: `just dev` is where the control token lives.
+  const res = await app.request(
+    "http://localhost:8790/approve?id=maker-x",
     approve({ authorization: "Bearer local-control-token" }),
+    env,
   );
   assert.equal(res.status, 200);
   assert.deepEqual(approvals, [

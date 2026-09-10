@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "wrangler dev",
+    "dev": "wrangler dev --port 8790 --local-upstream localhost:8790",
     "types": "wrangler types",
     "check": "wrangler types && tsc --noEmit",
     "test": "node --test test/*.test.ts",

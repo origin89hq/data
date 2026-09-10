@@ -32,7 +32,13 @@ import {
 } from "./runs.ts";
 import type { SellerCrawlParams } from "./seller-crawl.ts";
 import { sellers } from "./sellers.ts";
-import { authRoutes, type Caller, type Identified, identify } from "./sign-in.ts";
+import {
+  authRoutes,
+  type Caller,
+  type Identified,
+  identify,
+  localControlToken,
+} from "./sign-in.ts";
 import { makerStates, sellerStates } from "./state.ts";
 import { supervise } from "./supervise.ts";
 import { partKey } from "./work.ts";
@@ -242,13 +248,15 @@ function logWorkflowCall(method: string, path: string, job: Job): void {
 }
 
 /**
- * Who is calling a control route. A job token is checked against the workflows allowed on this
- * route; anything else goes through sign-in.
+ * Who is calling a control route. The control token comes first, whatever it looks like, so a
+ * local one shaped like a JWT still works. A job token is checked against the workflows allowed on
+ * this route; anything else goes through sign-in.
  */
 async function controlCaller(
   c: Context<{ Bindings: Env; Variables: { caller: Caller } }>,
   path: ControlPath,
 ): Promise<Identified> {
+  if (await localControlToken(c)) return { ok: true, caller: { kind: "control token" } };
   const token = bearer(c.req.raw);
   if (!token || !JOB_TOKEN.test(token)) return identify(c);
   let checked: JobCheck;
