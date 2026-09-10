@@ -50,10 +50,13 @@
   "ai": { "binding": "AI", "remote": true },
   "r2_buckets": [{ "binding": "ARCHIVE", "bucket_name": "offgrid-equipment-archive" }],
   "triggers": { "crons": ["0 6 * * 1", "0 7 1 * *", "0 8 * * *"] },
+  // The origin89hq GitHub App people sign in through. A client id is not a secret: it is in every
+  // sign-in URL. Its client secret is, and is the one below.
+  "vars": { "GITHUB_CLIENT_ID": "Iv23liFkUtlIH9Q8Xc1h" },
   // Named here rather than in a hand-written type: wrangler generates the binding types from
-  // this, warns in local development when it is missing, and there is one place that says the
-  // Worker needs it.
-  "secrets": { "required": ["CONTROL_TOKEN"] },
+  // this, warns in local development when one is missing, and there is one place that says the
+  // Worker needs them.
+  "secrets": { "required": ["CONTROL_TOKEN", "GITHUB_CLIENT_SECRET"] },
   "observability": {
     "enabled": true,
     "logs": { "enabled": true, "head_sampling_rate": 1 },

@@ -3,7 +3,7 @@ import { READS_PER_REQUEST } from "@origin89/equipment-schema/provenance";
 import { type Context, Hono } from "hono";
 import { z } from "zod";
 import specPages from "../../../feeds/spec-pages.json" with { type: "json" };
-import { authorised, bearer } from "./authorised.ts";
+import { bearer } from "./authorised.ts";
 import { classifyRun, convertRun, specPagesRun, visionRun } from "./enqueue.ts";
 import { hasFeed } from "./feeds.ts";
 import { manufacturers } from "./manufacturers.ts";
@@ -21,6 +21,7 @@ import {
 } from "./runs.ts";
 import type { SellerCrawlParams } from "./seller-crawl.ts";
 import { sellers } from "./sellers.ts";
+import { authRoutes, type Caller, identify } from "./sign-in.ts";
 import { makerStates, sellerStates } from "./state.ts";
 import { supervise } from "./supervise.ts";
 import { partKey } from "./work.ts";
@@ -31,9 +32,9 @@ import { partKey } from "./work.ts";
  * The split is the point. This was a chain of ifs with one `authorised` check partway down, so
  * whether a route was public depended on where somebody wrote it — above the check or below it.
  * A route added in the wrong place would have been silently open, and nothing would have said so.
- * Now `public` holds the three anyone may call, `control` holds the rest behind a middleware that
- * runs before any of its handlers, and `workflow` holds what only a named GitHub workflow may call.
- * A test walks the tables rather than a list of names.
+ * Now `public` holds the three anyone may call, `auth` the ones that sign somebody in, `control`
+ * the rest behind a middleware that runs before any of its handlers, and `workflow` what only a
+ * named GitHub workflow may call. A test walks the tables rather than a list of names.
  */
 
 type Env = Cloudflare.Env;
@@ -163,11 +164,14 @@ publicRoutes.on(["GET", "HEAD"], "/v1/:file", async (c) => {
   });
 });
 
-/** Everything that starts work or reads the archive. The token is checked before any handler. */
-export const controlRoutes: App = new Hono<{ Bindings: Env }>();
+/**
+ * Everything that starts work or reads the archive, for members of the working group. Who is
+ * calling is settled before any handler runs.
+ */
+export const controlRoutes = new Hono<{ Bindings: Env; Variables: { caller: Caller } }>();
 
 /**
- * Every path that needs the token, named once.
+ * Every path that needs a member, named once.
  *
  * The guard is applied to these and not to `*`. A middleware on `*` reaches anything the public
  * routes did not match, which included the site's own stylesheet — the page would have loaded and
@@ -192,12 +196,9 @@ export const CONTROL_PATHS = [
 // Registered before the handlers, because Hono runs a path's middleware in the order it was added.
 for (const path of CONTROL_PATHS) {
   controlRoutes.use(path, async (c, next) => {
-    if (!(await authorised(c.req.raw, c.env.CONTROL_TOKEN))) {
-      return c.json(
-        { error: "a bearer token is required; set one with: wrangler secret put CONTROL_TOKEN" },
-        401,
-      );
-    }
+    const who = await identify(c);
+    if (!who.ok) return c.json({ error: who.error }, who.status);
+    c.set("caller", who.caller);
     await next();
   });
 }
@@ -439,12 +440,16 @@ controlRoutes.post("/approve", async (c) => {
   const id = named ? await currentInstance(c.env, named) : c.req.query("id");
   if (!id)
     return c.json({ error: named ? `no run recorded for ${named}` : "id or maker required" }, 400);
-  const parsed = CrawlApproval.safeParse(await c.req.json().catch(() => null));
+  // The approver is whoever GitHub says is signed in, not a name the request carries. Only local
+  // development has the control token, and nobody is vouched for there.
+  const caller = c.get("caller");
+  const approvedBy = caller.kind === "member" ? caller.login : "the control token";
+  const asked: unknown = await c.req.json().catch(() => null);
+  const parsed = CrawlApproval.safeParse(
+    asked !== null && typeof asked === "object" ? { ...asked, approvedBy } : asked,
+  );
   if (!parsed.success)
-    return c.json(
-      { error: "approval must name approvedBy and approved", detail: parsed.error.issues },
-      400,
-    );
+    return c.json({ error: "approval must say approved", detail: parsed.error.issues }, 400);
   const instance = await c.env.MANUFACTURER_CRAWL.get(id);
   await instance.sendEvent({ type: APPROVAL_EVENT, payload: parsed.data });
   return c.json({ sent: parsed.data.approved, to: id });
@@ -606,12 +611,13 @@ async function putManifest(c: Context<{ Bindings: Env }>): Promise<Response> {
 }
 
 /**
- * The whole surface. Public first, then everything else behind the token, so a path that matches
- * no public route falls through to a handler that demands one — the safe direction to fail in.
- * Workflow routes last: they answer only the methods they name.
+ * The whole surface. Public and sign-in first, then everything else behind sign-in, so a path
+ * that matches no public route falls through to a handler that demands a member — the safe
+ * direction to fail in. Workflow routes last: they answer only the methods they name.
  */
 export const app: App = new Hono<{ Bindings: Env }>();
 app.route("/", publicRoutes);
+app.route("/", authRoutes);
 app.route("/", controlRoutes);
 app.route("/", workflowRoutes);
 // Whatever is left is the site's: its stylesheet, its scripts, its own 404. A path that is neither

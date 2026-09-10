@@ -11,6 +11,7 @@ import {
   WORKFLOW_ROUTES,
   workflowRoutes,
 } from "../src/routes.ts";
+import { authRoutes } from "../src/sign-in.ts";
 import { jobToken, jwks } from "./github-token.ts";
 import { world } from "./world.ts";
 
@@ -85,11 +86,23 @@ test("a control path is refused whatever else is served without a token", async 
   }
 });
 
-test("a control route with no token is refused rather than run", async () => {
+test("a control route with no token is refused rather than run, and says how to sign in", async () => {
   const res = await app.request("https://data.example/state", {}, site);
   assert.equal(res.status, 401);
   const body = await res.json();
-  assert.match(String((body as { error?: string }).error), /bearer token/);
+  assert.match(String((body as { error?: string }).error), /just login/);
+});
+
+test("the sign-in routes are these, and none of them is a control path", () => {
+  // They have to be reachable without a session: they are how somebody gets one.
+  assert.deepEqual(paths(authRoutes.routes), [
+    "/auth/app",
+    "/auth/callback",
+    "/auth/login",
+    "/auth/logout",
+    "/auth/me",
+  ]);
+  for (const path of CONTROL_PATHS) assert.ok(!paths(authRoutes.routes).includes(path), path);
 });
 
 test("the wrong token is refused too", async () => {

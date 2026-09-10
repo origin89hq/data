@@ -5,7 +5,6 @@ set positional-arguments
 
 # Where the spider lives. Unset, everything talks to `just dev` on this machine.
 export OFFGRID_BASE_URL := env_var_or_default("OFFGRID_BASE_URL", "")
-export OFFGRID_CONTROL_TOKEN := env_var_or_default("OFFGRID_CONTROL_TOKEN", "")
 
 _default:
     @just --list --unsorted
@@ -80,11 +79,11 @@ discover maker domains date pages="120":
 plan maker date:
     @just _get "/archive?prefix=documents/$1/$2/plan.json"
 
-# Let the download start. Silence is a refusal, so this is the only way it runs.
-approve maker date approver limit="40":
+# Let the download start, as whoever `just login` signed in. Silence is a refusal, so this is the only way it runs.
+approve maker date limit="40":
     #!/usr/bin/env bash
     set -euo pipefail
-    approval_json=$(node -e 'const limit=Number(process.argv[2]); if (!Number.isSafeInteger(limit) || limit < 0) throw new Error("Invalid download limit"); console.log(JSON.stringify({approved:true,approvedBy:process.argv[1],limit}))' "$3" "$4")
+    approval_json=$(node -e 'const limit=Number(process.argv[1]); if (!Number.isSafeInteger(limit) || limit < 0) throw new Error("Invalid download limit"); console.log(JSON.stringify({approved:true,limit}))' "$3")
     just _post_json "/approve?maker=$1&date=$2" "$approval_json"
 
 # Convert a maker's approved documents; each one enqueues its own reading.
@@ -164,7 +163,7 @@ _url:
     @echo "${OFFGRID_BASE_URL:-http://localhost:8790}"
 
 _token:
-    @if [ -n "$OFFGRID_CONTROL_TOKEN" ]; then echo "$OFFGRID_CONTROL_TOKEN"; else sed -n 's/^CONTROL_TOKEN=//p' apps/worker/.dev.vars; fi
+    @node tools/credential.ts "$(just _url)"
 
 _get path:
     @curl --connect-timeout 10 --max-time 30 -fsS "$(just _url)$1" -H "authorization: Bearer $(just _token)"
@@ -190,6 +189,10 @@ export-makers:
 # Discovery over every maker at once. Reads only what they publish; downloads still wait for you.
 discover-all date pages="150":
     @just _post "/discover-all?date=$1&pages=$2"
+
+# Sign in with GitHub for the spider's control routes. Only members of origin89hq/working-group get in.
+login:
+    node tools/login.ts
 
 # What this knows, what the spider is waiting on, and what is waiting on you.
 status:
