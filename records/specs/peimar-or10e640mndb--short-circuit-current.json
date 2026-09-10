@@ -2,7 +2,7 @@
   "id": "peimar-or10e640mndb--short-circuit-current",
   "model": "peimar-or10e640mndb",
   "name": "Short Circuit Current",
-  "value": "15,48",
+  "value": "15.48",
   "unit": "A",
   "source": "doc-b10eb650a20b2d27c30fe0979e21cffd",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",

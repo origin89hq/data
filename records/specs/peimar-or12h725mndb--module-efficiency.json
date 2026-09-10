@@ -2,7 +2,7 @@
   "id": "peimar-or12h725mndb--module-efficiency",
   "model": "peimar-or12h725mndb",
   "name": "Module Efficiency",
-  "value": "23,34",
+  "value": "23.34",
   "unit": "%",
   "source": "doc-db2c56fbc95770d806868af5622a43e5",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",

@@ -2,7 +2,7 @@
   "id": "peimar-sa550m-b--current-at-pmax",
   "model": "peimar-sa550m-b",
   "name": "Current at Pmax",
-  "value": "13,29",
+  "value": "13.29",
   "unit": "A",
   "source": "doc-7fdb5f57d0ddd6e3699413fcf3251df4",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",

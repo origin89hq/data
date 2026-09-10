@@ -108,6 +108,9 @@ export const ENGLISH: Record<string, string> = {
   "Química da bateria": "Battery chemistry",
   "Químicas das baterias": "Battery chemistry",
   "Potência de Saída": "Output power",
+  Potencia: "Power",
+  "Potencia nominal": "Rated power",
+  Puissance: "Power",
   "USB-C (saída)": "USB-C output",
   "USB (saída)": "USB output",
 

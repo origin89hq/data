@@ -1,10 +1,9 @@
 {
   "id": "noco-genius1--housing-protection",
   "model": "noco-genius1",
-  "name": "Housing Protection",
+  "name": "HOUSING PROTECTION",
   "value": "IP60",
-  "source": "doc-0d609d0fd81c9e25694336f15e33a802",
-  "page": 9,
+  "source": "doc-983cc0b229675edcd6588b6db6bb1490",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

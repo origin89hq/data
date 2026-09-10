@@ -2,7 +2,7 @@
   "id": "victron-energy-multiplus-ii-24-3000-70-32-gx--charge-voltage-absorption",
   "model": "victron-energy-multiplus-ii-24-3000-70-32-gx",
   "name": "Charge voltage 'absorption'",
-  "value": "28,8",
+  "value": "28.8",
   "unit": "V",
   "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
   "page": 49,

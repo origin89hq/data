@@ -23,9 +23,44 @@ const ACCENTED = /[áàâäéèêëíìîïóòôöúùûüñçőűąćęłńś�
  */
 const ROMANCE = /(^|[\s(])(de|del|la|las|los|el|du|des|le|les|pour|avec|sans|da|dos|das|di|della|dello|delle|nel|en|por|para)([\s)]|$)/i;
 
+/**
+ * Words that name a quantity in Spanish, French or Portuguese and in no English specification.
+ *
+ * The two rules above still let a one-word name through. An OutBack FLEXmax published its case
+ * dimensions as "Altura", "Ancho" and "Altura con ventilador", none of which carries an accent or
+ * a function word. Every entry here was taken from a name in the records and checked against the
+ * English ones: nothing that collides with English is on the list, which is why "motor", "phase",
+ * "charge", "tension", "dimensions" and "altitude" are absent though their cognates appear.
+ */
+const FOREIGN_TERMS = new Set([
+  // Spanish
+  "altura", "anchura", "ancho", "largo", "longitud", "profundidad", "peso", "voltaje", "voltios",
+  "vatios", "amperaje", "amperios", "corriente", "potencia", "frecuencia", "fase", "capacidad",
+  "cilindrada", "arranque", "gasolina", "propano", "aceite", "tanque", "combustible", "ruido",
+  "humedad", "salida", "entrada", "bateria", "descarga", "eficiencia", "rendimiento", "velocidad",
+  "medidas", "continuos", "encendido", "marca", "modelo", "presion", "sonido", "consumo",
+  // French
+  "hauteur", "largeur", "longueur", "profondeur", "poids", "courant", "puissance", "pression",
+  "sortie", "batterie", "essence", "huile", "carburant", "bruit", "garantie", "taille", "vitesse",
+  "plage", "niveau", "rendement", "tuyau", "sel", "chute",
+  // Portuguese
+  "largura", "comprimento", "tensao", "frequencia", "capacidade", "partida", "oleo", "combustivel",
+  "tamanho", "pressao", "umidade", "saida", "peso_pt",
+]);
+
+/** The name's words, lowercased and stripped of accents, so "Presión" and "presion" are one word. */
+const wordsOf = (name: string): string[] =>
+  name
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .split(/[^a-z]+/)
+    .filter(Boolean);
+
 /** Whether this name reads as something other than English. */
 export function looksForeign(name: string): boolean {
-  return ACCENTED.test(name) || ROMANCE.test(name);
+  if (ACCENTED.test(name) || ROMANCE.test(name)) return true;
+  return wordsOf(name).some((word) => FOREIGN_TERMS.has(word));
 }
 
 /** The share of these names carrying such a letter, between 0 and 1. No names is no evidence. */

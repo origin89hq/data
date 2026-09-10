@@ -2,7 +2,7 @@
   "id": "victron-energy-multiplus-ii-gx-230v-48-4k5-55-32--charge-voltage-absorption",
   "model": "victron-energy-multiplus-ii-gx-230v-48-4k5-55-32",
   "name": "Charge voltage 'absorption'",
-  "value": "57,6",
+  "value": "57.6",
   "unit": "V",
   "source": "doc-ddf85898ede80f791ec80e54ffd85c9c",
   "page": 29,

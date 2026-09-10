@@ -2,7 +2,7 @@
   "id": "outback-power-vfxr3024e--dod-volts",
   "model": "outback-power-vfxr3024e",
   "name": "DoD Volts",
-  "value": "25,0",
+  "value": "25.0",
   "unit": "V",
   "source": "doc-8452ddb9bd444900edca4f8d20f075e4",
   "page": 81,

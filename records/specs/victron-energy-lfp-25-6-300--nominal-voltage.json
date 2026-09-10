@@ -2,7 +2,7 @@
   "id": "victron-energy-lfp-25-6-300--nominal-voltage",
   "model": "victron-energy-lfp-25-6-300",
   "name": "Nominal voltage",
-  "value": "25,6",
+  "value": "25.6",
   "unit": "V",
   "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
   "page": 94,

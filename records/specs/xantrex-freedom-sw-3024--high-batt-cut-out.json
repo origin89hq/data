@@ -2,7 +2,7 @@
   "id": "xantrex-freedom-sw-3024--high-batt-cut-out",
   "model": "xantrex-freedom-sw-3024",
   "name": "High Batt Cut Out",
-  "value": "33,0",
+  "value": "33.0",
   "unit": "V",
   "source": "doc-ee469adf96a31687a03350bde08292ed",
   "page": 42,

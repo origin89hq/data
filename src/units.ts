@@ -50,10 +50,33 @@ export function canonicalUnit(raw: string | undefined): Unit | undefined {
  */
 export function splitValueUnit(value: string, unit: string | undefined): { value: string; unit?: string } {
   const canonical = canonicalUnit(unit);
-  if (canonical) return { value: value.trim(), unit: canonical };
+  if (canonical) return { value: decimalPoint(value.trim()), unit: canonical };
   const match = /^(-?\d+(?:[.,]\d+)?)\s*([A-Za-zΩ°µ%][A-Za-zΩ°µ%²³/·.]{0,9})$/.exec(value.trim());
   const pulled = match ? canonicalUnit(match[2]) : undefined;
-  return pulled ? { value: match![1], unit: pulled } : { value: value.trim() };
+  return pulled ? { value: decimalPoint(match![1]), unit: pulled } : { value: decimalPoint(value.trim()) };
+}
+
+/**
+ * A European decimal comma written as a point. An OutBack sheet gives a case height of "47,2 cm"
+ * and a Sol-Ark one a rating of "19,8 kW"; anything reading those as a number gets 472 or 198, so
+ * publishing the comma is a trap rather than fidelity. Only a comma with one or two digits after
+ * it is a decimal point — a thousands separator always has three, which is why "3,500 lb" and
+ * "19,200 W" are left exactly as the maker printed them.
+ */
+function decimalPoint(value: string): string {
+  return /^-?\d{1,3},\d{1,2}$/.test(value) ? value.replace(",", ".") : value;
+}
+
+/**
+ * A value that says there is no value. A figure whose value is "None" or "no value given" is an
+ * empty row wearing a figure's clothes, and absence is representable: no row at all says the same
+ * thing without inviting anyone to read it as a measurement.
+ */
+const PLACEHOLDER = /^(no value given|not given|not stated|not specified|not applicable|none|n\/?a|nil|unknown|tbd|-{1,3}|—)$/i;
+
+/** Whether this value states nothing, so the figure should not be held at all. */
+export function statesNothing(value: string): boolean {
+  return PLACEHOLDER.test(value.trim());
 }
 
 /** Whether a value is a plain number, which is what a figure with a unit ought to be. */

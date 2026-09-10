@@ -1,10 +1,10 @@
 {
   "id": "noco-geniuspro50--output-power",
   "model": "noco-geniuspro50",
-  "name": "Output Power",
-  "value": "750 W Max",
-  "source": "doc-acc6023faea6c05091589f8fe0a7930d",
-  "page": 11,
+  "name": "OUTPUT POWER",
+  "value": "750",
+  "unit": "W",
+  "source": "doc-15e4e9c169010b78192efb920ea629fa",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

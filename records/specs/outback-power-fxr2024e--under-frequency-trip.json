@@ -2,7 +2,7 @@
   "id": "outback-power-fxr2024e--under-frequency-trip",
   "model": "outback-power-fxr2024e",
   "name": "Under Frequency Trip",
-  "value": "57,0",
+  "value": "57.0",
   "unit": "Hz",
   "source": "doc-8452ddb9bd444900edca4f8d20f075e4",
   "page": 81,

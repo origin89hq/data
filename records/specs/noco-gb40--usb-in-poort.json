@@ -2,7 +2,7 @@
   "id": "noco-gb40--usb-in-poort",
   "model": "noco-gb40",
   "name": "USB-IN-poort",
-  "value": "2,1",
+  "value": "2.1",
   "unit": "A",
   "source": "doc-919699b1eb41a8db72c0357712dbfdc0",
   "page": 62,

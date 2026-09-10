@@ -2,7 +2,7 @@
   "id": "victron-energy-multi-rs-solar-48-6000--charge-voltage-float",
   "model": "victron-energy-multi-rs-solar-48-6000",
   "name": "Charge voltage 'float'",
-  "value": "55,2",
+  "value": "55.2",
   "unit": "V",
   "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
   "page": 52,

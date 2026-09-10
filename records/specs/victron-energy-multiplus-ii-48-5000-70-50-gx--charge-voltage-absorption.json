@@ -2,7 +2,7 @@
   "id": "victron-energy-multiplus-ii-48-5000-70-50-gx--charge-voltage-absorption",
   "model": "victron-energy-multiplus-ii-48-5000-70-50-gx",
   "name": "Charge voltage 'absorption'",
-  "value": "57,6",
+  "value": "57.6",
   "unit": "V",
   "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
   "page": 49,

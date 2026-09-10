@@ -2,7 +2,7 @@
   "id": "outback-power-fxr2024e--re-bulk-voltage",
   "model": "outback-power-fxr2024e",
   "name": "Re-Bulk Voltage",
-  "value": "24,0",
+  "value": "24.0",
   "unit": "V",
   "source": "doc-8452ddb9bd444900edca4f8d20f075e4",
   "page": 81,

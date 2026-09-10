@@ -2,7 +2,7 @@
   "id": "outback-power-gs7048e--maximaler-dc-eingangsstrom-sto-spannung",
   "model": "outback-power-gs7048e",
   "name": "Maximaler DC-Eingangsstrom (Stoßspannung)",
-  "value": "406,5",
+  "value": "406.5",
   "unit": "A",
   "source": "doc-a6f1fde00f99fc6d5b81ec8f95129fc2",
   "page": 67,

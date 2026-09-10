@@ -2,7 +2,7 @@
   "id": "outback-power-fxr2024e--gen-alert-on",
   "model": "outback-power-fxr2024e",
   "name": "Gen Alert ON",
-  "value": "22,0",
+  "value": "22.0",
   "unit": "V",
   "source": "doc-8452ddb9bd444900edca4f8d20f075e4",
   "page": 81,

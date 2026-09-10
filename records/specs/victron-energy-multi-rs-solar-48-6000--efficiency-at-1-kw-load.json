@@ -2,7 +2,7 @@
   "id": "victron-energy-multi-rs-solar-48-6000--efficiency-at-1-kw-load",
   "model": "victron-energy-multi-rs-solar-48-6000",
   "name": "Efficiency at 1 kW load",
-  "value": "96,5",
+  "value": "96.5",
   "unit": "%",
   "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
   "page": 52,

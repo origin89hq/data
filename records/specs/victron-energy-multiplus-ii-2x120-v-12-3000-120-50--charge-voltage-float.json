@@ -2,7 +2,7 @@
   "id": "victron-energy-multiplus-ii-2x120-v-12-3000-120-50--charge-voltage-float",
   "model": "victron-energy-multiplus-ii-2x120-v-12-3000-120-50",
   "name": "Charge voltage 'float'",
-  "value": "13,8",
+  "value": "13.8",
   "unit": "V",
   "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
   "page": 57,

@@ -2,7 +2,7 @@
   "id": "victron-energy-ve-bus-bms-ng--current-draw-switched-off-via-remote-on-off-terminal",
   "model": "victron-energy-ve-bus-bms-ng",
   "name": "Current draw - switched off via remote on/off terminal",
-  "value": "1,50",
+  "value": "1.50",
   "unit": "mA",
   "source": "doc-a9a3a94bb984445b806be4daf53ba3e8",
   "page": 27,

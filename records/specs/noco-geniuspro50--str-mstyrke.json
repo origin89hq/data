@@ -4,8 +4,8 @@
   "name": "Strømstyrke",
   "value": "50",
   "unit": "A",
-  "source": "doc-acc6023faea6c05091589f8fe0a7930d",
-  "page": 126,
+  "source": "doc-723933e9ae36ac87b561b12fafebcf3f",
+  "page": 56,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

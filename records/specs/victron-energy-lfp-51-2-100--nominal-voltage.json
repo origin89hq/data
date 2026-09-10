@@ -2,7 +2,7 @@
   "id": "victron-energy-lfp-51-2-100--nominal-voltage",
   "model": "victron-energy-lfp-51-2-100",
   "name": "Nominal voltage",
-  "value": "51,2",
+  "value": "51.2",
   "unit": "V",
   "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
   "page": 94,

@@ -2,6 +2,7 @@
   "id": "champion-power-201424--puissance",
   "model": "champion-power-201424",
   "name": "Puissance",
+  "english": "Power",
   "value": "11 000 W",
   "source": "doc-93887b320001a710206585f6015866eb",
   "page": 4,

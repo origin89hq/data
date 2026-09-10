@@ -1,7 +1,7 @@
 import type { Model } from "../schema/model.ts";
 import type { Spec } from "../schema/model.ts";
 import { normaliseModelName } from "./models.ts";
-import { looksTruncated, splitValueUnit } from "./units.ts";
+import { looksTruncated, splitValueUnit, statesNothing } from "./units.ts";
 import { repairMojibake } from "./text.ts";
 import { looksForeign } from "./language.ts";
 import { englishName } from "./translations.ts";
@@ -109,7 +109,7 @@ export function specsFrom({ reports, models, manufacturer, source, extractedBy, 
       const { value: cleanValue, unit } = splitValueUnit(repairMojibake(value), split.unit);
       // A value that is a piece of the JSON it was read out of is not a doubtful figure, it is not
       // a figure. Refused rather than published with a caveat nobody can resolve.
-      if (looksTruncated(cleanValue)) {
+      if (looksTruncated(cleanValue) || statesNothing(cleanValue)) {
         truncated.push(`${name} = ${cleanValue}`);
         continue;
       }

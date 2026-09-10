@@ -2,6 +2,7 @@
   "id": "outback-power-pro208-5k75--potencia-nominal",
   "model": "outback-power-pro208-5k75",
   "name": "Potencia nominal",
+  "english": "Rated power",
   "value": "5.75",
   "unit": "kW",
   "source": "doc-ecb4a1d7e2028eb94b7a73612abebb35",

@@ -2,7 +2,7 @@
   "id": "victron-energy-multiplus-ii-gx-230v-48-6k5-100-50--continuous-output-power-at-65-c",
   "model": "victron-energy-multiplus-ii-gx-230v-48-6k5-100-50",
   "name": "Continuous output power at 65°C",
-  "value": "4,6",
+  "value": "4.6",
   "unit": "kW",
   "source": "doc-ddf85898ede80f791ec80e54ffd85c9c",
   "page": 29,

@@ -2,6 +2,7 @@
   "id": "champion-power-201537--potencia",
   "model": "champion-power-201537",
   "name": "Potencia",
+  "english": "Power",
   "value": "8500",
   "unit": "W",
   "source": "doc-1c38474394afc0a3d84bbd5684472286",

@@ -2,6 +2,7 @@
   "id": "champion-power-201076--puissance",
   "model": "champion-power-201076",
   "name": "Puissance",
+  "english": "Power",
   "value": "3650",
   "unit": "W",
   "source": "doc-469227be43d534535f46ac4a1ee6fb45",

@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { canonicalUnit, concerns, isNumeric, splitValueUnit } from "../src/units.ts";
+import { canonicalUnit, concerns, isNumeric, splitValueUnit, statesNothing } from "../src/units.ts";
 
 test("a maker's own language reaches the same unit, since VCD and volts are volts", () => {
   assert.equal(canonicalUnit("V"), "V");
@@ -56,4 +56,22 @@ test("a unit glued to the value is pulled off, since the number and the unit are
   assert.deepEqual(splitValueUnit("428", "pulgadas"), { value: "428", unit: "in" }, "the stated unit still wins, in whatever language");
   assert.deepEqual(splitValueUnit("-4 °F a 140 °F", undefined), { value: "-4 °F a 140 °F" }, "a range is not a number with a unit");
   assert.deepEqual(splitValueUnit("Yes", undefined), { value: "Yes" });
+});
+
+test("a European decimal comma becomes a point, and a thousands separator is left alone", () => {
+  // An OutBack case height of "47,2 cm" read as a number is 472, so publishing the comma is a trap.
+  assert.deepEqual(splitValueUnit("47,2", "cm"), { value: "47.2", unit: "cm" });
+  assert.deepEqual(splitValueUnit("19,8", "kW"), { value: "19.8", unit: "kW" });
+  // Three digits after the comma is a thousand, and Champion really does print "19,200 W".
+  assert.deepEqual(splitValueUnit("19,200", "W"), { value: "19,200", unit: "W" });
+  assert.deepEqual(splitValueUnit("3,500", "lb"), { value: "3,500", unit: "lb" });
+});
+
+test("a value that says there is no value is not a figure", () => {
+  for (const empty of ["None", "no value given", "Not specified", "N/A", "---", "TBD"]) {
+    assert.equal(statesNothing(empty), true, `${empty} should not be held as a figure`);
+  }
+  for (const real of ["12", "Yes", "0", "AGM", "12/24"]) {
+    assert.equal(statesNothing(real), false, `${real} is a value`);
+  }
 });

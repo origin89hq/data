@@ -2,7 +2,7 @@
   "id": "outback-power-fxr2024e--float-voltage",
   "model": "outback-power-fxr2024e",
   "name": "Float Voltage",
-  "value": "27,2",
+  "value": "27.2",
   "unit": "V",
   "source": "doc-8452ddb9bd444900edca4f8d20f075e4",
   "page": 81,

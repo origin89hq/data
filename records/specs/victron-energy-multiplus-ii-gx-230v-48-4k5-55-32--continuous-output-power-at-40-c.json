@@ -2,7 +2,7 @@
   "id": "victron-energy-multiplus-ii-gx-230v-48-4k5-55-32--continuous-output-power-at-40-c",
   "model": "victron-energy-multiplus-ii-gx-230v-48-4k5-55-32",
   "name": "Continuous output power at 40°C",
-  "value": "3,7",
+  "value": "3.7",
   "unit": "kW",
   "source": "doc-ddf85898ede80f791ec80e54ffd85c9c",
   "page": 29,

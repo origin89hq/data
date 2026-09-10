@@ -2,7 +2,7 @@
   "id": "noco-geniuspro25--spitzenspannung-25-c",
   "model": "noco-geniuspro25",
   "name": "Spitzenspannung",
-  "value": "14,5",
+  "value": "14.5",
   "unit": "V",
   "conditions": "25° C",
   "source": "doc-ad1950f6bd60aa9bc23134b99d74b0db",
