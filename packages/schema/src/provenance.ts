@@ -18,3 +18,13 @@ export const VISION_EXTRACTOR_ID = `ai:${VISION_MODEL}@vision-p${VISION_PROMPT_V
 
 /** A reader's id as it appears in an archive key. */
 export const readerKey = (extractor: string): string => extractor.replace(/[^\w.-]+/g, "_");
+
+/**
+ * How many readings one request may ask the Worker for.
+ *
+ * A Worker gets a bounded number of subrequests and every reading is one of them, so a batch has
+ * a ceiling. The number lives beside the reader keys because both ends need the same one: the
+ * Worker refuses a batch over it, and the caller sizes its batches by it. Trimming instead would
+ * have answered 200 with fewer readings, which reads exactly like documents nobody had read.
+ */
+export const READS_PER_REQUEST = 2000;

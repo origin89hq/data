@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { Guess } from "@origin89/equipment-schema/guess";
-import { classifierKey } from "@origin89/equipment-schema/provenance";
+import { classifierKey, READS_PER_REQUEST } from "@origin89/equipment-schema/provenance";
 import { Sighting } from "@origin89/equipment-schema/sighting";
 import type { MakerState } from "../../apps/worker/src/state.ts";
 
@@ -43,6 +43,17 @@ async function get(path: string, remote: boolean): Promise<Response> {
     headers: { authorization: `Bearer ${token()}` },
   });
   if (response.status === 404) return response;
+  if (!response.ok)
+    throw new Error(`${path}: HTTP ${response.status} ${(await response.text()).slice(0, 200)}`);
+  return response;
+}
+
+async function post(path: string, body: unknown, remote: boolean): Promise<Response> {
+  const response = await fetch(`${base(remote)}${path}`, {
+    method: "POST",
+    headers: { authorization: `Bearer ${token()}`, "content-type": "application/json" },
+    body: JSON.stringify(body),
+  });
   if (!response.ok)
     throw new Error(`${path}: HTTP ${response.status} ${(await response.text()).slice(0, 200)}`);
   return response;
@@ -181,4 +192,40 @@ export async function readCrawl(
     if (!sightingKeys.has(key)) missingParts.push(`sightings page ${page}`);
   }
   return { sightings, guesses, missingParts };
+}
+
+/**
+ * Every reading of these documents, in one request per batch.
+ *
+ * Readings are addressed by the bytes they read, so a maker's are scattered across a flat prefix
+ * with nothing to stream by. Fetching them one at a time was a round trip each, which for four
+ * thousand documents across three readers is thirteen thousand of them — the daily pull spent
+ * twenty-eight minutes on it and was climbing.
+ *
+ * The batch is sized from the Worker's own cap, so the two cannot disagree about it: a request
+ * over the cap is refused there rather than trimmed, and a trimmed answer would have looked like
+ * documents nobody had read.
+ */
+export async function readingsOf(
+  documents: readonly string[],
+  readers: readonly string[],
+  remote: boolean,
+): Promise<string> {
+  // No readers divides by nothing and asks for every document in one request; more readers than
+  // the cap sizes every batch at one and has each refused in turn. Both are a mistake at the call
+  // site, and both would otherwise be reported by the Worker, a long way from the line that made
+  // them.
+  if (readers.length === 0 || readers.length > READS_PER_REQUEST)
+    throw new Error(`readingsOf needs 1 to ${READS_PER_REQUEST} readers, not ${readers.length}`);
+  const perRequest = Math.floor(READS_PER_REQUEST / readers.length);
+  let ndjson = "";
+  for (let i = 0; i < documents.length; i += perRequest) {
+    const response = await post(
+      "/readings",
+      { documents: documents.slice(i, i + perRequest), readers },
+      remote,
+    );
+    ndjson += await response.text();
+  }
+  return ndjson;
 }

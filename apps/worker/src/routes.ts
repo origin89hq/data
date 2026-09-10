@@ -1,4 +1,5 @@
 import { APPROVAL_EVENT, CrawlApproval } from "@origin89/equipment-schema/documents";
+import { READS_PER_REQUEST } from "@origin89/equipment-schema/provenance";
 import { Hono } from "hono";
 import specPages from "../../../feeds/spec-pages.json" with { type: "json" };
 import { authorised } from "./authorised.ts";
@@ -20,6 +21,7 @@ import type { SellerCrawlParams } from "./seller-crawl.ts";
 import { sellers } from "./sellers.ts";
 import { makerStates, sellerStates } from "./state.ts";
 import { supervise } from "./supervise.ts";
+import { partKey } from "./work.ts";
 
 /**
  * Every route the Worker answers, split by who may call it.
@@ -175,6 +177,7 @@ export const CONTROL_PATHS = [
   "/convert",
   "/discover-all",
   "/maker",
+  "/readings",
   "/run",
   "/spec-pages",
   "/state",
@@ -272,6 +275,71 @@ controlRoutes.get("/archive", async (c) => {
           }
           cursor = page.truncated ? page.cursor : undefined;
         } while (cursor);
+        controller.close();
+      } catch (error) {
+        controller.error(error);
+      }
+    },
+  });
+  return new Response(stream, { headers: { "content-type": "application/x-ndjson" } });
+});
+
+/** How many readings are fetched at once. One at a time, a full batch is a minute of waiting. */
+const READS_AT_ONCE = 16;
+
+/** A content address and a reader key: nothing that could interpolate into another key. */
+const DIGEST = /^[0-9a-f]{64}$/;
+const READER = /^[a-z0-9][a-z0-9._-]*$/;
+
+/**
+ * Every reading of the documents asked for, in one response.
+ *
+ * A reading is addressed by the bytes it read, so a maker's readings are scattered across a flat
+ * prefix with nothing to stream by, and asking for them one at a time cost a round trip each:
+ * four thousand documents across three readers is thirteen thousand round trips, and the nightly
+ * pull was heading past its hour. The caller already holds the document list, so it says which
+ * ones it wants and the reads happen next to the bucket.
+ */
+controlRoutes.post("/readings", async (c) => {
+  const asked = await c.req
+    .json<{ documents?: unknown; readers?: unknown }>()
+    .catch(() => undefined);
+  const documents = Array.isArray(asked?.documents) ? asked.documents : [];
+  const readers = Array.isArray(asked?.readers) ? asked.readers : [];
+  if (documents.length === 0) return c.json({ error: "documents required" }, 400);
+  if (readers.length === 0) return c.json({ error: "readers required" }, 400);
+  if (!documents.every((d): d is string => typeof d === "string" && DIGEST.test(d)))
+    return c.json({ error: "every document must be a sha256 digest" }, 400);
+  if (!readers.every((r): r is string => typeof r === "string" && READER.test(r)))
+    return c.json({ error: "every reader must be a reader key" }, 400);
+  if (documents.length * readers.length > READS_PER_REQUEST) {
+    return c.json(
+      {
+        error: `${documents.length} documents by ${readers.length} readers is more than ${READS_PER_REQUEST} reads; ask in batches`,
+      },
+      400,
+    );
+  }
+
+  const bucket = c.env.ARCHIVE;
+  const keys = documents.flatMap((sha256) =>
+    readers.map((reader) => partKey.reading(sha256, reader)),
+  );
+  const stream = new ReadableStream({
+    async start(controller) {
+      const encoder = new TextEncoder();
+      try {
+        for (let i = 0; i < keys.length; i += READS_AT_ONCE) {
+          const batch = await Promise.all(
+            keys.slice(i, i + READS_AT_ONCE).map(async (key) => (await bucket.get(key))?.text()),
+          );
+          // A document nobody has read yet is simply absent. The caller counts what came back
+          // against what it asked for, and reports the rest as pending.
+          for (const read of batch) {
+            const line = read?.replace(/\n+$/, "");
+            if (line) controller.enqueue(encoder.encode(`${line}\n`));
+          }
+        }
         controller.close();
       } catch (error) {
         controller.error(error);

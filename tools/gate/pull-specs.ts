@@ -12,7 +12,7 @@ import { withoutRedundantTranslations, withoutTranslatedReadings } from "../../s
 import { looksLikeModelName, modelId, normaliseModelName } from "../../src/models.ts";
 import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 import { matchModel, type ReportedProduct, specsFrom } from "../../src/specs.ts";
-import { currentRun, jsonValues, object } from "./archive.ts";
+import { currentRun, jsonValues, object, readingsOf } from "./archive.ts";
 
 /**
  * Fold a manufacturer's extracted readings into spec records. A figure is written only when the
@@ -60,27 +60,26 @@ const readings: {
     products: (ReportedProduct & { specs: { page?: number }[] })[];
   }[];
 } = { readings: [] };
-// Every reading of this run in one request, rather than one process per document.
 // A reading lives beside its document, so this run's readings are those of the documents it
 // converted. Nothing is re-read because a run asked again.
-// A scan has two: the text reader's, which found nothing, and the page reader's, which drew it.
+// A scan has two: the text reader's, which found nothing, and the page reader's, which drew it —
+// so a document may answer more than once.
+// They come back in batches rather than one document at a time. Asking per document was a round
+// trip each, and four thousand documents across three readers is thirteen thousand of them; the
+// daily pull spent twenty-eight minutes on it and was climbing towards its hour.
 const refused: { url: string; refused: string }[] = [];
-for (const doc of expected) {
-  for (const reader of [
-    readerKey(EXTRACTOR_ID),
-    readerKey(VISION_EXTRACTOR_ID),
-    "table_spec-table_v1",
-  ]) {
-    const body = await object(`archive/${doc.sha256}.${reader}.reading.json`, remote);
-    if (!body) continue;
-    for (const value of jsonValues<(typeof readings.readings)[number] & { refused?: string }>(
-      body,
-    )) {
-      readings.readings.push(value);
-      if (value.refused) refused.push({ url: value.url, refused: value.refused });
-    }
-  }
+const READERS = [readerKey(EXTRACTOR_ID), readerKey(VISION_EXTRACTOR_ID), "table_spec-table_v1"];
+for (const value of jsonValues<(typeof readings.readings)[number] & { refused?: string }>(
+  await readingsOf(
+    expected.map((doc) => doc.sha256),
+    READERS,
+    remote,
+  ),
+)) {
+  readings.readings.push(value);
+  if (value.refused) refused.push({ url: value.url, refused: value.refused });
 }
+
 // Documents with no reading by anybody yet. Counting readings instead went wrong the day a
 // document could have two.
 const readShas = new Set(readings.readings.map((r) => r.sha256));
