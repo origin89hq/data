@@ -9,6 +9,13 @@ import { batches, inputKey, sendAll, type Work } from "./work.ts";
 export const CLASSIFY_BATCH = 10;
 
 /**
+ * Pages of a crawl read at once. Read one at a time, a shop of 147 pages took forty seconds, and
+ * the four largest shops took over two minutes of a pass that outlasted the workflow waiting on
+ * it. Six, because a Worker holds six connections open at once and further reads would only queue.
+ */
+export const PAGES_AT_ONCE = 6;
+
+/**
  * What the current classifier has already answered, keyed by the question. A weekly crawl of a
  * shop that did not change asks nothing and costs nothing; only genuinely new listings reach a
  * model.
@@ -54,11 +61,20 @@ export async function classifyRun(
   const pages = (await manifest.json<{ pages: { page: number }[] }>()).pages.map((p) => p.page);
 
   const sightings: Sighting[] = [];
-  for (const page of pages) {
-    const object = await env.ARCHIVE.get(`${prefix}/page-${String(page).padStart(4, "0")}.jsonl`);
-    if (!object) throw new Error(`page ${page} of ${seller} is missing`);
-    for (const line of (await object.text()).split("\n").filter(Boolean))
-      sightings.push(Sighting.parse(JSON.parse(line)));
+  for (let i = 0; i < pages.length; i += PAGES_AT_ONCE) {
+    const texts = await Promise.all(
+      pages.slice(i, i + PAGES_AT_ONCE).map(async (page) => {
+        const object = await env.ARCHIVE.get(
+          `${prefix}/page-${String(page).padStart(4, "0")}.jsonl`,
+        );
+        if (!object) throw new Error(`page ${page} of ${seller} is missing`);
+        return object.text();
+      }),
+    );
+    // In page order whichever read finished first, so a run's parts hold the same listings each time.
+    for (const text of texts)
+      for (const line of text.split("\n").filter(Boolean))
+        sightings.push(Sighting.parse(JSON.parse(line)));
   }
 
   const known = answered ?? (await answeredInputs(env.ARCHIVE));
