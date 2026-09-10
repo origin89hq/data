@@ -6,7 +6,8 @@ import { looksLikeModelName, modelId, normaliseModelName } from "../../src/model
 import { Model } from "../../schema/model.ts";
 import { Source } from "../../schema/source.ts";
 import { currentRun, jsonValues, object, under } from "./archive.ts";
-import { EXTRACTOR_ID } from "../../worker/src/reading.ts";
+import { EXTRACTOR_ID, VISION_EXTRACTOR_ID } from "../../worker/src/reading.ts";
+import { readerKey } from "../../worker/src/work.ts";
 import { withoutTranslations } from "../../worker/src/documents.ts";
 import { withoutTranslatedReadings, withoutRedundantTranslations } from "../../src/language.ts";
 
@@ -57,13 +58,22 @@ const readings: { readings: { sha256: string; url: string; extractedBy?: string;
 // Every reading of this run in one request, rather than one process per document.
 // A reading lives beside its document, so this run's readings are those of the documents it
 // converted. Nothing is re-read because a run asked again.
+// A scan has two: the text reader's, which found nothing, and the page reader's, which drew it.
+const refused: { url: string; refused: string }[] = [];
 for (const doc of expected) {
-  for (const reader of [EXTRACTOR_ID.replace(/[^\w.-]+/g, "_"), "table_spec-table_v1"]) {
+  for (const reader of [readerKey(EXTRACTOR_ID), readerKey(VISION_EXTRACTOR_ID), "table_spec-table_v1"]) {
     const body = await object(`archive/${doc.sha256}.${reader}.reading.json`, remote);
-    if (body) for (const value of jsonValues<(typeof readings.readings)[number]>(body)) readings.readings.push(value);
+    if (!body) continue;
+    for (const value of jsonValues<(typeof readings.readings)[number] & { refused?: string }>(body)) {
+      readings.readings.push(value);
+      if (value.refused) refused.push({ url: value.url, refused: value.refused });
+    }
   }
 }
-const pending = expected.length - readings.readings.length;
+// Documents with no reading by anybody yet. Counting readings instead went wrong the day a
+// document could have two.
+const readShas = new Set(readings.readings.map((r) => r.sha256));
+const pending = expected.filter((doc) => !readShas.has(doc.sha256)).length;
 
 // A translation is the same specification said again. Sol-Ark publishes the 8K manual in Spanish
 // and in English, and reading both gave that inverter a nominal voltage of 48 V twice, once as
@@ -192,6 +202,7 @@ const byReader = new Map<string, number>();
 for (const r of readings.readings) byReader.set(r.extractedBy ?? EXTRACTOR_ID, (byReader.get(r.extractedBy ?? EXTRACTOR_ID) ?? 0) + 1);
 console.log(`${readings.readings.length} readings${pending > 0 ? `, ${pending} approved documents still converting or queued` : ""}`);
 for (const [reader, n] of byReader) console.log(`  ${n} by ${reader}`);
+for (const r of refused) console.log(`  not drawn, ${r.refused}: ${r.url.split("/").pop()}`);
 if (unmatched.size) {
   console.log(`\n${unmatched.size} products the documents name that still reach no model:`);
   for (const m of [...unmatched].sort().slice(0, 25)) console.log(`  ${m}`);

@@ -60,8 +60,46 @@ export const Work = z.discriminatedUnion("kind", [
       url: z.string().url(),
     })
     .strict(),
+  z
+    .object({
+      /** Whether a converted document needs its pages looked at, and if so, one message per page. */
+      kind: z.literal("vision"),
+      /** The run this work belongs to. Results land under it, so two runs cannot mix. */
+      run: z.string().min(1),
+      manufacturer: z.string().min(1),
+      date: z.string().min(1),
+      sha256: z.string().regex(/^[0-9a-f]{64}$/),
+      url: z.string().url(),
+    })
+    .strict(),
+  z
+    .object({
+      /** One page of a document with no text layer, drawn and read. */
+      kind: z.literal("vision-page"),
+      /** The run this work belongs to. Results land under it, so two runs cannot mix. */
+      run: z.string().min(1),
+      manufacturer: z.string().min(1),
+      date: z.string().min(1),
+      sha256: z.string().regex(/^[0-9a-f]{64}$/),
+      url: z.string().url(),
+      /** Counted from one, as the converter counts them. */
+      page: z.number().int().positive(),
+      /** How many pages the reading waits for, so whichever page lands last can put them together. */
+      pages: z.number().int().positive(),
+    })
+    .strict()
+    .refine((m) => m.page <= m.pages, { message: "a page past the last one the reading waits for" }),
 ]);
 export type Work = z.infer<typeof Work>;
+
+/**
+ * The last delivery a message gets. `max_retries` in wrangler.jsonc is 3 and the first delivery is
+ * not a retry. A test reads the configuration, so the two cannot drift apart.
+ */
+export const LAST_ATTEMPT = 4;
+
+/** A reader's id as it appears in a key: `ai:@cf/x@p2` is `ai_cf_x_p2`. */
+export const readerKey = (extractor: string): string => extractor.replace(/[^\w.-]+/g, "_");
 
 /**
  * Where each unit writes its result. Keys are derived, never generated, so a reader knows what to
@@ -84,6 +122,13 @@ export const partKey = {
    * nine hundred documents it had already paid to read, for the same answer.
    */
   reading: (sha256: string, extractor: string) => `archive/${sha256}.${extractor}.reading.json`,
+  /**
+   * One page of a reading that is read a page at a time. Beside the document for the same reason
+   * the reading is: a page read once is never read again, whichever run asks.
+   */
+  page: (sha256: string, extractor: string, page: number) => `archive/${sha256}.${extractor}.page-${String(page).padStart(4, "0")}.json`,
+  /** Every page of that reading, and nothing else: the prefix ends before the page number. */
+  pages: (sha256: string, extractor: string) => `archive/${sha256}.${extractor}.page-`,
 };
 
 /**

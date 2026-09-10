@@ -1,7 +1,8 @@
 import { classifierKey } from "./classify.ts";
-import { EXTRACTOR_ID } from "./reading.ts";
+import { EXTRACTOR_ID, VISION_EXTRACTOR_ID } from "./reading.ts";
 import { TABLE_READER } from "./spec-table.ts";
 import { currentRuns, runPrefix } from "./runs.ts";
+import { readerKey } from "./work.ts";
 
 /**
  * What the spider knows and what it is waiting on, derived from the archive rather than kept
@@ -32,6 +33,10 @@ export interface MakerState {
   fetched?: number;
   converted?: number;
   read?: number;
+  /** How many converted documents there were when the run was last offered to the page reader. */
+  seeing?: number;
+  /** Documents with no text layer that the page reader has read. */
+  seen?: number;
   /** What has to happen next, in the words somebody would use out loud. */
   waitingOn: string;
 }
@@ -47,13 +52,15 @@ const listAll = async (bucket: R2Bucket, prefix: string): Promise<string[]> => {
   return keys;
 };
 
-/** The sha256 of every document that has a reading by the current reader. */
-const readingsPresent = async (bucket: R2Bucket): Promise<Set<string>> => {
-  const reader = EXTRACTOR_ID.replace(/[^\w.-]+/g, "_");
-  const suffix = `.${reader}.reading.json`;
-  const present = new Set<string>();
+/** The sha256 of every document the text reader has read, and of every one the page reader has. */
+const readingsPresent = async (bucket: R2Bucket): Promise<{ text: Set<string>; pages: Set<string> }> => {
+  const text = `.${readerKey(EXTRACTOR_ID)}.reading.json`;
+  const pages = `.${readerKey(VISION_EXTRACTOR_ID)}.reading.json`;
+  const present = { text: new Set<string>(), pages: new Set<string>() };
+  // One listing for both: the archive holds every document there is, and listing it is the cost.
   for (const key of await listAll(bucket, "archive/")) {
-    if (key.endsWith(suffix)) present.add(key.slice("archive/".length, -suffix.length));
+    if (key.endsWith(text)) present.text.add(key.slice("archive/".length, -text.length));
+    else if (key.endsWith(pages)) present.pages.add(key.slice("archive/".length, -pages.length));
   }
   return present;
 };
@@ -97,12 +104,15 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
     const manifest = await json<{ approvedBy: string; fetched: number }>(bucket, `${base}/manifest.json`);
     const converting = await json<{ documents: { sha256: string }[] }>(bucket, `${base}/converting.json`);
     const converted = (await listAll(bucket, `${base}/converted/`)).length;
+    const seeing = await json<{ converted: number }>(bucket, `${base}/seeing.json`);
     // Readings live beside their documents, so this run's progress is how many of the documents
     // it approved have one.
     let read = 0;
+    let seen = 0;
     for (const doc of converting?.documents ?? []) {
       const sha = (doc as { sha256?: string }).sha256;
-      if (sha && readings.has(sha)) read += 1;
+      if (sha && readings.text.has(sha)) read += 1;
+      if (sha && readings.pages.has(sha)) seen += 1;
     }
 
     const offered = plan?.documents?.length ?? 0;
@@ -123,6 +133,8 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
       ...(manifest ? { approvedBy: manifest.approvedBy, fetched: manifest.fetched } : {}),
       ...(converting ? { converted } : {}),
       ...(read ? { read } : {}),
+      ...(seeing ? { seeing: seeing.converted } : {}),
+      ...(seen ? { seen } : {}),
       waitingOn,
     });
   }

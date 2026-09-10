@@ -1,6 +1,6 @@
 import { Sighting } from "../../schema/sighting.ts";
 import { classifierKey } from "./classify.ts";
-import { CONVERTER, EXTRACTOR_ID } from "./reading.ts";
+import { CONVERTER, EXTRACTOR_ID, VISION_EXTRACTOR_ID } from "./reading.ts";
 import { batches, inputKey, sendAll, type Work } from "./work.ts";
 import { pointerKey, readPointer, runPrefix } from "./runs.ts";
 import { withoutTranslations } from "./documents.ts";
@@ -85,4 +85,35 @@ export async function convertRun(env: Env, manufacturer: string, date: string): 
   });
   await sendAll(env.WORK, unique.map((d): Work => ({ kind: "convert", manufacturer, date, run: pointer.run, sha256: d.sha256, url: d.url, contentType: d.contentType })));
   return { documents: unique.length, translations: dropped.length };
+}
+
+/**
+ * Offer a maker's converted documents to the page reader. Each message asks one question — does
+ * this document have a text layer? — and only one without goes on to have its pages drawn and
+ * read, so offering every document costs a lookup each and the model is paid only for scans.
+ *
+ * How many were offered is written down once the messages are on the queue. The supervisor offers
+ * a run again only when more of it has converted since, which catches up with a conversion still
+ * going and offers a finished one once.
+ */
+export async function visionRun(env: Env, manufacturer: string, date: string): Promise<{ documents: number }> {
+  const pointer = await readPointer(env.ARCHIVE, pointerKey.documents(manufacturer));
+  if (!pointer) throw new Error(`${manufacturer}: no current run`);
+  const prefix = runPrefix.documents(manufacturer, pointer.run);
+  const index = await env.ARCHIVE.get(`${prefix}/converting.json`);
+  if (!index) throw new Error(`${prefix}: nothing has been sent to conversion`);
+  const { documents } = await index.json<{ documents: { url: string; sha256: string }[] }>();
+  const converted = new Set<string>();
+  let cursor: string | undefined;
+  do {
+    const page = await env.ARCHIVE.list({ prefix: `${prefix}/converted/`, cursor, limit: 1000 });
+    for (const object of page.objects) converted.add(object.key.slice(`${prefix}/converted/`.length).replace(/\.json$/, ""));
+    cursor = page.truncated ? page.cursor : undefined;
+  } while (cursor);
+  const ready = documents.filter((d) => converted.has(d.sha256));
+  await sendAll(env.WORK, ready.map((d): Work => ({ kind: "vision", manufacturer, date, run: pointer.run, sha256: d.sha256, url: d.url })));
+  await env.ARCHIVE.put(`${prefix}/seeing.json`, JSON.stringify({ manufacturer, checkedAt: date, extractedBy: VISION_EXTRACTOR_ID, converted: converted.size, documents: ready.length }, null, 2), {
+    httpMetadata: { contentType: "application/json" },
+  });
+  return { documents: ready.length };
 }

@@ -1,4 +1,4 @@
-import { classifyRun, convertRun, specPagesRun } from "./enqueue.ts";
+import { classifyRun, convertRun, specPagesRun, visionRun } from "./enqueue.ts";
 import { makerStates, sellerStates } from "./state.ts";
 import specPages from "../../feeds/spec-pages.json" with { type: "json" };
 
@@ -22,6 +22,14 @@ export interface SupervisionReport {
   concerns: string[];
 }
 
+/**
+ * Makers offered to the page reader in one pass. The pass is one invocation, and reading every
+ * maker's state is already most of what an invocation may ask of R2; the first pass after the page
+ * reader arrived would have added four calls for each of eighty-five makers at once. The rest are
+ * reported as waiting and offered on the passes after.
+ */
+export const VISION_OFFERS_PER_PASS = 20;
+
 export async function supervise(env: Env, today: string): Promise<SupervisionReport> {
   const report: SupervisionReport = { at: new Date().toISOString(), started: [], blocked: [], concerns: [] };
 
@@ -41,6 +49,7 @@ export async function supervise(env: Env, today: string): Promise<SupervisionRep
   }
 
   const pages = new Set(specPages.pages.map((p) => p.manufacturer));
+  let offeredToVision = 0;
   for (const maker of await makerStates(env.ARCHIVE)) {
     if (!maker.date) continue;
 
@@ -59,6 +68,19 @@ export async function supervise(env: Env, today: string): Promise<SupervisionRep
     if (maker.fetched && maker.converted === undefined) {
       const { documents } = await convertRun(env, maker.maker, maker.date);
       report.started.push({ what: "convert", entity: maker.maker, detail: `${documents} approved documents` });
+    }
+
+    // Converted since the page reader last looked. A scan converts to page headings with nothing
+    // under them, which the text reader reads as a document with nothing to say; this is the second
+    // look. Offering a document the text reader already has costs one lookup and no model call.
+    if (maker.converted !== undefined && maker.converted > (maker.seeing ?? 0)) {
+      if (offeredToVision >= VISION_OFFERS_PER_PASS) {
+        report.blocked.push({ entity: maker.maker, waitingOn: "its turn with the page reader" });
+      } else {
+        const { documents } = await visionRun(env, maker.maker, maker.date);
+        offeredToVision += 1;
+        report.started.push({ what: "vision", entity: maker.maker, detail: `${documents} converted documents offered to the page reader` });
+      }
     }
   }
 

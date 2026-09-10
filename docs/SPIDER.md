@@ -118,11 +118,23 @@ comes back in one request: 5,230 answers in a third of a second.
 
 ## What the reading costs
 
-Turning a PDF into markdown is free while the document has a text layer.
-Cloudflare's converter says it is free for most formats and that image
-conversion may fall back to Workers AI models for object detection and
-summarisation, which is billable — so a scanned manual with no text layer is
-the expensive case, and this trade sees plenty of them.
+Turning a PDF into markdown is free, and for a scan it is free because it does
+nothing. Cloudflare's converter extracts a PDF's text and does no OCR, so a
+scanned manual comes back as a title, a metadata block and empty page headings.
+The text reader reads that, finds nothing, and the document counts as read:
+365 approved documents went that way before anybody looked.
+
+Those are read a second way, from their pages. `worker/src/vision.ts` draws
+each page with PDFium compiled to WebAssembly, has Kimi K2.7 write the page down
+as Markdown, and has it read the figures out of what it wrote. The pages are put
+together as a conversion of their own beside `toMarkdown`'s —
+`archive/<sha256>.pages-kimi-k2.7-code-p1.md` — so a scan is transcribed once and
+can be read again by any later reader without a picture, and a figure can be
+checked against its transcription and that against the page. That is under a
+cent a page: the expensive case after all, just not where the converter's
+documentation suggested. Only a conversion with no text layer is drawn, and a
+document too large for PDFium to hold in a Worker's memory is refused in writing
+rather than risked.
 
 Reading the markdown is the real cost, and it is a 70B model over every window
 at $0.293 per million input tokens and $2.253 per million output:

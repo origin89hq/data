@@ -3,7 +3,7 @@ import { sellers } from "./sellers.ts";
 import { hasFeed } from "./feeds.ts";
 import { APPROVAL_EVENT, CrawlApproval } from "./documents.ts";
 import { authorised } from "./authorised.ts";
-import { classifyRun, convertRun, specPagesRun } from "./enqueue.ts";
+import { classifyRun, convertRun, specPagesRun, visionRun } from "./enqueue.ts";
 import specPages from "../../feeds/spec-pages.json" with { type: "json" };
 import { manufacturers } from "./manufacturers.ts";
 import { makerStates, sellerStates } from "./state.ts";
@@ -151,6 +151,7 @@ export const CONTROL_PATHS = [
   "/state",
   "/status",
   "/supervise",
+  "/vision",
 ] as const;
 
 // Registered before the handlers, because Hono runs a path's middleware in the order it was added.
@@ -262,6 +263,15 @@ controlRoutes.post("/convert", async (c) => {
   if (!manufacturerId || !checkedAt) return c.json({ error: "id and date required" }, 400);
   // Reading follows conversion on its own: each converted document enqueues its own reading.
   return c.json(await convertRun(c.env, manufacturerId, checkedAt));
+});
+
+// The supervisor does this every day for whatever converted since it last looked; this is for not
+// waiting until tomorrow. A document with a text layer is looked up and left alone.
+controlRoutes.post("/vision", async (c) => {
+  const manufacturerId = c.req.query("id");
+  const checkedAt = c.req.query("date");
+  if (!manufacturerId || !checkedAt) return c.json({ error: "id and date required" }, 400);
+  return c.json(await visionRun(c.env, manufacturerId, checkedAt));
 });
 
 // One call rather than eighty-six. Discovery only reads pages a maker already publishes to search

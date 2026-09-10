@@ -1,6 +1,31 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { batches, partKey, sendGroups, SEND_BATCH, Work } from "../src/work.ts";
+import { readFileSync } from "node:fs";
+import { batches, LAST_ATTEMPT, partKey, sendGroups, SEND_BATCH, Work } from "../src/work.ts";
+
+test("a page message names its page and the pages it belongs to, and cannot name a page past the last", () => {
+  const page = { kind: "vision-page", run: "r", manufacturer: "m", date: "d", sha256: "a".repeat(64), url: "https://x.test/a.pdf", page: 2, pages: 3 };
+  assert.equal(Work.safeParse(page).success, true);
+  assert.equal(Work.safeParse({ kind: "vision", run: "r", manufacturer: "m", date: "d", sha256: "a".repeat(64), url: "https://x.test/a.pdf" }).success, true);
+  assert.equal(Work.safeParse({ ...page, page: 4 }).success, false, "page four of three would leave the reading waiting for ever");
+  assert.equal(Work.safeParse({ ...page, page: 0 }).success, false, "pages are counted from one");
+  assert.equal(Work.safeParse({ ...page, sha256: "../../etc/passwd" }).success, false);
+  assert.equal(Work.safeParse({ ...page, pages: undefined }).success, false, "a page with no count cannot tell when the reading is whole");
+});
+
+test("a page of a reading lives beside the document, and every page of it shares one prefix nothing else does", () => {
+  const sha = "c".repeat(64);
+  assert.equal(partKey.page(sha, "ex", 7), `archive/${sha}.ex.page-0007.json`);
+  assert.ok(partKey.page(sha, "ex", 7).startsWith(partKey.pages(sha, "ex")));
+  assert.ok(!partKey.reading(sha, "ex").startsWith(partKey.pages(sha, "ex")), "the reading itself is not one of its pages");
+  assert.ok(!partKey.page(sha, "other", 1).startsWith(partKey.pages(sha, "ex")), "nor is another reader's page");
+});
+
+test("the last attempt the page reader counts on is the last one the queue makes", () => {
+  const config = readFileSync(new URL("../wrangler.jsonc", import.meta.url), "utf8");
+  const retries = Number(/"max_retries":\s*(\d+)/.exec(config)?.[1]);
+  assert.equal(LAST_ATTEMPT, retries + 1, "a page that fails on its last delivery must be written down, or its reading never finishes");
+});
 
 const sighting = { seller: "a", productId: "1", handle: "h", url: "https://a.test/p", title: "t", currency: "CAD", checkedAt: "2026-09-09", extractor: "shopify-feed" };
 

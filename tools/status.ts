@@ -15,7 +15,7 @@ const base = (process.env.OFFGRID_BASE_URL ?? "http://localhost:8790").replace(/
 const token = process.env.OFFGRID_CONTROL_TOKEN ?? "";
 
 interface SellerState { seller: string; date?: string; sightings?: number; classified?: { parts: number; written: number } }
-interface MakerState { maker: string; date?: string; offered?: number; specPages?: number; approvedBy?: string; fetched?: number; converted?: number; read?: number; waitingOn: string }
+interface MakerState { maker: string; date?: string; offered?: number; specPages?: number; approvedBy?: string; fetched?: number; converted?: number; read?: number; seeing?: number; seen?: number; waitingOn: string }
 
 const records = loadRecords();
 const specs = records.specs.length;
@@ -60,6 +60,14 @@ if (state) {
   for (const [what, makers] of [...byWait.entries()].sort((a, b) => b[1].length - a[1].length)) {
     console.log(`  ${String(makers.length).padStart(3)} waiting on ${what}`);
     if (what.includes("approve") || what.includes("pulled")) for (const m of makers.slice(0, 6)) console.log(`      ${m.maker}${m.offered ? ` — ${m.offered} documents offered` : ""}${m.read ? `, ${m.read} read` : ""}`);
+  }
+  // The page reader's progress. A scan counts as read by the text reader, which found nothing in
+  // it, so without this line the second look would be invisible here.
+  const seen = state.makers.filter((m) => m.seen);
+  const unoffered = state.makers.filter((m) => m.converted !== undefined && m.converted > (m.seeing ?? 0));
+  if (seen.length || unoffered.length) {
+    console.log(`\n  ${seen.reduce((n, m) => n + (m.seen ?? 0), 0)} documents read from their pages, across ${seen.length} makers`);
+    if (unoffered.length) console.log(`  ${unoffered.length} makers with conversions the page reader has not been offered yet`);
   }
   const publishing = state.makers.filter((m) => m.specPages);
   if (publishing.length) {

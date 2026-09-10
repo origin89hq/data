@@ -84,6 +84,10 @@ approve maker date approver limit="40":
 convert maker date:
     @just _post "/convert?id={{maker}}&date={{date}}"
 
+# Draw and read the pages of a maker's documents that converted to no text. The supervisor does this daily.
+vision maker date:
+    @just _post "/vision?id={{maker}}&date={{date}}"
+
 # Build the site the Worker serves.
 site:
     cd site && pnpm build

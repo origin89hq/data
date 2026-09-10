@@ -4,6 +4,8 @@ import { classifyBatch, classifierKey, CLASSIFIER_ID } from "./classify.ts";
 import { contentOf } from "./classify.ts";
 import { chunk, CONVERTER, EXTRACT_MODEL, EXTRACTOR_ID, RESPONSE_SCHEMA, SYSTEM, mergeReports, type Reported } from "./reading.ts";
 import { inputKey, partKey, Work } from "./work.ts";
+import { pdfium } from "./pdfium.ts";
+import { seeDocument, seePage } from "./vision.ts";
 import { BatchMisalignedError } from "./classify.ts";
 import type { Sighting } from "../../schema/sighting.ts";
 import type { Guess } from "../../schema/guess.ts";
@@ -36,7 +38,7 @@ export async function classifyInHalves(ai: Ai, sightings: Sighting[]): Promise<G
   }
 }
 
-export async function handle(message: Work, env: Env): Promise<void> {
+export async function handle(message: Work, env: Env, attempt = 1): Promise<void> {
   switch (message.kind) {
     case "classify": {
       const guesses = await classifyInHalves(env.AI, message.sightings);
@@ -136,6 +138,14 @@ export async function handle(message: Work, env: Env): Promise<void> {
       });
       return;
     }
+    case "vision": {
+      await seeDocument(message, env);
+      return;
+    }
+    case "vision-page": {
+      await seePage(message, env, attempt, pdfium);
+      return;
+    }
   }
 }
 
@@ -151,7 +161,7 @@ export async function handle(message: Work, env: Env): Promise<void> {
 export async function consume(batch: MessageBatch<unknown>, env: Env): Promise<void> {
   for (const message of batch.messages) {
       try {
-        await handle(Work.parse(message.body), env);
+        await handle(Work.parse(message.body), env, message.attempts);
         message.ack();
       } catch (error) {
         console.error(JSON.stringify({ message: "work failed", attempt: message.attempts, error: error instanceof Error ? error.message : String(error) }));
