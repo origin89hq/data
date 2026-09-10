@@ -33,6 +33,16 @@ jobs:
           fetch-depth: 1
           persist-credentials: false
 
+      # The shared Origin89 rules that AGENTS.md refers to, in the ignored directory the sync
+      # script uses. The script calls the GitHub API without a token; checkout uses the job's.
+      - name: Check out the shared engineering rules
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          repository: origin89hq/engineering
+          path: .origin89/engineering
+          fetch-depth: 1
+          persist-credentials: false
+
       - name: Run Claude Code Review
         id: claude-review
         uses: anthropics/claude-code-action@19dda84776b3518d98b8798e591daee763049ed3 # v1.0.220
@@ -41,7 +51,16 @@ jobs:
           plugin_marketplaces: 'https://github.com/anthropics/claude-code.git'
           plugins: 'code-review@claude-code-plugins'
           prompt: '/code-review:code-review --comment ${{ github.repository }}/pull/${{ github.event.pull_request.number }}'
-          claude_args: '--allowedTools "mcp__github_inline_comment__create_inline_comment"'
+          # The action drops every line of this value that starts with a hash, even inside quotes.
+          claude_args: |
+            --allowedTools "mcp__github_inline_comment__create_inline_comment"
+            --append-system-prompt "Review against this repository's rules as well as for bugs.
+            AGENTS.md holds the rules that CLAUDE.md points to, so treat it as part of CLAUDE.md.
+            Changes under records/ must also follow CONTRIBUTING.md.
+            The shared Origin89 rules are already checked out under .origin89/engineering/skills/, so do not run just skills-sync.
+            Read origin89-working/SKILL.md and origin89-review/SKILL.md there, plus origin89-typescript, origin89-testing or origin89-writing when the change touches their area.
+            Give every review subagent these file paths. A finding based on one of these rules must quote the rule and name its file.
+            The Check workflow runs just check, so do not try to run it. This workflow authorizes posting the review comments."
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://code.claude.com/docs/en/cli-reference for available options
 

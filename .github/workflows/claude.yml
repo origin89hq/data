@@ -32,6 +32,16 @@ jobs:
           fetch-depth: 1
           persist-credentials: false
 
+      # The shared Origin89 rules that AGENTS.md refers to, in the ignored directory the sync
+      # script uses. The script calls the GitHub API without a token; checkout uses the job's.
+      - name: Check out the shared engineering rules
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          repository: origin89hq/engineering
+          path: .origin89/engineering
+          fetch-depth: 1
+          persist-credentials: false
+
       - name: Run Claude Code
         id: claude
         uses: anthropics/claude-code-action@19dda84776b3518d98b8798e591daee763049ed3 # v1.0.220
@@ -45,8 +55,10 @@ jobs:
           # Optional: Give a custom prompt to Claude. If this is not specified, Claude will perform the instructions specified in the comment that tagged it.
           # prompt: 'Update the pull request description to include a summary of changes.'
 
-          # Optional: Add claude_args to customize behavior and configuration
+          # The action drops every line of this value that starts with a hash, even inside quotes.
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://code.claude.com/docs/en/cli-reference for available options
-          # claude_args: '--allowed-tools Bash(gh pr *)'
+          claude_args: |
+            --append-system-prompt "The shared Origin89 rules that AGENTS.md refers to are already checked out under .origin89/engineering/skills/. Read them there instead of running just skills-sync.
+            just check cannot run in this job. The Check workflow runs it on every push, so when you report changes, say that it has not run yet."
 
