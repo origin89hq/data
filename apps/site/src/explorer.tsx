@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { count, type Index } from "./api.ts";
-import { useDuckDb } from "./useDuckDb.ts";
+import { Icon } from "./icons.tsx";
+import type { State } from "./useDuckDb.ts";
 
 type Row = Record<string, unknown>;
 
@@ -60,8 +61,15 @@ const PAGE = 12;
  * reads the Parquet over HTTP in the reader's own browser, so a search is over everything that is
  * published and the row somebody inspects is the row anybody else would get.
  */
-export function Explorer({ index, tier }: { index?: Index; tier: "reviewed" | "all" }) {
-  const db = useDuckDb(index);
+export function Explorer({
+  index,
+  tier,
+  db,
+}: {
+  index?: Index;
+  tier: "reviewed" | "all";
+  db: State;
+}) {
   const [tab, setTab] = useState<TabName>("models");
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("");
@@ -140,18 +148,21 @@ export function Explorer({ index, tier }: { index?: Index; tier: "reviewed" | "a
               tabIndex={tab === name ? 0 : -1}
               onClick={() => setTab(name)}
             >
-              {TABLES[name].label}{" "}
-              <span>{count(index?.files[`${TABLES[name].table}.parquet`]?.rows ?? 0)}</span>
+              {TABLES[name].label} <span>{count(index?.files[`${name}.parquet`]?.rows ?? 0)}</span>
             </button>
           ))}
         </div>
         <span className="sample-label">
-          {db.ready ? "LIVE FROM THE PUBLISHED TABLES" : "LOADING DUCKDB"}
+          {db.ready
+            ? "LIVE FROM THE PUBLISHED TABLES"
+            : db.error
+              ? "DATA UNAVAILABLE"
+              : "READING THE DATA"}
         </span>
       </div>
       <div className="explorer-tools">
         <label className="search-box">
-          <span aria-hidden>⌕</span>
+          <Icon name="search" />
           <input
             type="search"
             value={search}
@@ -214,7 +225,11 @@ export function Explorer({ index, tier }: { index?: Index; tier: "reviewed" | "a
               {rows.length === 0 && (
                 <tr>
                   <td colSpan={spec.columns.length}>
-                    {db.ready ? "Nothing matches that." : "Reading the tables…"}
+                    {db.ready
+                      ? "Nothing matches that."
+                      : db.error
+                        ? "The data couldn’t be loaded. Reload the page to try again, or download the files below."
+                        : "Reading the tables…"}
                   </td>
                 </tr>
               )}
@@ -233,7 +248,7 @@ export function Explorer({ index, tier }: { index?: Index; tier: "reviewed" | "a
             disabled={page === 0}
             aria-label="Previous page"
           >
-            ←
+            <Icon name="arrowLeft" />
           </button>
           <span>
             {page + 1} / {count(pages)}
@@ -244,7 +259,7 @@ export function Explorer({ index, tier }: { index?: Index; tier: "reviewed" | "a
             disabled={page + 1 >= pages}
             aria-label="Next page"
           >
-            →
+            <Icon name="arrowRight" />
           </button>
         </div>
       </div>
@@ -271,7 +286,7 @@ function RecordDialog({
 }: {
   row: Row;
   table: TabName;
-  db: ReturnType<typeof useDuckDb>;
+  db: State;
   onClose: () => void;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
@@ -312,7 +327,7 @@ function RecordDialog({
           aria-label="Close record details"
           onClick={onClose}
         >
-          ×
+          <Icon name="close" />
         </button>
       </div>
       <div id="detail-content">
@@ -396,7 +411,7 @@ function RecordDialog({
                 <strong>
                   {/^https?:\/\//.test(String(value)) ? (
                     <a href={String(value)} target="_blank" rel="noopener">
-                      open ↗
+                      open <Icon name="arrowUpRight" />
                     </a>
                   ) : (
                     String(value)
@@ -418,7 +433,7 @@ function RecordDialog({
 }
 
 /** Every figure a model has, with the page each was read off. */
-function ModelFigures({ model, db }: { model: string; db: ReturnType<typeof useDuckDb> }) {
+function ModelFigures({ model, db }: { model: string; db: State }) {
   const [figures, setFigures] = useState<Row[]>([]);
   useEffect(() => {
     if (!db.ready || !model) return;

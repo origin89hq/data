@@ -1,5 +1,6 @@
 import { type ReactNode, useState } from "react";
 import { type Index, kb } from "./api.ts";
+import { Icon } from "./icons.tsx";
 
 /** Written against the live origin, so a reader can copy one and it runs. */
 const snippets = (
@@ -146,7 +147,7 @@ export function Build({ index }: { index?: Index }) {
               target="_blank"
               rel="noopener"
             >
-              Read the data dictionary <span>↗</span>
+              Read the data dictionary <Icon name="arrowUpRight" />
             </a>
             <div className="dev-license">
               <span>MIT</span>
@@ -174,7 +175,7 @@ export function Build({ index }: { index?: Index }) {
                 </button>
               ))}
               <button type="button" className="copy-code" onClick={copy} aria-label="Copy code">
-                {copied ? "Copied" : "Copy"} <span>⧉</span>
+                {copied ? "Copied" : "Copy"} <Icon name="copy" />
               </button>
             </div>
             <pre role="tabpanel">
@@ -193,15 +194,19 @@ export function Build({ index }: { index?: Index }) {
           <a className="button small" href="/v1/models.parquet">
             models.parquet{" "}
             <span>
-              ↓ {index?.files["models.parquet"] ? kb(index.files["models.parquet"].bytes) : ""}
+              <Icon name="download" />{" "}
+              {index?.files["models.parquet"] ? kb(index.files["models.parquet"].bytes) : ""}
             </span>
           </a>
           <a className="button small" href="/v1/specs.csv">
             specs.csv{" "}
-            <span>↓ {index?.files["specs.csv"] ? kb(index.files["specs.csv"].bytes) : ""}</span>
+            <span>
+              <Icon name="download" />{" "}
+              {index?.files["specs.csv"] ? kb(index.files["specs.csv"].bytes) : ""}
+            </span>
           </a>
           <a className="text-link" href="/manifest.json" target="_blank" rel="noopener">
-            View the index <span>↗</span>
+            View the index <Icon name="arrowUpRight" />
           </a>
         </div>
       </section>
@@ -215,7 +220,7 @@ export function Build({ index }: { index?: Index }) {
         </h2>
         <div className="hero-actions">
           <a className="button primary" href="#explore">
-            Explore the dataset <span>↗</span>
+            Explore the dataset <Icon name="arrowUpRight" />
           </a>
           <a
             className="button quiet"
@@ -223,7 +228,7 @@ export function Build({ index }: { index?: Index }) {
             target="_blank"
             rel="noopener"
           >
-            Contribute a correction <span>↗</span>
+            Contribute a correction <Icon name="arrowUpRight" />
           </a>
         </div>
       </section>

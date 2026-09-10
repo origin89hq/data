@@ -1,13 +1,13 @@
 @import "@origin89/brand/tokens/themes.css";
 @font-face {
   font-family: Inter Tight;
-  src: url("assets/fonts/InterTight-Variable.ttf") format("truetype");
+  src: url("@origin89/brand/fonts/InterTight-Variable.ttf") format("truetype");
   font-weight: 100 900;
   font-display: swap;
 }
 @font-face {
   font-family: IBM Plex Mono;
-  src: url("assets/fonts/IBMPlexMono-Regular.ttf") format("truetype");
+  src: url("@origin89/brand/fonts/IBMPlexMono-Regular.ttf") format("truetype");
   font-weight: 400;
   font-display: swap;
 }
@@ -644,54 +644,6 @@ nav {
   font-size: 15px;
   line-height: 1.7;
   margin-bottom: 3px;
-}
-.data-pillars {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid var(--color-line);
-}
-.pillar {
-  padding: 28px 23px 10px 0;
-  border-right: 1px solid var(--color-line);
-  margin-right: 23px;
-  display: flex;
-  flex-direction: column;
-}
-.pillar:last-child {
-  margin: 0;
-  border: 0;
-  padding-right: 0;
-}
-.pillar-number {
-  font: 11px var(--mono);
-  color: var(--accent);
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 32px;
-}
-.pillar-number > span {
-  color: var(--color-faint);
-  font: 17px var(--sans);
-}
-.pillar h3 {
-  font-size: 20px;
-  letter-spacing: -0.02em;
-  margin-bottom: 14px;
-}
-.pillar p {
-  font-size: 13px;
-  line-height: 1.7;
-  margin-bottom: 25px;
-}
-.pillar-foot {
-  font: 9px var(--mono);
-  letter-spacing: 0.025em;
-  color: var(--color-faint);
-  margin-top: auto;
-}
-.pillar:hover h3,
-.pillar:hover .pillar-number > span {
-  color: var(--color-info);
 }
 .explorer-section {
   background: var(--color-surface);
@@ -1840,21 +1792,6 @@ dialog::backdrop {
   .sample-label {
     font-size: 8px;
   }
-  .data-pillars {
-    grid-template-columns: 1fr 1fr;
-    gap: 30px 0;
-  }
-  .pillar:nth-child(2) {
-    border: 0;
-    margin: 0;
-  }
-  .pillar h3 {
-    font-size: 22px;
-  }
-  .pillar:nth-child(n + 3) {
-    border-top: 1px solid var(--color-line);
-    padding-top: 26px;
-  }
   .evidence-section {
     grid-template-columns: 1fr 330px;
     gap: 30px;
@@ -2181,30 +2118,6 @@ dialog::backdrop {
   }
   h2 {
     font-size: 35px;
-  }
-  .data-pillars {
-    gap: 25px 0;
-  }
-  .pillar {
-    padding: 20px 16px 0 0;
-    margin-right: 16px;
-  }
-  .pillar h3 {
-    font-size: 19px;
-    line-height: 1.2;
-    margin-bottom: 11px;
-  }
-  .pillar p {
-    font-size: 12px;
-    line-height: 1.7;
-    margin-bottom: 17px;
-  }
-  .pillar-number {
-    margin-bottom: 20px;
-  }
-  .pillar-foot {
-    font-size: 8px;
-    letter-spacing: 0;
   }
   .explorer-section h2 {
     font-size: 35px;
