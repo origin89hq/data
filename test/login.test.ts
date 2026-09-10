@@ -201,7 +201,6 @@ test("a stored sign-in goes only to the Worker that accepted it", (t) => {
   assert.equal(bearerFor(`${WORKER}/`, START), "ghu_ada");
   for (const elsewhere of [
     "https://worker.example.evil.test",
-    "http://worker.example",
     "https://worker.example:8443",
     "https://data.origin89.co",
   ])
@@ -211,6 +210,24 @@ test("a stored sign-in goes only to the Worker that accepted it", (t) => {
       `${elsewhere} was sent the token`,
     );
   assert.throws(() => bearerFor("not a url", START), /is not a URL; check OFFGRID_BASE_URL/);
+});
+
+test("no token is sent in the clear, except to this machine", async (t) => {
+  isolated(t);
+  const asked: string[] = [];
+  t.mock.method(globalThis, "fetch", async (input: RequestInfo | URL) => {
+    asked.push(String(input));
+    return Response.json({});
+  });
+  await assert.rejects(
+    login({ base: "http://worker.example", say: () => {} }),
+    /http:\/\/worker\.example is not HTTPS/,
+  );
+  assert.deepEqual(asked, [], "a sign-in over plain HTTP was started");
+  process.env.OFFGRID_CONTROL_TOKEN = "the-shared-token";
+  assert.throws(() => bearerFor("http://data.origin89.com"), /is not HTTPS/);
+  for (const here of ["http://localhost:8790", "http://127.0.0.1:8790", "http://[::1]:8790"])
+    assert.equal(bearerFor(here), "the-shared-token", `${here} was refused`);
 });
 
 test("a stored file that is not a sign-in is an error, never an empty token", (t) => {

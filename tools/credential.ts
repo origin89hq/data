@@ -54,6 +54,7 @@ const LOCAL = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
 
 /** The bearer token for the Worker at `base`, or an error saying how to get one. */
 export function bearerFor(base: string, now: number = Date.now()): string {
+  const origin = secureOrigin(base);
   const configured = process.env.OFFGRID_CONTROL_TOKEN;
   if (configured) return configured;
   const local = LOCAL.test(base);
@@ -70,7 +71,6 @@ export function bearerFor(base: string, now: number = Date.now()): string {
     );
   // A mistyped or borrowed OFFGRID_BASE_URL would otherwise receive a token the real Worker
   // accepts for hours.
-  const origin = originOf(base);
   if (stored.origin !== origin)
     throw new Error(
       `the stored sign-in is for ${stored.origin}, not ${origin}; to use it, run: OFFGRID_BASE_URL=${origin} just login`,
@@ -87,6 +87,19 @@ export function originOf(base: string): string {
   } catch {
     throw new Error(`${base || "the Worker's address"} is not a URL; check OFFGRID_BASE_URL`);
   }
+}
+
+const LOOPBACK: ReadonlySet<string> = new Set(["localhost", "127.0.0.1", "[::1]"]);
+
+/**
+ * Where a token may go: HTTPS, or plain HTTP to this machine. Sent in the clear anywhere else, it
+ * is readable by whoever carries it, and the Worker would take it for hours.
+ */
+export function secureOrigin(base: string): string {
+  const origin = originOf(base);
+  const { protocol, hostname } = new URL(origin);
+  if (protocol === "https:" || (protocol === "http:" && LOOPBACK.has(hostname))) return origin;
+  throw new Error(`${origin} is not HTTPS; a token goes only to https:// or to this machine`);
 }
 
 function devControlToken(): string | undefined {

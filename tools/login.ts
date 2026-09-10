@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { originOf, type StoredLogin, saveLogin } from "./credential.ts";
+import { type StoredLogin, saveLogin, secureOrigin } from "./credential.ts";
 
 /**
  * Sign in with GitHub from a terminal.
@@ -67,6 +67,8 @@ export async function login({
   say = console.log,
   now = Date.now,
 }: LoginOptions): Promise<StoredLogin> {
+  // Checked before GitHub issues anything: the token goes to this address the moment it exists.
+  const origin = secureOrigin(base);
   const described = await fetch(`${base}/auth/app`, { signal: AbortSignal.timeout(30_000) });
   const app = App.safeParse(described.ok ? await described.json() : null);
   if (!app.success)
@@ -120,7 +122,7 @@ export async function login({
   const stored = {
     token: token.value,
     login: answer.login,
-    origin: originOf(base),
+    origin,
     expiresAt: new Date(now() + token.seconds * 1000).toISOString(),
   };
   saveLogin(stored);
