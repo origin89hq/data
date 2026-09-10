@@ -31,6 +31,15 @@ jobs:
         with:
           persist-credentials: false
       - uses: ./.github/actions/setup
+      # The build writes Parquet through the duckdb CLI, so it has to be here before anything
+      # builds or tests. Left out of the first version of this file, which would have failed at
+      # the first table.
+      - name: Install the duckdb CLI
+        shell: bash
+        run: |
+          curl -fsSL https://install.duckdb.org | sh
+          echo "$HOME/.duckdb/cli/latest" >> "$GITHUB_PATH"
+      - run: duckdb -c "SELECT 1" > /dev/null
       # Nothing is published that the records themselves would not survive.
       - run: node src/validate.ts
       - run: node --test test/*.test.ts
@@ -50,7 +59,7 @@ jobs:
       - name: Check the front door serves what was just published
         run: |
           published=$(node -e "console.log(JSON.parse(require('fs').readFileSync('dist/manifest.json','utf8')).files['specs.parquet'].sha256)")
-          served=$(curl -sf --max-time 60 "https://data.origin89.com/v1/specs.parquet" | shasum -a 256 | cut -d' ' -f1)
+          served=$(curl -sf --max-time 60 "https://data.origin89.com/v1/specs.parquet" | sha256sum | cut -d' ' -f1)
           if [ "$published" != "$served" ]; then
             echo "data.origin89.com is serving $served, the build made $published" >&2
             exit 1
