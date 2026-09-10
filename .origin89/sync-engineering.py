@@ -161,11 +161,20 @@ def activate(project, cache, state, previous):
     next_pointer = cache / "next"
     if next_pointer.exists() or next_pointer.is_symlink():
         raise ValueError("Unexpected pending cache pointer; inspect it before retrying")
-    for link, target in targets.items():
-        if link.name in new_names and not link.is_symlink():
-            link.symlink_to(target, target_is_directory=True)
-    next_pointer.symlink_to(f"versions/{state['revision']}", target_is_directory=True)
-    os.replace(next_pointer, cache / "current")
+    created = []
+    try:
+        for link, target in targets.items():
+            if link.name in new_names and not link.is_symlink():
+                link.symlink_to(target, target_is_directory=True)
+                created.append(link)
+        next_pointer.symlink_to(f"versions/{state['revision']}", target_is_directory=True)
+        created.append(next_pointer)
+        os.replace(next_pointer, cache / "current")
+    except OSError:
+        # Before the pointer changes, remove only links created by this attempt.
+        for link in reversed(created):
+            link.unlink()
+        raise
     for link in targets:
         if link.name not in new_names and link.is_symlink():
             link.unlink()
