@@ -13,8 +13,9 @@ import type { Work } from "../src/work.ts";
 
 /**
  * Enough of R2, the queue and the model for the page reader and the supervisor: an archive in
- * memory, a record of every message sent and every model call made, and a model that answers
- * whatever `answer` returns for the nth call and its request (or throws, when that is an Error).
+ * memory, a record of every message sent, every prefix listed and every model call made, and a
+ * model that answers whatever `answer` returns for the nth call and its request (or throws, when
+ * that is an Error).
  */
 export function world(
   objects: Record<string, string | Uint8Array> = {},
@@ -34,6 +35,7 @@ export function world(
     arrayBuffer: async () => bytes.slice().buffer,
   });
   const sent: Work[] = [];
+  const listed: string[] = [];
   const asked: { model: string; input: TestAiInput }[] = [];
   const env = {
     ARCHIVE: {
@@ -57,6 +59,7 @@ export function world(
         limit?: number;
         cursor?: string;
       }) => {
+        listed.push(prefix);
         const keys = [...store.keys()].filter((k) => k.startsWith(prefix)).sort();
         const start = cursor ? Number(cursor) : 0;
         return {
@@ -93,5 +96,5 @@ export function world(
     assert.ok(value !== null && typeof value === "object", `Missing object: ${key}`);
     return value as T;
   };
-  return { env, store, sent, asked, read, readObject, text };
+  return { env, store, sent, listed, asked, read, readObject, text };
 }
