@@ -61,7 +61,7 @@ console.log(`  ${noKind} models nothing has classified`);
 let state: { sellers: SellerState[]; makers: MakerState[] } | undefined;
 try {
   const response = await fetch(`${base}/state`, {
-    headers: { authorization: `Bearer ${bearerFor(base)}` },
+    headers: { authorization: `Bearer ${await bearerFor(base)}` },
   });
   if (response.ok) state = (await response.json()) as typeof state;
   else console.log(`\nPIPELINE\n  ${base} answered ${response.status}: ${await response.text()}`);

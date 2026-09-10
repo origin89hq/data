@@ -2,17 +2,32 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { test } from "node:test";
 import { createLocalJWKSet, createRemoteJWKSet, generateKeyPair, UnsecuredJWT } from "jose";
-import { AUDIENCE, GITHUB_ISSUER, GitHubKeysUnavailable, verifyWorkflow } from "../src/oidc.ts";
+import {
+  AUDIENCE,
+  admits,
+  GITHUB_ISSUER,
+  GitHubKeysUnavailable,
+  PRODUCTION,
+  verifyJob,
+  verifyWorkflow,
+  type WorkflowRule,
+} from "../src/oidc.ts";
 import { app } from "../src/routes.ts";
 import { jobToken, jwks, publishJob } from "./github-token.ts";
 import { world } from "./world.ts";
 
 const keys = createLocalJWKSet(jwks);
-const verify = (token: string, workflow = "publish.yml") => verifyWorkflow(token, workflow, keys);
+/** What the publish route takes. */
+const PUBLISH: WorkflowRule = {
+  workflow: "publish.yml",
+  events: ["push", "workflow_dispatch"],
+  environment: PRODUCTION,
+};
+const verify = (token: string, rule = PUBLISH) => verifyWorkflow(token, rule, keys);
 
 /** Refused, with a reason that names what was wrong. */
-async function refused(token: string, reason: RegExp, workflow?: string) {
-  const check = await verify(token, workflow);
+async function refused(token: string, reason: RegExp, rule?: WorkflowRule) {
+  const check = await verify(token, rule);
   assert.equal(check.ok, false, "the token was accepted");
   if (!check.ok) assert.match(check.reason, reason);
 }
@@ -21,7 +36,13 @@ test("a token from publish.yml on main, pushed or dispatched, is accepted", asyn
   const pushed = await verify(await jobToken());
   assert.deepEqual(pushed, {
     ok: true,
-    run: { workflowRef: publishJob.workflow_ref, runId: publishJob.run_id, sha: publishJob.sha },
+    job: {
+      workflow: "publish.yml",
+      event: "push",
+      environment: PRODUCTION,
+      runId: publishJob.run_id,
+      sha: publishJob.sha,
+    },
   });
   const dispatched = await verify(await jobToken({ event_name: "workflow_dispatch" }));
   assert.equal(dispatched.ok, true);
@@ -60,14 +81,17 @@ test("a token from another workflow file is refused, including one this route do
     await jobToken({
       workflow_ref: "origin89hq/offgrid-equipment/.github/workflows/check.yml@refs/heads/main",
     }),
-    /workflow_ref is .*check\.yml/,
+    /the token is from check\.yml; this route takes publish\.yml/,
   );
   // The publish job's token is not good on a route that names some other workflow.
-  await refused(await jobToken(), /this route needs .*deploy\.yml/, "deploy.yml");
+  await refused(await jobToken(), /this route takes deploy\.yml/, {
+    ...PUBLISH,
+    workflow: "deploy.yml",
+  });
 });
 
 test("a pull request's token is refused even when every other claim matches", async () => {
-  await refused(await jobToken({ event_name: "pull_request" }), /event_name is pull_request/);
+  await refused(await jobToken({ event_name: "pull_request" }), /started by pull_request/);
   await refused(await jobToken({ event_name: "pull_request_target" }), /pull_request_target/);
 });
 
@@ -125,7 +149,7 @@ test("a key set GitHub cannot serve is an outage, not a refusal of the token", a
     respond = answer;
     const keys = createRemoteJWKSet(new URL("https://keys.example/jwks"), { timeoutDuration: 20 });
     await assert.rejects(
-      verifyWorkflow(token, "publish.yml", keys),
+      verifyWorkflow(token, PUBLISH, keys),
       GitHubKeysUnavailable,
       `${what} was answered as though the token were bad`,
     );
@@ -151,4 +175,47 @@ test("publishing while GitHub's keys cannot be read answers 503 and writes nothi
   assert.equal(res.status, 503);
   assert.match(((await res.json()) as { error: string }).error, /signing keys could not be read/);
   assert.deepEqual([...archive.store.keys()], []);
+});
+
+test("a job is any workflow on main here; which ones a route takes is the route's rule", async () => {
+  const pull = await jobToken({
+    workflow_ref: "origin89hq/offgrid-equipment/.github/workflows/pull-figures.yml@refs/heads/main",
+    event_name: "schedule",
+    environment: undefined,
+  });
+  const checked = await verifyJob(pull, keys);
+  assert.deepEqual(checked, {
+    ok: true,
+    job: {
+      workflow: "pull-figures.yml",
+      event: "schedule",
+      runId: publishJob.run_id,
+      sha: publishJob.sha,
+    },
+  });
+  if (!checked.ok) return;
+  const daily: WorkflowRule = {
+    workflow: "pull-figures.yml",
+    events: ["schedule", "workflow_dispatch"],
+  };
+  assert.deepEqual(admits(daily, checked.job), { ok: true });
+  // A rule with no environment does not care whether the job has one.
+  assert.deepEqual(admits(daily, { ...checked.job, environment: PRODUCTION }), { ok: true });
+  assert.deepEqual(admits({ ...daily, events: ["workflow_dispatch"] }, checked.job), {
+    ok: false,
+    reason: "pull-figures.yml was started by schedule; this route takes workflow_dispatch",
+  });
+  assert.equal(admits(PUBLISH, checked.job).ok, false);
+});
+
+test("a workflow path that leaves the workflows directory is not a workflow of this repository", async () => {
+  for (const workflow_ref of [
+    "origin89hq/offgrid-equipment/.github/workflows/../../evil.yml@refs/heads/main",
+    "origin89hq/offgrid-equipment/.github/workflows/nested/publish.yml@refs/heads/main",
+    "origin89hq/offgrid-equipment-fork/.github/workflows/publish.yml@refs/heads/main",
+    "origin89hq/offgrid-equipment/.github/workflows/publish.yml@refs/heads/main2",
+  ]) {
+    const checked = await verifyJob(await jobToken({ workflow_ref }), keys);
+    assert.equal(checked.ok, false, `${workflow_ref} was taken`);
+  }
 });

@@ -120,6 +120,8 @@ test("the wrong token is refused too", async () => {
   assert.equal(res.status, 401);
 });
 
+/** `just dev`, the one place the control token opens anything. */
+const LOCAL = "http://localhost:8790";
 const digest = (n: number) => String(n).padStart(64, "0");
 const archive = (objects: Record<string, string>) => ({
   ...world(objects).env,
@@ -127,7 +129,7 @@ const archive = (objects: Record<string, string>) => ({
 });
 const ask = (env: Env, body: unknown) =>
   app.request(
-    "https://data.example/readings",
+    `${LOCAL}/readings`,
     {
       method: "POST",
       headers: { authorization: "Bearer the-real-token", "content-type": "application/json" },
@@ -210,7 +212,7 @@ test("asking for nothing is refused, so an empty answer is never mistaken for an
     assert.equal(res.status, 400, `${JSON.stringify(body)} was answered ${res.status}`);
   }
   const broken = await app.request(
-    "https://data.example/readings",
+    `${LOCAL}/readings`,
     {
       method: "POST",
       headers: { authorization: "Bearer the-real-token", "content-type": "application/json" },
@@ -292,7 +294,7 @@ test("publishing without publish.yml's token is refused, and the control token i
     authorization: `Bearer ${await jobToken({ workflow_ref: "origin89hq/offgrid-equipment/.github/workflows/deploy.yml@refs/heads/main" })}`,
   });
   assert.equal(deploy.status, 401);
-  assert.match(await errorOf(deploy), /workflow_ref/);
+  assert.match(await errorOf(deploy), /from deploy\.yml; this route takes publish\.yml/);
   assert.deepEqual([...store.keys()], [], "a refused publish wrote something");
 });
 
@@ -463,7 +465,7 @@ test("every current run that recorded an instance comes back with its workflow's
     PAGE_CRAWL: instances({}),
   } as unknown as Env;
   const res = await app.request(
-    "https://data.example/runs",
+    `${LOCAL}/runs`,
     { headers: { authorization: "Bearer the-real-token" } },
     env,
   );
@@ -507,7 +509,7 @@ test("the supervisor's last report is readable by a member, and its absence is a
   const report = { at: "2026-09-10T08:00:03Z", started: [], blocked: [], concerns: ["one"] };
   const read = (env: Env) =>
     app.request(
-      "https://data.example/supervision",
+      `${LOCAL}/supervision`,
       { headers: { authorization: "Bearer the-real-token" } },
       env,
     );
@@ -517,4 +519,134 @@ test("the supervisor's last report is readable by a member, and its absence is a
   assert.equal((await read(bucket().env)).status, 404);
   const anonymous = await app.request("https://data.example/supervision", {}, bucket().env);
   assert.equal(anonymous.status, 401);
+});
+
+/** A job token from `workflow` on main, started by `event`, outside any environment. */
+const jobFrom = (workflow: string, event: string, claims: Record<string, unknown> = {}) =>
+  jobToken({
+    workflow_ref: `origin89hq/offgrid-equipment/.github/workflows/${workflow}@refs/heads/main`,
+    event_name: event,
+    environment: undefined,
+    ...claims,
+  });
+const asJob = (token: string, path: string, init: RequestInit = {}) =>
+  app.request(
+    `https://data.example${path}`,
+    {
+      ...init,
+      headers: {
+        authorization: `Bearer ${token}`,
+        "content-type": "application/json",
+        ...init.headers,
+      },
+    },
+    bucket().env,
+  );
+const readOne = {
+  method: "POST",
+  body: JSON.stringify({ documents: [digest(1)], readers: ["text"] }),
+};
+
+test("the daily pull's job token reads the three routes it needs, and opens nothing else", async () => {
+  const token = await jobFrom("pull-figures.yml", "schedule");
+  assert.equal((await asJob(token, "/state")).status, 200);
+  assert.equal(
+    (await asJob(token, "/archive?prefix=documents/victron-energy/current.json")).status,
+    200,
+  );
+  assert.equal((await asJob(token, "/readings", readOne)).status, 200);
+  for (const path of ["/supervise", "/approve", "/run", "/vision", "/discover-all"]) {
+    const res = await asJob(token, path, { method: "POST" });
+    assert.equal(res.status, 403, `${path} answered ${res.status}`);
+    assert.equal(await errorOf(res), `pull-figures.yml may not call ${path}`);
+  }
+});
+
+test("the supervisor's job token reads state when started by hand, and not on a schedule", async () => {
+  assert.equal(
+    (await asJob(await jobFrom("supervise.yml", "workflow_dispatch"), "/state")).status,
+    200,
+  );
+  const scheduled = await asJob(await jobFrom("supervise.yml", "schedule"), "/state");
+  assert.equal(scheduled.status, 403);
+  assert.match(await errorOf(scheduled), /started by schedule; this route takes workflow_dispatch/);
+  const reading = await asJob(
+    await jobFrom("supervise.yml", "workflow_dispatch"),
+    "/readings",
+    readOne,
+  );
+  assert.equal(reading.status, 403);
+});
+
+test("a job token from another workflow, event or branch opens no control route", async () => {
+  // Publishing runs with the production secrets in reach; it has no business reading the archive.
+  const publishing = await asJob(await jobToken(), "/state");
+  assert.equal(publishing.status, 403);
+  assert.equal(await errorOf(publishing), "publish.yml may not call /state");
+  const pullRequest = await asJob(await jobFrom("pull-figures.yml", "pull_request"), "/state");
+  assert.equal(pullRequest.status, 403);
+  const check = await asJob(await jobFrom("check.yml", "workflow_dispatch"), "/state");
+  assert.equal(check.status, 403);
+  const branch = await asJob(
+    await jobFrom("pull-figures.yml", "workflow_dispatch", {
+      ref: "refs/heads/figures/pull",
+      workflow_ref:
+        "origin89hq/offgrid-equipment/.github/workflows/pull-figures.yml@refs/heads/figures/pull",
+    }),
+    "/state",
+  );
+  assert.equal(branch.status, 401, "a job on another branch is not a job this Worker knows");
+});
+
+test("the control token opens nothing on the deployed address, even if one were left behind", async () => {
+  // The deploy deletes an old CONTROL_TOKEN secret. If that step ever failed, this is what holds.
+  const env = bucket().env;
+  const control = { headers: { authorization: "Bearer the-real-token" } };
+  assert.equal((await app.request("https://data.origin89.com/state", control, env)).status, 401);
+  for (const here of [LOCAL, "http://127.0.0.1:8790", "http://[::1]:8790"])
+    assert.equal((await app.request(`${here}/state`, control, env)).status, 200, `${here} refused`);
+});
+
+test("a local control token shaped like a JWT still opens the control routes", async () => {
+  const jwtShaped = "eyJhbGciOiJub25lIn0.eyJzdWIiOiJsb2NhbCJ9.bG9jYWw";
+  const env = { ...bucket().env, CONTROL_TOKEN: jwtShaped } as unknown as Env;
+  const res = await app.request(
+    `${LOCAL}/state`,
+    { headers: { authorization: `Bearer ${jwtShaped}` } },
+    env,
+  );
+  assert.equal(res.status, 200, "it was taken for a job token and checked against GitHub's keys");
+});
+
+test("the supervisor's job token runs a pass and offers a maker to the page reader", async () => {
+  const token = () => jobFrom("supervise.yml", "workflow_dispatch");
+  const pass = await asJob(await token(), "/supervise", { method: "POST" });
+  assert.equal(pass.status, 200, await pass.clone().text());
+  assert.deepEqual(Object.keys((await pass.json()) as object).sort(), [
+    "at",
+    "blocked",
+    "concerns",
+    "started",
+  ]);
+
+  const run = "documents/acme-power/runs/2026-09-10-abcd1234";
+  const archive = bucket({
+    "documents/acme-power/current.json": JSON.stringify({
+      run: "2026-09-10-abcd1234",
+      date: "2026-09-10",
+      startedAt: "2026-09-10T08:00:00Z",
+    }),
+    [`${run}/converting.json`]: JSON.stringify({
+      documents: [{ url: "https://acme.example/manual.pdf", sha256: digest(7) }],
+    }),
+    [`${run}/converted/${digest(7)}.json`]: "{}",
+  });
+  const offered = await app.request(
+    "https://data.example/vision?id=acme-power&date=2026-09-10",
+    { method: "POST", headers: { authorization: `Bearer ${await token()}` } },
+    archive.env,
+  );
+  assert.equal(offered.status, 200, await offered.clone().text());
+  assert.deepEqual(await offered.json(), { documents: 1 });
+  assert.equal(archive.sent.length, 1, "no page reading was queued");
 });

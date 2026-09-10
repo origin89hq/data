@@ -7,7 +7,17 @@ import { bearer } from "./authorised.ts";
 import { classifyRun, convertRun, specPagesRun, visionRun } from "./enqueue.ts";
 import { hasFeed } from "./feeds.ts";
 import { manufacturers } from "./manufacturers.ts";
-import { GitHubKeysUnavailable, verifyWorkflow, type WorkflowCheck } from "./oidc.ts";
+import {
+  admits,
+  GitHubKeysUnavailable,
+  type Job,
+  type JobCheck,
+  PRODUCTION,
+  verifyJob,
+  verifyWorkflow,
+  type WorkflowCheck,
+  type WorkflowRule,
+} from "./oidc.ts";
 import {
   ARCHIVE_ROOTS,
   currentRuns,
@@ -22,7 +32,13 @@ import {
 } from "./runs.ts";
 import type { SellerCrawlParams } from "./seller-crawl.ts";
 import { sellers } from "./sellers.ts";
-import { authRoutes, type Caller, identify } from "./sign-in.ts";
+import {
+  authRoutes,
+  type Caller,
+  type Identified,
+  identify,
+  localControlToken,
+} from "./sign-in.ts";
 import { makerStates, sellerStates } from "./state.ts";
 import { supervise } from "./supervise.ts";
 import { partKey } from "./work.ts";
@@ -196,10 +212,76 @@ export const CONTROL_PATHS = [
   "/vision",
 ] as const;
 
+type ControlPath = (typeof CONTROL_PATHS)[number];
+
+/**
+ * The workflows that call control routes, and the routes each may call. Neither deploys, so
+ * neither needs the production environment, and the daily pull starts on a schedule.
+ */
+export const CONTROL_WORKFLOWS: readonly (WorkflowRule & { paths: readonly ControlPath[] })[] = [
+  {
+    workflow: "pull-figures.yml",
+    events: ["schedule", "workflow_dispatch"],
+    paths: ["/state", "/archive", "/readings"],
+  },
+  {
+    workflow: "supervise.yml",
+    events: ["workflow_dispatch"],
+    paths: ["/supervise", "/state", "/vision"],
+  },
+];
+
+/** A GitHub job token, as opposed to a person's token or the control token. */
+const JOB_TOKEN = /^eyJ[\w-]*\.[\w-]+\.[\w-]+$/;
+
+function logWorkflowCall(method: string, path: string, job: Job): void {
+  console.log(
+    JSON.stringify({
+      message: "workflow call",
+      method,
+      path,
+      workflow: job.workflow,
+      run: job.runId,
+      sha: job.sha,
+    }),
+  );
+}
+
+/**
+ * Who is calling a control route. The control token comes first, whatever it looks like, so a
+ * local one shaped like a JWT still works. A job token is checked against the workflows allowed on
+ * this route; anything else goes through sign-in.
+ */
+async function controlCaller(
+  c: Context<{ Bindings: Env; Variables: { caller: Caller } }>,
+  path: ControlPath,
+): Promise<Identified> {
+  if (await localControlToken(c)) return { ok: true, caller: { kind: "control token" } };
+  const token = bearer(c.req.raw);
+  if (!token || !JOB_TOKEN.test(token)) return identify(c);
+  let checked: JobCheck;
+  try {
+    checked = await verifyJob(token);
+  } catch (error) {
+    if (error instanceof GitHubKeysUnavailable)
+      return { ok: false, status: 503, error: error.message };
+    throw error;
+  }
+  if (!checked.ok) return { ok: false, status: 401, error: checked.reason };
+  const { job } = checked;
+  const rule = CONTROL_WORKFLOWS.find((allowed) => allowed.workflow === job.workflow);
+  if (!rule?.paths.includes(path))
+    return { ok: false, status: 403, error: `${job.workflow} may not call ${path}` };
+  const admitted = admits(rule, job);
+  if (!admitted.ok) return { ok: false, status: 403, error: admitted.reason };
+  logWorkflowCall(c.req.method, path, job);
+  return { ok: true, caller: { kind: "workflow", workflow: job.workflow, runId: job.runId } };
+}
+
 // Registered before the handlers, because Hono runs a path's middleware in the order it was added.
 for (const path of CONTROL_PATHS) {
   controlRoutes.use(path, async (c, next) => {
-    const who = await identify(c);
+    const who = await controlCaller(c, path);
     if (!who.ok) return c.json({ error: who.error }, who.status);
     c.set("caller", who.caller);
     await next();
@@ -446,7 +528,12 @@ controlRoutes.post("/approve", async (c) => {
   // The approver is whoever GitHub says is signed in, not a name the request carries. Only local
   // development has the control token, and nobody is vouched for there.
   const caller = c.get("caller");
-  const approvedBy = caller.kind === "member" ? caller.login : "the control token";
+  const approvedBy =
+    caller.kind === "member"
+      ? caller.login
+      : caller.kind === "workflow"
+        ? `${caller.workflow} run ${caller.runId}`
+        : "the control token";
   const asked: unknown = await c.req.json().catch(() => null);
   const parsed = CrawlApproval.safeParse(
     asked !== null && typeof asked === "object" ? { ...asked, approvedBy } : asked,
@@ -559,9 +646,17 @@ memberPages.get("/ops", async (c) => {
 export const workflowRoutes: App = new Hono<{ Bindings: Env }>();
 
 /** Every route a workflow calls, and the one workflow file each accepts. */
-export const WORKFLOW_ROUTES = [
-  { method: "PUT", path: "/v1/:file", workflow: "publish.yml" },
-] as const;
+export const WORKFLOW_ROUTES: readonly { method: "PUT"; path: string; rule: WorkflowRule }[] = [
+  {
+    method: "PUT",
+    path: "/v1/:file",
+    rule: {
+      workflow: "publish.yml",
+      events: ["push", "workflow_dispatch"],
+      environment: PRODUCTION,
+    },
+  },
+];
 
 // On the method as well as the path: GET on the same path is public, and must stay so.
 for (const route of WORKFLOW_ROUTES) {
@@ -570,23 +665,14 @@ for (const route of WORKFLOW_ROUTES) {
     let check: WorkflowCheck;
     try {
       check = token
-        ? await verifyWorkflow(token, route.workflow)
-        : { ok: false, reason: `a GitHub Actions token from ${route.workflow} is required` };
+        ? await verifyWorkflow(token, route.rule)
+        : { ok: false, reason: `a GitHub Actions token from ${route.rule.workflow} is required` };
     } catch (error) {
       if (error instanceof GitHubKeysUnavailable) return c.json({ error: error.message }, 503);
       throw error;
     }
     if (!check.ok) return c.json({ error: check.reason }, 401);
-    console.log(
-      JSON.stringify({
-        message: "workflow call",
-        method: route.method,
-        path: new URL(c.req.url).pathname,
-        workflow: check.run.workflowRef,
-        run: check.run.runId,
-        sha: check.run.sha,
-      }),
-    );
+    logWorkflowCall(route.method, new URL(c.req.url).pathname, check.job);
     await next();
   });
 }

@@ -1,1 +1,3 @@
 CONTROL_TOKEN=local-development-only-change-me
+# To try GitHub sign-in locally: a client secret of the Origin89 Data app.
+# GITHUB_CLIENT_SECRET=

@@ -2,13 +2,15 @@ import { chmodSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { dirname, join } from "node:path";
 import { z } from "zod";
+import { AUDIENCE } from "../apps/worker/src/oidc.ts";
 
 /**
  * What a tool sends the Worker to say who is asking.
  *
- * `just dev` keeps a control token in apps/worker/.dev.vars. A deployment takes the GitHub token
- * `just login` stored, and checks that its owner is in the working group. OFFGRID_CONTROL_TOKEN
- * still comes first when it is set, for the jobs that have not moved off it yet.
+ * A GitHub Actions job sends a token GitHub issued to it, and the Worker decides what that
+ * workflow may call. `just dev` keeps a control token in apps/worker/.dev.vars. A person working
+ * against a deployment sends the GitHub token `just login` stored. OFFGRID_CONTROL_TOKEN, when
+ * somebody sets it, comes before all of them.
  *
  * Usage: credential.ts <base url>   prints the token for that Worker, for the curl recipes
  */
@@ -52,11 +54,41 @@ export function saveLogin(login: StoredLogin): void {
 
 const LOCAL = /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
 
+/** Whether this runs in a GitHub Actions job that may ask GitHub for a job token. */
+export function inActionsJob(): boolean {
+  return Boolean(
+    process.env.ACTIONS_ID_TOKEN_REQUEST_URL && process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN,
+  );
+}
+
+/**
+ * A token GitHub issues to this job, naming its repository, branch and workflow. Asked for each
+ * time it is needed, because one lasts minutes and a job can run for an hour.
+ */
+export async function jobToken(): Promise<string> {
+  const url = process.env.ACTIONS_ID_TOKEN_REQUEST_URL;
+  const request = process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN;
+  if (!url || !request) throw new Error("not in a GitHub Actions job with id-token: write");
+  const asking = new URL(url);
+  asking.searchParams.set("audience", AUDIENCE);
+  const response = await fetch(asking, {
+    headers: { authorization: `Bearer ${request}` },
+    signal: AbortSignal.timeout(30_000),
+  });
+  if (!response.ok) throw new Error(`GitHub would not issue a job token: HTTP ${response.status}`);
+  const body: unknown = await response.json();
+  const value = typeof body === "object" && body !== null && "value" in body ? body.value : null;
+  if (typeof value !== "string" || !value)
+    throw new Error("GitHub answered a token request without a token");
+  return value;
+}
+
 /** The bearer token for the Worker at `base`, or an error saying how to get one. */
-export function bearerFor(base: string, now: number = Date.now()): string {
+export async function bearerFor(base: string, now: number = Date.now()): Promise<string> {
   const origin = secureOrigin(base);
   const configured = process.env.OFFGRID_CONTROL_TOKEN;
   if (configured) return configured;
+  if (inActionsJob()) return jobToken();
   const local = LOCAL.test(base);
   if (local) {
     const token = devControlToken();
@@ -115,7 +147,7 @@ function devControlToken(): string | undefined {
 
 if (import.meta.main) {
   try {
-    console.log(bearerFor(process.argv[2] ?? ""));
+    console.log(await bearerFor(process.argv[2] ?? ""));
   } catch (error) {
     console.error(error instanceof Error ? error.message : String(error));
     process.exit(1);
