@@ -2,7 +2,7 @@
   "id": "ruixu-pp200",
   "manufacturer": "ruixu",
   "name": "PP200",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

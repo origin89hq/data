@@ -3,5 +3,6 @@
   "manufacturer": "unique-appliances",
   "name": "UGP-595L",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

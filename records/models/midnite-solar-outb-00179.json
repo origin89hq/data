@@ -2,7 +2,7 @@
   "id": "midnite-solar-outb-00179",
   "manufacturer": "midnite-solar",
   "name": "OUTB-00179",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

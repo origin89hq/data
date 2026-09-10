@@ -2,7 +2,7 @@
   "id": "pytes-sol12kv520kwcab",
   "manufacturer": "pytes",
   "name": "SOL12KV520KWCAB",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

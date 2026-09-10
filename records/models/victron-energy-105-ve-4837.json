@@ -2,7 +2,7 @@
   "id": "victron-energy-105-ve-4837",
   "manufacturer": "victron-energy",
   "name": "105-VE-4837",
-  "kind": "charge-controller",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "trans-canada-energies-ews-20p-c",
   "manufacturer": "trans-canada-energies",
   "name": "EWS-20P-C",
-  "kind": "panel",
+  "kind": "out-of-scope",
   "aliases": [
     "EWT-301-119"
   ],

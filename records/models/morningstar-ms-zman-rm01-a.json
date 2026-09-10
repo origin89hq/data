@@ -2,7 +2,7 @@
   "id": "morningstar-ms-zman-rm01-a",
   "manufacturer": "morningstar",
   "name": "MS-ZMAN-RM01-A",
+  "kind": "out-of-scope",
   "aliases": [],
-  "dialects": [],
-  "kind": "meter"
+  "dialects": []
 }

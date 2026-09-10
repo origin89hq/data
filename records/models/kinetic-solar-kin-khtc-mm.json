@@ -2,7 +2,7 @@
   "id": "kinetic-solar-kin-khtc-mm",
   "manufacturer": "kinetic-solar",
   "name": "KIN-KHTC-MM",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

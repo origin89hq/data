@@ -2,7 +2,7 @@
   "id": "apsystems-rsd-s-plc",
   "manufacturer": "apsystems",
   "name": "RSD-S-PLC",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

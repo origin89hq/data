@@ -2,7 +2,7 @@
   "id": "sol-ark-sol-ark-30k",
   "manufacturer": "sol-ark",
   "name": "SOL-ARK-30K",
-  "kind": "inverter",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

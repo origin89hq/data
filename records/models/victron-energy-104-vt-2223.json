@@ -2,7 +2,7 @@
   "id": "victron-energy-104-vt-2223",
   "manufacturer": "victron-energy",
   "name": "104-VT-2223",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

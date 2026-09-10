@@ -2,7 +2,7 @@
   "id": "victron-energy-pin243750400",
   "manufacturer": "victron-energy",
   "name": "PIN243750400",
-  "kind": "inverter",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

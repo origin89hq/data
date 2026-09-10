@@ -2,7 +2,7 @@
   "id": "ecoflow-ecf10deltaproeb",
   "manufacturer": "ecoflow",
   "name": "ECF10DELTAPROEB",
-  "kind": "battery",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

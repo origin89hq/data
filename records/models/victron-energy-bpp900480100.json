@@ -2,7 +2,7 @@
   "id": "victron-energy-bpp900480100",
   "manufacturer": "victron-energy",
   "name": "BPP900480100",
-  "kind": "meter",
+  "kind": "inverter-charger",
   "aliases": [
     "1593060"
   ],

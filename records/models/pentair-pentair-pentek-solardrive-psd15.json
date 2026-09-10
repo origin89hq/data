@@ -2,7 +2,7 @@
   "id": "pentair-pentair-pentek-solardrive-psd15",
   "manufacturer": "pentair",
   "name": "Pentair Pentek SolarDrive PSD15",
+  "kind": "inverter",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

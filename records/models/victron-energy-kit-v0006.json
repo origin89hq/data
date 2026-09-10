@@ -2,7 +2,6 @@
   "id": "victron-energy-kit-v0006",
   "manufacturer": "victron-energy",
   "name": "KIT-V0006",
-  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "unique-appliances-ugp-260l1",
   "manufacturer": "unique-appliances",
   "name": "UGP-260L1",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

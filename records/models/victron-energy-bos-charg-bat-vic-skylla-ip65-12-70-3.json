@@ -2,7 +2,7 @@
   "id": "victron-energy-bos-charg-bat-vic-skylla-ip65-12-70-3",
   "manufacturer": "victron-energy",
   "name": "BOS-CHARG-BAT-VIC-SKYLLA-IP65-12-70-3",
-  "kind": "ac-charger",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

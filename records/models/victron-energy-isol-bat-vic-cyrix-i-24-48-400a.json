@@ -2,7 +2,7 @@
   "id": "victron-energy-isol-bat-vic-cyrix-i-24-48-400a",
   "manufacturer": "victron-energy",
   "name": "ISOL-BAT-VIC-CYRIX-I-24-48-400A",
-  "kind": "bms",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

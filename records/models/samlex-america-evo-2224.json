@@ -6,5 +6,6 @@
   "dialects": [
     "samlex-evo-modbus-22xx-40xx",
     "samlex-evo-signal-io"
-  ]
+  ],
+  "kind": "inverter-charger"
 }

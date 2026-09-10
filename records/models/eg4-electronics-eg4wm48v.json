@@ -2,7 +2,7 @@
   "id": "eg4-electronics-eg4wm48v",
   "manufacturer": "eg4-electronics",
   "name": "EG4WM48V",
-  "kind": "battery",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "victron-energy-vicmp15085",
   "manufacturer": "victron-energy",
   "name": "VICMP15085",
-  "kind": "charge-controller",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

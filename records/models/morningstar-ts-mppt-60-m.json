@@ -3,5 +3,6 @@
   "manufacturer": "morningstar",
   "name": "TS-MPPT-60/M",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

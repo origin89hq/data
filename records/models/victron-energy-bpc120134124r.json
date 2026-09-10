@@ -2,7 +2,7 @@
   "id": "victron-energy-bpc120134124r",
   "manufacturer": "victron-energy",
   "name": "BPC120134124R",
-  "kind": "ac-charger",
+  "kind": "bms",
   "aliases": [],
   "dialects": []
 }

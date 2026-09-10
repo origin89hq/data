@@ -2,7 +2,7 @@
   "id": "noco-gc020",
   "manufacturer": "noco",
   "name": "GC020",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "balance-of-system"
+  "dialects": []
 }

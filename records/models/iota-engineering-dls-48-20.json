@@ -2,7 +2,7 @@
   "id": "iota-engineering-dls-48-20",
   "manufacturer": "iota-engineering",
   "name": "DLS-48-20",
-  "kind": "dc-dc-converter",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

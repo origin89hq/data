@@ -2,7 +2,7 @@
   "id": "briggs-stratton-053084",
   "manufacturer": "briggs-stratton",
   "name": "053084",
-  "kind": "bms",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

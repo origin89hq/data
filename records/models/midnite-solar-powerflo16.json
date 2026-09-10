@@ -2,7 +2,7 @@
   "id": "midnite-solar-powerflo16",
   "manufacturer": "midnite-solar",
   "name": "POWERFLO16",
-  "kind": "battery",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

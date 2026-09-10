@@ -2,7 +2,7 @@
   "id": "ecoflow-dpu-us",
   "manufacturer": "ecoflow",
   "name": "DPU-US",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

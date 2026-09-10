@@ -2,7 +2,7 @@
   "id": "pentair-wg20",
   "manufacturer": "pentair",
   "name": "WG20",
+  "kind": "generator",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

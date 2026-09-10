@@ -2,7 +2,7 @@
   "id": "pytes-py-v5plus-btb-n",
   "manufacturer": "pytes",
   "name": "PY-V5PLUS-BTB-N",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

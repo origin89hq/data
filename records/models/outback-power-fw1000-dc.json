@@ -2,7 +2,7 @@
   "id": "outback-power-fw1000-dc",
   "manufacturer": "outback-power",
   "name": "FW1000-DC",
-  "kind": "balance-of-system",
+  "kind": "dc-dc-converter",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "apsystems-aps-qt2-208v-25",
   "manufacturer": "apsystems",
   "name": "APS-QT2-208V-25",
-  "kind": "inverter",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

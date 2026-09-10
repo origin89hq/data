@@ -2,7 +2,7 @@
   "id": "midnite-solar-mne200diy-120s",
   "manufacturer": "midnite-solar",
   "name": "MNE200DIY-120S",
-  "kind": "balance-of-system",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

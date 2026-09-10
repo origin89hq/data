@@ -2,7 +2,7 @@
   "id": "morningstar-ts-m-2",
   "manufacturer": "morningstar",
   "name": "TS-M-2",
-  "kind": "shunt-monitor",
+  "kind": "charge-controller",
   "aliases": [
     "MOR-161-147"
   ],

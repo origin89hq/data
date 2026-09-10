@@ -2,7 +2,7 @@
   "id": "victron-energy-bpc120731014r",
   "manufacturer": "victron-energy",
   "name": "BPC120731014R",
-  "kind": "ac-charger",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "victron-energy-5kva-model",
   "manufacturer": "victron-energy",
   "name": "5kVA model",
+  "kind": "inverter",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": []
 }

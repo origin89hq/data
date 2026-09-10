@@ -2,7 +2,7 @@
   "id": "abb-sabein400a",
   "manufacturer": "abb",
   "name": "SABEIN400A",
-  "kind": "balance-of-system",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

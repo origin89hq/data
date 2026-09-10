@@ -2,7 +2,7 @@
   "id": "victron-energy-cmp122200102",
   "manufacturer": "victron-energy",
   "name": "CMP122200102",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

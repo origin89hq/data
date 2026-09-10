@@ -3,5 +3,6 @@
   "manufacturer": "energizer-solar",
   "name": "PS2800H",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

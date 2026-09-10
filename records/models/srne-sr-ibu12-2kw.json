@@ -2,7 +2,7 @@
   "id": "srne-sr-ibu12-2kw",
   "manufacturer": "srne",
   "name": "SR-IBU12-2kW",
+  "kind": "inverter-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter"
+  "dialects": []
 }

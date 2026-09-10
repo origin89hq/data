@@ -2,7 +2,6 @@
   "id": "victron-energy-pch012030001",
   "manufacturer": "victron-energy",
   "name": "PCH012030001",
-  "kind": "ac-charger",
   "aliases": [],
   "dialects": []
 }

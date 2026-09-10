@@ -2,7 +2,7 @@
   "id": "sol-ark-in4705",
   "manufacturer": "sol-ark",
   "name": "IN4705",
-  "kind": "inverter",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

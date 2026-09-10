@@ -2,7 +2,7 @@
   "id": "samlex-america-pst-300s-24e",
   "manufacturer": "samlex-america",
   "name": "PST-300S-24E",
+  "kind": "inverter-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter"
+  "dialects": []
 }

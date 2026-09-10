@@ -2,7 +2,7 @@
   "id": "firman-p01202",
   "manufacturer": "firman",
   "name": "P01202",
-  "kind": "generator",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": [
     "firman-portable-no-comms"

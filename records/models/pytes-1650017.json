@@ -2,7 +2,7 @@
   "id": "pytes-1650017",
   "manufacturer": "pytes",
   "name": "1650017",
-  "kind": "bms",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

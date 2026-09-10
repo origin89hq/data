@@ -2,7 +2,7 @@
   "id": "midnite-solar-mnedcrt",
   "manufacturer": "midnite-solar",
   "name": "MNEDCRT",
-  "kind": "balance-of-system",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

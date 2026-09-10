@@ -2,7 +2,7 @@
   "id": "victron-energy-1593137",
   "manufacturer": "victron-energy",
   "name": "1593137",
-  "kind": "meter",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "morningstar-ts-rm-2",
   "manufacturer": "morningstar",
   "name": "TS-RM-2",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [
     "MOR-161-148"
   ],

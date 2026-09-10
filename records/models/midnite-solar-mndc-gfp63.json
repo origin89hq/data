@@ -2,7 +2,7 @@
   "id": "midnite-solar-mndc-gfp63",
   "manufacturer": "midnite-solar",
   "name": "MNDC-GFP63",
-  "kind": "balance-of-system",
+  "kind": "charge-controller",
   "aliases": [
     "MID-103-112"
   ],

@@ -2,7 +2,7 @@
   "id": "outback-power-030-04030",
   "manufacturer": "outback-power",
   "name": "030-04030",
-  "kind": "inverter",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

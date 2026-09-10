@@ -2,7 +2,7 @@
   "id": "rolls-battery-r-cap",
   "manufacturer": "rolls-battery",
   "name": "R-CAP",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

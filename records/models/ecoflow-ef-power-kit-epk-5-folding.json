@@ -2,7 +2,7 @@
   "id": "ecoflow-ef-power-kit-epk-5-folding",
   "manufacturer": "ecoflow",
   "name": "EF-POWER-KIT-EPK-5-FOLDING",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

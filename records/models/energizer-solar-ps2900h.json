@@ -3,5 +3,6 @@
   "manufacturer": "energizer-solar",
   "name": "PS2900H",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

@@ -2,7 +2,7 @@
   "id": "morningstar-msc",
   "manufacturer": "morningstar",
   "name": "MSC",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

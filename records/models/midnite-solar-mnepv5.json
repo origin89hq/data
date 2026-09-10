@@ -2,7 +2,7 @@
   "id": "midnite-solar-mnepv5",
   "manufacturer": "midnite-solar",
   "name": "MNEPV5",
-  "kind": "balance-of-system",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

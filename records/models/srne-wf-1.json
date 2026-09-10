@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "WF-1",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

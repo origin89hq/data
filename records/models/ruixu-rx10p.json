@@ -2,7 +2,7 @@
   "id": "ruixu-rx10p",
   "manufacturer": "ruixu",
   "name": "RX10P",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "magnum-energy-mpdh250-30d",
   "manufacturer": "magnum-energy",
   "name": "MPDH250-30D",
+  "kind": "inverter-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "balance-of-system"
+  "dialects": []
 }

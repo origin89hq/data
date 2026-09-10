@@ -2,7 +2,7 @@
   "id": "progressive-dynamics-pd52v",
   "manufacturer": "progressive-dynamics",
   "name": "PD52V",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

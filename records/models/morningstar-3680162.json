@@ -2,7 +2,7 @@
   "id": "morningstar-3680162",
   "manufacturer": "morningstar",
   "name": "3680162",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

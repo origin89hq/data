@@ -2,7 +2,7 @@
   "id": "pytes-py-vbox-pwrc",
   "manufacturer": "pytes",
   "name": "PY-VBOX-PWRC",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

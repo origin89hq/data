@@ -2,7 +2,7 @@
   "id": "outback-power-dca",
   "manufacturer": "outback-power",
   "name": "DCA",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

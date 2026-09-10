@@ -2,7 +2,7 @@
   "id": "pytes-sapyhvcab",
   "manufacturer": "pytes",
   "name": "SAPYHVCAB",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

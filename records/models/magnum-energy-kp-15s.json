@@ -2,7 +2,7 @@
   "id": "magnum-energy-kp-15s",
   "manufacturer": "magnum-energy",
   "name": "KP-15S",
+  "kind": "balance-of-system",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

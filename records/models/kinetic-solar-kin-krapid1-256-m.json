@@ -2,7 +2,7 @@
   "id": "kinetic-solar-kin-krapid1-256-m",
   "manufacturer": "kinetic-solar",
   "name": "KIN-KRAPID1-256-M",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

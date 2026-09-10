@@ -2,7 +2,7 @@
   "id": "the-cabin-depot-sol-heashr-1-4-bla",
   "manufacturer": "the-cabin-depot",
   "name": "SOL-HEASHR-1/4/BLA",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

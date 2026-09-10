@@ -2,7 +2,7 @@
   "id": "enphase-1647042",
   "manufacturer": "enphase",
   "name": "1647042",
-  "kind": "inverter",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

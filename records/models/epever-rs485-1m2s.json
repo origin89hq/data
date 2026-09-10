@@ -2,7 +2,7 @@
   "id": "epever-rs485-1m2s",
   "manufacturer": "epever",
   "name": "RS485-1M2S",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

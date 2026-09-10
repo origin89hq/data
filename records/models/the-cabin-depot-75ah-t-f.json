@@ -2,7 +2,7 @@
   "id": "the-cabin-depot-75ah-t-f",
   "manufacturer": "the-cabin-depot",
   "name": "75AH-T-F",
-  "kind": "balance-of-system",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

@@ -3,5 +3,6 @@
   "manufacturer": "lorex",
   "name": "MT301P-X3W-AB1",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

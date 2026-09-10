@@ -2,7 +2,7 @@
   "id": "victron-energy-mon-vic-ekrano-gx",
   "manufacturer": "victron-energy",
   "name": "MON-VIC-EKRANO-GX",
-  "kind": "meter",
+  "kind": "bms",
   "aliases": [],
   "dialects": []
 }

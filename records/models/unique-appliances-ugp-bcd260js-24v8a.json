@@ -2,7 +2,7 @@
   "id": "unique-appliances-ugp-bcd260js-24v8a",
   "manufacturer": "unique-appliances",
   "name": "UGP-BCD260JS-24V8A",
-  "kind": "dc-dc-converter",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

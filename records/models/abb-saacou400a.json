@@ -2,7 +2,7 @@
   "id": "abb-saacou400a",
   "manufacturer": "abb",
   "name": "SAACOU400A",
-  "kind": "balance-of-system",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

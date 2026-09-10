@@ -2,7 +2,7 @@
   "id": "sol-ark-l3-hvr-60",
   "manufacturer": "sol-ark",
   "name": "L3 HVR-60",
+  "kind": "inverter-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "battery"
+  "dialects": []
 }

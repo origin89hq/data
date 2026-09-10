@@ -2,7 +2,7 @@
   "id": "pytes-pytes-v5-3",
   "manufacturer": "pytes",
   "name": "PYTES-V5-3",
-  "kind": "battery",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

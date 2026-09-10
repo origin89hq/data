@@ -2,7 +2,7 @@
   "id": "ecoflow-eco-dpppssk",
   "manufacturer": "ecoflow",
   "name": "ECO-dpppssk",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

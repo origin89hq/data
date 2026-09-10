@@ -2,7 +2,7 @@
   "id": "midnite-solar-mnedc10",
   "manufacturer": "midnite-solar",
   "name": "MNEDC10",
-  "kind": "balance-of-system",
+  "kind": "dc-dc-converter",
   "aliases": [
     "XXX-XXX-104"
   ],

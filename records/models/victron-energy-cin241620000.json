@@ -2,7 +2,7 @@
   "id": "victron-energy-cin241620000",
   "manufacturer": "victron-energy",
   "name": "CIN241620000",
-  "kind": "inverter",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

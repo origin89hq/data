@@ -2,7 +2,7 @@
   "id": "victron-energy-bam020700000r",
   "manufacturer": "victron-energy",
   "name": "BAM020700000R",
-  "kind": "meter",
+  "kind": "bms",
   "aliases": [],
   "dialects": []
 }

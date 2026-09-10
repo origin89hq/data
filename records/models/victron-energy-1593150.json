@@ -2,7 +2,7 @@
   "id": "victron-energy-1593150",
   "manufacturer": "victron-energy",
   "name": "1593150",
-  "kind": "bms",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

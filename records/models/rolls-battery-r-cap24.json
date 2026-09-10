@@ -2,7 +2,7 @@
   "id": "rolls-battery-r-cap24",
   "manufacturer": "rolls-battery",
   "name": "R-CAP24",
-  "kind": "balance-of-system",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

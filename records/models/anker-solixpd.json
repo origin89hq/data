@@ -2,7 +2,7 @@
   "id": "anker-solixpd",
   "manufacturer": "anker",
   "name": "SOLIXPD",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "enphase-sc200d111cmc1us01",
   "manufacturer": "enphase",
   "name": "SC200D111CMC1US01",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

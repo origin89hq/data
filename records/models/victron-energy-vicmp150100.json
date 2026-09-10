@@ -2,7 +2,7 @@
   "id": "victron-energy-vicmp150100",
   "manufacturer": "victron-energy",
   "name": "VICMP150100",
-  "kind": "charge-controller",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "bluetti-p-ac180p-us-gy-bl-01",
   "manufacturer": "bluetti",
   "name": "P-AC180P-US-GY-BL-01",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

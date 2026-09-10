@@ -15,6 +15,16 @@ export const EquipmentKind = z.enum([
   "dc-dc-converter",
   "ac-charger",
   "balance-of-system",
+  // What the system powers. Every kind above is a source, a store, a conversion, a control or a
+  // wire, so a water pump had nowhere to go and 142 Pentair models claimed to be furniture. A pump
+  // is usually the largest load on an off-grid site and a fridge is the one that runs all night;
+  // deciding whether to start a generator for them is the controller's whole job.
+  "pump",
+  "appliance",
+  /** Anything else that consumes: lighting, a camera, a cell booster, UV water treatment. */
+  "load",
+  /** A booster pack with its own battery. NOCO's range was spread across six kinds without it. */
+  "jump-starter",
   "out-of-scope",
 ]);
 export type EquipmentKind = z.infer<typeof EquipmentKind>;

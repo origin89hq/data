@@ -2,7 +2,7 @@
   "id": "kinetic-solar-khrac-mm",
   "manufacturer": "kinetic-solar",
   "name": "KHRAC-MM",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [
     "KIN-284-123"
   ],

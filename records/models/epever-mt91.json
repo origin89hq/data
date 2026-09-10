@@ -2,7 +2,7 @@
   "id": "epever-mt91",
   "manufacturer": "epever",
   "name": "MT91",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

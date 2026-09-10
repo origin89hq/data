@@ -2,7 +2,7 @@
   "id": "bluetti-ep900-home-integration",
   "manufacturer": "bluetti",
   "name": "EP900-HOME-INTEGRATION",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

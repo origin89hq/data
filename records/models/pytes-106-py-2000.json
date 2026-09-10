@@ -2,7 +2,7 @@
   "id": "pytes-106-py-2000",
   "manufacturer": "pytes",
   "name": "106-PY-2000",
-  "kind": "battery",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

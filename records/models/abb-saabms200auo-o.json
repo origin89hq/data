@@ -2,7 +2,7 @@
   "id": "abb-saabms200auo-o",
   "manufacturer": "abb",
   "name": "SAABMS200AUO-O",
-  "kind": "balance-of-system",
+  "kind": "bms",
   "aliases": [],
   "dialects": []
 }

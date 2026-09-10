@@ -2,7 +2,7 @@
   "id": "victron-energy-mon-vic-cerbo-gx-mk2",
   "manufacturer": "victron-energy",
   "name": "MON-VIC-CERBO-GX-MK2",
-  "kind": "meter",
+  "kind": "bms",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "ecoflow-ma001-in",
   "manufacturer": "ecoflow",
   "name": "MA001-IN",
-  "kind": "ac-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

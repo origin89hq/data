@@ -2,7 +2,7 @@
   "id": "midnite-solar-mndc-gfp50-300",
   "manufacturer": "midnite-solar",
   "name": "MNDC-GFP50-300",
-  "kind": "balance-of-system",
+  "kind": "charge-controller",
   "aliases": [
     "MID-103-110"
   ],

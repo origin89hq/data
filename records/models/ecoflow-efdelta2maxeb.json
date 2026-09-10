@@ -2,7 +2,7 @@
   "id": "ecoflow-efdelta2maxeb",
   "manufacturer": "ecoflow",
   "name": "EFDELTA2MaxEB",
-  "kind": "battery",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

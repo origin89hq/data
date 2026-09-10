@@ -2,7 +2,7 @@
   "id": "samlex-america-bbm-1225",
   "manufacturer": "samlex-america",
   "name": "BBM-1225",
+  "kind": "inverter-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "bms"
+  "dialects": []
 }

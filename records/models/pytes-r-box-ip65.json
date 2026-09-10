@@ -2,7 +2,7 @@
   "id": "pytes-r-box-ip65",
   "manufacturer": "pytes",
   "name": "R-BOX-IP65",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

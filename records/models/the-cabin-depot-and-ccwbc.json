@@ -2,7 +2,7 @@
   "id": "the-cabin-depot-and-ccwbc",
   "manufacturer": "the-cabin-depot",
   "name": "AND-ccwbc",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "pytes-bndl-v5ic-1",
   "manufacturer": "pytes",
   "name": "BNDL-V5IC-1",
-  "kind": "battery",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

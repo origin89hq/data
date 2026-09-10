@@ -2,7 +2,7 @@
   "id": "midnite-solar-104-mn-2605",
   "manufacturer": "midnite-solar",
   "name": "104-MN-2605",
-  "kind": "charge-controller",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

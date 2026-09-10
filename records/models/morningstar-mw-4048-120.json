@@ -2,7 +2,7 @@
   "id": "morningstar-mw-4048-120",
   "manufacturer": "morningstar",
   "name": "MW-4048-120",
+  "kind": "out-of-scope",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": []
 }

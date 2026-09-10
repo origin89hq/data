@@ -2,7 +2,7 @@
   "id": "victron-energy-bos-charg-bat-vic-ip43-24v-16a-1-1-120v-240v",
   "manufacturer": "victron-energy",
   "name": "BOS-CHARG-BAT-VIC-IP43-24V-16A-1-1-120v-240v",
-  "kind": "ac-charger",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

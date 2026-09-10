@@ -2,7 +2,7 @@
   "id": "eg4-electronics-bndl-e0027-lfp",
   "manufacturer": "eg4-electronics",
   "name": "BNDL-E0027-LFP",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

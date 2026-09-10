@@ -2,7 +2,7 @@
   "id": "precision-circuits-midi-pcs",
   "manufacturer": "precision-circuits",
   "name": "Midi-PCS",
+  "kind": "dc-dc-converter",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": []
 }

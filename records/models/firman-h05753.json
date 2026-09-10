@@ -2,7 +2,7 @@
   "id": "firman-h05753",
   "manufacturer": "firman",
   "name": "H05753",
-  "kind": "generator",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": [
     "firman-portable-no-comms"

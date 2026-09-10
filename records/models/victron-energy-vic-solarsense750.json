@@ -2,7 +2,7 @@
   "id": "victron-energy-vic-solarsense750",
   "manufacturer": "victron-energy",
   "name": "VIC-SolarSense750",
-  "kind": "shunt-monitor",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

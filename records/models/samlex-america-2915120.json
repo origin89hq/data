@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "2915120",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

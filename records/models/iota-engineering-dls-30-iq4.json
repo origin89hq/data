@@ -2,7 +2,7 @@
   "id": "iota-engineering-dls-30-iq4",
   "manufacturer": "iota-engineering",
   "name": "DLS-30/IQ4",
-  "kind": "ac-charger",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

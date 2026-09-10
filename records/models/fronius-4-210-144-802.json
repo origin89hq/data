@@ -2,7 +2,7 @@
   "id": "fronius-4-210-144-802",
   "manufacturer": "fronius",
   "name": "4,210,144,802",
-  "kind": "inverter",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

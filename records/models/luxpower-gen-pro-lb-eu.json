@@ -2,7 +2,7 @@
   "id": "luxpower-gen-pro-lb-eu",
   "manufacturer": "luxpower",
   "name": "GEN PRO-LB-EU",
+  "kind": "inverter-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter"
+  "dialects": []
 }

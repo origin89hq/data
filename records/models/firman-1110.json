@@ -2,7 +2,7 @@
   "id": "firman-1110",
   "manufacturer": "firman",
   "name": "1110",
-  "kind": "balance-of-system",
+  "kind": "generator",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "midnite-solar-samdcmb3p",
   "manufacturer": "midnite-solar",
   "name": "SAMDCMB3P",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

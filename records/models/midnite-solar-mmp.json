@@ -2,7 +2,7 @@
   "id": "midnite-solar-mmp",
   "manufacturer": "midnite-solar",
   "name": "MMP",
-  "kind": "balance-of-system",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

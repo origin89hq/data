@@ -2,7 +2,7 @@
   "id": "victron-energy-ori121217050",
   "manufacturer": "victron-energy",
   "name": "ORI121217050",
-  "kind": "dc-dc-converter",
+  "kind": "out-of-scope",
   "aliases": [
     "VIC-165-197"
   ],

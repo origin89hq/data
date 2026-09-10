@@ -2,7 +2,7 @@
   "id": "outback-power-fp1-vfxr3648a-01",
   "manufacturer": "outback-power",
   "name": "FP1 VFXR3648A-01",
-  "kind": "inverter-charger",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

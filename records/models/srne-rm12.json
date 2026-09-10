@@ -2,7 +2,7 @@
   "id": "srne-rm12",
   "manufacturer": "srne",
   "name": "RM12",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

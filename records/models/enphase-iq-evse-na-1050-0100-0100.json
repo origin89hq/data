@@ -2,7 +2,7 @@
   "id": "enphase-iq-evse-na-1050-0100-0100",
   "manufacturer": "enphase",
   "name": "IQ-EVSE-NA-1050-0100-0100",
-  "kind": "ac-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

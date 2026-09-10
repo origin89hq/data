@@ -2,7 +2,7 @@
   "id": "outback-power-fm100-300vdc-afci",
   "manufacturer": "outback-power",
   "name": "FM100-300VDC-AFCI",
-  "kind": "charge-controller",
+  "kind": "balance-of-system",
   "aliases": [
     "1600009"
   ],

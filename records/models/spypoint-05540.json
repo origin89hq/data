@@ -2,7 +2,7 @@
   "id": "spypoint-05540",
   "manufacturer": "spypoint",
   "name": "05540",
-  "kind": "panel",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

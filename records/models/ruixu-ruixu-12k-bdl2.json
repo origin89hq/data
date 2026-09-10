@@ -2,7 +2,7 @@
   "id": "ruixu-ruixu-12k-bdl2",
   "manufacturer": "ruixu",
   "name": "RUIXU-12K-BDL2",
-  "kind": "inverter",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "victron-energy-sdtg2400303",
   "manufacturer": "victron-energy",
   "name": "SDTG2400303",
-  "kind": "ac-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

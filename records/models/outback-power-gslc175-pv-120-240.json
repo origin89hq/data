@@ -2,7 +2,7 @@
   "id": "outback-power-gslc175-pv-120-240",
   "manufacturer": "outback-power",
   "name": "GSLC175-PV-120/240",
-  "kind": "balance-of-system",
+  "kind": "inverter-charger",
   "aliases": [
     "1600011"
   ],

@@ -2,7 +2,7 @@
   "id": "victron-energy-150-857",
   "manufacturer": "victron-energy",
   "name": "150/857",
+  "kind": "inverter-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": []
 }

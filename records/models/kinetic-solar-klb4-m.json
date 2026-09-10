@@ -2,7 +2,7 @@
   "id": "kinetic-solar-klb4-m",
   "manufacturer": "kinetic-solar",
   "name": "KLB4-M",
-  "kind": "balance-of-system",
+  "kind": "charge-controller",
   "aliases": [
     "KIN-284-107"
   ],

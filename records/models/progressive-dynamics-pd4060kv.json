@@ -2,7 +2,7 @@
   "id": "progressive-dynamics-pd4060kv",
   "manufacturer": "progressive-dynamics",
   "name": "PD4060KV",
-  "kind": "ac-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

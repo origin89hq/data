@@ -2,7 +2,7 @@
   "id": "ecoflow-efd3m-b-us",
   "manufacturer": "ecoflow",
   "name": "EFD3M-B-US",
-  "kind": "inverter-charger",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

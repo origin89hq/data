@@ -2,7 +2,7 @@
   "id": "samlex-america-sec-2425ul",
   "manufacturer": "samlex-america",
   "name": "SEC-2425UL",
-  "kind": "ac-charger",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

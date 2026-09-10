@@ -2,7 +2,7 @@
   "id": "sol-ark-ct-sensors",
   "manufacturer": "sol-ark",
   "name": "CT sensors",
+  "kind": "out-of-scope",
   "aliases": [],
-  "dialects": [],
-  "kind": "shunt-monitor"
+  "dialects": []
 }

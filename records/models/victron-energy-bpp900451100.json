@@ -2,7 +2,7 @@
   "id": "victron-energy-bpp900451100",
   "manufacturer": "victron-energy",
   "name": "BPP900451100",
-  "kind": "bms",
+  "kind": "out-of-scope",
   "aliases": [
     "VIC-223-205"
   ],

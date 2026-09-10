@@ -2,7 +2,7 @@
   "id": "outback-power-mate",
   "manufacturer": "outback-power",
   "name": "MATE",
+  "kind": "balance-of-system",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

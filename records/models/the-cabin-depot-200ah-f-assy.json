@@ -2,7 +2,7 @@
   "id": "the-cabin-depot-200ah-f-assy",
   "manufacturer": "the-cabin-depot",
   "name": "200AH-F-ASSY",
-  "kind": "balance-of-system",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "ecoflow-zms331",
   "manufacturer": "ecoflow",
   "name": "ZMS331",
-  "kind": "panel",
+  "kind": "dc-dc-converter",
   "aliases": [],
   "dialects": []
 }

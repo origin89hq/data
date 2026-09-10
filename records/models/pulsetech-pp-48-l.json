@@ -2,7 +2,7 @@
   "id": "pulsetech-pp-48-l",
   "manufacturer": "pulsetech",
   "name": "PP-48-L",
-  "kind": "bms",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "eg4-electronics-12000xp-v2",
   "manufacturer": "eg4-electronics",
   "name": "12000XP-V2",
-  "kind": "inverter",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

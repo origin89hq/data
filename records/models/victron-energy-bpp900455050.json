@@ -2,7 +2,7 @@
   "id": "victron-energy-bpp900455050",
   "manufacturer": "victron-energy",
   "name": "BPP900455050",
-  "kind": "meter",
+  "kind": "out-of-scope",
   "aliases": [
     "1593012"
   ],

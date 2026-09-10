@@ -2,7 +2,7 @@
   "id": "sigineer-12v-models",
   "manufacturer": "sigineer",
   "name": "12V models",
+  "kind": "out-of-scope",
   "aliases": [],
-  "dialects": [],
-  "kind": "dc-dc-converter"
+  "dialects": []
 }

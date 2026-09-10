@@ -2,7 +2,7 @@
   "id": "enphase-1647032",
   "manufacturer": "enphase",
   "name": "1647032",
-  "kind": "battery",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

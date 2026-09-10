@@ -2,7 +2,7 @@
   "id": "eg4-electronics-eg4wm314",
   "manufacturer": "eg4-electronics",
   "name": "EG4WM314",
-  "kind": "battery",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

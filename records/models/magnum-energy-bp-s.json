@@ -2,7 +2,7 @@
   "id": "magnum-energy-bp-s",
   "manufacturer": "magnum-energy",
   "name": "BP-S",
-  "kind": "balance-of-system",
+  "kind": "bms",
   "aliases": [],
   "dialects": []
 }

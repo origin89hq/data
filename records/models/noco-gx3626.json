@@ -2,7 +2,7 @@
   "id": "noco-gx3626",
   "manufacturer": "noco",
   "name": "GX3626",
-  "kind": "charge-controller",
+  "kind": "ac-charger",
   "aliases": [],
   "dialects": [
     "noco-gx-dryio"

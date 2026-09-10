@@ -3,6 +3,5 @@
   "manufacturer": "srne",
   "name": "SR-EOS05B",
   "aliases": [],
-  "dialects": [],
-  "kind": "battery"
+  "dialects": []
 }

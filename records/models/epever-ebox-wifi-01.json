@@ -2,7 +2,7 @@
   "id": "epever-ebox-wifi-01",
   "manufacturer": "epever",
   "name": "eBox-WIFI-01",
-  "kind": "shunt-monitor",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": [
     "epever-ebox-wifi-01-bridge"

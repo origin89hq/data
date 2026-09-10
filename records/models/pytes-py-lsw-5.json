@@ -2,7 +2,7 @@
   "id": "pytes-py-lsw-5",
   "manufacturer": "pytes",
   "name": "PY-LSW-5",
-  "kind": "meter",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

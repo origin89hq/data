@@ -3,5 +3,6 @@
   "manufacturer": "snapnrack",
   "name": "6999506",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

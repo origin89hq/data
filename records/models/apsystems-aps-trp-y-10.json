@@ -2,7 +2,7 @@
   "id": "apsystems-aps-trp-y-10",
   "manufacturer": "apsystems",
   "name": "APS-TRP-Y-10",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

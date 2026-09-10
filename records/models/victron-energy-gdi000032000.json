@@ -2,7 +2,7 @@
   "id": "victron-energy-gdi000032000",
   "manufacturer": "victron-energy",
   "name": "GDI000032000",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

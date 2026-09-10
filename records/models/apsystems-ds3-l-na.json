@@ -2,7 +2,7 @@
   "id": "apsystems-ds3-l-na",
   "manufacturer": "apsystems",
   "name": "DS3‐L‐NA",
-  "kind": "inverter",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

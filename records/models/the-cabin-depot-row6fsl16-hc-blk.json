@@ -2,7 +2,7 @@
   "id": "the-cabin-depot-row6fsl16-hc-blk",
   "manufacturer": "the-cabin-depot",
   "name": "ROW6FSL16-HC-BLK",
-  "kind": "battery",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

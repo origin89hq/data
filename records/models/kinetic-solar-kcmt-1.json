@@ -2,7 +2,7 @@
   "id": "kinetic-solar-kcmt-1",
   "manufacturer": "kinetic-solar",
   "name": "KCMT-1",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

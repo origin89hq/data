@@ -2,7 +2,7 @@
   "id": "kinetic-solar-kin-k3agm-26",
   "manufacturer": "kinetic-solar",
   "name": "KIN_K3AGM_26",
-  "kind": "balance-of-system",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

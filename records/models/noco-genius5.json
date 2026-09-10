@@ -2,7 +2,7 @@
   "id": "noco-genius5",
   "manufacturer": "noco",
   "name": "GENIUS5",
-  "kind": "charge-controller",
+  "kind": "ac-charger",
   "aliases": [],
   "dialects": [
     "noco-genius-portable"

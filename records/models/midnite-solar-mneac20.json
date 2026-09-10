@@ -2,7 +2,7 @@
   "id": "midnite-solar-mneac20",
   "manufacturer": "midnite-solar",
   "name": "MNEAC20",
-  "kind": "balance-of-system",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

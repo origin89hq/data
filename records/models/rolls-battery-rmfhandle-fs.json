@@ -2,7 +2,7 @@
   "id": "rolls-battery-rmfhandle-fs",
   "manufacturer": "rolls-battery",
   "name": "RMFHANDLE-FS",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

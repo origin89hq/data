@@ -2,7 +2,7 @@
   "id": "eg4-electronics-bndl-e0019-3-1",
   "manufacturer": "eg4-electronics",
   "name": "BNDL-E0019-3.1",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

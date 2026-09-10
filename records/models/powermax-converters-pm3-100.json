@@ -2,7 +2,7 @@
   "id": "powermax-converters-pm3-100",
   "manufacturer": "powermax-converters",
   "name": "PM3-100",
-  "kind": "ac-charger",
+  "kind": "dc-dc-converter",
   "aliases": [
     "XXX-XXX-190"
   ],

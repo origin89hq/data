@@ -2,7 +2,7 @@
   "id": "energizer-solar-force-9s",
   "manufacturer": "energizer-solar",
   "name": "Force 9S",
+  "kind": "out-of-scope",
   "aliases": [],
-  "dialects": [],
-  "kind": "panel"
+  "dialects": []
 }

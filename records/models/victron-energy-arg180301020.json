@@ -2,7 +2,7 @@
   "id": "victron-energy-arg180301020",
   "manufacturer": "victron-energy",
   "name": "ARG180301020",
-  "kind": "bms",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

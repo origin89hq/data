@@ -2,7 +2,7 @@
   "id": "samlex-america-sam-2000-12",
   "manufacturer": "samlex-america",
   "name": "SAM-2000-12",
-  "kind": "inverter",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": [
     "samlex-sam-no-bus"

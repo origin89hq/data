@@ -2,7 +2,7 @@
   "id": "victron-energy-105-ve-4812",
   "manufacturer": "victron-energy",
   "name": "105-VE-4812",
-  "kind": "inverter",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

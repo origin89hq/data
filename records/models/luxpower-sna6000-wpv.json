@@ -3,5 +3,6 @@
   "manufacturer": "luxpower",
   "name": "SNA6000 WPV",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

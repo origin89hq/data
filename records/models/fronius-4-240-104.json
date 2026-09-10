@@ -2,7 +2,7 @@
   "id": "fronius-4-240-104",
   "manufacturer": "fronius",
   "name": "4,240,104",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [
     "FRO-221-154"
   ],

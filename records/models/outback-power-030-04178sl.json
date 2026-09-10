@@ -2,7 +2,7 @@
   "id": "outback-power-030-04178sl",
   "manufacturer": "outback-power",
   "name": "030-04178SL",
-  "kind": "meter",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

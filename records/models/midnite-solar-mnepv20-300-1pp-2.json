@@ -2,7 +2,7 @@
   "id": "midnite-solar-mnepv20-300-1pp-2",
   "manufacturer": "midnite-solar",
   "name": "MNEPV20-300-1PP-2",
-  "kind": "balance-of-system",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

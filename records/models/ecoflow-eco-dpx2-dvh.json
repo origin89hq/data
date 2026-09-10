@@ -2,7 +2,7 @@
   "id": "ecoflow-eco-dpx2-dvh",
   "manufacturer": "ecoflow",
   "name": "ECO-DPX2/DVH",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

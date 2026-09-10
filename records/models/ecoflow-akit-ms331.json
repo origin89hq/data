@@ -2,7 +2,7 @@
   "id": "ecoflow-akit-ms331",
   "manufacturer": "ecoflow",
   "name": "AKIT-MS331",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

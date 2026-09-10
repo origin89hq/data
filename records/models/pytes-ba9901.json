@@ -2,7 +2,7 @@
   "id": "pytes-ba9901",
   "manufacturer": "pytes",
   "name": "BA9901",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

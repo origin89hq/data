@@ -2,7 +2,7 @@
   "id": "magnum-energy-adi-24y11",
   "manufacturer": "magnum-energy",
   "name": "ADI-24Y11",
+  "kind": "inverter-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter"
+  "dialects": []
 }

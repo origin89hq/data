@@ -2,7 +2,7 @@
   "id": "sigineer-cb240v100a-2p",
   "manufacturer": "sigineer",
   "name": "CB240V100A/2P",
+  "kind": "out-of-scope",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": []
 }

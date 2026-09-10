@@ -2,7 +2,7 @@
   "id": "eg4-electronics-eg4ll-6kit48-1",
   "manufacturer": "eg4-electronics",
   "name": "EG4LL-6KIT48-1",
-  "kind": "battery",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

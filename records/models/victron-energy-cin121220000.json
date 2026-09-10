@@ -2,7 +2,6 @@
   "id": "victron-energy-cin121220000",
   "manufacturer": "victron-energy",
   "name": "CIN121220000",
-  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

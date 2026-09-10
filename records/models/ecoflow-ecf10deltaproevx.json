@@ -2,7 +2,7 @@
   "id": "ecoflow-ecf10deltaproevx",
   "manufacturer": "ecoflow",
   "name": "ECF10DELTAPROEVX",
-  "kind": "balance-of-system",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

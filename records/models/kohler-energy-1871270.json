@@ -2,7 +2,7 @@
   "id": "kohler-energy-1871270",
   "manufacturer": "kohler-energy",
   "name": "1871270",
+  "kind": "generator",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

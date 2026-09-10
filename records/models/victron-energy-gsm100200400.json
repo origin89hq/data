@@ -2,7 +2,7 @@
   "id": "victron-energy-gsm100200400",
   "manufacturer": "victron-energy",
   "name": "GSM100200400",
-  "kind": "balance-of-system",
+  "kind": "inverter-charger",
   "aliases": [
     "1593043"
   ],

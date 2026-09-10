@@ -2,7 +2,7 @@
   "id": "srne-ml2430-ml2440",
   "manufacturer": "srne",
   "name": "ML2430/ML2440",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "balance-of-system"
+  "dialects": []
 }

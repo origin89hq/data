@@ -2,7 +2,7 @@
   "id": "victron-energy-bmv-70x",
   "manufacturer": "victron-energy",
   "name": "BMV-70x",
+  "kind": "meter",
   "aliases": [],
-  "dialects": [],
-  "kind": "bms"
+  "dialects": []
 }

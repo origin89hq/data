@@ -2,7 +2,7 @@
   "id": "anker-b17831a2",
   "manufacturer": "anker",
   "name": "B17831A2",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

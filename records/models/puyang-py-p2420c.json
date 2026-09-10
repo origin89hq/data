@@ -2,7 +2,7 @@
   "id": "puyang-py-p2420c",
   "manufacturer": "puyang",
   "name": "PY-P2420C",
-  "kind": "charge-controller",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

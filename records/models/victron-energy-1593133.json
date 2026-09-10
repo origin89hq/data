@@ -2,7 +2,7 @@
   "id": "victron-energy-1593133",
   "manufacturer": "victron-energy",
   "name": "1593133",
-  "kind": "charge-controller",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

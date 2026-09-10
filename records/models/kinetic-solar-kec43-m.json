@@ -2,7 +2,7 @@
   "id": "kinetic-solar-kec43-m",
   "manufacturer": "kinetic-solar",
   "name": "KEC43-M",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [
     "KIN-284-111"
   ],

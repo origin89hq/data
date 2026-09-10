@@ -2,7 +2,7 @@
   "id": "kinetic-solar-krcp-m",
   "manufacturer": "kinetic-solar",
   "name": "KRCP-M",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

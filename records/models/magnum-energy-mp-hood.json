@@ -2,7 +2,7 @@
   "id": "magnum-energy-mp-hood",
   "manufacturer": "magnum-energy",
   "name": "MP-HOOD",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [
     "MAG-222-143"
   ],

@@ -2,7 +2,7 @@
   "id": "noco-air20",
   "manufacturer": "noco",
   "name": "AIR20",
+  "kind": "dc-dc-converter",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": []
 }

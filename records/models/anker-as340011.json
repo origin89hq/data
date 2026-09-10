@@ -2,7 +2,7 @@
   "id": "anker-as340011",
   "manufacturer": "anker",
   "name": "AS340011",
-  "kind": "panel",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

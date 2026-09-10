@@ -2,7 +2,7 @@
   "id": "eg4-electronics-eg4-12k-mini-split",
   "manufacturer": "eg4-electronics",
   "name": "EG4 12K Mini Split",
+  "kind": "inverter",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": []
 }

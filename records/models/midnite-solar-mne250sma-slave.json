@@ -2,7 +2,7 @@
   "id": "midnite-solar-mne250sma-slave",
   "manufacturer": "midnite-solar",
   "name": "MNE250SMA-SLAVE",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

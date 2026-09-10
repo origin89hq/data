@@ -2,7 +2,7 @@
   "id": "ruixu-rx-lfp48100-2",
   "manufacturer": "ruixu",
   "name": "RX-LFP48100-2",
-  "kind": "battery",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

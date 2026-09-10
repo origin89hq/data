@@ -2,7 +2,7 @@
   "id": "outback-power-033-01515",
   "manufacturer": "outback-power",
   "name": "033-01515",
-  "kind": "charge-controller",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

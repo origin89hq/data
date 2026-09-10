@@ -2,7 +2,7 @@
   "id": "midnite-solar-mndc175",
   "manufacturer": "midnite-solar",
   "name": "MNDC175",
-  "kind": "balance-of-system",
+  "kind": "charge-controller",
   "aliases": [
     "XXX-XXX-117"
   ],

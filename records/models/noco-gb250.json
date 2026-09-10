@@ -2,7 +2,7 @@
   "id": "noco-gb250",
   "manufacturer": "noco",
   "name": "GB250+",
+  "kind": "battery",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": []
 }

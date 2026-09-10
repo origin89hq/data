@@ -7,5 +7,6 @@
     "samlex-evo-4248sp-unknown",
     "samlex-evo-modbus-4248sp",
     "samlex-evo-signal-io"
-  ]
+  ],
+  "kind": "inverter-charger"
 }

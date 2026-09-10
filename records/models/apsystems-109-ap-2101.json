@@ -2,7 +2,7 @@
   "id": "apsystems-109-ap-2101",
   "manufacturer": "apsystems",
   "name": "109-AP-2101",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

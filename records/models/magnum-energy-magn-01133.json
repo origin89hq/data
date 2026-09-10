@@ -2,7 +2,7 @@
   "id": "magnum-energy-magn-01133",
   "manufacturer": "magnum-energy",
   "name": "MAGN-01133",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

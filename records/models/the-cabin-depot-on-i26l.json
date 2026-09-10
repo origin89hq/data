@@ -2,7 +2,7 @@
   "id": "the-cabin-depot-on-i26l",
   "manufacturer": "the-cabin-depot",
   "name": "ON-I26L",
+  "kind": "battery",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

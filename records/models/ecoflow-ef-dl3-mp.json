@@ -2,7 +2,7 @@
   "id": "ecoflow-ef-dl3-mp",
   "manufacturer": "ecoflow",
   "name": "EF-DL3-MP",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

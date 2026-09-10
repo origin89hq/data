@@ -2,7 +2,7 @@
   "id": "millertech-12v10a-24v15a",
   "manufacturer": "millertech",
   "name": "12V10A-24V15A",
+  "kind": "ac-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": []
 }

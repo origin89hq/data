@@ -2,7 +2,7 @@
   "id": "victron-energy-sky012070100",
   "manufacturer": "victron-energy",
   "name": "SKY012070100",
-  "kind": "ac-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

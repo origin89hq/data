@@ -2,7 +2,7 @@
   "id": "magnum-energy-em7rs-040221",
   "manufacturer": "magnum-energy",
   "name": "EM7RS-040221",
+  "kind": "out-of-scope",
   "aliases": [],
-  "dialects": [],
-  "kind": "balance-of-system"
+  "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "schneider-electric-865-1075",
   "manufacturer": "schneider-electric",
   "name": "865-1075",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [
     "CXT-103-121"
   ],

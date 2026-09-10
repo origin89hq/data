@@ -2,7 +2,7 @@
   "id": "samlex-america-sec-1212ce",
   "manufacturer": "samlex-america",
   "name": "SEC-1212CE",
+  "kind": "ac-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": []
 }

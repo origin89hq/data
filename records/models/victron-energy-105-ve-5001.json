@@ -2,7 +2,7 @@
   "id": "victron-energy-105-ve-5001",
   "manufacturer": "victron-energy",
   "name": "105-VE-5001",
-  "kind": "shunt-monitor",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

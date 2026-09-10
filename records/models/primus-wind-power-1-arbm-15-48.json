@@ -2,7 +2,7 @@
   "id": "primus-wind-power-1-arbm-15-48",
   "manufacturer": "primus-wind-power",
   "name": "1-ARBM-15-48",
-  "kind": "generator",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

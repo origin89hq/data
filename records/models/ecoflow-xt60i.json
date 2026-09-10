@@ -2,7 +2,7 @@
   "id": "ecoflow-xt60i",
   "manufacturer": "ecoflow",
   "name": "XT60i",
-  "kind": "balance-of-system",
+  "kind": "dc-dc-converter",
   "aliases": [
     "EFL-144-104"
   ],

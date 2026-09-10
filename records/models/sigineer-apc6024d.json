@@ -2,7 +2,7 @@
   "id": "sigineer-apc6024d",
   "manufacturer": "sigineer",
   "name": "APC6024D",
+  "kind": "out-of-scope",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": []
 }

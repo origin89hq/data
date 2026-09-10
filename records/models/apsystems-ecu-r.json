@@ -2,7 +2,7 @@
   "id": "apsystems-ecu-r",
   "manufacturer": "apsystems",
   "name": "ECU-R",
-  "kind": "inverter",
+  "kind": "out-of-scope",
   "aliases": [
     "APS-223-110"
   ],

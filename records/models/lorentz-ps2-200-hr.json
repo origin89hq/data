@@ -2,7 +2,7 @@
   "id": "lorentz-ps2-200-hr",
   "manufacturer": "lorentz",
   "name": "PS2-200 HR",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

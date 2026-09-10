@@ -2,7 +2,7 @@
   "id": "noco-x65",
   "manufacturer": "noco",
   "name": "X65",
+  "kind": "ac-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": []
 }

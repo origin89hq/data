@@ -2,7 +2,7 @@
   "id": "victron-energy-sdrpskc",
   "manufacturer": "victron-energy",
   "name": "SDRPSKC",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

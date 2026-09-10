@@ -2,7 +2,7 @@
   "id": "pytes-e-box-48100r",
   "manufacturer": "pytes",
   "name": "E-BOX-48100R",
-  "kind": "battery",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

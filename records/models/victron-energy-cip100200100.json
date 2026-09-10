@@ -2,7 +2,7 @@
   "id": "victron-energy-cip100200100",
   "manufacturer": "victron-energy",
   "name": "CIP100200100",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [
     "1593022"
   ],

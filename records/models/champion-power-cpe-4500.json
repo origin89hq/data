@@ -3,6 +3,5 @@
   "manufacturer": "champion-power",
   "name": "CPE 4500",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

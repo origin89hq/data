@@ -2,7 +2,7 @@
   "id": "pytes-bndl-p0001",
   "manufacturer": "pytes",
   "name": "BNDL-P0001",
-  "kind": "battery",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

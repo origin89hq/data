@@ -2,7 +2,7 @@
   "id": "victron-energy-bmv-710h-smart",
   "manufacturer": "victron-energy",
   "name": "BMV-710H Smart",
-  "kind": "bms",
+  "kind": "meter",
   "aliases": [],
   "dialects": [
     "victron-bmv71x-smartshunt-vedirect-text"

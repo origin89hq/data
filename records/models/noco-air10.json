@@ -2,7 +2,7 @@
   "id": "noco-air10",
   "manufacturer": "noco",
   "name": "AIR10",
-  "kind": "out-of-scope",
+  "kind": "dc-dc-converter",
   "aliases": [
     "NOCO AIR10"
   ],

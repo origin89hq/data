@@ -2,7 +2,7 @@
   "id": "enphase-sc200d111c240us01",
   "manufacturer": "enphase",
   "name": "SC200D111C240US01",
-  "kind": "charge-controller",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

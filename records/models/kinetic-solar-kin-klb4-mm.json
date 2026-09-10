@@ -2,7 +2,7 @@
   "id": "kinetic-solar-kin-klb4-mm",
   "manufacturer": "kinetic-solar",
   "name": "KIN-KLB4-MM",
-  "kind": "balance-of-system",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

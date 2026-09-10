@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "CSW-TS15",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

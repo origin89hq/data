@@ -2,7 +2,7 @@
   "id": "enphase-x-iq-na-hd-125a",
   "manufacturer": "enphase",
   "name": "X-IQ-NA-HD-125A",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

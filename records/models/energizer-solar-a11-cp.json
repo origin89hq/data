@@ -2,7 +2,7 @@
   "id": "energizer-solar-a11-cp",
   "manufacturer": "energizer-solar",
   "name": "A11-CP",
+  "kind": "inverter",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

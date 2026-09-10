@@ -2,7 +2,6 @@
   "id": "victron-energy-lyn020102000",
   "manufacturer": "victron-energy",
   "name": "LYN020102000",
-  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

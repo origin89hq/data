@@ -2,7 +2,7 @@
   "id": "schneider-electric-c35",
   "manufacturer": "schneider-electric",
   "name": "C35",
-  "kind": "charge-controller",
+  "kind": "out-of-scope",
   "aliases": [
     "CXT-164-116"
   ],

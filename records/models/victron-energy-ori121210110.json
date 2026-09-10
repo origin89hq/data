@@ -2,7 +2,6 @@
   "id": "victron-energy-ori121210110",
   "manufacturer": "victron-energy",
   "name": "ORI121210110",
-  "kind": "dc-dc-converter",
   "aliases": [],
   "dialects": []
 }

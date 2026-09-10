@@ -2,7 +2,7 @@
   "id": "pentair-three-phase-460v",
   "manufacturer": "pentair",
   "name": "Three Phase, 460V",
+  "kind": "generator",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

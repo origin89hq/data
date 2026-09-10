@@ -2,7 +2,7 @@
   "id": "outback-power-fw500-ac",
   "manufacturer": "outback-power",
   "name": "FW500-AC",
-  "kind": "balance-of-system",
+  "kind": "ac-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "champion-power-6016-l-pr-achampion-power-equipment-inc",
   "manufacturer": "champion-power",
   "name": "6016-L-PR-ACHAMPION POWER EQUIPMENT, INC",
+  "kind": "generator",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter"
+  "dialects": []
 }

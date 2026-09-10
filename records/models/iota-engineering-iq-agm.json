@@ -2,7 +2,7 @@
   "id": "iota-engineering-iq-agm",
   "manufacturer": "iota-engineering",
   "name": "IQ-AGM",
-  "kind": "ac-charger",
+  "kind": "battery",
   "aliases": [
     "XXX-XXX-185"
   ],

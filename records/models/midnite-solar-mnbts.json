@@ -2,7 +2,7 @@
   "id": "midnite-solar-mnbts",
   "manufacturer": "midnite-solar",
   "name": "MNBTS",
-  "kind": "balance-of-system",
+  "kind": "bms",
   "aliases": [
     "MID-161-119"
   ],

@@ -2,7 +2,7 @@
   "id": "ecoflow-deltaproeb-us-3x",
   "manufacturer": "ecoflow",
   "name": "DELTAProEB-US-3X",
-  "kind": "battery",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

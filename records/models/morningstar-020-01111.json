@@ -2,7 +2,7 @@
   "id": "morningstar-020-01111",
   "manufacturer": "morningstar",
   "name": "020-01111",
-  "kind": "meter",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

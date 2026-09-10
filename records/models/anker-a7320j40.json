@@ -2,7 +2,7 @@
   "id": "anker-a7320j40",
   "manufacturer": "anker",
   "name": "A7320J40",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

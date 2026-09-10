@@ -2,7 +2,7 @@
   "id": "iota-engineering-dls-240-55",
   "manufacturer": "iota-engineering",
   "name": "DLS-240-55",
-  "kind": "ac-charger",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "outback-power-rts",
   "manufacturer": "outback-power",
   "name": "RTS",
+  "kind": "bms",
   "aliases": [],
-  "dialects": [],
-  "kind": "balance-of-system"
+  "dialects": []
 }

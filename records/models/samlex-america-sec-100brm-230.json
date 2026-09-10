@@ -2,7 +2,7 @@
   "id": "samlex-america-sec-100brm-230",
   "manufacturer": "samlex-america",
   "name": "SEC-100BRM-230",
+  "kind": "ac-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter"
+  "dialects": []
 }

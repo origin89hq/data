@@ -2,7 +2,7 @@
   "id": "gma-solar-1400057-36",
   "manufacturer": "gma-solar",
   "name": "1400057-36",
-  "kind": "panel",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

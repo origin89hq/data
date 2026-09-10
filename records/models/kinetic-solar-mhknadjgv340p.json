@@ -2,7 +2,7 @@
   "id": "kinetic-solar-mhknadjgv340p",
   "manufacturer": "kinetic-solar",
   "name": "MHKNADJGV340P",
-  "kind": "balance-of-system",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

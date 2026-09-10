@@ -2,7 +2,7 @@
   "id": "noco-gb10",
   "manufacturer": "noco",
   "name": "GB10",
+  "kind": "battery",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": []
 }

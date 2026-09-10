@@ -2,7 +2,7 @@
   "id": "midnite-solar-mnspd-300-dc",
   "manufacturer": "midnite-solar",
   "name": "MNSPD-300-DC",
-  "kind": "balance-of-system",
+  "kind": "charge-controller",
   "aliases": [
     "MID-109-108",
     "MNSPD-300-D/C"

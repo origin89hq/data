@@ -2,7 +2,7 @@
   "id": "samlex-america-evo-2224-4024",
   "manufacturer": "samlex-america",
   "name": "EVO-2224/4024",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": []
 }

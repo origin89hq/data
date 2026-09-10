@@ -2,7 +2,7 @@
   "id": "ecoflow-3-dpu-eb",
   "manufacturer": "ecoflow",
   "name": "3-DPU-EB",
-  "kind": "battery",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

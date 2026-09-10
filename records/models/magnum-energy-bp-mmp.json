@@ -2,7 +2,7 @@
   "id": "magnum-energy-bp-mmp",
   "manufacturer": "magnum-energy",
   "name": "BP-MMP",
-  "kind": "balance-of-system",
+  "kind": "bms",
   "aliases": [
     "MAG-222-141"
   ],

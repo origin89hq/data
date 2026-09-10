@@ -2,7 +2,7 @@
   "id": "ecoflow-dp-ts-kit",
   "manufacturer": "ecoflow",
   "name": "DP-TS-Kit",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

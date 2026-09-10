@@ -2,7 +2,7 @@
   "id": "fronius-4210052841",
   "manufacturer": "fronius",
   "name": "4210052841",
-  "kind": "inverter",
+  "kind": "out-of-scope",
   "aliases": [
     "4,210,052,841",
     "FRO-225-125"

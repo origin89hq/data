@@ -2,7 +2,7 @@
   "id": "noco-gen5x1",
   "manufacturer": "noco",
   "name": "GEN5X1",
-  "kind": "battery",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": [
     "noco-gen-onboard"

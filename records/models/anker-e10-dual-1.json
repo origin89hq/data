@@ -2,7 +2,7 @@
   "id": "anker-e10-dual-1",
   "manufacturer": "anker",
   "name": "E10-DUAL-1",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

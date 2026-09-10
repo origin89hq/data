@@ -2,7 +2,7 @@
   "id": "anker-bs220116",
   "manufacturer": "anker",
   "name": "BS220116",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "victron-energy-bos-bms-ve-bus-ng-vic",
   "manufacturer": "victron-energy",
   "name": "BOS-BMS-VE-BUS-NG-VIC",
-  "kind": "bms",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

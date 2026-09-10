@@ -2,7 +2,7 @@
   "id": "morningstar-readyedge-re-1",
   "manufacturer": "morningstar",
   "name": "ReadyEdge (RE-1)",
+  "kind": "meter",
   "aliases": [],
-  "dialects": [],
-  "kind": "bms"
+  "dialects": []
 }

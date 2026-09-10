@@ -2,7 +2,7 @@
   "id": "volthium-ba9720",
   "manufacturer": "volthium",
   "name": "BA9720",
-  "kind": "battery",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

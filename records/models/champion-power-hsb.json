@@ -2,7 +2,7 @@
   "id": "champion-power-hsb",
   "manufacturer": "champion-power",
   "name": "HSB",
+  "kind": "generator",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter"
+  "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "the-cabin-depot-300ah-t-f",
   "manufacturer": "the-cabin-depot",
   "name": "300AH-T-F",
-  "kind": "balance-of-system",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

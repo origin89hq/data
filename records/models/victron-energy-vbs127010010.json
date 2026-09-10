@@ -2,7 +2,7 @@
   "id": "victron-energy-vbs127010010",
   "manufacturer": "victron-energy",
   "name": "VBS127010010",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [
     "VIC-110-173"
   ],

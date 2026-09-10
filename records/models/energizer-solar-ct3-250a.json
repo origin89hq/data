@@ -2,7 +2,7 @@
   "id": "energizer-solar-ct3-250a",
   "manufacturer": "energizer-solar",
   "name": "CT3/250A",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "shunt-monitor"
+  "dialects": []
 }

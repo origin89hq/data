@@ -2,7 +2,7 @@
   "id": "fronius-4210060800",
   "manufacturer": "fronius",
   "name": "4210060800",
-  "kind": "inverter",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

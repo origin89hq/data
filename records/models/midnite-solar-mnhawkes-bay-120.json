@@ -2,7 +2,7 @@
   "id": "midnite-solar-mnhawkes-bay-120",
   "manufacturer": "midnite-solar",
   "name": "MNHAWKES BAY 120",
-  "kind": "charge-controller",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

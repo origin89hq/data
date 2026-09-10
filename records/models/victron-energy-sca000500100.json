@@ -2,7 +2,7 @@
   "id": "victron-energy-sca000500100",
   "manufacturer": "victron-energy",
   "name": "SCA000500100",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

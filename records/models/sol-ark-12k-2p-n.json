@@ -2,7 +2,7 @@
   "id": "sol-ark-12k-2p-n",
   "manufacturer": "sol-ark",
   "name": "12K-2P-N",
-  "kind": "inverter",
+  "kind": "inverter-charger",
   "aliases": [
     "SAK-224-101"
   ],

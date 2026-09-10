@@ -2,7 +2,7 @@
   "id": "magnum-energy-mpxs175-30d-r",
   "manufacturer": "magnum-energy",
   "name": "MPXS175-30D-R",
+  "kind": "inverter-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "balance-of-system"
+  "dialects": []
 }

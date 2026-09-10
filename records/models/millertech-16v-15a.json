@@ -2,7 +2,7 @@
   "id": "millertech-16v-15a",
   "manufacturer": "millertech",
   "name": "16V 15A",
+  "kind": "ac-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "anker-solixsg",
   "manufacturer": "anker",
   "name": "SOLIXSG",
-  "kind": "generator",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

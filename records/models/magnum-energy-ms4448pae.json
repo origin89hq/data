@@ -2,7 +2,7 @@
   "id": "magnum-energy-ms4448pae",
   "manufacturer": "magnum-energy",
   "name": "MS4448PAE",
-  "kind": "inverter",
+  "kind": "inverter-charger",
   "aliases": [
     "MAG-227-105"
   ],

@@ -2,7 +2,7 @@
   "id": "morningstar-mw-4048-sp",
   "manufacturer": "morningstar",
   "name": "MW-4048-SP",
+  "kind": "out-of-scope",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": []
 }

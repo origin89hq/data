@@ -2,7 +2,7 @@
   "id": "eg4-electronics-eg4inv12kpv",
   "manufacturer": "eg4-electronics",
   "name": "EG4INV12KPV",
-  "kind": "inverter-charger",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

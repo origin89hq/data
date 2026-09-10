@@ -2,7 +2,7 @@
   "id": "victron-energy-bba000100100",
   "manufacturer": "victron-energy",
   "name": "BBA000100100",
-  "kind": "bms",
+  "kind": "battery",
   "aliases": [
     "1593086",
     "VIC-181-183"

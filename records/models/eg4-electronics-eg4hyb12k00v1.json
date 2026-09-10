@@ -2,7 +2,7 @@
   "id": "eg4-electronics-eg4hyb12k00v1",
   "manufacturer": "eg4-electronics",
   "name": "EG4HYB12K00V1",
-  "kind": "inverter",
+  "kind": "out-of-scope",
   "aliases": [
     "1511104"
   ],

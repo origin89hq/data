@@ -2,7 +2,7 @@
   "id": "outback-power-flexnet-dc",
   "manufacturer": "outback-power",
   "name": "FLEXnet DC",
+  "kind": "shunt-monitor",
   "aliases": [],
-  "dialects": [],
-  "kind": "balance-of-system"
+  "dialects": []
 }

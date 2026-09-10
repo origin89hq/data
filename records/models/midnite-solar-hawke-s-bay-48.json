@@ -2,7 +2,7 @@
   "id": "midnite-solar-hawke-s-bay-48",
   "manufacturer": "midnite-solar",
   "name": "Hawke\"s-Bay-48",
-  "kind": "charge-controller",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

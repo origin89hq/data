@@ -2,7 +2,7 @@
   "id": "apsystems-ds3-s-ca",
   "manufacturer": "apsystems",
   "name": "DS3-S-CA",
-  "kind": "inverter",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

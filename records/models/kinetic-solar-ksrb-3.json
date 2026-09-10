@@ -2,7 +2,7 @@
   "id": "kinetic-solar-ksrb-3",
   "manufacturer": "kinetic-solar",
   "name": "KSRB-3",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [
     "XXX-XXX-180"
   ],

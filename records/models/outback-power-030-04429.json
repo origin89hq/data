@@ -2,7 +2,7 @@
   "id": "outback-power-030-04429",
   "manufacturer": "outback-power",
   "name": "030-04429",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

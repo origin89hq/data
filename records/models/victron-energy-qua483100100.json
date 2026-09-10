@@ -2,7 +2,7 @@
   "id": "victron-energy-qua483100100",
   "manufacturer": "victron-energy",
   "name": "QUA483100100",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "fronius-4210142800",
   "manufacturer": "fronius",
   "name": "4210142800",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

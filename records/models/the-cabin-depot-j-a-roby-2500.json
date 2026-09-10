@@ -3,5 +3,6 @@
   "manufacturer": "the-cabin-depot",
   "name": "J.A. ROBY 2500",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "generator"
 }

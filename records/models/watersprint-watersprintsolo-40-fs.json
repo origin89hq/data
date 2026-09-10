@@ -3,5 +3,6 @@
   "manufacturer": "watersprint",
   "name": "WatersprintSolo® 40 FS",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

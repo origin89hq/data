@@ -6,5 +6,6 @@
   "dialects": [
     "rolls-lfp-stack-lv-48v",
     "rolls-stack-lv-can"
-  ]
+  ],
+  "kind": "battery"
 }

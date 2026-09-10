@@ -2,7 +2,7 @@
   "id": "enphase-1647012",
   "manufacturer": "enphase",
   "name": "1647012",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

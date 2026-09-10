@@ -2,7 +2,7 @@
   "id": "midnite-solar-mnccck",
   "manufacturer": "midnite-solar",
   "name": "MNCCCK",
-  "kind": "balance-of-system",
+  "kind": "charge-controller",
   "aliases": [
     "MID-101-217"
   ],

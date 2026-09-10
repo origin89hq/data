@@ -2,7 +2,7 @@
   "id": "primus-wind-power-2-arbr-101",
   "manufacturer": "primus-wind-power",
   "name": "2-ARBR-101",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [
     "PWP-341-112"
   ],

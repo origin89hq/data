@@ -2,7 +2,7 @@
   "id": "emp-shield-saempdc12",
   "manufacturer": "emp-shield",
   "name": "SAEMPDC12",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

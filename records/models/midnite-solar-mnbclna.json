@@ -2,7 +2,7 @@
   "id": "midnite-solar-mnbclna",
   "manufacturer": "midnite-solar",
   "name": "MNBCLNA",
-  "kind": "charge-controller",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

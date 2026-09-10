@@ -2,7 +2,7 @@
   "id": "outback-power-vfxr3524a",
   "manufacturer": "outback-power",
   "name": "VFXR3524A",
+  "kind": "inverter",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": []
 }

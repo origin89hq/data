@@ -2,7 +2,7 @@
   "id": "eg4-electronics-mppt10048hv",
   "manufacturer": "eg4-electronics",
   "name": "MPPT10048HV",
-  "kind": "charge-controller",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

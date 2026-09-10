@@ -2,7 +2,7 @@
   "id": "kinetic-solar-kin-kcms45-m",
   "manufacturer": "kinetic-solar",
   "name": "KIN-KCMS45-M",
-  "kind": "balance-of-system",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

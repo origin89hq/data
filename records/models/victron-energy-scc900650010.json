@@ -2,7 +2,7 @@
   "id": "victron-energy-scc900650010",
   "manufacturer": "victron-energy",
   "name": "SCC900650010",
-  "kind": "balance-of-system",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

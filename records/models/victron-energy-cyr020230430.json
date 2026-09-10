@@ -2,7 +2,7 @@
   "id": "victron-energy-cyr020230430",
   "manufacturer": "victron-energy",
   "name": "CYR020230430",
-  "kind": "bms",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

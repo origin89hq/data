@@ -2,7 +2,7 @@
   "id": "xantrex-xpower",
   "manufacturer": "xantrex",
   "name": "XPower",
-  "kind": "inverter",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": [
     "xantrex-no-comms"

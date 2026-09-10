@@ -2,7 +2,7 @@
   "id": "sigineer-esf48l50",
   "manufacturer": "sigineer",
   "name": "ESF48L50",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": []
 }

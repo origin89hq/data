@@ -2,7 +2,7 @@
   "id": "ecoflow-deltaprotg",
   "manufacturer": "ecoflow",
   "name": "DELTAProTG",
-  "kind": "balance-of-system",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

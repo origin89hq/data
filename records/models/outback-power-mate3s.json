@@ -2,7 +2,7 @@
   "id": "outback-power-mate3s",
   "manufacturer": "outback-power",
   "name": "MATE3s",
-  "kind": "charge-controller",
+  "kind": "balance-of-system",
   "aliases": [
     "1600019"
   ],

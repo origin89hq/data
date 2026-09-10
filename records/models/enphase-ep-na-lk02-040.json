@@ -2,7 +2,7 @@
   "id": "enphase-ep-na-lk02-040",
   "manufacturer": "enphase",
   "name": "EP-NA-LK02-040",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

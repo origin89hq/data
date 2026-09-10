@@ -2,7 +2,7 @@
   "id": "ruixu-rx-wmb",
   "manufacturer": "ruixu",
   "name": "RX-WMB",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

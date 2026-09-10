@@ -2,7 +2,7 @@
   "id": "volthium-51-2-100-rh-3u",
   "manufacturer": "volthium",
   "name": "51.2-100-RH-3U",
-  "kind": "battery",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

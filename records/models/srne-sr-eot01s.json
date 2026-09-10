@@ -2,7 +2,7 @@
   "id": "srne-sr-eot01s",
   "manufacturer": "srne",
   "name": "SR-EOT01S",
+  "kind": "inverter-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "battery"
+  "dialects": []
 }

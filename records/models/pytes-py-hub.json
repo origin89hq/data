@@ -2,7 +2,7 @@
   "id": "pytes-py-hub",
   "manufacturer": "pytes",
   "name": "PY-HUB",
-  "kind": "bms",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

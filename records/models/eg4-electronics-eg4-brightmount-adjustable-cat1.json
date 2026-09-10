@@ -3,5 +3,6 @@
   "manufacturer": "eg4-electronics",
   "name": "EG4® BrightMount Adjustable Cat1",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

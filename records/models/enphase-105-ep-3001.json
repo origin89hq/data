@@ -2,7 +2,7 @@
   "id": "enphase-105-ep-3001",
   "manufacturer": "enphase",
   "name": "105-EP-3001",
-  "kind": "inverter",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

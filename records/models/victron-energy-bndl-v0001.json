@@ -2,7 +2,7 @@
   "id": "victron-energy-bndl-v0001",
   "manufacturer": "victron-energy",
   "name": "BNDL-V0001",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

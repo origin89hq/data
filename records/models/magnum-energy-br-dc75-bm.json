@@ -2,7 +2,7 @@
   "id": "magnum-energy-br-dc75-bm",
   "manufacturer": "magnum-energy",
   "name": "BR-DC75-BM",
+  "kind": "dc-dc-converter",
   "aliases": [],
-  "dialects": [],
-  "kind": "balance-of-system"
+  "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "victron-energy-24-16",
   "manufacturer": "victron-energy",
   "name": "24/16",
+  "kind": "balance-of-system",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": []
 }

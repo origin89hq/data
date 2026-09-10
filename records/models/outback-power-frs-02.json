@@ -2,7 +2,7 @@
   "id": "outback-power-frs-02",
   "manufacturer": "outback-power",
   "name": "FRS-02",
+  "kind": "dc-dc-converter",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter"
+  "dialects": []
 }

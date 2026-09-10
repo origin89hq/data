@@ -2,7 +2,7 @@
   "id": "noco-gen5x2",
   "manufacturer": "noco",
   "name": "GEN5X2",
-  "kind": "ac-charger",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": [
     "noco-gen-onboard"

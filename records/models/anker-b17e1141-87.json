@@ -2,7 +2,7 @@
   "id": "anker-b17e1141-87",
   "manufacturer": "anker",
   "name": "B17E1141-87",
-  "kind": "battery",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

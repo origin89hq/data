@@ -2,7 +2,7 @@
   "id": "kinetic-solar-kin-kbfgm30pl-ga",
   "manufacturer": "kinetic-solar",
   "name": "KIN-KBFGM30PL-GA",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

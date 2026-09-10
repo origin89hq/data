@@ -2,7 +2,7 @@
   "id": "apsystems-aps-ds3-na-25",
   "manufacturer": "apsystems",
   "name": "APS-DS3-NA-25",
-  "kind": "inverter",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

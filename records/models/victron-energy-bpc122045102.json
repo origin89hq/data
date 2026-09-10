@@ -2,7 +2,7 @@
   "id": "victron-energy-bpc122045102",
   "manufacturer": "victron-energy",
   "name": "BPC122045102",
-  "kind": "ac-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "kinetic-solar-kin-khgt25-mm",
   "manufacturer": "kinetic-solar",
   "name": "KIN-KHGT25-MM",
-  "kind": "balance-of-system",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

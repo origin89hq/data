@@ -2,7 +2,7 @@
   "id": "kinetic-solar-kspac2-m",
   "manufacturer": "kinetic-solar",
   "name": "KSPAC2-M",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

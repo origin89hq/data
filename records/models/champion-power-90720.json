@@ -2,7 +2,7 @@
   "id": "champion-power-90720",
   "manufacturer": "champion-power",
   "name": "90720",
+  "kind": "generator",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

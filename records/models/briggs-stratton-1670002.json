@@ -2,7 +2,7 @@
   "id": "briggs-stratton-1670002",
   "manufacturer": "briggs-stratton",
   "name": "1670002",
-  "kind": "generator",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

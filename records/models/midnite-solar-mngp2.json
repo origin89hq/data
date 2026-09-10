@@ -2,7 +2,7 @@
   "id": "midnite-solar-mngp2",
   "manufacturer": "midnite-solar",
   "name": "MNGP2",
-  "kind": "meter",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

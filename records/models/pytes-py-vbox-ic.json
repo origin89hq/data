@@ -2,7 +2,7 @@
   "id": "pytes-py-vbox-ic",
   "manufacturer": "pytes",
   "name": "PY-VBOX-IC",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

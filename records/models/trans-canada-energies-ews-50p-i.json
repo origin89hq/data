@@ -2,7 +2,7 @@
   "id": "trans-canada-energies-ews-50p-i",
   "manufacturer": "trans-canada-energies",
   "name": "EWS-50P-I",
-  "kind": "panel",
+  "kind": "out-of-scope",
   "aliases": [
     "EWT-301-103"
   ],

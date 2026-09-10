@@ -3,5 +3,6 @@
   "manufacturer": "unique-appliances",
   "name": "UNIQUE",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

@@ -2,7 +2,7 @@
   "id": "morningstar-pc-meterbus-adapter",
   "manufacturer": "morningstar",
   "name": "PC MeterBus Adapter",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [
     "MOR-161-143"
   ],

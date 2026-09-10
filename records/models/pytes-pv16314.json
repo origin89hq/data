@@ -2,7 +2,7 @@
   "id": "pytes-pv16314",
   "manufacturer": "pytes",
   "name": "PV16314",
-  "kind": "battery",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

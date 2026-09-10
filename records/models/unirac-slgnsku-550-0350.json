@@ -2,7 +2,7 @@
   "id": "unirac-slgnsku-550-0350",
   "manufacturer": "unirac",
   "name": "SLGNSKU: 550-0350",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

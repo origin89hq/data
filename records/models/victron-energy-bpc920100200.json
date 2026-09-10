@@ -2,7 +2,7 @@
   "id": "victron-energy-bpc920100200",
   "manufacturer": "victron-energy",
   "name": "BPC920100200",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

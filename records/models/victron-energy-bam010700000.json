@@ -2,7 +2,7 @@
   "id": "victron-energy-bam010700000",
   "manufacturer": "victron-energy",
   "name": "BAM010700000",
-  "kind": "shunt-monitor",
+  "kind": "bms",
   "aliases": [
     "1593095",
     "VIC-181-102"

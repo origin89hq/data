@@ -2,7 +2,7 @@
   "id": "pytes-py-v5-5-12",
   "manufacturer": "pytes",
   "name": "PY-V5-5.12",
-  "kind": "battery",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

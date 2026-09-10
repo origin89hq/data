@@ -2,7 +2,7 @@
   "id": "delta-lightning-arrestors-mo302",
   "manufacturer": "delta-lightning-arrestors",
   "name": "MO302",
+  "kind": "balance-of-system",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

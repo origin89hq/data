@@ -2,7 +2,7 @@
   "id": "schneider-electric-c60",
   "manufacturer": "schneider-electric",
   "name": "C60",
-  "kind": "charge-controller",
+  "kind": "out-of-scope",
   "aliases": [
     "CXT-164-118"
   ],

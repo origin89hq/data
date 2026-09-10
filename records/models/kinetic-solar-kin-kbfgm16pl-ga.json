@@ -2,7 +2,7 @@
   "id": "kinetic-solar-kin-kbfgm16pl-ga",
   "manufacturer": "kinetic-solar",
   "name": "KIN-KBFGM16PL-GA",
-  "kind": "balance-of-system",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

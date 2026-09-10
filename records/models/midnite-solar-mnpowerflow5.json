@@ -2,7 +2,7 @@
   "id": "midnite-solar-mnpowerflow5",
   "manufacturer": "midnite-solar",
   "name": "MNPOWERFLOW5",
-  "kind": "battery",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "lorex-cb120urb1a",
   "manufacturer": "lorex",
   "name": "CB120URB1A",
+  "kind": "out-of-scope",
   "aliases": [],
-  "dialects": [],
-  "kind": "balance-of-system"
+  "dialects": []
 }

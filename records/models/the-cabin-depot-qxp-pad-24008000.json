@@ -2,7 +2,7 @@
   "id": "the-cabin-depot-qxp-pad-24008000",
   "manufacturer": "the-cabin-depot",
   "name": "QXP-PAD-24008000",
-  "kind": "ac-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

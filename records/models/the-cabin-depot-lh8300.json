@@ -2,7 +2,7 @@
   "id": "the-cabin-depot-lh8300",
   "manufacturer": "the-cabin-depot",
   "name": "LH8300",
-  "kind": "panel",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

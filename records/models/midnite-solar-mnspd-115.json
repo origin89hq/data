@@ -2,7 +2,7 @@
   "id": "midnite-solar-mnspd-115",
   "manufacturer": "midnite-solar",
   "name": "MNSPD-115",
-  "kind": "balance-of-system",
+  "kind": "charge-controller",
   "aliases": [
     "MID-109-106"
   ],

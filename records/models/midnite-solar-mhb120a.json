@@ -2,7 +2,7 @@
   "id": "midnite-solar-mhb120a",
   "manufacturer": "midnite-solar",
   "name": "MHB120A",
-  "kind": "charge-controller",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

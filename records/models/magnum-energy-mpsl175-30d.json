@@ -2,7 +2,7 @@
   "id": "magnum-energy-mpsl175-30d",
   "manufacturer": "magnum-energy",
   "name": "MPSL175-30D",
-  "kind": "balance-of-system",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "pytes-py-bat-inv",
   "manufacturer": "pytes",
   "name": "PY-BAT-INV",
-  "kind": "balance-of-system",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

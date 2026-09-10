@@ -2,7 +2,7 @@
   "id": "victron-energy-ekrano-gx",
   "manufacturer": "victron-energy",
   "name": "Ekrano GX",
-  "kind": "balance-of-system",
+  "kind": "meter",
   "aliases": [],
   "dialects": [
     "victron-gx-ble-instant-readout",

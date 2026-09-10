@@ -2,7 +2,7 @@
   "id": "morningstar-020-01256",
   "manufacturer": "morningstar",
   "name": "020-01256",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

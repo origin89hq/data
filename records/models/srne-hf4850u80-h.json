@@ -2,7 +2,7 @@
   "id": "srne-hf4850u80-h",
   "manufacturer": "srne",
   "name": "HF4850U80-H",
-  "kind": "inverter",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

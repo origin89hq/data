@@ -2,7 +2,7 @@
   "id": "victron-energy-shp304001500",
   "manufacturer": "victron-energy",
   "name": "SHP304001500",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

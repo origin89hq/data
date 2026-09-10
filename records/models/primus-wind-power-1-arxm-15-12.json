@@ -2,7 +2,7 @@
   "id": "primus-wind-power-1-arxm-15-12",
   "manufacturer": "primus-wind-power",
   "name": "1-ARXM-15-12",
-  "kind": "generator",
+  "kind": "charge-controller",
   "aliases": [
     "XXX-XXX-160"
   ],

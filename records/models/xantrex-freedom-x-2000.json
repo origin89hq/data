@@ -2,7 +2,7 @@
   "id": "xantrex-freedom-x-2000",
   "manufacturer": "xantrex",
   "name": "FREEDOM X 2000",
+  "kind": "inverter",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": []
 }

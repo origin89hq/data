@@ -3,5 +3,6 @@
   "manufacturer": "champion-power",
   "name": "F7RTC",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "generator"
 }

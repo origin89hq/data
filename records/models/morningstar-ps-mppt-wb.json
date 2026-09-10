@@ -2,7 +2,7 @@
   "id": "morningstar-ps-mppt-wb",
   "manufacturer": "morningstar",
   "name": "PS-MPPT-WB",
-  "kind": "balance-of-system",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

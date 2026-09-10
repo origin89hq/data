@@ -2,7 +2,7 @@
   "id": "midnite-solar-mnedc30-300",
   "manufacturer": "midnite-solar",
   "name": "MNEDC30-300",
-  "kind": "balance-of-system",
+  "kind": "charge-controller",
   "aliases": [
     "XXX-XXX-106"
   ],

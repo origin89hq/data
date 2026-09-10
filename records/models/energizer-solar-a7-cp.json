@@ -3,5 +3,6 @@
   "manufacturer": "energizer-solar",
   "name": "A7-CP",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

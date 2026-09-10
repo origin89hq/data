@@ -2,7 +2,7 @@
   "id": "magnum-energy-br-ac60s",
   "manufacturer": "magnum-energy",
   "name": "BR-AC60S",
-  "kind": "balance-of-system",
+  "kind": "ac-charger",
   "aliases": [
     "MAG-103-119"
   ],

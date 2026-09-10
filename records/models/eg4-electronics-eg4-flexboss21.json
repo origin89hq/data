@@ -2,7 +2,7 @@
   "id": "eg4-electronics-eg4-flexboss21",
   "manufacturer": "eg4-electronics",
   "name": "EG4 FlexBOSS21",
-  "kind": "inverter",
+  "kind": "bms",
   "aliases": [
     "EG4 FlexBOSS21 Inverter"
   ],

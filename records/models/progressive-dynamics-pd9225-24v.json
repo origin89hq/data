@@ -2,7 +2,7 @@
   "id": "progressive-dynamics-pd9225-24v",
   "manufacturer": "progressive-dynamics",
   "name": "PD9225-24V",
-  "kind": "ac-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "imo-si32-pel64r-2",
   "manufacturer": "imo",
   "name": "SI32-PEL64R-2",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [
     "XXX-XXX-260"
   ],

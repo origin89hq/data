@@ -2,7 +2,7 @@
   "id": "morningstar-shs-nl-10",
   "manufacturer": "morningstar",
   "name": "SHS-NL-10",
+  "kind": "shunt-monitor",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": []
 }

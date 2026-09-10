@@ -2,7 +2,7 @@
   "id": "midnite-solar-mndc250plus",
   "manufacturer": "midnite-solar",
   "name": "MNDC250PLUS",
-  "kind": "balance-of-system",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

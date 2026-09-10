@@ -2,7 +2,7 @@
   "id": "morningstar-gfpd-600v",
   "manufacturer": "morningstar",
   "name": "GFPD-600V",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

@@ -3,7 +3,7 @@ import type { Sighting } from "../../schema/sighting.ts";
 
 /** Pinned so a guess can say exactly what produced it. Bump the prompt version when the prompt changes. */
 export const CLASSIFIER_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
-export const PROMPT_VERSION = "3";
+export const PROMPT_VERSION = "4";
 export const CLASSIFIER_ID = `ai:${CLASSIFIER_MODEL}@p${PROMPT_VERSION}`;
 
 /** The classifier's id as a key segment: an R2 key cannot carry the slashes and @ of a model name. */
@@ -16,7 +16,10 @@ const SYSTEM = `You classify product listings from off-grid energy retailers.
 Answer with one item per listing, in the same order as the numbered listings, and exactly as many items as there are listings. Never merge, skip or reorder listings.
 
 For each listing give:
-- kind: one of ${EquipmentKind.options.join(", ")}. Use "out-of-scope" for anything that is not electrical energy equipment: wood stoves, toilets, cookware, clothing, plumbing, furniture, tools, food. Electrical wiring, breakers, fuses, busbars and connectors are "balance-of-system". A portable power station or all-in-one solar generator is "inverter-charger".
+- kind: one of ${EquipmentKind.options.join(", ")}. Use "out-of-scope" for anything that neither makes, stores, converts, controls nor consumes electricity: wood stoves, toilets, cookware, clothing, furniture, hand tools, food. Electrical wiring, breakers, fuses, busbars and connectors are "balance-of-system". A portable power station or all-in-one solar generator is "inverter-charger".
+  A water pump is "pump". A fridge, freezer, cooker or water heater is "appliance". Lighting, a
+  camera, a cell booster, a water treatment unit and anything else that only consumes power is
+  "load". A booster pack with its own battery, for starting an engine, is "jump-starter".
   "out-of-scope" is a positive claim that you can see what the product is and it is not electrical
   energy equipment. It is not the answer for a listing you cannot read. Asked to classify a bare
   part number like "ABB 1666001", a previous version answered out-of-scope 2,543 times, which says

@@ -2,7 +2,7 @@
   "id": "victron-energy-victron200wrvkit",
   "manufacturer": "victron-energy",
   "name": "Victron200WRVKit",
-  "kind": "panel",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

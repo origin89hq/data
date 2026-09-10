@@ -2,7 +2,7 @@
   "id": "energizer-solar-ct3-100a",
   "manufacturer": "energizer-solar",
   "name": "CT3/100A",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "shunt-monitor"
+  "dialects": []
 }

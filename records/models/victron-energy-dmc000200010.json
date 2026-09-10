@@ -2,7 +2,6 @@
   "id": "victron-energy-dmc000200010",
   "manufacturer": "victron-energy",
   "name": "DMC000200010",
-  "kind": "balance-of-system",
   "aliases": [
     "VIC-223-157"
   ],

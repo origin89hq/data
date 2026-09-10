@@ -2,7 +2,7 @@
   "id": "the-cabin-depot-eg4rx-bdl6",
   "manufacturer": "the-cabin-depot",
   "name": "EG4RX-BDL6",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

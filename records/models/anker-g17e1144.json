@@ -2,7 +2,7 @@
   "id": "anker-g17e1144",
   "manufacturer": "anker",
   "name": "G17E1144",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

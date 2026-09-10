@@ -2,7 +2,7 @@
   "id": "sigineer-24v-models",
   "manufacturer": "sigineer",
   "name": "24V models",
+  "kind": "out-of-scope",
   "aliases": [],
-  "dialects": [],
-  "kind": "dc-dc-converter"
+  "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "midnite-solar-mntransition",
   "manufacturer": "midnite-solar",
   "name": "MNTRANSITION",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

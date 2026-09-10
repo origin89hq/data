@@ -2,7 +2,7 @@
   "id": "emp-shield-single-dc-220-300-w",
   "manufacturer": "emp-shield",
   "name": "Single-DC-220-300-W",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [
     "1512009"
   ],

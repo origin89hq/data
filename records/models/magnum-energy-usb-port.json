@@ -2,7 +2,7 @@
   "id": "magnum-energy-usb-port",
   "manufacturer": "magnum-energy",
   "name": "USB Port",
+  "kind": "balance-of-system",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

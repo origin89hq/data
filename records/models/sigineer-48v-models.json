@@ -2,7 +2,7 @@
   "id": "sigineer-48v-models",
   "manufacturer": "sigineer",
   "name": "48V models",
+  "kind": "out-of-scope",
   "aliases": [],
-  "dialects": [],
-  "kind": "dc-dc-converter"
+  "dialects": []
 }

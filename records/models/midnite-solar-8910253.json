@@ -2,7 +2,7 @@
   "id": "midnite-solar-8910253",
   "manufacturer": "midnite-solar",
   "name": "8910253",
+  "kind": "out-of-scope",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": []
 }

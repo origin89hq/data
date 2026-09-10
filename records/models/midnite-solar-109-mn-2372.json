@@ -2,7 +2,7 @@
   "id": "midnite-solar-109-mn-2372",
   "manufacturer": "midnite-solar",
   "name": "109-MN-2372",
-  "kind": "balance-of-system",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "the-cabin-depot-ka-xsg480-48-24",
   "manufacturer": "the-cabin-depot",
   "name": "KA XSG480-48-24",
-  "kind": "dc-dc-converter",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

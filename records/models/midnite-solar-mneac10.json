@@ -2,7 +2,7 @@
   "id": "midnite-solar-mneac10",
   "manufacturer": "midnite-solar",
   "name": "MNEAC10",
-  "kind": "balance-of-system",
+  "kind": "ac-charger",
   "aliases": [
     "XXX-XXX-100"
   ],

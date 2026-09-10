@@ -2,7 +2,6 @@
   "id": "victron-energy-lyn020102010",
   "manufacturer": "victron-energy",
   "name": "LYN020102010",
-  "kind": "balance-of-system",
   "aliases": [
     "VIC-104-215"
   ],

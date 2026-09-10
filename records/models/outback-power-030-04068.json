@@ -2,7 +2,7 @@
   "id": "outback-power-030-04068",
   "manufacturer": "outback-power",
   "name": "030-04068",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

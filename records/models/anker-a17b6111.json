@@ -2,7 +2,7 @@
   "id": "anker-a17b6111",
   "manufacturer": "anker",
   "name": "A17B6111",
-  "kind": "ac-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

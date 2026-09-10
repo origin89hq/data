@@ -2,7 +2,7 @@
   "id": "srne-rm-9",
   "manufacturer": "srne",
   "name": "RM-9",
+  "kind": "meter",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "pentair-pentek-psd30",
   "manufacturer": "pentair",
   "name": "Pentek PSD30",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

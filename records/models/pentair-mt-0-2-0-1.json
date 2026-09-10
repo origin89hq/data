@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "MT -0.2 ± 0.1",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

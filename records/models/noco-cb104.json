@@ -2,7 +2,7 @@
   "id": "noco-cb104",
   "manufacturer": "noco",
   "name": "CB104",
-  "kind": "balance-of-system",
+  "kind": "battery",
   "aliases": [
     "NOC-181-100"
   ],

@@ -2,7 +2,7 @@
   "id": "fronius-4-240-038-z",
   "manufacturer": "fronius",
   "name": "4,240,038,Z",
-  "kind": "meter",
+  "kind": "out-of-scope",
   "aliases": [
     "FRO-221-152"
   ],

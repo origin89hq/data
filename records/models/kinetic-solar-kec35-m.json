@@ -2,7 +2,7 @@
   "id": "kinetic-solar-kec35-m",
   "manufacturer": "kinetic-solar",
   "name": "KEC35-M",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [
     "KIN-284-108"
   ],

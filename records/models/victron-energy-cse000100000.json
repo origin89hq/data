@@ -2,7 +2,7 @@
   "id": "victron-energy-cse000100000",
   "manufacturer": "victron-energy",
   "name": "CSE000100000",
-  "kind": "meter",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

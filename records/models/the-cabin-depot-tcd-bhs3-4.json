@@ -2,7 +2,7 @@
   "id": "the-cabin-depot-tcd-bhs3-4",
   "manufacturer": "the-cabin-depot",
   "name": "TCD-bhs3/4",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

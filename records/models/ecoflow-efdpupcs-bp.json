@@ -2,7 +2,7 @@
   "id": "ecoflow-efdpupcs-bp",
   "manufacturer": "ecoflow",
   "name": "EFDPUPCS-BP",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

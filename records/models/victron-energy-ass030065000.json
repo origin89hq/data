@@ -2,7 +2,7 @@
   "id": "victron-energy-ass030065000",
   "manufacturer": "victron-energy",
   "name": "ASS030065000",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

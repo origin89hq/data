@@ -2,7 +2,7 @@
   "id": "ecoflow-zptsp300",
   "manufacturer": "ecoflow",
   "name": "ZPTSP300",
-  "kind": "panel",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

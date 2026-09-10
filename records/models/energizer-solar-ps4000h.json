@@ -3,5 +3,6 @@
   "manufacturer": "energizer-solar",
   "name": "PS4000H",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

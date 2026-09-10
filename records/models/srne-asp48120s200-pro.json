@@ -2,7 +2,7 @@
   "id": "srne-asp48120s200-pro",
   "manufacturer": "srne",
   "name": "ASP48120S200-Pro",
+  "kind": "inverter-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter"
+  "dialects": []
 }

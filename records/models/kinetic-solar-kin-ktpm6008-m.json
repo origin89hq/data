@@ -2,7 +2,7 @@
   "id": "kinetic-solar-kin-ktpm6008-m",
   "manufacturer": "kinetic-solar",
   "name": "KIN-KTPM6008-M",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "morningstar-rm-1",
   "manufacturer": "morningstar",
   "name": "RM-1",
-  "kind": "balance-of-system",
+  "kind": "meter",
   "aliases": [],
   "dialects": []
 }

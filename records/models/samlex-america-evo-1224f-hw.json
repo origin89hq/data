@@ -6,5 +6,6 @@
   "dialects": [
     "samlex-evo-1212f-no-bus",
     "samlex-evo-signal-io"
-  ]
+  ],
+  "kind": "inverter-charger"
 }

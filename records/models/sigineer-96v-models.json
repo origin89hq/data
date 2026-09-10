@@ -2,7 +2,7 @@
   "id": "sigineer-96v-models",
   "manufacturer": "sigineer",
   "name": "96V models",
+  "kind": "out-of-scope",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": []
 }

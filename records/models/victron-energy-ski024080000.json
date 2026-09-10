@@ -2,7 +2,7 @@
   "id": "victron-energy-ski024080000",
   "manufacturer": "victron-energy",
   "name": "SKI024080000",
-  "kind": "ac-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

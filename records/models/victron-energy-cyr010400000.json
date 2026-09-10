@@ -2,7 +2,7 @@
   "id": "victron-energy-cyr010400000",
   "manufacturer": "victron-energy",
   "name": "CYR010400000",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

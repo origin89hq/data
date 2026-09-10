@@ -2,7 +2,7 @@
   "id": "outback-power-frs-esw2",
   "manufacturer": "outback-power",
   "name": "FRS-ESW2",
+  "kind": "dc-dc-converter",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": []
 }

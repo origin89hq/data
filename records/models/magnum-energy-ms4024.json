@@ -2,7 +2,7 @@
   "id": "magnum-energy-ms4024",
   "manufacturer": "magnum-energy",
   "name": "MS4024",
-  "kind": "inverter",
+  "kind": "inverter-charger",
   "aliases": [
     "MAG-227-103"
   ],

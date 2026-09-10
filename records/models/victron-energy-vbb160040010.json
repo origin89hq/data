@@ -2,7 +2,7 @@
   "id": "victron-energy-vbb160040010",
   "manufacturer": "victron-energy",
   "name": "VBB160040010",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [
     "XXX-XXX-252"
   ],

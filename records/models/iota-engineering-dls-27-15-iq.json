@@ -2,7 +2,7 @@
   "id": "iota-engineering-dls-27-15-iq",
   "manufacturer": "iota-engineering",
   "name": "DLS-27-15/IQ",
-  "kind": "ac-charger",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

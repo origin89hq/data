@@ -2,7 +2,7 @@
   "id": "magnum-energy-br-dc175",
   "manufacturer": "magnum-energy",
   "name": "BR-DC175",
-  "kind": "balance-of-system",
+  "kind": "dc-dc-converter",
   "aliases": [
     "MAG-103-120"
   ],

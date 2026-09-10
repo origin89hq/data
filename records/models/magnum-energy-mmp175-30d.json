@@ -2,7 +2,7 @@
   "id": "magnum-energy-mmp175-30d",
   "manufacturer": "magnum-energy",
   "name": "MMP175-30D",
-  "kind": "balance-of-system",
+  "kind": "inverter-charger",
   "aliases": [
     "MAG-222-131"
   ],

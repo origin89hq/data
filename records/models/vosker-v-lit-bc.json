@@ -2,7 +2,7 @@
   "id": "vosker-v-lit-bc",
   "manufacturer": "vosker",
   "name": "V-LIT-BC",
-  "kind": "battery",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

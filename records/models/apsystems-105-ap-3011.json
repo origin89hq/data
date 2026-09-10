@@ -2,7 +2,7 @@
   "id": "apsystems-105-ap-3011",
   "manufacturer": "apsystems",
   "name": "105-AP-3011",
-  "kind": "inverter",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

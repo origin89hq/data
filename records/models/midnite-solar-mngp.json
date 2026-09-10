@@ -2,7 +2,7 @@
   "id": "midnite-solar-mngp",
   "manufacturer": "midnite-solar",
   "name": "MNGP",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [
     "MID-161-120"
   ],

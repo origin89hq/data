@@ -2,7 +2,7 @@
   "id": "the-cabin-depot-f-5a",
   "manufacturer": "the-cabin-depot",
   "name": "F-5A",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

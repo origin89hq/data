@@ -2,7 +2,7 @@
   "id": "energizer-solar-ps4000h-s",
   "manufacturer": "energizer-solar",
   "name": "PS4000H-S",
-  "kind": "battery",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": [
     "energizer-solar-hv-battery-powerstack"

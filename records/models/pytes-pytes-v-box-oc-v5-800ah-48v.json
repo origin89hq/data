@@ -2,7 +2,7 @@
   "id": "pytes-pytes-v-box-oc-v5-800ah-48v",
   "manufacturer": "pytes",
   "name": "Pytes-V-Box-OC-V5-800Ah-48V",
-  "kind": "battery",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }
