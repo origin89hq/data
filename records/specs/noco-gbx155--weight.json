@@ -4,7 +4,7 @@
   "name": "Weight",
   "value": "5.82 Pounds",
   "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
-  "page": 10,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 10,
   "confidence": "vendor-doc"
 }

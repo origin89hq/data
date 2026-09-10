@@ -4,7 +4,7 @@
   "name": "Type of cooling",
   "value": "by convection (No fan)",
   "source": "doc-f09e92c49c1ab58709293d065881e9b6",
-  "page": 9,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 9,
   "confidence": "vendor-doc"
 }

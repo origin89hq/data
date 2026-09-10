@@ -4,7 +4,7 @@
   "name": "Cooling",
   "value": "Natural Convection",
   "source": "doc-9c256d83fe825b45b91cbebd24faaad5",
-  "page": 6,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 6,
   "confidence": "vendor-doc"
 }

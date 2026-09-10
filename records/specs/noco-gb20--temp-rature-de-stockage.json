@@ -4,7 +4,8 @@
   "name": "Température de stockage",
   "value": "-20ºC à +50ºC",
   "source": "doc-21526244bd4f28f887cfb062e04edaf0",
-  "page": 16,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
+  "page": 16,
+  "confidence": "vendor-doc",
+  "english": "Storage temperature"
 }

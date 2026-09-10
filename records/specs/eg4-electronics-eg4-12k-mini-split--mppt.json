@@ -4,7 +4,7 @@
   "name": "MPPT",
   "value": "90 to 380 VDC",
   "source": "doc-9da6e95be24a9b9e9e5f403134dbf615",
-  "page": 3,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 3,
   "confidence": "vendor-doc"
 }

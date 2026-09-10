@@ -1,9 +1,0 @@
-{
-  "id": "samlex-america-pst-150-24--interferencia-electromagn-tica",
-  "model": "samlex-america-pst-150-24",
-  "name": "INTERFERENCIA ELECTROMAGNÉTICA",
-  "value": "En conformidad con la Parte 15 Clase B del estándar FCC",
-  "source": "doc-7dcc90eed47951ddb9aa2a11262a07de",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

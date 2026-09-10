@@ -4,7 +4,7 @@
   "name": "end clamp size",
   "value": "1.18 in. (30 mm)",
   "source": "doc-2b015f4ee091756893fa6795d1abc984",
-  "page": 12,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 12,
   "confidence": "vendor-doc"
 }

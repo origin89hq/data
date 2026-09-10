@@ -4,7 +4,7 @@
   "name": "Ethernet cable length",
   "value": "300ft (91m)",
   "source": "doc-3f1e3931b40ff68d739a5c193373056d",
-  "page": 10,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 10,
   "confidence": "vendor-doc"
 }

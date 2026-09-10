@@ -4,7 +4,7 @@
   "name": "Dimensions (L x P x H)",
   "value": "183 x 59 x 94 mm (7,20 x 2,32 x 3,70 pouces)",
   "source": "doc-e56ff4867f97c6f89af7ba14dbf99ffe",
-  "page": 22,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 22,
   "confidence": "vendor-doc"
 }

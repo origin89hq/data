@@ -4,7 +4,7 @@
   "name": "Minimum battery voltage",
   "value": "2-volt",
   "source": "doc-3823580d5ce87d787a3f780b59b9c1b0",
-  "page": 71,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 71,
   "confidence": "vendor-doc"
 }

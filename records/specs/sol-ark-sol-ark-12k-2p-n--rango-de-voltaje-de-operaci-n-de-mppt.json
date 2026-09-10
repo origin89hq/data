@@ -1,9 +1,0 @@
-{
-  "id": "sol-ark-sol-ark-12k-2p-n--rango-de-voltaje-de-operaci-n-de-mppt",
-  "model": "sol-ark-sol-ark-12k-2p-n",
-  "name": "Rango de Voltaje de Operación de MPPT",
-  "value": "175 - 425V",
-  "source": "doc-858309f67a6e0a5aada1effc8637b11b",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

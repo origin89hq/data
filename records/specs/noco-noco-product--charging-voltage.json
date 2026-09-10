@@ -4,7 +4,7 @@
   "name": "Charging Voltage",
   "value": "Various",
   "source": "doc-2ac853c4c275423f39d96437b5ce7234",
-  "page": 9,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 9,
   "confidence": "vendor-doc"
 }

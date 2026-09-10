@@ -4,7 +4,7 @@
   "name": "Operating Altitude Range",
   "value": "<2000 m",
   "source": "doc-c5339a3854dcd025325dcfea9e57b597",
-  "page": 7,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 7,
   "confidence": "vendor-doc"
 }

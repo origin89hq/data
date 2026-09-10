@@ -2,9 +2,9 @@
   "id": "noco-gb20--f-rvaringstemperatur",
   "model": "noco-gb20",
   "name": "Förvaringstemperatur",
-  "value": "-20Â°C till +50Â°C (medel temp.)",
+  "value": "-20°C till +50°C (medel temp.)",
   "source": "doc-21526244bd4f28f887cfb062e04edaf0",
-  "page": 101,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 101,
   "confidence": "vendor-doc"
 }

@@ -4,7 +4,7 @@
   "name": "Power supply for RSD transmitters",
   "value": "12VDC, 100mA max, 1.2W",
   "source": "doc-2d78833f0dfd3579b769cf106c70364e",
-  "page": 18,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 18,
   "confidence": "vendor-doc"
 }

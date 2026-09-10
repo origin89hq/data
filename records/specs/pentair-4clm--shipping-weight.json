@@ -1,9 +1,0 @@
-{
-  "id": "pentair-4clm--shipping-weight",
-  "model": "pentair-4clm",
-  "name": "Shipping Weight",
-  "value": "2.04 lbs”, “unit”: “lbs”}, {",
-  "source": "doc-86c4dc5b77692a463b01d106446c406a",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

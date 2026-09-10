@@ -4,7 +4,8 @@
   "name": "Başlangıç Akımı",
   "value": "500",
   "source": "doc-bcc4cd5bc6e865f5d2bef2a50ef7f569",
-  "page": 128,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
+  "page": 128,
+  "confidence": "vendor-doc",
+  "english": "Starting current"
 }

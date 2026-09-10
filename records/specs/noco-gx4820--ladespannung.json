@@ -4,7 +4,7 @@
   "name": "LadeSpannung",
   "value": "62.4V +/-0.6V | 20A± 1A",
   "source": "doc-fba580087222dc96f400743baa7798e0",
-  "page": 16,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 16,
   "confidence": "vendor-doc"
 }

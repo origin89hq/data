@@ -4,7 +4,7 @@
   "name": "Min. Illumination",
   "value": "0.1 Lux in Color; 0.05 Lux in Black and White",
   "source": "doc-631b0847bc403c1b42002eb32d1ad514",
-  "page": 19,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 19,
   "confidence": "vendor-doc"
 }

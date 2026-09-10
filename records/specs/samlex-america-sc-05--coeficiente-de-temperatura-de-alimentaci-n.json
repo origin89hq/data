@@ -1,9 +1,0 @@
-{
-  "id": "samlex-america-sc-05--coeficiente-de-temperatura-de-alimentaci-n",
-  "model": "samlex-america-sc-05",
-  "name": "COEFICIENTE DE TEMPERATURA DE ALIMENTACIÓN",
-  "value": "-0.39% / °C",
-  "source": "doc-2f0615c1ae93694bd3f5140e4591b5bf",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

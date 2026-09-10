@@ -4,7 +4,7 @@
   "name": "Temperatura de carga",
   "value": "0° C to +40° C",
   "source": "doc-3823580d5ce87d787a3f780b59b9c1b0",
-  "page": 45,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 45,
   "confidence": "vendor-doc"
 }

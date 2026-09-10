@@ -4,7 +4,7 @@
   "name": "Composizione chimica della batteria",
   "value": "piombo-acido",
   "source": "doc-8190fc8c4dc8bedf0108c6acd6d8ac11",
-  "page": 35,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 35,
   "confidence": "vendor-doc"
 }

@@ -4,7 +4,7 @@
   "name": "Type of Batteries",
   "value": "6V & 12V",
   "source": "doc-6eb9ac65e017cb3de2fdd095dded8666",
-  "page": 9,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 9,
   "confidence": "vendor-doc"
 }

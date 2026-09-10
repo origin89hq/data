@@ -4,7 +4,7 @@
   "name": "Distancia horizontal entre orificios marcados",
   "value": "4 in/102 mm",
   "source": "doc-4546468035dced2c311b5d29a30acbfd",
-  "page": 13,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 13,
   "confidence": "vendor-doc"
 }

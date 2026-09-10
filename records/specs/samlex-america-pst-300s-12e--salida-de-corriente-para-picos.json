@@ -1,9 +1,0 @@
-{
-  "id": "samlex-america-pst-300s-12e--salida-de-corriente-para-picos",
-  "model": "samlex-america-pst-300s-12e",
-  "name": "SALIDA DE CORRIENTE PARA PICOS",
-  "value": "6000 Watts (< 8 ms)",
-  "source": "doc-3daa6ca3a04ac3fcc0d80cfd5b630967",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

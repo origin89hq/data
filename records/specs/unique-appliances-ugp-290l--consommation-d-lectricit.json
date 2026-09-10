@@ -5,7 +5,8 @@
   "value": "70",
   "unit": "W",
   "source": "doc-98d94f8a95cdb9c88fbc59fb14212a05",
-  "page": 23,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
+  "page": 23,
+  "confidence": "vendor-doc",
+  "english": "Power consumption"
 }

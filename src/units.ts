@@ -88,3 +88,17 @@ export function concerns(spec: { value: string; unit?: string; name: string }): 
   if (isProse(spec.value)) out.push("a sentence rather than a figure");
   return out;
 }
+
+/**
+ * A value that is not a figure but a piece of the JSON it was read out of. Models write a curly
+ * closing quote where JSON wants a straight one — `"tension nominale": "24 – 48”` — and the reader
+ * then runs past the end of the string and swallows whatever punctuation follows, which is how a
+ * Lorentz pump came to have a rated voltage of `24 & 48”}]}, {`.
+ *
+ * Refused rather than doubted: a doubtful figure is a number somebody can check, and this is not a
+ * number at all. An inch mark is safe — `1/2.7", CMOS 2.1 MP` ends in a word, not in punctuation.
+ */
+export function looksTruncated(value: string): boolean {
+  if (/[{}[\]]/.test(value)) return true;
+  return /[,;]\s*$/.test(value);
+}

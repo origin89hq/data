@@ -4,7 +4,7 @@
   "name": "Temperatura di funzionamento",
   "value": "-20 °C e 50°C (-4 °F e 122 °F)",
   "source": "doc-723933e9ae36ac87b561b12fafebcf3f",
-  "page": 25,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 25,
   "confidence": "vendor-doc"
 }

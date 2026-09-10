@@ -4,7 +4,7 @@
   "name": "Voltage Range",
   "value": "41 V – 57.6 V d.c.",
   "source": "doc-530a83fbaadea0b813c6d68f370d2600",
-  "page": 6,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 6,
   "confidence": "vendor-doc"
 }

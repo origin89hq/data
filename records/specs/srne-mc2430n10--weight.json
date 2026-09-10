@@ -5,7 +5,7 @@
   "value": "830",
   "unit": "g",
   "source": "doc-3b55fd7ec7f0697efe5021f35d25fb4f",
-  "page": 7,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 7,
   "confidence": "vendor-doc"
 }

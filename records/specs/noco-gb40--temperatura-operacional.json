@@ -4,7 +4,7 @@
   "name": "Temperatura operacional",
   "value": "-20°C a +50°C",
   "source": "doc-919699b1eb41a8db72c0357712dbfdc0",
-  "page": 55,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 55,
   "confidence": "vendor-doc"
 }

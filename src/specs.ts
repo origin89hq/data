@@ -1,7 +1,9 @@
 import type { Model } from "../schema/model.ts";
 import type { Spec } from "../schema/model.ts";
 import { normaliseModelName } from "./models.ts";
-import { splitValueUnit } from "./units.ts";
+import { looksTruncated, splitValueUnit } from "./units.ts";
+import { repairMojibake } from "./text.ts";
+import { englishName } from "./translations.ts";
 
 /** What a model reported reading out of a document, before anything checks it. */
 export interface ReportedSpec {
@@ -75,12 +77,15 @@ export interface SpecsFromResult {
   specs: Spec[];
   /** Product names the document gave that no model of this maker answers to, kept so they can be looked at. */
   unmatched: string[];
+  /** Figures refused because their value was a fragment of the JSON they were read out of. */
+  truncated: string[];
 }
 
 /** Turn a document's reported figures into spec rows, keeping only those whose product we already hold. */
 export function specsFrom({ reports, models, manufacturer, source, extractedBy, confidence }: SpecsFromInput): SpecsFromResult {
   const specs = new Map<string, Spec>();
   const unmatched: string[] = [];
+  const truncated: string[] = [];
   for (const report of reports) {
     const model = matchModel(models, manufacturer, report.model);
     if (!model) {
@@ -92,11 +97,19 @@ export function specsFrom({ reports, models, manufacturer, source, extractedBy, 
       const value = s.value?.trim();
       if (!raw || !value) continue;
       const split = splitUnit(raw, s.unit);
-      const name = split.name;
+      // A name whose accents arrived as UTF-8 bytes read as Latin-1 is repaired before anything
+      // keys off it, so the printed name is what the maker printed rather than what a decoder made.
+      const name = repairMojibake(split.name);
       // A maker's own language reaches the same unit; a word that ended up in the unit field is
       // dropped rather than published as another quantity; and a unit glued to the value —
       // "57.6V" — is pulled off, since the number and the unit are both right already.
-      const { value: cleanValue, unit } = splitValueUnit(value, split.unit);
+      const { value: cleanValue, unit } = splitValueUnit(repairMojibake(value), split.unit);
+      // A value that is a piece of the JSON it was read out of is not a doubtful figure, it is not
+      // a figure. Refused rather than published with a caveat nobody can resolve.
+      if (looksTruncated(cleanValue)) {
+        truncated.push(`${name} = ${cleanValue}`);
+        continue;
+      }
       const conditions = s.conditions?.trim() || undefined;
       const id = specId(model.id, name, conditions);
       // Two rows of one document that reduce to the same figure under the same conditions are
@@ -106,6 +119,7 @@ export function specsFrom({ reports, models, manufacturer, source, extractedBy, 
         id,
         model: model.id,
         name,
+        ...(englishName(name) ? { english: englishName(name) as string } : {}),
         value: cleanValue,
         ...(unit ? { unit } : {}),
         ...(conditions ? { conditions } : {}),
@@ -118,5 +132,5 @@ export function specsFrom({ reports, models, manufacturer, source, extractedBy, 
       });
     }
   }
-  return { specs: [...specs.values()].sort((a, b) => a.id.localeCompare(b.id)), unmatched };
+  return { specs: [...specs.values()].sort((a, b) => a.id.localeCompare(b.id)), unmatched, truncated };
 }

@@ -5,6 +5,7 @@ import { Model } from "../../schema/model.ts";
 import { Source } from "../../schema/source.ts";
 import { currentRun, jsonValues, object, under } from "./archive.ts";
 import { EXTRACTOR_ID } from "../../scraper/src/reading.ts";
+import { withoutTranslations } from "../../src/documents.ts";
 
 /**
  * Fold a manufacturer's extracted readings into spec records. A figure is written only when the
@@ -60,6 +61,13 @@ for (const doc of expected) {
   }
 }
 const pending = expected.length - readings.readings.length;
+
+// A translation is the same specification said again. Sol-Ark publishes the 8K manual in Spanish
+// and in English, and reading both gave that inverter a nominal voltage of 48 V twice, once as
+// "Nominal system voltage" and once as "Voltaje nominal". Dropped only when this maker also
+// publishes something not marked as a translation.
+const { keep, dropped } = withoutTranslations(readings.readings);
+readings.readings = keep;
 
 const records = loadRecords();
 const sources = new Map(records.sources.map((s) => [s.id, s]));
@@ -124,6 +132,7 @@ for (const spec of collected.values()) {
 }
 
 console.log(`${written} figures and ${modelsAdded} new models${dryRun ? " (dry run, nothing written)" : " written"} for ${manufacturer}`);
+for (const { url, language } of dropped) console.log(`  skipped the ${language} edition, which this maker also publishes in English: ${url.split("/").pop()}`);
 const byReader = new Map<string, number>();
 for (const r of readings.readings) byReader.set(r.extractedBy ?? EXTRACTOR_ID, (byReader.get(r.extractedBy ?? EXTRACTOR_ID) ?? 0) + 1);
 console.log(`${readings.readings.length} readings${pending > 0 ? `, ${pending} approved documents still converting or queued` : ""}`);

@@ -1,9 +1,0 @@
-{
-  "id": "magnum-energy-win-12x20b3r1t--output-power",
-  "model": "magnum-energy-win-12x20b3r1t",
-  "name": "Output Power",
-  "value": "2,000 Watts Cont.', 'unit': 'W'}, {",
-  "source": "doc-6a94487a839521293c737321791ce559",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

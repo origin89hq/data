@@ -1,9 +1,0 @@
-{
-  "id": "unique-appliances-unq-30cr-ic--puissance",
-  "model": "unique-appliances-unq-30cr-ic",
-  "name": "PUISSANCE",
-  "value": "3 700 watts",
-  "source": "doc-df7088bbac32cea5ae4fcaefc45ab44e",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

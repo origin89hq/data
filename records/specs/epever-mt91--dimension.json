@@ -4,7 +4,7 @@
   "name": "Dimension",
   "value": "100 x 19.4mm",
   "source": "doc-7b3f9e59a3d7f7f654608992ca77ee52",
-  "page": 20,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 20,
   "confidence": "vendor-doc"
 }

@@ -4,7 +4,7 @@
   "name": "Isolation",
   "value": "> 110 dB",
   "source": "doc-da33c0337337c4113ee1cdb398994fb7",
-  "page": 19,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 19,
   "confidence": "vendor-doc"
 }

@@ -4,7 +4,8 @@
   "name": "CAPACITÉ NOMINALE",
   "value": "500 pi³/min",
   "source": "doc-a60ba9573107e57f3dc0f75ddb339166",
-  "page": 15,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
+  "page": 15,
+  "confidence": "vendor-doc",
+  "english": "Rated capacity"
 }

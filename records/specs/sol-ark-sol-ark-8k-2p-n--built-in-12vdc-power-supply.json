@@ -4,7 +4,7 @@
   "name": "Built-in 12Vdc power supply",
   "value": "100mA (1.2W)",
   "source": "doc-2d78833f0dfd3579b769cf106c70364e",
-  "page": 21,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 21,
   "confidence": "vendor-doc"
 }

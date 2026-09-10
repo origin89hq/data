@@ -4,7 +4,7 @@
   "name": "Current",
   "value": "5 A | Baterías de hasta 120 Ah",
   "source": "doc-2ac853c4c275423f39d96437b5ce7234",
-  "page": 28,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 28,
   "confidence": "vendor-doc"
 }

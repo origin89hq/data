@@ -4,7 +4,7 @@
   "name": "Rated capacity",
   "value": "2000 amperios-hora (6 y 12 V) y 1000 amperios-hora (24 V)",
   "source": "doc-723933e9ae36ac87b561b12fafebcf3f",
-  "page": 33,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 33,
   "confidence": "vendor-doc"
 }

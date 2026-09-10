@@ -4,7 +4,7 @@
   "name": "Minimum inlet pressure for testing",
   "value": "at least 1\" more than the operating manifold pressure",
   "source": "doc-bb67fbe3ecb98d47289f94bf686d8109",
-  "page": 15,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 15,
   "confidence": "vendor-doc"
 }

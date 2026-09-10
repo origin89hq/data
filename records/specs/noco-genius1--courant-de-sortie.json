@@ -4,7 +4,7 @@
   "name": "Courant de sortie",
   "value": "15 W Max",
   "source": "doc-0d609d0fd81c9e25694336f15e33a802",
-  "page": 19,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 19,
   "confidence": "vendor-doc"
 }

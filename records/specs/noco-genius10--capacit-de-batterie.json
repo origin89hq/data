@@ -5,7 +5,8 @@
   "value": "230",
   "unit": "Ah",
   "source": "doc-e56ff4867f97c6f89af7ba14dbf99ffe",
-  "page": 15,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
+  "page": 15,
+  "confidence": "vendor-doc",
+  "english": "Battery capacity"
 }

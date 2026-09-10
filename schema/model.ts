@@ -52,6 +52,13 @@ export const Spec = z
     model: RecordId,
     /** What is measured, in the words the datasheet uses: "Rated capacity", "Maximum PV input voltage". */
     name: z.string().min(1),
+    /**
+     * The same name in English, when the maker printed it in another language. A maker's multilingual
+     * guide gives one figure four names, and without this a consumer cannot group "Capacité de
+     * batterie" with "Battery capacity". Absent when nobody has given it one: the printed name is the
+     * record, this is the aligned name beside it.
+     */
+    english: z.string().min(1).optional(),
     /** The figure as printed. A string, so "12/24" and "0.05" survive exactly and no float rounds them. */
     value: z.string().min(1),
     /** Absent for a figure that has none, such as a battery chemistry or a connector type. */

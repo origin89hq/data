@@ -1,0 +1,11 @@
+{
+  "id": "rstc-enterprises-0799--temp-rating",
+  "model": "rstc-enterprises-0799",
+  "name": "Temp Rating",
+  "value": "105",
+  "unit": "°C",
+  "source": "doc-757b32549928df239567c265134c9fb2",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 3,
+  "confidence": "vendor-doc"
+}

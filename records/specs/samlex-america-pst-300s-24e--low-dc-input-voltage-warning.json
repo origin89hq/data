@@ -4,7 +4,7 @@
   "name": "Low DC input voltage warning",
   "value": "21.4V ± 0.2V",
   "source": "doc-8e07d8858f33039f4fd7613283dad7ed",
-  "page": 45,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 45,
   "confidence": "vendor-doc"
 }

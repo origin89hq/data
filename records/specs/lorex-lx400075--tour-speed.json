@@ -4,7 +4,7 @@
   "name": "Tour Speed",
   "value": "Max 80°/sec Pan; Max 40°/Sec Tilt",
   "source": "doc-631b0847bc403c1b42002eb32d1ad514",
-  "page": 19,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 19,
   "confidence": "vendor-doc"
 }

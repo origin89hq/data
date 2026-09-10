@@ -4,7 +4,7 @@
   "name": "Batterietyp",
   "value": "Nass, Gel, MF, CA, EFB, AGM, Kalzium, Lithium (LiFePO4)",
   "source": "doc-acc6023faea6c05091589f8fe0a7930d",
-  "page": 45,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 45,
   "confidence": "vendor-doc"
 }

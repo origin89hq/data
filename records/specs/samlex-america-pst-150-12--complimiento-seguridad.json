@@ -1,9 +1,0 @@
-{
-  "id": "samlex-america-pst-150-12--complimiento-seguridad",
-  "model": "samlex-america-pst-150-12",
-  "name": "COMPLIMIENTO SEGURIDAD",
-  "value": "Intertek: listado en ETL. Cumple con la norma UL STD 62368-1. Certificado de acuerdo al CSA STD. C22-2 No. 62368-1.",
-  "source": "doc-7dcc90eed47951ddb9aa2a11262a07de",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

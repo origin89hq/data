@@ -4,7 +4,7 @@
   "name": "AC Output Receptacle",
   "value": "European Schuko Receptacle Type CEE 7/3",
   "source": "doc-8e07d8858f33039f4fd7613283dad7ed",
-  "page": 36,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 36,
   "confidence": "vendor-doc"
 }

@@ -128,15 +128,17 @@ export function tables(records: Records): Table[] {
     },
     {
       name: "specs",
-      columns: [col("id"), col("tier"), col("model_id"), col("name"), col("value"), col("unit"), col("conditions"), col("source_id"), col("page", "INTEGER"), col("confidence"), col("extracted_by"), col("reviewed_by"), col("doubt")],
+      columns: [col("id"), col("tier"), col("model_id"), col("name"), col("english"), col("value"), col("unit"), col("conditions"), col("source_id"), col("page", "INTEGER"), col("confidence"), col("extracted_by"), col("reviewed_by"), col("doubt")],
       rows: [
         // `doubt` says why a figure would not be trusted for sizing anything, so a reader does
         // not have to work it out and a clean figure is visibly clean.
-        ...records.specs.map((s) => ({ id: s.id, tier: "reviewed", model_id: s.model, name: s.name, value: s.value, unit: s.unit, conditions: s.conditions, source_id: s.source, page: s.page, confidence: s.confidence, extracted_by: s.extractedBy, reviewed_by: s.reviewedBy, doubt: figureConcerns(s).join("; ") || undefined })),
+        // `english` carries the aligned name when a maker printed the figure in another language, so a
+        // reader can group a French sheet's "Capacité de batterie" with an English one's.
+        ...records.specs.map((s) => ({ id: s.id, tier: "reviewed", model_id: s.model, name: s.name, english: s.english, value: s.value, unit: s.unit, conditions: s.conditions, source_id: s.source, page: s.page, confidence: s.confidence, extracted_by: s.extractedBy, reviewed_by: s.reviewedBy, doubt: figureConcerns(s).join("; ") || undefined })),
         ...feedRows.flatMap(({ feed, model }) =>
           model.specs.map((spec, i) => ({
             id: `${model.id}--${String(i).padStart(2, "0")}-${spec.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`.slice(0, 180),
-            tier: "feed", model_id: model.id, name: spec.name, value: spec.value, unit: canonicalUnit(spec.unit) ?? spec.unit, conditions: undefined,
+            tier: "feed", model_id: model.id, name: spec.name, english: undefined, value: spec.value, unit: canonicalUnit(spec.unit) ?? spec.unit, conditions: undefined,
             source_id: feed.id, page: undefined,
             // A public dataset's own figure, stated with its unit. Nobody here read it out of a
             // document, so nothing extracted it and nobody has confirmed it either.

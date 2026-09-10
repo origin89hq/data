@@ -4,7 +4,7 @@
   "name": "Temperaturomfang for oppbevaring",
   "value": "-20 °C til 50 °C (0 ° C ~ + 25°C gjennomsnittstemperatur)",
   "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
-  "page": 93,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 93,
   "confidence": "vendor-doc"
 }

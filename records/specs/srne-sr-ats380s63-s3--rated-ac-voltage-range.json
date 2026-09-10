@@ -4,7 +4,7 @@
   "name": "Rated AC voltage/Range",
   "value": "380,400,415/342~440",
   "source": "doc-5f8a630c9469b6458b1def44b5c72181",
-  "page": 22,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 22,
   "confidence": "vendor-doc"
 }

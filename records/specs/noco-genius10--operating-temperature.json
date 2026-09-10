@@ -4,7 +4,7 @@
   "name": "Operating Temperature",
   "value": "-20 °C à 40 °C (-4 °F à 104 °F)",
   "source": "doc-e56ff4867f97c6f89af7ba14dbf99ffe",
-  "page": 19,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 19,
   "confidence": "vendor-doc"
 }

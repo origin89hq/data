@@ -4,7 +4,7 @@
   "name": "High input DC voltage shut down",
   "value": "33V or higher",
   "source": "doc-8e07d8858f33039f4fd7613283dad7ed",
-  "page": 47,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 47,
   "confidence": "vendor-doc"
 }

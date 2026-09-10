@@ -4,7 +4,7 @@
   "name": "Rated gas pressure",
   "value": "10.5 inch W.C. (2610 Pa) / 3.5 inch W.C. (870 Pa) / 13.0 inch W.C. (3230 Pa) / 8.0 inch W.C. (1990 Pa)",
   "source": "doc-8364bd1e2dbdabf0e64d513b1ff13f4f",
-  "page": 40,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 40,
   "confidence": "vendor-doc"
 }

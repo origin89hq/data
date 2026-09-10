@@ -4,7 +4,8 @@
   "name": "Système d’évacuation",
   "value": "Ventilation directe, conduits jumelés",
   "source": "doc-8364bd1e2dbdabf0e64d513b1ff13f4f",
-  "page": 88,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
+  "page": 88,
+  "confidence": "vendor-doc",
+  "english": "Drain system"
 }

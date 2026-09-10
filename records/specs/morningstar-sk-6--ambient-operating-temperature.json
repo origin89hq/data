@@ -4,7 +4,7 @@
   "name": "Ambient Operating Temperature",
   "value": "-40 °C to +70 °C/-40 °F to +158 °F",
   "source": "doc-d0e875dec70c9b017e0e9e1236fb4cdd",
-  "page": 16,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 16,
   "confidence": "vendor-doc"
 }

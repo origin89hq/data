@@ -4,7 +4,7 @@
   "name": "Mitat (P x L x K)",
   "value": "33,0 x 21,8 cm",
   "source": "doc-49d5f4612175f746c61e8098fa689c66",
-  "page": 50,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 50,
   "confidence": "vendor-doc"
 }

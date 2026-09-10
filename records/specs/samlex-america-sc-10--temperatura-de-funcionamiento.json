@@ -1,9 +1,0 @@
-{
-  "id": "samlex-america-sc-10--temperatura-de-funcionamiento",
-  "model": "samlex-america-sc-10",
-  "name": "TEMPERATURA DE FUNCIONAMIENTO",
-  "value": "-40°C a +85°C / -40°F a +185°F",
-  "source": "doc-2f0615c1ae93694bd3f5140e4591b5bf",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

@@ -4,7 +4,7 @@
   "name": "Noise",
   "value": "<60 dB",
   "source": "doc-c4c399615a1701447232063fd6925d20",
-  "page": 66,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 66,
   "confidence": "vendor-doc"
 }

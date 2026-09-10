@@ -2,9 +2,8 @@
   "id": "rstc-enterprises-0599--ambient-temperature-rating",
   "model": "rstc-enterprises-0599",
   "name": "Ambient temperature rating",
-  "value": "75C°",
-  "source": "doc-757b32549928df239567c265134c9fb2",
-  "page": 2,
+  "value": "-35°C to +75°C",
+  "source": "doc-63e76872134b53d777aee534184424fa",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }
