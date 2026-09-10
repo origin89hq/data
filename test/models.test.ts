@@ -106,3 +106,17 @@ test("ids are unique per maker and stable across runs", () => {
   assert.equal(modelId("victron-energy", "SmartSolar MPPT 100/30"), "victron-energy-smartsolar-mppt-100-30");
   assert.notEqual(modelId("epever", "X-1"), modelId("victron-energy", "X-1"));
 });
+
+test("a rating is not a model name, including a parenthesised conversion", () => {
+  // Rolls publishes capacity against temperature: columns "40°C (104°F)", row "102%". Every one of
+  // them passed as a model while the page's entities were left undecoded and read as "40&deg;C".
+  assert.equal(looksLikeModelName("40°C (104°F)"), false);
+  assert.equal(looksLikeModelName("102%"), false);
+  assert.equal(looksLikeModelName("25 °C"), false);
+});
+
+test("a catalogue number made only of digits is still a model, since Blue Sea and Wöhner name products that way", () => {
+  assert.equal(looksLikeModelName("2719"), true);
+  assert.equal(looksLikeModelName("31110.000"), true);
+  assert.equal(looksLikeModelName("S12-90GEL"), true);
+});

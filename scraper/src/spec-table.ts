@@ -1,3 +1,4 @@
+import { decodeHTML } from "entities";
 /**
  * Read a manufacturer's own specification table. Many makers publish the same figures as an HTML
  * table with a column per model, and that table is exact: the maker wrote the figure names, the
@@ -25,15 +26,19 @@ const TABLE = /<table[^>]*>([\s\S]*?)<\/table>/gi;
 const ROW = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
 const CELL = /<(t[dh])([^>]*)>([\s\S]*?)<\/\1>/gi;
 
+/**
+ * Strip the markup and decode the entities. The hand-written list this replaced knew four names and
+ * the numeric form, so a Rolls temperature table came out reading "40&deg;C (104&deg;F)" — text that
+ * would have been stored as a figure's value had the page not been refused for another reason.
+ * Spec sheets are full of &deg;, &plusmn;, &times; and &ndash;, so the table has to be the real one.
+ */
 const text = (html: string): string =>
-  html
-    .replace(/<br\s*\/?>/gi, " ")
-    .replace(/<[^>]*>/g, "")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&#(\d+);/g, (_, d: string) => String.fromCodePoint(Number(d)))
+  decodeHTML(
+    html
+      .replace(/<br\s*\/?>/gi, " ")
+      .replace(/<[^>]*>/g, ""),
+  )
+    .replace(/\u00a0/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 

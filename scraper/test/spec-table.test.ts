@@ -86,3 +86,17 @@ test("a header of real model codes still reads", () => {
 <tr><td>Maximum current</td><td>10A</td><td>20A</td></tr></table>`;
   assert.deepEqual(parseSpecTables(upright).map((p) => p.model), ["SL-10L-12V", "SL-20L-24V"]);
 });
+
+test("a named HTML entity is decoded, so a degree sign does not reach a figure as \"&deg;\"", () => {
+  const html = `<table>
+    <tr><th></th><th>S12-90GEL</th><th>S12-180AGM</th></tr>
+    <tr><td>Operating range</td><td>-20&deg;C</td><td>-20&deg;C</td></tr>
+    <tr><td>Tolerance</td><td>&plusmn;2&nbsp;%</td><td>&plusmn;2&nbsp;%</td></tr>
+  </table>`;
+  const [product] = parseSpecTables(html);
+  assert.equal(product?.model, "S12-90GEL");
+  const values = product!.specs.map((s) => `${s.value}${s.unit ?? ""}`).join(" | ");
+  assert.ok(!values.includes("&"), `an entity survived into a figure: ${values}`);
+  assert.match(values, /°C/);
+  assert.match(values, /±/);
+});

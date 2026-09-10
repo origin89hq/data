@@ -32,7 +32,20 @@ const QUANTITY = /\b\d+(\.\d+)?\s*(lbs?|kg|oz|pack|pcs?|ft|feet|foot|in|inch|inc
  * rating, but "2719" is a Blue Sea catalogue number and "31110.000" is a Wöhner one, and a rule
  * that rejected bare digits would throw both away.
  */
-const MEASUREMENT = /^\$?\d+(\.\d+)?\s*(w|watt|watts|v|volt|volts|ah|a|amp|amps|kw|kwh|mm|cm|wh)$/i;
+const MEASUREMENT = /^\$?\d+(\.\d+)?\s*(w|watt|watts|v|volt|volts|ah|a|amp|amps|kw|kwh|mm|cm|wh|%|°|°c|°f)$/i;
+
+/**
+ * A name that is nothing but measurements, including a parenthesised conversion. Rolls publishes a
+ * capacity-against-temperature chart whose columns are "40°C (104°F)" and whose row is "102%", and
+ * every one of them passed as a model until the entities in them were decoded and read properly.
+ */
+function allMeasurement(name: string): boolean {
+  const parts = name
+    .split(/[()]/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+  return parts.length > 0 && parts.every((part) => MEASUREMENT.test(part));
+}
 
 /** A token that could not be an English word: a part number, an acronym, a code. */
 function codeLike(token: string): boolean {
@@ -52,7 +65,7 @@ function codeLike(token: string): boolean {
  */
 export function looksLikeModelName(name: string): boolean {
   if (name.length < 2 || name.length > 48) return false;
-  if (PROSE.test(name) || QUANTITY.test(name) || MEASUREMENT.test(name)) return false;
+  if (PROSE.test(name) || QUANTITY.test(name) || MEASUREMENT.test(name) || allMeasurement(name)) return false;
   const words = name.split(" ");
   if (words.length > 5) return false;
   // A single token only has to look like a code; Blue Sea's 2719 and Wöhner's 31110.000 are real
