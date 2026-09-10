@@ -56,6 +56,7 @@ just plan rolls-battery 2026-09-09        # read it before approving it
 just approve rolls-battery 2026-09-09 "David" 40
 just convert rolls-battery 2026-09-09     # each document then enqueues its own reading
 just specs rolls-battery 2026-09-09
+just specs-ready               # every maker whose run is converted and read; a daily job opens this as a PR
 ```
 
 Set `OFFGRID_BASE_URL` and `OFFGRID_CONTROL_TOKEN` and the same recipes drive

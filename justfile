@@ -54,6 +54,10 @@ kinds *args:
 specs maker date *args:
     node tools/gate/pull-specs.ts "$@"
 
+# The same for every maker whose run has finished converting and been read. A job does this daily into a PR.
+specs-ready *args:
+    node tools/gate/pull-ready-specs.ts "$@"
+
 # ---- the spider ----
 
 # Run the Worker locally, with a local R2 and the AI binding proxied to Cloudflare.

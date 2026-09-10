@@ -30,6 +30,11 @@ export interface MakerState {
   specPages?: number;
   approvedBy?: string;
   fetched?: number;
+  /**
+   * Documents sent to conversion: those fetched, less duplicates and translations. Conversion is
+   * finished when `converted` reaches this, which `fetched` cannot say.
+   */
+  sent?: number;
   converted?: number;
   read?: number;
   /** How many converted documents there were when the run was last offered to the page reader. */
@@ -144,7 +149,7 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
       offered,
       ...(specPages ? { specPages: specPages.candidates } : {}),
       ...(manifest ? { approvedBy: manifest.approvedBy, fetched: manifest.fetched } : {}),
-      ...(converting ? { converted } : {}),
+      ...(converting ? { sent: converting.documents.length, converted } : {}),
       ...(read ? { read } : {}),
       ...(seeing ? { seeing: seeing.converted } : {}),
       ...(seen ? { seen } : {}),
@@ -152,4 +157,19 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
     });
   }
   return out;
+}
+
+/**
+ * Whether a maker's figures can be pulled into records without taking any away by mistake: its
+ * current run has finished converting, and something has read it.
+ *
+ * The pointer moves when discovery starts, so on the first of every month each maker's current run
+ * is one with nothing converted until somebody approves it. Pulling that run would read as every
+ * figure the maker has going stale, and delete them. A run still converting is partway there.
+ * Both are told by counts rather than by `waitingOn`, which is written for a person to read.
+ */
+export function readyToPull(maker: MakerState): boolean {
+  if (!maker.date || maker.sent === undefined || maker.converted === undefined) return false;
+  if (maker.converted < maker.sent) return false;
+  return (maker.read ?? 0) + (maker.seen ?? 0) > 0;
 }

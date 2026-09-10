@@ -1,0 +1,105 @@
+name: Pull the figures that were read
+# Readings land in the archive on their own, and a figure becomes a record only when a person
+# merges it. This does the pulling nobody should have to remember — `just specs` for every maker
+# whose run has finished converting — and puts the result in one pull request. Nothing reaches the
+# dataset until somebody has looked at the diff and merged it; the merge is what publishes.
+on:
+  schedule:
+    # Four hours after the supervisor's daily pass, which is what offers documents to be read.
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: pull-figures
+  cancel-in-progress: false
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      WRANGLER_SEND_METRICS: 'false'
+      BRANCH: figures/pull
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          # Every branch, so the check below sees figures/pull without a second fetch; and no
+          # credential left in git config for the steps that run this repository's code.
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      # The build writes Parquet through the duckdb CLI, and the unit suite runs a build.
+      - uses: ./.github/actions/setup-duckdb
+      # A person may have pushed a fix to the open pull request. Rebuilding the branch over it would
+      # throw the fix away, so the job stops and says so instead.
+      - name: Leave a branch somebody has worked on alone
+        id: branch
+        run: |
+          if git rev-parse --verify --quiet "refs/remotes/origin/$BRANCH" > /dev/null; then
+            people=$(git log "origin/main..origin/$BRANCH" --format='%ae' | grep -v 'github-actions\[bot\]' || true)
+            if [ -n "$people" ]; then
+              echo "::warning::$BRANCH has commits a person pushed. Merge or close its pull request, and the next run rebuilds it."
+              echo "skip=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          fi
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+      - name: Pull every maker whose readings are in
+        if: steps.branch.outputs.skip == 'false'
+        env:
+          OFFGRID_BASE_URL: https://data.origin89.com
+          OFFGRID_CONTROL_TOKEN: ${{ secrets.CONTROL_TOKEN }}
+        run: node tools/gate/pull-ready-specs.ts --remote --summary "$RUNNER_TEMP/pulled.md"
+      - name: See whether the records changed
+        id: changed
+        if: steps.branch.outputs.skip == 'false'
+        run: |
+          if [ -n "$(git status --porcelain -- records)" ]; then echo "changed=true" >> "$GITHUB_OUTPUT"; else echo "changed=false" >> "$GITHUB_OUTPUT"; fi
+      # The gate the merge would face. A pull request opened with this job's own token starts no
+      # other workflow, so Check would never run on it: Check's own command runs here, before it opens.
+      - name: Run what Check runs
+        if: steps.changed.outputs.changed == 'true'
+        run: just check
+      - name: Open or update the pull request
+        if: steps.changed.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # The one step that writes to the repository, and the one given a credential for it.
+          # Checkout kept none, so nothing earlier, dependencies' install scripts included, could push.
+          gh auth setup-git
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -C "$BRANCH"
+          git add -- records
+          {
+            echo "Figures the spider has read and records do not have yet, from every maker whose current run has finished converting. Merging publishes them."
+            echo
+            echo "No person has checked these figures; that is what this pull request is for. The branch is rebuilt from main every day, so it always holds everything read that main lacks. A commit pushed to it by hand stops that until this is merged or closed."
+            echo
+            echo '```'
+            git diff --cached --stat=100 -- records | tail -1
+            for kind in specs models sources; do
+              added=$(git diff --cached --name-status -- "records/$kind" | grep -c '^A' || true)
+              changed=$(git diff --cached --name-status -- "records/$kind" | grep -c '^M' || true)
+              removed=$(git diff --cached --name-status -- "records/$kind" | grep -c '^D' || true)
+              echo "$kind: $added added, $changed changed, $removed removed"
+            done
+            echo '```'
+            echo
+            cat "$RUNNER_TEMP/pulled.md"
+          } > "$RUNNER_TEMP/body.md"
+          git commit --quiet -m "Pull the figures read up to $(date -u +%F)"
+          # A lease on the branch as the check above saw it, so a push that lands in between is
+          # refused rather than overwritten. Empty means it must not exist yet.
+          expected=$(git rev-parse --verify --quiet "refs/remotes/origin/$BRANCH" || true)
+          git push --force-with-lease="refs/heads/$BRANCH:$expected" --quiet origin "$BRANCH"
+          number=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number // empty')
+          if [ -n "$number" ]; then
+            gh pr edit "$number" --body-file "$RUNNER_TEMP/body.md"
+          else
+            gh pr create --head "$BRANCH" --base main --title "Pull the figures that were read" --body-file "$RUNNER_TEMP/body.md"
+          fi

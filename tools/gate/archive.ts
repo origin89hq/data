@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { Guess } from "@origin89/equipment-schema/guess";
 import { classifierKey } from "@origin89/equipment-schema/provenance";
 import { Sighting } from "@origin89/equipment-schema/sighting";
+import type { MakerState } from "../../apps/worker/src/state.ts";
 
 /**
  * Read a crawl back through the Worker rather than one object at a time. The first version of
@@ -103,6 +104,17 @@ export async function keysUnder(prefix: string, remote: boolean): Promise<string
   const response = await get(`/archive?prefix=${encodeURIComponent(prefix)}&list=true`, remote);
   if (response.status === 404) return [];
   return ((await response.json()) as { keys: string[] }).keys;
+}
+
+/** Where every maker's current run got to, as the Worker works it out from the archive. */
+export async function makerStates(remote: boolean): Promise<MakerState[]> {
+  const response = await get("/state", remote);
+  // `get` lets a 404 through because in the archive it means an object is absent. Here it means
+  // the base URL is not this Worker, which is worth saying rather than failing to parse a body.
+  if (response.status === 404) {
+    throw new Error(`${base(remote)}/state answered 404; is OFFGRID_BASE_URL this Worker?`);
+  }
+  return ((await response.json()) as { makers: MakerState[] }).makers;
 }
 
 /** Which run is current for an entity, so a reader never has to guess from a date. */

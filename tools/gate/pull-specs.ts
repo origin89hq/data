@@ -11,7 +11,7 @@ import { Source } from "@origin89/equipment-schema/source";
 import { withoutRedundantTranslations, withoutTranslatedReadings } from "../../src/language.ts";
 import { looksLikeModelName, modelId, normaliseModelName } from "../../src/models.ts";
 import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
-import { type ReportedProduct, specsFrom } from "../../src/specs.ts";
+import { matchModel, type ReportedProduct, specsFrom } from "../../src/specs.ts";
 import { currentRun, jsonValues, object } from "./archive.ts";
 
 /**
@@ -117,7 +117,11 @@ if (addModels) {
         continue;
       }
       const id = modelId(manufacturer, name);
-      if (records.models.some((m) => m.id === id)) continue;
+      // New only if the match the figures use below finds nothing. That match reads through
+      // punctuation and case, so SRNE's "RM-12" is its RM12; comparing ids made an empty "rm-12"
+      // model beside the "rm12" its figures went to.
+      if (records.models.some((m) => m.id === id) || matchModel(records.models, manufacturer, name))
+        continue;
       const model = Model.parse({ id, manufacturer, name, aliases: [], dialects: [] });
       if (!dryRun) writeRecord(RECORDS_DIR, "models", id, model);
       records.models.push(model);
