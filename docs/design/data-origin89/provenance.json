@@ -1,0 +1,53 @@
+{
+  "brandPackage": "@origin89/brand",
+  "version": "0.2.0",
+  "files": {
+    "tokens/themes.css": "baf60dbb07b7935ff5ffd445093fd3f4ad9013785e40eef9ea0f44277d938dd3",
+    "logos/origin89-horizontal-white.svg": "3a798e27ee7cfb73e7900ea237c713e94ec8bfc41fe673effd7778914c3dd102",
+    "logos/origin89-horizontal-blue.svg": "1eedf2b513d076aac7efc30b1ed84da12b0daf8db96c9655fd98cfcdbd9945ae",
+    "logos/plate-89-blue.svg": "dc8384a2323d999b089077cdba1931716193fde45f7b0d7d0d2379d1af33f2d0",
+    "art/avatar-round.webp": "3260658a6f26b2a34fc3257fcf902b0e1e46d6379ffbaa2b0fdf51e273eede34",
+    "art/portrait-explaining-transparent.webp": "3b12b920c31c9a7943c3264849cc720a5f26ac3840c33b5f6e7d6cd6da416f64",
+    "fonts/InterTight-Variable.ttf": "b81b73dcb64df3c230cabade7df6c5773bf863233f24c9ee51087519f1f88b6f",
+    "fonts/IBMPlexMono-Regular.ttf": "6a3412f058c7d8dfd9170c41e85ade48e5156ecb89356110ca57a0a27734af46",
+    "fonts/InterTight-OFL.txt": "50240ab035cf1b6b3307940235481d515c4b6de3ab1fa843dbe59e7892cb9d58",
+    "fonts/IBMPlexMono-OFL.txt": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da",
+    "LICENSE.md": "b8975e6e4292e7bbd6ed305cbfed20936ec49cb45eb536a8c97db39d9db31a8e",
+    "art/studio-transparent.webp": "b0a4cee2f505050562de5511d98f1ff453bf11042cd540ac7e83077525ea548e"
+  },
+  "datasetManifestSha256": "76854c4fed43f88b9ba6d818ef5e739cd66d495ba769dc24156334a47412b833",
+  "websiteTheme": {
+    "source": "origin89/apps/website/src/react/styles/journal.css",
+    "sha256": "bf6ffef21419c9fe75540a38d00fb8210cdb546be63a2ffc7dc2d89001f754dc",
+    "properties": {
+      "--journal-paper": "#f5f1e8",
+      "--journal-ink": "#27372d",
+      "--journal-muted": "#647366",
+      "--journal-line": "#c9cec1",
+      "--journal-field": "#e3e6db",
+      "--journal-weight": "480"
+    }
+  },
+  "designGuide": {
+    "url": "https://github.com/origin89hq/brand/releases/download/brand-v0.2.0/origin89-design-guide.pdf",
+    "sha256": "46bd241473c097eaef56af3798f1a3465aedf4fbe780d68fe10249d2bdeea3a2",
+    "release": "brand-v0.2.0",
+    "documentVersion": "v1.0 / 08 Sep 2026",
+    "reviewedPages": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      13,
+      14,
+      16,
+      18,
+      19
+    ]
+  }
+}

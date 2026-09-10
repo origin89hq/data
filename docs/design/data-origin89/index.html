@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#f5f1e8">
+  <title>Origin89 Data — A clearer picture of off-grid equipment.</title>
+  <meta name="description" content="A design draft for Origin89 Data. Explore off-grid equipment, source-linked specifications and protocol dialects in an open dataset.">
+  <link rel="icon" href="assets/logos/plate-89-blue.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/InterTight-Variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="assets/tokens/themes.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="website-tokens.css">
+  <link rel="stylesheet" href="website.css">
+  <script src="data.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="identity" href="#" aria-label="Origin89 Data home"><img src="assets/logos/origin89-horizontal-blue.svg" width="159" height="27" alt="Origin89"><span class="identity-divider"></span><span class="data-word">data</span></a>
+    <nav id="navigation" aria-label="Main navigation">
+      <a href="#dataset">The dataset</a><a href="#explore">Explore data</a><a href="#build">For developers</a>
+      <a class="nav-source" href="https://github.com/origin89hq/offgrid-equipment" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+    </nav>
+    <button class="button small buddy-open nav-buddy"><img src="assets/art/avatar-round.webp" width="22" height="22" alt="">Ask Buddy <span aria-hidden="true">↗</span></button>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="navigation" aria-label="Open menu">Menu <span>+</span></button>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-intro wrap">
+        <p class="eyebrow hero-eyebrow"><span class="little-dot"></span> OPEN EQUIPMENT DATA / BY ORIGIN89</p>
+        <h1 id="hero-title">A clearer picture<br><span>of off-grid equipment.</span></h1>
+        <p class="hero-copy">Solar from one brand. Batteries from another. The details, together.<br class="desktop-break"> Find models, read the specifications, and follow each source.</p>
+        <div class="hero-actions"><a class="button primary" href="#explore">Explore the dataset <span aria-hidden="true">↗</span></a><a class="button quiet" href="#build">Build with the data <span aria-hidden="true">→</span></a></div>
+        <div class="open-note"><span>MIT licensed</span><span>No API key</span><span>Yours to build on</span></div>
+      </div>
+
+      <div class="data-flow wrap" aria-label="Manufacturer documents and protocol references connect to equipment records, delivered as open data or explored with Buddy.">
+        <div class="flow-caption left-caption">FROM THE SOURCE</div><div class="flow-caption right-caption">INTO YOUR NEXT IDEA</div>
+        <svg class="flow-lines" viewBox="0 0 1120 268" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="line-in"><stop stop-color="#2b343f"/><stop offset="1" stop-color="#6279ad"/></linearGradient><linearGradient id="line-out"><stop stop-color="#6279ad"/><stop offset="1" stop-color="#2b343f"/></linearGradient></defs><g fill="none" stroke="url(#line-in)"><path d="M200 69H258Q275 69 292 93L334 134H390"/><path d="M230 139H390"/><path d="M200 209H258Q275 209 292 185L334 144H390"/></g><g fill="none" stroke="url(#line-out)"><path d="M730 134H782L828 83Q840 69 858 69H920"/><path d="M730 139H900"/><path d="M730 144H782L828 196Q840 209 858 209H920"/></g><g fill="#6279ad"><circle cx="390" cy="139" r="3"/><circle cx="730" cy="139" r="3"/><circle cx="269" cy="76" r="2.5"/><circle cx="846" cy="204" r="2.5"/></g></svg>
+        <div class="source-stack"><div class="flow-chip"><span class="file-icon">PDF</span><span>Manufacturer datasheets</span></div><div class="flow-chip"><span class="file-icon">{ }</span><span>Protocol references</span></div><div class="flow-chip"><span class="file-icon">≋</span><span>Public equipment libraries</span></div></div>
+        <button class="record-card" id="hero-record" aria-label="Inspect the Rolls S48-100LFP capacity source">
+          <span class="record-top"><img src="assets/logos/plate-89-blue.svg" alt="" width="34" height="19"><span>EQUIPMENT / BATTERY</span><span class="record-arrow">↗</span></span>
+          <span class="record-name">Rolls S48-100LFP</span>
+          <span class="record-fact"><span>Capacity</span><strong>100 <small>Ah</small></strong></span>
+          <span class="record-bottom"><span class="source-mini">↳ Source · page 19</span><span class="evidence amber">Extracted</span></span>
+        </button>
+        <div class="destination-stack"><div class="flow-chip"><span class="file-icon">↓</span><span>Parquet / CSV / JSON</span></div><div class="flow-chip"><span class="file-icon">&gt;_</span><span>Your tools & applications</span></div><button class="flow-chip buddy-open"><img src="assets/art/avatar-round.webp" alt="" width="30" height="30"><span>A little help from Buddy</span><span aria-hidden="true">↗</span></button></div>
+      </div>
+
+      <div class="stats-wrap wrap"><div class="stats" id="stats"></div><div class="snapshot-line"><span>One connected dataset. Many ways in.</span><span>LOCAL SNAPSHOT <span class="snapshot-date">10 SEP 2026</span></span></div></div>
+    </section>
+
+    <section class="makers wrap" aria-label="Manufacturers represented in the dataset">
+      <p class="eyebrow">FAMILIAR EQUIPMENT. A COMMON DATA LANGUAGE.</p>
+      <div class="maker-names"><span class="maker-victron">victron<span>energy</span></span><span class="maker-eg4">EG4<small> ELECTRONICS</small></span><span class="maker-rolls">ROLLS<span>BATTERY</span></span><span class="maker-renogy">RENOGY</span><span class="maker-schneider">Schneider<small>Electric</small></span><a href="#explore">86 makers<br><span>and growing ↗</span></a></div>
+      <p class="maker-caption">Manufacturers represented in the local release. Inclusion does not imply partnership or endorsement.</p>
+    </section>
+
+    <section id="dataset" class="section wrap">
+      <div class="section-heading"><div><p class="eyebrow">01 / THE DATASET</p><h2>Different equipment.<br>Common ground.</h2></div><p>Solar panels to battery banks. Register maps to rated figures. The details that belong together, finally in one place.</p></div>
+      <div class="data-pillars">
+        <a class="pillar" href="#explore" data-explore="models"><span class="pillar-number">01 <span>↗</span></span><h3>Equipment identity</h3><p>Models, makers, aliases, and equipment types. A shared identity to connect your records.</p><span class="pillar-foot">30,360 MODELS</span></a>
+        <a class="pillar" href="#explore" data-explore="specs"><span class="pillar-number">02 <span>↗</span></span><h3>Specifications</h3><p>Rated figures with units, conditions, and their original source. Context stays attached.</p><span class="pillar-foot">243,720 RATED FIGURES</span></a>
+        <a class="pillar" href="#explore" data-explore="dialects"><span class="pillar-number">03 <span>↗</span></span><h3>Protocols & dialects</h3><p>Register maps, frame layouts, driver status, and the gotchas you want to know about.</p><span class="pillar-foot">8 PROTOCOL FAMILIES</span></a>
+        <a class="pillar" href="#evidence"><span class="pillar-number">04 <span>↗</span></span><h3>Evidence & confidence</h3><p>Follow a claim back to its reference. See where it came from and what has been checked.</p><span class="pillar-foot">1,280 SOURCE RECORDS</span></a>
+      </div>
+    </section>
+
+    <section id="explore" class="section explorer-section">
+      <div class="wrap">
+        <div class="section-heading"><div><p class="eyebrow">02 / GET TO KNOW THE DATA</p><h2>Find the equipment. See what’s documented.</h2></div><p>Start with a model. Inspect a figure.<br>Follow the evidence all the way back.</p></div>
+        <div class="explorer">
+          <div class="explorer-top"><div class="table-tabs" role="tablist" aria-label="Dataset tables"><button role="tab" id="tab-models" aria-controls="explorer-panel" aria-selected="true" data-table="models">Equipment <span>30,360</span></button><button role="tab" id="tab-specs" aria-controls="explorer-panel" aria-selected="false" tabindex="-1" data-table="specs">Specifications <span>243,720</span></button><button role="tab" id="tab-dialects" aria-controls="explorer-panel" aria-selected="false" tabindex="-1" data-table="dialects">Protocols <span>288</span></button></div><span class="sample-label">INTERACTIVE SAMPLE</span></div>
+          <div class="explorer-tools"><label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search equipment, makers, or model IDs…" aria-label="Search sample records"><kbd>/</kbd></label><label class="sr-only" for="filter">Filter sample records</label><select id="filter"></select><button id="export" class="button small">Export sample <span aria-hidden="true">↓</span></button></div>
+          <div id="explorer-panel" role="tabpanel" aria-labelledby="tab-models"><div class="table-scroll"><table><thead id="table-head"></thead><tbody id="table-body"></tbody></table></div></div>
+          <div class="explorer-bottom"><span id="result-count" role="status" aria-live="polite"></span><div class="pagination"><button id="previous" aria-label="Previous page">←</button><span id="page-count"></span><button id="next" aria-label="Next page">→</button></div></div>
+        </div>
+        <div class="explorer-helper"><span><span class="little-dot"></span> Real records from the local release. Select a row to inspect its details.</span><button class="text-link buddy-open"><img src="assets/art/avatar-round.webp" width="25" height="25" alt="">Help me find something <span aria-hidden="true">↗</span></button></div>
+      </div>
+    </section>
+
+    <section id="evidence" class="section wrap evidence-section">
+      <div class="evidence-story"><p class="eyebrow">03 / THE EVIDENCE COMES WITH IT</p><h2>A number is useful.<br><span class="accent-text">Its source is essential.</span></h2><p>A battery’s capacity means little without its conditions. A protocol claim needs more than a familiar connector. Keep the context with the claim.</p><ol class="evidence-steps"><li><span>01</span><div><h3>Find the original source</h3><p>Document links and page references, where available.</p></div></li><li><span>02</span><div><h3>Know how the figure arrived</h3><p>Public feed, automated extraction, or human review.</p></div></li><li><span>03</span><div><h3>See what still needs checking</h3><p>Confidence, reviewer, and doubt fields stay visible.</p></div></li></ol><button class="text-link" id="inspect-evidence">Inspect an actual record <span aria-hidden="true">↗</span></button></div>
+      <div class="provenance-card"><div class="panel-cap"><span>SPECIFICATION / SOURCE TRAIL</span><span>↗</span></div><div class="provenance-main"><span class="eyebrow">ROLLS BATTERY</span><h3>S48-100LFP</h3><div class="big-reading">100<span>Ah</span></div><span class="reading-label">Capacity · as stated in source</span><div class="source-document"><span class="document-symbol">PDF</span><div><strong id="source-name">Manufacturer document</strong><span>Original source · page 19</span></div><a id="source-link" target="_blank" rel="noopener" aria-label="Open original manufacturer source">↗</a></div><dl><div><dt>Evidence</dt><dd>Vendor document</dd></div><div><dt>Method</dt><dd>Automated extraction</dd></div><div><dt>Human review</dt><dd class="amber-text">Not yet reviewed</dd></div></dl></div><div class="buddy-note"><img src="assets/art/avatar-round.webp" width="45" height="45" alt="Buddy"><p>“I can point you to the page.<br>Check the original before sizing your system.”</p></div></div>
+    </section>
+
+    <section class="section coverage-section"><div class="wrap"><div class="section-heading"><div><p class="eyebrow">04 / A CLEAR VIEW OF COVERAGE</p><h2>See what’s here.<br>And where the gaps are.</h2></div><p>Coverage is a starting point. Evidence quality and implementation status are separate questions.</p></div><div class="coverage-grid"><div class="coverage-chart"><div class="chart-heading"><h3>Protocol catalogue</h3><div class="segmented" role="group" aria-label="Protocol coverage"><button aria-pressed="true" data-coverage="count">All entries</button><button aria-pressed="false" data-coverage="documented">Vendor docs</button></div></div><p id="chart-caption">288 dialect entries across 8 catalogue families.</p><div id="coverage-bars"></div><div class="chart-foot"><span>Dialect entries · linear scale</span><span>Source: local release</span></div></div><div class="coverage-aside"><span class="eyebrow">EVIDENCE AT A GLANCE</span><div class="coverage-number" id="vendor-count"></div><h3>dialects cite vendor documentation</h3><p>Explore the reference behind a protocol before treating it as implemented or compatible.</p><div class="confidence-list" id="confidence-list"></div><a class="text-link" href="#explore" data-explore="dialects">Explore the protocols <span aria-hidden="true">↗</span></a></div></div></div></section>
+
+    <section id="buddy" class="section wrap"><div class="buddy-feature"><div class="buddy-art"><div class="buddy-orbit" aria-hidden="true"></div><img src="assets/art/studio-transparent.webp" alt="Buddy, Origin89’s friendly moose guide, shown from antlers to feet" width="1280" height="1434" loading="lazy"><span class="buddy-sign">BUDDY / YOUR EQUIPMENT GUIDE</span></div><div class="buddy-story"><p class="eyebrow">MEET BUDDY / YOUR EQUIPMENT GUIDE</p><h2>You don’t need to know<br>where to look.</h2><p>Not sure where to start? Buddy helps you find a model, unpack a specification, and get back to the source.</p><div class="buddy-prompts"><button data-prompt="battery">Show me battery models <span>↗</span></button><button data-prompt="source">Where did this 100 Ah figure come from? <span>↗</span></button><button data-prompt="protocol">What’s documented for VE.Direct? <span>↗</span></button></div><div class="buddy-feature-foot"><button class="button primary buddy-open">Find it with Buddy <span>↗</span></button><span>Guided examples in this draft</span></div></div></div></section>
+
+    <section id="build" class="section wrap"><div class="developer-grid"><div class="developer-story"><p class="eyebrow">05 / BUILT TO BE BUILT ON</p><h2>Your stack.<br>Your next idea.</h2><p>Bring the dataset into a notebook, a product catalogue, or your next integration. Open files, stable joins, and the tools you already use.</p><div class="format-tags"><span>PARQUET</span><span>CSV</span><span>JSON CATALOGUE</span></div><a class="text-link" href="https://github.com/origin89hq/offgrid-equipment#the-tables" target="_blank" rel="noopener">Read the data dictionary <span>↗</span></a><div class="dev-license"><span>MIT</span><p>Tooling and authored records are open.<br>Public feeds retain their own licences.</p></div></div><div class="code-panel"><div class="code-tabs" role="tablist" aria-label="Code language"><button role="tab" id="code-sql" aria-controls="code-content" aria-selected="true" data-code="sql">DuckDB</button><button role="tab" id="code-python" aria-controls="code-content" aria-selected="false" tabindex="-1" data-code="python">Python</button><button role="tab" id="code-curl" aria-controls="code-content" aria-selected="false" tabindex="-1" data-code="curl">cURL</button><button class="copy-code" id="copy-code" aria-label="Copy code">Copy <span>⧉</span></button></div><pre id="code-content" role="tabpanel" aria-labelledby="code-sql"><code id="code-text"></code></pre><div class="code-footer"><span class="little-dot"></span> Public endpoints · no authentication required</div></div></div><div class="download-row"><div><h3>Take the data with you.</h3><p>Published files, with row counts and content hashes in the index.</p></div><a class="button small" href="https://data.origin89.com/v1/models.parquet">Models.parquet <span>↓</span></a><a class="button small" href="https://data.origin89.com/v1/specs.csv">Specs.csv <span>↓</span></a><button class="text-link" id="view-manifest">View snapshot index <span>↗</span></button></div></section>
+
+    <section class="closing wrap"><p class="eyebrow">MADE FOR THE PEOPLE BUILDING OFF-GRID.</p><h2>Start with the equipment.<br>Build from what you know.</h2><div class="hero-actions"><a class="button primary" href="#explore">Explore the dataset <span>↗</span></a><a class="button quiet" href="https://github.com/origin89hq/offgrid-equipment/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Contribute a correction <span>↗</span></a></div></section>
+  </main>
+
+  <footer class="wrap"><div class="footer-top"><a class="identity" href="https://origin89.com"><img src="assets/logos/origin89-horizontal-blue.svg" width="159" height="27" alt="Origin89"><span class="identity-divider"></span><span class="data-word">data</span></a><p>Open equipment data.<br>From the Origin89 family.</p><div><a href="https://github.com/origin89hq/offgrid-equipment" target="_blank" rel="noopener">GitHub ↗</a><a href="https://origin89.com/buddy/" target="_blank" rel="noopener">Meet Buddy ↗</a><a href="mailto:hello@origin89.com">Get in touch ↗</a></div></div><div class="footer-bottom"><span>© 2026 Origin89. Equipment knowledge, shared.</span><span>DESIGN DRAFT / 10 SEP 2026</span><a href="https://github.com/origin89hq/offgrid-equipment/blob/main/LICENSE" target="_blank" rel="noopener">Dataset licence ↗</a></div></footer>
+
+  <dialog id="detail-dialog" aria-labelledby="detail-title"><div class="dialog-top"><span class="eyebrow">ORIGIN89 DATA / RECORD DETAIL</span><button class="close-dialog" aria-label="Close record details">×</button></div><div id="detail-content"></div></dialog>
+  <dialog id="buddy-dialog" aria-labelledby="buddy-title"><div class="dialog-top"><div class="buddy-dialog-identity"><img src="assets/art/avatar-round.webp" width="43" height="43" alt=""><div><h2 id="buddy-title">Hey, I’m Buddy.</h2><span>Your equipment guide</span></div></div><button class="close-dialog" aria-label="Close Buddy">×</button></div><div class="buddy-chat"><p class="draft-chat-label">DESIGN PREVIEW · GUIDED EXAMPLES</p><p>I’ll help you look through the data. Pick a starting point — we’ll keep the source close by.</p><div class="buddy-dialog-prompts"><button data-prompt="battery">Find battery models <span>→</span></button><button data-prompt="source">Explain the 100 Ah source <span>→</span></button><button data-prompt="protocol">Explore VE.Direct <span>→</span></button></div><div id="buddy-answer" aria-live="polite"></div><p class="buddy-real-link">Have another question? <a href="https://origin89.com/buddy/" target="_blank" rel="noopener">Open Buddy on Origin89 ↗</a></p></div></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

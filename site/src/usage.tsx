@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Section } from "./sections.tsx";
+import { Section } from "./chrome.tsx";
 
 /**
  * The snippets are written against the live origin, so a reader can copy one and it works. Anything
@@ -48,7 +48,7 @@ export function Usage({ origin }: { origin: string }) {
   const all = snippets(origin);
   const [tab, setTab] = useState("duckdb");
   return (
-    <Section title="Use it">
+    <Section id="build" eyebrow="Integrate" title={<>Your stack.<br />Your next idea.</>}>
       <div className="mb-3.5 flex flex-wrap gap-1">
         {Object.keys(all).map((name) => (
           <button
@@ -57,7 +57,7 @@ export function Usage({ origin }: { origin: string }) {
             role="tab"
             aria-selected={tab === name}
             onClick={() => setTab(name)}
-            className={`cursor-pointer rounded-[7px] border px-3 py-1.5 font-mono text-[12.5px] ${
+            className={`cursor-pointer border px-3 py-1.5 font-mono text-[12.5px] ${
               tab === name ? "border-action bg-surface-raised text-fg" : "border-line text-muted hover:text-fg"
             }`}
           >
@@ -65,22 +65,22 @@ export function Usage({ origin }: { origin: string }) {
           </button>
         ))}
       </div>
-      <pre className="m-0 overflow-x-auto rounded-[10px] border border-line bg-surface p-4 font-mono text-[13px] leading-relaxed text-fg">
+      <pre className="m-0 overflow-x-auto border border-line bg-surface p-4 font-mono text-[13px] leading-relaxed text-fg">
         {all[tab]}
       </pre>
     </Section>
   );
 }
 
-export function Licence({ buddy }: { buddy: string }) {
+export function Licence() {
   return (
-    <Section title="Licence">
+    <Section eyebrow="Terms" title="What you may do with it">
       <p className="max-w-[68ch] text-muted">
         <strong className="font-semibold text-fg">MIT</strong>, for the tooling and the records alike. Attribution is
         welcome and not required.
       </p>
       <div className="mt-5 grid gap-7 md:grid-cols-2">
-        <div className="rounded-xl border border-line border-l-2 border-l-nominal bg-surface px-6 py-5">
+        <div className="border border-line border-l-2 border-l-nominal bg-surface px-6 py-5">
           <h3 className="mb-2 text-[17px] font-semibold">You can</h3>
           <ul className="m-0 list-disc pl-4.5 text-[14.5px] text-muted">
             <li className="mb-1.5">Use it commercially, in a product you sell.</li>
@@ -89,7 +89,7 @@ export function Licence({ buddy }: { buddy: string }) {
             <li className="mb-1.5">Ship it inside a closed-source application.</li>
           </ul>
         </div>
-        <div className="rounded-xl border border-line border-l-2 border-l-alarm bg-surface px-6 py-5">
+        <div className="border border-line border-l-2 border-l-alarm bg-surface px-6 py-5">
           <h3 className="mb-2 text-[17px] font-semibold">You cannot</h3>
           <ul className="m-0 list-disc pl-4.5 text-[14.5px] text-muted">
             <li className="mb-1.5">Treat the logos as MIT. They are trademarks, served to identify a maker.</li>
@@ -100,20 +100,11 @@ export function Licence({ buddy }: { buddy: string }) {
         </div>
       </div>
       <p className="mt-6 max-w-[68ch] border-l-2 border-warning pl-4 text-[14.5px] text-muted">
-        Two tiers sit in one table. <code className="rounded bg-surface-raised px-1.5 py-0.5 font-mono text-[12.5px] text-fg">tier = 'reviewed'</code>{" "}
+        Two tiers sit in one table. <code className="bg-[var(--journal-field)] px-1.5 py-0.5 font-mono text-[12.5px] text-fg">tier = 'reviewed'</code>{" "}
         is read from a maker's own document and carries its source and page.{" "}
-        <code className="rounded bg-surface-raised px-1.5 py-0.5 font-mono text-[12.5px] text-fg">tier = 'feed'</code> comes
+        <code className="bg-[var(--journal-field)] px-1.5 py-0.5 font-mono text-[12.5px] text-fg">tier = 'feed'</code> comes
         from a public dataset redistributed under its own licence. Filter on it.
       </p>
-      <div className="mt-6 flex flex-col gap-5 rounded-2xl border border-line bg-surface px-6 py-5 sm:flex-row sm:items-start">
-        <img src={buddy} alt="Buddy, the Origin89 assistant" width={84} height={84} loading="lazy" className="size-21 shrink-0 rounded-xl" />
-        <p className="m-0 max-w-[58ch] text-muted">
-          <b className="text-fg">A word before you size anything.</b> Most of these figures were read by a model out of a
-          maker's own PDF, and nobody has checked the row. The <code className="rounded bg-surface-raised px-1.5 py-0.5 font-mono text-[12.5px] text-fg">doubt</code>{" "}
-          column says when a figure is not a number with a real unit, and every reviewed row names the document and the
-          page it came from. Open the document before you trust the number. I have to, and I live here.
-        </p>
-      </div>
     </Section>
   );
 }

@@ -10,10 +10,36 @@
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
+/*
+ * The journal theme: the same cottage identity origin89.com wears, so the data site reads as part
+ * of the place rather than a tool bolted onto the side of it.
+ *
+ * Six values, taken from the website's own journal.css. They are a copy, and the only copy in this
+ * repo, because the brand package publishes a dark theme and a light one but not this. They belong
+ * in @origin89/brand beside the others and should move there.
+ *
+ * The mapping matters more than the values: every component is written against the brand's token
+ * names and the theme only says what those names mean here, so the site changed its clothes
+ * without a component being restyled.
+ */
 :root {
-  /* The tokens flip with the preference but do not declare it, so scrollbars and form controls
-     would stay light while the page around them went dark. */
-  color-scheme: light dark;
+  --journal-paper: #f5f1e8;
+  --journal-ink: #27372d;
+  --journal-muted: #647366;
+  --journal-line: #c9cec1;
+  --journal-field: #e3e6db;
+
+  color-scheme: light;
+  --color-page: var(--journal-paper);
+  --color-fg: var(--journal-ink);
+  --color-muted: var(--journal-muted);
+  --color-faint: var(--journal-muted);
+  --color-line: var(--journal-line);
+  --color-line-strong: var(--journal-line);
+  --color-surface: color-mix(in srgb, var(--journal-paper) 65%, white);
+  --color-surface-raised: #fcfdfc;
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
 }
 
 body {
@@ -23,8 +49,24 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* The journal sets its headings lighter than a default bold, which is most of its voice. */
+h1,
+h2 {
+  font-weight: 480;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+}
+h3 {
+  font-weight: 530;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-action);
+  outline-offset: 5px;
+}
+
 /* A maker's mark is drawn for its own background and most are dark on light, so the tile stays
-   white in either theme and takes a border to remain visible when the page is light too. */
+   white and takes a border to remain visible against paper. */
 .maker-tile {
   background: #fff;
 }

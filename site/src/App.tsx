@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { fetchIndex, fetchMakers, type Index, type Maker } from "./api.ts";
-import { Console, Header, Makers, Tables } from "./sections.tsx";
+import { Console, Makers, Tables } from "./sections.tsx";
+import { Hero, Offerings, SiteHeader, WRAP } from "./chrome.tsx";
+import { BuddyNote, Coverage, Evidence } from "./evidence.tsx";
 import { Licence, Usage } from "./usage.tsx";
 
 /**
@@ -19,7 +21,9 @@ export function App() {
 
   return (
     <>
-      <Header index={index} />
+      <SiteHeader />
+      <main>
+        <Hero index={index} />
       {failed && (
         <div className="mx-auto max-w-5xl px-6 py-6">
           <p className="m-0 border-l-2 border-alarm pl-4 text-muted">
@@ -27,17 +31,22 @@ export function App() {
           </p>
         </div>
       )}
-      {makers.length > 0 && <Makers makers={makers} />}
-      <Tables index={index} />
-      <Console index={index} />
-      <Usage origin={window.location.origin} />
-      <Licence buddy="/logos/buddy-256.png" />
-      <footer className="px-6 pt-11 pb-18">
-        <div className="mx-auto max-w-5xl text-[13.5px] text-faint">
+        <Offerings />
+        {makers.length > 0 && <Makers makers={makers} />}
+        <Console index={index} />
+        <Evidence index={index} />
+        <Coverage index={index} />
+        <BuddyNote />
+        <Tables index={index} />
+        <Usage origin={window.location.origin} />
+        <Licence />
+      </main>
+      <footer className="border-t border-line px-6 pt-11 pb-18">
+        <div className={`${WRAP} text-[13.5px] text-muted`}>
           <p className="m-0">
-            Built by <a className="text-link hover:underline" href="https://origin89.com">Origin89</a> ·{" "}
-            <a className="text-link hover:underline" href="https://github.com/origin89hq/offgrid-equipment">source on GitHub</a> ·{" "}
-            <a className="text-link hover:underline" href="mailto:hello@origin89.com">hello@origin89.com</a>
+            Built by <a className="text-action hover:underline" href="https://origin89.com">Origin89</a> ·{" "}
+            <a className="text-action hover:underline" href="https://github.com/origin89hq/offgrid-equipment">source on GitHub</a> ·{" "}
+            <a className="text-action hover:underline" href="mailto:hello@origin89.com">hello@origin89.com</a>
           </p>
           <p className="m-0 mt-1.5">
             Corrections are the most useful contribution. Every figure names its document, so a wrong one can be shown wrong.
