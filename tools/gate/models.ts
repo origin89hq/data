@@ -1,8 +1,8 @@
-import { loadRecords, writeRecord, RECORDS_DIR } from "../../src/records.ts";
+import type { Guess } from "@origin89/equipment-schema/guess";
+import type { Sighting } from "@origin89/equipment-schema/sighting";
 import { deriveModels } from "../../src/models.ts";
+import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 import { readCrawl } from "./archive.ts";
-import type { Sighting } from "../../schema/sighting.ts";
-import type { Guess } from "../../schema/guess.ts";
 
 /**
  * Derive model records from one or more crawls. A listing contributes only when its brand string
@@ -31,7 +31,9 @@ for (const seller of sellers) {
     continue;
   }
   if (crawl.missingParts.length) {
-    console.error(`${seller}: ${crawl.missingParts.length} classifier parts are not written; deriving anyway, those models get no kind`);
+    console.error(
+      `${seller}: ${crawl.missingParts.length} classifier parts are not written; deriving anyway, those models get no kind`,
+    );
   }
   sightings.push(...crawl.sightings);
   for (const [k, v] of crawl.guesses) guesses.set(k, v);
@@ -39,7 +41,12 @@ for (const seller of sellers) {
 
 const records = loadRecords();
 const existing = new Map(records.models.map((m) => [m.id, m]));
-const derived = deriveModels({ sightings, guesses, brands: records.brands, dialects: records.dialects });
+const derived = deriveModels({
+  sightings,
+  guesses,
+  brands: records.brands,
+  dialects: records.dialects,
+});
 
 let added = 0;
 let kept = 0;
@@ -68,6 +75,13 @@ for (const { model } of derived) {
 const withDialect = derived.filter((d) => d.model.dialects.length > 0).length;
 const kinds = new Map<string, number>();
 for (const d of derived) kinds.set(d.model.kind, (kinds.get(d.model.kind) ?? 0) + 1);
-console.log(`${sightings.length} sightings from ${sellers.length} sellers → ${derived.length} models${dryRun ? " (dry run, nothing written)" : `: ${added} new, ${kept} refreshed`}`);
+console.log(
+  `${sightings.length} sightings from ${sellers.length} sellers → ${derived.length} models${dryRun ? " (dry run, nothing written)" : `: ${added} new, ${kept} refreshed`}`,
+);
 console.log(`${withDialect} join a dialect this repo already documents`);
-console.log([...kinds.entries()].sort((a, b) => b[1] - a[1]).map(([k, n]) => `  ${String(n).padStart(5)}  ${k}`).join("\n"));
+console.log(
+  [...kinds.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .map(([k, n]) => `  ${String(n).padStart(5)}  ${k}`)
+    .join("\n"),
+);

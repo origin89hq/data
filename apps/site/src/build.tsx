@@ -1,0 +1,232 @@
+import { type ReactNode, useState } from "react";
+import { type Index, kb } from "./api.ts";
+
+/** Written against the live origin, so a reader can copy one and it runs. */
+const snippets = (
+  origin: string,
+): Record<"sql" | "python" | "curl", { label: string; code: string }> => ({
+  sql: {
+    label: "DuckDB",
+    code: `-- Nothing to download. DuckDB reads the Parquet over HTTP.
+SELECT m.name AS model, s.name AS figure, s.value, s.unit
+FROM read_parquet('${origin}/v1/specs.parquet') s
+JOIN read_parquet('${origin}/v1/models.parquet') m ON m.id = s.model_id
+WHERE s.tier = 'reviewed' AND s.doubt IS NULL
+LIMIT 20;`,
+  },
+  python: {
+    label: "Python",
+    code: `# pip install duckdb
+import duckdb
+
+df = duckdb.sql("""
+  SELECT model_id, name, value, unit
+  FROM read_parquet('${origin}/v1/specs.parquet')
+  WHERE tier = 'reviewed' AND unit = 'Ah'
+""").df()
+print(df.head())`,
+  },
+  curl: {
+    label: "cURL",
+    code: `# the index says what is published, with a hash for every file
+curl -s ${origin}/manifest.json | jq '.files | keys'
+
+# a table
+curl -O ${origin}/v1/specs.parquet
+
+# a maker's mark, at 64, 128 or 256
+curl -O ${origin}/logos/victron-energy-128.png`,
+  },
+});
+
+const KEYWORDS = new Set([
+  "SELECT",
+  "FROM",
+  "JOIN",
+  "ON",
+  "WHERE",
+  "GROUP",
+  "BY",
+  "ORDER",
+  "LIMIT",
+  "AND",
+  "OR",
+  "IS",
+  "NULL",
+  "AS",
+  "import",
+  "print",
+  "curl",
+  "def",
+  "return",
+]);
+
+/**
+ * The draft's own tokeniser, which is three rules and enough: a comment line, a quoted string, a
+ * keyword. Anything more would be a highlighting library shipped to colour thirty lines.
+ */
+function colour(code: string): ReactNode[] {
+  return code.split("\n").map((line, row) => {
+    if (line.trimStart().startsWith("--") || line.trimStart().startsWith("#")) {
+      return (
+        // biome-ignore lint/suspicious/noArrayIndexKey: Syntax spans are stateless fragments indexed by position within the displayed source text.
+        <span key={row} className="syntax-comment">
+          {line}
+          {"\n"}
+        </span>
+      );
+    }
+    // Split on quoted strings first, then on word boundaries inside what is left.
+    const parts = line.split(/('[^']*')/g).map((part, i) =>
+      part.startsWith("'") ? (
+        // biome-ignore lint/suspicious/noArrayIndexKey: Syntax spans are stateless fragments indexed by position within the displayed source text.
+        <span key={i} className="syntax-string">
+          {part}
+        </span>
+      ) : (
+        part.split(/(\b[A-Za-z_]+\b)/g).map((word, j) =>
+          KEYWORDS.has(word) ? (
+            // biome-ignore lint/suspicious/noArrayIndexKey: Syntax spans are stateless fragments indexed by position within the displayed source text.
+            <span key={j} className="syntax-key">
+              {word}
+            </span>
+          ) : (
+            word
+          ),
+        )
+      ),
+    );
+    return (
+      // biome-ignore lint/suspicious/noArrayIndexKey: Syntax spans are stateless fragments indexed by position within the displayed source text.
+      <span key={row}>
+        {parts}
+        {"\n"}
+      </span>
+    );
+  });
+}
+
+export function Build({ index }: { index?: Index }) {
+  const origin =
+    typeof window === "undefined" ? "https://data.origin89.com" : window.location.origin;
+  const all = snippets(origin);
+  const [tab, setTab] = useState<keyof ReturnType<typeof snippets>>("sql");
+  const [copied, setCopied] = useState(false);
+
+  const copy = () => {
+    void navigator.clipboard.writeText(all[tab].code).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1600);
+    });
+  };
+
+  return (
+    <>
+      <section id="build" className="section wrap">
+        <div className="developer-grid">
+          <div className="developer-story">
+            <p className="eyebrow">05 / BUILT TO BE BUILT ON</p>
+            <h2>
+              Your stack.
+              <br />
+              Your next idea.
+            </h2>
+            <p>
+              Bring the dataset into a notebook, a product catalogue, or your next integration. Open
+              files, stable joins, and the tools you already use.
+            </p>
+            <div className="format-tags">
+              <span>PARQUET</span>
+              <span>CSV</span>
+              <span>JSON CATALOGUE</span>
+            </div>
+            <a
+              className="text-link"
+              href="https://github.com/origin89hq/offgrid-equipment"
+              target="_blank"
+              rel="noopener"
+            >
+              Read the data dictionary <span>↗</span>
+            </a>
+            <div className="dev-license">
+              <span>MIT</span>
+              <p>
+                Tooling and authored records are open.
+                <br />
+                Public feeds retain their own licences.
+              </p>
+            </div>
+          </div>
+          <div className="code-panel">
+            <div className="code-tabs" role="tablist" aria-label="Code language">
+              {Object.entries(all).map(([key, snippet]) => (
+                <button
+                  type="button"
+                  key={key}
+                  role="tab"
+                  aria-selected={tab === key}
+                  tabIndex={tab === key ? 0 : -1}
+                  onClick={() => {
+                    if (key === "sql" || key === "python" || key === "curl") setTab(key);
+                  }}
+                >
+                  {snippet.label}
+                </button>
+              ))}
+              <button type="button" className="copy-code" onClick={copy} aria-label="Copy code">
+                {copied ? "Copied" : "Copy"} <span>⧉</span>
+              </button>
+            </div>
+            <pre role="tabpanel">
+              <code>{colour(all[tab].code)}</code>
+            </pre>
+            <div className="code-footer">
+              <span className="little-dot" /> Public endpoints · no authentication required
+            </div>
+          </div>
+        </div>
+        <div className="download-row">
+          <div>
+            <h3>Take the data with you.</h3>
+            <p>Published files, with row counts and content hashes in the index.</p>
+          </div>
+          <a className="button small" href="/v1/models.parquet">
+            models.parquet{" "}
+            <span>
+              ↓ {index?.files["models.parquet"] ? kb(index.files["models.parquet"].bytes) : ""}
+            </span>
+          </a>
+          <a className="button small" href="/v1/specs.csv">
+            specs.csv{" "}
+            <span>↓ {index?.files["specs.csv"] ? kb(index.files["specs.csv"].bytes) : ""}</span>
+          </a>
+          <a className="text-link" href="/manifest.json" target="_blank" rel="noopener">
+            View the index <span>↗</span>
+          </a>
+        </div>
+      </section>
+
+      <section className="closing wrap">
+        <p className="eyebrow">MADE FOR THE PEOPLE BUILDING OFF-GRID.</p>
+        <h2>
+          Start with the equipment.
+          <br />
+          Build from what you know.
+        </h2>
+        <div className="hero-actions">
+          <a className="button primary" href="#explore">
+            Explore the dataset <span>↗</span>
+          </a>
+          <a
+            className="button quiet"
+            href="https://github.com/origin89hq/offgrid-equipment/blob/main/CONTRIBUTING.md"
+            target="_blank"
+            rel="noopener"
+          >
+            Contribute a correction <span>↗</span>
+          </a>
+        </div>
+      </section>
+    </>
+  );
+}

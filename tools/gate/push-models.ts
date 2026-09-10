@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, writeFileSync, rmSync } from "node:fs";
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { loadRecords } from "../../src/records.ts";
@@ -14,7 +14,7 @@ const args = process.argv.slice(2);
 const remote = args.includes("--remote");
 const all = args.includes("--all");
 const BUCKET = "offgrid-equipment-archive";
-const SCRAPER = new URL("../../worker/", import.meta.url).pathname;
+const SCRAPER = new URL("../../apps/worker/", import.meta.url).pathname;
 const PAGE = 500;
 
 const records = loadRecords();
@@ -32,7 +32,15 @@ const specsOf = new Map<string, { name: string; value: string; unit?: string }[]
 for (const spec of records.specs) {
   const held = specsOf.get(spec.model) ?? [];
   // A figure with a real unit says more about what a product is than one without.
-  if (held.length < FIGURES_PER_MODEL) specsOf.set(spec.model, [...held, { name: spec.english ?? spec.name, value: spec.value, ...(spec.unit ? { unit: spec.unit } : {}) }]);
+  if (held.length < FIGURES_PER_MODEL)
+    specsOf.set(spec.model, [
+      ...held,
+      {
+        name: spec.english ?? spec.name,
+        value: spec.value,
+        ...(spec.unit ? { unit: spec.unit } : {}),
+      },
+    ]);
 }
 const dir = mkdtempSync(join(tmpdir(), "offgrid-push-"));
 try {
@@ -48,11 +56,20 @@ try {
     // Nominal voltage 48 V" says battery without anybody having to guess.
     const lines = slice.map((m) => {
       const figures = specsOf.get(m.id) ?? [];
-      const evidence = figures.map((s) => `${s.name}: ${s.value}${s.unit ? ` ${s.unit}` : ""}`).join("; ");
+      const evidence = figures
+        .map((s) => `${s.name}: ${s.value}${s.unit ? ` ${s.unit}` : ""}`)
+        .join("; ");
       return JSON.stringify({
-        seller: "models", productId: m.id, handle: m.id, url: `https://example.invalid/${m.id}`,
-        title: `${makers.get(m.manufacturer) ?? m.manufacturer} ${m.name}`, brand: makers.get(m.manufacturer) ?? m.manufacturer,
-        model: m.name, currency: "CAD", checkedAt: new Date().toISOString().slice(0, 10), extractor: "shopify-feed",
+        seller: "models",
+        productId: m.id,
+        handle: m.id,
+        url: `https://example.invalid/${m.id}`,
+        title: `${makers.get(m.manufacturer) ?? m.manufacturer} ${m.name}`,
+        brand: makers.get(m.manufacturer) ?? m.manufacturer,
+        model: m.name,
+        currency: "CAD",
+        checkedAt: new Date().toISOString().slice(0, 10),
+        extractor: "shopify-feed",
         ...(evidence ? { figures: evidence } : {}),
       });
     });
@@ -62,9 +79,23 @@ try {
     pages.push({ page: i + 1, count: slice.length });
   }
   const pointerFile = join(dir, "current.json");
-  writeFileSync(pointerFile, JSON.stringify({ run: "pending", date: new Date().toISOString().slice(0, 10), startedAt: new Date().toISOString() }));
+  writeFileSync(
+    pointerFile,
+    JSON.stringify({
+      run: "pending",
+      date: new Date().toISOString().slice(0, 10),
+      startedAt: new Date().toISOString(),
+    }),
+  );
   const manifest = join(dir, "manifest.json");
-  writeFileSync(manifest, JSON.stringify({ seller: "models", checkedAt: "pending", pages, sightings: pending.length }, null, 2));
+  writeFileSync(
+    manifest,
+    JSON.stringify(
+      { seller: "models", checkedAt: "pending", pages, sightings: pending.length },
+      null,
+      2,
+    ),
+  );
   put("sightings/models/runs/pending/manifest.json", manifest);
   put("sightings/models/current.json", pointerFile);
   console.log(`${pending.length} models without a kind → ${pages.length} pages in the archive`);
@@ -74,8 +105,22 @@ try {
 }
 
 function put(key: string, file: string): void {
-  execFileSync("pnpm", ["exec", "wrangler", "r2", "object", "put", `${BUCKET}/${key}`, "--file", file, remote ? "--remote" : "--local"], {
-    cwd: SCRAPER,
-    stdio: ["ignore", "ignore", "pipe"],
-  });
+  execFileSync(
+    "pnpm",
+    [
+      "exec",
+      "wrangler",
+      "r2",
+      "object",
+      "put",
+      `${BUCKET}/${key}`,
+      "--file",
+      file,
+      remote ? "--remote" : "--local",
+    ],
+    {
+      cwd: SCRAPER,
+      stdio: ["ignore", "ignore", "pipe"],
+    },
+  );
 }

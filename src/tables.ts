@@ -2,8 +2,9 @@ import { logoKey } from "./logos.ts";
 
 /** Where a published logo is served from. The Worker is the only thing that reads the archive. */
 const LOGO_BASE = "https://data.origin89.com";
-import type { Records } from "./records.ts";
+
 import { attachMakers, readFeeds } from "./feeds.ts";
+import type { Records } from "./records.ts";
 import { canonicalUnit, concerns as figureConcerns } from "./units.ts";
 
 export type Row = Record<string, string | boolean | number | undefined>;
@@ -21,9 +22,18 @@ export function tables(records: Records): Table[] {
   // dataset states are both figures worth publishing, and a reader that cannot tell them apart
   // will quote the wrong one — so `tier` is on every model and every figure, never implied.
   const brandsByMaker = new Map<string, string[]>();
-  for (const b of records.brands) if (b.decision === "manufacturer" && b.manufacturer) brandsByMaker.set(b.manufacturer, [...(brandsByMaker.get(b.manufacturer) ?? []), b.brand]);
+  for (const b of records.brands)
+    if (b.decision === "manufacturer" && b.manufacturer)
+      brandsByMaker.set(b.manufacturer, [...(brandsByMaker.get(b.manufacturer) ?? []), b.brand]);
   const feedRows = readFeeds().flatMap(({ feed, models }) =>
-    attachMakers(models, records.manufacturers.map((m) => ({ id: m.id, name: m.name, aliases: brandsByMaker.get(m.id) ?? [] }))).map((m) => ({ feed, model: m })),
+    attachMakers(
+      models,
+      records.manufacturers.map((m) => ({
+        id: m.id,
+        name: m.name,
+        aliases: brandsByMaker.get(m.id) ?? [],
+      })),
+    ).map((m) => ({ feed, model: m })),
   );
 
   const V = "VARCHAR" as const;
@@ -53,56 +63,120 @@ export function tables(records: Records): Table[] {
     {
       name: "dialects",
       columns: [
-        col("id"), col("manufacturer"), col("family"), col("driver_status"), col("driver_id"), col("driver_note"), col("confidence"), col("refuter"),
-        col("confidence_note"), col("cross_reference"), col("transport"), col("blocks"), col("shared_map_evidence"),
-        col("refuted_on_review"), col("shared_map_claim_dropped", "BOOLEAN"), col("downgraded_on_review"), col("unmapped_reports"),
-        col("refiled_from"), col("possible_duplicate", "BOOLEAN"),
+        col("id"),
+        col("manufacturer"),
+        col("family"),
+        col("driver_status"),
+        col("driver_id"),
+        col("driver_note"),
+        col("confidence"),
+        col("refuter"),
+        col("confidence_note"),
+        col("cross_reference"),
+        col("transport"),
+        col("blocks"),
+        col("shared_map_evidence"),
+        col("refuted_on_review"),
+        col("shared_map_claim_dropped", "BOOLEAN"),
+        col("downgraded_on_review"),
+        col("unmapped_reports"),
+        col("refiled_from"),
+        col("possible_duplicate", "BOOLEAN"),
       ],
       rows: dialects,
     },
     {
       name: "dialect_sources",
       columns: [col("dialect_id"), col("position", "INTEGER"), col("source_id"), col("citation")],
-      rows: records.dialects.flatMap((d) => d.sources.map((c, i) => ({ dialect_id: d.id, position: i, source_id: c.source, citation: c.citation }))),
+      rows: records.dialects.flatMap((d) =>
+        d.sources.map((c, i) => ({
+          dialect_id: d.id,
+          position: i,
+          source_id: c.source,
+          citation: c.citation,
+        })),
+      ),
     },
     {
       name: "dialect_models",
-      columns: [col("dialect_id"), col("position", "INTEGER"), col("name"), col("tier"), col("rating"), col("sold_by"), col("notes")],
+      columns: [
+        col("dialect_id"),
+        col("position", "INTEGER"),
+        col("name"),
+        col("tier"),
+        col("rating"),
+        col("sold_by"),
+        col("notes"),
+      ],
       rows: records.dialects.flatMap((d) =>
-        (d.models ?? []).map((m, i) => ({ dialect_id: d.id, position: i, name: m.name, tier: m.tier, rating: m.rating, sold_by: m.soldBy, notes: m.notes })),
+        (d.models ?? []).map((m, i) => ({
+          dialect_id: d.id,
+          position: i,
+          name: m.name,
+          tier: m.tier,
+          rating: m.rating,
+          sold_by: m.soldBy,
+          notes: m.notes,
+        })),
       ),
     },
     {
       name: "dialect_kinds",
       columns: [col("dialect_id"), col("direction"), col("position", "INTEGER"), col("kind")],
       rows: records.dialects.flatMap((d) => [
-        ...(d.reports ?? []).map((k, i) => ({ dialect_id: d.id, direction: "reports", position: i, kind: k })),
-        ...(d.accepts ?? []).map((k, i) => ({ dialect_id: d.id, direction: "accepts", position: i, kind: k })),
+        ...(d.reports ?? []).map((k, i) => ({
+          dialect_id: d.id,
+          direction: "reports",
+          position: i,
+          kind: k,
+        })),
+        ...(d.accepts ?? []).map((k, i) => ({
+          dialect_id: d.id,
+          direction: "accepts",
+          position: i,
+          kind: k,
+        })),
       ]),
     },
     {
       name: "dialect_gotchas",
       columns: [col("dialect_id"), col("position", "INTEGER"), col("text")],
-      rows: records.dialects.flatMap((d) => (d.gotchas ?? []).map((g, i) => ({ dialect_id: d.id, position: i, text: g }))),
+      rows: records.dialects.flatMap((d) =>
+        (d.gotchas ?? []).map((g, i) => ({ dialect_id: d.id, position: i, text: g })),
+      ),
     },
     {
       name: "dialect_see_also",
       columns: [col("dialect_id"), col("other_id")],
-      rows: records.dialects.flatMap((d) => (d.seeAlso ?? []).map((o) => ({ dialect_id: d.id, other_id: o }))),
+      rows: records.dialects.flatMap((d) =>
+        (d.seeAlso ?? []).map((o) => ({ dialect_id: d.id, other_id: o })),
+      ),
     },
     {
       name: "manufacturers",
       // `logo` is the address of a copy, not the image. A mark is a trademark rather than a work
       // this licence can give away, so `logo_from` says who published it and `logo_source` where it
       // was fetched, and anybody who needs different terms can go to the maker.
-      columns: [col("id"), col("name"), col("website"), col("country"), col("notes"), col("logo"), col("logo_widths"), col("logo_from"), col("logo_source")],
+      columns: [
+        col("id"),
+        col("name"),
+        col("website"),
+        col("country"),
+        col("notes"),
+        col("logo"),
+        col("logo_widths"),
+        col("logo_from"),
+        col("logo_source"),
+      ],
       rows: records.manufacturers.map((m) => ({
         id: m.id,
         name: m.name,
         website: m.website,
         country: m.country,
         notes: m.notes,
-        logo: m.logo ? `${LOGO_BASE}/${logoKey(m.id, m.logo.widths[m.logo.widths.length - 1])}` : undefined,
+        logo: m.logo
+          ? `${LOGO_BASE}/${logoKey(m.id, m.logo.widths[m.logo.widths.length - 1])}`
+          : undefined,
         logo_widths: m.logo?.widths.join(" "),
         logo_from: m.logo?.from,
         logo_source: m.logo?.source,
@@ -111,27 +185,89 @@ export function tables(records: Records): Table[] {
     {
       name: "manufacturer_domains",
       columns: [col("manufacturer_id"), col("domain")],
-      rows: records.manufacturers.flatMap((m) => m.domains.map((domain) => ({ manufacturer_id: m.id, domain }))),
+      rows: records.manufacturers.flatMap((m) =>
+        m.domains.map((domain) => ({ manufacturer_id: m.id, domain })),
+      ),
     },
     {
       name: "brands",
-      columns: [col("id"), col("brand"), col("decision"), col("manufacturer_id"), col("reason"), col("listings", "INTEGER"), col("in_scope", "INTEGER"), col("seen_at"), col("checked_at"), col("reviewed_by")],
+      columns: [
+        col("id"),
+        col("brand"),
+        col("decision"),
+        col("manufacturer_id"),
+        col("reason"),
+        col("listings", "INTEGER"),
+        col("in_scope", "INTEGER"),
+        col("seen_at"),
+        col("checked_at"),
+        col("reviewed_by"),
+      ],
       rows: records.brands.map((b) => ({
-        id: b.id, brand: b.brand, decision: b.decision, manufacturer_id: b.manufacturer, reason: b.reason,
-        listings: b.evidence.listings, in_scope: b.evidence.inScope, seen_at: b.evidence.seenAt, checked_at: b.checkedAt, reviewed_by: b.reviewedBy,
+        id: b.id,
+        brand: b.brand,
+        decision: b.decision,
+        manufacturer_id: b.manufacturer,
+        reason: b.reason,
+        listings: b.evidence.listings,
+        in_scope: b.evidence.inScope,
+        seen_at: b.evidence.seenAt,
+        checked_at: b.checkedAt,
+        reviewed_by: b.reviewedBy,
       })),
     },
     {
       name: "brand_sellers",
       columns: [col("brand_id"), col("seller")],
-      rows: records.brands.flatMap((b) => b.evidence.sellers.map((seller) => ({ brand_id: b.id, seller }))),
+      rows: records.brands.flatMap((b) =>
+        b.evidence.sellers.map((seller) => ({ brand_id: b.id, seller })),
+      ),
     },
     {
       name: "models",
-      columns: [col("id"), col("tier"), col("source_feed"), col("manufacturer_id"), col("manufacturer_name"), col("name"), col("kind"), col("variant"), col("family"), col("checked_at"), col("reviewed_by"), col("basis")],
+      columns: [
+        col("id"),
+        col("tier"),
+        col("source_feed"),
+        col("manufacturer_id"),
+        col("manufacturer_name"),
+        col("name"),
+        col("kind"),
+        col("variant"),
+        col("family"),
+        col("checked_at"),
+        col("reviewed_by"),
+        col("basis"),
+      ],
       rows: [
-        ...records.models.map((m) => ({ id: m.id, tier: "reviewed", source_feed: undefined, manufacturer_id: m.manufacturer, manufacturer_name: undefined, name: m.name, kind: m.kind, variant: m.variant, family: m.family, checked_at: m.checkedAt, reviewed_by: m.reviewedBy, basis: m.basis })),
-        ...feedRows.map(({ feed, model }) => ({ id: model.id, tier: "feed", source_feed: feed.id, manufacturer_id: model.manufacturer, manufacturer_name: model.manufacturerName, name: model.name, kind: model.kind, variant: undefined, family: undefined, checked_at: feed.retrievedAt, reviewed_by: undefined, basis: undefined })),
+        ...records.models.map((m) => ({
+          id: m.id,
+          tier: "reviewed",
+          source_feed: undefined,
+          manufacturer_id: m.manufacturer,
+          manufacturer_name: undefined,
+          name: m.name,
+          kind: m.kind,
+          variant: m.variant,
+          family: m.family,
+          checked_at: m.checkedAt,
+          reviewed_by: m.reviewedBy,
+          basis: m.basis,
+        })),
+        ...feedRows.map(({ feed, model }) => ({
+          id: model.id,
+          tier: "feed",
+          source_feed: feed.id,
+          manufacturer_id: model.manufacturer,
+          manufacturer_name: model.manufacturerName,
+          name: model.name,
+          kind: model.kind,
+          variant: undefined,
+          family: undefined,
+          checked_at: feed.retrievedAt,
+          reviewed_by: undefined,
+          basis: undefined,
+        })),
       ],
     },
     {
@@ -142,40 +278,123 @@ export function tables(records: Records): Table[] {
     {
       name: "model_dialects",
       columns: [col("model_id"), col("dialect_id")],
-      rows: records.models.flatMap((m) => m.dialects.map((dialect_id) => ({ model_id: m.id, dialect_id }))),
+      rows: records.models.flatMap((m) =>
+        m.dialects.map((dialect_id) => ({ model_id: m.id, dialect_id })),
+      ),
     },
     {
       name: "specs",
-      columns: [col("id"), col("tier"), col("model_id"), col("name"), col("english"), col("value"), col("unit"), col("conditions"), col("source_id"), col("page", "INTEGER"), col("confidence"), col("extracted_by"), col("reviewed_by"), col("doubt")],
+      columns: [
+        col("id"),
+        col("tier"),
+        col("model_id"),
+        col("name"),
+        col("english"),
+        col("value"),
+        col("unit"),
+        col("conditions"),
+        col("source_id"),
+        col("page", "INTEGER"),
+        col("confidence"),
+        col("extracted_by"),
+        col("reviewed_by"),
+        col("doubt"),
+      ],
       rows: [
         // `doubt` says why a figure would not be trusted for sizing anything, so a reader does
         // not have to work it out and a clean figure is visibly clean.
         // `english` carries the aligned name when a maker printed the figure in another language, so a
         // reader can group a French sheet's "Capacité de batterie" with an English one's.
-        ...records.specs.map((s) => ({ id: s.id, tier: "reviewed", model_id: s.model, name: s.name, english: s.english, value: s.value, unit: s.unit, conditions: s.conditions, source_id: s.source, page: s.page, confidence: s.confidence, extracted_by: s.extractedBy, reviewed_by: s.reviewedBy, doubt: figureConcerns(s).join("; ") || undefined })),
+        ...records.specs.map((s) => ({
+          id: s.id,
+          tier: "reviewed",
+          model_id: s.model,
+          name: s.name,
+          english: s.english,
+          value: s.value,
+          unit: s.unit,
+          conditions: s.conditions,
+          source_id: s.source,
+          page: s.page,
+          confidence: s.confidence,
+          extracted_by: s.extractedBy,
+          reviewed_by: s.reviewedBy,
+          doubt: figureConcerns(s).join("; ") || undefined,
+        })),
         ...feedRows.flatMap(({ feed, model }) =>
           model.specs.map((spec, i) => ({
-            id: `${model.id}--${String(i).padStart(2, "0")}-${spec.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`.slice(0, 180),
-            tier: "feed", model_id: model.id, name: spec.name, english: undefined, value: spec.value, unit: canonicalUnit(spec.unit) ?? spec.unit, conditions: undefined,
-            source_id: feed.id, page: undefined,
+            id: `${model.id}--${String(i).padStart(2, "0")}-${spec.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`.slice(
+              0,
+              180,
+            ),
+            tier: "feed",
+            model_id: model.id,
+            name: spec.name,
+            english: undefined,
+            value: spec.value,
+            unit: canonicalUnit(spec.unit) ?? spec.unit,
+            conditions: undefined,
+            source_id: feed.id,
+            page: undefined,
             // A public dataset's own figure, stated with its unit. Nobody here read it out of a
             // document, so nothing extracted it and nobody has confirmed it either.
-            confidence: "vendor-doc", extracted_by: undefined, reviewed_by: undefined,
-            doubt: figureConcerns({ name: spec.name, value: spec.value, unit: canonicalUnit(spec.unit) }).join("; ") || undefined,
+            confidence: "vendor-doc",
+            extracted_by: undefined,
+            reviewed_by: undefined,
+            doubt:
+              figureConcerns({
+                name: spec.name,
+                value: spec.value,
+                unit: canonicalUnit(spec.unit),
+              }).join("; ") || undefined,
           })),
         ),
       ],
     },
     {
       name: "feeds",
-      columns: [col("id"), col("title"), col("publisher"), col("license"), col("retrieved_at"), col("models", "INTEGER"), col("figures", "INTEGER")],
-      rows: readFeeds().map(({ feed, models }) => ({ id: feed.id, title: feed.title, publisher: feed.publisher, license: feed.license, retrieved_at: feed.retrievedAt, models: models.length, figures: models.reduce((n, m) => n + m.specs.length, 0) })),
+      columns: [
+        col("id"),
+        col("title"),
+        col("publisher"),
+        col("license"),
+        col("retrieved_at"),
+        col("models", "INTEGER"),
+        col("figures", "INTEGER"),
+      ],
+      rows: readFeeds().map(({ feed, models }) => ({
+        id: feed.id,
+        title: feed.title,
+        publisher: feed.publisher,
+        license: feed.license,
+        retrieved_at: feed.retrievedAt,
+        models: models.length,
+        figures: models.reduce((n, m) => n + m.specs.length, 0),
+      })),
     },
     {
       name: "sources",
-      columns: [col("id"), col("url"), col("path"), col("title"), col("publisher"), col("revision"), col("sha256"), col("retrieved_at"), col("redistributable", "BOOLEAN")],
+      columns: [
+        col("id"),
+        col("url"),
+        col("path"),
+        col("title"),
+        col("publisher"),
+        col("revision"),
+        col("sha256"),
+        col("retrieved_at"),
+        col("redistributable", "BOOLEAN"),
+      ],
       rows: records.sources.map((s) => ({
-        id: s.id, url: s.url, path: s.path, title: s.title, publisher: s.publisher, revision: s.revision, sha256: s.sha256, retrieved_at: s.retrievedAt, redistributable: s.redistributable,
+        id: s.id,
+        url: s.url,
+        path: s.path,
+        title: s.title,
+        publisher: s.publisher,
+        revision: s.revision,
+        sha256: s.sha256,
+        retrieved_at: s.retrievedAt,
+        redistributable: s.redistributable,
       })),
     },
   ];

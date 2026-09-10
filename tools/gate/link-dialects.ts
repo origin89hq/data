@@ -1,6 +1,6 @@
-import { loadRecords, writeRecord, RECORDS_DIR } from "../../src/records.ts";
-import { Model } from "../../schema/model.ts";
+import { Model } from "@origin89/equipment-schema/model";
 import { looksLikeModelName, modelId, normaliseModelName, productKey } from "../../src/models.ts";
+import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 
 /**
  * Join the protocol catalogue to the equipment it describes.
@@ -28,7 +28,8 @@ const addModels = args.includes("--mint");
 
 const records = loadRecords();
 const makerName = new Map(records.manufacturers.map((m) => [m.id, m.name]));
-const key = (maker: string, name: string) => `${maker}|${productKey(makerName.get(maker) ?? maker, name)}`;
+const key = (maker: string, name: string) =>
+  `${maker}|${productKey(makerName.get(maker) ?? maker, name)}`;
 
 const byKey = new Map<string, string>();
 for (const model of records.models) {
@@ -82,10 +83,16 @@ for (const dialect of records.dialects) {
       modelIdentifier = id;
     }
     if (!modelIdentifier) {
-      unmatched.set(`${dialect.manufacturer}: ${head}`, (unmatched.get(`${dialect.manufacturer}: ${head}`) ?? 0) + 1);
+      unmatched.set(
+        `${dialect.manufacturer}: ${head}`,
+        (unmatched.get(`${dialect.manufacturer}: ${head}`) ?? 0) + 1,
+      );
       continue;
     }
-    dialectLinks.set(modelIdentifier, (dialectLinks.get(modelIdentifier) ?? new Set()).add(dialect.id));
+    dialectLinks.set(
+      modelIdentifier,
+      (dialectLinks.get(modelIdentifier) ?? new Set()).add(dialect.id),
+    );
     linked += 1;
   }
 }
@@ -96,16 +103,26 @@ for (const model of records.models) {
   const found = dialectLinks.get(model.id);
   if (!found) continue;
   const dialects = [...new Set([...model.dialects, ...found])].sort();
-  if (dialects.length === model.dialects.length && dialects.every((d, i) => d === model.dialects[i])) continue;
+  if (
+    dialects.length === model.dialects.length &&
+    dialects.every((d, i) => d === model.dialects[i])
+  )
+    continue;
   if (!dryRun) writeRecord(RECORDS_DIR, "models", model.id, Model.parse({ ...model, dialects }));
   touched += 1;
 }
 
-console.log(`${linked} model entries linked to a record${dryRun ? " (dry run, nothing written)" : ""}`);
-if (minted) console.log(`  ${minted} models minted, named by the catalogue and absent from the model table`);
+console.log(
+  `${linked} model entries linked to a record${dryRun ? " (dry run, nothing written)" : ""}`,
+);
+if (minted)
+  console.log(`  ${minted} models minted, named by the catalogue and absent from the model table`);
 if (unmatched.size) {
-  console.log(`  ${unmatched.size} names the catalogue states and the model table lacks, for review:`);
-  for (const [name, n] of [...unmatched].sort((a, b) => b[1] - a[1]).slice(0, 12)) console.log(`      ${n}x  ${name}`);
+  console.log(
+    `  ${unmatched.size} names the catalogue states and the model table lacks, for review:`,
+  );
+  for (const [name, n] of [...unmatched].sort((a, b) => b[1] - a[1]).slice(0, 12))
+    console.log(`      ${n}x  ${name}`);
 }
 console.log(`  ${touched} models now point at a dialect`);
 console.log(`  ${prose} entries are prose rather than a name, and stay as the note they are`);

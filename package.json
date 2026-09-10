@@ -19,13 +19,24 @@
     "models": "node tools/gate/models.ts",
     "models:push": "node tools/gate/push-models.ts",
     "models:kinds": "node tools/gate/pull-kinds.ts",
-    "specs:pull": "node tools/gate/pull-specs.ts"
+    "specs:pull": "node tools/gate/pull-specs.ts",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "lint": "biome ci . --error-on-warnings",
+    "lint:fix": "biome check --write .",
+    "typecheck": "pnpm --filter offgrid-equipment-site check && pnpm --filter offgrid-equipment-worker check",
+    "test:apps": "pnpm --filter offgrid-equipment-worker test",
+    "build:site": "pnpm --filter offgrid-equipment-site build",
+    "check": "pnpm lint && pnpm test && pnpm test:apps && pnpm typecheck && pnpm validate && pnpm build:site && pnpm build:repeat",
+    "build:repeat": "node tools/build-repeat.ts"
   },
-  "packageManager": "pnpm@11.1.3",
+  "packageManager": "pnpm@12.3.4",
   "dependencies": {
-    "zod": "4"
+    "zod": "4",
+    "@origin89/equipment-schema": "workspace:*"
   },
   "devDependencies": {
-    "sharp": "^0.35.4"
+    "sharp": "0.35.4",
+    "@biomejs/biome": "2.5.13"
   }
 }

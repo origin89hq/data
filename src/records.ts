@@ -1,12 +1,12 @@
-import { readdirSync, readFileSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { Dialect } from "../schema/dialect.ts";
-import { Family } from "../schema/family.ts";
-import { Source } from "../schema/source.ts";
-import { Manufacturer } from "../schema/manufacturer.ts";
-import { Brand } from "../schema/brand.ts";
-import { Model, Spec } from "../schema/model.ts";
-import { Family as FamilyId } from "../schema/enums.ts";
+import { Brand } from "@origin89/equipment-schema/brand";
+import { Dialect } from "@origin89/equipment-schema/dialect";
+import { Family as FamilyId } from "@origin89/equipment-schema/enums";
+import { Family } from "@origin89/equipment-schema/family";
+import { Manufacturer } from "@origin89/equipment-schema/manufacturer";
+import { Model, Spec } from "@origin89/equipment-schema/model";
+import { Source } from "@origin89/equipment-schema/source";
 
 export const RECORDS_DIR = new URL("../records/", import.meta.url).pathname;
 
@@ -29,7 +29,9 @@ export interface Located<T> {
 /** Read every record and parse it against its schema. A file that fails its schema stops the load with its path. */
 export function loadRecords(dir = RECORDS_DIR): Records {
   const families = readJsonDir(join(dir, "families"), Family);
-  const dialects = FamilyId.options.flatMap((family) => readJsonDir(join(dir, "dialects", family), Dialect));
+  const dialects = FamilyId.options.flatMap((family) =>
+    readJsonDir(join(dir, "dialects", family), Dialect),
+  );
   const sources = readJsonDir(join(dir, "sources"), Source);
   const manufacturers = readJsonDir(join(dir, "manufacturers"), Manufacturer);
   const brands = readJsonDir(join(dir, "brands"), Brand);
@@ -41,7 +43,9 @@ export function loadRecords(dir = RECORDS_DIR): Records {
 function readJsonDir<T>(dir: string, schema: { parse(value: unknown): T }): T[] {
   let names: string[];
   try {
-    names = readdirSync(dir).filter((n) => n.endsWith(".json")).sort();
+    names = readdirSync(dir)
+      .filter((n) => n.endsWith(".json"))
+      .sort();
   } catch {
     return [];
   }
@@ -51,7 +55,8 @@ function readJsonDir<T>(dir: string, schema: { parse(value: unknown): T }): T[] 
     try {
       const record = schema.parse(raw);
       const id = (record as { id?: string }).id;
-      if (id !== undefined && `${id}.json` !== name) throw new Error(`id ${JSON.stringify(id)} does not match filename`);
+      if (id !== undefined && `${id}.json` !== name)
+        throw new Error(`id ${JSON.stringify(id)} does not match filename`);
       return record;
     } catch (error) {
       throw new Error(`${path}: ${error instanceof Error ? error.message : String(error)}`);
@@ -67,8 +72,23 @@ export function writeRecord(dir: string, kind: string, id: string, value: unknow
 }
 
 /** The record kinds, each its own directory. A writer names the ones it owns and leaves the rest alone. */
-export type Kind = "families" | "dialects" | "sources" | "manufacturers" | "brands" | "models" | "specs";
-export const KINDS: Kind[] = ["families", "dialects", "sources", "manufacturers", "brands", "models", "specs"];
+export type Kind =
+  | "families"
+  | "dialects"
+  | "sources"
+  | "manufacturers"
+  | "brands"
+  | "models"
+  | "specs";
+export const KINDS: Kind[] = [
+  "families",
+  "dialects",
+  "sources",
+  "manufacturers",
+  "brands",
+  "models",
+  "specs",
+];
 
 /**
  * Replace whole record kinds from `records`. Only the kinds in `replace` are touched: the
@@ -79,15 +99,31 @@ export function writeRecords(records: Records, dir = RECORDS_DIR, replace: Kind[
   for (const sub of replace) rmSync(join(dir, sub), { recursive: true, force: true });
   const write = <T>(kind: Kind, items: T[], id: (item: T) => string, sub?: (item: T) => string) => {
     if (!replace.includes(kind)) return;
-    for (const item of items) writeJson(join(dir, kind, ...(sub ? [sub(item)] : []), `${id(item)}.json`), item);
+    for (const item of items)
+      writeJson(join(dir, kind, ...(sub ? [sub(item)] : []), `${id(item)}.json`), item);
   };
   write("families", records.families, (f) => f.id);
-  write("dialects", records.dialects, (d) => d.id, (d) => d.family);
+  write(
+    "dialects",
+    records.dialects,
+    (d) => d.id,
+    (d) => d.family,
+  );
   write("sources", records.sources, (s) => s.id);
   write("manufacturers", records.manufacturers, (m) => m.id);
   write("brands", records.brands, (b) => b.id);
-  write("models", records.models, (m) => m.id, (m) => m.manufacturer);
-  write("specs", records.specs, (s) => s.id, (s) => s.model);
+  write(
+    "models",
+    records.models,
+    (m) => m.id,
+    (m) => m.manufacturer,
+  );
+  write(
+    "specs",
+    records.specs,
+    (s) => s.id,
+    (s) => s.model,
+  );
 }
 
 function writeJson(path: string, value: unknown): void {

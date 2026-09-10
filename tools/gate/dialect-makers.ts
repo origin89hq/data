@@ -1,7 +1,7 @@
 import { writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { Dialect } from "@origin89/equipment-schema/dialect";
 import { loadRecords, RECORDS_DIR } from "../../src/records.ts";
-import { Dialect } from "../../schema/dialect.ts";
 
 /**
  * Put the maker on each dialect, so a protocol can be joined to a product.
@@ -24,7 +24,9 @@ function makerOf(id: string): string | undefined {
   // is still named, right behind it: unknown-epever-duoracer is EPEver's.
   const dialectId = id.startsWith("unknown-") ? id.slice("unknown-".length) : id;
   // Longest wins, so "eg4-electronics" beats "eg4" where both exist.
-  const exact = makers.filter((id) => dialectId === id || dialectId.startsWith(`${id}-`)).sort((a, b) => b.length - a.length)[0];
+  const exact = makers
+    .filter((id) => dialectId === id || dialectId.startsWith(`${id}-`))
+    .sort((a, b) => b.length - a.length)[0];
   if (exact) return exact;
   const head = dialectId.split("-")[0] ?? "";
   if (ALIASES[head]) return ALIASES[head];
@@ -49,11 +51,19 @@ for (const dialect of records.dialects) {
   // stray files beside the directories they belonged in.
   if (!dryRun) {
     const updated = Dialect.parse({ ...dialect, manufacturer });
-    writeFileSync(join(RECORDS_DIR, "dialects", dialect.family, `${dialect.id}.json`), `${JSON.stringify(updated, null, 2)}\n`);
+    writeFileSync(
+      join(RECORDS_DIR, "dialects", dialect.family, `${dialect.id}.json`),
+      `${JSON.stringify(updated, null, 2)}\n`,
+    );
   }
   named += 1;
 }
 
 console.log(`${named} dialects given a manufacturer${dryRun ? " (dry run, nothing written)" : ""}`);
 console.log(`${absent} left without one, naming companies this repo holds no record for:`);
-console.log(`  ${[...unheld].sort((a, b) => b[1] - a[1]).map(([head, n]) => `${head} ${n}`).join(", ")}`);
+console.log(
+  `  ${[...unheld]
+    .sort((a, b) => b[1] - a[1])
+    .map(([head, n]) => `${head} ${n}`)
+    .join(", ")}`,
+);

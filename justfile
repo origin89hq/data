@@ -14,103 +14,106 @@ _default:
 
 # What is waiting at the gate, most in-scope listings first.
 gate *args:
-    node tools/gate/decide.ts list {{args}}
+    node tools/gate/decide.ts list "$@"
 
 # One brand with all its evidence.
 show brand:
-    node tools/gate/decide.ts show {{brand}}
+    node tools/gate/decide.ts show "$@"
 
 # This brand is made by that company, and why. The basis is not optional.
 is brand maker *basis:
-    node tools/gate/decide.ts is {{brand}} {{maker}} {{basis}}
+    node tools/gate/decide.ts is "$@"
 
 # Not equipment this database covers, and why.
 skip brand *reason:
-    node tools/gate/decide.ts skip {{brand}} {{reason}}
+    node tools/gate/decide.ts skip "$@"
 
 # Add a manufacturer. Its domains are what hop two may crawl.
 maker id name website="" *domains:
-    node tools/gate/decide.ts maker {{id}} {{name}} {{website}} {{domains}}
+    node tools/gate/decide.ts maker "$@"
 
 # ---- records from crawls ----
 
 # Fold crawls into the brand queue. Decides nothing.
 queue date +sellers:
-    node tools/gate/queue.ts {{date}} {{sellers}}
+    node tools/gate/queue.ts "$@"
 
 # Derive model records from crawls whose brands the gate has answered.
 models date +sellers:
-    node tools/gate/models.ts {{date}} {{sellers}}
+    node tools/gate/models.ts "$@"
 
 # Fold the records that are one product filed several times into one.
 merge *args:
-    node tools/gate/merge-models.ts {{args}}
+    node tools/gate/merge-models.ts "$@"
 
 # Fold the classifier's answers onto models that have no kind.
 kinds *args:
-    node tools/gate/pull-kinds.ts {{args}}
+    node tools/gate/pull-kinds.ts "$@"
 
 # Write spec records from a maker's readings.
 specs maker date *args:
-    node tools/gate/pull-specs.ts {{maker}} {{date}} {{args}}
+    node tools/gate/pull-specs.ts "$@"
 
 # ---- the spider ----
 
 # Run the Worker locally, with a local R2 and the AI binding proxied to Cloudflare.
 dev:
-    cd worker && pnpm exec wrangler dev --port 8790
+    cd apps/worker && pnpm exec wrangler dev --port 8790
 
 # Crawl one seller.
 crawl seller date="" *args:
-    @just _post "/run?seller={{seller}}&date={{date}}{{args}}"
+    @just _post "/run?seller=$1&date=$2$3"
 
 # Classify a finished crawl. Listings already answered cost nothing.
 classify seller date:
-    @just _post "/classify?seller={{seller}}&date={{date}}"
+    @just _post "/classify?seller=$1&date=$2"
 
 # Find what documents a maker publishes. Downloads nothing until approved.
 discover maker domains date pages="120":
-    @just _post "/maker?id={{maker}}&domains={{domains}}&date={{date}}&pages={{pages}}"
+    @just _post "/maker?id=$1&domains=$2&date=$3&pages=$4"
 
 # Read a maker's discovery plan before approving it.
 plan maker date:
-    @just _get "/archive?prefix=documents/{{maker}}/{{date}}/plan.json"
+    @just _get "/archive?prefix=documents/$1/$2/plan.json"
 
 # Let the download start. Silence is a refusal, so this is the only way it runs.
 approve maker date approver limit="40":
-    @just _post_json "/approve?maker={{maker}}&date={{date}}" '{"approved":true,"approvedBy":"{{approver}}","limit":{{limit}}}'
+    #!/usr/bin/env bash
+    set -euo pipefail
+    approval_json=$(node -e 'const limit=Number(process.argv[2]); if (!Number.isSafeInteger(limit) || limit < 0) throw new Error("Invalid download limit"); console.log(JSON.stringify({approved:true,approvedBy:process.argv[1],limit}))' "$3" "$4")
+    just _post_json "/approve?maker=$1&date=$2" "$approval_json"
 
 # Convert a maker's approved documents; each one enqueues its own reading.
 convert maker date:
-    @just _post "/convert?id={{maker}}&date={{date}}"
+    @just _post "/convert?id=$1&date=$2"
 
 # Draw and read the pages of a maker's documents that converted to no text. The supervisor does this daily.
 vision maker date:
-    @just _post "/vision?id={{maker}}&date={{date}}"
+    @just _post "/vision?id=$1&date=$2"
 
 # Build the site the Worker serves.
 site:
-    cd site && pnpm build
+    cd apps/site && pnpm build
 
 # ---- logos ----
 
 # Find a logo for every maker: its own site first, a shop's brand page where that fails.
 logos *args:
-    node tools/logos/gather.ts {{args}}
+    node tools/logos/gather.ts "$@"
 
 # Put the gathered logos in the archive, where the Worker serves them without a token.
 logos-upload *args:
-    node tools/logos/upload.ts {{args}}
+    node tools/logos/upload.ts "$@"
 
 # Publish the built tables to data.origin89.com, where anybody can fetch them.
 publish *args:
-    node tools/dataset/publish.ts {{args}}
+    node tools/dataset/publish.ts "$@"
 
 # ---- feeds ----
 
 # Check the pinned SAM libraries against upstream. Reports a change, never takes it.
 sync-sam *args:
-    node tools/feeds/sync-sam.ts {{args}}
+    node tools/feeds/sync-sam.ts "$@"
 
 # Take the change, after reading what it moved.
 sync-sam-accept:
@@ -118,28 +121,34 @@ sync-sam-accept:
 
 # ---- the gate before a commit ----
 
-# Everything CI runs.
-check: test validate build-twice
+# All required offline checks.
+check:
+    pnpm check
+
+fmt:
+    pnpm format
+
+fmt-check:
+    pnpm format:check
+
+lint:
+    pnpm lint
+
+typecheck:
+    pnpm typecheck
 
 test:
-    node --test test/*.test.ts
-    cd worker && pnpm test
-    cd worker && pnpm exec wrangler types && pnpm exec tsc --noEmit
+    pnpm test
+    pnpm test:apps
 
-# Every record against its schema, then every reference between them.
 validate:
-    node src/validate.ts
+    pnpm validate
 
-# The artefacts, and proof two builds of the same records are the same bytes.
 build-twice:
-    node src/build.ts
-    sha256sum dist/* | sort > /tmp/offgrid-build-1
-    node src/build.ts > /dev/null
-    sha256sum dist/* | sort > /tmp/offgrid-build-2
-    diff /tmp/offgrid-build-1 /tmp/offgrid-build-2
+    pnpm build:repeat
 
 build:
-    node src/build.ts
+    pnpm build
 
 # ---- deployment ----
 
@@ -151,24 +160,24 @@ _url:
     @echo "${OFFGRID_BASE_URL:-http://localhost:8790}"
 
 _token:
-    @if [ -n "$OFFGRID_CONTROL_TOKEN" ]; then echo "$OFFGRID_CONTROL_TOKEN"; else sed -n 's/^CONTROL_TOKEN=//p' worker/.dev.vars; fi
+    @if [ -n "$OFFGRID_CONTROL_TOKEN" ]; then echo "$OFFGRID_CONTROL_TOKEN"; else sed -n 's/^CONTROL_TOKEN=//p' apps/worker/.dev.vars; fi
 
 _get path:
-    @curl -fsS "$(just _url){{path}}" -H "authorization: Bearer $(just _token)"
+    @curl --connect-timeout 10 --max-time 30 -fsS "$(just _url)$1" -H "authorization: Bearer $(just _token)"
 
 _post path:
-    @curl -fsS -X POST "$(just _url){{path}}" -H "authorization: Bearer $(just _token)"
+    @curl --connect-timeout 10 --max-time 30 -fsS -X POST "$(just _url)$1" -H "authorization: Bearer $(just _token)"
 
 _post_json path body:
-    @curl -fsS -X POST "$(just _url){{path}}" -H "authorization: Bearer $(just _token)" -H 'content-type: application/json' -d '{{body}}'
+    @curl --connect-timeout 10 --max-time 30 -fsS -X POST "$(just _url)$1" -H "authorization: Bearer $(just _token)" -H 'content-type: application/json' --data "$2"
 
 # Read a maker's own specification tables. A parser, not a model: nothing to approve, nothing spent.
 spec-pages maker date:
-    @just _post "/spec-pages?id={{maker}}&date={{date}}"
+    @just _post "/spec-pages?id=$1&date=$2"
 
 # What specification pages a maker's own site turned out to publish, from the last discovery.
 spec-pages-found maker date *args:
-    node tools/feeds/adopt-spec-pages.ts {{maker}} {{date}} {{args}}
+    node tools/feeds/adopt-spec-pages.ts "$@"
 
 # Write the manufacturer list the Worker bundles. Run after changing a maker's domains.
 export-makers:
@@ -176,7 +185,7 @@ export-makers:
 
 # Discovery over every maker at once. Reads only what they publish; downloads still wait for you.
 discover-all date pages="150":
-    @just _post "/discover-all?date={{date}}&pages={{pages}}"
+    @just _post "/discover-all?date=$1&pages=$2"
 
 # What this knows, what the spider is waiting on, and what is waiting on you.
 status:
@@ -184,5 +193,9 @@ status:
 
 # Move everything whose precondition is met. Never approves; that stays with you.
 supervise date="":
-    @just _post "/supervise?date={{date}}"
+    @just _post "/supervise?date=$1"
 
+
+# Refresh the shared skills once at the start of a task.
+skills-sync:
+    python3 .origin89/sync-engineering.py

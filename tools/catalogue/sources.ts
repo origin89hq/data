@@ -1,11 +1,15 @@
-import type { Source } from "../../schema/source.ts";
+import type { Source } from "@origin89/equipment-schema/source";
 
 /** Where a citation points. `none` is a source cited by title alone, which a reviewer has to locate. */
-export type Locator = { kind: "url"; url: string } | { kind: "path"; path: string } | { kind: "none" };
+export type Locator =
+  | { kind: "url"; url: string }
+  | { kind: "path"; path: string }
+  | { kind: "none" };
 
-const URL_RE = /https?:\/\/[^\s<>()\[\]"']+/;
+const URL_RE = /https?:\/\/[^\s<>()[\]"']+/;
 /** A file in a repository tree: `docs/x.pdf`, `crates/.../x.rs`, or either behind the absolute prefix of the earlier `solar` checkout. */
-const PATH_RE = /(?:^|[\s(])(?:\/Users\/[\w.-]+\/dev\/\w+\/)?((?:docs|crates)\/[\w.\-/]+\.(?:pdf|zip|txt|md|xlsx|csv|json|html|rs))/;
+const PATH_RE =
+  /(?:^|[\s(])(?:\/Users\/[\w.-]+\/dev\/\w+\/)?((?:docs|crates)\/[\w.\-/]+\.(?:pdf|zip|txt|md|xlsx|csv|json|html|rs))/;
 
 export function locatorOf(citation: string): Locator {
   const url = URL_RE.exec(citation);
@@ -40,12 +44,21 @@ export class SourceTable {
 
   idFor(citation: string): string {
     const locator = locatorOf(citation);
-    const key = locator.kind === "url" ? `url:${locator.url}` : locator.kind === "path" ? `path:${locator.path}` : `text:${citation}`;
+    const key =
+      locator.kind === "url"
+        ? `url:${locator.url}`
+        : locator.kind === "path"
+          ? `path:${locator.path}`
+          : `text:${citation}`;
     const existing = this.byKey.get(key);
     if (existing) return existing.id;
     const base =
       locator.kind === "url"
-        ? slug(locator.url.replace(/^https?:\/\/(www\.)?/, "").replace(/\.(pdf|html?|php|aspx?)$/i, ""))
+        ? slug(
+            locator.url
+              .replace(/^https?:\/\/(www\.)?/, "")
+              .replace(/\.(pdf|html?|php|aspx?)$/i, ""),
+          )
         : locator.kind === "path"
           ? slug(locator.path.replace(/^docs\//, "").replace(/\.[a-z]+$/, ""))
           : slug(citation, 60);

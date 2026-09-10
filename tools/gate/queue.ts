@@ -1,8 +1,8 @@
-import { loadRecords, writeRecord, RECORDS_DIR } from "../../src/records.ts";
+import type { Guess } from "@origin89/equipment-schema/guess";
+import type { Sighting } from "@origin89/equipment-schema/sighting";
 import { gatherBrands, mergeBrand } from "../../src/gate.ts";
+import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 import { readCrawl } from "./archive.ts";
-import type { Sighting } from "../../schema/sighting.ts";
-import type { Guess } from "../../schema/guess.ts";
 
 /**
  * Fold one or more crawls into the brand queue. Every brand string a seller printed becomes a
@@ -28,7 +28,9 @@ for (const seller of sellers) {
     process.exit(1);
   }
   if (crawl.missingParts.length) {
-    console.error(`${seller}: ${crawl.missingParts.length} classifier parts are not written yet; the evidence would be short, so refusing`);
+    console.error(
+      `${seller}: ${crawl.missingParts.length} classifier parts are not written yet; the evidence would be short, so refusing`,
+    );
     process.exit(1);
   }
   sightings.push(...crawl.sightings);
@@ -46,6 +48,10 @@ for (const row of found) {
   if (before) refreshed += 1;
   else added += 1;
 }
-const undecided = found.filter((r) => (existing.get(r.id)?.decision ?? "unresolved") === "unresolved");
+const undecided = found.filter(
+  (r) => (existing.get(r.id)?.decision ?? "unresolved") === "unresolved",
+);
 console.log(`\n${found.length} brand strings: ${added} new, ${refreshed} refreshed`);
-console.log(`${undecided.length} waiting at the gate, ${undecided.filter((r) => r.evidence.inScope > 0).length} of them with an in-scope listing`);
+console.log(
+  `${undecided.length} waiting at the gate, ${undecided.filter((r) => r.evidence.inScope > 0).length} of them with an in-scope listing`,
+);

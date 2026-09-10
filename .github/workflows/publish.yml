@@ -9,9 +9,11 @@ on:
     paths:
       - 'records/**'
       - 'feeds/**'
-      - 'schema/**'
+      - 'packages/schema/**'
       - 'src/**'
       - '.github/workflows/publish.yml'
+      - '.github/actions/setup*/**'
+      - 'pnpm-lock.yaml'
   workflow_dispatch:
 permissions:
   contents: read
@@ -34,12 +36,7 @@ jobs:
       # The build writes Parquet through the duckdb CLI, so it has to be here before anything
       # builds or tests. Left out of the first version of this file, which would have failed at
       # the first table.
-      - name: Install the duckdb CLI
-        shell: bash
-        run: |
-          curl -fsSL https://install.duckdb.org | sh
-          echo "$HOME/.duckdb/cli/latest" >> "$GITHUB_PATH"
-      - run: duckdb -c "SELECT 1" > /dev/null
+      - uses: ./.github/actions/setup-duckdb
       # Nothing is published that the records themselves would not survive.
       - run: node src/validate.ts
       - run: node --test test/*.test.ts

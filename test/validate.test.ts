@@ -1,19 +1,35 @@
-import { test } from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, cpSync, writeFileSync, rmSync, readFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { loadRecords, writeRecords, type Records } from "../src/records.ts";
-import { validate } from "../src/validate.ts";
-import { toCsv } from "../src/csv.ts";
+import { test } from "node:test";
 import { build } from "../src/build.ts";
+import { toCsv } from "../src/csv.ts";
+import { loadRecords, type Records, writeRecords } from "../src/records.ts";
+import { validate } from "../src/validate.ts";
 
 function fixture(): Records {
   return {
     families: [{ id: "modbus-rs485", intro: "# T", order: ["a", "b"] }],
     dialects: [
-      { id: "a", family: "modbus-rs485", driver: { status: "possible" }, confidence: "vendor-doc", refuter: "checked", sources: [{ source: "s1", citation: "https://x/1" }], seeAlso: ["b"], models: [{ name: "A1" }] },
-      { id: "b", family: "modbus-rs485", driver: { status: "shipped", id: "d" }, confidence: "unverified", refuter: "not-checked", sources: [{ source: "s1", citation: "https://x/1" }] },
+      {
+        id: "a",
+        family: "modbus-rs485",
+        driver: { status: "possible" },
+        confidence: "vendor-doc",
+        refuter: "checked",
+        sources: [{ source: "s1", citation: "https://x/1" }],
+        seeAlso: ["b"],
+        models: [{ name: "A1" }],
+      },
+      {
+        id: "b",
+        family: "modbus-rs485",
+        driver: { status: "shipped", id: "d" },
+        confidence: "unverified",
+        refuter: "not-checked",
+        sources: [{ source: "s1", citation: "https://x/1" }],
+      },
     ],
     sources: [{ id: "s1", url: "https://x/1" }],
     manufacturers: [],
@@ -67,7 +83,10 @@ test("records written to disk load back equal, and a file whose id disagrees wit
   try {
     writeRecords(fixture(), dir);
     assert.deepEqual(loadRecords(dir), fixture());
-    writeFileSync(join(dir, "sources", "wrong.json"), JSON.stringify({ id: "s9", url: "https://x/9" }));
+    writeFileSync(
+      join(dir, "sources", "wrong.json"),
+      JSON.stringify({ id: "s9", url: "https://x/9" }),
+    );
     assert.throws(() => loadRecords(dir), /does not match filename/);
   } finally {
     rmSync(dir, { recursive: true, force: true });
@@ -79,7 +98,10 @@ test("a record with a field the schema does not know is refused, so a typo canno
   try {
     writeRecords(fixture(), dir);
     const path = join(dir, "dialects", "modbus-rs485", "a.json");
-    writeFileSync(path, JSON.stringify({ ...JSON.parse(readFileSync(path, "utf8")), gotcha: ["singular"] }));
+    writeFileSync(
+      path,
+      JSON.stringify({ ...JSON.parse(readFileSync(path, "utf8")), gotcha: ["singular"] }),
+    );
     assert.throws(() => loadRecords(dir), /gotcha/);
   } finally {
     rmSync(dir, { recursive: true, force: true });
@@ -87,7 +109,16 @@ test("a record with a field the schema does not know is refused, so a typo canno
 });
 
 test("csv quotes commas, quotes and newlines, and writes absent as empty", () => {
-  assert.equal(toCsv(["a", "b"], [{ a: 'x,"y"', b: undefined }, { a: "l1\nl2", b: true }]), 'a,b\n"x,""y""",\n"l1\nl2",true\n');
+  assert.equal(
+    toCsv(
+      ["a", "b"],
+      [
+        { a: 'x,"y"', b: undefined },
+        { a: "l1\nl2", b: true },
+      ],
+    ),
+    'a,b\n"x,""y""",\n"l1\nl2",true\n',
+  );
 });
 
 test("the build refuses invalid records and otherwise emits every table twice with matching row counts", () => {
@@ -96,12 +127,19 @@ test("the build refuses invalid records and otherwise emits every table twice wi
     const bad = fixture();
     bad.dialects[0].seeAlso = ["ghost"];
     assert.throws(() => build(bad, dist), /refusing to build/);
-    const manifest = build(fixture(), dist) as { files: Record<string, { rows?: number; sha256: string }> };
+    const manifest = build(fixture(), dist) as {
+      files: Record<string, { rows?: number; sha256: string }>;
+    };
     assert.equal(manifest.files["dialects.csv"].rows, 2);
     assert.equal(manifest.files["dialects.parquet"].rows, 2);
     assert.equal(manifest.files["dialect_see_also.csv"].rows, 1);
     const again = build(fixture(), dist) as { files: Record<string, { sha256: string }> };
-    for (const [name, f] of Object.entries(manifest.files)) assert.equal(again.files[name].sha256, f.sha256, `${name} changed between two builds of the same records`);
+    for (const [name, f] of Object.entries(manifest.files))
+      assert.equal(
+        again.files[name].sha256,
+        f.sha256,
+        `${name} changed between two builds of the same records`,
+      );
   } finally {
     rmSync(dist, { recursive: true, force: true });
   }

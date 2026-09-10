@@ -42,6 +42,7 @@ export function refuses(page: Candidate, bar: Bar): string | undefined {
   if (page.figures < bar.minFigures) return `only ${page.figures} figures`;
   if (page.withUnit < bar.minWithUnit) return `only ${page.withUnit} figures carry a unit`;
   const notAModel = page.models.find((name) => !looksLikeModelName(name));
-  if (notAModel !== undefined) return `its table is headed ${JSON.stringify(notAModel)}, which is not a model`;
+  if (notAModel !== undefined)
+    return `its table is headed ${JSON.stringify(notAModel)}, which is not a model`;
   return undefined;
 }

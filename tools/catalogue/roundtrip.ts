@@ -1,6 +1,6 @@
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { Family } from "../../schema/enums.ts";
+import { Family } from "@origin89/equipment-schema/enums";
 import { parseFamilyFile } from "./parse.ts";
 import { renderFamilyFile } from "./render.ts";
 import { SourceTable } from "./sources.ts";
@@ -23,7 +23,9 @@ for (const family of Family.options) {
   const rendered = renderFamilyFile(parsed.family, new Map(parsed.dialects.map((d) => [d.id, d])));
   const same = rendered === original;
   const countOk = parsed.claimedCount === parsed.dialects.length;
-  console.log(`${same ? "same" : "DIFF"} ${countOk ? "" : `count claimed ${parsed.claimedCount}, found ${parsed.dialects.length} `}${family} (${parsed.dialects.length} dialects)`);
+  console.log(
+    `${same ? "same" : "DIFF"} ${countOk ? "" : `count claimed ${parsed.claimedCount}, found ${parsed.dialects.length} `}${family} (${parsed.dialects.length} dialects)`,
+  );
   if (!same) failures += 1;
   if (outDir) {
     mkdirSync(outDir, { recursive: true });

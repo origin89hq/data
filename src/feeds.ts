@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import type { EquipmentKind } from "../schema/guess.ts";
+import type { EquipmentKind } from "@origin89/equipment-schema/guess";
 
 export const FEEDS_DIR = new URL("../feeds/", import.meta.url).pathname;
 
@@ -75,7 +75,10 @@ export function parseCsv(text: string): string[][] {
 export function pinnedFile(dir: string, name: string, sha256: string): string {
   const bytes = readFileSync(join(dir, name));
   const actual = createHash("sha256").update(bytes).digest("hex");
-  if (actual !== sha256) throw new Error(`${name}: sha256 is ${actual}, the pin says ${sha256}; review the change and update the pin`);
+  if (actual !== sha256)
+    throw new Error(
+      `${name}: sha256 is ${actual}, the pin says ${sha256}; review the change and update the pin`,
+    );
   return bytes.toString("utf8");
 }
 
@@ -116,7 +119,11 @@ const slug = (s: string) =>
  * internal keys, so a figure never needs a unit guessed for it — which is the whole reason this
  * feed is worth more per row than anything read out of a PDF.
  */
-export function readSam(dir: string, file: { name: string; sha256: string; kind: EquipmentKind }, feedId: string): FeedModel[] {
+export function readSam(
+  dir: string,
+  file: { name: string; sha256: string; kind: EquipmentKind },
+  feedId: string,
+): FeedModel[] {
   const rows = parseCsv(pinnedFile(dir, file.name, file.sha256));
   const [header, units] = rows;
   const nameAt = header.indexOf("Name");
@@ -130,14 +137,22 @@ export function readSam(dir: string, file: { name: string; sha256: string; kind:
     // An inverter's name carries its maker: "ABB: PVI-30-OUTD-S-US-A {240V}". A module's does not,
     // and the Manufacturer column holds it instead.
     const colon = name.indexOf(":");
-    const maker = (makerAt >= 0 ? row[makerAt]?.trim() : "") || (colon > 0 ? name.slice(0, colon).trim() : "");
+    const maker =
+      (makerAt >= 0 ? row[makerAt]?.trim() : "") || (colon > 0 ? name.slice(0, colon).trim() : "");
     const model = colon > 0 && makerAt < 0 ? name.slice(colon + 1).trim() : name;
     const specs = header
       .map((column, i) => ({ column, value: row[i]?.trim() ?? "", unit: units[i]?.trim() ?? "" }))
       .filter((c) => KEEP[c.column] && c.value !== "" && c.value !== "0")
       .map((c) => ({ name: KEEP[c.column], value: c.value, ...(c.unit ? { unit: c.unit } : {}) }));
     if (specs.length === 0) continue;
-    out.push({ id: `${feedId}-${slug(maker || "unknown")}-${slug(model)}`.slice(0, 150), feed: feedId, manufacturerName: maker || "unknown", name: model, kind: file.kind, specs });
+    out.push({
+      id: `${feedId}-${slug(maker || "unknown")}-${slug(model)}`.slice(0, 150),
+      feed: feedId,
+      manufacturerName: maker || "unknown",
+      name: model,
+      kind: file.kind,
+      specs,
+    });
   }
   return out;
 }
@@ -147,7 +162,10 @@ export function readSam(dir: string, file: { name: string; sha256: string; kind:
  * A name that does not is left as a name: a feed does not get to mint makers, which is the gate's
  * decision, and a thousand new manufacturer records would be exactly the guessing it prevents.
  */
-export function attachMakers(models: FeedModel[], makers: { id: string; name: string; aliases?: string[] }[]): FeedModel[] {
+export function attachMakers(
+  models: FeedModel[],
+  makers: { id: string; name: string; aliases?: string[] }[],
+): FeedModel[] {
   const key = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
   const byKey = new Map<string, string>();
   for (const m of makers) {

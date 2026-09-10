@@ -1,5 +1,8 @@
 /** RFC 4180 quoting, `\n` line endings, header first. Values are strings or absent; absent is an empty cell. */
-export function toCsv(columns: readonly string[], rows: readonly Record<string, string | boolean | number | undefined>[]): string {
+export function toCsv(
+  columns: readonly string[],
+  rows: readonly Record<string, string | boolean | number | undefined>[],
+): string {
   const cell = (v: string | boolean | number | undefined): string => {
     if (v === undefined) return "";
     const s = String(v);

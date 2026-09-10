@@ -1,7 +1,7 @@
 import { execFileSync } from "node:child_process";
-import { loadRecords, writeRecord, RECORDS_DIR } from "../../src/records.ts";
-import { Brand } from "../../schema/brand.ts";
-import { Manufacturer } from "../../schema/manufacturer.ts";
+import { Brand } from "@origin89/equipment-schema/brand";
+import { Manufacturer } from "@origin89/equipment-schema/manufacturer";
+import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 
 /**
  * Answer the gate. One brand per call, because a decision is a person's and a bulk edit is how a
@@ -23,7 +23,8 @@ function reviewer(): string {
   const named = process.env.GATE_REVIEWER?.trim();
   if (named) return named;
   const name = execFileSync("git", ["config", "user.name"], { encoding: "utf8" }).trim();
-  if (!name) throw new Error("git config user.name is unset, and a decision needs a name against it");
+  if (!name)
+    throw new Error("git config user.name is unset, and a decision needs a name against it");
   return name;
 }
 
@@ -38,11 +39,32 @@ switch (command) {
     const all = rest.includes("--all");
     const waiting = records.brands
       .filter((b) => b.decision === "unresolved" && (all || b.evidence.inScope > 0))
-      .sort((a, b) => b.evidence.inScope - a.evidence.inScope || b.evidence.listings - a.evidence.listings);
-    console.log(`${waiting.length} waiting${all ? "" : " with an in-scope listing"}, of ${records.brands.filter((b) => b.decision === "unresolved").length} unresolved\n`);
-    console.log(["brand".padEnd(26), "seen".padStart(5), "scope".padStart(6), " kinds".padEnd(34), "models"].join(" "));
+      .sort(
+        (a, b) =>
+          b.evidence.inScope - a.evidence.inScope || b.evidence.listings - a.evidence.listings,
+      );
+    console.log(
+      `${waiting.length} waiting${all ? "" : " with an in-scope listing"}, of ${records.brands.filter((b) => b.decision === "unresolved").length} unresolved\n`,
+    );
+    console.log(
+      [
+        "brand".padEnd(26),
+        "seen".padStart(5),
+        "scope".padStart(6),
+        " kinds".padEnd(34),
+        "models",
+      ].join(" "),
+    );
     for (const b of waiting) {
-      console.log([b.id.slice(0, 26).padEnd(26), String(b.evidence.listings).padStart(5), String(b.evidence.inScope).padStart(6), ` ${b.evidence.kinds.slice(0, 2).join(", ")}`.slice(0, 34).padEnd(34), b.evidence.models.slice(0, 3).join(", ").slice(0, 52)].join(" "));
+      console.log(
+        [
+          b.id.slice(0, 26).padEnd(26),
+          String(b.evidence.listings).padStart(5),
+          String(b.evidence.inScope).padStart(6),
+          ` ${b.evidence.kinds.slice(0, 2).join(", ")}`.slice(0, 34).padEnd(34),
+          b.evidence.models.slice(0, 3).join(", ").slice(0, 52),
+        ].join(" "),
+      );
     }
     break;
   }
@@ -56,16 +78,32 @@ switch (command) {
     if (!id || !name) throw new Error("usage: maker <id> <name> [website] [domain…]");
     const maker = Manufacturer.parse({ id, name, ...(website ? { website } : {}), domains });
     writeRecord(RECORDS_DIR, "manufacturers", maker.id, maker);
-    console.log(`manufacturer ${maker.id}: ${maker.name}${maker.domains.length ? ` (${maker.domains.join(", ")})` : " — no domain yet, so hop two cannot crawl it"}`);
+    console.log(
+      `manufacturer ${maker.id}: ${maker.name}${maker.domains.length ? ` (${maker.domains.join(", ")})` : " — no domain yet, so hop two cannot crawl it"}`,
+    );
     break;
   }
   case "is": {
     const [brandRef, makerId, ...why] = rest;
     const b = brand(brandRef);
-    if (!records.manufacturers.some((m) => m.id === makerId)) throw new Error(`no manufacturer ${makerId}; add it with: decide.ts maker ${makerId} "<name>"`);
+    if (!records.manufacturers.some((m) => m.id === makerId))
+      throw new Error(
+        `no manufacturer ${makerId}; add it with: decide.ts maker ${makerId} "<name>"`,
+      );
     const basis = why.join(" ");
-    if (!basis) throw new Error("a basis is required: say what settled it, or the next reader cannot check the decision");
-    const next = Brand.parse({ ...b, decision: "manufacturer", manufacturer: makerId, reason: undefined, checkedAt: today, reviewedBy: reviewer(), basis });
+    if (!basis)
+      throw new Error(
+        "a basis is required: say what settled it, or the next reader cannot check the decision",
+      );
+    const next = Brand.parse({
+      ...b,
+      decision: "manufacturer",
+      manufacturer: makerId,
+      reason: undefined,
+      checkedAt: today,
+      reviewedBy: reviewer(),
+      basis,
+    });
     writeRecord(RECORDS_DIR, "brands", next.id, next);
     console.log(`${next.brand} → ${makerId}, decided by ${next.reviewedBy} on ${today}`);
     break;
@@ -74,8 +112,17 @@ switch (command) {
     const [brandRef, ...words] = rest;
     const b = brand(brandRef);
     const reason = words.join(" ");
-    if (!reason) throw new Error("a reason is required: an unexplained skip is a decision nobody can revisit");
-    const next = Brand.parse({ ...b, decision: "out-of-scope", manufacturer: undefined, reason, checkedAt: today, reviewedBy: reviewer(), basis: reason });
+    if (!reason)
+      throw new Error("a reason is required: an unexplained skip is a decision nobody can revisit");
+    const next = Brand.parse({
+      ...b,
+      decision: "out-of-scope",
+      manufacturer: undefined,
+      reason,
+      checkedAt: today,
+      reviewedBy: reviewer(),
+      basis: reason,
+    });
     writeRecord(RECORDS_DIR, "brands", next.id, next);
     console.log(`${next.brand} out of scope: ${reason}`);
     break;

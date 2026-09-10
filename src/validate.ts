@@ -1,5 +1,5 @@
-import { loadRecords, type Records } from "./records.ts";
 import { locatorOf } from "../tools/catalogue/sources.ts";
+import { loadRecords, type Records } from "./records.ts";
 import { concerns as figureConcerns } from "./units.ts";
 
 export interface Report {
@@ -21,19 +21,23 @@ export function validate(records: Records): Report {
   const sourceIds = new Set(records.sources.map((s) => s.id));
   const cited = new Set<string>();
 
-  if (dialectIds.size !== records.dialects.length) errors.push("duplicate dialect id across families");
+  if (dialectIds.size !== records.dialects.length)
+    errors.push("duplicate dialect id across families");
 
   for (const d of records.dialects) {
     for (const other of d.seeAlso ?? []) {
-      if (!dialectIds.has(other)) errors.push(`${d.id}: see-also names ${other}, which does not exist`);
+      if (!dialectIds.has(other))
+        errors.push(`${d.id}: see-also names ${other}, which does not exist`);
       if (other === d.id) errors.push(`${d.id}: see-also names itself`);
     }
     for (const c of d.sources) {
       if (!sourceIds.has(c.source)) errors.push(`${d.id}: cites ${c.source}, which does not exist`);
       cited.add(c.source);
     }
-    if (d.driver.status === "shipped" && !d.driver.id) errors.push(`${d.id}: shipped with no driver id`);
-    if (d.driver.status !== "shipped" && d.driver.id) errors.push(`${d.id}: driver id on a driver that has not shipped`);
+    if (d.driver.status === "shipped" && !d.driver.id)
+      errors.push(`${d.id}: shipped with no driver id`);
+    if (d.driver.status !== "shipped" && d.driver.id)
+      errors.push(`${d.id}: driver id on a driver that has not shipped`);
     if (d.refiledFrom === d.family) errors.push(`${d.id}: refiled from its own family`);
     if (d.confidence === "unverified") note("confidence unverified — do not build on");
     if (d.refuter === "not-checked") note("refuter never ran");
@@ -55,13 +59,21 @@ export function validate(records: Records): Report {
   // Nothing may claim to have happened after today. A date read as "when this was fetched" that
   // has not arrived yet is worse than no date, and 148 source records once carried one.
   const today = new Date().toISOString().slice(0, 10);
-  for (const s of records.sources) if (s.retrievedAt && s.retrievedAt > today) errors.push(`source ${s.id}: retrieved on ${s.retrievedAt}, which has not happened`);
+  for (const s of records.sources)
+    if (s.retrievedAt && s.retrievedAt > today)
+      errors.push(`source ${s.id}: retrieved on ${s.retrievedAt}, which has not happened`);
   for (const b of records.brands) {
-    if (b.evidence.seenAt > today) errors.push(`${b.id}: seen on ${b.evidence.seenAt}, which has not happened`);
-    if (b.checkedAt && b.checkedAt > today) errors.push(`${b.id}: decided on ${b.checkedAt}, which has not happened`);
+    if (b.evidence.seenAt > today)
+      errors.push(`${b.id}: seen on ${b.evidence.seenAt}, which has not happened`);
+    if (b.checkedAt && b.checkedAt > today)
+      errors.push(`${b.id}: decided on ${b.checkedAt}, which has not happened`);
   }
-  for (const s of records.specs) if (s.checkedAt && s.checkedAt > today) errors.push(`spec ${s.id}: confirmed on ${s.checkedAt}, which has not happened`);
-  for (const m of records.models) if (m.checkedAt && m.checkedAt > today) errors.push(`${m.id}: checked on ${m.checkedAt}, which has not happened`);
+  for (const s of records.specs)
+    if (s.checkedAt && s.checkedAt > today)
+      errors.push(`spec ${s.id}: confirmed on ${s.checkedAt}, which has not happened`);
+  for (const m of records.models)
+    if (m.checkedAt && m.checkedAt > today)
+      errors.push(`${m.id}: checked on ${m.checkedAt}, which has not happened`);
 
   const makers = new Set(records.manufacturers.map((m) => m.id));
   if (makers.size !== records.manufacturers.length) errors.push("duplicate manufacturer id");
@@ -69,12 +81,14 @@ export function validate(records: Records): Report {
   for (const b of records.brands) {
     const key = b.brand.toLowerCase();
     const other = byBrandString.get(key);
-    if (other) errors.push(`brands ${other} and ${b.id} both claim the string ${JSON.stringify(b.brand)}`);
+    if (other)
+      errors.push(`brands ${other} and ${b.id} both claim the string ${JSON.stringify(b.brand)}`);
     byBrandString.set(key, b.id);
     switch (b.decision) {
       case "manufacturer":
         if (!b.manufacturer) errors.push(`${b.id}: resolved to a manufacturer but names none`);
-        else if (!makers.has(b.manufacturer)) errors.push(`${b.id}: names manufacturer ${b.manufacturer}, which does not exist`);
+        else if (!makers.has(b.manufacturer))
+          errors.push(`${b.id}: names manufacturer ${b.manufacturer}, which does not exist`);
         if (b.reason) errors.push(`${b.id}: a resolved brand carries an out-of-scope reason`);
         break;
       case "out-of-scope":
@@ -82,32 +96,43 @@ export function validate(records: Records): Report {
         if (b.manufacturer) errors.push(`${b.id}: out of scope but names a manufacturer`);
         break;
       case "unresolved":
-        if (b.manufacturer || b.reason) errors.push(`${b.id}: unresolved but already carries an answer`);
+        if (b.manufacturer || b.reason)
+          errors.push(`${b.id}: unresolved but already carries an answer`);
         if (b.checkedAt || b.reviewedBy) errors.push(`${b.id}: unresolved but marked reviewed`);
         note("brand waiting at the gate");
         break;
     }
-    if (b.decision !== "unresolved" && !(b.checkedAt && b.reviewedBy)) errors.push(`${b.id}: decided with no reviewer or date; a decision has to be attributable`);
-    if (b.decision !== "unresolved" && !b.basis) errors.push(`${b.id}: decided with no basis; a decision nobody can check is an assertion`);
-    if (b.reviewedBy && /^ai:@cf\//.test(b.reviewedBy)) errors.push(`${b.id}: the bulk classifier named as the reviewer; its guess over a title is evidence, not a decision`);
-    if (b.decision === "unresolved" && b.basis) errors.push(`${b.id}: unresolved but already carries a basis`);
+    if (b.decision !== "unresolved" && !(b.checkedAt && b.reviewedBy))
+      errors.push(`${b.id}: decided with no reviewer or date; a decision has to be attributable`);
+    if (b.decision !== "unresolved" && !b.basis)
+      errors.push(`${b.id}: decided with no basis; a decision nobody can check is an assertion`);
+    if (b.reviewedBy && /^ai:@cf\//.test(b.reviewedBy))
+      errors.push(
+        `${b.id}: the bulk classifier named as the reviewer; its guess over a title is evidence, not a decision`,
+      );
+    if (b.decision === "unresolved" && b.basis)
+      errors.push(`${b.id}: unresolved but already carries a basis`);
   }
   for (const m of records.manufacturers) {
-    if (!records.brands.some((b) => b.manufacturer === m.id)) note("manufacturer no brand string resolves to");
+    if (!records.brands.some((b) => b.manufacturer === m.id))
+      note("manufacturer no brand string resolves to");
     if (m.domains.length === 0) note("manufacturer with no domain, so hop two cannot crawl it");
-    for (const s of m.sources ?? []) if (!sourceIds.has(s)) errors.push(`${m.id}: cites ${s}, which does not exist`);
+    for (const s of m.sources ?? [])
+      if (!sourceIds.has(s)) errors.push(`${m.id}: cites ${s}, which does not exist`);
   }
 
   const modelIds = new Set(records.models.map((m) => m.id));
   if (modelIds.size !== records.models.length) errors.push("duplicate model id");
   const byMakerName = new Map<string, string>();
   for (const m of records.models) {
-    if (!makers.has(m.manufacturer)) errors.push(`${m.id}: names manufacturer ${m.manufacturer}, which does not exist`);
+    if (!makers.has(m.manufacturer))
+      errors.push(`${m.id}: names manufacturer ${m.manufacturer}, which does not exist`);
     const key = `${m.manufacturer}\t${m.name.toLowerCase()}\t${(m.variant ?? "").toLowerCase()}`;
     const other = byMakerName.get(key);
     if (other) errors.push(`models ${other} and ${m.id} are the same maker, name and variant`);
     byMakerName.set(key, m.id);
-    for (const d of m.dialects) if (!dialectIds.has(d)) errors.push(`${m.id}: speaks ${d}, which is not a dialect`);
+    for (const d of m.dialects)
+      if (!dialectIds.has(d)) errors.push(`${m.id}: speaks ${d}, which is not a dialect`);
     if (m.reviewedBy && !m.basis) errors.push(`${m.id}: reviewed with no basis`);
     if (!m.reviewedBy) note("model nobody has confirmed");
     if (m.dialects.length === 0) note("model with no dialect, so nothing can read it");
@@ -115,11 +140,15 @@ export function validate(records: Records): Report {
     if (!records.specs.some((s) => s.model === m.id)) note("model with no rated figure");
   }
   for (const s of records.specs) {
-    if (!modelIds.has(s.model)) errors.push(`spec ${s.id}: names model ${s.model}, which does not exist`);
-    if (!sourceIds.has(s.source)) errors.push(`spec ${s.id}: cites ${s.source}, which does not exist`);
+    if (!modelIds.has(s.model))
+      errors.push(`spec ${s.id}: names model ${s.model}, which does not exist`);
+    if (!sourceIds.has(s.source))
+      errors.push(`spec ${s.id}: cites ${s.source}, which does not exist`);
     cited.add(s.source);
-    if (s.confidence === "unverified") note("figure from an unverified source — do not size anything on it");
-    if (!s.extractedBy && !s.reviewedBy) errors.push(`spec ${s.id}: neither extracted nor reviewed, so it came from nowhere`);
+    if (s.confidence === "unverified")
+      note("figure from an unverified source — do not size anything on it");
+    if (!s.extractedBy && !s.reviewedBy)
+      errors.push(`spec ${s.id}: neither extracted nor reviewed, so it came from nowhere`);
     if (s.reviewedBy && !s.checkedAt) errors.push(`spec ${s.id}: confirmed with no date`);
     if (!s.reviewedBy) note("figure a model read but nobody has confirmed");
     for (const concern of figureConcerns(s)) note(`figure doubted: ${concern}`);
@@ -133,10 +162,12 @@ export function validate(records: Records): Report {
       seen.add(id);
       const d = records.dialects.find((x) => x.id === id);
       if (!d) errors.push(`${f.id}: order names ${id}, which does not exist`);
-      else if (d.family !== f.id) errors.push(`${f.id}: order names ${id}, which belongs to ${d.family}`);
+      else if (d.family !== f.id)
+        errors.push(`${f.id}: order names ${id}, which belongs to ${d.family}`);
     }
     for (const s of f.sections ?? []) {
-      if (!seen.has(s.before)) errors.push(`${f.id}: section placed before ${s.before}, which is not in its order`);
+      if (!seen.has(s.before))
+        errors.push(`${f.id}: section placed before ${s.before}, which is not in its order`);
     }
   }
   for (const d of records.dialects) {
@@ -145,25 +176,37 @@ export function validate(records: Records): Report {
     // when nobody decided rather than when somebody did. `not-planned` is the enum's word for it.
     // Corrected once, and guarded so it cannot come back: a driver is not possible for a device
     // that publishes no protocol, and "not-planned" is the enum word for that.
-    if (d.family === "no-comms" && d.driver.status === "possible") errors.push(`${d.id}: a no-comms dialect cannot have a possible driver, since there is no protocol to write one against`);
+    if (d.family === "no-comms" && d.driver.status === "possible")
+      errors.push(
+        `${d.id}: a no-comms dialect cannot have a possible driver, since there is no protocol to write one against`,
+      );
     // The thing this catalogue exists to answer: could somebody write a driver from this entry?
     // A dialect with no blocks is a wiring note. Volthium has four Modbus entries, one per product
     // shape, every one unverified and none carrying a register map — useful research, not a map.
     // "unknown-x" is the note written before somebody worked x out. Once "x" exists and carries a
     // register map, the note is a research trail rather than a second protocol, and a reader
     // searching for a DuoRacer should not find two answers for one device.
-    if (d.id.startsWith("unknown-") && records.dialects.some((other) => other.id === d.id.slice("unknown-".length) && other.blocks)) {
+    if (
+      d.id.startsWith("unknown-") &&
+      records.dialects.some((other) => other.id === d.id.slice("unknown-".length) && other.blocks)
+    ) {
       note("an unknown- note superseded by a resolved dialect that carries the register map");
     }
-    if (d.family !== "no-comms" && !d.blocks) note("a bus dialect with no register map, so it is a wiring note rather than something to implement");
-    if (d.family !== "no-comms" && d.blocks && d.confidence !== "vendor-doc") note("a register map nobody has checked against the maker own document");
+    if (d.family !== "no-comms" && !d.blocks)
+      note(
+        "a bus dialect with no register map, so it is a wiring note rather than something to implement",
+      );
+    if (d.family !== "no-comms" && d.blocks && d.confidence !== "vendor-doc")
+      note("a register map nobody has checked against the maker own document");
 
     // A dialect the catalogue cannot attach to a maker cannot be joined to any product.
-    if (!d.manufacturer) note("a dialect names no manufacturer, so nothing can join it to a product");
+    if (!d.manufacturer)
+      note("a dialect names no manufacturer, so nothing can join it to a product");
     // A protocol with no model named against it describes nothing anybody can look up.
     if ((d.models ?? []).length === 0) note("a dialect names no model at all");
     if (!families.has(d.family)) errors.push(`${d.id}: family ${d.family} has no family record`);
-    else if (!records.families.find((f) => f.id === d.family)?.order.includes(d.id)) errors.push(`${d.id}: not in ${d.family}'s order`);
+    else if (!records.families.find((f) => f.id === d.family)?.order.includes(d.id))
+      errors.push(`${d.id}: not in ${d.family}'s order`);
   }
   return { errors, review };
 }
@@ -178,7 +221,11 @@ export function reviewSummary(records: Records, report: Report): string {
       .map(([k, n]) => `  ${String(n).padStart(4)}  ${k}`),
   ];
   const unlocated = records.sources.filter((s) => !s.url && !s.path).length;
-  if (unlocated) lines.push("", `${unlocated} sources are cited by title only; locatorOf() found no url or docs/ path in the citation.`);
+  if (unlocated)
+    lines.push(
+      "",
+      `${unlocated} sources are cited by title only; locatorOf() found no url or docs/ path in the citation.`,
+    );
   return lines.join("\n");
 }
 

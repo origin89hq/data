@@ -9,26 +9,125 @@
 
 /** The units this database publishes, each meaning one quantity. */
 export const UNITS = [
-  "V", "A", "W", "VA", "Ah", "Wh", "kW", "kWh", "kVA", "mV", "mA", "mAh", "Hz", "Ω",
-  "°C", "°F", "%", "kg", "g", "lb", "mm", "cm", "m", "in", "ft", "m²", "L", "gal",
-  "min", "h", "s", "dB", "bar", "psi", "kPa", "cycles",
+  "V",
+  "A",
+  "W",
+  "VA",
+  "Ah",
+  "Wh",
+  "kW",
+  "kWh",
+  "kVA",
+  "mV",
+  "mA",
+  "mAh",
+  "Hz",
+  "Ω",
+  "°C",
+  "°F",
+  "%",
+  "kg",
+  "g",
+  "lb",
+  "mm",
+  "cm",
+  "m",
+  "in",
+  "ft",
+  "m²",
+  "L",
+  "gal",
+  "min",
+  "h",
+  "s",
+  "dB",
+  "bar",
+  "psi",
+  "kPa",
+  "cycles",
 ] as const;
 export type Unit = (typeof UNITS)[number];
 
 /** What makers write instead. Spanish and French datasheets are common in this trade. */
 const ALIASES: Record<string, Unit> = {
-  v: "V", vdc: "V", vac: "V", vcd: "V", vca: "V", volt: "V", volts: "V", voltios: "V",
-  a: "A", adc: "A", aac: "A", amp: "A", amps: "A", amperes: "A", amperios: "A",
-  w: "W", watt: "W", watts: "W", vatios: "W", va: "VA", kva: "kVA",
-  ah: "Ah", amphours: "Ah", "amp-hours": "Ah", wh: "Wh", kwh: "kWh", kw: "kW",
-  mv: "mV", ma: "mA", mah: "mAh", hz: "Hz", ohm: "Ω", ohms: "Ω",
-  c: "°C", "°c": "°C", celsius: "°C", f: "°F", "°f": "°F",
-  "%": "%", pct: "%", kg: "kg", kgs: "kg", g: "g", lb: "lb", lbs: "lb", libras: "lb",
-  mm: "mm", cm: "cm", m: "m", in: "in", inch: "in", inches: "in", pulgadas: "in", pouces: "in",
-  ft: "ft", feet: "ft", m2: "m²", "m^2": "m²", l: "L", litres: "L", liters: "L", gal: "gal",
-  min: "min", mins: "min", minutes: "min", h: "h", hr: "h", hrs: "h", hours: "h",
-  s: "s", sec: "s", seconds: "s", db: "dB", bar: "bar", psi: "psi", kpa: "kPa",
-  cycles: "cycles", ciclos: "cycles",
+  v: "V",
+  vdc: "V",
+  vac: "V",
+  vcd: "V",
+  vca: "V",
+  volt: "V",
+  volts: "V",
+  voltios: "V",
+  a: "A",
+  adc: "A",
+  aac: "A",
+  amp: "A",
+  amps: "A",
+  amperes: "A",
+  amperios: "A",
+  w: "W",
+  watt: "W",
+  watts: "W",
+  vatios: "W",
+  va: "VA",
+  kva: "kVA",
+  ah: "Ah",
+  amphours: "Ah",
+  "amp-hours": "Ah",
+  wh: "Wh",
+  kwh: "kWh",
+  kw: "kW",
+  mv: "mV",
+  ma: "mA",
+  mah: "mAh",
+  hz: "Hz",
+  ohm: "Ω",
+  ohms: "Ω",
+  c: "°C",
+  "°c": "°C",
+  celsius: "°C",
+  f: "°F",
+  "°f": "°F",
+  "%": "%",
+  pct: "%",
+  kg: "kg",
+  kgs: "kg",
+  g: "g",
+  lb: "lb",
+  lbs: "lb",
+  libras: "lb",
+  mm: "mm",
+  cm: "cm",
+  m: "m",
+  in: "in",
+  inch: "in",
+  inches: "in",
+  pulgadas: "in",
+  pouces: "in",
+  ft: "ft",
+  feet: "ft",
+  m2: "m²",
+  "m^2": "m²",
+  l: "L",
+  litres: "L",
+  liters: "L",
+  gal: "gal",
+  min: "min",
+  mins: "min",
+  minutes: "min",
+  h: "h",
+  hr: "h",
+  hrs: "h",
+  hours: "h",
+  s: "s",
+  sec: "s",
+  seconds: "s",
+  db: "dB",
+  bar: "bar",
+  psi: "psi",
+  kpa: "kPa",
+  cycles: "cycles",
+  ciclos: "cycles",
 };
 
 /**
@@ -48,12 +147,17 @@ export function canonicalUnit(raw: string | undefined): Unit | undefined {
  * writes "57.6V" anyway, and twenty-two figures in one run did exactly that: the number is right
  * and the unit is right, and only the shape is wrong.
  */
-export function splitValueUnit(value: string, unit: string | undefined): { value: string; unit?: string } {
+export function splitValueUnit(
+  value: string,
+  unit: string | undefined,
+): { value: string; unit?: string } {
   const canonical = canonicalUnit(unit);
   if (canonical) return { value: decimalPoint(value.trim()), unit: canonical };
   const match = /^(-?\d+(?:[.,]\d+)?)\s*([A-Za-zΩ°µ%][A-Za-zΩ°µ%²³/·.]{0,9})$/.exec(value.trim());
   const pulled = match ? canonicalUnit(match[2]) : undefined;
-  return pulled ? { value: decimalPoint(match![1]), unit: pulled } : { value: decimalPoint(value.trim()) };
+  return pulled && match
+    ? { value: decimalPoint(match[1]), unit: pulled }
+    : { value: decimalPoint(value.trim()) };
 }
 
 /**
@@ -72,7 +176,8 @@ function decimalPoint(value: string): string {
  * empty row wearing a figure's clothes, and absence is representable: no row at all says the same
  * thing without inviting anyone to read it as a measurement.
  */
-const PLACEHOLDER = /^(no value given|not given|not stated|not specified|not applicable|none|n\/?a|nil|unknown|tbd|-{1,3}|—)$/i;
+const PLACEHOLDER =
+  /^(no value given|not given|not stated|not specified|not applicable|none|n\/?a|nil|unknown|tbd|-{1,3}|—)$/i;
 
 /** Whether this value states nothing, so the figure should not be held at all. */
 export function statesNothing(value: string): boolean {
@@ -85,7 +190,8 @@ export function isNumeric(value: string): boolean {
 }
 
 /** Figures that are legitimately a bare number: a count is not a measurement and has no unit. */
-const COUNTED = /\b(cells?|count|number|quantity|qty|series|parallel|stages?|ports?|outlets?|strings?|modules?|phases?)\b/i;
+const COUNTED =
+  /\b(cells?|count|number|quantity|qty|series|parallel|stages?|ports?|outlets?|strings?|modules?|phases?)\b/i;
 
 /** A value that reads as a sentence rather than a figure. */
 function isProse(value: string): boolean {
@@ -106,8 +212,10 @@ function isProse(value: string): boolean {
 export function concerns(spec: { value: string; unit?: string; name: string }): string[] {
   const out: string[] = [];
   if (spec.unit && !canonicalUnit(spec.unit)) out.push(`"${spec.unit}" is not a unit`);
-  if (spec.unit && canonicalUnit(spec.unit) && !isNumeric(spec.value)) out.push("a figure with a unit whose value is not a number");
-  if (!spec.unit && isNumeric(spec.value) && !COUNTED.test(spec.name)) out.push("a number with no unit, so what it measures is unstated");
+  if (spec.unit && canonicalUnit(spec.unit) && !isNumeric(spec.value))
+    out.push("a figure with a unit whose value is not a number");
+  if (!spec.unit && isNumeric(spec.value) && !COUNTED.test(spec.name))
+    out.push("a number with no unit, so what it measures is unstated");
   if (isProse(spec.value)) out.push("a sentence rather than a figure");
   return out;
 }

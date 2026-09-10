@@ -1,7 +1,6 @@
 packages:
-  - "."
-  - "worker"
-  - "site"
+  - "apps/*"
+  - "packages/*"
 
 # esbuild and workerd are how wrangler builds and runs a Worker locally; without their build
 # scripts pnpm 11 installs them unusable and the install fails outright in CI.
@@ -12,3 +11,13 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - '@origin89/brand@0.2.0'
   - '@types/react-dom@19.3.0'
+  - '@biomejs/biome@2.5.13'
+  - '@biomejs/cli-darwin-arm64@2.5.13'
+  - '@biomejs/cli-darwin-x64@2.5.13'
+  - '@biomejs/cli-linux-arm64-musl@2.5.13'
+  - '@biomejs/cli-linux-arm64@2.5.13'
+  - '@biomejs/cli-linux-x64-musl@2.5.13'
+  - '@biomejs/cli-linux-x64@2.5.13'
+  - '@biomejs/cli-win32-arm64@2.5.13'
+  - '@biomejs/cli-win32-x64@2.5.13'
+  - '@types/react@19.3.0'
