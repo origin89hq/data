@@ -21,7 +21,8 @@ const remote = args.includes("--remote");
 const dryRun = args.includes("--dry-run");
 const summaryAt = args.indexOf("--summary");
 const summaryFile = summaryAt >= 0 ? args[summaryAt + 1] : undefined;
-if (summaryAt >= 0 && !summaryFile) {
+// `--summary --remote` names no file; writing one called "--remote" would hide the mistake.
+if (summaryAt >= 0 && (!summaryFile || summaryFile.startsWith("--"))) {
   console.error("usage: pull-ready-specs.ts [--remote] [--dry-run] [--summary <file>]");
   process.exit(2);
 }

@@ -88,7 +88,10 @@ jobs:
             cat "$RUNNER_TEMP/pulled.md"
           } > "$RUNNER_TEMP/body.md"
           git commit --quiet -m "Pull the figures read up to $(date -u +%F)"
-          git push --force --quiet origin "$BRANCH"
+          # A lease on the branch as the check above saw it, so a push that lands in between is
+          # refused rather than overwritten. Empty means it must not exist yet.
+          expected=$(git rev-parse --verify --quiet "refs/remotes/origin/$BRANCH" || true)
+          git push --force-with-lease="refs/heads/$BRANCH:$expected" --quiet origin "$BRANCH"
           number=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number // empty')
           if [ -n "$number" ]; then
             gh pr edit "$number" --body-file "$RUNNER_TEMP/body.md"

@@ -108,7 +108,13 @@ export async function keysUnder(prefix: string, remote: boolean): Promise<string
 
 /** Where every maker's current run got to, as the Worker works it out from the archive. */
 export async function makerStates(remote: boolean): Promise<MakerState[]> {
-  return ((await (await get("/state", remote)).json()) as { makers: MakerState[] }).makers;
+  const response = await get("/state", remote);
+  // `get` lets a 404 through because in the archive it means an object is absent. Here it means
+  // the base URL is not this Worker, which is worth saying rather than failing to parse a body.
+  if (response.status === 404) {
+    throw new Error(`${base(remote)}/state answered 404; is OFFGRID_BASE_URL this Worker?`);
+  }
+  return ((await response.json()) as { makers: MakerState[] }).makers;
 }
 
 /** Which run is current for an entity, so a reader never has to guess from a date. */
