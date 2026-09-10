@@ -6,7 +6,7 @@
     "dev": "wrangler dev",
     "types": "wrangler types",
     "check": "wrangler types && tsc --noEmit",
-    "test": "node --test test/*.test.ts",
+    "test": "node --import ./test/text-modules.mjs --test test/*.test.ts",
     "deploy:dry-run": "wrangler deploy --dry-run",
     "gate": "node scripts/gate-report.ts"
   },
@@ -15,6 +15,7 @@
     "wrangler": "4"
   },
   "dependencies": {
+    "@origin89/brand": "^0.2.0",
     "entities": "^8.1.0",
     "hono": "^4.13.7",
     "zod": "4"

@@ -1,3 +1,6 @@
+import THEMES from "@origin89/brand/tokens/themes.css";
+import PLATE from "@origin89/brand/logos/plate-89-blue.svg";
+
 /**
  * The front page of the dataset.
  *
@@ -16,87 +19,96 @@ export const PAGE = String.raw`<!doctype html>
 <meta name="description" content="An open dataset of off-grid power equipment: manufacturers, models, rated figures and the protocols a controller can speak to them with. MIT licensed, Parquet, CSV and JSON.">
 <meta property="og:title" content="offgrid-equipment">
 <meta property="og:description" content="Open data for off-grid power equipment. Manufacturers, models, rated figures, protocols. MIT.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
+/* The Origin89 palette, imported from @origin89/brand rather than transcribed. Its tokens are
+   MIT or Apache-2.0; the marks around them are not, and are used here to refer to Origin89. */
+${THEMES}
+
 :root {
-  color-scheme: dark;
-  --bg: #0b0d10;
-  --panel: #12151a;
-  --panel-2: #171b21;
-  --line: #232830;
-  --ink: #e8ecf1;
-  --dim: #94a0ae;
-  --dimmer: #6b7684;
-  --accent: #57d08a;
-  --accent-dim: #2f7d55;
-  --warn: #e0b341;
-  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
-  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, sans-serif;
+  /* The tokens above flip with the preference but do not declare it, so scrollbars and form
+     controls would stay light while the page went dark. */
+  color-scheme: light dark;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sans: "Inter Tight", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-a { color: var(--accent); text-decoration: none; }
+body { margin: 0; background: var(--color-page); color: var(--color-fg); font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: var(--color-nominal); text-decoration: none; }
 a:hover { text-decoration: underline; }
 .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
-header { border-bottom: 1px solid var(--line); padding: 56px 0 40px; }
-h1 { font-size: 15px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0 0 18px; font-family: var(--mono); }
+header { border-bottom: 1px solid var(--color-line); padding: 56px 0 40px; }
+h1 { font-size: 15px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--color-nominal); margin: 0 0 18px; font-family: var(--mono); }
 .lede { font-size: clamp(26px, 4.4vw, 40px); line-height: 1.22; margin: 0 0 18px; max-width: 20ch; font-weight: 600; letter-spacing: -.02em; }
-.sub { font-size: 17px; color: var(--dim); max-width: 62ch; margin: 0 0 28px; }
+.sub { font-size: 17px; color: var(--color-muted); max-width: 62ch; margin: 0 0 28px; }
 .counts { display: flex; flex-wrap: wrap; gap: 32px; margin-top: 8px; }
 .count b { display: block; font-family: var(--mono); font-size: 26px; font-weight: 600; letter-spacing: -.02em; }
-.count span { font-size: 12px; color: var(--dimmer); text-transform: uppercase; letter-spacing: .1em; }
-section { padding: 52px 0; border-bottom: 1px solid var(--line); }
-h2 { font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--dimmer); margin: 0 0 24px; font-family: var(--mono); }
+.count span { font-size: 12px; color: var(--color-faint); text-transform: uppercase; letter-spacing: .1em; }
+section { padding: 52px 0; border-bottom: 1px solid var(--color-line); }
+h2 { font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--color-faint); margin: 0 0 24px; font-family: var(--mono); }
 h3 { font-size: 17px; margin: 0 0 8px; font-weight: 600; }
-p { max-width: 68ch; color: var(--dim); }
-p strong { color: var(--ink); font-weight: 600; }
+p { max-width: 68ch; color: var(--color-muted); }
+p strong { color: var(--color-fg); font-weight: 600; }
 code, pre { font-family: var(--mono); font-size: 13px; }
-code.inline { background: var(--panel-2); padding: 2px 6px; border-radius: 4px; color: var(--ink); font-size: 12.5px; }
-pre { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; overflow-x: auto; margin: 0; line-height: 1.65; }
-pre .c { color: var(--dimmer); }
-pre .k { color: var(--accent); }
-pre .s { color: var(--warn); }
+code.inline { background: var(--color-surface-raised); padding: 2px 6px; border-radius: 4px; color: var(--color-fg); font-size: 12.5px; }
+pre { background: var(--color-surface); border: 1px solid var(--color-line); border-radius: 10px; padding: 16px 18px; overflow-x: auto; margin: 0; line-height: 1.65; }
+pre .c { color: var(--color-faint); }
+pre .k { color: var(--color-nominal); }
+pre .s { color: var(--color-warning); }
+.mark { display: inline-block; width: 78px; margin-bottom: 26px; }
+.mark svg { display: block; width: 100%; height: auto; }
+.buddy { display: flex; gap: 20px; align-items: flex-start; background: var(--color-surface); border: 1px solid var(--color-line); border-radius: 14px; padding: 22px 26px; margin-top: 26px; }
+.buddy img { width: 84px; height: 84px; border-radius: 12px; flex-shrink: 0; }
+.buddy p { margin: 0; max-width: 58ch; }
+.buddy b { color: var(--color-fg); }
+@media (max-width: 560px) { .buddy { flex-direction: column; } }
 .brands { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 10px; }
-.brand { background: #fff; border-radius: 10px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; padding: 14px; transition: transform .15s ease; }
+/* White, because a maker's mark is drawn for its own background and most are dark on light. The
+   border is what keeps the tile visible when the page itself goes light. */
+.brand { background: #fff; border: 1px solid var(--color-line); border-radius: 10px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; padding: 14px; transition: transform .15s ease; }
 .brand:hover { transform: translateY(-2px); }
 .brand img { max-width: 100%; max-height: 100%; object-fit: contain; }
-.brand-more { background: var(--panel); border: 1px dashed var(--line); color: var(--dimmer); font-family: var(--mono); font-size: 12px; text-align: center; }
+.brand-more { background: var(--color-surface); border: 1px dashed var(--color-line); color: var(--color-faint); font-family: var(--mono); font-size: 12px; text-align: center; }
 table { border-collapse: collapse; width: 100%; font-size: 14px; }
-th { text-align: left; font-weight: 500; color: var(--dimmer); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; padding: 0 14px 10px 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
-td { padding: 9px 14px 9px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
-td.num { font-family: var(--mono); color: var(--ink); text-align: right; }
+th { text-align: left; font-weight: 500; color: var(--color-faint); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; padding: 0 14px 10px 0; border-bottom: 1px solid var(--color-line); white-space: nowrap; }
+td { padding: 9px 14px 9px 0; border-bottom: 1px solid var(--color-line); vertical-align: top; }
+td.num { font-family: var(--mono); color: var(--color-fg); text-align: right; }
 td.name { font-family: var(--mono); }
 .scroll { overflow-x: auto; }
 .two { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-.card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 22px 24px; }
-.card.yes { border-left: 2px solid var(--accent); }
-.card.no { border-left: 2px solid #c4603f; }
-.card ul { margin: 12px 0 0; padding-left: 18px; color: var(--dim); font-size: 14.5px; }
+.card { background: var(--color-surface); border: 1px solid var(--color-line); border-radius: 12px; padding: 22px 24px; }
+.card.yes { border-left: 2px solid var(--color-nominal); }
+.card.no { border-left: 2px solid var(--color-alarm); }
+.card ul { margin: 12px 0 0; padding-left: 18px; color: var(--color-muted); font-size: 14.5px; }
 .card li { margin-bottom: 7px; }
 .tabs { display: flex; gap: 4px; margin-bottom: 14px; flex-wrap: wrap; }
-.tab { background: none; border: 1px solid var(--line); color: var(--dim); padding: 6px 13px; border-radius: 7px; cursor: pointer; font-family: var(--mono); font-size: 12.5px; }
-.tab[aria-selected="true"] { background: var(--panel-2); color: var(--ink); border-color: var(--accent-dim); }
-.console textarea { width: 100%; min-height: 108px; background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; font-family: var(--mono); font-size: 13px; resize: vertical; line-height: 1.6; }
-.console textarea:focus { outline: none; border-color: var(--accent-dim); }
+.tab { background: none; border: 1px solid var(--color-line); color: var(--color-muted); padding: 6px 13px; border-radius: 7px; cursor: pointer; font-family: var(--mono); font-size: 12.5px; }
+.tab[aria-selected="true"] { background: var(--color-surface-raised); color: var(--color-fg); border-color: var(--color-action); }
+.console textarea { width: 100%; min-height: 108px; background: var(--color-surface); color: var(--color-fg); border: 1px solid var(--color-line); border-radius: 10px; padding: 14px 16px; font-family: var(--mono); font-size: 13px; resize: vertical; line-height: 1.6; }
+.console textarea:focus { outline: none; border-color: var(--color-action); }
 .row { display: flex; gap: 10px; align-items: center; margin: 12px 0; flex-wrap: wrap; }
-button.go { background: var(--accent); color: #06210f; border: 0; padding: 9px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; }
+button.go { background: var(--color-nominal); color: var(--color-on-fill); border: 0; padding: 9px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; }
 button.go:disabled { opacity: .45; cursor: default; }
-.status { color: var(--dimmer); font-size: 13px; font-family: var(--mono); }
-.status.err { color: #e07a5f; }
+.status { color: var(--color-faint); font-size: 13px; font-family: var(--mono); }
+.status.err { color: var(--color-alarm); }
 .examples { display: flex; gap: 6px; flex-wrap: wrap; }
-.examples button { background: var(--panel-2); border: 1px solid var(--line); color: var(--dim); padding: 5px 11px; border-radius: 6px; cursor: pointer; font-size: 12px; font-family: var(--mono); }
-.examples button:hover { color: var(--ink); border-color: var(--accent-dim); }
-.result { margin-top: 16px; max-height: 460px; overflow: auto; border: 1px solid var(--line); border-radius: 10px; }
+.examples button { background: var(--color-surface-raised); border: 1px solid var(--color-line); color: var(--color-muted); padding: 5px 11px; border-radius: 6px; cursor: pointer; font-size: 12px; font-family: var(--mono); }
+.examples button:hover { color: var(--color-fg); border-color: var(--color-action); }
+.result { margin-top: 16px; max-height: 460px; overflow: auto; border: 1px solid var(--color-line); border-radius: 10px; }
 .result table { font-size: 12.5px; font-family: var(--mono); }
-.result th { padding: 10px 14px; background: var(--panel-2); position: sticky; top: 0; }
+.result th { padding: 10px 14px; background: var(--color-surface-raised); position: sticky; top: 0; }
 .result td { padding: 7px 14px; white-space: nowrap; }
-footer { padding: 44px 0 72px; color: var(--dimmer); font-size: 13.5px; }
-.note { border-left: 2px solid var(--warn); padding: 2px 0 2px 16px; color: var(--dim); font-size: 14.5px; margin: 22px 0 0; max-width: 68ch; }
+footer { padding: 44px 0 72px; color: var(--color-faint); font-size: 13.5px; }
+.note { border-left: 2px solid var(--color-warning); padding: 2px 0 2px 16px; color: var(--color-muted); font-size: 14.5px; margin: 22px 0 0; max-width: 68ch; }
 @media (max-width: 720px) { .two { grid-template-columns: 1fr; } .counts { gap: 22px; } }
 </style>
 </head>
 <body>
 <header>
   <div class="wrap">
+    <a class="mark" href="https://origin89.com" aria-label="Origin89">${PLATE}</a>
     <h1>offgrid-equipment</h1>
     <p class="lede">Open data for off-grid power equipment.</p>
     <p class="sub">Manufacturers, models, the figures their datasheets state, and the protocols a controller can actually speak to them with. Every figure names the document it came from and the page it was read off, so you can disagree with it.</p>
@@ -168,12 +180,16 @@ footer { padding: 44px 0 72px; color: var(--dimmer); font-size: 13.5px; }
       </div>
     </div>
     <p class="note">Two tiers sit in one table. <code class="inline">tier = 'reviewed'</code> is read from a maker's own document and carries its source and page. <code class="inline">tier = 'feed'</code> comes from a public dataset redistributed under its own licence. Filter on it.</p>
+    <div class="buddy">
+      <img src="/logos/buddy-256.png" alt="Buddy, the Origin89 assistant" width="84" height="84" loading="lazy">
+      <p><b>A word before you size anything.</b> Most of these figures were read by a model out of a maker's own PDF, and nobody has checked the row. The <code class="inline">doubt</code> column says when a figure is not a number with a real unit, and every reviewed row names the document and the page it came from. Open the document before you trust the number. I have to, and I live here.</p>
+    </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <p style="color:var(--dimmer)">Built by <a href="https://origin89.com">Origin89</a> · <a href="https://github.com/origin89hq/offgrid-equipment">source on GitHub</a> · <a href="mailto:hello@origin89.com">hello@origin89.com</a><br>
+    <p style="color:var(--color-faint)">Built by <a href="https://origin89.com">Origin89</a> · <a href="https://github.com/origin89hq/offgrid-equipment">source on GitHub</a> · <a href="mailto:hello@origin89.com">hello@origin89.com</a><br>
     Corrections are the most useful contribution. Every figure names its document, so a wrong one can be shown wrong.</p>
   </div>
 </footer>

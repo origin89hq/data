@@ -8,6 +8,10 @@
   // and a custom domain on our own zone is what lets a page cache and reference it. Everything but
   // `logos/<maker>-<width>.png` still needs the bearer, whichever host asks.
   "routes": [{ "pattern": "data.origin89.com", "custom_domain": true }],
+  // The brand palette and the Plate 89 mark are imported as text from @origin89/brand rather than
+  // copied into the page. A copy is a palette that drifts from the one every other Origin89 surface
+  // uses, and nothing would say when it had.
+  "rules": [{ "type": "Text", "globs": ["**/*.css", "**/*.svg"], "fallthrough": true }],
   // Workflows are for a sequence with a wait in it. Crawling a shop is ordered pagination, and
   // the maker pipeline pauses for a person; everything that merely fans out is on the queue.
   "workflows": [

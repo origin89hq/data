@@ -7,3 +7,6 @@ packages:
 allowBuilds:
   esbuild: true
   workerd: true
+
+minimumReleaseAgeExclude:
+  - '@origin89/brand@0.2.0'

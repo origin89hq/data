@@ -111,7 +111,7 @@ check: test validate build-twice
 
 test:
     node --test test/*.test.ts
-    cd worker && node --test test/*.test.ts
+    cd worker && pnpm test
     cd worker && pnpm exec wrangler types && pnpm exec tsc --noEmit
 
 # Every record against its schema, then every reference between them.
