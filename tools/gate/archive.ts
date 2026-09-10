@@ -1,8 +1,8 @@
-import { readFileSync } from "node:fs";
 import { Guess } from "@origin89/equipment-schema/guess";
 import { classifierKey, READS_PER_REQUEST } from "@origin89/equipment-schema/provenance";
 import { Sighting } from "@origin89/equipment-schema/sighting";
 import type { MakerState } from "../../apps/worker/src/state.ts";
+import { bearerFor } from "../credential.ts";
 
 /**
  * Read a crawl back through the Worker rather than one object at a time. The first version of
@@ -10,8 +10,8 @@ import type { MakerState } from "../../apps/worker/src/state.ts";
  * and took longer to read a run than to produce it. R2 can list and the Worker can stream, so a
  * whole run is one request.
  *
- * `OFFGRID_BASE_URL` and `OFFGRID_CONTROL_TOKEN` point it at a deployment; without them it talks
- * to `wrangler dev` and reads the local token.
+ * `OFFGRID_BASE_URL` points it at a deployment, with the sign-in from `just login`; without it,
+ * it talks to `wrangler dev` with the local control token.
  */
 const DEV_URL = "http://localhost:8790";
 
@@ -23,24 +23,9 @@ function base(remote: boolean): string {
   return DEV_URL;
 }
 
-function token(): string {
-  const configured = process.env.OFFGRID_CONTROL_TOKEN;
-  if (configured) return configured;
-  try {
-    const vars = readFileSync(new URL("../../apps/worker/.dev.vars", import.meta.url), "utf8");
-    const match = /^CONTROL_TOKEN=(.*)$/m.exec(vars);
-    if (match) return match[1].trim();
-  } catch {
-    // Falls through to the error below, which says what to set.
-  }
-  throw new Error(
-    "set OFFGRID_CONTROL_TOKEN, or put CONTROL_TOKEN in apps/worker/.dev.vars for local reads",
-  );
-}
-
 async function get(path: string, remote: boolean): Promise<Response> {
   const response = await fetch(`${base(remote)}${path}`, {
-    headers: { authorization: `Bearer ${token()}` },
+    headers: { authorization: `Bearer ${bearerFor(base(remote))}` },
   });
   if (response.status === 404) return response;
   if (!response.ok)
@@ -51,7 +36,10 @@ async function get(path: string, remote: boolean): Promise<Response> {
 async function post(path: string, body: unknown, remote: boolean): Promise<Response> {
   const response = await fetch(`${base(remote)}${path}`, {
     method: "POST",
-    headers: { authorization: `Bearer ${token()}`, "content-type": "application/json" },
+    headers: {
+      authorization: `Bearer ${bearerFor(base(remote))}`,
+      "content-type": "application/json",
+    },
     body: JSON.stringify(body),
   });
   if (!response.ok)

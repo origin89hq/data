@@ -44,7 +44,9 @@ export class PageCrawl extends WorkflowEntrypoint<Env, PageCrawlParams> {
       writePointer(this.env.ARCHIVE, pointerKey.sightings(seller.id), {
         run,
         date: checkedAt,
-        instance: run,
+        // The id the instance was created with. A page crawl's is `page-` and the run, so the run
+        // alone named an instance that does not exist.
+        instance: event.instanceId,
         startedAt: new Date().toISOString(),
       }),
     );

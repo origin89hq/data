@@ -32,7 +32,7 @@ export class SellerCrawl extends WorkflowEntrypoint<Env, SellerCrawlParams> {
       writePointer(this.env.ARCHIVE, pointerKey.sightings(seller.id), {
         run,
         date: checkedAt,
-        instance: run,
+        instance: event.instanceId,
         startedAt: new Date().toISOString(),
       }),
     );

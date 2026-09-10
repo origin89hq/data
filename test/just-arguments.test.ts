@@ -76,23 +76,17 @@ test("quoted evidence is passed as data without shell evaluation", (t) => {
   ]);
   assert.equal(existsSync(join(root, "injected")), false);
 });
-test("approval JSON escapes the approver without changing the request", (t) => {
-  const { run, root } = fixture(t);
-  const approver = 'A "reviewer" $(touch injected)';
-  const result = run("approve", "maker", "2026-09-10", approver, "4");
+test("an approval carries the limit and no approver: the Worker records who signed in", (t) => {
+  const { run } = fixture(t);
+  const result = run("approve", "maker", "2026-09-10", "4");
   assert.equal(result.status, 0, result.stderr);
   const args: string[] = JSON.parse(result.stdout);
   assert.ok(args.includes("https://example.invalid/approve?maker=maker&date=2026-09-10"));
-  assert.deepEqual(JSON.parse(args[args.indexOf("--data") + 1]), {
-    approved: true,
-    approvedBy: approver,
-    limit: 4,
-  });
-  assert.equal(existsSync(join(root, "injected")), false);
+  assert.deepEqual(JSON.parse(args[args.indexOf("--data") + 1]), { approved: true, limit: 4 });
 });
 test("an invalid approval limit sends no request", (t) => {
   const { run } = fixture(t);
-  const result = run("approve", "maker", "2026-09-10", "reviewer", "invalid");
+  const result = run("approve", "maker", "2026-09-10", "invalid");
   assert.notEqual(result.status, 0);
   assert.equal(result.stdout, "");
   assert.match(result.stderr, /Invalid download limit/);

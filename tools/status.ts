@@ -1,4 +1,5 @@
 import { loadRecords } from "../src/records.ts";
+import { bearerFor } from "./credential.ts";
 
 /**
  * One page that says what this thing knows, what it is waiting on, and what is waiting on you.
@@ -9,10 +10,9 @@ import { loadRecords } from "../src/records.ts";
  * truth to go stale.
  *
  * Usage: status.ts
- * Set OFFGRID_BASE_URL and OFFGRID_CONTROL_TOKEN to inspect a deployment.
+ * Set OFFGRID_BASE_URL, and sign in with `just login`, to inspect a deployment.
  */
-const base = (process.env.OFFGRID_BASE_URL ?? "http://localhost:8790").replace(/\/$/, "");
-const token = process.env.OFFGRID_CONTROL_TOKEN ?? "";
+const base = (process.env.OFFGRID_BASE_URL || "http://localhost:8790").replace(/\/$/, "");
 
 interface SellerState {
   seller: string;
@@ -60,9 +60,11 @@ console.log(`  ${noKind} models nothing has classified`);
 
 let state: { sellers: SellerState[]; makers: MakerState[] } | undefined;
 try {
-  const response = await fetch(`${base}/state`, { headers: { authorization: `Bearer ${token}` } });
+  const response = await fetch(`${base}/state`, {
+    headers: { authorization: `Bearer ${bearerFor(base)}` },
+  });
   if (response.ok) state = (await response.json()) as typeof state;
-  else console.log(`\nPIPELINE\n  ${base} answered ${response.status}`);
+  else console.log(`\nPIPELINE\n  ${base} answered ${response.status}: ${await response.text()}`);
 } catch (error) {
   console.log(
     `\nPIPELINE\n  ${base} is not answering: ${error instanceof Error ? error.message : String(error)}`,

@@ -53,14 +53,16 @@ just sync-sam                  # is the pinned dataset still what upstream publi
 just dev                       # the Worker locally, with a local R2
 just discover rolls-battery rollsbattery.com 2026-09-09
 just plan rolls-battery 2026-09-09        # read it before approving it
-just approve rolls-battery 2026-09-09 "David" 40
+just approve rolls-battery 2026-09-09 40   # recorded as whoever `just login` signed in
 just convert rolls-battery 2026-09-09     # each document then enqueues its own reading
 just specs rolls-battery 2026-09-09
 just specs-ready               # every maker whose run is converted and read; a daily job opens this as a PR
 ```
 
-Set `OFFGRID_BASE_URL` and `OFFGRID_CONTROL_TOKEN` and the same recipes drive
-the deployed spider; without them they talk to `just dev` on this machine.
+Set `OFFGRID_BASE_URL=https://data.origin89.com` and run `just login` once, and
+the same recipes drive the deployed spider; without it they talk to `just dev`
+on this machine. `just login` signs in with GitHub, and only members of the
+`origin89hq/working-group` team get in. The sign-in lasts eight hours.
 
 The catalogue migration keeps its own commands, since it runs once:
 
@@ -226,9 +228,9 @@ and deployment are separate commands.
 strings into manufacturers: every brand a seller printed, how many listings
 carry it, what kinds the classifier thinks they are, and the model numbers it
 read off the titles. It uses the same archive reader as the queue and model commands.
-Run `just dev` for local reads, or set `OFFGRID_BASE_URL` and
-`OFFGRID_CONTROL_TOKEN` for a deployment. The supplied date must match the current
-crawl; a mismatch or missing archive part stops the report.
+Run `just dev` for local reads, or set `OFFGRID_BASE_URL` and run `just login`
+for a deployment. The supplied date must match the current crawl; a mismatch or
+missing archive part stops the report.
 
 ```sh
 cd apps/worker
@@ -253,22 +255,35 @@ It needs, once:
 |---|---|---|
 | Repository variable | `CLOUDFLARE_ACCOUNT_ID` | the account the Worker and bucket live in |
 | Repository secret | `CLOUDFLARE_API_TOKEN` | Workers Scripts edit, Workers R2 Storage edit, Workers AI read |
-| Repository secret | `CONTROL_TOKEN` | a random string; the Worker refuses every control endpoint without it |
+| Repository secret | `CONTROL_TOKEN` | a random string; still accepted on the control routes, and on its way out |
+| Environment secret | `GH_APP_CLIENT_SECRET` | a client secret of the Origin89 Data GitHub App; the Worker's `GITHUB_CLIENT_SECRET` |
 | Environment | `offgrid-equipment-production` | where the approval reviewers live, if you want a second pair of eyes on a deploy |
+| GitHub App | Origin89 Data | owned by and installed on origin89hq; Members read, device flow on, callbacks `https://data.origin89.com/auth/callback` and `http://localhost:8790/auth/callback` |
+| Team | `origin89hq/working-group` | who may use the control routes |
 
-The Worker's config names `CONTROL_TOKEN` under `secrets.required`, so wrangler
-generates its binding type and warns in local development when it is missing.
-There is no hand-written `Env` to drift from what is actually deployed.
+The Worker's config names its secrets under `secrets.required`, so wrangler
+generates their binding types and warns in local development when one is
+missing. There is no hand-written `Env` to drift from what is actually deployed.
+The secrets go up with the version, so a first deploy is not circular.
 
-The token goes up with the version, so a first deploy is not circular. Every
-endpoint that starts a crawl, spends money or releases a download requires it as
-a bearer token, and a Worker with no token set refuses everything rather than
-allowing everything — an unset secret is the state a fresh deploy is in.
-Rotating means changing the repository secret and deploying again.
+Every endpoint that starts a crawl, spends money or releases a download needs a
+member of `origin89hq/working-group`. A terminal sends the token `just login`
+stored; a browser signs in at `/auth/login` and carries a cookie. The Worker
+checks with GitHub that the token was issued to this app and that its owner is
+an active member of the team, and remembers the answer for five minutes, so
+removing somebody from the team locks them out within five minutes. A token
+somebody gave another app, `gh`'s included, is refused. An approval records the
+login GitHub vouched for.
 
-```sh
-curl -X POST "https://<worker>/run?seller=solacity" -H "authorization: Bearer $CONTROL_TOKEN"
-```
+Members can watch the spider at `https://data.origin89.com/ops`: the
+supervisor's last pass, and each seller's and maker's current run with the
+status of the workflow behind it. It is read-only, and anybody else is sent to
+sign in.
+
+`just dev` still takes the control token from `apps/worker/.dev.vars`, and a
+Worker with neither refuses everything rather than allowing everything. To try
+sign-in locally, add `GITHUB_CLIENT_SECRET` to `.dev.vars` and use Chrome or
+Firefox, which accept a secure cookie from `http://localhost`.
 
 ### Publishing the dataset
 
@@ -324,10 +339,11 @@ Hop two reads a maker's sitemap for document links, writes the plan, and stops.
 ```sh
 curl -X POST 'localhost:8787/maker?id=victron-energy&domains=victronenergy.com&pages=40'
 wrangler r2 object get offgrid-equipment-archive/documents/victron-energy/<date>/plan.json --local --pipe
-curl -X POST 'localhost:8787/approve?id=maker-victron-energy-<date>'   -H 'content-type: application/json'   -d '{"approved":true,"approvedBy":"David","limit":50}'
+curl -X POST 'localhost:8787/approve?id=maker-victron-energy-<date>'   -H "authorization: Bearer $CONTROL_TOKEN" -H 'content-type: application/json'   -d '{"approved":true,"limit":50}'
 ```
 
 Nothing is fetched until that event arrives. A refusal, an approval naming no
 host that was found, and no answer at all all end the run having downloaded
 nothing. An approval can narrow what discovery found and can never widen it,
-and one with no named approver is refused at the door.
+and it names who gave it: the GitHub login the Worker verified, never a name
+the request typed.
