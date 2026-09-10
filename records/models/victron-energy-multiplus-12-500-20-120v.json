@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "MultiPlus 12/500/20 - 120V",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

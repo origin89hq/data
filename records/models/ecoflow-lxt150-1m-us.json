@@ -3,6 +3,8 @@
   "manufacturer": "ecoflow",
   "name": "LXT150-1m-US",
   "kind": "balance-of-system",
-  "aliases": [],
+  "aliases": [
+    "ECOFLOW-LXT150-1M-US"
+  ],
   "dialects": []
 }

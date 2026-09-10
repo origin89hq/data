@@ -3,5 +3,6 @@
   "manufacturer": "xantrex",
   "name": "Truecharge 20+20 ADC",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "ac-charger"
 }

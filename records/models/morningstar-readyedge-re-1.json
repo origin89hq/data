@@ -3,5 +3,6 @@
   "manufacturer": "morningstar",
   "name": "ReadyEdge (RE-1)",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "bms"
 }

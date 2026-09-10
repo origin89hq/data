@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "ADI-250/2000",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

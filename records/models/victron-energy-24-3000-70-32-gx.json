@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "24/3000/70-32 GX",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

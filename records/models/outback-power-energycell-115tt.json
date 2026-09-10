@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "EnergyCell 115TT",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

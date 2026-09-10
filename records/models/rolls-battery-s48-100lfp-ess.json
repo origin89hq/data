@@ -2,6 +2,9 @@
   "id": "rolls-battery-s48-100lfp-ess",
   "manufacturer": "rolls-battery",
   "name": "S48-100LFP ESS",
-  "aliases": [],
+  "kind": "battery",
+  "aliases": [
+    "Rolls S48-100LFP ESS"
+  ],
   "dialects": []
 }

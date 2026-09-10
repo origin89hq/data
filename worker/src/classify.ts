@@ -17,6 +17,7 @@ Answer with one item per listing, in the same order as the numbered listings, an
 
 For each listing give:
 - kind: one of ${EquipmentKind.options.join(", ")}. Use "out-of-scope" for anything that is not electrical energy equipment: wood stoves, toilets, cookware, clothing, plumbing, furniture, tools, food. Electrical wiring, breakers, fuses, busbars and connectors are "balance-of-system". A portable power station or all-in-one solar generator is "inverter-charger".
+  Omit kind entirely when the listing does not say what the product is. A manufacturer's name and a bare part number is not enough: "Briggs & Stratton 1670013" says who made it and nothing about what it is, so leave kind out. A maker who is known for one thing still sells others, so do not infer the kind from the brand alone. Omitting is always better than guessing; a missing kind is a question somebody can answer, and a wrong one is a fact nobody will check.
 - model: the manufacturer's model number as printed, e.g. "XTRA4210N", "SmartSolar MPPT 100/30", "S-550". Omit it when the listing carries no model number. Never invent one.
 - manufacturer: the company that makes the product, which may differ from the brand a reseller prints. Omit it when unsure.
 
@@ -34,7 +35,9 @@ const RESPONSE_SCHEMA = {
           model: { type: "string" },
           manufacturer: { type: "string" },
         },
-        required: ["kind"],
+        // Nothing is required. A listing that does not say what it is should come back with no
+        // kind at all, which is read as unreadable and leaves the model's kind absent.
+        required: [],
       },
     },
   },
@@ -48,8 +51,10 @@ interface RawItem {
 }
 
 /**
- * One numbered listing per line, only the fields that carry signal. The description is
- * deliberately absent: it is long, it is marketing, and it pushes the batch out of the window.
+ * One numbered listing per line, only the fields that carry signal. The marketing description is
+ * deliberately absent: it is long, it says little, and it pushes the batch out of the window.
+ * `figures` is not that — it is a handful of rated values from the maker's own document, and for a
+ * product whose title is a part number it is the only thing that says what the product is.
  */
 export function promptFor(batch: Sighting[]): string {
   return batch
@@ -60,6 +65,7 @@ export function promptFor(batch: Sighting[]): string {
       if (s.model) parts.push(`model="${s.model}"`);
       if (s.category) parts.push(`category="${s.category}"`);
       if (s.variant) parts.push(`variant="${s.variant}"`);
+      if (s.figures) parts.push(`figures="${s.figures}"`);
       return parts.join(" ");
     })
     .join("\n");

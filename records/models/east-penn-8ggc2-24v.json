@@ -3,5 +3,6 @@
   "manufacturer": "east-penn",
   "name": "8GGC2-24V",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

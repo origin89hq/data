@@ -3,5 +3,6 @@
   "manufacturer": "luxpower",
   "name": "SNA-US6000",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

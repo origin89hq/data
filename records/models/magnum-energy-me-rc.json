@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "ME-RC",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "bms"
 }

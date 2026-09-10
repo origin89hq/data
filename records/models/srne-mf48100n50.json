@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "MF48100N50",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

@@ -2,6 +2,10 @@
   "id": "outback-power-obx-ic2024s-120-60",
   "manufacturer": "outback-power",
   "name": "OBX-IC2024S-120/60",
-  "aliases": [],
+  "kind": "inverter-charger",
+  "aliases": [
+    "OBX-IC2024S-120/60 Inverter",
+    "OBX-IC2024S-120/60 Inverter/Charger"
+  ],
   "dialects": []
 }

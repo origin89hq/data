@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts60--ambient-operating-temperature",
+  "model": "morningstar-ts60",
+  "name": "Ambient Operating Temperature",
+  "value": "-40 °C to +60 °C",
+  "source": "doc-d0e875dec70c9b017e0e9e1236fb4cdd",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 10,
+  "confidence": "vendor-doc"
+}

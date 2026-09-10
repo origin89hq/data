@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "SEC-40BRM",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "VM-3P75CT",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "meter"
 }

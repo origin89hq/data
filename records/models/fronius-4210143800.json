@@ -3,6 +3,8 @@
   "manufacturer": "fronius",
   "name": "4210143800",
   "kind": "inverter-charger",
-  "aliases": [],
+  "aliases": [
+    "4,210,143,800"
+  ],
   "dialects": []
 }

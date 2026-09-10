@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "PSe-24275A",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

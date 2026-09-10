@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "PST-15S-12E",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

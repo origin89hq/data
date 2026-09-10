@@ -3,5 +3,6 @@
   "manufacturer": "bluetti",
   "name": "P-B500-UN-GY-BL-010",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

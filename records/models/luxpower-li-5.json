@@ -3,5 +3,6 @@
   "manufacturer": "luxpower",
   "name": "Li-5",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

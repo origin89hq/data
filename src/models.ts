@@ -156,3 +156,40 @@ export function deriveModels({ sightings, guesses, brands, dialects }: DeriveInp
     })
     .sort((a, b) => a.model.id.localeCompare(b.model.id));
 }
+
+/**
+ * Words a seller appends to say what a thing is. They belong to the listing, not to the name a
+ * maker put on the case: "OBX-IC2024S-120/60 Inverter/Charger", "OBX-IC2024S-120/60 Inverter" and
+ * "OBX-IC2024S-120/60" are one product filed three times.
+ */
+const DESCRIPTOR = /\b(inverter|charger|controller|battery|batteries|panel|module|kit|bundle|system|solar|hybrid|all[\s-]?in[\s-]?one)\b/gi;
+
+/**
+ * The form of a model name that decides whether two records are the same product.
+ *
+ * Three things vary between a maker's datasheet and a shop's title and mean nothing: the maker's
+ * own name on the front, a descriptor on the end, and where the spaces and hyphens fall. Fronius
+ * writes a part number as "4,210,052,841" in one place and "4210052841" in another. So the key
+ * drops all three, and what is left is the part number itself.
+ *
+ * It is deliberately not the stored name. A name is what the maker wrote; this is only the
+ * question "are these the same thing".
+ */
+export function productKey(makerName: string, name: string): string {
+  let text = ` ${normaliseModelName(name).toLowerCase()} `;
+  // The maker's own name, whole words only, so "EG4 6000XP" and "6000XP" meet but "Solark" inside
+  // a part number survives.
+  for (const word of makerName.replace(/\s*\(.*\)\s*$/, "").toLowerCase().split(/[^a-z0-9]+/)) {
+    if (word.length > 2) text = text.replaceAll(word, " ");
+  }
+  return text.replace(DESCRIPTOR, " ").replace(/[^a-z0-9]/g, "");
+}
+
+/**
+ * Which of two names for one product to keep: the maker's own, which is the shorter once the
+ * seller's additions are gone. "6000XP" over "PVEG4 6000XP Inverter", and the other becomes an
+ * alias rather than a record.
+ */
+export function preferredName(names: readonly string[]): string {
+  return [...names].sort((a, b) => a.length - b.length || a.localeCompare(b))[0] ?? "";
+}

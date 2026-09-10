@@ -3,5 +3,6 @@
   "manufacturer": "energizer-solar",
   "name": "ENSP60NDG2475",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "panel"
 }

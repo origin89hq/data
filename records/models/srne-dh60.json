@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "DH60",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

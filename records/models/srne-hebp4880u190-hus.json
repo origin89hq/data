@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "HEBP4880U190-HUS",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

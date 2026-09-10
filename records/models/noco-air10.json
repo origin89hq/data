@@ -2,6 +2,9 @@
   "id": "noco-air10",
   "manufacturer": "noco",
   "name": "AIR10",
-  "aliases": [],
+  "kind": "out-of-scope",
+  "aliases": [
+    "NOCO AIR10"
+  ],
   "dialects": []
 }

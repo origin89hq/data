@@ -3,5 +3,6 @@
   "manufacturer": "eg4-electronics",
   "name": "PVEG4 6000XP Inverter",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

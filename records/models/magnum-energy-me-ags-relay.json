@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "ME-AGS Relay",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

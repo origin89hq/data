@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "24/2000/50",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

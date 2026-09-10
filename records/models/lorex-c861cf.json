@@ -3,5 +3,6 @@
   "manufacturer": "lorex",
   "name": "C861CF",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

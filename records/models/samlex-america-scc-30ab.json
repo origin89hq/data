@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "SCC-30AB",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

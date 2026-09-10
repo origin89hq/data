@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "GFX1424",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

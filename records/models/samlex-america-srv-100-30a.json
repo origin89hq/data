@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "SRV-100-30A",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "panel"
 }

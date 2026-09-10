@@ -3,5 +3,6 @@
   "manufacturer": "xantrex",
   "name": "PROwatt SW 1400i",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

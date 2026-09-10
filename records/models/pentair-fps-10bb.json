@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "FPS-10BB",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

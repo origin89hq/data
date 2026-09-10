@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "SHEF42A1",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

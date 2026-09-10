@@ -3,5 +3,6 @@
   "manufacturer": "rolls-battery",
   "name": "S48-200LFP",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

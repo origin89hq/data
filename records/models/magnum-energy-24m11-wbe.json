@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "24M11-WBE",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "xantrex",
   "name": "Freedom SW 2024",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

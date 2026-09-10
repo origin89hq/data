@@ -3,5 +3,6 @@
   "manufacturer": "champion-power",
   "name": "YF168FD-2-020",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "generator"
 }

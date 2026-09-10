@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "7FC5-S",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

@@ -3,6 +3,9 @@
   "manufacturer": "fronius",
   "name": "4210078800",
   "kind": "inverter",
-  "aliases": [],
+  "aliases": [
+    "4,210,078,800",
+    "FRO-224-172"
+  ],
   "dialects": []
 }

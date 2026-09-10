@@ -3,5 +3,6 @@
   "manufacturer": "the-cabin-depot",
   "name": "Escape 1800-I",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

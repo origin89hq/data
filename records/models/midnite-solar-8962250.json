@@ -3,5 +3,6 @@
   "manufacturer": "midnite-solar",
   "name": "8962250",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

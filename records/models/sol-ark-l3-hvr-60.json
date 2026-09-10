@@ -3,5 +3,6 @@
   "manufacturer": "sol-ark",
   "name": "L3 HVR-60",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

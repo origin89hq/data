@@ -3,5 +3,6 @@
   "manufacturer": "energizer-solar",
   "name": "PS2900H-7",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

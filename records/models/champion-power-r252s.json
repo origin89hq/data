@@ -3,5 +3,6 @@
   "manufacturer": "champion-power",
   "name": "R252S",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "generator"
 }

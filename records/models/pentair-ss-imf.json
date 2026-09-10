@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "SS-IMF",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

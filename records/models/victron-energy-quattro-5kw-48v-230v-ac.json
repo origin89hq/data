@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "Quattro 5KW/48V/230V AC",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

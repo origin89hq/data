@@ -3,6 +3,9 @@
   "manufacturer": "fronius",
   "name": "4240154",
   "kind": "balance-of-system",
-  "aliases": [],
+  "aliases": [
+    "4,240,154",
+    "FRO-110-178"
+  ],
   "dialects": []
 }

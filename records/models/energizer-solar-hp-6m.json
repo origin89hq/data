@@ -3,5 +3,6 @@
   "manufacturer": "energizer-solar",
   "name": "HP-6M",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

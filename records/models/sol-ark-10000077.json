@@ -3,5 +3,6 @@
   "manufacturer": "sol-ark",
   "name": "10000077",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

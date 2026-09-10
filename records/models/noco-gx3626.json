@@ -3,5 +3,6 @@
   "manufacturer": "noco",
   "name": "GX3626",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

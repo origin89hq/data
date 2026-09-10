@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "SR-EOS05B-Pro",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

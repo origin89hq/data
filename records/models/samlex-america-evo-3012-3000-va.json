@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "EVO-3012 (3000 VA)",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

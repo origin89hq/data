@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "MRBF-300",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

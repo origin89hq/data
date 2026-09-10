@@ -3,5 +3,6 @@
   "manufacturer": "unirac",
   "name": "6920006",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

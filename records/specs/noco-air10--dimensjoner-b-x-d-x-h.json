@@ -1,0 +1,10 @@
+{
+  "id": "noco-air10--dimensjoner-b-x-d-x-h",
+  "model": "noco-air10",
+  "name": "Dimensjoner (B x D x H)",
+  "value": "20,54 x 7,44 x 15,88 cm",
+  "source": "doc-6dd46de5e7001e0b599ba588d005e589",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 73,
+  "confidence": "vendor-doc"
+}

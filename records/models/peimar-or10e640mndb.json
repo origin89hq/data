@@ -3,5 +3,6 @@
   "manufacturer": "peimar",
   "name": "OR10E640MNDB",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "panel"
 }

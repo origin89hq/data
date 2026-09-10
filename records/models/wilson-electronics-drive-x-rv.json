@@ -3,5 +3,6 @@
   "manufacturer": "wilson-electronics",
   "name": "Drive X RV",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "wilson-electronics",
   "name": "WilsonPro A1000",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

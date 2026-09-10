@@ -3,5 +3,6 @@
   "manufacturer": "millertech",
   "name": "16V 80AH LiFePO4 Millertech Battery",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

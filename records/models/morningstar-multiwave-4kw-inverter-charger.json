@@ -3,5 +3,6 @@
   "manufacturer": "morningstar",
   "name": "MultiWave 4kW Inverter/Charger",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

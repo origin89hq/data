@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "SNS30-P",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

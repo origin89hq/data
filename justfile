@@ -42,6 +42,10 @@ queue date +sellers:
 models date +sellers:
     node tools/gate/models.ts {{date}} {{sellers}}
 
+# Fold the records that are one product filed several times into one.
+merge *args:
+    node tools/gate/merge-models.ts {{args}}
+
 # Fold the classifier's answers onto models that have no kind.
 kinds *args:
     node tools/gate/pull-kinds.ts {{args}}

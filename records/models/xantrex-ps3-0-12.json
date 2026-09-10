@@ -3,5 +3,6 @@
   "manufacturer": "xantrex",
   "name": "PS3.0/12",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

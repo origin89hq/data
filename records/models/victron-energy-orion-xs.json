@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "ORION-XS",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "dc-dc-converter"
 }

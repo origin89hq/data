@@ -3,5 +3,6 @@
   "manufacturer": "luxpower",
   "name": "SNA PRO-EU-3K",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

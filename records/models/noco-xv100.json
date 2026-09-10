@@ -3,5 +3,6 @@
   "manufacturer": "noco",
   "name": "XV100",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

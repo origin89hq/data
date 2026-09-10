@@ -3,5 +3,6 @@
   "manufacturer": "the-cabin-depot",
   "name": "UGP-R30OCLPW",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

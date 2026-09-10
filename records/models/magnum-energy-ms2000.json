@@ -2,6 +2,9 @@
   "id": "magnum-energy-ms2000",
   "manufacturer": "magnum-energy",
   "name": "MS2000",
-  "aliases": [],
+  "kind": "inverter-charger",
+  "aliases": [
+    "MS2000 Inverter/Charger"
+  ],
   "dialects": []
 }

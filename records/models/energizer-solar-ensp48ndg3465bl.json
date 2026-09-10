@@ -3,5 +3,6 @@
   "manufacturer": "energizer-solar",
   "name": "ENSP48NDG3465BL",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "panel"
 }

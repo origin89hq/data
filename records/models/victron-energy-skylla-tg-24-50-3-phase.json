@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "Skylla TG 24/50 3-phase",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

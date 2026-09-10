@@ -3,5 +3,6 @@
   "manufacturer": "champion-power",
   "name": "201282 - 4000W PORTAble GeNeRATOR",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "generator"
 }

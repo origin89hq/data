@@ -3,5 +3,6 @@
   "manufacturer": "energizer-solar",
   "name": "Energizer Beam Plus 396.1W",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "panel"
 }

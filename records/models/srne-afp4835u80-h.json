@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "AFP4835U80-H",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

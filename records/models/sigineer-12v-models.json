@@ -3,5 +3,6 @@
   "manufacturer": "sigineer",
   "name": "12V models",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "dc-dc-converter"
 }

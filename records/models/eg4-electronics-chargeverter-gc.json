@@ -3,5 +3,6 @@
   "manufacturer": "eg4-electronics",
   "name": "Chargeverter-GC",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

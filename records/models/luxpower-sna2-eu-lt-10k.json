@@ -3,5 +3,6 @@
   "manufacturer": "luxpower",
   "name": "SNA2-EU-LT 10K",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

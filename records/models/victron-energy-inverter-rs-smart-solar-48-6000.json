@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "Inverter RS Smart Solar 48/6000",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "champion-power",
   "name": "R80-VP",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "generator"
 }

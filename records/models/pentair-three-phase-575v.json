@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "Three Phase, 575V",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

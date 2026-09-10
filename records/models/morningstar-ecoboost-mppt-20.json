@@ -3,5 +3,6 @@
   "manufacturer": "morningstar",
   "name": "EcoBoost MPPT-20",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

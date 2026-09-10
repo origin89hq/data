@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts60--rated-solar-load-or-diversion-current",
+  "model": "morningstar-ts60",
+  "name": "Rated solar, load or diversion current",
+  "value": "60",
+  "unit": "A",
+  "source": "doc-50078faad81c76be986e473c003974b9",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

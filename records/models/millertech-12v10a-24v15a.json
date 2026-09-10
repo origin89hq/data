@@ -3,5 +3,6 @@
   "manufacturer": "millertech",
   "name": "12V10A-24V15A",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

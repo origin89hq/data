@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "MMS912E",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

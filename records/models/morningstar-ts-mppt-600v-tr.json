@@ -3,5 +3,6 @@
   "manufacturer": "morningstar",
   "name": "TS-MPPT-600V-TR",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

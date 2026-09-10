@@ -3,5 +3,6 @@
   "manufacturer": "luxpower",
   "name": "PV Solar Panels",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "panel"
 }

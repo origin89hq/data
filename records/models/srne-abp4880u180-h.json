@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "ABP4880U180-H",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

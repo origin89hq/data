@@ -3,5 +3,6 @@
   "manufacturer": "luxpower",
   "name": "LXP5K HB",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

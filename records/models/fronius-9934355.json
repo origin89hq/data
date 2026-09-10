@@ -3,5 +3,6 @@
   "manufacturer": "fronius",
   "name": "9934355",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

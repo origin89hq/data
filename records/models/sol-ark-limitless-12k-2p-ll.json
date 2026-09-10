@@ -3,5 +3,6 @@
   "manufacturer": "sol-ark",
   "name": "Limitless 12K-2P-LL",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

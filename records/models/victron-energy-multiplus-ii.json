@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "MultiPlus-II",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "ASP48200SH3",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

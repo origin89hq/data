@@ -3,5 +3,6 @@
   "manufacturer": "energizer-solar",
   "name": "HP-6M/3S",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

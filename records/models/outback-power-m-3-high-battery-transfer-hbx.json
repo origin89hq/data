@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "M-3 High Battery Transfer (HBX)",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

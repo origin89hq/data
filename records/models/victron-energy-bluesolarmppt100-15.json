@@ -2,6 +2,9 @@
   "id": "victron-energy-bluesolarmppt100-15",
   "manufacturer": "victron-energy",
   "name": "BlueSolarMPPT100/15",
-  "aliases": [],
+  "kind": "charge-controller",
+  "aliases": [
+    "BlueSolar MPPT100|15"
+  ],
   "dialects": []
 }

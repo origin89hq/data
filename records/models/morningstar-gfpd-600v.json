@@ -3,5 +3,6 @@
   "manufacturer": "morningstar",
   "name": "GFPD-600V",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

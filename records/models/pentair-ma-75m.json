@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "MA-75M",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

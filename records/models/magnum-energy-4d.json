@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "4D",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "MM1324E",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

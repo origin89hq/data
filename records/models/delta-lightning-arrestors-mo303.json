@@ -3,5 +3,6 @@
   "manufacturer": "delta-lightning-arrestors",
   "name": "MO303",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

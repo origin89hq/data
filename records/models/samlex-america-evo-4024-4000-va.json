@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "EVO-4024 (4000 VA)",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

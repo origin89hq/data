@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "IDC-200D-12",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "dc-dc-converter"
 }

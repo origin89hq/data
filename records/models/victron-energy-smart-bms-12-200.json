@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "Smart BMS 12-200",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "bms"
 }

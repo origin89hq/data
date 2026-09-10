@@ -3,5 +3,6 @@
   "manufacturer": "lorex",
   "name": "E893AB-E",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

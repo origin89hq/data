@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "CMW3012H",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

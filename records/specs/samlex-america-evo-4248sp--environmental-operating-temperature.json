@@ -1,9 +1,0 @@
-{
-  "id": "samlex-america-evo-4248sp--environmental-operating-temperature",
-  "model": "samlex-america-evo-4248sp",
-  "name": "ENVIRONMENTAL OPERATING TEMPERATURE",
-  "value": "-20 to +60°C",
-  "source": "doc-f3a1815bce782c710df32d6b6bb58feb",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

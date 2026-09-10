@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "MS4048",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

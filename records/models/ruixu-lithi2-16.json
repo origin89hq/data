@@ -3,6 +3,8 @@
   "manufacturer": "ruixu",
   "name": "Lithi2-16",
   "kind": "battery",
-  "aliases": [],
+  "aliases": [
+    "RUIXU-Lithi2-16"
+  ],
   "dialects": []
 }

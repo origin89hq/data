@@ -3,5 +3,6 @@
   "manufacturer": "east-penn",
   "name": "8G4DF",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

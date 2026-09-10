@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "CMBPS-30ATR",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

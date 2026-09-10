@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "ME-BMK",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "bms"
 }

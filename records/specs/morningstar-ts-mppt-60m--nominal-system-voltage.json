@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-mppt-60m--nominal-system-voltage",
+  "model": "morningstar-ts-mppt-60m",
+  "name": "Nominal System Voltage",
+  "value": "12/24/48V DC",
+  "source": "doc-d0e875dec70c9b017e0e9e1236fb4cdd",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 10,
+  "confidence": "vendor-doc"
+}

@@ -3,5 +3,6 @@
   "manufacturer": "champion-power",
   "name": "NGK BPR6ES",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "sigineer",
   "name": "48V models",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "dc-dc-converter"
 }

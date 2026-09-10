@@ -3,5 +3,6 @@
   "manufacturer": "noco",
   "name": "NOCO",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

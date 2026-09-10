@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "EM7RS-040221",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

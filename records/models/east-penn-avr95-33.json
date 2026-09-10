@@ -3,5 +3,6 @@
   "manufacturer": "east-penn",
   "name": "AVR95-33",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

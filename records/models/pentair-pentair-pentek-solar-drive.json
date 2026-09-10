@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "PENTAIR PENTEK* SOLAR DRIVE",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "MIL-24DM50DN",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "east-penn",
   "name": "HRC950C",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

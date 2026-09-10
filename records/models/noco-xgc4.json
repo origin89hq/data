@@ -3,5 +3,6 @@
   "manufacturer": "noco",
   "name": "XGC4",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "ac-charger"
 }

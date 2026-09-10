@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "MPL2430",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

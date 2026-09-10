@@ -3,5 +3,6 @@
   "manufacturer": "eg4-electronics",
   "name": "PowerPro (280AH) batteries",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "20\" LCD TV",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

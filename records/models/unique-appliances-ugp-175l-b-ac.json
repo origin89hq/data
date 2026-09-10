@@ -3,5 +3,6 @@
   "manufacturer": "unique-appliances",
   "name": "UGP-175L B AC",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "generator"
 }

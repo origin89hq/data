@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "BATTERY CHARGER",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "ac-charger"
 }

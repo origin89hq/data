@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts60--operating-temperature-range",
+  "model": "morningstar-ts60",
+  "name": "Operating temperature range",
+  "value": "-40°C bis +60°C",
+  "source": "doc-0c117c994478b79ddc1c5e3f43e1a8ea",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 2,
+  "confidence": "vendor-doc"
+}

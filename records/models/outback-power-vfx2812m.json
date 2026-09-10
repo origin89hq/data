@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "VFX2812M",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

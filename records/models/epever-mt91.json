@@ -3,5 +3,6 @@
   "manufacturer": "epever",
   "name": "MT91",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "millertech",
   "name": "16V 15A",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

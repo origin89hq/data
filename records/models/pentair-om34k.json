@@ -2,6 +2,9 @@
   "id": "pentair-om34k",
   "manufacturer": "pentair",
   "name": "OM34K",
-  "aliases": [],
+  "kind": "out-of-scope",
+  "aliases": [
+    "OM34K System"
+  ],
   "dialects": []
 }

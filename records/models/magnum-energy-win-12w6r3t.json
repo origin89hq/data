@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "WIN-12W6R3T",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

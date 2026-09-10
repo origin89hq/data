@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "MA-120M-HD",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

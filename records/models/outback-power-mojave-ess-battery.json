@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "Mojave™ ESS Battery",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

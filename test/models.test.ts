@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { deriveModels, looksLikeModelName, modelId, normaliseModelName } from "../src/models.ts";
+import { deriveModels, looksLikeModelName, modelId, normaliseModelName, preferredName, productKey } from "../src/models.ts";
 import { Model } from "../schema/model.ts";
 import type { Brand } from "../schema/brand.ts";
 import type { Sighting } from "../schema/sighting.ts";
@@ -119,4 +119,38 @@ test("a catalogue number made only of digits is still a model, since Blue Sea an
   assert.equal(looksLikeModelName("2719"), true);
   assert.equal(looksLikeModelName("31110.000"), true);
   assert.equal(looksLikeModelName("S12-90GEL"), true);
+});
+
+test("a maker's own name and a seller's descriptor do not make a second product", () => {
+  // Three records for one EG4, and four for the 12kPV, because each source wrote the name its way.
+  const key = (name: string) => productKey("EG4 Electronics", name);
+  assert.equal(key("6000XP"), key("EG4 6000xp"));
+  assert.equal(key("12kPV"), key("EG4 12kPV Inverter"));
+  // "PVEG4 6000XP Inverter" does not join them, and deliberately so. Stripping "eg4" out of the
+  // middle of a word a seller invented leaves "pv", and reaching further to make it match is how a
+  // rule starts merging products that differ. A missed duplicate is one somebody can still see; a
+  // wrong merge deletes a product and takes its figures with it.
+  assert.notEqual(key("6000XP"), key("PVEG4 6000XP Inverter"));
+  const outback = (name: string) => productKey("OutBack Power", name);
+  assert.equal(outback("OBX-IC2024S-120/60"), outback("OBX-IC2024S-120/60 Inverter/Charger"));
+});
+
+test("punctuation inside a part number does not make a second product either", () => {
+  // Fronius writes the same part number with and without thousands separators.
+  assert.equal(productKey("Fronius", "4,210,052,841"), productKey("Fronius", "4210052841"));
+  assert.equal(productKey("Morningstar", "TS-45"), productKey("Morningstar", "TS45"));
+  assert.equal(productKey("Samlex America", "EVO-1212F"), productKey("Samlex America", "EVO1212F"));
+});
+
+test("two genuinely different products keep their own records", () => {
+  // A bundle is not the inverter inside it, and a 6000XP is not a 12kPV.
+  assert.notEqual(productKey("EG4 Electronics", "6000XP"), productKey("EG4 Electronics", "EG4RX-6000XP-BDL1"));
+  assert.notEqual(productKey("EG4 Electronics", "6000XP"), productKey("EG4 Electronics", "12kPV"));
+  assert.notEqual(productKey("MidNite Solar", "CLASSIC 150"), productKey("MidNite Solar", "CLASSIC 250"));
+  assert.notEqual(productKey("Sol-Ark", "15K-2P-LV"), productKey("Sol-Ark", "15K-2P-N"));
+});
+
+test("the name kept is the maker's, and the seller's becomes an alias", () => {
+  assert.equal(preferredName(["PVEG4 6000XP Inverter", "6000XP", "EG4 6000xp"]), "6000XP");
+  assert.equal(preferredName(["Sol-Ark 12K-2P-N", "12K-2P-N", "Sol-Ark12K-2P-N"]), "12K-2P-N");
 });

@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "MEH200",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

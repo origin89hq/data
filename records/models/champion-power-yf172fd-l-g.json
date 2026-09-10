@@ -3,5 +3,6 @@
   "manufacturer": "champion-power",
   "name": "YF172FD-L_G",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "generator"
 }

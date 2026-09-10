@@ -4,7 +4,9 @@
   "name": "MNSPD600",
   "kind": "balance-of-system",
   "aliases": [
-    "1529013"
+    "1529013",
+    "MID-109-109",
+    "MNSPD-600"
   ],
   "dialects": []
 }

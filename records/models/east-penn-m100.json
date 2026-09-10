@@ -3,5 +3,6 @@
   "manufacturer": "east-penn",
   "name": "M100",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

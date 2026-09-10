@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "Fleck 3200 NXT",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

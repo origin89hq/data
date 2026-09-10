@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "SNS40-H",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "SC-115",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

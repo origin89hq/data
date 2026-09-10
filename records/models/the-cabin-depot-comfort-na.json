@@ -3,5 +3,6 @@
   "manufacturer": "the-cabin-depot",
   "name": "COMFORT NA",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

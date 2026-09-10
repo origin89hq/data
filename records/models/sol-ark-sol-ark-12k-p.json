@@ -3,5 +3,6 @@
   "manufacturer": "sol-ark",
   "name": "Sol-Ark-12K-P",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

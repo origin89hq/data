@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "SEC-2012MPSB",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

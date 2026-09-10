@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "12001-PST-600-12-24-48-0726",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

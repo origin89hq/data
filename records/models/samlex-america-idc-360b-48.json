@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "IDC-360B-48",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

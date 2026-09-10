@@ -3,5 +3,6 @@
   "manufacturer": "millertech",
   "name": "12V 100AH LiFePO4 Millertech Battery",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

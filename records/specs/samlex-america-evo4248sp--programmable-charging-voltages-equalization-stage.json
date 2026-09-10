@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo4248sp--programmable-charging-voltages-equalization-stage",
+  "model": "samlex-america-evo4248sp",
+  "name": "Programmable Charging Voltages : Equalization Stage",
+  "value": "56.0 to 66.0V (Default 57.6V)",
+  "source": "doc-77d5a044f854b713908790f95d2d3b18",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 110,
+  "confidence": "vendor-doc"
+}

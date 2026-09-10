@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "ADI-12UV12RT",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

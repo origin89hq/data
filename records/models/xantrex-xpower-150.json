@@ -3,5 +3,6 @@
   "manufacturer": "xantrex",
   "name": "XPower 150",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

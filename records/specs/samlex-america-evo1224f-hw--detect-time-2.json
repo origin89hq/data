@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo1224f-hw--detect-time-2",
+  "model": "samlex-america-evo1224f-hw",
+  "name": "DETECT TIME 2",
+  "value": "60 cycle",
+  "source": "doc-e4b7bca81a862471e87ee06ee31c2690",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 123,
+  "confidence": "vendor-doc"
+}

@@ -3,5 +3,6 @@
   "manufacturer": "lorex",
   "name": "N845A82",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "lorex",
   "name": "RN301A",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "precision-circuits",
   "name": "Midi-PCS",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

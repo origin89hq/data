@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "SR-IBC12-3kW-AU",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

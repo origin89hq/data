@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "GX IO-Extender 150",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

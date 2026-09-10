@@ -3,5 +3,6 @@
   "manufacturer": "luxpower",
   "name": "SNA US 12K240/120V",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

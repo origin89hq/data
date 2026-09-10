@@ -3,5 +3,6 @@
   "manufacturer": "energizer-solar",
   "name": "A11-CP",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

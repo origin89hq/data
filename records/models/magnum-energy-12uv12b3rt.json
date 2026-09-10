@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "12UV12B3RT",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

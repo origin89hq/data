@@ -3,5 +3,6 @@
   "manufacturer": "luxpower",
   "name": "LiteStor202/101",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

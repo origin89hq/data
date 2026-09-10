@@ -3,5 +3,6 @@
   "manufacturer": "xantrex",
   "name": "XPower PowerSource 1800",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

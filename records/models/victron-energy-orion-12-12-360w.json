@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "Orion 12/12-360w",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "dc-dc-converter"
 }

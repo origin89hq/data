@@ -3,5 +3,6 @@
   "manufacturer": "morningstar",
   "name": "MW-4048-SP-B",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

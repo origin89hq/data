@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "EnergyCell 200PLR",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

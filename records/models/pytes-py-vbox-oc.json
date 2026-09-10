@@ -3,6 +3,8 @@
   "manufacturer": "pytes",
   "name": "PY-VBOX-OC",
   "kind": "balance-of-system",
-  "aliases": [],
+  "aliases": [
+    "PY-V-BOX-OC"
+  ],
   "dialects": []
 }

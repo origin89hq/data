@@ -2,6 +2,9 @@
   "id": "outback-power-energycell-200plc",
   "manufacturer": "outback-power",
   "name": "EnergyCell 200PLC",
-  "aliases": [],
+  "kind": "battery",
+  "aliases": [
+    "EnergyCell 200 PLC"
+  ],
   "dialects": []
 }

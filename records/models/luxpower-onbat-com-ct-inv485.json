@@ -3,5 +3,6 @@
   "manufacturer": "luxpower",
   "name": "onBAT COM CT INV485",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

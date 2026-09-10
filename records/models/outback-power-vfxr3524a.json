@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "VFXR3524A",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

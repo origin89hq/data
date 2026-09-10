@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "B4T_KHS",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

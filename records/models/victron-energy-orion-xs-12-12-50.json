@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "Orion XS 12/12-50",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "dc-dc-converter"
 }

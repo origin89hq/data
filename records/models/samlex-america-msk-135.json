@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "MSK-135",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "panel"
 }

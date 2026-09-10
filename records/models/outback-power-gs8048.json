@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "GS8048",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

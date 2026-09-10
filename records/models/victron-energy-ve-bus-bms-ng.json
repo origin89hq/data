@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "VE.Bus BMS NG",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "bms"
 }

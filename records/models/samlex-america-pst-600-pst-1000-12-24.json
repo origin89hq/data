@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "PST-600 & PST-1000-12-24",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

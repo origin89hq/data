@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "Skylla TG 48/50",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

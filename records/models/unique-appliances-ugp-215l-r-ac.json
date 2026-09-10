@@ -3,5 +3,6 @@
   "manufacturer": "unique-appliances",
   "name": "UGP-215L R AC",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

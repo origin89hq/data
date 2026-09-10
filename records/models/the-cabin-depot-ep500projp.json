@@ -3,5 +3,6 @@
   "manufacturer": "the-cabin-depot",
   "name": "EP500ProJP",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "SSP-100-KIT",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

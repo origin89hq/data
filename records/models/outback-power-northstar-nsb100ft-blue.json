@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "Northstar NSB100FT BLUE+®",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "peimar",
   "name": "OR12H725MNDB",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "panel"
 }

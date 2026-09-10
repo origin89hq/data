@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "GTFX2012E",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

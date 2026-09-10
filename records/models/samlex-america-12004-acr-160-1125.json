@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "12004-ACR-160-1125",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "dc-dc-converter"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "xantrex",
   "name": "RS3000",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

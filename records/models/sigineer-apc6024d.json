@@ -3,5 +3,6 @@
   "manufacturer": "sigineer",
   "name": "APC6024D",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "eg4-electronics",
   "name": "Square D QOM2200VH",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

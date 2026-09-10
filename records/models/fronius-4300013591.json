@@ -3,6 +3,9 @@
   "manufacturer": "fronius",
   "name": "4300013591",
   "kind": "meter",
-  "aliases": [],
+  "aliases": [
+    "43,0001,3591",
+    "FRO-221-185"
+  ],
   "dialects": []
 }

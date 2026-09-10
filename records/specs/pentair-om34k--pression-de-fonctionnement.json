@@ -1,0 +1,11 @@
+{
+  "id": "pentair-om34k--pression-de-fonctionnement",
+  "model": "pentair-om34k",
+  "name": "Pression de fonctionnement",
+  "english": "Operating pressure",
+  "value": "20 -125 psi",
+  "source": "doc-a05d04ac4987139b1e825e769688c178",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 55,
+  "confidence": "vendor-doc"
+}

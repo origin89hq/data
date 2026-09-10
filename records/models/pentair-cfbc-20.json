@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "CFBC-20",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

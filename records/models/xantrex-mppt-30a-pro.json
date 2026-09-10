@@ -3,5 +3,6 @@
   "manufacturer": "xantrex",
   "name": "MPPT 30A PRO",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

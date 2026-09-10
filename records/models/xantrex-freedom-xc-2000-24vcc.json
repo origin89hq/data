@@ -3,5 +3,6 @@
   "manufacturer": "xantrex",
   "name": "Freedom XC 2000 (24VCC)",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

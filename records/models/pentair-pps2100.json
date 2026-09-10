@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "PPS2100",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

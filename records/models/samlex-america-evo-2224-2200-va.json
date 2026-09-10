@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "EVO-2224 (2200 VA)",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

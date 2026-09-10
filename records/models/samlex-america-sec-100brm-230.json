@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "SEC-100BRM-230",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

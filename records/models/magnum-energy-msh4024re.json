@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "MSH4024RE",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

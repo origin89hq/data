@@ -3,5 +3,6 @@
   "manufacturer": "luxpower",
   "name": "Battery-PGEM51.2V/100Ah",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

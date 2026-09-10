@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "SXT",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

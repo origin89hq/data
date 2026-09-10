@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "FXI11+CR",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

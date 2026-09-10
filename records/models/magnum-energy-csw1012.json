@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "CSW1012",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "THERMAL CIRCUIT BREAKER",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

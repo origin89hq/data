@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "MSH3012RV",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

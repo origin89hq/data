@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "PSD15",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

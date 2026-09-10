@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "MPPT 100/20",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

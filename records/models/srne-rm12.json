@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "RM12",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

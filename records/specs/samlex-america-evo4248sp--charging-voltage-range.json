@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-evo4248sp--charging-voltage-range",
+  "model": "samlex-america-evo4248sp",
+  "name": "CHARGING VOLTAGE RANGE",
+  "value": "52 - 60 VDC",
+  "source": "doc-6d4b2ef12a981a4b92af6d7dd6c47cd4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

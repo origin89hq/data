@@ -1,0 +1,11 @@
+{
+  "id": "eg4-electronics-6000xp--continuous-backup-power",
+  "model": "eg4-electronics-6000xp",
+  "name": "Continuous backup power",
+  "value": "25",
+  "unit": "A",
+  "source": "doc-29133efc5bcd5cff64e2b3f6df9dc9b8",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 9,
+  "confidence": "vendor-doc"
+}

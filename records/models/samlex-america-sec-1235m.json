@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "SEC-1235M",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

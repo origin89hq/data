@@ -3,5 +3,6 @@
   "manufacturer": "midnite-solar",
   "name": "MNE250SMA-QUAD MSTR",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

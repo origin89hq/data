@@ -3,5 +3,6 @@
   "manufacturer": "kohler-energy",
   "name": "1870577",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "generator"
 }

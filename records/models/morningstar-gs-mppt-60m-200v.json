@@ -3,5 +3,6 @@
   "manufacturer": "morningstar",
   "name": "GS-MPPT-60M-200V",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

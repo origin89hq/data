@@ -3,5 +3,6 @@
   "manufacturer": "east-penn",
   "name": "HR3500",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

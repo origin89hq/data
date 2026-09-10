@@ -3,5 +3,6 @@
   "manufacturer": "morningstar",
   "name": "EC-10M",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

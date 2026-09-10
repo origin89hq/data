@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "GVFX3024E",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

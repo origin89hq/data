@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "SEC-1223CE",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

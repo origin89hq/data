@@ -3,5 +3,6 @@
   "manufacturer": "east-penn",
   "name": "HR4000",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "390006",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

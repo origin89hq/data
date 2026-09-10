@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "FW-Shunt500",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "shunt-monitor"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "MA-95L/MA-95M",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

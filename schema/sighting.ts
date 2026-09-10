@@ -29,6 +29,14 @@ export const Sighting = z
     tags: z.array(z.string()).optional(),
     /** Seller's SKU, often the maker's model number, sometimes not. */
     sku: z.string().optional(),
+    /**
+     * Rated figures already held for this product, as one short line.
+     *
+     * Not the marketing description, which is long and says nothing: this is "Rated capacity: 100
+     * Ah; Nominal voltage: 48 V", read out of the maker's own document. For a product whose title
+     * is a bare part number it is the only evidence of what the thing is.
+     */
+    figures: z.string().min(1).optional(),
     /** The maker's model number when the seller states it as its own field, as some do. Not derived from the title. */
     model: z.string().optional(),
     /** Variant label when the product has more than one, e.g. "24V / 100Ah". */

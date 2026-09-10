@@ -3,5 +3,6 @@
   "manufacturer": "sigineer",
   "name": "96V models",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "7-Seg Display Panel",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "meter"
 }

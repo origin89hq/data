@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "48/3000/35-32 230V GX AU",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "xantrex",
   "name": "Xantrex IP1012 AL",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

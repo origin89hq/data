@@ -3,5 +3,6 @@
   "manufacturer": "rolls-battery",
   "name": "Rolls R48-32LFP",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

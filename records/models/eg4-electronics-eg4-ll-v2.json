@@ -3,5 +3,6 @@
   "manufacturer": "eg4-electronics",
   "name": "EG4-LL V2",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

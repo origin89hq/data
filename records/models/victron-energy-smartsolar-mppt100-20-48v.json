@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "SmartSolar MPPT100|20_48V",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

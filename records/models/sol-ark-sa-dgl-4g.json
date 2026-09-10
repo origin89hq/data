@@ -3,5 +3,6 @@
   "manufacturer": "sol-ark",
   "name": "SA-DGL-4G",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

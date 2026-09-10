@@ -1,0 +1,9 @@
+{
+  "id": "luxpower-lxp-3600acs--battery-voltage-range",
+  "model": "luxpower-lxp-3600acs",
+  "name": "Battery voltage range",
+  "value": "40 ~ 60 V",
+  "source": "doc-863296de3b51cb17dbfbf2244df36565",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

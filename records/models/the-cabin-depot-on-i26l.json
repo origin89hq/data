@@ -3,5 +3,6 @@
   "manufacturer": "the-cabin-depot",
   "name": "ON-I26L",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

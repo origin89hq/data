@@ -3,5 +3,6 @@
   "manufacturer": "east-penn",
   "name": "U1HR1500",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

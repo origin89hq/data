@@ -1,9 +1,0 @@
-{
-  "id": "samlex-america-evo-1224f--continuous-output-power-and-power-factor",
-  "model": "samlex-america-evo-1224f",
-  "name": "CONTINUOUS OUTPUT POWER AND POWER FACTOR",
-  "value": "1200 Watt at PF = 0.95",
-  "source": "doc-3542ec518aff9a7e5996bee035615049",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

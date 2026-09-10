@@ -3,5 +3,6 @@
   "manufacturer": "east-penn",
   "name": "ETX15",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

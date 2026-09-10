@@ -3,5 +3,6 @@
   "manufacturer": "morningstar",
   "name": "3680222",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

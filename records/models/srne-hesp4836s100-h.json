@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "HESP4836S100-H",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

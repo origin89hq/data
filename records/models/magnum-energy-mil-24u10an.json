@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "MIL-24U10AN",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "noco",
   "name": "AX65",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

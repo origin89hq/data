@@ -3,5 +3,6 @@
   "manufacturer": "the-cabin-depot",
   "name": "J. A. ROBY wood stove",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

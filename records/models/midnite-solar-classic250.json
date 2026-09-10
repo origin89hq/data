@@ -3,6 +3,11 @@
   "manufacturer": "midnite-solar",
   "name": "Classic250",
   "kind": "charge-controller",
-  "aliases": [],
-  "dialects": []
+  "aliases": [
+    "CLASSIC 250",
+    "MID-163-124"
+  ],
+  "dialects": [
+    "midnite-classic"
+  ]
 }

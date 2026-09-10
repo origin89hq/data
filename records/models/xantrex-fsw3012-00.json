@@ -3,5 +3,6 @@
   "manufacturer": "xantrex",
   "name": "FSW3012 00",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

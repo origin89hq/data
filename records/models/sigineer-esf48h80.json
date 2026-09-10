@@ -3,5 +3,6 @@
   "manufacturer": "sigineer",
   "name": "ESF48H80",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

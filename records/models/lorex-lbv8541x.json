@@ -3,5 +3,6 @@
   "manufacturer": "lorex",
   "name": "LBV8541X",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

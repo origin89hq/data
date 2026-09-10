@@ -3,5 +3,6 @@
   "manufacturer": "luxpower",
   "name": "PSHIELD MAX",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "bms"
 }

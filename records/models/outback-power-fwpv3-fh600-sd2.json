@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "FWPV3-FH600-SD2",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

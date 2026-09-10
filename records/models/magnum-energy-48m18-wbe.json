@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "48M18-WBE",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

@@ -1,9 +1,0 @@
-{
-  "id": "samlex-america-evo-4248sp--nominal-ac-output-voltage",
-  "model": "samlex-america-evo-4248sp",
-  "name": "NOMINAL AC OUTPUT VOLTAGE",
-  "value": "120 / 240 VAC ± 5% Split Phase",
-  "source": "doc-6d4b2ef12a981a4b92af6d7dd6c47cd4",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

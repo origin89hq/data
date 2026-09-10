@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "ADI-48J17",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

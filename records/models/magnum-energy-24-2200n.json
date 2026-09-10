@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "24/2200N",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

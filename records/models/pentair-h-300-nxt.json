@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "H-300-NXT",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

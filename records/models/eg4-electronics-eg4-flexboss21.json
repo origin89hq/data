@@ -2,6 +2,9 @@
   "id": "eg4-electronics-eg4-flexboss21",
   "manufacturer": "eg4-electronics",
   "name": "EG4 FlexBOSS21",
-  "aliases": [],
+  "kind": "inverter",
+  "aliases": [
+    "EG4 FlexBOSS21 Inverter"
+  ],
   "dialects": []
 }

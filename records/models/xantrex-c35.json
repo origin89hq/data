@@ -3,5 +3,6 @@
   "manufacturer": "xantrex",
   "name": "C35",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

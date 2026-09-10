@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "MSE5012P10",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

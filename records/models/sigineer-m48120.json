@@ -3,5 +3,6 @@
   "manufacturer": "sigineer",
   "name": "M48120",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

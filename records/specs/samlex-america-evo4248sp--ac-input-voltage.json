@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo4248sp--ac-input-voltage",
+  "model": "samlex-america-evo4248sp",
+  "name": "AC Input Voltage",
+  "value": "240 VAC +/- 5% Split Phase (180 - 280 VAC +/- 5%)",
+  "source": "doc-77d5a044f854b713908790f95d2d3b18",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 110,
+  "confidence": "vendor-doc"
+}

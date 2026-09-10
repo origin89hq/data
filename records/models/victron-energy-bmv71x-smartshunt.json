@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "BMV71x SmartShunt",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "bms"
 }

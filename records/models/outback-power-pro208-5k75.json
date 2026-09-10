@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "PRO208-5k75",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

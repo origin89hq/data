@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "WIN-12X20B3R1T",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

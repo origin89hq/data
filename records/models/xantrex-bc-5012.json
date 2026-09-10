@@ -3,5 +3,6 @@
   "manufacturer": "xantrex",
   "name": "BC 5012",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

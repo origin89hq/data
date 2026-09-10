@@ -3,5 +3,6 @@
   "manufacturer": "rolls-battery",
   "name": "S48-400LFP STACK-LV",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

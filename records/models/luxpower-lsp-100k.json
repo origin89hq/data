@@ -3,5 +3,6 @@
   "manufacturer": "luxpower",
   "name": "LSP 100K",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "dc-dc-converter"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "xantrex",
   "name": "Prosine 1000i",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

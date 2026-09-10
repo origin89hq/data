@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "MA-240L",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

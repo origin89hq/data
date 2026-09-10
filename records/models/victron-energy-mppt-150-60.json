@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "MPPT 150/60",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

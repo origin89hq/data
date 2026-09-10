@@ -3,5 +3,6 @@
   "manufacturer": "millertech",
   "name": "48V 50AH LiFePO4 Millertech® Battery",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

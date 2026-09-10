@@ -3,5 +3,6 @@
   "manufacturer": "morningstar",
   "name": "MW-4048-120",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

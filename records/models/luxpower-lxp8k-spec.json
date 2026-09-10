@@ -3,5 +3,6 @@
   "manufacturer": "luxpower",
   "name": "LXP8K SPEC",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "morningstar",
   "name": "3611175",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "morningstar",
   "name": "TriStar-PWM-45",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

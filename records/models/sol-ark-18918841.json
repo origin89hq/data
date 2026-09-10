@@ -3,5 +3,6 @@
   "manufacturer": "sol-ark",
   "name": "18918841",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "peimar",
   "name": "OR10H440MN (BF)",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "panel"
 }

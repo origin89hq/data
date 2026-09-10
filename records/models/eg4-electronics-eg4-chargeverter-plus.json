@@ -3,5 +3,6 @@
   "manufacturer": "eg4-electronics",
   "name": "EG4 Chargeverter Plus",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "ac-charger"
 }

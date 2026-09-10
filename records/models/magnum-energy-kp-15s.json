@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "KP-15S",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

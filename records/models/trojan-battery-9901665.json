@@ -3,5 +3,6 @@
   "manufacturer": "trojan-battery",
   "name": "9901665",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "3kVA model",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

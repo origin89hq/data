@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "MMS-E",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

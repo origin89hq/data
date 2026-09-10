@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "GFX1312E",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

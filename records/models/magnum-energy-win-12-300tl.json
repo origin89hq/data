@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "WIN-12/300TL",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

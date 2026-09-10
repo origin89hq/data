@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "Cap, Regulated Injector, 30 PSI",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

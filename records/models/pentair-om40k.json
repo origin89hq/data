@@ -2,6 +2,9 @@
   "id": "pentair-om40k",
   "manufacturer": "pentair",
   "name": "OM40K",
-  "aliases": [],
+  "kind": "out-of-scope",
+  "aliases": [
+    "OM40K System"
+  ],
   "dialects": []
 }

@@ -3,6 +3,8 @@
   "manufacturer": "sol-ark",
   "name": "60K-3P-480V",
   "kind": "inverter-charger",
-  "aliases": [],
+  "aliases": [
+    "Sol-Ark 60K-3P-480V"
+  ],
   "dialects": []
 }

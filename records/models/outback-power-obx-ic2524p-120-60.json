@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "OBX-IC2524P-120/60",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

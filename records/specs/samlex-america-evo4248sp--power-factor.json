@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-evo4248sp--power-factor",
+  "model": "samlex-america-evo4248sp",
+  "name": "POWER FACTOR",
+  "value": "0.95",
+  "source": "doc-f3a1815bce782c710df32d6b6bb58feb",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

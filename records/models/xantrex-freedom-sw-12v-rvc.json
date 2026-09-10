@@ -3,5 +3,6 @@
   "manufacturer": "xantrex",
   "name": "Freedom SW 12V RVC",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

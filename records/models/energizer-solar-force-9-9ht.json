@@ -3,5 +3,6 @@
   "manufacturer": "energizer-solar",
   "name": "Force 9.9HT+",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

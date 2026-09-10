@@ -3,5 +3,6 @@
   "manufacturer": "rolls-battery",
   "name": "MultiPlus-II 120V 48/3000/35-50",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

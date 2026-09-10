@@ -3,6 +3,11 @@
   "manufacturer": "samlex-america",
   "name": "EVO4024",
   "kind": "inverter-charger",
-  "aliases": [],
-  "dialects": []
+  "aliases": [
+    "evo-4024"
+  ],
+  "dialects": [
+    "samlex-evo-modbus-22xx-40xx",
+    "samlex-evo-signal-io"
+  ]
 }

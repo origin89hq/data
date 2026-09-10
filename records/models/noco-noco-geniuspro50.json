@@ -3,5 +3,6 @@
   "manufacturer": "noco",
   "name": "NOCO GENIUSPRO50",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

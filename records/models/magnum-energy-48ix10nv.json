@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "48IX10NV",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

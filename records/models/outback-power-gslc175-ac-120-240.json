@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "GSLC175-AC-120/240",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

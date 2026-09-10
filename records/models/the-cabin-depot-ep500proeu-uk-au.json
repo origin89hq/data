@@ -3,5 +3,6 @@
   "manufacturer": "the-cabin-depot",
   "name": "EP500ProEU/UK/AU",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

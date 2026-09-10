@@ -3,5 +3,6 @@
   "manufacturer": "eg4-electronics",
   "name": "PP-48-280A3-12K3-IN-*",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

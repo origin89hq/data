@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "INTERNAL TRANSFER RELAY",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

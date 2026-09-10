@@ -3,5 +3,6 @@
   "manufacturer": "east-penn",
   "name": "AVR75-29",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

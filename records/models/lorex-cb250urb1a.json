@@ -3,5 +3,6 @@
   "manufacturer": "lorex",
   "name": "CB250URB1A",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

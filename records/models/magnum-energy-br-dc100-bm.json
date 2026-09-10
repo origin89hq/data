@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "BR-DC100-BM",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "MC2450N10",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

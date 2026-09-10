@@ -3,5 +3,6 @@
   "manufacturer": "sigineer",
   "name": "ESF48L40",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

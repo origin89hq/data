@@ -3,5 +3,6 @@
   "manufacturer": "enphase",
   "name": "18953121",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

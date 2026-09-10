@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna6000wpv--output-voltage-regulation",
+  "model": "luxpower-sna6000wpv",
+  "name": "Output Voltage Regulation",
+  "value": "±5 %",
+  "source": "doc-382ae6d157ec388999d842200da8a1ed",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 55,
+  "confidence": "vendor-doc"
+}

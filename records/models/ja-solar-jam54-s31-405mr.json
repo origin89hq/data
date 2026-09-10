@@ -3,6 +3,8 @@
   "manufacturer": "ja-solar",
   "name": "JAM54-S31-405MR",
   "kind": "panel",
-  "aliases": [],
+  "aliases": [
+    "JAM54S31-405/MR"
+  ],
   "dialects": []
 }

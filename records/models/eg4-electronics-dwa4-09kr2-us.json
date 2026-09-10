@@ -3,5 +3,6 @@
   "manufacturer": "eg4-electronics",
   "name": "DWA4-09KR2(US)",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

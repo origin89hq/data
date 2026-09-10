@@ -3,5 +3,6 @@
   "manufacturer": "champion-power",
   "name": "2487-L-PR",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "generator"
 }

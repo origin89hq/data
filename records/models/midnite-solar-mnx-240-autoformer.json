@@ -3,5 +3,6 @@
   "manufacturer": "midnite-solar",
   "name": "MNX-240 AUTOFORMER",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

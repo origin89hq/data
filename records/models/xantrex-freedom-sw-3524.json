@@ -3,5 +3,6 @@
   "manufacturer": "xantrex",
   "name": "FREEDOM SW 3524",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "millertech",
   "name": "Dark Speed 12V-36V",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "ac-charger"
 }

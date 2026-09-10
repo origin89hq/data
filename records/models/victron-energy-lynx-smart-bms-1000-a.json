@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "Lynx Smart BMS 1000 A",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "bms"
 }

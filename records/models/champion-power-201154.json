@@ -3,5 +3,6 @@
   "manufacturer": "champion-power",
   "name": "201154",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "generator"
 }

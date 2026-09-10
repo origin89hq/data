@@ -3,5 +3,6 @@
   "manufacturer": "champion-power",
   "name": "14-kW (Modèle 100515)",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "generator"
 }

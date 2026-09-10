@@ -3,5 +3,6 @@
   "manufacturer": "the-cabin-depot",
   "name": "BW264",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

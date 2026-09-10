@@ -3,6 +3,8 @@
   "manufacturer": "victron-energy",
   "name": "VBB160080010",
   "kind": "balance-of-system",
-  "aliases": [],
+  "aliases": [
+    "Victron-VBB160080010"
+  ],
   "dialects": []
 }

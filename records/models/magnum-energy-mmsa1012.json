@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "MMSA1012",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

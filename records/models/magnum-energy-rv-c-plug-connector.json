@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "RV-C plug/connector",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

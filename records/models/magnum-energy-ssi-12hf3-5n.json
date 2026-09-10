@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "SSI-12HF3.5N",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

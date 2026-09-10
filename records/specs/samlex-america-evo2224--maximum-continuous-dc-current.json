@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-evo2224--maximum-continuous-dc-current",
+  "model": "samlex-america-evo2224",
+  "name": "Maximum continuous DC current",
+  "value": "133",
+  "unit": "A",
+  "source": "doc-23df0d2727e9f35278efcb9ffbc0e9f6",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 67,
+  "confidence": "vendor-doc"
+}

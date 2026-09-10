@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-evo4248sp--equalize-voltage",
+  "model": "samlex-america-evo4248sp",
+  "name": "EQUALIZE VOLTAGE",
+  "value": "57.6",
+  "unit": "V",
+  "source": "doc-77d5a044f854b713908790f95d2d3b18",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 89,
+  "confidence": "vendor-doc"
+}

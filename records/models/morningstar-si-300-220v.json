@@ -3,5 +3,6 @@
   "manufacturer": "morningstar",
   "name": "SI-300-220V",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

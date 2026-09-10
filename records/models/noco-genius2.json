@@ -3,5 +3,6 @@
   "manufacturer": "noco",
   "name": "GENIUS2",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

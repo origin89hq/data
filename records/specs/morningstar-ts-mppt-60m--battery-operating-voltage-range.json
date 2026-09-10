@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-ts-mppt-60m--battery-operating-voltage-range",
+  "model": "morningstar-ts-mppt-60m",
+  "name": "Battery Operating Voltage Range",
+  "value": "8-72 volts DC",
+  "source": "doc-d909fca27911a10e86c6dff57445411a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

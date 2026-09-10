@@ -3,5 +3,6 @@
   "manufacturer": "champion-power",
   "name": "#102652",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "ac-charger"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "lorex",
   "name": "WDD128G1P0C",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

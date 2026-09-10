@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "MultiPlus-II 48/5000/70-50 GX",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

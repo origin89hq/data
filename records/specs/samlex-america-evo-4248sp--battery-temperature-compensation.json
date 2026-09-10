@@ -1,9 +1,0 @@
-{
-  "id": "samlex-america-evo-4248sp--battery-temperature-compensation",
-  "model": "samlex-america-evo-4248sp",
-  "name": "BATTERY TEMPERATURE COMPENSATION",
-  "value": "-20° C to 60° C",
-  "source": "doc-f3a1815bce782c710df32d6b6bb58feb",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

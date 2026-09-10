@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "Orion XS 1400",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "dc-dc-converter"
 }

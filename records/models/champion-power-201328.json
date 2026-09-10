@@ -3,5 +3,6 @@
   "manufacturer": "champion-power",
   "name": "201328",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "RELAY AUX-Klemmen",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

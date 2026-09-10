@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "Multi RS Solar 48/6000",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

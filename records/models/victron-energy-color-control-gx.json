@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "Color Control GX",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "meter"
 }

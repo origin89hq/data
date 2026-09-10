@@ -3,5 +3,6 @@
   "manufacturer": "rstc-enterprises",
   "name": "0766-41AD",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

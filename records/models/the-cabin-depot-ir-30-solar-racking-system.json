@@ -3,5 +3,6 @@
   "manufacturer": "the-cabin-depot",
   "name": "IR-30 Solar Racking System",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

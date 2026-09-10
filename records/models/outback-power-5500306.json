@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "5500306",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

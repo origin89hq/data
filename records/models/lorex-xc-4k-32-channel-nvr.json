@@ -3,5 +3,6 @@
   "manufacturer": "lorex",
   "name": "XC 4K 32 Channel NVR",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

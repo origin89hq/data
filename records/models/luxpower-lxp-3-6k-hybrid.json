@@ -3,5 +3,6 @@
   "manufacturer": "luxpower",
   "name": "LXP-3.6K hybrid",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "MS33PV",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

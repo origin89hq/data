@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "CSW2024",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "eg4-electronics",
   "name": "EG4 18kPV",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

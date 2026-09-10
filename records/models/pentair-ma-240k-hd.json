@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "MA-240K-HD",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

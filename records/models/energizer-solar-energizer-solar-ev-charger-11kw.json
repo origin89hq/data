@@ -3,5 +3,6 @@
   "manufacturer": "energizer-solar",
   "name": "Energizer Solar EV Charger 11kW",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "ac-charger"
 }

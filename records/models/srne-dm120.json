@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "DM120",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

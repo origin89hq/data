@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "SmartSolar MPPT 75|15",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

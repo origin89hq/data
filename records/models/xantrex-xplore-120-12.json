@@ -2,6 +2,9 @@
   "id": "xantrex-xplore-120-12",
   "manufacturer": "xantrex",
   "name": "XPLORE 120/12",
-  "aliases": [],
+  "kind": "ac-charger",
+  "aliases": [
+    "XPLORE 120/12 Battery Charger"
+  ],
   "dialects": []
 }

@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "MA-155L-HD",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

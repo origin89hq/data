@@ -3,5 +3,6 @@
   "manufacturer": "morningstar",
   "name": "TriStar 600V",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

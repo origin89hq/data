@@ -3,5 +3,6 @@
   "manufacturer": "east-penn",
   "name": "12AVR90",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

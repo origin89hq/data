@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "BLFC Assy 3/8",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

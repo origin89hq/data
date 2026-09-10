@@ -3,5 +3,6 @@
   "manufacturer": "noco",
   "name": "GBX35",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

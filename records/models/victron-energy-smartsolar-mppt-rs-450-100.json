@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "SmartSolar MPPT RS 450|100",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

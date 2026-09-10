@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "SCC-1208L",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

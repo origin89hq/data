@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "Single Phase, 230V",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

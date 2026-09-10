@@ -3,5 +3,6 @@
   "manufacturer": "sigineer",
   "name": "CB240V100A/2P",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

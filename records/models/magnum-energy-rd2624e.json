@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "RD2624E",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

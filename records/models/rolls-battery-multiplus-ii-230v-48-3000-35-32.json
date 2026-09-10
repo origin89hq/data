@@ -3,5 +3,6 @@
   "manufacturer": "rolls-battery",
   "name": "MultiPlus-II 230V 48/3000/35-32",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

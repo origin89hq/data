@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "SR-Box112C-55K",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

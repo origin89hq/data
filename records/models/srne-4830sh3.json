@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "4830SH3",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

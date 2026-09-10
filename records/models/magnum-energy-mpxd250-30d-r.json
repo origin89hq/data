@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "MPXD250-30D-R",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "bslbatt",
   "name": "HVS5",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

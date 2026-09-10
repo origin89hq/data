@@ -3,5 +3,6 @@
   "manufacturer": "xantrex",
   "name": "Freedom SW 2012 RVC",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

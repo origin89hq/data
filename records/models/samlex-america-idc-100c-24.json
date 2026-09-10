@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "IDC-100C-24",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "dc-dc-converter"
 }

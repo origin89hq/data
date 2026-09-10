@@ -3,5 +3,6 @@
   "manufacturer": "morningstar",
   "name": "SL-10L-24",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

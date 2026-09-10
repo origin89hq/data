@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "SUN Inverter 12/250",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

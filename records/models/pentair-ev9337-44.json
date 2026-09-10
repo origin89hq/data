@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "EV9337-44",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "sigineer",
   "name": "24V models",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "dc-dc-converter"
 }

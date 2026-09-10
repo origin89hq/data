@@ -3,5 +3,6 @@
   "manufacturer": "epever",
   "name": "RS485-1M2S",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "FX2524MT",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

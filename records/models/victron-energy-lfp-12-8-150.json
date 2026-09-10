@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "LFP-12,8/150",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

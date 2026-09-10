@@ -3,5 +3,6 @@
   "manufacturer": "the-cabin-depot",
   "name": "Anker SOLIX F3800 Plus",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

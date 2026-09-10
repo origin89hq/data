@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "Pentair Pentek Solar Drive PSD30",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

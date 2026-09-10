@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-sol-5k-2p-n--ups-time",
+  "model": "sol-ark-sol-5k-2p-n",
+  "name": "UPS Time",
+  "value": "4ms",
+  "source": "doc-759ca07ffded8018dcb7cbd8dcc55424",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 22,
+  "confidence": "vendor-doc"
+}

@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "RS18",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

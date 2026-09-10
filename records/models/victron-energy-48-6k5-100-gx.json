@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "48/6k5/100 GX",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

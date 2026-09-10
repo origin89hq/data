@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "HESP48160UBH3",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "eg4-electronics",
   "name": "EG4 48V",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

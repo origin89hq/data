@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "FLEXware PV-8 and PV-12 Combiners",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

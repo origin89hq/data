@@ -3,5 +3,6 @@
   "manufacturer": "sol-ark",
   "name": "CT sensors",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "shunt-monitor"
 }

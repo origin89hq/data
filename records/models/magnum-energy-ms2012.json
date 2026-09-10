@@ -2,6 +2,9 @@
   "id": "magnum-energy-ms2012",
   "manufacturer": "magnum-energy",
   "name": "MS2012",
-  "aliases": [],
+  "kind": "inverter-charger",
+  "aliases": [
+    "MS 2012"
+  ],
   "dialects": []
 }

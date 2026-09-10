@@ -3,5 +3,6 @@
   "manufacturer": "east-penn",
   "name": "HT95-27",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "midnite-solar",
   "name": "3930001",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

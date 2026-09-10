@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "STEP 10",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "dc-dc-converter"
 }

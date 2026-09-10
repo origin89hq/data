@@ -3,7 +3,9 @@
   "manufacturer": "rolls-battery",
   "name": "S48-100LFP STACK-LV",
   "kind": "battery",
-  "aliases": [],
+  "aliases": [
+    "Rolls S48-100LFP STACK-LV"
+  ],
   "dialects": [
     "rolls-lfp-stack-lv-48v",
     "rolls-stack-lv-can"

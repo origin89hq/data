@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "CB6",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

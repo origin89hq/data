@@ -3,5 +3,6 @@
   "manufacturer": "sol-ark",
   "name": "Sol-Ark-5K-48-ST",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

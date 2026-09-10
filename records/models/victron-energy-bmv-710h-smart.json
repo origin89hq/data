@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "BMV-710H Smart",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "bms"
 }

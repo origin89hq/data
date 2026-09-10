@@ -3,5 +3,6 @@
   "manufacturer": "xantrex",
   "name": "PS2.5/24",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "xantrex",
   "name": "C40",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

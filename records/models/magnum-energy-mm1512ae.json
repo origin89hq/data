@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "MM1512AE",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

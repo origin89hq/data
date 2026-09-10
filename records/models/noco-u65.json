@@ -3,5 +3,6 @@
   "manufacturer": "noco",
   "name": "U65",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "ac-charger"
 }

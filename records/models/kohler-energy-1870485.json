@@ -3,5 +3,6 @@
   "manufacturer": "kohler-energy",
   "name": "1870485",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

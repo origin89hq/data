@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "FLECK 5800",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

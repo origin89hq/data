@@ -3,5 +3,6 @@
   "manufacturer": "xantrex",
   "name": "Freedom EX 4000 (empilage parallèle)",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

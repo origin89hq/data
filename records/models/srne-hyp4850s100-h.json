@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "HYP4850S100-H",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

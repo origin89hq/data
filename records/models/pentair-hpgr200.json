@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "HPGR200",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "generator"
 }

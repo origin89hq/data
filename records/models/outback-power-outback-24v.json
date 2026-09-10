@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "OutBack 24V",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

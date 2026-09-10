@@ -3,5 +3,6 @@
   "manufacturer": "eg4-electronics",
   "name": "EG4-LFP-12 100",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

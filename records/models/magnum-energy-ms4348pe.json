@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "MS4348PE",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

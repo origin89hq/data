@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "FLEXware PV-12",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

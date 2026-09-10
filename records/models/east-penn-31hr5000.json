@@ -3,5 +3,6 @@
   "manufacturer": "east-penn",
   "name": "31HR5000",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

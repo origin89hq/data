@@ -3,5 +3,6 @@
   "manufacturer": "east-penn",
   "name": "HR7500ET",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

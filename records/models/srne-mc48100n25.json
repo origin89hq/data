@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "MC48100N25",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

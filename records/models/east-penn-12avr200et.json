@@ -3,5 +3,6 @@
   "manufacturer": "east-penn",
   "name": "12AVR200ET",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

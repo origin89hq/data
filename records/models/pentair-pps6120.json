@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "PPS6120",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

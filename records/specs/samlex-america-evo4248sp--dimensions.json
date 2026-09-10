@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-evo4248sp--dimensions",
+  "model": "samlex-america-evo4248sp",
+  "name": "DIMENSIONS",
+  "value": "324 x 415 x 212 mm ; 12.8 x 16.3 x 8.35 in",
+  "source": "doc-6d4b2ef12a981a4b92af6d7dd6c47cd4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

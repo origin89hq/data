@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "BBM-12100",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "bms"
 }

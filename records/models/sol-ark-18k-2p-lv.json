@@ -3,5 +3,6 @@
   "manufacturer": "sol-ark",
   "name": "18K-2P-LV",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

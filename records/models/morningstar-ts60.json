@@ -3,6 +3,10 @@
   "manufacturer": "morningstar",
   "name": "TS60",
   "kind": "charge-controller",
-  "aliases": [],
-  "dialects": []
+  "aliases": [
+    "TS-60"
+  ],
+  "dialects": [
+    "morningstar-tristar-pwm"
+  ]
 }

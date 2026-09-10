@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "MPL1215-R",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

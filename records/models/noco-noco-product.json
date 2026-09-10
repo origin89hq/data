@@ -3,5 +3,6 @@
   "manufacturer": "noco",
   "name": "NOCO Product",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "RTS",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

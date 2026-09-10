@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "NEMA5-15R outlet",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

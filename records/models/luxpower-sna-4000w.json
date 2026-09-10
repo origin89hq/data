@@ -3,5 +3,6 @@
   "manufacturer": "luxpower",
   "name": "SNA 4000W",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "Ekrano GX",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

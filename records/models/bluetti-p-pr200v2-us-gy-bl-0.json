@@ -3,5 +3,6 @@
   "manufacturer": "bluetti",
   "name": "P-PR200V2-US-GY-BL-0",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

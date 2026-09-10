@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "12NP24",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter"
 }

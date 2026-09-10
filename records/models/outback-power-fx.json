@@ -3,5 +3,6 @@
   "manufacturer": "outback-power",
   "name": "FX",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

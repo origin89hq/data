@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "5812 - 1.50 ft3",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

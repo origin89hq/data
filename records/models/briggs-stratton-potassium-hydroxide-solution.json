@@ -3,5 +3,6 @@
   "manufacturer": "briggs-stratton",
   "name": "POTASSIUM HYDROXIDE SOLUTION",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

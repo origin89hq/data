@@ -4,7 +4,9 @@
   "name": "15K-2P-N",
   "kind": "inverter",
   "aliases": [
-    "SAK-224-102"
+    "SAK-224-102",
+    "SOL-15K-2P-N",
+    "Sol-Ark 15K-2P-N"
   ],
   "dialects": [
     "solark-hybrid-rtu-v1",

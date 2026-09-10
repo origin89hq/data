@@ -3,5 +3,6 @@
   "manufacturer": "the-cabin-depot",
   "name": "KED-GEN-SWITCH",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }
