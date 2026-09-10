@@ -75,3 +75,17 @@ export async function currentRuns(bucket: R2Bucket, root: "documents" | "sightin
   } while (cursor);
   return out.sort((a, b) => a.entity.localeCompare(b.entity));
 }
+
+/**
+ * The top-level prefixes the archive is written under. Making readings content-addressed added
+ * `archive/` and nothing told the read endpoint, so every reading came back as HTTP 400 and a
+ * maker's figures could not be pulled at all. Deriving the list from the writers is what stops
+ * that happening again to the next prefix somebody adds.
+ */
+export const ARCHIVE_ROOTS = ["sightings", "guesses", "documents", "archive"] as const;
+
+/** Whether a caller may read this prefix out of the archive. */
+export function readable(prefix: string): boolean {
+  if (prefix.includes("..")) return false;
+  return ARCHIVE_ROOTS.some((root) => prefix.startsWith(`${root}/`));
+}

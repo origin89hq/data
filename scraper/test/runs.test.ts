@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { newRun, pointerKey, runDate, runPrefix } from "../src/runs.ts";
+import { newRun, pointerKey, readable, runDate, runPrefix } from "../src/runs.ts";
 import { partKey } from "../src/work.ts";
 
 const crawls = ["seller-crawl", "page-crawl", "manufacturer-crawl"].map((n) => [n, readFileSync(new URL(`../src/${n}.ts`, import.meta.url), "utf8")] as const);
@@ -45,4 +45,28 @@ test("a pointer is per entity, and says which run is current", () => {
     assert.match(source, /writePointer\(this\.env\.ARCHIVE/, `${name} never becomes the current run`);
     assert.ok(source.indexOf("writePointer") < source.indexOf("ARCHIVE.put("), `${name} writes results before claiming the run`);
   }
+});
+
+test("every key a writer produces sits under a prefix the read endpoint allows", () => {
+  // The witness is the writers themselves. Content-addressing the readings moved them to
+  // "archive/", the endpoint's list was not updated, and pull-specs got HTTP 400 for every one.
+  const written = [
+    runPrefix.documents("victron-energy", "2026-09-10-abcd1234"),
+    runPrefix.sightings("the-cabin-depot", "2026-09-10-abcd1234"),
+    runPrefix.guesses("the-cabin-depot", "2026-09-10-abcd1234", "ai:x"),
+    pointerKey.documents("victron-energy"),
+    pointerKey.sightings("the-cabin-depot"),
+    partKey.reading("0".repeat(64), "ai_cf_meta_llama_p2"),
+    partKey.markdown("0".repeat(64), "toMarkdown"),
+    partKey.converted("victron-energy", "2026-09-10-abcd1234", "0".repeat(64)),
+    partKey.classify("ai:x", "the-cabin-depot", "2026-09-10-abcd1234", 1),
+    partKey.classified("ai:x", "0".repeat(64)),
+  ];
+  for (const key of written) assert.ok(readable(key), `${key} is written but cannot be read back`);
+});
+
+test("a prefix outside the archive, or one climbing out of it, is refused", () => {
+  assert.equal(readable("secrets/"), false);
+  assert.equal(readable(""), false);
+  assert.equal(readable("documents/../secrets/"), false);
 });

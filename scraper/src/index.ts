@@ -8,7 +8,7 @@ import { classifyRun, convertRun, specPagesRun } from "./enqueue.ts";
 import specPages from "../../feeds/spec-pages.json" with { type: "json" };
 import { manufacturers } from "./manufacturers.ts";
 import { makerStates, sellerStates } from "./state.ts";
-import { newRun, pointerKey, readPointer } from "./runs.ts";
+import { newRun, pointerKey, readPointer, ARCHIVE_ROOTS, readable } from "./runs.ts";
 import { supervise } from "./supervise.ts";
 import type { SellerCrawlParams } from "./seller-crawl.ts";
 
@@ -66,8 +66,8 @@ export default {
     }
     if (request.method === "GET" && url.pathname === "/archive") {
       const prefix = url.searchParams.get("prefix");
-      if (!prefix || !/^(sightings|guesses|documents)\//.test(prefix)) {
-        return Response.json({ error: "prefix must start with sightings/, guesses/ or documents/" }, { status: 400 });
+      if (!prefix || !readable(prefix)) {
+        return Response.json({ error: `prefix must start with one of ${ARCHIVE_ROOTS.map((r) => `${r}/`).join(", ")}` }, { status: 400 });
       }
       if (url.searchParams.get("list") === "true") {
         const keys: string[] = [];
