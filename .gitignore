@@ -4,3 +4,4 @@ dist/
 scraper/worker-configuration.d.ts
 scraper/.dev.vars
 site/dist/
+.claude/worktrees/
