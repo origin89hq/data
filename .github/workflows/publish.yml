@@ -22,12 +22,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     environment: offgrid-equipment-production
+    # No Cloudflare credential. The job asks GitHub for a token naming this workflow, and the Worker
+    # takes the dataset only from publish.yml on main in this environment.
+    permissions:
+      contents: read
+      id-token: write
     concurrency:
       group: offgrid-equipment-dataset
       cancel-in-progress: false
-    env:
-      CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-      WRANGLER_SEND_METRICS: 'false'
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
@@ -50,8 +52,6 @@ jobs:
           sha256sum dist/* | sort > "$RUNNER_TEMP/build-2"
           diff "$RUNNER_TEMP/build-1" "$RUNNER_TEMP/build-2"
       - name: Publish to data.origin89.com
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: node tools/dataset/publish.ts
       - name: Check the front door serves what was just published
         run: |

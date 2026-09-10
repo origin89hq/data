@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 
 export interface TestAiInput {
   messages: {
@@ -30,10 +31,16 @@ export function world(
   );
   const body = (bytes: Uint8Array) => ({
     size: bytes.length,
+    get body() {
+      return new Blob([bytes]).stream();
+    },
+    httpEtag: `"${createHash("md5").update(bytes).digest("hex")}"`,
     text: async () => new TextDecoder().decode(bytes),
     json: async () => JSON.parse(new TextDecoder().decode(bytes)),
     arrayBuffer: async () => bytes.slice().buffer,
   });
+  // The digest an object was written with. R2 keeps one only when the writer declared it.
+  const sha256s = new Map<string, string>();
   const sent: Work[] = [];
   const listed: string[] = [];
   const asked: { model: string; input: TestAiInput }[] = [];
@@ -41,14 +48,35 @@ export function world(
     ARCHIVE: {
       head: async (key: string) => {
         const bytes = store.get(key);
-        return bytes === undefined ? null : { key, size: bytes.length };
+        const sha256 = sha256s.get(key);
+        return bytes === undefined
+          ? null
+          : { key, size: bytes.length, checksums: { toJSON: () => (sha256 ? { sha256 } : {}) } };
       },
       get: async (key: string) => {
         const bytes = store.get(key);
         return bytes === undefined ? null : body(bytes);
       },
-      put: async (key: string, value: string | Uint8Array) => {
-        store.set(key, encode(value));
+      put: async (
+        key: string,
+        value: string | Uint8Array | ReadableStream<Uint8Array>,
+        options?: { sha256?: string },
+      ) => {
+        const bytes =
+          value instanceof ReadableStream
+            ? new Uint8Array(await new Response(value).arrayBuffer())
+            : encode(value);
+        const digest = createHash("sha256").update(bytes).digest("hex");
+        // What R2 does with a declared digest: refuse the write, keep the old object, and end the
+        // message with its code. Checked against `wrangler dev`.
+        if (options?.sha256 !== undefined && options.sha256 !== digest)
+          throw new Error(
+            `put: The SHA-256 checksum you specified did not match what we received.\nYou provided a SHA-256 checksum with value: ${options.sha256}\nActual SHA-256 was: ${digest} (10037)`,
+          );
+        store.set(key, bytes);
+        if (options?.sha256 === undefined) sha256s.delete(key);
+        else sha256s.set(key, digest);
+        return { key, size: bytes.length };
       },
       list: async ({
         prefix = "",

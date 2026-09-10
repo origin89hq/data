@@ -1,7 +1,17 @@
 import assert from "node:assert/strict";
-import { test } from "node:test";
+import { createHash } from "node:crypto";
+import { mock, test } from "node:test";
 import { READS_PER_REQUEST } from "@origin89/equipment-schema/provenance";
-import { app, CONTROL_PATHS, controlRoutes, publicRoutes } from "../src/routes.ts";
+import { GITHUB_ISSUER } from "../src/oidc.ts";
+import {
+  app,
+  CONTROL_PATHS,
+  controlRoutes,
+  publicRoutes,
+  WORKFLOW_ROUTES,
+  workflowRoutes,
+} from "../src/routes.ts";
+import { jobToken, jwks } from "./github-token.ts";
 import { world } from "./world.ts";
 
 /**
@@ -190,4 +200,210 @@ test("asking for nothing is refused, so an empty answer is never mistaken for an
     archive({}),
   );
   assert.equal(broken.status, 400);
+});
+
+// GitHub's key set, served from here. The Worker fetches it exactly as it would from GitHub.
+const JWKS_URL = `${GITHUB_ISSUER}/.well-known/jwks`;
+let jwksFetches = 0;
+mock.method(globalThis, "fetch", async (input: RequestInfo | URL) => {
+  const url = input instanceof Request ? input.url : String(input);
+  if (url !== JWKS_URL) throw new Error(`the Worker fetched ${url}`);
+  jwksFetches += 1;
+  return Response.json(jwks);
+});
+
+const sha256 = (text: string) => createHash("sha256").update(text).digest("hex");
+const bucket = (objects: Record<string, string> = {}) => {
+  const archive = world(objects);
+  return { ...archive, env: { ...archive.env, ...site } as unknown as Env };
+};
+const publish = async () => ({ authorization: `Bearer ${await jobToken()}` });
+const put = (env: Env, name: string, body: string, headers: Record<string, string>) =>
+  app.request(
+    `https://data.example/v1/${name}`,
+    {
+      method: "PUT",
+      headers: { "content-length": String(Buffer.byteLength(body)), ...headers },
+      body,
+    },
+    env,
+  );
+const putFile = async (env: Env, name: string, body: string, digest = sha256(body)) =>
+  put(env, name, body, { ...(await publish()), "x-content-sha256": digest });
+const manifestOf = (files: Record<string, string>) =>
+  JSON.stringify({
+    counts: { dialects: 1 },
+    files: Object.fromEntries(
+      Object.entries(files).map(([name, body]) => [
+        name,
+        { rows: 1, sha256: sha256(body), bytes: Buffer.byteLength(body) },
+      ]),
+    ),
+  });
+const putManifest = async (env: Env, manifest: string) =>
+  put(env, "manifest.json", manifest, await publish());
+const errorOf = async (res: Response) => ((await res.json()) as { error: string }).error;
+
+test("each workflow route is guarded on the methods it names, and on nothing else", () => {
+  // GET on the same path is the public table. A guard on every method there would lock the dataset.
+  const guarded = [...new Set(workflowRoutes.routes.map((r) => `${r.method} ${r.path}`))].sort();
+  assert.deepEqual(guarded, WORKFLOW_ROUTES.map((r) => `${r.method} ${r.path}`).sort());
+  for (const route of WORKFLOW_ROUTES)
+    assert.ok(
+      !publicRoutes.routes.some((r) => r.path === route.path && r.method === route.method),
+      `${route.method} ${route.path} is public as well`,
+    );
+});
+
+test("publishing without publish.yml's token is refused, and the control token is not one", async () => {
+  const { env, store } = bucket();
+  const body = "model\nbattery\n";
+  const digest = { "x-content-sha256": sha256(body) };
+  const nothing = await put(env, "models.csv", body, digest);
+  assert.equal(nothing.status, 401);
+  assert.match(await errorOf(nothing), /publish\.yml/);
+  // Holding the shared secret starts crawls. It must not also rewrite the dataset.
+  const control = await put(env, "models.csv", body, {
+    ...digest,
+    authorization: "Bearer the-real-token",
+  });
+  assert.equal(control.status, 401);
+  const deploy = await put(env, "models.csv", body, {
+    ...digest,
+    authorization: `Bearer ${await jobToken({ workflow_ref: "origin89hq/offgrid-equipment/.github/workflows/deploy.yml@refs/heads/main" })}`,
+  });
+  assert.equal(deploy.status, 401);
+  assert.match(await errorOf(deploy), /workflow_ref/);
+  assert.deepEqual([...store.keys()], [], "a refused publish wrote something");
+});
+
+test("a file whose body is its declared digest is written, and stays public to read", async () => {
+  const { env, text } = bucket();
+  const body = "model\nbattery\n";
+  const res = await putFile(env, "models.csv", body);
+  assert.equal(res.status, 200);
+  assert.deepEqual(await res.json(), { file: "models.csv", bytes: 14, sha256: sha256(body) });
+  assert.equal(text("dataset/v1/models.csv"), body);
+  const read = await app.request("https://data.example/v1/models.csv", {}, env);
+  assert.equal(read.status, 200, "the public read now needs a token");
+  assert.equal(await read.text(), body);
+});
+
+test("a file that is not what its digest says is refused, and the published one stays", async () => {
+  const { env, text } = bucket({ "dataset/v1/models.csv": "the published table\n" });
+  const res = await putFile(env, "models.csv", "a truncated tab", sha256("a truncated table\n"));
+  assert.equal(res.status, 422);
+  assert.match(await errorOf(res), /models\.csv is not the file whose sha256 was declared/);
+  assert.equal(text("dataset/v1/models.csv"), "the published table\n");
+});
+
+test("a file sent without its digest or length, or under a name that is not a table, is refused", async () => {
+  const { env, store } = bucket();
+  const auth = await publish();
+  const body = "model\nbattery\n";
+  for (const digest of [undefined, sha256(body).toUpperCase(), sha256(body).slice(1)]) {
+    const res = await put(env, "models.csv", body, {
+      ...auth,
+      ...(digest ? { "x-content-sha256": digest } : {}),
+    });
+    assert.equal(res.status, 400, `x-content-sha256 ${digest} was accepted`);
+  }
+  const unmeasured = await app.request(
+    "https://data.example/v1/models.csv",
+    { method: "PUT", headers: { ...auth, "x-content-sha256": sha256(body) }, body },
+    env,
+  );
+  assert.equal(unmeasured.status, 411);
+  for (const name of ["Models.csv", "models.exe", "%2e%2e%2fsecret.csv", "models.csv.json.gz"]) {
+    const res = await putFile(env, name, body);
+    assert.equal(res.status, 404, `${name} answered ${res.status}`);
+  }
+  assert.deepEqual([...store.keys()], []);
+});
+
+test("the manifest goes up last, once every file it names is stored as it says", async () => {
+  const { env, text } = bucket();
+  const files = { "models.csv": "model\nbattery\n", "models.parquet": "PAR1...PAR1" };
+  for (const [name, body] of Object.entries(files))
+    assert.equal((await putFile(env, name, body)).status, 200);
+  const manifest = manifestOf(files);
+  const res = await putManifest(env, manifest);
+  assert.equal(res.status, 200, await res.clone().text());
+  assert.deepEqual(await res.json(), { file: "manifest.json", files: 2 });
+  // Byte for byte what the build wrote, counts included.
+  assert.equal(text("dataset/v1/manifest.json"), manifest);
+  const index = (await (
+    await app.request("https://data.example/manifest.json", {}, env)
+  ).json()) as {
+    files: Record<string, { url: string; sha256: string }>;
+  };
+  assert.deepEqual(Object.keys(index.files).sort(), ["models.csv", "models.parquet"]);
+  assert.equal(index.files["models.csv"].sha256, sha256(files["models.csv"]));
+});
+
+test("a manifest naming a file missing, resized, or never checked is refused, and the old one stays", async () => {
+  // models.parquet was put the old way, with no digest, so R2 has nothing to compare it with.
+  const { env, text } = bucket({
+    "dataset/v1/manifest.json": "the published manifest",
+    "dataset/v1/models.parquet": "PAR1...PAR1",
+  });
+  assert.equal((await putFile(env, "models.csv", "model\nbattery\n")).status, 200);
+  const manifest = manifestOf({
+    "models.csv": "model\nbattery\ncharger\n",
+    "models.parquet": "PAR1...PAR1",
+    "specs.csv": "figure\n",
+  });
+  const res = await putManifest(env, manifest);
+  assert.equal(res.status, 409);
+  const body = (await res.json()) as { files: string[] };
+  assert.deepEqual(body.files, [
+    "models.csv: 14 bytes stored, the manifest says 22",
+    `models.parquet: stored sha256 is unrecorded, the manifest says ${sha256("PAR1...PAR1")}`,
+    "specs.csv: not uploaded",
+  ]);
+  assert.equal(text("dataset/v1/manifest.json"), "the published manifest");
+});
+
+test("a manifest with the right size and the wrong digest is refused", async () => {
+  const { env } = bucket();
+  assert.equal((await putFile(env, "models.csv", "model\nbattery\n")).status, 200);
+  const res = await putManifest(env, manifestOf({ "models.csv": "model\nbatterx\n" }));
+  assert.equal(res.status, 409);
+  assert.match(
+    ((await res.json()) as { files: string[] }).files[0],
+    /models\.csv: stored sha256 is /,
+  );
+});
+
+test("a body that is not a manifest, or would unpublish the dataset, is refused", async () => {
+  const { env, store } = bucket();
+  for (const manifest of [
+    "{not json",
+    JSON.stringify({ counts: {} }),
+    JSON.stringify({ files: {} }),
+    JSON.stringify({ files: { "../../documents/x.csv": { bytes: 1, sha256: sha256("x") } } }),
+    JSON.stringify({ files: { "manifest.json": { bytes: 1, sha256: sha256("x") } } }),
+    JSON.stringify({ files: { "models.csv": { bytes: -1, sha256: sha256("x") } } }),
+  ]) {
+    const res = await putManifest(env, manifest);
+    assert.equal(res.status, 400, `${manifest} answered ${res.status}`);
+  }
+  const huge = await put(env, "manifest.json", "{}", {
+    ...(await publish()),
+    "content-length": String(2 * 1024 * 1024),
+  });
+  assert.equal(huge.status, 413);
+  const unmeasured = await app.request(
+    "https://data.example/v1/manifest.json",
+    { method: "PUT", headers: await publish(), body: "{}" },
+    env,
+  );
+  assert.equal(unmeasured.status, 411, "a missing length is not a manifest that is too big");
+  assert.deepEqual([...store.keys()], []);
+});
+
+test("GitHub's keys are fetched once and reused, not fetched per request", async () => {
+  const { env } = bucket();
+  for (let i = 0; i < 3; i += 1) await putFile(env, "models.csv", `model\n${i}\n`);
+  assert.equal(jwksFetches, 1);
 });
