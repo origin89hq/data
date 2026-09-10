@@ -1,0 +1,60 @@
+name: Supervise the spider
+# The Worker supervises itself at 08:00 UTC every day. This is the same pass on demand, followed by
+# a report of where every maker stands, so nobody needs the control token on their own machine.
+# A pass moves whatever stage is ready, which can start a classification or the page reader, and
+# those spend money on a model. It never approves a download: that stays with a person.
+on:
+  workflow_dispatch:
+    inputs:
+      passes:
+        description: Passes to run first. Each offers the page reader up to twenty more makers; 0 only reports.
+        type: choice
+        options: ["0", "1", "2", "3", "4", "5"]
+        default: "1"
+permissions:
+  contents: read
+concurrency:
+  group: supervise
+  cancel-in-progress: false
+jobs:
+  supervise:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      BASE: https://data.origin89.com
+      CONTROL_TOKEN: ${{ secrets.CONTROL_TOKEN }}
+      PASSES: ${{ inputs.passes }}
+    steps:
+      - name: Supervise
+        if: inputs.passes != '0'
+        run: |
+          for pass in $(seq 1 "$PASSES"); do
+            report=$(curl --fail-with-body --silent --show-error --connect-timeout 10 --max-time 300 \
+              -X POST "$BASE/supervise" -H "authorization: Bearer $CONTROL_TOKEN") || { echo "$report" >&2; exit 1; }
+            {
+              echo "### Pass $pass"
+              echo "$report" | jq -r '
+                "\(.started | length) started, \(.blocked | length) waiting, \(.concerns | length) concerns",
+                (.started[] | "- \(.what) **\(.entity)**: \(.detail)"),
+                (.concerns[] | "- concern: \(.)")'
+            } >> "$GITHUB_STEP_SUMMARY"
+            # Nothing more offered to the page reader: another pass would only repeat this one.
+            if [ "$(echo "$report" | jq '[.started[] | select(.what == "vision")] | length')" = "0" ]; then
+              break
+            fi
+          done
+      - name: Report where every maker stands
+        run: |
+          state=$(curl --fail-with-body --silent --show-error --connect-timeout 10 --max-time 120 \
+            "$BASE/state" -H "authorization: Bearer $CONTROL_TOKEN") || { echo "$state" >&2; exit 1; }
+          {
+            echo "### Where it stands"
+            echo "$state" | jq -r '
+              .makers as $m
+              | ($m | map(select(.converted != null))) as $converted
+              | "Page reader: \($m | map(.seen // 0) | add // 0) documents read from their pages; \($converted | map(select(.seeing != null)) | length) of \($converted | length) converted makers offered to it.",
+                "",
+                "| Waiting on | Makers |",
+                "|---|---|",
+                ($m | group_by(.waitingOn) | sort_by(-length)[] | "| \(.[0].waitingOn) | \(length) |")'
+          } >> "$GITHUB_STEP_SUMMARY"
