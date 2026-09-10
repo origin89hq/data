@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { READS_PER_REQUEST } from "@origin89/equipment-schema/provenance";
 import { app, CONTROL_PATHS, controlRoutes, publicRoutes } from "../src/routes.ts";
+import { world } from "./world.ts";
 
 /**
  * The route tables themselves, not a list of paths written out here. A copy would keep passing
@@ -87,4 +89,105 @@ test("the wrong token is refused too", async () => {
     site,
   );
   assert.equal(res.status, 401);
+});
+
+const digest = (n: number) => String(n).padStart(64, "0");
+const archive = (objects: Record<string, string>) => ({
+  ...world(objects).env,
+  CONTROL_TOKEN: "the-real-token",
+});
+const ask = (env: Env, body: unknown) =>
+  app.request(
+    "https://data.example/readings",
+    {
+      method: "POST",
+      headers: { authorization: "Bearer the-real-token", "content-type": "application/json" },
+      body: JSON.stringify(body),
+    },
+    env,
+  );
+
+test("a batch of documents comes back as one reading per line, and an unread one is simply absent", async () => {
+  // The failure this replaced: one request per document per reader, which for four thousand
+  // documents across three readers is thirteen thousand round trips and half an hour of CI.
+  const env = archive({
+    [`archive/${digest(1)}.text.reading.json`]: '{"sha256":"one","by":"text"}\n',
+    [`archive/${digest(1)}.vision.reading.json`]: '{"sha256":"one","by":"vision"}',
+    [`archive/${digest(3)}.text.reading.json`]: '{"sha256":"three","by":"text"}',
+  });
+  const res = await ask(env, {
+    documents: [digest(1), digest(2), digest(3)],
+    readers: ["text", "vision"],
+  });
+  assert.equal(res.status, 200);
+  assert.equal(res.headers.get("content-type"), "application/x-ndjson");
+  const lines = (await res.text()).split("\n").filter(Boolean);
+  assert.deepEqual(
+    lines.map((line) => JSON.parse(line)),
+    [
+      { sha256: "one", by: "text" },
+      { sha256: "one", by: "vision" },
+      { sha256: "three", by: "text" },
+    ],
+  );
+});
+
+test("a reading that already ends in a newline does not become a blank line", async () => {
+  // jsonValues on the other end refuses an unbalanced value, so a stray blank line would have
+  // stopped a maker's whole pull rather than lost one figure.
+  const env = archive({ [`archive/${digest(1)}.text.reading.json`]: '{"a":1}\n\n\n' });
+  const res = await ask(env, { documents: [digest(1)], readers: ["text"] });
+  assert.equal(await res.text(), '{"a":1}\n');
+});
+
+test("a batch bigger than the cap is refused rather than trimmed", async () => {
+  // Every reading is a subrequest and a Worker gets a bounded number of them. A stream that runs
+  // out partway is a 200 with fewer readings in it, which reads exactly like documents nobody has
+  // read yet — the maker would quietly lose figures and nothing would say so.
+  const documents = Array.from({ length: READS_PER_REQUEST }, (_, i) => digest(i));
+  const res = await ask(archive({}), { documents, readers: ["text", "vision"] });
+  assert.equal(res.status, 400);
+  assert.match(String(((await res.json()) as { error: string }).error), /more than 2000 reads/);
+
+  const fits = await ask(archive({}), { documents: documents.slice(0, 1000), readers: ["a", "b"] });
+  assert.equal(fits.status, 200, "the cap itself must be allowed, not one short of it");
+});
+
+test("a document that is not a content address cannot name another key", async () => {
+  // The key is built by interpolation, so a value with a slash in it would read anything in the
+  // bucket: a run's own pointers, another maker's crawl, the dataset itself.
+  for (const documents of [
+    ["documents/victron-energy/runs/2026-09-10/converting"],
+    [`${digest(1)}.text.reading.json`],
+    ["../../dataset/v1/equipment"],
+    [42],
+  ]) {
+    const res = await ask(archive({}), { documents, readers: ["text"] });
+    assert.equal(res.status, 400, `${String(documents[0])} was not refused`);
+  }
+  const reader = await ask(archive({}), { documents: [digest(1)], readers: ["../pointer"] });
+  assert.equal(reader.status, 400, "a reader key may not climb out of the key either");
+});
+
+test("asking for nothing is refused, so an empty answer is never mistaken for an empty archive", async () => {
+  for (const body of [
+    {},
+    { readers: ["text"] },
+    { documents: [digest(1)] },
+    { documents: [], readers: ["text"] },
+    { documents: [digest(1)], readers: [] },
+  ]) {
+    const res = await ask(archive({}), body);
+    assert.equal(res.status, 400, `${JSON.stringify(body)} was answered ${res.status}`);
+  }
+  const broken = await app.request(
+    "https://data.example/readings",
+    {
+      method: "POST",
+      headers: { authorization: "Bearer the-real-token", "content-type": "application/json" },
+      body: "{not json",
+    },
+    archive({}),
+  );
+  assert.equal(broken.status, 400);
 });
