@@ -23,6 +23,10 @@ for working practices, tests, writing, and commits. `AGENTS.md` loads shared
 skills at the start of a task; `just skills-sync` refreshes them from engineering.
 Keep local constraints and domain-specific checks alongside those shared rules.
 
+Track confirmed problems left outside the current fix using the
+[shared issue rule](https://github.com/origin89hq/engineering/blob/main/skills/origin89-working/SKILL.md#track-unfinished-work).
+Use `gh` to find or create the issue, verify it, and return its URL.
+
 Install just 1.58.0 and Python 3.9+ for the skill bootstrap. Run `just --list`
 for repository commands and `just check` before opening a pull request.
 
