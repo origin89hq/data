@@ -1,5 +1,6 @@
 {
   "id": "unknown-victron-lithium-ng-battery",
+  "manufacturer": "victron-energy",
   "family": "no-comms",
   "driver": {
     "status": "not-planned"

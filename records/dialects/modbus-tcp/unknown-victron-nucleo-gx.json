@@ -1,5 +1,6 @@
 {
   "id": "unknown-victron-nucleo-gx",
+  "manufacturer": "victron-energy",
   "family": "modbus-tcp",
   "driver": {
     "status": "possible"

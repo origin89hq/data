@@ -1,5 +1,6 @@
 {
   "id": "unknown-victron-lynx-shunt-ve-can",
+  "manufacturer": "victron-energy",
   "family": "can-bms",
   "driver": {
     "status": "possible"

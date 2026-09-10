@@ -1,5 +1,6 @@
 {
   "id": "unknown-victron-smart-battery-sense",
+  "manufacturer": "victron-energy",
   "family": "ve-direct",
   "driver": {
     "status": "possible"

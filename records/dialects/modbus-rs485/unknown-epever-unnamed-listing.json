@@ -1,5 +1,6 @@
 {
   "id": "unknown-epever-unnamed-listing",
+  "manufacturer": "epever",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

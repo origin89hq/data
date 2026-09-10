@@ -3,7 +3,7 @@ import type { Sighting } from "../../schema/sighting.ts";
 
 /** Pinned so a guess can say exactly what produced it. Bump the prompt version when the prompt changes. */
 export const CLASSIFIER_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
-export const PROMPT_VERSION = "2";
+export const PROMPT_VERSION = "3";
 export const CLASSIFIER_ID = `ai:${CLASSIFIER_MODEL}@p${PROMPT_VERSION}`;
 
 /** The classifier's id as a key segment: an R2 key cannot carry the slashes and @ of a model name. */
@@ -17,6 +17,10 @@ Answer with one item per listing, in the same order as the numbered listings, an
 
 For each listing give:
 - kind: one of ${EquipmentKind.options.join(", ")}. Use "out-of-scope" for anything that is not electrical energy equipment: wood stoves, toilets, cookware, clothing, plumbing, furniture, tools, food. Electrical wiring, breakers, fuses, busbars and connectors are "balance-of-system". A portable power station or all-in-one solar generator is "inverter-charger".
+  "out-of-scope" is a positive claim that you can see what the product is and it is not electrical
+  energy equipment. It is not the answer for a listing you cannot read. Asked to classify a bare
+  part number like "ABB 1666001", a previous version answered out-of-scope 2,543 times, which says
+  of two and a half thousand products that they are furniture.
   Omit kind entirely when the listing does not say what the product is. A manufacturer's name and a bare part number is not enough: "Briggs & Stratton 1670013" says who made it and nothing about what it is, so leave kind out. A maker who is known for one thing still sells others, so do not infer the kind from the brand alone. Omitting is always better than guessing; a missing kind is a question somebody can answer, and a wrong one is a fact nobody will check.
 - model: the manufacturer's model number as printed, e.g. "XTRA4210N", "SmartSolar MPPT 100/30", "S-550". Omit it when the listing carries no model number. Never invent one.
 - manufacturer: the company that makes the product, which may differ from the brand a reseller prints. Omit it when unsure.

@@ -205,15 +205,15 @@ export function Explorer({ index, tier }: { index?: Index; tier: "reviewed" | "a
 }
 
 /**
- * One record, in the dialog the design already has.
+ * One record, told as what the thing is rather than as the columns a table happens to have.
  *
- * A native `<dialog>`, because the stylesheet styles the element and its backdrop rather than a
- * class. The first version of this invented `record-dialog` and `record-dialog-backdrop`, which
- * the stylesheet had never heard of, so it rendered as an unstyled list dumped under the table.
+ * It used to render every column as a row, so a model showed "figures 76 / documents 1 /
+ * protocols 1" as though those were properties of the product. They are counts computed to order
+ * the table by. What somebody opening a record wants is what it is, what it is rated at, and where
+ * that came from.
  */
 function RecordDialog({ row, table, db, onClose }: { row: Row; table: TabName; db: ReturnType<typeof useDuckDb>; onClose: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
-
   useEffect(() => {
     const element = dialog.current;
     if (element && !element.open) element.showModal();
@@ -223,8 +223,12 @@ function RecordDialog({ row, table, db, onClose }: { row: Row; table: TabName; d
     const value = row[key];
     return value === null || value === undefined || value === "" ? undefined : String(value);
   };
-  const title = text(table === "specs" ? "name" : "id") ?? "Record";
-  const under = text(table === "specs" ? "model_id" : "manufacturer_id") ?? "";
+  // The counts exist to sort the table; they are not facts about the product.
+  const BOOKKEEPING = new Set(["figures", "documents", "protocols", "tier"]);
+
+  const heading =
+    table === "specs" ? text("figure") ?? text("name") ?? "Figure" : text("id") ?? "Record";
+  const under = table === "specs" ? text("model_id") : table === "models" ? text("manufacturer_id") : text("family");
 
   return (
     <dialog ref={dialog} aria-labelledby="detail-title" onClose={onClose} onClick={(event) => event.target === dialog.current && onClose()}>
@@ -234,18 +238,50 @@ function RecordDialog({ row, table, db, onClose }: { row: Row; table: TabName; d
       </div>
       <div id="detail-content">
         <p className="eyebrow">{table === "specs" ? "SPECIFICATION" : table === "dialects" ? "PROTOCOL DIALECT" : "EQUIPMENT"}</p>
-        <h2 id="detail-title">{title}</h2>
+        <h2 id="detail-title">{table === "models" ? text("name") ?? heading : heading}</h2>
         <p className="detail-sub">{under}</p>
+
+        {table === "specs" && (
+          <>
+            <div className="big-reading">
+              {text("value") ?? "—"}
+              {text("unit") && <span>{text("unit")}</span>}
+            </div>
+            <span className="reading-label">
+              {text("page") ? `Read from page ${text("page")} of the maker's document` : "No page recorded for this figure"}
+            </span>
+            {text("doubt") && <p className="detail-notice">{text("doubt")}</p>}
+          </>
+        )}
+
+        {table === "models" && (
+          <p className="detail-meta">
+            {text("kind") && <span className="evidence blue">{text("kind")}</span>}
+            <span>{text("figures") ?? "0"} rated figures</span>
+            <span>{text("documents") ?? "0"} documents</span>
+            <span>{text("protocols") ?? "0"} protocols</span>
+          </p>
+        )}
+
+        {table === "dialects" && (
+          <p className="detail-meta">
+            {text("driver_status") && <span className="evidence blue">driver {text("driver_status")}</span>}
+            {text("confidence") && (
+              <span className={`evidence ${text("confidence") === "vendor-doc" ? "blue" : "amber"}`}>{text("confidence")}</span>
+            )}
+          </p>
+        )}
+
+        {/* Whatever else the row carries, minus what has already been said above it. */}
         {Object.entries(row)
-          .filter(([key]) => key !== (table === "specs" ? "name" : "id"))
+          .filter(([key, value]) => !BOOKKEEPING.has(key) && value !== null && value !== undefined && value !== "")
+          .filter(([key]) => !["id", "name", "figure", "model_id", "manufacturer_id", "value", "unit", "page", "doubt", "kind", "driver_status", "confidence", "family"].includes(key))
           .map(([key, value]) => (
             <div key={key} className="detail-spec">
               <header>
                 <h3>{key.replace(/_/g, " ")}</h3>
                 <strong>
-                  {value === null || value === undefined || value === "" ? (
-                    <span className="amber-text">not recorded</span>
-                  ) : /^https?:\/\//.test(String(value)) ? (
+                  {/^https?:\/\//.test(String(value)) ? (
                     <a href={String(value)} target="_blank" rel="noopener">open ↗</a>
                   ) : (
                     String(value)
@@ -254,7 +290,9 @@ function RecordDialog({ row, table, db, onClose }: { row: Row; table: TabName; d
               </header>
             </div>
           ))}
+
         {table === "models" && <ModelFigures model={String(row.id ?? "")} db={db} />}
+
         <div className="detail-notice">
           This is what the dataset records. Consult the original document and its conditions before using any of it for
           equipment sizing.

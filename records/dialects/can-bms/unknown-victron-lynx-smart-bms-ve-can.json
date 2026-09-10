@@ -1,5 +1,6 @@
 {
   "id": "unknown-victron-lynx-smart-bms-ve-can",
+  "manufacturer": "victron-energy",
   "family": "can-bms",
   "driver": {
     "status": "possible"

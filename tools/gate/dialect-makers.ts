@@ -19,7 +19,10 @@ const makers = records.manufacturers.map((m) => m.id);
 /** Where the catalogue's short form differs from the manufacturer's id by more than a suffix. */
 const ALIASES: Record<string, string> = { solark: "sol-ark" };
 
-function makerOf(dialectId: string): string | undefined {
+function makerOf(id: string): string | undefined {
+  // "unknown-" is the catalogue's word for a device whose register map nobody worked out. The maker
+  // is still named, right behind it: unknown-epever-duoracer is EPEver's.
+  const dialectId = id.startsWith("unknown-") ? id.slice("unknown-".length) : id;
   // Longest wins, so "eg4-electronics" beats "eg4" where both exist.
   const exact = makers.filter((id) => dialectId === id || dialectId.startsWith(`${id}-`)).sort((a, b) => b.length - a.length)[0];
   if (exact) return exact;

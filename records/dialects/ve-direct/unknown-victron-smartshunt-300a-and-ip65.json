@@ -1,5 +1,6 @@
 {
   "id": "unknown-victron-smartshunt-300a-and-ip65",
+  "manufacturer": "victron-energy",
   "family": "ve-direct",
   "driver": {
     "status": "possible"

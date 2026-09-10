@@ -1,5 +1,6 @@
 {
   "id": "unknown-epever-current-lines",
+  "manufacturer": "epever",
   "family": "modbus-rs485",
   "driver": {
     "status": "possible"

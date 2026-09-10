@@ -149,6 +149,12 @@ export function validate(records: Records): Report {
     // The thing this catalogue exists to answer: could somebody write a driver from this entry?
     // A dialect with no blocks is a wiring note. Volthium has four Modbus entries, one per product
     // shape, every one unverified and none carrying a register map — useful research, not a map.
+    // "unknown-x" is the note written before somebody worked x out. Once "x" exists and carries a
+    // register map, the note is a research trail rather than a second protocol, and a reader
+    // searching for a DuoRacer should not find two answers for one device.
+    if (d.id.startsWith("unknown-") && records.dialects.some((other) => other.id === d.id.slice("unknown-".length) && other.blocks)) {
+      note("an unknown- note superseded by a resolved dialect that carries the register map");
+    }
     if (d.family !== "no-comms" && !d.blocks) note("a bus dialect with no register map, so it is a wiring note rather than something to implement");
     if (d.family !== "no-comms" && d.blocks && d.confidence !== "vendor-doc") note("a register map nobody has checked against the maker own document");
 
