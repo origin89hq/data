@@ -98,3 +98,17 @@ export function readable(prefix: string): boolean {
  * anchored at both ends, which is what stops `logos/../documents/...` reaching the rest.
  */
 export const LOGO_PATH = /^\/logos\/[a-z0-9-]+-\d{2,4}\.png$/;
+
+/**
+ * A published dataset file. The whole point of the project is that anybody can take the tables, so
+ * these are public too, under a version prefix: `v1` is a promise about the shape of the columns,
+ * and a later shape gets `v2` rather than silently changing under somebody's query.
+ */
+export const DATASET_PATH = /^\/v1\/[a-z0-9_]+\.(parquet|csv|json)$/;
+
+/** Where a published file lives in the archive. */
+export const datasetKey = (name: string): string => `dataset/v1/${name}`;
+
+/** What a published file should be served as. */
+export const datasetType = (name: string): string =>
+  name.endsWith(".parquet") ? "application/vnd.apache.parquet" : name.endsWith(".csv") ? "text/csv; charset=utf-8" : "application/json; charset=utf-8";

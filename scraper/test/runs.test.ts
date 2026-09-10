@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { newRun, pointerKey, readable, runDate, runPrefix } from "../src/runs.ts";
+import { DATASET_PATH, LOGO_PATH, datasetKey, datasetType, newRun, pointerKey, readable, runDate, runPrefix } from "../src/runs.ts";
 import { partKey } from "../src/work.ts";
 
 const crawls = ["seller-crawl", "page-crawl", "manufacturer-crawl"].map((n) => [n, readFileSync(new URL(`../src/${n}.ts`, import.meta.url), "utf8")] as const);
@@ -69,4 +69,24 @@ test("a prefix outside the archive, or one climbing out of it, is refused", () =
   assert.equal(readable("secrets/"), false);
   assert.equal(readable(""), false);
   assert.equal(readable("documents/../secrets/"), false);
+});
+
+test("only a logo and a published table are readable without the control token", () => {
+  // The archive holds every crawl, every document and every reading. Two shapes are public and the
+  // patterns say so at both ends, which is what keeps "/v1/../documents/..." out.
+  assert.equal(LOGO_PATH.test("/logos/victron-energy-128.png"), true);
+  assert.equal(DATASET_PATH.test("/v1/specs.parquet"), true);
+  assert.equal(DATASET_PATH.test("/v1/manufacturers.csv"), true);
+  assert.equal(DATASET_PATH.test("/v1/manifest.json"), true);
+  for (const closed of ["/v1/../documents/x.json", "/v1/specs.parquet/../../secret", "/documents/epever/current.json", "/archive/abc.reading.json", "/v2/specs.parquet", "/v1/specs.exe"]) {
+    assert.equal(DATASET_PATH.test(closed), false, `${closed} must not be public`);
+    assert.equal(LOGO_PATH.test(closed), false, `${closed} must not be public`);
+  }
+});
+
+test("a published file is named in the archive under its version, and served as what it is", () => {
+  assert.equal(datasetKey("specs.parquet"), "dataset/v1/specs.parquet");
+  assert.match(datasetType("specs.parquet"), /parquet/);
+  assert.match(datasetType("specs.csv"), /text\/csv/);
+  assert.match(datasetType("manifest.json"), /application\/json/);
 });

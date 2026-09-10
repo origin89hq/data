@@ -4,6 +4,10 @@
   "main": "src/index.ts",
   "compatibility_date": "2026-09-09",
   "compatibility_flags": ["nodejs_compat"],
+  // The public face of the dataset. A logo has to render in a browser, so it cannot carry a token,
+  // and a custom domain on our own zone is what lets a page cache and reference it. Everything but
+  // `logos/<maker>-<width>.png` still needs the bearer, whichever host asks.
+  "routes": [{ "pattern": "data.origin89.com", "custom_domain": true }],
   // Workflows are for a sequence with a wait in it. Crawling a shop is ordered pagination, and
   // the maker pipeline pauses for a person; everything that merely fans out is on the queue.
   "workflows": [

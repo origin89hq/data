@@ -1,7 +1,7 @@
 import { logoKey } from "./logos.ts";
 
 /** Where a published logo is served from. The Worker is the only thing that reads the archive. */
-const LOGO_BASE = "https://offgrid-equipment-scraper.mashin.workers.dev";
+const LOGO_BASE = "https://data.origin89.com";
 import type { Records } from "./records.ts";
 import { attachMakers, readFeeds } from "./feeds.ts";
 import { canonicalUnit, concerns as figureConcerns } from "./units.ts";

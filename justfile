@@ -90,6 +90,10 @@ logos *args:
 logos-upload *args:
     node tools/logos/upload.ts {{args}}
 
+# Publish the built tables to data.origin89.com, where anybody can fetch them.
+publish *args:
+    node tools/dataset/publish.ts {{args}}
+
 # ---- feeds ----
 
 # Check the pinned SAM libraries against upstream. Reports a change, never takes it.

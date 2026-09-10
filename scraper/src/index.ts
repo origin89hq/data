@@ -8,7 +8,7 @@ import { classifyRun, convertRun, specPagesRun } from "./enqueue.ts";
 import specPages from "../../feeds/spec-pages.json" with { type: "json" };
 import { manufacturers } from "./manufacturers.ts";
 import { makerStates, sellerStates } from "./state.ts";
-import { newRun, pointerKey, readPointer, ARCHIVE_ROOTS, LOGO_PATH, readable } from "./runs.ts";
+import { newRun, pointerKey, readPointer, ARCHIVE_ROOTS, DATASET_PATH, datasetKey, datasetType, LOGO_PATH, readable } from "./runs.ts";
 import { supervise } from "./supervise.ts";
 import type { SellerCrawlParams } from "./seller-crawl.ts";
 
@@ -30,8 +30,31 @@ export default {
   /** `POST /run?seller=<id>` starts a crawl; `GET /status?id=<instance>` reports one. Local development and by-hand runs only; the cron is the real trigger. */
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
-    // A liveness check tells a caller nothing it could not learn from a DNS lookup.
-    if (request.method === "GET" && url.pathname === "/") return Response.json({ ok: true });
+    // The front door. A liveness check tells a caller nothing a DNS lookup would not, so the root
+    // says what the dataset is, what licence it carries and where every table can be fetched.
+    if ((request.method === "GET" || request.method === "HEAD") && url.pathname === "/") {
+      const manifest = await env.ARCHIVE.get(datasetKey("manifest.json"));
+      const published = manifest ? await manifest.json<{ counts?: Record<string, number>; files?: Record<string, { rows: number; bytes: number; sha256: string }> }>() : undefined;
+      const base = `${url.origin}/v1`;
+      return Response.json(
+        {
+          name: "offgrid-equipment",
+          description: "Off-grid power equipment: manufacturers, models, rated figures and the protocols a controller can speak to them with.",
+          licence: "MIT, for the tooling and the records alike",
+          repository: "https://github.com/origin89hq/offgrid-equipment",
+          contact: "hello@origin89.com",
+          // A figure carries where it was read and how, so anybody can disagree with it.
+          provenance: "Every figure names the document it came from, the page, and whether a model read it or a parser did.",
+          logos: {
+            note: "A maker's mark is a trademark, not part of the MIT grant. Served here to identify the maker; ask the maker for any other use.",
+            url: `${url.origin}/logos/<manufacturer>-<width>.png`,
+          },
+          ...(published?.counts ? { counts: published.counts } : {}),
+          files: Object.fromEntries(Object.entries(published?.files ?? {}).map(([name, meta]) => [name, { ...meta, url: `${base}/${name}` }])),
+        },
+        { headers: { "cache-control": "public, max-age=300", "access-control-allow-origin": "*" } },
+      );
+    }
     // A maker's logo is served to anyone, because a page that shows the catalogue has to render it
     // and a token in a browser is a token published. Only these keys, only GET, and nothing else in
     // the archive is reachable this way.
@@ -45,6 +68,24 @@ export default {
           // Addressed by maker and width, and a maker's mark changes about never.
           "cache-control": "public, max-age=86400, stale-while-revalidate=604800",
           "access-control-allow-origin": "*",
+        },
+      });
+    }
+    // The tables themselves. A dataset nobody can download is not published, and until now these
+    // existed only in a build directory that git ignores.
+    if ((request.method === "GET" || request.method === "HEAD") && DATASET_PATH.test(url.pathname)) {
+      const name = url.pathname.slice("/v1/".length);
+      const object = await env.ARCHIVE.get(datasetKey(name));
+      if (!object) return new Response("no such file", { status: 404 });
+      return new Response(request.method === "HEAD" ? null : object.body, {
+        headers: {
+          "content-type": datasetType(name),
+          "content-length": String(object.size),
+          // A build is reproducible and its bytes are pinned by the manifest, so a stale copy is a
+          // wrong answer rather than an old one. Short, and revalidated.
+          "cache-control": "public, max-age=300, stale-while-revalidate=3600",
+          "access-control-allow-origin": "*",
+          etag: `"${object.httpEtag.replaceAll(String.fromCharCode(34), "")}"`,
         },
       });
     }
