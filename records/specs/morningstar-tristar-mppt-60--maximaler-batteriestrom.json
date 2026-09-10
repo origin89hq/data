@@ -1,9 +1,0 @@
-{
-  "id": "morningstar-tristar-mppt-60--maximaler-batteriestrom",
-  "model": "morningstar-tristar-mppt-60",
-  "name": "maximaler Batteriestrom",
-  "value": "60 Ampere",
-  "source": "doc-364f18ecff8bf9386cfad6ee669de2fe",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

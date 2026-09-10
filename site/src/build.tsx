@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { kb, type Index } from "./api.ts";
 
 /** Written against the live origin, so a reader can copy one and it runs. */
@@ -36,6 +36,34 @@ curl -O ${origin}/v1/specs.parquet
 curl -O ${origin}/logos/victron-energy-128.png`,
   },
 });
+
+const KEYWORDS = new Set([
+  "SELECT", "FROM", "JOIN", "ON", "WHERE", "GROUP", "BY", "ORDER", "LIMIT",
+  "AND", "OR", "IS", "NULL", "AS", "import", "print", "curl", "def", "return",
+]);
+
+/**
+ * The draft's own tokeniser, which is three rules and enough: a comment line, a quoted string, a
+ * keyword. Anything more would be a highlighting library shipped to colour thirty lines.
+ */
+function colour(code: string): ReactNode[] {
+  return code.split("\n").map((line, row) => {
+    if (line.trimStart().startsWith("--") || line.trimStart().startsWith("#")) {
+      return <span key={row} className="syntax-comment">{line}{"\n"}</span>;
+    }
+    // Split on quoted strings first, then on word boundaries inside what is left.
+    const parts = line.split(/('[^']*')/g).map((part, i) =>
+      part.startsWith("'") ? (
+        <span key={i} className="syntax-string">{part}</span>
+      ) : (
+        part.split(/(\b[A-Za-z_]+\b)/g).map((word, j) =>
+          KEYWORDS.has(word) ? <span key={j} className="syntax-key">{word}</span> : word,
+        )
+      ),
+    );
+    return <span key={row}>{parts}{"\n"}</span>;
+  });
+}
 
 export function Build({ index }: { index?: Index }) {
   const origin = typeof window === "undefined" ? "https://data.origin89.com" : window.location.origin;
@@ -84,7 +112,7 @@ export function Build({ index }: { index?: Index }) {
                 {copied ? "Copied" : "Copy"} <span>⧉</span>
               </button>
             </div>
-            <pre role="tabpanel"><code>{all[tab]!.code}</code></pre>
+            <pre role="tabpanel"><code>{colour(all[tab]!.code)}</code></pre>
             <div className="code-footer"><span className="little-dot" /> Public endpoints · no authentication required</div>
           </div>
         </div>

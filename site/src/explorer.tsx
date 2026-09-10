@@ -8,17 +8,32 @@ type Row = Record<string, unknown>;
 const TABLES = {
   models: {
     label: "Equipment",
-    table: "models",
-    columns: ["id", "name", "manufacturer_id", "kind", "variant"],
+    // Not the models table itself, but the models table with what is known about each one. The
+    // first thing a visitor saw was an ABB part number with no figures, no source and no protocol,
+    // because "ORDER BY id" puts the alphabet first and the alphabet starts at abb-1666001. That
+    // reads as an empty database. Leading with the best documented shows what the dataset is for.
+    table: `(SELECT m.id, m.name, m.manufacturer_id, m.kind,
+                    count(DISTINCT s.id) AS figures,
+                    count(DISTINCT s.source_id) AS documents,
+                    count(DISTINCT d.dialect_id) AS protocols,
+                    m.tier
+             FROM models m
+             LEFT JOIN specs s ON s.model_id = m.id AND s.tier = 'reviewed'
+             LEFT JOIN model_dialects d ON d.model_id = m.id
+             GROUP BY 1, 2, 3, 4, 8)`,
+    columns: ["id", "name", "manufacturer_id", "kind", "figures", "documents", "protocols"],
     search: ["id", "name", "manufacturer_id"],
     filter: { column: "kind", label: "All equipment types" },
+    order: "figures DESC, protocols DESC, documents DESC, id",
   },
   specs: {
     label: "Specifications",
     table: "specs",
-    columns: ["model_id", "name", "value", "unit", "page", "confidence", "doubt"],
+    columns: ["model_id", "coalesce(english, name) AS figure", "value", "unit", "page", "doubt"],
     search: ["model_id", "name", "value"],
     filter: { column: "unit", label: "All units" },
+    // A figure somebody can act on first: a number, with a unit, and a page to check it against.
+    order: "CASE WHEN doubt IS NULL AND page IS NOT NULL THEN 0 ELSE 1 END, model_id",
   },
   dialects: {
     label: "Protocols",
@@ -26,10 +41,15 @@ const TABLES = {
     columns: ["id", "family", "driver_status", "confidence"],
     search: ["id", "family"],
     filter: { column: "family", label: "All families" },
+    order: "CASE confidence WHEN 'vendor-doc' THEN 0 WHEN 'community-crosschecked' THEN 1 ELSE 2 END, id",
   },
 } as const;
 
 type TabName = keyof typeof TABLES;
+
+/** The name a column answers to, which for an expression is what it was aliased as. */
+const alias = (column: string): string => column.split(/\s+AS\s+/i).pop() ?? column;
+
 const PAGE = 12;
 
 /**
@@ -84,7 +104,7 @@ export function Explorer({ index, tier }: { index?: Index; tier: "reviewed" | "a
     void Promise.all([
       db.run(`SELECT count(*) AS n FROM ${spec.table} WHERE ${where}`),
       db.run(`SELECT ${spec.columns.join(", ")} FROM ${spec.table} WHERE ${where}
-              ORDER BY 1 LIMIT ${PAGE} OFFSET ${page * PAGE}`),
+              ORDER BY ${spec.order} LIMIT ${PAGE} OFFSET ${page * PAGE}`),
     ])
       .then(([counted, listed]) => {
         if (stale) return;
@@ -151,14 +171,15 @@ export function Explorer({ index, tier }: { index?: Index; tier: "reviewed" | "a
         <div className="table-scroll">
           <table>
             <thead>
-              <tr>{spec.columns.map((column) => <th key={column}>{column.replace(/_/g, " ")}</th>)}</tr>
+              <tr>{spec.columns.map((column) => <th key={column}>{alias(column).replace(/_/g, " ")}</th>)}</tr>
             </thead>
             <tbody>
               {rows.map((row, i) => (
                 <tr key={i} onClick={() => setChosen(row)} style={{ cursor: "pointer" }}>
-                  {spec.columns.map((column) => (
-                    <td key={column}>{row[column] === null || row[column] === undefined ? "—" : String(row[column])}</td>
-                  ))}
+                  {spec.columns.map((column) => {
+                    const value = row[alias(column)];
+                    return <td key={column}>{value === null || value === undefined || value === "" ? "—" : String(value)}</td>;
+                  })}
                 </tr>
               ))}
               {rows.length === 0 && (
@@ -178,7 +199,7 @@ export function Explorer({ index, tier }: { index?: Index; tier: "reviewed" | "a
           <button onClick={() => setPage((p) => Math.min(pages - 1, p + 1))} disabled={page + 1 >= pages} aria-label="Next page">→</button>
         </div>
       </div>
-      {chosen && <RecordDialog row={chosen} table={tab} onClose={() => setChosen(undefined)} />}
+      {chosen && <RecordDialog row={chosen} table={tab} db={db} onClose={() => setChosen(undefined)} />}
     </div>
   );
 }
@@ -190,7 +211,7 @@ export function Explorer({ index, tier }: { index?: Index; tier: "reviewed" | "a
  * class. The first version of this invented `record-dialog` and `record-dialog-backdrop`, which
  * the stylesheet had never heard of, so it rendered as an unstyled list dumped under the table.
  */
-function RecordDialog({ row, table, onClose }: { row: Row; table: TabName; onClose: () => void }) {
+function RecordDialog({ row, table, db, onClose }: { row: Row; table: TabName; db: ReturnType<typeof useDuckDb>; onClose: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -233,11 +254,45 @@ function RecordDialog({ row, table, onClose }: { row: Row; table: TabName; onClo
               </header>
             </div>
           ))}
+        {table === "models" && <ModelFigures model={String(row.id ?? "")} db={db} />}
         <div className="detail-notice">
-          This is the value recorded in the dataset. Consult the original document and its conditions before using it
-          for equipment sizing.
+          This is what the dataset records. Consult the original document and its conditions before using any of it for
+          equipment sizing.
         </div>
       </div>
     </dialog>
+  );
+}
+
+/** Every figure a model has, with the page each was read off. */
+function ModelFigures({ model, db }: { model: string; db: ReturnType<typeof useDuckDb> }) {
+  const [figures, setFigures] = useState<Row[]>([]);
+  useEffect(() => {
+    if (!db.ready || !model) return;
+    void db
+      .run(`SELECT coalesce(english, name) AS figure, value, unit, page, doubt
+            FROM specs WHERE model_id = '${model.replaceAll("'", "''")}' AND tier = 'reviewed'
+            ORDER BY CASE WHEN doubt IS NULL THEN 0 ELSE 1 END, figure LIMIT 60`)
+      .then((answer) => setFigures(answer.rows))
+      .catch(() => setFigures([]));
+  }, [db, model]);
+
+  if (figures.length === 0) return null;
+  return (
+    <>
+      <p className="eyebrow" style={{ marginTop: "26px" }}>RATED FIGURES</p>
+      {figures.map((figure, i) => (
+        <div key={i} className="detail-spec">
+          <header>
+            <h3>{String(figure.figure)}</h3>
+            <strong>{String(figure.value)}{figure.unit ? ` ${String(figure.unit)}` : ""}</strong>
+          </header>
+          <div className="detail-meta">
+            {figure.page !== null && figure.page !== undefined && <span>page {String(figure.page)}</span>}
+            {figure.doubt !== null && figure.doubt !== undefined && <span className="amber-text">{String(figure.doubt)}</span>}
+          </div>
+        </div>
+      ))}
+    </>
   );
 }

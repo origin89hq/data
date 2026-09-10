@@ -4,8 +4,8 @@
   "name": "DoD Amps",
   "value": "5",
   "unit": "A",
-  "source": "doc-a6f1fde00f99fc6d5b81ec8f95129fc2",
-  "page": 72,
+  "source": "doc-fda963efd83b4fc2faf57024b5e6becd",
+  "page": 65,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

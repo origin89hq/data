@@ -45,7 +45,20 @@ const FOREIGN_TERMS = new Set([
   "plage", "niveau", "rendement", "tuyau", "sel", "chute",
   // Portuguese
   "largura", "comprimento", "tensao", "frequencia", "capacidade", "partida", "oleo", "combustivel",
-  "tamanho", "pressao", "umidade", "saida", "peso_pt",
+  "tamanho", "pressao", "umidade", "saida",
+  // German, Dutch, Danish, Norwegian, Swedish, Finnish, Polish, Hungarian. NOCO and Champion
+  // publish one manual in eight languages, and none of the rules above can see a word like
+  // "Spannung" or "Lagringstemperatur": no accent, no Romance function word, one token.
+  "spannung", "sicherung", "gewicht", "abmessungen", "arbeitsstrom", "arbeitszyklus",
+  "betriebstemperatur", "lagertemperatur", "motorleistung", "anzahl", "zylinder", "luftstrom",
+  "spanning", "afmetingen", "koeling", "opslagtemperatuur", "werkingstemperatuur", "aantal",
+  "cilinders", "behuizing", "bescherming", "activiteitscyclus", "motorclassificatie", "stroomverbruik",
+  "luchtstroom", "beskyttelse", "beskyttelseshus", "opbevaringstemperatur", "driftstemperatur",
+  "arbejdscyklus", "arbejdsstrom", "sikring", "dimensioner", "antal", "cylindre", "luftflow",
+  "motorklassificering", "lagringstemperatur", "deksel", "spaending", "kotelon", "suojaus",
+  "lagringstemperatuur", "mitat", "sulake", "sylinterien", "moottorin", "pulssisuhde", "manuaalitilan",
+  "lumenit", "koeling", "kolning", "bezpiecznik", "obudowa", "ochronna", "przechowywania", "robocza",
+  "silnika", "lumeny", "cykl", "pracy", "munkaciklus", "temperatura", "maks",
 ]);
 
 /** The name's words, lowercased and stripped of accents, so "Presión" and "presion" are one word. */
@@ -57,10 +70,30 @@ const wordsOf = (name: string): string[] =>
     .split(/[^a-z]+/)
     .filter(Boolean);
 
+/**
+ * Stems that appear inside a compound and never inside an English word.
+ *
+ * A word list cannot win against German. "Spannung" is on it, and the records also hold
+ * "Batteriespannungsbereich", "Minimale Betriebsspannung" and "Max. Solarmodul-Leerlaufspannung".
+ * These are matched anywhere in the name, which is why the list is short and every entry was
+ * checked against every English figure name in the records: "temperatur" is absent because it sits
+ * inside "temperature", and that one substring would have flagged a thousand English rows.
+ */
+const FOREIGN_STEMS = [
+  "spannung", "feuchtigkeit", "feuchte", "abmessung", "strom", "leistung", "temperatuur",
+  "temperaturbereich", "aufbewahrung", "umgebungs", "anschluss", "zulassig", "zugelassen",
+  "energieverbrauch", "eigenverbrauch", "nennspannung", "betriebs", "halterung", "gehause",
+  "opslag", "werking", "afmeting", "vermogen", "spanningsbereik",
+  "temperatuurbereik", "opbevaring", "arbejds", "spaending", "lagring", "kapasitet",
+];
+
 /** Whether this name reads as something other than English. */
 export function looksForeign(name: string): boolean {
   if (ACCENTED.test(name) || ROMANCE.test(name)) return true;
-  return wordsOf(name).some((word) => FOREIGN_TERMS.has(word));
+  const words = wordsOf(name);
+  if (words.some((word) => FOREIGN_TERMS.has(word))) return true;
+  const flat = words.join(" ");
+  return FOREIGN_STEMS.some((stem) => flat.includes(stem));
 }
 
 /** The share of these names carrying such a letter, between 0 and 1. No names is no evidence. */
@@ -107,16 +140,31 @@ export function withoutTranslatedReadings<T>(
  * goes. Where a model has nothing else, it stays: an untranslated label beats no model at all,
  * and it is reported so somebody can add the name to the table.
  */
-export function withoutRedundantTranslations<T extends { model: string; name: string; english?: string }>(
+export function withoutRedundantTranslations<T extends { id: string; model: string; name: string; value: string; unit?: string; english?: string }>(
   specs: readonly T[],
 ): { keep: T[]; dropped: T[]; kept: T[] } {
   const hasEnglish = new Set<string>();
   for (const spec of specs) if (!looksForeign(spec.name)) hasEnglish.add(spec.model);
   const redundant = (spec: T) => looksForeign(spec.name) && !spec.english && hasEnglish.has(spec.model);
+
+  // One figure said in two languages, in two documents. NOCO's GENIUSPRO50 states its battery
+  // capacity in a Spanish manual and again in a French one; neither repeats an English row, so
+  // neither looked redundant, and the same 2000 Ah appeared twice. Same model, same value, same
+  // unit and the same English name is the same figure, whichever document it came from.
+  const said = new Map<string, T[]>();
+  for (const spec of specs) {
+    if (!spec.english || redundant(spec)) continue;
+    const key = `${spec.model}|${spec.english}|${spec.value}|${spec.unit ?? ""}`;
+    said.set(key, [...(said.get(key) ?? []), spec]);
+  }
+  const twice = new Set<string>();
+  for (const rows of said.values()) for (const row of [...rows].sort((a, b) => a.id.localeCompare(b.id)).slice(1)) twice.add(row.id);
+
+  const gone = (spec: T) => redundant(spec) || twice.has(spec.id);
   const orphaned = (spec: T) => looksForeign(spec.name) && !spec.english && !hasEnglish.has(spec.model);
   return {
-    keep: specs.filter((spec) => !redundant(spec)),
-    dropped: specs.filter(redundant),
+    keep: specs.filter((spec) => !gone(spec)),
+    dropped: specs.filter(gone),
     kept: specs.filter(orphaned),
   };
 }

@@ -1,0 +1,11 @@
+{
+  "id": "eg4-electronics-eg4-6000xp--pass-through-ac-input-power",
+  "model": "eg4-electronics-eg4-6000xp",
+  "name": "Pass-through AC input power",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-29133efc5bcd5cff64e2b3f6df9dc9b8",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -9,6 +9,7 @@ interface Trail {
   name: string;
   value: string;
   unit: string | null;
+  printed: string | null;
   page: number | null;
   url: string | null;
   title: string | null;
@@ -31,7 +32,7 @@ export function Evidence({ index }: { index?: Index }) {
   useEffect(() => {
     if (!db.ready) return;
     void db
-      .run(`SELECT s.model_id, s.name, s.value, s.unit, s.page, o.url, o.title,
+      .run(`SELECT s.model_id, coalesce(s.english, s.name) AS name, s.name AS printed, s.value, s.unit, s.page, o.url, o.title,
                    s.confidence, s.extracted_by, s.reviewed_by
             FROM specs s JOIN sources o ON o.id = s.source_id
             WHERE s.tier = 'reviewed' AND s.doubt IS NULL AND s.page IS NOT NULL
@@ -60,7 +61,7 @@ export function Evidence({ index }: { index?: Index }) {
           <span className="eyebrow">{(trail?.model_id ?? "").split("-")[0]?.toUpperCase() || "MANUFACTURER"}</span>
           <h3>{trail?.model_id ?? "—"}</h3>
           <div className="big-reading">{trail?.value ?? "—"}<span>{trail?.unit ?? ""}</span></div>
-          <span className="reading-label">{trail?.name ?? "Capacity"} · as stated in source</span>
+          <span className="reading-label">{trail?.name ?? "Capacity"} · as stated in source{trail?.printed && trail.printed !== trail.name ? `, where the maker wrote “${trail.printed}”` : ""}</span>
           <div className="source-document">
             <span className="document-symbol">PDF</span>
             <div>
@@ -100,10 +101,13 @@ export function Coverage({ index }: { index?: Index }) {
   useEffect(() => {
     if (!db.ready) return;
     void db
-      .run(`SELECT d.family,
+      // A dialect the catalogue trusts is one whose confidence says so. The first version counted a
+      // join against dialect_sources, which every dialect satisfies — a citation is not the same
+      // claim as a maker's own document, so the toggle moved nothing and looked broken.
+      .run(`SELECT family,
                    count(*) AS entries,
-                   count(*) FILTER (WHERE d.id IN (SELECT dialect_id FROM dialect_sources)) AS documented
-            FROM dialects d GROUP BY 1 ORDER BY 2 DESC`)
+                   count(*) FILTER (WHERE confidence = 'vendor-doc') AS documented
+            FROM dialects GROUP BY 1 ORDER BY 2 DESC`)
       .then((answer) => setFamilies(answer.rows as unknown as Family[]))
       .catch(() => setFamilies([]));
     void db

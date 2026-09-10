@@ -4,7 +4,7 @@
   "name": "GRID MAXCURRENT",
   "value": "5.00A to70.00A",
   "source": "doc-23df0d2727e9f35278efcb9ffbc0e9f6",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "page": 119,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

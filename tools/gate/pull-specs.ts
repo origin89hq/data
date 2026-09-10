@@ -1,3 +1,5 @@
+import { rmSync } from "node:fs";
+import { join } from "node:path";
 import { loadRecords, writeRecord, RECORDS_DIR } from "../../src/records.ts";
 import { specsFrom, type ReportedProduct } from "../../src/specs.ts";
 import { looksLikeModelName, modelId, normaliseModelName } from "../../src/models.ts";
@@ -146,7 +148,38 @@ for (const spec of collected.values()) {
   written += 1;
 }
 
+// A figure this run no longer produces has to go, or a refinement only ever adds. Tightening the
+// language rules stopped emitting a NOCO charger's capacity in two languages and both stayed on
+// disk anyway, because writing is not the same as replacing.
+let stale = 0;
+if (!dryRun) {
+  const mine = new Set(records.models.filter((m) => m.manufacturer === manufacturer).map((m) => m.id));
+  const produced = new Set(collected.keys());
+  for (const spec of records.specs) {
+    if (!mine.has(spec.model) || produced.has(spec.id)) continue;
+    // Only what this run is responsible for: a figure a person reviewed is not a run's to delete,
+    // and one read by a different reader belongs to whichever run produced it.
+    if (spec.reviewedBy || !spec.extractedBy) continue;
+    rmSync(join(RECORDS_DIR, "specs", `${spec.id}.json`), { force: true });
+    stale += 1;
+  }
+}
+
 console.log(`${written} figures and ${modelsAdded} new models${dryRun ? " (dry run, nothing written)" : " written"} for ${manufacturer}`);
+if (stale) console.log(`  ${stale} figures removed, which this run no longer produces`);
+
+// A document whose last figure just went is cited by nothing, and the validator refuses an orphan.
+let orphans = 0;
+if (!dryRun) {
+  const after = loadRecords();
+  const cited = new Set(after.specs.map((spec) => spec.source));
+  for (const source of after.sources) {
+    if (!source.id.startsWith("doc-") || cited.has(source.id)) continue;
+    rmSync(join(RECORDS_DIR, "sources", `${source.id}.json`), { force: true });
+    orphans += 1;
+  }
+}
+if (orphans) console.log(`  ${orphans} source documents removed, cited by nothing once their figures went`);
 for (const { url, language } of dropped) console.log(`  skipped the ${language} edition, which this maker also publishes in English: ${url.split("/").pop()}`);
 for (const reading of byLanguage.dropped) console.log(`  skipped a translated edition its file name did not declare: ${reading.url.split("/").pop()}`);
 if (repeatedTotal) console.log(`  ${repeatedTotal} figures dropped where a multilingual document stated them again in another language`);

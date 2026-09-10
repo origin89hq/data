@@ -1,9 +1,0 @@
-{
-  "id": "outback-power-gs7048e--dauerbetriebsleistung",
-  "model": "outback-power-gs7048e",
-  "name": "Dauerbetriebsleistung",
-  "value": "7 kVA (30 AAC)",
-  "source": "doc-da34e1fe4838f187635baa4073902a9b",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

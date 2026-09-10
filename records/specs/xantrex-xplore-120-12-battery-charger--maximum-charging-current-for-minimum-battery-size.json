@@ -1,0 +1,10 @@
+{
+  "id": "xantrex-xplore-120-12-battery-charger--maximum-charging-current-for-minimum-battery-size",
+  "model": "xantrex-xplore-120-12-battery-charger",
+  "name": "Maximum charging current for minimum battery size",
+  "value": "20 A for 40 Ah battery",
+  "source": "doc-d89af51d26e69e6db83e3b74a038b24a",
+  "page": 33,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

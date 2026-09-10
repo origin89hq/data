@@ -4,7 +4,7 @@
   "name": "Charging Temperature Compensation Factor",
   "value": "±5 mV / °C / cell",
   "source": "doc-744511fbdb26b4541130512c49f33766",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

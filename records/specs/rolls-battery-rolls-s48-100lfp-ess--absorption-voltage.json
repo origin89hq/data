@@ -1,0 +1,11 @@
+{
+  "id": "rolls-battery-rolls-s48-100lfp-ess--absorption-voltage",
+  "model": "rolls-battery-rolls-s48-100lfp-ess",
+  "name": "ABSORPTION VOLTAGE",
+  "value": "57.6",
+  "unit": "V",
+  "source": "doc-fd8c6477275bdfd097c84ad5e66913ce",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

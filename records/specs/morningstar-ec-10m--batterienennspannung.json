@@ -1,9 +1,0 @@
-{
-  "id": "morningstar-ec-10m--batterienennspannung",
-  "model": "morningstar-ec-10m",
-  "name": "Batterienennspannung",
-  "value": "12 V oder 24 V",
-  "source": "doc-7eba896a80e68a2cec3724fea277e1f6",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

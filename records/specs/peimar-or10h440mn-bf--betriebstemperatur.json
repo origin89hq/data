@@ -1,9 +1,0 @@
-{
-  "id": "peimar-or10h440mn-bf--betriebstemperatur",
-  "model": "peimar-or10h440mn-bf",
-  "name": "Betriebstemperatur",
-  "value": "-40 °C ~ +85 °C",
-  "source": "doc-02566ecb281d06217c976268099100d6",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

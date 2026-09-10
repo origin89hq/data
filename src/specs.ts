@@ -147,8 +147,20 @@ export function specsFrom({ reports, models, manufacturer, source, extractedBy, 
   }
   for (const rows of byFigure.values()) {
     if (rows.length < 2) continue;
-    if (!rows.some((row) => !looksForeign(row.name))) continue;
-    for (const row of rows.filter((r) => looksForeign(r.name))) repeated.add(row.id);
+    const english = rows.filter((row) => !looksForeign(row.name));
+    if (english.length > 0) {
+      for (const row of rows.filter((r) => looksForeign(r.name))) repeated.add(row.id);
+      continue;
+    }
+    // No English row, but two foreign ones the table aligns to the same English name: a NOCO
+    // charger stated its battery capacity in Spanish and in French and neither was a repeat of
+    // anything, so both survived and the same figure appeared twice.
+    const byEnglish = new Map<string, Spec[]>();
+    for (const row of rows) {
+      if (!row.english) continue;
+      byEnglish.set(row.english, [...(byEnglish.get(row.english) ?? []), row]);
+    }
+    for (const said of byEnglish.values()) for (const row of said.slice(1)) repeated.add(row.id);
   }
   for (const id of repeated) specs.delete(id);
 
