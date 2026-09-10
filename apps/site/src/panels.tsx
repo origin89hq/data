@@ -1,8 +1,8 @@
+import avatar from "@origin89/brand/art/avatar-round.webp";
 import { useEffect, useState } from "react";
-import { count, type Index } from "./api.ts";
-import { useDuckDb } from "./useDuckDb.ts";
-
-const A = "assets";
+import { count } from "./api.ts";
+import { Icon } from "./icons.tsx";
+import type { State } from "./useDuckDb.ts";
 
 interface Trail {
   model_id: string;
@@ -25,8 +25,7 @@ interface Trail {
  * stopped matching the data would be the most damaging paragraph here: the whole section argues
  * that the trail holds.
  */
-export function Evidence({ index }: { index?: Index }) {
-  const db = useDuckDb(index);
+export function Evidence({ db }: { db: State }) {
   const [trail, setTrail] = useState<Trail>();
 
   useEffect(() => {
@@ -79,13 +78,13 @@ export function Evidence({ index }: { index?: Index }) {
           </li>
         </ol>
         <a className="text-link" href="#explore">
-          Inspect an actual record <span aria-hidden>↗</span>
+          Inspect an actual record <Icon name="arrowUpRight" />
         </a>
       </div>
       <div className="provenance-card">
         <div className="panel-cap">
           <span>SPECIFICATION / SOURCE TRAIL</span>
-          <span>↗</span>
+          <Icon name="arrowUpRight" />
         </div>
         <div className="provenance-main">
           <span className="eyebrow">
@@ -117,7 +116,7 @@ export function Evidence({ index }: { index?: Index }) {
                 rel="noopener"
                 aria-label="Open the original manufacturer source"
               >
-                ↗
+                <Icon name="arrowUpRight" />
               </a>
             )}
           </div>
@@ -143,7 +142,7 @@ export function Evidence({ index }: { index?: Index }) {
           </dl>
         </div>
         <div className="buddy-note">
-          <img src={`${A}/art/avatar-round.webp`} width="45" height="45" alt="Buddy" />
+          <img src={avatar} width="45" height="45" alt="Buddy" />
           <p>
             “I can point you to the page.
             <br />
@@ -162,8 +161,7 @@ interface Family {
 }
 
 /** What the catalogue covers, and how much of it cites a maker's own document. */
-export function Coverage({ index }: { index?: Index }) {
-  const db = useDuckDb(index);
+export function Coverage({ db }: { db: State }) {
   const [families, setFamilies] = useState<Family[]>([]);
   const [mode, setMode] = useState<"count" | "documented">("count");
   const [confidences, setConfidences] = useState<{ confidence: string; dialects: number }[]>([]);
@@ -276,7 +274,7 @@ export function Coverage({ index }: { index?: Index }) {
               ))}
             </div>
             <a className="text-link" href="#explore">
-              Explore the protocols <span aria-hidden>↗</span>
+              Explore the protocols <Icon name="arrowUpRight" />
             </a>
           </div>
         </div>

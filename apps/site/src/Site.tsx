@@ -1,28 +1,31 @@
+import avatar from "@origin89/brand/art/avatar-round.webp";
+import logo from "@origin89/brand/logos/origin89-horizontal-blue.svg";
+import mark from "@origin89/brand/logos/plate-89-blue.svg";
 import { useEffect, useState } from "react";
 import { count, fetchIndex, type Index } from "./api.ts";
+import { Buddy } from "./Buddy.tsx";
 import { Build } from "./build.tsx";
 import { Explorer } from "./explorer.tsx";
+import { Icon } from "./icons.tsx";
 import { Coverage, Evidence } from "./panels.tsx";
+import { type State, useDuckDb } from "./useDuckDb.ts";
 
-const A = "assets";
-
-/**
- * The data site, ported from the draft in `docs/design/data-origin89`.
- *
- * Its markup and its stylesheet are the draft's, unchanged where they could be. What differs is
- * where the numbers come from: the draft baked a snapshot into a JavaScript file so it could be
- * opened from disk, and this reads the same public endpoints anybody else would call. A page whose
- * argument is that every figure can be followed back cannot itself be a copy of what once was.
- */
+/** The public dataset, with counts and records from the published release. */
 export function Site() {
   const [index, setIndex] = useState<Index>();
+  const [indexError, setIndexError] = useState(false);
+  const db = useDuckDb(index);
   useEffect(() => {
     void fetchIndex()
       .then(setIndex)
-      .catch(() => undefined);
+      .catch(() => setIndexError(true));
   }, []);
 
-  const rows = (table: string) => count(index?.files[`${table}.parquet`]?.rows ?? 0);
+  const rows = (table: string) => {
+    const total = index?.files[`${table}.parquet`]?.rows;
+    return total === undefined ? "—" : count(total);
+  };
+  const dialects = index?.counts?.dialects;
 
   return (
     <>
@@ -31,12 +34,7 @@ export function Site() {
       </a>
       <header className="site-header">
         <a className="identity" href="https://origin89.com" aria-label="Origin89 Data home">
-          <img
-            src={`${A}/logos/origin89-horizontal-blue.svg`}
-            width="159"
-            height="27"
-            alt="Origin89"
-          />
+          <img src={logo} width="159" height="27" alt="Origin89" />
           <span className="identity-divider" />
           <span className="data-word">data</span>
         </a>
@@ -50,17 +48,17 @@ export function Site() {
             target="_blank"
             rel="noopener"
           >
-            GitHub <span aria-hidden>↗</span>
+            GitHub <Icon name="arrowUpRight" />
           </a>
         </nav>
         <a
           className="button small nav-buddy"
-          href="https://origin89.com"
+          href="https://origin89.com/buddy/"
           target="_blank"
           rel="noopener"
         >
-          <img src={`${A}/art/avatar-round.webp`} width="22" height="22" alt="" />
-          Ask Buddy <span aria-hidden>↗</span>
+          <img src={avatar} width="22" height="22" alt="" />
+          Ask Buddy <Icon name="arrowUpRight" />
         </a>
       </header>
 
@@ -82,10 +80,10 @@ export function Site() {
             </p>
             <div className="hero-actions">
               <a className="button primary" href="#explore">
-                Explore the dataset <span aria-hidden>↗</span>
+                Explore the dataset <Icon name="arrowUpRight" />
               </a>
               <a className="button quiet" href="#build">
-                Build with the data <span aria-hidden>→</span>
+                Build with the data <Icon name="arrowRight" />
               </a>
             </div>
             <div className="open-note">
@@ -149,10 +147,12 @@ export function Site() {
                 <span>Public equipment libraries</span>
               </div>
             </div>
-            <HeroRecord />
+            <HeroRecord db={db} />
             <div className="destination-stack">
               <div className="flow-chip">
-                <span className="file-icon">↓</span>
+                <span className="file-icon">
+                  <Icon name="download" />
+                </span>
                 <span>Parquet / CSV / JSON</span>
               </div>
               <div className="flow-chip">
@@ -160,7 +160,7 @@ export function Site() {
                 <span>Your tools &amp; applications</span>
               </div>
               <div className="flow-chip">
-                <img src={`${A}/art/avatar-round.webp`} alt="" width="30" height="30" />
+                <img src={avatar} alt="" width="30" height="30" />
                 <span>A little help from Buddy</span>
               </div>
             </div>
@@ -171,7 +171,7 @@ export function Site() {
               {[
                 [rows("models"), "Equipment models"],
                 [rows("specs"), "Specification rows"],
-                [count(index?.counts?.dialects ?? 0), "Protocol dialects"],
+                [dialects === undefined ? "—" : count(dialects), "Protocol dialects"],
                 [rows("sources"), "Source records"],
               ].map(([value, label]) => (
                 <div key={label} className="stat">
@@ -205,43 +205,61 @@ export function Site() {
             </p>
           </div>
           <div className="data-pillars">
-            {[
+            {(
               [
-                "01",
-                "Equipment identity",
-                "Models, makers, aliases, and equipment types. A shared identity to connect your records.",
-                `${rows("models")} MODELS`,
-                "#explore",
-              ],
-              [
-                "02",
-                "Specifications",
-                "Rated figures with units, conditions, and their original source. Context stays attached.",
-                `${rows("specs")} RATED FIGURES`,
-                "#explore",
-              ],
-              [
-                "03",
-                "Protocols & dialects",
-                "Register maps, frame layouts, driver status, and the gotchas you want to know about.",
-                `${count(index?.counts?.dialects ?? 0)} DIALECTS`,
-                "#explore",
-              ],
-              [
-                "04",
-                "Evidence & confidence",
-                "Follow a claim back to its reference. See where it came from and what has been checked.",
-                `${rows("sources")} SOURCE RECORDS`,
-                "#evidence",
-              ],
-            ].map(([number, title, body, foot, href]) => (
+                {
+                  number: "01",
+                  icon: "equipment",
+                  title: "Equipment identity",
+                  body: "Models, makers, and aliases. A shared identity to connect your equipment records.",
+                  value: rows("models"),
+                  label: "models",
+                  href: "#explore",
+                },
+                {
+                  number: "02",
+                  icon: "specifications",
+                  title: "Specifications",
+                  body: "Rated figures with their units, conditions, and original source. Context stays attached.",
+                  value: rows("specs"),
+                  label: "rated figures",
+                  href: "#explore",
+                },
+                {
+                  number: "03",
+                  icon: "protocols",
+                  title: "Protocols & dialects",
+                  body: "Register maps, frame layouts, and driver status. See what’s documented.",
+                  value: dialects === undefined ? "—" : count(dialects),
+                  label: "dialects",
+                  href: "#explore",
+                },
+                {
+                  number: "04",
+                  icon: "evidence",
+                  title: "Evidence & confidence",
+                  body: "Follow a claim to its reference. See where it came from and what has been checked.",
+                  value: rows("sources"),
+                  label: "source records",
+                  href: "#evidence",
+                },
+              ] as const
+            ).map(({ number, icon, title, body, value, label, href }) => (
               <a key={number} className="pillar" href={href}>
-                <span className="pillar-number">
-                  {number} <span>↗</span>
+                <span className="pillar-top">
+                  <span className="pillar-symbol">
+                    <Icon name={icon} />
+                  </span>
+                  <span className="pillar-number">{number}</span>
                 </span>
                 <h3>{title}</h3>
                 <p>{body}</p>
-                <span className="pillar-foot">{foot}</span>
+                <span className="pillar-foot">
+                  <span>
+                    <strong>{value}</strong> {label}
+                  </span>
+                  <Icon name="arrowRight" />
+                </span>
               </a>
             ))}
           </div>
@@ -260,7 +278,21 @@ export function Site() {
                 Follow the evidence all the way back.
               </p>
             </div>
-            <Explorer index={index} tier="reviewed" />
+            {indexError ? (
+              <div className="data-load-error" role="alert">
+                <h3>The dataset couldn’t be loaded.</h3>
+                <p>Check your connection and reload to try again.</p>
+                <button
+                  className="button small"
+                  type="button"
+                  onClick={() => window.location.reload()}
+                >
+                  Reload the page
+                </button>
+              </div>
+            ) : (
+              <Explorer index={index} tier="reviewed" db={db} />
+            )}
             <div className="explorer-helper">
               <span>
                 <span className="little-dot" /> Every record here is live from the published tables.
@@ -270,8 +302,9 @@ export function Site() {
           </div>
         </section>
 
-        <Evidence index={index} />
-        <Coverage index={index} />
+        <Evidence db={db} />
+        <Coverage db={db} />
+        <Buddy />
         <Build index={index} />
       </main>
 
@@ -291,49 +324,42 @@ export function Site() {
 }
 
 /** The card at the centre of the hero: a real figure, fetched, with its page reference. */
-function HeroRecord() {
-  const [figure, setFigure] = useState<{
-    model: string;
-    value: string;
-    unit: string;
-    page: number | null;
-  }>();
+function HeroRecord({ db }: { db: State }) {
+  const [figure, setFigure] = useState<{ model: string; value: string; page: string }>();
   useEffect(() => {
-    void fetch("/v1/specs.csv")
-      .then((response) => (response.ok ? response.text() : Promise.reject(new Error("no specs"))))
-      .then((text) => {
-        // The published CSV, read far enough to find one battery capacity with a page reference.
-        const lines = text.split("\n", 4000);
-        const header = (lines[0] ?? "").split(",");
-        const at = (name: string) => header.indexOf(name);
-        for (const line of lines.slice(1)) {
-          const cells = line.split(",");
-          if (cells[at("unit")] !== "Ah" || cells[at("tier")] !== "reviewed" || !cells[at("page")])
-            continue;
+    if (!db.ready) return;
+    let stale = false;
+    void db
+      .run(`SELECT model_id, value, page FROM specs
+      WHERE unit = 'Ah' AND tier = 'reviewed' AND page IS NOT NULL AND doubt IS NULL
+      ORDER BY model_id LIMIT 1`)
+      .then(({ rows }) => {
+        const row = rows[0];
+        if (!stale && row)
           setFigure({
-            model: cells[at("model_id")] ?? "",
-            value: cells[at("value")] ?? "",
-            unit: "Ah",
-            page: Number(cells[at("page")]),
+            model: String(row.model_id),
+            value: String(row.value),
+            page: String(row.page),
           });
-          return;
-        }
       })
       .catch(() => undefined);
-  }, []);
+    return () => {
+      stale = true;
+    };
+  }, [db]);
 
   return (
     <a className="record-card" href="#evidence" aria-label="Inspect a capacity and its source">
       <span className="record-top">
-        <img src={`${A}/logos/plate-89-blue.svg`} alt="" width="34" height="19" />
+        <img src={mark} alt="" width="34" height="19" />
         <span>EQUIPMENT / BATTERY</span>
-        <span className="record-arrow">↗</span>
+        <Icon name="arrowUpRight" className="record-arrow" />
       </span>
-      <span className="record-name">{figure?.model ?? "Rolls S48-100LFP"}</span>
+      <span className="record-name">{figure?.model ?? "Equipment & its source"}</span>
       <span className="record-fact">
         <span>Capacity</span>
         <strong>
-          {figure?.value ?? "100"} <small>{figure?.unit ?? "Ah"}</small>
+          {figure?.value ?? "—"} <small>{"Ah"}</small>
         </strong>
       </span>
       <span className="record-bottom">

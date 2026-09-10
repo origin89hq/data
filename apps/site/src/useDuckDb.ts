@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Index } from "./api.ts";
+import { queryRow } from "./query-row.ts";
 
 export interface Query {
   columns: string[];
@@ -7,7 +8,7 @@ export interface Query {
   ms: number;
 }
 
-type State =
+export type State =
   | { ready: false; error?: string }
   | { ready: true; tables: string[]; run: (sql: string) => Promise<Query> };
 
@@ -25,28 +26,51 @@ export function useDuckDb(index: Index | undefined): State {
     if (!index) return;
     let closed = false;
     let cleanup: (() => void) | undefined;
+    setState({ ready: false });
 
     void (async () => {
       try {
         const duckdb = await import("@duckdb/duckdb-wasm");
+        if (closed) return;
         const bundle = await duckdb.selectBundle(duckdb.getJsDelivrBundles());
+        if (closed) return;
         if (!bundle.mainWorker) throw new Error("No DuckDB worker is available for this browser");
         const worker = await duckdb.createWorker(bundle.mainWorker);
+        if (closed) {
+          worker.terminate();
+          return;
+        }
         const db = new duckdb.AsyncDuckDB(
           new duckdb.ConsoleLogger(duckdb.LogLevel.WARNING),
           worker,
         );
-        await db.instantiate(bundle.mainModule, bundle.pthreadWorker);
-        const connection = await db.connect();
         cleanup = () => {
-          void connection.close();
-          void db.terminate();
-          void worker.terminate();
+          void db.terminate().catch(() => worker.terminate());
         };
+        await db.instantiate(bundle.mainModule, bundle.pthreadWorker);
+        if (closed) return;
+        // Probe range support rather than buffering each entire remote file at startup.
+        await db.open({
+          filesystem: {
+            reliableHeadRequests: false,
+            allowFullHTTPReads: true,
+            forceFullHTTPReads: false,
+          },
+        });
+        if (closed) return;
+        const connection = await db.connect();
+        if (closed) return;
 
-        const views = parquetViews(index.files);
+        const views = parquetViews(index.files).filter(({ name }) =>
+          ["models", "specs", "sources", "dialects", "model_dialects"].includes(name),
+        );
         const tables = views.map((view) => view.name);
-        for (const view of views) await connection.query(view.sql);
+        for (const view of views) {
+          if (closed) return;
+          await db.registerFileURL(view.url, view.url, duckdb.DuckDBDataProtocol.HTTP, false);
+          if (closed) return;
+          await connection.query(view.sql);
+        }
         if (closed) return;
 
         setState({
@@ -61,12 +85,14 @@ export function useDuckDb(index: Index | undefined): State {
               rows: result
                 .toArray()
                 .slice(0, 500)
-                .map((row) => row.toJSON() as Record<string, unknown>),
+                .map((row) => queryRow(row.toJSON() as Record<string, unknown>)),
               ms: performance.now() - started,
             };
           },
         });
       } catch (error) {
+        cleanup?.();
+        cleanup = undefined;
         if (!closed) setState({ ready: false, error: String(error).slice(0, 140) });
       }
     })();
@@ -81,7 +107,7 @@ export function useDuckDb(index: Index | undefined): State {
 }
 
 /** Quote filenames and URLs from the published index as SQL data. */
-export function parquetViews(files: Index["files"]): { name: string; sql: string }[] {
+export function parquetViews(files: Index["files"]): { name: string; url: string; sql: string }[] {
   return Object.entries(files)
     .filter(([file]) => file.endsWith(".parquet"))
     .map(([file, entry]) => {
@@ -89,6 +115,10 @@ export function parquetViews(files: Index["files"]): { name: string; sql: string
       if (!name) throw new Error("Parquet file has no table name");
       const identifier = name.replaceAll('"', '""');
       const url = entry.url.replaceAll("'", "''");
-      return { name, sql: `CREATE VIEW "${identifier}" AS SELECT * FROM read_parquet('${url}')` };
+      return {
+        name,
+        url: entry.url,
+        sql: `CREATE VIEW "${identifier}" AS SELECT * FROM read_parquet('${url}')`,
+      };
     });
 }

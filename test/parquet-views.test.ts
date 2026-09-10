@@ -12,6 +12,7 @@ test("opens only Parquet entries with their published URLs", () => {
     [
       {
         name: "models",
+        url: "https://data.example/models.parquet",
         sql: "CREATE VIEW \"models\" AS SELECT * FROM read_parquet('https://data.example/models.parquet')",
       },
     ],
@@ -26,6 +27,7 @@ test("quotes table identifiers and URLs without interpolating executable SQL", (
     [
       {
         name: 'quoted"table',
+        url: "https://data.example/it's.parquet",
         sql: "CREATE VIEW \"quoted\"\"table\" AS SELECT * FROM read_parquet('https://data.example/it''s.parquet')",
       },
     ],
