@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+/* The Origin89 palette, from the brand package rather than transcribed here. `tailwind.css` gives
+   the utilities their colours; `themes.css` makes them follow the reader's preference. */
+@import "@origin89/brand/tokens/tailwind.css";
+@import "@origin89/brand/tokens/themes.css";
+
+@theme {
+  --font-sans: "Inter Tight", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+:root {
+  /* The tokens flip with the preference but do not declare it, so scrollbars and form controls
+     would stay light while the page around them went dark. */
+  color-scheme: light dark;
+}
+
+body {
+  background: var(--color-page);
+  color: var(--color-fg);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* A maker's mark is drawn for its own background and most are dark on light, so the tile stays
+   white in either theme and takes a border to remain visible when the page is light too. */
+.maker-tile {
+  background: #fff;
+}

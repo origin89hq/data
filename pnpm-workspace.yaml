@@ -1,6 +1,7 @@
 packages:
   - "."
   - "worker"
+  - "site"
 
 # esbuild and workerd are how wrangler builds and runs a Worker locally; without their build
 # scripts pnpm 11 installs them unusable and the install fails outright in CI.
@@ -10,3 +11,4 @@ allowBuilds:
 
 minimumReleaseAgeExclude:
   - '@origin89/brand@0.2.0'
+  - '@types/react-dom@19.3.0'

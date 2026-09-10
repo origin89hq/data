@@ -3,7 +3,6 @@ import { sellers } from "./sellers.ts";
 import { hasFeed } from "./feeds.ts";
 import { APPROVAL_EVENT, CrawlApproval } from "./documents.ts";
 import { authorised } from "./authorised.ts";
-import { PAGE } from "./page.ts";
 import { classifyRun, convertRun, specPagesRun } from "./enqueue.ts";
 import specPages from "../../feeds/spec-pages.json" with { type: "json" };
 import { manufacturers } from "./manufacturers.ts";
@@ -44,11 +43,9 @@ async function currentInstance(env: Env, manufacturerId: string): Promise<string
 export const publicRoutes: App = new Hono<{ Bindings: Env }>();
 
 publicRoutes.on(["GET", "HEAD"], "/", async (c) => {
-  // A browser gets the page, a client gets the index. Same URL, because the thing a person wants
-  // to read and the thing a program wants to parse describe the same dataset.
-  if (c.req.header("accept")?.includes("text/html")) {
-    return c.html(PAGE, 200, { "cache-control": "public, max-age=300" });
-  }
+  // A browser gets the site, a client gets the index. Same URL, because the thing a person wants to
+  // read and the thing a program wants to parse describe the same dataset.
+  if (c.req.header("accept")?.includes("text/html")) return c.env.SITE.fetch(c.req.raw);
   const manifest = await c.env.ARCHIVE.get(datasetKey("manifest.json"));
   const published = manifest ? await manifest.json<{ counts?: Record<string, number>; files?: Record<string, { rows: number; bytes: number; sha256: string }> }>() : undefined;
   const origin = new URL(c.req.url).origin;
@@ -127,12 +124,36 @@ publicRoutes.on(["GET", "HEAD"], "/v1/:file", async (c) => {
 /** Everything that starts work or reads the archive. The token is checked before any handler. */
 export const controlRoutes: App = new Hono<{ Bindings: Env }>();
 
-controlRoutes.use("*", async (c, next) => {
-  if (!(await authorised(c.req.raw, c.env.CONTROL_TOKEN))) {
-    return c.json({ error: "a bearer token is required; set one with: wrangler secret put CONTROL_TOKEN" }, 401);
-  }
-  await next();
-});
+/**
+ * Every path that needs the token, named once.
+ *
+ * The guard is applied to these and not to `*`. A middleware on `*` reaches anything the public
+ * routes did not match, which included the site's own stylesheet — the page would have loaded and
+ * then refused to dress itself, with a 401 on a file nobody thinks of as protected.
+ */
+export const CONTROL_PATHS = [
+  "/approve",
+  "/archive",
+  "/classify",
+  "/convert",
+  "/discover-all",
+  "/maker",
+  "/run",
+  "/spec-pages",
+  "/state",
+  "/status",
+  "/supervise",
+] as const;
+
+// Registered before the handlers, because Hono runs a path's middleware in the order it was added.
+for (const path of CONTROL_PATHS) {
+  controlRoutes.use(path, async (c, next) => {
+    if (!(await authorised(c.req.raw, c.env.CONTROL_TOKEN))) {
+      return c.json({ error: "a bearer token is required; set one with: wrangler secret put CONTROL_TOKEN" }, 401);
+    }
+    await next();
+  });
+}
 
 controlRoutes.post("/run", async (c) => {
   const sellerId = c.req.query("seller");
@@ -285,4 +306,9 @@ controlRoutes.get("/status", async (c) => {
 export const app: App = new Hono<{ Bindings: Env }>();
 app.route("/", publicRoutes);
 app.route("/", controlRoutes);
-app.notFound((c) => c.json({ error: "not found" }, 404));
+// Whatever is left is the site's: its stylesheet, its scripts, its own 404. A path that is neither
+// the Worker's nor a file it holds gets the site's answer, not a bare JSON error.
+app.notFound(async (c) => {
+  if (c.req.method !== "GET" && c.req.method !== "HEAD") return c.json({ error: "not found" }, 404);
+  return c.env.SITE.fetch(c.req.raw);
+});

@@ -25,6 +25,8 @@ jobs:
       - run: duckdb -c "SELECT 1" > /dev/null
       - run: pnpm test
       - run: pnpm --filter offgrid-equipment-worker test
+      - run: pnpm --filter offgrid-equipment-site build
+      - run: pnpm --filter offgrid-equipment-site check
       # The Worker's types come from its wrangler config, so a binding that is declared in code
       # and missing from the config fails here rather than at deploy.
       - name: Type-check the Worker against its own bindings

@@ -23,6 +23,8 @@ jobs:
           persist-credentials: false
       - uses: ./.github/actions/setup
       - run: pnpm --filter offgrid-equipment-worker test
+      # The Worker serves the built site from its asset store, so there has to be one to serve.
+      - run: pnpm --filter offgrid-equipment-site build
       # The token goes up with the version rather than in a step of its own. The Worker's config
       # lists CONTROL_TOKEN as required, so a deploy without it is refused — which on a first
       # deploy would otherwise be circular, the secret needing a Worker that does not exist yet.

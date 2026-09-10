@@ -11,6 +11,10 @@
   // The brand palette and the Plate 89 mark are imported as text from @origin89/brand rather than
   // copied into the page. A copy is a palette that drifts from the one every other Origin89 surface
   // uses, and nothing would say when it had.
+  // The site is a built React app. The Worker sees every request first, answers the ones that are
+  // its own — a table, a mark, anything behind the token — and hands the rest to the asset store.
+  // Assets first would have taken "/" before the Worker could tell a browser from a client.
+  "assets": { "directory": "../site/dist", "binding": "SITE", "run_worker_first": true },
   "rules": [{ "type": "Text", "globs": ["**/*.css", "**/*.svg"], "fallthrough": true }],
   // Workflows are for a sequence with a wait in it. Crawling a shop is ordered pagination, and
   // the maker pipeline pauses for a person; everything that merely fans out is on the queue.

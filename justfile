@@ -80,6 +80,10 @@ approve maker date approver limit="40":
 convert maker date:
     @just _post "/convert?id={{maker}}&date={{date}}"
 
+# Build the site the Worker serves.
+site:
+    cd site && pnpm build
+
 # ---- logos ----
 
 # Find a logo for every maker: its own site first, a shop's brand page where that fails.
@@ -132,7 +136,7 @@ build:
 # ---- deployment ----
 
 # Deploy from CI. A deploy arms a weekly crawl, so it is a decision, not a merge.
-deploy:
+deploy: site
     gh workflow run "Deploy the spider" --repo origin89hq/offgrid-equipment --ref main
 
 _url:
