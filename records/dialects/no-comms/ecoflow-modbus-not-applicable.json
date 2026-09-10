@@ -3,7 +3,7 @@
   "manufacturer": "ecoflow",
   "family": "no-comms",
   "driver": {
-    "status": "possible"
+    "status": "not-planned"
   },
   "confidence": "unverified",
   "refuter": "checked",

@@ -3,7 +3,7 @@
   "manufacturer": "seaflo",
   "family": "no-comms",
   "driver": {
-    "status": "possible"
+    "status": "not-planned"
   },
   "confidence": "community-single",
   "refuter": "checked",

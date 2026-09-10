@@ -2,7 +2,7 @@
   "id": "aili-dc-combo-panel-meter",
   "family": "no-comms",
   "driver": {
-    "status": "possible"
+    "status": "not-planned"
   },
   "confidence": "unverified",
   "refuter": "not-checked",

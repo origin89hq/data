@@ -2,7 +2,7 @@
   "id": "kedron-lifepo4-12v-24v",
   "family": "no-comms",
   "driver": {
-    "status": "possible"
+    "status": "not-planned"
   },
   "confidence": "unverified",
   "refuter": "checked",

@@ -2,7 +2,7 @@
   "id": "shurflo-3200-macerator-momentary",
   "family": "no-comms",
   "driver": {
-    "status": "possible"
+    "status": "not-planned"
   },
   "confidence": "vendor-doc",
   "refuter": "not-checked",

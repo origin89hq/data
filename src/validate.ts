@@ -143,7 +143,9 @@ export function validate(records: Records): Report {
     // A no-comms dialect says there is no protocol here a controller can speak to. "possible" is
     // then a claim about a driver for nothing: 80 of 86 say it, which is what a field looks like
     // when nobody decided rather than when somebody did. `not-planned` is the enum's word for it.
-    if (d.family === "no-comms" && d.driver.status === "possible") note("a no-comms dialect says a driver is possible, which is a driver for no protocol");
+    // Corrected once, and guarded so it cannot come back: a driver is not possible for a device
+    // that publishes no protocol, and "not-planned" is the enum word for that.
+    if (d.family === "no-comms" && d.driver.status === "possible") errors.push(`${d.id}: a no-comms dialect cannot have a possible driver, since there is no protocol to write one against`);
     // The thing this catalogue exists to answer: could somebody write a driver from this entry?
     // A dialect with no blocks is a wiring note. Volthium has four Modbus entries, one per product
     // shape, every one unverified and none carrying a register map — useful research, not a map.

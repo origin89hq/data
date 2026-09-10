@@ -3,7 +3,7 @@
   "manufacturer": "samlex-america",
   "family": "no-comms",
   "driver": {
-    "status": "possible"
+    "status": "not-planned"
   },
   "confidence": "vendor-doc",
   "refuter": "not-checked",

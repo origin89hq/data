@@ -2,7 +2,7 @@
   "id": "motomaster-eliminator-psw-1000-no-comms",
   "family": "no-comms",
   "driver": {
-    "status": "possible"
+    "status": "not-planned"
   },
   "confidence": "community-single",
   "refuter": "not-checked",

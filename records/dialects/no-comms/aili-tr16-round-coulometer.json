@@ -2,7 +2,7 @@
   "id": "aili-tr16-round-coulometer",
   "family": "no-comms",
   "driver": {
-    "status": "possible"
+    "status": "not-planned"
   },
   "confidence": "vendor-doc",
   "refuter": "not-checked",

@@ -2,7 +2,7 @@
   "id": "unknown-aili-500a-shunt-monitor",
   "family": "no-comms",
   "driver": {
-    "status": "possible"
+    "status": "not-planned"
   },
   "confidence": "unverified",
   "refuter": "not-checked",

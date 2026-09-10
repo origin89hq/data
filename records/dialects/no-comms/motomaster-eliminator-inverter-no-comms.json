@@ -2,7 +2,7 @@
   "id": "motomaster-eliminator-inverter-no-comms",
   "family": "no-comms",
   "driver": {
-    "status": "possible"
+    "status": "not-planned"
   },
   "confidence": "unverified",
   "refuter": "checked",
