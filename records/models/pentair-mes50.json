@@ -2,7 +2,7 @@
   "id": "pentair-mes50",
   "manufacturer": "pentair",
   "name": "MES50",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

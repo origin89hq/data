@@ -2,7 +2,7 @@
   "id": "pentair-ma-15h",
   "manufacturer": "pentair",
   "name": "MA-15H",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

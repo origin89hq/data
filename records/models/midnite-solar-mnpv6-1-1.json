@@ -2,7 +2,7 @@
   "id": "midnite-solar-mnpv6-1-1",
   "manufacturer": "midnite-solar",
   "name": "MNPV6-1-1",
-  "kind": "charge-controller",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

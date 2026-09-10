@@ -2,7 +2,6 @@
   "id": "victron-energy-bpc240831104r",
   "manufacturer": "victron-energy",
   "name": "BPC240831104R",
-  "kind": "ac-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "victron-energy-bpc121031104r",
   "manufacturer": "victron-energy",
   "name": "BPC121031104R",
-  "kind": "out-of-scope",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "samlex-america-evo",
   "manufacturer": "samlex-america",
   "name": "EVO",
-  "kind": "out-of-scope",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

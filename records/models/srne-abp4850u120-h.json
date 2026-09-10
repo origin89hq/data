@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "ABP4850U120-H",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

@@ -2,7 +2,6 @@
   "id": "outback-power-fw-mp",
   "manufacturer": "outback-power",
   "name": "FW-MP",
-  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

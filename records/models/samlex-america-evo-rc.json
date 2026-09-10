@@ -2,9 +2,9 @@
   "id": "samlex-america-evo-rc",
   "manufacturer": "samlex-america",
   "name": "EVO-RC",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": [
     "samlex-evo-remote-panel-link"
-  ],
-  "kind": "out-of-scope"
+  ]
 }

@@ -2,7 +2,7 @@
   "id": "victron-energy-bpr122022000",
   "manufacturer": "victron-energy",
   "name": "BPR122022000",
-  "kind": "out-of-scope",
+  "kind": "balance-of-system",
   "aliases": [
     "VIC-181-151"
   ],

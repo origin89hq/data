@@ -2,7 +2,7 @@
   "id": "victron-energy-vbb115040020",
   "manufacturer": "victron-energy",
   "name": "VBB115040020",
-  "kind": "out-of-scope",
+  "kind": "bms",
   "aliases": [
     "VIC-104-172"
   ],

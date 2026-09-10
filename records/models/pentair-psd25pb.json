@@ -2,7 +2,7 @@
   "id": "pentair-psd25pb",
   "manufacturer": "pentair",
   "name": "PSD25PB",
-  "kind": "inverter-charger",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

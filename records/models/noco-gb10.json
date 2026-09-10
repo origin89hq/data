@@ -2,7 +2,7 @@
   "id": "noco-gb10",
   "manufacturer": "noco",
   "name": "GB10",
-  "kind": "battery",
+  "kind": "jump-starter",
   "aliases": [],
   "dialects": []
 }

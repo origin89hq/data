@@ -2,7 +2,7 @@
   "id": "wilson-electronics-pwo460061",
   "manufacturer": "wilson-electronics",
   "name": "PWO460061",
+  "kind": "load",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

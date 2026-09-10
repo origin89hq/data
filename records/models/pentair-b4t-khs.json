@@ -2,7 +2,7 @@
   "id": "pentair-b4t-khs",
   "manufacturer": "pentair",
   "name": "B4T_KHS",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

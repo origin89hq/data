@@ -2,7 +2,7 @@
   "id": "pentair-xtr2-5812-1-25-pi3",
   "manufacturer": "pentair",
   "name": "XTR2 5812 - 1,25 pi3",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

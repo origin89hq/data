@@ -2,7 +2,7 @@
   "id": "pentair-c1-20bb",
   "manufacturer": "pentair",
   "name": "C1-20BB",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

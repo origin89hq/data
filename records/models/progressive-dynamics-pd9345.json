@@ -2,7 +2,7 @@
   "id": "progressive-dynamics-pd9345",
   "manufacturer": "progressive-dynamics",
   "name": "PD9345",
-  "kind": "out-of-scope",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

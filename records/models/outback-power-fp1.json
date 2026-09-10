@@ -2,7 +2,7 @@
   "id": "outback-power-fp1",
   "manufacturer": "outback-power",
   "name": "FP1",
-  "kind": "inverter",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

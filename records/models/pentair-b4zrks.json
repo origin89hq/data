@@ -2,7 +2,7 @@
   "id": "pentair-b4zrks",
   "manufacturer": "pentair",
   "name": "B4ZRKS",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

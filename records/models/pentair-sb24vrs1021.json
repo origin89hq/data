@@ -2,7 +2,7 @@
   "id": "pentair-sb24vrs1021",
   "manufacturer": "pentair",
   "name": "SB24VRS1021",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

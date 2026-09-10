@@ -2,7 +2,7 @@
   "id": "integrarack-mhircsmtkt",
   "manufacturer": "integrarack",
   "name": "MHIRCSMTKT",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

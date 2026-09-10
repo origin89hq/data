@@ -2,7 +2,7 @@
   "id": "victron-energy-ctr110000500",
   "manufacturer": "victron-energy",
   "name": "CTR110000500",
-  "kind": "out-of-scope",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

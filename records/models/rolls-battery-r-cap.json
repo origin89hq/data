@@ -2,7 +2,6 @@
   "id": "rolls-battery-r-cap",
   "manufacturer": "rolls-battery",
   "name": "R-CAP",
-  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

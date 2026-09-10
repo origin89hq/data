@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "srne 50Amppt",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

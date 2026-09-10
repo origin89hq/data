@@ -2,7 +2,7 @@
   "id": "pentair-ma-240k",
   "manufacturer": "pentair",
   "name": "MA-240K",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

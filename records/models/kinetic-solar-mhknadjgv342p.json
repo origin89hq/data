@@ -2,7 +2,7 @@
   "id": "kinetic-solar-mhknadjgv342p",
   "manufacturer": "kinetic-solar",
   "name": "MHKNADJGV342P",
-  "kind": "panel",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,6 @@
   "id": "outback-power-fw-aca",
   "manufacturer": "outback-power",
   "name": "FW-ACA",
-  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

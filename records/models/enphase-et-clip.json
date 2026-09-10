@@ -2,7 +2,7 @@
   "id": "enphase-et-clip",
   "manufacturer": "enphase",
   "name": "ET-CLIP",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [
     "ENP-221-109"
   ],

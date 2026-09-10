@@ -2,7 +2,7 @@
   "id": "morningstar-rts",
   "manufacturer": "morningstar",
   "name": "RTS",
-  "kind": "charge-controller",
+  "kind": "out-of-scope",
   "aliases": [
     "MOR-161-144"
   ],

@@ -2,7 +2,7 @@
   "id": "integrarack-mhirfrbalbay",
   "manufacturer": "integrarack",
   "name": "MHIRFRBALBAY",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

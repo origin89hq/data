@@ -2,7 +2,7 @@
   "id": "pentair-blfc",
   "manufacturer": "pentair",
   "name": "BLFC",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

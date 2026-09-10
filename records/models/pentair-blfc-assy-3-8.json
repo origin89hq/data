@@ -2,7 +2,7 @@
   "id": "pentair-blfc-assy-3-8",
   "manufacturer": "pentair",
   "name": "BLFC Assy 3/8",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

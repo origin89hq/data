@@ -2,7 +2,7 @@
   "id": "pentair-scs-350",
   "manufacturer": "pentair",
   "name": "SCS-350",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

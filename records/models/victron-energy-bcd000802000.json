@@ -2,7 +2,6 @@
   "id": "victron-energy-bcd000802000",
   "manufacturer": "victron-energy",
   "name": "BCD000802000",
-  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

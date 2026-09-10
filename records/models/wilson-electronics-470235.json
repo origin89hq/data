@@ -2,7 +2,7 @@
   "id": "wilson-electronics-470235",
   "manufacturer": "wilson-electronics",
   "name": "470235",
+  "kind": "load",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

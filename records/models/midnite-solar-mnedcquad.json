@@ -2,7 +2,7 @@
   "id": "midnite-solar-mnedcquad",
   "manufacturer": "midnite-solar",
   "name": "MNEDCQUAD",
-  "kind": "charge-controller",
+  "kind": "out-of-scope",
   "aliases": [
     "MID-102-162"
   ],

@@ -2,7 +2,6 @@
   "id": "victron-energy-psc242551095",
   "manufacturer": "victron-energy",
   "name": "PSC242551095",
-  "kind": "ac-charger",
   "aliases": [],
   "dialects": []
 }

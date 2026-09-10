@@ -2,7 +2,7 @@
   "id": "magnum-energy-12uv12b3rt",
   "manufacturer": "magnum-energy",
   "name": "12UV12B3RT",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter"
+  "dialects": []
 }

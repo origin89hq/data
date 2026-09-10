@@ -2,7 +2,7 @@
   "id": "samlex-america-ssp-150-kit",
   "manufacturer": "samlex-america",
   "name": "SSP-150-KIT",
-  "kind": "charge-controller",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

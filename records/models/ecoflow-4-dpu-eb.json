@@ -2,7 +2,6 @@
   "id": "ecoflow-4-dpu-eb",
   "manufacturer": "ecoflow",
   "name": "4-DPU-EB",
-  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

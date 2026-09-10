@@ -2,7 +2,6 @@
   "id": "victron-energy-gdi000064000",
   "manufacturer": "victron-energy",
   "name": "GDI000064000",
-  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

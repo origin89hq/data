@@ -2,7 +2,7 @@
   "id": "champion-power-14560",
   "manufacturer": "champion-power",
   "name": "14560",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

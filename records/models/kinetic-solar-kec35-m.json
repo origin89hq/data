@@ -2,7 +2,7 @@
   "id": "kinetic-solar-kec35-m",
   "manufacturer": "kinetic-solar",
   "name": "KEC35-M",
-  "kind": "out-of-scope",
+  "kind": "charge-controller",
   "aliases": [
     "KIN-284-108"
   ],

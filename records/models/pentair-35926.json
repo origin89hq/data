@@ -2,7 +2,7 @@
   "id": "pentair-35926",
   "manufacturer": "pentair",
   "name": "35926",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

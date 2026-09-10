@@ -2,7 +2,6 @@
   "id": "victron-energy-pmp122301102",
   "manufacturer": "victron-energy",
   "name": "PMP122301102",
-  "kind": "inverter-charger",
   "aliases": [
     "XXX-XXX-219"
   ],

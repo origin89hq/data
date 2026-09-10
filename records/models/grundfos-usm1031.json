@@ -2,7 +2,7 @@
   "id": "grundfos-usm1031",
   "manufacturer": "grundfos",
   "name": "USM1031",
-  "kind": "panel",
+  "kind": "pump",
   "aliases": [],
   "dialects": []
 }

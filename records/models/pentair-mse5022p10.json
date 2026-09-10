@@ -2,7 +2,7 @@
   "id": "pentair-mse5022p10",
   "manufacturer": "pentair",
   "name": "MSE5022P10",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

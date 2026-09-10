@@ -2,7 +2,7 @@
   "id": "progressive-dynamics-pd9360",
   "manufacturer": "progressive-dynamics",
   "name": "PD9360",
-  "kind": "out-of-scope",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

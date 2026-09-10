@@ -2,7 +2,7 @@
   "id": "integrarack-ir40fsac",
   "manufacturer": "integrarack",
   "name": "IR40FSAC",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

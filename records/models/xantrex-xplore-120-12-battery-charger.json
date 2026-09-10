@@ -3,5 +3,6 @@
   "manufacturer": "xantrex",
   "name": "XPLORE 120/12 Battery Charger",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "ac-charger"
 }

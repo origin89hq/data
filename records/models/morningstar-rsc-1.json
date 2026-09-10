@@ -2,7 +2,6 @@
   "id": "morningstar-rsc-1",
   "manufacturer": "morningstar",
   "name": "RSC-1",
-  "kind": "charge-controller",
   "aliases": [
     "MOR-161-139"
   ],

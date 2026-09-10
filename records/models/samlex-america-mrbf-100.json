@@ -2,7 +2,7 @@
   "id": "samlex-america-mrbf-100",
   "manufacturer": "samlex-america",
   "name": "MRBF-100",
-  "kind": "dc-dc-converter",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

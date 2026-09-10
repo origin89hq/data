@@ -2,7 +2,7 @@
   "id": "the-cabin-depot-tcd-40amf",
   "manufacturer": "the-cabin-depot",
   "name": "TCD - 40amf",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

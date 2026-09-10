@@ -2,7 +2,7 @@
   "id": "midnite-solar-mneac20",
   "manufacturer": "midnite-solar",
   "name": "MNEAC20",
-  "kind": "charge-controller",
+  "kind": "ac-charger",
   "aliases": [],
   "dialects": []
 }

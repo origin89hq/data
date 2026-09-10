@@ -2,7 +2,7 @@
   "id": "victron-energy-bpr048100400",
   "manufacturer": "victron-energy",
   "name": "BPR048100400",
-  "kind": "out-of-scope",
+  "kind": "bms",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "kinetic-solar-kin-kcms15-m",
   "manufacturer": "kinetic-solar",
   "name": "KIN-KCMS15-M",
-  "kind": "charge-controller",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "lorex-mt301p-x3w-ab1",
   "manufacturer": "lorex",
   "name": "MT301P-X3W-AB1",
+  "kind": "load",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

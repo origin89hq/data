@@ -2,7 +2,7 @@
   "id": "unique-appliances-unq-30cr-ic",
   "manufacturer": "unique-appliances",
   "name": "UNQ-30CR IC",
+  "kind": "appliance",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

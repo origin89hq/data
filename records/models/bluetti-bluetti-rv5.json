@@ -2,7 +2,7 @@
   "id": "bluetti-bluetti-rv5",
   "manufacturer": "bluetti",
   "name": "BLUETTI-RV5",
-  "kind": "out-of-scope",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "progressive-dynamics-pd9380",
   "manufacturer": "progressive-dynamics",
   "name": "PD9380",
-  "kind": "out-of-scope",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

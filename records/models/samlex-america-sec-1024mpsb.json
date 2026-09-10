@@ -2,7 +2,7 @@
   "id": "samlex-america-sec-1024mpsb",
   "manufacturer": "samlex-america",
   "name": "SEC-1024MPSB",
-  "kind": "ac-charger",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "ABP4860U140-H",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "inverter-charger"
 }

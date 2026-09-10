@@ -2,7 +2,7 @@
   "id": "integrarack-irearthscrew",
   "manufacturer": "integrarack",
   "name": "IREarthScrew",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "pentair-7fc5-s",
   "manufacturer": "pentair",
   "name": "7FC5-S",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

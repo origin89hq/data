@@ -2,7 +2,7 @@
   "id": "unique-appliances-ugp-24cr-rh",
   "manufacturer": "unique-appliances",
   "name": "UGP-24CR RH",
-  "kind": "out-of-scope",
+  "kind": "appliance",
   "aliases": [
     "UGP-24 CR RH"
   ],

@@ -2,7 +2,7 @@
   "id": "outback-power-fw1000-ac",
   "manufacturer": "outback-power",
   "name": "FW1000-AC",
-  "kind": "ac-charger",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

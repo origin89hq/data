@@ -2,7 +2,7 @@
   "id": "outback-power-fx2012mt",
   "manufacturer": "outback-power",
   "name": "FX2012MT",
-  "kind": "inverter",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

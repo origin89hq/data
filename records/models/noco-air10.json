@@ -2,7 +2,7 @@
   "id": "noco-air10",
   "manufacturer": "noco",
   "name": "AIR10",
-  "kind": "dc-dc-converter",
+  "kind": "jump-starter",
   "aliases": [
     "NOCO AIR10"
   ],

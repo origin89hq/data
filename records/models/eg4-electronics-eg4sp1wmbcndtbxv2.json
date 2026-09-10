@@ -2,7 +2,7 @@
   "id": "eg4-electronics-eg4sp1wmbcndtbxv2",
   "manufacturer": "eg4-electronics",
   "name": "EG4SP1WMBCNDTBXV2",
-  "kind": "out-of-scope",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

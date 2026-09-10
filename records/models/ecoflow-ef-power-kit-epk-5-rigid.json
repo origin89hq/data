@@ -2,7 +2,7 @@
   "id": "ecoflow-ef-power-kit-epk-5-rigid",
   "manufacturer": "ecoflow",
   "name": "EF-POWER-KIT-EPK-5-RIGID",
-  "kind": "out-of-scope",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

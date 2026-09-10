@@ -2,7 +2,7 @@
   "id": "midnite-solar-mnspd-115",
   "manufacturer": "midnite-solar",
   "name": "MNSPD-115",
-  "kind": "charge-controller",
+  "kind": "dc-dc-converter",
   "aliases": [
     "MID-109-106"
   ],

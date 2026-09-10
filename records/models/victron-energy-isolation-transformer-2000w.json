@@ -2,7 +2,7 @@
   "id": "victron-energy-isolation-transformer-2000w",
   "manufacturer": "victron-energy",
   "name": "Isolation Transformer 2000W",
+  "kind": "inverter",
   "aliases": [],
-  "dialects": [],
-  "kind": "balance-of-system"
+  "dialects": []
 }

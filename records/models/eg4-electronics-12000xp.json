@@ -2,7 +2,6 @@
   "id": "eg4-electronics-12000xp",
   "manufacturer": "eg4-electronics",
   "name": "12000XP",
-  "kind": "inverter-charger",
   "aliases": [],
   "dialects": [
     "eg4-luxpower-v58"

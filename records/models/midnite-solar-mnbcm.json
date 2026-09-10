@@ -2,7 +2,7 @@
   "id": "midnite-solar-mnbcm",
   "manufacturer": "midnite-solar",
   "name": "MNBCM",
-  "kind": "balance-of-system",
+  "kind": "bms",
   "aliases": [],
   "dialects": [
     "midnite-mnbcm"

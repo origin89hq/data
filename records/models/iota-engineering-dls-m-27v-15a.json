@@ -2,7 +2,7 @@
   "id": "iota-engineering-dls-m-27v-15a",
   "manufacturer": "iota-engineering",
   "name": "DLS/M-27V-15A",
-  "kind": "charge-controller",
+  "kind": "ac-charger",
   "aliases": [],
   "dialects": []
 }

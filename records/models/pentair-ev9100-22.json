@@ -2,7 +2,7 @@
   "id": "pentair-ev9100-22",
   "manufacturer": "pentair",
   "name": "EV9100-22",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

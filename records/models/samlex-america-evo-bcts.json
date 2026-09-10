@@ -3,5 +3,6 @@
   "manufacturer": "samlex-america",
   "name": "EVO-BCTS",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

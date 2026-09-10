@@ -2,7 +2,7 @@
   "id": "noco-nusb211na",
   "manufacturer": "noco",
   "name": "NUSB211NA",
+  "kind": "load",
   "aliases": [],
-  "dialects": [],
-  "kind": "dc-dc-converter"
+  "dialects": []
 }

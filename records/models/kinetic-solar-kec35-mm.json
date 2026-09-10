@@ -2,7 +2,7 @@
   "id": "kinetic-solar-kec35-mm",
   "manufacturer": "kinetic-solar",
   "name": "KEC35-MM",
-  "kind": "out-of-scope",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "outback-power-rts",
   "manufacturer": "outback-power",
   "name": "RTS",
-  "kind": "bms",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

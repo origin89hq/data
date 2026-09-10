@@ -2,7 +2,7 @@
   "id": "kinetic-solar-kin-kbfgm20p-ga",
   "manufacturer": "kinetic-solar",
   "name": "KIN-KBFGM20P-GA",
-  "kind": "battery",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

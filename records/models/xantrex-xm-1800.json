@@ -2,7 +2,7 @@
   "id": "xantrex-xm-1800",
   "manufacturer": "xantrex",
   "name": "XM 1800",
+  "kind": "inverter",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": []
 }

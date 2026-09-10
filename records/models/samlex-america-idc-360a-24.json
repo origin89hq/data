@@ -2,7 +2,7 @@
   "id": "samlex-america-idc-360a-24",
   "manufacturer": "samlex-america",
   "name": "IDC-360A-24",
+  "kind": "charge-controller",
   "aliases": [],
-  "dialects": [],
-  "kind": "dc-dc-converter"
+  "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "noco-gbx45",
   "manufacturer": "noco",
   "name": "GBX45",
-  "kind": "inverter-charger",
+  "kind": "jump-starter",
   "aliases": [],
   "dialects": [
     "noco-out-of-scope"

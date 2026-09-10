@@ -2,7 +2,7 @@
   "id": "victron-energy-ond-vic-quattro-48v-10000w",
   "manufacturer": "victron-energy",
   "name": "OND-VIC-QUATTRO-48V/10000W",
-  "kind": "inverter-charger",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

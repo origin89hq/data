@@ -2,7 +2,7 @@
   "id": "lorex-lbv8541x",
   "manufacturer": "lorex",
   "name": "LBV8541X",
+  "kind": "load",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

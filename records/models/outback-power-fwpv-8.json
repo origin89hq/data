@@ -2,7 +2,7 @@
   "id": "outback-power-fwpv-8",
   "manufacturer": "outback-power",
   "name": "FWPV-8",
-  "kind": "inverter",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

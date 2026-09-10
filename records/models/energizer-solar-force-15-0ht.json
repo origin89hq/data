@@ -2,7 +2,7 @@
   "id": "energizer-solar-force-15-0ht",
   "manufacturer": "energizer-solar",
   "name": "Force 15.0HT+",
-  "kind": "inverter-charger",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "integrarack-ir-rfes3075",
   "manufacturer": "integrarack",
   "name": "IR-RFES3075",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [
     "1654015"
   ],

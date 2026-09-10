@@ -2,7 +2,7 @@
   "id": "sol-ark-2650000",
   "manufacturer": "sol-ark",
   "name": "2650000",
-  "kind": "out-of-scope",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

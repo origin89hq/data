@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "155H",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "pump"
 }

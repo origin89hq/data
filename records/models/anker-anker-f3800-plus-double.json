@@ -2,7 +2,7 @@
   "id": "anker-anker-f3800-plus-double",
   "manufacturer": "anker",
   "name": "ANKER-F3800-PLUS-DOUBLE",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

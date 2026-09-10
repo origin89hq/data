@@ -2,7 +2,6 @@
   "id": "ruixu-rs485",
   "manufacturer": "ruixu",
   "name": "RS485",
-  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

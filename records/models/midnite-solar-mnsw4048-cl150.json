@@ -2,7 +2,7 @@
   "id": "midnite-solar-mnsw4048-cl150",
   "manufacturer": "midnite-solar",
   "name": "MNSW4048-CL150",
-  "kind": "inverter-charger",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

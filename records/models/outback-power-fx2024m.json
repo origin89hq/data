@@ -2,7 +2,7 @@
   "id": "outback-power-fx2024m",
   "manufacturer": "outback-power",
   "name": "FX2024M",
-  "kind": "inverter",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

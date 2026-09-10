@@ -2,7 +2,7 @@
   "id": "kinetic-solar-kec38-m",
   "manufacturer": "kinetic-solar",
   "name": "KEC38-M",
-  "kind": "out-of-scope",
+  "kind": "panel",
   "aliases": [
     "KIN-284-109"
   ],

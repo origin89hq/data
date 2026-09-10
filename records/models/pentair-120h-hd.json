@@ -3,5 +3,6 @@
   "manufacturer": "pentair",
   "name": "120H-HD",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "pump"
 }

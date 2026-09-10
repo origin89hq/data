@@ -2,7 +2,7 @@
   "id": "victron-energy-bpc121315106",
   "manufacturer": "victron-energy",
   "name": "BPC121315106",
-  "kind": "out-of-scope",
+  "kind": "bms",
   "aliases": [],
   "dialects": []
 }

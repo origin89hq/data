@@ -2,7 +2,7 @@
   "id": "lorex-epr-111",
   "manufacturer": "lorex",
   "name": "EPR-111",
+  "kind": "load",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

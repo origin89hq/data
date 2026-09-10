@@ -2,7 +2,7 @@
   "id": "lorex-cnu01p-1sw-ab1",
   "manufacturer": "lorex",
   "name": "CNU01P-1SW-AB1",
+  "kind": "load",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

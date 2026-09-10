@@ -2,7 +2,7 @@
   "id": "noco-gb150",
   "manufacturer": "noco",
   "name": "GB150",
-  "kind": "battery",
+  "kind": "jump-starter",
   "aliases": [],
   "dialects": [
     "noco-out-of-scope"

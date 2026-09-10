@@ -2,7 +2,7 @@
   "id": "victron-energy-color-control-gx",
   "manufacturer": "victron-energy",
   "name": "Color Control GX",
+  "kind": "load",
   "aliases": [],
-  "dialects": [],
-  "kind": "meter"
+  "dialects": []
 }

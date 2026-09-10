@@ -2,7 +2,7 @@
   "id": "pentair-three-phase-575v",
   "manufacturer": "pentair",
   "name": "Three Phase, 575V",
-  "kind": "generator",
+  "kind": "pump",
   "aliases": [],
   "dialects": []
 }

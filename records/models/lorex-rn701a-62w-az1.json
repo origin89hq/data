@@ -2,7 +2,7 @@
   "id": "lorex-rn701a-62w-az1",
   "manufacturer": "lorex",
   "name": "RN701A-62W-AZ1",
+  "kind": "load",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

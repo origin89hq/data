@@ -2,7 +2,6 @@
   "id": "victron-energy-rec010001110",
   "manufacturer": "victron-energy",
   "name": "REC010001110",
-  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "noco-gbx35",
   "manufacturer": "noco",
   "name": "GBX35",
+  "kind": "jump-starter",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": []
 }

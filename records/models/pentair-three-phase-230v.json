@@ -2,7 +2,7 @@
   "id": "pentair-three-phase-230v",
   "manufacturer": "pentair",
   "name": "Three Phase, 230V",
-  "kind": "generator",
+  "kind": "pump",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "midnite-solar-mnbcb-2000-200",
   "manufacturer": "midnite-solar",
   "name": "MNBCB-2000/200",
-  "kind": "balance-of-system",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

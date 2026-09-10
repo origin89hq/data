@@ -2,7 +2,6 @@
   "id": "apsystems-rsd-s-plc",
   "manufacturer": "apsystems",
   "name": "RSD-S-PLC",
-  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

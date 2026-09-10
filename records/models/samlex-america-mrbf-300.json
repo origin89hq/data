@@ -2,7 +2,7 @@
   "id": "samlex-america-mrbf-300",
   "manufacturer": "samlex-america",
   "name": "MRBF-300",
-  "kind": "shunt-monitor",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

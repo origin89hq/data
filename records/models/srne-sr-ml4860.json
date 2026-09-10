@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "SR-ML4860",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

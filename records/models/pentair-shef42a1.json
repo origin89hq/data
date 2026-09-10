@@ -2,7 +2,7 @@
   "id": "pentair-shef42a1",
   "manufacturer": "pentair",
   "name": "SHEF42A1",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

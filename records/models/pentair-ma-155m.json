@@ -2,7 +2,7 @@
   "id": "pentair-ma-155m",
   "manufacturer": "pentair",
   "name": "MA-155M",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

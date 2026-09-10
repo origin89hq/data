@@ -2,7 +2,7 @@
   "id": "pentair-ms33pt",
   "manufacturer": "pentair",
   "name": "MS33PT",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

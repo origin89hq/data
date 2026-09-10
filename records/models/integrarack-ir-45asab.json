@@ -2,7 +2,7 @@
   "id": "integrarack-ir-45asab",
   "manufacturer": "integrarack",
   "name": "IR-45ASAB",
-  "kind": "out-of-scope",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

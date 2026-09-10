@@ -2,7 +2,7 @@
   "id": "trifecta-solar-tf3a",
   "manufacturer": "trifecta-solar",
   "name": "TF3A",
-  "kind": "balance-of-system",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

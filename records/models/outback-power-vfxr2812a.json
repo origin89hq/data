@@ -2,7 +2,7 @@
   "id": "outback-power-vfxr2812a",
   "manufacturer": "outback-power",
   "name": "VFXR2812A",
-  "kind": "inverter-charger",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

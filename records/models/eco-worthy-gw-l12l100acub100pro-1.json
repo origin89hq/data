@@ -3,5 +3,6 @@
   "manufacturer": "eco-worthy",
   "name": "GW-L12L100ACUB100PRO-1",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

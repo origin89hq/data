@@ -2,7 +2,7 @@
   "id": "noco-xc1",
   "manufacturer": "noco",
   "name": "XC1",
-  "kind": "charge-controller",
+  "kind": "jump-starter",
   "aliases": [],
   "dialects": []
 }

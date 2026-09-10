@@ -2,7 +2,7 @@
   "id": "unique-appliances-ugp-30cr-ec",
   "manufacturer": "unique-appliances",
   "name": "UGP-30CR EC",
+  "kind": "appliance",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

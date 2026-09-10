@@ -2,7 +2,7 @@
   "id": "lorex-aex16",
   "manufacturer": "lorex",
   "name": "AEX16",
+  "kind": "load",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

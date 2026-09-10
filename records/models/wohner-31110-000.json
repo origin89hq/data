@@ -2,7 +2,7 @@
   "id": "wohner-31110-000",
   "manufacturer": "wohner",
   "name": "31110.000",
-  "kind": "out-of-scope",
+  "kind": "load",
   "aliases": [
     "WHN-106-100"
   ],

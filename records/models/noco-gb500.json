@@ -2,7 +2,7 @@
   "id": "noco-gb500",
   "manufacturer": "noco",
   "name": "GB500",
+  "kind": "jump-starter",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": []
 }

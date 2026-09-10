@@ -2,7 +2,7 @@
   "id": "pentair-triplex-pump-ma-25m",
   "manufacturer": "pentair",
   "name": "Triplex Pump MA-25M",
-  "kind": "generator",
+  "kind": "pump",
   "aliases": [],
   "dialects": []
 }

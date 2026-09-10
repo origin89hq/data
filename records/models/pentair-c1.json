@@ -2,7 +2,7 @@
   "id": "pentair-c1",
   "manufacturer": "pentair",
   "name": "C1",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

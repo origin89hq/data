@@ -2,7 +2,7 @@
   "id": "xantrex-ps2-5-24",
   "manufacturer": "xantrex",
   "name": "PS2.5/24",
+  "kind": "ac-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": []
 }

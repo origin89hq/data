@@ -2,7 +2,7 @@
   "id": "ecoflow-ef-powerinsight2-us",
   "manufacturer": "ecoflow",
   "name": "EF-PowerInsight2-US",
-  "kind": "out-of-scope",
+  "kind": "meter",
   "aliases": [],
   "dialects": []
 }

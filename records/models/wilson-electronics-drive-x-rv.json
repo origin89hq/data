@@ -2,7 +2,7 @@
   "id": "wilson-electronics-drive-x-rv",
   "manufacturer": "wilson-electronics",
   "name": "Drive X RV",
+  "kind": "load",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

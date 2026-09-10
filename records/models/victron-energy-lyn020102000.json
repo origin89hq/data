@@ -3,5 +3,6 @@
   "manufacturer": "victron-energy",
   "name": "LYN020102000",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "battery"
 }

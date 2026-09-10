@@ -2,7 +2,7 @@
   "id": "outback-power-fw-x240",
   "manufacturer": "outback-power",
   "name": "FW-X240",
-  "kind": "out-of-scope",
+  "kind": "inverter",
   "aliases": [],
   "dialects": []
 }

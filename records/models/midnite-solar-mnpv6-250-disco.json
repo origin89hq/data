@@ -2,7 +2,7 @@
   "id": "midnite-solar-mnpv6-250-disco",
   "manufacturer": "midnite-solar",
   "name": "MNPV6-250 DISCO",
-  "kind": "charge-controller",
+  "kind": "balance-of-system",
   "aliases": [
     "MID-108-172"
   ],

@@ -2,7 +2,6 @@
   "id": "outback-power-fw-ccb",
   "manufacturer": "outback-power",
   "name": "FW-CCB",
-  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

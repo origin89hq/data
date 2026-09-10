@@ -3,5 +3,6 @@
   "manufacturer": "magnum-energy",
   "name": "AC In Nt 30A",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "ac-charger"
 }

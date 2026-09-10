@@ -2,7 +2,7 @@
   "id": "pentair-7clm-s",
   "manufacturer": "pentair",
   "name": "7CLM+-S",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

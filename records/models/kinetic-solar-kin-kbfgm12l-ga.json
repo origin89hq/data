@@ -2,7 +2,7 @@
   "id": "kinetic-solar-kin-kbfgm12l-ga",
   "manufacturer": "kinetic-solar",
   "name": "KIN-KBFGM12L-GA",
-  "kind": "battery",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

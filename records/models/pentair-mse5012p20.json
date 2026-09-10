@@ -2,7 +2,7 @@
   "id": "pentair-mse5012p20",
   "manufacturer": "pentair",
   "name": "MSE5012P20",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

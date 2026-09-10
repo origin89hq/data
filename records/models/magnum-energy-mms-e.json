@@ -2,7 +2,7 @@
   "id": "magnum-energy-mms-e",
   "manufacturer": "magnum-energy",
   "name": "MMS-E",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

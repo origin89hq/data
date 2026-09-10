@@ -2,7 +2,7 @@
   "id": "kinetic-solar-ksr-weeb",
   "manufacturer": "kinetic-solar",
   "name": "KSR-WEEB",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [
     "KIN-284-125"
   ],

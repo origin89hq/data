@@ -2,7 +2,7 @@
   "id": "pentair-5812-4-pi3",
   "manufacturer": "pentair",
   "name": "5812 - 4 pi3",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

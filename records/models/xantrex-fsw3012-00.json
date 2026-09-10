@@ -2,7 +2,7 @@
   "id": "xantrex-fsw3012-00",
   "manufacturer": "xantrex",
   "name": "FSW3012 00",
-  "kind": "inverter",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

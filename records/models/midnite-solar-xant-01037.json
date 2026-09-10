@@ -2,7 +2,7 @@
   "id": "midnite-solar-xant-01037",
   "manufacturer": "midnite-solar",
   "name": "XANT-01037",
-  "kind": "charge-controller",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

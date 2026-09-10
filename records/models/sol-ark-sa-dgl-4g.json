@@ -2,7 +2,7 @@
   "id": "sol-ark-sa-dgl-4g",
   "manufacturer": "sol-ark",
   "name": "SA-DGL-4G",
-  "kind": "meter",
+  "kind": "load",
   "aliases": [],
   "dialects": []
 }

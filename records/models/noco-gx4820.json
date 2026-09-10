@@ -2,9 +2,9 @@
   "id": "noco-gx4820",
   "manufacturer": "noco",
   "name": "GX4820",
+  "kind": "jump-starter",
   "aliases": [],
   "dialects": [
     "noco-gx-dryio"
-  ],
-  "kind": "battery"
+  ]
 }

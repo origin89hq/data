@@ -2,7 +2,7 @@
   "id": "pentair-magnum-762",
   "manufacturer": "pentair",
   "name": "Magnum/762",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

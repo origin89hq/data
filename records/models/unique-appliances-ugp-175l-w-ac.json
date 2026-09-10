@@ -2,7 +2,7 @@
   "id": "unique-appliances-ugp-175l-w-ac",
   "manufacturer": "unique-appliances",
   "name": "UGP-175L W AC",
+  "kind": "appliance",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

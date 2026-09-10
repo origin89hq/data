@@ -2,7 +2,7 @@
   "id": "victron-energy-bat-bal-vic",
   "manufacturer": "victron-energy",
   "name": "BAT-BAL-VIC",
-  "kind": "bms",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

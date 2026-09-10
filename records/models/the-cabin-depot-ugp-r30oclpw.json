@@ -2,7 +2,7 @@
   "id": "the-cabin-depot-ugp-r30oclpw",
   "manufacturer": "the-cabin-depot",
   "name": "UGP-R30OCLPW",
+  "kind": "appliance",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

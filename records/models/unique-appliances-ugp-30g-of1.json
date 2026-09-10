@@ -2,7 +2,7 @@
   "id": "unique-appliances-ugp-30g-of1",
   "manufacturer": "unique-appliances",
   "name": "UGP 30G OF1",
+  "kind": "appliance",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

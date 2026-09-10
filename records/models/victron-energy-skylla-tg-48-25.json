@@ -2,7 +2,7 @@
   "id": "victron-energy-skylla-tg-48-25",
   "manufacturer": "victron-energy",
   "name": "Skylla TG 48/25",
+  "kind": "ac-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": []
 }

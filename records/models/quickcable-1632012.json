@@ -3,5 +3,6 @@
   "manufacturer": "quickcable",
   "name": "1632012",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

@@ -2,7 +2,7 @@
   "id": "pentair-ms50pv",
   "manufacturer": "pentair",
   "name": "MS50PV",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

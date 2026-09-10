@@ -2,7 +2,6 @@
   "id": "victron-energy-pmp483021010",
   "manufacturer": "victron-energy",
   "name": "PMP483021010",
-  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

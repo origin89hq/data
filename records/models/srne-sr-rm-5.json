@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "SR-RM-5",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

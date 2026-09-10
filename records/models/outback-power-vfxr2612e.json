@@ -2,7 +2,7 @@
   "id": "outback-power-vfxr2612e",
   "manufacturer": "outback-power",
   "name": "VFXR2612E",
+  "kind": "inverter",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": []
 }

@@ -2,7 +2,6 @@
   "id": "victron-energy-rel300300000",
   "manufacturer": "victron-energy",
   "name": "REL300300000",
-  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

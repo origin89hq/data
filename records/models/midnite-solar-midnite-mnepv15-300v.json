@@ -2,7 +2,7 @@
   "id": "midnite-solar-midnite-mnepv15-300v",
   "manufacturer": "midnite-solar",
   "name": "Midnite MNEPV15-300V",
-  "kind": "out-of-scope",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "kinetic-solar-kin-k3agm-18",
   "manufacturer": "kinetic-solar",
   "name": "KIN_K3AGM_18",
-  "kind": "battery",
+  "kind": "panel",
   "aliases": [],
   "dialects": []
 }

@@ -3,5 +3,6 @@
   "manufacturer": "srne",
   "name": "SRN-ml2430",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

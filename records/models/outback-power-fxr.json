@@ -2,7 +2,7 @@
   "id": "outback-power-fxr",
   "manufacturer": "outback-power",
   "name": "FXR",
-  "kind": "inverter",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

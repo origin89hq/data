@@ -2,7 +2,7 @@
   "id": "sigineer-m48120",
   "manufacturer": "sigineer",
   "name": "M48120",
+  "kind": "inverter-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": []
 }

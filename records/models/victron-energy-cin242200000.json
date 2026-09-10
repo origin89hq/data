@@ -2,7 +2,6 @@
   "id": "victron-energy-cin242200000",
   "manufacturer": "victron-energy",
   "name": "CIN242200000",
-  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

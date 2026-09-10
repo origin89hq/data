@@ -5,5 +5,6 @@
   "aliases": [
     "XXX-XXX-195"
   ],
-  "dialects": []
+  "dialects": [],
+  "kind": "balance-of-system"
 }

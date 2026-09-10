@@ -2,7 +2,7 @@
   "id": "victron-energy-cip100400060",
   "manufacturer": "victron-energy",
   "name": "CIP100400060",
-  "kind": "out-of-scope",
+  "kind": "inverter-charger",
   "aliases": [
     "1593020"
   ],

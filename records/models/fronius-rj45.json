@@ -2,7 +2,6 @@
   "id": "fronius-rj45",
   "manufacturer": "fronius",
   "name": "RJ45",
-  "kind": "out-of-scope",
   "aliases": [
     "FRO-221-160"
   ],

@@ -2,7 +2,7 @@
   "id": "pentair-ms50pt",
   "manufacturer": "pentair",
   "name": "MS50PT",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

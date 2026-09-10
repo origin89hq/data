@@ -2,7 +2,7 @@
   "id": "outback-power-fx",
   "manufacturer": "outback-power",
   "name": "FX",
-  "kind": "inverter",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

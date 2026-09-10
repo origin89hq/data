@@ -2,7 +2,7 @@
   "id": "sol-ark-30k-3p-208v-n",
   "manufacturer": "sol-ark",
   "name": "30K-3P-208V-N",
-  "kind": "out-of-scope",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

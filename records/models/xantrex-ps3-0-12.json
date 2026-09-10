@@ -2,7 +2,7 @@
   "id": "xantrex-ps3-0-12",
   "manufacturer": "xantrex",
   "name": "PS3.0/12",
+  "kind": "ac-charger",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": []
 }

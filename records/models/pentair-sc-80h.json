@@ -2,7 +2,7 @@
   "id": "pentair-sc-80h",
   "manufacturer": "pentair",
   "name": "SC-80H",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

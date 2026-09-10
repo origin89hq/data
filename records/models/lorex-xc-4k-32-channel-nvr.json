@@ -2,7 +2,7 @@
   "id": "lorex-xc-4k-32-channel-nvr",
   "manufacturer": "lorex",
   "name": "XC 4K 32 Channel NVR",
+  "kind": "load",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

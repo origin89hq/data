@@ -2,7 +2,7 @@
   "id": "outback-power-phxl480-10k",
   "manufacturer": "outback-power",
   "name": "PHXL480-10k",
-  "kind": "charge-controller",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

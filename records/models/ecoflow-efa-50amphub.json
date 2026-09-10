@@ -2,7 +2,7 @@
   "id": "ecoflow-efa-50amphub",
   "manufacturer": "ecoflow",
   "name": "EFA-50AmpHub",
-  "kind": "out-of-scope",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

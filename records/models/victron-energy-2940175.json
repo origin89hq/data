@@ -3,6 +3,5 @@
   "manufacturer": "victron-energy",
   "name": "2940175",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

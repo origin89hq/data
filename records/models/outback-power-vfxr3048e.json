@@ -2,7 +2,7 @@
   "id": "outback-power-vfxr3048e",
   "manufacturer": "outback-power",
   "name": "VFXR3048E",
+  "kind": "inverter",
   "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "dialects": []
 }

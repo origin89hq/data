@@ -2,7 +2,7 @@
   "id": "pentair-wgx20",
   "manufacturer": "pentair",
   "name": "WGX20",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

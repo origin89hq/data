@@ -2,7 +2,7 @@
   "id": "watersprint-watersprintsolo-40",
   "manufacturer": "watersprint",
   "name": "WatersprintSolo®40",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

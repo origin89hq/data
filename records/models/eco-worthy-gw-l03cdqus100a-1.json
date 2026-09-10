@@ -3,5 +3,6 @@
   "manufacturer": "eco-worthy",
   "name": "GW-L03CDQUS100A-1",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "charge-controller"
 }

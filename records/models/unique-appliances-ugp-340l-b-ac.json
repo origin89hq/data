@@ -2,7 +2,7 @@
   "id": "unique-appliances-ugp-340l-b-ac",
   "manufacturer": "unique-appliances",
   "name": "UGP-340L B AC",
+  "kind": "appliance",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

@@ -2,7 +2,6 @@
   "id": "ecoflow-dp-ts-kit",
   "manufacturer": "ecoflow",
   "name": "DP-TS-Kit",
-  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

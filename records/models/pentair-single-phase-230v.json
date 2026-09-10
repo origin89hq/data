@@ -2,7 +2,7 @@
   "id": "pentair-single-phase-230v",
   "manufacturer": "pentair",
   "name": "Single Phase, 230V",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

@@ -3,5 +3,6 @@
   "manufacturer": "emp-shield",
   "name": "DC-12V-W-EMP-SHIELD",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "kind": "out-of-scope"
 }

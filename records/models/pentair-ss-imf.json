@@ -2,7 +2,7 @@
   "id": "pentair-ss-imf",
   "manufacturer": "pentair",
   "name": "SS-IMF",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

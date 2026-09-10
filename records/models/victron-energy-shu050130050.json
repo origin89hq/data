@@ -2,7 +2,6 @@
   "id": "victron-energy-shu050130050",
   "manufacturer": "victron-energy",
   "name": "SHU050130050",
-  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

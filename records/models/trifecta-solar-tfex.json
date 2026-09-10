@@ -2,7 +2,7 @@
   "id": "trifecta-solar-tfex",
   "manufacturer": "trifecta-solar",
   "name": "TFEX",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

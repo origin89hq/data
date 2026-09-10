@@ -2,7 +2,7 @@
   "id": "lorex-c241xc-e",
   "manufacturer": "lorex",
   "name": "C241XC-E",
+  "kind": "load",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

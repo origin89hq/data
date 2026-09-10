@@ -2,7 +2,7 @@
   "id": "ecoflow-efats-us",
   "manufacturer": "ecoflow",
   "name": "EFATS-US",
-  "kind": "inverter-charger",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "kinetic-solar-kin-k3agm26-g",
   "manufacturer": "kinetic-solar",
   "name": "KIN-K3AGM26-G",
-  "kind": "balance-of-system",
+  "kind": "battery",
   "aliases": [],
   "dialects": []
 }

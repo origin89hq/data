@@ -2,7 +2,7 @@
   "id": "victron-energy-cch024030000",
   "manufacturer": "victron-energy",
   "name": "CCH024030000",
-  "kind": "ac-charger",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

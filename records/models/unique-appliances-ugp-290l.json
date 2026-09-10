@@ -2,7 +2,7 @@
   "id": "unique-appliances-ugp-290l",
   "manufacturer": "unique-appliances",
   "name": "UGP-290L",
+  "kind": "appliance",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

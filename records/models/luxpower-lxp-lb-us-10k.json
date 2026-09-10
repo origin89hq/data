@@ -2,7 +2,7 @@
   "id": "luxpower-lxp-lb-us-10k",
   "manufacturer": "luxpower",
   "name": "LXP-LB-US-10K",
-  "kind": "out-of-scope",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

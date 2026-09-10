@@ -2,7 +2,7 @@
   "id": "pentair-three-phase-200v",
   "manufacturer": "pentair",
   "name": "Three Phase, 200V",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

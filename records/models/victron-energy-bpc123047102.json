@@ -2,7 +2,6 @@
   "id": "victron-energy-bpc123047102",
   "manufacturer": "victron-energy",
   "name": "BPC123047102",
-  "kind": "ac-charger",
   "aliases": [
     "VIC-162-166"
   ],

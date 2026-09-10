@@ -2,7 +2,7 @@
   "id": "pentair-fxi11-cr",
   "manufacturer": "pentair",
   "name": "FXI11+CR",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

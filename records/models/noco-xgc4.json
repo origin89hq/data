@@ -2,7 +2,7 @@
   "id": "noco-xgc4",
   "manufacturer": "noco",
   "name": "XGC4",
+  "kind": "jump-starter",
   "aliases": [],
-  "dialects": [],
-  "kind": "ac-charger"
+  "dialects": []
 }

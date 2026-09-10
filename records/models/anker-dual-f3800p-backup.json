@@ -2,7 +2,7 @@
   "id": "anker-dual-f3800p-backup",
   "manufacturer": "anker",
   "name": "DUAL-F3800P-BACKUP",
-  "kind": "out-of-scope",
+  "kind": "inverter-charger",
   "aliases": [],
   "dialects": []
 }

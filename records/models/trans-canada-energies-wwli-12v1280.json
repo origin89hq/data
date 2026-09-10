@@ -2,7 +2,7 @@
   "id": "trans-canada-energies-wwli-12v1280",
   "manufacturer": "trans-canada-energies",
   "name": "WWLI-12V1280",
-  "kind": "out-of-scope",
+  "kind": "battery",
   "aliases": [
     "WWT-188-102"
   ],

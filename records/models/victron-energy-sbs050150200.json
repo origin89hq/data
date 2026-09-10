@@ -2,7 +2,7 @@
   "id": "victron-energy-sbs050150200",
   "manufacturer": "victron-energy",
   "name": "SBS050150200",
-  "kind": "out-of-scope",
+  "kind": "bms",
   "aliases": [
     "VIC-181-143"
   ],

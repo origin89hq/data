@@ -2,7 +2,7 @@
   "id": "pentair-blfc-assy-1-2-1-0-gpm",
   "manufacturer": "pentair",
   "name": "BLFC Assy 1/2\", 1.0 GPM",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

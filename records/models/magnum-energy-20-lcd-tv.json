@@ -2,7 +2,7 @@
   "id": "magnum-energy-20-lcd-tv",
   "manufacturer": "magnum-energy",
   "name": "20\" LCD TV",
+  "kind": "load",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }

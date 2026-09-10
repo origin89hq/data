@@ -2,7 +2,7 @@
   "id": "apsystems-ac-connector-unlock-tool",
   "manufacturer": "apsystems",
   "name": "AC Connector Unlock Tool",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [
     "APS-221-114"
   ],

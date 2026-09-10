@@ -2,7 +2,7 @@
   "id": "midnite-solar-mnts",
   "manufacturer": "midnite-solar",
   "name": "MNTS",
-  "kind": "out-of-scope",
+  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

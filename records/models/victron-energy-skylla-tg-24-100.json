@@ -2,7 +2,7 @@
   "id": "victron-energy-skylla-tg-24-100",
   "manufacturer": "victron-energy",
   "name": "Skylla TG 24 100",
-  "kind": "charge-controller",
+  "kind": "ac-charger",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,7 @@
   "id": "victron-energy-mppt-150-60",
   "manufacturer": "victron-energy",
   "name": "MPPT 150/60",
+  "kind": "dc-dc-converter",
   "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "dialects": []
 }

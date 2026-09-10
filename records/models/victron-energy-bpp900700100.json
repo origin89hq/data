@@ -2,7 +2,6 @@
   "id": "victron-energy-bpp900700100",
   "manufacturer": "victron-energy",
   "name": "BPP900700100",
-  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

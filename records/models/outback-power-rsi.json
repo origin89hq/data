@@ -2,7 +2,7 @@
   "id": "outback-power-rsi",
   "manufacturer": "outback-power",
   "name": "RSI",
-  "kind": "bms",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

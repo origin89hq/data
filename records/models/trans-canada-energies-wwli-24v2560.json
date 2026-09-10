@@ -2,7 +2,7 @@
   "id": "trans-canada-energies-wwli-24v2560",
   "manufacturer": "trans-canada-energies",
   "name": "WWLI-24V2560",
-  "kind": "out-of-scope",
+  "kind": "battery",
   "aliases": [
     "WWT-188-103"
   ],

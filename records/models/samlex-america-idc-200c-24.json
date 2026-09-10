@@ -2,7 +2,7 @@
   "id": "samlex-america-idc-200c-24",
   "manufacturer": "samlex-america",
   "name": "IDC-200C-24",
-  "kind": "dc-dc-converter",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

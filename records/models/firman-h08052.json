@@ -2,7 +2,6 @@
   "id": "firman-h08052",
   "manufacturer": "firman",
   "name": "H08052",
-  "kind": "out-of-scope",
   "aliases": [],
   "dialects": [
     "firman-portable-no-comms"

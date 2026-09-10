@@ -2,7 +2,6 @@
   "id": "pytes-py-rs232-rj45",
   "manufacturer": "pytes",
   "name": "PY-RS232-RJ45",
-  "kind": "balance-of-system",
   "aliases": [],
   "dialects": []
 }

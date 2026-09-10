@@ -2,7 +2,7 @@
   "id": "enphase-en-comms-kit-01",
   "manufacturer": "enphase",
   "name": "EN-COMMS-KIT-01",
-  "kind": "balance-of-system",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

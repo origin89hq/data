@@ -2,7 +2,7 @@
   "id": "noco-xv65",
   "manufacturer": "noco",
   "name": "XV65",
-  "kind": "dc-dc-converter",
+  "kind": "jump-starter",
   "aliases": [],
   "dialects": []
 }

@@ -2,7 +2,6 @@
   "id": "victron-energy-shp304001500",
   "manufacturer": "victron-energy",
   "name": "SHP304001500",
-  "kind": "out-of-scope",
   "aliases": [],
   "dialects": []
 }

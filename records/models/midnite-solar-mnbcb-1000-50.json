@@ -2,7 +2,7 @@
   "id": "midnite-solar-mnbcb-1000-50",
   "manufacturer": "midnite-solar",
   "name": "MNBCB 1000/50",
-  "kind": "balance-of-system",
+  "kind": "charge-controller",
   "aliases": [],
   "dialects": []
 }

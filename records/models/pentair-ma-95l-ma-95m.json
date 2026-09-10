@@ -2,7 +2,7 @@
   "id": "pentair-ma-95l-ma-95m",
   "manufacturer": "pentair",
   "name": "MA-95L/MA-95M",
+  "kind": "pump",
   "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "dialects": []
 }
