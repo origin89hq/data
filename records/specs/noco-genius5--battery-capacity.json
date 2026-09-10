@@ -1,9 +1,11 @@
 {
   "id": "noco-genius5--battery-capacity",
   "model": "noco-genius5",
-  "name": "BATTERY CAPACITY",
-  "value": "Up to 120Ah, Maintains All Battery Sizes",
-  "source": "doc-39956c6d95099c125eb3a89ec10738e5",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "name": "Battery Capacity",
+  "value": "120",
+  "unit": "Ah",
+  "source": "doc-01712a6392d4258d30422062c9481978",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
   "confidence": "vendor-doc"
 }

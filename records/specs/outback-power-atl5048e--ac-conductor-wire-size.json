@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-atl5048e--ac-conductor-wire-size",
+  "model": "outback-power-atl5048e",
+  "name": "AC conductor wire size",
+  "value": "6",
+  "source": "doc-3b90209d148d58984d47a405633c9224",
+  "page": 16,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pentair-5x6x17-960-rpm--head-at-400-u-s-gpm",
+  "model": "pentair-5x6x17-960-rpm",
+  "name": "Head at 400 U.S. GPM",
+  "value": "55",
+  "source": "doc-0c1dacacb9aa84dae5375d3e6ce070c2",
+  "page": 34,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

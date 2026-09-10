@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-frs-01-fireraptor-unit--panel-cable-length",
+  "model": "outback-power-frs-01-fireraptor-unit",
+  "name": "Panel Cable Length",
+  "value": "120",
+  "unit": "mm",
+  "source": "doc-5ddbce914f17f4d63bed6e39db2d6def",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

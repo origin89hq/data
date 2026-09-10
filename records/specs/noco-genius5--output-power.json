@@ -1,9 +1,11 @@
 {
   "id": "noco-genius5--output-power",
   "model": "noco-genius5",
-  "name": "OUTPUT POWER",
-  "value": "75 Watts Max",
-  "source": "doc-39956c6d95099c125eb3a89ec10738e5",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "name": "Output Power",
+  "value": "75",
+  "unit": "W",
+  "source": "doc-01712a6392d4258d30422062c9481978",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
   "confidence": "vendor-doc"
 }

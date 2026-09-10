@@ -1,0 +1,11 @@
+{
+  "id": "noco-gb500--peak-current",
+  "model": "noco-gb500",
+  "name": "Peak Current",
+  "value": "6250",
+  "unit": "A",
+  "source": "doc-01712a6392d4258d30422062c9481978",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

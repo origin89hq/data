@@ -1,0 +1,10 @@
+{
+  "id": "pentair-4x5x11c-1440-rpm--size",
+  "model": "pentair-4x5x11c-1440-rpm",
+  "name": "Size",
+  "value": "4x5x11C",
+  "source": "doc-0c1dacacb9aa84dae5375d3e6ce070c2",
+  "page": 22,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

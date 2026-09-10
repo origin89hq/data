@@ -1,0 +1,11 @@
+{
+  "id": "noco-geniuspro25--output-power",
+  "model": "noco-geniuspro25",
+  "name": "Output Power",
+  "value": "375",
+  "unit": "W",
+  "source": "doc-01712a6392d4258d30422062c9481978",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

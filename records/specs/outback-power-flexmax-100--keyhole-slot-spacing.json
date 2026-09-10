@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-flexmax-100--keyhole-slot-spacing",
+  "model": "outback-power-flexmax-100",
+  "name": "Keyhole slot spacing",
+  "value": "7.9",
+  "unit": "in",
+  "source": "doc-03b21c9def563e372bd183b4262a9ab8",
+  "page": 11,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

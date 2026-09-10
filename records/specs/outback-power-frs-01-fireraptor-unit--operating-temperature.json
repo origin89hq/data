@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-frs-01-fireraptor-unit--operating-temperature",
+  "model": "outback-power-frs-01-fireraptor-unit",
+  "name": "Operating Temperature",
+  "value": "-30 to +95",
+  "unit": "°C",
+  "source": "doc-5ddbce914f17f4d63bed6e39db2d6def",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

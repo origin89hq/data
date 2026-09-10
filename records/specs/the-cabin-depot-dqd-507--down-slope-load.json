@@ -1,0 +1,10 @@
+{
+  "id": "the-cabin-depot-dqd-507--down-slope-load",
+  "model": "the-cabin-depot-dqd-507",
+  "name": "Down-Slope Load",
+  "value": "5.0",
+  "source": "doc-81d218d607979b0646053628f539d605",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

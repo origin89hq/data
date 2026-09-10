@@ -1,0 +1,10 @@
+{
+  "id": "noco-nlp30--compatible-battery-sizes",
+  "model": "noco-nlp30",
+  "name": "Compatible Battery Sizes",
+  "value": "5",
+  "source": "doc-01712a6392d4258d30422062c9481978",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

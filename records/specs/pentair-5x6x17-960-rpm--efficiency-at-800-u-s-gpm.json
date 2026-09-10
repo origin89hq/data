@@ -1,0 +1,11 @@
+{
+  "id": "pentair-5x6x17-960-rpm--efficiency-at-800-u-s-gpm",
+  "model": "pentair-5x6x17-960-rpm",
+  "name": "Efficiency at 800 U.S. GPM",
+  "value": "82",
+  "unit": "%",
+  "source": "doc-0c1dacacb9aa84dae5375d3e6ce070c2",
+  "page": 34,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

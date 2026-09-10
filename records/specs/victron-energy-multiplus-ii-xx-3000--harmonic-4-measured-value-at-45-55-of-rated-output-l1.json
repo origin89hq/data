@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multiplus-ii-xx-3000--harmonic-4-measured-value-at-45-55-of-rated-output-l1",
+  "model": "victron-energy-multiplus-ii-xx-3000",
+  "name": "Harmonic 4 measured value at 45-55% of rated output L1",
+  "value": "0,058",
+  "unit": "A",
+  "source": "doc-10e4c2b5cd234ca2ca7131922ea01790",
+  "page": 11,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

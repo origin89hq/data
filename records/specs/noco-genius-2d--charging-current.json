@@ -1,0 +1,11 @@
+{
+  "id": "noco-genius-2d--charging-current",
+  "model": "noco-genius-2d",
+  "name": "Charging Current",
+  "value": "2",
+  "unit": "A",
+  "source": "doc-01712a6392d4258d30422062c9481978",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "noco-al5--max-pressure",
+  "model": "noco-al5",
+  "name": "Max Pressure",
+  "value": "130",
+  "unit": "psi",
+  "source": "doc-01712a6392d4258d30422062c9481978",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

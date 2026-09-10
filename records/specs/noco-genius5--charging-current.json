@@ -1,0 +1,11 @@
+{
+  "id": "noco-genius5--charging-current",
+  "model": "noco-genius5",
+  "name": "Charging Current",
+  "value": "5",
+  "unit": "A",
+  "source": "doc-01712a6392d4258d30422062c9481978",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

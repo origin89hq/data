@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multiplus-ii-xx-3000--generating-unit-rating-per-phase",
+  "model": "victron-energy-multiplus-ii-xx-3000",
+  "name": "Generating Unit rating per phase",
+  "value": "2.47",
+  "unit": "kVA",
+  "source": "doc-10e4c2b5cd234ca2ca7131922ea01790",
+  "page": 11,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

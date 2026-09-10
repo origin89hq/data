@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-csw2012-hx--pass-thru-current-limit",
+  "model": "magnum-energy-csw2012-hx",
+  "name": "Pass-thru Current Limit",
+  "value": "20",
+  "unit": "A",
+  "source": "doc-6d56b1c70d9f18768f695fc3c081d991",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

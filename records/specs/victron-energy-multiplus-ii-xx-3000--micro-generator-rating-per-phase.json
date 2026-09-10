@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multiplus-ii-xx-3000--micro-generator-rating-per-phase",
+  "model": "victron-energy-multiplus-ii-xx-3000",
+  "name": "Micro-Generator rating per phase",
+  "value": "2.4",
+  "unit": "kW",
+  "source": "doc-6144335e43d048dd249b851014bbb65d",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

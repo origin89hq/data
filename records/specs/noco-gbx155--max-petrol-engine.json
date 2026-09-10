@@ -1,0 +1,11 @@
+{
+  "id": "noco-gbx155--max-petrol-engine",
+  "model": "noco-gbx155",
+  "name": "Max Petrol Engine",
+  "value": "10.0",
+  "unit": "L",
+  "source": "doc-01712a6392d4258d30422062c9481978",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

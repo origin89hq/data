@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-flexmax-100--firmware-revision",
+  "model": "outback-power-flexmax-100",
+  "name": "Firmware revision",
+  "value": "001.001.000 or higher",
+  "source": "doc-03b21c9def563e372bd183b4262a9ab8",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

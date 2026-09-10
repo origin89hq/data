@@ -1,0 +1,10 @@
+{
+  "id": "pentair-2-1-2x3x10b--r-p-m",
+  "model": "pentair-2-1-2x3x10b",
+  "name": "R.P.M.",
+  "value": "1440",
+  "source": "doc-0c1dacacb9aa84dae5375d3e6ce070c2",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

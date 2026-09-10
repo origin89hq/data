@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-24-3000-70-32-gx-230v--max-battery-charge-current",
+  "model": "victron-energy-24-3000-70-32-gx-230v",
+  "name": "Max. battery charge current",
+  "value": "70",
+  "unit": "A",
+  "source": "doc-9f37e74a019f468bb6478708dcd8a0e3",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

@@ -3,8 +3,9 @@
   "model": "noco-nlp30",
   "name": "Starting Current",
   "value": "700",
-  "source": "doc-b4a4093277c2ef8cf6ebe6ae331cea0a",
-  "page": 5,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "unit": "A",
+  "source": "doc-01712a6392d4258d30422062c9481978",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
   "confidence": "vendor-doc"
 }

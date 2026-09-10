@@ -1,0 +1,10 @@
+{
+  "id": "pentair-410--size",
+  "model": "pentair-410",
+  "name": "Size",
+  "value": "2X2-1/2X10",
+  "source": "doc-0c1dacacb9aa84dae5375d3e6ce070c2",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}

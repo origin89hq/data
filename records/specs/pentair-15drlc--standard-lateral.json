@@ -1,0 +1,10 @@
+{
+  "id": "pentair-15drlc--standard-lateral",
+  "model": "pentair-15drlc",
+  "name": "Standard lateral",
+  "value": "0.76",
+  "source": "doc-e134f11ea8b85557b418b80d749153c1",
+  "page": 14,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  "confidence": "vendor-doc"
+}
