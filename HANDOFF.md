@@ -53,22 +53,11 @@ One thing p2 did not fix: a NOCO GB70 is a jump starter and the vocabulary has n
 moved from `charge-controller` to `inverter-charger`, which is closer and still wrong. That is an
 enum decision, not a prompt one.
 
-## The next thing, which was interrupted mid-sentence
+## The vision fallback is built
 
-**A vision fallback for documents that convert to nothing.** Some approved PDFs are scanned images;
-the current reader only sees extracted text, so they produce no figures and sit forever as
-"1 of 25 left" in `just status`.
-
-The tracking this needs already exists. A reading is content-addressed at
-`archive/<sha256>.<extractor>.reading.json`, so a document is never read twice by the same reader,
-and a second reader gets its own key beside the first. Adding a vision reader therefore costs
-nothing for the documents already read, and the work is:
-
-1. A new extractor id in `worker/src/reading.ts`, alongside `EXTRACTOR_ID`.
-2. A `Work` variant in `worker/src/work.ts` for it, and a case in `worker/src/consumer.ts`.
-3. `supervise` should enqueue it only where the text reader produced nothing.
-4. `tools/gate/pull-specs.ts` already reads every extractor's file per document; add the id to its
-   list.
+Done in `worker/src/vision.ts`; `docs/SPIDER.md` says how it works. Scans did not fail conversion:
+they converted to empty page headings and counted as read, 365 of them. It runs once the Worker is
+deployed, as the supervisor offers each run, twenty makers a pass.
 
 ## Coverage gaps worth naming
 
@@ -76,7 +65,9 @@ nothing for the documents already read, and the work is:
   on HTML product pages the spec-page rule rejects, because their tables are transposed and yield
   three figures each. `rollsbattery.com/battery/s-550/` 404s, so the URL shape differs per product.
 - **Volthium**: discovery found no documents at all and its sitemap 404s. 49 models, 0 figures.
-- 21 makers show a handful of documents permanently outstanding. Those are the scanned ones above.
+- Documents outstanding for good in `just status` are not scans: 27 ZIPs and a damaged PDF that
+  cannot convert, and 63 converted documents whose reading dead-lettered (all of Energizer Solar
+  and Lorex, most of LuxPower). Nothing re-sends those.
 
 ## Decisions still open
 
