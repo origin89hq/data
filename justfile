@@ -59,9 +59,10 @@ specs-ready *args:
 
 # ---- the spider ----
 
+# Requests keep their localhost address: sign-in builds its GitHub callback from it.
 # Run the Worker locally, with a local R2 and the AI binding proxied to Cloudflare.
 dev:
-    cd apps/worker && pnpm exec wrangler dev --port 8790
+    cd apps/worker && pnpm exec wrangler dev --port 8790 --local-upstream localhost:8790
 
 # Crawl one seller.
 crawl seller date="" *args:
