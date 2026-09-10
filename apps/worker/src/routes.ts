@@ -563,9 +563,11 @@ async function putFile(c: Context<{ Bindings: Env }>, name: string): Promise<Res
 
 async function putManifest(c: Context<{ Bindings: Env }>): Promise<Response> {
   const length = Number(c.req.header("content-length"));
-  if (!Number.isSafeInteger(length) || length <= 0 || length > MANIFEST_MAX_BYTES)
+  if (!Number.isSafeInteger(length) || length <= 0)
+    return c.json({ error: "the manifest must be sent with its content-length" }, 411);
+  if (length > MANIFEST_MAX_BYTES)
     return c.json(
-      { error: `the manifest must be sent with a content-length under ${MANIFEST_MAX_BYTES}` },
+      { error: `a manifest is under ${MANIFEST_MAX_BYTES} bytes; this is ${length}` },
       413,
     );
   const text = await c.req.text();

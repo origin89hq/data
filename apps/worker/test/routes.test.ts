@@ -393,6 +393,12 @@ test("a body that is not a manifest, or would unpublish the dataset, is refused"
     "content-length": String(2 * 1024 * 1024),
   });
   assert.equal(huge.status, 413);
+  const unmeasured = await app.request(
+    "https://data.example/v1/manifest.json",
+    { method: "PUT", headers: await publish(), body: "{}" },
+    env,
+  );
+  assert.equal(unmeasured.status, 411, "a missing length is not a manifest that is too big");
   assert.deepEqual([...store.keys()], []);
 });
 
