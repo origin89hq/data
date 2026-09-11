@@ -727,6 +727,73 @@ test("a window whose answer runs out of room is read again as two halves, each i
   ]);
 });
 
+/** The part of a figures prompt the model is asked to report on, without the context around it. */
+const reportedPart = (prompt: string): string =>
+  prompt.split("Report the figures in this part of it:\n\n").pop() ?? prompt;
+
+test("a window too dense even for its halves is split again, down to parts that fit", async () => {
+  // Four pages of about 9,500 characters, one rating each: one call, or a half, cannot write it all.
+  const manual = transcriptDocument(
+    "manual.pdf",
+    [1, 2, 3, 4].map((page) => ({
+      page,
+      markdown: `| Rating ${page} | ${page}00 W |\n\n${"x".repeat(9500)}`,
+    })),
+  );
+  assert.equal(figureWindows(manual).length, 1);
+  const seen: string[] = [];
+  const { env, pace, readObject } = world(
+    { [transcriptKey]: manual },
+    kimi([], (prompt) => {
+      seen.push(prompt);
+      const part = reportedPart(prompt);
+      if (part.length > 15_000) return { response: '{"products":[{"model":"M-1","specs":[' };
+      const specs = [1, 2, 3, 4]
+        .filter((page) => part.includes(`| Rating ${page} |`))
+        .map((page) => ({ name: `Rating ${page}`, value: `${page}00`, unit: "W" }));
+      return answer({ products: [{ model: "M-1", specs }] });
+    }),
+  );
+  await seeWindow(windowOne, env, 1);
+  assert.equal(seen.length, 7, "the window, its two halves, and their four halves");
+  assert.equal(pace.asked, 7);
+  assert.deepEqual(
+    readObject<Reading>(readingKey).products[0]?.specs.map((s) => [s.name, s.page]),
+    [1, 2, 3, 4].map((page) => [`Rating ${page}`, page]),
+  );
+});
+
+test("the second half of a split window keeps the name printed before it", async () => {
+  // The name is past the document's first 3,000 characters, and the rating is in the second half.
+  const sheet = transcriptDocument("zx.pdf", [
+    { page: 1, markdown: `${"x".repeat(3500)}\n\n**Model:** ZX-9\n\n${"y".repeat(4000)}` },
+    { page: 2, markdown: `${"z".repeat(3000)}\n\n| Output current | 30 A |` },
+  ]);
+  const seen: string[] = [];
+  const { env, readObject } = world(
+    { [transcriptKey]: sheet },
+    kimi([], (prompt) => {
+      seen.push(prompt);
+      if (seen.length === 1) return { response: '{"products":[{"model":"ZX-9","specs":[' };
+      // A model that follows the prompt: a figure is reported only under a name it can see.
+      const named = prompt.includes("ZX-9") && reportedPart(prompt).includes("30 A");
+      return answer({
+        products: named
+          ? [{ model: "ZX-9", specs: [{ name: "Output current", value: "30", unit: "A" }] }]
+          : [],
+      });
+    }),
+  );
+  await seeWindow(windowOne, env, 1);
+  assert.equal(seen.length, 3);
+  assert.ok(!reportedPart(seen[2] ?? "").includes("ZX-9"), "the name is not in the second half");
+  assert.ok(seen[2]?.includes("What comes just before this part"), "but comes with it");
+  assert.ok(!seen[2]?.includes("zx.pdf"), "and the file's name still does not");
+  assert.deepEqual(readObject<Reading>(readingKey).products, [
+    { model: "ZX-9", specs: [{ name: "Output current", value: "30", unit: "A", page: 2 }] },
+  ]);
+});
+
 test("a small window whose answer is cut short is a failed call, not halved", async () => {
   const { env, asked, readObject } = world(
     { [transcriptKey]: CERTIFICATE },

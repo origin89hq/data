@@ -424,6 +424,11 @@ export const DOCUMENT_HEAD_CHARACTERS = 3_000;
 /** One window of a transcript: its text, where it starts, and the page it starts on. */
 export interface FigureWindow extends Window {
   start: number;
+  /**
+   * For part of a window split in two: the window's text before this part, sent for the names
+   * printed there. A product named early in a window and rated late stays named.
+   */
+  before?: { text: string; start: number };
 }
 
 /** A transcript's windows for figures, overlapping so a table on a boundary is read whole once. */
@@ -448,7 +453,8 @@ export const SMALLEST_WINDOW = 5_000;
 
 /**
  * A window in two, overlapping as windows do, for an answer that ran out of room: half the window
- * is about half the figures to write out.
+ * is about half the figures to write out. The answer was too long, not the question, so the second
+ * half still carries everything before it in the window, for the names printed there.
  */
 export function halves(transcript: string, window: FigureWindow): [FigureWindow, FigureWindow] {
   const pages = pageOffsets(transcript);
@@ -459,7 +465,18 @@ export function halves(transcript: string, window: FigureWindow): [FigureWindow,
     const page = pageAt(pages, start);
     return { text: window.text.slice(from, to), start, ...(page === undefined ? {} : { page }) };
   };
-  return [part(0, middle + overlap), part(middle - overlap, window.text.length)];
+  const first = {
+    ...part(0, middle + overlap),
+    ...(window.before ? { before: window.before } : {}),
+  };
+  const second: FigureWindow = {
+    ...part(middle - overlap, window.text.length),
+    before: {
+      text: (window.before?.text ?? "") + window.text.slice(0, middle - overlap),
+      start: window.before?.start ?? window.start,
+    },
+  };
+  return [first, second];
 }
 
 function pageAt(pages: { page: number; at: number }[], offset: number): number | undefined {
@@ -490,7 +507,17 @@ export function windowPrompt(transcript: string, window: FigureWindow): string {
   const at = transcript.indexOf(CONTENTS);
   const pages = at === -1 ? 0 : at + CONTENTS.length;
   if (window.start === 0) return window.text.slice(pages);
-  return `The document begins:\n\n${transcript.slice(pages, pages + DOCUMENT_HEAD_CHARACTERS)}\n\n[…]\n\nReport the figures in this part of it:\n\n${window.text}`;
+  // What comes before this part, when it is half of a window; from the pages on, never the title.
+  const before = window.before
+    ? window.before.text.slice(Math.max(0, pages - window.before.start))
+    : "";
+  // The document's start, unless what comes before already begins there.
+  const head =
+    (window.before?.start ?? window.start) <= pages
+      ? ""
+      : `The document begins:\n\n${transcript.slice(pages, pages + DOCUMENT_HEAD_CHARACTERS)}\n\n[…]\n\n`;
+  const earlier = before ? `What comes just before this part:\n\n${before}\n\n` : "";
+  return `${head}${earlier}Report the figures in this part of it:\n\n${window.text}`;
 }
 
 /**
