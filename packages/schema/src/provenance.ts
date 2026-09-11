@@ -16,6 +16,16 @@ export const VISION_MODEL = "@cf/moonshotai/kimi-k2.7-code";
 export const VISION_PROMPT_VERSION = "1";
 export const VISION_EXTRACTOR_ID = `ai:${VISION_MODEL}@vision-p${VISION_PROMPT_VERSION}`;
 
+/**
+ * Whether the figures pull takes the page reader's readings. Not for now: its first readings filed
+ * figures under the wrong model names (#28) and kept rate-limited pages as read (#29).
+ *
+ * Two places have to agree on it, so both read this: the readers the pull asks for, and the check
+ * that a run has been read by one of them. A run only a left-out reader has read would pull no
+ * readings, and every unreviewed figure the maker has would then be removed as stale.
+ */
+export const PULL_PAGE_READER = false;
+
 /** A reader's id as it appears in an archive key. */
 export const readerKey = (extractor: string): string => extractor.replace(/[^\w.-]+/g, "_");
 

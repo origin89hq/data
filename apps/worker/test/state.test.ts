@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { PULL_PAGE_READER } from "@origin89/equipment-schema/provenance";
 import { EXTRACTOR_ID, VISION_EXTRACTOR_ID } from "../src/reading.ts";
 import { makerStates, readyToPull } from "../src/state.ts";
 import { partKey, readerKey } from "../src/work.ts";
@@ -102,12 +103,27 @@ test("a run with a reading that never landed is still pulled, as far as it was r
   assert.equal(readyToPull(maker), true, "a dead-lettered document should not hold the rest back");
 });
 
-test("a run only the page reader has read is ready, because its scans are what it read", async () => {
+test("a run only the page reader has read is not ready while the pull leaves that reader out", async () => {
+  // The pull would take no readings for it, and then remove every unreviewed figure the maker has
+  // as stale.
   const maker = await state(
     run({ plan: true, approved: true, sent: ["b"], converted: ["b"], pages: ["b"] }),
   );
   assert.deepEqual([maker.read, maker.seen], [undefined, 1]);
-  assert.equal(readyToPull(maker), true);
+  assert.equal(PULL_PAGE_READER, false, "this is the pull without the page reader");
+  assert.equal(readyToPull(maker), false);
+
+  const alsoText = await state(
+    run({
+      plan: true,
+      approved: true,
+      sent: ["b", "c"],
+      converted: ["b", "c"],
+      text: ["c"],
+      pages: ["b"],
+    }),
+  );
+  assert.equal(readyToPull(alsoText), true, "a reading the pull takes makes the run ready");
 });
 
 test("a state from a Worker that predates `sent` is never ready, whatever its words say", () => {

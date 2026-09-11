@@ -2,17 +2,13 @@ import { rmSync } from "node:fs";
 import { join } from "node:path";
 import { withoutTranslations } from "@origin89/equipment-schema/documents";
 import { Model } from "@origin89/equipment-schema/model";
-import {
-  EXTRACTOR_ID,
-  readerKey,
-  VISION_EXTRACTOR_ID,
-} from "@origin89/equipment-schema/provenance";
+import { EXTRACTOR_ID } from "@origin89/equipment-schema/provenance";
 import { Source } from "@origin89/equipment-schema/source";
 import { withoutRedundantTranslations, withoutTranslatedReadings } from "../../src/language.ts";
 import { looksLikeModelName, modelId, normaliseModelName } from "../../src/models.ts";
 import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 import { matchModel, type ReportedProduct, specsFrom } from "../../src/specs.ts";
-import { currentRun, jsonValues, object, readingsOf } from "./archive.ts";
+import { currentRun, jsonValues, object, PULLED_READERS, readingsOf } from "./archive.ts";
 
 /**
  * Fold a manufacturer's extracted readings into spec records. A figure is written only when the
@@ -62,17 +58,16 @@ const readings: {
 } = { readings: [] };
 // A reading lives beside its document, so this run's readings are those of the documents it
 // converted. Nothing is re-read because a run asked again.
-// A scan has two: the text reader's, which found nothing, and the page reader's, which drew it —
-// so a document may answer more than once.
+// A document may answer more than once: the text reader's and the table parser's readings both
+// land here. The page reader's readings do not while `PULL_PAGE_READER` keeps them out.
 // They come back in batches rather than one document at a time. Asking per document was a round
 // trip each, and four thousand documents across three readers is thirteen thousand of them; the
 // daily pull spent twenty-eight minutes on it and was climbing towards its hour.
 const refused: { url: string; refused: string }[] = [];
-const READERS = [readerKey(EXTRACTOR_ID), readerKey(VISION_EXTRACTOR_ID), "table_spec-table_v1"];
 for (const value of jsonValues<(typeof readings.readings)[number] & { refused?: string }>(
   await readingsOf(
     expected.map((doc) => doc.sha256),
-    READERS,
+    PULLED_READERS,
     remote,
   ),
 )) {

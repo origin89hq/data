@@ -1,7 +1,13 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { afterEach, beforeEach, test } from "node:test";
-import { READS_PER_REQUEST } from "@origin89/equipment-schema/provenance";
-import { readingsOf } from "../tools/gate/archive.ts";
+import {
+  EXTRACTOR_ID,
+  READS_PER_REQUEST,
+  readerKey,
+  VISION_EXTRACTOR_ID,
+} from "@origin89/equipment-schema/provenance";
+import { PULLED_READERS, readingsOf } from "../tools/gate/archive.ts";
 
 /**
  * The batching is what keeps the daily pull inside its hour, and it is also the only thing
@@ -100,6 +106,19 @@ test("a batch the Worker refuses stops the pull rather than returning the ones t
       true,
     ),
     /\/readings: HTTP 400 over the cap/,
+  );
+});
+
+test("the figures pull asks for the text reader and the table parser, and not the page reader", () => {
+  assert.deepEqual(PULLED_READERS, [readerKey(EXTRACTOR_ID), "table_spec-table_v1"]);
+  assert.ok(
+    !PULLED_READERS.includes(readerKey(VISION_EXTRACTOR_ID)),
+    "its readings file figures under the wrong models (#28) and keep rate-limited pages as read (#29)",
+  );
+  assert.match(
+    readFileSync(new URL("../tools/gate/pull-specs.ts", import.meta.url), "utf8"),
+    /readingsOf\([\s\S]*?PULLED_READERS,\s*remote,?\s*\)/,
+    "the pull must ask for this list, not a copy of its own",
   );
 });
 

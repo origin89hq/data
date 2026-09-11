@@ -1,3 +1,4 @@
+import { PULL_PAGE_READER } from "@origin89/equipment-schema/provenance";
 import { classifierKey } from "./classify.ts";
 import { EXTRACTOR_ID, VISION_EXTRACTOR_ID } from "./reading.ts";
 import { currentRuns, runPrefix } from "./runs.ts";
@@ -161,7 +162,8 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
 
 /**
  * Whether a maker's figures can be pulled into records without taking any away by mistake: its
- * current run has finished converting, and something has read it.
+ * current run has finished converting, and a reader the pull takes has read it. The page reader's
+ * readings count only while `PULL_PAGE_READER` lets the pull take them.
  *
  * The pointer moves when discovery starts, so on the first of every month each maker's current run
  * is one with nothing converted until somebody approves it. Pulling that run would read as every
@@ -171,5 +173,5 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
 export function readyToPull(maker: MakerState): boolean {
   if (!maker.date || maker.sent === undefined || maker.converted === undefined) return false;
   if (maker.converted < maker.sent) return false;
-  return (maker.read ?? 0) + (maker.seen ?? 0) > 0;
+  return (maker.read ?? 0) + (PULL_PAGE_READER ? (maker.seen ?? 0) : 0) > 0;
 }

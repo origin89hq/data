@@ -1,5 +1,12 @@
 import { Guess } from "@origin89/equipment-schema/guess";
-import { classifierKey, READS_PER_REQUEST } from "@origin89/equipment-schema/provenance";
+import {
+  classifierKey,
+  EXTRACTOR_ID,
+  PULL_PAGE_READER,
+  READS_PER_REQUEST,
+  readerKey,
+  VISION_EXTRACTOR_ID,
+} from "@origin89/equipment-schema/provenance";
 import { Sighting } from "@origin89/equipment-schema/sighting";
 import type { MakerState } from "../../apps/worker/src/state.ts";
 import { bearerFor } from "../credential.ts";
@@ -181,6 +188,16 @@ export async function readCrawl(
   }
   return { sightings, guesses, missingParts };
 }
+
+/**
+ * The readers whose figures the pull takes: the text reader, the parser over a maker's own
+ * specification tables, and the page reader only when `PULL_PAGE_READER` lets it in.
+ */
+export const PULLED_READERS: readonly string[] = [
+  readerKey(EXTRACTOR_ID),
+  ...(PULL_PAGE_READER ? [readerKey(VISION_EXTRACTOR_ID)] : []),
+  "table_spec-table_v1",
+];
 
 /**
  * Every reading of these documents, in one request per batch.
