@@ -95,7 +95,7 @@ test("a control route with no token is refused rather than run, and says how to 
 });
 
 test("the only member page is the runs page, and it is not also public", () => {
-  assert.deepEqual(paths(memberPages.routes), ["/ops"]);
+  assert.deepEqual(paths(memberPages.routes), ["/ops/*"]);
   assert.ok(!paths(publicRoutes.routes).includes("/ops"));
 });
 

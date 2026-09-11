@@ -344,3 +344,37 @@ test("a sign-in past the ration stops before the code is exchanged", async (t) =
   assert.equal(res.status, 429);
   assert.deepEqual(api.calls, [], "the code was exchanged past the ration");
 });
+
+test("dashboard deep links preserve the login destination and serve the protected shell", async (t) => {
+  const { request } = signingIn(t, {
+    codes: { "code-deep": { token: "ghu_ada_deep" } },
+    tokens: { ghu_ada_deep: { login: "ada" }, ghu_eve_deep: { login: "eve" } },
+    team: { ada: "active" },
+  });
+  for (const path of [
+    "/ops/makers?filter=review&q=Rolls",
+    "/ops/releases",
+    "/ops/not-a-section",
+    "/ops/",
+  ]) {
+    const anonymous = await request(path);
+    assert.equal(anonymous.status, 302);
+    assert.equal(anonymous.headers.get("location"), `/auth/login?next=${encodeURIComponent(path)}`);
+    const outsider = await request(path, {
+      headers: { cookie: "__Host-offgrid-session=ghu_eve_deep" },
+    });
+    assert.equal(outsider.status, 403);
+    const member = await request(path, {
+      headers: { cookie: "__Host-offgrid-session=ghu_ada_deep" },
+    });
+    assert.equal(member.status, 200);
+    assert.equal(await member.text(), "the page at /ops");
+    assert.equal(member.headers.get("cache-control"), "private, no-store");
+  }
+  const { state, cookie } = await start(request, "/ops/makers?filter=review");
+  const callback = await request(`/auth/callback?state=${state}&code=code-deep`, {
+    headers: { cookie },
+  });
+  assert.equal(callback.status, 302);
+  assert.equal(callback.headers.get("location"), "/ops/makers?filter=review");
+});
