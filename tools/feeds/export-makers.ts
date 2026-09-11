@@ -20,6 +20,7 @@ const makers = records.manufacturers
     return {
       id: m.id,
       domains: m.domains,
+      ...(m.documentHosts?.length ? { documentHosts: m.documentHosts } : {}),
       ...(cited.documents.length || cited.pages.length ? { cited } : {}),
     };
   })

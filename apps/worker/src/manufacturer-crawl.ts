@@ -12,11 +12,14 @@ import {
   type Cited,
   type DiscoverySeen,
   discoverPages,
+  fetchAnything,
   hopOrder,
+  MAX_PROBES_PER_RUN,
   nextHop,
   type PagesRead,
   readPages,
   seedPages,
+  trustedDocumentHosts,
   withCited,
 } from "./discover.ts";
 import { todayUtc, USER_AGENT } from "./feeds.ts";
@@ -87,12 +90,12 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       }),
     );
 
-    // What the records already cite on this maker's hosts, bundled with the maker list. A maker
-    // started under an id the records do not know has none, and reads its site like any other.
-    const cited: Cited = manufacturers.find((m) => m.id === manufacturerId)?.cited ?? {
-      documents: [],
-      pages: [],
-    };
+    // What the records already cite on this maker's hosts, and the hosts its pages keep documents
+    // on, bundled with the maker list. A maker started under an id the records do not know has
+    // neither, and reads its site like any other.
+    const record = manufacturers.find((m) => m.id === manufacturerId);
+    const cited: Cited = record?.cited ?? { documents: [], pages: [] };
+    const documentHosts = trustedDocumentHosts(record, domains);
     // The whole page budget: what the records cite, what the sitemap lists, and after that what
     // those pages link. The routes check the limit before a run starts; a budget that is not a
     // whole number would let the hop read every link it found, so a bad one is the default rather
@@ -136,6 +139,8 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     const queued = new Set(pages);
     const landedAt = new Set<string>();
     const candidates: string[] = [];
+    // Addresses on a document host with nothing to say what they are, asked for ahead of the hop.
+    const probes: { url: string; foundOn: string }[] = [];
     const take = (batch: PagesRead): void => {
       // A cited page read for its links counts as a page read; one that answered with the
       // document itself is counted with the documents, marked cited, and not as a page.
@@ -143,6 +148,13 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       citedRead += batch.opened.filter((p) => cited.pages.includes(p)).length;
       for (const f of batch.links) if (!found.some((x) => x.url === f.url)) found.push(f);
       specPages.push(...batch.tables);
+      for (const probe of batch.probes)
+        if (!queued.has(probe.url)) {
+          queued.add(probe.url);
+          probes.push(probe);
+        }
+      if (batch.probesDropped > 0)
+        seen.pages.probesDropped = (seen.pages.probesDropped ?? 0) + batch.probesDropped;
       for (const url of batch.landed) {
         queued.add(url);
         landedAt.add(url);
@@ -181,7 +193,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     for (let b = 0; b * DISCOVER_BATCH < pages.length; b += 1) {
       const slice = pages.slice(b * DISCOVER_BATCH, (b + 1) * DISCOVER_BATCH);
       const batch = await step.do(`read pages ${b + 1}`, reading, () =>
-        readPages(slice, domains, undefined, landedAt),
+        readPages(slice, domains, undefined, documentHosts, undefined, landedAt),
       );
       take(batch);
       attempted += batch.attempted;
@@ -195,6 +207,31 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     // The frontier is drawn on batch by batch, skipping any address a page has since landed on:
     // a followed page that redirects to a later candidate makes that candidate a page already
     // read, and the slot goes to the next one instead.
+    // Probes are asked for on an allowance of their own: a probe is one request to learn what a
+    // link is, not a page read, and a sitemap that fills the page budget must not starve them.
+    // They are drained before the hop and again after it, since a page reached by following
+    // links can link a document host too.
+    let probed = 0;
+    let probeBatches = 0;
+    const drainProbes = async (): Promise<void> => {
+      while (probed < Math.min(probes.length, MAX_PROBES_PER_RUN)) {
+        const end = Math.min(probed + DISCOVER_BATCH, probes.length, MAX_PROBES_PER_RUN);
+        const batch = probes.slice(probed, end);
+        const origins = new Map(batch.map((p) => [p.url, p.foundOn]));
+        const slice = batch.map((p) => p.url);
+        probeBatches += 1;
+        const n = probeBatches;
+        take(
+          await step.do(`probe documents ${n}`, reading, () =>
+            readPages(slice, domains, fetchAnything, documentHosts, origins),
+          ),
+        );
+        probed = end;
+        await step.sleep(`politeness after probes ${n}`, "2 seconds");
+      }
+    };
+    await drainProbes();
+
     const frontier = hopOrder(candidates);
     let remaining = Math.max(0, budget - attempted);
     let cursor = 0;
@@ -204,7 +241,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       if (next.slice.length === 0) break;
       const slice = next.slice;
       const batch = await step.do(`follow links ${b + 1}`, reading, () =>
-        readPages(slice, domains, undefined, landedAt),
+        readPages(slice, domains, undefined, documentHosts, undefined, landedAt),
       );
       take(batch);
       remaining -= batch.attempted;
@@ -214,6 +251,10 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     // What the budget did not reach, so a plan built from a hop that stopped short says so.
     const unfollowed = nextHop(frontier, cursor, landedAt, Number.MAX_SAFE_INTEGER).slice.length;
     if (unfollowed > 0) seen.pages.unfollowed = unfollowed;
+    // Probes found while following links, and what the allowance left unasked.
+    await drainProbes();
+    if (probes.length > probed)
+      seen.pages.probesDropped = (seen.pages.probesDropped ?? 0) + probes.length - probed;
     if (specPages.length > 0) {
       await step.do("write the specification pages this maker publishes", async () => {
         const ranked = specPages.sort((a, b) => b.withUnit - a.withUnit || b.figures - a.figures);

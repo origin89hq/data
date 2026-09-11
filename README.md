@@ -362,6 +362,10 @@ is a real answer and is why the queue has three states rather than two.
 
 `records/manufacturers/` holds the companies. A manufacturer's `domains` are
 what hop two is allowed to crawl, so a reseller's domain does not go in one.
+Its `documentHosts` are where its own pages keep their PDFs when that is a
+shop's CDN or a CloudFront distribution: a document there is offered only when
+a page on the maker's domains links it, and no page there is read. An empty
+plan names the hosts a maker's pages linked, which is how you know what to add.
 
 ## Approving a document crawl
 

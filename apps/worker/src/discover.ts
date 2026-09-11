@@ -67,8 +67,16 @@ export function isDocumentAnswer(answer: Fetched): boolean {
 
 export type Get = (url: string) => Promise<Fetched>;
 
-/** What a page request asks for. */
+/** What a page request asks for. A probe asks for anything, since it wants the document behind a link. */
 export const ACCEPT_PAGE = "text/html,application/xhtml+xml,application/xml";
+export const ACCEPT_ANYTHING = "*/*";
+
+/**
+ * The getter for probes: an endpoint that negotiates content may answer a page request with a
+ * 406 or an HTML fallback, and a probe reads no body at all, since the headers say whether the
+ * answer is a document and a page on a document host is not a page to read.
+ */
+export const fetchAnything: Get = (url) => fetchPage(url, ACCEPT_ANYTHING, false);
 
 /**
  * How much of a page is read. A page is read for its links and its tables, and a couple of
@@ -400,6 +408,10 @@ export const MAX_LINKS_PER_BATCH = 2000;
 export const MAX_FRONTIER_BYTES = 512 * 1024;
 /** The whole serialized result stays under this, well inside the mebibyte a step may return. */
 export const MAX_RESULT_BYTES = 768 * 1024;
+/** Extensionless addresses on a document host a batch may hand back to be asked about. */
+export const MAX_PROBES_PER_BATCH = 200;
+/** And how many a run asks about, on an allowance of its own beside the page budget. */
+export const MAX_PROBES_PER_RUN = 50;
 
 /** Paths a maker keeps its documents behind, ahead of its blog, its careers page and its cart. */
 const WORTH_FIRST =
@@ -461,6 +473,10 @@ export interface PagesRead {
   landed: string[];
   /** Pages actually asked for: one in the batch that an earlier page had already landed on is skipped. */
   attempted: number;
+  /** Addresses on a document host the record names, linked from the maker's own pages with no suffix to say what they are: asked for, to find out, and offered as found on the page that linked them. */
+  probes: { url: string; foundOn: string }[];
+  /** Such addresses beyond what a batch may hand back. */
+  probesDropped: number;
   read: number;
   /** The pages asked for that answered with a page, as they were asked for. */
   opened: string[];
@@ -480,11 +496,21 @@ const count = (into: Record<string, number>, key: string): void => {
   into[key] = (into[key] ?? 0) + 1;
 };
 
-/** Read pages for their document links, and say what each page that gave none answered instead. */
+/**
+ * Read pages for their document links, and say what each page that gave none answered instead.
+ *
+ * A document is the maker's when it is on the maker's hosts, or on a host the record names as
+ * where its pages keep documents (`documentHosts`) and the page linking it is on the maker's
+ * hosts. A page that landed on another site vouches for nothing on a document host: only its
+ * own-host documents count, and the rest are reported.
+ */
 export async function readPages(
   pages: readonly string[],
   domains: readonly string[],
   get: Get = fetchPage,
+  documentHosts: readonly string[] = [],
+  /** For a probe, the maker page that linked it, so a document it turns out to be is found there. */
+  origins: ReadonlyMap<string, string> = new Map(),
   /** Addresses earlier batches landed on: a listed page among them is a page already read. */
   skip: ReadonlySet<string> = new Set(),
 ): Promise<PagesRead> {
@@ -497,6 +523,8 @@ export async function readPages(
     linksDropped: 0,
     landed: [],
     attempted: 0,
+    probes: [],
+    probesDropped: 0,
     opened: [],
     answered: [],
     read: 0,
@@ -513,13 +541,27 @@ export async function readPages(
     if (out.landed.includes(page) || skip.has(page)) continue;
     out.attempted += 1;
     const answer = await get(page);
+    // A probe is an address on a document host asked for to learn what it is; where it lands is
+    // not a site moving, and a page there is not a page to read.
+    const probing = !ownHost(page, domains);
+    // Where a request landed outside the maker's hosts, unless it landed on a document host the
+    // record names with a document: that is a download link doing what it says, not a site moved.
     const away = strayed(answer, domains);
-    if (away) strayedTo.add(away);
+    const landedOnDocumentHost =
+      away !== undefined && isDocumentAnswer(answer) && hostAllowed(away, documentHosts);
+    if (away && !landedOnDocumentHost && !probing) strayedTo.add(away);
+    if (probing && ok(answer) && !isDocumentAnswer(answer)) {
+      count(out.failed, `a probe answered a page (${mediaType(answer) ?? "unknown type"})`);
+      continue;
+    }
     if (!ok(answer)) {
       // One page that will not load costs its own links and nothing else.
       count(out.failed, String(answer.status));
       continue;
     }
+    // A page on the maker's hosts vouches for a document on a host the record names; a page that
+    // landed on another site vouches for nothing there.
+    const keep = away && !landedOnDocumentHost ? domains : [...domains, ...documentHosts];
     if (!isPage(answer)) {
       // A page that answered with a document, by its address or its media type, is that document:
       // offered where it landed, with the page it was asked for as where it was found. Anything
@@ -530,8 +572,10 @@ export async function readPages(
         count(out.failed, `not a page (${mediaType(answer) ?? "unknown type"})`);
         continue;
       }
-      out.answered.push(page);
-      if (hostAllowed(host, domains)) out.links.push({ url: answer.url, host, foundOn: page });
+      // A probe that turns out to be a document is a link's find, not a page answering with one.
+      if (!probing) out.answered.push(page);
+      if (hostAllowed(host, keep))
+        out.links.push({ url: answer.url, host, foundOn: origins.get(page) ?? page });
       else {
         const urls = out.foreign[host] ?? [];
         if (!urls.includes(answer.url)) urls.push(answer.url);
@@ -544,7 +588,7 @@ export async function readPages(
     out.opened.push(page);
     // Links resolve against where the page actually is, which after a redirect is not where it was asked for.
     for (const doc of linkedDocuments(answer.text, answer.url)) {
-      if (hostAllowed(doc.host, domains)) out.links.push(doc);
+      if (hostAllowed(doc.host, keep)) out.links.push(doc);
       else {
         // A CDN manual linked from a footer on twenty pages is one document, not twenty.
         const urls = out.foreign[doc.host] ?? [];
@@ -558,6 +602,15 @@ export async function readPages(
         linked.add(link);
         collected.push(link);
       }
+    // A link from the maker's own page to a document host with nothing in its address to say
+    // what it is, such as `/download?id=manual`, is worth one request to find out.
+    if (!away && documentHosts.length > 0)
+      for (const link of pageLinks(answer.text, answer.url, documentHosts))
+        if (!out.probes.some((p) => p.url === link)) {
+          if (out.probes.length < MAX_PROBES_PER_BATCH)
+            out.probes.push({ url: link, foundOn: answer.url });
+          else out.probesDropped += 1;
+        }
     // The page is already here for its links. Judging it as a specification table too costs
     // nothing and is how the feed list stops being hand-typed.
     const candidate = judgeSpecPage(page, answer.text);
@@ -602,6 +655,11 @@ function bound(out: PagesRead): void {
       out.foreign[host] = urls.slice(0, cap);
     }
   }
+  while (size() > MAX_RESULT_BYTES && out.probes.length > 0) {
+    const keep = Math.floor(out.probes.length * 0.8);
+    out.probesDropped += out.probes.length - keep;
+    out.probes = out.probes.slice(0, keep);
+  }
   // Last of all the finds themselves, counted so a plan built from a cut batch says so.
   while (size() > MAX_RESULT_BYTES && out.tables.length > 0) {
     const keep = Math.floor(out.tables.length * 0.8);
@@ -613,6 +671,20 @@ function bound(out: PagesRead): void {
     out.documentsDropped += out.links.length - keep;
     out.links = out.links.slice(0, keep);
   }
+}
+
+/**
+ * The document hosts a run may vouch for: the record's, and only when the run reads the record's
+ * own domains. The `/maker` route lets a caller name the domains, and a run over a reseller's site
+ * must not put files from the maker's CDN into the maker's plan.
+ */
+export function trustedDocumentHosts(
+  record: { domains: readonly string[]; documentHosts?: readonly string[] } | undefined,
+  domains: readonly string[],
+): string[] {
+  if (!record || domains.length === 0) return [];
+  const own = domains.every((d) => record.domains.includes(d));
+  return own ? [...(record.documentHosts ?? [])] : [];
 }
 
 /** What the records cite on a maker's hosts, as bundled with the maker list. */
@@ -692,6 +764,8 @@ export interface DiscoverySeen {
     /** Finds cut from batches to keep their results under the step cap. */
     documentsDropped?: number;
     tablesDropped?: number;
+    /** Document-host addresses found beyond what a batch or the run's probe allowance carries. */
+    probesDropped?: number;
     failed: Record<string, number>;
   };
   /** What the records cite on the maker's hosts: documents offered, pages read as seeds, and cited pages the page limit left out. */

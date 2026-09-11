@@ -1,8 +1,11 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
+  ACCEPT_ANYTHING,
+  ACCEPT_PAGE,
   discoverPages,
   type Fetched,
+  fetchAnything,
   fetchPage,
   type HostSeen,
   hopOrder,
@@ -13,11 +16,13 @@ import {
   MAX_FRONTIER_BYTES,
   MAX_LINKS_PER_BATCH,
   MAX_PAGE_BYTES,
+  MAX_PROBES_PER_BATCH,
   MAX_RESULT_BYTES,
   nextHop,
   pageLinks,
   readPages,
   seedPages,
+  trustedDocumentHosts,
   withCited,
 } from "../src/discover.ts";
 import { sample } from "../src/sitemap.ts";
@@ -578,6 +583,109 @@ test("links are followed product and download pages first, in the order they wer
   assert.deepEqual(hopOrder([]), []);
 });
 
+test("a document on a host the record names is the maker's when its own page links it, and not otherwise", async () => {
+  const { get } = site({
+    // A download link on the maker's site that lands on its CDN is the maker's document.
+    "https://maker.test/manual": { url: "https://cdn.shop.test/s/files/1/direct.pdf" },
+    // A CDN address with nothing in it to say what it is: handed back as a probe.
+    "https://maker.test/product/b": `<a href="https://cdn.shop.test/download?id=manual">manual</a><a href="https://cdn.shop.test/download?id=manual">again</a>`,
+    "https://cdn.shop.test/download?id=manual": { contentType: "application/pdf" },
+    "https://cdn.shop.test/download?id=page": { contentType: "text/html", text: "<p>x</p>" },
+    "https://maker.test/product/a": `<a href="https://cdn.shop.test/s/files/1/a-manual.pdf">manual</a><a href="https://other-cdn.test/x.pdf">elsewhere</a>`,
+    "https://maker.test/moved": {
+      url: "https://www.newname.test/moved",
+      text: `<a href="https://cdn.shop.test/s/files/1/b-manual.pdf">manual</a><a href="https://maker.test/own.pdf">own</a>`,
+    },
+  });
+  const read = await readPages(
+    ["https://maker.test/manual", "https://maker.test/product/a", "https://maker.test/moved"],
+    ["maker.test"],
+    get,
+    ["cdn.shop.test"],
+  );
+  assert.deepEqual(read.links, [
+    {
+      url: "https://cdn.shop.test/s/files/1/direct.pdf",
+      host: "cdn.shop.test",
+      foundOn: "https://maker.test/manual",
+    },
+    {
+      url: "https://cdn.shop.test/s/files/1/a-manual.pdf",
+      host: "cdn.shop.test",
+      foundOn: "https://maker.test/product/a",
+    },
+    {
+      url: "https://maker.test/own.pdf",
+      host: "maker.test",
+      foundOn: "https://www.newname.test/moved",
+    },
+  ]);
+  assert.deepEqual(
+    read.foreign,
+    {
+      "other-cdn.test": ["https://other-cdn.test/x.pdf"],
+      "cdn.shop.test": ["https://cdn.shop.test/s/files/1/b-manual.pdf"],
+    },
+    "a page that landed elsewhere vouches for nothing on the document host",
+  );
+  const probed = await readPages(["https://maker.test/product/b"], ["maker.test"], get, [
+    "cdn.shop.test",
+  ]);
+  assert.deepEqual(probed.probes, [
+    { url: "https://cdn.shop.test/download?id=manual", foundOn: "https://maker.test/product/b" },
+  ]);
+  const origins = new Map(probed.probes.map((p) => [p.url, p.foundOn]));
+  const answered = await readPages(
+    ["https://cdn.shop.test/download?id=manual", "https://cdn.shop.test/download?id=page"],
+    ["maker.test"],
+    get,
+    ["cdn.shop.test"],
+    origins,
+  );
+  assert.deepEqual(answered.links, [
+    {
+      url: "https://cdn.shop.test/download?id=manual",
+      host: "cdn.shop.test",
+      foundOn: "https://maker.test/product/b",
+    },
+  ]);
+  assert.deepEqual(answered.failed, { "a probe answered a page (text/html)": 1 });
+  assert.deepEqual(
+    [answered.redirectedTo, answered.read],
+    [[], 0],
+    "a probe is not a page read, nor a move",
+  );
+  assert.deepEqual(
+    answered.answered,
+    [],
+    "nor a page answering with a document: it is the link's find",
+  );
+  const unnamed = await readPages(["https://maker.test/product/b"], ["maker.test"], get);
+  assert.deepEqual(unnamed.probes, [], "with no document host named there is nothing to probe");
+  const without = await readPages(["https://maker.test/product/a"], ["maker.test"], get);
+  assert.deepEqual(without.links, [], "with no document host named, the CDN is still reported");
+  assert.deepEqual(without.foreign, {
+    "cdn.shop.test": ["https://cdn.shop.test/s/files/1/a-manual.pdf"],
+    "other-cdn.test": ["https://other-cdn.test/x.pdf"],
+  });
+});
+
+test("a record's document hosts count only for a run over the record's own domains", () => {
+  const record = { domains: ["maker.test", "files.maker.test"], documentHosts: ["cdn.shop.test"] };
+  assert.deepEqual(trustedDocumentHosts(record, ["maker.test", "files.maker.test"]), [
+    "cdn.shop.test",
+  ]);
+  assert.deepEqual(trustedDocumentHosts(record, ["maker.test"]), ["cdn.shop.test"]);
+  assert.deepEqual(
+    trustedDocumentHosts(record, ["reseller.test"]),
+    [],
+    "a caller's own domains cannot vouch for the maker's CDN",
+  );
+  assert.deepEqual(trustedDocumentHosts(record, ["maker.test", "reseller.test"]), []);
+  assert.deepEqual(trustedDocumentHosts({ domains: ["maker.test"] }, ["maker.test"]), []);
+  assert.deepEqual(trustedDocumentHosts(undefined, ["maker.test"]), []);
+});
+
 test("cited pages are read first and the sitemap's fill what is left of the budget", () => {
   const cited = {
     documents: [],
@@ -715,6 +823,8 @@ test("a listed page an earlier batch landed on is not asked for again", async ()
     ["https://maker.test/b"],
     ["maker.test"],
     get,
+    [],
+    undefined,
     new Set(["https://maker.test/b"]),
   );
   assert.deepEqual(asked, []);
@@ -767,4 +877,44 @@ test("a result over the cap keeps shrinking its foreign lists until it fits", as
   const read = await readPages(["https://maker.test/a"], ["maker.test"], get);
   assert.ok(new TextEncoder().encode(JSON.stringify(read)).length <= MAX_RESULT_BYTES);
   assert.ok(read.foreignDropped > 0);
+});
+
+test("probes are bounded per batch and in bytes, and what is left behind is counted", async () => {
+  const many = Array.from(
+    { length: MAX_PROBES_PER_BATCH + 5 },
+    (_, i) => `<a href="https://cdn.shop.test/download?id=${i}">${i}</a>`,
+  );
+  const { get } = site({ "https://maker.test/a": many.join("") });
+  const read = await readPages(["https://maker.test/a"], ["maker.test"], get, ["cdn.shop.test"]);
+  assert.equal(read.probes.length, MAX_PROBES_PER_BATCH);
+  assert.equal(read.probesDropped, 5);
+  const long = Array.from(
+    { length: 150 },
+    (_, i) => `<a href="https://cdn.shop.test/download?${"q".repeat(8000)}&id=${i}">${i}</a>`,
+  );
+  const big = site({ "https://maker.test/b": long.join("") });
+  const bounded = await readPages(["https://maker.test/b"], ["maker.test"], big.get, [
+    "cdn.shop.test",
+  ]);
+  assert.ok(JSON.stringify(bounded).length <= MAX_RESULT_BYTES);
+  assert.ok(bounded.probes.length > 0 && bounded.probes.length < 150);
+  assert.equal(bounded.probesDropped, 150 - bounded.probes.length);
+});
+
+test("a page request asks for pages and a probe asks for anything", async (t) => {
+  const accepts: string[] = [];
+  t.mock.method(globalThis, "fetch", async (_input: string | URL | Request, init?: RequestInit) => {
+    accepts.push(String((init?.headers as Record<string, string> | undefined)?.accept));
+    return new Response("<p>x</p>", { status: 200, headers: { "content-type": "text/html" } });
+  });
+  const page = await fetchPage("https://maker.test/page");
+  const probe = await fetchAnything("https://cdn.shop.test/download?id=1");
+  assert.deepEqual(accepts, [ACCEPT_PAGE, ACCEPT_ANYTHING]);
+  assert.equal(page.text, "<p>x</p>");
+  assert.equal(
+    probe.text,
+    "",
+    "a probe reads no body: an HTML page on a document host stays unread",
+  );
+  assert.equal(probe.contentType, "text/html", "its headers still say what it was");
 });
