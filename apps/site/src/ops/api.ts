@@ -5,11 +5,15 @@ export interface SellerState {
   sightings?: number;
   classified?: { parts: number; written: number };
 }
+/** How a plan's download was decided. The Worker leaves it out while the plan waits for somebody. */
+export const DECISIONS = ["approved", "refused", "lapsed"] as const;
+export type Decision = (typeof DECISIONS)[number];
 export interface MakerState {
   maker: string;
   date?: string;
   offered?: number;
   approvedBy?: string;
+  decision?: Decision;
   fetched?: number;
   sent?: number;
   converted?: number;
@@ -100,6 +104,12 @@ const date = (value: unknown): string => {
 };
 const optionalText = (value: unknown) => (value === undefined ? undefined : string(value));
 const optionalNumber = (value: unknown) => (value === undefined ? undefined : number(value));
+const optionalDecision = (value: unknown): Decision | undefined => {
+  if (value === undefined) return undefined;
+  const known = DECISIONS.find((decision) => decision === value);
+  if (!known) throw Error("The server returned an unknown download decision.");
+  return known;
+};
 
 /** Abort stale reads, bound waiting, and refuse responses too large for the dashboard. */
 export async function read(path: string, signal?: AbortSignal): Promise<unknown> {
@@ -196,6 +206,7 @@ export function parseState(value: unknown): Pick<Pipeline, "makers" | "sellers">
         date: row.date === undefined ? undefined : date(row.date),
         waitingOn: string(row.waitingOn),
         approvedBy: optionalText(row.approvedBy),
+        decision: optionalDecision(row.decision),
         offered: optionalNumber(row.offered),
         fetched: optionalNumber(row.fetched),
         sent: optionalNumber(row.sent),

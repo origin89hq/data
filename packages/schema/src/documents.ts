@@ -174,6 +174,37 @@ export function permitted(found: Found[], approval: CrawlApproval): Found[] {
 }
 
 /**
+ * How a plan's download was decided, written into the run as `decision.json` the moment it is. A
+ * refusal fetches nothing and so writes no manifest, and without this the run read as waiting for
+ * somebody long after somebody had answered (#71).
+ */
+export const DownloadDecision = z.discriminatedUnion("outcome", [
+  z
+    .object({
+      outcome: z.literal("approved"),
+      by: z.string().min(1),
+      /** Documents the approval lets the run fetch: its hosts and limit can leave fewer than offered. */
+      permitted: z.number().int().nonnegative(),
+      note: z.string().optional(),
+    })
+    .strict(),
+  z
+    .object({ outcome: z.literal("refused"), by: z.string().min(1), note: z.string().optional() })
+    .strict(),
+  /** Nobody answered within the window, or the answer could not be read. Silence is a refusal. */
+  z.object({ outcome: z.literal("lapsed"), reason: z.string().min(1) }).strict(),
+]);
+export type DownloadDecision = z.infer<typeof DownloadDecision>;
+
+/** The decision an answer records: who gave it, how many documents it permits, and its note. */
+export function decisionOf(approval: CrawlApproval, permits: number): DownloadDecision {
+  const note = approval.note ? { note: approval.note } : {};
+  return approval.approved
+    ? { outcome: "approved", by: approval.approvedBy, permitted: permits, ...note }
+    : { outcome: "refused", by: approval.approvedBy, ...note };
+}
+
+/**
  * Which language a document is written in, when its own file name says so.
  *
  * Sol-Ark publishes the 8K manual twice, as `..._UserManual_v1.0_ES_...pdf` and

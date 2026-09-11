@@ -19,11 +19,13 @@ export function RunDetail({
   row,
   login,
   onClose,
+  onApproved,
   onChanged,
 }: {
   row: RunRow;
   login: string;
   onClose: () => void;
+  onApproved: () => void;
   onChanged: () => void;
 }) {
   const [tab, setTab] = useState<"summary" | "documents" | "archive" | "actions">("summary");
@@ -51,12 +53,7 @@ export function RunDetail({
     selected?.documents.filter((doc) =>
       [doc.url, doc.host].some((value) => value.toLowerCase().includes(query.trim().toLowerCase())),
     ) ?? [];
-  const reviewing = Boolean(
-    row.maker &&
-      needsApproval(row.maker) &&
-      run &&
-      !["complete", "terminated", "errored", "unknown"].includes(run.status),
-  );
+  const reviewing = Boolean(row.maker && run && needsApproval(row.maker, run));
   const view = (next: typeof tab) => {
     setTab(next);
     if (next === "documents" && run && !documents.value && !documents.loading)
@@ -72,9 +69,9 @@ export function RunDetail({
       await approve(run, Number(limit), selected.documents.length);
       setSubmission({
         state: "sent",
-        text: `Approval sent to ${run.instance}. Refresh to see the workflow’s next step.`,
+        text: `Approval for up to ${limit} documents sent to ${run.instance}. The run shows it as approved once the workflow records it.`,
       });
-      onChanged();
+      onApproved();
     } catch (error) {
       setSubmission({ state: "uncertain", text: message(error) });
     }
@@ -129,7 +126,7 @@ export function RunDetail({
           <div className="ops-next">
             <p className="ops-eyebrow">NEXT STEP</p>
             <h3>{row.next}</h3>
-            {reviewing && (
+            {reviewing && submission?.state !== "sent" && (
               <button
                 type="button"
                 className="ops-button primary"
@@ -249,7 +246,7 @@ export function RunDetail({
                   onPage={setDocumentPage}
                   label="documents"
                 />
-                {reviewing && !documents.error && (
+                {reviewing && !documents.error && submission?.state !== "sent" && (
                   <div className="ops-approval">
                     <p className="ops-eyebrow">REVIEW BEFORE DOWNLOADING</p>
                     <h3>Give this run the go-ahead.</h3>
@@ -302,7 +299,7 @@ export function RunDetail({
                 {submission && (
                   <Notice alarm={submission.state === "uncertain"}>{submission.text}</Notice>
                 )}
-                {!reviewing && (
+                {!reviewing && !submission && (
                   <p className="ops-note">
                     This snapshot does not show a workflow awaiting download approval.
                   </p>

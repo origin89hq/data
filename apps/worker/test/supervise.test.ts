@@ -142,6 +142,24 @@ test("an empty discovery that replaces a run with documents is a concern, and a 
   );
 });
 
+test("a download somebody decided is not waiting on approval, however it was decided (#71)", async () => {
+  const objects: Record<string, string> = {};
+  const decided = (maker: string, documents: number, decision: object) => {
+    discovered(objects, maker, documents);
+    objects[`documents/${maker}/runs/2026-09-10-${maker}/decision.json`] = JSON.stringify(decision);
+  };
+  discovered(objects, "renogy", 3);
+  decided("spypoint", 2, { outcome: "refused", by: "ada", note: "trail cameras" });
+  decided("xylem", 4, { outcome: "lapsed", reason: "no answer within 3 days" });
+  decided("epever", 5, { outcome: "approved", by: "ada", permitted: 5 });
+  const { env } = world(objects);
+
+  const report = await supervise(env, "2026-09-10");
+  assert.deepEqual(report.blocked, [{ entity: "renogy", waitingOn: "approval for 3 documents" }]);
+  assert.deepEqual(report.started, [], "an approval still downloading has nothing to convert yet");
+  assert.deepEqual(report.concerns, []);
+});
+
 test("a run that wrote no plan is asked how it is doing, and one that died is a concern", async () => {
   const objects: Record<string, string> = {};
   const pointer = (maker: string) =>

@@ -1,3 +1,4 @@
+import { DownloadDecision } from "@origin89/equipment-schema/documents";
 import { PULL_PAGE_READER } from "@origin89/equipment-schema/provenance";
 import { atOnce, R2_AT_ONCE } from "./at-once.ts";
 import { classifierKey } from "./classify.ts";
@@ -35,7 +36,13 @@ export interface MakerState {
   offered?: number;
   /** Pages of its own that carry a specification table. */
   specPages?: number;
+  /** Who approved the download, from the moment the run records it rather than once it finishes. */
   approvedBy?: string;
+  /**
+   * How the download was decided. Absent while a plan waits for somebody, and for a plan that
+   * offered nothing: this, not `waitingOn`, says whether a person is needed.
+   */
+  decision?: DownloadDecision["outcome"];
   fetched?: number;
   /**
    * Documents sent to conversion: those fetched, less duplicates and translations. Conversion is
@@ -196,6 +203,28 @@ export function emptyPlanReason(seen: DiscoverySeen | undefined): string {
   return `nothing to fetch; read ${seen.pages.read} pages${sampled}, none links a document${rest}${strayed}`;
 }
 
+/** What a plan's download waits on once somebody decided it, or the window closed on it. */
+export function afterDecision(decision: DownloadDecision): string {
+  switch (decision.outcome) {
+    case "approved":
+      return decision.permitted > 0
+        ? `the download of ${decision.permitted} document${decision.permitted === 1 ? "" : "s"} approved by ${decision.by}`
+        : `nothing to fetch; the approval by ${decision.by} names none of the hosts the documents are on`;
+    case "refused":
+      return `download refused by ${decision.by}${decision.note ? `: ${decision.note}` : ""}`;
+    case "lapsed":
+      return `download not approved: ${decision.reason}`;
+  }
+}
+
+/**
+ * Whether a maker's plan waits for a person to approve or refuse its download. A refused run
+ * wrote no manifest, and read as waiting on somebody for as long as it stayed current (#71).
+ */
+export function awaitingApproval(maker: MakerState): boolean {
+  return (maker.offered ?? 0) > 0 && maker.decision === undefined;
+}
+
 export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
   // Every reading there is, listed once. This used to be a HEAD per approved document per maker,
   // which is thousands of requests for one status call and a miss logged for each of the documents
@@ -237,10 +266,24 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
     }
 
     const offered = plan?.documents?.length ?? 0;
+    // A manifest is an approval whenever it was given; before one, the run records its decision.
+    // A record that does not parse is left out, so the run is shown to a person as undecided
+    // rather than breaking every reader of the state or passing as decided.
+    const recorded =
+      !manifest && offered > 0 ? await json<unknown>(bucket, `${base}/decision.json`) : undefined;
+    const parsed = recorded === undefined ? undefined : DownloadDecision.safeParse(recorded);
+    if (parsed && !parsed.success)
+      console.warn(JSON.stringify({ message: "decision unreadable", maker, run: pointer.run }));
+    const decision = parsed?.success ? parsed.data : undefined;
+    const approvedBy =
+      manifest?.approvedBy ?? (decision?.outcome === "approved" ? decision.by : undefined);
+    const outcome = manifest ? "approved" : decision?.outcome;
+
     let waitingOn = "nothing";
     if (!plan) waitingOn = "discovery";
     else if (offered === 0 && !specPages) waitingOn = emptyPlanReason(plan.discovery);
-    else if (!manifest && offered > 0) waitingOn = "somebody to approve the download";
+    else if (!manifest && offered > 0)
+      waitingOn = decision ? afterDecision(decision) : "somebody to approve the download";
     else if (manifest && !converting) waitingOn = "conversion to be started";
     else if (converting && converted < converting.documents.length)
       waitingOn = `conversion, ${converting.documents.length - converted} of ${converting.documents.length} left`;
@@ -255,7 +298,9 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
       ...(pointer.instance ? { instance: pointer.instance } : {}),
       offered,
       ...(specPages ? { specPages: specPages.candidates } : {}),
-      ...(manifest ? { approvedBy: manifest.approvedBy, fetched: manifest.fetched } : {}),
+      ...(approvedBy ? { approvedBy } : {}),
+      ...(outcome ? { decision: outcome } : {}),
+      ...(manifest ? { fetched: manifest.fetched } : {}),
       ...(converting ? { sent: converting.documents.length, converted } : {}),
       ...(read ? { read } : {}),
       ...(seeing ? { seeing: seeing.converted } : {}),

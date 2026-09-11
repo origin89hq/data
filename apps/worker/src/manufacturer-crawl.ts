@@ -2,6 +2,8 @@ import { WorkflowEntrypoint, type WorkflowEvent, type WorkflowStep } from "cloud
 import {
   APPROVAL_EVENT,
   CrawlApproval,
+  type DownloadDecision,
+  decisionOf,
   type Found,
   hostAllowed,
   permitted,
@@ -334,6 +336,15 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       `Waiting for approval to fetch ${found.length} documents`,
     );
 
+    // The decision is written into the run before anything follows from it, so a refusal reads as
+    // one and no document is fetched under an approval the run does not record.
+    const decide = (decision: DownloadDecision) =>
+      step.do("record the decision", async () => {
+        await this.env.ARCHIVE.put(`${prefix}/decision.json`, JSON.stringify(decision, null, 2), {
+          httpMetadata: { contentType: "application/json" },
+        });
+      });
+
     // Everything above only read pages the maker already publishes to search engines. What
     // follows pulls files, so it does not start until a person says so.
     let approval: CrawlApproval;
@@ -347,7 +358,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     } catch (error) {
       const reason =
         error instanceof Error && /timed? ?out/i.test(error.message)
-          ? "no answer within the window"
+          ? `no answer within ${APPROVAL_TIMEOUT}`
           : `approval unreadable: ${error instanceof Error ? error.message : String(error)}`;
       console.log(
         JSON.stringify({
@@ -356,6 +367,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
           reason,
         }),
       );
+      await decide({ outcome: "lapsed", reason });
       await workflowActivity(
         this.env.ARCHIVE,
         step,
@@ -367,23 +379,28 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       return { manufacturer: manufacturerId, fetched: 0, reason };
     }
     const wanted = permitted(found, approval);
+    await decide(decisionOf(approval, wanted.length));
     await workflowActivity(
       this.env.ARCHIVE,
       step,
       activity,
       "decided",
-      `${wanted.length} of ${found.length} documents permitted`,
+      approval.approved
+        ? `${wanted.length} of ${found.length} documents permitted`
+        : `Download refused${approval.note ? `: ${approval.note}` : ""}`,
       approval.approvedBy,
     );
     if (wanted.length === 0) {
+      // A refusal permits nothing too, and is not an approval whose hosts missed.
+      const reason = approval.approved ? "approval permitted no host" : "download refused";
       console.log(
         JSON.stringify({
-          message: "approval permitted nothing",
+          message: approval.approved ? "approval permitted nothing" : reason,
           manufacturer: manufacturerId,
           approvedBy: approval.approvedBy,
         }),
       );
-      return { manufacturer: manufacturerId, fetched: 0, reason: "approval permitted no host" };
+      return { manufacturer: manufacturerId, fetched: 0, reason };
     }
 
     const stored: { url: string; sha256: string; bytes: number; contentType: string }[] = [];

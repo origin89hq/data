@@ -3,6 +3,7 @@ import { test } from "node:test";
 import {
   baseHref,
   CrawlApproval,
+  decisionOf,
   decodeEntities,
   documentLinks,
   type Found,
@@ -125,6 +126,30 @@ test("an approval narrows what discovery found and can never widen it", () => {
   assert.equal(
     permitted(found, CrawlApproval.parse({ approved: true, approvedBy: "David", limit: 1 })).length,
     1,
+  );
+});
+
+test("an answer is recorded as the decision it makes, with its approver and note (#71)", () => {
+  const answer = (over: object) => CrawlApproval.parse({ approvedBy: "ada", ...over });
+  assert.deepEqual(decisionOf(answer({ approved: false, note: "trail cameras" }), 0), {
+    outcome: "refused",
+    by: "ada",
+    note: "trail cameras",
+  });
+  assert.deepEqual(
+    decisionOf(answer({ approved: false, limit: 5 }), 0),
+    { outcome: "refused", by: "ada" },
+    "a refusal carries no count, whatever limit came with it",
+  );
+  assert.deepEqual(decisionOf(answer({ approved: true, limit: 2 }), 2), {
+    outcome: "approved",
+    by: "ada",
+    permitted: 2,
+  });
+  assert.deepEqual(
+    decisionOf(answer({ approved: true, hosts: ["elsewhere.test"], note: "sample" }), 0),
+    { outcome: "approved", by: "ada", permitted: 0, note: "sample" },
+    "an approval whose hosts missed is still an approval, of nothing",
   );
 });
 
