@@ -61,6 +61,9 @@ const held = (lease: Lease): LeaseHeld => {
   );
 };
 
+/** Rounds of reading and writing the lease before a caller gives up taking it. */
+const TAKE_ROUNDS = 3;
+
 /** Take the lease, or throw `LeaseHeld` saying who has it and until when. */
 export async function takeLease(
   bucket: R2Bucket,
@@ -69,23 +72,27 @@ export async function takeLease(
 ): Promise<Taken> {
   const holder = crypto.randomUUID();
   const lease = JSON.stringify({ holder, until: now + ms, what } satisfies Lease);
-  const current = await bucket.get(LEASE_KEY);
-  let written: R2Object | null;
-  if (current) {
-    const found = await current.json<Lease>();
-    if (found.until > now) throw held(found);
-    written = await bucket.put(LEASE_KEY, lease, { onlyIf: { etagMatches: current.etag } });
-  } else {
-    written = await bucket.put(LEASE_KEY, lease, { onlyIf: { etagDoesNotMatch: "*" } });
+  // Somebody can write it between the read and this write. A winner still holding it is reported
+  // like a lease found held. One that has already given it back leaves it free, so it is taken
+  // again: reported as held, an offer that won and finished would read as a pass to the schedule,
+  // which would skip the day. A few rounds, since each loss means somebody else got through.
+  for (let round = 0; round < TAKE_ROUNDS; round += 1) {
+    const current = await bucket.get(LEASE_KEY);
+    let written: R2Object | null;
+    if (current) {
+      const found = await current.json<Lease>();
+      if (found.until > now) throw held(found);
+      written = await bucket.put(LEASE_KEY, lease, { onlyIf: { etagMatches: current.etag } });
+    } else {
+      written = await bucket.put(LEASE_KEY, lease, { onlyIf: { etagDoesNotMatch: "*" } });
+    }
+    if (written) return { holder, etag: written.etag };
   }
-  if (!written) {
-    // Somebody wrote it between the read and this write. Say who and until when, as for a lease
-    // found held, unless the winner has already given it back.
-    const winner = await (await bucket.get(LEASE_KEY))?.json<Lease>();
-    if (winner && winner.until > now) throw held(winner);
-    throw new LeaseHeld("another caller took the lease first and has given it back", what, now);
-  }
-  return { holder, etag: written.etag };
+  throw new LeaseHeld(
+    `the lease changed hands ${TAKE_ROUNDS} times while it was being taken`,
+    what,
+    now,
+  );
 }
 
 /**

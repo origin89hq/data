@@ -81,6 +81,28 @@ test("two passes asking at once: exactly one takes it", async () => {
   );
 });
 
+test("a caller that loses the race to an offer already given back takes the lease on the next round", async () => {
+  // Reported as held, the offer would read as a pass to the schedule, which would skip the day.
+  const { env, store, read } = world();
+  const put = env.ARCHIVE.put.bind(env.ARCHIVE);
+  let raced = false;
+  Object.assign(env.ARCHIVE, {
+    put: async (key: string, value: string, options?: unknown) => {
+      if (!raced && key === LEASE_KEY) {
+        raced = true;
+        // An offer got its write in first, did its work and gave the lease back.
+        store.set(
+          LEASE_KEY,
+          new TextEncoder().encode(JSON.stringify({ holder: "offer", until: 0, what: "offer" })),
+        );
+      }
+      return put(key, value, options as never);
+    },
+  });
+  const taken = await takeLease(env.ARCHIVE, T0);
+  assert.deepEqual(read(LEASE_KEY), { holder: taken.holder, until: T0 + LEASE_MS, what: "pass" });
+});
+
 test("giving a lease back never clears one the next pass took after it ran out", async () => {
   const { env, read } = world();
   const slow = await takeLease(env.ARCHIVE, T0);
