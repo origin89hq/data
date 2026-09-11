@@ -12,6 +12,7 @@ import {
   MAX_CHILD_SITEMAPS,
   MAX_FRONTIER_BYTES,
   MAX_LINKS_PER_BATCH,
+  MAX_PAGE_BYTES,
   MAX_RESULT_BYTES,
   nextHop,
   pageLinks,
@@ -647,4 +648,41 @@ test("only anchors and areas navigate; a head link or an href inside another att
     "https://www.maker.test/product/real",
     "https://www.maker.test/product/area",
   ]);
+});
+
+test("a page is read up to a bound, and what a typeless endpoint sends beyond it is left unread", async (t) => {
+  const huge = "x".repeat(MAX_PAGE_BYTES + 100_000);
+  let cancelled = false;
+  t.mock.method(globalThis, "fetch", async () => {
+    const stream = new ReadableStream<Uint8Array>({
+      start(controller) {
+        const bytes = new TextEncoder().encode(huge);
+        for (let i = 0; i < bytes.length; i += 65536)
+          controller.enqueue(bytes.subarray(i, i + 65536));
+        controller.close();
+      },
+      cancel() {
+        cancelled = true;
+      },
+    });
+    // No content type at all, as some download endpoints answer.
+    return new Response(stream, { status: 200 });
+  });
+  const answer = await fetchPage("https://maker.test/download?id=1");
+  assert.equal(answer.text.length, MAX_PAGE_BYTES);
+  assert.equal(answer.truncated, true);
+  assert.equal(cancelled, true, "the rest of the body is cancelled, not drained");
+});
+
+test("a result over the cap keeps shrinking its foreign lists until it fits", async () => {
+  const hosts = Array.from({ length: 300 }, (_, h) =>
+    Array.from(
+      { length: 20 },
+      (_, i) => `<a href="https://cdn-${h}.other.test/${"z".repeat(300)}/${i}.pdf">${i}</a>`,
+    ).join(""),
+  );
+  const { get } = site({ "https://maker.test/a": hosts.join("") });
+  const read = await readPages(["https://maker.test/a"], ["maker.test"], get);
+  assert.ok(new TextEncoder().encode(JSON.stringify(read)).length <= MAX_RESULT_BYTES);
+  assert.ok(read.foreignDropped > 0);
 });

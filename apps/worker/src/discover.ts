@@ -26,6 +26,8 @@ export interface Fetched {
   contentType?: string;
   /** The host sent it as a file to save rather than a page to show. */
   attachment?: true;
+  /** The body was longer than a page is read for, and the rest was left unread. */
+  truncated?: true;
 }
 
 const mediaType = (answer: Fetched): string | undefined =>
@@ -65,14 +67,59 @@ export function isDocumentAnswer(answer: Fetched): boolean {
 
 export type Get = (url: string) => Promise<Fetched>;
 
+/** What a page request asks for. */
+export const ACCEPT_PAGE = "text/html,application/xhtml+xml,application/xml";
+
+/**
+ * How much of a page is read. A page is read for its links and its tables, and a couple of
+ * mebibytes holds any page worth reading; an endpoint that answers with no media type at all,
+ * which is read as a page for want of a better guess, cannot pull more than this before a person
+ * has approved anything.
+ */
+export const MAX_PAGE_BYTES = 2 * 1024 * 1024;
+
+/** The body up to `limit` bytes, cancelling the rest, and whether anything was left unread. */
+async function readBounded(
+  response: Response,
+  limit: number,
+): Promise<{ text: string; truncated: boolean }> {
+  const reader = response.body?.getReader();
+  if (!reader) return { text: "", truncated: false };
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  let truncated = false;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value);
+    total += value.length;
+    if (total >= limit) {
+      truncated = true;
+      await reader.cancel();
+      break;
+    }
+  }
+  const joined = new Uint8Array(Math.min(total, limit));
+  let at = 0;
+  for (const chunk of chunks) {
+    const take = Math.min(chunk.length, joined.length - at);
+    joined.set(chunk.subarray(0, take), at);
+    at += take;
+    if (at >= joined.length) break;
+  }
+  return { text: new TextDecoder().decode(joined), truncated };
+}
+
 /** A page or sitemap, read the way a browser would follow it, and never thrown. */
-export async function fetchPage(url: string): Promise<Fetched> {
+export async function fetchPage(
+  url: string,
+  accept: string = ACCEPT_PAGE,
+  /** Whether a page's body is wanted at all; a probe wants only the headers. */
+  readBody = true,
+): Promise<Fetched> {
   try {
     const response = await fetch(url, {
-      headers: {
-        "user-agent": USER_AGENT,
-        accept: "text/html,application/xhtml+xml,application/xml",
-      },
+      headers: { "user-agent": USER_AGENT, accept },
       redirect: "follow",
     });
     const contentType = response.headers.get("content-type") ?? undefined;
@@ -89,8 +136,11 @@ export async function fetchPage(url: string): Promise<Fetched> {
     // A sitemap served as plain text is still a sitemap to read, not a file to offer.
     const sitemapAsText =
       mediaType(answer) === "text/plain" && /sitemap|\.xml(?:$|[?#])/i.test(url);
-    if (response.ok && (isPage(answer) || sitemapAsText)) answer.text = await response.text();
-    else await response.body?.cancel();
+    if (readBody && response.ok && (isPage(answer) || sitemapAsText)) {
+      const body = await readBounded(response, MAX_PAGE_BYTES);
+      answer.text = body.text;
+      if (body.truncated) answer.truncated = true;
+    } else await response.body?.cancel();
     return answer;
   } catch {
     return { status: 0, url, text: "" };
@@ -534,17 +584,23 @@ export async function readPages(
  * foreign document lists, since both are counts a person reads and neither is lost entirely.
  */
 function bound(out: PagesRead): void {
-  const size = () => JSON.stringify(out).length;
+  // Measured as the bytes a step result is, not as code units: a table of model names in
+  // another script is longer on the wire than in a string.
+  const size = () => new TextEncoder().encode(JSON.stringify(out)).length;
   while (size() > MAX_RESULT_BYTES && out.pages.length > 0) {
     const keep = Math.floor(out.pages.length * 0.8);
     out.linksDropped += out.pages.length - keep;
     out.pages = out.pages.slice(0, keep);
   }
-  for (const host of Object.keys(out.foreign)) {
+  // Foreign lists shrink in rounds, twenty a host and then fewer, until the result fits or the
+  // lists are gone; the counts a person reads survive in `foreignDropped`.
+  for (const cap of [20, 10, 5, 2, 1, 0]) {
     if (size() <= MAX_RESULT_BYTES) break;
-    const urls = out.foreign[host] ?? [];
-    out.foreignDropped += Math.max(0, urls.length - 20);
-    out.foreign[host] = urls.slice(0, 20);
+    for (const host of Object.keys(out.foreign)) {
+      const urls = out.foreign[host] ?? [];
+      out.foreignDropped += Math.max(0, urls.length - cap);
+      out.foreign[host] = urls.slice(0, cap);
+    }
   }
   // Last of all the finds themselves, counted so a plan built from a cut batch says so.
   while (size() > MAX_RESULT_BYTES && out.tables.length > 0) {

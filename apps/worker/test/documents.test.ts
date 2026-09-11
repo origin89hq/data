@@ -202,3 +202,19 @@ test("an unquoted base href counts, and href text outside a link element does no
     ["https://www.victronenergy.com/manuals/sheet.pdf"],
   );
 });
+
+test("a base tag inside a comment or a script is text, and the real base wins", () => {
+  const html = `<!-- <base href="/old/"> --><script>document.write('<base href="/js/">')</script><base href="/catalog/"><a href="x.pdf">x</a>`;
+  assert.equal(
+    baseHref(html, "https://www.victronenergy.com/p/"),
+    "https://www.victronenergy.com/catalog/",
+  );
+  assert.deepEqual(
+    linkedDocuments(html, "https://www.victronenergy.com/p/").map((f) => f.url),
+    ["https://www.victronenergy.com/catalog/x.pdf"],
+  );
+  assert.equal(
+    baseHref(`<!-- <base href="/old/"> --><p>none</p>`, "https://x.test/p"),
+    "https://x.test/p",
+  );
+});
