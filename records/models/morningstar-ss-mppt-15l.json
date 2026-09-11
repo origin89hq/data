@@ -7,6 +7,12 @@
     "MOR-163-125"
   ],
   "dialects": [
-    "morningstar-sunsaver-mppt"
+    {
+      "dialect": "morningstar-sunsaver-mppt",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

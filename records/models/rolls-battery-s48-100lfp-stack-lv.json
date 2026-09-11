@@ -7,7 +7,19 @@
     "Rolls S48-100LFP STACK-LV"
   ],
   "dialects": [
-    "rolls-lfp-stack-lv-48v",
-    "rolls-stack-lv-can"
+    {
+      "dialect": "rolls-lfp-stack-lv-48v",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "rolls-stack-lv-can",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

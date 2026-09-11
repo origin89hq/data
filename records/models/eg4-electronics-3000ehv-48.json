@@ -4,6 +4,12 @@
   "name": "3000EHV-48",
   "aliases": [],
   "dialects": [
-    "eg4-3000ehv"
+    {
+      "dialect": "eg4-3000ehv",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

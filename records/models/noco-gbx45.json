@@ -5,6 +5,12 @@
   "kind": "jump-starter",
   "aliases": [],
   "dialects": [
-    "noco-out-of-scope"
+    {
+      "dialect": "noco-out-of-scope",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

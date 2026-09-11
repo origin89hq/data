@@ -1,6 +1,7 @@
 import { readdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { Model, Spec } from "@origin89/equipment-schema/model";
+import { mergeLinks } from "../../src/dialect-links.ts";
 import { preferredName, productKey } from "../../src/models.ts";
 import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 
@@ -36,8 +37,9 @@ const specsOf = new Map<string, Spec[]>();
 for (const spec of records.specs)
   specsOf.set(spec.model, [...(specsOf.get(spec.model) ?? []), spec]);
 
-const merged: { keep: Model; drop: Model[] }[] = [];
+const merged: { keep: Model; drop: Model[]; survivor: Model }[] = [];
 const disputed: Model[][] = [];
+const overflowing: { group: Model[]; reason: string }[] = [];
 for (const group of groups.values()) {
   if (group.length < 2) continue;
   const kinds = new Set(group.map((m) => m.kind).filter(Boolean));
@@ -48,21 +50,31 @@ for (const group of groups.values()) {
   const name = preferredName(group.map((m) => m.name));
   const keep = group.find((m) => m.name === name) ?? group[0];
   if (!keep) throw new Error("Duplicate group has no keeper");
-  merged.push({ keep, drop: group.filter((m) => m.id !== keep.id) });
+  const drop = group.filter((m) => m.id !== keep.id);
+  const aliases = new Set([...keep.aliases, ...drop.flatMap((m) => [m.name, ...m.aliases])]);
+  aliases.delete(keep.name);
+  // The survivor is settled before anything is written: two records whose links cite more
+  // between them than a link may carry are left for a person, and nothing of theirs moves.
+  let survivor: Model;
+  try {
+    survivor = Model.parse({
+      ...keep,
+      aliases: [...aliases].sort(),
+      // A kind stated once in the group is the group's kind, wherever it was written down.
+      ...(keep.kind ? {} : { kind: drop.find((m) => m.kind)?.kind }),
+      dialects: mergeLinks(keep.dialects, ...drop.map((m) => m.dialects)),
+    });
+  } catch (error) {
+    if (!(error instanceof RangeError)) throw error;
+    overflowing.push({ group, reason: error.message });
+    continue;
+  }
+  merged.push({ keep, drop, survivor });
 }
 
 let movedSpecs = 0;
 let droppedSpecs = 0;
-for (const { keep, drop } of merged) {
-  const aliases = new Set([...keep.aliases, ...drop.flatMap((m) => [m.name, ...m.aliases])]);
-  aliases.delete(keep.name);
-  const survivor = Model.parse({
-    ...keep,
-    aliases: [...aliases].sort(),
-    // A kind stated once in the group is the group's kind, wherever it was written down.
-    ...(keep.kind ? {} : { kind: drop.find((m) => m.kind)?.kind }),
-    dialects: [...new Set([...keep.dialects, ...drop.flatMap((m) => m.dialects)])].sort(),
-  });
+for (const { keep, drop, survivor } of merged) {
   if (!dryRun) writeRecord(RECORDS_DIR, "models", keep.id, survivor);
 
   // The figures follow the product. A spec's id carries its model, so each one is rewritten onto
@@ -86,11 +98,17 @@ for (const { keep, drop } of merged) {
 }
 
 // A figure dropped as a repeat can be the only thing citing its document, and a source nothing
-// cites is an orphan the validator refuses.
+// cites is an orphan the validator refuses. A link's evidence cites too, and a link carried onto
+// the survivor keeps its document.
 let orphans = 0;
 if (!dryRun) {
   const after = loadRecords();
-  const cited = new Set(after.specs.map((spec) => spec.source));
+  const cited = new Set([
+    ...after.specs.map((spec) => spec.source),
+    ...after.models.flatMap((m) =>
+      m.dialects.flatMap((l) => l.evidence.sources.map((c) => c.source)),
+    ),
+  ]);
   for (const source of after.sources) {
     if (!source.id.startsWith("doc-") || cited.has(source.id)) continue;
     rmSync(join(RECORDS_DIR, "sources", `${source.id}.json`), { force: true });
@@ -107,6 +125,14 @@ console.log(
 );
 for (const { keep, drop } of merged.slice(0, 12)) {
   console.log(`      ${keep.id}  ←  ${drop.map((m) => JSON.stringify(m.name)).join(", ")}`);
+}
+if (overflowing.length) {
+  console.log(
+    `\n${overflowing.length} groups left alone because their links cite more between them than a link may carry:`,
+  );
+  for (const { group, reason } of overflowing)
+    console.log(`  ${group.map((m) => m.id).join(", ")}: ${reason}`);
+  console.log("  Merge those citations by hand, keeping the ones that say something distinct.");
 }
 if (disputed.length) {
   console.log(

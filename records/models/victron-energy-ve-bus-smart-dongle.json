@@ -5,8 +5,26 @@
   "kind": "balance-of-system",
   "aliases": [],
   "dialects": [
-    "victron-ble-instant-readout-vebus",
-    "victron-ble-vebus-record-0c",
-    "victron-vebus-interfaces"
+    {
+      "dialect": "victron-ble-instant-readout-vebus",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "victron-ble-vebus-record-0c",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "victron-vebus-interfaces",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

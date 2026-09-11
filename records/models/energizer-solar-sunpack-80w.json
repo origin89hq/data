@@ -5,6 +5,12 @@
   "kind": "panel",
   "aliases": [],
   "dialects": [
-    "energizer-solar-everest-no-comms"
+    {
+      "dialect": "energizer-solar-everest-no-comms",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

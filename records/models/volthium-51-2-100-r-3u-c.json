@@ -5,6 +5,12 @@
   "kind": "battery",
   "aliases": [],
   "dialects": [
-    "volthium-rack-3u"
+    {
+      "dialect": "volthium-rack-3u",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

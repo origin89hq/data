@@ -4,7 +4,13 @@
   "name": "TS-45",
   "aliases": [],
   "dialects": [
-    "morningstar-tristar-pwm"
+    {
+      "dialect": "morningstar-tristar-pwm",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ],
   "kind": "charge-controller"
 }

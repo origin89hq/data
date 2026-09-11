@@ -294,10 +294,47 @@ export function tables(records: Records, feeds = readFeeds()): Table[] {
       rows: modelKeyRows(records, brandsByMaker, feedRows),
     },
     {
+      // Each link says how it was made and what the sources support (#84): a register match
+      // and the catalogue naming the model are not the same claim.
       name: "model_dialects",
-      columns: [col("model_id"), col("dialect_id")],
+      columns: [
+        col("model_id"),
+        col("dialect_id"),
+        col("evidence_kind"),
+        col("confidence"),
+        col("firmware_min"),
+        col("firmware_max"),
+      ],
       rows: records.models.flatMap((m) =>
-        m.dialects.map((dialect_id) => ({ model_id: m.id, dialect_id })),
+        m.dialects.map((link) => ({
+          model_id: m.id,
+          dialect_id: link.dialect,
+          evidence_kind: link.evidence.kind,
+          confidence: link.confidence,
+          firmware_min: link.firmware?.min,
+          firmware_max: link.firmware?.max,
+        })),
+      ),
+    },
+    {
+      name: "model_dialect_sources",
+      columns: [
+        col("model_id"),
+        col("dialect_id"),
+        col("position", "INTEGER"),
+        col("source_id"),
+        col("citation"),
+      ],
+      rows: records.models.flatMap((m) =>
+        m.dialects.flatMap((link) =>
+          link.evidence.sources.map((c, position) => ({
+            model_id: m.id,
+            dialect_id: link.dialect,
+            position,
+            source_id: c.source,
+            citation: c.citation,
+          })),
+        ),
       ),
     },
     {

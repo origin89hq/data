@@ -1,4 +1,4 @@
-import { LOAD_PART_MAX, Release } from "@origin89/equipment-schema/releases";
+import { isLoadPart, LOAD_PART_MAX, Release } from "@origin89/equipment-schema/releases";
 import {
   activate,
   countRows,
@@ -8,6 +8,7 @@ import {
   type LoadRow,
   loadedTables,
   PINNED_RELEASES,
+  RECENT_RELEASES_KEPT,
   RetentionFailed,
   releaseRow,
   retain,
@@ -57,25 +58,46 @@ export async function loadRelease(
   });
   const plan = release.load;
   if (!plan) return fail(db, step, releaseId, "the release carries no load plan");
-  // Every table the store serves has to be in the plan, with no parts when it has no rows: a
-  // plan that leaves one out would load a subset and call it the release.
-  const omitted = Object.keys(LOADED_TABLES).filter((table) => !(table in plan.tables));
+  // Every table the release publishes and the store serves has to be in the plan, with no parts
+  // when it has no rows: a plan that leaves one out would load a subset and call it the
+  // release. A table the store gained after the release was published is not in its files at
+  // all, and is loaded empty, so an older pinned or retained release stays loadable.
+  const publishes = (table: string) =>
+    Object.keys(release.files).some(
+      (name) =>
+        name === `${table}.csv` ||
+        name === `${table}.parquet` ||
+        (isLoadPart(name) && name.replace(/_\d{4}\.ndjson$/, "") === table),
+    );
+  const omitted = Object.keys(LOADED_TABLES).filter(
+    (table) => !(table in plan.tables) && publishes(table),
+  );
   if (omitted.length) return fail(db, step, releaseId, `the load plan omits ${omitted.join(", ")}`);
 
   const begun = await step.do("begin", async () => {
-    await createSchema(db);
-    // A failed row is taken over; one on its way out is left for retention to finish first.
-    const existing = await releaseRow(db, releaseId);
-    if (existing && existing.state !== "failed") return existing.state;
-    await db
+    // A load that finds the store on an older schema recreates it, and notes what has to come
+    // back beside this release, so the other recent and pinned releases are not left out
+    // behind the row this load is about to write.
+    await prepareStore(
+      bucket,
+      db,
+      options.pinned,
+      (options.recent ?? RECENT_RELEASES_KEPT) + 1,
+      releaseId,
+    );
+    // One statement takes the release: a row is inserted, or a failed one taken over, and any
+    // other row (loading, held, or on its way out) leaves it untouched with nothing changed, so
+    // two loads of one release started together cannot both proceed into its parts.
+    const taken = await db
       .prepare(
-        "INSERT OR REPLACE INTO releases (id, content, published_at, state, counts) VALUES (?, ?, ?, 'loading', '{}')",
+        "INSERT INTO releases (id, content, published_at, state, counts) VALUES (?, ?, ?, 'loading', '{}') ON CONFLICT(id) DO UPDATE SET content = excluded.content, published_at = excluded.published_at, state = 'loading', error = NULL, counts = '{}' WHERE releases.state = 'failed'",
       )
       .bind(releaseId, release.content, release.at)
       .run();
-    return "loading";
+    if ((taken.meta?.changes ?? 0) > 0) return { taken: true as const };
+    return { taken: false as const, state: (await releaseRow(db, releaseId))?.state ?? "unknown" };
   });
-  if (begun !== "loading") return { outcome: "already", state: begun };
+  if (!begun.taken) return { outcome: "already", state: begun.state };
 
   try {
     const counts: Record<string, number> = {};
@@ -92,6 +114,8 @@ export async function loadRelease(
         throw new Error(`${table}: ${loaded} rows loaded, the plan says ${expected}`);
       counts[table] = loaded;
     }
+    // A table the release predates has no rows, and the count says so.
+    for (const table of Object.keys(LOADED_TABLES)) counts[table] ??= 0;
     await step.do("verify", async () => {
       for (const [table, expected] of Object.entries(counts)) {
         const stored = await countRows(db, table, releaseId);
@@ -190,7 +214,7 @@ export async function reloadPinned(
   pinned: readonly string[] = PINNED_RELEASES,
 ): Promise<string[]> {
   // A store just created has no tables yet, and a pinned release is what fills it.
-  await createSchema(db);
+  await prepareStore(env.ARCHIVE, db, pinned);
   const started: string[] = [];
   for (const release of pinned) {
     // A release the store holds, is loading, or is letting go is left alone; one whose load
@@ -206,4 +230,117 @@ export async function reloadPinned(
     started.push(release);
   }
   return started;
+}
+
+/** The newest `n` releases in the feed, newest first. */
+export async function recentReleases(bucket: R2Bucket, n: number): Promise<string[]> {
+  const page = await bucket.list({ prefix: "releases/feed/", limit: n });
+  return page.objects.map((o) => o.key.slice(o.key.lastIndexOf("-") + 1, -".json".length));
+}
+
+/** The `meta` key under which a restore keeps the releases it has still to start. */
+const RESTORE_PENDING = "restore_pending";
+
+/** The releases the store is documented to hold and the archive has: the recent ones and the pinned ones, `except` one left out. */
+async function wantedReleases(
+  bucket: R2Bucket,
+  pinned: readonly string[],
+  recent: number,
+  except?: string,
+): Promise<string[]> {
+  const held: string[] = [];
+  for (const release of new Set([...(await recentReleases(bucket, recent)), ...pinned]))
+    if (release !== except && (await bucket.head(releaseKey(release)))) held.push(release);
+  return held;
+}
+
+/**
+ * The store's tables, and, when that meant recreating them, a note of every release that has to
+ * come back: whoever touches an old store first, a load, the daily pass or a read, leaves the
+ * restore list behind for `restoreIfEmpty` to work through, so the release that caused the reset
+ * is never the only one the store holds afterwards. Returns whether the store was recreated.
+ */
+export async function prepareStore(
+  bucket: R2Bucket,
+  db: Store,
+  pinned: readonly string[] = PINNED_RELEASES,
+  recent = RECENT_RELEASES_KEPT + 1,
+  except?: string,
+): Promise<boolean> {
+  const reset = await createSchema(db);
+  if (reset) await setRestorePending(db, await wantedReleases(bucket, pinned, recent, except));
+  return reset;
+}
+
+async function restorePending(db: Store): Promise<string[]> {
+  const row = await db
+    .prepare("SELECT value FROM meta WHERE key = ?")
+    .bind(RESTORE_PENDING)
+    .first<{ value: string }>();
+  const parsed: unknown = row ? JSON.parse(row.value) : [];
+  return Array.isArray(parsed) ? parsed.filter((v): v is string => typeof v === "string") : [];
+}
+
+async function setRestorePending(db: Store, releases: readonly string[]): Promise<void> {
+  if (releases.length === 0)
+    await db.prepare("DELETE FROM meta WHERE key = ?").bind(RESTORE_PENDING).run();
+  else
+    await db
+      .prepare("INSERT OR REPLACE INTO meta (key, value) VALUES (?, ?)")
+      .bind(RESTORE_PENDING, JSON.stringify(releases))
+      .run();
+}
+
+/**
+ * Put back what the store is documented to hold. A store with no release at all, a database
+ * just created, gets the recent releases and the pinned ones; a store recreated for new tables
+ * works through the restore list `prepareStore` left, whatever rows the load that caused the
+ * reset has written since. The newest release becomes active as its load lands; the rest are
+ * loaded beside it, so a retained release asked for by id and a pinned evaluation are answered
+ * after a reset as before it. Otherwise a store with any row, even a failed one, is left as it
+ * is: a release that cannot load is a person's to repair with `POST /load`, or the daily
+ * pass's for a pinned one, not every isolate's to retry.
+ *
+ * The releases a restore has still to start are kept in `meta` and taken off as each load is
+ * started, so a Workflow that could not be started is tried again by the next call rather than
+ * left out for good behind the rows the others wrote. Returns the releases started this call
+ * and those still pending.
+ */
+export async function restoreIfEmpty(
+  env: Pick<Env, "ARCHIVE" | "RELEASE_LOAD">,
+  db: Store,
+  pinned: readonly string[] = PINNED_RELEASES,
+  recent = RECENT_RELEASES_KEPT + 1,
+): Promise<{ started: string[]; pending: string[] }> {
+  await prepareStore(env.ARCHIVE, db, pinned, recent);
+  let wanted = await restorePending(db);
+  if (wanted.length === 0) {
+    const any = await db.prepare("SELECT 1 FROM releases LIMIT 1").first();
+    if (any) return { started: [], pending: [] };
+    const held = await wantedReleases(env.ARCHIVE, pinned, recent);
+    if (held.length === 0) return { started: [], pending: [] };
+    await setRestorePending(db, held);
+    wanted = held;
+  }
+  const started: string[] = [];
+  const pending: string[] = [];
+  for (const release of wanted) {
+    try {
+      await env.RELEASE_LOAD.create({ id: reloadInstanceId(release), params: { release } });
+      started.push(release);
+      await setRestorePending(db, [...pending, ...wanted.slice(wanted.indexOf(release) + 1)]);
+    } catch (error) {
+      pending.push(release);
+      console.log(
+        JSON.stringify({
+          message: "release restore could not start",
+          release,
+          error: String(error),
+        }),
+      );
+    }
+  }
+  if (started.length)
+    console.log(JSON.stringify({ message: "release store restoring", releases: started, pending }));
+  return { started, pending };
 }

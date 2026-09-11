@@ -5,6 +5,12 @@
   "kind": "ac-charger",
   "aliases": [],
   "dialects": [
-    "noco-geniuspro"
+    {
+      "dialect": "noco-geniuspro",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

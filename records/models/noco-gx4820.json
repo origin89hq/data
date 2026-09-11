@@ -5,6 +5,12 @@
   "kind": "jump-starter",
   "aliases": [],
   "dialects": [
-    "noco-gx-dryio"
+    {
+      "dialect": "noco-gx-dryio",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

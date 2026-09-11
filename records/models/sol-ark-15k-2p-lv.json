@@ -7,6 +7,12 @@
     "Sol-Ark 15K-2P-LV"
   ],
   "dialects": [
-    "solark-hybrid-rtu-v1"
+    {
+      "dialect": "solark-hybrid-rtu-v1",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

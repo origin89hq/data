@@ -5,8 +5,26 @@
   "kind": "inverter-charger",
   "aliases": [],
   "dialects": [
-    "solark-dongle-uart",
-    "solark-hybrid-rtu-v1",
-    "solark-mysolark-cloud"
+    {
+      "dialect": "solark-dongle-uart",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "solark-hybrid-rtu-v1",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "solark-mysolark-cloud",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

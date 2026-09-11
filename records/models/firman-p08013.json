@@ -5,6 +5,12 @@
   "kind": "generator",
   "aliases": [],
   "dialects": [
-    "firman-portable-no-comms"
+    {
+      "dialect": "firman-portable-no-comms",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

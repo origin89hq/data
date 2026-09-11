@@ -5,6 +5,12 @@
   "kind": "battery",
   "aliases": [],
   "dialects": [
-    "rolls-lfp-stack-lv-48v"
+    {
+      "dialect": "rolls-lfp-stack-lv-48v",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

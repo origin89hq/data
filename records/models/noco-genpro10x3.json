@@ -5,6 +5,12 @@
   "kind": "ac-charger",
   "aliases": [],
   "dialects": [
-    "noco-gen-onboard"
+    {
+      "dialect": "noco-gen-onboard",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

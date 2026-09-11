@@ -7,6 +7,12 @@
     "MID-164-212"
   ],
   "dialects": [
-    "midnite-brat"
+    {
+      "dialect": "midnite-brat",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

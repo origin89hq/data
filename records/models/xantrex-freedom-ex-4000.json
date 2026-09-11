@@ -5,6 +5,12 @@
   "kind": "inverter-charger",
   "aliases": [],
   "dialects": [
-    "xantrex-rv-c-unknown"
+    {
+      "dialect": "xantrex-rv-c-unknown",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

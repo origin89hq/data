@@ -5,6 +5,12 @@
   "kind": "bms",
   "aliases": [],
   "dialects": [
-    "victron-bms-dry-contact"
+    {
+      "dialect": "victron-bms-dry-contact",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

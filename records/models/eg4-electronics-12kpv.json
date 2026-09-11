@@ -5,6 +5,12 @@
   "kind": "inverter-charger",
   "aliases": [],
   "dialects": [
-    "eg4-luxpower-v58"
+    {
+      "dialect": "eg4-luxpower-v58",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

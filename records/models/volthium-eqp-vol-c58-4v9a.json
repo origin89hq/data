@@ -7,6 +7,12 @@
     "VLT-162-138"
   ],
   "dialects": [
-    "volthium-ac-charger-no-comms"
+    {
+      "dialect": "volthium-ac-charger-no-comms",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

@@ -7,6 +7,12 @@
     "XXX-XXX-190"
   ],
   "dialects": [
-    "powermax-pm3-12v"
+    {
+      "dialect": "powermax-pm3-12v",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

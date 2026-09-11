@@ -5,6 +5,12 @@
   "kind": "charge-controller",
   "aliases": [],
   "dialects": [
-    "victron-ble-instant-readout"
+    {
+      "dialect": "victron-ble-instant-readout",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

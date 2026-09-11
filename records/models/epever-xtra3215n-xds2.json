@@ -7,6 +7,12 @@
     "EPS-163-109"
   ],
   "dialects": [
-    "epever-tracer-a"
+    {
+      "dialect": "epever-tracer-a",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

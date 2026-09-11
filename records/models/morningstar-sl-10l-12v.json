@@ -7,6 +7,12 @@
     "XXX-XXX-125"
   ],
   "dialects": [
-    "morningstar-pwm-no-comms"
+    {
+      "dialect": "morningstar-pwm-no-comms",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

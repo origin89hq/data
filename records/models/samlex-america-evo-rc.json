@@ -5,6 +5,12 @@
   "kind": "inverter-charger",
   "aliases": [],
   "dialects": [
-    "samlex-evo-remote-panel-link"
+    {
+      "dialect": "samlex-evo-remote-panel-link",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

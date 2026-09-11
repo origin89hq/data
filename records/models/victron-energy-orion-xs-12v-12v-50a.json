@@ -5,8 +5,26 @@
   "kind": "dc-dc-converter",
   "aliases": [],
   "dialects": [
-    "victron-ble-orion-xs",
-    "victron-orion-xs-hex",
-    "victron-vedirect-text-orion-xs"
+    {
+      "dialect": "victron-ble-orion-xs",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "victron-orion-xs-hex",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "victron-vedirect-text-orion-xs",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

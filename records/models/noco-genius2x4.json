@@ -5,6 +5,12 @@
   "kind": "ac-charger",
   "aliases": [],
   "dialects": [
-    "noco-charger-unread"
+    {
+      "dialect": "noco-charger-unread",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

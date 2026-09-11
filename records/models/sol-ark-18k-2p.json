@@ -5,8 +5,26 @@
   "kind": "inverter-charger",
   "aliases": [],
   "dialects": [
-    "solark-18k-2p-unknown",
-    "solark-dongle-uart",
-    "solark-mysolark-cloud"
+    {
+      "dialect": "solark-18k-2p-unknown",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "solark-dongle-uart",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "solark-mysolark-cloud",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

@@ -5,6 +5,12 @@
   "kind": "inverter-charger",
   "aliases": [],
   "dialects": [
-    "samlex-evo-modbus-22xx-40xx"
+    {
+      "dialect": "samlex-evo-modbus-22xx-40xx",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

@@ -252,8 +252,25 @@ async function fixture(
       {
         model_id: "victron-energy-smartsolar-mppt-150-35",
         dialect_id: "victron-mppt-vedirect-hex",
+        evidence_kind: "register-match",
+        confidence: "vendor-doc",
+        firmware_min: "1.61",
       },
-      { model_id: "epever-xtra4210n", dialect_id: "epever-xtra-n-g3" },
+      {
+        model_id: "epever-xtra4210n",
+        dialect_id: "epever-xtra-n-g3",
+        evidence_kind: "catalogue-name",
+        confidence: "unverified",
+      },
+    ],
+    model_dialect_sources: [
+      {
+        model_id: "victron-energy-smartsolar-mppt-150-35",
+        dialect_id: "victron-mppt-vedirect-hex",
+        position: 0,
+        source_id: "doc-victron-150-35",
+        citation: "VE.Direct port, p. 4",
+      },
     ],
     sources: [
       {
@@ -460,6 +477,21 @@ test("a bundle carries the models, their claims, their protocol links and exactl
         undefined,
       ],
     ],
+  );
+  assert.deepEqual(
+    out.protocol.map((p) => [p.evidence, p.confidence, p.firmware]),
+    [
+      [{ kind: "catalogue-name", sources: [] }, "unverified", undefined],
+      [
+        {
+          kind: "register-match",
+          sources: [{ source: "doc-victron-150-35", citation: "VE.Direct port, p. 4" }],
+        },
+        "vendor-doc",
+        { min: "1.61" },
+      ],
+    ],
+    "a link says how it was made, and its citation is among the bundle's sources",
   );
   assert.deepEqual(
     out.protocol.map((p) => [
@@ -997,4 +1029,87 @@ test("a brand more makers answer to than a page can bind is refused with the rea
     /prefix has no letters or digits/,
     "not a page of everything",
   );
+});
+
+test("a link's citations come in their order past ten, and citations are read for the links kept, no more (#84)", async () => {
+  const dialects = Array.from({ length: 65 }, (_, i) => ({
+    id: `d${String(i).padStart(2, "0")}`,
+    family: "modbus-rs485",
+    manufacturer: "acme",
+    confidence: "vendor-doc",
+    refuter: "checked",
+  }));
+  const links = dialects.map((d) => ({
+    model_id: "acme-many",
+    dialect_id: d.id,
+    evidence_kind: "vendor-doc",
+    confidence: "vendor-doc",
+  }));
+  const citations = [
+    ...Array.from({ length: 11 }, (_, i) => ({
+      model_id: "acme-many",
+      dialect_id: "d00",
+      position: i,
+      source_id: `c${i}`,
+      citation: `c${i}`,
+    })),
+    {
+      model_id: "acme-many",
+      dialect_id: "d64",
+      position: 0,
+      source_id: "beyond",
+      citation: "beyond the bound",
+    },
+  ];
+  const { db } = await fixture({
+    manufacturers: [{ id: "acme", name: "Acme" }],
+    models: [
+      { id: "acme-many", tier: "record", manufacturer_id: "acme", name: "Many", kind: "meter" },
+    ],
+    model_keys: [],
+    dialects,
+    dialect_gotchas: [],
+    dialect_sources: [],
+    dialect_kinds: [],
+    model_dialects: links,
+    model_dialect_sources: citations,
+    specs: [],
+    sources: [],
+  });
+  const out = await bundle(db, RELEASE, { models: ["acme-many"], claims: false });
+  assert.equal(out.protocol.length, LIMITS.bundleProtocol);
+  assert.deepEqual(out.truncated, ["protocol"]);
+  assert.deepEqual(
+    out.protocol[0]?.evidence?.sources.map((s) => s.source),
+    Array.from({ length: 11 }, (_, i) => `c${i}`),
+    "eleven citations in their order",
+  );
+  assert.ok(
+    !out.protocol.some((p) => p.evidence?.sources.some((s) => s.source === "beyond")),
+    "a dropped link's citations are not read",
+  );
+});
+
+test("a link with more citations than the schema admits is refused whole, never answered in part, however few the others cite", async () => {
+  const cite = (model: string, dialect: string, n: number) =>
+    Array.from({ length: n }, (_, i) => ({
+      model_id: model,
+      dialect_id: dialect,
+      position: i,
+      source_id: "doc-vedirect-whitepaper",
+      citation: `citation ${i}`,
+    }));
+  const { db } = await fixture({
+    model_dialect_sources: [
+      ...cite("victron-energy-smartsolar-mppt-150-35", "victron-mppt-vedirect-hex", 17),
+      ...cite("epever-xtra4210n", "epever-xtra-n-g3", 1),
+    ],
+  });
+  // Two links kept, eighteen citations between them: under the sum of the bounds, over one link's.
+  await assert.rejects(
+    bundle(db, RELEASE, { models: ["victron-energy-smartsolar-mppt-150-35", "epever-xtra4210n"] }),
+    /victron-mppt-vedirect-hex cites more than 16 sources/,
+  );
+  const fine = await bundle(db, RELEASE, { models: ["epever-xtra4210n"] });
+  assert.equal(fine.protocol[0]?.evidence?.sources.length, 1);
 });

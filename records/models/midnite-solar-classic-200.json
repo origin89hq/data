@@ -7,6 +7,12 @@
     "MID-163-103"
   ],
   "dialects": [
-    "midnite-classic"
+    {
+      "dialect": "midnite-classic",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

@@ -5,6 +5,12 @@
   "kind": "inverter-charger",
   "aliases": [],
   "dialects": [
-    "magnum-me-network"
+    {
+      "dialect": "magnum-me-network",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

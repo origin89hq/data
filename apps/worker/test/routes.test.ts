@@ -969,3 +969,38 @@ test("an accepted manifest with a load plan starts the release's load, once (#83
     "no parts and no plan, nothing to load",
   );
 });
+
+test("a release can be put into the store by hand, once, and only by its id (#83)", async () => {
+  const { env, loads } = bucket();
+  const token = { authorization: "Bearer the-real-token" };
+  const id = "b".repeat(64);
+  const started = await app.request(
+    `${LOCAL}/load?release=${id}`,
+    { method: "POST", headers: token },
+    env,
+  );
+  assert.equal(started.status, 200);
+  const first = (await started.json()) as { release: string; load: string; instance: string };
+  assert.equal(first.load, "started");
+  assert.match(
+    first.instance,
+    new RegExp(`^load-${id}-[0-9a-z]+-[0-9a-f]{8}$`),
+    "a reload is its own instance",
+  );
+  assert.deepEqual(loads, [{ id: first.instance, params: { release: id } }]);
+  const again = await app.request(
+    `${LOCAL}/load?release=${id}`,
+    { method: "POST", headers: token },
+    env,
+  );
+  assert.equal(again.status, 200, "a second reload, after a reset or a failure, starts again");
+  assert.equal(loads.length, 2);
+  const bad = await app.request(
+    `${LOCAL}/load?release=nope`,
+    { method: "POST", headers: token },
+    env,
+  );
+  assert.equal(bad.status, 400);
+  const nobody = await app.request(`${LOCAL}/load?release=${id}`, { method: "POST" }, env);
+  assert.equal(nobody.status, 401, "the load is a control route like the rest");
+});

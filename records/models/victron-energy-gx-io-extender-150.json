@@ -5,6 +5,12 @@
   "kind": "balance-of-system",
   "aliases": [],
   "dialects": [
-    "victron-venus-dbus-switch"
+    {
+      "dialect": "victron-venus-dbus-switch",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

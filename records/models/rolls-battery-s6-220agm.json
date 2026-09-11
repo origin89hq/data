@@ -5,6 +5,12 @@
   "kind": "battery",
   "aliases": [],
   "dialects": [
-    "rolls-lead-acid"
+    {
+      "dialect": "rolls-lead-acid",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

@@ -5,6 +5,12 @@
   "kind": "battery",
   "aliases": [],
   "dialects": [
-    "volthium-abs-ej-ble"
+    {
+      "dialect": "volthium-abs-ej-ble",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

@@ -5,6 +5,12 @@
   "kind": "out-of-scope",
   "aliases": [],
   "dialects": [
-    "midnite-rosie-can"
+    {
+      "dialect": "midnite-rosie-can",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

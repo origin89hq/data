@@ -6,6 +6,12 @@
     "MAG-223-109"
   ],
   "dialects": [
-    "magnum-magweb"
+    {
+      "dialect": "magnum-magweb",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

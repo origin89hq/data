@@ -5,6 +5,12 @@
   "kind": "out-of-scope",
   "aliases": [],
   "dialects": [
-    "epever-ebox-wifi-01-bridge"
+    {
+      "dialect": "epever-ebox-wifi-01-bridge",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

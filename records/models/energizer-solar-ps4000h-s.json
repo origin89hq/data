@@ -5,6 +5,12 @@
   "kind": "inverter-charger",
   "aliases": [],
   "dialects": [
-    "energizer-solar-hv-battery-powerstack"
+    {
+      "dialect": "energizer-solar-hv-battery-powerstack",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

@@ -35,7 +35,14 @@ export const LOADED_TABLES: Readonly<Record<string, Loaded>> = {
   },
   model_aliases: { columns: ["model_id", "alias"], keyed: false },
   model_keys: { columns: ["model_id", "key", "name_key", "label", "via"], keyed: false },
-  model_dialects: { columns: ["model_id", "dialect_id"], keyed: false },
+  model_dialects: {
+    columns: ["model_id", "dialect_id", "evidence_kind", "confidence"],
+    keyed: false,
+  },
+  model_dialect_sources: {
+    columns: ["model_id", "dialect_id", "position", "source_id", "citation"],
+    keyed: false,
+  },
   specs: { columns: ["id", "model_id"], keyed: true },
   dialects: { columns: ["id", "family", "manufacturer", "confidence"], keyed: true },
   dialect_gotchas: { columns: ["dialect_id", "position", "text"], keyed: false },
@@ -58,6 +65,8 @@ export const SCHEMA: readonly string[] = [
     counts TEXT NOT NULL DEFAULT '{}'
   )`,
   ...Object.entries(LOADED_TABLES).map(([table, { columns, keyed }]) => {
+    // A position is an order, and orders as one; a keyed row has an id: every other lifted
+    // column is text.
     const declared = columns
       .map((c) =>
         c === "position"
@@ -82,13 +91,74 @@ export const SCHEMA: readonly string[] = [
   "CREATE INDEX IF NOT EXISTS model_aliases_by_model ON model_aliases (release, model_id)",
   "CREATE INDEX IF NOT EXISTS specs_by_model ON specs (release, model_id)",
   "CREATE INDEX IF NOT EXISTS model_dialects_by_model ON model_dialects (release, model_id)",
+  "CREATE INDEX IF NOT EXISTS model_dialect_sources_by_link ON model_dialect_sources (release, model_id, dialect_id)",
   "CREATE INDEX IF NOT EXISTS dialect_gotchas_by_dialect ON dialect_gotchas (release, dialect_id)",
   "CREATE INDEX IF NOT EXISTS dialect_sources_by_dialect ON dialect_sources (release, dialect_id)",
   "CREATE INDEX IF NOT EXISTS dialect_kinds_by_dialect ON dialect_kinds (release, dialect_id)",
 ];
 
-export async function createSchema(db: Store): Promise<void> {
-  for (const statement of SCHEMA) await db.exec(statement.replace(/\s+/g, " "));
+/**
+ * The shape of the store. `CREATE TABLE IF NOT EXISTS` cannot add a column to a table that
+ * exists, so a change to `LOADED_TABLES` or `SCHEMA` bumps this, and a store stamped with an
+ * older version is dropped and recreated whole: it is a copy of releases still in R2, and
+ * `POST /load` puts one back.
+ */
+export const SCHEMA_VERSION = "2";
+
+/**
+ * Create the store's tables, or recreate them all when the stamped version is not this one.
+ * Returns whether it reset. The drops, the tables and the new stamp go in one batch, which D1
+ * runs as one transaction, and the stamp is inserted rather than replaced: two isolates that
+ * read the same old stamp during a rollout cannot both reset, since the second's insert finds
+ * the key taken, its whole batch rolls back, and it reads again to find the store current
+ * with whatever the first has loaded since.
+ */
+export async function createSchema(db: Store): Promise<boolean> {
+  await db.exec("CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)");
+  for (;;) {
+    const stamped = await db
+      .prepare("SELECT value FROM meta WHERE key = 'schema_version'")
+      .first<{ value: string }>();
+    if (stamped?.value === SCHEMA_VERSION) {
+      for (const statement of SCHEMA) await db.exec(statement.replace(/\s+/g, " "));
+      return false;
+    }
+    // A store with tables and no stamp is one from before stamps existed: as old as any.
+    const hadTables = Boolean(
+      await db
+        .prepare("SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'releases'")
+        .first(),
+    );
+    const reset = stamped ? true : hadTables;
+    try {
+      await db.batch([
+        db
+          .prepare("DELETE FROM meta WHERE key = 'schema_version' AND value = ?")
+          .bind(stamped?.value ?? ""),
+        db
+          .prepare("INSERT INTO meta (key, value) VALUES ('schema_version', ?)")
+          .bind(SCHEMA_VERSION),
+        ...(reset
+          ? [...Object.keys(LOADED_TABLES), "releases"].map((table) =>
+              db.prepare(`DROP TABLE IF EXISTS ${table}`),
+            )
+          : []),
+        ...SCHEMA.map((statement) => db.prepare(statement.replace(/\s+/g, " "))),
+      ]);
+    } catch (error) {
+      if (!/UNIQUE constraint failed: meta\.key/.test(String(error))) throw error;
+      continue;
+    }
+    if (reset)
+      console.log(
+        JSON.stringify({
+          message: "release store recreated",
+          from: stamped?.value,
+          to: SCHEMA_VERSION,
+        }),
+      );
+    return reset;
+  }
 }
 
 /** A row as the load part gives it: the build's row with absent fields left out. */
@@ -96,6 +166,12 @@ export type LoadRow = Record<string, string | number | boolean | undefined>;
 
 const stringOf = (value: string | number | boolean | undefined): string | null =>
   value === undefined ? null : typeof value === "string" ? value : String(value);
+/** A lifted value bound as the column holds it: a position as a number, the rest as text. */
+const bound = (
+  column: string,
+  value: string | number | boolean | undefined,
+): string | number | null =>
+  column === "position" && typeof value === "number" ? value : stringOf(value);
 
 /**
  * Insert a part's rows, in statements of as many rows as fit under D1's parameter limit and
@@ -130,7 +206,7 @@ export async function insertRows(
     const params = chunk.flatMap((row) => [
       release,
       part,
-      ...loaded.columns.map((c) => stringOf(row[c])),
+      ...loaded.columns.map((c) => bound(c, row[c])),
       JSON.stringify(row),
     ]);
     statements.push(

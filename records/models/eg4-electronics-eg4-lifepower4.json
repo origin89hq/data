@@ -5,6 +5,12 @@
   "kind": "battery",
   "aliases": [],
   "dialects": [
-    "eg4-lifepower4-serial"
+    {
+      "dialect": "eg4-lifepower4-serial",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

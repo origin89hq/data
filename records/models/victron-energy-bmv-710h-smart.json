@@ -5,6 +5,12 @@
   "kind": "meter",
   "aliases": [],
   "dialects": [
-    "victron-bmv71x-smartshunt-vedirect-text"
+    {
+      "dialect": "victron-bmv71x-smartshunt-vedirect-text",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

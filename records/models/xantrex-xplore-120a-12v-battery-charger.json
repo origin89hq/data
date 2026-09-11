@@ -5,6 +5,12 @@
   "kind": "ac-charger",
   "aliases": [],
   "dialects": [
-    "xantrex-no-comms"
+    {
+      "dialect": "xantrex-no-comms",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

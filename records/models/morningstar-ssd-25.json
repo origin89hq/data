@@ -7,6 +7,12 @@
     "MOR-164-120"
   ],
   "dialects": [
-    "morningstar-sunsaver-duo"
+    {
+      "dialect": "morningstar-sunsaver-duo",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

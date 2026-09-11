@@ -5,6 +5,12 @@
   "kind": "charge-controller",
   "aliases": [],
   "dialects": [
-    "epever-mt50-display"
+    {
+      "dialect": "epever-mt50-display",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

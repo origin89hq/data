@@ -7,6 +7,12 @@
     "MID-161-120"
   ],
   "dialects": [
-    "midnite-mngp"
+    {
+      "dialect": "midnite-mngp",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

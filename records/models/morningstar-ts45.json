@@ -8,6 +8,12 @@
     "XXX-XXX-131"
   ],
   "dialects": [
-    "morningstar-tristar-pwm"
+    {
+      "dialect": "morningstar-tristar-pwm",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

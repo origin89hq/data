@@ -5,6 +5,12 @@
   "kind": "out-of-scope",
   "aliases": [],
   "dialects": [
-    "midnite-powerflo5"
+    {
+      "dialect": "midnite-powerflo5",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

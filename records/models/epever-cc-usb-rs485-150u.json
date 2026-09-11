@@ -6,6 +6,12 @@
     "EPS-161-112"
   ],
   "dialects": [
-    "epever-rj45-transport-usb"
+    {
+      "dialect": "epever-rj45-transport-usb",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

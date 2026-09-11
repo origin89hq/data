@@ -7,6 +7,12 @@
     "XXX-XXX-135"
   ],
   "dialects": [
-    "morningstar-prostar-mppt"
+    {
+      "dialect": "morningstar-prostar-mppt",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

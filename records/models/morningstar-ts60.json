@@ -7,6 +7,12 @@
     "TS-60"
   ],
   "dialects": [
-    "morningstar-tristar-pwm"
+    {
+      "dialect": "morningstar-tristar-pwm",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

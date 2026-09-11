@@ -5,6 +5,12 @@
   "kind": "bms",
   "aliases": [],
   "dialects": [
-    "midnite-mnbcm"
+    {
+      "dialect": "midnite-mnbcm",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

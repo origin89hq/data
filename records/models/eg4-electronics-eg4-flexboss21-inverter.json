@@ -4,7 +4,13 @@
   "name": "EG4 FlexBOSS21 Inverter",
   "aliases": [],
   "dialects": [
-    "eg4-luxpower-v58"
+    {
+      "dialect": "eg4-luxpower-v58",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ],
   "kind": "inverter"
 }

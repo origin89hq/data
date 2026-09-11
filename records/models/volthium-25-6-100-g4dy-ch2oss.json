@@ -7,6 +7,12 @@
     "VLT-188-126"
   ],
   "dialects": [
-    "volthium-abs-unknown"
+    {
+      "dialect": "volthium-abs-unknown",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

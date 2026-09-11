@@ -5,6 +5,12 @@
   "kind": "charge-controller",
   "aliases": [],
   "dialects": [
-    "srne-controller-v3"
+    {
+      "dialect": "srne-controller-v3",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

@@ -7,6 +7,12 @@
     "MID-161-119"
   ],
   "dialects": [
-    "midnite-mnbts-analog"
+    {
+      "dialect": "midnite-mnbts-analog",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

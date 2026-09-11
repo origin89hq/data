@@ -4,8 +4,20 @@
   "name": "EVO-1224F-HW",
   "aliases": [],
   "dialects": [
-    "samlex-evo-1212f-no-bus",
-    "samlex-evo-signal-io"
+    {
+      "dialect": "samlex-evo-1212f-no-bus",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "samlex-evo-signal-io",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ],
   "kind": "inverter-charger"
 }

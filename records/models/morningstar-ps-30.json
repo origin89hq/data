@@ -5,6 +5,12 @@
   "kind": "charge-controller",
   "aliases": [],
   "dialects": [
-    "morningstar-prostar-pwm-gen3"
+    {
+      "dialect": "morningstar-prostar-pwm-gen3",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

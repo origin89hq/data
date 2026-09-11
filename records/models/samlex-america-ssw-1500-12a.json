@@ -5,6 +5,12 @@
   "kind": "inverter",
   "aliases": [],
   "dialects": [
-    "samlex-ssw-no-bus"
+    {
+      "dialect": "samlex-ssw-no-bus",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

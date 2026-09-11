@@ -7,8 +7,26 @@
     "EFL-234-100"
   ],
   "dialects": [
-    "ecoflow-ble-local",
-    "ecoflow-gen3-protobuf",
-    "ecoflow-modbus-not-applicable"
+    {
+      "dialect": "ecoflow-ble-local",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "ecoflow-gen3-protobuf",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "ecoflow-modbus-not-applicable",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

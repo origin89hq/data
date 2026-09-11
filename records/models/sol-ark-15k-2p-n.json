@@ -9,7 +9,19 @@
     "Sol-Ark 15K-2P-N"
   ],
   "dialects": [
-    "solark-hybrid-rtu-v1",
-    "solark-mysolark-cloud"
+    {
+      "dialect": "solark-hybrid-rtu-v1",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "solark-mysolark-cloud",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

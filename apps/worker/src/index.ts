@@ -1,7 +1,7 @@
 import { consume } from "./consumer.ts";
 import { hasFeed } from "./feeds.ts";
 import { manufacturers } from "./manufacturers.ts";
-import { reloadPinned } from "./release-load.ts";
+import { reloadPinned, restoreIfEmpty } from "./release-load.ts";
 import { app, today } from "./routes.ts";
 import { sellers } from "./sellers.ts";
 import { startIfFree, startMaker, startSeller } from "./start-run.ts";
@@ -34,8 +34,9 @@ export default {
     // discovery below produce work; this is what carries it through the stages after them.
     await superviseIfFree(env, checkedAt);
     // A pinned release the store lacks or failed to load is put back here, once a day, never
-    // from a read.
+    // from a read; a restore that could not start every load is finished here too.
     try {
+      await restoreIfEmpty(env, env.RELEASES);
       await reloadPinned(env, env.RELEASES);
     } catch (error) {
       console.log(JSON.stringify({ message: "pinned reload failed", error: String(error) }));

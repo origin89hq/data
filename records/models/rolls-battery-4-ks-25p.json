@@ -7,6 +7,12 @@
     "SUR-183-119"
   ],
   "dialects": [
-    "rolls-lead-acid"
+    {
+      "dialect": "rolls-lead-acid",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

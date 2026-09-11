@@ -5,6 +5,12 @@
   "kind": "charge-controller",
   "aliases": [],
   "dialects": [
-    "morningstar-tristar-mppt"
+    {
+      "dialect": "morningstar-tristar-mppt",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

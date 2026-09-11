@@ -5,8 +5,26 @@
   "kind": "meter",
   "aliases": [],
   "dialects": [
-    "victron-gx-ble-instant-readout",
-    "victron-gx-modbus-tcp",
-    "victron-gx-mqtt"
+    {
+      "dialect": "victron-gx-ble-instant-readout",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "victron-gx-modbus-tcp",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "victron-gx-mqtt",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

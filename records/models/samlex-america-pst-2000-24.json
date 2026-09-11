@@ -7,7 +7,19 @@
     "SLX-227-102"
   ],
   "dialects": [
-    "samlex-pst-1500-2000-ext-switch",
-    "samlex-pst-rc300-link"
+    {
+      "dialect": "samlex-pst-1500-2000-ext-switch",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "samlex-pst-rc300-link",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

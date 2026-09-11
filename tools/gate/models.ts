@@ -1,5 +1,6 @@
 import type { Guess } from "@origin89/equipment-schema/guess";
 import type { Sighting } from "@origin89/equipment-schema/sighting";
+import { mergeLinks } from "../../src/dialect-links.ts";
 import { deriveModels } from "../../src/models.ts";
 import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 import { readCrawl } from "./archive.ts";
@@ -64,7 +65,7 @@ for (const { model } of derived) {
           // absence of evidence is not evidence that the kind changed.
           ...(kind ? { kind } : {}),
           aliases: [...new Set([...before.aliases, ...model.aliases])].sort(),
-          dialects: [...new Set([...before.dialects, ...model.dialects])].sort(),
+          dialects: mergeLinks(before.dialects, model.dialects),
         }
       : model;
   if (!dryRun) writeRecord(RECORDS_DIR, "models", model.id, next);

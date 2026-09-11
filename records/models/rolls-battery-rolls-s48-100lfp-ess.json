@@ -4,7 +4,13 @@
   "name": "Rolls S48-100LFP ESS",
   "aliases": [],
   "dialects": [
-    "rolls-lfp-ess-48v"
+    {
+      "dialect": "rolls-lfp-ess-48v",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ],
   "kind": "battery"
 }

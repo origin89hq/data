@@ -7,6 +7,12 @@
     "XXX-XXX-130"
   ],
   "dialects": [
-    "morningstar-tristar-mppt"
+    {
+      "dialect": "morningstar-tristar-mppt",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

@@ -4,6 +4,12 @@
   "name": "H08052",
   "aliases": [],
   "dialects": [
-    "firman-portable-no-comms"
+    {
+      "dialect": "firman-portable-no-comms",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

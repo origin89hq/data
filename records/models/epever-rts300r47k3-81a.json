@@ -6,7 +6,19 @@
     "EPS-161-106"
   ],
   "dialects": [
-    "epever-rts-probe",
-    "epever-rts300"
+    {
+      "dialect": "epever-rts-probe",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "epever-rts300",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

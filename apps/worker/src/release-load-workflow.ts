@@ -3,6 +3,7 @@ import {
   type LoadOutcome,
   loadRelease,
   type ReleaseLoadParams,
+  restoreIfEmpty,
   type Steps,
 } from "./release-load.ts";
 
@@ -22,6 +23,19 @@ export class ReleaseLoad extends WorkflowEntrypoint<Env, ReleaseLoadParams> {
           fn as unknown as () => Promise<never>,
         ) as unknown as Promise<T>,
     };
-    return loadRelease(this.env.ARCHIVE, this.env.RELEASES, steps, event.payload.release);
+    const outcome = await loadRelease(
+      this.env.ARCHIVE,
+      this.env.RELEASES,
+      steps,
+      event.payload.release,
+    );
+    // A load that found the store on an older schema recreated it: the other releases the
+    // store holds are started here, not left to the next read.
+    try {
+      await steps.do("restore the rest", () => restoreIfEmpty(this.env, this.env.RELEASES));
+    } catch (error) {
+      console.log(JSON.stringify({ message: "release restore failed", error: String(error) }));
+    }
+    return outcome;
   }
 }

@@ -3,6 +3,7 @@ import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
+import { Model } from "@origin89/equipment-schema/model";
 import { build } from "../src/build.ts";
 import { toCsv } from "../src/csv.ts";
 import { loadRecords, type Records, writeRecords } from "../src/records.ts";
@@ -150,4 +151,135 @@ test("the build refuses invalid records and otherwise emits every table twice wi
   } finally {
     rmSync(dist, { recursive: true, force: true });
   }
+});
+
+test("a model's link to a dialect needs a source it can name, and one the records hold (#84)", () => {
+  const r = fixture();
+  const link = {
+    dialect: "a",
+    evidence: { kind: "vendor-doc", sources: [{ source: "s1", citation: "https://x/1" }] },
+    confidence: "vendor-doc",
+  };
+  r.manufacturers = [{ id: "m", name: "M", domains: [] }] as Records["manufacturers"];
+  r.models = [Model.parse({ id: "m-a1", manufacturer: "m", name: "A1", dialects: [link] })];
+  assert.deepEqual(validate(r).errors, []);
+  assert.throws(
+    () =>
+      Model.parse({
+        id: "m-a1",
+        manufacturer: "m",
+        name: "A1",
+        dialects: [{ ...link, evidence: { kind: "vendor-doc", sources: [] } }],
+      }),
+    /sources/,
+    "a link with no source is refused by the schema",
+  );
+  // A catalogue name cites nothing of its own: the dialect's sources stay on the dialect.
+  const claim = Model.parse({
+    id: "m-a1",
+    manufacturer: "m",
+    name: "A1",
+    dialects: [{ ...link, evidence: { kind: "catalogue-name" }, confidence: "unverified" }],
+  });
+  assert.deepEqual(claim.dialects[0]?.evidence, { kind: "catalogue-name", sources: [] });
+  assert.throws(
+    () =>
+      Model.parse({
+        id: "m-a1",
+        manufacturer: "m",
+        name: "A1",
+        dialects: [{ ...link, evidence: { kind: "catalogue-name" } }],
+      }),
+    /catalogue name supports nothing/,
+    "a catalogue claim cannot carry the dialect's rating as its own",
+  );
+  assert.throws(
+    () =>
+      Model.parse({
+        id: "m-a1",
+        manufacturer: "m",
+        name: "A1",
+        dialects: [
+          {
+            ...link,
+            evidence: {
+              kind: "vendor-doc",
+              sources: Array.from({ length: 17 }, (_, i) => ({ source: `s${i}`, citation: "p" })),
+            },
+          },
+        ],
+      }),
+    /16/,
+    "a link cites at most sixteen sources",
+  );
+  assert.throws(
+    () =>
+      Model.parse({
+        id: "m-a1",
+        manufacturer: "m",
+        name: "A1",
+        dialects: [
+          { ...link, evidence: { kind: "catalogue-name", sources: link.evidence.sources } },
+        ],
+      }),
+    /cites nothing of its own/,
+    "a source copied onto a catalogue claim would read as evidence for the model",
+  );
+  assert.throws(
+    () =>
+      Model.parse({
+        id: "m-a1",
+        manufacturer: "m",
+        name: "A1",
+        dialects: [
+          link,
+          { ...link, evidence: { kind: "catalogue-name" }, confidence: "unverified" },
+        ],
+      }),
+    /links each dialect once/,
+    "two links to one dialect would publish two rows",
+  );
+  assert.throws(
+    () =>
+      Model.parse({
+        id: "m-a1",
+        manufacturer: "m",
+        name: "A1",
+        dialects: [{ ...link, firmware: {} }],
+      }),
+    /firmware range names a bound/,
+  );
+  r.models = [
+    Model.parse({
+      id: "m-a1",
+      manufacturer: "m",
+      name: "A1",
+      dialects: [
+        {
+          ...link,
+          evidence: { kind: "register-match", sources: [{ source: "nowhere", citation: "p. 4" }] },
+        },
+      ],
+    }),
+  ];
+  assert.match(validate(r).errors.join("\n"), /link to a cites nowhere, which is not a source/);
+  // A source only a link cites is cited: that is what register evidence on one model looks like.
+  r.sources.push({ id: "register-map", url: "https://x/map" });
+  r.models = [
+    Model.parse({
+      id: "m-a1",
+      manufacturer: "m",
+      name: "A1",
+      dialects: [
+        {
+          ...link,
+          evidence: {
+            kind: "register-match",
+            sources: [{ source: "register-map", citation: "p. 4" }],
+          },
+        },
+      ],
+    }),
+  ];
+  assert.deepEqual(validate(r).errors, []);
 });

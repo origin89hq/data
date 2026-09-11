@@ -26,6 +26,7 @@ import {
   search,
   sourcesById,
 } from "./equipment-api.ts";
+import { restoreIfEmpty } from "./release-load.ts";
 import type { Store } from "./release-store.ts";
 
 /**
@@ -82,9 +83,9 @@ export class ReleaseHandle extends RpcTarget implements Release {
 }
 
 /**
- * Once per isolate before the first answer: the store's tables exist. Nothing here starts a
- * load: a pinned release the store lacks is put back by the daily schedule, once, not by every
- * isolate that answers a question.
+ * Once per isolate before the first answer: the store's tables exist, and an empty store has
+ * its restore started. Nothing else here starts a load: a pinned release a populated store
+ * lacks is put back by the daily schedule, once, not by every isolate that answers a question.
  */
 const preparations = new WeakMap<Store, Promise<void>>();
 function prepared(env: Env): Promise<void> {
@@ -93,6 +94,15 @@ function prepared(env: Env): Promise<void> {
   if (!pending) {
     pending = (async () => {
       await ensureSchema(db);
+      // A store with no release at all, new or recreated for new tables, is put back from the
+      // archive: the recent releases and the pinned ones. Until a load lands a consumer gets
+      // `NoSuchRelease`, never empty lists. A store with any row, even a failed one, is left
+      // as it is: a release that cannot load is a person's to repair with `POST /load`, not
+      // every isolate's to retry.
+      const { pending } = await restoreIfEmpty(env, db);
+      // A restore that could not start every load is tried again by the next call, not by
+      // the next isolate only.
+      if (pending.length) preparations.delete(db);
     })().catch((error) => {
       preparations.delete(db);
       throw error;

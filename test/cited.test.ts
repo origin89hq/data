@@ -64,7 +64,25 @@ test("a source is a maker's only when one of its own records cites it, not becau
         models: [],
       },
     ],
-    models: [{ id: "epever-x", manufacturer: "epever", name: "X", aliases: [], dialects: [] }],
+    models: [
+      {
+        id: "epever-x",
+        manufacturer: "epever",
+        name: "X",
+        aliases: [],
+        // A link's own evidence is the maker's too: the document that showed the registers match.
+        dialects: [
+          {
+            dialect: "epever-it-nc-g3",
+            evidence: {
+              kind: "register-match",
+              sources: [{ source: "epever-x-manual", citation: "p. 12" }],
+            },
+            confidence: "vendor-doc",
+          },
+        ],
+      },
+    ],
     specs: [{ id: "s1", model: "epever-x", name: "n", value: "1", source: "epever-datasheet" }],
   };
   const ids = sourceIdsCitedBy("epever", records as never);
@@ -72,6 +90,7 @@ test("a source is a maker's only when one of its own records cites it, not becau
     "cabin-depot-itracer-page",
     "epever-datasheet",
     "epever-home",
+    "epever-x-manual",
   ]);
   assert.deepEqual([...sourceIdsCitedBy("the-cabin-depot", records as never)], []);
   const sources = [

@@ -5,8 +5,26 @@
   "kind": "charge-controller",
   "aliases": [],
   "dialects": [
-    "victron-ble-instant-readout",
-    "victron-mppt-vedirect-hex",
-    "victron-vedirect-text"
+    {
+      "dialect": "victron-ble-instant-readout",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "victron-mppt-vedirect-hex",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "victron-vedirect-text",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

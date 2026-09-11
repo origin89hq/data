@@ -7,6 +7,12 @@
     "MAG-227-103"
   ],
   "dialects": [
-    "magnum-me-network"
+    {
+      "dialect": "magnum-me-network",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ]
 }

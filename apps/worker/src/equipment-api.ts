@@ -19,6 +19,7 @@ import {
   type SearchQuery,
   type Source,
 } from "@origin89/equipment-api";
+import { LINK_CITATIONS } from "@origin89/equipment-schema/model";
 import { createSchema, type Store } from "./release-store.ts";
 
 /**
@@ -88,6 +89,8 @@ type ModelRow = { id: string; row: string };
 
 /** How many ids one `IN (...)` may carry beside the release: D1 binds at most 100 parameters. */
 const IDS_PER_QUERY = 90;
+/** Pairs of (model, dialect) one query may name: two parameters each, under the same ceiling. */
+const PAIRS_PER_QUERY = 45;
 const chunks = <T>(items: readonly T[]): T[][] => {
   const out: T[][] = [];
   for (let at = 0; at < items.length; at += IDS_PER_QUERY)
@@ -653,27 +656,65 @@ export async function bundle(db: Store, release: string, q: BundleQuery): Promis
     if (links.length > LIMITS.bundleProtocol) truncated.push("protocol");
     const kept = links.slice(0, LIMITS.bundleProtocol);
     const dialects = await dialectsOf(db, release, [...new Set(kept.map((l) => l.dialect_id))]);
+    // What says each model speaks its dialect (#84), beside the dialect's own citations.
+    // Citations of the links kept, and no other: a model with more links than the bound is read
+    // for the bound's worth, pair by pair, under D1's parameter ceiling.
+    const cited: { model_id: string; dialect_id: string; source_id: string; citation: string }[] =
+      [];
+    for (let at = 0; at < kept.length; at += PAIRS_PER_QUERY) {
+      const pairs = kept.slice(at, at + PAIRS_PER_QUERY);
+      const clause = pairs.map(() => "(model_id = ? AND dialect_id = ?)").join(" OR ");
+      cited.push(
+        ...(
+          await db
+            .prepare(
+              `SELECT model_id, dialect_id, source_id, citation FROM model_dialect_sources WHERE release = ? AND (${clause}) ORDER BY model_id, dialect_id, position LIMIT ?`,
+            )
+            .bind(
+              release,
+              ...pairs.flatMap((l) => [l.model_id, l.dialect_id]),
+              pairs.length * LINK_CITATIONS + 1,
+            )
+            .all<{ model_id: string; dialect_id: string; source_id: string; citation: string }>()
+        ).results,
+      );
+    }
+    // The schema admits at most `LINK_CITATIONS` a link, so the read is bounded by the links
+    // kept; a store that holds more for any one link is not a release the schema admits, and
+    // says so rather than answering with some of that link's citations. The rows come ordered
+    // by pair, so a link past the bound is seen whole or cut at the limit, and counted either way.
+    const perLink = new Map<string, number>();
+    for (const c of cited) {
+      const key = `${c.model_id}\u0000${c.dialect_id}`;
+      const n = (perLink.get(key) ?? 0) + 1;
+      perLink.set(key, n);
+      if (n > LINK_CITATIONS)
+        throw new RangeError(
+          `the link ${c.model_id} → ${c.dialect_id} cites more than ${LINK_CITATIONS} sources; the release is not one the schema admits`,
+        );
+    }
     protocol = kept.flatMap((l) => {
       const dialect = dialects.get(l.dialect_id);
       if (!dialect) return [];
       const link = JSON.parse(l.row) as Record<string, string | undefined>;
+      const sources = cited
+        .filter((c) => c.model_id === l.model_id && c.dialect_id === l.dialect_id)
+        .map((c) => ({ source: c.source_id, citation: c.citation }));
       return [
         {
           model: l.model_id,
           dialect,
-          ...(link.evidence_kind
-            ? {
-                evidence: {
-                  kind: link.evidence_kind,
-                  sources: (link.evidence_sources ?? "")
-                    .split(" ")
-                    .filter(Boolean)
-                    .map((source) => ({ source, citation: link.evidence_citation ?? "" })),
-                },
-              }
-            : {}),
+          ...(link.evidence_kind ? { evidence: { kind: link.evidence_kind, sources } } : {}),
           ...(link.confidence
             ? { confidence: link.confidence as DialectSummary["confidence"] }
+            : {}),
+          ...(link.firmware_min || link.firmware_max
+            ? {
+                firmware: {
+                  ...(link.firmware_min ? { min: link.firmware_min } : {}),
+                  ...(link.firmware_max ? { max: link.firmware_max } : {}),
+                },
+              }
             : {}),
         },
       ];

@@ -1,6 +1,67 @@
 import { z } from "zod";
-import { RecordId } from "./enums.ts";
+import { Citation } from "./dialect.ts";
+import { Confidence, RecordId } from "./enums.ts";
 import { EquipmentKind } from "./guess.ts";
+
+/**
+ * How a model came to be linked to a dialect (#84). `register-match` is a source showing the
+ * model answers the dialect's registers, which is the rule in CONTRIBUTING; `vendor-doc` is the
+ * maker's own document saying the model speaks it; `catalogue-name` is only the protocol
+ * catalogue naming the model under the dialect, which is a claim and not a match.
+ */
+export const LinkEvidenceKind = z.enum(["register-match", "vendor-doc", "catalogue-name"]);
+export type LinkEvidenceKind = z.infer<typeof LinkEvidenceKind>;
+
+/**
+ * What says a model speaks a dialect. A register match or a maker's document names the sources
+ * that show it, and a link of either kind with no source is refused. A catalogue name cites
+ * nothing of its own: the claim is the dialect's catalogue naming the model, and the dialect's
+ * citations are on the dialect, where they support the dialect rather than this one model. A
+ * source copied onto such a link would read as evidence for the model when it is not.
+ */
+/** How many sources one link may cite: a register match or a maker's document is one or two documents, and a bundle's links are read whole. */
+export const LINK_CITATIONS = 16;
+
+export const LinkEvidence = z.discriminatedUnion("kind", [
+  z
+    .object({
+      kind: z.enum(["register-match", "vendor-doc"]),
+      sources: z.array(Citation).min(1).max(LINK_CITATIONS),
+    })
+    .strict(),
+  z
+    .object({
+      kind: z.literal("catalogue-name"),
+      sources: z.array(Citation).max(0, "a catalogue name cites nothing of its own").default([]),
+    })
+    .strict(),
+]);
+export type LinkEvidence = z.infer<typeof LinkEvidence>;
+
+/**
+ * A model's link to a dialect, with what says so. `confidence` is what the link's own sources
+ * support for this model; a catalogue name has none, so it is `unverified` however the dialect
+ * itself is rated, and a consumer filtering on confidence never takes a name match for evidence.
+ */
+export const DialectLink = z
+  .object({
+    dialect: RecordId,
+    evidence: LinkEvidence,
+    /** What the sources support for this link, in the catalogue's vocabulary. */
+    confidence: Confidence,
+    /** The firmware the link is known to hold for, when a source says; absent means unstated, never all. */
+    firmware: z
+      .object({ min: z.string().min(1).optional(), max: z.string().min(1).optional() })
+      .strict()
+      .refine((f) => f.min !== undefined || f.max !== undefined, "a firmware range names a bound")
+      .optional(),
+  })
+  .strict()
+  .refine(
+    (l) => l.evidence.kind !== "catalogue-name" || l.confidence === "unverified",
+    "a catalogue name supports nothing, so its link is unverified",
+  );
+export type DialectLink = z.infer<typeof DialectLink>;
 
 /**
  * One product a manufacturer makes. Held apart from a dialect's model list and from a seller's
@@ -28,8 +89,8 @@ export const Model = z
     family: z.string().min(1).optional(),
     /** Other strings that name this model: a seller's SKU, a maker's part number, an older name. */
     aliases: z.array(z.string().min(1)).default([]),
-    /** Dialects this model is known to speak, by the same evidence rule the catalogue uses. */
-    dialects: z.array(RecordId).default([]),
+    /** Dialects this model is known to speak, each with the evidence that says so. */
+    dialects: z.array(DialectLink).default([]),
     checkedAt: z
       .string()
       .regex(/^\d{4}-\d{2}-\d{2}$/)
@@ -38,7 +99,12 @@ export const Model = z
     /** What settled that this is a real model of this maker, rather than a string off a listing. */
     basis: z.string().min(1).optional(),
   })
-  .strict();
+  .strict()
+  // One link a dialect: two would publish two rows and pool their citations under one pair.
+  .refine(
+    (m) => new Set(m.dialects.map((l) => l.dialect)).size === m.dialects.length,
+    "a model links each dialect once",
+  );
 export type Model = z.infer<typeof Model>;
 
 /** How much weight a figure carries, using the catalogue's vocabulary so one word means one thing everywhere. */

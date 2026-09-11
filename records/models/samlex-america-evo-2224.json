@@ -4,8 +4,20 @@
   "name": "EVO-2224",
   "aliases": [],
   "dialects": [
-    "samlex-evo-modbus-22xx-40xx",
-    "samlex-evo-signal-io"
+    {
+      "dialect": "samlex-evo-modbus-22xx-40xx",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "samlex-evo-signal-io",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    }
   ],
   "kind": "inverter-charger"
 }

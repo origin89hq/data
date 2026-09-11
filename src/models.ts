@@ -2,8 +2,9 @@ import { keyPart } from "@origin89/equipment-api/keys";
 import type { Brand } from "@origin89/equipment-schema/brand";
 import type { Dialect } from "@origin89/equipment-schema/dialect";
 import type { EquipmentKind, Guess } from "@origin89/equipment-schema/guess";
-import type { Model } from "@origin89/equipment-schema/model";
+import type { DialectLink, Model } from "@origin89/equipment-schema/model";
 import type { Sighting } from "@origin89/equipment-schema/sighting";
+import { catalogueLink, mergeLinks } from "./dialect-links.ts";
 import { brandId } from "./gate.ts";
 
 /**
@@ -227,13 +228,13 @@ export function deriveModels({
   );
   // A catalogue entry is scoped to the maker its dialect names: "AB-12" under maker A is not
   // maker B's AB12. A dialect that names no maker links nothing here; that is a person's call.
-  const dialectByModel = new Map<string, string[]>();
+  const dialectByModel = new Map<string, DialectLink[]>();
   for (const d of dialects) {
     if (!d.manufacturer) continue;
     for (const m of d.models ?? []) {
       const key = `${d.manufacturer}\u0000${keyPart(normaliseModelName(m.name))}`;
       if (key.endsWith("\u0000")) continue;
-      dialectByModel.set(key, [...(dialectByModel.get(key) ?? []), d.id]);
+      dialectByModel.set(key, mergeLinks(dialectByModel.get(key) ?? [], [catalogueLink(d)]));
     }
   }
 
@@ -291,7 +292,7 @@ export function deriveModels({
           ...r.model,
           ...(kind ? { kind } : {}),
           aliases: r.model.aliases.sort(),
-          dialects: r.model.dialects.sort(),
+          dialects: mergeLinks(r.model.dialects),
         },
         listings: r.listings,
         sellers: [...r.sellers].sort(),
