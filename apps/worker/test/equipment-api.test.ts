@@ -1030,3 +1030,62 @@ test("a brand more makers answer to than a page can bind is refused with the rea
     "not a page of everything",
   );
 });
+
+test("a link's citations come in their order past ten, and citations are read for the links kept, no more (#84)", async () => {
+  const dialects = Array.from({ length: 65 }, (_, i) => ({
+    id: `d${String(i).padStart(2, "0")}`,
+    family: "modbus-rs485",
+    manufacturer: "acme",
+    confidence: "vendor-doc",
+    refuter: "checked",
+  }));
+  const links = dialects.map((d) => ({
+    model_id: "acme-many",
+    dialect_id: d.id,
+    evidence_kind: "vendor-doc",
+    confidence: "vendor-doc",
+  }));
+  const citations = [
+    ...Array.from({ length: 11 }, (_, i) => ({
+      model_id: "acme-many",
+      dialect_id: "d00",
+      position: i,
+      source_id: `c${i}`,
+      citation: `c${i}`,
+    })),
+    {
+      model_id: "acme-many",
+      dialect_id: "d64",
+      position: 0,
+      source_id: "beyond",
+      citation: "beyond the bound",
+    },
+  ];
+  const { db } = await fixture({
+    manufacturers: [{ id: "acme", name: "Acme" }],
+    models: [
+      { id: "acme-many", tier: "record", manufacturer_id: "acme", name: "Many", kind: "meter" },
+    ],
+    model_keys: [],
+    dialects,
+    dialect_gotchas: [],
+    dialect_sources: [],
+    dialect_kinds: [],
+    model_dialects: links,
+    model_dialect_sources: citations,
+    specs: [],
+    sources: [],
+  });
+  const out = await bundle(db, RELEASE, { models: ["acme-many"], claims: false });
+  assert.equal(out.protocol.length, LIMITS.bundleProtocol);
+  assert.deepEqual(out.truncated, ["protocol"]);
+  assert.deepEqual(
+    out.protocol[0]?.evidence?.sources.map((s) => s.source),
+    Array.from({ length: 11 }, (_, i) => `c${i}`),
+    "eleven citations in their order",
+  );
+  assert.ok(
+    !out.protocol.some((p) => p.evidence?.sources.some((s) => s.source === "beyond")),
+    "a dropped link's citations are not read",
+  );
+});

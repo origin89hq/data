@@ -65,6 +65,8 @@ export const SCHEMA: readonly string[] = [
     counts TEXT NOT NULL DEFAULT '{}'
   )`,
   ...Object.entries(LOADED_TABLES).map(([table, { columns, keyed }]) => {
+    // A position is an order, and orders as one; a keyed row has an id: every other lifted
+    // column is text.
     const declared = columns
       .map((c) =>
         c === "position"
@@ -143,6 +145,12 @@ export type LoadRow = Record<string, string | number | boolean | undefined>;
 
 const stringOf = (value: string | number | boolean | undefined): string | null =>
   value === undefined ? null : typeof value === "string" ? value : String(value);
+/** A lifted value bound as the column holds it: a position as a number, the rest as text. */
+const bound = (
+  column: string,
+  value: string | number | boolean | undefined,
+): string | number | null =>
+  column === "position" && typeof value === "number" ? value : stringOf(value);
 
 /**
  * Insert a part's rows, in statements of as many rows as fit under D1's parameter limit and
@@ -177,7 +185,7 @@ export async function insertRows(
     const params = chunk.flatMap((row) => [
       release,
       part,
-      ...loaded.columns.map((c) => stringOf(row[c])),
+      ...loaded.columns.map((c) => bound(c, row[c])),
       JSON.stringify(row),
     ]);
     statements.push(

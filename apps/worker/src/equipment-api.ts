@@ -88,6 +88,8 @@ type ModelRow = { id: string; row: string };
 
 /** How many ids one `IN (...)` may carry beside the release: D1 binds at most 100 parameters. */
 const IDS_PER_QUERY = 90;
+/** Pairs of (model, dialect) one query may name: two parameters each, under the same ceiling. */
+const PAIRS_PER_QUERY = 45;
 const chunks = <T>(items: readonly T[]): T[][] => {
   const out: T[][] = [];
   for (let at = 0; at < items.length; at += IDS_PER_QUERY)
@@ -654,16 +656,24 @@ export async function bundle(db: Store, release: string, q: BundleQuery): Promis
     const kept = links.slice(0, LIMITS.bundleProtocol);
     const dialects = await dialectsOf(db, release, [...new Set(kept.map((l) => l.dialect_id))]);
     // What says each model speaks its dialect (#84), beside the dialect's own citations.
-    const cited = kept.length
-      ? (
+    // Citations of the links kept, and no other: a model with more links than the bound is read
+    // for the bound's worth, pair by pair, under D1's parameter ceiling.
+    const cited: { model_id: string; dialect_id: string; source_id: string; citation: string }[] =
+      [];
+    for (let at = 0; at < kept.length; at += PAIRS_PER_QUERY) {
+      const pairs = kept.slice(at, at + PAIRS_PER_QUERY);
+      const clause = pairs.map(() => "(model_id = ? AND dialect_id = ?)").join(" OR ");
+      cited.push(
+        ...(
           await db
             .prepare(
-              `SELECT model_id, dialect_id, source_id, citation FROM model_dialect_sources WHERE release = ? AND model_id IN (${marks}) ORDER BY model_id, dialect_id, CAST(position AS INTEGER)`,
+              `SELECT model_id, dialect_id, source_id, citation FROM model_dialect_sources WHERE release = ? AND (${clause}) ORDER BY model_id, dialect_id, position`,
             )
-            .bind(release, ...ids)
+            .bind(release, ...pairs.flatMap((l) => [l.model_id, l.dialect_id]))
             .all<{ model_id: string; dialect_id: string; source_id: string; citation: string }>()
-        ).results
-      : [];
+        ).results,
+      );
+    }
     protocol = kept.flatMap((l) => {
       const dialect = dialects.get(l.dialect_id);
       if (!dialect) return [];
