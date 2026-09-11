@@ -1,24 +1,10 @@
 import type { Guess } from "@origin89/equipment-schema/guess";
 import type { Sighting } from "@origin89/equipment-schema/sighting";
-import {
-  BatchMisalignedError,
-  CLASSIFIER_ID,
-  classifierKey,
-  classifyBatch,
-  contentOf,
-} from "./classify.ts";
+import { BatchMisalignedError, CLASSIFIER_ID, classifierKey, classifyBatch } from "./classify.ts";
+import { readDocument } from "./extract.ts";
 import { USER_AGENT } from "./feeds.ts";
 import { pdfium } from "./pdfium.ts";
-import {
-  CONVERTER,
-  chunk,
-  EXTRACT_MODEL,
-  EXTRACTOR_ID,
-  mergeReports,
-  RESPONSE_SCHEMA,
-  type Reported,
-  SYSTEM,
-} from "./reading.ts";
+import { CONVERTER } from "./reading.ts";
 import { parseSpecTables, TABLE_READER } from "./spec-table.ts";
 import { seeDocument, seePage } from "./vision.ts";
 import { inputKey, partKey, Work } from "./work.ts";
@@ -164,54 +150,7 @@ export async function handle(message: Work, env: Env, attempt = 1): Promise<void
       return;
     }
     case "extract": {
-      const reading = partKey.reading(message.sha256, EXTRACTOR_ID.replace(/[^\w.-]+/g, "_"));
-      // Reading a document is the expensive step, and both the document and the reading are
-      // addressed by content, so a reading that exists is a reading of exactly these bytes by
-      // exactly this reader — whichever run asked for it.
-      if (await env.ARCHIVE.head(reading)) return;
-      const object = await env.ARCHIVE.get(message.key);
-      if (!object) throw new Error(`${message.key} is gone`);
-      const windows = chunk(await object.text()).slice(0, message.maxWindows ?? 60);
-      const reports: Reported[] = [];
-      let failed = 0;
-      for (const window of windows) {
-        try {
-          const response = await env.AI.run(EXTRACT_MODEL, {
-            messages: [
-              { role: "system", content: SYSTEM },
-              { role: "user", content: window.text },
-            ],
-            response_format: { type: "json_schema", json_schema: RESPONSE_SCHEMA },
-            max_tokens: 3072,
-          } as never);
-          const parsed = JSON.parse(contentOf(response)) as { products?: Reported[] };
-          if (Array.isArray(parsed.products)) {
-            for (const product of parsed.products) {
-              if (!Array.isArray(product?.specs)) continue;
-              // The page comes from where the window started, not from the model: an invented
-              // page number is worse than none, because it looks checkable.
-              reports.push({
-                ...product,
-                specs: product.specs.map((s) => ({
-                  ...s,
-                  ...(window.page === undefined ? {} : { page: window.page }),
-                })),
-              });
-            }
-          }
-        } catch {
-          failed += 1;
-        }
-      }
-      // Compact, one object per line. Pretty-printing meant a run read back as a concatenation
-      // of multi-line objects, which is not the newline-delimited stream every reader expects.
-      await env.ARCHIVE.put(
-        reading,
-        `${JSON.stringify({ sha256: message.sha256, url: message.url, products: mergeReports(reports), windows: windows.length, failed })}\n`,
-        {
-          httpMetadata: { contentType: "application/json" },
-        },
-      );
+      await readDocument(message, env, attempt);
       return;
     }
     case "vision": {

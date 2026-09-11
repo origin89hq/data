@@ -1,13 +1,20 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { type ReadWindow, readDocument } from "../src/extract.ts";
 import {
   CHUNK_CHARACTERS,
+  CONVERTER,
   chunk,
+  EXTRACT_MODEL,
+  EXTRACTOR_ID,
   mergeReports,
   namesOneProduct,
   pageOffsets,
+  type Reported,
   statesOneFigure,
 } from "../src/reading.ts";
+import { LAST_ATTEMPT, partKey, readerKey } from "../src/work.ts";
+import { type TestAiInput, world } from "./world.ts";
 
 test("a short document is one window, and an empty one is none", () => {
   assert.deepEqual(chunk("short"), [{ text: "short" }]);
@@ -117,5 +124,120 @@ test("three products' figures written together are not one value", () => {
   assert.deepEqual(
     merged[0].specs.map((s) => s.value),
     ["1200"],
+  );
+});
+
+// ---- reading a document ----
+
+const SHA = "e".repeat(64);
+const MARKDOWN = partKey.markdown(SHA, CONVERTER);
+const READER = readerKey(EXTRACTOR_ID);
+const readingKey = partKey.reading(SHA, READER);
+const windowKey = (window: number) => partKey.window(SHA, READER, window);
+const message = {
+  kind: "extract" as const,
+  run: "2026-09-10-aaaaaaaa",
+  manufacturer: "maker",
+  date: "2026-09-10",
+  sha256: SHA,
+  url: "https://maker.test/sheet.pdf",
+  key: MARKDOWN,
+};
+
+/** Three pages of a converted sheet, long enough for three windows. */
+const SHEET = [1, 2, 3].map((page) => `### Page ${page}\n${"x".repeat(5000)}\n`).join("");
+const WINDOWS = chunk(SHEET);
+
+interface Reading {
+  products: Reported[];
+  windows: number;
+  failed: number;
+}
+
+/**
+ * A model that names one product in each window it is shown, with a page of its own invention, and
+ * answers the windows in `broken` with an answer cut short.
+ */
+function reader(broken: Set<number> = new Set()) {
+  return (_call: number, input: TestAiInput): unknown => {
+    const window = WINDOWS.findIndex((w) => w.text === input.messages[1].content) + 1;
+    if (broken.has(window))
+      return { response: '{"products":[{"model":"S-550","specs":[{"name":"Rated' };
+    return {
+      response: JSON.stringify({
+        products: [
+          { model: `S-${500 + window * 50}`, specs: [{ name: "Weight", value: "42 kg", page: 9 }] },
+        ],
+      }),
+    };
+  };
+}
+
+test("a sheet is read a window at a time, each window kept, and the reading written once all are in", async () => {
+  assert.equal(WINDOWS.length, 3);
+  const { env, asked, readObject } = world({ [MARKDOWN]: SHEET }, reader());
+  await readDocument(message, env, 1);
+  assert.equal(asked.length, 3);
+  assert.ok(asked.every((a) => a.model === EXTRACT_MODEL));
+  const reading = readObject<Reading>(readingKey);
+  assert.deepEqual([reading.windows, reading.failed], [3, 0]);
+  assert.deepEqual(
+    reading.products.map((p) => [p.model, p.specs[0].page]),
+    WINDOWS.map((w, i) => [`S-${550 + i * 50}`, w.page]),
+    "each figure has the page its window starts on, never the model's",
+  );
+  assert.equal(readObject<ReadWindow>(windowKey(2)).products[0].model, "S-600");
+
+  await readDocument(message, env, 1);
+  assert.equal(asked.length, 3, "a document read before is not read again");
+});
+
+test("an answer cut short is left for the queue, and the next delivery reads only the window missed", async () => {
+  const broken = new Set([2]);
+  const { env, asked, read, readObject } = world({ [MARKDOWN]: SHEET }, reader(broken));
+  await assert.rejects(readDocument(message, env, 1), {
+    message: /^1 of 3 windows not read; window 2: Unterminated string in JSON/,
+  });
+  assert.equal(asked.length, 3, "the windows after the failed one are still read");
+  assert.equal(read(readingKey), undefined, "no reading with a window missing");
+  assert.equal(read(windowKey(2)), undefined, "and nothing written that would stop the retry");
+  assert.ok(read(windowKey(1)) && read(windowKey(3)));
+
+  broken.clear();
+  await readDocument(message, env, 2);
+  assert.equal(asked.length, 4, "one more call, for window 2 alone");
+  const reading = readObject<Reading>(readingKey);
+  assert.deepEqual(
+    [reading.failed, reading.products.map((p) => p.model)],
+    [0, ["S-550", "S-600", "S-650"]],
+  );
+});
+
+test("a window that fails on the last attempt is written down, and the reading still finishes", async () => {
+  const { env, readObject } = world({ [MARKDOWN]: SHEET }, reader(new Set([2])));
+  await readDocument(message, env, LAST_ATTEMPT);
+  assert.match(readObject<ReadWindow>(windowKey(2)).failed ?? "", /^not read: Unterminated string/);
+  const reading = readObject<Reading>(readingKey);
+  assert.deepEqual(
+    [reading.windows, reading.failed, reading.products.map((p) => p.model)],
+    [3, 1, ["S-550", "S-650"]],
+  );
+});
+
+test("a window kept past this message's budget is not counted in its reading", async () => {
+  const kept: ReadWindow = {
+    window: 3,
+    products: [{ model: "S-999", specs: [{ name: "Weight", value: "1 kg" }] }],
+  };
+  const { env, asked, readObject } = world(
+    { [MARKDOWN]: SHEET, [windowKey(3)]: `${JSON.stringify(kept)}\n` },
+    reader(),
+  );
+  await readDocument({ ...message, maxWindows: 2 }, env, 1);
+  assert.equal(asked.length, 2);
+  const reading = readObject<Reading>(readingKey);
+  assert.deepEqual(
+    [reading.windows, reading.products.map((p) => p.model)],
+    [2, ["S-550", "S-600"]],
   );
 });
