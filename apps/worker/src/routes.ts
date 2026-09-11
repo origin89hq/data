@@ -304,8 +304,8 @@ controlRoutes.post("/run", async (c) => {
     return c.json({ error: "limit must be an integer from 1 to 500" }, 400);
   const tier = hasFeed(seller) ? "feed" : "page";
   try {
-    const id = await startSeller(c.env, sellerId, tier, limit);
-    return c.json({ id, tier });
+    const result = await startSeller(c.env, sellerId, tier, limit);
+    return c.json({ ...result, tier });
   } catch (error) {
     if (error instanceof RunConflict) return c.json({ error: error.message }, 409);
     if (error instanceof RunStartUncertain) return c.json({ error: error.message }, 503);
@@ -484,8 +484,9 @@ controlRoutes.post("/maker", async (c) => {
   )
     return c.json({ error: "pages must be an integer from 1 to 500" }, 400);
   try {
-    const id = await startMaker(c.env, manufacturerId, domains, pages ? Number(pages) : undefined);
-    return c.json({ id });
+    return c.json(
+      await startMaker(c.env, manufacturerId, domains, pages ? Number(pages) : undefined),
+    );
   } catch (error) {
     if (error instanceof RunConflict) return c.json({ error: error.message }, 409);
     if (error instanceof RunStartUncertain) return c.json({ error: error.message }, 503);

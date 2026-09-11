@@ -185,7 +185,8 @@ test("a second request while creation is in flight can only reconcile that same 
   assert.equal(second.status, 200);
   release.resolve();
   const one = await (await first).json();
-  assert.deepEqual(one, await second.json());
+  const reconciled = (await second.json()) as { id: string };
+  assert.equal((one as { id: string }).id, reconciled.id);
   assert.equal(w.instances.size, 1);
   assert.equal(w.calls.length, 2);
   assert.deepEqual(w.calls[1], w.calls[0]);
@@ -230,7 +231,7 @@ test("a failed reservation write creates no workflow, even if the write reached 
   const reserved = w.readObject<Pointer>(KEY);
   failedPut.mock.restore();
   assert.equal(
-    await startMaker(w.env, "victron-energy", ["victronenergy.com"], 20),
+    (await startMaker(w.env, "victron-energy", ["victronenergy.com"], 20)).id,
     reserved.instance,
   );
   assert.equal(w.instances.size, 1);
@@ -368,4 +369,85 @@ test("a lookup outage keeps a pending reservation and never attempts creation", 
   assert.equal((await request(w.env)).status, 503);
   assert.equal(w.calls.length, 1);
   assert.deepEqual(w.read(KEY), pending);
+});
+
+test("scheduled recovery of a terminal run still starts the intended fresh collection", async () => {
+  for (const status of ["complete", "errored", "terminated", "waiting", "paused"]) {
+    const w = service();
+    w.failures.after = true;
+    await request(w.env);
+    const pending = w.readObject<Pointer>(KEY);
+    assert.ok(pending.instance);
+    w.instances.set(pending.instance, status);
+    w.failures.after = false;
+    const result = await startIfFree(() =>
+      startMaker(w.env, "victron-energy", ["victronenergy.com"], 20),
+    );
+    const terminal = ["complete", "errored", "terminated"].includes(status);
+    if (terminal) {
+      assert.ok(result);
+      assert.notEqual(result, pending.instance);
+      assert.equal(w.readObject<Pointer>(KEY).instance, result);
+    } else assert.equal(result, undefined);
+    assert.equal(w.calls.length, terminal ? 2 : 1);
+  }
+});
+
+test("a competing start after reconciliation cannot be overwritten by the scheduled follow-up", async () => {
+  const w = service();
+  w.failures.after = true;
+  await request(w.env);
+  const pending = w.readObject<Pointer>(KEY);
+  assert.ok(pending.instance);
+  w.instances.set(pending.instance, "complete");
+  w.failures.after = false;
+  let calls = 0;
+  let competing: string | undefined;
+  const result = await startIfFree(async () => {
+    calls++;
+    if (calls === 2)
+      competing = (await startMaker(w.env, "victron-energy", ["victronenergy.com"], 20)).id;
+    return startMaker(w.env, "victron-energy", ["victronenergy.com"], 20);
+  });
+  assert.equal(result, undefined);
+  assert.equal(w.calls.length, 2);
+  assert.equal(w.readObject<Pointer>(KEY).instance, competing);
+});
+
+test("manual recovery reports reconciliation without launching a fresh replacement", async () => {
+  const w = service();
+  w.failures.after = true;
+  await request(w.env);
+  const pending = w.readObject<Pointer>(KEY);
+  assert.ok(pending.instance);
+  w.instances.set(pending.instance, "complete");
+  w.failures.after = false;
+  const response = await request(w.env);
+  assert.deepEqual(await response.json(), {
+    id: pending.instance,
+    outcome: "reconciled",
+    status: "complete",
+  });
+  assert.equal(w.calls.length, 1);
+});
+
+test("bulk discovery counts only fresh runs when it encounters a pending reservation", async (t) => {
+  t.mock.method(console, "log", () => {});
+  for (const status of ["complete", "waiting"]) {
+    const w = service();
+    w.failures.after = true;
+    await request(w.env);
+    const pending = w.readObject<Pointer>(KEY);
+    assert.ok(pending.instance);
+    w.instances.set(pending.instance, status);
+    w.failures.after = false;
+    const response = await request(w.env, "/discover-all?pages=1");
+    const body = (await response.json()) as { started: number; skipped: string[] };
+    assert.equal(response.status, 200);
+    assert.equal(
+      body.started,
+      status === "complete" ? manufacturers.length : manufacturers.length - 1,
+    );
+    assert.deepEqual(body.skipped, status === "complete" ? [] : ["victron-energy"]);
+  }
 });

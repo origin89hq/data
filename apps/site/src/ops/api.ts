@@ -354,7 +354,7 @@ export async function startRun(
   domains: string[],
   limit: number,
   previous?: RunStatus,
-): Promise<string> {
+): Promise<{ id: string; reconciled: boolean }> {
   const invalid = runSettingsError(kind, entity, domains, limit);
   if (invalid) throw Error(invalid);
   if (previous) {
@@ -369,7 +369,9 @@ export async function startRun(
   return post(`${kind === "maker" ? "/maker" : "/run"}?${query}`, (body) => {
     const id = string(body.id);
     segment(id);
-    return id;
+    if (body.outcome !== "created" && body.outcome !== "reconciled")
+      throw Error("Unexpected run outcome.");
+    return { id, reconciled: body.outcome === "reconciled" };
   });
 }
 export async function published(signal?: AbortSignal): Promise<DatasetFile[]> {

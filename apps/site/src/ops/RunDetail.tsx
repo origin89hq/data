@@ -384,7 +384,7 @@ function NewRun({ row, onChanged }: { row: RunRow; onChanged: () => void }) {
     if (!confirm || result) return;
     setResult({ state: "pending", text: "Starting the run…" });
     try {
-      const id = await startRun(
+      const result = await startRun(
         row.kind,
         row.entity,
         domains
@@ -394,7 +394,12 @@ function NewRun({ row, onChanged }: { row: RunRow; onChanged: () => void }) {
         Number(limit),
         row.run,
       );
-      setResult({ state: "sent", text: `Run ${id} started. Refresh to follow its progress.` });
+      setResult({
+        state: "sent",
+        text: result.reconciled
+          ? `Run ${result.id} was already created and is now confirmed. Refresh to inspect it.`
+          : `Run ${result.id} started. Refresh to follow its progress.`,
+      });
       onChanged();
     } catch (error) {
       setResult({ state: "uncertain", text: message(error) });

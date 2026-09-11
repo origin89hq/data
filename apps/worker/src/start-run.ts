@@ -13,6 +13,10 @@ interface Reservation extends Pointer {
   creation?: Creation;
 }
 
+export type StartResult =
+  | { id: string; outcome: "created" }
+  | { id: string; outcome: "reconciled"; status: InstanceStatus["status"] };
+
 export class RunConflict extends Error {
   override name = "RunConflict";
 }
@@ -42,19 +46,20 @@ async function finishCreation(
   key: string,
   pointer: Reservation,
   etag: string,
-): Promise<string> {
+): Promise<StartResult> {
   const { creation, ...accepted } = pointer;
   if (!creation) throw new RunConflict("No creation is reserved. Refresh and inspect the run.");
   const workflow = workflowOf(env, pointer.instance);
   const exists = async () => {
     const instance = await workflow.get(pointer.instance);
-    await instance.status();
+    return instance.status();
   };
+  let confirmed: InstanceStatus | undefined;
   try {
     try {
       // An acknowledged instance can be recovered even after the creation retry window. No
       // creation call is needed, and no duplicate-ID behavior is assumed.
-      await exists();
+      confirmed = await exists();
     } catch (error) {
       if (!missingInstance(error)) throw error;
       const age = Date.now() - Date.parse(pointer.startedAt);
@@ -67,14 +72,16 @@ async function finishCreation(
       } catch {
         // Another caller may have created this ID after our lookup, or creation may have
         // committed before the response was lost. Confirm it; never create a different ID.
-        await exists();
+        confirmed = await exists();
       }
     }
     await env.ARCHIVE.put(key, JSON.stringify(accepted), {
       onlyIf: { etagMatches: etag },
       httpMetadata: { contentType: "application/json" },
     });
-    return pointer.instance;
+    return confirmed
+      ? { id: pointer.instance, outcome: "reconciled", status: confirmed.status }
+      : { id: pointer.instance, outcome: "created" };
   } catch (error) {
     if (error instanceof RunConflict) throw error;
     // Keep the reservation. Releasing it on a timeout would let a new ID duplicate this run.
@@ -90,7 +97,7 @@ async function finishCreation(
  * The pointer is visible before the workflow starts, and never expires while creation is
  * uncertain. Manual, bulk and scheduled starts must all enter here.
  */
-async function start(env: Env, key: string, prepare: () => Reservation): Promise<string> {
+async function start(env: Env, key: string, prepare: () => Reservation): Promise<StartResult> {
   const current = await env.ARCHIVE.get(key);
   if (current) {
     const pointer = await current.json<Reservation>();
@@ -123,7 +130,10 @@ async function start(env: Env, key: string, prepare: () => Reservation): Promise
   });
   if (!written)
     throw new RunConflict("Another caller changed the current run. Refresh and inspect it.");
-  return finishCreation(env, key, reservation, written.etag);
+  const result = await finishCreation(env, key, reservation, written.etag);
+  // This request reserved a fresh run. Even if another caller helped create it, it belongs to
+  // this pass; only a reservation read at entry can be a leftover from an earlier pass.
+  return { id: result.id, outcome: "created" };
 }
 
 export function startMaker(
@@ -131,7 +141,7 @@ export function startMaker(
   manufacturerId: string,
   domains: string[],
   pageLimit?: number,
-): Promise<string> {
+): Promise<StartResult> {
   return start(env, pointerKey.documents(manufacturerId), () => {
     const run = newRun();
     const instance = `maker-${manufacturerId}-${run.id}`;
@@ -160,7 +170,7 @@ export function startSeller(
   sellerId: string,
   tier: "feed" | "page",
   limit?: number,
-): Promise<string> {
+): Promise<StartResult> {
   return start(env, pointerKey.sightings(sellerId), () => {
     const run = newRun();
     return {
@@ -182,9 +192,17 @@ export function startSeller(
 }
 
 /** One active entity must not stop a scheduled or bulk pass from reaching the others. */
-export async function startIfFree(work: () => Promise<string>): Promise<string | undefined> {
+export async function startIfFree(work: () => Promise<StartResult>): Promise<string | undefined> {
   try {
-    return await work();
+    let result = await work();
+    if (
+      result.outcome === "reconciled" &&
+      ["complete", "errored", "terminated"].includes(result.status)
+    )
+      result = await work();
+    // An active reconciliation is an existing run, not a newly started one. Retry a terminal
+    // reconciliation only once; the same atomic guard handles a competing caller in between.
+    return result.outcome === "created" ? result.id : undefined;
   } catch (error) {
     if (!(error instanceof RunConflict)) throw error;
     console.log(JSON.stringify({ message: "collection start skipped", reason: error.message }));

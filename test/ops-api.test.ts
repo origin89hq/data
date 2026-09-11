@@ -135,7 +135,7 @@ test("fresh runs validate settings and leave the atomic status check to the serv
   t.mock.method(globalThis, "fetch", async (url: string, init?: RequestInit) => {
     if (init?.method === "POST") {
       posts.push(url);
-      return Response.json({ id: "new-run" }, { status });
+      return Response.json({ id: "new-run", outcome: "created" }, { status });
     }
     return Response.json({ run: run.run, instance: run.instance });
   });
@@ -144,7 +144,10 @@ test("fresh runs validate settings and leave the atomic status check to the serv
   await assert.rejects(startRun("maker", "victron", ["docs.example.com"], 20, run), /409/);
   assert.equal(posts.length, 1, "invalid settings must not post");
   status = 200;
-  assert.equal(await startRun("maker", "victron", ["docs.example.com"], 20, run), "new-run");
+  assert.deepEqual(await startRun("maker", "victron", ["docs.example.com"], 20, run), {
+    id: "new-run",
+    reconciled: false,
+  });
   assert.equal(posts[0], "/maker?id=victron&domains=docs.example.com&pages=20");
 });
 
@@ -199,4 +202,14 @@ test("all unconfirmed 2xx mutation acknowledgements are uncertain and never retr
       assert.equal(posts, 1);
     }
   }
+});
+
+test("the dashboard distinguishes confirmation of an existing run from fresh creation", async (t) => {
+  t.mock.method(globalThis, "fetch", async () =>
+    Response.json({ id: "reserved-run", outcome: "reconciled", status: "complete" }),
+  );
+  assert.deepEqual(await startRun("seller", "shop", [], 20), {
+    id: "reserved-run",
+    reconciled: true,
+  });
 });
