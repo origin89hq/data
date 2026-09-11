@@ -10,14 +10,20 @@ test("the vocabulary is the schema's own lists, in the schema's order", () => {
   assert.deepEqual(v.commands, [...CommandKind.options]);
   assert.deepEqual(v.kinds, [...EquipmentKind.options]);
   assert.ok(v.metrics.includes("pv-voltage"), "the name a firmware crosswalk targets");
-  assert.deepEqual(v.tiers, ["record", "feed"]);
+  assert.deepEqual(v.rowTiers, ["record", "feed"]);
+  assert.deepEqual(
+    v.dialectModelTiers,
+    ["A", "B", "C", "D"],
+    "a dialect's model tier is the catalogue's priority, not where a row comes from",
+  );
 });
 
-test("every word is a kebab-case identifier, and no list repeats one", () => {
+test("every word is a kebab-case identifier or a tier letter, and no list repeats one", () => {
   for (const [list, words] of Object.entries(vocabulary())) {
     assert.equal(new Set(words).size, words.length, `${list} repeats a word`);
-    for (const word of words)
-      assert.match(word, /^[a-z0-9]+(-[a-z0-9]+)*$/, `${list}: ${JSON.stringify(word)}`);
+    // The catalogue's tiers are the one list spelled in capitals, as the catalogue wrote them.
+    const shape = list === "dialectModelTiers" ? /^[A-D]$/ : /^[a-z0-9]+(-[a-z0-9]+)*$/;
+    for (const word of words) assert.match(word, shape, `${list}: ${JSON.stringify(word)}`);
   }
 });
 

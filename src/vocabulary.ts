@@ -4,6 +4,7 @@ import {
   DriverStatus,
   Family,
   MetricKind,
+  Tier,
 } from "@origin89/equipment-schema/enums";
 import { EquipmentKind } from "@origin89/equipment-schema/guess";
 
@@ -27,7 +28,12 @@ export interface Vocabulary {
   /** The catalogue legend for a driver; `dialects.driver_status`. */
   driverStatus: string[];
   /** Where a model or figure row comes from; `models.tier`, `specs.tier`. */
-  tiers: string[];
+  rowTiers: string[];
+  /**
+   * The catalogue's priority for a model named under a dialect, A to D; `dialect_models.tier`.
+   * A different word for a different thing than a row's tier, so the two are listed apart.
+   */
+  dialectModelTiers: string[];
 }
 
 /** The vocabularies as the schemas declare them, in the schemas' own order. */
@@ -39,6 +45,7 @@ export function vocabulary(): Vocabulary {
     families: [...Family.options],
     confidence: [...Confidence.options],
     driverStatus: [...DriverStatus.options],
-    tiers: ["record", "feed"],
+    rowTiers: ["record", "feed"],
+    dialectModelTiers: [...Tier.options],
   };
 }
