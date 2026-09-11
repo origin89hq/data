@@ -1,9 +1,0 @@
-{
-  "id": "the-cabin-depot-ugp-r30oclpss--manifold-pressure-lp",
-  "model": "the-cabin-depot-ugp-r30oclpss",
-  "name": "Manifold Pressure LP",
-  "value": "10” W.C.",
-  "source": "doc-fafa05a1a8c0252b401d31a130be80ea",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

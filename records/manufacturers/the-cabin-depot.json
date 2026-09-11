@@ -4,5 +4,6 @@
   "website": "https://thecabindepot.ca",
   "domains": [
     "thecabindepot.ca"
-  ]
+  ],
+  "retailer": true
 }
