@@ -2,8 +2,10 @@ import { Guess } from "@origin89/equipment-schema/guess";
 import {
   classifierKey,
   EXTRACTOR_ID,
+  PULL_PAGE_READER,
   READS_PER_REQUEST,
   readerKey,
+  VISION_EXTRACTOR_ID,
 } from "@origin89/equipment-schema/provenance";
 import { Sighting } from "@origin89/equipment-schema/sighting";
 import type { MakerState } from "../../apps/worker/src/state.ts";
@@ -188,12 +190,14 @@ export async function readCrawl(
 }
 
 /**
- * The readers whose figures the pull takes: the text reader, and the parser over a maker's own
- * specification tables. The page reader is left out. Its first day filed figures under a
- * certificate's form number and under a table's model row without its family (#28), and most of
- * its pages failed on the model's rate limit and were kept as read (#29).
+ * The readers whose figures the pull takes: the text reader, the parser over a maker's own
+ * specification tables, and the page reader only when `PULL_PAGE_READER` lets it in.
  */
-export const PULLED_READERS: readonly string[] = [readerKey(EXTRACTOR_ID), "table_spec-table_v1"];
+export const PULLED_READERS: readonly string[] = [
+  readerKey(EXTRACTOR_ID),
+  ...(PULL_PAGE_READER ? [readerKey(VISION_EXTRACTOR_ID)] : []),
+  "table_spec-table_v1",
+];
 
 /**
  * Every reading of these documents, in one request per batch.

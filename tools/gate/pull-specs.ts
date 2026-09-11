@@ -59,7 +59,7 @@ const readings: {
 // A reading lives beside its document, so this run's readings are those of the documents it
 // converted. Nothing is re-read because a run asked again.
 // A document may answer more than once: the text reader's and the table parser's readings both
-// land here. The page reader's do not, for now; PULLED_READERS says why.
+// land here. The page reader's readings do not while `PULL_PAGE_READER` keeps them out.
 // They come back in batches rather than one document at a time. Asking per document was a round
 // trip each, and four thousand documents across three readers is thirteen thousand of them; the
 // daily pull spent twenty-eight minutes on it and was climbing towards its hour.
