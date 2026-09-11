@@ -93,6 +93,27 @@ export const Work = z.discriminatedUnion("kind", [
     .refine((m) => m.page <= m.pages, {
       message: "a page past the last one the reading waits for",
     }),
+  z
+    .object({
+      /** One window of a document's transcript, read for the figures it prints. */
+      kind: z.literal("vision-window"),
+      /** The run this work belongs to. Results land under it, so two runs cannot mix. */
+      run: z.string().min(1),
+      manufacturer: z.string().min(1),
+      date: z.string().min(1),
+      sha256: z.string().regex(/^[0-9a-f]{64}$/),
+      url: z.string().url(),
+      /** Counted from one. */
+      window: z.number().int().positive(),
+      /** How many windows the reading waits for, so whichever lands last can put them together. */
+      windows: z.number().int().positive(),
+      /** Times the window was put back to wait its turn with the model. */
+      waits: z.number().int().nonnegative().optional(),
+    })
+    .strict()
+    .refine((m) => m.window <= m.windows, {
+      message: "a window past the last one the reading waits for",
+    }),
 ]);
 export type Work = z.infer<typeof Work>;
 
@@ -135,6 +156,11 @@ export const partKey = {
     `archive/${sha256}.${extractor}.page-${String(page).padStart(4, "0")}.json`,
   /** Every page of that reading, and nothing else: the prefix ends before the page number. */
   pages: (sha256: string, extractor: string) => `archive/${sha256}.${extractor}.page-`,
+  /** One window of a reading that is read a window at a time. Beside the document, like its pages. */
+  window: (sha256: string, extractor: string, window: number) =>
+    `archive/${sha256}.${extractor}.window-${String(window).padStart(4, "0")}.json`,
+  /** Every window of that reading, and nothing else. */
+  windows: (sha256: string, extractor: string) => `archive/${sha256}.${extractor}.window-`,
 };
 
 /**

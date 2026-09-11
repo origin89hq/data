@@ -1,5 +1,5 @@
 import type { Reported } from "../src/reading.ts";
-import type { SeenPage } from "../src/vision.ts";
+import type { ReadWindow, SeenPage } from "../src/vision.ts";
 
 interface Reading {
   products: Reported[];
@@ -17,14 +17,19 @@ import { visionRun } from "../src/enqueue.ts";
 import {
   CONVERTER,
   chunk,
+  DOCUMENT_FIGURES_SYSTEM,
   EXTRACTOR_ID,
+  FIGURE_WINDOW_CHARACTERS,
+  figureWindows,
   hasTextLayer,
   MAX_PAGES,
   MAX_RENDER_BYTES,
+  mergeReports,
+  notTranscribed,
   PAGE_CONVERTER,
   pageOffsets,
   RESPONSE_SCHEMA,
-  reportsOnPage,
+  reportsInWindow,
   TRANSCRIPT_SCHEMA,
   textLayer,
   transcriptDocument,
@@ -32,10 +37,11 @@ import {
   VISION_EXTRACTOR_ID,
   VISION_MODEL,
   VISION_RESPONSE_SCHEMA,
+  windowPrompt,
   withoutPageHeadings,
 } from "../src/reading.ts";
-import { MAX_WAITS, seeDocument, seePage, waitFor } from "../src/vision.ts";
-import { LAST_ATTEMPT, partKey, readerKey } from "../src/work.ts";
+import { MAX_WAITS, seeDocument, seePage, seeWindow, waitFor } from "../src/vision.ts";
+import { LAST_ATTEMPT, partKey, readerKey, type Work } from "../src/work.ts";
 import { BLACK_BOX, pdfium, tinyPdf } from "./pdf.ts";
 import { type TestAiInput, world } from "./world.ts";
 
@@ -108,7 +114,7 @@ test("a conversion with no pages is not a PDF's, so there is nothing to draw and
   );
 });
 
-test("the page reader has an id the spec schema accepts, and a key of its own beside the text reader's", () => {
+test("the page reader has an id the spec schema accepts, and keys of its own beside the text reader's", () => {
   assert.match(
     VISION_EXTRACTOR_ID,
     /^(ai|table):[\w./@:-]+$/,
@@ -117,8 +123,13 @@ test("the page reader has an id the spec schema accepts, and a key of its own be
   assert.notEqual(readerKey(VISION_EXTRACTOR_ID), readerKey(EXTRACTOR_ID));
   assert.equal(
     readerKey(VISION_EXTRACTOR_ID),
-    "ai_cf_moonshotai_kimi-k2.7-code_vision-p2",
-    "p1's readings kept rate-limited pages as read, so they are not this reader's (#29)",
+    "ai_cf_moonshotai_kimi-k2.7-code_vision-p3",
+    "p2 read figures page by page, and a page does not always name what it rates (#28)",
+  );
+  assert.equal(
+    PAGE_CONVERTER,
+    "pages-kimi-k2.7-code-p3",
+    "the transcription keeps its own version, so a new figures prompt draws no page again",
   );
   assert.equal(
     readerKey(EXTRACTOR_ID),
@@ -134,33 +145,275 @@ test("the page reader must give every figure a unit, and the text reader's answe
   assert.deepEqual(figure(RESPONSE_SCHEMA).required, ["name", "value"]);
 });
 
-test("a page's answer carries the page it was drawn from, whatever page the model thought it was", () => {
+/** Kinetic Solar's CSA certificate as the page reader wrote it down: the product on page 1, its ratings on page 2. */
+const CERTIFICATE = transcriptDocument("CoFC_70214420_EN.pdf", [
+  {
+    page: 1,
+    markdown:
+      "# Certificate of Compliance\n\n**Model:** K-Rack\n\nKinetic K-Rack is an extruded aluminum PV racking system.\n\nDQD 507 Rev 2018-11-12 © 2018 CSA Group. Page 1",
+  },
+  {
+    page: 2,
+    markdown:
+      "Mechanical ratings UL 2703:\n\n| Downward Design Load (lb/ft²) | 75.3 |\n| Upward Design Load (lb/ft²) | 33.4 |\n\n| DQD 507 Rev 2018-11-12 | Page 2 |",
+  },
+]);
+
+test("a figure keeps the page its value is printed on, never one the model names", () => {
+  const [window] = figureWindows(CERTIFICATE);
+  assert.ok(window);
   const answer = JSON.stringify({
     products: [
-      { model: "UGP-24CR", specs: [{ name: "Weight", value: "156.5", unit: "lb", page: 9 }] },
+      {
+        model: "K-Rack",
+        specs: [
+          { name: "Downward Design Load", value: "75.3", unit: "lb/ft²", page: 9 },
+          { name: "Uplift", value: "not printed anywhere", unit: "lb/ft²" },
+        ],
+      },
     ],
   });
-  assert.deepEqual(reportsOnPage(answer, 1), [
-    { model: "UGP-24CR", specs: [{ name: "Weight", value: "156.5", unit: "lb", page: 1 }] },
+  assert.deepEqual(reportsInWindow(answer, CERTIFICATE, window), [
+    {
+      model: "K-Rack",
+      specs: [
+        { name: "Downward Design Load", value: "75.3", unit: "lb/ft²", page: 2 },
+        // Not found as printed, it gets no page: no page is better than a guessed one.
+        { name: "Uplift", value: "not printed anywhere", unit: "lb/ft²" },
+      ],
+    },
   ]);
 });
 
-test("a page with nothing on it is an empty answer, and a malformed product is dropped", () => {
-  assert.deepEqual(reportsOnPage(JSON.stringify({ products: [] }), 3), []);
-  assert.deepEqual(reportsOnPage(JSON.stringify({}), 3), []);
-  assert.deepEqual(
-    reportsOnPage(
-      JSON.stringify({
-        products: [{ model: "A" }, { specs: [] }, null, { model: "B", specs: [] }],
-      }),
-      3,
-    ),
-    [{ model: "B", specs: [] }],
+test("a value printed on two pages gets no page, and a short one is not found in a heading or a longer number", () => {
+  const table = transcriptDocument("range.pdf", [
+    {
+      page: 1,
+      markdown: "| Model | A-12 | A-24 |\n| Nominal voltage | 48 V | 48 V |\n| Units | 10 | 12 |",
+    },
+    { page: 2, markdown: "| Model | B-48 |\n| Nominal voltage | 48 V |\n| Parallel units | 1 |" },
+  ]);
+  const [window] = figureWindows(table);
+  assert.ok(window);
+  const answer = JSON.stringify({
+    products: [
+      {
+        model: "B-48",
+        specs: [
+          { name: "Nominal voltage", value: "48 V", unit: "V" },
+          { name: "Parallel units", value: "1", unit: "" },
+        ],
+      },
+    ],
+  });
+  assert.deepEqual(reportsInWindow(answer, table, window)[0]?.specs, [
+    // Printed on both pages: which one it came from cannot be told, so it gets none.
+    { name: "Nominal voltage", value: "48 V", unit: "V" },
+    // "1" is also in "### Page 1" and inside "10" and "12" on page 1, and a figure only on page 2.
+    { name: "Parallel units", value: "1", unit: "", page: 2 },
+  ]);
+});
+
+test("a value is not found inside a name the answer gives, whatever separates its parts", () => {
+  const sheet = transcriptDocument("rm.pdf", [
+    { page: 1, markdown: "**Model:** RM 12\n\n| Weight | 230 g |" },
+    { page: 2, markdown: "| Rated current | 12 A |" },
+  ]);
+  const [window] = figureWindows(sheet);
+  assert.ok(window);
+  const answer = (value: string) =>
+    JSON.stringify({
+      products: [{ model: "RM 12", specs: [{ name: "Rated", value, unit: "" }] }],
+    });
+  assert.equal(
+    reportsInWindow(answer("12"), sheet, window)[0]?.specs[0]?.page,
+    2,
+    "the 12 A on page 2, not the name on page 1",
+  );
+  const only = transcriptDocument("rm.pdf", [
+    { page: 1, markdown: "**Model:**  RM\n12\n\n| Weight | 230 g |" },
+  ]);
+  const [alone] = figureWindows(only);
+  assert.ok(alone);
+  assert.equal(
+    reportsInWindow(answer("12"), only, alone)[0]?.specs[0]?.page,
+    undefined,
+    "printed only as the name, even across a line break, it gets no page",
   );
 });
 
-test("an answer that is not JSON is a failed call, not a page with nothing on it", () => {
-  assert.throws(() => reportsOnPage("I could not read this page.", 1), SyntaxError);
+test("a value on a row or label that names the product is part of the name, not a rating", () => {
+  const sheet = transcriptDocument("family.pdf", [
+    { page: 1, markdown: "| Family | RM |\n| Model | 12 |\n| Weight | 230 g |" },
+    { page: 2, markdown: "## Model 24\n\n**Part number:** 24" },
+    { page: 3, markdown: "| Rated voltage | 24 V |" },
+  ]);
+  const [window] = figureWindows(sheet);
+  assert.ok(window);
+  const answer = JSON.stringify({
+    products: [
+      {
+        // The name the prompt asks for, put together from the Family and Model rows.
+        model: "RM 12",
+        specs: [
+          { name: "Rated voltage", value: "12", unit: "V" },
+          { name: "Weight", value: "230", unit: "g" },
+        ],
+      },
+      { model: "RM 24", specs: [{ name: "Rated voltage", value: "24", unit: "V" }] },
+    ],
+  });
+  const [first, second] = reportsInWindow(answer, sheet, window);
+  assert.deepEqual(
+    first?.specs.map((s) => s.page),
+    [undefined, 1],
+    "the 12 is only in the Model row, so no page; the weight is on its own row",
+  );
+  assert.equal(second?.specs[0]?.page, 3, "not the heading or the part number on page 2");
+});
+
+test("a figure two overlapping windows both report keeps the page whichever window found it", () => {
+  const figure = { name: "Weight", value: "42", unit: "kg" };
+  assert.deepEqual(
+    mergeReports([
+      { model: "S-550", specs: [figure] },
+      { model: "S-550", specs: [{ ...figure, page: 3 }] },
+    ]),
+    [{ model: "S-550", specs: [{ ...figure, page: 3 }] }],
+  );
+  assert.deepEqual(
+    mergeReports([
+      { model: "S-550", specs: [{ ...figure, page: 2 }] },
+      { model: "S-550", specs: [{ ...figure, page: 5 }] },
+    ]),
+    [{ model: "S-550", specs: [{ ...figure, page: 2 }] }],
+    "a page already found is not replaced",
+  );
+});
+
+test("a value is not found inside a model name, where a hyphen or a slash joins it to the rest", () => {
+  const sheet = transcriptDocument("rm.pdf", [
+    { page: 1, markdown: "**Model:** RM-12\n\n| Family | MultiPlus-II 48/3000/35-32 |" },
+    { page: 2, markdown: "| Rated current | 12 A |\n| Input range | 12-24 V |" },
+  ]);
+  const [window] = figureWindows(sheet);
+  assert.ok(window);
+  const answer = JSON.stringify({
+    products: [
+      {
+        model: "RM-12",
+        specs: [
+          { name: "Rated current", value: "12", unit: "A" },
+          { name: "Rated power", value: "3000", unit: "VA" },
+          { name: "Input range", value: "12-24", unit: "V" },
+        ],
+      },
+    ],
+  });
+  assert.deepEqual(reportsInWindow(answer, sheet, window)[0]?.specs, [
+    // Not "RM-12" on page 1, nor the start of "12-24": the "12 A" on page 2.
+    { name: "Rated current", value: "12", unit: "A", page: 2 },
+    // Printed only inside the model's name, so no page makes it look checkable.
+    { name: "Rated power", value: "3000", unit: "VA" },
+    { name: "Input range", value: "12-24", unit: "V", page: 2 },
+  ]);
+});
+
+test("a window's answer with nothing in it is empty, a malformed product is dropped, and prose is a failed call", () => {
+  const [window] = figureWindows(CERTIFICATE);
+  assert.ok(window);
+  assert.deepEqual(reportsInWindow(JSON.stringify({ products: [] }), CERTIFICATE, window), []);
+  assert.deepEqual(reportsInWindow(JSON.stringify({}), CERTIFICATE, window), []);
+  assert.deepEqual(
+    reportsInWindow(
+      JSON.stringify({
+        products: [{ model: "A" }, { specs: [] }, null, { model: "B", specs: [] }],
+      }),
+      CERTIFICATE,
+      window,
+    ),
+    [{ model: "B", specs: [] }],
+  );
+  assert.deepEqual(
+    reportsInWindow(
+      JSON.stringify({
+        products: [
+          {
+            model: "K-Rack",
+            specs: [null, "75.3", { name: "Downward Design Load", value: "75.3", unit: "lb/ft²" }],
+          },
+        ],
+      }),
+      CERTIFICATE,
+      window,
+    ),
+    [
+      {
+        model: "K-Rack",
+        specs: [{ name: "Downward Design Load", value: "75.3", unit: "lb/ft²", page: 2 }],
+      },
+    ],
+    "a malformed figure is dropped and the rest of the window kept",
+  );
+  assert.throws(() => reportsInWindow("I could not read this.", CERTIFICATE, window), SyntaxError);
+});
+
+test("a short transcript is one window, and a long one several that overlap, each starting on its page", () => {
+  assert.deepEqual(
+    figureWindows(CERTIFICATE).map((w) => [w.start, w.page, w.text.length]),
+    [[0, undefined, CERTIFICATE.length]],
+    "the first window starts before page 1, on the title",
+  );
+  const long = transcriptDocument(
+    "manual.pdf",
+    Array.from({ length: 30 }, (_, i) => ({ page: i + 1, markdown: `${"x".repeat(2990)}` })),
+  );
+  const windows = figureWindows(long);
+  assert.equal(windows.length, 3);
+  assert.deepEqual(
+    windows.map((w) => w.start),
+    [0, FIGURE_WINDOW_CHARACTERS - 2_000, 2 * (FIGURE_WINDOW_CHARACTERS - 2_000)],
+  );
+  assert.ok(
+    windows.slice(1).every((w) => (w.page ?? 0) > 1),
+    "later windows start on later pages",
+  );
+  assert.deepEqual(figureWindows("   \n"), [], "nothing to read, no window");
+});
+
+test("a later window is sent with the start of the document, for the names printed there", () => {
+  const long = transcriptDocument("manual.pdf", [
+    { page: 1, markdown: "# MultiPlus-II 48/3000/35-32 230V\n\nOwner's manual" },
+    ...Array.from({ length: 20 }, (_, i) => ({ page: i + 2, markdown: "y".repeat(2990) })),
+  ]);
+  const [first, second] = figureWindows(long);
+  assert.ok(first && second);
+  assert.ok(
+    windowPrompt(long, first).startsWith("### Page 1\n\n# MultiPlus-II"),
+    "the first window already holds it",
+  );
+  const prompt = windowPrompt(long, second);
+  assert.ok(
+    prompt.startsWith("The document begins:\n\n### Page 1\n\n# MultiPlus-II 48/3000/35-32 230V"),
+    "the name on page 1 comes with it",
+  );
+  assert.ok(prompt.endsWith(second.text), "and then the window itself");
+});
+
+test("the model is never shown the file's name or the metadata, which the document does not print", () => {
+  // A scan saved under a product's name, whose pages never print it.
+  const sheet = transcriptDocument("RM-12-spec-sheet.pdf", [
+    { page: 1, markdown: "| Weight | 230 g |" },
+    { page: 2, markdown: "", failed: "not transcribed: 3040: capacity temporarily exceeded" },
+    ...Array.from({ length: 20 }, (_, i) => ({ page: i + 3, markdown: "y".repeat(2990) })),
+  ]);
+  assert.match(sheet, /^# RM-12-spec-sheet\.pdf\n## Metadata\n/);
+  const [first, second] = figureWindows(sheet);
+  assert.ok(first && second);
+  for (const prompt of [windowPrompt(sheet, first), windowPrompt(sheet, second)]) {
+    assert.ok(!prompt.includes("RM-12"), "no name the pages do not print");
+    assert.ok(!prompt.includes("## Metadata") && !prompt.includes("Not transcribed"));
+  }
 });
 
 test("a transcription comes out of its answer whole, with only a fence around the answer taken off", () => {
@@ -228,7 +481,18 @@ test("the pages put together read as a conversion, and a page's own 'Page 43' ca
   );
 });
 
-// ---- the two steps, against an archive in memory and a model that answers what it is told ----
+test("a page that could not be written down is named in the transcript, not left looking blank", () => {
+  const document = transcriptDocument("cert.pdf", [
+    { page: 1, markdown: "", failed: "not transcribed: 3040: capacity temporarily exceeded" },
+    { page: 2, markdown: "| Rated power | 2400 W |" },
+    { page: 3, markdown: "", failed: "not drawn: PDFium could not open it" },
+  ]);
+  assert.ok(document.includes("\n- Not transcribed=1, 3\n"));
+  assert.deepEqual(notTranscribed(document), [1, 3]);
+  assert.deepEqual(notTranscribed(CERTIFICATE), [], "a transcript with every page says nothing");
+});
+
+// ---- the steps, against an archive in memory and a model that answers what it is told ----
 
 const SHA = "a".repeat(64);
 const URL_ = "https://maker.test/sheet.pdf";
@@ -243,6 +507,9 @@ const READER = readerKey(VISION_EXTRACTOR_ID);
 
 const markdownKey = partKey.markdown(SHA, CONVERTER);
 const readingKey = partKey.reading(SHA, READER);
+const transcriptKey = partKey.markdown(SHA, PAGE_CONVERTER);
+const pageKey = (page: number) => partKey.page(SHA, PAGE_CONVERTER, page);
+const windowKey = (window: number) => partKey.window(SHA, READER, window);
 
 test("a scan is sent on one page at a time, each message saying how many pages the reading waits for", async () => {
   const { env, sent } = world({
@@ -282,6 +549,16 @@ test("a document with a text layer, or none to draw, or a reading already, sends
   }
 });
 
+test("a document written down before goes straight to its figures, and no page is drawn again", async () => {
+  const { env, sent } = world({
+    [markdownKey]: SCANNED,
+    [`archive/${SHA}`]: tinyPdf([""]),
+    [transcriptKey]: CERTIFICATE,
+  });
+  await seeDocument({ kind: "vision", ...ids }, env);
+  assert.deepEqual(sent, [{ kind: "vision-window", ...ids, window: 1, windows: 1 }]);
+});
+
 test("a document too big to draw is refused in writing, where its reading would be", async () => {
   const { env, sent, readObject } = world({
     [markdownKey]: SCANNED,
@@ -311,16 +588,15 @@ test("a document the converter made markdown of but the archive has lost is an e
 });
 
 const answer = (body: unknown) => ({ choices: [{ message: { content: JSON.stringify(body) } }] });
-const transcriptKey = partKey.markdown(SHA, PAGE_CONVERTER);
 
 /**
  * A model that writes each drawn page down as the next of `transcripts` says (an Error fails that
- * call), and reads figures out of a transcript as `read` says. The two calls are told apart by the
- * schema each asks for.
+ * call), and reads figures out of what it is given as `read` says. The two calls are told apart by
+ * the schema each asks for.
  */
 function kimi(
   transcripts: (string | Error)[],
-  read: (markdown: string) => unknown = () => answer({ products: [] }),
+  read: (text: string) => unknown = () => answer({ products: [] }),
 ) {
   let drawn = 0;
   return (_call: number, input: TestAiInput): unknown => {
@@ -334,30 +610,15 @@ function kimi(
   };
 }
 
-test("each page is written down and then read, and the last to land puts the transcription and the reading together", async () => {
-  const { env, asked, read, readObject, text } = world(
+test("each page is written down, and the last to land puts the transcript together and sends its windows", async () => {
+  const { env, asked, sent, readObject, text } = world(
     { [`archive/${SHA}`]: tinyPdf([BLACK_BOX, BLACK_BOX]) },
-    kimi(["| Weight | 230 g |", "| Baud rate | 9600 bps |"], (markdown) =>
-      answer({
-        products: [
-          {
-            model: "RM-12",
-            specs: markdown.includes("Weight")
-              ? [{ name: "Weight", value: "230", unit: "g" }]
-              : [{ name: "Baud rate", value: "9600", unit: "bps" }],
-          },
-        ],
-      }),
-    ),
+    kimi(["**Model:** K-Rack", "| Downward Design Load (lb/ft²) | 75.3 |"]),
   );
   await seePage({ kind: "vision-page", ...ids, page: 1, pages: 2 }, env, 1, pdfium);
-  assert.equal(read(readingKey), undefined, "one page of two is not a reading");
-  assert.equal(text(transcriptKey), undefined, "nor a transcription");
-  assert.deepEqual(readObject<SeenPage>(partKey.page(SHA, READER, 1)), {
-    page: 1,
-    markdown: "| Weight | 230 g |",
-    products: [{ model: "RM-12", specs: [{ name: "Weight", value: "230", unit: "g", page: 1 }] }],
-  });
+  assert.equal(text(transcriptKey), undefined, "one page of two is not a transcript");
+  assert.deepEqual(readObject<SeenPage>(pageKey(1)), { page: 1, markdown: "**Model:** K-Rack" });
+  assert.deepEqual(sent, []);
 
   await seePage({ kind: "vision-page", ...ids, page: 2, pages: 2 }, env, 1, pdfium);
   const transcript = text(transcriptKey);
@@ -367,78 +628,88 @@ test("each page is written down and then read, and the last to land puts the tra
     "named like a conversion, and saying which",
   );
   assert.ok(
-    transcript.includes("### Page 1\n\n| Weight | 230 g |\n") &&
-      transcript.includes("### Page 2\n\n| Baud rate | 9600 bps |\n"),
+    transcript.includes("### Page 1\n\n**Model:** K-Rack\n") &&
+      transcript.includes("### Page 2\n\n| Downward Design Load (lb/ft²) | 75.3 |\n"),
   );
-  const reading = readObject<Reading>(readingKey);
-  assert.deepEqual(reading.products, [
-    {
-      model: "RM-12",
-      specs: [
-        { name: "Weight", value: "230", unit: "g", page: 1 },
-        { name: "Baud rate", value: "9600", unit: "bps", page: 2 },
-      ],
-    },
-  ]);
-  assert.deepEqual(
-    [reading.pages, reading.failed, reading.transcript, reading.extractedBy, reading.url],
-    [2, 0, transcriptKey, VISION_EXTRACTOR_ID, URL_],
-  );
+  assert.deepEqual(sent, [{ kind: "vision-window", ...ids, window: 1, windows: 1 }]);
+  assert.equal(text(readingKey), undefined, "the reading waits for its windows");
 
-  // What the model was shown: the drawn page, as a PNG, for the transcription; then only the
-  // transcription, with a schema that will not take a figure without a unit.
-  assert.equal(asked.length, 4, "two calls a page");
+  // What the model was shown for each page: the drawn page, as a PNG, and nothing else asked.
+  assert.equal(asked.length, 2, "one call a page, to write it down");
   assert.ok(asked.every((a) => a.model === VISION_MODEL));
   const imageContent = asked[0].input.messages[1].content;
   assert.ok(Array.isArray(imageContent));
   const imageUrl = imageContent[1]?.image_url?.url;
   assert.ok(imageUrl?.startsWith("data:image/png;base64,iVBORw0KGgo"), "a PNG, by its first bytes");
   assert.deepEqual(asked[0].input.response_format.json_schema.schema, TRANSCRIPT_SCHEMA);
-  assert.equal(
-    asked[1].input.messages[1].content,
-    "| Weight | 230 g |",
-    "the figures are read from the words, not the picture",
-  );
-  assert.deepEqual(
-    (asked[1].input.response_format.json_schema.schema as typeof VISION_RESPONSE_SCHEMA).properties
-      .products.items.properties.specs.items.required,
-    ["name", "value", "unit"],
-  );
   assert.ok(
     asked.every((a) => a.input.chat_template_kwargs.thinking === false),
     "Kimi's own name for the switch; it ignores enable_thinking",
   );
 });
 
-test("a page with no digit on it is written down and not read for figures, which it cannot hold", async () => {
-  const { env, asked, readObject, text } = world(
-    { [`archive/${SHA}`]: tinyPdf([BLACK_BOX]) },
-    kimi(["[illustration of a vertical turbine pump]"]),
-  );
-  await seePage({ kind: "vision-page", ...ids, page: 1, pages: 1 }, env, 1, pdfium);
-  assert.equal(asked.length, 1, "the transcription, and no second call");
-  assert.deepEqual(readObject<Reading>(readingKey).products, []);
-  assert.ok(
-    text(transcriptKey)?.includes("### Page 1\n\n[illustration of a vertical turbine pump]\n"),
-  );
-});
-
-test("a page delivered twice is read once, and a finished reading stops a straggler from asking again", async () => {
+test("a window is read with the names the whole document prints, and the last one writes the reading", async () => {
+  const seen: string[] = [];
   const { env, asked, readObject } = world(
-    { [`archive/${SHA}`]: tinyPdf([BLACK_BOX]) },
-    kimi(["| Weight | 230 g |"], () =>
-      answer({
-        products: [{ model: "RM-12", specs: [{ name: "Weight", value: "230", unit: "g" }] }],
-      }),
-    ),
+    { [transcriptKey]: CERTIFICATE },
+    kimi([], (text) => {
+      seen.push(text);
+      return answer({
+        products: [
+          {
+            model: "K-Rack",
+            specs: [
+              { name: "Downward Design Load", value: "75.3", unit: "lb/ft²" },
+              { name: "Upward Design Load", value: "33.4", unit: "lb/ft²" },
+            ],
+          },
+        ],
+      });
+    }),
   );
-  await seePage({ kind: "vision-page", ...ids, page: 1, pages: 1 }, env, 1, pdfium);
-  await seePage({ kind: "vision-page", ...ids, page: 1, pages: 1 }, env, 1, pdfium);
-  assert.equal(asked.length, 2, "the first delivery's two calls, and none for the second");
-  assert.equal(readObject<Reading>(readingKey).products.length, 1);
+  await seeWindow({ kind: "vision-window", ...ids, window: 1, windows: 1 }, env, 1);
+  assert.deepEqual(
+    seen,
+    [CERTIFICATE.slice(CERTIFICATE.indexOf("### Page 1"))],
+    "page 1's name and page 2's ratings in one read, under no title but what the pages print",
+  );
+  assert.equal(asked[0].input.messages[0].content, DOCUMENT_FIGURES_SYSTEM);
+  assert.deepEqual(asked[0].input.response_format.json_schema.schema, VISION_RESPONSE_SCHEMA);
+  const reading = readObject<Reading & { windows: number }>(readingKey);
+  assert.deepEqual(reading.products, [
+    {
+      model: "K-Rack",
+      specs: [
+        { name: "Downward Design Load", value: "75.3", unit: "lb/ft²", page: 2 },
+        { name: "Upward Design Load", value: "33.4", unit: "lb/ft²", page: 2 },
+      ],
+    },
+  ]);
+  assert.deepEqual(
+    [reading.pages, reading.failed, reading.windows, reading.transcript, reading.extractedBy],
+    [2, 0, 1, transcriptKey, VISION_EXTRACTOR_ID],
+  );
 });
 
-test("a remark in place of a figure is refused, so a page whose answer was commentary holds nothing", async () => {
+test("a reading waits for every window, and a window delivered twice is read once", async () => {
+  const long = transcriptDocument(
+    "manual.pdf",
+    Array.from({ length: 20 }, (_, i) => ({ page: i + 1, markdown: "z".repeat(2990) })),
+  );
+  const { env, asked, read } = world({ [transcriptKey]: long }, kimi([]));
+  const windows = figureWindows(long).length;
+  assert.equal(windows, 2);
+  await seeWindow({ kind: "vision-window", ...ids, window: 1, windows }, env, 1);
+  await seeWindow({ kind: "vision-window", ...ids, window: 1, windows }, env, 1);
+  assert.equal(asked.length, 1, "the second delivery asks nothing");
+  assert.equal(read(readingKey), undefined, "one window of two is not a reading");
+  await seeWindow({ kind: "vision-window", ...ids, window: 2, windows }, env, 1);
+  assert.equal((read(readingKey) as { windows: number }).windows, 2);
+  await seeWindow({ kind: "vision-window", ...ids, window: 2, windows }, env, 1);
+  assert.equal(asked.length, 2, "and a finished reading stops a straggler from asking again");
+});
+
+test("a remark in place of a figure is refused, so a window whose answer was commentary holds nothing", async () => {
   // What GLM once gave an RM-12 sheet: one figure, wrapped in a note about a misprinted character.
   const remark = [
     {
@@ -453,14 +724,14 @@ test("a remark in place of a figure is refused, so a page whose answer was comme
     },
   ];
   const { env, readObject } = world(
-    { [`archive/${SHA}`]: tinyPdf([BLACK_BOX]) },
-    kimi(["| Power consumption | &20mA |"], () => answer({ products: remark })),
+    { [transcriptKey]: CERTIFICATE },
+    kimi([], () => answer({ products: remark })),
   );
-  await seePage({ kind: "vision-page", ...ids, page: 1, pages: 1 }, env, 1, pdfium);
+  await seeWindow({ kind: "vision-window", ...ids, window: 1, windows: 1 }, env, 1);
   assert.equal(
-    readObject<SeenPage>(partKey.page(SHA, READER, 1)).products[0].specs.length,
+    readObject<ReadWindow>(windowKey(1)).products[0].specs.length,
     1,
-    "the page keeps what the model said",
+    "the window keeps what the model said",
   );
   assert.deepEqual(
     readObject<Reading>(readingKey).products,
@@ -469,59 +740,42 @@ test("a remark in place of a figure is refused, so a page whose answer was comme
   );
 });
 
-test("a transcription that fails is retried by the queue, and on the last attempt written down so the reading can finish", async () => {
+test("a page or window that fails is retried by the queue, and on the last attempt written down", async () => {
   const capacity = new Error("3040: capacity temporarily exceeded");
-  const { env, asked, read, readObject } = world(
-    { [`archive/${SHA}`]: tinyPdf([BLACK_BOX]) },
-    () => capacity,
-  );
+  const page = world({ [`archive/${SHA}`]: tinyPdf([BLACK_BOX]) }, () => capacity);
   await assert.rejects(
-    seePage({ kind: "vision-page", ...ids, page: 1, pages: 1 }, env, 1, pdfium),
+    seePage({ kind: "vision-page", ...ids, page: 1, pages: 1 }, page.env, 1, pdfium),
     /capacity/,
     "thrown, so the queue delivers it again",
   );
   assert.equal(
-    read(partKey.page(SHA, READER, 1)),
+    page.read(pageKey(1)),
     undefined,
     "and nothing is written that would stop the retry",
   );
-  await seePage({ kind: "vision-page", ...ids, page: 1, pages: 1 }, env, LAST_ATTEMPT, pdfium);
+  await seePage({ kind: "vision-page", ...ids, page: 1, pages: 1 }, page.env, LAST_ATTEMPT, pdfium);
+  assert.deepEqual(page.readObject<SeenPage>(pageKey(1)), {
+    page: 1,
+    markdown: "",
+    failed: "not transcribed: 3040: capacity temporarily exceeded",
+  });
+  const reading = page.readObject<Reading>(readingKey);
   assert.deepEqual(
-    [
-      readObject<SeenPage>(partKey.page(SHA, READER, 1)).markdown,
-      readObject<SeenPage>(partKey.page(SHA, READER, 1)).failed,
-    ],
-    ["", "not transcribed: 3040: capacity temporarily exceeded"],
+    [reading.products, reading.failed],
+    [[], 1],
+    "a transcript with nothing written down is read as nothing, without asking",
   );
-  assert.deepEqual(
-    [readObject<Reading>(readingKey).failed, readObject<Reading>(readingKey).products],
-    [1, []],
-  );
-  assert.equal(asked.length, 2, "one transcription on each attempt, and nothing to read");
-});
+  assert.equal(page.asked.length, 2, "one transcription on each attempt, and no read of nothing");
 
-test("a read that fails after the page was written down keeps what was written", async () => {
-  const { env, readObject, text } = world(
-    { [`archive/${SHA}`]: tinyPdf([BLACK_BOX]) },
-    kimi(
-      ["| Weight | 230 g |", "| Weight | 230 g |"],
-      () => new Error("3040: capacity temporarily exceeded"),
-    ),
+  const window = world({ [transcriptKey]: CERTIFICATE }, () => capacity);
+  const one = { kind: "vision-window" as const, ...ids, window: 1, windows: 1 };
+  await assert.rejects(seeWindow(one, window.env, 1), /capacity/);
+  await seeWindow(one, window.env, LAST_ATTEMPT);
+  assert.equal(
+    window.readObject<ReadWindow>(windowKey(1)).failed,
+    "not read: 3040: capacity temporarily exceeded",
   );
-  await assert.rejects(
-    seePage({ kind: "vision-page", ...ids, page: 1, pages: 1 }, env, 1, pdfium),
-    /capacity/,
-  );
-  await seePage({ kind: "vision-page", ...ids, page: 1, pages: 1 }, env, LAST_ATTEMPT, pdfium);
-  const page = readObject<SeenPage>(partKey.page(SHA, READER, 1));
-  assert.deepEqual(
-    [page.markdown, page.products, page.failed],
-    ["| Weight | 230 g |", [], "not read: 3040: capacity temporarily exceeded"],
-  );
-  assert.ok(
-    text(transcriptKey)?.includes("| Weight | 230 g |"),
-    "the transcription is the part worth keeping, and it is kept",
-  );
+  assert.equal(window.readObject<Reading>(readingKey).failed, 1, "and the reading still finishes");
 });
 
 test("a page PDFium cannot draw is written down at once, without asking a model anything", async () => {
@@ -530,10 +784,7 @@ test("a page PDFium cannot draw is written down at once, without asking a model 
   });
   await seePage({ kind: "vision-page", ...ids, page: 1, pages: 1 }, env, 1, pdfium);
   assert.equal(asked.length, 0);
-  assert.match(
-    readObject<SeenPage>(partKey.page(SHA, READER, 1)).failed,
-    /^not drawn: PDFium could not open it/,
-  );
+  assert.match(readObject<SeenPage>(pageKey(1)).failed, /^not drawn: PDFium could not open it/);
   assert.equal(readObject<Reading>(readingKey).failed, 1);
 });
 
@@ -541,51 +792,96 @@ test("a page PDFium cannot draw is written down at once, without asking a model 
 
 const RATE_LIMITED = "3021: rate limiting: inference request per min rate reached";
 const pageOne = { kind: "vision-page" as const, ...ids, page: 1, pages: 1 };
+const windowOne = { kind: "vision-window" as const, ...ids, window: 1, windows: 1 };
 
-test("a page the pace turns away waits its turn: nothing is drawn or asked, and a copy comes back later", async () => {
-  const { env, asked, sent, delays, pace, read } = world(
+test("a send of the windows that fails leaves no transcript, so the page delivered again sends them", async () => {
+  // Written first, the transcript stopped every later page, and the windows were never sent.
+  const { env, sent, text } = world(
     { [`archive/${SHA}`]: tinyPdf([BLACK_BOX]) },
-    kimi(["| Weight | 230 g |"]),
+    kimi(["| Weight | 230 g |", "| Weight | 230 g |"]),
   );
-  pace.allow = () => false;
-  await seePage(pageOne, env, 1, pdfium);
-  assert.equal(asked.length, 0, "the model is not asked");
-  assert.equal(read(partKey.page(SHA, READER, 1)), undefined, "and nothing is written down");
-  assert.equal(read(readingKey), undefined);
-  assert.deepEqual(sent, [{ ...pageOne, waits: 1 }]);
-  assert.deepEqual(delays, [71], "a minute, and eleven seconds for this page's place");
+  const sendBatch = env.WORK.sendBatch.bind(env.WORK);
+  let refused = false;
+  Object.assign(env.WORK, {
+    sendBatch: async (batch: { body: Work }[]) => {
+      if (!refused) {
+        refused = true;
+        throw new Error("Queue sendBatch failed: internal error");
+      }
+      return sendBatch(batch as never);
+    },
+  });
+  await assert.rejects(seePage(pageOne, env, 1, pdfium), /internal error/);
+  assert.equal(text(transcriptKey), undefined, "no transcript to stop the next delivery");
+  await seePage(pageOne, env, 2, pdfium);
+  assert.deepEqual(sent, [windowOne]);
+  assert.ok(text(transcriptKey), "and the transcript is written after them");
 });
 
-test("a page the model refuses on its rate limit waits too, even on its last delivery, whichever call refused", async () => {
-  const transcription = world(
-    { [`archive/${SHA}`]: tinyPdf([BLACK_BOX]) },
-    kimi([new Error(RATE_LIMITED)]),
-  );
-  await seePage(pageOne, transcription.env, LAST_ATTEMPT, pdfium);
-  assert.equal(
-    transcription.read(partKey.page(SHA, READER, 1)),
-    undefined,
-    "not written as failed",
-  );
-  assert.equal(transcription.read(readingKey), undefined, "so the reading waits for it");
-  assert.deepEqual(transcription.sent, [{ ...pageOne, waits: 1 }]);
-
-  const figures = world(
-    { [`archive/${SHA}`]: tinyPdf([BLACK_BOX]) },
-    kimi(["| Weight | 230 g |"], () => new Error(RATE_LIMITED)),
-  );
-  await seePage({ ...pageOne, waits: 3 }, figures.env, 1, pdfium);
-  assert.equal(figures.read(partKey.page(SHA, READER, 1)), undefined);
-  assert.deepEqual(figures.sent, [{ ...pageOne, waits: 4 }]);
-  assert.deepEqual(
-    figures.delays,
-    [491],
-    "eight minutes after three waits, and its eleven seconds",
-  );
+test("a reading of nothing that fails to be written leaves no transcript, so the page delivered again writes it", async () => {
+  const { env, sent, text } = world({ [`archive/${SHA}`]: tinyPdf([BLACK_BOX]) }, kimi(["", ""]));
+  const put = env.ARCHIVE.put.bind(env.ARCHIVE);
+  let refused = false;
+  Object.assign(env.ARCHIVE, {
+    put: async (key: string, ...rest: unknown[]) => {
+      if (key === readingKey && !refused) {
+        refused = true;
+        throw new Error("put: We encountered an internal error. Please try again. (10001)");
+      }
+      return put(key, ...(rest as [never, never]));
+    },
+  });
+  await assert.rejects(seePage(pageOne, env, 1, pdfium), /internal error/);
+  assert.equal(text(transcriptKey), undefined, "no transcript to stop the next delivery");
+  await seePage(pageOne, env, 2, pdfium);
+  assert.deepEqual(sent, [], "a blank page has no window to read");
+  assert.ok(text(readingKey), "the reading is written");
+  assert.ok(text(transcriptKey), "and the transcript after it");
 });
 
-test("the wait doubles from a minute to half an hour, and a page's place spreads a document's pages", () => {
-  // The spread is this document's first four hex digits plus the page, counted round a minute:
+test("a window that comes in before its transcript is written waits, without taking a turn", async () => {
+  const { env, sent, asked, pace } = world({}, kimi([]));
+  await seeWindow(windowOne, env, LAST_ATTEMPT);
+  assert.equal(asked.length, 0);
+  assert.equal(pace.asked, 0, "no turn with the model is used up");
+  assert.deepEqual(sent, [{ ...windowOne, waits: 1 }]);
+});
+
+test("a page or window the pace turns away waits its turn: nothing is drawn or asked, and a copy comes back later", async () => {
+  const page = world({ [`archive/${SHA}`]: tinyPdf([BLACK_BOX]) }, kimi(["| Weight | 230 g |"]));
+  page.pace.allow = () => false;
+  await seePage(pageOne, page.env, 1, pdfium);
+  assert.equal(page.asked.length, 0, "the model is not asked");
+  assert.equal(page.read(pageKey(1)), undefined, "and nothing is written down");
+  assert.deepEqual(page.sent, [{ ...pageOne, waits: 1 }]);
+  assert.deepEqual(page.delays, [71], "a minute, and eleven seconds for this page's place");
+
+  const window = world({ [transcriptKey]: CERTIFICATE }, kimi([]));
+  window.pace.allow = () => false;
+  await seeWindow(windowOne, window.env, 1);
+  assert.equal(window.asked.length, 0);
+  assert.deepEqual(window.sent, [{ ...windowOne, waits: 1 }]);
+});
+
+test("a page or window the model refuses on its rate limit waits too, even on its last delivery", async () => {
+  const page = world({ [`archive/${SHA}`]: tinyPdf([BLACK_BOX]) }, kimi([new Error(RATE_LIMITED)]));
+  await seePage(pageOne, page.env, LAST_ATTEMPT, pdfium);
+  assert.equal(page.read(pageKey(1)), undefined, "not written as failed");
+  assert.equal(page.read(transcriptKey), undefined, "so the transcript waits for it");
+  assert.deepEqual(page.sent, [{ ...pageOne, waits: 1 }]);
+
+  const window = world(
+    { [transcriptKey]: CERTIFICATE },
+    kimi([], () => new Error(RATE_LIMITED)),
+  );
+  await seeWindow({ ...windowOne, waits: 3 }, window.env, LAST_ATTEMPT);
+  assert.equal(window.read(windowKey(1)), undefined);
+  assert.deepEqual(window.sent, [{ ...windowOne, waits: 4 }]);
+  assert.deepEqual(window.delays, [491], "eight minutes after three waits, and its eleven seconds");
+});
+
+test("the wait doubles from a minute to half an hour, and a page's or window's place spreads them", () => {
+  // The spread is this document's first four hex digits plus the place, counted round a minute:
   // 0xaaaa is 43690, and 43691 is 11 past a multiple of sixty.
   const at = (page: number, waits?: number) =>
     waitFor({ ...pageOne, page, pages: 60, ...(waits === undefined ? {} : { waits }) });
@@ -594,6 +890,11 @@ test("the wait doubles from a minute to half an hour, and a page's place spreads
     [71, 131, 251, 971, 1811, 1811],
   );
   assert.deepEqual([at(2), at(49), at(50)], [72, 119, 60], "the place wraps round the minute");
+  assert.equal(
+    waitFor({ ...windowOne, window: 3, windows: 5 }),
+    73,
+    "a window's place is its number",
+  );
 });
 
 test("past its last wait a refused page is a failure like any other, written down on its last delivery", async () => {
@@ -606,10 +907,7 @@ test("past its last wait a refused page is a failure like any other, written dow
   await assert.rejects(seePage(last, env, 1, pdfium), /3021/, "the queue tries it again");
   await seePage(last, env, LAST_ATTEMPT, pdfium);
   assert.equal(pace.asked, 0, "the pace is not asked for a page that has waited its last");
-  assert.equal(
-    readObject<SeenPage>(partKey.page(SHA, READER, 1)).failed,
-    `not transcribed: ${RATE_LIMITED}`,
-  );
+  assert.equal(readObject<SeenPage>(pageKey(1)).failed, `not transcribed: ${RATE_LIMITED}`);
   assert.equal(readObject<Reading>(readingKey).failed, 1);
   assert.deepEqual(sent, [], "and it is not put back again");
 });
