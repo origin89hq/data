@@ -76,11 +76,11 @@ test("the feed holds no repeated id, every figure cites a file source, and STC f
   const by = (name: string) => panel.specs.find((s) => s.name === name);
   assert.deepEqual(
     [by("Nameplate power at standard test conditions")?.unit, by("Open-circuit voltage")?.unit],
-    ["W", "V"],
-    "STC power gets the unit the units row leaves blank; Voc keeps the one it states",
+    [undefined, "V"],
+    "a unit the units row leaves blank stays blank; Voc keeps the one it states",
   );
-  assert.match(String(by("Open-circuit voltage")?.conditions), /^STC/);
-  assert.match(String(by("Power at PVUSA test conditions")?.conditions), /^PTC/);
+  assert.equal(by("Open-circuit voltage")?.conditions, "STC");
+  assert.equal(by("Power at PVUSA test conditions")?.conditions, "PTC");
   assert.equal(by("Cells in series")?.conditions, undefined, "a count has no test condition");
   assert.equal(by("Temperature coefficient of open-circuit voltage")?.unit, "V/K");
   assert.equal(by("Temperature coefficient of maximum power")?.unit, "%/K");
@@ -110,8 +110,8 @@ test("a name the library lists twice keeps both rows under distinct ids, in file
       "the second row skips the suffix a real product already uses",
     );
     assert.equal(rows[0].source, "sam-cec-cec-modules");
-    assert.equal(rows[0].specs[0].unit, "W", "STC power is stated in watts");
-    assert.equal(rows[0].specs[1].conditions, "STC: 1000 W/m², cell 25 °C, AM 1.5");
+    assert.equal(rows[0].specs[0].unit, undefined, "the file states no unit for STC power");
+    assert.equal(rows[0].specs[1].conditions, "STC");
   } finally {
     rmSync(lib.dir, { recursive: true, force: true });
   }

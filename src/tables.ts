@@ -322,12 +322,14 @@ export function tables(records: Records, feeds = readFeeds()): Table[] {
           reviewed_by: s.reviewedBy,
           doubt: figureConcerns(s).join("; ") || undefined,
         })),
+        // A feed figure's id is its model and its name, never its position: a position moved
+        // whenever a column was added or a cell was blank, and a consumer keyed to the id then
+        // saw a figure deleted and another added when nothing about the fact had changed. The
+        // name is never cut: a model id near its own cap once lost the tail of "Temperature
+        // coefficient of …" to a length limit here, and three figures became one id.
         ...feedRows.flatMap(({ model }) =>
-          model.specs.map((spec, i) => ({
-            id: `${model.id}--${String(i).padStart(2, "0")}-${spec.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`.slice(
-              0,
-              180,
-            ),
+          model.specs.map((spec) => ({
+            id: `${model.id}--${spec.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
             tier: "feed",
             model_id: model.id,
             name: spec.name,

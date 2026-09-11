@@ -128,20 +128,24 @@ export function pinnedFile(dir: string, name: string, sha256: string): string {
   return bytes.toString("utf8");
 }
 
-/** Standard test conditions, which is what every rated figure on a module is measured at. */
-const STC = "STC: 1000 W/m², cell 25 °C, AM 1.5";
-/** PVUSA test conditions, which put the module in a plausible field rather than a lab. */
-const PTC = "PTC: 1000 W/m², ambient 20 °C, wind 1 m/s";
+/**
+ * The conditions a module figure is stated under, in the words the library's own column names
+ * use: `STC` and `PTC` are columns, and `_ref` marks a figure at the reference conditions, which
+ * for the CEC model are STC. What those conditions are in numbers is not in the file, so it is
+ * not in the row either; the README says what the two labels mean.
+ */
+const STC = "STC";
+const PTC = "PTC";
 
 /**
- * Figures worth keeping from a SAM row. The unit comes from the library's own units row, except
- * where that row is blank: it leaves STC and PTC without a unit, and SAM's help documents both
- * as watts ("Nominal Power (W)" for STC, "PTC (W)"), so the unit is stated here with that as its
- * source rather than left off and doubted on every one of twenty thousand rows.
+ * Figures worth keeping from a SAM row. The unit is the one the library's own units row gives
+ * and nothing else: that row leaves STC and PTC blank, and the figure is published that way,
+ * doubted, because the file a feed figure cites cannot show a unit it does not contain. The
+ * property layer states the unit from SAM's documentation, with the rule that did so named.
  */
-const KEEP: Record<string, { name: string; unit?: string; conditions?: string }> = {
-  STC: { name: "Nameplate power at standard test conditions", unit: "W", conditions: STC },
-  PTC: { name: "Power at PVUSA test conditions", unit: "W", conditions: PTC },
+const KEEP: Record<string, { name: string; conditions?: string }> = {
+  STC: { name: "Nameplate power at standard test conditions", conditions: STC },
+  PTC: { name: "Power at PVUSA test conditions", conditions: PTC },
   I_sc_ref: { name: "Short-circuit current", conditions: STC },
   V_oc_ref: { name: "Open-circuit voltage", conditions: STC },
   I_mp_ref: { name: "Current at maximum power", conditions: STC },
@@ -202,7 +206,7 @@ export function readSam(dir: string, file: FeedFile, feed: Feed): FeedModel[] {
       .map((column, i) => ({
         keep: KEEP[column],
         value: row[i]?.trim() ?? "",
-        unit: KEEP[column]?.unit ?? units[i]?.trim() ?? "",
+        unit: units[i]?.trim() ?? "",
       }))
       // An empty cell, a zero and a NaN are the library's three ways of stating nothing.
       .filter((c) => c.keep && c.value !== "" && c.value !== "0" && c.value !== "NaN")

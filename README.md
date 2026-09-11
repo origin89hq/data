@@ -156,11 +156,15 @@ moves with `just sync-sam-accept`. A feed that updated itself would mean the
 figures published here could change without anybody having looked.
 
 Each pinned file is a row in `sources`, at its commit and with its hash, and a
-feed figure cites that file. A figure's unit is the one the library's units row
-states, except STC and PTC power, which that row leaves blank and SAM's help
-documents as watts. A module's STC figures carry `conditions` saying so, and its
+feed figure cites that file and nothing the file does not contain. Its unit is
+the one the library's units row states; that row leaves STC and PTC power
+blank, so those figures publish without a unit and doubted, and a consumer that
+wants them in watts takes that from SAM's documentation, as the property layer
+will. A module's STC figures carry `conditions: STC`, the library's own label
+for standard test conditions (PTC is PVUSA test conditions), and its
 temperature coefficients are kept in A/K, V/K and %/K. A name the library lists
-twice keeps both rows, the second under a `-2` suffix, so every id is unique.
+twice keeps both rows, the second under a `-2` suffix, so every id is unique. A
+figure's id is its model and its name, so adding a column moves no other id.
 
 Every model and every figure carries a `tier` that says where it comes from:
 `record` for a record in this repository, `feed` for a row a public dataset

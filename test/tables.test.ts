@@ -144,7 +144,7 @@ test("a table that repeats an id is named, and one that does not is clean (#81)"
   const specs = tables(records, [{ feed, models: twice }]).find((t) => t.name === "specs");
   assert.ok(models && specs);
   assert.deepEqual(duplicateIds(models), ["sam--acme--i-3000"]);
-  assert.deepEqual(duplicateIds(specs), ["sam--acme--i-3000--00-paco"]);
+  assert.deepEqual(duplicateIds(specs), ["sam--acme--i-3000--paco"]);
   for (const table of tables(records, [{ feed, models: [feedModel] }]))
     assert.deepEqual(duplicateIds(table), [], `${table.name} repeats no id`);
   assert.deepEqual(
@@ -155,6 +155,49 @@ test("a table that repeats an id is named, and one that does not is clean (#81)"
     }),
     [],
     "a table without an id column has nothing to repeat",
+  );
+});
+
+test("a feed figure's id does not move when a figure before it is missing or added", () => {
+  const full = {
+    ...feedModel,
+    specs: [
+      { name: "Pdco", value: "3100", unit: "W" },
+      { name: "Paco", value: "3000", unit: "W" },
+    ],
+  };
+  const short = {
+    ...feedModel,
+    id: "sam--acme--i-3001",
+    specs: [{ name: "Paco", value: "3000", unit: "W" }],
+  };
+  const ids = rowsOf("specs", [full, short])
+    .filter((row) => row.tier === "feed")
+    .map((row) => row.id);
+  assert.deepEqual(ids, [
+    "sam--acme--i-3000--pdco",
+    "sam--acme--i-3000--paco",
+    "sam--acme--i-3001--paco",
+  ]);
+  // A model id at the feed's 150-character cap with the three coefficient names: nothing cuts
+  // the name, so the figures stay three ids.
+  const long = {
+    ...feedModel,
+    id: `sam-cec-${"x".repeat(142)}`,
+    specs: [
+      "Temperature coefficient of short-circuit current",
+      "Temperature coefficient of open-circuit voltage",
+      "Temperature coefficient of maximum power",
+    ].map((name) => ({ name, value: "-0.3", unit: "%/K" })),
+  };
+  const longIds = rowsOf("specs", [long])
+    .filter((row) => row.tier === "feed")
+    .map((row) => String(row.id));
+  assert.equal(new Set(longIds).size, 3);
+  assert.ok(
+    longIds.every(
+      (id) => id.endsWith("-current") || id.endsWith("-voltage") || id.endsWith("-power"),
+    ),
   );
 });
 

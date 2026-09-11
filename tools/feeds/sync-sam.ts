@@ -86,11 +86,18 @@ if (!accept) {
   process.exit(2);
 }
 
+// The commit is what every feed source row cites, so a pin that moved its files without moving
+// its commit would publish new hashes under the old commit's URL. Resolve it first, or write
+// nothing.
 const commit = await fetch(`https://api.github.com/repos/NatLabRockies/SAM/commits/${ref}`, {
   headers: { accept: "application/vnd.github+json" },
 })
   .then((r) => (r.ok ? (r.json() as Promise<{ sha: string }>) : undefined))
   .catch(() => undefined);
+if (!/^[0-9a-f]{40}$/.test(commit?.sha ?? "")) {
+  console.error(`could not resolve ${ref} to a commit on GitHub; nothing was written`);
+  process.exit(1);
+}
 
 for (const file of staged) {
   writeFileSync(join(dir, file.name), file.text);
@@ -98,7 +105,7 @@ for (const file of staged) {
   if (entry) entry.sha256 = file.sha256;
 }
 source.retrievedAt = new Date().toISOString().slice(0, 10);
-if (commit?.sha) source.commit = commit.sha;
+source.commit = commit.sha;
 writeFileSync(join(dir, "source.json"), `${JSON.stringify(source, null, 2)}\n`);
 console.log(
   `\npin moved to ${source.commit.slice(0, 12)} on ${source.retrievedAt}; run the build and read the diff before committing`,
