@@ -6,6 +6,7 @@ import { loadPartName } from "@origin89/equipment-schema/releases";
 import {
   bundle,
   currentRelease,
+  ensureSchema,
   loadedRelease,
   properties,
   releaseInfo,
@@ -248,6 +249,30 @@ async function fixture(
         kind: "charge-limit",
       },
     ],
+    dialect_readings: [
+      {
+        dialect_id: "victron-mppt-vedirect-hex",
+        position: 0,
+        metric: "pv-voltage",
+        at: "0xEDBB",
+        unit: "V",
+        scale: "0.01",
+        signed: false,
+        origin: "measured",
+        source_id: "doc-vedirect-hex",
+      },
+    ],
+    dialect_codes: [
+      {
+        dialect_id: "victron-mppt-vedirect-hex",
+        position: 0,
+        code_table: "fault",
+        at: "ERR",
+        code: "2",
+        meaning: "Battery voltage too high.",
+        source_id: "doc-vedirect-whitepaper",
+      },
+    ],
     model_dialects: [
       {
         model_id: "victron-energy-smartsolar-mppt-150-35",
@@ -286,6 +311,7 @@ async function fixture(
         redistributable: true,
       },
       { id: "doc-unrelated", url: "https://elsewhere.test/x.pdf" },
+      { id: "doc-vedirect-hex", url: "https://www.victronenergy.com/vedirect-hex.pdf" },
     ],
     ...extra,
   };
@@ -516,8 +542,32 @@ test("a bundle carries the models, their claims, their protocol links and exactl
   );
   assert.deepEqual(
     out.sources.map((s) => s.id).sort(),
-    ["doc-epever-xtra", "doc-vedirect-whitepaper", "doc-victron-150-35"],
-    "the sources cited and no other",
+    ["doc-epever-xtra", "doc-vedirect-hex", "doc-vedirect-whitepaper", "doc-victron-150-35"],
+    "the sources cited, a reading's and a code's included, and no other",
+  );
+  const hex = out.protocol.find((p) => p.dialect.id === "victron-mppt-vedirect-hex")?.dialect;
+  assert.deepEqual(hex?.readings, [
+    {
+      metric: "pv-voltage",
+      at: "0xEDBB",
+      unit: "V",
+      scale: 0.01,
+      origin: "measured",
+      source: "doc-vedirect-hex",
+    },
+  ]);
+  assert.deepEqual(hex?.codes, [
+    {
+      table: "fault",
+      at: "ERR",
+      code: "2",
+      meaning: "Battery voltage too high.",
+      source: "doc-vedirect-whitepaper",
+    },
+  ]);
+  assert.deepEqual(
+    out.protocol.find((p) => p.dialect.id === "epever-xtra-n-g3")?.dialect.readings,
+    [],
   );
   assert.deepEqual(out.properties, []);
   assert.deepEqual(out.gaps, [
@@ -564,7 +614,7 @@ test("a consumer gets the active release by default, a loaded one by id, and not
   assert.equal(await loadedRelease(db, RELEASE), RELEASE);
   await assert.rejects(loadedRelease(db, OLDER), /is not loaded/);
   const info = await releaseInfo(db, RELEASE);
-  assert.equal(info.contract, 1);
+  assert.equal(info.contract, 2, "readings and codes are contract 2");
   assert.equal(info.publishedAt, "2026-09-11T10:00:00Z");
   assert.equal(info.counts.models, 7);
   // An older publication loaded later is retained and answers by id, while the active one stays.
@@ -1112,4 +1162,15 @@ test("a link with more citations than the schema admits is refused whole, never 
   );
   const fine = await bundle(db, RELEASE, { models: ["epever-xtra4210n"] });
   assert.equal(fine.protocol[0]?.evidence?.sources.length, 1);
+});
+
+test("a reader on a store nothing has loaded yet answers empty rather than asking a missing table", async () => {
+  const { env } = world();
+  assert.equal(await ensureSchema(env.RELEASES), false, "a fresh store is created, not reset");
+  assert.equal(await ensureSchema(env.RELEASES), false, "and only once per store");
+  await assert.rejects(currentRelease(env.RELEASES), /no release is loaded yet/);
+  const out = await bundle(env.RELEASES, RELEASE, { models: ["nothing"] });
+  assert.deepEqual([out.models, out.unknown, out.protocol, out.sources], [[], ["nothing"], [], []]);
+  const found = await resolve(env.RELEASES, RELEASE, { model: "Q" });
+  assert.equal(found.outcome, "none");
 });

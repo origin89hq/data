@@ -157,6 +157,73 @@ export function tables(records: Records, feeds = readFeeds()): Table[] {
       ),
     },
     {
+      // A reading as a row somebody can implement from (#84): the register or field, the unit
+      // and scale, the sign, the width, and the document it was read from.
+      name: "dialect_readings",
+      columns: [
+        col("dialect_id"),
+        col("position", "INTEGER"),
+        col("metric"),
+        col("at"),
+        col("unit"),
+        // A number a consumer multiplies by, in every published format as in the API.
+        col("scale", "DOUBLE"),
+        col("signed", "BOOLEAN"),
+        col("words", "INTEGER"),
+        col("word_order"),
+        col("sentinel"),
+        col("origin"),
+        col("source_id"),
+        col("citation"),
+        col("page", "INTEGER"),
+      ],
+      rows: records.dialects.flatMap((d) =>
+        (d.readings ?? []).map((r, position) => ({
+          dialect_id: d.id,
+          position,
+          metric: r.metric,
+          at: r.at,
+          unit: r.unit,
+          scale: r.scale,
+          signed: r.signed ?? false,
+          words: r.words,
+          word_order: r.order,
+          sentinel: r.sentinel,
+          origin: r.origin,
+          source_id: r.source,
+          citation: r.citation,
+          page: r.page,
+        })),
+      ),
+    },
+    {
+      name: "dialect_codes",
+      columns: [
+        col("dialect_id"),
+        col("position", "INTEGER"),
+        col("code_table"),
+        col("at"),
+        col("code"),
+        col("meaning"),
+        col("source_id"),
+        col("citation"),
+        col("page", "INTEGER"),
+      ],
+      rows: records.dialects.flatMap((d) =>
+        (d.codes ?? []).map((c, position) => ({
+          dialect_id: d.id,
+          position,
+          code_table: c.table,
+          at: c.at,
+          code: c.code,
+          meaning: c.meaning,
+          source_id: c.source,
+          citation: c.citation,
+          page: c.page,
+        })),
+      ),
+    },
+    {
       name: "dialect_see_also",
       columns: [col("dialect_id"), col("other_id")],
       rows: records.dialects.flatMap((d) =>

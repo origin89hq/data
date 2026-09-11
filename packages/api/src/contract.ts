@@ -41,7 +41,8 @@ export const PropertyKey = z.string().regex(/^[a-z][a-z0-9]*(?:\.[a-z][a-z0-9_]*
 export type PropertyKey = z.infer<typeof PropertyKey>;
 
 /** The version of this contract. A consumer refuses a release whose contract it does not know. */
-export const CONTRACT = 1 as const;
+/** 2: a dialect carries `readings` and `codes`; a Worker on 1 answers neither, and a consumer on 2 refuses it. */
+export const CONTRACT = 2 as const;
 
 /** The most a single answer carries. A list cut to fit says so in `truncated`; nothing is quietly shorter. */
 export const LIMITS = {
@@ -166,6 +167,37 @@ export interface DialectSummary {
   accepts: string[];
   gotchas: string[];
   sources: { source: SourceId; citation: string }[];
+  /** The readings somebody has structured (#84); empty where only the `blocks` prose exists. */
+  readings: DialectReading[];
+  /** The vendor's code tables, structured; empty where nobody has done the work. */
+  codes: DialectCode[];
+}
+
+export interface DialectReading {
+  metric: string;
+  /** The register, field or label as the document writes it. */
+  at: string;
+  unit?: string;
+  /** Multiply the raw value by this for the unit. */
+  scale?: number;
+  signed?: boolean;
+  words?: number;
+  order?: "low-first" | "high-first";
+  sentinel?: string;
+  origin: "measured" | "estimated" | "reported";
+  source: SourceId;
+  citation?: string;
+  page?: number;
+}
+
+export interface DialectCode {
+  table: "fault" | "alarm" | "charge-stage" | "state";
+  at?: string;
+  code: string;
+  meaning: string;
+  source: SourceId;
+  citation?: string;
+  page?: number;
 }
 
 /** A model and a dialect it is known to speak, with what says so. */

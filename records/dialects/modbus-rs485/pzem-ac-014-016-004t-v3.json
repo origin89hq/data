@@ -34,6 +34,86 @@
   "accepts": [
     "reset-counter"
   ],
+  "readings": [
+    {
+      "metric": "ac-voltage",
+      "at": "0x0000",
+      "unit": "V",
+      "scale": 0.1,
+      "origin": "measured",
+      "source": "pzem-004t-v3-0-manual",
+      "citation": "Modbus input registers 0x0000–0x0009, read with function 0x04"
+    },
+    {
+      "metric": "ac-current",
+      "at": "0x0001",
+      "unit": "A",
+      "scale": 0.001,
+      "words": 2,
+      "order": "low-first",
+      "origin": "measured",
+      "source": "pzem-004t-v3-0-manual",
+      "citation": "Modbus input registers 0x0000–0x0009, read with function 0x04"
+    },
+    {
+      "metric": "ac-power",
+      "at": "0x0003",
+      "unit": "W",
+      "scale": 0.1,
+      "words": 2,
+      "order": "low-first",
+      "origin": "measured",
+      "source": "pzem-004t-v3-0-manual",
+      "citation": "Modbus input registers 0x0000–0x0009, read with function 0x04"
+    },
+    {
+      "metric": "ac-energy-total",
+      "at": "0x0005",
+      "unit": "Wh",
+      "scale": 1,
+      "words": 2,
+      "order": "low-first",
+      "origin": "reported",
+      "source": "pzem-004t-v3-0-manual",
+      "citation": "Modbus input registers 0x0000–0x0009, read with function 0x04"
+    },
+    {
+      "metric": "ac-frequency",
+      "at": "0x0007",
+      "unit": "Hz",
+      "scale": 0.1,
+      "origin": "measured",
+      "source": "pzem-004t-v3-0-manual",
+      "citation": "Modbus input registers 0x0000–0x0009, read with function 0x04"
+    },
+    {
+      "metric": "ac-power-factor",
+      "at": "0x0008",
+      "unit": "ratio",
+      "scale": 0.01,
+      "origin": "measured",
+      "source": "pzem-004t-v3-0-manual",
+      "citation": "Modbus input registers 0x0000–0x0009, read with function 0x04"
+    }
+  ],
+  "codes": [
+    {
+      "table": "alarm",
+      "at": "0x0009",
+      "code": "0xFFFF",
+      "meaning": "Power alarm: the measured active power exceeds the threshold held in holding register 0x0001 (1 W steps).",
+      "source": "pzem-004t-v3-0-manual",
+      "citation": "Modbus input registers 0x0000–0x0009, read with function 0x04"
+    },
+    {
+      "table": "alarm",
+      "at": "0x0009",
+      "code": "0x0000",
+      "meaning": "No power alarm.",
+      "source": "pzem-004t-v3-0-manual",
+      "citation": "Modbus input registers 0x0000–0x0009, read with function 0x04"
+    }
+  ],
   "models": [
     {
       "name": "PZEM-016 (AC, 100 A external CT — coil / split CT / split CT + USB variants)"

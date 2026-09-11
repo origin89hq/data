@@ -31,7 +31,8 @@ raw TypeScript with no build step; a consumer bundled by wrangler reads it as is
 `release()` returns a handle bound to one release. Every method on it reads that release and
 no other, and every claim, link and source it returns comes from it. The handle has methods
 only: over a service binding a property of an RPC target arrives as a promise, so the release's
-id and contract version come from `info()`, which a consumer checks once at the start of a turn. Take one handle at the
+id and contract version come from `info()`, which a consumer checks once at the start of a turn;
+the version is 2, and a Worker answering 1 predates a dialect's `readings` and `codes`. Take one handle at the
 start of a turn and use it for every lookup in that turn; a release that lands mid-turn changes
 nothing the handle answers. `release(id)` gives a retained release by id, which is how a pinned
 evaluation stays reproducible while releases move on. A release still loading, one whose load
@@ -45,7 +46,7 @@ failed, or one let go by retention is refused with `NoSuchRelease`.
 | `resolve({ brand?, model, kind? })` | `exact` with one model, `ambiguous` with the candidates that share the key, or `none` with near neighbours a consumer may show and must never pick |
 | `resolve({ label })` | the same for a name read off a device or a photo, with the maker printed before or after the name, abbreviated, or left off; a label that prints another maker before a name reaches nothing |
 | `search({ brand?, prefix?, kind?, limit, cursor? })` | a page of models ordered by name, with a cursor while there is more; a cursor is opaque, short whatever the names are, and only one this search gave out is taken |
-| `bundle({ models, properties?, claims?, protocol? })` | up to eight models with their aliases, their printed figures, their protocol links with the dialect's confidence, gotchas and citations, and exactly the sources those rows cite |
+| `bundle({ models, properties?, claims?, protocol? })` | up to eight models with their aliases, their printed figures, their protocol links with how each was made, the dialect's confidence, gotchas, citations, structured readings and code tables where somebody has done that work, and exactly the sources those rows cite |
 | `sources(ids)` | source records by id |
 | `properties()` | the property registry, empty until #82 defines it; `bundle` reports every property asked for as a gap with the reason `no-registry` |
 

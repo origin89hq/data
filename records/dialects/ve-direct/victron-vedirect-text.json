@@ -38,6 +38,392 @@
     "switch-state",
     "charge-stage"
   ],
+  "readings": [
+    {
+      "metric": "battery-voltage",
+      "at": "V",
+      "unit": "V",
+      "scale": 0.001,
+      "origin": "measured",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Table I, field labels, for the MPPT charger columns; the field is in mV"
+    },
+    {
+      "metric": "battery-current",
+      "at": "I",
+      "unit": "A",
+      "scale": 0.001,
+      "signed": true,
+      "origin": "measured",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Table I, field labels, for the MPPT charger columns; the field is in mA"
+    },
+    {
+      "metric": "pv-voltage",
+      "at": "VPV",
+      "unit": "V",
+      "scale": 0.001,
+      "origin": "measured",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Table I, field labels, for the MPPT charger columns; the field is in mV"
+    },
+    {
+      "metric": "pv-power",
+      "at": "PPV",
+      "unit": "W",
+      "scale": 1,
+      "origin": "measured",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Table I, field labels, for the MPPT charger columns"
+    },
+    {
+      "metric": "load-current",
+      "at": "IL",
+      "unit": "A",
+      "scale": 0.001,
+      "origin": "measured",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Table I, field labels, for the MPPT charger columns; the field is in mA, on models with a load output"
+    },
+    {
+      "metric": "switch-state",
+      "at": "LOAD",
+      "origin": "reported",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Table I, field labels, for the MPPT charger columns; ON or OFF, on models with a load output"
+    },
+    {
+      "metric": "pv-energy-total",
+      "at": "H19",
+      "unit": "kWh",
+      "scale": 0.01,
+      "origin": "reported",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Table I, field labels, for the MPPT charger columns; yield total, resettable"
+    },
+    {
+      "metric": "pv-energy-today",
+      "at": "H20",
+      "unit": "kWh",
+      "scale": 0.01,
+      "origin": "reported",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Table I, field labels, for the MPPT charger columns; yield today"
+    },
+    {
+      "metric": "charge-stage",
+      "at": "CS",
+      "origin": "reported",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Table I, field CS, with the meanings in the state-of-operation table"
+    }
+  ],
+  "codes": [
+    {
+      "table": "charge-stage",
+      "at": "CS",
+      "code": "0",
+      "meaning": "Off.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "State of operation table (field CS)"
+    },
+    {
+      "table": "charge-stage",
+      "at": "CS",
+      "code": "1",
+      "meaning": "Low power.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "State of operation table (field CS)"
+    },
+    {
+      "table": "charge-stage",
+      "at": "CS",
+      "code": "2",
+      "meaning": "Fault.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "State of operation table (field CS)"
+    },
+    {
+      "table": "charge-stage",
+      "at": "CS",
+      "code": "3",
+      "meaning": "Bulk.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "State of operation table (field CS)"
+    },
+    {
+      "table": "charge-stage",
+      "at": "CS",
+      "code": "4",
+      "meaning": "Absorption.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "State of operation table (field CS)"
+    },
+    {
+      "table": "charge-stage",
+      "at": "CS",
+      "code": "5",
+      "meaning": "Float.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "State of operation table (field CS)"
+    },
+    {
+      "table": "charge-stage",
+      "at": "CS",
+      "code": "6",
+      "meaning": "Storage.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "State of operation table (field CS)"
+    },
+    {
+      "table": "charge-stage",
+      "at": "CS",
+      "code": "7",
+      "meaning": "Equalize (manual).",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "State of operation table (field CS)"
+    },
+    {
+      "table": "charge-stage",
+      "at": "CS",
+      "code": "9",
+      "meaning": "Inverting.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "State of operation table (field CS)"
+    },
+    {
+      "table": "charge-stage",
+      "at": "CS",
+      "code": "11",
+      "meaning": "Power supply.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "State of operation table (field CS)"
+    },
+    {
+      "table": "charge-stage",
+      "at": "CS",
+      "code": "245",
+      "meaning": "Starting-up.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "State of operation table (field CS)"
+    },
+    {
+      "table": "charge-stage",
+      "at": "CS",
+      "code": "246",
+      "meaning": "Repeated absorption.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "State of operation table (field CS)"
+    },
+    {
+      "table": "charge-stage",
+      "at": "CS",
+      "code": "247",
+      "meaning": "Auto equalize / Recondition.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "State of operation table (field CS)"
+    },
+    {
+      "table": "charge-stage",
+      "at": "CS",
+      "code": "248",
+      "meaning": "BatterySafe.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "State of operation table (field CS)"
+    },
+    {
+      "table": "charge-stage",
+      "at": "CS",
+      "code": "252",
+      "meaning": "External control.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "State of operation table (field CS)"
+    },
+    {
+      "table": "fault",
+      "at": "ERR",
+      "code": "0",
+      "meaning": "No error.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Error codes table (field ERR)"
+    },
+    {
+      "table": "fault",
+      "at": "ERR",
+      "code": "2",
+      "meaning": "Battery voltage too high.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Error codes table (field ERR)"
+    },
+    {
+      "table": "fault",
+      "at": "ERR",
+      "code": "17",
+      "meaning": "Charger temperature too high.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Error codes table (field ERR)"
+    },
+    {
+      "table": "fault",
+      "at": "ERR",
+      "code": "18",
+      "meaning": "Charger over current.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Error codes table (field ERR)"
+    },
+    {
+      "table": "fault",
+      "at": "ERR",
+      "code": "19",
+      "meaning": "Charger current reversed.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Error codes table (field ERR)"
+    },
+    {
+      "table": "fault",
+      "at": "ERR",
+      "code": "20",
+      "meaning": "Bulk time limit exceeded.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Error codes table (field ERR)"
+    },
+    {
+      "table": "fault",
+      "at": "ERR",
+      "code": "21",
+      "meaning": "Current sensor issue (sensor bias or sensor broken).",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Error codes table (field ERR)"
+    },
+    {
+      "table": "fault",
+      "at": "ERR",
+      "code": "26",
+      "meaning": "Terminals overheated.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Error codes table (field ERR)"
+    },
+    {
+      "table": "fault",
+      "at": "ERR",
+      "code": "28",
+      "meaning": "Converter issue: one of the converters of a dual-converter model is not working.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Error codes table (field ERR)"
+    },
+    {
+      "table": "fault",
+      "at": "ERR",
+      "code": "33",
+      "meaning": "Input voltage too high (solar panel).",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Error codes table (field ERR)"
+    },
+    {
+      "table": "fault",
+      "at": "ERR",
+      "code": "34",
+      "meaning": "Input current too high (solar panel).",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Error codes table (field ERR)"
+    },
+    {
+      "table": "fault",
+      "at": "ERR",
+      "code": "38",
+      "meaning": "Input shutdown due to excessive battery voltage.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Error codes table (field ERR)"
+    },
+    {
+      "table": "fault",
+      "at": "ERR",
+      "code": "39",
+      "meaning": "Input shutdown due to current flow during off mode.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Error codes table (field ERR)"
+    },
+    {
+      "table": "fault",
+      "at": "ERR",
+      "code": "65",
+      "meaning": "Lost communication with one of the devices.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Error codes table (field ERR)"
+    },
+    {
+      "table": "fault",
+      "at": "ERR",
+      "code": "66",
+      "meaning": "Synchronised charging device configuration issue.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Error codes table (field ERR)"
+    },
+    {
+      "table": "fault",
+      "at": "ERR",
+      "code": "67",
+      "meaning": "BMS connection lost.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Error codes table (field ERR)"
+    },
+    {
+      "table": "fault",
+      "at": "ERR",
+      "code": "68",
+      "meaning": "Network misconfigured.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Error codes table (field ERR)"
+    },
+    {
+      "table": "fault",
+      "at": "ERR",
+      "code": "116",
+      "meaning": "Factory calibration data lost.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Error codes table (field ERR)"
+    },
+    {
+      "table": "fault",
+      "at": "ERR",
+      "code": "117",
+      "meaning": "Invalid or incompatible firmware.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Error codes table (field ERR)"
+    },
+    {
+      "table": "fault",
+      "at": "ERR",
+      "code": "119",
+      "meaning": "User settings invalid.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Error codes table (field ERR)"
+    },
+    {
+      "table": "state",
+      "at": "MPPT",
+      "code": "0",
+      "meaning": "Off.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Tracker operation mode table (field MPPT)"
+    },
+    {
+      "table": "state",
+      "at": "MPPT",
+      "code": "1",
+      "meaning": "Voltage or current limited.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Tracker operation mode table (field MPPT)"
+    },
+    {
+      "table": "state",
+      "at": "MPPT",
+      "code": "2",
+      "meaning": "MPP tracker active.",
+      "source": "victron-ve-direct-protocol-3-34",
+      "citation": "Tracker operation mode table (field MPPT)"
+    }
+  ],
   "models": [
     {
       "name": "SmartSolar MPPT 75/10"
