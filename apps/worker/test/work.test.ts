@@ -156,6 +156,14 @@ test("a document message carries a real content hash, so a key cannot be forged 
   assert.equal(Work.safeParse({ ...good, url: "not a url" }).success, false);
 });
 
+test("a batch of extract messages at their most windows stays under an invocation's subrequests", () => {
+  const config = readFileSync(new URL("../wrangler.jsonc", import.meta.url), "utf8");
+  const batch = Number(/"max_batch_size":\s*(\d+)/.exec(config)?.[1]);
+  assert.ok(batch > 0, "the queue's batch size is configured");
+  // A model call and an R2 write for each window, and a few reads and writes for the document.
+  assert.ok(batch * (MOST_WINDOWS * 2 + 6) < 1000, `${batch} messages of ${MOST_WINDOWS} windows`);
+});
+
 test("an extract message may ask for at most as many windows as one invocation can read and keep", () => {
   const extract = {
     kind: "extract",
@@ -169,7 +177,6 @@ test("an extract message may ask for at most as many windows as one invocation c
   assert.equal(Work.safeParse(extract).success, true, "the default budget");
   assert.equal(Work.safeParse({ ...extract, maxWindows: MOST_WINDOWS }).success, true);
   assert.equal(Work.safeParse({ ...extract, maxWindows: MOST_WINDOWS + 1 }).success, false);
-  assert.ok(MOST_WINDOWS * 2 < 1000, "a call and a write a window, under the subrequest limit");
 });
 
 test("result keys are derived from the run, so a reader knows what to look for and two runs never mix", () => {

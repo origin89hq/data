@@ -3,10 +3,11 @@ import { z } from "zod";
 
 /**
  * The most windows one extract message may ask for. Each window read is a model call and an R2
- * write, and a delivery after a failure reads back every window kept; at four hundred that stays
- * well under the thousand subrequests one Worker invocation may make.
+ * write, a delivery after a failure reads back every window kept, and one invocation handles a
+ * whole queue batch of messages. At a hundred and fifty, a batch of three such messages stays
+ * under the thousand subrequests one Worker invocation may make.
  */
-export const MOST_WINDOWS = 400;
+export const MOST_WINDOWS = 150;
 
 /**
  * Work that fans out. These are independent units with no order between them: one batch of
