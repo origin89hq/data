@@ -204,13 +204,7 @@ export async function modelsById(
 /** How many models sharing a key are read before a resolution gives up on counting them. */
 const RESOLVE_READ = 200;
 
-/** Distinct model ids, in first-seen order. */
-const distinct = (rows: { model_id: string }[]): string[] => [
-  ...new Set(rows.map((r) => r.model_id)),
-];
-
-const byKind = (models: ModelSummary[], kind?: string) =>
-  kind ? models.filter((m) => m.kind === kind) : models;
+const ids = (rows: { model_id: string }[]): string[] => rows.map((r) => r.model_id);
 
 /**
  * One model, several, or none. With a brand or maker the key must match whole; without, the
@@ -221,82 +215,113 @@ const byKind = (models: ModelSummary[], kind?: string) =>
 const KEYED =
   "SELECT k.model_id FROM model_keys k JOIN models m ON m.release = k.release AND m.id = k.model_id WHERE k.release = ?";
 const OF_KIND = "AND (? IS NULL OR m.kind = ?)";
+/**
+ * One row a model, in the order their keys were made, and only as many as it takes to know the
+ * match is too wide to count: the read is bounded in SQL, not after it.
+ */
+const ONE_A_MODEL = "GROUP BY k.model_id ORDER BY MIN(k.rowid) LIMIT ?";
+/** The maker's or brand's part of a key: what is left before the name's part. */
+const MAKER = "substr(k.key, 1, length(k.key) - length(k.name_key))";
+/**
+ * The part of a label around the name has to be its maker, or the start of it, or start with
+ * it: `Victron SmartSolar MPPT 150/35` reaches the Victron Energy model, and so does the label
+ * with a product line in between, but `Renogy SmartSolar MPPT 150/35` reaches nothing, however
+ * unique the name is, rather than handing a consumer the wrong maker's claims as `exact`.
+ */
+const AROUND_NAME = (rest: string) =>
+  `(instr(${rest}, ${MAKER}) = 1 OR instr(${MAKER}, ${rest}) = 1)`;
+const NAME_LAST = `(substr(?, -length(k.name_key)) = k.name_key AND ${AROUND_NAME("substr(?, 1, length(?) - length(k.name_key))")})`;
+const NAME_FIRST = `(substr(?, 1, length(k.name_key)) = k.name_key AND ${AROUND_NAME("substr(?, length(k.name_key) + 1)")})`;
+/** The whole label, then the name at the end or at the start: every `?` above is the label. */
+const LABEL = `(k.key = ? OR (length(k.name_key) >= 3 AND (${NAME_LAST} OR ${NAME_FIRST})))`;
+const LABEL_TIMES = LABEL.split("?").length - 1;
 
 export async function resolve(db: Store, release: string, q: ResolveQuery): Promise<Resolution> {
   const kind = "kind" in q ? q.kind : undefined;
-  let ids: string[];
+  let found: string[];
   let stem: string;
+  const bound = [kind ?? null, kind ?? null, RESOLVE_READ + 1];
   if ("label" in q) {
     const key = keyPart(q.label);
     stem = key;
-    ids = distinct(
+    found = ids(
       (
         await db
           .prepare(
             // The whole label as a key, or a name printed after its maker, or before it.
-            `${KEYED} AND (k.key = ? OR (length(k.name_key) >= 3 AND (substr(?, -length(k.name_key)) = k.name_key OR substr(?, 1, length(k.name_key)) = k.name_key))) ${OF_KIND} ORDER BY k.rowid`,
+            `${KEYED} AND ${LABEL} ${OF_KIND} ${ONE_A_MODEL}`,
           )
-          .bind(release, key, key, key, kind ?? null, kind ?? null)
+          .bind(release, ...Array.from({ length: LABEL_TIMES }, () => key), ...bound)
           .all<{ model_id: string }>()
       ).results,
     );
   } else if (q.brand) {
     stem = nameKey(q.brand, q.model);
-    ids = distinct(
+    found = ids(
       (
         await db
-          .prepare(`${KEYED} AND k.key = ? ${OF_KIND} ORDER BY k.rowid`)
-          .bind(release, modelKey(q.brand, q.model), kind ?? null, kind ?? null)
+          .prepare(`${KEYED} AND k.key = ? ${OF_KIND} ${ONE_A_MODEL}`)
+          .bind(release, modelKey(q.brand, q.model), ...bound)
           .all<{ model_id: string }>()
       ).results,
     );
   } else {
     stem = keyPart(q.model);
-    ids = distinct(
+    found = ids(
       (
         await db
-          .prepare(`${KEYED} AND k.name_key = ? ${OF_KIND} ORDER BY k.rowid`)
-          .bind(release, stem, kind ?? null, kind ?? null)
+          .prepare(`${KEYED} AND k.name_key = ? ${OF_KIND} ${ONE_A_MODEL}`)
+          .bind(release, stem, ...bound)
           .all<{ model_id: string }>()
       ).results,
     );
   }
   // The kind narrows before anything is counted, so a kind that singles one model out of many
   // gives `exact`, and a candidate list is cut only after it has been narrowed.
-  const found = await modelsById(db, release, ids.slice(0, RESOLVE_READ));
-  const overflow = ids.length > RESOLVE_READ;
-  if (found.length === 1 && !overflow) {
-    const only = found[0];
+  const overflow = found.length > RESOLVE_READ;
+  const models = await modelsById(db, release, found.slice(0, RESOLVE_READ));
+  if (models.length === 1 && !overflow) {
+    const only = models[0];
     if (only) return { outcome: "exact", model: only };
   }
-  if (found.length > 1 || (found.length === 1 && overflow))
+  if (models.length > 1 || (models.length === 1 && overflow))
     return {
       outcome: "ambiguous",
-      candidates: found.slice(0, LIMITS.candidates),
-      truncated: overflow || found.length > LIMITS.candidates,
+      candidates: models.slice(0, LIMITS.candidates),
+      truncated: overflow || models.length > LIMITS.candidates,
     };
   // Nothing whole. Neighbours by the first characters of the name, for a person to look at.
   const head = stem.slice(0, Math.max(3, Math.min(6, stem.length)));
-  // One row a model however many names reach it, and the kind applied before the cut, so the
-  // count is of models a person could pick from and `truncated` means what it says.
+  // One row a model however many names reach it, and the kind applied in SQL before the cut,
+  // so the count is of models a person could pick from and `truncated` means what it says.
   const near =
     head.length < 3
       ? []
-      : (
-          await db
-            .prepare(
-              `SELECT model_id, MIN(name_key) AS first FROM model_keys WHERE release = ? AND name_key LIKE ? ${ESCAPE} GROUP BY model_id ORDER BY first, model_id LIMIT ?`,
-            )
-            .bind(release, likePrefix(head), RESOLVE_READ)
-            .all<{ model_id: string }>()
-        ).results.map((r) => r.model_id);
-  const shown = byKind(await modelsById(db, release, near), kind);
+      : ids(
+          (
+            await db
+              .prepare(
+                `SELECT k.model_id, MIN(k.name_key) AS first FROM model_keys k JOIN models m ON m.release = k.release AND m.id = k.model_id WHERE k.release = ? AND k.name_key LIKE ? ${ESCAPE} ${OF_KIND} GROUP BY k.model_id ORDER BY first, k.model_id LIMIT ?`,
+              )
+              .bind(release, likePrefix(head), ...bound)
+              .all<{ model_id: string }>()
+          ).results,
+        );
+  const shown = await modelsById(db, release, near.slice(0, LIMITS.candidates));
   return {
     outcome: "none",
-    near: shown.slice(0, LIMITS.candidates),
-    truncated: shown.length > LIMITS.candidates || near.length >= RESOLVE_READ,
+    near: shown,
+    truncated: near.length > LIMITS.candidates,
   };
 }
+
+/**
+ * How many maker ids, and how many printed names, a brand may answer to in one search: each
+ * list is bound into the page's statement beside the release, the prefix, the kind and the
+ * cursor's boundary, and D1 binds at most 100 parameters. More is refused with the reason,
+ * never cut to a page that looks complete.
+ */
+const MAKERS_PER_QUERY = 45;
 
 /** The maker ids and printed maker names that answer to a brand or maker name, by its key. */
 async function makersNamed(
@@ -334,6 +359,10 @@ async function makersNamed(
   const names = printed.flatMap((p) =>
     p.manufacturer_name && makerKey(p.manufacturer_name) === key ? [p.manufacturer_name] : [],
   );
+  if (ids.size > MAKERS_PER_QUERY || names.length > MAKERS_PER_QUERY)
+    throw new RangeError(
+      `more than ${MAKERS_PER_QUERY} makers answer to "${brand}"; a search cannot page over them all`,
+    );
   return { ids: [...ids], names };
 }
 
@@ -345,7 +374,11 @@ export async function search(
 ): Promise<Page<ModelSummary>> {
   // The cursor is checked before anything else, so a cursor from another search is refused
   // even when the search itself would have matched nothing.
-  const after = q.cursor ? splitCursor(q.cursor, scopeOf(release, q)) : undefined;
+  const scope = scopeOf(release, q);
+  const after = q.cursor ? await boundary(db, release, q.cursor, scope) : undefined;
+  // A prefix of nothing but the characters a key drops would match every model.
+  const prefix = q.prefix === undefined ? undefined : keyPart(q.prefix);
+  if (prefix === "") throw new RangeError("the prefix has no letters or digits to match");
   const where: string[] = ["release = ?"];
   const params: (string | number)[] = [release];
   if (q.brand) {
@@ -364,26 +397,27 @@ export async function search(
     }
     where.push(`(${clauses.join(" OR ")})`);
   }
-  if (q.prefix) {
+  if (prefix) {
     where.push(
       `id IN (SELECT model_id FROM model_keys WHERE release = ? AND name_key LIKE ? ${ESCAPE})`,
     );
-    params.push(release, likePrefix(keyPart(q.prefix)));
+    params.push(release, likePrefix(prefix));
   }
   if (q.kind) {
     where.push("kind = ?");
     params.push(q.kind);
   }
   if (after) {
-    const [name, id] = after;
     where.push("(name > ? OR (name = ? AND id > ?))");
-    params.push(name, name, id);
+    params.push(after.name, after.name, after.id);
   }
   const rows = (
     await db
-      .prepare(`SELECT id, name FROM models WHERE ${where.join(" AND ")} ORDER BY name, id LIMIT ?`)
+      .prepare(
+        `SELECT rowid AS row_id, id, name FROM models WHERE ${where.join(" AND ")} ORDER BY name, id LIMIT ?`,
+      )
       .bind(...params, q.limit + 1)
-      .all<{ id: string; name: string }>()
+      .all<{ row_id: number; id: string; name: string }>()
   ).results;
   const page = rows.slice(0, q.limit);
   const items = await modelsById(
@@ -395,37 +429,59 @@ export async function search(
   const truncated = rows.length > q.limit;
   return {
     items,
-    ...(truncated && last ? { cursor: joinCursor(last.name, last.id, scopeOf(release, q)) } : {}),
+    ...(truncated && last ? { cursor: joinCursor(last.row_id, last.id, scope) } : {}),
     truncated,
   };
 }
 
 /**
- * A cursor is the last row's name and id, bound to the release and the query it was given out
- * for, so one copied from another search, another release or made up by hand is refused
- * rather than skipping rows quietly.
+ * A cursor names the last row of a page by its place in the store, bound to the release and
+ * the query it was given out for. The boundary is read back from the release, so a cursor
+ * copied from another search, another release, or made up by hand is refused rather than
+ * skipping rows quietly, and a cursor is a short, fixed shape however long a name is.
  */
-const scopeOf = (release: string, q: SearchQuery): string =>
-  `${release}|${q.brand ?? ""}|${q.prefix ?? ""}|${q.kind ?? ""}`;
-/** The digest covers the boundary as well as the scope: an edited name or id is not ours either. */
-const stamp = (scope: string, name: string, id: string): string => fnv1a(`${scope}|${name}|${id}`);
-const joinCursor = (name: string, id: string, scope: string): string =>
-  JSON.stringify([name, id, stamp(scope, name, id)]);
-const splitCursor = (cursor: string, scope: string): [string, string] => {
+type Scope = [release: string, brand: string | null, prefix: string | null, kind: string | null];
+const scopeOf = (release: string, q: SearchQuery): Scope => [
+  release,
+  q.brand ?? null,
+  q.prefix ?? null,
+  q.kind ?? null,
+];
+/** The digest covers the boundary's place and its id as well as the scope, as one JSON tuple, so no value can run into the next. */
+const stamp = (scope: Scope, place: number, id: string): string =>
+  fnv1a(JSON.stringify([...scope, place, id]));
+const joinCursor = (place: number, id: string, scope: Scope): string =>
+  JSON.stringify([place, stamp(scope, place, id)]);
+/**
+ * The row a cursor points at, read from the release: a made-up cursor can name nothing but a
+ * row the release holds, under this very scope, and the page after it is what the release has.
+ */
+async function boundary(
+  db: Store,
+  release: string,
+  cursor: string,
+  scope: Scope,
+): Promise<{ name: string; id: string }> {
+  let parsed: unknown;
   try {
-    const parsed = JSON.parse(cursor) as unknown;
-    if (
-      Array.isArray(parsed) &&
-      typeof parsed[0] === "string" &&
-      typeof parsed[1] === "string" &&
-      parsed[2] === stamp(scope, parsed[0], parsed[1])
-    )
-      return [parsed[0], parsed[1]];
+    parsed = JSON.parse(cursor);
   } catch {
-    // fall through
+    parsed = undefined;
+  }
+  if (
+    Array.isArray(parsed) &&
+    typeof parsed[0] === "number" &&
+    Number.isInteger(parsed[0]) &&
+    typeof parsed[1] === "string"
+  ) {
+    const row = await db
+      .prepare("SELECT id, name FROM models WHERE release = ? AND rowid = ?")
+      .bind(release, parsed[0])
+      .first<{ id: string; name: string }>();
+    if (row && parsed[1] === stamp(scope, parsed[0], row.id)) return row;
   }
   throw new Error("not a cursor this search gave out");
-};
+}
 
 /** A short, stable digest for binding a cursor; not a secret, only a check that it is ours. */
 function fnv1a(text: string): string {

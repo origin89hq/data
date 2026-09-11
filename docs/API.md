@@ -43,8 +43,8 @@ failed, or one let go by retention is refused with `NoSuchRelease`.
 |---|---|
 | `info()` | the release id, its content hash, when it was published, the contract version and the row counts loaded |
 | `resolve({ brand?, model, kind? })` | `exact` with one model, `ambiguous` with the candidates that share the key, or `none` with near neighbours a consumer may show and must never pick |
-| `resolve({ label })` | the same for a name read off a device or a photo, with or without the maker printed in front |
-| `search({ brand?, prefix?, kind?, limit, cursor? })` | a page of models ordered by name, with a cursor while there is more |
+| `resolve({ label })` | the same for a name read off a device or a photo, with the maker printed before or after the name, abbreviated, or left off; a label that prints another maker before a name reaches nothing |
+| `search({ brand?, prefix?, kind?, limit, cursor? })` | a page of models ordered by name, with a cursor while there is more; a cursor is opaque, short whatever the names are, and only one this search gave out is taken |
 | `bundle({ models, properties?, claims?, protocol? })` | up to eight models with their aliases, their printed figures, their protocol links with the dialect's confidence, gotchas and citations, and exactly the sources those rows cite |
 | `sources(ids)` | source records by id |
 | `properties()` | the property registry, empty until #82 defines it; `bundle` reports every property asked for as a gap with the reason `no-registry` |
@@ -55,6 +55,9 @@ own name taken off the front of the model name. A key that reaches two models is
 stays so; the interface never breaks the tie.
 
 ## Limits
+
+A prefix with no letter or digit in it, and a brand more than 45 makers answer to, are refused
+with the reason rather than answered with a page of everything or of some.
 
 Every list is cut at a limit the contract states in `LIMITS`, and a cut is said out loud:
 `truncated` on a resolution or a page, and the list of cut lists on a bundle. Nothing is

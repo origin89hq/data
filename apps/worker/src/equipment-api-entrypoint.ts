@@ -26,7 +26,6 @@ import {
   search,
   sourcesById,
 } from "./equipment-api.ts";
-import { reloadPinned } from "./release-load.ts";
 import type { Store } from "./release-store.ts";
 
 /**
@@ -83,8 +82,9 @@ export class ReleaseHandle extends RpcTarget implements Release {
 }
 
 /**
- * Once per isolate before the first answer: the store's tables exist, and every pinned release
- * the store lacks has its load started, so a release pinned after retention let it go comes back.
+ * Once per isolate before the first answer: the store's tables exist. Nothing here starts a
+ * load: a pinned release the store lacks is put back by the daily schedule, once, not by every
+ * isolate that answers a question.
  */
 const preparations = new WeakMap<Store, Promise<void>>();
 function prepared(env: Env): Promise<void> {
@@ -93,7 +93,6 @@ function prepared(env: Env): Promise<void> {
   if (!pending) {
     pending = (async () => {
       await ensureSchema(db);
-      await reloadPinned(env, db);
     })().catch((error) => {
       preparations.delete(db);
       throw error;
