@@ -1,9 +1,10 @@
 import { withoutTranslations } from "@origin89/equipment-schema/documents";
 import { Sighting } from "@origin89/equipment-schema/sighting";
 import { classifierKey } from "./classify.ts";
+import { clearPrefix } from "./feeds.ts";
 import { CONVERTER, EXTRACTOR_ID, VISION_EXTRACTOR_ID } from "./reading.ts";
 import { pointerKey, readPointer, runPrefix } from "./runs.ts";
-import { batches, inputKey, sendAll, type Work } from "./work.ts";
+import { batches, sendAll, type Work } from "./work.ts";
 
 /** Listings per model call. Ten, because answers are matched to listings by position and a long list is where a model starts skipping one. */
 export const CLASSIFY_BATCH = 10;
@@ -16,42 +17,21 @@ export const CLASSIFY_BATCH = 10;
 export const PAGES_AT_ONCE = 6;
 
 /**
- * What the current classifier has already answered, keyed by the question. A weekly crawl of a
- * shop that did not change asks nothing and costs nothing; only genuinely new listings reach a
- * model.
+ * Fill the queue from a finished crawl, then write the manifest that says how many parts to expect.
+ * A reader that finds the manifest knows what a complete run looks like, and a gap in the parts
+ * is visible as a gap rather than as a shorter answer. It is written last: written first, a send
+ * that failed partway left a manifest promising parts nobody sent, and the run counted as
+ * classified, so no pass sent them. Without one, the next pass classifies the run again.
  *
- * Every answer is one key under one prefix, so the listing grows with the catalogue. A caller
- * classifying several runs lists it once and hands the set to each: listed per seller, it was
- * eighteen calls and nine seconds a seller on the first pass after a new prompt, which over
- * thirty-four sellers is longer than the supervise workflow waits for a pass.
- */
-export async function answeredInputs(bucket: R2Bucket): Promise<Set<string>> {
-  const answered = new Set<string>();
-  let cursor: string | undefined;
-  do {
-    const page = await bucket.list({
-      prefix: `guesses/by-input/${classifierKey()}/`,
-      cursor,
-      limit: 1000,
-    });
-    for (const object of page.objects)
-      answered.add(object.key.slice(object.key.lastIndexOf("/") + 1).replace(/\.json$/, ""));
-    cursor = page.truncated ? page.cursor : undefined;
-  } while (cursor);
-  return answered;
-}
-
-/**
- * Fill the queue from a finished crawl and write the manifest that says how many parts to expect.
- * The manifest goes first: a reader that finds it knows what a complete run looks like, and a
- * gap in the parts is then visible as a gap rather than as a shorter answer.
+ * Every listing goes, answered before or not. The consumer reuses an answer it already has and
+ * asks a model only for the rest, so a shop that did not change still costs no model call, and
+ * each run's parts hold a guess for every listing it sells, which is what the gate reads (#16).
  */
 export async function classifyRun(
   env: Env,
   seller: string,
   date: string,
-  answered?: ReadonlySet<string>,
-): Promise<{ parts: number; sightings: number; alreadyAnswered: number }> {
+): Promise<{ parts: number; sightings: number }> {
   // Whichever run is current for this seller, not whichever shares today's date.
   const pointer = await readPointer(env.ARCHIVE, pointerKey.sightings(seller));
   if (!pointer) throw new Error(`${seller}: no current run`);
@@ -77,32 +57,14 @@ export async function classifyRun(
         sightings.push(Sighting.parse(JSON.parse(line)));
   }
 
-  const known = answered ?? (await answeredInputs(env.ARCHIVE));
-  const keyed = await Promise.all(
-    sightings.map(async (s) => ({ sighting: s, key: await inputKey(s) })),
-  );
-  const fresh = keyed.filter((k) => !known.has(k.key)).map((k) => k.sighting);
+  // Classifying a run again replaces what the last classification wrote. An old part left in place
+  // counted toward the new manifest before the new part landed, and stood in for one that never
+  // did. The manifest goes first, so the run reads as unclassified until every part is sent again.
+  const guesses = runPrefix.guesses(seller, pointer.run, classifierKey());
+  await env.ARCHIVE.delete(`${guesses}/manifest.json`);
+  await clearPrefix(env.ARCHIVE, `${guesses}/`);
 
-  const parts = batches(fresh, CLASSIFY_BATCH);
-  await env.ARCHIVE.put(
-    `${runPrefix.guesses(seller, pointer.run, classifierKey())}/manifest.json`,
-    JSON.stringify(
-      {
-        seller,
-        checkedAt: date,
-        by: classifierKey(),
-        parts: parts.length,
-        sightings: sightings.length,
-        alreadyAnswered: sightings.length - fresh.length,
-        pages: parts.map((p, i) => ({ page: i + 1, count: p.length })),
-      },
-      null,
-      2,
-    ),
-    {
-      httpMetadata: { contentType: "application/json" },
-    },
-  );
+  const parts = batches(sightings, CLASSIFY_BATCH);
   await sendAll(
     env.WORK,
     parts.map(
@@ -116,11 +78,25 @@ export async function classifyRun(
       }),
     ),
   );
-  return {
-    parts: parts.length,
-    sightings: sightings.length,
-    alreadyAnswered: sightings.length - fresh.length,
-  };
+  await env.ARCHIVE.put(
+    `${guesses}/manifest.json`,
+    JSON.stringify(
+      {
+        seller,
+        checkedAt: date,
+        by: classifierKey(),
+        parts: parts.length,
+        sightings: sightings.length,
+        pages: parts.map((p, i) => ({ page: i + 1, count: p.length })),
+      },
+      null,
+      2,
+    ),
+    {
+      httpMetadata: { contentType: "application/json" },
+    },
+  );
+  return { parts: parts.length, sightings: sightings.length };
 }
 
 /**
