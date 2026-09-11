@@ -102,14 +102,23 @@ async function inChunks<T>(
   return out;
 }
 
-const summary = (row: string, aliases: string[]): ModelSummary => {
+const summary = (
+  row: string,
+  aliases: string[],
+  makers: ReadonlyMap<string, string>,
+): ModelSummary => {
   const m = JSON.parse(row) as Record<string, string | undefined>;
   return {
     id: m.id ?? "",
     tier: m.tier === "feed" ? "feed" : "record",
     manufacturer: {
       ...(m.manufacturer_id ? { id: m.manufacturer_id } : {}),
-      name: m.manufacturer_name ?? m.manufacturer_id ?? "",
+      // A record model carries only its maker's id; the name is the maker record's.
+      name:
+        m.manufacturer_name ??
+        (m.manufacturer_id ? makers.get(m.manufacturer_id) : undefined) ??
+        m.manufacturer_id ??
+        "",
     },
     name: m.name ?? "",
     ...(m.kind ? { kind: m.kind as ModelSummary["kind"] } : {}),
@@ -141,6 +150,24 @@ export async function modelsById(
       `SELECT model_id, alias FROM model_aliases WHERE release = ? AND model_id IN (${marks})`,
   );
   const byId = new Map(rows.map((r) => [r.id, r.row]));
+  const makerIds = [
+    ...new Set(
+      rows.flatMap((r) => {
+        const m = JSON.parse(r.row) as Record<string, string | undefined>;
+        return m.manufacturer_id && !m.manufacturer_name ? [m.manufacturer_id] : [];
+      }),
+    ),
+  ];
+  const makers = new Map(
+    (
+      await inChunks<{ id: string; name: string }>(
+        db,
+        release,
+        makerIds,
+        (marks) => `SELECT id, name FROM manufacturers WHERE release = ? AND id IN (${marks})`,
+      )
+    ).map((m) => [m.id, m.name]),
+  );
   return ids.flatMap((id) => {
     const row = byId.get(id);
     return row
@@ -148,6 +175,7 @@ export async function modelsById(
           summary(
             row,
             aliases.filter((a) => a.model_id === id).map((a) => a.alias),
+            makers,
           ),
         ]
       : [];
@@ -170,7 +198,13 @@ const byKind = (models: ModelSummary[], kind?: string) =>
  * name's part is matched under every maker. A label is tried as a whole key and then as a name
  * printed after its maker. Near neighbours share the start of the name and are for showing.
  */
+/** Keys joined to their models, so a kind can narrow the match in SQL before any cap. */
+const KEYED =
+  "SELECT k.model_id FROM model_keys k JOIN models m ON m.release = k.release AND m.id = k.model_id WHERE k.release = ?";
+const OF_KIND = "AND (? IS NULL OR m.kind = ?)";
+
 export async function resolve(db: Store, release: string, q: ResolveQuery): Promise<Resolution> {
+  const kind = "kind" in q ? q.kind : undefined;
   let ids: string[];
   let stem: string;
   if ("label" in q) {
@@ -180,9 +214,9 @@ export async function resolve(db: Store, release: string, q: ResolveQuery): Prom
       (
         await db
           .prepare(
-            "SELECT model_id FROM model_keys WHERE release = ? AND (key = ? OR (length(name_key) >= 3 AND substr(?, -length(name_key)) = name_key)) ORDER BY rowid",
+            `${KEYED} AND (k.key = ? OR (length(k.name_key) >= 3 AND substr(?, -length(k.name_key)) = k.name_key)) ${OF_KIND} ORDER BY k.rowid`,
           )
-          .bind(release, key, key)
+          .bind(release, key, key, kind ?? null, kind ?? null)
           .all<{ model_id: string }>()
       ).results,
     );
@@ -191,8 +225,8 @@ export async function resolve(db: Store, release: string, q: ResolveQuery): Prom
     ids = distinct(
       (
         await db
-          .prepare("SELECT model_id FROM model_keys WHERE release = ? AND key = ? ORDER BY rowid")
-          .bind(release, modelKey(q.brand, q.model))
+          .prepare(`${KEYED} AND k.key = ? ${OF_KIND} ORDER BY k.rowid`)
+          .bind(release, modelKey(q.brand, q.model), kind ?? null, kind ?? null)
           .all<{ model_id: string }>()
       ).results,
     );
@@ -201,18 +235,15 @@ export async function resolve(db: Store, release: string, q: ResolveQuery): Prom
     ids = distinct(
       (
         await db
-          .prepare(
-            "SELECT model_id FROM model_keys WHERE release = ? AND name_key = ? ORDER BY rowid",
-          )
-          .bind(release, stem)
+          .prepare(`${KEYED} AND k.name_key = ? ${OF_KIND} ORDER BY k.rowid`)
+          .bind(release, stem, kind ?? null, kind ?? null)
           .all<{ model_id: string }>()
       ).results,
     );
   }
   // The kind narrows before anything is counted, so a kind that singles one model out of many
   // gives `exact`, and a candidate list is cut only after it has been narrowed.
-  const kind = "kind" in q ? q.kind : undefined;
-  const found = byKind(await modelsById(db, release, ids.slice(0, RESOLVE_READ)), kind);
+  const found = await modelsById(db, release, ids.slice(0, RESOLVE_READ));
   const overflow = ids.length > RESOLVE_READ;
   if (found.length === 1 && !overflow) {
     const only = found[0];
@@ -422,7 +453,7 @@ async function dialectsOf(
   const kinds = (
     await db
       .prepare(
-        `SELECT dialect_id, direction, kind FROM dialect_kinds WHERE release = ? AND dialect_id IN (${marks}) ORDER BY position`,
+        `SELECT dialect_id, direction, kind FROM dialect_kinds WHERE release = ? AND dialect_id IN (${marks}) ORDER BY CAST(position AS INTEGER)`,
       )
       .bind(release, ...ids)
       .all<{ dialect_id: string; direction: string; kind: string }>()
@@ -430,7 +461,7 @@ async function dialectsOf(
   const gotchas = (
     await db
       .prepare(
-        `SELECT dialect_id, text FROM dialect_gotchas WHERE release = ? AND dialect_id IN (${marks}) ORDER BY position`,
+        `SELECT dialect_id, text FROM dialect_gotchas WHERE release = ? AND dialect_id IN (${marks}) ORDER BY CAST(position AS INTEGER)`,
       )
       .bind(release, ...ids)
       .all<{ dialect_id: string; text: string }>()
@@ -438,7 +469,7 @@ async function dialectsOf(
   const cited = (
     await db
       .prepare(
-        `SELECT dialect_id, source_id, citation FROM dialect_sources WHERE release = ? AND dialect_id IN (${marks}) ORDER BY position`,
+        `SELECT dialect_id, source_id, citation FROM dialect_sources WHERE release = ? AND dialect_id IN (${marks}) ORDER BY CAST(position AS INTEGER)`,
       )
       .bind(release, ...ids)
       .all<{ dialect_id: string; source_id: string; citation: string }>()

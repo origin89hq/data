@@ -739,3 +739,71 @@ test("near neighbours count models, not the names that reach them, and a kind na
     assert.equal(inverters.truncated, false);
   } else assert.fail(inverters.outcome);
 });
+
+test("a record model names its maker from the maker record, positions sort as numbers, and a kind narrows in SQL before any cap", async () => {
+  const crowd = Array.from({ length: 201 }, (_, i) => ({
+    id: `acme-crowd-${String(i).padStart(3, "0")}`,
+    tier: "record",
+    manufacturer_id: "acme",
+    name: `Crowd ${String(i).padStart(3, "0")}`,
+    kind: i === 200 ? "meter" : "battery",
+  }));
+  const keys = crowd.map((m) => ({
+    model_id: m.id,
+    key: "acmecrowd",
+    name_key: "crowd",
+    label: "Acme",
+    via: "name",
+  }));
+  const gotchas = Array.from({ length: 11 }, (_, i) => ({
+    dialect_id: "d",
+    position: i,
+    text: `g${i}`,
+  }));
+  const { db } = await fixture({
+    manufacturers: [{ id: "acme", name: "Acme Power" }],
+    models: [
+      ...crowd,
+      { id: "acme-linked", tier: "record", manufacturer_id: "acme", name: "Linked", kind: "meter" },
+    ],
+    model_keys: keys,
+    dialects: [
+      {
+        id: "d",
+        family: "modbus-rs485",
+        manufacturer: "acme",
+        confidence: "vendor-doc",
+        refuter: "checked",
+      },
+    ],
+    dialect_gotchas: gotchas,
+    dialect_sources: [],
+    dialect_kinds: [],
+    model_dialects: [
+      {
+        model_id: "acme-linked",
+        dialect_id: "d",
+        evidence_kind: "catalogue-name",
+        confidence: "vendor-doc",
+      },
+    ],
+    model_dialect_sources: [],
+    specs: [],
+  });
+  const meter = await resolve(db, RELEASE, { brand: "Acme", model: "Crowd", kind: "meter" });
+  assert.equal(meter.outcome, "exact", "the one meter is found past two hundred batteries");
+  if (meter.outcome === "exact") {
+    assert.equal(meter.model.id, "acme-crowd-200");
+    assert.deepEqual(
+      meter.model.manufacturer,
+      { id: "acme", name: "Acme Power" },
+      "the maker's display name, not its id",
+    );
+  }
+  const out = await bundle(db, RELEASE, { models: ["acme-linked"], claims: false });
+  assert.deepEqual(
+    out.protocol[0]?.dialect.gotchas,
+    gotchas.map((g) => g.text),
+    "eleven gotchas in their order",
+  );
+});
