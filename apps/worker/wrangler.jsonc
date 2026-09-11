@@ -30,6 +30,16 @@
       "name": "manufacturer-crawl",
       "binding": "MANUFACTURER_CRAWL",
       "class_name": "ManufacturerCrawl"
+    },
+    // A release is loaded one part a step, and a step waits out D1 the way a crawl waits out a host.
+    { "name": "release-load", "binding": "RELEASE_LOAD", "class_name": "ReleaseLoad" }
+  ],
+  // Every kept release, keyed by (release, id), behind the read-only EquipmentApi (#83).
+  "d1_databases": [
+    {
+      "binding": "RELEASES",
+      "database_name": "offgrid-equipment-releases",
+      "database_id": "96b334f2-7308-4287-be56-a9f55da6d44e"
     }
   ],
   "queues": {

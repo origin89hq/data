@@ -472,7 +472,15 @@ The build adds `records_<kind>.json` snapshots for the seven authored record
 types. Publication keeps these by SHA-256 in R2 and validates their presence before
 accepting the manifest. Snapshots are limited to 6 MiB per kind and 50,000 records
 per comparison; oversized or missing history is reported explicitly. History
-reads require the existing member session. No extra service or binding is needed.
+reads require the existing member session. History itself needs no binding beyond R2.
+
+An accepted manifest also starts a `release-load` Workflow, which loads the
+release's tables from their content-addressed parts into the `RELEASES` D1
+database, one part a step, and makes it the active release once it is the newest
+publication loaded. A load that cannot finish leaves the active release as it
+was. Every release a fixture names in `apps/worker/pinned-releases.json` stays
+loaded, with the active one and the seven most recent; the rest are let go. This
+store is what the read-only `EquipmentApi` entrypoint answers from (#83).
 
 The build also emits `vocabulary.json`: the closed lists a consumer joins on
 (metric and command kinds, equipment kinds, dialect families, confidence,

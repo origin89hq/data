@@ -3,6 +3,7 @@ import { APPROVAL_EVENT, CrawlApproval } from "@origin89/equipment-schema/docume
 import { READS_PER_REQUEST } from "@origin89/equipment-schema/provenance";
 import {
   CompareQuery,
+  canonical,
   isLoadPart,
   LOAD_PART_MAX,
   LOAD_PART_ROWS,
@@ -31,6 +32,7 @@ import {
   type WorkflowCheck,
   type WorkflowRule,
 } from "./oidc.ts";
+import { loadInstanceId } from "./release-load.ts";
 import {
   compareReleases,
   HistoryUnavailable,
@@ -123,7 +125,9 @@ publicRoutes.on(["GET", "HEAD"], "/manifest.json", async (c) => {
   return c.json(
     {
       name: "offgrid-equipment",
-      publication: { historyVersion: 1 },
+      // 2: the Worker loads each release into the store behind the API; a publisher on 1 would
+      // publish parts nothing loads.
+      publication: { historyVersion: 2 },
       description:
         "Off-grid power equipment: manufacturers, models, rated figures and the protocols a controller can speak to them with.",
       licence: "MIT, for the tooling and the records alike",
@@ -1002,21 +1006,53 @@ async function putManifest(c: Context<PublicationEnv>): Promise<Response> {
   if (disagree.length > 0)
     return c.json({ error: "the manifest does not describe what is stored", files: disagree }, 409);
 
-  // Attribution is retained only after the public manifest is accepted. A retry after a
-  // history failure rewrites the same manifest and repairs the same job attempt's entry.
+  // The release is recorded and its load started before the public manifest changes: a failure
+  // in either leaves the front door on the release it had, and the publisher's rerun is a new
+  // attempt with its own record and load. A retry after a history failure repairs the same job
+  // attempt's entry.
   const job = c.get("job");
-  await c.env.ARCHIVE.put(datasetKey(MANIFEST), text, {
-    httpMetadata: { contentType: datasetType(MANIFEST) },
-  });
   const release = await saveRelease(
     c.env.ARCHIVE,
     parsed.data.files,
     job.sha,
     job.runId,
     job.runAttempt,
+    parsed.data.load,
   );
+  // A release record is immutable and named by its files and job attempt, not its plan: a retry
+  // of one attempt that changes the plan would start a load of a record that carries the old
+  // one, so it is refused and a new attempt is what carries a new plan.
+  if (canonical(release.load ?? null) !== canonical(parsed.data.load ?? null))
+    return c.json(
+      {
+        error:
+          "this publication was already recorded with a different load plan; a new job attempt carries a new plan",
+        release: release.id,
+      },
+      409,
+    );
+  // The store behind the API loads the release from its content-addressed parts (#83). One
+  // instance per release: a retried manifest finds it already created and leaves it be.
+  let load: "started" | "already" | "not started" = "not started";
+  if (parsed.data.load) {
+    try {
+      await c.env.RELEASE_LOAD.create({
+        id: loadInstanceId(release.id),
+        params: { release: release.id },
+      });
+      load = "started";
+    } catch (error) {
+      if (!(error instanceof Error && /already exists|instance\.already/i.test(error.message)))
+        throw error;
+      load = "already";
+    }
+  }
+  await c.env.ARCHIVE.put(datasetKey(MANIFEST), text, {
+    httpMetadata: { contentType: datasetType(MANIFEST) },
+  });
+  // The history names the job only once its manifest is public.
   await indexRelease(c.env.ARCHIVE, release);
-  return c.json({ file: MANIFEST, files: files.length });
+  return c.json({ file: MANIFEST, files: files.length, release: release.id, load });
 }
 
 /**

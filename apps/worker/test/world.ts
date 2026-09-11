@@ -11,6 +11,7 @@ export interface TestAiInput {
 }
 
 import type { Work } from "../src/work.ts";
+import { d1Double } from "./d1.ts";
 
 /**
  * Enough of R2, the queue and the model for the page reader and the supervisor: an archive in
@@ -63,7 +64,23 @@ export function world(
     string,
     { status: string; error?: { name: string; message: string } }
   >();
+  // The release store, and the loads a publication started, for the tests of what a manifest sets off.
+  const releases = d1Double();
+  const loads: { id: string; params: unknown }[] = [];
   const env = {
+    RELEASES: releases,
+    RELEASE_LOAD: {
+      create: async (options: { id: string; params: unknown }) => {
+        if (loads.some((l) => l.id === options.id))
+          throw new Error(`instance.already_exists: ${options.id}`);
+        loads.push(options);
+        return { id: options.id, status: async () => ({ status: "queued" }) };
+      },
+      get: async (id: string) => {
+        if (!loads.some((l) => l.id === id)) throw new Error(`instance.not_found: ${id}`);
+        return { id, status: async () => ({ status: "queued" }) };
+      },
+    },
     MANUFACTURER_CRAWL: {
       get: async (id: string) => {
         const status = instances.get(id);
@@ -211,6 +228,8 @@ export function world(
   };
   return {
     env,
+    releases,
+    loads,
     store,
     sent,
     delays,

@@ -27,6 +27,8 @@ export const Release = z.object({
   sha: z.string().regex(/^[a-f0-9]{40}$/),
   job: z.string().regex(/^\d+$/),
   files: z.record(z.string(), FileMeta),
+  /** Which load parts make each table, for the store behind the API. Absent on a release published before there were any. */
+  load: z.lazy(() => LoadPlan).optional(),
 });
 export type Release = z.infer<typeof Release>;
 export const ReleasePage = z.object({ releases: z.array(Release), cursor: z.string().optional() });

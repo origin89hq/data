@@ -1,6 +1,7 @@
 import { consume } from "./consumer.ts";
 import { hasFeed } from "./feeds.ts";
 import { manufacturers } from "./manufacturers.ts";
+import { reloadPinned } from "./release-load.ts";
 import { app, today } from "./routes.ts";
 import { sellers } from "./sellers.ts";
 import { startIfFree, startMaker, startSeller } from "./start-run.ts";
@@ -8,6 +9,7 @@ import { superviseIfFree } from "./supervise.ts";
 
 export { ManufacturerCrawl } from "./manufacturer-crawl.ts";
 export { PageCrawl } from "./page-crawl.ts";
+export { ReleaseLoad } from "./release-load-workflow.ts";
 export { SellerCrawl } from "./seller-crawl.ts";
 
 export default {
@@ -30,6 +32,13 @@ export default {
     // Every day: move anything whose precondition is met. The weekly crawl and the monthly
     // discovery below produce work; this is what carries it through the stages after them.
     await superviseIfFree(env, checkedAt);
+    // A pinned release the store lacks or failed to load is put back here, once a day, never
+    // from a read.
+    try {
+      await reloadPinned(env, env.RELEASES);
+    } catch (error) {
+      console.log(JSON.stringify({ message: "pinned reload failed", error: String(error) }));
+    }
     if (new Date(controller.scheduledTime).getUTCHours() === 8) return;
     for (const seller of sellers) {
       await startIfFree(() => startSeller(env, seller.id, hasFeed(seller) ? "feed" : "page"));
