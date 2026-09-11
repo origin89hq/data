@@ -1,7 +1,15 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
-import { batches, LAST_ATTEMPT, partKey, SEND_BATCH, sendGroups, Work } from "../src/work.ts";
+import {
+  batches,
+  LAST_ATTEMPT,
+  MOST_WINDOWS,
+  partKey,
+  SEND_BATCH,
+  sendGroups,
+  Work,
+} from "../src/work.ts";
 
 test("a page message names its page and the pages it belongs to, and cannot name a page past the last", () => {
   const page = {
@@ -165,6 +173,29 @@ test("a document message carries a real content hash, so a key cannot be forged 
   assert.equal(Work.safeParse({ ...good, sha256: "../../etc/passwd" }).success, false);
   assert.equal(Work.safeParse({ ...good, sha256: "abc" }).success, false);
   assert.equal(Work.safeParse({ ...good, url: "not a url" }).success, false);
+});
+
+test("a batch of extract messages at their most windows stays under an invocation's subrequests", () => {
+  const config = readFileSync(new URL("../wrangler.jsonc", import.meta.url), "utf8");
+  const batch = Number(/"max_batch_size":\s*(\d+)/.exec(config)?.[1]);
+  assert.ok(batch > 0, "the queue's batch size is configured");
+  // A model call and an R2 write for each window, and a few reads and writes for the document.
+  assert.ok(batch * (MOST_WINDOWS * 2 + 6) < 1000, `${batch} messages of ${MOST_WINDOWS} windows`);
+});
+
+test("an extract message may ask for at most as many windows as one invocation can read and keep", () => {
+  const extract = {
+    kind: "extract",
+    manufacturer: "m",
+    date: "d",
+    run: "r",
+    sha256: "a".repeat(64),
+    url: "https://x.test/a.pdf",
+    key: "archive/a.md",
+  };
+  assert.equal(Work.safeParse(extract).success, true, "the default budget");
+  assert.equal(Work.safeParse({ ...extract, maxWindows: MOST_WINDOWS }).success, true);
+  assert.equal(Work.safeParse({ ...extract, maxWindows: MOST_WINDOWS + 1 }).success, false);
 });
 
 test("result keys are derived from the run, so a reader knows what to look for and two runs never mix", () => {
