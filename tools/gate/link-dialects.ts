@@ -76,6 +76,8 @@ const dialectLinks = new Map<string, DialectLink[]>();
 /** The catalogue entry each link came from, for the report. */
 const entries = new Map<string, string>();
 const report: string[] = [];
+/** The models to write once the report is safely down. */
+const pending: { id: string; model: Model }[] = [];
 const unmatched = new Map<string, number>();
 
 for (const dialect of records.dialects) {
@@ -178,9 +180,11 @@ for (const model of records.models) {
       `| \`${model.id}\` | ${cell(model.name)} | \`${link.dialect}\` | ${cell(entries.get(`${model.id}\u0000${link.dialect}`) ?? "")} | ${dialect?.confidence ?? ""} | ${link.evidence.sources.map((c) => `\`${c.source}\``).join(", ")} |`,
     );
   }
-  if (!dryRun) writeRecord(RECORDS_DIR, "models", model.id, Model.parse({ ...model, dialects }));
+  pending.push({ id: model.id, model: Model.parse({ ...model, dialects }) });
   touched += 1;
 }
+// The report goes first: a path that cannot be written stops the run before any record changes,
+// so a retry still has every new link to report.
 if (reportFile) {
   writeFileSync(
     reportFile,
@@ -192,6 +196,7 @@ if (reportFile) {
   );
   console.log(`${report.length} links written to ${reportFile}`);
 }
+for (const { id, model } of pending) if (!dryRun) writeRecord(RECORDS_DIR, "models", id, model);
 
 console.log(
   `${linked} model entries linked to a record${dryRun ? " (dry run, nothing written)" : ""}`,
