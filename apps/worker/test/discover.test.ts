@@ -187,14 +187,20 @@ test("a child that answers with a page instead of a sitemap is a child that coul
     "https://maker.test/sitemap.xml": index(
       "https://maker.test/a-sitemap.xml",
       "https://maker.test/b-sitemap.xml",
+      "https://maker.test/nested-index.xml",
     ),
     "https://maker.test/a-sitemap.xml": urlset("https://maker.test/product/a"),
     // A consent page or a bot challenge, served with a 200.
     "https://maker.test/b-sitemap.xml": home,
+    // An index inside the index: its two sitemaps are not pages, and are not opened.
+    "https://maker.test/nested-index.xml": index(
+      "https://maker.test/deep-1.xml",
+      "https://maker.test/deep-2.xml",
+    ),
   });
   const { pages, hosts } = await discoverPages(["maker.test"], get);
   assert.deepEqual(pages, ["https://maker.test/product/a"]);
-  assert.deepEqual([hosts[0]?.childrenFailed, hosts[0]?.childrenSkipped], [1, 0]);
+  assert.deepEqual([hosts[0]?.childrenFailed, hosts[0]?.childrenSkipped], [1, 2]);
 });
 
 test("an index's child on a host the record does not claim is never opened, and one that moves there is reported", async () => {

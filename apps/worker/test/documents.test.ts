@@ -173,3 +173,15 @@ test("relative links resolve against a page's base element, whose own address is
   assert.equal(baseHref("<p>no base</p>", "https://x.test/p"), "https://x.test/p");
   assert.equal(baseHref(`<base href="http://[bad">`, "https://x.test/p"), "https://x.test/p");
 });
+
+test("an unquoted href is a link too, as HTML allows", () => {
+  const html = `<a href=/upload/plain.pdf>plain</a><a href='/upload/single.pdf'>single</a><a href="/upload/double.pdf">double</a>`;
+  assert.deepEqual(
+    linkedDocuments(html, "https://www.victronenergy.com/").map((f) => f.url),
+    [
+      "https://www.victronenergy.com/upload/double.pdf",
+      "https://www.victronenergy.com/upload/plain.pdf",
+      "https://www.victronenergy.com/upload/single.pdf",
+    ],
+  );
+});

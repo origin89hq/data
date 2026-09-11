@@ -93,8 +93,18 @@ test("an empty plan says why, in the order a person would fix things", () => {
     "a plan from before discovery wrote what it saw keeps the old sentence",
   );
   assert.equal(
-    emptyPlanReason(seen({ redirectedTo: ["www.rehlko.com"] })),
+    emptyPlanReason(
+      seen({
+        redirectedTo: ["www.rehlko.com"],
+        hosts: [host({ redirectedTo: ["www.rehlko.com"] })],
+      }),
+    ),
     "nothing to fetch; the site redirects to www.rehlko.com, which the record does not claim",
+  );
+  assert.equal(
+    emptyPlanReason(seen({ redirectedTo: ["cdn.other.test"] })),
+    "nothing to fetch; read 40 pages, none links a document, and some requests landed on cdn.other.test",
+    "one page that went elsewhere is a footnote, not the reason",
   );
   // Two sitemap requests refused, then both home pages: four requests, every one a 403.
   const refusing = host({
@@ -173,7 +183,10 @@ test("a maker's state carries its run and instance, and an empty plan's reason",
   });
   objects[`${BASE}/plan.json`] = JSON.stringify({
     documents: [],
-    discovery: seen({ redirectedTo: ["www.rehlko.com"] }),
+    discovery: seen({
+      redirectedTo: ["www.rehlko.com"],
+      hosts: [host({ redirectedTo: ["www.rehlko.com"] })],
+    }),
   });
   const maker = await state(objects);
   assert.equal(maker.run, RUN);
@@ -223,7 +236,7 @@ test("finding the previous plan asks about the newest runs only, one request eac
   Object.assign(objects, run({ plan: true }));
   const { env, headed } = world(objects);
   assert.deepEqual(await previousPlan(env.ARCHIVE, "maker", RUN), {
-    run: `2026-08-${PREVIOUS_RUNS_CONSIDERED + 4}-old`,
+    run: `2026-08-${String(PREVIOUS_RUNS_CONSIDERED + 4).padStart(2, "0")}-old`,
     documents: 1,
   });
   // The window is counted in days and the current run's day is one of them.
@@ -244,7 +257,7 @@ test("a day with many runs keeps them all in view, whatever their suffixes", asy
   Object.assign(objects, run({ plan: true }));
   const { env } = world(objects);
   assert.deepEqual(await previousPlan(env.ARCHIVE, "maker", RUN), {
-    run: `2026-09-10-z${PREVIOUS_RUNS_CONSIDERED + 1}`,
+    run: `2026-09-10-z${String(PREVIOUS_RUNS_CONSIDERED + 1).padStart(2, "0")}`,
     documents: 2,
   });
 });

@@ -75,7 +75,8 @@ export function hostAllowed(host: string, domains: readonly string[]): boolean {
   });
 }
 
-const HREF = /\bhref\s*=\s*["']([^"']+)["']/gi;
+/** An `href`, quoted either way or not at all, as HTML allows. */
+const HREF = /\bhref\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>"']+))/gi;
 const BASE = /<base\b[^>]*\bhref\s*=\s*["']([^"']+)["'][^>]*>/i;
 
 /**
@@ -119,7 +120,7 @@ export function linkedDocuments(html: string, pageUrl: string): Found[] {
   for (const match of withoutBase(html).matchAll(HREF)) {
     let url: URL;
     try {
-      url = new URL(decodeEntities(match[1]), base);
+      url = new URL(decodeEntities(match[1] ?? match[2] ?? match[3] ?? ""), base);
     } catch {
       continue;
     }

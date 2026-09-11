@@ -220,7 +220,12 @@ async function sitemapOf(
         tally(seen, page, domains);
         // A sitemap that will not load is one sitemap, not a reason to abandon the maker. One that
         // answers with a consent page or a bot challenge is not a sitemap either.
-        if (ok(page) && isSitemap(page.text)) urls.push(...locations(page.text));
+        if (ok(page) && isSitemap(page.text) && !isIndex(page.text))
+          urls.push(...locations(page.text));
+        // An index inside the index is a level this crawl does not open; its sitemaps are counted
+        // as unopened rather than read as pages.
+        else if (ok(page) && isIndex(page.text))
+          seen.childrenSkipped += locations(page.text).length;
         else seen.childrenFailed += 1;
       }
       listed = urls;

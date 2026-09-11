@@ -120,8 +120,17 @@ export async function sellerStates(bucket: R2Bucket): Promise<SellerState[]> {
  */
 export function emptyPlanReason(seen: DiscoverySeen | undefined): string {
   if (!seen) return "nothing to fetch; this maker publishes no documents we can reach";
-  if (seen.redirectedTo.length > 0)
+  // A site has moved when every host's sitemap request landed elsewhere, or when nothing at all
+  // could be read and something did; one page that went elsewhere is a footnote, not the reason.
+  const moved =
+    seen.redirectedTo.length > 0 &&
+    (seen.hosts.every((h) => h.redirectedTo.length > 0) || seen.pages.read === 0);
+  if (moved)
     return `nothing to fetch; the site redirects to ${seen.redirectedTo.join(", ")}, which the record does not claim`;
+  const strayed =
+    seen.redirectedTo.length > 0
+      ? `, and some requests landed on ${seen.redirectedTo.join(", ")}`
+      : "";
   const failures = Object.entries(seen.pages.failed);
   const failed = failures.reduce((n, [, count]) => n + count, 0);
   const sum = (
@@ -154,7 +163,7 @@ export function emptyPlanReason(seen: DiscoverySeen | undefined): string {
   const rest = partly.length ? `, and ${partly.join(" and ")}` : "";
   const listed = seen.pages.listed ?? 0;
   const sampled = listed > seen.pages.read + failed ? ` of ${listed} the site lists` : "";
-  return `nothing to fetch; read ${seen.pages.read} pages${sampled}, none links a document${rest}`;
+  return `nothing to fetch; read ${seen.pages.read} pages${sampled}, none links a document${rest}${strayed}`;
 }
 
 export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
@@ -236,8 +245,14 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
  * sort by age, and a run that died before writing a plan is no run to compare with: it is passed
  * over for the last one that finished discovery.
  */
-/** Days of runs looked at when finding the previous plan: a year of monthly discoveries, one HEAD per run. */
-export const PREVIOUS_RUNS_CONSIDERED = 12;
+/**
+ * Days of runs looked at when finding the previous plan, one HEAD per run on those days. A pass
+ * asks this for every maker whose plan is empty, forty-odd today, on top of the reads
+ * `makerStates` already makes, under one invocation's thousand-subrequest ceiling. Three days
+ * covers a re-run and the discovery before it; a run's predecessor is never older than that in
+ * practice, and a maker with more history than that is bounded rather than fully searched.
+ */
+export const PREVIOUS_RUNS_CONSIDERED = 3;
 
 export async function previousPlan(
   bucket: R2Bucket,
