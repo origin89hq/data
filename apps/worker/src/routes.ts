@@ -820,7 +820,14 @@ workflowRoutes.put("/v1/:file", async (c) => {
  * named, so nothing is stored that a loader would choke on.
  */
 export function ndjsonRows(bytes: Uint8Array): number {
-  const lines = new TextDecoder().decode(bytes).split("\n");
+  let text: string;
+  try {
+    // Strict: a byte sequence that is not UTF-8 is refused rather than stored with replacements.
+    text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: false }).decode(bytes);
+  } catch {
+    throw new RangeError("not UTF-8");
+  }
+  const lines = text.split("\n");
   let rows = 0;
   for (const [at, line] of lines.entries()) {
     if (line.trim() === "") continue;
@@ -973,6 +980,18 @@ async function putManifest(c: Context<PublicationEnv>): Promise<Response> {
   const partsListed = files.some(([name]) => isLoadPart(name));
   if (partsListed && !parsed.data.load)
     disagree.push("load parts are listed and no load plan says which table each makes");
+  // Every table the manifest publishes as CSV is in the plan, with no parts when it has no rows:
+  // a table left out of the plan altogether leaves no stray part to notice, so the tables are
+  // checked from the CSV side too.
+  if (parsed.data.load)
+    for (const [name, meta] of files) {
+      if (!name.endsWith(".csv")) continue;
+      const table = name.slice(0, -".csv".length);
+      const planned = parsed.data.load.tables[table];
+      if (!planned) disagree.push(`${table}: published as a table and absent from the load plan`);
+      else if (meta.rows !== undefined && planned.rows !== meta.rows)
+        disagree.push(`${table}: the plan says ${planned.rows} rows, the table has ${meta.rows}`);
+    }
   if (parsed.data.load)
     for (const [name, meta] of files) {
       if (!isLoadPart(name)) continue;

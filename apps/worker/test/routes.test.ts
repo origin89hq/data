@@ -777,6 +777,31 @@ test("a load part is kept content-addressed, and the manifest's load plan is che
   assert.throws(() => ndjsonRows(encode('{"a":1}\nnot-json\n')), /line 2 is not JSON/);
   assert.throws(() => ndjsonRows(encode("[]\n")), /line 1 is not a JSON object/);
   assert.throws(() => ndjsonRows(encode("{}\n".repeat(20_001))), /more than 20000 records/);
+  assert.throws(
+    () => ndjsonRows(new Uint8Array([0x7b, 0x22, 0x61, 0x22, 0x3a, 0x22, 0xff, 0x22, 0x7d, 0x0a])),
+    /not UTF-8/,
+    "bytes that are not UTF-8 are refused, not replaced",
+  );
+  const unnumbered = await put(env, "models.ndjson", part, {
+    ...(await publish()),
+    "x-content-sha256": sha256(part),
+  });
+  assert.equal(
+    unnumbered.status,
+    404,
+    "an NDJSON file that is not a numbered part is no dataset file",
+  );
+  assert.equal(datasetType("models.csv"), "text/csv; charset=utf-8");
+  const csvOnly = "id\nx\n";
+  await putFile(env, "specs.csv", csvOnly);
+  const uncovered = JSON.stringify({
+    ...JSON.parse(manifestOf({ "models_0001.ndjson": part, "specs.csv": csvOnly })),
+    load: { version: 1, tables: { models: { parts: ["models_0001.ndjson"], rows: 1 } } },
+  });
+  assert.match(
+    JSON.stringify(await (await putManifest(env, uncovered)).json()),
+    /specs: published as a table and absent from the load plan/,
+  );
   const malformed = await putFile(env, "models_0003.ndjson", '{"id":"a"}\n[]\n');
   assert.equal(malformed.status, 422, "a malformed part is refused before it is stored");
   assert.match(await errorOf(malformed), /line 2 is not a JSON object/);

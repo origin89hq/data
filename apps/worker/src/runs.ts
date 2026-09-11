@@ -129,9 +129,11 @@ export const LOGO_PATH = /^\/logos\/[a-z0-9-]+-\d{2,4}\.png$/;
 /**
  * A published dataset file. The whole point of the project is that anybody can take the tables, so
  * these are public too, under a version prefix: `v1` is a promise about the shape of the columns,
- * and a later shape gets `v2` rather than silently changing under somebody's query.
+ * and a later shape gets `v2` rather than silently changing under somebody's query. An NDJSON
+ * file is a load part or nothing: only a numbered part name is admitted, so every one goes
+ * through the part's checks and bounds.
  */
-export const DATASET_PATH = /^\/v1\/[a-z0-9_]+\.(parquet|csv|json|ndjson)$/;
+export const DATASET_PATH = /^\/v1\/(?:[a-z0-9_]+\.(?:parquet|csv|json)|[a-z0-9_]+_\d{4}\.ndjson)$/;
 
 /** Where a published file lives in the archive. */
 export const datasetKey = (name: string): string => `dataset/v1/${name}`;
