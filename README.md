@@ -280,10 +280,25 @@ removing somebody from the team locks them out within five minutes. A token
 somebody gave another app, `gh`'s included, is refused. An approval records the
 login GitHub vouched for.
 
-Members can watch the spider at `https://data.origin89.com/ops`: the
-supervisor's last pass, and each seller's and maker's current run with the
-status of the workflow behind it. It is read-only, and anybody else is sent to
-sign in.
+Members manage collection at `https://data.origin89.com/ops`. The workspace
+shows the supervisor's latest pass and the current manufacturer and seller runs,
+with searchable queues, workflow status, archive files, and CSV exports. Run
+snapshots refresh on demand; a failed refresh keeps the last successful snapshot
+and its timestamp visible. Anybody else is sent to sign in.
+
+Open a manufacturer run to review its document plan and approve a bounded number
+of downloads. The approval targets the reviewed workflow instance and records the
+signed-in member. Collection controls start a fresh manufacturer discovery or
+seller run after checking that the current workflow is no longer active. Existing
+archive files remain available. If a submission's response is lost, inspect a fresh
+snapshot before trying again; the workspace never repeats it automatically.
+
+The records workspace queries the published dataset and opens authored JSON files
+from the repository for correction. It validates drafts against the shared record
+schemas and exports a patch for repository review. IDs and dialect families stay
+fixed; reference and evidence checks still run through `just check`. Generated
+feed records need a change in their source feed. The published-files view provides
+downloads, row counts, sizes, and content hashes.
 
 Only `just dev` has a control token, from `apps/worker/.dev.vars`, and a Worker
 with neither a control token nor sign-in configured refuses everything rather

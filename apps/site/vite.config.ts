@@ -30,9 +30,19 @@ export default defineConfig({
   // it sets for localhost comes along.
   server: {
     proxy: Object.fromEntries(
-      ["/manifest.json", "/v1", "/logos", "/auth", "/state", "/runs", "/supervision"].map(
-        (path) => [path, worker],
-      ),
+      [
+        "/manifest.json",
+        "/v1",
+        "/logos",
+        "/auth",
+        "/state",
+        "/runs",
+        "/supervision",
+        "/archive",
+        "/approve",
+        "/maker",
+        "/run",
+      ].map((path) => [path, worker]),
     ),
   },
 });

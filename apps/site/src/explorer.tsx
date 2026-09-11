@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { count, type Index } from "./api.ts";
 import { DataLoading, DataProblem, Skeleton } from "./DataState.tsx";
 import { Icon } from "./icons.tsx";
+import type { CorrectionTarget } from "./ops/corrections.ts";
 import type { State } from "./useDuckDb.ts";
 import { useQuery } from "./useQuery.ts";
 
@@ -67,7 +68,9 @@ export function Explorer({
   index,
   tier,
   db,
+  onCorrect,
 }: {
+  onCorrect?: (target: CorrectionTarget) => void;
   index?: Index;
   tier: "reviewed" | "all";
   db: State;
@@ -107,7 +110,7 @@ export function Explorer({
   const result = useQuery(
     db,
     `SELECT count(*) AS n FROM ${spec.table} WHERE ${where}`,
-    `SELECT ${spec.columns.join(", ")} FROM ${spec.table} WHERE ${where}
+    `SELECT ${tab === "specs" ? "id, " : ""}${spec.columns.join(", ")} FROM ${spec.table} WHERE ${where}
       ORDER BY ${spec.order} LIMIT ${PAGE} OFFSET ${page * PAGE}`,
   );
   const rows = result.status === "ready" ? (result.data[1]?.rows ?? []) : [];
@@ -270,7 +273,13 @@ export function Explorer({
         </div>
       </div>
       {chosen && (
-        <RecordDialog row={chosen} table={tab} db={db} onClose={() => setChosen(undefined)} />
+        <RecordDialog
+          row={chosen}
+          table={tab}
+          db={db}
+          onCorrect={onCorrect}
+          onClose={() => setChosen(undefined)}
+        />
       )}
     </div>
   );
@@ -289,7 +298,9 @@ function RecordDialog({
   table,
   db,
   onClose,
+  onCorrect,
 }: {
+  onCorrect?: (target: CorrectionTarget) => void;
   row: Row;
   table: TabName;
   db: State;
@@ -427,6 +438,22 @@ function RecordDialog({
             </div>
           ))}
 
+        {onCorrect && text("id") && (
+          <button
+            type="button"
+            className="button primary"
+            onClick={() => {
+              onClose();
+              onCorrect({
+                table,
+                id: String(row.id),
+                ...(table === "dialects" ? { family: String(row.family) } : {}),
+              });
+            }}
+          >
+            Prepare a correction <Icon name="evidence" />
+          </button>
+        )}
         {table === "models" && <ModelFigures model={String(row.id ?? "")} db={db} />}
 
         <div className="detail-notice">

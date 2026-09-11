@@ -131,6 +131,9 @@ importers:
       '@origin89/brand':
         specifier: 0.3.1
         version: 0.3.1
+      '@origin89/equipment-schema':
+        specifier: workspace:*
+        version: link:../../packages/schema
       react:
         specifier: 19.3.0
         version: 19.3.0
