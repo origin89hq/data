@@ -134,7 +134,15 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     const landedAt = new Set<string>();
     const candidates: string[] = [];
     const take = (batch: PagesRead): void => {
-      citedRead += batch.opened.filter((p) => cited.pages.includes(p)).length;
+      // A cited page read for its links, or one that answered with the document itself.
+      const answeredWithDocument = new Set(
+        batch.links
+          .map((l) => l.foundOn)
+          .filter((p): p is string => p !== undefined && cited.pages.includes(p))
+          .filter((p) => !batch.opened.includes(p)),
+      );
+      citedRead +=
+        batch.opened.filter((p) => cited.pages.includes(p)).length + answeredWithDocument.size;
       for (const f of batch.links) if (!found.some((x) => x.url === f.url)) found.push(f);
       specPages.push(...batch.tables);
       for (const url of batch.landed) {

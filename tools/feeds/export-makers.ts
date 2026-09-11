@@ -1,5 +1,5 @@
 import { writeFileSync } from "node:fs";
-import { citedFor } from "../../src/cited.ts";
+import { citedFor, sourceIdsCitedBy } from "../../src/cited.ts";
 import { loadRecords } from "../../src/records.ts";
 
 /**
@@ -16,7 +16,7 @@ const records = loadRecords();
 const makers = records.manufacturers
   .filter((m) => m.domains.length > 0)
   .map((m) => {
-    const cited = citedFor(m, records.sources);
+    const cited = citedFor(m, records.sources, sourceIdsCitedBy(m.id, records));
     return {
       id: m.id,
       domains: m.domains,

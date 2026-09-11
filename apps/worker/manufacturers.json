@@ -1003,16 +1003,9 @@
         "https://www.pentair.com/content/dam/extranet/web/nam/pentek/manuals/p1062-psd30-solar-drive-iom.pdf",
         "https://www.pentair.com/content/dam/extranet/web/nam/pentek/sales-flyers/psd25pb-solar-drive-sell-sheet.pdf",
         "https://www.pentair.com/content/dam/extranet/web/nam/pentek/spec-sheets/310068-pentek-c-series-spec-sheet.pdf",
-        "https://www.pentair.com/content/dam/extranet/web/nam/pentek/spec-sheets/310112-pentek-cfbc-series-spec-sheet.pdf",
-        "https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-1008-4008-rv-by-pass-pump-iom.pdf",
-        "https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-193-lcb-go-902-100-iom.pdf",
-        "https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-314-series-8000-pump-iom.pdf",
-        "https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-566-3200-macerator-pump-iom.pdf"
+        "https://www.pentair.com/content/dam/extranet/web/nam/pentek/spec-sheets/310112-pentek-cfbc-series-spec-sheet.pdf"
       ],
-      "pages": [
-        "https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-193-lcb-g",
-        "https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-396-series-2088-industrial-pumps-iom"
-      ]
+      "pages": []
     }
   },
   {
@@ -1393,25 +1386,7 @@
     "id": "the-cabin-depot",
     "domains": [
       "thecabindepot.ca"
-    ],
-    "cited": {
-      "documents": [
-        "https://thecabindepot.ca/cdn/shop/files/Kedron_280AH_48V_Manual_Rev_1.4.pdf"
-      ],
-      "pages": [
-        "https://thecabindepot.ca/collections/noco",
-        "https://thecabindepot.ca/collections/rolls-battery",
-        "https://thecabindepot.ca/products/epever-dr3210n-dds-30a-mppt-dual-battery-controller-etl-certified",
-        "https://thecabindepot.ca/products/epever-itracer-an-g3-60a-mppt-charge-controller",
-        "https://thecabindepot.ca/products/kedron-12v-lifepo4-100ah",
-        "https://thecabindepot.ca/products/kedron-12v-lifepo4-200ah",
-        "https://thecabindepot.ca/products/kedron-12v-lifepo4-300ah-1",
-        "https://thecabindepot.ca/products/kedron-48v-lifepo4-280ah-indoor-14-34kw-ul-certified",
-        "https://thecabindepot.ca/products/midnite-mnems4448paecl150-magnum-4448pae-off-grid-4400w-48vdc-inverter-system",
-        "https://www.thecabindepot.ca/products/rolls-48v-6-65kwh-lifepo4-battery-s48-6650lfp",
-        "https://www.thecabindepot.ca/search?q=seaflo"
-      ]
-    }
+    ]
   },
   {
     "id": "trans-canada-energies",

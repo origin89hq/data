@@ -660,8 +660,10 @@ export function withCited(
   cited: Cited,
   domains: readonly string[],
 ): Found[] {
+  // Cited by address, or found by asking for a cited page that answered with the document.
+  const seed = (f: Found) => f.foundOn !== undefined && cited.pages.includes(f.foundOn);
   const out: Found[] = found.map((f) =>
-    cited.documents.includes(f.url) ? { ...f, cited: true as const } : f,
+    cited.documents.includes(f.url) || seed(f) ? { ...f, cited: true as const } : f,
   );
   for (const url of cited.documents) {
     const host = hostOf(url);

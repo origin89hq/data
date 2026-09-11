@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { citedFor } from "../src/cited.ts";
+import { citedFor, sourceIdsCitedBy } from "../src/cited.ts";
 
 const maker = { domains: ["epever.com", "epsolarpv.com"] };
 
@@ -46,4 +46,55 @@ test("a maker with no domain is cited nothing, since it has no host to be cited 
     documents: [],
     pages: [],
   });
+});
+
+test("a source is a maker's only when one of its own records cites it, not because its host does", () => {
+  const records = {
+    manufacturers: [
+      { id: "epever", name: "EPEVER", domains: ["epever.com"], sources: ["epever-home"] },
+      { id: "the-cabin-depot", name: "The Cabin Depot", domains: ["thecabindepot.ca"] },
+    ],
+    dialects: [
+      {
+        id: "epever-it-nc-g3",
+        manufacturer: "epever",
+        family: "modbus-rs485",
+        confidence: "unverified",
+        sources: [{ source: "cabin-depot-itracer-page", citation: "listing" }],
+        models: [],
+      },
+    ],
+    models: [{ id: "epever-x", manufacturer: "epever", name: "X", aliases: [], dialects: [] }],
+    specs: [{ id: "s1", model: "epever-x", name: "n", value: "1", source: "epever-datasheet" }],
+  };
+  const ids = sourceIdsCitedBy("epever", records as never);
+  assert.deepEqual([...ids].sort(), [
+    "cabin-depot-itracer-page",
+    "epever-datasheet",
+    "epever-home",
+  ]);
+  assert.deepEqual([...sourceIdsCitedBy("the-cabin-depot", records as never)], []);
+  const sources = [
+    { id: "cabin-depot-itracer-page", url: "https://thecabindepot.ca/products/epever-itracer" },
+    { id: "cabin-depot-own", url: "https://thecabindepot.ca/pages/about" },
+  ];
+  // The retailer's own crawl gets nothing from a page only EPEVER's dialect cites.
+  assert.deepEqual(
+    citedFor(
+      { domains: ["thecabindepot.ca"] },
+      sources,
+      sourceIdsCitedBy("the-cabin-depot", records as never),
+    ),
+    { documents: [], pages: [] },
+  );
+  // And EPEVER does not get it either: it is not on a host EPEVER's crawl may reach.
+  assert.deepEqual(citedFor({ domains: ["epever.com"] }, sources, ids), {
+    documents: [],
+    pages: [],
+  });
+  assert.deepEqual(
+    citedFor({ domains: ["thecabindepot.ca"] }, sources).pages.length,
+    2,
+    "without the maker's citations, host alone still decides",
+  );
 });

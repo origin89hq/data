@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { hostAllowed } from "@origin89/equipment-schema/documents";
-import { citedFor } from "../src/cited.ts";
+import { citedFor, sourceIdsCitedBy } from "../src/cited.ts";
 import { loadRecords } from "../src/records.ts";
 
 const exported = JSON.parse(
@@ -14,7 +14,7 @@ test("the bundled list matches the records it was generated from", () => {
   const expected = records.manufacturers
     .filter((m) => m.domains.length > 0)
     .map((m) => {
-      const cited = citedFor(m, records.sources);
+      const cited = citedFor(m, records.sources, sourceIdsCitedBy(m.id, records));
       return {
         id: m.id,
         domains: m.domains,

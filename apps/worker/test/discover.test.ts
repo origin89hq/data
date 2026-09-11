@@ -640,6 +640,18 @@ test("cited documents are offered after what the site gave, once each, and only 
     { url: "https://maker.test/files/b.pdf", host: "maker.test", cited: true },
   ]);
   assert.deepEqual(withCited([], { documents: [], pages: [] }, ["maker.test"]), []);
+  // A cited page that answered with the document: the document is the citation's.
+  const answered = [
+    {
+      url: "https://maker.test/files/m.pdf",
+      host: "maker.test",
+      foundOn: "https://maker.test/manual",
+    },
+  ];
+  assert.deepEqual(
+    withCited(answered, { documents: [], pages: ["https://maker.test/manual"] }, ["maker.test"]),
+    [{ ...answered[0], cited: true }],
+  );
 });
 
 test("pages read give their links once each, never themselves, and a page that failed gives none", async () => {
