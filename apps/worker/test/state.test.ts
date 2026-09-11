@@ -126,6 +126,23 @@ test("a run only the page reader has read is not ready while the pull leaves tha
   assert.equal(readyToPull(alsoText), true, "a reading the pull takes makes the run ready");
 });
 
+test("an offer to an earlier page reader is not an offer to this one, so a new version offers every run again", async () => {
+  const offered = (extractedBy?: string) => ({
+    ...run({ plan: true, approved: true, sent: ["b"], converted: ["b"] }),
+    [`${BASE}/seeing.json`]: JSON.stringify({
+      converted: 1,
+      ...(extractedBy === undefined ? {} : { extractedBy }),
+    }),
+  });
+  assert.equal((await state(offered(VISION_EXTRACTOR_ID))).seeing, 1);
+  assert.equal(
+    (await state(offered("ai:@cf/moonshotai/kimi-k2.7-code@vision-p1"))).seeing,
+    undefined,
+    "offered to p1, whose readings kept rate-limited pages as read (#29)",
+  );
+  assert.equal((await state(offered())).seeing, undefined, "nor an offer that names no reader");
+});
+
 test("a state from a Worker that predates `sent` is never ready, whatever its words say", () => {
   const old = {
     maker: "m",

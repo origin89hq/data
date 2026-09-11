@@ -43,6 +43,34 @@ const READER = readerKey(VISION_EXTRACTOR_ID);
 const AS_JSON = { httpMetadata: { contentType: "application/json" } };
 const reason = (error: unknown): string => (error instanceof Error ? error.message : String(error));
 
+/**
+ * The model, or the page reader's own pace, said not yet. The page goes back on the queue to wait
+ * its turn, and the refusal is not written down as the page's answer. Retried at once, all four
+ * deliveries of a page fell inside one minute of Kimi's limit, and 1,996 of 2,148 pages were kept
+ * as failed (#29).
+ */
+class NotYet extends Error {}
+
+/** Workers AI's answer when an account is over a model's requests per minute. */
+const rateLimited = (error: unknown): boolean => /\b3021\b/.test(reason(error));
+
+/**
+ * Times a page is put back before a refusal counts as a failure like any other. Thirty waits, most
+ * of them at the half-hour cap, is about half a day: longer than the whole backlog of scans takes
+ * at the page reader's pace, and still an end for a page the model never serves.
+ */
+export const MAX_WAITS = 30;
+
+/**
+ * How long a page waits before it is tried again: a minute, doubling to half an hour, and up to a
+ * minute more by page, so a document's pages turned away together do not all come back together.
+ */
+export function waitFor(message: VisionPage): number {
+  const waits = message.waits ?? 0;
+  const spread = (Number.parseInt(message.sha256.slice(0, 4), 16) + message.page) % 60;
+  return Math.min(60 * 2 ** waits, 1800) + spread;
+}
+
 /** A model's answer as it came, before anything is taken out of it. */
 function answerText(response: unknown): string {
   const r = response as { response?: unknown; choices?: { message?: { content?: unknown } }[] };
@@ -112,12 +140,22 @@ export async function seePage(
 ): Promise<void> {
   if (await env.ARCHIVE.head(partKey.reading(message.sha256, READER))) return;
   const key = partKey.page(message.sha256, READER, message.page);
-  if (!(await env.ARCHIVE.head(key)))
-    await env.ARCHIVE.put(
-      key,
-      `${JSON.stringify(await readPage(message, env, attempt, library))}\n`,
-      AS_JSON,
-    );
+  if (!(await env.ARCHIVE.head(key))) {
+    let seen: SeenPage;
+    try {
+      seen = await readPage(message, env, attempt, library);
+    } catch (error) {
+      if (!(error instanceof NotYet)) throw error;
+      // A new message rather than a retry, so waiting its turn does not use up the deliveries a
+      // page gets for failures of its own.
+      await env.WORK.send(
+        { ...message, waits: (message.waits ?? 0) + 1 },
+        { delaySeconds: waitFor(message) },
+      );
+      return;
+    }
+    await env.ARCHIVE.put(key, `${JSON.stringify(seen)}\n`, AS_JSON);
+  }
   await gatherPages(message, env);
 }
 
@@ -129,6 +167,11 @@ async function readPage(
   library: () => Promise<Pdfium>,
 ): Promise<SeenPage> {
   const { page } = message;
+  // Past its last wait a page is not held back any more: whatever the model says next is its answer.
+  const mayWait = (message.waits ?? 0) < MAX_WAITS;
+  // Asked before anything is drawn, so a page turned away costs one check and nothing else.
+  if (mayWait && !(await env.PAGE_READER_PACE.limit({ key: VISION_MODEL })).success)
+    throw new NotYet("over the page reader's pace");
   const source = await env.ARCHIVE.get(`archive/${message.sha256}`);
   if (!source) throw new Error(`archive/${message.sha256} is not in the archive`);
   const pdfium = await library();
@@ -164,6 +207,7 @@ async function readPage(
     } as never);
     markdown = transcriptOf(answerText(response));
   } catch (error) {
+    if (mayWait && rateLimited(error)) throw new NotYet(reason(error));
     // A model call fails for reasons that pass, so the queue tries it again. On the last attempt the
     // failure is written down instead: one page that never lands would hold the reading back for ever.
     if (attempt < LAST_ATTEMPT) throw error;
@@ -186,6 +230,9 @@ async function readPage(
     } as never);
     return { page, markdown, products: reportsOnPage(contentOf(response), page) };
   } catch (error) {
+    // The page waits and is written down again when its turn comes: one more call, and a page
+    // with both steps from one delivery.
+    if (mayWait && rateLimited(error)) throw new NotYet(reason(error));
     if (attempt < LAST_ATTEMPT) throw error;
     // The transcription stands whatever happened to the read of it: it is the part worth keeping.
     return { page, markdown, products: [], failed: `not read: ${reason(error)}` };

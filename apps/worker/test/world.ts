@@ -14,9 +14,10 @@ import type { Work } from "../src/work.ts";
 
 /**
  * Enough of R2, the queue and the model for the page reader and the supervisor: an archive in
- * memory, a record of every message sent, every prefix listed and every model call made, and a
- * model that answers whatever `answer` returns for the nth call and its request (or throws, when
- * that is an Error).
+ * memory, a record of every message sent (with its delay), every prefix listed and every model
+ * call made, a model that answers whatever `answer` returns for the nth call and its request (or
+ * throws, when that is an Error), and a page reader's pace that lets every page through until
+ * `pace.allow` says otherwise.
  */
 export function world(
   objects: Record<string, string | Uint8Array> = {},
@@ -42,8 +43,10 @@ export function world(
   // The digest an object was written with. R2 keeps one only when the writer declared it.
   const sha256s = new Map<string, string>();
   const sent: Work[] = [];
+  const delays: (number | undefined)[] = [];
   const listed: string[] = [];
   const asked: { model: string; input: TestAiInput }[] = [];
+  const pace = { allow: () => true, asked: 0 };
   const env = {
     ARCHIVE: {
       head: async (key: string) => {
@@ -99,8 +102,20 @@ export function world(
       },
     },
     WORK: {
-      send: async (message: Work) => void sent.push(message),
-      sendBatch: async (batch: { body: Work }[]) => void sent.push(...batch.map((m) => m.body)),
+      send: async (message: Work, options?: { delaySeconds?: number }) => {
+        sent.push(message);
+        delays.push(options?.delaySeconds);
+      },
+      sendBatch: async (batch: { body: Work; delaySeconds?: number }[]) => {
+        sent.push(...batch.map((m) => m.body));
+        delays.push(...batch.map((m) => m.delaySeconds));
+      },
+    },
+    PAGE_READER_PACE: {
+      limit: async () => {
+        pace.asked += 1;
+        return { success: pace.allow() };
+      },
     },
     AI: {
       run: async (model: string, input: TestAiInput) => {
@@ -124,5 +139,5 @@ export function world(
     assert.ok(value !== null && typeof value === "object", `Missing object: ${key}`);
     return value as T;
   };
-  return { env, store, sent, listed, asked, read, readObject, text };
+  return { env, store, sent, delays, listed, asked, pace, read, readObject, text };
 }
