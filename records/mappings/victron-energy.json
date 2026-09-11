@@ -1,0 +1,74 @@
+{
+  "id": "victron-energy",
+  "version": 1,
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-11",
+  "rules": [
+    {
+      "key": "pv.voc.max",
+      "names": [
+        "Max. input voltage",
+        "Max Input Voltage",
+        "Maximum DC PV voltage",
+        "Maximum open circuit PV array voltage",
+        "Max. PV voltage"
+      ],
+      "basis": "The SmartSolar and BlueSolar sheets state one PV input limit, 'Max. PV voltage' or 'Max. input voltage', and the manual says it is the open-circuit voltage the array must never exceed at any temperature."
+    },
+    {
+      "key": "pv.power.max",
+      "names": [
+        "Max. PV Power 12Vdc",
+        "Max. PV Power 24Vdc",
+        "Max. PV Power 36Vdc",
+        "Max. PV Power 48Vdc",
+        "Nominal PV power, 12V",
+        "Nominal PV power, 24V",
+        "Nominal PV power, 48V"
+      ],
+      "scope": "total",
+      "basis": "The sheets state the PV power the controller will use per battery voltage, one column each; the bank voltage is in the figure's name."
+    },
+    {
+      "key": "charge.current.max",
+      "names": ["Rated charge current", "Nominal charge current", "Charge current"],
+      "basis": "'Rated charge current' is the controller's output current to the battery; 'Charge current' on an inverter/charger sheet is the charger's."
+    },
+    {
+      "key": "battery.voltage.nominal",
+      "names": ["Battery voltage", "Nominal battery voltage", "Battery voltage (auto select)"],
+      "basis": "The sheets state the nominal battery voltages the unit is made for."
+    },
+    {
+      "key": "inverter.power.continuous",
+      "names": [
+        "Cont. output power at 25°C",
+        "Cont. output power at 25 °C",
+        "Cont. output power at 25°C (77°F)",
+        "Continuous output power at 25 °C",
+        "Cont. output power at 40°C",
+        "Cont. output power at 40 °C",
+        "Cont. output power at 40°C (104°F)",
+        "Continuous output power at 40 °C",
+        "Cont. output power at 65°C",
+        "Cont. output power at 65°C (149°F)"
+      ],
+      "basis": "The MultiPlus and Phoenix sheets state continuous output power at 25, 40 and 65 °C; the 25 °C figure is printed in VA and reads as a gap until an apparent-power key exists."
+    },
+    {
+      "key": "inverter.power.idle",
+      "names": [
+        "Zero-load power",
+        "Zero load power",
+        "Zero-load power in search mode",
+        "Zero-load power search mode"
+      ],
+      "basis": "'Zero-load power' is what the inverter draws with nothing connected; the search-mode figure carries its mode in the name."
+    },
+    {
+      "key": "inverter.voltage.ac",
+      "names": ["Output voltage", "AC output voltage"],
+      "basis": "The sheets state the nominal AC output voltage, often with its tolerance, which the parser refuses rather than halves."
+    }
+  ]
+}

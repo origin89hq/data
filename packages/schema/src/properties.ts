@@ -70,6 +70,33 @@ export type Reading = z.infer<typeof Reading>;
 export const Shape = z.enum(["scalar", "range", "set"]);
 export type Shape = z.infer<typeof Shape>;
 
+/** The conditions a property's value holds under, structured. Each key is one of `ConditionKey`. */
+export const Conditions = z
+  .object({
+    stc: z.literal(true).optional(),
+    cellTemperature: z.number().optional(),
+    ambientTemperature: z.number().optional(),
+    bankVoltage: z.number().positive().optional(),
+    dischargeHours: z.number().positive().optional(),
+    duration: z.number().positive().optional(),
+    mode: z.string().min(1).optional(),
+    note: z.string().min(1).optional(),
+  })
+  .strict();
+export type Conditions = z.infer<typeof Conditions>;
+
+/**
+ * What a property rests on, derived from its claim's columns and never from a mapping rule: a
+ * rule is not a review. `reviewed` when a person confirmed the figure, `extracted` when only a
+ * reader took it from the document, `feed` for a row a public dataset states.
+ */
+export const Basis = z.enum(["reviewed", "extracted", "feed"]);
+export type Basis = z.infer<typeof Basis>;
+
+/** Why a model has no usable value under a key. A consumer sees the reason, not an absence. */
+export const GapReason = z.enum(["no-claim", "unparsed", "needs-conditions", "conflict"]);
+export type GapReason = z.infer<typeof GapReason>;
+
 export const Property = z
   .object({
     /** Dotted, lowest-level last: `pv.voc.max`. */

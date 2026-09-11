@@ -5,6 +5,7 @@ import { Dialect } from "@origin89/equipment-schema/dialect";
 import { Family as FamilyId } from "@origin89/equipment-schema/enums";
 import { Family } from "@origin89/equipment-schema/family";
 import { Manufacturer } from "@origin89/equipment-schema/manufacturer";
+import { Mapping } from "@origin89/equipment-schema/mapping";
 import { Model, Spec } from "@origin89/equipment-schema/model";
 import { Source } from "@origin89/equipment-schema/source";
 
@@ -18,6 +19,8 @@ export interface Records {
   brands: Brand[];
   models: Model[];
   specs: Spec[];
+  /** How each maker's printed figures reach the property registry, one file per maker. */
+  mappings: Mapping[];
 }
 
 /** A record's file, so a validation message can name the line to open. */
@@ -37,7 +40,8 @@ export function loadRecords(dir = RECORDS_DIR): Records {
   const brands = readJsonDir(join(dir, "brands"), Brand);
   const models = readJsonDir(join(dir, "models"), Model);
   const specs = readJsonDir(join(dir, "specs"), Spec);
-  return { families, dialects, sources, manufacturers, brands, models, specs };
+  const mappings = readJsonDir(join(dir, "mappings"), Mapping);
+  return { families, dialects, sources, manufacturers, brands, models, specs, mappings };
 }
 
 function readJsonDir<T>(dir: string, schema: { parse(value: unknown): T }): T[] {
@@ -79,7 +83,8 @@ export type Kind =
   | "manufacturers"
   | "brands"
   | "models"
-  | "specs";
+  | "specs"
+  | "mappings";
 export const KINDS: Kind[] = [
   "families",
   "dialects",
@@ -88,6 +93,7 @@ export const KINDS: Kind[] = [
   "brands",
   "models",
   "specs",
+  "mappings",
 ];
 
 /**
@@ -124,6 +130,7 @@ export function writeRecords(records: Records, dir = RECORDS_DIR, replace: Kind[
     (s) => s.id,
     (s) => s.model,
   );
+  write("mappings", records.mappings, (m) => m.id);
 }
 
 function writeJson(path: string, value: unknown): void {

@@ -179,6 +179,11 @@ const slug = (s: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
+/** The id a feed's figure is published under: its model and its name, so a property can cite the row it was read from. */
+export function feedSpecId(modelId: string, name: string): string {
+  return `${modelId}--${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+}
+
 /**
  * Read one SAM library. Row one is the column names, row two the units and row three the library's
  * internal keys, so a figure never needs a unit guessed for it — which is the whole reason this

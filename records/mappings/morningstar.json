@@ -1,0 +1,48 @@
+{
+  "id": "morningstar",
+  "version": 1,
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-11",
+  "rules": [
+    {
+      "key": "pv.voc.max",
+      "names": [
+        "Maximum PV Open Circuit Voltage",
+        "Maximum PV Open-circuit Voltage",
+        "Max. PV Open-Circuit Voltage",
+        "Maximum Solar Input Voltage",
+        "Maximum Solar Open Circuit Voltage",
+        "Maximum DC solar input voltage",
+        "Maximum solar voltage",
+        "Maximum Input Voltage"
+      ],
+      "basis": "Morningstar prints the array's open-circuit limit under these names across the TriStar, ProStar and SunSaver sheets, sometimes as '150 Volts dc'."
+    },
+    {
+      "key": "charge.current.max",
+      "names": [
+        "Maximum Battery Current",
+        "Maximum Battery Charging Current",
+        "Max. Battery Charging Current",
+        "Rated Battery Current"
+      ],
+      "basis": "The battery current rating is the controller's output to the battery; the solar or load current ratings are other things."
+    },
+    {
+      "key": "battery.voltage.nominal",
+      "names": ["Nominal System Voltage", "Nominal Battery Voltage", "DC systems voltage"],
+      "basis": "The sheets state the nominal system voltages the controller auto-detects, as '12/24/48V DC'."
+    },
+    {
+      "key": "pv.power.max",
+      "names": ["Recommended Maximum PV Array Input Power"],
+      "scope": "total",
+      "basis": "The TriStar MPPT sheets state a recommended maximum array power per system voltage; the bank voltage is in the figure's name where the sheet prints it."
+    },
+    {
+      "key": "inverter.power.idle",
+      "names": ["Maximum Self-consumption", "Self consumption (tare loss)"],
+      "basis": "A controller's self-consumption is what it draws from the battery with nothing to do."
+    }
+  ]
+}

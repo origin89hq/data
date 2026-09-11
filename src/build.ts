@@ -2,6 +2,7 @@ import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { PROPERTIES } from "@origin89/equipment-schema/properties";
 import { RECORD_SNAPSHOT_MAX, RecordKind, snapshotName } from "@origin89/equipment-schema/releases";
 import { toCsv } from "./csv.ts";
 import { loadRecords, type Records } from "./records.ts";
@@ -66,6 +67,10 @@ export function build(records: Records, dist = DIST_DIR): Record<string, unknown
   record("dialects.json", records.dialects.length);
   writeFileSync(join(dist, "sources.json"), `${JSON.stringify(records.sources, null, 2)}\n`);
   record("sources.json", records.sources.length);
+  // The registry the properties table is keyed by, so a consumer can read what each key means,
+  // its unit, its conditions and the reading it limits without this repository (#82).
+  writeFileSync(join(dist, "properties.json"), `${JSON.stringify(PROPERTIES, null, 2)}\n`);
+  record("properties.json", PROPERTIES.length);
   for (const kind of RecordKind.options) {
     const name = snapshotName(kind);
     const snapshot = JSON.stringify(records[kind]);
