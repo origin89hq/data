@@ -81,6 +81,26 @@ test("a crawl's pages are read a few at a time, never all at once", async () => 
   assert.equal(reads.most, PAGES_AT_ONCE);
 });
 
+test("a send that stops partway leaves no manifest, so the next pass classifies the run again", async () => {
+  // 1,010 listings are 101 parts, two sends: a hundred, then one.
+  const { env, sent, read } = world(crawl(505));
+  const sendBatch = env.WORK.sendBatch.bind(env.WORK);
+  let sends = 0;
+  Object.assign(env.WORK, {
+    sendBatch: async (batch: { body: Work }[]) => {
+      if (++sends === 2) throw new Error("Queue sendBatch failed: internal error");
+      return sendBatch(batch as never);
+    },
+  });
+  await assert.rejects(classifyRun(env, "shop", "2026-09-09"), /internal error/);
+  assert.equal(sent.length, 100, "the first send went");
+  assert.equal(read(guessesManifest), undefined, "but no manifest promises the parts that did not");
+
+  const result = await classifyRun(env, "shop", "2026-09-09");
+  assert.deepEqual(result, { parts: 101, sightings: 1010 });
+  assert.equal((read(guessesManifest) as { parts: number }).parts, 101);
+});
+
 test("a missing page fails the run before its manifest, and nothing is queued", async () => {
   const objects = crawl(8);
   delete objects[pageKey(7)];

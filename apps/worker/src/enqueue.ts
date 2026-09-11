@@ -16,9 +16,11 @@ export const CLASSIFY_BATCH = 10;
 export const PAGES_AT_ONCE = 6;
 
 /**
- * Fill the queue from a finished crawl and write the manifest that says how many parts to expect.
- * The manifest goes first: a reader that finds it knows what a complete run looks like, and a
- * gap in the parts is then visible as a gap rather than as a shorter answer.
+ * Fill the queue from a finished crawl, then write the manifest that says how many parts to expect.
+ * A reader that finds the manifest knows what a complete run looks like, and a gap in the parts
+ * is visible as a gap rather than as a shorter answer. It is written last: written first, a send
+ * that failed partway left a manifest promising parts nobody sent, and the run counted as
+ * classified, so no pass sent them. Without one, the next pass classifies the run again.
  *
  * Every listing goes, answered before or not. The consumer reuses an answer it already has and
  * asks a model only for the rest, so a shop that did not change still costs no model call, and
@@ -55,6 +57,19 @@ export async function classifyRun(
   }
 
   const parts = batches(sightings, CLASSIFY_BATCH);
+  await sendAll(
+    env.WORK,
+    parts.map(
+      (batch, i): Work => ({
+        kind: "classify",
+        seller,
+        date,
+        run: pointer.run,
+        part: i + 1,
+        sightings: batch,
+      }),
+    ),
+  );
   await env.ARCHIVE.put(
     `${runPrefix.guesses(seller, pointer.run, classifierKey())}/manifest.json`,
     JSON.stringify(
@@ -72,19 +87,6 @@ export async function classifyRun(
     {
       httpMetadata: { contentType: "application/json" },
     },
-  );
-  await sendAll(
-    env.WORK,
-    parts.map(
-      (batch, i): Work => ({
-        kind: "classify",
-        seller,
-        date,
-        run: pointer.run,
-        part: i + 1,
-        sightings: batch,
-      }),
-    ),
   );
   return { parts: parts.length, sightings: sightings.length };
 }

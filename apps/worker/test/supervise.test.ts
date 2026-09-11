@@ -117,6 +117,26 @@ test("a pass queues every listing of a crawl, answered before or not, and lists 
   assert.equal(listed.filter((p) => p.startsWith("guesses/by-input/")).length, 0);
 });
 
+test("a run classified before every listing was queued is classified again", async () => {
+  // Its manifest left out the listings answered earlier, so its parts hold no guess for them (#16).
+  const objects: Record<string, string> = {};
+  crawled(objects, "shop-a", ["EPEver XTRA4210N", "Victron SmartSolar 100/50"]);
+  crawled(objects, "shop-b", ["Renogy 100Ah LiFePO4"]);
+  objects[guessesManifest("shop-a")] = JSON.stringify({
+    parts: 1,
+    sightings: 2,
+    alreadyAnswered: 1,
+  });
+  objects[guessesManifest("shop-b")] = JSON.stringify({ parts: 1, sightings: 1 });
+  objects[`guesses/shop-b/runs/2026-09-09-shop-b/${classifierKey()}/page-0001.jsonl`] = "{}\n";
+  const { env, sent } = world(objects);
+
+  const report = await supervise(env, "2026-09-10");
+  assert.deepEqual(started(report, "classify"), [["shop-a", "1 batches of 2 listings"]]);
+  assert.deepEqual(classifiedTitles(sent), ["EPEver XTRA4210N", "Victron SmartSolar 100/50"]);
+  assert.deepEqual(report.concerns, [], "shop-b's manifest is whole, and its part is written");
+});
+
 test("a seller that cannot be classified is a concern, and the pass goes on without it", async () => {
   const objects: Record<string, string> = {};
   crawled(objects, "shop-a", ["EPEver XTRA4210N"]);
