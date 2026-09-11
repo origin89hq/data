@@ -658,7 +658,7 @@ export async function bundle(db: Store, release: string, q: BundleQuery): Promis
       ? (
           await db
             .prepare(
-              `SELECT model_id, dialect_id, source_id, citation FROM model_dialect_sources WHERE release = ? AND model_id IN (${marks}) ORDER BY model_id, dialect_id, position`,
+              `SELECT model_id, dialect_id, source_id, citation FROM model_dialect_sources WHERE release = ? AND model_id IN (${marks}) ORDER BY model_id, dialect_id, CAST(position AS INTEGER)`,
             )
             .bind(release, ...ids)
             .all<{ model_id: string; dialect_id: string; source_id: string; citation: string }>()

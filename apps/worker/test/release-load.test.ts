@@ -470,3 +470,24 @@ test("a store stamped with another schema version is recreated whole; one at thi
     .first<{ value: string }>();
   assert.equal(stamp?.value, SCHEMA_VERSION);
 });
+
+test("a store with tables and no stamp is from before stamps, and is recreated", async () => {
+  const objects: Record<string, string> = {};
+  published(objects, R1, "2026-09-11T10:00:00Z", { models: models(1) });
+  const { env } = world(objects);
+  const db = env.RELEASES;
+  await db.exec(
+    "CREATE TABLE releases (id TEXT PRIMARY KEY, content TEXT NOT NULL, published_at TEXT NOT NULL, state TEXT NOT NULL, loaded_at TEXT, error TEXT, counts TEXT NOT NULL DEFAULT '{}')",
+  );
+  await db.exec(
+    "CREATE TABLE model_dialects (release TEXT NOT NULL, part TEXT NOT NULL, model_id TEXT, dialect_id TEXT, row TEXT NOT NULL)",
+  );
+  assert.equal(await createSchema(db), true, "no stamp over existing tables is a reset");
+  assert.equal((await loadRelease(env.ARCHIVE, db, plain, R1)).outcome, "loaded");
+  const fresh = world(objects);
+  assert.equal(
+    await createSchema(fresh.env.RELEASES),
+    false,
+    "an empty store is created, not reset",
+  );
+});

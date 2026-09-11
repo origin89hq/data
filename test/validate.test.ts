@@ -198,4 +198,23 @@ test("a model's link to a dialect needs a source it can name, and one the record
     }),
   ];
   assert.match(validate(r).errors.join("\n"), /link to a cites nowhere, which is not a source/);
+  // A source only a link cites is cited: that is what register evidence on one model looks like.
+  r.sources.push({ id: "register-map", url: "https://x/map" });
+  r.models = [
+    Model.parse({
+      id: "m-a1",
+      manufacturer: "m",
+      name: "A1",
+      dialects: [
+        {
+          ...link,
+          evidence: {
+            kind: "register-match",
+            sources: [{ source: "register-map", citation: "p. 4" }],
+          },
+        },
+      ],
+    }),
+  ];
+  assert.deepEqual(validate(r).errors, []);
 });

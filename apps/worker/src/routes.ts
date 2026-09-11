@@ -32,7 +32,7 @@ import {
   type WorkflowCheck,
   type WorkflowRule,
 } from "./oidc.ts";
-import { loadInstanceId } from "./release-load.ts";
+import { loadInstanceId, reloadInstanceId } from "./release-load.ts";
 import {
   compareReleases,
   HistoryUnavailable,
@@ -406,8 +406,9 @@ controlRoutes.post("/load", async (c) => {
   if (!release || !/^[a-f0-9]{64}$/.test(release))
     return c.json({ error: "release must be a release id, 64 hex characters" }, 400);
   try {
-    await c.env.RELEASE_LOAD.create({ id: loadInstanceId(release), params: { release } });
-    return c.json({ release, load: "started" });
+    const id = reloadInstanceId(release);
+    await c.env.RELEASE_LOAD.create({ id, params: { release } });
+    return c.json({ release, load: "started", instance: id });
   } catch (error) {
     if (error instanceof Error && /already exists|instance\.already/i.test(error.message))
       return c.json({ release, load: "already" }, 409);

@@ -105,11 +105,19 @@ export const SCHEMA_VERSION = "2";
 
 /** Create the store's tables, or recreate them all when the stamped version is not this one. Returns whether it reset. */
 export async function createSchema(db: Store): Promise<boolean> {
+  // A store with tables and no stamp is one from before stamps existed: as old as any.
+  const before = await db
+    .prepare("SELECT name FROM sqlite_master WHERE type = 'table' AND name IN ('meta', 'releases')")
+    .all<{ name: string }>();
+  const hadMeta = before.results.some((t) => t.name === "meta");
+  const hadTables = before.results.some((t) => t.name === "releases");
   await db.exec("CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)");
-  const stamped = await db
-    .prepare("SELECT value FROM meta WHERE key = 'schema_version'")
-    .first<{ value: string }>();
-  const reset = stamped !== null && stamped.value !== SCHEMA_VERSION;
+  const stamped = hadMeta
+    ? await db
+        .prepare("SELECT value FROM meta WHERE key = 'schema_version'")
+        .first<{ value: string }>()
+    : null;
+  const reset = stamped ? stamped.value !== SCHEMA_VERSION : hadTables;
   if (reset) {
     for (const table of [...Object.keys(LOADED_TABLES), "releases"])
       await db.exec(`DROP TABLE IF EXISTS ${table}`);

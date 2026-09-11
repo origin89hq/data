@@ -50,6 +50,10 @@ export function validate(records: Records): Report {
 
   for (const m of records.manufacturers) for (const s of m.sources ?? []) cited.add(s);
   for (const s of records.specs) cited.add(s.source);
+  // A model's link to a dialect cites its evidence too, and that is what register evidence on
+  // one model looks like: a source only a link cites is cited.
+  for (const m of records.models)
+    for (const link of m.dialects) for (const c of link.evidence.sources) cited.add(c.source);
   for (const s of records.sources) {
     if (!cited.has(s.id)) errors.push(`source ${s.id} is cited by nothing`);
     if (!s.url && !s.path) note("source with no url or path");
@@ -136,11 +140,14 @@ export function validate(records: Records): Report {
       if (!dialectIds.has(link.dialect))
         errors.push(`${m.id}: speaks ${link.dialect}, which is not a dialect`);
       // The schema refuses a link with no source; this refuses one whose source is not held.
-      for (const c of link.evidence.sources)
+      for (const c of link.evidence.sources) {
         if (!sourceIds.has(c.source))
           errors.push(
             `${m.id}: its link to ${link.dialect} cites ${c.source}, which is not a source`,
           );
+        // A source a link alone cites is cited: register evidence on one model is what the link is for.
+        cited.add(c.source);
+      }
     }
     if (m.reviewedBy && !m.basis) errors.push(`${m.id}: reviewed with no basis`);
     if (!m.reviewedBy) note("model nobody has confirmed");

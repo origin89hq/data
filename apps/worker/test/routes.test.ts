@@ -980,14 +980,21 @@ test("a release can be put into the store by hand, once, and only by its id (#83
     env,
   );
   assert.equal(started.status, 200);
-  assert.deepEqual(await started.json(), { release: id, load: "started" });
-  assert.deepEqual(loads, [{ id: `load-${id}`, params: { release: id } }]);
+  const first = (await started.json()) as { release: string; load: string; instance: string };
+  assert.equal(first.load, "started");
+  assert.match(
+    first.instance,
+    new RegExp(`^load-${id}-[0-9a-z]+$`),
+    "a reload is its own instance",
+  );
+  assert.deepEqual(loads, [{ id: first.instance, params: { release: id } }]);
   const again = await app.request(
     `${LOCAL}/load?release=${id}`,
     { method: "POST", headers: token },
     env,
   );
-  assert.equal(again.status, 409);
+  assert.equal(again.status, 200, "a second reload, after a reset or a failure, starts again");
+  assert.equal(loads.length, 2);
   const bad = await app.request(
     `${LOCAL}/load?release=nope`,
     { method: "POST", headers: token },
