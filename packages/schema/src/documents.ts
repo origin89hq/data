@@ -12,6 +12,8 @@ export const Found = z
     host: z.string().min(1),
     /** Bytes, when the host answered a HEAD. Absent means unknown, never zero. */
     bytes: z.number().int().nonnegative().optional(),
+    /** The page whose link this was, so a document can be traced to where the maker offers it. */
+    foundOn: z.string().url().optional(),
   })
   .strict();
 export type Found = z.infer<typeof Found>;
@@ -73,7 +75,36 @@ export function hostAllowed(host: string, domains: readonly string[]): boolean {
   });
 }
 
-const HREF = /\bhref\s*=\s*["']([^"']+)["']/gi;
+/** An `href`, quoted either way or not at all, as HTML allows. */
+/** `data-href` and the like are not links; a hyphen or a word character in front rules them out. */
+const HREF = /(?<![-\w])href\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>"']+))/gi;
+const BASE = /<base\b[^>]*(?<![-\w])href\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>"']+))[^>]*>/i;
+
+/**
+ * The address a page's relative links resolve against: its first `<base href>` when it has one,
+ * as a browser does, and otherwise the page's own address. The tag itself is no link.
+ */
+export function baseHref(html: string, pageUrl: string): string {
+  const found = BASE.exec(html);
+  const base = found?.[1] ?? found?.[2] ?? found?.[3];
+  if (!base) return pageUrl;
+  try {
+    return new URL(decodeEntities(base), pageUrl).toString();
+  } catch {
+    return pageUrl;
+  }
+}
+
+/**
+ * The page's markup with everything that is not link-bearing HTML removed: `<base>` tags, whose
+ * `href` is not a link, and scripts, styles, templates and comments, where an `href` is text.
+ */
+export function withoutBase(html: string): string {
+  return html
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(/<(script|style|template)\b[\s\S]*?<\/\1\s*>/gi, "")
+    .replace(/<base\b[^>]*>/gi, "");
+}
 
 /**
  * An href is HTML, so its entities are markup and not part of the address. Victron publishes
@@ -86,23 +117,33 @@ export function decodeEntities(value: string): string {
   return decodeHTMLStrict(value);
 }
 
-/** Every link on a page, absolute, deduplicated, and only on hosts the maker claims. */
-export function documentLinks(html: string, pageUrl: string, domains: readonly string[]): Found[] {
+/**
+ * Every document a page links, absolute and deduplicated, on whatever host. A maker's own page
+ * linking its manual on a shop's CDN is still a fact about that page, and discovery counts those
+ * so a plan can say where the documents went rather than that there were none (#48).
+ */
+export function linkedDocuments(html: string, pageUrl: string): Found[] {
   const found = new Map<string, Found>();
-  for (const match of html.matchAll(HREF)) {
+  const base = baseHref(html, pageUrl);
+  for (const match of withoutBase(html).matchAll(HREF)) {
     let url: URL;
     try {
-      url = new URL(decodeEntities(match[1]), pageUrl);
+      url = new URL(decodeEntities(match[1] ?? match[2] ?? match[3] ?? ""), base);
     } catch {
       continue;
     }
     if (url.protocol !== "https:" && url.protocol !== "http:") continue;
     url.hash = "";
     const href = url.toString();
-    if (!isDocument(href) || !hostAllowed(url.hostname, domains)) continue;
-    if (!found.has(href)) found.set(href, { url: href, host: url.hostname });
+    if (!isDocument(href)) continue;
+    if (!found.has(href)) found.set(href, { url: href, host: url.hostname, foundOn: pageUrl });
   }
   return [...found.values()].sort((a, b) => a.url.localeCompare(b.url));
+}
+
+/** Every link on a page, absolute, deduplicated, and only on hosts the maker claims. */
+export function documentLinks(html: string, pageUrl: string, domains: readonly string[]): Found[] {
+  return linkedDocuments(html, pageUrl).filter((f) => hostAllowed(f.host, domains));
 }
 
 /** Summarise a discovery for the person who has to approve it. */

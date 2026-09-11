@@ -1,12 +1,14 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
+  baseHref,
   CrawlApproval,
   decodeEntities,
   documentLinks,
   type Found,
   hostAllowed,
   isDocument,
+  linkedDocuments,
   permitted,
   planFor,
   withoutTranslations,
@@ -41,6 +43,18 @@ test("links are made absolute, deduplicated, and dropped when they leave the mak
   assert.deepEqual(
     found.map((f) => f.url),
     ["https://files.victronenergy.com/spec.pdf", "https://www.victronenergy.com/upload/manual.pdf"],
+  );
+  assert.ok(
+    found.every((f) => f.foundOn === "https://www.victronenergy.com/support/"),
+    "each document says which page offered it",
+  );
+});
+
+test("every linked document is still counted by host, so a plan can say where the documents went", () => {
+  const html = `<a href="/upload/manual.pdf">a</a><a href="https://cdn.other.test/manual.pdf">elsewhere</a><a href="/products/mppt">a page</a>`;
+  assert.deepEqual(
+    linkedDocuments(html, "https://www.victronenergy.com/support/").map((f) => f.host),
+    ["cdn.other.test", "www.victronenergy.com"],
   );
 });
 
@@ -144,4 +158,47 @@ test("a query parameter that begins with an entity name survives, since a URL is
   assert.equal(decodeEntities("https://x.com/a?x=1&amp;y=2"), "https://x.com/a?x=1&y=2");
   // And it now knows every named entity, not the six that were written out by hand.
   assert.equal(decodeEntities("https://x.com/caf&eacute;.pdf"), "https://x.com/café.pdf");
+});
+
+test("relative links resolve against a page's base element, whose own address is no link", () => {
+  const html = `<base href="/catalog/"><a href="model.pdf">sheet</a><a href="/root.pdf">root</a>`;
+  assert.deepEqual(
+    linkedDocuments(html, "https://www.victronenergy.com/support/").map((f) => f.url),
+    ["https://www.victronenergy.com/catalog/model.pdf", "https://www.victronenergy.com/root.pdf"],
+  );
+  assert.equal(
+    baseHref(html, "https://www.victronenergy.com/support/"),
+    "https://www.victronenergy.com/catalog/",
+  );
+  assert.equal(baseHref("<p>no base</p>", "https://x.test/p"), "https://x.test/p");
+  assert.equal(baseHref(`<base href="http://[bad">`, "https://x.test/p"), "https://x.test/p");
+});
+
+test("an unquoted href is a link too, as HTML allows", () => {
+  const html = `<a href=/upload/plain.pdf>plain</a><a href='/upload/single.pdf'>single</a><a href="/upload/double.pdf">double</a>`;
+  assert.deepEqual(
+    linkedDocuments(html, "https://www.victronenergy.com/").map((f) => f.url),
+    [
+      "https://www.victronenergy.com/upload/double.pdf",
+      "https://www.victronenergy.com/upload/plain.pdf",
+      "https://www.victronenergy.com/upload/single.pdf",
+    ],
+  );
+});
+
+test("an unquoted base href counts, and href text outside a link element does not", () => {
+  const html = `<base href=/manuals/>
+    <a href="sheet.pdf">sheet</a>
+    <script>var x = {href: "/js/fake.pdf"}; a.href="/js/other.pdf";</script>
+    <style>a[href="/css/x.pdf"] {}</style>
+    <!-- <a href="/commented.pdf">gone</a> -->
+    <div data-href="/data/attr.pdf">not a link</div>`;
+  assert.equal(
+    baseHref(html, "https://www.victronenergy.com/x/"),
+    "https://www.victronenergy.com/manuals/",
+  );
+  assert.deepEqual(
+    linkedDocuments(html, "https://www.victronenergy.com/x/").map((f) => f.url),
+    ["https://www.victronenergy.com/manuals/sheet.pdf"],
+  );
 });

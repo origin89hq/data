@@ -95,6 +95,82 @@ test("a classification short of its own manifest is a concern, not something to 
   assert.match(source, /classified \$\{seller\.classified\.written\} of/);
 });
 
+/** A maker's current run with a plan offering `documents` documents, and optionally an earlier run. */
+function discovered(
+  objects: Record<string, string>,
+  maker: string,
+  documents: number,
+  previous?: { run: string; documents: number },
+) {
+  const run = `2026-09-10-${maker}`;
+  objects[`documents/${maker}/current.json`] = JSON.stringify({
+    run,
+    date: "2026-09-10",
+    instance: `maker-${maker}-${run}`,
+    startedAt: "2026-09-10T00:00:00Z",
+  });
+  const plan = (n: number) => ({
+    documents: Array.from({ length: n }, (_, i) => ({
+      url: `https://${maker}.test/${i}.pdf`,
+      host: `${maker}.test`,
+    })),
+  });
+  // The earlier run's plan is written first, since the archive orders runs by when they wrote.
+  if (previous)
+    objects[`documents/${maker}/runs/${previous.run}/plan.json`] = JSON.stringify(
+      plan(previous.documents),
+    );
+  objects[`documents/${maker}/runs/${run}/plan.json`] = JSON.stringify(plan(documents));
+}
+
+test("an empty discovery that replaces a run with documents is a concern, and a first one is not", async () => {
+  const objects: Record<string, string> = {};
+  discovered(objects, "epever", 0, { run: "2026-09-09-0c71b6f7", documents: 4 });
+  discovered(objects, "volthium", 0);
+  discovered(objects, "victron", 0, { run: "2026-09-09-abcd", documents: 0 });
+  discovered(objects, "renogy", 3, { run: "2026-09-09-efgh", documents: 40 });
+  const { env } = world(objects);
+
+  const report = await supervise(env, "2026-09-10");
+  assert.deepEqual(report.concerns, [
+    "epever: discovery found no documents; the previous run 2026-09-09-0c71b6f7 offered 4",
+  ]);
+  assert.deepEqual(
+    report.blocked.map((b) => b.entity),
+    ["renogy"],
+    "a run that offers fewer documents than before still waits for approval, and is not a concern",
+  );
+});
+
+test("a run that wrote no plan is asked how it is doing, and one that died is a concern", async () => {
+  const objects: Record<string, string> = {};
+  const pointer = (maker: string) =>
+    JSON.stringify({
+      run: `2026-09-10-${maker}`,
+      date: "2026-09-10",
+      instance: `maker-${maker}-2026-09-10-${maker}`,
+      startedAt: "2026-09-10T00:00:00Z",
+    });
+  objects["documents/waaree/current.json"] = pointer("waaree");
+  objects["documents/epever/current.json"] = pointer("epever");
+  objects["documents/renogy/current.json"] = pointer("renogy");
+  objects["documents/pytes/current.json"] = pointer("pytes");
+  const { env, instances } = world(objects);
+  instances.set("maker-waaree-2026-09-10-waaree", {
+    status: "errored",
+    error: { name: "Error", message: "discover pages: timed out" },
+  });
+  instances.set("maker-epever-2026-09-10-epever", { status: "running" });
+  instances.set("maker-pytes-2026-09-10-pytes", { status: "complete" });
+
+  const report = await supervise(env, "2026-09-10");
+  assert.deepEqual(report.concerns, [
+    "pytes: discovery run maker-pytes-2026-09-10-pytes completed without writing a plan",
+    "renogy: discovery status failed: instance.not_found: maker-renogy-2026-09-10-renogy",
+    "waaree: discovery run maker-waaree-2026-09-10-waaree errored without writing a plan: discover pages: timed out",
+  ]);
+});
+
 test("a pass queues every listing of a crawl, answered before or not, and lists no answers", async () => {
   // The consumer reuses an answer it has, so the run still gets a guess for that listing (#16).
   // Skipped here, it had none, and the gate saw most of an unchanged shop as unclassified.
