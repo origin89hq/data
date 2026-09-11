@@ -769,6 +769,27 @@ test("a load part is kept content-addressed, and the manifest's load plan is che
     tables: { models: { parts: ["models_0001.ndjson"], rows: 1, key: "id" } },
   };
   assert.equal((await putManifest(env, manifest(good))).status, 200);
+  const elsewhere = { version: 1, tables: { specs: { parts: ["models_0001.ndjson"], rows: 1 } } };
+  const wrongTable = await putManifest(env, manifest(elsewhere));
+  assert.equal(wrongTable.status, 409, "a part is named for the table it loads");
+  assert.match(JSON.stringify(await wrongTable.json()), /named for another table/);
+  const twice = {
+    version: 1,
+    tables: { models: { parts: ["models_0001.ndjson", "models_0001.ndjson"], rows: 2 } },
+  };
+  assert.match(
+    JSON.stringify(await (await putManifest(env, manifest(twice))).json()),
+    /assigned twice/,
+  );
+  const uncounted = JSON.stringify({
+    ...JSON.parse(manifestOf({ "models_0001.ndjson": part })),
+    files: { "models_0001.ndjson": { sha256: sha256(part), bytes: Buffer.byteLength(part) } },
+    load: { version: 1, tables: { models: { parts: ["models_0001.ndjson"], rows: 0 } } },
+  });
+  assert.match(
+    JSON.stringify(await (await putManifest(env, uncounted)).json()),
+    /states no row count/,
+  );
   const unlisted = { version: 1, tables: { models: { parts: ["models_0002.ndjson"], rows: 1 } } };
   const missing = await putManifest(env, manifest(unlisted));
   assert.equal(missing.status, 409);

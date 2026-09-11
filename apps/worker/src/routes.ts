@@ -903,13 +903,21 @@ async function putManifest(c: Context<PublicationEnv>): Promise<Response> {
     if (!part || part.size !== meta.bytes || part.checksums.toJSON().sha256 !== meta.sha256)
       disagree.push(`${name}: immutable load part is missing or inconsistent`);
   }
-  // A load plan names parts the manifest lists, in the rows the manifest states, or it is no plan.
+  // A load plan names parts the manifest lists, each named for its own table, each once, each
+  // with a row count, adding up to the rows the plan states, or it is no plan.
+  const assigned = new Set<string>();
   for (const [table, plan] of Object.entries(parsed.data.load?.tables ?? {})) {
     let rows = 0;
     for (const part of plan.parts) {
       const meta = parsed.data.files[part];
       if (!meta) disagree.push(`${table}: load part ${part} is not in the manifest`);
-      else rows += meta.rows ?? 0;
+      else if (!part.startsWith(`${table}_`))
+        disagree.push(`${table}: load part ${part} is named for another table`);
+      else if (meta.rows === undefined)
+        disagree.push(`${table}: load part ${part} states no row count`);
+      else rows += meta.rows;
+      if (assigned.has(part)) disagree.push(`${table}: load part ${part} is assigned twice`);
+      assigned.add(part);
     }
     if (rows !== plan.rows)
       disagree.push(`${table}: its load parts hold ${rows} rows, the plan says ${plan.rows}`);
