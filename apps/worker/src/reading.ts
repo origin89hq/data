@@ -471,9 +471,11 @@ export function reportsInWindow(
   const pageOf = (value: string): number | undefined => {
     const needle = value.trim();
     if (!needle) return undefined;
-    // The value as a whole figure, so "1" is not found inside "10", "1.5" or a model name.
+    // The value as a whole figure, so "1" is not found inside "10" or "1.5", and "12" not inside
+    // "RM-12" or "3000" inside "48/3000/35-32": a hyphen or a slash joining it to a word makes it
+    // part of a name, a range or a fraction. A figure that is only there gets no page.
     const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const figure = new RegExp(`(?<![\\w.])${escaped}(?![\\w]|\\.\\d)`, "g");
+    const figure = new RegExp(`(?<![\\w.])(?<!\\w[-/])${escaped}(?![\\w]|\\.\\d|[-/]\\w)`, "g");
     const found = new Set<number>();
     for (const match of window.text.matchAll(figure)) {
       const at = window.start + (match.index ?? 0);

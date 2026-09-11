@@ -213,6 +213,34 @@ test("a value printed on two pages gets no page, and a short one is not found in
   ]);
 });
 
+test("a value is not found inside a model name, where a hyphen or a slash joins it to the rest", () => {
+  const sheet = transcriptDocument("rm.pdf", [
+    { page: 1, markdown: "**Model:** RM-12\n\n| Family | MultiPlus-II 48/3000/35-32 |" },
+    { page: 2, markdown: "| Rated current | 12 A |\n| Input range | 12-24 V |" },
+  ]);
+  const [window] = figureWindows(sheet);
+  assert.ok(window);
+  const answer = JSON.stringify({
+    products: [
+      {
+        model: "RM-12",
+        specs: [
+          { name: "Rated current", value: "12", unit: "A" },
+          { name: "Rated power", value: "3000", unit: "VA" },
+          { name: "Input range", value: "12-24", unit: "V" },
+        ],
+      },
+    ],
+  });
+  assert.deepEqual(reportsInWindow(answer, sheet, window)[0]?.specs, [
+    // Not "RM-12" on page 1, nor the start of "12-24": the "12 A" on page 2.
+    { name: "Rated current", value: "12", unit: "A", page: 2 },
+    // Printed only inside the model's name, so no page makes it look checkable.
+    { name: "Rated power", value: "3000", unit: "VA" },
+    { name: "Input range", value: "12-24", unit: "V", page: 2 },
+  ]);
+});
+
 test("a window's answer with nothing in it is empty, a malformed product is dropped, and prose is a failed call", () => {
   const [window] = figureWindows(CERTIFICATE);
   assert.ok(window);
