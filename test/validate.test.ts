@@ -128,8 +128,14 @@ test("the build refuses invalid records and otherwise emits every table twice wi
     bad.dialects[0].seeAlso = ["ghost"];
     assert.throws(() => build(bad, dist), /refusing to build/);
     const manifest = build(fixture(), dist) as {
+      counts: { sources: number };
       files: Record<string, { rows?: number; sha256: string }>;
     };
+    assert.equal(
+      manifest.counts.sources,
+      manifest.files["sources.csv"].rows,
+      "the source count is the published table's, feed files included",
+    );
     assert.equal(manifest.files["dialects.csv"].rows, 2);
     assert.equal(manifest.files["dialects.parquet"].rows, 2);
     assert.equal(manifest.files["dialect_see_also.csv"].rows, 1);

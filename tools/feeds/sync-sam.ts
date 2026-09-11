@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { FEEDS_DIR, parseCsv } from "../../src/feeds.ts";
+import { FEEDS_DIR, feedFileUrl, parseCsv } from "../../src/feeds.ts";
 
 /**
  * Check the pinned SAM libraries against what upstream publishes now.
@@ -27,8 +27,20 @@ const source = JSON.parse(readFileSync(join(dir, "source.json"), "utf8")) as {
   files: { name: string; sha256: string; kind: string }[];
 };
 
-const RAW = (name: string) =>
-  `https://raw.githubusercontent.com/NatLabRockies/SAM/${ref}/deploy/libraries/${encodeURIComponent(name)}`;
+// The ref is resolved once, before anything is fetched, and every file is read at that commit.
+// `develop` moves; a file fetched before the ref was resolved and one after could come from two
+// commits, and the source row that cites the commit could then not verify the hash it carries.
+const commit = await fetch(`https://api.github.com/repos/NatLabRockies/SAM/commits/${ref}`, {
+  headers: { accept: "application/vnd.github+json" },
+})
+  .then((r) => (r.ok ? (r.json() as Promise<{ sha: string }>) : undefined))
+  .catch(() => undefined);
+const sha = commit?.sha ?? "";
+if (!/^[0-9a-f]{40}$/.test(sha)) {
+  console.error(`could not resolve ${ref} to a commit on GitHub; nothing was fetched`);
+  process.exit(1);
+}
+const RAW = (name: string) => feedFileUrl(sha, name);
 
 /** Which products a library holds, by name, so a change can be described rather than just detected. */
 function names(text: string): Set<string> {
@@ -77,7 +89,7 @@ for (const file of source.files) {
 }
 
 if (changed === 0) {
-  console.log(`\nthe pin is current against ${ref}`);
+  console.log(`\nthe pin is current against ${ref} (${sha.slice(0, 12)})`);
   process.exit(0);
 }
 if (!accept) {
@@ -87,19 +99,13 @@ if (!accept) {
   process.exit(2);
 }
 
-const commit = await fetch(`https://api.github.com/repos/NatLabRockies/SAM/commits/${ref}`, {
-  headers: { accept: "application/vnd.github+json" },
-})
-  .then((r) => (r.ok ? (r.json() as Promise<{ sha: string }>) : undefined))
-  .catch(() => undefined);
-
 for (const file of staged) {
   writeFileSync(join(dir, file.name), file.text);
   const entry = source.files.find((f) => f.name === file.name);
   if (entry) entry.sha256 = file.sha256;
 }
 source.retrievedAt = new Date().toISOString().slice(0, 10);
-if (commit?.sha) source.commit = commit.sha;
+source.commit = sha;
 writeFileSync(join(dir, "source.json"), `${JSON.stringify(source, null, 2)}\n`);
 console.log(
   `\npin moved to ${source.commit.slice(0, 12)} on ${source.retrievedAt}; run the build and read the diff before committing`,

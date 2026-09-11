@@ -5,7 +5,7 @@ import { join } from "node:path";
 import { RECORD_SNAPSHOT_MAX, RecordKind, snapshotName } from "@origin89/equipment-schema/releases";
 import { toCsv } from "./csv.ts";
 import { loadRecords, type Records } from "./records.ts";
-import { type Table, tables } from "./tables.ts";
+import { duplicateIds, type Table, tables } from "./tables.ts";
 import { validate } from "./validate.ts";
 
 export const DIST_DIR = new URL("../dist/", import.meta.url).pathname;
@@ -23,11 +23,14 @@ export function build(records: Records, dist = DIST_DIR): Record<string, unknown
   rmSync(dist, { recursive: true, force: true });
   mkdirSync(dist, { recursive: true });
 
+  const built = tables(records);
   const manifest: Record<string, unknown> = {
     counts: {
       families: records.families.length,
       dialects: records.dialects.length,
-      sources: records.sources.length,
+      // The published table, not the records: a feed's files are sources too, and the count
+      // has to agree with the rows of `sources.csv` beside it.
+      sources: built.find((t) => t.name === "sources")?.rows.length ?? 0,
     },
     files: {} as Record<string, { rows?: number; sha256: string; bytes: number }>,
   };
@@ -41,7 +44,12 @@ export function build(records: Records, dist = DIST_DIR): Record<string, unknown
     };
   };
 
-  for (const table of tables(records)) {
+  for (const table of built) {
+    const repeated = duplicateIds(table);
+    if (repeated.length)
+      throw new Error(
+        `refusing to build: ${table.name} repeats ${repeated.length} ids, first ${repeated[0]}`,
+      );
     const csv = `${table.name}.csv`;
     writeFileSync(
       join(dist, csv),

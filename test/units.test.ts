@@ -12,6 +12,20 @@ test("a maker's own language reaches the same unit, since VCD and volts are volt
   assert.equal(canonicalUnit("AMPS"), "A");
 });
 
+test("a temperature coefficient per kelvin or per degree is one unit (#81)", () => {
+  assert.equal(canonicalUnit("V/K"), "V/K");
+  assert.equal(canonicalUnit("%/°C"), "%/K");
+  assert.equal(canonicalUnit("A/ °C"), "A/K");
+  assert.deepEqual(splitValueUnit("-0,29 %/°C", undefined), { value: "-0.29", unit: "%/K" });
+  assert.deepEqual(splitValueUnit("-0.0709998", "V/K"), { value: "-0.0709998", unit: "V/K" });
+  assert.deepEqual(concerns({ name: "Voc coefficient", value: "-0.324", unit: "%/K" }), []);
+  assert.equal(
+    canonicalUnit("W/K"),
+    undefined,
+    "a coefficient of a quantity nobody rates stays unknown",
+  );
+});
+
 test("a word that ended up in the unit field is not a unit", () => {
   assert.equal(canonicalUnit("ACCEPTABLE"), undefined);
   assert.equal(canonicalUnit("STC"), undefined);
@@ -54,6 +68,10 @@ test("a number is a number whichever way the maker writes the decimal", () => {
   assert.equal(isNumeric("428"), true);
   assert.equal(isNumeric("-0.5"), true);
   assert.equal(isNumeric("55,2"), true);
+  assert.equal(isNumeric("-5.04E-05"), true, "the CEC library writes coefficients this way");
+  assert.equal(isNumeric("1.01453e+06"), true);
+  assert.equal(isNumeric("1e"), false);
+  assert.equal(isNumeric("NaN"), false);
   assert.equal(isNumeric("12/24"), false);
   assert.equal(isNumeric("Yes"), false);
 });

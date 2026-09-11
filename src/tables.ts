@@ -3,7 +3,7 @@ import { logoKey } from "./logos.ts";
 /** Where a published logo is served from. The Worker is the only thing that reads the archive. */
 const LOGO_BASE = "https://data.origin89.com";
 
-import { attachMakers, readFeeds } from "./feeds.ts";
+import { attachMakers, feedSource, readFeeds } from "./feeds.ts";
 import type { Records } from "./records.ts";
 import { canonicalUnit, concerns as figureConcerns } from "./units.ts";
 
@@ -322,20 +322,22 @@ export function tables(records: Records, feeds = readFeeds()): Table[] {
           reviewed_by: s.reviewedBy,
           doubt: figureConcerns(s).join("; ") || undefined,
         })),
-        ...feedRows.flatMap(({ feed, model }) =>
-          model.specs.map((spec, i) => ({
-            id: `${model.id}--${String(i).padStart(2, "0")}-${spec.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`.slice(
-              0,
-              180,
-            ),
+        // A feed figure's id is its model and its name, never its position: a position moved
+        // whenever a column was added or a cell was blank, and a consumer keyed to the id then
+        // saw a figure deleted and another added when nothing about the fact had changed. The
+        // name is never cut: a model id near its own cap once lost the tail of "Temperature
+        // coefficient of …" to a length limit here, and three figures became one id.
+        ...feedRows.flatMap(({ model }) =>
+          model.specs.map((spec) => ({
+            id: `${model.id}--${spec.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
             tier: "feed",
             model_id: model.id,
             name: spec.name,
             english: undefined,
             value: spec.value,
             unit: canonicalUnit(spec.unit) ?? spec.unit,
-            conditions: undefined,
-            source_id: feed.id,
+            conditions: spec.conditions,
+            source_id: model.source,
             page: undefined,
             // A public dataset's own figure, stated with its unit. Nobody here read it out of a
             // document, so nothing extracted it and nobody has confirmed it either.
@@ -386,17 +388,53 @@ export function tables(records: Records, feeds = readFeeds()): Table[] {
         col("retrieved_at"),
         col("redistributable", "BOOLEAN"),
       ],
-      rows: records.sources.map((s) => ({
-        id: s.id,
-        url: s.url,
-        path: s.path,
-        title: s.title,
-        publisher: s.publisher,
-        revision: s.revision,
-        sha256: s.sha256,
-        retrieved_at: s.retrievedAt,
-        redistributable: s.redistributable,
-      })),
+      rows: [
+        ...records.sources.map((s) => ({
+          id: s.id,
+          url: s.url,
+          path: s.path,
+          title: s.title,
+          publisher: s.publisher,
+          revision: s.revision,
+          sha256: s.sha256,
+          retrieved_at: s.retrievedAt,
+          redistributable: s.redistributable,
+        })),
+        // Each feed file is a source too, so a feed figure's `source_id` resolves like any other.
+        ...feeds.flatMap(({ feed }) =>
+          feed.files.map((file) => {
+            const s = feedSource(feed, file);
+            return {
+              id: s.id,
+              url: s.url,
+              path: undefined,
+              title: s.title,
+              publisher: s.publisher,
+              revision: s.revision,
+              sha256: s.sha256,
+              retrieved_at: s.retrievedAt,
+              redistributable: s.redistributable,
+            };
+          }),
+        ),
+      ],
     },
   ];
+}
+
+/**
+ * The ids a table repeats. A published table keyed by id has to have one row per id, or a store
+ * that loads it keeps one row and says nothing about the other: `models` carried 147 repeated
+ * feed ids and `specs` 1,347 before anything checked (#81).
+ */
+export function duplicateIds(table: Table): string[] {
+  if (!table.columns.some((c) => c.name === "id")) return [];
+  const seen = new Set<string>();
+  const repeated = new Set<string>();
+  for (const row of table.rows) {
+    const id = String(row.id);
+    if (seen.has(id)) repeated.add(id);
+    seen.add(id);
+  }
+  return [...repeated].sort();
 }

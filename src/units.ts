@@ -45,6 +45,11 @@ export const UNITS = [
   "psi",
   "kPa",
   "cycles",
+  // A temperature coefficient: how far a figure moves per kelvin. Per degree Celsius is the same
+  // thing, since a difference of one is one on both scales, and makers write either.
+  "A/K",
+  "V/K",
+  "%/K",
 ] as const;
 export type Unit = (typeof UNITS)[number];
 
@@ -128,6 +133,15 @@ const ALIASES: Record<string, Unit> = {
   kpa: "kPa",
   cycles: "cycles",
   ciclos: "cycles",
+  "a/k": "A/K",
+  "a/°c": "A/K",
+  "a/c": "A/K",
+  "v/k": "V/K",
+  "v/°c": "V/K",
+  "v/c": "V/K",
+  "%/k": "%/K",
+  "%/°c": "%/K",
+  "%/c": "%/K",
 };
 
 /**
@@ -184,9 +198,13 @@ export function statesNothing(value: string): boolean {
   return PLACEHOLDER.test(value.trim());
 }
 
-/** Whether a value is a plain number, which is what a figure with a unit ought to be. */
+/**
+ * Whether a value is a plain number, which is what a figure with a unit ought to be. Exponent
+ * form counts: the CEC library writes a coefficient as `-5.04E-05` and a large inverter's DC
+ * power as `1.01453e+06`, and both are numbers a reader can use as they are.
+ */
 export function isNumeric(value: string): boolean {
-  return /^-?\d+([.,]\d+)?$/.test(value.trim());
+  return /^-?\d+([.,]\d+)?([eE][+-]?\d+)?$/.test(value.trim());
 }
 
 /** Figures that are legitimately a bare number: a count is not a measurement and has no unit. */
