@@ -23,11 +23,14 @@ export function build(records: Records, dist = DIST_DIR): Record<string, unknown
   rmSync(dist, { recursive: true, force: true });
   mkdirSync(dist, { recursive: true });
 
+  const built = tables(records);
   const manifest: Record<string, unknown> = {
     counts: {
       families: records.families.length,
       dialects: records.dialects.length,
-      sources: records.sources.length,
+      // The published table, not the records: a feed's files are sources too, and the count
+      // has to agree with the rows of `sources.csv` beside it.
+      sources: built.find((t) => t.name === "sources")?.rows.length ?? 0,
     },
     files: {} as Record<string, { rows?: number; sha256: string; bytes: number }>,
   };
@@ -41,7 +44,7 @@ export function build(records: Records, dist = DIST_DIR): Record<string, unknown
     };
   };
 
-  for (const table of tables(records)) {
+  for (const table of built) {
     const repeated = duplicateIds(table);
     if (repeated.length)
       throw new Error(
