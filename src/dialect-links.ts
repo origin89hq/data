@@ -1,5 +1,5 @@
 import type { Dialect } from "@origin89/equipment-schema/dialect";
-import type { DialectLink } from "@origin89/equipment-schema/model";
+import { type DialectLink, LINK_CITATIONS } from "@origin89/equipment-schema/model";
 
 /**
  * The link a catalogue entry gives a model it names: the catalogue's own claim, marked as a
@@ -22,23 +22,63 @@ const STRENGTH: Record<DialectLink["evidence"]["kind"], number> = {
   "catalogue-name": 0,
 };
 
+/** How much a confidence says, most first, for keeping the stronger of two. */
+const RANK: Record<DialectLink["confidence"], number> = {
+  "vendor-doc": 3,
+  "community-crosschecked": 2,
+  "community-single": 1,
+  unverified: 0,
+};
+
+/**
+ * Two links of one kind on one dialect, as one: every distinct citation of both, up to the
+ * schema's bound (the first list's first), the stronger confidence, and a firmware range with
+ * each bound from whichever named it. Two duplicate records a person wrote separately lose no
+ * provenance when they are folded into one.
+ */
+function combined(held: DialectLink, other: DialectLink): DialectLink {
+  const seen = new Set<string>();
+  const sources = [...held.evidence.sources, ...other.evidence.sources].filter((c) => {
+    const key = `${c.source}\u0000${c.citation}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+  const min = held.firmware?.min ?? other.firmware?.min;
+  const max = held.firmware?.max ?? other.firmware?.max;
+  return {
+    dialect: held.dialect,
+    evidence:
+      held.evidence.kind === "catalogue-name"
+        ? { kind: "catalogue-name", sources: [] }
+        : { kind: held.evidence.kind, sources: sources.slice(0, LINK_CITATIONS) },
+    confidence: RANK[other.confidence] > RANK[held.confidence] ? other.confidence : held.confidence,
+    ...(min !== undefined || max !== undefined
+      ? {
+          firmware: {
+            ...(min !== undefined ? { min } : {}),
+            ...(max !== undefined ? { max } : {}),
+          },
+        }
+      : {}),
+  };
+}
+
 /**
  * Links by dialect, sorted by dialect id. Where two lists link one dialect the stronger evidence
- * wins whichever list it came from; between two catalogue claims the later wins, since a rerun
- * of the linker carries the claim as it is made now; between two of any other kind the first
- * stays, since a person recorded it.
+ * wins whichever list it came from; between two of one kind the two are combined, so a merge
+ * of duplicate records keeps every citation, the stronger confidence and every firmware bound
+ * a person recorded on either. Two catalogue claims are one claim.
  */
 export function mergeLinks(...lists: readonly (readonly DialectLink[])[]): DialectLink[] {
   const byDialect = new Map<string, DialectLink>();
   for (const list of lists)
     for (const link of list) {
       const held = byDialect.get(link.dialect);
-      const stronger = !held || STRENGTH[link.evidence.kind] > STRENGTH[held.evidence.kind];
-      const refreshed =
-        held !== undefined &&
-        held.evidence.kind === "catalogue-name" &&
-        link.evidence.kind === "catalogue-name";
-      if (stronger || refreshed) byDialect.set(link.dialect, link);
+      if (!held || STRENGTH[link.evidence.kind] > STRENGTH[held.evidence.kind])
+        byDialect.set(link.dialect, link);
+      else if (STRENGTH[link.evidence.kind] === STRENGTH[held.evidence.kind])
+        byDialect.set(link.dialect, combined(held, link));
     }
   return [...byDialect.values()].sort((a, b) => a.dialect.localeCompare(b.dialect));
 }

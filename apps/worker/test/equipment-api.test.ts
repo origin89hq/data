@@ -1090,18 +1090,26 @@ test("a link's citations come in their order past ten, and citations are read fo
   );
 });
 
-test("a link with more citations than the schema admits is refused whole, never answered in part", async () => {
-  const { db } = await fixture({
-    model_dialect_sources: Array.from({ length: 17 }, (_, i) => ({
-      model_id: "victron-energy-smartsolar-mppt-150-35",
-      dialect_id: "victron-mppt-vedirect-hex",
+test("a link with more citations than the schema admits is refused whole, never answered in part, however few the others cite", async () => {
+  const cite = (model: string, dialect: string, n: number) =>
+    Array.from({ length: n }, (_, i) => ({
+      model_id: model,
+      dialect_id: dialect,
       position: i,
       source_id: "doc-vedirect-whitepaper",
       citation: `citation ${i}`,
-    })),
+    }));
+  const { db } = await fixture({
+    model_dialect_sources: [
+      ...cite("victron-energy-smartsolar-mppt-150-35", "victron-mppt-vedirect-hex", 17),
+      ...cite("epever-xtra4210n", "epever-xtra-n-g3", 1),
+    ],
   });
+  // Two links kept, eighteen citations between them: under the sum of the bounds, over one link's.
   await assert.rejects(
-    bundle(db, RELEASE, { models: ["victron-energy-smartsolar-mppt-150-35"] }),
-    /more than 16 sources/,
+    bundle(db, RELEASE, { models: ["victron-energy-smartsolar-mppt-150-35", "epever-xtra4210n"] }),
+    /victron-mppt-vedirect-hex cites more than 16 sources/,
   );
+  const fine = await bundle(db, RELEASE, { models: ["epever-xtra4210n"] });
+  assert.equal(fine.protocol[0]?.evidence?.sources.length, 1);
 });

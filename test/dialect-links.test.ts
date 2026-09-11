@@ -31,14 +31,41 @@ test("merging links keeps the stronger evidence whichever side it came from, and
   );
   assert.deepEqual(
     mergeLinks([{ ...catalogue, firmware: { min: "1" } }], [catalogue]),
-    [catalogue],
-    "a later catalogue claim is the fresher one",
+    [{ ...catalogue, firmware: { min: "1" } }],
+    "two catalogue claims are one, and a bound a person wrote on it stays",
   );
   const vendor = link("vendor-doc", "manual");
+  const other = {
+    ...link("vendor-doc", "other manual", "community-single"),
+    firmware: { max: "3" },
+  };
   assert.deepEqual(
-    mergeLinks([vendor], [link("vendor-doc", "other manual")]),
-    [vendor],
-    "between two of a person's kind, the first stays",
+    mergeLinks([{ ...vendor, firmware: { min: "1" } }], [other]),
+    [
+      {
+        ...vendor,
+        evidence: {
+          kind: "vendor-doc",
+          sources: [
+            { source: "s", citation: "manual" },
+            { source: "s", citation: "other manual" },
+          ],
+        },
+        firmware: { min: "1", max: "3" },
+      },
+    ],
+    "two of one kind combine: every citation, the stronger confidence, each firmware bound",
+  );
+  assert.deepEqual(mergeLinks([vendor], [vendor]), [vendor], "the same citation twice is one");
+  const many = (n: number, from = 0) =>
+    Array.from({ length: n }, (_, i) => ({ source: `s${from + i}`, citation: "p" }));
+  assert.equal(
+    mergeLinks(
+      [{ ...vendor, evidence: { kind: "vendor-doc", sources: many(10) } }],
+      [{ ...vendor, evidence: { kind: "vendor-doc", sources: many(10, 10) } }],
+    )[0]?.evidence.sources.length,
+    16,
+    "and stays within the schema's bound, the first list's first",
   );
   assert.deepEqual(
     mergeLinks([{ ...register, dialect: "b" }], [{ ...catalogue, dialect: "a" }]).map(

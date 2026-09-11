@@ -229,6 +229,28 @@ export async function recentReleases(bucket: R2Bucket, n: number): Promise<strin
   return page.objects.map((o) => o.key.slice(o.key.lastIndexOf("-") + 1, -".json".length));
 }
 
+/** The `meta` key under which a restore keeps the releases it has still to start. */
+const RESTORE_PENDING = "restore_pending";
+
+async function restorePending(db: Store): Promise<string[]> {
+  const row = await db
+    .prepare("SELECT value FROM meta WHERE key = ?")
+    .bind(RESTORE_PENDING)
+    .first<{ value: string }>();
+  const parsed: unknown = row ? JSON.parse(row.value) : [];
+  return Array.isArray(parsed) ? parsed.filter((v): v is string => typeof v === "string") : [];
+}
+
+async function setRestorePending(db: Store, releases: readonly string[]): Promise<void> {
+  if (releases.length === 0)
+    await db.prepare("DELETE FROM meta WHERE key = ?").bind(RESTORE_PENDING).run();
+  else
+    await db
+      .prepare("INSERT OR REPLACE INTO meta (key, value) VALUES (?, ?)")
+      .bind(RESTORE_PENDING, JSON.stringify(releases))
+      .run();
+}
+
 /**
  * Put back what the store is documented to hold, into a store with no release at all: a
  * database just created, or one recreated for new tables. The newest release becomes active
@@ -236,25 +258,49 @@ export async function recentReleases(bucket: R2Bucket, n: number): Promise<strin
  * release asked for by id and a pinned evaluation are answered after a reset as before it. A
  * store with any row, even a failed one, is left as it is: a release that cannot load is a
  * person's to repair with `POST /load`, or the daily pass's for a pinned one, not every
- * isolate's to retry. Returns the releases whose load was started.
+ * isolate's to retry.
+ *
+ * The releases a restore has still to start are kept in `meta` and taken off as each load is
+ * started, so a Workflow that could not be started is tried again by the next call rather than
+ * left out for good behind the rows the others wrote. Returns the releases started this call
+ * and those still pending.
  */
 export async function restoreIfEmpty(
   env: Pick<Env, "ARCHIVE" | "RELEASE_LOAD">,
   db: Store,
   pinned: readonly string[] = PINNED_RELEASES,
   recent = RECENT_RELEASES_KEPT + 1,
-): Promise<string[]> {
-  const any = await db.prepare("SELECT 1 FROM releases LIMIT 1").first();
-  if (any) return [];
-  const wanted = [...new Set([...(await recentReleases(env.ARCHIVE, recent)), ...pinned])];
+): Promise<{ started: string[]; pending: string[] }> {
+  let wanted = await restorePending(db);
+  if (wanted.length === 0) {
+    const any = await db.prepare("SELECT 1 FROM releases LIMIT 1").first();
+    if (any) return { started: [], pending: [] };
+    const held: string[] = [];
+    for (const release of new Set([...(await recentReleases(env.ARCHIVE, recent)), ...pinned]))
+      if (await env.ARCHIVE.head(releaseKey(release))) held.push(release);
+    if (held.length === 0) return { started: [], pending: [] };
+    await setRestorePending(db, held);
+    wanted = held;
+  }
   const started: string[] = [];
+  const pending: string[] = [];
   for (const release of wanted) {
-    if (!(await env.ARCHIVE.head(releaseKey(release)))) continue;
-    const instance = reloadInstanceId(release);
-    await env.RELEASE_LOAD.create({ id: instance, params: { release } });
-    started.push(release);
+    try {
+      await env.RELEASE_LOAD.create({ id: reloadInstanceId(release), params: { release } });
+      started.push(release);
+      await setRestorePending(db, [...pending, ...wanted.slice(wanted.indexOf(release) + 1)]);
+    } catch (error) {
+      pending.push(release);
+      console.log(
+        JSON.stringify({
+          message: "release restore could not start",
+          release,
+          error: String(error),
+        }),
+      );
+    }
   }
   if (started.length)
-    console.log(JSON.stringify({ message: "release store restoring", releases: started }));
-  return started;
+    console.log(JSON.stringify({ message: "release store restoring", releases: started, pending }));
+  return { started, pending };
 }

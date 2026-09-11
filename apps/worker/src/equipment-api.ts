@@ -680,12 +680,19 @@ export async function bundle(db: Store, release: string, q: BundleQuery): Promis
       );
     }
     // The schema admits at most `LINK_CITATIONS` a link, so the read is bounded by the links
-    // kept; a store that holds more is not a release the schema admits, and says so rather
-    // than answering with some of a link's citations.
-    if (cited.length > kept.length * LINK_CITATIONS)
-      throw new RangeError(
-        `a link cites more than ${LINK_CITATIONS} sources; the release is not one the schema admits`,
-      );
+    // kept; a store that holds more for any one link is not a release the schema admits, and
+    // says so rather than answering with some of that link's citations. The rows come ordered
+    // by pair, so a link past the bound is seen whole or cut at the limit, and counted either way.
+    const perLink = new Map<string, number>();
+    for (const c of cited) {
+      const key = `${c.model_id}\u0000${c.dialect_id}`;
+      const n = (perLink.get(key) ?? 0) + 1;
+      perLink.set(key, n);
+      if (n > LINK_CITATIONS)
+        throw new RangeError(
+          `the link ${c.model_id} → ${c.dialect_id} cites more than ${LINK_CITATIONS} sources; the release is not one the schema admits`,
+        );
+    }
     protocol = kept.flatMap((l) => {
       const dialect = dialects.get(l.dialect_id);
       if (!dialect) return [];

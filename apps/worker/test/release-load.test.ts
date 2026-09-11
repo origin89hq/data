@@ -589,26 +589,42 @@ test("a store with no release at all gets the recent and the pinned ones back; o
     objects[`releases/feed/${String(i).padStart(3, "0")}-${id}.json`] = "{}";
   const { env, loads } = world(objects);
   await createSchema(env.RELEASES);
-  // Eight recent, the ninth is pinned, and a pinned release the archive lacks is skipped.
-  const started = await restoreIfEmpty(env, env.RELEASES, [ids[9] ?? "", "f".repeat(64)]);
-  assert.deepEqual(started, [...ids.slice(0, 8), ids[9]]);
+  // Eight recent, the ninth is pinned, and a pinned release the archive lacks is skipped. The
+  // third load cannot be started this time: it stays pending, the rest are started.
+  const create = env.RELEASE_LOAD.create;
+  let calls = 0;
+  env.RELEASE_LOAD.create = async (options) => {
+    if (++calls === 3) throw new Error("Workflows is away");
+    return create(options);
+  };
+  const first = await restoreIfEmpty(env, env.RELEASES, [ids[9] ?? "", "f".repeat(64)]);
+  const wanted = [...ids.slice(0, 8), ids[9] ?? ""];
+  assert.deepEqual(first.pending, [ids[2]]);
+  assert.deepEqual(
+    first.started,
+    wanted.filter((id) => id !== ids[2]),
+  );
   assert.deepEqual(
     loads.map((l) => l.params.release),
-    started,
+    first.started,
   );
-  // With a row in the store, even a failed one, nothing is started: a read never retries a load.
+  // The next call finishes the restore, though the store has rows now, and then it is done.
+  env.RELEASE_LOAD.create = create;
+  assert.deepEqual(await restoreIfEmpty(env, env.RELEASES, []), { started: [ids[2]], pending: [] });
+  assert.equal(loads.length, 9);
+  // With a row in the store and nothing pending, nothing is started: a read never retries a load.
   await env.RELEASES.prepare(
     "INSERT INTO releases (id, content, published_at, state, counts) VALUES (?, '', '', 'failed', '{}')",
   )
     .bind(ids[0])
     .run();
-  assert.deepEqual(await restoreIfEmpty(env, env.RELEASES, []), []);
+  assert.deepEqual(await restoreIfEmpty(env, env.RELEASES, []), { started: [], pending: [] });
   assert.equal(loads.length, 9);
   const empty = world({});
   await createSchema(empty.env.RELEASES);
   assert.deepEqual(
     await restoreIfEmpty(empty.env, empty.env.RELEASES, []),
-    [],
+    { started: [], pending: [] },
     "an archive with no release starts nothing",
   );
 });

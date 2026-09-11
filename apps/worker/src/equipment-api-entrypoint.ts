@@ -99,7 +99,10 @@ function prepared(env: Env): Promise<void> {
       // `NoSuchRelease`, never empty lists. A store with any row, even a failed one, is left
       // as it is: a release that cannot load is a person's to repair with `POST /load`, not
       // every isolate's to retry.
-      await restoreIfEmpty(env, db);
+      const { pending } = await restoreIfEmpty(env, db);
+      // A restore that could not start every load is tried again by the next call, not by
+      // the next isolate only.
+      if (pending.length) preparations.delete(db);
     })().catch((error) => {
       preparations.delete(db);
       throw error;
