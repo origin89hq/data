@@ -88,3 +88,56 @@ test("source loading explains generated records, validates IDs and never sends t
   body = model;
   assert.deepEqual(JSON.parse(await sourceRecord(target, new AbortController().signal)), model);
 });
+
+test("corrections preserve review and extraction metadata, including its absence", () => {
+  const specTarget: CorrectionTarget = { table: "specs", id: "test-spec" };
+  const spec = {
+    id: "test-spec",
+    model: "test-model",
+    name: "Voltage",
+    value: "12",
+    source: "manual",
+    confidence: "vendor-doc",
+    extractedBy: "ai:reader",
+    reviewedBy: "original-reviewer",
+    checkedAt: "2026-09-10",
+  };
+  for (const [recordTarget, record] of [
+    [target, { ...model, reviewedBy: "original-reviewer", checkedAt: "2026-09-10" }],
+    [specTarget, spec],
+  ] as const) {
+    const raw = JSON.stringify(record);
+    for (const key of [
+      "reviewedBy",
+      "checkedAt",
+      ...(recordTarget.table === "specs" ? ["extractedBy"] : []),
+    ]) {
+      const field = key as keyof typeof record;
+      for (const draft of [
+        {
+          ...record,
+          [key]:
+            key === "checkedAt"
+              ? "2026-09-11"
+              : key === "extractedBy"
+                ? "table:parser"
+                : "someone-else",
+        },
+        { ...record, [key]: undefined },
+      ]) {
+        const result = reviewCorrection(recordTarget, raw, JSON.stringify(draft));
+        assert.ok(!result.ok);
+        assert.match(result.errors.join(" "), /metadata cannot be changed/);
+      }
+      const absent = JSON.stringify({ ...record, [key]: undefined });
+      assert.equal(reviewCorrection(recordTarget, absent, raw).ok, false, `cannot add ${field}`);
+    }
+    const result = reviewCorrection(
+      recordTarget,
+      raw,
+      JSON.stringify({ ...record, name: "Corrected label" }),
+    );
+    assert.ok(result.ok);
+    assert.deepEqual(result.changed, ["name"]);
+  }
+});

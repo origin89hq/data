@@ -48,7 +48,9 @@ export function RunDetail({
     }
   }, [selected]);
   const matchingDocuments =
-    selected?.documents.filter((doc) => doc.url.toLowerCase().includes(query.toLowerCase())) ?? [];
+    selected?.documents.filter((doc) =>
+      [doc.url, doc.host].some((value) => value.toLowerCase().includes(query.trim().toLowerCase())),
+    ) ?? [];
   const reviewing = Boolean(
     row.maker &&
       needsApproval(row.maker) &&

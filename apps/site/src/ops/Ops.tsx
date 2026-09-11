@@ -779,11 +779,11 @@ function Published({
           <table className="ops-table">
             <thead>
               <tr>
-                <th>File</th>
-                <th>Rows</th>
-                <th>Size</th>
-                <th>Content hash</th>
-                <th>Download</th>
+                <th scope="col">File</th>
+                <th scope="col">Rows</th>
+                <th scope="col">Size</th>
+                <th scope="col">Content hash</th>
+                <th scope="col">Download</th>
               </tr>
             </thead>
             <tbody>

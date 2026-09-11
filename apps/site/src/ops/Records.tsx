@@ -147,7 +147,8 @@ function Correction({ target, onClose }: { target: CorrectionTarget; onClose: ()
               <>
                 <p className="ops-note">
                   Leave optional fields blank when unknown. Use Record JSON for nested lists and
-                  other fields.
+                  other fields. Review and extraction metadata stay unchanged; corrections are
+                  approved through repository review.
                 </p>
                 <div className="ops-field-grid">
                   {fields[target.table].map((field) => (

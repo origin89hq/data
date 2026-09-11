@@ -2,9 +2,8 @@ import { consume } from "./consumer.ts";
 import { hasFeed } from "./feeds.ts";
 import { manufacturers } from "./manufacturers.ts";
 import { app, today } from "./routes.ts";
-import { newRun } from "./runs.ts";
-import type { SellerCrawlParams } from "./seller-crawl.ts";
 import { sellers } from "./sellers.ts";
+import { startIfFree, startMaker, startSeller } from "./start-run.ts";
 import { superviseIfFree } from "./supervise.ts";
 
 export { ManufacturerCrawl } from "./manufacturer-crawl.ts";
@@ -25,19 +24,7 @@ export default {
     const checkedAt = today();
     if (new Date(controller.scheduledTime).getUTCDate() === 1) {
       for (const maker of manufacturers) {
-        const run = newRun();
-        const id = `maker-${maker.id}-${run.id}`;
-        await env.MANUFACTURER_CRAWL.create({
-          id,
-          params: {
-            instanceId: id,
-            run: run.id,
-            manufacturerId: maker.id,
-            domains: maker.domains,
-            checkedAt: run.date,
-            pageLimit: 150,
-          },
-        });
+        await startIfFree(() => startMaker(env, maker.id, maker.domains, 150));
       }
     }
     // Every day: move anything whose precondition is met. The weekly crawl and the monthly
@@ -45,17 +32,7 @@ export default {
     await superviseIfFree(env, checkedAt);
     if (new Date(controller.scheduledTime).getUTCHours() === 8) return;
     for (const seller of sellers) {
-      if (hasFeed(seller)) {
-        const run = newRun();
-        const params: SellerCrawlParams = { sellerId: seller.id, run: run.id, checkedAt: run.date };
-        await env.SELLER_CRAWL.create({ id: run.id, params });
-      } else {
-        const run = newRun();
-        await env.PAGE_CRAWL.create({
-          id: `page-${run.id}`,
-          params: { sellerId: seller.id, run: run.id, checkedAt: run.date },
-        });
-      }
+      await startIfFree(() => startSeller(env, seller.id, hasFeed(seller) ? "feed" : "page"));
     }
   },
   /** Every unit of fan-out work. Acknowledged or retried per message, never per batch. */

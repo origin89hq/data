@@ -278,16 +278,22 @@ export async function approve(run: RunStatus, limit: number, documents: number):
   if (run.kind !== "maker" || !Number.isSafeInteger(limit) || limit < 1 || limit > documents)
     throw Error("Choose a document limit within the reviewed plan.");
   await assertCurrent(run);
-  const body = await post(`/approve?${new URLSearchParams({ id: run.instance })}`, {
-    approved: true,
-    limit,
-  });
-  if (body.sent !== true || body.to !== run.instance)
-    throw Error(
-      "The approval response was unexpected. Check the run before sending another request.",
-    );
+  await post(
+    `/approve?${new URLSearchParams({ id: run.instance })}`,
+    (body) => {
+      if (body.sent !== true || body.to !== run.instance) throw Error("Unexpected approval.");
+    },
+    { approved: true, limit },
+  );
 }
-async function post(path: string, body?: unknown): Promise<Record<string, unknown>> {
+const UNCERTAIN_MUTATION =
+  "The response could not be confirmed. The request may have been accepted. Refresh and inspect the run before trying again.";
+
+async function post<T>(
+  path: string,
+  decode: (body: Record<string, unknown>) => T,
+  body?: unknown,
+): Promise<T> {
   let res: Response;
   try {
     res = await fetch(path, {
@@ -301,17 +307,25 @@ async function post(path: string, body?: unknown): Promise<Record<string, unknow
       signal: AbortSignal.timeout(45000),
     });
   } catch {
-    throw Error(
-      "The response was lost. The request may have been accepted. Refresh and inspect the run before trying again.",
-    );
+    throw Error(UNCERTAIN_MUTATION);
   }
   if (res.status === 401 || res.status === 403)
     throw new SessionError("Your session is unavailable. Sign in again to continue.");
-  if (!res.ok)
-    throw Error(
-      `The service answered ${res.status}. Refresh and inspect the run before trying again.`,
-    );
-  return object(await res.json());
+  if (!res.ok) {
+    const detail: unknown = await res.json().catch(() => null);
+    const reason =
+      detail && typeof detail === "object" && "error" in detail && typeof detail.error === "string"
+        ? detail.error.slice(0, 1000)
+        : `The service answered ${res.status}.`;
+    throw Error(`${reason} Refresh and inspect the run before trying again.`);
+  }
+  try {
+    return decode(object(await res.json()));
+  } catch {
+    // Receiving 2xx headers does not prove that we received the acknowledgement. Body reads,
+    // JSON decoding and endpoint-specific validation all happen after the mutation may commit.
+    throw Error(UNCERTAIN_MUTATION);
+  }
 }
 export function runSettingsError(
   kind: "maker" | "seller",
@@ -348,16 +362,15 @@ export async function startRun(
       throw Error("The selected run does not match this entity.");
     await assertCurrent(previous);
   }
-  const current = (await read("/runs").then(parseRuns)).get(`${kind}:${entity}`);
-  if (current && !["complete", "errored", "terminated"].includes(current.status))
-    throw Error(
-      `A workflow is ${current.status}. Refresh and inspect it before starting another run.`,
-    );
   const query =
     kind === "maker"
       ? new URLSearchParams({ id: entity, domains: domains.join(","), pages: String(limit) })
       : new URLSearchParams({ seller: entity, limit: String(limit) });
-  return string((await post(`${kind === "maker" ? "/maker" : "/run"}?${query}`)).id);
+  return post(`${kind === "maker" ? "/maker" : "/run"}?${query}`, (body) => {
+    const id = string(body.id);
+    segment(id);
+    return id;
+  });
 }
 export async function published(signal?: AbortSignal): Promise<DatasetFile[]> {
   const files = object(object(await read("/manifest.json", signal)).files);

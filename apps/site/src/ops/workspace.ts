@@ -13,7 +13,7 @@ export interface RunRow {
   next: string;
 }
 export const active = (status?: string) =>
-  ["queued", "running", "waitingForPause"].includes(status ?? "");
+  ["queued", "running", "waiting", "paused", "waitingForPause"].includes(status ?? "");
 export const broken = (status?: string) =>
   ["errored", "terminated", "unknown"].includes(status ?? "");
 export const needsApproval = (maker: MakerState) =>

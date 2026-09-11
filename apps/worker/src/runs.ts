@@ -58,9 +58,18 @@ export async function readPointer(bucket: R2Bucket, key: string): Promise<Pointe
 }
 
 export async function writePointer(bucket: R2Bucket, key: string, pointer: Pointer): Promise<void> {
-  await bucket.put(key, JSON.stringify(pointer), {
+  // Starts reserve the pointer before creating the workflow. Its first step must preserve that
+  // reservation, including an acknowledgement still in flight, and must never replace a newer
+  // run after a delayed or restarted workflow wakes up.
+  const current = await readPointer(bucket, key);
+  if (current?.instance === pointer.instance && current?.run === pointer.run) return;
+  if (current) throw new Error("This workflow no longer owns the current run.");
+  // Support an existing workflow whose first step predates reservations, if nothing owns the key.
+  const written = await bucket.put(key, JSON.stringify(pointer), {
+    onlyIf: { etagDoesNotMatch: "*" },
     httpMetadata: { contentType: "application/json" },
   });
+  if (!written) throw new Error("Another workflow reserved the current run.");
 }
 
 /**

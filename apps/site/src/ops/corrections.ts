@@ -69,6 +69,15 @@ export function reviewCorrection(
     const changed = [...new Set([...Object.keys(old), ...Object.keys(next)])].filter(
       (key) => JSON.stringify(old[key]) !== JSON.stringify(next[key]),
     );
+    const protectedFields = ["reviewedBy", "checkedAt", "extractedBy"];
+    const alteredMetadata = changed.filter((key) => protectedFields.includes(key));
+    if (alteredMetadata.length)
+      return {
+        ok: false,
+        errors: [
+          `Review and extraction metadata cannot be changed here: ${alteredMetadata.join(", ")}. Use the repository review process.`,
+        ],
+      };
     const path = recordPath(target);
     const oldLines = original.replace(/\n$/, "").split("\n");
     const output = `${JSON.stringify(after, null, 2)}\n`;

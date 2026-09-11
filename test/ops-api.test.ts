@@ -129,25 +129,21 @@ test("an approval with a lost response is reported as uncertain and is never ret
   assert.equal(posts, 1);
 });
 
-test("fresh runs validate settings and refuse to replace a newly active workflow", async (t) => {
+test("fresh runs validate settings and leave the atomic status check to the server", async (t) => {
   const posts: string[] = [];
-  let status = "running";
+  let status = 409;
   t.mock.method(globalThis, "fetch", async (url: string, init?: RequestInit) => {
     if (init?.method === "POST") {
       posts.push(url);
-      return Response.json({ id: "new-run" });
+      return Response.json({ id: "new-run" }, { status });
     }
-    if (url === "/runs") return Response.json({ runs: [{ ...run, status }] });
     return Response.json({ run: run.run, instance: run.instance });
   });
   await assert.rejects(startRun("maker", "victron", [], 20), /domains/);
   await assert.rejects(startRun("seller", "shop", [], 501), /page limit/);
-  await assert.rejects(
-    startRun("maker", "victron", ["docs.example.com"], 20, run),
-    /workflow is running/,
-  );
-  assert.deepEqual(posts, []);
-  status = "complete";
+  await assert.rejects(startRun("maker", "victron", ["docs.example.com"], 20, run), /409/);
+  assert.equal(posts.length, 1, "invalid settings must not post");
+  status = 200;
   assert.equal(await startRun("maker", "victron", ["docs.example.com"], 20, run), "new-run");
   assert.equal(posts[0], "/maker?id=victron&domains=docs.example.com&pages=20");
 });
@@ -158,4 +154,49 @@ test("archive listings cannot quietly mix files from another run", async (t) => 
   assert.deepEqual(await archive(run), keys);
   keys = [...keys, "documents/victron/runs/run-2/plan.json"];
   await assert.rejects(archive(run), /outside this run/);
+});
+
+test("all unconfirmed 2xx mutation acknowledgements are uncertain and never retried", async (t) => {
+  let response: () => Response = () => new Response("");
+  let posts = 0;
+  t.mock.method(globalThis, "fetch", async (_url: string, init?: RequestInit) => {
+    if (init?.method === "POST") {
+      posts++;
+      return response();
+    }
+    return Response.json({ run: run.run, instance: run.instance });
+  });
+  for (const mutation of [
+    () => approve(run, 1, 2),
+    () => startRun("maker", "victron", ["docs.example.com"], 20),
+  ]) {
+    for (const reply of [
+      () => new Response('{"id":'),
+      () => new Response(null, { status: 204 }),
+      () => Response.json(null),
+      () => Response.json([]),
+      () => Response.json({}),
+      () => Response.json({ id: 42, sent: true, to: "another-run" }),
+      () => Response.json({ id: "", sent: false, to: run.instance }),
+      () =>
+        new Response(
+          new ReadableStream({
+            start(controller) {
+              controller.error(Error("body lost"));
+            },
+          }),
+        ),
+    ]) {
+      posts = 0;
+      response = reply;
+      await assert.rejects(mutation(), /may have been accepted.*Refresh and inspect the run/);
+      assert.equal(posts, 1);
+    }
+    for (const status of [401, 403]) {
+      posts = 0;
+      response = () => new Response("expired", { status });
+      await assert.rejects(mutation(), SessionError);
+      assert.equal(posts, 1);
+    }
+  }
 });

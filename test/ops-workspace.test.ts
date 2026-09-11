@@ -77,3 +77,20 @@ test("CSV exports preserve missing values, zero, quotes and newlines without spr
   assert.ok(text.includes(',"","0",'));
   assert.ok(text.endsWith("\r\n"));
 });
+
+test("waiting and paused work stays in progress while download approvals keep their own queue", () => {
+  for (const status of ["waiting", "paused", "waitingForPause"]) {
+    const runs = new Map(data.runs);
+    runs.set("seller:shop", { ...run, kind: "seller", entity: "shop", status });
+    runs.set("maker:gamma", { ...run, entity: "gamma", status });
+    const rows = runRows({ ...data, runs });
+    assert.deepEqual(
+      selectRows(rows, "overview", "active", "", "name").map((row) => row.entity),
+      ["gamma", "shop"],
+    );
+    assert.deepEqual(
+      selectRows(rows, "overview", "review", "", "name").map((row) => row.entity),
+      ["alpha"],
+    );
+  }
+});
