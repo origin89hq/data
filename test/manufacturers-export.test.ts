@@ -48,11 +48,15 @@ test("a document host is a bare host name, the same shape as a domain, and never
   );
   assert.throws(() => Manufacturer.parse({ ...maker, documentHosts: ["cdn.shopify.com/s/files"] }));
   // A typo in a label would never match a real host and would report the documents as foreign.
+  const tooLongLabel = `${"a".repeat(64)}.shopify.com`;
+  const tooLongName = `${Array.from({ length: 5 }, () => "b".repeat(50)).join(".")}.com`;
   for (const typo of [
     ".cdn.shopify.com",
     "cdn..shopify.com",
     "cdn-.shopify.com",
     "-cdn.shopify.com",
+    tooLongLabel,
+    tooLongName,
   ])
     assert.throws(() => Manufacturer.parse({ ...maker, documentHosts: [typo] }), typo);
   assert.deepEqual(

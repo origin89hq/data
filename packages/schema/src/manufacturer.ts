@@ -11,7 +11,9 @@ import { RecordId } from "./enums.ts";
  * as `cdn..shopify.com` would pass a looser pattern, never match a real host, and turn into a plan
  * that quietly reports the maker's documents as somebody else's.
  */
-const HOST_NAME = /^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,}$/;
+const HOST_NAME = /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/;
+/** DNS allows 253 characters of name; a longer one resolves nowhere and matches nothing. */
+const HOST_NAME_LENGTH = 253;
 
 export const Manufacturer = z
   .object({
@@ -31,7 +33,7 @@ export const Manufacturer = z
      * the makers whose discovery found nothing keep every PDF this way (#48). Which host to add
      * is read off an empty plan, which names the hosts the maker's pages linked.
      */
-    documentHosts: z.array(z.string().regex(HOST_NAME)).optional(),
+    documentHosts: z.array(z.string().max(HOST_NAME_LENGTH).regex(HOST_NAME)).optional(),
     country: z.string().length(2).optional(),
     /** Why this record exists, or what a reader has to know: a rename, a parent company, a line sold under someone else's label. */
     notes: z.string().optional(),
