@@ -435,7 +435,7 @@ export async function startRun(
 export function parsePublished(value: unknown): DatasetFile[] {
   const files = object(object(value).files);
   return Object.entries(files).map(([name, value]) => {
-    if (!/^[a-z0-9_]+\.(csv|parquet|json)$/.test(name))
+    if (!/^[a-z0-9_]+\.(csv|parquet|json|ndjson)$/.test(name))
       throw Error("The index contains an unsupported filename.");
     const row = object(value);
     const sha256 = string(row.sha256);

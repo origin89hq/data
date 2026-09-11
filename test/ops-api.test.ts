@@ -8,6 +8,7 @@ import {
   parseRuns,
   parseState,
   pipeline,
+  published,
   type RunStatus,
   read,
   SessionError,
@@ -273,4 +274,19 @@ test("the published index keeps a file without a row count, and refuses a corrup
     () => parsePublished({ files: { "specs.csv": { bytes: 1, sha256: "nope" } } }),
     /invalid content hash/,
   );
+});
+
+test("the published-files list takes a load part beside the tables, and refuses any other name", async (t) => {
+  const sha256 = "a".repeat(64);
+  let files: Record<string, unknown> = {
+    "models.csv": { rows: 3, bytes: 10, sha256 },
+    "models_0001.ndjson": { rows: 3, bytes: 12, sha256 },
+  };
+  t.mock.method(globalThis, "fetch", async () => Response.json({ files }));
+  assert.deepEqual(
+    (await published()).map((f) => f.name),
+    ["models.csv", "models_0001.ndjson"],
+  );
+  files = { "models.exe": { rows: 1, bytes: 1, sha256 } };
+  await assert.rejects(published(), /unsupported filename/);
 });

@@ -60,19 +60,22 @@ function fixture(t: TestContext) {
       ),
   };
 }
-function dataset(dir: string) {
-  const bytes = "model\nbattery\n";
-  writeFileSync(join(dir, "models.csv"), bytes);
+function dataset(dir: string, extra: Record<string, string> = {}) {
+  const files: Record<string, string> = { "models.csv": "model\nbattery\n", ...extra };
+  for (const [name, bytes] of Object.entries(files)) writeFileSync(join(dir, name), bytes);
   writeFileSync(
     join(dir, "manifest.json"),
     JSON.stringify({
-      files: {
-        "models.csv": {
-          rows: 1,
-          bytes: Buffer.byteLength(bytes),
-          sha256: createHash("sha256").update(bytes).digest("hex"),
-        },
-      },
+      files: Object.fromEntries(
+        Object.entries(files).map(([name, bytes]) => [
+          name,
+          {
+            rows: 1,
+            bytes: Buffer.byteLength(bytes),
+            sha256: createHash("sha256").update(bytes).digest("hex"),
+          },
+        ]),
+      ),
     }),
   );
 }
@@ -188,6 +191,21 @@ test("every file goes up with its digest and a fresh job token, and the manifest
   assert.equal(manifest.authorization, "Bearer job-token-2");
   assert.equal(manifest.body, readFileSync(join(dir, "manifest.json"), "utf8"));
   assert.match(result.stdout, /2 files published/);
+});
+
+test("a load part is a file of the build like any other, found on disk and sent (#83)", async (t) => {
+  const { dir } = fixture(t);
+  dataset(dir, { "models_0001.ndjson": '{"id":"battery"}\n' });
+  const { seen, job } = await endpoints(t);
+  const result = await publishing(dir, job);
+  assert.equal(result.status, 0, result.stderr);
+  assert.deepEqual(
+    seen.slice(1).flatMap((s) => (s.method === "PUT" ? [s.path] : [])),
+    ["PUT /v1/models.csv", "PUT /v1/models_0001.ndjson", "PUT /v1/manifest.json"].map((p) =>
+      p.slice(4),
+    ),
+  );
+  assert.match(result.stdout, /3 files published/);
 });
 
 test("a dry run sends nothing and needs no token", async (t) => {
