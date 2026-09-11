@@ -6,6 +6,48 @@
   "aliases": [],
   "dialects": [
     {
+      "dialect": "unknown-victron-ble-instant-readout",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "victron-bms-overview-datasheet",
+            "citation": "docs/victron-bms-overview-datasheet.pdf (newly downloaded) — Victron 'Battery Management System (BMS) Overview'"
+          },
+          {
+            "source": "victron-smallbms-ng-manual-rev05",
+            "citation": "docs/victron-smallbms-ng-manual-rev05.pdf (newly downloaded), §5.1.1 Instant Readout — the parameter list quoted above"
+          },
+          {
+            "source": "victron-vebus-bms-ng-manual-rev05",
+            "citation": "docs/victron-vebus-bms-ng-manual-rev05.pdf (newly downloaded) — 'Bluetooth Smart ... includes Instant Readout ... SoC, battery temperature, warnings, and alarms'"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "unknown-victron-bms-via-gx",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "victronenergy-com-upload-documents-ve-bus-bms-v2-111619-ve-bus-bms-v2-ma",
+            "citation": "docs/victron-vebus-bms-v2-manual-rev07.pdf (newly downloaded) — rev 07, 06/2025, §3.5 GX device, §3.2.1 Minimal VE.Bus firmware, from https://www.victronenergy.com/upload/documents/VE.Bus_BMS_V2/111619-VE_Bus_BMS_V2_-_Ma"
+          },
+          {
+            "source": "victron-vebus-bms-ng-manual-rev05",
+            "citation": "docs/victron-vebus-bms-ng-manual-rev05.pdf (newly downloaded) — rev 05, 06/2026, §3.5 GX device, §8.2 Displaying VE.Bus BMS NG SoC on a GX Device"
+          },
+          {
+            "source": "victron-bms-overview-datasheet",
+            "citation": "docs/victron-bms-overview-datasheet.pdf (newly downloaded) — Data communication and 'Control via GX device (DVCC)' rows"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    },
+    {
       "dialect": "victron-bms-dry-contact",
       "evidence": {
         "kind": "catalogue-name"

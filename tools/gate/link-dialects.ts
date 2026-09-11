@@ -1,3 +1,4 @@
+import { writeFileSync } from "node:fs";
 import { modelKey } from "@origin89/equipment-api/keys";
 import { type DialectLink, Model } from "@origin89/equipment-schema/model";
 import { catalogueLink, mergeLinks, sameLinks } from "../../src/dialect-links.ts";
@@ -18,10 +19,20 @@ import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
  * `pull-specs` uses for a product named in a maker's own datasheet: a reviewed protocol record
  * naming "SmartSolar MPPT 150/35" is better evidence the product exists than a shop listing is.
  *
- * Usage: link-dialects.ts [--dry-run] [--mint]
+ * Usage: link-dialects.ts [--dry-run] [--mint] [--report <file>]
+ *
+ * `--report` writes every link this run adds as a Markdown table, one row a link with the
+ * catalogue entry it came from and the dialect's sources, for the person who confirms the pull
+ * request that carries them: the review is the confirmation, and the table is what is reviewed.
  */
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
+const reportAt = args.indexOf("--report");
+const reportFile = reportAt >= 0 ? args[reportAt + 1] : undefined;
+if (reportAt >= 0 && (!reportFile || reportFile.startsWith("--"))) {
+  console.error("usage: link-dialects.ts [--dry-run] [--mint] [--report <file>]");
+  process.exit(2);
+}
 // Minting is opt-in, because the head of a note is not reliably a model of that maker. The
 // dialect `magnum-ags-honda-eu3000is-combination-switch` is Magnum's, and the product it names is
 // a Honda generator; minting would have filed an EU3000is under Magnum. Others are ranges
@@ -60,6 +71,9 @@ let prose = 0;
 let noMaker = 0;
 let ambiguous = 0;
 const dialectLinks = new Map<string, DialectLink[]>();
+/** The catalogue entry each link came from, for the report. */
+const entries = new Map<string, string>();
+const report: string[] = [];
 const unmatched = new Map<string, number>();
 
 for (const dialect of records.dialects) {
@@ -114,6 +128,7 @@ for (const dialect of records.dialects) {
       modelIdentifier,
       mergeLinks(dialectLinks.get(modelIdentifier) ?? [], [catalogueLink(dialect)]),
     );
+    entries.set(`${modelIdentifier}\u0000${dialect.id}`, entry.name);
     linked += 1;
   }
 }
@@ -127,8 +142,27 @@ for (const model of records.models) {
   // stronger evidence somebody recorded. A catalogue claim whose confidence moved is written.
   const dialects = mergeLinks(model.dialects, found);
   if (sameLinks(dialects, model.dialects)) continue;
+  const had = new Set(model.dialects.map((l) => l.dialect));
+  for (const link of dialects) {
+    if (had.has(link.dialect)) continue;
+    const dialect = records.dialects.find((d) => d.id === link.dialect);
+    report.push(
+      `| \`${model.id}\` | ${model.name} | \`${link.dialect}\` | ${entries.get(`${model.id}\u0000${link.dialect}`) ?? ""} | ${dialect?.confidence ?? ""} | ${link.evidence.sources.map((c) => `\`${c.source}\``).join(", ")} |`,
+    );
+  }
   if (!dryRun) writeRecord(RECORDS_DIR, "models", model.id, Model.parse({ ...model, dialects }));
   touched += 1;
+}
+if (reportFile) {
+  writeFileSync(
+    reportFile,
+    `${[
+      "| Model | Name | Dialect | Catalogue entry | Dialect confidence | Sources |",
+      "|---|---|---|---|---|---|",
+      ...report.sort(),
+    ].join("\n")}\n`,
+  );
+  console.log(`${report.length} links written to ${reportFile}`);
 }
 
 console.log(
