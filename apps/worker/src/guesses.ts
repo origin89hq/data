@@ -4,19 +4,24 @@ import { BatchMisalignedError, CLASSIFIER_ID, classifierKey, classifyBatch } fro
 import { inputKey, partKey, type Work } from "./work.ts";
 
 /**
- * Classify a batch, halving it whenever the model answers with the wrong number of items. A model
- * that collapses ten listings into one usually manages five, and retrying the same ten spends
- * attempts on the same question. The result is written under the original part's key however many
- * calls it took, so one part stays one key and a reader needs to know nothing about this.
+ * Classify a batch, halving it whenever the model answers with the wrong number of items, or with
+ * an answer that is not JSON. A model that collapses ten listings into one usually manages five,
+ * and retrying the same ten spends attempts on the same question. An answer cut short is the same
+ * model losing its place: watts247's part 5 came back as no items for its ten listings, one for
+ * the first five, and an answer that ran past its tokens for the other five, every time (#40). The
+ * result is written under the original part's key however many calls it took, so one part stays
+ * one key and a reader needs to know nothing about this.
  *
- * A single listing that still misaligns is genuinely stuck: it throws, the message retries, and
- * eventually it dead-letters where it can be looked at.
+ * A failed call is not halved: a rate limit or a timeout would only double the calls. A single
+ * listing that still misaligns is genuinely stuck: it throws, the message retries, and eventually
+ * it dead-letters where it can be looked at.
  */
 export async function classifyInHalves(ai: Ai, sightings: Sighting[]): Promise<Guess[]> {
   try {
     return await classifyBatch(ai, sightings);
   } catch (error) {
-    if (!(error instanceof BatchMisalignedError) || sightings.length < 2) throw error;
+    const lostItsPlace = error instanceof BatchMisalignedError || error instanceof SyntaxError;
+    if (!lostItsPlace || sightings.length < 2) throw error;
     const half = Math.ceil(sightings.length / 2);
     const [left, right] = await Promise.all([
       classifyInHalves(ai, sightings.slice(0, half)),
