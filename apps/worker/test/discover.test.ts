@@ -46,6 +46,8 @@ const seenAt = (over: Partial<HostSeen>): HostSeen => ({
   childrenFailed: 0,
   childrenSkipped: 0,
   redirectedTo: [],
+  rootRedirectedTo: [],
+  listedElsewhere: [],
   ...over,
 });
 
@@ -60,7 +62,7 @@ test("a sitemap's own pages are the pages, and nothing else is knocked on", asyn
   const { pages, hosts } = await discoverPages(["maker.test"], get);
   assert.deepEqual(pages, ["https://maker.test/product/a", "https://maker.test/product/b"]);
   assert.deepEqual(asked, ["https://maker.test/sitemap.xml"]);
-  assert.deepEqual(hosts, [seenAt({ listed: 3, own: 2 })]);
+  assert.deepEqual(hosts, [seenAt({ listed: 3, own: 2, listedElsewhere: ["reseller.test"] })]);
 });
 
 test("when the bare host does not answer, the www host is asked, and its home page is the fallback", async () => {
@@ -93,7 +95,9 @@ test("a sitemap that answers with no page on the maker's hosts falls back to the
   });
   const listed = await discoverPages(["maker.test"], moved.get);
   assert.deepEqual(listed.pages, ["https://maker.test/"]);
-  assert.deepEqual(listed.hosts, [seenAt({ listed: 2, own: 0 })]);
+  assert.deepEqual(listed.hosts, [
+    seenAt({ listed: 2, own: 0, listedElsewhere: ["maker.example"] }),
+  ]);
 });
 
 test("a host that never answers gets both its home pages tried, and every refusal is counted", async () => {
@@ -147,7 +151,15 @@ test("a sitemap request that lands on a host the record does not claim says wher
     ["https://maker.test/"],
     "nothing it lists is the maker's, so the home page",
   );
-  assert.deepEqual(hosts, [seenAt({ listed: 1, own: 0, redirectedTo: ["www.newname.test"] })]);
+  assert.deepEqual(hosts, [
+    seenAt({
+      listed: 1,
+      own: 0,
+      redirectedTo: ["www.newname.test"],
+      rootRedirectedTo: ["www.newname.test"],
+      listedElsewhere: ["www.newname.test"],
+    }),
+  ]);
 });
 
 test("an index is opened up to its cap, a child that fails is counted, and CDATA locations count", async () => {
@@ -221,6 +233,7 @@ test("an index's child on a host the record does not claim is never opened, and 
   assert.deepEqual(pages, ["https://maker.test/product/a"]);
   assert.ok(!asked.includes("https://cdn.other.test/maker-sitemap.xml"));
   assert.deepEqual(hosts[0]?.redirectedTo, ["www.newname.test"]);
+  assert.deepEqual(hosts[0]?.rootRedirectedTo, [], "a child that moved is not the site moving");
   assert.deepEqual([hosts[0]?.requests, hosts[0]?.listed, hosts[0]?.own], [3, 2, 1]);
 });
 

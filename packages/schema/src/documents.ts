@@ -76,15 +76,17 @@ export function hostAllowed(host: string, domains: readonly string[]): boolean {
 }
 
 /** An `href`, quoted either way or not at all, as HTML allows. */
-const HREF = /\bhref\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>"']+))/gi;
-const BASE = /<base\b[^>]*\bhref\s*=\s*["']([^"']+)["'][^>]*>/i;
+/** `data-href` and the like are not links; a hyphen or a word character in front rules them out. */
+const HREF = /(?<![-\w])href\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>"']+))/gi;
+const BASE = /<base\b[^>]*(?<![-\w])href\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>"']+))[^>]*>/i;
 
 /**
  * The address a page's relative links resolve against: its first `<base href>` when it has one,
  * as a browser does, and otherwise the page's own address. The tag itself is no link.
  */
 export function baseHref(html: string, pageUrl: string): string {
-  const base = BASE.exec(html)?.[1];
+  const found = BASE.exec(html);
+  const base = found?.[1] ?? found?.[2] ?? found?.[3];
   if (!base) return pageUrl;
   try {
     return new URL(decodeEntities(base), pageUrl).toString();
@@ -93,9 +95,15 @@ export function baseHref(html: string, pageUrl: string): string {
   }
 }
 
-/** The page's markup with its `<base>` tags removed, so their `href` is not read as a link. */
+/**
+ * The page's markup with everything that is not link-bearing HTML removed: `<base>` tags, whose
+ * `href` is not a link, and scripts, styles, templates and comments, where an `href` is text.
+ */
 export function withoutBase(html: string): string {
-  return html.replace(/<base\b[^>]*>/gi, "");
+  return html
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(/<(script|style|template)\b[\s\S]*?<\/\1\s*>/gi, "")
+    .replace(/<base\b[^>]*>/gi, "");
 }
 
 /**

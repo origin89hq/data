@@ -124,9 +124,17 @@ export function emptyPlanReason(seen: DiscoverySeen | undefined): string {
   // could be read and something did; one page that went elsewhere is a footnote, not the reason.
   const moved =
     seen.redirectedTo.length > 0 &&
-    (seen.hosts.every((h) => h.redirectedTo.length > 0) || seen.pages.read === 0);
+    (seen.hosts.every((h) => h.rootRedirectedTo.length > 0) || seen.pages.read === 0);
   if (moved)
     return `nothing to fetch; the site redirects to ${seen.redirectedTo.join(", ")}, which the record does not claim`;
+  // A sitemap that lists pages, none of them on the maker's hosts, is a record naming the wrong
+  // domain: pulsetech.net lists pulsetech.com.
+  const listing = seen.hosts.filter((h) => h.listed > 0);
+  if (listing.length > 0 && listing.every((h) => h.own === 0)) {
+    const hosts = [...new Set(listing.flatMap((h) => h.listedElsewhere))];
+    const pages = listing.reduce((n, h) => n + h.listed, 0);
+    return `nothing to fetch; the sitemap lists ${pages} pages on ${hosts.join(", ")}, which the record does not claim`;
+  }
   const strayed =
     seen.redirectedTo.length > 0
       ? `, and some requests landed on ${seen.redirectedTo.join(", ")}`

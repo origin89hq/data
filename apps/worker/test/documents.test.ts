@@ -185,3 +185,20 @@ test("an unquoted href is a link too, as HTML allows", () => {
     ],
   );
 });
+
+test("an unquoted base href counts, and href text outside a link element does not", () => {
+  const html = `<base href=/manuals/>
+    <a href="sheet.pdf">sheet</a>
+    <script>var x = {href: "/js/fake.pdf"}; a.href="/js/other.pdf";</script>
+    <style>a[href="/css/x.pdf"] {}</style>
+    <!-- <a href="/commented.pdf">gone</a> -->
+    <div data-href="/data/attr.pdf">not a link</div>`;
+  assert.equal(
+    baseHref(html, "https://www.victronenergy.com/x/"),
+    "https://www.victronenergy.com/manuals/",
+  );
+  assert.deepEqual(
+    linkedDocuments(html, "https://www.victronenergy.com/x/").map((f) => f.url),
+    ["https://www.victronenergy.com/manuals/sheet.pdf"],
+  );
+});

@@ -116,6 +116,10 @@ export interface HostSeen {
   childrenSkipped: number;
   /** Hosts outside the record that any of those requests landed on. */
   redirectedTo: string[];
+  /** Of those, where the sitemap request itself landed: the sign of a site that moved. */
+  rootRedirectedTo: string[];
+  /** Hosts outside the record that the sitemap lists pages on, most listed first. */
+  listedElsewhere: string[];
 }
 
 export interface Discovery {
@@ -166,12 +170,27 @@ export function hostsToTry(domain: string): string[] {
 const PUBLIC_SECOND_LEVEL = new Set(["co", "com", "net", "org", "ac", "gov", "edu", "or", "ne"]);
 
 /** One request's outcome, folded into the host's tallies. */
-function tally(seen: HostSeen, answer: Fetched, domains: readonly string[]): void {
+function tally(seen: HostSeen, answer: Fetched, domains: readonly string[], root = false): void {
   seen.requests += 1;
   if (answer.status === 403) seen.refused += 1;
   if (answer.status === 0) seen.silent += 1;
   const away = strayed(answer, domains);
   if (away && !seen.redirectedTo.includes(away)) seen.redirectedTo.push(away);
+  if (away && root && !seen.rootRedirectedTo.includes(away)) seen.rootRedirectedTo.push(away);
+}
+
+/** The hosts a listing points at that are not the maker's, most listed first, three at most. */
+function elsewhere(listed: readonly string[], domains: readonly string[]): string[] {
+  const counts = new Map<string, number>();
+  for (const url of listed) {
+    const host = hostOf(url);
+    if (host === undefined || hostAllowed(host, domains)) continue;
+    counts.set(host, (counts.get(host) ?? 0) + 1);
+  }
+  return [...counts.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .slice(0, 3)
+    .map(([host]) => host);
 }
 
 /**
@@ -200,10 +219,12 @@ async function sitemapOf(
     childrenFailed: 0,
     childrenSkipped: 0,
     redirectedTo: [],
+    rootRedirectedTo: [],
+    listedElsewhere: [],
   };
   for (const host of hosts) {
     const answer = await get(`https://${host}/sitemap.xml`);
-    tally(seen, answer, domains);
+    tally(seen, answer, domains, true);
     seen.host = host;
     seen.status = answer.status;
     if (!ok(answer)) continue;
@@ -232,6 +253,7 @@ async function sitemapOf(
     } else seen.sitemap = isSitemap(root) ? "urlset" : "html";
     seen.listed = listed.length;
     seen.own = listed.filter((u) => ownHost(u, domains)).length;
+    seen.listedElsewhere = elsewhere(listed, domains);
     return { seen, listed };
   }
   return { seen, listed: [] };

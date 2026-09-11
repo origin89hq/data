@@ -75,6 +75,8 @@ const host = (over: Partial<HostSeen> = {}): HostSeen => ({
   childrenFailed: 0,
   childrenSkipped: 0,
   redirectedTo: [],
+  rootRedirectedTo: [],
+  listedElsewhere: [],
   ...over,
 });
 
@@ -96,10 +98,26 @@ test("an empty plan says why, in the order a person would fix things", () => {
     emptyPlanReason(
       seen({
         redirectedTo: ["www.rehlko.com"],
-        hosts: [host({ redirectedTo: ["www.rehlko.com"] })],
+        hosts: [host({ redirectedTo: ["www.rehlko.com"], rootRedirectedTo: ["www.rehlko.com"] })],
       }),
     ),
     "nothing to fetch; the site redirects to www.rehlko.com, which the record does not claim",
+  );
+  assert.equal(
+    emptyPlanReason(
+      seen({ redirectedTo: ["cdn.x.test"], hosts: [host({ redirectedTo: ["cdn.x.test"] })] }),
+    ),
+    "nothing to fetch; read 40 pages, none links a document, and some requests landed on cdn.x.test",
+    "a child sitemap that moved does not make the site one that moved",
+  );
+  assert.equal(
+    emptyPlanReason(
+      seen({
+        hosts: [host({ listed: 120, own: 0, listedElsewhere: ["pulsetech.com"] })],
+        pages: { read: 1, failed: {} },
+      }),
+    ),
+    "nothing to fetch; the sitemap lists 120 pages on pulsetech.com, which the record does not claim",
   );
   assert.equal(
     emptyPlanReason(seen({ redirectedTo: ["cdn.other.test"] })),
@@ -185,7 +203,7 @@ test("a maker's state carries its run and instance, and an empty plan's reason",
     documents: [],
     discovery: seen({
       redirectedTo: ["www.rehlko.com"],
-      hosts: [host({ redirectedTo: ["www.rehlko.com"] })],
+      hosts: [host({ redirectedTo: ["www.rehlko.com"], rootRedirectedTo: ["www.rehlko.com"] })],
     }),
   });
   const maker = await state(objects);
