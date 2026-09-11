@@ -115,6 +115,7 @@ publicRoutes.on(["GET", "HEAD"], "/manifest.json", async (c) => {
     ? await manifest.json<{
         counts?: Record<string, number>;
         files?: Record<string, { rows?: number; bytes: number; sha256: string }>;
+        load?: unknown;
       }>()
     : undefined;
   const origin = new URL(c.req.url).origin;
@@ -134,6 +135,9 @@ publicRoutes.on(["GET", "HEAD"], "/manifest.json", async (c) => {
         url: `${origin}/logos/<manufacturer>-<width>.png`,
       },
       ...(published?.counts ? { counts: published.counts } : {}),
+      // Which load parts make each table, in order, and the column that keys it: what a reader of
+      // the NDJSON needs and the file list alone does not say.
+      ...(published?.load ? { load: published.load } : {}),
       index: `${origin}/manifest.json`,
       files: Object.fromEntries(
         Object.entries(published?.files ?? {}).map(([name, meta]) => [
@@ -922,6 +926,12 @@ async function putManifest(c: Context<PublicationEnv>): Promise<Response> {
     if (rows !== plan.rows)
       disagree.push(`${table}: its load parts hold ${rows} rows, the plan says ${plan.rows}`);
   }
+  // And every part the manifest lists is in some table's plan: a plan that leaves a table out
+  // would load a subset and call it the release.
+  if (parsed.data.load)
+    for (const [name] of files)
+      if (isLoadPart(name) && !assigned.has(name))
+        disagree.push(`${name}: a load part in no table's plan`);
   if (disagree.length > 0)
     return c.json({ error: "the manifest does not describe what is stored", files: disagree }, 409);
 

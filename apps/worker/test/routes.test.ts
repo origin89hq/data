@@ -790,17 +790,37 @@ test("a load part is kept content-addressed, and the manifest's load plan is che
     JSON.stringify(await (await putManifest(env, uncounted)).json()),
     /states no row count/,
   );
+  const stray = '{"id":"s"}\n';
+  await putFile(env, "specs_0001.ndjson", stray);
+  const partial = JSON.stringify({
+    ...JSON.parse(manifestOf({ "models_0001.ndjson": part, "specs_0001.ndjson": stray })),
+    load: { version: 1, tables: { models: { parts: ["models_0001.ndjson"], rows: 1 } } },
+  });
+  assert.match(
+    JSON.stringify(await (await putManifest(env, partial)).json()),
+    /specs_0001.ndjson: a load part in no table's plan/,
+    "a plan that leaves a table out is not a plan",
+  );
   const unlisted = { version: 1, tables: { models: { parts: ["models_0002.ndjson"], rows: 1 } } };
   const missing = await putManifest(env, manifest(unlisted));
   assert.equal(missing.status, 409);
   assert.deepEqual(((await missing.json()) as { files: string[] }).files, [
     "models: load part models_0002.ndjson is not in the manifest",
     "models: its load parts hold 0 rows, the plan says 1",
+    "models_0001.ndjson: a load part in no table's plan",
   ]);
   await env.ARCHIVE.delete(`releases/loads/${sha256(part)}.ndjson`);
   const gone = await putManifest(env, manifest(good));
   assert.equal(gone.status, 409);
   assert.match(JSON.stringify(await gone.json()), /immutable load part is missing/);
+  const index = (await (
+    await app.request("https://data.example/manifest.json", {}, env)
+  ).json()) as { load?: unknown };
+  assert.deepEqual(
+    index.load,
+    good,
+    "the public index carries the plan a reader of the parts needs",
+  );
   const wrongPlan = await putManifest(env, manifest({ version: 2, tables: {} }));
   assert.equal(wrongPlan.status, 400, "a plan of another version is not a manifest");
   const huge = await put(env, "models_0002.ndjson", "x", {
