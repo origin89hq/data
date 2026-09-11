@@ -49,6 +49,7 @@ const seenAt = (over: Partial<HostSeen>): HostSeen => ({
   redirectedTo: [],
   rootRedirectedTo: [],
   listedElsewhere: [],
+  listedElsewhereMore: 0,
   ...over,
 });
 

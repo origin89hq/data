@@ -77,6 +77,7 @@ const host = (over: Partial<HostSeen> = {}): HostSeen => ({
   redirectedTo: [],
   rootRedirectedTo: [],
   listedElsewhere: [],
+  listedElsewhereMore: 0,
   ...over,
 });
 
@@ -118,6 +119,17 @@ test("an empty plan says why, in the order a person would fix things", () => {
       }),
     ),
     "nothing to fetch; the sitemap lists 120 pages on pulsetech.com, which the record does not claim",
+  );
+  assert.equal(
+    emptyPlanReason(
+      seen({
+        hosts: [
+          host({ listed: 9, own: 0, listedElsewhere: ["a", "b", "c"], listedElsewhereMore: 2 }),
+        ],
+        pages: { read: 1, failed: {} },
+      }),
+    ),
+    "nothing to fetch; the sitemap lists 9 pages on a, b, c and 2 more hosts, which the record does not claim",
   );
   assert.equal(
     emptyPlanReason(seen({ redirectedTo: ["cdn.other.test"] })),

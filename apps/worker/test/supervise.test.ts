@@ -154,17 +154,20 @@ test("a run that wrote no plan is asked how it is doing, and one that died is a 
   objects["documents/waaree/current.json"] = pointer("waaree");
   objects["documents/epever/current.json"] = pointer("epever");
   objects["documents/renogy/current.json"] = pointer("renogy");
+  objects["documents/pytes/current.json"] = pointer("pytes");
   const { env, instances } = world(objects);
   instances.set("maker-waaree-2026-09-10-waaree", {
     status: "errored",
     error: { name: "Error", message: "discover pages: timed out" },
   });
   instances.set("maker-epever-2026-09-10-epever", { status: "running" });
+  instances.set("maker-pytes-2026-09-10-pytes", { status: "complete" });
 
   const report = await supervise(env, "2026-09-10");
   assert.deepEqual(report.concerns, [
+    "pytes: discovery run maker-pytes-2026-09-10-pytes completed without writing a plan",
     "renogy: discovery status failed: instance.not_found: maker-renogy-2026-09-10-renogy",
-    "waaree: discovery run maker-waaree-2026-09-10-waaree errored before writing a plan: discover pages: timed out",
+    "waaree: discovery run maker-waaree-2026-09-10-waaree errored without writing a plan: discover pages: timed out",
   ]);
 });
 

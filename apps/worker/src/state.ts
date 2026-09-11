@@ -132,8 +132,10 @@ export function emptyPlanReason(seen: DiscoverySeen | undefined): string {
   const listing = seen.hosts.filter((h) => h.listed > 0);
   if (listing.length > 0 && listing.every((h) => h.own === 0)) {
     const hosts = [...new Set(listing.flatMap((h) => h.listedElsewhere))];
+    const more = listing.reduce((n, h) => n + h.listedElsewhereMore, 0);
+    const others = more > 0 ? ` and ${more} more host${more === 1 ? "" : "s"}` : "";
     const pages = listing.reduce((n, h) => n + h.listed, 0);
-    return `nothing to fetch; the sitemap lists ${pages} pages on ${hosts.join(", ")}, which the record does not claim`;
+    return `nothing to fetch; the sitemap lists ${pages} pages on ${hosts.join(", ")}${others}, which the record does not claim`;
   }
   const strayed =
     seen.redirectedTo.length > 0

@@ -121,8 +121,9 @@ export interface HostSeen {
   redirectedTo: string[];
   /** Of those, where the sitemap request itself landed: the sign of a site that moved. */
   rootRedirectedTo: string[];
-  /** Hosts outside the record that the sitemap lists pages on, most listed first. */
+  /** Hosts outside the record that the sitemap lists pages on, most listed first, three at most, and how many more there were. */
   listedElsewhere: string[];
+  listedElsewhereMore: number;
 }
 
 export interface Discovery {
@@ -183,17 +184,21 @@ function tally(seen: HostSeen, answer: Fetched, domains: readonly string[], root
 }
 
 /** The hosts a listing points at that are not the maker's, most listed first, three at most. */
-function elsewhere(listed: readonly string[], domains: readonly string[]): string[] {
+function elsewhere(
+  listed: readonly string[],
+  domains: readonly string[],
+): { hosts: string[]; more: number } {
   const counts = new Map<string, number>();
   for (const url of listed) {
     const host = hostOf(url);
     if (host === undefined || hostAllowed(host, domains)) continue;
     counts.set(host, (counts.get(host) ?? 0) + 1);
   }
-  return [...counts.entries()]
+  const hosts = [...counts.entries()]
     .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
     .slice(0, 3)
     .map(([host]) => host);
+  return { hosts, more: counts.size - hosts.length };
 }
 
 /**
@@ -224,6 +229,7 @@ async function sitemapOf(
     redirectedTo: [],
     rootRedirectedTo: [],
     listedElsewhere: [],
+    listedElsewhereMore: 0,
   };
   for (const host of hosts) {
     const answer = await get(`https://${host}/sitemap.xml`);
@@ -258,7 +264,9 @@ async function sitemapOf(
     } else seen.sitemap = isSitemap(root) ? "urlset" : "html";
     seen.listed = listed.length;
     seen.own = listed.filter((u) => ownHost(u, domains)).length;
-    seen.listedElsewhere = elsewhere(listed, domains);
+    const away = elsewhere(listed, domains);
+    seen.listedElsewhere = away.hosts;
+    seen.listedElsewhereMore = away.more;
     return { seen, listed };
   }
   return { seen, listed: [] };

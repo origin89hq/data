@@ -158,9 +158,11 @@ async function pass(env: Env, today: string, by: string): Promise<SupervisionRep
       const instance = maker.instance;
       await step(report, "discovery status", maker.maker, async () => {
         const status = await (await env.MANUFACTURER_CRAWL.get(instance)).status();
-        if (status.status === "errored" || status.status === "terminated")
+        // A run that ended, however it ended, and wrote no plan will never write one; left alone,
+        // the maker waits on discovery for ever.
+        if (["errored", "terminated", "complete"].includes(status.status))
           report.concerns.push(
-            `${maker.maker}: discovery run ${instance} ${status.status} before writing a plan${status.error?.message ? `: ${status.error.message}` : ""}`,
+            `${maker.maker}: discovery run ${instance} ${status.status === "complete" ? "completed" : status.status} without writing a plan${status.error?.message ? `: ${status.error.message}` : ""}`,
           );
       });
     }
