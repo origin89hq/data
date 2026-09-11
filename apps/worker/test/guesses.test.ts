@@ -152,12 +152,18 @@ test("an answer cut short is the model losing its place, so the batch is halved,
   );
 });
 
-test("a call that fails is not halved: the part is left for the queue to deliver again", async () => {
-  const { env, asked, text } = world({}, () => new Error("3040: capacity temporarily exceeded"));
-  await assert.rejects(
-    classifyPart(env, part([listing("Renogy 100Ah"), listing("EPEver XTRA4210N")])),
-    /capacity/,
-  );
-  assert.equal(asked.length, 1);
-  assert.equal(text(partAt), undefined);
+test("a call that fails is not halved, whatever it throws: the part is left for the queue to deliver again", async () => {
+  for (const failure of [
+    new Error("3040: capacity temporarily exceeded"),
+    // A binding that could not read its provider's response, which is no answer from the model.
+    new SyntaxError("Unexpected token '<', \"<html>\" is not valid JSON"),
+  ]) {
+    const { env, asked, text } = world({}, () => failure);
+    await assert.rejects(
+      classifyPart(env, part([listing("Renogy 100Ah"), listing("EPEver XTRA4210N")])),
+      failure,
+    );
+    assert.equal(asked.length, 1, failure.message);
+    assert.equal(text(partAt), undefined);
+  }
 });

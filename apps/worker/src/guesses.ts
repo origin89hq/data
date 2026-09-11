@@ -1,6 +1,12 @@
 import { Guess } from "@origin89/equipment-schema/guess";
 import type { Sighting } from "@origin89/equipment-schema/sighting";
-import { BatchMisalignedError, CLASSIFIER_ID, classifierKey, classifyBatch } from "./classify.ts";
+import {
+  BatchMisalignedError,
+  CLASSIFIER_ID,
+  classifierKey,
+  classifyBatch,
+  UnreadableAnswerError,
+} from "./classify.ts";
 import { inputKey, partKey, type Work } from "./work.ts";
 
 /**
@@ -20,7 +26,8 @@ export async function classifyInHalves(ai: Ai, sightings: Sighting[]): Promise<G
   try {
     return await classifyBatch(ai, sightings);
   } catch (error) {
-    const lostItsPlace = error instanceof BatchMisalignedError || error instanceof SyntaxError;
+    const lostItsPlace =
+      error instanceof BatchMisalignedError || error instanceof UnreadableAnswerError;
     if (!lostItsPlace || sightings.length < 2) throw error;
     const half = Math.ceil(sightings.length / 2);
     const [left, right] = await Promise.all([
