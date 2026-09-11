@@ -31,6 +31,7 @@ import {
   type WorkflowCheck,
   type WorkflowRule,
 } from "./oidc.ts";
+import { loadInstanceId } from "./release-load.ts";
 import {
   compareReleases,
   HistoryUnavailable,
@@ -1014,9 +1015,26 @@ async function putManifest(c: Context<PublicationEnv>): Promise<Response> {
     job.sha,
     job.runId,
     job.runAttempt,
+    parsed.data.load,
   );
   await indexRelease(c.env.ARCHIVE, release);
-  return c.json({ file: MANIFEST, files: files.length });
+  // The store behind the API loads the release from its content-addressed parts (#83). One
+  // instance per release: a retried manifest finds it already created and leaves it be.
+  let load: "started" | "already" | "not started" = "not started";
+  if (parsed.data.load) {
+    try {
+      await c.env.RELEASE_LOAD.create({
+        id: loadInstanceId(release.id),
+        params: { release: release.id },
+      });
+      load = "started";
+    } catch (error) {
+      if (!(error instanceof Error && /already exists|instance\.already/i.test(error.message)))
+        throw error;
+      load = "already";
+    }
+  }
+  return c.json({ file: MANIFEST, files: files.length, release: release.id, load });
 }
 
 /**

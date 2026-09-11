@@ -1,0 +1,268 @@
+import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
+import { test } from "node:test";
+import { loadPartName } from "@origin89/equipment-schema/releases";
+import { loadRelease, type Steps } from "../src/release-load.ts";
+import { activeRelease, countRows, releaseRow } from "../src/release-store.ts";
+import { loadKey, releaseKey } from "../src/releases.ts";
+import { d1Double } from "./d1.ts";
+import { world } from "./world.ts";
+
+const sha256 = (text: string) => createHash("sha256").update(text).digest("hex");
+const plain: Steps = { do: (_name, fn) => fn() };
+
+/** A release in the archive: its record, and each table's parts stored by hash. */
+function published(
+  objects: Record<string, string>,
+  id: string,
+  at: string,
+  tables: Record<string, Record<string, unknown>[]>,
+  options: { rowsPerPart?: number; dropPart?: string; lie?: string } = {},
+): string {
+  const files: Record<string, { rows: number; bytes: number; sha256: string }> = {};
+  const load: {
+    version: 1;
+    tables: Record<string, { parts: string[]; rows: number; key?: string }>;
+  } = {
+    version: 1,
+    tables: {},
+  };
+  for (const [table, rows] of Object.entries(tables)) {
+    const parts: string[] = [];
+    const per = options.rowsPerPart ?? 20_000;
+    for (let at = 0; at < rows.length; at += per) {
+      const name = loadPartName(table, parts.length + 1);
+      const text = `${rows
+        .slice(at, at + per)
+        .map((r) => JSON.stringify(r))
+        .join("\n")}\n`;
+      files[name] = {
+        rows: Math.min(per, rows.length - at),
+        bytes: text.length,
+        sha256: sha256(text),
+      };
+      if (options.dropPart !== name) objects[loadKey(sha256(text))] = text;
+      parts.push(name);
+    }
+    load.tables[table] = {
+      parts,
+      rows: options.lie === table ? rows.length + 1 : rows.length,
+      key: "id",
+    };
+  }
+  objects[releaseKey(id)] = JSON.stringify({
+    id,
+    content: sha256(`content ${id}`),
+    attempt: "1",
+    at,
+    sha: "a".repeat(40),
+    job: "1",
+    files,
+    load,
+  });
+  return id;
+}
+
+const R1 = "1".repeat(64);
+const R2 = "2".repeat(64);
+const R3 = "3".repeat(64);
+const models = (n: number, prefix = "m") =>
+  Array.from({ length: n }, (_, i) => ({
+    id: `${prefix}${i}`,
+    tier: "record",
+    manufacturer_id: "acme",
+    manufacturer_name: "Acme",
+    name: `M-${i}`,
+    kind: "inverter",
+  }));
+
+test("a release loads one part at a time, is counted against its plan, and becomes active", async () => {
+  const objects: Record<string, string> = {};
+  published(
+    objects,
+    R1,
+    "2026-09-11T10:00:00Z",
+    {
+      models: models(7),
+      model_keys: [{ model_id: "m0", key: "acmem0", name_key: "m0", label: "Acme", via: "name" }],
+      specs: [{ id: "s0", model_id: "m0", name: "Power", value: "3000", unit: "W" }],
+      feeds: [{ id: "sam-cec" }],
+    },
+    { rowsPerPart: 3 },
+  );
+  const { env } = world(objects);
+  const steps: string[] = [];
+  const step: Steps = {
+    do: (name, fn) => {
+      steps.push(name);
+      return fn();
+    },
+  };
+  const outcome = await loadRelease(env.ARCHIVE, env.RELEASES, step, R1);
+  assert.deepEqual(outcome, { outcome: "loaded", active: true, retired: [] });
+  assert.deepEqual(steps, [
+    "read the release",
+    "begin",
+    "load models_0001.ndjson",
+    "load models_0002.ndjson",
+    "load models_0003.ndjson",
+    "load model_keys_0001.ndjson",
+    "load specs_0001.ndjson",
+    "verify",
+    "activate",
+    "retain",
+  ]);
+  assert.equal(await countRows(env.RELEASES, "models", R1), 7);
+  assert.equal((await activeRelease(env.RELEASES))?.id, R1);
+  const row = await releaseRow(env.RELEASES, R1);
+  assert.deepEqual(JSON.parse(row?.counts ?? "{}"), { models: 7, model_keys: 1, specs: 1 });
+  const stored = await env.RELEASES.prepare(
+    "SELECT name, kind, row FROM models WHERE release = ? AND id = 'm3'",
+  )
+    .bind(R1)
+    .first<{ name: string; kind: string; row: string }>();
+  assert.equal(stored?.name, "M-3");
+  assert.equal(
+    JSON.parse(stored?.row ?? "{}").manufacturer_name,
+    "Acme",
+    "the whole row rides along",
+  );
+  // A second load of the same release changes nothing.
+  assert.deepEqual(await loadRelease(env.ARCHIVE, env.RELEASES, plain, R1), {
+    outcome: "already",
+    state: "active",
+  });
+});
+
+test("a load that cannot finish leaves the active release as it was, and says why", async () => {
+  const objects: Record<string, string> = {};
+  published(objects, R1, "2026-09-11T10:00:00Z", { models: models(2) });
+  published(
+    objects,
+    R2,
+    "2026-09-11T11:00:00Z",
+    { models: models(4) },
+    { rowsPerPart: 2, dropPart: "models_0002.ndjson" },
+  );
+  const { env } = world(objects);
+  await loadRelease(env.ARCHIVE, env.RELEASES, plain, R1);
+  const missing = await loadRelease(env.ARCHIVE, env.RELEASES, plain, R2);
+  assert.equal(missing.outcome, "failed");
+  assert.match(
+    (missing as { reason: string }).reason,
+    /models_0002\.ndjson .* is not in the archive/,
+  );
+  assert.equal((await activeRelease(env.RELEASES))?.id, R1);
+  assert.equal((await releaseRow(env.RELEASES, R2))?.state, "failed");
+  // A plan that promises more rows than the parts hold is a disagreement, not a shorter dataset.
+  const objects2: Record<string, string> = {};
+  published(objects2, R3, "2026-09-11T12:00:00Z", { models: models(2) }, { lie: "models" });
+  const other = world(objects2);
+  const lied = await loadRelease(other.env.ARCHIVE, other.env.RELEASES, plain, R3);
+  assert.deepEqual(lied, { outcome: "failed", reason: "models: 2 rows loaded, the plan says 3" });
+  // A release with no plan at all is not loadable.
+  const bare: Record<string, string> = {};
+  published(bare, R1, "2026-09-11T10:00:00Z", {});
+  bare[releaseKey(R1)] = JSON.stringify({
+    ...JSON.parse(bare[releaseKey(R1)] ?? "{}"),
+    load: undefined,
+  });
+  const none = world(bare);
+  assert.deepEqual(await loadRelease(none.env.ARCHIVE, none.env.RELEASES, plain, R1), {
+    outcome: "failed",
+    reason: "the release carries no load plan",
+  });
+});
+
+test("a keyed table refuses a repeated id, so a release that repeats one does not load", async () => {
+  const objects: Record<string, string> = {};
+  published(objects, R1, "2026-09-11T10:00:00Z", { models: [...models(2), ...models(1)] });
+  const { env } = world(objects);
+  const outcome = await loadRelease(env.ARCHIVE, env.RELEASES, plain, R1);
+  assert.equal(outcome.outcome, "failed");
+  assert.match(
+    (outcome as { reason: string }).reason,
+    /UNIQUE constraint failed: models\.release, models\.id/,
+  );
+  assert.equal(await activeRelease(env.RELEASES), null);
+});
+
+test("the active pointer moves only to a newer publication, whatever order the loads finish in", async () => {
+  const objects: Record<string, string> = {};
+  published(objects, R1, "2026-09-11T10:00:00Z", { models: models(1) });
+  published(objects, R2, "2026-09-11T12:00:00Z", { models: models(2) });
+  published(objects, R3, "2026-09-11T11:00:00Z", { models: models(3) });
+  const { env } = world(objects);
+  await loadRelease(env.ARCHIVE, env.RELEASES, plain, R1);
+  assert.equal((await activeRelease(env.RELEASES))?.id, R1);
+  const newer = await loadRelease(env.ARCHIVE, env.RELEASES, plain, R2);
+  assert.deepEqual(newer, { outcome: "loaded", active: true, retired: [] });
+  const older = await loadRelease(env.ARCHIVE, env.RELEASES, plain, R3);
+  assert.deepEqual(
+    older,
+    { outcome: "loaded", active: false, retired: [] },
+    "an older publication loads but does not take over",
+  );
+  assert.equal((await activeRelease(env.RELEASES))?.id, R2);
+  assert.equal((await releaseRow(env.RELEASES, R3))?.state, "retained");
+  assert.equal(
+    await countRows(env.RELEASES, "models", R3),
+    3,
+    "and stays loaded for a pinned lookup",
+  );
+});
+
+test("retention keeps the pinned, the active and the recent, and lets the rest go in chunks", async () => {
+  const objects: Record<string, string> = {};
+  const ids = Array.from({ length: 5 }, (_, i) => String(i + 1).repeat(64));
+  for (const [i, id] of ids.entries())
+    published(objects, id, `2026-09-0${i + 1}T10:00:00Z`, { models: models(3, `r${i}`) });
+  const { env } = world(objects);
+  const keep = { recent: 2, pinned: [ids[0] ?? ""] };
+  const outcomes = [];
+  for (const id of ids)
+    outcomes.push(await loadRelease(env.ARCHIVE, env.RELEASES, plain, id, keep));
+  // Two recent kept beside the pinned first: the fourth load lets the second go, the fifth the third.
+  assert.deepEqual(
+    outcomes.map((o) => (o.outcome === "loaded" ? o.retired : o.outcome)),
+    [[], [], [], [ids[1]], [ids[2]]],
+  );
+  const left = (
+    await env.RELEASES.prepare("SELECT id, state FROM releases ORDER BY published_at").all<{
+      id: string;
+      state: string;
+    }>()
+  ).results;
+  assert.deepEqual(
+    left.map((r) => [r.id.slice(0, 1), r.state]),
+    [
+      ["1", "retained"],
+      ["4", "retained"],
+      ["5", "active"],
+    ],
+  );
+  assert.equal(
+    await countRows(env.RELEASES, "models", ids[1] ?? ""),
+    0,
+    "a retired release's rows are gone",
+  );
+  assert.equal(await countRows(env.RELEASES, "models", ids[0] ?? ""), 3, "a pinned one's stay");
+});
+
+test("a store double refuses what SQLite refuses, which is what the store relies on", async () => {
+  const db = d1Double();
+  await db.exec("CREATE TABLE t (release TEXT, id TEXT, PRIMARY KEY (release, id))");
+  await db.batch([db.prepare("INSERT INTO t VALUES (?, ?)").bind("r", "a")]);
+  await assert.rejects(
+    db.batch([
+      db.prepare("INSERT INTO t VALUES (?, ?)").bind("r", "b"),
+      db.prepare("INSERT INTO t VALUES (?, ?)").bind("r", "a"),
+    ]),
+    /UNIQUE constraint failed/,
+  );
+  assert.equal(
+    (await db.prepare("SELECT COUNT(*) AS n FROM t").first<{ n: number }>())?.n,
+    1,
+    "a failed batch is rolled back whole",
+  );
+});

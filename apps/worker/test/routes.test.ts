@@ -352,7 +352,16 @@ test("the manifest goes up last, once every file it names is stored as it says",
   const manifest = manifestOf(files);
   const res = await putManifest(env, manifest);
   assert.equal(res.status, 200, await res.clone().text());
-  assert.deepEqual(await res.json(), { file: "manifest.json", files: 2 });
+  const accepted = (await res.json()) as {
+    file: string;
+    files: number;
+    release: string;
+    load: string;
+  };
+  assert.equal(accepted.file, "manifest.json");
+  assert.equal(accepted.files, 2);
+  assert.match(accepted.release, /^[a-f0-9]{64}$/);
+  assert.equal(accepted.load, "not started", "a manifest without a load plan starts no load");
   // Byte for byte what the build wrote, counts included.
   assert.equal(text("dataset/v1/manifest.json"), manifest);
   const index = (await (
@@ -904,4 +913,32 @@ test("a load part is kept content-addressed, and the manifest's load plan is che
     "content-length": String(16 * 1024 * 1024 + 1),
   });
   assert.equal(huge.status, 413);
+});
+
+test("an accepted manifest with a load plan starts the release's load, once (#83)", async () => {
+  const { env, loads } = bucket();
+  const part = '{"id":"a"}\n';
+  await putFile(env, "models_0001.ndjson", part);
+  const withPlan = JSON.stringify({
+    ...JSON.parse(manifestOf({ "models_0001.ndjson": part })),
+    load: { version: 1, tables: { models: { parts: ["models_0001.ndjson"], rows: 1, key: "id" } } },
+  });
+  const first = await putManifest(env, withPlan);
+  assert.equal(first.status, 200);
+  const answer = (await first.json()) as { release: string; load: string };
+  assert.equal(answer.load, "started");
+  assert.deepEqual(loads, [{ id: `load-${answer.release}`, params: { release: answer.release } }]);
+  const again = await putManifest(env, withPlan);
+  assert.equal(
+    ((await again.json()) as { load: string }).load,
+    "already",
+    "a retried manifest starts no second load",
+  );
+  assert.equal(loads.length, 1);
+  const bare = await putManifest(env, manifestOf({ "models_0001.ndjson": part }));
+  assert.equal(
+    ((await bare.json()) as { load: string }).load,
+    "not started",
+    "no plan, nothing to load",
+  );
 });

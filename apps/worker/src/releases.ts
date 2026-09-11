@@ -15,13 +15,14 @@ export class HistoryUnavailable extends Error {}
 export const snapshotKey = (sha: string) => `releases/snapshots/${sha}.json`;
 /** A load part by its content, so a loader reads the bytes the manifest named whatever was published since. */
 export const loadKey = (sha: string) => `releases/loads/${sha}.ndjson`;
-const releaseKey = (id: string) => `releases/versions/${id}.json`;
+export const releaseKey = (id: string) => `releases/versions/${id}.json`;
 export async function saveRelease(
   bucket: R2Bucket,
   files: Release["files"],
   sha: string,
   job: string,
   attempt = "1",
+  load?: Release["load"],
 ) {
   const content = await digest(canonical(files));
   // A retry within one job attempt is the same publication. Another job or rerun is a new
@@ -35,6 +36,7 @@ export async function saveRelease(
     sha,
     job,
     files,
+    ...(load ? { load } : {}),
   });
   const written = await bucket.put(releaseKey(id), JSON.stringify(release), {
     onlyIf: { etagDoesNotMatch: "*" },

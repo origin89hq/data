@@ -8,6 +8,7 @@ import { superviseIfFree } from "./supervise.ts";
 
 export { ManufacturerCrawl } from "./manufacturer-crawl.ts";
 export { PageCrawl } from "./page-crawl.ts";
+export { ReleaseLoad } from "./release-load-workflow.ts";
 export { SellerCrawl } from "./seller-crawl.ts";
 
 export default {
