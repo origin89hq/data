@@ -462,6 +462,12 @@ additions, removals, changed field paths, before/after records, and file changes
 Record counts refer to authored records; CSV tables can have more rows because
 they expand nested claims. Publishing identical content in another job or rerun records a new occurrence.
 
+Beside each table's CSV and Parquet the build writes its rows as newline-delimited
+JSON in parts of at most 20,000 rows, `models_0001.ndjson` and so on, and the
+manifest's `load` section says which parts make each table. The publish step keeps
+every part content-addressed as well, so a loader reading a release by its manifest
+reads the bytes that manifest named, whatever was published since (#83).
+
 The build adds `records_<kind>.json` snapshots for the seven authored record
 types. Publication keeps these by SHA-256 in R2 and validates their presence before
 accepting the manifest. Snapshots are limited to 6 MiB per kind and 50,000 records

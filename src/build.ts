@@ -3,8 +3,14 @@ import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { PROPERTIES } from "@origin89/equipment-schema/properties";
-import { RECORD_SNAPSHOT_MAX, RecordKind, snapshotName } from "@origin89/equipment-schema/releases";
+import {
+  type LoadPlan,
+  RECORD_SNAPSHOT_MAX,
+  RecordKind,
+  snapshotName,
+} from "@origin89/equipment-schema/releases";
 import { toCsv } from "./csv.ts";
+import { loadParts } from "./load-files.ts";
 import { loadRecords, type Records } from "./records.ts";
 import { duplicateIds, type Table, tables } from "./tables.ts";
 import { validate } from "./validate.ts";
@@ -13,8 +19,8 @@ import { vocabulary } from "./vocabulary.ts";
 export const DIST_DIR = new URL("../dist/", import.meta.url).pathname;
 
 /**
- * Emit the release: one CSV and one Parquet per table, the nested dialect JSON, and a
- * manifest with a hash of each. No timestamp anywhere, so the same records build the same bytes.
+ * Emit the release: one CSV, one Parquet and the NDJSON load parts per table, the nested dialect
+ * JSON, and a manifest with a hash of each. No timestamp anywhere, so the same records build the same bytes.
  */
 export function build(records: Records, dist = DIST_DIR): Record<string, unknown> {
   const report = validate(records);
@@ -35,7 +41,10 @@ export function build(records: Records, dist = DIST_DIR): Record<string, unknown
       sources: built.find((t) => t.name === "sources")?.rows.length ?? 0,
     },
     files: {} as Record<string, { rows?: number; sha256: string; bytes: number }>,
+    // Which load parts make each table, for the loader that puts a release behind the API (#83).
+    load: { version: 1, tables: {} } as LoadPlan,
   };
+  const load = manifest.load as LoadPlan;
   const files = manifest.files as Record<string, { rows?: number; sha256: string; bytes: number }>;
   const record = (name: string, rows?: number) => {
     const bytes = readFileSync(join(dist, name));
@@ -63,6 +72,16 @@ export function build(records: Records, dist = DIST_DIR): Record<string, unknown
     record(csv, table.rows.length);
     writeParquet(dist, table);
     record(`${table.name}.parquet`, table.rows.length);
+    const parts = loadParts(table);
+    for (const part of parts) {
+      writeFileSync(join(dist, part.name), part.text);
+      record(part.name, part.rows);
+    }
+    load.tables[table.name] = {
+      parts: parts.map((p) => p.name),
+      rows: table.rows.length,
+      ...(table.columns.some((c) => c.name === "id") ? { key: "id" } : {}),
+    };
   }
   writeFileSync(join(dist, "dialects.json"), `${JSON.stringify(records.dialects, null, 2)}\n`);
   record("dialects.json", records.dialects.length);

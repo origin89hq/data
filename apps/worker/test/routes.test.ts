@@ -12,6 +12,7 @@ import {
   WORKFLOW_ROUTES,
   workflowRoutes,
 } from "../src/routes.ts";
+import { datasetType } from "../src/runs.ts";
 import { authRoutes } from "../src/sign-in.ts";
 import { jobToken, jwks } from "./github-token.ts";
 import { world } from "./world.ts";
@@ -749,4 +750,42 @@ test("a failed public manifest write retains no attribution from the failed publ
   assert.equal(entry.sha, "b".repeat(40));
   assert.equal(entry.job, "17000000002");
   assert.equal(entry.attempt, "2");
+});
+
+test("a load part is kept content-addressed, and the manifest's load plan is checked against what is stored (#83)", async () => {
+  const { env, text } = bucket();
+  const part = '{"id":"a"}\n{"id":"b"}\n';
+  assert.equal((await putFile(env, "models_0001.ndjson", part)).status, 200);
+  assert.equal(text("dataset/v1/models_0001.ndjson"), part);
+  assert.equal(text(`releases/loads/${sha256(part)}.ndjson`), part, "the immutable copy");
+  assert.equal(datasetType("models_0001.ndjson"), "application/x-ndjson; charset=utf-8");
+  const manifest = (plan: unknown) =>
+    JSON.stringify({
+      ...JSON.parse(manifestOf({ "models_0001.ndjson": part })),
+      load: plan,
+    });
+  const good = {
+    version: 1,
+    tables: { models: { parts: ["models_0001.ndjson"], rows: 1, key: "id" } },
+  };
+  assert.equal((await putManifest(env, manifest(good))).status, 200);
+  const unlisted = { version: 1, tables: { models: { parts: ["models_0002.ndjson"], rows: 1 } } };
+  const missing = await putManifest(env, manifest(unlisted));
+  assert.equal(missing.status, 409);
+  assert.deepEqual(((await missing.json()) as { files: string[] }).files, [
+    "models: load part models_0002.ndjson is not in the manifest",
+    "models: its load parts hold 0 rows, the plan says 1",
+  ]);
+  await env.ARCHIVE.delete(`releases/loads/${sha256(part)}.ndjson`);
+  const gone = await putManifest(env, manifest(good));
+  assert.equal(gone.status, 409);
+  assert.match(JSON.stringify(await gone.json()), /immutable load part is missing/);
+  const wrongPlan = await putManifest(env, manifest({ version: 2, tables: {} }));
+  assert.equal(wrongPlan.status, 400, "a plan of another version is not a manifest");
+  const huge = await put(env, "models_0002.ndjson", "x", {
+    ...(await publish()),
+    "x-content-sha256": sha256("x"),
+    "content-length": String(16 * 1024 * 1024 + 1),
+  });
+  assert.equal(huge.status, 413);
 });

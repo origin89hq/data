@@ -131,7 +131,7 @@ export const LOGO_PATH = /^\/logos\/[a-z0-9-]+-\d{2,4}\.png$/;
  * these are public too, under a version prefix: `v1` is a promise about the shape of the columns,
  * and a later shape gets `v2` rather than silently changing under somebody's query.
  */
-export const DATASET_PATH = /^\/v1\/[a-z0-9_]+\.(parquet|csv|json)$/;
+export const DATASET_PATH = /^\/v1\/[a-z0-9_]+\.(parquet|csv|json|ndjson)$/;
 
 /** Where a published file lives in the archive. */
 export const datasetKey = (name: string): string => `dataset/v1/${name}`;
@@ -142,4 +142,6 @@ export const datasetType = (name: string): string =>
     ? "application/vnd.apache.parquet"
     : name.endsWith(".csv")
       ? "text/csv; charset=utf-8"
-      : "application/json; charset=utf-8";
+      : name.endsWith(".ndjson")
+        ? "application/x-ndjson; charset=utf-8"
+        : "application/json; charset=utf-8";

@@ -3,6 +3,9 @@ import { APPROVAL_EVENT, CrawlApproval } from "@origin89/equipment-schema/docume
 import { READS_PER_REQUEST } from "@origin89/equipment-schema/provenance";
 import {
   CompareQuery,
+  isLoadPart,
+  LOAD_PART_MAX,
+  LoadPlan,
   RECORD_SNAPSHOT_MAX,
   RecordKind,
   snapshotName,
@@ -31,6 +34,7 @@ import {
   compareReleases,
   HistoryUnavailable,
   indexRelease,
+  loadKey,
   releasePage,
   saveRelease,
   snapshotKey,
@@ -787,6 +791,7 @@ const DatasetManifest = z.object({
       }),
     )
     .refine((files) => Object.keys(files).length <= 256, "too many dataset files"),
+  load: LoadPlan.optional(),
 });
 
 /**
@@ -816,13 +821,21 @@ async function putFile(c: Context<PublicationEnv>, name: string): Promise<Respon
   const isSnapshot = RecordKind.options.some((kind) => snapshotName(kind) === name);
   if (isSnapshot && length > RECORD_SNAPSHOT_MAX)
     return c.json({ error: "Record snapshot is too large" }, 413);
+  const isLoad = isLoadPart(name);
+  if (isLoad && length > LOAD_PART_MAX) return c.json({ error: "Load part is too large" }, 413);
   try {
-    // A snapshot is bounded and content-addressed before the mutable public copy changes.
-    const content = isSnapshot ? new Uint8Array(await c.req.arrayBuffer()) : body;
+    // A snapshot or a load part is bounded and content-addressed before the mutable public copy
+    // changes: a loader reads the part by its hash, whatever was published since.
+    const content = isSnapshot || isLoad ? new Uint8Array(await c.req.arrayBuffer()) : body;
     if (isSnapshot)
       await c.env.ARCHIVE.put(snapshotKey(sha256), content, {
         sha256,
         httpMetadata: { contentType: "application/json" },
+      });
+    if (isLoad)
+      await c.env.ARCHIVE.put(loadKey(sha256), content, {
+        sha256,
+        httpMetadata: { contentType: datasetType(name) },
       });
     const object = await c.env.ARCHIVE.put(datasetKey(name), content, {
       sha256,
@@ -883,6 +896,23 @@ async function putManifest(c: Context<PublicationEnv>): Promise<Response> {
       snapshot.checksums.toJSON().sha256 !== meta.sha256
     )
       disagree.push(`${snapshotName(kind)}: immutable snapshot is missing or inconsistent`);
+  }
+  for (const [name, meta] of files) {
+    if (!isLoadPart(name)) continue;
+    const part = await c.env.ARCHIVE.head(loadKey(meta.sha256));
+    if (!part || part.size !== meta.bytes || part.checksums.toJSON().sha256 !== meta.sha256)
+      disagree.push(`${name}: immutable load part is missing or inconsistent`);
+  }
+  // A load plan names parts the manifest lists, in the rows the manifest states, or it is no plan.
+  for (const [table, plan] of Object.entries(parsed.data.load?.tables ?? {})) {
+    let rows = 0;
+    for (const part of plan.parts) {
+      const meta = parsed.data.files[part];
+      if (!meta) disagree.push(`${table}: load part ${part} is not in the manifest`);
+      else rows += meta.rows ?? 0;
+    }
+    if (rows !== plan.rows)
+      disagree.push(`${table}: its load parts hold ${rows} rows, the plan says ${plan.rows}`);
   }
   if (disagree.length > 0)
     return c.json({ error: "the manifest does not describe what is stored", files: disagree }, 409);
