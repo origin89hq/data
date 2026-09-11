@@ -97,6 +97,14 @@ export type Basis = z.infer<typeof Basis>;
 export const GapReason = z.enum(["no-claim", "unparsed", "needs-conditions", "conflict"]);
 export type GapReason = z.infer<typeof GapReason>;
 
+/** Whether a property row is a usable value or one of two that disagree; `properties.status`. */
+export const PropertyStatus = z.enum(["value", "conflict"]);
+export type PropertyStatus = z.infer<typeof PropertyStatus>;
+
+/** Whether a figure is per input or for the whole unit; `properties.scope`. */
+export const PropertyScope = z.enum(["per-input", "total"]);
+export type PropertyScope = z.infer<typeof PropertyScope>;
+
 export const Property = z
   .object({
     /** Dotted, lowest-level last: `pv.voc.max`. */
@@ -116,7 +124,7 @@ export const Property = z
      * Whether the figure is per input or for the whole unit, where a device has several MPPT
      * inputs and a maker prints either without saying. Absent where the question does not arise.
      */
-    scope: z.enum(["per-input", "total"]).optional(),
+    scope: PropertyScope.optional(),
     description: z.string().min(1),
   })
   .strict();

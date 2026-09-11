@@ -7,6 +7,7 @@ import {
   type GapReason,
   PROPERTIES,
   type Property,
+  type PropertyStatus,
 } from "@origin89/equipment-schema/properties";
 import { conditionsFrom, conditionsKey, mergeConditions, splitDuration } from "./conditions.ts";
 import { type Feed, type FeedModel, feedSpecId } from "./feeds.ts";
@@ -26,7 +27,7 @@ import { type Parsed, readProperty } from "./quantities.ts";
 export interface PropertyRow {
   model: string;
   key: string;
-  status: "value" | "conflict";
+  status: PropertyStatus;
   value?: number;
   min?: number;
   max?: number;

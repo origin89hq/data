@@ -110,7 +110,7 @@ publicRoutes.on(["GET", "HEAD"], "/manifest.json", async (c) => {
   const published = manifest
     ? await manifest.json<{
         counts?: Record<string, number>;
-        files?: Record<string, { rows: number; bytes: number; sha256: string }>;
+        files?: Record<string, { rows?: number; bytes: number; sha256: string }>;
       }>()
     : undefined;
   const origin = new URL(c.req.url).origin;

@@ -468,6 +468,13 @@ accepting the manifest. Snapshots are limited to 6 MiB per kind and 50,000 recor
 per comparison; oversized or missing history is reported explicitly. History
 reads require the existing member session. No extra service or binding is needed.
 
+The build also emits `vocabulary.json`: the closed lists a consumer joins on
+(metric and command kinds, equipment kinds, dialect families, confidence,
+driver status, refuter status, brand decisions, the row tiers, the
+dialect-model tiers, a property's basis, status and scope, a gap's reason,
+a dialect kind's direction and a model key's origin), taken from `packages/schema` so a firmware crosswalk or
+an assistant pins the words with the release rather than copying them.
+
 Publication checks the Worker's history capability before uploading any file.
 An automatic publish on an older Worker fails explicitly and leaves the dataset
 untouched. A successful manual Worker deployment triggers publication again;

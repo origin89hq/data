@@ -65,7 +65,7 @@ export interface DocumentPlan {
 }
 export interface DatasetFile {
   name: string;
-  rows: number;
+  rows?: number;
   bytes: number;
   sha256: string;
 }
@@ -432,14 +432,26 @@ export async function startRun(
     return { id, reconciled: body.outcome === "reconciled" };
   });
 }
-export async function published(signal?: AbortSignal): Promise<DatasetFile[]> {
-  const files = object(object(await read("/manifest.json", signal)).files);
+export function parsePublished(value: unknown): DatasetFile[] {
+  const files = object(object(value).files);
   return Object.entries(files).map(([name, value]) => {
     if (!/^[a-z0-9_]+\.(csv|parquet|json)$/.test(name))
       throw Error("The index contains an unsupported filename.");
     const row = object(value);
     const sha256 = string(row.sha256);
     if (!/^[0-9a-f]{64}$/.test(sha256)) throw Error("The index contains an invalid content hash.");
-    return { name, rows: number(row.rows), bytes: number(row.bytes), sha256 };
+    // A table has rows and the index must say how many; a JSON file such as `vocabulary.json`
+    // has none to count, and the manifest leaves the field out rather than write a number that
+    // measures nothing.
+    const table = /\.(csv|parquet)$/.test(name);
+    return {
+      name,
+      rows: table ? number(row.rows) : optionalNumber(row.rows),
+      bytes: number(row.bytes),
+      sha256,
+    };
   });
+}
+export async function published(signal?: AbortSignal): Promise<DatasetFile[]> {
+  return parsePublished(await read("/manifest.json", signal));
 }
