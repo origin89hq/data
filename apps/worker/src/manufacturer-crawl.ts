@@ -208,19 +208,28 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     // read, and the slot goes to the next one instead.
     // Probes are asked for on an allowance of their own: a probe is one request to learn what a
     // link is, not a page read, and a sitemap that fills the page budget must not starve them.
-    const origins = new Map(probes.map((p) => [p.url, p.foundOn]));
-    const toProbe = probes.slice(0, MAX_PROBES_PER_RUN).map((p) => p.url);
-    for (let b = 0; b * DISCOVER_BATCH < toProbe.length; b += 1) {
-      const slice = toProbe.slice(b * DISCOVER_BATCH, (b + 1) * DISCOVER_BATCH);
-      take(
-        await step.do(`probe documents ${b + 1}`, reading, () =>
-          readPages(slice, domains, undefined, documentHosts, origins),
-        ),
-      );
-      await step.sleep(`politeness after probes ${b + 1}`, "2 seconds");
-    }
-    if (probes.length > toProbe.length)
-      seen.pages.probesDropped = (seen.pages.probesDropped ?? 0) + probes.length - toProbe.length;
+    // They are drained before the hop and again after it, since a page reached by following
+    // links can link a document host too.
+    let probed = 0;
+    let probeBatches = 0;
+    const drainProbes = async (): Promise<void> => {
+      while (probed < Math.min(probes.length, MAX_PROBES_PER_RUN)) {
+        const end = Math.min(probed + DISCOVER_BATCH, probes.length, MAX_PROBES_PER_RUN);
+        const batch = probes.slice(probed, end);
+        const origins = new Map(batch.map((p) => [p.url, p.foundOn]));
+        const slice = batch.map((p) => p.url);
+        probeBatches += 1;
+        const n = probeBatches;
+        take(
+          await step.do(`probe documents ${n}`, reading, () =>
+            readPages(slice, domains, undefined, documentHosts, origins),
+          ),
+        );
+        probed = end;
+        await step.sleep(`politeness after probes ${n}`, "2 seconds");
+      }
+    };
+    await drainProbes();
 
     const frontier = hopOrder(candidates);
     let remaining = Math.max(0, budget - attempted);
@@ -241,6 +250,10 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     // What the budget did not reach, so a plan built from a hop that stopped short says so.
     const unfollowed = nextHop(frontier, cursor, landedAt, Number.MAX_SAFE_INTEGER).slice.length;
     if (unfollowed > 0) seen.pages.unfollowed = unfollowed;
+    // Probes found while following links, and what the allowance left unasked.
+    await drainProbes();
+    if (probes.length > probed)
+      seen.pages.probesDropped = (seen.pages.probesDropped ?? 0) + probes.length - probed;
     if (specPages.length > 0) {
       await step.do("write the specification pages this maker publishes", async () => {
         const ranked = specPages.sort((a, b) => b.withUnit - a.withUnit || b.figures - a.figures);
