@@ -176,10 +176,10 @@ export function parseQuantity(
     if (lo > hi) return { ok: false, reason: "a range whose ends are reversed" };
     return { ok: true, parsed: { shape: "range", min: lo, max: hi, unit: to } };
   }
-  const converted = terms.map((t) => finite(by(t.min)));
-  if (converted.some((v) => v === undefined))
+  const numbers = terms.map((t) => finite(by(t.min)));
+  if (numbers.some((v) => v === undefined))
     return { ok: false, reason: `too large to hold in ${to}` };
-  const values = [...new Set(converted.filter((v): v is number => v !== undefined))];
+  const values = [...new Set(numbers.filter((v): v is number => v !== undefined))];
   const [only] = values;
   if (values.length === 1 && only !== undefined)
     return { ok: true, parsed: { shape: "scalar", value: only, unit: to } };
