@@ -120,7 +120,7 @@ test("a model named in a dialect's table is linked to it, carrying the catalogue
   assert.deepEqual(got.model.dialects, [
     {
       dialect: "epever-tracer-a",
-      evidence: { kind: "catalogue-name", sources: [{ source: "s", citation: "c" }] },
+      evidence: { kind: "catalogue-name", sources: [] },
       confidence: "vendor-doc",
     },
   ]);

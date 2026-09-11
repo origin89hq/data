@@ -8,21 +8,7 @@
     {
       "dialect": "epever-xtra-n-g3",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "epever-com-wp-content-uploads-2024-01-xtra-n-g3-ble-manual-en-v1-8",
-            "citation": "EPEVER 'USER MANUAL MPPT Solar Charge Controller XTRA1206/…/4415N G3 / G3 BLE' V1.8 — committed at docs/epever-xtra-n-g3-manual-v1.8.pdf (https://www.epever.com/wp-content/uploads/2024/01/XTRA-N-G3-BLE-Manual-EN-V1.8.pdf"
-          },
-          {
-            "source": "epever-com-wp-content-uploads-2024-01-epever-datasheet-xtra-n-g3-series",
-            "citation": "EPEVER XTRA-N G3 series datasheet, https://www.epever.com/wp-content/uploads/2024/01/EPEVER-DataSheet-XTRA-N-G3-Series.pdf"
-          },
-          {
-            "source": "epever-com-product-xtra-n-g3-mppt-charge-controller",
-            "citation": "EPEVER product page, https://www.epever.com/product/xtra-n-g3-mppt-charge-controller/"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     }

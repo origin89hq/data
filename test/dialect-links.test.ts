@@ -1,12 +1,19 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import type { DialectLink } from "@origin89/equipment-schema/model";
-import { catalogueLink, mergeLinks, sameDialects } from "../src/dialect-links.ts";
+import { catalogueLink, mergeLinks, sameLinks } from "../src/dialect-links.ts";
 
-const link = (kind: DialectLink["evidence"]["kind"], citation: string): DialectLink => ({
+const link = (
+  kind: DialectLink["evidence"]["kind"],
+  citation: string,
+  confidence: DialectLink["confidence"] = "vendor-doc",
+): DialectLink => ({
   dialect: "d",
-  evidence: { kind, sources: [{ source: "s", citation }] },
-  confidence: "vendor-doc",
+  evidence:
+    kind === "catalogue-name"
+      ? { kind, sources: [] }
+      : { kind, sources: [{ source: "s", citation }] },
+  confidence,
 });
 
 test("merging links keeps the stronger evidence whichever side it came from, and refreshes a catalogue claim", () => {
@@ -23,9 +30,9 @@ test("merging links keeps the stronger evidence whichever side it came from, and
     "and is not replaced by a claim",
   );
   assert.deepEqual(
-    mergeLinks([catalogue], [link("catalogue-name", "new")]),
-    [link("catalogue-name", "new")],
-    "a later catalogue claim is the fresher one",
+    mergeLinks([catalogue], [link("catalogue-name", "", "unverified")]),
+    [link("catalogue-name", "", "unverified")],
+    "a later catalogue claim is the fresher one, carrying the dialect's confidence now",
   );
   const vendor = link("vendor-doc", "manual");
   assert.deepEqual(
@@ -40,11 +47,21 @@ test("merging links keeps the stronger evidence whichever side it came from, and
     ["a", "b"],
     "sorted by dialect",
   );
-  assert.equal(sameDialects([register], [catalogue]), true);
-  assert.equal(sameDialects([register], []), false);
+  assert.equal(sameLinks([register], [register]), true);
   assert.equal(
-    catalogueLink({ id: "x", sources: [{ source: "s", citation: "c" }], confidence: "unverified" })
-      .evidence.kind,
-    "catalogue-name",
+    sameLinks([register], [catalogue]),
+    false,
+    "the same dialect under other evidence is a change to write",
   );
+  assert.equal(
+    sameLinks([catalogue], [link("catalogue-name", "", "unverified")]),
+    false,
+    "a catalogue claim whose confidence moved is a change to write",
+  );
+  assert.equal(sameLinks([register], []), false);
+  assert.deepEqual(catalogueLink({ id: "x", confidence: "unverified" }), {
+    dialect: "x",
+    evidence: { kind: "catalogue-name", sources: [] },
+    confidence: "unverified",
+  });
 });

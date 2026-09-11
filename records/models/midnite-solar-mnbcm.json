@@ -8,21 +8,7 @@
     {
       "dialect": "midnite-mnbcm",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "solar-electric-com-lib-wind-sun-mnbcmmanual",
-            "citation": "MidNite Solar 'Battery Capacity Meter MNBCM / MNBCMS' installation manual, P/N 10-188-1 Rev C, dated 12-23-14 — https://www.solar-electric.com/lib/wind-sun/MNBCMmanual.pdf — committed at /Users/lemarier/dev/solar/docs/mi"
-          },
-          {
-            "source": "midnitesolar-com-pdfs-batcapmeter-frontback",
-            "citation": "MidNite Solar Battery Capacity Meter brochure — https://www.midnitesolar.com/pdfs/batCapMeter_frontBack.pdf"
-          },
-          {
-            "source": "midnitesolar-com-documents-php-act-model-mnbcm-productcatname-battery-accessories-productcat-id",
-            "citation": "MidNite Solar product documents page for MNBCM — https://midnitesolar.com/documents.php?act=&model=MNBCM&productCatName=Battery+Accessories&productCat_ID=39&product_ID=444"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "vendor-doc"
     }

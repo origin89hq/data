@@ -8,21 +8,7 @@
     {
       "dialect": "xantrex-rv-c-unknown",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "xantrex-com-wp-content-uploads-2021-12-975-0799-01-01-rev-dfreedom-xc-pro-owners-guide-eng",
-            "citation": "Freedom XC PRO Owner's Guide 975-0799-01-01 Rev D: https://xantrex.com/wp-content/uploads/2021/12/975-0799-01-01_Rev-DFreedom-XC-PRO-Owners-Guide_ENG.pdf (20-pin CC port pinout, CANbus/RV-C J1939)"
-          },
-          {
-            "source": "xantrex-com-wp-content-uploads-2022-07-freedom-combox-owners-guide-975-1034-01-01-rev-e-eng",
-            "citation": "Freedom X Combox Owner's Guide 975-1034-01-01 Rev E: https://xantrex.com/wp-content/uploads/2022/07/Freedom-Combox-Owners-Guide-975-1034-01-01_Rev-E_ENG.pdf"
-          },
-          {
-            "source": "xantrex-com-wp-content-uploads-2022-07-datasheet-xantrex-freedomxcombox-20260715",
-            "citation": "Freedom X Combox datasheet: https://xantrex.com/wp-content/uploads/2022/07/DataSheet_Xantrex_FreedomXCombox_20260715.pdf"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     }

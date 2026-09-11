@@ -10,21 +10,7 @@
     {
       "dialect": "morningstar-sunsaver-duo",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "morningstar-sunsaver-duo-modbus-specification",
-            "citation": "SunSaver Duo MODBUS Specification V03, 4 March 2010 — committed at /Users/lemarier/dev/solar/docs/morningstar-sunsaver-duo-modbus-specification.pdf (17 pp)"
-          },
-          {
-            "source": "morningstarcorp-com-ssd-app-modbus-en-03",
-            "citation": "https://www.morningstarcorp.com/ssd-app_-modbus-en_-03/"
-          },
-          {
-            "source": "morningstar-product-connectivity-manual",
-            "citation": "Morningstar Product Connectivity Manual, Table 2 — committed at /Users/lemarier/dev/solar/docs/morningstar-product-connectivity-manual.pdf"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "vendor-doc"
     }

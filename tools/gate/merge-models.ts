@@ -87,11 +87,17 @@ for (const { keep, drop } of merged) {
 }
 
 // A figure dropped as a repeat can be the only thing citing its document, and a source nothing
-// cites is an orphan the validator refuses.
+// cites is an orphan the validator refuses. A link's evidence cites too, and a link carried onto
+// the survivor keeps its document.
 let orphans = 0;
 if (!dryRun) {
   const after = loadRecords();
-  const cited = new Set(after.specs.map((spec) => spec.source));
+  const cited = new Set([
+    ...after.specs.map((spec) => spec.source),
+    ...after.models.flatMap((m) =>
+      m.dialects.flatMap((l) => l.evidence.sources.map((c) => c.source)),
+    ),
+  ]);
   for (const source of after.sources) {
     if (!source.id.startsWith("doc-") || cited.has(source.id)) continue;
     rmSync(join(RECORDS_DIR, "sources", `${source.id}.json`), { force: true });

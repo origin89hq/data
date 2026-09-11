@@ -471,6 +471,34 @@ test("a store stamped with another schema version is recreated whole; one at thi
   assert.equal(stamp?.value, SCHEMA_VERSION);
 });
 
+test("two isolates that read one old stamp cannot both reset: the second's batch rolls back and it finds the store current", async () => {
+  const objects: Record<string, string> = {};
+  published(objects, R1, "2026-09-11T10:00:00Z", { models: models(1) });
+  const { env } = world(objects);
+  const db = env.RELEASES;
+  await db.exec("CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)");
+  await db.prepare("INSERT INTO meta VALUES ('schema_version', '0')").run();
+  await db.exec("CREATE TABLE releases (id TEXT PRIMARY KEY)");
+  // The second isolate reads the old stamp, and before its batch runs the first has reset the
+  // store and loaded a release into it.
+  let raced = false;
+  const second: typeof db = {
+    ...db,
+    batch: async (statements) => {
+      if (!raced) {
+        raced = true;
+        assert.equal(await createSchema(db), true, "the first isolate resets");
+        assert.equal((await loadRelease(env.ARCHIVE, db, plain, R1)).outcome, "loaded");
+      }
+      return db.batch(statements);
+    },
+  };
+  assert.equal(await createSchema(second), false, "the second does not reset again");
+  assert.equal(raced, true);
+  assert.equal(await countRows(db, "models", R1), 1, "and the first's load is intact");
+  assert.equal((await activeRelease(db))?.id, R1);
+});
+
 test("a store with tables and no stamp is from before stamps, and is recreated", async () => {
   const objects: Record<string, string> = {};
   published(objects, R1, "2026-09-11T10:00:00Z", { models: models(1) });

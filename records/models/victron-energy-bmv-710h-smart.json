@@ -8,17 +8,7 @@
     {
       "dialect": "victron-bmv71x-smartshunt-vedirect-text",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "victron-ve-direct-protocol-3-34",
-            "citation": "docs/victron-ve-direct-protocol-3.34.pdf — Victron Energy, VE.Direct Protocol, rev 3.34, 14 April 2025. Committed. Table I (`BMV71x SmartShunt` column), PID list, MON value table, changelog entry 3.32."
-          },
-          {
-            "source": "retail-quebec-retailer-sweep-checked-2026-07-31-smartshunt-5",
-            "citation": "Retail: Quebec retailer sweep, checked: 2026-07-31 — SmartShunt 500A/50mV at 2 retailers; BMV-712 Smart at 1 retailer under several listings plus a bundle."
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "vendor-doc"
     }

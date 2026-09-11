@@ -7,21 +7,7 @@
     {
       "dialect": "rolls-lfp-ess-48v",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "rollsbattery-com-wp-content-uploads-2023-09-rolls-s48-100lfp-e",
-            "citation": "ROLLS S48-100LFP ESS BATTERY OPERATING MANUAL, ver. 1.1 09/23 — committed at /Users/lemarier/dev/solar/docs/rolls-s48-100lfp-ess-manual-v1.1.pdf (https://www.rollsbattery.com/wp-content/uploads/2023/09/Rolls-S48-100LFP-E"
-          },
-          {
-            "source": "rollsbattery-com-wp-content-uploads-2024-0",
-            "citation": "ROLLS LFP ESS INTEGRATION WITH VICTRON ENERGY USER MANUAL, rev 2.1 2026/03/13 — committed at /Users/lemarier/dev/solar/docs/rolls-lfp-ess-victron-integration-rev2.1.pdf (https://rollsbattery.com/wp-content/uploads/2024/0"
-          },
-          {
-            "source": "rollsbattery-com-battery-s48-100lfp-ess",
-            "citation": "https://www.rollsbattery.com/battery/s48-100lfp-ess/ — connectivity stated as '2x RS-485, 1 x CAN bus'. checked: 2026-07-31"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "vendor-doc"
     }

@@ -8,13 +8,7 @@
     {
       "dialect": "samlex-sam-no-bus",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "samlexamerica-com-wp-content-uploads-2020-01-11002-sam-1500c-12-0517-hrez",
-            "citation": "https://samlexamerica.com/wp-content/uploads/2020/01/11002-SAM-1500C-12-0517_Hrez.pdf — full-text search for Modbus / RS-485 / RS-232 / baud / RJ jacks returned nothing"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     }

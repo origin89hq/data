@@ -10,21 +10,7 @@
     {
       "dialect": "volthium-ac-charger-no-comms",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "volthium-com-en-produit-51-2v-9ah-charger-csa",
-            "citation": "Volthium (vendor, EN) — \"51.2V 9AH CHARGER – CSA\", SKU EQP-VOL-C58.4V9A: https://volthium.com/en/produit/51-2v-9ah-charger-csa/"
-          },
-          {
-            "source": "volthium-com-fr-produit-chargeur-51-2v-9ah-csa",
-            "citation": "Volthium (vendor, FR) — \"CHARGEUR 51.2V 9AH – CSA\", UGS EQP-VOL-C58.4V9A: https://volthium.com/fr/produit/chargeur-51-2v-9ah-csa/"
-          },
-          {
-            "source": "volthium-com-en-documents",
-            "citation": "Volthium (vendor) — Documents index, complete list of published technical sheets and manuals; contains no charger document and no protocol document of any kind: https://volthium.com/en/documents/"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     }

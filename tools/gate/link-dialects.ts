@@ -1,6 +1,6 @@
 import { modelKey } from "@origin89/equipment-api/keys";
 import { type DialectLink, Model } from "@origin89/equipment-schema/model";
-import { catalogueLink, mergeLinks, sameDialects } from "../../src/dialect-links.ts";
+import { catalogueLink, mergeLinks, sameLinks } from "../../src/dialect-links.ts";
 import { looksLikeModelName, modelId, normaliseModelName } from "../../src/models.ts";
 import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 
@@ -124,9 +124,9 @@ for (const model of records.models) {
   const found = dialectLinks.get(model.id);
   if (!found) continue;
   // A link the model already has is left as it is: the catalogue's claim never replaces
-  // stronger evidence somebody recorded.
+  // stronger evidence somebody recorded. A catalogue claim whose confidence moved is written.
   const dialects = mergeLinks(model.dialects, found);
-  if (sameDialects(dialects, model.dialects)) continue;
+  if (sameLinks(dialects, model.dialects)) continue;
   if (!dryRun) writeRecord(RECORDS_DIR, "models", model.id, Model.parse({ ...model, dialects }));
   touched += 1;
 }

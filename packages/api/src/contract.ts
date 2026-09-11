@@ -175,7 +175,9 @@ export interface ProtocolLink {
   /**
    * How the link was made (#84): `register-match` is a source showing matching registers,
    * `vendor-doc` the maker's own document, `catalogue-name` only the catalogue naming the
-   * model, which is a claim and not a match. Absent on a release published before links carried it.
+   * model, which is a claim and not a match. A catalogue name cites nothing of its own: its
+   * `sources` are empty, and the dialect's citations are on `dialect.sources`. Absent on a
+   * release published before links carried it.
    */
   evidence?: { kind: string; sources: { source: SourceId; citation: string }[] };
   /** What the link's sources support, in the dialect's vocabulary. */

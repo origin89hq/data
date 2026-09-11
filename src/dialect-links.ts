@@ -2,15 +2,14 @@ import type { Dialect } from "@origin89/equipment-schema/dialect";
 import type { DialectLink } from "@origin89/equipment-schema/model";
 
 /**
- * The link a catalogue entry gives a model it names: the catalogue's own claim, carrying the
- * dialect's sources and confidence, and marked as a name match rather than a register match (#84).
+ * The link a catalogue entry gives a model it names: the catalogue's own claim at the dialect's
+ * confidence, marked as a name match rather than a register match, and citing nothing of its
+ * own: the dialect's sources support the dialect, not this one model, and stay on it (#84).
  */
-export function catalogueLink(
-  dialect: Pick<Dialect, "id" | "sources" | "confidence">,
-): DialectLink {
+export function catalogueLink(dialect: Pick<Dialect, "id" | "confidence">): DialectLink {
   return {
     dialect: dialect.id,
-    evidence: { kind: "catalogue-name", sources: dialect.sources.map((s) => ({ ...s })) },
+    evidence: { kind: "catalogue-name", sources: [] },
     confidence: dialect.confidence,
   };
 }
@@ -34,6 +33,7 @@ export function mergeLinks(...lists: readonly (readonly DialectLink[])[]): Diale
     for (const link of list) {
       const held = byDialect.get(link.dialect);
       const stronger = !held || STRENGTH[link.evidence.kind] > STRENGTH[held.evidence.kind];
+      // Between two catalogue claims the later carries the dialect's current confidence.
       const refreshed =
         held !== undefined &&
         held.evidence.kind === "catalogue-name" &&
@@ -43,12 +43,9 @@ export function mergeLinks(...lists: readonly (readonly DialectLink[])[]): Diale
   return [...byDialect.values()].sort((a, b) => a.dialect.localeCompare(b.dialect));
 }
 
-/** Whether two link lists name the same dialects. */
-export function sameDialects(a: readonly DialectLink[], b: readonly DialectLink[]): boolean {
-  const ids = (list: readonly DialectLink[]) =>
-    list
-      .map((l) => l.dialect)
-      .sort()
-      .join("\n");
-  return ids(a) === ids(b);
+/** Whether two link lists say the same thing: the same dialects, each with the same evidence, confidence and firmware. */
+export function sameLinks(a: readonly DialectLink[], b: readonly DialectLink[]): boolean {
+  const text = (list: readonly DialectLink[]) =>
+    JSON.stringify([...list].sort((x, y) => x.dialect.localeCompare(y.dialect)));
+  return text(a) === text(b);
 }

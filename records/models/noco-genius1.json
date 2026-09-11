@@ -8,21 +8,7 @@
     {
       "dialect": "noco-charger-unread",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "no-co-collection-genius",
-            "citation": "https://no.co/collection/genius (checked: 2026-07-31)"
-          },
-          {
-            "source": "no-co-support-genius-battery-chargers-genius",
-            "citation": "https://no.co/support/genius-battery-chargers/genius (model index, checked: 2026-07-31)"
-          },
-          {
-            "source": "thecabindepot-ca-collections-noco",
-            "citation": "https://thecabindepot.ca/collections/noco (checked: 2026-07-31)"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     }

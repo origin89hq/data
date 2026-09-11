@@ -12,16 +12,34 @@ import { EquipmentKind } from "./guess.ts";
 export const LinkEvidenceKind = z.enum(["register-match", "vendor-doc", "catalogue-name"]);
 export type LinkEvidenceKind = z.infer<typeof LinkEvidenceKind>;
 
-/** A model's link to a dialect, with what says so. A link with no source is refused. */
+/**
+ * What says a model speaks a dialect. A register match or a maker's document names the sources
+ * that show it, and a link of either kind with no source is refused. A catalogue name cites
+ * nothing of its own: the claim is the dialect's catalogue naming the model, and the dialect's
+ * citations are on the dialect, where they support the dialect rather than this one model. A
+ * source copied onto such a link would read as evidence for the model when it is not.
+ */
+export const LinkEvidence = z.discriminatedUnion("kind", [
+  z
+    .object({
+      kind: z.enum(["register-match", "vendor-doc"]),
+      sources: z.array(Citation).min(1),
+    })
+    .strict(),
+  z
+    .object({
+      kind: z.literal("catalogue-name"),
+      sources: z.array(Citation).max(0, "a catalogue name cites nothing of its own").default([]),
+    })
+    .strict(),
+]);
+export type LinkEvidence = z.infer<typeof LinkEvidence>;
+
+/** A model's link to a dialect, with what says so. */
 export const DialectLink = z
   .object({
     dialect: RecordId,
-    evidence: z
-      .object({
-        kind: LinkEvidenceKind,
-        sources: z.array(Citation).min(1),
-      })
-      .strict(),
+    evidence: LinkEvidence,
     /** What the sources support for this link, in the catalogue's vocabulary. */
     confidence: Confidence,
     /** The firmware the link is known to hold for, when a source says; absent means unstated, never all. */
@@ -70,7 +88,12 @@ export const Model = z
     /** What settled that this is a real model of this maker, rather than a string off a listing. */
     basis: z.string().min(1).optional(),
   })
-  .strict();
+  .strict()
+  // One link a dialect: two would publish two rows and pool their citations under one pair.
+  .refine(
+    (m) => new Set(m.dialects.map((l) => l.dialect)).size === m.dialects.length,
+    "a model links each dialect once",
+  );
 export type Model = z.infer<typeof Model>;
 
 /** How much weight a figure carries, using the catalogue's vocabulary so one word means one thing everywhere. */

@@ -10,13 +10,7 @@
     {
       "dialect": "midnite-brat",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "solaris-shop-com-content-mnbrat-installation",
-            "citation": "The Brat Solar Charge Controller Instructions, MidNite Solar — https://www.solaris-shop.com/content/MNBRAT%20Installation.pdf (full text searched: zero occurrences of MODBUS, RS-232, RS-485, Ethernet, USB, serial, baud, "
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     }

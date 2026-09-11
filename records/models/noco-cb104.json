@@ -10,21 +10,7 @@
     {
       "dialect": "noco-out-of-scope",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "no-co",
-            "citation": "https://no.co/ (product category index, checked: 2026-07-31)"
-          },
-          {
-            "source": "no-co-boost",
-            "citation": "https://no.co/boost and https://no.co/compare/family/boost (checked: 2026-07-31)"
-          },
-          {
-            "source": "no-co-xgrid",
-            "citation": "https://no.co/xgrid (checked: 2026-07-31)"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     }

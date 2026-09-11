@@ -157,7 +157,7 @@ test("a model's link to a dialect needs a source it can name, and one the record
   const r = fixture();
   const link = {
     dialect: "a",
-    evidence: { kind: "catalogue-name", sources: [{ source: "s1", citation: "https://x/1" }] },
+    evidence: { kind: "vendor-doc", sources: [{ source: "s1", citation: "https://x/1" }] },
     confidence: "vendor-doc",
   };
   r.manufacturers = [{ id: "m", name: "M", domains: [] }] as Records["manufacturers"];
@@ -169,10 +169,42 @@ test("a model's link to a dialect needs a source it can name, and one the record
         id: "m-a1",
         manufacturer: "m",
         name: "A1",
-        dialects: [{ ...link, evidence: { kind: "catalogue-name", sources: [] } }],
+        dialects: [{ ...link, evidence: { kind: "vendor-doc", sources: [] } }],
       }),
     /sources/,
     "a link with no source is refused by the schema",
+  );
+  // A catalogue name cites nothing of its own: the dialect's sources stay on the dialect.
+  const claim = Model.parse({
+    id: "m-a1",
+    manufacturer: "m",
+    name: "A1",
+    dialects: [{ ...link, evidence: { kind: "catalogue-name" } }],
+  });
+  assert.deepEqual(claim.dialects[0]?.evidence, { kind: "catalogue-name", sources: [] });
+  assert.throws(
+    () =>
+      Model.parse({
+        id: "m-a1",
+        manufacturer: "m",
+        name: "A1",
+        dialects: [
+          { ...link, evidence: { kind: "catalogue-name", sources: link.evidence.sources } },
+        ],
+      }),
+    /cites nothing of its own/,
+    "a source copied onto a catalogue claim would read as evidence for the model",
+  );
+  assert.throws(
+    () =>
+      Model.parse({
+        id: "m-a1",
+        manufacturer: "m",
+        name: "A1",
+        dialects: [link, { ...link, evidence: { kind: "catalogue-name" } }],
+      }),
+    /links each dialect once/,
+    "two links to one dialect would publish two rows",
   );
   assert.throws(
     () =>

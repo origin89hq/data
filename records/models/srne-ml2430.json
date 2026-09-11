@@ -8,21 +8,7 @@
     {
       "dialect": "srne-controller-v3",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "srne-modbus-protocol-v3-9",
-            "citation": "SRNE_MODBUS Protocol, Revision V3.9, 2020-04-21, SRNE Solar Co., Ltd. — committed to this repo at /Users/lemarier/dev/solar/docs/srne-modbus-protocol-v3.9.pdf (MD5 ce84b5f61a396bc56733cb1ea57342ff)"
-          },
-          {
-            "source": "github-com-cole8888-srne-solar-charge-controller-monitor-blob-master-srne-modbus",
-            "citation": "https://github.com/cole8888/SRNE-Solar-Charge-Controller-Monitor/blob/master/SRNE-MODBUS.pdf (origin of the committed PDF)"
-          },
-          {
-            "source": "github-com-tolyak26-modbus-srne-solar-blob-main-docs-srne-modbus",
-            "citation": "https://github.com/Tolyak26/modbus-srne-solar/blob/main/docs/SRNE-MODBUS.pdf (byte-identical second copy, MD5 matches)"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "community-crosschecked"
     }

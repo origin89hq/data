@@ -10,21 +10,7 @@
     {
       "dialect": "powermax-pm3-12v",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "powermax-converters-ac-to-dc-converter-charger-pm3-models-15",
-            "citation": "PowerMax Converters, 'AC to DC Converter/Charger - PM3 models 15, 35, 45, 55, 60, 65, 75, 100 and 120 Amp with Built-in 3 Stage Smart Charging and Fixed Output Modes - Installation & Maintenance Instructions' (manufactur"
-          },
-          {
-            "source": "powermaxconverters-com-wp-content-uploads-2023-11-pm3-spec-sheet-nov-23",
-            "citation": "PowerMax Converters, 'PM3 Series Converter / Charger 110v AC to 12v DC' spec sheet, Nov 2023 - https://powermaxconverters.com/wp-content/uploads/2023/11/PM3-Spec-Sheet_Nov-23.pdf - committed as docs/powermax-pm3-spec-she"
-          },
-          {
-            "source": "batterystuff-com-files-1130-pm3-12v-lk-manual",
-            "citation": "PowerMax Converters, earlier PM3 LK revision ('3 Stage Charging Option'), mirrored by BatteryStuff - https://www.batterystuff.com/files/1130-pm3-12v-lk-manual.pdf - committed as docs/powermax-pm3-lk-manual-3-stage-option"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     }

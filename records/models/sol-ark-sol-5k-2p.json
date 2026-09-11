@@ -8,42 +8,14 @@
     {
       "dialect": "solark-hybrid-rtu-v1",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "solark-modbus-rtu-protocol-v1-4",
-            "citation": "docs/solark-modbus-rtu-protocol-v1.4.pdf — Sol-Ark LLC, \"Modbus RTU Protocol, Sol-Ark Hybrid Inverters: 5k, 8k, 12k, 15k\", V1.4, 2023-10-13, editors Jonathan Nesbitt / Daniel Oyedapo (committed to this repo from the mirr"
-          },
-          {
-            "source": "github-com-chuyskywalker-solark-esphome",
-            "citation": "https://github.com/chuyskywalker/solark-esphome — public mirror of that PDF (\"Modbus Sol-Ark V1.4 (Public Release).pdf\"); README records it was requested from Sol-Ark by email on 2025-01-15 and that Sol-Ark said it was t"
-          },
-          {
-            "source": "github-com-aaronmelton-solark-monitor",
-            "citation": "https://github.com/aaronmelton/solark_monitor — independent Python implementation; solark_monitor/solark_modbus.py register_table matches the vendor addresses, descriptions, scales and signedness (checked at 60, 63, 64, "
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     },
     {
       "dialect": "solark-mysolark-cloud",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "github-com-judasgutenberg-solarkmonitor",
-            "citation": "https://github.com/judasgutenberg/SolArkMonitor — PHP implementation, README documents the PowerView→solarkcloud.com backend migration of 2024-06-07 and the minute-granularity limitation."
-          },
-          {
-            "source": "github-com-hammondautomationhub-homeassistant-solark",
-            "citation": "https://github.com/HammondAutomationHub/HomeAssistant_SolArk — Home Assistant custom component; custom_components/solark/const.py pins DEFAULT_BASE_URL=https://www.mysolark.com and DEFAULT_API_URL=https://ecsprod-api-new"
-          },
-          {
-            "source": "github-com-matthew-dresden-solark-cloud-cli",
-            "citation": "https://github.com/matthew-dresden/solark-cloud-cli and https://github.com/matthew-dresden/solark-cloud-ha — third target of the same API (single author, so counted once)."
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "community-single"
     }

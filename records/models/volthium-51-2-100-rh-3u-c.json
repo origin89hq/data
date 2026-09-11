@@ -10,21 +10,7 @@
     {
       "dialect": "volthium-rack-3u",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "volthium-com-wp-content-uploads-2024-08-en-51-2-100-r-3u-c-manual",
-            "citation": "Volthium user manual EN_51.2-100-R-3U-C — https://volthium.com/wp-content/uploads/2024/08/EN_51.2-100-R-3U-C-Manual.pdf (valid for 51.2-100-R-3U-C and 51.2-100-R-H-3U-C; §3.3.3.2 pinout, §3.3.3.3 DIP addressing, Integrat"
-          },
-          {
-            "source": "volthium-com-wp-content-uploads-2024-05-en-20250305-25-6-200-r-h-3u-manual-1",
-            "citation": "Volthium user manual EN_20250305 25.6-200-R-H-3U — https://volthium.com/wp-content/uploads/2024/05/EN_20250305-25.6-200-R-H-3U-Manual-1.pdf. Local copy: .../scratchpad/rack256_3u.pdf"
-          },
-          {
-            "source": "sol-ark-com-wp-content-uploads-2024-06-sk140-0026-004-en-manual",
-            "citation": "Sol-Ark Battery Integration Guide, Low Voltage 48V Residential, SK140-0026-004, © 2025 — https://www.sol-ark.com/wp-content/uploads/2024/06/SK140-0026-004-EN-Manual.pdf, pp. 11 and 32-33 (Volthium Energy 51.2-100-R)"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     }

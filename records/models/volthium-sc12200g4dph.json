@@ -8,21 +8,7 @@
     {
       "dialect": "volthium-abs-ej-ble",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "raw-githubusercontent-com-patman15-aiobmsble-main-aiobmsble-bms-ej-bms-py",
-            "citation": "patman15/aiobmsble, aiobmsble/bms/ej_bms.py — https://raw.githubusercontent.com/patman15/aiobmsble/main/aiobmsble/bms/ej_bms.py (Apache-2.0; matcher list, UUIDs, frame delimiters, command frames, CRC, field offsets and s"
-          },
-          {
-            "source": "github-com-kaanow-volthium-reader",
-            "citation": "kaanow/volthium_reader — https://github.com/kaanow/volthium_reader (field rig against two SC12200G4DPH in series; states 'same Nordic UART service, same :...~ ASCII-hex frames')"
-          },
-          {
-            "source": "devices",
-            "citation": "docs/DEVICES.md §'Volthium — the battery replacement' in this repo, which already records the E&J binding and is not re-derived here"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "community-single"
     }

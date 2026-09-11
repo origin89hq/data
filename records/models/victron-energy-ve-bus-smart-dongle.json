@@ -8,63 +8,21 @@
     {
       "dialect": "victron-ble-instant-readout-vebus",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "victron-ble-extra-manufacturer-data-2022-12-14",
-            "citation": "/Users/lemarier/dev/solar/docs/victron-ble-extra-manufacturer-data-2022-12-14.pdf — record type 0x0C field table"
-          },
-          {
-            "source": "github-com-keshavdv-victron-ble",
-            "citation": "https://github.com/keshavdv/victron-ble — victron_ble/devices/vebus.py, independent implementation whose offsets and widths match the vendor table exactly"
-          },
-          {
-            "source": "victronenergy-com-accessories-ve-bus-smart-dongle",
-            "citation": "https://www.victronenergy.com/accessories/ve-bus-smart-dongle — vendor statement that the dongle adds Instant Readout to VE.Bus products, and its product scope"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "vendor-doc"
     },
     {
       "dialect": "victron-ble-vebus-record-0c",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "victron-ble-extra-manufacturer-data-2022-12-14",
-            "citation": "docs/victron-ble-extra-manufacturer-data-2022-12-14.pdf — committed. Victron wiki page 'Extra manufacturer Data', printed 2022-12-14. Record-type table 0x00–0x0D and the full 0x0C VE.Bus bit layout quoted above were read"
-          },
-          {
-            "source": "victronenergy-com-upload-documents-ve-bus-smart-dongle-106441-ve-bus-smart-dongle-pdf-en",
-            "citation": "https://www.victronenergy.com/upload/documents/VE.Bus_Smart_Dongle/106441-VE_Bus_Smart_Dongle-pdf-en.pdf — VE.Bus Smart Dongle manual, rev 07, 04/2024. Source for Instant Readout, the primary/background mode arbitration "
-          },
-          {
-            "source": "victronenergy-com-accessories-ve-bus-smart-dongle",
-            "citation": "https://www.victronenergy.com/accessories/ve-bus-smart-dongle — product page. Names the compatible families: 'Multis, MultiPlusses, MultiPlus-II, MultiGrid, MultiGrid-II, Quattros, and our series of Phoenix Inverters wit"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     },
     {
       "dialect": "victron-vebus-interfaces",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "victron-data-communication",
-            "citation": "/Users/lemarier/dev/solar/docs/victron-data-communication.pdf — accessory tables \"Accessories to communicate with VE.Bus (Inverter, Multi, Quattro)\", FAQ Q1/Q2, footnotes 1-3"
-          },
-          {
-            "source": "victron-mk2-protocol-3-14",
-            "citation": "/Users/lemarier/dev/solar/docs/victron-mk2-protocol-3.14.pdf — §3.5 jumpers, §3.6 power-up sequence, §6.4 MK3-only BOL support"
-          },
-          {
-            "source": "victron-gx-modbus-tcp-register-list",
-            "citation": "/Users/lemarier/dev/solar/docs/victron-gx-modbus-tcp-register-list.xlsx — DMC limitation remarks on registers 22 and 33"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     }

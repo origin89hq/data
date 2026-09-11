@@ -10,59 +10,21 @@
     {
       "dialect": "ecoflow-ble-local",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "github-com-rabits-ha-ef-ble",
-            "citation": "https://github.com/rabits/ha-ef-ble — supported model list, local-operation and account-binding statements"
-          },
-          {
-            "source": "github-com-rabits-ef-ble-reverse",
-            "citation": "https://github.com/rabits/ef-ble-reverse — same author's EcoFlow BLE protocol V2 reverse-engineering notes"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     },
     {
       "dialect": "ecoflow-gen3-protobuf",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "github-com-tolwi-hassio-ecoflow-cloud",
-            "citation": "https://github.com/tolwi/hassio-ecoflow-cloud — devices/internal/proto/ef_delta3.proto and ef_dp3_iobroker.proto (schemas diffed), devices/public/delta_pro_3.py and delta3_max_plus.py (developer-API JSON key names)"
-          },
-          {
-            "source": "github-com-foxthefox-iobroker-ecoflow-mqtt",
-            "citation": "https://github.com/foxthefox/ioBroker.ecoflow-mqtt — lib/dict_data/ef_deltapro3_data.js, ef_delta3plus_data.js, ef_delta3maxplus_data.js (independent property names and units)"
-          },
-          {
-            "source": "developer-ecoflow-com-us-document-delta3maxplus",
-            "citation": "https://developer.ecoflow.com/us/document/delta3maxplus — cited by name in tolwi devices/public/delta3_max_plus.py:102; not retrievable as text"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     },
     {
       "dialect": "ecoflow-modbus-not-applicable",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "github-com-maxgrmm-ef-powerocean-tcpmodbus",
-            "citation": "https://github.com/MaxGrmm/EF-PowerOcean-TcpModbus"
-          },
-          {
-            "source": "github-com-maxgrmm-ecoflow-poweroceanplus-modbus",
-            "citation": "https://github.com/MaxGrmm/ecoflow-poweroceanplus-modbus"
-          },
-          {
-            "source": "github-com-bulldog5046-ecoflow-canbus-reverse-engineering",
-            "citation": "https://github.com/bulldog5046/EcoFlow-CanBus-Reverse-Engineering"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     }

@@ -11,9 +11,10 @@ export interface Cited {
 }
 
 /**
- * The sources a maker's own records cite: its record, its dialects, and the figures of its models.
- * A retailer's page cited by an EPEVER dialect is EPEVER's evidence, not the retailer's, and a
- * crawl of the retailer must not read it as its own (#30).
+ * The sources a maker's own records cite: its record, its dialects, the figures of its models
+ * and the evidence on its models' links to dialects. A retailer's page cited by an EPEVER
+ * dialect is EPEVER's evidence, not the retailer's, and a crawl of the retailer must not read
+ * it as its own (#30).
  */
 export function sourceIdsCitedBy(
   makerId: string,
@@ -28,8 +29,11 @@ export function sourceIdsCitedBy(
   for (const id of records.manufacturers.find((m) => m.id === makerId)?.sources ?? []) ids.add(id);
   for (const dialect of records.dialects)
     if (dialect.manufacturer === makerId) for (const c of dialect.sources) ids.add(c.source);
-  const models = new Set(records.models.filter((m) => m.manufacturer === makerId).map((m) => m.id));
+  const own = records.models.filter((m) => m.manufacturer === makerId);
+  const models = new Set(own.map((m) => m.id));
   for (const spec of records.specs) if (models.has(spec.model)) ids.add(spec.source);
+  for (const m of own)
+    for (const link of m.dialects) for (const c of link.evidence.sources) ids.add(c.source);
   return ids;
 }
 

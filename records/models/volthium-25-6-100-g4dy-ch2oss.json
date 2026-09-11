@@ -10,21 +10,7 @@
     {
       "dialect": "volthium-abs-unknown",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "volthium-smart-bridge-user-manual-local-copy-private-tmp-cla",
-            "citation": "Volthium Smart Bridge user manual (local copy: /private/tmp/claude-501/-Users-lemarier-dev-solar/01a009b6-aeb2-4d8b-8a84-65ee02fe099b/scratchpad/volthium-smartbridge.pdf) — 'RJ45-Volthium «BMS-TI» RS485 pinout', 'Compati"
-          },
-          {
-            "source": "volthium-com-wp-content-uploads-2024-04-user-manual-4d-8d-en",
-            "citation": "Volthium user manual, 4D and 8D format batteries — https://volthium.com/wp-content/uploads/2024/04/User-manual_4D-8D_EN.pdf ('The battery has two RJ45 ports … Both ports offer RS485 communication'; Texas Instrument BMS e"
-          },
-          {
-            "source": "volthium-com-wp-content-uploads-2024-04-user-manual-12v-150ah-en",
-            "citation": "Volthium user manual, 12V 150Ah — https://volthium.com/wp-content/uploads/2024/04/User-manual_12V-150Ah_EN.pdf (single RJ45 comm port; Bluetooth requires a separately-sold module)"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     }

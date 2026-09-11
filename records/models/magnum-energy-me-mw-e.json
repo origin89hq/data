@@ -9,17 +9,7 @@
     {
       "dialect": "magnum-magweb",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "quebec-retailer-listing-for-the-ms4448pae-checked-2026-07-31",
-            "citation": "Quebec retailer listing for the MS4448PAE, checked: 2026-07-31 — names ME-MW-E (Ethernet) and ME-MW-W (wireless web) monitoring kits as separately sold accessories. This is a retail fact, not a protocol fact."
-          },
-          {
-            "source": "quebec-retailer-faq-for-the-ms-range-checked-2026-07-31-stat",
-            "citation": "Quebec retailer FAQ for the MS range, checked: 2026-07-31 — states the MS range integrates a Battery Monitoring Kit (BMK) and offers \"un suivi en ligne de ces données\" plus automatic generator start on low battery voltag"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     }

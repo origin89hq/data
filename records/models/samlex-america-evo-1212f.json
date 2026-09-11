@@ -7,42 +7,14 @@
     {
       "dialect": "samlex-evo-1212f-no-bus",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "samlex-evo-1212f-1224f-manual-fw0-79",
-            "citation": "docs/samlex-evo-1212f-1224f-manual-fw0.79.pdf — Fig 2.1 legend items 6, 7, 8 (NEWLY ADDED to docs/ this pass)"
-          },
-          {
-            "source": "samlexamerica-com-wp-content-uploads-2020-01-11027-evo-1212f-1224f-0722-lrez",
-            "citation": "https://samlexamerica.com/wp-content/uploads/2020/01/11027-EVO-1212F-1224F-0722_Lrez.pdf"
-          },
-          {
-            "source": "samlex-evo-rc-plus-remote-manual-2021",
-            "citation": "docs/samlex-evo-rc-plus-remote-manual-2021.pdf — §5.2.2.1 Fig 5.1"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "vendor-doc"
     },
     {
       "dialect": "samlex-evo-signal-io",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "samlex-evo-2212-3012-2224-4024-manual-fw0-82",
-            "citation": "docs/samlex-evo-2212-3012-2224-4024-manual-fw0.82.pdf — Fig 2.1 legend 14 (Status Relay, contact ratings, NO/COM/NC semantics), 15 (Remote On Off 9-15 V 3 mA), 16 (12.5-11.5 VDC 100 mA source)"
-          },
-          {
-            "source": "samlex-evo-1212f-1224f-manual-fw0-79",
-            "citation": "docs/samlex-evo-1212f-1224f-manual-fw0.79.pdf — Table 6.6 RELAY FUNCTION options 0-4 in full, REMOTE SWITCH, REMOTE SW DELAY; §6.7"
-          },
-          {
-            "source": "samlex-evo-4248sp-manual-fw0-77",
-            "citation": "docs/samlex-evo-4248sp-manual-fw0.77.pdf — Table 6.6, §6.7, §6.6 powering off in fault mode"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     }

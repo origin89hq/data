@@ -7,63 +7,21 @@
     {
       "dialect": "samlex-evo-4024-unknown",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "samlex-evo-2212-3012-2224-4024-manual-fw0-82",
-            "citation": "Samlex Evolution Series Owner's Manual, Models EVO-2212 / EVO-3012 / EVO-2224 / EVO-4024, firmware rev 0.82 — committed at /Users/lemarier/dev/solar/docs/samlex-evo-2212-3012-2224-4024-manual-fw0.82.pdf"
-          },
-          {
-            "source": "samlexamerica-com-wp-content-uploads-2025-02-11025-evo-2212-3012-2224-4024-0326-lrez",
-            "citation": "https://samlexamerica.com/wp-content/uploads/2025/02/11025-EVO-2212-3012-2224-4024-0326-Lrez.pdf (source of the committed copy)"
-          },
-          {
-            "source": "manual-fig-2-1-legend-items-9a-9b-and-9c-9d-section-4-7-auto",
-            "citation": "Manual Fig 2.1 legend items 9A/9B and 9C/9D; section 4.7 Auto Generator Start / Stop; front-panel item 14 Status Relay"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     },
     {
       "dialect": "samlex-evo-modbus-22xx-40xx",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "samlex-evo-2212-3012-2224-4024-manual-fw0-82",
-            "citation": "docs/samlex-evo-2212-3012-2224-4024-manual-fw0.82.pdf — Owner's Manual, Fig 2.1 legend items 9A/9B: 'RJ-45 Jacks for Communication Ports COMM 1 and COMM 2 - For RS-485 networking and MODBUS Serial Communication Protocol'"
-          },
-          {
-            "source": "samlex-evo-rc-plus-remote-manual-2021",
-            "citation": "docs/samlex-evo-rc-plus-remote-manual-2021.pdf — §4.8.2.6 COMM ID; §5.2.2.2 Fig 5.2 data-logging field list (NEWLY ADDED to docs/ this pass)"
-          },
-          {
-            "source": "samlex-evo-rc-remote-manual-2022",
-            "citation": "docs/samlex-evo-rc-remote-manual-2022.pdf — §4.8.2.6 COMM ID, wording for the 120 V / 230 V pairs (NEWLY ADDED to docs/ this pass)"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     },
     {
       "dialect": "samlex-evo-signal-io",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "samlex-evo-2212-3012-2224-4024-manual-fw0-82",
-            "citation": "docs/samlex-evo-2212-3012-2224-4024-manual-fw0.82.pdf — Fig 2.1 legend 14 (Status Relay, contact ratings, NO/COM/NC semantics), 15 (Remote On Off 9-15 V 3 mA), 16 (12.5-11.5 VDC 100 mA source)"
-          },
-          {
-            "source": "samlex-evo-1212f-1224f-manual-fw0-79",
-            "citation": "docs/samlex-evo-1212f-1224f-manual-fw0.79.pdf — Table 6.6 RELAY FUNCTION options 0-4 in full, REMOTE SWITCH, REMOTE SW DELAY; §6.7"
-          },
-          {
-            "source": "samlex-evo-4248sp-manual-fw0-77",
-            "citation": "docs/samlex-evo-4248sp-manual-fw0.77.pdf — Table 6.6, §6.7, §6.6 powering off in fault mode"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     }

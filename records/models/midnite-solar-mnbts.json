@@ -10,21 +10,7 @@
     {
       "dialect": "midnite-mnbts-analog",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "midnitesolar-com-pdfs-10-001-1-rev-u-classic-manual-19jan2022",
-            "citation": "MidNite Solar Classic Owner's Manual, doc 10-001-1 REV U, 19 Jan 2022, firmware 2193 — https://www.midnitesolar.com/pdfs/10-001-1_REV_U_Classic_Manual_19Jan2022.pdf (committable; staged at /private/tmp/claude-501/-Users-"
-          },
-          {
-            "source": "midnitesolar-com-pdfs-classic-register-map-rev-c5-december-8-2013",
-            "citation": "MidNite Solar MODBUS Network Spec. Rev C.4, 9 Dec 2013 (published at a URL naming it Rev C.5, 8 Dec 2013) — https://www.midnitesolar.com/pdfs/classic_register_map_Rev-C5-December-8-2013.pdf (committable; staged at /priva"
-          },
-          {
-            "source": "the-kid-solar-charge-controller-instructions-doc-10-268-1-re",
-            "citation": "The Kid Solar Charge Controller Instructions, doc 10-268-1 REV D — 'MNBTS Battery Temperature sensor' p.18 and MNKID-ASSY-KIT contents p.50. Names MNBTS explicitly; this is the vendor basis for the Kid compatibility clai"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     }

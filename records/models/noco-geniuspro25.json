@@ -8,21 +8,7 @@
     {
       "dialect": "noco-geniuspro",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "no-co-media-wysiwyg-downloads-user-guides-geniuspro-geniuspro25-user-guide-4-9-2024a-1",
-            "citation": "https://no.co/media/wysiwyg/downloads/User_Guides/GeniusPRO/geniuspro25_user_guide_4.9.2024a_1.pdf (vendor)"
-          },
-          {
-            "source": "no-co-media-wysiwyg-downloads-user-guides-geniuspro-geniuspro50-user-guide-1-6-2026a",
-            "citation": "https://no.co/media/wysiwyg/downloads/User_Guides/GeniusPRO/GeniusPro50_User_Guide_1.6.2026A.pdf (vendor)"
-          },
-          {
-            "source": "thecabindepot-ca-collections-noco",
-            "citation": "https://thecabindepot.ca/collections/noco — GENIUSPRO25 CA$949.99, GENIUSPRO50 CA$1,449.99 (checked: 2026-07-31)"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "vendor-doc"
     }

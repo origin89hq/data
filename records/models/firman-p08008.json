@@ -8,21 +8,7 @@
     {
       "dialect": "firman-portable-no-comms",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "firmanpowerequipment-com-products-p08008",
-            "citation": "https://firmanpowerequipment.com/products/p08008"
-          },
-          {
-            "source": "firmanpowerequipment-com-products-p08013",
-            "citation": "https://firmanpowerequipment.com/products/p08013"
-          },
-          {
-            "source": "firmanpowerequipment-com-products-t08072",
-            "citation": "https://firmanpowerequipment.com/products/t08072"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     }

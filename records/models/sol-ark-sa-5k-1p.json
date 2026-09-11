@@ -8,17 +8,7 @@
     {
       "dialect": "solark-5k-1p-unknown",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "sol-ark-com-wp-content-uploads-2024-06-ma-00015-rev3-5k-1p-n-usermanual-v13-en-16june2025",
-            "citation": "https://sol-ark.com/wp-content/uploads/2024/06/MA-00015_Rev3_5K-1P-N_UserManual_v13_EN_16June2025.pdf — 5K-1P-N User Manual MA-00015 Rev 3, §4.2 Battery Communication with MODBUS/CANBUS: RJ45 pinout, on-request READ-only"
-          },
-          {
-            "source": "solark-modbus-rtu-protocol-v1-4",
-            "citation": "docs/solark-modbus-rtu-protocol-v1.4.pdf — the ambiguity: \"Outdoor Sol-Ark 5K, 8K & 12K\", no model suffixes."
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "unverified"
     }

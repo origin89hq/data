@@ -105,39 +105,60 @@ export const SCHEMA: readonly string[] = [
  */
 export const SCHEMA_VERSION = "2";
 
-/** Create the store's tables, or recreate them all when the stamped version is not this one. Returns whether it reset. */
+/**
+ * Create the store's tables, or recreate them all when the stamped version is not this one.
+ * Returns whether it reset. The drops, the tables and the new stamp go in one batch, which D1
+ * runs as one transaction, and the stamp is inserted rather than replaced: two isolates that
+ * read the same old stamp during a rollout cannot both reset, since the second's insert finds
+ * the key taken, its whole batch rolls back, and it reads again to find the store current
+ * with whatever the first has loaded since.
+ */
 export async function createSchema(db: Store): Promise<boolean> {
-  // A store with tables and no stamp is one from before stamps existed: as old as any.
-  const before = await db
-    .prepare("SELECT name FROM sqlite_master WHERE type = 'table' AND name IN ('meta', 'releases')")
-    .all<{ name: string }>();
-  const hadMeta = before.results.some((t) => t.name === "meta");
-  const hadTables = before.results.some((t) => t.name === "releases");
   await db.exec("CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)");
-  const stamped = hadMeta
-    ? await db
-        .prepare("SELECT value FROM meta WHERE key = 'schema_version'")
-        .first<{ value: string }>()
-    : null;
-  const reset = stamped ? stamped.value !== SCHEMA_VERSION : hadTables;
-  if (reset) {
-    for (const table of [...Object.keys(LOADED_TABLES), "releases"])
-      await db.exec(`DROP TABLE IF EXISTS ${table}`);
-  }
-  for (const statement of SCHEMA) await db.exec(statement.replace(/\s+/g, " "));
-  await db
-    .prepare("INSERT OR REPLACE INTO meta (key, value) VALUES ('schema_version', ?)")
-    .bind(SCHEMA_VERSION)
-    .run();
-  if (reset)
-    console.log(
-      JSON.stringify({
-        message: "release store recreated",
-        from: stamped?.value,
-        to: SCHEMA_VERSION,
-      }),
+  for (;;) {
+    const stamped = await db
+      .prepare("SELECT value FROM meta WHERE key = 'schema_version'")
+      .first<{ value: string }>();
+    if (stamped?.value === SCHEMA_VERSION) {
+      for (const statement of SCHEMA) await db.exec(statement.replace(/\s+/g, " "));
+      return false;
+    }
+    // A store with tables and no stamp is one from before stamps existed: as old as any.
+    const hadTables = Boolean(
+      await db
+        .prepare("SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'releases'")
+        .first(),
     );
-  return reset;
+    const reset = stamped ? true : hadTables;
+    try {
+      await db.batch([
+        db
+          .prepare("DELETE FROM meta WHERE key = 'schema_version' AND value = ?")
+          .bind(stamped?.value ?? ""),
+        db
+          .prepare("INSERT INTO meta (key, value) VALUES ('schema_version', ?)")
+          .bind(SCHEMA_VERSION),
+        ...(reset
+          ? [...Object.keys(LOADED_TABLES), "releases"].map((table) =>
+              db.prepare(`DROP TABLE IF EXISTS ${table}`),
+            )
+          : []),
+        ...SCHEMA.map((statement) => db.prepare(statement.replace(/\s+/g, " "))),
+      ]);
+    } catch (error) {
+      if (!/UNIQUE constraint failed: meta\.key/.test(String(error))) throw error;
+      continue;
+    }
+    if (reset)
+      console.log(
+        JSON.stringify({
+          message: "release store recreated",
+          from: stamped?.value,
+          to: SCHEMA_VERSION,
+        }),
+      );
+    return reset;
+  }
 }
 
 /** A row as the load part gives it: the build's row with absent fields left out. */

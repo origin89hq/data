@@ -9,21 +9,7 @@
     {
       "dialect": "epever-rj45-transport-usb",
       "evidence": {
-        "kind": "catalogue-name",
-        "sources": [
-          {
-            "source": "epever-com-product-150u-accessories-communication-cable",
-            "citation": "https://www.epever.com/product/150u-accessories-communication-cable/ — EPEVER product page, CC-USB-RS485-150U-B PC Communication Cable (checked: 2026-07-31)"
-          },
-          {
-            "source": "epever-com-product-rs485-4llt-accessories-communication-cable",
-            "citation": "https://www.epever.com/product/rs485-4llt-accessories-communication-cable/ — CC-USB-RS485-150U-4LLT (checked: 2026-07-31)"
-          },
-          {
-            "source": "hardware",
-            "citation": "/Users/lemarier/dev/solar/docs/HARDWARE.md lines 99-113 — existing repo decision against this cable"
-          }
-        ]
+        "kind": "catalogue-name"
       },
       "confidence": "vendor-doc"
     }
