@@ -54,6 +54,15 @@ jobs:
         env:
           OFFGRID_BASE_URL: https://data.origin89.com
         run: node tools/gate/pull-ready-specs.ts --remote --summary "$RUNNER_TEMP/pulled.md"
+      # Where the pull refused to write over a figure a person holds, the records may not change at
+      # all, and the gate below would then open no pull request to say so. The job summary says so.
+      - name: Show what each pull kept and where a reading disagreed
+        if: steps.branch.outputs.skip == 'false'
+        run: |
+          cat "$RUNNER_TEMP/pulled.md" >> "$GITHUB_STEP_SUMMARY"
+          if grep -q disagree "$RUNNER_TEMP/pulled.md"; then
+            echo "::warning::A reading disagrees with a figure a person holds. The figure stays; see the job summary."
+          fi
       - name: See whether the records changed
         id: changed
         if: steps.branch.outputs.skip == 'false'

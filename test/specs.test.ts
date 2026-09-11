@@ -2,7 +2,16 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import type { Model } from "@origin89/equipment-schema/model";
 import { Spec } from "@origin89/equipment-schema/model";
-import { matchModel, sameName, specId, specsFrom, splitUnit } from "../src/specs.ts";
+import {
+  heldByPerson,
+  keepHeld,
+  matchModel,
+  pullWrites,
+  sameName,
+  specId,
+  specsFrom,
+  splitUnit,
+} from "../src/specs.ts";
 
 const models: Model[] = [
   {
@@ -181,5 +190,235 @@ test("ids are stable, so a second extraction rewrites a figure rather than pilin
   assert.notEqual(
     specId("m", "Rated capacity", "20-hour rate"),
     specId("m", "Rated capacity", "100-hour rate"),
+  );
+});
+
+const figure = (over: Partial<Spec>): Spec => ({
+  id: "rolls-battery-s-550--rated-capacity-20-hour-rate",
+  model: "rolls-battery-s-550",
+  name: "Rated capacity",
+  value: "428",
+  unit: "Ah",
+  conditions: "20-hour rate",
+  source: "doc-aaaa",
+  page: 3,
+  extractedBy: "ai:@cf/test@p1",
+  confidence: "vendor-doc",
+  ...over,
+});
+
+test("a figure nobody reviewed is the run's to rewrite, and a new one is written", () => {
+  const read = figure({ value: "430", source: "doc-bbbb", page: 4 });
+  const fresh = figure({
+    id: "rolls-battery-s-550--weight",
+    name: "Weight",
+    value: "57",
+    unit: "kg",
+  });
+  const { write, agreed, disagreements } = keepHeld([figure({})], [read, fresh]);
+  assert.deepEqual(write, [read, fresh]);
+  assert.equal(agreed, 0);
+  assert.deepEqual(disagreements, []);
+});
+
+test("a reviewed figure read again the same way is left as it is, review and all", () => {
+  const reviewed = figure({ reviewedBy: "david", checkedAt: "2026-09-01" });
+  const { write, agreed, disagreements } = keepHeld([reviewed], [figure({})]);
+  assert.deepEqual(write, [], "the pull does not write over the reviewed record");
+  assert.equal(agreed, 1);
+  assert.deepEqual(disagreements, []);
+});
+
+test("a reviewed figure read differently is kept, and the disagreement names both readings", () => {
+  const corrected = figure({ value: "440", reviewedBy: "david", checkedAt: "2026-09-01" });
+  const read = figure({ value: "428", source: "doc-cccc", page: 9 });
+  const { write, agreed, disagreements } = keepHeld([corrected], [read]);
+  assert.deepEqual(write, []);
+  assert.equal(agreed, 0);
+  assert.equal(disagreements.length, 1);
+  assert.deepEqual(disagreements[0].fields, ["value"]);
+  assert.equal(
+    disagreements[0].held,
+    corrected,
+    "the correction stays, with its source and review",
+  );
+  assert.equal(
+    disagreements[0].read,
+    read,
+    "the reading is reported with its own document and page",
+  );
+});
+
+test("the same figure from another document agrees; the reviewed record keeps its own source", () => {
+  const reviewed = figure({ reviewedBy: "david", checkedAt: "2026-09-01" });
+  const elsewhere = figure({ source: "doc-dddd", page: 12 });
+  const { write, agreed, disagreements } = keepHeld([reviewed], [elsewhere]);
+  assert.deepEqual(write, []);
+  assert.equal(agreed, 1);
+  assert.deepEqual(disagreements, []);
+});
+
+test("every distinct reading of a held figure is compared, not only the document that won", () => {
+  const reviewed = figure({ reviewedBy: "david", checkedAt: "2026-09-01" });
+  const same = figure({ source: "doc-eeee" });
+  const other = figure({ value: "450", source: "doc-ffff", page: 2 });
+  const otherAgain = figure({ value: "450", source: "doc-gggg", page: 5 });
+  const unitOff = figure({ unit: "Wh", source: "doc-hhhh" });
+  const candidates = new Map([[reviewed.id, [other, same, otherAgain, unitOff]]]);
+  const { agreed, disagreements } = keepHeld([reviewed], [unitOff], candidates);
+  assert.equal(agreed, 0, "one agreeing document does not make the id agreed");
+  assert.deepEqual(
+    disagreements.map((d) => [d.read.source, d.fields]),
+    [
+      ["doc-ffff", ["value"]],
+      ["doc-hhhh", ["unit"]],
+    ],
+    "a reading stated twice is reported once, and the agreeing one not at all",
+  );
+});
+
+test("conditions or a name the id cannot tell apart are still compared as what they say", () => {
+  const below = figure({
+    id: "rolls-battery-s-550--rated-capacity-25-c",
+    conditions: "≤25 °C",
+    reviewedBy: "david",
+    checkedAt: "2026-09-01",
+  });
+  assert.equal(specId(below.model, below.name, "≥25 °C"), below.id, "the id drops the sign");
+  const above = figure({ id: below.id, conditions: "≥25 °C", source: "doc-iiii" });
+  const { agreed, disagreements } = keepHeld([below], [above]);
+  assert.equal(agreed, 0);
+  assert.deepEqual(
+    disagreements.map((d) => d.fields),
+    [["conditions"]],
+  );
+  const cased = figure({
+    name: "Rated  Capacity",
+    conditions: "20-hour  rate",
+    source: "doc-jjjj",
+  });
+  const same = keepHeld([figure({ reviewedBy: "david" })], [cased]);
+  assert.equal(same.agreed, 1, "case and spacing do not make a different figure");
+  assert.deepEqual(same.disagreements, []);
+});
+
+test("a held figure the translation rule would drop is still compared, and the rule still sees held ones", () => {
+  const english = figure({ reviewedBy: "david", checkedAt: "2026-09-01" });
+  const foreignId = "rolls-battery-s-550--capacit-nominale-r-gime-20-heures";
+  const foreign = (over: Partial<Spec>) =>
+    figure({
+      id: foreignId,
+      name: "Capacité nominale",
+      conditions: "régime 20 heures",
+      ...over,
+    });
+  // A person holds the French figure with a corrected value; the run reads it back as 428 beside
+  // the English one, which makes it redundant under the translation rule.
+  const heldFrench = foreign({ value: "440", reviewedBy: "david", checkedAt: "2026-09-02" });
+  const readFrench = foreign({ source: "doc-kkkk", page: 4 });
+  const result = pullWrites([english, heldFrench], [figure({}), readFrench]);
+  assert.deepEqual(
+    result.disagreements.map((d) => [d.id, d.fields]),
+    [[foreignId, ["value"]]],
+    "the dropped translation is compared with what the person holds",
+  );
+  assert.equal(result.agreed, 1);
+  assert.deepEqual(result.write, [], "neither held figure is written");
+  // The other way round: the person holds the English figure, and the run's French one is
+  // redundant beside it, so it is dropped rather than written just because the English one is held.
+  const other = pullWrites([english], [figure({}), readFrench]);
+  assert.deepEqual(other.write, []);
+  assert.equal(other.aligned.dropped.length, 1);
+  assert.equal(other.agreed, 1);
+});
+
+test("a figure written by hand, with no reader named, is held like a reviewed one", () => {
+  const byHand = figure({ extractedBy: undefined, source: "rolls-renewable-pdf" });
+  const { write, agreed } = keepHeld([byHand], [figure({})]);
+  assert.deepEqual(write, []);
+  assert.equal(agreed, 1);
+  assert.equal(heldByPerson(figure({})), false);
+  assert.equal(heldByPerson(figure({ reviewedBy: "david" })), true);
+});
+
+test("a row a document repeats in another language is returned, not lost, so a held figure under its id can be compared", () => {
+  const { specs, repeated, repeatedRows } = specsFrom({
+    ...base,
+    manufacturer: "rolls-battery",
+    reports: [
+      {
+        model: "S-550",
+        specs: [
+          { name: "Rated capacity", value: "428", unit: "Ah" },
+          { name: "Capacité nominale", value: "428", unit: "Ah" },
+        ],
+      },
+    ],
+  });
+  assert.equal(specs.length, 1);
+  assert.equal(repeated, 1);
+  assert.deepEqual(
+    repeatedRows.map((row) => row.name),
+    ["Capacité nominale"],
+  );
+});
+
+test("a held figure the run read only under a dropped row is still compared, and never written", () => {
+  const frenchId = "rolls-battery-s-550--capacit-nominale";
+  const heldFrench = figure({
+    id: frenchId,
+    name: "Capacité nominale",
+    conditions: undefined,
+    value: "440",
+    reviewedBy: "david",
+    checkedAt: "2026-09-02",
+  });
+  const droppedRow = figure({
+    id: frenchId,
+    name: "Capacité nominale",
+    conditions: undefined,
+    source: "doc-llll",
+    page: 2,
+  });
+  const english = figure({ id: "rolls-battery-s-550--rated-capacity", conditions: undefined });
+  const candidates = new Map([
+    [english.id, [english]],
+    [frenchId, [droppedRow]],
+  ]);
+  const result = pullWrites([heldFrench], [english], candidates);
+  assert.deepEqual(result.write, [english]);
+  assert.deepEqual(
+    result.disagreements.map((d) => [d.id, d.fields, d.read.source]),
+    [[frenchId, ["value"], "doc-llll"]],
+  );
+  const agreeing = pullWrites(
+    [heldFrench],
+    [english],
+    new Map([[frenchId, [{ ...droppedRow, value: "440" }]]]),
+  );
+  assert.equal(agreeing.agreed, 1);
+  assert.deepEqual(agreeing.disagreements, []);
+});
+
+test("a second row under an id already taken is kept aside, so a held figure under it is still compared", () => {
+  const { specs, repeated, repeatedRows } = specsFrom({
+    ...base,
+    manufacturer: "rolls-battery",
+    reports: [
+      {
+        model: "S-550",
+        specs: [
+          { name: "Rated capacity", value: "428", unit: "Ah", conditions: "≤25 °C" },
+          { name: "Rated capacity", value: "400", unit: "Ah", conditions: "≥25 °C" },
+        ],
+      },
+    ],
+  });
+  assert.equal(specs.length, 1);
+  assert.equal(specs[0].conditions, "≤25 °C", "the first row wins");
+  assert.equal(repeated, 0, "not a translation");
+  assert.deepEqual(
+    repeatedRows.map((row) => [row.value, row.conditions]),
+    [["400", "≥25 °C"]],
   );
 });

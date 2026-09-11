@@ -4,10 +4,16 @@ import { withoutTranslations } from "@origin89/equipment-schema/documents";
 import { Model } from "@origin89/equipment-schema/model";
 import { EXTRACTOR_ID } from "@origin89/equipment-schema/provenance";
 import { Source } from "@origin89/equipment-schema/source";
-import { withoutRedundantTranslations, withoutTranslatedReadings } from "../../src/language.ts";
+import { withoutTranslatedReadings } from "../../src/language.ts";
 import { looksLikeModelName, modelId, normaliseModelName } from "../../src/models.ts";
 import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
-import { matchModel, type ReportedProduct, specsFrom } from "../../src/specs.ts";
+import {
+  heldByPerson,
+  matchModel,
+  pullWrites,
+  type ReportedProduct,
+  specsFrom,
+} from "../../src/specs.ts";
 import { currentRun, jsonValues, object, PULLED_READERS, readingsOf } from "./archive.ts";
 import { creditedReadings, textKey } from "./retailer.ts";
 
@@ -85,6 +91,7 @@ const pending = expected.filter((doc) => !readShas.has(doc.sha256)).length;
 // and in English, and reading both gave that inverter a nominal voltage of 48 V twice, once as
 // "Nominal system voltage" and once as "Voltaje nominal". Dropped only when this maker also
 // publishes something not marked as a translation.
+const everyReading = readings.readings;
 const { keep, dropped } = withoutTranslations(readings.readings);
 readings.readings = keep;
 // And the ones whose file name says nothing. Pentair marks a Spanish manual "_SPA_" in one place
@@ -105,6 +112,21 @@ const credited = await creditedReadings(
 );
 readings.readings = credited.keep;
 const withheld = credited.withheld;
+// The translated editions set aside above were still read, and a person may hold a figure under
+// one of their ids. They are read for comparison only: nothing of theirs is written or cited.
+// A retailer's withheld documents are not the maker's own and stay out of the comparison too,
+// so the set-aside editions pass the same crediting first.
+const comparisonOnly = (
+  await creditedReadings(
+    records.manufacturers.find((m) => m.id === manufacturer),
+    records.brands,
+    [
+      ...everyReading.filter((reading) => dropped.some((d) => d.url === reading.url)),
+      ...byLanguage.dropped,
+    ],
+    (reading) => object(textKey(reading), remote),
+  )
+).keep;
 const sources = new Map(records.sources.map((s) => [s.id, s]));
 const addModels = !args.includes("--no-new-models");
 let written = 0;
@@ -139,38 +161,63 @@ if (addModels) {
 // model, and the id is the model and the figure, so the later document wins — writing each
 // document's source as it went left the earlier one cited by nothing.
 const collected = new Map<string, ReturnType<typeof specsFrom>["specs"][number]>();
+// And every reading each id had, so a figure a person holds is compared with all of them, not
+// only with the document that won.
+const candidates = new Map<string, ReturnType<typeof specsFrom>["specs"]>();
 const usedSources = new Map<string, { url: string; sha256: string }>();
+// Where each document of this run is, whether or not anything of it is written: a disagreement
+// with a figure a person holds has to name a document somebody can open.
+const documentUrls = new Map<string, string>();
 let repeatedTotal = 0;
-for (const document of readings.readings) {
-  if (document.products.length === 0) continue;
-  const sourceId = `doc-${document.sha256.slice(0, 32)}`;
-  const {
-    specs,
-    unmatched: missing,
-    repeated,
-  } = specsFrom({
+const figuresOf = (document: (typeof readings.readings)[number]) =>
+  specsFrom({
     reports: document.products,
     models: records.models,
     manufacturer,
-    source: sourceId,
+    source: `doc-${document.sha256.slice(0, 32)}`,
     extractedBy: document.extractedBy ?? EXTRACTOR_ID,
     // A manufacturer's own document is a vendor document. What the figure is not is confirmed:
     // `extractedBy` with no reviewer says a model read it and nobody has checked the row.
     confidence: "vendor-doc",
   });
+const candidate = (spec: ReturnType<typeof specsFrom>["specs"][number]) =>
+  candidates.set(spec.id, [...(candidates.get(spec.id) ?? []), spec]);
+for (const document of readings.readings) {
+  if (document.products.length === 0) continue;
+  const sourceId = `doc-${document.sha256.slice(0, 32)}`;
+  documentUrls.set(sourceId, document.url);
+  const { specs, unmatched: missing, repeated, repeatedRows } = figuresOf(document);
   repeatedTotal += repeated;
-  for (const spec of specs) collected.set(spec.id, spec);
+  for (const spec of specs) {
+    collected.set(spec.id, spec);
+    candidate(spec);
+  }
+  // A row the document's own translation rule dropped was still read, and a person may hold a
+  // figure under its id: it is compared, never written.
+  for (const spec of repeatedRows) candidate(spec);
   // Only a document that produced a figure is cited. Refusing a fragment or a repeat can empty a
   // document, and a source nothing cites is an orphan the validator refuses.
   if (specs.length > 0) usedSources.set(sourceId, { url: document.url, sha256: document.sha256 });
   for (const m of missing) unmatched.add(m);
 }
+for (const document of comparisonOnly) {
+  if (document.products.length === 0) continue;
+  documentUrls.set(`doc-${document.sha256.slice(0, 32)}`, document.url);
+  const { specs, repeatedRows } = figuresOf(document);
+  for (const spec of [...specs, ...repeatedRows]) candidate(spec);
+}
 
-// Once the maker's whole set is in hand: a foreign-named figure on a model that already has
-// English ones is a multilingual manual saying the same thing twice.
-const aligned = withoutRedundantTranslations([...collected.values()]);
+// Once the maker's whole set is in hand. A figure a person confirmed or wrote by hand is not the
+// run's to write over (#63): it stays exactly as it is, source and review included, and a reading
+// that disagrees with it is reported below rather than written. And a foreign-named figure on a
+// model that already has English ones is a multilingual manual saying the same thing twice.
+const read = [...collected.values()];
+// Every id the run read under, the dropped translations included.
+const readIds = new Set(candidates.keys());
+const held = pullWrites(records.specs, read, candidates);
+const aligned = held.aligned;
 collected.clear();
-for (const spec of aligned.keep) collected.set(spec.id, spec);
+for (const spec of held.write) collected.set(spec.id, spec);
 
 const cited = new Set([...collected.values()].map((s) => s.source));
 for (const [sourceId, document] of usedSources) {
@@ -193,25 +240,64 @@ for (const spec of collected.values()) {
 // language rules stopped emitting a NOCO charger's capacity in two languages and both stayed on
 // disk anyway, because writing is not the same as replacing.
 let stale = 0;
-if (!dryRun) {
-  const mine = new Set(
-    records.models.filter((m) => m.manufacturer === manufacturer).map((m) => m.id),
-  );
-  const produced = new Set(collected.keys());
-  for (const spec of records.specs) {
-    if (!mine.has(spec.model) || produced.has(spec.id)) continue;
-    // Only what this run is responsible for: a figure a person reviewed is not a run's to delete,
-    // and one read by a different reader belongs to whichever run produced it.
-    if (spec.reviewedBy || !spec.extractedBy) continue;
-    rmSync(join(RECORDS_DIR, "specs", `${spec.id}.json`), { force: true });
-    stale += 1;
+let unread = 0;
+const mine = new Set(
+  records.models.filter((m) => m.manufacturer === manufacturer).map((m) => m.id),
+);
+const produced = new Set(aligned.keep.map((spec) => spec.id));
+for (const spec of records.specs) {
+  if (!mine.has(spec.model) || produced.has(spec.id)) continue;
+  // Only what this run is responsible for: a figure a person holds is not a run's to delete, and
+  // one read by a different reader belongs to whichever run produced it.
+  if (heldByPerson(spec)) {
+    // Read but dropped as a repeated translation is still read, and was compared above.
+    if (!readIds.has(spec.id)) unread += 1;
+    continue;
   }
+  if (dryRun) continue;
+  rmSync(join(RECORDS_DIR, "specs", `${spec.id}.json`), { force: true });
+  stale += 1;
 }
 
 console.log(
   `${written} figures and ${modelsAdded} new models${dryRun ? " (dry run, nothing written)" : " written"} for ${manufacturer}`,
 );
 if (stale) console.log(`  ${stale} figures removed, which this run no longer produces`);
+if (held.agreed)
+  console.log(
+    `  ${held.agreed} figures a person holds were read again the same way and left as they are`,
+  );
+if (unread) console.log(`  ${unread} figures a person holds were not read by this run and stay`);
+if (held.disagreements.length) {
+  console.log(
+    `  ${held.disagreements.length} readings disagree with a figure a person holds; the figure stays and the reading is not written:`,
+  );
+  // The document's address rather than its source id: a document whose every figure is held is
+  // never written as a source, so its id would name nothing a reviewer can open.
+  const cite = (spec: { source: string; page?: number }) =>
+    `${documentUrls.get(spec.source) ?? sources.get(spec.source)?.url ?? spec.source}${spec.page ? ` p.${spec.page}` : ""}`;
+  // The value and unit always, and whichever of the name and conditions disagreed: two figures
+  // that read "428 Ah" against "428 Ah" say nothing about a condition that turned from ≤ to ≥.
+  const figure = (
+    spec: { name: string; value: string; unit?: string; conditions?: string },
+    fields: string[],
+  ) =>
+    [
+      `"${spec.value}${spec.unit ? ` ${spec.unit}` : ""}"`,
+      ...(fields.includes("name") ? [`named "${spec.name}"`] : []),
+      ...(fields.includes("conditions")
+        ? [spec.conditions ? `under "${spec.conditions}"` : "under no conditions"]
+        : []),
+    ].join(" ");
+  for (const { id, fields, held: kept, read } of held.disagreements) {
+    const by = kept.reviewedBy
+      ? `reviewed by ${kept.reviewedBy}${kept.checkedAt ? ` on ${kept.checkedAt}` : ""}`
+      : "written by hand";
+    console.log(
+      `      ${id} (${fields.join(", ")}): held ${figure(kept, fields)} from ${cite(kept)}, ${by}; read ${figure(read, fields)} from ${cite(read)}`,
+    );
+  }
+}
 
 // A document whose last figure just went is cited by nothing, and the validator refuses an orphan.
 let orphans = 0;

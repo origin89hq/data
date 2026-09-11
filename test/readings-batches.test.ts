@@ -137,3 +137,33 @@ test("a reader list that cannot be batched is refused here, not by the Worker", 
   );
   assert.equal(asked.length, 0, "neither may reach the Worker");
 });
+
+test("the figures pull writes through the guard that keeps a person's figures, and deletes past it too", () => {
+  const source = readFileSync(new URL("../tools/gate/pull-specs.ts", import.meta.url), "utf8");
+  assert.match(source, /pullWrites\(records\.specs, read, candidates\)/);
+  assert.match(source, /for \(const spec of held\.write\) collected\.set/);
+  assert.match(source, /if \(heldByPerson\(spec\)\)/);
+});
+
+test("the figures pull reads the translated editions it sets aside for comparison only, and cites documents by address", () => {
+  const source = readFileSync(new URL("../tools/gate/pull-specs.ts", import.meta.url), "utf8");
+  assert.match(
+    source,
+    /const comparisonOnly = \(\s*await creditedReadings\([\s\S]*?\.\.\.everyReading\.filter[\s\S]*?byLanguage\.dropped,?\s*\]/,
+  );
+  assert.match(source, /for \(const document of comparisonOnly\)[\s\S]*?candidate\(spec\)/);
+  assert.match(
+    source,
+    /const comparisonOnly = \(\s*await creditedReadings\(/,
+    "a retailer's set-aside editions are credited before they are compared",
+  );
+  assert.doesNotMatch(
+    source.slice(source.indexOf("for (const document of comparisonOnly)")),
+    /comparisonOnly\)[\s\S]{0,400}(collected\.set|usedSources\.set)/,
+    "a comparison-only document is neither written nor cited",
+  );
+  assert.match(
+    source,
+    /documentUrls\.get\(spec\.source\) \?\? sources\.get\(spec\.source\)\?\.url/,
+  );
+});

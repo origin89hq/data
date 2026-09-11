@@ -1,5 +1,5 @@
 import type { Model, Spec } from "@origin89/equipment-schema/model";
-import { englishWords, looksForeign } from "./language.ts";
+import { englishWords, looksForeign, withoutRedundantTranslations } from "./language.ts";
 import { normaliseModelName } from "./models.ts";
 import { repairMojibake } from "./text.ts";
 import { englishName } from "./translations.ts";
@@ -95,6 +95,8 @@ export interface SpecsFromResult {
   truncated: string[];
   /** Figures dropped because a multilingual document stated them again in another language. */
   repeated: number;
+  /** Those rows, and the rows a document stated again under an id already taken, kept so a figure a person holds under one of their ids can still be compared with what the document said. */
+  repeatedRows: Spec[];
 }
 
 /** Turn a document's reported figures into spec rows, keeping only those whose product we already hold. */
@@ -109,6 +111,7 @@ export function specsFrom({
   const specs = new Map<string, Spec>();
   const unmatched: string[] = [];
   const truncated: string[] = [];
+  const repeatedRows: Spec[] = [];
   for (const report of reports) {
     const model = matchModel(models, manufacturer, report.model);
     if (!model) {
@@ -135,10 +138,7 @@ export function specsFrom({
       }
       const conditions = s.conditions?.trim() || undefined;
       const id = specId(model.id, name, conditions);
-      // Two rows of one document that reduce to the same figure under the same conditions are
-      // one figure; the id says so, and the first reading wins.
-      if (specs.has(id)) continue;
-      specs.set(id, {
+      const row: Spec = {
         id,
         model: model.id,
         name,
@@ -152,7 +152,12 @@ export function specsFrom({
         ...(typeof s.page === "number" && s.page > 0 ? { page: s.page } : {}),
         extractedBy,
         confidence,
-      });
+      };
+      // Two rows of one document that reduce to the same figure under the same conditions are
+      // one figure; the id says so, and the first reading wins. The second is kept aside all the
+      // same: the id reads "≤25 °C" and "≥25 °C" as one, and a person may hold either.
+      if (specs.has(id)) repeatedRows.push(row);
+      else specs.set(id, row);
     }
   }
   // A multilingual manual states one figure once per language. NOCO's GB150 gives the same 60 W as
@@ -201,12 +206,119 @@ export function specsFrom({
     }
     for (const said of byEnglish.values()) for (const row of said.slice(1)) repeated.add(row.id);
   }
-  for (const id of repeated) specs.delete(id);
+  for (const id of repeated) {
+    const row = specs.get(id);
+    if (row) repeatedRows.push(row);
+    specs.delete(id);
+  }
 
   return {
     specs: [...specs.values()].sort((a, b) => a.id.localeCompare(b.id)),
     unmatched,
     truncated,
     repeated: repeated.size,
+    repeatedRows,
   };
+}
+
+/** A held figure the run read differently. One per distinct reading, so a second document's different value is not lost behind the first's. */
+export interface Disagreement {
+  id: string;
+  /**
+   * Which of the figure's fields differ. The id is made of the name and conditions, but it drops
+   * everything that is not a letter or a digit, so "≤25 °C" and "≥25 °C" share one id and are
+   * compared here as the strings they are, case and spacing aside.
+   */
+  fields: ("name" | "value" | "unit" | "conditions")[];
+  /** The record as it stands, with its source, page and review. */
+  held: Spec;
+  /** What the run read, with the document and page it read it from. */
+  read: Spec;
+}
+
+export interface HeldResult {
+  /** What the pull writes: everything it read, less what a person holds. */
+  write: Spec[];
+  /** Held figures the run read again and agreed with, each under every document that stated it. */
+  agreed: number;
+  /** Held figures the run read differently. */
+  disagreements: Disagreement[];
+}
+
+/**
+ * Whether a figure is a person's rather than a run's. A reviewer's name says somebody confirmed it,
+ * and no reader's name says somebody wrote it; either way the run that read the maker's documents
+ * again has no say over it. The deletion guard draws the same line.
+ */
+export function heldByPerson(spec: Pick<Spec, "reviewedBy" | "extractedBy">): boolean {
+  return Boolean(spec.reviewedBy) || !spec.extractedBy;
+}
+
+/**
+ * Keep the figures a person holds out of a pull's writes, and say where the pull disagreed with
+ * them. `read` is what the pull would write, one figure per id; `candidates` are every reading
+ * each id had across the run's documents, so a value a later document overrode, or a row a
+ * document's own translation rule dropped, is still compared, even under an id `read` no longer
+ * carries. A held figure the run read the same way is left exactly as it is, review and all; one
+ * read differently is left as it is too, and reported.
+ */
+export function keepHeld(
+  existing: Spec[],
+  read: Spec[],
+  candidates: Map<string, Spec[]> = new Map(),
+): HeldResult {
+  const held = new Map(existing.filter(heldByPerson).map((spec) => [spec.id, spec]));
+  const out: HeldResult = { write: [], agreed: 0, disagreements: [] };
+  const byId = new Map<string, Spec>();
+  for (const spec of read) {
+    byId.set(spec.id, spec);
+    if (!held.has(spec.id)) out.write.push(spec);
+  }
+  for (const id of new Set([...byId.keys(), ...candidates.keys()])) {
+    const kept = held.get(id);
+    if (!kept) continue;
+    const won = byId.get(id);
+    const seen = new Set<string>();
+    let differed = false;
+    for (const reading of candidates.get(id) ?? (won ? [won] : [])) {
+      const fields = differing(kept, reading);
+      if (fields.length === 0) continue;
+      differed = true;
+      const key = FIELDS.map((field) => said(reading[field])).join("|");
+      if (seen.has(key)) continue;
+      seen.add(key);
+      out.disagreements.push({ id, fields, held: kept, read: reading });
+    }
+    if (!differed) out.agreed += 1;
+  }
+  return out;
+}
+
+const FIELDS = ["name", "value", "unit", "conditions"] as const;
+
+/** A field as a person reads it: case and the spacing between words do not change what it says. */
+const said = (text: string | undefined): string =>
+  (text ?? "").trim().replace(/\s+/g, " ").toLowerCase();
+
+/** The fields on which a reading and a held figure say different things. */
+function differing(kept: Spec, reading: Spec): Disagreement["fields"] {
+  return FIELDS.filter((field) => said(reading[field]) !== said(kept[field]));
+}
+
+/**
+ * What a pull writes, once a person's figures are held back and the translations a multilingual
+ * document repeats are dropped. The held figures are compared with every reading, including one
+ * the translation rule drops, so a foreign-named figure a person holds is still checked; and the
+ * translation rule sees every reading, including the held ones, so an English figure a person
+ * holds still makes the same figure in another language redundant.
+ */
+export function pullWrites(
+  existing: Spec[],
+  read: Spec[],
+  candidates: Map<string, Spec[]> = new Map(),
+): HeldResult & { aligned: ReturnType<typeof withoutRedundantTranslations> } {
+  const held = keepHeld(existing, read, candidates);
+  const aligned = withoutRedundantTranslations(read);
+  const writable = new Set(held.write.map((spec) => spec.id));
+  return { ...held, write: aligned.keep.filter((spec) => writable.has(spec.id)), aligned };
 }
