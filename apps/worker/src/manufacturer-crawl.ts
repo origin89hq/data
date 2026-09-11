@@ -75,12 +75,16 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       }),
     );
 
-    const { pages, hosts } = await step.do(
+    const { pages, hosts, listed } = await step.do(
       "discover pages",
       { retries: { limit: 2, delay: "20 seconds", backoff: "exponential" }, timeout: "3 minutes" },
       async () => {
         const discovered = await discoverPages(domains);
-        return { pages: sample(discovered.pages, pageLimit ?? 200), hosts: discovered.hosts };
+        return {
+          pages: sample(discovered.pages, pageLimit ?? 200),
+          hosts: discovered.hosts,
+          listed: discovered.pages.length,
+        };
       },
     );
 
@@ -90,7 +94,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     // the site refused, moved, keeps its documents elsewhere, or simply links none (#48).
     const seen: DiscoverySeen = {
       hosts,
-      pages: { read: 0, failed: {} },
+      pages: { listed, read: 0, failed: {} },
       foreignDocumentHosts: {},
       redirectedTo: [...new Set(hosts.flatMap((h) => h.redirectedTo))].sort(),
     };

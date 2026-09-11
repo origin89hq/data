@@ -5,6 +5,7 @@ import {
   type Fetched,
   type HostSeen,
   hostsToTry,
+  isDocumentAnswer,
   isPage,
   MAX_CHILD_SITEMAPS,
   readPages,
@@ -306,9 +307,22 @@ test("a page that answers with a document is offered as that document, and its b
       contentType: "text/html; charset=utf-8",
       text: `<a href="/a.pdf">a</a>`,
     },
+    // A download route with no suffix, answering a spreadsheet as text.
+    "https://maker.test/export?id=manual": { contentType: "text/csv", text: "a,b\\n1,2" },
+    // A file the host sends to be saved, whatever it calls it.
+    "https://maker.test/save": { contentType: "text/html", attachment: true, text: "<p>x</p>" },
+    // An image at a page-looking address is neither a page nor a document.
+    "https://maker.test/logo": { contentType: "image/png", text: "PNG" },
   });
   const read = await readPages(
-    ["https://maker.test/sell-sheets/vue3", "https://maker.test/manual", "https://maker.test/page"],
+    [
+      "https://maker.test/sell-sheets/vue3",
+      "https://maker.test/manual",
+      "https://maker.test/page",
+      "https://maker.test/export?id=manual",
+      "https://maker.test/save",
+      "https://maker.test/logo",
+    ],
     ["maker.test"],
     get,
   );
@@ -319,9 +333,34 @@ test("a page that answers with a document is offered as that document, and its b
       foundOn: "https://maker.test/manual",
     },
     { url: "https://maker.test/a.pdf", host: "maker.test", foundOn: "https://maker.test/page" },
+    {
+      url: "https://maker.test/export?id=manual",
+      host: "maker.test",
+      foundOn: "https://maker.test/export?id=manual",
+    },
+    { url: "https://maker.test/save", host: "maker.test", foundOn: "https://maker.test/save" },
   ]);
   assert.deepEqual(read.foreign, { "cdn.other.test": ["https://cdn.other.test/files/vue3"] });
   assert.deepEqual([read.read, read.opened], [1, ["https://maker.test/page"]]);
+  assert.deepEqual(read.failed, { "not a page (image/png)": 1 });
+  assert.equal(
+    isDocumentAnswer({
+      status: 200,
+      url: "https://maker.test/x",
+      text: "",
+      contentType: "image/png",
+    }),
+    false,
+  );
+  assert.equal(
+    isDocumentAnswer({
+      status: 200,
+      url: "https://maker.test/x",
+      text: "",
+      contentType: "text/plain",
+    }),
+    true,
+  );
   assert.equal(isPage({ status: 200, url: "https://maker.test/x", text: "" }), true);
   assert.equal(
     isPage({ status: 200, url: "https://maker.test/x", text: "", contentType: "application/xml" }),

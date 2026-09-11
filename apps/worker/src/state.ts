@@ -138,7 +138,9 @@ export function emptyPlanReason(seen: DiscoverySeen | undefined): string {
   if (elsewhere.length > 0) {
     const documents = elsewhere.reduce((n, [, count]) => n + count, 0);
     const hosts = elsewhere.slice(0, 3).map(([host]) => host);
-    return `nothing to fetch; ${documents} documents are on ${hosts.join(", ")}, which the record does not claim`;
+    const more = elsewhere.length - hosts.length;
+    const others = more > 0 ? ` and ${more} more host${more === 1 ? "" : "s"}` : "";
+    return `nothing to fetch; ${documents} documents are on ${hosts.join(", ")}${others}, which the record does not claim`;
   }
   if (seen.pages.read === 0)
     return `nothing to fetch; no page could be read (${failures.map(([status, n]) => `${n} answered ${status}`).join(", ")})`;
@@ -150,7 +152,9 @@ export function emptyPlanReason(seen: DiscoverySeen | undefined): string {
     ...(unopened > 0 ? [`${unopened} of its sitemaps were left unopened`] : []),
   ];
   const rest = partly.length ? `, and ${partly.join(" and ")}` : "";
-  return `nothing to fetch; read ${seen.pages.read} pages, none links a document${rest}`;
+  const listed = seen.pages.listed ?? 0;
+  const sampled = listed > seen.pages.read + failed ? ` of ${listed} the site lists` : "";
+  return `nothing to fetch; read ${seen.pages.read} pages${sampled}, none links a document${rest}`;
 }
 
 export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
@@ -232,7 +236,7 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
  * sort by age, and a run that died before writing a plan is no run to compare with: it is passed
  * over for the last one that finished discovery.
  */
-/** Runs looked at when finding the previous plan: a year of monthly discoveries, one HEAD each. */
+/** Days of runs looked at when finding the previous plan: a year of monthly discoveries, one HEAD per run. */
 export const PREVIOUS_RUNS_CONSIDERED = 12;
 
 export async function previousPlan(
@@ -251,11 +255,13 @@ export async function previousPlan(
   const planKey = (r: string) => `${runPrefix.documents(maker, r)}/plan.json`;
   // One HEAD per run considered, and a pass asks for every empty maker: the newest runs by name
   // are enough, since a run's name starts with its day and the previous plan is a recent one.
-  const recent = runs
-    .filter((r) => r !== run)
+  // Bounded by day rather than by name: a run's name starts with its day and ends in a random
+  // suffix, so the newest names would not be the newest runs when a day holds several.
+  const days = [...new Set(runs.map((r) => r.slice(0, 10)))]
     .sort()
     .reverse()
     .slice(0, PREVIOUS_RUNS_CONSIDERED);
+  const recent = runs.filter((r) => r !== run && days.includes(r.slice(0, 10)));
   const written = async (r: string): Promise<number | undefined> =>
     (await bucket.head(planKey(r)))?.uploaded.getTime();
   // A current run still discovering has no plan yet, and then every earlier plan is before it.

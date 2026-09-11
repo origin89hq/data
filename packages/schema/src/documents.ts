@@ -76,6 +76,26 @@ export function hostAllowed(host: string, domains: readonly string[]): boolean {
 }
 
 const HREF = /\bhref\s*=\s*["']([^"']+)["']/gi;
+const BASE = /<base\b[^>]*\bhref\s*=\s*["']([^"']+)["'][^>]*>/i;
+
+/**
+ * The address a page's relative links resolve against: its first `<base href>` when it has one,
+ * as a browser does, and otherwise the page's own address. The tag itself is no link.
+ */
+export function baseHref(html: string, pageUrl: string): string {
+  const base = BASE.exec(html)?.[1];
+  if (!base) return pageUrl;
+  try {
+    return new URL(decodeEntities(base), pageUrl).toString();
+  } catch {
+    return pageUrl;
+  }
+}
+
+/** The page's markup with its `<base>` tags removed, so their `href` is not read as a link. */
+export function withoutBase(html: string): string {
+  return html.replace(/<base\b[^>]*>/gi, "");
+}
 
 /**
  * An href is HTML, so its entities are markup and not part of the address. Victron publishes
@@ -95,10 +115,11 @@ export function decodeEntities(value: string): string {
  */
 export function linkedDocuments(html: string, pageUrl: string): Found[] {
   const found = new Map<string, Found>();
-  for (const match of html.matchAll(HREF)) {
+  const base = baseHref(html, pageUrl);
+  for (const match of withoutBase(html).matchAll(HREF)) {
     let url: URL;
     try {
-      url = new URL(decodeEntities(match[1]), pageUrl);
+      url = new URL(decodeEntities(match[1]), base);
     } catch {
       continue;
     }

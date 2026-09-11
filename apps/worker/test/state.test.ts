@@ -148,6 +148,15 @@ test("an empty plan says why, in the order a person would fix things", () => {
     "nothing to fetch; 15 documents are on cdn.shopify.com, x.cloudfront.net, which the record does not claim",
   );
   assert.equal(
+    emptyPlanReason(seen({ foreignDocumentHosts: { a: 4, b: 3, c: 2, d: 1, e: 1 } })),
+    "nothing to fetch; 11 documents are on a, b, c and 2 more hosts, which the record does not claim",
+  );
+  assert.equal(
+    emptyPlanReason(seen({ pages: { listed: 3000, read: 150, failed: { "404": 2 } } })),
+    "nothing to fetch; read 150 pages of 3000 the site lists, none links a document",
+    "a sample says it was one",
+  );
+  assert.equal(
     emptyPlanReason(seen({ pages: { read: 0, failed: { "404": 1, "500": 1 } } })),
     "nothing to fetch; no page could be read (1 answered 404, 1 answered 500)",
   );
@@ -217,11 +226,27 @@ test("finding the previous plan asks about the newest runs only, one request eac
     run: `2026-08-${PREVIOUS_RUNS_CONSIDERED + 4}-old`,
     documents: 1,
   });
+  // The window is counted in days and the current run's day is one of them.
   assert.equal(
     headed.filter((k) => k !== `${BASE}/plan.json`).length,
-    PREVIOUS_RUNS_CONSIDERED,
+    PREVIOUS_RUNS_CONSIDERED - 1,
     "the oldest runs are never asked about",
   );
+});
+
+test("a day with many runs keeps them all in view, whatever their suffixes", async () => {
+  // Thirteen runs today whose names all sort after the current one; the last written is the
+  // previous run, and a bound by name would have dropped it.
+  const objects: Record<string, string> = {};
+  for (let i = 1; i <= PREVIOUS_RUNS_CONSIDERED + 1; i += 1)
+    objects[`documents/maker/runs/2026-09-10-z${String(i).padStart(2, "0")}/plan.json`] =
+      JSON.stringify({ documents: [doc("a"), doc("b")] });
+  Object.assign(objects, run({ plan: true }));
+  const { env } = world(objects);
+  assert.deepEqual(await previousPlan(env.ARCHIVE, "maker", RUN), {
+    run: `2026-09-10-z${PREVIOUS_RUNS_CONSIDERED + 1}`,
+    documents: 2,
+  });
 });
 
 test("a run that is converted and read is ready to pull", async () => {

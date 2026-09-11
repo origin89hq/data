@@ -21,15 +21,43 @@ export interface Fetched {
   text: string;
   /** The media type the host declared, when it did. A document's body is never read here. */
   contentType?: string;
+  /** The host sent it as a file to save rather than a page to show. */
+  attachment?: true;
 }
 
-/** Whether an answer is a page to read rather than a document to offer. */
+const mediaType = (answer: Fetched): string | undefined =>
+  answer.contentType?.split(";")[0]?.trim().toLowerCase();
+
+/** Media types that are the documents this crawl archives, for an address that does not say. */
+const DOCUMENT_TYPES = new Set([
+  "application/pdf",
+  "application/zip",
+  "application/x-zip-compressed",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  "application/vnd.ms-excel",
+  "text/csv",
+  "text/plain",
+]);
+
+/** Whether an answer is a page to read: HTML or XML, and nothing the host marked as a file. */
 export function isPage(answer: Fetched): boolean {
-  if (isDocument(answer.url)) return false;
-  const type = answer.contentType?.split(";")[0]?.trim().toLowerCase();
+  if (isDocument(answer.url) || answer.attachment) return false;
+  const type = mediaType(answer);
   return (
-    type === undefined || /^(text\/|application\/(xhtml\+xml|xml|rss\+xml|atom\+xml))/.test(type)
+    type === undefined ||
+    /^(text\/html|text\/xml|application\/(xhtml\+xml|xml|rss\+xml|atom\+xml))$/.test(type)
   );
+}
+
+/**
+ * Whether an answer is one of the documents this crawl offers, by its address, by the host
+ * sending it as a file, or by a media type on the archive's list. An image or a script served at
+ * an extensionless address is neither a page nor a document.
+ */
+export function isDocumentAnswer(answer: Fetched): boolean {
+  if (isDocument(answer.url) || answer.attachment) return true;
+  const type = mediaType(answer);
+  return type !== undefined && DOCUMENT_TYPES.has(type);
 }
 
 export type Get = (url: string) => Promise<Fetched>;
@@ -45,11 +73,13 @@ export async function fetchPage(url: string): Promise<Fetched> {
       redirect: "follow",
     });
     const contentType = response.headers.get("content-type") ?? undefined;
+    const attachment = /^\s*attachment\b/i.test(response.headers.get("content-disposition") ?? "");
     const answer: Fetched = {
       status: response.status,
       url: response.url || url,
       text: "",
       ...(contentType ? { contentType } : {}),
+      ...(attachment ? { attachment: true as const } : {}),
     };
     // A page that turns out to be a PDF is offered, not read: nothing is downloaded before a
     // person approves it, and a manual is not HTML to parse.
@@ -276,9 +306,14 @@ export async function readPages(
     }
     if (!isPage(answer)) {
       // A page that answered with a document, by its address or its media type, is that document:
-      // offered where it landed, with the page it was asked for as where it was found.
+      // offered where it landed, with the page it was asked for as where it was found. Anything
+      // else that is not a page, an image or a script, is counted and left alone.
       const host = hostOf(answer.url);
       if (host === undefined) continue;
+      if (!isDocumentAnswer(answer)) {
+        count(out.failed, `not a page (${mediaType(answer) ?? "unknown type"})`);
+        continue;
+      }
       if (hostAllowed(host, domains)) out.links.push({ url: answer.url, host, foundOn: page });
       else {
         const urls = out.foreign[host] ?? [];
@@ -311,7 +346,8 @@ export async function readPages(
 /** Everything discovery saw, written beside the plan so an empty one can be explained. */
 export interface DiscoverySeen {
   hosts: HostSeen[];
-  pages: { read: number; failed: Record<string, number> };
+  /** Pages the site listed on its own hosts, how many were read, and what the rest answered. A read below the listing is a sample. */
+  pages: { listed?: number; read: number; failed: Record<string, number> };
   /** Distinct documents linked on hosts the record does not claim, by host. */
   foreignDocumentHosts: Record<string, number>;
   redirectedTo: string[];

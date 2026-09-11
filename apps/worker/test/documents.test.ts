@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
+  baseHref,
   CrawlApproval,
   decodeEntities,
   documentLinks,
@@ -157,4 +158,18 @@ test("a query parameter that begins with an entity name survives, since a URL is
   assert.equal(decodeEntities("https://x.com/a?x=1&amp;y=2"), "https://x.com/a?x=1&y=2");
   // And it now knows every named entity, not the six that were written out by hand.
   assert.equal(decodeEntities("https://x.com/caf&eacute;.pdf"), "https://x.com/café.pdf");
+});
+
+test("relative links resolve against a page's base element, whose own address is no link", () => {
+  const html = `<base href="/catalog/"><a href="model.pdf">sheet</a><a href="/root.pdf">root</a>`;
+  assert.deepEqual(
+    linkedDocuments(html, "https://www.victronenergy.com/support/").map((f) => f.url),
+    ["https://www.victronenergy.com/catalog/model.pdf", "https://www.victronenergy.com/root.pdf"],
+  );
+  assert.equal(
+    baseHref(html, "https://www.victronenergy.com/support/"),
+    "https://www.victronenergy.com/catalog/",
+  );
+  assert.equal(baseHref("<p>no base</p>", "https://x.test/p"), "https://x.test/p");
+  assert.equal(baseHref(`<base href="http://[bad">`, "https://x.test/p"), "https://x.test/p");
 });
