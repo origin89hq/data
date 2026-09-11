@@ -470,8 +470,8 @@ reads require the existing member session. No extra service or binding is needed
 
 The build also emits `vocabulary.json`: the closed lists a consumer joins on
 (metric and command kinds, equipment kinds, dialect families, confidence,
-driver status, refuter status, brand decisions, the row tiers and the
-dialect-model tiers), taken from `packages/schema` so a firmware crosswalk or
+driver status, refuter status, brand decisions, the row tiers, the
+dialect-model tiers, a property's basis and a gap's reason), taken from `packages/schema` so a firmware crosswalk or
 an assistant pins the words with the release rather than copying them.
 
 Publication checks the Worker's history capability before uploading any file.

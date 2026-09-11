@@ -9,6 +9,7 @@ import {
   Tier,
 } from "@origin89/equipment-schema/enums";
 import { EquipmentKind } from "@origin89/equipment-schema/guess";
+import { Basis, GapReason } from "@origin89/equipment-schema/properties";
 
 /**
  * The closed vocabularies a consumer joins on, published as one file so nothing has to copy them
@@ -40,6 +41,10 @@ export interface Vocabulary {
    * A different word for a different thing than a row's tier, so the two are listed apart.
    */
   dialectModelTiers: string[];
+  /** What a normalized property rests on; `properties.basis`. */
+  propertyBasis: string[];
+  /** Why a model has no usable value for a property; `property_gaps.reason`. */
+  propertyGapReasons: string[];
 }
 
 /** The vocabularies as the schemas declare them, in the schemas' own order. */
@@ -55,5 +60,7 @@ export function vocabulary(): Vocabulary {
     brandDecisions: [...BrandDecision.options],
     rowTiers: ["record", "feed"],
     dialectModelTiers: [...Tier.options],
+    propertyBasis: [...Basis.options],
+    propertyGapReasons: [...GapReason.options],
   };
 }
