@@ -9,7 +9,12 @@ import {
   Tier,
 } from "@origin89/equipment-schema/enums";
 import { EquipmentKind } from "@origin89/equipment-schema/guess";
-import { Basis, GapReason } from "@origin89/equipment-schema/properties";
+import {
+  Basis,
+  GapReason,
+  PropertyScope,
+  PropertyStatus,
+} from "@origin89/equipment-schema/properties";
 
 /**
  * The closed vocabularies a consumer joins on, published as one file so nothing has to copy them
@@ -45,6 +50,10 @@ export interface Vocabulary {
   propertyBasis: string[];
   /** Why a model has no usable value for a property; `property_gaps.reason`. */
   propertyGapReasons: string[];
+  /** Whether a property row is a value or one side of a conflict; `properties.status`. */
+  propertyStatus: string[];
+  /** Whether a figure is per input or for the whole unit; `properties.scope`. */
+  propertyScopes: string[];
 }
 
 /** The vocabularies as the schemas declare them, in the schemas' own order. */
@@ -62,5 +71,7 @@ export function vocabulary(): Vocabulary {
     dialectModelTiers: [...Tier.options],
     propertyBasis: [...Basis.options],
     propertyGapReasons: [...GapReason.options],
+    propertyStatus: [...PropertyStatus.options],
+    propertyScopes: [...PropertyScope.options],
   };
 }
