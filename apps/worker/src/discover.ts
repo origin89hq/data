@@ -369,8 +369,10 @@ export function hopOrder(candidates: readonly string[]): string[] {
 export interface PagesRead {
   links: Found[];
   tables: SpecPageCandidate[];
-  /** Pages these pages link on the maker's hosts, for the hop after this one. */
+  /** Pages these pages link on the maker's hosts, for the hop after this one, product and download pages first and bounded. */
   pages: string[];
+  /** Links found beyond that bound and left behind. */
+  linksDropped: number;
   /** Where each page read actually was, after redirects, so a link back to it is not a page to follow. */
   landed: string[];
   read: number;
@@ -398,6 +400,7 @@ export async function readPages(
     links: [],
     tables: [],
     pages: [],
+    linksDropped: 0,
     landed: [],
     opened: [],
     read: 0,
@@ -407,6 +410,7 @@ export async function readPages(
   };
   const strayedTo = new Set<string>();
   const linked = new Set<string>();
+  const collected: string[] = [];
   for (const page of pages) {
     const answer = await get(page);
     const away = strayed(answer, domains);
@@ -448,19 +452,22 @@ export async function readPages(
       }
     }
     // A page's link to itself, canonical or otherwise, is not a page to follow.
-    for (const link of pageLinks(answer.text, answer.url, domains)) {
-      if (out.pages.length >= MAX_LINKS_PER_BATCH) break;
+    for (const link of pageLinks(answer.text, answer.url, domains))
       if (link !== answer.url && link !== page && !linked.has(link)) {
         linked.add(link);
-        out.pages.push(link);
+        collected.push(link);
       }
-    }
     // The page is already here for its links. Judging it as a specification table too costs
     // nothing and is how the feed list stops being hand-typed.
     const candidate = judgeSpecPage(page, answer.text);
     if (candidate) out.tables.push(candidate);
   }
   out.redirectedTo = [...strayedTo].sort();
+  // The frontier handed back is bounded, and bounded after ranking, so a batch that links two
+  // thousand blog posts before its product pages still hands the product pages back.
+  const ranked = hopOrder(collected);
+  out.pages = ranked.slice(0, MAX_LINKS_PER_BATCH);
+  out.linksDropped = ranked.length - out.pages.length;
   return out;
 }
 
@@ -468,7 +475,14 @@ export async function readPages(
 export interface DiscoverySeen {
   hosts: HostSeen[];
   /** Pages the site listed on its own hosts, how many were read in all, how many of those by following links, and what the rest answered. A read below the listing is a sample. */
-  pages: { listed?: number; read: number; followed?: number; failed: Record<string, number> };
+  pages: {
+    listed?: number;
+    read: number;
+    followed?: number;
+    /** Links the batches found beyond what they may hand back, and so never followed. */
+    linksDropped?: number;
+    failed: Record<string, number>;
+  };
   /** Distinct documents linked on hosts the record does not claim, by host. */
   foreignDocumentHosts: Record<string, number>;
   redirectedTo: string[];

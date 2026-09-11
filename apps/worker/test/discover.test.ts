@@ -447,7 +447,8 @@ test("a batch hands back at most a bounded frontier, so a link-heavy catalogue c
   );
   const { get } = site({
     "https://maker.test/a": many.slice(0, 1200).join(""),
-    "https://maker.test/b": many.slice(1000).join(""),
+    // The product pages come last, after two thousand posts.
+    "https://maker.test/b": `${many.slice(1000).join("")}<a href="/product/x">x</a><a href="/download/y">y</a>`,
   });
   const read = await readPages(
     ["https://maker.test/a", "https://maker.test/b"],
@@ -456,6 +457,11 @@ test("a batch hands back at most a bounded frontier, so a link-heavy catalogue c
   );
   assert.equal(read.pages.length, MAX_LINKS_PER_BATCH);
   assert.equal(new Set(read.pages).size, MAX_LINKS_PER_BATCH, "and each link once");
+  assert.deepEqual(read.pages.slice(0, 2), [
+    "https://maker.test/product/x",
+    "https://maker.test/download/y",
+  ]);
+  assert.equal(read.linksDropped, 52, "and says how many were left behind");
   assert.equal(read.read, 2, "the cap costs links, not pages");
 });
 

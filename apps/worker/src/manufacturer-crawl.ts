@@ -130,6 +130,8 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
           candidates.push(link);
         }
       seen.pages.read += batch.read;
+      if (batch.linksDropped > 0)
+        seen.pages.linksDropped = (seen.pages.linksDropped ?? 0) + batch.linksDropped;
       for (const [status, n] of Object.entries(batch.failed))
         seen.pages.failed[status] = (seen.pages.failed[status] ?? 0) + n;
       for (const [host, urls] of Object.entries(batch.foreign)) {
