@@ -13,6 +13,7 @@ import {
   MAX_FRONTIER_BYTES,
   MAX_LINKS_PER_BATCH,
   MAX_PAGE_BYTES,
+  MAX_PROBES_PER_BATCH,
   MAX_RESULT_BYTES,
   nextHop,
   pageLinks,
@@ -627,18 +628,22 @@ test("a document on a host the record names is the maker's when its own page lin
   const probed = await readPages(["https://maker.test/product/b"], ["maker.test"], get, [
     "cdn.shop.test",
   ]);
-  assert.deepEqual(probed.probes, ["https://cdn.shop.test/download?id=manual"]);
+  assert.deepEqual(probed.probes, [
+    { url: "https://cdn.shop.test/download?id=manual", foundOn: "https://maker.test/product/b" },
+  ]);
+  const origins = new Map(probed.probes.map((p) => [p.url, p.foundOn]));
   const answered = await readPages(
     ["https://cdn.shop.test/download?id=manual", "https://cdn.shop.test/download?id=page"],
     ["maker.test"],
     get,
     ["cdn.shop.test"],
+    origins,
   );
   assert.deepEqual(answered.links, [
     {
       url: "https://cdn.shop.test/download?id=manual",
       host: "cdn.shop.test",
-      foundOn: "https://cdn.shop.test/download?id=manual",
+      foundOn: "https://maker.test/product/b",
     },
   ]);
   assert.deepEqual(answered.failed, { "a probe answered a page (text/html)": 1 });
@@ -810,6 +815,8 @@ test("a listed page an earlier batch landed on is not asked for again", async ()
     ["https://maker.test/b"],
     ["maker.test"],
     get,
+    [],
+    undefined,
     new Set(["https://maker.test/b"]),
   );
   assert.deepEqual(asked, []);
@@ -862,4 +869,26 @@ test("a result over the cap keeps shrinking its foreign lists until it fits", as
   const read = await readPages(["https://maker.test/a"], ["maker.test"], get);
   assert.ok(new TextEncoder().encode(JSON.stringify(read)).length <= MAX_RESULT_BYTES);
   assert.ok(read.foreignDropped > 0);
+});
+
+test("probes are bounded per batch and in bytes, and what is left behind is counted", async () => {
+  const many = Array.from(
+    { length: MAX_PROBES_PER_BATCH + 5 },
+    (_, i) => `<a href="https://cdn.shop.test/download?id=${i}">${i}</a>`,
+  );
+  const { get } = site({ "https://maker.test/a": many.join("") });
+  const read = await readPages(["https://maker.test/a"], ["maker.test"], get, ["cdn.shop.test"]);
+  assert.equal(read.probes.length, MAX_PROBES_PER_BATCH);
+  assert.equal(read.probesDropped, 5);
+  const long = Array.from(
+    { length: 150 },
+    (_, i) => `<a href="https://cdn.shop.test/download?${"q".repeat(8000)}&id=${i}">${i}</a>`,
+  );
+  const big = site({ "https://maker.test/b": long.join("") });
+  const bounded = await readPages(["https://maker.test/b"], ["maker.test"], big.get, [
+    "cdn.shop.test",
+  ]);
+  assert.ok(JSON.stringify(bounded).length <= MAX_RESULT_BYTES);
+  assert.ok(bounded.probes.length > 0 && bounded.probes.length < 150);
+  assert.equal(bounded.probesDropped, 150 - bounded.probes.length);
 });

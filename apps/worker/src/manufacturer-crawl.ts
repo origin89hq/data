@@ -13,6 +13,7 @@ import {
   type DiscoverySeen,
   discoverPages,
   hopOrder,
+  MAX_PROBES_PER_RUN,
   nextHop,
   type PagesRead,
   readPages,
@@ -138,7 +139,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     const landedAt = new Set<string>();
     const candidates: string[] = [];
     // Addresses on a document host with nothing to say what they are, asked for ahead of the hop.
-    const probes: string[] = [];
+    const probes: { url: string; foundOn: string }[] = [];
     const take = (batch: PagesRead): void => {
       // A cited page read for its links counts as a page read; one that answered with the
       // document itself is counted with the documents, marked cited, and not as a page.
@@ -147,10 +148,12 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       for (const f of batch.links) if (!found.some((x) => x.url === f.url)) found.push(f);
       specPages.push(...batch.tables);
       for (const probe of batch.probes)
-        if (!queued.has(probe)) {
-          queued.add(probe);
+        if (!queued.has(probe.url)) {
+          queued.add(probe.url);
           probes.push(probe);
         }
+      if (batch.probesDropped > 0)
+        seen.pages.probesDropped = (seen.pages.probesDropped ?? 0) + batch.probesDropped;
       for (const url of batch.landed) {
         queued.add(url);
         landedAt.add(url);
@@ -189,7 +192,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     for (let b = 0; b * DISCOVER_BATCH < pages.length; b += 1) {
       const slice = pages.slice(b * DISCOVER_BATCH, (b + 1) * DISCOVER_BATCH);
       const batch = await step.do(`read pages ${b + 1}`, reading, () =>
-        readPages(slice, domains, undefined, documentHosts, landedAt),
+        readPages(slice, domains, undefined, documentHosts, undefined, landedAt),
       );
       take(batch);
       attempted += batch.attempted;
@@ -203,7 +206,23 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     // The frontier is drawn on batch by batch, skipping any address a page has since landed on:
     // a followed page that redirects to a later candidate makes that candidate a page already
     // read, and the slot goes to the next one instead.
-    const frontier = [...probes, ...hopOrder(candidates)];
+    // Probes are asked for on an allowance of their own: a probe is one request to learn what a
+    // link is, not a page read, and a sitemap that fills the page budget must not starve them.
+    const origins = new Map(probes.map((p) => [p.url, p.foundOn]));
+    const toProbe = probes.slice(0, MAX_PROBES_PER_RUN).map((p) => p.url);
+    for (let b = 0; b * DISCOVER_BATCH < toProbe.length; b += 1) {
+      const slice = toProbe.slice(b * DISCOVER_BATCH, (b + 1) * DISCOVER_BATCH);
+      take(
+        await step.do(`probe documents ${b + 1}`, reading, () =>
+          readPages(slice, domains, undefined, documentHosts, origins),
+        ),
+      );
+      await step.sleep(`politeness after probes ${b + 1}`, "2 seconds");
+    }
+    if (probes.length > toProbe.length)
+      seen.pages.probesDropped = (seen.pages.probesDropped ?? 0) + probes.length - toProbe.length;
+
+    const frontier = hopOrder(candidates);
     let remaining = Math.max(0, budget - attempted);
     let cursor = 0;
     for (let b = 0; remaining > 0 && cursor < frontier.length; b += 1) {
@@ -212,7 +231,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       if (next.slice.length === 0) break;
       const slice = next.slice;
       const batch = await step.do(`follow links ${b + 1}`, reading, () =>
-        readPages(slice, domains, undefined, documentHosts, landedAt),
+        readPages(slice, domains, undefined, documentHosts, undefined, landedAt),
       );
       take(batch);
       remaining -= batch.attempted;

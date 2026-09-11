@@ -402,6 +402,8 @@ export const MAX_FRONTIER_BYTES = 512 * 1024;
 export const MAX_RESULT_BYTES = 768 * 1024;
 /** Extensionless addresses on a document host a batch may hand back to be asked about. */
 export const MAX_PROBES_PER_BATCH = 200;
+/** And how many a run asks about, on an allowance of its own beside the page budget. */
+export const MAX_PROBES_PER_RUN = 50;
 
 /** Paths a maker keeps its documents behind, ahead of its blog, its careers page and its cart. */
 const WORTH_FIRST =
@@ -463,8 +465,10 @@ export interface PagesRead {
   landed: string[];
   /** Pages actually asked for: one in the batch that an earlier page had already landed on is skipped. */
   attempted: number;
-  /** Addresses on a document host the record names, linked from the maker's own pages with no suffix to say what they are: asked for, to find out. */
-  probes: string[];
+  /** Addresses on a document host the record names, linked from the maker's own pages with no suffix to say what they are: asked for, to find out, and offered as found on the page that linked them. */
+  probes: { url: string; foundOn: string }[];
+  /** Such addresses beyond what a batch may hand back. */
+  probesDropped: number;
   read: number;
   /** The pages asked for that answered with a page, as they were asked for. */
   opened: string[];
@@ -497,6 +501,8 @@ export async function readPages(
   domains: readonly string[],
   get: Get = fetchPage,
   documentHosts: readonly string[] = [],
+  /** For a probe, the maker page that linked it, so a document it turns out to be is found there. */
+  origins: ReadonlyMap<string, string> = new Map(),
   /** Addresses earlier batches landed on: a listed page among them is a page already read. */
   skip: ReadonlySet<string> = new Set(),
 ): Promise<PagesRead> {
@@ -510,6 +516,7 @@ export async function readPages(
     landed: [],
     attempted: 0,
     probes: [],
+    probesDropped: 0,
     opened: [],
     answered: [],
     read: 0,
@@ -557,8 +564,10 @@ export async function readPages(
         count(out.failed, `not a page (${mediaType(answer) ?? "unknown type"})`);
         continue;
       }
-      out.answered.push(page);
-      if (hostAllowed(host, keep)) out.links.push({ url: answer.url, host, foundOn: page });
+      // A probe that turns out to be a document is a link's find, not a page answering with one.
+      if (!probing) out.answered.push(page);
+      if (hostAllowed(host, keep))
+        out.links.push({ url: answer.url, host, foundOn: origins.get(page) ?? page });
       else {
         const urls = out.foreign[host] ?? [];
         if (!urls.includes(answer.url)) urls.push(answer.url);
@@ -589,8 +598,11 @@ export async function readPages(
     // what it is, such as `/download?id=manual`, is worth one request to find out.
     if (!away && documentHosts.length > 0)
       for (const link of pageLinks(answer.text, answer.url, documentHosts))
-        if (!out.probes.includes(link) && out.probes.length < MAX_PROBES_PER_BATCH)
-          out.probes.push(link);
+        if (!out.probes.some((p) => p.url === link)) {
+          if (out.probes.length < MAX_PROBES_PER_BATCH)
+            out.probes.push({ url: link, foundOn: answer.url });
+          else out.probesDropped += 1;
+        }
     // The page is already here for its links. Judging it as a specification table too costs
     // nothing and is how the feed list stops being hand-typed.
     const candidate = judgeSpecPage(page, answer.text);
@@ -634,6 +646,11 @@ function bound(out: PagesRead): void {
       out.foreignDropped += Math.max(0, urls.length - cap);
       out.foreign[host] = urls.slice(0, cap);
     }
+  }
+  while (size() > MAX_RESULT_BYTES && out.probes.length > 0) {
+    const keep = Math.floor(out.probes.length * 0.8);
+    out.probesDropped += out.probes.length - keep;
+    out.probes = out.probes.slice(0, keep);
   }
   // Last of all the finds themselves, counted so a plan built from a cut batch says so.
   while (size() > MAX_RESULT_BYTES && out.tables.length > 0) {
@@ -739,6 +756,8 @@ export interface DiscoverySeen {
     /** Finds cut from batches to keep their results under the step cap. */
     documentsDropped?: number;
     tablesDropped?: number;
+    /** Document-host addresses found beyond what a batch or the run's probe allowance carries. */
+    probesDropped?: number;
     failed: Record<string, number>;
   };
   /** What the records cite on the maker's hosts: documents offered, pages read as seeds, and cited pages the page limit left out. */
