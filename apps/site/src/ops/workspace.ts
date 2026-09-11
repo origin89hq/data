@@ -1,5 +1,13 @@
 import type { MakerState, Pipeline, RunStatus, SellerState } from "./api.ts";
-export type View = "overview" | "makers" | "sellers" | "records" | "files" | "supervisor";
+export type View =
+  | "overview"
+  | "makers"
+  | "sellers"
+  | "records"
+  | "files"
+  | "activity"
+  | "releases"
+  | "supervisor";
 export type Filter = "all" | "review" | "active" | "attention" | "readings";
 export interface RunRow {
   key: string;
@@ -112,6 +120,8 @@ export function readView(search: string): { view: View; filter: Filter; query: s
       value === "sellers" ||
       value === "records" ||
       value === "files" ||
+      value === "activity" ||
+      value === "releases" ||
       value === "supervisor"
         ? value
         : "overview",

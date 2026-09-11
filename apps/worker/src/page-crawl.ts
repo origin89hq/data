@@ -1,5 +1,6 @@
 import { WorkflowEntrypoint, type WorkflowEvent, type WorkflowStep } from "cloudflare:workers";
 import { Seller, Sighting } from "@origin89/equipment-schema/sighting";
+import { observeCollection } from "./activity.ts";
 import { hasFeed, todayUtc } from "./feeds.ts";
 import { sightingFromPage } from "./page-product.ts";
 import { pointerKey, runPrefix, writePointer } from "./runs.ts";
@@ -19,6 +20,7 @@ export interface PageCrawlParams {
   /** The run this attempt writes under. */
   run: string;
   checkedAt: string;
+  initiatedBy?: string;
   /** Try this many urls, spread evenly across the shop, instead of all of them. For checking a seller before letting the whole shop through. */
   limit?: number;
 }
@@ -33,6 +35,19 @@ export const PAGE_BATCH = 25;
  */
 export class PageCrawl extends WorkflowEntrypoint<Env, PageCrawlParams> {
   async run(event: WorkflowEvent<PageCrawlParams>, step: WorkflowStep) {
+    return observeCollection(
+      this.env.ARCHIVE,
+      step,
+      {
+        entity: event.payload.sellerId,
+        actor: event.payload.initiatedBy ?? "Collection workflow",
+        run: { kind: "seller", id: event.payload.run, instance: event.instanceId },
+      },
+      () => this.collect(event, step),
+    );
+  }
+
+  private async collect(event: WorkflowEvent<PageCrawlParams>, step: WorkflowStep) {
     const { sellerId, run, checkedAt, limit } = event.payload;
     const seller = Seller.parse(sellers.find((s) => s.id === sellerId));
     if (hasFeed(seller))

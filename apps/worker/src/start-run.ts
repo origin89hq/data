@@ -141,6 +141,7 @@ export function startMaker(
   manufacturerId: string,
   domains: string[],
   pageLimit?: number,
+  initiatedBy = "Scheduled collection",
 ): Promise<StartResult> {
   return start(env, pointerKey.documents(manufacturerId), () => {
     const run = newRun();
@@ -158,6 +159,7 @@ export function startMaker(
           manufacturerId,
           domains,
           checkedAt: run.date,
+          initiatedBy,
           ...(pageLimit === undefined ? {} : { pageLimit }),
         },
       },
@@ -170,6 +172,7 @@ export function startSeller(
   sellerId: string,
   tier: "feed" | "page",
   limit?: number,
+  initiatedBy = "Scheduled collection",
 ): Promise<StartResult> {
   return start(env, pointerKey.sightings(sellerId), () => {
     const run = newRun();
@@ -184,6 +187,7 @@ export function startSeller(
           sellerId,
           run: run.id,
           checkedAt: run.date,
+          initiatedBy,
           ...(tier === "page" && limit !== undefined ? { limit } : {}),
         },
       },

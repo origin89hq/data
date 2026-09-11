@@ -60,8 +60,8 @@ export interface DatasetFile {
 export class SessionError extends Error {}
 class HttpError extends Error {
   status: number;
-  constructor(status: number) {
-    super(`The request failed (${status}). Try again or check the service.`);
+  constructor(status: number, detail?: string) {
+    super(detail ?? `The request failed (${status}). Try again or check the service.`);
     this.status = status;
   }
 }
@@ -105,7 +105,7 @@ export async function read(path: string, signal?: AbortSignal): Promise<unknown>
   });
   if (res.status === 401 || res.status === 403)
     throw new SessionError("Your session is unavailable. Sign in again to continue.");
-  if (!res.ok) throw new HttpError(res.status);
+  if (!res.body && !res.ok) throw new HttpError(res.status);
   if (!res.body) throw Error("The server returned no data.");
   const reader = res.body.getReader();
   const chunks: Uint8Array[] = [];
@@ -115,6 +115,7 @@ export async function read(path: string, signal?: AbortSignal): Promise<unknown>
       const chunk = await reader.read();
       if (chunk.done) break;
       bytes += chunk.value.byteLength;
+      if (!res.ok && bytes > 4096) throw new HttpError(res.status);
       if (bytes > 5 * 1024 * 1024)
         throw Error(
           "This response is too large to inspect here. Use the archive download instead.",
@@ -128,6 +129,14 @@ export async function read(path: string, signal?: AbortSignal): Promise<unknown>
   const decoder = new TextDecoder();
   const text =
     chunks.map((chunk) => decoder.decode(chunk, { stream: true })).join("") + decoder.decode();
+  if (!res.ok) {
+    let detail: string | undefined;
+    try {
+      const body = object(JSON.parse(text));
+      if (typeof body.error === "string" && body.error.length <= 1000) detail = body.error;
+    } catch {}
+    throw new HttpError(res.status, detail);
+  }
   if (!text.trim()) throw Error("No file was found for this run.");
   return JSON.parse(text);
 }

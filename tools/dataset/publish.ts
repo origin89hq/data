@@ -3,6 +3,7 @@ import { openAsBlob, readdirSync, readFileSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { datasetKey } from "../../apps/worker/src/runs.ts";
 import { inActionsJob, jobToken } from "../credential.ts";
+import { requireReleaseHistory } from "./ready.ts";
 
 /**
  * Put the built tables where anybody can fetch them.
@@ -85,6 +86,7 @@ if (!inActionsJob()) {
 }
 
 try {
+  await requireReleaseHistory(base);
   const files = Object.entries(manifest.files);
   for (const [name, meta] of files) {
     await put(name, { "x-content-sha256": meta.sha256 });

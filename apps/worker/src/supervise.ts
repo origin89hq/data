@@ -1,4 +1,5 @@
 import specPages from "../../../feeds/spec-pages.json" with { type: "json" };
+import { noteActivity } from "./activity.ts";
 import { classifyRun, convertRun, specPagesRun, visionRun } from "./enqueue.ts";
 import { LeaseHeld, underLease } from "./lease.ts";
 import { makerStates, sellerStates } from "./state.ts";
@@ -55,8 +56,12 @@ async function step(
  * One pass, holding the supervisor's lease: a pass that finds it held throws `LeaseHeld` and
  * queues nothing, whether the schedule, the route or the workflow started it.
  */
-export async function supervise(env: Env, today: string): Promise<SupervisionReport> {
-  return underLease(env.ARCHIVE, () => pass(env, today));
+export async function supervise(
+  env: Env,
+  today: string,
+  by = "Scheduled supervisor",
+): Promise<SupervisionReport> {
+  return underLease(env.ARCHIVE, () => pass(env, today, by));
 }
 
 /**
@@ -92,7 +97,8 @@ export async function superviseIfFree(
   }
 }
 
-async function pass(env: Env, today: string): Promise<SupervisionReport> {
+async function pass(env: Env, today: string, by: string): Promise<SupervisionReport> {
+  const passId = crypto.randomUUID();
   const report: SupervisionReport = {
     at: new Date().toISOString(),
     started: [],
@@ -200,5 +206,17 @@ async function pass(env: Env, today: string): Promise<SupervisionReport> {
       concerns: report.concerns.length,
     }),
   );
+  await noteActivity(env.ARCHIVE, {
+    id: `supervision:${passId}`,
+    at: report.at,
+    kind: "supervision",
+    entity: "Supervisor",
+    actor: by,
+    summary:
+      `${report.started.length} started · ${report.blocked.length} blocked · ${report.concerns.length} concerns${report.concerns.length ? ` · ${report.concerns[0]}` : ""}`.slice(
+        0,
+        1000,
+      ),
+  });
   return report;
 }

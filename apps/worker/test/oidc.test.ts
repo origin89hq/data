@@ -12,7 +12,7 @@ import {
   verifyWorkflow,
   type WorkflowRule,
 } from "../src/oidc.ts";
-import { app } from "../src/routes.ts";
+import { app, WORKFLOW_ROUTES } from "../src/routes.ts";
 import { jobToken, jwks, publishJob } from "./github-token.ts";
 import { world } from "./world.ts";
 
@@ -217,5 +217,28 @@ test("a workflow path that leaves the workflows directory is not a workflow of t
   ]) {
     const checked = await verifyJob(await jobToken({ workflow_ref }), keys);
     assert.equal(checked.ok, false, `${workflow_ref} was taken`);
+  }
+});
+
+test("post-deploy publication keeps the main and production guards and its verified rerun attempt", async () => {
+  const rule = WORKFLOW_ROUTES.find((route) => route.path === "/v1/:file")?.rule;
+  assert.ok(rule);
+  const accepted = await verifyWorkflow(
+    await jobToken({ event_name: "workflow_run", run_attempt: "2" }),
+    rule,
+    keys,
+  );
+  assert.equal(accepted.ok, true);
+  if (accepted.ok) assert.equal(accepted.job.runAttempt, "2");
+  for (const claims of [
+    { ref: "refs/heads/feature" },
+    { environment: undefined },
+    { event_name: "pull_request" },
+  ]) {
+    assert.equal(
+      (await verifyWorkflow(await jobToken({ event_name: "workflow_run", ...claims }), rule, keys))
+        .ok,
+      false,
+    );
   }
 });

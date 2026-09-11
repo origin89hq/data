@@ -2,6 +2,7 @@ import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { RECORD_SNAPSHOT_MAX, RecordKind, snapshotName } from "@origin89/equipment-schema/releases";
 import { toCsv } from "./csv.ts";
 import { loadRecords, type Records } from "./records.ts";
 import { type Table, tables } from "./tables.ts";
@@ -57,6 +58,16 @@ export function build(records: Records, dist = DIST_DIR): Record<string, unknown
   record("dialects.json", records.dialects.length);
   writeFileSync(join(dist, "sources.json"), `${JSON.stringify(records.sources, null, 2)}\n`);
   record("sources.json", records.sources.length);
+  for (const kind of RecordKind.options) {
+    const name = snapshotName(kind);
+    const snapshot = JSON.stringify(records[kind]);
+    if (Buffer.byteLength(snapshot) > RECORD_SNAPSHOT_MAX)
+      throw new Error(
+        `${name} exceeds the supported snapshot size; shard snapshots before growing this release`,
+      );
+    writeFileSync(join(dist, name), snapshot);
+    record(name, records[kind].length);
+  }
   writeFileSync(join(dist, "manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
   return manifest;
 }
