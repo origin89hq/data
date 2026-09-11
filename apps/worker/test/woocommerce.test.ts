@@ -55,6 +55,32 @@ test("a brands array wins over the brand attribute, since it is the store's own 
   assert.equal(s.brand, "Victron Energy");
 });
 
+test("names come out as the store prints them, not HTML-escaped, and an ampersand of the name's own stays", () => {
+  const [s] = sightingsFromWoo(
+    seller,
+    [
+      {
+        ...victron,
+        // The escapes watts247's feed sends in its names.
+        name: "Jinko &gt; 385 Watt 144 Mono PERC Solar Panel &#8211; All Black",
+        brands: [{ name: "Jinko &amp; Co" }],
+        categories: [{ name: "Panels &amp; Racking" }],
+        tags: [{ name: "Mono &#038; Bifacial" }],
+        sku: "JKM385M&#8211;72HL4",
+        attributes: [{ name: "Model", terms: [{ name: "R&D Plug&notes" }] }],
+      },
+    ],
+    "2026-09-09",
+  );
+  assert.equal(s.title, "Jinko > 385 Watt 144 Mono PERC Solar Panel – All Black");
+  assert.equal(s.brand, "Jinko & Co");
+  assert.equal(s.category, "Panels & Racking");
+  assert.deepEqual(s.tags, ["Mono & Bifacial"]);
+  assert.equal(s.sku, "JKM385M–72HL4");
+  assert.equal(s.model, "R&D Plug&notes", "no semicolon, no entity");
+  Sighting.parse(s);
+});
+
 test("a product with no price, brand, sku or stock flag still yields a sighting with those absent", () => {
   const [s] = sightingsFromWoo(
     seller,

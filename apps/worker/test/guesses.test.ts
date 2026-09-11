@@ -126,3 +126,44 @@ test("a stored answer that no longer reads as a guess is asked again", async () 
   );
   assert.equal(text(await answerAt("Renogy 100Ah")), '{"kind":"battery"}', "and replaced");
 });
+
+test("an answer cut short is the model losing its place, so the batch is halved, not asked again whole", async () => {
+  // What watts247's part 5 got every time: no items for ten, and past its tokens for five.
+  const seen: string[][] = [];
+  const answer = classifier(seen);
+  const { env, text } = world({}, (call, input) => {
+    const reply = answer(call, input) as { response: string };
+    const asked = seen.at(-1)?.length ?? 0;
+    if (asked === 10) return { response: JSON.stringify({ items: [] }) };
+    if (asked === 5) return { response: reply.response.slice(0, -10) };
+    return reply;
+  });
+  const titles = Array.from({ length: 10 }, (_, i) => `Jinko 385 W panel ${i + 1}`);
+  await classifyPart(env, part(titles.map(listing)));
+  assert.deepEqual(
+    seen.map((batch) => batch.length),
+    [10, 5, 5, 3, 2, 3, 2],
+    "ten, then its halves, then theirs",
+  );
+  assert.deepEqual(
+    guessesIn(text(partAt)).map((g) => g.productId),
+    titles,
+    "every listing has its guess, in the part's order",
+  );
+});
+
+test("a call that fails is not halved, whatever it throws: the part is left for the queue to deliver again", async () => {
+  for (const failure of [
+    new Error("3040: capacity temporarily exceeded"),
+    // A binding that could not read its provider's response, which is no answer from the model.
+    new SyntaxError("Unexpected token '<', \"<html>\" is not valid JSON"),
+  ]) {
+    const { env, asked, text } = world({}, () => failure);
+    await assert.rejects(
+      classifyPart(env, part([listing("Renogy 100Ah"), listing("EPEver XTRA4210N")])),
+      failure,
+    );
+    assert.equal(asked.length, 1, failure.message);
+    assert.equal(text(partAt), undefined);
+  }
+});
