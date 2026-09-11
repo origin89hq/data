@@ -94,6 +94,21 @@ test("only the unanswered listings are asked, and each answer lands on its own l
   assert.equal(text(await answerAt("EPEver XTRA4210N")), stored, "an old one is left as it was");
 });
 
+test("a listing whose rated figures changed is asked again, not given the answer to the old ones", async () => {
+  const seen: string[][] = [];
+  const bare = listing("Renogy 100Ah");
+  const { env, text } = world(
+    { [await answerAt("Renogy 100Ah")]: JSON.stringify({ kind: "charge-controller" }) },
+    classifier(seen),
+  );
+  await classifyPart(env, part([{ ...bare, figures: "Rated capacity: 100 Ah" }]));
+  assert.deepEqual(seen, [["Renogy 100Ah"]], "the figures are new evidence");
+  assert.deepEqual(
+    guessesIn(text(partAt)).map((g) => g.kind),
+    ["battery"],
+  );
+});
+
 test("a stored answer that no longer reads as a guess is asked again", async () => {
   const seen: string[][] = [];
   const { env, text } = world(
