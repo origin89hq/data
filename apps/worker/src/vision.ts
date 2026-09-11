@@ -289,15 +289,16 @@ async function gatherPages(message: VisionPage, env: Env): Promise<void> {
   if (pages.length < message.pages) return;
   const name = new URL(message.url).pathname.split("/").pop() || message.sha256;
   const transcript = transcriptDocument(name, pages);
-  // The windows go out before the transcript is written, and a window that comes in first waits
-  // for it. Written first, the transcript stopped every later delivery of a page, so a send that
-  // failed after it left the document with no windows and nothing to send them again.
+  // What follows from the transcript is done before it is written: its windows sent, a window that
+  // comes in first waiting for it, or with nothing to read, its reading written. Written first, the
+  // transcript stopped every later delivery of a page, so a send or a write that failed after it
+  // left the document with no windows, or no reading, and nothing to try them again.
   const windows = windowsOf(transcript);
   if (windows > 0) await sendWindows(message, env, windows);
+  else await writeReading(message, env, transcript, []);
   await env.ARCHIVE.put(partKey.markdown(message.sha256, TRANSCRIBER), transcript, {
     httpMetadata: { contentType: "text/markdown" },
   });
-  if (windows === 0) await writeReading(message, env, transcript, []);
 }
 
 /**

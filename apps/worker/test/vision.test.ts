@@ -669,6 +669,27 @@ test("a send of the windows that fails leaves no transcript, so the page deliver
   assert.ok(text(transcriptKey), "and the transcript is written after them");
 });
 
+test("a reading of nothing that fails to be written leaves no transcript, so the page delivered again writes it", async () => {
+  const { env, sent, text } = world({ [`archive/${SHA}`]: tinyPdf([BLACK_BOX]) }, kimi(["", ""]));
+  const put = env.ARCHIVE.put.bind(env.ARCHIVE);
+  let refused = false;
+  Object.assign(env.ARCHIVE, {
+    put: async (key: string, ...rest: unknown[]) => {
+      if (key === readingKey && !refused) {
+        refused = true;
+        throw new Error("put: We encountered an internal error. Please try again. (10001)");
+      }
+      return put(key, ...(rest as [never, never]));
+    },
+  });
+  await assert.rejects(seePage(pageOne, env, 1, pdfium), /internal error/);
+  assert.equal(text(transcriptKey), undefined, "no transcript to stop the next delivery");
+  await seePage(pageOne, env, 2, pdfium);
+  assert.deepEqual(sent, [], "a blank page has no window to read");
+  assert.ok(text(readingKey), "the reading is written");
+  assert.ok(text(transcriptKey), "and the transcript after it");
+});
+
 test("a window that comes in before its transcript is written waits, without taking a turn", async () => {
   const { env, sent, asked, pace } = world({}, kimi([]));
   await seeWindow(windowOne, env, LAST_ATTEMPT);
