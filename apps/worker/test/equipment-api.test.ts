@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { test } from "node:test";
-import { LIMITS } from "@origin89/equipment-api";
+import { LIMITS, SourcesQuery } from "@origin89/equipment-api";
 import { loadPartName } from "@origin89/equipment-schema/releases";
 import {
   bundle,
@@ -542,4 +542,109 @@ test("a consumer gets the active release by default, a loaded one by id, and not
   await loadRelease(w.env.ARCHIVE, w.env.RELEASES, plain, OLDER);
   assert.equal(await currentRelease(w.env.RELEASES), RELEASE);
   assert.equal(await loadedRelease(w.env.RELEASES, OLDER), OLDER);
+});
+
+test("a lookup of many ids stays under D1's parameter ceiling, and a source list past the limit is refused (#83)", async () => {
+  const many = Array.from({ length: 120 }, (_, i) => ({
+    id: `acme-m${String(i).padStart(3, "0")}`,
+    tier: "record",
+    manufacturer_id: "acme",
+    manufacturer_name: "Acme",
+    name: `M${String(i).padStart(3, "0")}`,
+    kind: "inverter",
+  }));
+  const keys = many.map((m) => ({
+    model_id: m.id,
+    key: `acme${m.name.toLowerCase()}`,
+    name_key: m.name.toLowerCase(),
+    label: "Acme",
+    via: "name",
+  }));
+  const sources = Array.from({ length: 150 }, (_, i) => ({
+    id: `doc-${i}`,
+    url: `https://x.test/${i}.pdf`,
+  }));
+  const { db } = await fixture({
+    manufacturers: [{ id: "acme", name: "Acme" }],
+    models: many,
+    model_keys: keys,
+    sources,
+    specs: [],
+    model_dialects: [],
+    model_dialect_sources: [],
+  });
+  const page = await search(db, RELEASE, { brand: "Acme", limit: 100 });
+  assert.equal(page.items.length, 100, "a full page of a hundred is read in chunks");
+  assert.equal(page.truncated, true);
+  const found = await sourcesById(
+    db,
+    RELEASE,
+    sources.map((s) => s.id),
+  );
+  assert.equal(found.length, 150);
+  await assert.rejects(
+    sourcesById(
+      db,
+      RELEASE,
+      Array.from({ length: LIMITS.sources + 1 }, (_, i) => `doc-${i}`),
+    ),
+    /at most 256 sources a call; 257 asked for/,
+  );
+});
+
+test("a kind singles one model out of many sharing a key, and a prefix keeps its underscores (#83)", async () => {
+  const twins = Array.from({ length: 15 }, (_, i) => ({
+    id: `acme-twin-${i}`,
+    tier: "record",
+    manufacturer_id: "acme",
+    manufacturer_name: "Acme",
+    name: `Twin ${i}`,
+    kind: i === 14 ? "inverter" : "battery",
+  }));
+  const keys = twins.map((m) => ({
+    model_id: m.id,
+    key: "acmetwin",
+    name_key: "twin",
+    label: "Acme",
+    via: "name",
+  }));
+  const odd = {
+    id: "acme-x_y",
+    tier: "record",
+    manufacturer_id: "acme",
+    manufacturer_name: "Acme",
+    name: "X_Y",
+    kind: "meter",
+  };
+  const { db } = await fixture({
+    models: [...twins, odd],
+    model_keys: [
+      ...keys,
+      { model_id: odd.id, key: "acmex_y", name_key: "x_y", label: "Acme", via: "name" },
+    ],
+    specs: [],
+    model_dialects: [],
+    model_dialect_sources: [],
+  });
+  const one = await resolve(db, RELEASE, { brand: "Acme", model: "Twin", kind: "inverter" });
+  assert.equal(one.outcome, "exact");
+  if (one.outcome === "exact") assert.equal(one.model.id, "acme-twin-14");
+  const all = await resolve(db, RELEASE, { brand: "Acme", model: "Twin" });
+  assert.equal(all.outcome, "ambiguous");
+  if (all.outcome === "ambiguous") {
+    assert.equal(all.candidates.length, LIMITS.candidates);
+    assert.equal(all.truncated, true);
+  }
+  const underscore = await search(db, RELEASE, { prefix: "x_", limit: 10 });
+  assert.deepEqual(
+    underscore.items.map((m) => m.id),
+    ["acme-x_y"],
+    "an underscore is a character, not a wildcard",
+  );
+  const percent = await search(db, RELEASE, { prefix: "%", limit: 10 });
+  assert.deepEqual(percent.items, [], "a percent sign matches nothing rather than everything");
+  assert.equal(
+    SourcesQuery.safeParse(Array.from({ length: LIMITS.sources + 1 }, () => "s")).success,
+    false,
+  );
 });

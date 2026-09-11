@@ -67,6 +67,41 @@ export async function releaseInfo(db: Store, release: string): Promise<ReleaseIn
 
 type ModelRow = { id: string; row: string };
 
+/** How many ids one `IN (...)` may carry beside the release: D1 binds at most 100 parameters. */
+const IDS_PER_QUERY = 90;
+const chunks = <T>(items: readonly T[]): T[][] => {
+  const out: T[][] = [];
+  for (let at = 0; at < items.length; at += IDS_PER_QUERY)
+    out.push(items.slice(at, at + IDS_PER_QUERY));
+  return out;
+};
+
+/** A LIKE pattern that matches the text as a prefix, with `%`, `_` and `\` escaped rather than dropped. */
+export const likePrefix = (text: string): string => `${text.replace(/[\\%_]/g, (c) => `\\${c}`)}%`;
+const ESCAPE = "ESCAPE '\\'";
+
+/** Rows of `sql` for every chunk of `ids`, bound after the release. */
+async function inChunks<T>(
+  db: Store,
+  release: string,
+  ids: readonly string[],
+  sql: (marks: string) => string,
+): Promise<T[]> {
+  const out: T[] = [];
+  for (const chunk of chunks(ids)) {
+    const marks = chunk.map(() => "?").join(", ");
+    out.push(
+      ...(
+        await db
+          .prepare(sql(marks))
+          .bind(release, ...chunk)
+          .all<T>()
+      ).results,
+    );
+  }
+  return out;
+}
+
 const summary = (row: string, aliases: string[]): ModelSummary => {
   const m = JSON.parse(row) as Record<string, string | undefined>;
   return {
@@ -92,21 +127,19 @@ export async function modelsById(
   ids: readonly string[],
 ): Promise<ModelSummary[]> {
   if (ids.length === 0) return [];
-  const marks = ids.map(() => "?").join(", ");
-  const rows = (
-    await db
-      .prepare(`SELECT id, row FROM models WHERE release = ? AND id IN (${marks})`)
-      .bind(release, ...ids)
-      .all<ModelRow>()
-  ).results;
-  const aliases = (
-    await db
-      .prepare(
-        `SELECT model_id, alias FROM model_aliases WHERE release = ? AND model_id IN (${marks})`,
-      )
-      .bind(release, ...ids)
-      .all<{ model_id: string; alias: string }>()
-  ).results;
+  const rows = await inChunks<ModelRow>(
+    db,
+    release,
+    ids,
+    (marks) => `SELECT id, row FROM models WHERE release = ? AND id IN (${marks})`,
+  );
+  const aliases = await inChunks<{ model_id: string; alias: string }>(
+    db,
+    release,
+    ids,
+    (marks) =>
+      `SELECT model_id, alias FROM model_aliases WHERE release = ? AND model_id IN (${marks})`,
+  );
   const byId = new Map(rows.map((r) => [r.id, r.row]));
   return ids.flatMap((id) => {
     const row = byId.get(id);
@@ -120,6 +153,9 @@ export async function modelsById(
       : [];
   });
 }
+
+/** How many models sharing a key are read before a resolution gives up on counting them. */
+const RESOLVE_READ = 200;
 
 /** Distinct model ids, in first-seen order. */
 const distinct = (rows: { model_id: string }[]): string[] => [
@@ -173,17 +209,20 @@ export async function resolve(db: Store, release: string, q: ResolveQuery): Prom
       ).results,
     );
   }
+  // The kind narrows before anything is counted, so a kind that singles one model out of many
+  // gives `exact`, and a candidate list is cut only after it has been narrowed.
   const kind = "kind" in q ? q.kind : undefined;
-  const found = byKind(await modelsById(db, release, ids.slice(0, LIMITS.candidates + 1)), kind);
-  if (found.length === 1 && ids.length <= LIMITS.candidates + 1) {
+  const found = byKind(await modelsById(db, release, ids.slice(0, RESOLVE_READ)), kind);
+  const overflow = ids.length > RESOLVE_READ;
+  if (found.length === 1 && !overflow) {
     const only = found[0];
     if (only) return { outcome: "exact", model: only };
   }
-  if (found.length > 1)
+  if (found.length > 1 || (found.length === 1 && overflow))
     return {
       outcome: "ambiguous",
       candidates: found.slice(0, LIMITS.candidates),
-      truncated: found.length > LIMITS.candidates,
+      truncated: overflow || found.length > LIMITS.candidates,
     };
   // Nothing whole. Neighbours by the first characters of the name, for a person to look at.
   const head = stem.slice(0, Math.max(3, Math.min(6, stem.length)));
@@ -194,9 +233,9 @@ export async function resolve(db: Store, release: string, q: ResolveQuery): Prom
           (
             await db
               .prepare(
-                "SELECT model_id FROM model_keys WHERE release = ? AND name_key LIKE ? ORDER BY name_key, rowid LIMIT ?",
+                `SELECT model_id FROM model_keys WHERE release = ? AND name_key LIKE ? ${ESCAPE} ORDER BY name_key, rowid LIMIT ?`,
               )
-              .bind(release, `${head.replace(/[%_]/g, "")}%`, LIMITS.candidates + 1)
+              .bind(release, likePrefix(head), LIMITS.candidates + 1)
               .all<{ model_id: string }>()
           ).results,
         );
@@ -272,8 +311,10 @@ export async function search(
     where.push(`(${clauses.join(" OR ")})`);
   }
   if (q.prefix) {
-    where.push("id IN (SELECT model_id FROM model_keys WHERE release = ? AND name_key LIKE ?)");
-    params.push(release, `${keyPart(q.prefix).replace(/[%_]/g, "")}%`);
+    where.push(
+      `id IN (SELECT model_id FROM model_keys WHERE release = ? AND name_key LIKE ? ${ESCAPE})`,
+    );
+    params.push(release, likePrefix(keyPart(q.prefix)));
   }
   if (q.kind) {
     where.push("kind = ?");
@@ -417,21 +458,22 @@ const sourceOf = (row: string): Source => {
   };
 };
 
-/** Sources by id, in the order asked, those the release holds; at most `LIMITS.sources`. */
+/** Sources by id, in the order asked, those the release holds. More than `LIMITS.sources` is refused, never cut. */
 export async function sourcesById(
   db: Store,
   release: string,
   ids: readonly string[],
 ): Promise<Source[]> {
-  const wanted = [...new Set(ids)].slice(0, LIMITS.sources);
+  const wanted = [...new Set(ids)];
+  if (wanted.length > LIMITS.sources)
+    throw new RangeError(`at most ${LIMITS.sources} sources a call; ${wanted.length} asked for`);
   if (wanted.length === 0) return [];
-  const marks = wanted.map(() => "?").join(", ");
-  const rows = (
-    await db
-      .prepare(`SELECT id, row FROM sources WHERE release = ? AND id IN (${marks})`)
-      .bind(release, ...wanted)
-      .all<{ id: string; row: string }>()
-  ).results;
+  const rows = await inChunks<{ id: string; row: string }>(
+    db,
+    release,
+    wanted,
+    (marks) => `SELECT id, row FROM sources WHERE release = ? AND id IN (${marks})`,
+  );
   const byId = new Map(rows.map((r) => [r.id, sourceOf(r.row)]));
   return wanted.flatMap((id) => {
     const s = byId.get(id);
@@ -513,7 +555,7 @@ export async function bundle(db: Store, release: string, q: BundleQuery): Promis
     ]),
   ];
   if (citedIds.length > LIMITS.sources) truncated.push("sources");
-  const sources = await sourcesById(db, release, citedIds);
+  const sources = await sourcesById(db, release, citedIds.slice(0, LIMITS.sources));
 
   // No property registry yet (#82): every property asked for is a gap that says so.
   const gaps: Gap[] = (q.properties ?? []).flatMap((key) =>

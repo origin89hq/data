@@ -2,7 +2,6 @@ import { RpcTarget, WorkerEntrypoint } from "cloudflare:workers";
 import {
   type Bundle,
   BundleQuery,
-  CONTRACT,
   type EquipmentApi as Contract,
   type ModelSummary,
   type Page,
@@ -14,9 +13,8 @@ import {
   ResolveQuery,
   SearchQuery,
   type Source,
-  SourceId,
+  SourcesQuery,
 } from "@origin89/equipment-api";
-import { z } from "zod";
 import {
   bundle,
   currentRelease,
@@ -34,10 +32,9 @@ import type { Store } from "./release-store.ts";
  * that takes one handle for a turn cannot mix two releases in one answer (#83).
  */
 export class ReleaseHandle extends RpcTarget implements Release {
-  readonly contract = CONTRACT;
   constructor(
     private readonly db: Store,
-    readonly id: string,
+    private readonly id: string,
   ) {
     super();
   }
@@ -54,7 +51,7 @@ export class ReleaseHandle extends RpcTarget implements Release {
     return bundle(this.db, this.id, BundleQuery.parse(q));
   }
   sources(ids: unknown): Promise<Source[]> {
-    return sourcesById(this.db, this.id, z.array(SourceId).max(1024).parse(ids));
+    return sourcesById(this.db, this.id, SourcesQuery.parse(ids));
   }
   async properties(): Promise<PropertyDefinition[]> {
     return properties();

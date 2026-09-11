@@ -238,10 +238,12 @@ export interface ReleaseInfo {
   counts: Record<string, number>;
 }
 
-/** A handle bound to one release. Every answer, and every citation in it, comes from that release. */
+/**
+ * A handle bound to one release. Every answer, and every citation in it, comes from that release.
+ * Only methods: over a service binding a property of an RPC target arrives as a promise, so the
+ * release's id and contract come from `info()`, which a consumer checks once at the start of a turn.
+ */
 export interface Release {
-  readonly id: ReleaseId;
-  readonly contract: typeof CONTRACT;
   info(): Promise<ReleaseInfo>;
   resolve(q: ResolveQuery): Promise<Resolution>;
   search(q: SearchQuery): Promise<Page<ModelSummary>>;

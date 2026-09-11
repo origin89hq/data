@@ -1,7 +1,7 @@
 # The EquipmentApi
 
-A read-only interface over one release of the dataset, served by the Worker as a named
-entrypoint and reached over a Cloudflare service binding. There is no public HTTP route: a
+A read-only interface over one release of the dataset, served by the Worker (`offgrid-equipment-worker`,
+the name in `apps/worker/wrangler.jsonc`) as a named entrypoint and reached over a Cloudflare service binding. There is no public HTTP route: a
 consumer is another Worker in the same account. The contract, its types and the model key
 rule live in `packages/api`; the implementation is `apps/worker/src/equipment-api.ts`.
 
@@ -10,7 +10,7 @@ rule live in `packages/api`; the implementation is `apps/worker/src/equipment-ap
 ```jsonc
 // the consumer's wrangler.jsonc
 "services": [
-  { "binding": "EQUIPMENT", "service": "offgrid-equipment", "entrypoint": "EquipmentApi" }
+  { "binding": "EQUIPMENT", "service": "offgrid-equipment-worker", "entrypoint": "EquipmentApi" }
 ]
 ```
 
@@ -29,7 +29,9 @@ raw TypeScript with no build step; a consumer bundled by wrangler reads it as is
 ## One release for one turn
 
 `release()` returns a handle bound to one release. Every method on it reads that release and
-no other, and every claim, link and source it returns comes from it. Take one handle at the
+no other, and every claim, link and source it returns comes from it. The handle has methods
+only: over a service binding a property of an RPC target arrives as a promise, so the release's
+id and contract version come from `info()`, which a consumer checks once at the start of a turn. Take one handle at the
 start of a turn and use it for every lookup in that turn; a release that lands mid-turn changes
 nothing the handle answers. `release(id)` gives a retained release by id, which is how a pinned
 evaluation stays reproducible while releases move on. A release still loading, one whose load
