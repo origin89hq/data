@@ -82,19 +82,34 @@ export function world(
         prefix = "",
         limit = 1000,
         cursor,
+        delimiter,
       }: {
         prefix?: string;
         limit?: number;
         cursor?: string;
+        delimiter?: string;
       }) => {
         listed.push(prefix);
         const keys = [...store.keys()].filter((k) => k.startsWith(prefix)).sort();
+        // What R2 does with a delimiter: a key with one past the prefix is folded into the prefix
+        // up to it, once, and a page counts objects and folded prefixes alike.
+        const entries: ({ key: string } | { folded: string })[] = [];
+        for (const key of keys) {
+          const at = delimiter === undefined ? -1 : key.indexOf(delimiter, prefix.length);
+          if (at < 0) entries.push({ key });
+          else {
+            const folded = key.slice(0, at + (delimiter?.length ?? 0));
+            const last = entries.at(-1);
+            if (!(last && "folded" in last && last.folded === folded)) entries.push({ folded });
+          }
+        }
         const start = cursor ? Number(cursor) : 0;
+        const page = entries.slice(start, start + limit);
         return {
-          objects: keys.slice(start, start + limit).map((key) => ({ key })),
-          truncated: start + limit < keys.length,
+          objects: page.flatMap((e) => ("key" in e ? [{ key: e.key }] : [])),
+          truncated: start + limit < entries.length,
           cursor: String(start + limit),
-          delimitedPrefixes: [],
+          delimitedPrefixes: page.flatMap((e) => ("folded" in e ? [e.folded] : [])),
         };
       },
     },
