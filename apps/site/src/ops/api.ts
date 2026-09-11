@@ -440,9 +440,16 @@ export function parsePublished(value: unknown): DatasetFile[] {
     const row = object(value);
     const sha256 = string(row.sha256);
     if (!/^[0-9a-f]{64}$/.test(sha256)) throw Error("The index contains an invalid content hash.");
-    // A table has rows; a file such as `vocabulary.json` has none to count, and the manifest
-    // leaves the field out rather than write a number that measures nothing.
-    return { name, rows: optionalNumber(row.rows), bytes: number(row.bytes), sha256 };
+    // A table has rows and the index must say how many; a JSON file such as `vocabulary.json`
+    // has none to count, and the manifest leaves the field out rather than write a number that
+    // measures nothing.
+    const table = /\.(csv|parquet)$/.test(name);
+    return {
+      name,
+      rows: table ? number(row.rows) : optionalNumber(row.rows),
+      bytes: number(row.bytes),
+      sha256,
+    };
   });
 }
 export async function published(signal?: AbortSignal): Promise<DatasetFile[]> {

@@ -259,6 +259,12 @@ test("the published index keeps a file without a row count, and refuses a corrup
     () => parsePublished({ files: { "specs.csv": { rows: -1, bytes: 10, sha256 } } }),
     /invalid count/,
   );
+  for (const table of ["specs.csv", "specs.parquet"])
+    assert.throws(
+      () => parsePublished({ files: { [table]: { bytes: 10, sha256 } } }),
+      /invalid count/,
+      `${table} is a table, so a missing row count is refused`,
+    );
   assert.throws(
     () => parsePublished({ files: { "../evil.json": { bytes: 1, sha256 } } }),
     /unsupported filename/,

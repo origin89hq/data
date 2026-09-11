@@ -1,9 +1,11 @@
+import { BrandDecision } from "@origin89/equipment-schema/brand";
 import {
   CommandKind,
   Confidence,
   DriverStatus,
   Family,
   MetricKind,
+  RefuterStatus,
   Tier,
 } from "@origin89/equipment-schema/enums";
 import { EquipmentKind } from "@origin89/equipment-schema/guess";
@@ -27,6 +29,10 @@ export interface Vocabulary {
   confidence: string[];
   /** The catalogue legend for a driver; `dialects.driver_status`. */
   driverStatus: string[];
+  /** Whether a second pass tried to refute a dialect; `dialects.refuter`. */
+  refuter: string[];
+  /** What a brand string turned out to be at the gate; `brands.decision`. */
+  brandDecisions: string[];
   /** Where a model or figure row comes from; `models.tier`, `specs.tier`. */
   rowTiers: string[];
   /**
@@ -45,6 +51,8 @@ export function vocabulary(): Vocabulary {
     families: [...Family.options],
     confidence: [...Confidence.options],
     driverStatus: [...DriverStatus.options],
+    refuter: [...RefuterStatus.options],
+    brandDecisions: [...BrandDecision.options],
     rowTiers: ["record", "feed"],
     dialectModelTiers: [...Tier.options],
   };

@@ -11,6 +11,8 @@ test("the vocabulary is the schema's own lists, in the schema's order", () => {
   assert.deepEqual(v.kinds, [...EquipmentKind.options]);
   assert.ok(v.metrics.includes("pv-voltage"), "the name a firmware crosswalk targets");
   assert.deepEqual(v.rowTiers, ["record", "feed"]);
+  assert.deepEqual(v.refuter, ["checked", "not-checked", "unrecorded"]);
+  assert.deepEqual(v.brandDecisions, ["manufacturer", "out-of-scope", "unresolved"]);
   assert.deepEqual(
     v.dialectModelTiers,
     ["A", "B", "C", "D"],
