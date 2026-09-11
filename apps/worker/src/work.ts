@@ -156,7 +156,7 @@ export const partKey = {
     `archive/${sha256}.${extractor}.page-${String(page).padStart(4, "0")}.json`,
   /** Every page of that reading, and nothing else: the prefix ends before the page number. */
   pages: (sha256: string, extractor: string) => `archive/${sha256}.${extractor}.page-`,
-  /** One window of a transcript, read for figures. Beside the document, like its pages. */
+  /** One window of a reading that is read a window at a time. Beside the document, like its pages. */
   window: (sha256: string, extractor: string, window: number) =>
     `archive/${sha256}.${extractor}.window-${String(window).padStart(4, "0")}.json`,
   /** Every window of that reading, and nothing else. */
