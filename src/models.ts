@@ -111,12 +111,14 @@ const GENERIC = new Set([
  * The family a model's name leads with: "MultiPlus-II" in "MultiPlus-II 48/3000/35-50",
  * "SmartSolar" in "SmartSolar MPPT 100/20". Nothing for a name that leads with a number or a
  * rating ("12V LiFePO4 Battery" is every battery maker's), a two-letter code, or a word that is
- * not a family, since those are shared by everybody.
+ * not a family, since those are shared by everybody. The brackets or quotes a document wraps a
+ * word in are not part of it: "(MultiPlus-II)" is MultiPlus-II.
  */
 export function familyOf(name: string): string | undefined {
-  const [lead] = normaliseModelName(name)
+  const [first] = normaliseModelName(name)
     .toLowerCase()
     .split(/[\s/]+/);
+  const lead = first?.replace(/^[^a-z0-9]+|[^a-z0-9]+$/g, "");
   if (!lead || lead.length < 3 || !/^[a-z]/.test(lead) || GENERIC.has(lead)) return undefined;
   return lead;
 }

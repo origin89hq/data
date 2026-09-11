@@ -274,6 +274,10 @@ test("a name's family is the word it leads with, unless that word is anybody's",
   assert.equal(familyOf("Inverter Charger 3000"), undefined, "nor what a thing is");
   assert.equal(familyOf("C35"), "c35", "a short code still leads a range");
   assert.equal(familyOf("GX"), undefined, "two letters do not");
+  assert.equal(familyOf("(MultiPlus-II) 48/3000"), "multiplus-ii", "brackets are not the word");
+  assert.equal(familyOf('"SmartSolar" MPPT'), "smartsolar");
+  assert.equal(familyOf("(12V) battery"), undefined, "nor do they make a rating a family");
+  assert.equal(familyOf("()"), undefined);
   assert.equal(familyOf(""), undefined);
 });
 
@@ -309,6 +313,11 @@ test("a product named after another maker's family is that maker's, wherever the
     familyOfAnotherMaker(held, "rolls-battery", "Victron MultiPlus-II GX 48/3000/35-32"),
     victron,
     "the maker's own name in front does not hide the family",
+  );
+  assert.deepEqual(
+    familyOfAnotherMaker(held, "rolls-battery", "Victron (MultiPlus-II) 48/3000/35-32"),
+    victron,
+    "nor do the brackets a document wraps it in",
   );
   assert.deepEqual(
     familyOfAnotherMaker(held, "rolls-battery", "multiplus-ii 230V"),
