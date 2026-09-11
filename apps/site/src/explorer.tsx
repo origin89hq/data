@@ -22,7 +22,7 @@ const TABLES = {
                     count(DISTINCT d.dialect_id) AS protocols,
                     m.tier
              FROM models m
-             LEFT JOIN specs s ON s.model_id = m.id AND s.tier = 'reviewed'
+             LEFT JOIN specs s ON s.model_id = m.id AND s.tier <> 'feed'
              LEFT JOIN model_dialects d ON d.model_id = m.id
              GROUP BY 1, 2, 3, 4, 8)`,
     columns: ["id", "name", "manufacturer_id", "kind", "figures", "documents", "protocols"],
@@ -72,7 +72,7 @@ export function Explorer({
 }: {
   onCorrect?: (target: CorrectionTarget) => void;
   index?: Index;
-  tier: "reviewed" | "all";
+  tier: "records" | "all";
   db: State;
 }) {
   const [tab, setTab] = useState<TabName>("models");
@@ -82,9 +82,10 @@ export function Explorer({
   const [chosen, setChosen] = useState<Row>();
   const spec = TABLES[tab];
 
-  // The reviewed tier is this project's own work; the feeds bring their own labels and would bury it.
+  // This project's own records; the feeds bring their own labels and would bury them. Whether a
+  // person checked a figure is `reviewed_by`, not the tier (#45).
   const scope = useMemo(
-    () => (tier === "reviewed" && tab !== "dialects" ? "tier = 'reviewed'" : "TRUE"),
+    () => (tier === "records" && tab !== "dialects" ? "tier <> 'feed'" : "TRUE"),
     [tier, tab],
   );
 
@@ -470,7 +471,7 @@ function ModelFigures({ model, db }: { model: string; db: State }) {
   const result = useQuery(
     db,
     `SELECT coalesce(english, name) AS figure, value, unit, page, doubt
-    FROM specs WHERE model_id = '${model.replaceAll("'", "''")}' AND tier = 'reviewed'
+    FROM specs WHERE model_id = '${model.replaceAll("'", "''")}' AND tier <> 'feed'
     ORDER BY CASE WHEN doubt IS NULL THEN 0 ELSE 1 END, figure LIMIT 60`,
   );
   if (result.status === "loading")

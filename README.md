@@ -155,9 +155,16 @@ file is reported — how many products arrived, left or moved — and the pin on
 moves with `just sync-sam-accept`. A feed that updated itself would mean the
 figures published here could change without anybody having looked.
 
-Every model and every figure carries a `tier`: `reviewed` for what a person
-checked, `feed` for a row a public dataset states. A reader that cannot tell
-them apart will quote the wrong one, so it is a column and never implied. A feed
+Every model and every figure carries a `tier` that says where it comes from:
+`record` for a record in this repository, `feed` for a row a public dataset
+states. A reader that cannot tell them apart will quote the wrong one, so it is
+a column and never implied.
+
+The tier says nothing about checking. Filter on `reviewed_by` for what a person
+confirmed against the document. `extracted_by` names what read the rest: `ai:`
+is a model reading prose, usable and unconfirmed, and `table:` is a parser
+reading the maker's own specification table. A record merged through a pull
+request is not thereby reviewed, and a feed row has neither column. A feed
 attaches to a manufacturer only when its printed name answers to one somebody
 confirmed — 762 rows do — and an unknown name stays a name, because minting
 makers is the gate's decision.

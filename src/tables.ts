@@ -17,15 +17,16 @@ export interface Table {
 }
 
 /** Flatten the nested records into narrow tables joined by id. Every list becomes a table with a position column, so order survives. */
-export function tables(records: Records): Table[] {
-  // Two tiers in one table, told apart by a column. What a person reviewed and what a public
-  // dataset states are both figures worth publishing, and a reader that cannot tell them apart
-  // will quote the wrong one — so `tier` is on every model and every figure, never implied.
+export function tables(records: Records, feeds = readFeeds()): Table[] {
+  // Two tiers in one table, told apart by a column: a `record` in this repository, or a `feed`
+  // row a public dataset states. The tier says where a row comes from and nothing about who
+  // checked it. It said `reviewed` for every record while a model had read all of them and no
+  // person had confirmed one (#45); `reviewed_by` is the only column that says a person did.
   const brandsByMaker = new Map<string, string[]>();
   for (const b of records.brands)
     if (b.decision === "manufacturer" && b.manufacturer)
       brandsByMaker.set(b.manufacturer, [...(brandsByMaker.get(b.manufacturer) ?? []), b.brand]);
-  const feedRows = readFeeds().flatMap(({ feed, models }) =>
+  const feedRows = feeds.flatMap(({ feed, models }) =>
     attachMakers(
       models,
       records.manufacturers.map((m) => ({
@@ -242,7 +243,7 @@ export function tables(records: Records): Table[] {
       rows: [
         ...records.models.map((m) => ({
           id: m.id,
-          tier: "reviewed",
+          tier: "record",
           source_feed: undefined,
           manufacturer_id: m.manufacturer,
           manufacturer_name: undefined,
@@ -307,7 +308,7 @@ export function tables(records: Records): Table[] {
         // reader can group a French sheet's "Capacité de batterie" with an English one's.
         ...records.specs.map((s) => ({
           id: s.id,
-          tier: "reviewed",
+          tier: "record",
           model_id: s.model,
           name: s.name,
           english: s.english,
@@ -362,7 +363,7 @@ export function tables(records: Records): Table[] {
         col("models", "INTEGER"),
         col("figures", "INTEGER"),
       ],
-      rows: readFeeds().map(({ feed, models }) => ({
+      rows: feeds.map(({ feed, models }) => ({
         id: feed.id,
         title: feed.title,
         publisher: feed.publisher,

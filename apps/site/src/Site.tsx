@@ -304,7 +304,7 @@ export function Site() {
                 Follow the evidence all the way back.
               </p>
             </div>
-            <Explorer index={index} tier="reviewed" db={db} />
+            <Explorer index={index} tier="records" db={db} />
             <div className="explorer-helper">
               <span>
                 <span className="little-dot" /> Every record here is live from the published tables.
@@ -340,7 +340,7 @@ function HeroRecord({ db }: { db: State }) {
   const result = useQuery(
     db,
     `SELECT model_id, value, page FROM specs
-      WHERE unit = 'Ah' AND tier = 'reviewed' AND page IS NOT NULL AND doubt IS NULL
+      WHERE unit = 'Ah' AND tier <> 'feed' AND page IS NOT NULL AND doubt IS NULL
       ORDER BY model_id LIMIT 1`,
   );
   const row = result.status === "ready" ? result.data[0]?.rows[0] : undefined;
