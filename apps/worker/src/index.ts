@@ -7,6 +7,7 @@ import { sellers } from "./sellers.ts";
 import { startIfFree, startMaker, startSeller } from "./start-run.ts";
 import { superviseIfFree } from "./supervise.ts";
 
+export { EquipmentApi } from "./equipment-api-entrypoint.ts";
 export { ManufacturerCrawl } from "./manufacturer-crawl.ts";
 export { PageCrawl } from "./page-crawl.ts";
 export { ReleaseLoad } from "./release-load-workflow.ts";

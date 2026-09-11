@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@embedpdf/pdfium": "2.15.0",
+    "@origin89/equipment-api": "workspace:*",
     "@origin89/equipment-schema": "workspace:*",
     "entities": "8.1.0",
     "hono": "^4.13.7",
