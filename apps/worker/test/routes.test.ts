@@ -650,3 +650,70 @@ test("the supervisor's job token runs a pass and offers a maker to the page read
   assert.deepEqual(await offered.json(), { documents: 1 });
   assert.equal(archive.sent.length, 1, "no page reading was queued");
 });
+
+test("publication keeps immutable snapshots and exposes authenticated version comparisons", async () => {
+  const { env, text } = bucket();
+  const before = JSON.stringify([{ id: "battery", capacity: 100 }]);
+  const after = JSON.stringify([
+    { id: "battery", capacity: 120 },
+    { id: "inverter", watts: 3000 },
+  ]);
+  const readHistory = async () => {
+    const response = await app.request(
+      `${LOCAL}/releases`,
+      { headers: { authorization: "Bearer the-real-token" } },
+      env,
+    );
+    assert.equal(response.status, 200);
+    return (await response.json()) as { releases: { id: string; sha: string; job: string }[] };
+  };
+  assert.equal((await putFile(env, "records_models.json", before)).status, 200);
+  assert.equal((await putManifest(env, manifestOf({ "records_models.json": before }))).status, 200);
+  const first = (await readHistory()).releases[0];
+  await env.ARCHIVE.delete(`releases/snapshots/${sha256(before)}.json`);
+  assert.equal((await putManifest(env, manifestOf({ "records_models.json": before }))).status, 409);
+  await putFile(env, "records_models.json", before);
+  assert.equal(first.sha.length, 40);
+  assert.equal(first.job, "17000000001");
+  assert.equal((await putFile(env, "records_models.json", after)).status, 200);
+  assert.equal((await putManifest(env, manifestOf({ "records_models.json": after }))).status, 200);
+  assert.equal(text(`releases/snapshots/${sha256(before)}.json`), before);
+  assert.equal(text("dataset/v1/records_models.json"), after);
+  const history = await readHistory();
+  assert.equal(history.releases.length, 2);
+  const second = history.releases.find((release) => release.id !== first.id);
+  const compared = await app.request(
+    `${LOCAL}/release-compare?from=${first.id}&to=${second?.id}`,
+    { headers: { authorization: "Bearer the-real-token" } },
+    env,
+  );
+  assert.equal(compared.status, 200, await compared.clone().text());
+  assert.deepEqual(((await compared.json()) as { counts: unknown }).counts, {
+    added: 1,
+    removed: 0,
+    changed: 1,
+  });
+  // A failed checksum must neither replace the current snapshot nor create historical content.
+  assert.equal((await putFile(env, "records_models.json", "truncated", sha256(after))).status, 422);
+  assert.equal(text(`releases/snapshots/${sha256(after)}.json`), after);
+});
+
+test("release indexing failure is repaired by republishing the same version", async () => {
+  const { env, store } = bucket();
+  const body = JSON.stringify([{ id: "battery", capacity: 100 }]);
+  await putFile(env, "records_models.json", body);
+  const manifest = manifestOf({ "records_models.json": body });
+  const original = env.ARCHIVE.put.bind(env.ARCHIVE);
+  let fail = true;
+  env.ARCHIVE.put = (async (key, ...args) => {
+    if (fail && key.startsWith("releases/feed/")) {
+      fail = false;
+      throw Error("index unavailable");
+    }
+    return original(key, ...args);
+  }) as typeof env.ARCHIVE.put;
+  assert.equal((await putManifest(env, manifest)).status, 500);
+  assert.equal((await putManifest(env, manifest)).status, 200);
+  assert.equal([...store.keys()].filter((key) => key.startsWith("releases/feed/")).length, 1);
+  assert.equal([...store.keys()].filter((key) => key.startsWith("activity/feed/")).length, 1);
+});

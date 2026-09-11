@@ -1,5 +1,6 @@
 import { WorkflowEntrypoint, type WorkflowEvent, type WorkflowStep } from "cloudflare:workers";
 import { Seller, Sighting } from "@origin89/equipment-schema/sighting";
+import { observeCollection } from "./activity.ts";
 import { fetchFeedPage, hasFeed, todayUtc } from "./feeds.ts";
 import { pointerKey, runPrefix, writePointer } from "./runs.ts";
 import { sellers } from "./sellers.ts";
@@ -10,6 +11,7 @@ export interface SellerCrawlParams {
   run: string;
   /** The crawl date, fixed at creation so every step agrees on it after a hibernation. */
   checkedAt: string;
+  initiatedBy?: string;
 }
 
 /**
@@ -19,6 +21,19 @@ export interface SellerCrawlParams {
  */
 export class SellerCrawl extends WorkflowEntrypoint<Env, SellerCrawlParams> {
   async run(event: WorkflowEvent<SellerCrawlParams>, step: WorkflowStep) {
+    return observeCollection(
+      this.env.ARCHIVE,
+      step,
+      {
+        entity: event.payload.sellerId,
+        actor: event.payload.initiatedBy ?? "Collection workflow",
+        run: { kind: "seller", id: event.payload.run, instance: event.instanceId },
+      },
+      () => this.collect(event, step),
+    );
+  }
+
+  private async collect(event: WorkflowEvent<SellerCrawlParams>, step: WorkflowStep) {
     const { sellerId, run, checkedAt } = event.payload;
     const seller = Seller.parse(sellers.find((s) => s.id === sellerId));
     if (!hasFeed(seller))

@@ -85,6 +85,11 @@ test("read failures, cancellation, missing reports and oversized responses are e
   });
   assert.equal(await supervision(), null);
   await assert.rejects(read("/state", AbortSignal.abort()), /abort/i);
+  response = () =>
+    Response.json({ error: "The immutable record snapshot is unavailable." }, { status: 409 });
+  await assert.rejects(read("/release-compare"), /immutable record snapshot/);
+  response = () => new Response("x".repeat(4097), { status: 503 });
+  await assert.rejects(read("/releases"), /503/);
   response = () => new Response(" ");
   await assert.rejects(read("/state"), /No file/);
   response = () => new Response("x".repeat(5 * 1024 * 1024 + 1));

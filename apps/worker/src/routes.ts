@@ -1,8 +1,16 @@
+import { ActivityQuery } from "@origin89/equipment-schema/activity";
 import { APPROVAL_EVENT, CrawlApproval } from "@origin89/equipment-schema/documents";
 import { READS_PER_REQUEST } from "@origin89/equipment-schema/provenance";
+import {
+  CompareQuery,
+  RECORD_SNAPSHOT_MAX,
+  RecordKind,
+  snapshotName,
+} from "@origin89/equipment-schema/releases";
 import { type Context, Hono } from "hono";
 import { z } from "zod";
 import specPages from "../../../feeds/spec-pages.json" with { type: "json" };
+import { activityPage, actor } from "./activity.ts";
 import { bearer } from "./authorised.ts";
 import { classifyRun, convertRun, specPagesRun, visionRun } from "./enqueue.ts";
 import { hasFeed } from "./feeds.ts";
@@ -19,6 +27,14 @@ import {
   type WorkflowCheck,
   type WorkflowRule,
 } from "./oidc.ts";
+import {
+  compareReleases,
+  HistoryUnavailable,
+  indexRelease,
+  releasePage,
+  saveRelease,
+  snapshotKey,
+} from "./releases.ts";
 import {
   ARCHIVE_ROOTS,
   currentRuns,
@@ -202,6 +218,9 @@ export const controlRoutes = new Hono<{ Bindings: Env; Variables: { caller: Call
  * then refused to dress itself, with a 401 on a file nobody thinks of as protected.
  */
 export const CONTROL_PATHS = [
+  "/activity",
+  "/releases",
+  "/release-compare",
   "/approve",
   "/archive",
   "/classify",
@@ -295,6 +314,37 @@ for (const path of CONTROL_PATHS) {
   });
 }
 
+controlRoutes.get("/activity", async (c) => {
+  const query = ActivityQuery.safeParse(c.req.query());
+  if (!query.success) return c.json({ error: "Invalid activity filters" }, 400);
+  return c.json(await activityPage(c.env.ARCHIVE, query.data));
+});
+controlRoutes.get("/releases", async (c) => {
+  const cursor = c.req.query("cursor");
+  if (cursor && cursor.length > 4096) return c.json({ error: "Invalid release cursor" }, 400);
+  return c.json(await releasePage(c.env.ARCHIVE, cursor));
+});
+controlRoutes.get("/release-compare", async (c) => {
+  const query = CompareQuery.safeParse(c.req.query());
+  if (!query.success) return c.json({ error: "Choose valid versions and comparison filters" }, 400);
+  try {
+    const result = await compareReleases(c.env.ARCHIVE, query.data);
+    const body = JSON.stringify(result);
+    if (new TextEncoder().encode(body).byteLength > 4 * 1024 * 1024)
+      return c.json(
+        {
+          error:
+            "This comparison page is too large. Narrow the record ID filter or use the source comparison.",
+        },
+        413,
+      );
+    return c.body(body, 200, { "content-type": "application/json" });
+  } catch (error) {
+    if (error instanceof HistoryUnavailable) return c.json({ error: error.message }, 409);
+    throw error;
+  }
+});
+
 controlRoutes.post("/run", async (c) => {
   const sellerId = c.req.query("seller");
   const seller = sellers.find((s) => s.id === sellerId);
@@ -304,7 +354,7 @@ controlRoutes.post("/run", async (c) => {
     return c.json({ error: "limit must be an integer from 1 to 500" }, 400);
   const tier = hasFeed(seller) ? "feed" : "page";
   try {
-    const result = await startSeller(c.env, sellerId, tier, limit);
+    const result = await startSeller(c.env, sellerId, tier, limit, actor(c.get("caller")));
     return c.json({ ...result, tier });
   } catch (error) {
     if (error instanceof RunConflict) return c.json({ error: error.message }, 409);
@@ -321,7 +371,7 @@ const leaseHeld = (error: unknown): { error: string } | undefined =>
 
 controlRoutes.post("/supervise", async (c) => {
   try {
-    return c.json(await supervise(c.env, c.req.query("date") ?? today()));
+    return c.json(await supervise(c.env, c.req.query("date") ?? today(), actor(c.get("caller"))));
   } catch (error) {
     const held = leaseHeld(error);
     if (held) return c.json(held, 409);
@@ -485,7 +535,13 @@ controlRoutes.post("/maker", async (c) => {
     return c.json({ error: "pages must be an integer from 1 to 500" }, 400);
   try {
     return c.json(
-      await startMaker(c.env, manufacturerId, domains, pages ? Number(pages) : undefined),
+      await startMaker(
+        c.env,
+        manufacturerId,
+        domains,
+        pages ? Number(pages) : undefined,
+        actor(c.get("caller")),
+      ),
     );
   } catch (error) {
     if (error instanceof RunConflict) return c.json({ error: error.message }, 409);
@@ -534,7 +590,9 @@ controlRoutes.post("/discover-all", async (c) => {
   const started: string[] = [];
   const skipped: string[] = [];
   for (const maker of manufacturers) {
-    const id = await startIfFree(() => startMaker(c.env, maker.id, maker.domains, pages));
+    const id = await startIfFree(() =>
+      startMaker(c.env, maker.id, maker.domains, pages, actor(c.get("caller"))),
+    );
     (id ? started : skipped).push(maker.id);
   }
   return c.json({ started: started.length, skipped, checkedAt });
@@ -662,7 +720,8 @@ memberPages.get("/ops", async (c) => {
  * the one workflow file it accepts, and the caller proves it is that workflow with a token GitHub
  * signed for the job. The control token is not accepted, so holding it does not let anyone publish.
  */
-export const workflowRoutes: App = new Hono<{ Bindings: Env }>();
+type PublicationEnv = { Bindings: Env; Variables: { job: Job } };
+export const workflowRoutes = new Hono<PublicationEnv>();
 
 /** Every route a workflow calls, and the one workflow file each accepts. */
 export const WORKFLOW_ROUTES: readonly { method: "PUT"; path: string; rule: WorkflowRule }[] = [
@@ -691,6 +750,7 @@ for (const route of WORKFLOW_ROUTES) {
       throw error;
     }
     if (!check.ok) return c.json({ error: check.reason }, 401);
+    c.set("job", check.job);
     logWorkflowCall(route.method, new URL(c.req.url).pathname, check.job);
     await next();
   });
@@ -703,16 +763,21 @@ const SHA256 = /^[0-9a-f]{64}$/;
 
 /** The part of the build's manifest the front door quotes back: each file's size and digest. */
 const DatasetManifest = z.object({
-  files: z.record(
-    z
-      .string()
-      .refine((name) => name !== MANIFEST && DATASET_PATH.test(`/v1/${name}`), "not a table name"),
-    z.object({
-      rows: z.number().int().nonnegative().optional(),
-      bytes: z.number().int().nonnegative(),
-      sha256: z.string().regex(SHA256),
-    }),
-  ),
+  files: z
+    .record(
+      z
+        .string()
+        .refine(
+          (name) => name !== MANIFEST && DATASET_PATH.test(`/v1/${name}`),
+          "not a table name",
+        ),
+      z.object({
+        rows: z.number().int().nonnegative().optional(),
+        bytes: z.number().int().nonnegative(),
+        sha256: z.string().regex(SHA256),
+      }),
+    )
+    .refine((files) => Object.keys(files).length <= 256, "too many dataset files"),
 });
 
 /**
@@ -730,7 +795,7 @@ workflowRoutes.put("/v1/:file", async (c) => {
   return name === MANIFEST ? putManifest(c) : putFile(c, name);
 });
 
-async function putFile(c: Context<{ Bindings: Env }>, name: string): Promise<Response> {
+async function putFile(c: Context<PublicationEnv>, name: string): Promise<Response> {
   const sha256 = c.req.header("x-content-sha256");
   if (!sha256 || !SHA256.test(sha256))
     return c.json({ error: "x-content-sha256 must be the file's sha256, in hex" }, 400);
@@ -739,8 +804,18 @@ async function putFile(c: Context<{ Bindings: Env }>, name: string): Promise<Res
   const body = c.req.raw.body;
   if (!body || !Number.isSafeInteger(length) || length <= 0)
     return c.json({ error: "the file must be sent with its content-length" }, 411);
+  const isSnapshot = RecordKind.options.some((kind) => snapshotName(kind) === name);
+  if (isSnapshot && length > RECORD_SNAPSHOT_MAX)
+    return c.json({ error: "Record snapshot is too large" }, 413);
   try {
-    const object = await c.env.ARCHIVE.put(datasetKey(name), body, {
+    // A snapshot is bounded and content-addressed before the mutable public copy changes.
+    const content = isSnapshot ? new Uint8Array(await c.req.arrayBuffer()) : body;
+    if (isSnapshot)
+      await c.env.ARCHIVE.put(snapshotKey(sha256), content, {
+        sha256,
+        httpMetadata: { contentType: "application/json" },
+      });
+    const object = await c.env.ARCHIVE.put(datasetKey(name), content, {
       sha256,
       httpMetadata: { contentType: datasetType(name) },
     });
@@ -754,7 +829,7 @@ async function putFile(c: Context<{ Bindings: Env }>, name: string): Promise<Res
   }
 }
 
-async function putManifest(c: Context<{ Bindings: Env }>): Promise<Response> {
+async function putManifest(c: Context<PublicationEnv>): Promise<Response> {
   const length = Number(c.req.header("content-length"));
   if (!Number.isSafeInteger(length) || length <= 0)
     return c.json({ error: "the manifest must be sent with its content-length" }, 411);
@@ -789,12 +864,28 @@ async function putManifest(c: Context<{ Bindings: Env }>): Promise<Response> {
         `${name}: stored sha256 is ${sha256 ?? "unrecorded"}, the manifest says ${meta.sha256}`,
       );
   }
+  for (const kind of RecordKind.options) {
+    const meta = parsed.data.files[snapshotName(kind)];
+    if (!meta) continue;
+    const snapshot = await c.env.ARCHIVE.head(snapshotKey(meta.sha256));
+    if (
+      !snapshot ||
+      snapshot.size !== meta.bytes ||
+      snapshot.checksums.toJSON().sha256 !== meta.sha256
+    )
+      disagree.push(`${snapshotName(kind)}: immutable snapshot is missing or inconsistent`);
+  }
   if (disagree.length > 0)
     return c.json({ error: "the manifest does not describe what is stored", files: disagree }, 409);
 
+  // Save metadata before publication; index it only after the public manifest is accepted.
+  // Retrying the same content reuses the original version and repairs a missing index.
+  const job = c.get("job");
+  const release = await saveRelease(c.env.ARCHIVE, parsed.data.files, job.sha, job.runId);
   await c.env.ARCHIVE.put(datasetKey(MANIFEST), text, {
     httpMetadata: { contentType: datasetType(MANIFEST) },
   });
+  await indexRelease(c.env.ARCHIVE, release);
   return c.json({ file: MANIFEST, files: files.length });
 }
 

@@ -378,3 +378,31 @@ host that was found, and no answer at all all end the run having downloaded
 nothing. An approval can narrow what discovery found and can never widen it,
 and it names who gave it: the GitHub login the Worker verified, never a name
 the request typed.
+
+## Activity and dataset versions
+
+The workspace's **Activity feed** records collection starts and outcomes, download
+approval decisions, supervisor summaries, and dataset publications. Filters apply
+on the server; a sparse page can still have older events to load. Run links name
+the archived attempt rather than whichever run is current today. Activity writes
+retry independently and log failures without repeating collection work. This is
+operational history, not a complete audit log: interrupted or externally
+terminated workflows and exhausted history writes can leave gaps.
+
+**Releases & changes** lists distinct published dataset contents, identified by
+the hash of their file metadata. Each version retains the first publishing job
+and its verified source commit. Choose two versions and a record type to inspect
+additions, removals, changed field paths, before/after records, and file changes.
+Record counts refer to authored records; CSV tables can have more rows because
+they expand nested claims. Publishing identical content reuses the version.
+
+The build adds `records_<kind>.json` snapshots for the seven authored record
+types. Publication keeps these by SHA-256 in R2 and validates their presence before
+accepting the manifest. Snapshots are limited to 6 MiB per kind and 50,000 records
+per comparison; oversized or missing history is reported explicitly. History
+reads require the existing member session. No extra service or binding is needed.
+
+Deploy the updated Worker before publishing the updated dataset to begin
+retaining snapshots. History starts with that rollout; older runs are not
+backfilled. A publication job that fails after updating the public manifest can
+be rerun with the same content to repair its history index.

@@ -4,6 +4,7 @@ import logoBlue from "@origin89/brand/logos/origin89-horizontal-blue.svg";
 import logoWhite from "@origin89/brand/logos/origin89-horizontal-white.svg";
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Icon } from "../icons.tsx";
+import { Activity } from "./Activity.tsx";
 import {
   type DatasetFile,
   type Pipeline,
@@ -13,6 +14,7 @@ import {
   supervision,
   whoami,
 } from "./api.ts";
+import { Releases } from "./Releases.tsx";
 import { RunDetail } from "./RunDetail.tsx";
 import { Empty, Loading, Notice, Status } from "./ui.tsx";
 import { useResource } from "./useResource.ts";
@@ -39,7 +41,9 @@ const NAV = [
   { id: "sellers", label: "Sellers", icon: "specifications" },
   { id: "records", label: "Records & corrections", icon: "evidence" },
   { id: "files", label: "Published files", icon: "download" },
-  { id: "supervisor", label: "Supervisor activity", icon: "activity" },
+  { id: "activity", label: "Activity feed", icon: "activity" },
+  { id: "releases", label: "Releases & changes", icon: "evidence" },
+  { id: "supervisor", label: "Supervisor", icon: "activity" },
 ] as const;
 const FILTERS: { id: Filter; label: string }[] = [
   { id: "all", label: "All runs" },
@@ -60,6 +64,11 @@ const TITLES: Record<View, [string, string]> = {
     "Trace a claim to its source and prepare a reviewable correction.",
   ],
   files: ["Published database", "The files your users and integrations can read today."],
+  activity: ["A history you can follow.", "Collection, approvals, and publications in one place."],
+  releases: [
+    "Know what changed.",
+    "Compare published versions, inspect records, and follow every change back to its source.",
+  ],
   supervisor: ["Supervisor activity", "What the latest pass started, and what still needs a hand."],
 };
 
@@ -71,6 +80,8 @@ export function Ops() {
   const [sort, setSort] = useState<"attention" | "name" | "recent">("attention");
   const [page, setPage] = useState(0);
   const [selected, setSelected] = useState<RunRow>();
+  const [historyRefresh, setHistoryRefresh] = useState(0);
+  const [releaseSelection, setReleaseSelection] = useState<string>();
   const [toast, setToast] = useState("");
   const [dirty, setDirty] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">(() => {
@@ -138,6 +149,7 @@ export function Ops() {
   };
   const refresh = () => {
     if (!login.value || expired) return;
+    setHistoryRefresh((value) => value + 1);
     setDirty(false);
     void runs.load(pipeline);
     void report.load(supervision);
@@ -261,7 +273,7 @@ export function Ops() {
               <Icon name="refresh" />
               {runs.loading
                 ? "Refreshing…"
-                : runs.value
+                : runs.value || view === "activity" || view === "releases"
                   ? "Refresh workspace"
                   : "Load current runs"}
             </button>
@@ -399,6 +411,18 @@ export function Ops() {
               </div>
             </>
           )}
+          {(view === "overview" || view === "activity") && (
+            <Activity
+              compact={view === "overview"}
+              refresh={historyRefresh}
+              onAll={() => navigate("activity")}
+              onRelease={(id) => {
+                setReleaseSelection(id);
+                navigate("releases");
+              }}
+            />
+          )}
+          {view === "releases" && <Releases selected={releaseSelection} refresh={historyRefresh} />}
           {(view === "overview" || view === "makers" || view === "sellers") && (
             <section className="ops-panel">
               <div className="ops-section-heading">

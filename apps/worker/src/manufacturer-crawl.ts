@@ -8,6 +8,7 @@ import {
   permitted,
   planFor,
 } from "@origin89/equipment-schema/documents";
+import { observeCollection, workflowActivity } from "./activity.ts";
 import { todayUtc, USER_AGENT } from "./feeds.ts";
 import { pointerKey, runPrefix, writePointer } from "./runs.ts";
 import { fetchText, isIndex, locations, sample } from "./sitemap.ts";
@@ -22,6 +23,7 @@ export interface ManufacturerCrawlParams {
   /** Hosts this maker claims, from its record. The instance knows no others and can reach no others. */
   domains: string[];
   checkedAt: string;
+  initiatedBy?: string;
   /** How many pages of the site to read for links. Discovery is cheap; downloading is not. */
   pageLimit?: number;
 }
@@ -45,6 +47,19 @@ export const FETCH_BATCH = 10;
  */
 export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawlParams> {
   async run(event: WorkflowEvent<ManufacturerCrawlParams>, step: WorkflowStep) {
+    return observeCollection(
+      this.env.ARCHIVE,
+      step,
+      {
+        entity: event.payload.manufacturerId,
+        actor: event.payload.initiatedBy ?? "Collection workflow",
+        run: { kind: "maker", id: event.payload.run, instance: event.instanceId },
+      },
+      () => this.collect(event, step),
+    );
+  }
+
+  private async collect(event: WorkflowEvent<ManufacturerCrawlParams>, step: WorkflowStep) {
     const { instanceId, run, manufacturerId, domains, checkedAt, pageLimit } = event.payload;
     if (domains.length === 0)
       throw new Error(`${manufacturerId}: no domains, so there is nothing this instance may reach`);
@@ -164,6 +179,19 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     if (found.length === 0)
       return { manufacturer: manufacturerId, fetched: 0, reason: "nothing found to fetch" };
 
+    const activity = {
+      entity: manufacturerId,
+      actor: event.payload.initiatedBy ?? "Collection workflow",
+      run: { kind: "maker" as const, id: run, instance: event.instanceId },
+    };
+    await workflowActivity(
+      this.env.ARCHIVE,
+      step,
+      activity,
+      "waiting",
+      `Waiting for approval to fetch ${found.length} documents`,
+    );
+
     // Everything above only read pages the maker already publishes to search engines. What
     // follows pulls files, so it does not start until a person says so.
     let approval: CrawlApproval;
@@ -186,9 +214,25 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
           reason,
         }),
       );
+      await workflowActivity(
+        this.env.ARCHIVE,
+        step,
+        activity,
+        "decided",
+        reason,
+        "Approval window",
+      );
       return { manufacturer: manufacturerId, fetched: 0, reason };
     }
     const wanted = permitted(found, approval);
+    await workflowActivity(
+      this.env.ARCHIVE,
+      step,
+      activity,
+      "decided",
+      `${wanted.length} of ${found.length} documents permitted`,
+      approval.approvedBy,
+    );
     if (wanted.length === 0) {
       console.log(
         JSON.stringify({
