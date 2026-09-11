@@ -20,6 +20,12 @@ export const Manufacturer = z
     country: z.string().length(2).optional(),
     /** Why this record exists, or what a reader has to know: a rename, a parent company, a line sold under someone else's label. */
     notes: z.string().optional(),
+    /**
+     * A retailer's own label, held as a maker for the products that carry no other. Its site hosts
+     * its suppliers' manuals and certificates too, so a document in its runs is credited to it only
+     * when the document names it (#30).
+     */
+    retailer: z.literal(true).optional(),
     /** Source records naming this company, where the catalogue already cites one. */
     sources: z.array(RecordId).optional(),
     /**

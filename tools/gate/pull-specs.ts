@@ -9,6 +9,7 @@ import { looksLikeModelName, modelId, normaliseModelName } from "../../src/model
 import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 import { matchModel, type ReportedProduct, specsFrom } from "../../src/specs.ts";
 import { currentRun, jsonValues, object, PULLED_READERS, readingsOf } from "./archive.ts";
+import { creditedReadings, textKey } from "./retailer.ts";
 
 /**
  * Fold a manufacturer's extracted readings into spec records. A figure is written only when the
@@ -94,6 +95,16 @@ const byLanguage = withoutTranslatedReadings(readings.readings, (r) =>
 readings.readings = byLanguage.keep;
 
 const records = loadRecords();
+// A retailer's run holds its suppliers' documents beside its own, and only those that name it
+// are its own. The rest are withheld and listed, not written under the shop (#30).
+const credited = await creditedReadings(
+  records.manufacturers.find((m) => m.id === manufacturer),
+  records.brands,
+  readings.readings,
+  (reading) => object(textKey(reading), remote),
+);
+readings.readings = credited.keep;
+const withheld = credited.withheld;
 const sources = new Map(records.sources.map((s) => [s.id, s]));
 const addModels = !args.includes("--no-new-models");
 let written = 0;
@@ -249,6 +260,13 @@ console.log(
 );
 for (const [reader, n] of byReader) console.log(`  ${n} by ${reader}`);
 for (const r of refused) console.log(`  not drawn, ${r.refused}: ${r.url.split("/").pop()}`);
+if (withheld.length) {
+  console.log(
+    `\n${withheld.length} documents withheld from ${manufacturer}, a retailer, for a person to look at:`,
+  );
+  for (const w of withheld)
+    console.log(`  ${w.url} (${w.sha256.slice(0, 12)}, ${w.products} products): ${w.reason}`);
+}
 if (unmatched.size) {
   console.log(`\n${unmatched.size} products the documents name that still reach no model:`);
   for (const m of [...unmatched].sort().slice(0, 25)) console.log(`  ${m}`);
