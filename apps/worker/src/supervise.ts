@@ -1,5 +1,5 @@
 import specPages from "../../../feeds/spec-pages.json" with { type: "json" };
-import { answeredInputs, classifyRun, convertRun, specPagesRun, visionRun } from "./enqueue.ts";
+import { classifyRun, convertRun, specPagesRun, visionRun } from "./enqueue.ts";
 import { makerStates, sellerStates } from "./state.ts";
 
 /**
@@ -58,22 +58,18 @@ export async function supervise(env: Env, today: string): Promise<SupervisionRep
     concerns: [],
   };
 
-  // Listed once for the pass, and only if a seller needs it. A listing that fails is left unset,
-  // so the next seller lists again rather than taking the failure as nothing answered.
-  let answered: Set<string> | undefined;
   for (const seller of await sellerStates(env.ARCHIVE)) {
     const date = seller.date;
     if (!date || !seller.sightings) continue;
     if (!seller.classified) {
-      // A crawl that finished and was never classified. Listings already answered cost nothing,
-      // so re-running is cheap even when most of the shop is unchanged.
+      // A crawl that finished and was never classified. Listings already answered cost a read and
+      // no model call, so re-running is cheap even when most of the shop is unchanged.
       await step(report, "classify", seller.seller, async () => {
-        answered ??= await answeredInputs(env.ARCHIVE);
-        const { parts, alreadyAnswered } = await classifyRun(env, seller.seller, date, answered);
+        const { parts, sightings } = await classifyRun(env, seller.seller, date);
         report.started.push({
           what: "classify",
           entity: seller.seller,
-          detail: `${parts} batches, ${alreadyAnswered} listings already answered`,
+          detail: `${parts} batches of ${sightings} listings`,
         });
       });
       continue;

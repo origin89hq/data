@@ -95,32 +95,26 @@ test("a classification short of its own manifest is a concern, not something to 
   assert.match(source, /classified \$\{seller\.classified\.written\} of/);
 });
 
-test("a pass lists what the classifier has answered once, not once for each seller", async () => {
-  // Listed per seller, the first pass after a new prompt spent nine seconds a seller relisting
-  // the same eight thousand answers.
+test("a pass queues every listing of a crawl, answered before or not, and lists no answers", async () => {
+  // The consumer reuses an answer it has, so the run still gets a guess for that listing (#16).
+  // Skipped here, it had none, and the gate saw most of an unchanged shop as unclassified.
   const objects: Record<string, string> = {};
   crawled(objects, "shop-a", ["EPEver XTRA4210N", "Victron SmartSolar 100/50"]);
   crawled(objects, "shop-b", ["Renogy 100Ah LiFePO4"]);
-  crawled(objects, "shop-c", ["Growatt SPF 3000"]);
   await answered(objects, "shop-a", "Victron SmartSolar 100/50");
   const { env, sent, listed } = world(objects);
-  const answerListings = () => listed.filter((p) => p.startsWith("guesses/by-input/")).length;
 
   const report = await supervise(env, "2026-09-10");
-  assert.equal(answerListings(), 1);
   assert.deepEqual(started(report, "classify"), [
-    ["shop-a", "1 batches, 1 listings already answered"],
-    ["shop-b", "1 batches, 0 listings already answered"],
-    ["shop-c", "1 batches, 0 listings already answered"],
+    ["shop-a", "1 batches of 2 listings"],
+    ["shop-b", "1 batches of 1 listings"],
   ]);
-  assert.deepEqual(
-    classifiedTitles(sent),
-    ["EPEver XTRA4210N", "Growatt SPF 3000", "Renogy 100Ah LiFePO4"],
-    "the listing answered before the pass is not asked again",
-  );
-
-  await supervise(env, "2026-09-11");
-  assert.equal(answerListings(), 1, "a pass with nobody left to classify lists nothing");
+  assert.deepEqual(classifiedTitles(sent), [
+    "EPEver XTRA4210N",
+    "Renogy 100Ah LiFePO4",
+    "Victron SmartSolar 100/50",
+  ]);
+  assert.equal(listed.filter((p) => p.startsWith("guesses/by-input/")).length, 0);
 });
 
 test("a seller that cannot be classified is a concern, and the pass goes on without it", async () => {
@@ -146,34 +140,6 @@ test("a seller that cannot be classified is a concern, and the pass goes on with
   assert.deepEqual(read("supervision/latest.json"), report, "the report is still written");
   assert.equal(read(guessesManifest("shop-b")), undefined, "so the next pass tries it again");
   assert.deepEqual(classifiedTitles(sent), ["EPEver XTRA4210N", "Growatt SPF 3000"]);
-});
-
-test("a failed listing of the answers is listed again, never taken as nothing answered", async () => {
-  // Taken as empty, it would send every listing the classifier had already answered back to it.
-  const objects: Record<string, string> = {};
-  crawled(objects, "shop-a", ["EPEver XTRA4210N"]);
-  crawled(objects, "shop-b", ["Renogy 100Ah LiFePO4", "Growatt SPF 3000"]);
-  await answered(objects, "shop-b", "Renogy 100Ah LiFePO4");
-  const { env, sent } = world(objects);
-  const list = env.ARCHIVE.list.bind(env.ARCHIVE);
-  let attempts = 0;
-  Object.assign(env.ARCHIVE, {
-    list: async (options: { prefix?: string; cursor?: string; limit?: number }) => {
-      if (options.prefix?.startsWith("guesses/by-input/") && ++attempts === 1)
-        throw new Error("We encountered an internal error. Please try again.");
-      return list(options);
-    },
-  });
-
-  const report = await supervise(env, "2026-09-10");
-  assert.deepEqual(report.concerns, [
-    "shop-a: classify failed: We encountered an internal error. Please try again.",
-  ]);
-  assert.equal(attempts, 2);
-  assert.deepEqual(started(report, "classify"), [
-    ["shop-b", "1 batches, 1 listings already answered"],
-  ]);
-  assert.deepEqual(classifiedTitles(sent), ["Growatt SPF 3000"]);
 });
 
 test("an offer the queue refuses is a concern, and still counts toward the pass", async () => {

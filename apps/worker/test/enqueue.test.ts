@@ -65,8 +65,8 @@ test("a crawl's listings are queued in page order, whichever page read finishes 
   const { env, sent } = world(crawl(14));
   slowPages(env);
 
-  const result = await classifyRun(env, "shop", "2026-09-09", new Set());
-  assert.deepEqual(result, { parts: 3, sightings: 28, alreadyAnswered: 0 });
+  const result = await classifyRun(env, "shop", "2026-09-09");
+  assert.deepEqual(result, { parts: 3, sightings: 28 });
   assert.deepEqual(
     titles(sent),
     Array.from({ length: 14 }, (_, i) => [`page ${i + 1} a`, `page ${i + 1} b`]).flat(),
@@ -77,7 +77,7 @@ test("a crawl's pages are read a few at a time, never all at once", async () => 
   const { env } = world(crawl(14));
   const reads = slowPages(env);
 
-  await classifyRun(env, "shop", "2026-09-09", new Set());
+  await classifyRun(env, "shop", "2026-09-09");
   assert.equal(reads.most, PAGES_AT_ONCE);
 });
 
@@ -86,7 +86,7 @@ test("a missing page fails the run before its manifest, and nothing is queued", 
   delete objects[pageKey(7)];
   const { env, sent, read } = world(objects);
 
-  await assert.rejects(classifyRun(env, "shop", "2026-09-09", new Set()), {
+  await assert.rejects(classifyRun(env, "shop", "2026-09-09"), {
     message: "page 7 of shop is missing",
   });
   assert.equal(read(guessesManifest), undefined, "so the next pass tries the run again");
@@ -98,7 +98,7 @@ test("a line that is not a sighting fails the run before its manifest", async ()
   objects[pageKey(2)] = `${listing("page 2 a")}\n{"title":"no seller, no url"}`;
   const { env, sent, read } = world(objects);
 
-  await assert.rejects(classifyRun(env, "shop", "2026-09-09", new Set()), { name: "ZodError" });
+  await assert.rejects(classifyRun(env, "shop", "2026-09-09"), { name: "ZodError" });
   assert.equal(read(guessesManifest), undefined);
   assert.deepEqual(sent, []);
 });
