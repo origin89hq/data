@@ -86,12 +86,15 @@
     },
     {
       "metric": "battery-current",
-      "at": "0x3105",
+      "at": "0x331B",
       "unit": "A",
       "scale": 0.01,
+      "signed": true,
+      "words": 2,
+      "order": "low-first",
       "origin": "measured",
-      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
-      "citation": "Real-time data, input registers 0x3100–0x311A (function 0x04)"
+      "source": "crates-drivers-cabin-epever-src-xtra",
+      "citation": "STATISTICS_FIELDS on the 0x3300 block: `Field::i32_lo(0x1B, MetricKind::BatteryCurrent, 0.01)`, the signed net current, negative while discharging. The driver reads it here rather than at 0x3105, which is the charger's output current and never negative, and whose row the v2.3 table skips (see gotchas)."
     },
     {
       "metric": "battery-power",
@@ -268,7 +271,7 @@
       "table": "fault",
       "at": "0x3201 bit 12",
       "code": "1",
-      "meaning": "Charging or anti-reverse MOSFET short.",
+      "meaning": "Charging or anti-reverse MOSFET open circuit.",
       "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
       "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
     },

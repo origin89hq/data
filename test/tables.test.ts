@@ -392,7 +392,7 @@ test("a dialect's readings and code tables publish as rows with their sources (#
       metric: "pv-power",
       at: "0x3102",
       unit: "W",
-      scale: "0.01",
+      scale: 0.01,
       signed: false,
       words: 2,
       word_order: "low-first",

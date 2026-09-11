@@ -166,7 +166,8 @@ export function tables(records: Records, feeds = readFeeds()): Table[] {
         col("metric"),
         col("at"),
         col("unit"),
-        col("scale"),
+        // A number a consumer multiplies by, in every published format as in the API.
+        col("scale", "DOUBLE"),
         col("signed", "BOOLEAN"),
         col("words", "INTEGER"),
         col("word_order"),
@@ -183,7 +184,7 @@ export function tables(records: Records, feeds = readFeeds()): Table[] {
           metric: r.metric,
           at: r.at,
           unit: r.unit,
-          scale: r.scale === undefined ? undefined : String(r.scale),
+          scale: r.scale,
           signed: r.signed ?? false,
           words: r.words,
           word_order: r.order,
