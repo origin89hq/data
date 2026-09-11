@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import type { DownloadDecision } from "@origin89/equipment-schema/documents";
 import { PULL_PAGE_READER } from "@origin89/equipment-schema/provenance";
 import { R2_AT_ONCE } from "../src/at-once.ts";
 import { classifierKey } from "../src/classify.ts";
@@ -7,6 +8,7 @@ import type { DiscoverySeen, HostSeen } from "../src/discover.ts";
 import { EXTRACTOR_ID, VISION_EXTRACTOR_ID } from "../src/reading.ts";
 import { pointerKey, runPrefix } from "../src/runs.ts";
 import {
+  awaitingApproval,
   emptyPlanReason,
   makerStates,
   PREVIOUS_RUNS_CONSIDERED,
@@ -30,6 +32,9 @@ const doc = (c: string) => ({
 function run(
   stages: {
     plan?: boolean;
+    /** What the plan offers, when that is not what was sent to conversion. */
+    offered?: string[];
+    decision?: DownloadDecision;
     approved?: boolean;
     fetched?: number;
     sent?: string[];
@@ -48,7 +53,10 @@ function run(
     }),
   };
   if (stages.plan)
-    objects[`${base}/plan.json`] = JSON.stringify({ documents: (stages.sent ?? ["b"]).map(doc) });
+    objects[`${base}/plan.json`] = JSON.stringify({
+      documents: (stages.offered ?? stages.sent ?? ["b"]).map(doc),
+    });
+  if (stages.decision) objects[`${base}/decision.json`] = JSON.stringify(stages.decision);
   if (stages.approved)
     objects[`${base}/manifest.json`] = JSON.stringify({
       approvedBy: "david",
@@ -311,8 +319,100 @@ test("a run that is converted and read is ready to pull", async () => {
 test("a run discovery has just started is not, because pulling it would delete every figure", async () => {
   const maker = await state(run({ plan: true }));
   assert.equal(maker.waitingOn, "somebody to approve the download");
+  assert.equal(maker.decision, undefined);
+  assert.equal(awaitingApproval(maker), true);
   assert.equal(readyToPull(maker), false);
   assert.equal(readyToPull(await state(run({}))), false, "nor one with no plan yet");
+});
+
+test("a refused download is decided, and says who refused it and why (#71)", async () => {
+  const refused = await state(
+    run({
+      plan: true,
+      offered: ["b", "c"],
+      decision: { outcome: "refused", by: "ada", note: "trail cameras, not power equipment" },
+    }),
+  );
+  assert.equal(refused.waitingOn, "download refused by ada: trail cameras, not power equipment");
+  assert.equal(refused.decision, "refused");
+  assert.equal(refused.approvedBy, undefined);
+  assert.equal(awaitingApproval(refused), false, "nobody is needed for a run already refused");
+  assert.equal(readyToPull(refused), false);
+  const unexplained = await state(run({ plan: true, decision: { outcome: "refused", by: "ada" } }));
+  assert.equal(unexplained.waitingOn, "download refused by ada");
+});
+
+test("an approval shows as soon as the run records it, before any document is in", async () => {
+  const maker = await state(
+    run({
+      plan: true,
+      offered: ["b", "c", "d"],
+      decision: { outcome: "approved", by: "ada", permitted: 2 },
+    }),
+  );
+  assert.equal(maker.waitingOn, "the download of 2 documents approved by ada");
+  assert.equal(maker.approvedBy, "ada");
+  assert.equal(maker.decision, "approved");
+  assert.equal(awaitingApproval(maker), false);
+  assert.equal(maker.fetched, undefined, "nothing counts as fetched until the manifest says so");
+  assert.equal(readyToPull(maker), false);
+  const one = await state(
+    run({ plan: true, decision: { outcome: "approved", by: "ada", permitted: 1 } }),
+  );
+  assert.equal(one.waitingOn, "the download of 1 document approved by ada");
+});
+
+test("an approval that leaves nothing to fetch, and a plan nobody answered in time, are decided", async () => {
+  const nothing = await state(
+    run({ plan: true, decision: { outcome: "approved", by: "ada", permitted: 0 } }),
+  );
+  assert.equal(
+    nothing.waitingOn,
+    "nothing to fetch; the approval by ada names none of the hosts the documents are on",
+  );
+  assert.equal(awaitingApproval(nothing), false);
+  const lapsed = await state(
+    run({ plan: true, decision: { outcome: "lapsed", reason: "no answer within 3 days" } }),
+  );
+  assert.equal(lapsed.waitingOn, "download not approved: no answer within 3 days");
+  assert.equal(lapsed.decision, "lapsed");
+  assert.equal(lapsed.approvedBy, undefined);
+  assert.equal(awaitingApproval(lapsed), false);
+});
+
+test("a decision record that does not parse leaves the run with a person, not decided", async () => {
+  for (const unreadable of [
+    '{"outcome":"maybe","by":"ada"}',
+    '{"outcome":"refused"}',
+    '{"outcome":"approved","by":"ada","permitted":-1}',
+    JSON.stringify({ outcome: "refused", by: "ada", note: "n".repeat(1001) }),
+    '{"outcome":"refused","by":',
+  ]) {
+    const objects = run({ plan: true });
+    objects[`${BASE}/decision.json`] = unreadable;
+    const maker = await state(objects);
+    assert.equal(maker.waitingOn, "somebody to approve the download", unreadable);
+    assert.equal(maker.decision, undefined, unreadable);
+    assert.equal(awaitingApproval(maker), true, unreadable);
+  }
+});
+
+test("a run approved before decisions were recorded counts as approved from its manifest", async () => {
+  const maker = await state(run({ plan: true, approved: true, fetched: 1 }));
+  assert.equal(maker.decision, "approved");
+  assert.equal(maker.approvedBy, "david");
+  assert.equal(awaitingApproval(maker), false);
+  assert.equal(maker.waitingOn, "conversion to be started");
+});
+
+test("only a plan that offers documents can wait for approval", async () => {
+  assert.equal(awaitingApproval(await state(run({}))), false, "no plan yet");
+  const objects = run({});
+  objects[`${BASE}/plan.json`] = JSON.stringify({ documents: [] });
+  objects[`${BASE}/spec-pages.json`] = JSON.stringify({ candidates: 2 });
+  const specOnly = await state(objects);
+  assert.equal(specOnly.offered, 0);
+  assert.equal(awaitingApproval(specOnly), false, "specification pages need nobody's approval");
 });
 
 test("a run approved and still converting is not, nor one converted and read by nobody", async () => {
@@ -487,6 +587,27 @@ test("a run not sent to conversion is spared the reads that only follow it", asy
     ],
     "no listing of its conversions and no offer to read",
   );
+});
+
+test("a plan with no manifest reads its decision and nothing that follows conversion (#71)", async () => {
+  const { env } = world(run({ plan: true, decision: { outcome: "refused", by: "ada" } }));
+  const { asked } = watched(env.ARCHIVE);
+  const [maker] = await makerStates(env.ARCHIVE);
+  assert.equal(maker?.waitingOn, "download refused by ada");
+  assert.deepEqual(asked.filter((key) => key.startsWith(BASE)).sort(), [
+    `${BASE}/converting.json`,
+    `${BASE}/decision.json`,
+    `${BASE}/manifest.json`,
+    `${BASE}/plan.json`,
+    `${BASE}/spec-pages.json`,
+  ]);
+});
+
+test("a decision read that fails fails the state, like any other read", async () => {
+  const bucket = world(run({ plan: true, decision: { outcome: "refused", by: "ada" } })).env
+    .ARCHIVE;
+  watched(bucket, (key) => key === `${BASE}/decision.json`);
+  await assert.rejects(makerStates(bucket), /R2 refused documents\/maker\/.*decision\.json/);
 });
 
 test("a read that fails fails the whole state, rather than answering for the makers it reached", async () => {

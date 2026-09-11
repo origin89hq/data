@@ -88,7 +88,10 @@ export function Ops() {
   const setQuery = (q: string) => updateSearch({ q, page: undefined }, true);
   const setSort = (sort: NonNullable<OpsSearch["sort"]>) => updateSearch({ sort, page: undefined });
   const setPage = (page: number) => updateSearch({ page });
-  const [selected, setSelected] = useState<RunRow>();
+  // The drawer follows each snapshot by key. Holding the row it opened with left it showing a
+  // plan as waiting for approval after a refresh had the approval recorded.
+  const [selectedKey, setSelectedKey] = useState<string>();
+  const setSelected = (row?: RunRow) => setSelectedKey(row?.key);
   const [historyRefresh, setHistoryRefresh] = useState(0);
   const releaseSelection = state.release;
   const [toast, setToast] = useState("");
@@ -123,7 +126,7 @@ export function Ops() {
   const selectedView = useRef(view);
   useEffect(() => {
     if (selectedView.current !== view) {
-      setSelected(undefined);
+      setSelectedKey(undefined);
       selectedView.current = view;
     }
   }, [view]);
@@ -143,6 +146,7 @@ export function Ops() {
     return () => window.removeEventListener("keydown", shortcut);
   }, []);
   const rows = useMemo(() => (runs.value ? runRows(runs.value) : []), [runs.value]);
+  const selected = rows.find((row) => row.key === selectedKey);
   const shown = useMemo(
     () => selectRows(rows, view, filter, query, sort),
     [rows, view, filter, query, sort],
@@ -602,9 +606,12 @@ export function Ops() {
       </div>
       {selected && !expired && (
         <RunDetail
+          // A different current run is a different review: its plan and approval start afresh.
+          key={`${selected.key}:${selected.run?.instance ?? ""}`}
           row={selected}
           login={login.value}
           onClose={() => setSelected(undefined)}
+          onApproved={refresh}
           onChanged={() => setDirty(true)}
         />
       )}

@@ -2,7 +2,7 @@ import specPages from "../../../feeds/spec-pages.json" with { type: "json" };
 import { noteActivity } from "./activity.ts";
 import { classifyRun, convertRun, specPagesRun, visionRun } from "./enqueue.ts";
 import { LeaseHeld, underLease } from "./lease.ts";
-import { makerStates, previousPlan, sellerStates } from "./state.ts";
+import { awaitingApproval, makerStates, previousPlan, sellerStates } from "./state.ts";
 
 /**
  * Advance everything whose precondition is met, and say what it could not.
@@ -180,7 +180,7 @@ async function pass(env: Env, today: string, by: string): Promise<SupervisionRep
       });
     }
 
-    if (maker.waitingOn.startsWith("somebody to approve")) {
+    if (awaitingApproval(maker)) {
       report.blocked.push({
         entity: maker.maker,
         waitingOn: `approval for ${maker.offered ?? 0} documents`,

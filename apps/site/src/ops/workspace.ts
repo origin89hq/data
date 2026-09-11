@@ -24,10 +24,14 @@ export const active = (status?: string) =>
   ["queued", "running", "waiting", "paused", "waitingForPause"].includes(status ?? "");
 export const broken = (status?: string) =>
   ["errored", "terminated", "unknown"].includes(status ?? "");
-export const needsApproval = (maker: MakerState) =>
-  maker.waitingOn === "somebody to approve the download" &&
-  !maker.approvedBy &&
-  (maker.offered ?? 0) > 0;
+/** A workflow that can no longer receive an approval: finished, stopped, or not there to ask. */
+export const closed = (status?: string) => status === "complete" || broken(status);
+/** A plan with documents that nobody has approved or refused. */
+export const awaitingApproval = (maker: MakerState) =>
+  (maker.offered ?? 0) > 0 && maker.decision === undefined;
+/** An undecided plan whose workflow can still receive the answer, as far as the snapshot knows. */
+export const needsApproval = (maker: MakerState, run?: RunStatus) =>
+  awaitingApproval(maker) && !closed(run?.status);
 export function runRows(data: Pipeline): RunRow[] {
   const makers: RunRow[] = data.makers.map((maker) => {
     const run = data.runs.get(`maker:${maker.maker}`);
@@ -40,14 +44,21 @@ export function runRows(data: Pipeline): RunRow[] {
       run,
       category: broken(run?.status)
         ? "attention"
-        : needsApproval(maker)
+        : needsApproval(maker, run)
           ? "review"
           : active(run?.status)
             ? "active"
             : (maker.read ?? 0) + (maker.seen ?? 0) > 0
               ? "readings"
               : "all",
-      next: maker.waitingOn === "nothing" ? "No next step reported" : maker.waitingOn,
+      // A run decided before the Worker recorded decisions has no record of it, and its workflow
+      // has ended: approving it would reach nobody.
+      next:
+        awaitingApproval(maker) && closed(run?.status)
+          ? "Nothing downloaded, and the workflow can no longer take an approval. See the activity feed."
+          : maker.waitingOn === "nothing"
+            ? "No next step reported"
+            : maker.waitingOn,
     };
   });
   const sellers: RunRow[] = data.sellers.map((seller) => {
