@@ -137,12 +137,10 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     const landedAt = new Set<string>();
     const candidates: string[] = [];
     const take = (batch: PagesRead): void => {
-      // A cited page read for its links, or one that answered with the document itself; the
-      // batch says which, so a seed that redirected to another page as HTML is neither twice.
-      const answeredWithDocument = batch.answered.filter((p) => cited.pages.includes(p));
-      for (const p of answeredWithDocument) directAnswers.add(p);
-      citedRead +=
-        batch.opened.filter((p) => cited.pages.includes(p)).length + answeredWithDocument.length;
+      // A cited page read for its links counts as a page read; one that answered with the
+      // document itself is counted with the documents, marked cited, and not as a page.
+      for (const p of batch.answered) if (cited.pages.includes(p)) directAnswers.add(p);
+      citedRead += batch.opened.filter((p) => cited.pages.includes(p)).length;
       for (const f of batch.links) if (!found.some((x) => x.url === f.url)) found.push(f);
       specPages.push(...batch.tables);
       for (const url of batch.landed) {
@@ -236,8 +234,9 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     // What a person already found is offered whether or not the site led here (#48). Offered,
     // not fetched: it waits for the same approval as everything else.
     found.splice(0, found.length, ...withCited(found, cited, domains, directAnswers));
-    // Counted on the final list, so a cited document the site also led to is still a cited one.
-    const citedOffered = found.filter((f) => cited.documents.includes(f.url)).length;
+    // Counted on the final list by the marker, so a cited document the site also led to, and one
+    // a cited page answered with, are cited ones.
+    const citedOffered = found.filter((f) => f.cited === true).length;
     // Cited pages on the maker's hosts that the page limit left out, so a small limit's plan says
     // it did not read every citation.
     const citedSeeds = cited.pages.filter((p) => {
