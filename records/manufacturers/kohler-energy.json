@@ -1,9 +1,11 @@
 {
   "id": "kohler-energy",
-  "name": "Kohler Energy",
-  "website": "https://www.kohlerenergy.com",
+  "name": "Rehlko",
+  "website": "https://www.rehlko.com",
   "domains": [
     "kohlerenergy.com",
-    "kohlerpower.com"
-  ]
+    "kohlerpower.com",
+    "rehlko.com"
+  ],
+  "notes": "Kohler Energy is now Rehlko, as rehlko.com says; kohlerenergy.com and kohlerpower.com redirect there."
 }

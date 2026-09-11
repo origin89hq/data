@@ -1,9 +1,10 @@
 {
   "id": "primus-wind-power",
   "name": "Primus Wind Power",
-  "website": "https://www.primuswindpower.com",
+  "website": "https://www.airwindpower.com",
   "domains": [
-    "primuswindpower.com"
+    "primuswindpower.com",
+    "airwindpower.com"
   ],
   "logo": {
     "source": "https://www.airwindpower.com/wp-content/uploads/2024/07/cropped-android-chrome-512x512-1-192x192.png",
@@ -14,5 +15,6 @@
       128
     ],
     "checkedAt": "2026-09-10"
-  }
+  },
+  "notes": "primuswindpower.com redirects to airwindpower.com, where the AIR turbine range is sold."
 }

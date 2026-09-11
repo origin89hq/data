@@ -4,5 +4,8 @@
   "website": "https://www.eco-worthy.com",
   "domains": [
     "eco-worthy.com"
+  ],
+  "documentHosts": [
+    "cdn.shopify.com"
   ]
 }

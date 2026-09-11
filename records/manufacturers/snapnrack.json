@@ -5,6 +5,9 @@
   "domains": [
     "snapnrack.com"
   ],
+  "documentHosts": [
+    "res.cloudinary.com"
+  ],
   "logo": {
     "source": "https://www.snapnrack.com/apple-touch-icon.png",
     "from": "maker",

@@ -1,9 +1,10 @@
 {
   "id": "wohner",
   "name": "Wöhner",
-  "website": "https://www.woehner.com",
+  "website": "https://www.woehner.de",
   "domains": [
-    "woehner.com"
+    "woehner.com",
+    "woehner.de"
   ],
   "logo": {
     "source": "https://www.woehner.de/TouchIcon_152x152-precomposed.png",
@@ -14,5 +15,6 @@
       128
     ],
     "checkedAt": "2026-09-10"
-  }
+  },
+  "notes": "woehner.com redirects to woehner.de."
 }
