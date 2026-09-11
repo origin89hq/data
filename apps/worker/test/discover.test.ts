@@ -374,6 +374,16 @@ test("a page that answers with a document is offered as that document, and its b
   ]);
   assert.deepEqual(read.foreign, { "cdn.other.test": ["https://cdn.other.test/files/vue3"] });
   assert.deepEqual([read.read, read.opened], [1, ["https://maker.test/page"]]);
+  assert.deepEqual(
+    read.answered,
+    [
+      "https://maker.test/sell-sheets/vue3",
+      "https://maker.test/manual",
+      "https://maker.test/export?id=manual",
+      "https://maker.test/save",
+    ],
+    "the pages that answered with a document themselves, wherever the document was",
+  );
   assert.deepEqual(read.failed, { "not a page (image/png)": 1 });
   assert.equal(
     isDocumentAnswer({

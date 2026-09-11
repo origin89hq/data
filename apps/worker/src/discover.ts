@@ -414,6 +414,8 @@ export interface PagesRead {
   read: number;
   /** The pages asked for that answered with a page, as they were asked for. */
   opened: string[];
+  /** The pages asked for that answered with a document themselves, as they were asked for. */
+  answered: string[];
   /** Pages that gave no HTML, by HTTP status; "0" is a host that did not answer. */
   failed: Record<string, number>;
   /** Documents linked on hosts the record does not claim: the distinct addresses, by host. */
@@ -446,6 +448,7 @@ export async function readPages(
     landed: [],
     attempted: 0,
     opened: [],
+    answered: [],
     read: 0,
     failed: {},
     foreign: {},
@@ -477,6 +480,7 @@ export async function readPages(
         count(out.failed, `not a page (${mediaType(answer) ?? "unknown type"})`);
         continue;
       }
+      out.answered.push(page);
       if (hostAllowed(host, domains)) out.links.push({ url: answer.url, host, foundOn: page });
       else {
         const urls = out.foreign[host] ?? [];
