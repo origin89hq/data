@@ -95,6 +95,8 @@ export interface SpecsFromResult {
   truncated: string[];
   /** Figures dropped because a multilingual document stated them again in another language. */
   repeated: number;
+  /** Those rows, kept so a figure a person holds under one of their ids can still be compared with what the document said. */
+  repeatedRows: Spec[];
 }
 
 /** Turn a document's reported figures into spec rows, keeping only those whose product we already hold. */
@@ -201,13 +203,19 @@ export function specsFrom({
     }
     for (const said of byEnglish.values()) for (const row of said.slice(1)) repeated.add(row.id);
   }
-  for (const id of repeated) specs.delete(id);
+  const repeatedRows: Spec[] = [];
+  for (const id of repeated) {
+    const row = specs.get(id);
+    if (row) repeatedRows.push(row);
+    specs.delete(id);
+  }
 
   return {
     specs: [...specs.values()].sort((a, b) => a.id.localeCompare(b.id)),
     unmatched,
     truncated,
     repeated: repeated.size,
+    repeatedRows,
   };
 }
 
@@ -246,10 +254,11 @@ export function heldByPerson(spec: Pick<Spec, "reviewedBy" | "extractedBy">): bo
 
 /**
  * Keep the figures a person holds out of a pull's writes, and say where the pull disagreed with
- * them. `read` is what the pull would write, one figure per id; `candidates` are every distinct
- * reading each id had across the run's documents, when there was more than one, so a value a
- * later document overrode is still compared. A held figure the run read the same way is left
- * exactly as it is, review and all; one read differently is left as it is too, and reported.
+ * them. `read` is what the pull would write, one figure per id; `candidates` are every reading
+ * each id had across the run's documents, so a value a later document overrode, or a row a
+ * document's own translation rule dropped, is still compared, even under an id `read` no longer
+ * carries. A held figure the run read the same way is left exactly as it is, review and all; one
+ * read differently is left as it is too, and reported.
  */
 export function keepHeld(
   existing: Spec[],
@@ -258,22 +267,25 @@ export function keepHeld(
 ): HeldResult {
   const held = new Map(existing.filter(heldByPerson).map((spec) => [spec.id, spec]));
   const out: HeldResult = { write: [], agreed: 0, disagreements: [] };
+  const byId = new Map<string, Spec>();
   for (const spec of read) {
-    const kept = held.get(spec.id);
-    if (!kept) {
-      out.write.push(spec);
-      continue;
-    }
+    byId.set(spec.id, spec);
+    if (!held.has(spec.id)) out.write.push(spec);
+  }
+  for (const id of new Set([...byId.keys(), ...candidates.keys()])) {
+    const kept = held.get(id);
+    if (!kept) continue;
+    const won = byId.get(id);
     const seen = new Set<string>();
     let differed = false;
-    for (const reading of candidates.get(spec.id) ?? [spec]) {
+    for (const reading of candidates.get(id) ?? (won ? [won] : [])) {
       const fields = differing(kept, reading);
       if (fields.length === 0) continue;
       differed = true;
       const key = FIELDS.map((field) => said(reading[field])).join("|");
       if (seen.has(key)) continue;
       seen.add(key);
-      out.disagreements.push({ id: spec.id, fields, held: kept, read: reading });
+      out.disagreements.push({ id, fields, held: kept, read: reading });
     }
     if (!differed) out.agreed += 1;
   }

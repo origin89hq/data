@@ -157,6 +157,7 @@ for (const document of readings.readings) {
     specs,
     unmatched: missing,
     repeated,
+    repeatedRows,
   } = specsFrom({
     reports: document.products,
     models: records.models,
@@ -172,6 +173,10 @@ for (const document of readings.readings) {
     collected.set(spec.id, spec);
     candidates.set(spec.id, [...(candidates.get(spec.id) ?? []), spec]);
   }
+  // A row the document's own translation rule dropped was still read, and a person may hold a
+  // figure under its id: it is compared, never written.
+  for (const spec of repeatedRows)
+    candidates.set(spec.id, [...(candidates.get(spec.id) ?? []), spec]);
   // Only a document that produced a figure is cited. Refusing a fragment or a repeat can empty a
   // document, and a source nothing cites is an orphan the validator refuses.
   if (specs.length > 0) usedSources.set(sourceId, { url: document.url, sha256: document.sha256 });
@@ -183,7 +188,8 @@ for (const document of readings.readings) {
 // that disagrees with it is reported below rather than written. And a foreign-named figure on a
 // model that already has English ones is a multilingual manual saying the same thing twice.
 const read = [...collected.values()];
-const readIds = new Set(collected.keys());
+// Every id the run read under, the dropped translations included.
+const readIds = new Set(candidates.keys());
 const held = pullWrites(records.specs, read, candidates);
 const aligned = held.aligned;
 collected.clear();
@@ -244,14 +250,25 @@ if (held.disagreements.length) {
   );
   const cite = (spec: { source: string; page?: number }) =>
     `${spec.source}${spec.page ? ` p.${spec.page}` : ""}`;
-  const figure = (spec: { value: string; unit?: string }) =>
-    `"${spec.value}${spec.unit ? ` ${spec.unit}` : ""}"`;
-  for (const { id, held: kept, read } of held.disagreements) {
+  // The value and unit always, and whichever of the name and conditions disagreed: two figures
+  // that read "428 Ah" against "428 Ah" say nothing about a condition that turned from ≤ to ≥.
+  const figure = (
+    spec: { name: string; value: string; unit?: string; conditions?: string },
+    fields: string[],
+  ) =>
+    [
+      `"${spec.value}${spec.unit ? ` ${spec.unit}` : ""}"`,
+      ...(fields.includes("name") ? [`named "${spec.name}"`] : []),
+      ...(fields.includes("conditions")
+        ? [spec.conditions ? `under "${spec.conditions}"` : "under no conditions"]
+        : []),
+    ].join(" ");
+  for (const { id, fields, held: kept, read } of held.disagreements) {
     const by = kept.reviewedBy
       ? `reviewed by ${kept.reviewedBy}${kept.checkedAt ? ` on ${kept.checkedAt}` : ""}`
       : "written by hand";
     console.log(
-      `      ${id}: held ${figure(kept)} from ${cite(kept)}, ${by}; read ${figure(read)} from ${cite(read)}`,
+      `      ${id} (${fields.join(", ")}): held ${figure(kept, fields)} from ${cite(kept)}, ${by}; read ${figure(read, fields)} from ${cite(read)}`,
     );
   }
 }

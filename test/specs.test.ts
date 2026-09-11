@@ -340,3 +340,62 @@ test("a figure written by hand, with no reader named, is held like a reviewed on
   assert.equal(heldByPerson(figure({})), false);
   assert.equal(heldByPerson(figure({ reviewedBy: "david" })), true);
 });
+
+test("a row a document repeats in another language is returned, not lost, so a held figure under its id can be compared", () => {
+  const { specs, repeated, repeatedRows } = specsFrom({
+    ...base,
+    manufacturer: "rolls-battery",
+    reports: [
+      {
+        model: "S-550",
+        specs: [
+          { name: "Rated capacity", value: "428", unit: "Ah" },
+          { name: "Capacité nominale", value: "428", unit: "Ah" },
+        ],
+      },
+    ],
+  });
+  assert.equal(specs.length, 1);
+  assert.equal(repeated, 1);
+  assert.deepEqual(
+    repeatedRows.map((row) => row.name),
+    ["Capacité nominale"],
+  );
+});
+
+test("a held figure the run read only under a dropped row is still compared, and never written", () => {
+  const frenchId = "rolls-battery-s-550--capacit-nominale";
+  const heldFrench = figure({
+    id: frenchId,
+    name: "Capacité nominale",
+    conditions: undefined,
+    value: "440",
+    reviewedBy: "david",
+    checkedAt: "2026-09-02",
+  });
+  const droppedRow = figure({
+    id: frenchId,
+    name: "Capacité nominale",
+    conditions: undefined,
+    source: "doc-llll",
+    page: 2,
+  });
+  const english = figure({ id: "rolls-battery-s-550--rated-capacity", conditions: undefined });
+  const candidates = new Map([
+    [english.id, [english]],
+    [frenchId, [droppedRow]],
+  ]);
+  const result = pullWrites([heldFrench], [english], candidates);
+  assert.deepEqual(result.write, [english]);
+  assert.deepEqual(
+    result.disagreements.map((d) => [d.id, d.fields, d.read.source]),
+    [[frenchId, ["value"], "doc-llll"]],
+  );
+  const agreeing = pullWrites(
+    [heldFrench],
+    [english],
+    new Map([[frenchId, [{ ...droppedRow, value: "440" }]]]),
+  );
+  assert.equal(agreeing.agreed, 1);
+  assert.deepEqual(agreeing.disagreements, []);
+});
