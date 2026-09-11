@@ -5,7 +5,7 @@ import { app, today } from "./routes.ts";
 import { newRun } from "./runs.ts";
 import type { SellerCrawlParams } from "./seller-crawl.ts";
 import { sellers } from "./sellers.ts";
-import { supervise } from "./supervise.ts";
+import { superviseIfFree } from "./supervise.ts";
 
 export { ManufacturerCrawl } from "./manufacturer-crawl.ts";
 export { PageCrawl } from "./page-crawl.ts";
@@ -42,7 +42,7 @@ export default {
     }
     // Every day: move anything whose precondition is met. The weekly crawl and the monthly
     // discovery below produce work; this is what carries it through the stages after them.
-    await supervise(env, checkedAt);
+    await superviseIfFree(env, checkedAt);
     if (new Date(controller.scheduledTime).getUTCHours() === 8) return;
     for (const seller of sellers) {
       if (hasFeed(seller)) {
