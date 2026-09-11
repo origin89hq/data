@@ -4,10 +4,10 @@ The contract of the read-only `EquipmentApi` the offgrid-equipment Worker export
 model key rule the dataset resolves names with. Types and zod schemas only; the implementation
 is `apps/worker/src/equipment-api.ts`, the store behind it is loaded per release (#83).
 
-A consumer Worker in the same Cloudflare account binds the entrypoint:
+A consumer Worker in the same Cloudflare account binds the entrypoint by the deployed Worker's name, `offgrid-equipment-worker` in `apps/worker/wrangler.jsonc`:
 
 ```jsonc
-"services": [{ "binding": "EQUIPMENT", "service": "offgrid-equipment", "entrypoint": "EquipmentApi" }]
+"services": [{ "binding": "EQUIPMENT", "service": "offgrid-equipment-worker", "entrypoint": "EquipmentApi" }]
 ```
 
 and takes one release for one turn:

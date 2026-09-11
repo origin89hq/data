@@ -189,6 +189,10 @@ export interface Source {
   redistributable?: boolean;
 }
 
+/** The ids one `sources` call may ask for: at most `LIMITS.sources`, so an answer is never quietly shorter than the question. */
+export const SourcesQuery = z.array(SourceId).min(1).max(LIMITS.sources);
+export type SourcesQuery = z.infer<typeof SourcesQuery>;
+
 export const BundleQuery = z
   .object({
     models: z.array(ModelId).min(1).max(LIMITS.bundleModels),
@@ -242,7 +246,8 @@ export interface Release {
   resolve(q: ResolveQuery): Promise<Resolution>;
   search(q: SearchQuery): Promise<Page<ModelSummary>>;
   bundle(q: BundleQuery): Promise<Bundle>;
-  sources(ids: SourceId[]): Promise<Source[]>;
+  /** Source records by id, at most `LIMITS.sources` a call; more is refused, never cut. */
+  sources(ids: SourcesQuery): Promise<Source[]>;
   properties(): Promise<PropertyDefinition[]>;
 }
 

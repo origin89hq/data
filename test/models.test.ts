@@ -74,6 +74,7 @@ const brands: Brand[] = [
 const dialects: Dialect[] = [
   {
     id: "epever-tracer-a",
+    manufacturer: "epever",
     family: "modbus-rs485",
     driver: { status: "possible" },
     confidence: "vendor-doc",
@@ -123,6 +124,30 @@ test("a model named in a dialect's table is linked to it, carrying the catalogue
     [],
     "a model the catalogue does not list is not put on a dialect",
   );
+  // The same name under another maker is another product: the key is scoped by the dialect's maker.
+  const [rolls] = deriveModels({
+    sightings: [s("Rolls", "XTRA4210N")],
+    guesses: new Map(),
+    brands: [
+      ...brands,
+      {
+        id: "rolls",
+        brand: "Rolls",
+        decision: "manufacturer",
+        manufacturer: "rolls-battery",
+        evidence: brands[0].evidence,
+      },
+    ],
+    dialects,
+  });
+  assert.deepEqual(rolls.model.dialects, [], "maker A's dialect is not put on maker B's model");
+  const [unscoped] = deriveModels({
+    sightings: [s("EPEver", "XTRA4210N")],
+    guesses: new Map(),
+    brands,
+    dialects: [{ ...dialects[0], manufacturer: undefined }],
+  });
+  assert.deepEqual(unscoped.model.dialects, [], "a dialect naming no maker links nothing here");
 });
 
 test("transcription damage is stripped without changing the name", () => {
