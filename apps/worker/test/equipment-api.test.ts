@@ -248,6 +248,30 @@ async function fixture(
         kind: "charge-limit",
       },
     ],
+    dialect_readings: [
+      {
+        dialect_id: "victron-mppt-vedirect-hex",
+        position: 0,
+        metric: "pv-voltage",
+        at: "0xEDBB",
+        unit: "V",
+        scale: "0.01",
+        signed: false,
+        origin: "measured",
+        source_id: "doc-vedirect-hex",
+      },
+    ],
+    dialect_codes: [
+      {
+        dialect_id: "victron-mppt-vedirect-hex",
+        position: 0,
+        code_table: "fault",
+        at: "ERR",
+        code: "2",
+        meaning: "Battery voltage too high.",
+        source_id: "doc-vedirect-whitepaper",
+      },
+    ],
     model_dialects: [
       {
         model_id: "victron-energy-smartsolar-mppt-150-35",
@@ -286,6 +310,7 @@ async function fixture(
         redistributable: true,
       },
       { id: "doc-unrelated", url: "https://elsewhere.test/x.pdf" },
+      { id: "doc-vedirect-hex", url: "https://www.victronenergy.com/vedirect-hex.pdf" },
     ],
     ...extra,
   };
@@ -516,8 +541,32 @@ test("a bundle carries the models, their claims, their protocol links and exactl
   );
   assert.deepEqual(
     out.sources.map((s) => s.id).sort(),
-    ["doc-epever-xtra", "doc-vedirect-whitepaper", "doc-victron-150-35"],
-    "the sources cited and no other",
+    ["doc-epever-xtra", "doc-vedirect-hex", "doc-vedirect-whitepaper", "doc-victron-150-35"],
+    "the sources cited, a reading's and a code's included, and no other",
+  );
+  const hex = out.protocol.find((p) => p.dialect.id === "victron-mppt-vedirect-hex")?.dialect;
+  assert.deepEqual(hex?.readings, [
+    {
+      metric: "pv-voltage",
+      at: "0xEDBB",
+      unit: "V",
+      scale: 0.01,
+      origin: "measured",
+      source: "doc-vedirect-hex",
+    },
+  ]);
+  assert.deepEqual(hex?.codes, [
+    {
+      table: "fault",
+      at: "ERR",
+      code: "2",
+      meaning: "Battery voltage too high.",
+      source: "doc-vedirect-whitepaper",
+    },
+  ]);
+  assert.deepEqual(
+    out.protocol.find((p) => p.dialect.id === "epever-xtra-n-g3")?.dialect.readings,
+    [],
   );
   assert.deepEqual(out.properties, []);
   assert.deepEqual(out.gaps, [

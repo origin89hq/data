@@ -48,6 +48,8 @@ export const LOADED_TABLES: Readonly<Record<string, Loaded>> = {
   dialect_gotchas: { columns: ["dialect_id", "position", "text"], keyed: false },
   dialect_sources: { columns: ["dialect_id", "position", "source_id", "citation"], keyed: false },
   dialect_kinds: { columns: ["dialect_id", "direction", "position", "kind"], keyed: false },
+  dialect_readings: { columns: ["dialect_id", "position", "metric", "at"], keyed: false },
+  dialect_codes: { columns: ["dialect_id", "position", "code_table", "code"], keyed: false },
   sources: { columns: ["id"], keyed: true },
   manufacturers: { columns: ["id", "name"], keyed: true },
   brands: { columns: ["id", "brand", "decision", "manufacturer_id"], keyed: true },
@@ -95,6 +97,8 @@ export const SCHEMA: readonly string[] = [
   "CREATE INDEX IF NOT EXISTS dialect_gotchas_by_dialect ON dialect_gotchas (release, dialect_id)",
   "CREATE INDEX IF NOT EXISTS dialect_sources_by_dialect ON dialect_sources (release, dialect_id)",
   "CREATE INDEX IF NOT EXISTS dialect_kinds_by_dialect ON dialect_kinds (release, dialect_id)",
+  "CREATE INDEX IF NOT EXISTS dialect_readings_by_dialect ON dialect_readings (release, dialect_id)",
+  "CREATE INDEX IF NOT EXISTS dialect_codes_by_dialect ON dialect_codes (release, dialect_id)",
 ];
 
 /**

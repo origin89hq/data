@@ -189,6 +189,8 @@ makers is the gate's decision.
 | `dialect_models` | model named under a dialect, with tier, rating, seller and notes where the catalogue had them |
 | `dialect_kinds` | metric a dialect reports or command it accepts |
 | `dialect_gotchas` | thing that bites, in order |
+| `dialect_readings` | one reading, structured: metric, register or field, unit and scale, sign, width, whether the device measures or only reports it, and the document it was read from |
+| `dialect_codes` | one entry of a vendor's fault, alarm, charge-stage or state table, with its source |
 | `dialect_see_also` | sibling id an entry may duplicate |
 | `models` | product a maker makes, with its kind where something has said, and the aliases other names reach it by |
 | `model_keys` | name a model answers to, under each name its maker goes by, as the key the one rule gives it |

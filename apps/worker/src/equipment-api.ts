@@ -3,6 +3,8 @@ import {
   type BundleQuery,
   type Claim,
   CONTRACT,
+  type DialectCode,
+  type DialectReading,
   type DialectSummary,
   type Gap,
   keyPart,
@@ -555,6 +557,22 @@ async function dialectsOf(
       .bind(release, ...ids)
       .all<{ dialect_id: string; source_id: string; citation: string }>()
   ).results;
+  const readings = (
+    await db
+      .prepare(
+        `SELECT dialect_id, row FROM dialect_readings WHERE release = ? AND dialect_id IN (${marks}) ORDER BY position`,
+      )
+      .bind(release, ...ids)
+      .all<{ dialect_id: string; row: string }>()
+  ).results;
+  const codes = (
+    await db
+      .prepare(
+        `SELECT dialect_id, row FROM dialect_codes WHERE release = ? AND dialect_id IN (${marks}) ORDER BY position`,
+      )
+      .bind(release, ...ids)
+      .all<{ dialect_id: string; row: string }>()
+  ).results;
   for (const { id, row } of rows) {
     const d = JSON.parse(row) as Record<string, string | undefined>;
     out.set(id, {
@@ -575,10 +593,47 @@ async function dialectsOf(
       sources: cited
         .filter((c) => c.dialect_id === id)
         .map((c) => ({ source: c.source_id, citation: c.citation })),
+      readings: readings.filter((r) => r.dialect_id === id).map((r) => readingOf(r.row)),
+      codes: codes.filter((c) => c.dialect_id === id).map((c) => codeOf(c.row)),
     });
   }
   return out;
 }
+
+const readingOf = (row: string): DialectReading => {
+  const r = JSON.parse(row) as Record<string, string | number | boolean | undefined>;
+  const text = (v: unknown) => (typeof v === "string" ? v : undefined);
+  return {
+    metric: text(r.metric) ?? "",
+    at: text(r.at) ?? "",
+    ...(r.unit ? { unit: text(r.unit) } : {}),
+    ...(r.scale !== undefined ? { scale: Number(r.scale) } : {}),
+    ...(r.signed === true ? { signed: true } : {}),
+    ...(typeof r.words === "number" ? { words: r.words } : {}),
+    ...(r.word_order === "low-first" || r.word_order === "high-first"
+      ? { order: r.word_order }
+      : {}),
+    ...(r.sentinel ? { sentinel: text(r.sentinel) } : {}),
+    origin: (text(r.origin) ?? "reported") as DialectReading["origin"],
+    source: text(r.source_id) ?? "",
+    ...(r.citation ? { citation: text(r.citation) } : {}),
+    ...(typeof r.page === "number" ? { page: r.page } : {}),
+  };
+};
+
+const codeOf = (row: string): DialectCode => {
+  const c = JSON.parse(row) as Record<string, string | number | undefined>;
+  const text = (v: unknown) => (typeof v === "string" ? v : undefined);
+  return {
+    table: (text(c.code_table) ?? "state") as DialectCode["table"],
+    ...(c.at ? { at: text(c.at) } : {}),
+    code: text(c.code) ?? "",
+    meaning: text(c.meaning) ?? "",
+    source: text(c.source_id) ?? "",
+    ...(c.citation ? { citation: text(c.citation) } : {}),
+    ...(typeof c.page === "number" ? { page: c.page } : {}),
+  };
+};
 
 const sourceOf = (row: string): Source => {
   const s = JSON.parse(row) as Record<string, string | boolean | undefined>;
@@ -726,6 +781,8 @@ export async function bundle(db: Store, release: string, q: BundleQuery): Promis
       ...claims.map((c) => c.source),
       ...protocol.flatMap((p) => [
         ...p.dialect.sources.map((s) => s.source),
+        ...p.dialect.readings.map((r) => r.source),
+        ...p.dialect.codes.map((c) => c.source),
         ...(p.evidence?.sources.map((s) => s.source) ?? []),
       ]),
     ]),

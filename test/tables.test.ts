@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { Dialect } from "@origin89/equipment-schema/dialect";
 import { Model, Spec } from "@origin89/equipment-schema/model";
 import type { Feed, FeedModel } from "../src/feeds.ts";
 import type { Records } from "../src/records.ts";
@@ -334,6 +335,101 @@ test("a model–dialect link publishes how it was made, its confidence and its c
       position: 1,
       source_id: "rolls-map",
       citation: "table 3",
+    },
+  ]);
+});
+
+test("a dialect's readings and code tables publish as rows with their sources (#84)", () => {
+  const withReadings: Records = {
+    ...records,
+    dialects: [
+      Dialect.parse({
+        id: "epever-b",
+        family: "modbus-rs485",
+        driver: { status: "possible" },
+        confidence: "vendor-doc",
+        refuter: "checked",
+        sources: [{ source: "epever-spec", citation: "v2.3" }],
+        readings: [
+          {
+            metric: "pv-power",
+            at: "0x3102",
+            unit: "W",
+            scale: 0.01,
+            words: 2,
+            order: "low-first",
+            origin: "measured",
+            source: "epever-spec",
+            citation: "real-time data",
+          },
+          {
+            metric: "charge-stage",
+            at: "0x3201 bits 3–2",
+            origin: "reported",
+            source: "epever-spec",
+          },
+        ],
+        codes: [
+          {
+            table: "charge-stage",
+            at: "0x3201 bits 3–2",
+            code: "10",
+            meaning: "Boost.",
+            source: "epever-spec",
+            page: 12,
+          },
+        ],
+      }),
+    ],
+    models: [],
+    specs: [],
+  };
+  const of = (name: string) => tables(withReadings, []).find((t) => t.name === name)?.rows;
+  assert.deepEqual(of("dialect_readings"), [
+    {
+      dialect_id: "epever-b",
+      position: 0,
+      metric: "pv-power",
+      at: "0x3102",
+      unit: "W",
+      scale: "0.01",
+      signed: false,
+      words: 2,
+      word_order: "low-first",
+      sentinel: undefined,
+      origin: "measured",
+      source_id: "epever-spec",
+      citation: "real-time data",
+      page: undefined,
+    },
+    {
+      dialect_id: "epever-b",
+      position: 1,
+      metric: "charge-stage",
+      at: "0x3201 bits 3–2",
+      unit: undefined,
+      scale: undefined,
+      signed: false,
+      words: undefined,
+      word_order: undefined,
+      sentinel: undefined,
+      origin: "reported",
+      source_id: "epever-spec",
+      citation: undefined,
+      page: undefined,
+    },
+  ]);
+  assert.deepEqual(of("dialect_codes"), [
+    {
+      dialect_id: "epever-b",
+      position: 0,
+      code_table: "charge-stage",
+      at: "0x3201 bits 3–2",
+      code: "10",
+      meaning: "Boost.",
+      source_id: "epever-spec",
+      citation: undefined,
+      page: 12,
     },
   ]);
 });

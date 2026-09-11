@@ -31,6 +31,50 @@ export const Citation = z
   .strict();
 export type Citation = z.infer<typeof Citation>;
 
+/**
+ * One reading a dialect gives, structured (#84): which metric, where it is, what the raw value
+ * means. `at` is the register, field or label as the document writes it. A scale needs a unit,
+ * since a bare multiplier says nothing; a value that spans registers says how many and which
+ * comes first. `origin` says whether the device measured the value, estimated it or only
+ * reports what something else told it. Every reading cites the document it was read from.
+ */
+export const DialectReading = z
+  .object({
+    metric: MetricKind,
+    at: z.string().min(1),
+    unit: z.string().min(1).optional(),
+    /** Multiply the raw value by this for the unit. Absent means the raw value is the value. */
+    scale: z.number().positive().optional(),
+    signed: z.boolean().optional(),
+    words: z.number().int().min(2).max(4).optional(),
+    order: z.enum(["low-first", "high-first"]).optional(),
+    /** A raw value that means the reading is absent rather than zero. */
+    sentinel: z.string().min(1).optional(),
+    origin: z.enum(["measured", "estimated", "reported"]),
+    source: RecordId,
+    citation: z.string().min(1).optional(),
+    page: z.number().int().positive().optional(),
+  })
+  .strict()
+  .refine((r) => r.scale === undefined || r.unit !== undefined, "a scale needs a unit")
+  .refine((r) => r.order === undefined || r.words !== undefined, "an order needs words");
+export type DialectReading = z.infer<typeof DialectReading>;
+
+/** One entry of a vendor code table (#84): what a fault, alarm, charge stage or state code means, with its source. */
+export const DialectCode = z
+  .object({
+    table: z.enum(["fault", "alarm", "charge-stage", "state"]),
+    /** The register, field or bits the code is read at, when the table lives in one place. */
+    at: z.string().min(1).optional(),
+    code: z.string().min(1),
+    meaning: z.string().min(1),
+    source: RecordId,
+    citation: z.string().min(1).optional(),
+    page: z.number().int().positive().optional(),
+  })
+  .strict();
+export type DialectCode = z.infer<typeof DialectCode>;
+
 export const Driver = z
   .object({
     status: DriverStatus,
@@ -73,6 +117,10 @@ export const Dialect = z
     blocks: z.string().optional(),
     reports: z.array(MetricKind).optional(),
     accepts: z.array(CommandKind).optional(),
+    /** The readings, structured, where somebody has done the work; `blocks` stays the prose until every reading it describes is here. */
+    readings: z.array(DialectReading).min(1).optional(),
+    /** The vendor's code tables, structured. */
+    codes: z.array(DialectCode).min(1).optional(),
     models: z.array(DialectModel).optional(),
     /** Why several models are listed under one map. Absent on a single-model entry. */
     sharedMapEvidence: z.string().optional(),

@@ -3,6 +3,7 @@ import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
+import { Dialect } from "@origin89/equipment-schema/dialect";
 import { Model } from "@origin89/equipment-schema/model";
 import { build } from "../src/build.ts";
 import { toCsv } from "../src/csv.ts";
@@ -282,4 +283,45 @@ test("a model's link to a dialect needs a source it can name, and one the record
     }),
   ];
   assert.deepEqual(validate(r).errors, []);
+});
+
+test("a structured reading or code cites a document the records hold, or it is refused (#84)", () => {
+  const r = fixture();
+  const reading = {
+    metric: "pv-voltage",
+    at: "0x3100",
+    unit: "V",
+    scale: 0.01,
+    origin: "measured",
+    source: "s1",
+  };
+  const code = {
+    table: "charge-stage",
+    at: "0x3201 bits 3–2",
+    code: "01",
+    meaning: "Float.",
+    source: "s1",
+  };
+  r.dialects[0] = Dialect.parse({ ...r.dialects[0], readings: [reading], codes: [code] });
+  assert.deepEqual(validate(r).errors, []);
+  assert.throws(
+    () => Dialect.parse({ ...r.dialects[0], readings: [{ ...reading, unit: undefined }] }),
+    /a scale needs a unit/,
+  );
+  assert.throws(
+    () => Dialect.parse({ ...r.dialects[0], readings: [{ ...reading, order: "low-first" }] }),
+    /an order needs words/,
+  );
+  assert.throws(
+    () => Dialect.parse({ ...r.dialects[0], codes: [{ ...code, source: undefined }] }),
+    /source/,
+  );
+  r.dialects[0] = Dialect.parse({
+    ...r.dialects[0],
+    readings: [{ ...reading, source: "nowhere" }],
+    codes: [{ ...code, source: "gone" }],
+  });
+  const errors = validate(r).errors.join("\n");
+  assert.match(errors, /reading pv-voltage at 0x3100 cites nowhere, which does not exist/);
+  assert.match(errors, /charge-stage code 01 cites gone, which does not exist/);
 });

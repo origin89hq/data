@@ -44,6 +44,363 @@
     "set-switch",
     "reset-counter"
   ],
+  "readings": [
+    {
+      "metric": "pv-voltage",
+      "at": "0x3100",
+      "unit": "V",
+      "scale": 0.01,
+      "origin": "measured",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time data, input registers 0x3100–0x311A (function 0x04)"
+    },
+    {
+      "metric": "pv-current",
+      "at": "0x3101",
+      "unit": "A",
+      "scale": 0.01,
+      "origin": "measured",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time data, input registers 0x3100–0x311A (function 0x04)"
+    },
+    {
+      "metric": "pv-power",
+      "at": "0x3102",
+      "unit": "W",
+      "scale": 0.01,
+      "words": 2,
+      "order": "low-first",
+      "origin": "measured",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time data, input registers 0x3100–0x311A (function 0x04)"
+    },
+    {
+      "metric": "battery-voltage",
+      "at": "0x3104",
+      "unit": "V",
+      "scale": 0.01,
+      "origin": "measured",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time data, input registers 0x3100–0x311A (function 0x04)"
+    },
+    {
+      "metric": "battery-current",
+      "at": "0x3105",
+      "unit": "A",
+      "scale": 0.01,
+      "origin": "measured",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time data, input registers 0x3100–0x311A (function 0x04)"
+    },
+    {
+      "metric": "battery-power",
+      "at": "0x3106",
+      "unit": "W",
+      "scale": 0.01,
+      "words": 2,
+      "order": "low-first",
+      "origin": "measured",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time data, input registers 0x3100–0x311A (function 0x04)"
+    },
+    {
+      "metric": "load-voltage",
+      "at": "0x310C",
+      "unit": "V",
+      "scale": 0.01,
+      "origin": "measured",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time data, input registers 0x3100–0x311A (function 0x04)"
+    },
+    {
+      "metric": "load-current",
+      "at": "0x310D",
+      "unit": "A",
+      "scale": 0.01,
+      "origin": "measured",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time data, input registers 0x3100–0x311A (function 0x04)"
+    },
+    {
+      "metric": "load-power",
+      "at": "0x310E",
+      "unit": "W",
+      "scale": 0.01,
+      "words": 2,
+      "order": "low-first",
+      "origin": "measured",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time data, input registers 0x3100–0x311A (function 0x04)"
+    },
+    {
+      "metric": "battery-temperature",
+      "at": "0x3110",
+      "unit": "°C",
+      "scale": 0.01,
+      "signed": true,
+      "origin": "measured",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time data, input registers 0x3100–0x311A (function 0x04)"
+    },
+    {
+      "metric": "temperature",
+      "at": "0x3111",
+      "unit": "°C",
+      "scale": 0.01,
+      "signed": true,
+      "origin": "measured",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time data, input registers 0x3100–0x311A (function 0x04), temperature inside the controller"
+    },
+    {
+      "metric": "state-of-charge",
+      "at": "0x311A",
+      "unit": "%",
+      "scale": 1,
+      "origin": "estimated",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time data, input registers 0x3100–0x311A (function 0x04)"
+    },
+    {
+      "metric": "pv-energy-today",
+      "at": "0x330C",
+      "unit": "kWh",
+      "scale": 0.01,
+      "words": 2,
+      "order": "low-first",
+      "origin": "reported",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Statistics, input registers 0x330C–0x3313 (function 0x04)"
+    },
+    {
+      "metric": "pv-energy-total",
+      "at": "0x3312",
+      "unit": "kWh",
+      "scale": 0.01,
+      "words": 2,
+      "order": "low-first",
+      "origin": "reported",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Statistics, input registers 0x330C–0x3313 (function 0x04)"
+    },
+    {
+      "metric": "charge-stage",
+      "at": "0x3201 bits 3–2",
+      "origin": "reported",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    }
+  ],
+  "codes": [
+    {
+      "table": "charge-stage",
+      "at": "0x3201 bits 3–2",
+      "code": "00",
+      "meaning": "No charging.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "charge-stage",
+      "at": "0x3201 bits 3–2",
+      "code": "01",
+      "meaning": "Float.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "charge-stage",
+      "at": "0x3201 bits 3–2",
+      "code": "10",
+      "meaning": "Boost.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "charge-stage",
+      "at": "0x3201 bits 3–2",
+      "code": "11",
+      "meaning": "Equalization.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "fault",
+      "at": "0x3201 bit 4",
+      "code": "1",
+      "meaning": "PV input short.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "fault",
+      "at": "0x3201 bit 7",
+      "code": "1",
+      "meaning": "Load MOSFET short.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "fault",
+      "at": "0x3201 bit 8",
+      "code": "1",
+      "meaning": "Load short.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "fault",
+      "at": "0x3201 bit 9",
+      "code": "1",
+      "meaning": "Load over current.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "fault",
+      "at": "0x3201 bit 10",
+      "code": "1",
+      "meaning": "Input over current.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "fault",
+      "at": "0x3201 bit 11",
+      "code": "1",
+      "meaning": "Anti-reverse MOSFET short.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "fault",
+      "at": "0x3201 bit 12",
+      "code": "1",
+      "meaning": "Charging or anti-reverse MOSFET short.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "fault",
+      "at": "0x3201 bit 13",
+      "code": "1",
+      "meaning": "Charging MOSFET short.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "state",
+      "at": "0x3201 bits 15–14",
+      "code": "00",
+      "meaning": "Input voltage normal.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "state",
+      "at": "0x3201 bits 15–14",
+      "code": "01",
+      "meaning": "No power connected on the PV input.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "state",
+      "at": "0x3201 bits 15–14",
+      "code": "10",
+      "meaning": "Higher input voltage than rated.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "state",
+      "at": "0x3201 bits 15–14",
+      "code": "11",
+      "meaning": "Input voltage error.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "state",
+      "at": "0x3200 bits 3–0",
+      "code": "0000",
+      "meaning": "Battery normal.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "state",
+      "at": "0x3200 bits 3–0",
+      "code": "0001",
+      "meaning": "Battery over voltage.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "state",
+      "at": "0x3200 bits 3–0",
+      "code": "0010",
+      "meaning": "Battery under voltage.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "state",
+      "at": "0x3200 bits 3–0",
+      "code": "0011",
+      "meaning": "Battery low-voltage disconnect.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "state",
+      "at": "0x3200 bits 3–0",
+      "code": "0100",
+      "meaning": "Battery fault.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "state",
+      "at": "0x3200 bits 7–4",
+      "code": "0000",
+      "meaning": "Battery temperature normal.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "state",
+      "at": "0x3200 bits 7–4",
+      "code": "0001",
+      "meaning": "Battery over temperature.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "state",
+      "at": "0x3200 bits 7–4",
+      "code": "0010",
+      "meaning": "Battery low temperature.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "alarm",
+      "at": "0x3200 bit 8",
+      "code": "1",
+      "meaning": "Battery inner resistance abnormal.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    },
+    {
+      "table": "alarm",
+      "at": "0x3200 bit 15",
+      "code": "1",
+      "meaning": "Wrong identification for the rated voltage.",
+      "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+      "citation": "Real-time status, input registers 0x3200–0x3201 (function 0x04)"
+    }
+  ],
   "models": [
     {
       "name": "Tracer 4215BN"

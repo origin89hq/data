@@ -35,6 +35,19 @@ export function validate(records: Records): Report {
       if (!sourceIds.has(c.source)) errors.push(`${d.id}: cites ${c.source}, which does not exist`);
       cited.add(c.source);
     }
+    // A structured reading or code is only as good as the document it was read from.
+    for (const r of d.readings ?? []) {
+      if (!sourceIds.has(r.source))
+        errors.push(
+          `${d.id}: reading ${r.metric} at ${r.at} cites ${r.source}, which does not exist`,
+        );
+      cited.add(r.source);
+    }
+    for (const c of d.codes ?? []) {
+      if (!sourceIds.has(c.source))
+        errors.push(`${d.id}: ${c.table} code ${c.code} cites ${c.source}, which does not exist`);
+      cited.add(c.source);
+    }
     if (d.driver.status === "shipped" && !d.driver.id)
       errors.push(`${d.id}: shipped with no driver id`);
     if (d.driver.status !== "shipped" && d.driver.id)

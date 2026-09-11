@@ -166,6 +166,37 @@ export interface DialectSummary {
   accepts: string[];
   gotchas: string[];
   sources: { source: SourceId; citation: string }[];
+  /** The readings somebody has structured (#84); empty where only the `blocks` prose exists. */
+  readings: DialectReading[];
+  /** The vendor's code tables, structured; empty where nobody has done the work. */
+  codes: DialectCode[];
+}
+
+export interface DialectReading {
+  metric: string;
+  /** The register, field or label as the document writes it. */
+  at: string;
+  unit?: string;
+  /** Multiply the raw value by this for the unit. */
+  scale?: number;
+  signed?: boolean;
+  words?: number;
+  order?: "low-first" | "high-first";
+  sentinel?: string;
+  origin: "measured" | "estimated" | "reported";
+  source: SourceId;
+  citation?: string;
+  page?: number;
+}
+
+export interface DialectCode {
+  table: "fault" | "alarm" | "charge-stage" | "state";
+  at?: string;
+  code: string;
+  meaning: string;
+  source: SourceId;
+  citation?: string;
+  page?: number;
 }
 
 /** A model and a dialect it is known to speak, with what says so. */
