@@ -179,9 +179,39 @@ test("a model's link to a dialect needs a source it can name, and one the record
     id: "m-a1",
     manufacturer: "m",
     name: "A1",
-    dialects: [{ ...link, evidence: { kind: "catalogue-name" } }],
+    dialects: [{ ...link, evidence: { kind: "catalogue-name" }, confidence: "unverified" }],
   });
   assert.deepEqual(claim.dialects[0]?.evidence, { kind: "catalogue-name", sources: [] });
+  assert.throws(
+    () =>
+      Model.parse({
+        id: "m-a1",
+        manufacturer: "m",
+        name: "A1",
+        dialects: [{ ...link, evidence: { kind: "catalogue-name" } }],
+      }),
+    /catalogue name supports nothing/,
+    "a catalogue claim cannot carry the dialect's rating as its own",
+  );
+  assert.throws(
+    () =>
+      Model.parse({
+        id: "m-a1",
+        manufacturer: "m",
+        name: "A1",
+        dialects: [
+          {
+            ...link,
+            evidence: {
+              kind: "vendor-doc",
+              sources: Array.from({ length: 17 }, (_, i) => ({ source: `s${i}`, citation: "p" })),
+            },
+          },
+        ],
+      }),
+    /16/,
+    "a link cites at most sixteen sources",
+  );
   assert.throws(
     () =>
       Model.parse({
@@ -201,7 +231,10 @@ test("a model's link to a dialect needs a source it can name, and one the record
         id: "m-a1",
         manufacturer: "m",
         name: "A1",
-        dialects: [link, { ...link, evidence: { kind: "catalogue-name" } }],
+        dialects: [
+          link,
+          { ...link, evidence: { kind: "catalogue-name" }, confidence: "unverified" },
+        ],
       }),
     /links each dialect once/,
     "two links to one dialect would publish two rows",

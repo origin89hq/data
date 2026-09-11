@@ -480,9 +480,14 @@ release's tables from their content-addressed parts into the `RELEASES` D1
 database, one part a step, and makes it the active release once it is the newest
 publication loaded. A load that cannot finish leaves the active release as it
 was. Every release a fixture names in `apps/worker/pinned-releases.json` stays
-loaded, with the active one and the seven most recent; the rest are let go. This
-store is what the read-only `EquipmentApi` entrypoint answers from (#83);
-`docs/API.md` is the consumer's side of it.
+loaded, with the active one and the seven most recent; the rest are let go. A
+store with no release at all, just created or recreated for new tables, is
+given those back from the archive before it answers; a pinned release the store
+lacks or failed to load is put back by the daily schedule, and `just load
+release` reloads any release by hand. A release published before the store
+gained a table loads with that table empty. This store is what the read-only
+`EquipmentApi` entrypoint answers from (#83); `docs/API.md` is the consumer's
+side of it.
 
 The build also emits `vocabulary.json`: the closed lists a consumer joins on
 (metric and command kinds, equipment kinds, dialect families, confidence,

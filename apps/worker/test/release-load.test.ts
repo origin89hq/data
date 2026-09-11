@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { test } from "node:test";
 import { loadPartName } from "@origin89/equipment-schema/releases";
-import { loadRelease, reloadPinned, type Steps } from "../src/release-load.ts";
+import { loadRelease, reloadPinned, restoreIfEmpty, type Steps } from "../src/release-load.ts";
 import {
   activate,
   activeRelease,
@@ -63,8 +63,8 @@ function published(
   }
   // Every table the store serves is in a plan, with nothing to load when it has no rows.
   for (const table of Object.keys(LOADED_TABLES))
-    if (!(table in load.tables) && table !== options.omit)
-      load.tables[table] = { parts: [], rows: 0 };
+    if (!(table in load.tables)) load.tables[table] = { parts: [], rows: 0 };
+  if (options.omit) delete load.tables[options.omit];
   objects[releaseKey(id)] = JSON.stringify({
     id,
     content: sha256(`content ${id}`),
@@ -382,9 +382,15 @@ test("taking the active place is one conditional switch, so an older load cannot
   );
 });
 
-test("a plan that leaves a store table out is refused, and a pinned release the store lacks is put back", async () => {
+test("a plan that leaves out a table the release publishes is refused, and a pinned release the store lacks is put back", async () => {
   const objects: Record<string, string> = {};
-  published(objects, R1, "2026-09-11T10:00:00Z", { models: models(1) }, { omit: "specs" });
+  published(
+    objects,
+    R1,
+    "2026-09-11T10:00:00Z",
+    { models: models(1), specs: [{ id: "s1", model_id: "m0", name: "n", value: "1" }] },
+    { omit: "specs" },
+  );
   published(objects, R2, "2026-09-11T11:00:00Z", { models: models(1) });
   const { env, loads } = world(objects);
   const outcome = await loadRelease(env.ARCHIVE, env.RELEASES, plain, R1);
@@ -517,5 +523,92 @@ test("a store with tables and no stamp is from before stamps, and is recreated",
     await createSchema(fresh.env.RELEASES),
     false,
     "an empty store is created, not reset",
+  );
+});
+
+test("a release published before the store gained a table loads with that table empty", async () => {
+  const objects: Record<string, string> = {};
+  // Neither the plan nor the files know `model_dialect_sources`: the release predates it.
+  published(
+    objects,
+    R1,
+    "2026-09-11T10:00:00Z",
+    { models: models(2) },
+    {
+      omit: "model_dialect_sources",
+    },
+  );
+  const { env } = world(objects);
+  const outcome = await loadRelease(env.ARCHIVE, env.RELEASES, plain, R1);
+  assert.equal(outcome.outcome, "loaded", JSON.stringify(outcome));
+  const row = await releaseRow(env.RELEASES, R1);
+  const counts = JSON.parse(row?.counts ?? "{}") as Record<string, number>;
+  assert.equal(counts.models, 2);
+  assert.equal(counts.model_dialect_sources, 0, "counted as empty, not left out");
+  assert.equal(await countRows(env.RELEASES, "model_dialect_sources", R1), 0);
+});
+
+test("taking a release to load is one statement: a loading or held row is left alone, a failed one is taken over", async () => {
+  const objects: Record<string, string> = {};
+  published(objects, R1, "2026-09-11T10:00:00Z", { models: models(1) });
+  const { env } = world(objects);
+  const db = env.RELEASES;
+  await createSchema(db);
+  const put = (state: string) =>
+    db
+      .prepare(
+        "INSERT OR REPLACE INTO releases (id, content, published_at, state, error, counts) VALUES (?, 'c', '2026-09-11T10:00:00Z', ?, 'was', '{}')",
+      )
+      .bind(R1, state)
+      .run();
+  for (const state of ["loading", "retained", "deleting"]) {
+    await put(state);
+    assert.deepEqual(
+      await loadRelease(env.ARCHIVE, db, plain, R1),
+      { outcome: "already", state },
+      `${state} is not taken over`,
+    );
+    assert.equal(await countRows(db, "models", R1), 0, "and nothing of it was loaded");
+  }
+  await put("failed");
+  assert.equal((await loadRelease(env.ARCHIVE, db, plain, R1)).outcome, "loaded");
+  assert.equal(
+    (await releaseRow(db, R1))?.error,
+    null,
+    "the old error is cleared with the takeover",
+  );
+});
+
+test("a store with no release at all gets the recent and the pinned ones back; one with any row is left alone", async () => {
+  const objects: Record<string, string> = {};
+  const ids = Array.from({ length: 10 }, (_, i) => String(i).repeat(64));
+  for (const [i, id] of ids.entries())
+    published(objects, id, `2026-09-0${(i % 9) + 1}T1${i}:00:00Z`, { models: models(1) });
+  // The feed lists newest first: keys sort by a reversed time, as the Worker writes them.
+  for (const [i, id] of ids.entries())
+    objects[`releases/feed/${String(i).padStart(3, "0")}-${id}.json`] = "{}";
+  const { env, loads } = world(objects);
+  await createSchema(env.RELEASES);
+  // Eight recent, the ninth is pinned, and a pinned release the archive lacks is skipped.
+  const started = await restoreIfEmpty(env, env.RELEASES, [ids[9] ?? "", "f".repeat(64)]);
+  assert.deepEqual(started, [...ids.slice(0, 8), ids[9]]);
+  assert.deepEqual(
+    loads.map((l) => l.params.release),
+    started,
+  );
+  // With a row in the store, even a failed one, nothing is started: a read never retries a load.
+  await env.RELEASES.prepare(
+    "INSERT INTO releases (id, content, published_at, state, counts) VALUES (?, '', '', 'failed', '{}')",
+  )
+    .bind(ids[0])
+    .run();
+  assert.deepEqual(await restoreIfEmpty(env, env.RELEASES, []), []);
+  assert.equal(loads.length, 9);
+  const empty = world({});
+  await createSchema(empty.env.RELEASES);
+  assert.deepEqual(
+    await restoreIfEmpty(empty.env, empty.env.RELEASES, []),
+    [],
+    "an archive with no release starts nothing",
   );
 });

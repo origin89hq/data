@@ -1,4 +1,4 @@
-import { LOAD_PART_MAX, Release } from "@origin89/equipment-schema/releases";
+import { isLoadPart, LOAD_PART_MAX, Release } from "@origin89/equipment-schema/releases";
 import {
   activate,
   countRows,
@@ -8,6 +8,7 @@ import {
   type LoadRow,
   loadedTables,
   PINNED_RELEASES,
+  RECENT_RELEASES_KEPT,
   RetentionFailed,
   releaseRow,
   retain,
@@ -57,25 +58,37 @@ export async function loadRelease(
   });
   const plan = release.load;
   if (!plan) return fail(db, step, releaseId, "the release carries no load plan");
-  // Every table the store serves has to be in the plan, with no parts when it has no rows: a
-  // plan that leaves one out would load a subset and call it the release.
-  const omitted = Object.keys(LOADED_TABLES).filter((table) => !(table in plan.tables));
+  // Every table the release publishes and the store serves has to be in the plan, with no parts
+  // when it has no rows: a plan that leaves one out would load a subset and call it the
+  // release. A table the store gained after the release was published is not in its files at
+  // all, and is loaded empty, so an older pinned or retained release stays loadable.
+  const publishes = (table: string) =>
+    Object.keys(release.files).some(
+      (name) =>
+        name === `${table}.csv` ||
+        name === `${table}.parquet` ||
+        (isLoadPart(name) && name.replace(/_\d{4}\.ndjson$/, "") === table),
+    );
+  const omitted = Object.keys(LOADED_TABLES).filter(
+    (table) => !(table in plan.tables) && publishes(table),
+  );
   if (omitted.length) return fail(db, step, releaseId, `the load plan omits ${omitted.join(", ")}`);
 
   const begun = await step.do("begin", async () => {
     await createSchema(db);
-    // A failed row is taken over; one on its way out is left for retention to finish first.
-    const existing = await releaseRow(db, releaseId);
-    if (existing && existing.state !== "failed") return existing.state;
-    await db
+    // One statement takes the release: a row is inserted, or a failed one taken over, and any
+    // other row (loading, held, or on its way out) leaves it untouched with nothing changed, so
+    // two loads of one release started together cannot both proceed into its parts.
+    const taken = await db
       .prepare(
-        "INSERT OR REPLACE INTO releases (id, content, published_at, state, counts) VALUES (?, ?, ?, 'loading', '{}')",
+        "INSERT INTO releases (id, content, published_at, state, counts) VALUES (?, ?, ?, 'loading', '{}') ON CONFLICT(id) DO UPDATE SET content = excluded.content, published_at = excluded.published_at, state = 'loading', error = NULL, counts = '{}' WHERE releases.state = 'failed'",
       )
       .bind(releaseId, release.content, release.at)
       .run();
-    return "loading";
+    if ((taken.meta?.changes ?? 0) > 0) return { taken: true as const };
+    return { taken: false as const, state: (await releaseRow(db, releaseId))?.state ?? "unknown" };
   });
-  if (begun !== "loading") return { outcome: "already", state: begun };
+  if (!begun.taken) return { outcome: "already", state: begun.state };
 
   try {
     const counts: Record<string, number> = {};
@@ -92,6 +105,8 @@ export async function loadRelease(
         throw new Error(`${table}: ${loaded} rows loaded, the plan says ${expected}`);
       counts[table] = loaded;
     }
+    // A table the release predates has no rows, and the count says so.
+    for (const table of Object.keys(LOADED_TABLES)) counts[table] ??= 0;
     await step.do("verify", async () => {
       for (const [table, expected] of Object.entries(counts)) {
         const stored = await countRows(db, table, releaseId);
@@ -205,5 +220,41 @@ export async function reloadPinned(
     await env.RELEASE_LOAD.create({ id: reloadInstanceId(release), params: { release } });
     started.push(release);
   }
+  return started;
+}
+
+/** The newest `n` releases in the feed, newest first. */
+export async function recentReleases(bucket: R2Bucket, n: number): Promise<string[]> {
+  const page = await bucket.list({ prefix: "releases/feed/", limit: n });
+  return page.objects.map((o) => o.key.slice(o.key.lastIndexOf("-") + 1, -".json".length));
+}
+
+/**
+ * Put back what the store is documented to hold, into a store with no release at all: a
+ * database just created, or one recreated for new tables. The newest release becomes active
+ * as its load lands; the recent ones and the pinned ones are loaded beside it, so a retained
+ * release asked for by id and a pinned evaluation are answered after a reset as before it. A
+ * store with any row, even a failed one, is left as it is: a release that cannot load is a
+ * person's to repair with `POST /load`, or the daily pass's for a pinned one, not every
+ * isolate's to retry. Returns the releases whose load was started.
+ */
+export async function restoreIfEmpty(
+  env: Pick<Env, "ARCHIVE" | "RELEASE_LOAD">,
+  db: Store,
+  pinned: readonly string[] = PINNED_RELEASES,
+  recent = RECENT_RELEASES_KEPT + 1,
+): Promise<string[]> {
+  const any = await db.prepare("SELECT 1 FROM releases LIMIT 1").first();
+  if (any) return [];
+  const wanted = [...new Set([...(await recentReleases(env.ARCHIVE, recent)), ...pinned])];
+  const started: string[] = [];
+  for (const release of wanted) {
+    if (!(await env.ARCHIVE.head(releaseKey(release)))) continue;
+    const instance = reloadInstanceId(release);
+    await env.RELEASE_LOAD.create({ id: instance, params: { release } });
+    started.push(release);
+  }
+  if (started.length)
+    console.log(JSON.stringify({ message: "release store restoring", releases: started }));
   return started;
 }

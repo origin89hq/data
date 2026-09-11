@@ -13,7 +13,7 @@ const link = (
     kind === "catalogue-name"
       ? { kind, sources: [] }
       : { kind, sources: [{ source: "s", citation }] },
-  confidence,
+  confidence: kind === "catalogue-name" ? "unverified" : confidence,
 });
 
 test("merging links keeps the stronger evidence whichever side it came from, and refreshes a catalogue claim", () => {
@@ -30,9 +30,9 @@ test("merging links keeps the stronger evidence whichever side it came from, and
     "and is not replaced by a claim",
   );
   assert.deepEqual(
-    mergeLinks([catalogue], [link("catalogue-name", "", "unverified")]),
-    [link("catalogue-name", "", "unverified")],
-    "a later catalogue claim is the fresher one, carrying the dialect's confidence now",
+    mergeLinks([{ ...catalogue, firmware: { min: "1" } }], [catalogue]),
+    [catalogue],
+    "a later catalogue claim is the fresher one",
   );
   const vendor = link("vendor-doc", "manual");
   assert.deepEqual(
@@ -54,14 +54,14 @@ test("merging links keeps the stronger evidence whichever side it came from, and
     "the same dialect under other evidence is a change to write",
   );
   assert.equal(
-    sameLinks([catalogue], [link("catalogue-name", "", "unverified")]),
+    sameLinks([catalogue], [{ ...catalogue, firmware: { min: "1" } }]),
     false,
-    "a catalogue claim whose confidence moved is a change to write",
+    "a claim whose fields moved is a change to write",
   );
   assert.equal(sameLinks([register], []), false);
-  assert.deepEqual(catalogueLink({ id: "x", confidence: "unverified" }), {
-    dialect: "x",
-    evidence: { kind: "catalogue-name", sources: [] },
-    confidence: "unverified",
-  });
+  assert.deepEqual(
+    catalogueLink({ id: "x" }),
+    { dialect: "x", evidence: { kind: "catalogue-name", sources: [] }, confidence: "unverified" },
+    "a catalogue claim is unverified however the dialect is rated",
+  );
 });

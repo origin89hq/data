@@ -17,14 +17,14 @@
       "evidence": {
         "kind": "catalogue-name"
       },
-      "confidence": "vendor-doc"
+      "confidence": "unverified"
     },
     {
       "dialect": "victron-gx-mqtt",
       "evidence": {
         "kind": "catalogue-name"
       },
-      "confidence": "vendor-doc"
+      "confidence": "unverified"
     }
   ]
 }

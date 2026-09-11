@@ -19,6 +19,7 @@ import {
   type SearchQuery,
   type Source,
 } from "@origin89/equipment-api";
+import { LINK_CITATIONS } from "@origin89/equipment-schema/model";
 import { createSchema, type Store } from "./release-store.ts";
 
 /**
@@ -667,13 +668,24 @@ export async function bundle(db: Store, release: string, q: BundleQuery): Promis
         ...(
           await db
             .prepare(
-              `SELECT model_id, dialect_id, source_id, citation FROM model_dialect_sources WHERE release = ? AND (${clause}) ORDER BY model_id, dialect_id, position`,
+              `SELECT model_id, dialect_id, source_id, citation FROM model_dialect_sources WHERE release = ? AND (${clause}) ORDER BY model_id, dialect_id, position LIMIT ?`,
             )
-            .bind(release, ...pairs.flatMap((l) => [l.model_id, l.dialect_id]))
+            .bind(
+              release,
+              ...pairs.flatMap((l) => [l.model_id, l.dialect_id]),
+              pairs.length * LINK_CITATIONS + 1,
+            )
             .all<{ model_id: string; dialect_id: string; source_id: string; citation: string }>()
         ).results,
       );
     }
+    // The schema admits at most `LINK_CITATIONS` a link, so the read is bounded by the links
+    // kept; a store that holds more is not a release the schema admits, and says so rather
+    // than answering with some of a link's citations.
+    if (cited.length > kept.length * LINK_CITATIONS)
+      throw new RangeError(
+        `a link cites more than ${LINK_CITATIONS} sources; the release is not one the schema admits`,
+      );
     protocol = kept.flatMap((l) => {
       const dialect = dialects.get(l.dialect_id);
       if (!dialect) return [];

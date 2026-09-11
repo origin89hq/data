@@ -19,11 +19,14 @@ export type LinkEvidenceKind = z.infer<typeof LinkEvidenceKind>;
  * citations are on the dialect, where they support the dialect rather than this one model. A
  * source copied onto such a link would read as evidence for the model when it is not.
  */
+/** How many sources one link may cite: a register match or a maker's document is one or two documents, and a bundle's links are read whole. */
+export const LINK_CITATIONS = 16;
+
 export const LinkEvidence = z.discriminatedUnion("kind", [
   z
     .object({
       kind: z.enum(["register-match", "vendor-doc"]),
-      sources: z.array(Citation).min(1),
+      sources: z.array(Citation).min(1).max(LINK_CITATIONS),
     })
     .strict(),
   z
@@ -35,7 +38,11 @@ export const LinkEvidence = z.discriminatedUnion("kind", [
 ]);
 export type LinkEvidence = z.infer<typeof LinkEvidence>;
 
-/** A model's link to a dialect, with what says so. */
+/**
+ * A model's link to a dialect, with what says so. `confidence` is what the link's own sources
+ * support for this model; a catalogue name has none, so it is `unverified` however the dialect
+ * itself is rated, and a consumer filtering on confidence never takes a name match for evidence.
+ */
 export const DialectLink = z
   .object({
     dialect: RecordId,
@@ -49,7 +56,11 @@ export const DialectLink = z
       .refine((f) => f.min !== undefined || f.max !== undefined, "a firmware range names a bound")
       .optional(),
   })
-  .strict();
+  .strict()
+  .refine(
+    (l) => l.evidence.kind !== "catalogue-name" || l.confidence === "unverified",
+    "a catalogue name supports nothing, so its link is unverified",
+  );
 export type DialectLink = z.infer<typeof DialectLink>;
 
 /**

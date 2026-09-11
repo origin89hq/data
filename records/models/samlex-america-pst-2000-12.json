@@ -12,7 +12,7 @@
       "evidence": {
         "kind": "catalogue-name"
       },
-      "confidence": "vendor-doc"
+      "confidence": "unverified"
     },
     {
       "dialect": "samlex-pst-rc300-link",

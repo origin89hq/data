@@ -10,21 +10,21 @@
       "evidence": {
         "kind": "catalogue-name"
       },
-      "confidence": "community-crosschecked"
+      "confidence": "unverified"
     },
     {
       "dialect": "victron-orion-xs-hex",
       "evidence": {
         "kind": "catalogue-name"
       },
-      "confidence": "vendor-doc"
+      "confidence": "unverified"
     },
     {
       "dialect": "victron-vedirect-text-orion-xs",
       "evidence": {
         "kind": "catalogue-name"
       },
-      "confidence": "vendor-doc"
+      "confidence": "unverified"
     }
   ]
 }

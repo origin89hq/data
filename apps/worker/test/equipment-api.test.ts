@@ -1089,3 +1089,19 @@ test("a link's citations come in their order past ten, and citations are read fo
     "a dropped link's citations are not read",
   );
 });
+
+test("a link with more citations than the schema admits is refused whole, never answered in part", async () => {
+  const { db } = await fixture({
+    model_dialect_sources: Array.from({ length: 17 }, (_, i) => ({
+      model_id: "victron-energy-smartsolar-mppt-150-35",
+      dialect_id: "victron-mppt-vedirect-hex",
+      position: i,
+      source_id: "doc-vedirect-whitepaper",
+      citation: `citation ${i}`,
+    })),
+  });
+  await assert.rejects(
+    bundle(db, RELEASE, { models: ["victron-energy-smartsolar-mppt-150-35"] }),
+    /more than 16 sources/,
+  );
+});

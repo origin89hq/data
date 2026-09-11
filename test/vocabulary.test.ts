@@ -20,6 +20,11 @@ test("the vocabulary is the schema's own lists, in the schema's order", () => {
   assert.deepEqual(v.dialectKindDirections, ["reports", "accepts"]);
   assert.deepEqual(v.modelKeyVia, ["name", "alias"]);
   assert.deepEqual(
+    v.linkEvidenceKinds,
+    ["register-match", "vendor-doc", "catalogue-name"],
+    "the words in model_dialects.evidence_kind",
+  );
+  assert.deepEqual(
     v.dialectModelTiers,
     ["A", "B", "C", "D"],
     "a dialect's model tier is the catalogue's priority, not where a row comes from",

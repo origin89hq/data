@@ -10,7 +10,7 @@
       "evidence": {
         "kind": "catalogue-name"
       },
-      "confidence": "vendor-doc"
+      "confidence": "unverified"
     },
     {
       "dialect": "samlex-evo-signal-io",

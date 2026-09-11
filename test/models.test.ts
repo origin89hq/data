@@ -121,7 +121,7 @@ test("a model named in a dialect's table is linked to it, carrying the catalogue
     {
       dialect: "epever-tracer-a",
       evidence: { kind: "catalogue-name", sources: [] },
-      confidence: "vendor-doc",
+      confidence: "unverified",
     },
   ]);
   const [other] = derive([s("EPEver", "XTRA9999Z")]);

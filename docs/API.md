@@ -66,5 +66,8 @@ quietly shorter than the release holds.
 ## What a consumer must not do
 
 A `confidence` of `unverified` on a dialect means the link must not be presented as supported.
+A link's own `confidence` is what its own sources support for that model: a `catalogue-name`
+link is always `unverified`, whatever the dialect is rated, since the catalogue naming a
+model is a claim and not evidence.
 `reviewedBy` is the only field that says a person checked a figure; `extractedBy` names what
 read it. A near neighbour from `resolve` is for showing, never for picking.

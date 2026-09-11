@@ -9,6 +9,7 @@ import {
   Tier,
 } from "@origin89/equipment-schema/enums";
 import { EquipmentKind } from "@origin89/equipment-schema/guess";
+import { LinkEvidenceKind } from "@origin89/equipment-schema/model";
 import {
   Basis,
   GapReason,
@@ -66,6 +67,8 @@ export interface Vocabulary {
   dialectKindDirections: string[];
   /** Whether a model key came from the model's name or an alias; `model_keys.via`. */
   modelKeyVia: string[];
+  /** How a model came to be linked to a dialect; `model_dialects.evidence_kind`. */
+  linkEvidenceKinds: string[];
 }
 
 /** The vocabularies as the schemas declare them, in the schemas' own order. */
@@ -87,5 +90,6 @@ export function vocabulary(): Vocabulary {
     propertyScopes: [...PropertyScope.options],
     dialectKindDirections: [...DIALECT_KIND_DIRECTIONS],
     modelKeyVia: [...MODEL_KEY_VIA],
+    linkEvidenceKinds: [...LinkEvidenceKind.options],
   };
 }
