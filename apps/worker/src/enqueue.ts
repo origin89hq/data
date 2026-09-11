@@ -207,6 +207,15 @@ export async function visionRun(
       converted.add(object.key.slice(`${prefix}/converted/`.length).replace(/\.json$/, ""));
     cursor = page.truncated ? page.cursor : undefined;
   } while (cursor);
+  // Offered already, to this page reader, with nothing converted since: nothing to send. A caller
+  // working from an older look at the state, as the workflow's offers do, would otherwise queue
+  // every page of the maker again right after a pass had.
+  const offered = await (await env.ARCHIVE.get(`${prefix}/seeing.json`))?.json<{
+    converted?: number;
+    extractedBy?: string;
+  }>();
+  if (offered?.extractedBy === VISION_EXTRACTOR_ID && (offered.converted ?? 0) >= converted.size)
+    return { documents: 0 };
   const ready = documents.filter((d) => converted.has(d.sha256));
   await sendAll(
     env.WORK,

@@ -127,7 +127,13 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
       `${base}/converting.json`,
     );
     const converted = (await listAll(bucket, `${base}/converted/`)).length;
-    const seeing = await json<{ converted: number }>(bucket, `${base}/seeing.json`);
+    // An offer to an earlier page reader is not an offer to this one. A new version is how its
+    // readings are made again, and nothing reads a document it was never offered.
+    const offer = await json<{ converted: number; extractedBy?: string }>(
+      bucket,
+      `${base}/seeing.json`,
+    );
+    const seeing = offer?.extractedBy === VISION_EXTRACTOR_ID ? offer : undefined;
     // Readings live beside their documents, so this run's progress is how many of the documents
     // it approved have one.
     let read = 0;

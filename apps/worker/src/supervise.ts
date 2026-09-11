@@ -1,5 +1,6 @@
 import specPages from "../../../feeds/spec-pages.json" with { type: "json" };
 import { classifyRun, convertRun, specPagesRun, visionRun } from "./enqueue.ts";
+import { LeaseHeld, underLease } from "./lease.ts";
 import { makerStates, sellerStates } from "./state.ts";
 
 /**
@@ -50,7 +51,48 @@ async function step(
   }
 }
 
+/**
+ * One pass, holding the supervisor's lease: a pass that finds it held throws `LeaseHeld` and
+ * queues nothing, whether the schedule, the route or the workflow started it.
+ */
 export async function supervise(env: Env, today: string): Promise<SupervisionReport> {
+  return underLease(env.ARCHIVE, () => pass(env, today));
+}
+
+/**
+ * The scheduled pass. One somebody started by hand is doing the same job, so this one steps aside
+ * rather than fail: on a Monday the seller crawls start after it, and a refusal must not stop them.
+ */
+/** How long the scheduled pass waits out offers to the page reader before it steps aside. */
+export const OFFERS_WAITED_MS = 3 * 60 * 1000;
+/** How often it asks again while an offer holds the lease. */
+export const OFFER_RETRY_MS = 5 * 1000;
+
+export async function superviseIfFree(
+  env: Env,
+  today: string,
+  sleep: (ms: number) => Promise<void> = (ms) => new Promise((done) => setTimeout(done, ms)),
+): Promise<SupervisionReport | undefined> {
+  // An offer to the page reader holds the lease for seconds and does none of a pass's work, so the
+  // day's pass waits for it rather than being skipped. The workflow offers makers one after
+  // another, so it may wait out several; three minutes covers every converted maker.
+  const deadline = Date.now() + OFFERS_WAITED_MS;
+  for (;;) {
+    try {
+      return await supervise(env, today);
+    } catch (error) {
+      if (!(error instanceof LeaseHeld)) throw error;
+      if (error.what === "offer" && Date.now() < deadline) {
+        await sleep(OFFER_RETRY_MS);
+        continue;
+      }
+      console.log(JSON.stringify({ message: "supervision skipped", reason: error.message }));
+      return undefined;
+    }
+  }
+}
+
+async function pass(env: Env, today: string): Promise<SupervisionReport> {
   const report: SupervisionReport = {
     at: new Date().toISOString(),
     started: [],

@@ -93,14 +93,18 @@ jobs:
             echo
             cat "$RUNNER_TEMP/pulled.md"
           } > "$RUNNER_TEMP/body.md"
-          git commit --quiet -m "Pull the figures read up to $(date -u +%F)"
+          # Squash merges take the pull request's title as the commit on main, so it is written as one:
+          # a prefix, and the day it was read up to. An open pull request gets it again on every run,
+          # or a title from an older run would describe figures the branch no longer holds.
+          title="chore: pull the figures read up to $(date -u +%F)"
+          git commit --quiet -m "$title"
           # A lease on the branch as the check above saw it, so a push that lands in between is
           # refused rather than overwritten. Empty means it must not exist yet.
           expected=$(git rev-parse --verify --quiet "refs/remotes/origin/$BRANCH" || true)
           git push --force-with-lease="refs/heads/$BRANCH:$expected" --quiet origin "$BRANCH"
           number=$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number // empty')
           if [ -n "$number" ]; then
-            gh pr edit "$number" --body-file "$RUNNER_TEMP/body.md"
+            gh pr edit "$number" --title "$title" --body-file "$RUNNER_TEMP/body.md"
           else
-            gh pr create --head "$BRANCH" --base main --title "Pull the figures that were read" --body-file "$RUNNER_TEMP/body.md"
+            gh pr create --head "$BRANCH" --base main --title "$title" --body-file "$RUNNER_TEMP/body.md"
           fi

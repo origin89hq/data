@@ -86,6 +86,8 @@ export const Work = z.discriminatedUnion("kind", [
       page: z.number().int().positive(),
       /** How many pages the reading waits for, so whichever page lands last can put them together. */
       pages: z.number().int().positive(),
+      /** Times the page was put back to wait its turn with the model, so the waiting has an end. */
+      waits: z.number().int().nonnegative().optional(),
     })
     .strict()
     .refine((m) => m.page <= m.pages, {
