@@ -140,6 +140,11 @@ const unmatched = new Set<string>();
 const rejected = new Set<string>();
 /** Products named after another maker's family, left unminted for a person to look at (#86). */
 const anothers = new Map<string, { family: string; manufacturer: string }>();
+/** Every name a maker goes by, so one in front of a product name is not taken for its family. */
+const makerNames = [
+  ...records.manufacturers.map((m) => m.name),
+  ...records.brands.flatMap((b) => (b.decision === "manufacturer" ? [b.brand] : [])),
+];
 
 if (addModels) {
   // A pass over the documents first, so a figure found in the same run has a model to attach to.
@@ -158,7 +163,7 @@ if (addModels) {
         continue;
       // A battery guide's table of the inverters it works with names another maker's products,
       // and minting them here filed a MultiPlus under Rolls with a battery's limits (#86).
-      const another = familyOfAnotherMaker(records.models, manufacturer, name);
+      const another = familyOfAnotherMaker(records.models, manufacturer, name, makerNames);
       if (another) {
         anothers.set(name, another);
         continue;
@@ -371,8 +376,10 @@ if (anothers.size) {
   console.log(
     `\n${anothers.size} products the documents name under another maker's family, not minted here; a person decides whose they are:`,
   );
+  // Each on a line the daily job's summary picks up, so a refused name reaches the pull request
+  // or the job summary rather than only the log.
   for (const [name, { family, manufacturer: owner }] of [...anothers].sort())
-    console.log(`  ${name} (${family} is ${owner}'s)`);
+    console.log(`  not minted: ${name} (${family} is ${owner}'s)`);
 }
 const stillUnmatched = [...unmatched].filter((m) => !anothers.has(normaliseModelName(m)));
 if (stillUnmatched.length) {

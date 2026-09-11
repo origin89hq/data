@@ -130,13 +130,18 @@ export function familyOf(name: string): string | undefined {
  * each row as a product. Rolls' S48-100LFP guide named seven MultiPlus-II variants that way, and
  * the pull minted every one under Rolls with the battery's current limits as their figures (#86).
  * A word that leads the names of at least two of one other maker's models, and none of this
- * maker's own, is that maker's family; a name carrying it anywhere is theirs. A word two other
- * makers both lead with is nobody's, and a name that leads with a number claims no family.
+ * maker's own, is that maker's family, and only the word a name leads with can claim one: "AC
+ * Bus Drop Cap" is not Pentair's because Pentair's injectors lead with "Cap". A maker's own name
+ * in front is not the lead, so "Victron Energy MultiPlus-II" leads with MultiPlus-II once the
+ * words of `makerNames` are dropped; a word that is both a maker's name and a family it leads
+ * with, such as EG4, is the lead. A word two other makers both lead with is nobody's, and a name
+ * that leads with a number claims no family.
  */
 export function familyOfAnotherMaker(
   models: readonly Model[],
   manufacturer: string,
   name: string,
+  makerNames: readonly string[] = [],
 ): { family: string; manufacturer: string } | undefined {
   const makersByFamily = new Map<string, Map<string, number>>();
   for (const model of models) {
@@ -146,17 +151,27 @@ export function familyOfAnotherMaker(
     makers.set(model.manufacturer, (makers.get(model.manufacturer) ?? 0) + 1);
     makersByFamily.set(family, makers);
   }
-  for (const token of normaliseModelName(name)
+  const makerWords = new Set(
+    makerNames.flatMap((n) => n.toLowerCase().split(/[^a-z0-9]+/)).filter((w) => w.length > 2),
+  );
+  const tokens = normaliseModelName(name)
     .toLowerCase()
-    .split(/[\s/]+/)) {
+    .split(/[\s/]+/)
+    .map((token) => token.replace(/^[^a-z0-9]+|[^a-z0-9]+$/g, ""))
+    .filter(Boolean);
+  let at = 0;
+  while (at < tokens.length - 1) {
+    const token = tokens[at] ?? "";
     const family = familyOf(token);
-    const makers = family ? makersByFamily.get(family) : undefined;
-    if (!family || !makers || makers.has(manufacturer)) continue;
-    const others = [...makers].filter(([, count]) => count >= 2).map(([maker]) => maker);
-    const [owner] = others;
-    if (owner && others.length === 1) return { family, manufacturer: owner };
+    if (!makerWords.has(token) || (family && makersByFamily.has(family))) break;
+    at += 1;
   }
-  return undefined;
+  const family = familyOf(tokens[at] ?? "");
+  const makers = family ? makersByFamily.get(family) : undefined;
+  if (!family || !makers || makers.has(manufacturer)) return undefined;
+  const others = [...makers].filter(([, count]) => count >= 2).map(([maker]) => maker);
+  const [owner] = others;
+  return owner && others.length === 1 ? { family, manufacturer: owner } : undefined;
 }
 
 /** A model id has to be unique per maker and stable, so it carries the maker and a slug of the name. */

@@ -62,11 +62,12 @@ for (const maker of makers) {
     console.error(`pulling ${maker.maker} failed, so nothing after it was pulled`);
     process.exit(result.status ?? 1);
   }
-  // Each pull's headline, anything it took away, and any reading it refused to write over a figure
-  // a person holds: removals and disagreements are what a reviewer most needs to see.
+  // Each pull's headline, anything it took away, any reading it refused to write over a figure a
+  // person holds, and any product it left unminted as another maker's: removals, disagreements
+  // and refusals are what a reviewer most needs to see.
   const [headline = "", ...rest] = result.stdout.split("\n");
   const removed = rest
-    .filter((line) => /removed|disagree|: held /.test(line))
+    .filter((line) => /removed|disagree|: held |not minted: /.test(line))
     .map((line) => line.trim());
   summary.push(`- **${maker.maker}** (${maker.date}): ${[headline, ...removed].join("; ")}`);
 }

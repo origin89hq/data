@@ -301,21 +301,47 @@ const held: Model[] = [
   ...family("xantrex", ["MPPT 60-150", "MPPT 80-600"]),
   ...family("morningstar", ["RTS"]),
   ...family("rolls-battery", ["S-550", "S48-100LFP STACK-LV"]),
+  ...family("pentair", ["Cap Regulated Injector 20 PSI", "Cap Regulated Injector 30 PSI"]),
+  ...family("eg4-electronics", ["EG4 6000XP", "EG4 18kPV"]),
+];
+const makerNames = [
+  "Victron Energy",
+  "Xantrex",
+  "Morningstar",
+  "Rolls Battery",
+  "Pentair",
+  "EG4 Electronics",
+  "EG4",
 ];
 
-test("a product named after another maker's family is that maker's, wherever the word sits (#86)", () => {
+test("a product named after another maker's family is that maker's, with the maker's own name in front or not (#86)", () => {
   const victron = { family: "multiplus-ii", manufacturer: "victron-energy" };
   assert.deepEqual(
     familyOfAnotherMaker(held, "rolls-battery", "MultiPlus-II 48/3000/35-50"),
     victron,
   );
   assert.deepEqual(
-    familyOfAnotherMaker(held, "rolls-battery", "Victron MultiPlus-II GX 48/3000/35-32"),
+    familyOfAnotherMaker(
+      held,
+      "rolls-battery",
+      "Victron MultiPlus-II GX 48/3000/35-32",
+      makerNames,
+    ),
     victron,
     "the maker's own name in front does not hide the family",
   );
   assert.deepEqual(
-    familyOfAnotherMaker(held, "rolls-battery", "Victron (MultiPlus-II) 48/3000/35-32"),
+    familyOfAnotherMaker(
+      held,
+      "rolls-battery",
+      "Victron Energy MultiPlus-II 48/3000/35-32",
+      makerNames,
+    ),
+    victron,
+    "nor does a two-word one",
+  );
+  assert.deepEqual(
+    familyOfAnotherMaker(held, "rolls-battery", "Victron (MultiPlus-II) 48/3000/35-32", makerNames),
     victron,
     "nor do the brackets a document wraps it in",
   );
@@ -323,6 +349,28 @@ test("a product named after another maker's family is that maker's, wherever the
     familyOfAnotherMaker(held, "rolls-battery", "multiplus-ii 230V"),
     victron,
     "case and spacing do not matter",
+  );
+  assert.deepEqual(
+    familyOfAnotherMaker(held, "sol-ark", "EG4 6000XP", makerNames),
+    { family: "eg4", manufacturer: "eg4-electronics" },
+    "a maker's name that also leads its products is the family, not a word to drop",
+  );
+});
+
+test("only the word a name leads with can claim a family", () => {
+  assert.equal(
+    familyOfAnotherMaker(held, "apsystems", "AC Bus Drop Cap", makerNames),
+    undefined,
+    "Pentair's injectors lead with Cap; a cap at the end of a name is not theirs",
+  );
+  assert.equal(
+    familyOfAnotherMaker(held, "rolls-battery", "Victron MultiPlus-II 48/3000/35-50"),
+    undefined,
+    "without the makers' names, a name that leads with one claims nothing",
+  );
+  assert.equal(
+    familyOfAnotherMaker(held, "rolls-battery", "S-550 for the MultiPlus-II"),
+    undefined,
   );
 });
 
