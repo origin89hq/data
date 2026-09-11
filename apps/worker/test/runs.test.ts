@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import {
+  currentRuns,
   DATASET_PATH,
   datasetKey,
   datasetType,
@@ -13,6 +14,84 @@ import {
   runPrefix,
 } from "../src/runs.ts";
 import { partKey } from "../src/work.ts";
+import { world } from "./world.ts";
+
+const pointer = (entity: string) =>
+  JSON.stringify({
+    run: `2026-09-10-${entity}`,
+    date: "2026-09-10",
+    startedAt: "2026-09-10T00:00:00Z",
+  });
+
+/** An archive whose listings are counted: how many calls, and how many objects they returned. */
+function counted(objects: Record<string, string>) {
+  const { env } = world(objects);
+  const list = env.ARCHIVE.list.bind(env.ARCHIVE);
+  const listings: { prefix?: string; delimiter?: string; objects: number }[] = [];
+  Object.assign(env.ARCHIVE, {
+    list: async (options: {
+      prefix?: string;
+      delimiter?: string;
+      cursor?: string;
+      limit?: number;
+    }) => {
+      const page = await list(options);
+      listings.push({
+        prefix: options.prefix,
+        delimiter: options.delimiter,
+        objects: page.objects.length,
+      });
+      return page;
+    },
+  });
+  return { env, listings };
+}
+
+test("the current runs are found from the entities, not from everything archived under them", async () => {
+  const objects: Record<string, string> = {
+    [pointerKey.documents("victron-energy")]: pointer("victron-energy"),
+    [pointerKey.documents("epever")]: pointer("epever"),
+    [pointerKey.sightings("solacity")]: pointer("solacity"),
+    // A maker whose first run has not claimed itself yet: nothing current to report.
+    "documents/renogy/runs/2026-09-10-renogy/plan.json": "{}",
+  };
+  // Two and a half thousand objects of one maker's history, which a listing of the root returned.
+  for (let i = 0; i < 2500; i += 1)
+    objects[
+      `documents/victron-energy/runs/2026-08-01-old/converted/${String(i).padStart(64, "0")}.json`
+    ] = "{}";
+  const { env, listings } = counted(objects);
+
+  const makers = await currentRuns(env.ARCHIVE, "documents");
+  assert.deepEqual(
+    makers.map((m) => [m.entity, m.pointer.run]),
+    [
+      ["epever", "2026-09-10-epever"],
+      ["victron-energy", "2026-09-10-victron-energy"],
+    ],
+  );
+  assert.deepEqual(
+    listings,
+    [{ prefix: "documents/", delimiter: "/", objects: 0 }],
+    "one call, and no objects",
+  );
+  assert.deepEqual(
+    (await currentRuns(env.ARCHIVE, "sightings")).map((s) => s.entity),
+    ["solacity"],
+  );
+});
+
+test("more entities than one page of a listing are all found", async () => {
+  const objects: Record<string, string> = {};
+  const makers = Array.from({ length: 1003 }, (_, i) => `maker-${String(i).padStart(4, "0")}`);
+  for (const maker of makers) objects[pointerKey.documents(maker)] = pointer(maker);
+  const { env, listings } = counted(objects);
+  assert.deepEqual(
+    (await currentRuns(env.ARCHIVE, "documents")).map((m) => m.entity),
+    makers,
+  );
+  assert.equal(listings.length, 2, "a thousand to a page, and the three after");
+});
 
 const crawls = ["seller-crawl", "page-crawl", "manufacturer-crawl"].map(
   (n) => [n, readFileSync(new URL(`../src/${n}.ts`, import.meta.url), "utf8")] as const,
