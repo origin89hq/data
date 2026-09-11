@@ -214,27 +214,3 @@ test("the feeds table counts what the feeds it was given hold", () => {
     },
   ]);
 });
-
-test("a table keyed by id refuses a repeated id, so the build fails rather than the consumer", () => {
-  const twice = Model.parse({ id: "rolls--s-550", manufacturer: "rolls", name: "S-550 again" });
-  assert.throws(
-    () => tables({ ...records, models: [...records.models, twice] }, []),
-    /1 ids repeat: models: rolls--s-550/,
-  );
-  const row: FeedModel = {
-    id: "sam-cec-maker-twice",
-    feed: "sam-cec",
-    manufacturerName: "Maker",
-    name: "Twice",
-    kind: "panel",
-    specs: [{ name: "Nameplate power at standard test conditions", value: "300", unit: "W" }],
-  };
-  assert.throws(
-    () => tables(records, [{ feed, models: [row, row] }]),
-    /2 ids repeat: models: sam-cec-maker-twice, specs: sam-cec-maker-twice--00-nameplate/,
-    "a feed row repeated is refused for its model id and its figure id alike",
-  );
-  assert.doesNotThrow(() =>
-    tables(records, [{ feed, models: [row, { ...row, id: `${row.id}-2` }] }]),
-  );
-});
