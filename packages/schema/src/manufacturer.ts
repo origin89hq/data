@@ -65,5 +65,11 @@ export const Manufacturer = z
       .strict()
       .optional(),
   })
-  .strict();
+  .strict()
+  // A document host is read through the maker's own pages, and a maker with no domain is never
+  // crawled: the export leaves it out, and a host named there would sit unused without a word.
+  .refine((m) => !m.documentHosts?.length || m.domains.length > 0, {
+    message: "documentHosts need at least one domain for discovery to read them from",
+    path: ["documentHosts"],
+  });
 export type Manufacturer = z.infer<typeof Manufacturer>;

@@ -43,6 +43,13 @@ test("a document host is a bare host name, the same shape as a domain, and never
     ["cdn.shopify.com"],
   );
   assert.equal(Manufacturer.parse(maker).documentHosts, undefined);
+  // A host on a record with no domain would never be read from, so it is refused up front.
+  assert.throws(() =>
+    Manufacturer.parse({ id: "x", name: "X", documentHosts: ["cdn.shopify.com"] }),
+  );
+  assert.throws(() =>
+    Manufacturer.parse({ id: "x", name: "X", domains: [], documentHosts: ["cdn.shopify.com"] }),
+  );
   assert.throws(() =>
     Manufacturer.parse({ ...maker, documentHosts: ["https://cdn.shopify.com/"] }),
   );
