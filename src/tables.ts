@@ -60,7 +60,7 @@ export function tables(records: Records, feeds = readFeeds()): Table[] {
     possible_duplicate: d.possibleDuplicate ?? false,
   }));
   const col = (name: string, type: "VARCHAR" | "BOOLEAN" | "INTEGER" = V) => ({ name, type });
-  return [
+  const out: Table[] = [
     {
       name: "dialects",
       columns: [
@@ -420,6 +420,30 @@ export function tables(records: Records, feeds = readFeeds()): Table[] {
       ],
     },
   ];
+  refuseRepeatedIds(out);
+  return out;
+}
+
+/**
+ * A table keyed by `id` holds each id once. A keyed store refuses the second row, and a reader
+ * joining on the id gets whichever row it met first; the feed used to publish 147 model ids and
+ * 1,347 figure ids twice that way (#81). Refused here so the build fails rather than the consumer.
+ */
+export function refuseRepeatedIds(tables: readonly Table[]): void {
+  const repeated: string[] = [];
+  for (const table of tables) {
+    if (!table.columns.some((c) => c.name === "id")) continue;
+    const seen = new Set<string>();
+    for (const row of table.rows) {
+      const id = String(row.id);
+      if (seen.has(id)) repeated.push(`${table.name}: ${id}`);
+      seen.add(id);
+    }
+  }
+  if (repeated.length)
+    throw new Error(
+      `${repeated.length} ids repeat: ${repeated.slice(0, 5).join(", ")}${repeated.length > 5 ? ", …" : ""}`,
+    );
 }
 
 /**
