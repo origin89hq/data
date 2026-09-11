@@ -191,6 +191,20 @@ test("a member's terminal token opens the control routes, and an approval record
   ]);
 });
 
+test("an approval whose note is too long to repeat in the state is refused and sent nowhere", async (t) => {
+  const { request, approvals } = signingIn(t, {
+    tokens: { ghu_ada_terminal: { login: "ada" } },
+    team: { ada: "active" },
+  });
+  const res = await request("/approve?id=maker-victron-energy-2026-09-10-abcd", {
+    method: "POST",
+    headers: { authorization: "Bearer ghu_ada_terminal", "content-type": "application/json" },
+    body: JSON.stringify({ approved: false, note: "n".repeat(1001) }),
+  });
+  assert.equal(res.status, 400);
+  assert.deepEqual(approvals, []);
+});
+
 test("the control token still works where it is set, and approves as itself", async (t) => {
   const { approvals, api, env } = signingIn(t);
   // Only on this machine: `just dev` is where the control token lives.

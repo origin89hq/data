@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Icon } from "../icons.tsx";
 import {
   approve,
   archive,
   archiveUrl,
   type DocumentPlan,
+  decisionRecorded,
   message,
   plan,
   runPrefix,
@@ -61,20 +62,33 @@ export function RunDetail({
     if (next === "archive" && run && !files.value && !files.loading)
       void files.load((signal) => archive(run, signal));
   };
+  // Closing the drawer stops the wait for the workflow; the next refresh shows what it recorded.
+  const waiting = useRef<AbortController | undefined>(undefined);
+  useEffect(() => () => waiting.current?.abort(), []);
   const submit = async () => {
     if (!run || !selected || documents.loading || documents.error || !acknowledged || submission)
       return;
     setSubmission({ state: "pending", text: "Sending approval…" });
     try {
       await approve(run, Number(limit), selected.documents.length);
-      setSubmission({
-        state: "sent",
-        text: `Approval for up to ${limit} documents sent to ${run.instance}. The run shows it as approved once the workflow records it.`,
-      });
-      onApproved();
     } catch (error) {
       setSubmission({ state: "uncertain", text: message(error) });
+      return;
     }
+    const sent = `Approval for up to ${limit} documents sent to ${run.instance}.`;
+    setSubmission({ state: "sent", text: `${sent} Waiting for the workflow to record it…` });
+    const controller = new AbortController();
+    waiting.current = controller;
+    const recorded = await decisionRecorded(run, controller.signal).catch(() => false);
+    if (controller.signal.aborted) return;
+    setSubmission({
+      state: "sent",
+      text: recorded
+        ? `${sent} The workflow recorded it.`
+        : `${sent} The workflow has not recorded it yet; refresh the workspace in a moment.`,
+    });
+    if (recorded) onApproved();
+    else onChanged();
   };
   const facts = row.maker
     ? ([

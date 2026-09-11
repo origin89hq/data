@@ -1,6 +1,12 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { type MakerState, type Pipeline, parseState, type RunStatus } from "../src/ops/api.ts";
+import {
+  decisionRecorded,
+  type MakerState,
+  type Pipeline,
+  parseState,
+  type RunStatus,
+} from "../src/ops/api.ts";
 import { needsApproval, runRows } from "../src/ops/workspace.ts";
 
 const status = (maker: string, value: string): RunStatus => ({
@@ -82,6 +88,60 @@ test("a plan whose workflow ended with no recorded decision is not offered for a
   const errored = row(undecided, "errored");
   assert.equal(errored.category, "attention", "a stopped workflow still needs somebody to look");
   assert.equal(needsApproval(undecided, status("renogy", "unknown")), false);
+});
+
+/** An archive listing that holds the run's decision from the `holdsFrom`th time it is asked. */
+function archiveAnswering(t: { after: (fn: () => void) => void }, holdsFrom: number) {
+  const run = status("renogy", "running");
+  const key = `documents/renogy/runs/${run.run}/decision.json`;
+  const asked: string[] = [];
+  const original = globalThis.fetch;
+  globalThis.fetch = async (input: string | URL | Request) => {
+    asked.push(String(input));
+    const keys = asked.length >= holdsFrom ? [key] : [];
+    return new Response(JSON.stringify({ prefix: key, keys }), { status: 200 });
+  };
+  t.after(() => {
+    globalThis.fetch = original;
+  });
+  return { run, asked };
+}
+
+test("after an approval the workspace waits for the workflow to record it", async (t) => {
+  const pauses: number[] = [];
+  const sleep = async (ms: number) => {
+    pauses.push(ms);
+  };
+  const late = archiveAnswering(t, 3);
+  assert.equal(
+    await decisionRecorded(late.run, new AbortController().signal, { sleep }),
+    true,
+    "recorded on the third look",
+  );
+  assert.equal(late.asked.length, 3);
+  assert.deepEqual(pauses, [2000, 2000]);
+  assert.match(
+    late.asked[0] ?? "",
+    /prefix=documents%2Frenogy%2Fruns%2F.*decision\.json&list=true/,
+  );
+});
+
+test("the wait for the workflow is bounded, and then says it cannot tell yet", async (t) => {
+  const never = archiveAnswering(t, Number.POSITIVE_INFINITY);
+  const sleep = async () => {};
+  assert.equal(
+    await decisionRecorded(never.run, new AbortController().signal, { tries: 4, sleep }),
+    false,
+  );
+  assert.equal(never.asked.length, 4, "it never asks more than its tries");
+});
+
+test("closing the drawer stops the wait", async (t) => {
+  const closed = archiveAnswering(t, Number.POSITIVE_INFINITY);
+  const controller = new AbortController();
+  const sleep = async () => controller.abort();
+  assert.equal(await decisionRecorded(closed.run, controller.signal, { sleep }), false);
+  assert.equal(closed.asked.length, 1);
 });
 
 test("the workspace reads a decision and refuses one it does not know", () => {

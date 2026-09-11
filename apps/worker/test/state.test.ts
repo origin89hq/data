@@ -385,6 +385,7 @@ test("a decision record that does not parse leaves the run with a person, not de
     '{"outcome":"maybe","by":"ada"}',
     '{"outcome":"refused"}',
     '{"outcome":"approved","by":"ada","permitted":-1}',
+    JSON.stringify({ outcome: "refused", by: "ada", note: "n".repeat(1001) }),
   ]) {
     const objects = run({ plan: true });
     objects[`${BASE}/decision.json`] = unreadable;

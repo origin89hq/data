@@ -3,6 +3,7 @@ import { test } from "node:test";
 import {
   baseHref,
   CrawlApproval,
+  DownloadDecision,
   decisionOf,
   decodeEntities,
   documentLinks,
@@ -150,6 +151,18 @@ test("an answer is recorded as the decision it makes, with its approver and note
     decisionOf(answer({ approved: true, hosts: ["elsewhere.test"], note: "sample" }), 0),
     { outcome: "approved", by: "ada", permitted: 0, note: "sample" },
     "an approval whose hosts missed is still an approval, of nothing",
+  );
+});
+
+test("a note is bounded where it comes in, because every state response repeats it", () => {
+  const note = (length: number) =>
+    CrawlApproval.safeParse({ approved: false, approvedBy: "ada", note: "n".repeat(length) });
+  assert.equal(note(1000).success, true);
+  assert.equal(note(1001).success, false);
+  assert.equal(
+    DownloadDecision.safeParse({ outcome: "refused", by: "ada", note: "n".repeat(1001) }).success,
+    false,
+    "and a record carrying a longer one is not a decision",
   );
 });
 

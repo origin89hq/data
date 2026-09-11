@@ -39,6 +39,12 @@ export const CrawlPlan = z
 export type CrawlPlan = z.infer<typeof CrawlPlan>;
 
 /**
+ * Why somebody approved or refused. Bounded because it is repeated in every state response, and
+ * the workspace refuses a response over five megabytes: one long note would have hidden every run.
+ */
+const Note = z.string().max(1000);
+
+/**
  * The go-ahead. It is external input to a running instance, so it is parsed rather than trusted,
  * and it names a person: an unattributed approval is not one.
  */
@@ -50,7 +56,7 @@ export const CrawlApproval = z
     hosts: z.array(z.string().min(1)).default([]),
     /** Stop after this many documents, when the approver wants a sample rather than the site. */
     limit: z.number().int().positive().optional(),
-    note: z.string().optional(),
+    note: Note.optional(),
   })
   .strict();
 export type CrawlApproval = z.infer<typeof CrawlApproval>;
@@ -185,11 +191,11 @@ export const DownloadDecision = z.discriminatedUnion("outcome", [
       by: z.string().min(1),
       /** Documents the approval lets the run fetch: its hosts and limit can leave fewer than offered. */
       permitted: z.number().int().nonnegative(),
-      note: z.string().optional(),
+      note: Note.optional(),
     })
     .strict(),
   z
-    .object({ outcome: z.literal("refused"), by: z.string().min(1), note: z.string().optional() })
+    .object({ outcome: z.literal("refused"), by: z.string().min(1), note: Note.optional() })
     .strict(),
   /** Nobody answered within the window, or the answer could not be read. Silence is a refusal. */
   z.object({ outcome: z.literal("lapsed"), reason: z.string().min(1) }).strict(),

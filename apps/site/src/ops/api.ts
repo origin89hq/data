@@ -322,6 +322,28 @@ export async function approve(run: RunStatus, limit: number, documents: number):
     { approved: true, limit },
   );
 }
+/**
+ * Whether the workflow has written this run's decision, asked a few times while it resumes.
+ * `/approve` answers once the event is sent, before the workflow records what it decided, so one
+ * refresh straight after could still show the run as waiting for somebody.
+ */
+export async function decisionRecorded(
+  run: RunStatus,
+  signal: AbortSignal,
+  {
+    tries = 10,
+    everyMs = 2000,
+    sleep = (ms: number) => new Promise<void>((done) => setTimeout(done, ms)),
+  } = {},
+): Promise<boolean> {
+  const key = `${runPrefix(run)}/decision.json`;
+  for (let attempt = 1; attempt <= tries && !signal.aborted; attempt += 1) {
+    const listed = object(await read(archiveUrl(key, true), signal));
+    if (array(listed.keys).includes(key)) return true;
+    if (attempt < tries) await sleep(everyMs);
+  }
+  return false;
+}
 const UNCERTAIN_MUTATION =
   "The response could not be confirmed. The request may have been accepted. Refresh and inspect the run before trying again.";
 
