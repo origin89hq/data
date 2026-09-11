@@ -77,6 +77,109 @@ export function looksLikeModelName(name: string): boolean {
   return words.some(codeLike);
 }
 
+/**
+ * Words a name can lead with that belong to no maker: what a thing is, or a technology, which
+ * several makers put in front of a part number. "MPPT 150/45" is Victron's and "MPPT 60-150" is
+ * Xantrex's, and neither word makes the other's product theirs.
+ */
+const GENERIC = new Set([
+  "inverter",
+  "charger",
+  "controller",
+  "battery",
+  "batteries",
+  "panel",
+  "module",
+  "kit",
+  "bundle",
+  "system",
+  "solar",
+  "hybrid",
+  "mppt",
+  "pwm",
+  "series",
+  "model",
+  "type",
+  "lithium",
+  "lifepo4",
+  "agm",
+  "gel",
+  "flooded",
+]);
+
+/**
+ * The family a model's name leads with: "MultiPlus-II" in "MultiPlus-II 48/3000/35-50",
+ * "SmartSolar" in "SmartSolar MPPT 100/20". Nothing for a name that leads with a number or a
+ * rating ("12V LiFePO4 Battery" is every battery maker's), a two-letter code, or a word that is
+ * not a family, since those are shared by everybody. The brackets or quotes a document wraps a
+ * word in are not part of it: "(MultiPlus-II)" is MultiPlus-II.
+ */
+export function familyOf(name: string): string | undefined {
+  const [first] = normaliseModelName(name)
+    .toLowerCase()
+    .split(/[\s/]+/);
+  const lead = first?.replace(/^[^a-z0-9]+|[^a-z0-9]+$/g, "");
+  if (!lead || lead.length < 3 || !/^[a-z]/.test(lead) || GENERIC.has(lead)) return undefined;
+  return lead;
+}
+
+/**
+ * The maker whose product a document's name belongs to, when it is not the document's maker.
+ *
+ * A maker's installation guide lists the inverters its battery works with, and the reader names
+ * each row as a product. Rolls' S48-100LFP guide named seven MultiPlus-II variants that way, and
+ * the pull minted every one under Rolls with the battery's current limits as their figures (#86).
+ * A word that leads the names of at least two of one other maker's models, and none of this
+ * maker's own, is that maker's family, and only the word a name leads with can claim one: "AC
+ * Bus Drop Cap" is not Pentair's because Pentair's injectors lead with "Cap". A maker's own name
+ * in front is not the lead, so "Victron Energy MultiPlus-II" leads with MultiPlus-II once the
+ * words of `makerNames` are dropped; a word that is both a maker's name and a family that maker
+ * owns, such as EG4, is the lead, and one that leads a single model, such as Xantrex before
+ * "Xantrex IP1012 AL", is dropped like any other maker word. A word two other makers both lead
+ * with is nobody's, and a name that leads with a number claims no family.
+ */
+export function familyOfAnotherMaker(
+  models: readonly Model[],
+  manufacturer: string,
+  name: string,
+  makerNames: readonly string[] = [],
+): { family: string; manufacturer: string } | undefined {
+  const makersByFamily = new Map<string, Map<string, number>>();
+  for (const model of models) {
+    const family = familyOf(model.name);
+    if (!family) continue;
+    const makers = makersByFamily.get(family) ?? new Map<string, number>();
+    makers.set(model.manufacturer, (makers.get(model.manufacturer) ?? 0) + 1);
+    makersByFamily.set(family, makers);
+  }
+  /** The one maker at least two of whose models lead with the family; none when it is shared or led once. */
+  const ownerOf = (family: string | undefined): string | undefined => {
+    const makers = family ? makersByFamily.get(family) : undefined;
+    if (!makers) return undefined;
+    const owners = [...makers].filter(([, count]) => count >= 2).map(([maker]) => maker);
+    const [owner] = owners;
+    return owner && owners.length === 1 ? owner : undefined;
+  };
+  const makerWords = new Set(
+    makerNames.flatMap((n) => n.toLowerCase().split(/[^a-z0-9]+/)).filter((w) => w.length > 2),
+  );
+  const tokens = normaliseModelName(name)
+    .toLowerCase()
+    .split(/[\s/]+/)
+    .map((token) => token.replace(/^[^a-z0-9]+|[^a-z0-9]+$/g, ""))
+    .filter(Boolean);
+  let at = 0;
+  while (at < tokens.length - 1) {
+    const token = tokens[at] ?? "";
+    if (!makerWords.has(token) || ownerOf(familyOf(token))) break;
+    at += 1;
+  }
+  const family = familyOf(tokens[at] ?? "");
+  if (!family || makersByFamily.get(family)?.has(manufacturer)) return undefined;
+  const owner = ownerOf(family);
+  return owner ? { family, manufacturer: owner } : undefined;
+}
+
 /** A model id has to be unique per maker and stable, so it carries the maker and a slug of the name. */
 export function modelId(manufacturer: string, name: string): string {
   const slug = name
