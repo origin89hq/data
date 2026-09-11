@@ -58,7 +58,15 @@ export const SCHEMA: readonly string[] = [
     counts TEXT NOT NULL DEFAULT '{}'
   )`,
   ...Object.entries(LOADED_TABLES).map(([table, { columns, keyed }]) => {
-    const declared = columns.map((c) => `${c} TEXT`).join(", ");
+    const declared = columns
+      .map((c) =>
+        c === "position"
+          ? `${c} INTEGER`
+          : keyed && c === "id"
+            ? `${c} TEXT NOT NULL`
+            : `${c} TEXT`,
+      )
+      .join(", ");
     const key = keyed ? "PRIMARY KEY (release, id)" : "";
     // `part` names the load part a row came from, so a retried part step can take its own rows
     // back out before inserting them again and never doubles a row or trips its own key.
@@ -193,6 +201,16 @@ export async function activate(db: Store, id: string, publishedAt: string): Prom
  * Which releases to keep: every pinned one, the active one, and the most recent
  * `RECENT_RELEASES_KEPT` by publication. Returns the ids let go.
  */
+/** A retention pass that stopped part way: what it had let go before it failed. */
+export class RetentionFailed extends Error {
+  override name = "RetentionFailed";
+  readonly retired: string[];
+  constructor(message: string, retired: string[]) {
+    super(message);
+    this.retired = retired;
+  }
+}
+
 export async function retain(
   db: Store,
   pinnedIds: readonly string[] = PINNED_RELEASES,
@@ -210,7 +228,11 @@ export async function retain(
   const gone: string[] = [];
   for (const r of all) {
     if (keep.has(r.id) || r.state === "loading") continue;
-    await forget(db, r.id);
+    try {
+      await forget(db, r.id);
+    } catch (error) {
+      throw new RetentionFailed(error instanceof Error ? error.message : String(error), gone);
+    }
     gone.push(r.id);
   }
   return gone;

@@ -8,6 +8,7 @@ import {
   type LoadRow,
   loadedTables,
   PINNED_RELEASES,
+  RetentionFailed,
   releaseRow,
   retain,
   type Store,
@@ -30,7 +31,7 @@ export interface Steps {
 }
 
 export type LoadOutcome =
-  /** `retentionError` is set when the release loaded and took its place but letting old ones go failed; nothing is lost by it. */
+  /** `retentionError` is set when the release loaded and took its place but letting old ones go failed part way; `retired` is what went before it did. */
   | { outcome: "loaded"; active: boolean; retired: string[]; retentionError?: string }
   | { outcome: "already"; state: string }
   | { outcome: "failed"; reason: string };
@@ -107,16 +108,29 @@ export async function loadRelease(
   // From here the release is loaded and counted. Taking its place is one atomic switch, and
   // letting old releases go is housekeeping: a failure there is reported, not a failed load,
   // and never touches the active pointer.
-  const active = await step.do("activate", () => activate(db, releaseId, release.at));
+  // Activation is the one switch that has to land: a store that stays away through its retries
+  // leaves the release marked failed, which a reload can pick up, rather than loading for ever.
+  let active: boolean;
+  try {
+    active = await step.do("activate", () => activate(db, releaseId, release.at));
+  } catch (error) {
+    return fail(db, step, releaseId, error instanceof Error ? error.message : String(error));
+  }
   try {
     const retired = await step.do("retain", () => retain(db, options.pinned, options.recent));
     return { outcome: "loaded", active, retired };
   } catch (error) {
     const retentionError = error instanceof Error ? error.message : String(error);
+    const retired = error instanceof RetentionFailed ? error.retired : [];
     console.log(
-      JSON.stringify({ message: "release retention failed", release: releaseId, retentionError }),
+      JSON.stringify({
+        message: "release retention failed",
+        release: releaseId,
+        retentionError,
+        retired,
+      }),
     );
-    return { outcome: "loaded", active, retired: [], retentionError };
+    return { outcome: "loaded", active, retired, retentionError };
   }
 }
 
@@ -163,9 +177,10 @@ async function loadPart(
 }
 
 /**
- * Put back any pinned release the store does not hold: a fixture may name a release that
- * retention let go before it was pinned, or the store may have been recreated. Returns the
- * releases whose load was started.
+ * Put back any pinned release the store has no row for: a fixture may name a release that
+ * retention let go before it was pinned, or the store may have been recreated. Run from the
+ * daily schedule, once, rather than from a read, so a release that cannot load is not retried
+ * by every isolate that answers a question. Returns the releases whose load was started.
  */
 export async function reloadPinned(
   env: Pick<Env, "ARCHIVE" | "RELEASE_LOAD">,
@@ -174,8 +189,9 @@ export async function reloadPinned(
 ): Promise<string[]> {
   const started: string[] = [];
   for (const release of pinned) {
-    const held = await releaseRow(db, release);
-    if (held && held.state !== "failed") continue;
+    // A row of any state means the store knows the release: loading, held, or failed, which is a
+    // person's to repair with `POST /load`, so a broken release is not retried at every pass.
+    if (await releaseRow(db, release)) continue;
     if (!(await env.ARCHIVE.head(releaseKey(release)))) {
       console.log(JSON.stringify({ message: "pinned release not in the archive", release }));
       continue;

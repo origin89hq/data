@@ -127,7 +127,7 @@ async function endpoints(
       res.writeHead(answered.status, Object.fromEntries(answered.headers));
       res.end(Buffer.from(await answered.arrayBuffer()));
     } else if (url.pathname === "/manifest.json") {
-      res.end(JSON.stringify({ publication: { historyVersion: 1 } }));
+      res.end(JSON.stringify({ publication: { historyVersion: 2 } }));
     } else if (url.pathname === "/token") {
       issued += 1;
       res.end(JSON.stringify({ value: `job-token-${issued}` }));
@@ -312,7 +312,7 @@ test("an older Worker is refused before any credential request or upload", async
   );
   const result = await publishing(dir, job);
   assert.equal(result.status, 1);
-  assert.match(result.stderr, /does not support release history/);
+  assert.match(result.stderr, /does not load releases yet/);
   assert.equal(seen.length, 1);
   assert.equal(seen[0].method, "GET");
   assert.match(seen[0].path, /^\/manifest\.json\?publication-check=/);

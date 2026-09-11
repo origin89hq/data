@@ -371,3 +371,48 @@ test("a plan that leaves a store table out is refused, and a pinned release the 
     [{ release: R1 }],
   );
 });
+
+test("a keyed row without an id is refused, activation that stays away fails the load, and a partial retention says what went", async () => {
+  const objects: Record<string, string> = {};
+  published(objects, R1, "2026-09-11T10:00:00Z", { models: [{ tier: "record", name: "no id" }] });
+  const { env } = world(objects);
+  const noId = await loadRelease(env.ARCHIVE, env.RELEASES, plain, R1);
+  assert.equal(noId.outcome, "failed");
+  assert.match((noId as { reason: string }).reason, /NOT NULL constraint failed: models\.id/);
+  const objects2: Record<string, string> = {};
+  published(objects2, R2, "2026-09-11T11:00:00Z", { models: models(1) });
+  const w = world(objects2);
+  const away: Steps = {
+    do: (name, fn) =>
+      name === "activate" ? Promise.reject(new Error("D1 is away for good")) : fn(),
+  };
+  const stuck = await loadRelease(w.env.ARCHIVE, w.env.RELEASES, away, R2);
+  assert.deepEqual(stuck, { outcome: "failed", reason: "D1 is away for good" });
+  assert.equal(
+    (await releaseRow(w.env.RELEASES, R2))?.state,
+    "failed",
+    "not left loading for ever",
+  );
+  // Retention that fails on the second release to go still reports the first.
+  const objects3: Record<string, string> = {};
+  const ids = ["4".repeat(64), "5".repeat(64), "6".repeat(64), "7".repeat(64)];
+  for (const [i, id] of ids.entries())
+    published(objects3, id, `2026-09-0${i + 1}T10:00:00Z`, { models: models(1, `r${i}`) });
+  const v = world(objects3);
+  for (const id of ids.slice(0, 3))
+    await loadRelease(v.env.ARCHIVE, v.env.RELEASES, plain, id, { recent: 9 });
+  let deletes = 0;
+  const flaky: typeof v.env.RELEASES = {
+    ...v.env.RELEASES,
+    prepare: (sql: string) => {
+      if (sql.startsWith("DELETE FROM releases") && ++deletes === 2) throw new Error("D1 blinked");
+      return v.env.RELEASES.prepare(sql);
+    },
+  };
+  const partial = await loadRelease(v.env.ARCHIVE, flaky, plain, ids[3] ?? "", { recent: 0 });
+  assert.equal(partial.outcome, "loaded");
+  if (partial.outcome === "loaded") {
+    assert.deepEqual(partial.retired, [ids[2]], "the one that went before the failure is named");
+    assert.equal(partial.retentionError, "D1 blinked");
+  }
+});

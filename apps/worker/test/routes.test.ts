@@ -744,7 +744,9 @@ test("a failed public manifest write retains no attribution from the failed publ
     return original(key, ...args);
   }) as typeof env.ARCHIVE.put;
   assert.equal((await putManifest(env, manifest)).status, 500);
-  assert.equal([...store.keys()].filter((key) => key.startsWith("releases/versions/")).length, 0);
+  // The immutable record is written before the public manifest so a load can start from it
+  // (#83); the history that names the job is written only once the manifest is public.
+  assert.equal([...store.keys()].filter((key) => key.startsWith("releases/feed/")).length, 0);
   const response = await put(env, "manifest.json", manifest, {
     authorization: `Bearer ${await jobToken({ sha: "b".repeat(40), run_id: "17000000002", run_attempt: "2" })}`,
   });
@@ -916,7 +918,7 @@ test("a load part is kept content-addressed, and the manifest's load plan is che
 });
 
 test("an accepted manifest with a load plan starts the release's load, once (#83)", async () => {
-  const { env, loads } = bucket();
+  const { env, loads, store, text } = bucket();
   const part = '{"id":"a"}\n';
   await putFile(env, "models_0001.ndjson", part);
   const withPlan = JSON.stringify({
@@ -935,6 +937,30 @@ test("an accepted manifest with a load plan starts the release's load, once (#83
     "a retried manifest starts no second load",
   );
   assert.equal(loads.length, 1);
+  // The same attempt with another plan is not the same publication: the record already made
+  // carries the first plan, so the second is refused rather than loaded against it.
+  const otherPlan = JSON.stringify({
+    ...JSON.parse(withPlan),
+    load: { version: 1, tables: { models: { parts: ["models_0001.ndjson"], rows: 1 } } },
+  });
+  const changed = await putManifest(env, otherPlan);
+  assert.equal(changed.status, 409);
+  assert.match(await errorOf(changed), /different load plan/);
+  // A load that cannot be started leaves the front door and the history as they were: the
+  // publisher's one request fails, and its rerun is a new attempt that starts a new load.
+  const before = text("dataset/v1/manifest.json");
+  const create = env.RELEASE_LOAD.create;
+  env.RELEASE_LOAD.create = async () => {
+    throw new Error("Workflows is away");
+  };
+  const rerun = {
+    authorization: `Bearer ${await jobToken({ sha: "b".repeat(40), run_id: "17000000002", run_attempt: "1" })}`,
+  };
+  assert.equal((await put(env, "manifest.json", withPlan, rerun)).status, 500);
+  assert.equal(text("dataset/v1/manifest.json"), before, "no manifest went public");
+  const feed = [...store.keys()].filter((key) => key.startsWith("releases/feed/"));
+  assert.equal(feed.length, 1, "the failed publication is not in the history");
+  env.RELEASE_LOAD.create = create;
   await putFile(env, "models.csv", "id\na\n");
   const bare = await putManifest(env, manifestOf({ "models.csv": "id\na\n" }));
   assert.equal(
