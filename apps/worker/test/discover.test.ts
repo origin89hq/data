@@ -10,6 +10,7 @@ import {
   isDocumentAnswer,
   isPage,
   MAX_CHILD_SITEMAPS,
+  MAX_FRONTIER_BYTES,
   MAX_LINKS_PER_BATCH,
   nextHop,
   pageLinks,
@@ -422,6 +423,7 @@ test("a page that lands on another site is a site that moved, and its links belo
 test("a page's own links are the next hop; documents, assets and other sites are not", () => {
   const html = `
     <a href="/product-category/charge-controller/">category</a>
+    <a href=/product/unquoted>unquoted</a>
     <a href="https://www.maker.test/product/xtra-n-g3/#specs">product</a>
     <a href="https://www.maker.test/product/xtra-n-g3/">same product</a>
     <a href="/wp-content/uploads/datasheet.pdf">a document</a>
@@ -436,6 +438,7 @@ test("a page's own links are the next hop; documents, assets and other sites are
     <a href="tel:+1">phone</a>`;
   assert.deepEqual(pageLinks(html, "https://www.maker.test/", ["maker.test"]), [
     "https://www.maker.test/product-category/charge-controller/",
+    "https://www.maker.test/product/unquoted",
     "https://www.maker.test/product/xtra-n-g3/",
     "https://www.maker.test/catalog/model-x",
   ]);
@@ -480,6 +483,19 @@ test("the frontier is drawn on batch by batch, skipping what a page has since la
   assert.deepEqual(nextHop(frontier, second.cursor, landed, 2), { slice: [], cursor: 6 });
   assert.deepEqual(nextHop(frontier, 0, new Set(frontier), 3), { slice: [], cursor: 6 });
   assert.deepEqual(nextHop(frontier, 0, landed, 0), { slice: [], cursor: 0 });
+});
+
+test("the frontier is bounded in bytes too, since generated addresses run long", async () => {
+  const long = Array.from(
+    { length: 600 },
+    (_, i) => `<a href="/filter?${"x".repeat(1000)}&n=${i}">${i}</a>`,
+  );
+  const { get } = site({ "https://maker.test/a": long.join("") });
+  const read = await readPages(["https://maker.test/a"], ["maker.test"], get);
+  const bytes = read.pages.reduce((n, u) => n + u.length, 0);
+  assert.ok(bytes <= MAX_FRONTIER_BYTES, `${bytes} bytes handed back`);
+  assert.ok(read.pages.length < 600 && read.pages.length > 0);
+  assert.equal(read.linksDropped, 600 - read.pages.length);
 });
 
 test("links are followed product and download pages first, in the order they were found", () => {

@@ -163,6 +163,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     const frontier = hopOrder(candidates);
     let remaining = Math.max(0, budget - pages.length);
     let cursor = 0;
+    let followed = 0;
     for (let b = 0; remaining > 0 && cursor < frontier.length; b += 1) {
       const next = nextHop(frontier, cursor, landedAt, Math.min(DISCOVER_BATCH, remaining));
       cursor = next.cursor;
@@ -173,9 +174,13 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       );
       take(batch);
       remaining -= slice.length;
+      followed += slice.length;
       seen.pages.followed = (seen.pages.followed ?? 0) + batch.read;
       await step.sleep(`politeness after links ${b + 1}`, "2 seconds");
     }
+    // What the budget did not reach, so a plan built from a hop that stopped short says so.
+    const unfollowed = nextHop(frontier, cursor, landedAt, Number.MAX_SAFE_INTEGER).slice.length;
+    if (unfollowed > 0) seen.pages.unfollowed = unfollowed;
     if (specPages.length > 0) {
       await step.do("write the specification pages this maker publishes", async () => {
         const ranked = specPages.sort((a, b) => b.withUnit - a.withUnit || b.figures - a.figures);

@@ -303,7 +303,8 @@ export async function discoverPages(
   return { pages: [...new Set(urls)], hosts };
 }
 
-const HREF = /\bhref\s*=\s*["']([^"']+)["']/gi;
+/** An `href`, quoted either way or not at all, as HTML allows. */
+const HREF = /\bhref\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>"']+))/gi;
 
 /** Files a page links that are neither pages to read nor documents to keep. */
 const ASSET =
@@ -321,7 +322,7 @@ export function pageLinks(html: string, pageUrl: string, domains: readonly strin
   for (const match of withoutBase(html).matchAll(HREF)) {
     let url: URL;
     try {
-      url = new URL(decodeEntities(match[1]), base);
+      url = new URL(decodeEntities(match[1] ?? match[2] ?? match[3] ?? ""), base);
     } catch {
       continue;
     }
@@ -341,6 +342,8 @@ export function pageLinks(html: string, pageUrl: string, domains: readonly strin
  * is cut here rather than failing the step that carries it.
  */
 export const MAX_LINKS_PER_BATCH = 2000;
+/** And bounded in bytes as well, since generated filter addresses can run long. */
+export const MAX_FRONTIER_BYTES = 512 * 1024;
 
 /** Paths a maker keeps its documents behind, ahead of its blog, its careers page and its cart. */
 const WORTH_FIRST =
@@ -488,7 +491,13 @@ export async function readPages(
   // The frontier handed back is bounded, and bounded after ranking, so a batch that links two
   // thousand blog posts before its product pages still hands the product pages back.
   const ranked = hopOrder(collected);
-  out.pages = ranked.slice(0, MAX_LINKS_PER_BATCH);
+  let bytes = 0;
+  out.pages = [];
+  for (const link of ranked) {
+    if (out.pages.length >= MAX_LINKS_PER_BATCH || bytes + link.length > MAX_FRONTIER_BYTES) break;
+    out.pages.push(link);
+    bytes += link.length;
+  }
   out.linksDropped = ranked.length - out.pages.length;
   return out;
 }
@@ -503,6 +512,8 @@ export interface DiscoverySeen {
     followed?: number;
     /** Links the batches found beyond what they may hand back, and so never followed. */
     linksDropped?: number;
+    /** Candidates handed back that the page budget did not reach. */
+    unfollowed?: number;
     failed: Record<string, number>;
   };
   /** Distinct documents linked on hosts the record does not claim, by host. */
