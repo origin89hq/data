@@ -35,10 +35,12 @@ const ensured = new WeakMap<Store, Promise<boolean>>();
 export function ensureSchema(db: Store): Promise<boolean> {
   let pending = ensured.get(db);
   if (!pending) {
-    pending = createSchema(db).catch((error) => {
-      ensured.delete(db);
-      throw error;
-    });
+    pending = createSchema(db)
+      .then((reset) => Boolean(reset))
+      .catch((error) => {
+        ensured.delete(db);
+        throw error;
+      });
     ensured.set(db, pending);
   }
   return pending;
