@@ -199,6 +199,10 @@ login:
 status:
     node tools/status.ts
 
+# Put a release into the store behind the EquipmentApi, or back after a schema change. Reads R2, writes D1, spends nothing.
+load release:
+    @just _post "/load?release=$1"
+
 # Move everything whose precondition is met. Never approves; that stays with you.
 supervise date="":
     @just _post "/supervise?date=$1"

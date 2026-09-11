@@ -245,6 +245,7 @@ export const CONTROL_PATHS = [
   "/run",
   "/runs",
   "/spec-pages",
+  "/load",
   "/state",
   "/status",
   "/supervise",
@@ -394,6 +395,22 @@ controlRoutes.post("/supervise", async (c) => {
   } catch (error) {
     const held = leaseHeld(error);
     if (held) return c.json(held, 409);
+    throw error;
+  }
+});
+
+// Put a release into the store behind the API, or put it back after the store was recreated for
+// a schema change. Loading reads R2 and writes D1; nothing is fetched, spent or published.
+controlRoutes.post("/load", async (c) => {
+  const release = c.req.query("release");
+  if (!release || !/^[a-f0-9]{64}$/.test(release))
+    return c.json({ error: "release must be a release id, 64 hex characters" }, 400);
+  try {
+    await c.env.RELEASE_LOAD.create({ id: loadInstanceId(release), params: { release } });
+    return c.json({ release, load: "started" });
+  } catch (error) {
+    if (error instanceof Error && /already exists|instance\.already/i.test(error.message))
+      return c.json({ release, load: "already" }, 409);
     throw error;
   }
 });

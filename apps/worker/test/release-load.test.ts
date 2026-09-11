@@ -7,11 +7,13 @@ import {
   activate,
   activeRelease,
   countRows,
+  createSchema,
   forget,
   insertRows,
   LOADED_TABLES,
   releaseRow,
   retain,
+  SCHEMA_VERSION,
 } from "../src/release-store.ts";
 import { loadKey, releaseKey } from "../src/releases.ts";
 import { d1Double } from "./d1.ts";
@@ -445,4 +447,26 @@ test("a keyed row without an id is refused, activation that stays away fails the
     assert.deepEqual(partial.retired, [ids[2]], "the one that went before the failure is named");
     assert.equal(partial.retentionError, "D1 blinked");
   }
+});
+
+test("a store stamped with another schema version is recreated whole; one at this version is left as it is", async () => {
+  const objects: Record<string, string> = {};
+  published(objects, R1, "2026-09-11T10:00:00Z", { models: models(2) });
+  const { env } = world(objects);
+  const db = env.RELEASES;
+  // A store from before a column existed: the table is there, narrower, under an older stamp.
+  await db.exec("CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)");
+  await db.prepare("INSERT INTO meta VALUES ('schema_version', ?)").bind("0").run();
+  await db.exec(
+    "CREATE TABLE model_dialects (release TEXT NOT NULL, part TEXT NOT NULL, model_id TEXT, dialect_id TEXT, row TEXT NOT NULL)",
+  );
+  assert.equal(await createSchema(db), true, "an older stamp means a reset");
+  const outcome = await loadRelease(env.ARCHIVE, db, plain, R1);
+  assert.equal(outcome.outcome, "loaded", "and the wider table takes the load");
+  assert.equal(await createSchema(db), false, "the same stamp changes nothing");
+  assert.equal(await countRows(db, "models", R1), 2, "and the rows are still there");
+  const stamp = await db
+    .prepare("SELECT value FROM meta WHERE key = 'schema_version'")
+    .first<{ value: string }>();
+  assert.equal(stamp?.value, SCHEMA_VERSION);
 });

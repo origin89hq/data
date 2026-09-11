@@ -95,8 +95,39 @@ export const SCHEMA: readonly string[] = [
   "CREATE INDEX IF NOT EXISTS dialect_kinds_by_dialect ON dialect_kinds (release, dialect_id)",
 ];
 
-export async function createSchema(db: Store): Promise<void> {
+/**
+ * The shape of the store. `CREATE TABLE IF NOT EXISTS` cannot add a column to a table that
+ * exists, so a change to `LOADED_TABLES` or `SCHEMA` bumps this, and a store stamped with an
+ * older version is dropped and recreated whole: it is a copy of releases still in R2, and
+ * `POST /load` puts one back.
+ */
+export const SCHEMA_VERSION = "2";
+
+/** Create the store's tables, or recreate them all when the stamped version is not this one. Returns whether it reset. */
+export async function createSchema(db: Store): Promise<boolean> {
+  await db.exec("CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)");
+  const stamped = await db
+    .prepare("SELECT value FROM meta WHERE key = 'schema_version'")
+    .first<{ value: string }>();
+  const reset = stamped !== null && stamped.value !== SCHEMA_VERSION;
+  if (reset) {
+    for (const table of [...Object.keys(LOADED_TABLES), "releases"])
+      await db.exec(`DROP TABLE IF EXISTS ${table}`);
+  }
   for (const statement of SCHEMA) await db.exec(statement.replace(/\s+/g, " "));
+  await db
+    .prepare("INSERT OR REPLACE INTO meta (key, value) VALUES ('schema_version', ?)")
+    .bind(SCHEMA_VERSION)
+    .run();
+  if (reset)
+    console.log(
+      JSON.stringify({
+        message: "release store recreated",
+        from: stamped?.value,
+        to: SCHEMA_VERSION,
+      }),
+    );
+  return reset;
 }
 
 /** A row as the load part gives it: the build's row with absent fields left out. */
