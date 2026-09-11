@@ -16,14 +16,16 @@ export const MAX_SITEMAPS = 40;
  * is literal. All in One SEO writes `<loc><![CDATA[https://…]]></loc>`, and a pattern that wanted
  * the address to start right after the tag read APsystems' whole sitemap as empty (#48).
  */
-const LOC = /<loc>\s*(?:<!\[CDATA\[\s*([^\]]*?)\s*\]\]>|([^<\s]+))\s*<\/loc>/gi;
+const LOC = /<loc>\s*(?:<!\[CDATA\[([\s\S]*?)\]\]>|([^<\s]+))\s*<\/loc>/gi;
 
 /** Every `<loc>` in a sitemap or sitemap index, with XML entities decoded. */
 export function locations(xml: string): string[] {
   const out: string[] = [];
   for (const m of xml.matchAll(LOC)) {
     if (m[1] !== undefined) {
-      if (m[1]) out.push(m[1]);
+      // A CDATA section ends only at `]]>`, so a `]` inside the address is part of it.
+      const literal = m[1].trim();
+      if (literal) out.push(literal);
       continue;
     }
     out.push(

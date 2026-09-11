@@ -19,16 +19,28 @@ const ownHost = (url: string, domains: readonly string[]): boolean => {
 };
 
 /**
+ * The hosts to knock on for a domain: the domain itself, and `www.` in front of it when it is an
+ * apex. `powerequipment.honda.com` and `solar.se.com` are sites in their own right, and a `www.`
+ * in front of those is nobody's name.
+ */
+export function hostsToTry(domain: string): string[] {
+  const apex = domain.split(".").length === 2;
+  return apex ? [domain, `www.${domain}`] : [domain];
+}
+
+/**
  * The sitemap of one domain, read from the bare host and then from `www.` when the bare host does
  * not answer. `pytesgroup.com` does not resolve and `longi.com` serves a certificate for another
  * name, while both answer at `www.`; a discovery that only knocked at the apex read nothing (#48).
+ * A child sitemap is opened only on the maker's hosts: the index is the site's word, and the
+ * crawl's boundary is the record's.
  */
 async function sitemapOf(
   domain: string,
+  domains: readonly string[],
   get: (url: string) => Promise<string>,
 ): Promise<SitemapListing | undefined> {
-  const hosts = domain.startsWith("www.") ? [domain] : [domain, `www.${domain}`];
-  for (const host of hosts) {
+  for (const host of hostsToTry(domain)) {
     let root: string;
     try {
       root = await get(`https://${host}/sitemap.xml`);
@@ -38,7 +50,8 @@ async function sitemapOf(
     const listed = locations(root);
     if (!isIndex(root)) return { host, listed };
     const urls: string[] = [];
-    for (const child of listed.slice(0, MAX_CHILD_SITEMAPS)) {
+    const children = listed.filter((u) => ownHost(u, domains)).slice(0, MAX_CHILD_SITEMAPS);
+    for (const child of children) {
       try {
         urls.push(...locations(await get(child)));
       } catch {
@@ -67,10 +80,9 @@ export async function discoverPages(
 ): Promise<string[]> {
   const urls: string[] = [];
   for (const domain of domains) {
-    const sitemap = await sitemapOf(domain, get);
+    const sitemap = await sitemapOf(domain, domains, get);
     if (!sitemap) {
-      urls.push(`https://${domain}/`);
-      if (!domain.startsWith("www.")) urls.push(`https://www.${domain}/`);
+      urls.push(...hostsToTry(domain).map((host) => `https://${host}/`));
       continue;
     }
     const own = sitemap.listed.filter((u) => ownHost(u, domains));

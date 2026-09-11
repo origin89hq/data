@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { discoverPages, MAX_CHILD_SITEMAPS } from "../src/discover.ts";
+import { discoverPages, hostsToTry, MAX_CHILD_SITEMAPS } from "../src/discover.ts";
 
 const urlset = (...urls: string[]) =>
   `<?xml version="1.0"?><urlset>${urls.map((u) => `<url><loc>${u}</loc></url>`).join("")}</urlset>`;
@@ -70,6 +70,26 @@ test("a host that never answers gets both its home pages tried, and a www domain
   const www = site({});
   assert.deepEqual(await discoverPages(["www.maker.test"], www.get), ["https://www.maker.test/"]);
   assert.deepEqual(www.asked, ["https://www.maker.test/sitemap.xml"]);
+  // A subdomain is a site of its own; `www.` in front of it is nobody's name.
+  const sub = site({});
+  assert.deepEqual(await discoverPages(["power.maker.test"], sub.get), [
+    "https://power.maker.test/",
+  ]);
+  assert.deepEqual(sub.asked, ["https://power.maker.test/sitemap.xml"]);
+  assert.deepEqual(hostsToTry("maker.test"), ["maker.test", "www.maker.test"]);
+});
+
+test("an index's child on a host the record does not claim is never opened", async () => {
+  const { get, asked } = site({
+    "https://maker.test/sitemap.xml": index(
+      "https://cdn.other.test/maker-sitemap.xml",
+      "https://maker.test/product-sitemap.xml",
+    ),
+    "https://cdn.other.test/maker-sitemap.xml": urlset("https://maker.test/leaked"),
+    "https://maker.test/product-sitemap.xml": urlset("https://maker.test/product/a"),
+  });
+  assert.deepEqual(await discoverPages(["maker.test"], get), ["https://maker.test/product/a"]);
+  assert.ok(!asked.includes("https://cdn.other.test/maker-sitemap.xml"));
 });
 
 test("an index is opened up to its cap, a child that fails costs only itself, and CDATA locations count", async () => {
