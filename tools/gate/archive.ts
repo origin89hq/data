@@ -195,6 +195,12 @@ export async function readCrawl(
       const guess = Guess.parse(JSON.parse(line));
       guesses.set(`${guess.seller}/${guess.productId}`, guess);
     }
+    // Every part written is not every listing answered. A classify message queued before #16
+    // carries a batch of the listings not answered then, under the same part number as the new
+    // batch, and can land after it: the parts are whole and some listings have no guess.
+    const unanswered = sightings.filter((s) => !guesses.has(`${s.seller}/${s.productId}`)).length;
+    if (unanswered > 0)
+      missingParts.push(`${unanswered} of ${sightings.length} listings without a guess`);
   }
   const sightingKeys = new Set(await keysUnder(`${prefix}/page-`, remote));
   for (const page of pages) {

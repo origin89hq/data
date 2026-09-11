@@ -109,6 +109,18 @@ test("a crawl being classified again, its manifest gone and a part written, is n
   mockArchive(t, objects);
   assert.deepEqual((await readCrawl("shop", date, false))?.missingParts, ["no classification yet"]);
 });
+test("a classification with every part written but a listing without a guess is not whole", async (t) => {
+  // A part overwritten by a message queued before #16, which batched only the listings new then.
+  const objects = fixture();
+  objects[`${sightings}/page-0007.jsonl`] = [
+    objects[`${sightings}/page-0007.jsonl`],
+    JSON.stringify({ ...JSON.parse(objects[`${sightings}/page-0007.jsonl`]), productId: "2" }),
+  ].join("\n");
+  mockArchive(t, objects);
+  const result = await readCrawl("shop", date, false);
+  assert.equal(result?.sightings.length, 2);
+  assert.deepEqual(result?.missingParts, ["1 of 2 listings without a guess"]);
+});
 test("a classification that left out listings answered on an earlier run is not whole", async (t) => {
   const objects = fixture();
   objects[`${guesses}/manifest.json`] = JSON.stringify({ parts: 1, alreadyAnswered: 6 });
