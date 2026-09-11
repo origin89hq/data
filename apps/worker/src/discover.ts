@@ -365,6 +365,28 @@ export function hopOrder(candidates: readonly string[]): string[] {
   return [...first, ...rest];
 }
 
+/**
+ * The next pages to follow: up to `limit` entries of the ranked frontier from `from`, skipping
+ * any that a page read since has landed on, and where the walk stopped so the next batch starts
+ * there. A frontier drawn on this way replenishes itself: a slot a redirect would have wasted
+ * goes to the candidate after it.
+ */
+export function nextHop(
+  frontier: readonly string[],
+  from: number,
+  skip: ReadonlySet<string>,
+  limit: number,
+): { slice: string[]; cursor: number } {
+  const slice: string[] = [];
+  let cursor = from;
+  while (cursor < frontier.length && slice.length < limit) {
+    const candidate = frontier[cursor];
+    cursor += 1;
+    if (candidate !== undefined && !skip.has(candidate)) slice.push(candidate);
+  }
+  return { slice, cursor };
+}
+
 /** What one batch of pages gave, in numbers a plan can carry and a person can read. */
 export interface PagesRead {
   links: Found[];

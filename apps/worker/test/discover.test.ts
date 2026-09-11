@@ -11,6 +11,7 @@ import {
   isPage,
   MAX_CHILD_SITEMAPS,
   MAX_LINKS_PER_BATCH,
+  nextHop,
   pageLinks,
   readPages,
 } from "../src/discover.ts";
@@ -463,6 +464,22 @@ test("a batch hands back at most a bounded frontier, so a link-heavy catalogue c
   ]);
   assert.equal(read.linksDropped, 52, "and says how many were left behind");
   assert.equal(read.read, 2, "the cap costs links, not pages");
+});
+
+test("the frontier is drawn on batch by batch, skipping what a page has since landed on", () => {
+  const frontier = ["a", "b", "c", "d", "e", "f"];
+  const landed = new Set(["b", "e"]);
+  const first = nextHop(frontier, 0, landed, 2);
+  assert.deepEqual(first, { slice: ["a", "c"], cursor: 3 });
+  const second = nextHop(frontier, first.cursor, landed, 2);
+  assert.deepEqual(
+    second,
+    { slice: ["d", "f"], cursor: 6 },
+    "a skipped slot goes to the next candidate",
+  );
+  assert.deepEqual(nextHop(frontier, second.cursor, landed, 2), { slice: [], cursor: 6 });
+  assert.deepEqual(nextHop(frontier, 0, new Set(frontier), 3), { slice: [], cursor: 6 });
+  assert.deepEqual(nextHop(frontier, 0, landed, 0), { slice: [], cursor: 0 });
 });
 
 test("links are followed product and download pages first, in the order they were found", () => {

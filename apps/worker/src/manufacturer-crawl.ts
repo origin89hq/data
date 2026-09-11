@@ -11,6 +11,7 @@ import {
   type DiscoverySeen,
   discoverPages,
   hopOrder,
+  nextHop,
   type PagesRead,
   readPages,
 } from "./discover.ts";
@@ -156,17 +157,22 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     // leaves out is one link from a category page that it does list, and a maker with no sitemap
     // at all has only its home page to start from. Product and download pages go first, and a run
     // costs what it cost before, since the hop spends the same budget the sitemap did not.
-    // A link found early to the address a later page redirected to is that page, already read.
-    const hop = hopOrder(candidates.filter((c) => !landedAt.has(c))).slice(
-      0,
-      Math.max(0, budget - pages.length),
-    );
-    for (let b = 0; b * DISCOVER_BATCH < hop.length; b += 1) {
-      const slice = hop.slice(b * DISCOVER_BATCH, (b + 1) * DISCOVER_BATCH);
+    // The frontier is drawn on batch by batch, skipping any address a page has since landed on:
+    // a followed page that redirects to a later candidate makes that candidate a page already
+    // read, and the slot goes to the next one instead.
+    const frontier = hopOrder(candidates);
+    let remaining = Math.max(0, budget - pages.length);
+    let cursor = 0;
+    for (let b = 0; remaining > 0 && cursor < frontier.length; b += 1) {
+      const next = nextHop(frontier, cursor, landedAt, Math.min(DISCOVER_BATCH, remaining));
+      cursor = next.cursor;
+      if (next.slice.length === 0) break;
+      const slice = next.slice;
       const batch = await step.do(`follow links ${b + 1}`, reading, () =>
         readPages(slice, domains),
       );
       take(batch);
+      remaining -= slice.length;
       seen.pages.followed = (seen.pages.followed ?? 0) + batch.read;
       await step.sleep(`politeness after links ${b + 1}`, "2 seconds");
     }
