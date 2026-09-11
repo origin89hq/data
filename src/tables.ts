@@ -68,7 +68,7 @@ export function tables(records: Records, feeds = readFeeds()): Table[] {
     refiled_from: d.refiledFrom,
     possible_duplicate: d.possibleDuplicate ?? false,
   }));
-  const col = (name: string, type: "VARCHAR" | "BOOLEAN" | "INTEGER" = V) => ({ name, type });
+  const col = (name: string, type: Table["columns"][number]["type"] = V) => ({ name, type });
   return [
     {
       name: "dialects",
