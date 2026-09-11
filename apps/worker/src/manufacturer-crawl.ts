@@ -135,6 +135,8 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
         seen.pages.linksDropped = (seen.pages.linksDropped ?? 0) + batch.linksDropped;
       for (const [status, n] of Object.entries(batch.failed))
         seen.pages.failed[status] = (seen.pages.failed[status] ?? 0) + n;
+      if (batch.foreignDropped > 0)
+        seen.foreignDocumentsDropped = (seen.foreignDocumentsDropped ?? 0) + batch.foreignDropped;
       for (const [host, urls] of Object.entries(batch.foreign)) {
         const known = foreignSeen.get(host) ?? new Set<string>();
         for (const url of urls) known.add(url);
@@ -147,9 +149,14 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       retries: { limit: 2, delay: "15 seconds", backoff: "exponential" },
       timeout: "3 minutes",
     } as const;
+    // What the sitemap batches actually asked for: two listed pages that alias through a redirect
+    // cost one request, and the slot goes to the hop.
+    let attempted = 0;
     for (let b = 0; b * DISCOVER_BATCH < pages.length; b += 1) {
       const slice = pages.slice(b * DISCOVER_BATCH, (b + 1) * DISCOVER_BATCH);
-      take(await step.do(`read pages ${b + 1}`, reading, () => readPages(slice, domains)));
+      const batch = await step.do(`read pages ${b + 1}`, reading, () => readPages(slice, domains));
+      take(batch);
+      attempted += batch.attempted;
       await step.sleep(`politeness after pages ${b + 1}`, "2 seconds");
     }
 
@@ -161,7 +168,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     // a followed page that redirects to a later candidate makes that candidate a page already
     // read, and the slot goes to the next one instead.
     const frontier = hopOrder(candidates);
-    let remaining = Math.max(0, budget - pages.length);
+    let remaining = Math.max(0, budget - attempted);
     let cursor = 0;
     for (let b = 0; remaining > 0 && cursor < frontier.length; b += 1) {
       const next = nextHop(frontier, cursor, landedAt, Math.min(DISCOVER_BATCH, remaining));

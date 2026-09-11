@@ -411,6 +411,8 @@ export interface PagesRead {
   failed: Record<string, number>;
   /** Documents linked on hosts the record does not claim: the distinct addresses, by host. */
   foreign: Record<string, string[]>;
+  /** Foreign addresses cut from those lists to keep the result under the step cap. */
+  foreignDropped: number;
   /** Hosts outside the record that pages redirected to. */
   redirectedTo: string[];
 }
@@ -436,6 +438,7 @@ export async function readPages(
     read: 0,
     failed: {},
     foreign: {},
+    foreignDropped: 0,
     redirectedTo: [],
   };
   const strayedTo = new Set<string>();
@@ -524,7 +527,9 @@ function bound(out: PagesRead): void {
   }
   for (const host of Object.keys(out.foreign)) {
     if (size() <= MAX_RESULT_BYTES) break;
-    out.foreign[host] = (out.foreign[host] ?? []).slice(0, 20);
+    const urls = out.foreign[host] ?? [];
+    out.foreignDropped += Math.max(0, urls.length - 20);
+    out.foreign[host] = urls.slice(0, 20);
   }
 }
 
@@ -542,7 +547,8 @@ export interface DiscoverySeen {
     unfollowed?: number;
     failed: Record<string, number>;
   };
-  /** Distinct documents linked on hosts the record does not claim, by host. */
+  /** Distinct documents linked on hosts the record does not claim, by host, and how many more were seen than could be carried. */
   foreignDocumentHosts: Record<string, number>;
+  foreignDocumentsDropped?: number;
   redirectedTo: string[];
 }

@@ -530,6 +530,8 @@ test("the whole result stays under the step cap, frontier first and foreign list
   );
   assert.ok(read.pages.length > 0, "the frontier is trimmed, not emptied");
   assert.equal(read.linksDropped, 3000 - read.pages.length);
+  const kept = read.foreign["cdn.other.test"]?.length ?? 0;
+  assert.equal(read.foreignDropped, 900 - kept, "foreign addresses cut are counted, not lost");
 });
 
 test("href text in a script, a comment or a data attribute is not a page to follow", () => {
