@@ -984,7 +984,7 @@ test("a release can be put into the store by hand, once, and only by its id (#83
   assert.equal(first.load, "started");
   assert.match(
     first.instance,
-    new RegExp(`^load-${id}-[0-9a-z]+$`),
+    new RegExp(`^load-${id}-[0-9a-z]+-[0-9a-f]{8}$`),
     "a reload is its own instance",
   );
   assert.deepEqual(loads, [{ id: first.instance, params: { release: id } }]);
