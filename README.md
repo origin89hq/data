@@ -191,9 +191,16 @@ makers is the gate's decision.
 | `dialect_gotchas` | thing that bites, in order |
 | `dialect_see_also` | sibling id an entry may duplicate |
 | `models` | product a maker makes, with its kind where something has said, and the aliases other names reach it by |
+| `model_keys` | name a model answers to, under each name its maker goes by, as the key the one rule gives it |
 | `model_dialects` | dialect a model is known to speak, carrying the catalogue's own claim and its confidence |
 | `specs` | one rated figure, with its unit, the conditions it holds under, its source and page |
 | `sources` | source: url or repository path, plus title, publisher, revision, hash, retrieval date and licence once reviewed |
+
+`model_keys` is how a name is resolved to a model, here and in the API: a key is
+the maker's or brand's name followed by the model name, each in Unicode NFKC
+form, lower case, with spaces and dashes removed and the maker's own name taken
+off the front of the model name. The rule lives in `packages/api` so a consumer
+can reproduce it. A key that reaches two models is ambiguous, and stays so.
 
 Absence is an empty cell, never a default. `confidence` is one of `vendor-doc`,
 `community-crosschecked`, `community-single`, `unverified`; the last must not be

@@ -3,7 +3,8 @@ import { logoKey } from "./logos.ts";
 /** Where a published logo is served from. The Worker is the only thing that reads the archive. */
 const LOGO_BASE = "https://data.origin89.com";
 
-import { attachMakers, feedSource, readFeeds } from "./feeds.ts";
+import { modelKey, nameKey } from "@origin89/equipment-api/keys";
+import { attachMakers, type FeedModel, feedSource, readFeeds } from "./feeds.ts";
 import type { Records } from "./records.ts";
 import { canonicalUnit, concerns as figureConcerns } from "./units.ts";
 
@@ -277,6 +278,13 @@ export function tables(records: Records, feeds = readFeeds()): Table[] {
       rows: records.models.flatMap((m) => m.aliases.map((alias) => ({ model_id: m.id, alias }))),
     },
     {
+      // Every name a model answers to, under every name its maker goes by, keyed by the one rule
+      // in `@origin89/equipment-api/keys` (#83). A key two rows share is ambiguous, and stays so.
+      name: "model_keys",
+      columns: [col("model_id"), col("key"), col("name_key"), col("label"), col("via")],
+      rows: modelKeyRows(records, brandsByMaker, feedRows),
+    },
+    {
       name: "model_dialects",
       columns: [col("model_id"), col("dialect_id")],
       rows: records.models.flatMap((m) =>
@@ -437,4 +445,41 @@ export function duplicateIds(table: Table): string[] {
     seen.add(id);
   }
   return [...repeated].sort();
+}
+
+/**
+ * The key rows of every model, record and feed alike. A record model is keyed under its maker's
+ * name and each brand the gate confirmed for that maker; a feed row under the name the feed
+ * prints, and under the same names as a record once it is attached to a maker.
+ */
+export function modelKeyRows(
+  records: Pick<Records, "models" | "manufacturers">,
+  brandsByMaker: ReadonlyMap<string, string[]>,
+  feedRows: readonly { model: FeedModel }[],
+): Row[] {
+  const makerName = new Map(records.manufacturers.map((m) => [m.id, m.name]));
+  const labelsOf = (maker: string | undefined, printed?: string): string[] => {
+    const labels = printed ? [printed] : [];
+    if (maker) labels.push(makerName.get(maker) ?? maker, ...(brandsByMaker.get(maker) ?? []));
+    return [...new Set(labels)];
+  };
+  const out: Row[] = [];
+  const seen = new Set<string>();
+  const add = (model_id: string, labels: string[], names: [string, "name" | "alias"][]) => {
+    for (const label of labels)
+      for (const [name, via] of names) {
+        const key = modelKey(label, name);
+        if (!key || seen.has(`${model_id}\u0000${key}`)) continue;
+        seen.add(`${model_id}\u0000${key}`);
+        out.push({ model_id, key, name_key: nameKey(label, name), label, via });
+      }
+  };
+  for (const m of records.models)
+    add(m.id, labelsOf(m.manufacturer), [
+      [m.name, "name"],
+      ...m.aliases.map((a): [string, "alias"] => [a, "alias"]),
+    ]);
+  for (const { model } of feedRows)
+    add(model.id, labelsOf(model.manufacturer, model.manufacturerName), [[model.name, "name"]]);
+  return out;
 }

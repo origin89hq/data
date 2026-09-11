@@ -11,5 +11,10 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*.ts", "worker-configuration.d.ts", "../../packages/schema/src/*.ts"]
+  "include": [
+    "src/**/*.ts",
+    "worker-configuration.d.ts",
+    "../../packages/schema/src/*.ts",
+    "../../packages/api/src/*.ts"
+  ]
 }

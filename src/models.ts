@@ -1,3 +1,4 @@
+import { keyPart } from "@origin89/equipment-api/keys";
 import type { Brand } from "@origin89/equipment-schema/brand";
 import type { Dialect } from "@origin89/equipment-schema/dialect";
 import type { EquipmentKind, Guess } from "@origin89/equipment-schema/guess";
@@ -227,7 +228,8 @@ export function deriveModels({
   const dialectByModel = new Map<string, string[]>();
   for (const d of dialects) {
     for (const m of d.models ?? []) {
-      const key = normaliseModelName(m.name).toLowerCase();
+      // The name's half of the one key rule: a catalogue entry names no maker to scope it by.
+      const key = keyPart(normaliseModelName(m.name));
       if (!key) continue;
       dialectByModel.set(key, [...(dialectByModel.get(key) ?? []), d.id]);
     }
@@ -254,7 +256,7 @@ export function deriveModels({
           name,
           ...(guess ? { kind: guess.kind } : {}),
           aliases: [],
-          dialects: dialectByModel.get(name.toLowerCase()) ?? [],
+          dialects: dialectByModel.get(keyPart(name)) ?? [],
         } as Model,
         listings: 0,
         sellers: new Set<string>(),

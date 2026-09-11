@@ -109,6 +109,9 @@ importers:
 
   .:
     dependencies:
+      '@origin89/equipment-api':
+        specifier: workspace:*
+        version: link:packages/api
       '@origin89/equipment-schema':
         specifier: workspace:*
         version: link:packages/schema
@@ -187,6 +190,12 @@ importers:
       wrangler:
         specifier: 4.130.0
         version: 4.130.0
+
+  packages/api:
+    dependencies:
+      zod:
+        specifier: 4.5.4
+        version: 4.5.4
 
   packages/schema:
     dependencies:

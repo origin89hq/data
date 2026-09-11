@@ -214,3 +214,70 @@ test("the feeds table counts what the feeds it was given hold", () => {
     },
   ]);
 });
+
+test("model_keys keys every name under every label the maker goes by, by the one rule (#83)", () => {
+  const withBrand: Records = {
+    ...records,
+    manufacturers: [
+      { id: "rolls", name: "Rolls Battery", domains: [] },
+    ] as unknown as Records["manufacturers"],
+    brands: [
+      {
+        id: "surrette",
+        brand: "Surrette",
+        decision: "manufacturer",
+        manufacturer: "rolls",
+        evidence: {
+          sellers: ["shop"],
+          listings: 1,
+          inScope: 1,
+          kinds: [],
+          models: [],
+          proposed: [],
+          examples: [],
+          seenAt: "2026-09-01",
+        },
+      },
+    ] as unknown as Records["brands"],
+    models: [
+      Model.parse({ id: "rolls--s-550", manufacturer: "rolls", name: "S-550", aliases: ["S550"] }),
+    ],
+    specs: [],
+  };
+  const rows = tables(withBrand, [{ feed, models: [feedModel] }]).find(
+    (t) => t.name === "model_keys",
+  );
+  assert.deepEqual(rows?.rows, [
+    {
+      model_id: "rolls--s-550",
+      key: "rollsbatterys550",
+      name_key: "s550",
+      label: "Rolls Battery",
+      via: "name",
+    },
+    {
+      model_id: "rolls--s-550",
+      key: "surrettes550",
+      name_key: "s550",
+      label: "Surrette",
+      via: "name",
+    },
+    {
+      model_id: "sam--acme--i-3000",
+      key: "acmei3000",
+      name_key: "i3000",
+      label: "Acme",
+      via: "name",
+    },
+  ]);
+  // An alias that keys the same as the name is one row, not two; a maker held by id alone is
+  // keyed by that id.
+  const plain = tables(records, []).find((t) => t.name === "model_keys");
+  assert.deepEqual(
+    plain?.rows.map((r) => [r.model_id, r.key, r.via]),
+    [
+      ["rolls--s-550", "rollss550", "name"],
+      ["rolls--s-600", "rollss600", "name"],
+    ],
+  );
+});
