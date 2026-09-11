@@ -362,6 +362,8 @@ test("a key two models share is ambiguous, never picked, and a miss shows near n
 
 test("a label read off a device resolves whether or not the maker is printed on it", async () => {
   const { db } = await fixture();
+  const reversed = await resolve(db, RELEASE, { label: "SmartSolar MPPT 150/35 Victron Energy" });
+  assert.equal(reversed.outcome, "exact", "a label that prints the model before the maker");
   for (const label of [
     "Victron Energy SmartSolar MPPT 150/35",
     "SmartSolar MPPT 150/35",
@@ -663,6 +665,16 @@ test("a cursor is bound to its search, and a forgotten release is refused before
     search(db, RELEASE, { brand: "Victron", limit: 2, cursor: JSON.stringify(["zzz", "zzz"]) }),
     /not a cursor/,
     "a made-up cursor is refused rather than skipping every row",
+  );
+  const [, , mark] = JSON.parse(first.cursor ?? "[]") as string[];
+  await assert.rejects(
+    search(db, RELEASE, {
+      brand: "Victron",
+      limit: 2,
+      cursor: JSON.stringify(["zzz", "zzz", mark]),
+    }),
+    /not a cursor/,
+    "a cursor whose boundary was edited under a real digest is refused too",
   );
   await assert.rejects(
     search(db, OLDER, { brand: "Victron", limit: 2, cursor: first.cursor }),

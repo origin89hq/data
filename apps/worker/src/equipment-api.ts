@@ -19,13 +19,30 @@ import {
   type SearchQuery,
   type Source,
 } from "@origin89/equipment-api";
-import type { Store } from "./release-store.ts";
+import { createSchema, type Store } from "./release-store.ts";
 
 /**
  * The answers behind the EquipmentApi, each over one release of the store (#83). Every function
  * here takes the release id it answers for, so nothing can mix two releases in one answer, and
  * every list is cut at a limit the contract states, with the cut said out loud.
  */
+
+/**
+ * The store's tables, created once per isolate before the first answer. A reader deployed ahead
+ * of the next publication would otherwise ask a table the load Workflow has not created yet.
+ */
+const ensured = new WeakMap<Store, Promise<boolean>>();
+export function ensureSchema(db: Store): Promise<boolean> {
+  let pending = ensured.get(db);
+  if (!pending) {
+    pending = createSchema(db).catch((error) => {
+      ensured.delete(db);
+      throw error;
+    });
+    ensured.set(db, pending);
+  }
+  return pending;
+}
 
 export class NoSuchRelease extends Error {
   override name = "NoSuchRelease";
@@ -214,9 +231,10 @@ export async function resolve(db: Store, release: string, q: ResolveQuery): Prom
       (
         await db
           .prepare(
-            `${KEYED} AND (k.key = ? OR (length(k.name_key) >= 3 AND substr(?, -length(k.name_key)) = k.name_key)) ${OF_KIND} ORDER BY k.rowid`,
+            // The whole label as a key, or a name printed after its maker, or before it.
+            `${KEYED} AND (k.key = ? OR (length(k.name_key) >= 3 AND (substr(?, -length(k.name_key)) = k.name_key OR substr(?, 1, length(k.name_key)) = k.name_key))) ${OF_KIND} ORDER BY k.rowid`,
           )
-          .bind(release, key, key, kind ?? null, kind ?? null)
+          .bind(release, key, key, key, kind ?? null, kind ?? null)
           .all<{ model_id: string }>()
       ).results,
     );
@@ -386,9 +404,11 @@ export async function search(
  * rather than skipping rows quietly.
  */
 const scopeOf = (release: string, q: SearchQuery): string =>
-  fnv1a(`${release}|${q.brand ?? ""}|${q.prefix ?? ""}|${q.kind ?? ""}`);
+  `${release}|${q.brand ?? ""}|${q.prefix ?? ""}|${q.kind ?? ""}`;
+/** The digest covers the boundary as well as the scope: an edited name or id is not ours either. */
+const stamp = (scope: string, name: string, id: string): string => fnv1a(`${scope}|${name}|${id}`);
 const joinCursor = (name: string, id: string, scope: string): string =>
-  JSON.stringify([name, id, scope]);
+  JSON.stringify([name, id, stamp(scope, name, id)]);
 const splitCursor = (cursor: string, scope: string): [string, string] => {
   try {
     const parsed = JSON.parse(cursor) as unknown;
@@ -396,7 +416,7 @@ const splitCursor = (cursor: string, scope: string): [string, string] => {
       Array.isArray(parsed) &&
       typeof parsed[0] === "string" &&
       typeof parsed[1] === "string" &&
-      parsed[2] === scope
+      parsed[2] === stamp(scope, parsed[0], parsed[1])
     )
       return [parsed[0], parsed[1]];
   } catch {
