@@ -6,6 +6,7 @@ import { loadPartName } from "@origin89/equipment-schema/releases";
 import {
   bundle,
   currentRelease,
+  ensureSchema,
   loadedRelease,
   properties,
   releaseInfo,
@@ -1161,4 +1162,15 @@ test("a link with more citations than the schema admits is refused whole, never 
   );
   const fine = await bundle(db, RELEASE, { models: ["epever-xtra4210n"] });
   assert.equal(fine.protocol[0]?.evidence?.sources.length, 1);
+});
+
+test("a reader on a store nothing has loaded yet answers empty rather than asking a missing table", async () => {
+  const { env } = world();
+  assert.equal(await ensureSchema(env.RELEASES), false, "a fresh store is created, not reset");
+  assert.equal(await ensureSchema(env.RELEASES), false, "and only once per store");
+  await assert.rejects(currentRelease(env.RELEASES), /no release is loaded yet/);
+  const out = await bundle(env.RELEASES, RELEASE, { models: ["nothing"] });
+  assert.deepEqual([out.models, out.unknown, out.protocol, out.sources], [[], ["nothing"], [], []]);
+  const found = await resolve(env.RELEASES, RELEASE, { model: "Q" });
+  assert.equal(found.outcome, "none");
 });
