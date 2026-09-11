@@ -480,11 +480,19 @@ const count = (into: Record<string, number>, key: string): void => {
   into[key] = (into[key] ?? 0) + 1;
 };
 
-/** Read pages for their document links, and say what each page that gave none answered instead. */
+/**
+ * Read pages for their document links, and say what each page that gave none answered instead.
+ *
+ * A document is the maker's when it is on the maker's hosts, or on a host the record names as
+ * where its pages keep documents (`documentHosts`) and the page linking it is on the maker's
+ * hosts. A page that landed on another site vouches for nothing on a document host: only its
+ * own-host documents count, and the rest are reported.
+ */
 export async function readPages(
   pages: readonly string[],
   domains: readonly string[],
   get: Get = fetchPage,
+  documentHosts: readonly string[] = [],
   /** Addresses earlier batches landed on: a listed page among them is a page already read. */
   skip: ReadonlySet<string> = new Set(),
 ): Promise<PagesRead> {
@@ -543,8 +551,9 @@ export async function readPages(
     out.landed.push(answer.url);
     out.opened.push(page);
     // Links resolve against where the page actually is, which after a redirect is not where it was asked for.
+    const keep = away ? domains : [...domains, ...documentHosts];
     for (const doc of linkedDocuments(answer.text, answer.url)) {
-      if (hostAllowed(doc.host, domains)) out.links.push(doc);
+      if (hostAllowed(doc.host, keep)) out.links.push(doc);
       else {
         // A CDN manual linked from a footer on twenty pages is one document, not twenty.
         const urls = out.foreign[doc.host] ?? [];
@@ -613,6 +622,20 @@ function bound(out: PagesRead): void {
     out.documentsDropped += out.links.length - keep;
     out.links = out.links.slice(0, keep);
   }
+}
+
+/**
+ * The document hosts a run may vouch for: the record's, and only when the run reads the record's
+ * own domains. The `/maker` route lets a caller name the domains, and a run over a reseller's site
+ * must not put files from the maker's CDN into the maker's plan.
+ */
+export function trustedDocumentHosts(
+  record: { domains: readonly string[]; documentHosts?: readonly string[] } | undefined,
+  domains: readonly string[],
+): string[] {
+  if (!record || domains.length === 0) return [];
+  const own = domains.every((d) => record.domains.includes(d));
+  return own ? [...(record.documentHosts ?? [])] : [];
 }
 
 /** What the records cite on a maker's hosts, as bundled with the maker list. */

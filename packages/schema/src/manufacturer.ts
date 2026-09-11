@@ -17,6 +17,14 @@ export const Manufacturer = z
      * site belongs to this company; a reseller's domain does not go in.
      */
     domains: z.array(z.string().regex(/^[a-z0-9.-]+\.[a-z]{2,}$/)).default([]),
+    /**
+     * Hosts the maker's own pages keep its documents on without owning them: a shop's CDN, a
+     * CloudFront distribution, a Contentful or Cloudinary account. A document on one of these is
+     * offered only when a page on `domains` links it, and no page on them is ever read. Nine of
+     * the makers whose discovery found nothing keep every PDF this way (#48). Which host to add
+     * is read off an empty plan, which names the hosts the maker's pages linked.
+     */
+    documentHosts: z.array(z.string().regex(/^[a-z0-9.-]+\.[a-z]{2,}$/)).optional(),
     country: z.string().length(2).optional(),
     /** Why this record exists, or what a reader has to know: a rename, a parent company, a line sold under someone else's label. */
     notes: z.string().optional(),

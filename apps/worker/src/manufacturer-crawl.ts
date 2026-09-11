@@ -17,6 +17,7 @@ import {
   type PagesRead,
   readPages,
   seedPages,
+  trustedDocumentHosts,
   withCited,
 } from "./discover.ts";
 import { todayUtc, USER_AGENT } from "./feeds.ts";
@@ -87,12 +88,12 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       }),
     );
 
-    // What the records already cite on this maker's hosts, bundled with the maker list. A maker
-    // started under an id the records do not know has none, and reads its site like any other.
-    const cited: Cited = manufacturers.find((m) => m.id === manufacturerId)?.cited ?? {
-      documents: [],
-      pages: [],
-    };
+    // What the records already cite on this maker's hosts, and the hosts its pages keep documents
+    // on, bundled with the maker list. A maker started under an id the records do not know has
+    // neither, and reads its site like any other.
+    const record = manufacturers.find((m) => m.id === manufacturerId);
+    const cited: Cited = record?.cited ?? { documents: [], pages: [] };
+    const documentHosts = trustedDocumentHosts(record, domains);
     // The whole page budget: what the records cite, what the sitemap lists, and after that what
     // those pages link. The routes check the limit before a run starts; a budget that is not a
     // whole number would let the hop read every link it found, so a bad one is the default rather
@@ -181,7 +182,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     for (let b = 0; b * DISCOVER_BATCH < pages.length; b += 1) {
       const slice = pages.slice(b * DISCOVER_BATCH, (b + 1) * DISCOVER_BATCH);
       const batch = await step.do(`read pages ${b + 1}`, reading, () =>
-        readPages(slice, domains, undefined, landedAt),
+        readPages(slice, domains, undefined, documentHosts, landedAt),
       );
       take(batch);
       attempted += batch.attempted;
@@ -204,7 +205,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       if (next.slice.length === 0) break;
       const slice = next.slice;
       const batch = await step.do(`follow links ${b + 1}`, reading, () =>
-        readPages(slice, domains, undefined, landedAt),
+        readPages(slice, domains, undefined, documentHosts, landedAt),
       );
       take(batch);
       remaining -= batch.attempted;

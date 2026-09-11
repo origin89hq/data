@@ -2,12 +2,18 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { hostAllowed } from "@origin89/equipment-schema/documents";
+import { Manufacturer } from "@origin89/equipment-schema/manufacturer";
 import { citedFor, sourceIdsCitedBy } from "../src/cited.ts";
 import { loadRecords } from "../src/records.ts";
 
 const exported = JSON.parse(
   readFileSync(new URL("../apps/worker/manufacturers.json", import.meta.url), "utf8"),
-) as { id: string; domains: string[]; cited?: { documents: string[]; pages: string[] } }[];
+) as {
+  id: string;
+  domains: string[];
+  documentHosts?: string[];
+  cited?: { documents: string[]; pages: string[] };
+}[];
 const records = loadRecords();
 
 test("the bundled list matches the records it was generated from", () => {
@@ -18,6 +24,7 @@ test("the bundled list matches the records it was generated from", () => {
       return {
         id: m.id,
         domains: m.domains,
+        ...(m.documentHosts?.length ? { documentHosts: m.documentHosts } : {}),
         ...(cited.documents.length || cited.pages.length ? { cited } : {}),
       };
     })
@@ -25,8 +32,21 @@ test("the bundled list matches the records it was generated from", () => {
   assert.deepEqual(
     exported,
     expected,
-    "run `just export-makers` after changing a manufacturer's domains or a source's url",
+    "run `just export-makers` after changing a manufacturer's domains, document hosts or a source's url",
   );
+});
+
+test("a document host is a bare host name, the same shape as a domain, and never a page to read", () => {
+  const maker = { id: "eco-worthy", name: "ECO-WORTHY", domains: ["eco-worthy.com"] };
+  assert.deepEqual(
+    Manufacturer.parse({ ...maker, documentHosts: ["cdn.shopify.com"] }).documentHosts,
+    ["cdn.shopify.com"],
+  );
+  assert.equal(Manufacturer.parse(maker).documentHosts, undefined);
+  assert.throws(() =>
+    Manufacturer.parse({ ...maker, documentHosts: ["https://cdn.shopify.com/"] }),
+  );
+  assert.throws(() => Manufacturer.parse({ ...maker, documentHosts: ["cdn.shopify.com/s/files"] }));
 });
 
 test("what the records cite is bundled by maker, and EPEVER's controller manual is among it", () => {

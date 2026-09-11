@@ -18,6 +18,7 @@ import {
   pageLinks,
   readPages,
   seedPages,
+  trustedDocumentHosts,
   withCited,
 } from "../src/discover.ts";
 import { sample } from "../src/sitemap.ts";
@@ -576,6 +577,64 @@ test("links are followed product and download pages first, in the order they wer
     "not a url",
   ]);
   assert.deepEqual(hopOrder([]), []);
+});
+
+test("a document on a host the record names is the maker's when its own page links it, and not otherwise", async () => {
+  const { get } = site({
+    "https://maker.test/product/a": `<a href="https://cdn.shop.test/s/files/1/a-manual.pdf">manual</a><a href="https://other-cdn.test/x.pdf">elsewhere</a>`,
+    "https://maker.test/moved": {
+      url: "https://www.newname.test/moved",
+      text: `<a href="https://cdn.shop.test/s/files/1/b-manual.pdf">manual</a><a href="https://maker.test/own.pdf">own</a>`,
+    },
+  });
+  const read = await readPages(
+    ["https://maker.test/product/a", "https://maker.test/moved"],
+    ["maker.test"],
+    get,
+    ["cdn.shop.test"],
+  );
+  assert.deepEqual(read.links, [
+    {
+      url: "https://cdn.shop.test/s/files/1/a-manual.pdf",
+      host: "cdn.shop.test",
+      foundOn: "https://maker.test/product/a",
+    },
+    {
+      url: "https://maker.test/own.pdf",
+      host: "maker.test",
+      foundOn: "https://www.newname.test/moved",
+    },
+  ]);
+  assert.deepEqual(
+    read.foreign,
+    {
+      "other-cdn.test": ["https://other-cdn.test/x.pdf"],
+      "cdn.shop.test": ["https://cdn.shop.test/s/files/1/b-manual.pdf"],
+    },
+    "a page that landed elsewhere vouches for nothing on the document host",
+  );
+  const without = await readPages(["https://maker.test/product/a"], ["maker.test"], get);
+  assert.deepEqual(without.links, [], "with no document host named, the CDN is still reported");
+  assert.deepEqual(without.foreign, {
+    "cdn.shop.test": ["https://cdn.shop.test/s/files/1/a-manual.pdf"],
+    "other-cdn.test": ["https://other-cdn.test/x.pdf"],
+  });
+});
+
+test("a record's document hosts count only for a run over the record's own domains", () => {
+  const record = { domains: ["maker.test", "files.maker.test"], documentHosts: ["cdn.shop.test"] };
+  assert.deepEqual(trustedDocumentHosts(record, ["maker.test", "files.maker.test"]), [
+    "cdn.shop.test",
+  ]);
+  assert.deepEqual(trustedDocumentHosts(record, ["maker.test"]), ["cdn.shop.test"]);
+  assert.deepEqual(
+    trustedDocumentHosts(record, ["reseller.test"]),
+    [],
+    "a caller's own domains cannot vouch for the maker's CDN",
+  );
+  assert.deepEqual(trustedDocumentHosts(record, ["maker.test", "reseller.test"]), []);
+  assert.deepEqual(trustedDocumentHosts({ domains: ["maker.test"] }, ["maker.test"]), []);
+  assert.deepEqual(trustedDocumentHosts(undefined, ["maker.test"]), []);
 });
 
 test("cited pages are read first and the sitemap's fill what is left of the budget", () => {
