@@ -31,8 +31,11 @@ export function workflowOf(env: Env, id: string): Workflow {
 
 // Workflows retains completed IDs for at least three days with the default retention policy.
 // Reconcile an unacknowledged creation only within one day; never let an expired ID run again.
-// https://developers.cloudflare.com/workflows/build/workers-api/#createbatch
+// https://developers.cloudflare.com/workflows/build/workers-api/#create
 const RECOVERY_MS = 24 * 60 * 60 * 1000;
+
+const missingInstance = (error: unknown): boolean =>
+  error instanceof Error && /\binstance\.not_found\b/.test(error.message);
 
 async function finishCreation(
   env: Env,
@@ -42,23 +45,38 @@ async function finishCreation(
 ): Promise<string> {
   const { creation, ...accepted } = pointer;
   if (!creation) throw new RunConflict("No creation is reserved. Refresh and inspect the run.");
-  const age = Date.now() - Date.parse(pointer.startedAt);
-  if (!Number.isFinite(age) || age < 0 || age >= RECOVERY_MS)
-    throw new RunConflict(
-      `Creation of ${pointer.instance} is unconfirmed and too old to retry safely. Inspect it in Workflows before repairing the current pointer.`,
-    );
+  const workflow = workflowOf(env, pointer.instance);
+  const exists = async () => {
+    const instance = await workflow.get(pointer.instance);
+    await instance.status();
+  };
   try {
-    // Repeated calls use the saved ID AND parameters. createBatch skips an existing ID, even
-    // when the first call committed but its response was lost. No second crawl is created.
-    await workflowOf(env, pointer.instance).createBatch([
-      { id: pointer.instance, params: creation.params },
-    ]);
+    try {
+      // An acknowledged instance can be recovered even after the creation retry window. No
+      // creation call is needed, and no duplicate-ID behavior is assumed.
+      await exists();
+    } catch (error) {
+      if (!missingInstance(error)) throw error;
+      const age = Date.now() - Date.parse(pointer.startedAt);
+      if (!Number.isFinite(age) || age < 0 || age >= RECOVERY_MS)
+        throw new RunConflict(
+          `Creation of ${pointer.instance} is unconfirmed and too old to retry safely. Inspect it in Workflows before repairing the current pointer.`,
+        );
+      try {
+        await workflow.create({ id: pointer.instance, params: creation.params });
+      } catch {
+        // Another caller may have created this ID after our lookup, or creation may have
+        // committed before the response was lost. Confirm it; never create a different ID.
+        await exists();
+      }
+    }
     await env.ARCHIVE.put(key, JSON.stringify(accepted), {
       onlyIf: { etagMatches: etag },
       httpMetadata: { contentType: "application/json" },
     });
     return pointer.instance;
-  } catch {
+  } catch (error) {
+    if (error instanceof RunConflict) throw error;
     // Keep the reservation. Releasing it on a timeout would let a new ID duplicate this run.
     throw new RunStartUncertain(
       `Creation of ${pointer.instance} could not be confirmed. Refresh and inspect the run. Retrying within one day reconciles this same instance.`,
@@ -88,7 +106,7 @@ async function start(env: Env, key: string, prepare: () => Reservation): Promise
       // The monthly schedule outlives Workflows retention. Only an explicit not-found for an
       // acknowledged, older instance permits a replacement; outages and pending creations do not.
       const expired = Date.now() - Date.parse(pointer.startedAt) >= 3 * RECOVERY_MS;
-      if (!(expired && error instanceof Error && /\binstance\.not_found\b/.test(error.message)))
+      if (!(expired && missingInstance(error)))
         throw new RunConflict(
           `The status of ${pointer.instance} is unavailable. Inspect it before starting another run.`,
         );

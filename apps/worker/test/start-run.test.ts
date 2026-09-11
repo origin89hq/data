@@ -26,7 +26,7 @@ const request = (env: Env, path = makerPath) =>
     env,
   );
 
-/** R2 uses the existing conditional-write fake; Workflows keeps each ID once, as createBatch does. */
+/** R2 uses the conditional-write fake; Workflows creation throws for duplicate IDs. */
 function service(objects: Record<string, string> = {}) {
   const w = world(objects);
   const instances = new Map<string, string>();
@@ -34,25 +34,21 @@ function service(objects: Record<string, string> = {}) {
   const failures = { before: false, after: false, status: false };
   const hooks = { beforeCreate: async () => {}, beforeStatus: async () => {} };
   const binding = (tier: string) => ({
-    createBatch: async (batch: { id: string; params: unknown }[]) => {
-      const created = [];
-      for (const options of batch) {
-        calls.push({ ...options, tier });
-        await hooks.beforeCreate();
-        if (failures.before) throw Error("service unreachable");
-        if (!instances.has(options.id)) {
-          instances.set(options.id, "queued");
-          created.push({ id: options.id });
-        }
-        if (failures.after) throw Error("response lost after commit");
-      }
-      return created;
+    create: async (options: { id: string; params: unknown }) => {
+      calls.push({ ...options, tier });
+      await hooks.beforeCreate();
+      if (failures.before) throw Error("service unreachable");
+      if (instances.has(options.id)) throw Error("instance.already_exists");
+      instances.set(options.id, "queued");
+      if (failures.after) throw Error("response lost after commit");
+      return { id: options.id };
     },
     get: async (id: string) => ({
       status: async () => {
         await hooks.beforeStatus();
         if (failures.status) throw Error("status unavailable");
         if (!instances.has(id)) throw Error("instance.not_found");
+        if (failures.after) throw Error("status response lost");
         return { status: instances.get(id) };
       },
     }),
@@ -167,10 +163,10 @@ test("recovery before or after a lost create response keeps the reserved ID and 
     assert.equal(response.status, 200);
     assert.equal(((await response.json()) as { id: string }).id, reserved.instance);
     assert.equal(w.instances.size, 1);
-    assert.deepEqual(w.calls[1], w.calls[0]);
+    if (failure === "before") assert.deepEqual(w.calls[1], w.calls[0]);
     assert.equal(w.readObject<{ creation?: unknown }>(KEY).creation, undefined);
     assert.equal((await request(w.env)).status, 409);
-    assert.equal(w.calls.length, 2);
+    assert.equal(w.calls.length, failure === "before" ? 2 : 1);
   }
 });
 
@@ -346,4 +342,30 @@ test("direct page-limit requests cannot bypass the bounded dashboard controls", 
   assert.equal((await request(w.env, `/run?seller=${seller.id}`)).status, 200);
   assert.ok(w.calls[0]);
   assert.equal((w.calls[0].params as { limit: number }).limit, 120);
+});
+
+test("an old pending reservation confirms an existing workflow without creating it again", async () => {
+  const w = service();
+  w.failures.after = true;
+  assert.equal((await request(w.env)).status, 503);
+  const pending = w.readObject<Pointer>(KEY);
+  await w.env.ARCHIVE.put(KEY, JSON.stringify({ ...pending, startedAt: "2020-01-01T00:00:00Z" }));
+  w.failures.after = false;
+  const response = await request(w.env);
+  assert.equal(response.status, 200);
+  assert.equal(((await response.json()) as { id: string }).id, pending.instance);
+  assert.equal(w.calls.length, 1);
+  assert.equal(w.readObject<{ creation?: unknown }>(KEY).creation, undefined);
+});
+
+test("a lookup outage keeps a pending reservation and never attempts creation", async () => {
+  const w = service();
+  w.failures.before = true;
+  await request(w.env);
+  const pending = w.read(KEY);
+  w.failures.before = false;
+  w.failures.status = true;
+  assert.equal((await request(w.env)).status, 503);
+  assert.equal(w.calls.length, 1);
+  assert.deepEqual(w.read(KEY), pending);
 });
