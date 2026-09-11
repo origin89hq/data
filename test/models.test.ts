@@ -7,6 +7,8 @@ import { Model } from "@origin89/equipment-schema/model";
 import type { Sighting } from "@origin89/equipment-schema/sighting";
 import {
   deriveModels,
+  familyOf,
+  familyOfAnotherMaker,
   looksLikeModelName,
   modelId,
   normaliseModelName,
@@ -259,4 +261,87 @@ test("two genuinely different products keep their own records", () => {
 test("the name kept is the maker's, and the seller's becomes an alias", () => {
   assert.equal(preferredName(["PVEG4 6000XP Inverter", "6000XP", "EG4 6000xp"]), "6000XP");
   assert.equal(preferredName(["Sol-Ark 12K-2P-N", "12K-2P-N", "Sol-Ark12K-2P-N"]), "12K-2P-N");
+});
+
+test("a name's family is the word it leads with, unless that word is anybody's", () => {
+  assert.equal(familyOf("MultiPlus-II 48/3000/35-50"), "multiplus-ii");
+  assert.equal(familyOf("SmartSolar MPPT 100/20"), "smartsolar");
+  assert.equal(familyOf("MultiPlus-II/48/3000"), "multiplus-ii", "a slash ends the word too");
+  assert.equal(familyOf("12/3000/120-50"), undefined, "a bank voltage is nobody's family");
+  assert.equal(familyOf("12V LiFePO4 Battery"), undefined, "nor is a rating");
+  assert.equal(familyOf("2x120 V 12/3000"), undefined);
+  assert.equal(familyOf("MPPT 150/45"), undefined, "nor is a technology");
+  assert.equal(familyOf("Inverter Charger 3000"), undefined, "nor what a thing is");
+  assert.equal(familyOf("C35"), "c35", "a short code still leads a range");
+  assert.equal(familyOf("GX"), undefined, "two letters do not");
+  assert.equal(familyOf(""), undefined);
+});
+
+/** A maker's models, named so each leads with the family given. */
+const family = (manufacturer: string, names: string[]): Model[] =>
+  names.map((name) => ({
+    id: modelId(manufacturer, name),
+    manufacturer,
+    name,
+    aliases: [],
+    dialects: [],
+  }));
+
+const held: Model[] = [
+  ...family("victron-energy", [
+    "MultiPlus-II 48/3000/35-32 GX",
+    "MultiPlus-II 48/5000/70-50 GX",
+    "MPPT 150/45",
+    "MPPT 100/20",
+  ]),
+  ...family("xantrex", ["MPPT 60-150", "MPPT 80-600"]),
+  ...family("morningstar", ["RTS"]),
+  ...family("rolls-battery", ["S-550", "S48-100LFP STACK-LV"]),
+];
+
+test("a product named after another maker's family is that maker's, wherever the word sits (#86)", () => {
+  const victron = { family: "multiplus-ii", manufacturer: "victron-energy" };
+  assert.deepEqual(
+    familyOfAnotherMaker(held, "rolls-battery", "MultiPlus-II 48/3000/35-50"),
+    victron,
+  );
+  assert.deepEqual(
+    familyOfAnotherMaker(held, "rolls-battery", "Victron MultiPlus-II GX 48/3000/35-32"),
+    victron,
+    "the maker's own name in front does not hide the family",
+  );
+  assert.deepEqual(
+    familyOfAnotherMaker(held, "rolls-battery", "multiplus-ii 230V"),
+    victron,
+    "case and spacing do not matter",
+  );
+});
+
+test("a maker's own family, a shared word, and a new family are all still its own to mint", () => {
+  assert.equal(
+    familyOfAnotherMaker(held, "victron-energy", "MultiPlus-II 24/3000/70-32 230V"),
+    undefined,
+    "Victron naming a new MultiPlus-II variant is Victron's",
+  );
+  assert.equal(
+    familyOfAnotherMaker(held, "rolls-battery", "MPPT 60-150"),
+    undefined,
+    "a word two makers lead with is nobody's family",
+  );
+  assert.equal(
+    familyOfAnotherMaker(held, "rolls-battery", "RTS"),
+    undefined,
+    "one model is a product, not a family",
+  );
+  assert.equal(
+    familyOfAnotherMaker(held, "rolls-battery", "S48-300LFP STACK-LV"),
+    undefined,
+    "a maker's new product in its own range",
+  );
+  assert.equal(
+    familyOfAnotherMaker(held, "rolls-battery", "48/3000/35-50"),
+    undefined,
+    "a name that leads with a number claims no family",
+  );
+  assert.equal(familyOfAnotherMaker([], "rolls-battery", "MultiPlus-II 48/3000"), undefined);
 });

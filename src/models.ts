@@ -77,6 +77,86 @@ export function looksLikeModelName(name: string): boolean {
   return words.some(codeLike);
 }
 
+/**
+ * Words a name can lead with that belong to no maker: what a thing is, or a technology, which
+ * several makers put in front of a part number. "MPPT 150/45" is Victron's and "MPPT 60-150" is
+ * Xantrex's, and neither word makes the other's product theirs.
+ */
+const GENERIC = new Set([
+  "inverter",
+  "charger",
+  "controller",
+  "battery",
+  "batteries",
+  "panel",
+  "module",
+  "kit",
+  "bundle",
+  "system",
+  "solar",
+  "hybrid",
+  "mppt",
+  "pwm",
+  "series",
+  "model",
+  "type",
+  "lithium",
+  "lifepo4",
+  "agm",
+  "gel",
+  "flooded",
+]);
+
+/**
+ * The family a model's name leads with: "MultiPlus-II" in "MultiPlus-II 48/3000/35-50",
+ * "SmartSolar" in "SmartSolar MPPT 100/20". Nothing for a name that leads with a number or a
+ * rating ("12V LiFePO4 Battery" is every battery maker's), a two-letter code, or a word that is
+ * not a family, since those are shared by everybody.
+ */
+export function familyOf(name: string): string | undefined {
+  const [lead] = normaliseModelName(name)
+    .toLowerCase()
+    .split(/[\s/]+/);
+  if (!lead || lead.length < 3 || !/^[a-z]/.test(lead) || GENERIC.has(lead)) return undefined;
+  return lead;
+}
+
+/**
+ * The maker whose product a document's name belongs to, when it is not the document's maker.
+ *
+ * A maker's installation guide lists the inverters its battery works with, and the reader names
+ * each row as a product. Rolls' S48-100LFP guide named seven MultiPlus-II variants that way, and
+ * the pull minted every one under Rolls with the battery's current limits as their figures (#86).
+ * A word that leads the names of at least two of one other maker's models, and none of this
+ * maker's own, is that maker's family; a name carrying it anywhere is theirs. A word two other
+ * makers both lead with is nobody's, and a name that leads with a number claims no family.
+ */
+export function familyOfAnotherMaker(
+  models: readonly Model[],
+  manufacturer: string,
+  name: string,
+): { family: string; manufacturer: string } | undefined {
+  const makersByFamily = new Map<string, Map<string, number>>();
+  for (const model of models) {
+    const family = familyOf(model.name);
+    if (!family) continue;
+    const makers = makersByFamily.get(family) ?? new Map<string, number>();
+    makers.set(model.manufacturer, (makers.get(model.manufacturer) ?? 0) + 1);
+    makersByFamily.set(family, makers);
+  }
+  for (const token of normaliseModelName(name)
+    .toLowerCase()
+    .split(/[\s/]+/)) {
+    const family = familyOf(token);
+    const makers = family ? makersByFamily.get(family) : undefined;
+    if (!family || !makers || makers.has(manufacturer)) continue;
+    const others = [...makers].filter(([, count]) => count >= 2).map(([maker]) => maker);
+    const [owner] = others;
+    if (owner && others.length === 1) return { family, manufacturer: owner };
+  }
+  return undefined;
+}
+
 /** A model id has to be unique per maker and stable, so it carries the maker and a slug of the name. */
 export function modelId(manufacturer: string, name: string): string {
   const slug = name

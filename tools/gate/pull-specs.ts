@@ -5,7 +5,12 @@ import { Model } from "@origin89/equipment-schema/model";
 import { EXTRACTOR_ID } from "@origin89/equipment-schema/provenance";
 import { Source } from "@origin89/equipment-schema/source";
 import { withoutTranslatedReadings } from "../../src/language.ts";
-import { looksLikeModelName, modelId, normaliseModelName } from "../../src/models.ts";
+import {
+  familyOfAnotherMaker,
+  looksLikeModelName,
+  modelId,
+  normaliseModelName,
+} from "../../src/models.ts";
 import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 import {
   heldByPerson,
@@ -133,6 +138,8 @@ let written = 0;
 let modelsAdded = 0;
 const unmatched = new Set<string>();
 const rejected = new Set<string>();
+/** Products named after another maker's family, left unminted for a person to look at (#86). */
+const anothers = new Map<string, { family: string; manufacturer: string }>();
 
 if (addModels) {
   // A pass over the documents first, so a figure found in the same run has a model to attach to.
@@ -149,6 +156,13 @@ if (addModels) {
       // model beside the "rm12" its figures went to.
       if (records.models.some((m) => m.id === id) || matchModel(records.models, manufacturer, name))
         continue;
+      // A battery guide's table of the inverters it works with names another maker's products,
+      // and minting them here filed a MultiPlus under Rolls with a battery's limits (#86).
+      const another = familyOfAnotherMaker(records.models, manufacturer, name);
+      if (another) {
+        anothers.set(name, another);
+        continue;
+      }
       const model = Model.parse({ id, manufacturer, name, aliases: [], dialects: [] });
       if (!dryRun) writeRecord(RECORDS_DIR, "models", id, model);
       records.models.push(model);
@@ -353,9 +367,17 @@ if (withheld.length) {
   for (const w of withheld)
     console.log(`  ${w.url} (${w.sha256.slice(0, 12)}, ${w.products} products): ${w.reason}`);
 }
-if (unmatched.size) {
-  console.log(`\n${unmatched.size} products the documents name that still reach no model:`);
-  for (const m of [...unmatched].sort().slice(0, 25)) console.log(`  ${m}`);
+if (anothers.size) {
+  console.log(
+    `\n${anothers.size} products the documents name under another maker's family, not minted here; a person decides whose they are:`,
+  );
+  for (const [name, { family, manufacturer: owner }] of [...anothers].sort())
+    console.log(`  ${name} (${family} is ${owner}'s)`);
+}
+const stillUnmatched = [...unmatched].filter((m) => !anothers.has(normaliseModelName(m)));
+if (stillUnmatched.length) {
+  console.log(`\n${stillUnmatched.length} products the documents name that still reach no model:`);
+  for (const m of stillUnmatched.sort().slice(0, 25)) console.log(`  ${m}`);
 }
 if (rejected.size) {
   console.log(`\n${rejected.size} product names too sentence-like to hold as models:`);
