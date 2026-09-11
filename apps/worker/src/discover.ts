@@ -335,6 +335,13 @@ export function pageLinks(html: string, pageUrl: string, domains: readonly strin
   return [...out];
 }
 
+/**
+ * Links one batch of pages may hand back. A step's result is capped by Workflows at a mebibyte,
+ * and twenty navigation-heavy pages can link far more than a run will ever follow, so the frontier
+ * is cut here rather than failing the step that carries it.
+ */
+export const MAX_LINKS_PER_BATCH = 2000;
+
 /** Paths a maker keeps its documents behind, ahead of its blog, its careers page and its cart. */
 const WORTH_FIRST =
   /product|download|support|manual|datasheet|data-sheet|resource|spec|document|literature|catalog/i;
@@ -441,11 +448,13 @@ export async function readPages(
       }
     }
     // A page's link to itself, canonical or otherwise, is not a page to follow.
-    for (const link of pageLinks(answer.text, answer.url, domains))
+    for (const link of pageLinks(answer.text, answer.url, domains)) {
+      if (out.pages.length >= MAX_LINKS_PER_BATCH) break;
       if (link !== answer.url && link !== page && !linked.has(link)) {
         linked.add(link);
         out.pages.push(link);
       }
+    }
     // The page is already here for its links. Judging it as a specification table too costs
     // nothing and is how the feed list stops being hand-typed.
     const candidate = judgeSpecPage(page, answer.text);

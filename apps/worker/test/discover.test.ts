@@ -10,6 +10,7 @@ import {
   isDocumentAnswer,
   isPage,
   MAX_CHILD_SITEMAPS,
+  MAX_LINKS_PER_BATCH,
   pageLinks,
   readPages,
 } from "../src/discover.ts";
@@ -437,6 +438,25 @@ test("a page's own links are the next hop; documents, assets and other sites are
     "https://www.maker.test/product/xtra-n-g3/",
     "https://www.maker.test/catalog/model-x",
   ]);
+});
+
+test("a batch hands back at most a bounded frontier, so a link-heavy catalogue cannot sink the step", async () => {
+  const many = Array.from(
+    { length: MAX_LINKS_PER_BATCH + 50 },
+    (_, i) => `<a href="/p/${i}">${i}</a>`,
+  );
+  const { get } = site({
+    "https://maker.test/a": many.slice(0, 1200).join(""),
+    "https://maker.test/b": many.slice(1000).join(""),
+  });
+  const read = await readPages(
+    ["https://maker.test/a", "https://maker.test/b"],
+    ["maker.test"],
+    get,
+  );
+  assert.equal(read.pages.length, MAX_LINKS_PER_BATCH);
+  assert.equal(new Set(read.pages).size, MAX_LINKS_PER_BATCH, "and each link once");
+  assert.equal(read.read, 2, "the cap costs links, not pages");
 });
 
 test("links are followed product and download pages first, in the order they were found", () => {
