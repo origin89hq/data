@@ -1,4 +1,4 @@
-import { VISION_MODEL, VISION_PROMPT_VERSION } from "@origin89/equipment-schema/provenance";
+import { VISION_MODEL } from "@origin89/equipment-schema/provenance";
 /**
  * Reading a manufacturer's documents: the prompt, the windowing and the merge. Kept apart from
  * the workflow that runs them so they can be tested without a Workers runtime, which is the same
@@ -220,11 +220,15 @@ export function mergeReports(reports: Reported[]): Reported[] {
  * sheets with a full table of ratings. Some are photographs of paper; about a third are sheets
  * whose type was turned into outlines, and have no image in them to pull out either.
  *
- * So this reader draws each page and does two things with it. A model that reads pictures writes
- * the page down as Markdown, and the same model reads the figures out of what it wrote. The
- * transcription is kept, put together into a conversion of the whole document beside the one
- * `toMarkdown` made, so a scan can be read again by any later reader without looking at a picture,
- * and a figure can be checked against the text it came from and that text against the page.
+ * So this reader draws each page and a model that reads pictures writes it down as Markdown. The
+ * pages are put together into a conversion of the whole document beside the one `toMarkdown` made,
+ * and the same model reads the figures out of that, a window of the document at a time. The
+ * transcription is kept, so a scan can be read again by any later reader without looking at a
+ * picture, and a figure can be checked against the text it came from and that text against the page.
+ *
+ * The figures were read page by page once, and a page does not always name what it rates: a
+ * certificate named its product on page 1 and gave its ratings on page 2, where the only code left
+ * to use was the form number in the footer (#28).
  *
  * Which model was decided by reading the same scanned pages many times over, because a page is
  * read once:
@@ -248,8 +252,14 @@ export {
   VISION_MODEL,
   VISION_PROMPT_VERSION,
 } from "@origin89/equipment-schema/provenance";
+/**
+ * The transcription's own version. It is kept apart from the figures prompt's, so a better way of
+ * reading figures reads the transcripts already made instead of drawing every page again.
+ */
+export const TRANSCRIBE_VERSION = "2";
+
 /** The page reader's transcription, as a converter: `archive/<sha256>.<this>.md`, beside `CONVERTER`'s. */
-export const PAGE_CONVERTER = `pages-${VISION_MODEL.split("/").pop()}-p${VISION_PROMPT_VERSION}`;
+export const PAGE_CONVERTER = `pages-${VISION_MODEL.split("/").pop()}-p${TRANSCRIBE_VERSION}`;
 
 /**
  * Pages one document's reading looks at. The longest scan held today is eighty pages, and a page
@@ -339,29 +349,50 @@ export function withoutPageHeadings(markdown: string): string {
  */
 export function transcriptDocument(
   name: string,
-  pages: { page: number; markdown: string }[],
+  pages: { page: number; markdown: string; failed?: string }[],
 ): string {
   const contents = pages
     .map((p) => `### Page ${p.page}\n\n${withoutPageHeadings(p.markdown).trim()}\n`)
     .join("\n");
-  return `# ${name}\n## Metadata\n- Converter=${PAGE_CONVERTER}\n\n## Contents\n${contents}`;
+  // A page left blank because it could not be drawn or written down says so, or its emptiness
+  // would read as a page with nothing on it.
+  const failed = pages.filter((p) => p.failed).map((p) => p.page);
+  const missing = failed.length > 0 ? `- Not transcribed=${failed.join(", ")}\n` : "";
+  return `# ${name}\n## Metadata\n- Converter=${PAGE_CONVERTER}\n${missing}\n## Contents\n${contents}`;
 }
 
-export const PAGE_FIGURES_SYSTEM = `You read one page of a manufacturer's document, transcribed into Markdown from a picture of the page, and report the rated figures it prints. A line in square brackets stands for a picture that was not transcribed.
+/** The pages a transcript says it could not write down. */
+export function notTranscribed(transcript: string): number[] {
+  const line = /^- Not transcribed=(.*)$/m.exec(transcript)?.[1] ?? "";
+  return line
+    .split(",")
+    .map((p) => Number(p.trim()))
+    .filter((p) => Number.isInteger(p) && p > 0);
+}
+
+/**
+ * Reading figures out of a whole transcript. Checked against the three documents that went wrong
+ * page by page (#28): Kinetic Solar's certificate now gives its load ratings to K-Rack rather than
+ * to the form number in its footer, Victron's gives "MultiPlus-II 48/3000/35-32 GX 230V" rather
+ * than the model row alone, and a G99 annex gives no harmonic measurements as ratings.
+ */
+export const DOCUMENT_FIGURES_SYSTEM = `You read a manufacturer's document, transcribed into Markdown from pictures of its pages, and report the rated figures it prints for each product. Each page starts with a "### Page N" heading. A line in square brackets stands for a picture that was not transcribed.
 
 The figures go into a public catalogue that people size power systems from, so a figure left out is better than a figure that is wrong.
 
-Report only figures the page prints. Never calculate, convert, round or infer one. If the page prints no ratings, answer with an empty list.
+Report only figures the document prints. Never calculate, convert, round or infer one. If it prints no ratings, answer with an empty list.
 
-MODEL. Give the model exactly as printed, and only for a single product. A family or a series — "MS Series", "CSW SERIES", "Tracer AN" — is not a model: if a table gives several products under one family, report each product separately under its own model. A specification sheet for one product names it in its title or its table; use that name. If you cannot tell which product a figure belongs to, do not report the figure.
+MODEL. Name the single product the figures belong to, as the document prints it. The name may be printed away from the figures: on the first page, in a title or heading, or in the row or column heading of a table. Put together a name the document splits: a table whose "Family" row reads "MultiPlus-II" and whose "Model" row reads "48/3000/35-32 230V" names the product "MultiPlus-II 48/3000/35-32 230V". A family or a series on its own is not a product; when a table gives several products of one family, report each under its own full name. These are never product names: a form, certificate, report, project, file or document number; a page header or footer; a heading that stands for a range, such as "xx/3000". If you cannot tell which single product a figure belongs to, do not report the figure.
+
+RATINGS, NOT RESULTS. Report what the maker states the product is rated for. A certificate or test report also prints what was measured during a test — harmonic currents, values measured at a given load, trip times, pass or fail. Those are results, not ratings: leave them out.
 
 VALUE. One figure, one value, kept exactly as printed, so "12/24" stays "12/24". Where one cell prints figures for several parts of one product — two outputs, four burners, three phases — report each as its own figure, named for its part. Where one figure is printed in two units, report it once, in the unit printed first.
 
-UNIT. Every figure has a unit, and it is almost always on the page: printed after the number, or in the heading of the column or the label of the row the number sits in. A row labelled "Weight (kg)" gives its numbers the unit "kg". Put the unit in the unit field, never inside the name and never inside the value, and write an inch mark as "in". Leave the unit empty only for something that has none — a chemistry, a connector type, a protocol name, a yes or no.
+UNIT. Every figure has a unit, and it is almost always in the document: printed after the number, or in the heading of the column or the label of the row the number sits in. A row labelled "Weight (kg)" gives its numbers the unit "kg". Put the unit in the unit field, never inside the name and never inside the value, and write an inch mark as "in". Leave the unit empty only for something that has none — a chemistry, a connector type, a protocol name, a yes or no.
 
-CONDITIONS. What the figure is true under, when the page says: the discharge rate, the temperature, the bank voltage. A capacity without its rate is not a capacity.
+CONDITIONS. What the figure is true under, when the document says: the discharge rate, the temperature, the bank voltage. A capacity without its rate is not a capacity.
 
-Read every table on the page.
+Read every table.
 
 Do not report prices, warranty periods, part numbers, packaging weights, ordering codes or marketing claims.`;
 
@@ -373,17 +404,80 @@ Do not report prices, warranty periods, part numbers, packaging weights, orderin
 export const VISION_RESPONSE_SCHEMA = figuresSchema(["name", "value", "unit"]);
 
 /**
- * What a model said about one page, with that page on every figure. The page is the one that was
- * drawn, never one the model names: an invented page number is worse than none, because it looks
- * checkable. An answer that is not JSON throws, since that is a failed call rather than an empty page.
+ * How much of a transcript one call reads. Big, because a product's name and its ratings can sit
+ * pages apart: forty thousand characters is a dozen transcribed pages, which covers every
+ * certificate and specification sheet held today in one call and a long manual in a few.
  */
-export function reportsOnPage(answer: string, page: number): Reported[] {
+export const FIGURE_WINDOW_CHARACTERS = 40_000;
+export const FIGURE_WINDOW_OVERLAP = 2_000;
+
+/** The start of a document, sent with every window after the first for the names it prints. */
+export const DOCUMENT_HEAD_CHARACTERS = 3_000;
+
+/** One window of a transcript: its text, where it starts, and the page it starts on. */
+export interface FigureWindow extends Window {
+  start: number;
+}
+
+/** A transcript's windows for figures, overlapping so a table on a boundary is read whole once. */
+export function figureWindows(
+  transcript: string,
+  size = FIGURE_WINDOW_CHARACTERS,
+  overlap = FIGURE_WINDOW_OVERLAP,
+): FigureWindow[] {
+  const pages = pageOffsets(transcript);
+  const out: FigureWindow[] = [];
+  for (let start = 0; start < transcript.length; start += size - overlap) {
+    const text = transcript.slice(start, start + size);
+    const page = pageAt(pages, start);
+    if (text.trim()) out.push({ text, start, ...(page === undefined ? {} : { page }) });
+    if (start + size >= transcript.length) break;
+  }
+  return out;
+}
+
+function pageAt(pages: { page: number; at: number }[], offset: number): number | undefined {
+  let page: number | undefined;
+  for (const p of pages) {
+    if (p.at > offset) break;
+    page = p.page;
+  }
+  return page;
+}
+
+/** What the model is given for one window: the window, and the document's start when it is not in it. */
+export function windowPrompt(transcript: string, window: FigureWindow): string {
+  if (window.start === 0) return window.text;
+  return `The document begins:\n\n${transcript.slice(0, DOCUMENT_HEAD_CHARACTERS)}\n\n[…]\n\nReport the figures in this part of it:\n\n${window.text}`;
+}
+
+/**
+ * What the model said about one window, each figure given the page its value is printed on. The
+ * page is found by looking for the value in the window's own text, never taken from the model: an
+ * invented page number is worse than none, because it looks checkable. A value not found as printed
+ * keeps the page the window starts on. An answer that is not JSON throws, since that is a failed
+ * call rather than a window with nothing in it.
+ */
+export function reportsInWindow(
+  answer: string,
+  transcript: string,
+  window: FigureWindow,
+): Reported[] {
   const parsed = JSON.parse(answer) as { products?: unknown };
   if (!Array.isArray(parsed.products)) return [];
+  const pages = pageOffsets(transcript);
+  const pageOf = (value: string): number | undefined => {
+    const at = value ? window.text.indexOf(value) : -1;
+    return at < 0 ? window.page : pageAt(pages, window.start + at);
+  };
   return (parsed.products as Reported[])
     .filter((product) => typeof product?.model === "string" && Array.isArray(product.specs))
     .map((product) => ({
       model: product.model,
-      specs: product.specs.map((s) => ({ ...s, page })),
+      specs: product.specs.map((s) => {
+        const { page: _claimed, ...figure } = s;
+        const page = typeof s.value === "string" ? pageOf(s.value) : window.page;
+        return { ...figure, ...(page === undefined ? {} : { page }) };
+      }),
     }));
 }

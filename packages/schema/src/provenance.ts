@@ -16,8 +16,11 @@ export const VISION_MODEL = "@cf/moonshotai/kimi-k2.7-code";
 /**
  * 2: the first version's readings kept pages refused by the model's rate limit as read (#29). A new
  * version is a new key, so every scan is read again rather than trusted.
+ * 3: figures are read from the whole transcript, not page by page, so a name printed on one page
+ * reaches the figures on another, and form numbers, range headings and test results are not taken
+ * for products (#28). The transcription has a version of its own and is not redone for this.
  */
-export const VISION_PROMPT_VERSION = "2";
+export const VISION_PROMPT_VERSION = "3";
 export const VISION_EXTRACTOR_ID = `ai:${VISION_MODEL}@vision-p${VISION_PROMPT_VERSION}`;
 
 /**

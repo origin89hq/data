@@ -20,7 +20,7 @@ import {
   SYSTEM,
 } from "./reading.ts";
 import { parseSpecTables, TABLE_READER } from "./spec-table.ts";
-import { seeDocument, seePage } from "./vision.ts";
+import { seeDocument, seePage, seeWindow } from "./vision.ts";
 import { inputKey, partKey, Work } from "./work.ts";
 
 /**
@@ -220,6 +220,10 @@ export async function handle(message: Work, env: Env, attempt = 1): Promise<void
     }
     case "vision-page": {
       await seePage(message, env, attempt, pdfium);
+      return;
+    }
+    case "vision-window": {
+      await seeWindow(message, env, attempt);
       return;
     }
   }

@@ -43,7 +43,7 @@ test("a page message names its page and the pages it belongs to, and cannot name
   assert.equal(Work.safeParse({ ...page, waits: 1.5 }).success, false);
 });
 
-test("the page reader's pace keeps a page's two calls under Kimi's twenty a minute", () => {
+test("the page reader's pace keeps its calls under Kimi's twenty a minute", () => {
   // Cloudflare's published limit for @cf/moonshotai/kimi-k2.7-code on standard billing is twenty
   // requests a minute for the whole account. Over it, pages were refused faster than they could
   // wait, and 1,996 of 2,148 were kept as failed (#29).
@@ -55,7 +55,26 @@ test("the page reader's pace keeps a page's two calls under Kimi's twenty a minu
   assert.ok(pace, "the pace is configured");
   const [limit, period] = [Number(pace[1]), Number(pace[2])];
   assert.equal(period, 60, "counted by the minute, as the model's limit is");
-  assert.ok(limit > 0 && limit * 2 <= 20, `${limit} pages a minute is ${limit * 2} calls`);
+  // A turn is one call: a page written down, or a window of a transcript read for figures.
+  assert.ok(limit > 0 && limit <= 20, `${limit} calls a minute`);
+});
+
+test("a window message names its window and how many there are, and cannot name one past the last", () => {
+  const window = {
+    kind: "vision-window",
+    run: "r",
+    manufacturer: "m",
+    date: "d",
+    sha256: "a".repeat(64),
+    url: "https://x.test/a.pdf",
+    window: 2,
+    windows: 3,
+  };
+  assert.equal(Work.safeParse(window).success, true);
+  assert.equal(Work.safeParse({ ...window, waits: 4 }).success, true);
+  assert.equal(Work.safeParse({ ...window, window: 4 }).success, false);
+  assert.equal(Work.safeParse({ ...window, window: 0 }).success, false);
+  assert.equal(Work.safeParse({ ...window, windows: undefined }).success, false);
 });
 
 test("a page of a reading lives beside the document, and every page of it shares one prefix nothing else does", () => {
