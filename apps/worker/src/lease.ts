@@ -14,20 +14,35 @@
 export const LEASE_KEY = "supervision/lease.json";
 
 /**
- * How long a lease lasts if nobody gives it back. Longer than a pass is waited for, the workflow's
- * fifteen minutes, so a pass is not joined halfway; short enough that one which died holding it
- * holds up the next for twenty minutes, not a day.
+ * How long a pass's lease lasts if nobody gives it back. Longer than any pass can run: the
+ * schedule's invocation ends at fifteen minutes, the workflow stops waiting at fifteen, and
+ * `just supervise` at thirty seconds, and a pass ends when its caller does. Short enough that one
+ * which died holding it holds up the next for twenty minutes, not a day.
  */
 export const LEASE_MS = 20 * 60 * 1000;
+
+/** An offer of one maker to the page reader takes seconds, so it holds the lease a minute at most. */
+export const OFFER_LEASE_MS = 60 * 1000;
+
+/** What holds the lease: a whole pass, or one maker's offer to the page reader. */
+export type Holder = "pass" | "offer";
 
 interface Lease {
   holder: string;
   until: number;
+  what?: Holder;
 }
 
-/** A pass is already running. The caller is told so rather than starting a second one. */
+/** A pass or an offer is already running. The caller is told which, and until when. */
 export class LeaseHeld extends Error {
   override name = "LeaseHeld";
+  readonly what: Holder;
+  readonly until: number;
+  constructor(message: string, what: Holder, until: number) {
+    super(message);
+    this.what = what;
+    this.until = until;
+  }
 }
 
 /** The lease as it was written, so it can be given back only if it is still this holder's. */
@@ -36,23 +51,40 @@ export interface Taken {
   etag: string;
 }
 
-/** Take the lease, or throw `LeaseHeld` saying until when somebody else has it. */
-export async function takeLease(bucket: R2Bucket, now = Date.now()): Promise<Taken> {
+const held = (lease: Lease): LeaseHeld => {
+  const what = lease.what ?? "pass";
+  const doing = what === "offer" ? "an offer to the page reader" : "a supervisor pass";
+  return new LeaseHeld(
+    `${doing} is running; its lease lasts until ${new Date(lease.until).toISOString()}`,
+    what,
+    lease.until,
+  );
+};
+
+/** Take the lease, or throw `LeaseHeld` saying who has it and until when. */
+export async function takeLease(
+  bucket: R2Bucket,
+  now = Date.now(),
+  { what = "pass", ms = LEASE_MS }: { what?: Holder; ms?: number } = {},
+): Promise<Taken> {
   const holder = crypto.randomUUID();
-  const lease = JSON.stringify({ holder, until: now + LEASE_MS } satisfies Lease);
+  const lease = JSON.stringify({ holder, until: now + ms, what } satisfies Lease);
   const current = await bucket.get(LEASE_KEY);
   let written: R2Object | null;
   if (current) {
-    const held = await current.json<Lease>();
-    if (held.until > now)
-      throw new LeaseHeld(
-        `a supervisor pass is running; its lease lasts until ${new Date(held.until).toISOString()}`,
-      );
+    const found = await current.json<Lease>();
+    if (found.until > now) throw held(found);
     written = await bucket.put(LEASE_KEY, lease, { onlyIf: { etagMatches: current.etag } });
   } else {
     written = await bucket.put(LEASE_KEY, lease, { onlyIf: { etagDoesNotMatch: "*" } });
   }
-  if (!written) throw new LeaseHeld("another supervisor pass took the lease first");
+  if (!written) {
+    // Somebody wrote it between the read and this write. Say who and until when, as for a lease
+    // found held, unless the winner has already given it back.
+    const winner = await (await bucket.get(LEASE_KEY))?.json<Lease>();
+    if (winner && winner.until > now) throw held(winner);
+    throw new LeaseHeld("another caller took the lease first and has given it back", what, now);
+  }
   return { holder, etag: written.etag };
 }
 
@@ -81,8 +113,12 @@ export async function releaseLease(bucket: R2Bucket, taken: Taken): Promise<void
 }
 
 /** Run `work` holding the lease, and give it back however the work ends. */
-export async function underLease<T>(bucket: R2Bucket, work: () => Promise<T>): Promise<T> {
-  const taken = await takeLease(bucket);
+export async function underLease<T>(
+  bucket: R2Bucket,
+  work: () => Promise<T>,
+  holding: { what?: Holder; ms?: number } = {},
+): Promise<T> {
+  const taken = await takeLease(bucket, Date.now(), holding);
   try {
     return await work();
   } finally {

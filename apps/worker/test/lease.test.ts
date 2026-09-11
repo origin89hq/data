@@ -4,25 +4,43 @@ import {
   LEASE_KEY,
   LEASE_MS,
   LeaseHeld,
+  OFFER_LEASE_MS,
   releaseLease,
   takeLease,
   underLease,
 } from "../src/lease.ts";
 import { app } from "../src/routes.ts";
-import { supervise, superviseIfFree } from "../src/supervise.ts";
+import { OFFER_RETRY_MS, supervise, superviseIfFree } from "../src/supervise.ts";
 import { world } from "./world.ts";
 
 const T0 = Date.parse("2026-09-11T08:00:00Z");
 const held = (until: number) => ({ [LEASE_KEY]: JSON.stringify({ holder: "someone", until }) });
 
+const passHeld = new LeaseHeld(
+  "a supervisor pass is running; its lease lasts until 2026-09-11T08:20:00.000Z",
+  "pass",
+  T0 + LEASE_MS,
+);
+
 test("the lease is taken when nobody holds it, and refused for as long as it lasts", async () => {
   const { env, read } = world();
   const taken = await takeLease(env.ARCHIVE, T0);
-  assert.deepEqual(read(LEASE_KEY), { holder: taken.holder, until: T0 + LEASE_MS });
+  assert.deepEqual(read(LEASE_KEY), { holder: taken.holder, until: T0 + LEASE_MS, what: "pass" });
+  await assert.rejects(takeLease(env.ARCHIVE, T0 + LEASE_MS - 1), passHeld);
+});
+
+test("an offer holds the lease for a minute, and a caller refused is told it was an offer", async () => {
+  const { env } = world();
+  await takeLease(env.ARCHIVE, T0, { what: "offer", ms: OFFER_LEASE_MS });
   await assert.rejects(
-    takeLease(env.ARCHIVE, T0 + LEASE_MS - 1),
-    new LeaseHeld("a supervisor pass is running; its lease lasts until 2026-09-11T08:20:00.000Z"),
+    takeLease(env.ARCHIVE, T0 + 1),
+    new LeaseHeld(
+      "an offer to the page reader is running; its lease lasts until 2026-09-11T08:01:00.000Z",
+      "offer",
+      T0 + OFFER_LEASE_MS,
+    ),
   );
+  await takeLease(env.ARCHIVE, T0 + OFFER_LEASE_MS);
 });
 
 test("a lease that ran out is taken over, and one given back is free at once", async () => {
@@ -47,7 +65,8 @@ test("two passes asking at once: exactly one takes it", async () => {
   );
   assert.deepEqual(
     (results[1] as PromiseRejectedResult).reason,
-    new LeaseHeld("another supervisor pass took the lease first"),
+    passHeld,
+    "the one that lost is told until when, as for a lease found held",
   );
 
   // And the same race over a lease that ran out.
@@ -67,7 +86,11 @@ test("giving a lease back never clears one the next pass took after it ran out",
   const slow = await takeLease(env.ARCHIVE, T0);
   const next = await takeLease(env.ARCHIVE, T0 + LEASE_MS + 1);
   await releaseLease(env.ARCHIVE, slow);
-  assert.deepEqual(read(LEASE_KEY), { holder: next.holder, until: T0 + 2 * LEASE_MS + 1 });
+  assert.deepEqual(read(LEASE_KEY), {
+    holder: next.holder,
+    until: T0 + 2 * LEASE_MS + 1,
+    what: "pass",
+  });
 });
 
 test("work under the lease gives it back however it ends", async () => {
@@ -103,9 +126,31 @@ test("a pass while another holds the lease queues nothing and writes no report",
   assert.deepEqual(sent, [], "the maker is not offered to the page reader twice");
   assert.equal(read("supervision/latest.json"), undefined);
 
-  // The scheduled pass steps aside instead, so the seller crawls after it still start.
-  assert.equal(await superviseIfFree(env, "2026-09-11"), undefined);
+  // The scheduled pass steps aside at once for a pass, so the seller crawls after it still start.
+  const naps: number[] = [];
+  assert.equal(
+    await superviseIfFree(env, "2026-09-11", async (ms) => void naps.push(ms)),
+    undefined,
+  );
+  assert.deepEqual(naps, [], "a pass is not waited for: it is doing the same job");
   assert.deepEqual(sent, []);
+});
+
+test("the scheduled pass waits out an offer to the page reader, then runs", async () => {
+  // An offer holds the lease for seconds and does none of a pass's work. Skipping the day's pass
+  // for it would leave the classifications and conversions until tomorrow.
+  const { env, store, read } = world({
+    [LEASE_KEY]: JSON.stringify({ holder: "offer", until: Date.now() + 30_000, what: "offer" }),
+  });
+  const naps: number[] = [];
+  const report = await superviseIfFree(env, "2026-09-11", async (ms) => {
+    naps.push(ms);
+    // The offer finishes and gives the lease back while the pass waits.
+    store.set(LEASE_KEY, new TextEncoder().encode(JSON.stringify({ holder: "offer", until: 0 })));
+  });
+  assert.deepEqual(naps, [OFFER_RETRY_MS]);
+  assert.ok(report, "the pass ran");
+  assert.deepEqual(read("supervision/latest.json"), report);
 });
 
 test("the pass and an offer both answer 409 while a pass holds the lease", async () => {

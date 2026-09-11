@@ -63,16 +63,32 @@ export async function supervise(env: Env, today: string): Promise<SupervisionRep
  * The scheduled pass. One somebody started by hand is doing the same job, so this one steps aside
  * rather than fail: on a Monday the seller crawls start after it, and a refusal must not stop them.
  */
+/** How long the scheduled pass waits out offers to the page reader before it steps aside. */
+export const OFFERS_WAITED_MS = 3 * 60 * 1000;
+/** How often it asks again while an offer holds the lease. */
+export const OFFER_RETRY_MS = 5 * 1000;
+
 export async function superviseIfFree(
   env: Env,
   today: string,
+  sleep: (ms: number) => Promise<void> = (ms) => new Promise((done) => setTimeout(done, ms)),
 ): Promise<SupervisionReport | undefined> {
-  try {
-    return await supervise(env, today);
-  } catch (error) {
-    if (!(error instanceof LeaseHeld)) throw error;
-    console.log(JSON.stringify({ message: "supervision skipped", reason: error.message }));
-    return undefined;
+  // An offer to the page reader holds the lease for seconds and does none of a pass's work, so the
+  // day's pass waits for it rather than being skipped. The workflow offers makers one after
+  // another, so it may wait out several; three minutes covers every converted maker.
+  const deadline = Date.now() + OFFERS_WAITED_MS;
+  for (;;) {
+    try {
+      return await supervise(env, today);
+    } catch (error) {
+      if (!(error instanceof LeaseHeld)) throw error;
+      if (error.what === "offer" && Date.now() < deadline) {
+        await sleep(OFFER_RETRY_MS);
+        continue;
+      }
+      console.log(JSON.stringify({ message: "supervision skipped", reason: error.message }));
+      return undefined;
+    }
   }
 }
 

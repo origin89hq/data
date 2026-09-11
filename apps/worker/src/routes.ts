@@ -6,7 +6,7 @@ import specPages from "../../../feeds/spec-pages.json" with { type: "json" };
 import { bearer } from "./authorised.ts";
 import { classifyRun, convertRun, specPagesRun, visionRun } from "./enqueue.ts";
 import { hasFeed } from "./feeds.ts";
-import { LeaseHeld, underLease } from "./lease.ts";
+import { LeaseHeld, OFFER_LEASE_MS, underLease } from "./lease.ts";
 import { manufacturers } from "./manufacturers.ts";
 import {
   admits,
@@ -499,7 +499,10 @@ controlRoutes.post("/vision", async (c) => {
   // maker's pages would be queued and read twice.
   try {
     return c.json(
-      await underLease(c.env.ARCHIVE, () => visionRun(c.env, manufacturerId, checkedAt)),
+      await underLease(c.env.ARCHIVE, () => visionRun(c.env, manufacturerId, checkedAt), {
+        what: "offer",
+        ms: OFFER_LEASE_MS,
+      }),
     );
   } catch (error) {
     const held = leaseHeld(error);
