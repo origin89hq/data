@@ -8,6 +8,7 @@ import { attachMakers, type FeedModel, feedSource, feedSpecId, readFeeds } from 
 import { buildProperties } from "./properties.ts";
 import type { Records } from "./records.ts";
 import { canonicalUnit, concerns as figureConcerns } from "./units.ts";
+import type { DialectKindDirection, ModelKeyVia } from "./vocabulary.ts";
 
 export type Row = Record<string, string | boolean | number | undefined>;
 
@@ -136,13 +137,13 @@ export function tables(records: Records, feeds = readFeeds()): Table[] {
       rows: records.dialects.flatMap((d) => [
         ...(d.reports ?? []).map((k, i) => ({
           dialect_id: d.id,
-          direction: "reports",
+          direction: "reports" satisfies DialectKindDirection,
           position: i,
           kind: k,
         })),
         ...(d.accepts ?? []).map((k, i) => ({
           dialect_id: d.id,
-          direction: "accepts",
+          direction: "accepts" satisfies DialectKindDirection,
           position: i,
           kind: k,
         })),
@@ -578,7 +579,7 @@ export function modelKeyRows(
   };
   const out: Row[] = [];
   const seen = new Set<string>();
-  const add = (model_id: string, labels: string[], names: [string, "name" | "alias"][]) => {
+  const add = (model_id: string, labels: string[], names: [string, ModelKeyVia][]) => {
     for (const label of labels)
       for (const [name, via] of names) {
         const key = modelKey(label, name);

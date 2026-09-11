@@ -16,6 +16,14 @@ import {
   PropertyStatus,
 } from "@origin89/equipment-schema/properties";
 
+/** How a dialect relates to a metric or command kind; `dialect_kinds.direction`. */
+export const DIALECT_KIND_DIRECTIONS = ["reports", "accepts"] as const;
+export type DialectKindDirection = (typeof DIALECT_KIND_DIRECTIONS)[number];
+
+/** What a model key was built from; `model_keys.via`. */
+export const MODEL_KEY_VIA = ["name", "alias"] as const;
+export type ModelKeyVia = (typeof MODEL_KEY_VIA)[number];
+
 /**
  * The closed vocabularies a consumer joins on, published as one file so nothing has to copy them
  * out of `packages/schema`. A firmware that names a dataset metric, a support list that names a
@@ -54,6 +62,10 @@ export interface Vocabulary {
   propertyStatus: string[];
   /** Whether a figure is per input or for the whole unit; `properties.scope`. */
   propertyScopes: string[];
+  /** Whether a dialect reports a kind or accepts it; `dialect_kinds.direction`. */
+  dialectKindDirections: string[];
+  /** Whether a model key came from the model's name or an alias; `model_keys.via`. */
+  modelKeyVia: string[];
 }
 
 /** The vocabularies as the schemas declare them, in the schemas' own order. */
@@ -73,5 +85,7 @@ export function vocabulary(): Vocabulary {
     propertyGapReasons: [...GapReason.options],
     propertyStatus: [...PropertyStatus.options],
     propertyScopes: [...PropertyScope.options],
+    dialectKindDirections: [...DIALECT_KIND_DIRECTIONS],
+    modelKeyVia: [...MODEL_KEY_VIA],
   };
 }

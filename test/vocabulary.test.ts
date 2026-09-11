@@ -17,6 +17,8 @@ test("the vocabulary is the schema's own lists, in the schema's order", () => {
   assert.deepEqual(v.propertyGapReasons, ["no-claim", "unparsed", "needs-conditions", "conflict"]);
   assert.deepEqual(v.propertyStatus, ["value", "conflict"]);
   assert.deepEqual(v.propertyScopes, ["per-input", "total"]);
+  assert.deepEqual(v.dialectKindDirections, ["reports", "accepts"]);
+  assert.deepEqual(v.modelKeyVia, ["name", "alias"]);
   assert.deepEqual(
     v.dialectModelTiers,
     ["A", "B", "C", "D"],
