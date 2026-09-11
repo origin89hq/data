@@ -386,6 +386,7 @@ test("a decision record that does not parse leaves the run with a person, not de
     '{"outcome":"refused"}',
     '{"outcome":"approved","by":"ada","permitted":-1}',
     JSON.stringify({ outcome: "refused", by: "ada", note: "n".repeat(1001) }),
+    '{"outcome":"refused","by":',
   ]) {
     const objects = run({ plan: true });
     objects[`${BASE}/decision.json`] = unreadable;
@@ -600,6 +601,13 @@ test("a plan with no manifest reads its decision and nothing that follows conver
     `${BASE}/plan.json`,
     `${BASE}/spec-pages.json`,
   ]);
+});
+
+test("a decision read that fails fails the state, like any other read", async () => {
+  const bucket = world(run({ plan: true, decision: { outcome: "refused", by: "ada" } })).env
+    .ARCHIVE;
+  watched(bucket, (key) => key === `${BASE}/decision.json`);
+  await assert.rejects(makerStates(bucket), /R2 refused documents\/maker\/.*decision\.json/);
 });
 
 test("a read that fails fails the whole state, rather than answering for the makers it reached", async () => {

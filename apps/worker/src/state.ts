@@ -112,6 +112,26 @@ const json = async <T>(bucket: R2Bucket, key: string): Promise<T | undefined> =>
   return object ? ((await object.json()) as T) : undefined;
 };
 
+/**
+ * A run's decision. A record that is there but is not one, broken JSON or the wrong fields, is
+ * logged and left out, so the run is shown to a person as undecided rather than breaking every
+ * reader of the state or passing as decided. A read that fails still fails the state.
+ */
+const decisionAt = async (bucket: R2Bucket, key: string): Promise<DownloadDecision | undefined> => {
+  const object = await bucket.get(key);
+  if (!object) return undefined;
+  const text = await object.text();
+  let value: unknown;
+  try {
+    value = JSON.parse(text);
+  } catch {
+    value = undefined;
+  }
+  const parsed = DownloadDecision.safeParse(value);
+  if (!parsed.success) console.warn(JSON.stringify({ message: "decision unreadable", key }));
+  return parsed.success ? parsed.data : undefined;
+};
+
 export async function sellerStates(bucket: R2Bucket): Promise<SellerState[]> {
   // Whatever each seller's pointer says is current. Guessing from the latest date was the same
   // mistake in a reader that the crawls have already stopped making in their writes.
@@ -267,14 +287,8 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
 
     const offered = plan?.documents?.length ?? 0;
     // A manifest is an approval whenever it was given; before one, the run records its decision.
-    // A record that does not parse is left out, so the run is shown to a person as undecided
-    // rather than breaking every reader of the state or passing as decided.
-    const recorded =
-      !manifest && offered > 0 ? await json<unknown>(bucket, `${base}/decision.json`) : undefined;
-    const parsed = recorded === undefined ? undefined : DownloadDecision.safeParse(recorded);
-    if (parsed && !parsed.success)
-      console.warn(JSON.stringify({ message: "decision unreadable", maker, run: pointer.run }));
-    const decision = parsed?.success ? parsed.data : undefined;
+    const decision =
+      !manifest && offered > 0 ? await decisionAt(bucket, `${base}/decision.json`) : undefined;
     const approvedBy =
       manifest?.approvedBy ?? (decision?.outcome === "approved" ? decision.by : undefined);
     const outcome = manifest ? "approved" : decision?.outcome;
