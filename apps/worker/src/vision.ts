@@ -2,7 +2,9 @@ import { contentOf } from "./classify.ts";
 import {
   CONVERTER,
   DOCUMENT_FIGURES_SYSTEM,
+  type FigureWindow,
   figureWindows,
+  halves,
   hasTextLayer,
   MAX_PAGES,
   MAX_RENDER_BYTES,
@@ -11,6 +13,7 @@ import {
   PAGE_CONVERTER,
   type Reported,
   reportsInWindow,
+  SMALLEST_WINDOW,
   TRANSCRIBE_SYSTEM,
   TRANSCRIPT_SCHEMA,
   textLayer,
@@ -366,26 +369,49 @@ async function readWindow(message: VisionWindow, env: Env, attempt: number): Pro
   const window = figureWindows(transcript)[message.window - 1];
   if (!window) return { window: message.window, products: [] };
   try {
-    const response = await env.AI.run(VISION_MODEL, {
-      messages: [
-        { role: "system", content: DOCUMENT_FIGURES_SYSTEM },
-        { role: "user", content: windowPrompt(transcript, window) },
-      ],
-      response_format: {
-        type: "json_schema",
-        json_schema: { name: "figures", schema: VISION_RESPONSE_SCHEMA, strict: false },
-      },
-      max_tokens: 6000,
-      ...QUIETLY,
-    } as never);
-    return {
-      window: message.window,
-      products: reportsInWindow(contentOf(response), transcript, window),
-    };
+    return { window: message.window, products: await figuresIn(env, message, transcript, window) };
   } catch (error) {
+    // A half turned away by the pace: the window waits its turn, and is read again whole.
+    if (error instanceof NotYet) throw error;
     if (mayWait && rateLimited(error)) throw new NotYet(reason(error));
     if (attempt < LAST_ATTEMPT) throw error;
     return { window: message.window, products: [], failed: `not read: ${reason(error)}` };
+  }
+}
+
+/**
+ * The figures the model reads in one window. An answer that is not JSON has most often run out of
+ * room on a dense window, and discarding it lost the whole window. So the window is read again as
+ * two halves, each its own call and its own turn with the model, down to a size where an answer cut
+ * short is simply a failed call.
+ */
+async function figuresIn(
+  env: Env,
+  message: VisionWindow,
+  transcript: string,
+  window: FigureWindow,
+): Promise<Reported[]> {
+  const response = await env.AI.run(VISION_MODEL, {
+    messages: [
+      { role: "system", content: DOCUMENT_FIGURES_SYSTEM },
+      { role: "user", content: windowPrompt(transcript, window) },
+    ],
+    response_format: {
+      type: "json_schema",
+      json_schema: { name: "figures", schema: VISION_RESPONSE_SCHEMA, strict: false },
+    },
+    max_tokens: 6000,
+    ...QUIETLY,
+  } as never);
+  try {
+    return reportsInWindow(contentOf(response), transcript, window);
+  } catch (error) {
+    if (!(error instanceof SyntaxError) || window.text.length < 2 * SMALLEST_WINDOW) throw error;
+    const [first, second] = halves(transcript, window);
+    await takeTurn(env, message);
+    const left = await figuresIn(env, message, transcript, first);
+    await takeTurn(env, message);
+    return [...left, ...(await figuresIn(env, message, transcript, second))];
   }
 }
 

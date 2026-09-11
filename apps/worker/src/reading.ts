@@ -443,6 +443,25 @@ export function figureWindows(
   return out;
 }
 
+/** Below twice this a window is not halved again: an answer cut short that small is a failed call. */
+export const SMALLEST_WINDOW = 5_000;
+
+/**
+ * A window in two, overlapping as windows do, for an answer that ran out of room: half the window
+ * is about half the figures to write out.
+ */
+export function halves(transcript: string, window: FigureWindow): [FigureWindow, FigureWindow] {
+  const pages = pageOffsets(transcript);
+  const middle = Math.ceil(window.text.length / 2);
+  const overlap = Math.min(FIGURE_WINDOW_OVERLAP, Math.floor(middle / 4));
+  const part = (from: number, to: number): FigureWindow => {
+    const start = window.start + from;
+    const page = pageAt(pages, start);
+    return { text: window.text.slice(from, to), start, ...(page === undefined ? {} : { page }) };
+  };
+  return [part(0, middle + overlap), part(middle - overlap, window.text.length)];
+}
+
 function pageAt(pages: { page: number; at: number }[], offset: number): number | undefined {
   let page: number | undefined;
   for (const p of pages) {
@@ -505,6 +524,11 @@ export function reportsInWindow(
     );
     searched = searched.replace(printed, (match) => " ".repeat(match.length));
   }
+  // And the document's own page numbers: the "2" of a footer's "Page 2 of 4" is not a rating,
+  // wherever on its line the footer sits.
+  searched = searched.replace(/\bpage\s+\d+(?:\s*(?:of|\/)\s*\d+)?/gi, (match) =>
+    " ".repeat(match.length),
+  );
   const pageOf = (value: string): number | undefined => {
     const needle = value.trim();
     if (!needle) return undefined;
