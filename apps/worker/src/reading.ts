@@ -255,8 +255,10 @@ export {
 /**
  * The transcription's own version. It is kept apart from the figures prompt's, so a better way of
  * reading figures reads the transcripts already made instead of drawing every page again.
+ * 3: a transcript names the pages it could not write down; one from before would pass off those
+ * pages as blank, so it is not reused.
  */
-export const TRANSCRIBE_VERSION = "2";
+export const TRANSCRIBE_VERSION = "3";
 
 /** The page reader's transcription, as a converter: `archive/<sha256>.<this>.md`, beside `CONVERTER`'s. */
 export const PAGE_CONVERTER = `pages-${VISION_MODEL.split("/").pop()}-p${TRANSCRIBE_VERSION}`;
@@ -454,9 +456,9 @@ export function windowPrompt(transcript: string, window: FigureWindow): string {
 /**
  * What the model said about one window, each figure given the page its value is printed on. The
  * page is found by looking for the value in the window's own text, never taken from the model: an
- * invented page number is worse than none, because it looks checkable. A value not found as printed
- * keeps the page the window starts on. An answer that is not JSON throws, since that is a failed
- * call rather than a window with nothing in it.
+ * invented page number is worse than none, because it looks checkable. A value found on no page,
+ * or on more than one, gets no page rather than the first place it happens to appear. An answer
+ * that is not JSON throws, since that is a failed call rather than a window with nothing in it.
  */
 export function reportsInWindow(
   answer: string,
@@ -467,8 +469,25 @@ export function reportsInWindow(
   if (!Array.isArray(parsed.products)) return [];
   const pages = pageOffsets(transcript);
   const pageOf = (value: string): number | undefined => {
-    const at = value ? window.text.indexOf(value) : -1;
-    return at < 0 ? window.page : pageAt(pages, window.start + at);
+    const needle = value.trim();
+    if (!needle) return undefined;
+    // The value as a whole figure, so "1" is not found inside "10", "1.5" or a model name.
+    const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const figure = new RegExp(`(?<![\\w.])${escaped}(?![\\w]|\\.\\d)`, "g");
+    const found = new Set<number>();
+    for (const match of window.text.matchAll(figure)) {
+      const at = window.start + (match.index ?? 0);
+      // Not the title or metadata before the first page, and not a "### Page N" heading.
+      const line = transcript.slice(
+        transcript.lastIndexOf("\n", at - 1) + 1,
+        transcript.indexOf("\n", at) === -1 ? undefined : transcript.indexOf("\n", at),
+      );
+      if (/^#{1,6}\s*Page\s+\d+\s*$/i.test(line)) continue;
+      const page = pageAt(pages, at);
+      if (page !== undefined) found.add(page);
+    }
+    // Printed on one page only, or no page: a value printed on two cannot say which one it came from.
+    return found.size === 1 ? [...found][0] : undefined;
   };
   return (parsed.products as Reported[])
     .filter((product) => typeof product?.model === "string" && Array.isArray(product.specs))
@@ -476,7 +495,7 @@ export function reportsInWindow(
       model: product.model,
       specs: product.specs.map((s) => {
         const { page: _claimed, ...figure } = s;
-        const page = typeof s.value === "string" ? pageOf(s.value) : window.page;
+        const page = typeof s.value === "string" ? pageOf(s.value) : undefined;
         return { ...figure, ...(page === undefined ? {} : { page }) };
       }),
     }));

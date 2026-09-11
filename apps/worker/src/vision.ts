@@ -143,7 +143,10 @@ export async function seeDocument(message: VisionDocument, env: Env): Promise<vo
   if (await env.ARCHIVE.head(reading)) return;
   const transcribed = await env.ARCHIVE.get(partKey.markdown(message.sha256, TRANSCRIBER));
   if (transcribed) {
-    await sendWindows(message, env, await transcribed.text());
+    const transcript = await transcribed.text();
+    const windows = windowsOf(transcript);
+    if (windows > 0) await sendWindows(message, env, windows);
+    else await writeReading(message, env, transcript, []);
     return;
   }
   // The converter's markdown says whether there is anything to see. A document it could not
@@ -286,26 +289,31 @@ async function gatherPages(message: VisionPage, env: Env): Promise<void> {
   if (pages.length < message.pages) return;
   const name = new URL(message.url).pathname.split("/").pop() || message.sha256;
   const transcript = transcriptDocument(name, pages);
+  // The windows go out before the transcript is written, and a window that comes in first waits
+  // for it. Written first, the transcript stopped every later delivery of a page, so a send that
+  // failed after it left the document with no windows and nothing to send them again.
+  const windows = windowsOf(transcript);
+  if (windows > 0) await sendWindows(message, env, windows);
   await env.ARCHIVE.put(partKey.markdown(message.sha256, TRANSCRIBER), transcript, {
     httpMetadata: { contentType: "text/markdown" },
   });
-  await sendWindows(message, env, transcript);
+  if (windows === 0) await writeReading(message, env, transcript, []);
 }
 
 /**
- * One message per window of a transcript, or at once a reading of nothing when no page of it was
- * written down: its title and page headings are not worth a call.
+ * How many windows a transcript is read in: none when no page of it was written down, since its
+ * title and page headings are not worth a call.
  */
+function windowsOf(transcript: string): number {
+  return textLayer(transcript).characters === 0 ? 0 : figureWindows(transcript).length;
+}
+
+/** One message per window of a transcript. */
 async function sendWindows(
   message: VisionDocument | VisionPage,
   env: Env,
-  transcript: string,
+  windows: number,
 ): Promise<void> {
-  const windows = textLayer(transcript).characters === 0 ? 0 : figureWindows(transcript).length;
-  if (windows === 0) {
-    await writeReading(message, env, transcript, []);
-    return;
-  }
   const { run, manufacturer, date, sha256, url } = message;
   await sendAll(
     env.WORK,
@@ -345,9 +353,14 @@ export async function seeWindow(message: VisionWindow, env: Env, attempt: number
 
 /** Read the figures out of one window of the transcript, with the document's start for its names. */
 async function readWindow(message: VisionWindow, env: Env, attempt: number): Promise<ReadWindow> {
-  const mayWait = await takeTurn(env, message);
+  // Windows are sent before the transcript is written, so one can come in first. It waits, as for
+  // its turn with the model, and costs no turn.
   const object = await env.ARCHIVE.get(partKey.markdown(message.sha256, TRANSCRIBER));
-  if (!object) throw new Error(`the transcript of ${message.sha256} is not in the archive`);
+  if (!object) {
+    if ((message.waits ?? 0) < MAX_WAITS) throw new NotYet("the transcript is not written yet");
+    throw new Error(`the transcript of ${message.sha256} is not in the archive`);
+  }
+  const mayWait = await takeTurn(env, message);
   const transcript = await object.text();
   const window = figureWindows(transcript)[message.window - 1];
   if (!window) return { window: message.window, products: [] };

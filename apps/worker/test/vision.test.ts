@@ -40,7 +40,7 @@ import {
   withoutPageHeadings,
 } from "../src/reading.ts";
 import { MAX_WAITS, seeDocument, seePage, seeWindow, waitFor } from "../src/vision.ts";
-import { LAST_ATTEMPT, partKey, readerKey } from "../src/work.ts";
+import { LAST_ATTEMPT, partKey, readerKey, type Work } from "../src/work.ts";
 import { BLACK_BOX, pdfium, tinyPdf } from "./pdf.ts";
 import { type TestAiInput, world } from "./world.ts";
 
@@ -127,7 +127,7 @@ test("the page reader has an id the spec schema accepts, and keys of its own bes
   );
   assert.equal(
     PAGE_CONVERTER,
-    "pages-kimi-k2.7-code-p2",
+    "pages-kimi-k2.7-code-p3",
     "the transcription keeps its own version, so a new figures prompt draws no page again",
   );
   assert.equal(
@@ -177,11 +177,39 @@ test("a figure keeps the page its value is printed on, never one the model names
       model: "K-Rack",
       specs: [
         { name: "Downward Design Load", value: "75.3", unit: "lb/ft²", page: 2 },
-        // Not found as printed, it keeps the page its window starts on, and this one starts on the
-        // title, before any page: no page is better than a guessed one.
+        // Not found as printed, it gets no page: no page is better than a guessed one.
         { name: "Uplift", value: "not printed anywhere", unit: "lb/ft²" },
       ],
     },
+  ]);
+});
+
+test("a value printed on two pages gets no page, and a short one is not found in a heading or a longer number", () => {
+  const table = transcriptDocument("range.pdf", [
+    {
+      page: 1,
+      markdown: "| Model | A-12 | A-24 |\n| Nominal voltage | 48 V | 48 V |\n| Units | 10 | 12 |",
+    },
+    { page: 2, markdown: "| Model | B-48 |\n| Nominal voltage | 48 V |\n| Parallel units | 1 |" },
+  ]);
+  const [window] = figureWindows(table);
+  assert.ok(window);
+  const answer = JSON.stringify({
+    products: [
+      {
+        model: "B-48",
+        specs: [
+          { name: "Nominal voltage", value: "48 V", unit: "V" },
+          { name: "Parallel units", value: "1", unit: "" },
+        ],
+      },
+    ],
+  });
+  assert.deepEqual(reportsInWindow(answer, table, window)[0]?.specs, [
+    // Printed on both pages: which one it came from cannot be told, so it gets none.
+    { name: "Nominal voltage", value: "48 V", unit: "V" },
+    // "1" is also in "### Page 1" and inside "10" and "12" on page 1, and a figure only on page 2.
+    { name: "Parallel units", value: "1", unit: "", page: 2 },
   ]);
 });
 
@@ -616,6 +644,38 @@ test("a page PDFium cannot draw is written down at once, without asking a model 
 const RATE_LIMITED = "3021: rate limiting: inference request per min rate reached";
 const pageOne = { kind: "vision-page" as const, ...ids, page: 1, pages: 1 };
 const windowOne = { kind: "vision-window" as const, ...ids, window: 1, windows: 1 };
+
+test("a send of the windows that fails leaves no transcript, so the page delivered again sends them", async () => {
+  // Written first, the transcript stopped every later page, and the windows were never sent.
+  const { env, sent, text } = world(
+    { [`archive/${SHA}`]: tinyPdf([BLACK_BOX]) },
+    kimi(["| Weight | 230 g |", "| Weight | 230 g |"]),
+  );
+  const sendBatch = env.WORK.sendBatch.bind(env.WORK);
+  let refused = false;
+  Object.assign(env.WORK, {
+    sendBatch: async (batch: { body: Work }[]) => {
+      if (!refused) {
+        refused = true;
+        throw new Error("Queue sendBatch failed: internal error");
+      }
+      return sendBatch(batch as never);
+    },
+  });
+  await assert.rejects(seePage(pageOne, env, 1, pdfium), /internal error/);
+  assert.equal(text(transcriptKey), undefined, "no transcript to stop the next delivery");
+  await seePage(pageOne, env, 2, pdfium);
+  assert.deepEqual(sent, [windowOne]);
+  assert.ok(text(transcriptKey), "and the transcript is written after them");
+});
+
+test("a window that comes in before its transcript is written waits, without taking a turn", async () => {
+  const { env, sent, asked, pace } = world({}, kimi([]));
+  await seeWindow(windowOne, env, LAST_ATTEMPT);
+  assert.equal(asked.length, 0);
+  assert.equal(pace.asked, 0, "no turn with the model is used up");
+  assert.deepEqual(sent, [{ ...windowOne, waits: 1 }]);
+});
 
 test("a page or window the pace turns away waits its turn: nothing is drawn or asked, and a copy comes back later", async () => {
   const page = world({ [`archive/${SHA}`]: tinyPdf([BLACK_BOX]) }, kimi(["| Weight | 230 g |"]));
