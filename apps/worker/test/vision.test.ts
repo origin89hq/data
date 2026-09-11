@@ -691,6 +691,74 @@ test("a window is read with the names the whole document prints, and the last on
   );
 });
 
+test("a window whose answer runs out of room is read again as two halves, each its own turn", async () => {
+  // A dense sheet: one call cannot write every figure out, each half can.
+  const dense = transcriptDocument("dense.pdf", [
+    { page: 1, markdown: `| Weight | 230 g |\n\n${"a".repeat(6000)}` },
+    { page: 2, markdown: `| Rated current | 12 A |\n\n${"b".repeat(6000)}` },
+  ]);
+  const seen: string[] = [];
+  const { env, pace, readObject } = world(
+    { [transcriptKey]: dense },
+    kimi([], (text) => {
+      seen.push(text);
+      if (seen.length === 1) return { response: '{"products":[{"model":"RM-12","specs":[{"na' };
+      const specs = [
+        ...(text.includes("230 g") ? [{ name: "Weight", value: "230", unit: "g" }] : []),
+        ...(text.includes("12 A") ? [{ name: "Rated current", value: "12", unit: "A" }] : []),
+      ];
+      return answer({ products: [{ model: "RM-12", specs }] });
+    }),
+  );
+  await seeWindow(windowOne, env, 1);
+  assert.equal(seen.length, 3, "the whole window, then its two halves");
+  assert.equal(pace.asked, 3, "and each call took its turn with the model");
+  assert.deepEqual(readObject<Reading>(readingKey).products, [
+    {
+      model: "RM-12",
+      specs: [
+        { name: "Weight", value: "230", unit: "g", page: 1 },
+        { name: "Rated current", value: "12", unit: "A", page: 2 },
+      ],
+    },
+  ]);
+});
+
+test("a small window whose answer is cut short is a failed call, not halved", async () => {
+  const { env, asked, readObject } = world(
+    { [transcriptKey]: CERTIFICATE },
+    kimi([], () => ({ response: '{"products":[{"model":"K-Rack"' })),
+  );
+  await seeWindow(windowOne, env, LAST_ATTEMPT);
+  assert.equal(asked.length, 1);
+  assert.match(readObject<ReadWindow>(windowKey(1)).failed ?? "", /^not read: .*JSON/);
+});
+
+test("a value printed only as the document's own page number gets no page", () => {
+  const sheet = transcriptDocument("footer.pdf", [
+    { page: 1, markdown: "| Weight | 230 g |\n\nPage 2 of 4" },
+    { page: 2, markdown: "| Output | 1 kW |\n\n| DQD 507 | Page 3 |" },
+  ]);
+  const [window] = figureWindows(sheet);
+  assert.ok(window);
+  const answer = JSON.stringify({
+    products: [
+      {
+        model: "RM-12",
+        specs: [
+          { name: "Cells", value: "2", unit: "" },
+          { name: "Strings", value: "3", unit: "" },
+        ],
+      },
+    ],
+  });
+  assert.deepEqual(
+    reportsInWindow(answer, sheet, window)[0]?.specs.map((s) => s.page),
+    [undefined, undefined],
+    "neither a footer's own line nor one inside a table row",
+  );
+});
+
 test("a reading waits for every window, and a window delivered twice is read once", async () => {
   const long = transcriptDocument(
     "manual.pdf",
