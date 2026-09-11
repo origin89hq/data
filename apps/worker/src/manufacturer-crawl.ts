@@ -163,7 +163,6 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     const frontier = hopOrder(candidates);
     let remaining = Math.max(0, budget - pages.length);
     let cursor = 0;
-    let followed = 0;
     for (let b = 0; remaining > 0 && cursor < frontier.length; b += 1) {
       const next = nextHop(frontier, cursor, landedAt, Math.min(DISCOVER_BATCH, remaining));
       cursor = next.cursor;
@@ -174,7 +173,6 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       );
       take(batch);
       remaining -= slice.length;
-      followed += slice.length;
       seen.pages.followed = (seen.pages.followed ?? 0) + batch.read;
       await step.sleep(`politeness after links ${b + 1}`, "2 seconds");
     }
