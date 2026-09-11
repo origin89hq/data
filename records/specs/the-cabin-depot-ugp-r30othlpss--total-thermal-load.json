@@ -1,9 +1,0 @@
-{
-  "id": "the-cabin-depot-ugp-r30othlpss--total-thermal-load",
-  "model": "the-cabin-depot-ugp-r30othlpss",
-  "name": "Total Thermal Load",
-  "value": "62,500",
-  "source": "doc-fafa05a1a8c0252b401d31a130be80ea",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}
