@@ -50,6 +50,8 @@ export const DialectReading = z
     order: z.enum(["low-first", "high-first"]).optional(),
     /** A raw value that means the reading is absent rather than zero. */
     sentinel: z.string().min(1).optional(),
+    /** Only some models of the dialect give this reading; this says what decides it, and a consumer checks the model before polling. */
+    conditional: z.string().min(1).optional(),
     origin: z.enum(["measured", "estimated", "reported"]),
     source: RecordId,
     citation: z.string().min(1).optional(),
@@ -63,6 +65,10 @@ export const DialectReading = z
     "a value over several registers needs its word order",
   );
 export type DialectReading = z.infer<typeof DialectReading>;
+
+/** The most readings and code entries one dialect may carry: a register map is a few hundred rows at most, and a bundle's dialects are read whole. */
+export const DIALECT_READINGS = 256;
+export const DIALECT_CODES = 512;
 
 /** One entry of a vendor code table (#84): what a fault, alarm, charge stage or state code means, with its source. */
 export const DialectCode = z
@@ -122,9 +128,9 @@ export const Dialect = z
     reports: z.array(MetricKind).optional(),
     accepts: z.array(CommandKind).optional(),
     /** The readings, structured, where somebody has done the work; `blocks` stays the prose until every reading it describes is here. */
-    readings: z.array(DialectReading).min(1).optional(),
+    readings: z.array(DialectReading).min(1).max(DIALECT_READINGS).optional(),
     /** The vendor's code tables, structured. */
-    codes: z.array(DialectCode).min(1).optional(),
+    codes: z.array(DialectCode).min(1).max(DIALECT_CODES).optional(),
     models: z.array(DialectModel).optional(),
     /** Why several models are listed under one map. Absent on a single-model entry. */
     sharedMapEvidence: z.string().optional(),

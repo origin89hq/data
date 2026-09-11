@@ -58,6 +58,10 @@ export const LIMITS = {
   sources: 256,
   /** Candidates or near neighbours a resolution names. */
   candidates: 12,
+  /** Structured readings in one bundle, across its dialects. */
+  bundleReadings: 2000,
+  /** Code table entries in one bundle, across its dialects. */
+  bundleCodes: 2000,
 } as const;
 
 /** A model, as much of it as a lookup needs. */
@@ -184,6 +188,11 @@ export interface DialectReading {
   words?: number;
   order?: "low-first" | "high-first";
   sentinel?: string;
+  /**
+   * Set when only some models of the dialect give this reading, with what decides it: a
+   * consumer checks the model before polling for it, and never treats an absent field as zero.
+   */
+  conditional?: string;
   origin: "measured" | "estimated" | "reported";
   source: SourceId;
   citation?: string;
@@ -255,8 +264,8 @@ export interface Bundle {
   claims: Claim[];
   protocol: ProtocolLink[];
   sources: Source[];
-  /** The lists that were cut to their limit: any of `claims`, `protocol`, `sources`. */
-  truncated: ("claims" | "protocol" | "sources")[];
+  /** The lists that were cut to their limit: any of `claims`, `protocol`, `sources`, `readings`, `codes`. */
+  truncated: ("claims" | "protocol" | "sources" | "readings" | "codes")[];
 }
 
 export interface PropertyDefinition {
@@ -275,7 +284,12 @@ export interface ReleaseInfo {
   /** The sha256 of the release's file list: two releases with one content are the same dataset. */
   content: string;
   publishedAt: string;
-  contract: typeof CONTRACT;
+  /**
+   * The contract the release itself answers to: what its tables hold. A release published
+   * before a contract's tables existed answers a lower number, and its empty lists are the
+   * absence of that data, not of anything to say. A consumer needing 2 refuses a 1.
+   */
+  contract: number;
   counts: Record<string, number>;
 }
 

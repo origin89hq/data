@@ -74,15 +74,23 @@ export async function loadedRelease(db: Store, id: string): Promise<string> {
 
 export async function releaseInfo(db: Store, release: string): Promise<ReleaseInfo> {
   const row = await db
-    .prepare("SELECT id, content, published_at, counts FROM releases WHERE id = ?")
+    .prepare("SELECT id, content, published_at, counts, contract FROM releases WHERE id = ?")
     .bind(release)
-    .first<{ id: string; content: string; published_at: string; counts: string }>();
+    .first<{
+      id: string;
+      content: string;
+      published_at: string;
+      counts: string;
+      contract: number;
+    }>();
   if (!row) throw new NoSuchRelease(`release ${release} is not loaded`);
   return {
     id: row.id,
     content: row.content,
     publishedAt: row.published_at,
-    contract: CONTRACT,
+    // The release's own contract, never this Worker's: a release from before a contract's
+    // tables existed answers the lower number, and never more than this Worker knows.
+    contract: Math.min(Number(row.contract) || 1, CONTRACT),
     counts: JSON.parse(row.counts) as Record<string, number>,
   };
 }
@@ -519,13 +527,16 @@ const claimOf = (row: string): Claim => {
   };
 };
 
+/** A dialect's readings and codes are read whole up to the bundle's bound, and a cut is said out loud. */
+type Cut = "readings" | "codes";
 async function dialectsOf(
   db: Store,
   release: string,
   ids: readonly string[],
-): Promise<Map<string, DialectSummary>> {
+): Promise<{ dialects: Map<string, DialectSummary>; cut: Cut[] }> {
   const out = new Map<string, DialectSummary>();
-  if (ids.length === 0) return out;
+  const cut: Cut[] = [];
+  if (ids.length === 0) return { dialects: out, cut };
   const marks = ids.map(() => "?").join(", ");
   const rows = (
     await db
@@ -557,22 +568,24 @@ async function dialectsOf(
       .bind(release, ...ids)
       .all<{ dialect_id: string; source_id: string; citation: string }>()
   ).results;
-  const readings = (
-    await db
-      .prepare(
-        `SELECT dialect_id, row FROM dialect_readings WHERE release = ? AND dialect_id IN (${marks}) ORDER BY CAST(position AS INTEGER)`,
-      )
-      .bind(release, ...ids)
-      .all<{ dialect_id: string; row: string }>()
-  ).results;
-  const codes = (
-    await db
-      .prepare(
-        `SELECT dialect_id, row FROM dialect_codes WHERE release = ? AND dialect_id IN (${marks}) ORDER BY CAST(position AS INTEGER)`,
-      )
-      .bind(release, ...ids)
-      .all<{ dialect_id: string; row: string }>()
-  ).results;
+  // Ordered by dialect then position, and read one past the bound: a cut leaves whole
+  // dialects first and is reported, never a list that looks complete.
+  const readRows = await db
+    .prepare(
+      `SELECT dialect_id, row FROM dialect_readings WHERE release = ? AND dialect_id IN (${marks}) ORDER BY dialect_id, position LIMIT ?`,
+    )
+    .bind(release, ...ids, LIMITS.bundleReadings + 1)
+    .all<{ dialect_id: string; row: string }>();
+  if (readRows.results.length > LIMITS.bundleReadings) cut.push("readings");
+  const readings = readRows.results.slice(0, LIMITS.bundleReadings);
+  const codeRows = await db
+    .prepare(
+      `SELECT dialect_id, row FROM dialect_codes WHERE release = ? AND dialect_id IN (${marks}) ORDER BY dialect_id, position LIMIT ?`,
+    )
+    .bind(release, ...ids, LIMITS.bundleCodes + 1)
+    .all<{ dialect_id: string; row: string }>();
+  if (codeRows.results.length > LIMITS.bundleCodes) cut.push("codes");
+  const codes = codeRows.results.slice(0, LIMITS.bundleCodes);
   for (const { id, row } of rows) {
     const d = JSON.parse(row) as Record<string, string | undefined>;
     out.set(id, {
@@ -597,7 +610,7 @@ async function dialectsOf(
       codes: codes.filter((c) => c.dialect_id === id).map((c) => codeOf(c.row)),
     });
   }
-  return out;
+  return { dialects: out, cut };
 }
 
 const readingOf = (row: string): DialectReading => {
@@ -614,6 +627,7 @@ const readingOf = (row: string): DialectReading => {
       ? { order: r.word_order }
       : {}),
     ...(r.sentinel ? { sentinel: text(r.sentinel) } : {}),
+    ...(r.conditional ? { conditional: text(r.conditional) } : {}),
     origin: (text(r.origin) ?? "reported") as DialectReading["origin"],
     source: text(r.source_id) ?? "",
     ...(r.citation ? { citation: text(r.citation) } : {}),
@@ -710,7 +724,10 @@ export async function bundle(db: Store, release: string, q: BundleQuery): Promis
     ).results;
     if (links.length > LIMITS.bundleProtocol) truncated.push("protocol");
     const kept = links.slice(0, LIMITS.bundleProtocol);
-    const dialects = await dialectsOf(db, release, [...new Set(kept.map((l) => l.dialect_id))]);
+    const { dialects, cut } = await dialectsOf(db, release, [
+      ...new Set(kept.map((l) => l.dialect_id)),
+    ]);
+    truncated.push(...cut);
     // What says each model speaks its dialect (#84), beside the dialect's own citations.
     // Citations of the links kept, and no other: a model with more links than the bound is read
     // for the bound's worth, pair by pair, under D1's parameter ceiling.

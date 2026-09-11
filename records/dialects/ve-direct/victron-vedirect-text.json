@@ -81,6 +81,7 @@
       "at": "IL",
       "unit": "A",
       "scale": 0.001,
+      "conditional": "models with a load output; a charger without one never sends the field",
       "origin": "measured",
       "source": "victron-ve-direct-protocol-3-34",
       "citation": "Table I, field labels, for the MPPT charger columns; the field is in mA, on models with a load output"
@@ -88,6 +89,7 @@
     {
       "metric": "switch-state",
       "at": "LOAD",
+      "conditional": "models with a load output; a charger without one never sends the field",
       "origin": "reported",
       "source": "victron-ve-direct-protocol-3-34",
       "citation": "Table I, field labels, for the MPPT charger columns; ON or OFF, on models with a load output"

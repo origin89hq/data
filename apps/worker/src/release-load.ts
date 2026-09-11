@@ -1,6 +1,7 @@
 import { isLoadPart, LOAD_PART_MAX, Release } from "@origin89/equipment-schema/releases";
 import {
   activate,
+  contractOf,
   countRows,
   createSchema,
   insertRows,
@@ -90,9 +91,15 @@ export async function loadRelease(
     // two loads of one release started together cannot both proceed into its parts.
     const taken = await db
       .prepare(
-        "INSERT INTO releases (id, content, published_at, state, counts) VALUES (?, ?, ?, 'loading', '{}') ON CONFLICT(id) DO UPDATE SET content = excluded.content, published_at = excluded.published_at, state = 'loading', error = NULL, counts = '{}' WHERE releases.state = 'failed'",
+        "INSERT INTO releases (id, content, published_at, state, counts, contract) VALUES (?, ?, ?, 'loading', '{}', ?) ON CONFLICT(id) DO UPDATE SET content = excluded.content, published_at = excluded.published_at, state = 'loading', error = NULL, counts = '{}', contract = excluded.contract WHERE releases.state = 'failed'",
       )
-      .bind(releaseId, release.content, release.at)
+      // A table the plan names, with rows or none, is one the release was built with.
+      .bind(
+        releaseId,
+        release.content,
+        release.at,
+        contractOf((t) => t in plan.tables || publishes(t)),
+      )
       .run();
     if ((taken.meta?.changes ?? 0) > 0) return { taken: true as const };
     return { taken: false as const, state: (await releaseRow(db, releaseId))?.state ?? "unknown" };

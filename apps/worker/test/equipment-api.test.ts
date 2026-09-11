@@ -615,6 +615,14 @@ test("a consumer gets the active release by default, a loaded one by id, and not
   await assert.rejects(loadedRelease(db, OLDER), /is not loaded/);
   const info = await releaseInfo(db, RELEASE);
   assert.equal(info.contract, 2, "readings and codes are contract 2");
+  // A release loaded from before those tables answers to the contract it was built under.
+  await db.prepare("UPDATE releases SET contract = 1 WHERE id = ?").bind(RELEASE).run();
+  assert.equal(
+    (await releaseInfo(db, RELEASE)).contract,
+    1,
+    "the release's own contract, not this Worker's",
+  );
+  await db.prepare("UPDATE releases SET contract = 2 WHERE id = ?").bind(RELEASE).run();
   assert.equal(info.publishedAt, "2026-09-11T10:00:00Z");
   assert.equal(info.counts.models, 7);
   // An older publication loaded later is retained and answers by id, while the active one stays.
@@ -1173,4 +1181,27 @@ test("a reader on a store nothing has loaded yet answers empty rather than askin
   assert.deepEqual([out.models, out.unknown, out.protocol, out.sources], [[], ["nothing"], [], []]);
   const found = await resolve(env.RELEASES, RELEASE, { model: "Q" });
   assert.equal(found.outcome, "none");
+});
+
+test("readings and codes in a bundle are cut at their limits and say so, and a conditional reading says which models give it", async () => {
+  const many = Array.from({ length: LIMITS.bundleReadings + 1 }, (_, i) => ({
+    dialect_id: "victron-mppt-vedirect-hex",
+    position: i,
+    metric: "pv-voltage",
+    at: `0x${(0xe000 + i).toString(16)}`,
+    unit: "V",
+    origin: "measured",
+    source_id: "doc-vedirect-hex",
+    ...(i === 0 ? { conditional: "models with a load output" } : {}),
+  }));
+  const { db } = await fixture({ dialect_readings: many });
+  const out = await bundle(db, RELEASE, {
+    models: ["victron-energy-smartsolar-mppt-150-35"],
+    claims: false,
+  });
+  const hex = out.protocol.find((p) => p.dialect.id === "victron-mppt-vedirect-hex")?.dialect;
+  assert.equal(hex?.readings.length, LIMITS.bundleReadings);
+  assert.deepEqual(out.truncated, ["readings"]);
+  assert.equal(hex?.readings[0]?.conditional, "models with a load output");
+  assert.equal(hex?.readings[1]?.conditional, undefined);
 });
