@@ -24,6 +24,7 @@ import {
   hasTextLayer,
   MAX_PAGES,
   MAX_RENDER_BYTES,
+  mergeReports,
   notTranscribed,
   PAGE_CONVERTER,
   pageOffsets,
@@ -211,6 +212,53 @@ test("a value printed on two pages gets no page, and a short one is not found in
     // "1" is also in "### Page 1" and inside "10" and "12" on page 1, and a figure only on page 2.
     { name: "Parallel units", value: "1", unit: "", page: 2 },
   ]);
+});
+
+test("a value is not found inside a name the answer gives, whatever separates its parts", () => {
+  const sheet = transcriptDocument("rm.pdf", [
+    { page: 1, markdown: "**Model:** RM 12\n\n| Weight | 230 g |" },
+    { page: 2, markdown: "| Rated current | 12 A |" },
+  ]);
+  const [window] = figureWindows(sheet);
+  assert.ok(window);
+  const answer = (value: string) =>
+    JSON.stringify({
+      products: [{ model: "RM 12", specs: [{ name: "Rated", value, unit: "" }] }],
+    });
+  assert.equal(
+    reportsInWindow(answer("12"), sheet, window)[0]?.specs[0]?.page,
+    2,
+    "the 12 A on page 2, not the name on page 1",
+  );
+  const only = transcriptDocument("rm.pdf", [
+    { page: 1, markdown: "**Model:**  RM\n12\n\n| Weight | 230 g |" },
+  ]);
+  const [alone] = figureWindows(only);
+  assert.ok(alone);
+  assert.equal(
+    reportsInWindow(answer("12"), only, alone)[0]?.specs[0]?.page,
+    undefined,
+    "printed only as the name, even across a line break, it gets no page",
+  );
+});
+
+test("a figure two overlapping windows both report keeps the page whichever window found it", () => {
+  const figure = { name: "Weight", value: "42", unit: "kg" };
+  assert.deepEqual(
+    mergeReports([
+      { model: "S-550", specs: [figure] },
+      { model: "S-550", specs: [{ ...figure, page: 3 }] },
+    ]),
+    [{ model: "S-550", specs: [{ ...figure, page: 3 }] }],
+  );
+  assert.deepEqual(
+    mergeReports([
+      { model: "S-550", specs: [{ ...figure, page: 2 }] },
+      { model: "S-550", specs: [{ ...figure, page: 5 }] },
+    ]),
+    [{ model: "S-550", specs: [{ ...figure, page: 2 }] }],
+    "a page already found is not replaced",
+  );
 });
 
 test("a value is not found inside a model name, where a hyphen or a slash joins it to the rest", () => {

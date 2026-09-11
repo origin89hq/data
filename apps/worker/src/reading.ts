@@ -193,14 +193,19 @@ export function mergeReports(reports: Reported[]): Reported[] {
       if (typeof s?.name !== "string" || typeof s?.value !== "string") continue;
       if (!statesOneFigure(s.value)) continue;
       const seen = `${s.name.trim().toLowerCase()}|${s.value.trim()}|${(s.conditions ?? "").trim().toLowerCase()}`;
-      if (
-        existing.specs.some(
-          (x) =>
-            `${x.name.trim().toLowerCase()}|${x.value.trim()}|${(x.conditions ?? "").trim().toLowerCase()}` ===
-            seen,
-        )
-      )
+      const same = existing.specs.findIndex(
+        (x) =>
+          `${x.name.trim().toLowerCase()}|${x.value.trim()}|${(x.conditions ?? "").trim().toLowerCase()}` ===
+          seen,
+      );
+      if (same !== -1) {
+        // Two overlapping windows can report one figure, and only the later may have been able to
+        // tell its page. A page found is kept, whichever window found it.
+        const kept = existing.specs[same];
+        if (kept && kept.page === undefined && s.page !== undefined)
+          existing.specs[same] = { ...kept, page: s.page };
         continue;
+      }
       existing.specs.push(s);
     }
     byModel.set(key, existing);
@@ -476,7 +481,23 @@ export function reportsInWindow(
 ): Reported[] {
   const parsed = JSON.parse(answer) as { products?: unknown };
   if (!Array.isArray(parsed.products)) return [];
+  const products = (parsed.products as Reported[]).filter(
+    (product) => typeof product?.model === "string" && Array.isArray(product.specs),
+  );
   const pages = pageOffsets(transcript);
+  // Every product name the answer gives, blanked out of the window where it is printed, so a
+  // value is never found inside a name: "12" in "RM 12" as much as in "RM-12". Blanked with as
+  // many spaces, so every other match keeps its place.
+  let searched = window.text;
+  for (const { model } of products) {
+    const name = model.trim();
+    if (!name) continue;
+    const printed = new RegExp(
+      name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+"),
+      "gi",
+    );
+    searched = searched.replace(printed, (match) => " ".repeat(match.length));
+  }
   const pageOf = (value: string): number | undefined => {
     const needle = value.trim();
     if (!needle) return undefined;
@@ -486,7 +507,7 @@ export function reportsInWindow(
     const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const figure = new RegExp(`(?<![\\w.])(?<!\\w[-/])${escaped}(?![\\w]|\\.\\d|[-/]\\w)`, "g");
     const found = new Set<number>();
-    for (const match of window.text.matchAll(figure)) {
+    for (const match of searched.matchAll(figure)) {
       const at = window.start + (match.index ?? 0);
       // Not the title or metadata before the first page, and not a "### Page N" heading.
       const line = transcript.slice(
@@ -500,18 +521,16 @@ export function reportsInWindow(
     // Printed on one page only, or no page: a value printed on two cannot say which one it came from.
     return found.size === 1 ? [...found][0] : undefined;
   };
-  return (parsed.products as Reported[])
-    .filter((product) => typeof product?.model === "string" && Array.isArray(product.specs))
-    .map((product) => ({
-      model: product.model,
-      // A null or a bare string among a product's figures is dropped, not a reason to lose the
-      // window: `strict: false` lets the model answer outside the schema.
-      specs: product.specs
-        .filter((s) => typeof s === "object" && s !== null)
-        .map((s) => {
-          const { page: _claimed, ...figure } = s;
-          const page = typeof s.value === "string" ? pageOf(s.value) : undefined;
-          return { ...figure, ...(page === undefined ? {} : { page }) };
-        }),
-    }));
+  return products.map((product) => ({
+    model: product.model,
+    // A null or a bare string among a product's figures is dropped, not a reason to lose the
+    // window: `strict: false` lets the model answer outside the schema.
+    specs: product.specs
+      .filter((s) => typeof s === "object" && s !== null)
+      .map((s) => {
+        const { page: _claimed, ...figure } = s;
+        const page = typeof s.value === "string" ? pageOf(s.value) : undefined;
+        return { ...figure, ...(page === undefined ? {} : { page }) };
+      }),
+  }));
 }
