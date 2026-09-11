@@ -1,8 +1,11 @@
 import {
+  baseHref,
+  decodeEntities,
   type Found,
   hostAllowed,
   isDocument,
   linkedDocuments,
+  withoutBase,
 } from "@origin89/equipment-schema/documents";
 import { USER_AGENT } from "./feeds.ts";
 import { isIndex, locations } from "./sitemap.ts";
@@ -300,10 +303,69 @@ export async function discoverPages(
   return { pages: [...new Set(urls)], hosts };
 }
 
+const HREF = /\bhref\s*=\s*["']([^"']+)["']/gi;
+
+/** Files a page links that are neither pages to read nor documents to keep. */
+const ASSET =
+  /\.(png|jpe?g|gif|svg|webp|avif|ico|css|js|mjs|map|json|webmanifest|xml|xsl|rss|atom|woff2?|ttf|otf|eot|wasm|mp4|webm|mp3|ogg|wav|avi|mov)$/i;
+
+/**
+ * The pages a page links on the maker's own hosts, absolute and deduplicated: the next hop.
+ * EPEVER's sitemap is stale and does not list the XTRA-N G3 page, while its category pages link
+ * it; a discovery that never left the sitemap could not reach a current product (#48).
+ */
+export function pageLinks(html: string, pageUrl: string, domains: readonly string[]): string[] {
+  const out = new Set<string>();
+  // Relative links resolve as a browser would, against the page's `<base href>` when it has one.
+  const base = baseHref(html, pageUrl);
+  for (const match of withoutBase(html).matchAll(HREF)) {
+    let url: URL;
+    try {
+      url = new URL(decodeEntities(match[1]), base);
+    } catch {
+      continue;
+    }
+    if (url.protocol !== "https:" && url.protocol !== "http:") continue;
+    url.hash = "";
+    const href = url.toString();
+    if (isDocument(href) || ASSET.test(url.pathname) || !hostAllowed(url.hostname, domains))
+      continue;
+    out.add(href);
+  }
+  return [...out];
+}
+
+/** Paths a maker keeps its documents behind, ahead of its blog, its careers page and its cart. */
+const WORTH_FIRST =
+  /product|download|support|manual|datasheet|data-sheet|resource|spec|document|literature|catalog/i;
+
+/**
+ * The order to follow links in when the budget will not cover them all: pages whose path says
+ * product or download first, everything else after, each in the order they were found.
+ */
+export function hopOrder(candidates: readonly string[]): string[] {
+  const first: string[] = [];
+  const rest: string[] = [];
+  for (const url of candidates) {
+    let path = "";
+    try {
+      path = new URL(url).pathname;
+    } catch {
+      // A candidate that is not a URL sorts last and fails to load like any other.
+    }
+    (WORTH_FIRST.test(path) ? first : rest).push(url);
+  }
+  return [...first, ...rest];
+}
+
 /** What one batch of pages gave, in numbers a plan can carry and a person can read. */
 export interface PagesRead {
   links: Found[];
   tables: SpecPageCandidate[];
+  /** Pages these pages link on the maker's hosts, for the hop after this one. */
+  pages: string[];
+  /** Where each page read actually was, after redirects, so a link back to it is not a page to follow. */
+  landed: string[];
   read: number;
   /** The pages asked for that answered with a page, as they were asked for. */
   opened: string[];
@@ -328,6 +390,8 @@ export async function readPages(
   const out: PagesRead = {
     links: [],
     tables: [],
+    pages: [],
+    landed: [],
     opened: [],
     read: 0,
     failed: {},
@@ -335,6 +399,7 @@ export async function readPages(
     redirectedTo: [],
   };
   const strayedTo = new Set<string>();
+  const linked = new Set<string>();
   for (const page of pages) {
     const answer = await get(page);
     const away = strayed(answer, domains);
@@ -363,6 +428,7 @@ export async function readPages(
       continue;
     }
     out.read += 1;
+    out.landed.push(answer.url);
     out.opened.push(page);
     // Links resolve against where the page actually is, which after a redirect is not where it was asked for.
     for (const doc of linkedDocuments(answer.text, answer.url)) {
@@ -374,6 +440,12 @@ export async function readPages(
         out.foreign[doc.host] = urls;
       }
     }
+    // A page's link to itself, canonical or otherwise, is not a page to follow.
+    for (const link of pageLinks(answer.text, answer.url, domains))
+      if (link !== answer.url && link !== page && !linked.has(link)) {
+        linked.add(link);
+        out.pages.push(link);
+      }
     // The page is already here for its links. Judging it as a specification table too costs
     // nothing and is how the feed list stops being hand-typed.
     const candidate = judgeSpecPage(page, answer.text);
@@ -386,8 +458,8 @@ export async function readPages(
 /** Everything discovery saw, written beside the plan so an empty one can be explained. */
 export interface DiscoverySeen {
   hosts: HostSeen[];
-  /** Pages the site listed on its own hosts, how many were read, and what the rest answered. A read below the listing is a sample. */
-  pages: { listed?: number; read: number; failed: Record<string, number> };
+  /** Pages the site listed on its own hosts, how many were read in all, how many of those by following links, and what the rest answered. A read below the listing is a sample. */
+  pages: { listed?: number; read: number; followed?: number; failed: Record<string, number> };
   /** Distinct documents linked on hosts the record does not claim, by host. */
   foreignDocumentHosts: Record<string, number>;
   redirectedTo: string[];

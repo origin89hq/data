@@ -53,9 +53,15 @@ person decides.
 
 ## Hop two: manufacturer to documents
 
-The confirmed domains are read from their sitemaps for links to documents, and
-a link that leaves those domains is not one of this maker's. That much only
-reads pages the site already publishes to search engines.
+The confirmed domains are read from their sitemaps, or from the home page
+where a sitemap is missing or lists nothing of theirs, and then one hop further
+along the links those pages carry on the same domains, product and download
+pages first, all within one page budget. A stale sitemap does not list a
+current product page, but the category page it does list links it. A link that
+leaves those domains is not one of this maker's. That much only reads pages the
+site already publishes, and the plan records what each host and page answered,
+so a plan that offers nothing says whether the site refused, moved, or keeps
+its documents on a host the record does not claim.
 
 **Then it stops.** The instance writes what it *would* fetch — how many
 documents, on which hosts, how many bytes where the host said — and waits for a

@@ -7,7 +7,13 @@ import {
   planFor,
 } from "@origin89/equipment-schema/documents";
 import { observeCollection, workflowActivity } from "./activity.ts";
-import { type DiscoverySeen, discoverPages, readPages } from "./discover.ts";
+import {
+  type DiscoverySeen,
+  discoverPages,
+  hopOrder,
+  type PagesRead,
+  readPages,
+} from "./discover.ts";
 import { todayUtc, USER_AGENT } from "./feeds.ts";
 import { pointerKey, runPrefix, writePointer } from "./runs.ts";
 import { sample } from "./sitemap.ts";
@@ -75,13 +81,18 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       }),
     );
 
+    // The whole page budget: what the sitemap lists, and after that what those pages link. The
+    // routes check the limit before a run starts; a budget that is not a whole number would let
+    // the hop read every link it found, so a bad one is the default rather than open-ended.
+    const budget =
+      Number.isSafeInteger(pageLimit) && (pageLimit as number) > 0 ? (pageLimit as number) : 200;
     const { pages, hosts, listed } = await step.do(
       "discover pages",
       { retries: { limit: 2, delay: "20 seconds", backoff: "exponential" }, timeout: "3 minutes" },
       async () => {
         const discovered = await discoverPages(domains);
         return {
-          pages: sample(discovered.pages, pageLimit ?? 200),
+          pages: sample(discovered.pages, budget),
           hosts: discovered.hosts,
           listed: discovered.pages.length,
         };
@@ -94,25 +105,30 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     // the site refused, moved, keeps its documents elsewhere, or simply links none (#48).
     const seen: DiscoverySeen = {
       hosts,
-      pages: { listed, read: 0, failed: {} },
+      pages: { listed, read: 0, followed: 0, failed: {} },
       foreignDocumentHosts: {},
       redirectedTo: [...new Set(hosts.flatMap((h) => h.redirectedTo))].sort(),
     };
     // Distinct documents on hosts the record does not claim: the same CDN manual linked from
     // twenty pages is one document to report.
     const foreignSeen = new Map<string, Set<string>>();
-    for (let b = 0; b * DISCOVER_BATCH < pages.length; b += 1) {
-      const slice = pages.slice(b * DISCOVER_BATCH, (b + 1) * DISCOVER_BATCH);
-      const batch = await step.do(
-        `read pages ${b + 1}`,
-        {
-          retries: { limit: 2, delay: "15 seconds", backoff: "exponential" },
-          timeout: "3 minutes",
-        },
-        () => readPages(slice, domains),
-      );
+    // Pages already read or queued, and where a read page actually landed, so a link back to one
+    // of them is not a page to follow.
+    const queued = new Set(pages);
+    const landedAt = new Set<string>();
+    const candidates: string[] = [];
+    const take = (batch: PagesRead): void => {
       for (const f of batch.links) if (!found.some((x) => x.url === f.url)) found.push(f);
       specPages.push(...batch.tables);
+      for (const url of batch.landed) {
+        queued.add(url);
+        landedAt.add(url);
+      }
+      for (const link of batch.pages)
+        if (!queued.has(link)) {
+          queued.add(link);
+          candidates.push(link);
+        }
       seen.pages.read += batch.read;
       for (const [status, n] of Object.entries(batch.failed))
         seen.pages.failed[status] = (seen.pages.failed[status] ?? 0) + n;
@@ -123,7 +139,34 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
         seen.foreignDocumentHosts[host] = known.size;
       }
       seen.redirectedTo = [...new Set([...seen.redirectedTo, ...batch.redirectedTo])].sort();
+    };
+    const reading = {
+      retries: { limit: 2, delay: "15 seconds", backoff: "exponential" },
+      timeout: "3 minutes",
+    } as const;
+    for (let b = 0; b * DISCOVER_BATCH < pages.length; b += 1) {
+      const slice = pages.slice(b * DISCOVER_BATCH, (b + 1) * DISCOVER_BATCH);
+      take(await step.do(`read pages ${b + 1}`, reading, () => readPages(slice, domains)));
       await step.sleep(`politeness after pages ${b + 1}`, "2 seconds");
+    }
+
+    // One hop further, on what is left of the budget: a current product page a stale sitemap
+    // leaves out is one link from a category page that it does list, and a maker with no sitemap
+    // at all has only its home page to start from. Product and download pages go first, and a run
+    // costs what it cost before, since the hop spends the same budget the sitemap did not.
+    // A link found early to the address a later page redirected to is that page, already read.
+    const hop = hopOrder(candidates.filter((c) => !landedAt.has(c))).slice(
+      0,
+      Math.max(0, budget - pages.length),
+    );
+    for (let b = 0; b * DISCOVER_BATCH < hop.length; b += 1) {
+      const slice = hop.slice(b * DISCOVER_BATCH, (b + 1) * DISCOVER_BATCH);
+      const batch = await step.do(`follow links ${b + 1}`, reading, () =>
+        readPages(slice, domains),
+      );
+      take(batch);
+      seen.pages.followed = (seen.pages.followed ?? 0) + batch.read;
+      await step.sleep(`politeness after links ${b + 1}`, "2 seconds");
     }
     if (specPages.length > 0) {
       await step.do("write the specification pages this maker publishes", async () => {
@@ -149,6 +192,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
         documents: found.length,
         specPages: specPages.length,
         pagesRead: seen.pages.read,
+        pagesFollowed: seen.pages.followed,
         pagesFailed: seen.pages.failed,
         foreignDocumentHosts: seen.foreignDocumentHosts,
         redirectedTo: seen.redirectedTo,

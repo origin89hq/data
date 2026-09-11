@@ -5,10 +5,12 @@ import {
   type Fetched,
   fetchPage,
   type HostSeen,
+  hopOrder,
   hostsToTry,
   isDocumentAnswer,
   isPage,
   MAX_CHILD_SITEMAPS,
+  pageLinks,
   readPages,
 } from "../src/discover.ts";
 
@@ -411,6 +413,73 @@ test("a page that lands on another site is a site that moved, and its links belo
   assert.deepEqual(read.foreign, {
     "www.newname.test": ["https://www.newname.test/support/manual.pdf"],
   });
+  assert.deepEqual(read.pages, [], "and its pages are the other site's, not a hop to follow");
+  assert.deepEqual(read.landed, ["https://www.newname.test/"]);
+});
+
+test("a page's own links are the next hop; documents, assets and other sites are not", () => {
+  const html = `
+    <a href="/product-category/charge-controller/">category</a>
+    <a href="https://www.maker.test/product/xtra-n-g3/#specs">product</a>
+    <a href="https://www.maker.test/product/xtra-n-g3/">same product</a>
+    <a href="/wp-content/uploads/datasheet.pdf">a document</a>
+    <a href="/logo.svg">an asset</a>
+    <a href="/feed.xml">a feed</a>
+    <a href="/site.webmanifest">a manifest</a>
+    <base href="/catalog/">
+    <a href="model-x">relative to the base</a>
+    <a href="/fonts/brand.otf">a font</a>
+    <a href="https://shop.other.test/maker">a reseller</a>
+    <a href="mailto:sales@maker.test">mail</a>
+    <a href="tel:+1">phone</a>`;
+  assert.deepEqual(pageLinks(html, "https://www.maker.test/", ["maker.test"]), [
+    "https://www.maker.test/product-category/charge-controller/",
+    "https://www.maker.test/product/xtra-n-g3/",
+    "https://www.maker.test/catalog/model-x",
+  ]);
+});
+
+test("links are followed product and download pages first, in the order they were found", () => {
+  const found = [
+    "https://maker.test/blog/summer-sale",
+    "https://maker.test/support/downloads/",
+    "https://maker.test/about",
+    "https://maker.test/product/xtra-n-g3/",
+    "https://products.maker.test/careers",
+    "not a url",
+  ];
+  assert.deepEqual(hopOrder(found), [
+    "https://maker.test/support/downloads/",
+    "https://maker.test/product/xtra-n-g3/",
+    "https://maker.test/blog/summer-sale",
+    "https://maker.test/about",
+    "https://products.maker.test/careers",
+    "not a url",
+  ]);
+  assert.deepEqual(hopOrder([]), []);
+});
+
+test("pages read give their links once each, never themselves, and a page that failed gives none", async () => {
+  const { get } = site({
+    "https://maker.test/a": `<a href="/product/x">x</a><a href="/product/y">y</a><a href="/a">self</a>`,
+    // Asked for without the slash, answered with it, and linking its canonical self.
+    "https://maker.test/b": {
+      url: "https://maker.test/b/",
+      text: `<a href="/product/y">y again</a><a href="/blog">blog</a><a href="/b/">canonical</a>`,
+    },
+    "https://maker.test/c": { status: 403, text: `<a href="/product/z">hidden</a>` },
+  });
+  const read = await readPages(
+    ["https://maker.test/a", "https://maker.test/b", "https://maker.test/c"],
+    ["maker.test"],
+    get,
+  );
+  assert.deepEqual(read.pages, [
+    "https://maker.test/product/x",
+    "https://maker.test/product/y",
+    "https://maker.test/blog",
+  ]);
+  assert.deepEqual(read.landed, ["https://maker.test/a", "https://maker.test/b/"]);
 });
 
 test("a sitemap served as plain text is read, while a plain-text download is not", async (t) => {
