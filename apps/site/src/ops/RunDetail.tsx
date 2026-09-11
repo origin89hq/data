@@ -236,6 +236,7 @@ export function RunDetail({
                           <strong>{decodeName(doc.url)}</strong>
                           <small>
                             {doc.host} · {bytes(doc.bytes)}
+                            {doc.cited ? " · cited by a record" : ""}
                           </small>
                         </span>
                         <Icon name="arrowUpRight" />

@@ -227,9 +227,10 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
 
     // What a person already found is offered whether or not the site led here (#48). Offered,
     // not fetched: it waits for the same approval as everything else.
-    const before = found.length;
     found.splice(0, found.length, ...withCited(found, cited, domains));
-    seen.cited = { documents: found.length - before, pages: citedRead };
+    // Counted on the final list, so a cited document the site also led to is still a cited one.
+    const citedOffered = found.filter((f) => cited.documents.includes(f.url)).length;
+    seen.cited = { documents: citedOffered, pages: citedRead };
 
     console.log(
       JSON.stringify({

@@ -49,6 +49,29 @@ test("operations parsers preserve missing counts and reject corrupt nested data"
 
 test("document plans must belong to the selected run and use matching, credential-free web hosts", () => {
   assert.deepEqual(parsePlan(plan, run), plan);
+  // Where a document came from survives parsing, so the approver can tell a record's citation
+  // from a crawl find; a marker that is not exactly true is refused.
+  const provenance = {
+    ...plan,
+    documents: [
+      {
+        url: "https://docs.example.com/manual.pdf",
+        host: "docs.example.com",
+        bytes: 12,
+        foundOn: "https://docs.example.com/product/a",
+      },
+      {
+        url: "https://docs.example.com/cited.pdf",
+        host: "docs.example.com",
+        bytes: 34,
+        cited: true,
+      },
+    ],
+  };
+  assert.deepEqual(parsePlan(provenance, run), provenance);
+  assert.throws(() =>
+    parsePlan({ ...plan, documents: [{ ...provenance.documents[1], cited: "yes" }] }, run),
+  );
   for (const value of [
     { ...plan, checkedAt: "2026-09-10" },
     { ...plan, manufacturer: "another" },

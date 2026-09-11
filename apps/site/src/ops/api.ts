@@ -49,7 +49,15 @@ export interface Pipeline {
 export interface DocumentPlan {
   manufacturer: string;
   checkedAt: string;
-  documents: { url: string; host: string; bytes?: number }[];
+  documents: {
+    url: string;
+    host: string;
+    bytes?: number;
+    /** The page discovery found the link on, when it did. */
+    foundOn?: string;
+    /** Offered because a repository record cites it, whether or not the site led there. */
+    cited?: true;
+  }[];
 }
 export interface DatasetFile {
   name: string;
@@ -267,7 +275,15 @@ export function parsePlan(value: unknown, run: RunStatus): DocumentPlan {
         parsed.password
       )
         throw Error("The plan contains an invalid document URL.");
-      return { url, host, bytes: optionalNumber(doc.bytes) };
+      if (doc.cited !== undefined && doc.cited !== true)
+        throw Error("The plan marks a document as cited with something other than true.");
+      return {
+        url,
+        host,
+        bytes: optionalNumber(doc.bytes),
+        ...(doc.foundOn === undefined ? {} : { foundOn: string(doc.foundOn) }),
+        ...(doc.cited === true ? { cited: true as const } : {}),
+      };
     }),
   };
 }
