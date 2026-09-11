@@ -1,8 +1,11 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
+  ACCEPT_ANYTHING,
+  ACCEPT_PAGE,
   discoverPages,
   type Fetched,
+  fetchAnything,
   fetchPage,
   type HostSeen,
   hopOrder,
@@ -652,6 +655,11 @@ test("a document on a host the record names is the maker's when its own page lin
     [[], 0],
     "a probe is not a page read, nor a move",
   );
+  assert.deepEqual(
+    answered.answered,
+    [],
+    "nor a page answering with a document: it is the link's find",
+  );
   const unnamed = await readPages(["https://maker.test/product/b"], ["maker.test"], get);
   assert.deepEqual(unnamed.probes, [], "with no document host named there is nothing to probe");
   const without = await readPages(["https://maker.test/product/a"], ["maker.test"], get);
@@ -891,4 +899,15 @@ test("probes are bounded per batch and in bytes, and what is left behind is coun
   assert.ok(JSON.stringify(bounded).length <= MAX_RESULT_BYTES);
   assert.ok(bounded.probes.length > 0 && bounded.probes.length < 150);
   assert.equal(bounded.probesDropped, 150 - bounded.probes.length);
+});
+
+test("a page request asks for pages and a probe asks for anything", async (t) => {
+  const accepts: string[] = [];
+  t.mock.method(globalThis, "fetch", async (_input: string | URL | Request, init?: RequestInit) => {
+    accepts.push(String((init?.headers as Record<string, string> | undefined)?.accept));
+    return new Response("<p>x</p>", { status: 200, headers: { "content-type": "text/html" } });
+  });
+  await fetchPage("https://maker.test/page");
+  await fetchAnything("https://cdn.shop.test/download?id=1");
+  assert.deepEqual(accepts, [ACCEPT_PAGE, ACCEPT_ANYTHING]);
 });

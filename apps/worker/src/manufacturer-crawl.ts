@@ -12,6 +12,7 @@ import {
   type Cited,
   type DiscoverySeen,
   discoverPages,
+  fetchAnything,
   hopOrder,
   MAX_PROBES_PER_RUN,
   nextHop,
@@ -222,7 +223,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
         const n = probeBatches;
         take(
           await step.do(`probe documents ${n}`, reading, () =>
-            readPages(slice, domains, undefined, documentHosts, origins),
+            readPages(slice, domains, fetchAnything, documentHosts, origins),
           ),
         );
         probed = end;

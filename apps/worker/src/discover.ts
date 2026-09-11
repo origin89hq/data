@@ -67,8 +67,16 @@ export function isDocumentAnswer(answer: Fetched): boolean {
 
 export type Get = (url: string) => Promise<Fetched>;
 
-/** What a page request asks for. */
+/** What a page request asks for. A probe asks for anything, since it wants the document behind a link. */
 export const ACCEPT_PAGE = "text/html,application/xhtml+xml,application/xml";
+export const ACCEPT_ANYTHING = "*/*";
+
+/**
+ * The getter for probes: an endpoint that negotiates content may answer a page request with a
+ * 406 or an HTML fallback, and a probe reads no body at all, since the headers say whether the
+ * answer is a document and a page on a document host is not a page to read.
+ */
+export const fetchAnything: Get = (url) => fetchPage(url, ACCEPT_ANYTHING, false);
 
 /**
  * How much of a page is read. A page is read for its links and its tables, and a couple of
