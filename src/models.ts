@@ -1,3 +1,4 @@
+import { keyPart } from "@origin89/equipment-api/keys";
 import type { Brand } from "@origin89/equipment-schema/brand";
 import type { Dialect } from "@origin89/equipment-schema/dialect";
 import type { EquipmentKind, Guess } from "@origin89/equipment-schema/guess";
@@ -224,11 +225,14 @@ export function deriveModels({
       b.decision === "manufacturer" && b.manufacturer ? [[b.id, b.manufacturer] as const] : [],
     ),
   );
+  // A catalogue entry is scoped to the maker its dialect names: "AB-12" under maker A is not
+  // maker B's AB12. A dialect that names no maker links nothing here; that is a person's call.
   const dialectByModel = new Map<string, string[]>();
   for (const d of dialects) {
+    if (!d.manufacturer) continue;
     for (const m of d.models ?? []) {
-      const key = normaliseModelName(m.name).toLowerCase();
-      if (!key) continue;
+      const key = `${d.manufacturer}\u0000${keyPart(normaliseModelName(m.name))}`;
+      if (key.endsWith("\u0000")) continue;
       dialectByModel.set(key, [...(dialectByModel.get(key) ?? []), d.id]);
     }
   }
@@ -254,7 +258,7 @@ export function deriveModels({
           name,
           ...(guess ? { kind: guess.kind } : {}),
           aliases: [],
-          dialects: dialectByModel.get(name.toLowerCase()) ?? [],
+          dialects: dialectByModel.get(`${maker}\u0000${keyPart(name)}`) ?? [],
         } as Model,
         listings: 0,
         sellers: new Set<string>(),

@@ -1,0 +1,14 @@
+{
+  "name": "@origin89/equipment-api",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "The contract of the read-only EquipmentApi a consumer Worker binds to, and the one model key rule",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts"
+  },
+  "dependencies": {
+    "zod": "4.5.4"
+  }
+}

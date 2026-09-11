@@ -1,5 +1,6 @@
+import { modelKey } from "@origin89/equipment-api/keys";
 import { Model } from "@origin89/equipment-schema/model";
-import { looksLikeModelName, modelId, normaliseModelName, productKey } from "../../src/models.ts";
+import { looksLikeModelName, modelId, normaliseModelName } from "../../src/models.ts";
 import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 
 /**
@@ -28,15 +29,22 @@ const addModels = args.includes("--mint");
 
 const records = loadRecords();
 const makerName = new Map(records.manufacturers.map((m) => [m.id, m.name]));
-const key = (maker: string, name: string) =>
-  `${maker}|${productKey(makerName.get(maker) ?? maker, name)}`;
-
-const byKey = new Map<string, string>();
+const brandsOf = new Map<string, string[]>();
+for (const b of records.brands)
+  if (b.decision === "manufacturer" && b.manufacturer)
+    brandsOf.set(b.manufacturer, [...(brandsOf.get(b.manufacturer) ?? []), b.brand]);
+// The one key rule (#83), under the maker's name and each brand the gate confirmed for it. A key
+// that reaches two models is kept as the set it reaches, and such a name links nothing.
+const key = (maker: string, name: string) => modelKey(makerName.get(maker) ?? maker, name);
+const byKey = new Map<string, Set<string>>();
+const reach = (k: string, id: string) => byKey.set(k, (byKey.get(k) ?? new Set()).add(id));
 for (const model of records.models) {
-  for (const name of [model.name, ...model.aliases]) {
-    const id = key(model.manufacturer, name);
-    if (!byKey.has(id)) byKey.set(id, model.id);
-  }
+  const labels = [
+    makerName.get(model.manufacturer) ?? model.manufacturer,
+    ...(brandsOf.get(model.manufacturer) ?? []),
+  ];
+  for (const label of labels)
+    for (const name of [model.name, ...model.aliases]) reach(modelKey(label, name), model.id);
 }
 
 /** The model name at the head of a catalogue note, before the explanation starts. */
@@ -49,6 +57,7 @@ let linked = 0;
 let minted = 0;
 let prose = 0;
 let noMaker = 0;
+let ambiguous = 0;
 const dialectLinks = new Map<string, Set<string>>();
 const unmatched = new Map<string, number>();
 
@@ -63,7 +72,18 @@ for (const dialect of records.dialects) {
       noMaker += 1;
       continue;
     }
-    let modelIdentifier = byKey.get(key(dialect.manufacturer, head));
+    const reached = byKey.get(key(dialect.manufacturer, head));
+    if (reached && reached.size > 1) {
+      ambiguous += 1;
+      unmatched.set(
+        `${dialect.manufacturer}: ${head} (reaches ${[...reached].sort().join(", ")})`,
+        (unmatched.get(
+          `${dialect.manufacturer}: ${head} (reaches ${[...reached].sort().join(", ")})`,
+        ) ?? 0) + 1,
+      );
+      continue;
+    }
+    let modelIdentifier = reached ? [...reached][0] : undefined;
     if (!modelIdentifier && addModels) {
       const id = modelId(dialect.manufacturer, head);
       if (!records.models.some((m) => m.id === id)) {
@@ -77,7 +97,7 @@ for (const dialect of records.dialects) {
         });
         if (!dryRun) writeRecord(RECORDS_DIR, "models", id, model);
         records.models.push(model);
-        byKey.set(key(dialect.manufacturer, head), id);
+        reach(key(dialect.manufacturer, head), id);
         minted += 1;
       }
       modelIdentifier = id;
@@ -127,3 +147,7 @@ if (unmatched.size) {
 console.log(`  ${touched} models now point at a dialect`);
 console.log(`  ${prose} entries are prose rather than a name, and stay as the note they are`);
 if (noMaker) console.log(`  ${noMaker} sit on a dialect whose maker this repo holds no record for`);
+if (ambiguous)
+  console.log(
+    `  ${ambiguous} names reach more than one model under the key rule, and link nothing`,
+  );
