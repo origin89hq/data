@@ -6,6 +6,7 @@ import {
   heldByPerson,
   keepHeld,
   matchModel,
+  pullWrites,
   sameName,
   specId,
   specsFrom,
@@ -274,6 +275,61 @@ test("every distinct reading of a held figure is compared, not only the document
     ],
     "a reading stated twice is reported once, and the agreeing one not at all",
   );
+});
+
+test("conditions or a name the id cannot tell apart are still compared as what they say", () => {
+  const below = figure({
+    id: "rolls-battery-s-550--rated-capacity-25-c",
+    conditions: "≤25 °C",
+    reviewedBy: "david",
+    checkedAt: "2026-09-01",
+  });
+  assert.equal(specId(below.model, below.name, "≥25 °C"), below.id, "the id drops the sign");
+  const above = figure({ id: below.id, conditions: "≥25 °C", source: "doc-iiii" });
+  const { agreed, disagreements } = keepHeld([below], [above]);
+  assert.equal(agreed, 0);
+  assert.deepEqual(
+    disagreements.map((d) => d.fields),
+    [["conditions"]],
+  );
+  const cased = figure({
+    name: "Rated  Capacity",
+    conditions: "20-hour  rate",
+    source: "doc-jjjj",
+  });
+  const same = keepHeld([figure({ reviewedBy: "david" })], [cased]);
+  assert.equal(same.agreed, 1, "case and spacing do not make a different figure");
+  assert.deepEqual(same.disagreements, []);
+});
+
+test("a held figure the translation rule would drop is still compared, and the rule still sees held ones", () => {
+  const english = figure({ reviewedBy: "david", checkedAt: "2026-09-01" });
+  const foreignId = "rolls-battery-s-550--capacit-nominale-r-gime-20-heures";
+  const foreign = (over: Partial<Spec>) =>
+    figure({
+      id: foreignId,
+      name: "Capacité nominale",
+      conditions: "régime 20 heures",
+      ...over,
+    });
+  // A person holds the French figure with a corrected value; the run reads it back as 428 beside
+  // the English one, which makes it redundant under the translation rule.
+  const heldFrench = foreign({ value: "440", reviewedBy: "david", checkedAt: "2026-09-02" });
+  const readFrench = foreign({ source: "doc-kkkk", page: 4 });
+  const result = pullWrites([english, heldFrench], [figure({}), readFrench]);
+  assert.deepEqual(
+    result.disagreements.map((d) => [d.id, d.fields]),
+    [[foreignId, ["value"]]],
+    "the dropped translation is compared with what the person holds",
+  );
+  assert.equal(result.agreed, 1);
+  assert.deepEqual(result.write, [], "neither held figure is written");
+  // The other way round: the person holds the English figure, and the run's French one is
+  // redundant beside it, so it is dropped rather than written just because the English one is held.
+  const other = pullWrites([english], [figure({}), readFrench]);
+  assert.deepEqual(other.write, []);
+  assert.equal(other.aligned.dropped.length, 1);
+  assert.equal(other.agreed, 1);
 });
 
 test("a figure written by hand, with no reader named, is held like a reviewed one", () => {

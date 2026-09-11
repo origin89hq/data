@@ -1,5 +1,5 @@
 import type { Model, Spec } from "@origin89/equipment-schema/model";
-import { englishWords, looksForeign } from "./language.ts";
+import { englishWords, looksForeign, withoutRedundantTranslations } from "./language.ts";
 import { normaliseModelName } from "./models.ts";
 import { repairMojibake } from "./text.ts";
 import { englishName } from "./translations.ts";
@@ -214,8 +214,12 @@ export function specsFrom({
 /** A held figure the run read differently. One per distinct reading, so a second document's different value is not lost behind the first's. */
 export interface Disagreement {
   id: string;
-  /** Which of the figure's fields differ. The id already fixes the name and conditions, so it is the value, the unit, or both. */
-  fields: ("value" | "unit")[];
+  /**
+   * Which of the figure's fields differ. The id is made of the name and conditions, but it drops
+   * everything that is not a letter or a digit, so "≤25 °C" and "≥25 °C" share one id and are
+   * compared here as the strings they are, case and spacing aside.
+   */
+  fields: ("name" | "value" | "unit" | "conditions")[];
   /** The record as it stands, with its source, page and review. */
   held: Spec;
   /** What the run read, with the document and page it read it from. */
@@ -263,12 +267,10 @@ export function keepHeld(
     const seen = new Set<string>();
     let differed = false;
     for (const reading of candidates.get(spec.id) ?? [spec]) {
-      const fields: Disagreement["fields"] = [];
-      if (reading.value !== kept.value) fields.push("value");
-      if ((reading.unit ?? "") !== (kept.unit ?? "")) fields.push("unit");
+      const fields = differing(kept, reading);
       if (fields.length === 0) continue;
       differed = true;
-      const key = `${reading.value}|${reading.unit ?? ""}`;
+      const key = FIELDS.map((field) => said(reading[field])).join("|");
       if (seen.has(key)) continue;
       seen.add(key);
       out.disagreements.push({ id: spec.id, fields, held: kept, read: reading });
@@ -276,4 +278,33 @@ export function keepHeld(
     if (!differed) out.agreed += 1;
   }
   return out;
+}
+
+const FIELDS = ["name", "value", "unit", "conditions"] as const;
+
+/** A field as a person reads it: case and the spacing between words do not change what it says. */
+const said = (text: string | undefined): string =>
+  (text ?? "").trim().replace(/\s+/g, " ").toLowerCase();
+
+/** The fields on which a reading and a held figure say different things. */
+function differing(kept: Spec, reading: Spec): Disagreement["fields"] {
+  return FIELDS.filter((field) => said(reading[field]) !== said(kept[field]));
+}
+
+/**
+ * What a pull writes, once a person's figures are held back and the translations a multilingual
+ * document repeats are dropped. The held figures are compared with every reading, including one
+ * the translation rule drops, so a foreign-named figure a person holds is still checked; and the
+ * translation rule sees every reading, including the held ones, so an English figure a person
+ * holds still makes the same figure in another language redundant.
+ */
+export function pullWrites(
+  existing: Spec[],
+  read: Spec[],
+  candidates: Map<string, Spec[]> = new Map(),
+): HeldResult & { aligned: ReturnType<typeof withoutRedundantTranslations> } {
+  const held = keepHeld(existing, read, candidates);
+  const aligned = withoutRedundantTranslations(read);
+  const writable = new Set(held.write.map((spec) => spec.id));
+  return { ...held, write: aligned.keep.filter((spec) => writable.has(spec.id)), aligned };
 }

@@ -4,13 +4,13 @@ import { withoutTranslations } from "@origin89/equipment-schema/documents";
 import { Model } from "@origin89/equipment-schema/model";
 import { EXTRACTOR_ID } from "@origin89/equipment-schema/provenance";
 import { Source } from "@origin89/equipment-schema/source";
-import { withoutRedundantTranslations, withoutTranslatedReadings } from "../../src/language.ts";
+import { withoutTranslatedReadings } from "../../src/language.ts";
 import { looksLikeModelName, modelId, normaliseModelName } from "../../src/models.ts";
 import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 import {
   heldByPerson,
-  keepHeld,
   matchModel,
+  pullWrites,
   type ReportedProduct,
   specsFrom,
 } from "../../src/specs.ts";
@@ -178,14 +178,15 @@ for (const document of readings.readings) {
   for (const m of missing) unmatched.add(m);
 }
 
-// Once the maker's whole set is in hand: a foreign-named figure on a model that already has
-// English ones is a multilingual manual saying the same thing twice.
-const aligned = withoutRedundantTranslations([...collected.values()]);
+// Once the maker's whole set is in hand. A figure a person confirmed or wrote by hand is not the
+// run's to write over (#63): it stays exactly as it is, source and review included, and a reading
+// that disagrees with it is reported below rather than written. And a foreign-named figure on a
+// model that already has English ones is a multilingual manual saying the same thing twice.
+const read = [...collected.values()];
+const readIds = new Set(collected.keys());
+const held = pullWrites(records.specs, read, candidates);
+const aligned = held.aligned;
 collected.clear();
-// A figure a person confirmed or wrote by hand is not the run's to write over (#63). It stays
-// exactly as it is, source and review included, and a reading that disagrees with it is
-// reported below rather than written.
-const held = keepHeld(records.specs, aligned.keep, candidates);
 for (const spec of held.write) collected.set(spec.id, spec);
 
 const cited = new Set([...collected.values()].map((s) => s.source));
@@ -219,7 +220,8 @@ for (const spec of records.specs) {
   // Only what this run is responsible for: a figure a person holds is not a run's to delete, and
   // one read by a different reader belongs to whichever run produced it.
   if (heldByPerson(spec)) {
-    unread += 1;
+    // Read but dropped as a repeated translation is still read, and was compared above.
+    if (!readIds.has(spec.id)) unread += 1;
     continue;
   }
   if (dryRun) continue;
