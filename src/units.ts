@@ -46,12 +46,58 @@ export const UNITS = [
   "kPa",
   "cycles",
   // A temperature coefficient: how far a figure moves per kelvin. Per degree Celsius is the same
-  // thing, since a difference of one is one on both scales, and makers write either.
+  // thing, since a difference of one is one on both scales, and makers write either. A charger's
+  // compensation is stated in millivolts (#82).
   "A/K",
   "V/K",
+  "mV/K",
   "%/K",
 ] as const;
 export type Unit = (typeof UNITS)[number];
+
+/** What each unit measures, so a figure can be refused for a unit outside its quantity. */
+export const QUANTITY_OF: Record<Unit, string> = {
+  V: "voltage",
+  A: "current",
+  W: "power",
+  VA: "apparent-power",
+  Ah: "charge",
+  Wh: "energy",
+  kW: "power",
+  kWh: "energy",
+  kVA: "apparent-power",
+  mV: "voltage",
+  mA: "current",
+  mAh: "charge",
+  Hz: "frequency",
+  Ω: "resistance",
+  "°C": "temperature",
+  "°F": "temperature",
+  "%": "ratio",
+  kg: "mass",
+  g: "mass",
+  lb: "mass",
+  mm: "length",
+  cm: "length",
+  m: "length",
+  in: "length",
+  ft: "length",
+  "m²": "area",
+  L: "volume",
+  gal: "volume",
+  min: "time",
+  h: "time",
+  s: "time",
+  dB: "level",
+  bar: "pressure",
+  psi: "pressure",
+  kPa: "pressure",
+  cycles: "count",
+  "%/K": "temperature-coefficient",
+  "mV/K": "temperature-coefficient",
+  "V/K": "temperature-coefficient",
+  "A/K": "temperature-coefficient",
+};
 
 /** What makers write instead. Spanish and French datasheets are common in this trade. */
 const ALIASES: Record<string, Unit> = {
@@ -60,6 +106,8 @@ const ALIASES: Record<string, Unit> = {
   vac: "V",
   vcd: "V",
   vca: "V",
+  vcc: "V",
+  voc: "V",
   volt: "V",
   volts: "V",
   voltios: "V",
@@ -136,12 +184,19 @@ const ALIASES: Record<string, Unit> = {
   "a/k": "A/K",
   "a/°c": "A/K",
   "a/c": "A/K",
+  "a/℃": "A/K",
   "v/k": "V/K",
   "v/°c": "V/K",
   "v/c": "V/K",
+  "v/℃": "V/K",
+  "mv/k": "mV/K",
+  "mv/°c": "mV/K",
+  "mv/c": "mV/K",
+  "mv/℃": "mV/K",
   "%/k": "%/K",
   "%/°c": "%/K",
   "%/c": "%/K",
+  "%/℃": "%/K",
 };
 
 /**
@@ -167,7 +222,7 @@ export function splitValueUnit(
 ): { value: string; unit?: string } {
   const canonical = canonicalUnit(unit);
   if (canonical) return { value: decimalPoint(value.trim()), unit: canonical };
-  const match = /^(-?\d+(?:[.,]\d+)?)\s*([A-Za-zΩ°µ%][A-Za-zΩ°µ%²³/·.]{0,9})$/.exec(value.trim());
+  const match = /^(-?\d+(?:[.,]\d+)?)\s*([A-Za-zΩ°℃µ%][A-Za-zΩ°℃µ%²³/·.]{0,9})$/.exec(value.trim());
   const pulled = match ? canonicalUnit(match[2]) : undefined;
   return pulled && match
     ? { value: decimalPoint(match[1]), unit: pulled }
@@ -179,10 +234,11 @@ export function splitValueUnit(
  * and a Sol-Ark one a rating of "19,8 kW"; anything reading those as a number gets 472 or 198, so
  * publishing the comma is a trap rather than fidelity. Only a comma with one or two digits after
  * it is a decimal point — a thousands separator always has three, which is why "3,500 lb" and
- * "19,200 W" are left exactly as the maker printed them.
+ * "19,200 W" are left exactly as the maker printed them — unless a lone zero stands before it:
+ * Peimar's "0,046 %/°C" is a coefficient, and no maker writes forty-six that way.
  */
 function decimalPoint(value: string): string {
-  return /^-?\d{1,3},\d{1,2}$/.test(value) ? value.replace(",", ".") : value;
+  return /^[-+]?(?:\d{1,3},\d{1,2}|0,\d{3})$/.test(value) ? value.replace(",", ".") : value;
 }
 
 /**
