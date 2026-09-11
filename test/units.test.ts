@@ -1,6 +1,13 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { canonicalUnit, concerns, isNumeric, splitValueUnit, statesNothing } from "../src/units.ts";
+import {
+  canonicalUnit,
+  concerns,
+  isNumeric,
+  QUANTITY_OF,
+  splitValueUnit,
+  statesNothing,
+} from "../src/units.ts";
 
 test("a maker's own language reaches the same unit, since VCD and volts are volts", () => {
   assert.equal(canonicalUnit("V"), "V");
@@ -100,6 +107,22 @@ test("a European decimal comma becomes a point, and a thousands separator is lef
   // Three digits after the comma is a thousand, and Champion really does print "19,200 W".
   assert.deepEqual(splitValueUnit("19,200", "W"), { value: "19,200", unit: "W" });
   assert.deepEqual(splitValueUnit("3,500", "lb"), { value: "3,500", unit: "lb" });
+});
+
+test("a change per degree is a unit, per kelvin, so a coefficient keeps it and carries no doubt (#82)", () => {
+  assert.equal(canonicalUnit("%/°C"), "%/K");
+  assert.equal(canonicalUnit("% / °C"), "%/K");
+  assert.equal(canonicalUnit("%/℃"), "%/K");
+  assert.equal(canonicalUnit("mV/°C"), "mV/K");
+  assert.equal(canonicalUnit("V/K"), "V/K");
+  assert.deepEqual(splitValueUnit("-0,29 %/°C", undefined), { value: "-0.29", unit: "%/K" });
+  assert.deepEqual(splitValueUnit("-56mV/°C", undefined), { value: "-56", unit: "mV/K" });
+  assert.deepEqual(
+    concerns({ name: "Temperature Coefficient of Voc", value: "-0.25", unit: "%/K" }),
+    [],
+  );
+  assert.equal(QUANTITY_OF["%/K"], "temperature-coefficient");
+  assert.equal(QUANTITY_OF.Ah, "charge");
 });
 
 test("a value that says there is no value is not a figure", () => {
