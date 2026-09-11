@@ -31,8 +31,10 @@ raw TypeScript with no build step; a consumer bundled by wrangler reads it as is
 `release()` returns a handle bound to one release. Every method on it reads that release and
 no other, and every claim, link and source it returns comes from it. The handle has methods
 only: over a service binding a property of an RPC target arrives as a promise, so the release's
-id and contract version come from `info()`, which a consumer checks once at the start of a turn;
-the version is 2, and a Worker answering 1 predates a dialect's `readings` and `codes`. Take one handle at the
+id and contract version come from `info()`, which a consumer checks once at the start of a turn.
+The version is the release's own, what its tables hold: 2 carries link evidence and a dialect's
+`readings` and `codes`, and a release published before those tables existed answers 1, so its
+empty lists are the absence of that data and a consumer needing 2 refuses it. Take one handle at the
 start of a turn and use it for every lookup in that turn; a release that lands mid-turn changes
 nothing the handle answers. `release(id)` gives a retained release by id, which is how a pinned
 evaluation stays reproducible while releases move on. A release still loading, one whose load
@@ -42,7 +44,7 @@ failed, or one let go by retention is refused with `NoSuchRelease`.
 
 | Method | Answers |
 |---|---|
-| `info()` | the release id, its content hash, when it was published, the contract version and the row counts loaded |
+| `info()` | the release id, its content hash, when it was published, the contract the release answers to, and the row counts loaded |
 | `resolve({ brand?, model, kind? })` | `exact` with one model, `ambiguous` with the candidates that share the key, or `none` with near neighbours a consumer may show and must never pick |
 | `resolve({ label })` | the same for a name read off a device or a photo, with the maker printed before or after the name, abbreviated, or left off; a label that prints another maker before a name reaches nothing |
 | `search({ brand?, prefix?, kind?, limit, cursor? })` | a page of models ordered by name, with a cursor while there is more; a cursor is opaque, short whatever the names are, and only one this search gave out is taken |
@@ -61,8 +63,11 @@ A prefix with no letter or digit in it, and a brand more than 45 makers answer t
 with the reason rather than answered with a page of everything or of some.
 
 Every list is cut at a limit the contract states in `LIMITS`, and a cut is said out loud:
-`truncated` on a resolution or a page, and the list of cut lists on a bundle. Nothing is
-quietly shorter than the release holds.
+`truncated` on a resolution or a page, and the list of cut lists on a bundle (`claims`,
+`protocol`, `sources`, `readings`, `codes`). Nothing is quietly shorter than the release holds.
+A reading with `conditional` set is one only some models of the dialect give, and the text
+says what decides it: check the model before polling for it, and never read an absent field
+as zero.
 
 ## What a consumer must not do
 

@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { Dialect } from "@origin89/equipment-schema/dialect";
 import { CatalogueParseError, parseFamilyFile } from "../tools/catalogue/parse.ts";
+import { withExtensions } from "../tools/catalogue/preserve.ts";
 import { renderFamilyFile } from "../tools/catalogue/render.ts";
 import { locatorOf, SourceTable } from "../tools/catalogue/sources.ts";
 
@@ -92,4 +93,40 @@ test("a path behind the earlier checkout's absolute prefix is the repo-relative 
     kind: "url",
     url: "https://a.b/c.pdf",
   });
+});
+
+test("an import keeps a dialect's readings and codes, and the sources only they cite, from the record it replaces", () => {
+  const { parsed, sources } = parseTiny();
+  const first = parsed.dialects[0];
+  assert.ok(first);
+  const reading = {
+    metric: "pv-voltage" as const,
+    at: "0x3100",
+    unit: "V",
+    scale: 0.01,
+    origin: "measured" as const,
+    source: "driver-map",
+  };
+  const held = Dialect.parse({ ...first, readings: [reading] });
+  const stale = Dialect.parse({ ...first, id: "gone-from-the-catalogue", readings: [reading] });
+  const out = withExtensions(parsed.dialects, [held, stale], sources.all(), [
+    { id: "driver-map", path: "crates/x/src/map.rs" },
+    { id: "unrelated", path: "docs/y.pdf" },
+  ]);
+  assert.deepEqual(out.dialects[0]?.readings, [reading], "the readings come across by id");
+  assert.equal(
+    out.dialects.length,
+    parsed.dialects.length,
+    "a dialect the catalogue dropped brings nothing",
+  );
+  assert.ok(
+    out.sources.some((s) => s.id === "driver-map"),
+    "the source only the reading cites is kept",
+  );
+  assert.ok(!out.sources.some((s) => s.id === "unrelated"), "an uncited old source is not");
+  assert.deepEqual(
+    withExtensions(parsed.dialects, [], sources.all(), []).dialects,
+    parsed.dialects,
+    "with no records to keep from, the parse is what is written",
+  );
 });

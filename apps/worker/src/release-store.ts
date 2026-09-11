@@ -64,7 +64,8 @@ export const SCHEMA: readonly string[] = [
     state TEXT NOT NULL,
     loaded_at TEXT,
     error TEXT,
-    counts TEXT NOT NULL DEFAULT '{}'
+    counts TEXT NOT NULL DEFAULT '{}',
+    contract INTEGER NOT NULL DEFAULT 1
   )`,
   ...Object.entries(LOADED_TABLES).map(([table, { columns, keyed }]) => {
     // A position is an order, and orders as one; a keyed row has an id: every other lifted
@@ -241,6 +242,25 @@ export interface ReleaseRow {
   loaded_at: string | null;
   error: string | null;
   counts: string;
+  /** The contract the release answers to: the highest whose tables it publishes. */
+  contract: number;
+}
+
+/**
+ * The tables each contract version added. A release that publishes none of a version's tables
+ * was built before them and answers the version below, so a consumer is never handed an empty
+ * list as the whole of something the release never had.
+ */
+export const CONTRACT_TABLES: readonly { contract: number; tables: readonly string[] }[] = [
+  { contract: 2, tables: ["model_dialect_sources", "dialect_readings", "dialect_codes"] },
+];
+
+/** The contract a release answers to, from the tables it publishes. */
+export function contractOf(publishes: (table: string) => boolean): number {
+  let contract = 1;
+  for (const step of CONTRACT_TABLES)
+    if (step.tables.every(publishes)) contract = Math.max(contract, step.contract);
+  return contract;
 }
 
 export async function releaseRow(db: Store, id: string): Promise<ReleaseRow | null> {

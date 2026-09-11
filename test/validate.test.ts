@@ -336,3 +336,46 @@ test("a structured reading or code cites a document the records hold, or it is r
   assert.match(errors, /reading pv-voltage at 0x3100 cites nowhere, which does not exist/);
   assert.match(errors, /charge-stage code 01 cites gone, which does not exist/);
 });
+
+test("a dialect's readings and codes are bounded, and a reading may say which models give it", () => {
+  const reading = {
+    metric: "pv-voltage",
+    at: "0x3100",
+    unit: "V",
+    origin: "measured",
+    source: "s",
+  };
+  const base = {
+    id: "d",
+    family: "modbus-rs485",
+    driver: { status: "not-planned" },
+    confidence: "unverified",
+    refuter: "unrecorded",
+    sources: [{ source: "s", citation: "c" }],
+    reports: ["pv-voltage"],
+  };
+  const parsed = Dialect.parse({
+    ...base,
+    readings: [{ ...reading, conditional: "models with a load output" }],
+  });
+  assert.equal(parsed.readings?.[0]?.conditional, "models with a load output");
+  assert.throws(
+    () => Dialect.parse({ ...base, readings: Array.from({ length: 257 }, () => reading) }),
+    /256/,
+    "more readings than a register map has is refused",
+  );
+  assert.throws(
+    () =>
+      Dialect.parse({
+        ...base,
+        codes: Array.from({ length: 513 }, (_, i) => ({
+          table: "fault",
+          code: String(i),
+          meaning: "m",
+          source: "s",
+        })),
+      }),
+    /512/,
+    "more code entries than a vendor table has is refused",
+  );
+});

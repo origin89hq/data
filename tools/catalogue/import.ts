@@ -5,11 +5,14 @@ import { Family } from "@origin89/equipment-schema/enums";
 import type { Family as FamilyRecord } from "@origin89/equipment-schema/family";
 import { loadRecords, RECORDS_DIR, writeRecords } from "../../src/records.ts";
 import { parseFamilyFile } from "./parse.ts";
+import { withExtensions } from "./preserve.ts";
 import { SourceTable } from "./sources.ts";
 
 /**
- * One-time migration: read the catalogue's markdown form and write it as records. Re-running on the
- * same input rewrites identical files. Usage: import.ts <catalogue dir>
+ * Read the catalogue's markdown form and write it as records. Re-running on the same input
+ * rewrites identical files; what the markdown does not carry, a dialect's structured readings
+ * and code tables and the sources only they cite, is kept from the records being replaced.
+ * Usage: import.ts <catalogue dir>
  */
 const [catalogueDir] = process.argv.slice(2);
 if (!catalogueDir) {
@@ -34,13 +37,17 @@ for (const family of Family.options) {
 // Only the kinds this importer owns. Manufacturers and brands are reviewed by hand and are
 // not the catalogue's to rewrite; passing them here once would have deleted the whole gate.
 const existing = loadRecords(RECORDS_DIR);
-writeRecords({ ...existing, families, dialects, sources: sources.all() }, RECORDS_DIR, [
-  "families",
-  "dialects",
-  "sources",
-]);
+const kept = withExtensions(dialects, existing.dialects, sources.all(), existing.sources);
+writeRecords(
+  { ...existing, families, dialects: kept.dialects, sources: kept.sources },
+  RECORDS_DIR,
+  ["families", "dialects", "sources"],
+);
 console.log(
-  `${families.length} families, ${dialects.length} dialects, ${sources.all().length} sources → ${RECORDS_DIR}`,
+  `${families.length} families, ${kept.dialects.length} dialects, ${kept.sources.length} sources → ${RECORDS_DIR}`,
+);
+console.log(
+  `kept from the records: readings on ${kept.dialects.filter((d) => d.readings).length} dialects, codes on ${kept.dialects.filter((d) => d.codes).length}`,
 );
 console.log(
   `left alone: ${existing.manufacturers.length} manufacturers, ${existing.brands.length} brands, ${existing.models.length} models, ${existing.specs.length} specs`,

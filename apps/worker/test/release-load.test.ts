@@ -576,6 +576,16 @@ test("a release published before the store gained a table loads with that table 
   assert.equal(counts.models, 2);
   assert.equal(counts.model_dialect_sources, 0, "counted as empty, not left out");
   assert.equal(await countRows(env.RELEASES, "model_dialect_sources", R1), 0);
+  assert.equal(row?.contract, 1, "and the release answers to the contract before that table");
+  const objects2: Record<string, string> = {};
+  published(objects2, R2, "2026-09-11T11:00:00Z", { models: models(1) });
+  const w = world(objects2);
+  await loadRelease(w.env.ARCHIVE, w.env.RELEASES, plain, R2);
+  assert.equal(
+    (await releaseRow(w.env.RELEASES, R2))?.contract,
+    2,
+    "a release with every table is 2",
+  );
 });
 
 test("taking a release to load is one statement: a loading or held row is left alone, a failed one is taken over", async () => {
