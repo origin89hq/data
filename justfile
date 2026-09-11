@@ -183,7 +183,7 @@ spec-pages maker date:
 spec-pages-found maker date *args:
     node tools/feeds/adopt-spec-pages.ts "$@"
 
-# Write the manufacturer list the Worker bundles. Run after changing a maker's domains.
+# Write the manufacturer list the Worker bundles, with what the records cite on its hosts. Run after changing a maker's domains or a source's url.
 export-makers:
     node tools/feeds/export-makers.ts
 

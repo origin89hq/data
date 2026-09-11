@@ -615,6 +615,68 @@ function bound(out: PagesRead): void {
   }
 }
 
+/** What the records cite on a maker's hosts, as bundled with the maker list. */
+export interface Cited {
+  documents: readonly string[];
+  pages: readonly string[];
+}
+
+/**
+ * The pages to read: what the records cite first, since a person chose those, then the site's
+ * own list sampled into what is left of the budget. A cited page on a host the run may not reach
+ * is left out, as is one already listed.
+ */
+export function seedPages(
+  cited: Cited,
+  discovered: readonly string[],
+  domains: readonly string[],
+  budget: number,
+  pick: (urls: string[], limit: number) => string[],
+): string[] {
+  const first = [...new Set(cited.pages.filter((u) => ownHost(u, domains)))].slice(
+    0,
+    Math.max(0, budget),
+  );
+  // `sample` reads a limit of zero as no limit at all, so a budget the citations have used up
+  // ends here rather than in the whole sitemap.
+  const remaining = budget - first.length;
+  if (remaining <= 0) return first;
+  return [
+    ...first,
+    ...pick(
+      discovered.filter((u) => !first.includes(u)),
+      remaining,
+    ),
+  ];
+}
+
+/**
+ * The documents found, with the ones the records cite added after them. A cited document the
+ * site also led to is one document, found on its page and marked as cited too; one the site did
+ * not lead to is offered anyway, marked as cited so the approver knows where it came from.
+ */
+export function withCited(
+  found: readonly Found[],
+  cited: Cited,
+  domains: readonly string[],
+  /** Cited pages that answered with a document rather than with HTML to read. */
+  answered: ReadonlySet<string> = new Set(),
+): Found[] {
+  // Cited by address, or found by asking for a cited page that answered with the document
+  // itself. A link on a cited page that answered with HTML is the page's find, not the citation.
+  const seed = (f: Found) => f.foundOn !== undefined && answered.has(f.foundOn);
+  const out: Found[] = found.map((f) =>
+    cited.documents.includes(f.url) || seed(f) ? { ...f, cited: true as const } : f,
+  );
+  for (const url of cited.documents) {
+    const host = hostOf(url);
+    if (host === undefined || !hostAllowed(host, domains)) continue;
+    if (out.some((f) => f.url === url)) continue;
+    out.push({ url, host, cited: true });
+  }
+  return out;
+}
+
 /** Everything discovery saw, written beside the plan so an empty one can be explained. */
 export interface DiscoverySeen {
   hosts: HostSeen[];
@@ -632,6 +694,8 @@ export interface DiscoverySeen {
     tablesDropped?: number;
     failed: Record<string, number>;
   };
+  /** What the records cite on the maker's hosts: documents offered, pages read as seeds, and cited pages the page limit left out. */
+  cited?: { documents: number; pages: number; pagesDropped?: number };
   /** Distinct documents linked on hosts the record does not claim, by host, and how many more were seen than could be carried. */
   foreignDocumentHosts: Record<string, number>;
   foreignDocumentsDropped?: number;

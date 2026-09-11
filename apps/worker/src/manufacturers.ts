@@ -1,9 +1,19 @@
 import { z } from "zod";
 import raw from "../manufacturers.json" with { type: "json" };
 
-/** A maker discovery may look at, and the hosts it may look at. Generated from the records by `just export-makers`. */
+/**
+ * A maker discovery may look at, the hosts it may look at, and what the records already cite on
+ * those hosts. Generated from the records by `just export-makers`.
+ */
 export const CrawlableMaker = z
-  .object({ id: z.string().min(1), domains: z.array(z.string().min(1)).min(1) })
+  .object({
+    id: z.string().min(1),
+    domains: z.array(z.string().min(1)).min(1),
+    cited: z
+      .object({ documents: z.array(z.string().url()), pages: z.array(z.string().url()) })
+      .strict()
+      .optional(),
+  })
   .strict();
 export type CrawlableMaker = z.infer<typeof CrawlableMaker>;
 

@@ -3,19 +3,24 @@ import {
   APPROVAL_EVENT,
   CrawlApproval,
   type Found,
+  hostAllowed,
   permitted,
   planFor,
 } from "@origin89/equipment-schema/documents";
 import { observeCollection, workflowActivity } from "./activity.ts";
 import {
+  type Cited,
   type DiscoverySeen,
   discoverPages,
   hopOrder,
   nextHop,
   type PagesRead,
   readPages,
+  seedPages,
+  withCited,
 } from "./discover.ts";
 import { todayUtc, USER_AGENT } from "./feeds.ts";
+import { manufacturers } from "./manufacturers.ts";
 import { pointerKey, runPrefix, writePointer } from "./runs.ts";
 import { sample } from "./sitemap.ts";
 import type { SpecPageCandidate } from "./spec-table.ts";
@@ -82,9 +87,16 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       }),
     );
 
-    // The whole page budget: what the sitemap lists, and after that what those pages link. The
-    // routes check the limit before a run starts; a budget that is not a whole number would let
-    // the hop read every link it found, so a bad one is the default rather than open-ended.
+    // What the records already cite on this maker's hosts, bundled with the maker list. A maker
+    // started under an id the records do not know has none, and reads its site like any other.
+    const cited: Cited = manufacturers.find((m) => m.id === manufacturerId)?.cited ?? {
+      documents: [],
+      pages: [],
+    };
+    // The whole page budget: what the records cite, what the sitemap lists, and after that what
+    // those pages link. The routes check the limit before a run starts; a budget that is not a
+    // whole number would let the hop read every link it found, so a bad one is the default rather
+    // than open-ended.
     const budget =
       Number.isSafeInteger(pageLimit) && (pageLimit as number) > 0 ? (pageLimit as number) : 200;
     const { pages, hosts, listed } = await step.do(
@@ -93,13 +105,18 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       async () => {
         const discovered = await discoverPages(domains);
         return {
-          pages: sample(discovered.pages, budget),
+          pages: seedPages(cited, discovered.pages, domains, budget, sample),
           hosts: discovered.hosts,
           listed: discovered.pages.length,
         };
       },
     );
 
+    // Cited pages that answered with a page, counted as the batches read them: a cited seed the
+    // budget let in but that refused or moved is not a page that was read.
+    let citedRead = 0;
+    // Cited pages that answered with the document itself, whose document is the citation's.
+    const directAnswers = new Set<string>();
     const found: Found[] = [];
     const specPages: SpecPageCandidate[] = [];
     // What the pages answered, kept beside the plan: a plan that offers nothing has to say whether
@@ -107,6 +124,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     const seen: DiscoverySeen = {
       hosts,
       pages: { listed, read: 0, followed: 0, failed: {} },
+      cited: { documents: 0, pages: 0 },
       foreignDocumentHosts: {},
       redirectedTo: [...new Set(hosts.flatMap((h) => h.redirectedTo))].sort(),
     };
@@ -119,6 +137,10 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     const landedAt = new Set<string>();
     const candidates: string[] = [];
     const take = (batch: PagesRead): void => {
+      // A cited page read for its links counts as a page read; one that answered with the
+      // document itself is counted with the documents, marked cited, and not as a page.
+      for (const p of batch.answered) if (cited.pages.includes(p)) directAnswers.add(p);
+      citedRead += batch.opened.filter((p) => cited.pages.includes(p)).length;
       for (const f of batch.links) if (!found.some((x) => x.url === f.url)) found.push(f);
       specPages.push(...batch.tables);
       for (const url of batch.landed) {
@@ -209,11 +231,34 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       });
     }
 
+    // What a person already found is offered whether or not the site led here (#48). Offered,
+    // not fetched: it waits for the same approval as everything else.
+    found.splice(0, found.length, ...withCited(found, cited, domains, directAnswers));
+    // Counted on the final list by the marker, so a cited document the site also led to, and one
+    // a cited page answered with, are cited ones.
+    const citedOffered = found.filter((f) => f.cited === true).length;
+    // Cited pages on the maker's hosts that the page limit left out, so a small limit's plan says
+    // it did not read every citation.
+    const citedSeeds = cited.pages.filter((p) => {
+      try {
+        return hostAllowed(new URL(p).hostname, domains);
+      } catch {
+        return false;
+      }
+    }).length;
+    const citedQueued = pages.filter((p) => cited.pages.includes(p)).length;
+    seen.cited = {
+      documents: citedOffered,
+      pages: citedRead,
+      ...(citedSeeds > citedQueued ? { pagesDropped: citedSeeds - citedQueued } : {}),
+    };
+
     console.log(
       JSON.stringify({
         message: "discovery finished",
         manufacturer: manufacturerId,
         documents: found.length,
+        cited: seen.cited,
         specPages: specPages.length,
         pagesRead: seen.pages.read,
         pagesFollowed: seen.pages.followed,
