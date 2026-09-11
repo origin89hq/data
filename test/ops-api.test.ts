@@ -4,6 +4,7 @@ import {
   approve,
   archive,
   parsePlan,
+  parsePublished,
   parseRuns,
   parseState,
   pipeline,
@@ -240,4 +241,30 @@ test("the dashboard distinguishes confirmation of an existing run from fresh cre
     id: "reserved-run",
     reconciled: true,
   });
+});
+
+test("the published index keeps a file without a row count, and refuses a corrupt one", () => {
+  const sha256 = "a".repeat(64);
+  const files = parsePublished({
+    files: {
+      "specs.csv": { rows: 3, bytes: 10, sha256 },
+      "vocabulary.json": { bytes: 20, sha256 },
+    },
+  });
+  assert.deepEqual(files, [
+    { name: "specs.csv", rows: 3, bytes: 10, sha256 },
+    { name: "vocabulary.json", rows: undefined, bytes: 20, sha256 },
+  ]);
+  assert.throws(
+    () => parsePublished({ files: { "specs.csv": { rows: -1, bytes: 10, sha256 } } }),
+    /invalid count/,
+  );
+  assert.throws(
+    () => parsePublished({ files: { "../evil.json": { bytes: 1, sha256 } } }),
+    /unsupported filename/,
+  );
+  assert.throws(
+    () => parsePublished({ files: { "specs.csv": { bytes: 1, sha256: "nope" } } }),
+    /invalid content hash/,
+  );
 });

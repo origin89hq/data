@@ -29,7 +29,7 @@ const base = (process.env.OFFGRID_BASE_URL || "https://data.origin89.com").repla
 const PUT_TIMEOUT_MS = 5 * 60_000;
 
 const manifest = JSON.parse(readFileSync(resolve(dir, "manifest.json"), "utf8")) as {
-  files: Record<string, { rows: number; bytes: number; sha256: string }>;
+  files: Record<string, { rows?: number; bytes: number; sha256: string }>;
 };
 
 const onDisk = readdirSync(dir).filter((f) => /\.(parquet|csv|json)$/.test(f));
