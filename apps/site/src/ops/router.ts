@@ -28,7 +28,7 @@ export function validateOpsSearch(input: Record<string, unknown>): OpsSearch {
   );
   if (input.view !== undefined) result.view = legacy.view;
   if (legacy.filter !== "all") result.filter = legacy.filter;
-  if (typeof input.q === "string" && input.q) result.q = input.q.slice(0, 200);
+  if (typeof input.q === "string" && input.q.length <= 200 && input.q) result.q = input.q;
   if (input.sort === "name" || input.sort === "recent") result.sort = input.sort;
   if (typeof input.page === "number" && Number.isSafeInteger(input.page) && input.page > 0)
     result.page = Math.min(input.page, 100000);

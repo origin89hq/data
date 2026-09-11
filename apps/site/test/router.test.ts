@@ -64,7 +64,12 @@ test("invalid search input is bounded and discarded", () => {
   assert.deepEqual(validateOpsSearch({ page: 1.5 }), {});
   assert.deepEqual(validateOpsSearch({ page: 999999, q: "x".repeat(250) }), {
     page: 100000,
-    q: "x".repeat(200),
   });
   assert.deepEqual(validateOpsSearch({ release: "a".repeat(64) }), { release: "a".repeat(64) });
+});
+
+test("search queries accept the exact limit and reject overlong values without truncation", () => {
+  const q = "x".repeat(200);
+  assert.deepEqual(validateOpsSearch({ q }), { q });
+  assert.deepEqual(validateOpsSearch({ q: `${q}y` }), {});
 });
