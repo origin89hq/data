@@ -241,3 +241,19 @@ test("a window kept past this message's budget is not counted in its reading", a
     [2, ["S-550", "S-600"]],
   );
 });
+
+test("more windows kept than one listing returns are all found, so only the missing one is read", async () => {
+  // 1,002 windows, the first 1,001 kept by an earlier delivery: past the 1,000 keys R2 lists at once.
+  const long = "x".repeat(5400 * 1001 + 6000);
+  const count = chunk(long).length;
+  assert.equal(count, 1002);
+  const objects: Record<string, string> = { [MARKDOWN]: long };
+  for (let window = 1; window < count; window += 1)
+    objects[windowKey(window)] = `${JSON.stringify({ window, products: [] })}\n`;
+  const { env, asked, readObject } = world(objects, () => ({
+    response: JSON.stringify({ products: [] }),
+  }));
+  await readDocument({ ...message, maxWindows: count }, env, 1);
+  assert.equal(asked.length, 1, "window 1,002 alone");
+  assert.equal(readObject<Reading>(readingKey).windows, count);
+});

@@ -96,15 +96,28 @@ export async function readDocument(
   );
 }
 
-/** The windows of a document already read, by number, up to the ones this reading has. */
+/**
+ * The windows of a document already read, by number, up to the ones this reading has. Every page
+ * of the listing: a window missed here would be read again, and paid for again.
+ */
 async function keptWindows(
   env: Env,
   sha256: string,
   windows: number,
 ): Promise<Map<number, ReadWindow>> {
-  const listed = await env.ARCHIVE.list({ prefix: partKey.windows(sha256, READER), limit: 1000 });
+  const keys: string[] = [];
+  let cursor: string | undefined;
+  do {
+    const page = await env.ARCHIVE.list({
+      prefix: partKey.windows(sha256, READER),
+      limit: 1000,
+      cursor,
+    });
+    keys.push(...page.objects.map((object) => object.key));
+    cursor = page.truncated ? page.cursor : undefined;
+  } while (cursor);
   const kept = await Promise.all(
-    listed.objects.map(async (object) => (await env.ARCHIVE.get(object.key))?.json<ReadWindow>()),
+    keys.map(async (key) => (await env.ARCHIVE.get(key))?.json<ReadWindow>()),
   );
   return new Map(
     kept
