@@ -82,11 +82,43 @@ test("a range whose unit is printed at both ends is read once, and refused when 
   assert.match(refused(parseQuantity("0A~140V", undefined, "current")), /two units/);
 });
 
-test("a number too long to be finite is not a figure", () => {
+test("a number too long to be finite is not a figure, before or after its conversion", () => {
   const long = `1${"0".repeat(400)}`;
   assert.match(refused(parseQuantity(long, "V", "voltage")), /not a figure/);
   assert.match(refused(parseQuantity(`${long} - ${long}`, "V", "voltage")), /not a figure/);
   assert.match(refused(parseQuantity(`1 - ${long}`, "V", "voltage")), /not a figure/);
+  const nearLimit = "9".repeat(306);
+  assert.match(refused(parseQuantity(nearLimit, "kW", "power")), /too large to hold in W/);
+  assert.match(refused(parseQuantity(`1 - ${nearLimit}`, "kW", "power")), /too large to hold in W/);
+  assert.match(refused(parseQuantity(`1/${nearLimit}`, "kW", "power")), /too large to hold in W/);
+});
+
+test("a decimal comma with three places is a fraction when a lone zero stands before it, and a plus sign is a sign", () => {
+  assert.deepEqual(ok(parseQuantity("0,046 %/°C", undefined, "temperature-coefficient")), {
+    shape: "scalar",
+    value: 0.046,
+    unit: "%/K",
+  });
+  assert.deepEqual(ok(parseQuantity("-0,325", "%/K", "temperature-coefficient")), {
+    shape: "scalar",
+    value: -0.325,
+    unit: "%/K",
+  });
+  assert.deepEqual(
+    ok(parseQuantity("1,046", "W", "power")),
+    { shape: "scalar", value: 1046, unit: "W" },
+    "a thousand with a leading digit is still a thousand",
+  );
+  assert.deepEqual(ok(parseQuantity("+0.05% / °C", undefined, "temperature-coefficient")), {
+    shape: "scalar",
+    value: 0.05,
+    unit: "%/K",
+  });
+  assert.deepEqual(ok(parseQuantity("+12 V", undefined, "voltage")), {
+    shape: "scalar",
+    value: 12,
+    unit: "V",
+  });
 });
 
 test("alternatives are a set, and a set of one is a figure", () => {

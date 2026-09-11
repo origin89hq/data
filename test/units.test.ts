@@ -107,6 +107,9 @@ test("a European decimal comma becomes a point, and a thousands separator is lef
   // Three digits after the comma is a thousand, and Champion really does print "19,200 W".
   assert.deepEqual(splitValueUnit("19,200", "W"), { value: "19,200", unit: "W" });
   assert.deepEqual(splitValueUnit("3,500", "lb"), { value: "3,500", unit: "lb" });
+  // Unless a lone zero stands before it: Peimar prints its Isc coefficient as "0,046 %/°C".
+  assert.deepEqual(splitValueUnit("0,046 %/°C", undefined), { value: "0.046", unit: "%/K" });
+  assert.deepEqual(splitValueUnit("-0,325", "%/K"), { value: "-0.325", unit: "%/K" });
 });
 
 test("a change per degree is a unit, per kelvin, so a coefficient keeps it and carries no doubt (#82)", () => {

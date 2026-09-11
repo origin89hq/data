@@ -30,8 +30,8 @@ const QUALIFIER =
 /** A leading comparison or approximation. "< 5W" bounds the figure without stating it. */
 const BOUND = /^(?:<|>|≤|≥|≈|~|±|less than|more than|up to|under|over|about|approx\.?|circa)\s*/i;
 
-/** A number as printed: "1,000", "0,29", "-0.25", "3500". */
-const NUMBER = String.raw`-?(?:\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:[.,]\d+)?)`;
+/** A number as printed: "1,000", "0,29", "-0.25", "+0.05", "3500". */
+const NUMBER = String.raw`[-+]?(?:\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:[.,]\d+)?)`;
 /** What separates the ends of a range: a dash of any width, a tilde, "to", or a dash a decoder turned into a quote. */
 const RANGE = String.raw`\s*(?:-|–|—|~|～|to|")\s*`;
 /** A unit glued to or spaced after a number, up to the next number: "VDC" in "43 VDC to 59 VDC". */
@@ -42,15 +42,19 @@ const SCALAR_TERM = new RegExp(`^(${NUMBER})\\s*(.*)$`);
 
 /**
  * "1,000" is a thousand and "0,29" is a fraction: a thousands comma always has three digits after
- * it. A number too long to be finite is not a number, so nothing downstream sees Infinity.
+ * it, and never a lone zero before it, so "0,046 %/°C" is a coefficient and not forty-six. A number
+ * too long to be finite is not a number, so nothing downstream sees Infinity.
  */
 function toNumber(text: string): number | undefined {
-  const cleaned = /^-?\d{1,3}(?:,\d{3})+(?:\.\d+)?$/.test(text)
+  const cleaned = /^[-+]?[1-9]\d{0,2}(?:,\d{3})+(?:\.\d+)?$/.test(text)
     ? text.replaceAll(",", "")
     : text.replace(",", ".");
   const n = Number(cleaned);
   return Number.isFinite(n) ? n : undefined;
 }
+
+/** A converted number, or nothing when the conversion carried it past what a number can hold. */
+const finite = (n: number): number | undefined => (Number.isFinite(n) ? tidy(n) : undefined);
 
 /**
  * The unit a tail of text means, or the tail itself when it means none. The whole tail is tried
@@ -166,11 +170,16 @@ export function parseQuantity(
     const [first] = ranges;
     if (!first || ranges.some((r) => r.min !== first.min || r.max !== first.max))
       return { ok: false, reason: "several ranges that differ" };
-    const [lo, hi] = [tidy(by(first.min)), tidy(by(first.max ?? first.min))];
+    const [lo, hi] = [finite(by(first.min)), finite(by(first.max ?? first.min))];
+    if (lo === undefined || hi === undefined)
+      return { ok: false, reason: `too large to hold in ${to}` };
     if (lo > hi) return { ok: false, reason: "a range whose ends are reversed" };
     return { ok: true, parsed: { shape: "range", min: lo, max: hi, unit: to } };
   }
-  const values = [...new Set(terms.map((t) => tidy(by(t.min))))];
+  const converted = terms.map((t) => finite(by(t.min)));
+  if (converted.some((v) => v === undefined))
+    return { ok: false, reason: `too large to hold in ${to}` };
+  const values = [...new Set(converted.filter((v): v is number => v !== undefined))];
   const [only] = values;
   if (values.length === 1 && only !== undefined)
     return { ok: true, parsed: { shape: "scalar", value: only, unit: to } };

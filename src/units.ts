@@ -234,10 +234,11 @@ export function splitValueUnit(
  * and a Sol-Ark one a rating of "19,8 kW"; anything reading those as a number gets 472 or 198, so
  * publishing the comma is a trap rather than fidelity. Only a comma with one or two digits after
  * it is a decimal point — a thousands separator always has three, which is why "3,500 lb" and
- * "19,200 W" are left exactly as the maker printed them.
+ * "19,200 W" are left exactly as the maker printed them — unless a lone zero stands before it:
+ * Peimar's "0,046 %/°C" is a coefficient, and no maker writes forty-six that way.
  */
 function decimalPoint(value: string): string {
-  return /^-?\d{1,3},\d{1,2}$/.test(value) ? value.replace(",", ".") : value;
+  return /^[-+]?(?:\d{1,3},\d{1,2}|0,\d{3})$/.test(value) ? value.replace(",", ".") : value;
 }
 
 /**
