@@ -47,6 +47,19 @@ test("a document host is a bare host name, the same shape as a domain, and never
     Manufacturer.parse({ ...maker, documentHosts: ["https://cdn.shopify.com/"] }),
   );
   assert.throws(() => Manufacturer.parse({ ...maker, documentHosts: ["cdn.shopify.com/s/files"] }));
+  // A typo in a label would never match a real host and would report the documents as foreign.
+  for (const typo of [
+    ".cdn.shopify.com",
+    "cdn..shopify.com",
+    "cdn-.shopify.com",
+    "-cdn.shopify.com",
+  ])
+    assert.throws(() => Manufacturer.parse({ ...maker, documentHosts: [typo] }), typo);
+  assert.deepEqual(
+    Manufacturer.parse({ ...maker, documentHosts: ["d1abc.cloudfront.net", "a-b.c.example"] })
+      .documentHosts,
+    ["d1abc.cloudfront.net", "a-b.c.example"],
+  );
 });
 
 test("what the records cite is bundled by maker, and EPEVER's controller manual is among it", () => {

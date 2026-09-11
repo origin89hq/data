@@ -6,6 +6,13 @@ import { RecordId } from "./enums.ts";
  * maker wears several: Rolls, Rolls Battery and Surrette are one company, and the catalogue
  * already minted two dialect ids for one device by not settling that first.
  */
+/**
+ * A host name label by label: no label empty, none starting or ending with a hyphen. A typo such
+ * as `cdn..shopify.com` would pass a looser pattern, never match a real host, and turn into a plan
+ * that quietly reports the maker's documents as somebody else's.
+ */
+const HOST_NAME = /^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,}$/;
+
 export const Manufacturer = z
   .object({
     id: RecordId,
@@ -24,7 +31,7 @@ export const Manufacturer = z
      * the makers whose discovery found nothing keep every PDF this way (#48). Which host to add
      * is read off an empty plan, which names the hosts the maker's pages linked.
      */
-    documentHosts: z.array(z.string().regex(/^[a-z0-9.-]+\.[a-z]{2,}$/)).optional(),
+    documentHosts: z.array(z.string().regex(HOST_NAME)).optional(),
     country: z.string().length(2).optional(),
     /** Why this record exists, or what a reader has to know: a rename, a parent company, a line sold under someone else's label. */
     notes: z.string().optional(),
