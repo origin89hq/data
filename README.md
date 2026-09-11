@@ -381,7 +381,8 @@ Nothing is fetched until that event arrives. A refusal, an approval naming no
 host that was found, and no answer at all all end the run having downloaded
 nothing. An approval can narrow what discovery found and can never widen it,
 and it names who gave it: the GitHub login the Worker verified, never a name
-the request typed.
+the request typed. A `limit` takes the documents the records already cite
+first, then the rest in the plan's order, which lists them the same way.
 
 ## Activity and dataset versions
 

@@ -1,5 +1,6 @@
 import {
   baseHref,
+  citedFirst,
   decodeEntities,
   type Found,
   hostAllowed,
@@ -723,9 +724,11 @@ export function seedPages(
 }
 
 /**
- * The documents found, with the ones the records cite added after them. A cited document the
- * site also led to is one document, found on its page and marked as cited too; one the site did
- * not lead to is offered anyway, marked as cited so the approver knows where it came from.
+ * The documents found, with the ones the records cite among them and listed first. A cited
+ * document the site also led to is one document, found on its page and marked as cited too; one
+ * the site did not lead to is offered anyway, marked as cited so the approver knows where it came
+ * from. Cited first because a limit takes the plan from the top (#77), and the plan a person
+ * reads before approving should show what a limit will take.
  */
 export function withCited(
   found: readonly Found[],
@@ -746,7 +749,7 @@ export function withCited(
     if (out.some((f) => f.url === url)) continue;
     out.push({ url, host, cited: true });
   }
-  return out;
+  return citedFirst(out);
 }
 
 /** Everything discovery saw, written beside the plan so an empty one can be explained. */

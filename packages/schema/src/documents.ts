@@ -171,11 +171,20 @@ export function planFor(manufacturer: string, found: Found[]): CrawlPlan {
   });
 }
 
-/** What the approval actually permits, which is never more than what discovery found. */
+/** The documents the records cite first, then the rest, each group in the order given. */
+export function citedFirst<T extends Pick<Found, "cited">>(found: readonly T[]): T[] {
+  return [...found.filter((f) => f.cited === true), ...found.filter((f) => f.cited !== true)];
+}
+
+/**
+ * What the approval actually permits, which is never more than what discovery found. A limit
+ * takes the documents the records already cite before any other (#77): Pentair's plan of 396
+ * listed the 60 its figures rest on last, and a limit of 150 fetched none of them.
+ */
 export function permitted(found: Found[], approval: CrawlApproval): Found[] {
   if (!approval.approved) return [];
   const hosts = approval.hosts.length ? approval.hosts : [...new Set(found.map((f) => f.host))];
-  const allowed = found.filter((f) => hostAllowed(f.host, hosts));
+  const allowed = citedFirst(found.filter((f) => hostAllowed(f.host, hosts)));
   return approval.limit ? allowed.slice(0, approval.limit) : allowed;
 }
 

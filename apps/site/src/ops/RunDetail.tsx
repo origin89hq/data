@@ -265,8 +265,9 @@ export function RunDetail({
                     <p className="ops-eyebrow">REVIEW BEFORE DOWNLOADING</p>
                     <h3>Give this run the go-ahead.</h3>
                     <p>
-                      Downloads use the plan’s original order. This approval applies only to the
-                      workflow shown above and is attributed to <strong>{login}</strong>.
+                      A limit takes the documents the records already cite first, then the rest in
+                      the plan’s order. This approval applies only to the workflow shown above and
+                      is attributed to <strong>{login}</strong>.
                     </p>
                     <label>
                       Maximum documents
