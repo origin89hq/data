@@ -1019,6 +1019,9 @@ dialog::backdrop {
 .record-card .data-loading {
   min-height: 145px;
 }
+.record-card .data-problem {
+  padding-top: 18px;
+}
 .explorer input:disabled,
 .explorer select:disabled,
 .segmented button:disabled {
