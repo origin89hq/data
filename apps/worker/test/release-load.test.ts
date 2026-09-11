@@ -3,7 +3,13 @@ import { createHash } from "node:crypto";
 import { test } from "node:test";
 import { loadPartName } from "@origin89/equipment-schema/releases";
 import { loadRelease, type Steps } from "../src/release-load.ts";
-import { activeRelease, countRows, releaseRow } from "../src/release-store.ts";
+import {
+  activate,
+  activeRelease,
+  countRows,
+  insertRows,
+  releaseRow,
+} from "../src/release-store.ts";
 import { loadKey, releaseKey } from "../src/releases.ts";
 import { d1Double } from "./d1.ts";
 import { world } from "./world.ts";
@@ -222,10 +228,11 @@ test("retention keeps the pinned, the active and the recent, and lets the rest g
   const outcomes = [];
   for (const id of ids)
     outcomes.push(await loadRelease(env.ARCHIVE, env.RELEASES, plain, id, keep));
-  // Two recent kept beside the pinned first: the fourth load lets the second go, the fifth the third.
+  // Two recent kept beside the active one and the pinned first: the fifth load is the first to
+  // let one go, the second.
   assert.deepEqual(
     outcomes.map((o) => (o.outcome === "loaded" ? o.retired : o.outcome)),
-    [[], [], [], [ids[1]], [ids[2]]],
+    [[], [], [], [], [ids[1]]],
   );
   const left = (
     await env.RELEASES.prepare("SELECT id, state FROM releases ORDER BY published_at").all<{
@@ -237,6 +244,7 @@ test("retention keeps the pinned, the active and the recent, and lets the rest g
     left.map((r) => [r.id.slice(0, 1), r.state]),
     [
       ["1", "retained"],
+      ["3", "retained"],
       ["4", "retained"],
       ["5", "active"],
     ],
@@ -264,5 +272,75 @@ test("a store double refuses what SQLite refuses, which is what the store relies
     (await db.prepare("SELECT COUNT(*) AS n FROM t").first<{ n: number }>())?.n,
     1,
     "a failed batch is rolled back whole",
+  );
+});
+
+test("a part step run twice leaves one copy of its rows, so a retried step cannot double or trip on itself", async () => {
+  const objects: Record<string, string> = {};
+  published(objects, R1, "2026-09-11T10:00:00Z", {
+    models: models(3),
+    model_keys: [{ model_id: "m0", key: "k", name_key: "k", label: "L", via: "name" }],
+  });
+  const { env } = world(objects);
+  await loadRelease(env.ARCHIVE, env.RELEASES, plain, R1);
+  const rows = [{ model_id: "m0", key: "k", name_key: "k", label: "L", via: "name" }];
+  await insertRows(env.RELEASES, "model_keys", R1, "model_keys_0001.ndjson", rows);
+  await insertRows(env.RELEASES, "model_keys", R1, "model_keys_0001.ndjson", rows);
+  assert.equal(
+    await countRows(env.RELEASES, "model_keys", R1),
+    1,
+    "an unkeyed table is not doubled",
+  );
+  await insertRows(env.RELEASES, "models", R1, "models_0001.ndjson", models(3));
+  assert.equal(
+    await countRows(env.RELEASES, "models", R1),
+    3,
+    "a keyed table does not trip on its own rows",
+  );
+});
+
+test("a retention failure after activation is reported, and the release stays active", async () => {
+  const objects: Record<string, string> = {};
+  published(objects, R1, "2026-09-11T10:00:00Z", { models: models(1) });
+  const { env } = world(objects);
+  const db = env.RELEASES;
+  const failing: typeof db = {
+    ...db,
+    prepare: (sql: string) => {
+      if (sql.startsWith("SELECT id, published_at, state FROM releases"))
+        throw new Error("D1 is away");
+      return db.prepare(sql);
+    },
+  };
+  const outcome = await loadRelease(env.ARCHIVE, failing, plain, R1);
+  assert.deepEqual(outcome, {
+    outcome: "loaded",
+    active: true,
+    retired: [],
+    retentionError: "D1 is away",
+  });
+  assert.equal((await activeRelease(db))?.id, R1);
+});
+
+test("taking the active place is one conditional switch, so an older load cannot overtake a newer one", async () => {
+  const objects: Record<string, string> = {};
+  published(objects, R1, "2026-09-11T10:00:00Z", { models: models(1) });
+  published(objects, R2, "2026-09-11T12:00:00Z", { models: models(1) });
+  const { env } = world(objects);
+  const db = env.RELEASES;
+  await loadRelease(env.ARCHIVE, db, plain, R2);
+  await db
+    .prepare(
+      "INSERT INTO releases (id, content, published_at, state, counts) VALUES (?, 'c', ?, 'loading', '{}')",
+    )
+    .bind(R1, "2026-09-11T10:00:00Z")
+    .run();
+  assert.equal(await activate(db, R1, "2026-09-11T10:00:00Z"), false, "the older one is retained");
+  assert.equal((await activeRelease(db))?.id, R2);
+  assert.equal((await releaseRow(db, R1))?.state, "retained");
+  assert.equal(
+    await activate(db, R2, "2026-09-11T12:00:00Z"),
+    true,
+    "activating the active one again is a no-op",
   );
 });

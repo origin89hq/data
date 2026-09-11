@@ -60,8 +60,13 @@ export const SCHEMA: readonly string[] = [
   ...Object.entries(LOADED_TABLES).map(([table, { columns, keyed }]) => {
     const declared = columns.map((c) => `${c} TEXT`).join(", ");
     const key = keyed ? "PRIMARY KEY (release, id)" : "";
-    return `CREATE TABLE IF NOT EXISTS ${table} (release TEXT NOT NULL, ${declared}, row TEXT NOT NULL${key ? `, ${key}` : ""})`;
+    // `part` names the load part a row came from, so a retried part step can take its own rows
+    // back out before inserting them again and never doubles a row or trips its own key.
+    return `CREATE TABLE IF NOT EXISTS ${table} (release TEXT NOT NULL, part TEXT NOT NULL, ${declared}, row TEXT NOT NULL${key ? `, ${key}` : ""})`;
   }),
+  ...Object.keys(LOADED_TABLES).map(
+    (table) => `CREATE INDEX IF NOT EXISTS ${table}_by_part ON ${table} (release, part)`,
+  ),
   "CREATE INDEX IF NOT EXISTS models_by_maker ON models (release, manufacturer_id, name)",
   "CREATE INDEX IF NOT EXISTS models_by_name ON models (release, name)",
   "CREATE INDEX IF NOT EXISTS model_keys_by_key ON model_keys (release, key)",
@@ -93,13 +98,16 @@ export async function insertRows(
   db: Store,
   table: string,
   release: string,
+  part: string,
   rows: readonly LoadRow[],
 ): Promise<number> {
   const loaded = LOADED_TABLES[table];
   if (!loaded) return 0;
-  const width = loaded.columns.length + 2;
+  // Whatever an earlier try of this part left behind goes first, so the step is safe to retry.
+  await db.prepare(`DELETE FROM ${table} WHERE release = ? AND part = ?`).bind(release, part).run();
+  const width = loaded.columns.length + 3;
   const perStatement = Math.max(1, Math.floor(PARAMS_PER_STATEMENT / width));
-  const columns = ["release", ...loaded.columns, "row"].join(", ");
+  const columns = ["release", "part", ...loaded.columns, "row"].join(", ");
   const statements: D1PreparedStatement[] = [];
   let inserted = 0;
   const flush = async () => {
@@ -113,6 +121,7 @@ export async function insertRows(
       .join(", ");
     const params = chunk.flatMap((row) => [
       release,
+      part,
       ...loaded.columns.map((c) => stringOf(row[c])),
       JSON.stringify(row),
     ]);
@@ -158,18 +167,26 @@ export async function activeRelease(db: Store): Promise<ReleaseRow | null> {
  * of an older publication must not overtake a newer one. Either way the release stays loaded.
  */
 export async function activate(db: Store, id: string, publishedAt: string): Promise<boolean> {
-  const current = await activeRelease(db);
-  if (current && current.id !== id && current.published_at > publishedAt) {
-    await db.prepare("UPDATE releases SET state = 'retained' WHERE id = ?").bind(id).run();
-    return false;
-  }
+  // One batch, which D1 runs as one transaction: the active row steps aside only for a newer
+  // publication, and this release takes over only when nothing else is active once it has, so
+  // two loads finishing together cannot both read "no active release" and both take it.
   await db.batch([
     db
-      .prepare("UPDATE releases SET state = 'retained' WHERE state = 'active' AND id != ?")
+      .prepare(
+        "UPDATE releases SET state = 'retained' WHERE state = 'active' AND id != ? AND published_at <= ?",
+      )
+      .bind(id, publishedAt),
+    db
+      .prepare(
+        "UPDATE releases SET state = 'active' WHERE id = ? AND state = 'loading' AND NOT EXISTS (SELECT 1 FROM releases WHERE state = 'active' AND id != ?)",
+      )
+      .bind(id, id),
+    db
+      .prepare("UPDATE releases SET state = 'retained' WHERE id = ? AND state = 'loading'")
       .bind(id),
-    db.prepare("UPDATE releases SET state = 'active' WHERE id = ?").bind(id),
   ]);
-  return true;
+  const row = await releaseRow(db, id);
+  return row?.state === "active";
 }
 
 /**
@@ -188,10 +205,8 @@ export async function retain(
   ).results;
   const keep = new Set<string>(pinnedIds);
   for (const r of all) if (r.state === "active") keep.add(r.id);
-  for (const r of all
-    .filter((r) => r.state === "active" || r.state === "retained")
-    .slice(0, recent))
-    keep.add(r.id);
+  // The recent ones beside the active one, not counting it: active plus seven, as documented.
+  for (const r of all.filter((r) => r.state === "retained").slice(0, recent)) keep.add(r.id);
   const gone: string[] = [];
   for (const r of all) {
     if (keep.has(r.id) || r.state === "loading") continue;

@@ -25,7 +25,8 @@ export interface Steps {
 }
 
 export type LoadOutcome =
-  | { outcome: "loaded"; active: boolean; retired: string[] }
+  /** `retentionError` is set when the release loaded and took its place but letting old ones go failed; nothing is lost by it. */
+  | { outcome: "loaded"; active: boolean; retired: string[]; retentionError?: string }
   | { outcome: "already"; state: string }
   | { outcome: "failed"; reason: string };
 
@@ -91,11 +92,22 @@ export async function loadRelease(
         .bind(new Date().toISOString(), JSON.stringify(counts), releaseId)
         .run();
     });
-    const active = await step.do("activate", () => activate(db, releaseId, release.at));
+  } catch (error) {
+    return fail(db, step, releaseId, error instanceof Error ? error.message : String(error));
+  }
+  // From here the release is loaded and counted. Taking its place is one atomic switch, and
+  // letting old releases go is housekeeping: a failure there is reported, not a failed load,
+  // and never touches the active pointer.
+  const active = await step.do("activate", () => activate(db, releaseId, release.at));
+  try {
     const retired = await step.do("retain", () => retain(db, options.pinned, options.recent));
     return { outcome: "loaded", active, retired };
   } catch (error) {
-    return fail(db, step, releaseId, error instanceof Error ? error.message : String(error));
+    const retentionError = error instanceof Error ? error.message : String(error);
+    console.log(
+      JSON.stringify({ message: "release retention failed", release: releaseId, retentionError }),
+    );
+    return { outcome: "loaded", active, retired: [], retentionError };
   }
 }
 
@@ -109,7 +121,8 @@ async function fail(
     await createSchema(db);
     await db
       .prepare(
-        "INSERT INTO releases (id, content, published_at, state, error, counts) VALUES (?, '', '', 'failed', ?, '{}') ON CONFLICT(id) DO UPDATE SET state = 'failed', error = excluded.error",
+        // Only a release still loading can fail; one that took its place is never demoted here.
+        "INSERT INTO releases (id, content, published_at, state, error, counts) VALUES (?, '', '', 'failed', ?, '{}') ON CONFLICT(id) DO UPDATE SET state = 'failed', error = excluded.error WHERE releases.state = 'loading'",
       )
       .bind(releaseId, reason)
       .run();
@@ -137,5 +150,5 @@ async function loadPart(
     if (!line) continue;
     rows.push(JSON.parse(line) as LoadRow);
   }
-  return insertRows(db, table, release, rows);
+  return insertRows(db, table, release, part, rows);
 }
