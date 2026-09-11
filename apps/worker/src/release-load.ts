@@ -178,21 +178,26 @@ async function loadPart(
 }
 
 /**
- * Put back any pinned release the store has no row for: a fixture may name a release that
- * retention let go before it was pinned, or the store may have been recreated. Run from the
- * daily schedule, once, rather than from a read, so a release that cannot load is not retried
- * by every isolate that answers a question. Returns the releases whose load was started.
+ * Put back any pinned release the store lacks or failed to load: a fixture may name a release
+ * that retention let go before it was pinned, or the store may have been recreated. Run from
+ * the daily schedule, once, rather than from a read, so a release that cannot load is tried
+ * once a day and not by every isolate that answers a question. Returns the releases whose
+ * load was started.
  */
 export async function reloadPinned(
   env: Pick<Env, "ARCHIVE" | "RELEASE_LOAD">,
   db: Store,
   pinned: readonly string[] = PINNED_RELEASES,
 ): Promise<string[]> {
+  // A store just created has no tables yet, and a pinned release is what fills it.
+  await createSchema(db);
   const started: string[] = [];
   for (const release of pinned) {
-    // A row of any state means the store knows the release: loading, held, or failed, which is a
-    // person's to repair with `POST /load`, so a broken release is not retried at every pass.
-    if (await releaseRow(db, release)) continue;
+    // A release the store holds, is loading, or is letting go is left alone; one whose load
+    // failed is tried again, once a pass, since a pinned release is promised and the archive
+    // may have been repaired since.
+    const held = await releaseRow(db, release);
+    if (held && held.state !== "failed") continue;
     if (!(await env.ARCHIVE.head(releaseKey(release)))) {
       console.log(JSON.stringify({ message: "pinned release not in the archive", release }));
       continue;

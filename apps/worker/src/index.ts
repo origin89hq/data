@@ -32,7 +32,8 @@ export default {
     // Every day: move anything whose precondition is met. The weekly crawl and the monthly
     // discovery below produce work; this is what carries it through the stages after them.
     await superviseIfFree(env, checkedAt);
-    // A pinned release the store lacks is put back here, once a day, never from a read.
+    // A pinned release the store lacks or failed to load is put back here, once a day, never
+    // from a read.
     try {
       await reloadPinned(env, env.RELEASES);
     } catch (error) {

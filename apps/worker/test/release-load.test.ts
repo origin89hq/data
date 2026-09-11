@@ -395,6 +395,11 @@ test("a plan that leaves a store table out is refused, and a pinned release the 
     loads.map((l) => l.params),
     [{ release: R1 }],
   );
+  // A store with no tables at all, as a database just created has, is given them first.
+  const fresh = d1Double();
+  const w = world(objects);
+  assert.deepEqual(await reloadPinned(w.env, fresh, [R2]), [R2]);
+  assert.equal(await releaseRow(fresh, R2), null, "the load is started, not run here");
 });
 
 test("a keyed row without an id is refused, activation that stays away fails the load, and a partial retention says what went", async () => {
