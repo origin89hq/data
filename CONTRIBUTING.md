@@ -12,6 +12,11 @@ carries the source, and the reviewer reads the source, not the diff.
   evidence.
 - `confidence` is what the sources support, not what you believe. `unverified`
   is an honest answer.
+- `reviewedBy` is set only by the person who checked that figure or model
+  against its document. A reader's figure carries `extractedBy` instead, and
+  merging the pull request that brings it in does not review it. Consumers
+  filter on `reviewed_by` for checked facts; the published `tier` only says
+  whether a row is a record here or a feed row.
 - Absent beats plausible. A baud rate the document does not state stays out of
   the record; write the gap in `gotchas`.
 - Run `pnpm validate && pnpm test` before opening the pull request.

@@ -33,7 +33,7 @@ export function Evidence({ db }: { db: State }) {
     `SELECT s.model_id, coalesce(s.english, s.name) AS name, s.name AS printed, s.value, s.unit, s.page, o.url, o.title,
                    s.confidence, s.extracted_by, s.reviewed_by
             FROM specs s JOIN sources o ON o.id = s.source_id
-            WHERE s.tier = 'reviewed' AND s.doubt IS NULL AND s.page IS NOT NULL
+            WHERE s.tier <> 'feed' AND s.doubt IS NULL AND s.page IS NOT NULL
               AND o.url IS NOT NULL AND s.unit = 'Ah'
             ORDER BY try_cast(s.value AS DOUBLE) DESC NULLS LAST LIMIT 1`,
   );

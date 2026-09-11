@@ -20,7 +20,7 @@ export interface Feed {
   files: { name: string; sha256: string; kind: EquipmentKind }[];
 }
 
-/** One row of a feed: a product with its figures, in the same shape the reviewed side uses. */
+/** One row of a feed: a product with its figures, in the same shape the records use. */
 export interface FeedModel {
   id: string;
   feed: string;

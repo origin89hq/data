@@ -17,7 +17,7 @@ import { download } from "./workspace.ts";
 export default function Records() {
   const manifest = useResource<Index>();
   const db = useDuckDb(manifest.value);
-  const [tier, setTier] = useState<"reviewed" | "all">("reviewed");
+  const [tier, setTier] = useState<"records" | "all">("records");
   const [target, setTarget] = useState<CorrectionTarget>();
   useEffect(() => {
     void manifest.load(() => fetchIndex());
@@ -35,7 +35,7 @@ export default function Records() {
           <input
             type="checkbox"
             checked={tier === "all"}
-            onChange={(event) => setTier(event.target.checked ? "all" : "reviewed")}
+            onChange={(event) => setTier(event.target.checked ? "all" : "records")}
           />
         </label>
       </div>

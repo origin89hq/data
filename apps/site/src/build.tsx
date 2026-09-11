@@ -9,10 +9,11 @@ const snippets = (
   sql: {
     label: "DuckDB",
     code: `-- Nothing to download. DuckDB reads the Parquet over HTTP.
-SELECT m.name AS model, s.name AS figure, s.value, s.unit
+-- reviewed_by is set only where a person checked the figure against its document.
+SELECT m.name AS model, s.name AS figure, s.value, s.unit, s.extracted_by, s.reviewed_by
 FROM read_parquet('${origin}/v1/specs.parquet') s
 JOIN read_parquet('${origin}/v1/models.parquet') m ON m.id = s.model_id
-WHERE s.tier = 'reviewed' AND s.doubt IS NULL
+WHERE s.tier = 'record' AND s.doubt IS NULL
 LIMIT 20;`,
   },
   python: {
@@ -23,7 +24,7 @@ import duckdb
 df = duckdb.sql("""
   SELECT model_id, name, value, unit
   FROM read_parquet('${origin}/v1/specs.parquet')
-  WHERE tier = 'reviewed' AND unit = 'Ah'
+  WHERE tier = 'record' AND unit = 'Ah'
 """).df()
 print(df.head())`,
   },
