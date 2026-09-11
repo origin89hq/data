@@ -148,12 +148,19 @@ they never enter `records/` and never need a reviewer.
 
 | Feed | Licence | Products | Figures |
 |---|---|---|---|
-| SAM component libraries, CEC modules and inverters | BSD-3-Clause | 24,020 | 227,531 |
+| SAM component libraries, CEC modules and inverters | BSD-3-Clause | 24,020 | 292,546 |
 
 `just sync-sam` checks the pin against what upstream publishes now. A changed
 file is reported — how many products arrived, left or moved — and the pin only
 moves with `just sync-sam-accept`. A feed that updated itself would mean the
 figures published here could change without anybody having looked.
+
+Each pinned file is a row in `sources`, at its commit and with its hash, and a
+feed figure cites that file. A figure's unit is the one the library's units row
+states, except STC and PTC power, which that row leaves blank and SAM's help
+documents as watts. A module's STC figures carry `conditions` saying so, and its
+temperature coefficients are kept in A/K, V/K and %/K. A name the library lists
+twice keeps both rows, the second under a `-2` suffix, so every id is unique.
 
 Every model and every figure carries a `tier` that says where it comes from:
 `record` for a record in this repository, `feed` for a row a public dataset

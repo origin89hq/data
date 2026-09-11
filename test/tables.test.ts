@@ -3,7 +3,7 @@ import { test } from "node:test";
 import { Model, Spec } from "@origin89/equipment-schema/model";
 import type { Feed, FeedModel } from "../src/feeds.ts";
 import type { Records } from "../src/records.ts";
-import { type Row, tables } from "../src/tables.ts";
+import { duplicateIds, type Row, tables } from "../src/tables.ts";
 
 const READER = "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2";
 
@@ -51,25 +51,29 @@ const records: Records = {
   ],
 };
 
+const SHA = "a".repeat(64);
 const feed: Feed = {
   id: "sam-cec",
   title: "SAM component libraries",
   publisher: "NREL",
   license: "BSD-3-Clause",
+  repository: "https://github.com/NatLabRockies/SAM",
+  commit: "6ef6c5b2e42b202cee73582ae8ac74e830fff495",
   retrievedAt: "2026-09-01",
-  files: [],
+  files: [{ name: "CEC Inverters.csv", sha256: SHA, kind: "inverter" }],
 };
 const feedModel: FeedModel = {
   id: "sam--acme--i-3000",
   feed: "sam-cec",
+  source: "sam-cec-cec-inverters",
   manufacturerName: "Acme",
   name: "I-3000",
   kind: "inverter",
-  specs: [{ name: "Paco", value: "3000", unit: "W" }],
+  specs: [{ name: "Paco", value: "3000", unit: "W", conditions: "at rated AC output" }],
 };
 
-const rowsOf = (name: string): Row[] => {
-  const table = tables(records, [{ feed, models: [feedModel] }]).find((t) => t.name === name);
+const rowsOf = (name: string, models = [feedModel]): Row[] => {
+  const table = tables(records, [{ feed, models }]).find((t) => t.name === name);
   assert.ok(table, `a ${name} table`);
   return table.rows;
 };
@@ -105,6 +109,53 @@ test("no published row calls itself reviewed", () => {
       rowsOf(name).every((row) => row.tier === "record" || row.tier === "feed"),
       `${name} holds only records and feed rows`,
     );
+});
+
+test("a feed figure cites the file it came from, and that file is a source with its hash (#81)", () => {
+  const figure = rowsOf("specs").find((row) => row.tier === "feed");
+  assert.equal(figure?.source_id, "sam-cec-cec-inverters");
+  assert.equal(figure?.conditions, "at rated AC output", "a feed figure keeps its conditions");
+  const sources = rowsOf("sources");
+  assert.deepEqual(
+    sources.find((row) => row.id === figure?.source_id),
+    {
+      id: "sam-cec-cec-inverters",
+      url: `https://raw.githubusercontent.com/NatLabRockies/SAM/${feed.commit}/deploy/libraries/CEC%20Inverters.csv`,
+      path: undefined,
+      title: "SAM component libraries: CEC Inverters.csv",
+      publisher: "NREL",
+      revision: feed.commit,
+      sha256: SHA,
+      retrieved_at: "2026-09-01",
+      redistributable: true,
+    },
+    "the source is the file at the pinned commit, under the licence kept beside it",
+  );
+  const ids = new Set(sources.map((row) => row.id));
+  assert.ok(
+    rowsOf("specs").every((row) => ids.has(String(row.source_id)) || row.tier === "record"),
+    "every feed figure's source resolves",
+  );
+});
+
+test("a table that repeats an id is named, and one that does not is clean (#81)", () => {
+  const twice = [feedModel, { ...feedModel, specs: [{ name: "Paco", value: "3300", unit: "W" }] }];
+  const models = tables(records, [{ feed, models: twice }]).find((t) => t.name === "models");
+  const specs = tables(records, [{ feed, models: twice }]).find((t) => t.name === "specs");
+  assert.ok(models && specs);
+  assert.deepEqual(duplicateIds(models), ["sam--acme--i-3000"]);
+  assert.deepEqual(duplicateIds(specs), ["sam--acme--i-3000--00-paco"]);
+  for (const table of tables(records, [{ feed, models: [feedModel] }]))
+    assert.deepEqual(duplicateIds(table), [], `${table.name} repeats no id`);
+  assert.deepEqual(
+    duplicateIds({
+      name: "x",
+      columns: [{ name: "a", type: "VARCHAR" }],
+      rows: [{ a: "1" }, { a: "1" }],
+    }),
+    [],
+    "a table without an id column has nothing to repeat",
+  );
 });
 
 test("the feeds table counts what the feeds it was given hold", () => {

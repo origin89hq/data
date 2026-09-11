@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { FEEDS_DIR, parseCsv } from "../../src/feeds.ts";
+import { FEEDS_DIR, feedFileUrl, parseCsv } from "../../src/feeds.ts";
 
 /**
  * Check the pinned SAM libraries against what upstream publishes now.
@@ -27,8 +27,7 @@ const source = JSON.parse(readFileSync(join(dir, "source.json"), "utf8")) as {
   files: { name: string; sha256: string; kind: string }[];
 };
 
-const RAW = (name: string) =>
-  `https://raw.githubusercontent.com/NatLabRockies/SAM/${ref}/deploy/libraries/${encodeURIComponent(name)}`;
+const RAW = (name: string) => feedFileUrl(ref, name);
 
 /** Which products a library holds, by name, so a change can be described rather than just detected. */
 function names(text: string): Set<string> {
