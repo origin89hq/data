@@ -73,9 +73,14 @@ export function build(records: Records, dist = DIST_DIR): Record<string, unknown
   writeFileSync(join(dist, "properties.json"), `${JSON.stringify(PROPERTIES, null, 2)}\n`);
   record("properties.json", PROPERTIES.length);
   // The closed vocabularies, so a consumer pins the words with the release rather than copying
-  // them out of the schema package.
-  writeFileSync(join(dist, "vocabulary.json"), `${JSON.stringify(vocabulary(), null, 2)}\n`);
-  record("vocabulary.json");
+  // them out of the schema package. Its rows are the words it lists, counted so the index stays
+  // readable by a dashboard that expects every file to carry a count.
+  const words = vocabulary();
+  writeFileSync(join(dist, "vocabulary.json"), `${JSON.stringify(words, null, 2)}\n`);
+  record(
+    "vocabulary.json",
+    Object.values(words).reduce((n, list) => n + list.length, 0),
+  );
   for (const kind of RecordKind.options) {
     const name = snapshotName(kind);
     const snapshot = JSON.stringify(records[kind]);
