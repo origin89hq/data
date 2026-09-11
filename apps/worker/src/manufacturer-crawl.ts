@@ -4,14 +4,14 @@ import {
   CrawlApproval,
   documentLinks,
   type Found,
-  hostAllowed,
   permitted,
   planFor,
 } from "@origin89/equipment-schema/documents";
 import { observeCollection, workflowActivity } from "./activity.ts";
+import { discoverPages } from "./discover.ts";
 import { todayUtc, USER_AGENT } from "./feeds.ts";
 import { pointerKey, runPrefix, writePointer } from "./runs.ts";
-import { fetchText, isIndex, locations, sample } from "./sitemap.ts";
+import { fetchText, sample } from "./sitemap.ts";
 import { judgeSpecPage, type SpecPageCandidate } from "./spec-table.ts";
 
 export interface ManufacturerCrawlParams {
@@ -79,34 +79,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     const pages = await step.do(
       "discover pages",
       { retries: { limit: 2, delay: "20 seconds", backoff: "exponential" }, timeout: "3 minutes" },
-      async () => {
-        const urls: string[] = [];
-        for (const domain of domains) {
-          try {
-            const root = await fetchText(`https://${domain}/sitemap.xml`);
-            const listed = locations(root);
-            if (isIndex(root)) {
-              for (const child of listed.slice(0, 20)) {
-                try {
-                  urls.push(...locations(await fetchText(child)));
-                } catch {
-                  // A sitemap that will not load is one sitemap, not a reason to abandon the maker.
-                }
-              }
-            } else urls.push(...listed);
-          } catch {
-            urls.push(`https://${domain}/`);
-          }
-        }
-        const own = [...new Set(urls)].filter((u) => {
-          try {
-            return hostAllowed(new URL(u).hostname, domains);
-          } catch {
-            return false;
-          }
-        });
-        return sample(own, pageLimit ?? 200);
-      },
+      async () => sample(await discoverPages(domains), pageLimit ?? 200),
     );
 
     const found: Found[] = [];

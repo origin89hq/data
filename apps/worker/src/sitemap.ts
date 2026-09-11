@@ -11,18 +11,31 @@ export const MAX_URLS = 5000;
 /** How many nested sitemaps to follow. An index of indexes is legal and is also how a crawl runs away. */
 export const MAX_SITEMAPS = 40;
 
-const LOC = /<loc>\s*([^<\s]+)\s*<\/loc>/gi;
+/**
+ * A location is either character data, whose entities are markup, or a CDATA section, whose text
+ * is literal. All in One SEO writes `<loc><![CDATA[https://…]]></loc>`, and a pattern that wanted
+ * the address to start right after the tag read APsystems' whole sitemap as empty (#48).
+ */
+const LOC = /<loc>\s*(?:<!\[CDATA\[\s*([^\]]*?)\s*\]\]>|([^<\s]+))\s*<\/loc>/gi;
 
 /** Every `<loc>` in a sitemap or sitemap index, with XML entities decoded. */
 export function locations(xml: string): string[] {
-  return [...xml.matchAll(LOC)].map((m) =>
-    m[1]
-      .replace(/&amp;/g, "&")
-      .replace(/&lt;/g, "<")
-      .replace(/&gt;/g, ">")
-      .replace(/&quot;/g, '"')
-      .replace(/&apos;/g, "'"),
-  );
+  const out: string[] = [];
+  for (const m of xml.matchAll(LOC)) {
+    if (m[1] !== undefined) {
+      if (m[1]) out.push(m[1]);
+      continue;
+    }
+    out.push(
+      m[2]
+        .replace(/&amp;/g, "&")
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&quot;/g, '"')
+        .replace(/&apos;/g, "'"),
+    );
+  }
+  return out;
 }
 
 /** A sitemap index points at more sitemaps; a urlset points at pages. The tag says which. */

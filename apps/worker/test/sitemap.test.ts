@@ -29,6 +29,16 @@ test("locations are read out of both a urlset and an index, with entities decode
   assert.deepEqual(locations(urlset), ["https://s.example/a", "https://s.example/b"]);
 });
 
+test("a location wrapped in CDATA is read literally, since its text is not markup", () => {
+  const index = `<sitemapindex><sitemap><loc><![CDATA[https://s.example/post-sitemap.xml]]></loc><lastmod><![CDATA[2026-09-01T05:58:51+00:00]]></lastmod></sitemap></sitemapindex>`;
+  assert.deepEqual(locations(index), ["https://s.example/post-sitemap.xml"]);
+  const urlset = `<urlset><url><loc><![CDATA[ https://s.example/x.php?a=1&amp;b=2 ]]></loc></url><url><loc>https://s.example/y?a=1&amp;b=2</loc></url><url><loc><![CDATA[]]></loc></url></urlset>`;
+  assert.deepEqual(locations(urlset), [
+    "https://s.example/x.php?a=1&amp;b=2",
+    "https://s.example/y?a=1&b=2",
+  ]);
+});
+
 test("a seller's own sitemap location wins, since BigCommerce does not serve /sitemap.xml", () => {
   assert.equal(sitemapUrl(seller), "https://s.example/sitemap.xml");
   assert.equal(
