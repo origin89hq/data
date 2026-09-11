@@ -1,5 +1,6 @@
 {
   "id": "shurflo-9300-solar-submersible",
+  "manufacturer": "pentair",
   "family": "no-comms",
   "driver": {
     "status": "not-planned"

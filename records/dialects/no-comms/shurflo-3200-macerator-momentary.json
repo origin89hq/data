@@ -1,5 +1,6 @@
 {
   "id": "shurflo-3200-macerator-momentary",
+  "manufacturer": "pentair",
   "family": "no-comms",
   "driver": {
     "status": "not-planned"

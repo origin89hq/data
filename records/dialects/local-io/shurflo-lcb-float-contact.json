@@ -1,5 +1,6 @@
 {
   "id": "shurflo-lcb-float-contact",
+  "manufacturer": "pentair",
   "family": "local-io",
   "driver": {
     "status": "possible"
