@@ -215,3 +215,44 @@ export function world(
     text,
   };
 }
+
+/**
+ * A world's archive made to answer each call a turn of the event loop later, as R2 answers over
+ * the network, so calls made at once are outstanding together. It records the key or prefix of
+ * every call, and what was outstanding when each went out. `refuse` names the calls that fail.
+ */
+export function watched(archive: R2Bucket, refuse: (key: string) => boolean = () => false) {
+  const asked: string[] = [];
+  const outstanding: string[] = [];
+  const moments: string[][] = [];
+  const later =
+    <A extends unknown[], R>(call: (...args: A) => Promise<R>, keyOf: (...args: A) => string) =>
+    async (...args: A): Promise<R> => {
+      const key = keyOf(...args);
+      asked.push(key);
+      outstanding.push(key);
+      moments.push([...outstanding]);
+      try {
+        await new Promise((resolve) => setImmediate(resolve));
+        if (refuse(key)) throw new Error(`R2 refused ${key}`);
+        return await call(...args);
+      } finally {
+        outstanding.splice(outstanding.indexOf(key), 1);
+      }
+    };
+  const get = archive.get.bind(archive);
+  const head = archive.head.bind(archive);
+  const list = archive.list.bind(archive);
+  Object.assign(archive, {
+    get: later(get, (key: string) => key),
+    head: later(head, (key: string) => key),
+    list: later(list, (options?: { prefix?: string }) => options?.prefix ?? ""),
+  });
+  /** The most groups with a call outstanding at one moment. A key `group` places in none is left out. */
+  const peak = (group: (key: string) => string | undefined): number =>
+    Math.max(
+      0,
+      ...moments.map((keys) => new Set(keys.map(group).filter((g) => g !== undefined)).size),
+    );
+  return { asked, peak };
+}

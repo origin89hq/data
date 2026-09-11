@@ -1,17 +1,21 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { PULL_PAGE_READER } from "@origin89/equipment-schema/provenance";
+import { R2_AT_ONCE } from "../src/at-once.ts";
+import { classifierKey } from "../src/classify.ts";
 import type { DiscoverySeen, HostSeen } from "../src/discover.ts";
 import { EXTRACTOR_ID, VISION_EXTRACTOR_ID } from "../src/reading.ts";
+import { pointerKey, runPrefix } from "../src/runs.ts";
 import {
   emptyPlanReason,
   makerStates,
   PREVIOUS_RUNS_CONSIDERED,
   previousPlan,
   readyToPull,
+  sellerStates,
 } from "../src/state.ts";
 import { partKey, readerKey } from "../src/work.ts";
-import { world } from "./world.ts";
+import { watched, world } from "./world.ts";
 
 const RUN = "2026-09-10-abcd1234";
 const BASE = `documents/maker/runs/${RUN}`;
@@ -23,32 +27,36 @@ const doc = (c: string) => ({
 });
 
 /** One maker's current run, written as far as `stages` says the pipeline got. */
-function run(stages: {
-  plan?: boolean;
-  approved?: boolean;
-  fetched?: number;
-  sent?: string[];
-  converted?: string[];
-  text?: string[];
-  pages?: string[];
-}): Record<string, string> {
+function run(
+  stages: {
+    plan?: boolean;
+    approved?: boolean;
+    fetched?: number;
+    sent?: string[];
+    converted?: string[];
+    text?: string[];
+    pages?: string[];
+  },
+  maker = "maker",
+): Record<string, string> {
+  const base = `documents/${maker}/runs/${RUN}`;
   const objects: Record<string, string> = {
-    "documents/maker/current.json": JSON.stringify({
+    [`documents/${maker}/current.json`]: JSON.stringify({
       run: RUN,
       date: "2026-09-10",
       startedAt: "2026-09-10T00:00:00Z",
     }),
   };
   if (stages.plan)
-    objects[`${BASE}/plan.json`] = JSON.stringify({ documents: (stages.sent ?? ["b"]).map(doc) });
+    objects[`${base}/plan.json`] = JSON.stringify({ documents: (stages.sent ?? ["b"]).map(doc) });
   if (stages.approved)
-    objects[`${BASE}/manifest.json`] = JSON.stringify({
+    objects[`${base}/manifest.json`] = JSON.stringify({
       approvedBy: "david",
       fetched: stages.fetched ?? (stages.sent ?? []).length,
     });
   if (stages.sent)
-    objects[`${BASE}/converting.json`] = JSON.stringify({ documents: stages.sent.map(doc) });
-  for (const c of stages.converted ?? []) objects[`${BASE}/converted/${sha(c)}.json`] = "{}";
+    objects[`${base}/converting.json`] = JSON.stringify({ documents: stages.sent.map(doc) });
+  for (const c of stages.converted ?? []) objects[`${base}/converted/${sha(c)}.json`] = "{}";
   for (const c of stages.text ?? [])
     objects[partKey.reading(sha(c), readerKey(EXTRACTOR_ID))] = "{}";
   for (const c of stages.pages ?? [])
@@ -378,6 +386,171 @@ test("an offer to an earlier page reader is not an offer to this one, so a new v
     "offered to p1, whose readings kept rate-limited pages as read (#29)",
   );
   assert.equal((await state(offered())).seeing, undefined, "nor an offer that names no reader");
+});
+
+/** The maker a run's key belongs to, for counting the makers being read at one moment. */
+const makerOf = (key: string) => /^documents\/([^/]+)\/runs\//.exec(key)?.[1];
+
+test("each maker's state is its own, in name order, with a few makers read at a time", async () => {
+  // Eight makers at every stage, more than are read at once, none sharing a document.
+  const objects: Record<string, string> = {
+    ...run({ plan: true, approved: true, sent: ["8"], converted: [] }, "maker-h"),
+    ...run({ plan: true }, "maker-a"),
+    ...run({ plan: true, approved: true }, "maker-b"),
+    ...run({ plan: true, approved: true, sent: ["1", "2"], converted: ["1"] }, "maker-c"),
+    ...run(
+      { plan: true, approved: true, sent: ["3", "4"], converted: ["3", "4"], text: ["3"] },
+      "maker-d",
+    ),
+    ...run({ plan: true, approved: true, sent: ["5"], converted: ["5"], text: ["5"] }, "maker-e"),
+    ...run({}, "maker-f"),
+    ...run(
+      { plan: true, approved: true, sent: ["6", "7"], converted: ["6", "7"], pages: ["6"] },
+      "maker-g",
+    ),
+  };
+  const { env } = world(objects);
+  const { peak } = watched(env.ARCHIVE);
+  const states = await makerStates(env.ARCHIVE);
+  assert.deepEqual(
+    states.map((m) => [m.maker, m.waitingOn, m.sent, m.converted, m.read, m.seen]),
+    [
+      ["maker-a", "somebody to approve the download", undefined, undefined, undefined, undefined],
+      ["maker-b", "conversion to be started", undefined, undefined, undefined, undefined],
+      ["maker-c", "conversion, 1 of 2 left", 2, 1, undefined, undefined],
+      ["maker-d", "reading, 1 of 2 left", 2, 2, 1, undefined],
+      ["maker-e", "its figures to be pulled into records", 1, 1, 1, undefined],
+      ["maker-f", "discovery", undefined, undefined, undefined, undefined],
+      ["maker-g", "reading, 2 of 2 left", 2, 2, undefined, 1],
+      ["maker-h", "conversion, 1 of 1 left", 1, 0, undefined, undefined],
+    ],
+  );
+  assert.equal(peak(makerOf), R2_AT_ONCE, "as many makers at once as there are connections");
+});
+
+test("a reading is found whichever digit its document starts with, the archive listed in parts at once", async () => {
+  const docs = ["0", "7", "a", "f"];
+  const objects = run({ plan: true, approved: true, sent: docs, converted: docs, text: docs });
+  // A thousand pages of one scan, all in the part starting with "a": more than one page to list.
+  for (let page = 1; page <= 1000; page += 1)
+    objects[partKey.page(sha("a"), readerKey(VISION_EXTRACTOR_ID), page)] = "{}";
+  const { env } = world(objects);
+  const { asked, peak } = watched(env.ARCHIVE);
+  const [maker] = await makerStates(env.ARCHIVE);
+  assert.equal(maker?.read, 4);
+  const listings = asked.filter((prefix) => prefix.startsWith("archive"));
+  assert.deepEqual(
+    [...new Set(listings)].sort(),
+    [
+      "archive/0",
+      "archive/1",
+      "archive/2",
+      "archive/3",
+      "archive/4",
+      "archive/5",
+      "archive/6",
+      "archive/7",
+      "archive/8",
+      "archive/9",
+      "archive/a",
+      "archive/b",
+      "archive/c",
+      "archive/d",
+      "archive/e",
+      "archive/f",
+    ],
+    "sixteen parts, and never the whole archive in one listing",
+  );
+  assert.equal(
+    listings.filter((p) => p === "archive/a").length,
+    2,
+    "a long part is listed to its end",
+  );
+  assert.equal(
+    peak((key) => (key.startsWith("archive/") ? key : undefined)),
+    R2_AT_ONCE,
+  );
+});
+
+test("a run not sent to conversion is spared the reads that only follow it", async () => {
+  const { env } = world(run({ plan: true, approved: true }));
+  const { asked } = watched(env.ARCHIVE);
+  const [maker] = await makerStates(env.ARCHIVE);
+  assert.equal(maker?.waitingOn, "conversion to be started");
+  assert.deepEqual(
+    asked.filter((key) => key.startsWith(BASE)).sort(),
+    [
+      `${BASE}/converting.json`,
+      `${BASE}/manifest.json`,
+      `${BASE}/plan.json`,
+      `${BASE}/spec-pages.json`,
+    ],
+    "no listing of its conversions and no offer to read",
+  );
+});
+
+test("a read that fails fails the whole state, rather than answering for the makers it reached", async () => {
+  const objects: Record<string, string> = {};
+  for (const maker of ["maker-a", "maker-b", "maker-c", "maker-d", "maker-e", "maker-f", "maker-g"])
+    Object.assign(
+      objects,
+      run({ plan: true, approved: true, sent: ["b"], converted: ["b"] }, maker),
+    );
+  const manifest = world(objects).env.ARCHIVE;
+  watched(manifest, (key) => key === `documents/maker-e/runs/${RUN}/manifest.json`);
+  await assert.rejects(makerStates(manifest), /R2 refused documents\/maker-e\//);
+  const listing = world(objects).env.ARCHIVE;
+  watched(listing, (key) => key === "archive/b");
+  await assert.rejects(makerStates(listing), /R2 refused archive\/b/);
+});
+
+test("each seller's state is its own, in name order, with a few sellers read at a time", async () => {
+  const objects: Record<string, string> = {};
+  const crawled = (
+    seller: string,
+    sightings?: number,
+    guesses?: { parts: number; written: number; alreadyAnswered?: number },
+  ) => {
+    objects[pointerKey.sightings(seller)] = JSON.stringify({
+      run: RUN,
+      date: "2026-09-10",
+      startedAt: "2026-09-10T00:00:00Z",
+    });
+    if (sightings !== undefined)
+      objects[`${runPrefix.sightings(seller, RUN)}/manifest.json`] = JSON.stringify({ sightings });
+    if (!guesses) return;
+    const { written, ...manifest } = guesses;
+    objects[`${runPrefix.guesses(seller, RUN, classifierKey())}/manifest.json`] =
+      JSON.stringify(manifest);
+    for (let part = 1; part <= written; part += 1)
+      objects[partKey.classify(classifierKey(), seller, RUN, part)] = "";
+  };
+  crawled("shop-a", 25, { parts: 3, written: 2 });
+  crawled("shop-b", 10);
+  crawled("shop-c", 5, { parts: 1, written: 1, alreadyAnswered: 2 });
+  crawled("shop-d");
+  const whole = ["shop-e", "shop-f", "shop-g", "shop-h"];
+  for (const shop of whole) crawled(shop, 1, { parts: 1, written: 1 });
+  const { env } = world(objects);
+  const { peak } = watched(env.ARCHIVE);
+  assert.deepEqual(await sellerStates(env.ARCHIVE), [
+    { seller: "shop-a", date: "2026-09-10", sightings: 25, classified: { parts: 3, written: 2 } },
+    { seller: "shop-b", date: "2026-09-10", sightings: 10 },
+    // Classified before every listing was queued, so classified again (#16).
+    { seller: "shop-c", date: "2026-09-10", sightings: 5 },
+    // A crawl that never finished.
+    { seller: "shop-d", date: "2026-09-10" },
+    ...whole.map((seller) => ({
+      seller,
+      date: "2026-09-10",
+      sightings: 1,
+      classified: { parts: 1, written: 1 },
+    })),
+  ]);
+  assert.equal(
+    peak((key) => /^(?:sightings|guesses)\/([^/]+)\/runs\//.exec(key)?.[1]),
+    R2_AT_ONCE,
+  );
 });
 
 test("a state from a Worker that predates `sent` is never ready, whatever its words say", () => {

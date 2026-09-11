@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
+import { R2_AT_ONCE } from "../src/at-once.ts";
 import {
   currentRuns,
   DATASET_PATH,
@@ -14,7 +15,7 @@ import {
   runPrefix,
 } from "../src/runs.ts";
 import { partKey } from "../src/work.ts";
-import { world } from "./world.ts";
+import { watched, world } from "./world.ts";
 
 const pointer = (entity: string) =>
   JSON.stringify({
@@ -91,6 +92,22 @@ test("more entities than one page of a listing are all found", async () => {
     makers,
   );
   assert.equal(listings.length, 2, "a thousand to a page, and the three after");
+});
+
+test("pointers are read a few at a time, not one after another", async () => {
+  const objects: Record<string, string> = {};
+  const makers = Array.from({ length: 20 }, (_, i) => `maker-${String(i).padStart(2, "0")}`);
+  for (const maker of makers) objects[pointerKey.documents(maker)] = pointer(maker);
+  const { env } = world(objects);
+  const { peak } = watched(env.ARCHIVE);
+  assert.deepEqual(
+    (await currentRuns(env.ARCHIVE, "documents")).map((m) => m.entity),
+    makers,
+  );
+  assert.equal(
+    peak((key) => (key.endsWith("/current.json") ? key : undefined)),
+    R2_AT_ONCE,
+  );
 });
 
 const crawls = ["seller-crawl", "page-crawl", "manufacturer-crawl"].map(
