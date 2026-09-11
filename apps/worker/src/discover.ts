@@ -305,6 +305,8 @@ export async function discoverPages(
 
 /** An `href`, quoted either way or not at all, as HTML allows. */
 const HREF = /(?<![-\w])href\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>"']+))/gi;
+/** The elements a page navigates with. */
+const NAV = /<(?:a|area)\b[^>]*>/gi;
 
 /** Files a page links that are neither pages to read nor documents to keep. */
 const ASSET =
@@ -319,20 +321,22 @@ export function pageLinks(html: string, pageUrl: string, domains: readonly strin
   const out = new Set<string>();
   // Relative links resolve as a browser would, against the page's `<base href>` when it has one.
   const base = baseHref(html, pageUrl);
-  for (const match of withoutBase(html).matchAll(HREF)) {
-    let url: URL;
-    try {
-      url = new URL(decodeEntities(match[1] ?? match[2] ?? match[3] ?? ""), base);
-    } catch {
-      continue;
+  // Only what a person could click: a `<link rel="alternate">` in the head is not navigation.
+  for (const tag of withoutBase(html).match(NAV) ?? [])
+    for (const match of tag.matchAll(HREF)) {
+      let url: URL;
+      try {
+        url = new URL(decodeEntities(match[1] ?? match[2] ?? match[3] ?? ""), base);
+      } catch {
+        continue;
+      }
+      if (url.protocol !== "https:" && url.protocol !== "http:") continue;
+      url.hash = "";
+      const href = url.toString();
+      if (isDocument(href) || ASSET.test(url.pathname) || !hostAllowed(url.hostname, domains))
+        continue;
+      out.add(href);
     }
-    if (url.protocol !== "https:" && url.protocol !== "http:") continue;
-    url.hash = "";
-    const href = url.toString();
-    if (isDocument(href) || ASSET.test(url.pathname) || !hostAllowed(url.hostname, domains))
-      continue;
-    out.add(href);
-  }
   return [...out];
 }
 
@@ -396,6 +400,9 @@ export function nextHop(
 export interface PagesRead {
   links: Found[];
   tables: SpecPageCandidate[];
+  /** Finds cut to keep the result under the step cap: documents and specification pages. */
+  documentsDropped: number;
+  tablesDropped: number;
   /** Pages these pages link on the maker's hosts, for the hop after this one, product and download pages first and bounded. */
   pages: string[];
   /** Links found beyond that bound and left behind. */
@@ -426,10 +433,14 @@ export async function readPages(
   pages: readonly string[],
   domains: readonly string[],
   get: Get = fetchPage,
+  /** Addresses earlier batches landed on: a listed page among them is a page already read. */
+  skip: ReadonlySet<string> = new Set(),
 ): Promise<PagesRead> {
   const out: PagesRead = {
     links: [],
     tables: [],
+    documentsDropped: 0,
+    tablesDropped: 0,
     pages: [],
     linksDropped: 0,
     landed: [],
@@ -446,7 +457,7 @@ export async function readPages(
   const collected: string[] = [];
   for (const page of pages) {
     // Two candidates in one batch can be one page, when the first redirects to the second.
-    if (out.landed.includes(page)) continue;
+    if (out.landed.includes(page) || skip.has(page)) continue;
     out.attempted += 1;
     const answer = await get(page);
     const away = strayed(answer, domains);
@@ -531,6 +542,17 @@ function bound(out: PagesRead): void {
     out.foreignDropped += Math.max(0, urls.length - 20);
     out.foreign[host] = urls.slice(0, 20);
   }
+  // Last of all the finds themselves, counted so a plan built from a cut batch says so.
+  while (size() > MAX_RESULT_BYTES && out.tables.length > 0) {
+    const keep = Math.floor(out.tables.length * 0.8);
+    out.tablesDropped += out.tables.length - keep;
+    out.tables = out.tables.slice(0, keep);
+  }
+  while (size() > MAX_RESULT_BYTES && out.links.length > 0) {
+    const keep = Math.floor(out.links.length * 0.8);
+    out.documentsDropped += out.links.length - keep;
+    out.links = out.links.slice(0, keep);
+  }
 }
 
 /** Everything discovery saw, written beside the plan so an empty one can be explained. */
@@ -545,6 +567,9 @@ export interface DiscoverySeen {
     linksDropped?: number;
     /** Candidates handed back that the page budget did not reach. */
     unfollowed?: number;
+    /** Finds cut from batches to keep their results under the step cap. */
+    documentsDropped?: number;
+    tablesDropped?: number;
     failed: Record<string, number>;
   };
   /** Distinct documents linked on hosts the record does not claim, by host, and how many more were seen than could be carried. */

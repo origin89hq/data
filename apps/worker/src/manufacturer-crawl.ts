@@ -131,6 +131,10 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
           candidates.push(link);
         }
       seen.pages.read += batch.read;
+      if (batch.documentsDropped > 0)
+        seen.pages.documentsDropped = (seen.pages.documentsDropped ?? 0) + batch.documentsDropped;
+      if (batch.tablesDropped > 0)
+        seen.pages.tablesDropped = (seen.pages.tablesDropped ?? 0) + batch.tablesDropped;
       if (batch.linksDropped > 0)
         seen.pages.linksDropped = (seen.pages.linksDropped ?? 0) + batch.linksDropped;
       for (const [status, n] of Object.entries(batch.failed))
@@ -154,7 +158,9 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     let attempted = 0;
     for (let b = 0; b * DISCOVER_BATCH < pages.length; b += 1) {
       const slice = pages.slice(b * DISCOVER_BATCH, (b + 1) * DISCOVER_BATCH);
-      const batch = await step.do(`read pages ${b + 1}`, reading, () => readPages(slice, domains));
+      const batch = await step.do(`read pages ${b + 1}`, reading, () =>
+        readPages(slice, domains, undefined, landedAt),
+      );
       take(batch);
       attempted += batch.attempted;
       await step.sleep(`politeness after pages ${b + 1}`, "2 seconds");
@@ -176,7 +182,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       if (next.slice.length === 0) break;
       const slice = next.slice;
       const batch = await step.do(`follow links ${b + 1}`, reading, () =>
-        readPages(slice, domains),
+        readPages(slice, domains, undefined, landedAt),
       );
       take(batch);
       remaining -= batch.attempted;

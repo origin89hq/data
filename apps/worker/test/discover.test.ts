@@ -603,3 +603,38 @@ test("a sitemap served as plain text is read, while a plain-text download is not
   assert.equal((await fetchPage("https://maker.test/export?id=manual")).text, "");
   assert.equal((await fetchPage("https://maker.test/page")).text, "<p>hi</p>");
 });
+
+test("a page's own document links are cut last, and counted, when a batch would not fit the step", async () => {
+  const docs = Array.from(
+    { length: 6000 },
+    (_, i) => `<a href="/files/${"d".repeat(120)}/${i}.pdf">${i}</a>`,
+  );
+  const { get } = site({ "https://maker.test/a": docs.join("") });
+  const read = await readPages(["https://maker.test/a"], ["maker.test"], get);
+  assert.ok(JSON.stringify(read).length <= MAX_RESULT_BYTES);
+  assert.ok(read.links.length > 0 && read.links.length < 6000);
+  assert.equal(read.documentsDropped, 6000 - read.links.length);
+});
+
+test("a listed page an earlier batch landed on is not asked for again", async () => {
+  const { get, asked } = site({ "https://maker.test/b": `<a href="/c">c</a>` });
+  const read = await readPages(
+    ["https://maker.test/b"],
+    ["maker.test"],
+    get,
+    new Set(["https://maker.test/b"]),
+  );
+  assert.deepEqual(asked, []);
+  assert.deepEqual([read.attempted, read.read], [0, 0]);
+});
+
+test("only anchors and areas navigate; a head link or an href inside another attribute does not", () => {
+  const html = `<link rel="alternate" type="application/rss+xml" href="/feed/">
+    <a href="/product/real">real</a>
+    <area href="/product/area" shape="rect">
+    <img alt="see href=/not/a/link" src="/x.png">`;
+  assert.deepEqual(pageLinks(html, "https://www.maker.test/", ["maker.test"]), [
+    "https://www.maker.test/product/real",
+    "https://www.maker.test/product/area",
+  ]);
+});
