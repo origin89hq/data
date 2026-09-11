@@ -24,9 +24,17 @@ const ownHost = (url: string, domains: readonly string[]): boolean => {
  * in front of those is nobody's name.
  */
 export function hostsToTry(domain: string): string[] {
-  const apex = domain.split(".").length === 2;
-  return apex ? [domain, `www.${domain}`] : [domain];
+  const labels = domain.split(".");
+  // Two labels is an apex. Three is one when the middle label is a public second level such as
+  // `co.uk` or `com.au`; the makers here are on plain TLDs, and a fuller list is a dependency
+  // nothing yet needs.
+  const apex =
+    labels.length === 2 || (labels.length === 3 && PUBLIC_SECOND_LEVEL.has(labels[1] ?? ""));
+  return apex && !domain.startsWith("www.") ? [domain, `www.${domain}`] : [domain];
 }
+
+/** Second-level labels under which a three-label name is still an apex: `maker.co.uk`, `maker.com.au`. */
+const PUBLIC_SECOND_LEVEL = new Set(["co", "com", "net", "org", "ac", "gov", "edu", "or", "ne"]);
 
 /**
  * The sitemap of one domain, read from the bare host and then from `www.` when the bare host does

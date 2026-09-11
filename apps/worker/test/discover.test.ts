@@ -77,6 +77,11 @@ test("a host that never answers gets both its home pages tried, and a www domain
   ]);
   assert.deepEqual(sub.asked, ["https://power.maker.test/sitemap.xml"]);
   assert.deepEqual(hostsToTry("maker.test"), ["maker.test", "www.maker.test"]);
+  // An apex under a public second level is still an apex; a real subdomain is not.
+  assert.deepEqual(hostsToTry("maker.co.uk"), ["maker.co.uk", "www.maker.co.uk"]);
+  assert.deepEqual(hostsToTry("maker.com.au"), ["maker.com.au", "www.maker.com.au"]);
+  assert.deepEqual(hostsToTry("power.maker.test"), ["power.maker.test"]);
+  assert.deepEqual(hostsToTry("www.maker.test"), ["www.maker.test"]);
 });
 
 test("an index's child on a host the record does not claim is never opened", async () => {
