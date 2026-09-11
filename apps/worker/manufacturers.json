@@ -1013,9 +1013,16 @@
         "https://www.pentair.com/content/dam/extranet/web/nam/pentek/manuals/p1062-psd30-solar-drive-iom.pdf",
         "https://www.pentair.com/content/dam/extranet/web/nam/pentek/sales-flyers/psd25pb-solar-drive-sell-sheet.pdf",
         "https://www.pentair.com/content/dam/extranet/web/nam/pentek/spec-sheets/310068-pentek-c-series-spec-sheet.pdf",
-        "https://www.pentair.com/content/dam/extranet/web/nam/pentek/spec-sheets/310112-pentek-cfbc-series-spec-sheet.pdf"
+        "https://www.pentair.com/content/dam/extranet/web/nam/pentek/spec-sheets/310112-pentek-cfbc-series-spec-sheet.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-1008-4008-rv-by-pass-pump-iom.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-193-lcb-go-902-100-iom.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-314-series-8000-pump-iom.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-566-3200-macerator-pump-iom.pdf"
       ],
-      "pages": []
+      "pages": [
+        "https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-193-lcb-g",
+        "https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-396-series-2088-industrial-pumps-iom"
+      ]
     }
   },
   {
