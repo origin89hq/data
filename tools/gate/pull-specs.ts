@@ -7,7 +7,13 @@ import { Source } from "@origin89/equipment-schema/source";
 import { withoutRedundantTranslations, withoutTranslatedReadings } from "../../src/language.ts";
 import { looksLikeModelName, modelId, normaliseModelName } from "../../src/models.ts";
 import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
-import { matchModel, type ReportedProduct, specsFrom } from "../../src/specs.ts";
+import {
+  heldByPerson,
+  keepHeld,
+  matchModel,
+  type ReportedProduct,
+  specsFrom,
+} from "../../src/specs.ts";
 import { currentRun, jsonValues, object, PULLED_READERS, readingsOf } from "./archive.ts";
 import { creditedReadings, textKey } from "./retailer.ts";
 
@@ -139,6 +145,9 @@ if (addModels) {
 // model, and the id is the model and the figure, so the later document wins — writing each
 // document's source as it went left the earlier one cited by nothing.
 const collected = new Map<string, ReturnType<typeof specsFrom>["specs"][number]>();
+// And every reading each id had, so a figure a person holds is compared with all of them, not
+// only with the document that won.
+const candidates = new Map<string, ReturnType<typeof specsFrom>["specs"]>();
 const usedSources = new Map<string, { url: string; sha256: string }>();
 let repeatedTotal = 0;
 for (const document of readings.readings) {
@@ -159,7 +168,10 @@ for (const document of readings.readings) {
     confidence: "vendor-doc",
   });
   repeatedTotal += repeated;
-  for (const spec of specs) collected.set(spec.id, spec);
+  for (const spec of specs) {
+    collected.set(spec.id, spec);
+    candidates.set(spec.id, [...(candidates.get(spec.id) ?? []), spec]);
+  }
   // Only a document that produced a figure is cited. Refusing a fragment or a repeat can empty a
   // document, and a source nothing cites is an orphan the validator refuses.
   if (specs.length > 0) usedSources.set(sourceId, { url: document.url, sha256: document.sha256 });
@@ -170,7 +182,11 @@ for (const document of readings.readings) {
 // English ones is a multilingual manual saying the same thing twice.
 const aligned = withoutRedundantTranslations([...collected.values()]);
 collected.clear();
-for (const spec of aligned.keep) collected.set(spec.id, spec);
+// A figure a person confirmed or wrote by hand is not the run's to write over (#63). It stays
+// exactly as it is, source and review included, and a reading that disagrees with it is
+// reported below rather than written.
+const held = keepHeld(records.specs, aligned.keep, candidates);
+for (const spec of held.write) collected.set(spec.id, spec);
 
 const cited = new Set([...collected.values()].map((s) => s.source));
 for (const [sourceId, document] of usedSources) {
@@ -193,25 +209,50 @@ for (const spec of collected.values()) {
 // language rules stopped emitting a NOCO charger's capacity in two languages and both stayed on
 // disk anyway, because writing is not the same as replacing.
 let stale = 0;
-if (!dryRun) {
-  const mine = new Set(
-    records.models.filter((m) => m.manufacturer === manufacturer).map((m) => m.id),
-  );
-  const produced = new Set(collected.keys());
-  for (const spec of records.specs) {
-    if (!mine.has(spec.model) || produced.has(spec.id)) continue;
-    // Only what this run is responsible for: a figure a person reviewed is not a run's to delete,
-    // and one read by a different reader belongs to whichever run produced it.
-    if (spec.reviewedBy || !spec.extractedBy) continue;
-    rmSync(join(RECORDS_DIR, "specs", `${spec.id}.json`), { force: true });
-    stale += 1;
+let unread = 0;
+const mine = new Set(
+  records.models.filter((m) => m.manufacturer === manufacturer).map((m) => m.id),
+);
+const produced = new Set(aligned.keep.map((spec) => spec.id));
+for (const spec of records.specs) {
+  if (!mine.has(spec.model) || produced.has(spec.id)) continue;
+  // Only what this run is responsible for: a figure a person holds is not a run's to delete, and
+  // one read by a different reader belongs to whichever run produced it.
+  if (heldByPerson(spec)) {
+    unread += 1;
+    continue;
   }
+  if (dryRun) continue;
+  rmSync(join(RECORDS_DIR, "specs", `${spec.id}.json`), { force: true });
+  stale += 1;
 }
 
 console.log(
   `${written} figures and ${modelsAdded} new models${dryRun ? " (dry run, nothing written)" : " written"} for ${manufacturer}`,
 );
 if (stale) console.log(`  ${stale} figures removed, which this run no longer produces`);
+if (held.agreed)
+  console.log(
+    `  ${held.agreed} figures a person holds were read again the same way and left as they are`,
+  );
+if (unread) console.log(`  ${unread} figures a person holds were not read by this run and stay`);
+if (held.disagreements.length) {
+  console.log(
+    `  ${held.disagreements.length} readings disagree with a figure a person holds; the figure stays and the reading is not written:`,
+  );
+  const cite = (spec: { source: string; page?: number }) =>
+    `${spec.source}${spec.page ? ` p.${spec.page}` : ""}`;
+  const figure = (spec: { value: string; unit?: string }) =>
+    `"${spec.value}${spec.unit ? ` ${spec.unit}` : ""}"`;
+  for (const { id, held: kept, read } of held.disagreements) {
+    const by = kept.reviewedBy
+      ? `reviewed by ${kept.reviewedBy}${kept.checkedAt ? ` on ${kept.checkedAt}` : ""}`
+      : "written by hand";
+    console.log(
+      `      ${id}: held ${figure(kept)} from ${cite(kept)}, ${by}; read ${figure(read)} from ${cite(read)}`,
+    );
+  }
+}
 
 // A document whose last figure just went is cited by nothing, and the validator refuses an orphan.
 let orphans = 0;

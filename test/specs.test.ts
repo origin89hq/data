@@ -2,7 +2,15 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import type { Model } from "@origin89/equipment-schema/model";
 import { Spec } from "@origin89/equipment-schema/model";
-import { matchModel, sameName, specId, specsFrom, splitUnit } from "../src/specs.ts";
+import {
+  heldByPerson,
+  keepHeld,
+  matchModel,
+  sameName,
+  specId,
+  specsFrom,
+  splitUnit,
+} from "../src/specs.ts";
 
 const models: Model[] = [
   {
@@ -182,4 +190,97 @@ test("ids are stable, so a second extraction rewrites a figure rather than pilin
     specId("m", "Rated capacity", "20-hour rate"),
     specId("m", "Rated capacity", "100-hour rate"),
   );
+});
+
+const figure = (over: Partial<Spec>): Spec => ({
+  id: "rolls-battery-s-550--rated-capacity-20-hour-rate",
+  model: "rolls-battery-s-550",
+  name: "Rated capacity",
+  value: "428",
+  unit: "Ah",
+  conditions: "20-hour rate",
+  source: "doc-aaaa",
+  page: 3,
+  extractedBy: "ai:@cf/test@p1",
+  confidence: "vendor-doc",
+  ...over,
+});
+
+test("a figure nobody reviewed is the run's to rewrite, and a new one is written", () => {
+  const read = figure({ value: "430", source: "doc-bbbb", page: 4 });
+  const fresh = figure({
+    id: "rolls-battery-s-550--weight",
+    name: "Weight",
+    value: "57",
+    unit: "kg",
+  });
+  const { write, agreed, disagreements } = keepHeld([figure({})], [read, fresh]);
+  assert.deepEqual(write, [read, fresh]);
+  assert.equal(agreed, 0);
+  assert.deepEqual(disagreements, []);
+});
+
+test("a reviewed figure read again the same way is left as it is, review and all", () => {
+  const reviewed = figure({ reviewedBy: "david", checkedAt: "2026-09-01" });
+  const { write, agreed, disagreements } = keepHeld([reviewed], [figure({})]);
+  assert.deepEqual(write, [], "the pull does not write over the reviewed record");
+  assert.equal(agreed, 1);
+  assert.deepEqual(disagreements, []);
+});
+
+test("a reviewed figure read differently is kept, and the disagreement names both readings", () => {
+  const corrected = figure({ value: "440", reviewedBy: "david", checkedAt: "2026-09-01" });
+  const read = figure({ value: "428", source: "doc-cccc", page: 9 });
+  const { write, agreed, disagreements } = keepHeld([corrected], [read]);
+  assert.deepEqual(write, []);
+  assert.equal(agreed, 0);
+  assert.equal(disagreements.length, 1);
+  assert.deepEqual(disagreements[0].fields, ["value"]);
+  assert.equal(
+    disagreements[0].held,
+    corrected,
+    "the correction stays, with its source and review",
+  );
+  assert.equal(
+    disagreements[0].read,
+    read,
+    "the reading is reported with its own document and page",
+  );
+});
+
+test("the same figure from another document agrees; the reviewed record keeps its own source", () => {
+  const reviewed = figure({ reviewedBy: "david", checkedAt: "2026-09-01" });
+  const elsewhere = figure({ source: "doc-dddd", page: 12 });
+  const { write, agreed, disagreements } = keepHeld([reviewed], [elsewhere]);
+  assert.deepEqual(write, []);
+  assert.equal(agreed, 1);
+  assert.deepEqual(disagreements, []);
+});
+
+test("every distinct reading of a held figure is compared, not only the document that won", () => {
+  const reviewed = figure({ reviewedBy: "david", checkedAt: "2026-09-01" });
+  const same = figure({ source: "doc-eeee" });
+  const other = figure({ value: "450", source: "doc-ffff", page: 2 });
+  const otherAgain = figure({ value: "450", source: "doc-gggg", page: 5 });
+  const unitOff = figure({ unit: "Wh", source: "doc-hhhh" });
+  const candidates = new Map([[reviewed.id, [other, same, otherAgain, unitOff]]]);
+  const { agreed, disagreements } = keepHeld([reviewed], [unitOff], candidates);
+  assert.equal(agreed, 0, "one agreeing document does not make the id agreed");
+  assert.deepEqual(
+    disagreements.map((d) => [d.read.source, d.fields]),
+    [
+      ["doc-ffff", ["value"]],
+      ["doc-hhhh", ["unit"]],
+    ],
+    "a reading stated twice is reported once, and the agreeing one not at all",
+  );
+});
+
+test("a figure written by hand, with no reader named, is held like a reviewed one", () => {
+  const byHand = figure({ extractedBy: undefined, source: "rolls-renewable-pdf" });
+  const { write, agreed } = keepHeld([byHand], [figure({})]);
+  assert.deepEqual(write, []);
+  assert.equal(agreed, 1);
+  assert.equal(heldByPerson(figure({})), false);
+  assert.equal(heldByPerson(figure({ reviewedBy: "david" })), true);
 });

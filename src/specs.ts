@@ -210,3 +210,70 @@ export function specsFrom({
     repeated: repeated.size,
   };
 }
+
+/** A held figure the run read differently. One per distinct reading, so a second document's different value is not lost behind the first's. */
+export interface Disagreement {
+  id: string;
+  /** Which of the figure's fields differ. The id already fixes the name and conditions, so it is the value, the unit, or both. */
+  fields: ("value" | "unit")[];
+  /** The record as it stands, with its source, page and review. */
+  held: Spec;
+  /** What the run read, with the document and page it read it from. */
+  read: Spec;
+}
+
+export interface HeldResult {
+  /** What the pull writes: everything it read, less what a person holds. */
+  write: Spec[];
+  /** Held figures the run read again and agreed with, each under every document that stated it. */
+  agreed: number;
+  /** Held figures the run read differently. */
+  disagreements: Disagreement[];
+}
+
+/**
+ * Whether a figure is a person's rather than a run's. A reviewer's name says somebody confirmed it,
+ * and no reader's name says somebody wrote it; either way the run that read the maker's documents
+ * again has no say over it. The deletion guard draws the same line.
+ */
+export function heldByPerson(spec: Pick<Spec, "reviewedBy" | "extractedBy">): boolean {
+  return Boolean(spec.reviewedBy) || !spec.extractedBy;
+}
+
+/**
+ * Keep the figures a person holds out of a pull's writes, and say where the pull disagreed with
+ * them. `read` is what the pull would write, one figure per id; `candidates` are every distinct
+ * reading each id had across the run's documents, when there was more than one, so a value a
+ * later document overrode is still compared. A held figure the run read the same way is left
+ * exactly as it is, review and all; one read differently is left as it is too, and reported.
+ */
+export function keepHeld(
+  existing: Spec[],
+  read: Spec[],
+  candidates: Map<string, Spec[]> = new Map(),
+): HeldResult {
+  const held = new Map(existing.filter(heldByPerson).map((spec) => [spec.id, spec]));
+  const out: HeldResult = { write: [], agreed: 0, disagreements: [] };
+  for (const spec of read) {
+    const kept = held.get(spec.id);
+    if (!kept) {
+      out.write.push(spec);
+      continue;
+    }
+    const seen = new Set<string>();
+    let differed = false;
+    for (const reading of candidates.get(spec.id) ?? [spec]) {
+      const fields: Disagreement["fields"] = [];
+      if (reading.value !== kept.value) fields.push("value");
+      if ((reading.unit ?? "") !== (kept.unit ?? "")) fields.push("unit");
+      if (fields.length === 0) continue;
+      differed = true;
+      const key = `${reading.value}|${reading.unit ?? ""}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      out.disagreements.push({ id: spec.id, fields, held: kept, read: reading });
+    }
+    if (!differed) out.agreed += 1;
+  }
+  return out;
+}

@@ -62,9 +62,12 @@ for (const maker of makers) {
     console.error(`pulling ${maker.maker} failed, so nothing after it was pulled`);
     process.exit(result.status ?? 1);
   }
-  // Each pull's headline, and anything it took away: removals are what a reviewer most needs to see.
+  // Each pull's headline, anything it took away, and any reading it refused to write over a figure
+  // a person holds: removals and disagreements are what a reviewer most needs to see.
   const [headline = "", ...rest] = result.stdout.split("\n");
-  const removed = rest.filter((line) => /removed/.test(line)).map((line) => line.trim());
+  const removed = rest
+    .filter((line) => /removed|disagree|: held /.test(line))
+    .map((line) => line.trim());
   summary.push(`- **${maker.maker}** (${maker.date}): ${[headline, ...removed].join("; ")}`);
 }
 console.log(`\n${makers.length} makers pulled${dryRun ? " (dry run, nothing written)" : ""}`);
