@@ -242,6 +242,36 @@ test("a value is not found inside a name the answer gives, whatever separates it
   );
 });
 
+test("a value on a row or label that names the product is part of the name, not a rating", () => {
+  const sheet = transcriptDocument("family.pdf", [
+    { page: 1, markdown: "| Family | RM |\n| Model | 12 |\n| Weight | 230 g |" },
+    { page: 2, markdown: "## Model 24\n\n**Part number:** 24" },
+    { page: 3, markdown: "| Rated voltage | 24 V |" },
+  ]);
+  const [window] = figureWindows(sheet);
+  assert.ok(window);
+  const answer = JSON.stringify({
+    products: [
+      {
+        // The name the prompt asks for, put together from the Family and Model rows.
+        model: "RM 12",
+        specs: [
+          { name: "Rated voltage", value: "12", unit: "V" },
+          { name: "Weight", value: "230", unit: "g" },
+        ],
+      },
+      { model: "RM 24", specs: [{ name: "Rated voltage", value: "24", unit: "V" }] },
+    ],
+  });
+  const [first, second] = reportsInWindow(answer, sheet, window);
+  assert.deepEqual(
+    first?.specs.map((s) => s.page),
+    [undefined, 1],
+    "the 12 is only in the Model row, so no page; the weight is on its own row",
+  );
+  assert.equal(second?.specs[0]?.page, 3, "not the heading or the part number on page 2");
+});
+
 test("a figure two overlapping windows both report keeps the page whichever window found it", () => {
   const figure = { name: "Weight", value: "42", unit: "kg" };
   assert.deepEqual(

@@ -455,6 +455,13 @@ function pageAt(pages: { page: number; at: number }[], offset: number): number |
 const CONTENTS = "\n## Contents\n";
 
 /**
+ * A line whose label says it names the product: a table row or a "**Label:**" line starting with
+ * model, family, series, type, product, name, part number or SKU, or a heading that does.
+ */
+const NAMES_THE_PRODUCT =
+  /^\s*(?:#{1,6}\s*|\|\s*)?(?:\*\*)?\s*(?:model|family|series|type|product|name|part(?:\s*(?:no\.?|number))?|sku)\b/i;
+
+/**
  * What the model is given for one window: the window, and the document's start when it is not in
  * it. Neither carries the transcript's title or metadata. The title is the file's name from its
  * URL, not anything the document prints, and the prompt lets a title name a product: a scan saved
@@ -515,6 +522,10 @@ export function reportsInWindow(
         transcript.indexOf("\n", at) === -1 ? undefined : transcript.indexOf("\n", at),
       );
       if (/^#{1,6}\s*Page\s+\d+\s*$/i.test(line)) continue;
+      // Nor a row or a label that names the product. The prompt puts a name together from a
+      // "Family" row and a "Model" row, and the "12" of "| Model | 12 |" is part of that name, never
+      // a rating printed there.
+      if (NAMES_THE_PRODUCT.test(line)) continue;
       const page = pageAt(pages, at);
       if (page !== undefined) found.add(page);
     }
