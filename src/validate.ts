@@ -132,8 +132,16 @@ export function validate(records: Records): Report {
     const other = byMakerName.get(key);
     if (other) errors.push(`models ${other} and ${m.id} are the same maker, name and variant`);
     byMakerName.set(key, m.id);
-    for (const d of m.dialects)
-      if (!dialectIds.has(d)) errors.push(`${m.id}: speaks ${d}, which is not a dialect`);
+    for (const link of m.dialects) {
+      if (!dialectIds.has(link.dialect))
+        errors.push(`${m.id}: speaks ${link.dialect}, which is not a dialect`);
+      // The schema refuses a link with no source; this refuses one whose source is not held.
+      for (const c of link.evidence.sources)
+        if (!sourceIds.has(c.source))
+          errors.push(
+            `${m.id}: its link to ${link.dialect} cites ${c.source}, which is not a source`,
+          );
+    }
     if (m.reviewedBy && !m.basis) errors.push(`${m.id}: reviewed with no basis`);
     if (!m.reviewedBy) note("model nobody has confirmed");
     if (m.dialects.length === 0) note("model with no dialect, so nothing can read it");

@@ -7,6 +7,26 @@
     "MAG-227-103"
   ],
   "dialects": [
-    "magnum-me-network"
+    {
+      "dialect": "magnum-me-network",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "magnum-networking-communications-protocol-2009-10-15",
+            "citation": "docs/magnum-networking-communications-protocol-2009-10-15.pdf — \"Magnum Networking Communications Protocol\", Magnum Energy Inc., revision 2009-10-15, © 2003-2009 Magnum Energy. 6 pages. VENDOR DOCUMENT, now committed to "
+          },
+          {
+            "source": "github-com-charlesgodwin-pymagnum",
+            "citation": "https://github.com/CharlesGodwin/pymagnum — pymagnum v2.0.8, BSD-3-Clause, \"A read only interface for Magnum Energy Network devices\". Files used: magnum/magnum.py (serial settings, packet classification, unpack masks), m"
+          },
+          {
+            "source": "github-com-linuxkidd-magnum2mqtt",
+            "citation": "https://github.com/linuxkidd/magnum2mqtt — etc/magnum/magnum-spec.yml, a declarative byte-offset protocol spec; separate codebase, described by its author as a complete rewrite driven by a Magnum spec PDF he holds."
+          }
+        ]
+      },
+      "confidence": "vendor-doc"
+    }
   ]
 }

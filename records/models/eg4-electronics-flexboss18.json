@@ -5,6 +5,26 @@
   "kind": "out-of-scope",
   "aliases": [],
   "dialects": [
-    "eg4-luxpower-v58"
+    {
+      "dialect": "eg4-luxpower-v58",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "eg4-modbus-rtu-protocol-v58",
+            "citation": "EG4 Electronics LLC — 'Modbus RTU Protocol' V58, 2023-10-28, 42 pp (vendor document; no model named inside). Committed at docs/eg4-modbus-rtu-protocol-v58.pdf"
+          },
+          {
+            "source": "github-com-galets-eg4-modbus-monitor-blob-master-doc-eg4-18kpv-12lv-modbus-communication-protoco",
+            "citation": "https://github.com/galets/eg4-modbus-monitor/blob/master/doc/EG4-18kPV-12LV%20-%20MODBUS%20Communication%20Protocol%20.pdf"
+          },
+          {
+            "source": "github-com-hotnoob-pythonprotocolgateway-blob-main-documentation-3rdparty-protocols-eg4-6000xp-m",
+            "citation": "https://github.com/HotNoob/PythonProtocolGateway/blob/main/documentation/3rdparty/protocols/EG4-6000XP-MODBUS-Communication-Protocol.pdf"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    }
   ]
 }

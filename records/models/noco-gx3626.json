@@ -5,6 +5,26 @@
   "kind": "ac-charger",
   "aliases": [],
   "dialects": [
-    "noco-gx-dryio"
+    {
+      "dialect": "noco-gx-dryio",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "batterystuff-com-files-1187-noco-gx4820-user-manual",
+            "citation": "NOCO Genius GX Series User Guide, doc GXS021716A — https://www.batterystuff.com/files/1187-noco-gx4820-user-manual.pdf (vendor document; PDF suitable for committing to docs/)"
+          },
+          {
+            "source": "no-co-collection-genius-gx",
+            "citation": "https://no.co/collection/genius/gx — GX2440 / GX3626 / GX4820, US$549.95 each (checked: 2026-07-31)"
+          },
+          {
+            "source": "thecabindepot-ca-collections-noco",
+            "citation": "https://thecabindepot.ca/collections/noco — GX2440 CA$859.99 (checked: 2026-07-31)"
+          }
+        ]
+      },
+      "confidence": "vendor-doc"
+    }
   ]
 }

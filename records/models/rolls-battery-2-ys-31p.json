@@ -7,6 +7,26 @@
     "SUR-182-115"
   ],
   "dialects": [
-    "rolls-lead-acid"
+    {
+      "dialect": "rolls-lead-acid",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "catalog-no-comms",
+            "citation": "/Users/lemarier/dev/solar/docs/catalog/no-comms.md lines 54, 143-147, 166-170 — existing catalogue rows, checked: 2026-07-31"
+          },
+          {
+            "source": "inventory",
+            "citation": "/Users/lemarier/dev/solar/docs/INVENTORY.md line 17 — this site's bank"
+          },
+          {
+            "source": "rollsbattery-com-catalog",
+            "citation": "https://rollsbattery.com/catalog/ — FLA / AGM / GEL model ranges. checked: 2026-07-31"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    }
   ]
 }

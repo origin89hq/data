@@ -5,6 +5,26 @@
   "kind": "out-of-scope",
   "aliases": [],
   "dialects": [
-    "midnite-powerflo5"
+    {
+      "dialect": "midnite-powerflo5",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "cdn-shopify-com-s-files-1-0850-1801-8067-files-6613-10-000053-user-manual-mnpowerflo5-a2-compres",
+            "citation": "MidNite Solar, MNPowerflo 5 Server Rack Battery User Manual, doc 6613-10-000053 rev A2, VERSION V1.2.0-BETA — https://cdn.shopify.com/s/files/1/0850/1801/8067/files/6613-10-000053_User_Manual_MNPowerflo5__A2-compressed.p"
+          },
+          {
+            "source": "midnitepower-com-files-ugd-b640e6-5f151a2561b94d6b91662d1885f1afec",
+            "citation": "MidNite Power, MNPowerflo 5 Server Rack Battery User Manual, VERSION V1.3.0-BETA — https://www.midnitepower.com/_files/ugd/b640e6_5f151a2561b94d6b91662d1885f1afec.pdf (newer revision; different pinouts, LINK-IN/LINK-OUT "
+          },
+          {
+            "source": "cdn-currentconnected-com-2024-09-05130401-mnpowerflo5-v1-1-3-240813",
+            "citation": "MidNite Solar, MNPowerflo5 Server Rack Battery datasheet v1.1.3, dated 240813 — https://cdn.currentconnected.com/2024/09/05130401/MNPowerflo5-v1.1.3-240813.pdf (vendor origin https://www.midnitesolar.com/pdfs/MNPowerflo5"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    }
   ]
 }

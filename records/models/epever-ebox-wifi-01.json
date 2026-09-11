@@ -5,6 +5,26 @@
   "kind": "out-of-scope",
   "aliases": [],
   "dialects": [
-    "epever-ebox-wifi-01-bridge"
+    {
+      "dialect": "epever-ebox-wifi-01-bridge",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "epever-com-upload-cert-file-1904-ebox-wifi-01-sms-el-v1",
+            "citation": "EPEVER/Beijing EPSolar, PRODUCT INTRODUCTION eBox-WIFI-01 — WIFI Serial Server, V1.0 — committed at docs/epever-ebox-wifi-01-datasheet-v1.0.pdf (source https://www.epever.com/upload/cert/file/1904/eBox-WIFI-01-SMS-EL-V1."
+          },
+          {
+            "source": "github-com-gabrielpc1190-home-assistant-epever-ebox-wifi-01-modbus",
+            "citation": "https://github.com/gabrielpc1190/Home-Assistant_EPEver-eBox-Wifi-01-MODBUS — port 8088, slave 1, type tcp and rtuovertcp, register 12544/13082"
+          },
+          {
+            "source": "community-home-assistant-io-t-epever-modbus-rs-485-config-214397-80",
+            "citation": "https://community.home-assistant.io/t/epever-modbus-rs-485-config/214397/80 — independent user: rtuovertcp, port 8088, station mode; separate report of slave ID 10"
+          }
+        ]
+      },
+      "confidence": "community-crosschecked"
+    }
   ]
 }

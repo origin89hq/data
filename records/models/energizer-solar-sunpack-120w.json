@@ -5,6 +5,22 @@
   "kind": "panel",
   "aliases": [],
   "dialects": [
-    "energizer-solar-everest-no-comms"
+    {
+      "dialect": "energizer-solar-everest-no-comms",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "energizersolar-com-s-everest-1100-global-manual-zc93",
+            "citation": "Everest 1100 Global Manual — https://www.energizersolar.com/s/Everest-1100-GLOBAL-Manual-zc93.pdf (downloaded to scratchpad/ez-everest.pdf)"
+          },
+          {
+            "source": "energizersolar-com-resources",
+            "citation": "Energizer Solar resources index — https://www.energizersolar.com/resources"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    }
   ]
 }

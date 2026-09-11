@@ -5,8 +5,68 @@
   "kind": "charge-controller",
   "aliases": [],
   "dialects": [
-    "victron-ble-instant-readout",
-    "victron-mppt-vedirect-hex",
-    "victron-vedirect-text"
+    {
+      "dialect": "victron-ble-instant-readout",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "victron-ble-extra-manufacturer-data-2022-12-14",
+            "citation": "docs/victron-ble-extra-manufacturer-data-2022-12-14.pdf — Victron wiki page 'Extra manufacturer Data', printed 2022-12-14 (committed)."
+          },
+          {
+            "source": "communityarchive-victronenergy-com-questions-187303-victron-bluetooth-advertising-protocol",
+            "citation": "https://communityarchive.victronenergy.com/questions/187303/victron-bluetooth-advertising-protocol.html — the Victron staff post releasing it."
+          },
+          {
+            "source": "victronenergy-com-media-pg-ve-direct-bluetooth-smart-dongle-manual-en-introduction",
+            "citation": "https://www.victronenergy.com/media/pg/VE.Direct_Bluetooth_Smart_dongle_manual/en/introduction.html"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "victron-mppt-vedirect-hex",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "victron-mppt-ve-direct-hex-protocol-rev18",
+            "citation": "docs/victron-mppt-ve-direct-hex-protocol-rev18.pdf — VE.Direct Protocol, BlueSolar and SmartSolar MPPT chargers, rev 18, 15 November 2021 (committed). Register table, product-id table, notes 1/3/4/6/8 and changelog all r"
+          },
+          {
+            "source": "victron-ve-direct-protocol-3-34",
+            "citation": "docs/victron-ve-direct-protocol-3.34.pdf — for the shared serial parameters and the PID-list divergence."
+          },
+          {
+            "source": "catalog-ve-direct",
+            "citation": "docs/catalog/ve-direct.md — existing repo entry, re-verified."
+          }
+        ]
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "victron-vedirect-text",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "victron-ve-direct-protocol-3-34",
+            "citation": "docs/victron-ve-direct-protocol-3.34.pdf — VE.Direct Protocol, rev 3.34, 14 April 2025 (committed). Serial config verified at extracted line 98-103: 19200 / 8 / None / 1 / None."
+          },
+          {
+            "source": "victron-mppt-ve-direct-hex-protocol-rev18",
+            "citation": "docs/victron-mppt-ve-direct-hex-protocol-rev18.pdf — VE.Direct Protocol, BlueSolar and SmartSolar MPPT chargers, rev 18, 15 Nov 2021 (committed). Product-id table read for ratings, load-output column and 'pv only' marks."
+          },
+          {
+            "source": "catalog-ve-direct",
+            "citation": "docs/catalog/ve-direct.md — this repo's existing entry, which this pass re-verified rather than re-derived."
+          }
+        ]
+      },
+      "confidence": "vendor-doc"
+    }
   ]
 }

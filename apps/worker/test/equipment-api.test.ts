@@ -252,8 +252,25 @@ async function fixture(
       {
         model_id: "victron-energy-smartsolar-mppt-150-35",
         dialect_id: "victron-mppt-vedirect-hex",
+        evidence_kind: "register-match",
+        confidence: "vendor-doc",
+        firmware_min: "1.61",
       },
-      { model_id: "epever-xtra4210n", dialect_id: "epever-xtra-n-g3" },
+      {
+        model_id: "epever-xtra4210n",
+        dialect_id: "epever-xtra-n-g3",
+        evidence_kind: "catalogue-name",
+        confidence: "unverified",
+      },
+    ],
+    model_dialect_sources: [
+      {
+        model_id: "victron-energy-smartsolar-mppt-150-35",
+        dialect_id: "victron-mppt-vedirect-hex",
+        position: 0,
+        source_id: "doc-victron-150-35",
+        citation: "VE.Direct port, p. 4",
+      },
     ],
     sources: [
       {
@@ -460,6 +477,21 @@ test("a bundle carries the models, their claims, their protocol links and exactl
         undefined,
       ],
     ],
+  );
+  assert.deepEqual(
+    out.protocol.map((p) => [p.evidence, p.confidence, p.firmware]),
+    [
+      [{ kind: "catalogue-name", sources: [] }, "unverified", undefined],
+      [
+        {
+          kind: "register-match",
+          sources: [{ source: "doc-victron-150-35", citation: "VE.Direct port, p. 4" }],
+        },
+        "vendor-doc",
+        { min: "1.61" },
+      ],
+    ],
+    "a link says how it was made, and its citation is among the bundle's sources",
   );
   assert.deepEqual(
     out.protocol.map((p) => [

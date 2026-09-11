@@ -4,9 +4,65 @@
   "name": "EVO-4248SP",
   "aliases": [],
   "dialects": [
-    "samlex-evo-4248sp-unknown",
-    "samlex-evo-modbus-4248sp",
-    "samlex-evo-signal-io"
+    {
+      "dialect": "samlex-evo-4248sp-unknown",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "samlex-evo-4248sp-manual-fw0-77",
+            "citation": "Samlex Evolution Series Owner's Manual, Model EVO-4248SP, firmware rev 0.77 — committed at /Users/lemarier/dev/solar/docs/samlex-evo-4248sp-manual-fw0.77.pdf"
+          },
+          {
+            "source": "samlexamerica-com-wp-content-uploads-2022-04-11027-evo-4248sp-0722-lrez",
+            "citation": "https://samlexamerica.com/wp-content/uploads/2022/04/11027-EVO-4248SP-0722_Lrez.pdf (source of the committed copy)"
+          },
+          {
+            "source": "manual-fig-2-1-legend-items-9a-9b-comm-1-comm-2-rs-485-modbu",
+            "citation": "Manual Fig 2.1 legend items 9a/9b (COMM 1/COMM 2, RS-485 + MODBUS Serial) and 9c/9d (COM 3/COM 4, CANbus for future use); section 4.7 Auto Generator Start / Stop; front-panel item 14 Status Relay"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "samlex-evo-modbus-4248sp",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "samlex-evo-4248sp-manual-fw0-77",
+            "citation": "docs/samlex-evo-4248sp-manual-fw0.77.pdf — Fig 2.1 legend 9a/9b (RS-485/MODBUS), 9c/9d (CANbus, future use); Table 6.6 COMM ID 1-255 default 1"
+          },
+          {
+            "source": "samlex-evo-rc-plus-remote-manual-2021",
+            "citation": "docs/samlex-evo-rc-plus-remote-manual-2021.pdf — §5.2.2.3 Fig 5.3, 4248SP-specific data-logging field list"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "samlex-evo-signal-io",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "samlex-evo-2212-3012-2224-4024-manual-fw0-82",
+            "citation": "docs/samlex-evo-2212-3012-2224-4024-manual-fw0.82.pdf — Fig 2.1 legend 14 (Status Relay, contact ratings, NO/COM/NC semantics), 15 (Remote On Off 9-15 V 3 mA), 16 (12.5-11.5 VDC 100 mA source)"
+          },
+          {
+            "source": "samlex-evo-1212f-1224f-manual-fw0-79",
+            "citation": "docs/samlex-evo-1212f-1224f-manual-fw0.79.pdf — Table 6.6 RELAY FUNCTION options 0-4 in full, REMOTE SWITCH, REMOTE SW DELAY; §6.7"
+          },
+          {
+            "source": "samlex-evo-4248sp-manual-fw0-77",
+            "citation": "docs/samlex-evo-4248sp-manual-fw0.77.pdf — Table 6.6, §6.7, §6.6 powering off in fault mode"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    }
   ],
   "kind": "inverter-charger"
 }

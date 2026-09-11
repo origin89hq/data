@@ -5,6 +5,26 @@
   "kind": "battery",
   "aliases": [],
   "dialects": [
-    "rolls-lfp-drop-in"
+    {
+      "dialect": "rolls-lfp-drop-in",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "rollsbattery-com-wp-content-uploads-202",
+            "citation": "ROLLS R-SERIES, G-SERIES & S-SERIES LFP DROP-IN BATTERY OPERATING MANUAL, ver. 4 05-05-26 — committed at /Users/lemarier/dev/solar/docs/rolls-lfp-drop-in-manual-v4.pdf (https://www.rollsbattery.com/wp-content/uploads/202"
+          },
+          {
+            "source": "rollsbattery-com-wp-content-uploads-2021-04-rolls-12v-24v-lfp-operating-manual",
+            "citation": "Rolls S-Series 12V & 24V LFP Operating Manual, 2021 (https://www.rollsbattery.com/wp-content/uploads/2021/04/ROLLS-12V-24V-LFP-OPERATING-MANUAL.pdf) — no comms section at all"
+          },
+          {
+            "source": "rollsbattery-com-catalog",
+            "citation": "https://rollsbattery.com/catalog/ — full current LFP model list. checked: 2026-07-31"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    }
   ]
 }

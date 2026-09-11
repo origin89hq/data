@@ -5,6 +5,26 @@
   "kind": "charge-controller",
   "aliases": [],
   "dialects": [
-    "noco-gen-onboard"
+    {
+      "dialect": "noco-gen-onboard",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "no-co-media-wysiwyg-downloads-user-guides-gen-gen-series-na-user-guide-10-30-2024a",
+            "citation": "https://no.co/media/wysiwyg/downloads/User_Guides/GEN/GEN_Series_NA_User_Guide_10.30.2024A.pdf (vendor)"
+          },
+          {
+            "source": "no-co-media-wysiwyg-downloads-user-guides-gen-genpro-series-na-user-guide-10-30-2024a",
+            "citation": "https://no.co/media/wysiwyg/downloads/User_Guides/GEN/GENPRO_Series_NA_User_Guide_10.30.2024A.pdf (vendor)"
+          },
+          {
+            "source": "thecabindepot-ca-collections-noco",
+            "citation": "https://thecabindepot.ca/collections/noco — GEN5X2 CA$219.99, GENPRO10X2 CA$354.99, GENPRO10X4 CA$664.99 (checked: 2026-07-31)"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    }
   ]
 }

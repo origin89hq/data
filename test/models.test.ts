@@ -117,7 +117,13 @@ test("a listing becomes a model only when its brand resolves to a maker", () => 
 
 test("a model named in a dialect's table is linked to it, carrying the catalogue's own claim", () => {
   const [got] = derive([s("EPEver", "XTRA4210N")]);
-  assert.deepEqual(got.model.dialects, ["epever-tracer-a"]);
+  assert.deepEqual(got.model.dialects, [
+    {
+      dialect: "epever-tracer-a",
+      evidence: { kind: "catalogue-name", sources: [{ source: "s", citation: "c" }] },
+      confidence: "vendor-doc",
+    },
+  ]);
   const [other] = derive([s("EPEver", "XTRA9999Z")]);
   assert.deepEqual(
     other.model.dialects,

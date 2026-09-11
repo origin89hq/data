@@ -1,6 +1,7 @@
 import { readdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { Model, Spec } from "@origin89/equipment-schema/model";
+import { mergeLinks } from "../../src/dialect-links.ts";
 import { preferredName, productKey } from "../../src/models.ts";
 import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 
@@ -61,7 +62,7 @@ for (const { keep, drop } of merged) {
     aliases: [...aliases].sort(),
     // A kind stated once in the group is the group's kind, wherever it was written down.
     ...(keep.kind ? {} : { kind: drop.find((m) => m.kind)?.kind }),
-    dialects: [...new Set([...keep.dialects, ...drop.flatMap((m) => m.dialects)])].sort(),
+    dialects: mergeLinks(keep.dialects, ...drop.map((m) => m.dialects)),
   });
   if (!dryRun) writeRecord(RECORDS_DIR, "models", keep.id, survivor);
 

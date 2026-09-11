@@ -1,5 +1,6 @@
 import { modelKey } from "@origin89/equipment-api/keys";
-import { Model } from "@origin89/equipment-schema/model";
+import { type DialectLink, Model } from "@origin89/equipment-schema/model";
+import { catalogueLink, mergeLinks, sameDialects } from "../../src/dialect-links.ts";
 import { looksLikeModelName, modelId, normaliseModelName } from "../../src/models.ts";
 import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 
@@ -58,7 +59,7 @@ let minted = 0;
 let prose = 0;
 let noMaker = 0;
 let ambiguous = 0;
-const dialectLinks = new Map<string, Set<string>>();
+const dialectLinks = new Map<string, DialectLink[]>();
 const unmatched = new Map<string, number>();
 
 for (const dialect of records.dialects) {
@@ -111,7 +112,7 @@ for (const dialect of records.dialects) {
     }
     dialectLinks.set(
       modelIdentifier,
-      (dialectLinks.get(modelIdentifier) ?? new Set()).add(dialect.id),
+      mergeLinks(dialectLinks.get(modelIdentifier) ?? [], [catalogueLink(dialect)]),
     );
     linked += 1;
   }
@@ -122,12 +123,10 @@ let touched = 0;
 for (const model of records.models) {
   const found = dialectLinks.get(model.id);
   if (!found) continue;
-  const dialects = [...new Set([...model.dialects, ...found])].sort();
-  if (
-    dialects.length === model.dialects.length &&
-    dialects.every((d, i) => d === model.dialects[i])
-  )
-    continue;
+  // A link the model already has is left as it is: the catalogue's claim never replaces
+  // stronger evidence somebody recorded.
+  const dialects = mergeLinks(model.dialects, found);
+  if (sameDialects(dialects, model.dialects)) continue;
   if (!dryRun) writeRecord(RECORDS_DIR, "models", model.id, Model.parse({ ...model, dialects }));
   touched += 1;
 }

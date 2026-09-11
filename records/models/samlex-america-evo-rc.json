@@ -5,6 +5,26 @@
   "kind": "inverter-charger",
   "aliases": [],
   "dialects": [
-    "samlex-evo-remote-panel-link"
+    {
+      "dialect": "samlex-evo-remote-panel-link",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "samlex-evo-rc-plus-remote-manual-2021",
+            "citation": "docs/samlex-evo-rc-plus-remote-manual-2021.pdf — §1.0 covered models, §5 SD Card, §5.2.2 field lists, §4.8.2.6 COMM ID"
+          },
+          {
+            "source": "samlex-evo-rc-remote-manual-2022",
+            "citation": "docs/samlex-evo-rc-remote-manual-2022.pdf — §1.0 covered models, §4.8.2.6 COMM ID"
+          },
+          {
+            "source": "samlexamerica-com-wp-content-uploads-2020-01-11025-evo-rc-0722-lrez",
+            "citation": "https://samlexamerica.com/wp-content/uploads/2020/01/11025-EVO-RC-0722_Lrez.pdf"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    }
   ]
 }

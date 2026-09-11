@@ -5,6 +5,26 @@
   "kind": "charge-controller",
   "aliases": [],
   "dialects": [
-    "noco-genius-portable"
+    {
+      "dialect": "noco-genius-portable",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "no-co-media-wysiwyg-downloads-user-guides-genius-genius10na-user-guide-4-9-2024a",
+            "citation": "https://no.co/media/wysiwyg/downloads/User_Guides/Genius/genius10na_user_guide_4.9.2024a.pdf (vendor)"
+          },
+          {
+            "source": "no-co-media-wysiwyg-downloads-user-guides-genius-genius5na-user-guide-4-18-2024a",
+            "citation": "https://no.co/media/wysiwyg/downloads/User_Guides/Genius/genius5na_user_guide_4.18.2024a.pdf (vendor)"
+          },
+          {
+            "source": "thecabindepot-ca-collections-noco",
+            "citation": "https://thecabindepot.ca/collections/noco — GENIUS10 CA$159.99 (checked: 2026-07-31)"
+          }
+        ]
+      },
+      "confidence": "vendor-doc"
+    }
   ]
 }

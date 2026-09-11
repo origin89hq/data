@@ -5,6 +5,26 @@
   "kind": "charge-controller",
   "aliases": [],
   "dialects": [
-    "epever-mt50-display"
+    {
+      "dialect": "epever-mt50-display",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "epever-mt50-manual-v2-1",
+            "citation": "EPEVER/EPSOLAR — INSTRUCTION MANUAL, Remote Meter: MT50, V2.1 — committed at docs/epever-mt50-manual-v2.1.pdf (already in this repo)"
+          },
+          {
+            "source": "epever-com-wp-content-uploads-2021-06-mt50-manual-en-v3-5",
+            "citation": "EPEVER — Remote Meter User Manual MT50, V3.5 (2021-06) — downloaded and committed this session at docs/epever-mt50-manual-v3.5.pdf, source https://www.epever.com/wp-content/uploads/2021/06/MT50-Manual-EN-V3.5.pdf"
+          },
+          {
+            "source": "epever-com-download-mt50-remote-meter-download",
+            "citation": "EPEVER MT50 download page https://www.epever.com/download/mt50-remote-meter-download/ — lists exactly one document, MT50-Manual-EN-V3.3.pdf. No communication/protocol document is offered for the MT50."
+          }
+        ]
+      },
+      "confidence": "unverified"
+    }
   ]
 }

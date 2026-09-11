@@ -5,6 +5,26 @@
   "kind": "balance-of-system",
   "aliases": [],
   "dialects": [
-    "victron-venus-dbus-switch"
+    {
+      "dialect": "victron-venus-dbus-switch",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "victronenergy-com-media-pg-gx-io-extender-150-en-appendix",
+            "citation": "Victron Energy, *GX IO-Extender 150* manual, appendix — https://www.victronenergy.com/media/pg/GX_IO-Extender_150/en/appendix.html (service name and all /SwitchableOutput paths quoted above)"
+          },
+          {
+            "source": "victronenergy-com-media-pg-gx-io-extender-150-en-technical-specifications",
+            "citation": "Victron Energy, *GX IO-Extender 150* manual, technical specifications — https://www.victronenergy.com/media/pg/GX_IO-Extender_150/en/technical-specifications.html"
+          },
+          {
+            "source": "victron-gx-modbus-tcp-register-list",
+            "citation": "docs/victron-gx-modbus-tcp-register-list.xlsx and victronenergy/dbus_modbustcp attributes.csv — searched for `com.victronenergy.switch` and `SwitchableOutput`; zero occurrences in either. Negative evidence, and it is the"
+          }
+        ]
+      },
+      "confidence": "vendor-doc"
+    }
   ]
 }

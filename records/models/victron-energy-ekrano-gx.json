@@ -5,8 +5,60 @@
   "kind": "meter",
   "aliases": [],
   "dialects": [
-    "victron-gx-ble-instant-readout",
-    "victron-gx-modbus-tcp",
-    "victron-gx-mqtt"
+    {
+      "dialect": "victron-gx-ble-instant-readout",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "victron-ble-extra-manufacturer-data-2022-12-14",
+            "citation": "docs/victron-ble-extra-manufacturer-data-2022-12-14.pdf (committed) — Victron Energy, 'Extra manufacturer Data', section 'GX-Device'"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "victron-gx-modbus-tcp",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "github-com-victronenergy-dbus-modbustcp",
+            "citation": "docs/victron-gx-modbus-tcp-register-list.xlsx — Victron ModbusTCP Register list, from Victron's own repository https://github.com/victronenergy/dbus_modbustcp. Sheets: Field list (1010 rows − 2 header = 1008 registers), "
+          },
+          {
+            "source": "the-repository-s-live-attributes-csv-currently-carries-1194",
+            "citation": "The repository's live attributes.csv currently carries 1194 data rows against the committed sheet's 1008. The provenance is real but this is lineage, not a byte-identical file — the vendor's map has moved on."
+          },
+          {
+            "source": "victronenergy-com-live-ccgx-modbustcp-faq",
+            "citation": "https://www.victronenergy.com/live/ccgx:modbustcp_faq — GX Modbus-TCP manual/FAQ. Re-read 2026-07-31."
+          }
+        ]
+      },
+      "confidence": "vendor-doc"
+    },
+    {
+      "dialect": "victron-gx-mqtt",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "github-com-victronenergy-dbus-flashmq",
+            "citation": "https://github.com/victronenergy/dbus-flashmq — vendor's own repository. README documents the ports, the N/ R/ W/ topic scheme, keepalive and authentication."
+          },
+          {
+            "source": "github-com-victronenergy-dbus-mqtt",
+            "citation": "https://github.com/victronenergy/dbus-mqtt — vendor's own repository, records the deprecation at Venus OS v3.20."
+          },
+          {
+            "source": "victronenergy-com-media-pg-cerbo-gx-en",
+            "citation": "https://www.victronenergy.com/media/pg/Cerbo_GX/en/ — Cerbo GX manual MQTT section: local broker on 8883 (SSL) and 1883 (plain), depending on the security profile."
+          }
+        ]
+      },
+      "confidence": "vendor-doc"
+    }
   ]
 }

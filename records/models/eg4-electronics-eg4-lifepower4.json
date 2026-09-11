@@ -5,6 +5,26 @@
   "kind": "battery",
   "aliases": [],
   "dialects": [
-    "eg4-lifepower4-serial"
+    {
+      "dialect": "eg4-lifepower4-serial",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "eg4-lifepower4-battery-communication-protocol",
+            "citation": "docs/eg4-lifepower4-battery-communication-protocol.pdf — 'LifePower4 Battery Communication Protocol', 21 pages, first version, no revision number (vendor, committed; original URL eg4electronics.com/backend/wp-content/upl"
+          },
+          {
+            "source": "eg4-ll-s-48v-100ah-manual",
+            "citation": "docs/eg4-ll-s-48v-100ah-manual.pdf — EG4 LL-S 100Ah User Manual (vendor, committed)"
+          },
+          {
+            "source": "github-com-gonzalop-wombatt",
+            "citation": "https://github.com/gonzalop/wombatt — internal/bms/lifepower4.go and README.md supported-battery table"
+          }
+        ]
+      },
+      "confidence": "vendor-doc"
+    }
   ]
 }

@@ -4,6 +4,26 @@
   "name": "3000EHV-48",
   "aliases": [],
   "dialects": [
-    "eg4-3000ehv"
+    {
+      "dialect": "eg4-3000ehv",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "eg4-3000ehv-modbus-protocol-v1-0",
+            "citation": "EG4 3000 EHV-48 — 'Modbus_RTU RS232 communication protocol', Version: June 2022 Version 1.0 (vendor document). Committed at docs/eg4-3000ehv-modbus-protocol-v1.0.pdf"
+          },
+          {
+            "source": "github-com-hotnoob-pythonprotocolgateway-blob-main-documentation-3rdparty-protocols-eg4-3000-ehv",
+            "citation": "https://github.com/HotNoob/PythonProtocolGateway/blob/main/documentation/3rdparty/protocols/EG4-3000-EHV%20-%20MODBUS%20Communication%20Protocol.pdf"
+          },
+          {
+            "source": "github-com-hotnoob-pythonprotocolgateway-blob-main-protocols-eg4-eg4-3000ehv-v1-holding-registry",
+            "citation": "https://github.com/HotNoob/PythonProtocolGateway/blob/main/protocols/eg4/eg4_3000ehv_v1.holding_registry_map.csv (transcription verified line-by-line against the vendor PDF for regs 201–234, 313, 332, 420, 426)"
+          }
+        ]
+      },
+      "confidence": "vendor-doc"
+    }
   ]
 }

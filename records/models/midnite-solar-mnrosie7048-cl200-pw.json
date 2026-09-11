@@ -5,6 +5,26 @@
   "kind": "out-of-scope",
   "aliases": [],
   "dialects": [
-    "midnite-rosie-can"
+    {
+      "dialect": "midnite-rosie-can",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "midnitesolar-com-pdfs-10-432-1-rev-c",
+            "citation": "MidNite Solar, Rosie Inverter/Charger Owner's Manual, MNROSIE7048RE - MNROSIE7048M, P/N 10-432-1 Rev C, 22 MAR 2024 — https://www.midnitesolar.com/pdfs/10-432-1_Rev_C_(MNROSIE7048_Manual)_22MAR2024.pdf (retrieved and rea"
+          },
+          {
+            "source": "midnitesolar-com-pdfs-10-607-1-rev-b-instructions-3-phase-stacking",
+            "citation": "MidNite Solar, Instructions, 3-Phase Stacking, P/N 10-607-1 Rev B, 21 JAN 2025 — https://www.midnitesolar.com/pdfs/10-607-1_Rev_B,_Instructions,_3-Phase_Stacking_(1-21-25a).pdf (CAN BUS vs STK BUS, Figures 3 and 4)"
+          },
+          {
+            "source": "midnitesolar-com-firmwareindex",
+            "citation": "MidNite Solar SOFTWARE index — https://www.midnitesolar.com/firmwareIndex.php and https://www.midnitesolar.com/firmware.php?firmwareProduct_ID=8 (negative evidence: no Rosie protocol document exists)"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    }
   ]
 }

@@ -653,27 +653,39 @@ export async function bundle(db: Store, release: string, q: BundleQuery): Promis
     if (links.length > LIMITS.bundleProtocol) truncated.push("protocol");
     const kept = links.slice(0, LIMITS.bundleProtocol);
     const dialects = await dialectsOf(db, release, [...new Set(kept.map((l) => l.dialect_id))]);
+    // What says each model speaks its dialect (#84), beside the dialect's own citations.
+    const cited = kept.length
+      ? (
+          await db
+            .prepare(
+              `SELECT model_id, dialect_id, source_id, citation FROM model_dialect_sources WHERE release = ? AND model_id IN (${marks}) ORDER BY model_id, dialect_id, position`,
+            )
+            .bind(release, ...ids)
+            .all<{ model_id: string; dialect_id: string; source_id: string; citation: string }>()
+        ).results
+      : [];
     protocol = kept.flatMap((l) => {
       const dialect = dialects.get(l.dialect_id);
       if (!dialect) return [];
       const link = JSON.parse(l.row) as Record<string, string | undefined>;
+      const sources = cited
+        .filter((c) => c.model_id === l.model_id && c.dialect_id === l.dialect_id)
+        .map((c) => ({ source: c.source_id, citation: c.citation }));
       return [
         {
           model: l.model_id,
           dialect,
-          ...(link.evidence_kind
-            ? {
-                evidence: {
-                  kind: link.evidence_kind,
-                  sources: (link.evidence_sources ?? "")
-                    .split(" ")
-                    .filter(Boolean)
-                    .map((source) => ({ source, citation: link.evidence_citation ?? "" })),
-                },
-              }
-            : {}),
+          ...(link.evidence_kind ? { evidence: { kind: link.evidence_kind, sources } } : {}),
           ...(link.confidence
             ? { confidence: link.confidence as DialectSummary["confidence"] }
+            : {}),
+          ...(link.firmware_min || link.firmware_max
+            ? {
+                firmware: {
+                  ...(link.firmware_min ? { min: link.firmware_min } : {}),
+                  ...(link.firmware_max ? { max: link.firmware_max } : {}),
+                },
+              }
             : {}),
         },
       ];

@@ -7,6 +7,26 @@
     "XXX-XXX-134"
   ],
   "dialects": [
-    "morningstar-prostar-mppt"
+    {
+      "dialect": "morningstar-prostar-mppt",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "morningstar-prostar-mppt-modbus-specification",
+            "citation": "ProStar MPPT MODBUS Specification v05, MS-001723, 2 March 2021 — committed at /Users/lemarier/dev/solar/docs/morningstar-prostar-mppt-modbus-specification.pdf (32 pp)"
+          },
+          {
+            "source": "morningstarcorp-com-wp-content-uploads-technical-doc-prostar-mppt-modbus-specification-en",
+            "citation": "https://www.morningstarcorp.com/wp-content/uploads/technical-doc-prostar-mppt-modbus-specification-en.pdf"
+          },
+          {
+            "source": "morningstar-product-connectivity-manual",
+            "citation": "Morningstar Product Connectivity Manual, Table 2 — committed at /Users/lemarier/dev/solar/docs/morningstar-product-connectivity-manual.pdf"
+          }
+        ]
+      },
+      "confidence": "vendor-doc"
+    }
   ]
 }

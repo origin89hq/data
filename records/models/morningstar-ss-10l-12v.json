@@ -7,6 +7,26 @@
     "XXX-XXX-128"
   ],
   "dialects": [
-    "morningstar-pwm-no-comms"
+    {
+      "dialect": "morningstar-pwm-no-comms",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "morningstar-product-connectivity-manual",
+            "citation": "Morningstar Product Connectivity Manual, Table 2 — committed at /Users/lemarier/dev/solar/docs/morningstar-product-connectivity-manual.pdf (41 pp)"
+          },
+          {
+            "source": "morningstarcorp-com-wp-content-uploads-datasheet-sunlight-en",
+            "citation": "https://www.morningstarcorp.com/wp-content/uploads/datasheet-sunlight-en.pdf"
+          },
+          {
+            "source": "morningstarcorp-com-wp-content-uploads-datasheet-sunsaver-en",
+            "citation": "https://www.morningstarcorp.com/wp-content/uploads/datasheet-sunsaver-en.pdf"
+          }
+        ]
+      },
+      "confidence": "vendor-doc"
+    }
   ]
 }

@@ -5,6 +5,26 @@
   "kind": "inverter-charger",
   "aliases": [],
   "dialects": [
-    "samlex-evo-modbus-22xx-40xx"
+    {
+      "dialect": "samlex-evo-modbus-22xx-40xx",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "samlex-evo-2212-3012-2224-4024-manual-fw0-82",
+            "citation": "docs/samlex-evo-2212-3012-2224-4024-manual-fw0.82.pdf — Owner's Manual, Fig 2.1 legend items 9A/9B: 'RJ-45 Jacks for Communication Ports COMM 1 and COMM 2 - For RS-485 networking and MODBUS Serial Communication Protocol'"
+          },
+          {
+            "source": "samlex-evo-rc-plus-remote-manual-2021",
+            "citation": "docs/samlex-evo-rc-plus-remote-manual-2021.pdf — §4.8.2.6 COMM ID; §5.2.2.2 Fig 5.2 data-logging field list (NEWLY ADDED to docs/ this pass)"
+          },
+          {
+            "source": "samlex-evo-rc-remote-manual-2022",
+            "citation": "docs/samlex-evo-rc-remote-manual-2022.pdf — §4.8.2.6 COMM ID, wording for the 120 V / 230 V pairs (NEWLY ADDED to docs/ this pass)"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    }
   ]
 }

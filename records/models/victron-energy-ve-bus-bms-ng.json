@@ -5,6 +5,26 @@
   "kind": "bms",
   "aliases": [],
   "dialects": [
-    "victron-bms-dry-contact"
+    {
+      "dialect": "victron-bms-dry-contact",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "victron-bms-overview-datasheet",
+            "citation": "docs/victron-bms-overview-datasheet.pdf (newly downloaded) — Victron 'Battery Management System (BMS) Overview', the full comparison table"
+          },
+          {
+            "source": "victronenergy-com-upload-documents-smallbms-with-pre-alarm-128558-smallbms-with-pre-alarm-pdf-en",
+            "citation": "docs/victron-smallbms-pre-alarm-manual-rev02.pdf (newly downloaded) — rev 02, 01/2023, from https://www.victronenergy.com/upload/documents/smallBMS_with_pre-alarm/128558-smallBMS_with_pre-alarm-pdf-en.pdf"
+          },
+          {
+            "source": "victron-smallbms-ng-manual-rev05",
+            "citation": "docs/victron-smallbms-ng-manual-rev05.pdf, docs/victron-vebus-bms-v2-manual-rev07.pdf, docs/victron-vebus-bms-ng-manual-rev05.pdf, docs/victron-smart-bms-cl-12-100-manual-rev11.pdf, docs/victron-smart-bms-12-200-manual-r"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    }
   ]
 }

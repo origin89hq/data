@@ -5,8 +5,64 @@
   "kind": "inverter-charger",
   "aliases": [],
   "dialects": [
-    "solark-18k-2p-unknown",
-    "solark-dongle-uart",
-    "solark-mysolark-cloud"
+    {
+      "dialect": "solark-18k-2p-unknown",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "sol-ark-com-wp-content-uploads-2026-01-18k-installation-manual-rev-13-16july2026",
+            "citation": "https://sol-ark.com/wp-content/uploads/2026/01/18K_Installation_Manual_rev_13_16July2026.pdf — 18K Installation Manual MA-00037 Rev. 13, §2.3 Battery Communication: RJ45 pinout, on-request READ-only Modbus map, Modbus SN"
+          },
+          {
+            "source": "solark-modbus-rtu-protocol-v1-4",
+            "citation": "docs/solark-modbus-rtu-protocol-v1.4.pdf — the negative evidence: title and pinout sections cover 5k/8k/12k/15k only, no 18K anywhere."
+          }
+        ]
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "solark-dongle-uart",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "github-com-judasgutenberg-solark-live-data",
+            "citation": "https://github.com/judasgutenberg/SolArk_Live_Data — Arduino sketch that intercepted the dongle UART; README carries the November 2025 breakage notice and the full Sol-Ark support reply quoted above."
+          },
+          {
+            "source": "github-com-judasgutenberg-solark-copilot",
+            "citation": "https://github.com/judasgutenberg/SolArk_Copilot — the author's reconfigurable successor parser (configurable without firmware changes, precisely because the format moves)."
+          },
+          {
+            "source": "github-com-stephanjoubert-home-assistant-solarman",
+            "citation": "https://github.com/StephanJoubert/home_assistant_solarman and https://github.com/davidrapan/ha-solarman — negative evidence: no Sol-Ark inverter definition in either."
+          }
+        ]
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "solark-mysolark-cloud",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "github-com-judasgutenberg-solarkmonitor",
+            "citation": "https://github.com/judasgutenberg/SolArkMonitor — PHP implementation, README documents the PowerView→solarkcloud.com backend migration of 2024-06-07 and the minute-granularity limitation."
+          },
+          {
+            "source": "github-com-hammondautomationhub-homeassistant-solark",
+            "citation": "https://github.com/HammondAutomationHub/HomeAssistant_SolArk — Home Assistant custom component; custom_components/solark/const.py pins DEFAULT_BASE_URL=https://www.mysolark.com and DEFAULT_API_URL=https://ecsprod-api-new"
+          },
+          {
+            "source": "github-com-matthew-dresden-solark-cloud-cli",
+            "citation": "https://github.com/matthew-dresden/solark-cloud-cli and https://github.com/matthew-dresden/solark-cloud-ha — third target of the same API (single author, so counted once)."
+          }
+        ]
+      },
+      "confidence": "community-single"
+    }
   ]
 }

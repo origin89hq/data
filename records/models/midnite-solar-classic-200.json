@@ -7,6 +7,26 @@
     "MID-163-103"
   ],
   "dialects": [
-    "midnite-classic"
+    {
+      "dialect": "midnite-classic",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "midnite-classic-modbus-register-map-rev-c5",
+            "citation": "MidNite Solar MODBUS Network Spec. Rev C.4 / C.5, Dec 2013 — committed at /Users/lemarier/dev/solar/docs/midnite-classic-modbus-register-map-rev-c5.pdf"
+          },
+          {
+            "source": "midnitesolar-com-pdfs-classic-register-map-rev-c5-december-8-2013",
+            "citation": "https://www.midnitesolar.com/pdfs/classic_register_map_Rev-C5-December-8-2013.pdf (verified byte-identical to the committed copy, SHA-256 08d2ca806bc95e982320648a1a0d721f8a2911e29f9223b894b4253a95f159c6)"
+          },
+          {
+            "source": "midnitesolar-com-pdfs-classic-manual-rev-1933",
+            "citation": "MidNite Solar Classic Owner's Manual, firmware rev 1933 — https://www.midnitesolar.com/pdfs/classic_manual_Rev_1933.pdf (not committed; ratings and wiring only, no register content used here)"
+          }
+        ]
+      },
+      "confidence": "vendor-doc"
+    }
   ]
 }

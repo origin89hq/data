@@ -7,6 +7,26 @@
     "EPS-163-109"
   ],
   "dialects": [
-    "epever-tracer-a"
+    {
+      "dialect": "epever-tracer-a",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "epever-b-series-modbus-specification-v2-3-12-june-2015-the-d",
+            "citation": "EPEver, *B-Series MODBUS Specification*, V2.3, 12 June 2015 — the document cabin-epever/src/xtra.rs already cites. Retrieved and staged at /private/tmp/claude-501/-Users-lemarier-dev-solar/01a009b6-aeb2-4d8b-8a84-65ee02f"
+          },
+          {
+            "source": "epever-ls-b-vs-b-tracer-b-tracer-a-itracer-etracer-series-co",
+            "citation": "EPEver, *LS-B、VS-B、Tracer-B、Tracer-A、iTracer、eTracer Series Controller Communication Instruction*, V2.5 — same lineage as v2.3, fuller table, coils, RJ45 pinout. Staged at .../epever-docs/epever-controller-communication-"
+          },
+          {
+            "source": "beijing-epsolar-technology-ls-b-series-protocol-modbus-regis",
+            "citation": "Beijing Epsolar Technology, *LS-B Series Protocol — ModBus Register Address List*, V1.1 (1733_modbus_protocol.pdf). Staged at .../epever-docs/epsolar-ls-b-series-modbus-register-address-list-v1.1.pdf — retrieved from git"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    }
   ]
 }

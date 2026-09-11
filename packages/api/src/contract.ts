@@ -172,9 +172,16 @@ export interface DialectSummary {
 export interface ProtocolLink {
   model: ModelId;
   dialect: DialectSummary;
-  /** How the link was made. Absent for a link that predates evidence being recorded (#84). */
+  /**
+   * How the link was made (#84): `register-match` is a source showing matching registers,
+   * `vendor-doc` the maker's own document, `catalogue-name` only the catalogue naming the
+   * model, which is a claim and not a match. Absent on a release published before links carried it.
+   */
   evidence?: { kind: string; sources: { source: SourceId; citation: string }[] };
+  /** What the link's sources support, in the dialect's vocabulary. */
   confidence?: DialectSummary["confidence"];
+  /** The firmware the link is known to hold for, when a source says. */
+  firmware?: { min?: string; max?: string };
 }
 
 export interface Source {

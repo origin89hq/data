@@ -7,6 +7,26 @@
     "XXX-XXX-127"
   ],
   "dialects": [
-    "morningstar-prostar-pwm-gen3"
+    {
+      "dialect": "morningstar-prostar-pwm-gen3",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "morningstar-prostar-modbus-specification",
+            "citation": "ProStar PWM MODBUS Specification v2.0, MS-001838, 22 March 2017 — committed at /Users/lemarier/dev/solar/docs/morningstar-prostar-modbus-specification.pdf (29 pp)"
+          },
+          {
+            "source": "morningstarcorp-com-wp-content-uploads-technical-doc-prostar-modbus-specification-en",
+            "citation": "https://www.morningstarcorp.com/wp-content/uploads/technical-doc-prostar-modbus-specification-en.pdf"
+          },
+          {
+            "source": "morningstar-product-connectivity-manual",
+            "citation": "Morningstar Product Connectivity Manual, Table 2 (lists 'ProStar Gen 3' only) — committed at /Users/lemarier/dev/solar/docs/morningstar-product-connectivity-manual.pdf"
+          }
+        ]
+      },
+      "confidence": "vendor-doc"
+    }
   ]
 }

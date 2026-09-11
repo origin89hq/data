@@ -7,6 +7,26 @@
     "XXX-XXX-130"
   ],
   "dialects": [
-    "morningstar-tristar-mppt"
+    {
+      "dialect": "morningstar-tristar-mppt",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "morningstar-tristar-mppt-modbus-specification",
+            "citation": "TriStar MPPT MODBUS Specification v11, MS-002582, 21 August 2018 — committed at /Users/lemarier/dev/solar/docs/morningstar-tristar-mppt-modbus-specification.pdf (29 pp)"
+          },
+          {
+            "source": "morningstarcorp-com-wp-content-uploads-technical-doc-tristar-mppt-modbus-specification-en",
+            "citation": "https://www.morningstarcorp.com/wp-content/uploads/technical-doc-tristar-mppt-modbus-specification-en.pdf"
+          },
+          {
+            "source": "morningstarcorp-com-wp-content-uploads-datasheet-tristar-mppt-en",
+            "citation": "TriStar MPPT datasheet (model/port matrix) — https://www.morningstarcorp.com/wp-content/uploads/datasheet-tristar-mppt-en.pdf"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    }
   ]
 }

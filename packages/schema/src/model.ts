@@ -1,6 +1,38 @@
 import { z } from "zod";
-import { RecordId } from "./enums.ts";
+import { Citation } from "./dialect.ts";
+import { Confidence, RecordId } from "./enums.ts";
 import { EquipmentKind } from "./guess.ts";
+
+/**
+ * How a model came to be linked to a dialect (#84). `register-match` is a source showing the
+ * model answers the dialect's registers, which is the rule in CONTRIBUTING; `vendor-doc` is the
+ * maker's own document saying the model speaks it; `catalogue-name` is only the protocol
+ * catalogue naming the model under the dialect, which is a claim and not a match.
+ */
+export const LinkEvidenceKind = z.enum(["register-match", "vendor-doc", "catalogue-name"]);
+export type LinkEvidenceKind = z.infer<typeof LinkEvidenceKind>;
+
+/** A model's link to a dialect, with what says so. A link with no source is refused. */
+export const DialectLink = z
+  .object({
+    dialect: RecordId,
+    evidence: z
+      .object({
+        kind: LinkEvidenceKind,
+        sources: z.array(Citation).min(1),
+      })
+      .strict(),
+    /** What the sources support for this link, in the catalogue's vocabulary. */
+    confidence: Confidence,
+    /** The firmware the link is known to hold for, when a source says; absent means unstated, never all. */
+    firmware: z
+      .object({ min: z.string().min(1).optional(), max: z.string().min(1).optional() })
+      .strict()
+      .refine((f) => f.min !== undefined || f.max !== undefined, "a firmware range names a bound")
+      .optional(),
+  })
+  .strict();
+export type DialectLink = z.infer<typeof DialectLink>;
 
 /**
  * One product a manufacturer makes. Held apart from a dialect's model list and from a seller's
@@ -28,8 +60,8 @@ export const Model = z
     family: z.string().min(1).optional(),
     /** Other strings that name this model: a seller's SKU, a maker's part number, an older name. */
     aliases: z.array(z.string().min(1)).default([]),
-    /** Dialects this model is known to speak, by the same evidence rule the catalogue uses. */
-    dialects: z.array(RecordId).default([]),
+    /** Dialects this model is known to speak, each with the evidence that says so. */
+    dialects: z.array(DialectLink).default([]),
     checkedAt: z
       .string()
       .regex(/^\d{4}-\d{2}-\d{2}$/)

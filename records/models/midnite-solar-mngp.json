@@ -7,6 +7,22 @@
     "MID-161-120"
   ],
   "dialects": [
-    "midnite-mngp"
+    {
+      "dialect": "midnite-mngp",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "midnite-solar-modbus-network-spec-rev-c-4-registers-4220-422",
+            "citation": "MidNite Solar MODBUS Network Spec. Rev C.4 — registers 4220, 4221, 4319; Table 4182-1 (Rem2DwnStrmBus, UpStrmBus2RemBus, Rem2UpStrmBus); Table 4207-1 LED Mode (\"MNGP Red LED when MNGP->Classic MODBUS is active\"). Committ"
+          },
+          {
+            "source": "midnite-solar-classic-owner-s-manual-10-001-1-rev-v-the-mngp",
+            "citation": "MidNite Solar Classic Owner's Manual (10-001-1 REV-V) — the MNGP is the Classic's display and is where the Classic's own network settings (DHCP/static, IP, subnet, gateway, DNS, web access) are configured."
+          }
+        ]
+      },
+      "confidence": "unverified"
+    }
   ]
 }

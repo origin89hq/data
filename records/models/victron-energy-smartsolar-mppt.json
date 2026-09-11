@@ -5,6 +5,26 @@
   "kind": "charge-controller",
   "aliases": [],
   "dialects": [
-    "victron-ble-instant-readout"
+    {
+      "dialect": "victron-ble-instant-readout",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "victron-ble-extra-manufacturer-data-2022-12-14",
+            "citation": "docs/victron-ble-extra-manufacturer-data-2022-12-14.pdf — Victron wiki page 'Extra manufacturer Data', printed 2022-12-14 (committed)."
+          },
+          {
+            "source": "communityarchive-victronenergy-com-questions-187303-victron-bluetooth-advertising-protocol",
+            "citation": "https://communityarchive.victronenergy.com/questions/187303/victron-bluetooth-advertising-protocol.html — the Victron staff post releasing it."
+          },
+          {
+            "source": "victronenergy-com-media-pg-ve-direct-bluetooth-smart-dongle-manual-en-introduction",
+            "citation": "https://www.victronenergy.com/media/pg/VE.Direct_Bluetooth_Smart_dongle_manual/en/introduction.html"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    }
   ]
 }

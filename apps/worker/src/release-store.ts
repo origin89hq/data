@@ -35,7 +35,14 @@ export const LOADED_TABLES: Readonly<Record<string, Loaded>> = {
   },
   model_aliases: { columns: ["model_id", "alias"], keyed: false },
   model_keys: { columns: ["model_id", "key", "name_key", "label", "via"], keyed: false },
-  model_dialects: { columns: ["model_id", "dialect_id"], keyed: false },
+  model_dialects: {
+    columns: ["model_id", "dialect_id", "evidence_kind", "confidence"],
+    keyed: false,
+  },
+  model_dialect_sources: {
+    columns: ["model_id", "dialect_id", "position", "source_id", "citation"],
+    keyed: false,
+  },
   specs: { columns: ["id", "model_id"], keyed: true },
   dialects: { columns: ["id", "family", "manufacturer", "confidence"], keyed: true },
   dialect_gotchas: { columns: ["dialect_id", "position", "text"], keyed: false },
@@ -82,6 +89,7 @@ export const SCHEMA: readonly string[] = [
   "CREATE INDEX IF NOT EXISTS model_aliases_by_model ON model_aliases (release, model_id)",
   "CREATE INDEX IF NOT EXISTS specs_by_model ON specs (release, model_id)",
   "CREATE INDEX IF NOT EXISTS model_dialects_by_model ON model_dialects (release, model_id)",
+  "CREATE INDEX IF NOT EXISTS model_dialect_sources_by_link ON model_dialect_sources (release, model_id, dialect_id)",
   "CREATE INDEX IF NOT EXISTS dialect_gotchas_by_dialect ON dialect_gotchas (release, dialect_id)",
   "CREATE INDEX IF NOT EXISTS dialect_sources_by_dialect ON dialect_sources (release, dialect_id)",
   "CREATE INDEX IF NOT EXISTS dialect_kinds_by_dialect ON dialect_kinds (release, dialect_id)",

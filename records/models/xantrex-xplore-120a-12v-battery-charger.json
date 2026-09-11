@@ -5,6 +5,26 @@
   "kind": "ac-charger",
   "aliases": [],
   "dialects": [
-    "xantrex-no-comms"
+    {
+      "dialect": "xantrex-no-comms",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "xantrex-com-products-inverters",
+            "citation": "https://xantrex.com/products/inverters/"
+          },
+          {
+            "source": "xantrex-com-products-inverter-chargers",
+            "citation": "https://xantrex.com/products/inverter-chargers/"
+          },
+          {
+            "source": "xantrex-com-products-battery-chargers",
+            "citation": "https://xantrex.com/products/battery-chargers/"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    }
   ]
 }

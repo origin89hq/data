@@ -282,3 +282,58 @@ test("model_keys keys every name under every label the maker goes by, by the one
     ],
   );
 });
+
+test("a model–dialect link publishes how it was made, its confidence and its citations (#84)", () => {
+  const linked: Records = {
+    ...records,
+    models: [
+      Model.parse({
+        id: "rolls--s-550",
+        manufacturer: "rolls",
+        name: "S-550",
+        dialects: [
+          {
+            dialect: "rolls-none",
+            evidence: {
+              kind: "register-match",
+              sources: [
+                { source: "rolls-manual", citation: "p. 12" },
+                { source: "rolls-map", citation: "table 3" },
+              ],
+            },
+            confidence: "community-crosschecked",
+            firmware: { min: "2.1" },
+          },
+        ],
+      }),
+    ],
+    specs: [],
+  };
+  const of = (name: string) => tables(linked, []).find((t) => t.name === name)?.rows;
+  assert.deepEqual(of("model_dialects"), [
+    {
+      model_id: "rolls--s-550",
+      dialect_id: "rolls-none",
+      evidence_kind: "register-match",
+      confidence: "community-crosschecked",
+      firmware_min: "2.1",
+      firmware_max: undefined,
+    },
+  ]);
+  assert.deepEqual(of("model_dialect_sources"), [
+    {
+      model_id: "rolls--s-550",
+      dialect_id: "rolls-none",
+      position: 0,
+      source_id: "rolls-manual",
+      citation: "p. 12",
+    },
+    {
+      model_id: "rolls--s-550",
+      dialect_id: "rolls-none",
+      position: 1,
+      source_id: "rolls-map",
+      citation: "table 3",
+    },
+  ]);
+});

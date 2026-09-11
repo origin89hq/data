@@ -7,7 +7,47 @@
     "Rolls S48-100LFP STACK-LV"
   ],
   "dialects": [
-    "rolls-lfp-stack-lv-48v",
-    "rolls-stack-lv-can"
+    {
+      "dialect": "rolls-lfp-stack-lv-48v",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "rollsbattery-com-wp-content-uploads-2025-01-s48-10",
+            "citation": "ROLLS S48-100LFP STACK-LV BATTERY OPERATING MANUAL, rev 2.0 2026/04/08 — committed at /Users/lemarier/dev/solar/docs/rolls-s48-100lfp-stack-lv-manual-rev2.0.pdf (https://rollsbattery.com/wp-content/uploads/2025/01/S48-10"
+          },
+          {
+            "source": "rollsbattery-com-wp-content-uploads-rolls-s48-100lfp-stack-lv-battery-installation-guide-ver-1-2",
+            "citation": "Rolls S48-100LFP STACK-LV Battery Installation Guide, ver 1.2 (https://rollsbattery.com/wp-content/uploads/Rolls-S48-100LFP-STACK-LV-Battery-Installation-Guide-ver-1.2.pdf)"
+          },
+          {
+            "source": "rollsbattery-com-battery-s48-100lfp-stack-lv",
+            "citation": "https://rollsbattery.com/battery/s48-100lfp-stack-lv/ — '1x CAN bus (external), 1x RS-485 (external), 1x Link In (internal), 1x Link Out (internal)'. checked: 2026-07-31"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "rolls-stack-lv-can",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "rollsbattery-com-wp-content-uploads-2025-01-s48-100lfp-stack-lv-battery-operating-manual",
+            "citation": "Rolls Battery, S48-100LFP STACK-LV BATTERY OPERATING MANUAL, rev V2/04/26, 33 pp. Origin https://rollsbattery.com/wp-content/uploads/2025/01/S48-100LFP-STACK-LV-Battery-Operating-Manual.pdf — downloaded, ready to commit "
+          },
+          {
+            "source": "rollsbattery-com-wp-content-uploads-rolls-s48-100lfp-stack-lv-battery-installation-guide-ver-1-2",
+            "citation": "Rolls Battery, Rolls S48-100LFP STACK-LV Battery Installation Guide, ver 1.2, 77 pp. Origin https://rollsbattery.com/wp-content/uploads/Rolls-S48-100LFP-STACK-LV-Battery-Installation-Guide-ver-1.2.pdf — downloaded, ready"
+          },
+          {
+            "source": "rollsbattery-com-wp-content-uploads-2024-01-rolls-lfp-ess-integration-with-vict",
+            "citation": "Rolls Battery, Installation, connection, and closed-loop configuration of Rolls LFP ESS with Victron Energy, Jan 2024, 10 pp. Origin https://rollsbattery.com/wp-content/uploads/2024/01/Rolls-LFP-ESS-Integration-with-Vict"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    }
   ]
 }

@@ -6,7 +6,47 @@
     "EPS-161-106"
   ],
   "dialects": [
-    "epever-rts-probe",
-    "epever-rts300"
+    {
+      "dialect": "epever-rts-probe",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "epever-xtra-n-manual-v1-3",
+            "citation": "docs/epever-xtra-n-manual-v1.3.pdf — §Step 4 'Connect accessories' and §4.3 'Accessories (optional)': 'Remote Temperature Sensor (RTS300R47K3.81A) … Acquisition of battery temperature for undertaking temperature compensa"
+          },
+          {
+            "source": "epever-xtra-n-g3-manual-v1-8",
+            "citation": "docs/epever-xtra-n-g3-manual-v1.8.pdf — 'Optional Accessory / Remote temperature sensor / Model: RTS300R47K3.81A'"
+          },
+          {
+            "source": "epever-duoracer-manual-v2-5",
+            "citation": "docs/epever-duoracer-manual-v2.5.pdf — 'Remoter temperature sensor (Model:RTS300R47K3.81A)'"
+          }
+        ]
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "epever-rts300",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "epever-com-wp-content-uploads-2021-05-tracer-an50-100a-manual-en-v3-1",
+            "citation": "EPEver Tracer-AN 50-100A MPPT Solar Controller User Manual EN V3.1 (vendor PDF) — https://www.epever.com/wp-content/uploads/2021/05/Tracer-AN50-100A-Manual-EN-V3.1.pdf — §1.5 Optional accessories, §2.5 Step 5, §4.1 Prote"
+          },
+          {
+            "source": "epever-com-wp-content-uploads-2021-04-xtra-n-manual-en-v4-5etl",
+            "citation": "EPEver XTRA N Series MPPT Solar Charge Controller User Manual EN V4.5 ETL (vendor PDF) — https://www.epever.com/wp-content/uploads/2021/04/XTRA-N-Manual-EN-V4.5ETL.pdf — Step 4 Connect accessories, §5 Protections. Downlo"
+          },
+          {
+            "source": "epever-com-product-accessories-remote-temperature-sensor",
+            "citation": "EPEver product page, RTS300R47K3.81A Remote Temperature Sensor — https://www.epever.com/product/accessories-remote-temperature-sensor/ (compatibility list and 3 m cable length; no spec table, no downloadable datasheet — "
+          }
+        ]
+      },
+      "confidence": "unverified"
+    }
   ]
 }

@@ -5,8 +5,60 @@
   "kind": "dc-dc-converter",
   "aliases": [],
   "dialects": [
-    "victron-ble-orion-xs",
-    "victron-orion-xs-hex",
-    "victron-vedirect-text-orion-xs"
+    {
+      "dialect": "victron-ble-orion-xs",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "github-com-keshavdv-victron-ble",
+            "citation": "https://github.com/keshavdv/victron-ble — `victron_ble/devices/orion_xs.py` and `victron_ble/devices/__init__.py` (0xF → OrionXS) (checked 2026-07-31)"
+          },
+          {
+            "source": "github-com-fabian-schmidt-esphome-victron-ble",
+            "citation": "https://github.com/Fabian-Schmidt/esphome-victron_ble — `components/victron_ble/victron_ble.h`, `VICTRON_BLE_RECORD_TYPE::ORION_XS = 0x0F` (checked 2026-07-31)"
+          }
+        ]
+      },
+      "confidence": "community-crosschecked"
+    },
+    {
+      "dialect": "victron-orion-xs-hex",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "victron-orion-xs-ve-direct-hex-protocol-2025-06-16",
+            "citation": "docs/victron-orion-xs-ve-direct-hex-protocol-2025-06-16.pdf — *VE.Direct Protocol — Orion XS DC-DC battery charger*, changes page: \"16-06-2025 / Initial version derived from BlueSolar HEX protocol - rev 18.docx\". **Newly"
+          },
+          {
+            "source": "victronenergy-com-upload-documents-orion-xs-hex-protocol",
+            "citation": "https://www.victronenergy.com/upload/documents/Orion-XS-HEX-protocol.pdf (source URL, checked 2026-07-31)"
+          },
+          {
+            "source": "victronenergy-com-support-and-downloads-whitepapers",
+            "citation": "https://www.victronenergy.com/support-and-downloads/whitepapers (checked 2026-07-31 — the index that publishes it)"
+          }
+        ]
+      },
+      "confidence": "vendor-doc"
+    },
+    {
+      "dialect": "victron-vedirect-text-orion-xs",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "victron-ve-direct-protocol-3-34",
+            "citation": "docs/victron-ve-direct-protocol-3.34.pdf — Table I pp. 5–7 (`Smart BuckBoost` column), PID list p. 13, changelog p. 20."
+          },
+          {
+            "source": "victron-orion-xs-ve-direct-hex-protocol-2025-06-16",
+            "citation": "docs/victron-orion-xs-ve-direct-hex-protocol-2025-06-16.pdf — newly committed, see next dialect."
+          }
+        ]
+      },
+      "confidence": "vendor-doc"
+    }
   ]
 }

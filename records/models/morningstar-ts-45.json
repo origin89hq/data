@@ -4,7 +4,27 @@
   "name": "TS-45",
   "aliases": [],
   "dialects": [
-    "morningstar-tristar-pwm"
+    {
+      "dialect": "morningstar-tristar-pwm",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": [
+          {
+            "source": "morningstar-tristar-modbus-specification",
+            "citation": "TriStar MODBUS Specification v07, 31 January 2020 — committed at /Users/lemarier/dev/solar/docs/morningstar-tristar-modbus-specification.pdf (30 pp)"
+          },
+          {
+            "source": "morningstarcorp-com-wp-content-uploads-technical-doc-tristar-modbus-specification-en",
+            "citation": "https://www.morningstarcorp.com/wp-content/uploads/technical-doc-tristar-modbus-specification-en.pdf"
+          },
+          {
+            "source": "morningstar-product-connectivity-manual",
+            "citation": "Morningstar Product Connectivity Manual — committed at /Users/lemarier/dev/solar/docs/morningstar-product-connectivity-manual.pdf"
+          }
+        ]
+      },
+      "confidence": "vendor-doc"
+    }
   ],
   "kind": "charge-controller"
 }
