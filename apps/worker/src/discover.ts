@@ -400,6 +400,8 @@ export const MAX_LINKS_PER_BATCH = 2000;
 export const MAX_FRONTIER_BYTES = 512 * 1024;
 /** The whole serialized result stays under this, well inside the mebibyte a step may return. */
 export const MAX_RESULT_BYTES = 768 * 1024;
+/** Extensionless addresses on a document host a batch may hand back to be asked about. */
+export const MAX_PROBES_PER_BATCH = 200;
 
 /** Paths a maker keeps its documents behind, ahead of its blog, its careers page and its cart. */
 const WORTH_FIRST =
@@ -461,6 +463,8 @@ export interface PagesRead {
   landed: string[];
   /** Pages actually asked for: one in the batch that an earlier page had already landed on is skipped. */
   attempted: number;
+  /** Addresses on a document host the record names, linked from the maker's own pages with no suffix to say what they are: asked for, to find out. */
+  probes: string[];
   read: number;
   /** The pages asked for that answered with a page, as they were asked for. */
   opened: string[];
@@ -505,6 +509,7 @@ export async function readPages(
     linksDropped: 0,
     landed: [],
     attempted: 0,
+    probes: [],
     opened: [],
     answered: [],
     read: 0,
@@ -521,12 +526,19 @@ export async function readPages(
     if (out.landed.includes(page) || skip.has(page)) continue;
     out.attempted += 1;
     const answer = await get(page);
+    // A probe is an address on a document host asked for to learn what it is; where it lands is
+    // not a site moving, and a page there is not a page to read.
+    const probing = !ownHost(page, domains);
     // Where a request landed outside the maker's hosts, unless it landed on a document host the
     // record names with a document: that is a download link doing what it says, not a site moved.
     const away = strayed(answer, domains);
     const landedOnDocumentHost =
       away !== undefined && isDocumentAnswer(answer) && hostAllowed(away, documentHosts);
-    if (away && !landedOnDocumentHost) strayedTo.add(away);
+    if (away && !landedOnDocumentHost && !probing) strayedTo.add(away);
+    if (probing && ok(answer) && !isDocumentAnswer(answer)) {
+      count(out.failed, `a probe answered a page (${mediaType(answer) ?? "unknown type"})`);
+      continue;
+    }
     if (!ok(answer)) {
       // One page that will not load costs its own links and nothing else.
       count(out.failed, String(answer.status));
@@ -573,6 +585,12 @@ export async function readPages(
         linked.add(link);
         collected.push(link);
       }
+    // A link from the maker's own page to a document host with nothing in its address to say
+    // what it is, such as `/download?id=manual`, is worth one request to find out.
+    if (!away && documentHosts.length > 0)
+      for (const link of pageLinks(answer.text, answer.url, documentHosts))
+        if (!out.probes.includes(link) && out.probes.length < MAX_PROBES_PER_BATCH)
+          out.probes.push(link);
     // The page is already here for its links. Judging it as a specification table too costs
     // nothing and is how the feed list stops being hand-typed.
     const candidate = judgeSpecPage(page, answer.text);

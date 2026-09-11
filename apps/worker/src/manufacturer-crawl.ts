@@ -137,6 +137,8 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     const queued = new Set(pages);
     const landedAt = new Set<string>();
     const candidates: string[] = [];
+    // Addresses on a document host with nothing to say what they are, asked for ahead of the hop.
+    const probes: string[] = [];
     const take = (batch: PagesRead): void => {
       // A cited page read for its links counts as a page read; one that answered with the
       // document itself is counted with the documents, marked cited, and not as a page.
@@ -144,6 +146,11 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       citedRead += batch.opened.filter((p) => cited.pages.includes(p)).length;
       for (const f of batch.links) if (!found.some((x) => x.url === f.url)) found.push(f);
       specPages.push(...batch.tables);
+      for (const probe of batch.probes)
+        if (!queued.has(probe)) {
+          queued.add(probe);
+          probes.push(probe);
+        }
       for (const url of batch.landed) {
         queued.add(url);
         landedAt.add(url);
@@ -196,7 +203,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     // The frontier is drawn on batch by batch, skipping any address a page has since landed on:
     // a followed page that redirects to a later candidate makes that candidate a page already
     // read, and the slot goes to the next one instead.
-    const frontier = hopOrder(candidates);
+    const frontier = [...probes, ...hopOrder(candidates)];
     let remaining = Math.max(0, budget - attempted);
     let cursor = 0;
     for (let b = 0; remaining > 0 && cursor < frontier.length; b += 1) {

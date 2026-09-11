@@ -583,6 +583,10 @@ test("a document on a host the record names is the maker's when its own page lin
   const { get } = site({
     // A download link on the maker's site that lands on its CDN is the maker's document.
     "https://maker.test/manual": { url: "https://cdn.shop.test/s/files/1/direct.pdf" },
+    // A CDN address with nothing in it to say what it is: handed back as a probe.
+    "https://maker.test/product/b": `<a href="https://cdn.shop.test/download?id=manual">manual</a><a href="https://cdn.shop.test/download?id=manual">again</a>`,
+    "https://cdn.shop.test/download?id=manual": { contentType: "application/pdf" },
+    "https://cdn.shop.test/download?id=page": { contentType: "text/html", text: "<p>x</p>" },
     "https://maker.test/product/a": `<a href="https://cdn.shop.test/s/files/1/a-manual.pdf">manual</a><a href="https://other-cdn.test/x.pdf">elsewhere</a>`,
     "https://maker.test/moved": {
       url: "https://www.newname.test/moved",
@@ -620,6 +624,31 @@ test("a document on a host the record names is the maker's when its own page lin
     },
     "a page that landed elsewhere vouches for nothing on the document host",
   );
+  const probed = await readPages(["https://maker.test/product/b"], ["maker.test"], get, [
+    "cdn.shop.test",
+  ]);
+  assert.deepEqual(probed.probes, ["https://cdn.shop.test/download?id=manual"]);
+  const answered = await readPages(
+    ["https://cdn.shop.test/download?id=manual", "https://cdn.shop.test/download?id=page"],
+    ["maker.test"],
+    get,
+    ["cdn.shop.test"],
+  );
+  assert.deepEqual(answered.links, [
+    {
+      url: "https://cdn.shop.test/download?id=manual",
+      host: "cdn.shop.test",
+      foundOn: "https://cdn.shop.test/download?id=manual",
+    },
+  ]);
+  assert.deepEqual(answered.failed, { "a probe answered a page (text/html)": 1 });
+  assert.deepEqual(
+    [answered.redirectedTo, answered.read],
+    [[], 0],
+    "a probe is not a page read, nor a move",
+  );
+  const unnamed = await readPages(["https://maker.test/product/b"], ["maker.test"], get);
+  assert.deepEqual(unnamed.probes, [], "with no document host named there is nothing to probe");
   const without = await readPages(["https://maker.test/product/a"], ["maker.test"], get);
   assert.deepEqual(without.links, [], "with no document host named, the CDN is still reported");
   assert.deepEqual(without.foreign, {
