@@ -935,10 +935,11 @@ test("an accepted manifest with a load plan starts the release's load, once (#83
     "a retried manifest starts no second load",
   );
   assert.equal(loads.length, 1);
-  const bare = await putManifest(env, manifestOf({ "models_0001.ndjson": part }));
+  await putFile(env, "models.csv", "id\na\n");
+  const bare = await putManifest(env, manifestOf({ "models.csv": "id\na\n" }));
   assert.equal(
     ((await bare.json()) as { load: string }).load,
     "not started",
-    "no plan, nothing to load",
+    "no parts and no plan, nothing to load",
   );
 });
