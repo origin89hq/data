@@ -768,10 +768,43 @@ test("a load part is kept content-addressed, and the manifest's load plan is che
     JSON.stringify(await (await putManifest(env, lied)).json()),
     /holds 2 records, the manifest says 1/,
   );
+  const encode = (text: string) => new TextEncoder().encode(text);
   assert.equal(
-    ndjsonRows(new TextEncoder().encode("a\n\nb\r\n \nc")),
+    ndjsonRows(encode('{"a":1}\n\n{"b":2}\r\n \n{"c":3}')),
     3,
     "blank lines are no records, and a last line without its newline is one",
+  );
+  assert.throws(() => ndjsonRows(encode('{"a":1}\nnot-json\n')), /line 2 is not JSON/);
+  assert.throws(() => ndjsonRows(encode("[]\n")), /line 1 is not a JSON object/);
+  assert.throws(() => ndjsonRows(encode("{}\n".repeat(20_001))), /more than 20000 records/);
+  const malformed = await putFile(env, "models_0003.ndjson", '{"id":"a"}\n[]\n');
+  assert.equal(malformed.status, 422, "a malformed part is refused before it is stored");
+  assert.match(await errorOf(malformed), /line 2 is not a JSON object/);
+  const planless = await putManifest(env, manifestOf({ "models_0001.ndjson": part }));
+  assert.match(
+    JSON.stringify(await planless.json()),
+    /no load plan says which table/,
+    "parts without a plan are not a release",
+  );
+  const cousin = JSON.stringify({
+    ...JSON.parse(manifestOf({ "models_0001.ndjson": part })),
+    load: { version: 1, tables: { model_keys: { parts: ["models_0001.ndjson"], rows: 1 } } },
+  });
+  assert.match(
+    JSON.stringify(await (await putManifest(env, cousin)).json()),
+    /named for another table/,
+    "a part is matched to its whole table name",
+  );
+  const bloated = JSON.stringify({
+    ...JSON.parse(manifestOf({ "models_0001.ndjson": part })),
+    files: {
+      "models_0001.ndjson": { rows: 20_001, sha256: sha256(part), bytes: Buffer.byteLength(part) },
+    },
+    load: { version: 1, tables: { models: { parts: ["models_0001.ndjson"], rows: 20_001 } } },
+  });
+  assert.match(
+    JSON.stringify(await (await putManifest(env, bloated)).json()),
+    /over the 20000 a part may hold/,
   );
   assert.equal(text("dataset/v1/models_0001.ndjson"), part);
   assert.equal(text(`releases/loads/${sha256(part)}.ndjson`), part, "the immutable copy");

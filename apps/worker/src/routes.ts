@@ -5,6 +5,7 @@ import {
   CompareQuery,
   isLoadPart,
   LOAD_PART_MAX,
+  LOAD_PART_ROWS,
   LoadPlan,
   RECORD_SNAPSHOT_MAX,
   RecordKind,
@@ -813,17 +814,28 @@ workflowRoutes.put("/v1/:file", async (c) => {
   return name === MANIFEST ? putManifest(c) : putFile(c, name);
 });
 
-/** Records in an NDJSON body: one a non-empty line. */
+/**
+ * Records in an NDJSON body: one a non-empty line, each a JSON object, at most `LOAD_PART_ROWS`
+ * of them. A line that is not an object, or a part over the bound, is refused with the line
+ * named, so nothing is stored that a loader would choke on.
+ */
 export function ndjsonRows(bytes: Uint8Array): number {
+  const lines = new TextDecoder().decode(bytes).split("\n");
   let rows = 0;
-  let lineHasText = false;
-  for (const byte of bytes) {
-    if (byte === 0x0a) {
-      if (lineHasText) rows += 1;
-      lineHasText = false;
-    } else if (byte !== 0x0d && byte !== 0x20 && byte !== 0x09) lineHasText = true;
+  for (const [at, line] of lines.entries()) {
+    if (line.trim() === "") continue;
+    let value: unknown;
+    try {
+      value = JSON.parse(line);
+    } catch {
+      throw new RangeError(`line ${at + 1} is not JSON`);
+    }
+    if (value === null || typeof value !== "object" || Array.isArray(value))
+      throw new RangeError(`line ${at + 1} is not a JSON object`);
+    rows += 1;
+    if (rows > LOAD_PART_ROWS) throw new RangeError(`more than ${LOAD_PART_ROWS} records`);
   }
-  return lineHasText ? rows + 1 : rows;
+  return rows;
 }
 
 async function putFile(c: Context<PublicationEnv>, name: string): Promise<Response> {
@@ -849,13 +861,23 @@ async function putFile(c: Context<PublicationEnv>, name: string): Promise<Respon
         sha256,
         httpMetadata: { contentType: "application/json" },
       });
-    // A part's rows are counted as it is stored, so the manifest's count is checked against the
-    // bytes rather than repeated from the plan.
+    // A part's records are counted and checked as it is stored, so the manifest's count is held
+    // against the bytes rather than repeated from the plan, and a malformed part is refused.
+    let rows = 0;
+    if (isLoad && content instanceof Uint8Array) {
+      try {
+        rows = ndjsonRows(content);
+      } catch (error) {
+        if (error instanceof RangeError)
+          return c.json({ error: `${name} is not a load part: ${error.message}` }, 422);
+        throw error;
+      }
+    }
     if (isLoad)
       await c.env.ARCHIVE.put(loadKey(sha256), content, {
         sha256,
         httpMetadata: { contentType: datasetType(name) },
-        customMetadata: { rows: String(content instanceof Uint8Array ? ndjsonRows(content) : 0) },
+        customMetadata: { rows: String(rows) },
       });
     const object = await c.env.ARCHIVE.put(datasetKey(name), content, {
       sha256,
@@ -935,7 +957,7 @@ async function putManifest(c: Context<PublicationEnv>): Promise<Response> {
     for (const part of plan.parts) {
       const meta = parsed.data.files[part];
       if (!meta) disagree.push(`${table}: load part ${part} is not in the manifest`);
-      else if (!part.startsWith(`${table}_`))
+      else if (part.replace(/_\d{4}\.ndjson$/, "") !== table)
         disagree.push(`${table}: load part ${part} is named for another table`);
       else if (meta.rows === undefined)
         disagree.push(`${table}: load part ${part} states no row count`);
@@ -948,10 +970,16 @@ async function putManifest(c: Context<PublicationEnv>): Promise<Response> {
   }
   // And every part the manifest lists is in some table's plan: a plan that leaves a table out
   // would load a subset and call it the release.
+  const partsListed = files.some(([name]) => isLoadPart(name));
+  if (partsListed && !parsed.data.load)
+    disagree.push("load parts are listed and no load plan says which table each makes");
   if (parsed.data.load)
-    for (const [name] of files)
-      if (isLoadPart(name) && !assigned.has(name))
-        disagree.push(`${name}: a load part in no table's plan`);
+    for (const [name, meta] of files) {
+      if (!isLoadPart(name)) continue;
+      if (!assigned.has(name)) disagree.push(`${name}: a load part in no table's plan`);
+      if (meta.rows !== undefined && meta.rows > LOAD_PART_ROWS)
+        disagree.push(`${name}: ${meta.rows} rows, over the ${LOAD_PART_ROWS} a part may hold`);
+    }
   if (disagree.length > 0)
     return c.json({ error: "the manifest does not describe what is stored", files: disagree }, 409);
 
