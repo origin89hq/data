@@ -630,7 +630,13 @@ test("cited documents are offered after what the site gave, once each, and only 
     pages: [],
   };
   assert.deepEqual(withCited(found, cited, ["maker.test"]), [
-    { url: "https://maker.test/files/a.pdf", host: "maker.test", foundOn: "https://maker.test/p" },
+    // Found on its page and cited by a record: both are true, and the approver sees both.
+    {
+      url: "https://maker.test/files/a.pdf",
+      host: "maker.test",
+      foundOn: "https://maker.test/p",
+      cited: true,
+    },
     { url: "https://maker.test/files/b.pdf", host: "maker.test", cited: true },
   ]);
   assert.deepEqual(withCited([], { documents: [], pages: [] }, ["maker.test"]), []);

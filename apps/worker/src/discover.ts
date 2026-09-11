@@ -652,15 +652,17 @@ export function seedPages(
 
 /**
  * The documents found, with the ones the records cite added after them. A cited document the
- * site also led to is one document, found on its page; one the site did not lead to is offered
- * anyway, marked as cited so the approver knows where it came from.
+ * site also led to is one document, found on its page and marked as cited too; one the site did
+ * not lead to is offered anyway, marked as cited so the approver knows where it came from.
  */
 export function withCited(
   found: readonly Found[],
   cited: Cited,
   domains: readonly string[],
 ): Found[] {
-  const out = [...found];
+  const out: Found[] = found.map((f) =>
+    cited.documents.includes(f.url) ? { ...f, cited: true as const } : f,
+  );
   for (const url of cited.documents) {
     const host = hostOf(url);
     if (host === undefined || !hostAllowed(host, domains)) continue;
