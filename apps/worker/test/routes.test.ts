@@ -8,6 +8,7 @@ import {
   CONTROL_PATHS,
   controlRoutes,
   memberPages,
+  ndjsonRows,
   publicRoutes,
   WORKFLOW_ROUTES,
   workflowRoutes,
@@ -754,8 +755,24 @@ test("a failed public manifest write retains no attribution from the failed publ
 
 test("a load part is kept content-addressed, and the manifest's load plan is checked against what is stored (#83)", async () => {
   const { env, text } = bucket();
-  const part = '{"id":"a"}\n{"id":"b"}\n';
+  const part = '{"id":"a"}\n';
   assert.equal((await putFile(env, "models_0001.ndjson", part)).status, 200);
+  // A count the bytes contradict is refused, however consistently the plan repeats it.
+  const two = '{"id":"a"}\n{"id":"b"}\n';
+  await putFile(env, "models_0002.ndjson", two);
+  const lied = JSON.stringify({
+    ...JSON.parse(manifestOf({ "models_0002.ndjson": two })),
+    load: { version: 1, tables: { models: { parts: ["models_0002.ndjson"], rows: 1 } } },
+  });
+  assert.match(
+    JSON.stringify(await (await putManifest(env, lied)).json()),
+    /holds 2 records, the manifest says 1/,
+  );
+  assert.equal(
+    ndjsonRows(new TextEncoder().encode("a\n\nb\r\n \nc")),
+    3,
+    "blank lines are no records, and a last line without its newline is one",
+  );
   assert.equal(text("dataset/v1/models_0001.ndjson"), part);
   assert.equal(text(`releases/loads/${sha256(part)}.ndjson`), part, "the immutable copy");
   assert.equal(datasetType("models_0001.ndjson"), "application/x-ndjson; charset=utf-8");

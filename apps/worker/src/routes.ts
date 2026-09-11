@@ -813,6 +813,19 @@ workflowRoutes.put("/v1/:file", async (c) => {
   return name === MANIFEST ? putManifest(c) : putFile(c, name);
 });
 
+/** Records in an NDJSON body: one a non-empty line. */
+export function ndjsonRows(bytes: Uint8Array): number {
+  let rows = 0;
+  let lineHasText = false;
+  for (const byte of bytes) {
+    if (byte === 0x0a) {
+      if (lineHasText) rows += 1;
+      lineHasText = false;
+    } else if (byte !== 0x0d && byte !== 0x20 && byte !== 0x09) lineHasText = true;
+  }
+  return lineHasText ? rows + 1 : rows;
+}
+
 async function putFile(c: Context<PublicationEnv>, name: string): Promise<Response> {
   const sha256 = c.req.header("x-content-sha256");
   if (!sha256 || !SHA256.test(sha256))
@@ -836,10 +849,13 @@ async function putFile(c: Context<PublicationEnv>, name: string): Promise<Respon
         sha256,
         httpMetadata: { contentType: "application/json" },
       });
+    // A part's rows are counted as it is stored, so the manifest's count is checked against the
+    // bytes rather than repeated from the plan.
     if (isLoad)
       await c.env.ARCHIVE.put(loadKey(sha256), content, {
         sha256,
         httpMetadata: { contentType: datasetType(name) },
+        customMetadata: { rows: String(content instanceof Uint8Array ? ndjsonRows(content) : 0) },
       });
     const object = await c.env.ARCHIVE.put(datasetKey(name), content, {
       sha256,
@@ -906,6 +922,10 @@ async function putManifest(c: Context<PublicationEnv>): Promise<Response> {
     const part = await c.env.ARCHIVE.head(loadKey(meta.sha256));
     if (!part || part.size !== meta.bytes || part.checksums.toJSON().sha256 !== meta.sha256)
       disagree.push(`${name}: immutable load part is missing or inconsistent`);
+    else if (meta.rows !== undefined && Number(part.customMetadata?.rows) !== meta.rows)
+      disagree.push(
+        `${name}: holds ${part.customMetadata?.rows ?? "an uncounted number of"} records, the manifest says ${meta.rows}`,
+      );
   }
   // A load plan names parts the manifest lists, each named for its own table, each once, each
   // with a row count, adding up to the rows the plan states, or it is no plan.
