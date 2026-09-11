@@ -30,7 +30,7 @@
       "!**/.origin89",
       "!**/.agents",
       "!.claude",
-      "!**/.impeccable",
+      "!.impeccable",
       "!**/.wrangler",
       "!pnpm-lock.yaml",
       "!records",
