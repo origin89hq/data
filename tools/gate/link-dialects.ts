@@ -1,4 +1,5 @@
 import { writeFileSync } from "node:fs";
+import { resolve, sep } from "node:path";
 import { modelKey, nameKey } from "@origin89/equipment-api/keys";
 import { type DialectLink, Model } from "@origin89/equipment-schema/model";
 import { catalogueLink, mergeLinks, sameLinks } from "../../src/dialect-links.ts";
@@ -32,6 +33,14 @@ const reportAt = args.indexOf("--report");
 const reportFile = reportAt >= 0 ? args[reportAt + 1] : undefined;
 if (reportAt >= 0 && (!reportFile || reportFile.startsWith("--"))) {
   console.error("usage: link-dialects.ts [--dry-run] [--mint] [--report <file>]");
+  process.exit(2);
+}
+// A report is not a record: a path under `records/` would write Markdown over a record file, or
+// be written over by the record this run rewrites.
+if (reportFile && `${resolve(reportFile)}${sep}`.startsWith(`${resolve(RECORDS_DIR)}${sep}`)) {
+  console.error(
+    `--report ${reportFile} is under the records directory; write the report elsewhere`,
+  );
   process.exit(2);
 }
 // Minting is opt-in, because the head of a note is not reliably a model of that maker. The
@@ -77,7 +86,8 @@ const dialectLinks = new Map<string, DialectLink[]>();
 const entries = new Map<string, string>();
 const report: string[] = [];
 /** The models to write once the report is safely down. */
-const pending: { id: string; model: Model }[] = [];
+/** Every record this run writes, by id, written after the report so a report that cannot be written changes nothing. */
+const pending = new Map<string, Model>();
 const unmatched = new Map<string, number>();
 
 for (const dialect of records.dialects) {
@@ -140,7 +150,7 @@ for (const dialect of records.dialects) {
           dialects: [],
           basis: `named by the protocol catalogue in ${dialect.id}`,
         });
-        if (!dryRun) writeRecord(RECORDS_DIR, "models", id, model);
+        pending.set(id, model);
         records.models.push(model);
         reach(key(dialect.manufacturer, head), id);
         minted += 1;
@@ -176,11 +186,12 @@ for (const model of records.models) {
   for (const link of dialects) {
     if (had.has(link.dialect)) continue;
     const dialect = records.dialects.find((d) => d.id === link.dialect);
+    // A catalogue link cites nothing of its own; the dialect's sources are what a reviewer reads.
     report.push(
-      `| \`${model.id}\` | ${cell(model.name)} | \`${link.dialect}\` | ${cell(entries.get(`${model.id}\u0000${link.dialect}`) ?? "")} | ${dialect?.confidence ?? ""} | ${link.evidence.sources.map((c) => `\`${c.source}\``).join(", ")} |`,
+      `| \`${model.id}\` | ${cell(model.name)} | \`${link.dialect}\` | ${cell(entries.get(`${model.id}\u0000${link.dialect}`) ?? "")} | ${dialect?.confidence ?? ""} | ${(dialect?.sources ?? []).map((c) => `\`${c.source}\``).join(", ")} |`,
     );
   }
-  pending.push({ id: model.id, model: Model.parse({ ...model, dialects }) });
+  pending.set(model.id, Model.parse({ ...model, dialects }));
   touched += 1;
 }
 // The report goes first: a path that cannot be written stops the run before any record changes,
@@ -189,14 +200,14 @@ if (reportFile) {
   writeFileSync(
     reportFile,
     `${[
-      "| Model | Name | Dialect | Catalogue entry | Dialect confidence | Sources |",
+      "| Model | Name | Dialect | Catalogue entry | Dialect confidence | Dialect sources |",
       "|---|---|---|---|---|---|",
       ...report.sort(),
     ].join("\n")}\n`,
   );
   console.log(`${report.length} links written to ${reportFile}`);
 }
-for (const { id, model } of pending) if (!dryRun) writeRecord(RECORDS_DIR, "models", id, model);
+for (const [id, model] of pending) if (!dryRun) writeRecord(RECORDS_DIR, "models", id, model);
 
 console.log(
   `${linked} model entries linked to a record${dryRun ? " (dry run, nothing written)" : ""}`,
