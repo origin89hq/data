@@ -29,12 +29,14 @@ export function world(
   const store = new Map<string, Uint8Array>(
     Object.entries(objects).map(([k, v]) => [k, encode(v)]),
   );
+  const etag = (bytes: Uint8Array) => createHash("md5").update(bytes).digest("hex");
   const body = (bytes: Uint8Array) => ({
     size: bytes.length,
     get body() {
       return new Blob([bytes]).stream();
     },
-    httpEtag: `"${createHash("md5").update(bytes).digest("hex")}"`,
+    etag: etag(bytes),
+    httpEtag: `"${etag(bytes)}"`,
     text: async () => new TextDecoder().decode(bytes),
     json: async () => JSON.parse(new TextDecoder().decode(bytes)),
     arrayBuffer: async () => bytes.slice().buffer,
@@ -60,12 +62,24 @@ export function world(
       put: async (
         key: string,
         value: string | Uint8Array | ReadableStream<Uint8Array>,
-        options?: { sha256?: string },
+        options?: { sha256?: string; onlyIf?: { etagMatches?: string; etagDoesNotMatch?: string } },
       ) => {
         const bytes =
           value instanceof ReadableStream
             ? new Uint8Array(await new Response(value).arrayBuffer())
             : encode(value);
+        // What R2 does with a condition that fails: store nothing and answer null. "*" stands for
+        // any object at all. Checked against `wrangler dev`.
+        const held = store.get(key);
+        const { etagMatches, etagDoesNotMatch } = options?.onlyIf ?? {};
+        if (etagMatches !== undefined && (held === undefined || etag(held) !== etagMatches))
+          return null;
+        if (
+          etagDoesNotMatch !== undefined &&
+          held !== undefined &&
+          (etagDoesNotMatch === "*" || etag(held) === etagDoesNotMatch)
+        )
+          return null;
         const digest = createHash("sha256").update(bytes).digest("hex");
         // What R2 does with a declared digest: refuse the write, keep the old object, and end the
         // message with its code. Checked against `wrangler dev`.
@@ -76,7 +90,7 @@ export function world(
         store.set(key, bytes);
         if (options?.sha256 === undefined) sha256s.delete(key);
         else sha256s.set(key, digest);
-        return { key, size: bytes.length };
+        return { key, size: bytes.length, etag: etag(bytes) };
       },
       list: async ({
         prefix = "",

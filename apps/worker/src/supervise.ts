@@ -1,5 +1,6 @@
 import specPages from "../../../feeds/spec-pages.json" with { type: "json" };
 import { answeredInputs, classifyRun, convertRun, specPagesRun, visionRun } from "./enqueue.ts";
+import { LeaseHeld, underLease } from "./lease.ts";
 import { makerStates, sellerStates } from "./state.ts";
 
 /**
@@ -50,7 +51,32 @@ async function step(
   }
 }
 
+/**
+ * One pass, holding the supervisor's lease: a pass that finds it held throws `LeaseHeld` and
+ * queues nothing, whether the schedule, the route or the workflow started it.
+ */
 export async function supervise(env: Env, today: string): Promise<SupervisionReport> {
+  return underLease(env.ARCHIVE, () => pass(env, today));
+}
+
+/**
+ * The scheduled pass. One somebody started by hand is doing the same job, so this one steps aside
+ * rather than fail: on a Monday the seller crawls start after it, and a refusal must not stop them.
+ */
+export async function superviseIfFree(
+  env: Env,
+  today: string,
+): Promise<SupervisionReport | undefined> {
+  try {
+    return await supervise(env, today);
+  } catch (error) {
+    if (!(error instanceof LeaseHeld)) throw error;
+    console.log(JSON.stringify({ message: "supervision skipped", reason: error.message }));
+    return undefined;
+  }
+}
+
+async function pass(env: Env, today: string): Promise<SupervisionReport> {
   const report: SupervisionReport = {
     at: new Date().toISOString(),
     started: [],

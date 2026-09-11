@@ -6,6 +6,7 @@ import specPages from "../../../feeds/spec-pages.json" with { type: "json" };
 import { bearer } from "./authorised.ts";
 import { classifyRun, convertRun, specPagesRun, visionRun } from "./enqueue.ts";
 import { hasFeed } from "./feeds.ts";
+import { LeaseHeld, underLease } from "./lease.ts";
 import { manufacturers } from "./manufacturers.ts";
 import {
   admits,
@@ -313,9 +314,19 @@ controlRoutes.post("/run", async (c) => {
 
 // What the spider knows and what it is waiting on, read out of the archive rather than kept
 // beside it. A weekly cron can lose a dozen crawls and nothing would say so otherwise.
-controlRoutes.post("/supervise", async (c) =>
-  c.json(await supervise(c.env, c.req.query("date") ?? today())),
-);
+/** A pass already running is an answer the caller can read, not a server error. */
+const leaseHeld = (error: unknown): { error: string } | undefined =>
+  error instanceof LeaseHeld ? { error: error.message } : undefined;
+
+controlRoutes.post("/supervise", async (c) => {
+  try {
+    return c.json(await supervise(c.env, c.req.query("date") ?? today()));
+  } catch (error) {
+    const held = leaseHeld(error);
+    if (held) return c.json(held, 409);
+    throw error;
+  }
+});
 
 controlRoutes.get("/state", async (c) => {
   const [sellerState, makerState] = await Promise.all([
@@ -484,7 +495,17 @@ controlRoutes.post("/vision", async (c) => {
   const manufacturerId = c.req.query("id");
   const checkedAt = c.req.query("date");
   if (!manufacturerId || !checkedAt) return c.json({ error: "id and date required" }, 400);
-  return c.json(await visionRun(c.env, manufacturerId, checkedAt));
+  // An offer is what a pass makes, so it waits for the lease a pass holds: offered by both, a
+  // maker's pages would be queued and read twice.
+  try {
+    return c.json(
+      await underLease(c.env.ARCHIVE, () => visionRun(c.env, manufacturerId, checkedAt)),
+    );
+  } catch (error) {
+    const held = leaseHeld(error);
+    if (held) return c.json(held, 409);
+    throw error;
+  }
 });
 
 // One call rather than eighty-six. Discovery only reads pages a maker already publishes to search
