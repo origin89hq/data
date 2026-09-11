@@ -1,8 +1,13 @@
 {
   "id": "pulsetech",
   "name": "PulseTech Products (PowerPulse)",
-  "website": "https://pulsetech.net",
+  "website": "https://pulsetech.com",
   "domains": [
-    "pulsetech.net"
-  ]
+    "pulsetech.net",
+    "pulsetech.com"
+  ],
+  "documentHosts": [
+    "cdn.shopify.com"
+  ],
+  "notes": "pulsetech.net redirects to pulsetech.com, a Shopify shop whose product PDFs are on Shopify's CDN."
 }

@@ -5,6 +5,9 @@
   "domains": [
     "firmanpowerequipment.com"
   ],
+  "documentHosts": [
+    "cdn.shopify.com"
+  ],
   "sources": [
     "firmanpowerequipment-com-products-p08008",
     "firmanpowerequipment-com-products-p08013"

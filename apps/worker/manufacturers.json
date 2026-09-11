@@ -221,6 +221,9 @@
     "id": "eco-worthy",
     "domains": [
       "eco-worthy.com"
+    ],
+    "documentHosts": [
+      "cdn.shopify.com"
     ]
   },
   {
@@ -394,6 +397,9 @@
     "domains": [
       "firmanpowerequipment.com"
     ],
+    "documentHosts": [
+      "cdn.shopify.com"
+    ],
     "cited": {
       "documents": [],
       "pages": [
@@ -458,6 +464,9 @@
     "id": "integrarack",
     "domains": [
       "integrarack.com"
+    ],
+    "documentHosts": [
+      "img1.wsimg.com"
     ]
   },
   {
@@ -489,7 +498,8 @@
     "id": "kohler-energy",
     "domains": [
       "kohlerenergy.com",
-      "kohlerpower.com"
+      "kohlerpower.com",
+      "rehlko.com"
     ]
   },
   {
@@ -1035,7 +1045,8 @@
   {
     "id": "primus-wind-power",
     "domains": [
-      "primuswindpower.com"
+      "primuswindpower.com",
+      "airwindpower.com"
     ]
   },
   {
@@ -1047,7 +1058,11 @@
   {
     "id": "pulsetech",
     "domains": [
-      "pulsetech.net"
+      "pulsetech.net",
+      "pulsetech.com"
+    ],
+    "documentHosts": [
+      "cdn.shopify.com"
     ]
   },
   {
@@ -1219,7 +1234,8 @@
   {
     "id": "seaflo",
     "domains": [
-      "seaflo.com"
+      "seaflo.com",
+      "seaflomarinerv.com"
     ],
     "cited": {
       "documents": [],
@@ -1247,12 +1263,18 @@
     "id": "snapnrack",
     "domains": [
       "snapnrack.com"
+    ],
+    "documentHosts": [
+      "res.cloudinary.com"
     ]
   },
   {
     "id": "sok-battery",
     "domains": [
       "sokbattery.com"
+    ],
+    "documentHosts": [
+      "0fa80982-c142-44c6-a762-5e4fe5133859.usrfiles.com"
     ]
   },
   {
@@ -1368,6 +1390,9 @@
     "id": "sunpower",
     "domains": [
       "sunpower.com"
+    ],
+    "documentHosts": [
+      "framerusercontent.com"
     ]
   },
   {
@@ -1612,7 +1637,8 @@
   {
     "id": "wohner",
     "domains": [
-      "woehner.com"
+      "woehner.com",
+      "woehner.de"
     ]
   },
   {

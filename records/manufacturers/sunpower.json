@@ -4,5 +4,8 @@
   "website": "https://sunpower.com",
   "domains": [
     "sunpower.com"
+  ],
+  "documentHosts": [
+    "framerusercontent.com"
   ]
 }

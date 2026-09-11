@@ -5,6 +5,9 @@
   "domains": [
     "integrarack.com"
   ],
+  "documentHosts": [
+    "img1.wsimg.com"
+  ],
   "logo": {
     "source": "https://img1.wsimg.com/isteam/ip/a053742a-0309-4d8e-b466-2d4e7b01a03f/favicon/a87342aa-78f9-4197-895c-17c10edd8349.jpg/:/rs=w:64,h:64,m",
     "from": "maker",

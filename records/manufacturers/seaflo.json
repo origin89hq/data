@@ -3,7 +3,8 @@
   "name": "SEAFLO",
   "website": "https://www.seaflo.com",
   "domains": [
-    "seaflo.com"
+    "seaflo.com",
+    "seaflomarinerv.com"
   ],
   "sources": [
     "seaflo-com-index-php-m-home-c-lists-a-index-tid-332",
@@ -19,5 +20,6 @@
       256
     ],
     "checkedAt": "2026-09-10"
-  }
+  },
+  "notes": "seaflo.com's sitemap lists its product pages on seaflomarinerv.com."
 }

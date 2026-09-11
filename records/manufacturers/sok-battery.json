@@ -5,6 +5,9 @@
   "domains": [
     "sokbattery.com"
   ],
+  "documentHosts": [
+    "0fa80982-c142-44c6-a762-5e4fe5133859.usrfiles.com"
+  ],
   "logo": {
     "source": "https://static.wixstatic.com/media/0fa809_b2342b72cce94d02a25a709f2bf75985%7Emv2.jpg/v1/fill/w_192%2Ch_192%2Clg_1%2Cusm_0.66_1.00_0.01/0fa809_b2342b72cce94d02a25a709f2bf75985%7Emv2.jpg",
     "from": "maker",
