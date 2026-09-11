@@ -111,8 +111,9 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       },
     );
 
-    // The cited pages the budget let in, which is what the plan may claim were read as seeds.
-    const citedRead = pages.filter((p) => cited.pages.includes(p)).length;
+    // Cited pages that answered with a page, counted as the batches read them: a cited seed the
+    // budget let in but that refused or moved is not a page that was read.
+    let citedRead = 0;
     const found: Found[] = [];
     const specPages: SpecPageCandidate[] = [];
     // What the pages answered, kept beside the plan: a plan that offers nothing has to say whether
@@ -120,7 +121,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     const seen: DiscoverySeen = {
       hosts,
       pages: { listed, read: 0, followed: 0, failed: {} },
-      cited: { documents: 0, pages: citedRead },
+      cited: { documents: 0, pages: 0 },
       foreignDocumentHosts: {},
       redirectedTo: [...new Set(hosts.flatMap((h) => h.redirectedTo))].sort(),
     };
@@ -133,6 +134,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     const landedAt = new Set<string>();
     const candidates: string[] = [];
     const take = (batch: PagesRead): void => {
+      citedRead += batch.opened.filter((p) => cited.pages.includes(p)).length;
       for (const f of batch.links) if (!found.some((x) => x.url === f.url)) found.push(f);
       specPages.push(...batch.tables);
       for (const url of batch.landed) {
