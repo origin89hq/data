@@ -304,7 +304,7 @@ export async function discoverPages(
 }
 
 /** An `href`, quoted either way or not at all, as HTML allows. */
-const HREF = /\bhref\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>"']+))/gi;
+const HREF = /(?<![-\w])href\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>"']+))/gi;
 
 /** Files a page links that are neither pages to read nor documents to keep. */
 const ASSET =
@@ -344,6 +344,8 @@ export function pageLinks(html: string, pageUrl: string, domains: readonly strin
 export const MAX_LINKS_PER_BATCH = 2000;
 /** And bounded in bytes as well, since generated filter addresses can run long. */
 export const MAX_FRONTIER_BYTES = 512 * 1024;
+/** The whole serialized result stays under this, well inside the mebibyte a step may return. */
+export const MAX_RESULT_BYTES = 768 * 1024;
 
 /** Paths a maker keeps its documents behind, ahead of its blog, its careers page and its cart. */
 const WORTH_FIRST =
@@ -400,6 +402,8 @@ export interface PagesRead {
   linksDropped: number;
   /** Where each page read actually was, after redirects, so a link back to it is not a page to follow. */
   landed: string[];
+  /** Pages actually asked for: one in the batch that an earlier page had already landed on is skipped. */
+  attempted: number;
   read: number;
   /** The pages asked for that answered with a page, as they were asked for. */
   opened: string[];
@@ -427,6 +431,7 @@ export async function readPages(
     pages: [],
     linksDropped: 0,
     landed: [],
+    attempted: 0,
     opened: [],
     read: 0,
     failed: {},
@@ -437,6 +442,9 @@ export async function readPages(
   const linked = new Set<string>();
   const collected: string[] = [];
   for (const page of pages) {
+    // Two candidates in one batch can be one page, when the first redirects to the second.
+    if (out.landed.includes(page)) continue;
+    out.attempted += 1;
     const answer = await get(page);
     const away = strayed(answer, domains);
     if (away) strayedTo.add(away);
@@ -499,7 +507,25 @@ export async function readPages(
     bytes += link.length;
   }
   out.linksDropped = ranked.length - out.pages.length;
+  bound(out);
   return out;
+}
+
+/**
+ * Keep the serialized result under the step-result cap: first the frontier gives way, then the
+ * foreign document lists, since both are counts a person reads and neither is lost entirely.
+ */
+function bound(out: PagesRead): void {
+  const size = () => JSON.stringify(out).length;
+  while (size() > MAX_RESULT_BYTES && out.pages.length > 0) {
+    const keep = Math.floor(out.pages.length * 0.8);
+    out.linksDropped += out.pages.length - keep;
+    out.pages = out.pages.slice(0, keep);
+  }
+  for (const host of Object.keys(out.foreign)) {
+    if (size() <= MAX_RESULT_BYTES) break;
+    out.foreign[host] = (out.foreign[host] ?? []).slice(0, 20);
+  }
 }
 
 /** Everything discovery saw, written beside the plan so an empty one can be explained. */

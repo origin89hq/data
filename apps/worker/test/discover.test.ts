@@ -12,6 +12,7 @@ import {
   MAX_CHILD_SITEMAPS,
   MAX_FRONTIER_BYTES,
   MAX_LINKS_PER_BATCH,
+  MAX_RESULT_BYTES,
   nextHop,
   pageLinks,
   readPages,
@@ -496,6 +497,49 @@ test("the frontier is bounded in bytes too, since generated addresses run long",
   assert.ok(bytes <= MAX_FRONTIER_BYTES, `${bytes} bytes handed back`);
   assert.ok(read.pages.length < 600 && read.pages.length > 0);
   assert.equal(read.linksDropped, 600 - read.pages.length);
+});
+
+test("a candidate an earlier page in the batch landed on is not asked for again", async () => {
+  const { get, asked } = site({
+    "https://maker.test/a": { url: "https://maker.test/b", text: `<a href="/c">c</a>` },
+    "https://maker.test/b": `<a href="/d">d</a>`,
+  });
+  const read = await readPages(
+    ["https://maker.test/a", "https://maker.test/b"],
+    ["maker.test"],
+    get,
+  );
+  assert.deepEqual(asked, ["https://maker.test/a"]);
+  assert.deepEqual([read.attempted, read.read, read.landed], [1, 1, ["https://maker.test/b"]]);
+});
+
+test("the whole result stays under the step cap, frontier first and foreign lists after", async () => {
+  const links = Array.from(
+    { length: 3000 },
+    (_, i) => `<a href="/p/${"y".repeat(300)}/${i}">${i}</a>`,
+  );
+  const foreign = Array.from(
+    { length: 900 },
+    (_, i) => `<a href="https://cdn.other.test/${"z".repeat(500)}/${i}.pdf">${i}</a>`,
+  );
+  const { get } = site({ "https://maker.test/a": links.join("") + foreign.join("") });
+  const read = await readPages(["https://maker.test/a"], ["maker.test"], get);
+  assert.ok(
+    JSON.stringify(read).length <= MAX_RESULT_BYTES,
+    `${JSON.stringify(read).length} bytes`,
+  );
+  assert.ok(read.pages.length > 0, "the frontier is trimmed, not emptied");
+  assert.equal(read.linksDropped, 3000 - read.pages.length);
+});
+
+test("href text in a script, a comment or a data attribute is not a page to follow", () => {
+  const html = `<a href="/product/real">real</a>
+    <script>location.href="/js/fake"; var o = {href: "/js/other"};</script>
+    <!-- <a href="/old/page">gone</a> -->
+    <div data-href="/data/attr">not a link</div>`;
+  assert.deepEqual(pageLinks(html, "https://www.maker.test/", ["maker.test"]), [
+    "https://www.maker.test/product/real",
+  ]);
 });
 
 test("links are followed product and download pages first, in the order they were found", () => {

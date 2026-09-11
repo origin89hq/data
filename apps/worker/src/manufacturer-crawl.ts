@@ -172,7 +172,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
         readPages(slice, domains),
       );
       take(batch);
-      remaining -= slice.length;
+      remaining -= batch.attempted;
       seen.pages.followed = (seen.pages.followed ?? 0) + batch.read;
       await step.sleep(`politeness after links ${b + 1}`, "2 seconds");
     }
