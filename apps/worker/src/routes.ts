@@ -26,12 +26,10 @@ import {
   datasetKey,
   datasetType,
   LOGO_PATH,
-  newRun,
   pointerKey,
   readable,
   readPointer,
 } from "./runs.ts";
-import type { SellerCrawlParams } from "./seller-crawl.ts";
 import { sellers } from "./sellers.ts";
 import {
   authRoutes,
@@ -40,6 +38,14 @@ import {
   identify,
   localControlToken,
 } from "./sign-in.ts";
+import {
+  RunConflict,
+  RunStartUncertain,
+  startIfFree,
+  startMaker,
+  startSeller,
+  workflowOf,
+} from "./start-run.ts";
 import { makerStates, sellerStates } from "./state.ts";
 import { supervise } from "./supervise.ts";
 import { partKey } from "./work.ts";
@@ -293,23 +299,18 @@ controlRoutes.post("/run", async (c) => {
   const sellerId = c.req.query("seller");
   const seller = sellers.find((s) => s.id === sellerId);
   if (!sellerId || !seller) return c.json({ error: "unknown seller" }, 400);
-  const run = newRun();
-  if (hasFeed(seller)) {
-    const params: SellerCrawlParams = { sellerId, run: run.id, checkedAt: run.date };
-    const instance = await c.env.SELLER_CRAWL.create({ id: run.id, params });
-    return c.json({ id: instance.id, tier: "feed" });
+  const limit = Number(c.req.query("limit") ?? "120");
+  if (!Number.isSafeInteger(limit) || limit < 1 || limit > 500)
+    return c.json({ error: "limit must be an integer from 1 to 500" }, 400);
+  const tier = hasFeed(seller) ? "feed" : "page";
+  try {
+    const result = await startSeller(c.env, sellerId, tier, limit);
+    return c.json({ ...result, tier });
+  } catch (error) {
+    if (error instanceof RunConflict) return c.json({ error: error.message }, 409);
+    if (error instanceof RunStartUncertain) return c.json({ error: error.message }, 503);
+    throw error;
   }
-  const limit = c.req.query("limit");
-  const instance = await c.env.PAGE_CRAWL.create({
-    id: `page-${run.id}`,
-    params: {
-      sellerId,
-      run: run.id,
-      checkedAt: run.date,
-      ...(limit ? { limit: Number(limit) } : {}),
-    },
-  });
-  return c.json({ id: instance.id, tier: "page" });
 });
 
 // What the spider knows and what it is waiting on, read out of the archive rather than kept
@@ -464,21 +465,33 @@ controlRoutes.post("/maker", async (c) => {
     .filter(Boolean);
   if (!manufacturerId || domains.length === 0)
     return c.json({ error: "id and domains required" }, 400);
+  if (
+    !/^[a-z0-9][a-z0-9-]{0,63}$/.test(manufacturerId) ||
+    domains.some((host) => !/^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,}$/.test(host))
+  )
+    return c.json({ error: "use a maker ID and bare domain names" }, 400);
+  const maker = manufacturers.find((item) => item.id === manufacturerId);
+  if (!maker) return c.json({ error: "unknown manufacturer" }, 400);
+  if (domains.some((domain) => !maker.domains.includes(domain)))
+    return c.json(
+      { error: `Use the configured domains for ${manufacturerId}: ${maker.domains.join(", ")}.` },
+      400,
+    );
   const pages = c.req.query("pages");
-  const run = newRun();
-  const id = `maker-${manufacturerId}-${run.id}`;
-  const instance = await c.env.MANUFACTURER_CRAWL.create({
-    id,
-    params: {
-      instanceId: id,
-      run: run.id,
-      manufacturerId,
-      domains,
-      checkedAt: run.date,
-      ...(pages ? { pageLimit: Number(pages) } : {}),
-    },
-  });
-  return c.json({ id: instance.id });
+  if (
+    pages !== undefined &&
+    (!Number.isSafeInteger(Number(pages)) || Number(pages) < 1 || Number(pages) > 500)
+  )
+    return c.json({ error: "pages must be an integer from 1 to 500" }, 400);
+  try {
+    return c.json(
+      await startMaker(c.env, manufacturerId, domains, pages ? Number(pages) : undefined),
+    );
+  } catch (error) {
+    if (error instanceof RunConflict) return c.json({ error: error.message }, 409);
+    if (error instanceof RunStartUncertain) return c.json({ error: error.message }, 503);
+    throw error;
+  }
 });
 
 controlRoutes.post("/convert", async (c) => {
@@ -516,24 +529,15 @@ controlRoutes.post("/vision", async (c) => {
 controlRoutes.post("/discover-all", async (c) => {
   const checkedAt = c.req.query("date") ?? today();
   const pages = Number(c.req.query("pages") ?? "150");
+  if (!Number.isSafeInteger(pages) || pages < 1 || pages > 500)
+    return c.json({ error: "pages must be an integer from 1 to 500" }, 400);
   const started: string[] = [];
+  const skipped: string[] = [];
   for (const maker of manufacturers) {
-    const run = newRun();
-    const id = `maker-${maker.id}-${run.id}`;
-    await c.env.MANUFACTURER_CRAWL.create({
-      id,
-      params: {
-        instanceId: id,
-        run: run.id,
-        manufacturerId: maker.id,
-        domains: maker.domains,
-        checkedAt: run.date,
-        pageLimit: pages,
-      },
-    });
-    started.push(maker.id);
+    const id = await startIfFree(() => startMaker(c.env, maker.id, maker.domains, pages));
+    (id ? started : skipped).push(maker.id);
   }
-  return c.json({ started: started.length, checkedAt });
+  return c.json({ started: started.length, skipped, checkedAt });
 });
 
 controlRoutes.post("/spec-pages", async (c) => {
@@ -568,15 +572,6 @@ controlRoutes.post("/approve", async (c) => {
   await instance.sendEvent({ type: APPROVAL_EVENT, payload: parsed.data });
   return c.json({ sent: parsed.data.approved, to: id });
 });
-
-/** The workflow an instance belongs to, told by the prefix it was created with. */
-function workflowOf(env: Env, id: string): Workflow {
-  return id.startsWith("page-")
-    ? env.PAGE_CRAWL
-    : id.startsWith("maker-")
-      ? env.MANUFACTURER_CRAWL
-      : env.SELLER_CRAWL;
-}
 
 controlRoutes.get("/status", async (c) => {
   const id = c.req.query("id");

@@ -1,306 +1,925 @@
-import { useEffect, useState } from "react";
+import avatar from "@origin89/brand/art/avatar-round.webp";
+import favicon from "@origin89/brand/icons/favicon.svg";
+import logoBlue from "@origin89/brand/logos/origin89-horizontal-blue.svg";
+import logoWhite from "@origin89/brand/logos/origin89-horizontal-white.svg";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { Icon } from "../icons.tsx";
 import {
-  type Loaded,
-  type MakerState,
+  type DatasetFile,
   type Pipeline,
   pipeline,
-  type RunStatus,
-  type SellerState,
+  published,
   type SupervisionReport,
   supervision,
   whoami,
 } from "./api.ts";
+import { RunDetail } from "./RunDetail.tsx";
+import { Empty, Loading, Notice, Status } from "./ui.tsx";
+import { useResource } from "./useResource.ts";
+import {
+  bytes,
+  count,
+  csv,
+  displayName,
+  download,
+  type Filter,
+  type RunRow,
+  readView,
+  runRows,
+  selectRows,
+  type View,
+  viewSearch,
+  when,
+} from "./workspace.ts";
 
-/**
- * What the spider is doing, for members of the working group.
- *
- * Read-only. Approving a download and starting a crawl stay with `just` for now; the routes they
- * call take this page's session as well, so buttons can come later without a new way in.
- */
+const Records = lazy(() => import("./Records.tsx"));
+const NAV = [
+  { id: "overview", label: "Overview", icon: "equipment" },
+  { id: "makers", label: "Manufacturers", icon: "protocols" },
+  { id: "sellers", label: "Sellers", icon: "specifications" },
+  { id: "records", label: "Records & corrections", icon: "evidence" },
+  { id: "files", label: "Published files", icon: "download" },
+  { id: "supervisor", label: "Supervisor activity", icon: "activity" },
+] as const;
+const FILTERS: { id: Filter; label: string }[] = [
+  { id: "all", label: "All runs" },
+  { id: "review", label: "Awaiting approval" },
+  { id: "attention", label: "Needs attention" },
+  { id: "active", label: "In progress" },
+  { id: "readings", label: "Readings available" },
+];
+const TITLES: Record<View, [string, string]> = {
+  overview: [
+    "A clear view of the work ahead.",
+    "Review the queue, follow collection, and keep the dataset moving.",
+  ],
+  makers: ["Manufacturer runs", "From discovery to sourced equipment figures."],
+  sellers: ["Seller runs", "Follow collection and classification across the equipment market."],
+  records: [
+    "Records & corrections",
+    "Trace a claim to its source and prepare a reviewable correction.",
+  ],
+  files: ["Published database", "The files your users and integrations can read today."],
+  supervisor: ["Supervisor activity", "What the latest pass started, and what still needs a hand."],
+};
+
 export function Ops() {
-  const [login, setLogin] = useState<Loaded<string>>({ state: "loading" });
-  const [report, setReport] = useState<Loaded<SupervisionReport | null>>({ state: "loading" });
-  const [runs, setRuns] = useState<Loaded<Pipeline>>({ state: "idle" });
-
+  const initial = useMemo(() => readView(window.location.search), []);
+  const [view, setView] = useState<View>(initial.view);
+  const [filter, setFilter] = useState<Filter>(initial.filter);
+  const [query, setQuery] = useState(initial.query);
+  const [sort, setSort] = useState<"attention" | "name" | "recent">("attention");
+  const [page, setPage] = useState(0);
+  const [selected, setSelected] = useState<RunRow>();
+  const [toast, setToast] = useState("");
+  const [dirty, setDirty] = useState(false);
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    try {
+      return localStorage.getItem("origin89-ops-theme") === "dark" ? "dark" : "light";
+    } catch {
+      return "light";
+    }
+  });
+  const login = useResource<string>();
+  const report = useResource<SupervisionReport | null>();
+  const runs = useResource<Pipeline>();
+  const files = useResource<DatasetFile[]>();
+  const search = useRef<HTMLInputElement>(null);
   useEffect(() => {
-    void settle(whoami(), setLogin);
-    void settle(supervision(), setReport);
+    void login.load(whoami);
+  }, [login.load]);
+  useEffect(() => {
+    if (login.value) {
+      void report.load(supervision);
+      void files.load(published);
+    }
+  }, [login.value, report.load, files.load]);
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    try {
+      localStorage.setItem("origin89-ops-theme", theme);
+    } catch {}
+  }, [theme]);
+  useEffect(() => {
+    window.history.replaceState(
+      null,
+      "",
+      `${window.location.pathname}${viewSearch(view, filter, query)}`,
+    );
+  }, [view, filter, query]);
+  useEffect(() => {
+    const shortcut = (event: KeyboardEvent) => {
+      if (
+        event.key === "/" &&
+        !(event.target instanceof HTMLInputElement) &&
+        !(event.target instanceof HTMLTextAreaElement) &&
+        !document.querySelector("dialog[open]")
+      ) {
+        event.preventDefault();
+        search.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", shortcut);
+    return () => window.removeEventListener("keydown", shortcut);
   }, []);
-
-  return (
-    <>
-      <header className="ops-header">
-        <a className="ops-identity" href="/" aria-label="Origin89 Data home">
-          {/* The blue mark's wordmark is near black, for paper. The white one is for the dark ground. */}
-          <picture>
-            <source
-              srcSet="/assets/logos/origin89-horizontal-white.svg"
-              media="(prefers-color-scheme: dark)"
-            />
-            <img
-              src="/assets/logos/origin89-horizontal-blue.svg"
-              width="130"
-              height="22"
-              alt="Origin89"
-            />
-          </picture>
-          <span className="ops-word">data</span>
-          <span className="ops-word ops-section">runs</span>
-        </a>
-        <div className="ops-who">
-          {login.state === "ready" ? (
-            <>
-              <span>
-                Signed in as <strong>{login.value}</strong>
-              </span>
-              <form method="post" action="/auth/logout">
-                <button type="submit" className="ops-button quiet">
-                  Sign out
-                </button>
-              </form>
-            </>
-          ) : login.state === "failed" ? (
-            <a className="ops-button" href="/auth/login?next=%2Fops">
-              Sign in again
+  const rows = useMemo(() => (runs.value ? runRows(runs.value) : []), [runs.value]);
+  const shown = useMemo(
+    () => selectRows(rows, view, filter, query, sort),
+    [rows, view, filter, query, sort],
+  );
+  const currentPage = Math.min(page, Math.max(0, Math.ceil(shown.length / 12) - 1));
+  const expired = login.expired || runs.expired || report.expired || files.expired;
+  const loading = runs.loading || report.loading || files.loading;
+  const navigate = (next: View, nextFilter: Filter = "all") => {
+    setView(next);
+    setFilter(nextFilter);
+    setQuery("");
+    setPage(0);
+  };
+  const refresh = () => {
+    if (!login.value || expired) return;
+    setDirty(false);
+    void runs.load(pipeline);
+    void report.load(supervision);
+    void files.load(published);
+  };
+  const share = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setToast("View link copied.");
+    } catch {
+      setToast("Couldn’t copy the link. Copy it from the address bar.");
+    }
+  };
+  if (!login.value)
+    return (
+      <div className="ops-signin">
+        <link rel="icon" href={favicon} />
+        <img src={logoBlue} alt="Origin89" width="190" />
+        {login.error ? (
+          <>
+            <h1>Sign in to your data workspace.</h1>
+            <p>{login.error}</p>
+            {!login.expired && (
+              <button className="ops-button" type="button" onClick={() => void login.load(whoami)}>
+                Try again
+              </button>
+            )}
+            <a className="ops-button primary" href="/auth/login?next=%2Fops">
+              Sign in with GitHub <Icon name="arrowRight" />
             </a>
-          ) : null}
+          </>
+        ) : (
+          <Loading label="Checking your session…" />
+        )}
+      </div>
+    );
+  return (
+    <div className="ops-app">
+      <link rel="icon" href={favicon} />
+      <a className="skip" href="#ops-main">
+        Skip to workspace
+      </a>
+      <aside className="ops-sidebar">
+        <a className="ops-identity" href="/" aria-label="Origin89 Data home">
+          <img src={theme === "dark" ? logoWhite : logoBlue} width="182" alt="Origin89" />
+          <span>DATA WORKSPACE</span>
+        </a>
+        <p className="ops-nav-label">COLLECTION & CURATION</p>
+        <nav className="ops-nav" aria-label="Workspace navigation">
+          {NAV.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              aria-current={view === item.id ? "page" : undefined}
+              onClick={() => navigate(item.id)}
+            >
+              <Icon name={item.icon} />
+              <span>{item.label}</span>
+              {item.id === "makers" && runs.value ? (
+                <small>{runs.value.makers.length}</small>
+              ) : item.id === "sellers" && runs.value ? (
+                <small>{runs.value.sellers.length}</small>
+              ) : null}
+            </button>
+          ))}
+        </nav>
+        <div className="ops-sidebar-bottom">
+          <div className="ops-buddy-tip">
+            <img src={avatar} width="38" height="38" alt="Buddy" />
+            <p>
+              Keep the source close.<span>Every correction starts with a document.</span>
+            </p>
+          </div>
+          <a href="/" target="_blank" rel="noopener">
+            Visit the public dataset <Icon name="arrowUpRight" />
+          </a>
+          <a href="https://github.com/origin89hq/offgrid-equipment" target="_blank" rel="noopener">
+            Repository <Icon name="arrowUpRight" />
+          </a>
         </div>
-      </header>
-
-      <main className="ops-main">
-        <Supervisor report={report} />
-
-        <section className="ops-panel" aria-labelledby="runs-title">
-          <div className="ops-panel-head">
-            <h2 id="runs-title">Current runs</h2>
+      </aside>
+      <div className="ops-workspace">
+        <header className="ops-topbar">
+          <div>
+            <span className="ops-breadcrumb">Origin89 Data</span>
+            <span>/</span>
+            <strong>{NAV.find((item) => item.id === view)?.label}</strong>
+          </div>
+          <div className="ops-account">
             <button
               type="button"
-              className="ops-button"
-              disabled={runs.state === "loading"}
-              onClick={() => {
-                setRuns({ state: "loading" });
-                void settle(pipeline(), setRuns);
-              }}
+              className="ops-quiet"
+              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
             >
-              {runs.state === "ready" ? "Load again" : "Load"}
+              {theme === "light" ? "Dark mode" : "Light mode"}
+            </button>
+            <span className="ops-account-name">
+              <span className="ops-avatar">{login.value.slice(0, 2).toUpperCase()}</span>
+              {login.value}
+            </span>
+            <form method="post" action="/auth/logout">
+              <button type="submit" className="ops-quiet">
+                Sign out
+              </button>
+            </form>
+          </div>
+        </header>
+        <main id="ops-main" className="ops-main">
+          <div className="ops-page-heading">
+            <div>
+              <p className="ops-eyebrow">EQUIPMENT KNOWLEDGE / OPERATIONS</p>
+              <h1>{TITLES[view][0]}</h1>
+              <p>{TITLES[view][1]}</p>
+            </div>
+            <button
+              type="button"
+              className="ops-button primary"
+              disabled={loading || expired}
+              onClick={refresh}
+            >
+              <Icon name="refresh" />
+              {runs.loading
+                ? "Refreshing…"
+                : runs.value
+                  ? "Refresh workspace"
+                  : "Load current runs"}
             </button>
           </div>
-          <p className="ops-note">
-            Reads every seller's and maker's current run out of the archive, and asks the Workflows
-            service about each. It takes a few seconds, so it waits to be asked.
-            {runs.state === "ready" ? ` Loaded ${time(runs.value.at)}.` : null}
-          </p>
-          {runs.state === "loading" ? <p className="ops-note">Loading…</p> : null}
-          {runs.state === "failed" ? <p className="ops-error">{runs.error}</p> : null}
-          {runs.state === "ready" ? (
+          <div className="ops-snapshot">
+            <span>
+              <span className={`ops-dot ${dirty ? "warning" : ""}`} />
+              {runs.value
+                ? `${runs.error ? "Last successful snapshot" : "Snapshot"} · ${when(runs.value.at)}`
+                : "Current runs haven’t been loaded yet"}
+            </span>
+            <span>
+              Refresh on demand{" "}
+              <button className="ops-quiet" type="button" onClick={() => void share()}>
+                <Icon name="copy" />
+                Copy view link
+              </button>
+            </span>
+          </div>
+          {toast && (
+            <Notice>
+              {toast}
+              <button className="ops-quiet" type="button" onClick={() => setToast("")}>
+                Dismiss
+              </button>
+            </Notice>
+          )}
+          {expired && (
+            <Notice alarm>
+              Your session expired. <a href="/auth/login?next=%2Fops">Sign in again</a> before
+              continuing.
+            </Notice>
+          )}
+          {dirty && (
+            <Notice>A collection request was sent. Refresh the workspace to see its result.</Notice>
+          )}
+          {runs.error && (
+            <Notice alarm>
+              {runs.value ? "Refresh failed. The previous snapshot is still shown. " : ""}
+              {runs.error}
+            </Notice>
+          )}
+          {runs.value?.workflowError && (
+            <Notice alarm>
+              Run data loaded, but workflow statuses are unavailable. {runs.value.workflowError}
+            </Notice>
+          )}
+          {view === "overview" && (
             <>
-              <Makers makers={runs.value.makers} runs={runs.value.runs} />
-              <Sellers sellers={runs.value.sellers} runs={runs.value.runs} />
+              <Metrics
+                rows={runs.value ? rows : undefined}
+                statusesUnavailable={!!runs.value?.workflowError}
+                onFilter={(category) => {
+                  setFilter(category);
+                  setPage(0);
+                }}
+              />
+              <div className="ops-overview-grid">
+                <div className="ops-summary-card">
+                  <div className="ops-section-heading">
+                    <h2>Next up</h2>
+                    <span className="ops-tag">HUMAN IN THE LOOP</span>
+                  </div>
+                  <p>
+                    Review a document plan before its downloads begin. Investigate stopped workflows
+                    from the same queue.
+                  </p>
+                  <div className="ops-quick-views">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setFilter("review");
+                        setPage(0);
+                      }}
+                    >
+                      <Icon name="evidence" />
+                      <span>
+                        Review download plans
+                        <small>
+                          {runs.value
+                            ? `${rows.filter((row) => row.category === "review").length} waiting for a decision`
+                            : "Load runs to see the review queue"}
+                        </small>
+                      </span>
+                      <Icon name="arrowRight" />
+                    </button>
+                    <button type="button" onClick={() => navigate("records")}>
+                      <Icon name="specifications" />
+                      <span>
+                        Prepare a record correction
+                        <small>Check the source and export a patch</small>
+                      </span>
+                      <Icon name="arrowRight" />
+                    </button>
+                  </div>
+                </div>
+                <div className="ops-summary-card field">
+                  <div className="ops-section-heading">
+                    <h2>Latest supervisor pass</h2>
+                    <button
+                      className="ops-quiet"
+                      type="button"
+                      onClick={() => navigate("supervisor")}
+                    >
+                      View activity <Icon name="arrowRight" />
+                    </button>
+                  </div>
+                  {report.error ? (
+                    <Notice alarm>{report.error}</Notice>
+                  ) : report.loading && !report.value ? (
+                    <Loading label="Reading the latest pass…" />
+                  ) : report.value ? (
+                    <>
+                      <p className="ops-note">{when(report.value.at)}</p>
+                      <div className="ops-pass-stats">
+                        <div>
+                          <strong>{report.value.started.length}</strong>
+                          <span>started</span>
+                        </div>
+                        <div>
+                          <strong>{report.value.blocked.length}</strong>
+                          <span>blocked</span>
+                        </div>
+                        <div>
+                          <strong>{report.value.concerns.length}</strong>
+                          <span>concerns</span>
+                        </div>
+                      </div>
+                      <p>{report.value.concerns[0] ?? "No concerns were reported in this pass."}</p>
+                    </>
+                  ) : (
+                    <p>No supervisor report has been published.</p>
+                  )}
+                </div>
+              </div>
             </>
-          ) : null}
-        </section>
-      </main>
-    </>
-  );
-}
-
-/** Put a promise's outcome into a panel's state, whichever way it goes. */
-async function settle<T>(promise: Promise<T>, set: (loaded: Loaded<T>) => void): Promise<void> {
-  try {
-    set({ state: "ready", value: await promise });
-  } catch (error) {
-    set({ state: "failed", error: error instanceof Error ? error.message : String(error) });
-  }
-}
-
-const time = (at: Date) => `${at.toISOString().slice(0, 16).replace("T", " ")} UTC`;
-
-/** A figure the archive has, or a dash where it has none. Never a zero standing in for unknown. */
-const known = (value: number | string | undefined) =>
-  value === undefined ? <span className="ops-absent">—</span> : value;
-
-function Supervisor({ report }: { report: Loaded<SupervisionReport | null> }) {
-  return (
-    <section className="ops-panel" aria-labelledby="supervisor-title">
-      <div className="ops-panel-head">
-        <h2 id="supervisor-title">Supervisor</h2>
-        {report.state === "ready" && report.value ? (
-          <span className="ops-note">last pass {time(new Date(report.value.at))}</span>
-        ) : null}
+          )}
+          {(view === "overview" || view === "makers" || view === "sellers") && (
+            <section className="ops-panel">
+              <div className="ops-section-heading">
+                <div>
+                  <p className="ops-eyebrow">
+                    {view === "overview" ? "YOUR COLLECTION QUEUE" : "CURRENT RUNS"}
+                  </p>
+                  <h2>
+                    {view === "overview"
+                      ? "Everything that needs a next step."
+                      : view === "makers"
+                        ? "Manufacturer collection"
+                        : "Seller collection"}
+                  </h2>
+                </div>
+                <button
+                  type="button"
+                  className="ops-button"
+                  disabled={!runs.value || !shown.length}
+                  onClick={() => download("origin89-runs.csv", csv(shown), "text/csv")}
+                >
+                  <Icon name="download" />
+                  Export view
+                </button>
+              </div>
+              <div className="ops-toolbar">
+                <label className="ops-search">
+                  <Icon name="search" />
+                  <input
+                    ref={search}
+                    type="search"
+                    aria-label="Search runs"
+                    placeholder="Search names, workflow IDs, or next steps…"
+                    value={query}
+                    onChange={(event) => {
+                      setQuery(event.target.value);
+                      setPage(0);
+                    }}
+                  />
+                  <kbd>/</kbd>
+                </label>
+                <select
+                  aria-label="Sort runs"
+                  value={sort}
+                  onChange={(event) => {
+                    setSort(event.target.value as typeof sort);
+                    setPage(0);
+                  }}
+                >
+                  <option value="attention">Attention first</option>
+                  <option value="name">Name A–Z</option>
+                  <option value="recent">Most recent</option>
+                </select>
+              </div>
+              <section className="ops-filters" aria-label="Filter runs">
+                {FILTERS.filter(
+                  (item) => view !== "sellers" || !["review", "readings"].includes(item.id),
+                ).map((item) => (
+                  <button
+                    type="button"
+                    key={item.id}
+                    aria-pressed={filter === item.id}
+                    onClick={() => {
+                      setFilter(item.id);
+                      setPage(0);
+                    }}
+                  >
+                    {item.label}
+                    {runs.value && (
+                      <span>
+                        {runs.value.workflowError && ["active", "attention"].includes(item.id)
+                          ? "—"
+                          : selectRows(rows, view, item.id, "", sort).length}
+                      </span>
+                    )}
+                  </button>
+                ))}
+              </section>
+              {runs.loading && !runs.value ? (
+                <Loading label="Loading the current collection runs…" />
+              ) : !runs.value ? (
+                <Empty title="Your collection, in one place">
+                  Load current runs to see approval requests, progress, and workflow errors.
+                </Empty>
+              ) : shown.length === 0 ? (
+                <Empty title="No runs match this view">
+                  Try another search or clear the filters.
+                </Empty>
+              ) : (
+                <RunTable
+                  rows={shown.slice(currentPage * 12, (currentPage + 1) * 12)}
+                  onSelect={setSelected}
+                />
+              )}
+              {runs.value && (
+                <div className="ops-table-foot">
+                  <span>
+                    {shown.length
+                      ? `${currentPage * 12 + 1}–${Math.min((currentPage + 1) * 12, shown.length)} of ${shown.length}`
+                      : "0 matching"}{" "}
+                    runs
+                  </span>
+                  <div>
+                    <button
+                      type="button"
+                      className="ops-icon-button"
+                      aria-label="Previous runs page"
+                      disabled={currentPage === 0}
+                      onClick={() => setPage(currentPage - 1)}
+                    >
+                      <Icon name="arrowLeft" />
+                    </button>
+                    <span>
+                      {currentPage + 1} / {Math.max(1, Math.ceil(shown.length / 12))}
+                    </span>
+                    <button
+                      type="button"
+                      className="ops-icon-button"
+                      aria-label="Next runs page"
+                      disabled={(currentPage + 1) * 12 >= shown.length}
+                      onClick={() => setPage(currentPage + 1)}
+                    >
+                      <Icon name="arrowRight" />
+                    </button>
+                  </div>
+                </div>
+              )}
+            </section>
+          )}
+          {view === "records" && (
+            <Suspense fallback={<Loading label="Opening the record workspace…" />}>
+              <Records />
+            </Suspense>
+          )}
+          {view === "files" && (
+            <Published
+              files={files.value}
+              loading={files.loading}
+              error={files.error}
+              query={query}
+              onSearch={setQuery}
+            />
+          )}
+          {view === "supervisor" && (
+            <Supervisor
+              report={report.value}
+              error={report.error}
+              loading={report.loading}
+              onEntity={(entity) => {
+                const row = rows.find((row) => row.entity === entity);
+                if (row) setSelected(row);
+                else {
+                  navigate("overview");
+                  setQuery(entity);
+                }
+              }}
+            />
+          )}
+          <footer className="ops-footer">
+            <span>Origin89 / Data workspace</span>
+            <span>Private to the working group · Sources stay attached</span>
+          </footer>
+        </main>
       </div>
-      {report.state === "loading" ? <p className="ops-note">Loading…</p> : null}
-      {report.state === "failed" ? <p className="ops-error">{report.error}</p> : null}
-      {report.state === "ready" && !report.value ? (
-        <p className="ops-note">The supervisor has not reported yet.</p>
-      ) : null}
-      {report.state === "ready" && report.value ? (
-        <div className="ops-columns">
-          <Listing title="Concerns" empty="Nothing looks wrong." alarm>
-            {report.value.concerns.map((concern) => (
-              <li key={concern}>{concern}</li>
-            ))}
-          </Listing>
-          <Listing title="Started" empty="Nothing was ready to start.">
-            {report.value.started.map((started) => (
-              <li key={`${started.what}:${started.entity}`}>
-                <strong>{started.what}</strong> {started.entity}
-                <small>{started.detail}</small>
-              </li>
-            ))}
-          </Listing>
-          <Listing title="Blocked" empty="Nothing is waiting.">
-            {report.value.blocked.map((blocked) => (
-              <li key={blocked.entity}>
-                <strong>{blocked.entity}</strong>
-                <small>{blocked.waitingOn}</small>
-              </li>
-            ))}
-          </Listing>
-        </div>
-      ) : null}
-    </section>
-  );
-}
-
-function Listing({
-  title,
-  empty,
-  alarm = false,
-  children,
-}: {
-  title: string;
-  empty: string;
-  alarm?: boolean;
-  children: React.ReactNode[];
-}) {
-  return (
-    <div className="ops-listing">
-      <h3>
-        {title}{" "}
-        <span className={alarm && children.length ? "ops-count alarm" : "ops-count"}>
-          {children.length}
-        </span>
-      </h3>
-      {children.length ? <ul>{children}</ul> : <p className="ops-note">{empty}</p>}
+      {selected && !expired && (
+        <RunDetail
+          row={selected}
+          login={login.value}
+          onClose={() => setSelected(undefined)}
+          onChanged={() => setDirty(true)}
+        />
+      )}
     </div>
   );
 }
-
-/** The mark beside a workflow's state. Drawn, because a text glyph falls back to whatever font has it. */
-const MARKS = {
-  alarm: <path d="M3.5 3.5l5 5M8.5 3.5l-5 5" />,
-  nominal: <path d="M2.5 6.5l2.5 2.5 4.5-5" />,
-  info: <circle cx="6" cy="6" r="2.5" fill="currentColor" stroke="none" />,
-  faint: <path d="M4.3 4.6a1.8 1.8 0 1 1 2.5 1.6c-.5.2-.8.6-.8 1.1v.3M6 9.6v.1" />,
-} as const;
-
-/** A workflow's state in words, with a mark that does not depend on colour alone. */
-function Workflow({ run }: { run: RunStatus | undefined }) {
-  if (!run) return <span className="ops-absent">no instance recorded</span>;
-  const tone: keyof typeof MARKS =
-    run.status === "errored" || run.status === "terminated"
-      ? "alarm"
-      : run.status === "complete"
-        ? "nominal"
-        : run.status === "unknown"
-          ? "faint"
-          : "info";
+function Metrics({
+  rows,
+  statusesUnavailable,
+  onFilter,
+}: {
+  rows?: RunRow[];
+  statusesUnavailable: boolean;
+  onFilter: (filter: Filter) => void;
+}) {
+  const items: [Filter, string, string][] = [
+    ["review", "Awaiting approval", "Document plans to review"],
+    ["active", "In progress", "Collection workflows running"],
+    ["attention", "Needs attention", "Stopped or unknown workflows"],
+    ["readings", "Readings available", "Makers with extracted figures"],
+  ];
   return (
-    <span className={`ops-status ${tone}`} title={run.instance}>
-      <svg
-        width="12"
-        height="12"
-        viewBox="0 0 12 12"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        {MARKS[tone]}
-      </svg>{" "}
-      {run.status}
-      {run.error ? <small>{run.error}</small> : null}
-    </span>
+    <div className="ops-metrics">
+      {items.map(([filter, label, note]) => (
+        <button type="button" key={filter} onClick={() => onFilter(filter)}>
+          <span>
+            {label}
+            <Icon name="arrowUpRight" />
+          </span>
+          <strong>
+            {rows && !(statusesUnavailable && ["active", "attention"].includes(filter))
+              ? rows.filter((row) => row.category === filter).length
+              : "—"}
+          </strong>
+          <small>
+            {statusesUnavailable && ["active", "attention"].includes(filter)
+              ? "Workflow status unavailable"
+              : note}
+          </small>
+        </button>
+      ))}
+    </div>
   );
 }
-
-function Makers({ makers, runs }: { makers: MakerState[]; runs: Map<string, RunStatus> }) {
+function RunTable({ rows, onSelect }: { rows: RunRow[]; onSelect: (row: RunRow) => void }) {
   return (
-    <div className="table-scroll">
-      <table>
-        <caption>Makers, {makers.length}</caption>
+    <div className="ops-table-scroll">
+      <table className="ops-table">
         <thead>
           <tr>
-            <th scope="col">Maker</th>
-            <th scope="col">Run</th>
-            <th scope="col">Waiting on</th>
-            <th scope="col">Approved by</th>
-            <th scope="col">Offered · fetched · converted · read</th>
+            <th scope="col">Source</th>
             <th scope="col">Workflow</th>
+            <th scope="col">Collection progress</th>
+            <th scope="col">Next step</th>
+            <th scope="col">
+              <span className="sr-only">Inspect</span>
+            </th>
           </tr>
         </thead>
         <tbody>
-          {makers.map((maker) => (
-            <tr key={maker.maker}>
-              <th scope="row">{maker.maker}</th>
-              <td className="ops-figures">{known(maker.date)}</td>
-              <td>{maker.waitingOn}</td>
-              <td>{known(maker.approvedBy)}</td>
-              <td className="ops-figures">
-                {known(maker.offered)} · {known(maker.fetched)} · {known(maker.converted)} ·{" "}
-                {known(maker.read)}
+          {rows.map((row) => (
+            <tr key={row.key}>
+              <th scope="row">
+                <button type="button" className="ops-source-button" onClick={() => onSelect(row)}>
+                  <span className="ops-source-initial">{row.entity.slice(0, 2).toUpperCase()}</span>
+                  <span>
+                    {displayName(row.entity)}
+                    <small>
+                      {row.kind === "maker" ? "Manufacturer" : "Seller"} · {row.date ?? "No date"}
+                    </small>
+                  </span>
+                </button>
+              </th>
+              <td>
+                <Status value={row.run?.status} />
               </td>
               <td>
-                <Workflow run={runs.get(`maker:${maker.maker}`)} />
+                <Progress row={row} />
               </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-function Sellers({ sellers, runs }: { sellers: SellerState[]; runs: Map<string, RunStatus> }) {
-  return (
-    <div className="table-scroll">
-      <table>
-        <caption>Sellers, {sellers.length}</caption>
-        <thead>
-          <tr>
-            <th scope="col">Seller</th>
-            <th scope="col">Run</th>
-            <th scope="col">Sightings</th>
-            <th scope="col">Classified</th>
-            <th scope="col">Workflow</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sellers.map((seller) => (
-            <tr key={seller.seller}>
-              <th scope="row">{seller.seller}</th>
-              <td className="ops-figures">{known(seller.date)}</td>
-              <td className="ops-figures">{known(seller.sightings)}</td>
-              <td className="ops-figures">
-                {seller.classified ? (
-                  <span
-                    className={seller.classified.written < seller.classified.parts ? "warning" : ""}
-                  >
-                    {seller.classified.written} of {seller.classified.parts} parts
-                  </span>
-                ) : (
-                  known(undefined)
+              <td>
+                <span className={`ops-next-text ${row.category === "review" ? "warning" : ""}`}>
+                  {row.next}
+                </span>
+                {row.maker?.approvedBy && (
+                  <small className="ops-note">Approved by {row.maker.approvedBy}</small>
                 )}
               </td>
               <td>
-                <Workflow run={runs.get(`seller:${seller.seller}`)} />
+                <button
+                  className="ops-icon-button"
+                  type="button"
+                  aria-label={`Inspect ${row.entity}`}
+                  onClick={() => onSelect(row)}
+                >
+                  <Icon name="arrowRight" />
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
+  );
+}
+function Progress({ row }: { row: RunRow }) {
+  const done = row.maker ? row.maker.converted : row.seller?.classified?.written;
+  const total = row.maker ? row.maker.sent : row.seller?.classified?.parts;
+  const label = row.maker ? "converted" : "classified parts";
+  return (
+    <div className="ops-progress">
+      <span>
+        {done === undefined || total === undefined
+          ? row.maker
+            ? `${count(row.maker.offered)} documents offered`
+            : `${count(row.seller?.sightings)} sightings`
+          : `${count(done)} / ${count(total)} ${label}`}
+      </span>
+      {done !== undefined && total !== undefined && total > 0 && (
+        <div aria-hidden="true">
+          <span
+            style={{
+              width:
+                done !== undefined && total !== undefined && total > 0
+                  ? `${Math.min(100, (done / total) * 100)}%`
+                  : "0%",
+            }}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+function Published({
+  files,
+  loading,
+  error,
+  query,
+  onSearch,
+}: {
+  files?: DatasetFile[];
+  loading: boolean;
+  error?: string;
+  query: string;
+  onSearch: (value: string) => void;
+}) {
+  const [format, setFormat] = useState("all");
+  const [copied, setCopied] = useState("");
+  const shown =
+    files?.filter(
+      (file) =>
+        file.name.includes(query.toLowerCase()) &&
+        (format === "all" || file.name.endsWith(`.${format}`)),
+    ) ?? [];
+  const copy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied("Content hash copied.");
+    } catch {
+      setCopied("Couldn’t copy. The full hash is shown below.");
+    }
+  };
+  return (
+    <section className="ops-panel">
+      <div className="ops-section-heading">
+        <div>
+          <p className="ops-eyebrow">PUBLIC RELEASE</p>
+          <h2>Ready for your next tool.</h2>
+        </div>
+        <button
+          className="ops-button"
+          type="button"
+          disabled={!files}
+          onClick={() =>
+            download("origin89-file-index.json", JSON.stringify(shown, null, 2), "application/json")
+          }
+        >
+          Export file index <Icon name="download" />
+        </button>
+      </div>
+      <div className="ops-toolbar">
+        <label className="ops-search">
+          <Icon name="search" />
+          <input
+            aria-label="Search published files"
+            placeholder="Find a table…"
+            value={query}
+            onChange={(event) => onSearch(event.target.value)}
+          />
+        </label>
+        <select
+          aria-label="File format"
+          value={format}
+          onChange={(event) => setFormat(event.target.value)}
+        >
+          <option value="all">All formats</option>
+          <option value="parquet">Parquet</option>
+          <option value="csv">CSV</option>
+          <option value="json">JSON</option>
+        </select>
+      </div>
+      {error && <Notice alarm>{error}</Notice>}
+      {copied && <Notice>{copied}</Notice>}
+      {loading && !files ? (
+        <Loading label="Reading the published file index…" />
+      ) : shown.length === 0 ? (
+        <Empty title="No files match">Try another table name or format.</Empty>
+      ) : (
+        <div className="ops-table-scroll">
+          <table className="ops-table">
+            <thead>
+              <tr>
+                <th scope="col">File</th>
+                <th scope="col">Rows</th>
+                <th scope="col">Size</th>
+                <th scope="col">Content hash</th>
+                <th scope="col">Download</th>
+              </tr>
+            </thead>
+            <tbody>
+              {shown.map((file) => (
+                <tr key={file.name}>
+                  <th scope="row">
+                    <span className="ops-file-type">{file.name.split(".").pop()}</span>
+                    {file.name}
+                  </th>
+                  <td className="ops-mono">{count(file.rows)}</td>
+                  <td>{bytes(file.bytes)}</td>
+                  <td>
+                    <button
+                      type="button"
+                      className="ops-hash"
+                      title={file.sha256}
+                      onClick={() => void copy(file.sha256)}
+                    >
+                      {file.sha256.slice(0, 12)}… <Icon name="copy" />
+                    </button>
+                    <details>
+                      <summary>Full SHA-256</summary>
+                      <code>{file.sha256}</code>
+                    </details>
+                  </td>
+                  <td>
+                    <a
+                      className="ops-icon-button"
+                      href={`/v1/${file.name}`}
+                      download
+                      aria-label={`Download ${file.name}`}
+                    >
+                      <Icon name="download" />
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
+  );
+}
+function Supervisor({
+  report,
+  error,
+  loading,
+  onEntity,
+}: {
+  report?: SupervisionReport | null;
+  error?: string;
+  loading: boolean;
+  onEntity: (entity: string) => void;
+}) {
+  return (
+    <section className="ops-panel">
+      <div className="ops-section-heading">
+        <h2>Latest pass</h2>
+        {report && <span className="ops-note">{when(report.at)}</span>}
+      </div>
+      {error && <Notice alarm>{error}</Notice>}
+      {loading && !report ? (
+        <Loading label="Reading the supervisor report…" />
+      ) : !report ? (
+        <Empty title="No report yet">
+          The supervisor’s latest pass will appear here when it has run.
+        </Empty>
+      ) : (
+        <div className="ops-activity-columns">
+          <div>
+            <h3>
+              Concerns <span>{report.concerns.length}</span>
+            </h3>
+            {report.concerns.length ? (
+              report.concerns.map((text) => (
+                <div className="ops-activity alarm" key={text}>
+                  <span>!</span>
+                  <p>{text}</p>
+                </div>
+              ))
+            ) : (
+              <p className="ops-note">No concerns reported.</p>
+            )}
+          </div>
+          <div>
+            <h3>
+              Started <span>{report.started.length}</span>
+            </h3>
+            {report.started.length ? (
+              report.started.map((item) => (
+                <div className="ops-activity" key={`${item.what}:${item.entity}:${item.detail}`}>
+                  <span>↗</span>
+                  <div>
+                    <button
+                      type="button"
+                      className="ops-quiet"
+                      onClick={() => onEntity(item.entity)}
+                    >
+                      {displayName(item.entity)}
+                    </button>
+                    <p>{item.what}</p>
+                    <small>{item.detail}</small>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="ops-note">No work was started in this pass.</p>
+            )}
+          </div>
+          <div>
+            <h3>
+              Blocked <span>{report.blocked.length}</span>
+            </h3>
+            {report.blocked.length ? (
+              report.blocked.map((item) => (
+                <div className="ops-activity" key={`${item.entity}:${item.waitingOn}`}>
+                  <span>—</span>
+                  <div>
+                    <button
+                      type="button"
+                      className="ops-quiet"
+                      onClick={() => onEntity(item.entity)}
+                    >
+                      {displayName(item.entity)}
+                    </button>
+                    <p>{item.waitingOn}</p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="ops-note">No blocked work reported.</p>
+            )}
+          </div>
+        </div>
+      )}
+    </section>
   );
 }

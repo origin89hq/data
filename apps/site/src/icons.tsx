@@ -1,4 +1,6 @@
 const paths = {
+  refresh: "M20 7v5h-5M4 17v-5h5M6 7a7 7 0 0 1 12-2l2 3M4 16l2 3a7 7 0 0 0 12-2",
+  activity: "M3 12h4l3-8 4 16 3-8h4",
   arrowUpRight: "M6 18 18 6M6 6h12v12",
   arrowRight: "M4 12h16m-6-6 6 6-6 6",
   arrowLeft: "M20 12H4m6-6-6 6 6 6",
