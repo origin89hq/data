@@ -226,24 +226,24 @@ export async function resolve(db: Store, release: string, q: ResolveQuery): Prom
     };
   // Nothing whole. Neighbours by the first characters of the name, for a person to look at.
   const head = stem.slice(0, Math.max(3, Math.min(6, stem.length)));
+  // One row a model however many names reach it, and the kind applied before the cut, so the
+  // count is of models a person could pick from and `truncated` means what it says.
   const near =
     head.length < 3
       ? []
-      : distinct(
-          (
-            await db
-              .prepare(
-                `SELECT model_id FROM model_keys WHERE release = ? AND name_key LIKE ? ${ESCAPE} ORDER BY name_key, rowid LIMIT ?`,
-              )
-              .bind(release, likePrefix(head), LIMITS.candidates + 1)
-              .all<{ model_id: string }>()
-          ).results,
-        );
+      : (
+          await db
+            .prepare(
+              `SELECT model_id, MIN(name_key) AS first FROM model_keys WHERE release = ? AND name_key LIKE ? ${ESCAPE} GROUP BY model_id ORDER BY first, model_id LIMIT ?`,
+            )
+            .bind(release, likePrefix(head), RESOLVE_READ)
+            .all<{ model_id: string }>()
+        ).results.map((r) => r.model_id);
   const shown = byKind(await modelsById(db, release, near), kind);
   return {
     outcome: "none",
     near: shown.slice(0, LIMITS.candidates),
-    truncated: shown.length > LIMITS.candidates,
+    truncated: shown.length > LIMITS.candidates || near.length >= RESOLVE_READ,
   };
 }
 
@@ -292,6 +292,9 @@ export async function search(
   release: string,
   q: SearchQuery,
 ): Promise<Page<ModelSummary>> {
+  // The cursor is checked before anything else, so a cursor from another search is refused
+  // even when the search itself would have matched nothing.
+  const after = q.cursor ? splitCursor(q.cursor, scopeOf(release, q)) : undefined;
   const where: string[] = ["release = ?"];
   const params: (string | number)[] = [release];
   if (q.brand) {
@@ -320,8 +323,8 @@ export async function search(
     where.push("kind = ?");
     params.push(q.kind);
   }
-  if (q.cursor) {
-    const [name, id] = splitCursor(q.cursor);
+  if (after) {
+    const [name, id] = after;
     where.push("(name > ? OR (name = ? AND id > ?))");
     params.push(name, name, id);
   }
@@ -341,22 +344,45 @@ export async function search(
   const truncated = rows.length > q.limit;
   return {
     items,
-    ...(truncated && last ? { cursor: joinCursor(last.name, last.id) } : {}),
+    ...(truncated && last ? { cursor: joinCursor(last.name, last.id, scopeOf(release, q)) } : {}),
     truncated,
   };
 }
 
-const joinCursor = (name: string, id: string): string => JSON.stringify([name, id]);
-const splitCursor = (cursor: string): [string, string] => {
+/**
+ * A cursor is the last row's name and id, bound to the release and the query it was given out
+ * for, so one copied from another search, another release or made up by hand is refused
+ * rather than skipping rows quietly.
+ */
+const scopeOf = (release: string, q: SearchQuery): string =>
+  fnv1a(`${release}|${q.brand ?? ""}|${q.prefix ?? ""}|${q.kind ?? ""}`);
+const joinCursor = (name: string, id: string, scope: string): string =>
+  JSON.stringify([name, id, scope]);
+const splitCursor = (cursor: string, scope: string): [string, string] => {
   try {
     const parsed = JSON.parse(cursor) as unknown;
-    if (Array.isArray(parsed) && typeof parsed[0] === "string" && typeof parsed[1] === "string")
+    if (
+      Array.isArray(parsed) &&
+      typeof parsed[0] === "string" &&
+      typeof parsed[1] === "string" &&
+      parsed[2] === scope
+    )
       return [parsed[0], parsed[1]];
   } catch {
     // fall through
   }
-  throw new Error("not a cursor this release gave out");
+  throw new Error("not a cursor this search gave out");
 };
+
+/** A short, stable digest for binding a cursor; not a secret, only a check that it is ours. */
+function fnv1a(text: string): string {
+  let hash = 0x811c9dc5;
+  for (const byte of new TextEncoder().encode(text)) {
+    hash ^= byte;
+    hash = Math.imul(hash, 0x01000193) >>> 0;
+  }
+  return hash.toString(16).padStart(8, "0");
+}
 
 const claimOf = (row: string): Claim => {
   const s = JSON.parse(row) as Record<string, string | number | undefined>;

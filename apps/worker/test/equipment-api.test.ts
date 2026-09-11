@@ -14,6 +14,7 @@ import {
   sourcesById,
 } from "../src/equipment-api.ts";
 import { loadRelease, type Steps } from "../src/release-load.ts";
+import { forget } from "../src/release-store.ts";
 import { loadKey, releaseKey } from "../src/releases.ts";
 import { world } from "./world.ts";
 
@@ -647,4 +648,94 @@ test("a kind singles one model out of many sharing a key, and a prefix keeps its
     SourcesQuery.safeParse(Array.from({ length: LIMITS.sources + 1 }, () => "s")).success,
     false,
   );
+});
+
+test("a cursor is bound to its search, and a forgotten release is refused before any table is read", async () => {
+  const { db } = await fixture();
+  const first = await search(db, RELEASE, { brand: "Victron", limit: 2 });
+  assert.ok(first.cursor);
+  await assert.rejects(
+    search(db, RELEASE, { brand: "Victron", kind: "inverter", limit: 2, cursor: first.cursor }),
+    /not a cursor this search gave out/,
+    "a cursor from another filter is refused",
+  );
+  await assert.rejects(
+    search(db, RELEASE, { brand: "Victron", limit: 2, cursor: JSON.stringify(["zzz", "zzz"]) }),
+    /not a cursor/,
+    "a made-up cursor is refused rather than skipping every row",
+  );
+  await assert.rejects(
+    search(db, OLDER, { brand: "Victron", limit: 2, cursor: first.cursor }),
+    /not a cursor/,
+    "a cursor from another release is refused",
+  );
+  // Letting the release go removes its row first: a handle that checks its release each call
+  // finds it gone at once, while its tables may still be emptying.
+  const blocking: typeof db = {
+    ...db,
+    prepare: (sql: string) => {
+      if (sql.startsWith("DELETE FROM models")) throw new Error("D1 is away mid-delete");
+      return db.prepare(sql);
+    },
+  };
+  await assert.rejects(forget(blocking, RELEASE), /mid-delete/);
+  await assert.rejects(loadedRelease(db, RELEASE), /is not loaded/);
+});
+
+test("near neighbours count models, not the names that reach them, and a kind narrows them first", async () => {
+  const twins = Array.from({ length: 15 }, (_, i) => ({
+    id: `acme-near-${String(i).padStart(2, "0")}`,
+    tier: "record",
+    manufacturer_id: "acme",
+    manufacturer_name: "Acme",
+    name: `Near ${String(i).padStart(2, "0")}`,
+    kind: i < 3 ? "inverter" : "battery",
+  }));
+  // Every model reaches under the maker's name and under a brand: two key rows a model.
+  const keys = twins.flatMap((m) => [
+    {
+      model_id: m.id,
+      key: `acme${m.name.toLowerCase().replace(" ", "")}`,
+      name_key: m.name.toLowerCase().replace(" ", ""),
+      label: "Acme",
+      via: "name",
+    },
+    {
+      model_id: m.id,
+      key: `acmebrand${m.name.toLowerCase().replace(" ", "")}`,
+      name_key: m.name.toLowerCase().replace(" ", ""),
+      label: "Acme Brand",
+      via: "name",
+    },
+  ]);
+  const { db } = await fixture({
+    manufacturers: [{ id: "acme", name: "Acme" }],
+    models: twins,
+    model_keys: keys,
+    specs: [],
+    model_dialects: [],
+    model_dialect_sources: [],
+  });
+  const miss = await resolve(db, RELEASE, { brand: "Acme", model: "Near" });
+  assert.equal(miss.outcome, "none");
+  if (miss.outcome === "none") {
+    assert.equal(
+      new Set(miss.near.map((m) => m.id)).size,
+      LIMITS.candidates,
+      "twelve distinct models, not twelve rows",
+    );
+    assert.equal(miss.truncated, true);
+  }
+  const inverters = await resolve(db, RELEASE, {
+    brand: "Acme",
+    model: "Near",
+    kind: "inverter",
+  });
+  if (inverters.outcome === "none") {
+    assert.deepEqual(
+      inverters.near.map((m) => m.id),
+      ["acme-near-00", "acme-near-01", "acme-near-02"],
+    );
+    assert.equal(inverters.truncated, false);
+  } else assert.fail(inverters.outcome);
 });

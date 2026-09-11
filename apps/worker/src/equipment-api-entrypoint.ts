@@ -38,20 +38,28 @@ export class ReleaseHandle extends RpcTarget implements Release {
   ) {
     super();
   }
-  info(): Promise<ReleaseInfo> {
-    return releaseInfo(this.db, this.id);
+  /**
+   * The release checked before every answer: retention may let a retained release go while a
+   * handle to it is live, and it deletes the release row first, so a call after that gets
+   * `NoSuchRelease` rather than an answer assembled from tables emptying behind it.
+   */
+  private async alive(): Promise<string> {
+    return loadedRelease(this.db, this.id);
   }
-  resolve(q: unknown): Promise<Resolution> {
-    return resolve(this.db, this.id, ResolveQuery.parse(q));
+  async info(): Promise<ReleaseInfo> {
+    return releaseInfo(this.db, await this.alive());
   }
-  search(q: unknown): Promise<Page<ModelSummary>> {
-    return search(this.db, this.id, SearchQuery.parse(q));
+  async resolve(q: unknown): Promise<Resolution> {
+    return resolve(this.db, await this.alive(), ResolveQuery.parse(q));
   }
-  bundle(q: unknown): Promise<Bundle> {
-    return bundle(this.db, this.id, BundleQuery.parse(q));
+  async search(q: unknown): Promise<Page<ModelSummary>> {
+    return search(this.db, await this.alive(), SearchQuery.parse(q));
   }
-  sources(ids: unknown): Promise<Source[]> {
-    return sourcesById(this.db, this.id, SourcesQuery.parse(ids));
+  async bundle(q: unknown): Promise<Bundle> {
+    return bundle(this.db, await this.alive(), BundleQuery.parse(q));
+  }
+  async sources(ids: unknown): Promise<Source[]> {
+    return sourcesById(this.db, await this.alive(), SourcesQuery.parse(ids));
   }
   async properties(): Promise<PropertyDefinition[]> {
     return properties();
