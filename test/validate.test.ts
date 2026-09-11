@@ -319,6 +319,11 @@ test("a structured reading or code cites a document the records hold, or it is r
     /an order needs words/,
   );
   assert.throws(
+    () => Dialect.parse({ ...r.dialects[0], readings: [{ ...reading, words: 2 }] }),
+    /needs its word order/,
+    "a value over several registers says which word comes first",
+  );
+  assert.throws(
     () => Dialect.parse({ ...r.dialects[0], codes: [{ ...code, source: undefined }] }),
     /source/,
   );

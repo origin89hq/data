@@ -57,7 +57,11 @@ export const DialectReading = z
   })
   .strict()
   .refine((r) => r.scale === undefined || r.unit !== undefined, "a scale needs a unit")
-  .refine((r) => r.order === undefined || r.words !== undefined, "an order needs words");
+  .refine((r) => r.order === undefined || r.words !== undefined, "an order needs words")
+  .refine(
+    (r) => r.words === undefined || r.order !== undefined,
+    "a value over several registers needs its word order",
+  );
 export type DialectReading = z.infer<typeof DialectReading>;
 
 /** One entry of a vendor code table (#84): what a fault, alarm, charge stage or state code means, with its source. */
