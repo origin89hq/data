@@ -30,6 +30,7 @@
     "pv-power",
     "battery-voltage",
     "battery-current",
+    "battery-power",
     "battery-temperature",
     "temperature",
     "load-voltage",

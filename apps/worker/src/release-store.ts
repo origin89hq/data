@@ -107,7 +107,7 @@ export const SCHEMA: readonly string[] = [
  * older version is dropped and recreated whole: it is a copy of releases still in R2, and
  * `POST /load` puts one back.
  */
-export const SCHEMA_VERSION = "2";
+export const SCHEMA_VERSION = "3";
 
 /**
  * Create the store's tables, or recreate them all when the stamped version is not this one.

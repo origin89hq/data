@@ -614,7 +614,7 @@ test("a consumer gets the active release by default, a loaded one by id, and not
   assert.equal(await loadedRelease(db, RELEASE), RELEASE);
   await assert.rejects(loadedRelease(db, OLDER), /is not loaded/);
   const info = await releaseInfo(db, RELEASE);
-  assert.equal(info.contract, 1);
+  assert.equal(info.contract, 2, "readings and codes are contract 2");
   assert.equal(info.publishedAt, "2026-09-11T10:00:00Z");
   assert.equal(info.counts.models, 7);
   // An older publication loaded later is retained and answers by id, while the active one stays.

@@ -41,6 +41,10 @@ export function validate(records: Records): Report {
         errors.push(
           `${d.id}: reading ${r.metric} at ${r.at} cites ${r.source}, which does not exist`,
         );
+      // A structured reading is one the dialect advertises: `reports` is the summary a consumer
+      // picks metrics from, and a reading it does not list would never be found.
+      if (!d.reports?.includes(r.metric))
+        errors.push(`${d.id}: reading ${r.metric} at ${r.at} is not among the metrics it reports`);
       cited.add(r.source);
     }
     for (const c of d.codes ?? []) {

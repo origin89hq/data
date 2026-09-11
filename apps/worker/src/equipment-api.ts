@@ -560,7 +560,7 @@ async function dialectsOf(
   const readings = (
     await db
       .prepare(
-        `SELECT dialect_id, row FROM dialect_readings WHERE release = ? AND dialect_id IN (${marks}) ORDER BY position`,
+        `SELECT dialect_id, row FROM dialect_readings WHERE release = ? AND dialect_id IN (${marks}) ORDER BY CAST(position AS INTEGER)`,
       )
       .bind(release, ...ids)
       .all<{ dialect_id: string; row: string }>()
@@ -568,7 +568,7 @@ async function dialectsOf(
   const codes = (
     await db
       .prepare(
-        `SELECT dialect_id, row FROM dialect_codes WHERE release = ? AND dialect_id IN (${marks}) ORDER BY position`,
+        `SELECT dialect_id, row FROM dialect_codes WHERE release = ? AND dialect_id IN (${marks}) ORDER BY CAST(position AS INTEGER)`,
       )
       .bind(release, ...ids)
       .all<{ dialect_id: string; row: string }>()

@@ -303,6 +303,12 @@ test("a structured reading or code cites a document the records hold, or it is r
     source: "s1",
   };
   r.dialects[0] = Dialect.parse({ ...r.dialects[0], readings: [reading], codes: [code] });
+  assert.match(
+    validate(r).errors.join("\n"),
+    /reading pv-voltage at 0x3100 is not among the metrics it reports/,
+    "a structured reading has to be advertised",
+  );
+  r.dialects[0] = Dialect.parse({ ...r.dialects[0], reports: ["pv-voltage"] });
   assert.deepEqual(validate(r).errors, []);
   assert.throws(
     () => Dialect.parse({ ...r.dialects[0], readings: [{ ...reading, unit: undefined }] }),

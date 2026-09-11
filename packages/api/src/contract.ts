@@ -41,7 +41,8 @@ export const PropertyKey = z.string().regex(/^[a-z][a-z0-9]*(?:\.[a-z][a-z0-9_]*
 export type PropertyKey = z.infer<typeof PropertyKey>;
 
 /** The version of this contract. A consumer refuses a release whose contract it does not know. */
-export const CONTRACT = 1 as const;
+/** 2: a dialect carries `readings` and `codes`; a Worker on 1 answers neither, and a consumer on 2 refuses it. */
+export const CONTRACT = 2 as const;
 
 /** The most a single answer carries. A list cut to fit says so in `truncated`; nothing is quietly shorter. */
 export const LIMITS = {

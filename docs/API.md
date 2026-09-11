@@ -31,7 +31,8 @@ raw TypeScript with no build step; a consumer bundled by wrangler reads it as is
 `release()` returns a handle bound to one release. Every method on it reads that release and
 no other, and every claim, link and source it returns comes from it. The handle has methods
 only: over a service binding a property of an RPC target arrives as a promise, so the release's
-id and contract version come from `info()`, which a consumer checks once at the start of a turn. Take one handle at the
+id and contract version come from `info()`, which a consumer checks once at the start of a turn;
+the version is 2, and a Worker answering 1 predates a dialect's `readings` and `codes`. Take one handle at the
 start of a turn and use it for every lookup in that turn; a release that lands mid-turn changes
 nothing the handle answers. `release(id)` gives a retained release by id, which is how a pinned
 evaluation stays reproducible while releases move on. A release still loading, one whose load
