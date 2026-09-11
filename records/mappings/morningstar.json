@@ -37,12 +37,8 @@
       "key": "pv.power.max",
       "names": ["Recommended Maximum PV Array Input Power"],
       "scope": "total",
-      "basis": "The TriStar MPPT sheets state a recommended maximum array power per system voltage; the bank voltage is in the figure's name where the sheet prints it."
-    },
-    {
-      "key": "inverter.power.idle",
-      "names": ["Maximum Self-consumption", "Self consumption (tare loss)"],
-      "basis": "A controller's self-consumption is what it draws from the battery with nothing to do."
+      "requires": ["bankVoltage"],
+      "basis": "The TriStar MPPT sheets state a recommended maximum array power per system voltage, one column each; a figure that does not say which voltage it is for is a gap until the reader carries the column heading."
     }
   ]
 }

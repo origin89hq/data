@@ -127,6 +127,7 @@ test("a maker's figures reach the registry through its rules, with the bank volt
       kind: "charge-controller",
       models: 1,
       values: 1,
+      partial: 0,
       conflicts: 0,
       noClaim: 0,
       unparsed: 0,
@@ -134,6 +135,98 @@ test("a maker's figures reach the registry through its rules, with the bank volt
     },
   );
   assert.equal(coverage.find((c) => c.key === "pv.isc.max")?.noClaim, 1);
+});
+
+test("a rule can require a condition the key only accepts, and a figure without it is a gap", () => {
+  const perVoltage: Mapping = Mapping.parse({
+    id: "victron-energy",
+    version: 3,
+    reviewedBy: "ada",
+    checkedAt: "2026-09-11",
+    rules: [
+      {
+        key: "pv.power.max",
+        names: ["Recommended Maximum PV Array Input Power", "Max. PV Power 24Vdc"],
+        requires: ["bankVoltage"],
+        basis: "the sheet states it per system voltage",
+      },
+    ],
+  });
+  const { properties, gaps, coverage } = build({
+    models: [controller],
+    mappings: [perVoltage],
+    specs: [
+      figure(controller.id, "Recommended Maximum PV Array Input Power", "1100", { unit: "W" }),
+    ],
+  });
+  assert.deepEqual(properties, []);
+  assert.deepEqual(
+    gaps.find((g) => g.key === "pv.power.max"),
+    {
+      model: controller.id,
+      key: "pv.power.max",
+      reason: "needs-conditions",
+      detail: "no bankVoltage stated",
+      claims: 1,
+    },
+  );
+  assert.equal(coverage.find((c) => c.key === "pv.power.max")?.needsConditions, 1);
+  const stated = build({
+    models: [controller],
+    mappings: [perVoltage],
+    specs: [figure(controller.id, "Max. PV Power 24Vdc", "580", { unit: "W" })],
+  });
+  assert.deepEqual(
+    stated.properties.map((p) => [p.value, p.conditions]),
+    [[580, { bankVoltage: 24 }]],
+    "the same rule reads a figure whose name carries the voltage",
+  );
+});
+
+test("a figure that could not be read beside ones that could is still a gap, and the model is partial", () => {
+  const phoenix: Mapping = Mapping.parse({
+    id: "victron-energy",
+    version: 3,
+    reviewedBy: "ada",
+    checkedAt: "2026-09-11",
+    rules: [
+      {
+        key: "inverter.power.continuous",
+        names: ["Cont. output power at 25°C", "Cont. output power at 40°C"],
+        basis: "the sheet",
+      },
+    ],
+  });
+  const inverter = Model.parse({
+    id: "victron-energy-phoenix-12-500",
+    manufacturer: "victron-energy",
+    name: "Phoenix 12/500",
+    kind: "inverter",
+  });
+  const { properties, gaps, coverage } = build({
+    models: [inverter],
+    mappings: [phoenix],
+    specs: [
+      figure(inverter.id, "Cont. output power at 25°C", "500", { unit: "VA" }),
+      figure(inverter.id, "Cont. output power at 40°C", "450", { unit: "W" }),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.value, p.conditions]),
+    [[450, { ambientTemperature: 40 }]],
+  );
+  assert.deepEqual(
+    gaps.find((g) => g.key === "inverter.power.continuous"),
+    {
+      model: inverter.id,
+      key: "inverter.power.continuous",
+      reason: "unparsed",
+      detail: "VA measures apparent-power, not power, beside 1 usable figure",
+      claims: 2,
+    },
+  );
+  const row = coverage.find((c) => c.key === "inverter.power.continuous");
+  assert.deepEqual([row?.values, row?.partial, row?.unparsed], [1, 1, 0]);
 });
 
 const morningstar: Mapping = Mapping.parse({

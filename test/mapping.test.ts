@@ -100,6 +100,23 @@ test("a rule that reads no figure is noted for review, since the figures may arr
   assert.equal(scoped.review["mapping rule that reads no figure of its maker"], undefined);
 });
 
+test("a rule may require only a condition its key accepts, and must read kinds its key applies to", () => {
+  assert.equal(errorsOf({ ...good, rules: [{ ...rule, requires: ["cellTemperature"] }] }), "");
+  assert.match(
+    errorsOf({ ...good, rules: [{ ...rule, requires: ["dischargeHours"] }] }),
+    /requires dischargeHours, which pv\.voc\.max does not accept/,
+  );
+  const battery = fixture();
+  battery.models[0] = { ...battery.models[0], kind: "battery" };
+  assert.match(
+    validate(battery).errors.join("\n"),
+    /reads figures of battery, which pv\.voc\.max does not apply to/,
+  );
+  const controller = fixture();
+  controller.models[0] = { ...controller.models[0], kind: "charge-controller" };
+  assert.deepEqual(validate(controller).errors, []);
+});
+
 test("a review dated in the future, or a maker mapped twice, is an error", () => {
   assert.match(errorsOf({ ...good, checkedAt: "2999-01-01" }), /which has not happened/);
   const twice = fixture();

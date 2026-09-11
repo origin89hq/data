@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { RecordId } from "./enums.ts";
-import { Conditions } from "./properties.ts";
+import { ConditionKey, Conditions } from "./properties.ts";
 
 /**
  * How one maker's printed figures reach the property registry.
@@ -22,6 +22,11 @@ export const MappingRule = z
     unit: z.string().min(1).optional(),
     /** Conditions the rule states for every figure it reads, where the sheet states them once for the table. */
     conditions: Conditions.optional(),
+    /**
+     * Conditions a figure must state to be usable under this rule, beyond what the key needs: a
+     * PV power limit the sheet gives per system voltage is a gap until the bank voltage is read.
+     */
+    requires: z.array(ConditionKey).optional(),
     scope: z.enum(["per-input", "total"]).optional(),
     /** Why the rule is right, in the sheet's own words, so a reviewer can check it. */
     basis: z.string().min(1),

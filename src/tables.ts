@@ -448,14 +448,16 @@ export function tables(records: Records, feeds = readFeeds()): Table[] {
     },
     {
       name: "property_coverage",
-      // Per key and kind: how many models the key applies to, how many have a usable value, and
-      // how many are gaps of each reason. The build computes it, so a release says how far the
-      // normalized figures reach.
+      // Per key and kind: how many models the key applies to, how many have a usable value, how
+      // many of those also had a figure that could not be read (`partial`), and how many are gaps
+      // of each reason. The build computes it, so a release says how far the normalized figures
+      // reach.
       columns: [
         col("key"),
         col("kind"),
         col("models", "INTEGER"),
         col("values", "INTEGER"),
+        col("partial", "INTEGER"),
         col("conflicts", "INTEGER"),
         col("no_claim", "INTEGER"),
         col("unparsed", "INTEGER"),
@@ -466,6 +468,7 @@ export function tables(records: Records, feeds = readFeeds()): Table[] {
         kind: c.kind,
         models: c.models,
         values: c.values,
+        partial: c.partial,
         conflicts: c.conflicts,
         no_claim: c.noClaim,
         unparsed: c.unparsed,

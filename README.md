@@ -236,12 +236,14 @@ its duration is not a surge.
 What cannot be filled is a gap with a reason in `property_gaps`: `no-claim`
 when no figure was read for the key, `unparsed` when the figures could not be
 read as numbers, `needs-conditions` when a value lacks a condition the key
-needs, `conflict` when two usable values under the same conditions disagree,
-in which case both publish with `status = 'conflict'`. `basis` is the figure's,
-never the rule's: `reviewed` when a person confirmed it, `extracted` when only
-a reader took it from the document, `feed` for a public dataset's row.
-`property_coverage` says, per key and kind, how far this reaches in each
-release.
+needs or its rule `requires`, `conflict` when two usable values under the same
+conditions disagree, in which case both publish with `status = 'conflict'`. A
+figure that could not be read beside ones that could is still a gap. `basis`
+is the figure's, never the rule's: `reviewed` when a person confirmed it,
+`extracted` when only a reader took it from the document, `feed` for a public
+dataset's row. `property_coverage` says, per key and kind, how far this
+reaches in each release: the models with a value, those of them that are
+`partial`, and the gaps by reason.
 
 ## The round trip
 

@@ -161,6 +161,7 @@ export function validate(records: Records): Report {
   // figures may arrive with the next pull.
   const said = (name: string) => name.trim().replace(/\s+/g, " ").toLowerCase();
   const makerOf = new Map(records.models.map((m) => [m.id, m.manufacturer]));
+  const kindOf = new Map(records.models.map((m) => [m.id, m.kind]));
   const seenMappings = new Set<string>();
   for (const mapping of records.mappings) {
     if (seenMappings.has(mapping.id)) errors.push(`mapping ${mapping.id}: listed twice`);
@@ -182,13 +183,27 @@ export function validate(records: Records): Report {
       if (rule.unit !== undefined && !unit) errors.push(`${where}: "${rule.unit}" is not a unit`);
       if (property && unit && QUANTITY_OF[unit] !== property.quantity)
         errors.push(`${where}: ${unit} measures ${QUANTITY_OF[unit]}, not ${property.quantity}`);
+      for (const condition of rule.requires ?? [])
+        if (
+          property &&
+          !property.needs.includes(condition) &&
+          !property.accepts.includes(condition)
+        )
+          errors.push(`${where}: requires ${condition}, which ${rule.key} does not accept`);
       const names = new Set(rule.names.map(said));
-      const reads = own.some(
+      const read = own.filter(
         (s) =>
           (!rule.source || s.source === rule.source) &&
           (names.has(said(s.name)) || (s.english !== undefined && names.has(said(s.english)))),
       );
-      if (!reads) note("mapping rule that reads no figure of its maker");
+      if (read.length === 0) note("mapping rule that reads no figure of its maker");
+      // A key applies to kinds of equipment, and the build asks it only of those: a controller's
+      // self-consumption mapped to an inverter's idle power would read figures into nothing.
+      const kinds = [...new Set(read.flatMap((s) => kindOf.get(s.model) ?? []))];
+      if (property && kinds.length > 0 && !kinds.some((k) => property.kinds.includes(k)))
+        errors.push(
+          `${where}: reads figures of ${kinds.join(", ")}, which ${rule.key} does not apply to`,
+        );
     });
   }
 

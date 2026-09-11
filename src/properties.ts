@@ -2,6 +2,7 @@ import type { Mapping, MappingRule } from "@origin89/equipment-schema/mapping";
 import type { Model, Spec } from "@origin89/equipment-schema/model";
 import {
   type Basis,
+  type ConditionKey,
   type Conditions,
   type GapReason,
   PROPERTIES,
@@ -56,7 +57,9 @@ export interface CoverageRow {
   key: string;
   kind: string;
   models: number;
+  /** Models with a usable value; `partial` of them also had a claim that could not be read. */
   values: number;
+  partial: number;
   conflicts: number;
   noClaim: number;
   unparsed: number;
@@ -88,6 +91,8 @@ interface Claim {
   mappedBy: string;
   basis: Basis;
   scope?: "per-input" | "total";
+  /** Conditions the rule that read it demands, beyond the key's own. */
+  requires?: readonly ConditionKey[];
 }
 
 /** A name as a person reads it: case and the spacing between words do not change it. */
@@ -148,6 +153,7 @@ function recordClaims(key: string, specs: readonly Spec[], mapping: Mapping | un
         mappedBy: `rule:${mapping?.id}@${mapping?.version}#${rule.n}`,
         basis: basisOf(spec),
         scope: rule.scope,
+        requires: rule.requires,
       });
     }
   }
@@ -198,7 +204,8 @@ interface Reading {
 }
 
 function read(claim: Claim, property: Property, reference: number | undefined): Reading {
-  const accepts = [...property.needs, ...property.accepts];
+  const needs = [...new Set([...property.needs, ...(claim.requires ?? [])])];
+  const accepts = [...needs, ...property.accepts];
   const split = splitDuration(claim.value);
   const conditions = mergeConditions(
     claim.conditions,
@@ -207,7 +214,7 @@ function read(claim: Claim, property: Property, reference: number | undefined): 
       ? { duration: split.duration }
       : undefined,
   );
-  const missing = property.needs.filter((c) => conditions[c] === undefined);
+  const missing = needs.filter((c) => conditions[c] === undefined);
   const result = readProperty(split.value, claim.unit, property, { reference });
   return result.ok
     ? { claim, parsed: result.parsed, conditions, missing }
@@ -223,6 +230,26 @@ const shown = (parsed: Parsed): string =>
 
 const BASIS_RANK: Record<Basis, number> = { reviewed: 0, feed: 1, extracted: 2 };
 
+/**
+ * The gap the readings that could not be used leave: a condition missing, or a figure unread.
+ * `claims` counts every figure read for the key, the usable ones beside them included.
+ */
+function unread(model: string, key: string, readings: Reading[], beside: number): GapRow {
+  const short = readings.find((r) => r.parsed && r.missing.length > 0);
+  const aside = beside > 0 ? `, beside ${beside} usable figure${beside === 1 ? "" : "s"}` : "";
+  const claims = readings.length + beside;
+  if (short)
+    return {
+      model,
+      key,
+      reason: "needs-conditions",
+      detail: `no ${short.missing.join(", ")} stated${aside}`,
+      claims,
+    };
+  const [first] = readings;
+  return { model, key, reason: "unparsed", detail: `${first?.reason}${aside}`, claims };
+}
+
 /** Property and gap rows for one model under one key, from the figures that reached it. */
 function settle(
   model: string,
@@ -234,25 +261,8 @@ function settle(
   if (readings.length === 0)
     return { properties: [], gap: { model, key, reason: "no-claim", claims: 0 } };
   const usable = readings.filter((r) => r.parsed && r.missing.length === 0);
-  if (usable.length === 0) {
-    const short = readings.find((r) => r.parsed && r.missing.length > 0);
-    if (short)
-      return {
-        properties: [],
-        gap: {
-          model,
-          key,
-          reason: "needs-conditions",
-          detail: `no ${short.missing.join(", ")} stated`,
-          claims: readings.length,
-        },
-      };
-    const [first] = readings;
-    return {
-      properties: [],
-      gap: { model, key, reason: "unparsed", detail: first?.reason, claims: readings.length },
-    };
-  }
+  const unusable = readings.filter((r) => !usable.includes(r));
+  if (usable.length === 0) return { properties: [], gap: unread(model, key, unusable, 0) };
   // One row per set of conditions: a capacity at C20 and at C100 are two properties. Under one
   // set, figures that agree are one property cited from the best-founded claim; figures that
   // disagree are all published, each marked, and the key is a gap until somebody decides.
@@ -297,6 +307,9 @@ function settle(
       });
     }
   }
+  // A figure that could not be read beside ones that could is still reported: a 25 °C rating
+  // printed in VA next to 40 °C ratings in W is not filled by them, and a coverage that said
+  // so would be counting the key as complete.
   return {
     properties,
     ...(conflicts > 0
@@ -309,7 +322,9 @@ function settle(
             claims: readings.length,
           },
         }
-      : {}),
+      : unusable.length > 0
+        ? { gap: unread(model, key, unusable, usable.length) }
+        : {}),
   };
 }
 
@@ -340,6 +355,7 @@ export function buildProperties(input: PropertiesInput): PropertiesOutput {
       kind,
       models: 0,
       values: 0,
+      partial: 0,
       conflicts: 0,
       noClaim: 0,
       unparsed: 0,
@@ -366,15 +382,16 @@ export function buildProperties(input: PropertiesInput): PropertiesOutput {
       const readings = claimsFor(property).map((claim) => read(claim, property, reference));
       const settled = settle(id, property.key, readings, property.unit, property.scope);
       properties.push(...settled.properties);
+      const valued = settled.properties.filter((p) => p.status === "value");
+      if (valued.length > 0) row.values += 1;
       if (settled.gap) {
         gaps.push(settled.gap);
         if (settled.gap.reason === "conflict") row.conflicts += 1;
+        else if (valued.length > 0) row.partial += 1;
         else if (settled.gap.reason === "no-claim") row.noClaim += 1;
         else if (settled.gap.reason === "unparsed") row.unparsed += 1;
         else row.needsConditions += 1;
       }
-      const valued = settled.properties.filter((p) => p.status === "value");
-      if (valued.length > 0) row.values += 1;
       const [only] = valued;
       if (valued.length === 1 && only?.value !== undefined) values.set(property.key, only.value);
     }
