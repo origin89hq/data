@@ -136,7 +136,10 @@ export async function currentRun(
 export interface Crawl {
   sightings: Sighting[];
   guesses: Map<string, Guess>;
-  /** Parts the manifest expected that are not written, so a partial read is never silent. */
+  /**
+   * What a whole crawl has and this one lacks: a classification, parts its manifest expects, or
+   * sightings pages. A partial read is never silent.
+   */
   missingParts: string[];
 }
 
@@ -167,8 +170,20 @@ export async function readCrawl(
   const guesses = new Map<string, Guess>();
   const missingParts: string[] = [];
   const guessManifest = await object(`${guessPrefix}/manifest.json`, remote);
-  if (guessManifest) {
-    const { parts } = JSON.parse(guessManifest) as { parts: number };
+  if (!guessManifest) {
+    // A run not classified yet, or one being classified again: the Worker deletes the manifest
+    // first and writes it after every part is sent. Read as a whole crawl with no guesses, it
+    // replaced a brand's evidence with none.
+    missingParts.push("no classification yet");
+  } else {
+    const { parts, alreadyAnswered } = JSON.parse(guessManifest) as {
+      parts: number;
+      alreadyAnswered?: number;
+    };
+    // A classification from before #16 left out the listings answered on an earlier run, so its
+    // parts are whole and its guesses still short. The supervisor classifies such a run again.
+    if (alreadyAnswered)
+      missingParts.push(`${alreadyAnswered} listings answered on an earlier run`);
     const written = new Set(
       (await keysUnder(`${guessPrefix}/page-`, remote)).map((k) => k.split("/").pop()),
     );
@@ -180,6 +195,12 @@ export async function readCrawl(
       const guess = Guess.parse(JSON.parse(line));
       guesses.set(`${guess.seller}/${guess.productId}`, guess);
     }
+    // Every part written is not every listing answered. A classify message queued before #16
+    // carries a batch of the listings not answered then, under the same part number as the new
+    // batch, and can land after it: the parts are whole and some listings have no guess.
+    const unanswered = sightings.filter((s) => !guesses.has(`${s.seller}/${s.productId}`)).length;
+    if (unanswered > 0)
+      missingParts.push(`${unanswered} of ${sightings.length} listings without a guess`);
   }
   const sightingKeys = new Set(await keysUnder(`${prefix}/page-`, remote));
   for (const page of pages) {

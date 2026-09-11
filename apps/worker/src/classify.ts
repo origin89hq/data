@@ -120,6 +120,12 @@ export function contentOf(response: unknown): string {
   return (fenced ? fenced[1] : content).trim();
 }
 
+/**
+ * A model whose answer is not JSON, most often one that ran past its tokens. Its own error, so it
+ * is told apart from a call that failed, whatever that failure throws.
+ */
+export class UnreadableAnswerError extends Error {}
+
 /** One model call for one batch. Throws on a malformed or misaligned answer so the step retries. */
 export async function classifyBatch(ai: Ai, batch: Sighting[]): Promise<Guess[]> {
   const response = await ai.run(CLASSIFIER_MODEL, {
@@ -130,5 +136,12 @@ export async function classifyBatch(ai: Ai, batch: Sighting[]): Promise<Guess[]>
     response_format: { type: "json_schema", json_schema: RESPONSE_SCHEMA },
     max_tokens: 2048,
   } as never);
-  return guessesFrom(batch, JSON.parse(contentOf(response)));
+  let answer: unknown;
+  try {
+    answer = JSON.parse(contentOf(response));
+  } catch (error) {
+    if (!(error instanceof SyntaxError)) throw error;
+    throw new UnreadableAnswerError(`answer is not JSON: ${error.message}`);
+  }
+  return guessesFrom(batch, answer);
 }

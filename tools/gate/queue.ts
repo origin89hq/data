@@ -29,7 +29,7 @@ for (const seller of sellers) {
   }
   if (crawl.missingParts.length) {
     console.error(
-      `${seller}: ${crawl.missingParts.length} classifier parts are not written yet; the evidence would be short, so refusing`,
+      `${seller}: the crawl is incomplete (${crawl.missingParts.join(", ")}); the evidence would be short, so refusing`,
     );
     process.exit(1);
   }

@@ -32,7 +32,7 @@ for (const seller of sellers) {
   }
   if (crawl.missingParts.length) {
     console.error(
-      `${seller}: ${crawl.missingParts.length} classifier parts are not written; deriving anyway, those models get no kind`,
+      `${seller}: the crawl is incomplete (${crawl.missingParts.join(", ")}); deriving anyway, those models get no kind`,
     );
   }
   sightings.push(...crawl.sightings);
