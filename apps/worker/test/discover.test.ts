@@ -907,7 +907,14 @@ test("a page request asks for pages and a probe asks for anything", async (t) =>
     accepts.push(String((init?.headers as Record<string, string> | undefined)?.accept));
     return new Response("<p>x</p>", { status: 200, headers: { "content-type": "text/html" } });
   });
-  await fetchPage("https://maker.test/page");
-  await fetchAnything("https://cdn.shop.test/download?id=1");
+  const page = await fetchPage("https://maker.test/page");
+  const probe = await fetchAnything("https://cdn.shop.test/download?id=1");
   assert.deepEqual(accepts, [ACCEPT_PAGE, ACCEPT_ANYTHING]);
+  assert.equal(page.text, "<p>x</p>");
+  assert.equal(
+    probe.text,
+    "",
+    "a probe reads no body: an HTML page on a document host stays unread",
+  );
+  assert.equal(probe.contentType, "text/html", "its headers still say what it was");
 });
