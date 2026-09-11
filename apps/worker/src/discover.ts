@@ -83,7 +83,10 @@ export async function fetchPage(url: string): Promise<Fetched> {
     };
     // A page that turns out to be a PDF is offered, not read: nothing is downloaded before a
     // person approves it, and a manual is not HTML to parse.
-    if (response.ok && isPage(answer)) answer.text = await response.text();
+    // A sitemap served as plain text is still a sitemap to read, not a file to offer.
+    const sitemapAsText =
+      mediaType(answer) === "text/plain" && /sitemap|\.xml(?:$|[?#])/i.test(url);
+    if (response.ok && (isPage(answer) || sitemapAsText)) answer.text = await response.text();
     else await response.body?.cancel();
     return answer;
   } catch {
@@ -235,7 +238,9 @@ async function sitemapOf(
       const urls: string[] = [];
       const own = listed.filter((u) => ownHost(u, domains));
       const children = own.slice(0, MAX_CHILD_SITEMAPS);
-      seen.childrenSkipped = own.length - children.length;
+      // Children beyond the cap, and children on hosts the record does not claim, which the
+      // crawl will not cross to: both are sitemaps this run did not open.
+      seen.childrenSkipped = own.length - children.length + (listed.length - own.length);
       for (const child of children) {
         const page = await get(child);
         tally(seen, page, domains);

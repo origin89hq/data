@@ -3,6 +3,7 @@ import { test } from "node:test";
 import {
   discoverPages,
   type Fetched,
+  fetchPage,
   type HostSeen,
   hostsToTry,
   isDocumentAnswer,
@@ -235,6 +236,11 @@ test("an index's child on a host the record does not claim is never opened, and 
   assert.deepEqual(hosts[0]?.redirectedTo, ["www.newname.test"]);
   assert.deepEqual(hosts[0]?.rootRedirectedTo, [], "a child that moved is not the site moving");
   assert.deepEqual([hosts[0]?.requests, hosts[0]?.listed, hosts[0]?.own], [3, 2, 1]);
+  assert.equal(
+    hosts[0]?.childrenSkipped,
+    1,
+    "the child on another host is a sitemap left unopened",
+  );
 });
 
 test("two domains are read one after the other, and a page listed by both is one page", async () => {
@@ -404,4 +410,21 @@ test("a page that lands on another site is a site that moved, and its links belo
   assert.deepEqual(read.foreign, {
     "www.newname.test": ["https://www.newname.test/support/manual.pdf"],
   });
+});
+
+test("a sitemap served as plain text is read, while a plain-text download is not", async (t) => {
+  const answers: Record<string, [string, string]> = {
+    "https://maker.test/sitemap.xml": ["text/plain", urlset("https://maker.test/a")],
+    "https://maker.test/export?id=manual": ["text/plain", "a,b\n1,2"],
+    "https://maker.test/page": ["text/html", "<p>hi</p>"],
+  };
+  t.mock.method(globalThis, "fetch", async (input: string | URL | Request) => {
+    const url =
+      typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
+    const [type, body] = answers[url] ?? ["text/plain", ""];
+    return new Response(body, { status: 200, headers: { "content-type": type } });
+  });
+  assert.match((await fetchPage("https://maker.test/sitemap.xml")).text, /<urlset>/);
+  assert.equal((await fetchPage("https://maker.test/export?id=manual")).text, "");
+  assert.equal((await fetchPage("https://maker.test/page")).text, "<p>hi</p>");
 });
