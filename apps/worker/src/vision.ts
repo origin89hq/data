@@ -146,6 +146,17 @@ export async function seePage(
       seen = await readPage(message, env, attempt, library);
     } catch (error) {
       if (!(error instanceof NotYet)) throw error;
+      // Logged with its reason, so the logs say how often Kimi itself still refused. The pace is
+      // counted per Cloudflare location, and a refusal past it is how that would show.
+      console.log(
+        JSON.stringify({
+          message: "page waits its turn",
+          sha256: message.sha256,
+          page: message.page,
+          waits: (message.waits ?? 0) + 1,
+          reason: error.message,
+        }),
+      );
       // A new message rather than a retry, so waiting its turn does not use up the deliveries a
       // page gets for failures of its own.
       await env.WORK.send(
