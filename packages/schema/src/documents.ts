@@ -85,7 +85,7 @@ const BASE = /<base\b[^>]*(?<![-\w])href\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>"']+
  * as a browser does, and otherwise the page's own address. The tag itself is no link.
  */
 export function baseHref(html: string, pageUrl: string): string {
-  const found = BASE.exec(html);
+  const found = BASE.exec(withoutText(html));
   const base = found?.[1] ?? found?.[2] ?? found?.[3];
   if (!base) return pageUrl;
   try {
@@ -100,10 +100,14 @@ export function baseHref(html: string, pageUrl: string): string {
  * `href` is not a link, and scripts, styles, templates and comments, where an `href` is text.
  */
 export function withoutBase(html: string): string {
+  return withoutText(html).replace(/<base\b[^>]*>/gi, "");
+}
+
+/** The page's markup with scripts, styles, templates and comments removed: a tag in those is text, not markup. */
+function withoutText(html: string): string {
   return html
     .replace(/<!--[\s\S]*?-->/g, "")
-    .replace(/<(script|style|template)\b[\s\S]*?<\/\1\s*>/gi, "")
-    .replace(/<base\b[^>]*>/gi, "");
+    .replace(/<(script|style|template)\b[\s\S]*?<\/\1\s*>/gi, "");
 }
 
 /**

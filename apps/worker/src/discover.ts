@@ -1,8 +1,11 @@
 import {
+  baseHref,
+  decodeEntities,
   type Found,
   hostAllowed,
   isDocument,
   linkedDocuments,
+  withoutBase,
 } from "@origin89/equipment-schema/documents";
 import { USER_AGENT } from "./feeds.ts";
 import { isIndex, locations } from "./sitemap.ts";
@@ -23,6 +26,8 @@ export interface Fetched {
   contentType?: string;
   /** The host sent it as a file to save rather than a page to show. */
   attachment?: true;
+  /** The body was longer than a page is read for, and the rest was left unread. */
+  truncated?: true;
 }
 
 const mediaType = (answer: Fetched): string | undefined =>
@@ -62,14 +67,59 @@ export function isDocumentAnswer(answer: Fetched): boolean {
 
 export type Get = (url: string) => Promise<Fetched>;
 
+/** What a page request asks for. */
+export const ACCEPT_PAGE = "text/html,application/xhtml+xml,application/xml";
+
+/**
+ * How much of a page is read. A page is read for its links and its tables, and a couple of
+ * mebibytes holds any page worth reading; an endpoint that answers with no media type at all,
+ * which is read as a page for want of a better guess, cannot pull more than this before a person
+ * has approved anything.
+ */
+export const MAX_PAGE_BYTES = 2 * 1024 * 1024;
+
+/** The body up to `limit` bytes, cancelling the rest, and whether anything was left unread. */
+async function readBounded(
+  response: Response,
+  limit: number,
+): Promise<{ text: string; truncated: boolean }> {
+  const reader = response.body?.getReader();
+  if (!reader) return { text: "", truncated: false };
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  let truncated = false;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value);
+    total += value.length;
+    if (total >= limit) {
+      truncated = true;
+      await reader.cancel();
+      break;
+    }
+  }
+  const joined = new Uint8Array(Math.min(total, limit));
+  let at = 0;
+  for (const chunk of chunks) {
+    const take = Math.min(chunk.length, joined.length - at);
+    joined.set(chunk.subarray(0, take), at);
+    at += take;
+    if (at >= joined.length) break;
+  }
+  return { text: new TextDecoder().decode(joined), truncated };
+}
+
 /** A page or sitemap, read the way a browser would follow it, and never thrown. */
-export async function fetchPage(url: string): Promise<Fetched> {
+export async function fetchPage(
+  url: string,
+  accept: string = ACCEPT_PAGE,
+  /** Whether a page's body is wanted at all; a probe wants only the headers. */
+  readBody = true,
+): Promise<Fetched> {
   try {
     const response = await fetch(url, {
-      headers: {
-        "user-agent": USER_AGENT,
-        accept: "text/html,application/xhtml+xml,application/xml",
-      },
+      headers: { "user-agent": USER_AGENT, accept },
       redirect: "follow",
     });
     const contentType = response.headers.get("content-type") ?? undefined;
@@ -86,8 +136,11 @@ export async function fetchPage(url: string): Promise<Fetched> {
     // A sitemap served as plain text is still a sitemap to read, not a file to offer.
     const sitemapAsText =
       mediaType(answer) === "text/plain" && /sitemap|\.xml(?:$|[?#])/i.test(url);
-    if (response.ok && (isPage(answer) || sitemapAsText)) answer.text = await response.text();
-    else await response.body?.cancel();
+    if (readBody && response.ok && (isPage(answer) || sitemapAsText)) {
+      const body = await readBounded(response, MAX_PAGE_BYTES);
+      answer.text = body.text;
+      if (body.truncated) answer.truncated = true;
+    } else await response.body?.cancel();
     return answer;
   } catch {
     return { status: 0, url, text: "" };
@@ -300,17 +353,125 @@ export async function discoverPages(
   return { pages: [...new Set(urls)], hosts };
 }
 
+/** An `href`, quoted either way or not at all, as HTML allows. */
+const HREF = /(?<![-\w])href\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>"']+))/gi;
+/** The elements a page navigates with. */
+const NAV = /<(?:a|area)\b[^>]*>/gi;
+
+/** Files a page links that are neither pages to read nor documents to keep. */
+const ASSET =
+  /\.(png|jpe?g|gif|svg|webp|avif|ico|css|js|mjs|map|json|webmanifest|xml|xsl|rss|atom|woff2?|ttf|otf|eot|wasm|mp4|webm|mp3|ogg|wav|avi|mov)$/i;
+
+/**
+ * The pages a page links on the maker's own hosts, absolute and deduplicated: the next hop.
+ * EPEVER's sitemap is stale and does not list the XTRA-N G3 page, while its category pages link
+ * it; a discovery that never left the sitemap could not reach a current product (#48).
+ */
+export function pageLinks(html: string, pageUrl: string, domains: readonly string[]): string[] {
+  const out = new Set<string>();
+  // Relative links resolve as a browser would, against the page's `<base href>` when it has one.
+  const base = baseHref(html, pageUrl);
+  // Only what a person could click: a `<link rel="alternate">` in the head is not navigation.
+  for (const tag of withoutBase(html).match(NAV) ?? [])
+    for (const match of tag.matchAll(HREF)) {
+      let url: URL;
+      try {
+        url = new URL(decodeEntities(match[1] ?? match[2] ?? match[3] ?? ""), base);
+      } catch {
+        continue;
+      }
+      if (url.protocol !== "https:" && url.protocol !== "http:") continue;
+      url.hash = "";
+      const href = url.toString();
+      if (isDocument(href) || ASSET.test(url.pathname) || !hostAllowed(url.hostname, domains))
+        continue;
+      out.add(href);
+    }
+  return [...out];
+}
+
+/**
+ * Links one batch of pages may hand back. A step's result is capped by Workflows at a mebibyte,
+ * and twenty navigation-heavy pages can link far more than a run will ever follow, so the frontier
+ * is cut here rather than failing the step that carries it.
+ */
+export const MAX_LINKS_PER_BATCH = 2000;
+/** And bounded in bytes as well, since generated filter addresses can run long. */
+export const MAX_FRONTIER_BYTES = 512 * 1024;
+/** The whole serialized result stays under this, well inside the mebibyte a step may return. */
+export const MAX_RESULT_BYTES = 768 * 1024;
+
+/** Paths a maker keeps its documents behind, ahead of its blog, its careers page and its cart. */
+const WORTH_FIRST =
+  /product|download|support|manual|datasheet|data-sheet|resource|spec|document|literature|catalog/i;
+
+/**
+ * The order to follow links in when the budget will not cover them all: pages whose path says
+ * product or download first, everything else after, each in the order they were found.
+ */
+export function hopOrder(candidates: readonly string[]): string[] {
+  const first: string[] = [];
+  const rest: string[] = [];
+  for (const url of candidates) {
+    let path = "";
+    try {
+      path = new URL(url).pathname;
+    } catch {
+      // A candidate that is not a URL sorts last and fails to load like any other.
+    }
+    (WORTH_FIRST.test(path) ? first : rest).push(url);
+  }
+  return [...first, ...rest];
+}
+
+/**
+ * The next pages to follow: up to `limit` entries of the ranked frontier from `from`, skipping
+ * any that a page read since has landed on, and where the walk stopped so the next batch starts
+ * there. A frontier drawn on this way replenishes itself: a slot a redirect would have wasted
+ * goes to the candidate after it.
+ */
+export function nextHop(
+  frontier: readonly string[],
+  from: number,
+  skip: ReadonlySet<string>,
+  limit: number,
+): { slice: string[]; cursor: number } {
+  const slice: string[] = [];
+  let cursor = from;
+  while (cursor < frontier.length && slice.length < limit) {
+    const candidate = frontier[cursor];
+    cursor += 1;
+    if (candidate !== undefined && !skip.has(candidate)) slice.push(candidate);
+  }
+  return { slice, cursor };
+}
+
 /** What one batch of pages gave, in numbers a plan can carry and a person can read. */
 export interface PagesRead {
   links: Found[];
   tables: SpecPageCandidate[];
+  /** Finds cut to keep the result under the step cap: documents and specification pages. */
+  documentsDropped: number;
+  tablesDropped: number;
+  /** Pages these pages link on the maker's hosts, for the hop after this one, product and download pages first and bounded. */
+  pages: string[];
+  /** Links found beyond that bound and left behind. */
+  linksDropped: number;
+  /** Where each page read actually was, after redirects, so a link back to it is not a page to follow. */
+  landed: string[];
+  /** Pages actually asked for: one in the batch that an earlier page had already landed on is skipped. */
+  attempted: number;
   read: number;
   /** The pages asked for that answered with a page, as they were asked for. */
   opened: string[];
+  /** The pages asked for that answered with a document themselves, as they were asked for. */
+  answered: string[];
   /** Pages that gave no HTML, by HTTP status; "0" is a host that did not answer. */
   failed: Record<string, number>;
   /** Documents linked on hosts the record does not claim: the distinct addresses, by host. */
   foreign: Record<string, string[]>;
+  /** Foreign addresses cut from those lists to keep the result under the step cap. */
+  foreignDropped: number;
   /** Hosts outside the record that pages redirected to. */
   redirectedTo: string[];
 }
@@ -324,18 +485,33 @@ export async function readPages(
   pages: readonly string[],
   domains: readonly string[],
   get: Get = fetchPage,
+  /** Addresses earlier batches landed on: a listed page among them is a page already read. */
+  skip: ReadonlySet<string> = new Set(),
 ): Promise<PagesRead> {
   const out: PagesRead = {
     links: [],
     tables: [],
+    documentsDropped: 0,
+    tablesDropped: 0,
+    pages: [],
+    linksDropped: 0,
+    landed: [],
+    attempted: 0,
     opened: [],
+    answered: [],
     read: 0,
     failed: {},
     foreign: {},
+    foreignDropped: 0,
     redirectedTo: [],
   };
   const strayedTo = new Set<string>();
+  const linked = new Set<string>();
+  const collected: string[] = [];
   for (const page of pages) {
+    // Two candidates in one batch can be one page, when the first redirects to the second.
+    if (out.landed.includes(page) || skip.has(page)) continue;
+    out.attempted += 1;
     const answer = await get(page);
     const away = strayed(answer, domains);
     if (away) strayedTo.add(away);
@@ -354,6 +530,7 @@ export async function readPages(
         count(out.failed, `not a page (${mediaType(answer) ?? "unknown type"})`);
         continue;
       }
+      out.answered.push(page);
       if (hostAllowed(host, domains)) out.links.push({ url: answer.url, host, foundOn: page });
       else {
         const urls = out.foreign[host] ?? [];
@@ -363,6 +540,7 @@ export async function readPages(
       continue;
     }
     out.read += 1;
+    out.landed.push(answer.url);
     out.opened.push(page);
     // Links resolve against where the page actually is, which after a redirect is not where it was asked for.
     for (const doc of linkedDocuments(answer.text, answer.url)) {
@@ -374,21 +552,88 @@ export async function readPages(
         out.foreign[doc.host] = urls;
       }
     }
+    // A page's link to itself, canonical or otherwise, is not a page to follow.
+    for (const link of pageLinks(answer.text, answer.url, domains))
+      if (link !== answer.url && link !== page && !linked.has(link)) {
+        linked.add(link);
+        collected.push(link);
+      }
     // The page is already here for its links. Judging it as a specification table too costs
     // nothing and is how the feed list stops being hand-typed.
     const candidate = judgeSpecPage(page, answer.text);
     if (candidate) out.tables.push(candidate);
   }
   out.redirectedTo = [...strayedTo].sort();
+  // The frontier handed back is bounded, and bounded after ranking, so a batch that links two
+  // thousand blog posts before its product pages still hands the product pages back.
+  const ranked = hopOrder(collected);
+  let bytes = 0;
+  out.pages = [];
+  for (const link of ranked) {
+    if (out.pages.length >= MAX_LINKS_PER_BATCH || bytes + link.length > MAX_FRONTIER_BYTES) break;
+    out.pages.push(link);
+    bytes += link.length;
+  }
+  out.linksDropped = ranked.length - out.pages.length;
+  bound(out);
   return out;
+}
+
+/**
+ * Keep the serialized result under the step-result cap: first the frontier gives way, then the
+ * foreign document lists, since both are counts a person reads and neither is lost entirely.
+ */
+function bound(out: PagesRead): void {
+  // Measured as the bytes a step result is, not as code units: a table of model names in
+  // another script is longer on the wire than in a string.
+  const size = () => new TextEncoder().encode(JSON.stringify(out)).length;
+  while (size() > MAX_RESULT_BYTES && out.pages.length > 0) {
+    const keep = Math.floor(out.pages.length * 0.8);
+    out.linksDropped += out.pages.length - keep;
+    out.pages = out.pages.slice(0, keep);
+  }
+  // Foreign lists shrink in rounds, twenty a host and then fewer, until the result fits or the
+  // lists are gone; the counts a person reads survive in `foreignDropped`.
+  for (const cap of [20, 10, 5, 2, 1, 0]) {
+    if (size() <= MAX_RESULT_BYTES) break;
+    for (const host of Object.keys(out.foreign)) {
+      const urls = out.foreign[host] ?? [];
+      out.foreignDropped += Math.max(0, urls.length - cap);
+      out.foreign[host] = urls.slice(0, cap);
+    }
+  }
+  // Last of all the finds themselves, counted so a plan built from a cut batch says so.
+  while (size() > MAX_RESULT_BYTES && out.tables.length > 0) {
+    const keep = Math.floor(out.tables.length * 0.8);
+    out.tablesDropped += out.tables.length - keep;
+    out.tables = out.tables.slice(0, keep);
+  }
+  while (size() > MAX_RESULT_BYTES && out.links.length > 0) {
+    const keep = Math.floor(out.links.length * 0.8);
+    out.documentsDropped += out.links.length - keep;
+    out.links = out.links.slice(0, keep);
+  }
 }
 
 /** Everything discovery saw, written beside the plan so an empty one can be explained. */
 export interface DiscoverySeen {
   hosts: HostSeen[];
-  /** Pages the site listed on its own hosts, how many were read, and what the rest answered. A read below the listing is a sample. */
-  pages: { listed?: number; read: number; failed: Record<string, number> };
-  /** Distinct documents linked on hosts the record does not claim, by host. */
+  /** Pages the site listed on its own hosts, how many were read in all, how many of those by following links, and what the rest answered. A read below the listing is a sample. */
+  pages: {
+    listed?: number;
+    read: number;
+    followed?: number;
+    /** Links the batches found beyond what they may hand back, and so never followed. */
+    linksDropped?: number;
+    /** Candidates handed back that the page budget did not reach. */
+    unfollowed?: number;
+    /** Finds cut from batches to keep their results under the step cap. */
+    documentsDropped?: number;
+    tablesDropped?: number;
+    failed: Record<string, number>;
+  };
+  /** Distinct documents linked on hosts the record does not claim, by host, and how many more were seen than could be carried. */
   foreignDocumentHosts: Record<string, number>;
+  foreignDocumentsDropped?: number;
   redirectedTo: string[];
 }

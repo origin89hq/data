@@ -5,10 +5,17 @@ import {
   type Fetched,
   fetchPage,
   type HostSeen,
+  hopOrder,
   hostsToTry,
   isDocumentAnswer,
   isPage,
   MAX_CHILD_SITEMAPS,
+  MAX_FRONTIER_BYTES,
+  MAX_LINKS_PER_BATCH,
+  MAX_PAGE_BYTES,
+  MAX_RESULT_BYTES,
+  nextHop,
+  pageLinks,
   readPages,
 } from "../src/discover.ts";
 
@@ -368,6 +375,16 @@ test("a page that answers with a document is offered as that document, and its b
   ]);
   assert.deepEqual(read.foreign, { "cdn.other.test": ["https://cdn.other.test/files/vue3"] });
   assert.deepEqual([read.read, read.opened], [1, ["https://maker.test/page"]]);
+  assert.deepEqual(
+    read.answered,
+    [
+      "https://maker.test/sell-sheets/vue3",
+      "https://maker.test/manual",
+      "https://maker.test/export?id=manual",
+      "https://maker.test/save",
+    ],
+    "the pages that answered with a document themselves, wherever the document was",
+  );
   assert.deepEqual(read.failed, { "not a page (image/png)": 1 });
   assert.equal(
     isDocumentAnswer({
@@ -411,6 +428,174 @@ test("a page that lands on another site is a site that moved, and its links belo
   assert.deepEqual(read.foreign, {
     "www.newname.test": ["https://www.newname.test/support/manual.pdf"],
   });
+  assert.deepEqual(read.pages, [], "and its pages are the other site's, not a hop to follow");
+  assert.deepEqual(read.landed, ["https://www.newname.test/"]);
+});
+
+test("a page's own links are the next hop; documents, assets and other sites are not", () => {
+  const html = `
+    <a href="/product-category/charge-controller/">category</a>
+    <a href=/product/unquoted>unquoted</a>
+    <a href="https://www.maker.test/product/xtra-n-g3/#specs">product</a>
+    <a href="https://www.maker.test/product/xtra-n-g3/">same product</a>
+    <a href="/wp-content/uploads/datasheet.pdf">a document</a>
+    <a href="/logo.svg">an asset</a>
+    <a href="/feed.xml">a feed</a>
+    <a href="/site.webmanifest">a manifest</a>
+    <base href="/catalog/">
+    <a href="model-x">relative to the base</a>
+    <a href="/fonts/brand.otf">a font</a>
+    <a href="https://shop.other.test/maker">a reseller</a>
+    <a href="mailto:sales@maker.test">mail</a>
+    <a href="tel:+1">phone</a>`;
+  assert.deepEqual(pageLinks(html, "https://www.maker.test/", ["maker.test"]), [
+    "https://www.maker.test/product-category/charge-controller/",
+    "https://www.maker.test/product/unquoted",
+    "https://www.maker.test/product/xtra-n-g3/",
+    "https://www.maker.test/catalog/model-x",
+  ]);
+});
+
+test("a batch hands back at most a bounded frontier, so a link-heavy catalogue cannot sink the step", async () => {
+  const many = Array.from(
+    { length: MAX_LINKS_PER_BATCH + 50 },
+    (_, i) => `<a href="/p/${i}">${i}</a>`,
+  );
+  const { get } = site({
+    "https://maker.test/a": many.slice(0, 1200).join(""),
+    // The product pages come last, after two thousand posts.
+    "https://maker.test/b": `${many.slice(1000).join("")}<a href="/product/x">x</a><a href="/download/y">y</a>`,
+  });
+  const read = await readPages(
+    ["https://maker.test/a", "https://maker.test/b"],
+    ["maker.test"],
+    get,
+  );
+  assert.equal(read.pages.length, MAX_LINKS_PER_BATCH);
+  assert.equal(new Set(read.pages).size, MAX_LINKS_PER_BATCH, "and each link once");
+  assert.deepEqual(read.pages.slice(0, 2), [
+    "https://maker.test/product/x",
+    "https://maker.test/download/y",
+  ]);
+  assert.equal(read.linksDropped, 52, "and says how many were left behind");
+  assert.equal(read.read, 2, "the cap costs links, not pages");
+});
+
+test("the frontier is drawn on batch by batch, skipping what a page has since landed on", () => {
+  const frontier = ["a", "b", "c", "d", "e", "f"];
+  const landed = new Set(["b", "e"]);
+  const first = nextHop(frontier, 0, landed, 2);
+  assert.deepEqual(first, { slice: ["a", "c"], cursor: 3 });
+  const second = nextHop(frontier, first.cursor, landed, 2);
+  assert.deepEqual(
+    second,
+    { slice: ["d", "f"], cursor: 6 },
+    "a skipped slot goes to the next candidate",
+  );
+  assert.deepEqual(nextHop(frontier, second.cursor, landed, 2), { slice: [], cursor: 6 });
+  assert.deepEqual(nextHop(frontier, 0, new Set(frontier), 3), { slice: [], cursor: 6 });
+  assert.deepEqual(nextHop(frontier, 0, landed, 0), { slice: [], cursor: 0 });
+});
+
+test("the frontier is bounded in bytes too, since generated addresses run long", async () => {
+  const long = Array.from(
+    { length: 600 },
+    (_, i) => `<a href="/filter?${"x".repeat(1000)}&n=${i}">${i}</a>`,
+  );
+  const { get } = site({ "https://maker.test/a": long.join("") });
+  const read = await readPages(["https://maker.test/a"], ["maker.test"], get);
+  const bytes = read.pages.reduce((n, u) => n + u.length, 0);
+  assert.ok(bytes <= MAX_FRONTIER_BYTES, `${bytes} bytes handed back`);
+  assert.ok(read.pages.length < 600 && read.pages.length > 0);
+  assert.equal(read.linksDropped, 600 - read.pages.length);
+});
+
+test("a candidate an earlier page in the batch landed on is not asked for again", async () => {
+  const { get, asked } = site({
+    "https://maker.test/a": { url: "https://maker.test/b", text: `<a href="/c">c</a>` },
+    "https://maker.test/b": `<a href="/d">d</a>`,
+  });
+  const read = await readPages(
+    ["https://maker.test/a", "https://maker.test/b"],
+    ["maker.test"],
+    get,
+  );
+  assert.deepEqual(asked, ["https://maker.test/a"]);
+  assert.deepEqual([read.attempted, read.read, read.landed], [1, 1, ["https://maker.test/b"]]);
+});
+
+test("the whole result stays under the step cap, frontier first and foreign lists after", async () => {
+  const links = Array.from(
+    { length: 3000 },
+    (_, i) => `<a href="/p/${"y".repeat(300)}/${i}">${i}</a>`,
+  );
+  const foreign = Array.from(
+    { length: 900 },
+    (_, i) => `<a href="https://cdn.other.test/${"z".repeat(500)}/${i}.pdf">${i}</a>`,
+  );
+  const { get } = site({ "https://maker.test/a": links.join("") + foreign.join("") });
+  const read = await readPages(["https://maker.test/a"], ["maker.test"], get);
+  assert.ok(
+    JSON.stringify(read).length <= MAX_RESULT_BYTES,
+    `${JSON.stringify(read).length} bytes`,
+  );
+  assert.ok(read.pages.length > 0, "the frontier is trimmed, not emptied");
+  assert.equal(read.linksDropped, 3000 - read.pages.length);
+  const kept = read.foreign["cdn.other.test"]?.length ?? 0;
+  assert.equal(read.foreignDropped, 900 - kept, "foreign addresses cut are counted, not lost");
+});
+
+test("href text in a script, a comment or a data attribute is not a page to follow", () => {
+  const html = `<a href="/product/real">real</a>
+    <script>location.href="/js/fake"; var o = {href: "/js/other"};</script>
+    <!-- <a href="/old/page">gone</a> -->
+    <div data-href="/data/attr">not a link</div>`;
+  assert.deepEqual(pageLinks(html, "https://www.maker.test/", ["maker.test"]), [
+    "https://www.maker.test/product/real",
+  ]);
+});
+
+test("links are followed product and download pages first, in the order they were found", () => {
+  const found = [
+    "https://maker.test/blog/summer-sale",
+    "https://maker.test/support/downloads/",
+    "https://maker.test/about",
+    "https://maker.test/product/xtra-n-g3/",
+    "https://products.maker.test/careers",
+    "not a url",
+  ];
+  assert.deepEqual(hopOrder(found), [
+    "https://maker.test/support/downloads/",
+    "https://maker.test/product/xtra-n-g3/",
+    "https://maker.test/blog/summer-sale",
+    "https://maker.test/about",
+    "https://products.maker.test/careers",
+    "not a url",
+  ]);
+  assert.deepEqual(hopOrder([]), []);
+});
+
+test("pages read give their links once each, never themselves, and a page that failed gives none", async () => {
+  const { get } = site({
+    "https://maker.test/a": `<a href="/product/x">x</a><a href="/product/y">y</a><a href="/a">self</a>`,
+    // Asked for without the slash, answered with it, and linking its canonical self.
+    "https://maker.test/b": {
+      url: "https://maker.test/b/",
+      text: `<a href="/product/y">y again</a><a href="/blog">blog</a><a href="/b/">canonical</a>`,
+    },
+    "https://maker.test/c": { status: 403, text: `<a href="/product/z">hidden</a>` },
+  });
+  const read = await readPages(
+    ["https://maker.test/a", "https://maker.test/b", "https://maker.test/c"],
+    ["maker.test"],
+    get,
+  );
+  assert.deepEqual(read.pages, [
+    "https://maker.test/product/x",
+    "https://maker.test/product/y",
+    "https://maker.test/blog",
+  ]);
+  assert.deepEqual(read.landed, ["https://maker.test/a", "https://maker.test/b/"]);
 });
 
 test("a sitemap served as plain text is read, while a plain-text download is not", async (t) => {
@@ -428,4 +613,76 @@ test("a sitemap served as plain text is read, while a plain-text download is not
   assert.match((await fetchPage("https://maker.test/sitemap.xml")).text, /<urlset>/);
   assert.equal((await fetchPage("https://maker.test/export?id=manual")).text, "");
   assert.equal((await fetchPage("https://maker.test/page")).text, "<p>hi</p>");
+});
+
+test("a page's own document links are cut last, and counted, when a batch would not fit the step", async () => {
+  const docs = Array.from(
+    { length: 6000 },
+    (_, i) => `<a href="/files/${"d".repeat(120)}/${i}.pdf">${i}</a>`,
+  );
+  const { get } = site({ "https://maker.test/a": docs.join("") });
+  const read = await readPages(["https://maker.test/a"], ["maker.test"], get);
+  assert.ok(JSON.stringify(read).length <= MAX_RESULT_BYTES);
+  assert.ok(read.links.length > 0 && read.links.length < 6000);
+  assert.equal(read.documentsDropped, 6000 - read.links.length);
+});
+
+test("a listed page an earlier batch landed on is not asked for again", async () => {
+  const { get, asked } = site({ "https://maker.test/b": `<a href="/c">c</a>` });
+  const read = await readPages(
+    ["https://maker.test/b"],
+    ["maker.test"],
+    get,
+    new Set(["https://maker.test/b"]),
+  );
+  assert.deepEqual(asked, []);
+  assert.deepEqual([read.attempted, read.read], [0, 0]);
+});
+
+test("only anchors and areas navigate; a head link or an href inside another attribute does not", () => {
+  const html = `<link rel="alternate" type="application/rss+xml" href="/feed/">
+    <a href="/product/real">real</a>
+    <area href="/product/area" shape="rect">
+    <img alt="see href=/not/a/link" src="/x.png">`;
+  assert.deepEqual(pageLinks(html, "https://www.maker.test/", ["maker.test"]), [
+    "https://www.maker.test/product/real",
+    "https://www.maker.test/product/area",
+  ]);
+});
+
+test("a page is read up to a bound, and what a typeless endpoint sends beyond it is left unread", async (t) => {
+  const huge = "x".repeat(MAX_PAGE_BYTES + 100_000);
+  let cancelled = false;
+  t.mock.method(globalThis, "fetch", async () => {
+    const stream = new ReadableStream<Uint8Array>({
+      start(controller) {
+        const bytes = new TextEncoder().encode(huge);
+        for (let i = 0; i < bytes.length; i += 65536)
+          controller.enqueue(bytes.subarray(i, i + 65536));
+        controller.close();
+      },
+      cancel() {
+        cancelled = true;
+      },
+    });
+    // No content type at all, as some download endpoints answer.
+    return new Response(stream, { status: 200 });
+  });
+  const answer = await fetchPage("https://maker.test/download?id=1");
+  assert.equal(answer.text.length, MAX_PAGE_BYTES);
+  assert.equal(answer.truncated, true);
+  assert.equal(cancelled, true, "the rest of the body is cancelled, not drained");
+});
+
+test("a result over the cap keeps shrinking its foreign lists until it fits", async () => {
+  const hosts = Array.from({ length: 300 }, (_, h) =>
+    Array.from(
+      { length: 20 },
+      (_, i) => `<a href="https://cdn-${h}.other.test/${"z".repeat(300)}/${i}.pdf">${i}</a>`,
+    ).join(""),
+  );
+  const { get } = site({ "https://maker.test/a": hosts.join("") });
+  const read = await readPages(["https://maker.test/a"], ["maker.test"], get);
+  assert.ok(new TextEncoder().encode(JSON.stringify(read)).length <= MAX_RESULT_BYTES);
+  assert.ok(read.foreignDropped > 0);
 });
