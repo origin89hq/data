@@ -34,7 +34,7 @@ import {
   VISION_RESPONSE_SCHEMA,
   withoutPageHeadings,
 } from "../src/reading.ts";
-import { seeDocument, seePage } from "../src/vision.ts";
+import { MAX_WAITS, seeDocument, seePage, waitFor } from "../src/vision.ts";
 import { LAST_ATTEMPT, partKey, readerKey } from "../src/work.ts";
 import { BLACK_BOX, pdfium, tinyPdf } from "./pdf.ts";
 import { type TestAiInput, world } from "./world.ts";
@@ -115,7 +115,11 @@ test("the page reader has an id the spec schema accepts, and a key of its own be
     "the same pattern schema/model.ts holds extractedBy to",
   );
   assert.notEqual(readerKey(VISION_EXTRACTOR_ID), readerKey(EXTRACTOR_ID));
-  assert.equal(readerKey(VISION_EXTRACTOR_ID), "ai_cf_moonshotai_kimi-k2.7-code_vision-p1");
+  assert.equal(
+    readerKey(VISION_EXTRACTOR_ID),
+    "ai_cf_moonshotai_kimi-k2.7-code_vision-p2",
+    "p1's readings kept rate-limited pages as read, so they are not this reader's (#29)",
+  );
   assert.equal(
     readerKey(EXTRACTOR_ID),
     EXTRACTOR_ID.replace(/[^\w.-]+/g, "_"),
@@ -533,6 +537,83 @@ test("a page PDFium cannot draw is written down at once, without asking a model 
   assert.equal(readObject<Reading>(readingKey).failed, 1);
 });
 
+// ---- waiting a turn with the model ----
+
+const RATE_LIMITED = "3021: rate limiting: inference request per min rate reached";
+const pageOne = { kind: "vision-page" as const, ...ids, page: 1, pages: 1 };
+
+test("a page the pace turns away waits its turn: nothing is drawn or asked, and a copy comes back later", async () => {
+  const { env, asked, sent, delays, pace, read } = world(
+    { [`archive/${SHA}`]: tinyPdf([BLACK_BOX]) },
+    kimi(["| Weight | 230 g |"]),
+  );
+  pace.allow = () => false;
+  await seePage(pageOne, env, 1, pdfium);
+  assert.equal(asked.length, 0, "the model is not asked");
+  assert.equal(read(partKey.page(SHA, READER, 1)), undefined, "and nothing is written down");
+  assert.equal(read(readingKey), undefined);
+  assert.deepEqual(sent, [{ ...pageOne, waits: 1 }]);
+  assert.deepEqual(delays, [71], "a minute, and eleven seconds for this page's place");
+});
+
+test("a page the model refuses on its rate limit waits too, even on its last delivery, whichever call refused", async () => {
+  const transcription = world(
+    { [`archive/${SHA}`]: tinyPdf([BLACK_BOX]) },
+    kimi([new Error(RATE_LIMITED)]),
+  );
+  await seePage(pageOne, transcription.env, LAST_ATTEMPT, pdfium);
+  assert.equal(
+    transcription.read(partKey.page(SHA, READER, 1)),
+    undefined,
+    "not written as failed",
+  );
+  assert.equal(transcription.read(readingKey), undefined, "so the reading waits for it");
+  assert.deepEqual(transcription.sent, [{ ...pageOne, waits: 1 }]);
+
+  const figures = world(
+    { [`archive/${SHA}`]: tinyPdf([BLACK_BOX]) },
+    kimi(["| Weight | 230 g |"], () => new Error(RATE_LIMITED)),
+  );
+  await seePage({ ...pageOne, waits: 3 }, figures.env, 1, pdfium);
+  assert.equal(figures.read(partKey.page(SHA, READER, 1)), undefined);
+  assert.deepEqual(figures.sent, [{ ...pageOne, waits: 4 }]);
+  assert.deepEqual(
+    figures.delays,
+    [491],
+    "eight minutes after three waits, and its eleven seconds",
+  );
+});
+
+test("the wait doubles from a minute to half an hour, and a page's place spreads a document's pages", () => {
+  // The spread is this document's first four hex digits plus the page, counted round a minute:
+  // 0xaaaa is 43690, and 43691 is 11 past a multiple of sixty.
+  const at = (page: number, waits?: number) =>
+    waitFor({ ...pageOne, page, pages: 60, ...(waits === undefined ? {} : { waits }) });
+  assert.deepEqual(
+    [at(1), at(1, 1), at(1, 2), at(1, 4), at(1, 5), at(1, MAX_WAITS - 1)],
+    [71, 131, 251, 971, 1811, 1811],
+  );
+  assert.deepEqual([at(2), at(49), at(50)], [72, 119, 60], "the place wraps round the minute");
+});
+
+test("past its last wait a refused page is a failure like any other, written down on its last delivery", async () => {
+  const { env, sent, pace, readObject } = world(
+    { [`archive/${SHA}`]: tinyPdf([BLACK_BOX]) },
+    kimi([new Error(RATE_LIMITED), new Error(RATE_LIMITED)]),
+  );
+  pace.allow = () => false;
+  const last = { ...pageOne, waits: MAX_WAITS };
+  await assert.rejects(seePage(last, env, 1, pdfium), /3021/, "the queue tries it again");
+  await seePage(last, env, LAST_ATTEMPT, pdfium);
+  assert.equal(pace.asked, 0, "the pace is not asked for a page that has waited its last");
+  assert.equal(
+    readObject<SeenPage>(partKey.page(SHA, READER, 1)).failed,
+    `not transcribed: ${RATE_LIMITED}`,
+  );
+  assert.equal(readObject<Reading>(readingKey).failed, 1);
+  assert.deepEqual(sent, [], "and it is not put back again");
+});
+
 // ---- offering a maker's run ----
 
 const RUN = "documents/maker/runs/2026-09-10-abcd1234";
@@ -584,4 +665,27 @@ test("a run with nothing converted offers nothing, and one never sent to convers
     /nothing has been sent to conversion/,
   );
   await assert.rejects(visionRun(world().env, "maker", "2026-09-10"), /no current run/);
+});
+
+test("a run offered already, with nothing converted since, is not offered again", async () => {
+  // The workflow offers makers from one look at the state; a pass may have offered one since.
+  const { env, sent, store } = world({
+    "documents/maker/current.json": pointer,
+    [`${RUN}/converting.json`]: JSON.stringify({ documents: [doc("b"), doc("c")] }),
+    [`${RUN}/converted/${"b".repeat(64)}.json`]: "{}",
+  });
+  assert.deepEqual(await visionRun(env, "maker", "2026-09-10"), { documents: 1 });
+  assert.deepEqual(await visionRun(env, "maker", "2026-09-10"), { documents: 0 });
+  assert.equal(sent.length, 1, "the second offer sends nothing");
+
+  // A document converted since reopens the run.
+  store.set(`${RUN}/converted/${"c".repeat(64)}.json`, new TextEncoder().encode("{}"));
+  assert.deepEqual(await visionRun(env, "maker", "2026-09-10"), { documents: 2 });
+
+  // And an offer made to an earlier page reader does not count as one to this reader.
+  store.set(
+    `${RUN}/seeing.json`,
+    new TextEncoder().encode(JSON.stringify({ converted: 2, extractedBy: "ai:older@vision-p0" })),
+  );
+  assert.deepEqual(await visionRun(env, "maker", "2026-09-10"), { documents: 2 });
 });

@@ -5,9 +5,10 @@ import { readDocument } from "./extract.ts";
 import { USER_AGENT } from "./feeds.ts";
 import { pdfium } from "./pdfium.ts";
 import { CONVERTER } from "./reading.ts";
+import { settle } from "./settle.ts";
 import { parseSpecTables, TABLE_READER } from "./spec-table.ts";
 import { seeDocument, seePage } from "./vision.ts";
-import { inputKey, partKey, Work } from "./work.ts";
+import { inputKey, partKey, type Work } from "./work.ts";
 
 /**
  * One unit of fan-out work. Every kind writes its result to a key the producer can predict, so
@@ -164,37 +165,9 @@ export async function handle(message: Work, env: Env, attempt = 1): Promise<void
   }
 }
 
-/**
- * The queue handler. Messages are taken one at a time, not with Promise.all: a batch of ten
- * documents converted at once put ten PDFs into one isolate's memory and lost half of them. The
- * parallelism worth having is across consumers, which the queue's own concurrency provides;
- * inside one invocation it only shares a single memory and CPU budget between ten heavy jobs.
- *
- * Each message is acknowledged or retried on its own, so one bad document cannot take the rest
- * of its batch down with it.
- */
+/** The queue handler: each message of the batch handled on its own (see `settle`). */
 export async function consume(batch: MessageBatch<unknown>, env: Env): Promise<void> {
-  for (const message of batch.messages) {
-    try {
-      await handle(Work.parse(message.body), env, message.attempts);
-      message.ack();
-    } catch (error) {
-      console.error(
-        JSON.stringify({
-          message: "work failed",
-          attempt: message.attempts,
-          error: error instanceof Error ? error.message : String(error),
-        }),
-      );
-      // A malformed message will never parse, however many times it is tried, so it goes
-      // straight to the dead-letter queue instead of burning its attempts.
-      if (error instanceof Error && error.name === "ZodError") {
-        message.ack();
-        return;
-      }
-      message.retry();
-    }
-  }
+  await settle(batch, (work, attempt) => handle(work, env, attempt));
 }
 
 export { CLASSIFIER_ID };
