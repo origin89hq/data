@@ -256,6 +256,27 @@ test("a window's answer with nothing in it is empty, a malformed product is drop
     ),
     [{ model: "B", specs: [] }],
   );
+  assert.deepEqual(
+    reportsInWindow(
+      JSON.stringify({
+        products: [
+          {
+            model: "K-Rack",
+            specs: [null, "75.3", { name: "Downward Design Load", value: "75.3", unit: "lb/ft²" }],
+          },
+        ],
+      }),
+      CERTIFICATE,
+      window,
+    ),
+    [
+      {
+        model: "K-Rack",
+        specs: [{ name: "Downward Design Load", value: "75.3", unit: "lb/ft²", page: 2 }],
+      },
+    ],
+    "a malformed figure is dropped and the rest of the window kept",
+  );
   assert.throws(() => reportsInWindow("I could not read this.", CERTIFICATE, window), SyntaxError);
 });
 
@@ -289,14 +310,32 @@ test("a later window is sent with the start of the document, for the names print
   ]);
   const [first, second] = figureWindows(long);
   assert.ok(first && second);
-  assert.equal(windowPrompt(long, first), first.text, "the first window already holds it");
-  const prompt = windowPrompt(long, second);
-  assert.ok(prompt.startsWith("The document begins:\n\n# manual.pdf\n"));
   assert.ok(
-    prompt.slice(0, 400).includes("# MultiPlus-II 48/3000/35-32 230V"),
+    windowPrompt(long, first).startsWith("### Page 1\n\n# MultiPlus-II"),
+    "the first window already holds it",
+  );
+  const prompt = windowPrompt(long, second);
+  assert.ok(
+    prompt.startsWith("The document begins:\n\n### Page 1\n\n# MultiPlus-II 48/3000/35-32 230V"),
     "the name on page 1 comes with it",
   );
   assert.ok(prompt.endsWith(second.text), "and then the window itself");
+});
+
+test("the model is never shown the file's name or the metadata, which the document does not print", () => {
+  // A scan saved under a product's name, whose pages never print it.
+  const sheet = transcriptDocument("RM-12-spec-sheet.pdf", [
+    { page: 1, markdown: "| Weight | 230 g |" },
+    { page: 2, markdown: "", failed: "not transcribed: 3040: capacity temporarily exceeded" },
+    ...Array.from({ length: 20 }, (_, i) => ({ page: i + 3, markdown: "y".repeat(2990) })),
+  ]);
+  assert.match(sheet, /^# RM-12-spec-sheet\.pdf\n## Metadata\n/);
+  const [first, second] = figureWindows(sheet);
+  assert.ok(first && second);
+  for (const prompt of [windowPrompt(sheet, first), windowPrompt(sheet, second)]) {
+    assert.ok(!prompt.includes("RM-12"), "no name the pages do not print");
+    assert.ok(!prompt.includes("## Metadata") && !prompt.includes("Not transcribed"));
+  }
 });
 
 test("a transcription comes out of its answer whole, with only a fence around the answer taken off", () => {
@@ -551,7 +590,11 @@ test("a window is read with the names the whole document prints, and the last on
     }),
   );
   await seeWindow({ kind: "vision-window", ...ids, window: 1, windows: 1 }, env, 1);
-  assert.deepEqual(seen, [CERTIFICATE], "page 1's name and page 2's ratings in one read");
+  assert.deepEqual(
+    seen,
+    [CERTIFICATE.slice(CERTIFICATE.indexOf("### Page 1"))],
+    "page 1's name and page 2's ratings in one read, under no title but what the pages print",
+  );
   assert.equal(asked[0].input.messages[0].content, DOCUMENT_FIGURES_SYSTEM);
   assert.deepEqual(asked[0].input.response_format.json_schema.schema, VISION_RESPONSE_SCHEMA);
   const reading = readObject<Reading & { windows: number }>(readingKey);

@@ -447,10 +447,19 @@ function pageAt(pages: { page: number; at: number }[], offset: number): number |
   return page;
 }
 
-/** What the model is given for one window: the window, and the document's start when it is not in it. */
+const CONTENTS = "\n## Contents\n";
+
+/**
+ * What the model is given for one window: the window, and the document's start when it is not in
+ * it. Neither carries the transcript's title or metadata. The title is the file's name from its
+ * URL, not anything the document prints, and the prompt lets a title name a product: a scan saved
+ * as "RM-12-spec-sheet.pdf" could have lent its figures a model its pages never print.
+ */
 export function windowPrompt(transcript: string, window: FigureWindow): string {
-  if (window.start === 0) return window.text;
-  return `The document begins:\n\n${transcript.slice(0, DOCUMENT_HEAD_CHARACTERS)}\n\n[…]\n\nReport the figures in this part of it:\n\n${window.text}`;
+  const at = transcript.indexOf(CONTENTS);
+  const pages = at === -1 ? 0 : at + CONTENTS.length;
+  if (window.start === 0) return window.text.slice(pages);
+  return `The document begins:\n\n${transcript.slice(pages, pages + DOCUMENT_HEAD_CHARACTERS)}\n\n[…]\n\nReport the figures in this part of it:\n\n${window.text}`;
 }
 
 /**
@@ -495,10 +504,14 @@ export function reportsInWindow(
     .filter((product) => typeof product?.model === "string" && Array.isArray(product.specs))
     .map((product) => ({
       model: product.model,
-      specs: product.specs.map((s) => {
-        const { page: _claimed, ...figure } = s;
-        const page = typeof s.value === "string" ? pageOf(s.value) : undefined;
-        return { ...figure, ...(page === undefined ? {} : { page }) };
-      }),
+      // A null or a bare string among a product's figures is dropped, not a reason to lose the
+      // window: `strict: false` lets the model answer outside the schema.
+      specs: product.specs
+        .filter((s) => typeof s === "object" && s !== null)
+        .map((s) => {
+          const { page: _claimed, ...figure } = s;
+          const page = typeof s.value === "string" ? pageOf(s.value) : undefined;
+          return { ...figure, ...(page === undefined ? {} : { page }) };
+        }),
     }));
 }
