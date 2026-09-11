@@ -1,6 +1,9 @@
-import { modelKey } from "@origin89/equipment-api/keys";
+import { writeFileSync } from "node:fs";
+import { resolve, sep } from "node:path";
+import { modelKey, nameKey } from "@origin89/equipment-api/keys";
 import { type DialectLink, Model } from "@origin89/equipment-schema/model";
 import { catalogueLink, mergeLinks, sameLinks } from "../../src/dialect-links.ts";
+import { cell } from "../../src/markdown.ts";
 import { looksLikeModelName, modelId, normaliseModelName } from "../../src/models.ts";
 import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 
@@ -18,10 +21,28 @@ import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
  * `pull-specs` uses for a product named in a maker's own datasheet: a reviewed protocol record
  * naming "SmartSolar MPPT 150/35" is better evidence the product exists than a shop listing is.
  *
- * Usage: link-dialects.ts [--dry-run] [--mint]
+ * Usage: link-dialects.ts [--dry-run] [--mint] [--report <file>]
+ *
+ * `--report` writes every link this run adds as a Markdown table, one row a link with the
+ * catalogue entry it came from and the dialect's sources, for the person who confirms the pull
+ * request that carries them: the review is the confirmation, and the table is what is reviewed.
  */
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
+const reportAt = args.indexOf("--report");
+const reportFile = reportAt >= 0 ? args[reportAt + 1] : undefined;
+if (reportAt >= 0 && (!reportFile || reportFile.startsWith("--"))) {
+  console.error("usage: link-dialects.ts [--dry-run] [--mint] [--report <file>]");
+  process.exit(2);
+}
+// A report is not a record: a path under `records/` would write Markdown over a record file, or
+// be written over by the record this run rewrites.
+if (reportFile && `${resolve(reportFile)}${sep}`.startsWith(`${resolve(RECORDS_DIR)}${sep}`)) {
+  console.error(
+    `--report ${reportFile} is under the records directory; write the report elsewhere`,
+  );
+  process.exit(2);
+}
 // Minting is opt-in, because the head of a note is not reliably a model of that maker. The
 // dialect `magnum-ags-honda-eu3000is-combination-switch` is Magnum's, and the product it names is
 // a Honda generator; minting would have filed an EU3000is under Magnum. Others are ranges
@@ -59,7 +80,14 @@ let minted = 0;
 let prose = 0;
 let noMaker = 0;
 let ambiguous = 0;
+let duplicates = 0;
 const dialectLinks = new Map<string, DialectLink[]>();
+/** The catalogue entry each link came from, for the report. */
+const entries = new Map<string, string>();
+const report: string[] = [];
+/** The models to write once the report is safely down. */
+/** Every record this run writes, by id, written after the report so a report that cannot be written changes nothing. */
+const pending = new Map<string, Model>();
 const unmatched = new Map<string, number>();
 
 for (const dialect of records.dialects) {
@@ -85,6 +113,32 @@ for (const dialect of records.dialects) {
       continue;
     }
     let modelIdentifier = reached ? [...reached][0] : undefined;
+    // Two records of one maker sharing a name or an alias are one product filed twice; when the
+    // other one already carries this dialect, linking this one too would publish two devices.
+    const namesOf = (m: { manufacturer: string; name: string; aliases: string[] }) =>
+      new Set(
+        [m.name, ...m.aliases].map((n) =>
+          nameKey(makerName.get(m.manufacturer) ?? m.manufacturer, n),
+        ),
+      );
+    const reachedModel = records.models.find((m) => m.id === modelIdentifier);
+    const mine = reachedModel ? namesOf(reachedModel) : new Set<string>();
+    const twin =
+      reachedModel === undefined
+        ? undefined
+        : records.models.find(
+            (other) =>
+              other.id !== reachedModel.id &&
+              other.manufacturer === reachedModel.manufacturer &&
+              other.dialects.some((l) => l.dialect === dialect.id) &&
+              [...namesOf(other)].some((n) => mine.has(n)),
+          );
+    if (twin) {
+      duplicates += 1;
+      const note = `${dialect.manufacturer}: ${head} (already linked on ${twin.id}, a duplicate record)`;
+      unmatched.set(note, (unmatched.get(note) ?? 0) + 1);
+      continue;
+    }
     if (!modelIdentifier && addModels) {
       const id = modelId(dialect.manufacturer, head);
       if (!records.models.some((m) => m.id === id)) {
@@ -96,7 +150,7 @@ for (const dialect of records.dialects) {
           dialects: [],
           basis: `named by the protocol catalogue in ${dialect.id}`,
         });
-        if (!dryRun) writeRecord(RECORDS_DIR, "models", id, model);
+        pending.set(id, model);
         records.models.push(model);
         reach(key(dialect.manufacturer, head), id);
         minted += 1;
@@ -114,6 +168,7 @@ for (const dialect of records.dialects) {
       modelIdentifier,
       mergeLinks(dialectLinks.get(modelIdentifier) ?? [], [catalogueLink(dialect)]),
     );
+    entries.set(`${modelIdentifier}\u0000${dialect.id}`, entry.name);
     linked += 1;
   }
 }
@@ -127,9 +182,32 @@ for (const model of records.models) {
   // stronger evidence somebody recorded. A catalogue claim whose confidence moved is written.
   const dialects = mergeLinks(model.dialects, found);
   if (sameLinks(dialects, model.dialects)) continue;
-  if (!dryRun) writeRecord(RECORDS_DIR, "models", model.id, Model.parse({ ...model, dialects }));
+  const had = new Set(model.dialects.map((l) => l.dialect));
+  for (const link of dialects) {
+    if (had.has(link.dialect)) continue;
+    const dialect = records.dialects.find((d) => d.id === link.dialect);
+    // A catalogue link cites nothing of its own; the dialect's sources are what a reviewer reads.
+    report.push(
+      `| \`${model.id}\` | ${cell(model.name)} | \`${link.dialect}\` | ${cell(entries.get(`${model.id}\u0000${link.dialect}`) ?? "")} | ${dialect?.confidence ?? ""} | ${(dialect?.sources ?? []).map((c) => `\`${c.source}\``).join(", ")} |`,
+    );
+  }
+  pending.set(model.id, Model.parse({ ...model, dialects }));
   touched += 1;
 }
+// The report goes first: a path that cannot be written stops the run before any record changes,
+// so a retry still has every new link to report.
+if (reportFile) {
+  writeFileSync(
+    reportFile,
+    `${[
+      "| Model | Name | Dialect | Catalogue entry | Dialect confidence | Dialect sources |",
+      "|---|---|---|---|---|---|",
+      ...report.sort(),
+    ].join("\n")}\n`,
+  );
+  console.log(`${report.length} links written to ${reportFile}`);
+}
+for (const [id, model] of pending) if (!dryRun) writeRecord(RECORDS_DIR, "models", id, model);
 
 console.log(
   `${linked} model entries linked to a record${dryRun ? " (dry run, nothing written)" : ""}`,
@@ -146,6 +224,10 @@ if (unmatched.size) {
 console.log(`  ${touched} models now point at a dialect`);
 console.log(`  ${prose} entries are prose rather than a name, and stay as the note they are`);
 if (noMaker) console.log(`  ${noMaker} sit on a dialect whose maker this repo holds no record for`);
+if (duplicates)
+  console.log(
+    `  ${duplicates} names are already linked on a duplicate record of the same maker, and link nothing`,
+  );
 if (ambiguous)
   console.log(
     `  ${ambiguous} names reach more than one model under the key rule, and link nothing`,

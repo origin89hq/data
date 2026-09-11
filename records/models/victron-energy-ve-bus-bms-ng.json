@@ -6,6 +6,20 @@
   "aliases": [],
   "dialects": [
     {
+      "dialect": "unknown-victron-ble-instant-readout",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "unknown-victron-bms-via-gx",
+      "evidence": {
+        "kind": "catalogue-name"
+      },
+      "confidence": "unverified"
+    },
+    {
       "dialect": "victron-bms-dry-contact",
       "evidence": {
         "kind": "catalogue-name"
