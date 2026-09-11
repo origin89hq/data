@@ -3,6 +3,7 @@ import { test } from "node:test";
 import {
   baseHref,
   CrawlApproval,
+  citedFirst,
   DownloadDecision,
   decisionOf,
   decodeEntities,
@@ -127,6 +128,36 @@ test("an approval narrows what discovery found and can never widen it", () => {
   assert.equal(
     permitted(found, CrawlApproval.parse({ approved: true, approvedBy: "David", limit: 1 })).length,
     1,
+  );
+});
+
+test("a limit takes the documents the records cite first, then the rest in the plan's order (#77)", () => {
+  const found: Found[] = [
+    { url: "https://a.victronenergy.com/1.pdf", host: "a.victronenergy.com" },
+    { url: "https://a.victronenergy.com/2.pdf", host: "a.victronenergy.com", cited: true },
+    { url: "https://b.victronenergy.com/3.pdf", host: "b.victronenergy.com" },
+    { url: "https://b.victronenergy.com/4.pdf", host: "b.victronenergy.com", cited: true },
+  ];
+  const approve = (over: object) =>
+    permitted(found, CrawlApproval.parse({ approved: true, approvedBy: "David", ...over })).map(
+      (f) => f.url.slice(-5),
+    );
+  assert.deepEqual(approve({ limit: 2 }), ["2.pdf", "4.pdf"], "both cited ones before any other");
+  assert.deepEqual(approve({ limit: 3 }), ["2.pdf", "4.pdf", "1.pdf"], "then the plan's order");
+  assert.deepEqual(
+    approve({}),
+    ["2.pdf", "4.pdf", "1.pdf", "3.pdf"],
+    "no limit: everything, cited first",
+  );
+  assert.deepEqual(
+    approve({ limit: 1, hosts: ["b.victronenergy.com"] }),
+    ["4.pdf"],
+    "the host narrowing still applies before the limit",
+  );
+  assert.deepEqual(
+    citedFirst([{ cited: true }, {}, { cited: true }, {}]),
+    [{ cited: true }, { cited: true }, {}, {}],
+    "stable within each group",
   );
 });
 

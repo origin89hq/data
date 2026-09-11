@@ -725,8 +725,9 @@ test("cited pages are read first and the sitemap's fill what is left of the budg
   );
 });
 
-test("cited documents are offered after what the site gave, once each, and only on the maker's hosts", () => {
+test("cited documents are offered first, once each, and only on the maker's hosts", () => {
   const found = [
+    { url: "https://maker.test/files/z.pdf", host: "maker.test", foundOn: "https://maker.test/p" },
     { url: "https://maker.test/files/a.pdf", host: "maker.test", foundOn: "https://maker.test/p" },
   ];
   const cited = {
@@ -746,6 +747,9 @@ test("cited documents are offered after what the site gave, once each, and only 
       cited: true,
     },
     { url: "https://maker.test/files/b.pdf", host: "maker.test", cited: true },
+    // What the site gave and nothing cites comes after, in its own order, since a limit takes
+    // the plan from the top (#77).
+    { url: "https://maker.test/files/z.pdf", host: "maker.test", foundOn: "https://maker.test/p" },
   ]);
   assert.deepEqual(withCited([], { documents: [], pages: [] }, ["maker.test"]), []);
   // A cited page that answered with the document: the document is the citation's.

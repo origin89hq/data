@@ -66,7 +66,8 @@ its documents on a host the record does not claim.
 **Then it stops.** The instance writes what it *would* fetch — how many
 documents, on which hosts, how many bytes where the host said — and waits for a
 person to approve it. The approval names who gave it, may narrow the hosts, and
-may cap the count. Nothing is fetched without one, and a timeout ends the
+may cap the count; a cap takes the documents the records already cite before
+any other. Nothing is fetched without one, and a timeout ends the
 instance rather than proceeding: silence is a refusal.
 
 The failure that prevents is a crawl pulling a gigabyte off somebody's server
