@@ -168,6 +168,9 @@ importers:
       '@embedpdf/pdfium':
         specifier: 2.15.0
         version: 2.15.0
+      '@origin89/equipment-api':
+        specifier: workspace:*
+        version: link:../../packages/api
       '@origin89/equipment-schema':
         specifier: workspace:*
         version: link:../../packages/schema

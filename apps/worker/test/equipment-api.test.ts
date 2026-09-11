@@ -1,0 +1,545 @@
+import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
+import { test } from "node:test";
+import { LIMITS } from "@origin89/equipment-api";
+import { loadPartName } from "@origin89/equipment-schema/releases";
+import {
+  bundle,
+  currentRelease,
+  loadedRelease,
+  properties,
+  releaseInfo,
+  resolve,
+  search,
+  sourcesById,
+} from "../src/equipment-api.ts";
+import { loadRelease, type Steps } from "../src/release-load.ts";
+import { loadKey, releaseKey } from "../src/releases.ts";
+import { world } from "./world.ts";
+
+const sha256 = (text: string) => createHash("sha256").update(text).digest("hex");
+const plain: Steps = { do: (_name, fn) => fn() };
+const RELEASE = "a".repeat(64);
+const OLDER = "b".repeat(64);
+
+/** A small release the way the build would publish it, loaded into a fresh world. */
+async function fixture(
+  extra: Record<string, Record<string, unknown>[]> = {},
+  id = RELEASE,
+  at = "2026-09-11T10:00:00Z",
+) {
+  const model = (over: Record<string, unknown>) => ({
+    tier: "record",
+    manufacturer_id: "victron-energy",
+    manufacturer_name: "Victron Energy",
+    kind: "charge-controller",
+    ...over,
+  });
+  const tables: Record<string, Record<string, unknown>[]> = {
+    manufacturers: [
+      { id: "victron-energy", name: "Victron Energy" },
+      { id: "epever", name: "EPEver (Beijing Epsolar Technology)" },
+      { id: "sol-ark", name: "Sol-Ark" },
+    ],
+    brands: [
+      {
+        id: "victron",
+        brand: "Victron",
+        decision: "manufacturer",
+        manufacturer_id: "victron-energy",
+      },
+      { id: "nobody", brand: "Nobody", decision: "out-of-scope" },
+    ],
+    models: [
+      model({
+        id: "victron-energy-smartsolar-mppt-150-35",
+        name: "SmartSolar MPPT 150/35",
+        reviewed_by: "ada",
+      }),
+      model({ id: "victron-energy-smartsolar-mppt-150-45", name: "SmartSolar MPPT 150/45" }),
+      model({
+        id: "victron-energy-multiplus-ii-48-3000",
+        name: "MultiPlus-II 48/3000",
+        kind: "inverter-charger",
+      }),
+      model({
+        id: "epever-xtra4210n",
+        manufacturer_id: "epever",
+        manufacturer_name: "EPEver (Beijing Epsolar Technology)",
+        name: "XTRA4210N",
+      }),
+      model({
+        id: "sol-ark-12k",
+        manufacturer_id: "sol-ark",
+        manufacturer_name: "Sol-Ark",
+        name: "12K",
+        kind: "inverter",
+      }),
+      model({
+        id: "sol-ark-sol-ark-12k",
+        manufacturer_id: "sol-ark",
+        manufacturer_name: "Sol-Ark",
+        name: "Sol-Ark 12K",
+        kind: "inverter",
+      }),
+      {
+        id: "sam-cec-acme-i-3000",
+        tier: "feed",
+        manufacturer_name: "Acme",
+        name: "I-3000",
+        kind: "inverter",
+      },
+    ],
+    model_aliases: [{ model_id: "victron-energy-smartsolar-mppt-150-35", alias: "SCC115035210" }],
+    model_keys: [
+      {
+        model_id: "victron-energy-smartsolar-mppt-150-35",
+        key: "victronenergysmartsolarmppt150/35",
+        name_key: "smartsolarmppt150/35",
+        label: "Victron Energy",
+        via: "name",
+      },
+      {
+        model_id: "victron-energy-smartsolar-mppt-150-35",
+        key: "victronsmartsolarmppt150/35",
+        name_key: "smartsolarmppt150/35",
+        label: "Victron",
+        via: "name",
+      },
+      {
+        model_id: "victron-energy-smartsolar-mppt-150-35",
+        key: "victronenergyscc115035210",
+        name_key: "scc115035210",
+        label: "Victron Energy",
+        via: "alias",
+      },
+      {
+        model_id: "victron-energy-smartsolar-mppt-150-45",
+        key: "victronenergysmartsolarmppt150/45",
+        name_key: "smartsolarmppt150/45",
+        label: "Victron Energy",
+        via: "name",
+      },
+      {
+        model_id: "victron-energy-multiplus-ii-48-3000",
+        key: "victronenergymultiplusii48/3000",
+        name_key: "multiplusii48/3000",
+        label: "Victron Energy",
+        via: "name",
+      },
+      {
+        model_id: "epever-xtra4210n",
+        key: "epeverxtra4210n",
+        name_key: "xtra4210n",
+        label: "EPEver (Beijing Epsolar Technology)",
+        via: "name",
+      },
+      { model_id: "sol-ark-12k", key: "solark12k", name_key: "12k", label: "Sol-Ark", via: "name" },
+      {
+        model_id: "sol-ark-sol-ark-12k",
+        key: "solark12k",
+        name_key: "12k",
+        label: "Sol-Ark",
+        via: "name",
+      },
+      {
+        model_id: "sam-cec-acme-i-3000",
+        key: "acmei3000",
+        name_key: "i3000",
+        label: "Acme",
+        via: "name",
+      },
+    ],
+    specs: [
+      {
+        id: "victron-energy-smartsolar-mppt-150-35--max-pv-voltage",
+        tier: "record",
+        model_id: "victron-energy-smartsolar-mppt-150-35",
+        name: "Maximum PV open circuit voltage",
+        value: "150",
+        unit: "V",
+        source_id: "doc-victron-150-35",
+        page: 2,
+        confidence: "vendor-doc",
+        extracted_by: "ai:@cf/test@p1",
+        reviewed_by: "ada",
+      },
+      {
+        id: "victron-energy-smartsolar-mppt-150-35--charge-current",
+        tier: "record",
+        model_id: "victron-energy-smartsolar-mppt-150-35",
+        name: "Rated charge current",
+        value: "35",
+        unit: "A",
+        source_id: "doc-victron-150-35",
+        page: 2,
+        confidence: "vendor-doc",
+        extracted_by: "ai:@cf/test@p1",
+        doubt: "the unit was inferred",
+      },
+      {
+        id: "epever-xtra4210n--rated-current",
+        tier: "record",
+        model_id: "epever-xtra4210n",
+        name: "Rated charge current",
+        value: "40",
+        unit: "A",
+        source_id: "doc-epever-xtra",
+        confidence: "vendor-doc",
+        extracted_by: "ai:@cf/test@p1",
+      },
+      {
+        id: "sam-cec-acme-i-3000--00-paco",
+        tier: "feed",
+        model_id: "sam-cec-acme-i-3000",
+        name: "Maximum AC power output",
+        value: "3000",
+        unit: "W",
+        source_id: "sam-cec",
+        confidence: "vendor-doc",
+      },
+    ],
+    dialects: [
+      {
+        id: "victron-mppt-vedirect-hex",
+        family: "vedirect",
+        manufacturer: "victron-energy",
+        confidence: "vendor-doc",
+        refuter: "refuted",
+        transport: "VE.Direct, 19200 8N1",
+        blocks: "HEX registers 0xEDDC…",
+      },
+      {
+        id: "epever-xtra-n-g3",
+        family: "modbus-rtu",
+        manufacturer: "epever",
+        confidence: "unverified",
+        refuter: "none",
+      },
+    ],
+    dialect_gotchas: [
+      {
+        dialect_id: "victron-mppt-vedirect-hex",
+        position: 0,
+        text: "The text protocol drops frames under load.",
+      },
+      { dialect_id: "victron-mppt-vedirect-hex", position: 1, text: "HEX mode must be asked for." },
+    ],
+    dialect_sources: [
+      {
+        dialect_id: "victron-mppt-vedirect-hex",
+        position: 0,
+        source_id: "doc-vedirect-whitepaper",
+        citation: "VE.Direct HEX protocol, section 4",
+      },
+    ],
+    dialect_kinds: [
+      {
+        dialect_id: "victron-mppt-vedirect-hex",
+        direction: "reports",
+        position: 0,
+        kind: "pv-voltage",
+      },
+      {
+        dialect_id: "victron-mppt-vedirect-hex",
+        direction: "accepts",
+        position: 0,
+        kind: "charge-limit",
+      },
+    ],
+    model_dialects: [
+      {
+        model_id: "victron-energy-smartsolar-mppt-150-35",
+        dialect_id: "victron-mppt-vedirect-hex",
+      },
+      { model_id: "epever-xtra4210n", dialect_id: "epever-xtra-n-g3" },
+    ],
+    sources: [
+      {
+        id: "doc-victron-150-35",
+        url: "https://www.victronenergy.com/upload/documents/Datasheet-SmartSolar-150-35.pdf",
+        sha256: "c".repeat(64),
+        retrieved_at: "2026-09-01",
+      },
+      { id: "doc-epever-xtra", url: "https://www.epever.com/xtra.pdf" },
+      {
+        id: "doc-vedirect-whitepaper",
+        url: "https://www.victronenergy.com/vedirect.pdf",
+        redistributable: true,
+      },
+      { id: "doc-unrelated", url: "https://elsewhere.test/x.pdf" },
+    ],
+    ...extra,
+  };
+  const objects: Record<string, string> = {};
+  const files: Record<string, { rows: number; bytes: number; sha256: string }> = {};
+  const load: { version: 1; tables: Record<string, { parts: string[]; rows: number }> } = {
+    version: 1,
+    tables: {},
+  };
+  for (const [table, rows] of Object.entries(tables)) {
+    const name = loadPartName(table, 1);
+    const text = `${rows.map((r) => JSON.stringify(r)).join("\n")}\n`;
+    files[name] = { rows: rows.length, bytes: text.length, sha256: sha256(text) };
+    objects[loadKey(sha256(text))] = text;
+    load.tables[table] = { parts: rows.length ? [name] : [], rows: rows.length };
+  }
+  objects[releaseKey(id)] = JSON.stringify({
+    id,
+    content: sha256(id),
+    attempt: "1",
+    at,
+    sha: "a".repeat(40),
+    job: "1",
+    files,
+    load,
+  });
+  const w = world(objects);
+  const outcome = await loadRelease(w.env.ARCHIVE, w.env.RELEASES, plain, id);
+  assert.equal(outcome.outcome, "loaded", JSON.stringify(outcome));
+  return { db: w.env.RELEASES, world: w };
+}
+
+test("a name resolves to one model under its maker or its brand, and an alias reaches it too", async () => {
+  const { db } = await fixture();
+  const byMaker = await resolve(db, RELEASE, {
+    brand: "Victron Energy",
+    model: "SmartSolar MPPT 150/35",
+  });
+  assert.equal(byMaker.outcome, "exact");
+  if (byMaker.outcome === "exact") {
+    assert.equal(byMaker.model.id, "victron-energy-smartsolar-mppt-150-35");
+    assert.deepEqual(byMaker.model.aliases, ["SCC115035210"]);
+    assert.equal(byMaker.model.reviewedBy, "ada");
+    assert.deepEqual(byMaker.model.manufacturer, { id: "victron-energy", name: "Victron Energy" });
+  }
+  const byBrand = await resolve(db, RELEASE, { brand: "victron", model: "smartsolar-mppt 150/35" });
+  assert.equal(byBrand.outcome, "exact", "case, spaces and dashes do not matter");
+  const byAlias = await resolve(db, RELEASE, { brand: "Victron Energy", model: "SCC115035210" });
+  assert.equal(byAlias.outcome, "exact");
+  const noBrand = await resolve(db, RELEASE, { model: "XTRA4210N" });
+  assert.equal(
+    noBrand.outcome,
+    "exact",
+    "without a brand, the name alone is enough when one model has it",
+  );
+  const wrongKind = await resolve(db, RELEASE, {
+    brand: "Victron Energy",
+    model: "SmartSolar MPPT 150/35",
+    kind: "inverter",
+  });
+  assert.equal(wrongKind.outcome, "none", "a kind that does not fit rules the match out");
+});
+
+test("a key two models share is ambiguous, never picked, and a miss shows near neighbours", async () => {
+  const { db } = await fixture();
+  const twice = await resolve(db, RELEASE, { brand: "Sol-Ark", model: "12K" });
+  assert.equal(twice.outcome, "ambiguous");
+  if (twice.outcome === "ambiguous") {
+    assert.deepEqual(twice.candidates.map((c) => c.id).sort(), [
+      "sol-ark-12k",
+      "sol-ark-sol-ark-12k",
+    ]);
+    assert.equal(twice.truncated, false);
+  }
+  const miss = await resolve(db, RELEASE, {
+    brand: "Victron Energy",
+    model: "SmartSolar MPPT 150/60",
+  });
+  assert.equal(miss.outcome, "none");
+  if (miss.outcome === "none") {
+    assert.deepEqual(
+      miss.near.map((m) => m.name),
+      ["SmartSolar MPPT 150/35", "SmartSolar MPPT 150/45"],
+      "neighbours share the start of the name",
+    );
+    assert.equal(miss.truncated, false);
+  }
+  const nothing = await resolve(db, RELEASE, { model: "Q" });
+  assert.deepEqual(nothing, { outcome: "none", near: [], truncated: false });
+});
+
+test("a label read off a device resolves whether or not the maker is printed on it", async () => {
+  const { db } = await fixture();
+  for (const label of [
+    "Victron Energy SmartSolar MPPT 150/35",
+    "SmartSolar MPPT 150/35",
+    "VICTRON SMARTSOLAR MPPT 150/35",
+    "Victron Energy BlueSolar SmartSolar MPPT 150/35",
+  ]) {
+    const found = await resolve(db, RELEASE, { label });
+    assert.equal(found.outcome, "exact", label);
+    if (found.outcome === "exact")
+      assert.equal(found.model.id, "victron-energy-smartsolar-mppt-150-35");
+  }
+  const short = await resolve(db, RELEASE, { label: "12K" });
+  assert.equal(
+    short.outcome,
+    "ambiguous",
+    "a label two models share is ambiguous like any other key",
+  );
+  const unknown = await resolve(db, RELEASE, { label: "Zeta Q9" });
+  assert.equal(unknown.outcome, "none");
+});
+
+test("search pages by name within a maker, a brand, a prefix or a kind, and says when it was cut", async () => {
+  const { db } = await fixture();
+  const victron = await search(db, RELEASE, { brand: "Victron", limit: 2 });
+  assert.deepEqual(
+    victron.items.map((m) => m.name),
+    ["MultiPlus-II 48/3000", "SmartSolar MPPT 150/35"],
+  );
+  assert.equal(victron.truncated, true);
+  assert.ok(victron.cursor);
+  const rest = await search(db, RELEASE, { brand: "Victron", limit: 2, cursor: victron.cursor });
+  assert.deepEqual(
+    rest.items.map((m) => m.name),
+    ["SmartSolar MPPT 150/45"],
+  );
+  assert.equal(rest.truncated, false);
+  assert.equal(rest.cursor, undefined);
+  const controllers = await search(db, RELEASE, {
+    brand: "Victron Energy",
+    kind: "charge-controller",
+    limit: 10,
+  });
+  assert.equal(controllers.items.length, 2);
+  const prefix = await search(db, RELEASE, { prefix: "smartsolar mppt 150", limit: 10 });
+  assert.equal(prefix.items.length, 2);
+  const feed = await search(db, RELEASE, { brand: "Acme", limit: 10 });
+  assert.deepEqual(
+    feed.items.map((m) => [m.id, m.tier, m.manufacturer]),
+    [["sam-cec-acme-i-3000", "feed", { name: "Acme" }]],
+    "a feed row is found by the name it prints",
+  );
+  assert.deepEqual(await search(db, RELEASE, { brand: "Nobody", limit: 10 }), {
+    items: [],
+    truncated: false,
+  });
+  await assert.rejects(
+    search(db, RELEASE, { brand: "Victron", limit: 2, cursor: "made up" }),
+    /not a cursor/,
+  );
+});
+
+test("a bundle carries the models, their claims, their protocol links and exactly the sources those cite", async () => {
+  const { db } = await fixture();
+  const out = await bundle(db, RELEASE, {
+    models: ["victron-energy-smartsolar-mppt-150-35", "epever-xtra4210n", "no-such-model"],
+    properties: ["pv.voc.max"],
+  });
+  assert.equal(out.release, RELEASE);
+  assert.deepEqual(
+    out.models.map((m) => m.id),
+    ["victron-energy-smartsolar-mppt-150-35", "epever-xtra4210n"],
+  );
+  assert.deepEqual(out.unknown, ["no-such-model"]);
+  assert.deepEqual(
+    out.claims.map((c) => [c.model, c.name, c.value, c.unit, c.page, c.reviewedBy, c.doubt]),
+    [
+      ["epever-xtra4210n", "Rated charge current", "40", "A", undefined, undefined, undefined],
+      [
+        "victron-energy-smartsolar-mppt-150-35",
+        "Rated charge current",
+        "35",
+        "A",
+        2,
+        undefined,
+        "the unit was inferred",
+      ],
+      [
+        "victron-energy-smartsolar-mppt-150-35",
+        "Maximum PV open circuit voltage",
+        "150",
+        "V",
+        2,
+        "ada",
+        undefined,
+      ],
+    ],
+  );
+  assert.deepEqual(
+    out.protocol.map((p) => [
+      p.model,
+      p.dialect.id,
+      p.dialect.confidence,
+      p.dialect.gotchas.length,
+      p.dialect.reports,
+      p.dialect.accepts,
+    ]),
+    [
+      ["epever-xtra4210n", "epever-xtra-n-g3", "unverified", 0, [], []],
+      [
+        "victron-energy-smartsolar-mppt-150-35",
+        "victron-mppt-vedirect-hex",
+        "vendor-doc",
+        2,
+        ["pv-voltage"],
+        ["charge-limit"],
+      ],
+    ],
+  );
+  assert.deepEqual(
+    out.sources.map((s) => s.id).sort(),
+    ["doc-epever-xtra", "doc-vedirect-whitepaper", "doc-victron-150-35"],
+    "the sources cited and no other",
+  );
+  assert.deepEqual(out.properties, []);
+  assert.deepEqual(out.gaps, [
+    { model: "victron-energy-smartsolar-mppt-150-35", key: "pv.voc.max", reason: "no-registry" },
+    { model: "epever-xtra4210n", key: "pv.voc.max", reason: "no-registry" },
+  ]);
+  assert.deepEqual(out.truncated, []);
+  const lean = await bundle(db, RELEASE, {
+    models: ["victron-energy-smartsolar-mppt-150-35"],
+    claims: false,
+    protocol: false,
+  });
+  assert.deepEqual([lean.claims, lean.protocol, lean.sources, lean.gaps], [[], [], [], []]);
+  assert.deepEqual(properties(), []);
+});
+
+test("a list cut at its limit says so rather than looking complete", async () => {
+  const many = Array.from({ length: LIMITS.bundleClaims + 1 }, (_, i) => ({
+    id: `epever-xtra4210n--f${String(i).padStart(4, "0")}`,
+    tier: "record",
+    model_id: "epever-xtra4210n",
+    name: `Figure ${i}`,
+    value: String(i),
+    source_id: `doc-${i}`,
+    confidence: "vendor-doc",
+  }));
+  const { db } = await fixture({ specs: many });
+  const out = await bundle(db, RELEASE, { models: ["epever-xtra4210n"], protocol: false });
+  assert.equal(out.claims.length, LIMITS.bundleClaims);
+  assert.deepEqual(out.truncated, ["claims", "sources"]);
+  assert.equal(
+    out.sources.length,
+    0,
+    "sources are those held, and none of the cited ids exist here",
+  );
+  assert.deepEqual(await sourcesById(db, RELEASE, ["doc-unrelated", "doc-nope"]), [
+    { id: "doc-unrelated", url: "https://elsewhere.test/x.pdf" },
+  ]);
+});
+
+test("a consumer gets the active release by default, a loaded one by id, and nothing else", async () => {
+  const { db } = await fixture();
+  assert.equal(await currentRelease(db), RELEASE);
+  assert.equal(await loadedRelease(db, RELEASE), RELEASE);
+  await assert.rejects(loadedRelease(db, OLDER), /is not loaded/);
+  const info = await releaseInfo(db, RELEASE);
+  assert.equal(info.contract, 1);
+  assert.equal(info.publishedAt, "2026-09-11T10:00:00Z");
+  assert.equal(info.counts.models, 7);
+  // An older publication loaded later is retained and answers by id, while the active one stays.
+  const older = await fixture({}, OLDER, "2026-09-10T10:00:00Z");
+  await loadRelease(older.world.env.ARCHIVE, older.db, plain, OLDER);
+  assert.equal(await currentRelease(older.db), OLDER, "in its own world it is the only release");
+  const { world: w } = await fixture();
+  const { store } = older.world;
+  for (const [k, v] of store) w.store.set(k, v);
+  await loadRelease(w.env.ARCHIVE, w.env.RELEASES, plain, OLDER);
+  assert.equal(await currentRelease(w.env.RELEASES), RELEASE);
+  assert.equal(await loadedRelease(w.env.RELEASES, OLDER), OLDER);
+});
