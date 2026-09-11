@@ -55,6 +55,40 @@ test("a range keeps both ends, however the maker drew the dash", () => {
   assert.match(refused(parseQuantity("500-80", "V", "voltage")), /reversed/);
 });
 
+test("a range whose unit is printed at both ends is read once, and refused when the ends disagree", () => {
+  assert.deepEqual(ok(parseQuantity("43 VDC to 59 VDC", undefined, "voltage")), {
+    shape: "range",
+    min: 43,
+    max: 59,
+    unit: "V",
+  });
+  assert.deepEqual(ok(parseQuantity("0A~140A", undefined, "current")), {
+    shape: "range",
+    min: 0,
+    max: 140,
+    unit: "A",
+  });
+  assert.deepEqual(ok(parseQuantity("-20°C to 60°C", undefined, "temperature")), {
+    shape: "range",
+    min: -20,
+    max: 60,
+    unit: "°C",
+  });
+  assert.deepEqual(
+    ok(parseQuantity("16 V - 72 Volts dc", undefined, "voltage")),
+    { shape: "range", min: 16, max: 72, unit: "V" },
+    "the same unit spelt two ways is one unit",
+  );
+  assert.match(refused(parseQuantity("0A~140V", undefined, "current")), /two units/);
+});
+
+test("a number too long to be finite is not a figure", () => {
+  const long = `1${"0".repeat(400)}`;
+  assert.match(refused(parseQuantity(long, "V", "voltage")), /not a figure/);
+  assert.match(refused(parseQuantity(`${long} - ${long}`, "V", "voltage")), /not a figure/);
+  assert.match(refused(parseQuantity(`1 - ${long}`, "V", "voltage")), /not a figure/);
+});
+
 test("alternatives are a set, and a set of one is a figure", () => {
   assert.deepEqual(ok(parseQuantity("12/24/48V DC", undefined, "voltage")), {
     shape: "set",

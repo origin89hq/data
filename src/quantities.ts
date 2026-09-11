@@ -34,14 +34,22 @@ const BOUND = /^(?:<|>|≤|≥|≈|~|±|less than|more than|up to|under|over|abo
 const NUMBER = String.raw`-?(?:\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:[.,]\d+)?)`;
 /** What separates the ends of a range: a dash of any width, a tilde, "to", or a dash a decoder turned into a quote. */
 const RANGE = String.raw`\s*(?:-|–|—|~|～|to|")\s*`;
-const TERM = new RegExp(`^(${NUMBER})(?:${RANGE}(${NUMBER}))?\\s*(.*)$`);
+/** A unit glued to or spaced after a number, up to the next number: "VDC" in "43 VDC to 59 VDC". */
+const UNIT_TAIL = String.raw`[A-Za-z°℃µ%][A-Za-z°℃µ%/·.]*`;
+/** A range, whose first end may carry its own unit: "8 - 72 Volts dc", "0A~140A", "-20°C to 60°C". */
+const RANGE_TERM = new RegExp(`^(${NUMBER})\\s*(${UNIT_TAIL})?${RANGE}(${NUMBER})\\s*(.*)$`);
+const SCALAR_TERM = new RegExp(`^(${NUMBER})\\s*(.*)$`);
 
-/** "1,000" is a thousand and "0,29" is a fraction: a thousands comma always has three digits after it. */
-function toNumber(text: string): number {
+/**
+ * "1,000" is a thousand and "0,29" is a fraction: a thousands comma always has three digits after
+ * it. A number too long to be finite is not a number, so nothing downstream sees Infinity.
+ */
+function toNumber(text: string): number | undefined {
   const cleaned = /^-?\d{1,3}(?:,\d{3})+(?:\.\d+)?$/.test(text)
     ? text.replaceAll(",", "")
     : text.replace(",", ".");
-  return Number(cleaned);
+  const n = Number(cleaned);
+  return Number.isFinite(n) ? n : undefined;
 }
 
 /**
@@ -64,13 +72,28 @@ function unitOf(tail: string): { unit?: Unit; rest: string } {
 type Term = { min: number; max?: number; unit?: Unit };
 
 function parseTerm(part: string): Term | string {
-  const match = TERM.exec(part.trim());
-  if (!match) return `"${part.trim()}" is not a figure`;
-  const [, first = "", second, tail = ""] = match;
+  const text = part.trim();
+  const ranged = RANGE_TERM.exec(text);
+  if (ranged) {
+    const [, first = "", firstTail = "", second = "", tail = ""] = ranged;
+    const low = unitOf(firstTail);
+    const high = unitOf(tail);
+    if (low.rest) return `"${low.rest}" is not a unit`;
+    if (high.rest) return `"${high.rest}" is not a unit`;
+    if (low.unit && high.unit && low.unit !== high.unit) return "two units in one figure";
+    const min = toNumber(first);
+    const max = toNumber(second);
+    if (min === undefined || max === undefined) return `"${text}" is not a figure`;
+    return { min, max, unit: low.unit ?? high.unit };
+  }
+  const match = SCALAR_TERM.exec(text);
+  if (!match) return `"${text}" is not a figure`;
+  const [, first = "", tail = ""] = match;
   const { unit, rest } = unitOf(tail);
   if (rest) return `"${rest}" is not a unit`;
   const min = toNumber(first);
-  return second === undefined ? { min, unit } : { min, max: toNumber(second), unit };
+  if (min === undefined) return `"${text}" is not a figure`;
+  return { min, unit };
 }
 
 /** Conversions into the units properties are published in. A unit not here is already canonical or has no canonical form. */
