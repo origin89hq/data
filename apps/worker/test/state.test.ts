@@ -1,8 +1,15 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { PULL_PAGE_READER } from "@origin89/equipment-schema/provenance";
+import type { DiscoverySeen, HostSeen } from "../src/discover.ts";
 import { EXTRACTOR_ID, VISION_EXTRACTOR_ID } from "../src/reading.ts";
-import { makerStates, readyToPull } from "../src/state.ts";
+import {
+  emptyPlanReason,
+  makerStates,
+  PREVIOUS_RUNS_CONSIDERED,
+  previousPlan,
+  readyToPull,
+} from "../src/state.ts";
 import { partKey, readerKey } from "../src/work.ts";
 import { world } from "./world.ts";
 
@@ -54,6 +61,168 @@ const state = async (objects: Record<string, string>) => {
   assert.ok(maker, "one maker in the archive");
   return maker;
 };
+
+const host = (over: Partial<HostSeen> = {}): HostSeen => ({
+  domain: "maker.test",
+  host: "maker.test",
+  status: 200,
+  sitemap: "urlset",
+  listed: 40,
+  own: 40,
+  requests: 1,
+  refused: 0,
+  silent: 0,
+  childrenFailed: 0,
+  childrenSkipped: 0,
+  redirectedTo: [],
+  ...over,
+});
+
+const seen = (over: Partial<DiscoverySeen> = {}): DiscoverySeen => ({
+  hosts: [host()],
+  pages: { read: 40, failed: {} },
+  foreignDocumentHosts: {},
+  redirectedTo: [],
+  ...over,
+});
+
+test("an empty plan says why, in the order a person would fix things", () => {
+  assert.equal(
+    emptyPlanReason(undefined),
+    "nothing to fetch; this maker publishes no documents we can reach",
+    "a plan from before discovery wrote what it saw keeps the old sentence",
+  );
+  assert.equal(
+    emptyPlanReason(seen({ redirectedTo: ["www.rehlko.com"] })),
+    "nothing to fetch; the site redirects to www.rehlko.com, which the record does not claim",
+  );
+  // Two sitemap requests refused, then both home pages: four requests, every one a 403.
+  const refusing = host({
+    host: "www.maker.test",
+    status: 403,
+    sitemap: "none",
+    listed: 0,
+    own: 0,
+    requests: 2,
+    refused: 2,
+  });
+  assert.equal(
+    emptyPlanReason(seen({ hosts: [refusing], pages: { read: 0, failed: { "403": 2 } } })),
+    "nothing to fetch; the site refused the crawler (403 on 4 of 4 requests)",
+  );
+  const unanswering = host({
+    host: "www.maker.test",
+    status: 0,
+    sitemap: "none",
+    listed: 0,
+    own: 0,
+    requests: 2,
+    silent: 2,
+  });
+  assert.equal(
+    emptyPlanReason(seen({ hosts: [unanswering], pages: { read: 0, failed: { "0": 2 } } })),
+    "nothing to fetch; the site did not answer",
+  );
+  assert.equal(
+    emptyPlanReason(
+      seen({
+        hosts: [host({ sitemap: "index", requests: 4, childrenFailed: 3, listed: 1, own: 1 })],
+        pages: { read: 1, failed: {} },
+      }),
+    ),
+    "nothing to fetch; read 1 pages, none links a document, and 3 of its sitemaps could not be read",
+  );
+  assert.equal(
+    emptyPlanReason(
+      seen({
+        hosts: [host({ sitemap: "index", requests: 21, childrenSkipped: 5, listed: 1, own: 1 })],
+        pages: { read: 1, failed: {} },
+      }),
+    ),
+    "nothing to fetch; read 1 pages, none links a document, and 5 of its sitemaps were left unopened",
+  );
+  assert.equal(
+    emptyPlanReason(
+      seen({ foreignDocumentHosts: { "cdn.shopify.com": 12, "x.cloudfront.net": 3 } }),
+    ),
+    "nothing to fetch; 15 documents are on cdn.shopify.com, x.cloudfront.net, which the record does not claim",
+  );
+  assert.equal(
+    emptyPlanReason(seen({ pages: { read: 0, failed: { "404": 1, "500": 1 } } })),
+    "nothing to fetch; no page could be read (1 answered 404, 1 answered 500)",
+  );
+  assert.equal(emptyPlanReason(seen()), "nothing to fetch; read 40 pages, none links a document");
+});
+
+test("a maker's state carries its run and instance, and an empty plan's reason", async () => {
+  const objects = run({});
+  objects["documents/maker/current.json"] = JSON.stringify({
+    run: RUN,
+    date: "2026-09-10",
+    instance: `maker-maker-${RUN}`,
+    startedAt: "2026-09-10T00:00:00Z",
+  });
+  objects[`${BASE}/plan.json`] = JSON.stringify({
+    documents: [],
+    discovery: seen({ redirectedTo: ["www.rehlko.com"] }),
+  });
+  const maker = await state(objects);
+  assert.equal(maker.run, RUN);
+  assert.equal(maker.instance, `maker-maker-${RUN}`);
+  assert.equal(maker.offered, 0);
+  assert.match(maker.waitingOn, /redirects to www\.rehlko\.com/);
+});
+
+test("the previous run is the last one that wrote a plan before this one, by the archive's clock", async () => {
+  // Written in this order: an old run, a same-day run whose random suffix sorts after the
+  // current one, a run that died before writing a plan, then the current run, then a later one.
+  const objects: Record<string, string> = {
+    "documents/maker/runs/2026-09-08-zzzz/plan.json": JSON.stringify({
+      documents: [doc("a"), doc("b"), doc("c")],
+    }),
+    "documents/maker/runs/2026-09-10-zzzz/plan.json": JSON.stringify({
+      documents: [doc("a"), doc("b")],
+    }),
+    "documents/maker/runs/2026-09-10-dead/manifest.json": "{}",
+    ...run({ plan: true }),
+    "documents/maker/runs/2026-09-11-newer/plan.json": JSON.stringify({ documents: [] }),
+  };
+  const bucket = world(objects).env.ARCHIVE;
+  assert.deepEqual(
+    await previousPlan(bucket, "maker", RUN),
+    { run: "2026-09-10-zzzz", documents: 2 },
+    "a name that sorts later is still the earlier run, and a run with no plan is passed over",
+  );
+  assert.deepEqual(await previousPlan(bucket, "maker", "2026-09-08-zzzz"), undefined);
+  assert.deepEqual(
+    await previousPlan(bucket, "maker", "2026-09-10-dead"),
+    { run: "2026-09-11-newer", documents: 0 },
+    "a current run with no plan yet is compared with the last plan there is",
+  );
+  assert.deepEqual(
+    await previousPlan(bucket, "other", RUN),
+    undefined,
+    "a maker with no runs has no previous one",
+  );
+});
+
+test("finding the previous plan asks about the newest runs only, one request each", async () => {
+  const objects: Record<string, string> = {};
+  for (let i = 1; i <= PREVIOUS_RUNS_CONSIDERED + 4; i += 1)
+    objects[`documents/maker/runs/2026-08-${String(i).padStart(2, "0")}-old/plan.json`] =
+      JSON.stringify({ documents: [doc("a")] });
+  Object.assign(objects, run({ plan: true }));
+  const { env, headed } = world(objects);
+  assert.deepEqual(await previousPlan(env.ARCHIVE, "maker", RUN), {
+    run: `2026-08-${PREVIOUS_RUNS_CONSIDERED + 4}-old`,
+    documents: 1,
+  });
+  assert.equal(
+    headed.filter((k) => k !== `${BASE}/plan.json`).length,
+    PREVIOUS_RUNS_CONSIDERED,
+    "the oldest runs are never asked about",
+  );
+});
 
 test("a run that is converted and read is ready to pull", async () => {
   const maker = await state(

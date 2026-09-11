@@ -2,7 +2,7 @@ import specPages from "../../../feeds/spec-pages.json" with { type: "json" };
 import { noteActivity } from "./activity.ts";
 import { classifyRun, convertRun, specPagesRun, visionRun } from "./enqueue.ts";
 import { LeaseHeld, underLease } from "./lease.ts";
-import { makerStates, sellerStates } from "./state.ts";
+import { makerStates, previousPlan, sellerStates } from "./state.ts";
 
 /**
  * Advance everything whose precondition is met, and say what it could not.
@@ -148,6 +148,33 @@ async function pass(env: Env, today: string, by: string): Promise<SupervisionRep
             entity: maker.maker,
             detail: `${sent} pages the maker publishes`,
           });
+      });
+    }
+
+    // The pointer moves when discovery starts, so a run that wrote no plan is either still reading
+    // or died before it could say so. Only the workflow knows which, and only for a maker whose
+    // run is silent is it asked (#48).
+    if (maker.waitingOn === "discovery" && maker.instance) {
+      const instance = maker.instance;
+      await step(report, "discovery status", maker.maker, async () => {
+        const status = await (await env.MANUFACTURER_CRAWL.get(instance)).status();
+        if (status.status === "errored" || status.status === "terminated")
+          report.concerns.push(
+            `${maker.maker}: discovery run ${instance} ${status.status} before writing a plan${status.error?.message ? `: ${status.error.message}` : ""}`,
+          );
+      });
+    }
+    // An empty discovery becomes the current run like any other, and the figures pull leaves the
+    // maker alone until something converts. What it must not do is pass unremarked when the run
+    // before it had documents: that is a site that changed, or a crawl that was refused.
+    if (maker.waitingOn !== "discovery" && maker.offered === 0 && maker.run) {
+      const run = maker.run;
+      await step(report, "discovery", maker.maker, async () => {
+        const previous = await previousPlan(env.ARCHIVE, maker.maker, run);
+        if (previous && previous.documents > 0)
+          report.concerns.push(
+            `${maker.maker}: discovery found no documents; the previous run ${previous.run} offered ${previous.documents}`,
+          );
       });
     }
 

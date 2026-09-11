@@ -2,17 +2,16 @@ import { WorkflowEntrypoint, type WorkflowEvent, type WorkflowStep } from "cloud
 import {
   APPROVAL_EVENT,
   CrawlApproval,
-  documentLinks,
   type Found,
   permitted,
   planFor,
 } from "@origin89/equipment-schema/documents";
 import { observeCollection, workflowActivity } from "./activity.ts";
-import { discoverPages } from "./discover.ts";
+import { type DiscoverySeen, discoverPages, readPages } from "./discover.ts";
 import { todayUtc, USER_AGENT } from "./feeds.ts";
 import { pointerKey, runPrefix, writePointer } from "./runs.ts";
-import { fetchText, sample } from "./sitemap.ts";
-import { judgeSpecPage, type SpecPageCandidate } from "./spec-table.ts";
+import { sample } from "./sitemap.ts";
+import type { SpecPageCandidate } from "./spec-table.ts";
 
 export interface ManufacturerCrawlParams {
   /** This attempt's instance id, recorded on the pointer so a caller can approve without it. */
@@ -76,14 +75,28 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       }),
     );
 
-    const pages = await step.do(
+    const { pages, hosts } = await step.do(
       "discover pages",
       { retries: { limit: 2, delay: "20 seconds", backoff: "exponential" }, timeout: "3 minutes" },
-      async () => sample(await discoverPages(domains), pageLimit ?? 200),
+      async () => {
+        const discovered = await discoverPages(domains);
+        return { pages: sample(discovered.pages, pageLimit ?? 200), hosts: discovered.hosts };
+      },
     );
 
     const found: Found[] = [];
     const specPages: SpecPageCandidate[] = [];
+    // What the pages answered, kept beside the plan: a plan that offers nothing has to say whether
+    // the site refused, moved, keeps its documents elsewhere, or simply links none (#48).
+    const seen: DiscoverySeen = {
+      hosts,
+      pages: { read: 0, failed: {} },
+      foreignDocumentHosts: {},
+      redirectedTo: [...new Set(hosts.flatMap((h) => h.redirectedTo))].sort(),
+    };
+    // Distinct documents on hosts the record does not claim: the same CDN manual linked from
+    // twenty pages is one document to report.
+    const foreignSeen = new Map<string, Set<string>>();
     for (let b = 0; b * DISCOVER_BATCH < pages.length; b += 1) {
       const slice = pages.slice(b * DISCOVER_BATCH, (b + 1) * DISCOVER_BATCH);
       const batch = await step.do(
@@ -92,26 +105,20 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
           retries: { limit: 2, delay: "15 seconds", backoff: "exponential" },
           timeout: "3 minutes",
         },
-        async () => {
-          const links: Found[] = [];
-          const tables: SpecPageCandidate[] = [];
-          for (const page of slice) {
-            try {
-              const html = await fetchText(page);
-              links.push(...documentLinks(html, page, domains));
-              // The page is already here for its links. Judging it as a specification table too
-              // costs nothing and is how the feed list stops being hand-typed.
-              const candidate = judgeSpecPage(page, html);
-              if (candidate) tables.push(candidate);
-            } catch {
-              // One page that will not load costs its own links and nothing else.
-            }
-          }
-          return { links, tables };
-        },
+        () => readPages(slice, domains),
       );
       for (const f of batch.links) if (!found.some((x) => x.url === f.url)) found.push(f);
       specPages.push(...batch.tables);
+      seen.pages.read += batch.read;
+      for (const [status, n] of Object.entries(batch.failed))
+        seen.pages.failed[status] = (seen.pages.failed[status] ?? 0) + n;
+      for (const [host, urls] of Object.entries(batch.foreign)) {
+        const known = foreignSeen.get(host) ?? new Set<string>();
+        for (const url of urls) known.add(url);
+        foreignSeen.set(host, known);
+        seen.foreignDocumentHosts[host] = known.size;
+      }
+      seen.redirectedTo = [...new Set([...seen.redirectedTo, ...batch.redirectedTo])].sort();
       await step.sleep(`politeness after pages ${b + 1}`, "2 seconds");
     }
     if (specPages.length > 0) {
@@ -137,13 +144,17 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
         manufacturer: manufacturerId,
         documents: found.length,
         specPages: specPages.length,
+        pagesRead: seen.pages.read,
+        pagesFailed: seen.pages.failed,
+        foreignDocumentHosts: seen.foreignDocumentHosts,
+        redirectedTo: seen.redirectedTo,
       }),
     );
     const plan = planFor(manufacturerId, found);
     await step.do("write the plan", async () => {
       await this.env.ARCHIVE.put(
         `${prefix}/plan.json`,
-        JSON.stringify({ ...plan, checkedAt, documents: found }, null, 2),
+        JSON.stringify({ ...plan, checkedAt, documents: found, discovery: seen }, null, 2),
         { httpMetadata: { contentType: "application/json" } },
       );
     });

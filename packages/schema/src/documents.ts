@@ -12,6 +12,8 @@ export const Found = z
     host: z.string().min(1),
     /** Bytes, when the host answered a HEAD. Absent means unknown, never zero. */
     bytes: z.number().int().nonnegative().optional(),
+    /** The page whose link this was, so a document can be traced to where the maker offers it. */
+    foundOn: z.string().url().optional(),
   })
   .strict();
 export type Found = z.infer<typeof Found>;
@@ -86,8 +88,12 @@ export function decodeEntities(value: string): string {
   return decodeHTMLStrict(value);
 }
 
-/** Every link on a page, absolute, deduplicated, and only on hosts the maker claims. */
-export function documentLinks(html: string, pageUrl: string, domains: readonly string[]): Found[] {
+/**
+ * Every document a page links, absolute and deduplicated, on whatever host. A maker's own page
+ * linking its manual on a shop's CDN is still a fact about that page, and discovery counts those
+ * so a plan can say where the documents went rather than that there were none (#48).
+ */
+export function linkedDocuments(html: string, pageUrl: string): Found[] {
   const found = new Map<string, Found>();
   for (const match of html.matchAll(HREF)) {
     let url: URL;
@@ -99,10 +105,15 @@ export function documentLinks(html: string, pageUrl: string, domains: readonly s
     if (url.protocol !== "https:" && url.protocol !== "http:") continue;
     url.hash = "";
     const href = url.toString();
-    if (!isDocument(href) || !hostAllowed(url.hostname, domains)) continue;
-    if (!found.has(href)) found.set(href, { url: href, host: url.hostname });
+    if (!isDocument(href)) continue;
+    if (!found.has(href)) found.set(href, { url: href, host: url.hostname, foundOn: pageUrl });
   }
   return [...found.values()].sort((a, b) => a.url.localeCompare(b.url));
+}
+
+/** Every link on a page, absolute, deduplicated, and only on hosts the maker claims. */
+export function documentLinks(html: string, pageUrl: string, domains: readonly string[]): Found[] {
+  return linkedDocuments(html, pageUrl).filter((f) => hostAllowed(f.host, domains));
 }
 
 /** Summarise a discovery for the person who has to approve it. */

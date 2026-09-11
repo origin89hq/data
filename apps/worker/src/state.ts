@@ -1,5 +1,6 @@
 import { PULL_PAGE_READER } from "@origin89/equipment-schema/provenance";
 import { classifierKey } from "./classify.ts";
+import type { DiscoverySeen } from "./discover.ts";
 import { EXTRACTOR_ID, VISION_EXTRACTOR_ID } from "./reading.ts";
 import { currentRuns, runPrefix } from "./runs.ts";
 import { readerKey } from "./work.ts";
@@ -25,6 +26,10 @@ export interface SellerState {
 export interface MakerState {
   maker: string;
   date?: string;
+  /** The current run, so a reader can find the one before it. */
+  run?: string;
+  /** The workflow instance behind the current run, so its status can be asked when it wrote nothing. */
+  instance?: string;
   /** Documents discovery offered, before anybody approved any. */
   offered?: number;
   /** Pages of its own that carry a specification table. */
@@ -107,6 +112,47 @@ export async function sellerStates(bucket: R2Bucket): Promise<SellerState[]> {
   return out;
 }
 
+/**
+ * Why a plan offers nothing, in the words somebody would use out loud. Forty-three makers had one
+ * sentence between them, and it was wrong for most: the site had refused, moved, or kept its
+ * documents on a host the record does not claim (#48). A plan written before discovery recorded
+ * what it saw keeps the old sentence.
+ */
+export function emptyPlanReason(seen: DiscoverySeen | undefined): string {
+  if (!seen) return "nothing to fetch; this maker publishes no documents we can reach";
+  if (seen.redirectedTo.length > 0)
+    return `nothing to fetch; the site redirects to ${seen.redirectedTo.join(", ")}, which the record does not claim`;
+  const failures = Object.entries(seen.pages.failed);
+  const failed = failures.reduce((n, [, count]) => n + count, 0);
+  const sum = (
+    field: "requests" | "refused" | "silent" | "childrenFailed" | "childrenSkipped",
+  ): number => seen.hosts.reduce((n, h) => n + h[field], 0);
+  // Every request made: each sitemap and child sitemap asked for, and each page.
+  const asked = sum("requests") + seen.pages.read + failed;
+  const refused = sum("refused") + (seen.pages.failed["403"] ?? 0);
+  if (seen.pages.read === 0 && refused > 0)
+    return `nothing to fetch; the site refused the crawler (403 on ${refused} of ${asked} requests)`;
+  const silent = sum("silent") + (seen.pages.failed["0"] ?? 0);
+  if (seen.pages.read === 0 && silent === asked) return "nothing to fetch; the site did not answer";
+  const elsewhere = Object.entries(seen.foreignDocumentHosts).sort((a, b) => b[1] - a[1]);
+  if (elsewhere.length > 0) {
+    const documents = elsewhere.reduce((n, [, count]) => n + count, 0);
+    const hosts = elsewhere.slice(0, 3).map(([host]) => host);
+    return `nothing to fetch; ${documents} documents are on ${hosts.join(", ")}, which the record does not claim`;
+  }
+  if (seen.pages.read === 0)
+    return `nothing to fetch; no page could be read (${failures.map(([status, n]) => `${n} answered ${status}`).join(", ")})`;
+  // A sitemap index whose children would not load is a site only partly seen, not an empty one.
+  const unread = sum("childrenFailed");
+  const unopened = sum("childrenSkipped");
+  const partly = [
+    ...(unread > 0 ? [`${unread} of its sitemaps could not be read`] : []),
+    ...(unopened > 0 ? [`${unopened} of its sitemaps were left unopened`] : []),
+  ];
+  const rest = partly.length ? `, and ${partly.join(" and ")}` : "";
+  return `nothing to fetch; read ${seen.pages.read} pages, none links a document${rest}`;
+}
+
 export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
   const out: MakerState[] = [];
   // Every reading there is, listed once. This used to be a HEAD per approved document per maker,
@@ -116,7 +162,10 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
   for (const { entity: maker, pointer } of await currentRuns(bucket, "documents")) {
     const date = pointer.date;
     const base = runPrefix.documents(maker, pointer.run);
-    const plan = await json<{ documents: unknown[] }>(bucket, `${base}/plan.json`);
+    const plan = await json<{ documents: unknown[]; discovery?: DiscoverySeen }>(
+      bucket,
+      `${base}/plan.json`,
+    );
     const specPages = await json<{ candidates: number }>(bucket, `${base}/spec-pages.json`);
     const manifest = await json<{ approvedBy: string; fetched: number }>(
       bucket,
@@ -147,8 +196,7 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
     const offered = plan?.documents?.length ?? 0;
     let waitingOn = "nothing";
     if (!plan) waitingOn = "discovery";
-    else if (offered === 0 && !specPages)
-      waitingOn = "nothing to fetch; this maker publishes no documents we can reach";
+    else if (offered === 0 && !specPages) waitingOn = emptyPlanReason(plan.discovery);
     else if (!manifest && offered > 0) waitingOn = "somebody to approve the download";
     else if (manifest && !converting) waitingOn = "conversion to be started";
     else if (converting && converted < converting.documents.length)
@@ -160,6 +208,8 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
     out.push({
       maker,
       date,
+      run: pointer.run,
+      ...(pointer.instance ? { instance: pointer.instance } : {}),
       offered,
       ...(specPages ? { specPages: specPages.candidates } : {}),
       ...(manifest ? { approvedBy: manifest.approvedBy, fetched: manifest.fetched } : {}),
@@ -171,6 +221,54 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
     });
   }
   return out;
+}
+
+/**
+ * The run before this one and how many documents its plan offered, for a pass that has to say
+ * whether an empty discovery replaced a full one.
+ *
+ * The previous run is the one whose plan was written last before this run's, by the archive's
+ * own clock. A run's name carries its day and then a random suffix, so two runs on one day do not
+ * sort by age, and a run that died before writing a plan is no run to compare with: it is passed
+ * over for the last one that finished discovery.
+ */
+/** Runs looked at when finding the previous plan: a year of monthly discoveries, one HEAD each. */
+export const PREVIOUS_RUNS_CONSIDERED = 12;
+
+export async function previousPlan(
+  bucket: R2Bucket,
+  maker: string,
+  run: string,
+): Promise<{ run: string; documents: number } | undefined> {
+  const prefix = runPrefix.documents(maker, "");
+  const runs: string[] = [];
+  let cursor: string | undefined;
+  do {
+    const page = await bucket.list({ prefix, delimiter: "/", cursor, limit: 1000 });
+    for (const folded of page.delimitedPrefixes) runs.push(folded.slice(prefix.length, -1));
+    cursor = page.truncated ? page.cursor : undefined;
+  } while (cursor);
+  const planKey = (r: string) => `${runPrefix.documents(maker, r)}/plan.json`;
+  // One HEAD per run considered, and a pass asks for every empty maker: the newest runs by name
+  // are enough, since a run's name starts with its day and the previous plan is a recent one.
+  const recent = runs
+    .filter((r) => r !== run)
+    .sort()
+    .reverse()
+    .slice(0, PREVIOUS_RUNS_CONSIDERED);
+  const written = async (r: string): Promise<number | undefined> =>
+    (await bucket.head(planKey(r)))?.uploaded.getTime();
+  // A current run still discovering has no plan yet, and then every earlier plan is before it.
+  const cutoff = (await written(run)) ?? Number.POSITIVE_INFINITY;
+  let previous: { run: string; at: number } | undefined;
+  for (const other of recent) {
+    const at = await written(other);
+    if (at === undefined || at >= cutoff) continue;
+    if (!previous || at > previous.at) previous = { run: other, at };
+  }
+  if (!previous) return undefined;
+  const plan = await json<{ documents?: unknown[] }>(bucket, planKey(previous.run));
+  return { run: previous.run, documents: plan?.documents?.length ?? 0 };
 }
 
 /**

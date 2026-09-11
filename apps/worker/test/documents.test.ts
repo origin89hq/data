@@ -7,6 +7,7 @@ import {
   type Found,
   hostAllowed,
   isDocument,
+  linkedDocuments,
   permitted,
   planFor,
   withoutTranslations,
@@ -41,6 +42,18 @@ test("links are made absolute, deduplicated, and dropped when they leave the mak
   assert.deepEqual(
     found.map((f) => f.url),
     ["https://files.victronenergy.com/spec.pdf", "https://www.victronenergy.com/upload/manual.pdf"],
+  );
+  assert.ok(
+    found.every((f) => f.foundOn === "https://www.victronenergy.com/support/"),
+    "each document says which page offered it",
+  );
+});
+
+test("every linked document is still counted by host, so a plan can say where the documents went", () => {
+  const html = `<a href="/upload/manual.pdf">a</a><a href="https://cdn.other.test/manual.pdf">elsewhere</a><a href="/products/mppt">a page</a>`;
+  assert.deepEqual(
+    linkedDocuments(html, "https://www.victronenergy.com/support/").map((f) => f.host),
+    ["cdn.other.test", "www.victronenergy.com"],
   );
 });
 

@@ -30,6 +30,12 @@ export function world(
   const store = new Map<string, Uint8Array>(
     Object.entries(objects).map(([k, v]) => [k, encode(v)]),
   );
+  // When each object was written: the fixtures a second apart in the order given, and every put
+  // after them. A reader that orders runs by when they wrote sees the order a test wrote them in.
+  const EPOCH = Date.UTC(2026, 8, 1);
+  const uploads = new Map<string, Date>(
+    [...store.keys()].map((key, i) => [key, new Date(EPOCH + i * 1000)]),
+  );
   const etag = (bytes: Uint8Array) => createHash("md5").update(bytes).digest("hex");
   const body = (bytes: Uint8Array) => ({
     size: bytes.length,
@@ -47,16 +53,35 @@ export function world(
   const sent: Work[] = [];
   const delays: (number | undefined)[] = [];
   const listed: string[] = [];
+  const headed: string[] = [];
   const asked: { model: string; input: TestAiInput }[] = [];
   const pace = { allow: () => true, asked: 0 };
+  // The maker workflow's instances, by id, for a supervisor that asks how a silent run is doing.
+  const instances = new Map<
+    string,
+    { status: string; error?: { name: string; message: string } }
+  >();
   const env = {
+    MANUFACTURER_CRAWL: {
+      get: async (id: string) => {
+        const status = instances.get(id);
+        if (!status) throw new Error(`instance.not_found: ${id}`);
+        return { status: async () => status };
+      },
+    },
     ARCHIVE: {
       head: async (key: string) => {
+        headed.push(key);
         const bytes = store.get(key);
         const sha256 = sha256s.get(key);
         return bytes === undefined
           ? null
-          : { key, size: bytes.length, checksums: { toJSON: () => (sha256 ? { sha256 } : {}) } };
+          : {
+              key,
+              size: bytes.length,
+              uploaded: uploads.get(key) ?? new Date(EPOCH),
+              checksums: { toJSON: () => (sha256 ? { sha256 } : {}) },
+            };
       },
       get: async (key: string) => {
         const bytes = store.get(key);
@@ -91,6 +116,7 @@ export function world(
             `put: The SHA-256 checksum you specified did not match what we received.\nYou provided a SHA-256 checksum with value: ${options.sha256}\nActual SHA-256 was: ${digest} (10037)`,
           );
         store.set(key, bytes);
+        uploads.set(key, new Date(EPOCH + uploads.size * 1000));
         if (options?.sha256 === undefined) sha256s.delete(key);
         else sha256s.set(key, digest);
         return { key, size: bytes.length, etag: etag(bytes) };
@@ -174,5 +200,18 @@ export function world(
     assert.ok(value !== null && typeof value === "object", `Missing object: ${key}`);
     return value as T;
   };
-  return { env, store, sent, delays, listed, asked, pace, read, readObject, text };
+  return {
+    env,
+    store,
+    sent,
+    delays,
+    listed,
+    headed,
+    asked,
+    pace,
+    instances,
+    read,
+    readObject,
+    text,
+  };
 }
