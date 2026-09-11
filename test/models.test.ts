@@ -298,7 +298,13 @@ const held: Model[] = [
     "MPPT 150/45",
     "MPPT 100/20",
   ]),
-  ...family("xantrex", ["MPPT 60-150", "MPPT 80-600"]),
+  ...family("xantrex", [
+    "MPPT 60-150",
+    "MPPT 80-600",
+    "Xantrex IP1012 AL",
+    "Freedom XC 2000",
+    "Freedom XC 1000",
+  ]),
   ...family("morningstar", ["RTS"]),
   ...family("rolls-battery", ["S-550", "S48-100LFP STACK-LV"]),
   ...family("pentair", ["Cap Regulated Injector 20 PSI", "Cap Regulated Injector 30 PSI"]),
@@ -354,6 +360,16 @@ test("a product named after another maker's family is that maker's, with the mak
     familyOfAnotherMaker(held, "sol-ark", "EG4 6000XP", makerNames),
     { family: "eg4", manufacturer: "eg4-electronics" },
     "a maker's name that also leads its products is the family, not a word to drop",
+  );
+  assert.deepEqual(
+    familyOfAnotherMaker(held, "rolls-battery", "Xantrex Freedom XC 2000", makerNames),
+    { family: "freedom", manufacturer: "xantrex" },
+    "a maker's name that leads one of its models is still dropped, and the family behind it read",
+  );
+  assert.equal(
+    familyOfAnotherMaker(held, "rolls-battery", "Xantrex IP1012 AL", makerNames),
+    undefined,
+    "a single model behind the maker's name is a product, not a family",
   );
 });
 
