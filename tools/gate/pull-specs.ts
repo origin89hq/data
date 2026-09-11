@@ -91,6 +91,7 @@ const pending = expected.filter((doc) => !readShas.has(doc.sha256)).length;
 // and in English, and reading both gave that inverter a nominal voltage of 48 V twice, once as
 // "Nominal system voltage" and once as "Voltaje nominal". Dropped only when this maker also
 // publishes something not marked as a translation.
+const everyReading = readings.readings;
 const { keep, dropped } = withoutTranslations(readings.readings);
 readings.readings = keep;
 // And the ones whose file name says nothing. Pentair marks a Spanish manual "_SPA_" in one place
@@ -111,6 +112,13 @@ const credited = await creditedReadings(
 );
 readings.readings = credited.keep;
 const withheld = credited.withheld;
+// The translated editions set aside above were still read, and a person may hold a figure under
+// one of their ids. They are read for comparison only: nothing of theirs is written or cited.
+// A retailer's withheld documents are not the maker's own and stay out of the comparison too.
+const comparisonOnly = [
+  ...everyReading.filter((reading) => dropped.some((d) => d.url === reading.url)),
+  ...byLanguage.dropped,
+];
 const sources = new Map(records.sources.map((s) => [s.id, s]));
 const addModels = !args.includes("--no-new-models");
 let written = 0;
@@ -149,38 +157,46 @@ const collected = new Map<string, ReturnType<typeof specsFrom>["specs"][number]>
 // only with the document that won.
 const candidates = new Map<string, ReturnType<typeof specsFrom>["specs"]>();
 const usedSources = new Map<string, { url: string; sha256: string }>();
+// Where each document of this run is, whether or not anything of it is written: a disagreement
+// with a figure a person holds has to name a document somebody can open.
+const documentUrls = new Map<string, string>();
 let repeatedTotal = 0;
-for (const document of readings.readings) {
-  if (document.products.length === 0) continue;
-  const sourceId = `doc-${document.sha256.slice(0, 32)}`;
-  const {
-    specs,
-    unmatched: missing,
-    repeated,
-    repeatedRows,
-  } = specsFrom({
+const figuresOf = (document: (typeof readings.readings)[number]) =>
+  specsFrom({
     reports: document.products,
     models: records.models,
     manufacturer,
-    source: sourceId,
+    source: `doc-${document.sha256.slice(0, 32)}`,
     extractedBy: document.extractedBy ?? EXTRACTOR_ID,
     // A manufacturer's own document is a vendor document. What the figure is not is confirmed:
     // `extractedBy` with no reviewer says a model read it and nobody has checked the row.
     confidence: "vendor-doc",
   });
+const candidate = (spec: ReturnType<typeof specsFrom>["specs"][number]) =>
+  candidates.set(spec.id, [...(candidates.get(spec.id) ?? []), spec]);
+for (const document of readings.readings) {
+  if (document.products.length === 0) continue;
+  const sourceId = `doc-${document.sha256.slice(0, 32)}`;
+  documentUrls.set(sourceId, document.url);
+  const { specs, unmatched: missing, repeated, repeatedRows } = figuresOf(document);
   repeatedTotal += repeated;
   for (const spec of specs) {
     collected.set(spec.id, spec);
-    candidates.set(spec.id, [...(candidates.get(spec.id) ?? []), spec]);
+    candidate(spec);
   }
   // A row the document's own translation rule dropped was still read, and a person may hold a
   // figure under its id: it is compared, never written.
-  for (const spec of repeatedRows)
-    candidates.set(spec.id, [...(candidates.get(spec.id) ?? []), spec]);
+  for (const spec of repeatedRows) candidate(spec);
   // Only a document that produced a figure is cited. Refusing a fragment or a repeat can empty a
   // document, and a source nothing cites is an orphan the validator refuses.
   if (specs.length > 0) usedSources.set(sourceId, { url: document.url, sha256: document.sha256 });
   for (const m of missing) unmatched.add(m);
+}
+for (const document of comparisonOnly) {
+  if (document.products.length === 0) continue;
+  documentUrls.set(`doc-${document.sha256.slice(0, 32)}`, document.url);
+  const { specs, repeatedRows } = figuresOf(document);
+  for (const spec of [...specs, ...repeatedRows]) candidate(spec);
 }
 
 // Once the maker's whole set is in hand. A figure a person confirmed or wrote by hand is not the
@@ -248,8 +264,10 @@ if (held.disagreements.length) {
   console.log(
     `  ${held.disagreements.length} readings disagree with a figure a person holds; the figure stays and the reading is not written:`,
   );
+  // The document's address rather than its source id: a document whose every figure is held is
+  // never written as a source, so its id would name nothing a reviewer can open.
   const cite = (spec: { source: string; page?: number }) =>
-    `${spec.source}${spec.page ? ` p.${spec.page}` : ""}`;
+    `${documentUrls.get(spec.source) ?? sources.get(spec.source)?.url ?? spec.source}${spec.page ? ` p.${spec.page}` : ""}`;
   // The value and unit always, and whichever of the name and conditions disagreed: two figures
   // that read "428 Ah" against "428 Ah" say nothing about a condition that turned from ≤ to ≥.
   const figure = (
