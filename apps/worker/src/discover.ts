@@ -294,8 +294,9 @@ export async function readPages(
       if (hostAllowed(doc.host, domains)) out.links.push(doc);
       else {
         // A CDN manual linked from a footer on twenty pages is one document, not twenty.
-        const urls = (out.foreign[doc.host] ??= []);
+        const urls = out.foreign[doc.host] ?? [];
         if (!urls.includes(doc.url)) urls.push(doc.url);
+        out.foreign[doc.host] = urls;
       }
     }
     // The page is already here for its links. Judging it as a specification table too costs
