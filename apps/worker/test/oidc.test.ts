@@ -70,7 +70,7 @@ test("a token from another branch, or a tag, is refused", async () => {
   await refused(await jobToken({ ref: "refs/tags/v1" }), /ref is refs\/tags\/v1/);
   await refused(
     await jobToken({
-      workflow_ref: "origin89hq/offgrid-equipment/.github/workflows/publish.yml@refs/heads/feature",
+      workflow_ref: "origin89hq/data/.github/workflows/publish.yml@refs/heads/feature",
     }),
     /workflow_ref/,
   );
@@ -79,7 +79,7 @@ test("a token from another branch, or a tag, is refused", async () => {
 test("a token from another workflow file is refused, including one this route does not name", async () => {
   await refused(
     await jobToken({
-      workflow_ref: "origin89hq/offgrid-equipment/.github/workflows/check.yml@refs/heads/main",
+      workflow_ref: "origin89hq/data/.github/workflows/check.yml@refs/heads/main",
     }),
     /the token is from check\.yml; this route takes publish\.yml/,
   );
@@ -179,7 +179,7 @@ test("publishing while GitHub's keys cannot be read answers 503 and writes nothi
 
 test("a job is any workflow on main here; which ones a route takes is the route's rule", async () => {
   const pull = await jobToken({
-    workflow_ref: "origin89hq/offgrid-equipment/.github/workflows/pull-figures.yml@refs/heads/main",
+    workflow_ref: "origin89hq/data/.github/workflows/pull-figures.yml@refs/heads/main",
     event_name: "schedule",
     environment: undefined,
   });
@@ -210,10 +210,13 @@ test("a job is any workflow on main here; which ones a route takes is the route'
 
 test("a workflow path that leaves the workflows directory is not a workflow of this repository", async () => {
   for (const workflow_ref of [
-    "origin89hq/offgrid-equipment/.github/workflows/../../evil.yml@refs/heads/main",
-    "origin89hq/offgrid-equipment/.github/workflows/nested/publish.yml@refs/heads/main",
-    "origin89hq/offgrid-equipment-fork/.github/workflows/publish.yml@refs/heads/main",
-    "origin89hq/offgrid-equipment/.github/workflows/publish.yml@refs/heads/main2",
+    "origin89hq/data/.github/workflows/../../evil.yml@refs/heads/main",
+    "origin89hq/data/.github/workflows/nested/publish.yml@refs/heads/main",
+    "origin89hq/data-fork/.github/workflows/publish.yml@refs/heads/main",
+    "origin89hq/data/.github/workflows/publish.yml@refs/heads/main2",
+    // The name before the rename of 2026-09-11. GitHub signs the current name, so a token naming
+    // the old one was minted somewhere else.
+    "origin89hq/offgrid-equipment/.github/workflows/publish.yml@refs/heads/main",
   ]) {
     const checked = await verifyJob(await jobToken({ workflow_ref }), keys);
     assert.equal(checked.ok, false, `${workflow_ref} was taken`);

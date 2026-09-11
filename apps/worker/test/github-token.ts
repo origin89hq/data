@@ -13,12 +13,12 @@ export const jwks = {
 };
 
 export const publishJob = {
-  repository: "origin89hq/offgrid-equipment",
+  repository: "origin89hq/data",
   repository_owner: "origin89hq",
   repository_owner_id: "313416861",
   repository_id: "1362856140",
   ref: "refs/heads/main",
-  workflow_ref: "origin89hq/offgrid-equipment/.github/workflows/publish.yml@refs/heads/main",
+  workflow_ref: "origin89hq/data/.github/workflows/publish.yml@refs/heads/main",
   environment: "offgrid-equipment-production",
   event_name: "push",
   run_id: "17000000001",

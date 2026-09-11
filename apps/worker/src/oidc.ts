@@ -18,9 +18,11 @@ export const AUDIENCE = "https://data.origin89.com";
 
 /**
  * This repository and its owner by id. A name can be reused: a renamed repository, or a new one
- * created under the old name, carries the same name and different ids.
+ * created under the old name, carries the same name and different ids. The name is checked too,
+ * in `workflow_ref`, so it has to follow a rename: this was `origin89hq/offgrid-equipment` until
+ * 2026-09-11, and GitHub names the current repository in every token it signs.
  */
-const REPOSITORY = "origin89hq/offgrid-equipment";
+const REPOSITORY = "origin89hq/data";
 const OWNER_ID = "313416861";
 const REPOSITORY_ID = "1362856140";
 const BRANCH = "refs/heads/main";
@@ -29,8 +31,7 @@ const BRANCH = "refs/heads/main";
 export const PRODUCTION = "offgrid-equipment-production";
 
 /** A workflow file on main in this repository, as `workflow_ref` names it. */
-const WORKFLOW_REF =
-  /^origin89hq\/offgrid-equipment\/\.github\/workflows\/([\w.-]+)@refs\/heads\/main$/;
+const WORKFLOW_REF = /^origin89hq\/data\/\.github\/workflows\/([\w.-]+)@refs\/heads\/main$/;
 
 /** Clocks disagree a little. Seconds either side of `exp` and `nbf`. */
 const CLOCK_TOLERANCE = 30;

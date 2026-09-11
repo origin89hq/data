@@ -293,7 +293,7 @@ test("publishing without publish.yml's token is refused, and the control token i
   assert.equal(control.status, 401);
   const deploy = await put(env, "models.csv", body, {
     ...digest,
-    authorization: `Bearer ${await jobToken({ workflow_ref: "origin89hq/offgrid-equipment/.github/workflows/deploy.yml@refs/heads/main" })}`,
+    authorization: `Bearer ${await jobToken({ workflow_ref: "origin89hq/data/.github/workflows/deploy.yml@refs/heads/main" })}`,
   });
   assert.equal(deploy.status, 401);
   assert.match(await errorOf(deploy), /from deploy\.yml; this route takes publish\.yml/);
@@ -535,7 +535,7 @@ test("the supervisor's last report is readable by a member, and its absence is a
 /** A job token from `workflow` on main, started by `event`, outside any environment. */
 const jobFrom = (workflow: string, event: string, claims: Record<string, unknown> = {}) =>
   jobToken({
-    workflow_ref: `origin89hq/offgrid-equipment/.github/workflows/${workflow}@refs/heads/main`,
+    workflow_ref: `origin89hq/data/.github/workflows/${workflow}@refs/heads/main`,
     event_name: event,
     environment: undefined,
     ...claims,
@@ -601,8 +601,7 @@ test("a job token from another workflow, event or branch opens no control route"
   const branch = await asJob(
     await jobFrom("pull-figures.yml", "workflow_dispatch", {
       ref: "refs/heads/figures/pull",
-      workflow_ref:
-        "origin89hq/offgrid-equipment/.github/workflows/pull-figures.yml@refs/heads/figures/pull",
+      workflow_ref: "origin89hq/data/.github/workflows/pull-figures.yml@refs/heads/figures/pull",
     }),
     "/state",
   );
