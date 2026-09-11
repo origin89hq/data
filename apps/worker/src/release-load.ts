@@ -64,6 +64,7 @@ export async function loadRelease(
 
   const begun = await step.do("begin", async () => {
     await createSchema(db);
+    // A failed row is taken over; one on its way out is left for retention to finish first.
     const existing = await releaseRow(db, releaseId);
     if (existing && existing.state !== "failed") return existing.state;
     await db

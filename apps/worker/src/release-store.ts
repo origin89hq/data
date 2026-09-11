@@ -156,7 +156,8 @@ export interface ReleaseRow {
   id: string;
   content: string;
   published_at: string;
-  state: "loading" | "active" | "retained" | "failed";
+  /** `deleting` is a release retention has begun to let go: its rows are on their way out and the next pass finishes them. */
+  state: "loading" | "active" | "retained" | "failed" | "deleting";
   loaded_at: string | null;
   error: string | null;
   counts: string;
@@ -227,7 +228,9 @@ export async function retain(
   for (const r of all.filter((r) => r.state === "retained").slice(0, recent)) keep.add(r.id);
   const gone: string[] = [];
   for (const r of all) {
-    if (keep.has(r.id) || r.state === "loading") continue;
+    // A deletion that stopped part way is finished before anything else is judged, pinned or
+    // not: its rows are half gone, and a pinned one is put back whole by the pinned reload.
+    if (r.state !== "deleting" && (keep.has(r.id) || r.state === "loading")) continue;
     try {
       await forget(db, r.id);
     } catch (error) {
@@ -238,8 +241,15 @@ export async function retain(
   return gone;
 }
 
-/** Delete a release's rows in chunks, then the release itself. */
+/**
+ * Delete a release's rows in chunks, then the release itself. The row is marked `deleting`
+ * first, so a reader that checks its release before answering finds it gone at once rather
+ * than reading tables emptying one by one behind it, and so a deletion that stops part way
+ * stays on the list for the next retention pass to finish rather than leaving rows behind
+ * that nothing names any more.
+ */
 export async function forget(db: Store, id: string): Promise<void> {
+  await db.prepare("UPDATE releases SET state = 'deleting' WHERE id = ?").bind(id).run();
   for (const table of Object.keys(LOADED_TABLES)) {
     for (;;) {
       const result = await db
@@ -251,7 +261,7 @@ export async function forget(db: Store, id: string): Promise<void> {
       if ((result.meta?.changes ?? 0) < DELETE_CHUNK) break;
     }
   }
-  await db.prepare("DELETE FROM releases WHERE id = ?").bind(id).run();
+  await db.prepare("DELETE FROM releases WHERE id = ? AND state = 'deleting'").bind(id).run();
 }
 
 /** The tables of a plan the store loads, in the plan's order. */

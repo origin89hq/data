@@ -7,9 +7,11 @@ import {
   activate,
   activeRelease,
   countRows,
+  forget,
   insertRows,
   LOADED_TABLES,
   releaseRow,
+  retain,
 } from "../src/release-store.ts";
 import { loadKey, releaseKey } from "../src/releases.ts";
 import { d1Double } from "./d1.ts";
@@ -265,6 +267,29 @@ test("retention keeps the pinned, the active and the recent, and lets the rest g
     "a retired release's rows are gone",
   );
   assert.equal(await countRows(env.RELEASES, "models", ids[0] ?? ""), 3, "a pinned one's stay");
+  // A deletion that stops part way leaves the release marked, off the loaded list, and on the
+  // retention list: the next pass finishes it rather than leaving its rows behind unnamed.
+  const third = ids[2] ?? "";
+  let cut = false;
+  const flaky: typeof env.RELEASES = {
+    ...env.RELEASES,
+    prepare: (sql: string) => {
+      if (!cut && sql.startsWith("DELETE FROM specs")) {
+        cut = true;
+        throw new Error("D1 blinked");
+      }
+      return env.RELEASES.prepare(sql);
+    },
+  };
+  await assert.rejects(forget(flaky, third), /D1 blinked/);
+  assert.equal((await releaseRow(env.RELEASES, third))?.state, "deleting");
+  assert.equal(await countRows(env.RELEASES, "models", third), 0, "its models went before the cut");
+  assert.deepEqual(
+    await retain(env.RELEASES, [third], 9),
+    [third],
+    "finished by the next pass, pinned or not",
+  );
+  assert.equal(await releaseRow(env.RELEASES, third), null);
 });
 
 test("a store double refuses what SQLite refuses, which is what the store relies on", async () => {
