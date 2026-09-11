@@ -694,8 +694,8 @@ export interface DiscoverySeen {
     tablesDropped?: number;
     failed: Record<string, number>;
   };
-  /** What the records cite on the maker's hosts: documents offered, and pages read as seeds. */
-  cited?: { documents: number; pages: number };
+  /** What the records cite on the maker's hosts: documents offered, pages read as seeds, and cited pages the page limit left out. */
+  cited?: { documents: number; pages: number; pagesDropped?: number };
   /** Distinct documents linked on hosts the record does not claim, by host, and how many more were seen than could be carried. */
   foreignDocumentHosts: Record<string, number>;
   foreignDocumentsDropped?: number;

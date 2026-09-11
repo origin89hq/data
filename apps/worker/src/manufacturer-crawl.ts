@@ -3,6 +3,7 @@ import {
   APPROVAL_EVENT,
   CrawlApproval,
   type Found,
+  hostAllowed,
   permitted,
   planFor,
 } from "@origin89/equipment-schema/documents";
@@ -136,16 +137,12 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     const landedAt = new Set<string>();
     const candidates: string[] = [];
     const take = (batch: PagesRead): void => {
-      // A cited page read for its links, or one that answered with the document itself.
-      const answeredWithDocument = new Set(
-        batch.links
-          .map((l) => l.foundOn)
-          .filter((p): p is string => p !== undefined && cited.pages.includes(p))
-          .filter((p) => !batch.opened.includes(p)),
-      );
+      // A cited page read for its links, or one that answered with the document itself; the
+      // batch says which, so a seed that redirected to another page as HTML is neither twice.
+      const answeredWithDocument = batch.answered.filter((p) => cited.pages.includes(p));
       for (const p of answeredWithDocument) directAnswers.add(p);
       citedRead +=
-        batch.opened.filter((p) => cited.pages.includes(p)).length + answeredWithDocument.size;
+        batch.opened.filter((p) => cited.pages.includes(p)).length + answeredWithDocument.length;
       for (const f of batch.links) if (!found.some((x) => x.url === f.url)) found.push(f);
       specPages.push(...batch.tables);
       for (const url of batch.landed) {
@@ -241,7 +238,21 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     found.splice(0, found.length, ...withCited(found, cited, domains, directAnswers));
     // Counted on the final list, so a cited document the site also led to is still a cited one.
     const citedOffered = found.filter((f) => cited.documents.includes(f.url)).length;
-    seen.cited = { documents: citedOffered, pages: citedRead };
+    // Cited pages on the maker's hosts that the page limit left out, so a small limit's plan says
+    // it did not read every citation.
+    const citedSeeds = cited.pages.filter((p) => {
+      try {
+        return hostAllowed(new URL(p).hostname, domains);
+      } catch {
+        return false;
+      }
+    }).length;
+    const citedQueued = pages.filter((p) => cited.pages.includes(p)).length;
+    seen.cited = {
+      documents: citedOffered,
+      pages: citedRead,
+      ...(citedSeeds > citedQueued ? { pagesDropped: citedSeeds - citedQueued } : {}),
+    };
 
     console.log(
       JSON.stringify({
