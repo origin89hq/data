@@ -1,4 +1,5 @@
 import { PULL_PAGE_READER } from "@origin89/equipment-schema/provenance";
+import { atOnce, R2_AT_ONCE } from "./at-once.ts";
 import { classifierKey } from "./classify.ts";
 import type { DiscoverySeen } from "./discover.ts";
 import { EXTRACTOR_ID, VISION_EXTRACTOR_ID } from "./reading.ts";
@@ -51,16 +52,34 @@ export interface MakerState {
   waitingOn: string;
 }
 
-const listAll = async (bucket: R2Bucket, prefix: string): Promise<string[]> => {
-  const keys: string[] = [];
+/** Every key under a prefix, handed to `visit` a page of a thousand at a time. */
+const eachKey = async (
+  bucket: R2Bucket,
+  prefix: string,
+  visit: (key: string) => void,
+): Promise<void> => {
   let cursor: string | undefined;
   do {
     const page = await bucket.list({ prefix, cursor, limit: 1000 });
-    for (const object of page.objects) keys.push(object.key);
+    for (const object of page.objects) visit(object.key);
     cursor = page.truncated ? page.cursor : undefined;
   } while (cursor);
-  return keys;
 };
+
+const countKeys = async (bucket: R2Bucket, prefix: string): Promise<number> => {
+  let count = 0;
+  await eachKey(bucket, prefix, () => {
+    count += 1;
+  });
+  return count;
+};
+
+/**
+ * Every key under `archive/` starts with a document's sha256 in lowercase hex, so the prefix splits
+ * on the first digit into sixteen listings that can run at once. A key named any other way could
+ * not be the reading of a document a run sent to conversion, which is all this state counts.
+ */
+const ARCHIVE_PARTS = [..."0123456789abcdef"].map((digit) => `archive/${digit}`);
 
 /** The sha256 of every document the text reader has read, and of every one the page reader has. */
 const readingsPresent = async (
@@ -70,10 +89,14 @@ const readingsPresent = async (
   const pages = `.${readerKey(VISION_EXTRACTOR_ID)}.reading.json`;
   const present = { text: new Set<string>(), pages: new Set<string>() };
   // One listing for both: the archive holds every document there is, and listing it is the cost.
-  for (const key of await listAll(bucket, "archive/")) {
-    if (key.endsWith(text)) present.text.add(key.slice("archive/".length, -text.length));
-    else if (key.endsWith(pages)) present.pages.add(key.slice("archive/".length, -pages.length));
-  }
+  // Its twenty thousand keys took thirteen seconds to list one page after another (#72), so the
+  // parts are listed at once, and only the readings are kept.
+  await atOnce(ARCHIVE_PARTS, R2_AT_ONCE, (part) =>
+    eachKey(bucket, part, (key) => {
+      if (key.endsWith(text)) present.text.add(key.slice("archive/".length, -text.length));
+      else if (key.endsWith(pages)) present.pages.add(key.slice("archive/".length, -pages.length));
+    }),
+  );
   return present;
 };
 
@@ -83,33 +106,30 @@ const json = async <T>(bucket: R2Bucket, key: string): Promise<T | undefined> =>
 };
 
 export async function sellerStates(bucket: R2Bucket): Promise<SellerState[]> {
-  const out: SellerState[] = [];
   // Whatever each seller's pointer says is current. Guessing from the latest date was the same
   // mistake in a reader that the crawls have already stopped making in their writes.
-  for (const { entity: seller, pointer } of await currentRuns(bucket, "sightings")) {
-    const date = pointer.date;
-    const manifest = await json<{ sightings: number }>(
-      bucket,
-      `${runPrefix.sightings(seller, pointer.run)}/manifest.json`,
-    );
+  const runs = await currentRuns(bucket, "sightings");
+  return atOnce(runs, R2_AT_ONCE, async ({ entity: seller, pointer }) => {
     const guessPrefix = runPrefix.guesses(seller, pointer.run, classifierKey());
-    const manifestOfGuesses = await json<{ parts: number; alreadyAnswered?: number }>(
-      bucket,
-      `${guessPrefix}/manifest.json`,
-    );
+    const [manifest, manifestOfGuesses] = await Promise.all([
+      json<{ sightings: number }>(
+        bucket,
+        `${runPrefix.sightings(seller, pointer.run)}/manifest.json`,
+      ),
+      json<{ parts: number; alreadyAnswered?: number }>(bucket, `${guessPrefix}/manifest.json`),
+    ]);
     // A manifest from before every listing was queued left out the ones answered earlier, and the
     // gate reads a run's guesses from its parts (#16). Such a run is classified again: reusing the
     // answers costs reads, not model calls.
     const guesses = manifestOfGuesses?.alreadyAnswered ? undefined : manifestOfGuesses;
-    const written = guesses ? (await listAll(bucket, `${guessPrefix}/page-`)).length : 0;
-    out.push({
+    const written = guesses ? await countKeys(bucket, `${guessPrefix}/page-`) : 0;
+    return {
       seller,
-      date,
+      date: pointer.date,
       ...(manifest ? { sightings: manifest.sightings } : {}),
       ...(guesses ? { classified: { parts: guesses.parts, written } } : {}),
-    });
-  }
-  return out;
+    };
+  });
 }
 
 /**
@@ -177,34 +197,34 @@ export function emptyPlanReason(seen: DiscoverySeen | undefined): string {
 }
 
 export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
-  const out: MakerState[] = [];
   // Every reading there is, listed once. This used to be a HEAD per approved document per maker,
   // which is thousands of requests for one status call and a miss logged for each of the documents
   // not read yet — the normal answer, reported by R2 as a failed HeadObject.
-  const readings = await readingsPresent(bucket);
-  for (const { entity: maker, pointer } of await currentRuns(bucket, "documents")) {
+  const [readings, runs] = await Promise.all([
+    readingsPresent(bucket),
+    currentRuns(bucket, "documents"),
+  ]);
+  // A few runs at a time, each run's files read at once. One after another, eighty-five makers
+  // were five hundred round trips, and a status call outlasted the page waiting on it (#72).
+  return atOnce(runs, R2_AT_ONCE, async ({ entity: maker, pointer }) => {
     const date = pointer.date;
     const base = runPrefix.documents(maker, pointer.run);
-    const plan = await json<{ documents: unknown[]; discovery?: DiscoverySeen }>(
-      bucket,
-      `${base}/plan.json`,
-    );
-    const specPages = await json<{ candidates: number }>(bucket, `${base}/spec-pages.json`);
-    const manifest = await json<{ approvedBy: string; fetched: number }>(
-      bucket,
-      `${base}/manifest.json`,
-    );
-    const converting = await json<{ documents: { sha256: string }[] }>(
-      bucket,
-      `${base}/converting.json`,
-    );
-    const converted = (await listAll(bucket, `${base}/converted/`)).length;
+    const [plan, specPages, manifest, converting] = await Promise.all([
+      json<{ documents: unknown[]; discovery?: DiscoverySeen }>(bucket, `${base}/plan.json`),
+      json<{ candidates: number }>(bucket, `${base}/spec-pages.json`),
+      json<{ approvedBy: string; fetched: number }>(bucket, `${base}/manifest.json`),
+      json<{ documents: { sha256: string }[] }>(bucket, `${base}/converting.json`),
+    ]);
+    // Nothing converts, and nothing is offered to the page reader, before a run is sent to
+    // conversion: both start from `converting.json`. A run not sent yet has neither to read.
+    const [converted, offer] = converting
+      ? await Promise.all([
+          countKeys(bucket, `${base}/converted/`),
+          json<{ converted: number; extractedBy?: string }>(bucket, `${base}/seeing.json`),
+        ])
+      : [0, undefined];
     // An offer to an earlier page reader is not an offer to this one. A new version is how its
     // readings are made again, and nothing reads a document it was never offered.
-    const offer = await json<{ converted: number; extractedBy?: string }>(
-      bucket,
-      `${base}/seeing.json`,
-    );
     const seeing = offer?.extractedBy === VISION_EXTRACTOR_ID ? offer : undefined;
     // Readings live beside their documents, so this run's progress is how many of the documents
     // it approved have one.
@@ -228,7 +248,7 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
       waitingOn = `reading, ${converted - read} of ${converted} left`;
     else if (read > 0) waitingOn = "its figures to be pulled into records";
 
-    out.push({
+    return {
       maker,
       date,
       run: pointer.run,
@@ -241,9 +261,8 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
       ...(seeing ? { seeing: seeing.converted } : {}),
       ...(seen ? { seen } : {}),
       waitingOn,
-    });
-  }
-  return out;
+    };
+  });
 }
 
 /**

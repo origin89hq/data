@@ -1,3 +1,4 @@
+import { atOnce, R2_AT_ONCE } from "./at-once.ts";
 import { todayUtc } from "./feeds.ts";
 
 /**
@@ -91,13 +92,15 @@ export async function currentRuns(
     for (const prefix of page.delimitedPrefixes) entities.push(prefix.slice(root.length + 1, -1));
     cursor = page.truncated ? page.cursor : undefined;
   } while (cursor);
-  const out: { entity: string; pointer: Pointer }[] = [];
+  // Read at once: one after another, eighty-five makers were eighty-five round trips (#72).
+  const found = await atOnce(entities, R2_AT_ONCE, async (entity) => ({
+    entity,
+    pointer: await readPointer(bucket, pointerKey[root](entity)),
+  }));
   // An entity whose first run has not written its pointer yet has nothing current to report.
-  for (const entity of entities) {
-    const pointer = await readPointer(bucket, pointerKey[root](entity));
-    if (pointer) out.push({ entity, pointer });
-  }
-  return out.sort((a, b) => a.entity.localeCompare(b.entity));
+  return found
+    .flatMap(({ entity, pointer }) => (pointer ? [{ entity, pointer }] : []))
+    .sort((a, b) => a.entity.localeCompare(b.entity));
 }
 
 /**
