@@ -2,6 +2,7 @@ import avatar from "@origin89/brand/art/avatar-round.webp";
 import favicon from "@origin89/brand/icons/favicon.svg";
 import logoBlue from "@origin89/brand/logos/origin89-horizontal-blue.svg";
 import logoWhite from "@origin89/brand/logos/origin89-horizontal-white.svg";
+import { getRouteApi, Link } from "@tanstack/react-router";
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Icon } from "../icons.tsx";
 import { Activity } from "./Activity.tsx";
@@ -16,6 +17,7 @@ import {
 } from "./api.ts";
 import { Releases } from "./Releases.tsx";
 import { RunDetail } from "./RunDetail.tsx";
+import type { OpsSearch } from "./router.ts";
 import { Empty, Loading, Notice, Status } from "./ui.tsx";
 import { useResource } from "./useResource.ts";
 import {
@@ -26,11 +28,9 @@ import {
   download,
   type Filter,
   type RunRow,
-  readView,
   runRows,
   selectRows,
   type View,
-  viewSearch,
   when,
 } from "./workspace.ts";
 
@@ -73,15 +73,24 @@ const TITLES: Record<View, [string, string]> = {
 };
 
 export function Ops() {
-  const initial = useMemo(() => readView(window.location.search), []);
-  const [view, setView] = useState<View>(initial.view);
-  const [filter, setFilter] = useState<Filter>(initial.filter);
-  const [query, setQuery] = useState(initial.query);
-  const [sort, setSort] = useState<"attention" | "name" | "recent">("attention");
-  const [page, setPage] = useState(0);
+  const route = getRouteApi("/ops/$view");
+  const { view } = route.useParams();
+  const state = route.useSearch();
+  const routeNavigate = route.useNavigate();
+  const filter = state.filter ?? "all";
+  const query = state.q ?? "";
+  const sort = state.sort ?? "attention";
+  const page = state.page ?? 0;
+  const updateSearch = (patch: Partial<OpsSearch>, replace = false) => {
+    void routeNavigate({ search: (previous) => ({ ...previous, ...patch }), replace });
+  };
+  const setFilter = (filter: Filter) => updateSearch({ filter, page: undefined });
+  const setQuery = (q: string) => updateSearch({ q, page: undefined }, true);
+  const setSort = (sort: NonNullable<OpsSearch["sort"]>) => updateSearch({ sort, page: undefined });
+  const setPage = (page: number) => updateSearch({ page });
   const [selected, setSelected] = useState<RunRow>();
   const [historyRefresh, setHistoryRefresh] = useState(0);
-  const [releaseSelection, setReleaseSelection] = useState<string>();
+  const releaseSelection = state.release;
   const [toast, setToast] = useState("");
   const [dirty, setDirty] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">(() => {
@@ -111,13 +120,13 @@ export function Ops() {
       localStorage.setItem("origin89-ops-theme", theme);
     } catch {}
   }, [theme]);
+  const selectedView = useRef(view);
   useEffect(() => {
-    window.history.replaceState(
-      null,
-      "",
-      `${window.location.pathname}${viewSearch(view, filter, query)}`,
-    );
-  }, [view, filter, query]);
+    if (selectedView.current !== view) {
+      setSelected(undefined);
+      selectedView.current = view;
+    }
+  }, [view]);
   useEffect(() => {
     const shortcut = (event: KeyboardEvent) => {
       if (
@@ -141,11 +150,12 @@ export function Ops() {
   const currentPage = Math.min(page, Math.max(0, Math.ceil(shown.length / 12) - 1));
   const expired = login.expired || runs.expired || report.expired || files.expired;
   const loading = runs.loading || report.loading || files.loading;
-  const navigate = (next: View, nextFilter: Filter = "all") => {
-    setView(next);
-    setFilter(nextFilter);
-    setQuery("");
-    setPage(0);
+  const navigate = (next: View, nextFilter: Filter = "all", extra: Partial<OpsSearch> = {}) => {
+    void routeNavigate({
+      to: "/ops/$view",
+      params: { view: next },
+      search: { filter: nextFilter, ...extra },
+    });
   };
   const refresh = () => {
     if (!login.value || expired) return;
@@ -177,7 +187,10 @@ export function Ops() {
                 Try again
               </button>
             )}
-            <a className="ops-button primary" href="/auth/login?next=%2Fops">
+            <a
+              className="ops-button primary"
+              href={`/auth/login?next=${encodeURIComponent(window.location.pathname + window.location.search)}`}
+            >
               Sign in with GitHub <Icon name="arrowRight" />
             </a>
           </>
@@ -200,11 +213,13 @@ export function Ops() {
         <p className="ops-nav-label">COLLECTION & CURATION</p>
         <nav className="ops-nav" aria-label="Workspace navigation">
           {NAV.map((item) => (
-            <button
+            <Link
               key={item.id}
-              type="button"
+              to="/ops/$view"
+              params={{ view: item.id }}
+              search={{}}
+              activeOptions={{ includeSearch: false }}
               aria-current={view === item.id ? "page" : undefined}
-              onClick={() => navigate(item.id)}
             >
               <Icon name={item.icon} />
               <span>{item.label}</span>
@@ -213,7 +228,7 @@ export function Ops() {
               ) : item.id === "sellers" && runs.value ? (
                 <small>{runs.value.sellers.length}</small>
               ) : null}
-            </button>
+            </Link>
           ))}
         </nav>
         <div className="ops-sidebar-bottom">
@@ -303,8 +318,13 @@ export function Ops() {
           )}
           {expired && (
             <Notice alarm>
-              Your session expired. <a href="/auth/login?next=%2Fops">Sign in again</a> before
-              continuing.
+              Your session expired.{" "}
+              <a
+                href={`/auth/login?next=${encodeURIComponent(window.location.pathname + window.location.search)}`}
+              >
+                Sign in again
+              </a>{" "}
+              before continuing.
             </Notice>
           )}
           {dirty && (
@@ -328,7 +348,6 @@ export function Ops() {
                 statusesUnavailable={!!runs.value?.workflowError}
                 onFilter={(category) => {
                   setFilter(category);
-                  setPage(0);
                 }}
               />
               <div className="ops-overview-grid">
@@ -346,7 +365,6 @@ export function Ops() {
                       type="button"
                       onClick={() => {
                         setFilter("review");
-                        setPage(0);
                       }}
                     >
                       <Icon name="evidence" />
@@ -417,8 +435,7 @@ export function Ops() {
               refresh={historyRefresh}
               onAll={() => navigate("activity")}
               onRelease={(id) => {
-                setReleaseSelection(id);
-                navigate("releases");
+                navigate("releases", "all", { release: id });
               }}
             />
           )}
@@ -459,7 +476,6 @@ export function Ops() {
                     value={query}
                     onChange={(event) => {
                       setQuery(event.target.value);
-                      setPage(0);
                     }}
                   />
                   <kbd>/</kbd>
@@ -469,7 +485,6 @@ export function Ops() {
                   value={sort}
                   onChange={(event) => {
                     setSort(event.target.value as typeof sort);
-                    setPage(0);
                   }}
                 >
                   <option value="attention">Attention first</option>
@@ -487,7 +502,6 @@ export function Ops() {
                     aria-pressed={filter === item.id}
                     onClick={() => {
                       setFilter(item.id);
-                      setPage(0);
                     }}
                   >
                     {item.label}
@@ -575,8 +589,7 @@ export function Ops() {
                 const row = rows.find((row) => row.entity === entity);
                 if (row) setSelected(row);
                 else {
-                  navigate("overview");
-                  setQuery(entity);
+                  navigate("overview", "all", { q: entity });
                 }
               }}
             />

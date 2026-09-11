@@ -706,11 +706,14 @@ controlRoutes.get("/supervision", async (c) => {
  */
 export const memberPages: App = new Hono<{ Bindings: Env }>();
 
-memberPages.get("/ops", async (c) => {
+memberPages.get("/ops/*", async (c) => {
   const who = await identify(c);
   if (!who.ok)
     return who.status === 401
-      ? c.redirect(`/auth/login?next=${encodeURIComponent("/ops")}`, 302)
+      ? c.redirect(
+          `/auth/login?next=${encodeURIComponent(new URL(c.req.url).pathname + new URL(c.req.url).search)}`,
+          302,
+        )
       : c.text(who.error, who.status);
   // The page is built into the asset store with the site. It is fetched from there by this route
   // rather than served by it, so it reaches nobody the check above turned away; the store answers

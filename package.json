@@ -25,7 +25,7 @@
     "lint": "biome ci . --error-on-warnings",
     "lint:fix": "biome check --write .",
     "typecheck": "pnpm --filter offgrid-equipment-site check && pnpm --filter offgrid-equipment-worker check",
-    "test:apps": "pnpm --filter offgrid-equipment-worker test",
+    "test:apps": "pnpm --filter offgrid-equipment-worker test && pnpm --filter offgrid-equipment-site test",
     "build:site": "pnpm --filter offgrid-equipment-site build",
     "check": "pnpm lint && pnpm test && pnpm test:apps && pnpm typecheck && pnpm validate && pnpm build:site && pnpm build:repeat",
     "build:repeat": "node tools/build-repeat.ts"

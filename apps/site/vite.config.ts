@@ -13,7 +13,21 @@ const worker = "http://localhost:8790";
  * serves it at `/ops`, to members only.
  */
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    {
+      name: "ops-history-fallback",
+      configureServer(server) {
+        server.middlewares.use((request, _response, next) => {
+          if (request.url && /^\/ops(?:[/?]|$)/.test(request.url)) {
+            const url = new URL(request.url, "http://localhost");
+            request.url = `/ops.html${url.search}`;
+          }
+          next();
+        });
+      },
+    },
+  ],
   build: {
     outDir: "dist",
     emptyOutDir: true,

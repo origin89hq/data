@@ -21,3 +21,4 @@ minimumReleaseAgeExclude:
   - '@biomejs/cli-win32-arm64@2.5.13'
   - '@biomejs/cli-win32-x64@2.5.13'
   - '@types/react@19.3.0'
+  - '@tanstack/react-router@1.170.35'

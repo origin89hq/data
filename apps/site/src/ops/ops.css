@@ -72,7 +72,8 @@
   gap: 6px;
   margin: 0;
 }
-.ops-nav button {
+.ops-nav a {
+  text-decoration: none;
   display: flex;
   gap: 11px;
   align-items: center;
@@ -86,20 +87,20 @@
   font-size: 13px;
   cursor: pointer;
 }
-.ops-nav button small {
+.ops-nav a small {
   margin-left: auto;
   font: 10px var(--mono);
 }
-.ops-nav button:hover {
+.ops-nav a:hover {
   background: var(--color-page);
   color: var(--color-fg);
 }
-.ops-nav button[aria-current="page"] {
+.ops-nav a[aria-current="page"] {
   color: var(--color-action);
   background: color-mix(in srgb, var(--color-action) 9%, var(--color-surface));
   box-shadow: inset 2px 0 var(--color-action);
 }
-:root[data-theme="dark"] .ops-nav button[aria-current="page"] {
+:root[data-theme="dark"] .ops-nav a[aria-current="page"] {
   color: var(--color-fg);
 }
 .ops-sidebar-bottom {
@@ -1209,12 +1210,12 @@ small.ops-note {
     padding-bottom: 10px;
     gap: 8px;
   }
-  .ops-nav button {
+  .ops-nav a {
     width: auto;
     white-space: nowrap;
     flex-shrink: 0;
   }
-  .ops-nav button small {
+  .ops-nav a small {
     display: none;
   }
   .ops-topbar {
@@ -1243,7 +1244,7 @@ small.ops-note {
   .ops-identity > span {
     font-size: 8px;
   }
-  .ops-nav button {
+  .ops-nav a {
     font-size: 11px;
     min-height: 44px;
   }

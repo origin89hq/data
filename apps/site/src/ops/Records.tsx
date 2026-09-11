@@ -1,3 +1,4 @@
+import { useBlocker } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { fetchIndex, type Index } from "../api.ts";
 import { Explorer } from "../explorer.tsx";
@@ -71,6 +72,12 @@ function Correction({ target, onClose }: { target: CorrectionTarget; onClose: ()
   useEffect(() => {
     void source.load((signal) => sourceRecord(target, signal));
   }, [target, source.load]);
+  const unsaved = draft !== undefined && draft !== source.value && !exported;
+  useBlocker({
+    disabled: !unsaved,
+    enableBeforeUnload: unsaved,
+    shouldBlockFn: () => !window.confirm("Discard this unexported correction?"),
+  });
   const text = draft ?? source.value ?? "";
   const review = useMemo(
     () => (source.value ? reviewCorrection(target, source.value, text) : undefined),
