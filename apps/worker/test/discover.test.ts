@@ -17,7 +17,10 @@ import {
   nextHop,
   pageLinks,
   readPages,
+  seedPages,
+  withCited,
 } from "../src/discover.ts";
+import { sample } from "../src/sitemap.ts";
 
 const urlset = (...urls: string[]) =>
   `<?xml version="1.0"?><urlset>${urls.map((u) => `<url><loc>${u}</loc></url>`).join("")}</urlset>`;
@@ -573,6 +576,64 @@ test("links are followed product and download pages first, in the order they wer
     "not a url",
   ]);
   assert.deepEqual(hopOrder([]), []);
+});
+
+test("cited pages are read first and the sitemap's fill what is left of the budget", () => {
+  const cited = {
+    documents: [],
+    pages: [
+      "https://maker.test/product/x",
+      "https://maker.test/product/x",
+      "https://other.test/maker",
+      "https://maker.test/download",
+    ],
+  };
+  const discovered = [
+    "https://maker.test/a",
+    "https://maker.test/product/x",
+    "https://maker.test/b",
+  ];
+  const pick = (urls: string[], limit: number) => urls.slice(0, limit);
+  assert.deepEqual(seedPages(cited, discovered, ["maker.test"], 3, pick), [
+    "https://maker.test/product/x",
+    "https://maker.test/download",
+    "https://maker.test/a",
+  ]);
+  assert.deepEqual(
+    seedPages(cited, discovered, ["maker.test"], 1, pick),
+    ["https://maker.test/product/x"],
+    "a budget smaller than the citations takes the first of them and nothing else",
+  );
+  // With the real sampler, whose zero means no cap: a budget the citations use up reads them alone.
+  assert.deepEqual(seedPages(cited, discovered, ["maker.test"], 2, sample), [
+    "https://maker.test/product/x",
+    "https://maker.test/download",
+  ]);
+  assert.deepEqual(seedPages(cited, discovered, ["maker.test"], 0, sample), []);
+  assert.deepEqual(
+    seedPages({ documents: [], pages: [] }, discovered, ["maker.test"], 2, pick),
+    ["https://maker.test/a", "https://maker.test/product/x"],
+    "no citations is the sitemap sample as before",
+  );
+});
+
+test("cited documents are offered after what the site gave, once each, and only on the maker's hosts", () => {
+  const found = [
+    { url: "https://maker.test/files/a.pdf", host: "maker.test", foundOn: "https://maker.test/p" },
+  ];
+  const cited = {
+    documents: [
+      "https://maker.test/files/a.pdf",
+      "https://maker.test/files/b.pdf",
+      "https://cdn.other.test/c.pdf",
+    ],
+    pages: [],
+  };
+  assert.deepEqual(withCited(found, cited, ["maker.test"]), [
+    { url: "https://maker.test/files/a.pdf", host: "maker.test", foundOn: "https://maker.test/p" },
+    { url: "https://maker.test/files/b.pdf", host: "maker.test", cited: true },
+  ]);
+  assert.deepEqual(withCited([], { documents: [], pages: [] }, ["maker.test"]), []);
 });
 
 test("pages read give their links once each, never themselves, and a page that failed gives none", async () => {

@@ -8,14 +8,18 @@ import {
 } from "@origin89/equipment-schema/documents";
 import { observeCollection, workflowActivity } from "./activity.ts";
 import {
+  type Cited,
   type DiscoverySeen,
   discoverPages,
   hopOrder,
   nextHop,
   type PagesRead,
   readPages,
+  seedPages,
+  withCited,
 } from "./discover.ts";
 import { todayUtc, USER_AGENT } from "./feeds.ts";
+import { manufacturers } from "./manufacturers.ts";
 import { pointerKey, runPrefix, writePointer } from "./runs.ts";
 import { sample } from "./sitemap.ts";
 import type { SpecPageCandidate } from "./spec-table.ts";
@@ -82,9 +86,16 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       }),
     );
 
-    // The whole page budget: what the sitemap lists, and after that what those pages link. The
-    // routes check the limit before a run starts; a budget that is not a whole number would let
-    // the hop read every link it found, so a bad one is the default rather than open-ended.
+    // What the records already cite on this maker's hosts, bundled with the maker list. A maker
+    // started under an id the records do not know has none, and reads its site like any other.
+    const cited: Cited = manufacturers.find((m) => m.id === manufacturerId)?.cited ?? {
+      documents: [],
+      pages: [],
+    };
+    // The whole page budget: what the records cite, what the sitemap lists, and after that what
+    // those pages link. The routes check the limit before a run starts; a budget that is not a
+    // whole number would let the hop read every link it found, so a bad one is the default rather
+    // than open-ended.
     const budget =
       Number.isSafeInteger(pageLimit) && (pageLimit as number) > 0 ? (pageLimit as number) : 200;
     const { pages, hosts, listed } = await step.do(
@@ -93,13 +104,15 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       async () => {
         const discovered = await discoverPages(domains);
         return {
-          pages: sample(discovered.pages, budget),
+          pages: seedPages(cited, discovered.pages, domains, budget, sample),
           hosts: discovered.hosts,
           listed: discovered.pages.length,
         };
       },
     );
 
+    // The cited pages the budget let in, which is what the plan may claim were read as seeds.
+    const citedRead = pages.filter((p) => cited.pages.includes(p)).length;
     const found: Found[] = [];
     const specPages: SpecPageCandidate[] = [];
     // What the pages answered, kept beside the plan: a plan that offers nothing has to say whether
@@ -107,6 +120,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     const seen: DiscoverySeen = {
       hosts,
       pages: { listed, read: 0, followed: 0, failed: {} },
+      cited: { documents: 0, pages: citedRead },
       foreignDocumentHosts: {},
       redirectedTo: [...new Set(hosts.flatMap((h) => h.redirectedTo))].sort(),
     };
@@ -209,11 +223,18 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
       });
     }
 
+    // What a person already found is offered whether or not the site led here (#48). Offered,
+    // not fetched: it waits for the same approval as everything else.
+    const before = found.length;
+    found.splice(0, found.length, ...withCited(found, cited, domains));
+    seen.cited = { documents: found.length - before, pages: citedRead };
+
     console.log(
       JSON.stringify({
         message: "discovery finished",
         manufacturer: manufacturerId,
         documents: found.length,
+        cited: seen.cited,
         specPages: specPages.length,
         pagesRead: seen.pages.read,
         pagesFollowed: seen.pages.followed,

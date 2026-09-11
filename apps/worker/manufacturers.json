@@ -21,7 +21,16 @@
     "id": "baiway",
     "domains": [
       "shbaiway.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://shbaiway.com/wp-content/uploads/2025/05/TF03K%E5%BA%93%E4%BB%91%E8%AE%A1TTL%E4%B8%B2%E5%8F%A3RS485%E9%80%9A%E8%AE%AF%E8%AF%B4%E6%98%8EV1.1%E4%B8%AD%E8%8B%B1%E6%96%87-240403.pdf",
+        "https://www.shbaiway.com/wp-content/uploads/2025/04/TR16.pdf"
+      ],
+      "pages": [
+        "https://www.shbaiway.com/?page_id=69"
+      ]
+    }
   },
   {
     "id": "blue-sea-systems",
@@ -40,33 +49,173 @@
     "domains": [
       "briggsandstratton.com",
       "simpliphipower.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://www.briggsandstratton.com/hubfs/briggsandstratton/FAQs/pdfs/6593.pdf"
+      ],
+      "pages": []
+    }
   },
   {
     "id": "bslbatt",
     "domains": [
       "bslbatt.com",
       "bsl-battery.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://bslbatt.com/wp-content/uploads/2025/05/%E4%BE%BF%E6%90%BAEnergipak-3840-240614.pdf",
+        "https://bslbatt.com/wp-content/uploads/2025/05/B-LFP-48-150GC.pdf",
+        "https://bslbatt.com/wp-content/uploads/2025/05/B-LFP12-100-250513.pdf",
+        "https://bslbatt.com/wp-content/uploads/2025/05/B-LFP12-100S-200S-240221.pdf",
+        "https://bslbatt.com/wp-content/uploads/2025/05/B-LFP12-200-250113.pdf",
+        "https://bslbatt.com/wp-content/uploads/2025/05/B-LFP24-100E%EF%BC%88%E7%99%BD%EF%BC%89-250328.pdf",
+        "https://bslbatt.com/wp-content/uploads/2025/05/B-LFP48-200E-240614.pdf",
+        "https://bslbatt.com/wp-content/uploads/2025/05/EnergiPak-3840-User-Manual-en.pdf",
+        "https://bslbatt.com/wp-content/uploads/2025/05/Golf-Cart-User-Manual.24.7.30.pdf",
+        "https://bslbatt.com/wp-content/uploads/2025/09/B-LFP48-130PW-250725.pdf",
+        "https://bslbatt.com/wp-content/uploads/BSLBATT-Residential-Energy-Storage-Products-2026.pdf",
+        "https://www.bsl-battery.com/uploads/B-LFP48-Rack-UsersManual-ES-ZX.pdf",
+        "https://www.bsl-battery.com/uploads/BSL-B-LFP-PW-YM-User-Manual.pdf",
+        "https://www.bsl-battery.com/uploads/Inverter-Compatible-240626.pdf",
+        "https://www.bsl-battery.com/uploads/Wall-Battery-User-Manual-V2.7-ZXL.pdf"
+      ],
+      "pages": [
+        "https://bslbatt.com/download/"
+      ]
+    }
   },
   {
     "id": "champion-power",
     "domains": [
       "championpowerequipment.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://www.championpowerequipment.com/wp-content/uploads/2017/08/100113-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2017/08/14560-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2017/08/90720-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2019/08/100642-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2020/12/100515-OM-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2021/01/HSB-aXis-combined-IM-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2021/01/HSB-aXis-combined-IM-spanish.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2021/02/100738-om-trilingual.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2021/06/201076-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2021/08/201076-EPL-English-all.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2021/08/201076-EPL-French-all.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2021/09/200970-EPL-Spanish-all.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2022/04/201121-EPL-French-all.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2022/06/201154-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2022/06/201218-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2022/08/100593-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2022/09/201226-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2023/04/201223-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2023/04/201223-qs-Web.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2023/06/201274-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2023/07/201223-EPL-English-all.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2023/08/100304-OM-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2023/09/201282-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2023/09/201282-qs-Web.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2023/10/201319-qs-Web.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2024/02/201177-EPL-French.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2024/02/201177-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2024/02/201177-qs-Web.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2024/02/201282-EPL-English.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2024/03/201420-EPL-French.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2024/05/201463-EPL-English.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2024/05/201463-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2024/05/201463-qs-Web.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2024/07/201460-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2024/07/201460-qs-Web.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2024/08/201424-EPL-French.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2024/08/201445-EPL-French-all.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2024/08/201445-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2024/09/201424-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2024/09/201508-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2024/09/201508-qs-Web.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2024/10/201489-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2024/10/201489-qs-Web.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2024/10/201509-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2024/10/ATS-fleX-combined-IM-french.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2025/01/201532-EPL-Spanish-all.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2025/03/201297-qs-Web.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2025/04/201393-qs-Web.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2025/09/201193-IM-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2025/09/201202-OM-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2025/09/201319-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2025/09/201532-qs-Web.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2025/09/201534-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2025/09/201537-EPL-Spanish.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2025/09/HSB-fleX-combined-IM-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2025/10/100729-om-english.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2025/12/201244-OM-french.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2026/01/201537-qs-Web.pdf",
+        "https://www.championpowerequipment.com/wp-content/uploads/2026/07/201328-om-english.pdf"
+      ],
+      "pages": []
+    }
   },
   {
     "id": "delta-lightning-arrestors",
     "domains": [
       "deltala.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://deltala.com/hubfs/delta-migration/downloads/LA602DC_CUT_SHEET_2-new.pdf?hsLang=en",
+        "https://deltala.com/hubfs/delta-migration/downloads/MO302-new.pdf?hsLang=en"
+      ],
+      "pages": []
+    }
   },
   {
     "id": "east-penn",
     "domains": [
       "eastpennmanufacturing.com",
       "dekabatteries.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://www.eastpennmanufacturing.com/assets/pdf/Powr-Mate-IO-Manual-0721.pdf?v2",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/1112_Unigy-SpaceSaverSystems_both.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/12AVR100ET-Flyer-0949.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/12AVR130-Flyer-0982.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/12AVR145ET-Flyer-1398.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/12AVR150ET-Flyer-0969.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/12AVR170ET-Flyer-1283.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/12AVR200ET-Flyer-2006.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/12AVR75-Flyer-2382.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/12AVR75100-Flyer-0955.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/12AVR90-Flyer-0384.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/2010-HR4000-Flyer.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/2199-CRITICAL-POWER-8G4DF.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/2805_HRC800C.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/31HR5000-Flyer-2047.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/45HR2000-Flyer-2046.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/AVR125-2000AH-Flyer-0983.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/CTC240-2658.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/Deka-CTC240-IO-Manual-2656.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/Deka-HRC800-Flyer-2637.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/Deka-HRC950C-2830.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/Deka-High-Rate-HRC950-2536.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/Deka-Sports-Power-AGM-Flyer-0278.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/Fahrenheit-2V-NB-Module-IO-Manual-2600.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/Fahrenheit-HT7500ET-2173.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/HR3000-Flyer-2008.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/HR3500-Flyer-2009.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/HR3500ET-Flyer-1552.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/HR5500-Flyer-1837.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/HR5500ET-Flyer-0773.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/HR7000ET-Flyer-2202.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/HR7500ET-Flyer-2197.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/Maint-Saver-Instructions-2178.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/Max-Powr-IO-Manual-0608.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/U1HR1500-Flyer-2045.pdf",
+        "https://www.eastpennmanufacturing.com/wp-content/uploads/Unigy-I-IO-Manual-0902.pdf"
+      ],
+      "pages": []
+    }
   },
   {
     "id": "eco-worthy",
@@ -78,13 +227,44 @@
     "id": "ecoflow",
     "domains": [
       "ecoflow.com"
-    ]
+    ],
+    "cited": {
+      "documents": [],
+      "pages": [
+        "https://developer.ecoflow.com/us/document/delta3maxplus"
+      ]
+    }
   },
   {
     "id": "eg4-electronics",
     "domains": [
       "eg4electronics.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://eg4electronics.com/backend/wp-content/uploads/2022/07/EG4-Lifepower4-48V-Manual-2.4.0.pdf",
+        "https://eg4electronics.com/wp-content/uploads/2024/04/EG4%C2%AE-Chargeverter-GC-Manual.pdf",
+        "https://eg4electronics.com/wp-content/uploads/2024/04/EG4%C2%AE-Chargeverter-GC-Spec-Sheet.pdf",
+        "https://eg4electronics.com/wp-content/uploads/2024/05/EG4%C2%AE-12kPV-Troubleshooting-Maintenance-Guide.pdf",
+        "https://eg4electronics.com/wp-content/uploads/2024/05/EG4-WP-12V-Manual.pdf",
+        "https://eg4electronics.com/wp-content/uploads/2024/05/EG4-WP-12V-Spec-Sheet.pdf",
+        "https://eg4electronics.com/wp-content/uploads/2024/06/EG4-3-Slot-Welded-Cabinet-Quick-Start-Guide.pdf",
+        "https://eg4electronics.com/wp-content/uploads/2024/09/EG4-12kPV-Wiring-Diagrams.pdf",
+        "https://eg4electronics.com/wp-content/uploads/2024/09/EG4-18kPV-Generator-Wiring-Diagram.pdf",
+        "https://eg4electronics.com/wp-content/uploads/2024/09/EG4-6000XP-System-Wiring-Diagrams.pdf",
+        "https://eg4electronics.com/wp-content/uploads/2024/09/EG4-ChargeVerter-Wiring-Diagram.pdf",
+        "https://eg4electronics.com/wp-content/uploads/2024/09/EG4-DC-Mini-Split-Wiring-Diagrams-with-Tigo-RSS-v1.2.pdf",
+        "https://eg4electronics.com/wp-content/uploads/2024/11/AC-Coupling-Guide-18kPV-12kPV.pdf",
+        "https://eg4electronics.com/wp-content/uploads/2025/03/EG4-FlexBOSS18-System-Wiring-Diagrams.pdf",
+        "https://eg4electronics.com/wp-content/uploads/2025/03/EG4-FlexBOSS21-System-Wiring-Diagrams.pdf",
+        "https://eg4electronics.com/wp-content/uploads/2025/04/EG4-Chargeverter-Plus-User-Manual.pdf",
+        "https://eg4electronics.com/wp-content/uploads/2025/10/EG4-9k-BTU-AC-Mini-Split-AHRI-Certificate.pdf",
+        "https://eg4electronics.com/wp-content/uploads/2026/01/EG4-12kPV-%E2%80%93-Connections-Paralleling-Guide-Spanish.pdf",
+        "https://eg4electronics.com/wp-content/uploads/2026/06/EG4-18kPV-12kPV-WallMount-280Ah-All-Weather-ESS-User-Manual.pdf",
+        "https://eg4electronics.com/wp-content/uploads/2026/06/EG4-18kPV-12kPV-WallMount-Indoor-280Ah-ESS-User-Manual.pdf"
+      ],
+      "pages": []
+    }
   },
   {
     "id": "emp-shield",
@@ -96,14 +276,62 @@
     "id": "emporia",
     "domains": [
       "emporiaenergy.com"
-    ]
+    ],
+    "cited": {
+      "documents": [],
+      "pages": [
+        "https://link.emporiaenergy.com/installation-guides/vue3",
+        "https://link.emporiaenergy.com/sell-sheets/vue3"
+      ]
+    }
   },
   {
     "id": "energizer-solar",
     "domains": [
       "energizersolar.com",
       "energizergenerators.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://www.energizersolar.com/s/110921_285_EHP_Owners_Manual-Final-Approved.pdf",
+        "https://www.energizersolar.com/s/22-11-11-Portal-Energizer-Homepower-Installation-Manual.pdf",
+        "https://www.energizersolar.com/s/22-11-11-Portal-Energizer_Homepower_Three-Phase_Upgrade-Installation_Guide_CT3-100A-CT3-250A.pdf",
+        "https://www.energizersolar.com/s/23-05-26-Energizer-Powerstack-Warranty-DE-Translated-Clean.pdf",
+        "https://www.energizersolar.com/s/Beam-2-Plus-525-550W-Silver-Specs.pdf",
+        "https://www.energizersolar.com/s/Energizer-EV-Charger_11kW_AUEU_Spec-Sheet_2024.pdf",
+        "https://www.energizersolar.com/s/Energizer-EV-Charger_22kW_AUEU_Spec-Sheet_2024.pdf",
+        "https://www.energizersolar.com/s/Energizer-F-G2-usermanual_20260225.pdf",
+        "https://www.energizersolar.com/s/Energizer-HS-AS-User-Manual-AU_230224_LR.pdf",
+        "https://www.energizersolar.com/s/Energizer-HT-Plus-Smart-User-Manual_EnglishA.pdf",
+        "https://www.energizersolar.com/s/Energizer-PS2900H_User-Manual_2024-a36h.pdf",
+        "https://www.energizersolar.com/s/Energizer-Powerstack_User-Manual_110423-EN.pdf",
+        "https://www.energizersolar.com/s/Energizer-Solar-Peak-300-User-Manual_FINAL.pdf",
+        "https://www.energizersolar.com/s/Energizer-Solar_Energistack-29kWh_AUG25.pdf",
+        "https://www.energizersolar.com/s/Energizer-Solar_HS-Plus_Installation-Manual_2024.pdf",
+        "https://www.energizersolar.com/s/Energizer-Solar_Panels_Beam-2_All-Black_435-450W_Spec-Sheet_160223.pdf",
+        "https://www.energizersolar.com/s/Energizer-Solar_Panels_Beam-N_Dual-Glass_420-450W_Spec-Sheet_ENSP54NDGT2-tm9n.pdf",
+        "https://www.energizersolar.com/s/Energizer-Solar_Panels_Beam-N_Dual-Glass_430-450W_Spec-Sheet_ENSP54NDGT2S.pdf",
+        "https://www.energizersolar.com/s/Energizer-Solar_Panels_Beam-N_Dual-Glass_435-455W_Spec-Sheet_ENSP54NDGT2S-BL-ns4x.pdf",
+        "https://www.energizersolar.com/s/Energizer-Solar_Panels_Beam-N_Dual-Glass_440-450W_Spec-Sheet_ENSP54NDG2S-BL-k4g4.pdf",
+        "https://www.energizersolar.com/s/Energizer-Solar_Panels_Beam-N_Dual-Glass_440-455W_Spec-Sheet_ENSP48NDG3-BL-V2-after-Final.pdf",
+        "https://www.energizersolar.com/s/Energizer-Solar_Panels_Beam-N_Dual-Glass_460-470W_Spec-Sheet_ENSP48NDG3-BL.pdf",
+        "https://www.energizersolar.com/s/Energizer-Solar_Panels_Beam-N_Dual-Glass_475-495W_Spec-Sheet_ENSP60NDG2-e3dw.pdf",
+        "https://www.energizersolar.com/s/Energizer-Solar_Panels_Beam-N_Dual-Glass_500-510W_Spec-Sheet_ENSP54NDG3-BF-V2-after-Final.pdf",
+        "https://www.energizersolar.com/s/Energizer-Solar_Peak-300-Application-Manual.pdf",
+        "https://www.energizersolar.com/s/Everest-1100-GLOBAL-Manual-zc93.pdf",
+        "https://www.energizersolar.com/s/Hardcase_S120W_Spec-Sheet.pdf",
+        "https://www.energizersolar.com/s/Hardcase_S180W_US_Spec-Sheet.pdf",
+        "https://www.energizersolar.com/s/Hardcase_S80W_Spec-Sheet.pdf",
+        "https://www.energizersolar.com/s/Hardcase_S80W_US_Spec-Sheet.pdf"
+      ],
+      "pages": [
+        "https://energizergenerators.com/",
+        "https://energizergenerators.com/products/energizer-arc-1200-pro-power-station-with-lfp-battery-and-fast-charging",
+        "https://www.energizersolar.com/resources",
+        "https://www.energizersolar.com/solar-inverters",
+        "https://www.us.energizersolar.com/solar-inverters"
+      ]
+    }
   },
   {
     "id": "enphase",
@@ -116,19 +344,84 @@
     "domains": [
       "epever.com",
       "epsolarpv.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://www.epever.com/upload/cert/file/1904/eBox-BLE-01-SMS-EL-V1.0.pdf",
+        "https://www.epever.com/upload/file/1903/eBox-WIFI-01-SMS-EL-V1.0.pdf",
+        "https://www.epever.com/upload/file/1909/EPEVER-Datasheet-eBox-BLE-01.pdf",
+        "https://www.epever.com/upload/file/2108/UPower-Hi-Manual-EN-V2.1.pdf",
+        "https://www.epever.com/upload/file/2109/EPEVER-Datasheet-MT75.pdf",
+        "https://www.epever.com/wp-content/uploads/2021/04/XTRA-N-Manual-EN-V4.5ETL.pdf",
+        "https://www.epever.com/wp-content/uploads/2021/05/DuoRacer-Manual-EN-V2.5.pdf",
+        "https://www.epever.com/wp-content/uploads/2021/05/EPEVER-Datasheet_DuoRacer.pdf",
+        "https://www.epever.com/wp-content/uploads/2021/05/EPEVER-Datasheet_UPower.pdf",
+        "https://www.epever.com/wp-content/uploads/2021/05/Tracer-AN50-100A-Manual-EN-V3.1.pdf",
+        "https://www.epever.com/wp-content/uploads/2021/05/iTracer-ND-SMS-EL-V3.0.pdf",
+        "https://www.epever.com/wp-content/uploads/2021/06/MT50-Manual-EN-V3.5.pdf",
+        "https://www.epever.com/wp-content/uploads/2021/08/EPEVER-Datasheet-MT11.pdf",
+        "https://www.epever.com/wp-content/uploads/2023/04/EPEVER-BLE-RJ45-D-Manual-EN-V1.2.pdf",
+        "https://www.epever.com/wp-content/uploads/2023/04/EPEVER-DataSheet-WiFi-2.4G-RJ45-D.pdf",
+        "https://www.epever.com/wp-content/uploads/2024/01/EPEVER-DataSheet-XTRA-N-G3-Series.pdf",
+        "https://www.epever.com/wp-content/uploads/2024/01/XTRA-N-G3-BLE-Manual-EN-V1.8.pdf"
+      ],
+      "pages": [
+        "https://www.epever.com/download/duc-series-resources/",
+        "https://www.epever.com/download/duoracer-series-resources/",
+        "https://www.epever.com/download/epever-ble-rj45-a/",
+        "https://www.epever.com/download/mt50-remote-meter-download/",
+        "https://www.epever.com/product-category/accessories/",
+        "https://www.epever.com/product-category/charge-controller/",
+        "https://www.epever.com/product/150u-accessories-communication-cable/",
+        "https://www.epever.com/product/accessories-remote-temperature-sensor/",
+        "https://www.epever.com/product/duc-series-dc-dc-battery-charger/",
+        "https://www.epever.com/product/duoracer-10-30a-mppt-charge-controller-dual-battery/",
+        "https://www.epever.com/product/it-nc-g3-series-50100a-mppt-charge-controller/",
+        "https://www.epever.com/product/rs485-4llt-accessories-communication-cable/",
+        "https://www.epever.com/product/xtra-n-g3-mppt-charge-controller/",
+        "https://www.epever.com/products/",
+        "https://www.epever.com/products/?product_cat=charge-controller",
+        "https://www.epever.com/products/?product_cat=inverter",
+        "https://www.epever.com/support/documents/",
+        "https://www.epever.com/upload/cert/file/1904/eBox-WIFI-01-SMS-EL-V1",
+        "https://www.epever.com/wp-content/uploads/2022/07/EPEVER-WiFi-2.4G-RJ45-D-Manual-EN-V1",
+        "https://www.epever.com/wp-content/uploads/2023/04/EPEVER-BLE-RJ45-D-Manual-EN-V"
+      ]
+    }
   },
   {
     "id": "firman",
     "domains": [
       "firmanpowerequipment.com"
-    ]
+    ],
+    "cited": {
+      "documents": [],
+      "pages": [
+        "https://firmanpowerequipment.com/products/p08008",
+        "https://firmanpowerequipment.com/products/p08013",
+        "https://firmanpowerequipment.com/products/t08072"
+      ]
+    }
   },
   {
     "id": "fronius",
     "domains": [
       "fronius.com"
-    ]
+    ],
+    "cited": {
+      "documents": [],
+      "pages": [
+        "https://manuals.fronius.com/html/4204260312/en-US.html",
+        "https://manuals.fronius.com/html/4204260426/en.html",
+        "https://www.fronius.com/QR-link/0025",
+        "https://www.fronius.com/en-ca/canada/solar-energy/installers-partners/technical-data/all-products/system-monitoring/hardware/fronius-sensor-box",
+        "https://www.fronius.com/en-ca/canada/solar-energy/installers-partners/technical-data/all-products/system-monitoring/hardware/fronius-sensor-card-box/fronius-sensor-box",
+        "https://www.fronius.com/en/help-center/solar-energy/solar-inverters/support-snapinverter",
+        "https://www.fronius.com/en/~/downloads",
+        "https://www.fronius.com/en/~/downloads/Solar%20En",
+        "https://www.fronius.com/~/downloads/Solar%2"
+      ]
+    }
   },
   {
     "id": "gma-solar",
@@ -146,7 +439,14 @@
     "id": "honda-power",
     "domains": [
       "powerequipment.honda.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "http://cdn.powerequipment.honda.com/pe/pdf/manuals/00X31Z446010.pdf",
+        "https://cdn.powerequipment.honda.com/pe/pdf/manuals/00X31Z376200.pdf"
+      ],
+      "pages": []
+    }
   },
   {
     "id": "imo",
@@ -176,7 +476,14 @@
     "id": "kinetic-solar",
     "domains": [
       "kineticsolar.com"
-    ]
+    ],
+    "cited": {
+      "documents": [],
+      "pages": [
+        "https://kineticsolar.com/",
+        "https://kineticsolar.com/racking/"
+      ]
+    }
   },
   {
     "id": "kohler-energy",
@@ -207,49 +514,397 @@
     "id": "lorex",
     "domains": [
       "lorex.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://cdn.lorex.com/downloads/accessories/MT301P/MT301P-X3W-AB1_Specifications_EN_R1.pdf",
+        "https://cdn.lorex.com/downloads/accessories/WDD032G1P0C/WDD032G1P0C-Specs.pdf",
+        "https://cdn.lorex.com/downloads/ip-cameras/CNU01P-1SW-AB1/CNU01P-1SW-AB1_Specifications_EN_R1.pdf",
+        "https://cdn.lorex.com/downloads/ip-cameras/E842/E842CD_Dome_Camera_Specs_R2.pdf",
+        "https://cdn.lorex.com/downloads/ip-cameras/E893AB/E893AB_Spec_Sheet_R2.pdf",
+        "https://cdn.lorex.com/downloads/security-cameras/C241XC/C241XC-E_Series_Specs_R2.pdf",
+        "https://cdn.lorex.com/downloads/security-cameras/C861XC/C861XC-E_Series_Specs_R2.pdf",
+        "https://cdn.lorex.com/downloads/security-cameras/IC101/IC101_Specifications_EN_R1.pdf",
+        "https://cdn.lorex.com/downloads/security-cameras/LBV8541X-LBV8543X/LBV8541X_LBV8543X_QSG_EN_R3_web.pdf",
+        "https://cdn.lorex.com/downloads/security-cameras/LBV8541X-LBV8543X/LBV8541X_Series_Specs_R1.pdf",
+        "https://cdn.lorex.com/downloads/security-nvr/N845/N845_Fusion_Series_datasheet_R2.pdf",
+        "https://cdn.lorex.com/downloads/security-nvr/RN701/RN701A_Specifications_EN_R1.pdf",
+        "https://cdn.lorex.com/downloads/security-nvr/RNU01P/RNU01P-C8B-AB1_Specifications_EN_R3.pdf"
+      ],
+      "pages": []
+    }
   },
   {
     "id": "luxpower",
     "domains": [
       "luxpowertek.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://luxpowertek.com/wp-content/uploads/2023/07/Certificate-ND-191131-s.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2023/07/EN-50438.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2023/07/LSP-100k-user-manual.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2023/07/LXP-3-6K-user-manual.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2023/07/LXP-LB-EU-8-10k-user-manual.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2023/08/SNA-5-6k-Split-phase.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2023/08/SNA-US-6000-User-Manual.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2023/12/LXP-LB-US-12K-datasheet.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2024/05/2024-02-Brochure%EF%BC%8808-May%EF%BC%89.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2024/07/GEN-3-6K-User-Manual-2024.07.12.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2024/11/SNA-3-6K.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2024/11/SNA-US-6K.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2025/08/GEN-LB-US-16K-User-Manual-2025.6.23.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2025/08/GEN2-LB-EU-3-6K-UserManual-2025.5.21.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2025/08/Li-5-User-Manual-24.08.21.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2025/08/LiteStor-Datasheet-1.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2025/08/PGEM-User-Manual-25.7.3.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2025/08/PSHIELD-Datasheet.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2025/08/SNA-US-12-15K-User-Manual-2025.3.10-1.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2025/09/LXP-3600ACS-User-ManualEnglish-24.08.23.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2025/10/LXP-3600-ACS-Datasheet-1.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2025/10/SNA2-EU-LT-10-14K-Datasheet.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2025/12/SNA-3-6K-User-manual-English-OffGrid-Single-Phase-LuxpowerTek.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2026/03/GEN2-LB-EU-7-14K-User-Manual-2025.7.1.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2026/04/SNA-PRO-User-Manual-26.03.05.pdf",
+        "https://luxpowertek.com/wp-content/uploads/2026/08/GEN-PRO-LB-EU-8-12K-Datasheet-English20260729.pdf"
+      ],
+      "pages": []
+    }
   },
   {
     "id": "magnum-energy",
     "domains": [
       "magnum-dimensions.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "http://www.magnum-dimensions.com/sites/default/files/121114_0.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/121232.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/121233.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/121501.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/121982.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/121983.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/121984.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/122004.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/122024e.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/122137.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/122193.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/130834%20%284%29%202Kw%20final.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/130990%20%282%29%20300W%20final%202-24-08.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/130991%20%282%29%20600W%20final%204-24-08.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/64-0063%20E%20Owner%20Manual%2C%20CSW%2012V%20Series.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/64-0072%20Rev%20A%20%28MMA1212%29.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/64-0073%20Rev%20A%20%28MMSA1012%29_Web.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagAGS/ME-AGS-Briggs-and-Stratton-EM7RS-040221-with-remote-start-Rev-9-17-07.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagAGS/ME-AGS-Briggs-and-Stratton-PowerBoss-7kW-Rev-07-03-08.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagAGS/ME-AGS-Honda-EM3500SX-Rev-5-29-2007.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagAGS/ME-AGS-Key-Power-Model-KP-15S-using-HGM170-170HC-gen-controller-11-13-09.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagArchive/64-0003-Rev-B-ME-RC.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagArchive/64-0003-Rev-D-ME-RC.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagArchive/64-0003-Rev-F-ME-RC_Web.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagArchive/64-0015-Supplement-to-ME-and-MS-Series-Operators-Manual.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagArchive/64-0017-MS-AE-Series.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagArchive/64-0020-Rev-A-ME-RTR.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagArchive/64-0031-Rev-C-ME-MR-Manual.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagArchive/64-0041-Rev-B-DC-Load-Breakers-BM.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagArchive/ME-MR%20Manual%20%2864-0031%20Rev%20E%29_Web.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagDocs/64-0004%20Rev%20C%20ME-AGS-S.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagDocs/64-00062%20Rev%20A%20%28ACLD-40%29_web.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagDocs/64-0009-Rev-A-ME-SSI.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagDocs/64-0052-Rev-A-MMS-E-Series.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagDocs/64-0056-02-Rev-A-MS-PE-Series_SPA_Web.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagDocs/64-0058-Rev-A-MSH-M-Series_Web.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagDocs/64-0063%20Rev%20B%20%28CSW%20Series%29_Web.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagDocs/64-0063%20Rev%20C%20%28CSW%20Series%29_Web.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagDocs/64-0063%20Rev%20D%20%28CSW%20Series%29_Web.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagDocs/64-0063-Rev-A-CSW1012_Web.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagDocs/64-0070-Rev-A-MS-G-Series_Web.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/MagDocs/64-0090%20A%20Owner%20Manual%2C%20CSW2024.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/121539.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/121718.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/121871.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/121984-NO-UL.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/122003.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/122039.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/122066.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/122067d.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/122114.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/122142.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/122164.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/122175.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/122183%20BBS%20Operation%20Manual%2024V.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/122185%20SSI-12HF3.5N%20Manual.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/122189.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/122192%20BBS%20Setup%20%26%20Installation%20Manual%2048V.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/122195%2024NP8V%20Manual.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/122196%2012NP%20Manual_1%20%281%29.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/122197%2024NP%20Manual.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/122199%2048NP%20Manual.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/122214%20C%2024NP%20Manual.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/64-0007%20G%20%28Owners%20Manual%2C%20MS%20Series%29.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/64-0030%20Rev%20E%20%28ME-ARC%29_0.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/64-0033%20B1%20Owner%20Manual%20MS-E_Web.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/64-0033-Rev-A-MS-E-Series%20%281%29.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/64-0046-Rev-A-RD-E-Series.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/64-0059-D%20Rev%20A%20%28MSH-RE_Series%20with%20MSH-D%20Insert%29%20%281%29.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/64-0074%20Rev%20B%20%28CSW2012-X%29.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/64-0089%20A%20Owner%20Manual%2C%20MSH3012RV%20Series.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/owners/64-0089%20B%20Owners%20Manual%2C%20MSH3012RV%20Series.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/manuals/spec/MSH-RV-Series_sellsheet_64-0503-RevB_web_0.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/product/manual/64-0077%20Rev%20A%20%28CMW%20Series%29_1.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/product/manual/sensata-12lp10-dc-to-ac-power-inverter-manual.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/product/manual/sensata-12np-series-dc-to-ac-power-inverter-charger-manual.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/product/manual/sensata-24n-121478d-dc-to-ac-power-inverter-manual.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/product/manual/sensata-24np36-series-dc-to-ac-power-inverter-manual.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/product/manual/sensata-48ix10nvq-pure-sine-inverter-manual.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/product/manual/sensata-me-sbc-smart-battery-combiner-manual.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/product/manual/sensata-mm-ae-1524-series-inverter-charger-manual.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/product/manual/sensata-mm-e-series-inverter-charger-manual.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/product/manual/sensata-ms-pae-series-pure-sine-inverter-charger-manual.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/product/manual/sensata-rd-series-modified-sine-wave-inverter-charger-manual.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/spec_tables/pdf/64-0078%20Rev%20A%20%28CMW3012H%29_Web.pdf",
+        "http://www.magnum-dimensions.com/sites/default/files/spec_tables/pdf/MMP-MP-Panel_brochure_64-5000_RevD_web%20%281%29.pdf",
+        "http://www.magnum-dimensions.com/system/files/vendorfiles/sensata-ms-series-pure-sine-wave-inverter-charger-manual.pdf",
+        "https://www.magnum-dimensions.com/sites/default/files/MagAGS/ME-AGS-S-Honda-EU3000is-Rev-11-08-2011.pdf"
+      ],
+      "pages": []
+    }
   },
   {
     "id": "midnite-solar",
     "domains": [
       "midnitesolar.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://www.midnitesolar.com/pdfs/10-001-1_REV_U_Classic_Manual_19Jan2022.pdf",
+        "https://www.midnitesolar.com/pdfs/10-269-1_Rev_A_Communication_Adapter_Manual_preliminary.pdf",
+        "https://www.midnitesolar.com/pdfs/batCapMeter_frontBack.pdf",
+        "https://www.midnitesolar.com/pdfs/classic_manual_Rev_1933.pdf",
+        "https://www.midnitesolar.com/pdfs/classic_register_map_Rev-C5-December-8-2013.pdf"
+      ],
+      "pages": [
+        "https://midnitesolar.com/documents.php?act=&model=MNBCM&productCatName=Battery+Accessories&productCat_ID=39&product_ID=444",
+        "https://www.midnitesolar.com/firmwareIndex.php",
+        "https://www.midnitesolar.com/pdfs/10-432-1_Rev_C_",
+        "https://www.midnitesolar.com/pdfs/10-607-1_Rev_B,_Instructions,_3-Phase_Stacking_",
+        "https://www.midnitesolar.com/pdfs/classic_register_map_Rev-C5-Dece"
+      ]
+    }
   },
   {
     "id": "millertech",
     "domains": [
       "millertechenergy.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://millertechenergy.com/wp-content/uploads/2025/03/Millertech-Battery-Installation-Guide-for-12V22AH-Bluetooth-5.5-x-8.5-WEB-2025.pdf",
+        "https://millertechenergy.com/wp-content/uploads/2025/03/Millertech-Battery-Installation-Guide-for-12V40AH-Bluetooth-5.5-x-8.5-WEB-2025.pdf",
+        "https://millertechenergy.com/wp-content/uploads/2025/04/1210-2415-Dual-Charger-user-manual-5.5-x-8.5-1.pdf",
+        "https://millertechenergy.com/wp-content/uploads/2025/04/Millertech-Battery-Installation-Guide-for-36V50AH-Bluetooth-5.5-x-8.5-WEB-2025.pdf",
+        "https://millertechenergy.com/wp-content/uploads/2025/07/DS36-Dark-Speed-Charger-user-manual-5.5-x-8.5-1.pdf",
+        "https://millertechenergy.com/wp-content/uploads/2025/07/WEB-12100DPH-G24-Heated-Dual-Purpose-Manual-5.5-x-8.5.pdf",
+        "https://millertechenergy.com/wp-content/uploads/2025/07/WEB-12135-DPH-Heated-Dual-Purpose-Manual-5.5-x-8.5.pdf",
+        "https://millertechenergy.com/wp-content/uploads/2025/07/WEB-1680BT-Battery-Manual-5.5-x-8.5.pdf",
+        "https://millertechenergy.com/wp-content/uploads/2025/07/WEB-2480-BTH-Heated-Deep-Cycle-Manual-5.5-x-8.5.pdf",
+        "https://millertechenergy.com/wp-content/uploads/2025/07/WEB-3660-BTH-Heated-Deep-Cycle-Manual-5.5-x-8.5.pdf",
+        "https://millertechenergy.com/wp-content/uploads/2025/08/WEB-1615M-Charger-user-manual-5.5-x-8.5.pdf",
+        "https://millertechenergy.com/wp-content/uploads/2026/03/VERSION-1-1215-2-Two-Bank-Charger_3-4-2026.pdf",
+        "https://millertechenergy.com/wp-content/uploads/2026/05/16150BT-Battery-Manual-WEB.pdf",
+        "https://millertechenergy.com/wp-content/uploads/2026/06/Millertech-Battery-Installation-Guide-for-48V50AH-Bluetooth-5.5-x-8.5-WEB-2025.pdf"
+      ],
+      "pages": []
+    }
   },
   {
     "id": "morningstar",
     "domains": [
       "morningstarcorp.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://www.morningstarcorp.com/wp-content/uploads/2019/03/Morningstar-Catalog-US-CAN-EN.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/datasheet-ethernet-meterbus-converter-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/datasheet-genstar-mppt-mandarin-traditional.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/datasheet-readyedge-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/datasheet-remote-meter-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/datasheet-sunlight-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/datasheet-sunsaver-duo-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/datasheet-sunsaver-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/datasheet-tristar-de.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/datasheet-tristar-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/datasheet-tristar-mppt-600v-australia-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/datasheet-tristar-mppt-600v-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/datasheet-tristar-mppt-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/operation-manual-ethernet-meterbus-converter-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/operation-manual-genstar-mppt-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/operation-manual-remote-meter-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/operation-manual-shs-de-en-es-fr.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/operation-manual-tristar-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/operation-manual-tristar-mppt-600v-standard-disconnect-box-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/operation-manual-tristar-mppt-600v-transfer-switch-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/operation-manual-tristar-mppt-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/product-catalog-us-can-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/quick-start-guide-ecopulse-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/quick-start-guide-genstar-mppt-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/quick-start-guide-tristar-mppt-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/technical-doc-prostar-modbus-specification-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/technical-doc-prostar-mppt-modbus-specification-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/technical-doc-sunsaver-mppt-modbus-specification-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/technical-doc-tristar-modbus-specification-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/technical-doc-tristar-mppt-600v-modbus-specification-en.pdf",
+        "https://www.morningstarcorp.com/wp-content/uploads/technical-doc-tristar-mppt-modbus-specification-en.pdf"
+      ],
+      "pages": [
+        "https://www.morningstarcorp.com/ssd-app_-modbus-en_-03/"
+      ]
+    }
   },
   {
     "id": "noco",
     "domains": [
       "no.co"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://no.co/media/wysiwyg/downloads/Quick_Start/XGrid/XGrid_Chargers/X140/X140B/X140B_Quick_Start_Guide_10.04.2024A.pdf",
+        "https://no.co/media/wysiwyg/downloads/Quick_Start/XGrid/XGrid_Chargers/X30/X30B/X30B_Quick_Start_Guide_10.04.2024A.pdf",
+        "https://no.co/media/wysiwyg/downloads/Quick_Start/XGrid/XGrid_Chargers/X30/X30W/X30W_Quick_Start_Guide_10.04.2024A.pdf",
+        "https://no.co/media/wysiwyg/downloads/Quick_Start/XGrid/XGrid_Chargers/X65/X65W/X65W_Quick_Start_Guide_10.04.2024A.pdf",
+        "https://no.co/media/wysiwyg/downloads/Safety_and_Warranty_Information/XGrid/Car_Chargers/XGRID_XV100_Safety_and_Warranty_5.12.26A.pdf",
+        "https://no.co/media/wysiwyg/downloads/Safety_and_Warranty_Information/XGrid/Car_Chargers/XGRID_XV65_Safety_and_Warranty_5.12.26A.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/Boost/GB10_Userguide_EN_ES_10.20.2022.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/Boost/GB150-User_Guide_03.07.2025A.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/Boost/GB20_User_Guide_03.07.2025A.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/Boost/GB40_User_Guide_03.07.2025A.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/Boost/GB50_User_Guide_03.07.2025A.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/Boost/GB70-User_Guide_03.07.2025A.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/Boost_Air/AX65_User_Guide_1.8.2026A_-_Web.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/Boost_Max/GB250_User_Guide_02.07.2024.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/Boost_Max/gb250_userguide_10.12.2022a_1.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/Boost_Max/gb251_userguide_10.12.2022a_1.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/Boost_Max/gb500__6250a_user_guide_10.12.2022a_1.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/Boost_X/GBX35_User_Guide_10.13.2022.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/Boost_X/GBX45_User_Guide_02.07.2024.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/Boost_X/GBX75_User_Guide_06.26.2024.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/Dual-Purpose/nlx_series_user_guide_9.04.2024a.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/GEN/GENPRO_Series_NA_User_Guide_10.30.2024A.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/GEN/GEN_Series_NA_User_Guide_10.30.2024A.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/Genius/genius10na_user_guide_4.9.2024a.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/Genius/genius2d_na_userguide_4.9.2024a.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/Genius/genius2na_user_guide_4.18.2024a.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/Genius/genius5na_user_guide_4.18.2024a.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/Genius/genius_multi-bank_series_user_guide_4.9.2024a.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/GeniusPRO/GeniusPro50_User_Guide_1.6.2026A.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/GeniusPRO/geniuspro25_user_guide_4.9.2024a_1.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/Powersport/NLP_User_Guide_06.02.2025.pdf",
+        "https://no.co/media/wysiwyg/downloads/User_Guides/XGrid/XGrid_Car_Chargers/XV65_Quick_Start_5.12.26A.pdf",
+        "https://no.co/media/wysiwyg/downloads/brochures/Accessories/gc020_data_sheet_7.6.22_1.pdf",
+        "https://no.co/media/wysiwyg/downloads/brochures/Accessories/nusb211na_data_sheet_10.30.2021_1.pdf",
+        "https://no.co/media/wysiwyg/downloads/brochures/Accessories/xgc4_data_sheet_2.3.2022_1.pdf",
+        "https://no.co/media/wysiwyg/downloads/brochures/Boost/GB40_Data_Sheet_12.05.2024.pdf",
+        "https://no.co/media/wysiwyg/downloads/brochures/Boost_Air/AX65_Data_Sheet_05.02.2025a.pdf",
+        "https://no.co/media/wysiwyg/downloads/brochures/Boost_MAX/gb250__data_sheet_02.21.2024_1.pdf",
+        "https://no.co/media/wysiwyg/downloads/brochures/Dual_Purpose/NLX24_Data_Sheets_03.19.2025.pdf",
+        "https://no.co/media/wysiwyg/downloads/brochures/GEN/GENPRO_Sell_Sheet_10.30.2024.pdf",
+        "https://no.co/media/wysiwyg/downloads/brochures/GX/genius-gx-industrial-vehicle-battery-charger-sell-sheet-gx3626_1.pdf",
+        "https://no.co/media/wysiwyg/downloads/brochures/Genius/GENIUS1_Data_Sheet_04.10.2024.pdf",
+        "https://no.co/media/wysiwyg/downloads/brochures/Genius/genius5_data_sheet_02.21.2024_1.pdf",
+        "https://no.co/media/wysiwyg/downloads/brochures/Genius_PRO/geniuspro50_data_sheet_02.21.2024.pdf",
+        "https://no.co/media/wysiwyg/downloads/brochures/Powersport/NLP20_Data_Sheet_05.28.2025.pdf",
+        "https://no.co/media/wysiwyg/downloads/brochures/XGrid/X140_Data_Sheet_4.28.2025A.pdf",
+        "https://no.co/media/wysiwyg/downloads/brochures/XGrid/X30_Data_Sheet_4.28.2025A.pdf",
+        "https://no.co/media/wysiwyg/downloads/brochures/XGrid/XC1_Data_Sheet_5.30.2025c.pdf"
+      ],
+      "pages": [
+        "https://no.co/",
+        "https://no.co/boost",
+        "https://no.co/collection/genius",
+        "https://no.co/collection/genius/gx",
+        "https://no.co/lithium/powersport",
+        "https://no.co/support/genius-battery-chargers/genius",
+        "https://no.co/xgrid"
+      ]
+    }
   },
   {
     "id": "outback-power",
     "domains": [
       "outbackpower.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://old.outbackpower.com/downloads/documents/charge_controllers/flexmax_100_afci/fm100_afci_manual.pdf",
+        "https://old.outbackpower.com/downloads/documents/charge_controllers/flexmax_100_afci/fm100_afci_qsg.pdf",
+        "https://old.outbackpower.com/downloads/documents/charge_controllers/flexmax_6080/flexmax6080_quickstartguide.pdf",
+        "https://old.outbackpower.com/downloads/documents/charge_controllers/flexmax_6080/owner_manual.pdf",
+        "https://old.outbackpower.com/downloads/documents/charge_controllers/fm_extreme_discontinued/fm_extreme_qsg.pdf",
+        "https://old.outbackpower.com/downloads/documents/energy_storage/energycell_nc_high_capacity/energycell_nc_2v.pdf",
+        "https://old.outbackpower.com/downloads/documents/energy_storage/energycell_plc/EnergyCell_PLC_User_Manual.PDF",
+        "https://old.outbackpower.com/downloads/documents/energy_storage/northstar/northstar_blueplus_manual.pdf",
+        "https://old.outbackpower.com/downloads/documents/integrated_systems/alino/Alino_PCU_user_manual.pdf",
+        "https://old.outbackpower.com/downloads/documents/integrated_systems/flexpower_one_fxr/fp1_qsg_na.pdf",
+        "https://old.outbackpower.com/downloads/documents/integrated_systems/flexpower_two_fxr/fp2_qsg_na.pdf",
+        "https://old.outbackpower.com/downloads/documents/integration_products/autotransformer/PSX-240_Relay_Manual.pdf",
+        "https://old.outbackpower.com/downloads/documents/integration_products/autotransformer/manual.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/fxr_vfxr_a/fxr_install.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/fxr_vfxr_a/fxr_operator.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/fxr_vfxr_a/fxr_qsg.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/fxr_vfxr_e/fxr_intl_install.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/fxr_vfxr_e/fxr_intl_operator.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/fxr_vfxr_e/fxr_intl_operator_de.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/gfx_intl_series/gfx_intl_installmanual.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/gfx_intl_series/gfx_intl_operatorsmanual.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/gfx_series/gfx_operators_manual.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/gslc_ac_coupling_discontinued/gslc175_ac_120240_qsg.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/gtfx_gvfx_series/fxseries_installmanual.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/gvfx3024e_discontinued/gtfx_gvfx_install_manual.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/gvfx3024e_discontinued/gtfx_gvfx_programming_manual.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/m_series/fx_mobile_operator.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/obx/obx_ic2024p_230_50_rev_a_install.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/obx/obx_ic2024s_120_60_subm_rev_a_owner.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/obx/obxg_ic2524p_120_60_rev_a_install.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/proharvest/208v_string_inverter/proharvest_208v_manual.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/proharvest/208v_string_inverter/proharvest_208v_manual_spanish.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/proharvest/480v_string_inverter/proharvest_480v_manual.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/proharvest/proharvest_genxl/proharvest_xl_manual_opt.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/radian/gs8048_operator_manual.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/radian/gs8048_specsheet_english.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/radian/radianseries_bifold_brochure.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/radian_7048e_3548e/2111123035112DeclarationofConformityGS7048E.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/radian_7048e_3548e/gs_7048e_3548e_install.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/radian_7048e_3548e/gs_7048e_3548e_operator.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/radian_8048a_4048a/2111123035136DeclarationofConformityGS8048.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/radian_8048a_4048a/gs-a_declaration.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/radian_8048a_4048a/gs_8048a_4048a_install.pdf",
+        "https://old.outbackpower.com/downloads/documents/inverter_chargers/radian_8048a_4048a/gs_8048a_4048a_operator.pdf",
+        "https://old.outbackpower.com/downloads/documents/mojave/mojave_ess/mojave_ess_operator_manual.pdf",
+        "https://old.outbackpower.com/downloads/documents/safety_compliance/flexware/flexware_pv8_pv12_usersguide.pdf",
+        "https://old.outbackpower.com/downloads/documents/safety_compliance/imo_fireraptor/imofireraptor_install_guide.pdf",
+        "https://old.outbackpower.com/downloads/documents/skybox/skybox_decl.pdf",
+        "https://old.outbackpower.com/downloads/documents/skybox/skybox_rsd_manual.pdf",
+        "https://old.outbackpower.com/downloads/documents/system_management/flexnet_dc/user_guide_print.pdf",
+        "https://old.outbackpower.com/downloads/documents/system_management/mate/mate_mate2_installation_usermanual.pdf",
+        "https://old.outbackpower.com/downloads/documents/system_management/mate/mate_overview_english.pdf",
+        "https://old.outbackpower.com/downloads/documents/system_management/mate3/mate3_manual_spanish.pdf",
+        "https://old.outbackpower.com/downloads/documents/system_management/mate3/mate3_prg_print.pdf",
+        "https://old.outbackpower.com/downloads/documents/system_management/mate3/mate3_prg_web.pdf",
+        "https://old.outbackpower.com/downloads/documents/system_management/mate3s/mate3s_overviewguide_print.pdf",
+        "https://old.outbackpower.com/downloads/documents/system_management/mate3s/mate3s_overviewguide_web.pdf",
+        "https://old.outbackpower.com/downloads/documents/system_management/mate3s/mate3s_programmingguide_web.pdf",
+        "https://outbackpower.com/downloads/documents/appnotes/discover_app_note.pdf",
+        "https://outbackpower.com/downloads/documents/appnotes/fm100_afci_nec_app_note.pdf",
+        "https://outbackpower.com/downloads/documents/inverter_chargers/radian/16kW_Radian_4_FM100AFCI.xlsx",
+        "https://outbackpower.com/downloads/documents/inverter_chargers/radian/20kW_Radian_4_FM100AFCI.xlsx",
+        "https://outbackpower.com/downloads/documents/inverter_chargers/radian/24kW_Radian_5_FM100AFCI_Standard_combiner_boxes.xlsx",
+        "https://outbackpower.com/wp-content/uploads/2026/02/energycell_tt_qsg.pdf",
+        "https://outbackpower.com/wp-content/uploads/2026/02/energycell_xlc_manual.pdf",
+        "https://outbackpower.com/wp-content/uploads/2026/02/energycellplr_manual.pdf",
+        "https://outbackpower.com/wp-content/uploads/2026/06/owner_manual.pdf"
+      ],
+      "pages": []
+    }
   },
   {
     "id": "p3-international",
@@ -267,26 +922,122 @@
     "id": "peimar",
     "domains": [
       "peimar.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://peimar.com/datasheet/Peimar_DE_OR10H440MN%28BF%29.pdf",
+        "https://peimar.com/datasheet/Peimar_EN_OR10E640MNDB.pdf",
+        "https://peimar.com/datasheet/Peimar_EN_OR10H610MNDB.pdf",
+        "https://peimar.com/datasheet/Peimar_EN_OR12H725MNDB.pdf",
+        "https://peimar.com/datasheet/Peimar_EN_SA550M%28B%29.pdf"
+      ],
+      "pages": []
+    }
   },
   {
     "id": "pentair",
     "domains": [
       "pentair.com",
       "shurflo.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://www.pentair.com/content/dam/extranet/nam/filtration/everpure/commercial/spec-sheets/ev9100/EV9100-12-CGS-12-Dual-Series-10-Spec-Sheet.pdf",
+        "https://www.pentair.com/content/dam/extranet/nam/filtration/everpure/commercial/spec-sheets/ev9100/EV9100-20-CGS-20-Single-Series-20-Spec-Sheet.pdf",
+        "https://www.pentair.com/content/dam/extranet/nam/filtration/everpure/commercial/spec-sheets/ev9100/EV9100-23-CGS-23-Parallel-20-Spec-Sheet.pdf",
+        "https://www.pentair.com/content/dam/extranet/nam/filtration/everpure/commercial/spec-sheets/ev9100/ev9100-22-cgs-22-dual-series20-spec.pdf",
+        "https://www.pentair.com/content/dam/extranet/nam/filtration/everpure/commercial/spec-sheets/ev9300/EV9337-44-Coldrink-Dual-HF-MC2-System-Spec-Sheet.pdf",
+        "https://www.pentair.com/content/dam/extranet/nam/filtration/everpure/commercial/spec-sheets/ev9600/EV9628-28-Quad-MC2-Replacement-Cartridge-Kit-Spec-Sheet.pdf",
+        "https://www.pentair.com/content/dam/extranet/nam/filtration/everpure/commercial/spec-sheets/ev9600/EV969186-2FC5-S-Cartridge-Spec-Sheet.pdf",
+        "https://www.pentair.com/content/dam/extranet/nam/filtration/everpure/commercial/spec-sheets/ev9600/EV9693-31-4FC5-S-Cartridge-Spec-Sheet.pdf",
+        "https://www.pentair.com/content/dam/extranet/nam/filtration/everpure/commercial/spec-sheets/ev9600/ev9693-71-77-fc5-s%20spec.pdf",
+        "https://www.pentair.com/content/dam/extranet/nam/filtration/everpure/commercial/spec-sheets/ev9700/ev973300-4clm+-cart-spec.pdf",
+        "https://www.pentair.com/content/dam/extranet/nam/filtration/everpure/commercial/spec-sheets/ev9700/ev977100-7clm+-cart-spec.pdf",
+        "https://www.pentair.com/content/dam/extranet/nam/filtration/everpure/commercial/spec-sheets/ev9900/EV9977-00_Conserv_75E_HE_RO_Spec_Sheet_AP17.pdf",
+        "https://www.pentair.com/content/dam/extranet/nam/filtration/everpure/residential/manuals/ev307043-h-series-manual.pdf",
+        "https://www.pentair.com/content/dam/extranet/nam/filtration/everpure/residential/spec-sheets/4003561-h-300-nxt-spec.pdf",
+        "https://www.pentair.com/content/dam/extranet/nam/filtration/omnifilter/manuals/4000984-om26k-io-manual.pdf",
+        "https://www.pentair.com/content/dam/extranet/nam/filtration/pentair/manuals/150724-fps-10bb-20bb-manual.pdf",
+        "https://www.pentair.com/content/dam/extranet/nam/filtration/pentair/manuals/152111-floplus-protect-20bb-man.pdf",
+        "https://www.pentair.com/content/dam/extranet/nam/filtration/pentair/spec-sheets/english/4006913-floplus-20bb-spec-sheet.pdf",
+        "https://www.pentair.com/content/dam/extranet/nam/filtration/pentair/spec-sheets/english/4006941-chlorplus-protect-10-spec-sheet.pdf",
+        "https://www.pentair.com/content/dam/extranet/nam/pentair-pool/pool-manuals/filters/System3DEFilterOwnersManualEnglish.pdf",
+        "https://www.pentair.com/content/dam/extranet/nam/pentair-pool/residential/consumables/pleatco/data-sheets/pleatco-pure-start-datasheet.pdf",
+        "https://www.pentair.com/content/dam/extranet/nam/pentair-pool/residential/heaters/mastertemp/manual/archive/Pentair%20MasterTemp%20Heater%20Submittal%20Data.pdf",
+        "https://www.pentair.com/content/dam/extranet/nam/pentair-pool/residential/heaters/mastertemp/manual/mastertemp-heater-manual-english.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/berkeley/curves/self-prime-centrifugals-performance-curve-b4t-khs.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/berkeley/manuals/f00630-b2x-b3t-b4t-b4z-engine-drive-iom.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/berkeley/manuals/f00633-b2-b3-b4-self-prime-frame-mount-iom.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/everpure/residential/data-sheets/4002875_scs-350_spec-sheet.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/fleck/manuals/41693-nxt-rev-l-nv16.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/fleck/manuals/42683-fleck-5600sxt-upflow-manual.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/fleck/manuals/42684-fleck-5600sxt-downflow-manual.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/fleck/manuals/44001-fleck-sxt-owners-manual.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/fleck/manuals/44020-fleck-5810-5812-xtr2-manual.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/fleck/manuals/44514-fleck-5800-581-5812-xtri-manual.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/hydromatic/commercial/brochures/W-02-6710.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/hydromatic/commercial/data-sheets/E-01-10-007-303.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/hydromatic/commercial/manuals/hyd956-shef42m1-shef42a1-submersible-solids-handling-pump-iom.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/myers/commercial/brochures/wg20-wgx20-2hp-submersible-grinder-pump-brochure.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/myers/commercial/data-sheets/ma1001-ma15-triplex-plunger-ds.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/myers/commercial/data-sheets/ma1012-60m60h-triplex-plunger-pump-ds.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/myers/commercial/data-sheets/ma1016-ma75m-75l-75h-ds.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/myers/commercial/data-sheets/ma1018-ma95lm-triplex-plunger-ds.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/myers/commercial/data-sheets/ma1021hd-ma120mlh-hd-triplex-plunger-pump-ds.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/myers/commercial/data-sheets/ma1026-ma155x-triplex-plunger-pump-ds.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/myers/commercial/data-sheets/ma1026hd-ma155x-hd-triplex-plunger-pump-ds.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/myers/commercial/data-sheets/ma1029-ma240kmlh-quintuplex-ds.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/myers/commercial/data-sheets/ma1029hd-ma240kmlh-hd-quintuplex-ds.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/myers/commercial/manuals/ap-03-100-ma-sc-aplex-series-quintuplex-pumps-iom.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/myers/commercial/manuals/ap-03-102-ma-sc-series-triplex-pumps-iom.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/myers/commercial/manuals/myers-wgx20-submersible-sewage-grinder-pump-om.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/myers/residential/data-sheets/m11957sse-mse50sewage-pumps-ds.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/myers/residential/data-sheets/my10018-sb24vrs10-sewage-basin-package-ds.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/myers/residential/manuals/my1000-ms33pt-ms50pt-ms33pv-ms50pv-submersible-plastic-sump-pumps-iom.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/myers/residential/sales-flyers/M11938SSE.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/omnifilter/manuals/248265_bf6_manual.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/omnifilter/manuals/4001866_om34k_om40k_io_manual.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/pentair-water-solutions/manuals/pws-puv7-puv14-uv-systems-manual.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/pentek/manuals/150743-chlorplus-protect-10-man.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/pentek/manuals/p1061-psd15-solar-drive-iom.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/pentek/manuals/p1062-psd30-solar-drive-iom.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/pentek/sales-flyers/psd25pb-solar-drive-sell-sheet.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/pentek/spec-sheets/310068-pentek-c-series-spec-sheet.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/pentek/spec-sheets/310112-pentek-cfbc-series-spec-sheet.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-1008-4008-rv-by-pass-pump-iom.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-193-lcb-go-902-100-iom.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-314-series-8000-pump-iom.pdf",
+        "https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-566-3200-macerator-pump-iom.pdf"
+      ],
+      "pages": [
+        "https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-193-lcb-g",
+        "https://www.pentair.com/content/dam/extranet/web/nam/shurflo/manuals/911-396-series-2088-industrial-pumps-iom"
+      ]
+    }
   },
   {
     "id": "powermax-converters",
     "domains": [
       "powermaxconverters.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://powermaxconverters.com/wp-content/uploads/2023/11/PM3-Spec-Sheet_Nov-23.pdf"
+      ],
+      "pages": []
+    }
   },
   {
     "id": "precision-circuits",
     "domains": [
       "precisioncircuitsinc.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://www.precisioncircuitsinc.com/wp-content/uploads/2016/10/00-10050-000-Power-Control-System-Midi-Manual-B.pdf"
+      ],
+      "pages": []
+    }
   },
   {
     "id": "primus-wind-power",
@@ -323,13 +1074,48 @@
     "domains": [
       "rollsbattery.com",
       "surrette.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://rollsbattery.com/wp-content/uploads/2019/10/LFP-Connect-Card-Victron-Energy.pdf",
+        "https://rollsbattery.com/wp-content/uploads/2019/11/Rolls-S24-2800LFP-S48-6650LFP-ESS-Operating-Manual.pdf",
+        "https://rollsbattery.com/wp-content/uploads/2021/12/Rolls-R-Series-S-Series-Drop-in-LFP-Battery-Operating-Manual.pdf",
+        "https://rollsbattery.com/wp-content/uploads/2023/07/48V-LFP.pdf",
+        "https://rollsbattery.com/wp-content/uploads/2023/09/Rolls-S48-100LFP-ESS-Battery-Operating-Manual-1.pdf",
+        "https://rollsbattery.com/wp-content/uploads/2025/01/S48-100LFP-STACK-LV-Battery-Operating-Manual.pdf",
+        "https://rollsbattery.com/wp-content/uploads/2026/02/Rolls-VB-Series-LFP-Drop-In-Battery-Operating-Manual.pdf",
+        "https://rollsbattery.com/wp-content/uploads/Rolls-S48-100LFP-STACK-LV-Battery-Installation-Guide-ver-1.2.pdf",
+        "https://surrette.com/wp-content/uploads/2024/05/HL12-580WAGM.pdf",
+        "https://www.rollsbattery.com/wp-content/uploads/2021/04/ROLLS-12V-24V-LFP-OPERATING-MANUAL.pdf"
+      ],
+      "pages": [
+        "https://rollsbattery.com/battery/s48-100lfp-stack-lv/",
+        "https://rollsbattery.com/battery/s48-314lfp-stack-lv-he/",
+        "https://rollsbattery.com/catalog/",
+        "https://rollsbattery.com/wp-content/uploads/2024/0",
+        "https://rollsbattery.com/wp-content/uploads/2024/01/Rolls-LFP-ESS-Integration-with-Vict",
+        "https://rollsbattery.com/wp-content/uploads/2025/01/S48-10",
+        "https://www.rollsbattery.com/battery/s48-100lfp-ess/",
+        "https://www.rollsbattery.com/wp-content/uploads/202",
+        "https://www.rollsbattery.com/wp-content/uploads/2023/09/Rolls-S48-100LFP-E",
+        "https://www.surrette.com/manuals/"
+      ]
+    }
   },
   {
     "id": "rstc-enterprises",
     "domains": [
       "soladeck.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://soladeck.com/wp-content/uploads/2025/08/0599-0799-0999-0766-41AD-Installation-Manual-13th-Edition.pdf",
+        "https://soladeck.com/wp-content/uploads/2025/08/0599-SolaDeck-Spec-Sheet.pdf",
+        "https://soladeck.com/wp-content/uploads/2025/08/0799-0999-Spec-Sheet.pdf",
+        "https://soladeck.com/wp-content/uploads/2026/07/0599-0799-0999-0766-41AD-Installation-Manual-14th-Edition-1.pdf"
+      ],
+      "pages": []
+    }
   },
   {
     "id": "ruixu",
@@ -347,7 +1133,88 @@
     "id": "samlex-america",
     "domains": [
       "samlexamerica.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://samlexamerica.com/wp-content/uploads/2019/12/12001-SEC-60BRM-0715_Hrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2019/12/12004-IDC-100A-12-0319.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11001-BBM-12100-0322_Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11001-PSE-12125A-12175A-12275A-0414-Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11001-PSE-24125A-24175A-24275A-0314-Lrez-1-1.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11001-PST-1000F-12-1221_Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11001-PST-1500-2000-12-24_1221_Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11001-PST-15S-30S-12E-24E-0324_Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11001-PST-300-12-24-1221_Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11001-RC-300-1220_Hrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11001-SDC-15-23-0618_Hrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11001-SEC-1235-1235M-1218_Hrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11001-SEC-1250-2425UL-0920_Hrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11001-SEC-1280-2440UL-0920_Hrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11001-SEC-40-60-80-100BRM-1219_Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11002-SAM-1500C-12-0517_Hrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11002-SAM-250-450-800-12-1223_Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11002-SSW-350-600-1000-1500-2000-12A-0117-Lrez-1.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11004-IDC-100-0219.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11004-IDC-200-0417_Hrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11004-IDC-360-0417_Hrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11004-Step-7-10-20-0116-Hrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11013-DC-FA-100-200-300-1121_Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11023-MSK-90-135-0616_Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11023-SC-05-10-0618_Hrez-1.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11025-EVO-RC-0722_Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11027-EVO-1212F-1224F-0722_Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/11027-SCC-30AB-0922_Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/12001-PSE-12125A-0414-Hrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/12001-PSE-24275A-0418.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/12001-PST-1000F-12-1221.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/12001-PST-300-12-24-1221.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/12001-RC-300-1220.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/12001-SDC-23-0618.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/12001-SEC-1250UL-0920.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/12001-SEC-2440UL-0920.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/12004-IDC-100D-12-0319.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/12004-IDC-360C-24-0516_Hrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/12004-IDC-360D-12-0516_Hrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/12021-SC-05-SC-10-1222.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/12023-MSK-90-135-0319.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/12027-SCC-30AB-0922.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/41600-0019-0414-BRM-Series-0624.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2021/01/11027-EVO-1212F-1224F-0220_Hrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2021/01/Samlex-EVO-1212F-1224F-Features-and-Spec-Sheet-0320.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2021/11/Samlex-EVO-Features-Spec-Sheet-1121.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2022/04/11027-EVO-4248SP-0722_Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2022/04/12027-EVO-4248SP-0722.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2022/05/11001-SEC-1212CE-1223CE-0522_Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2022/05/12001-SEC-1223CE-0522.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2022/12/11004-BGW-40-60-0923_Lres.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2023/03/11027-EVO-30AB-1122_Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2023/03/12027-EVO-30AB-1122.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2024/11/11028-SRV-150-30A-SSP-150-KIT-0923_Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2024/12/11002-SAM-1000-1500-2000-3000-12_1224_R2_EN-FR_Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2025/02/11002-NTX-1000-1500-2000-3000-3000S-12-24-0524_R1.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2025/02/11002-NTX-400-600-12-24-0825_Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2025/02/11004-ACR-160-0925-Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2025/02/11025-EVO-2212-3012-2224-4024-0326-Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2025/02/12004-ACR-160-1125_Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2025/02/Samlex-America-EVO-4248SP-Brochure-Web.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2025/02/Samlex-America-EVO-Folding-Brochure_230V-Web.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2025/02/Samlex-America-Product-Catalogue-Web.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2025/02/Samlex-America-RV-Product-Guide-Web.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2025/02/Solar-Sizing-Guide-Website_0526_Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2026/07/11001-PST-1500-2000-12-24-48_0726_Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2026/07/11001-PST-3000-12-24-48-0726-Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2026/07/11001-PST-600-12-24-48_0726_Lrez.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2026/07/12001-PST-2000-12-24-48-0826.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2026/07/12001-PST-600-12-24-48-0726.pdf",
+        "https://samlexamerica.com/wp-content/uploads/2026/08/41600-PST-Series-Feature_Sheet_0926.pdf"
+      ],
+      "pages": [
+        "https://samlexamerica.com/pst-power-inverters/",
+        "https://samlexamerica.com/wp-content/uploads/",
+        "https://samlexamerica.com/wp-content/uploads/2020/01/1100",
+        "https://samlexamerica.com/wp-content/uploads/2026/07/11001-PST-3000-12-24"
+      ]
+    }
   },
   {
     "id": "schneider-electric",
@@ -360,13 +1227,28 @@
     "id": "seaflo",
     "domains": [
       "seaflo.com"
-    ]
+    ],
+    "cited": {
+      "documents": [],
+      "pages": [
+        "https://www.seaflo.com/index.php?m=home&c=Lists&a=index&tid=332",
+        "https://www.seaflo.com/index.php?m=home&c=View&a=index&aid=534"
+      ]
+    }
   },
   {
     "id": "sigineer",
     "domains": [
       "sigineer.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://sigineer.com/wp-content/uploads/2023/01/Sigineer-Power-M48120-MPPT-Solar-Inverter-Manual-20230129.pdf",
+        "https://sigineer.com/wp-content/uploads/2025/06/LFP-M48105H2%EF%BC%88LFP-M48210H%EF%BC%89manual-20250606.pdf",
+        "https://sigineer.com/wp-content/uploads/2026/01/ESF48H100-Manual-20260108.pdf"
+      ],
+      "pages": []
+    }
   },
   {
     "id": "snapnrack",
@@ -384,7 +1266,34 @@
     "id": "sol-ark",
     "domains": [
       "sol-ark.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://sol-ark.com/wp-content/uploads/2024/06/12K-Indoor-Legacy-Model-Installation-User-Manual-1.pdf",
+        "https://sol-ark.com/wp-content/uploads/2024/06/15K-2P-LV_Datasheet_Rev_7_16July2026.pdf",
+        "https://sol-ark.com/wp-content/uploads/2024/06/5K-2P-N_Manual_EN_5May2025-1-1.pdf",
+        "https://sol-ark.com/wp-content/uploads/2024/06/L3_HVR_UL1973_Certificate_of_Compliance-1.pdf",
+        "https://sol-ark.com/wp-content/uploads/2024/06/L3_HVR_UL9540_Certificate_of_Compliance-1.pdf",
+        "https://sol-ark.com/wp-content/uploads/2024/06/MA-00015_Rev3_5K-1P-N_UserManual_v13_EN_16June2025.pdf",
+        "https://sol-ark.com/wp-content/uploads/2024/06/PS-00032_Rev3_5K-1P-N_DataSheet_EN_18June2025.pdf",
+        "https://sol-ark.com/wp-content/uploads/2024/06/SK140-0003-002-12K-2P-N-EN-Manual-1-1.pdf",
+        "https://sol-ark.com/wp-content/uploads/2024/06/SK140-0005-002-8K-2P-N-EN-Manual-1-1.pdf",
+        "https://sol-ark.com/wp-content/uploads/2025/07/SK140-0013-001-8K-2P-L_Installation-Manual-EN.pdf",
+        "https://sol-ark.com/wp-content/uploads/2026/01/18K_Installation_Manual_rev_13_16July2026.pdf",
+        "https://sol-ark.com/wp-content/uploads/2026/01/30K_QuickStart_Rev5_4Aug2026.pdf",
+        "https://sol-ark.com/wp-content/uploads/2026/02/15K-QuickStart_Spanish_00071_Rev2_24Feb2026.pdf",
+        "https://sol-ark.com/wp-content/uploads/2026/03/30K-QuickStart_Spanish_MA-00067_Rev1_27Feb2026.pdf",
+        "https://sol-ark.com/wp-content/uploads/2026/05/12K-2P-LL_Datasheet_Rev3_PS-00045_14July2026.pdf",
+        "https://sol-ark.com/wp-content/uploads/2026/05/12K-LL_Installation_Manual_MA-00057_Rev3_16July202.pdf",
+        "https://sol-ark.com/wp-content/uploads/2026/05/4G_Dongle_Datasheet_Rev1.0_PS-00043_19-May-2026.pdf",
+        "https://sol-ark.com/wp-content/uploads/2026/07/15K_Installation_Manual_Rev_13_16July2026.pdf",
+        "https://sol-ark.com/wp-content/uploads/2026/08/30K-3P-208V_Installation_Manual_MA-00027_Rev6_25Au.pdf",
+        "https://sol-ark.com/wp-content/uploads/2026/08/60K-3P-480V_Installation_Manual_MA-00021_Rev9_25Au.pdf",
+        "https://sol-ark.com/wp-content/uploads/2026/08/L3_HVR_Installation_Guide_Rev3_20Aug2026.pdf",
+        "https://www.sol-ark.com/wp-content/uploads/2024/06/SK140-0026-004-EN-Manual.pdf"
+      ],
+      "pages": []
+    }
   },
   {
     "id": "southwire",
@@ -402,7 +1311,59 @@
     "id": "srne",
     "domains": [
       "srnesolar.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://www.srnesolar.com/userfiles/files/2023/07/18/GEN4-DH60-100-120_PWM_EN_Manual_V1.04.pdf",
+        "https://www.srnesolar.com/userfiles/files/2023/07/18/Gen4_MPL(G4)%20series_MPPT_User%20Manual_V1.03.pdf",
+        "https://www.srnesolar.com/userfiles/files/2023/07/18/MC24%20User%20Manual-V1(1).pdf",
+        "https://www.srnesolar.com/userfiles/files/2023/07/18/MEH%20series_EN_Datasheet.pdf",
+        "https://www.srnesolar.com/userfiles/files/2023/07/18/MEH160-200_MPPT_User%20Manual_V1.01.pdf",
+        "https://www.srnesolar.com/userfiles/files/2023/07/18/ML4860N15_User%20Manual_V1.0.pdf",
+        "https://www.srnesolar.com/userfiles/files/2023/07/18/SES-SN-DH-DM-SH-SNS_User%20Manual_V1.01.pdf",
+        "https://www.srnesolar.com/userfiles/files/2023/07/18/SR-LC2430N10H_User%20Manual_V1.01.pdf",
+        "https://www.srnesolar.com/userfiles/files/2023/07/18/SR-ML24203040%20&%20ML2420-RS485_User%20Manual_V1.06.pdf",
+        "https://www.srnesolar.com/userfiles/files/2023/07/18/SRNE_LC%20series_24V_30A_Solar%20Charge%20Controller_datasheet_1.1.pdf",
+        "https://www.srnesolar.com/userfiles/files/2023/07/18/SRNE_MC%20series_24V_20~50A_MPPT%20solar%20charge%20controller_datasheet_V1.0.pdf",
+        "https://www.srnesolar.com/userfiles/files/2023/07/18/SRNE_MC%20series_48V_60~70A_Solar%20Charge%20Controller_datasheet_1.1.pdf",
+        "https://www.srnesolar.com/userfiles/files/2023/07/18/SRNE_MF%20series_48V_60A_MPPT%20solar%20charge%20controller_datasheet_V1.0.pdf",
+        "https://www.srnesolar.com/userfiles/files/2023/08/10/SRNE_HP%20series_24V_10~60A_Solar%20Charge%20Controller_datasheet_1.1.pdf",
+        "https://www.srnesolar.com/userfiles/files/2023/08/10/SRNE_HP%20series_48V_30~40A_Solar%20Charge%20Controller_datasheet_1.1.pdf",
+        "https://www.srnesolar.com/userfiles/files/2023/08/14/RM-5_Datasheet.pdf",
+        "https://www.srnesolar.com/userfiles/files/2023/08/14/RM-9_User%20Manual_V1.01.pdf",
+        "https://www.srnesolar.com/userfiles/files/2024/06/19/SRNE_IBC12-3kW-AU_High%20frequency%20pure%20sine%20wave%20inverter_datasheet_V1.0.pdf",
+        "https://www.srnesolar.com/userfiles/files/2024/08/09/AU-SR-EOS10B%20Specification.pdf",
+        "https://www.srnesolar.com/userfiles/files/2024/08/09/AU-Warranty%20T&Cs.pdf",
+        "https://www.srnesolar.com/userfiles/files/2024/11/08/SRNE_EOS%20series_10kWh_Solar%20Storage%20Battery_Datasheet_V2.0.pdf",
+        "https://www.srnesolar.com/userfiles/files/2025/04/22/ABP%20_8-10kW_U_All-in-one%20solar%20charge%20inverter_V1.1.pdf",
+        "https://www.srnesolar.com/userfiles/files/2025/04/22/SRNE_ABP%20series_US_48V_8-10kW_240V_split%20phase_Solar%20Storage%20Inverter_datasheet_V1.0.pdf",
+        "https://www.srnesolar.com/userfiles/files/2025/04/23/User%20Manual_SR-EOS05B-Pro&EOS10B&EOS15B%20Energy%20Storage%20Battery_EN-V2.0(1).pdf",
+        "https://www.srnesolar.com/userfiles/files/2025/04/23/User%20Manual_SR-EOT01S&EOT02S_1.5~3kW_%20All-in-one%20Solar%20Storage%20System_EN-V2.0.pdf",
+        "https://www.srnesolar.com/userfiles/files/2025/07/01/SRNE_IBU12-2kW_High%20frequency%20pure%20sine%20wave%20inverter_datasheet_V1.0.pdf",
+        "https://www.srnesolar.com/userfiles/files/2025/07/11/SR-RM12%20Instruction%20Manual.pdf",
+        "https://www.srnesolar.com/userfiles/files/2025/07/17/SR-MF48100N50_Neutral_manual_V1.01.pdf",
+        "https://www.srnesolar.com/userfiles/files/2025/07/17/SRNE_MF%20series_48V_50A_Solar%20Charger%20Controller_datasheet_1.1.pdf",
+        "https://www.srnesolar.com/userfiles/files/2025/07/23/SRNE_DCB%20Series_300~800A_Low%20Voltage%20Battery%20Busbar%20Box_Datasheet_V1.1.pdf",
+        "https://www.srnesolar.com/userfiles/files/2025/07/23/SRNE_EOC05B_Lithium%20Battery%20Energy%20Storage_datasheet_V1.2.pdf",
+        "https://www.srnesolar.com/userfiles/files/2025/07/23/User%20Manual_SR-EOC05B-UL_Energy%20Storage%20Battery_EN-V1.0.pdf",
+        "https://www.srnesolar.com/userfiles/files/2025/08/29/SRNE_ASP%20series_48V_16~20kW_EU_Three-Phase_Off-grid_Solar%20storage%20inverter_Datasheet_V01[20250829].pdf",
+        "https://www.srnesolar.com/userfiles/files/2025/08/29/SRNE_ASP%20series_48V_16~20kW_EU_Three-Phase_Off-grid_Solar%20storage%20inverter_User%20Manual_V00[20250827].pdf",
+        "https://www.srnesolar.com/userfiles/files/2026/01/04/SRNE_ASP48120S200-Pro_EU_Single-Phase_Off-grid_All-in-one%20solar%20charge%20inverter_V01[20251208].pdf",
+        "https://www.srnesolar.com/userfiles/files/2026/01/05/SRNE_ASP48180UH3(15-18kW)_US_Three-Phase_Off-grid_Solar%20storage%20inverter_Datasheet_V01[20251223].pdf",
+        "https://www.srnesolar.com/userfiles/files/2026/01/05/SRNE_ASP48180UH3(15-18kW)_US_Three-Phase_Off-grid_Solar%20storage%20inverter_User%20Manual_V00[20251227].pdf",
+        "https://www.srnesolar.com/userfiles/files/2026/01/08/SRNE_HYP4850S+U100-H(NG+SUB)_Off-grid_All-in-one%20solar%20charge%20inverter_User%20Manual_V2.8[20251223].pdf",
+        "https://www.srnesolar.com/userfiles/files/2026/01/26/SR-EOS10B_SD-S--ULTRAPOWER.pdf",
+        "https://www.srnesolar.com/userfiles/files/2026/02/10/SRNE_EOS%20series_2.56kWh&8kWh_12V&24V_Solar%20Storage%20Battery_Datasheet_V1.4(1).pdf",
+        "https://www.srnesolar.com/userfiles/files/2026/02/10/User%20Manual_SR-EOS02B&08B_Energy%20Storage%20Battery_EN-V1.3(1).pdf",
+        "https://www.srnesolar.com/userfiles/files/2026/03/27/SR-Box112C-55K%20-%20Specification%20Sheet.pdf",
+        "https://www.srnesolar.com/userfiles/files/2026/06/03/SRNE_AFP4835U80-H_US_3.5kW_Single-phase_%20Off-grid_Solar%20Storage%20Inverter_V02[20260511].pdf",
+        "https://www.srnesolar.com/userfiles/files/2026/06/04/SRNE_HESP%20series_EU_48V_3.6~6kW_230V_Single-Phase_Hybrid_Solar%20Storage%20Inverter_Datasheet_V1.2[20250618].pdf",
+        "https://www.srnesolar.com/userfiles/files/2026/06/10/SRNE_HEBP4880U190-HUS(7-8kW)_US_120&240V_Split-Phase_Hybrid_Solar%20Storage%20Inverter_User%20Manual_V01[20260323].pdf",
+        "https://www.srnesolar.com/userfiles/files/2026/06/10/SRNE_HESP4880SHD3(3-8kW)_EU_Three-Phase_Hybrid_Solar%20Hybrid%20Inverter_User%20Manual_V1.4[20251222].pdf",
+        "https://www.srnesolar.com/userfiles/files/2026/08/24/SRNE_HESP48180UBH3(15-18kW)_US_three-Phase_Hybrid_Solar%20Storage%20Inverter_Datasheet_V02[20260820].pdf"
+      ],
+      "pages": []
+    }
   },
   {
     "id": "staubli",
@@ -432,7 +1393,25 @@
     "id": "the-cabin-depot",
     "domains": [
       "thecabindepot.ca"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://thecabindepot.ca/cdn/shop/files/Kedron_280AH_48V_Manual_Rev_1.4.pdf"
+      ],
+      "pages": [
+        "https://thecabindepot.ca/collections/noco",
+        "https://thecabindepot.ca/collections/rolls-battery",
+        "https://thecabindepot.ca/products/epever-dr3210n-dds-30a-mppt-dual-battery-controller-etl-certified",
+        "https://thecabindepot.ca/products/epever-itracer-an-g3-60a-mppt-charge-controller",
+        "https://thecabindepot.ca/products/kedron-12v-lifepo4-100ah",
+        "https://thecabindepot.ca/products/kedron-12v-lifepo4-200ah",
+        "https://thecabindepot.ca/products/kedron-12v-lifepo4-300ah-1",
+        "https://thecabindepot.ca/products/kedron-48v-lifepo4-280ah-indoor-14-34kw-ul-certified",
+        "https://thecabindepot.ca/products/midnite-mnems4448paecl150-magnum-4448pae-off-grid-4400w-48vdc-inverter-system",
+        "https://www.thecabindepot.ca/products/rolls-48v-6-65kwh-lifepo4-battery-s48-6650lfp",
+        "https://www.thecabindepot.ca/search?q=seaflo"
+      ]
+    }
   },
   {
     "id": "trans-canada-energies",
@@ -456,7 +1435,30 @@
     "id": "unique-appliances",
     "domains": [
       "uniqueappliances.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://uniqueappliances.com/cdn/shop/files/325L_DC_fridge_EN_manual_June2024.pdf",
+        "https://uniqueappliances.com/cdn/shop/files/52482457_ENER.BILG.KARUNIQUE_10815012_997338f1-2e6f-4927-9cf3-6c4cfe709d67.pdf?v=5499760922087764332",
+        "https://uniqueappliances.com/cdn/shop/files/Spec_Sheet-Unique_265_Litre_White_12_24_DC_Chest_freezer_July2024.pdf",
+        "https://uniqueappliances.com/cdn/shop/files/UGP-170L1_Solar_Fridge_Manual_Eng_V1.pdf",
+        "https://uniqueappliances.com/cdn/shop/files/UGP-260L1_Solar_Fridge_Manual_Eng_V4.pdf",
+        "https://uniqueappliances.com/cdn/shop/files/UGP-265L1_Solar_Chest_Freezer_Manual_Eng.pdf",
+        "https://uniqueappliances.com/cdn/shop/files/UGP-275L_W_Solar_Fridge_Manual_Eng_V4.pdf",
+        "https://uniqueappliances.com/cdn/shop/files/UGP-290L_manual_English_V3.pdf?v=2050489974613954534",
+        "https://uniqueappliances.com/cdn/shop/files/UGP-30CR_RH_RangeHood_FRE_Manual_Nov25.pdf?v=4303438557828621127",
+        "https://uniqueappliances.com/cdn/shop/files/UGP-325L_SPECSHEET.pdf",
+        "https://uniqueappliances.com/cdn/shop/files/UGP-340L_AC_Fridge_Eng_Manual_v5.pdf?v=15668803235487749052",
+        "https://uniqueappliances.com/cdn/shop/files/UGP-36CR-ENG-SpecsheetApr-2023.pdf?v=937693514011039006",
+        "https://uniqueappliances.com/cdn/shop/files/UGP-370L1_Solar_Fridge_Manual_Eng_V5.pdf?v=7965827124143027575",
+        "https://uniqueappliances.com/cdn/shop/files/UGP_215L_AC_Energy_Guide_Label_V3.pdf?v=10262203891588348004",
+        "https://uniqueappliances.com/cdn/shop/files/UGP_30CR_EC_Manual_ENG_V1Sept2022.pdf?v=6301486506905633709"
+      ],
+      "pages": [
+        "https://uniqueappliances.com/products/unique-265-litre-white-12-24-dc-chest-freezer",
+        "https://uniqueappliances.com/products/unique-325litre-white-12-24-dc-bottom-mount-refrigerator"
+      ]
+    }
   },
   {
     "id": "unirac",
@@ -468,13 +1470,129 @@
     "id": "victron-energy",
     "domains": [
       "victronenergy.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://www.victronenergy.com/upload/documents/3-Phase-Quattro-system-with-Cerbo-GX-Touch-50-Blue-Nova-BN52V-690-36K-Smart-solar-MPPT's.pdf",
+        "https://www.victronenergy.com/upload/documents/BMV-702/9172-Manual_BMV_and_SmartShunt-pdf-en.pdf?_ga=2.44563751.2012351158.1670408081-1468887778.1617717896",
+        "https://www.victronenergy.com/upload/documents/BatteryProtect_12V_24V/114439-Smart_BatteryProtect-pdf-en.pdf",
+        "https://www.victronenergy.com/upload/documents/Blue_Smart_IP22_Charger_manual_230V/Blue_Smart_IP22_Charger-en.pdf",
+        "https://www.victronenergy.com/upload/documents/Brochure-Self-Consumption-&-Energy-Storage_EN_WEB_2026-02.pdf",
+        "https://www.victronenergy.com/upload/documents/Brochure_MARINE_EN_2025.pdf",
+        "https://www.victronenergy.com/upload/documents/Brochure_Off-Grid-backup-and-island-systems_2025_EN_Web.pdf",
+        "https://www.victronenergy.com/upload/documents/Certificate-Automotive-ECE-R10-6-MultiPlus-II-(GX)-24V-3kVA-230V.pdf",
+        "https://www.victronenergy.com/upload/documents/Certificate-Safety-EN-IEC-62109-1-BlueSolar-&-SmartSolar-MPPT-75-10-&-75-15.pdf",
+        "https://www.victronenergy.com/upload/documents/Certificate-Safety-EN-IEC-62109-1-BlueSolar--SmartSolar-MPPT-100-15-100-20-100-30--100-20_48V.pdf",
+        "https://www.victronenergy.com/upload/documents/Certificate-Safety-IEC-60335-and-IEC-62109-Phoenix-Inverter-48-5000.pdf",
+        "https://www.victronenergy.com/upload/documents/Certificate-Safety-IEC-62109-1-AS-NZS-BlueSolar---SmartSolar-MPPT-100-15.pdf",
+        "https://www.victronenergy.com/upload/documents/Datasheet-Battery-Charger-EN.pdf",
+        "https://www.victronenergy.com/upload/documents/Datasheet-Centaur-Charger-EN.pdf",
+        "https://www.victronenergy.com/upload/documents/Datasheet-Cyrix-ct-120A-230A-EN.pdf",
+        "https://www.victronenergy.com/upload/documents/Datasheet-Cyrix-i-400A-EN.pdf",
+        "https://www.victronenergy.com/upload/documents/Datasheet-Inverter-RS-Smart-Solar-EN-.pdf",
+        "https://www.victronenergy.com/upload/documents/Datasheet-MultiPlus-500-1200VA-120V-EN.pdf",
+        "https://www.victronenergy.com/upload/documents/Datasheet-MultiPlus-II-inverter-charger-3K-3K-GX-5K-5K-GX-AU-ESS-EN-AUS-.pdf",
+        "https://www.victronenergy.com/upload/documents/Datasheet-Skylla-Charger-EN.pdf",
+        "https://www.victronenergy.com/upload/documents/Datasheet-Skylla-IP65-EN.pdf",
+        "https://www.victronenergy.com/upload/documents/Datasheet-Smart-IP43-Charger-120-240V-EN-.pdf",
+        "https://www.victronenergy.com/upload/documents/Datasheet-SolarSense-750-EN.pdf",
+        "https://www.victronenergy.com/upload/documents/Digital_Multi_Control/153833-Digital_Multi_Control-pdf-en.pdf",
+        "https://www.victronenergy.com/upload/documents/EasySolar-II_GX/11230-EasySolar-II_GX-pdf-en.pdf",
+        "https://www.victronenergy.com/upload/documents/Energy_Meter_VM-3P75CT_Manual/155987-Victron_VM-3P75CT_Energy_Meter-pdf-en.pdf?_ga=2.250406031.880974288.1699257566-1468887778.1617717896",
+        "https://www.victronenergy.com/upload/documents/Isolation_Transformer_2000W/108939-Isolation_transformers-pdf-en.pdf",
+        "https://www.victronenergy.com/upload/documents/Isolation_Transformer_2500W_-_new,_only_available_in_Dutch_warehouse/108939-Isolation_transformers-pdf-en.pdf",
+        "https://www.victronenergy.com/upload/documents/Isolation_Transformer_3600W_-_new,_only_available_in_Dutch_warehouse/108939-Isolation_transformers-pdf-en.pdf",
+        "https://www.victronenergy.com/upload/documents/Lithium-SuperPack-2024-08-20.pdf",
+        "https://www.victronenergy.com/upload/documents/MPPT_Control_Display/MPPT_Control_display_manual-en.pdf",
+        "https://www.victronenergy.com/upload/documents/Manual-EasySolar-1600-EN-NL-FR-DE-ES-IT.pdf",
+        "https://www.victronenergy.com/upload/documents/Manual_SmartSolar_MPPT_150-60_up_to_250-70/29694-MPPT_solar_charger_manual-pdf-en.pdf",
+        "https://www.victronenergy.com/upload/documents/MultiPlus-II-3kVA-120VAC-12VDC-2x200Ah-Li-NG-VEBus-BMS-NG-Cerbo-GX-touch-50-SBP-220-generator-Lynx-Distributor-MPPT-100-50-Orion-XS-BMV-712.pdf",
+        "https://www.victronenergy.com/upload/documents/MultiPlus-II_230V_3k_5k_GX_AU_ESS/157822-MultiPlus-II_230V_Australia-pdf-en.pdf",
+        "https://www.victronenergy.com/upload/documents/MultiPlus-II_3k_5k_GX_AU-Off_grid/157822-MultiPlus-II_230V_Australia-pdf-en.pdf",
+        "https://www.victronenergy.com/upload/documents/MultiPlus-II_4k5_6k5_GX/2983-MultiPlus-II_GX-pdf-en.pdf",
+        "https://www.victronenergy.com/upload/documents/MultiPlus-II_GX/2983-MultiPlus-II_GX-pdf-en.pdf",
+        "https://www.victronenergy.com/upload/documents/MultiPlus_12V_500-1200VA_120Vac/155314-MultiPlus_500-1200VA_120Vac-pdf-en.pdf",
+        "https://www.victronenergy.com/upload/documents/Multi_RS_Solar/62787-Multi_RS_Solar-pdf-en.pdf",
+        "https://www.victronenergy.com/upload/documents/Orion-XS-HEX-protocol.pdf",
+        "https://www.victronenergy.com/upload/documents/Orion_XS_12-12-50A_DC-DC_battery_charger/124067-Orion_XS_DC-DC_battery_charger-pdf-en.pdf",
+        "https://www.victronenergy.com/upload/documents/Orion_XS_12-12-70A_DC-DC_Battery_Charger/124067-Orion_XS_DC-DC_battery_charger-pdf-en.pdf",
+        "https://www.victronenergy.com/upload/documents/Orion_XS_1400_DC-DC_Battery_Charger/124067-Orion_XS_DC-DC_battery_charger-pdf-en.pdf",
+        "https://www.victronenergy.com/upload/documents/RV-with-dual-MP-II-5kVA-split-phase-2x600Ah-24V-Li-NG-parallel-Lynx-Smart-BMS-NG-Class-T-power-in-Distributors-Cerbo-GX-Touch-70-SBP-220-MPPT-100-50-Arco-Zeus-Alternator-Orion-XS-1400-12V-Li-battery.pdf",
+        "https://www.victronenergy.com/upload/documents/SUN_Inverter/Inverter_PH_Smart__VE_Direct_and_SUN-en.pdf",
+        "https://www.victronenergy.com/upload/documents/Smart_BatteryProtect_12V_24V/114439-Smart_BatteryProtect-pdf-en.pdf",
+        "https://www.victronenergy.com/upload/documents/Smart_BatteryProtect_48V/114439-Smart_BatteryProtect-pdf-en.pdf",
+        "https://www.victronenergy.com/upload/documents/Technical-Information-Interfacing-with-VE-Bus-products-MK2-Protocol-3-14.pdf",
+        "https://www.victronenergy.com/upload/documents/US-Van-Drawing-MultiPlus-II-3kVA-120VAC-12VDC-2x200Ah-Li-NG-VEBus-BMS-NG-Distributor-Cerbo-GX-touch-50-SBP-100-MPPT-100-50-SmartShunt-DMC-Orion-XS.pdf",
+        "https://www.victronenergy.com/upload/documents/VE.Bus_BMS_NG_-_Manual/198071-VE_Bus_BMS_NG_-_Manual-pdf-en.pdf",
+        "https://www.victronenergy.com/upload/documents/VE.Bus_Smart_Dongle/106441-VE_Bus_Smart_Dongle-pdf-en.pdf",
+        "https://www.victronenergy.com/upload/documents/VE.Can-registers-public.pdf",
+        "https://www.victronenergy.com/upload/documents/VE.Direct-HEX-Protocol-Phoenix-Inverter.pdf",
+        "https://www.victronenergy.com/upload/documents/VE.Direct_Bluetooth_Smart_dongle_manual/32970-VE_Direct_Bluetooth_Smart_dongle_-_Manual-pdf-en.pdf",
+        "https://www.victronenergy.com/upload/documents/schematic-vehicle-lithium-rv2-.pdf",
+        "https://www.victronenergy.com/upload/documents/smallBMS_with_pre-alarm/128558-smallBMS_with_pre-alarm-pdf-en.pdf"
+      ],
+      "pages": [
+        "https://communityarchive.victronenergy.com/questions/187303/victron-bluetooth-advertising-protocol.html",
+        "https://www.victronenergy.com/accessories/bluesolar-pwm-pro-to-usb-interface-cable",
+        "https://www.victronenergy.com/accessories/outdoor-lte-m-wall-mount-antenna",
+        "https://www.victronenergy.com/accessories/ve-bus-smart-dongle",
+        "https://www.victronenergy.com/batteries/12,8v-lithium-superpack",
+        "https://www.victronenergy.com/battery-isolators-and-combiners/cyrix-battery-combiners",
+        "https://www.victronenergy.com/chargers/phoenix-smart-ip43-charger",
+        "https://www.victronenergy.com/dc-dc-converters",
+        "https://www.victronenergy.com/display-and-panels/digital-multi-control-panel-gx",
+        "https://www.victronenergy.com/display-and-panels/gx-touch-50",
+        "https://www.victronenergy.com/display-and-panels/mppt-control",
+        "https://www.victronenergy.com/live/ccgx:modbustcp_faq",
+        "https://www.victronenergy.com/media/pg/Cerbo_GX/en/",
+        "https://www.victronenergy.com/media/pg/Cerbo_GX/en/installation.html",
+        "https://www.victronenergy.com/media/pg/Cerbo_GX/en/internet-connectivity.html",
+        "https://www.victronenergy.com/media/pg/Cerbo_GX/en/technical-specifications.html",
+        "https://www.victronenergy.com/media/pg/Cerbo_GX/en/troubleshooting.html",
+        "https://www.victronenergy.com/media/pg/GX_IO-Extender_150/en/appendix.html",
+        "https://www.victronenergy.com/media/pg/GX_IO-Extender_150/en/technical-specifications.html",
+        "https://www.victronenergy.com/media/pg/Nucleo_GX/en/index-en.html",
+        "https://www.victronenergy.com/media/pg/Nucleo_GX/en/introduction.html",
+        "https://www.victronenergy.com/media/pg/Nucleo_GX/en/technical-specifications.html",
+        "https://www.victronenergy.com/media/pg/Nucleo_GX/en/troubleshooting.html",
+        "https://www.victronenergy.com/media/pg/VE.Direct_Bluetooth_Smart_dongle_manual/en/introduction.html",
+        "https://www.victronenergy.com/meters-and-sensors/temperature-sensor-qua-pmp-venus-gx",
+        "https://www.victronenergy.com/panel-systems-remote-monitoring/mppt-control",
+        "https://www.victronenergy.com/support-and-downloads/whitepapers",
+        "https://www.victronenergy.com/upload/documents/Datasheet-12,8V-&-25,6-Lithium-SuperPack-EN-.p",
+        "https://www.victronenergy.com/upload/documents/GX_LTE_4G/1208",
+        "https://www.victronenergy.com/upload/documents/Lithium_Battery_Smart/15958-",
+        "https://www.victronenergy.com/upload/documents/Lithium_NG_battery_12,8_V/173204-Lithium_NG_battery_man",
+        "https://www.victronenergy.com/upload/documents/Lithium_SuperPack_NG/219778-Lithium_SuperPack_NG-pd",
+        "https://www.victronenergy.com/upload/documents/Lynx_Smart_BMS/109358-Lynx",
+        "https://www.victronenergy.com/upload/documents/Smart_Battery_Sense/17801-Smart_Battery_Sense_Manual-pdf-en",
+        "https://www.victronenergy.com/upload/documents/VE.Bus_BMS_V2/111619-VE_Bus_BMS_V2_-_Ma"
+      ]
+    }
   },
   {
     "id": "volthium",
     "domains": [
       "volthium.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://volthium.com/wp-content/uploads/2024/04/User-manual_12V-150Ah_EN.pdf",
+        "https://volthium.com/wp-content/uploads/2024/04/User-manual_4D-8D_EN.pdf",
+        "https://volthium.com/wp-content/uploads/2024/05/EN_20250305-25.6-200-R-H-3U-Manual-1.pdf",
+        "https://volthium.com/wp-content/uploads/2024/08/EN_51.2-100-R-3U-C-Manual.pdf",
+        "https://volthium.com/wp-content/uploads/2024/10/User-manual_Rackmount-51.2V_EN.pdf"
+      ],
+      "pages": [
+        "https://volthium.com/en/categorie-produit/accessoires-en/",
+        "https://volthium.com/en/documents/",
+        "https://volthium.com/en/produit/51-2v-100ah-rackmount-battery-5-12kwh-ess/",
+        "https://volthium.com/en/produit/51-2v-9ah-charger-csa/",
+        "https://volthium.com/en/produit/usb-to-rs485-rj45-cable/",
+        "https://volthium.com/fr/produit/chargeur-51-2v-9ah-csa/",
+        "https://volthium.com/wp-content/uploads/202"
+      ]
+    }
   },
   {
     "id": "vosker",
@@ -492,14 +1610,29 @@
     "id": "watersprint",
     "domains": [
       "watersprint.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://watersprint.com/wp-content/uploads/2025/09/WS-2722-R01-Watersprint-Solo-40-Product-Sheet-US-Web.pdf",
+        "https://watersprint.com/wp-content/uploads/2025/09/WS-2724-R02-Acuva-Strike-Technical-Data-Sheet-US-Web.pdf",
+        "https://watersprint.com/wp-content/uploads/2025/09/WS-2728-R02-Azure-Bolt-Technical-Data-Sheet-US-Web.pdf"
+      ],
+      "pages": []
+    }
   },
   {
     "id": "wilson-electronics",
     "domains": [
       "weboost.com",
       "wilsonelectronics.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://assets.wilsonelectronics.com/m/4e138f965f8675be/original/WilsonPro-A1000-Spec-Sheet.pdf",
+        "https://assetsv2.wilsonelectronics.com/m/3a89399de4140fa/original/drive-reach-fleet-470254-spec-sheet.pdf"
+      ],
+      "pages": []
+    }
   },
   {
     "id": "wohner",
@@ -511,7 +1644,50 @@
     "id": "xantrex",
     "domains": [
       "xantrex.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://xantrex.com/wp-content/uploads/2021/12/20211110_CSeries_PWM_ChargeController_Datasheet.pdf",
+        "https://xantrex.com/wp-content/uploads/2021/12/20211112_LinkPRO_LinkLITE_Datasheet.pdf",
+        "https://xantrex.com/wp-content/uploads/2021/12/20241121_FREEDOMSW_230V_Datasheet-1.pdf",
+        "https://xantrex.com/wp-content/uploads/2021/12/975-0430-01-01_Rev-GLinkPRO-Owners-Guide.pdf",
+        "https://xantrex.com/wp-content/uploads/2021/12/975-0593-01-01_Rev-BFreedom-Sequence-Owners-Guide.pdf",
+        "https://xantrex.com/wp-content/uploads/2021/12/975-0799-01-01_Rev-DFreedom-XC-PRO-Owners-Guide_ENG.pdf",
+        "https://xantrex.com/wp-content/uploads/2021/12/DataSheet_Xantrex_FREEDOM-X_20260819.pdf",
+        "https://xantrex.com/wp-content/uploads/2021/12/DataSheet_Xantrex_FREEDOMSWXanbusAutomaticGeneratorStart_20260715.pdf",
+        "https://xantrex.com/wp-content/uploads/2021/12/DataSheet_Xantrex_FreedomEX4000_20260820.pdf",
+        "https://xantrex.com/wp-content/uploads/2021/12/DataSheet_Xantrex_XanbusSCP_8.5x11in_20260720.pdf",
+        "https://xantrex.com/wp-content/uploads/2021/12/XBM-Communication-Interface-Specification.pdf",
+        "https://xantrex.com/wp-content/uploads/2021/12/Xanbus-SCP-Owners-Guide97-0022-01-01_Rev-A-FINAL-1.pdf",
+        "https://xantrex.com/wp-content/uploads/2022/05/20220111_InternationalBrochure_V2.pdf",
+        "https://xantrex.com/wp-content/uploads/2022/07/20220627_12v105ah_LithiumIonBattery_Datasheet-1.pdf",
+        "https://xantrex.com/wp-content/uploads/2022/07/975-1187-02-01_Rev-C.pdf",
+        "https://xantrex.com/wp-content/uploads/2022/07/DataSheet_Xantrex_FreedomXCombox_20260715.pdf",
+        "https://xantrex.com/wp-content/uploads/2022/07/Freedom-Combox-Owners-Guide-975-1034-01-01_Rev-E_ENG.pdf",
+        "https://xantrex.com/wp-content/uploads/2023/01/DS20240910_Xantrex_Gateway.pdf",
+        "https://xantrex.com/wp-content/uploads/2023/02/BCCharger_975-0188-01-01_OG.pdf",
+        "https://xantrex.com/wp-content/uploads/2023/02/TRUEcharge2040_804-0220_OG.pdf",
+        "https://xantrex.com/wp-content/uploads/2023/02/XPower-Powersource1800_OG.pdf",
+        "https://xantrex.com/wp-content/uploads/2023/03/IP1012AL_inverter_charger_805-1011_DS.pdf",
+        "https://xantrex.com/wp-content/uploads/2023/03/ProSine_25-30_805-3025_OG.pdf",
+        "https://xantrex.com/wp-content/uploads/2023/03/RS3000_809-3000_IM.pdf",
+        "https://xantrex.com/wp-content/uploads/2023/03/XPower-Micro-Inverter-175_975-0067_OG.pdf",
+        "https://xantrex.com/wp-content/uploads/2023/03/XPower-Mobile-Plug-75_813-0075_DS.pdf",
+        "https://xantrex.com/wp-content/uploads/2023/03/XPower-Pocket-Inverter-100_813-0281_OG.pdf",
+        "https://xantrex.com/wp-content/uploads/2023/03/ms2000_inverter_charger_809-2010_OG.pdf",
+        "https://xantrex.com/wp-content/uploads/2023/07/DS20230808_Xantrex_Gateway_TouchscreenPanel.pdf",
+        "https://xantrex.com/wp-content/uploads/2023/08/975-1038-01-01_Rev-D.pdf",
+        "https://xantrex.com/wp-content/uploads/2023/08/975-1175-01-01_Rev-A.pdf",
+        "https://xantrex.com/wp-content/uploads/2025/11/975-0821-01-01_Rev-G.pdf"
+      ],
+      "pages": [
+        "https://xantrex.com/products/accessories/linkpro/",
+        "https://xantrex.com/products/accessories/xantrex-gateway/",
+        "https://xantrex.com/products/battery-chargers/",
+        "https://xantrex.com/products/inverter-chargers/",
+        "https://xantrex.com/products/inverters/"
+      ]
+    }
   },
   {
     "id": "xylem",

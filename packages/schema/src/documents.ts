@@ -14,6 +14,8 @@ export const Found = z
     bytes: z.number().int().nonnegative().optional(),
     /** The page whose link this was, so a document can be traced to where the maker offers it. */
     foundOn: z.string().url().optional(),
+    /** Offered because a record cites it, whether or not the site led discovery to it. */
+    cited: z.literal(true).optional(),
   })
   .strict();
 export type Found = z.infer<typeof Found>;
