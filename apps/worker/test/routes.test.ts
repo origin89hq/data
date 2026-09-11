@@ -717,3 +717,36 @@ test("release indexing failure is repaired by republishing the same version", as
   assert.equal([...store.keys()].filter((key) => key.startsWith("releases/feed/")).length, 1);
   assert.equal([...store.keys()].filter((key) => key.startsWith("activity/feed/")).length, 1);
 });
+
+test("a failed public manifest write retains no attribution from the failed publishing job", async () => {
+  const { env, store } = bucket();
+  const body = JSON.stringify([{ id: "battery" }]);
+  await putFile(env, "records_models.json", body);
+  const manifest = manifestOf({ "records_models.json": body });
+  const original = env.ARCHIVE.put.bind(env.ARCHIVE);
+  let fail = true;
+  env.ARCHIVE.put = (async (key, ...args) => {
+    if (fail && key === "dataset/v1/manifest.json") {
+      fail = false;
+      throw Error("manifest unavailable");
+    }
+    return original(key, ...args);
+  }) as typeof env.ARCHIVE.put;
+  assert.equal((await putManifest(env, manifest)).status, 500);
+  assert.equal([...store.keys()].filter((key) => key.startsWith("releases/versions/")).length, 0);
+  const response = await put(env, "manifest.json", manifest, {
+    authorization: `Bearer ${await jobToken({ sha: "b".repeat(40), run_id: "17000000002", run_attempt: "2" })}`,
+  });
+  assert.equal(response.status, 200);
+  const history = await app.request(
+    `${LOCAL}/releases`,
+    { headers: { authorization: "Bearer the-real-token" } },
+    env,
+  );
+  const entry = (
+    (await history.json()) as { releases: { sha: string; job: string; attempt: string }[] }
+  ).releases[0];
+  assert.equal(entry.sha, "b".repeat(40));
+  assert.equal(entry.job, "17000000002");
+  assert.equal(entry.attempt, "2");
+});

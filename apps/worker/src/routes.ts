@@ -117,6 +117,7 @@ publicRoutes.on(["GET", "HEAD"], "/manifest.json", async (c) => {
   return c.json(
     {
       name: "offgrid-equipment",
+      publication: { historyVersion: 1 },
       description:
         "Off-grid power equipment: manufacturers, models, rated figures and the protocols a controller can speak to them with.",
       licence: "MIT, for the tooling and the records alike",
@@ -322,7 +323,12 @@ controlRoutes.get("/activity", async (c) => {
 controlRoutes.get("/releases", async (c) => {
   const cursor = c.req.query("cursor");
   if (cursor && cursor.length > 4096) return c.json({ error: "Invalid release cursor" }, 400);
-  return c.json(await releasePage(c.env.ARCHIVE, cursor));
+  try {
+    return c.json(await releasePage(c.env.ARCHIVE, cursor));
+  } catch (error) {
+    if (error instanceof HistoryUnavailable) return c.json({ error: error.message }, 409);
+    throw error;
+  }
 });
 controlRoutes.get("/release-compare", async (c) => {
   const query = CompareQuery.safeParse(c.req.query());
@@ -730,7 +736,7 @@ export const WORKFLOW_ROUTES: readonly { method: "PUT"; path: string; rule: Work
     path: "/v1/:file",
     rule: {
       workflow: "publish.yml",
-      events: ["push", "workflow_dispatch"],
+      events: ["push", "workflow_dispatch", "workflow_run"],
       environment: PRODUCTION,
     },
   },
@@ -878,13 +884,19 @@ async function putManifest(c: Context<PublicationEnv>): Promise<Response> {
   if (disagree.length > 0)
     return c.json({ error: "the manifest does not describe what is stored", files: disagree }, 409);
 
-  // Save metadata before publication; index it only after the public manifest is accepted.
-  // Retrying the same content reuses the original version and repairs a missing index.
+  // Attribution is retained only after the public manifest is accepted. A retry after a
+  // history failure rewrites the same manifest and repairs the same job attempt's entry.
   const job = c.get("job");
-  const release = await saveRelease(c.env.ARCHIVE, parsed.data.files, job.sha, job.runId);
   await c.env.ARCHIVE.put(datasetKey(MANIFEST), text, {
     httpMetadata: { contentType: datasetType(MANIFEST) },
   });
+  const release = await saveRelease(
+    c.env.ARCHIVE,
+    parsed.data.files,
+    job.sha,
+    job.runId,
+    job.runAttempt,
+  );
   await indexRelease(c.env.ARCHIVE, release);
   return c.json({ file: MANIFEST, files: files.length });
 }

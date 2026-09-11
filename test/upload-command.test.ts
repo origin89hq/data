@@ -123,6 +123,8 @@ async function endpoints(
     if (answered) {
       res.writeHead(answered.status, Object.fromEntries(answered.headers));
       res.end(Buffer.from(await answered.arrayBuffer()));
+    } else if (url.pathname === "/manifest.json") {
+      res.end(JSON.stringify({ publication: { historyVersion: 1 } }));
     } else if (url.pathname === "/token") {
       issued += 1;
       res.end(JSON.stringify({ value: `job-token-${issued}` }));
@@ -172,10 +174,12 @@ test("every file goes up with its digest and a fresh job token, and the manifest
   const result = await publishing(dir, job);
   assert.equal(result.status, 0, result.stderr);
   assert.deepEqual(
-    seen.map((s) => `${s.method} ${s.path}`),
+    seen.slice(1).map((s) => `${s.method} ${s.path}`),
     [TOKEN_REQUEST, "PUT /v1/models.csv", TOKEN_REQUEST, "PUT /v1/manifest.json"],
   );
-  const [token, file, , manifest] = seen;
+  assert.match(seen[0].path, /^\/manifest\.json\?publication-check=/);
+  assert.equal(seen[0].authorization, undefined);
+  const [token, file, , manifest] = seen.slice(1);
   assert.equal(token.authorization, "Bearer runner-request-token");
   assert.equal(file.authorization, "Bearer job-token-1");
   assert.equal(file.sha256, createHash("sha256").update("model\nbattery\n").digest("hex"));
@@ -243,7 +247,7 @@ test("GitHub refusing a job token stops the publish before any upload", async (t
   assert.match(result.stderr, /would not issue a job token: HTTP 403/);
   assert.deepEqual(
     seen.map((s) => s.method),
-    ["GET"],
+    ["GET", "GET"],
   );
 });
 
@@ -280,4 +284,19 @@ test("logo upload finds the moved Worker and keeps absolute file arguments", (t)
   const call = calls()[0];
   assert.equal(call.cwd, new URL("../apps/worker/", import.meta.url).pathname.replace(/\/$/, ""));
   assert.equal(call.args[call.args.indexOf("--file") + 1], join(dir, name));
+});
+
+test("an older Worker is refused before any credential request or upload", async (t) => {
+  const { dir } = fixture(t);
+  dataset(dir);
+  const { seen, job } = await endpoints(t, (path) =>
+    path === "/manifest.json" ? Response.json({ files: {} }) : undefined,
+  );
+  const result = await publishing(dir, job);
+  assert.equal(result.status, 1);
+  assert.match(result.stderr, /does not support release history/);
+  assert.equal(seen.length, 1);
+  assert.equal(seen[0].method, "GET");
+  assert.match(seen[0].path, /^\/manifest\.json\?publication-check=/);
+  assert.equal(seen[0].authorization, undefined);
 });

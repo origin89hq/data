@@ -315,7 +315,7 @@ owner ID, and only from the workflow each route names:
 
 | Workflow | Routes | Started by | Environment |
 |---|---|---|---|
-| `publish.yml` | `PUT /v1/:file` | a push, or by hand | `offgrid-equipment-production` |
+| `publish.yml` | `PUT /v1/:file` | a push, by hand, or after a successful Worker deployment | `offgrid-equipment-production` |
 | `pull-figures.yml` | `/state`, `/archive`, `/readings` | its schedule, or by hand | any |
 | `supervise.yml` | `/supervise`, `/state`, `/vision` | by hand | any |
 
@@ -389,12 +389,12 @@ retry independently and log failures without repeating collection work. This is
 operational history, not a complete audit log: interrupted or externally
 terminated workflows and exhausted history writes can leave gaps.
 
-**Releases & changes** lists distinct published dataset contents, identified by
-the hash of their file metadata. Each version retains the first publishing job
-and its verified source commit. Choose two versions and a record type to inspect
+**Releases & changes** records each publication, including rollbacks to earlier
+content, with its verified source commit and job attempt. A content hash identifies
+identical datasets; retrying the same job attempt repairs the same publication. Choose two versions and a record type to inspect
 additions, removals, changed field paths, before/after records, and file changes.
 Record counts refer to authored records; CSV tables can have more rows because
-they expand nested claims. Publishing identical content reuses the version.
+they expand nested claims. Publishing identical content in another job or rerun records a new occurrence.
 
 The build adds `records_<kind>.json` snapshots for the seven authored record
 types. Publication keeps these by SHA-256 in R2 and validates their presence before
@@ -402,7 +402,9 @@ accepting the manifest. Snapshots are limited to 6 MiB per kind and 50,000 recor
 per comparison; oversized or missing history is reported explicitly. History
 reads require the existing member session. No extra service or binding is needed.
 
-Deploy the updated Worker before publishing the updated dataset to begin
-retaining snapshots. History starts with that rollout; older runs are not
-backfilled. A publication job that fails after updating the public manifest can
-be rerun with the same content to repair its history index.
+Publication checks the Worker's history capability before uploading any file.
+An automatic publish on an older Worker fails explicitly and leaves the dataset
+untouched. A successful manual Worker deployment triggers publication again;
+failed deployments do not. History starts with that rollout; older runs are not
+backfilled. Retries within a publishing job repair its index without duplicating
+the event; a job rerun is a separate publication occurrence.

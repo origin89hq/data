@@ -98,6 +98,7 @@ export async function superviseIfFree(
 }
 
 async function pass(env: Env, today: string, by: string): Promise<SupervisionReport> {
+  const passId = crypto.randomUUID();
   const report: SupervisionReport = {
     at: new Date().toISOString(),
     started: [],
@@ -206,7 +207,7 @@ async function pass(env: Env, today: string, by: string): Promise<SupervisionRep
     }),
   );
   await noteActivity(env.ARCHIVE, {
-    id: `supervision:${report.at}`,
+    id: `supervision:${passId}`,
     at: report.at,
     kind: "supervision",
     entity: "Supervisor",

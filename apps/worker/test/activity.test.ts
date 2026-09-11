@@ -160,3 +160,37 @@ test("collection outcomes and supervisor passes persist across subsequent reads"
     ),
   );
 });
+
+test("distinct supervisor passes in the same millisecond each retain their own event", async (t) => {
+  t.mock.timers.enable({ apis: ["Date"], now: new Date("2026-09-11T08:00:00Z") });
+  const { env } = world();
+  await supervise(env, "2026-09-11", "alice");
+  await supervise(env, "2026-09-11", "bob");
+  const result = await activityPage(env.ARCHIVE, ActivityQuery.parse({ kind: "supervision" }));
+  assert.equal(result.events.length, 2);
+  assert.equal(new Set(result.events.map((event) => event.id)).size, 2);
+  assert.deepEqual(new Set(result.events.map((event) => event.actor)), new Set(["alice", "bob"]));
+});
+
+test("missing or corrupt release entries return an explicit unavailable response", async () => {
+  for (const missing of [false, true]) {
+    const key = "releases/feed/0000000000000-entry.json";
+    const { env } = world({ [key]: "{" });
+    Object.assign(env, { CONTROL_TOKEN: "test-token" });
+    if (missing) {
+      const list = env.ARCHIVE.list.bind(env.ARCHIVE);
+      env.ARCHIVE.list = async (options) => {
+        const page = await list(options);
+        await env.ARCHIVE.delete(key);
+        return page;
+      };
+    }
+    const response = await app.request(
+      "http://localhost:8790/releases",
+      { headers: { authorization: "Bearer test-token" } },
+      env,
+    );
+    assert.equal(response.status, 409);
+    assert.match(((await response.json()) as { error: string }).error, /unavailable|malformed/);
+  }
+});

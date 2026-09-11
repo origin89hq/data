@@ -17,6 +17,11 @@ export const FileMeta = z.object({
 });
 export const Release = z.object({
   id: ReleaseId,
+  content: ReleaseId,
+  attempt: z
+    .string()
+    .regex(/^[0-9]+$/)
+    .default("1"),
   at: z.iso.datetime(),
   sha: z.string().regex(/^[a-f0-9]{40}$/),
   job: z.string().regex(/^\d+$/),
@@ -95,3 +100,7 @@ export function changedFields(
     return [path];
   });
 }
+
+/** GitHub's two-dot comparison preserves the selected direction, including rollbacks. */
+export const sourceComparison = (from: string, to: string) =>
+  `https://github.com/origin89hq/offgrid-equipment/compare/${from}..${to}`;

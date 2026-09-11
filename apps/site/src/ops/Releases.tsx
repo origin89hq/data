@@ -3,6 +3,7 @@ import {
   RecordKind,
   type Release,
   ReleasePage,
+  sourceComparison,
 } from "@origin89/equipment-schema/releases";
 import { useEffect, useState } from "react";
 import { Icon } from "../icons.tsx";
@@ -51,8 +52,8 @@ export function Releases({ selected, refresh }: { selected?: string; refresh: nu
           </button>
         </div>
         <p className="ops-note">
-          Versions identify dataset content. Publishing identical content keeps the same version.
-          History begins with the first publication after this feature is deployed.
+          Every publication is recorded, including rollbacks. Identical content shares a content
+          hash. History begins with the first publication after this feature is deployed.
         </p>
         {history.error && (
           <Notice alarm>
@@ -79,7 +80,7 @@ export function Releases({ selected, refresh }: { selected?: string; refresh: nu
               <article key={release.id} className={destination === release.id ? "selected" : ""}>
                 <div>
                   <span className="ops-tag">
-                    {i === 0 ? "MOST RECENT CONTENT" : "DATASET VERSION"}
+                    {i === 0 ? "LATEST PUBLICATION" : "DATASET PUBLICATION"}
                   </span>
                   <h3>
                     <code title={release.id}>{release.id.slice(0, 12)}</code>
@@ -88,6 +89,7 @@ export function Releases({ selected, refresh }: { selected?: string; refresh: nu
                 </div>
                 <div className="ops-history-meta">
                   <span>{Object.keys(release.files).length} files</span>
+                  <code title={release.content}>Content {release.content.slice(0, 12)}</code>
                   <a href={`${repo}/commit/${release.sha}`} target="_blank" rel="noopener">
                     Commit {release.sha.slice(0, 7)} <Icon name="arrowUpRight" />
                   </a>
@@ -312,7 +314,7 @@ function Compare({ query }: { query: string }) {
               </p>
               <a
                 className="ops-quiet"
-                href={`${repo}/compare/${value.from.sha}...${value.to.sha}`}
+                href={sourceComparison(value.from.sha, value.to.sha)}
                 target="_blank"
                 rel="noopener"
               >

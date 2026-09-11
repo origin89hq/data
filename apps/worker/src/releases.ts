@@ -19,9 +19,21 @@ export async function saveRelease(
   files: Release["files"],
   sha: string,
   job: string,
+  attempt = "1",
 ) {
-  const id = await digest(canonical(files));
-  const release = Release.parse({ id, at: new Date().toISOString(), sha, job, files });
+  const content = await digest(canonical(files));
+  // A retry within one job attempt is the same publication. Another job or rerun is a new
+  // occurrence, even when it restores older content. Snapshot bytes still deduplicate by hash.
+  const id = await digest(`${content}:${sha}:${job}:${attempt}`);
+  const release = Release.parse({
+    id,
+    content,
+    attempt,
+    at: new Date().toISOString(),
+    sha,
+    job,
+    files,
+  });
   const written = await bucket.put(releaseKey(id), JSON.stringify(release), {
     onlyIf: { etagDoesNotMatch: "*" },
   });
@@ -45,7 +57,11 @@ export async function indexRelease(bucket: R2Bucket, release: Release) {
 export async function getRelease(bucket: R2Bucket, id: string): Promise<Release> {
   const object = await bucket.get(releaseKey(id));
   if (!object) throw new HistoryUnavailable("This dataset version has not been recorded.");
-  return Release.parse(await object.json());
+  try {
+    return Release.parse(await object.json());
+  } catch {
+    throw new HistoryUnavailable("The release metadata is malformed.");
+  }
 }
 export async function releasePage(bucket: R2Bucket, cursor?: string) {
   const page = await bucket.list({ prefix: "releases/feed/", limit: 20, cursor });
@@ -53,7 +69,11 @@ export async function releasePage(bucket: R2Bucket, cursor?: string) {
   for (const item of page.objects) {
     const object = await bucket.get(item.key);
     if (!object) throw new HistoryUnavailable("A release entry is unavailable.");
-    releases.push(Release.parse(await object.json()));
+    try {
+      releases.push(Release.parse(await object.json()));
+    } catch {
+      throw new HistoryUnavailable("A release history entry is malformed.");
+    }
   }
   return { releases, cursor: page.truncated ? page.cursor : undefined };
 }
@@ -71,7 +91,14 @@ async function records(bucket: R2Bucket, release: Release, kind: z.infer<typeof 
   const object = await bucket.get(snapshotKey(meta.sha256));
   if (!object || object.size !== meta.bytes)
     throw new HistoryUnavailable("The immutable record snapshot is unavailable.");
-  const parsed = Snapshot.parse(await object.json());
+  let parsed: z.infer<typeof Snapshot>;
+  try {
+    parsed = Snapshot.parse(await object.json());
+  } catch {
+    throw new HistoryUnavailable(
+      "The record snapshot is malformed or exceeds the 50,000-record comparison limit.",
+    );
+  }
   const index = new Map(parsed.map((record) => [record.id, record]));
   if (index.size !== parsed.length)
     throw new HistoryUnavailable("The snapshot contains duplicate record IDs.");
@@ -108,7 +135,7 @@ export async function compareReleases(
   for (const name of [...new Set([...Object.keys(from.files), ...Object.keys(to.files)])].sort()) {
     const a = from.files[name],
       b = to.files[name];
-    if (a?.sha256 === b?.sha256) continue;
+    if (canonical(a) === canonical(b)) continue;
     files.push({ name, change: !a ? "added" : !b ? "removed" : "changed", before: a, after: b });
   }
   return {

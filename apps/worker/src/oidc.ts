@@ -50,6 +50,10 @@ const JobClaims = z.object({
   environment: z.string().optional(),
   event_name: z.string(),
   run_id: z.string(),
+  run_attempt: z
+    .string()
+    .regex(/^[0-9]+$/)
+    .optional(),
   sha: z.string(),
 });
 
@@ -60,6 +64,7 @@ export interface Job {
   event: string;
   environment?: string;
   runId: string;
+  runAttempt?: string;
   sha: string;
 }
 
@@ -137,6 +142,7 @@ export async function verifyJob(
       event: job.event_name,
       ...(job.environment === undefined ? {} : { environment: job.environment }),
       runId: job.run_id,
+      ...(job.run_attempt === undefined ? {} : { runAttempt: job.run_attempt }),
       sha: job.sha,
     },
   };

@@ -15,10 +15,15 @@ on:
       - '.github/actions/setup*/**'
       - 'pnpm-lock.yaml'
   workflow_dispatch:
+  workflow_run:
+    workflows: ['Deploy the spider']
+    types: [completed]
+    branches: [main]
 permissions:
   contents: read
 jobs:
   publish:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     environment: offgrid-equipment-production
