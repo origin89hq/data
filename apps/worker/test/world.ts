@@ -30,12 +30,14 @@ export function world(
   const store = new Map<string, Uint8Array>(
     Object.entries(objects).map(([k, v]) => [k, encode(v)]),
   );
+  const etag = (bytes: Uint8Array) => createHash("md5").update(bytes).digest("hex");
   const body = (bytes: Uint8Array) => ({
     size: bytes.length,
     get body() {
       return new Blob([bytes]).stream();
     },
-    httpEtag: `"${createHash("md5").update(bytes).digest("hex")}"`,
+    etag: etag(bytes),
+    httpEtag: `"${etag(bytes)}"`,
     text: async () => new TextDecoder().decode(bytes),
     json: async () => JSON.parse(new TextDecoder().decode(bytes)),
     arrayBuffer: async () => bytes.slice().buffer,
@@ -63,12 +65,24 @@ export function world(
       put: async (
         key: string,
         value: string | Uint8Array | ReadableStream<Uint8Array>,
-        options?: { sha256?: string },
+        options?: { sha256?: string; onlyIf?: { etagMatches?: string; etagDoesNotMatch?: string } },
       ) => {
         const bytes =
           value instanceof ReadableStream
             ? new Uint8Array(await new Response(value).arrayBuffer())
             : encode(value);
+        // What R2 does with a condition that fails: store nothing and answer null. "*" stands for
+        // any object at all. Checked against `wrangler dev`.
+        const held = store.get(key);
+        const { etagMatches, etagDoesNotMatch } = options?.onlyIf ?? {};
+        if (etagMatches !== undefined && (held === undefined || etag(held) !== etagMatches))
+          return null;
+        if (
+          etagDoesNotMatch !== undefined &&
+          held !== undefined &&
+          (etagDoesNotMatch === "*" || etag(held) === etagDoesNotMatch)
+        )
+          return null;
         const digest = createHash("sha256").update(bytes).digest("hex");
         // What R2 does with a declared digest: refuse the write, keep the old object, and end the
         // message with its code. Checked against `wrangler dev`.
@@ -79,25 +93,40 @@ export function world(
         store.set(key, bytes);
         if (options?.sha256 === undefined) sha256s.delete(key);
         else sha256s.set(key, digest);
-        return { key, size: bytes.length };
+        return { key, size: bytes.length, etag: etag(bytes) };
       },
       list: async ({
         prefix = "",
         limit = 1000,
         cursor,
+        delimiter,
       }: {
         prefix?: string;
         limit?: number;
         cursor?: string;
+        delimiter?: string;
       }) => {
         listed.push(prefix);
         const keys = [...store.keys()].filter((k) => k.startsWith(prefix)).sort();
+        // What R2 does with a delimiter: a key with one past the prefix is folded into the prefix
+        // up to it, once, and a page counts objects and folded prefixes alike.
+        const entries: ({ key: string } | { folded: string })[] = [];
+        for (const key of keys) {
+          const at = delimiter === undefined ? -1 : key.indexOf(delimiter, prefix.length);
+          if (at < 0) entries.push({ key });
+          else {
+            const folded = key.slice(0, at + (delimiter?.length ?? 0));
+            const last = entries.at(-1);
+            if (!(last && "folded" in last && last.folded === folded)) entries.push({ folded });
+          }
+        }
         const start = cursor ? Number(cursor) : 0;
+        const page = entries.slice(start, start + limit);
         return {
-          objects: keys.slice(start, start + limit).map((key) => ({ key })),
-          truncated: start + limit < keys.length,
+          objects: page.flatMap((e) => ("key" in e ? [{ key: e.key }] : [])),
+          truncated: start + limit < entries.length,
           cursor: String(start + limit),
-          delimitedPrefixes: [],
+          delimitedPrefixes: page.flatMap((e) => ("folded" in e ? [e.folded] : [])),
         };
       },
     },

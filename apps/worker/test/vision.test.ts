@@ -815,3 +815,26 @@ test("a run with nothing converted offers nothing, and one never sent to convers
   );
   await assert.rejects(visionRun(world().env, "maker", "2026-09-10"), /no current run/);
 });
+
+test("a run offered already, with nothing converted since, is not offered again", async () => {
+  // The workflow offers makers from one look at the state; a pass may have offered one since.
+  const { env, sent, store } = world({
+    "documents/maker/current.json": pointer,
+    [`${RUN}/converting.json`]: JSON.stringify({ documents: [doc("b"), doc("c")] }),
+    [`${RUN}/converted/${"b".repeat(64)}.json`]: "{}",
+  });
+  assert.deepEqual(await visionRun(env, "maker", "2026-09-10"), { documents: 1 });
+  assert.deepEqual(await visionRun(env, "maker", "2026-09-10"), { documents: 0 });
+  assert.equal(sent.length, 1, "the second offer sends nothing");
+
+  // A document converted since reopens the run.
+  store.set(`${RUN}/converted/${"c".repeat(64)}.json`, new TextEncoder().encode("{}"));
+  assert.deepEqual(await visionRun(env, "maker", "2026-09-10"), { documents: 2 });
+
+  // And an offer made to an earlier page reader does not count as one to this reader.
+  store.set(
+    `${RUN}/seeing.json`,
+    new TextEncoder().encode(JSON.stringify({ converted: 2, extractedBy: "ai:older@vision-p0" })),
+  );
+  assert.deepEqual(await visionRun(env, "maker", "2026-09-10"), { documents: 2 });
+});

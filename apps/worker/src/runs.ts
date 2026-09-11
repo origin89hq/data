@@ -63,22 +63,31 @@ export async function writePointer(bucket: R2Bucket, key: string, pointer: Point
   });
 }
 
-/** Every entity that has a current run, with the run it points at. */
+/**
+ * Every entity that has a current run, with the run it points at.
+ *
+ * The entities are the root's first level, listed with a delimiter, and each pointer is read by
+ * name. Listing the root without one returned every run's plans, manifests, conversions and pages
+ * to find a hundred pointers, a cost that grew with the archive's history instead of with the
+ * number of makers and sellers (#22).
+ */
 export async function currentRuns(
   bucket: R2Bucket,
   root: "documents" | "sightings",
 ): Promise<{ entity: string; pointer: Pointer }[]> {
-  const out: { entity: string; pointer: Pointer }[] = [];
+  const entities: string[] = [];
   let cursor: string | undefined;
   do {
-    const page = await bucket.list({ prefix: `${root}/`, cursor, limit: 1000 });
-    for (const object of page.objects) {
-      if (!object.key.endsWith("/current.json")) continue;
-      const pointer = await readPointer(bucket, object.key);
-      if (pointer) out.push({ entity: object.key.split("/")[1], pointer });
-    }
+    const page = await bucket.list({ prefix: `${root}/`, delimiter: "/", cursor, limit: 1000 });
+    for (const prefix of page.delimitedPrefixes) entities.push(prefix.slice(root.length + 1, -1));
     cursor = page.truncated ? page.cursor : undefined;
   } while (cursor);
+  const out: { entity: string; pointer: Pointer }[] = [];
+  // An entity whose first run has not written its pointer yet has nothing current to report.
+  for (const entity of entities) {
+    const pointer = await readPointer(bucket, pointerKey[root](entity));
+    if (pointer) out.push({ entity, pointer });
+  }
   return out.sort((a, b) => a.entity.localeCompare(b.entity));
 }
 
