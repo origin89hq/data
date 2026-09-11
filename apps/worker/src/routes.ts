@@ -3,6 +3,10 @@ import { APPROVAL_EVENT, CrawlApproval } from "@origin89/equipment-schema/docume
 import { READS_PER_REQUEST } from "@origin89/equipment-schema/provenance";
 import {
   CompareQuery,
+  isLoadPart,
+  LOAD_PART_MAX,
+  LOAD_PART_ROWS,
+  LoadPlan,
   RECORD_SNAPSHOT_MAX,
   RecordKind,
   snapshotName,
@@ -31,6 +35,7 @@ import {
   compareReleases,
   HistoryUnavailable,
   indexRelease,
+  loadKey,
   releasePage,
   saveRelease,
   snapshotKey,
@@ -111,6 +116,7 @@ publicRoutes.on(["GET", "HEAD"], "/manifest.json", async (c) => {
     ? await manifest.json<{
         counts?: Record<string, number>;
         files?: Record<string, { rows?: number; bytes: number; sha256: string }>;
+        load?: unknown;
       }>()
     : undefined;
   const origin = new URL(c.req.url).origin;
@@ -130,6 +136,9 @@ publicRoutes.on(["GET", "HEAD"], "/manifest.json", async (c) => {
         url: `${origin}/logos/<manufacturer>-<width>.png`,
       },
       ...(published?.counts ? { counts: published.counts } : {}),
+      // Which load parts make each table, in order, and the column that keys it: what a reader of
+      // the NDJSON needs and the file list alone does not say.
+      ...(published?.load ? { load: published.load } : {}),
       index: `${origin}/manifest.json`,
       files: Object.fromEntries(
         Object.entries(published?.files ?? {}).map(([name, meta]) => [
@@ -787,6 +796,7 @@ const DatasetManifest = z.object({
       }),
     )
     .refine((files) => Object.keys(files).length <= 256, "too many dataset files"),
+  load: LoadPlan.optional(),
 });
 
 /**
@@ -804,6 +814,37 @@ workflowRoutes.put("/v1/:file", async (c) => {
   return name === MANIFEST ? putManifest(c) : putFile(c, name);
 });
 
+/**
+ * Records in an NDJSON body: one a non-empty line, each a JSON object, at most `LOAD_PART_ROWS`
+ * of them. A line that is not an object, or a part over the bound, is refused with the line
+ * named, so nothing is stored that a loader would choke on.
+ */
+export function ndjsonRows(bytes: Uint8Array): number {
+  let text: string;
+  try {
+    // Strict: a byte sequence that is not UTF-8 is refused rather than stored with replacements.
+    text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: false }).decode(bytes);
+  } catch {
+    throw new RangeError("not UTF-8");
+  }
+  const lines = text.split("\n");
+  let rows = 0;
+  for (const [at, line] of lines.entries()) {
+    if (line.trim() === "") continue;
+    let value: unknown;
+    try {
+      value = JSON.parse(line);
+    } catch {
+      throw new RangeError(`line ${at + 1} is not JSON`);
+    }
+    if (value === null || typeof value !== "object" || Array.isArray(value))
+      throw new RangeError(`line ${at + 1} is not a JSON object`);
+    rows += 1;
+    if (rows > LOAD_PART_ROWS) throw new RangeError(`more than ${LOAD_PART_ROWS} records`);
+  }
+  return rows;
+}
+
 async function putFile(c: Context<PublicationEnv>, name: string): Promise<Response> {
   const sha256 = c.req.header("x-content-sha256");
   if (!sha256 || !SHA256.test(sha256))
@@ -816,13 +857,34 @@ async function putFile(c: Context<PublicationEnv>, name: string): Promise<Respon
   const isSnapshot = RecordKind.options.some((kind) => snapshotName(kind) === name);
   if (isSnapshot && length > RECORD_SNAPSHOT_MAX)
     return c.json({ error: "Record snapshot is too large" }, 413);
+  const isLoad = isLoadPart(name);
+  if (isLoad && length > LOAD_PART_MAX) return c.json({ error: "Load part is too large" }, 413);
   try {
-    // A snapshot is bounded and content-addressed before the mutable public copy changes.
-    const content = isSnapshot ? new Uint8Array(await c.req.arrayBuffer()) : body;
+    // A snapshot or a load part is bounded and content-addressed before the mutable public copy
+    // changes: a loader reads the part by its hash, whatever was published since.
+    const content = isSnapshot || isLoad ? new Uint8Array(await c.req.arrayBuffer()) : body;
     if (isSnapshot)
       await c.env.ARCHIVE.put(snapshotKey(sha256), content, {
         sha256,
         httpMetadata: { contentType: "application/json" },
+      });
+    // A part's records are counted and checked as it is stored, so the manifest's count is held
+    // against the bytes rather than repeated from the plan, and a malformed part is refused.
+    let rows = 0;
+    if (isLoad && content instanceof Uint8Array) {
+      try {
+        rows = ndjsonRows(content);
+      } catch (error) {
+        if (error instanceof RangeError)
+          return c.json({ error: `${name} is not a load part: ${error.message}` }, 422);
+        throw error;
+      }
+    }
+    if (isLoad)
+      await c.env.ARCHIVE.put(loadKey(sha256), content, {
+        sha256,
+        httpMetadata: { contentType: datasetType(name) },
+        customMetadata: { rows: String(rows) },
       });
     const object = await c.env.ARCHIVE.put(datasetKey(name), content, {
       sha256,
@@ -884,6 +946,59 @@ async function putManifest(c: Context<PublicationEnv>): Promise<Response> {
     )
       disagree.push(`${snapshotName(kind)}: immutable snapshot is missing or inconsistent`);
   }
+  for (const [name, meta] of files) {
+    if (!isLoadPart(name)) continue;
+    const part = await c.env.ARCHIVE.head(loadKey(meta.sha256));
+    if (!part || part.size !== meta.bytes || part.checksums.toJSON().sha256 !== meta.sha256)
+      disagree.push(`${name}: immutable load part is missing or inconsistent`);
+    else if (meta.rows !== undefined && Number(part.customMetadata?.rows) !== meta.rows)
+      disagree.push(
+        `${name}: holds ${part.customMetadata?.rows ?? "an uncounted number of"} records, the manifest says ${meta.rows}`,
+      );
+  }
+  // A load plan names parts the manifest lists, each named for its own table, each once, each
+  // with a row count, adding up to the rows the plan states, or it is no plan.
+  const assigned = new Set<string>();
+  for (const [table, plan] of Object.entries(parsed.data.load?.tables ?? {})) {
+    let rows = 0;
+    for (const part of plan.parts) {
+      const meta = parsed.data.files[part];
+      if (!meta) disagree.push(`${table}: load part ${part} is not in the manifest`);
+      else if (part.replace(/_\d{4}\.ndjson$/, "") !== table)
+        disagree.push(`${table}: load part ${part} is named for another table`);
+      else if (meta.rows === undefined)
+        disagree.push(`${table}: load part ${part} states no row count`);
+      else rows += meta.rows;
+      if (assigned.has(part)) disagree.push(`${table}: load part ${part} is assigned twice`);
+      assigned.add(part);
+    }
+    if (rows !== plan.rows)
+      disagree.push(`${table}: its load parts hold ${rows} rows, the plan says ${plan.rows}`);
+  }
+  // And every part the manifest lists is in some table's plan: a plan that leaves a table out
+  // would load a subset and call it the release.
+  const partsListed = files.some(([name]) => isLoadPart(name));
+  if (partsListed && !parsed.data.load)
+    disagree.push("load parts are listed and no load plan says which table each makes");
+  // Every table the manifest publishes as CSV is in the plan, with no parts when it has no rows:
+  // a table left out of the plan altogether leaves no stray part to notice, so the tables are
+  // checked from the CSV side too.
+  if (parsed.data.load)
+    for (const [name, meta] of files) {
+      if (!name.endsWith(".csv")) continue;
+      const table = name.slice(0, -".csv".length);
+      const planned = parsed.data.load.tables[table];
+      if (!planned) disagree.push(`${table}: published as a table and absent from the load plan`);
+      else if (meta.rows !== undefined && planned.rows !== meta.rows)
+        disagree.push(`${table}: the plan says ${planned.rows} rows, the table has ${meta.rows}`);
+    }
+  if (parsed.data.load)
+    for (const [name, meta] of files) {
+      if (!isLoadPart(name)) continue;
+      if (!assigned.has(name)) disagree.push(`${name}: a load part in no table's plan`);
+      if (meta.rows !== undefined && meta.rows > LOAD_PART_ROWS)
+        disagree.push(`${name}: ${meta.rows} rows, over the ${LOAD_PART_ROWS} a part may hold`);
+    }
   if (disagree.length > 0)
     return c.json({ error: "the manifest does not describe what is stored", files: disagree }, 409);
 

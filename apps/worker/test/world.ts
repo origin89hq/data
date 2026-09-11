@@ -50,6 +50,8 @@ export function world(
   });
   // The digest an object was written with. R2 keeps one only when the writer declared it.
   const sha256s = new Map<string, string>();
+  // What a writer attached to an object, as R2 hands it back on a head.
+  const metadata = new Map<string, Record<string, string>>();
   const sent: Work[] = [];
   const delays: (number | undefined)[] = [];
   const listed: string[] = [];
@@ -81,6 +83,7 @@ export function world(
               size: bytes.length,
               uploaded: uploads.get(key) ?? new Date(EPOCH),
               checksums: { toJSON: () => (sha256 ? { sha256 } : {}) },
+              customMetadata: metadata.get(key) ?? {},
             };
       },
       get: async (key: string) => {
@@ -90,7 +93,11 @@ export function world(
       put: async (
         key: string,
         value: string | Uint8Array | ReadableStream<Uint8Array>,
-        options?: { sha256?: string; onlyIf?: { etagMatches?: string; etagDoesNotMatch?: string } },
+        options?: {
+          sha256?: string;
+          onlyIf?: { etagMatches?: string; etagDoesNotMatch?: string };
+          customMetadata?: Record<string, string>;
+        },
       ) => {
         const bytes =
           value instanceof ReadableStream
@@ -119,6 +126,8 @@ export function world(
         uploads.set(key, new Date(EPOCH + uploads.size * 1000));
         if (options?.sha256 === undefined) sha256s.delete(key);
         else sha256s.set(key, digest);
+        if (options?.customMetadata) metadata.set(key, options.customMetadata);
+        else metadata.delete(key);
         return { key, size: bytes.length, etag: etag(bytes) };
       },
       delete: async (keys: string | string[]) => {

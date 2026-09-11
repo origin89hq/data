@@ -105,3 +105,34 @@ export function changedFields(
 /** GitHub's two-dot comparison preserves the selected direction, including rollbacks. */
 export const sourceComparison = (from: string, to: string) =>
   `https://github.com/origin89hq/offgrid-equipment/compare/${from}..${to}`;
+
+/**
+ * The load files of a release: each table as newline-delimited JSON, one object a row with absent
+ * fields left out, split into parts of a bounded number of rows so a loader reads one part at a
+ * time (#83). The build writes them beside the CSV and Parquet, the publish step stores each part
+ * content-addressed as well, and the manifest's `load` section says which parts make each table.
+ */
+export const LOAD_PART_ROWS = 20_000;
+/** The most a part may weigh; a loader buffers one whole. */
+export const LOAD_PART_MAX = 16 * 1024 * 1024;
+export const loadPartName = (table: string, part: number): string =>
+  `${table}_${String(part).padStart(4, "0")}.ndjson`;
+export const isLoadPart = (name: string): boolean => /^[a-z0-9_]+_\d{4}\.ndjson$/.test(name);
+export const LoadPlan = z
+  .object({
+    version: z.literal(1),
+    tables: z.record(
+      z.string().regex(/^[a-z][a-z0-9_]*$/),
+      z
+        .object({
+          /** The parts in order; each is a file the manifest lists. A table with no rows has none. */
+          parts: z.array(z.string().refine(isLoadPart, "not a load part")).max(1000),
+          rows: z.number().int().nonnegative(),
+          /** The column that keys the table, when one does. A loader refuses a repeat under it. */
+          key: z.string().optional(),
+        })
+        .strict(),
+    ),
+  })
+  .strict();
+export type LoadPlan = z.infer<typeof LoadPlan>;

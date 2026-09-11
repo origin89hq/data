@@ -8,10 +8,12 @@ import {
   CONTROL_PATHS,
   controlRoutes,
   memberPages,
+  ndjsonRows,
   publicRoutes,
   WORKFLOW_ROUTES,
   workflowRoutes,
 } from "../src/routes.ts";
+import { datasetType } from "../src/runs.ts";
 import { authRoutes } from "../src/sign-in.ts";
 import { jobToken, jwks } from "./github-token.ts";
 import { world } from "./world.ts";
@@ -749,4 +751,157 @@ test("a failed public manifest write retains no attribution from the failed publ
   assert.equal(entry.sha, "b".repeat(40));
   assert.equal(entry.job, "17000000002");
   assert.equal(entry.attempt, "2");
+});
+
+test("a load part is kept content-addressed, and the manifest's load plan is checked against what is stored (#83)", async () => {
+  const { env, text } = bucket();
+  const part = '{"id":"a"}\n';
+  assert.equal((await putFile(env, "models_0001.ndjson", part)).status, 200);
+  // A count the bytes contradict is refused, however consistently the plan repeats it.
+  const two = '{"id":"a"}\n{"id":"b"}\n';
+  await putFile(env, "models_0002.ndjson", two);
+  const lied = JSON.stringify({
+    ...JSON.parse(manifestOf({ "models_0002.ndjson": two })),
+    load: { version: 1, tables: { models: { parts: ["models_0002.ndjson"], rows: 1 } } },
+  });
+  assert.match(
+    JSON.stringify(await (await putManifest(env, lied)).json()),
+    /holds 2 records, the manifest says 1/,
+  );
+  const encode = (text: string) => new TextEncoder().encode(text);
+  assert.equal(
+    ndjsonRows(encode('{"a":1}\n\n{"b":2}\r\n \n{"c":3}')),
+    3,
+    "blank lines are no records, and a last line without its newline is one",
+  );
+  assert.throws(() => ndjsonRows(encode('{"a":1}\nnot-json\n')), /line 2 is not JSON/);
+  assert.throws(() => ndjsonRows(encode("[]\n")), /line 1 is not a JSON object/);
+  assert.throws(() => ndjsonRows(encode("{}\n".repeat(20_001))), /more than 20000 records/);
+  assert.throws(
+    () => ndjsonRows(new Uint8Array([0x7b, 0x22, 0x61, 0x22, 0x3a, 0x22, 0xff, 0x22, 0x7d, 0x0a])),
+    /not UTF-8/,
+    "bytes that are not UTF-8 are refused, not replaced",
+  );
+  const unnumbered = await put(env, "models.ndjson", part, {
+    ...(await publish()),
+    "x-content-sha256": sha256(part),
+  });
+  assert.equal(
+    unnumbered.status,
+    404,
+    "an NDJSON file that is not a numbered part is no dataset file",
+  );
+  assert.equal(datasetType("models.csv"), "text/csv; charset=utf-8");
+  const csvOnly = "id\nx\n";
+  await putFile(env, "specs.csv", csvOnly);
+  const uncovered = JSON.stringify({
+    ...JSON.parse(manifestOf({ "models_0001.ndjson": part, "specs.csv": csvOnly })),
+    load: { version: 1, tables: { models: { parts: ["models_0001.ndjson"], rows: 1 } } },
+  });
+  assert.match(
+    JSON.stringify(await (await putManifest(env, uncovered)).json()),
+    /specs: published as a table and absent from the load plan/,
+  );
+  const malformed = await putFile(env, "models_0003.ndjson", '{"id":"a"}\n[]\n');
+  assert.equal(malformed.status, 422, "a malformed part is refused before it is stored");
+  assert.match(await errorOf(malformed), /line 2 is not a JSON object/);
+  const planless = await putManifest(env, manifestOf({ "models_0001.ndjson": part }));
+  assert.match(
+    JSON.stringify(await planless.json()),
+    /no load plan says which table/,
+    "parts without a plan are not a release",
+  );
+  const cousin = JSON.stringify({
+    ...JSON.parse(manifestOf({ "models_0001.ndjson": part })),
+    load: { version: 1, tables: { model_keys: { parts: ["models_0001.ndjson"], rows: 1 } } },
+  });
+  assert.match(
+    JSON.stringify(await (await putManifest(env, cousin)).json()),
+    /named for another table/,
+    "a part is matched to its whole table name",
+  );
+  const bloated = JSON.stringify({
+    ...JSON.parse(manifestOf({ "models_0001.ndjson": part })),
+    files: {
+      "models_0001.ndjson": { rows: 20_001, sha256: sha256(part), bytes: Buffer.byteLength(part) },
+    },
+    load: { version: 1, tables: { models: { parts: ["models_0001.ndjson"], rows: 20_001 } } },
+  });
+  assert.match(
+    JSON.stringify(await (await putManifest(env, bloated)).json()),
+    /over the 20000 a part may hold/,
+  );
+  assert.equal(text("dataset/v1/models_0001.ndjson"), part);
+  assert.equal(text(`releases/loads/${sha256(part)}.ndjson`), part, "the immutable copy");
+  assert.equal(datasetType("models_0001.ndjson"), "application/x-ndjson; charset=utf-8");
+  const manifest = (plan: unknown) =>
+    JSON.stringify({
+      ...JSON.parse(manifestOf({ "models_0001.ndjson": part })),
+      load: plan,
+    });
+  const good = {
+    version: 1,
+    tables: { models: { parts: ["models_0001.ndjson"], rows: 1, key: "id" } },
+  };
+  assert.equal((await putManifest(env, manifest(good))).status, 200);
+  const elsewhere = { version: 1, tables: { specs: { parts: ["models_0001.ndjson"], rows: 1 } } };
+  const wrongTable = await putManifest(env, manifest(elsewhere));
+  assert.equal(wrongTable.status, 409, "a part is named for the table it loads");
+  assert.match(JSON.stringify(await wrongTable.json()), /named for another table/);
+  const twice = {
+    version: 1,
+    tables: { models: { parts: ["models_0001.ndjson", "models_0001.ndjson"], rows: 2 } },
+  };
+  assert.match(
+    JSON.stringify(await (await putManifest(env, manifest(twice))).json()),
+    /assigned twice/,
+  );
+  const uncounted = JSON.stringify({
+    ...JSON.parse(manifestOf({ "models_0001.ndjson": part })),
+    files: { "models_0001.ndjson": { sha256: sha256(part), bytes: Buffer.byteLength(part) } },
+    load: { version: 1, tables: { models: { parts: ["models_0001.ndjson"], rows: 0 } } },
+  });
+  assert.match(
+    JSON.stringify(await (await putManifest(env, uncounted)).json()),
+    /states no row count/,
+  );
+  const stray = '{"id":"s"}\n';
+  await putFile(env, "specs_0001.ndjson", stray);
+  const partial = JSON.stringify({
+    ...JSON.parse(manifestOf({ "models_0001.ndjson": part, "specs_0001.ndjson": stray })),
+    load: { version: 1, tables: { models: { parts: ["models_0001.ndjson"], rows: 1 } } },
+  });
+  assert.match(
+    JSON.stringify(await (await putManifest(env, partial)).json()),
+    /specs_0001.ndjson: a load part in no table's plan/,
+    "a plan that leaves a table out is not a plan",
+  );
+  const unlisted = { version: 1, tables: { models: { parts: ["models_0002.ndjson"], rows: 1 } } };
+  const missing = await putManifest(env, manifest(unlisted));
+  assert.equal(missing.status, 409);
+  assert.deepEqual(((await missing.json()) as { files: string[] }).files, [
+    "models: load part models_0002.ndjson is not in the manifest",
+    "models: its load parts hold 0 rows, the plan says 1",
+    "models_0001.ndjson: a load part in no table's plan",
+  ]);
+  await env.ARCHIVE.delete(`releases/loads/${sha256(part)}.ndjson`);
+  const gone = await putManifest(env, manifest(good));
+  assert.equal(gone.status, 409);
+  assert.match(JSON.stringify(await gone.json()), /immutable load part is missing/);
+  const index = (await (
+    await app.request("https://data.example/manifest.json", {}, env)
+  ).json()) as { load?: unknown };
+  assert.deepEqual(
+    index.load,
+    good,
+    "the public index carries the plan a reader of the parts needs",
+  );
+  const wrongPlan = await putManifest(env, manifest({ version: 2, tables: {} }));
+  assert.equal(wrongPlan.status, 400, "a plan of another version is not a manifest");
+  const huge = await put(env, "models_0002.ndjson", "x", {
+    ...(await publish()),
+    "x-content-sha256": sha256("x"),
+    "content-length": String(16 * 1024 * 1024 + 1),
+  });
+  assert.equal(huge.status, 413);
 });

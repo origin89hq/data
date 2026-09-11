@@ -13,6 +13,8 @@ import { digest, noteActivity, reverseTime } from "./activity.ts";
 
 export class HistoryUnavailable extends Error {}
 export const snapshotKey = (sha: string) => `releases/snapshots/${sha}.json`;
+/** A load part by its content, so a loader reads the bytes the manifest named whatever was published since. */
+export const loadKey = (sha: string) => `releases/loads/${sha}.ndjson`;
 const releaseKey = (id: string) => `releases/versions/${id}.json`;
 export async function saveRelease(
   bucket: R2Bucket,

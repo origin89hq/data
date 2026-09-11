@@ -32,7 +32,7 @@ const manifest = JSON.parse(readFileSync(resolve(dir, "manifest.json"), "utf8"))
   files: Record<string, { rows?: number; bytes: number; sha256: string }>;
 };
 
-const onDisk = readdirSync(dir).filter((f) => /\.(parquet|csv|json)$/.test(f));
+const onDisk = readdirSync(dir).filter((f) => /\.(parquet|csv|json|ndjson)$/.test(f));
 const disagree: string[] = [];
 for (const [name, meta] of Object.entries(manifest.files)) {
   const path = resolve(dir, name);
