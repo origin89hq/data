@@ -13,7 +13,11 @@ export const EXTRACT_PROMPT_VERSION = "2";
 export const EXTRACTOR_ID = `ai:${EXTRACT_MODEL}@p${EXTRACT_PROMPT_VERSION}`;
 
 export const VISION_MODEL = "@cf/moonshotai/kimi-k2.7-code";
-export const VISION_PROMPT_VERSION = "1";
+/**
+ * 2: the first version's readings kept pages refused by the model's rate limit as read (#29). A new
+ * version is a new key, so every scan is read again rather than trusted.
+ */
+export const VISION_PROMPT_VERSION = "2";
 export const VISION_EXTRACTOR_ID = `ai:${VISION_MODEL}@vision-p${VISION_PROMPT_VERSION}`;
 
 /**

@@ -252,3 +252,24 @@ test("the page reader is offered whatever converted since it last looked, a pass
     store.set(key, new TextEncoder().encode(value));
   assert.deepEqual(offered(await supervise(env, "2026-09-13")), ["maker-03"]);
 });
+
+test("a maker offered only to an earlier page reader is offered to this one", async () => {
+  // How the scans p1 kept as failed are read again: its offers do not count for p2 (#29).
+  const objects: Record<string, string> = {};
+  converted(objects, "maker-01", "a".repeat(64));
+  converted(objects, "maker-02", "b".repeat(64));
+  objects["documents/maker-01/runs/2026-09-10-maker-01/seeing.json"] = JSON.stringify({
+    converted: 1,
+    extractedBy: "ai:@cf/moonshotai/kimi-k2.7-code@vision-p1",
+  });
+  const { env, sent } = world(objects);
+  const report = await supervise(env, "2026-09-11");
+  assert.deepEqual(
+    report.started.filter((s) => s.what === "vision").map((s) => s.entity),
+    ["maker-01", "maker-02"],
+  );
+  assert.deepEqual(
+    sent.map((m) => (m.kind === "vision" ? m.manufacturer : m.kind)),
+    ["maker-01", "maker-02"],
+  );
+});
