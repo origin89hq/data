@@ -1,7 +1,8 @@
 import { writeFileSync } from "node:fs";
-import { modelKey } from "@origin89/equipment-api/keys";
+import { modelKey, nameKey } from "@origin89/equipment-api/keys";
 import { type DialectLink, Model } from "@origin89/equipment-schema/model";
 import { catalogueLink, mergeLinks, sameLinks } from "../../src/dialect-links.ts";
+import { cell } from "../../src/markdown.ts";
 import { looksLikeModelName, modelId, normaliseModelName } from "../../src/models.ts";
 import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 
@@ -70,6 +71,7 @@ let minted = 0;
 let prose = 0;
 let noMaker = 0;
 let ambiguous = 0;
+let duplicates = 0;
 const dialectLinks = new Map<string, DialectLink[]>();
 /** The catalogue entry each link came from, for the report. */
 const entries = new Map<string, string>();
@@ -99,6 +101,32 @@ for (const dialect of records.dialects) {
       continue;
     }
     let modelIdentifier = reached ? [...reached][0] : undefined;
+    // Two records of one maker sharing a name or an alias are one product filed twice; when the
+    // other one already carries this dialect, linking this one too would publish two devices.
+    const namesOf = (m: { manufacturer: string; name: string; aliases: string[] }) =>
+      new Set(
+        [m.name, ...m.aliases].map((n) =>
+          nameKey(makerName.get(m.manufacturer) ?? m.manufacturer, n),
+        ),
+      );
+    const reachedModel = records.models.find((m) => m.id === modelIdentifier);
+    const mine = reachedModel ? namesOf(reachedModel) : new Set<string>();
+    const twin =
+      reachedModel === undefined
+        ? undefined
+        : records.models.find(
+            (other) =>
+              other.id !== reachedModel.id &&
+              other.manufacturer === reachedModel.manufacturer &&
+              other.dialects.some((l) => l.dialect === dialect.id) &&
+              [...namesOf(other)].some((n) => mine.has(n)),
+          );
+    if (twin) {
+      duplicates += 1;
+      const note = `${dialect.manufacturer}: ${head} (already linked on ${twin.id}, a duplicate record)`;
+      unmatched.set(note, (unmatched.get(note) ?? 0) + 1);
+      continue;
+    }
     if (!modelIdentifier && addModels) {
       const id = modelId(dialect.manufacturer, head);
       if (!records.models.some((m) => m.id === id)) {
@@ -147,7 +175,7 @@ for (const model of records.models) {
     if (had.has(link.dialect)) continue;
     const dialect = records.dialects.find((d) => d.id === link.dialect);
     report.push(
-      `| \`${model.id}\` | ${model.name} | \`${link.dialect}\` | ${entries.get(`${model.id}\u0000${link.dialect}`) ?? ""} | ${dialect?.confidence ?? ""} | ${link.evidence.sources.map((c) => `\`${c.source}\``).join(", ")} |`,
+      `| \`${model.id}\` | ${cell(model.name)} | \`${link.dialect}\` | ${cell(entries.get(`${model.id}\u0000${link.dialect}`) ?? "")} | ${dialect?.confidence ?? ""} | ${link.evidence.sources.map((c) => `\`${c.source}\``).join(", ")} |`,
     );
   }
   if (!dryRun) writeRecord(RECORDS_DIR, "models", model.id, Model.parse({ ...model, dialects }));
@@ -180,6 +208,10 @@ if (unmatched.size) {
 console.log(`  ${touched} models now point at a dialect`);
 console.log(`  ${prose} entries are prose rather than a name, and stay as the note they are`);
 if (noMaker) console.log(`  ${noMaker} sit on a dialect whose maker this repo holds no record for`);
+if (duplicates)
+  console.log(
+    `  ${duplicates} names are already linked on a duplicate record of the same maker, and link nothing`,
+  );
 if (ambiguous)
   console.log(
     `  ${ambiguous} names reach more than one model under the key rule, and link nothing`,
