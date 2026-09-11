@@ -124,6 +124,26 @@ test("an import keeps a dialect's readings and codes, and the sources only they 
     "the source only the reading cites is kept",
   );
   assert.ok(!out.sources.some((s) => s.id === "unrelated"), "an uncited old source is not");
+  const parsedIds = sources.all().map((s) => s.id);
+  const taken = parsedIds[0] ?? "";
+  const same = sources.all().find((s) => s.id === taken);
+  assert.ok(same);
+  const citing = Dialect.parse({ ...first, readings: [{ ...reading, source: taken }] });
+  assert.equal(
+    withExtensions(parsed.dialects, [citing], sources.all(), [{ ...same }]).sources.filter(
+      (s) => s.id === taken,
+    ).length,
+    1,
+    "one id, one document: the parsed record stands",
+  );
+  assert.throws(
+    () =>
+      withExtensions(parsed.dialects, [citing], sources.all(), [
+        { id: taken, path: "crates/other/src/map.rs" },
+      ]),
+    /is cited by a reading or code as path:crates\/other\/src\/map.rs, but the catalogue now gives that id to/,
+    "one id, two documents: refused before a citation can point at the wrong one",
+  );
   assert.deepEqual(
     withExtensions(parsed.dialects, [], sources.all(), []).dialects,
     parsed.dialects,
