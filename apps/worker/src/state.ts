@@ -88,7 +88,14 @@ export async function sellerStates(bucket: R2Bucket): Promise<SellerState[]> {
       `${runPrefix.sightings(seller, pointer.run)}/manifest.json`,
     );
     const guessPrefix = runPrefix.guesses(seller, pointer.run, classifierKey());
-    const guesses = await json<{ parts: number }>(bucket, `${guessPrefix}/manifest.json`);
+    const manifestOfGuesses = await json<{ parts: number; alreadyAnswered?: number }>(
+      bucket,
+      `${guessPrefix}/manifest.json`,
+    );
+    // A manifest from before every listing was queued left out the ones answered earlier, and the
+    // gate reads a run's guesses from its parts (#16). Such a run is classified again: reusing the
+    // answers costs reads, not model calls.
+    const guesses = manifestOfGuesses?.alreadyAnswered ? undefined : manifestOfGuesses;
     const written = guesses ? (await listAll(bucket, `${guessPrefix}/page-`)).length : 0;
     out.push({
       seller,

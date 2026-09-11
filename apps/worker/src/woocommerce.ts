@@ -1,4 +1,5 @@
 import type { Seller, Sighting } from "@origin89/equipment-schema/sighting";
+import { decodeHTMLStrict } from "entities";
 
 /** The subset of a WooCommerce Store API product the spider reads. */
 export interface WooProduct {
@@ -24,6 +25,14 @@ export function wooPageUrl(seller: Seller, page: number): string {
 }
 
 /**
+ * A name as the store prints it. The Store API sends names HTML-escaped, so watts247's "Jinko >
+ * 385 Watt … – All Black" arrived as "Jinko &gt; 385 Watt … &#8211; All Black": that is what the
+ * gate showed and what the classifier was asked about (#40). Strict, meaning the semicolon is
+ * required, so "R&D" and "Plug&notes" are left as written.
+ */
+const printed = (name: string): string => decodeHTMLStrict(name);
+
+/**
  * One sighting per product. A variable product's variations carry their own prices behind one
  * more request each, so the parent is recorded with its price as the store reports it and no
  * variant label; the variations are a later refinement, not a reason to drop the listing.
@@ -44,18 +53,18 @@ export function sightingsFromWoo(
       p.prices?.price !== undefined && /^\d+$/.test(p.prices.price)
         ? minorToDecimal(p.prices.price, minor)
         : undefined;
-    const tags = (p.tags ?? []).map((t) => t.name).filter(Boolean);
+    const tags = (p.tags ?? []).map((t) => printed(t.name)).filter(Boolean);
     return {
       seller: seller.id,
       productId: String(p.id),
       handle: p.slug,
       url: p.permalink,
-      title: p.name,
-      ...(present(brand) ? { brand } : {}),
-      ...(p.categories?.[0]?.name ? { category: p.categories[0].name } : {}),
+      title: printed(p.name),
+      ...(present(brand) ? { brand: printed(brand) } : {}),
+      ...(p.categories?.[0]?.name ? { category: printed(p.categories[0].name) } : {}),
       ...(tags.length ? { tags } : {}),
-      ...(present(p.sku) ? { sku: p.sku } : {}),
-      ...(present(model) ? { model } : {}),
+      ...(present(p.sku) ? { sku: printed(p.sku) } : {}),
+      ...(present(model) ? { model: printed(model) } : {}),
       ...(price ? { price } : {}),
       currency: p.prices?.currency_code ?? seller.currency,
       ...(p.is_in_stock === undefined ? {} : { available: p.is_in_stock }),

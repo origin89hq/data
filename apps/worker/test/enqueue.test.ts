@@ -9,6 +9,15 @@ const RUN = "2026-09-09-shop";
 const pageKey = (page: number) =>
   `sightings/shop/runs/${RUN}/page-${String(page).padStart(4, "0")}.jsonl`;
 const guessesManifest = `guesses/shop/runs/${RUN}/${classifierKey()}/manifest.json`;
+const guessPart = (part: number) =>
+  `guesses/shop/runs/${RUN}/${classifierKey()}/page-${String(part).padStart(4, "0")}.jsonl`;
+/** What a run classified before #16 left: parts for only the listings not answered before. */
+const skipped = {
+  [guessesManifest]: JSON.stringify({ parts: 3, sightings: 22, alreadyAnswered: 6 }),
+  [guessPart(1)]: "{}\n",
+  [guessPart(2)]: "{}\n",
+  [guessPart(3)]: "{}\n",
+};
 
 const listing = (title: string) =>
   JSON.stringify({
@@ -65,8 +74,8 @@ test("a crawl's listings are queued in page order, whichever page read finishes 
   const { env, sent } = world(crawl(14));
   slowPages(env);
 
-  const result = await classifyRun(env, "shop", "2026-09-09", new Set());
-  assert.deepEqual(result, { parts: 3, sightings: 28, alreadyAnswered: 0 });
+  const result = await classifyRun(env, "shop", "2026-09-09");
+  assert.deepEqual(result, { parts: 3, sightings: 28 });
   assert.deepEqual(
     titles(sent),
     Array.from({ length: 14 }, (_, i) => [`page ${i + 1} a`, `page ${i + 1} b`]).flat(),
@@ -77,8 +86,60 @@ test("a crawl's pages are read a few at a time, never all at once", async () => 
   const { env } = world(crawl(14));
   const reads = slowPages(env);
 
-  await classifyRun(env, "shop", "2026-09-09", new Set());
+  await classifyRun(env, "shop", "2026-09-09");
   assert.equal(reads.most, PAGES_AT_ONCE);
+});
+
+test("a send that stops partway leaves no manifest, so the next pass classifies the run again", async () => {
+  // 1,010 listings are 101 parts, two sends: a hundred, then one.
+  const { env, sent, read } = world(crawl(505));
+  const sendBatch = env.WORK.sendBatch.bind(env.WORK);
+  let sends = 0;
+  Object.assign(env.WORK, {
+    sendBatch: async (batch: { body: Work }[]) => {
+      if (++sends === 2) throw new Error("Queue sendBatch failed: internal error");
+      return sendBatch(batch as never);
+    },
+  });
+  await assert.rejects(classifyRun(env, "shop", "2026-09-09"), /internal error/);
+  assert.equal(sent.length, 100, "the first send went");
+  assert.equal(read(guessesManifest), undefined, "but no manifest promises the parts that did not");
+
+  const result = await classifyRun(env, "shop", "2026-09-09");
+  assert.deepEqual(result, { parts: 101, sightings: 1010 });
+  assert.equal((read(guessesManifest) as { parts: number }).parts, 101);
+});
+
+test("a run classified again loses its old parts before the new ones are sent, so none counts as new", async () => {
+  // 28 listings are three parts, as many as the old classification wrote: kept, they would have
+  // made the new manifest whole before a single new part landed.
+  const { env, read } = world({ ...crawl(14), ...skipped });
+  const sendBatch = env.WORK.sendBatch.bind(env.WORK);
+  const atSend: unknown[][] = [];
+  Object.assign(env.WORK, {
+    sendBatch: async (batch: { body: Work }[]) => {
+      atSend.push([guessesManifest, ...[1, 2, 3].map(guessPart)].map((key) => read(key)));
+      return sendBatch(batch as never);
+    },
+  });
+  assert.deepEqual(await classifyRun(env, "shop", "2026-09-09"), { parts: 3, sightings: 28 });
+  assert.deepEqual(atSend, [[undefined, undefined, undefined, undefined]]);
+  assert.deepEqual(
+    [1, 2, 3].map((part) => read(guessPart(part))),
+    [undefined, undefined, undefined],
+    "a part is there only once its message is answered",
+  );
+  const manifest = read(guessesManifest) as { parts: number; alreadyAnswered?: number };
+  assert.deepEqual([manifest.parts, manifest.alreadyAnswered], [3, undefined]);
+});
+
+test("a crawl that cannot be read keeps the classification it has", async () => {
+  const objects = { ...crawl(14), ...skipped };
+  delete objects[pageKey(7)];
+  const { env, read } = world(objects);
+  await assert.rejects(classifyRun(env, "shop", "2026-09-09"), /page 7 of shop is missing/);
+  assert.ok(read(guessesManifest));
+  assert.ok(read(guessPart(3)));
 });
 
 test("a missing page fails the run before its manifest, and nothing is queued", async () => {
@@ -86,7 +147,7 @@ test("a missing page fails the run before its manifest, and nothing is queued", 
   delete objects[pageKey(7)];
   const { env, sent, read } = world(objects);
 
-  await assert.rejects(classifyRun(env, "shop", "2026-09-09", new Set()), {
+  await assert.rejects(classifyRun(env, "shop", "2026-09-09"), {
     message: "page 7 of shop is missing",
   });
   assert.equal(read(guessesManifest), undefined, "so the next pass tries the run again");
@@ -98,7 +159,7 @@ test("a line that is not a sighting fails the run before its manifest", async ()
   objects[pageKey(2)] = `${listing("page 2 a")}\n{"title":"no seller, no url"}`;
   const { env, sent, read } = world(objects);
 
-  await assert.rejects(classifyRun(env, "shop", "2026-09-09", new Set()), { name: "ZodError" });
+  await assert.rejects(classifyRun(env, "shop", "2026-09-09"), { name: "ZodError" });
   assert.equal(read(guessesManifest), undefined);
   assert.deepEqual(sent, []);
 });

@@ -1,14 +1,13 @@
-import type { Guess } from "@origin89/equipment-schema/guess";
-import type { Sighting } from "@origin89/equipment-schema/sighting";
-import { BatchMisalignedError, CLASSIFIER_ID, classifierKey, classifyBatch } from "./classify.ts";
+import { CLASSIFIER_ID } from "./classify.ts";
 import { readDocument } from "./extract.ts";
 import { USER_AGENT } from "./feeds.ts";
+import { classifyPart } from "./guesses.ts";
 import { pdfium } from "./pdfium.ts";
 import { CONVERTER } from "./reading.ts";
 import { settle } from "./settle.ts";
 import { parseSpecTables, TABLE_READER } from "./spec-table.ts";
 import { seeDocument, seePage } from "./vision.ts";
-import { inputKey, partKey, type Work } from "./work.ts";
+import { partKey, type Work } from "./work.ts";
 
 /**
  * One unit of fan-out work. Every kind writes its result to a key the producer can predict, so
@@ -18,60 +17,10 @@ import { inputKey, partKey, type Work } from "./work.ts";
  * dead-letter queue where it can be looked at. That is the behaviour the workflow version did not
  * have: there, one failing batch was caught, counted and forgotten.
  */
-/**
- * Classify a batch, halving it whenever the model answers with the wrong number of items. A model
- * that collapses ten listings into one usually manages five, and retrying the same ten spends
- * attempts on the same question. The result is written under the original part's key however many
- * calls it took, so one part stays one key and a reader needs to know nothing about this.
- *
- * A single listing that still misaligns is genuinely stuck: it throws, the message retries, and
- * eventually it dead-letters where it can be looked at.
- */
-export async function classifyInHalves(ai: Ai, sightings: Sighting[]): Promise<Guess[]> {
-  try {
-    return await classifyBatch(ai, sightings);
-  } catch (error) {
-    if (!(error instanceof BatchMisalignedError) || sightings.length < 2) throw error;
-    const half = Math.ceil(sightings.length / 2);
-    const [left, right] = await Promise.all([
-      classifyInHalves(ai, sightings.slice(0, half)),
-      classifyInHalves(ai, sightings.slice(half)),
-    ]);
-    return [...left, ...right];
-  }
-}
-
 export async function handle(message: Work, env: Env, attempt = 1): Promise<void> {
   switch (message.kind) {
     case "classify": {
-      const guesses = await classifyInHalves(env.AI, message.sightings);
-      await env.ARCHIVE.put(
-        partKey.classify(classifierKey(), message.seller, message.run, message.part),
-        `${guesses.map((g) => JSON.stringify(g)).join("\n")}\n`,
-        {
-          httpMetadata: { contentType: "application/x-ndjson" },
-        },
-      );
-      // The same answer again, keyed by the question rather than by the run, so next week's crawl
-      // of an unchanged listing costs nothing.
-      await Promise.all(
-        guesses.map(async (guess, i) => {
-          const sighting = message.sightings[i];
-          if (!sighting) return;
-          await env.ARCHIVE.put(
-            partKey.classified(classifierKey(), await inputKey(sighting)),
-            JSON.stringify({
-              kind: guess.kind,
-              ...(guess.model ? { model: guess.model } : {}),
-              ...(guess.manufacturer ? { manufacturer: guess.manufacturer } : {}),
-              ...(guess.unreadable ? { unreadable: true } : {}),
-            }),
-            {
-              httpMetadata: { contentType: "application/json" },
-            },
-          );
-        }),
-      );
+      await classifyPart(env, message);
       return;
     }
     case "convert": {

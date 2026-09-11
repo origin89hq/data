@@ -146,6 +146,10 @@ export const partKey = {
  * What a classification actually depends on: the fields the prompt is given, and nothing else.
  * The seller, the price and the date are deliberately absent — the same product at two shops is
  * one question, and a price change is not a reason to ask it again.
+ *
+ * The rated figures a listing carries are given to the model too, and a changed line is new
+ * evidence, so they are part of the question. They are added only when present, so a listing
+ * without them keeps the key, and the stored answer, it always had.
  */
 export async function inputKey(sighting: {
   title: string;
@@ -154,6 +158,7 @@ export async function inputKey(sighting: {
   model?: string;
   category?: string;
   variant?: string;
+  figures?: string;
 }): Promise<string> {
   const material = [
     sighting.title,
@@ -162,6 +167,7 @@ export async function inputKey(sighting: {
     sighting.model ?? "",
     sighting.category ?? "",
     sighting.variant ?? "",
+    ...(sighting.figures ? [sighting.figures] : []),
   ].join("\u0000");
   const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(material));
   return [...new Uint8Array(digest)]

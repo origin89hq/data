@@ -224,6 +224,24 @@ test("a classification is keyed by what was classified, so the same listing at t
   assert.notEqual(await inputKey(a), await inputKey({ ...a, brand: "EP Solar" }));
 });
 
+test("a listing's rated figures are part of the question, and one without figures keeps its key", async () => {
+  // The model is shown the figures, so a changed line is new evidence and must be asked again.
+  const { inputKey } = await import("../src/work.ts");
+  const a = { title: "EPEver XTRA4210N", brand: "EPEver", sku: "XTRA4210N" };
+  assert.equal(
+    await inputKey(a),
+    "d91cafba73ccc94e168358b4ac025ce28335be7d",
+    "the key a listing without figures had before figures were part of it",
+  );
+  const withFigures = await inputKey({ ...a, figures: "Rated charge current: 40 A" });
+  assert.notEqual(withFigures, await inputKey(a));
+  assert.notEqual(
+    withFigures,
+    await inputKey({ ...a, figures: "Rated charge current: 30 A" }),
+    "and a changed line is a new question",
+  );
+});
+
 test("a price or a crawl date does not change the question, so a re-crawl asks nothing new", async () => {
   const { inputKey } = await import("../src/work.ts");
   const base = { title: "Rolls S-550", brand: "Rolls", sku: "S-550" };
