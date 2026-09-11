@@ -36,11 +36,11 @@ export function namesAny(text: string, names: readonly string[]): boolean {
 }
 
 /**
- * Where the text a reading was taken from is kept: the page itself for the table parser, the
- * page transcript for the page reader, and the conversion for the text reader.
+ * Where the text a reading was taken from is kept: the page transcript for the page reader, and
+ * the conversion for the text reader. Both are whole object names no other key extends, so the
+ * archive's prefix read returns that one object and nothing derived from it.
  */
 export function textKey(reading: { sha256: string; extractedBy?: string }): string {
-  if (reading.extractedBy === TABLE_READER) return `archive/${reading.sha256}`;
   if (reading.extractedBy === VISION_EXTRACTOR_ID)
     return `archive/${reading.sha256}.${PAGE_CONVERTER}.md`;
   return `archive/${reading.sha256}.${CONVERTER}.md`;
@@ -59,7 +59,7 @@ export interface Withheld {
  * whose documents name it; any other maker's readings are untouched and no text is fetched.
  */
 export async function creditedReadings<
-  R extends { sha256: string; url: string; products: unknown[] },
+  R extends { sha256: string; url: string; extractedBy?: string; products: unknown[] },
 >(
   maker: Manufacturer | undefined,
   brands: readonly Brand[],
@@ -75,8 +75,14 @@ export async function creditedReadings<
  * not is withheld rather than written, and so is one whose text cannot be read to check: for a
  * retailer, not knowing is not a reason to credit it. A reading with no products credits nothing
  * either way, so its text is not fetched.
+ *
+ * A specification table is withheld without a read. It comes from a page of the retailer's own
+ * site, which names the shop in its header whatever product it sells, so naming says nothing
+ * there about whose product it is.
  */
-export async function namedReadings<R extends { sha256: string; url: string; products: unknown[] }>(
+export async function namedReadings<
+  R extends { sha256: string; url: string; extractedBy?: string; products: unknown[] },
+>(
   readings: readonly R[],
   names: readonly string[],
   textOf: (reading: R) => Promise<string | undefined>,
@@ -86,6 +92,15 @@ export async function namedReadings<R extends { sha256: string; url: string; pro
   for (const reading of readings) {
     if (reading.products.length === 0) {
       keep.push(reading);
+      continue;
+    }
+    if (reading.extractedBy === TABLE_READER) {
+      withheld.push({
+        url: reading.url,
+        sha256: reading.sha256,
+        products: reading.products.length,
+        reason: "a page of the retailer's own site names it whatever product it sells",
+      });
       continue;
     }
     const text = await textOf(reading);

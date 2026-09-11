@@ -97,12 +97,27 @@ test("any other maker is credited with every reading, and no text is fetched", a
   assert.deepEqual(unknown.keep, readings, "a maker with no record is not filtered either");
 });
 
-test("a reading's text is the conversion, the page transcript, or the page, by the reader that took it", () => {
+test("a retailer's specification table is withheld without a read: its own site names it on every page", async () => {
+  let asked = 0;
+  const table = { ...reading("g", 5), extractedBy: TABLE_READER };
+  const { keep, withheld } = await creditedReadings(shop, brands, [table], async () => {
+    asked += 1;
+    return "The Cabin Depot | Anker SOLIX F3800 | 6000 W";
+  });
+  assert.deepEqual(keep, []);
+  assert.equal(asked, 0, "nothing is fetched for it");
+  assert.equal(withheld[0]?.products, 5);
+  assert.match(withheld[0]?.reason ?? "", /retailer's own site/);
+});
+
+test("a reading's text is the conversion or the page transcript, a whole object name", () => {
   const sha = "9".repeat(64);
   assert.equal(textKey({ sha256: sha }), `archive/${sha}.${CONVERTER}.md`);
   assert.equal(
     textKey({ sha256: sha, extractedBy: VISION_EXTRACTOR_ID }),
     `archive/${sha}.${PAGE_CONVERTER}.md`,
   );
-  assert.equal(textKey({ sha256: sha, extractedBy: TABLE_READER }), `archive/${sha}`);
+  // The archive reads by prefix. The bare document key would also bring back every conversion,
+  // transcript and reading under the same hash, and a name in any of them would pass the check.
+  assert.notEqual(textKey({ sha256: sha, extractedBy: TABLE_READER }), `archive/${sha}`);
 });
