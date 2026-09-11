@@ -4,8 +4,10 @@ import {
   countRows,
   createSchema,
   insertRows,
+  LOADED_TABLES,
   type LoadRow,
   loadedTables,
+  PINNED_RELEASES,
   releaseRow,
   retain,
   type Store,
@@ -18,6 +20,9 @@ export interface ReleaseLoadParams {
 
 /** The instance id of a release's load: one per release, so a retried publication cannot start a second. */
 export const loadInstanceId = (release: string): string => `load-${release}`;
+/** A load started by hand, after a reset or a failure: an instance id cannot be used twice, so each reload is its own. */
+export const reloadInstanceId = (release: string, at = Date.now()): string =>
+  `load-${release}-${at.toString(36)}-${crypto.randomUUID().slice(0, 8)}`;
 
 /** Enough of a workflow step to run the load under, or to run it plainly in a test. */
 export interface Steps {
@@ -51,6 +56,10 @@ export async function loadRelease(
   });
   const plan = release.load;
   if (!plan) return fail(db, step, releaseId, "the release carries no load plan");
+  // Every table the store serves has to be in the plan, with no parts when it has no rows: a
+  // plan that leaves one out would load a subset and call it the release.
+  const omitted = Object.keys(LOADED_TABLES).filter((table) => !(table in plan.tables));
+  if (omitted.length) return fail(db, step, releaseId, `the load plan omits ${omitted.join(", ")}`);
 
   const begun = await step.do("begin", async () => {
     await createSchema(db);
@@ -151,4 +160,28 @@ async function loadPart(
     rows.push(JSON.parse(line) as LoadRow);
   }
   return insertRows(db, table, release, part, rows);
+}
+
+/**
+ * Put back any pinned release the store does not hold: a fixture may name a release that
+ * retention let go before it was pinned, or the store may have been recreated. Returns the
+ * releases whose load was started.
+ */
+export async function reloadPinned(
+  env: Pick<Env, "ARCHIVE" | "RELEASE_LOAD">,
+  db: Store,
+  pinned: readonly string[] = PINNED_RELEASES,
+): Promise<string[]> {
+  const started: string[] = [];
+  for (const release of pinned) {
+    const held = await releaseRow(db, release);
+    if (held && held.state !== "failed") continue;
+    if (!(await env.ARCHIVE.head(releaseKey(release)))) {
+      console.log(JSON.stringify({ message: "pinned release not in the archive", release }));
+      continue;
+    }
+    await env.RELEASE_LOAD.create({ id: reloadInstanceId(release), params: { release } });
+    started.push(release);
+  }
+  return started;
 }

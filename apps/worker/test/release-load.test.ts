@@ -2,12 +2,13 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { test } from "node:test";
 import { loadPartName } from "@origin89/equipment-schema/releases";
-import { loadRelease, type Steps } from "../src/release-load.ts";
+import { loadRelease, reloadPinned, type Steps } from "../src/release-load.ts";
 import {
   activate,
   activeRelease,
   countRows,
   insertRows,
+  LOADED_TABLES,
   releaseRow,
 } from "../src/release-store.ts";
 import { loadKey, releaseKey } from "../src/releases.ts";
@@ -23,7 +24,7 @@ function published(
   id: string,
   at: string,
   tables: Record<string, Record<string, unknown>[]>,
-  options: { rowsPerPart?: number; dropPart?: string; lie?: string } = {},
+  options: { rowsPerPart?: number; dropPart?: string; lie?: string; omit?: string } = {},
 ): string {
   const files: Record<string, { rows: number; bytes: number; sha256: string }> = {};
   const load: {
@@ -56,6 +57,10 @@ function published(
       key: "id",
     };
   }
+  // Every table the store serves is in a plan, with nothing to load when it has no rows.
+  for (const table of Object.keys(LOADED_TABLES))
+    if (!(table in load.tables) && table !== options.omit)
+      load.tables[table] = { parts: [], rows: 0 };
   objects[releaseKey(id)] = JSON.stringify({
     id,
     content: sha256(`content ${id}`),
@@ -121,7 +126,12 @@ test("a release loads one part at a time, is counted against its plan, and becom
   assert.equal(await countRows(env.RELEASES, "models", R1), 7);
   assert.equal((await activeRelease(env.RELEASES))?.id, R1);
   const row = await releaseRow(env.RELEASES, R1);
-  assert.deepEqual(JSON.parse(row?.counts ?? "{}"), { models: 7, model_keys: 1, specs: 1 });
+  const counted = Object.fromEntries(
+    Object.entries(JSON.parse(row?.counts ?? "{}") as Record<string, number>).filter(
+      ([, n]) => n > 0,
+    ),
+  );
+  assert.deepEqual(counted, { models: 7, model_keys: 1, specs: 1 }, "and the rest counted at zero");
   const stored = await env.RELEASES.prepare(
     "SELECT name, kind, row FROM models WHERE release = ? AND id = 'm3'",
   )
@@ -342,5 +352,22 @@ test("taking the active place is one conditional switch, so an older load cannot
     await activate(db, R2, "2026-09-11T12:00:00Z"),
     true,
     "activating the active one again is a no-op",
+  );
+});
+
+test("a plan that leaves a store table out is refused, and a pinned release the store lacks is put back", async () => {
+  const objects: Record<string, string> = {};
+  published(objects, R1, "2026-09-11T10:00:00Z", { models: models(1) }, { omit: "specs" });
+  published(objects, R2, "2026-09-11T11:00:00Z", { models: models(1) });
+  const { env, loads } = world(objects);
+  const outcome = await loadRelease(env.ARCHIVE, env.RELEASES, plain, R1);
+  assert.deepEqual(outcome, { outcome: "failed", reason: "the load plan omits specs" });
+  await loadRelease(env.ARCHIVE, env.RELEASES, plain, R2);
+  // R2 is held, R1 failed, R3 is not in the archive at all: only R1 is put back.
+  const started = await reloadPinned(env, env.RELEASES, [R2, R1, R3]);
+  assert.deepEqual(started, [R1]);
+  assert.deepEqual(
+    loads.map((l) => l.params),
+    [{ release: R1 }],
   );
 });
