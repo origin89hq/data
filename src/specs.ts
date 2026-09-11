@@ -95,7 +95,7 @@ export interface SpecsFromResult {
   truncated: string[];
   /** Figures dropped because a multilingual document stated them again in another language. */
   repeated: number;
-  /** Those rows, kept so a figure a person holds under one of their ids can still be compared with what the document said. */
+  /** Those rows, and the rows a document stated again under an id already taken, kept so a figure a person holds under one of their ids can still be compared with what the document said. */
   repeatedRows: Spec[];
 }
 
@@ -111,6 +111,7 @@ export function specsFrom({
   const specs = new Map<string, Spec>();
   const unmatched: string[] = [];
   const truncated: string[] = [];
+  const repeatedRows: Spec[] = [];
   for (const report of reports) {
     const model = matchModel(models, manufacturer, report.model);
     if (!model) {
@@ -137,10 +138,7 @@ export function specsFrom({
       }
       const conditions = s.conditions?.trim() || undefined;
       const id = specId(model.id, name, conditions);
-      // Two rows of one document that reduce to the same figure under the same conditions are
-      // one figure; the id says so, and the first reading wins.
-      if (specs.has(id)) continue;
-      specs.set(id, {
+      const row: Spec = {
         id,
         model: model.id,
         name,
@@ -154,7 +152,12 @@ export function specsFrom({
         ...(typeof s.page === "number" && s.page > 0 ? { page: s.page } : {}),
         extractedBy,
         confidence,
-      });
+      };
+      // Two rows of one document that reduce to the same figure under the same conditions are
+      // one figure; the id says so, and the first reading wins. The second is kept aside all the
+      // same: the id reads "≤25 °C" and "≥25 °C" as one, and a person may hold either.
+      if (specs.has(id)) repeatedRows.push(row);
+      else specs.set(id, row);
     }
   }
   // A multilingual manual states one figure once per language. NOCO's GB150 gives the same 60 W as
@@ -203,7 +206,6 @@ export function specsFrom({
     }
     for (const said of byEnglish.values()) for (const row of said.slice(1)) repeated.add(row.id);
   }
-  const repeatedRows: Spec[] = [];
   for (const id of repeated) {
     const row = specs.get(id);
     if (row) repeatedRows.push(row);

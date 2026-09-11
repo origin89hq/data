@@ -149,9 +149,14 @@ test("the figures pull reads the translated editions it sets aside for compariso
   const source = readFileSync(new URL("../tools/gate/pull-specs.ts", import.meta.url), "utf8");
   assert.match(
     source,
-    /const comparisonOnly = \[\s*\.\.\.everyReading\.filter[\s\S]*?byLanguage\.dropped,?\s*\]/,
+    /const comparisonOnly = \(\s*await creditedReadings\([\s\S]*?\.\.\.everyReading\.filter[\s\S]*?byLanguage\.dropped,?\s*\]/,
   );
   assert.match(source, /for \(const document of comparisonOnly\)[\s\S]*?candidate\(spec\)/);
+  assert.match(
+    source,
+    /const comparisonOnly = \(\s*await creditedReadings\(/,
+    "a retailer's set-aside editions are credited before they are compared",
+  );
   assert.doesNotMatch(
     source.slice(source.indexOf("for (const document of comparisonOnly)")),
     /comparisonOnly\)[\s\S]{0,400}(collected\.set|usedSources\.set)/,

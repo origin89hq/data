@@ -399,3 +399,26 @@ test("a held figure the run read only under a dropped row is still compared, and
   assert.equal(agreeing.agreed, 1);
   assert.deepEqual(agreeing.disagreements, []);
 });
+
+test("a second row under an id already taken is kept aside, so a held figure under it is still compared", () => {
+  const { specs, repeated, repeatedRows } = specsFrom({
+    ...base,
+    manufacturer: "rolls-battery",
+    reports: [
+      {
+        model: "S-550",
+        specs: [
+          { name: "Rated capacity", value: "428", unit: "Ah", conditions: "≤25 °C" },
+          { name: "Rated capacity", value: "400", unit: "Ah", conditions: "≥25 °C" },
+        ],
+      },
+    ],
+  });
+  assert.equal(specs.length, 1);
+  assert.equal(specs[0].conditions, "≤25 °C", "the first row wins");
+  assert.equal(repeated, 0, "not a translation");
+  assert.deepEqual(
+    repeatedRows.map((row) => [row.value, row.conditions]),
+    [["400", "≥25 °C"]],
+  );
+});

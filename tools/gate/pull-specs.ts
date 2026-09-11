@@ -114,11 +114,19 @@ readings.readings = credited.keep;
 const withheld = credited.withheld;
 // The translated editions set aside above were still read, and a person may hold a figure under
 // one of their ids. They are read for comparison only: nothing of theirs is written or cited.
-// A retailer's withheld documents are not the maker's own and stay out of the comparison too.
-const comparisonOnly = [
-  ...everyReading.filter((reading) => dropped.some((d) => d.url === reading.url)),
-  ...byLanguage.dropped,
-];
+// A retailer's withheld documents are not the maker's own and stay out of the comparison too,
+// so the set-aside editions pass the same crediting first.
+const comparisonOnly = (
+  await creditedReadings(
+    records.manufacturers.find((m) => m.id === manufacturer),
+    records.brands,
+    [
+      ...everyReading.filter((reading) => dropped.some((d) => d.url === reading.url)),
+      ...byLanguage.dropped,
+    ],
+    (reading) => object(textKey(reading), remote),
+  )
+).keep;
 const sources = new Map(records.sources.map((s) => [s.id, s]));
 const addModels = !args.includes("--no-new-models");
 let written = 0;
