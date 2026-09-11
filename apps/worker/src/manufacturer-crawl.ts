@@ -114,6 +114,8 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
     // Cited pages that answered with a page, counted as the batches read them: a cited seed the
     // budget let in but that refused or moved is not a page that was read.
     let citedRead = 0;
+    // Cited pages that answered with the document itself, whose document is the citation's.
+    const directAnswers = new Set<string>();
     const found: Found[] = [];
     const specPages: SpecPageCandidate[] = [];
     // What the pages answered, kept beside the plan: a plan that offers nothing has to say whether
@@ -141,6 +143,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
           .filter((p): p is string => p !== undefined && cited.pages.includes(p))
           .filter((p) => !batch.opened.includes(p)),
       );
+      for (const p of answeredWithDocument) directAnswers.add(p);
       citedRead +=
         batch.opened.filter((p) => cited.pages.includes(p)).length + answeredWithDocument.size;
       for (const f of batch.links) if (!found.some((x) => x.url === f.url)) found.push(f);
@@ -235,7 +238,7 @@ export class ManufacturerCrawl extends WorkflowEntrypoint<Env, ManufacturerCrawl
 
     // What a person already found is offered whether or not the site led here (#48). Offered,
     // not fetched: it waits for the same approval as everything else.
-    found.splice(0, found.length, ...withCited(found, cited, domains));
+    found.splice(0, found.length, ...withCited(found, cited, domains, directAnswers));
     // Counted on the final list, so a cited document the site also led to is still a cited one.
     const citedOffered = found.filter((f) => cited.documents.includes(f.url)).length;
     seen.cited = { documents: citedOffered, pages: citedRead };

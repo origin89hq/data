@@ -659,9 +659,12 @@ export function withCited(
   found: readonly Found[],
   cited: Cited,
   domains: readonly string[],
+  /** Cited pages that answered with a document rather than with HTML to read. */
+  answered: ReadonlySet<string> = new Set(),
 ): Found[] {
-  // Cited by address, or found by asking for a cited page that answered with the document.
-  const seed = (f: Found) => f.foundOn !== undefined && cited.pages.includes(f.foundOn);
+  // Cited by address, or found by asking for a cited page that answered with the document
+  // itself. A link on a cited page that answered with HTML is the page's find, not the citation.
+  const seed = (f: Found) => f.foundOn !== undefined && answered.has(f.foundOn);
   const out: Found[] = found.map((f) =>
     cited.documents.includes(f.url) || seed(f) ? { ...f, cited: true as const } : f,
   );
