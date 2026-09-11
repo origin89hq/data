@@ -93,7 +93,7 @@ test("one missing sightings page is visible even when another page exists", asyn
   mockArchive(t, objects);
   assert.deepEqual((await readCrawl("shop", date, false))?.missingParts, ["sightings page 8"]);
 });
-test("an unclassified crawl retains sightings without inventing guesses", async (t) => {
+test("an unclassified crawl retains sightings without inventing guesses, and says it is not classified", async (t) => {
   const objects = fixture();
   delete objects[`${guesses}/manifest.json`];
   delete objects[`${guesses}/page-0001.jsonl`];
@@ -101,7 +101,21 @@ test("an unclassified crawl retains sightings without inventing guesses", async 
   const result = await readCrawl("shop", date, false);
   assert.equal(result?.sightings.length, 1);
   assert.equal(result?.guesses.size, 0);
-  assert.deepEqual(result?.missingParts, []);
+  assert.deepEqual(result?.missingParts, ["no classification yet"]);
+});
+test("a crawl being classified again, its manifest gone and a part written, is not whole", async (t) => {
+  const objects = fixture();
+  delete objects[`${guesses}/manifest.json`];
+  mockArchive(t, objects);
+  assert.deepEqual((await readCrawl("shop", date, false))?.missingParts, ["no classification yet"]);
+});
+test("a classification that left out listings answered on an earlier run is not whole", async (t) => {
+  const objects = fixture();
+  objects[`${guesses}/manifest.json`] = JSON.stringify({ parts: 1, alreadyAnswered: 6 });
+  mockArchive(t, objects);
+  assert.deepEqual((await readCrawl("shop", date, false))?.missingParts, [
+    "6 listings answered on an earlier run",
+  ]);
 });
 function report(t: TestContext, objects: Record<string, string>, requestedDate = date) {
   const dir = mkdtempSync(join(tmpdir(), "gate-report-"));
@@ -145,5 +159,13 @@ test("gate report refuses partial classifier evidence", (t) => {
   const result = report(t, objects);
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /incomplete crawl: part 2/);
+  assert.equal(result.stdout, "");
+});
+test("gate report refuses a crawl with no classification rather than show it unanswered", (t) => {
+  const objects = fixture();
+  delete objects[`${guesses}/manifest.json`];
+  const result = report(t, objects);
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /incomplete crawl: no classification yet/);
   assert.equal(result.stdout, "");
 });
