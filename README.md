@@ -194,6 +194,9 @@ makers is the gate's decision.
 | `model_keys` | name a model answers to, under each name its maker goes by, as the key the one rule gives it |
 | `model_dialects` | dialect a model is known to speak, carrying the catalogue's own claim and its confidence |
 | `specs` | one rated figure, with its unit, the conditions it holds under, its source and page |
+| `properties` | one figure read under a registry key: a number in the key's unit, its conditions as columns, the figure it came from, the rule or column that read it, and its basis |
+| `property_gaps` | key a model's figures could not fill, with the reason |
+| `property_coverage` | key and kind: how many models the key applies to, how many have a value, and the gaps by reason |
 | `sources` | source: url or repository path, plus title, publisher, revision, hash, retrieval date and licence once reviewed |
 
 `model_keys` is how a name is resolved to a model, here and in the API: a key is
@@ -208,6 +211,39 @@ built on. `refuter` says whether a second pass tried to knock the entry down.
 `shared_map_claim_dropped` is true where the refuter found the models were
 grouped because an agent proposed it, not because a source showed matching
 addresses.
+
+## Normalized properties
+
+A figure is published as printed, which preserves the claim and means nothing
+can compare, filter or calculate across makers: a controller's PV open-circuit
+limit appears under 53 names, "Max. input voltage" among them, and some are
+not numbers. `properties` is the same figures read under one key each, from
+the registry in `packages/schema/src/properties.ts` and published as
+`properties.json`: `pv.voc.max` is a voltage, in V, one number, for anything
+with a PV input, and it limits the `pv-voltage` reading.
+
+Nothing is guessed. A maker's figures reach a key only through a mapping
+record under `records/mappings/<manufacturer>.json`, reviewed in a pull
+request and scoped to that maker and, where the wording is one document's, to
+that document; "Max. input voltage" is the open-circuit limit on Victron's
+sheets and may not be elsewhere. The SAM feed maps by column, in code. The
+value is read by `src/quantities.ts`, which takes "150 volts DC", "8 - 72
+Volts dc", "12/24/48V DC" and "-0,29 %/°C" and refuses a bound, a sentence, a
+number with no unit, or a unit outside the key's quantity. Conditions are
+structured: a capacity at C20 and at C100 are two rows, and a surge without
+its duration is not a surge.
+
+What cannot be filled is a gap with a reason in `property_gaps`: `no-claim`
+when no figure was read for the key, `unparsed` when the figures could not be
+read as numbers, `needs-conditions` when a value lacks a condition the key
+needs or its rule `requires`, `conflict` when two usable values under the same
+conditions disagree, in which case both publish with `status = 'conflict'`. A
+figure that could not be read beside ones that could is still a gap. `basis`
+is the figure's, never the rule's: `reviewed` when a person confirmed it,
+`extracted` when only a reader took it from the document, `feed` for a public
+dataset's row. `property_coverage` says, per key and kind, how far this
+reaches in each release: the models with a value, those of them that are
+`partial`, and the gaps by reason.
 
 ## The round trip
 

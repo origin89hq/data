@@ -4,7 +4,8 @@ import { logoKey } from "./logos.ts";
 const LOGO_BASE = "https://data.origin89.com";
 
 import { modelKey, nameKey } from "@origin89/equipment-api/keys";
-import { attachMakers, type FeedModel, feedSource, readFeeds } from "./feeds.ts";
+import { attachMakers, type FeedModel, feedSource, feedSpecId, readFeeds } from "./feeds.ts";
+import { buildProperties } from "./properties.ts";
 import type { Records } from "./records.ts";
 import { canonicalUnit, concerns as figureConcerns } from "./units.ts";
 
@@ -13,7 +14,7 @@ export type Row = Record<string, string | boolean | number | undefined>;
 /** A flat table and the column types the Parquet writer needs, since CSV carries none. */
 export interface Table {
   name: string;
-  columns: { name: string; type: "VARCHAR" | "BOOLEAN" | "INTEGER" }[];
+  columns: { name: string; type: "VARCHAR" | "BOOLEAN" | "INTEGER" | "DOUBLE" }[];
   rows: Row[];
 }
 
@@ -37,6 +38,13 @@ export function tables(records: Records, feeds = readFeeds()): Table[] {
       })),
     ).map((m) => ({ feed, model: m })),
   );
+  // The normalized properties beside the printed figures, and what could not be normalized (#82).
+  const normalized = buildProperties({
+    models: records.models,
+    specs: records.specs,
+    mappings: records.mappings,
+    feeds: feedRows,
+  });
 
   const V = "VARCHAR" as const;
   const dialects = records.dialects.map((d) => ({
@@ -60,7 +68,7 @@ export function tables(records: Records, feeds = readFeeds()): Table[] {
     refiled_from: d.refiledFrom,
     possible_duplicate: d.possibleDuplicate ?? false,
   }));
-  const col = (name: string, type: "VARCHAR" | "BOOLEAN" | "INTEGER" = V) => ({ name, type });
+  const col = (name: string, type: Table["columns"][number]["type"] = V) => ({ name, type });
   return [
     {
       name: "dialects",
@@ -334,10 +342,11 @@ export function tables(records: Records, feeds = readFeeds()): Table[] {
         // whenever a column was added or a cell was blank, and a consumer keyed to the id then
         // saw a figure deleted and another added when nothing about the fact had changed. The
         // name is never cut: a model id near its own cap once lost the tail of "Temperature
-        // coefficient of …" to a length limit here, and three figures became one id.
+        // coefficient of …" to a length limit here, and three figures became one id. The
+        // properties cite the same id, so it is made in one place.
         ...feedRows.flatMap(({ model }) =>
           model.specs.map((spec) => ({
-            id: `${model.id}--${spec.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
+            id: feedSpecId(model.id, spec.name),
             tier: "feed",
             model_id: model.id,
             name: spec.name,
@@ -361,6 +370,110 @@ export function tables(records: Records, feeds = readFeeds()): Table[] {
           })),
         ),
       ],
+    },
+    {
+      name: "properties",
+      // One figure read under a registry key, as a number in the key's unit, with its conditions
+      // as columns. `status` is `conflict` where two usable figures under the same conditions
+      // disagree; both are published and the key is also a gap. `basis` is the claim's, never the
+      // rule's: a mapping rule reads a figure, it does not review it.
+      columns: [
+        col("model_id"),
+        col("key"),
+        col("status"),
+        col("value", "DOUBLE"),
+        col("min", "DOUBLE"),
+        col("max", "DOUBLE"),
+        col("values"),
+        col("unit"),
+        col("stc", "BOOLEAN"),
+        col("cell_temperature_c", "DOUBLE"),
+        col("ambient_temperature_c", "DOUBLE"),
+        col("bank_voltage_v", "DOUBLE"),
+        col("discharge_hours", "DOUBLE"),
+        col("duration_s", "DOUBLE"),
+        col("mode"),
+        col("note"),
+        col("scope"),
+        col("claim_id"),
+        col("source_id"),
+        col("page", "INTEGER"),
+        col("mapped_by"),
+        col("basis"),
+      ],
+      rows: normalized.properties.map((p) => ({
+        model_id: p.model,
+        key: p.key,
+        status: p.status,
+        value: p.value,
+        min: p.min,
+        max: p.max,
+        values: p.values?.join(" "),
+        unit: p.unit,
+        stc: p.conditions.stc,
+        cell_temperature_c: p.conditions.cellTemperature,
+        ambient_temperature_c: p.conditions.ambientTemperature,
+        bank_voltage_v: p.conditions.bankVoltage,
+        discharge_hours: p.conditions.dischargeHours,
+        duration_s: p.conditions.duration,
+        mode: p.conditions.mode,
+        note: p.conditions.note,
+        scope: p.scope,
+        claim_id: p.claim,
+        source_id: p.source,
+        page: p.page,
+        mapped_by: p.mappedBy,
+        basis: p.basis,
+      })),
+    },
+    {
+      name: "property_gaps",
+      // A key a model's claims could not fill, and why. `claims` is how many printed figures the
+      // rules read for it, so `no-claim` with none is a figure nobody has, and `unparsed` with
+      // three is a figure the parser cannot yet read.
+      columns: [
+        col("model_id"),
+        col("key"),
+        col("reason"),
+        col("detail"),
+        col("claims", "INTEGER"),
+      ],
+      rows: normalized.gaps.map((g) => ({
+        model_id: g.model,
+        key: g.key,
+        reason: g.reason,
+        detail: g.detail,
+        claims: g.claims,
+      })),
+    },
+    {
+      name: "property_coverage",
+      // Per key and kind: how many models the key applies to, how many have a usable value, how
+      // many of those also had a figure that could not be read (`partial`), and how many are gaps
+      // of each reason. The build computes it, so a release says how far the normalized figures
+      // reach.
+      columns: [
+        col("key"),
+        col("kind"),
+        col("models", "INTEGER"),
+        col("values", "INTEGER"),
+        col("partial", "INTEGER"),
+        col("conflicts", "INTEGER"),
+        col("no_claim", "INTEGER"),
+        col("unparsed", "INTEGER"),
+        col("needs_conditions", "INTEGER"),
+      ],
+      rows: normalized.coverage.map((c) => ({
+        key: c.key,
+        kind: c.kind,
+        models: c.models,
+        values: c.values,
+        partial: c.partial,
+        conflicts: c.conflicts,
+        no_claim: c.noClaim,
+        unparsed: c.unparsed,
+        needs_conditions: c.needsConditions,
+      })),
     },
     {
       name: "feeds",

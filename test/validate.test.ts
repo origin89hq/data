@@ -36,6 +36,7 @@ function fixture(): Records {
     brands: [],
     models: [],
     specs: [],
+    mappings: [],
   };
 }
 

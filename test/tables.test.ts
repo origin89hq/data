@@ -49,6 +49,7 @@ const records: Records = {
       confidence: "vendor-doc",
     }),
   ],
+  mappings: [],
 };
 
 const SHA = "a".repeat(64);

@@ -8,6 +8,7 @@ export const RecordKind = z.enum([
   "brands",
   "models",
   "specs",
+  "mappings",
 ]);
 export const ReleaseId = z.string().regex(/^[a-f0-9]{64}$/);
 export const FileMeta = z.object({
