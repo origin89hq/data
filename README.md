@@ -1,9 +1,12 @@
-# offgrid-equipment
+# Origin89 Data
 
-Every model of off-grid equipment worth talking to — charge controllers,
-inverters, batteries, BMS, shunts, generators, meters — as one dataset with a
-source and a confidence on every fact. Published as Parquet, CSV and JSON so
-anything can read it.
+Open equipment data for off-grid systems, with sourced specifications, protocol
+dialects, and downloadable datasets.
+
+The dataset covers charge controllers, inverters, batteries, BMS, shunts,
+generators, and meters, with a source and confidence on each fact. Browse it at
+[data.origin89.com](https://data.origin89.com), or download it as Parquet, CSV,
+and JSON.
 
 **Licence: MIT**, for the tooling, the records and the built artefacts alike
 ([LICENSE](LICENSE)). Use it for anything, keep the notice. Manufacturer
