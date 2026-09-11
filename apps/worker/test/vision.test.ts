@@ -694,8 +694,8 @@ test("a window is read with the names the whole document prints, and the last on
 test("a window whose answer runs out of room is read again as two halves, each its own turn", async () => {
   // A dense sheet: one call cannot write every figure out, each half can.
   const dense = transcriptDocument("dense.pdf", [
-    { page: 1, markdown: `| Weight | 230 g |\n\n${"a".repeat(6000)}` },
-    { page: 2, markdown: `| Rated current | 12 A |\n\n${"b".repeat(6000)}` },
+    { page: 1, markdown: `| Weight | 230 g |\n| Voltage | 48 V |\n\n${"a".repeat(6000)}` },
+    { page: 2, markdown: `| Rated current | 12 A |\n| Voltage | 48 V |\n\n${"b".repeat(6000)}` },
   ]);
   const seen: string[] = [];
   const { env, pace, readObject } = world(
@@ -706,6 +706,7 @@ test("a window whose answer runs out of room is read again as two halves, each i
       const specs = [
         ...(text.includes("230 g") ? [{ name: "Weight", value: "230", unit: "g" }] : []),
         ...(text.includes("12 A") ? [{ name: "Rated current", value: "12", unit: "A" }] : []),
+        { name: "Voltage", value: "48", unit: "V" },
       ];
       return answer({ products: [{ model: "RM-12", specs }] });
     }),
@@ -719,6 +720,8 @@ test("a window whose answer runs out of room is read again as two halves, each i
       specs: [
         { name: "Weight", value: "230", unit: "g", page: 1 },
         { name: "Rated current", value: "12", unit: "A", page: 2 },
+        // A half could see one "48 V" and name its page; the whole window prints it on two.
+        { name: "Voltage", value: "48", unit: "V" },
       ],
     },
   ]);

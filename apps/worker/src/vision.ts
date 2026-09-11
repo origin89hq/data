@@ -411,7 +411,10 @@ async function figuresIn(
     await takeTurn(env, message);
     const left = await figuresIn(env, message, transcript, first);
     await takeTurn(env, message);
-    return [...left, ...(await figuresIn(env, message, transcript, second))];
+    const both = [...left, ...(await figuresIn(env, message, transcript, second))];
+    // Each figure's page is found again in the whole window: a value each half saw once may be
+    // printed in both, and then it has no page, as it would have had read whole.
+    return reportsInWindow(JSON.stringify({ products: both }), transcript, window);
   }
 }
 
