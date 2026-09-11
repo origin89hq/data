@@ -1,8 +1,10 @@
 import avatar from "@origin89/brand/art/avatar-round.webp";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { count } from "./api.ts";
+import { DataLoading, DataProblem, Skeleton } from "./DataState.tsx";
 import { Icon } from "./icons.tsx";
 import type { State } from "./useDuckDb.ts";
+import { useQuery } from "./useQuery.ts";
 
 interface Trail {
   model_id: string;
@@ -26,20 +28,17 @@ interface Trail {
  * that the trail holds.
  */
 export function Evidence({ db }: { db: State }) {
-  const [trail, setTrail] = useState<Trail>();
-
-  useEffect(() => {
-    if (!db.ready) return;
-    void db
-      .run(`SELECT s.model_id, coalesce(s.english, s.name) AS name, s.name AS printed, s.value, s.unit, s.page, o.url, o.title,
+  const result = useQuery(
+    db,
+    `SELECT s.model_id, coalesce(s.english, s.name) AS name, s.name AS printed, s.value, s.unit, s.page, o.url, o.title,
                    s.confidence, s.extracted_by, s.reviewed_by
             FROM specs s JOIN sources o ON o.id = s.source_id
             WHERE s.tier = 'reviewed' AND s.doubt IS NULL AND s.page IS NOT NULL
               AND o.url IS NOT NULL AND s.unit = 'Ah'
-            ORDER BY try_cast(s.value AS DOUBLE) DESC NULLS LAST LIMIT 1`)
-      .then((answer) => setTrail(answer.rows[0] as unknown as Trail))
-      .catch(() => undefined);
-  }, [db]);
+            ORDER BY try_cast(s.value AS DOUBLE) DESC NULLS LAST LIMIT 1`,
+  );
+  const row = result.status === "ready" ? result.data[0]?.rows[0] : undefined;
+  const trail = row as unknown as Trail | undefined;
 
   return (
     <section id="evidence" className="section wrap evidence-section">
@@ -86,60 +85,75 @@ export function Evidence({ db }: { db: State }) {
           <span>SPECIFICATION / SOURCE TRAIL</span>
           <Icon name="arrowUpRight" />
         </div>
-        <div className="provenance-main">
-          <span className="eyebrow">
-            {(trail?.model_id ?? "").split("-")[0]?.toUpperCase() || "MANUFACTURER"}
-          </span>
-          <h3>{trail?.model_id ?? "—"}</h3>
-          <div className="big-reading">
-            {trail?.value ?? "—"}
-            <span>{trail?.unit ?? ""}</span>
-          </div>
-          <span className="reading-label">
-            {trail?.name ?? "Capacity"} · as stated in source
-            {trail?.printed && trail.printed !== trail.name
-              ? `, where the maker wrote “${trail.printed}”`
-              : ""}
-          </span>
-          <div className="source-document">
-            <span className="document-symbol">PDF</span>
-            <div>
-              <strong>
-                {trail?.title ?? (trail?.url ?? "").split("/").pop() ?? "Manufacturer document"}
-              </strong>
-              <span>Original source{trail?.page ? ` · page ${trail.page}` : ""}</span>
-            </div>
-            {trail?.url && (
-              <a
-                href={trail.url}
-                target="_blank"
-                rel="noopener"
-                aria-label="Open the original manufacturer source"
-              >
-                <Icon name="arrowUpRight" />
-              </a>
-            )}
-          </div>
-          <dl>
-            <div>
-              <dt>Evidence</dt>
-              <dd>{trail?.confidence ?? "—"}</dd>
-            </div>
-            <div>
-              <dt>Method</dt>
-              <dd>
-                {trail?.extracted_by?.startsWith("table:")
-                  ? "Table parser"
-                  : trail?.extracted_by
-                    ? "Automated extraction"
-                    : "—"}
-              </dd>
-            </div>
-            <div>
-              <dt>Human review</dt>
-              <dd className="amber-text">{trail?.reviewed_by ?? "Not yet reviewed"}</dd>
-            </div>
-          </dl>
+        <div className="provenance-main" data-loading={result.status === "loading"}>
+          {result.status === "loading" ? (
+            <DataLoading label="Loading a figure and its source…">
+              <Skeleton width="74%" />
+              <Skeleton width="48%" />
+              <Skeleton />
+              <Skeleton width="82%" />
+            </DataLoading>
+          ) : result.status === "error" ? (
+            <DataProblem label="The source example couldn’t be loaded." retry={result.retry} />
+          ) : !trail ? (
+            <p>No sourced capacity example is available in this release.</p>
+          ) : (
+            <>
+              <span className="eyebrow">
+                {(trail?.model_id ?? "").split("-")[0]?.toUpperCase() || "MANUFACTURER"}
+              </span>
+              <h3>{trail?.model_id ?? "—"}</h3>
+              <div className="big-reading">
+                {trail?.value ?? "—"}
+                <span>{trail?.unit ?? ""}</span>
+              </div>
+              <span className="reading-label">
+                {trail?.name ?? "Capacity"} · as stated in source
+                {trail?.printed && trail.printed !== trail.name
+                  ? `, where the maker wrote “${trail.printed}”`
+                  : ""}
+              </span>
+              <div className="source-document">
+                <span className="document-symbol">PDF</span>
+                <div>
+                  <strong>
+                    {trail?.title ?? (trail?.url ?? "").split("/").pop() ?? "Manufacturer document"}
+                  </strong>
+                  <span>Original source{trail?.page ? ` · page ${trail.page}` : ""}</span>
+                </div>
+                {trail?.url && (
+                  <a
+                    href={trail.url}
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Open the original manufacturer source"
+                  >
+                    <Icon name="arrowUpRight" />
+                  </a>
+                )}
+              </div>
+              <dl>
+                <div>
+                  <dt>Evidence</dt>
+                  <dd>{trail?.confidence ?? "—"}</dd>
+                </div>
+                <div>
+                  <dt>Method</dt>
+                  <dd>
+                    {trail?.extracted_by?.startsWith("table:")
+                      ? "Table parser"
+                      : trail?.extracted_by
+                        ? "Automated extraction"
+                        : "—"}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Human review</dt>
+                  <dd className="amber-text">{trail?.reviewed_by ?? "Not yet reviewed"}</dd>
+                </div>
+              </dl>
+            </>
+          )}
         </div>
         <div className="buddy-note">
           <img src={avatar} width="45" height="45" alt="Buddy" />
@@ -154,40 +168,35 @@ export function Evidence({ db }: { db: State }) {
   );
 }
 
-interface Family {
-  family: string;
-  entries: number;
-  documented: number;
-}
-
 /** What the catalogue covers, and how much of it cites a maker's own document. */
 export function Coverage({ db }: { db: State }) {
-  const [families, setFamilies] = useState<Family[]>([]);
   const [mode, setMode] = useState<"count" | "documented">("count");
-  const [confidences, setConfidences] = useState<{ confidence: string; dialects: number }[]>([]);
+  const result = useQuery(
+    db,
+    `SELECT family, count(*) AS entries,
+      count(*) FILTER (WHERE confidence = 'vendor-doc') AS documented
+      FROM dialects GROUP BY 1 ORDER BY 2 DESC`,
+    `SELECT confidence, count(*) AS dialects FROM dialects
+      WHERE confidence IS NOT NULL GROUP BY 1 ORDER BY 2 DESC`,
+  );
+  const families =
+    result.status === "ready"
+      ? (result.data[0]?.rows ?? []).map((row) => ({
+          family: String(row.family),
+          entries: Number(row.entries),
+          documented: Number(row.documented),
+        }))
+      : [];
+  const confidences =
+    result.status === "ready"
+      ? (result.data[1]?.rows ?? []).map((row) => ({
+          confidence: String(row.confidence),
+          dialects: Number(row.dialects),
+        }))
+      : [];
 
-  useEffect(() => {
-    if (!db.ready) return;
-    void db
-      // A dialect the catalogue trusts is one whose confidence says so. The first version counted a
-      // join against dialect_sources, which every dialect satisfies — a citation is not the same
-      // claim as a maker's own document, so the toggle moved nothing and looked broken.
-      .run(`SELECT family,
-                   count(*) AS entries,
-                   count(*) FILTER (WHERE confidence = 'vendor-doc') AS documented
-            FROM dialects GROUP BY 1 ORDER BY 2 DESC`)
-      .then((answer) => setFamilies(answer.rows as unknown as Family[]))
-      .catch(() => setFamilies([]));
-    void db
-      .run(`SELECT confidence, count(*) AS dialects FROM dialects
-            WHERE confidence IS NOT NULL GROUP BY 1 ORDER BY 2 DESC`)
-      .then((answer) =>
-        setConfidences(answer.rows as unknown as { confidence: string; dialects: number }[]),
-      )
-      .catch(() => setConfidences([]));
-  }, [db]);
-
-  const value = (row: Family) => Number(mode === "count" ? row.entries : row.documented);
+  const value = (row: (typeof families)[number]) =>
+    Number(mode === "count" ? row.entries : row.documented);
   const largest = Math.max(1, ...families.map(value));
   const entries = families.reduce((n, row) => n + Number(row.entries), 0);
   const documented = families.reduce((n, row) => n + Number(row.documented), 0);
@@ -209,7 +218,7 @@ export function Coverage({ db }: { db: State }) {
             questions.
           </p>
         </div>
-        <div className="coverage-grid">
+        <div className="coverage-grid" data-loading={result.status === "loading"}>
           <div className="coverage-chart">
             <div className="chart-heading">
               <h3>Protocol catalogue</h3>
@@ -217,6 +226,7 @@ export function Coverage({ db }: { db: State }) {
               <div className="segmented" role="group" aria-label="Protocol coverage">
                 <button
                   type="button"
+                  disabled={result.status !== "ready"}
                   aria-pressed={mode === "count"}
                   onClick={() => setMode("count")}
                 >
@@ -224,6 +234,7 @@ export function Coverage({ db }: { db: State }) {
                 </button>
                 <button
                   type="button"
+                  disabled={result.status !== "ready"}
                   aria-pressed={mode === "documented"}
                   onClick={() => setMode("documented")}
                 >
@@ -232,7 +243,9 @@ export function Coverage({ db }: { db: State }) {
               </div>
             </div>
             <p>
-              {count(entries)} dialect entries across {families.length} catalogue families.
+              {result.status === "ready"
+                ? `${count(entries)} dialect entries across ${families.length} catalogue families.`
+                : "Coverage from the published protocols."}
             </p>
             <div id="coverage-bars">
               {families.map((row) => (
@@ -247,7 +260,24 @@ export function Coverage({ db }: { db: State }) {
                   <span className="bar-count">{count(value(row))}</span>
                 </div>
               ))}
-              {families.length === 0 && <p>Counting…</p>}
+              {result.status === "loading" && (
+                <DataLoading label="Counting the protocol coverage…">
+                  <Skeleton width="96%" />
+                  <Skeleton width="78%" />
+                  <Skeleton width="66%" />
+                  <Skeleton width="55%" />
+                  <Skeleton width="42%" />
+                </DataLoading>
+              )}
+              {result.status === "error" && (
+                <DataProblem
+                  label="The protocol coverage couldn’t be loaded."
+                  retry={result.retry}
+                />
+              )}
+              {result.status === "ready" && families.length === 0 && (
+                <p>No protocols are published in this release.</p>
+              )}
             </div>
             <div className="chart-foot">
               <span>Dialect entries · linear scale</span>
@@ -256,9 +286,17 @@ export function Coverage({ db }: { db: State }) {
           </div>
           <div className="coverage-aside">
             <span className="eyebrow">EVIDENCE AT A GLANCE</span>
-            <div className="coverage-number">
-              {count(documented)}
-              <span>/ {count(entries)}</span>
+            <div className="coverage-number" aria-busy={result.status === "loading"}>
+              {result.status === "loading" ? (
+                <Skeleton width="70%" />
+              ) : result.status === "error" ? (
+                "—"
+              ) : (
+                <>
+                  {count(documented)}
+                  <span>/ {count(entries)}</span>
+                </>
+              )}
             </div>
             <h3>dialects cite vendor documentation</h3>
             <p>

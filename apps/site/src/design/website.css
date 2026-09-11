@@ -956,3 +956,94 @@ dialog::backdrop {
     min-height: 44px;
   }
 }
+
+/* Reserve space for data while keeping loading, empty, and failed reads distinct. */
+.data-loading {
+  padding-block: 18px;
+}
+.data-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.loading-indicator {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+  border: 2px solid var(--color-line);
+  border-top-color: var(--color-action);
+  border-radius: 50%;
+  animation: data-spin 1s linear infinite;
+}
+.data-skeleton {
+  display: inline-block;
+  height: 0.8em;
+  min-width: 2ch;
+  max-width: 100%;
+  vertical-align: middle;
+  border-radius: 2px;
+  background: var(--color-line);
+  animation: data-pulse 1.6s ease-in-out infinite alternate;
+}
+.data-loading > div[aria-hidden] .data-skeleton {
+  display: block;
+  height: 14px;
+  margin-top: 22px;
+}
+.explorer [role="tabpanel"] > .data-loading,
+.explorer .data-problem {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--color-line);
+}
+.skeleton-row td {
+  height: 60px;
+}
+.skeleton-row:hover {
+  background: transparent;
+}
+.data-problem p {
+  color: var(--color-muted);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 14px;
+}
+.provenance-main[data-loading="true"] {
+  min-height: 400px;
+}
+.coverage-grid[data-loading="true"] .coverage-chart {
+  min-height: 380px;
+}
+.record-card .data-loading {
+  min-height: 145px;
+}
+.record-card .data-problem {
+  padding-top: 18px;
+}
+.explorer input:disabled,
+.explorer select:disabled,
+.segmented button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+@keyframes data-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes data-pulse {
+  from {
+    opacity: 0.45;
+  }
+  to {
+    opacity: 0.85;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .loading-indicator,
+  .data-skeleton {
+    animation: none;
+  }
+}

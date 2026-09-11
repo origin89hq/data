@@ -6,21 +6,40 @@ import { useEffect, useState } from "react";
 import { count, fetchIndex, type Index } from "./api.ts";
 import { Buddy } from "./Buddy.tsx";
 import { Build } from "./build.tsx";
+import { DataLoading, DataProblem, Skeleton } from "./DataState.tsx";
 import { Explorer } from "./explorer.tsx";
 import { Icon } from "./icons.tsx";
 import { Coverage, Evidence } from "./panels.tsx";
 import { type State, useDuckDb } from "./useDuckDb.ts";
+import { useQuery } from "./useQuery.ts";
 
 /** The public dataset, with counts and records from the published release. */
 export function Site() {
   const [index, setIndex] = useState<Index>();
   const [indexError, setIndexError] = useState(false);
-  const db = useDuckDb(index);
+  const [indexAttempt, setIndexAttempt] = useState(0);
+  const engine = useDuckDb(index);
+  const retryIndex = () => {
+    setIndexError(false);
+    setIndexAttempt((value) => value + 1);
+  };
+  const db: State = indexError
+    ? { ready: false, error: "The dataset index couldn’t be loaded.", retry: retryIndex }
+    : engine;
+  // biome-ignore lint/correctness/useExhaustiveDependencies: The retry counter deliberately restarts this read after failure.
   useEffect(() => {
+    let stale = false;
     void fetchIndex()
-      .then(setIndex)
-      .catch(() => setIndexError(true));
-  }, []);
+      .then((value) => {
+        if (!stale) setIndex(value);
+      })
+      .catch(() => {
+        if (!stale) setIndexError(true);
+      });
+    return () => {
+      stale = true;
+    };
+  }, [indexAttempt]);
 
   const rows = (table: string) => {
     const total = index?.files[`${table}.parquet`]?.rows;
@@ -95,9 +114,8 @@ export function Site() {
             </div>
           </div>
 
-          <div
+          <section
             className="data-flow wrap"
-            role="img"
             aria-label="Manufacturer documents and protocol references connect to equipment records, delivered as open data."
           >
             <div className="flow-caption left-caption">FROM THE SOURCE</div>
@@ -166,10 +184,15 @@ export function Site() {
                 <span>A little help from Buddy</span>
               </div>
             </div>
-          </div>
+          </section>
 
           <div className="stats-wrap wrap">
-            <div className="stats">
+            {!index && (
+              <div className="data-status" role="status">
+                {indexError ? "Dataset counts unavailable" : "Loading the latest dataset counts…"}
+              </div>
+            )}
+            <div className="stats" aria-busy={!index && !indexError}>
               {[
                 [rows("models"), "Equipment models"],
                 [rows("specs"), "Specification rows"],
@@ -177,7 +200,7 @@ export function Site() {
                 [rows("sources"), "Source records"],
               ].map(([value, label]) => (
                 <div key={label} className="stat">
-                  <strong>{value}</strong>
+                  <strong>{!index && !indexError ? <Skeleton width="80%" /> : value}</strong>
                   <span>{label}</span>
                 </div>
               ))}
@@ -258,7 +281,8 @@ export function Site() {
                 <p>{body}</p>
                 <span className="pillar-foot">
                   <span>
-                    <strong>{value}</strong> {label}
+                    <strong>{!index && !indexError ? <Skeleton width="80%" /> : value}</strong>{" "}
+                    {label}
                   </span>
                   <Icon name="arrowRight" />
                 </span>
@@ -280,21 +304,7 @@ export function Site() {
                 Follow the evidence all the way back.
               </p>
             </div>
-            {indexError ? (
-              <div className="data-load-error" role="alert">
-                <h3>The dataset couldn’t be loaded.</h3>
-                <p>Check your connection and reload to try again.</p>
-                <button
-                  className="button small"
-                  type="button"
-                  onClick={() => window.location.reload()}
-                >
-                  Reload the page
-                </button>
-              </div>
-            ) : (
-              <Explorer index={index} tier="reviewed" db={db} />
-            )}
+            <Explorer index={index} tier="reviewed" db={db} />
             <div className="explorer-helper">
               <span>
                 <span className="little-dot" /> Every record here is live from the published tables.
@@ -327,28 +337,28 @@ export function Site() {
 
 /** The card at the centre of the hero: a real figure, fetched, with its page reference. */
 function HeroRecord({ db }: { db: State }) {
-  const [figure, setFigure] = useState<{ model: string; value: string; page: string }>();
-  useEffect(() => {
-    if (!db.ready) return;
-    let stale = false;
-    void db
-      .run(`SELECT model_id, value, page FROM specs
+  const result = useQuery(
+    db,
+    `SELECT model_id, value, page FROM specs
       WHERE unit = 'Ah' AND tier = 'reviewed' AND page IS NOT NULL AND doubt IS NULL
-      ORDER BY model_id LIMIT 1`)
-      .then(({ rows }) => {
-        const row = rows[0];
-        if (!stale && row)
-          setFigure({
-            model: String(row.model_id),
-            value: String(row.value),
-            page: String(row.page),
-          });
-      })
-      .catch(() => undefined);
-    return () => {
-      stale = true;
-    };
-  }, [db]);
+      ORDER BY model_id LIMIT 1`,
+  );
+  const row = result.status === "ready" ? result.data[0]?.rows[0] : undefined;
+  const figure = row
+    ? { model: String(row.model_id), value: String(row.value), page: String(row.page) }
+    : undefined;
+
+  if (result.status === "error") {
+    return (
+      <div className="record-card">
+        <span className="record-top">
+          <img src={mark} alt="" width="34" height="19" />
+          <span>EQUIPMENT / BATTERY</span>
+        </span>
+        <DataProblem label="The source example couldn’t be loaded." retry={result.retry} />
+      </div>
+    );
+  }
 
   return (
     <a className="record-card" href="#evidence" aria-label="Inspect a capacity and its source">
@@ -357,17 +367,31 @@ function HeroRecord({ db }: { db: State }) {
         <span>EQUIPMENT / BATTERY</span>
         <Icon name="arrowUpRight" className="record-arrow" />
       </span>
-      <span className="record-name">{figure?.model ?? "Equipment & its source"}</span>
-      <span className="record-fact">
-        <span>Capacity</span>
-        <strong>
-          {figure?.value ?? "—"} <small>{"Ah"}</small>
-        </strong>
-      </span>
-      <span className="record-bottom">
-        <span className="source-mini">↳ Source{figure?.page ? ` · page ${figure.page}` : ""}</span>
-        <span className="evidence amber">Extracted</span>
-      </span>
+      {result.status === "loading" ? (
+        <DataLoading label="Finding a sourced figure…">
+          <Skeleton width="85%" />
+          <Skeleton width="60%" />
+          <Skeleton width="74%" />
+        </DataLoading>
+      ) : !figure ? (
+        <span className="record-name">No capacity example in this release</span>
+      ) : (
+        <>
+          <span className="record-name">{figure?.model ?? "Equipment & its source"}</span>
+          <span className="record-fact">
+            <span>Capacity</span>
+            <strong>
+              {figure?.value ?? "—"} <small>{"Ah"}</small>
+            </strong>
+          </span>
+          <span className="record-bottom">
+            <span className="source-mini">
+              ↳ Source{figure?.page ? ` · page ${figure.page}` : ""}
+            </span>
+            <span className="evidence amber">Extracted</span>
+          </span>
+        </>
+      )}
     </a>
   );
 }
