@@ -36,8 +36,8 @@ export default {
     // A pinned release the store lacks or failed to load is put back here, once a day, never
     // from a read; a restore that could not start every load is finished here too.
     try {
-      await reloadPinned(env, env.RELEASES);
       await restoreIfEmpty(env, env.RELEASES);
+      await reloadPinned(env, env.RELEASES);
     } catch (error) {
       console.log(JSON.stringify({ message: "pinned reload failed", error: String(error) }));
     }

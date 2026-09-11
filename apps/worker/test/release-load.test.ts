@@ -477,6 +477,36 @@ test("a store stamped with another schema version is recreated whole; one at thi
   assert.equal(stamp?.value, SCHEMA_VERSION);
 });
 
+test("a load that finds an older store recreates it and leaves the restore list, so the rest come back beside it", async () => {
+  const objects: Record<string, string> = {};
+  const ids = [R1, R2, R3];
+  for (const [i, id] of ids.entries()) {
+    published(objects, id, `2026-09-1${i}T10:00:00Z`, { models: models(1) });
+    objects[`releases/feed/${String(9 - i)}-${id}.json`] = "{}";
+  }
+  const { env, loads } = world(objects);
+  const db = env.RELEASES;
+  await db.exec("CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)");
+  await db.prepare("INSERT INTO meta VALUES ('schema_version', '0')").run();
+  await db.exec("CREATE TABLE releases (id TEXT PRIMARY KEY)");
+  // The first thing to touch the old store is a load of R1, as a publication or `POST /load` is.
+  assert.equal((await loadRelease(env.ARCHIVE, db, plain, R1, { pinned: [R3] })).outcome, "loaded");
+  assert.equal((await activeRelease(db))?.id, R1, "so the store has a row");
+  // The store has a row, and the restore still knows what else has to come back: the other
+  // recent releases and the pinned one, not the one just loaded.
+  const restored = await restoreIfEmpty(env, db, [R3]);
+  assert.deepEqual(
+    restored,
+    { started: [R3, R2], pending: [] },
+    "newest first, the pinned one among them",
+  );
+  assert.deepEqual(
+    loads.map((l) => l.params.release),
+    [R3, R2],
+  );
+  assert.deepEqual(await restoreIfEmpty(env, db, [R3]), { started: [], pending: [] }, "once");
+});
+
 test("two isolates that read one old stamp cannot both reset: the second's batch rolls back and it finds the store current", async () => {
   const objects: Record<string, string> = {};
   published(objects, R1, "2026-09-11T10:00:00Z", { models: models(1) });

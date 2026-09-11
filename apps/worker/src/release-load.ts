@@ -75,7 +75,16 @@ export async function loadRelease(
   if (omitted.length) return fail(db, step, releaseId, `the load plan omits ${omitted.join(", ")}`);
 
   const begun = await step.do("begin", async () => {
-    await createSchema(db);
+    // A load that finds the store on an older schema recreates it, and notes what has to come
+    // back beside this release, so the other recent and pinned releases are not left out
+    // behind the row this load is about to write.
+    await prepareStore(
+      bucket,
+      db,
+      options.pinned,
+      (options.recent ?? RECENT_RELEASES_KEPT) + 1,
+      releaseId,
+    );
     // One statement takes the release: a row is inserted, or a failed one taken over, and any
     // other row (loading, held, or on its way out) leaves it untouched with nothing changed, so
     // two loads of one release started together cannot both proceed into its parts.
@@ -205,7 +214,7 @@ export async function reloadPinned(
   pinned: readonly string[] = PINNED_RELEASES,
 ): Promise<string[]> {
   // A store just created has no tables yet, and a pinned release is what fills it.
-  await createSchema(db);
+  await prepareStore(env.ARCHIVE, db, pinned);
   const started: string[] = [];
   for (const release of pinned) {
     // A release the store holds, is loading, or is letting go is left alone; one whose load
@@ -232,6 +241,37 @@ export async function recentReleases(bucket: R2Bucket, n: number): Promise<strin
 /** The `meta` key under which a restore keeps the releases it has still to start. */
 const RESTORE_PENDING = "restore_pending";
 
+/** The releases the store is documented to hold and the archive has: the recent ones and the pinned ones, `except` one left out. */
+async function wantedReleases(
+  bucket: R2Bucket,
+  pinned: readonly string[],
+  recent: number,
+  except?: string,
+): Promise<string[]> {
+  const held: string[] = [];
+  for (const release of new Set([...(await recentReleases(bucket, recent)), ...pinned]))
+    if (release !== except && (await bucket.head(releaseKey(release)))) held.push(release);
+  return held;
+}
+
+/**
+ * The store's tables, and, when that meant recreating them, a note of every release that has to
+ * come back: whoever touches an old store first, a load, the daily pass or a read, leaves the
+ * restore list behind for `restoreIfEmpty` to work through, so the release that caused the reset
+ * is never the only one the store holds afterwards. Returns whether the store was recreated.
+ */
+export async function prepareStore(
+  bucket: R2Bucket,
+  db: Store,
+  pinned: readonly string[] = PINNED_RELEASES,
+  recent = RECENT_RELEASES_KEPT + 1,
+  except?: string,
+): Promise<boolean> {
+  const reset = await createSchema(db);
+  if (reset) await setRestorePending(db, await wantedReleases(bucket, pinned, recent, except));
+  return reset;
+}
+
 async function restorePending(db: Store): Promise<string[]> {
   const row = await db
     .prepare("SELECT value FROM meta WHERE key = ?")
@@ -252,13 +292,14 @@ async function setRestorePending(db: Store, releases: readonly string[]): Promis
 }
 
 /**
- * Put back what the store is documented to hold, into a store with no release at all: a
- * database just created, or one recreated for new tables. The newest release becomes active
- * as its load lands; the recent ones and the pinned ones are loaded beside it, so a retained
- * release asked for by id and a pinned evaluation are answered after a reset as before it. A
- * store with any row, even a failed one, is left as it is: a release that cannot load is a
- * person's to repair with `POST /load`, or the daily pass's for a pinned one, not every
- * isolate's to retry.
+ * Put back what the store is documented to hold. A store with no release at all, a database
+ * just created, gets the recent releases and the pinned ones; a store recreated for new tables
+ * works through the restore list `prepareStore` left, whatever rows the load that caused the
+ * reset has written since. The newest release becomes active as its load lands; the rest are
+ * loaded beside it, so a retained release asked for by id and a pinned evaluation are answered
+ * after a reset as before it. Otherwise a store with any row, even a failed one, is left as it
+ * is: a release that cannot load is a person's to repair with `POST /load`, or the daily
+ * pass's for a pinned one, not every isolate's to retry.
  *
  * The releases a restore has still to start are kept in `meta` and taken off as each load is
  * started, so a Workflow that could not be started is tried again by the next call rather than
@@ -271,13 +312,12 @@ export async function restoreIfEmpty(
   pinned: readonly string[] = PINNED_RELEASES,
   recent = RECENT_RELEASES_KEPT + 1,
 ): Promise<{ started: string[]; pending: string[] }> {
+  await prepareStore(env.ARCHIVE, db, pinned, recent);
   let wanted = await restorePending(db);
   if (wanted.length === 0) {
     const any = await db.prepare("SELECT 1 FROM releases LIMIT 1").first();
     if (any) return { started: [], pending: [] };
-    const held: string[] = [];
-    for (const release of new Set([...(await recentReleases(env.ARCHIVE, recent)), ...pinned]))
-      if (await env.ARCHIVE.head(releaseKey(release))) held.push(release);
+    const held = await wantedReleases(env.ARCHIVE, pinned, recent);
     if (held.length === 0) return { started: [], pending: [] };
     await setRestorePending(db, held);
     wanted = held;

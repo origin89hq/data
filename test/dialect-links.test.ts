@@ -59,13 +59,14 @@ test("merging links keeps the stronger evidence whichever side it came from, and
   assert.deepEqual(mergeLinks([vendor], [vendor]), [vendor], "the same citation twice is one");
   const many = (n: number, from = 0) =>
     Array.from({ length: n }, (_, i) => ({ source: `s${from + i}`, citation: "p" }));
-  assert.equal(
-    mergeLinks(
-      [{ ...vendor, evidence: { kind: "vendor-doc", sources: many(10) } }],
-      [{ ...vendor, evidence: { kind: "vendor-doc", sources: many(10, 10) } }],
-    )[0]?.evidence.sources.length,
-    16,
-    "and stays within the schema's bound, the first list's first",
+  assert.throws(
+    () =>
+      mergeLinks(
+        [{ ...vendor, evidence: { kind: "vendor-doc", sources: many(10) } }],
+        [{ ...vendor, evidence: { kind: "vendor-doc", sources: many(10, 10) } }],
+      ),
+    /links to d cite 20 sources between them, more than the 16/,
+    "more than a link may carry is refused for a person to settle, never cut",
   );
   assert.deepEqual(
     mergeLinks([{ ...register, dialect: "b" }], [{ ...catalogue, dialect: "a" }]).map(

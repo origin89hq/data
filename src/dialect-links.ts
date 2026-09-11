@@ -31,10 +31,10 @@ const RANK: Record<DialectLink["confidence"], number> = {
 };
 
 /**
- * Two links of one kind on one dialect, as one: every distinct citation of both, up to the
- * schema's bound (the first list's first), the stronger confidence, and a firmware range with
- * each bound from whichever named it. Two duplicate records a person wrote separately lose no
- * provenance when they are folded into one.
+ * Two links of one kind on one dialect, as one: every distinct citation of both, the stronger
+ * confidence, and a firmware range with each bound from whichever named it. Two duplicate
+ * records a person wrote separately lose no provenance when they are folded into one; more
+ * citations between them than a link may carry is refused, for a person to settle, never cut.
  */
 function combined(held: DialectLink, other: DialectLink): DialectLink {
   const seen = new Set<string>();
@@ -44,6 +44,10 @@ function combined(held: DialectLink, other: DialectLink): DialectLink {
     seen.add(key);
     return true;
   });
+  if (sources.length > LINK_CITATIONS)
+    throw new RangeError(
+      `the links to ${held.dialect} cite ${sources.length} sources between them, more than the ${LINK_CITATIONS} a link may carry`,
+    );
   const min = held.firmware?.min ?? other.firmware?.min;
   const max = held.firmware?.max ?? other.firmware?.max;
   return {
@@ -51,7 +55,7 @@ function combined(held: DialectLink, other: DialectLink): DialectLink {
     evidence:
       held.evidence.kind === "catalogue-name"
         ? { kind: "catalogue-name", sources: [] }
-        : { kind: held.evidence.kind, sources: sources.slice(0, LINK_CITATIONS) },
+        : { kind: held.evidence.kind, sources },
     confidence: RANK[other.confidence] > RANK[held.confidence] ? other.confidence : held.confidence,
     ...(min !== undefined || max !== undefined
       ? {
