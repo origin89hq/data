@@ -521,13 +521,20 @@ export async function readPages(
     if (out.landed.includes(page) || skip.has(page)) continue;
     out.attempted += 1;
     const answer = await get(page);
+    // Where a request landed outside the maker's hosts, unless it landed on a document host the
+    // record names with a document: that is a download link doing what it says, not a site moved.
     const away = strayed(answer, domains);
-    if (away) strayedTo.add(away);
+    const landedOnDocumentHost =
+      away !== undefined && isDocumentAnswer(answer) && hostAllowed(away, documentHosts);
+    if (away && !landedOnDocumentHost) strayedTo.add(away);
     if (!ok(answer)) {
       // One page that will not load costs its own links and nothing else.
       count(out.failed, String(answer.status));
       continue;
     }
+    // A page on the maker's hosts vouches for a document on a host the record names; a page that
+    // landed on another site vouches for nothing there.
+    const keep = away && !landedOnDocumentHost ? domains : [...domains, ...documentHosts];
     if (!isPage(answer)) {
       // A page that answered with a document, by its address or its media type, is that document:
       // offered where it landed, with the page it was asked for as where it was found. Anything
@@ -539,7 +546,7 @@ export async function readPages(
         continue;
       }
       out.answered.push(page);
-      if (hostAllowed(host, domains)) out.links.push({ url: answer.url, host, foundOn: page });
+      if (hostAllowed(host, keep)) out.links.push({ url: answer.url, host, foundOn: page });
       else {
         const urls = out.foreign[host] ?? [];
         if (!urls.includes(answer.url)) urls.push(answer.url);
@@ -551,7 +558,6 @@ export async function readPages(
     out.landed.push(answer.url);
     out.opened.push(page);
     // Links resolve against where the page actually is, which after a redirect is not where it was asked for.
-    const keep = away ? domains : [...domains, ...documentHosts];
     for (const doc of linkedDocuments(answer.text, answer.url)) {
       if (hostAllowed(doc.host, keep)) out.links.push(doc);
       else {

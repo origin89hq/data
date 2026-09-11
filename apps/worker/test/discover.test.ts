@@ -581,6 +581,8 @@ test("links are followed product and download pages first, in the order they wer
 
 test("a document on a host the record names is the maker's when its own page links it, and not otherwise", async () => {
   const { get } = site({
+    // A download link on the maker's site that lands on its CDN is the maker's document.
+    "https://maker.test/manual": { url: "https://cdn.shop.test/s/files/1/direct.pdf" },
     "https://maker.test/product/a": `<a href="https://cdn.shop.test/s/files/1/a-manual.pdf">manual</a><a href="https://other-cdn.test/x.pdf">elsewhere</a>`,
     "https://maker.test/moved": {
       url: "https://www.newname.test/moved",
@@ -588,12 +590,17 @@ test("a document on a host the record names is the maker's when its own page lin
     },
   });
   const read = await readPages(
-    ["https://maker.test/product/a", "https://maker.test/moved"],
+    ["https://maker.test/manual", "https://maker.test/product/a", "https://maker.test/moved"],
     ["maker.test"],
     get,
     ["cdn.shop.test"],
   );
   assert.deepEqual(read.links, [
+    {
+      url: "https://cdn.shop.test/s/files/1/direct.pdf",
+      host: "cdn.shop.test",
+      foundOn: "https://maker.test/manual",
+    },
     {
       url: "https://cdn.shop.test/s/files/1/a-manual.pdf",
       host: "cdn.shop.test",
