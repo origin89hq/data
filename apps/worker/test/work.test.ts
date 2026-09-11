@@ -1,7 +1,15 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
-import { batches, LAST_ATTEMPT, partKey, SEND_BATCH, sendGroups, Work } from "../src/work.ts";
+import {
+  batches,
+  LAST_ATTEMPT,
+  MOST_WINDOWS,
+  partKey,
+  SEND_BATCH,
+  sendGroups,
+  Work,
+} from "../src/work.ts";
 
 test("a page message names its page and the pages it belongs to, and cannot name a page past the last", () => {
   const page = {
@@ -146,6 +154,22 @@ test("a document message carries a real content hash, so a key cannot be forged 
   assert.equal(Work.safeParse({ ...good, sha256: "../../etc/passwd" }).success, false);
   assert.equal(Work.safeParse({ ...good, sha256: "abc" }).success, false);
   assert.equal(Work.safeParse({ ...good, url: "not a url" }).success, false);
+});
+
+test("an extract message may ask for at most as many windows as one invocation can read and keep", () => {
+  const extract = {
+    kind: "extract",
+    manufacturer: "m",
+    date: "d",
+    run: "r",
+    sha256: "a".repeat(64),
+    url: "https://x.test/a.pdf",
+    key: "archive/a.md",
+  };
+  assert.equal(Work.safeParse(extract).success, true, "the default budget");
+  assert.equal(Work.safeParse({ ...extract, maxWindows: MOST_WINDOWS }).success, true);
+  assert.equal(Work.safeParse({ ...extract, maxWindows: MOST_WINDOWS + 1 }).success, false);
+  assert.ok(MOST_WINDOWS * 2 < 1000, "a call and a write a window, under the subrequest limit");
 });
 
 test("result keys are derived from the run, so a reader knows what to look for and two runs never mix", () => {

@@ -2,6 +2,13 @@ import { Sighting } from "@origin89/equipment-schema/sighting";
 import { z } from "zod";
 
 /**
+ * The most windows one extract message may ask for. Each window read is a model call and an R2
+ * write, and a delivery after a failure reads back every window kept; at four hundred that stays
+ * well under the thousand subrequests one Worker invocation may make.
+ */
+export const MOST_WINDOWS = 400;
+
+/**
  * Work that fans out. These are independent units with no order between them: one batch of
  * listings to classify, one document to convert, one document to read. They were workflow steps
  * once, which meant five hundred model calls running strictly one after another inside a single
@@ -46,7 +53,7 @@ export const Work = z.discriminatedUnion("kind", [
       /** The markdown to read, which the conversion wrote. */
       key: z.string().min(1),
       /** Windows this message may read, so one long manual cannot spend a run's whole budget. */
-      maxWindows: z.number().int().positive().optional(),
+      maxWindows: z.number().int().positive().max(MOST_WINDOWS).optional(),
     })
     .strict(),
   z
