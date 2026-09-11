@@ -78,6 +78,12 @@ export function world(
         else sha256s.set(key, digest);
         return { key, size: bytes.length };
       },
+      delete: async (keys: string | string[]) => {
+        for (const key of Array.isArray(keys) ? keys : [keys]) {
+          store.delete(key);
+          sha256s.delete(key);
+        }
+      },
       list: async ({
         prefix = "",
         limit = 1000,

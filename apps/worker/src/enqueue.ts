@@ -1,6 +1,7 @@
 import { withoutTranslations } from "@origin89/equipment-schema/documents";
 import { Sighting } from "@origin89/equipment-schema/sighting";
 import { classifierKey } from "./classify.ts";
+import { clearPrefix } from "./feeds.ts";
 import { CONVERTER, EXTRACTOR_ID, VISION_EXTRACTOR_ID } from "./reading.ts";
 import { pointerKey, readPointer, runPrefix } from "./runs.ts";
 import { batches, sendAll, type Work } from "./work.ts";
@@ -56,6 +57,13 @@ export async function classifyRun(
         sightings.push(Sighting.parse(JSON.parse(line)));
   }
 
+  // Classifying a run again replaces what the last classification wrote. An old part left in place
+  // counted toward the new manifest before the new part landed, and stood in for one that never
+  // did. The manifest goes first, so the run reads as unclassified until every part is sent again.
+  const guesses = runPrefix.guesses(seller, pointer.run, classifierKey());
+  await env.ARCHIVE.delete(`${guesses}/manifest.json`);
+  await clearPrefix(env.ARCHIVE, `${guesses}/`);
+
   const parts = batches(sightings, CLASSIFY_BATCH);
   await sendAll(
     env.WORK,
@@ -71,7 +79,7 @@ export async function classifyRun(
     ),
   );
   await env.ARCHIVE.put(
-    `${runPrefix.guesses(seller, pointer.run, classifierKey())}/manifest.json`,
+    `${guesses}/manifest.json`,
     JSON.stringify(
       {
         seller,
