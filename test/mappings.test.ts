@@ -413,6 +413,8 @@ test("NOCO: the NLX's voltage, energy and both battery currents, its capacity as
   const charger = of("noco-genpro10x1");
   assert.equal(gap(charger.gaps, "charge.current.max")?.reason, "unparsed");
   assert.equal(values(charger.properties, "battery.charge.current.max").length, 0);
+  // The Genius 2D manual prints the same name for a 2 A maintainer; the rules read the GEN and GENPRO sheets only.
+  assert.equal(gap(of("noco-noco").gaps, "charge.current.max")?.claims, 0);
 });
 
 test("OutBack's VA figures reach the apparent-power keys through the watt rules that name them", () => {

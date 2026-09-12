@@ -45,7 +45,7 @@
     "noco": {
       "values": 31,
       "conflicts": 0,
-      "unparsed": 13,
+      "unparsed": 12,
       "needsConditions": 8
     },
     "outback-power": {
@@ -208,9 +208,9 @@
       "values": 78,
       "partial": 6,
       "conflicts": 0,
-      "unparsed": 5,
+      "unparsed": 4,
       "needsConditions": 0,
-      "noClaim": 527
+      "noClaim": 528
     },
     "charge.current.max dc-dc-converter": {
       "models": 97,

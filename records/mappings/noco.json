@@ -39,7 +39,16 @@
       "names": [
         "Charging Current"
       ],
-      "basis": "The GEN and GENPRO charger sheets state 'Charging Current' per bank, '5A (12V)' or '10A (12V)'; a multi-bank figure such as '10Ax2(12V)' is refused until it is read as one bank's."
+      "source": "doc-00ff466d0b0d3154c3a2e609718dee8b",
+      "basis": "The GEN5X sheet states 'Charging Current' per bank, '5A (12V)' or '5Ax2(12V)'; a multi-bank figure is refused until it is read as one bank's. The bare name is read on the GEN and GENPRO sheets only, since the Genius 2D manual prints it for a 2 A maintainer."
+    },
+    {
+      "key": "charge.current.max",
+      "names": [
+        "Charging Current"
+      ],
+      "source": "doc-cf8d6e88f0e991f6dfcfeac716330de0",
+      "basis": "The GENPRO10X sheet states 'Charging Current' per bank, '10A (12V)' or '10Ax2(12V)', read like the GEN5X sheet's."
     },
     {
       "key": "battery.discharge.current.max",
