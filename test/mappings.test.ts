@@ -125,3 +125,74 @@ test("Samlex: the PST's watts and its surge without a time, the SEC's bulk capac
   );
   assert.ok(own("samlex-america", [...sec, ...values(scc, "pv.voc.max")]));
 });
+
+test("OutBack: the Radian's watts, its three idle modes, the charger's amps, and its kVA overload figures as gaps", () => {
+  const { properties, gaps } = of("outback-power-gs4048a");
+  assert.deepEqual(
+    values(properties, "inverter.power.continuous").map((p) => p.value),
+    [3600],
+  );
+  assert.deepEqual(
+    values(properties, "inverter.power.idle").map((p) => [p.value, p.conditions.mode]),
+    [
+      [34, "invert"],
+      [10, "search"],
+      [4, "off"],
+    ],
+  );
+  assert.deepEqual(
+    values(properties, "charge.current.max").map((p) => p.value),
+    [57.5],
+  );
+  assert.equal(gap(gaps, "inverter.power.surge")?.reason, "unparsed");
+  const flexmax = of("outback-power-flexmax-60").properties;
+  assert.deepEqual(
+    values(flexmax, "charge.current.max").map((p) => p.value),
+    [60],
+  );
+  assert.deepEqual(
+    values(flexmax, "pv.voc.max").map((p) => [p.value, p.claim]),
+    [[150, "outback-power-flexmax-60--pv-array-voltage"]],
+  );
+  assert.ok(own("outback-power", values(flexmax, "pv.voc.max")));
+  // The GS3548E prints a 50 A continuous charge beside its 55 A maximum; only the maximum is read.
+  const gs3548 = of("outback-power-gs3548e");
+  assert.deepEqual(
+    values(gs3548.properties, "charge.current.max").map((p) => p.value),
+    [55],
+  );
+  assert.equal(gap(gs3548.gaps, "charge.current.max"), undefined);
+  // The VFXR is an inverter/charger: its sheet prints a battery charger output, read under the charge key.
+  assert.deepEqual(
+    values(of("outback-power-vfxr3048e").properties, "charge.current.max").map((p) => p.value),
+    [40],
+  );
+  assert.deepEqual(
+    values(of("outback-power-skybox-sbx5048-120-240").properties, "pv.mppt.window").map((p) => [
+      p.min,
+      p.max,
+    ]),
+    [[200, 600]],
+  );
+  assert.deepEqual(
+    values(of("outback-power-skybox-sbx5048-120-240").properties, "pv.isc.max").map((p) => [
+      p.value,
+      p.unit,
+    ]),
+    [[32, "A"]],
+  );
+  // Two FLEXmax 60 manuals state the same 48 A under two wordings: one property.
+  assert.deepEqual(
+    values(flexmax, "pv.isc.max").map((p) => p.value),
+    [48],
+  );
+  assert.deepEqual(
+    values(of("outback-power-fx2012t").properties, "battery.voltage.nominal").map((p) => p.values),
+    [[12]],
+  );
+  const plr = values(of("outback-power-energycell-plr").properties, "battery.voltage.nominal");
+  assert.deepEqual(
+    plr.map((p) => p.values),
+    [[12]],
+  );
+});

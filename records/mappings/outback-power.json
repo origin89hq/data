@@ -1,0 +1,145 @@
+{
+  "id": "outback-power",
+  "version": 1,
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-12",
+  "rules": [
+    {
+      "key": "inverter.power.continuous",
+      "names": [
+        "Output power rating",
+        "AC maximum continuous output power to 45°C"
+      ],
+      "basis": "The Radian GS4048A and GS8048A grid-interactive declarations state 'Output power rating' in watts; the ProHarvest PRO208V and PRO480V sheets state the continuous output to 45 °C as 'kWac', which the parser does not take as a unit, so it is a gap that names the figure. The FX and Radian sheets print theirs in VA under the shared names."
+    },
+    {
+      "key": "inverter.power.surge",
+      "names": [
+        "AC Overload Capability - Surge",
+        "Overload Capability (100 ms surge)",
+        "AC Overload Capability (100 ms surge)",
+        "Overload Capacity 100ms Surge",
+        "Overload Capacity 5 seconds",
+        "Overload Capacity 30 minutes",
+        "peak surge capacity",
+        "AC Overload Capability (30 minute)",
+        "AC Overload Capability (5 second)",
+        "AC Overload Capability - 30 Minutes",
+        "AC Overload Capability - 5 Second",
+        "Overload Capability (30 minute)",
+        "Overload Capability (5 second)"
+      ],
+      "basis": "The FX, GFX, FXR and Radian sheets state overload capability in VA for 100 ms, 5 s and 30 min under these names, the time in the name; every one is in VA and reads as a gap until an apparent-power key exists."
+    },
+    {
+      "key": "inverter.power.idle",
+      "names": [
+        "Idle Power - Full AC Output"
+      ],
+      "conditions": {
+        "mode": "full AC output"
+      },
+      "basis": "The FX, GTFX and GVFX sheets state idle power with full AC output on, beside the search-mode figure; the mode is the sheet's words, and '≈ 20 watts DC' is refused as an approximation."
+    },
+    {
+      "key": "inverter.power.idle",
+      "names": [
+        "Power Consumption (idle) – Invert mode, no load",
+        "Idle Consumption - Invert mode, no load",
+        "Idle Consumption (Invert Mode, No Load)",
+        "Power Consumption (idle) – Search mode"
+      ],
+      "basis": "The GFX sheets, the FXR and Radian manuals and the Radian sheets state idle consumption in invert mode and in search mode, each with its mode in its name."
+    },
+    {
+      "key": "inverter.power.idle",
+      "names": [
+        "Power Consumption – Off"
+      ],
+      "conditions": {
+        "mode": "off"
+      },
+      "basis": "The FXR and Radian manuals state what the unit draws when off, 3 to 4 W."
+    },
+    {
+      "key": "inverter.voltage.ac",
+      "names": [
+        "AC Output Output Voltage"
+      ],
+      "basis": "The Radian GS3548E and GS7048E manual's heading, printed twice, for the 230 V output."
+    },
+    {
+      "key": "battery.voltage.nominal",
+      "names": [
+        "DC Input Voltage (nominal)",
+        "Voltage Per Unit",
+        "Voltage Per Unit (nominal)",
+        "Nominal DC Input Voltage Range"
+      ],
+      "basis": "The FXR and Radian manuals state the nominal DC input, 48 V; the EnergyCell sheets state the voltage per unit, 12 or 48 V, the PLR sheet with '(nominal)' in the name. The FX, GTFX, GVFX and OBX sheets print one bank voltage under 'Nominal DC Input Voltage Range', 12, 24 or 48 V."
+    },
+    {
+      "key": "charge.current.max",
+      "names": [
+        "Maximum DC Output",
+        "Continuous Battery Charger Output",
+        "Battery Charger Maximum DC Output",
+        "Battery Charger Max Continuous DC Output",
+        "Output current limit"
+      ],
+      "basis": "The FX sheets state the charger's 'Maximum DC Output' in amps, 80 A for the FX2012MT, and with the GTFX, GVFX and OBX sheets the continuous battery charger output; the GFX sheets and the FXR and Radian manuals name the battery charger's maximum DC output; the Radian sheets' 'Continuous Battery Charge Output', 50 A on the GS3548E beside its 55 A maximum, is the continuous rating below the key's and is not read; the FLEXmax sheets state the controller's output current limit, 60, 80 or 100 A, which is the model's rating."
+    },
+    {
+      "key": "pv.voc.max",
+      "names": [
+        "PV Open Circuit Voltage",
+        "PV array voltage",
+        "Maximum open circuit voltage per String, VOC"
+      ],
+      "basis": "The FLEXmax sheets state '150 Vdc maximum' and '150 Voc' for the array; the ProHarvest PRO208V and PRO480V sheets state the open-circuit limit per string."
+    },
+    {
+      "key": "pv.voc.max",
+      "names": [
+        "Maximum input voltage"
+      ],
+      "source": "doc-5e79e2c2ee4068b9e9360b231625f40b",
+      "basis": "The SkyBox SBX5048 sheet states the PV input's maximum voltage, 600 V; the bare name is read from that sheet only."
+    },
+    {
+      "key": "pv.isc.max",
+      "names": [
+        "DC maximum source short circuit current",
+        "Largest PV array rated short-circuit current",
+        "rated short-circuit current of the largest PV array",
+        "Maximum Input Current (short-circuit)",
+        "Maximum short circuit current of the DC source"
+      ],
+      "basis": "The ProHarvest PRO208V and PRO480V sheets state the source's short-circuit limit per input; the FLEXmax 60 manuals state the largest array's rated short-circuit current, 48 A, the FLEXmax 100 sheet its maximum input current at short circuit, 64 A, and the PHXL480 sheet the DC source's short-circuit limit."
+    },
+    {
+      "key": "pv.isc.max",
+      "names": [
+        "Maximum input short circuit current"
+      ],
+      "source": "doc-5e79e2c2ee4068b9e9360b231625f40b",
+      "basis": "The SkyBox SBX5048 sheet states the PV input's short-circuit limit in a table headed in amps, 32, with no unit on the line, so it is read in amps.",
+      "unit": "A"
+    },
+    {
+      "key": "pv.mppt.window",
+      "names": [
+        "Full power MPPT range, per string"
+      ],
+      "basis": "The ProHarvest PRO208V and PRO480V sheets state the MPPT range per string."
+    },
+    {
+      "key": "pv.mppt.window",
+      "names": [
+        "Range of input operating voltage"
+      ],
+      "source": "doc-5e79e2c2ee4068b9e9360b231625f40b",
+      "basis": "The SkyBox SBX5048 sheet states the PV input's operating range, 200 to 600 V."
+    }
+  ]
+}
