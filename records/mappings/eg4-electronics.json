@@ -1,0 +1,82 @@
+{
+  "id": "eg4-electronics",
+  "version": 1,
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-12",
+  "rules": [
+    {
+      "key": "inverter.power.continuous",
+      "names": [
+        "Continuous output"
+      ],
+      "basis": "The 12kPV sheet states the continuous output in kilowatts."
+    },
+    {
+      "key": "inverter.power.idle",
+      "names": [
+        "IDLE CONSUMPTION (STANDBY MODE)"
+      ],
+      "basis": "The 12kPV sheet states the idle consumption in standby as a bound, '<55W', which is refused until a figure is printed; the mode is in the name."
+    },
+    {
+      "key": "battery.voltage.nominal",
+      "names": [
+        "NOMINAL VOLTAGE"
+      ],
+      "source": "doc-f8d6e94548fc59e6c81c2065997fda66",
+      "basis": "The 12kPV sheet states 'NOMINAL VOLTAGE' as 48 V under its battery; the bare heading means what its sheet makes it mean, so the rule reads that sheet only."
+    },
+    {
+      "key": "battery.voltage.nominal",
+      "names": [
+        "NOMINAL VOLTAGE"
+      ],
+      "source": "doc-b114664a3c9c6089363137ed512a8900",
+      "basis": "The LFP-12-100 battery sheet states its nominal voltage, 12.8 V."
+    },
+    {
+      "key": "battery.voltage.nominal",
+      "names": [
+        "Battery voltage"
+      ],
+      "basis": "The battery sheets state 'Battery voltage' as 12 V and the Chargeverter sheet as '48VDC nominal'."
+    },
+    {
+      "key": "charge.current.max",
+      "names": [
+        "Maximum DC Output Current"
+      ],
+      "basis": "The Chargeverter sheets state the DC output current, 45 or 50 A."
+    },
+    {
+      "key": "pv.isc.max",
+      "names": [
+        "MAX. SHORT CIRCUIT INPUT CURRENT"
+      ],
+      "basis": "The 12kPV sheet states the short-circuit input current per MPPT as '31/31A', read as one per-input figure."
+    },
+    {
+      "key": "pv.power.max",
+      "names": [
+        "Maximum PV Power Utilized",
+        "MAXIMUM UTILIZED SOLAR POWER"
+      ],
+      "basis": "The 12K mini split and 12kPV sheets state the PV power the unit uses; 'Maximum Recommended PV Array Size' and 'RECOMMENDED MAXIMUM SOLAR INPUT' are array sizes above it and are not read."
+    },
+    {
+      "key": "pv.mppt.window",
+      "names": [
+        "MPPT"
+      ],
+      "source": "doc-9da6e95be24a9b9e9e5f403134dbf615",
+      "basis": "The 12K mini split sheet prints the tracker's range under the bare heading 'MPPT', '90 to 380 VDC'; the heading says nothing on its own, so the rule reads that sheet only."
+    },
+    {
+      "key": "battery.energy",
+      "names": [
+        "Storage capacity"
+      ],
+      "basis": "The WP-12V waterproof battery sheet states its storage capacity in kilowatt-hours, 1.28, which is its energy."
+    }
+  ]
+}
