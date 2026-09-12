@@ -1002,3 +1002,37 @@ test("a bounded value in VA and W is refused on both keys, not read as two exact
     ],
   );
 });
+
+test("a quantity printed twice around another is refused on its key rather than read from the first part", () => {
+  const { properties, gaps } = build({
+    models: [hybrid],
+    mappings: [
+      acme({
+        rules: [{ key: "inverter.power.continuous", names: ["Rated output power"], basis: "w" }],
+      }),
+    ],
+    specs: [
+      figure(hybrid.id, "Rated output power", "6KVA/5KW/4KVA"),
+      // A unit field does not hide the quantities in the text.
+      figure(hybrid.id, "Rated output power", "3KVA/3KW", { unit: "VA", source: "doc-b" }),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.key, p.value, p.unit, p.status]),
+    [
+      ["inverter.power.apparent", 3000, "VA", "value"],
+      ["inverter.power.continuous", 5000, "W", "conflict"],
+      ["inverter.power.continuous", 3000, "W", "conflict"],
+    ],
+  );
+  assert.deepEqual(
+    gaps.find((g) => g.key === "inverter.power.apparent"),
+    {
+      model: hybrid.id,
+      key: "inverter.power.apparent",
+      reason: "unparsed",
+      detail: "a set where a scalar is needed, beside 1 usable figure",
+      claims: 2,
+    },
+  );
+});

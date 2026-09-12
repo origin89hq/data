@@ -312,6 +312,19 @@ test("a value printed in two quantities splits into a part for each, and a unit 
     { quantity: "power", value: "1200 Watt at PF = 0.95" },
   ]);
   assert.deepEqual(printedQuantities("Pure sine wave", undefined), []);
+  // A unit in the text outranks the unit field; the field covers only parts without one.
+  assert.deepEqual(printedQuantities("6KVA/6KW", "VA"), [
+    { quantity: "apparent-power", value: "6KVA" },
+    { quantity: "power", value: "6KW" },
+  ]);
+  assert.deepEqual(printedQuantities("6000", "VA"), [
+    { quantity: "apparent-power", value: "6000" },
+  ]);
+  assert.deepEqual(printedQuantities("6KVA/5KW/4KVA", undefined), [
+    { quantity: "apparent-power", value: "6KVA" },
+    { quantity: "power", value: "5KW" },
+    { quantity: "apparent-power", value: "4KVA" },
+  ]);
   // A bound stays on every part, so neither becomes an exact figure.
   assert.deepEqual(printedQuantities("up to 6KVA/6KW", undefined), [
     { quantity: "apparent-power", value: "up to 6KVA" },

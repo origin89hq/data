@@ -274,17 +274,25 @@ function read(claim: Claim, property: Property, reference: number | undefined): 
 }
 
 /**
- * A claim's value narrowed to the parts printed in `property`'s quantity, or nothing when none is:
- * "6KVA/6KW" is "6KW" to a watt key and "6KVA" to its VA sibling, each with the duration the
- * value stated. A value in one quantity comes back whole.
+ * A claim narrowed to the parts of its value printed in `property`'s quantity, or nothing when
+ * none is: "6KVA/6KW" is "6KW" to a watt key and "6KVA" to its VA sibling, each with the
+ * duration the value stated and without the unit field, since each part carries its own unit. A
+ * value in one quantity comes back as it is; a quantity printed twice around another,
+ * "6KVA/5KW/4KVA", comes back as both parts, which a scalar key refuses rather than taking the
+ * first.
  */
-function partFor(claim: Claim, property: Property): string | undefined {
+function partFor(claim: Claim, property: Property): Claim | undefined {
   const split = splitDuration(claim.value);
   const parts = printedQuantities(split.value, claim.unit);
-  const own = parts.find((p) => p.quantity === property.quantity);
-  if (!own) return undefined;
-  if (parts.length === 1) return claim.value;
-  return split.duration === undefined ? own.value : `${own.value} for ${split.duration} s`;
+  const own = parts.filter((p) => p.quantity === property.quantity);
+  if (own.length === 0) return undefined;
+  if (parts.length === 1) return claim;
+  const value = own.map((p) => p.value).join("/");
+  return {
+    ...claim,
+    value: split.duration === undefined ? value : `${value} for ${split.duration} s`,
+    unit: undefined,
+  };
 }
 
 const shown = (parsed: Parsed): string =>
@@ -457,9 +465,9 @@ export function buildProperties(input: PropertiesInput): PropertiesOutput {
       for (const claim of claimsByKey.get(property.key) ?? []) {
         const apparent = partFor(claim, sibling);
         const real = partFor(claim, property);
-        if (apparent !== undefined) moves.push({ ...claim, value: apparent });
-        if (real !== undefined) stays.push({ ...claim, value: real });
-        else if (apparent === undefined) stays.push(claim);
+        if (apparent) moves.push(apparent);
+        if (real) stays.push(real);
+        else if (!apparent) stays.push(claim);
       }
       claimsByKey.set(property.key, stays);
       if (moves.length > 0)

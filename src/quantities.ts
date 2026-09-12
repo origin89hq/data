@@ -217,8 +217,9 @@ function looseUnit(part: string): Unit | undefined {
  * be read.
  */
 export function printedQuantities(value: string, unit: string | undefined): PrintedPart[] {
+  // A unit in the text says more than the unit field: "6KVA/6KW" in a field marked VA is still
+  // two quantities. The field is what a part with no unit of its own is printed in.
   const given = canonicalUnit(unit);
-  if (given) return [{ quantity: QUANTITY_OF[given] as Quantity, value }];
   const printed = value.trim().replace(/[“”]/g, '"').replace(/\s+/g, " ");
   // A bound belongs to every part it qualifies: "up to 6KVA/6KW" is two bounded figures, not two figures.
   const bound = BOUND.exec(printed)?.[0] ?? "";
@@ -226,6 +227,9 @@ export function printedQuantities(value: string, unit: string | undefined): Prin
   const parts = text.split(/\s*\/\s*(?=[-\d])/).map((part) => `${bound}${part}`);
   const units: (Unit | undefined)[] = parts.map((part) => looseUnit(part.slice(bound.length)));
   for (let i = units.length - 2; i >= 0; i--) units[i] ??= units[i + 1];
+  if (given && units.every((u) => u === undefined))
+    return [{ quantity: QUANTITY_OF[given] as Quantity, value }];
+  for (let i = 0; i < units.length; i++) units[i] ??= given;
   const out: PrintedPart[] = [];
   parts.forEach((part, i) => {
     const u = units[i];
