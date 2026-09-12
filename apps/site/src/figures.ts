@@ -12,7 +12,7 @@ export const figuresQuery = (
     src.title AS document, src.url AS document_url
     FROM specs s LEFT JOIN sources src ON src.id = s.source_id
     WHERE s.model_id = '${model.replaceAll("'", "''")}' AND s.tier <> 'feed'
-    ORDER BY CASE WHEN s.doubt IS NULL THEN 0 ELSE 1 END, figure, document LIMIT 60`;
+    ORDER BY CASE WHEN s.doubt IS NULL THEN 0 ELSE 1 END, figure, document, document_url LIMIT 60`;
 
 export interface FigureRow {
   figure?: unknown;
@@ -24,17 +24,34 @@ export interface FigureRow {
   document_url?: unknown;
 }
 
-/** The document a figure comes from, as a person would name it: its title, else its site, else nothing. */
+/**
+ * The document a figure comes from, as a person would name it: its title when the record has
+ * one, else the file's own name off its address, else the site. No source record carries a title
+ * yet, and one site publishes many files, so the file name is what tells the GS4048A brochure
+ * from its operator manual.
+ */
 export function documentLabel(
   row: Pick<FigureRow, "document" | "document_url">,
 ): string | undefined {
   if (typeof row.document === "string" && row.document.trim()) return row.document.trim();
   if (typeof row.document_url === "string" && row.document_url.trim()) {
+    let url: URL;
     try {
-      return new URL(row.document_url).hostname.replace(/^www\./, "");
+      url = new URL(row.document_url);
     } catch {
       return row.document_url.trim();
     }
+    const file = url.pathname.split("/").filter(Boolean).at(-1);
+    if (file) {
+      let name = file;
+      try {
+        name = decodeURIComponent(file);
+      } catch {
+        // Not percent-encoded as a whole; the raw segment still names the file.
+      }
+      return name.replace(/\.(pdf|html?|php|aspx?)$/i, "");
+    }
+    return url.hostname.replace(/^www\./, "");
   }
   return undefined;
 }
