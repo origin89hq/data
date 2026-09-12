@@ -56,12 +56,71 @@ export function documentLabel(
   return undefined;
 }
 
-/** "Datasheet · page 3", "Datasheet", "page 3", or nothing: the document and the page, whichever the row has. */
+/** The path segments of an address, decoded, without the empty ones. */
+function segments(url: string): string[] {
+  let path: string;
+  try {
+    path = new URL(url).pathname;
+  } catch {
+    return [];
+  }
+  return path
+    .split("/")
+    .filter(Boolean)
+    .map((segment) => {
+      try {
+        return decodeURIComponent(segment);
+      } catch {
+        return segment;
+      }
+    });
+}
+
+/**
+ * One label per document among a model's figures, by address. A maker publishes the same file
+ * name under two directories, `MultiPlus-II_GX/` and `MultiPlus-II_4k5_6k5_GX/`, for two
+ * documents; where two addresses come out with one name, the directory above the file is put in
+ * front, and the whole path when that is still not enough.
+ */
+export function documentLabels(
+  rows: readonly Pick<FigureRow, "document" | "document_url">[],
+): Map<string, string> {
+  const labels = new Map<string, string>();
+  for (const row of rows) {
+    if (typeof row.document_url !== "string" || labels.has(row.document_url)) continue;
+    const label = documentLabel(row);
+    if (label) labels.set(row.document_url, label);
+  }
+  for (const depth of [2, Number.POSITIVE_INFINITY]) {
+    const byLabel = new Map<string, string[]>();
+    for (const [url, label] of labels) byLabel.set(label, [...(byLabel.get(label) ?? []), url]);
+    for (const urls of byLabel.values()) {
+      if (urls.length < 2) continue;
+      for (const url of urls) {
+        const parts = segments(url);
+        if (parts.length < 2) continue;
+        const shown = parts.slice(-Math.min(depth, parts.length));
+        const last = shown.length - 1;
+        shown[last] = (shown[last] ?? "").replace(/\.(pdf|html?|php|aspx?)$/i, "");
+        labels.set(url, shown.join("/"));
+      }
+    }
+  }
+  return labels;
+}
+
+/**
+ * "Datasheet · page 3", "Datasheet", "page 3", or nothing: the document and the page, whichever
+ * the row has. `labels`, from [`documentLabels`], names the document apart from the model's others.
+ */
 export function provenanceLabel(
   row: Pick<FigureRow, "document" | "document_url" | "page">,
+  labels?: ReadonlyMap<string, string>,
 ): string | undefined {
   const parts: string[] = [];
-  const document = documentLabel(row);
+  const document =
+    (typeof row.document_url === "string" ? labels?.get(row.document_url) : undefined) ??
+    documentLabel(row);
   if (document) parts.push(document);
   if (row.page !== null && row.page !== undefined) parts.push(`page ${String(row.page)}`);
   return parts.length > 0 ? parts.join(" · ") : undefined;

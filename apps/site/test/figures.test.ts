@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { documentLabel, figuresQuery, provenanceLabel } from "../src/figures.ts";
+import { documentLabel, documentLabels, figuresQuery, provenanceLabel } from "../src/figures.ts";
 
 test("a figure names its document by title, else by its file, else by its site, and the page beside it", () => {
   assert.equal(
@@ -39,6 +39,47 @@ test("a figure names its document by title, else by its file, else by its site, 
   assert.equal(provenanceLabel({ document: null, document_url: null, page: 3 }), "page 3");
   assert.equal(provenanceLabel({ document: null, document_url: null, page: null }), undefined);
   assert.equal(documentLabel({ document: "  ", document_url: "not a url" }), "not a url");
+});
+
+test("two documents published under one file name are told apart by the directory above it", () => {
+  const gx =
+    "https://www.victronenergy.com/upload/documents/MultiPlus-II_GX/2983-MultiPlus-II_GX-pdf-en.pdf";
+  const big =
+    "https://www.victronenergy.com/upload/documents/MultiPlus-II_4k5_6k5_GX/2983-MultiPlus-II_GX-pdf-en.pdf";
+  const other = "https://www.victronenergy.com/upload/documents/Manual.pdf";
+  const rows = [
+    { document: null, document_url: gx, page: 2 },
+    { document: null, document_url: big, page: 2 },
+    { document: null, document_url: gx, page: 5 },
+    { document: null, document_url: other, page: 1 },
+  ];
+  const labels = documentLabels(rows);
+  assert.equal(labels.get(gx), "MultiPlus-II_GX/2983-MultiPlus-II_GX-pdf-en");
+  assert.equal(labels.get(big), "MultiPlus-II_4k5_6k5_GX/2983-MultiPlus-II_GX-pdf-en");
+  // A file name no other document shares keeps its short label.
+  assert.equal(labels.get(other), "Manual");
+  assert.equal(
+    provenanceLabel(rows[0] ?? {}, labels),
+    "MultiPlus-II_GX/2983-MultiPlus-II_GX-pdf-en · page 2",
+  );
+  // Same directory name too: the whole path is what is left to tell them apart.
+  const deep = documentLabels([
+    { document: null, document_url: "https://x.example/a/docs/sheet.pdf" },
+    { document: null, document_url: "https://x.example/b/docs/sheet.pdf" },
+  ]);
+  assert.equal(deep.get("https://x.example/a/docs/sheet.pdf"), "a/docs/sheet");
+  assert.equal(deep.get("https://x.example/b/docs/sheet.pdf"), "b/docs/sheet");
+  // A title is a title; two documents with one title are the record's problem, not the label's.
+  assert.equal(
+    documentLabels([{ document: "Datasheet", document_url: "https://x.example/d.pdf" }]).get(
+      "https://x.example/d.pdf",
+    ),
+    "Datasheet",
+  );
+  assert.equal(
+    provenanceLabel({ document: null, document_url: gx, page: null }),
+    "2983-MultiPlus-II_GX-pdf-en",
+  );
 });
 
 test("the figures query joins each figure to its source and quotes the model id", () => {

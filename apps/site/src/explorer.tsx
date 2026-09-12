@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { count, type Index } from "./api.ts";
 import { DataLoading, DataProblem, Skeleton } from "./DataState.tsx";
-import { figuresQuery, provenanceLabel } from "./figures.ts";
+import { documentLabels, figuresQuery, provenanceLabel } from "./figures.ts";
 import { Icon } from "./icons.tsx";
 import type { CorrectionTarget } from "./ops/corrections.ts";
 import type { State } from "./useDuckDb.ts";
@@ -482,6 +482,7 @@ function ModelFigures({ model, db }: { model: string; db: State }) {
     return <DataProblem label="The rated figures couldn’t be loaded." retry={result.retry} />;
   const figures = result.data[0]?.rows ?? [];
   if (figures.length === 0) return <p>No rated figures are recorded for this model.</p>;
+  const labels = documentLabels(figures);
   return (
     <>
       <p className="eyebrow" style={{ marginTop: "26px" }}>
@@ -497,7 +498,7 @@ function ModelFigures({ model, db }: { model: string; db: State }) {
             </strong>
           </header>
           <div className="detail-meta">
-            {provenanceLabel(figure) && <span>{provenanceLabel(figure)}</span>}
+            {provenanceLabel(figure, labels) && <span>{provenanceLabel(figure, labels)}</span>}
             {figure.doubt !== null && figure.doubt !== undefined && (
               <span className="amber-text">{String(figure.doubt)}</span>
             )}
