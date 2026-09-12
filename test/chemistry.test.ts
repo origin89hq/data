@@ -52,16 +52,64 @@ test("a figure on the sheet that states the chemistry comes before the name, and
   );
 });
 
-test("an alias, a variant or a family can name the chemistry; nothing does for a bare part number", () => {
-  assert.deepEqual(chemistryOf(model("040-02223", { aliases: ["Rolls S48-100LFP ESS"] }), []), {
-    chemistry: "lifepo4",
-    chemistryBasis: "name",
-  });
+test("a variant or a family can name the chemistry; an alias cannot, since a seller's SKU lands there; nothing does for a bare part number", () => {
+  assert.equal(chemistryOf(model("040-02223", { aliases: ["ROLLS-LFP-DEAL"] }), []), undefined);
   assert.deepEqual(chemistryOf(model("SC24150", { variant: "AGM" }), []), {
     chemistry: "agm",
     chemistryBasis: "name",
   });
   assert.equal(chemistryOf(model("12AVR100"), []), undefined);
+});
+
+test("a chemistry label in the document's language is read through its English translation, and its words are known", () => {
+  assert.deepEqual(
+    chemistryOf(model("ACME PT"), [
+      {
+        id: "acme-pt--quimica-da-bateria",
+        name: "Química da bateria",
+        english: "Battery chemistry",
+        value: "chumbo-ácido",
+      },
+    ]),
+    { chemistry: "lead-acid", chemistryBasis: "spec:acme-pt--quimica-da-bateria" },
+  );
+  assert.equal(chemistryIn("Fosfato de hierro y litio"), "lifepo4");
+  assert.equal(chemistryIn("Plomo-ácido inundada"), "flooded");
+  assert.equal(chemistryIn("Batterie au plomb ouverte"), "flooded");
+});
+
+test("a chemistry cited from a figure is read again when the figure changes its word", () => {
+  const model = Model.parse({
+    id: "acme-a",
+    manufacturer: "acme",
+    name: "ACME A",
+    kind: "battery",
+    aliases: [],
+    dialects: [],
+    chemistry: "lifepo4",
+    chemistryBasis: "spec:acme-a--chemistry",
+  });
+  const written: Model[] = [];
+  const outcome = applyChemistry(
+    [model],
+    [
+      {
+        id: "acme-a--chemistry",
+        model: "acme-a",
+        name: "Chemistry",
+        value: "AGM",
+        source: "doc-a",
+        extractedBy: "ai:@cf/x@p1",
+        confidence: "vendor-doc",
+      },
+    ],
+    (m) => written.push(m),
+  );
+  assert.deepEqual(outcome, { set: 1, kept: 0, none: 0, cleared: 0 });
+  assert.deepEqual(
+    written.map((m) => [m.chemistry, m.chemistryBasis]),
+    [["agm", "spec:acme-a--chemistry"]],
+  );
 });
 
 test("a chemistry cited from a figure is read again when the figure is gone, and cleared when nothing else states it", () => {

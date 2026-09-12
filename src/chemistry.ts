@@ -12,37 +12,48 @@ export interface ChemistryEvidence {
   chemistryBasis: string;
 }
 
-/** A figure whose name says it states the chemistry. */
+/** A figure whose name, as printed or in English, says it states the chemistry. */
 const STATES_CHEMISTRY = /^(chemistry|battery chemistry|battery type|cell type|technology|type)$/i;
 
-/** The chemistry a piece of the maker's text names, if any. */
+/**
+ * The chemistry a piece of the maker's text names, if any, in the words makers print in English,
+ * Spanish, Portuguese and French: "LiFePO4" and "fosfato de hierro", "AGM", "gel", "flooded" and
+ * "inundada", "lead-acid", "plomo-ácido", "chumbo-ácido" and "plomb-acide".
+ */
 export function chemistryIn(text: string): BatteryChemistry | undefined {
   const t = text.toLowerCase();
-  if (/lifepo4?|life po4|lfp|lithium iron|iron phosphate/.test(t)) return "lifepo4";
-  if (/\bnmc\b|li-?ion|lithium|(?<![a-z])lit(?![a-z])/.test(t)) return "lithium";
+  if (
+    /lifepo4?|life po4|lfp|lithium iron|iron phosphate|fosfato de (hierro|ferro)|phosphate de fer/.test(
+      t,
+    )
+  )
+    return "lifepo4";
+  if (/\bnmc\b|li-?ion|lithium|litio|lítio|(?<![a-z])lit(?![a-z])/.test(t)) return "lithium";
   if (/(?<![a-z])agm(?![a-z])|wagm(?![a-z])/.test(t)) return "agm";
   if (/(?<![a-z])gel(?![a-z])/.test(t)) return "gel";
-  if (/flooded|wet cell/.test(t)) return "flooded";
-  if (/lead[- ]acid|lead carbon/.test(t)) return "lead-acid";
+  if (/flooded|wet cell|inundad|electrolito l[ií]quido|electr[óo]lito l[ií]quido|ouverte/.test(t))
+    return "flooded";
+  if (/lead[- ]acid|lead carbon|plomo|chumbo|plomb/.test(t)) return "lead-acid";
   return undefined;
 }
 
 /**
  * What a model's own records say its chemistry is. A figure on the sheet comes before the name,
- * since it is the document's word rather than a token in a part number.
+ * since it is the document's word rather than a token in a part number; the name, the variant
+ * and the family are the maker's, and an alias is not consulted, since a seller's SKU lands
+ * there and a shop's wording is not the maker's evidence.
  */
 export function chemistryOf(
-  model: Pick<Model, "name" | "variant" | "family" | "aliases">,
-  specs: readonly Pick<Spec, "id" | "name" | "value">[],
+  model: Pick<Model, "name" | "variant" | "family">,
+  specs: readonly Pick<Spec, "id" | "name" | "value" | "english">[],
 ): ChemistryEvidence | undefined {
   for (const spec of specs) {
-    if (!STATES_CHEMISTRY.test(spec.name.trim())) continue;
+    const label = [spec.name, spec.english ?? ""].some((n) => STATES_CHEMISTRY.test(n.trim()));
+    if (!label) continue;
     const chemistry = chemistryIn(spec.value);
     if (chemistry) return { chemistry, chemistryBasis: `spec:${spec.id}` };
   }
-  const named = chemistryIn(
-    [model.name, model.variant ?? "", model.family ?? "", ...(model.aliases ?? [])].join(" "),
-  );
+  const named = chemistryIn([model.name, model.variant ?? "", model.family ?? ""].join(" "));
   return named ? { chemistry: named, chemistryBasis: "name" } : undefined;
 }
 
@@ -72,13 +83,11 @@ export function applyChemistry(
   for (const model of models) {
     if (model.kind !== "battery") continue;
     const own = specsOf.get(model.id) ?? [];
-    // A chemistry cited from a figure stands only while the figure does: a pull that no longer
-    // emits it leaves the model citing nothing, which the records refuse, so it is read again.
-    const cited = model.chemistryBasis?.startsWith("spec:")
-      ? model.chemistryBasis.slice("spec:".length)
-      : undefined;
-    const orphaned = cited !== undefined && !own.some((s) => s.id === cited);
-    if (model.chemistry && !replace && !orphaned) {
+    // A chemistry cited from a figure stands only while the figure does and says the same: a
+    // pull that no longer emits it, or emits another word under the same id, means it is read
+    // again. One from the name is kept unless `replace` asks otherwise.
+    const cited = model.chemistryBasis?.startsWith("spec:");
+    if (model.chemistry && !replace && !cited) {
       outcome.kept += 1;
       continue;
     }
