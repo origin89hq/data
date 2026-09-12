@@ -1,6 +1,6 @@
-import { SHARED_MAPPING } from "@origin89/equipment-schema/mapping";
 import { PROPERTIES } from "@origin89/equipment-schema/properties";
 import { loadRecords } from "../../src/records.ts";
+import { unmappedFigures } from "./unmapped.ts";
 
 /**
  * What a maker prints that no rule reads yet, grouped by the key each name most likely belongs
@@ -20,13 +20,6 @@ if (!records.manufacturers.some((m) => m.id === maker)) {
   console.error(`${maker} is not a manufacturer`);
   process.exit(2);
 }
-const said = (n: string) => n.trim().replace(/\s+/g, " ").toLowerCase();
-const mapped = new Set(
-  records.mappings
-    .filter((m) => m.id === maker || m.id === SHARED_MAPPING)
-    .flatMap((m) => m.rules.flatMap((r) => r.names.map(said))),
-);
-const asked = new Set(PROPERTIES.flatMap((p) => p.kinds as readonly string[]));
 const modelOf = new Map(records.models.map((m) => [m.id, m]));
 
 /** Which key a name most likely belongs to, from its words. A guess to review, never a rule. */
@@ -58,10 +51,10 @@ interface Entry {
   sources: Set<string>;
 }
 const byKey = new Map<string, Map<string, Entry>>();
-for (const s of records.specs) {
+const said = (n: string) => n.trim().replace(/\s+/g, " ").toLowerCase();
+for (const s of unmappedFigures(records, maker)) {
   const m = modelOf.get(s.model);
-  if (!m || m.manufacturer !== maker || !m.kind || !asked.has(m.kind)) continue;
-  if (mapped.has(said(s.name)) || (s.english && mapped.has(said(s.english)))) continue;
+  if (!m?.kind) continue;
   const key = guess(s.name);
   const group = byKey.get(key) ?? new Map<string, Entry>();
   const e = group.get(said(s.name)) ?? {

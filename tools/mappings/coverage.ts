@@ -19,6 +19,7 @@ export interface CoverageSnapshot {
     {
       models: number;
       values: number;
+      partial: number;
       conflicts: number;
       unparsed: number;
       needsConditions: number;
@@ -51,10 +52,11 @@ export function coverageSnapshot(records: Records): CoverageSnapshot {
   }
   const keys: CoverageSnapshot["keys"] = {};
   for (const c of coverage) {
-    if (c.values + c.conflicts + c.unparsed + c.needsConditions === 0) continue;
+    if (c.values + c.partial + c.conflicts + c.unparsed + c.needsConditions === 0) continue;
     keys[`${c.key} ${c.kind}`] = {
       models: c.models,
       values: c.values,
+      partial: c.partial,
       conflicts: c.conflicts,
       unparsed: c.unparsed,
       needsConditions: c.needsConditions,

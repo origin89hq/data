@@ -5,6 +5,7 @@ import { Model, Spec } from "@origin89/equipment-schema/model";
 import { auditMappings } from "../src/audit.ts";
 import { buildProperties } from "../src/properties.ts";
 import type { Records } from "../src/records.ts";
+import { unmappedFigures } from "../tools/mappings/unmapped.ts";
 
 const READER = "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2";
 const figure = (model: string, name: string, value: string, over: Partial<Spec> = {}): Spec =>
@@ -153,5 +154,35 @@ test("a model filed as an inverter whose sheet prints a charger's output is note
         'model acme-vfx-3648 is filed as an inverter but prints a charger\'s output, "Continuous Battery Charger Output"',
       ),
     ),
+  );
+});
+
+test("the drafting list leaves a name a rule reads on one document unmapped on every other", () => {
+  const hybrid = model("acme-hybrid-3000", "inverter-charger");
+  const r = records(
+    [hybrid],
+    [
+      figure(hybrid.id, "Output voltage", "230", { unit: "V" }),
+      figure(hybrid.id, "Output voltage", "120", { unit: "V", source: "doc-b" }),
+      figure(hybrid.id, "Weight", "12", { unit: "kg" }),
+    ],
+    [
+      mapping([
+        {
+          key: "inverter.voltage.ac",
+          names: ["Output voltage"],
+          source: "doc-a",
+          basis: "one sheet",
+        },
+      ]),
+    ],
+  );
+  r.sources.push({ id: "doc-b", url: "https://x/b" });
+  assert.deepEqual(
+    unmappedFigures(r, "acme").map((s) => [s.name, s.source]),
+    [
+      ["Output voltage", "doc-b"],
+      ["Weight", "doc-a"],
+    ],
   );
 });
