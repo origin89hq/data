@@ -472,8 +472,18 @@ test("Energizer Solar: a module's STC figures with its watt-peak, the Force's PV
     values(pack.properties, "battery.energy").map((p) => p.value),
     [2880],
   );
+  // Its 50 Ah has no rate and its sheet names no chemistry, so the capacity waits on one.
+  assert.equal(gap(pack.gaps, "battery.capacity")?.reason, "needs-conditions");
+  assert.match(gap(pack.gaps, "battery.capacity")?.detail ?? "", /no chemistry recorded/);
+  assert.equal(values(pack.properties, "battery.capacity").length, 0);
+  // The HP-6M writes its battery voltage as '51.2 V d.c.', which the unit table now reads.
+  const hp = of("energizer-solar-hp-6m");
   assert.deepEqual(
-    values(of("energizer-solar-hp-6m").properties, "inverter.power.continuous").map((p) => p.value),
+    values(hp.properties, "battery.voltage.nominal").map((p) => p.values),
+    [[51.2]],
+  );
+  assert.deepEqual(
+    values(hp.properties, "inverter.power.continuous").map((p) => p.value),
     [3600],
   );
   // The PS2900H stacks print 'Nominal Power' too, in kilowatts equal to their energy; a battery has no inverter output.

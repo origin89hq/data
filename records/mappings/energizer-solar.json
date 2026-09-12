@@ -87,7 +87,7 @@
       "names": [
         "Normal capacity"
       ],
-      "basis": "The PS2900H-M sheet prints 'Normal capacity' for 'nominal capacity', 50 Ah, on a lithium pack."
+      "basis": "The PS2900H-M sheet prints 'Normal capacity' for 'nominal capacity', 50 Ah, with no rate; the sheet names no chemistry either, so the figure waits on one, and the gap says so."
     },
     {
       "key": "battery.charge.current.max",

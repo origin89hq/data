@@ -107,6 +107,9 @@ const ALIASES: Record<string, Unit> = {
   vcd: "V",
   vca: "V",
   vcc: "V",
+  // Energizer writes the current's kind as "V d.c." and "A a.c.", which the tail keeps as "Vd.c.".
+  "vd.c.": "V",
+  "va.c.": "V",
   voc: "V",
   volt: "V",
   volts: "V",
@@ -118,6 +121,8 @@ const ALIASES: Record<string, Unit> = {
   amps: "A",
   amperes: "A",
   amperios: "A",
+  "ad.c.": "A",
+  "aa.c.": "A",
   w: "W",
   watt: "W",
   watts: "W",

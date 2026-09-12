@@ -13,9 +13,9 @@
       "needsConditions": 5
     },
     "energizer-solar": {
-      "values": 176,
+      "values": 179,
       "conflicts": 0,
-      "unparsed": 17,
+      "unparsed": 14,
       "needsConditions": 10
     },
     "luxpower": {
@@ -187,10 +187,10 @@
     },
     "battery.voltage.nominal inverter-charger": {
       "models": 734,
-      "values": 65,
+      "values": 66,
       "partial": 0,
       "conflicts": 0,
-      "unparsed": 6,
+      "unparsed": 5,
       "needsConditions": 0,
       "noClaim": 663
     },
@@ -223,10 +223,10 @@
     },
     "charge.current.max inverter-charger": {
       "models": 734,
-      "values": 117,
+      "values": 118,
       "partial": 0,
       "conflicts": 0,
-      "unparsed": 16,
+      "unparsed": 15,
       "needsConditions": 0,
       "noClaim": 601
     },
@@ -322,10 +322,10 @@
     },
     "inverter.voltage.ac inverter-charger": {
       "models": 734,
-      "values": 51,
+      "values": 52,
       "partial": 3,
       "conflicts": 2,
-      "unparsed": 39,
+      "unparsed": 38,
       "needsConditions": 0,
       "noClaim": 642
     },
