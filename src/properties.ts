@@ -139,6 +139,12 @@ function rulesFor(mapping: Mapping | undefined, key: string): (MappingRule & { n
   );
 }
 
+/** The `n`th slash-separated part of a value, counted from one: "5500/4000" has two. */
+function partOf(value: string, n: number): string | undefined {
+  const parts = value.split(/\s*\/\s*/);
+  return parts.length >= n && parts.length > 1 ? parts[n - 1]?.trim() : undefined;
+}
+
 /** Whether a figure goes by one of `names`, as printed or in English. */
 const namedIn = (spec: Spec, names: ReadonlySet<string>): boolean =>
   names.has(said(spec.name)) || (spec.english !== undefined && names.has(said(spec.english)));
@@ -161,10 +167,13 @@ function claimsUnder(
     for (const spec of specs) {
       if (rule.source && spec.source !== rule.source) continue;
       if (read.has(spec.id) || !namedIn(spec, names) || skip(spec)) continue;
+      // A rule for one part of a cell reads only a value that has that part.
+      const value = rule.part === undefined ? spec.value : partOf(spec.value, rule.part);
+      if (value === undefined) continue;
       read.add(spec.id);
       claims.push({
         id: spec.id,
-        value: spec.value,
+        value,
         unit: spec.unit ?? rule.unit,
         text: [spec.name, spec.conditions ?? ""].join(" "),
         conditions: rule.conditions,

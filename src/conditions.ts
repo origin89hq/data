@@ -34,6 +34,18 @@ const SECONDS: Record<string, number> = {
 
 const number = (text: string): number => Number(text.replace(",", "."));
 
+/** What a sheet calls each fuel, as the condition names it. */
+const FUELS: Record<string, Conditions["fuel"]> = {
+  "natural gas": "natural-gas",
+  ng: "natural-gas",
+  lpg: "lpg",
+  propane: "lpg",
+  gasoline: "gasoline",
+  gas: "gasoline",
+  petrol: "gasoline",
+  diesel: "diesel",
+};
+
 /** The conditions a text states among those asked for. */
 export function conditionsFrom(text: string, accepts: readonly ConditionKey[]): Conditions {
   const out: Conditions = {};
@@ -78,6 +90,16 @@ export function conditionsFrom(text: string, accepts: readonly ConditionKey[]): 
   if (wanted.has("mode")) {
     const mode = /\b(search|invert|standby|night|sleep|eco)\b/i.exec(text);
     if (mode?.[1]) out.mode = mode[1].toLowerCase();
+  }
+  if (wanted.has("fuel")) {
+    // "gas" is gasoline on a North American sheet; natural gas is named as such or as NG.
+    const fuel = /\b(natural gas|NG|LPG|propane|gasoline|gas|petrol|diesel)\b/i.exec(text)?.[1];
+    if (fuel) out.fuel = FUELS[fuel.toLowerCase()];
+  }
+  if (wanted.has("load")) {
+    const load = /(\d{1,3})\s*%\s*(?:of\s+)?(?:rated\s+)?load\b/i.exec(text);
+    const share = load?.[1] ? Number(load[1]) : undefined;
+    if (share !== undefined && share > 0 && share <= 100) out.load = share;
   }
   return out;
 }

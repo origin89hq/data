@@ -116,6 +116,8 @@ test("a maker's figures reach the registry through its rules, with the bank volt
     gaps.map((g) => [g.key, g.reason, g.claims]),
     [
       ["battery.voltage.nominal", "no-claim", 0],
+      ["charge.battery.capacity", "no-claim", 0],
+      ["charge.power.max", "no-claim", 0],
       ["pv.isc.max", "no-claim", 0],
     ],
     "keys no rule reads are gaps with no claim, and a figure no rule names is not one",
@@ -1164,6 +1166,7 @@ test("a lithium pack that states its rate keeps it, and two rates stay two prope
   assert.ok(!gaps.some((g) => g.key === "battery.capacity"));
 });
 
+<<<<<<< HEAD
 test("a duration in a value's aside is the peak's condition on a key that takes one, and a different figure on a key that does not", () => {
   const cell = Model.parse({
     id: "acme-cell-100",
@@ -1178,10 +1181,39 @@ test("a duration in a value's aside is the peak's condition on a key that takes 
         rules: [
           { key: "battery.discharge.current.peak", names: ["Peak current"], basis: "the sheet" },
           { key: "battery.discharge.current.max", names: ["Max current"], basis: "the sheet" },
+=======
+const genset = Model.parse({
+  id: "acme-genset-5500",
+  manufacturer: "acme",
+  name: "Genset 5500",
+  kind: "generator",
+});
+
+test("a rule for one part of a cell reads that part, by fuel where the name says it, and skips a value with fewer parts", () => {
+  const { properties, gaps } = build({
+    models: [genset],
+    mappings: [
+      acme({
+        rules: [
+          {
+            key: "generator.power.starting",
+            names: ["Watts (Starting/Running)", "Watts (LPG) (Starting/Running)"],
+            part: 1,
+            basis: "the first figure",
+          },
+          {
+            key: "generator.power.running",
+            names: ["Watts (Starting/Running)", "Watts (LPG) (Starting/Running)"],
+            part: 2,
+            basis: "the second figure",
+          },
+          { key: "generator.fuel.tank", names: ["Gasoline Capacity"], basis: "the tank" },
+>>>>>>> 955691af2 (feat: registry keys for chargers, generators and pumps)
         ],
       }),
     ],
     specs: [
+<<<<<<< HEAD
       figure(cell.id, "Peak current", "200A (15s)"),
       figure(cell.id, "Max current", "200A (15s)"),
     ],
@@ -1193,6 +1225,47 @@ test("a duration in a value's aside is the peak's condition on a key that takes 
   assert.deepEqual(
     gaps.filter((g) => g.key === "battery.discharge.current.max").map((g) => [g.reason, g.detail]),
     [["unparsed", "an aside states a duration the key does not take"]],
+=======
+      // A name ending in a bracket would make an id ending in a dash, which the schema refuses.
+      figure(genset.id, "Watts (Starting/Running)", "5500/4000", {
+        unit: "W",
+        id: `${genset.id}--watts-starting-running`,
+      }),
+      figure(genset.id, "Watts (LPG) (Starting/Running)", "4500/3600", {
+        unit: "W",
+        id: `${genset.id}--watts-lpg-starting-running`,
+      }),
+      figure(genset.id, "Gasoline Capacity", "2.25 gal. (8.50 L)"),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.key, p.value, p.unit, p.conditions.fuel]),
+    [
+      ["generator.fuel.tank", 8.517176514, "L", "gasoline"],
+      ["generator.power.running", 3600, "W", "lpg"],
+      ["generator.power.running", 4000, "W", undefined],
+      ["generator.power.starting", 4500, "W", "lpg"],
+      ["generator.power.starting", 5500, "W", undefined],
+    ],
+  );
+  assert.deepEqual(
+    gaps.filter((g) => g.key.startsWith("generator.")),
+    [],
+  );
+  // A cell with one figure has no second part; a rule for it reads nothing, and the first-part rule reads it whole.
+  const lone = build({
+    models: [genset],
+    mappings: [
+      acme({
+        rules: [{ key: "generator.power.running", names: ["Watts"], part: 2, basis: "the second" }],
+      }),
+    ],
+    specs: [figure(genset.id, "Watts", "4000", { unit: "W" })],
+  });
+  assert.deepEqual(
+    lone.gaps.filter((g) => g.key === "generator.power.running").map((g) => [g.reason, g.claims]),
+    [["no-claim", 0]],
+>>>>>>> 955691af2 (feat: registry keys for chargers, generators and pumps)
   );
 });
 

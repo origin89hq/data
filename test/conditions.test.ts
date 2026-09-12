@@ -65,6 +65,23 @@ test("a discharge rate, a duration and a mode are read in the forms makers print
   });
 });
 
+test("a fuel and a load share are read off a generator's words, each only when the key takes it", () => {
+  assert.deepEqual(conditionsFrom("Watts (LPG) (Starting/Running)", ["fuel"]), { fuel: "lpg" });
+  assert.deepEqual(conditionsFrom("Maximum continuous power, NG", ["fuel"]), {
+    fuel: "natural-gas",
+  });
+  assert.deepEqual(conditionsFrom("Running watts, natural gas", ["fuel"]), {
+    fuel: "natural-gas",
+  });
+  assert.deepEqual(conditionsFrom("Gasoline Capacity", ["fuel"]), { fuel: "gasoline" });
+  assert.deepEqual(conditionsFrom("Propane run time", ["fuel"]), { fuel: "lpg" });
+  assert.deepEqual(conditionsFrom("Watts (Starting/Running)", ["fuel"]), {}, "no fuel named");
+  assert.deepEqual(conditionsFrom("Gasoline Capacity", []), {}, "a key with no fuel");
+  assert.deepEqual(conditionsFrom("Run time at 50% load", ["load"]), { load: 50 });
+  assert.deepEqual(conditionsFrom("Run time at 25 % rated load", ["load"]), { load: 25 });
+  assert.deepEqual(conditionsFrom("Run time, full tank", ["load"]), {});
+});
+
 test("a duration printed inside the value is split off it", () => {
   assert.deepEqual(splitDuration("145 A / 2 mins"), { value: "145 A", duration: 120 });
   assert.deepEqual(splitDuration("32A for 1s"), { value: "32A", duration: 1 });

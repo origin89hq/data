@@ -239,6 +239,45 @@ test("a bound, a sentence, and a word in the unit's place are not figures", () =
   );
 });
 
+test("a tank, a flow, a pressure, a head and a motor read in litres, litres a minute, bar, metres and watts", () => {
+  assert.deepEqual(parseQuantity("2.25 gal.", undefined, "volume"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 8.517176514, unit: "L" },
+  });
+  assert.deepEqual(parseQuantity("8 quarts", undefined, "volume"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 7.570823568, unit: "L" },
+  });
+  assert.deepEqual(parseQuantity("2.5 gpm (9.5 Lpm)", undefined, "flow"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 9.46352946, unit: "L/min" },
+  });
+  assert.deepEqual(parseQuantity("3 m3/h", undefined, "flow"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 50, unit: "L/min" },
+  });
+  assert.deepEqual(parseQuantity("929", "psi", "pressure"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 64.05229522, unit: "bar" },
+  });
+  assert.deepEqual(parseQuantity("10 - 125 psi (0.7 – 8.6 bar)", undefined, "pressure"), {
+    ok: true,
+    parsed: { shape: "range", min: 0.689475729, max: 8.618446612, unit: "bar" },
+  });
+  assert.deepEqual(parseQuantity("22 ft", undefined, "length"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 6.7056, unit: "m" },
+  });
+  assert.deepEqual(parseQuantity("15.0 hp", undefined, "power"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 11185.49807, unit: "W" },
+  });
+  assert.match(
+    refused(parseQuantity("63 GPM", undefined, "volume")),
+    /gpm measures flow, not volume/,
+  );
+});
+
 test("an aside after the unit, a cut-off voltage, a bare decimal and a hyphenated unit are the maker's spelling, not a different figure", () => {
   // A charger's amps per bank, and a word in brackets: the unit stands before the aside.
   assert.deepEqual(parseQuantity("5A (12V)", undefined, "current"), {

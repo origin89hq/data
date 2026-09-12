@@ -254,9 +254,34 @@ const CONVERT: Partial<Record<Unit, { to: CanonicalUnit; by: (n: number) => numb
   "°F": { to: "°C", by: (n) => ((n - 32) * 5) / 9 },
   min: { to: "s", by: (n) => n * 60 },
   h: { to: "s", by: (n) => n * 3600 },
+  gal: { to: "L", by: (n) => n * 3.785411784 },
+  qt: { to: "L", by: (n) => n * 0.946352946 },
+  gpm: { to: "L/min", by: (n) => n * 3.785411784 },
+  "m³/h": { to: "L/min", by: (n) => (n * 1000) / 60 },
+  psi: { to: "bar", by: (n) => n * 0.0689475729 },
+  kPa: { to: "bar", by: (n) => n / 100 },
+  ft: { to: "m", by: (n) => n * 0.3048 },
+  in: { to: "m", by: (n) => n * 0.0254 },
+  cm: { to: "m", by: (n) => n / 100 },
+  mm: { to: "m", by: (n) => n / 1000 },
+  hp: { to: "W", by: (n) => n * 745.6998716 },
 };
 
-const CANONICAL = new Set<string>(["V", "A", "W", "VA", "Wh", "Ah", "°C", "%/K", "s"]);
+const CANONICAL = new Set<string>([
+  "V",
+  "A",
+  "W",
+  "VA",
+  "Wh",
+  "Ah",
+  "°C",
+  "%/K",
+  "s",
+  "L",
+  "L/min",
+  "bar",
+  "m",
+]);
 
 /** Ten significant figures: enough that a conversion does not print as 0.30000000000000004. */
 const tidy = (n: number): number => Number(n.toPrecision(10));
