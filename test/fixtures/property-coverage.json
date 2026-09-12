@@ -13,7 +13,7 @@
       "needsConditions": 5
     },
     "energizer-solar": {
-      "values": 178,
+      "values": 176,
       "conflicts": 0,
       "unparsed": 17,
       "needsConditions": 10
@@ -259,12 +259,12 @@
     },
     "inverter.power.continuous inverter": {
       "models": 226,
-      "values": 60,
+      "values": 58,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 24,
       "needsConditions": 0,
-      "noClaim": 142
+      "noClaim": 144
     },
     "inverter.power.continuous inverter-charger": {
       "models": 734,

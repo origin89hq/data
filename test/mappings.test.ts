@@ -481,6 +481,8 @@ test("Energizer Solar: a module's STC figures with its watt-peak, the Force's PV
     values(of("energizer-solar-ps2900h-4").properties, "inverter.power.continuous").length,
     0,
   );
+  // The EV charger sheet prints 'Rated Power' for the A11's 11 kW of charging, which is no inverter's output.
+  assert.equal(gap(of("energizer-solar-a11-cp").gaps, "inverter.power.continuous")?.claims, 0);
 });
 
 test("OutBack's VA figures reach the apparent-power keys through the watt rules that name them", () => {
