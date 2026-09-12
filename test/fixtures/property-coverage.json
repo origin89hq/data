@@ -7,10 +7,10 @@
       "needsConditions": 0
     },
     "eg4-electronics": {
-      "values": 18,
+      "values": 19,
       "conflicts": 0,
       "unparsed": 2,
-      "needsConditions": 6
+      "needsConditions": 5
     },
     "energizer-solar": {
       "values": 6,
@@ -106,11 +106,11 @@
   "keys": {
     "battery.capacity battery": {
       "models": 515,
-      "values": 31,
+      "values": 32,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 17,
-      "needsConditions": 20,
+      "needsConditions": 19,
       "noClaim": 447
     },
     "battery.charge.current.max battery": {

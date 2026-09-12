@@ -3,6 +3,7 @@
   "manufacturer": "victron-energy",
   "name": "BAT-LIT-VIC-NG-12V-300AH",
   "kind": "battery",
+  "chemistry": "lithium",
   "aliases": [],
   "dialects": []
 }

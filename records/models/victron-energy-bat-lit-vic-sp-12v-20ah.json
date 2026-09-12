@@ -3,6 +3,7 @@
   "manufacturer": "victron-energy",
   "name": "BAT-LIT-VIC-SP-12V-20AH",
   "kind": "battery",
+  "chemistry": "lithium",
   "aliases": [],
   "dialects": []
 }

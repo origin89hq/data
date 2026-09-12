@@ -3,6 +3,7 @@
   "manufacturer": "the-cabin-depot",
   "name": "KEDRON24V200AHLiFePO",
   "kind": "battery",
+  "chemistry": "lifepo4",
   "aliases": [],
   "dialects": []
 }

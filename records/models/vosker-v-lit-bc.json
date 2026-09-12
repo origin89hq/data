@@ -3,6 +3,7 @@
   "manufacturer": "vosker",
   "name": "V-LIT-BC",
   "kind": "battery",
+  "chemistry": "lithium",
   "aliases": [],
   "dialects": []
 }
