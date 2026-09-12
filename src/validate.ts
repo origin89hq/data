@@ -1,3 +1,4 @@
+import { SHARED_MAPPING } from "@origin89/equipment-schema/mapping";
 import { PROPERTY_BY_KEY } from "@origin89/equipment-schema/properties";
 import { locatorOf } from "../tools/catalogue/sources.ts";
 import { loadRecords, type Records } from "./records.ts";
@@ -99,6 +100,10 @@ export function validate(records: Records): Report {
 
   const makers = new Set(records.manufacturers.map((m) => m.id));
   if (makers.size !== records.manufacturers.length) errors.push("duplicate manufacturer id");
+  // The shared mapping's id is not a maker's: a maker under that name would have its rules read
+  // against every other maker's figures.
+  if (makers.has(SHARED_MAPPING))
+    errors.push(`manufacturer ${SHARED_MAPPING}: the id is the shared mapping's, not a maker's`);
   const byBrandString = new Map<string, string>();
   for (const b of records.brands) {
     const key = b.brand.toLowerCase();
@@ -187,24 +192,39 @@ export function validate(records: Records): Report {
     for (const concern of figureConcerns(s)) note(`figure doubted: ${concern}`);
   }
 
-  // A mapping rule names a registry key and reads a maker's own figures; one that names a key
-  // nobody registered, a source nobody holds, or a unit outside the key's quantity would build
-  // properties that mean nothing. A rule that reads no figure at all is noted, not refused: the
-  // figures may arrive with the next pull.
+  // A mapping rule names a registry key and reads a maker's own figures, or every maker's for the
+  // shared mapping; one that names a key nobody registered, a source nobody holds, or a unit
+  // outside the key's quantity would build properties that mean nothing. A rule that reads no
+  // figure at all is noted, not refused: the figures may arrive with the next pull.
   const said = (name: string) => name.trim().replace(/\s+/g, " ").toLowerCase();
   const makerOf = new Map(records.models.map((m) => [m.id, m.manufacturer]));
   const kindOf = new Map(records.models.map((m) => [m.id, m.kind]));
   const seenMappings = new Set<string>();
+  const sharedNames = new Set(
+    records.mappings
+      .filter((m) => m.id === SHARED_MAPPING)
+      .flatMap((m) => m.rules.flatMap((rule) => rule.names.map(said))),
+  );
   for (const mapping of records.mappings) {
+    const shared = mapping.id === SHARED_MAPPING;
     if (seenMappings.has(mapping.id)) errors.push(`mapping ${mapping.id}: listed twice`);
     seenMappings.add(mapping.id);
-    if (!makers.has(mapping.id))
+    if (!shared && !makers.has(mapping.id))
       errors.push(`mapping ${mapping.id}: names a manufacturer that does not exist`);
     if (mapping.checkedAt > today)
       errors.push(
         `mapping ${mapping.id}: reviewed on ${mapping.checkedAt}, which has not happened`,
       );
-    const own = records.specs.filter((s) => makerOf.get(s.model) === mapping.id);
+    // An exception sets aside a shared name; one that no shared rule lists sets aside nothing,
+    // which is a typo or a rule that has since gone.
+    if (shared && mapping.except)
+      errors.push(`mapping ${mapping.id}: the shared mapping cannot except its own names`);
+    for (const name of shared ? [] : (mapping.except ?? []))
+      if (!sharedNames.has(said(name)))
+        errors.push(`mapping ${mapping.id}: excepts "${name}", which no shared rule names`);
+    const own = shared
+      ? records.specs
+      : records.specs.filter((s) => makerOf.get(s.model) === mapping.id);
     mapping.rules.forEach((rule, i) => {
       const where = `mapping ${mapping.id} rule ${i + 1}`;
       const property = PROPERTY_BY_KEY.get(rule.key);
@@ -215,6 +235,8 @@ export function validate(records: Records): Report {
       if (rule.unit !== undefined && !unit) errors.push(`${where}: "${rule.unit}" is not a unit`);
       if (property && unit && QUANTITY_OF[unit] !== property.quantity)
         errors.push(`${where}: ${unit} measures ${QUANTITY_OF[unit]}, not ${property.quantity}`);
+      if (rule.scope && property && !property.scope)
+        errors.push(`${where}: sets a scope, which ${rule.key} does not have`);
       for (const condition of rule.requires ?? [])
         if (
           property &&
@@ -228,7 +250,12 @@ export function validate(records: Records): Report {
           (!rule.source || s.source === rule.source) &&
           (names.has(said(s.name)) || (s.english !== undefined && names.has(said(s.english)))),
       );
-      if (read.length === 0) note("mapping rule that reads no figure of its maker");
+      if (read.length === 0)
+        note(
+          shared
+            ? "shared mapping rule that reads no figure"
+            : "mapping rule that reads no figure of its maker",
+        );
       // A key applies to kinds of equipment, and the build asks it only of those: a controller's
       // self-consumption mapped to an inverter's idle power would read figures into nothing.
       const kinds = [...new Set(read.flatMap((s) => kindOf.get(s.model) ?? []))];

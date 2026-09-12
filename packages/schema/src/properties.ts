@@ -203,10 +203,11 @@ export const PROPERTIES: Property[] = [
     shape: "scalar",
     kinds: [...controllers, "ac-charger", "dc-dc-converter"],
     needs: [],
-    accepts: ["bankVoltage"],
+    accepts: ["bankVoltage", "ambientTemperature"],
     limits: "battery-current",
     scope: "total",
-    description: "Highest charge current the unit delivers to the battery.",
+    description:
+      "Highest charge current the unit delivers to the battery, at the ambient temperature the sheet states it for where it states one.",
   },
   {
     key: "panel.power.stc",

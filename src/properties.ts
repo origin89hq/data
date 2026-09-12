@@ -1,4 +1,4 @@
-import type { Mapping, MappingRule } from "@origin89/equipment-schema/mapping";
+import { type Mapping, type MappingRule, SHARED_MAPPING } from "@origin89/equipment-schema/mapping";
 import type { Model, Spec } from "@origin89/equipment-schema/model";
 import {
   type Basis,
@@ -6,6 +6,7 @@ import {
   type Conditions,
   type GapReason,
   PROPERTIES,
+  PROPERTY_BY_KEY,
   type Property,
   type PropertyStatus,
 } from "@origin89/equipment-schema/properties";
@@ -17,8 +18,8 @@ import { type Parsed, readProperty } from "./quantities.ts";
  * Build the normalized properties beside the printed figures.
  *
  * Every printed figure stays exactly as it is in `specs`. A property is one figure read under a
- * registry key by a maker's mapping rule or a feed's column, as a number in the key's unit with
- * its conditions structured. What a model's claims cannot fill is a gap with a reason, and two
+ * registry key by a maker's mapping rule, the shared mapping's, or a feed's column, as a number
+ * in the key's unit with its conditions structured. What a model's claims cannot fill is a gap with a reason, and two
  * usable values that disagree publish as a conflict, so a consumer sees why rather than an
  * absence (#82).
  */
@@ -136,13 +137,29 @@ function rulesFor(mapping: Mapping | undefined, key: string): (MappingRule & { n
   );
 }
 
-function recordClaims(key: string, specs: readonly Spec[], mapping: Mapping | undefined): Claim[] {
+/** Whether a figure goes by one of `names`, as printed or in English. */
+const namedIn = (spec: Spec, names: ReadonlySet<string>): boolean =>
+  names.has(said(spec.name)) || (spec.english !== undefined && names.has(said(spec.english)));
+
+/**
+ * The claims a mapping's rules make on `specs` under one key. A figure two rules name is read
+ * once, by the first, so a rule scoped to one document with the unit its table says can come
+ * before a general one for the same name; `read` carries the figures already taken.
+ */
+function claimsUnder(
+  mapping: Mapping,
+  key: string,
+  specs: readonly Spec[],
+  skip: (spec: Spec) => boolean,
+  read: Set<string>,
+): Claim[] {
   const claims: Claim[] = [];
   for (const rule of rulesFor(mapping, key)) {
     const names = new Set(rule.names.map(said));
     for (const spec of specs) {
       if (rule.source && spec.source !== rule.source) continue;
-      if (!names.has(said(spec.name)) && !(spec.english && names.has(said(spec.english)))) continue;
+      if (read.has(spec.id) || !namedIn(spec, names) || skip(spec)) continue;
+      read.add(spec.id);
       claims.push({
         id: spec.id,
         value: spec.value,
@@ -151,7 +168,7 @@ function recordClaims(key: string, specs: readonly Spec[], mapping: Mapping | un
         conditions: rule.conditions,
         source: spec.source,
         page: spec.page,
-        mappedBy: `rule:${mapping?.id}@${mapping?.version}#${rule.n}`,
+        mappedBy: `rule:${mapping.id}@${mapping.version}#${rule.n}`,
         basis: basisOf(spec),
         scope: rule.scope,
         requires: rule.requires,
@@ -159,6 +176,40 @@ function recordClaims(key: string, specs: readonly Spec[], mapping: Mapping | un
     }
   }
   return claims;
+}
+
+/**
+ * A maker's figures under one key: first through the maker's own rules, then through the shared
+ * mapping for every figure no rule of the maker's reads under any key and the maker has not set
+ * aside in `except`. A maker's rule comes before the shared one, so a name that means something
+ * else on its sheets is re-mapped by naming it and never read twice; a rule scoped to one
+ * document reads only that document's figures, and a rule for a key the model's kind does not
+ * have reads nothing of it, so either leaves the name to the shared rule. An exception holds for
+ * every document and kind.
+ */
+function recordClaims(
+  key: string,
+  kind: string | undefined,
+  specs: readonly Spec[],
+  mapping: Mapping | undefined,
+  shared: Mapping | undefined,
+): Claim[] {
+  const read = new Set<string>();
+  const claims = mapping ? claimsUnder(mapping, key, specs, () => false, read) : [];
+  if (!shared) return claims;
+  const except = new Set((mapping?.except ?? []).map(said));
+  const rules = (mapping?.rules ?? [])
+    .filter((rule) => {
+      const kinds = PROPERTY_BY_KEY.get(rule.key)?.kinds as readonly string[] | undefined;
+      return kind !== undefined && kinds?.includes(kind);
+    })
+    .map((rule) => ({ names: new Set(rule.names.map(said)), source: rule.source }));
+  const claimed = (spec: Spec): boolean =>
+    namedIn(spec, except) ||
+    rules.some(
+      (rule) => (!rule.source || spec.source === rule.source) && namedIn(spec, rule.names),
+    );
+  return [...claims, ...claimsUnder(shared, key, specs, claimed, read)];
 }
 
 function feedClaims(feed: Feed, model: FeedModel, key: string): Claim[] {
@@ -264,12 +315,14 @@ function settle(
   const usable = readings.filter((r) => r.parsed && r.missing.length === 0);
   const unusable = readings.filter((r) => !usable.includes(r));
   if (usable.length === 0) return { properties: [], gap: unread(model, key, unusable, 0) };
-  // One row per set of conditions: a capacity at C20 and at C100 are two properties. Under one
-  // set, figures that agree are one property cited from the best-founded claim; figures that
-  // disagree are all published, each marked, and the key is a gap until somebody decides.
+  // One row per set of conditions and scope: a capacity at C20 and at C100 are two properties,
+  // and a PV power limit per input beside the unit's total are two. Under one set, figures that
+  // agree are one property cited from the best-founded claim; figures that disagree are all
+  // published, each marked, and the key is a gap until somebody decides.
   const byConditions = new Map<string, Reading[]>();
   for (const reading of usable) {
-    const k = conditionsKey(reading.conditions);
+    // A key with no scope dimension groups on conditions alone, whatever a rule says.
+    const k = `${scope ? (reading.claim.scope ?? scope) : ""}\t${conditionsKey(reading.conditions)}`;
     byConditions.set(k, [...(byConditions.get(k) ?? []), reading]);
   }
   const properties: PropertyRow[] = [];
@@ -299,7 +352,7 @@ function settle(
         ...(parsed.shape === "set" ? { values: parsed.values } : {}),
         unit,
         conditions: best.conditions,
-        ...((best.claim.scope ?? scope) ? { scope: best.claim.scope ?? scope } : {}),
+        ...(scope ? { scope: best.claim.scope ?? scope } : {}),
         claim: best.claim.id,
         source: best.claim.source,
         ...(best.claim.page !== undefined ? { page: best.claim.page } : {}),
@@ -366,6 +419,7 @@ export function buildProperties(input: PropertiesInput): PropertiesOutput {
     return row;
   };
   const mappings = new Map(input.mappings.map((m) => [m.id, m]));
+  const shared = mappings.get(SHARED_MAPPING);
   const specsByModel = new Map<string, Spec[]>();
   for (const spec of input.specs)
     specsByModel.set(spec.model, [...(specsByModel.get(spec.model) ?? []), spec]);
@@ -402,8 +456,10 @@ export function buildProperties(input: PropertiesInput): PropertiesOutput {
     settleModel(model.id, model.kind, (property) =>
       recordClaims(
         property.key,
+        model.kind,
         specsByModel.get(model.id) ?? [],
         mappings.get(model.manufacturer),
+        shared,
       ),
     );
   for (const { feed, model } of input.feeds)

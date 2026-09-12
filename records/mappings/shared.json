@@ -1,0 +1,250 @@
+{
+  "id": "shared",
+  "version": 1,
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-12",
+  "rules": [
+    {
+      "key": "pv.voc.max",
+      "names": [
+        "Maximum PV open circuit voltage",
+        "Maximum PV open-circuit voltage",
+        "Max. PV open circuit voltage",
+        "Max. PV open-circuit voltage",
+        "Maximum PV open circuit array voltage",
+        "Maximum PV array open circuit voltage",
+        "Maximum solar open circuit voltage",
+        "Maximum solar input voltage",
+        "Maximum solar voltage",
+        "Max. solar voltage",
+        "Max. solar input voltage",
+        "Max. PV input voltage",
+        "Maximum PV voltage",
+        "Max PV Voc",
+        "PV input voltage maximum",
+        "Max. open circuit voltage",
+        "Max. open-circuit voltage",
+        "Maximum open circuit voltage"
+      ],
+      "basis": "Each of these names the PV or solar input and calls the figure a maximum, an open-circuit voltage or both; a sheet that says 'maximum input voltage' alone is the maker's business."
+    },
+    {
+      "key": "pv.isc.max",
+      "names": [
+        "Maximum PV short circuit current",
+        "Max. PV short circuit current",
+        "Max. PV short-circuit current",
+        "Maximum PV panel Isc",
+        "Max Isc",
+        "Max. short circuit current",
+        "Max. short-circuit current",
+        "Max. PV short-circuit current per MPPT",
+        "Max. PV short-circuit current input per MPPT"
+      ],
+      "basis": "A short-circuit current limit on a unit with a PV input is the array's; the registry asks it only of charge controllers and inverters, and a figure printed per MPPT is per input, which is the key's own scope."
+    },
+    {
+      "key": "pv.power.max",
+      "names": [
+        "Max. PV input power",
+        "Maximum PV input power",
+        "Max. PV array power",
+        "Maximum PV array power",
+        "Max. allowed PV power",
+        "Maximum solar input power",
+        "Max solar input power",
+        "Max. PV power",
+        "Maximum PV power"
+      ],
+      "basis": "Each names the PV or solar input and calls the figure its maximum power; a figure printed per bank voltage carries the voltage in its name and is read with it."
+    },
+    {
+      "key": "pv.mppt.window",
+      "names": [
+        "MPPT voltage range",
+        "MPPT operating voltage range",
+        "MPP voltage range",
+        "MPP operating voltage range"
+      ],
+      "basis": "The tracker's voltage range under its own name; the value is a range or it is refused."
+    },
+    {
+      "key": "battery.voltage.nominal",
+      "names": [
+        "Nominal battery voltage",
+        "Rated battery voltage",
+        "Nominal system voltage",
+        "Nominal battery system voltage",
+        "Battery system voltage",
+        "System voltage",
+        "Nominal DC input voltage"
+      ],
+      "basis": "The bank voltages a unit is made for, or a battery's own, under names that say battery, system or nominal DC input; 'nominal voltage' alone is left to the maker, since an inverter's sheet may mean its AC side."
+    },
+    {
+      "key": "charge.current.max",
+      "names": [
+        "Maximum charge current",
+        "Maximum charging current",
+        "Max. charge current",
+        "Max. charging current",
+        "Max charge current",
+        "Max charging current",
+        "Rated charge current",
+        "Rated charging current",
+        "Maximum battery charge current",
+        "Maximum battery charging current",
+        "Max. battery charge current",
+        "Max. battery charging current"
+      ],
+      "basis": "The charge current a charger or controller delivers, under names that say charge or charging current and call it maximum or rated; on a battery the same words are the battery's own limit, read under its key."
+    },
+    {
+      "key": "battery.charge.current.max",
+      "names": [
+        "Maximum charge current",
+        "Maximum charging current",
+        "Max. charge current",
+        "Max. charging current",
+        "Max charge current",
+        "Max charging current",
+        "Maximum continuous charge current",
+        "Maximum continuous charging current"
+      ],
+      "basis": "A battery's charge current limit under the names its makers print; the registry asks it only of batteries."
+    },
+    {
+      "key": "battery.discharge.current.max",
+      "names": [
+        "Maximum discharge current",
+        "Maximum discharging current",
+        "Max. discharge current",
+        "Max. discharging current",
+        "Max discharge current",
+        "Max discharging current",
+        "Max continuous discharge current",
+        "Maximum continuous discharge current"
+      ],
+      "basis": "A battery's continuous discharge limit; a peak figure carries the word peak and is read under the peak key with its duration."
+    },
+    {
+      "key": "battery.discharge.current.peak",
+      "names": [
+        "Peak discharge current",
+        "Peak discharging current"
+      ],
+      "basis": "The peak is a number only with the time it holds for, which the key needs; a figure that does not say it is a gap."
+    },
+    {
+      "key": "battery.capacity",
+      "names": [
+        "Capacity",
+        "Rated capacity"
+      ],
+      "basis": "On a battery, capacity is in ampere-hours at a discharge rate the key needs; the registry asks it only of batteries, and a figure in watt-hours or without its C-rate is a gap that says so."
+    },
+    {
+      "key": "battery.energy",
+      "names": [
+        "Rated energy",
+        "Nominal energy",
+        "Battery energy"
+      ],
+      "basis": "The nominal energy of a pack in watt-hours or kilowatt-hours, as lithium makers state it."
+    },
+    {
+      "key": "inverter.power.continuous",
+      "names": [
+        "Rated output power",
+        "Rated AC output power",
+        "Rated output active power",
+        "Rated AC power",
+        "Continuous output power",
+        "Continuous AC output power",
+        "Continuous power",
+        "Continuous AC power",
+        "Continuous power output",
+        "Continuous power rating",
+        "Nominal AC output power",
+        "Nominal output power",
+        "Nominal power output",
+        "Maximum continuous output power",
+        "Maximum continuous active power output",
+        "Max. continuous power",
+        "Real power, max continuous",
+        "Continuous output power at 25°C",
+        "Continuous output power at 25 °C",
+        "Continuous output power (@ 25°C)",
+        "Continuous output power at 40°C",
+        "Continuous output power at 40 °C",
+        "Continuous output power at 65°C",
+        "Continuous output power at 65 °C",
+        "Continuous power output at 25°C",
+        "Continuous power output at 25° C",
+        "Continuous power output (at 25°C)",
+        "Continuous power output (at 25° C)",
+        "Continuous power output @ 45°C",
+        "Continuous power at 25°C",
+        "Continuous power at 40°C",
+        "Continuous power rating at 25°C",
+        "Continuous power rating at 25°C ambient",
+        "Continuous power rating at 25 °C ambient",
+        "Continuous power rating at 25C ambient"
+      ],
+      "basis": "An inverter's continuous, rated or nominal output power under the names its makers print, with the ambient temperature read off the name where the sheet states one; a figure in VA is a gap until an apparent-power key exists, and 'rated power' alone is left to the maker, since a generator's sheet prints it too."
+    },
+    {
+      "key": "inverter.power.surge",
+      "names": [
+        "Surge power",
+        "Surge rating",
+        "Surge capacity",
+        "Surge output power",
+        "Surge power rating",
+        "Peak power",
+        "Max. peak power",
+        "Maximum peak power",
+        "Peak AC output power",
+        "Peak output power rating",
+        "Surge power (5 sec)",
+        "Surge rating (5 seconds)",
+        "Surge power (2 sec)",
+        "Surge power (2 s)"
+      ],
+      "basis": "A surge or peak figure is a number only with the time it holds for, which the key needs and is read off the name where the sheet states it; the rest are gaps that say so."
+    },
+    {
+      "key": "inverter.power.idle",
+      "names": [
+        "Zero load power",
+        "Zero-load power",
+        "Zero load power consumption",
+        "No load power consumption",
+        "No-load power consumption",
+        "No load power draw",
+        "No-load power draw",
+        "No load",
+        "Idle consumption",
+        "Idle consumption - no load",
+        "Zero load power in search mode",
+        "Zero-load power in search mode",
+        "Zero-load power search mode",
+        "Idle power - search mode",
+        "Idle consumption - search mode"
+      ],
+      "basis": "What the inverter draws with nothing connected; the search-mode figures carry their mode in the name, and a figure in amps or with a mode the sheet names some other way is the maker's to map."
+    },
+    {
+      "key": "inverter.voltage.ac",
+      "names": [
+        "AC output voltage",
+        "Nominal AC output voltage",
+        "Rated output voltage",
+        "Rated AC voltage",
+        "Nominal AC voltage",
+        "Nominal output voltage"
+      ],
+      "basis": "The nominal AC output voltage, one or several; a tolerance printed with it is refused rather than halved, and the registry asks it only of inverters, so a converter's 'rated output voltage' is never read here."
+    }
+  ]
+}

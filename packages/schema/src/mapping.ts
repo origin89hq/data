@@ -3,13 +3,22 @@ import { RecordId } from "./enums.ts";
 import { ConditionKey, Conditions } from "./properties.ts";
 
 /**
- * How one maker's printed figures reach the property registry.
+ * How printed figures reach the property registry.
  *
  * Translating a name into English does not make two properties the same: "Max. input voltage" is
  * the PV open-circuit limit on Victron's sheets and may be something else on another maker's, so
  * a rule is scoped to one maker and, when the wording is one document's, to that document. A
  * rule is reviewed in a pull request like any record; it is not a review of the figures it reads.
+ *
+ * Some names say in full what they measure wherever they are printed: "Maximum PV open circuit
+ * voltage" is the same limit on every sheet. Those live in one shared mapping, [`SHARED_MAPPING`],
+ * which applies to every maker for the figures its own rules do not name. A maker's file then
+ * carries only its own wording, and the names in [`Mapping.except`] that mean something else on
+ * its sheets.
  */
+
+/** The id of the mapping that applies to every maker; `records/mappings/shared.json`. */
+export const SHARED_MAPPING = "shared";
 export const MappingRule = z
   .object({
     /** A key from the property registry. */
@@ -36,13 +45,19 @@ export type MappingRule = z.infer<typeof MappingRule>;
 
 export const Mapping = z
   .object({
-    /** The manufacturer the rules are for; one file per maker. */
+    /** The manufacturer the rules are for, one file per maker, or [`SHARED_MAPPING`]. */
     id: RecordId,
     /** Bumped when a rule changes, so a property says which version read it. */
     version: z.number().int().positive(),
     reviewedBy: z.string().min(1),
     checkedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
     rules: z.array(MappingRule).min(1),
+    /**
+     * Names a shared rule lists that mean something else on this maker's sheets, matched like a
+     * rule's names, so no shared rule reads them. A name this maker's own rules read needs no
+     * entry: a maker's rule always comes before the shared one.
+     */
+    except: z.array(z.string().min(1)).optional(),
   })
   .strict();
 export type Mapping = z.infer<typeof Mapping>;
