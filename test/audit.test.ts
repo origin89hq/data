@@ -260,3 +260,29 @@ test("a shared rule's unit-less figures and dropped conditions are noted for the
     ],
   );
 });
+
+test("a maker with no file of its own is audited through the shared rules, without the near-miss list", () => {
+  const hybrid = model("acme-hybrid-3000", "inverter-charger");
+  const shared = Mapping.parse({
+    id: "shared",
+    version: 1,
+    reviewedBy: "ada",
+    checkedAt: "2026-09-12",
+    rules: [{ key: "inverter.power.continuous", names: ["Rated AC power"], basis: "everywhere" }],
+  });
+  const r = records(
+    [hybrid],
+    [
+      figure(hybrid.id, "Rated AC power", "3000"),
+      figure(hybrid.id, "Rated AC power output", "3000", { unit: "W" }),
+    ],
+    [shared],
+  );
+  assert.deepEqual(audit(r).notes, [
+    'shared rule 1 on acme (inverter.power.continuous): 1 of 1 figures print no unit and the rule names none, so they are gaps: "Rated AC power" = "3000" on acme-hybrid-3000',
+  ]);
+  // A build that dropped the shared claim is a defect for such a maker too.
+  assert.deepEqual(auditMappings(r, { claimed: new Set() }).errors, [
+    'shared rule 1 on acme: names "Rated AC power" on acme-hybrid-3000, a inverter-charger the key inverter.power.continuous applies to, but no key read it',
+  ]);
+});

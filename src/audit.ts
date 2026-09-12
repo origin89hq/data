@@ -77,8 +77,9 @@ export function auditMappings(records: Records, built: Pick<PropertiesOutput, "c
 
   for (const [maker, specs] of specsByMaker) {
     const own = mappings.get(maker);
-    // A maker with no file of its own is the drafting tool's business, not the audit's.
-    if (!own) continue;
+    // A maker with no file of its own is still read through the shared rules, so those are
+    // audited for it; only the near-miss list, which is about extending a file, waits for one.
+    if (!own && !shared) continue;
     const except = new Set((own?.except ?? []).map(said));
     const rules = [
       ...(own?.rules ?? []).map((rule, i) => ({
@@ -128,7 +129,7 @@ export function auditMappings(records: Records, built: Pick<PropertiesOutput, "c
       }
     }
     // A name one step from a mapped one is most often the same figure spelled by another sheet.
-    for (const { name, count } of unmapped.values()) {
+    for (const { name, count } of own ? unmapped.values() : []) {
       const b = bare(name);
       for (const [mb, mapped] of mappedBare) {
         if (oneStep(b, mb)) {
