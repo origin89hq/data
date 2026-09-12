@@ -980,3 +980,25 @@ test("a value printed in VA and W feeds both keys, and a VA value with an aside 
     ],
   );
 });
+
+test("a bounded value in VA and W is refused on both keys, not read as two exact figures", () => {
+  const { properties, gaps } = build({
+    models: [hybrid],
+    mappings: [
+      acme({
+        rules: [{ key: "inverter.power.continuous", names: ["Rated output power"], basis: "w" }],
+      }),
+    ],
+    specs: [figure(hybrid.id, "Rated output power", "up to 6KVA/6KW")],
+  });
+  assert.deepEqual(properties, []);
+  assert.deepEqual(
+    gaps
+      .filter((g) => g.key === "inverter.power.apparent" || g.key === "inverter.power.continuous")
+      .map((g) => [g.key, g.reason, g.detail]),
+    [
+      ["inverter.power.apparent", "unparsed", "a bound or an approximation, not a figure"],
+      ["inverter.power.continuous", "unparsed", "a bound or an approximation, not a figure"],
+    ],
+  );
+});

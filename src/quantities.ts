@@ -219,9 +219,12 @@ function looseUnit(part: string): Unit | undefined {
 export function printedQuantities(value: string, unit: string | undefined): PrintedPart[] {
   const given = canonicalUnit(unit);
   if (given) return [{ quantity: QUANTITY_OF[given] as Quantity, value }];
-  const text = value.trim().replace(/[“”]/g, '"').replace(/\s+/g, " ").replace(BOUND, "");
-  const parts = text.split(/\s*\/\s*(?=[-\d])/);
-  const units: (Unit | undefined)[] = parts.map(looseUnit);
+  const printed = value.trim().replace(/[“”]/g, '"').replace(/\s+/g, " ");
+  // A bound belongs to every part it qualifies: "up to 6KVA/6KW" is two bounded figures, not two figures.
+  const bound = BOUND.exec(printed)?.[0] ?? "";
+  const text = printed.slice(bound.length);
+  const parts = text.split(/\s*\/\s*(?=[-\d])/).map((part) => `${bound}${part}`);
+  const units: (Unit | undefined)[] = parts.map((part) => looseUnit(part.slice(bound.length)));
   for (let i = units.length - 2; i >= 0; i--) units[i] ??= units[i + 1];
   const out: PrintedPart[] = [];
   parts.forEach((part, i) => {
