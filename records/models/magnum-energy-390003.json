@@ -4,5 +4,6 @@
   "name": "390003",
   "aliases": [],
   "dialects": [],
-  "kind": "battery"
+  "kind": "battery",
+  "chemistry": "agm"
 }

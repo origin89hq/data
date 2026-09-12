@@ -4,5 +4,6 @@
   "name": "Mojave™ ESS Battery",
   "aliases": [],
   "dialects": [],
-  "kind": "battery"
+  "kind": "battery",
+  "chemistry": "lithium"
 }

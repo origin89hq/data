@@ -4,5 +4,6 @@
   "name": "HL12-580WAGM",
   "aliases": [],
   "dialects": [],
-  "kind": "battery"
+  "kind": "battery",
+  "chemistry": "agm"
 }

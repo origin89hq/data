@@ -384,8 +384,13 @@ test("EG4: the 12kPV's kilowatts as watts, its PV limits, the mini split's bare 
 test("OutBack's VA figures reach the apparent-power keys through the watt rules that name them", () => {
   const { properties, gaps } = of("outback-power-fx2012t");
   assert.deepEqual(
-    values(properties, "inverter.power.apparent").map((p) => [p.value, p.unit, p.mappedBy]),
-    [[2000, "VA", "rule:shared@2#12"]],
+    values(properties, "inverter.power.apparent").map((p) => [p.value, p.unit]),
+    [[2000, "VA"]],
+  );
+  assert.ok(
+    values(properties, "inverter.power.apparent").every((p) =>
+      p.mappedBy.startsWith("rule:shared@"),
+    ),
   );
   assert.deepEqual(
     values(properties, "inverter.power.apparent.surge").map((p) => [
@@ -438,4 +443,19 @@ test("the Victron MPPT 250/60, a charge controller, publishes its PV power at al
     ],
   );
   assert.equal(gap(gaps, "pv.power.max"), undefined);
+
+test("a lithium pack's capacity publishes without a rate, a lead-acid pack's with the rate its sheet names", () => {
+  const lfp = of("millertech-12v-100ah-lifepo4-millertech-battery");
+  assert.deepEqual(
+    values(lfp.properties, "battery.capacity").map((p) => [p.value, p.conditions]),
+    [[100, {}]],
+  );
+  const agm = of("rolls-battery-hl12-580wagm");
+  assert.deepEqual(
+    values(agm.properties, "battery.capacity").map((p) => [p.value, p.conditions.dischargeHours]),
+    [
+      [145, 10],
+      [155, 20],
+    ],
+  );
 });

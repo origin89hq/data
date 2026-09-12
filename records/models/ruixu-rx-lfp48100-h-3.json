@@ -3,6 +3,7 @@
   "manufacturer": "ruixu",
   "name": "RX-LFP48100-H-3",
   "kind": "battery",
+  "chemistry": "lifepo4",
   "aliases": [],
   "dialects": []
 }

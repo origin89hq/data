@@ -3,6 +3,7 @@
   "manufacturer": "rolls-battery",
   "name": "S6-220AGM",
   "kind": "battery",
+  "chemistry": "agm",
   "aliases": [],
   "dialects": [
     {

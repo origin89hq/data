@@ -3,6 +3,7 @@
   "manufacturer": "victron-energy",
   "name": "BAT-GEL-VIC-12V-165AH",
   "kind": "battery",
+  "chemistry": "gel",
   "aliases": [],
   "dialects": []
 }

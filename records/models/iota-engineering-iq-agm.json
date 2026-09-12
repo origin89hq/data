@@ -3,6 +3,7 @@
   "manufacturer": "iota-engineering",
   "name": "IQ-AGM",
   "kind": "battery",
+  "chemistry": "agm",
   "aliases": [
     "XXX-XXX-185"
   ],

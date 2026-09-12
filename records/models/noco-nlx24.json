@@ -4,5 +4,6 @@
   "name": "NLX24",
   "aliases": [],
   "dialects": [],
-  "kind": "battery"
+  "kind": "battery",
+  "chemistry": "lifepo4"
 }

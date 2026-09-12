@@ -3,6 +3,7 @@
   "manufacturer": "victron-energy",
   "name": "BAT-AGM-VIC-SC-12V-60AH",
   "kind": "battery",
+  "chemistry": "agm",
   "aliases": [],
   "dialects": []
 }

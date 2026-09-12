@@ -4,5 +4,6 @@
   "name": "36V 50AH LiFePO4 Millertech Battery",
   "aliases": [],
   "dialects": [],
-  "kind": "battery"
+  "kind": "battery",
+  "chemistry": "lifepo4"
 }

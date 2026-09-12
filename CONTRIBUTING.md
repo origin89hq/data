@@ -28,6 +28,9 @@ carries the source, and the reviewer reads the source, not the diff.
   from `just mapping-draft <manufacturer>`, read the mapping audit in
   `pnpm validate`, and run `just coverage-snapshot` so the pull request carries
   what the change did to coverage.
+- A battery's `chemistry` is set only where the maker's name for it or its
+  sheet says so; a pack whose chemistry nothing states has none, and its
+  capacity then needs a discharge rate like a lead-acid pack's.
 - Absent beats plausible. A baud rate the document does not state stays out of
   the record; write the gap in `gotchas`.
 - Run `pnpm validate && pnpm test` before opening the pull request.

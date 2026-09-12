@@ -4,5 +4,6 @@
   "name": "12V LiFePO4 Battery",
   "aliases": [],
   "dialects": [],
-  "kind": "battery"
+  "kind": "battery",
+  "chemistry": "lifepo4"
 }

@@ -3,6 +3,7 @@
   "manufacturer": "victron-energy",
   "name": "BAT-AGM-VIC-12V-240AH",
   "kind": "battery",
+  "chemistry": "agm",
   "aliases": [],
   "dialects": []
 }

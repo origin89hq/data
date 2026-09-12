@@ -3,6 +3,7 @@
   "manufacturer": "kinetic-solar",
   "name": "KIN_K3AGM_30",
   "kind": "battery",
+  "chemistry": "agm",
   "aliases": [],
   "dialects": []
 }

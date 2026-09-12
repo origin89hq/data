@@ -3,6 +3,7 @@
   "manufacturer": "rolls-battery",
   "name": "S48-100LFP ESS",
   "kind": "battery",
+  "chemistry": "lifepo4",
   "aliases": [
     "Rolls S48-100LFP ESS"
   ],
