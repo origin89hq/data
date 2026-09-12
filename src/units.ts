@@ -122,6 +122,7 @@ const ALIASES: Record<string, Unit> = {
   watt: "W",
   watts: "W",
   vatios: "W",
+  wp: "W",
   va: "VA",
   kva: "kVA",
   ah: "Ah",
