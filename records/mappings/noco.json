@@ -1,0 +1,52 @@
+{
+  "id": "noco",
+  "version": 1,
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-12",
+  "rules": [
+    {
+      "key": "battery.voltage.nominal",
+      "names": [
+        "Nominal Voltage"
+      ],
+      "unit": "V",
+      "basis": "The NLP and NLX lithium battery sheets state 'Nominal Voltage' as 12.8 V; the NLP sheet prints the bare 12.8 under a volts header. The name is printed on the batteries only."
+    },
+    {
+      "key": "battery.capacity",
+      "names": [
+        "Amp-Hours"
+      ],
+      "unit": "Ah",
+      "basis": "The NLP and NLX sheets state the pack's capacity under 'Amp-Hours', 7 to 120, with the unit in the name and no rate; the packs are lithium, which waives the rate where the chemistry is recorded."
+    },
+    {
+      "key": "battery.energy",
+      "names": [
+        "Watt-Hours"
+      ],
+      "basis": "The NLP and NLX sheets state the pack's energy under 'Watt-Hours', 89.6 to 1536 Wh."
+    },
+    {
+      "key": "battery.charge.current.max",
+      "names": [
+        "Charging Current"
+      ],
+      "basis": "On the NLP and NLX battery sheets 'Charging Current' is the most the pack takes, '24A (Max)' or '100 A'; on the charger sheets the same name is the charger's output and is read under the charger's key."
+    },
+    {
+      "key": "charge.current.max",
+      "names": [
+        "Charging Current"
+      ],
+      "basis": "The GEN and GENPRO charger sheets state 'Charging Current' per bank, '5A (12V)' or '10A (12V)'; a multi-bank figure such as '10Ax2(12V)' is refused until it is read as one bank's."
+    },
+    {
+      "key": "battery.discharge.current.max",
+      "names": [
+        "Continuous Current"
+      ],
+      "basis": "The NLP and NLX sheets print 'Continuous Current', 20 to 200 A, beside 'Starting Current' and 'Charging Current': the current the pack sustains on discharge, as against the seconds-long engine start."
+    }
+  ]
+}
