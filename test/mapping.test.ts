@@ -123,3 +123,60 @@ test("a review dated in the future, or a maker mapped twice, is an error", () =>
   twice.mappings.push(Mapping.parse(good));
   assert.match(validate(twice).errors.join("\n"), /mapping victron-energy: listed twice/);
 });
+
+const shared = {
+  id: "shared",
+  version: 1,
+  reviewedBy: "ada",
+  checkedAt: "2026-09-11",
+  rules: [{ ...rule, names: ["Max. input voltage"] }],
+};
+
+test("the shared mapping names no manufacturer, reads every maker's figures, and cannot except its own names", () => {
+  const report = validate(fixture(shared));
+  assert.deepEqual(report.errors, []);
+  assert.equal(report.review["shared mapping rule that reads no figure"], undefined);
+  const idle = validate(fixture({ ...shared, rules: [{ ...rule, names: ["Something else"] }] }));
+  assert.deepEqual(idle.errors, []);
+  assert.equal(idle.review["shared mapping rule that reads no figure"], 1);
+  assert.match(
+    errorsOf({ ...shared, except: ["Max. input voltage"] }),
+    /mapping shared: the shared mapping cannot except its own names/,
+  );
+});
+
+test("a maker may except only a name some shared rule lists", () => {
+  const both = fixture(shared);
+  both.mappings.push(Mapping.parse({ ...good, except: ["max. input  voltage"] }));
+  assert.deepEqual(validate(both).errors, []);
+  const typo = fixture(shared);
+  typo.mappings.push(Mapping.parse({ ...good, except: ["Max input voltage"] }));
+  assert.match(
+    validate(typo).errors.join("\n"),
+    /mapping victron-energy: excepts "Max input voltage", which no shared rule names/,
+  );
+  assert.match(
+    errorsOf({ ...good, except: ["Max. input voltage"] }),
+    /excepts "Max\. input voltage", which no shared rule names/,
+  );
+});
+
+test("a rule may set a scope only on a key that has one", () => {
+  assert.equal(errorsOf({ ...good, rules: [{ ...rule, scope: "total" }] }), "");
+  assert.match(
+    errorsOf({
+      ...good,
+      rules: [{ ...rule, key: "battery.voltage.nominal", scope: "total" }],
+    }),
+    /rule 1: sets a scope, which battery\.voltage\.nominal does not have/,
+  );
+});
+
+test("no manufacturer may take the shared mapping's id", () => {
+  const taken = fixture();
+  taken.manufacturers.push({ id: "shared", name: "Shared Power", domains: ["shared.example"] });
+  assert.match(
+    validate(taken).errors.join("\n"),
+    /manufacturer shared: the id is the shared mapping's, not a maker's/,
+  );
+});

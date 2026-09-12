@@ -567,3 +567,277 @@ test("a model nothing has classified, or one out of scope, has no keys and no ga
   });
   assert.deepEqual([properties, gaps, coverage], [[], [], []]);
 });
+
+const shared: Mapping = Mapping.parse({
+  id: "shared",
+  version: 1,
+  reviewedBy: "ada",
+  checkedAt: "2026-09-11",
+  rules: [
+    {
+      key: "pv.voc.max",
+      names: ["Maximum PV open circuit voltage"],
+      basis: "says in full what it measures",
+    },
+    {
+      key: "charge.current.max",
+      names: ["Maximum charge current"],
+      basis: "says in full what it measures",
+    },
+  ],
+});
+const newcomer = Model.parse({
+  id: "acme-mppt-40",
+  manufacturer: "acme",
+  name: "MPPT 40",
+  kind: "charge-controller",
+});
+const newcomerFigures = [
+  figure(newcomer.id, "Maximum PV open circuit voltage", "150", { unit: "V" }),
+  figure(newcomer.id, "Maximum charge current", "40", { unit: "A" }),
+  figure(newcomer.id, "Max. input voltage", "100", { unit: "V" }),
+];
+const acme = (over: Partial<Mapping>): Mapping =>
+  Mapping.parse({
+    id: "acme",
+    version: 1,
+    reviewedBy: "ada",
+    checkedAt: "2026-09-11",
+    rules: [{ key: "pv.mppt.window", names: ["MPPT range"], basis: "the sheet" }],
+    ...over,
+  });
+
+test("a maker with no mapping of its own gets the shared mapping's values, cited as the shared rule", () => {
+  const { properties, gaps } = build({
+    models: [newcomer],
+    mappings: [shared],
+    specs: newcomerFigures,
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.key, p.value, p.mappedBy]),
+    [
+      ["charge.current.max", 40, "rule:shared@1#2"],
+      ["pv.voc.max", 150, "rule:shared@1#1"],
+    ],
+  );
+  // A maker's own wording is not the shared mapping's business.
+  assert.deepEqual(
+    gaps.find((g) => g.key === "pv.power.max"),
+    { model: newcomer.id, key: "pv.power.max", reason: "no-claim", claims: 0 },
+  );
+});
+
+test("a maker's own rule comes before the shared one, and a name it reads under any key is read once", () => {
+  const { properties, gaps } = build({
+    models: [newcomer],
+    mappings: [
+      shared,
+      acme({
+        rules: [
+          {
+            key: "pv.voc.max",
+            names: ["Maximum PV open circuit voltage"],
+            conditions: { ambientTemperature: 25 },
+            basis: "the sheet states the limit at 25 °C",
+          },
+          // The maker's sheets print the PV short-circuit limit under the shared name for the
+          // charge current, so the maker's rule takes the name and the shared rule leaves it.
+          { key: "pv.isc.max", names: ["Maximum charge current"], basis: "the sheet" },
+        ],
+      }),
+    ],
+    specs: newcomerFigures,
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.key, p.value, p.mappedBy, p.conditions]),
+    [
+      ["pv.isc.max", 40, "rule:acme@1#2", {}],
+      ["pv.voc.max", 150, "rule:acme@1#1", { ambientTemperature: 25 }],
+    ],
+  );
+  assert.deepEqual(
+    gaps.find((g) => g.key === "charge.current.max"),
+    { model: newcomer.id, key: "charge.current.max", reason: "no-claim", claims: 0 },
+  );
+});
+
+test("a shared name a maker sets aside in `except` is read by no shared rule, and the rest still are", () => {
+  const { properties, gaps } = build({
+    models: [newcomer],
+    mappings: [shared, acme({ except: ["Maximum charge current"] })],
+    specs: newcomerFigures,
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.key, p.value, p.mappedBy]),
+    [["pv.voc.max", 150, "rule:shared@1#1"]],
+  );
+  assert.deepEqual(
+    gaps.find((g) => g.key === "charge.current.max"),
+    { model: newcomer.id, key: "charge.current.max", reason: "no-claim", claims: 0 },
+  );
+});
+
+test("a figure per input beside the unit's total under one key are two properties, not a conflict", () => {
+  const { properties, gaps } = build({
+    models: [newcomer],
+    mappings: [
+      acme({
+        rules: [
+          { key: "pv.power.max", names: ["Max PV input power"], basis: "the sheet" },
+          {
+            key: "pv.power.max",
+            names: ["Max input power per MPPT"],
+            scope: "per-input",
+            basis: "the sheet states it per tracker",
+          },
+        ],
+      }),
+    ],
+    specs: [
+      figure(newcomer.id, "Max PV input power", "13000", { unit: "W" }),
+      figure(newcomer.id, "Max input power per MPPT", "6500", { unit: "W" }),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.value, p.scope, p.status]),
+    [
+      [6500, "per-input", "value"],
+      [13000, "total", "value"],
+    ],
+  );
+  assert.ok(!gaps.some((g) => g.key === "pv.power.max"));
+});
+
+test("a maker's rule scoped to one document leaves the same name on another document to the shared rule", () => {
+  const { properties, gaps } = build({
+    models: [newcomer],
+    mappings: [
+      shared,
+      acme({
+        rules: [
+          {
+            key: "pv.voc.max",
+            names: ["Maximum PV open circuit voltage"],
+            source: "doc-a",
+            conditions: { ambientTemperature: 25 },
+            basis: "this sheet states the limit at 25 °C",
+          },
+        ],
+      }),
+    ],
+    specs: [
+      figure(newcomer.id, "Maximum PV open circuit voltage", "150", { unit: "V" }),
+      figure(newcomer.id, "Maximum PV open circuit voltage", "140", { unit: "V", source: "doc-b" }),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.value, p.mappedBy, p.conditions]),
+    [
+      [150, "rule:acme@1#1", { ambientTemperature: 25 }],
+      [140, "rule:shared@1#1", {}],
+    ],
+  );
+  assert.ok(!gaps.some((g) => g.key === "pv.voc.max"));
+});
+
+test("a charger's current rating keeps the ambient temperature its sheet states it at", () => {
+  const { properties } = build({
+    models: [newcomer],
+    mappings: [
+      acme({
+        rules: [
+          {
+            key: "charge.current.max",
+            names: ["Charging current at 25°C"],
+            basis: "the sheet rates the charger at 25 °C",
+          },
+        ],
+      }),
+    ],
+    specs: [figure(newcomer.id, "Charging current at 25°C", "35", { unit: "A" })],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.key, p.value, p.conditions]),
+    [["charge.current.max", 35, { ambientTemperature: 25 }]],
+  );
+});
+
+test("a maker's rule for a key the model's kind does not have leaves the name to the shared rule", () => {
+  const { properties } = build({
+    models: [newcomer],
+    mappings: [
+      shared,
+      acme({
+        // The maker's batteries print the same name; the rule is theirs, not the controller's.
+        rules: [
+          { key: "battery.charge.current.max", names: ["Maximum charge current"], basis: "packs" },
+        ],
+      }),
+    ],
+    specs: newcomerFigures,
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.key, p.value, p.mappedBy]),
+    [
+      ["charge.current.max", 40, "rule:shared@1#2"],
+      ["pv.voc.max", 150, "rule:shared@1#1"],
+    ],
+  );
+});
+
+test("on a key with no scope dimension, figures that disagree are a conflict whatever scope a rule claims", () => {
+  const { properties, gaps } = build({
+    models: [newcomer],
+    mappings: [
+      acme({
+        rules: [
+          { key: "battery.voltage.nominal", names: ["Nominal voltage"], basis: "the sheet" },
+          {
+            key: "battery.voltage.nominal",
+            names: ["System voltage"],
+            scope: "total",
+            basis: "the sheet, with a scope that means nothing here",
+          },
+        ],
+      }),
+    ],
+    specs: [
+      figure(newcomer.id, "Nominal voltage", "12", { unit: "V" }),
+      figure(newcomer.id, "System voltage", "24", { unit: "V" }),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.values, p.scope, p.status]),
+    [
+      [[12], undefined, "conflict"],
+      [[24], undefined, "conflict"],
+    ],
+  );
+  assert.equal(gaps.find((g) => g.key === "battery.voltage.nominal")?.reason, "conflict");
+});
+
+test("a figure two of a maker's rules name under one key is read once, by the first rule", () => {
+  const { properties, gaps } = build({
+    models: [newcomer],
+    mappings: [
+      acme({
+        rules: [
+          {
+            key: "pv.voc.max",
+            names: ["Maximum PV open circuit voltage"],
+            source: "doc-a",
+            unit: "V",
+            basis: "this sheet's table is headed in volts",
+          },
+          { key: "pv.voc.max", names: ["Maximum PV open circuit voltage"], basis: "the sheets" },
+        ],
+      }),
+    ],
+    specs: [figure(newcomer.id, "Maximum PV open circuit voltage", "150")],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.value, p.mappedBy]),
+    [[150, "rule:acme@1#1"]],
+  );
+  assert.ok(!gaps.some((g) => g.key === "pv.voc.max"));
+});

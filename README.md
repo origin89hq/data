@@ -228,14 +228,19 @@ the registry in `packages/schema/src/properties.ts` and published as
 `properties.json`: `pv.voc.max` is a voltage, in V, one number, for anything
 with a PV input, and it limits the `pv-voltage` reading.
 
-Nothing is guessed. A maker's figures reach a key only through a mapping
-record under `records/mappings/<manufacturer>.json`, reviewed in a pull
-request and scoped to that maker and, where the wording is one document's, to
+Nothing is guessed. A figure reaches a key only through a mapping rule,
+reviewed in a pull request. `records/mappings/shared.json` holds the names
+that say in full what they measure wherever they are printed, "Maximum PV
+open circuit voltage" or "Rated output power", and applies to every maker. A
+maker's own record under `records/mappings/<manufacturer>.json` holds its own
+wording, scoped to that maker and, where the wording is one document's, to
 that document; "Max. input voltage" is the open-circuit limit on Victron's
-sheets and may not be elsewhere. The SAM feed maps by column, in code. The
-value is read by `src/quantities.ts`, which takes "150 volts DC", "8 - 72
-Volts dc", "12/24/48V DC" and "-0,29 %/°C" and refuses a bound, a sentence, a
-number with no unit, or a unit outside the key's quantity. Conditions are
+sheets and may not be elsewhere. A maker's rule comes before the shared one,
+and a maker lists under `except` any shared name that means something else on
+its sheets. The SAM feed maps by column, in code. The value is read by
+`src/quantities.ts`, which takes "150 volts DC", "8 - 72 Volts dc",
+"12/24/48V DC" and "-0,29 %/°C" and refuses a bound, a sentence, a number
+with no unit, or a unit outside the key's quantity. Conditions are
 structured: a capacity at C20 and at C100 are two rows, and a surge without
 its duration is not a surge.
 

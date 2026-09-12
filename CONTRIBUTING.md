@@ -21,8 +21,10 @@ carries the source, and the reviewer reads the source, not the diff.
   maker's printed names reach which property key, with the sheet's own words as
   its basis. A rule is scoped to one maker, and to one document where the
   wording is that document's; translating a name into English does not make
-  two properties the same. Reviewing a rule does not review the figures it
-  reads.
+  two properties the same. `records/mappings/shared.json` is the exception:
+  a name goes there only when it says in full what it measures on any sheet,
+  and a maker whose sheets use it for something else lists it under `except`.
+  Reviewing a rule does not review the figures it reads.
 - Absent beats plausible. A baud rate the document does not state stays out of
   the record; write the gap in `gotchas`.
 - Run `pnpm validate && pnpm test` before opening the pull request.
