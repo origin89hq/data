@@ -85,3 +85,36 @@ test("Magnum: the surge lines read in watts with their durations, the charger's 
     ],
   );
 });
+
+test("Samlex: the PST's watts and its surge without a time, the SEC's bulk capacity over its set value, and the SCC's array limits", () => {
+  const pst = of("samlex-america-pst-1000-12hd");
+  assert.deepEqual(
+    values(pst.properties, "inverter.power.continuous").map((p) => [p.value, p.unit]),
+    [[1000, "W"]],
+  );
+  assert.equal(gap(pst.gaps, "inverter.power.surge")?.reason, "needs-conditions");
+  const sec = values(of("samlex-america-sec-1250ul").properties, "charge.current.max");
+  assert.deepEqual(
+    sec.map((p) => [p.value, p.claim]),
+    [[50, "samlex-america-sec-1250ul--bulk-stage-current-capacity"]],
+  );
+  // The EVO-1212F prints its watts with the power factor on the line, which stays a gap that says so.
+  assert.match(
+    gap(of("samlex-america-evo-1212f").gaps, "inverter.power.continuous")?.detail ?? "",
+    /Watt/,
+  );
+  const scc = of("samlex-america-evo-30ab").properties;
+  assert.deepEqual(
+    values(scc, "charge.current.max").map((p) => p.value),
+    [30],
+  );
+  assert.deepEqual(
+    values(scc, "pv.voc.max").map((p) => p.value),
+    [50],
+  );
+  assert.deepEqual(
+    values(scc, "pv.isc.max").map((p) => p.value),
+    [30],
+  );
+  assert.ok(own("samlex-america", [...sec, ...values(scc, "pv.voc.max")]));
+});
