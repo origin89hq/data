@@ -1,0 +1,54 @@
+{
+  "id": "xantrex",
+  "version": 1,
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-12",
+  "rules": [
+    {
+      "key": "inverter.power.continuous",
+      "names": [
+        "Output power (continuous at 40°C)"
+      ],
+      "basis": "The Freedom sheets state the continuous output at 40 °C, in watts, with the temperature in the name."
+    },
+    {
+      "key": "inverter.voltage.ac",
+      "names": [
+        "Output voltage"
+      ],
+      "source": "doc-5519eac23098982576268643f6e073a6",
+      "basis": "The Freedom SW sheet states the AC output as 230 V; the rule reads that sheet only, since the Freedom XC manuals print a status screen's reading under the same name."
+    },
+    {
+      "key": "inverter.voltage.ac",
+      "names": [
+        "AC Output"
+      ],
+      "basis": "The MS2000 and RS3000 manuals state 'AC Output' as 120 V in their specification tables."
+    },
+    {
+      "key": "inverter.voltage.ac",
+      "names": [
+        "Output voltage options"
+      ],
+      "basis": "The Freedom XC manuals list the selectable output voltages, '120, 110, 108 VAC', which the parser refuses as a list, so the figure is named and the gap says so rather than publishing one displayed voltage as the set."
+    },
+    {
+      "key": "battery.voltage.nominal",
+      "names": [
+        "Nominal Voltage"
+      ],
+      "basis": "The PROwatt and Freedom sheets state 'Nominal Voltage' as 12 V under the DC input, the battery's."
+    },
+    {
+      "key": "charge.current.max",
+      "names": [
+        "Charger Output",
+        "Output current (continuous at 25°C)",
+        "Maximum DC Output Current",
+        "Charging / Load Current @ 25°C (77°F)"
+      ],
+      "basis": "The Freedom SW and EX sheets state the charger's output in amps, 65 to 90 A, the SW's continuous at 25 °C, which the figure keeps; the C-series controller sheets state the charging or load current rating at 25 °C, 35 to 60 A. The Freedom XC manuals' 'Charging current' is a display reading on a status page, 30 A where the sheet rates the charger at 80 A, and is not read."
+    }
+  ]
+}
