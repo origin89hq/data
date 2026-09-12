@@ -1,0 +1,125 @@
+{
+  "id": "magnum-energy",
+  "version": 1,
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-12",
+  "rules": [
+    {
+      "key": "inverter.power.continuous",
+      "names": [
+        "Output Power"
+      ],
+      "source": "doc-d289bbfa7fd86d5b767fc9663c46cbe4",
+      "unit": "W",
+      "basis": "The NP sheet's table prints 'Output Power' in watts, 1000 for the 12NP10, and the lines carry no unit in the reading, so this sheet's figures are read in watts."
+    },
+    {
+      "key": "inverter.power.continuous",
+      "names": [
+        "Output Power (Watts Cont.)"
+      ],
+      "unit": "W",
+      "basis": "The 12LP10 sheet's heading says 'Watts Cont.' and the line prints a bare 1000, so it is read in watts."
+    },
+    {
+      "key": "inverter.power.continuous",
+      "names": [
+        "Output Power",
+        "AC output power"
+      ],
+      "basis": "The MM, CSW and other inverter sheets print one 'Output Power' beside the surge and idle figures, 400 W for the 12-400N; a line printed without a unit on a sheet this file does not name stays a gap rather than being read in watts."
+    },
+    {
+      "key": "inverter.power.idle",
+      "names": [
+        "Search mode",
+        "No load (120 VAC output, typical)",
+        "No load (230 VAC output, typical)"
+      ],
+      "source": "doc-48882fa88ab64f9231fd416f82425d7c",
+      "unit": "W",
+      "basis": "The MM-AE sheet prints its 'Power consumption' lines, search mode and no load, as bare figures, 6 and 18 for the MM1512AE, where the MS sheets print the same lines as watts; this sheet's figures are read in watts."
+    },
+    {
+      "key": "inverter.power.idle",
+      "names": [
+        "Search mode",
+        "No load",
+        "No load (120 VAC output, typical)",
+        "No load (230 VAC output, typical)"
+      ],
+      "basis": "The MS and MM sheets print the inverter's draw under 'Power consumption' as 'Search mode' and 'No load (120 VAC output, typical)'; the search-mode figure carries its mode in its name. The MMS912E prints its search draw in amps under the same name, '0.4 ADC at 12.6 V', which reads as a gap that says so."
+    },
+    {
+      "key": "inverter.power.idle",
+      "names": [
+        "Power consumption - inverting (no load)",
+        "Power consumption – inverting (no load)"
+      ],
+      "conditions": {
+        "mode": "invert"
+      },
+      "basis": "The MSH and MS-PAE sheets state the no-load draw while inverting; the word is 'inverting', which the reader does not take as a mode, so the rule states it."
+    },
+    {
+      "key": "inverter.power.idle",
+      "names": [
+        "Power consumption - searching",
+        "Power consumption – searching"
+      ],
+      "conditions": {
+        "mode": "search"
+      },
+      "basis": "The same sheets state the draw while searching for a load, which is the search mode."
+    },
+    {
+      "key": "inverter.voltage.ac",
+      "names": [
+        "AC Voltage",
+        "AC Output Voltage @ 12.5V",
+        "AC Output Voltage (12.5V)"
+      ],
+      "basis": "The NP inverter sheets print 'AC Voltage' and the CSW sheets 'AC Output Voltage @ 12.5V' for the 120 V output; the bare 'Output Voltage' is not read, since the ADI charger sheets, whose models are filed as inverters, print their 27.6 V DC output under it. A tolerance printed with the figure is refused rather than halved."
+    },
+    {
+      "key": "battery.voltage.nominal",
+      "names": [
+        "Nominal Voltage"
+      ],
+      "basis": "The battery sheets state their own nominal voltage, 12 V; the CSW sheets' 'DC Input Voltage (Nominal)' of 12.5 V is the input the ratings are taken at, not a bank voltage, and is not read."
+    },
+    {
+      "key": "charge.current.max",
+      "names": [
+        "Continuous charger output at 25°C",
+        "Continuous Charger Current",
+        "Continuous output at 25°C",
+        "Continuous output at 25° C"
+      ],
+      "unit": "A",
+      "basis": "The charger section of the MS, MM and RD sheets states the continuous output in amps DC at 25 °C: 105 A for the MS4024PAE, 110 A for the RD2212, 50 A for the MM1012E, whose line carries no unit in the reading and is read in amps; the inverter's continuous figure on the same sheets is in VA under 'Continuous power output'."
+    },
+    {
+      "key": "inverter.power.surge",
+      "names": [
+        "5 sec surge power",
+        "10 sec surge power",
+        "30 sec surge power",
+        "5 min surge power",
+        "30 min surge power"
+      ],
+      "basis": "The MM and RD sheets state surge power for 5 s, 30 s, 5 min and 30 min, each on its own line with the time in its name, which is the duration the key needs; most lines carry no unit in the reading and are gaps until they do."
+    },
+    {
+      "key": "inverter.power.surge",
+      "names": [
+        "5 sec surge power (real watts)",
+        "30 sec surge power (real watts)",
+        "5 min surge power (real watts)",
+        "30 min surge power (real watts)"
+      ],
+      "unit": "W",
+      "basis": "The MS-PAE sheets state the same four surge figures under headings that say 'real watts', so a line printed without a unit is read in watts."
+    }
+  ]
+}
