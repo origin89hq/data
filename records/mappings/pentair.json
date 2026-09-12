@@ -1,0 +1,47 @@
+{
+  "id": "pentair",
+  "version": 1,
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-12",
+  "rules": [
+    {
+      "key": "pump.flow.rated",
+      "names": [
+        "Service Flow Rate"
+      ],
+      "basis": "The Everpure and Fleck sheets state the flow the unit is rated for service at, '2.5 gpm (9.5 Lpm)'."
+    },
+    {
+      "key": "pump.flow.rated",
+      "names": [
+        "Capacity"
+      ],
+      "source": "doc-ad2e30f8ee91e3c766fd0928469628a1",
+      "basis": "The MES sheet heads its flow column 'Capacity', '63 GPM'; on the filter sheets the same name is gallons of service life, so the rule reads that sheet only."
+    },
+    {
+      "key": "pump.pressure.max",
+      "names": [
+        "MAX. PSI"
+      ],
+      "unit": "psi",
+      "source": "doc-4b1237cb5e14a1f7dfd699c0f51d4b52",
+      "basis": "The MA-240 HD sheet states the pressure limit under 'MAX. PSI' as a bare number in the unit the name carries."
+    },
+    {
+      "key": "pump.power.rated",
+      "names": [
+        "Maximum Rated Power"
+      ],
+      "basis": "The MA plunger pump sheets state 'Maximum Rated Power' in horsepower, '15.0 hp'; a cell that also prints the kilowatts, '144.0 hp 107.4 kW', is refused. 'Motor HP' prints fractions such as '4/10', which read as two figures, and is not read."
+    },
+    {
+      "key": "generator.power.running",
+      "names": [
+        "Full Load kW"
+      ],
+      "unit": "kW",
+      "basis": "The HPGR200 generator sheet states 'Full Load kW' as a bare 3.2 with the unit in the name."
+    }
+  ]
+}

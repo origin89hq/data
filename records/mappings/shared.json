@@ -1,6 +1,6 @@
 {
   "id": "shared",
-  "version": 3,
+  "version": 4,
   "reviewedBy": "lemarier",
   "checkedAt": "2026-09-12",
   "rules": [
@@ -266,6 +266,75 @@
         "Peak Apparent Power (10s, off-grid)"
       ],
       "basis": "The Sol-Ark 5K sheet states its off-grid peak in VA for 100 ms and 10 s, the time in the name; an overload figure under a watt name that a sheet prints in VA reaches this key through that name's rule."
+    },
+    {
+      "key": "generator.power.running",
+      "names": [
+        "Running watts",
+        "Rated running watts",
+        "Continuous running watts",
+        "Running power"
+      ],
+      "basis": "A generator sheet's running watts is the power it sustains, under whichever fuel the name states."
+    },
+    {
+      "key": "generator.power.starting",
+      "names": [
+        "Starting watts",
+        "Rated starting watts",
+        "Peak starting watts",
+        "Starting power"
+      ],
+      "basis": "A generator sheet's starting watts is what it gives for the seconds a motor takes to start, under whichever fuel the name states."
+    },
+    {
+      "key": "generator.fuel.tank",
+      "names": [
+        "Fuel tank capacity",
+        "Fuel capacity",
+        "Tank capacity"
+      ],
+      "basis": "A generator sheet's fuel tank capacity is what its tank holds; on a pump's sheet the same name is the engine's tank, which the key's kinds keep out."
+    },
+    {
+      "key": "pump.flow.rated",
+      "names": [
+        "Flow rate",
+        "Rated flow",
+        "Rated flow rate"
+      ],
+      "basis": "A pump sheet's flow rate is the flow it is rated at, in gallons or litres a minute."
+    },
+    {
+      "key": "pump.head.max",
+      "names": [
+        "Max shut-off head",
+        "Maximum shut-off head",
+        "Max head",
+        "Maximum head",
+        "Total head",
+        "Max total head",
+        "Maximum total head"
+      ],
+      "basis": "A pump sheet's shut-off or total head is the height of water it lifts against; a value printed as feet with the metres beside it is read as feet."
+    },
+    {
+      "key": "pump.pressure.max",
+      "names": [
+        "Maximum continuous working pressure",
+        "Max. continuous working pressure",
+        "Maximum working pressure",
+        "Max. working pressure",
+        "Max working pressure"
+      ],
+      "basis": "A pump sheet's maximum working pressure is the most it works at continuously."
+    },
+    {
+      "key": "charge.battery.capacity",
+      "names": [
+        "Battery capacity"
+      ],
+      "basis": "On a charger's sheet 'Battery capacity' is the range of battery sizes it is made for, '125-250 Ah'; a bound such as 'Up to 120Ah' is refused. On a battery's sheet the name is the battery's own and is not this key's, which the key's kinds keep out."
     }
   ]
 }

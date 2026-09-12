@@ -660,6 +660,107 @@ test("Sigineer: the ESF's open-circuit limit, charge amps and PV power at four b
   );
 });
 
+test("Champion: a generator's starting and running watts from one cell, by fuel, its tank in litres, its AC voltages, and a water pump's flow and head", () => {
+  const dual = of("champion-power-201424");
+  assert.deepEqual(
+    values(dual.properties, "generator.power.starting").map((p) => [p.value, p.conditions.fuel]),
+    [
+      [11000, "lpg"],
+      [11000, "natural-gas"],
+      [11000, undefined],
+    ],
+  );
+  assert.deepEqual(
+    values(dual.properties, "generator.power.running").map((p) => [p.value, p.conditions.fuel]),
+    [
+      [8100, "lpg"],
+      [7290, "natural-gas"],
+      [9000, undefined],
+    ],
+  );
+  assert.deepEqual(
+    values(dual.properties, "inverter.voltage.ac").map((p) => p.values),
+    [[120, 240]],
+  );
+  const standby = of("champion-power-100304");
+  assert.deepEqual(
+    values(standby.properties, "generator.power.running").map((p) => [p.value, p.conditions.fuel]),
+    [
+      [22000, "lpg"],
+      [19800, "natural-gas"],
+    ],
+  );
+  assert.deepEqual(
+    values(of("champion-power-201154").properties, "generator.fuel.tank").map((p) => [
+      p.value,
+      p.unit,
+      p.conditions.fuel,
+    ]),
+    [[8.517176514, "L", "gasoline"]],
+  );
+  // A bare '5' under 'Gasoline Capacity' is gallons on the US sheet, as the rule says.
+  assert.deepEqual(
+    values(of("champion-power-201445").properties, "generator.fuel.tank").map((p) => p.value),
+    [18.92705892],
+  );
+  const pump = of("champion-power-100113");
+  assert.deepEqual(
+    values(pump.properties, "pump.flow.rated").map((p) => [p.value, p.unit]),
+    [[598.0950619, "L/min"]],
+  );
+  assert.deepEqual(
+    values(pump.properties, "pump.head.max").map((p) => [p.value, p.unit]),
+    [[29.8704, "m"]],
+  );
+  // Its engine's 'Fuel Capacity' is not a generator's tank: the key's kinds keep it out.
+  assert.equal(values(pump.properties, "generator.fuel.tank").length, 0);
+});
+
+test("Pentair: a plunger pump's pressure in bar and its horsepower in watts, a filter's service flow, and the MES sheet's 'Capacity' read on that sheet only", () => {
+  const plunger = of("pentair-ma-240l-hd");
+  assert.deepEqual(
+    values(plunger.properties, "pump.pressure.max").map((p) => [p.value, p.unit]),
+    [[70.11968164, "bar"]],
+  );
+  assert.deepEqual(
+    values(of("pentair-ma-15h").properties, "pump.power.rated").map((p) => [p.value, p.unit]),
+    [[11185.49807, "W"]],
+  );
+  assert.deepEqual(
+    values(of("pentair-ev9337-44").properties, "pump.flow.rated").map((p) => p.value),
+    [50.57310143],
+  );
+  const mes = values(of("pentair-mes50").properties, "pump.flow.rated");
+  assert.deepEqual(
+    mes.map((p) => p.value),
+    [238.4809424],
+  );
+  assert.ok(own("pentair", mes));
+  // On a filter sheet 'Capacity' is gallons of service life, which the source-scoped rule leaves alone: the 7FC5-S's flow is its service flow only.
+  assert.deepEqual(
+    values(of("pentair-7fc5-s").properties, "pump.flow.rated").map((p) => [p.value, p.claim]),
+    [[9.46352946, "pentair-7fc5-s--service-flow-rate"]],
+  );
+  assert.deepEqual(
+    values(of("pentair-hpgr200").properties, "generator.power.running").map((p) => p.value),
+    [3200],
+  );
+});
+
+test("NOCO's chargers: the output watts, the battery sizes as a range, and a bound as the gap it is", () => {
+  assert.deepEqual(
+    values(of("noco-gen5x1").properties, "charge.power.max").map((p) => [p.value, p.unit]),
+    [[72, "W"]],
+  );
+  assert.deepEqual(
+    values(of("noco-gx3626").properties, "charge.battery.capacity").map((p) => [p.min, p.max]),
+    [[55, 425]],
+  );
+  const genius = of("noco-genius2");
+  assert.equal(gap(genius.gaps, "charge.battery.capacity")?.reason, "unparsed");
+  assert.match(gap(genius.gaps, "charge.battery.capacity")?.detail ?? "", /bound/);
+});
+
 test("OutBack's VA figures reach the apparent-power keys through the watt rules that name them", () => {
   const { properties, gaps } = of("outback-power-fx2012t");
   assert.deepEqual(

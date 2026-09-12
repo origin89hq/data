@@ -249,6 +249,16 @@ state, still needs it. A continuous or surge figure a sheet prints in
 VA is read under the watt key's apparent-power sibling, `inverter.power.apparent`
 or `inverter.power.apparent.surge`, through the same rule.
 
+Chargers, generators and pumps have keys of their own: `charge.power.max` and
+`charge.battery.capacity` for a mains or DC charger, `generator.power.running`,
+`generator.power.starting` and `generator.fuel.tank` for a generator, whose
+`fuel` condition is read off the name where a dual-fuel set rates LPG and
+natural gas apart, and `pump.flow.rated`, `pump.head.max`, `pump.pressure.max`
+and `pump.power.rated` for a pump, in litres a minute, metres, bar and watts,
+with gallons, feet, psi and horsepower converted. A sheet that prints two
+figures in one cell, "Watts (Starting/Running)" = "5500/4000", is read by two
+rules, each naming the `part` it takes.
+
 Validation audits the mappings against what the build read: a figure a rule
 names under a key the model's kind has, that no key read, is an error, and the
 report lists what a mapping's author should look at, an unmapped name one word

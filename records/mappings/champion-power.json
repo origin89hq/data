@@ -1,0 +1,70 @@
+{
+  "id": "champion-power",
+  "version": 1,
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-12",
+  "rules": [
+    {
+      "key": "generator.power.starting",
+      "names": [
+        "Watts (Starting/Running)",
+        "Watts (LPG) (Starting/Running)",
+        "Watts (NG) (Starting/Running)"
+      ],
+      "unit": "W",
+      "part": 1,
+      "basis": "The generator sheets print one cell 'Watts (Starting/Running)' as '5000/4000', the starting watts first, with the fuel in the name where a dual-fuel set rates LPG and natural gas apart; the column is in watts."
+    },
+    {
+      "key": "generator.power.running",
+      "names": [
+        "Watts (Starting/Running)",
+        "Watts (LPG) (Starting/Running)",
+        "Watts (NG) (Starting/Running)"
+      ],
+      "unit": "W",
+      "part": 2,
+      "basis": "The same cell's second figure is the running watts. 'Rated Power' and 'Power' are not read: on one sheet they equal the running watts and on another the starting watts."
+    },
+    {
+      "key": "generator.power.running",
+      "names": [
+        "Maximum continuous power, LPG",
+        "Maximum continuous power, NG"
+      ],
+      "basis": "The home standby sheets state the continuous power per fuel in kilowatts, 22 on LPG and 19.8 on natural gas, the fuel in the name."
+    },
+    {
+      "key": "generator.fuel.tank",
+      "names": [
+        "Gasoline Capacity"
+      ],
+      "unit": "gal",
+      "basis": "The generator sheets state 'Gasoline Capacity' as '2.25 gal. (8.50 L)' or as a bare '5' or '4.7' on a US sheet whose column is in gallons; the fuel is in the name."
+    },
+    {
+      "key": "inverter.voltage.ac",
+      "names": [
+        "Volts AC",
+        "AC Volts",
+        "Rated voltage"
+      ],
+      "unit": "V",
+      "basis": "The generator sheets state the output as 'Volts AC' or 'AC Volts', '120' or '120/240', and the standby sheets as 'Rated voltage' '120/240', both alternatives of one output; the same name on the power station is its inverter's."
+    },
+    {
+      "key": "pump.flow.rated",
+      "names": [
+        "Max Delivery Volume"
+      ],
+      "basis": "The 100113 water pump sheet states its flow as 'Max Delivery Volume', '158 gal/min (598 L/min)'."
+    },
+    {
+      "key": "pump.head.max",
+      "names": [
+        "Total Head"
+      ],
+      "basis": "The 100113 water pump sheet states 'Total Head' as '98 ft. (29.9 m)', the height it lifts against; 'Suction Head' is the lift on the inlet side and is not read."
+    }
+  ]
+}
