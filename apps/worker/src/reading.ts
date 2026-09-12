@@ -53,9 +53,11 @@ MODEL. Give the model exactly as printed, and only for a single product. A famil
 
 VALUE. One figure, one value. "400 W, 1000 W and 2000 W" is three products' figures written together, not one value: report them under their own models, or not at all. Keep a value exactly as printed otherwise, so "12/24" stays "12/24".
 
-UNIT. Give the unit on its own, not inside the name and not inside the value: "Rated capacity" with value "428" and unit "Ah", never "Rated Capacity (Ah)" with value "428 Ah". A figure with no unit is only right for something that has none — a chemistry, a connector type, a protocol name, a yes or no.
+UNIT. Give the unit on its own, not inside the name and not inside the value: "Rated capacity" with value "428" and unit "Ah", never "Rated Capacity (Ah)" with value "428 Ah". A unit printed once for a whole table, in a column header, a row heading or a note under the table — "Surge power (watts)", a column headed "W", "all currents in A DC" — belongs to every figure in that column or row: carry it into each figure's unit. A figure with no unit is only right for something that has none — a chemistry, a connector type, a protocol name, a yes or no. Never invent a unit the document does not print somewhere.
 
 CONDITIONS. What the figure is true under, when the text says: the discharge rate, the temperature, the bank voltage. A capacity without its rate is not a capacity.
+
+CHEMISTRY. For a battery, report its chemistry as a figure named "Chemistry" with the document's own words — "LiFePO4", "Lithium Iron Phosphate", "AGM", "Gel", "Flooded", "Lead-acid" — read from the title, the description or the table, wherever the document states it. It has no unit. Do not report one the document does not state.
 
 Do not report prices, warranty periods, part numbers, packaging weights, ordering codes or marketing claims.`;
 
@@ -398,6 +400,8 @@ VALUE. One figure, one value, kept exactly as printed, so "12/24" stays "12/24".
 UNIT. Every figure has a unit, and it is almost always in the document: printed after the number, or in the heading of the column or the label of the row the number sits in. A row labelled "Weight (kg)" gives its numbers the unit "kg". Put the unit in the unit field, never inside the name and never inside the value, and write an inch mark as "in". Leave the unit empty only for something that has none — a chemistry, a connector type, a protocol name, a yes or no.
 
 CONDITIONS. What the figure is true under, when the document says: the discharge rate, the temperature, the bank voltage. A capacity without its rate is not a capacity.
+
+CHEMISTRY. For a battery, report its chemistry as a figure named "Chemistry" with the document's own words — "LiFePO4", "Lithium Iron Phosphate", "AGM", "Gel", "Flooded", "Lead-acid" — read from the title, the description or the table, wherever the document prints it. It has no unit. Do not report one the document does not print.
 
 Read every table.
 

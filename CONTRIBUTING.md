@@ -29,7 +29,9 @@ carries the source, and the reviewer reads the source, not the diff.
   `pnpm validate`, and run `just coverage-snapshot` so the pull request carries
   what the change did to coverage.
 - A battery's `chemistry` is set only where the maker's name for it or its
-  sheet says so, with `chemistryBasis` naming which, `name` or `spec:<id>`; a pack whose chemistry nothing states has none, and its
+  sheet says so, with `chemistryBasis` naming which, `name` or `spec:<id>`;
+  `just chemistry` sets it from the records, and `just specs` does the same
+  for a maker as its figures land; a pack whose chemistry nothing states has none, and its
   capacity then needs a discharge rate like a lead-acid pack's.
 - Absent beats plausible. A baud rate the document does not state stays out of
   the record; write the gap in `gotchas`.

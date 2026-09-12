@@ -1,5 +1,6 @@
 import { Guess } from "@origin89/equipment-schema/guess";
 import { classifierKey } from "@origin89/equipment-schema/provenance";
+import { withoutChemistry } from "../../src/chemistry.ts";
 import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 import { keysUnder, object, under } from "./archive.ts";
 
@@ -61,7 +62,7 @@ for (const line of (await under(`${prefix}/page-`, remote)).split("\n").filter(B
     // could not decline at all until it was given the option, so a model it now refuses to judge
     // is still carrying whatever the old prompt guessed at it.
     if (model.kind) {
-      const { kind, ...rest } = model;
+      const { kind, ...rest } = withoutChemistry(model);
       writeRecord(RECORDS_DIR, "models", model.id, rest);
       cleared += 1;
     }
@@ -77,7 +78,7 @@ for (const line of (await under(`${prefix}/page-`, remote)).split("\n").filter(B
   if (guess.kind === "out-of-scope" && !documented.has(model.id) && !saysSomething(model.name)) {
     unevidenced += 1;
     if (model.kind) {
-      const { kind, ...rest } = model;
+      const { kind, ...rest } = withoutChemistry(model);
       writeRecord(RECORDS_DIR, "models", model.id, rest);
       cleared += 1;
     }
@@ -85,7 +86,9 @@ for (const line of (await under(`${prefix}/page-`, remote)).split("\n").filter(B
   }
   if (model.kind === guess.kind) continue;
   if (model.kind) changed += 1;
-  writeRecord(RECORDS_DIR, "models", model.id, { ...model, kind: guess.kind });
+  // Only a battery carries a chemistry; a model that stops being one loses it with the kind.
+  const next = guess.kind === "battery" ? model : withoutChemistry(model);
+  writeRecord(RECORDS_DIR, "models", model.id, { ...next, kind: guess.kind });
   applied += 1;
 }
 console.log(

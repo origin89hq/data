@@ -4,6 +4,7 @@ import { withoutTranslations } from "@origin89/equipment-schema/documents";
 import { Model } from "@origin89/equipment-schema/model";
 import { EXTRACTOR_ID } from "@origin89/equipment-schema/provenance";
 import { Source } from "@origin89/equipment-schema/source";
+import { applyChemistry } from "../../src/chemistry.ts";
 import { withoutTranslatedReadings } from "../../src/language.ts";
 import {
   familyOfAnotherMaker,
@@ -278,9 +279,30 @@ for (const spec of records.specs) {
   stale += 1;
 }
 
+// A battery whose sheet or name states its chemistry gets it now, so its capacity can publish;
+// one whose cited figure this run dropped is read again from what is left, after the stale
+// figures are gone, so no model cites a figure that no longer exists.
+const surviving = [
+  ...records.specs.filter(
+    (s) => !collected.has(s.id) && (!mine.has(s.model) || produced.has(s.id) || heldByPerson(s)),
+  ),
+  ...collected.values(),
+];
+const chemistry = applyChemistry(
+  records.models.filter((m) => m.manufacturer === manufacturer),
+  surviving,
+  (model) => {
+    if (!dryRun) writeRecord(RECORDS_DIR, "models", model.id, model);
+  },
+);
+
 console.log(
   `${written} figures and ${modelsAdded} new models${dryRun ? " (dry run, nothing written)" : " written"} for ${manufacturer}`,
 );
+if (chemistry.set > 0 || chemistry.cleared > 0)
+  console.log(
+    `${chemistry.set} batteries given a chemistry, ${chemistry.cleared} lost one whose figure is gone`,
+  );
 if (stale) console.log(`  ${stale} figures removed, which this run no longer produces`);
 if (held.agreed)
   console.log(
