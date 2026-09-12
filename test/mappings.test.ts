@@ -340,3 +340,30 @@ test("Sol-Ark: the 15K's surges with their times, one battery current, the usabl
   );
   assert.equal(gap(five.gaps, "charge.current.max"), undefined);
 });
+
+test("EG4: the 12kPV's kilowatts as watts, its PV limits, the mini split's bare MPPT heading, and a bounded idle figure as a gap", () => {
+  const { properties, gaps } = of("eg4-electronics-eg4-12kpv");
+  assert.deepEqual(
+    values(properties, "inverter.power.continuous").map((p) => [p.value, p.unit]),
+    [[8000, "W"]],
+  );
+  assert.deepEqual(
+    values(properties, "pv.isc.max").map((p) => p.value),
+    [31],
+  );
+  assert.deepEqual(
+    values(properties, "pv.power.max").map((p) => p.value),
+    [12000],
+  );
+  assert.deepEqual(
+    values(properties, "battery.voltage.nominal").map((p) => p.values),
+    [[48]],
+  );
+  assert.equal(gap(gaps, "inverter.power.idle")?.reason, "unparsed");
+  const mini = values(of("eg4-electronics-eg4-12k-mini-split").properties, "pv.mppt.window");
+  assert.deepEqual(
+    mini.map((p) => [p.min, p.max]),
+    [[90, 380]],
+  );
+  assert.ok(own("eg4-electronics", mini));
+});
