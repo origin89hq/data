@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { chemistryIn, chemistryOf } from "../src/chemistry.ts";
+import { Model } from "@origin89/equipment-schema/model";
+import { applyChemistry, chemistryIn, chemistryOf } from "../src/chemistry.ts";
 
 const model = (
   name: string,
@@ -61,4 +62,52 @@ test("an alias, a variant or a family can name the chemistry; nothing does for a
     chemistryBasis: "name",
   });
   assert.equal(chemistryOf(model("12AVR100"), []), undefined);
+});
+
+test("a chemistry cited from a figure is read again when the figure is gone, and cleared when nothing else states it", () => {
+  const battery = (id: string, name: string, over: Partial<Model> = {}) =>
+    Model.parse({
+      id,
+      manufacturer: "acme",
+      name,
+      kind: "battery",
+      aliases: [],
+      dialects: [],
+      ...over,
+    });
+  const spec = (model: string, id: string, name: string, value: string) => ({
+    id,
+    model,
+    name,
+    value,
+    source: "doc-a",
+    extractedBy: "ai:@cf/x@p1",
+    confidence: "vendor-doc" as const,
+  });
+  const cited = battery("acme-a", "ACME A", {
+    chemistry: "agm",
+    chemistryBasis: "spec:acme-a--chemistry",
+  });
+  const named = battery("acme-b", "ACME B LFP", {
+    chemistry: "agm",
+    chemistryBasis: "spec:acme-b--chemistry",
+  });
+  const bare = battery("acme-c", "ACME C", {
+    chemistry: "gel",
+    chemistryBasis: "spec:acme-c--chemistry",
+  });
+  const written: Model[] = [];
+  const outcome = applyChemistry(
+    [cited, named, bare],
+    [spec("acme-a", "acme-a--chemistry", "Chemistry", "AGM")],
+    (m) => written.push(m),
+  );
+  assert.deepEqual(outcome, { set: 1, kept: 1, none: 0, cleared: 1 });
+  assert.deepEqual(
+    written.map((m) => [m.id, m.chemistry, m.chemistryBasis]),
+    [
+      ["acme-b", "lifepo4", "name"],
+      ["acme-c", undefined, undefined],
+    ],
+  );
 });

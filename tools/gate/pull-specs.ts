@@ -256,15 +256,6 @@ for (const spec of collected.values()) {
   written += 1;
 }
 
-// A battery whose sheet or name states its chemistry gets it now, so its capacity can publish.
-const chemistry = applyChemistry(
-  records.models.filter((m) => m.manufacturer === manufacturer),
-  [...records.specs.filter((s) => !collected.has(s.id)), ...collected.values()],
-  (model) => {
-    if (!dryRun) writeRecord(RECORDS_DIR, "models", model.id, model);
-  },
-);
-
 // A figure this run no longer produces has to go, or a refinement only ever adds. Tightening the
 // language rules stopped emitting a NOCO charger's capacity in two languages and both stayed on
 // disk anyway, because writing is not the same as replacing.
@@ -288,10 +279,30 @@ for (const spec of records.specs) {
   stale += 1;
 }
 
+// A battery whose sheet or name states its chemistry gets it now, so its capacity can publish;
+// one whose cited figure this run dropped is read again from what is left, after the stale
+// figures are gone, so no model cites a figure that no longer exists.
+const surviving = [
+  ...records.specs.filter(
+    (s) => !collected.has(s.id) && (!mine.has(s.model) || produced.has(s.id) || heldByPerson(s)),
+  ),
+  ...collected.values(),
+];
+const chemistry = applyChemistry(
+  records.models.filter((m) => m.manufacturer === manufacturer),
+  surviving,
+  (model) => {
+    if (!dryRun) writeRecord(RECORDS_DIR, "models", model.id, model);
+  },
+);
+
 console.log(
   `${written} figures and ${modelsAdded} new models${dryRun ? " (dry run, nothing written)" : " written"} for ${manufacturer}`,
 );
-if (chemistry.set > 0) console.log(`${chemistry.set} batteries given a chemistry`);
+if (chemistry.set > 0 || chemistry.cleared > 0)
+  console.log(
+    `${chemistry.set} batteries given a chemistry, ${chemistry.cleared} lost one whose figure is gone`,
+  );
 if (stale) console.log(`  ${stale} figures removed, which this run no longer produces`);
 if (held.agreed)
   console.log(

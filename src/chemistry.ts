@@ -51,6 +51,8 @@ export interface ChemistryOutcome {
   set: number;
   kept: number;
   none: number;
+  /** Chemistries whose cited figure is gone and nothing else states: taken off the model. */
+  cleared: number;
 }
 
 /**
@@ -66,16 +68,26 @@ export function applyChemistry(
 ): ChemistryOutcome {
   const specsOf = new Map<string, Spec[]>();
   for (const s of specs) specsOf.set(s.model, [...(specsOf.get(s.model) ?? []), s]);
-  const outcome: ChemistryOutcome = { set: 0, kept: 0, none: 0 };
+  const outcome: ChemistryOutcome = { set: 0, kept: 0, none: 0, cleared: 0 };
   for (const model of models) {
     if (model.kind !== "battery") continue;
-    if (model.chemistry && !replace) {
+    const own = specsOf.get(model.id) ?? [];
+    // A chemistry cited from a figure stands only while the figure does: a pull that no longer
+    // emits it leaves the model citing nothing, which the records refuse, so it is read again.
+    const cited = model.chemistryBasis?.startsWith("spec:")
+      ? model.chemistryBasis.slice("spec:".length)
+      : undefined;
+    const orphaned = cited !== undefined && !own.some((s) => s.id === cited);
+    if (model.chemistry && !replace && !orphaned) {
       outcome.kept += 1;
       continue;
     }
-    const found = chemistryOf(model, specsOf.get(model.id) ?? []);
+    const found = chemistryOf(model, own);
     if (!found) {
-      outcome.none += 1;
+      if (model.chemistry) {
+        write(withoutChemistry(model));
+        outcome.cleared += 1;
+      } else outcome.none += 1;
       continue;
     }
     if (found.chemistry === model.chemistry && found.chemistryBasis === model.chemistryBasis) {

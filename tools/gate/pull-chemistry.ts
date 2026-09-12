@@ -13,7 +13,7 @@ const args = process.argv.slice(2);
 const replace = args.includes("--replace");
 const dryRun = args.includes("--dry-run");
 const records = loadRecords();
-const { set, kept, none } = applyChemistry(
+const { set, kept, none, cleared } = applyChemistry(
   records.models,
   records.specs,
   (model) => {
@@ -22,5 +22,5 @@ const { set, kept, none } = applyChemistry(
   replace,
 );
 console.log(
-  `${set} batteries given a chemistry, ${kept} kept theirs, ${none} state none${dryRun ? " (dry run, nothing written)" : ""}`,
+  `${set} batteries given a chemistry, ${kept} kept theirs, ${cleared} lost one whose figure is gone, ${none} state none${dryRun ? " (dry run, nothing written)" : ""}`,
 );
