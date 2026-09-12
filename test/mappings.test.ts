@@ -590,6 +590,15 @@ test("Millertech: a pack's voltage, energy and five-second discharge current, a 
   assert.equal(values(of("millertech-12v10a-24v15a").properties, "charge.current.max").length, 0);
 });
 
+test("BSLBatt: the HVS stack's 'Nominal Capacity' in kilowatt-hours is its energy, and the usable figure beside it is not read", () => {
+  const { properties, gaps } = of("bslbatt-hvs5");
+  assert.deepEqual(
+    values(properties, "battery.energy").map((p) => [p.value, p.unit, p.claim]),
+    [[26625, "Wh", "bslbatt-hvs5--nominal-capacity"]],
+  );
+  assert.equal(gap(gaps, "battery.capacity")?.claims, 0);
+});
+
 test("OutBack's VA figures reach the apparent-power keys through the watt rules that name them", () => {
   const { properties, gaps } = of("outback-power-fx2012t");
   assert.deepEqual(
