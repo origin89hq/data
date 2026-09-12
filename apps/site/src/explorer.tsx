@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { count, type Index } from "./api.ts";
 import { DataLoading, DataProblem, Skeleton } from "./DataState.tsx";
+import { documentLabels, figuresQuery, provenanceLabel } from "./figures.ts";
 import { Icon } from "./icons.tsx";
 import type { CorrectionTarget } from "./ops/corrections.ts";
 import type { State } from "./useDuckDb.ts";
@@ -468,12 +469,7 @@ function RecordDialog({
 
 /** Every figure a model has, with the page each was read off. */
 function ModelFigures({ model, db }: { model: string; db: State }) {
-  const result = useQuery(
-    db,
-    `SELECT coalesce(english, name) AS figure, value, unit, page, doubt
-    FROM specs WHERE model_id = '${model.replaceAll("'", "''")}' AND tier <> 'feed'
-    ORDER BY CASE WHEN doubt IS NULL THEN 0 ELSE 1 END, figure LIMIT 60`,
-  );
+  const result = useQuery(db, figuresQuery(model));
   if (result.status === "loading")
     return (
       <DataLoading label="Loading the rated figures…">
@@ -486,6 +482,7 @@ function ModelFigures({ model, db }: { model: string; db: State }) {
     return <DataProblem label="The rated figures couldn’t be loaded." retry={result.retry} />;
   const figures = result.data[0]?.rows ?? [];
   if (figures.length === 0) return <p>No rated figures are recorded for this model.</p>;
+  const labels = documentLabels(figures);
   return (
     <>
       <p className="eyebrow" style={{ marginTop: "26px" }}>
@@ -501,9 +498,7 @@ function ModelFigures({ model, db }: { model: string; db: State }) {
             </strong>
           </header>
           <div className="detail-meta">
-            {figure.page !== null && figure.page !== undefined && (
-              <span>page {String(figure.page)}</span>
-            )}
+            {provenanceLabel(figure, labels) && <span>{provenanceLabel(figure, labels)}</span>}
             {figure.doubt !== null && figure.doubt !== undefined && (
               <span className="amber-text">{String(figure.doubt)}</span>
             )}
