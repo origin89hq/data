@@ -31,9 +31,9 @@
       "needsConditions": 15
     },
     "millertech": {
-      "values": 27,
+      "values": 53,
       "conflicts": 0,
-      "unparsed": 0,
+      "unparsed": 2,
       "needsConditions": 0
     },
     "morningstar": {
@@ -133,21 +133,21 @@
     },
     "battery.discharge.current.peak battery": {
       "models": 516,
-      "values": 3,
+      "values": 12,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 3,
       "needsConditions": 11,
-      "noClaim": 499
+      "noClaim": 490
     },
     "battery.energy battery": {
       "models": 516,
-      "values": 45,
+      "values": 52,
       "partial": 0,
       "conflicts": 0,
-      "unparsed": 0,
+      "unparsed": 2,
       "needsConditions": 0,
-      "noClaim": 471
+      "noClaim": 462
     },
     "battery.voltage.nominal ac-charger": {
       "models": 77,
@@ -160,12 +160,12 @@
     },
     "battery.voltage.nominal battery": {
       "models": 516,
-      "values": 30,
+      "values": 39,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 28,
       "needsConditions": 0,
-      "noClaim": 458
+      "noClaim": 449
     },
     "battery.voltage.nominal charge-controller": {
       "models": 610,
@@ -196,12 +196,12 @@
     },
     "charge.current.max ac-charger": {
       "models": 77,
-      "values": 1,
+      "values": 2,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 4,
       "needsConditions": 0,
-      "noClaim": 72
+      "noClaim": 71
     },
     "charge.current.max charge-controller": {
       "models": 610,
