@@ -2,7 +2,7 @@
   "id": "energizer-solar-ps4000h-m",
   "manufacturer": "energizer-solar",
   "name": "PS4000H-M",
-  "kind": "inverter-charger",
+  "kind": "battery",
   "aliases": [],
   "dialects": [
     {
@@ -12,5 +12,8 @@
       },
       "confidence": "unverified"
     }
-  ]
+  ],
+  "basis": "The Powerstack sheet lists it beside the PS2900H-M with a capacity, an energy, charge and discharge currents and a cell voltage range, and no inverter figure: a battery pack.",
+  "checkedAt": "2026-09-12",
+  "reviewedBy": "lemarier"
 }

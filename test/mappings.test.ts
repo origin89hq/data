@@ -417,6 +417,105 @@ test("NOCO: the NLX's voltage, energy and both battery currents, its capacity as
   assert.equal(gap(of("noco-noco").gaps, "charge.current.max")?.claims, 0);
 });
 
+test("Energizer Solar: a module's STC figures with its watt-peak, the Force's PV limits, the PS2900H's one current under both battery keys and its timed peak, and the HP-6M's watts", () => {
+  const panel = of("energizer-solar-ensp54ndgt2s450");
+  assert.deepEqual(
+    values(panel.properties, "panel.power.stc").map((p) => [p.value, p.unit, p.conditions.stc]),
+    [[450, "W", true]],
+  );
+  assert.deepEqual(
+    values(panel.properties, "panel.voc.stc").map((p) => p.value),
+    [39.4],
+  );
+  assert.deepEqual(
+    values(panel.properties, "panel.isc.stc").map((p) => p.value),
+    [14.28],
+  );
+  assert.deepEqual(
+    values(panel.properties, "panel.vmp.stc").map((p) => p.value),
+    [33.39],
+  );
+  assert.deepEqual(
+    values(panel.properties, "panel.imp.stc").map((p) => p.value),
+    [13.48],
+  );
+  const force = of("energizer-solar-force-8-0ht");
+  assert.deepEqual(
+    values(force.properties, "pv.power.max").map((p) => [p.value, p.scope]),
+    [[17600, "total"]],
+  );
+  assert.deepEqual(
+    values(force.properties, "pv.isc.max").map((p) => [p.value, p.scope]),
+    [[25, "per-input"]],
+  );
+  assert.deepEqual(
+    values(force.properties, "pv.voc.max").map((p) => p.value),
+    [1000],
+  );
+  const pack = of("energizer-solar-ps2900h-m");
+  assert.deepEqual(
+    values(pack.properties, "battery.charge.current.max").map((p) => p.value),
+    [50],
+  );
+  assert.deepEqual(
+    values(pack.properties, "battery.discharge.current.max").map((p) => p.value),
+    [50],
+  );
+  assert.deepEqual(
+    values(pack.properties, "battery.discharge.current.peak").map((p) => [
+      p.value,
+      p.conditions.duration,
+    ]),
+    [[65, 60]],
+  );
+  assert.deepEqual(
+    values(pack.properties, "battery.energy").map((p) => p.value),
+    [2880],
+  );
+  // Its 50 Ah has no rate and its sheet names no chemistry, so the capacity waits on one.
+  assert.equal(gap(pack.gaps, "battery.capacity")?.reason, "needs-conditions");
+  assert.match(gap(pack.gaps, "battery.capacity")?.detail ?? "", /no chemistry recorded/);
+  assert.equal(values(pack.properties, "battery.capacity").length, 0);
+  assert.deepEqual(
+    values(pack.properties, "battery.voltage.nominal").map((p) => p.values),
+    [[57.6]],
+  );
+  // The PS4000H-M is the same sheet's larger pack, filed as an inverter-charger until reviewed; as a battery its figures read.
+  const larger = of("energizer-solar-ps4000h-m");
+  assert.deepEqual(
+    values(larger.properties, "battery.energy").map((p) => p.value),
+    [4030],
+  );
+  assert.deepEqual(
+    values(larger.properties, "battery.discharge.current.peak").map((p) => [
+      p.value,
+      p.conditions.duration,
+    ]),
+    [[65, 60]],
+  );
+  assert.equal(gap(larger.gaps, "battery.capacity")?.reason, "needs-conditions");
+  // The HP-6M writes its battery voltage as '51.2 V d.c.', which the unit table now reads.
+  const hp = of("energizer-solar-hp-6m");
+  assert.deepEqual(
+    values(hp.properties, "battery.voltage.nominal").map((p) => p.values),
+    [[51.2]],
+  );
+  assert.deepEqual(
+    values(hp.properties, "inverter.power.continuous").map((p) => p.value),
+    [3600],
+  );
+  // The PS2900H stacks print 'Nominal Power' too, in kilowatts equal to their energy; a battery has no inverter output.
+  assert.equal(
+    values(of("energizer-solar-ps2900h-4").properties, "inverter.power.continuous").length,
+    0,
+  );
+  // The EV charger sheet prints 'Rated Power' for the A11's 11 kW of charging, which is no inverter's output; the A11 is a load.
+  assert.equal(
+    values(of("energizer-solar-a11-cp").properties, "inverter.power.continuous").length,
+    0,
+  );
+});
+
 test("OutBack's VA figures reach the apparent-power keys through the watt rules that name them", () => {
   const { properties, gaps } = of("outback-power-fx2012t");
   assert.deepEqual(

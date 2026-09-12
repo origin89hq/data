@@ -2,7 +2,10 @@
   "id": "energizer-solar-a11-cs",
   "manufacturer": "energizer-solar",
   "name": "A11-CS",
-  "kind": "inverter",
+  "kind": "load",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "basis": "Its sheet is the 11 kW EV charger's; it draws from the grid to charge a car and inverts nothing, so it is a load on the site.",
+  "checkedAt": "2026-09-12",
+  "reviewedBy": "lemarier"
 }

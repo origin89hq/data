@@ -17,6 +17,13 @@ test("a maker's own language reaches the same unit, since VCD and volts are volt
   assert.equal(canonicalUnit("libras"), "lb");
   assert.equal(canonicalUnit(" Ah "), "Ah");
   assert.equal(canonicalUnit("AMPS"), "A");
+  // A module's watt-peak is its watt at standard test conditions.
+  assert.equal(canonicalUnit("Wp"), "W");
+  // A sheet that writes "51.2 V d.c." and "71 A d.c." means volts and amps.
+  assert.equal(canonicalUnit("V d.c."), "V");
+  assert.equal(canonicalUnit("V a.c."), "V");
+  assert.equal(canonicalUnit("A d.c."), "A");
+  assert.equal(canonicalUnit("A a.c."), "A");
 });
 
 test("a temperature coefficient per kelvin or per degree is one unit (#81)", () => {

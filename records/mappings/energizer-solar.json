@@ -1,0 +1,141 @@
+{
+  "id": "energizer-solar",
+  "version": 1,
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-12",
+  "rules": [
+    {
+      "key": "panel.power.stc",
+      "names": [
+        "STC rated output"
+      ],
+      "basis": "The module sheets state the output at standard test conditions as '450 Wp'; the watt-peak is the module's STC watt."
+    },
+    {
+      "key": "panel.voc.stc",
+      "names": [
+        "Open circuit voltage (Voc) at STC"
+      ],
+      "basis": "The module sheets state Voc at STC; the NMOT column beside it is at the module's operating temperature and is not read."
+    },
+    {
+      "key": "panel.isc.stc",
+      "names": [
+        "Short circuit current (Isc) at STC"
+      ],
+      "basis": "The module sheets state Isc at STC beside the NMOT figure, which is not read."
+    },
+    {
+      "key": "panel.vmp.stc",
+      "names": [
+        "Rated voltage (Vmpp) at STC"
+      ],
+      "basis": "The module sheets call the voltage at maximum power 'Rated voltage (Vmpp)'; the STC column is read."
+    },
+    {
+      "key": "panel.imp.stc",
+      "names": [
+        "Rated current (Impp) at STC",
+        "Rated current (lmpp) at STC"
+      ],
+      "basis": "The module sheets call the current at maximum power 'Rated current (Impp)'; one sheet's text renders the I as a lowercase L, which is the same heading."
+    },
+    {
+      "key": "pv.power.max",
+      "names": [
+        "PVMax. DC Input Power"
+      ],
+      "unit": "W",
+      "scope": "total",
+      "basis": "The Force HT sheet states the PV input power as a bare number under 'PV' whose column is in watts, 11000 to 22500, for the whole unit."
+    },
+    {
+      "key": "pv.isc.max",
+      "names": [
+        "Max. MPPT Short Circuit Current"
+      ],
+      "unit": "A",
+      "scope": "per-input",
+      "basis": "The Force HT sheet states the short-circuit limit per tracker as '25/25/25' in an amps column, read as one per-input figure."
+    },
+    {
+      "key": "pv.voc.max",
+      "names": [
+        "Max. DC voltage"
+      ],
+      "source": "doc-d1b544c417a120cd7088da098339d437",
+      "unit": "V",
+      "basis": "The Force HT sheet's PV section states 'Max. DC voltage' as 1000 in a volts column, above the start-up and nominal operating voltages: the open-circuit limit of the array. The bare name is read on that sheet only."
+    },
+    {
+      "key": "battery.voltage.nominal",
+      "names": [
+        "Nominal Voltage"
+      ],
+      "basis": "The PS2900H series and HP-6M battery sheets state 'Nominal Voltage', 115.2 V and up for the stacks and '51.2 V d.c.' for the HP-6M."
+    },
+    {
+      "key": "battery.voltage.nominal",
+      "names": [
+        "Normal voltage"
+      ],
+      "basis": "The PS2900H-M and PS4000H-M sheet prints 'Normal voltage' for 'nominal voltage', 57.6 V: the pack's range is 48.6 to 65.7 V, eighteen LFP cells at 2.7 to 3.65 V, whose nominal 3.2 V makes 57.6 V, and the sheet's 'Normal energy' of 2.88 kWh is 57.6 V times its 50 Ah."
+    },
+    {
+      "key": "battery.energy",
+      "names": [
+        "Nominal Capacity",
+        "Normal energy"
+      ],
+      "basis": "The PS2900H series sheet states 'Nominal Capacity' in watt-hours, 5760 to 20160, which is the stack's energy; the PS2900H-M sheet prints 'Normal energy' for 'nominal energy', 2.88 kWh."
+    },
+    {
+      "key": "battery.capacity",
+      "names": [
+        "Normal capacity"
+      ],
+      "basis": "The PS2900H-M sheet prints 'Normal capacity' for 'nominal capacity', 50 Ah, with no rate; the sheet names no chemistry either, so the figure waits on one, and the gap says so."
+    },
+    {
+      "key": "battery.charge.current.max",
+      "names": [
+        "Max. Charge / Discharge Current",
+        "Max. charge/discharge current"
+      ],
+      "basis": "The PS2900H sheets state one current for charge and discharge, 50 A, read under both keys."
+    },
+    {
+      "key": "battery.discharge.current.max",
+      "names": [
+        "Max. Charge / Discharge Current",
+        "Max. charge/discharge current"
+      ],
+      "basis": "The PS2900H sheets state one current for charge and discharge, 50 A, read under both keys."
+    },
+    {
+      "key": "battery.discharge.current.peak",
+      "names": [
+        "Peak discharge current (60s)"
+      ],
+      "basis": "The PS2900H-M sheet states the peak discharge current with its duration in the name, 65 A for 60 s."
+    },
+    {
+      "key": "inverter.power.continuous",
+      "names": [
+        "Nominal Power",
+        "Rated Power"
+      ],
+      "source": "doc-530a83fbaadea0b813c6d68f370d2600",
+      "basis": "The HP-6M datasheet states the inverter's continuous output as 'Rated Power', 3600 W. The bare names are read on the HP-6M sheets only: the EV charger sheet prints 'Rated Power' for the A11's 11 kW of charging, and the PS2900H stacks print 'Nominal Power' in kilowatts equal to their energy."
+    },
+    {
+      "key": "inverter.power.continuous",
+      "names": [
+        "Nominal Power",
+        "Rated Power"
+      ],
+      "source": "doc-c5339a3854dcd025325dcfea9e57b597",
+      "basis": "The HP-6M installation sheet states 'Nominal Power' as 3600 W, the same output."
+    }
+  ]
+}
