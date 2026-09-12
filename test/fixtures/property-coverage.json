@@ -1,5 +1,11 @@
 {
   "makers": {
+    "bslbatt": {
+      "values": 5,
+      "conflicts": 0,
+      "unparsed": 0,
+      "needsConditions": 0
+    },
     "east-penn": {
       "values": 14,
       "conflicts": 0,
@@ -142,12 +148,12 @@
     },
     "battery.energy battery": {
       "models": 516,
-      "values": 52,
+      "values": 57,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 2,
       "needsConditions": 0,
-      "noClaim": 462
+      "noClaim": 457
     },
     "battery.voltage.nominal ac-charger": {
       "models": 77,

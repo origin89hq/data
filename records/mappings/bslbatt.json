@@ -1,0 +1,13 @@
+{
+  "id": "bslbatt",
+  "version": 1,
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-12",
+  "rules": [
+    {
+      "key": "battery.energy",
+      "names": ["Nominal Capacity"],
+      "basis": "The HVS stack manual states 'Nominal Capacity' in kilowatt-hours, 15.97 to 37.27, which is the stack's energy; 'Usable Capacity' beside it is not the nominal figure and is not read."
+    }
+  ]
+}
