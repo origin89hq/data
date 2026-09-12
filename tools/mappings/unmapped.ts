@@ -1,6 +1,6 @@
 import { SHARED_MAPPING } from "@origin89/equipment-schema/mapping";
 import type { Spec } from "@origin89/equipment-schema/model";
-import { PROPERTIES } from "@origin89/equipment-schema/properties";
+import { PROPERTIES, PROPERTY_BY_KEY } from "@origin89/equipment-schema/properties";
 import type { Records } from "../../src/records.ts";
 
 const said = (n: string): string => n.trim().replace(/\s+/g, " ").toLowerCase();
@@ -22,21 +22,26 @@ export function unmappedFigures(records: Records, maker: string): Spec[] {
         names: new Set(r.names.map(said)),
         source: r.source,
         shared: m.id === SHARED_MAPPING,
+        kinds: (PROPERTY_BY_KEY.get(r.key)?.kinds ?? []) as readonly string[],
       })),
     );
   const asked = new Set(PROPERTIES.flatMap((p) => p.kinds as readonly string[]));
   const modelOf = new Map(records.models.map((m) => [m.id, m]));
   const goesBy = (s: Spec, names: ReadonlySet<string>): boolean =>
     names.has(said(s.name)) || (s.english !== undefined && names.has(said(s.english)));
-  const mapped = (s: Spec): boolean =>
+  // A rule reads a figure only on a kind its key has: the same name on another kind is unmapped.
+  const mapped = (s: Spec, kind: string): boolean =>
     rules.some(
       (r) =>
+        r.kinds.includes(kind) &&
         (!r.source || s.source === r.source) &&
         goesBy(s, r.names) &&
         !(r.shared && goesBy(s, except)),
     );
   return records.specs.filter((s) => {
     const m = modelOf.get(s.model);
-    return m?.manufacturer === maker && m.kind !== undefined && asked.has(m.kind) && !mapped(s);
+    return (
+      m?.manufacturer === maker && m.kind !== undefined && asked.has(m.kind) && !mapped(s, m.kind)
+    );
   });
 }

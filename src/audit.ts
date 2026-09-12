@@ -88,7 +88,7 @@ export function auditMappings(records: Records, built: Pick<PropertiesOutput, "c
       })),
       ...(shared?.rules ?? []).map((rule, i) => ({
         rule,
-        tag: `shared rule ${i + 1}`,
+        tag: `shared rule ${i + 1} on ${maker}`,
         ownRule: false,
       })),
     ].map((r) => ({
@@ -140,8 +140,9 @@ export function auditMappings(records: Records, built: Pick<PropertiesOutput, "c
       }
     }
     // What each rule reads that it cannot make a value of, for reasons the rule could state.
+    // What each rule reads of this maker that it cannot make a value of, for reasons the rule
+    // could state; the shared rules read the maker's figures too.
     for (const r of rules) {
-      if (!r.ownRule) continue;
       const read = specs.filter(
         (s) => (!r.rule.source || s.source === r.rule.source) && named(s, r.names),
       );

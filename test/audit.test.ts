@@ -212,3 +212,51 @@ test("the drafting list counts a shared name the maker set aside under `except` 
   );
   assert.deepEqual(unmappedFigures({ ...r, mappings: [shared] }, "acme"), []);
 });
+
+test("the drafting list keeps a figure a rule names on a kind the rule's key does not have", () => {
+  const converter = model("acme-dc-100", "dc-dc-converter");
+  const r = records(
+    [converter],
+    [figure(converter.id, "MPPT voltage range", "120-480 V")],
+    [
+      Mapping.parse({
+        id: "shared",
+        version: 1,
+        reviewedBy: "ada",
+        checkedAt: "2026-09-12",
+        rules: [{ key: "pv.mppt.window", names: ["MPPT voltage range"], basis: "everywhere" }],
+      }),
+      mapping([{ key: "battery.voltage.nominal", names: ["Nominal voltage"], basis: "the sheet" }]),
+    ],
+  );
+  assert.deepEqual(
+    unmappedFigures(r, "acme").map((s) => s.name),
+    ["MPPT voltage range"],
+  );
+});
+
+test("a shared rule's unit-less figures and dropped conditions are noted for the maker they belong to", () => {
+  const hybrid = model("acme-hybrid-3000", "inverter-charger");
+  const r = records(
+    [hybrid],
+    [figure(hybrid.id, "MPP operating voltage range", "120-480")],
+    [
+      Mapping.parse({
+        id: "shared",
+        version: 1,
+        reviewedBy: "ada",
+        checkedAt: "2026-09-12",
+        rules: [
+          { key: "pv.mppt.window", names: ["MPP operating voltage range"], basis: "everywhere" },
+        ],
+      }),
+      mapping([{ key: "battery.voltage.nominal", names: ["Nominal voltage"], basis: "the sheet" }]),
+    ],
+  );
+  assert.deepEqual(
+    audit(r).notes.filter((n) => n.startsWith("shared rule")),
+    [
+      'shared rule 1 on acme (pv.mppt.window): 1 of 1 figures print no unit and the rule names none, so they are gaps: "MPP operating voltage range" = "120-480" on acme-hybrid-3000',
+    ],
+  );
+});
