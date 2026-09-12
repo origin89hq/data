@@ -65,15 +65,21 @@ export function documentLabel(row: DocumentRow): string | undefined {
   return text(row.document_id);
 }
 
-/** The segments of an address's path, or of a plain path, decoded, without the empty ones. */
-function segments(where: string): string[] {
+/**
+ * The segments of an address's path, or of a plain path, decoded, without the empty ones; with
+ * the site in front when asked, for two sites that publish one path.
+ */
+function segments(where: string, withHost = false): string[] {
   let path = where;
+  let host: string | undefined;
   try {
-    path = new URL(where).pathname;
+    const url = new URL(where);
+    path = url.pathname;
+    host = url.hostname.replace(/^www\./, "");
   } catch {
     // Not an address: an archive path, read as it is.
   }
-  return path
+  const parts = path
     .split("/")
     .filter(Boolean)
     .map((segment) => {
@@ -83,13 +89,14 @@ function segments(where: string): string[] {
         return segment;
       }
     });
+  return withHost && host ? [host, ...parts] : parts;
 }
 
 /**
  * One label per document among a model's figures, by address. A maker publishes the same file
  * name under two directories, `MultiPlus-II_GX/` and `MultiPlus-II_4k5_6k5_GX/`, for two
  * documents; where two addresses come out with one name, the directory above the file is put in
- * front, and the whole path when that is still not enough.
+ * front, then the whole path, then the site, and the source's id when even the addresses agree.
  */
 export function documentLabels(rows: readonly DocumentRow[]): Map<string, string> {
   const labels = new Map<string, string>();
@@ -102,14 +109,21 @@ export function documentLabels(rows: readonly DocumentRow[]): Map<string, string
     const where = locator(row);
     if (where) located.set(key, where);
   }
-  for (const depth of [2, Number.POSITIVE_INFINITY]) {
+  const colliding = (): string[][] => {
     const byLabel = new Map<string, string[]>();
     for (const [key, label] of labels) byLabel.set(label, [...(byLabel.get(label) ?? []), key]);
-    for (const keys of byLabel.values()) {
-      if (keys.length < 2) continue;
+    return [...byLabel.values()].filter((keys) => keys.length > 1);
+  };
+  const passes: { depth: number; withHost: boolean }[] = [
+    { depth: 2, withHost: false },
+    { depth: Number.POSITIVE_INFINITY, withHost: false },
+    { depth: Number.POSITIVE_INFINITY, withHost: true },
+  ];
+  for (const { depth, withHost } of passes) {
+    for (const keys of colliding()) {
       for (const key of keys) {
         const where = located.get(key);
-        const parts = where ? segments(where) : [];
+        const parts = where ? segments(where, withHost) : [];
         if (parts.length < 2) continue;
         const shown = parts.slice(-Math.min(depth, parts.length));
         const last = shown.length - 1;
@@ -118,6 +132,8 @@ export function documentLabels(rows: readonly DocumentRow[]): Map<string, string
       }
     }
   }
+  // Two sources at one address, or two archive paths alike: only the source's id is left.
+  for (const keys of colliding()) for (const key of keys) labels.set(key, key);
   return labels;
 }
 

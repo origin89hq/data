@@ -111,6 +111,25 @@ test("a document the archive holds without an address is named by its file there
   assert.equal(labels.get("victron-bms-overview-datasheet"), "victron-bms-overview-datasheet");
 });
 
+test("two sites publishing one path are told apart by the site, and two sources alike in every way by their id", () => {
+  const hosts = documentLabels([
+    { document: null, document_url: "https://a.example/docs/manual.pdf", document_id: "s1" },
+    { document: null, document_url: "https://b.example/docs/manual.pdf", document_id: "s2" },
+  ]);
+  assert.equal(hosts.get("s1"), "a.example/docs/manual");
+  assert.equal(hosts.get("s2"), "b.example/docs/manual");
+  const alike = documentLabels([
+    { document: null, document_url: "https://a.example/docs/manual.pdf", document_id: "s1" },
+    { document: null, document_url: "https://a.example/docs/manual.pdf", document_id: "s2" },
+    { document: null, document_url: null, document_path: "docs/x.pdf", document_id: "p1" },
+    { document: null, document_url: null, document_path: "docs/x.pdf", document_id: "p2" },
+  ]);
+  assert.deepEqual(
+    ["s1", "s2", "p1", "p2"].map((id) => alike.get(id)),
+    ["s1", "s2", "p1", "p2"],
+  );
+});
+
 test("the figures query joins each figure to its source and quotes the model id", () => {
   const sql = figuresQuery("acme-o'neil-1");
   assert.match(sql, /LEFT JOIN sources src ON src\.id = s\.source_id/);
