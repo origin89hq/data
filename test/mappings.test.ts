@@ -563,6 +563,33 @@ test("Rolls: the STACK-LV manual's bare 'Voltage' read on that manual only, its 
   );
 });
 
+test("Millertech: a pack's voltage, energy and five-second discharge current, a '.281KWH' energy as a gap, and the 16V charger's output amps", () => {
+  const pack = of("millertech-12v-100ah-lifepo4-millertech-battery");
+  assert.deepEqual(
+    values(pack.properties, "battery.voltage.nominal").map((p) => p.values),
+    [[12.8]],
+  );
+  assert.deepEqual(
+    values(pack.properties, "battery.energy").map((p) => p.value),
+    [1280],
+  );
+  assert.deepEqual(
+    values(pack.properties, "battery.discharge.current.peak").map((p) => [
+      p.value,
+      p.conditions.duration,
+    ]),
+    [[300, 5]],
+  );
+  const small = of("millertech-12v-22ah-lifepo4-millertech-battery");
+  assert.equal(gap(small.gaps, "battery.energy")?.reason, "unparsed");
+  assert.deepEqual(
+    values(of("millertech-16v-15a").properties, "charge.current.max").map((p) => p.value),
+    [15],
+  );
+  // The two-bank charger's 'OUTPUT CURRENT 1' and '2' are each one bank's and are not read.
+  assert.equal(values(of("millertech-12v10a-24v15a").properties, "charge.current.max").length, 0);
+});
+
 test("OutBack's VA figures reach the apparent-power keys through the watt rules that name them", () => {
   const { properties, gaps } = of("outback-power-fx2012t");
   assert.deepEqual(

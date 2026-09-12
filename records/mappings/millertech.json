@@ -1,0 +1,36 @@
+{
+  "id": "millertech",
+  "version": 1,
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-12",
+  "rules": [
+    {
+      "key": "battery.voltage.nominal",
+      "names": [
+        "NOMINAL VOLTAGE"
+      ],
+      "basis": "The LiFePO4 battery sheets state 'NOMINAL VOLTAGE', 12.8 to 51.2 V."
+    },
+    {
+      "key": "battery.energy",
+      "names": [
+        "ENERGY STORAGE"
+      ],
+      "basis": "The LiFePO4 battery sheets state 'ENERGY STORAGE' in kilowatt-hours, 1.28 to 2.56; the 12V 22Ah sheet prints it as '.281KWH' and the 12V 40Ah sheet as '.512KWH'."
+    },
+    {
+      "key": "battery.discharge.current.peak",
+      "names": [
+        "DISCHARGE CURRENT 5S"
+      ],
+      "basis": "The LiFePO4 battery sheets state the five-second discharge current, 66 to 300 A, with the duration in the name."
+    },
+    {
+      "key": "charge.current.max",
+      "names": [
+        "OUTPUT CURRENT"
+      ],
+      "basis": "The 16V 15A charger sheet states its 'OUTPUT CURRENT' as 15 A; the two-bank charger's 'OUTPUT CURRENT 1' and '2' are per bank and are not read."
+    }
+  ]
+}
