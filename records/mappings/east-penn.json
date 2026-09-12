@@ -1,0 +1,25 @@
+{
+  "id": "east-penn",
+  "version": 1,
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-12",
+  "rules": [
+    {
+      "key": "battery.voltage.nominal",
+      "names": ["Nominal Voltage"],
+      "basis": "The Deka sheets state 'Nominal Voltage' as '12-Volts'."
+    },
+    {
+      "key": "battery.energy",
+      "names": ["kWh", "K.W.H. CAPACITY"],
+      "unit": "kWh",
+      "basis": "The AVR catalogue table heads a column 'kWh', 2.1 to 4.0, and the 8GGC2 sheet prints 'K.W.H. CAPACITY' as 3.60; both are the battery's energy in kilowatt-hours with the unit in the name."
+    },
+    {
+      "key": "battery.capacity",
+      "names": ["A.H. CAPACITY"],
+      "basis": "The 8GGC2 sheet states its capacity as '155 A.H. to 1.70 VPC'; 'Rating' on the other sheets is ampere-hours on some, watts per cell or minutes on others, and is not read."
+    }
+  ],
+  "except": ["Rated Capacity"]
+}
