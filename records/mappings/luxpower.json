@@ -1,0 +1,53 @@
+{
+  "id": "luxpower",
+  "version": 1,
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-12",
+  "rules": [
+    {
+      "key": "inverter.power.continuous",
+      "names": [
+        "Nominal AC power (@cosφ=1)"
+      ],
+      "basis": "The LXP hybrid sheets state the nominal AC power at unity power factor, in watts."
+    },
+    {
+      "key": "inverter.power.surge",
+      "names": [
+        "Surge power, duration"
+      ],
+      "basis": "The SNA sheets state surge power without the time on the same line; a gap until the duration is read."
+    },
+    {
+      "key": "charge.current.max",
+      "names": [
+        "Max. charge/discharge current",
+        "Max. charge and discharge current",
+        "Max. charging / discharging current",
+        "Max. charging/discharging current"
+      ],
+      "basis": "The LXP and SNA sheets state one battery current for charge and discharge, '110/110 A' or '250'; two equal figures read as one, and a bound is refused."
+    },
+    {
+      "key": "pv.voc.max",
+      "names": [
+        "Max. DC voltage"
+      ],
+      "basis": "The LXP sheets state the PV input's maximum DC voltage, 550 V."
+    },
+    {
+      "key": "pv.isc.max",
+      "names": [
+        "Max. DC short current (input A/ input B)"
+      ],
+      "basis": "The LXP sheets state the short-circuit limit per input, '13.7A/ 13.7A', read as one per-input figure."
+    },
+    {
+      "key": "pv.power.max",
+      "names": [
+        "Max. DC power"
+      ],
+      "basis": "The LXP sheets state the most PV power the unit takes, in watts."
+    }
+  ]
+}
