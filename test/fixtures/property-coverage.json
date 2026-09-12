@@ -91,7 +91,7 @@
       "needsConditions": 26
     },
     "victron-energy": {
-      "values": 194,
+      "values": 196,
       "conflicts": 0,
       "unparsed": 18,
       "needsConditions": 24

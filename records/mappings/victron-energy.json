@@ -1,6 +1,6 @@
 {
   "id": "victron-energy",
-  "version": 1,
+  "version": 2,
   "reviewedBy": "lemarier",
   "checkedAt": "2026-09-11",
   "rules": [
@@ -24,19 +24,28 @@
         "Max. PV Power 48Vdc",
         "Nominal PV power, 12V",
         "Nominal PV power, 24V",
+        "Nominal PV power, 36V",
         "Nominal PV power, 48V"
       ],
       "scope": "total",
-      "basis": "The sheets state the PV power the controller will use per battery voltage, one column each; the bank voltage is in the figure's name."
+      "basis": "The sheets state the PV power the controller will use per battery voltage, one column each, 12, 24, 36 and 48 V; the bank voltage is in the figure's name."
     },
     {
       "key": "charge.current.max",
-      "names": ["Rated charge current", "Nominal charge current", "Charge current"],
+      "names": [
+        "Rated charge current",
+        "Nominal charge current",
+        "Charge current"
+      ],
       "basis": "'Rated charge current' is the controller's output current to the battery; 'Charge current' on an inverter/charger sheet is the charger's."
     },
     {
       "key": "battery.voltage.nominal",
-      "names": ["Battery voltage", "Nominal battery voltage", "Battery voltage (auto select)"],
+      "names": [
+        "Battery voltage",
+        "Nominal battery voltage",
+        "Battery voltage (auto select)"
+      ],
       "basis": "The sheets state the nominal battery voltages the unit is made for."
     },
     {
@@ -67,7 +76,10 @@
     },
     {
       "key": "inverter.voltage.ac",
-      "names": ["Output voltage", "AC output voltage"],
+      "names": [
+        "Output voltage",
+        "AC output voltage"
+      ],
       "basis": "The sheets state the nominal AC output voltage, often with its tolerance, which the parser refuses rather than halves."
     }
   ]

@@ -425,3 +425,17 @@ test("a Luxpower rating printed as '6KVA/6KW' reaches both the watt key and its 
   assert.equal(gap(ms.gaps, "inverter.power.apparent")?.reason, "unparsed");
   assert.equal(gap(ms.gaps, "inverter.power.continuous")?.reason, "no-claim");
 });
+
+test("the Victron MPPT 250/60, a charge controller, publishes its PV power at all four bank voltages", () => {
+  const { properties, gaps } = of("victron-energy-mppt-250-60");
+  assert.deepEqual(
+    values(properties, "pv.power.max").map((p) => [p.value, p.conditions.bankVoltage]),
+    [
+      [860, 12],
+      [1720, 24],
+      [2580, 36],
+      [3440, 48],
+    ],
+  );
+  assert.equal(gap(gaps, "pv.power.max"), undefined);
+});
