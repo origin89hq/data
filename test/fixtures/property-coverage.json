@@ -1,9 +1,9 @@
 {
   "makers": {
     "east-penn": {
-      "values": 3,
+      "values": 14,
       "conflicts": 0,
-      "unparsed": 36,
+      "unparsed": 64,
       "needsConditions": 0
     },
     "eg4-electronics": {
@@ -109,9 +109,9 @@
       "values": 34,
       "partial": 0,
       "conflicts": 0,
-      "unparsed": 17,
+      "unparsed": 18,
       "needsConditions": 28,
-      "noClaim": 437
+      "noClaim": 436
     },
     "battery.charge.current.max battery": {
       "models": 516,
@@ -142,12 +142,12 @@
     },
     "battery.energy battery": {
       "models": 516,
-      "values": 34,
+      "values": 45,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0,
-      "noClaim": 482
+      "noClaim": 471
     },
     "battery.voltage.nominal ac-charger": {
       "models": 77,
@@ -163,9 +163,9 @@
       "values": 27,
       "partial": 0,
       "conflicts": 0,
-      "unparsed": 1,
+      "unparsed": 28,
       "needsConditions": 0,
-      "noClaim": 488
+      "noClaim": 461
     },
     "battery.voltage.nominal charge-controller": {
       "models": 610,

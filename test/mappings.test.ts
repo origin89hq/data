@@ -516,6 +516,29 @@ test("Energizer Solar: a module's STC figures with its watt-peak, the Force's PV
   );
 });
 
+test("East Penn: the AVR table's kilowatt-hours and the 8GGC2's, and a '12-Volts' voltage, an 'A.H.' capacity and a unitless 'Rated Capacity' as gaps", () => {
+  const avr = of("east-penn-avr95-27");
+  const energy = values(avr.properties, "battery.energy");
+  assert.deepEqual(
+    energy.map((p) => [p.value, p.unit]),
+    [[2500, "Wh"]],
+  );
+  assert.ok(own("east-penn", energy));
+  // Its 'Rated Capacity' is a bare 1235 in a column whose unit the table does not say: a gap that says so, not a value.
+  assert.equal(gap(avr.gaps, "battery.capacity")?.reason, "unparsed");
+  assert.equal(gap(avr.gaps, "battery.capacity")?.detail, "no unit");
+  assert.equal(values(avr.properties, "battery.capacity").length, 0);
+  const gel = of("east-penn-8ggc2-24v");
+  assert.deepEqual(
+    values(gel.properties, "battery.energy").map((p) => p.value),
+    [3600],
+  );
+  assert.equal(gap(gel.gaps, "battery.capacity")?.reason, "unparsed");
+  const hr = of("east-penn-hr3500");
+  assert.equal(gap(hr.gaps, "battery.voltage.nominal")?.reason, "unparsed");
+  assert.match(gap(hr.gaps, "battery.voltage.nominal")?.detail ?? "", /-Volts/);
+});
+
 test("OutBack's VA figures reach the apparent-power keys through the watt rules that name them", () => {
   const { properties, gaps } = of("outback-power-fx2012t");
   assert.deepEqual(
