@@ -75,6 +75,13 @@
       "basis": "The PS2900H series and HP-6M battery sheets state 'Nominal Voltage', 115.2 V and up for the stacks and '51.2 V d.c.' for the HP-6M."
     },
     {
+      "key": "battery.voltage.nominal",
+      "names": [
+        "Normal voltage"
+      ],
+      "basis": "The PS2900H-M and PS4000H-M sheet prints 'Normal voltage' for 'nominal voltage', 57.6 V: the pack's range is 48.6 to 65.7 V, eighteen LFP cells at 2.7 to 3.65 V, whose nominal 3.2 V makes 57.6 V, and the sheet's 'Normal energy' of 2.88 kWh is 57.6 V times its 50 Ah."
+    },
+    {
       "key": "battery.energy",
       "names": [
         "Nominal Capacity",

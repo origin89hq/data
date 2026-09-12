@@ -2,7 +2,10 @@
   "id": "energizer-solar-energizer-solar-ev-charger-11kw",
   "manufacturer": "energizer-solar",
   "name": "Energizer Solar EV Charger 11kW",
+  "kind": "load",
   "aliases": [],
   "dialects": [],
-  "kind": "ac-charger"
+  "basis": "The 11 kW EV charger charges a car from the grid, not a battery bank from the mains, so it is a load rather than an AC charger.",
+  "checkedAt": "2026-09-12",
+  "reviewedBy": "lemarier"
 }

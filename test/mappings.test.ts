@@ -476,6 +476,24 @@ test("Energizer Solar: a module's STC figures with its watt-peak, the Force's PV
   assert.equal(gap(pack.gaps, "battery.capacity")?.reason, "needs-conditions");
   assert.match(gap(pack.gaps, "battery.capacity")?.detail ?? "", /no chemistry recorded/);
   assert.equal(values(pack.properties, "battery.capacity").length, 0);
+  assert.deepEqual(
+    values(pack.properties, "battery.voltage.nominal").map((p) => p.values),
+    [[57.6]],
+  );
+  // The PS4000H-M is the same sheet's larger pack, filed as an inverter-charger until reviewed; as a battery its figures read.
+  const larger = of("energizer-solar-ps4000h-m");
+  assert.deepEqual(
+    values(larger.properties, "battery.energy").map((p) => p.value),
+    [4030],
+  );
+  assert.deepEqual(
+    values(larger.properties, "battery.discharge.current.peak").map((p) => [
+      p.value,
+      p.conditions.duration,
+    ]),
+    [[65, 60]],
+  );
+  assert.equal(gap(larger.gaps, "battery.capacity")?.reason, "needs-conditions");
   // The HP-6M writes its battery voltage as '51.2 V d.c.', which the unit table now reads.
   const hp = of("energizer-solar-hp-6m");
   assert.deepEqual(
@@ -491,8 +509,11 @@ test("Energizer Solar: a module's STC figures with its watt-peak, the Force's PV
     values(of("energizer-solar-ps2900h-4").properties, "inverter.power.continuous").length,
     0,
   );
-  // The EV charger sheet prints 'Rated Power' for the A11's 11 kW of charging, which is no inverter's output.
-  assert.equal(gap(of("energizer-solar-a11-cp").gaps, "inverter.power.continuous")?.claims, 0);
+  // The EV charger sheet prints 'Rated Power' for the A11's 11 kW of charging, which is no inverter's output; the A11 is a load.
+  assert.equal(
+    values(of("energizer-solar-a11-cp").properties, "inverter.power.continuous").length,
+    0,
+  );
 });
 
 test("OutBack's VA figures reach the apparent-power keys through the watt rules that name them", () => {
