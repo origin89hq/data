@@ -221,3 +221,45 @@ test("SRNE: the hybrid's combined charging current over its PV-only figure, a co
   assert.equal(gap(lc.gaps, "pv.voc.max")?.reason, "unparsed");
   assert.match(gap(lc.gaps, "pv.voc.max")?.detail ?? "", /beside 1 usable figure/);
 });
+
+test("Luxpower: the hybrid's PV limits per input, its DC power, and one battery current for charge and discharge", () => {
+  const { properties, gaps } = of("luxpower-lxp-3-6k-hybrid");
+  assert.deepEqual(
+    values(properties, "inverter.power.continuous").map((p) => p.value),
+    [3680],
+  );
+  assert.deepEqual(
+    values(properties, "charge.current.max").map((p) => p.value),
+    [66],
+  );
+  assert.deepEqual(
+    values(properties, "pv.isc.max").map((p) => [p.value, p.scope]),
+    [[13.7, "per-input"]],
+  );
+  assert.deepEqual(
+    values(properties, "pv.voc.max").map((p) => p.value),
+    [550],
+  );
+  assert.deepEqual(
+    values(properties, "pv.power.max").map((p) => [p.value, p.scope]),
+    [[7000, "total"]],
+  );
+  assert.ok(own("luxpower", values(properties, "pv.power.max")));
+  // The SNA sheet prints one current for charge and discharge as '110/110 A', read as one figure.
+  assert.deepEqual(
+    values(of("luxpower-sna5000-wpv").properties, "charge.current.max").map((p) => [
+      p.value,
+      p.claim,
+    ]),
+    [[110, "luxpower-sna5000-wpv--max-charging-discharging-current"]],
+  );
+  // The LXP sheet prints no surge figure, and the SNA's has no time on its line.
+  assert.equal(gap(gaps, "inverter.power.surge")?.reason, "no-claim");
+  assert.deepEqual(gap(of("luxpower-sna-us-5000").gaps, "inverter.power.surge"), {
+    model: "luxpower-sna-us-5000",
+    key: "inverter.power.surge",
+    reason: "needs-conditions",
+    detail: "no duration stated",
+    claims: 1,
+  });
+});
