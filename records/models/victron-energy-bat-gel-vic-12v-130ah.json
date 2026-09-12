@@ -4,6 +4,7 @@
   "name": "BAT-GEL-VIC-12V-130AH",
   "kind": "battery",
   "chemistry": "gel",
+  "chemistryBasis": "name",
   "aliases": [],
   "dialects": []
 }

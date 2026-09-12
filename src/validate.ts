@@ -155,7 +155,16 @@ export function validate(records: Records): Report {
   const modelIds = new Set(records.models.map((m) => m.id));
   if (modelIds.size !== records.models.length) errors.push("duplicate model id");
   const byMakerName = new Map<string, string>();
+  const specsOfModel = new Map<string, Set<string>>();
+  for (const s of records.specs)
+    specsOfModel.set(s.model, new Set([...(specsOfModel.get(s.model) ?? []), s.id]));
   for (const m of records.models) {
+    // A chemistry established by a figure names one of this model's own.
+    if (m.chemistryBasis?.startsWith("spec:")) {
+      const id = m.chemistryBasis.slice("spec:".length);
+      if (!specsOfModel.get(m.id)?.has(id))
+        errors.push(`${m.id}: chemistry cites ${id}, which is not a figure of this model`);
+    }
     if (!makers.has(m.manufacturer))
       errors.push(`${m.id}: names manufacturer ${m.manufacturer}, which does not exist`);
     const key = `${m.manufacturer}\t${m.name.toLowerCase()}\t${(m.variant ?? "").toLowerCase()}`;

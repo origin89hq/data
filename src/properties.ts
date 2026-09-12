@@ -283,7 +283,9 @@ function read(
   chemistry: string | undefined,
 ): Reading {
   const { needs, unwaived } = needsOf(property, claim.requires, chemistry);
-  const accepts = [...needs, ...property.accepts];
+  // A waived condition is still read where the sheet states it: a lithium pack rated at C20
+  // keeps the rate, and two rates stay two properties.
+  const accepts = [...new Set([...property.needs, ...(claim.requires ?? []), ...property.accepts])];
   const split = splitDuration(claim.value);
   const conditions = mergeConditions(
     claim.conditions,

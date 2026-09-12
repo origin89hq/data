@@ -4,6 +4,7 @@
   "name": "RX-LFP48100-H-BDL1",
   "kind": "battery",
   "chemistry": "lifepo4",
+  "chemistryBasis": "name",
   "aliases": [],
   "dialects": []
 }

@@ -4,6 +4,7 @@
   "name": "BAT-AGM-VIC-12V-165AH",
   "kind": "battery",
   "chemistry": "agm",
+  "chemistryBasis": "name",
   "aliases": [],
   "dialects": []
 }

@@ -13,5 +13,6 @@
     }
   ],
   "kind": "battery",
-  "chemistry": "lifepo4"
+  "chemistry": "lifepo4",
+  "chemistryBasis": "name"
 }

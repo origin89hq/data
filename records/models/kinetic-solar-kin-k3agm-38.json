@@ -4,6 +4,7 @@
   "name": "KIN_K3AGM_38",
   "kind": "battery",
   "chemistry": "agm",
+  "chemistryBasis": "name",
   "aliases": [],
   "dialects": []
 }

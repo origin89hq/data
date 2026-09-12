@@ -180,3 +180,21 @@ test("no manufacturer may take the shared mapping's id", () => {
     /manufacturer shared: the id is the shared mapping's, not a maker's/,
   );
 });
+
+test("a chemistry established by a figure names one of the model's own", () => {
+  const r = fixture();
+  r.models[0] = {
+    ...r.models[0],
+    kind: "battery",
+    chemistry: "lifepo4",
+    chemistryBasis: "spec:victron-energy-x--max-input-voltage",
+  };
+  const chemistryErrors = (records: Records) =>
+    validate(records).errors.filter((e) => /chemistry/.test(e));
+  assert.deepEqual(chemistryErrors(r), []);
+  r.models[0] = { ...r.models[0], chemistryBasis: "spec:somebody-else--chemistry" };
+  assert.match(
+    validate(r).errors.join("\n"),
+    /chemistry cites somebody-else--chemistry, which is not a figure of this model/,
+  );
+});

@@ -195,7 +195,7 @@ makers is the gate's decision.
 | `dialect_readings` | one reading, structured: metric, register or field, unit and scale, sign, width, whether the device measures or only reports it, and the document it was read from |
 | `dialect_codes` | one entry of a vendor's fault, alarm, charge-stage or state table, with its source |
 | `dialect_see_also` | sibling id an entry may duplicate |
-| `models` | product a maker makes, with its kind where something has said, a battery's chemistry where its maker states it, and the aliases other names reach it by |
+| `models` | product a maker makes, with its kind where something has said, a battery's chemistry with what established it, where its maker states it, and the aliases other names reach it by |
 | `model_keys` | name a model answers to, under each name its maker goes by, as the key the one rule gives it |
 | `model_dialects` | dialect a model is known to speak, with how the link was made (a register match, the maker's document, or only the catalogue naming it), what the sources support, and a firmware range where one is stated |
 | `model_dialect_sources` | citation behind a model–dialect link, in order |

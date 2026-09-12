@@ -4,6 +4,7 @@
   "name": "V-LIT-B3",
   "kind": "battery",
   "chemistry": "lithium",
+  "chemistryBasis": "name",
   "aliases": [],
   "dialects": []
 }

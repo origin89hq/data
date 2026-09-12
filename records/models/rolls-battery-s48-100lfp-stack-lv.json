@@ -4,6 +4,7 @@
   "name": "S48-100LFP STACK-LV",
   "kind": "battery",
   "chemistry": "lifepo4",
+  "chemistryBasis": "name",
   "aliases": [
     "Rolls S48-100LFP STACK-LV"
   ],

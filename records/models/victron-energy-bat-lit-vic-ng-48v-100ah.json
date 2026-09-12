@@ -4,6 +4,7 @@
   "name": "BAT-LIT-VIC-NG-48V-100AH",
   "kind": "battery",
   "chemistry": "lithium",
+  "chemistryBasis": "name",
   "aliases": [],
   "dialects": []
 }

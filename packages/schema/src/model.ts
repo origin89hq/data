@@ -103,6 +103,15 @@ export const Model = z
      */
     chemistry: BatteryChemistry.optional(),
     /**
+     * What established the chemistry: `name` when the maker's name for the model says it, or
+     * `spec:<id>` naming the figure on its sheet that does. Required with `chemistry`, so a
+     * consumer can trace the claim that let a capacity publish without its rate.
+     */
+    chemistryBasis: z
+      .string()
+      .regex(/^(name|spec:[a-z0-9]+(?:[a-z0-9.+-]*[a-z0-9])?)$/)
+      .optional(),
+    /**
      * What tells two identical names apart: the AC voltage on an inverter, the current on a
      * charge controller, the `-48` on a pack. Never folded into `name`, because a suffix is the
      * difference between two products and a bench day lost.
@@ -127,6 +136,14 @@ export const Model = z
   .refine(
     (m) => new Set(m.dialects.map((l) => l.dialect)).size === m.dialects.length,
     "a model links each dialect once",
+  )
+  .refine(
+    (m) => m.chemistry === undefined || m.kind === "battery",
+    "only a battery has a chemistry",
+  )
+  .refine(
+    (m) => (m.chemistry === undefined) === (m.chemistryBasis === undefined),
+    "a chemistry and what established it come together",
   );
 export type Model = z.infer<typeof Model>;
 

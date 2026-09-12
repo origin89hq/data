@@ -4,6 +4,7 @@
   "name": "IQ-AGM",
   "kind": "battery",
   "chemistry": "agm",
+  "chemistryBasis": "name",
   "aliases": [
     "XXX-XXX-185"
   ],

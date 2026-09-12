@@ -9,7 +9,7 @@ import {
   Tier,
 } from "@origin89/equipment-schema/enums";
 import { EquipmentKind } from "@origin89/equipment-schema/guess";
-import { LinkEvidenceKind } from "@origin89/equipment-schema/model";
+import { BatteryChemistry, LinkEvidenceKind } from "@origin89/equipment-schema/model";
 import {
   Basis,
   GapReason,
@@ -38,6 +38,8 @@ export interface Vocabulary {
   commands: string[];
   /** What a model is; `models.kind`. */
   kinds: string[];
+  /** What a battery is made of; `models.chemistry`. */
+  batteryChemistry: string[];
   /** How a dialect is filed; `dialects.family`. */
   families: string[];
   /** How much a protocol fact or a figure can be built on; `dialects.confidence`, `specs.confidence`. */
@@ -77,6 +79,7 @@ export function vocabulary(): Vocabulary {
     metrics: [...MetricKind.options],
     commands: [...CommandKind.options],
     kinds: [...EquipmentKind.options],
+    batteryChemistry: [...BatteryChemistry.options],
     families: [...Family.options],
     confidence: [...Confidence.options],
     driverStatus: [...DriverStatus.options],

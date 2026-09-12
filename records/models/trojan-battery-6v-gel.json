@@ -4,6 +4,7 @@
   "name": "6V-GEL",
   "kind": "battery",
   "chemistry": "gel",
+  "chemistryBasis": "name",
   "aliases": [
     "TRJ-187-107"
   ],

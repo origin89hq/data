@@ -4,6 +4,7 @@
   "name": "KIN-K3AGM10-G",
   "kind": "battery",
   "chemistry": "agm",
+  "chemistryBasis": "name",
   "aliases": [],
   "dialects": []
 }
