@@ -263,3 +263,36 @@ test("Luxpower: the hybrid's PV limits per input, its DC power, and one battery 
     claims: 1,
   });
 });
+
+test("Xantrex: the Freedom's charger amps, no idle draw from its search threshold, a 40 °C continuous figure beside the plain one, and the C-series rating", () => {
+  const { properties, gaps } = of("xantrex-freedom-sw-2524");
+  // The sheet states the charger's output twice, once at 25 °C, which the second row keeps.
+  assert.deepEqual(
+    values(properties, "charge.current.max").map((p) => [p.value, p.conditions]),
+    [
+      [65, {}],
+      [65, { ambientTemperature: 25 }],
+    ],
+  );
+  // 'Search Watts' is the load threshold that ends search mode, not a draw, and is not read.
+  assert.deepEqual(values(properties, "inverter.power.idle"), []);
+  assert.equal(gap(gaps, "inverter.power.idle")?.claims, 1);
+  assert.deepEqual(
+    values(properties, "inverter.power.continuous").map((p) => [p.value, p.conditions]),
+    [
+      [2500, {}],
+      [2500, { ambientTemperature: 40 }],
+    ],
+  );
+  assert.deepEqual(
+    values(properties, "inverter.voltage.ac").map((p) => p.values),
+    [[230]],
+  );
+  assert.equal(gap(gaps, "inverter.power.surge")?.reason, "needs-conditions");
+  const c35 = values(of("xantrex-c35").properties, "charge.current.max");
+  assert.deepEqual(
+    c35.map((p) => [p.value, p.conditions]),
+    [[35, { ambientTemperature: 25 }]],
+  );
+  assert.ok(own("xantrex", c35));
+});
