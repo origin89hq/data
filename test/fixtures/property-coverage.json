@@ -3,7 +3,7 @@
     "east-penn": {
       "values": 14,
       "conflicts": 0,
-      "unparsed": 48,
+      "unparsed": 64,
       "needsConditions": 0
     },
     "eg4-electronics": {
@@ -109,9 +109,9 @@
       "values": 34,
       "partial": 0,
       "conflicts": 0,
-      "unparsed": 2,
+      "unparsed": 18,
       "needsConditions": 28,
-      "noClaim": 452
+      "noClaim": 436
     },
     "battery.charge.current.max battery": {
       "models": 516,
