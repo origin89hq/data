@@ -6,12 +6,17 @@
   "rules": [
     {
       "key": "pv.voc.max",
-      "names": ["PV Maximum OpenCircuit Voltage"],
+      "names": [
+        "PV Maximum OpenCircuit Voltage"
+      ],
       "basis": "The ESF controller sheet states the PV open-circuit limit, 150 to 250 V, with the two words run together."
     },
     {
       "key": "charge.current.max",
-      "names": ["Charge rated current", "Maximum Power Point Tracking (MPPT) current"],
+      "names": [
+        "Charge rated current",
+        "Maximum Power Point Tracking (MPPT) current"
+      ],
       "basis": "The ESF controller sheet states 'Charge rated current', 40 to 100 A; the M48120 inverter-charger sheet states its MPPT charger's current, 120 A."
     },
     {
@@ -27,17 +32,24 @@
     },
     {
       "key": "battery.voltage.nominal",
-      "names": ["Nominal voltage"],
-      "basis": "The LFP-M48 battery sheet states 'Nominal voltage' as 51.2 V; its 'Battery Voltage' of 48 V is the system class and is not read."
+      "names": [
+        "Nominal voltage"
+      ],
+      "source": "doc-c81b94a8a1e5617acc74bd5d343f6eea",
+      "basis": "The LFP-M48 battery sheet states 'Nominal voltage' as 51.2 V; its 'Battery Voltage' of 48 V is the system class and is not read. The bare name could as well be an inverter's AC side on another sheet, so the rule reads that sheet only."
     },
     {
       "key": "battery.charge.current.max",
-      "names": ["Rated Charge Current"],
+      "names": [
+        "Rated Charge Current"
+      ],
       "basis": "The LFP-M48 battery sheet states 'Rated Charge Current', 50 or 100 A, as the pack's continuous charge rating."
     },
     {
       "key": "battery.discharge.current.max",
-      "names": ["Rated Discharge Current"],
+      "names": [
+        "Rated Discharge Current"
+      ],
       "basis": "The LFP-M48 battery sheet states 'Rated Discharge Current', 100 A, beside a higher 'Peak Discharge Current': the continuous rating."
     }
   ]
