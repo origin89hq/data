@@ -186,3 +186,29 @@ test("the drafting list leaves a name a rule reads on one document unmapped on e
     ],
   );
 });
+
+test("the drafting list counts a shared name the maker set aside under `except` as unmapped", () => {
+  const hybrid = model("acme-hybrid-3000", "inverter-charger");
+  const shared = Mapping.parse({
+    id: "shared",
+    version: 1,
+    reviewedBy: "ada",
+    checkedAt: "2026-09-12",
+    rules: [{ key: "pv.power.max", names: ["Max. Allowed PV Power"], basis: "everywhere" }],
+  });
+  const r = records(
+    [hybrid],
+    [figure(hybrid.id, "Max. Allowed PV Power", "13000", { unit: "W" })],
+    [
+      shared,
+      mapping([{ key: "pv.voc.max", names: ["Max. Input Voltage"], basis: "the sheet" }], {
+        except: ["Max. Allowed PV Power"],
+      }),
+    ],
+  );
+  assert.deepEqual(
+    unmappedFigures(r, "acme").map((s) => s.name),
+    ["Max. Allowed PV Power"],
+  );
+  assert.deepEqual(unmappedFigures({ ...r, mappings: [shared] }, "acme"), []);
+});
