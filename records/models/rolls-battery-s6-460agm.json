@@ -3,6 +3,8 @@
   "manufacturer": "rolls-battery",
   "name": "S6-460AGM",
   "kind": "battery",
+  "chemistry": "agm",
+  "chemistryBasis": "name",
   "aliases": [],
   "dialects": []
 }

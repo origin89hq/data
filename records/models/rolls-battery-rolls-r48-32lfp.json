@@ -4,5 +4,7 @@
   "name": "Rolls R48-32LFP",
   "aliases": [],
   "dialects": [],
-  "kind": "battery"
+  "kind": "battery",
+  "chemistry": "lifepo4",
+  "chemistryBasis": "name"
 }

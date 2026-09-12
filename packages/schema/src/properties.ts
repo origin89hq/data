@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { EquipmentKind } from "./guess.ts";
+import { BatteryChemistry } from "./model.ts";
 
 /**
  * The registry of normalized properties: one canonical key per figure a consumer needs as a
@@ -116,6 +117,18 @@ export const Property = z
     kinds: z.array(EquipmentKind).min(1),
     /** Conditions a value must state to be usable. */
     needs: z.array(ConditionKey).default([]),
+    /**
+     * Conditions in `needs` a model of one of these chemistries does without: a lithium pack's
+     * capacity stands without a discharge rate, a lead-acid pack's does not. A model whose
+     * chemistry is not recorded waives nothing.
+     */
+    waivedFor: z
+      .object({
+        chemistry: z.array(BatteryChemistry).min(1),
+        conditions: z.array(ConditionKey).min(1),
+      })
+      .strict()
+      .optional(),
     /** Conditions a value may state and a consumer should read. */
     accepts: z.array(ConditionKey).default([]),
     /** The reading this property bounds, when it is a limit. */
@@ -305,9 +318,10 @@ export const PROPERTIES: Property[] = [
     shape: "scalar",
     kinds: ["battery"],
     needs: ["dischargeHours"],
+    waivedFor: { chemistry: ["lifepo4", "lithium"], conditions: ["dischargeHours"] },
     accepts: ["ambientTemperature"],
     description:
-      "Capacity at a stated discharge rate: 428 Ah at C20 and 556 Ah at C100 are two values.",
+      "Capacity at a stated discharge rate: 428 Ah at C20 and 556 Ah at C100 are two values. A lithium pack's capacity stands without one.",
   },
   {
     key: "battery.energy",

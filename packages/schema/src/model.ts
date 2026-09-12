@@ -68,6 +68,24 @@ export type DialectLink = z.infer<typeof DialectLink>;
  * listing, both of which name models without owning them: this is the record everything else
  * joins to, and the reason a rating can be attached to a thing rather than to a string.
  */
+/**
+ * What a battery is made of, as its maker says it: lithium iron phosphate or another lithium
+ * chemistry, or a lead-acid construction. It decides what a capacity figure needs: a lead-acid
+ * pack's ampere-hours mean nothing without the discharge rate, a lithium pack's stand alone.
+ */
+export const BatteryChemistry = z.enum([
+  "lifepo4",
+  "lithium",
+  "agm",
+  "gel",
+  "flooded",
+  "lead-acid",
+]);
+export type BatteryChemistry = z.infer<typeof BatteryChemistry>;
+
+/** The chemistries whose capacity is stated at a discharge rate. */
+export const LEAD_ACID: readonly BatteryChemistry[] = ["agm", "gel", "flooded", "lead-acid"];
+
 export const Model = z
   .object({
     id: RecordId,
@@ -79,6 +97,20 @@ export const Model = z
      * has classified has no kind, and defaulting one would be a guess wearing the shape of a fact.
      */
     kind: EquipmentKind.optional(),
+    /**
+     * A battery's chemistry, only where the maker's name for it or its sheet says so. Absent is
+     * not stated, and a capacity is then read as a lead-acid one would be, needing its rate.
+     */
+    chemistry: BatteryChemistry.optional(),
+    /**
+     * What established the chemistry: `name` when the maker's name for the model says it, or
+     * `spec:<id>` naming the figure on its sheet that does. Required with `chemistry`, so a
+     * consumer can trace the claim that let a capacity publish without its rate.
+     */
+    chemistryBasis: z
+      .string()
+      .regex(/^(name|spec:[a-z0-9]+(?:[a-z0-9.+-]*[a-z0-9])?)$/)
+      .optional(),
     /**
      * What tells two identical names apart: the AC voltage on an inverter, the current on a
      * charge controller, the `-48` on a pack. Never folded into `name`, because a suffix is the
@@ -104,6 +136,14 @@ export const Model = z
   .refine(
     (m) => new Set(m.dialects.map((l) => l.dialect)).size === m.dialects.length,
     "a model links each dialect once",
+  )
+  .refine(
+    (m) => m.chemistry === undefined || m.kind === "battery",
+    "only a battery has a chemistry",
+  )
+  .refine(
+    (m) => (m.chemistry === undefined) === (m.chemistryBasis === undefined),
+    "a chemistry and what established it come together",
   );
 export type Model = z.infer<typeof Model>;
 

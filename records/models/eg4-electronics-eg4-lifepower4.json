@@ -3,6 +3,8 @@
   "manufacturer": "eg4-electronics",
   "name": "EG4 LifePower4",
   "kind": "battery",
+  "chemistry": "lifepo4",
+  "chemistryBasis": "name",
   "aliases": [],
   "dialects": [
     {

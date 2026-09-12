@@ -1,6 +1,6 @@
 {
   "id": "shared",
-  "version": 2,
+  "version": 3,
   "reviewedBy": "lemarier",
   "checkedAt": "2026-09-12",
   "rules": [
@@ -139,9 +139,12 @@
       "key": "battery.capacity",
       "names": [
         "Capacity",
-        "Rated capacity"
+        "Rated capacity",
+        "Capacity at 20 Hour Rate",
+        "Capacity at 10 Hour Rate",
+        "Capacity at 100 Hour Rate"
       ],
-      "basis": "On a battery, capacity is in ampere-hours at a discharge rate the key needs; the registry asks it only of batteries, and a figure in watt-hours or without its C-rate is a gap that says so."
+      "basis": "On a battery, capacity is in ampere-hours; a lead-acid pack's needs the discharge rate the key asks for, which the Rolls sheets print in the name, 'Capacity at 20 Hour Rate', and a lithium pack's stands without one. The registry asks it only of batteries, and a figure in watt-hours is a gap that says so."
     },
     {
       "key": "battery.energy",

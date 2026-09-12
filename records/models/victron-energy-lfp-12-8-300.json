@@ -4,5 +4,7 @@
   "name": "LFP-12,8/300",
   "aliases": [],
   "dialects": [],
-  "kind": "battery"
+  "kind": "battery",
+  "chemistry": "lifepo4",
+  "chemistryBasis": "name"
 }

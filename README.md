@@ -195,7 +195,7 @@ makers is the gate's decision.
 | `dialect_readings` | one reading, structured: metric, register or field, unit and scale, sign, width, whether the device measures or only reports it, and the document it was read from |
 | `dialect_codes` | one entry of a vendor's fault, alarm, charge-stage or state table, with its source |
 | `dialect_see_also` | sibling id an entry may duplicate |
-| `models` | product a maker makes, with its kind where something has said, and the aliases other names reach it by |
+| `models` | product a maker makes, with its kind where something has said, a battery's chemistry with what established it, where its maker states it, and the aliases other names reach it by |
 | `model_keys` | name a model answers to, under each name its maker goes by, as the key the one rule gives it |
 | `model_dialects` | dialect a model is known to speak, with how the link was made (a register match, the maker's document, or only the catalogue naming it), what the sources support, and a firmware range where one is stated |
 | `model_dialect_sources` | citation behind a model–dialect link, in order |
@@ -242,7 +242,10 @@ its sheets. The SAM feed maps by column, in code. The value is read by
 "12/24/48V DC" and "-0,29 %/°C" and refuses a bound, a sentence, a number
 with no unit, or a unit outside the key's quantity. Conditions are
 structured: a capacity at C20 and at C100 are two rows, and a surge without
-its duration is not a surge. A continuous or surge figure a sheet prints in
+its duration is not a surge. A lithium pack's capacity stands without a rate,
+so `battery.capacity` waives it for a model whose `chemistry` is `lifepo4` or
+`lithium`; a lead-acid pack's, or one whose chemistry the record does not
+state, still needs it. A continuous or surge figure a sheet prints in
 VA is read under the watt key's apparent-power sibling, `inverter.power.apparent`
 or `inverter.power.apparent.surge`, through the same rule.
 

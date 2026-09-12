@@ -4,5 +4,7 @@
   "name": "390003",
   "aliases": [],
   "dialects": [],
-  "kind": "battery"
+  "kind": "battery",
+  "chemistry": "agm",
+  "chemistryBasis": "spec:magnum-energy-390003--chemistry"
 }

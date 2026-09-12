@@ -3,6 +3,8 @@
   "manufacturer": "trojan-battery",
   "name": "31-GEL",
   "kind": "battery",
+  "chemistry": "gel",
+  "chemistryBasis": "name",
   "aliases": [
     "TRJ-187-108"
   ],

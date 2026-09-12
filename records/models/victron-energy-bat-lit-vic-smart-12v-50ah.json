@@ -3,6 +3,8 @@
   "manufacturer": "victron-energy",
   "name": "BAT-LIT-VIC-SMART-12V-50AH",
   "kind": "battery",
+  "chemistry": "lithium",
+  "chemistryBasis": "name",
   "aliases": [],
   "dialects": []
 }

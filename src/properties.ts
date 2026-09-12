@@ -255,11 +255,37 @@ interface Reading {
   reason?: string;
   conditions: Conditions;
   missing: string[];
+  /** A missing condition a chemistry the record does not state might have waived. */
+  unwaived: boolean;
 }
 
-function read(claim: Claim, property: Property, reference: number | undefined): Reading {
-  const needs = [...new Set([...property.needs, ...(claim.requires ?? [])])];
-  const accepts = [...needs, ...property.accepts];
+/** The conditions a figure of `property` must state on a model of `chemistry`, and whether an unstated chemistry left any in. */
+function needsOf(
+  property: Property,
+  requires: readonly ConditionKey[] | undefined,
+  chemistry: string | undefined,
+): { needs: ConditionKey[]; unwaived: boolean } {
+  const waiver = property.waivedFor;
+  const waived =
+    waiver &&
+    chemistry !== undefined &&
+    (waiver.chemistry as readonly string[]).includes(chemistry);
+  const needs = [...new Set([...property.needs, ...(requires ?? [])])].filter(
+    (c) => !(waived && waiver.conditions.includes(c)),
+  );
+  return { needs, unwaived: Boolean(waiver && chemistry === undefined) };
+}
+
+function read(
+  claim: Claim,
+  property: Property,
+  reference: number | undefined,
+  chemistry: string | undefined,
+): Reading {
+  const { needs, unwaived } = needsOf(property, claim.requires, chemistry);
+  // A waived condition is still read where the sheet states it: a lithium pack rated at C20
+  // keeps the rate, and two rates stay two properties.
+  const accepts = [...new Set([...property.needs, ...(claim.requires ?? []), ...property.accepts])];
   const split = splitDuration(claim.value);
   const conditions = mergeConditions(
     claim.conditions,
@@ -270,9 +296,10 @@ function read(claim: Claim, property: Property, reference: number | undefined): 
   );
   const missing = needs.filter((c) => conditions[c] === undefined);
   const result = readProperty(split.value, claim.unit, property, { reference });
+  const stillMissing = unwaived && missing.length > 0;
   return result.ok
-    ? { claim, parsed: result.parsed, conditions, missing }
-    : { claim, reason: result.reason, conditions, missing };
+    ? { claim, parsed: result.parsed, conditions, missing, unwaived: stillMissing }
+    : { claim, reason: result.reason, conditions, missing, unwaived: stillMissing };
 }
 
 /**
@@ -319,7 +346,7 @@ function unread(model: string, key: string, readings: Reading[], beside: number)
       model,
       key,
       reason: "needs-conditions",
-      detail: `no ${short.missing.join(", ")} stated${aside}`,
+      detail: `no ${short.missing.join(", ")} stated${short.unwaived ? ", and no chemistry recorded that would waive it" : ""}${aside}`,
       claims,
     };
   const [first] = readings;
@@ -452,6 +479,7 @@ export function buildProperties(input: PropertiesInput): PropertiesOutput {
   const settleModel = (
     id: string,
     kind: string | undefined,
+    chemistry: string | undefined,
     claimsFor: (property: Property) => Claim[],
   ) => {
     const values = new Map<string, number>();
@@ -482,7 +510,7 @@ export function buildProperties(input: PropertiesInput): PropertiesOutput {
       const reference = referenceFor(property.key, values);
       const claims = claimsByKey.get(property.key) ?? [];
       for (const claim of claims) claimed.add(claim.id);
-      const readings = claims.map((claim) => read(claim, property, reference));
+      const readings = claims.map((claim) => read(claim, property, reference, chemistry));
       const settled = settle(id, property.key, readings, property.unit, property.scope);
       properties.push(...settled.properties);
       const valued = settled.properties.filter((p) => p.status === "value");
@@ -501,7 +529,7 @@ export function buildProperties(input: PropertiesInput): PropertiesOutput {
   };
 
   for (const model of input.models)
-    settleModel(model.id, model.kind, (property) =>
+    settleModel(model.id, model.kind, model.chemistry, (property) =>
       recordClaims(
         property.key,
         model.kind,
@@ -511,7 +539,9 @@ export function buildProperties(input: PropertiesInput): PropertiesOutput {
       ),
     );
   for (const { feed, model } of input.feeds)
-    settleModel(model.id, model.kind, (property) => feedClaims(feed, model, property.key));
+    settleModel(model.id, model.kind, undefined, (property) =>
+      feedClaims(feed, model, property.key),
+    );
 
   const byKey = (a: { model: string; key: string }, b: { model: string; key: string }) =>
     a.model.localeCompare(b.model) || a.key.localeCompare(b.key);

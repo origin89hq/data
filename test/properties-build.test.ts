@@ -367,7 +367,7 @@ test("a capacity needs its rate: one without is a gap, and two rates are two pro
       model: battery.id,
       key: "battery.capacity",
       reason: "needs-conditions",
-      detail: "no dischargeHours stated",
+      detail: "no dischargeHours stated, and no chemistry recorded that would waive it",
       claims: 1,
     },
   );
@@ -1057,4 +1057,104 @@ test("a quantity printed twice around another is refused on its key rather than 
       claims: 2,
     },
   );
+});
+
+const pack = (id: string, chemistry?: string) =>
+  Model.parse({
+    id,
+    manufacturer: "acme",
+    name: id,
+    kind: "battery",
+    ...(chemistry ? { chemistry, chemistryBasis: "name" } : {}),
+  });
+const capacity = acme({
+  rules: [
+    {
+      key: "battery.capacity",
+      names: ["Capacity", "Capacity at 20 Hour Rate"],
+      basis: "the sheets",
+    },
+  ],
+});
+
+test("a lithium pack's capacity stands without a rate; a lead-acid pack's and an unstated chemistry's need one", () => {
+  const lithium = pack("acme-lfp-200", "lifepo4");
+  const agm = pack("acme-agm-200", "agm");
+  const unknown = pack("acme-x-200");
+  const { properties, gaps } = build({
+    models: [lithium, agm, unknown],
+    mappings: [capacity],
+    specs: [
+      figure(lithium.id, "Capacity", "200", { unit: "Ah" }),
+      figure(agm.id, "Capacity", "200", { unit: "Ah" }),
+      figure(agm.id, "Capacity at 20 Hour Rate", "220", { unit: "Ah" }),
+      figure(unknown.id, "Capacity", "200", { unit: "Ah" }),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.model, p.value, p.conditions]),
+    [
+      [agm.id, 220, { dischargeHours: 20 }],
+      [lithium.id, 200, {}],
+    ],
+  );
+  assert.deepEqual(
+    gaps.filter((g) => g.key === "battery.capacity").map((g) => [g.model, g.reason, g.detail]),
+    [
+      [agm.id, "needs-conditions", "no dischargeHours stated, beside 1 usable figure"],
+      [
+        unknown.id,
+        "needs-conditions",
+        "no dischargeHours stated, and no chemistry recorded that would waive it",
+      ],
+    ],
+  );
+});
+
+test("a model's chemistry is one the schema names, on a battery, with what established it", () => {
+  assert.equal(pack("acme-gel-100", "gel").chemistry, "gel");
+  assert.throws(() => pack("acme-ni-100", "nickel"));
+  assert.throws(
+    () =>
+      Model.parse({
+        id: "acme-inv",
+        manufacturer: "acme",
+        name: "x",
+        kind: "inverter",
+        chemistry: "agm",
+        chemistryBasis: "name",
+      }),
+    /only a battery has a chemistry/,
+  );
+  assert.throws(
+    () =>
+      Model.parse({
+        id: "acme-b",
+        manufacturer: "acme",
+        name: "x",
+        kind: "battery",
+        chemistry: "agm",
+      }),
+    /come together/,
+  );
+});
+
+test("a lithium pack that states its rate keeps it, and two rates stay two properties", () => {
+  const lithium = pack("acme-lfp-200", "lifepo4");
+  const { properties, gaps } = build({
+    models: [lithium],
+    mappings: [capacity],
+    specs: [
+      figure(lithium.id, "Capacity", "200", { unit: "Ah" }),
+      figure(lithium.id, "Capacity at 20 Hour Rate", "210", { unit: "Ah" }),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.value, p.conditions, p.status]),
+    [
+      [200, {}, "value"],
+      [210, { dischargeHours: 20 }, "value"],
+    ],
+  );
+  assert.ok(!gaps.some((g) => g.key === "battery.capacity"));
 });

@@ -4,5 +4,7 @@
   "name": "12V 100AH LiFePO4 Millertech Battery",
   "aliases": [],
   "dialects": [],
-  "kind": "battery"
+  "kind": "battery",
+  "chemistry": "lifepo4",
+  "chemistryBasis": "name"
 }

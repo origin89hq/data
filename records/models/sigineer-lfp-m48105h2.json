@@ -4,5 +4,7 @@
   "name": "LFP-M48105H2",
   "aliases": [],
   "dialects": [],
-  "kind": "battery"
+  "kind": "battery",
+  "chemistry": "lifepo4",
+  "chemistryBasis": "name"
 }

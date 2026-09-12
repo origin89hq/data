@@ -4,5 +4,7 @@
   "name": "SR-EOC05B-UL",
   "aliases": [],
   "dialects": [],
-  "kind": "battery"
+  "kind": "battery",
+  "chemistry": "lifepo4",
+  "chemistryBasis": "spec:srne-sr-eoc05b-ul--battery-type"
 }

@@ -3,6 +3,8 @@
   "manufacturer": "rolls-battery",
   "name": "S2-1275AGM",
   "kind": "battery",
+  "chemistry": "agm",
+  "chemistryBasis": "name",
   "aliases": [],
   "dialects": []
 }

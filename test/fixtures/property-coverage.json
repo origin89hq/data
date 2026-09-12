@@ -7,16 +7,16 @@
       "needsConditions": 0
     },
     "eg4-electronics": {
-      "values": 17,
+      "values": 19,
       "conflicts": 0,
       "unparsed": 2,
-      "needsConditions": 7
+      "needsConditions": 5
     },
     "energizer-solar": {
-      "values": 5,
+      "values": 6,
       "conflicts": 0,
       "unparsed": 16,
-      "needsConditions": 10
+      "needsConditions": 9
     },
     "luxpower": {
       "values": 98,
@@ -31,10 +31,10 @@
       "needsConditions": 15
     },
     "millertech": {
-      "values": 18,
+      "values": 27,
       "conflicts": 0,
       "unparsed": 0,
-      "needsConditions": 9
+      "needsConditions": 0
     },
     "morningstar": {
       "values": 73,
@@ -61,10 +61,10 @@
       "needsConditions": 0
     },
     "rolls-battery": {
-      "values": 33,
+      "values": 51,
       "conflicts": 0,
       "unparsed": 9,
-      "needsConditions": 16
+      "needsConditions": 0
     },
     "samlex-america": {
       "values": 72,
@@ -73,10 +73,10 @@
       "needsConditions": 24
     },
     "sigineer": {
-      "values": 9,
+      "values": 11,
       "conflicts": 0,
       "unparsed": 0,
-      "needsConditions": 4
+      "needsConditions": 2
     },
     "sol-ark": {
       "values": 59,
@@ -85,10 +85,10 @@
       "needsConditions": 0
     },
     "srne": {
-      "values": 233,
+      "values": 234,
       "conflicts": 1,
       "unparsed": 56,
-      "needsConditions": 26
+      "needsConditions": 25
     },
     "victron-energy": {
       "values": 196,
@@ -106,12 +106,12 @@
   "keys": {
     "battery.capacity battery": {
       "models": 515,
-      "values": 0,
+      "values": 32,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 17,
-      "needsConditions": 50,
-      "noClaim": 448
+      "needsConditions": 19,
+      "noClaim": 447
     },
     "battery.charge.current.max battery": {
       "models": 515,

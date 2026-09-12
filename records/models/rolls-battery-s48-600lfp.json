@@ -4,5 +4,7 @@
   "name": "S48-600LFP",
   "aliases": [],
   "dialects": [],
-  "kind": "battery"
+  "kind": "battery",
+  "chemistry": "lifepo4",
+  "chemistryBasis": "name"
 }

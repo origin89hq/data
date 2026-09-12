@@ -3,6 +3,8 @@
   "manufacturer": "rolls-battery",
   "name": "S12-100LFP",
   "kind": "battery",
+  "chemistry": "lifepo4",
+  "chemistryBasis": "name",
   "aliases": [],
   "dialects": [
     {

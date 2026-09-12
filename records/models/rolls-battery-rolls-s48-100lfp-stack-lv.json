@@ -19,5 +19,7 @@
       "confidence": "unverified"
     }
   ],
-  "kind": "battery"
+  "kind": "battery",
+  "chemistry": "lifepo4",
+  "chemistryBasis": "name"
 }

@@ -3,6 +3,8 @@
   "manufacturer": "rolls-battery",
   "name": "S48-100LFP STACK-B+T",
   "kind": "battery",
+  "chemistry": "lifepo4",
+  "chemistryBasis": "name",
   "aliases": [],
   "dialects": []
 }

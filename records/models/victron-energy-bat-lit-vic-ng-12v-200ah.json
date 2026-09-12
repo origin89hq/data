@@ -3,6 +3,8 @@
   "manufacturer": "victron-energy",
   "name": "BAT-LIT-VIC-NG-12V-200AH",
   "kind": "battery",
+  "chemistry": "lithium",
+  "chemistryBasis": "name",
   "aliases": [],
   "dialects": []
 }

@@ -4,5 +4,7 @@
   "name": "EG4-LFP-12 100",
   "aliases": [],
   "dialects": [],
-  "kind": "battery"
+  "kind": "battery",
+  "chemistry": "lifepo4",
+  "chemistryBasis": "name"
 }

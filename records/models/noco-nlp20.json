@@ -3,6 +3,8 @@
   "manufacturer": "noco",
   "name": "NLP20",
   "kind": "battery",
+  "chemistry": "lifepo4",
+  "chemistryBasis": "spec:noco-nlp20--chemistry",
   "aliases": [],
   "dialects": [
     {
