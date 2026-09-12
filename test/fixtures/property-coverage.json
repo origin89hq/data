@@ -1,0 +1,388 @@
+{
+  "makers": {
+    "east-penn": {
+      "values": 3,
+      "conflicts": 0,
+      "unparsed": 36,
+      "needsConditions": 0
+    },
+    "eg4-electronics": {
+      "values": 17,
+      "conflicts": 0,
+      "unparsed": 2,
+      "needsConditions": 7
+    },
+    "energizer-solar": {
+      "values": 4,
+      "conflicts": 0,
+      "unparsed": 16,
+      "needsConditions": 10
+    },
+    "luxpower": {
+      "values": 96,
+      "conflicts": 1,
+      "unparsed": 32,
+      "needsConditions": 5
+    },
+    "magnum-energy": {
+      "values": 124,
+      "conflicts": 0,
+      "unparsed": 87,
+      "needsConditions": 15
+    },
+    "millertech": {
+      "values": 18,
+      "conflicts": 0,
+      "unparsed": 0,
+      "needsConditions": 9
+    },
+    "morningstar": {
+      "values": 73,
+      "conflicts": 0,
+      "unparsed": 12,
+      "needsConditions": 3
+    },
+    "noco": {
+      "values": 0,
+      "conflicts": 0,
+      "unparsed": 0,
+      "needsConditions": 1
+    },
+    "outback-power": {
+      "values": 145,
+      "conflicts": 2,
+      "unparsed": 67,
+      "needsConditions": 2
+    },
+    "pentair": {
+      "values": 2,
+      "conflicts": 0,
+      "unparsed": 0,
+      "needsConditions": 0
+    },
+    "rolls-battery": {
+      "values": 33,
+      "conflicts": 0,
+      "unparsed": 9,
+      "needsConditions": 16
+    },
+    "samlex-america": {
+      "values": 54,
+      "conflicts": 0,
+      "unparsed": 27,
+      "needsConditions": 22
+    },
+    "sigineer": {
+      "values": 9,
+      "conflicts": 0,
+      "unparsed": 0,
+      "needsConditions": 4
+    },
+    "sol-ark": {
+      "values": 57,
+      "conflicts": 2,
+      "unparsed": 10,
+      "needsConditions": 0
+    },
+    "srne": {
+      "values": 232,
+      "conflicts": 1,
+      "unparsed": 67,
+      "needsConditions": 15
+    },
+    "victron-energy": {
+      "values": 173,
+      "conflicts": 0,
+      "unparsed": 33,
+      "needsConditions": 24
+    },
+    "xantrex": {
+      "values": 44,
+      "conflicts": 0,
+      "unparsed": 18,
+      "needsConditions": 9
+    }
+  },
+  "keys": {
+    "battery.capacity battery": {
+      "models": 515,
+      "values": 0,
+      "conflicts": 0,
+      "unparsed": 17,
+      "needsConditions": 50,
+      "noClaim": 448
+    },
+    "battery.charge.current.max battery": {
+      "models": 515,
+      "values": 37,
+      "conflicts": 0,
+      "unparsed": 12,
+      "needsConditions": 0,
+      "noClaim": 466
+    },
+    "battery.discharge.current.max battery": {
+      "models": 515,
+      "values": 34,
+      "conflicts": 0,
+      "unparsed": 10,
+      "needsConditions": 0,
+      "noClaim": 471
+    },
+    "battery.discharge.current.peak battery": {
+      "models": 515,
+      "values": 0,
+      "conflicts": 0,
+      "unparsed": 3,
+      "needsConditions": 11,
+      "noClaim": 501
+    },
+    "battery.energy battery": {
+      "models": 515,
+      "values": 19,
+      "conflicts": 0,
+      "unparsed": 0,
+      "needsConditions": 0,
+      "noClaim": 496
+    },
+    "battery.voltage.nominal ac-charger": {
+      "models": 78,
+      "values": 1,
+      "conflicts": 0,
+      "unparsed": 0,
+      "needsConditions": 0,
+      "noClaim": 77
+    },
+    "battery.voltage.nominal battery": {
+      "models": 515,
+      "values": 10,
+      "conflicts": 0,
+      "unparsed": 1,
+      "needsConditions": 0,
+      "noClaim": 504
+    },
+    "battery.voltage.nominal charge-controller": {
+      "models": 611,
+      "values": 76,
+      "conflicts": 0,
+      "unparsed": 5,
+      "needsConditions": 0,
+      "noClaim": 530
+    },
+    "battery.voltage.nominal dc-dc-converter": {
+      "models": 98,
+      "values": 1,
+      "conflicts": 0,
+      "unparsed": 0,
+      "needsConditions": 0,
+      "noClaim": 97
+    },
+    "battery.voltage.nominal inverter": {
+      "models": 224,
+      "values": 11,
+      "conflicts": 0,
+      "unparsed": 0,
+      "needsConditions": 0,
+      "noClaim": 213
+    },
+    "battery.voltage.nominal inverter-charger": {
+      "models": 734,
+      "values": 65,
+      "conflicts": 0,
+      "unparsed": 5,
+      "needsConditions": 0,
+      "noClaim": 664
+    },
+    "charge.current.max ac-charger": {
+      "models": 78,
+      "values": 1,
+      "conflicts": 0,
+      "unparsed": 0,
+      "needsConditions": 0,
+      "noClaim": 77
+    },
+    "charge.current.max charge-controller": {
+      "models": 611,
+      "values": 78,
+      "conflicts": 0,
+      "unparsed": 1,
+      "needsConditions": 0,
+      "noClaim": 532
+    },
+    "charge.current.max dc-dc-converter": {
+      "models": 98,
+      "values": 1,
+      "conflicts": 0,
+      "unparsed": 0,
+      "needsConditions": 0,
+      "noClaim": 97
+    },
+    "charge.current.max inverter-charger": {
+      "models": 734,
+      "values": 117,
+      "conflicts": 0,
+      "unparsed": 16,
+      "needsConditions": 0,
+      "noClaim": 601
+    },
+    "inverter.power.continuous inverter": {
+      "models": 224,
+      "values": 56,
+      "conflicts": 0,
+      "unparsed": 28,
+      "needsConditions": 0,
+      "noClaim": 140
+    },
+    "inverter.power.continuous inverter-charger": {
+      "models": 734,
+      "values": 85,
+      "conflicts": 1,
+      "unparsed": 74,
+      "needsConditions": 0,
+      "noClaim": 574
+    },
+    "inverter.power.idle inverter": {
+      "models": 224,
+      "values": 2,
+      "conflicts": 0,
+      "unparsed": 2,
+      "needsConditions": 0,
+      "noClaim": 220
+    },
+    "inverter.power.idle inverter-charger": {
+      "models": 734,
+      "values": 70,
+      "conflicts": 0,
+      "unparsed": 10,
+      "needsConditions": 0,
+      "noClaim": 654
+    },
+    "inverter.power.surge inverter": {
+      "models": 224,
+      "values": 3,
+      "conflicts": 0,
+      "unparsed": 4,
+      "needsConditions": 40,
+      "noClaim": 177
+    },
+    "inverter.power.surge inverter-charger": {
+      "models": 734,
+      "values": 18,
+      "conflicts": 0,
+      "unparsed": 52,
+      "needsConditions": 36,
+      "noClaim": 628
+    },
+    "inverter.voltage.ac inverter": {
+      "models": 224,
+      "values": 7,
+      "conflicts": 0,
+      "unparsed": 12,
+      "needsConditions": 0,
+      "noClaim": 205
+    },
+    "inverter.voltage.ac inverter-charger": {
+      "models": 734,
+      "values": 51,
+      "conflicts": 2,
+      "unparsed": 39,
+      "needsConditions": 0,
+      "noClaim": 642
+    },
+    "pv.isc.max charge-controller": {
+      "models": 611,
+      "values": 5,
+      "conflicts": 0,
+      "unparsed": 2,
+      "needsConditions": 0,
+      "noClaim": 604
+    },
+    "pv.isc.max inverter": {
+      "models": 224,
+      "values": 4,
+      "conflicts": 0,
+      "unparsed": 0,
+      "needsConditions": 0,
+      "noClaim": 220
+    },
+    "pv.isc.max inverter-charger": {
+      "models": 734,
+      "values": 20,
+      "conflicts": 0,
+      "unparsed": 6,
+      "needsConditions": 0,
+      "noClaim": 708
+    },
+    "pv.mppt.window charge-controller": {
+      "models": 611,
+      "values": 3,
+      "conflicts": 0,
+      "unparsed": 10,
+      "needsConditions": 0,
+      "noClaim": 598
+    },
+    "pv.mppt.window inverter": {
+      "models": 224,
+      "values": 3,
+      "conflicts": 0,
+      "unparsed": 5,
+      "needsConditions": 0,
+      "noClaim": 216
+    },
+    "pv.mppt.window inverter-charger": {
+      "models": 734,
+      "values": 37,
+      "conflicts": 1,
+      "unparsed": 5,
+      "needsConditions": 0,
+      "noClaim": 691
+    },
+    "pv.power.max charge-controller": {
+      "models": 611,
+      "values": 10,
+      "conflicts": 0,
+      "unparsed": 12,
+      "needsConditions": 3,
+      "noClaim": 586
+    },
+    "pv.power.max inverter": {
+      "models": 224,
+      "values": 2,
+      "conflicts": 0,
+      "unparsed": 0,
+      "needsConditions": 0,
+      "noClaim": 222
+    },
+    "pv.power.max inverter-charger": {
+      "models": 734,
+      "values": 29,
+      "conflicts": 0,
+      "unparsed": 12,
+      "needsConditions": 0,
+      "noClaim": 693
+    },
+    "pv.voc.max charge-controller": {
+      "models": 611,
+      "values": 60,
+      "conflicts": 0,
+      "unparsed": 2,
+      "needsConditions": 0,
+      "noClaim": 549
+    },
+    "pv.voc.max inverter": {
+      "models": 224,
+      "values": 5,
+      "conflicts": 0,
+      "unparsed": 0,
+      "needsConditions": 0,
+      "noClaim": 219
+    },
+    "pv.voc.max inverter-charger": {
+      "models": 734,
+      "values": 41,
+      "conflicts": 2,
+      "unparsed": 0,
+      "needsConditions": 0,
+      "noClaim": 691
+    }
+  }
+}

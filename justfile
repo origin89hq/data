@@ -187,6 +187,14 @@ spec-pages-found maker date *args:
 export-makers:
     node tools/feeds/export-makers.ts
 
+# What a maker prints that no mapping rule reads yet, grouped by the key each name most likely belongs to. Start a maker's mapping file from this.
+mapping-draft maker:
+    node tools/mappings/draft.ts {{maker}}
+
+# Rewrite the coverage snapshot the tests compare the mappings against. Run after changing a mapping, a record or the builder, and commit the diff with the change.
+coverage-snapshot:
+    node tools/mappings/coverage-snapshot.ts
+
 # Discovery over every maker at once. Reads only what they publish; downloads still wait for you.
 discover-all date pages="150":
     @just _post "/discover-all?date=$1&pages=$2"

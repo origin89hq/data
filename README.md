@@ -246,6 +246,17 @@ its duration is not a surge. A continuous or surge figure a sheet prints in
 VA is read under the watt key's apparent-power sibling, `inverter.power.apparent`
 or `inverter.power.apparent.surge`, through the same rule.
 
+Validation audits the mappings against what the build read: a figure a rule
+names under a key the model's kind has, that no key read, is an error, and the
+report lists what a mapping's author should look at, an unmapped name one word
+from a mapped one, figures a rule reads without a unit, a temperature or a
+time the key drops, a model filed under a kind its figures contradict.
+`test/fixtures/property-coverage.json` is what the mappings read today, per
+maker and per key; a change that moves it has to run `just coverage-snapshot`
+and commit the diff, so a pull request carries its effect on coverage. A new
+maker's file starts from `just mapping-draft <manufacturer>`, which lists what
+the maker prints that no rule reads, by the key each name most likely means.
+
 What cannot be filled is a gap with a reason in `property_gaps`: `no-claim`
 when no figure was read for the key, `unparsed` when the figures could not be
 read as numbers, `needs-conditions` when a value lacks a condition the key

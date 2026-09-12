@@ -1,6 +1,8 @@
 import { SHARED_MAPPING } from "@origin89/equipment-schema/mapping";
 import { PROPERTY_BY_KEY } from "@origin89/equipment-schema/properties";
 import { locatorOf } from "../tools/catalogue/sources.ts";
+import { auditMappings } from "./audit.ts";
+import { buildProperties } from "./properties.ts";
 import { loadRecords, type Records } from "./records.ts";
 import { canonicalUnit, concerns as figureConcerns, QUANTITY_OF } from "./units.ts";
 
@@ -9,6 +11,8 @@ export interface Report {
   errors: string[];
   /** Things a person has to look at. Counted, not refused: the catalogue was imported with them. */
   review: Record<string, number>;
+  /** What the mapping audit found for the author of a mapping to look at, one line each. */
+  audit: string[];
 }
 
 /** Cross-record checks the schemas cannot express: every reference resolves, every source is used, every family lists its dialects once. */
@@ -320,10 +324,27 @@ export function validate(records: Records): Report {
     else if (!records.families.find((f) => f.id === d.family)?.order.includes(d.id))
       errors.push(`${d.id}: not in ${d.family}'s order`);
   }
-  return { errors, review };
+  // The mappings audited against what the build reads: a figure a rule names that no key reads
+  // is a defect; the rest are for the mapping's author.
+  const audit = auditMappings(
+    records,
+    buildProperties({
+      models: records.models,
+      specs: records.specs,
+      mappings: records.mappings,
+      feeds: [],
+    }),
+  );
+  errors.push(...audit.errors);
+  return { errors, review, audit: audit.notes };
 }
 
-export function reviewSummary(records: Records, report: Report): string {
+/**
+ * The report as the CLI prints it. The audit's near-miss lines, one per unmapped name, are
+ * counted per maker unless `full` is set: they are the list to work from when a maker's
+ * mapping is being extended, and noise the rest of the time.
+ */
+export function reviewSummary(records: Records, report: Report, full = false): string {
   const lines = [
     `${records.families.length} families · ${records.dialects.length} dialects · ${records.sources.length} sources · ${records.manufacturers.length} manufacturers · ${records.brands.length} brands · ${records.models.length} models · ${records.specs.length} specs · ${records.mappings.length} mappings`,
     "",
@@ -332,6 +353,25 @@ export function reviewSummary(records: Records, report: Report): string {
       .sort((a, b) => b[1] - a[1])
       .map(([k, n]) => `  ${String(n).padStart(4)}  ${k}`),
   ];
+  if (report.audit.length > 0) {
+    const nearMiss = /^mapping ([^:]+): .* is one step from the mapped /;
+    const shown = full ? report.audit : report.audit.filter((line) => !nearMiss.test(line));
+    const counts = new Map<string, number>();
+    if (!full)
+      for (const line of report.audit) {
+        const maker = nearMiss.exec(line)?.[1];
+        if (maker) counts.set(maker, (counts.get(maker) ?? 0) + 1);
+      }
+    lines.push(
+      "",
+      "Mapping audit:",
+      ...shown.map((line) => `  ${line}`),
+      ...[...counts].map(
+        ([maker, n]) =>
+          `  mapping ${maker}: ${n} unmapped name${n === 1 ? "" : "s"} one step from a mapped one; \`pnpm validate --audit\` lists them`,
+      ),
+    );
+  }
   const unlocated = records.sources.filter((s) => !s.url && !s.path).length;
   if (unlocated)
     lines.push(
@@ -344,7 +384,7 @@ export function reviewSummary(records: Records, report: Report): string {
 if (process.argv[1] && import.meta.url.endsWith(process.argv[1].split("/").pop() ?? "")) {
   const records = loadRecords();
   const report = validate(records);
-  console.log(reviewSummary(records, report));
+  console.log(reviewSummary(records, report, process.argv.includes("--audit")));
   if (report.errors.length) {
     console.error(`\n${report.errors.length} errors:`);
     for (const e of report.errors) console.error(`  ${e}`);

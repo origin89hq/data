@@ -24,7 +24,10 @@ carries the source, and the reviewer reads the source, not the diff.
   two properties the same. `records/mappings/shared.json` is the exception:
   a name goes there only when it says in full what it measures on any sheet,
   and a maker whose sheets use it for something else lists it under `except`.
-  Reviewing a rule does not review the figures it reads.
+  Reviewing a rule does not review the figures it reads. Start a maker's file
+  from `just mapping-draft <manufacturer>`, read the mapping audit in
+  `pnpm validate`, and run `just coverage-snapshot` so the pull request carries
+  what the change did to coverage.
 - Absent beats plausible. A baud rate the document does not state stays out of
   the record; write the gap in `gotchas`.
 - Run `pnpm validate && pnpm test` before opening the pull request.

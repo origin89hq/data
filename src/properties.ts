@@ -79,6 +79,8 @@ export interface PropertiesOutput {
   properties: PropertyRow[];
   gaps: GapRow[];
   coverage: CoverageRow[];
+  /** The ids of every figure some key read as a claim, usable or not, so an audit can find the ones a rule names that nothing reads. */
+  claimed: Set<string>;
 }
 
 /** A printed figure as a candidate for one key: what to parse, and where it came from. */
@@ -423,6 +425,7 @@ function referenceFor(key: string, values: Map<string, number>): number | undefi
 export function buildProperties(input: PropertiesInput): PropertiesOutput {
   const properties: PropertyRow[] = [];
   const gaps: GapRow[] = [];
+  const claimed = new Set<string>();
   const coverage = new Map<string, CoverageRow>();
   const tally = (key: string, kind: string) => {
     const k = `${key}\t${kind}`;
@@ -477,9 +480,9 @@ export function buildProperties(input: PropertiesInput): PropertiesOutput {
       const row = tally(property.key, kind ?? "");
       row.models += 1;
       const reference = referenceFor(property.key, values);
-      const readings = (claimsByKey.get(property.key) ?? []).map((claim) =>
-        read(claim, property, reference),
-      );
+      const claims = claimsByKey.get(property.key) ?? [];
+      for (const claim of claims) claimed.add(claim.id);
+      const readings = claims.map((claim) => read(claim, property, reference));
       const settled = settle(id, property.key, readings, property.unit, property.scope);
       properties.push(...settled.properties);
       const valued = settled.properties.filter((p) => p.status === "value");
@@ -518,5 +521,6 @@ export function buildProperties(input: PropertiesInput): PropertiesOutput {
     coverage: [...coverage.values()].sort(
       (a, b) => a.key.localeCompare(b.key) || a.kind.localeCompare(b.kind),
     ),
+    claimed,
   };
 }
