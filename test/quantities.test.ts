@@ -1,7 +1,13 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { PROPERTY_BY_KEY } from "@origin89/equipment-schema/properties";
-import { parseQuantity, type Read, readProperty } from "../src/quantities.ts";
+import {
+  parseQuantity,
+  printedQuantities,
+  printedQuantity,
+  type Read,
+  readProperty,
+} from "../src/quantities.ts";
 
 const ok = (read: Read) => {
   assert.ok(read.ok, read.ok ? "" : read.reason);
@@ -280,4 +286,53 @@ test("a property is read in its own unit: kilowatts become watts and a coefficie
     ok(readProperty("-0.08 V/K", undefined, property("panel.voc.coefficient"), { reference: 40 })),
     { shape: "scalar", value: -0.2, unit: "%/K" },
   );
+});
+
+test("the quantity a figure is printed in is read from its unit, whatever the value's shape or wording", () => {
+  assert.equal(printedQuantity("up to 500 VA", undefined), "apparent-power");
+  assert.equal(printedQuantity("3000-4000", "VA"), "apparent-power");
+  assert.equal(printedQuantity("16.97", "kVA"), "apparent-power");
+  assert.equal(printedQuantity("450", "W"), "power");
+  assert.equal(printedQuantity("1200 Watt at PF = 0.95", undefined), "power");
+  assert.equal(printedQuantity("12.5", undefined), undefined);
+});
+
+test("a value printed in two quantities splits into a part for each, and a unit is read past an aside", () => {
+  assert.deepEqual(printedQuantities("6KVA/6KW", undefined), [
+    { quantity: "apparent-power", value: "6KVA" },
+    { quantity: "power", value: "6KW" },
+  ]);
+  assert.deepEqual(printedQuantities("12/24/48V", undefined), [
+    { quantity: "voltage", value: "12/24/48V" },
+  ]);
+  assert.deepEqual(printedQuantities("4000 VA (L-L)", undefined), [
+    { quantity: "apparent-power", value: "4000 VA (L-L)" },
+  ]);
+  assert.deepEqual(printedQuantities("1200 Watt at PF = 0.95", undefined), [
+    { quantity: "power", value: "1200 Watt at PF = 0.95" },
+  ]);
+  assert.deepEqual(printedQuantities("Pure sine wave", undefined), []);
+  // A unit in the text outranks the unit field; the field covers only parts without one.
+  assert.deepEqual(printedQuantities("6KVA/6KW", "VA"), [
+    { quantity: "apparent-power", value: "6KVA" },
+    { quantity: "power", value: "6KW" },
+  ]);
+  assert.deepEqual(printedQuantities("6000", "VA"), [
+    { quantity: "apparent-power", value: "6000" },
+  ]);
+  assert.deepEqual(printedQuantities("6KVA/5KW/4KVA", undefined), [
+    { quantity: "apparent-power", value: "6KVA" },
+    { quantity: "power", value: "5KW" },
+    { quantity: "apparent-power", value: "4KVA" },
+  ]);
+  // A unit in an annotation is not the figure's: the field decides, and without one nothing does.
+  assert.deepEqual(printedQuantities("6000 @ 240 VAC", "VA"), [
+    { quantity: "apparent-power", value: "6000 @ 240 VAC" },
+  ]);
+  assert.deepEqual(printedQuantities("6000 @ 240 VAC", undefined), []);
+  // A bound stays on every part, so neither becomes an exact figure.
+  assert.deepEqual(printedQuantities("up to 6KVA/6KW", undefined), [
+    { quantity: "apparent-power", value: "up to 6KVA" },
+    { quantity: "power", value: "up to 6KW" },
+  ]);
 });

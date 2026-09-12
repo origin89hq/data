@@ -186,6 +186,72 @@ export function parseQuantity(
   return { ok: true, parsed: { shape: "set", values, unit: to } };
 }
 
+/** A figure's value split by the quantity each part is printed in: "6KVA/6KW" is two. */
+export interface PrintedPart {
+  quantity: Quantity;
+  value: string;
+}
+
+/**
+ * The unit a part of a value is printed in, read loosely: "4000 VA (L-L)" is volt-amperes even
+ * though the aside is not a unit. Only the unit on the part's own figure counts: in
+ * "6000 @ 240 VAC" the volts belong to the annotation, and the part's unit is whatever the
+ * unit field says.
+ */
+function looseUnit(part: string): Unit | undefined {
+  const term = parseTerm(part);
+  if (typeof term !== "string") return term.unit;
+  const tail = new RegExp(`^${NUMBER}\\s*(${UNIT_TAIL})`).exec(part)?.[1];
+  if (!tail) return undefined;
+  for (const candidate of [
+    tail,
+    tail.replace(/[^A-Za-z°%/]+.*$/, ""),
+    /^[A-Za-z]+/.exec(tail)?.[0] ?? "",
+  ]) {
+    const unit = canonicalUnit(candidate);
+    if (unit) return unit;
+  }
+  return undefined;
+}
+
+/**
+ * The quantities a figure is printed in, from its unit field or the units in its text, whatever
+ * the value's shape or wording, with the part of the value each covers: "up to 500 VA" is
+ * apparent power though it is not a figure, "6KVA/6KW" is apparent power and power, "12/24/48V"
+ * is one voltage whose first parts take the unit printed after the last. Empty when no unit can
+ * be read.
+ */
+export function printedQuantities(value: string, unit: string | undefined): PrintedPart[] {
+  // A unit in the text says more than the unit field: "6KVA/6KW" in a field marked VA is still
+  // two quantities. The field is what a part with no unit of its own is printed in.
+  const given = canonicalUnit(unit);
+  const printed = value.trim().replace(/[“”]/g, '"').replace(/\s+/g, " ");
+  // A bound belongs to every part it qualifies: "up to 6KVA/6KW" is two bounded figures, not two figures.
+  const bound = BOUND.exec(printed)?.[0] ?? "";
+  const text = printed.slice(bound.length);
+  const parts = text.split(/\s*\/\s*(?=[-\d])/).map((part) => `${bound}${part}`);
+  const units: (Unit | undefined)[] = parts.map((part) => looseUnit(part.slice(bound.length)));
+  for (let i = units.length - 2; i >= 0; i--) units[i] ??= units[i + 1];
+  if (given && units.every((u) => u === undefined))
+    return [{ quantity: QUANTITY_OF[given] as Quantity, value }];
+  for (let i = 0; i < units.length; i++) units[i] ??= given;
+  const out: PrintedPart[] = [];
+  parts.forEach((part, i) => {
+    const u = units[i];
+    if (!u) return;
+    const quantity = QUANTITY_OF[u] as Quantity;
+    const last = out.at(-1);
+    if (last && last.quantity === quantity) last.value = `${last.value}/${part}`;
+    else out.push({ quantity, value: part });
+  });
+  return out;
+}
+
+/** The quantity a figure is printed in, or the first of several. */
+export function printedQuantity(value: string, unit: string | undefined): Quantity | undefined {
+  return printedQuantities(value, unit)[0]?.quantity;
+}
+
 /** How a printed unit reaches the canonical one of its quantity, or why it cannot. */
 function convert(
   unit: Unit,

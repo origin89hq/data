@@ -12,7 +12,7 @@ import {
 } from "@origin89/equipment-schema/properties";
 import { conditionsFrom, conditionsKey, mergeConditions, splitDuration } from "./conditions.ts";
 import { type Feed, type FeedModel, feedSpecId } from "./feeds.ts";
-import { type Parsed, readProperty } from "./quantities.ts";
+import { type Parsed, printedQuantities, readProperty } from "./quantities.ts";
 
 /**
  * Build the normalized properties beside the printed figures.
@@ -273,6 +273,28 @@ function read(claim: Claim, property: Property, reference: number | undefined): 
     : { claim, reason: result.reason, conditions, missing };
 }
 
+/**
+ * A claim narrowed to the parts of its value printed in `property`'s quantity, or nothing when
+ * none is: "6KVA/6KW" is "6KW" to a watt key and "6KVA" to its VA sibling, each with the
+ * duration the value stated and without the unit field, since each part carries its own unit. A
+ * value in one quantity comes back as it is; a quantity printed twice around another,
+ * "6KVA/5KW/4KVA", comes back as both parts, which a scalar key refuses rather than taking the
+ * first.
+ */
+function partFor(claim: Claim, property: Property): Claim | undefined {
+  const split = splitDuration(claim.value);
+  const parts = printedQuantities(split.value, claim.unit);
+  const own = parts.filter((p) => p.quantity === property.quantity);
+  if (own.length === 0) return undefined;
+  if (parts.length === 1) return claim;
+  const value = own.map((p) => p.value).join("/");
+  return {
+    ...claim,
+    value: split.duration === undefined ? value : `${value} for ${split.duration} s`,
+    unit: undefined,
+  };
+}
+
 const shown = (parsed: Parsed): string =>
   parsed.shape === "scalar"
     ? String(parsed.value)
@@ -430,11 +452,34 @@ export function buildProperties(input: PropertiesInput): PropertiesOutput {
     claimsFor: (property: Property) => Claim[],
   ) => {
     const values = new Map<string, number>();
-    for (const property of keysFor(kind)) {
+    const keys = keysFor(kind);
+    const claimsByKey = new Map(keys.map((property) => [property.key, claimsFor(property)]));
+    // A figure a rule names under a watt key that the sheet prints in VA is the key's
+    // apparent-power sibling's: it moves there whole, rule, conditions and all, rather than
+    // standing as an unparsed gap on a key it was never a claim on.
+    for (const property of keys) {
+      const sibling = keys.find((p) => p.key === property.apparent);
+      if (!sibling) continue;
+      const stays: Claim[] = [];
+      const moves: Claim[] = [];
+      for (const claim of claimsByKey.get(property.key) ?? []) {
+        const apparent = partFor(claim, sibling);
+        const real = partFor(claim, property);
+        if (apparent) moves.push(apparent);
+        if (real) stays.push(real);
+        else if (!apparent) stays.push(claim);
+      }
+      claimsByKey.set(property.key, stays);
+      if (moves.length > 0)
+        claimsByKey.set(sibling.key, [...(claimsByKey.get(sibling.key) ?? []), ...moves]);
+    }
+    for (const property of keys) {
       const row = tally(property.key, kind ?? "");
       row.models += 1;
       const reference = referenceFor(property.key, values);
-      const readings = claimsFor(property).map((claim) => read(claim, property, reference));
+      const readings = (claimsByKey.get(property.key) ?? []).map((claim) =>
+        read(claim, property, reference),
+      );
       const settled = settle(id, property.key, readings, property.unit, property.scope);
       properties.push(...settled.properties);
       const valued = settled.properties.filter((p) => p.status === "value");

@@ -23,7 +23,7 @@ const gap = (gaps: GapRow[], key: string) => gaps.find((g) => g.key === key);
 const own = (maker: string, rows: PropertyRow[]) =>
   rows.every((p) => p.mappedBy.startsWith(`rule:${maker}@`));
 
-test("Magnum: the surge lines read in watts with their durations, the charger's amps under the charge key, and the VA continuous figure is a gap", () => {
+test("Magnum: the surge lines read in watts with their durations, the charger's amps under the charge key, and the VA continuous figure as the apparent key's gap", () => {
   const { properties, gaps } = of("magnum-energy-ms4024pae");
   const surge = values(properties, "inverter.power.surge");
   assert.deepEqual(
@@ -40,7 +40,9 @@ test("Magnum: the surge lines read in watts with their durations, the charger's 
     values(properties, "charge.current.max").map((p) => [p.value, p.unit]),
     [[105, "A"]],
   );
-  assert.equal(gap(gaps, "inverter.power.continuous")?.reason, "unparsed");
+  // Its '4000 VA (L-L)' is the apparent key's gap, and the watt key was never claimed by it.
+  assert.equal(gap(gaps, "inverter.power.apparent")?.reason, "unparsed");
+  assert.equal(gap(gaps, "inverter.power.continuous")?.reason, "no-claim");
   // The MM1012E's charger line and the 12NP10's output line carry no unit; the rules say which.
   assert.deepEqual(
     values(of("magnum-energy-mm1012e").properties, "charge.current.max").map((p) => [
@@ -126,7 +128,7 @@ test("Samlex: the PST's watts and its surge without a time, the SEC's bulk capac
   assert.ok(own("samlex-america", [...sec, ...values(scc, "pv.voc.max")]));
 });
 
-test("OutBack: the Radian's watts, its three idle modes, the charger's amps, and its kVA overload figures as gaps", () => {
+test("OutBack: the Radian's watts, its three idle modes, the charger's amps, and its kVA overloads under the apparent key", () => {
   const { properties, gaps } = of("outback-power-gs4048a");
   assert.deepEqual(
     values(properties, "inverter.power.continuous").map((p) => p.value),
@@ -144,7 +146,18 @@ test("OutBack: the Radian's watts, its three idle modes, the charger's amps, and
     values(properties, "charge.current.max").map((p) => p.value),
     [57.5],
   );
-  assert.equal(gap(gaps, "inverter.power.surge")?.reason, "unparsed");
+  // Its kVA overloads are the apparent key's now, and the watt surge key was never claimed.
+  assert.equal(gap(gaps, "inverter.power.surge")?.reason, "no-claim");
+  assert.deepEqual(
+    values(properties, "inverter.power.apparent.surge").map((p) => [
+      p.value,
+      p.conditions.duration,
+    ]),
+    [
+      [4500, 1800],
+      [6000, 5],
+    ],
+  );
   const flexmax = of("outback-power-flexmax-60").properties;
   assert.deepEqual(
     values(flexmax, "charge.current.max").map((p) => p.value),
@@ -366,4 +379,49 @@ test("EG4: the 12kPV's kilowatts as watts, its PV limits, the mini split's bare 
     [[90, 380]],
   );
   assert.ok(own("eg4-electronics", mini));
+});
+
+test("OutBack's VA figures reach the apparent-power keys through the watt rules that name them", () => {
+  const { properties, gaps } = of("outback-power-fx2012t");
+  assert.deepEqual(
+    values(properties, "inverter.power.apparent").map((p) => [p.value, p.unit, p.mappedBy]),
+    [[2000, "VA", "rule:shared@2#12"]],
+  );
+  assert.deepEqual(
+    values(properties, "inverter.power.apparent.surge").map((p) => [
+      p.value,
+      p.conditions.duration,
+    ]),
+    [
+      [2500, 1800],
+      [4000, 5],
+    ],
+  );
+  // The bare 'AC Overload Capability - Surge' states no time and stays the sibling's gap.
+  assert.deepEqual(gap(gaps, "inverter.power.apparent.surge"), {
+    model: "outback-power-fx2012t",
+    key: "inverter.power.apparent.surge",
+    reason: "needs-conditions",
+    detail: "no duration stated, beside 2 usable figures",
+    claims: 3,
+  });
+  // The watt keys were never claimed by those figures.
+  assert.equal(gap(gaps, "inverter.power.continuous")?.reason, "no-claim");
+  assert.equal(gap(gaps, "inverter.power.surge")?.reason, "no-claim");
+});
+
+test("a Luxpower rating printed as '6KVA/6KW' reaches both the watt key and its VA sibling", () => {
+  const { properties } = of("luxpower-sna-us-600033");
+  assert.deepEqual(
+    values(properties, "inverter.power.continuous").map((p) => [p.value, p.claim]),
+    [[6000, "luxpower-sna-us-600033--rated-output-power"]],
+  );
+  assert.deepEqual(
+    values(properties, "inverter.power.apparent").map((p) => [p.value, p.claim]),
+    [[6000, "luxpower-sna-us-600033--rated-output-power"]],
+  );
+  // Magnum's '4000 VA (L-L)' is the apparent key's gap now, not the watt key's.
+  const ms = of("magnum-energy-ms4024pae");
+  assert.equal(gap(ms.gaps, "inverter.power.apparent")?.reason, "unparsed");
+  assert.equal(gap(ms.gaps, "inverter.power.continuous")?.reason, "no-claim");
 });
