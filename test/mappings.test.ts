@@ -599,6 +599,45 @@ test("BSLBatt: the HVS stack's 'Nominal Capacity' in kilowatt-hours is its energ
   assert.equal(gap(gaps, "battery.capacity")?.claims, 0);
 });
 
+test("Sigineer: the ESF's open-circuit limit, charge amps and PV power at four bank voltages, the LFP pack's 51.2 V over its 48 V class, and its peak without a time as a gap", () => {
+  const esf = of("sigineer-esf48h80");
+  assert.deepEqual(
+    values(esf.properties, "pv.voc.max").map((p) => p.value),
+    [250],
+  );
+  assert.deepEqual(
+    values(esf.properties, "charge.current.max").map((p) => p.value),
+    [80],
+  );
+  assert.deepEqual(
+    values(esf.properties, "pv.power.max").map((p) => [p.value, p.conditions.bankVoltage]),
+    [
+      [1040, 12],
+      [2080, 24],
+      [3120, 36],
+      [4160, 48],
+    ],
+  );
+  const pack = of("sigineer-lfp-m48105h2");
+  assert.deepEqual(
+    values(pack.properties, "battery.voltage.nominal").map((p) => p.values),
+    [[51.2]],
+  );
+  assert.deepEqual(
+    values(pack.properties, "battery.charge.current.max").map((p) => p.value),
+    [50],
+  );
+  assert.deepEqual(
+    values(pack.properties, "battery.discharge.current.max").map((p) => p.value),
+    [100],
+  );
+  assert.equal(gap(pack.gaps, "battery.discharge.current.peak")?.reason, "needs-conditions");
+  assert.deepEqual(
+    values(of("sigineer-m48120").properties, "charge.current.max").map((p) => p.value),
+    [120],
+  );
+});
+
 test("OutBack's VA figures reach the apparent-power keys through the watt rules that name them", () => {
   const { properties, gaps } = of("outback-power-fx2012t");
   assert.deepEqual(
