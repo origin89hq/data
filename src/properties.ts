@@ -287,9 +287,11 @@ function read(
   // keeps the rate, and two rates stay two properties.
   const accepts = [...new Set([...property.needs, ...(claim.requires ?? []), ...property.accepts])];
   const split = splitDuration(claim.value);
+  // A condition printed inside the value's aside, "5A (12V)", is the figure's as much as one in its name.
+  const asides = claim.value.match(/\([^()]*\)/g)?.join(" ") ?? "";
   const conditions = mergeConditions(
     claim.conditions,
-    conditionsFrom(claim.text, accepts),
+    conditionsFrom(`${claim.text} ${asides}`, accepts),
     split.duration !== undefined && accepts.includes("duration")
       ? { duration: split.duration }
       : undefined,

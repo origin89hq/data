@@ -30,8 +30,8 @@ const QUALIFIER =
 /** A leading comparison or approximation. "< 5W" bounds the figure without stating it. */
 const BOUND = /^(?:<|>|≤|≥|≈|~|±|less than|more than|up to|under|over|about|approx\.?|circa)\s*/i;
 
-/** A number as printed: "1,000", "0,29", "-0.25", "+0.05", "3500". */
-const NUMBER = String.raw`[-+]?(?:\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:[.,]\d+)?)`;
+/** A number as printed: "1,000", "0,29", "-0.25", "+0.05", "3500", and ".281" with the zero left off. */
+const NUMBER = String.raw`[-+]?(?:\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:[.,]\d+)?|\.\d+)`;
 /** What separates the ends of a range: a dash of any width, a tilde, "to", or a dash a decoder turned into a quote. */
 const RANGE = String.raw`\s*(?:-|–|—|~|～|to|")\s*`;
 /** A unit glued to or spaced after a number, up to the next number: "VDC" in "43 VDC to 59 VDC". */
@@ -39,6 +39,17 @@ const UNIT_TAIL = String.raw`[A-Za-z°℃µ%][A-Za-z°℃µ%/·.]*`;
 /** A range, whose first end may carry its own unit: "8 - 72 Volts dc", "0A~140A", "-20°C to 60°C". */
 const RANGE_TERM = new RegExp(`^(${NUMBER})\\s*(${UNIT_TAIL})?${RANGE}(${NUMBER})\\s*(.*)$`);
 const SCALAR_TERM = new RegExp(`^(${NUMBER})\\s*(.*)$`);
+/**
+ * An aside a maker prints after the unit: the bank a charger's amps are for, "5A (12V)"; a word,
+ * "24A (Max)"; the same figure in other units, "2.5 gpm (9.5 Lpm)". The unit is what stands before
+ * it, and a condition in it is read from the figure's words elsewhere.
+ */
+const ASIDE = /\s*\([^()]*\)\s*$/;
+/**
+ * A lead-acid sheet ends a capacity with the cell voltage it is drawn down to, "155 A.H. to 1.70
+ * VPC": a condition of the figure, not a second end of a range.
+ */
+const CUT_OFF = new RegExp(String.raw`\s*(?:to|@|at)\s*${NUMBER}\s*V\.?\s?P\.?\s?C\.?\s*$`, "i");
 
 /**
  * "1,000" is a thousand and "0,29" is a fraction: a thousands comma always has three digits after
@@ -75,13 +86,19 @@ function unitOf(tail: string): { unit?: Unit; rest: string } {
 
 type Term = { min: number; max?: number; unit?: Unit };
 
+/** A unit tail without the aside after it, unless the aside is all there is: "72 (W)" is in watts. */
+function withoutAside(tail: string): string {
+  const bare = tail.replace(ASIDE, "");
+  return bare.trim() ? bare : tail.replace(/[()]/g, "");
+}
+
 function parseTerm(part: string): Term | string {
-  const text = part.trim();
+  const text = part.trim().replace(CUT_OFF, "");
   const ranged = RANGE_TERM.exec(text);
   if (ranged) {
     const [, first = "", firstTail = "", second = "", tail = ""] = ranged;
     const low = unitOf(firstTail);
-    const high = unitOf(tail);
+    const high = unitOf(withoutAside(tail));
     if (low.rest) return `"${low.rest}" is not a unit`;
     if (high.rest) return `"${high.rest}" is not a unit`;
     if (low.unit && high.unit && low.unit !== high.unit) return "two units in one figure";
@@ -93,7 +110,8 @@ function parseTerm(part: string): Term | string {
   const match = SCALAR_TERM.exec(text);
   if (!match) return `"${text}" is not a figure`;
   const [, first = "", tail = ""] = match;
-  const { unit, rest } = unitOf(tail);
+  // "12-Volts": a hyphen between the number and a unit written as a word is the maker's spelling.
+  const { unit, rest } = unitOf(withoutAside(tail).replace(/^-(?=[A-Za-z])/, ""));
   if (rest) return `"${rest}" is not a unit`;
   const min = toNumber(first);
   if (min === undefined) return `"${text}" is not a figure`;

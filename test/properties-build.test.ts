@@ -322,7 +322,7 @@ test("a figure the parser refuses is a gap that says why, and a rule scoped to a
       model: tristar.id,
       key: "charge.current.max",
       reason: "unparsed",
-      detail: '"%ofthecontroller’soutputcurrentrating(approximate)" is not a unit',
+      detail: '"%ofthecontroller’soutputcurrentrating" is not a unit',
       claims: 1,
     },
   );
@@ -948,7 +948,7 @@ test("a VA figure the parser refuses is still the apparent key's gap, not the wa
   );
 });
 
-test("a value printed in VA and W feeds both keys, and a VA value with an aside is the apparent key's gap", () => {
+test("a value printed in VA and W feeds both keys, and a VA value with words after its unit is the apparent key's gap", () => {
   const { properties, gaps } = build({
     models: [hybrid],
     mappings: [
@@ -958,7 +958,7 @@ test("a value printed in VA and W feeds both keys, and a VA value with an aside 
     ],
     specs: [
       figure(hybrid.id, "Rated output power", "6KVA/6KW"),
-      figure(hybrid.id, "Rated output power", "4000 VA (L-L)", { source: "doc-b" }),
+      figure(hybrid.id, "Rated output power", "4000 VA per phase", { source: "doc-b" }),
     ],
   });
   assert.deepEqual(
@@ -973,7 +973,12 @@ test("a value printed in VA and W feeds both keys, and a VA value with an aside 
       .filter((g) => g.key.startsWith("inverter.power."))
       .map((g) => [g.key, g.reason, g.detail, g.claims]),
     [
-      ["inverter.power.apparent", "unparsed", '"VA(L-L)" is not a unit, beside 1 usable figure', 2],
+      [
+        "inverter.power.apparent",
+        "unparsed",
+        '"VAperphase" is not a unit, beside 1 usable figure',
+        2,
+      ],
       ["inverter.power.apparent.surge", "no-claim", undefined, 0],
       ["inverter.power.idle", "no-claim", undefined, 0],
       ["inverter.power.surge", "no-claim", undefined, 0],

@@ -238,6 +238,55 @@ test("a bound, a sentence, and a word in the unit's place are not figures", () =
   );
 });
 
+test("an aside after the unit, a cut-off voltage, a bare decimal and a hyphenated unit are the maker's spelling, not a different figure", () => {
+  // A charger's amps per bank, and a word in brackets: the unit stands before the aside.
+  assert.deepEqual(parseQuantity("5A (12V)", undefined, "current"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 5, unit: "A" },
+  });
+  assert.deepEqual(parseQuantity("2000mA (12V)", undefined, "current"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 2, unit: "A" },
+  });
+  assert.deepEqual(parseQuantity("24A (Max)", undefined, "current"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 24, unit: "A" },
+  });
+  // The same range in other units after it is not a second range.
+  assert.deepEqual(parseQuantity("35 - 100°F (2 - 38°C)", undefined, "temperature"), {
+    ok: true,
+    parsed: { shape: "range", min: 1.666666667, max: 37.77777778, unit: "°C" },
+  });
+  // A unit that is only in the aside is still the unit.
+  assert.deepEqual(parseQuantity("72 (W)", undefined, "power"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 72, unit: "W" },
+  });
+  // A lead-acid capacity drawn down to a cell voltage: the voltage is a condition, not a range's end.
+  assert.deepEqual(parseQuantity("155 A.H. to 1.70 VPC", undefined, "charge"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 155, unit: "Ah" },
+  });
+  assert.deepEqual(parseQuantity("96 Ampere-Hours @ 1.75 V.P.C.", undefined, "charge"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 96, unit: "Ah" },
+  });
+  assert.deepEqual(parseQuantity(".281KWH", undefined, "energy"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 281, unit: "Wh" },
+  });
+  assert.deepEqual(parseQuantity("12-Volts", undefined, "voltage"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 12, unit: "V" },
+  });
+  // Two banks' worth in one figure, and a second figure after a semicolon, are still not one figure.
+  assert.match(refused(parseQuantity("5Ax2(12V)", undefined, "current")), /not a unit/);
+  assert.match(
+    refused(parseQuantity("92V(25℃)；95V(Lowest ambient temperature)", undefined, "voltage")),
+    /not a unit/,
+  );
+});
+
 const property = (key: string) => {
   const found = PROPERTY_BY_KEY.get(key);
   assert.ok(found, key);
