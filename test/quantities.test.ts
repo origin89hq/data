@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { PROPERTY_BY_KEY } from "@origin89/equipment-schema/properties";
-import { parseQuantity, type Read, readProperty } from "../src/quantities.ts";
+import { parseQuantity, printedQuantity, type Read, readProperty } from "../src/quantities.ts";
 
 const ok = (read: Read) => {
   assert.ok(read.ok, read.ok ? "" : read.reason);
@@ -280,4 +280,13 @@ test("a property is read in its own unit: kilowatts become watts and a coefficie
     ok(readProperty("-0.08 V/K", undefined, property("panel.voc.coefficient"), { reference: 40 })),
     { shape: "scalar", value: -0.2, unit: "%/K" },
   );
+});
+
+test("the quantity a figure is printed in is read from its unit, whatever the value's shape or wording", () => {
+  assert.equal(printedQuantity("up to 500 VA", undefined), "apparent-power");
+  assert.equal(printedQuantity("3000-4000", "VA"), "apparent-power");
+  assert.equal(printedQuantity("16.97", "kVA"), "apparent-power");
+  assert.equal(printedQuantity("450", "W"), "power");
+  assert.equal(printedQuantity("1200 Watt at PF = 0.95", undefined), undefined);
+  assert.equal(printedQuantity("12.5", undefined), undefined);
 });

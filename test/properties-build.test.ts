@@ -919,3 +919,31 @@ test("a figure in watts stays on the watt key, and one in VA named under the app
     ],
   );
 });
+
+test("a VA figure the parser refuses is still the apparent key's gap, not the watt key's", () => {
+  const { properties, gaps } = build({
+    models: [hybrid],
+    mappings: [
+      acme({
+        rules: [
+          { key: "inverter.power.continuous", names: ["Continuous output power"], basis: "w" },
+        ],
+      }),
+    ],
+    specs: [
+      figure(hybrid.id, "Continuous output power", "up to 500 VA"),
+      figure(hybrid.id, "Continuous output power", "3000-4000", { unit: "VA", source: "doc-b" }),
+    ],
+  });
+  assert.deepEqual(properties, []);
+  assert.deepEqual(
+    gaps.filter((g) => g.key.startsWith("inverter.power.")).map((g) => [g.key, g.reason, g.claims]),
+    [
+      ["inverter.power.apparent", "unparsed", 2],
+      ["inverter.power.apparent.surge", "no-claim", 0],
+      ["inverter.power.continuous", "no-claim", 0],
+      ["inverter.power.idle", "no-claim", 0],
+      ["inverter.power.surge", "no-claim", 0],
+    ],
+  );
+});

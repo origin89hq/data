@@ -12,7 +12,7 @@ import {
 } from "@origin89/equipment-schema/properties";
 import { conditionsFrom, conditionsKey, mergeConditions, splitDuration } from "./conditions.ts";
 import { type Feed, type FeedModel, feedSpecId } from "./feeds.ts";
-import { type Parsed, readProperty } from "./quantities.ts";
+import { type Parsed, printedQuantity, readProperty } from "./quantities.ts";
 
 /**
  * Build the normalized properties beside the printed figures.
@@ -273,9 +273,9 @@ function read(claim: Claim, property: Property, reference: number | undefined): 
     : { claim, reason: result.reason, conditions, missing };
 }
 
-/** Whether a figure's printed unit is one the property's quantity takes. */
+/** Whether a figure is printed in the property's quantity, whatever its value's shape or wording. */
 const printedAs = (claim: Claim, property: Property): boolean =>
-  readProperty(splitDuration(claim.value).value, claim.unit, property).ok;
+  printedQuantity(splitDuration(claim.value).value, claim.unit) === property.quantity;
 
 const shown = (parsed: Parsed): string =>
   parsed.shape === "scalar"
@@ -445,7 +445,7 @@ export function buildProperties(input: PropertiesInput): PropertiesOutput {
       const stays: Claim[] = [];
       const moves: Claim[] = [];
       for (const claim of claimsByKey.get(property.key) ?? [])
-        (printedAs(claim, sibling) && !printedAs(claim, property) ? moves : stays).push(claim);
+        (printedAs(claim, sibling) ? moves : stays).push(claim);
       claimsByKey.set(property.key, stays);
       if (moves.length > 0)
         claimsByKey.set(sibling.key, [...(claimsByKey.get(sibling.key) ?? []), ...moves]);

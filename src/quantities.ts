@@ -186,6 +186,22 @@ export function parseQuantity(
   return { ok: true, parsed: { shape: "set", values, unit: to } };
 }
 
+/**
+ * The quantity a figure is printed in, from its unit field or the unit in its text, whatever the
+ * value's shape or wording: "up to 500 VA" is apparent power even though it is not a figure. Nothing
+ * when no unit can be read.
+ */
+export function printedQuantity(value: string, unit: string | undefined): Quantity | undefined {
+  const given = canonicalUnit(unit);
+  if (given) return QUANTITY_OF[given] as Quantity;
+  const text = value.trim().replace(/[“”]/g, '"').replace(/\s+/g, " ").replace(BOUND, "");
+  for (const part of text.split(/\s*\/\s*(?=[-\d])/)) {
+    const term = parseTerm(part);
+    if (typeof term !== "string" && term.unit) return QUANTITY_OF[term.unit] as Quantity;
+  }
+  return undefined;
+}
+
 /** How a printed unit reaches the canonical one of its quantity, or why it cannot. */
 function convert(
   unit: Unit,
