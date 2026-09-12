@@ -1,0 +1,25 @@
+{
+  "id": "rolls-battery",
+  "version": 1,
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-12",
+  "rules": [
+    {
+      "key": "battery.voltage.nominal",
+      "names": ["Nominal voltage", "Volts"],
+      "unit": "V",
+      "basis": "The S48-100LFP sheet states 'Nominal voltage' as 51.2 V; the HL12-580WAGM sheet prints 'Volts' as a bare 12."
+    },
+    {
+      "key": "battery.voltage.nominal",
+      "names": ["Voltage"],
+      "source": "doc-c6fbe20e5b45fc94d82bd60f70a98ede",
+      "basis": "The S48-100LFP STACK-LV manual's ratings table prints the bare heading 'Voltage' as 51.2 V beside 'Capacity'; the bare name is read on that manual only."
+    },
+    {
+      "key": "battery.discharge.current.peak",
+      "names": ["Peak DSG Current"],
+      "basis": "The S48-100LFP STACK-LV manual states 'Peak DSG Current' as '92 A / 2 mins', the discharge peak with the time it holds."
+    }
+  ]
+}
