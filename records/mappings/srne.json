@@ -1,0 +1,57 @@
+{
+  "id": "srne",
+  "version": 1,
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-12",
+  "rules": [
+    {
+      "key": "inverter.power.idle",
+      "names": [
+        "No-load loss"
+      ],
+      "basis": "The SR-IBC and SR-IBU inverter sheets print the no-load loss as a bound, '<16W', which is refused until a figure is printed; the ML2420 controller sheet prints a range under the same name, which the registry does not ask of a controller."
+    },
+    {
+      "key": "battery.voltage.nominal",
+      "names": [
+        "Battery Rated Voltage"
+      ],
+      "basis": "The SR-EOT01S and SR-EOT02S manual states the battery's rated voltage as 12.8 or 25.6 V; the HYP sheets print 'Rated Battery Voltage', which the shared file reads."
+    },
+    {
+      "key": "charge.current.max",
+      "names": [
+        "Max. Hybrid Charging Current",
+        "Max. Mix Charge Current",
+        "Maximum mix charge current"
+      ],
+      "basis": "The hybrid sheets state the charge current from PV and grid together, which is the most the unit delivers to the battery; the PV-only and AC-only charging currents on the same sheets are parts of it and are not read."
+    },
+    {
+      "key": "pv.voc.max",
+      "names": [
+        "Max.Voltage of Open Circuit"
+      ],
+      "source": "doc-6e0bb23a609370429de1a686eb8e8528",
+      "conditions": {
+        "ambientTemperature": 25
+      },
+      "basis": "The LC2430N10H manual states 92 V at 25 °C and a higher limit at its lowest temperature, so this sheet's figure keeps the temperature it is stated at."
+    },
+    {
+      "key": "pv.voc.max",
+      "names": [
+        "Max.Voltage of Open Circuit"
+      ],
+      "basis": "The HP, MC and MF controller sheets state the array's open-circuit limit under this name, 100 to 250 V, at any temperature."
+    },
+    {
+      "key": "pv.power.max",
+      "names": [
+        "Max.PV Input Power",
+        "Max. photovoltaic system input power"
+      ],
+      "basis": "The controller sheets state the PV power per system voltage as '450W/12V', which the parser refuses as two units in one figure; the figure is named so the gap says so."
+    }
+  ]
+}
