@@ -82,10 +82,40 @@ test("two documents published under one file name are told apart by the director
   );
 });
 
+test("a document the archive holds without an address is named by its file there, and one with neither by its id", () => {
+  const filed = {
+    document: null,
+    document_url: null,
+    document_path: "docs/victron-bms-overview-datasheet.pdf",
+    document_id: "victron-bms-overview-datasheet",
+    page: 4,
+  };
+  assert.equal(provenanceLabel(filed), "victron-bms-overview-datasheet · page 4");
+  assert.equal(
+    documentLabel({
+      document: null,
+      document_url: null,
+      document_path: null,
+      document_id: "midnite-classic-manual",
+    }),
+    "midnite-classic-manual",
+  );
+  // Two archived files with one name are told apart the way two addresses are.
+  const labels = documentLabels([
+    { document: null, document_url: null, document_path: "docs/a/sheet.pdf", document_id: "s1" },
+    { document: null, document_url: null, document_path: "docs/b/sheet.pdf", document_id: "s2" },
+    filed,
+  ]);
+  assert.equal(labels.get("s1"), "a/sheet");
+  assert.equal(labels.get("s2"), "b/sheet");
+  assert.equal(labels.get("victron-bms-overview-datasheet"), "victron-bms-overview-datasheet");
+});
+
 test("the figures query joins each figure to its source and quotes the model id", () => {
   const sql = figuresQuery("acme-o'neil-1");
   assert.match(sql, /LEFT JOIN sources src ON src\.id = s\.source_id/);
-  assert.match(sql, /src\.title AS document, src\.url AS document_url/);
+  assert.match(sql, /src\.title AS document, src\.url AS document_url, src\.path AS document_path/);
+  assert.match(sql, /src\.id AS document_id/);
   assert.match(sql, /WHERE s\.model_id = 'acme-o''neil-1'/);
   assert.match(sql, /tier <> 'feed'/);
 });
