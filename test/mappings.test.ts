@@ -381,6 +381,42 @@ test("EG4: the 12kPV's kilowatts as watts, its PV limits, the mini split's bare 
   assert.ok(own("eg4-electronics", mini));
 });
 
+test("NOCO: the NLX's voltage, energy and both battery currents, its capacity as a gap without a chemistry, and a charger's per-bank amps as a gap", () => {
+  const { properties, gaps } = of("noco-nlx27");
+  assert.deepEqual(
+    values(properties, "battery.voltage.nominal").map((p) => p.values),
+    [[12.8]],
+  );
+  assert.deepEqual(
+    values(properties, "battery.energy").map((p) => [p.value, p.unit]),
+    [[1280, "Wh"]],
+  );
+  assert.deepEqual(
+    values(properties, "battery.charge.current.max").map((p) => p.value),
+    [90],
+  );
+  assert.deepEqual(
+    values(properties, "battery.discharge.current.max").map((p) => p.value),
+    [150],
+  );
+  // The NLX27's sheet names its chemistry in Dutch only, so its 100 Ah waits on a rate or a chemistry.
+  assert.equal(gap(gaps, "battery.capacity")?.reason, "needs-conditions");
+  assert.match(gap(gaps, "battery.capacity")?.detail ?? "", /no chemistry recorded/);
+  // The NLX24's sheet says LiFePO4 in English, and its capacity publishes without a rate.
+  const nlx24 = values(of("noco-nlx24").properties, "battery.capacity");
+  assert.deepEqual(
+    nlx24.map((p) => [p.value, p.conditions]),
+    [[40, {}]],
+  );
+  assert.ok(own("noco", nlx24));
+  // A charger's 'Charging Current' is the charger's, printed per bank as '10A (12V)', which is not yet read.
+  const charger = of("noco-genpro10x1");
+  assert.equal(gap(charger.gaps, "charge.current.max")?.reason, "unparsed");
+  assert.equal(values(charger.properties, "battery.charge.current.max").length, 0);
+  // The Genius 2D manual prints the same name for a 2 A maintainer; the rules read the GEN and GENPRO sheets only.
+  assert.equal(gap(of("noco-noco").gaps, "charge.current.max")?.claims, 0);
+});
+
 test("OutBack's VA figures reach the apparent-power keys through the watt rules that name them", () => {
   const { properties, gaps } = of("outback-power-fx2012t");
   assert.deepEqual(
