@@ -1,6 +1,6 @@
 {
   "id": "samlex-america",
-  "version": 1,
+  "version": 2,
   "reviewedBy": "lemarier",
   "checkedAt": "2026-09-12",
   "rules": [
@@ -16,6 +16,15 @@
         "CONTINUOUS OUTPUT POWER AND POWER FACTOR"
       ],
       "basis": "The PST, PSE and SAM sheets print the continuous rating in watts under these names, 1000 W for the PST-1000-12 and 'Maximum Continuous Active Power Output' on the PSE sheet; the EVO sheets print theirs in VA under the shared names and read as gaps. The EVO-1212F, EVO-1224F and EVO-4248SP manuals print the continuous rating in watts with the power factor on the same line, '1200 Watt at PF = 0.95', which the parser refuses, so the figure is named and the gap says so."
+    },
+    {
+      "key": "inverter.power.continuous",
+      "names": [
+        "AC power output",
+        "Ac output power"
+      ],
+      "source": "doc-f49fafbc908a498dd9ba251311c1e142",
+      "basis": "The PSE-12275A sheet states the unit's output as 2750 W under 'AC power output' and 'Ac output power'; the 1500 W it prints for the NEMA 5-15R receptacle is one outlet's share, named as such, and is not read."
     },
     {
       "key": "inverter.power.surge",
