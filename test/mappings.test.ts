@@ -98,6 +98,13 @@ test("Samlex: the PST's watts and its surge without a time, the SEC's bulk capac
     sec.map((p) => [p.value, p.claim]),
     [[50, "samlex-america-sec-1250ul--bulk-stage-current-capacity"]],
   );
+  // The PSE-12275A prints its 2750 W under two spellings, and 1500 W for one receptacle, which is not read.
+  const pse = of("samlex-america-pse-12275a");
+  assert.deepEqual(
+    values(pse.properties, "inverter.power.continuous").map((p) => [p.value, p.unit]),
+    [[2750, "W"]],
+  );
+  assert.equal(gap(pse.gaps, "inverter.power.continuous"), undefined);
   // The EVO-1212F prints its watts with the power factor on the line, which stays a gap that says so.
   assert.match(
     gap(of("samlex-america-evo-1212f").gaps, "inverter.power.continuous")?.detail ?? "",
