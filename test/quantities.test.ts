@@ -325,6 +325,11 @@ test("a value printed in two quantities splits into a part for each, and a unit 
     { quantity: "power", value: "5KW" },
     { quantity: "apparent-power", value: "4KVA" },
   ]);
+  // A unit in an annotation is not the figure's: the field decides, and without one nothing does.
+  assert.deepEqual(printedQuantities("6000 @ 240 VAC", "VA"), [
+    { quantity: "apparent-power", value: "6000 @ 240 VAC" },
+  ]);
+  assert.deepEqual(printedQuantities("6000 @ 240 VAC", undefined), []);
   // A bound stays on every part, so neither becomes an exact figure.
   assert.deepEqual(printedQuantities("up to 6KVA/6KW", undefined), [
     { quantity: "apparent-power", value: "up to 6KVA" },

@@ -981,6 +981,28 @@ test("a value printed in VA and W feeds both keys, and a VA value with an aside 
   );
 });
 
+test("a VA figure with a rated voltage in its annotation goes by its unit field to the apparent key", () => {
+  const { properties, gaps } = build({
+    models: [hybrid],
+    mappings: [
+      acme({
+        rules: [{ key: "inverter.power.continuous", names: ["Rated output power"], basis: "w" }],
+      }),
+    ],
+    specs: [figure(hybrid.id, "Rated output power", "6000 @ 240 VAC", { unit: "VA" })],
+  });
+  assert.deepEqual(properties, []);
+  assert.deepEqual(
+    gaps
+      .filter((g) => g.key === "inverter.power.apparent" || g.key === "inverter.power.continuous")
+      .map((g) => [g.key, g.reason, g.claims]),
+    [
+      ["inverter.power.apparent", "unparsed", 1],
+      ["inverter.power.continuous", "no-claim", 0],
+    ],
+  );
+});
+
 test("a bounded value in VA and W is refused on both keys, not read as two exact figures", () => {
   const { properties, gaps } = build({
     models: [hybrid],

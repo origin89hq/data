@@ -192,11 +192,16 @@ export interface PrintedPart {
   value: string;
 }
 
-/** The unit a part of a value is printed in, read loosely: "4000 VA (L-L)" is volt-amperes even though the aside is not a unit. */
+/**
+ * The unit a part of a value is printed in, read loosely: "4000 VA (L-L)" is volt-amperes even
+ * though the aside is not a unit. Only the unit on the part's own figure counts: in
+ * "6000 @ 240 VAC" the volts belong to the annotation, and the part's unit is whatever the
+ * unit field says.
+ */
 function looseUnit(part: string): Unit | undefined {
   const term = parseTerm(part);
   if (typeof term !== "string") return term.unit;
-  const tail = new RegExp(`${NUMBER}\\s*(${UNIT_TAIL})`).exec(part)?.[1];
+  const tail = new RegExp(`^${NUMBER}\\s*(${UNIT_TAIL})`).exec(part)?.[1];
   if (!tail) return undefined;
   for (const candidate of [
     tail,
