@@ -296,3 +296,47 @@ test("Xantrex: the Freedom's charger amps, no idle draw from its search threshol
   );
   assert.ok(own("xantrex", c35));
 });
+
+test("Sol-Ark: the 15K's surges with their times, one battery current, the usable PV power, and the 12K's per-MPPT power beside a refused total", () => {
+  const { properties, gaps } = of("sol-ark-15k-2p-lv");
+  assert.deepEqual(
+    values(properties, "inverter.power.surge").map((p) => [p.value, p.conditions.duration]),
+    [
+      [24000, 10],
+      [13000, 1800],
+    ],
+  );
+  assert.deepEqual(
+    values(properties, "charge.current.max").map((p) => p.value),
+    [275],
+  );
+  assert.deepEqual(
+    values(properties, "pv.power.max").map((p) => [p.value, p.scope]),
+    [[19500, "total"]],
+  );
+  assert.deepEqual(
+    values(properties, "pv.isc.max").map((p) => p.value),
+    [44],
+  );
+  assert.equal(gap(gaps, "inverter.voltage.ac")?.reason, "unparsed");
+  const twelve = of("sol-ark-sol-ark-12k-2p-n");
+  assert.deepEqual(
+    values(twelve.properties, "pv.power.max").map((p) => [p.value, p.scope]),
+    [[6500, "per-input"]],
+  );
+  assert.match(gap(twelve.gaps, "pv.power.max")?.detail ?? "", /kW\(±5%\)/);
+  // The 12K-P prints the allowed array size, 13 kW, beside the 12 kW it delivers; only the latter is read.
+  const twelveP = of("sol-ark-sol-ark-12k-p");
+  assert.deepEqual(
+    values(twelveP.properties, "pv.power.max").map((p) => p.value),
+    [12000],
+  );
+  assert.equal(gap(twelveP.gaps, "pv.power.max"), undefined);
+  // The 5K's manual prints 'Max A Charge' as 185 A on a settings screen; its sheet says 120 A.
+  const five = of("sol-ark-sol-ark-5k-2p-n");
+  assert.deepEqual(
+    values(five.properties, "charge.current.max").map((p) => [p.value, p.claim]),
+    [[120, "sol-ark-sol-ark-5k-2p-n--max-battery-charge-discharge-current"]],
+  );
+  assert.equal(gap(five.gaps, "charge.current.max"), undefined);
+});
