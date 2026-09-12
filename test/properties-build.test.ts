@@ -207,7 +207,7 @@ test("a figure that could not be read beside ones that could is still a gap, and
     models: [inverter],
     mappings: [phoenix],
     specs: [
-      figure(inverter.id, "Cont. output power at 25°C", "500", { unit: "VA" }),
+      figure(inverter.id, "Cont. output power at 25°C", "up to 500", { unit: "W" }),
       figure(inverter.id, "Cont. output power at 40°C", "450", { unit: "W" }),
     ],
   });
@@ -221,7 +221,7 @@ test("a figure that could not be read beside ones that could is still a gap, and
       model: inverter.id,
       key: "inverter.power.continuous",
       reason: "unparsed",
-      detail: "VA measures apparent-power, not power, beside 1 usable figure",
+      detail: "a bound or an approximation, not a figure, beside 1 usable figure",
       claims: 2,
     },
   );
@@ -840,4 +840,82 @@ test("a figure two of a maker's rules name under one key is read once, by the fi
     [[150, "rule:acme@1#1"]],
   );
   assert.ok(!gaps.some((g) => g.key === "pv.voc.max"));
+});
+
+const hybrid = Model.parse({
+  id: "acme-hybrid-3000",
+  manufacturer: "acme",
+  name: "Hybrid 3000",
+  kind: "inverter-charger",
+});
+
+test("a figure a sheet prints in VA under a watt name is read under the key's apparent-power sibling, by the same rule", () => {
+  const { properties, gaps } = build({
+    models: [hybrid],
+    mappings: [
+      acme({
+        rules: [
+          {
+            key: "inverter.power.continuous",
+            names: ["Continuous output power at 25°C ambient"],
+            basis: "the sheet",
+          },
+          {
+            key: "inverter.power.surge",
+            names: ["Overload capability 5 second", "Overload capability - surge"],
+            basis: "the sheet",
+          },
+        ],
+      }),
+    ],
+    specs: [
+      figure(hybrid.id, "Continuous output power at 25°C ambient", "3000", { unit: "VA" }),
+      figure(hybrid.id, "Overload capability 5 second", "5.75", { unit: "kVA" }),
+      figure(hybrid.id, "Overload capability - surge", "6000", { unit: "VA" }),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.key, p.value, p.unit, p.conditions, p.mappedBy]),
+    [
+      ["inverter.power.apparent", 3000, "VA", { ambientTemperature: 25 }, "rule:acme@1#1"],
+      ["inverter.power.apparent.surge", 5750, "VA", { duration: 5 }, "rule:acme@1#2"],
+    ],
+  );
+  // The watt keys were never claimed; the VA surge without a time is the sibling's gap.
+  assert.deepEqual(
+    gaps
+      .map((g) => [g.key, g.reason, g.claims])
+      .filter(([k]) => String(k).startsWith("inverter.power")),
+    [
+      ["inverter.power.apparent.surge", "needs-conditions", 2],
+      ["inverter.power.continuous", "no-claim", 0],
+      ["inverter.power.idle", "no-claim", 0],
+      ["inverter.power.surge", "no-claim", 0],
+    ],
+  );
+});
+
+test("a figure in watts stays on the watt key, and one in VA named under the apparent key directly is read there", () => {
+  const { properties } = build({
+    models: [hybrid],
+    mappings: [
+      acme({
+        rules: [
+          { key: "inverter.power.continuous", names: ["Continuous output power"], basis: "w" },
+          { key: "inverter.power.apparent", names: ["Apparent power rating"], basis: "va" },
+        ],
+      }),
+    ],
+    specs: [
+      figure(hybrid.id, "Continuous output power", "2500", { unit: "W" }),
+      figure(hybrid.id, "Apparent power rating", "3000", { unit: "VA" }),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.key, p.value, p.unit]),
+    [
+      ["inverter.power.apparent", 3000, "VA"],
+      ["inverter.power.continuous", 2500, "W"],
+    ],
+  );
 });

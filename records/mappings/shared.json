@@ -1,6 +1,6 @@
 {
   "id": "shared",
-  "version": 1,
+  "version": 2,
   "reviewedBy": "lemarier",
   "checkedAt": "2026-09-12",
   "rules": [
@@ -245,6 +245,24 @@
         "Nominal output voltage"
       ],
       "basis": "The nominal AC output voltage, one or several; a tolerance printed with it is refused rather than halved, and the registry asks it only of inverters, so a converter's 'rated output voltage' is never read here."
+    },
+    {
+      "key": "inverter.power.apparent",
+      "names": [
+        "Apparent power rating",
+        "Rated apparent power",
+        "Rated output apparent power",
+        "Output apparent power"
+      ],
+      "basis": "Names that say apparent power outright; a continuous figure under a watt name that a sheet prints in VA reaches this key through that name's rule instead."
+    },
+    {
+      "key": "inverter.power.apparent.surge",
+      "names": [
+        "Peak Apparent Power (100ms, off-grid)",
+        "Peak Apparent Power (10s, off-grid)"
+      ],
+      "basis": "The Sol-Ark 5K sheet states its off-grid peak in VA for 100 ms and 10 s, the time in the name; an overload figure under a watt name that a sheet prints in VA reaches this key through that name's rule."
     }
   ]
 }

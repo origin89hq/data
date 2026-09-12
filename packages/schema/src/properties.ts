@@ -125,6 +125,15 @@ export const Property = z
      * inputs and a maker prints either without saying. Absent where the question does not arise.
      */
     scope: PropertyScope.optional(),
+    /**
+     * The key a figure named under this one is read under when the sheet prints it as apparent
+     * power: a "Continuous output power" of 3000 VA is not a gap on the watt key but a value on
+     * its VA sibling, with the same conditions and the same rule.
+     */
+    apparent: z
+      .string()
+      .regex(/^[a-z]+(\.[a-z]+)+$/)
+      .optional(),
     description: z.string().min(1),
   })
   .strict();
@@ -352,7 +361,19 @@ export const PROPERTIES: Property[] = [
     needs: [],
     accepts: ["ambientTemperature"],
     limits: "ac-output-power",
+    apparent: "inverter.power.apparent",
     description: "Continuous AC output power.",
+  },
+  {
+    key: "inverter.power.apparent",
+    quantity: "apparent-power",
+    unit: "VA",
+    shape: "scalar",
+    kinds: inverters,
+    needs: [],
+    accepts: ["ambientTemperature"],
+    description:
+      "Continuous AC output as apparent power, where the sheet rates it in VA rather than watts.",
   },
   {
     key: "inverter.power.surge",
@@ -363,7 +384,19 @@ export const PROPERTIES: Property[] = [
     needs: ["duration"],
     accepts: [],
     limits: "ac-output-power",
+    apparent: "inverter.power.apparent.surge",
     description: "AC output power the inverter holds for a stated time.",
+  },
+  {
+    key: "inverter.power.apparent.surge",
+    quantity: "apparent-power",
+    unit: "VA",
+    shape: "scalar",
+    kinds: inverters,
+    needs: ["duration"],
+    accepts: [],
+    description:
+      "Apparent power the inverter holds for a stated time, where the sheet rates it in VA.",
   },
   {
     key: "inverter.power.idle",

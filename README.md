@@ -242,7 +242,9 @@ its sheets. The SAM feed maps by column, in code. The value is read by
 "12/24/48V DC" and "-0,29 %/°C" and refuses a bound, a sentence, a number
 with no unit, or a unit outside the key's quantity. Conditions are
 structured: a capacity at C20 and at C100 are two rows, and a surge without
-its duration is not a surge.
+its duration is not a surge. A continuous or surge figure a sheet prints in
+VA is read under the watt key's apparent-power sibling, `inverter.power.apparent`
+or `inverter.power.apparent.surge`, through the same rule.
 
 What cannot be filled is a gap with a reason in `property_gaps`: `no-claim`
 when no figure was read for the key, `unparsed` when the figures could not be

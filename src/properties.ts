@@ -273,6 +273,10 @@ function read(claim: Claim, property: Property, reference: number | undefined): 
     : { claim, reason: result.reason, conditions, missing };
 }
 
+/** Whether a figure's printed unit is one the property's quantity takes. */
+const printedAs = (claim: Claim, property: Property): boolean =>
+  readProperty(splitDuration(claim.value).value, claim.unit, property).ok;
+
 const shown = (parsed: Parsed): string =>
   parsed.shape === "scalar"
     ? String(parsed.value)
@@ -430,11 +434,29 @@ export function buildProperties(input: PropertiesInput): PropertiesOutput {
     claimsFor: (property: Property) => Claim[],
   ) => {
     const values = new Map<string, number>();
-    for (const property of keysFor(kind)) {
+    const keys = keysFor(kind);
+    const claimsByKey = new Map(keys.map((property) => [property.key, claimsFor(property)]));
+    // A figure a rule names under a watt key that the sheet prints in VA is the key's
+    // apparent-power sibling's: it moves there whole, rule, conditions and all, rather than
+    // standing as an unparsed gap on a key it was never a claim on.
+    for (const property of keys) {
+      const sibling = keys.find((p) => p.key === property.apparent);
+      if (!sibling) continue;
+      const stays: Claim[] = [];
+      const moves: Claim[] = [];
+      for (const claim of claimsByKey.get(property.key) ?? [])
+        (printedAs(claim, sibling) && !printedAs(claim, property) ? moves : stays).push(claim);
+      claimsByKey.set(property.key, stays);
+      if (moves.length > 0)
+        claimsByKey.set(sibling.key, [...(claimsByKey.get(sibling.key) ?? []), ...moves]);
+    }
+    for (const property of keys) {
       const row = tally(property.key, kind ?? "");
       row.models += 1;
       const reference = referenceFor(property.key, values);
-      const readings = claimsFor(property).map((claim) => read(claim, property, reference));
+      const readings = (claimsByKey.get(property.key) ?? []).map((claim) =>
+        read(claim, property, reference),
+      );
       const settled = settle(id, property.key, readings, property.unit, property.scope);
       properties.push(...settled.properties);
       const valued = settled.properties.filter((p) => p.status === "value");

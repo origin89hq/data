@@ -126,7 +126,7 @@ test("Samlex: the PST's watts and its surge without a time, the SEC's bulk capac
   assert.ok(own("samlex-america", [...sec, ...values(scc, "pv.voc.max")]));
 });
 
-test("OutBack: the Radian's watts, its three idle modes, the charger's amps, and its kVA overload figures as gaps", () => {
+test("OutBack: the Radian's watts, its three idle modes, the charger's amps, and its kVA overloads under the apparent key", () => {
   const { properties, gaps } = of("outback-power-gs4048a");
   assert.deepEqual(
     values(properties, "inverter.power.continuous").map((p) => p.value),
@@ -144,7 +144,18 @@ test("OutBack: the Radian's watts, its three idle modes, the charger's amps, and
     values(properties, "charge.current.max").map((p) => p.value),
     [57.5],
   );
-  assert.equal(gap(gaps, "inverter.power.surge")?.reason, "unparsed");
+  // Its kVA overloads are the apparent key's now, and the watt surge key was never claimed.
+  assert.equal(gap(gaps, "inverter.power.surge")?.reason, "no-claim");
+  assert.deepEqual(
+    values(properties, "inverter.power.apparent.surge").map((p) => [
+      p.value,
+      p.conditions.duration,
+    ]),
+    [
+      [4500, 1800],
+      [6000, 5],
+    ],
+  );
   const flexmax = of("outback-power-flexmax-60").properties;
   assert.deepEqual(
     values(flexmax, "charge.current.max").map((p) => p.value),
@@ -366,4 +377,33 @@ test("EG4: the 12kPV's kilowatts as watts, its PV limits, the mini split's bare 
     [[90, 380]],
   );
   assert.ok(own("eg4-electronics", mini));
+});
+
+test("OutBack's VA figures reach the apparent-power keys through the watt rules that name them", () => {
+  const { properties, gaps } = of("outback-power-fx2012t");
+  assert.deepEqual(
+    values(properties, "inverter.power.apparent").map((p) => [p.value, p.unit, p.mappedBy]),
+    [[2000, "VA", "rule:shared@2#12"]],
+  );
+  assert.deepEqual(
+    values(properties, "inverter.power.apparent.surge").map((p) => [
+      p.value,
+      p.conditions.duration,
+    ]),
+    [
+      [2500, 1800],
+      [4000, 5],
+    ],
+  );
+  // The bare 'AC Overload Capability - Surge' states no time and stays the sibling's gap.
+  assert.deepEqual(gap(gaps, "inverter.power.apparent.surge"), {
+    model: "outback-power-fx2012t",
+    key: "inverter.power.apparent.surge",
+    reason: "needs-conditions",
+    detail: "no duration stated, beside 2 usable figures",
+    claims: 3,
+  });
+  // The watt keys were never claimed by those figures.
+  assert.equal(gap(gaps, "inverter.power.continuous")?.reason, "no-claim");
+  assert.equal(gap(gaps, "inverter.power.surge")?.reason, "no-claim");
 });
