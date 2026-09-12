@@ -443,6 +443,7 @@ test("the Victron MPPT 250/60, a charge controller, publishes its PV power at al
     ],
   );
   assert.equal(gap(gaps, "pv.power.max"), undefined);
+});
 
 test("a lithium pack's capacity publishes without a rate, a lead-acid pack's with the rate its sheet names", () => {
   const lfp = of("millertech-12v-100ah-lifepo4-millertech-battery");
