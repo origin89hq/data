@@ -196,3 +196,28 @@ test("OutBack: the Radian's watts, its three idle modes, the charger's amps, and
     [[12]],
   );
 });
+
+test("SRNE: the hybrid's combined charging current over its PV-only figure, a controller's open-circuit limit, and the per-voltage PV power as a gap", () => {
+  const hybrid = of("srne-4830sh3");
+  const charge = values(hybrid.properties, "charge.current.max");
+  assert.deepEqual(
+    charge.map((p) => [p.value, p.claim]),
+    [[80, "srne-4830sh3--max-hybrid-charging-current"]],
+  );
+  assert.ok(own("srne", charge));
+  const controller = of("srne-mc2430n10");
+  assert.deepEqual(
+    values(controller.properties, "pv.voc.max").map((p) => p.value),
+    [100],
+  );
+  assert.equal(gap(controller.gaps, "pv.power.max")?.detail, "two units in one figure");
+  // The LC manual states its limit at 25 °C, read by the rule for that sheet with the temperature kept.
+  const lc = of("srne-lc2430n10h");
+  assert.deepEqual(
+    values(lc.properties, "pv.voc.max").map((p) => [p.value, p.conditions, p.mappedBy]),
+    [[92, { ambientTemperature: 25 }, "rule:srne@1#4"]],
+  );
+  // Its cold-temperature limit is printed as a sentence the parser refuses, so the key stays partial.
+  assert.equal(gap(lc.gaps, "pv.voc.max")?.reason, "unparsed");
+  assert.match(gap(lc.gaps, "pv.voc.max")?.detail ?? "", /beside 1 usable figure/);
+});
