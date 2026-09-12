@@ -49,6 +49,10 @@ merge *args:
 kinds *args:
     node tools/gate/pull-kinds.ts "$@"
 
+# Set each battery's chemistry from a figure on its sheet or the maker's name for it. Run after `just kinds` and `just specs`; --replace recomputes ones already set.
+chemistry *args:
+    node tools/gate/pull-chemistry.ts "$@"
+
 # Write spec records from a maker's readings.
 specs maker date *args:
     node tools/gate/pull-specs.ts "$@"

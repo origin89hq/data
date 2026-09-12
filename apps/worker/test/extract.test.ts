@@ -5,12 +5,14 @@ import {
   CHUNK_CHARACTERS,
   CONVERTER,
   chunk,
+  DOCUMENT_FIGURES_SYSTEM,
   EXTRACT_MODEL,
   EXTRACTOR_ID,
   mergeReports,
   namesOneProduct,
   pageOffsets,
   type Reported,
+  SYSTEM,
   statesOneFigure,
 } from "../src/reading.ts";
 import { LAST_ATTEMPT, partKey, readerKey } from "../src/work.ts";
@@ -256,4 +258,20 @@ test("more windows kept than one listing returns are all found, so only the miss
   await readDocument({ ...message, maxWindows: count }, env, 1);
   assert.equal(asked.length, 1, "window 1,002 alone");
   assert.equal(readObject<Reading>(readingKey).windows, count);
+});
+
+test("both readers are told to carry a table's header unit into each figure and to report a battery's chemistry", () => {
+  for (const prompt of [SYSTEM, DOCUMENT_FIGURES_SYSTEM]) {
+    assert.match(prompt, /column header|heading of the column/, "a unit printed once for a column");
+    assert.match(
+      prompt,
+      /figure named "Chemistry"/,
+      "the chemistry as a figure the records can cite",
+    );
+    assert.match(
+      prompt,
+      /Do not report one the document does not (state|print)/,
+      "and never an invented one",
+    );
+  }
 });
