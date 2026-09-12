@@ -1,0 +1,95 @@
+{
+  "id": "sol-ark",
+  "version": 1,
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-12",
+  "rules": [
+    {
+      "key": "inverter.power.surge",
+      "names": [
+        "Peak Surge Power (10 s)",
+        "Peak Surge Power (30 min)"
+      ],
+      "basis": "The 15K sheet states peak surge power for 10 s and 30 min, the time in the name."
+    },
+    {
+      "key": "inverter.power.idle",
+      "names": [
+        "General Idle Consumption - No Load"
+      ],
+      "basis": "The Limitless 15K sheet states the idle consumption with no load, without a unit on the line, so it is a gap that names the figure."
+    },
+    {
+      "key": "inverter.voltage.ac",
+      "names": [
+        "Nominal Voltage (L-N/L-L)",
+        "Rated Voltage (L-N, L-L)"
+      ],
+      "basis": "The sheets state the AC voltages as '120/240, 120/208 V', which the parser refuses as a list, so the figure is named and the gap says so."
+    },
+    {
+      "key": "battery.voltage.nominal",
+      "names": [
+        "Nominal DC Voltage"
+      ],
+      "basis": "The 5K, 8K, 12K and 15K sheets state the nominal DC voltage, 48 V, under the battery."
+    },
+    {
+      "key": "charge.current.max",
+      "names": [
+        "Max. Battery Charge / Discharge Current",
+        "Max. Charge / Discharge Current",
+        "Continuous Battery charging output",
+        "max battery charge/discharge",
+        "Maximum total battery charge/discharge current",
+        "Max Battery Charge/Discharge (using both terminals)"
+      ],
+      "basis": "The sheets state one battery current for charge and discharge, 120 A for the 5K, 185 A for the 12K, 275 A for the 15K; a figure per terminal is not the unit's total, and the manuals' 'Max A Charge' is a settings screen's field, printed as 185 A on the 5K whose sheet says 120 A, so neither is read."
+    },
+    {
+      "key": "pv.voc.max",
+      "names": [
+        "Max. Input Voltage",
+        "PV Source Circuit max voltage",
+        "PV Source Circuit maximum voltage",
+        "Max input voltage per MPPT",
+        "Max Voc on any MPPT",
+        "max VOC",
+        "Max VOC of MPPTs",
+        "Max DC voltage"
+      ],
+      "basis": "The sheets state the PV input limit as 500 V under most of these names, '1,000 VOC' on the 60K, and 550 V as 'Max VOC of MPPTs' in the 30K's manual, which disagrees with the 500 V its sheet prints under 'PV input voltage maximum' and is published as a conflict; 'Max recommended input voltage per MPPT' is a recommendation below the limit and is not read."
+    },
+    {
+      "key": "pv.isc.max",
+      "names": [
+        "Max. Input Short Circuit Current",
+        "ISC of MPPTs"
+      ],
+      "basis": "The 15K sheet states 'Max. Input Short Circuit Current', 44 A, and the 30K's manual 'ISC of MPPTs', 55 A: the short-circuit limit of the PV input."
+    },
+    {
+      "key": "pv.power.max",
+      "names": [
+        "Max DC solar input",
+        "Maximum DC solar input",
+        "Max. Usable Combined MPPT PV Power",
+        "max usable PV power",
+        "Max PV power delivered to Battery & AC outputs"
+      ],
+      "basis": "The sheets state the most PV the unit uses as '13 kW (± 5%)', which the parser refuses for its tolerance, or in watts, the 12K-P's as 'Max PV power delivered to Battery & AC outputs', 12,000 W; 'Max. STC Rated PV Power', 'Max allowed PV DC Capacity' and the shared file's 'Max. Allowed PV Power', set aside under except, are array sizes above what the unit uses, 13,000 W beside that 12,000 W, and are not read."
+    },
+    {
+      "key": "pv.power.max",
+      "names": [
+        "Max input power per MPPT",
+        "Maximum input power per MPPT"
+      ],
+      "scope": "per-input",
+      "basis": "The sheets state the PV power per MPPT, so the figure is per input."
+    }
+  ],
+  "except": [
+    "Max. Allowed PV Power"
+  ]
+}
