@@ -1,0 +1,104 @@
+{
+  "id": "samlex-america",
+  "version": 1,
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-12",
+  "rules": [
+    {
+      "key": "inverter.power.continuous",
+      "names": [
+        "OUTPUT POWER",
+        "CONTINUOUS ACTIVE OUTPUT POWER",
+        "CONTINUOUS OUTPUT POWER (At Power Factor = 1)",
+        "OUTPUT POWER, CONTINUOUS (RESISTIVE LOAD)",
+        "Maximum Continuous Active Power Output",
+        "Rated continuous power",
+        "CONTINUOUS OUTPUT POWER AND POWER FACTOR"
+      ],
+      "basis": "The PST, PSE and SAM sheets print the continuous rating in watts under these names, 1000 W for the PST-1000-12 and 'Maximum Continuous Active Power Output' on the PSE sheet; the EVO sheets print theirs in VA under the shared names and read as gaps. The EVO-1212F, EVO-1224F and EVO-4248SP manuals print the continuous rating in watts with the power factor on the same line, '1200 Watt at PF = 0.95', which the parser refuses, so the figure is named and the gap says so."
+    },
+    {
+      "key": "inverter.power.surge",
+      "names": [
+        "SURGE",
+        "Surge Overload",
+        "Maximum Active Surge Power Output"
+      ],
+      "basis": "The PST sheets print 'SURGE' beside 'OUTPUT POWER', 2000 W against 1000 W, and the PSE sheet 'Maximum Active Surge Power Output'; none states a time, so each is a gap until one is printed. The NTX and SAM lines that say the surge holds for less than a second are not read: no condition can state a bound, and reading '1 SEC' off the name would overstate what the sheet says."
+    },
+    {
+      "key": "inverter.power.idle",
+      "names": [
+        "NO LOAD POWER CONSUMPTION IN NORMAL MODE (120 VAC OUTPUT, TYPICAL)"
+      ],
+      "conditions": {
+        "mode": "normal"
+      },
+      "basis": "The EVO sheets state the no-load draw in normal mode, which is inverting."
+    },
+    {
+      "key": "inverter.power.idle",
+      "names": [
+        "NO LOAD POWER CONSUMPTION IN POWER SAVING MODE"
+      ],
+      "conditions": {
+        "mode": "power saving"
+      },
+      "basis": "The EVO sheets state the no-load draw in power saving mode, as a bound, which is refused until a figure is printed."
+    },
+    {
+      "key": "inverter.power.idle",
+      "names": [
+        "NO LOAD POWER CONSUMPTION IN STANDBY MODE"
+      ],
+      "basis": "The EVO sheets state the no-load draw in standby mode; the mode is in the name."
+    },
+    {
+      "key": "charge.current.max",
+      "names": [
+        "Bulk Stage Current Capacity",
+        "Maximum charging current (Full Power Mode)"
+      ],
+      "basis": "The SEC-1250UL and SEC-2425UL sheets state the bulk stage current capacity, 50 and 25 A, beside a lower set value; the SCC sheets state the maximum charging current in full power mode. The EVO's 'BULK CURRENT' is a setting below its rated charging current, and the SEC-BRM's 'CONTINUOUS OUTPUT CURRENT' is its load output, not the 8 A it charges a battery with, so neither is read."
+    },
+    {
+      "key": "charge.current.max",
+      "names": [
+        "Charging capacity"
+      ],
+      "source": "doc-e18143c6e1a1e16c4d7fc4262fb4d9de",
+      "basis": "The catalogue page for the EVO-30AB and SCC-30AB states their charging capacity, 30 A."
+    },
+    {
+      "key": "charge.current.max",
+      "names": [
+        "Maximum continuous current"
+      ],
+      "source": "doc-523f50977d18566d06eb5191ecd0bd1f",
+      "basis": "The EVO-30AB manual states the controller's maximum continuous current, 30 A, its charge current; the bare name is read from that manual only."
+    },
+    {
+      "key": "charge.current.max",
+      "names": [
+        "Maximum continuous current"
+      ],
+      "source": "doc-718cdb5463ad51b2309052bdd7a00cc8",
+      "basis": "The SCC-30AB manual states the controller's maximum continuous current, 30 A, its charge current; the bare name is read from that manual only."
+    },
+    {
+      "key": "pv.voc.max",
+      "names": [
+        "Max. Open Circuit Voltage (VOC) of Solar Panel / Array",
+        "MAXIMUM OPEN CIRCUIT VOLTAGE (Voc) OF SOLAR PANEL / ARRAY"
+      ],
+      "basis": "The EVO-30AB and SCC-30AB sheets and manuals state the array's open-circuit limit, 50 V, under both spellings."
+    },
+    {
+      "key": "pv.isc.max",
+      "names": [
+        "MAXIMUM SHORT CIRCUIT CURRENT (Isc) OF SOLAR PANEL /ARRAY"
+      ],
+      "basis": "The EVO-30AB and SCC-30AB sheets state the array's short-circuit limit, 30 A."
+    }
+  ]
+}
