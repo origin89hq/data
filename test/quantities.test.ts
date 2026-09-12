@@ -1,7 +1,13 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { PROPERTY_BY_KEY } from "@origin89/equipment-schema/properties";
-import { parseQuantity, printedQuantity, type Read, readProperty } from "../src/quantities.ts";
+import {
+  parseQuantity,
+  printedQuantities,
+  printedQuantity,
+  type Read,
+  readProperty,
+} from "../src/quantities.ts";
 
 const ok = (read: Read) => {
   assert.ok(read.ok, read.ok ? "" : read.reason);
@@ -287,6 +293,23 @@ test("the quantity a figure is printed in is read from its unit, whatever the va
   assert.equal(printedQuantity("3000-4000", "VA"), "apparent-power");
   assert.equal(printedQuantity("16.97", "kVA"), "apparent-power");
   assert.equal(printedQuantity("450", "W"), "power");
-  assert.equal(printedQuantity("1200 Watt at PF = 0.95", undefined), undefined);
+  assert.equal(printedQuantity("1200 Watt at PF = 0.95", undefined), "power");
   assert.equal(printedQuantity("12.5", undefined), undefined);
+});
+
+test("a value printed in two quantities splits into a part for each, and a unit is read past an aside", () => {
+  assert.deepEqual(printedQuantities("6KVA/6KW", undefined), [
+    { quantity: "apparent-power", value: "6KVA" },
+    { quantity: "power", value: "6KW" },
+  ]);
+  assert.deepEqual(printedQuantities("12/24/48V", undefined), [
+    { quantity: "voltage", value: "12/24/48V" },
+  ]);
+  assert.deepEqual(printedQuantities("4000 VA (L-L)", undefined), [
+    { quantity: "apparent-power", value: "4000 VA (L-L)" },
+  ]);
+  assert.deepEqual(printedQuantities("1200 Watt at PF = 0.95", undefined), [
+    { quantity: "power", value: "1200 Watt at PF = 0.95" },
+  ]);
+  assert.deepEqual(printedQuantities("Pure sine wave", undefined), []);
 });

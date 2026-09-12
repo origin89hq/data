@@ -12,7 +12,7 @@ import {
 } from "@origin89/equipment-schema/properties";
 import { conditionsFrom, conditionsKey, mergeConditions, splitDuration } from "./conditions.ts";
 import { type Feed, type FeedModel, feedSpecId } from "./feeds.ts";
-import { type Parsed, printedQuantity, readProperty } from "./quantities.ts";
+import { type Parsed, printedQuantities, readProperty } from "./quantities.ts";
 
 /**
  * Build the normalized properties beside the printed figures.
@@ -273,9 +273,19 @@ function read(claim: Claim, property: Property, reference: number | undefined): 
     : { claim, reason: result.reason, conditions, missing };
 }
 
-/** Whether a figure is printed in the property's quantity, whatever its value's shape or wording. */
-const printedAs = (claim: Claim, property: Property): boolean =>
-  printedQuantity(splitDuration(claim.value).value, claim.unit) === property.quantity;
+/**
+ * A claim's value narrowed to the parts printed in `property`'s quantity, or nothing when none is:
+ * "6KVA/6KW" is "6KW" to a watt key and "6KVA" to its VA sibling, each with the duration the
+ * value stated. A value in one quantity comes back whole.
+ */
+function partFor(claim: Claim, property: Property): string | undefined {
+  const split = splitDuration(claim.value);
+  const parts = printedQuantities(split.value, claim.unit);
+  const own = parts.find((p) => p.quantity === property.quantity);
+  if (!own) return undefined;
+  if (parts.length === 1) return claim.value;
+  return split.duration === undefined ? own.value : `${own.value} for ${split.duration} s`;
+}
 
 const shown = (parsed: Parsed): string =>
   parsed.shape === "scalar"
@@ -444,8 +454,13 @@ export function buildProperties(input: PropertiesInput): PropertiesOutput {
       if (!sibling) continue;
       const stays: Claim[] = [];
       const moves: Claim[] = [];
-      for (const claim of claimsByKey.get(property.key) ?? [])
-        (printedAs(claim, sibling) ? moves : stays).push(claim);
+      for (const claim of claimsByKey.get(property.key) ?? []) {
+        const apparent = partFor(claim, sibling);
+        const real = partFor(claim, property);
+        if (apparent !== undefined) moves.push({ ...claim, value: apparent });
+        if (real !== undefined) stays.push({ ...claim, value: real });
+        else if (apparent === undefined) stays.push(claim);
+      }
       claimsByKey.set(property.key, stays);
       if (moves.length > 0)
         claimsByKey.set(sibling.key, [...(claimsByKey.get(sibling.key) ?? []), ...moves]);

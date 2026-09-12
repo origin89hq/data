@@ -947,3 +947,36 @@ test("a VA figure the parser refuses is still the apparent key's gap, not the wa
     ],
   );
 });
+
+test("a value printed in VA and W feeds both keys, and a VA value with an aside is the apparent key's gap", () => {
+  const { properties, gaps } = build({
+    models: [hybrid],
+    mappings: [
+      acme({
+        rules: [{ key: "inverter.power.continuous", names: ["Rated output power"], basis: "w" }],
+      }),
+    ],
+    specs: [
+      figure(hybrid.id, "Rated output power", "6KVA/6KW"),
+      figure(hybrid.id, "Rated output power", "4000 VA (L-L)", { source: "doc-b" }),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.key, p.value, p.unit, p.claim]),
+    [
+      ["inverter.power.apparent", 6000, "VA", `${hybrid.id}--rated-output-power`],
+      ["inverter.power.continuous", 6000, "W", `${hybrid.id}--rated-output-power`],
+    ],
+  );
+  assert.deepEqual(
+    gaps
+      .filter((g) => g.key.startsWith("inverter.power."))
+      .map((g) => [g.key, g.reason, g.detail, g.claims]),
+    [
+      ["inverter.power.apparent", "unparsed", '"VA(L-L)" is not a unit, beside 1 usable figure', 2],
+      ["inverter.power.apparent.surge", "no-claim", undefined, 0],
+      ["inverter.power.idle", "no-claim", undefined, 0],
+      ["inverter.power.surge", "no-claim", undefined, 0],
+    ],
+  );
+});
