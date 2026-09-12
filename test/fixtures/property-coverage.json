@@ -61,7 +61,7 @@
       "needsConditions": 0
     },
     "rolls-battery": {
-      "values": 51,
+      "values": 55,
       "conflicts": 0,
       "unparsed": 9,
       "needsConditions": 0
@@ -133,12 +133,12 @@
     },
     "battery.discharge.current.peak battery": {
       "models": 516,
-      "values": 2,
+      "values": 3,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 3,
       "needsConditions": 11,
-      "noClaim": 500
+      "noClaim": 499
     },
     "battery.energy battery": {
       "models": 516,
@@ -160,12 +160,12 @@
     },
     "battery.voltage.nominal battery": {
       "models": 516,
-      "values": 27,
+      "values": 30,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 28,
       "needsConditions": 0,
-      "noClaim": 461
+      "noClaim": 458
     },
     "battery.voltage.nominal charge-controller": {
       "models": 610,

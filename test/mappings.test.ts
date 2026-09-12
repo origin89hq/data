@@ -539,6 +539,30 @@ test("East Penn: the AVR table's kilowatt-hours and the 8GGC2's, and a '12-Volts
   assert.match(gap(hr.gaps, "battery.voltage.nominal")?.detail ?? "", /-Volts/);
 });
 
+test("Rolls: the STACK-LV manual's bare 'Voltage' read on that manual only, its timed peak discharge, and the AGM sheet's bare 'Volts'", () => {
+  const stack = of("rolls-battery-s48-100lfp-stack-lv");
+  const voltage = values(stack.properties, "battery.voltage.nominal");
+  assert.deepEqual(
+    voltage.map((p) => p.values),
+    [[51.2]],
+  );
+  assert.ok(own("rolls-battery", voltage));
+  assert.deepEqual(
+    values(stack.properties, "battery.discharge.current.peak").map((p) => [
+      p.value,
+      p.conditions.duration,
+    ]),
+    [[92, 120]],
+  );
+  assert.deepEqual(
+    values(of("rolls-battery-hl12-580wagm").properties, "battery.voltage.nominal").map((p) => [
+      p.values,
+      p.unit,
+    ]),
+    [[[12], "V"]],
+  );
+});
+
 test("OutBack's VA figures reach the apparent-power keys through the watt rules that name them", () => {
   const { properties, gaps } = of("outback-power-fx2012t");
   assert.deepEqual(
