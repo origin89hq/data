@@ -279,6 +279,28 @@ test("an aside after the unit, a cut-off voltage, a bare decimal and a hyphenate
     ok: true,
     parsed: { shape: "scalar", value: 12, unit: "V" },
   });
+  // A tolerance restates the figure; a second figure of the same kind changes it, and stays unread.
+  assert.deepEqual(parseQuantity("13kW(±5%)", undefined, "power"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 13000, unit: "W" },
+  });
+  assert.match(
+    refused(parseQuantity("190A (software limited 185A)", undefined, "current")),
+    /changes the figure/,
+  );
+  assert.match(
+    refused(parseQuantity("2.25 gal (9.9 L)", undefined, "volume")),
+    /changes the figure/,
+  );
+  assert.match(
+    refused(parseQuantity("3600W (30A @ 230VAC)", undefined, "power")),
+    /changes the figure/,
+  );
+  // Alternatives that begin with a bare decimal split like any others.
+  assert.deepEqual(parseQuantity(".5/.7A", undefined, "current"), {
+    ok: true,
+    parsed: { shape: "set", values: [0.5, 0.7], unit: "A" },
+  });
   // Two banks' worth in one figure, and a second figure after a semicolon, are still not one figure.
   assert.match(refused(parseQuantity("5Ax2(12V)", undefined, "current")), /not a unit/);
   assert.match(

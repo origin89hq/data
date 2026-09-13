@@ -41,10 +41,13 @@ const RANGE_TERM = new RegExp(`^(${NUMBER})\\s*(${UNIT_TAIL})?${RANGE}(${NUMBER}
 const SCALAR_TERM = new RegExp(`^(${NUMBER})\\s*(.*)$`);
 /**
  * An aside a maker prints after the unit: the bank a charger's amps are for, "5A (12V)"; a word,
- * "24A (Max)"; the same figure in other units, "2.5 gpm (9.5 Lpm)". The unit is what stands before
- * it, and a condition in it is read from the figure's words elsewhere.
+ * "24A (Max)"; the same figure in other units, "2.5 gpm (9.5 Lpm)"; a tolerance, "13kW(±5%)".
+ * The unit is what stands before it, and a condition in it is read from the figure's words
+ * elsewhere. An aside that states another figure of the same kind, "190A (software limited
+ * 185A)", changes what the figure means, and the value stays unparsed rather than overstated.
  */
 const ASIDE = /\s*\([^()]*\)\s*$/;
+const TOLERANCE = new RegExp(String.raw`^(?:±|\+/-|\+-)\s*${NUMBER}\s*%$`);
 /**
  * A lead-acid sheet ends a capacity with the cell voltage it is drawn down to, "155 A.H. to 1.70
  * VPC": a condition of the figure, not a second end of a range.
@@ -86,19 +89,70 @@ function unitOf(tail: string): { unit?: Unit; rest: string } {
 
 type Term = { min: number; max?: number; unit?: Unit };
 
-/** A unit tail without the aside after it, unless the aside is all there is: "72 (W)" is in watts. */
-function withoutAside(tail: string): string {
-  const bare = tail.replace(ASIDE, "");
-  return bare.trim() ? bare : tail.replace(/[()]/g, "");
+/** A term's closing aside, "(12V)" in "5A (12V)", and the term without it; a term that is all aside keeps it. */
+function splitAside(text: string): { main: string; aside?: string } {
+  const found = ASIDE.exec(text);
+  if (!found) return { main: text };
+  const main = text.slice(0, found.index).trim();
+  return main ? { main, aside: found[0].trim().slice(1, -1).trim() } : { main: text };
+}
+
+/** How many decimals each number in a text is printed with, so "6.7 m" is taken as 6.65 to 6.75. */
+const decimalsOf = (text: string): number[] =>
+  [...text.matchAll(new RegExp(NUMBER, "g"))].map((m) => m[0].split(/[.,]/)[1]?.length ?? 0);
+
+/** A unit's way into its canonical unit, or nothing for a unit that has none. */
+const canonical = (unit: Unit): { to: string; by: (n: number) => number } | undefined =>
+  CONVERT[unit] ?? (CANONICAL.has(unit) ? { to: unit, by: (n) => n } : undefined);
+
+/**
+ * Whether an aside that carries numbers restates the figure rather than changing it: a figure
+ * in another quantity, "5A (12V)"; a tolerance, "(±5%)"; or the same figure in other units,
+ * "2.25 gal. (8.50 L)", agreeing to within the aside's own rounding and a percent.
+ */
+function asideAgrees(term: Term, aside: string): boolean {
+  if (TOLERANCE.test(aside)) return true;
+  const other = parseBare(aside);
+  if (typeof other === "string" || other.unit === undefined || term.unit === undefined)
+    return false;
+  if (QUANTITY_OF[other.unit] !== QUANTITY_OF[term.unit]) return true;
+  if ((term.max === undefined) !== (other.max === undefined)) return false;
+  const mine = canonical(term.unit);
+  const theirs = canonical(other.unit);
+  if (!mine || !theirs || mine.to !== theirs.to) return false;
+  const [lowDecimals = 0, highDecimals = lowDecimals] = decimalsOf(aside);
+  const agrees = (a: number, b: number, decimals: number): boolean => {
+    const half = 0.5 * 10 ** -decimals;
+    const tolerance = Math.abs(theirs.by(b + half) - theirs.by(b)) + Math.abs(theirs.by(b)) / 100;
+    return Math.abs(mine.by(a) - theirs.by(b)) <= tolerance;
+  };
+  return (
+    agrees(term.min, other.min, lowDecimals) &&
+    (term.max === undefined || other.max === undefined || agrees(term.max, other.max, highDecimals))
+  );
 }
 
 function parseTerm(part: string): Term | string {
   const text = part.trim().replace(CUT_OFF, "");
+  const { main, aside } = splitAside(text);
+  const term = parseBare(main);
+  if (aside === undefined || typeof term === "string") return term;
+  if (!/\d/.test(aside)) {
+    // A word, "Max" or "L-L"; or the unit itself when nothing else names it, "72 (W)".
+    if (term.unit !== undefined) return term;
+    const unit = canonicalUnit(aside);
+    return unit ? { ...term, unit } : term;
+  }
+  return asideAgrees(term, aside) ? term : `"(${aside})" changes the figure`;
+}
+
+/** A term with no aside: one number with its unit, or a range. */
+function parseBare(text: string): Term | string {
   const ranged = RANGE_TERM.exec(text);
   if (ranged) {
     const [, first = "", firstTail = "", second = "", tail = ""] = ranged;
     const low = unitOf(firstTail);
-    const high = unitOf(withoutAside(tail));
+    const high = unitOf(tail);
     if (low.rest) return `"${low.rest}" is not a unit`;
     if (high.rest) return `"${high.rest}" is not a unit`;
     if (low.unit && high.unit && low.unit !== high.unit) return "two units in one figure";
@@ -111,7 +165,7 @@ function parseTerm(part: string): Term | string {
   if (!match) return `"${text}" is not a figure`;
   const [, first = "", tail = ""] = match;
   // "12-Volts": a hyphen between the number and a unit written as a word is the maker's spelling.
-  const { unit, rest } = unitOf(withoutAside(tail).replace(/^-(?=[A-Za-z])/, ""));
+  const { unit, rest } = unitOf(tail.replace(/^-(?=[A-Za-z])/, ""));
   if (rest) return `"${rest}" is not a unit`;
   const min = toNumber(first);
   if (min === undefined) return `"${text}" is not a figure`;
@@ -158,8 +212,8 @@ export function parseQuantity(
   const text = value.trim().replace(/[“”]/g, '"').replace(/\s+/g, " ");
   if (!text) return { ok: false, reason: "no value" };
   if (BOUND.test(text)) return { ok: false, reason: "a bound or an approximation, not a figure" };
-  // "12/24/48V DC" and "850V/850V/850V" are alternatives; "%/°C" is one unit.
-  const parts = text.split(/\s*\/\s*(?=[-\d])/);
+  // "12/24/48V DC", "850V/850V/850V" and ".5/.7A" are alternatives; "%/°C" is one unit.
+  const parts = text.split(/\s*\/\s*(?=[-\d.])/);
   const terms: Term[] = [];
   for (const part of parts) {
     const term = parseTerm(part);
@@ -247,7 +301,7 @@ export function printedQuantities(value: string, unit: string | undefined): Prin
   // A bound belongs to every part it qualifies: "up to 6KVA/6KW" is two bounded figures, not two figures.
   const bound = BOUND.exec(printed)?.[0] ?? "";
   const text = printed.slice(bound.length);
-  const parts = text.split(/\s*\/\s*(?=[-\d])/).map((part) => `${bound}${part}`);
+  const parts = text.split(/\s*\/\s*(?=[-\d.])/).map((part) => `${bound}${part}`);
   const units: (Unit | undefined)[] = parts.map((part) => looseUnit(part.slice(bound.length)));
   for (let i = units.length - 2; i >= 0; i--) units[i] ??= units[i + 1];
   if (given && units.every((u) => u === undefined))
