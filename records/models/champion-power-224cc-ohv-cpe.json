@@ -2,7 +2,10 @@
   "id": "champion-power-224cc-ohv-cpe",
   "manufacturer": "champion-power",
   "name": "224cc OHV CPE",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": [],
-  "kind": "generator"
+  "basis": "Its one sheet describes a bare engine: displacement, valve clearances, a mount pattern and its own fuel tank, and no output; the generators it goes into are their own models.",
+  "checkedAt": "2026-09-13",
+  "reviewedBy": "lemarier"
 }

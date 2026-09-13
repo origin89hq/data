@@ -7,24 +7,46 @@
     {
       "key": "generator.power.starting",
       "names": [
-        "Watts (Starting/Running)",
+        "Watts (Starting/Running)"
+      ],
+      "unit": "W",
+      "part": 1,
+      "conditions": {
+        "fuel": "gasoline"
+      },
+      "basis": "The generator sheets print one cell 'Watts (Starting/Running)' as '5000/4000', the starting watts first; the column is in watts. The unqualified cell is the gasoline rating: a dual-fuel sheet labels its LPG and natural-gas cells, and the 201534 sheet prints the same figures under 'GASOLINE WATTS'."
+    },
+    {
+      "key": "generator.power.starting",
+      "names": [
         "Watts (LPG) (Starting/Running)",
         "Watts (NG) (Starting/Running)"
       ],
       "unit": "W",
       "part": 1,
-      "basis": "The generator sheets print one cell 'Watts (Starting/Running)' as '5000/4000', the starting watts first, with the fuel in the name where a dual-fuel set rates LPG and natural gas apart; the column is in watts."
+      "basis": "The dual-fuel sheets print the same cell per fuel, the fuel in the name, whose first figure is the starting watts."
     },
     {
       "key": "generator.power.running",
       "names": [
-        "Watts (Starting/Running)",
+        "Watts (Starting/Running)"
+      ],
+      "unit": "W",
+      "part": 2,
+      "conditions": {
+        "fuel": "gasoline"
+      },
+      "basis": "The same cell's second figure is the running watts on gasoline. 'Rated Power' and 'Power' are not read: on one sheet they equal the running watts and on another the starting watts."
+    },
+    {
+      "key": "generator.power.running",
+      "names": [
         "Watts (LPG) (Starting/Running)",
         "Watts (NG) (Starting/Running)"
       ],
       "unit": "W",
       "part": 2,
-      "basis": "The same cell's second figure is the running watts. 'Rated Power' and 'Power' are not read: on one sheet they equal the running watts and on another the starting watts."
+      "basis": "The dual-fuel sheets print the same cell per fuel, the fuel in the name, whose second figure is the running watts."
     },
     {
       "key": "generator.power.running",

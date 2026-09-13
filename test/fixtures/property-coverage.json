@@ -7,9 +7,9 @@
       "needsConditions": 0
     },
     "champion-power": {
-      "values": 105,
+      "values": 106,
       "conflicts": 0,
-      "unparsed": 3,
+      "unparsed": 0,
       "needsConditions": 0
     },
     "east-penn": {
@@ -67,9 +67,9 @@
       "needsConditions": 13
     },
     "pentair": {
-      "values": 50,
+      "values": 51,
       "conflicts": 0,
-      "unparsed": 4,
+      "unparsed": 3,
       "needsConditions": 0
     },
     "rolls-battery": {
@@ -279,31 +279,31 @@
       "noClaim": 603
     },
     "generator.fuel.tank generator": {
-      "models": 128,
-      "values": 12,
-      "partial": 1,
+      "models": 127,
+      "values": 11,
+      "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0,
       "noClaim": 116
     },
     "generator.power.running generator": {
-      "models": 128,
+      "models": 127,
       "values": 22,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0,
-      "noClaim": 106
+      "noClaim": 105
     },
     "generator.power.starting generator": {
-      "models": 128,
+      "models": 127,
       "values": 15,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0,
-      "noClaim": 113
+      "noClaim": 112
     },
     "inverter.power.apparent inverter": {
       "models": 224,
@@ -387,13 +387,13 @@
       "noClaim": 662
     },
     "inverter.voltage.ac generator": {
-      "models": 128,
-      "values": 24,
+      "models": 127,
+      "values": 26,
       "partial": 0,
       "conflicts": 0,
-      "unparsed": 2,
+      "unparsed": 0,
       "needsConditions": 0,
-      "noClaim": 102
+      "noClaim": 101
     },
     "inverter.voltage.ac inverter": {
       "models": 224,
@@ -460,10 +460,10 @@
     },
     "pump.flow.rated pump": {
       "models": 93,
-      "values": 14,
+      "values": 15,
       "partial": 0,
       "conflicts": 0,
-      "unparsed": 1,
+      "unparsed": 0,
       "needsConditions": 0,
       "noClaim": 78
     },

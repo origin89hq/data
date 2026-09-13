@@ -332,13 +332,6 @@
         "Max working pressure"
       ],
       "basis": "A pump sheet's maximum working pressure is the most it works at continuously."
-    },
-    {
-      "key": "charge.battery.capacity",
-      "names": [
-        "Battery capacity"
-      ],
-      "basis": "On a charger's sheet 'Battery capacity' is the range of battery sizes it is made for, '125-250 Ah'; a bound such as 'Up to 120Ah' is refused. On a battery's sheet the name is the battery's own and is not this key's, which the key's kinds keep out."
     }
   ]
 }

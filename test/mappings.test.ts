@@ -667,7 +667,7 @@ test("Champion: a generator's starting and running watts from one cell, by fuel,
     [
       [11000, "lpg"],
       [11000, "natural-gas"],
-      [11000, undefined],
+      [11000, "gasoline"],
     ],
   );
   assert.deepEqual(
@@ -675,7 +675,7 @@ test("Champion: a generator's starting and running watts from one cell, by fuel,
     [
       [8100, "lpg"],
       [7290, "natural-gas"],
-      [9000, undefined],
+      [9000, "gasoline"],
     ],
   );
   assert.deepEqual(
@@ -714,6 +714,15 @@ test("Champion: a generator's starting and running watts from one cell, by fuel,
   );
   // Its engine's 'Fuel Capacity' is not a generator's tank: the key's kinds keep it out.
   assert.equal(values(pump.properties, "generator.fuel.tank").length, 0);
+  // The bare 224cc engine is reviewed out of scope, so its tank is nobody's generator's.
+  assert.equal(of("champion-power-224cc-ohv-cpe").properties.length, 0);
+  // Victron's Skylla-TG prints 'Battery capacity' as the banks it is for; that is Victron's own rule.
+  const skylla = values(of("victron-energy-skylla-tg-48-25").properties, "charge.battery.capacity");
+  assert.deepEqual(
+    skylla.map((p) => [p.min, p.max]),
+    [[125, 250]],
+  );
+  assert.ok(own("victron-energy", skylla));
 });
 
 test("Pentair: a plunger pump's pressure in bar and its horsepower in watts, a fractional horsepower, a bare 'Flow rate' under its own rule, and the MES sheet's 'Capacity' read on that sheet only", () => {
