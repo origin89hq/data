@@ -194,8 +194,11 @@ const readMaker = () =>
         { url: "https://acme.example/a.pdf", sha256: digest(1), contentType: "application/pdf" },
         { url: "https://shop.example/a.pdf", sha256: digest(1), contentType: "application/pdf" },
         { url: "https://acme.example/b.pdf", sha256: digest(2), contentType: "application/pdf" },
+        // The French edition is not converted, so its reading is not forgotten either.
+        { url: "https://acme.example/b-fr.pdf", sha256: digest(3), contentType: "application/pdf" },
       ],
     }),
+    [`archive/${digest(3)}.${TEXT}.reading.json`]: "{}",
     [`archive/${digest(1)}.${TEXT}.reading.json`]: "{}",
     [`archive/${digest(1)}.${TEXT}.window-0001.json`]: "{}",
     [`archive/${digest(1)}.${TEXT}.window-0002.json`]: "{}",
@@ -244,6 +247,7 @@ test("forgetting a maker's readings counts first, and removes only the prompted 
     assert.equal(await env.ARCHIVE.head(gone), null, gone);
   // The markdown, the transcribed page, the table parser's reading and another maker's document stay.
   for (const kept of [
+    `archive/${digest(3)}.${TEXT}.reading.json`,
     `archive/${digest(1)}.md`,
     `archive/${digest(1)}.${VISION}.page-0001.json`,
     `archive/${digest(1)}.table.reading.json`,

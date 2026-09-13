@@ -132,11 +132,20 @@ interface ApprovedDocument {
   contentType: string;
 }
 
-/** A maker's current run and the documents approved into it, one per distinct content. */
+/**
+ * A maker's current run and the documents conversion will take from it: one per distinct
+ * content, and a translation dropped where the maker also publishes an edition not marked as one.
+ * Forgetting works from the same list, so a reading it removes is one the next convert asks for.
+ */
 async function approvedDocuments(
   env: Env,
   manufacturer: string,
-): Promise<{ run: string; prefix: string; documents: ApprovedDocument[] }> {
+): Promise<{
+  run: string;
+  prefix: string;
+  documents: ApprovedDocument[];
+  translations: { url: string; language: string }[];
+}> {
   const pointer = await readPointer(env.ARCHIVE, pointerKey.documents(manufacturer));
   if (!pointer) throw new Error(`${manufacturer}: no current run`);
   const prefix = runPrefix.documents(manufacturer, pointer.run);
@@ -144,11 +153,12 @@ async function approvedDocuments(
   if (!manifest) throw new Error(`${prefix}: nothing approved to convert`);
   const { documents } = await manifest.json<{ documents: ApprovedDocument[] }>();
   // Two shops can link the same PDF; the archive keys by content, so one document is one message.
-  return {
-    run: pointer.run,
-    prefix,
-    documents: [...new Map(documents.map((d) => [d.sha256, d])).values()],
-  };
+  const deduplicated = [...new Map(documents.map((d) => [d.sha256, d])).values()];
+  // A maker's Spanish edition of a manual it also publishes in English states the same figures in
+  // another language. Converting it costs a reading and a model call for figures already held, so
+  // it is dropped here rather than after the money is spent.
+  const { keep, dropped } = withoutTranslations(deduplicated);
+  return { run: pointer.run, prefix, documents: keep, translations: dropped };
 }
 
 /** The readers whose answers depend on a prompt: the text reader and the page reader. The table reader is a parser. */
@@ -250,11 +260,12 @@ export async function convertRun(
   manufacturer: string,
   date: string,
 ): Promise<{ documents: number; translations: number }> {
-  const { run, prefix, documents: deduplicated } = await approvedDocuments(env, manufacturer);
-  // A maker's Spanish edition of a manual it also publishes in English states the same figures in
-  // another language. Converting it costs a reading and a model call for figures already held, so
-  // it is dropped here rather than after the money is spent.
-  const { keep: unique, dropped } = withoutTranslations(deduplicated);
+  const {
+    run,
+    prefix,
+    documents: unique,
+    translations: dropped,
+  } = await approvedDocuments(env, manufacturer);
   await env.ARCHIVE.put(
     `${prefix}/converting.json`,
     JSON.stringify(
