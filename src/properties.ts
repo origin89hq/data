@@ -18,7 +18,13 @@ import {
   splitHead,
 } from "./conditions.ts";
 import { type Feed, type FeedModel, feedSpecId } from "./feeds.ts";
-import { conditionAsides, type Parsed, printedQuantities, readProperty } from "./quantities.ts";
+import {
+  alternatives,
+  conditionAsides,
+  type Parsed,
+  printedQuantities,
+  readProperty,
+} from "./quantities.ts";
 
 /**
  * Build the normalized properties beside the printed figures.
@@ -147,7 +153,8 @@ function rulesFor(mapping: Mapping | undefined, key: string): (MappingRule & { n
 
 /** The `n`th slash-separated part of a value, counted from one: "5500/4000" has two. */
 export function partOf(value: string, n: number): string | undefined {
-  const parts = value.split(/\s*\/\s*/);
+  // The parts are the alternatives the parser would split, so the slash in "4.2 L/min" is not one.
+  const parts = alternatives(value.trim());
   return parts.length >= n && parts.length > 1 ? parts[n - 1]?.trim() : undefined;
 }
 

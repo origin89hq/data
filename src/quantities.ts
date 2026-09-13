@@ -181,7 +181,7 @@ const isCharge = (term: Term | string): boolean =>
  * The alternatives a value lists with slashes, "12/24/48V DC", split only outside brackets: the
  * slash in "13kW (+/-5%)" is the tolerance's, not a second figure.
  */
-function alternatives(text: string): string[] {
+export function alternatives(text: string): string[] {
   const parts: string[] = [];
   let depth = 0;
   let start = 0;
@@ -307,12 +307,13 @@ export function parseQuantity(
   quantity: Quantity,
   options: ParseOptions = {},
 ): Read {
-  // A generator sheet writes alternating current as a trailing tilde: "120/240~" is 120 or 240 V AC.
+  // A generator sheet writes alternating current as a trailing tilde: "120/240~" is 120 or 240 V
+  // AC. On any other quantity a trailing tilde is an approximation's, and the bound below refuses it.
   const text = value
     .trim()
     .replace(/[“”]/g, '"')
     .replace(/\s+/g, " ")
-    .replace(/(?<=[\dA-Za-z])\s*~$/, "");
+    .replace(quantity === "voltage" ? /(?<=[\dA-Za-z])\s*~$/ : /$^/, "");
   if (!text) return { ok: false, reason: "no value" };
   if (BOUND.test(text)) return { ok: false, reason: "a bound or an approximation, not a figure" };
   const fraction = FRACTIONAL_HP.exec(text);

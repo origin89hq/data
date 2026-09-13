@@ -113,6 +113,34 @@ test("a rule for one part of a cell is not faulted for a value with fewer parts,
   assert.deepEqual(audit(r), { errors: [], notes: [] });
 });
 
+test("a generator or pump none of whose figures is an output is noted, unless a person has reviewed it", () => {
+  const engine = model("acme-224cc", "generator");
+  const genset = model("acme-genset-4000", "generator");
+  const reviewed = Model.parse({
+    ...model("acme-r210", "generator"),
+    reviewedBy: "ada",
+    checkedAt: "2026-09-13",
+    basis: "an engine, kept for its tank",
+  });
+  const r = records(
+    [engine, genset, reviewed],
+    [
+      figure(engine.id, "Displacement", "224 cc"),
+      figure(engine.id, "Gasoline Capacity", "5"),
+      figure(genset.id, "Running Watts", "4000", { unit: "W" }),
+      figure(reviewed.id, "Displacement", "212 cc"),
+    ],
+    [mapping([{ key: "generator.power.running", names: ["Running Watts"], basis: "the sheet" }])],
+  );
+  const { notes } = audit(r);
+  assert.deepEqual(
+    notes.filter((n) => n.includes("none of its")),
+    [
+      "model acme-224cc is filed as a generator but none of its 2 figures is an output; it may be an engine, a switch or a part",
+    ],
+  );
+});
+
 test("an unmapped name one step from a mapped one is noted, a lone word is not", () => {
   const battery = model("acme-cell-200", "battery");
   const r = records(

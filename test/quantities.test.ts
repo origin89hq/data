@@ -298,6 +298,8 @@ test("a tank, a flow, a pressure, a head and a motor read in litres, litres a mi
     ok: true,
     parsed: { shape: "set", values: [120, 240], unit: "V" },
   });
+  // On anything but a voltage the tilde is an approximation's, and stays refused.
+  assert.match(refused(parseQuantity("20 W~", undefined, "power")), /not a unit|approximation/);
   assert.deepEqual(parseQuantity("22’ (6.7 m)", undefined, "length"), {
     ok: true,
     parsed: { shape: "scalar", value: 6.7056, unit: "m" },

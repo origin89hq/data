@@ -1485,3 +1485,43 @@ test("a head printed after a flow is the flow's condition, and a different figur
     [["unparsed", "the value states a head the key does not take"]],
   );
 });
+
+test("a part rule leaves a unit's slash alone, and a name that says one head over a value that says another is refused", () => {
+  const pump = Model.parse({
+    id: "acme-pump-2",
+    manufacturer: "acme",
+    name: "Pump 2",
+    kind: "pump",
+  });
+  const { properties, gaps } = build({
+    models: [pump],
+    mappings: [
+      acme({
+        rules: [
+          { key: "pump.flow.rated", names: ["Flow"], part: 2, basis: "the second" },
+          { key: "pump.flow.rated", names: ["Flow at 10 ft"], basis: "the sheet" },
+        ],
+      }),
+      Mapping.parse({
+        id: "shared",
+        version: 1,
+        reviewedBy: "ada",
+        checkedAt: "2026-09-13",
+        rules: [{ key: "pump.flow.rated", names: ["Flow"], basis: "the whole value" }],
+      }),
+    ],
+    specs: [
+      figure(pump.id, "Flow", "4.2 L/min"),
+      figure(pump.id, "Flow at 10 ft", "50 GPM at 5 ft", { source: "doc-b" }),
+    ],
+  });
+  // "4.2 L/min" has no second part, so the shared rule reads it whole.
+  assert.deepEqual(
+    properties.map((p) => [p.value, p.claim.replace(`${pump.id}--`, "")]),
+    [[4.2, "flow"]],
+  );
+  assert.deepEqual(
+    gaps.filter((g) => g.key === "pump.flow.rated").map((g) => g.detail),
+    ["the name and the value state different head, beside 1 usable figure"],
+  );
+});
