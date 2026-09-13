@@ -67,7 +67,7 @@
       "needsConditions": 13
     },
     "pentair": {
-      "values": 51,
+      "values": 63,
       "conflicts": 0,
       "unparsed": 3,
       "needsConditions": 0
@@ -469,12 +469,12 @@
     },
     "pump.flow.rated pump": {
       "models": 93,
-      "values": 15,
+      "values": 17,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0,
-      "noClaim": 78
+      "noClaim": 76
     },
     "pump.head.max pump": {
       "models": 93,

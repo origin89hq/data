@@ -86,7 +86,8 @@
       "names": [
         "Total Head"
       ],
-      "basis": "The 100113 water pump sheet states 'Total Head' as '98 ft. (29.9 m)', the height it lifts against; 'Suction Head' is the lift on the inlet side and is not read."
+      "source": "doc-e6e49d8cdc34b5735f4e6f9c2287706d",
+      "basis": "The 100113 water pump manual states 'Total Head' as '98 ft. (29.9 m)', the height it lifts against; on another sheet the name could be an operating point, so the rule reads that manual only. 'Suction Head' is the lift on the inlet side and is not read."
     }
   ]
 }

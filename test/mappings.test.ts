@@ -768,6 +768,20 @@ test("Pentair: a plunger pump's pressure in bar and its horsepower in watts, a f
     [1703.435303],
   );
   assert.ok(own("pentair", flow));
+  // The SHEF42's curve: one flow at each head, from the column names, kept apart by the height.
+  assert.deepEqual(
+    values(of("pentair-shef42a1").properties, "pump.flow.rated")
+      .map((p) => [p.value, p.conditions.head ?? 0])
+      .sort((a, b) => a[1] - b[1]),
+    [
+      [230.9101188, 1.524],
+      [196.8414128, 3.048],
+      [170.3435303, 4.572],
+      [143.8456478, 6.096],
+      [113.5623535, 7.62],
+      [79.49364746, 9.144],
+    ],
+  );
   const mes = values(of("pentair-mes50").properties, "pump.flow.rated");
   assert.deepEqual(
     mes.map((p) => p.value),

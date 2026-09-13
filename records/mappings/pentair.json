@@ -59,6 +59,20 @@
       ],
       "unit": "hp",
       "basis": "The Myers and Sta-Rite pump sheets state the motor in horsepower under 'Motor HP', 'HP' or 'Horsepower', as '1 HP', '1/2 HP' or a bare fraction such as '4/10' in a horsepower column; a fraction is one figure."
+    },
+    {
+      "key": "pump.flow.rated",
+      "names": [
+        "Capacity Gallons/Minute at 5 feet",
+        "Capacity Gallons/Minute at 10 feet",
+        "Capacity Gallons/Minute at 15 feet",
+        "Capacity Gallons/Minute at 20 feet",
+        "Capacity Gallons/Minute at 25 feet",
+        "Capacity Gallons/Minute at 30 feet"
+      ],
+      "unit": "gpm",
+      "source": "doc-f232d33dc77786f1fd3a619d3b896189",
+      "basis": "The SHEF42 sheet prints the pump's curve as one column per head, 'Capacity Gallons/Minute at 5 feet' to 'at 30 feet', bare figures in the gallons a minute the name carries; the head is read off the name, so each point keeps its height."
     }
   ]
 }
