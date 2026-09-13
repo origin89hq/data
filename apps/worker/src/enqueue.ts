@@ -195,10 +195,14 @@ export async function forgetReadings(
   // Every batch counts from one manifest: a later one names the run the first answered with.
   if (expectedRun !== undefined && expectedRun !== run)
     throw new RunMoved(`${manufacturer}: run ${expectedRun} is no longer current; ${run} is`);
-  // A batch starts where the last one said the next begins; a start past the documents, or between
-  // two batches, would count the maker done with readings still on file.
-  if (from % FORGET_AT_ONCE !== 0 || (from > 0 && from >= documents.length))
-    throw new BadStart(`${manufacturer}: from must be a next the last batch answered with`);
+  // A batch starts where the last one said the next begins, and the run remembers what it said:
+  // a start with no batch before it would count the maker done with readings still on file.
+  const marker = `${prefix}/forgetting.json`;
+  if (from !== 0) {
+    const issued = await (await env.ARCHIVE.get(marker))?.json<{ next?: number; dry?: boolean }>();
+    if (issued?.next !== from || issued.dry !== dryRun)
+      throw new BadStart(`${manufacturer}: from must be the next the last batch answered with`);
+  }
   const readers = PROMPTED_READERS();
   const batch = documents.slice(from, from + FORGET_AT_ONCE);
   let readings = 0;
@@ -224,6 +228,11 @@ export async function forgetReadings(
     if (!dryRun && gone.length > 0) await env.ARCHIVE.delete(gone);
   }
   const next = from + batch.length < documents.length ? from + batch.length : undefined;
+  if (next === undefined) await env.ARCHIVE.delete(marker);
+  else
+    await env.ARCHIVE.put(marker, JSON.stringify({ run, next, dry: dryRun }), {
+      httpMetadata: { contentType: "application/json" },
+    });
   if (!dryRun && next === undefined) await env.ARCHIVE.delete(`${prefix}/seeing.json`);
   return {
     run,

@@ -295,13 +295,27 @@ test("a maker with more documents than one call takes is forgotten in batches, a
     deleted: true,
   });
   assert.equal(await env.ARCHIVE.head("documents/acme/runs/r1/seeing.json"), null);
-  // A start is a next some batch answered with: not negative, not between batches, not past the end.
+  // A start is the next the last batch answered with, and the run remembers it: not negative, not
+  // one nobody issued, and not a dry run's continuation on a real run.
   for (const bad of ["from=-1", "from=1", `from=${FORGET_AT_ONCE * 2}`, "from=999999"])
     assert.equal((await forget(env, `id=acme&dry=false&${bad}`)).status, 400, bad);
+  assert.equal((await forget(env, "id=acme&dry=false")).status, 200, "a fresh start issues a next");
+  assert.equal(
+    (await forget(env, `id=acme&from=${FORGET_AT_ONCE}`)).status,
+    400,
+    "a dry run cannot continue a real one",
+  );
+  assert.equal((await forget(env, `id=acme&dry=false&from=${FORGET_AT_ONCE}`)).status, 200);
+  assert.equal(
+    (await forget(env, `id=acme&dry=false&from=${FORGET_AT_ONCE}`)).status,
+    400,
+    "a next is issued once",
+  );
   // A batch naming the run it continues is refused once the maker's current run has moved on; the
   // first batch, with no run to name yet, sends an empty one.
   assert.equal((await forget(env, "id=acme&from=0&run=")).status, 200);
   assert.equal((await forget(env, "id=acme&from=200&run=r1")).status, 200);
+  assert.equal((await forget(env, "id=acme&from=0&run=")).status, 200);
   await env.ARCHIVE.put(
     "documents/acme/current.json",
     JSON.stringify({ run: "r2", date: "2026-09-13" }),
