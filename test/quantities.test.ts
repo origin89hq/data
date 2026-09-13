@@ -271,6 +271,8 @@ test("an aside after the unit, a cut-off voltage, a bare decimal and a hyphenate
     ok: true,
     parsed: { shape: "scalar", value: 96, unit: "Ah" },
   });
+  // A range of cell voltages ending in VPC is not a capacity with a cut-off, and keeps its second end.
+  assert.match(refused(parseQuantity("2.35 to 2.40 VPC", "V", "voltage")), /not a unit/);
   assert.deepEqual(parseQuantity(".281KWH", undefined, "energy"), {
     ok: true,
     parsed: { shape: "scalar", value: 281, unit: "Wh" },

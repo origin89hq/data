@@ -99,11 +99,9 @@ function splitAside(text: string): { main: string; aside?: string } {
   return main ? { main, aside: found[0].trim().slice(1, -1).trim() } : { main: text };
 }
 
-/** How many decimals each number in a text is printed with, so "6.7 m" is taken as 6.65 to 6.75; "8.50" is printed to one. */
+/** How many decimals each number in a text is printed with, so "6.7 m" is taken as 6.65 to 6.75. */
 const decimalsOf = (text: string): number[] =>
-  [...text.matchAll(new RegExp(NUMBER, "g"))].map(
-    (m) => m[0].split(/[.,]/)[1]?.replace(/0+$/, "").length ?? 0,
-  );
+  [...text.matchAll(new RegExp(NUMBER, "g"))].map((m) => m[0].split(/[.,]/)[1]?.length ?? 0);
 
 /** A unit's way into its canonical unit, or nothing for a unit that has none. */
 const canonical = (unit: Unit): { to: string; by: (n: number) => number } | undefined =>
@@ -129,8 +127,11 @@ function asideAgrees(term: Term, aside: string): boolean {
   const [lowDecimals = 0, highDecimals = lowDecimals] = decimalsOf(aside);
   const agrees = (a: number, b: number, decimals: number): boolean => {
     if (term.unit === other.unit) return Math.abs(a - b) < 1e-9;
+    // The rounding of the aside's printed digits, or half a percent where a maker rounded a
+    // conversion loosely, "2.25 gal. (8.50 L)"; never enough to let "1100mA (1.00A)" through.
     const half = 0.5 * 10 ** -decimals;
-    const tolerance = Math.abs(theirs.by(b + half) - theirs.by(b));
+    const printed = Math.abs(theirs.by(b));
+    const tolerance = Math.max(Math.abs(theirs.by(b + half) - theirs.by(b)), printed / 200);
     return Math.abs(mine.by(a) - theirs.by(b)) <= tolerance + 1e-9;
   };
   return (
@@ -140,7 +141,10 @@ function asideAgrees(term: Term, aside: string): boolean {
 }
 
 function parseTerm(part: string): Term | string {
-  const text = part.trim().replace(CUT_OFF, "");
+  const printed = part.trim();
+  // The cut-off is a capacity's: "2.35 to 2.40 VPC" is a range of cell voltages and keeps its end.
+  const cut = printed.replace(CUT_OFF, "");
+  const text = cut !== printed && isCharge(parseBare(splitAside(cut).main)) ? cut : printed;
   const { main, aside } = splitAside(text);
   const term = parseBare(main);
   if (aside === undefined || typeof term === "string") return term;
@@ -155,6 +159,10 @@ function parseTerm(part: string): Term | string {
   }
   return asideAgrees(term, aside) ? term : `"(${aside})" changes the figure`;
 }
+
+/** Whether a term reads in ampere-hours, the figure a cut-off voltage belongs to. */
+const isCharge = (term: Term | string): boolean =>
+  typeof term !== "string" && term.unit !== undefined && QUANTITY_OF[term.unit] === "charge";
 
 /** A term with no aside: one number with its unit, or a range. */
 function parseBare(text: string): Term | string {
