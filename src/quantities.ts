@@ -47,7 +47,9 @@ const SCALAR_TERM = new RegExp(`^(${NUMBER})\\s*(.*)$`);
  * 185A)", changes what the figure means, and the value stays unparsed rather than overstated.
  */
 const ASIDE = /\s*\([^()]*\)\s*$/;
-const TOLERANCE = new RegExp(String.raw`^(?:±|\+/-|\+-)\s*${NUMBER}\s*%$`);
+const TOLERANCE = new RegExp(String.raw`^(?:±|\+/-|\+-)\s*${NUMBER}\s*(?:%|${UNIT_TAIL})?$`);
+/** A figure with its unit anywhere in a text: "185A" in "software limited 185A". */
+const FIGURE_IN = new RegExp(`${NUMBER}\\s*(${UNIT_TAIL})`, "g");
 /**
  * A lead-acid sheet ends a capacity with the cell voltage it is drawn down to, "155 A.H. to 1.70
  * VPC": a condition of the figure, not a second end of a range.
@@ -107,14 +109,22 @@ const canonical = (unit: Unit): { to: string; by: (n: number) => number } | unde
 
 /**
  * Whether an aside that carries numbers restates the figure rather than changing it: a figure
- * in another quantity, "5A (12V)"; a tolerance, "(±5%)"; or the same figure in other units,
- * "2.25 gal. (8.50 L)", agreeing to within the aside's own rounding and a percent.
+ * in another quantity, "5A (12V)"; a tolerance, "(±5%)" or "(± 5 VAC)"; the same figure in
+ * other units, "2.25 gal. (8.50 L)", agreeing to within the aside's own rounding and a percent;
+ * or a note with a number in it and no figure of the same kind, "(L1+L2+L3+N+PE)". A figure of
+ * the same kind anywhere in it, "(software limited 185A)", changes the figure.
  */
 function asideAgrees(term: Term, aside: string): boolean {
   if (TOLERANCE.test(aside)) return true;
+  if (term.unit === undefined) return false;
   const other = parseBare(aside);
-  if (typeof other === "string" || other.unit === undefined || term.unit === undefined)
-    return false;
+  if (typeof other === "string" || other.unit === undefined) {
+    for (const [, tail = ""] of aside.matchAll(FIGURE_IN)) {
+      const { unit } = unitOf(tail);
+      if (unit && QUANTITY_OF[unit] === QUANTITY_OF[term.unit]) return false;
+    }
+    return true;
+  }
   if (QUANTITY_OF[other.unit] !== QUANTITY_OF[term.unit]) return true;
   if ((term.max === undefined) !== (other.max === undefined)) return false;
   const mine = canonical(term.unit);

@@ -1163,3 +1163,35 @@ test("a lithium pack that states its rate keeps it, and two rates stay two prope
   );
   assert.ok(!gaps.some((g) => g.key === "battery.capacity"));
 });
+
+test("a duration in a value's aside is the peak's condition on a key that takes one, and a different figure on a key that does not", () => {
+  const cell = Model.parse({
+    id: "acme-cell-100",
+    manufacturer: "acme",
+    name: "Cell 100",
+    kind: "battery",
+  });
+  const { properties, gaps } = build({
+    models: [cell],
+    mappings: [
+      acme({
+        rules: [
+          { key: "battery.discharge.current.peak", names: ["Peak current"], basis: "the sheet" },
+          { key: "battery.discharge.current.max", names: ["Max current"], basis: "the sheet" },
+        ],
+      }),
+    ],
+    specs: [
+      figure(cell.id, "Peak current", "200A (15s)"),
+      figure(cell.id, "Max current", "200A (15s)"),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.key, p.value, p.conditions.duration]),
+    [["battery.discharge.current.peak", 200, 15]],
+  );
+  assert.deepEqual(
+    gaps.filter((g) => g.key === "battery.discharge.current.max").map((g) => [g.reason, g.detail]),
+    [["unparsed", "an aside states a duration the key does not take"]],
+  );
+});

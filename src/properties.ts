@@ -2,7 +2,7 @@ import { type Mapping, type MappingRule, SHARED_MAPPING } from "@origin89/equipm
 import type { Model, Spec } from "@origin89/equipment-schema/model";
 import {
   type Basis,
-  type ConditionKey,
+  ConditionKey,
   type Conditions,
   type GapReason,
   PROPERTIES,
@@ -297,7 +297,19 @@ function read(
       : undefined,
   );
   const missing = needs.filter((c) => conditions[c] === undefined);
-  const result = readProperty(split.value, claim.unit, property, { reference });
+  // An aside that states a condition the key does not keep, "(15s)" on a continuous current, is a
+  // different figure: a peak, not the rating. The name's words are the rule's to weigh; the
+  // value's aside is the figure's own.
+  const stated = Object.keys(conditionsFrom(asides, ConditionKey.options)).filter(
+    (c) => c !== "stc" && c !== "note" && !accepts.includes(c as ConditionKey),
+  );
+  const result =
+    stated.length > 0
+      ? {
+          ok: false as const,
+          reason: `an aside states a ${stated.join(", ")} the key does not take`,
+        }
+      : readProperty(split.value, claim.unit, property, { reference });
   const stillMissing = unwaived && missing.length > 0;
   return result.ok
     ? { claim, parsed: result.parsed, conditions, missing, unwaived: stillMissing }

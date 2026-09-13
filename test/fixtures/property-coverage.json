@@ -73,9 +73,9 @@
       "needsConditions": 0
     },
     "samlex-america": {
-      "values": 72,
+      "values": 78,
       "conflicts": 0,
-      "unparsed": 15,
+      "unparsed": 11,
       "needsConditions": 24
     },
     "sigineer": {
@@ -91,9 +91,9 @@
       "needsConditions": 0
     },
     "srne": {
-      "values": 239,
+      "values": 242,
       "conflicts": 1,
-      "unparsed": 51,
+      "unparsed": 48,
       "needsConditions": 25
     },
     "victron-energy": {
@@ -301,11 +301,11 @@
     },
     "inverter.power.surge inverter": {
       "models": 224,
-      "values": 3,
-      "partial": 0,
+      "values": 5,
+      "partial": 2,
       "conflicts": 0,
       "unparsed": 4,
-      "needsConditions": 42,
+      "needsConditions": 40,
       "noClaim": 175
     },
     "inverter.power.surge inverter-charger": {
@@ -319,19 +319,19 @@
     },
     "inverter.voltage.ac inverter": {
       "models": 224,
-      "values": 7,
+      "values": 11,
       "partial": 2,
       "conflicts": 0,
-      "unparsed": 12,
+      "unparsed": 8,
       "needsConditions": 0,
       "noClaim": 205
     },
     "inverter.voltage.ac inverter-charger": {
       "models": 733,
-      "values": 53,
+      "values": 56,
       "partial": 3,
       "conflicts": 2,
-      "unparsed": 37,
+      "unparsed": 34,
       "needsConditions": 0,
       "noClaim": 641
     },

@@ -292,10 +292,19 @@ test("an aside after the unit, a cut-off voltage, a bare decimal and a hyphenate
     refused(parseQuantity("2.25 gal (9.9 L)", undefined, "volume")),
     /changes the figure/,
   );
-  assert.match(
-    refused(parseQuantity("3600W (30A @ 230VAC)", undefined, "power")),
-    /changes the figure/,
-  );
+  // An absolute tolerance, a note with a number in it, and figures of other kinds all restate it.
+  assert.deepEqual(parseQuantity("120 VAC (± 5 VAC)", undefined, "voltage"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 120, unit: "V" },
+  });
+  assert.deepEqual(parseQuantity("400V (L1+L2+L3+N+PE)", undefined, "voltage"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 400, unit: "V" },
+  });
+  assert.deepEqual(parseQuantity("3600W (30A @ 230VAC)", undefined, "power"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 3600, unit: "W" },
+  });
   // Alternatives that begin with a bare decimal split like any others.
   assert.deepEqual(parseQuantity(".5/.7A", undefined, "current"), {
     ok: true,
