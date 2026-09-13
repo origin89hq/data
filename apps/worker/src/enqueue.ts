@@ -171,11 +171,15 @@ export const FORGET_AT_ONCE = 200;
  * nothing. The documents are taken `FORGET_AT_ONCE` at a time from `from`, and `next` says where
  * the next call starts, so a maker of four hundred documents stays inside a Worker's budget.
  */
+/** The run a later batch names is not the maker's current run: the pointer moved between two calls. */
+export class RunMoved extends Error {}
+
 export async function forgetReadings(
   env: Env,
   manufacturer: string,
   dryRun: boolean,
   from = 0,
+  expectedRun?: string,
 ): Promise<{
   run: string;
   documents: number;
@@ -186,6 +190,9 @@ export async function forgetReadings(
   deleted: boolean;
 }> {
   const { run, prefix, documents } = await approvedDocuments(env, manufacturer);
+  // Every batch counts from one manifest: a later one names the run the first answered with.
+  if (expectedRun !== undefined && expectedRun !== run)
+    throw new RunMoved(`${manufacturer}: run ${expectedRun} is no longer current; ${run} is`);
   const readers = PROMPTED_READERS();
   const batch = documents.slice(from, from + FORGET_AT_ONCE);
   let readings = 0;

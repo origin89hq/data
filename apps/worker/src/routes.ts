@@ -17,7 +17,14 @@ import { z } from "zod";
 import specPages from "../../../feeds/spec-pages.json" with { type: "json" };
 import { activityPage, actor } from "./activity.ts";
 import { bearer } from "./authorised.ts";
-import { classifyRun, convertRun, forgetReadings, specPagesRun, visionRun } from "./enqueue.ts";
+import {
+  classifyRun,
+  convertRun,
+  forgetReadings,
+  RunMoved,
+  specPagesRun,
+  visionRun,
+} from "./enqueue.ts";
 import { hasFeed } from "./feeds.ts";
 import { LeaseHeld, OFFER_LEASE_MS, underLease } from "./lease.ts";
 import { manufacturers } from "./manufacturers.ts";
@@ -609,10 +616,12 @@ controlRoutes.post("/forget", async (c) => {
   const from = Number(c.req.query("from") ?? 0);
   if (!Number.isSafeInteger(from) || from < 0)
     return c.json({ error: "from must be a count" }, 400);
+  const run = c.req.query("run");
   try {
-    return c.json(await forgetReadings(c.env, manufacturerId, dry, from));
+    return c.json(await forgetReadings(c.env, manufacturerId, dry, from, run));
   } catch (error) {
-    return c.json({ error: error instanceof Error ? error.message : String(error) }, 404);
+    const message = error instanceof Error ? error.message : String(error);
+    return c.json({ error: message }, error instanceof RunMoved ? 409 : 404);
   }
 });
 

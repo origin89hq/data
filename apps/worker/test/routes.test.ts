@@ -296,6 +296,16 @@ test("a maker with more documents than one call takes is forgotten in batches, a
   });
   assert.equal(await env.ARCHIVE.head("documents/acme/runs/r1/seeing.json"), null);
   assert.equal((await forget(env, "id=acme&from=-1")).status, 400);
+  // A batch naming the run it continues is refused once the maker's current run has moved on.
+  assert.equal((await forget(env, "id=acme&from=200&run=r1")).status, 200);
+  await env.ARCHIVE.put(
+    "documents/acme/current.json",
+    JSON.stringify({ run: "r2", date: "2026-09-13" }),
+  );
+  await env.ARCHIVE.put("documents/acme/runs/r2/manifest.json", JSON.stringify({ documents: [] }));
+  const moved = await forget(env, "id=acme&from=200&run=r1");
+  assert.equal(moved.status, 409);
+  assert.match(await errorOf(moved), /run r1 is no longer current; r2 is/);
 });
 
 test("forgetting needs a maker, and one with no approved run is told so rather than served an error", async () => {
