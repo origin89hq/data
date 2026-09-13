@@ -299,21 +299,26 @@ test("an aside after the unit, a cut-off voltage, a bare decimal and a hyphenate
     ok: true,
     parsed: { shape: "scalar", value: 120, unit: "V" },
   });
+  assert.deepEqual(parseQuantity("230V (L+N+PE)", undefined, "voltage"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 230, unit: "V" },
+  });
   assert.deepEqual(parseQuantity("400V (L1+L2+L3+N+PE)", undefined, "voltage"), {
     ok: true,
     parsed: { shape: "scalar", value: 400, unit: "V" },
   });
   // Words that say something the figure does not, a second figure of the same kind that nearly
   // agrees, a figure with a note around it, and a bounded time all change the figure.
-  for (const changed of [
-    "24A (per input)",
-    "190A (188A)",
-    "3600W (30A @ 230VAC)",
-    "500 Watts (< 8 ms)",
-    "120 VAC (nominal, L-N)",
-  ])
+  for (const [changed, quantity] of [
+    ["24A (per input)", "current"],
+    ["190A (188A)", "current"],
+    ["1100mA (1.00A)", "current"],
+    ["3600W (30A @ 230VAC)", "power"],
+    ["500 Watts (< 8 ms)", "power"],
+    ["120 VAC (nominal, L-N)", "voltage"],
+  ] as const)
     assert.match(
-      refused(parseQuantity(changed, undefined, "power")),
+      refused(parseQuantity(changed, undefined, quantity)),
       /changes the figure/,
       changed,
     );
