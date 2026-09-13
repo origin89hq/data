@@ -201,10 +201,15 @@ export async function forgetReadings(
   windows: number;
   deleted: boolean;
 }> {
+  // Every batch counts from one manifest: a later one names the run the first answered with, and
+  // the pointer is compared before the new run's manifest is asked for, since a run that has just
+  // been reserved has none yet.
+  if (expectedRun !== undefined) {
+    const pointer = await readPointer(env.ARCHIVE, pointerKey.documents(manufacturer));
+    if (pointer && pointer.run !== expectedRun)
+      throw new RunMoved(`${manufacturer}: run ${expectedRun} is no longer current; ${pointer.run} is`);
+  }
   const { run, prefix, documents } = await approvedDocuments(env, manufacturer);
-  // Every batch counts from one manifest: a later one names the run the first answered with.
-  if (expectedRun !== undefined && expectedRun !== run)
-    throw new RunMoved(`${manufacturer}: run ${expectedRun} is no longer current; ${run} is`);
   // A batch starts where the last one said the next begins, and the run remembers what it said:
   // a start with no batch before it would count the maker done with readings still on file.
   const marker = `${prefix}/forgetting.json`;
