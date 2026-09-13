@@ -7,7 +7,7 @@
       "needsConditions": 0
     },
     "champion-power": {
-      "values": 105,
+      "values": 107,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0
@@ -288,31 +288,31 @@
       "noClaim": 603
     },
     "generator.fuel.tank generator": {
-      "models": 126,
+      "models": 124,
       "values": 10,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0,
-      "noClaim": 116
+      "noClaim": 114
     },
     "generator.power.running generator": {
-      "models": 126,
-      "values": 22,
+      "models": 124,
+      "values": 21,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0,
-      "noClaim": 104
+      "noClaim": 103
     },
     "generator.power.starting generator": {
-      "models": 126,
+      "models": 124,
       "values": 15,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0,
-      "noClaim": 111
+      "noClaim": 109
     },
     "inverter.power.apparent inverter": {
       "models": 224,
@@ -396,13 +396,13 @@
       "noClaim": 662
     },
     "inverter.voltage.ac generator": {
-      "models": 126,
+      "models": 124,
       "values": 26,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0,
-      "noClaim": 100
+      "noClaim": 98
     },
     "inverter.voltage.ac inverter": {
       "models": 224,
@@ -468,40 +468,40 @@
       "noClaim": 169
     },
     "pump.flow.rated pump": {
-      "models": 93,
+      "models": 95,
       "values": 17,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0,
-      "noClaim": 76
+      "noClaim": 78
     },
     "pump.head.max pump": {
-      "models": 93,
+      "models": 95,
       "values": 4,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 2,
       "needsConditions": 0,
-      "noClaim": 87
+      "noClaim": 89
     },
     "pump.power.rated pump": {
-      "models": 93,
-      "values": 16,
+      "models": 95,
+      "values": 17,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0,
-      "noClaim": 77
+      "noClaim": 78
     },
     "pump.pressure.max pump": {
-      "models": 93,
+      "models": 95,
       "values": 15,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 1,
       "needsConditions": 0,
-      "noClaim": 77
+      "noClaim": 79
     },
     "pv.isc.max charge-controller": {
       "models": 610,

@@ -682,6 +682,17 @@ test("Champion: a generator's starting and running watts from one cell, by fuel,
     values(dual.properties, "inverter.voltage.ac").map((p) => p.values),
     [[120, 240]],
   );
+  // The GB225 manual calls its gasoline cell 'Manual Watts'; on that manual it is read as such.
+  assert.deepEqual(
+    values(of("champion-power-gb225bt-2").properties, "generator.power.running")
+      .map((p) => [p.conditions.fuel ?? "", p.value])
+      .sort((a, b) => String(a[0]).localeCompare(String(b[0]))),
+    [
+      ["gasoline", 4000],
+      ["lpg", 3600],
+      ["natural-gas", 3240],
+    ],
+  );
   const standby = of("champion-power-100304");
   assert.deepEqual(
     values(standby.properties, "generator.power.running").map((p) => [p.value, p.conditions.fuel]),
@@ -793,9 +804,12 @@ test("Pentair: a plunger pump's pressure in bar and its horsepower in watts, a f
     values(of("pentair-7fc5-s").properties, "pump.flow.rated").map((p) => [p.value, p.claim]),
     [[9.46352946, "pentair-7fc5-s--service-flow-rate"]],
   );
+  // The HPGR200 is a grinder pump filed as a generator: reviewed as a pump, its 'Full Load kW' is
+  // its motor's load and reads under no generator key, and its 2 HP reads under the pump's.
+  assert.equal(values(of("pentair-hpgr200").properties, "generator.power.running").length, 0);
   assert.deepEqual(
-    values(of("pentair-hpgr200").properties, "generator.power.running").map((p) => p.value),
-    [3200],
+    values(of("pentair-hydromatic-hpgr200").properties, "pump.power.rated").map((p) => p.value),
+    [1491.399743],
   );
 });
 

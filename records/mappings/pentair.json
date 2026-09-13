@@ -43,14 +43,6 @@
       "basis": "The MA plunger pump sheets state 'Maximum Rated Power' in horsepower, '15.0 hp'; a cell that also prints the kilowatts, '144.0 hp 107.4 kW', is refused. 'Motor HP' prints fractions such as '4/10', which read as two figures, and is not read."
     },
     {
-      "key": "generator.power.running",
-      "names": [
-        "Full Load kW"
-      ],
-      "unit": "kW",
-      "basis": "The HPGR200 generator sheet states 'Full Load kW' as a bare 3.2 with the unit in the name."
-    },
-    {
       "key": "pump.power.rated",
       "names": [
         "Motor HP",
