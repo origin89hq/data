@@ -289,6 +289,15 @@ test("a tank, a flow, a pressure, a head and a motor read in litres, litres a mi
     ok: true,
     parsed: { shape: "set", values: [1, 2], unit: "V" },
   });
+  // A trailing tilde is a generator sheet's mark for alternating current, not a unit.
+  assert.deepEqual(parseQuantity("120/240~", "V", "voltage"), {
+    ok: true,
+    parsed: { shape: "set", values: [120, 240], unit: "V" },
+  });
+  assert.deepEqual(parseQuantity("120 / 240~", "V", "voltage"), {
+    ok: true,
+    parsed: { shape: "set", values: [120, 240], unit: "V" },
+  });
   assert.deepEqual(parseQuantity("22’ (6.7 m)", undefined, "length"), {
     ok: true,
     parsed: { shape: "scalar", value: 6.7056, unit: "m" },

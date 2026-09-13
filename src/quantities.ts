@@ -307,7 +307,12 @@ export function parseQuantity(
   quantity: Quantity,
   options: ParseOptions = {},
 ): Read {
-  const text = value.trim().replace(/[“”]/g, '"').replace(/\s+/g, " ");
+  // A generator sheet writes alternating current as a trailing tilde: "120/240~" is 120 or 240 V AC.
+  const text = value
+    .trim()
+    .replace(/[“”]/g, '"')
+    .replace(/\s+/g, " ")
+    .replace(/(?<=[\dA-Za-z])\s*~$/, "");
   if (!text) return { ok: false, reason: "no value" };
   if (BOUND.test(text)) return { ok: false, reason: "a bound or an approximation, not a figure" };
   const fraction = FRACTIONAL_HP.exec(text);
