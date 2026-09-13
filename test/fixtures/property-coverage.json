@@ -7,7 +7,7 @@
       "needsConditions": 0
     },
     "champion-power": {
-      "values": 106,
+      "values": 105,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0
@@ -109,9 +109,9 @@
       "needsConditions": 24
     },
     "xantrex": {
-      "values": 45,
+      "values": 46,
       "conflicts": 0,
-      "unparsed": 16,
+      "unparsed": 17,
       "needsConditions": 10
     }
   },
@@ -224,6 +224,15 @@
       "needsConditions": 0,
       "noClaim": 603
     },
+    "charge.battery.capacity.recommended inverter-charger": {
+      "models": 733,
+      "values": 1,
+      "partial": 0,
+      "conflicts": 0,
+      "unparsed": 1,
+      "needsConditions": 0,
+      "noClaim": 731
+    },
     "charge.current.max ac-charger": {
       "models": 77,
       "values": 3,
@@ -279,8 +288,8 @@
       "noClaim": 603
     },
     "generator.fuel.tank generator": {
-      "models": 127,
-      "values": 11,
+      "models": 126,
+      "values": 10,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
@@ -288,22 +297,22 @@
       "noClaim": 116
     },
     "generator.power.running generator": {
-      "models": 127,
+      "models": 126,
       "values": 22,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0,
-      "noClaim": 105
+      "noClaim": 104
     },
     "generator.power.starting generator": {
-      "models": 127,
+      "models": 126,
       "values": 15,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0,
-      "noClaim": 112
+      "noClaim": 111
     },
     "inverter.power.apparent inverter": {
       "models": 224,
@@ -387,13 +396,13 @@
       "noClaim": 662
     },
     "inverter.voltage.ac generator": {
-      "models": 127,
+      "models": 126,
       "values": 26,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0,
-      "noClaim": 101
+      "noClaim": 100
     },
     "inverter.voltage.ac inverter": {
       "models": 224,

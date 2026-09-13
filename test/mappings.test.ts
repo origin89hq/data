@@ -714,8 +714,9 @@ test("Champion: a generator's starting and running watts from one cell, by fuel,
   );
   // Its engine's 'Fuel Capacity' is not a generator's tank: the key's kinds keep it out.
   assert.equal(values(pump.properties, "generator.fuel.tank").length, 0);
-  // The bare 224cc engine is reviewed out of scope, so its tank is nobody's generator's.
+  // The bare 224cc and R210P engines are reviewed out of scope, so their tanks are nobody's generator's.
   assert.equal(of("champion-power-224cc-ohv-cpe").properties.length, 0);
+  assert.equal(of("champion-power-r210p").properties.length, 0);
   // Victron's Skylla-TG prints 'Battery capacity' as the banks it is for; that is Victron's own rule.
   const skylla = values(of("victron-energy-skylla-tg-48-25").properties, "charge.battery.capacity");
   assert.deepEqual(
@@ -723,6 +724,18 @@ test("Champion: a generator's starting and running watts from one cell, by fuel,
     [[125, 250]],
   );
   assert.ok(own("victron-energy", skylla));
+  // Xantrex's Freedom XC recommends one size, 100 Ah, which is the scalar key's; its '100 Ah or more' is a bound.
+  assert.deepEqual(
+    values(of("xantrex-freedom-xc").properties, "charge.battery.capacity.recommended").map((p) => [
+      p.value,
+      p.unit,
+    ]),
+    [[100, "Ah"]],
+  );
+  assert.equal(
+    gap(of("xantrex-freedom-xc-1800-12vdc").gaps, "charge.battery.capacity.recommended")?.reason,
+    "unparsed",
+  );
 });
 
 test("Pentair: a plunger pump's pressure in bar and its horsepower in watts, a fractional horsepower, a bare 'Flow rate' under its own rule, and the MES sheet's 'Capacity' read on that sheet only", () => {

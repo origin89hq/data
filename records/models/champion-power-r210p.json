@@ -2,7 +2,10 @@
   "id": "champion-power-r210p",
   "manufacturer": "champion-power",
   "name": "R210P",
+  "kind": "out-of-scope",
   "aliases": [],
   "dialects": [],
-  "kind": "generator"
+  "basis": "Its six figures are an engine's: displacement, spark, intake and exhaust clearances, oil and gasoline capacity, and no electrical output; the generators it goes into are their own models.",
+  "checkedAt": "2026-09-13",
+  "reviewedBy": "lemarier"
 }
