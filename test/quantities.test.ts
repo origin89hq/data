@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { PROPERTY_BY_KEY } from "@origin89/equipment-schema/properties";
 import {
+  conditionAsides,
   parseQuantity,
   printedQuantities,
   printedQuantity,
@@ -344,6 +345,17 @@ test("an aside after the unit, a cut-off voltage, a bare decimal and a hyphenate
     refused(parseQuantity("92V(25℃)；95V(Lowest ambient temperature)", undefined, "voltage")),
     /not a unit/,
   );
+});
+
+test("the asides that carry a condition are the figures of another kind, one list per alternative", () => {
+  assert.deepEqual(conditionAsides("5A (12V)"), [["12V"]]);
+  assert.deepEqual(conditionAsides("5A (12V)/5A (24V)"), [["12V"], ["24V"]]);
+  assert.deepEqual(conditionAsides("200A (15s)"), [["15s"]]);
+  assert.deepEqual(conditionAsides("12000mV (12V)"), [[]], "the same figure in other units");
+  assert.deepEqual(conditionAsides("13kW (±5%)"), [[]], "a tolerance");
+  assert.deepEqual(conditionAsides("400V (L1+L2+L3+N+PE)"), [[]], "a wiring note");
+  assert.deepEqual(conditionAsides("24A (Max)"), [[]], "a word");
+  assert.deepEqual(conditionAsides("12/24/48V DC"), [[], [], []]);
 });
 
 const property = (key: string) => {

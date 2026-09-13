@@ -196,6 +196,27 @@ function alternatives(text: string): string[] {
   return parts;
 }
 
+/**
+ * The asides of a value that say something about the figure rather than restating it: a figure
+ * of another kind, "(12V)" on a charger's amps or "(15s)" on a peak, whose words the builder reads
+ * as the figure's conditions. One list per alternative, so "5A (12V)/5A (24V)" is two. A tolerance,
+ * a wiring note, a qualifier and the same figure in other units say nothing more and are left out;
+ * an aside that is no figure at all makes the value unparsed elsewhere and is left out too.
+ */
+export function conditionAsides(value: string): string[][] {
+  const text = value.trim().replace(/[“”]/g, '"').replace(/\s+/g, " ");
+  return alternatives(text).map((part) => {
+    const { main, aside } = splitAside(part.trim().replace(CUT_OFF, ""));
+    if (aside === undefined || !/\d/.test(aside) || WIRING.test(aside) || TOLERANCE.test(aside))
+      return [];
+    const term = parseBare(main);
+    const other = parseBare(aside);
+    if (typeof term === "string" || typeof other === "string") return [];
+    if (term.unit === undefined || other.unit === undefined) return [];
+    return QUANTITY_OF[other.unit] === QUANTITY_OF[term.unit] ? [] : [aside];
+  });
+}
+
 /** A term with no aside: one number with its unit, or a range. */
 function parseBare(text: string): Term | string {
   const ranged = RANGE_TERM.exec(text);

@@ -12,7 +12,7 @@ import {
 } from "@origin89/equipment-schema/properties";
 import { conditionsFrom, conditionsKey, mergeConditions, splitDuration } from "./conditions.ts";
 import { type Feed, type FeedModel, feedSpecId } from "./feeds.ts";
-import { type Parsed, printedQuantities, readProperty } from "./quantities.ts";
+import { conditionAsides, type Parsed, printedQuantities, readProperty } from "./quantities.ts";
 
 /**
  * Build the normalized properties beside the printed figures.
@@ -290,12 +290,20 @@ function read(
   // A condition printed inside the value's aside, "5A (12V)", is the figure's as much as one in
   // its name, and nearer to it: the aside's reading wins where the two differ in wording, and a
   // figure whose name and value state different conditions is refused rather than read either way.
-  const asides = claim.value.match(/\([^()]*\)/g)?.join(" ") ?? "";
+  // Only an aside that is a figure of another kind carries a condition: "12000mV (12V)" restates
+  // its figure and names no bank. Alternatives that carry different conditions, "5A (12V)/5A (24V)",
+  // cannot be one property, and are refused rather than read as the first.
+  const perAlternative = conditionAsides(claim.value);
+  const asides = perAlternative.flat().join(" ");
   const named = conditionsFrom(claim.text, accepts);
   const inAside = conditionsFrom(asides, accepts);
   const contradicted = (Object.keys(inAside) as ConditionKey[]).filter(
     (c) => named[c] !== undefined && named[c] !== inAside[c],
   );
+  const alternativesDiffer =
+    perAlternative.length > 1 &&
+    new Set(perAlternative.map((list) => conditionsKey(conditionsFrom(list.join(" "), accepts))))
+      .size > 1;
   const conditions = mergeConditions(
     claim.conditions,
     named,
@@ -322,7 +330,9 @@ function read(
             ok: false as const,
             reason: `the name and the value state different ${contradicted.join(", ")}`,
           }
-        : readProperty(split.value, claim.unit, property, { reference });
+        : alternativesDiffer
+          ? { ok: false as const, reason: "the alternatives are stated under different conditions" }
+          : readProperty(split.value, claim.unit, property, { reference });
   const stillMissing = unwaived && missing.length > 0;
   return result.ok
     ? { claim, parsed: result.parsed, conditions, missing, unwaived: stillMissing }

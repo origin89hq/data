@@ -1230,3 +1230,41 @@ test("a condition the value's aside states wins over the name's wording, and a n
     [["unparsed", "the name and the value state different duration, beside 1 usable figure"]],
   );
 });
+
+test("an aside that restates the figure names no condition, and alternatives under different conditions are refused", () => {
+  const charger = Model.parse({
+    id: "acme-charger-5",
+    manufacturer: "acme",
+    name: "Charger 5",
+    kind: "ac-charger",
+  });
+  const cell = Model.parse({
+    id: "acme-cell-300",
+    manufacturer: "acme",
+    name: "Cell 300",
+    kind: "battery",
+  });
+  const { properties, gaps } = build({
+    models: [charger, cell],
+    mappings: [
+      acme({
+        rules: [
+          { key: "battery.voltage.nominal", names: ["Nominal voltage"], basis: "the sheet" },
+          { key: "charge.current.max", names: ["Charging current"], basis: "the sheet" },
+        ],
+      }),
+    ],
+    specs: [
+      figure(cell.id, "Nominal voltage", "12000mV (12V)"),
+      figure(charger.id, "Charging current", "5A (12V)/5A (24V)"),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.key, p.values, p.conditions]),
+    [["battery.voltage.nominal", [12], {}]],
+  );
+  assert.deepEqual(
+    gaps.filter((g) => g.key === "charge.current.max").map((g) => [g.reason, g.detail]),
+    [["unparsed", "the alternatives are stated under different conditions"]],
+  );
+});
