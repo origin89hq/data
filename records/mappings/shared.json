@@ -302,15 +302,6 @@
       "basis": "A generator sheet's starting power is what it gives for the seconds a motor takes to start, in the unit it prints."
     },
     {
-      "key": "generator.fuel.tank",
-      "names": [
-        "Fuel tank capacity",
-        "Fuel capacity",
-        "Tank capacity"
-      ],
-      "basis": "A generator sheet's fuel tank capacity is what its tank holds; on a pump's sheet the same name is the engine's tank, which the key's kinds keep out."
-    },
-    {
       "key": "pump.head.max",
       "names": [
         "Max shut-off head",
