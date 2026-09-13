@@ -2,7 +2,10 @@
   "id": "champion-power-201039",
   "manufacturer": "champion-power",
   "name": "201039",
-  "kind": "generator",
+  "kind": "out-of-scope",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "basis": "Its only sheet is the ATS-fleX transfer switch manual, and its figures are a switch's, the utility and generator amperage it carries and the voltage it switches; a transfer switch makes no power, like its sibling 201355.",
+  "checkedAt": "2026-09-13",
+  "reviewedBy": "lemarier"
 }

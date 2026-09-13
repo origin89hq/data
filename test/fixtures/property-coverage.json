@@ -7,7 +7,7 @@
       "needsConditions": 0
     },
     "champion-power": {
-      "values": 107,
+      "values": 103,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0
@@ -288,31 +288,31 @@
       "noClaim": 603
     },
     "generator.fuel.tank generator": {
-      "models": 124,
-      "values": 10,
+      "models": 114,
+      "values": 8,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0,
-      "noClaim": 114
+      "noClaim": 106
     },
     "generator.power.running generator": {
-      "models": 124,
+      "models": 114,
       "values": 21,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0,
-      "noClaim": 103
+      "noClaim": 93
     },
     "generator.power.starting generator": {
-      "models": 124,
+      "models": 114,
       "values": 15,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0,
-      "noClaim": 109
+      "noClaim": 99
     },
     "inverter.power.apparent inverter": {
       "models": 224,
@@ -396,13 +396,13 @@
       "noClaim": 662
     },
     "inverter.voltage.ac generator": {
-      "models": 124,
-      "values": 26,
+      "models": 114,
+      "values": 24,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0,
-      "noClaim": 98
+      "noClaim": 90
     },
     "inverter.voltage.ac inverter": {
       "models": 224,

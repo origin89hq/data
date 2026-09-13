@@ -725,9 +725,17 @@ test("Champion: a generator's starting and running watts from one cell, by fuel,
   );
   // Its engine's 'Fuel Capacity' is not a generator's tank: the key's kinds keep it out.
   assert.equal(values(pump.properties, "generator.fuel.tank").length, 0);
-  // The bare 224cc and R210P engines are reviewed out of scope, so their tanks are nobody's generator's.
-  assert.equal(of("champion-power-224cc-ohv-cpe").properties.length, 0);
-  assert.equal(of("champion-power-r210p").properties.length, 0);
+  // The bare engines and the transfer switches filed as generators are reviewed out of scope, so
+  // an engine's tank and a switch's voltage are nobody's generator's.
+  for (const other of [
+    "champion-power-224cc-ohv-cpe",
+    "champion-power-r210p",
+    "champion-power-yf172fd-l-g",
+    "champion-power-r420n-vp",
+    "champion-power-201020",
+    "champion-power-201039",
+  ])
+    assert.equal(of(other).properties.length, 0, other);
   // Victron's Skylla-TG prints 'Battery capacity' as the banks it is for; that is Victron's own rule.
   const skylla = values(of("victron-energy-skylla-tg-48-25").properties, "charge.battery.capacity");
   assert.deepEqual(
