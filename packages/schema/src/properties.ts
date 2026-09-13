@@ -111,7 +111,8 @@ export const Conditions = z
     mode: z.string().min(1).optional(),
     fuel: z.enum(["gasoline", "lpg", "natural-gas", "diesel"]).optional(),
     load: z.number().positive().max(100).optional(),
-    head: z.number().positive().optional(),
+    /** Zero is a head: the free-flow point of a curve. */
+    head: z.number().min(0).optional(),
     note: z.string().min(1).optional(),
   })
   .strict();

@@ -1453,3 +1453,35 @@ test("a lone value a part rule passes over falls to the shared rule, and two par
     ],
   );
 });
+
+test("a head printed after a flow is the flow's condition, and a different figure on a key with no head", () => {
+  const pump = Model.parse({
+    id: "acme-pump-1",
+    manufacturer: "acme",
+    name: "Pump 1",
+    kind: "pump",
+  });
+  const { properties, gaps } = build({
+    models: [pump],
+    mappings: [
+      acme({
+        rules: [
+          { key: "pump.flow.rated", names: ["Max flow"], basis: "the sheet" },
+          { key: "pump.pressure.max", names: ["Max pressure"], basis: "the sheet" },
+        ],
+      }),
+    ],
+    specs: [
+      figure(pump.id, "Max flow", "145 GPM (549 LPM) at 5’"),
+      figure(pump.id, "Max pressure", "60 psi at 5’"),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.key, p.value, p.conditions.head]),
+    [["pump.flow.rated", 548.8847087, 1.524]],
+  );
+  assert.deepEqual(
+    gaps.filter((g) => g.key === "pump.pressure.max").map((g) => [g.reason, g.detail]),
+    [["unparsed", "the value states a head the key does not take"]],
+  );
+});

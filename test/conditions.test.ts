@@ -5,6 +5,7 @@ import {
   conditionsKey,
   mergeConditions,
   splitDuration,
+  splitHead,
 } from "../src/conditions.ts";
 
 test("a condition is read out of a figure's name only when its key accepts it", () => {
@@ -86,6 +87,16 @@ test("a fuel and a load share are read off a generator's words, each only when t
   assert.deepEqual(conditionsFrom("Flow at 10 ft.", ["head"]), { head: 3.048 });
   assert.deepEqual(conditionsFrom("Capacity Gallons/Minute at 5 feet", []), {});
   assert.deepEqual(conditionsFrom("Flow rate", ["head"]), {});
+  // Zero is a head: the curve's free-flow point.
+  assert.deepEqual(conditionsFrom("Flow at 0 ft", ["head"]), { head: 0 });
+  // A head written after the value is split off it.
+  assert.deepEqual(splitHead("145 GPM (549 LPM) at 5’"), {
+    value: "145 GPM (549 LPM)",
+    head: 1.524,
+  });
+  assert.deepEqual(splitHead("63 gpm @ 3 m"), { value: "63 gpm", head: 3 });
+  assert.deepEqual(splitHead("36(136) at 15 feet of lift"), { value: "36(136)", head: 4.572 });
+  assert.deepEqual(splitHead("145 GPM"), { value: "145 GPM" });
 });
 
 test("a duration printed inside the value is split off it", () => {

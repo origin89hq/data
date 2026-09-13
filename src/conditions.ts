@@ -132,6 +132,24 @@ export function splitDuration(value: string): { value: string; duration?: number
   };
 }
 
+/** The height a flow is stated at, written after the value: "145 GPM (549 LPM) at 5’", "63 gpm @ 3 m". */
+const HEAD_AFTER =
+  /\s*(?:\bat|@)\s*(\d{1,4}(?:[.,]\d+)?)\s*(ft\.?|feet|foot|’|'|m|metres?|meters?)(?:\s+of\s+(?:lift|head))?\s*$/i;
+
+/**
+ * A head a maker prints after the value, split off it: the figure is the part before, and the
+ * height is the condition it holds at, in metres.
+ */
+export function splitHead(value: string): { value: string; head?: number } {
+  const match = HEAD_AFTER.exec(value.trim());
+  if (!match?.[1] || !match[2]) return { value };
+  const height = number(match[1]);
+  return {
+    value: value.trim().slice(0, match.index).trim(),
+    head: /^m/i.test(match[2]) ? height : Number((height * 0.3048).toPrecision(10)),
+  };
+}
+
 /** Conditions stated by a rule, then by the figure's own words; the figure's win where both speak. */
 export function mergeConditions(...layers: (Conditions | undefined)[]): Conditions {
   const out: Conditions = {};

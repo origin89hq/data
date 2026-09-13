@@ -10,7 +10,13 @@ import {
   type Property,
   type PropertyStatus,
 } from "@origin89/equipment-schema/properties";
-import { conditionsFrom, conditionsKey, mergeConditions, splitDuration } from "./conditions.ts";
+import {
+  conditionsFrom,
+  conditionsKey,
+  mergeConditions,
+  splitDuration,
+  splitHead,
+} from "./conditions.ts";
 import { type Feed, type FeedModel, feedSpecId } from "./feeds.ts";
 import { conditionAsides, type Parsed, printedQuantities, readProperty } from "./quantities.ts";
 
@@ -309,7 +315,18 @@ function read(
   // A waived condition is still read where the sheet states it: a lithium pack rated at C20
   // keeps the rate, and two rates stay two properties.
   const accepts = [...new Set([...property.needs, ...(claim.requires ?? []), ...property.accepts])];
-  const split = splitDuration(claim.value);
+  const timed = splitDuration(claim.value);
+  // A head printed after the value, "145 GPM at 5’", is the flow's condition on a key that keeps
+  // one, and a different figure on a key that does not.
+  const split = splitHead(timed.value);
+  if (split.head !== undefined && !accepts.includes("head"))
+    return {
+      claim,
+      reason: "the value states a head the key does not take",
+      conditions: {},
+      missing: [],
+      unwaived: false,
+    };
   // A condition printed inside the value's aside, "5A (12V)", is the figure's as much as one in
   // its name, and nearer to it: the aside's reading wins where the two differ in wording, and a
   // figure whose name and value state different conditions is refused rather than read either way.
@@ -326,15 +343,19 @@ function read(
   const unkept = perAlternative
     .flat()
     .filter((a) => Object.keys(conditionsFrom(a, ConditionKey.options)).length === 0);
-  const suffix: Conditions =
-    split.duration !== undefined && accepts.includes("duration")
-      ? { duration: split.duration }
-      : {};
-  const contradicted = (Object.keys(inAside) as ConditionKey[]).filter(
-    (c) =>
-      (named[c] !== undefined && named[c] !== inAside[c]) ||
-      (suffix[c] !== undefined && suffix[c] !== inAside[c]),
-  );
+  const suffix: Conditions = {
+    ...(timed.duration !== undefined && accepts.includes("duration")
+      ? { duration: timed.duration }
+      : {}),
+    ...(split.head !== undefined ? { head: split.head } : {}),
+  };
+  // The name, the aside and the suffix each may state a condition; any two that disagree, "Flow at
+  // 10 ft" printed "50 GPM at 5 ft", make the figure one nobody can read either way.
+  const layers = [named, inAside, suffix];
+  const contradicted = (ConditionKey.options as readonly ConditionKey[]).filter((c) => {
+    const stated = layers.map((l) => l[c]).filter((v) => v !== undefined);
+    return new Set(stated).size > 1;
+  });
   const alternativesDiffer =
     perAlternative.length > 1 &&
     new Set(perAlternative.map((list) => conditionsKey(conditionsFrom(list.join(" "), accepts))))
