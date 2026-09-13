@@ -1268,3 +1268,56 @@ test("an aside that restates the figure names no condition, and alternatives und
     [["unparsed", "the alternatives are stated under different conditions"]],
   );
 });
+
+test("an aside that structures into nothing the property keeps is refused, and an aside is seen past a duration suffix", () => {
+  const charger = Model.parse({
+    id: "acme-charger-6",
+    manufacturer: "acme",
+    name: "Charger 6",
+    kind: "ac-charger",
+  });
+  const cell = Model.parse({
+    id: "acme-cell-400",
+    manufacturer: "acme",
+    name: "Cell 400",
+    kind: "battery",
+  });
+  const { properties, gaps } = build({
+    models: [charger, cell],
+    mappings: [
+      acme({
+        rules: [
+          { key: "charge.current.max", names: ["Charging current"], basis: "the sheet" },
+          { key: "battery.discharge.current.peak", names: ["Peak current"], basis: "the sheet" },
+        ],
+      }),
+    ],
+    specs: [
+      figure(charger.id, "Charging current", "5A (120V)"),
+      figure(cell.id, "Peak current", "300A (15s) for 10s"),
+      figure(cell.id, "Peak current", "250A (10s) for 10s", { source: "doc-b" }),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.key, p.value, p.conditions.duration]),
+    [["battery.discharge.current.peak", 250, 10]],
+  );
+  assert.deepEqual(
+    gaps
+      .filter((g) => g.claims > 0)
+      .map((g) => [g.key, g.reason, g.detail])
+      .sort((a, b) => String(a[0]).localeCompare(String(b[0]))),
+    [
+      [
+        "battery.discharge.current.peak",
+        "unparsed",
+        "the name and the value state different duration, beside 1 usable figure",
+      ],
+      [
+        "charge.current.max",
+        "unparsed",
+        'an aside states something the figure cannot keep: "(120V)"',
+      ],
+    ],
+  );
+});

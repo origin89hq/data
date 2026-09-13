@@ -27,7 +27,10 @@ carries the source, and the reviewer reads the source, not the diff.
   Reviewing a rule does not review the figures it reads. Start a maker's file
   from `just mapping-draft <manufacturer>`, read the mapping audit in
   `pnpm validate`, and run `just coverage-snapshot` so the pull request carries
-  what the change did to coverage.
+  what the change did to coverage. A change to the parser, the builder or a
+  mapping is read row by row before it is pushed: `just properties-dump` on
+  main and on the branch, then `just properties-diff` on the two files, and
+  every line it prints checked against its sheet.
 - A battery's `chemistry` is set only where the maker's name for it or its
   sheet says so, with `chemistryBasis` naming which, `name` or `spec:<id>`;
   `just chemistry` sets it from the records, and `just specs` does the same

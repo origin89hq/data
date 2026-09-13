@@ -195,6 +195,14 @@ export-makers:
 mapping-draft maker:
     node tools/mappings/draft.ts {{maker}}
 
+# Every property and gap the mappings read from the records, to a file, so a change can be read row by row.
+properties-dump file:
+    node tools/mappings/properties-dump.ts "$1"
+
+# What a change moved, row by row: dump on main and on the branch, then diff the two files. Read every line before pushing a parser, builder or mapping change.
+properties-diff before after:
+    node tools/mappings/properties-diff.ts "$1" "$2"
+
 # Rewrite the coverage snapshot the tests compare the mappings against. Run after changing a mapping, a record or the builder, and commit the diff with the change.
 coverage-snapshot:
     node tools/mappings/coverage-snapshot.ts
