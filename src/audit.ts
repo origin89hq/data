@@ -7,7 +7,7 @@ import {
   type Property,
 } from "@origin89/equipment-schema/properties";
 import { conditionsFrom } from "./conditions.ts";
-import type { PropertiesOutput } from "./properties.ts";
+import { type PropertiesOutput, partOf } from "./properties.ts";
 import type { Records } from "./records.ts";
 
 /**
@@ -109,6 +109,8 @@ export function auditMappings(records: Records, built: Pick<PropertiesOutput, "c
       for (const r of rules) {
         if (r.rule.source && spec.source !== r.rule.source) continue;
         if (!named(spec, r.names)) continue;
+        // A rule for one part of a cell reads only a value that has that part, as the builder does.
+        if (r.rule.part !== undefined && partOf(spec.value, r.rule.part) === undefined) continue;
         if (!r.ownRule && named(spec, except)) continue;
         namedByAny = true;
         const applies = kindsOf(r.property).includes(kind);

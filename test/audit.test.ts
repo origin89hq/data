@@ -90,6 +90,29 @@ test("a maker's rule naming a figure of a kind its key does not have is noted, s
   ]);
 });
 
+test("a rule for one part of a cell is not faulted for a value with fewer parts, which it does not read", () => {
+  const genset = model("acme-genset-5500", "generator");
+  const r = records(
+    [genset],
+    [
+      figure(genset.id, "Watts", "5500/4000", { unit: "W" }),
+      figure(genset.id, "Watts", "4000", {
+        unit: "W",
+        id: `${genset.id}--watts-lone`,
+        source: "doc-a",
+      }),
+    ],
+    [
+      mapping([
+        { key: "generator.power.starting", names: ["Watts"], part: 1, basis: "the first" },
+        { key: "generator.power.running", names: ["Watts"], part: 2, basis: "the second" },
+      ]),
+    ],
+  );
+  const { errors } = audit(r);
+  assert.deepEqual(errors, []);
+});
+
 test("an unmapped name one step from a mapped one is noted, a lone word is not", () => {
   const battery = model("acme-cell-200", "battery");
   const r = records(

@@ -140,7 +140,7 @@ function rulesFor(mapping: Mapping | undefined, key: string): (MappingRule & { n
 }
 
 /** The `n`th slash-separated part of a value, counted from one: "5500/4000" has two. */
-function partOf(value: string, n: number): string | undefined {
+export function partOf(value: string, n: number): string | undefined {
   const parts = value.split(/\s*\/\s*/);
   return parts.length >= n && parts.length > 1 ? parts[n - 1]?.trim() : undefined;
 }

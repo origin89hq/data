@@ -272,6 +272,27 @@ test("a tank, a flow, a pressure, a head and a motor read in litres, litres a mi
     ok: true,
     parsed: { shape: "scalar", value: 11185.49807, unit: "W" },
   });
+  // Fractional horsepower is one figure, with the unit in the text or in the field; "1/2" alone is still alternatives.
+  assert.deepEqual(parseQuantity("1/2 HP", undefined, "power"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 372.8499358, unit: "W" },
+  });
+  assert.deepEqual(parseQuantity("4/10", "hp", "power"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 298.2799486, unit: "W" },
+  });
+  assert.deepEqual(parseQuantity("1/2", "V", "voltage"), {
+    ok: true,
+    parsed: { shape: "set", values: [1, 2], unit: "V" },
+  });
+  assert.deepEqual(parseQuantity("22’ (6.7 m)", undefined, "length"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 6.7056, unit: "m" },
+  });
+  assert.deepEqual(parseQuantity("98 ft. (29.9 m)", undefined, "length"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 29.8704, unit: "m" },
+  });
   assert.match(
     refused(parseQuantity("63 GPM", undefined, "volume")),
     /gpm measures flow, not volume/,

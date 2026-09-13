@@ -39,6 +39,8 @@ const UNIT_TAIL = String.raw`[A-Za-z°℃µ%][A-Za-z°℃µ%/·.]*`;
 /** A range, whose first end may carry its own unit: "8 - 72 Volts dc", "0A~140A", "-20°C to 60°C". */
 const RANGE_TERM = new RegExp(`^(${NUMBER})\\s*(${UNIT_TAIL})?${RANGE}(${NUMBER})\\s*(.*)$`);
 const SCALAR_TERM = new RegExp(`^(${NUMBER})\\s*(.*)$`);
+/** A motor's power as pump sheets print it, "1/2 HP" or a bare "4/10" in a horsepower column: one figure, not two. */
+const FRACTIONAL_HP = /^(\d+)\s*\/\s*(\d+)\s*(hp|h\.p\.|horsepower)?\s*$/i;
 /**
  * An aside a maker prints after the unit: the bank a charger's amps are for, "5A (12V)"; a word,
  * "24A (Max)"; the same figure in other units, "2.5 gpm (9.5 Lpm)"; a tolerance, "13kW(±5%)".
@@ -308,8 +310,12 @@ export function parseQuantity(
   const text = value.trim().replace(/[“”]/g, '"').replace(/\s+/g, " ");
   if (!text) return { ok: false, reason: "no value" };
   if (BOUND.test(text)) return { ok: false, reason: "a bound or an approximation, not a figure" };
-  // "12/24/48V DC", "850V/850V/850V" and ".5/.7A" are alternatives; "%/°C" is one unit.
-  const parts = alternatives(text);
+  const fraction = FRACTIONAL_HP.exec(text);
+  const horsepower = fraction && (fraction[3] !== undefined || canonicalUnit(unit) === "hp");
+  // "12/24/48V DC", "850V/850V/850V" and ".5/.7A" are alternatives; "%/°C" is one unit; "1/2 HP" is a half.
+  const parts = horsepower
+    ? [`${Number(fraction[1]) / Number(fraction[2])} hp`]
+    : alternatives(text);
   const terms: Term[] = [];
   for (const part of parts) {
     const term = parseTerm(part);

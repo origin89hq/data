@@ -49,6 +49,17 @@ test("a limit names the reading it bounds, and a capacity names the rate it need
   assert.deepEqual(PROPERTY_BY_KEY.get("panel.voc.stc")?.needs, ["stc"]);
   assert.equal(PROPERTY_BY_KEY.get("pv.mppt.window")?.shape, "range");
   assert.equal(PROPERTY_BY_KEY.get("battery.voltage.nominal")?.shape, "set");
+  // A charger's keys reach everything that charges from the mains, an inverter-charger among them.
+  for (const key of [
+    "charge.power.max",
+    "charge.battery.capacity",
+    "charge.battery.capacity.recommended",
+    "charge.current.max",
+  ])
+    assert.ok(PROPERTY_BY_KEY.get(key)?.kinds.includes("inverter-charger"), key);
+  // A maker's one recommended size and the range it is made for are two shapes, so two keys.
+  assert.equal(PROPERTY_BY_KEY.get("charge.battery.capacity")?.shape, "range");
+  assert.equal(PROPERTY_BY_KEY.get("charge.battery.capacity.recommended")?.shape, "scalar");
 });
 
 test("a malformed property is refused by the schema", () => {

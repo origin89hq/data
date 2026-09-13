@@ -182,8 +182,13 @@ export type Property = z.infer<typeof Property>;
 
 const controllers: EquipmentKind[] = ["charge-controller", "inverter", "inverter-charger"];
 const inverters: EquipmentKind[] = ["inverter", "inverter-charger"];
-/** What charges a battery from something other than PV: a mains charger, a DC-DC converter, a controller's charger. */
-const chargers: EquipmentKind[] = ["ac-charger", "dc-dc-converter", "charge-controller"];
+/** What charges a battery from something other than PV: a mains charger, a DC-DC converter, a controller's or an inverter-charger's charger. */
+const chargers: EquipmentKind[] = [
+  "ac-charger",
+  "dc-dc-converter",
+  "charge-controller",
+  "inverter-charger",
+];
 
 /**
  * The first keys: what the first setup checks read. PV limits and the MPPT window for anything
@@ -483,6 +488,17 @@ export const PROPERTIES: Property[] = [
     needs: [],
     accepts: [],
     description: "The battery sizes a charger is made for, as the maker states them.",
+  },
+  {
+    key: "charge.battery.capacity.recommended",
+    quantity: "charge",
+    unit: "Ah",
+    shape: "scalar",
+    kinds: chargers,
+    needs: [],
+    accepts: [],
+    description:
+      "The one battery size a charger's maker recommends, where the sheet gives a figure rather than a range.",
   },
   // ---- generators (#126): what a generator makes and what it burns
   {

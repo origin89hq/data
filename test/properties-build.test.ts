@@ -117,6 +117,7 @@ test("a maker's figures reach the registry through its rules, with the bank volt
     [
       ["battery.voltage.nominal", "no-claim", 0],
       ["charge.battery.capacity", "no-claim", 0],
+      ["charge.battery.capacity.recommended", "no-claim", 0],
       ["charge.power.max", "no-claim", 0],
       ["pv.isc.max", "no-claim", 0],
     ],
