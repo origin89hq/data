@@ -80,6 +80,12 @@ test("a fuel and a load share are read off a generator's words, each only when t
   assert.deepEqual(conditionsFrom("Run time at 50% load", ["load"]), { load: 50 });
   assert.deepEqual(conditionsFrom("Run time at 25 % rated load", ["load"]), { load: 25 });
   assert.deepEqual(conditionsFrom("Run time, full tank", ["load"]), {});
+  // A pump's flow at a head, in feet or metres, only where the key keeps a head.
+  assert.deepEqual(conditionsFrom("Capacity Gallons/Minute at 5 feet", ["head"]), { head: 1.524 });
+  assert.deepEqual(conditionsFrom("GPM at 3 m of lift", ["head"]), { head: 3 });
+  assert.deepEqual(conditionsFrom("Flow at 10 ft.", ["head"]), { head: 3.048 });
+  assert.deepEqual(conditionsFrom("Capacity Gallons/Minute at 5 feet", []), {});
+  assert.deepEqual(conditionsFrom("Flow rate", ["head"]), {});
 });
 
 test("a duration printed inside the value is split off it", () => {

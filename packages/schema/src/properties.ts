@@ -77,6 +77,8 @@ export const ConditionKey = z.enum([
   "fuel",
   /** %, the share of rated load a generator's run time or consumption is stated at. */
   "load",
+  /** m, the head a pump's flow is stated at: a curve's points are one flow at each height. */
+  "head",
   /** What the parser could not structure, kept as text so nothing is thrown away. */
   "note",
 ]);
@@ -109,6 +111,7 @@ export const Conditions = z
     mode: z.string().min(1).optional(),
     fuel: z.enum(["gasoline", "lpg", "natural-gas", "diesel"]).optional(),
     load: z.number().positive().max(100).optional(),
+    head: z.number().positive().optional(),
     note: z.string().min(1).optional(),
   })
   .strict();
@@ -540,8 +543,9 @@ export const PROPERTIES: Property[] = [
     shape: "scalar",
     kinds: ["pump"],
     needs: [],
-    accepts: [],
-    description: "The flow a pump is rated at, in litres a minute.",
+    accepts: ["head"],
+    description:
+      "The flow a pump is rated at, in litres a minute, at the head the sheet states it for where it gives a curve.",
   },
   {
     key: "pump.head.max",

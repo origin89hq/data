@@ -96,6 +96,17 @@ export function conditionsFrom(text: string, accepts: readonly ConditionKey[]): 
     const fuel = /\b(natural gas|NG|LPG|propane|gasoline|gas|petrol|diesel)\b/i.exec(text)?.[1];
     if (fuel) out.fuel = FUELS[fuel.toLowerCase()];
   }
+  if (wanted.has("head")) {
+    // "Capacity Gallons/Minute at 5 feet", "GPM at 3 m of lift": the height the flow is stated at.
+    const head =
+      /(?:\bat|@)\s*(\d{1,4}(?:[.,]\d+)?)\s*(ft\.?|feet|foot|’|'|m|metres?|meters?)\b/i.exec(
+        text,
+      ) ?? /(?:\bat|@)\s*(\d{1,4}(?:[.,]\d+)?)\s*(’|')/.exec(text);
+    if (head?.[1] && head[2]) {
+      const height = number(head[1]);
+      out.head = /^m/i.test(head[2]) ? height : Number((height * 0.3048).toPrecision(10));
+    }
+  }
   if (wanted.has("load")) {
     const load = /(\d{1,3})\s*%\s*(?:of\s+)?(?:rated\s+)?load\b/i.exec(text);
     const share = load?.[1] ? Number(load[1]) : undefined;
