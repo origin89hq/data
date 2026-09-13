@@ -99,6 +99,10 @@ convert maker date:
 vision maker date:
     @just _post "/vision?id=$1&date=$2"
 
+# Forget what the prompted readers said about a maker's approved documents, so the next `just convert` reads them again with the prompts as they are now. Counts only, unless dry is false; the convert that follows spends reader credits.
+forget maker dry="true":
+    @just _post "/forget?id=$1&dry=$2"
+
 # Build the site the Worker serves.
 site:
     cd apps/site && pnpm build

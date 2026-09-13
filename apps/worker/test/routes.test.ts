@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { mock, test } from "node:test";
 import { READS_PER_REQUEST } from "@origin89/equipment-schema/provenance";
 import { GITHUB_ISSUER } from "../src/oidc.ts";
+import { EXTRACTOR_ID, VISION_EXTRACTOR_ID } from "../src/reading.ts";
 import {
   app,
   CONTROL_PATHS,
@@ -15,6 +16,7 @@ import {
 } from "../src/routes.ts";
 import { datasetType } from "../src/runs.ts";
 import { authRoutes } from "../src/sign-in.ts";
+import { readerKey } from "../src/work.ts";
 import { jobToken, jwks } from "./github-token.ts";
 import { world } from "./world.ts";
 
@@ -171,6 +173,92 @@ test("a reading that already ends in a newline does not become a blank line", as
   const env = archive({ [`archive/${digest(1)}.text.reading.json`]: '{"a":1}\n\n\n' });
   const res = await ask(env, { documents: [digest(1)], readers: ["text"] });
   assert.equal(await res.text(), '{"a":1}\n');
+});
+
+const forget = (env: Env, query: string) =>
+  app.request(
+    `${LOCAL}/forget?${query}`,
+    { method: "POST", headers: { authorization: "Bearer the-real-token" } },
+    env,
+  );
+const TEXT = readerKey(EXTRACTOR_ID);
+const VISION = readerKey(VISION_EXTRACTOR_ID);
+/** A maker with one approved run of two documents, read by both prompted readers and the table parser. */
+const readMaker = () =>
+  archive({
+    "documents/acme/current.json": JSON.stringify({ run: "r1", date: "2026-09-12" }),
+    "documents/acme/runs/r1/manifest.json": JSON.stringify({
+      documents: [
+        { url: "https://acme.example/a.pdf", sha256: digest(1), contentType: "application/pdf" },
+        { url: "https://shop.example/a.pdf", sha256: digest(1), contentType: "application/pdf" },
+        { url: "https://acme.example/b.pdf", sha256: digest(2), contentType: "application/pdf" },
+      ],
+    }),
+    [`archive/${digest(1)}.${TEXT}.reading.json`]: "{}",
+    [`archive/${digest(1)}.${TEXT}.window-0001.json`]: "{}",
+    [`archive/${digest(1)}.${TEXT}.window-0002.json`]: "{}",
+    [`archive/${digest(1)}.${VISION}.reading.json`]: "{}",
+    [`archive/${digest(1)}.${VISION}.window-0001.json`]: "{}",
+    [`archive/${digest(1)}.${VISION}.page-0001.json`]: "{}",
+    [`archive/${digest(1)}.md`]: "# a",
+    [`archive/${digest(1)}.table.reading.json`]: "{}",
+    [`archive/${digest(2)}.${TEXT}.reading.json`]: "{}",
+    [`archive/${digest(9)}.${TEXT}.reading.json`]: "{}",
+  });
+
+test("forgetting a maker's readings counts first, and removes only the prompted readers' readings and windows when told to", async () => {
+  const env = readMaker();
+  const dry = await forget(env, "id=acme");
+  assert.equal(dry.status, 200);
+  assert.deepEqual(await dry.json(), {
+    run: "r1",
+    documents: 2,
+    readings: 3,
+    windows: 3,
+    deleted: false,
+  });
+  assert.ok(await env.ARCHIVE.head(`archive/${digest(1)}.${TEXT}.reading.json`), "a dry run keeps");
+  const wet = await forget(env, "id=acme&dry=false");
+  assert.deepEqual(await wet.json(), {
+    run: "r1",
+    documents: 2,
+    readings: 3,
+    windows: 3,
+    deleted: true,
+  });
+  for (const gone of [
+    `archive/${digest(1)}.${TEXT}.reading.json`,
+    `archive/${digest(1)}.${TEXT}.window-0001.json`,
+    `archive/${digest(1)}.${TEXT}.window-0002.json`,
+    `archive/${digest(1)}.${VISION}.reading.json`,
+    `archive/${digest(1)}.${VISION}.window-0001.json`,
+    `archive/${digest(2)}.${TEXT}.reading.json`,
+  ])
+    assert.equal(await env.ARCHIVE.head(gone), null, gone);
+  // The markdown, the transcribed page, the table parser's reading and another maker's document stay.
+  for (const kept of [
+    `archive/${digest(1)}.md`,
+    `archive/${digest(1)}.${VISION}.page-0001.json`,
+    `archive/${digest(1)}.table.reading.json`,
+    `archive/${digest(9)}.${TEXT}.reading.json`,
+  ])
+    assert.ok(await env.ARCHIVE.head(kept), kept);
+  // Forgetting twice removes nothing more.
+  assert.deepEqual(await (await forget(env, "id=acme&dry=false")).json(), {
+    run: "r1",
+    documents: 2,
+    readings: 0,
+    windows: 0,
+    deleted: true,
+  });
+});
+
+test("forgetting needs a maker, and one with no approved run is told so rather than served an error", async () => {
+  const env = readMaker();
+  assert.equal((await forget(env, "")).status, 400);
+  const none = await forget(env, "id=nobody");
+  assert.equal(none.status, 404);
+  assert.match(await errorOf(none), /nobody: no current run/);
 });
 
 test("a batch bigger than the cap is refused rather than trimmed", async () => {

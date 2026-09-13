@@ -4,7 +4,7 @@ import { classifierKey } from "./classify.ts";
 import { clearPrefix } from "./feeds.ts";
 import { CONVERTER, EXTRACTOR_ID, VISION_EXTRACTOR_ID } from "./reading.ts";
 import { pointerKey, readPointer, runPrefix } from "./runs.ts";
-import { batches, sendAll, type Work } from "./work.ts";
+import { batches, partKey, readerKey, sendAll, type Work } from "./work.ts";
 
 /** Listings per model call. Ten, because answers are matched to listings by position and a long list is where a model starts skipping one. */
 export const CLASSIFY_BATCH = 10;
@@ -126,21 +126,86 @@ export async function specPagesRun(
  * Fill the queue from the documents a person approved. Each converted document enqueues its own
  * reading, so one call runs both halves without anything supervising from above.
  */
-export async function convertRun(
+interface ApprovedDocument {
+  url: string;
+  sha256: string;
+  contentType: string;
+}
+
+/** A maker's current run and the documents approved into it, one per distinct content. */
+async function approvedDocuments(
   env: Env,
   manufacturer: string,
-  date: string,
-): Promise<{ documents: number; translations: number }> {
+): Promise<{ run: string; prefix: string; documents: ApprovedDocument[] }> {
   const pointer = await readPointer(env.ARCHIVE, pointerKey.documents(manufacturer));
   if (!pointer) throw new Error(`${manufacturer}: no current run`);
   const prefix = runPrefix.documents(manufacturer, pointer.run);
   const manifest = await env.ARCHIVE.get(`${prefix}/manifest.json`);
   if (!manifest) throw new Error(`${prefix}: nothing approved to convert`);
-  const { documents } = await manifest.json<{
-    documents: { url: string; sha256: string; contentType: string }[];
-  }>();
+  const { documents } = await manifest.json<{ documents: ApprovedDocument[] }>();
   // Two shops can link the same PDF; the archive keys by content, so one document is one message.
-  const deduplicated = [...new Map(documents.map((d) => [d.sha256, d])).values()];
+  return {
+    run: pointer.run,
+    prefix,
+    documents: [...new Map(documents.map((d) => [d.sha256, d])).values()],
+  };
+}
+
+/** The readers whose answers depend on a prompt: the text reader and the page reader. The table reader is a parser. */
+const PROMPTED_READERS = () => [readerKey(EXTRACTOR_ID), readerKey(VISION_EXTRACTOR_ID)];
+
+/**
+ * Forget what the prompted readers said about a maker's approved documents, so the next
+ * `convert` reads them again with the prompts as they are now.
+ *
+ * A reading is addressed by the document's bytes and the reader, and a document read once is
+ * never read again; that is what keeps a second run from paying twice, and it is also what keeps
+ * a changed prompt from reaching a document already read (#127). Forgetting removes the reading
+ * and the windows kept beside it for each prompted reader, and nothing else: the converted
+ * markdown, the transcribed pages and the table reader's parse cost nothing to keep and are not
+ * what changed. A dry run counts what would go and removes nothing.
+ */
+export async function forgetReadings(
+  env: Env,
+  manufacturer: string,
+  dryRun: boolean,
+): Promise<{
+  run: string;
+  documents: number;
+  readings: number;
+  windows: number;
+  deleted: boolean;
+}> {
+  const { run, documents } = await approvedDocuments(env, manufacturer);
+  let readings = 0;
+  let windows = 0;
+  for (const { sha256 } of documents) {
+    for (const reader of PROMPTED_READERS()) {
+      const reading = partKey.reading(sha256, reader);
+      if (await env.ARCHIVE.head(reading)) {
+        readings += 1;
+        if (!dryRun) await env.ARCHIVE.delete(reading);
+      }
+      const prefix = partKey.windows(sha256, reader);
+      if (dryRun) {
+        for (let cursor: string | undefined; ; ) {
+          const page = await env.ARCHIVE.list({ prefix, limit: 1000, cursor });
+          windows += page.objects.length;
+          if (!page.truncated) break;
+          cursor = page.cursor;
+        }
+      } else windows += await clearPrefix(env.ARCHIVE, prefix);
+    }
+  }
+  return { run, documents: documents.length, readings, windows, deleted: !dryRun };
+}
+
+export async function convertRun(
+  env: Env,
+  manufacturer: string,
+  date: string,
+): Promise<{ documents: number; translations: number }> {
+  const { run, prefix, documents: deduplicated } = await approvedDocuments(env, manufacturer);
   // A maker's Spanish edition of a manual it also publishes in English states the same figures in
   // another language. Converting it costs a reading and a model call for figures already held, so
   // it is dropped here rather than after the money is spent.
@@ -169,7 +234,7 @@ export async function convertRun(
         kind: "convert",
         manufacturer,
         date,
-        run: pointer.run,
+        run,
         sha256: d.sha256,
         url: d.url,
         contentType: d.contentType,

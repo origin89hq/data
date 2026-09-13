@@ -17,7 +17,7 @@ import { z } from "zod";
 import specPages from "../../../feeds/spec-pages.json" with { type: "json" };
 import { activityPage, actor } from "./activity.ts";
 import { bearer } from "./authorised.ts";
-import { classifyRun, convertRun, specPagesRun, visionRun } from "./enqueue.ts";
+import { classifyRun, convertRun, forgetReadings, specPagesRun, visionRun } from "./enqueue.ts";
 import { hasFeed } from "./feeds.ts";
 import { LeaseHeld, OFFER_LEASE_MS, underLease } from "./lease.ts";
 import { manufacturers } from "./manufacturers.ts";
@@ -240,6 +240,7 @@ export const CONTROL_PATHS = [
   "/classify",
   "/convert",
   "/discover-all",
+  "/forget",
   "/maker",
   "/readings",
   "/run",
@@ -597,6 +598,21 @@ controlRoutes.post("/convert", async (c) => {
 
 // The supervisor does this every day for whatever converted since it last looked; this is for not
 // waiting until tomorrow. A document with a text layer is looked up and left alone.
+/**
+ * Forget a maker's prompted readings so the next convert reads its documents again. `dry` is
+ * true unless it says `false`: counting is free, and what this removes was paid for.
+ */
+controlRoutes.post("/forget", async (c) => {
+  const manufacturerId = c.req.query("id");
+  if (!manufacturerId) return c.json({ error: "id required" }, 400);
+  const dry = c.req.query("dry") !== "false";
+  try {
+    return c.json(await forgetReadings(c.env, manufacturerId, dry));
+  } catch (error) {
+    return c.json({ error: error instanceof Error ? error.message : String(error) }, 404);
+  }
+});
+
 controlRoutes.post("/vision", async (c) => {
   const manufacturerId = c.req.query("id");
   const checkedAt = c.req.query("date");

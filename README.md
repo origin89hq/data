@@ -116,6 +116,16 @@ pnpm specs:pull rolls-battery <date> --dry-run                        # see what
 pnpm specs:pull rolls-battery <date>                                  # write the figures
 ```
 
+A reading is addressed by the document's bytes and the reader, so a document
+read once is never read again, whichever run asks: that is what keeps a second
+run from paying twice, and also what keeps a changed prompt from reaching a
+document already read. `just forget <maker>` counts the prompted readers'
+readings and windows for the maker's approved documents, and
+`just forget <maker> false` removes them; the next `just convert` then reads
+those documents again, which spends reader credits. The converted markdown,
+the transcribed pages and the table parser's reading are kept, since none of
+them depends on a prompt.
+
 A figure is attached only when the document's own name for the product answers
 to a model held for that maker. A product the maker names and no shop we
 crawled sells becomes a model first, because a datasheet naming
