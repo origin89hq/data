@@ -128,7 +128,9 @@ function asideAgrees(term: Term, aside: string): boolean {
   if (term.unit === undefined) return false;
   const other = parseBare(aside);
   if (typeof other === "string" || other.unit === undefined) return false;
-  if (QUANTITY_OF[other.unit] !== QUANTITY_OF[term.unit]) return true;
+  // A figure of another kind restates this one, "5A (12V)"; a range of another kind, "5A (12-24V)",
+  // is a condition the figure holds across, which nothing downstream can keep whole.
+  if (QUANTITY_OF[other.unit] !== QUANTITY_OF[term.unit]) return other.max === undefined;
   if ((term.max === undefined) !== (other.max === undefined)) return false;
   const mine = canonical(term.unit);
   const theirs = canonical(other.unit);

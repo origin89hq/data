@@ -319,6 +319,7 @@ test("an aside after the unit, a cut-off voltage, a bare decimal and a hyphenate
     ["24A (per input)", "current"],
     ["190A (188A)", "current"],
     ["1100mA (1.00A)", "current"],
+    ["5A (12-24V)", "current"],
     ["3600W (30A @ 230VAC)", "power"],
     ["500 Watts (< 8 ms)", "power"],
     ["120 VAC (nominal, L-N)", "voltage"],

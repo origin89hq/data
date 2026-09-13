@@ -287,11 +287,19 @@ function read(
   // keeps the rate, and two rates stay two properties.
   const accepts = [...new Set([...property.needs, ...(claim.requires ?? []), ...property.accepts])];
   const split = splitDuration(claim.value);
-  // A condition printed inside the value's aside, "5A (12V)", is the figure's as much as one in its name.
+  // A condition printed inside the value's aside, "5A (12V)", is the figure's as much as one in
+  // its name, and nearer to it: the aside's reading wins where the two differ in wording, and a
+  // figure whose name and value state different conditions is refused rather than read either way.
   const asides = claim.value.match(/\([^()]*\)/g)?.join(" ") ?? "";
+  const named = conditionsFrom(claim.text, accepts);
+  const inAside = conditionsFrom(asides, accepts);
+  const contradicted = (Object.keys(inAside) as ConditionKey[]).filter(
+    (c) => named[c] !== undefined && named[c] !== inAside[c],
+  );
   const conditions = mergeConditions(
     claim.conditions,
-    conditionsFrom(`${claim.text} ${asides}`, accepts),
+    named,
+    inAside,
     split.duration !== undefined && accepts.includes("duration")
       ? { duration: split.duration }
       : undefined,
@@ -309,7 +317,12 @@ function read(
           ok: false as const,
           reason: `an aside states a ${stated.join(", ")} the key does not take`,
         }
-      : readProperty(split.value, claim.unit, property, { reference });
+      : contradicted.length > 0
+        ? {
+            ok: false as const,
+            reason: `the name and the value state different ${contradicted.join(", ")}`,
+          }
+        : readProperty(split.value, claim.unit, property, { reference });
   const stillMissing = unwaived && missing.length > 0;
   return result.ok
     ? { claim, parsed: result.parsed, conditions, missing, unwaived: stillMissing }

@@ -1195,3 +1195,38 @@ test("a duration in a value's aside is the peak's condition on a key that takes 
     [["unparsed", "an aside states a duration the key does not take"]],
   );
 });
+
+test("a condition the value's aside states wins over the name's wording, and a name that contradicts the aside is refused", () => {
+  const cell = Model.parse({
+    id: "acme-cell-200",
+    manufacturer: "acme",
+    name: "Cell 200",
+    kind: "battery",
+  });
+  const { properties, gaps } = build({
+    models: [cell],
+    mappings: [
+      acme({
+        rules: [
+          {
+            key: "battery.discharge.current.peak",
+            names: ["Surge current", "5 sec surge current"],
+            basis: "the sheet",
+          },
+        ],
+      }),
+    ],
+    specs: [
+      figure(cell.id, "Surge current", "200A (15s)"),
+      figure(cell.id, "5 sec surge current", "300A (15s)", { source: "doc-b" }),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.value, p.conditions.duration]),
+    [[200, 15]],
+  );
+  assert.deepEqual(
+    gaps.filter((g) => g.key === "battery.discharge.current.peak").map((g) => [g.reason, g.detail]),
+    [["unparsed", "the name and the value state different duration, beside 1 usable figure"]],
+  );
+});
