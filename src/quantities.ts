@@ -48,8 +48,8 @@ const SCALAR_TERM = new RegExp(`^(${NUMBER})\\s*(.*)$`);
  */
 const ASIDE = /\s*\([^()]*\)\s*$/;
 const TOLERANCE = new RegExp(String.raw`^(?:±|\+/-|\+-)\s*${NUMBER}\s*(?:%|${UNIT_TAIL})?$`);
-/** A figure with its unit anywhere in a text: "185A" in "software limited 185A". */
-const FIGURE_IN = new RegExp(`${NUMBER}\\s*(${UNIT_TAIL})`, "g");
+/** The phases a figure is across, "L-L" or "L1-N", or the conductors it counts, "L1+L2+L3+N+PE": a note, not a figure. */
+const WIRING = /^(?:L\d?\s*[-–]\s*[LN]\d?|(?:L\d|N|PE)(?:\s*[+,/]\s*(?:L\d|N|PE))+)$/i;
 /**
  * A lead-acid sheet ends a capacity with the cell voltage it is drawn down to, "155 A.H. to 1.70
  * VPC": a condition of the figure, not a second end of a range.
@@ -99,9 +99,11 @@ function splitAside(text: string): { main: string; aside?: string } {
   return main ? { main, aside: found[0].trim().slice(1, -1).trim() } : { main: text };
 }
 
-/** How many decimals each number in a text is printed with, so "6.7 m" is taken as 6.65 to 6.75. */
+/** How many decimals each number in a text is printed with, so "6.7 m" is taken as 6.65 to 6.75; "8.50" is printed to one. */
 const decimalsOf = (text: string): number[] =>
-  [...text.matchAll(new RegExp(NUMBER, "g"))].map((m) => m[0].split(/[.,]/)[1]?.length ?? 0);
+  [...text.matchAll(new RegExp(NUMBER, "g"))].map(
+    (m) => m[0].split(/[.,]/)[1]?.replace(/0+$/, "").length ?? 0,
+  );
 
 /** A unit's way into its canonical unit, or nothing for a unit that has none. */
 const canonical = (unit: Unit): { to: string; by: (n: number) => number } | undefined =>
@@ -109,22 +111,16 @@ const canonical = (unit: Unit): { to: string; by: (n: number) => number } | unde
 
 /**
  * Whether an aside that carries numbers restates the figure rather than changing it: a figure
- * in another quantity, "5A (12V)"; a tolerance, "(±5%)" or "(± 5 VAC)"; the same figure in
- * other units, "2.25 gal. (8.50 L)", agreeing to within the aside's own rounding and a percent;
- * or a note with a number in it and no figure of the same kind, "(L1+L2+L3+N+PE)". A figure of
- * the same kind anywhere in it, "(software limited 185A)", changes the figure.
+ * in another quantity, "5A (12V)"; a tolerance, "(±5%)" or "(± 5 VAC)"; or the same figure in
+ * other units, "2.25 gal. (8.50 L)", agreeing to within the rounding of the aside's own digits.
+ * The same figure in the same unit has to agree exactly: "190A (188A)" is two figures. Anything
+ * else with a number in it, "(software limited 185A)" or "(< 8 ms)", changes the figure.
  */
 function asideAgrees(term: Term, aside: string): boolean {
   if (TOLERANCE.test(aside)) return true;
   if (term.unit === undefined) return false;
   const other = parseBare(aside);
-  if (typeof other === "string" || other.unit === undefined) {
-    for (const [, tail = ""] of aside.matchAll(FIGURE_IN)) {
-      const { unit } = unitOf(tail);
-      if (unit && QUANTITY_OF[unit] === QUANTITY_OF[term.unit]) return false;
-    }
-    return true;
-  }
+  if (typeof other === "string" || other.unit === undefined) return false;
   if (QUANTITY_OF[other.unit] !== QUANTITY_OF[term.unit]) return true;
   if ((term.max === undefined) !== (other.max === undefined)) return false;
   const mine = canonical(term.unit);
@@ -132,9 +128,10 @@ function asideAgrees(term: Term, aside: string): boolean {
   if (!mine || !theirs || mine.to !== theirs.to) return false;
   const [lowDecimals = 0, highDecimals = lowDecimals] = decimalsOf(aside);
   const agrees = (a: number, b: number, decimals: number): boolean => {
+    if (term.unit === other.unit) return Math.abs(a - b) < 1e-9;
     const half = 0.5 * 10 ** -decimals;
-    const tolerance = Math.abs(theirs.by(b + half) - theirs.by(b)) + Math.abs(theirs.by(b)) / 100;
-    return Math.abs(mine.by(a) - theirs.by(b)) <= tolerance;
+    const tolerance = Math.abs(theirs.by(b + half) - theirs.by(b));
+    return Math.abs(mine.by(a) - theirs.by(b)) <= tolerance + 1e-9;
   };
   return (
     agrees(term.min, other.min, lowDecimals) &&
@@ -147,11 +144,14 @@ function parseTerm(part: string): Term | string {
   const { main, aside } = splitAside(text);
   const term = parseBare(main);
   if (aside === undefined || typeof term === "string") return term;
-  if (!/\d/.test(aside)) {
-    // A word, "Max" or "L-L"; or the unit itself when nothing else names it, "72 (W)".
-    if (term.unit !== undefined) return term;
+  if (!/\d/.test(aside) || WIRING.test(aside)) {
+    // A qualifier, "Max"; the phases or conductors, "L-L"; or the unit itself when nothing else
+    // names it, "72 (W)". Any other words, "per input", say something the figure does not.
+    if (QUALIFIER.test(aside) || WIRING.test(aside)) return term;
     const unit = canonicalUnit(aside);
-    return unit ? { ...term, unit } : term;
+    if (unit && term.unit === undefined) return { ...term, unit };
+    if (unit) return term;
+    return `"(${aside})" changes the figure`;
   }
   return asideAgrees(term, aside) ? term : `"(${aside})" changes the figure`;
 }

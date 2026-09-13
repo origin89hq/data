@@ -301,9 +301,23 @@ test("an aside after the unit, a cut-off voltage, a bare decimal and a hyphenate
     ok: true,
     parsed: { shape: "scalar", value: 400, unit: "V" },
   });
-  assert.deepEqual(parseQuantity("3600W (30A @ 230VAC)", undefined, "power"), {
+  // Words that say something the figure does not, a second figure of the same kind that nearly
+  // agrees, a figure with a note around it, and a bounded time all change the figure.
+  for (const changed of [
+    "24A (per input)",
+    "190A (188A)",
+    "3600W (30A @ 230VAC)",
+    "500 Watts (< 8 ms)",
+    "120 VAC (nominal, L-N)",
+  ])
+    assert.match(
+      refused(parseQuantity(changed, undefined, "power")),
+      /changes the figure/,
+      changed,
+    );
+  assert.deepEqual(parseQuantity("120 VAC (L-N)", undefined, "voltage"), {
     ok: true,
-    parsed: { shape: "scalar", value: 3600, unit: "W" },
+    parsed: { shape: "scalar", value: 120, unit: "V" },
   });
   // Alternatives that begin with a bare decimal split like any others.
   assert.deepEqual(parseQuantity(".5/.7A", undefined, "current"), {
