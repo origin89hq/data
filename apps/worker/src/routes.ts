@@ -606,8 +606,11 @@ controlRoutes.post("/forget", async (c) => {
   const manufacturerId = c.req.query("id");
   if (!manufacturerId) return c.json({ error: "id required" }, 400);
   const dry = c.req.query("dry") !== "false";
+  const from = Number(c.req.query("from") ?? 0);
+  if (!Number.isSafeInteger(from) || from < 0)
+    return c.json({ error: "from must be a count" }, 400);
   try {
-    return c.json(await forgetReadings(c.env, manufacturerId, dry));
+    return c.json(await forgetReadings(c.env, manufacturerId, dry, from));
   } catch (error) {
     return c.json({ error: error instanceof Error ? error.message : String(error) }, 404);
   }

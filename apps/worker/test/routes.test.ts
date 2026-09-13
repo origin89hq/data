@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { mock, test } from "node:test";
 import { READS_PER_REQUEST } from "@origin89/equipment-schema/provenance";
+import { FORGET_AT_ONCE } from "../src/enqueue.ts";
 import { GITHUB_ISSUER } from "../src/oidc.ts";
 import { EXTRACTOR_ID, VISION_EXTRACTOR_ID } from "../src/reading.ts";
 import {
@@ -187,6 +188,7 @@ const VISION = readerKey(VISION_EXTRACTOR_ID);
 const readMaker = () =>
   archive({
     "documents/acme/current.json": JSON.stringify({ run: "r1", date: "2026-09-12" }),
+    "documents/acme/runs/r1/seeing.json": JSON.stringify({ extractedBy: "vision", converted: 2 }),
     "documents/acme/runs/r1/manifest.json": JSON.stringify({
       documents: [
         { url: "https://acme.example/a.pdf", sha256: digest(1), contentType: "application/pdf" },
@@ -213,19 +215,24 @@ test("forgetting a maker's readings counts first, and removes only the prompted 
   assert.deepEqual(await dry.json(), {
     run: "r1",
     documents: 2,
+    from: 0,
     readings: 3,
     windows: 3,
     deleted: false,
   });
   assert.ok(await env.ARCHIVE.head(`archive/${digest(1)}.${TEXT}.reading.json`), "a dry run keeps");
+  assert.ok(await env.ARCHIVE.head("documents/acme/runs/r1/seeing.json"), "and keeps the offer");
   const wet = await forget(env, "id=acme&dry=false");
   assert.deepEqual(await wet.json(), {
     run: "r1",
     documents: 2,
+    from: 0,
     readings: 3,
     windows: 3,
     deleted: true,
   });
+  // The page reader's offer marker goes too, or the run would count as offered and never be sent again.
+  assert.equal(await env.ARCHIVE.head("documents/acme/runs/r1/seeing.json"), null);
   for (const gone of [
     `archive/${digest(1)}.${TEXT}.reading.json`,
     `archive/${digest(1)}.${TEXT}.window-0001.json`,
@@ -247,10 +254,48 @@ test("forgetting a maker's readings counts first, and removes only the prompted 
   assert.deepEqual(await (await forget(env, "id=acme&dry=false")).json(), {
     run: "r1",
     documents: 2,
+    from: 0,
     readings: 0,
     windows: 0,
     deleted: true,
   });
+});
+
+test("a maker with more documents than one call takes is forgotten in batches, and the offer goes with the last", async () => {
+  const many = Array.from({ length: FORGET_AT_ONCE + 1 }, (_, i) => ({
+    url: `https://acme.example/${i}.pdf`,
+    sha256: digest(i + 1),
+    contentType: "application/pdf",
+  }));
+  const env = archive({
+    "documents/acme/current.json": JSON.stringify({ run: "r1", date: "2026-09-12" }),
+    "documents/acme/runs/r1/seeing.json": "{}",
+    "documents/acme/runs/r1/manifest.json": JSON.stringify({ documents: many }),
+    [`archive/${digest(1)}.${TEXT}.reading.json`]: "{}",
+    [`archive/${digest(FORGET_AT_ONCE + 1)}.${TEXT}.reading.json`]: "{}",
+  });
+  const first = await (await forget(env, "id=acme&dry=false")).json();
+  assert.deepEqual(first, {
+    run: "r1",
+    documents: FORGET_AT_ONCE + 1,
+    from: 0,
+    next: FORGET_AT_ONCE,
+    readings: 1,
+    windows: 0,
+    deleted: true,
+  });
+  assert.ok(await env.ARCHIVE.head("documents/acme/runs/r1/seeing.json"), "not done yet");
+  const last = await (await forget(env, `id=acme&dry=false&from=${FORGET_AT_ONCE}`)).json();
+  assert.deepEqual(last, {
+    run: "r1",
+    documents: FORGET_AT_ONCE + 1,
+    from: FORGET_AT_ONCE,
+    readings: 1,
+    windows: 0,
+    deleted: true,
+  });
+  assert.equal(await env.ARCHIVE.head("documents/acme/runs/r1/seeing.json"), null);
+  assert.equal((await forget(env, "id=acme&from=-1")).status, 400);
 });
 
 test("forgetting needs a maker, and one with no approved run is told so rather than served an error", async () => {

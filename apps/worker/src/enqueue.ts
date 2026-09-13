@@ -154,6 +154,9 @@ async function approvedDocuments(
 /** The readers whose answers depend on a prompt: the text reader and the page reader. The table reader is a parser. */
 const PROMPTED_READERS = () => [readerKey(EXTRACTOR_ID), readerKey(VISION_EXTRACTOR_ID)];
 
+/** Documents forgotten in one call. Each costs a list and, when removing, a delete; a Worker gets a thousand such calls. */
+export const FORGET_AT_ONCE = 200;
+
 /**
  * Forget what the prompted readers said about a maker's approved documents, so the next
  * `convert` reads them again with the prompts as they are now.
@@ -163,41 +166,61 @@ const PROMPTED_READERS = () => [readerKey(EXTRACTOR_ID), readerKey(VISION_EXTRAC
  * a changed prompt from reaching a document already read (#127). Forgetting removes the reading
  * and the windows kept beside it for each prompted reader, and nothing else: the converted
  * markdown, the transcribed pages and the table reader's parse cost nothing to keep and are not
- * what changed. A dry run counts what would go and removes nothing.
+ * what changed. The page reader's offer marker goes with them, or the run would count as offered
+ * already and never send the scanned documents again. A dry run counts what would go and removes
+ * nothing. The documents are taken `FORGET_AT_ONCE` at a time from `from`, and `next` says where
+ * the next call starts, so a maker of four hundred documents stays inside a Worker's budget.
  */
 export async function forgetReadings(
   env: Env,
   manufacturer: string,
   dryRun: boolean,
+  from = 0,
 ): Promise<{
   run: string;
   documents: number;
+  from: number;
+  next?: number;
   readings: number;
   windows: number;
   deleted: boolean;
 }> {
-  const { run, documents } = await approvedDocuments(env, manufacturer);
+  const { run, prefix, documents } = await approvedDocuments(env, manufacturer);
+  const readers = PROMPTED_READERS();
+  const batch = documents.slice(from, from + FORGET_AT_ONCE);
   let readings = 0;
   let windows = 0;
-  for (const { sha256 } of documents) {
-    for (const reader of PROMPTED_READERS()) {
-      const reading = partKey.reading(sha256, reader);
-      if (await env.ARCHIVE.head(reading)) {
-        readings += 1;
-        if (!dryRun) await env.ARCHIVE.delete(reading);
-      }
-      const prefix = partKey.windows(sha256, reader);
-      if (dryRun) {
-        for (let cursor: string | undefined; ; ) {
-          const page = await env.ARCHIVE.list({ prefix, limit: 1000, cursor });
-          windows += page.objects.length;
-          if (!page.truncated) break;
-          cursor = page.cursor;
-        }
-      } else windows += await clearPrefix(env.ARCHIVE, prefix);
+  for (const { sha256 } of batch) {
+    // One list per document covers both readers' reading and windows: the keys share its prefix.
+    const keys: string[] = [];
+    for (let cursor: string | undefined; ; ) {
+      const page = await env.ARCHIVE.list({ prefix: `archive/${sha256}.`, limit: 1000, cursor });
+      keys.push(...page.objects.map((o) => o.key));
+      if (!page.truncated) break;
+      cursor = page.cursor;
     }
+    const gone = keys.filter((key) =>
+      readers.some(
+        (reader) =>
+          key === partKey.reading(sha256, reader) ||
+          key.startsWith(partKey.windows(sha256, reader)),
+      ),
+    );
+    readings += gone.filter((key) => key.endsWith(".reading.json")).length;
+    windows += gone.length - gone.filter((key) => key.endsWith(".reading.json")).length;
+    if (!dryRun && gone.length > 0) await env.ARCHIVE.delete(gone);
   }
-  return { run, documents: documents.length, readings, windows, deleted: !dryRun };
+  const next = from + batch.length < documents.length ? from + batch.length : undefined;
+  if (!dryRun && next === undefined) await env.ARCHIVE.delete(`${prefix}/seeing.json`);
+  return {
+    run,
+    documents: documents.length,
+    from,
+    ...(next === undefined ? {} : { next }),
+    readings,
+    windows,
+    deleted: !dryRun,
+  };
 }
 
 export async function convertRun(

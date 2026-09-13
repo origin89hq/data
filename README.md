@@ -121,8 +121,10 @@ read once is never read again, whichever run asks: that is what keeps a second
 run from paying twice, and also what keeps a changed prompt from reaching a
 document already read. `just forget <maker>` counts the prompted readers'
 readings and windows for the maker's approved documents, and
-`just forget <maker> false` removes them; the next `just convert` then reads
-those documents again, which spends reader credits. The converted markdown,
+`just forget <maker> false` removes them, two hundred documents a call until
+the maker is done; the next `just convert` then reads those documents again,
+which spends reader credits, and the page reader's offer marker goes too so the
+scanned ones are offered again. The converted markdown,
 the transcribed pages and the table parser's reading are kept, since none of
 them depends on a prompt.
 

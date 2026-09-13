@@ -101,7 +101,15 @@ vision maker date:
 
 # Forget what the prompted readers said about a maker's approved documents, so the next `just convert` reads them again with the prompts as they are now. Counts only, unless dry is false; the convert that follows spends reader credits.
 forget maker dry="true":
-    @just _post "/forget?id=$1&dry=$2"
+    #!/usr/bin/env bash
+    set -euo pipefail
+    from=0
+    while :; do
+      answer=$(just _post "/forget?id=$1&dry=$2&from=$from")
+      echo "$answer"
+      from=$(node -e 'const a = JSON.parse(process.argv[1]); console.log(a.next ?? "")' "$answer")
+      [ -n "$from" ] || break
+    done
 
 # Build the site the Worker serves.
 site:
