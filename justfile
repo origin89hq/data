@@ -106,7 +106,7 @@ forget maker dry="true":
     from=0
     run=""
     while :; do
-      answer=$(just _post "/forget?id=$1&dry=$2&from=$from&run=$run")
+      answer=$(just _post "/forget?id=$1&dry=$2&from=$from${run:+&run=$run}")
       echo "$answer"
       run=$(node -e 'console.log(JSON.parse(process.argv[1]).run)' "$answer")
       from=$(node -e 'const a = JSON.parse(process.argv[1]); console.log(a.next ?? "")' "$answer")

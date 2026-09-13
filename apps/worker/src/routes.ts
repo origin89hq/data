@@ -18,6 +18,7 @@ import specPages from "../../../feeds/spec-pages.json" with { type: "json" };
 import { activityPage, actor } from "./activity.ts";
 import { bearer } from "./authorised.ts";
 import {
+  BadStart,
   classifyRun,
   convertRun,
   forgetReadings,
@@ -616,12 +617,14 @@ controlRoutes.post("/forget", async (c) => {
   const from = Number(c.req.query("from") ?? 0);
   if (!Number.isSafeInteger(from) || from < 0)
     return c.json({ error: "from must be a count" }, 400);
-  const run = c.req.query("run");
+  // An empty run is no run named: the first batch has none to name yet.
+  const run = c.req.query("run") || undefined;
   try {
     return c.json(await forgetReadings(c.env, manufacturerId, dry, from, run));
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    return c.json({ error: message }, error instanceof RunMoved ? 409 : 404);
+    const status = error instanceof RunMoved ? 409 : error instanceof BadStart ? 400 : 404;
+    return c.json({ error: message }, status);
   }
 });
 

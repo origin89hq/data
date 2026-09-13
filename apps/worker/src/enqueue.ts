@@ -173,6 +173,8 @@ export const FORGET_AT_ONCE = 200;
  */
 /** The run a later batch names is not the maker's current run: the pointer moved between two calls. */
 export class RunMoved extends Error {}
+/** A batch's start is not one a previous batch answered with. */
+export class BadStart extends Error {}
 
 export async function forgetReadings(
   env: Env,
@@ -193,6 +195,10 @@ export async function forgetReadings(
   // Every batch counts from one manifest: a later one names the run the first answered with.
   if (expectedRun !== undefined && expectedRun !== run)
     throw new RunMoved(`${manufacturer}: run ${expectedRun} is no longer current; ${run} is`);
+  // A batch starts where the last one said the next begins; a start past the documents, or between
+  // two batches, would count the maker done with readings still on file.
+  if (from % FORGET_AT_ONCE !== 0 || (from > 0 && from >= documents.length))
+    throw new BadStart(`${manufacturer}: from must be a next the last batch answered with`);
   const readers = PROMPTED_READERS();
   const batch = documents.slice(from, from + FORGET_AT_ONCE);
   let readings = 0;
