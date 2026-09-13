@@ -1167,22 +1167,6 @@ test("a lithium pack that states its rate keeps it, and two rates stay two prope
   assert.ok(!gaps.some((g) => g.key === "battery.capacity"));
 });
 
-<<<<<<< HEAD
-test("a duration in a value's aside is the peak's condition on a key that takes one, and a different figure on a key that does not", () => {
-  const cell = Model.parse({
-    id: "acme-cell-100",
-    manufacturer: "acme",
-    name: "Cell 100",
-    kind: "battery",
-  });
-  const { properties, gaps } = build({
-    models: [cell],
-    mappings: [
-      acme({
-        rules: [
-          { key: "battery.discharge.current.peak", names: ["Peak current"], basis: "the sheet" },
-          { key: "battery.discharge.current.max", names: ["Max current"], basis: "the sheet" },
-=======
 const genset = Model.parse({
   id: "acme-genset-5500",
   manufacturer: "acme",
@@ -1209,24 +1193,10 @@ test("a rule for one part of a cell reads that part, by fuel where the name says
             basis: "the second figure",
           },
           { key: "generator.fuel.tank", names: ["Gasoline Capacity"], basis: "the tank" },
->>>>>>> 955691af2 (feat: registry keys for chargers, generators and pumps)
         ],
       }),
     ],
     specs: [
-<<<<<<< HEAD
-      figure(cell.id, "Peak current", "200A (15s)"),
-      figure(cell.id, "Max current", "200A (15s)"),
-    ],
-  });
-  assert.deepEqual(
-    properties.map((p) => [p.key, p.value, p.conditions.duration]),
-    [["battery.discharge.current.peak", 200, 15]],
-  );
-  assert.deepEqual(
-    gaps.filter((g) => g.key === "battery.discharge.current.max").map((g) => [g.reason, g.detail]),
-    [["unparsed", "an aside states a duration the key does not take"]],
-=======
       // A name ending in a bracket would make an id ending in a dash, which the schema refuses.
       figure(genset.id, "Watts (Starting/Running)", "5500/4000", {
         unit: "W",
@@ -1266,7 +1236,38 @@ test("a rule for one part of a cell reads that part, by fuel where the name says
   assert.deepEqual(
     lone.gaps.filter((g) => g.key === "generator.power.running").map((g) => [g.reason, g.claims]),
     [["no-claim", 0]],
->>>>>>> 955691af2 (feat: registry keys for chargers, generators and pumps)
+  );
+});
+
+test("a duration in a value's aside is the peak's condition on a key that takes one, and a different figure on a key that does not", () => {
+  const cell = Model.parse({
+    id: "acme-cell-100",
+    manufacturer: "acme",
+    name: "Cell 100",
+    kind: "battery",
+  });
+  const { properties, gaps } = build({
+    models: [cell],
+    mappings: [
+      acme({
+        rules: [
+          { key: "battery.discharge.current.peak", names: ["Peak current"], basis: "the sheet" },
+          { key: "battery.discharge.current.max", names: ["Max current"], basis: "the sheet" },
+        ],
+      }),
+    ],
+    specs: [
+      figure(cell.id, "Peak current", "200A (15s)"),
+      figure(cell.id, "Max current", "200A (15s)"),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.key, p.value, p.conditions.duration]),
+    [["battery.discharge.current.peak", 200, 15]],
+  );
+  assert.deepEqual(
+    gaps.filter((g) => g.key === "battery.discharge.current.max").map((g) => [g.reason, g.detail]),
+    [["unparsed", "an aside states a duration the key does not take"]],
   );
 });
 
