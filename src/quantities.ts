@@ -49,7 +49,7 @@ const SCALAR_TERM = new RegExp(`^(${NUMBER})\\s*(.*)$`);
 const ASIDE = /\s*\([^()]*\)\s*$/;
 const TOLERANCE = new RegExp(String.raw`^(?:±|\+/-|\+-)\s*${NUMBER}\s*(?:%|${UNIT_TAIL})?$`);
 /** The phases a figure is across, "L-L" or "L1-N", or the conductors it counts, "L1+L2+L3+N+PE": a note, not a figure. */
-const WIRING = /^(?:L\d?\s*[-–]\s*[LN]\d?|(?:L\d|N|PE)(?:\s*[+,/]\s*(?:L\d|N|PE))+)$/i;
+const WIRING = /^(?:L\d?\s*[-–]\s*[LN]\d?|(?:L\d?|N|PE)(?:\s*[+,/]\s*(?:L\d?|N|PE))+)$/i;
 /**
  * A lead-acid sheet ends a capacity with the cell voltage it is drawn down to, "155 A.H. to 1.70
  * VPC": a condition of the figure, not a second end of a range.

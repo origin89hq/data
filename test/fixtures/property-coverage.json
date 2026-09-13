@@ -91,9 +91,9 @@
       "needsConditions": 0
     },
     "srne": {
-      "values": 241,
+      "values": 242,
       "conflicts": 1,
-      "unparsed": 49,
+      "unparsed": 48,
       "needsConditions": 25
     },
     "victron-energy": {
@@ -328,10 +328,10 @@
     },
     "inverter.voltage.ac inverter-charger": {
       "models": 733,
-      "values": 55,
+      "values": 56,
       "partial": 3,
       "conflicts": 2,
-      "unparsed": 35,
+      "unparsed": 34,
       "needsConditions": 0,
       "noClaim": 641
     },
