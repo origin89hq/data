@@ -1396,3 +1396,60 @@ test("an aside that structures into nothing the property keeps is refused, and a
     ],
   );
 });
+
+test("a lone value a part rule passes over falls to the shared rule, and two parts of one cell reach one key as two properties", () => {
+  const sharedWatts = Mapping.parse({
+    id: "shared",
+    version: 1,
+    reviewedBy: "ada",
+    checkedAt: "2026-09-12",
+    rules: [{ key: "generator.power.running", names: ["Watts"], basis: "the cell" }],
+  });
+  const fallen = build({
+    models: [genset],
+    mappings: [
+      acme({
+        rules: [{ key: "generator.power.running", names: ["Watts"], part: 2, basis: "the second" }],
+      }),
+      sharedWatts,
+    ],
+    specs: [figure(genset.id, "Watts", "4000", { unit: "W" })],
+  });
+  assert.deepEqual(
+    fallen.properties.map((p) => [p.key, p.value, p.mappedBy]),
+    [["generator.power.running", 4000, "rule:shared@1#1"]],
+  );
+  // Two parts of one cell under one key, each its own property; the whole cell is not read on top of them.
+  const both = build({
+    models: [genset],
+    mappings: [
+      acme({
+        rules: [
+          {
+            key: "generator.power.running",
+            names: ["Watts by fuel"],
+            part: 1,
+            conditions: { fuel: "gasoline" },
+            basis: "the first",
+          },
+          {
+            key: "generator.power.running",
+            names: ["Watts by fuel"],
+            part: 2,
+            conditions: { fuel: "lpg" },
+            basis: "the second",
+          },
+          { key: "generator.power.running", names: ["Watts by fuel"], basis: "the whole cell" },
+        ],
+      }),
+    ],
+    specs: [figure(genset.id, "Watts by fuel", "4000/3600", { unit: "W" })],
+  });
+  assert.deepEqual(
+    both.properties.map((p) => [p.key, p.value, p.conditions.fuel]),
+    [
+      ["generator.power.running", 4000, "gasoline"],
+      ["generator.power.running", 3600, "lpg"],
+    ],
+  );
+});

@@ -166,11 +166,15 @@ function claimsUnder(
     const names = new Set(rule.names.map(said));
     for (const spec of specs) {
       if (rule.source && spec.source !== rule.source) continue;
-      if (read.has(spec.id) || !namedIn(spec, names) || skip(spec)) continue;
-      // A rule for one part of a cell reads only a value that has that part.
+      if (!namedIn(spec, names) || skip(spec)) continue;
+      // A figure read whole is read once; each part of a cell is read once, and a cell whose parts
+      // were read is not read whole on top. A rule for one part reads only a value that has it.
+      const taken = read.has(spec.id) || read.has(`${spec.id}#${rule.part ?? "any"}`);
+      if (taken) continue;
       const value = rule.part === undefined ? spec.value : partOf(spec.value, rule.part);
       if (value === undefined) continue;
-      read.add(spec.id);
+      read.add(rule.part === undefined ? spec.id : `${spec.id}#${rule.part}`);
+      if (rule.part !== undefined) read.add(`${spec.id}#any`);
       claims.push({
         id: spec.id,
         value,
@@ -214,11 +218,21 @@ function recordClaims(
       const kinds = PROPERTY_BY_KEY.get(rule.key)?.kinds as readonly string[] | undefined;
       return kind !== undefined && kinds?.includes(kind);
     })
-    .map((rule) => ({ names: new Set(rule.names.map(said)), source: rule.source }));
+    .map((rule) => ({
+      names: new Set(rule.names.map(said)),
+      source: rule.source,
+      part: rule.part,
+    }));
+  // A maker's rule claims a figure it would read: one of its names, on its document if it names
+  // one, with the part it takes if it takes one; a lone value a part rule passes over is the
+  // shared rule's to read.
   const claimed = (spec: Spec): boolean =>
     namedIn(spec, except) ||
     rules.some(
-      (rule) => (!rule.source || spec.source === rule.source) && namedIn(spec, rule.names),
+      (rule) =>
+        (!rule.source || spec.source === rule.source) &&
+        namedIn(spec, rule.names) &&
+        (rule.part === undefined || partOf(spec.value, rule.part) !== undefined),
     );
   return [...claims, ...claimsUnder(shared, key, specs, claimed, read)];
 }

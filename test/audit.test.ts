@@ -109,8 +109,8 @@ test("a rule for one part of a cell is not faulted for a value with fewer parts,
       ]),
     ],
   );
-  const { errors } = audit(r);
-  assert.deepEqual(errors, []);
+  // Neither an error nor a near-miss note: the rule names the figure, it just has no second part.
+  assert.deepEqual(audit(r), { errors: [], notes: [] });
 });
 
 test("an unmapped name one step from a mapped one is noted, a lone word is not", () => {

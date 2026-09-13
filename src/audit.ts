@@ -109,10 +109,11 @@ export function auditMappings(records: Records, built: Pick<PropertiesOutput, "c
       for (const r of rules) {
         if (r.rule.source && spec.source !== r.rule.source) continue;
         if (!named(spec, r.names)) continue;
-        // A rule for one part of a cell reads only a value that has that part, as the builder does.
-        if (r.rule.part !== undefined && partOf(spec.value, r.rule.part) === undefined) continue;
         if (!r.ownRule && named(spec, except)) continue;
+        // A rule for one part of a cell names the figure, so it is no near miss, but reads only a
+        // value that has that part, as the builder does.
         namedByAny = true;
+        if (r.rule.part !== undefined && partOf(spec.value, r.rule.part) === undefined) continue;
         const applies = kindsOf(r.property).includes(kind);
         if (applies && !built.claimed.has(spec.id))
           errors.push(

@@ -252,6 +252,10 @@ test("a tank, a flow, a pressure, a head and a motor read in litres, litres a mi
     ok: true,
     parsed: { shape: "scalar", value: 9.46352946, unit: "L/min" },
   });
+  assert.deepEqual(parseQuantity("4.2 gallons per minute", undefined, "flow"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 15.89872949, unit: "L/min" },
+  });
   assert.deepEqual(parseQuantity("3 m3/h", undefined, "flow"), {
     ok: true,
     parsed: { shape: "scalar", value: 50, unit: "L/min" },
