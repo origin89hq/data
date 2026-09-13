@@ -47,7 +47,7 @@ const SCALAR_TERM = new RegExp(`^(${NUMBER})\\s*(.*)$`);
  * 185A)", changes what the figure means, and the value stays unparsed rather than overstated.
  */
 const ASIDE = /\s*\([^()]*\)\s*$/;
-const TOLERANCE = new RegExp(String.raw`^(?:±|\+/-|\+-)\s*${NUMBER}\s*(?:%|${UNIT_TAIL})?$`);
+const TOLERANCE = new RegExp(String.raw`^(?:±|\+/-|\+-)\s*${NUMBER}\s*(%|${UNIT_TAIL})?$`);
 /** The phases a figure is across, "L-L" or "L1-N", or the conductors it counts, "L1+L2+L3+N+PE": a note, not a figure. */
 const WIRING = /^(?:L\d?\s*[-–]\s*[LN]\d?|(?:L\d?|N|PE)(?:\s*[+,/]\s*(?:L\d?|N|PE))+)$/i;
 /**
@@ -115,7 +115,16 @@ const canonical = (unit: Unit): { to: string; by: (n: number) => number } | unde
  * else with a number in it, "(software limited 185A)" or "(< 8 ms)", changes the figure.
  */
 function asideAgrees(term: Term, aside: string): boolean {
-  if (TOLERANCE.test(aside)) return true;
+  const tolerance = TOLERANCE.exec(aside);
+  if (tolerance) {
+    // A share, or a bare number, is a tolerance of the figure; a unit has to be the figure's own kind.
+    const [, tail] = tolerance;
+    if (tail === undefined || tail === "%") return true;
+    const { unit } = unitOf(tail);
+    return (
+      unit !== undefined && term.unit !== undefined && QUANTITY_OF[unit] === QUANTITY_OF[term.unit]
+    );
+  }
   if (term.unit === undefined) return false;
   const other = parseBare(aside);
   if (typeof other === "string" || other.unit === undefined) return false;
@@ -163,6 +172,27 @@ function parseTerm(part: string): Term | string {
 /** Whether a term reads in ampere-hours, the figure a cut-off voltage belongs to. */
 const isCharge = (term: Term | string): boolean =>
   typeof term !== "string" && term.unit !== undefined && QUANTITY_OF[term.unit] === "charge";
+
+/**
+ * The alternatives a value lists with slashes, "12/24/48V DC", split only outside brackets: the
+ * slash in "13kW (+/-5%)" is the tolerance's, not a second figure.
+ */
+function alternatives(text: string): string[] {
+  const parts: string[] = [];
+  let depth = 0;
+  let start = 0;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (c === "(") depth += 1;
+    else if (c === ")") depth = Math.max(0, depth - 1);
+    else if (c === "/" && depth === 0 && /^\s*[-\d.]/.test(text.slice(i + 1))) {
+      parts.push(text.slice(start, i).trim());
+      start = i + 1;
+    }
+  }
+  parts.push(text.slice(start).trim());
+  return parts;
+}
 
 /** A term with no aside: one number with its unit, or a range. */
 function parseBare(text: string): Term | string {
@@ -231,7 +261,7 @@ export function parseQuantity(
   if (!text) return { ok: false, reason: "no value" };
   if (BOUND.test(text)) return { ok: false, reason: "a bound or an approximation, not a figure" };
   // "12/24/48V DC", "850V/850V/850V" and ".5/.7A" are alternatives; "%/°C" is one unit.
-  const parts = text.split(/\s*\/\s*(?=[-\d.])/);
+  const parts = alternatives(text);
   const terms: Term[] = [];
   for (const part of parts) {
     const term = parseTerm(part);
@@ -319,7 +349,7 @@ export function printedQuantities(value: string, unit: string | undefined): Prin
   // A bound belongs to every part it qualifies: "up to 6KVA/6KW" is two bounded figures, not two figures.
   const bound = BOUND.exec(printed)?.[0] ?? "";
   const text = printed.slice(bound.length);
-  const parts = text.split(/\s*\/\s*(?=[-\d.])/).map((part) => `${bound}${part}`);
+  const parts = alternatives(text).map((part) => `${bound}${part}`);
   const units: (Unit | undefined)[] = parts.map((part) => looseUnit(part.slice(bound.length)));
   for (let i = units.length - 2; i >= 0; i--) units[i] ??= units[i + 1];
   if (given && units.every((u) => u === undefined))

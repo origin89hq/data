@@ -299,6 +299,12 @@ test("an aside after the unit, a cut-off voltage, a bare decimal and a hyphenate
     ok: true,
     parsed: { shape: "scalar", value: 120, unit: "V" },
   });
+  // The tolerance's own slash is not a second figure, and a tolerance in another unit is not a tolerance.
+  assert.deepEqual(parseQuantity("13kW (+/-5%)", undefined, "power"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 13000, unit: "W" },
+  });
+  assert.match(refused(parseQuantity("120V (± 5A)", undefined, "voltage")), /changes the figure/);
   assert.deepEqual(parseQuantity("230V (L+N+PE)", undefined, "voltage"), {
     ok: true,
     parsed: { shape: "scalar", value: 230, unit: "V" },
