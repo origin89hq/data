@@ -716,7 +716,7 @@ test("Champion: a generator's starting and running watts from one cell, by fuel,
   assert.equal(values(pump.properties, "generator.fuel.tank").length, 0);
 });
 
-test("Pentair: a plunger pump's pressure in bar and its horsepower in watts, a filter's service flow, and the MES sheet's 'Capacity' read on that sheet only", () => {
+test("Pentair: a plunger pump's pressure in bar and its horsepower in watts, a fractional horsepower, a bare 'Flow rate' under its own rule, and the MES sheet's 'Capacity' read on that sheet only", () => {
   const plunger = of("pentair-ma-240l-hd");
   assert.deepEqual(
     values(plunger.properties, "pump.pressure.max").map((p) => [p.value, p.unit]),
@@ -730,6 +730,22 @@ test("Pentair: a plunger pump's pressure in bar and its horsepower in watts, a f
     values(of("pentair-ev9337-44").properties, "pump.flow.rated").map((p) => p.value),
     [50.57310143],
   );
+  // '1/2' under 'HP' and '4/10' under 'Motor HP' are fractions of a horsepower, not two figures.
+  assert.deepEqual(
+    values(of("pentair-ms50pt").properties, "pump.power.rated").map((p) => [p.value, p.unit]),
+    [[372.8499358, "W"]],
+  );
+  assert.deepEqual(
+    values(of("pentair-shef42a1").properties, "pump.power.rated").map((p) => p.value),
+    [298.2799486],
+  );
+  // 'Flow rate' is Pentair's own rule, not the shared mapping's.
+  const flow = values(of("pentair-b4zrks").properties, "pump.flow.rated");
+  assert.deepEqual(
+    flow.map((p) => p.value),
+    [1703.435303],
+  );
+  assert.ok(own("pentair", flow));
   const mes = values(of("pentair-mes50").properties, "pump.flow.rated");
   assert.deepEqual(
     mes.map((p) => p.value),

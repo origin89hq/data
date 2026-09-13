@@ -299,11 +299,10 @@
     {
       "key": "pump.flow.rated",
       "names": [
-        "Flow rate",
         "Rated flow",
         "Rated flow rate"
       ],
-      "basis": "A pump sheet's flow rate is the flow it is rated at, in gallons or litres a minute."
+      "basis": "A pump sheet's rated flow is the flow it is rated at, in gallons or litres a minute; a bare 'Flow rate' says nothing about a rating and stays a maker's own."
     },
     {
       "key": "pump.head.max",

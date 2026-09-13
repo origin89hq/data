@@ -7,6 +7,13 @@
     {
       "key": "pump.flow.rated",
       "names": [
+        "Flow rate"
+      ],
+      "basis": "The Fleck flow-control and the B4ZRKS sheets state 'Flow rate' as the one flow the part is rated at, '.50 GPM' or '450 GPM'; a bare 'Flow rate' is a maker's own reading, not the shared mapping's."
+    },
+    {
+      "key": "pump.flow.rated",
+      "names": [
         "Service Flow Rate"
       ],
       "basis": "The Everpure and Fleck sheets state the flow the unit is rated for service at, '2.5 gpm (9.5 Lpm)'."
@@ -42,6 +49,16 @@
       ],
       "unit": "kW",
       "basis": "The HPGR200 generator sheet states 'Full Load kW' as a bare 3.2 with the unit in the name."
+    },
+    {
+      "key": "pump.power.rated",
+      "names": [
+        "Motor HP",
+        "HP",
+        "Horsepower"
+      ],
+      "unit": "hp",
+      "basis": "The Myers and Sta-Rite pump sheets state the motor in horsepower under 'Motor HP', 'HP' or 'Horsepower', as '1 HP', '1/2 HP' or a bare fraction such as '4/10' in a horsepower column; a fraction is one figure."
     }
   ]
 }
