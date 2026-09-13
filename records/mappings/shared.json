@@ -297,14 +297,6 @@
       "basis": "A generator sheet's fuel tank capacity is what its tank holds; on a pump's sheet the same name is the engine's tank, which the key's kinds keep out."
     },
     {
-      "key": "pump.flow.rated",
-      "names": [
-        "Rated flow",
-        "Rated flow rate"
-      ],
-      "basis": "A pump sheet's rated flow is the flow it is rated at, in gallons or litres a minute; a bare 'Flow rate' says nothing about a rating and stays a maker's own."
-    },
-    {
       "key": "pump.head.max",
       "names": [
         "Max shut-off head",
