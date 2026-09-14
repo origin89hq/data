@@ -2,7 +2,10 @@
   "id": "pentair-blfc-assy-1-2-1-0-gpm",
   "manufacturer": "pentair",
   "name": "BLFC Assy 1/2\", 1.0 GPM",
-  "kind": "pump",
+  "kind": "out-of-scope",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "basis": "A Fleck brine line flow control: a restrictor read from a valve manual, rated at the flow it lets through, and nothing that pumps.",
+  "checkedAt": "2026-09-14",
+  "reviewedBy": "lemarier"
 }

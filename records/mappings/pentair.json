@@ -9,7 +9,8 @@
       "names": [
         "Flow rate"
       ],
-      "basis": "The Fleck flow-control and the B4ZRKS sheets state 'Flow rate' as the one flow the part is rated at, '.50 GPM' or '450 GPM'; a bare 'Flow rate' is a maker's own reading, not the shared mapping's."
+      "basis": "The B4ZRKS sheet states 'Flow rate' as the one flow the pump is rated at, '450 GPM'; the Fleck flow-control parts print the same name for the flow a restrictor lets through and are out of scope.",
+      "source": "doc-d41e86f4401939f14899953edd68199f"
     },
     {
       "key": "pump.flow.rated",

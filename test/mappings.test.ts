@@ -429,7 +429,7 @@ test("NOCO: the NLX's voltage, energy and both battery currents, its capacity as
   // Two banks' worth in one figure, '10Ax2(12V)', is still refused.
   assert.equal(gap(of("noco-genpro10x2").gaps, "charge.current.max")?.reason, "unparsed");
   // The Genius 2D manual prints the same name for a 2 A maintainer; the rules read the GEN and GENPRO sheets only.
-  assert.equal(gap(of("noco-noco").gaps, "charge.current.max")?.claims, 0);
+  assert.equal(of("noco-noco").gaps.length, 0);
 });
 
 test("Energizer Solar: a module's STC figures with its watt-peak, the Force's PV limits, the PS2900H's one current under both battery keys and its timed peak, and the HP-6M's watts", () => {
@@ -815,6 +815,8 @@ test("Pentair: a plunger pump's pressure in bar and its horsepower in watts, a f
   assert.ok(own("pentair", mes));
   // On a filter sheet 'Capacity' is gallons of service life, which the source-scoped rule leaves alone.
   assert.equal(of("pentair-7fc5-s").properties.length, 0);
+  // The Fleck flow controls are restrictors, out of scope: 'Flow rate' reads the B4ZRKS sheet only.
+  assert.equal(of("pentair-blfc-assy-1-2-12-gpm").properties.length, 0);
   // The HPGR200 is a grinder pump filed as a generator: reviewed as a pump, its 'Full Load kW' is
   // its motor's load and reads under no generator key, and its 2 HP reads under the pump's.
   assert.equal(values(of("pentair-hpgr200").properties, "generator.power.running").length, 0);
@@ -833,6 +835,8 @@ test("NOCO's chargers: the output watts, the battery sizes as a range, and a bou
     values(of("noco-gx3626").properties, "charge.battery.capacity").map((p) => [p.min, p.max]),
     [[55, 425]],
   );
+  // The record minted under the maker's own name is out of scope: its figures are other models'.
+  assert.equal(of("noco-noco").properties.length, 0);
   const genius = of("noco-genius2");
   assert.equal(gap(genius.gaps, "charge.battery.capacity")?.reason, "unparsed");
   assert.match(gap(genius.gaps, "charge.battery.capacity")?.detail ?? "", /bound/);
