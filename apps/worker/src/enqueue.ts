@@ -147,10 +147,10 @@ async function approvedDocuments(
   translations: { url: string; language: string }[];
 }> {
   const pointer = await readPointer(env.ARCHIVE, pointerKey.documents(manufacturer));
-  if (!pointer) throw new Error(`${manufacturer}: no current run`);
+  if (!pointer) throw new NothingApproved(`${manufacturer}: no current run`);
   const prefix = runPrefix.documents(manufacturer, pointer.run);
   const manifest = await env.ARCHIVE.get(`${prefix}/manifest.json`);
-  if (!manifest) throw new Error(`${prefix}: nothing approved to convert`);
+  if (!manifest) throw new NothingApproved(`${prefix}: nothing approved to convert`);
   const { documents } = await manifest.json<{ documents: ApprovedDocument[] }>();
   // Two shops can link the same PDF; the archive keys by content, so one document is one message.
   const deduplicated = [...new Map(documents.map((d) => [d.sha256, d])).values()];
@@ -185,6 +185,8 @@ export const FORGET_AT_ONCE = 200;
 export class RunMoved extends Error {}
 /** A batch's start is not one a previous batch answered with. */
 export class BadStart extends Error {}
+/** The maker has no current run, or its run has nothing approved: nothing to forget. */
+export class NothingApproved extends Error {}
 
 export async function forgetReadings(
   env: Env,

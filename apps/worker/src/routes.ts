@@ -22,6 +22,7 @@ import {
   classifyRun,
   convertRun,
   forgetReadings,
+  NothingApproved,
   RunMoved,
   specPagesRun,
   visionRun,
@@ -619,12 +620,15 @@ controlRoutes.post("/forget", async (c) => {
     return c.json({ error: "from must be a count" }, 400);
   // An empty run is no run named: the first batch has none to name yet.
   const run = c.req.query("run") || undefined;
+  // Only what the caller can put right is answered with a 4xx; a bucket or a manifest that fails
+  // mid-batch is a 500, so a batch that removed some readings and stopped is not reported as done.
   try {
     return c.json(await forgetReadings(c.env, manufacturerId, dry, from, run));
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    const status = error instanceof RunMoved ? 409 : error instanceof BadStart ? 400 : 404;
-    return c.json({ error: message }, status);
+    if (error instanceof RunMoved) return c.json({ error: error.message }, 409);
+    if (error instanceof BadStart) return c.json({ error: error.message }, 400);
+    if (error instanceof NothingApproved) return c.json({ error: error.message }, 404);
+    throw error;
   }
 });
 

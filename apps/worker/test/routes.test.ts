@@ -336,6 +336,9 @@ test("forgetting needs a maker, and one with no approved run is told so rather t
   const none = await forget(env, "id=nobody");
   assert.equal(none.status, 404);
   assert.match(await errorOf(none), /nobody: no current run/);
+  // A manifest that cannot be read is not a missing one: the failure surfaces as a server error.
+  await env.ARCHIVE.put("documents/acme/runs/r1/manifest.json", "not json");
+  assert.equal((await forget(env, "id=acme")).status, 500);
 });
 
 test("a batch bigger than the cap is refused rather than trimmed", async () => {
