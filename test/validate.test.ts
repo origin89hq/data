@@ -39,6 +39,7 @@ function fixture(): Records {
     models: [],
     specs: [],
     mappings: [],
+    rejections: [],
   };
 }
 
@@ -378,4 +379,109 @@ test("a dialect's readings and codes are bounded, and a reading may say which mo
     /512/,
     "more code entries than a vendor table has is refused",
   );
+});
+
+/** Magnum's MS4024PAE with a router setting read as its figure, and the file that rejects it. */
+function withRejection(rejection: Records["rejections"][number]["rejections"][number]): Records {
+  return {
+    ...fixture(),
+    manufacturers: [
+      { id: "magnum-energy", name: "Magnum Energy", domains: [] },
+    ] as Records["manufacturers"],
+    models: [
+      {
+        id: "magnum-energy-ms4024pae",
+        manufacturer: "magnum-energy",
+        name: "MS4024PAE",
+        aliases: ["MS4024 PAE"],
+        dialects: [],
+      },
+    ],
+    specs: [
+      {
+        id: "magnum-energy-ms4024pae--ac-in-soc-connect",
+        model: "magnum-energy-ms4024pae",
+        name: "AC In - SOC Connect",
+        value: "80",
+        unit: "%",
+        source: "s1",
+        extractedBy: "ai:@cf/test@p1",
+        confidence: "vendor-doc",
+      },
+    ],
+    rejections: [{ id: "magnum-energy", rejections: [rejection] }],
+  };
+}
+const reviewed = { reviewedBy: "lemarier", checkedAt: "2026-09-14" };
+
+test("a rejection of a figure or a product the records still hold is an error, and passes once it is gone", () => {
+  const setting = {
+    source: "s1",
+    model: "magnum-energy-ms4024pae",
+    name: "ac in -  soc connect",
+    reason: "a router setting shown on p55, not a rating",
+    ...reviewed,
+  };
+  const held = withRejection(setting);
+  assert.deepEqual(validate(held).errors, [
+    "rejections magnum-energy entry 1: rejects spec magnum-energy-ms4024pae--ac-in-soc-connect, which the records still hold",
+  ]);
+  assert.deepEqual(validate({ ...held, specs: [] }).errors, [], "the figure deleted with it");
+  assert.deepEqual(
+    validate(withRejection({ source: "s1", reason: "not this maker's ratings", ...reviewed }))
+      .errors,
+    [
+      "rejections magnum-energy entry 1: rejects spec magnum-energy-ms4024pae--ac-in-soc-connect, which the records still hold",
+    ],
+    "a rejected document rejects every figure it gave",
+  );
+  assert.deepEqual(
+    validate({ ...withRejection({ product: "MS4024-PAE", reason: "x", ...reviewed }), specs: [] })
+      .errors,
+    [
+      "rejections magnum-energy entry 1: rejects MS4024-PAE, which is model magnum-energy-ms4024pae",
+    ],
+  );
+});
+
+test("a rejection file names a maker that exists, once, with a date that has happened and a document it can name", () => {
+  const product = { product: "6TAGM Exide", reason: "an Exide battery", ...reviewed };
+  const records = { ...withRejection(product), specs: [] };
+  assert.deepEqual(validate(records).errors, []);
+  assert.deepEqual(
+    validate({ ...records, rejections: [{ id: "exide", rejections: [product] }] }).errors,
+    ["rejections exide: names a manufacturer that does not exist"],
+  );
+  assert.deepEqual(
+    validate({ ...records, rejections: [...records.rejections, ...records.rejections] }).errors,
+    ["rejections magnum-energy: listed twice"],
+  );
+  assert.deepEqual(
+    validate(withRejection({ ...product, checkedAt: "2999-01-01" })).errors.filter((e) =>
+      e.includes("has not happened"),
+    ),
+    ["rejections magnum-energy entry 1: reviewed on 2999-01-01, which has not happened"],
+  );
+  const unnamed = { source: "not-a-document", reason: "x", ...reviewed };
+  assert.deepEqual(validate({ ...withRejection(unnamed), specs: [] }).errors, [
+    "rejections magnum-energy entry 1: not-a-document is neither a source nor a document's id",
+  ]);
+  const documentId = { source: "doc-0c5182fdcf174fd7bc5aa4435d69681f", reason: "x", ...reviewed };
+  assert.deepEqual(
+    validate({ ...withRejection(documentId), specs: [] }).errors,
+    [],
+    "a document with no source record left is still a document",
+  );
+  const figure = { source: "s1", name: "Power", reason: "x", ...reviewed };
+  assert.deepEqual(
+    validate({ ...withRejection({ ...figure, model: "victron-energy-x" }), specs: [] }).errors,
+    ["rejections magnum-energy entry 1: victron-energy-x is not a model of magnum-energy"],
+    "a model id of another maker rejects nothing, so it is refused",
+  );
+  const unheld = validate({
+    ...withRejection({ ...figure, model: "magnum-energy-ms4024pae-x" }),
+    specs: [],
+  });
+  assert.deepEqual(unheld.errors, [], "a model only a pull would mint can still be named");
+  assert.equal(unheld.review["rejection of a figure on a model the records do not hold"], 1);
 });

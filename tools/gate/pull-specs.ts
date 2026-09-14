@@ -15,6 +15,12 @@ import {
 } from "../../src/models.ts";
 import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 import {
+  rejectionsOf,
+  rejectsDocument,
+  rejectsFigure,
+  rejectsProduct,
+} from "../../src/rejections.ts";
+import {
   heldByPerson,
   matchModel,
   pullWrites,
@@ -123,6 +129,13 @@ const credited = await creditedReadings(
 );
 readings.readings = credited.keep;
 const withheld = credited.withheld;
+// What a person has rejected does not come back with the next pull: a whole document that is not
+// this maker's ratings, a product that is not theirs, or one figure of one document.
+const rejections = rejectionsOf(records.rejections, manufacturer);
+const isRejected = (reading: { sha256: string }) =>
+  rejectsDocument(rejections, `doc-${reading.sha256.slice(0, 32)}`);
+const rejectedDocuments = readings.readings.filter(isRejected).length;
+readings.readings = readings.readings.filter((reading) => !isRejected(reading));
 // The translated editions set aside above were still read, and a person may hold a figure under
 // one of their ids. They are read for comparison only: nothing of theirs is written or cited.
 // A retailer's withheld documents are not the maker's own and stay out of the comparison too,
@@ -181,6 +194,11 @@ if (addModels) {
         matchModel(records.models, manufacturer, name, makerNames)
       )
         continue;
+      // A product a person rejected is not this maker's, whatever a document calls it.
+      if (rejectsProduct(rejections, name)) {
+        notProducts.set(name, "rejected by a person");
+        continue;
+      }
       const refusal = mintRefusal(name, ownNames);
       if (refusal) {
         notProducts.set(name, refusal);
@@ -215,6 +233,7 @@ const usedSources = new Map<string, { url: string; sha256: string }>();
 const documentUrls = new Map<string, string>();
 let repeatedTotal = 0;
 let garbledTotal = 0;
+let rejectedFigures = 0;
 const figuresOf = (document: (typeof readings.readings)[number]) =>
   specsFrom({
     reports: document.products,
@@ -233,26 +252,31 @@ for (const document of readings.readings) {
   if (document.products.length === 0) continue;
   const sourceId = `doc-${document.sha256.slice(0, 32)}`;
   documentUrls.set(sourceId, document.url);
-  const { specs, unmatched: missing, repeated, repeatedRows, garbled } = figuresOf(document);
+  const { specs: given, unmatched: missing, repeated, repeatedRows, garbled } = figuresOf(document);
   repeatedTotal += repeated;
   garbledTotal += garbled.length;
+  // A figure a person rejected is neither written, compared nor cited: it is not a rating to hold.
+  const specs = given.filter((spec) => !rejectsFigure(rejections, spec));
+  rejectedFigures += given.length - specs.length;
   for (const spec of specs) {
     collected.set(spec.id, spec);
     candidate(spec);
   }
   // A row the document's own translation rule dropped was still read, and a person may hold a
-  // figure under its id: it is compared, never written.
-  for (const spec of repeatedRows) candidate(spec);
+  // figure under its id: it is compared, never written. A rejected one is not compared either, so a
+  // disagreement never cites a reading a person has already turned down.
+  for (const spec of repeatedRows) if (!rejectsFigure(rejections, spec)) candidate(spec);
   // Only a document that produced a figure is cited. Refusing a fragment or a repeat can empty a
   // document, and a source nothing cites is an orphan the validator refuses.
   if (specs.length > 0) usedSources.set(sourceId, { url: document.url, sha256: document.sha256 });
   for (const m of missing) unmatched.add(m);
 }
 for (const document of comparisonOnly) {
-  if (document.products.length === 0) continue;
+  if (document.products.length === 0 || isRejected(document)) continue;
   documentUrls.set(`doc-${document.sha256.slice(0, 32)}`, document.url);
   const { specs, repeatedRows } = figuresOf(document);
-  for (const spec of [...specs, ...repeatedRows]) candidate(spec);
+  for (const spec of [...specs, ...repeatedRows])
+    if (!rejectsFigure(rejections, spec)) candidate(spec);
 }
 
 // Once the maker's whole set is in hand. A figure a person confirmed or wrote by hand is not the
@@ -404,6 +428,10 @@ if (repeatedTotal)
   );
 if (garbledTotal)
   console.log(`  ${garbledTotal} figures refused: the reader garbled a symbol in the value`);
+if (rejectedDocuments || rejectedFigures)
+  console.log(
+    `  ${rejectedDocuments} documents and ${rejectedFigures} figures left out, rejected by a person`,
+  );
 if (aligned.dropped.length)
   console.log(
     `  ${aligned.dropped.length} figures dropped: named in another language on a model that already has English figures`,

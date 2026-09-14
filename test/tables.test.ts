@@ -14,6 +14,7 @@ const records: Records = {
   sources: [],
   manufacturers: [],
   brands: [],
+  rejections: [],
   models: [
     Model.parse({ id: "rolls--s-550", manufacturer: "rolls", name: "S-550" }),
     Model.parse({

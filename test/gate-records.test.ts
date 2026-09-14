@@ -43,6 +43,7 @@ function fixture(brands: Brand[] = [decided]): Records {
     ],
     sources: [{ id: "s1", url: "https://x/1" }],
     mappings: [],
+    rejections: [],
     manufacturers: [{ id: "rolls-battery", name: "Rolls Battery", domains: ["rollsbattery.com"] }],
     brands,
     models: [],

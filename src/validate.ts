@@ -4,6 +4,8 @@ import { locatorOf } from "../tools/catalogue/sources.ts";
 import { auditMappings } from "./audit.ts";
 import { buildProperties } from "./properties.ts";
 import { loadRecords, type Records } from "./records.ts";
+import { rejectsFigure } from "./rejections.ts";
+import { sameName } from "./specs.ts";
 import { canonicalUnit, concerns as figureConcerns, QUANTITY_OF } from "./units.ts";
 
 export interface Report {
@@ -203,6 +205,48 @@ export function validate(records: Records): Report {
     if (s.reviewedBy && !s.checkedAt) errors.push(`spec ${s.id}: confirmed with no date`);
     if (!s.reviewedBy) note("figure a model read but nobody has confirmed");
     for (const concern of figureConcerns(s)) note(`figure doubted: ${concern}`);
+  }
+
+  // A rejection is a person's no to something a reading gave. What it rejects must be gone from the
+  // records, or the pull and the review disagree about one figure; and it must name a document,
+  // since a mistyped id rejects nothing and looks like it does.
+  const manufacturerOf = new Map(records.models.map((m) => [m.id, m.manufacturer]));
+  const seenRejections = new Set<string>();
+  for (const file of records.rejections) {
+    if (seenRejections.has(file.id)) errors.push(`rejections ${file.id}: listed twice`);
+    seenRejections.add(file.id);
+    if (!makers.has(file.id))
+      errors.push(`rejections ${file.id}: names a manufacturer that does not exist`);
+    const theirs = records.specs.filter((s) => manufacturerOf.get(s.model) === file.id);
+    file.rejections.forEach((rejection, i) => {
+      const where = `rejections ${file.id} entry ${i + 1}`;
+      if (rejection.checkedAt > today)
+        errors.push(`${where}: reviewed on ${rejection.checkedAt}, which has not happened`);
+      if (
+        rejection.source &&
+        !sourceIds.has(rejection.source) &&
+        !/^doc-[0-9a-f]{32}$/.test(rejection.source)
+      )
+        errors.push(`${where}: ${rejection.source} is neither a source nor a document's id`);
+      // A figure's rejection matches its model id exactly, so an id that is not this maker's rejects
+      // nothing. One the records do not hold may be a model only a pull would mint, so it is noted.
+      if (rejection.model && !rejection.model.startsWith(`${file.id}-`))
+        errors.push(`${where}: ${rejection.model} is not a model of ${file.id}`);
+      else if (rejection.model && !manufacturerOf.has(rejection.model))
+        note("rejection of a figure on a model the records do not hold");
+      for (const s of theirs)
+        if (rejectsFigure([rejection], s))
+          errors.push(`${where}: rejects spec ${s.id}, which the records still hold`);
+      const product = rejection.product;
+      const model = product
+        ? records.models.find(
+            (m) =>
+              m.manufacturer === file.id &&
+              (sameName(m.name, product) || m.aliases.some((a) => sameName(a, product))),
+          )
+        : undefined;
+      if (model) errors.push(`${where}: rejects ${product}, which is model ${model.id}`);
+    });
   }
 
   // A mapping rule names a registry key and reads a maker's own figures, or every maker's for the
