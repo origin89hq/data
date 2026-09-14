@@ -2,7 +2,10 @@
   "id": "unique-appliances-ugp-260l1",
   "manufacturer": "unique-appliances",
   "name": "UGP-260L1",
-  "kind": "charge-controller",
+  "kind": "appliance",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "checkedAt": "2026-09-14",
+  "reviewedBy": "lemarier",
+  "basis": "Its guide is titled \"260L / 9.0 cu. ft. SOLAR POWERED DC FRIDGE OWNER'S GUIDE UGP-260L1\" (doc-d2a8978c382c66e3fc2eebeec2044fc3, p1)."
 }

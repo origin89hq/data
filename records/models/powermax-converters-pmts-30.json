@@ -2,7 +2,10 @@
   "id": "powermax-converters-pmts-30",
   "manufacturer": "powermax-converters",
   "name": "PMTS-30",
-  "kind": "dc-dc-converter",
+  "kind": "balance-of-system",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "checkedAt": "2026-09-14",
+  "reviewedBy": "lemarier",
+  "basis": "Its manual is titled \"AC POWER TRANSFER SWITCH PMTS-30 and PMTS-50, Transfer Switch for 120 or 240Vac\" (doc-2e9bfa1b129f68b2fa6491f42fde9209, p1); the registry has no transfer-switch kind, and the records file transfer switches as balance-of-system."
 }

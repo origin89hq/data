@@ -1,10 +1,12 @@
 {
-  "id": "unique-appliances-unique-appliance--power-source-requirements",
-  "model": "unique-appliances-unique-appliance",
+  "id": "unique-appliances-ugp-30cr-ec--power-source-requirements",
+  "model": "unique-appliances-ugp-30cr-ec",
   "name": "POWER SOURCE REQUIREMENTS",
   "value": "240V120Vac/60Hz/50A",
   "source": "doc-e0d93c43d8af6e89c5ab752e83021da7",
-  "page": 26,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-14",
+  "page": 30,
   "confidence": "vendor-doc"
 }

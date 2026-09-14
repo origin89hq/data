@@ -2,9 +2,11 @@
   "id": "pentair-om34k--water-to-drain",
   "model": "pentair-om34k",
   "name": "Water to Drain",
-  "value": "46 gal to 56 gal",
+  "value": "46.3 gal to 56.9 gal",
   "source": "doc-a05d04ac4987139b1e825e769688c178",
-  "page": 11,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-14",
+  "page": 12,
   "confidence": "vendor-doc"
 }

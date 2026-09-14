@@ -2,9 +2,11 @@
   "id": "pentair-om40k--regeneration-time",
   "model": "pentair-om40k",
   "name": "Regeneration Time",
-  "value": "74 min to 118 min",
+  "value": "74.1 min to 118.1 min",
   "source": "doc-a05d04ac4987139b1e825e769688c178",
-  "page": 11,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-14",
+  "page": 12,
   "confidence": "vendor-doc"
 }

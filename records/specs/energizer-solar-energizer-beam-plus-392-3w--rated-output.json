@@ -1,9 +1,0 @@
-{
-  "id": "energizer-solar-energizer-beam-plus-392-3w--rated-output",
-  "model": "energizer-solar-energizer-beam-plus-392-3w",
-  "name": "Rated output",
-  "value": "392.3 Wp",
-  "source": "doc-b7e610e08a7090dac351c53bfaacc59d",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}
