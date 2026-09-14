@@ -4,6 +4,7 @@ import { PROPERTY_BY_KEY } from "@origin89/equipment-schema/properties";
 import {
   conditionAsides,
   parseQuantity,
+  partsOf,
   printedQuantities,
   printedQuantity,
   type Read,
@@ -420,6 +421,16 @@ test("an aside after the unit, a cut-off voltage, a bare decimal and a hyphenate
     refused(parseQuantity("92V(25℃)；95V(Lowest ambient temperature)", undefined, "voltage")),
     /not a unit/,
   );
+});
+
+test("a value's parts carry the unit the last one prints, and a fractional horsepower is one part", () => {
+  assert.deepEqual(partsOf("125/140 A"), ["125 A", "140 A"]);
+  assert.deepEqual(partsOf("5500/4000"), ["5500", "4000"]);
+  assert.deepEqual(partsOf("12V/5A"), ["12V", "5A"], "each with its own unit");
+  assert.deepEqual(partsOf("4.2 L/min"), ["4.2 L/min"]);
+  assert.deepEqual(partsOf("1/2 HP"), ["1/2 HP"]);
+  assert.deepEqual(partsOf("4/10", "hp"), ["4/10"]);
+  assert.deepEqual(partsOf("4/10"), ["4", "10"], "a bare fraction under no horsepower unit is two");
 });
 
 test("the asides that carry a condition are the figures of another kind, one list per alternative", () => {

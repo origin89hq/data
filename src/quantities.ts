@@ -219,6 +219,23 @@ export function conditionAsides(value: string): string[][] {
   });
 }
 
+/**
+ * The parts a rule may pick from a value, counted from one: the alternatives the parser splits,
+ * each carrying the unit the last one prints where its own prints none, "125/140 A" being 125 A
+ * and 140 A; a fractional horsepower, "1/2 HP" or a bare "4/10" under a horsepower unit, is one
+ * part, as it is one figure.
+ */
+export function partsOf(value: string, unit?: string): string[] {
+  const text = value.trim();
+  const fraction = FRACTIONAL_HP.exec(text);
+  if (fraction && (fraction[3] !== undefined || canonicalUnit(unit) === "hp")) return [text];
+  const parts = alternatives(text);
+  if (parts.length < 2) return parts;
+  const last = parts.at(-1) ?? "";
+  const tail = looseUnit(last) ? (SCALAR_TERM.exec(last)?.[2] ?? "").trim() : "";
+  return parts.map((part) => (tail && looseUnit(part) === undefined ? `${part} ${tail}` : part));
+}
+
 /** A term with no aside: one number with its unit, or a range. */
 function parseBare(text: string): Term | string {
   const ranged = RANGE_TERM.exec(text);

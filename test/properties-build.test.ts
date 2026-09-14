@@ -1525,3 +1525,56 @@ test("a part rule leaves a unit's slash alone, and a name that says one head ove
     ["the name and the value state different head, beside 1 usable figure"],
   );
 });
+
+test("a part takes the unit the cell prints once at its end, and a fractional horsepower has no second part", () => {
+  const hybrid2 = Model.parse({
+    id: "acme-hybrid-6000",
+    manufacturer: "acme",
+    name: "Hybrid 6000",
+    kind: "inverter-charger",
+  });
+  const pump = Model.parse({
+    id: "acme-pump-3",
+    manufacturer: "acme",
+    name: "Pump 3",
+    kind: "pump",
+  });
+  const { properties, gaps } = build({
+    models: [hybrid2, pump],
+    mappings: [
+      acme({
+        rules: [
+          {
+            key: "charge.current.max",
+            names: ["Max charge/discharge current"],
+            part: 1,
+            basis: "the first",
+          },
+          { key: "pump.power.rated", names: ["Horsepower"], part: 2, basis: "the second" },
+        ],
+      }),
+      Mapping.parse({
+        id: "shared",
+        version: 1,
+        reviewedBy: "ada",
+        checkedAt: "2026-09-14",
+        rules: [{ key: "pump.power.rated", names: ["Horsepower"], basis: "the whole" }],
+      }),
+    ],
+    specs: [
+      figure(hybrid2.id, "Max charge/discharge current", "125/140 A"),
+      figure(pump.id, "Horsepower", "1/2 HP"),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.key, p.value, p.unit, p.mappedBy]),
+    [
+      ["charge.current.max", 125, "A", "rule:acme@1#1"],
+      ["pump.power.rated", 372.8499358, "W", "rule:shared@1#1"],
+    ],
+  );
+  assert.deepEqual(
+    gaps.filter((g) => g.claims > 0),
+    [],
+  );
+});

@@ -19,9 +19,9 @@ import {
 } from "./conditions.ts";
 import { type Feed, type FeedModel, feedSpecId } from "./feeds.ts";
 import {
-  alternatives,
   conditionAsides,
   type Parsed,
+  partsOf,
   printedQuantities,
   readProperty,
 } from "./quantities.ts";
@@ -151,10 +151,9 @@ function rulesFor(mapping: Mapping | undefined, key: string): (MappingRule & { n
   );
 }
 
-/** The `n`th slash-separated part of a value, counted from one: "5500/4000" has two. */
-export function partOf(value: string, n: number): string | undefined {
-  // The parts are the alternatives the parser would split, so the slash in "4.2 L/min" is not one.
-  const parts = alternatives(value.trim());
+/** The `n`th part of a value, counted from one: "5500/4000" has two, "4.2 L/min" and "1/2 HP" one. */
+export function partOf(value: string, n: number, unit?: string): string | undefined {
+  const parts = partsOf(value, unit);
   return parts.length >= n && parts.length > 1 ? parts[n - 1]?.trim() : undefined;
 }
 
@@ -184,7 +183,10 @@ function claimsUnder(
       // were read is not read whole on top. A rule for one part reads only a value that has it.
       const taken = read.has(spec.id) || read.has(`${spec.id}#${rule.part ?? "any"}`);
       if (taken) continue;
-      const value = rule.part === undefined ? spec.value : partOf(spec.value, rule.part);
+      const value =
+        rule.part === undefined
+          ? spec.value
+          : partOf(spec.value, rule.part, spec.unit ?? rule.unit);
       if (value === undefined) continue;
       read.add(rule.part === undefined ? spec.id : `${spec.id}#${rule.part}`);
       if (rule.part !== undefined) read.add(`${spec.id}#any`);
@@ -235,6 +237,7 @@ function recordClaims(
       names: new Set(rule.names.map(said)),
       source: rule.source,
       part: rule.part,
+      unit: rule.unit,
     }));
   // A maker's rule claims a figure it would read: one of its names, on its document if it names
   // one, with the part it takes if it takes one; a lone value a part rule passes over is the
@@ -245,7 +248,8 @@ function recordClaims(
       (rule) =>
         (!rule.source || spec.source === rule.source) &&
         namedIn(spec, rule.names) &&
-        (rule.part === undefined || partOf(spec.value, rule.part) !== undefined),
+        (rule.part === undefined ||
+          partOf(spec.value, rule.part, spec.unit ?? rule.unit) !== undefined),
     );
   return [...claims, ...claimsUnder(shared, key, specs, claimed, read)];
 }
