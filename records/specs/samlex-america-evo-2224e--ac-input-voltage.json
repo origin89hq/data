@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-2224e--ac-input-voltage",
+  "model": "samlex-america-evo-2224e",
+  "name": "AC Input Voltage",
+  "value": "230VAC (140-280VAC +/- 5% selectable)",
+  "source": "doc-e0e0b23437fb8228c998f5f0bae57ef9",
+  "page": 117,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

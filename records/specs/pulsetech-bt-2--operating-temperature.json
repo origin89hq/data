@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-bt-2--operating-temperature",
+  "model": "pulsetech-bt-2",
+  "name": "Operating Temperature",
+  "value": "0ºF to 130ºF (-18ºC to 54ºC)",
+  "source": "doc-5452174c9b3e2d65a71630e4cbe5c979",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

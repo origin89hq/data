@@ -2,8 +2,8 @@
   "id": "victron-energy-inverter-rs-smart-solar-48-6000--continuous-output-power-at-25-c",
   "model": "victron-energy-inverter-rs-smart-solar-48-6000",
   "name": "Continuous output power at 25 °C",
-  "value": "4800 W to 5300 W",
-  "source": "doc-2375e9a6ed181d8a7987453c98e92412",
+  "value": "4800-5300 W",
+  "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
   "page": 50,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"

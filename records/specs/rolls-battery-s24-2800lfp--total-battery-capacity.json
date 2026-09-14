@@ -1,0 +1,10 @@
+{
+  "id": "rolls-battery-s24-2800lfp--total-battery-capacity",
+  "model": "rolls-battery-s24-2800lfp",
+  "name": "Total battery capacity",
+  "value": "installed x 110 Ah",
+  "source": "doc-84dac644c654a71983651d6ca147de02",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

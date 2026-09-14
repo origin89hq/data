@@ -1,0 +1,10 @@
+{
+  "id": "surecall-sc-polyh3-72-yp-ca--liaison-descendante",
+  "model": "surecall-sc-polyh3-72-yp-ca",
+  "name": "liaison descendante",
+  "value": "728-746 / 746-757/ 869-894 /1930-1995 / 2110-2155 MHz",
+  "source": "doc-b042d39a8f47c1f852da1634fbcfed6e",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -2,8 +2,8 @@
   "id": "energizer-solar-sunpack-180w--usb-a-output",
   "model": "energizer-solar-sunpack-180w",
   "name": "USB-A Output",
-  "value": "5V⎓2.4A",
-  "source": "doc-26ff2a73b6a65f512a7df48c4d1b421c",
+  "value": "5V⎖ 2.4A",
+  "source": "doc-c30c13a0cffc821148b7d9ccdbfdbd53",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

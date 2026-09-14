@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-890pt--load-voltage",
+  "model": "pulsetech-890pt",
+  "name": "Load Voltage",
+  "value": "13.93",
+  "unit": "V",
+  "source": "doc-507a0bdb8d38534cdb6a80f76139fd85",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

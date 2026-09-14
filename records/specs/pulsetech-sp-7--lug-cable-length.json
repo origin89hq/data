@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-sp-7--lug-cable-length",
+  "model": "pulsetech-sp-7",
+  "name": "Lug Cable Length",
+  "value": "3'",
+  "source": "doc-59f03716fc92d291e8f17d044f9651ea",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

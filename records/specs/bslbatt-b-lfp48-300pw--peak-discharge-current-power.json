@@ -1,0 +1,9 @@
+{
+  "id": "bslbatt-b-lfp48-300pw--peak-discharge-current-power",
+  "model": "bslbatt-b-lfp48-300pw",
+  "name": "Peak Discharge Current / Power",
+  "value": "310A / 15.872kW",
+  "source": "doc-382c5a7971015da9db65bfbb1c541856",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

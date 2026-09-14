@@ -1,0 +1,9 @@
+{
+  "id": "noco-x100--usb-c-version",
+  "model": "noco-x100",
+  "name": "USB-C Version",
+  "value": "USB-C PD 3.0",
+  "source": "doc-0dc6d80d0571efcc7f87ee8b73784fee",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

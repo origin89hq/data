@@ -1,0 +1,10 @@
+{
+  "id": "epever-it6415nd--ambient-temperature-range",
+  "model": "epever-it6415nd",
+  "name": "Ambient temperature range",
+  "value": "-25℃ ~ +50℃",
+  "source": "doc-df1ca9dee1b40e9e7ed1860444f80da7",
+  "page": 36,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ps-mppt-40m--low-battery-foldback-high-limit",
+  "model": "morningstar-ps-mppt-40m",
+  "name": "Low Battery Foldback High Limit",
+  "value": "20",
+  "unit": "°C",
+  "source": "doc-31c9b1fd6776489b3d9c29123c41e860",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

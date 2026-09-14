@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-evo-2212e--maximum-ac-input-current",
+  "model": "samlex-america-evo-2212e",
+  "name": "MAXIMUM AC INPUT CURRENT",
+  "value": "9 Amps, AC",
+  "source": "doc-868ad4a28bf1f45acf875ffd21fcc035",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

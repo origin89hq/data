@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-idc-360a-24--input-voltage-range",
+  "model": "samlex-america-idc-360a-24",
+  "name": "INPUT VOLTAGE RANGE",
+  "value": "9 - 18 VDC",
+  "source": "doc-467fa2e33f7702049cb590017cd5a87e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

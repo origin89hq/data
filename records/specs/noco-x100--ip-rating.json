@@ -1,0 +1,9 @@
+{
+  "id": "noco-x100--ip-rating",
+  "model": "noco-x100",
+  "name": "IP Rating",
+  "value": "IP20",
+  "source": "doc-0dc6d80d0571efcc7f87ee8b73784fee",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

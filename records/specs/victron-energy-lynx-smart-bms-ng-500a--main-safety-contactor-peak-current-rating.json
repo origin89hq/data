@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-lynx-smart-bms-ng-500a--main-safety-contactor-peak-current-rating",
+  "model": "victron-energy-lynx-smart-bms-ng-500a",
+  "name": "Main safety contactor peak current rating",
+  "value": "600 A for 5 minutes",
+  "source": "doc-6652fcdf0e9f05f446c2f8eda5284b2b",
+  "page": 44,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

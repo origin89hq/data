@@ -1,0 +1,11 @@
+{
+  "id": "noco-gbx55--prote-o-da-caixa",
+  "model": "noco-gbx55",
+  "name": "Proteção da caixa",
+  "english": "Enclosure protection",
+  "value": "IP65",
+  "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
+  "page": 65,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

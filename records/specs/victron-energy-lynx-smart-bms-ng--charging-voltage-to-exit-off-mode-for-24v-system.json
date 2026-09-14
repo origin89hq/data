@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-lynx-smart-bms-ng--charging-voltage-to-exit-off-mode-for-24v-system",
+  "model": "victron-energy-lynx-smart-bms-ng",
+  "name": "Charging voltage to exit OFF mode for 24V system",
+  "value": "23.4",
+  "unit": "V",
+  "source": "doc-6652fcdf0e9f05f446c2f8eda5284b2b",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-20g-of1--manifold-water-column-pressure",
+  "model": "unique-appliances-ugp-20g-of1",
+  "name": "Manifold Water Column Pressure",
+  "value": "11\"",
+  "source": "doc-a02fce8b3a5ca08271c1d8617ffd4bf0",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

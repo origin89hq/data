@@ -2,7 +2,8 @@
   "id": "energizer-solar-ensp60ndg2480--stc-rated-output",
   "model": "energizer-solar-ensp60ndg2480",
   "name": "STC rated output",
-  "value": "480 Wp",
+  "value": "480",
+  "unit": "W",
   "source": "doc-36f14528b83079b8628c635e0f01546f",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"

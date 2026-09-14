@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-onan-7-0-mdkbl--max-number-of-multi-s",
+  "model": "victron-energy-onan-7-0-mdkbl",
+  "name": "Max number of Multi's",
+  "value": "3",
+  "source": "doc-23fb52268464408fe25e8af435fef039",
+  "page": 45,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

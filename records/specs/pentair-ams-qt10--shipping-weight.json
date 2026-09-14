@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ams-qt10--shipping-weight",
+  "model": "pentair-ams-qt10",
+  "name": "Shipping Weight",
+  "value": "3 lbs (1.4 kgs)",
+  "source": "doc-30336259ae6f244a906302ff66ad406b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

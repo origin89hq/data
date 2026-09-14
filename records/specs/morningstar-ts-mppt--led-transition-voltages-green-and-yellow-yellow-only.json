@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ts-mppt--led-transition-voltages-green-and-yellow-yellow-only",
+  "model": "morningstar-ts-mppt",
+  "name": "LED transition voltages (Green and Yellow - Yellow Only)",
+  "value": "13.5",
+  "unit": "V",
+  "source": "doc-31c9b1fd6776489b3d9c29123c41e860",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

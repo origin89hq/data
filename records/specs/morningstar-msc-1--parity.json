@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-msc-1--parity",
+  "model": "morningstar-msc-1",
+  "name": "Parity",
+  "value": "No",
+  "source": "doc-cade2f95b4cce5dbc73fece20efd57e9",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

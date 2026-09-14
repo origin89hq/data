@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd2130--input-voltage",
+  "model": "progressive-dynamics-pd2130",
+  "name": "Input Voltage",
+  "value": "105-130 VAC",
+  "source": "doc-7000669d0cfb1665dc1ced5eea152606",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

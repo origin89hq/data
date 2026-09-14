@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-pwo460061--isolation",
+  "model": "wilson-electronics-pwo460061",
+  "name": "Isolation",
+  "value": "> 90 dB",
+  "source": "doc-99d8e17518714b286399367b87dd13c3",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

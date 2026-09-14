@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd52--tension-nominale",
+  "model": "progressive-dynamics-pd52",
+  "name": "Tension nominale",
+  "value": "120/240Vac",
+  "source": "doc-72f58fdea2e66524cf593ba55984560a",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

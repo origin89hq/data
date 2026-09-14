@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-mppt-control--power-cable-fuse-rating",
+  "model": "victron-energy-mppt-control",
+  "name": "Power cable fuse rating",
+  "value": "100",
+  "unit": "mA",
+  "source": "doc-587076f43b6726c01cfbc0d5c4de02d2",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

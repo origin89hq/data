@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-ss-mppt-15l--lvd",
+  "model": "morningstar-ss-mppt-15l",
+  "name": "LVD",
+  "value": "11.5 V / 11.0 V",
+  "source": "doc-1ca9bd2431f89efb4cc54c3e6b26224a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-me-arc50--float-charging",
+  "model": "magnum-energy-me-arc50",
+  "name": "Float Charging",
+  "value": "13.34V + 0A",
+  "source": "doc-587110f2dcef9286050ff2cce9977ec9",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

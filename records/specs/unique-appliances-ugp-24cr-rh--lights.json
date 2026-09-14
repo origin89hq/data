@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-24cr-rh--lights",
+  "model": "unique-appliances-ugp-24cr-rh",
+  "name": "LIGHTS",
+  "value": "1.5W LED Lamps x 2",
+  "source": "doc-a88fe002c46563bcf5fdc4b45e80d573",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

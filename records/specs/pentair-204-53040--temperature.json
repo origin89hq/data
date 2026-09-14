@@ -1,0 +1,9 @@
+{
+  "id": "pentair-204-53040--temperature",
+  "model": "pentair-204-53040",
+  "name": "Temperature",
+  "value": "35 – 100°F (2 – 38°C)",
+  "source": "doc-0c24ff997eb7601e093dabe630483ef1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

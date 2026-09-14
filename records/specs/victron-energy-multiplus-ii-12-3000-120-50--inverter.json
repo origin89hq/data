@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-multiplus-ii-12-3000-120-50--inverter",
+  "model": "victron-energy-multiplus-ii-12-3000-120-50",
+  "name": "Inverter",
+  "value": "120",
+  "unit": "V",
+  "source": "doc-131b9a2de292ef8ae2147340a325dffa",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

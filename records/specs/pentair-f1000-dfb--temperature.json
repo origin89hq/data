@@ -1,0 +1,10 @@
+{
+  "id": "pentair-f1000-dfb--temperature",
+  "model": "pentair-f1000-dfb",
+  "name": "Temperature",
+  "value": "68°F +/- 5°F (20°C+/- 2.5°F)",
+  "source": "doc-be3c1e40991185fcfde68772f3ee29de",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

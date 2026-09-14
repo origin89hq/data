@@ -3,12 +3,15 @@
   "manufacturer": "noco",
   "name": "NLP5",
   "kind": "battery",
+  "chemistry": "lifepo4",
+  "chemistryBasis": "spec:noco-nlp5--chemistry",
   "aliases": [],
   "dialects": [
     {
       "dialect": "noco-nlp-lithium",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     }

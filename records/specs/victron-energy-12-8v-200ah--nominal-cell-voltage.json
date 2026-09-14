@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-12-8v-200ah--nominal-cell-voltage",
+  "model": "victron-energy-12-8v-200ah",
+  "name": "Nominal cell voltage",
+  "value": "3.2",
+  "unit": "V",
+  "source": "doc-364b88de54dc130a6bb8614af419d9dd",
+  "page": 26,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

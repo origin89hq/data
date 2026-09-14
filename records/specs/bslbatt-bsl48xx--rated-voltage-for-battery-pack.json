@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-bsl48xx--rated-voltage-for-battery-pack",
+  "model": "bslbatt-bsl48xx",
+  "name": "Rated Voltage for Battery Pack",
+  "value": "51.2",
+  "unit": "V",
+  "source": "doc-29353ea47b089d28b5977797f9a57c6c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

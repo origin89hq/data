@@ -4,7 +4,7 @@
   "name": "Maximum combined charger current",
   "value": "100",
   "unit": "A",
-  "source": "doc-2375e9a6ed181d8a7987453c98e92412",
+  "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
   "page": 50,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"

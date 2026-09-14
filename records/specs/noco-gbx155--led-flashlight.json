@@ -1,0 +1,9 @@
+{
+  "id": "noco-gbx155--led-flashlight",
+  "model": "noco-gbx155",
+  "name": "LED FLASHLIGHT",
+  "value": "500 Lumens",
+  "source": "doc-84cb590a0ad35e662b0a32a91ae2dc96",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

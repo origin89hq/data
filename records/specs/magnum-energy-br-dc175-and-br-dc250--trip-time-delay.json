@@ -1,0 +1,9 @@
+{
+  "id": "magnum-energy-br-dc175-and-br-dc250--trip-time-delay",
+  "model": "magnum-energy-br-dc175-and-br-dc250",
+  "name": "Trip Time Delay",
+  "value": "Customized Delay 53 (DC long delay)",
+  "source": "doc-72e45b52a08c8555188a5487e040ec8c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

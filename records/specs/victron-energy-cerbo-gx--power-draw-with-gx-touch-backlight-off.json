@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-cerbo-gx--power-draw-with-gx-touch-backlight-off",
+  "model": "victron-energy-cerbo-gx",
+  "name": "Power draw with GX Touch Backlight off",
+  "value": "3.8 W @ 12 V",
+  "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
+  "page": 77,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-100--max-charging-current",
+  "model": "pulsetech-sp-100",
+  "name": "Max Charging Current",
+  "value": "3.03",
+  "unit": "A",
+  "source": "doc-865789b766e0e7cc079075fac287807b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

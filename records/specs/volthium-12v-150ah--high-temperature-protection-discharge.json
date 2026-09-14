@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12v-150ah--high-temperature-protection-discharge",
+  "model": "volthium-12v-150ah",
+  "name": "High temperature protection discharge",
+  "value": "60",
+  "unit": "°C",
+  "source": "doc-8232da1aa0b17a21355ea67420f1d693",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

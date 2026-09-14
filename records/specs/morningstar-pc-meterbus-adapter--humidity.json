@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-pc-meterbus-adapter--humidity",
+  "model": "morningstar-pc-meterbus-adapter",
+  "name": "Humidity",
+  "value": "100",
+  "source": "doc-04d8d05552cd425d786b263823867c31",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

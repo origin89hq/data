@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12v-14ah--high-temperature-protection-in-charge",
+  "model": "volthium-12v-14ah",
+  "name": "High temperature protection in charge",
+  "value": "45",
+  "unit": "°C",
+  "source": "doc-116c65e641b05262c54306879dcf37d9",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

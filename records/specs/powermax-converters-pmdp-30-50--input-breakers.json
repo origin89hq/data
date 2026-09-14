@@ -1,0 +1,9 @@
+{
+  "id": "powermax-converters-pmdp-30-50--input-breakers",
+  "model": "powermax-converters-pmdp-30-50",
+  "name": "Input Breakers",
+  "value": "30 A Main + breaker stabs (5 branch circuits)",
+  "source": "doc-1d94f09384aa7d42de2b25aa0c9f780a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

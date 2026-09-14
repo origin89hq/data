@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-sunsaver-mppt--stop-bits",
+  "model": "morningstar-sunsaver-mppt",
+  "name": "Stop bits",
+  "value": "2",
+  "source": "doc-5fa76468db54265325cd046fadd31f6c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

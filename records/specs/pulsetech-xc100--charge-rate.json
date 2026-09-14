@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-xc100--charge-rate",
+  "model": "pulsetech-xc100",
+  "name": "Charge rate",
+  "value": "2.5 to 0.2 amps",
+  "source": "doc-9fa0772c1a69aebc25e17534e3a34153",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

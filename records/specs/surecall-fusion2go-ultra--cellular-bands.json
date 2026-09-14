@@ -1,0 +1,9 @@
+{
+  "id": "surecall-fusion2go-ultra--cellular-bands",
+  "model": "surecall-fusion2go-ultra",
+  "name": "Cellular Bands",
+  "value": "12 / 17 / 13 / 5 / 26 / 2 / 25 / 4",
+  "source": "doc-976209bdb74ff308bbac453001120925",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

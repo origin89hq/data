@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-170l1--total-watt-hr-pull-down-24-dc",
+  "model": "unique-appliances-ugp-170l1",
+  "name": "TOTAL WATT HR. PULL DOWN (24 DC)",
+  "value": "590 Wh/24hrs",
+  "source": "doc-6d9019a1e78bb7441f365240d881fcb9",
+  "page": 23,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

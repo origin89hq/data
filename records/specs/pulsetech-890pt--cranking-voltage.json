@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-890pt--cranking-voltage",
+  "model": "pulsetech-890pt",
+  "name": "Cranking Voltage",
+  "value": "10.78",
+  "unit": "V",
+  "source": "doc-507a0bdb8d38534cdb6a80f76139fd85",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

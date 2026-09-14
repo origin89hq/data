@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-sc-2--output-current",
+  "model": "pulsetech-sc-2",
+  "name": "Output Current",
+  "value": "10 Amps/channel, 20 Amps Max",
+  "source": "doc-bf9be7dbceb7454ea9454d5d314d8a3b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

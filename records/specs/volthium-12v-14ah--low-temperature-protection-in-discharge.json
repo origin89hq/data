@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12v-14ah--low-temperature-protection-in-discharge",
+  "model": "volthium-12v-14ah",
+  "name": "Low temperature protection in discharge",
+  "value": "-20",
+  "unit": "°C",
+  "source": "doc-116c65e641b05262c54306879dcf37d9",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

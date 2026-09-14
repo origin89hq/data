@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-quattro-5kw-24v-230v-ac--voltage",
+  "model": "victron-energy-quattro-5kw-24v-230v-ac",
+  "name": "Voltage",
+  "value": "24",
+  "unit": "V",
+  "source": "doc-2771331cf2bbd314d72401eac2c3b123",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

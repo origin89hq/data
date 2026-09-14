@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-ms4024pae--ac-in-time-disconnect",
+  "model": "magnum-energy-ms4024pae",
+  "name": "AC In - Time Disconnect",
+  "value": "6:00PM",
+  "source": "doc-acb7d6d19bbdff1009e33b6d6530ff16",
+  "page": 55,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

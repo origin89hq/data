@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-fiam-6tagm--cca",
+  "model": "pulsetech-fiam-6tagm",
+  "name": "CCA",
+  "value": "1100",
+  "source": "doc-7b83ee07626a733e37279eff1cb5aabf",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "wilson-electronics-474061--frequencies",
+  "model": "wilson-electronics-474061",
+  "name": "FREQUENCIES",
+  "value": "Band 12/17 700 MHz",
+  "source": "doc-616362e1af284bdfa30bc01b393bb65b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

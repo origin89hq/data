@@ -2,9 +2,9 @@
   "id": "outback-power-gs4048a--ac-input-frequency-range",
   "model": "outback-power-gs4048a",
   "name": "AC Input Frequency Range",
-  "value": "54 to 66Hz @ 60Hz",
-  "source": "doc-bf3dd8b81cdeb8d630cf47b838f71149",
-  "page": 3,
+  "value": "54 to 66 Hz",
+  "source": "doc-7d6af4fdc633610a345d7823b90dd62b",
+  "page": 63,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

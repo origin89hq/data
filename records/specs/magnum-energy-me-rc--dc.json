@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-me-rc--dc",
+  "model": "magnum-energy-me-rc",
+  "name": "DC",
+  "value": "12.6V 50A",
+  "source": "doc-1d15046a10420ff62cb2ca0faaa419ad",
+  "page": 47,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

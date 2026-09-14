@@ -1,0 +1,9 @@
+{
+  "id": "iota-engineering-ilbhi-cp20-he-sd-hv--power-factor-347v",
+  "model": "iota-engineering-ilbhi-cp20-he-sd-hv",
+  "name": "Power Factor (@347V)",
+  "value": "≥0.96**",
+  "source": "doc-a673ea88f41cd0933c5f1577a9b859ac",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4060-li--input",
+  "model": "progressive-dynamics-pd4060-li",
+  "name": "Input",
+  "value": "105-130VAC 50/60 Hz",
+  "source": "doc-581f23f1c5a291de0d237250824a1a39",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

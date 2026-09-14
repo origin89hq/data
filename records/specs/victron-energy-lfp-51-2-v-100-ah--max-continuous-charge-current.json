@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-lfp-51-2-v-100-ah--max-continuous-charge-current",
+  "model": "victron-energy-lfp-51-2-v-100-ah",
+  "name": "Max continuous charge current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-bba1630c5ec77e2d2b039d56130ce12c",
+  "page": 30,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "surecall-sc-fusionpro--uplink-frequency-range",
+  "model": "surecall-sc-fusionpro",
+  "name": "Uplink Frequency Range",
+  "value": "698-716 / 776-787 / 824-849 / 1850-1915 / 1710-1755",
+  "source": "doc-22e3aa4cbac9bf4c614387dd70e303cb",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

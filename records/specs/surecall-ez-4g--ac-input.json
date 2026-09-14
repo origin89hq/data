@@ -1,0 +1,11 @@
+{
+  "id": "surecall-ez-4g--ac-input",
+  "model": "surecall-ez-4g",
+  "name": "AC Input",
+  "value": "110",
+  "unit": "V",
+  "source": "doc-237c5a52d2ace94be8cf449dd645a478",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

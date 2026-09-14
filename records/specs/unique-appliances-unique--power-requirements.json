@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-unique--power-requirements",
+  "model": "unique-appliances-unique",
+  "name": "Power requirements",
+  "value": "120 V~60 Hz",
+  "source": "doc-e181649e0fdcaad31daa255d459d840a",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

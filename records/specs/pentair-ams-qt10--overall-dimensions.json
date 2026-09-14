@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ams-qt10--overall-dimensions",
+  "model": "pentair-ams-qt10",
+  "name": "Overall Dimensions",
+  "value": "13.5\" L x 2.8\" W x 2.8\" D (34.3 cm x 7.0 cm x 7.0 cm)",
+  "source": "doc-30336259ae6f244a906302ff66ad406b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

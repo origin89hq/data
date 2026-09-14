@@ -1,0 +1,10 @@
+{
+  "id": "pentair-f1000-dfb--capacity",
+  "model": "pentair-f1000-dfb",
+  "name": "Capacity",
+  "value": "750 Gallons (2839.06 Liters)",
+  "source": "doc-cb4547676a63a00d15e7459721928677",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

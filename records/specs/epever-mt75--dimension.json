@@ -1,0 +1,9 @@
+{
+  "id": "epever-mt75--dimension",
+  "model": "epever-mt75",
+  "name": "Dimension",
+  "value": "193×95×48mm",
+  "source": "doc-cbd3409beacec46a7bd1caea31b46761",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

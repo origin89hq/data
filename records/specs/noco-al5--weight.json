@@ -1,0 +1,9 @@
+{
+  "id": "noco-al5--weight",
+  "model": "noco-al5",
+  "name": "WEIGHT",
+  "value": "1.8lb (0.82kg)",
+  "source": "doc-67b7aaac109d43905448d192d74bd30e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

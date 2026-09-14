@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-concorde-agm--cca",
+  "model": "pulsetech-concorde-agm",
+  "name": "CCA",
+  "value": "200",
+  "source": "doc-7b83ee07626a733e37279eff1cb5aabf",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4060-li--ac-section",
+  "model": "progressive-dynamics-pd4060-li",
+  "name": "AC Section",
+  "value": "120 VAC 30 Amps Maximum** - 7 Branch Circuits Max *",
+  "source": "doc-1906ac761d8dfc9a7065daaa82245693",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "bslbatt-qrr0-04gw-s--fire-extinguishing-density",
+  "model": "bslbatt-qrr0-04gw-s",
+  "name": "Fire extinguishing density",
+  "value": "100g / m³",
+  "source": "doc-b8e1ecce1205424880bc7628a3bd6921",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

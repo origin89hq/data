@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-dd5300--load-lvd-low-voltage-disconnect",
+  "model": "morningstar-dd5300",
+  "name": "Load LVD (Low Voltage Disconnect)",
+  "value": "50.6",
+  "unit": "V",
+  "source": "doc-0c5182fdcf174fd7bc5aa4435d69681f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

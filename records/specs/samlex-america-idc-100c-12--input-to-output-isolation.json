@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-idc-100c-12--input-to-output-isolation",
+  "model": "samlex-america-idc-100c-12",
+  "name": "INPUT TO OUTPUT ISOLATION",
+  "value": "> 400 V RMS",
+  "source": "doc-fc85014ba9b8664b796f94ac46d0eea5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

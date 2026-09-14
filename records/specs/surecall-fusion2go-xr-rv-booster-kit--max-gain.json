@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-xr-rv-booster-kit--max-gain",
+  "model": "surecall-fusion2go-xr-rv-booster-kit",
+  "name": "Max Gain",
+  "value": "50",
+  "unit": "dB",
+  "source": "doc-fd120796536b0cde0d5c9324120411db",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,10 +1,9 @@
 {
   "id": "noco-gb250--charging-temperature",
   "model": "noco-gb250",
-  "name": "Charging Temperature",
-  "value": "0°C to +40°C",
-  "source": "doc-12fc201334315c4c41c495ec3ca639b3",
-  "page": 6,
+  "name": "CHARGING TEMPERATURE",
+  "value": "32°F to +104°F(0°C to +40°C)",
+  "source": "doc-460bbddcb5a2d3d0f999cd10c3777bcd",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

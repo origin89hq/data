@@ -1,0 +1,9 @@
+{
+  "id": "noco-x100--storage-temperature",
+  "model": "noco-x100",
+  "name": "Storage Temperature",
+  "value": "-20° to 80°C (-4° to 176°F)",
+  "source": "doc-0dc6d80d0571efcc7f87ee8b73784fee",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

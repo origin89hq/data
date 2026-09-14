@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-50-12v--solar-panel-output-current",
+  "model": "pulsetech-sp-50-12v",
+  "name": "Solar Panel Output Current",
+  "value": "1.62",
+  "unit": "A",
+  "source": "doc-dc486b0c7095bc807c53c71add39a126",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

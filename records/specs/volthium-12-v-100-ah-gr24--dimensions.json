@@ -1,0 +1,9 @@
+{
+  "id": "volthium-12-v-100-ah-gr24--dimensions",
+  "model": "volthium-12-v-100-ah-gr24",
+  "name": "Dimensions",
+  "value": "260 X 170 X 210 mm | 10.2 X 6.7 X 8.3 po",
+  "source": "doc-6cf31b135d5d636c7fbcd2d9e1fd28f9",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

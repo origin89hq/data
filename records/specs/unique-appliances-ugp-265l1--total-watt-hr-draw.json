@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-265l1--total-watt-hr-draw",
+  "model": "unique-appliances-ugp-265l1",
+  "name": "TOTAL WATT HR. DRAW",
+  "value": "627 Wh/24hrs",
+  "source": "doc-b96a7d171d7ac85e63eba0a44cb1e1b5",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

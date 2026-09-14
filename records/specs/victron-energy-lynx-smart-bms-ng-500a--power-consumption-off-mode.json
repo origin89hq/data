@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-lynx-smart-bms-ng-500a--power-consumption-off-mode",
+  "model": "victron-energy-lynx-smart-bms-ng-500a",
+  "name": "Power consumption OFF mode",
+  "value": "0.3",
+  "unit": "mA",
+  "source": "doc-6652fcdf0e9f05f446c2f8eda5284b2b",
+  "page": 44,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

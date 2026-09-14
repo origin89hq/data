@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-ionsec-1223bbm--continuous-current",
+  "model": "samlex-america-ionsec-1223bbm",
+  "name": "Continuous current",
+  "value": "23",
+  "unit": "A",
+  "source": "doc-f47ace779d0a81e30af497d827a3586a",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

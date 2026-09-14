@@ -1,0 +1,10 @@
+{
+  "id": "volthium-51-2-314-ess--self-discharge-rate",
+  "model": "volthium-51-2-314-ess",
+  "name": "Self-discharge rate",
+  "value": "£3%/month",
+  "source": "doc-70b77cf2d1e1ebb8fadfde03a8d95990",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

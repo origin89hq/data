@@ -1,0 +1,10 @@
+{
+  "id": "epever-duc5011--standby-current-losses",
+  "model": "epever-duc5011",
+  "name": "Standby Current Losses",
+  "value": "11",
+  "unit": "mA",
+  "source": "doc-567f446589aaf640b63a17563f0f9bd0",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-dd5300--voltage-range-bms-limits",
+  "model": "morningstar-dd5300",
+  "name": "Voltage Range (BMS Limits)",
+  "value": "48.5Vdc - 58.4Vdc",
+  "source": "doc-0c5182fdcf174fd7bc5aa4435d69681f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

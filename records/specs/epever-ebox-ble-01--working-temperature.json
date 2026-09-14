@@ -1,0 +1,9 @@
+{
+  "id": "epever-ebox-ble-01--working-temperature",
+  "model": "epever-ebox-ble-01",
+  "name": "Working temperature",
+  "value": "-20~70℃",
+  "source": "doc-ed8f9177be1bc95783159c5ce0ce282d",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

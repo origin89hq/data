@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-gx-touch-70--outer-dimensions-h-x-w-x-d",
+  "model": "victron-energy-gx-touch-70",
+  "name": "Outer dimensions (h x w x d)",
+  "value": "113 x 176 x 13.5 mm",
+  "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
+  "page": 77,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

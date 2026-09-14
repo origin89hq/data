@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-genstar-mppt--load-hvd-high-voltage-disconnect-reconnect",
+  "model": "morningstar-genstar-mppt",
+  "name": "Load HVD; High Voltage Disconnect/Reconnect",
+  "value": "54.4V / 50.0V",
+  "source": "doc-a1bbdf785ed3fb93cf6835335eb741d5",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

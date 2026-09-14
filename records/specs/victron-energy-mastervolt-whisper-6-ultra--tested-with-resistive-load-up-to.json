@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-mastervolt-whisper-6-ultra--tested-with-resistive-load-up-to",
+  "model": "victron-energy-mastervolt-whisper-6-ultra",
+  "name": "Tested with resistive load up to",
+  "value": "11",
+  "unit": "kW",
+  "source": "doc-23fb52268464408fe25e8af435fef039",
+  "page": 45,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-xcr-20--input-voltage",
+  "model": "pulsetech-xcr-20",
+  "name": "Input Voltage",
+  "value": "110-240 VAC",
+  "source": "doc-b5b1fda82f3ff25f3d4e844d5513b277",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

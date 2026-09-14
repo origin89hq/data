@@ -1,0 +1,10 @@
+{
+  "id": "surecall-force5-2-0--input-voltage",
+  "model": "surecall-force5-2-0",
+  "name": "Input voltage",
+  "value": "5-20V",
+  "source": "doc-cb4dffe8d1d5c0700ae31f5c491db2c2",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

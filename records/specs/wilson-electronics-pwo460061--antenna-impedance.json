@@ -1,0 +1,11 @@
+{
+  "id": "wilson-electronics-pwo460061--antenna-impedance",
+  "model": "wilson-electronics-pwo460061",
+  "name": "Antenna Impedance",
+  "value": "50",
+  "unit": "Ω",
+  "source": "doc-99d8e17518714b286399367b87dd13c3",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

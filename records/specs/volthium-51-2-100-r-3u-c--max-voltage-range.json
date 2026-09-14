@@ -1,0 +1,10 @@
+{
+  "id": "volthium-51-2-100-r-3u-c--max-voltage-range",
+  "model": "volthium-51-2-100-r-3u-c",
+  "name": "Max. voltage range",
+  "value": "44.8~57.6V",
+  "source": "doc-2d45f5b318a0811f04d0ad9ce1e78efe",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

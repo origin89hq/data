@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ss-mppt-15l--battery-temperature-compensation",
+  "model": "morningstar-ss-mppt-15l",
+  "name": "Battery Temperature Compensation",
+  "value": "0.0",
+  "unit": "V/K",
+  "source": "doc-31c9b1fd6776489b3d9c29123c41e860",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

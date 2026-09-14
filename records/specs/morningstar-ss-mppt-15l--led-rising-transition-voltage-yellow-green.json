@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ss-mppt-15l--led-rising-transition-voltage-yellow-green",
+  "model": "morningstar-ss-mppt-15l",
+  "name": "LED Rising transition voltage (Yellow - Green)",
+  "value": "13.9",
+  "unit": "V",
+  "source": "doc-31c9b1fd6776489b3d9c29123c41e860",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-bsl24xx--max-output-current",
+  "model": "bslbatt-bsl24xx",
+  "name": "Max Output Current",
+  "value": "40",
+  "unit": "A",
+  "source": "doc-29353ea47b089d28b5977797f9a57c6c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

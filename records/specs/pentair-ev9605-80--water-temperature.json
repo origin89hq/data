@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ev9605-80--water-temperature",
+  "model": "pentair-ev9605-80",
+  "name": "Water Temperature",
+  "value": "35 - 100°F (2 - 38°C)",
+  "source": "doc-4016f6bf3a8df724a608748cc1473f3c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

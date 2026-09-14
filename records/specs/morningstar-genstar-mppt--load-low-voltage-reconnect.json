@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-genstar-mppt--load-low-voltage-reconnect",
+  "model": "morningstar-genstar-mppt",
+  "name": "Load Low Voltage Reconnect",
+  "value": "49.6",
+  "unit": "V",
+  "source": "doc-a1bbdf785ed3fb93cf6835335eb741d5",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

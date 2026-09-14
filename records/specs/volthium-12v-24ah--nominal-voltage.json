@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12v-24ah--nominal-voltage",
+  "model": "volthium-12v-24ah",
+  "name": "Nominal voltage",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-d137e598ca802338db19cf83ebab7ed4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

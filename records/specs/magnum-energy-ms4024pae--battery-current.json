@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-ms4024pae--battery-current",
+  "model": "magnum-energy-ms4024pae",
+  "name": "Battery Current",
+  "value": "-101.4",
+  "unit": "A",
+  "source": "doc-acb7d6d19bbdff1009e33b6d6530ff16",
+  "page": 55,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}
