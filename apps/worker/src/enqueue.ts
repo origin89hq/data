@@ -247,12 +247,15 @@ export async function forgetReadings(
     if (!dryRun && gone.length > 0) await env.ARCHIVE.delete(gone);
   }
   const next = from + batch.length < documents.length ? from + batch.length : undefined;
+  // On the last real batch the offer marker goes before the continuation does: if the second
+  // delete fails, the continuation still stands and the batch can be sent again, rather than
+  // refused for a marker already gone while the stale offer keeps the scanned documents unsent.
+  if (!dryRun && next === undefined) await env.ARCHIVE.delete(`${prefix}/seeing.json`);
   if (next === undefined) await env.ARCHIVE.delete(marker);
   else
     await env.ARCHIVE.put(marker, JSON.stringify({ run, next, dry: dryRun }), {
       httpMetadata: { contentType: "application/json" },
     });
-  if (!dryRun && next === undefined) await env.ARCHIVE.delete(`${prefix}/seeing.json`);
   return {
     run,
     documents: documents.length,
