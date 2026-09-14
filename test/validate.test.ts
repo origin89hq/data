@@ -472,4 +472,16 @@ test("a rejection file names a maker that exists, once, with a date that has hap
     [],
     "a document with no source record left is still a document",
   );
+  const figure = { source: "s1", name: "Power", reason: "x", ...reviewed };
+  assert.deepEqual(
+    validate({ ...withRejection({ ...figure, model: "victron-energy-x" }), specs: [] }).errors,
+    ["rejections magnum-energy entry 1: victron-energy-x is not a model of magnum-energy"],
+    "a model id of another maker rejects nothing, so it is refused",
+  );
+  const unheld = validate({
+    ...withRejection({ ...figure, model: "magnum-energy-ms4024pae-x" }),
+    specs: [],
+  });
+  assert.deepEqual(unheld.errors, [], "a model only a pull would mint can still be named");
+  assert.equal(unheld.review["rejection of a figure on a model the records do not hold"], 1);
 });

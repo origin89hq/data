@@ -161,6 +161,15 @@ test("the figures pull leaves out what a person rejected: documents, product nam
     source.indexOf("!isRejected(reading)") < source.indexOf("if (addModels)"),
     "a rejected document is left out before any model is minted from it",
   );
+  assert.equal(
+    (source.match(/if \(!rejectsFigure\(rejections, spec\)\) candidate\(spec\)/g) ?? []).length,
+    2,
+    "a rejected figure is compared neither as a repeated row nor from a set-aside edition",
+  );
+  assert.match(
+    source,
+    /if \(document\.products\.length === 0 \|\| isRejected\(document\)\) continue;/,
+  );
 });
 
 test("the figures pull reads the translated editions it sets aside for comparison only, and cites documents by address", () => {

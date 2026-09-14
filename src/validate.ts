@@ -228,6 +228,12 @@ export function validate(records: Records): Report {
         !/^doc-[0-9a-f]{32}$/.test(rejection.source)
       )
         errors.push(`${where}: ${rejection.source} is neither a source nor a document's id`);
+      // A figure's rejection matches its model id exactly, so an id that is not this maker's rejects
+      // nothing. One the records do not hold may be a model only a pull would mint, so it is noted.
+      if (rejection.model && !rejection.model.startsWith(`${file.id}-`))
+        errors.push(`${where}: ${rejection.model} is not a model of ${file.id}`);
+      else if (rejection.model && !manufacturerOf.has(rejection.model))
+        note("rejection of a figure on a model the records do not hold");
       for (const s of theirs)
         if (rejectsFigure([rejection], s))
           errors.push(`${where}: rejects spec ${s.id}, which the records still hold`);
