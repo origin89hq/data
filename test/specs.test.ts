@@ -716,3 +716,22 @@ test("each quantity read gets an id of its own, named by its unit, the ones that
   for (const spec of readings.map(place)) Spec.parse(spec);
   assert.equal(splits.length, 5, "every quantity but the first read is reported");
 });
+
+test("readings of one quantity at two scales share one id when another quantity holds the plain id", () => {
+  // The VA brochure's figure holds the plain id; one sheet prints the rating in W, another in kW.
+  const heldVoltAmps = power({ value: "2000", unit: "VA", source: "doc-bbbb" });
+  const watts = power({ value: "1600", unit: "W", source: "doc-cccc" });
+  const kilowatts = power({ value: "1.6", unit: "kW", source: "doc-dddd" });
+  const { place, splits } = keepUnitsApart([heldVoltAmps], [watts, kilowatts]);
+  assert.deepEqual(
+    [watts, kilowatts].map(place).map((spec) => spec.id),
+    [`${plainId}-w`, `${plainId}-w`],
+  );
+  assert.deepEqual(splits, [{ id: plainId, unit: "VA", splitId: `${plainId}-w`, splitUnit: "W" }]);
+
+  // Held under an id of its own in kW, a later reading in W goes back to that id.
+  const heldKilowatts = power({ id: `${plainId}-kw`, value: "1.6", unit: "kW" });
+  const again = keepUnitsApart([heldVoltAmps, heldKilowatts], [watts]);
+  assert.equal(again.place(watts).id, `${plainId}-kw`);
+  assert.deepEqual(again.splits, []);
+});

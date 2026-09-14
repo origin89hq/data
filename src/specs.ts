@@ -10,6 +10,7 @@ import {
   QUANTITY_OF,
   splitValueUnit,
   statesNothing,
+  UNITS,
 } from "./units.ts";
 
 /** What a model reported reading out of a document, before anything checks it. */
@@ -425,25 +426,42 @@ export function keepUnitsApart(
     const units = unitsRead.get(id) ?? [];
     if (!units.includes(unit)) unitsRead.set(id, [...units, unit]);
   }
+  // One id a quantity, whatever unit or scale each reading of it is in: every unit of a quantity is
+  // placed together, so W and kW beside a VA figure are one figure, not two.
   const moved = new Map<string, Map<string, string>>();
   const splits: UnitSplit[] = [];
   for (const [id, units] of unitsRead) {
-    const own = (unit: string) => `${id}-${unitSlug(canonicalUnit(unit) ?? unit)}`;
-    const housed = (unit: string) => quantityOf(held.get(own(unit))?.unit) === quantityOf(unit);
+    const quantities = [...new Set(units.map((unit) => quantityOf(unit) ?? ""))];
+    const firstUnit = (quantity: string) =>
+      units.find((unit) => quantityOf(unit) === quantity) ?? quantity;
+    // An id the records already hold for this quantity, under any unit of it the id could name.
+    const housed = (quantity: string) =>
+      UNITS.filter((unit) => QUANTITY_OF[unit] === quantity)
+        .map((unit) => `${id}-${unitSlug(unit)}`)
+        .find((candidate) => quantityOf(held.get(candidate)?.unit) === quantity);
     const heldUnit = held.get(id)?.unit;
-    const plain = quantityOf(heldUnit) ? heldUnit : units.find((unit) => !housed(unit));
+    const plainQuantity = quantityOf(heldUnit) ?? quantities.find((quantity) => !housed(quantity));
+    const plainUnit = quantityOf(heldUnit)
+      ? heldUnit
+      : plainQuantity === undefined
+        ? undefined
+        : firstUnit(plainQuantity);
     const to = new Map<string, string>();
-    for (const unit of units) {
-      if (!housed(unit) && quantityOf(unit) === quantityOf(plain)) continue;
-      to.set(unit, own(unit));
-      if (plain !== undefined && !housed(unit))
-        splits.push({ id, unit: plain, splitId: own(unit), splitUnit: unit });
+    for (const quantity of quantities) {
+      if (quantity === plainQuantity) continue;
+      const home = housed(quantity);
+      const first = firstUnit(quantity);
+      const target = home ?? `${id}-${unitSlug(canonicalUnit(first) ?? first)}`;
+      to.set(quantity, target);
+      if (home === undefined && plainUnit !== undefined)
+        splits.push({ id, unit: plainUnit, splitId: target, splitUnit: first });
     }
     if (to.size > 0) moved.set(id, to);
   }
   return {
     place: (spec) => {
-      const id = spec.unit === undefined ? undefined : moved.get(spec.id)?.get(spec.unit);
+      const quantity = quantityOf(spec.unit);
+      const id = quantity === undefined ? undefined : moved.get(spec.id)?.get(quantity);
       return id ? { ...spec, id } : spec;
     },
     splits,
