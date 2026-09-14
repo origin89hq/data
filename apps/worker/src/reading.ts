@@ -241,8 +241,9 @@ function printedAt(text: string, words: string): number[] {
 /**
  * Symbols the text reader writes back as something else (#145): Volthium's manual prints "≥8000
  * cycles" and the reading said "£8000 cycles". The window is shown to the model with them spelled
- * in ASCII, and what it reports is given "≥" and "≤" back, so a figure keeps the symbol its
- * document prints. "～" stays "~", which the records read the same way in a range.
+ * in ASCII, and what it reports is given "≥" and "≤" back where its document prints them, so a
+ * figure keeps the symbol its document prints. "～" stays "~", which the records read the same way
+ * in a range.
  */
 const SPELLED: readonly (readonly [symbol: string, ascii: string])[] = [
   ["≥", ">="],
@@ -255,9 +256,16 @@ export function asciiSymbols(text: string): string {
   return SPELLED.reduce((out, [symbol, ascii]) => out.replaceAll(symbol, ascii), text);
 }
 
-/** What the reader reported, with "≥" and "≤" given back where it wrote them in ASCII. */
-export function printedSymbols(text: string): string {
-  return text.replaceAll(">=", "≥").replaceAll("<=", "≤");
+/**
+ * What the reader reported, with "≥" and "≤" given back where the text it was shown prints them. A
+ * sheet can print ">=" itself, so words found as printed keep their operators; words found neither
+ * way are given the symbols only if the text has no ASCII operator the model could have copied.
+ */
+export function printedSymbols(printed: string, reported: string): string {
+  const symbols = reported.replaceAll(">=", "≥").replaceAll("<=", "≤");
+  if (symbols === reported || printedAt(printed, symbols).length > 0) return symbols;
+  if (printedAt(printed, reported).length > 0 || /[<>]=/.test(printed)) return reported;
+  return symbols;
 }
 
 export interface Reported {

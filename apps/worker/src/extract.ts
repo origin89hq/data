@@ -139,13 +139,14 @@ async function keptWindows(
  * message starts with the maker's name, so the model can leave out another company's products and
  * the settings a maker prints for them (#144). The window's "≥", "≤" and "～" are spelled in ASCII,
  * which the model copies where it garbled the symbols, and its answer is given "≥" and "≤" back
- * (#145).
+ * where the window prints them (#145).
  */
 async function readWindow(env: Env, window: Window, maker: string): Promise<Reported[]> {
+  const shown: Window = { ...window, text: asciiSymbols(window.text) };
   const response = await env.AI.run(EXTRACT_MODEL, {
     messages: [
       { role: "system", content: SYSTEM },
-      { role: "user", content: `Maker: ${maker}\n\n${asciiSymbols(window.text)}` },
+      { role: "user", content: `Maker: ${maker}\n\n${shown.text}` },
     ],
     response_format: { type: "json_schema", json_schema: RESPONSE_SCHEMA },
     max_tokens: 3072,
@@ -164,21 +165,28 @@ async function readWindow(env: Env, window: Window, maker: string): Promise<Repo
       specs: product.specs
         .filter((s) => typeof s === "object" && s !== null)
         .map(({ page: _claimed, ...read }) => {
-          // The symbols the window was shown without go back first, so the page is looked up for
-          // the value its document prints.
-          const figure = {
-            ...read,
-            ...(typeof read.name === "string" ? { name: printedSymbols(read.name) } : {}),
-            ...(typeof read.value === "string" ? { value: printedSymbols(read.value) } : {}),
-            ...(typeof read.conditions === "string"
-              ? { conditions: printedSymbols(read.conditions) }
-              : {}),
-          };
+          // The page is looked up in the window as the model was shown it, so a value it copied
+          // with "~" or with an operator the sheet prints in ASCII is still found.
           const page =
-            typeof figure.name === "string" && typeof figure.value === "string"
-              ? pageOfFigure(window, figure)
+            typeof read.name === "string" && typeof read.value === "string"
+              ? pageOfFigure(shown, {
+                  name: asciiSymbols(read.name),
+                  value: asciiSymbols(read.value),
+                })
               : window.page;
-          return { ...figure, ...(page === undefined ? {} : { page }) };
+          return {
+            ...read,
+            ...(typeof read.name === "string"
+              ? { name: printedSymbols(window.text, read.name) }
+              : {}),
+            ...(typeof read.value === "string"
+              ? { value: printedSymbols(window.text, read.value) }
+              : {}),
+            ...(typeof read.conditions === "string"
+              ? { conditions: printedSymbols(window.text, read.conditions) }
+              : {}),
+            ...(page === undefined ? {} : { page }),
+          };
         }),
     }));
 }
