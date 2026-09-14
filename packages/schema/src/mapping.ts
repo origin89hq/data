@@ -37,6 +37,13 @@ export const MappingRule = z
      */
     requires: z.array(ConditionKey).optional(),
     scope: z.enum(["per-input", "total"]).optional(),
+    /**
+     * Which slash-separated part of the value the rule reads, counted from one, where a sheet
+     * prints two figures in one cell: "Watts (Starting/Running)" = "5500/4000" is the starting
+     * watts to a rule with part 1 and the running watts to one with part 2. A figure with fewer
+     * parts is not read by the rule.
+     */
+    part: z.number().int().positive().optional(),
     /** Why the rule is right, in the sheet's own words, so a reviewer can check it. */
     basis: z.string().min(1),
   })

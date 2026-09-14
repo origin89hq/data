@@ -34,6 +34,18 @@ const SECONDS: Record<string, number> = {
 
 const number = (text: string): number => Number(text.replace(",", "."));
 
+/** What a sheet calls each fuel, as the condition names it. */
+const FUELS: Record<string, Conditions["fuel"]> = {
+  "natural gas": "natural-gas",
+  ng: "natural-gas",
+  lpg: "lpg",
+  propane: "lpg",
+  gasoline: "gasoline",
+  gas: "gasoline",
+  petrol: "gasoline",
+  diesel: "diesel",
+};
+
 /** The conditions a text states among those asked for. */
 export function conditionsFrom(text: string, accepts: readonly ConditionKey[]): Conditions {
   const out: Conditions = {};
@@ -79,6 +91,27 @@ export function conditionsFrom(text: string, accepts: readonly ConditionKey[]): 
     const mode = /\b(search|invert|standby|night|sleep|eco)\b/i.exec(text);
     if (mode?.[1]) out.mode = mode[1].toLowerCase();
   }
+  if (wanted.has("fuel")) {
+    // "gas" is gasoline on a North American sheet; natural gas is named as such or as NG.
+    const fuel = /\b(natural gas|NG|LPG|propane|gasoline|gas|petrol|diesel)\b/i.exec(text)?.[1];
+    if (fuel) out.fuel = FUELS[fuel.toLowerCase()];
+  }
+  if (wanted.has("head")) {
+    // "Capacity Gallons/Minute at 5 feet", "GPM at 3 m of lift": the height the flow is stated at.
+    const head =
+      /(?:\bat|@)\s*(\d{1,4}(?:[.,]\d+)?)\s*(ft\.?|feet|foot|’|'|m|metres?|meters?)\b/i.exec(
+        text,
+      ) ?? /(?:\bat|@)\s*(\d{1,4}(?:[.,]\d+)?)\s*(’|')/.exec(text);
+    if (head?.[1] && head[2]) {
+      const height = number(head[1]);
+      out.head = /^m/i.test(head[2]) ? height : Number((height * 0.3048).toPrecision(10));
+    }
+  }
+  if (wanted.has("load")) {
+    const load = /(\d{1,3})\s*%\s*(?:of\s+)?(?:rated\s+)?load\b/i.exec(text);
+    const share = load?.[1] ? Number(load[1]) : undefined;
+    if (share !== undefined && share > 0 && share <= 100) out.load = share;
+  }
   return out;
 }
 
@@ -96,6 +129,24 @@ export function splitDuration(value: string): { value: string; duration?: number
   return {
     value: match[1],
     duration: Number((number(match[2]) * SECONDS[unit]).toPrecision(10)),
+  };
+}
+
+/** The height a flow is stated at, written after the value: "145 GPM (549 LPM) at 5’", "63 gpm @ 3 m". */
+const HEAD_AFTER =
+  /\s*(?:\bat|@)\s*(\d{1,4}(?:[.,]\d+)?)\s*(ft\.?|feet|foot|’|'|m|metres?|meters?)(?:\s+of\s+(?:lift|head))?\s*$/i;
+
+/**
+ * A head a maker prints after the value, split off it: the figure is the part before, and the
+ * height is the condition it holds at, in metres.
+ */
+export function splitHead(value: string): { value: string; head?: number } {
+  const match = HEAD_AFTER.exec(value.trim());
+  if (!match?.[1] || !match[2]) return { value };
+  const height = number(match[1]);
+  return {
+    value: value.trim().slice(0, match.index).trim(),
+    head: /^m/i.test(match[2]) ? height : Number((height * 0.3048).toPrecision(10)),
   };
 }
 

@@ -24,11 +24,33 @@ export const Quantity = z.enum([
   /** Change per kelvin of a rated figure: a panel's Voc falls 0.25 % for each degree warmer. */
   "temperature-coefficient",
   "time",
+  /** A tank, in litres. */
+  "volume",
+  /** What a pump moves, in litres a minute. */
+  "flow",
+  /** What a pump works against, in bar. */
+  "pressure",
+  /** A pump's head, in metres. */
+  "length",
 ]);
 export type Quantity = z.infer<typeof Quantity>;
 
 /** The one unit each property is published in. What a maker printed is converted, never guessed. */
-export const CanonicalUnit = z.enum(["V", "A", "W", "VA", "Wh", "Ah", "°C", "%/K", "s"]);
+export const CanonicalUnit = z.enum([
+  "V",
+  "A",
+  "W",
+  "VA",
+  "Wh",
+  "Ah",
+  "°C",
+  "%/K",
+  "s",
+  "L",
+  "L/min",
+  "bar",
+  "m",
+]);
 export type CanonicalUnit = z.infer<typeof CanonicalUnit>;
 
 /**
@@ -51,6 +73,12 @@ export const ConditionKey = z.enum([
   "duration",
   /** The operating mode an idle figure is for, as printed: "search", "invert, no load". */
   "mode",
+  /** The fuel a generator's figure is for: "gasoline", "lpg", "natural-gas", "diesel". Dual-fuel sets rate each. */
+  "fuel",
+  /** %, the share of rated load a generator's run time or consumption is stated at. */
+  "load",
+  /** m, the head a pump's flow is stated at: a curve's points are one flow at each height. */
+  "head",
   /** What the parser could not structure, kept as text so nothing is thrown away. */
   "note",
 ]);
@@ -81,6 +109,10 @@ export const Conditions = z
     dischargeHours: z.number().positive().optional(),
     duration: z.number().positive().optional(),
     mode: z.string().min(1).optional(),
+    fuel: z.enum(["gasoline", "lpg", "natural-gas", "diesel"]).optional(),
+    load: z.number().positive().max(100).optional(),
+    /** Zero is a head: the free-flow point of a curve. */
+    head: z.number().min(0).optional(),
     note: z.string().min(1).optional(),
   })
   .strict();
@@ -154,6 +186,13 @@ export type Property = z.infer<typeof Property>;
 
 const controllers: EquipmentKind[] = ["charge-controller", "inverter", "inverter-charger"];
 const inverters: EquipmentKind[] = ["inverter", "inverter-charger"];
+/** What charges a battery from something other than PV: a mains charger, a DC-DC converter, a controller's or an inverter-charger's charger. */
+const chargers: EquipmentKind[] = [
+  "ac-charger",
+  "dc-dc-converter",
+  "charge-controller",
+  "inverter-charger",
+];
 
 /**
  * The first keys: what the first setup checks read. PV limits and the MPPT window for anything
@@ -427,10 +466,117 @@ export const PROPERTIES: Property[] = [
     quantity: "voltage",
     unit: "V",
     shape: "set",
-    kinds: inverters,
+    kinds: [...inverters, "generator"],
     needs: [],
     accepts: [],
     description: "Nominal AC output voltages.",
+  },
+  // ---- chargers (#126): what a mains or DC charger puts out, and the banks it is for
+  {
+    key: "charge.power.max",
+    quantity: "power",
+    unit: "W",
+    shape: "scalar",
+    kinds: chargers,
+    needs: [],
+    accepts: ["bankVoltage"],
+    description:
+      "Most power a charger delivers to the battery, which for a multi-voltage charger depends on the bank.",
+  },
+  {
+    key: "charge.battery.capacity",
+    quantity: "charge",
+    unit: "Ah",
+    shape: "range",
+    kinds: chargers,
+    needs: [],
+    accepts: [],
+    description: "The battery sizes a charger is made for, as the maker states them.",
+  },
+  {
+    key: "charge.battery.capacity.recommended",
+    quantity: "charge",
+    unit: "Ah",
+    shape: "scalar",
+    kinds: chargers,
+    needs: [],
+    accepts: [],
+    description:
+      "The one battery size a charger's maker recommends, where the sheet gives a figure rather than a range.",
+  },
+  // ---- generators (#126): what a generator makes and what it burns
+  {
+    key: "generator.power.running",
+    quantity: "power",
+    unit: "W",
+    shape: "scalar",
+    kinds: ["generator"],
+    needs: [],
+    accepts: ["fuel"],
+    description: "Power a generator sustains, by fuel where a dual-fuel set rates each.",
+  },
+  {
+    key: "generator.power.starting",
+    quantity: "power",
+    unit: "W",
+    shape: "scalar",
+    kinds: ["generator"],
+    needs: [],
+    accepts: ["fuel"],
+    description:
+      "Power a generator gives for the seconds a motor takes to start, by fuel where a dual-fuel set rates each.",
+  },
+  {
+    key: "generator.fuel.tank",
+    quantity: "volume",
+    unit: "L",
+    shape: "scalar",
+    kinds: ["generator"],
+    needs: [],
+    accepts: ["fuel"],
+    description: "What the generator's tank holds.",
+  },
+  // ---- pumps (#126): what a pump moves and works against
+  {
+    key: "pump.flow.rated",
+    quantity: "flow",
+    unit: "L/min",
+    shape: "scalar",
+    kinds: ["pump"],
+    needs: [],
+    accepts: ["head"],
+    description:
+      "The flow a pump is rated at, in litres a minute, at the head the sheet states it for where it gives a curve.",
+  },
+  {
+    key: "pump.head.max",
+    quantity: "length",
+    unit: "m",
+    shape: "scalar",
+    kinds: ["pump"],
+    needs: [],
+    accepts: [],
+    description: "The height of water a pump can lift against, at which its flow is nothing.",
+  },
+  {
+    key: "pump.pressure.max",
+    quantity: "pressure",
+    unit: "bar",
+    shape: "scalar",
+    kinds: ["pump"],
+    needs: [],
+    accepts: [],
+    description: "The most pressure a pump works at continuously.",
+  },
+  {
+    key: "pump.power.rated",
+    quantity: "power",
+    unit: "W",
+    shape: "scalar",
+    kinds: ["pump"],
+    needs: [],
+    accepts: [],
+    description: "The power a pump's motor is rated at; horsepower is converted.",
   },
 ];
 

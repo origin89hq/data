@@ -10,9 +10,21 @@ import {
   type Property,
   type PropertyStatus,
 } from "@origin89/equipment-schema/properties";
-import { conditionsFrom, conditionsKey, mergeConditions, splitDuration } from "./conditions.ts";
+import {
+  conditionsFrom,
+  conditionsKey,
+  mergeConditions,
+  splitDuration,
+  splitHead,
+} from "./conditions.ts";
 import { type Feed, type FeedModel, feedSpecId } from "./feeds.ts";
-import { conditionAsides, type Parsed, printedQuantities, readProperty } from "./quantities.ts";
+import {
+  conditionAsides,
+  type Parsed,
+  partsOf,
+  printedQuantities,
+  readProperty,
+} from "./quantities.ts";
 
 /**
  * Build the normalized properties beside the printed figures.
@@ -139,6 +151,12 @@ function rulesFor(mapping: Mapping | undefined, key: string): (MappingRule & { n
   );
 }
 
+/** The `n`th part of a value, counted from one: "5500/4000" has two, "4.2 L/min" and "1/2 HP" one. */
+export function partOf(value: string, n: number, unit?: string): string | undefined {
+  const parts = partsOf(value, unit);
+  return parts.length >= n && parts.length > 1 ? parts[n - 1]?.trim() : undefined;
+}
+
 /** Whether a figure goes by one of `names`, as printed or in English. */
 const namedIn = (spec: Spec, names: ReadonlySet<string>): boolean =>
   names.has(said(spec.name)) || (spec.english !== undefined && names.has(said(spec.english)));
@@ -160,11 +178,21 @@ function claimsUnder(
     const names = new Set(rule.names.map(said));
     for (const spec of specs) {
       if (rule.source && spec.source !== rule.source) continue;
-      if (read.has(spec.id) || !namedIn(spec, names) || skip(spec)) continue;
-      read.add(spec.id);
+      if (!namedIn(spec, names) || skip(spec)) continue;
+      // A figure read whole is read once; each part of a cell is read once, and a cell whose parts
+      // were read is not read whole on top. A rule for one part reads only a value that has it.
+      const taken = read.has(spec.id) || read.has(`${spec.id}#${rule.part ?? "any"}`);
+      if (taken) continue;
+      const value =
+        rule.part === undefined
+          ? spec.value
+          : partOf(spec.value, rule.part, spec.unit ?? rule.unit);
+      if (value === undefined) continue;
+      read.add(rule.part === undefined ? spec.id : `${spec.id}#${rule.part}`);
+      if (rule.part !== undefined) read.add(`${spec.id}#any`);
       claims.push({
         id: spec.id,
-        value: spec.value,
+        value,
         unit: spec.unit ?? rule.unit,
         text: [spec.name, spec.conditions ?? ""].join(" "),
         conditions: rule.conditions,
@@ -205,11 +233,23 @@ function recordClaims(
       const kinds = PROPERTY_BY_KEY.get(rule.key)?.kinds as readonly string[] | undefined;
       return kind !== undefined && kinds?.includes(kind);
     })
-    .map((rule) => ({ names: new Set(rule.names.map(said)), source: rule.source }));
+    .map((rule) => ({
+      names: new Set(rule.names.map(said)),
+      source: rule.source,
+      part: rule.part,
+      unit: rule.unit,
+    }));
+  // A maker's rule claims a figure it would read: one of its names, on its document if it names
+  // one, with the part it takes if it takes one; a lone value a part rule passes over is the
+  // shared rule's to read.
   const claimed = (spec: Spec): boolean =>
     namedIn(spec, except) ||
     rules.some(
-      (rule) => (!rule.source || spec.source === rule.source) && namedIn(spec, rule.names),
+      (rule) =>
+        (!rule.source || spec.source === rule.source) &&
+        namedIn(spec, rule.names) &&
+        (rule.part === undefined ||
+          partOf(spec.value, rule.part, spec.unit ?? rule.unit) !== undefined),
     );
   return [...claims, ...claimsUnder(shared, key, specs, claimed, read)];
 }
@@ -286,7 +326,18 @@ function read(
   // A waived condition is still read where the sheet states it: a lithium pack rated at C20
   // keeps the rate, and two rates stay two properties.
   const accepts = [...new Set([...property.needs, ...(claim.requires ?? []), ...property.accepts])];
-  const split = splitDuration(claim.value);
+  const timed = splitDuration(claim.value);
+  // A head printed after the value, "145 GPM at 5’", is the flow's condition on a key that keeps
+  // one, and a different figure on a key that does not.
+  const split = splitHead(timed.value);
+  if (split.head !== undefined && !accepts.includes("head"))
+    return {
+      claim,
+      reason: "the value states a head the key does not take",
+      conditions: {},
+      missing: [],
+      unwaived: false,
+    };
   // A condition printed inside the value's aside, "5A (12V)", is the figure's as much as one in
   // its name, and nearer to it: the aside's reading wins where the two differ in wording, and a
   // figure whose name and value state different conditions is refused rather than read either way.
@@ -303,15 +354,19 @@ function read(
   const unkept = perAlternative
     .flat()
     .filter((a) => Object.keys(conditionsFrom(a, ConditionKey.options)).length === 0);
-  const suffix: Conditions =
-    split.duration !== undefined && accepts.includes("duration")
-      ? { duration: split.duration }
-      : {};
-  const contradicted = (Object.keys(inAside) as ConditionKey[]).filter(
-    (c) =>
-      (named[c] !== undefined && named[c] !== inAside[c]) ||
-      (suffix[c] !== undefined && suffix[c] !== inAside[c]),
-  );
+  const suffix: Conditions = {
+    ...(timed.duration !== undefined && accepts.includes("duration")
+      ? { duration: timed.duration }
+      : {}),
+    ...(split.head !== undefined ? { head: split.head } : {}),
+  };
+  // The name, the aside and the suffix each may state a condition; any two that disagree, "Flow at
+  // 10 ft" printed "50 GPM at 5 ft", make the figure one nobody can read either way.
+  const layers = [named, inAside, suffix];
+  const contradicted = (ConditionKey.options as readonly ConditionKey[]).filter((c) => {
+    const stated = layers.map((l) => l[c]).filter((v) => v !== undefined);
+    return new Set(stated).size > 1;
+  });
   const alternativesDiffer =
     perAlternative.length > 1 &&
     new Set(perAlternative.map((list) => conditionsKey(conditionsFrom(list.join(" "), accepts))))

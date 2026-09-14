@@ -39,6 +39,8 @@ const UNIT_TAIL = String.raw`[A-Za-z°℃µ%][A-Za-z°℃µ%/·.]*`;
 /** A range, whose first end may carry its own unit: "8 - 72 Volts dc", "0A~140A", "-20°C to 60°C". */
 const RANGE_TERM = new RegExp(`^(${NUMBER})\\s*(${UNIT_TAIL})?${RANGE}(${NUMBER})\\s*(.*)$`);
 const SCALAR_TERM = new RegExp(`^(${NUMBER})\\s*(.*)$`);
+/** A motor's power as pump sheets print it, "1/2 HP" or a bare "4/10" in a horsepower column: one figure, not two. */
+const FRACTIONAL_HP = /^(\d+)\s*\/\s*(\d+)\s*(hp|h\.p\.|horsepower)?\s*$/i;
 /**
  * An aside a maker prints after the unit: the bank a charger's amps are for, "5A (12V)"; a word,
  * "24A (Max)"; the same figure in other units, "2.5 gpm (9.5 Lpm)"; a tolerance, "13kW(±5%)".
@@ -179,7 +181,7 @@ const isCharge = (term: Term | string): boolean =>
  * The alternatives a value lists with slashes, "12/24/48V DC", split only outside brackets: the
  * slash in "13kW (+/-5%)" is the tolerance's, not a second figure.
  */
-function alternatives(text: string): string[] {
+export function alternatives(text: string): string[] {
   const parts: string[] = [];
   let depth = 0;
   let start = 0;
@@ -215,6 +217,23 @@ export function conditionAsides(value: string): string[][] {
     if (term.unit === undefined || other.unit === undefined) return [];
     return QUANTITY_OF[other.unit] === QUANTITY_OF[term.unit] ? [] : [aside];
   });
+}
+
+/**
+ * The parts a rule may pick from a value, counted from one: the alternatives the parser splits,
+ * each carrying the unit the last one prints where its own prints none, "125/140 A" being 125 A
+ * and 140 A; a fractional horsepower, "1/2 HP" or a bare "4/10" under a horsepower unit, is one
+ * part, as it is one figure.
+ */
+export function partsOf(value: string, unit?: string): string[] {
+  const text = value.trim();
+  const fraction = FRACTIONAL_HP.exec(text);
+  if (fraction && (fraction[3] !== undefined || canonicalUnit(unit) === "hp")) return [text];
+  const parts = alternatives(text);
+  if (parts.length < 2) return parts;
+  const last = parts.at(-1) ?? "";
+  const tail = looseUnit(last) ? (SCALAR_TERM.exec(last)?.[2] ?? "").trim() : "";
+  return parts.map((part) => (tail && looseUnit(part) === undefined ? `${part} ${tail}` : part));
 }
 
 /** A term with no aside: one number with its unit, or a range. */
@@ -254,9 +273,34 @@ const CONVERT: Partial<Record<Unit, { to: CanonicalUnit; by: (n: number) => numb
   "°F": { to: "°C", by: (n) => ((n - 32) * 5) / 9 },
   min: { to: "s", by: (n) => n * 60 },
   h: { to: "s", by: (n) => n * 3600 },
+  gal: { to: "L", by: (n) => n * 3.785411784 },
+  qt: { to: "L", by: (n) => n * 0.946352946 },
+  gpm: { to: "L/min", by: (n) => n * 3.785411784 },
+  "m³/h": { to: "L/min", by: (n) => (n * 1000) / 60 },
+  psi: { to: "bar", by: (n) => n * 0.0689475729 },
+  kPa: { to: "bar", by: (n) => n / 100 },
+  ft: { to: "m", by: (n) => n * 0.3048 },
+  in: { to: "m", by: (n) => n * 0.0254 },
+  cm: { to: "m", by: (n) => n / 100 },
+  mm: { to: "m", by: (n) => n / 1000 },
+  hp: { to: "W", by: (n) => n * 745.6998716 },
 };
 
-const CANONICAL = new Set<string>(["V", "A", "W", "VA", "Wh", "Ah", "°C", "%/K", "s"]);
+const CANONICAL = new Set<string>([
+  "V",
+  "A",
+  "W",
+  "VA",
+  "Wh",
+  "Ah",
+  "°C",
+  "%/K",
+  "s",
+  "L",
+  "L/min",
+  "bar",
+  "m",
+]);
 
 /** Ten significant figures: enough that a conversion does not print as 0.30000000000000004. */
 const tidy = (n: number): number => Number(n.toPrecision(10));
@@ -280,11 +324,21 @@ export function parseQuantity(
   quantity: Quantity,
   options: ParseOptions = {},
 ): Read {
-  const text = value.trim().replace(/[“”]/g, '"').replace(/\s+/g, " ");
+  // A generator sheet writes alternating current as a trailing tilde: "120/240~" is 120 or 240 V
+  // AC. On any other quantity a trailing tilde is an approximation's, and the bound below refuses it.
+  const text = value
+    .trim()
+    .replace(/[“”]/g, '"')
+    .replace(/\s+/g, " ")
+    .replace(quantity === "voltage" ? /(?<=[\dA-Za-z])\s*~$/ : /$^/, "");
   if (!text) return { ok: false, reason: "no value" };
   if (BOUND.test(text)) return { ok: false, reason: "a bound or an approximation, not a figure" };
-  // "12/24/48V DC", "850V/850V/850V" and ".5/.7A" are alternatives; "%/°C" is one unit.
-  const parts = alternatives(text);
+  const fraction = FRACTIONAL_HP.exec(text);
+  const horsepower = fraction && (fraction[3] !== undefined || canonicalUnit(unit) === "hp");
+  // "12/24/48V DC", "850V/850V/850V" and ".5/.7A" are alternatives; "%/°C" is one unit; "1/2 HP" is a half.
+  const parts = horsepower
+    ? [`${Number(fraction[1]) / Number(fraction[2])} hp`]
+    : alternatives(text);
   const terms: Term[] = [];
   for (const part of parts) {
     const term = parseTerm(part);

@@ -5,6 +5,7 @@ import {
   conditionsKey,
   mergeConditions,
   splitDuration,
+  splitHead,
 } from "../src/conditions.ts";
 
 test("a condition is read out of a figure's name only when its key accepts it", () => {
@@ -63,6 +64,39 @@ test("a discharge rate, a duration and a mode are read in the forms makers print
   assert.deepEqual(conditionsFrom("Idle Consumption - Invert mode, no load", ["mode"]), {
     mode: "invert",
   });
+});
+
+test("a fuel and a load share are read off a generator's words, each only when the key takes it", () => {
+  assert.deepEqual(conditionsFrom("Watts (LPG) (Starting/Running)", ["fuel"]), { fuel: "lpg" });
+  assert.deepEqual(conditionsFrom("Maximum continuous power, NG", ["fuel"]), {
+    fuel: "natural-gas",
+  });
+  assert.deepEqual(conditionsFrom("Running watts, natural gas", ["fuel"]), {
+    fuel: "natural-gas",
+  });
+  assert.deepEqual(conditionsFrom("Gasoline Capacity", ["fuel"]), { fuel: "gasoline" });
+  assert.deepEqual(conditionsFrom("Propane run time", ["fuel"]), { fuel: "lpg" });
+  assert.deepEqual(conditionsFrom("Watts (Starting/Running)", ["fuel"]), {}, "no fuel named");
+  assert.deepEqual(conditionsFrom("Gasoline Capacity", []), {}, "a key with no fuel");
+  assert.deepEqual(conditionsFrom("Run time at 50% load", ["load"]), { load: 50 });
+  assert.deepEqual(conditionsFrom("Run time at 25 % rated load", ["load"]), { load: 25 });
+  assert.deepEqual(conditionsFrom("Run time, full tank", ["load"]), {});
+  // A pump's flow at a head, in feet or metres, only where the key keeps a head.
+  assert.deepEqual(conditionsFrom("Capacity Gallons/Minute at 5 feet", ["head"]), { head: 1.524 });
+  assert.deepEqual(conditionsFrom("GPM at 3 m of lift", ["head"]), { head: 3 });
+  assert.deepEqual(conditionsFrom("Flow at 10 ft.", ["head"]), { head: 3.048 });
+  assert.deepEqual(conditionsFrom("Capacity Gallons/Minute at 5 feet", []), {});
+  assert.deepEqual(conditionsFrom("Flow rate", ["head"]), {});
+  // Zero is a head: the curve's free-flow point.
+  assert.deepEqual(conditionsFrom("Flow at 0 ft", ["head"]), { head: 0 });
+  // A head written after the value is split off it.
+  assert.deepEqual(splitHead("145 GPM (549 LPM) at 5’"), {
+    value: "145 GPM (549 LPM)",
+    head: 1.524,
+  });
+  assert.deepEqual(splitHead("63 gpm @ 3 m"), { value: "63 gpm", head: 3 });
+  assert.deepEqual(splitHead("36(136) at 15 feet of lift"), { value: "36(136)", head: 4.572 });
+  assert.deepEqual(splitHead("145 GPM"), { value: "145 GPM" });
 });
 
 test("a duration printed inside the value is split off it", () => {

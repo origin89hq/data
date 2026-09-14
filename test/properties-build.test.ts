@@ -116,6 +116,9 @@ test("a maker's figures reach the registry through its rules, with the bank volt
     gaps.map((g) => [g.key, g.reason, g.claims]),
     [
       ["battery.voltage.nominal", "no-claim", 0],
+      ["charge.battery.capacity", "no-claim", 0],
+      ["charge.battery.capacity.recommended", "no-claim", 0],
+      ["charge.power.max", "no-claim", 0],
       ["pv.isc.max", "no-claim", 0],
     ],
     "keys no rule reads are gaps with no claim, and a figure no rule names is not one",
@@ -1164,6 +1167,78 @@ test("a lithium pack that states its rate keeps it, and two rates stay two prope
   assert.ok(!gaps.some((g) => g.key === "battery.capacity"));
 });
 
+const genset = Model.parse({
+  id: "acme-genset-5500",
+  manufacturer: "acme",
+  name: "Genset 5500",
+  kind: "generator",
+});
+
+test("a rule for one part of a cell reads that part, by fuel where the name says it, and skips a value with fewer parts", () => {
+  const { properties, gaps } = build({
+    models: [genset],
+    mappings: [
+      acme({
+        rules: [
+          {
+            key: "generator.power.starting",
+            names: ["Watts (Starting/Running)", "Watts (LPG) (Starting/Running)"],
+            part: 1,
+            basis: "the first figure",
+          },
+          {
+            key: "generator.power.running",
+            names: ["Watts (Starting/Running)", "Watts (LPG) (Starting/Running)"],
+            part: 2,
+            basis: "the second figure",
+          },
+          { key: "generator.fuel.tank", names: ["Gasoline Capacity"], basis: "the tank" },
+        ],
+      }),
+    ],
+    specs: [
+      // A name ending in a bracket would make an id ending in a dash, which the schema refuses.
+      figure(genset.id, "Watts (Starting/Running)", "5500/4000", {
+        unit: "W",
+        id: `${genset.id}--watts-starting-running`,
+      }),
+      figure(genset.id, "Watts (LPG) (Starting/Running)", "4500/3600", {
+        unit: "W",
+        id: `${genset.id}--watts-lpg-starting-running`,
+      }),
+      figure(genset.id, "Gasoline Capacity", "2.25 gal. (8.50 L)"),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.key, p.value, p.unit, p.conditions.fuel]),
+    [
+      ["generator.fuel.tank", 8.517176514, "L", "gasoline"],
+      ["generator.power.running", 3600, "W", "lpg"],
+      ["generator.power.running", 4000, "W", undefined],
+      ["generator.power.starting", 4500, "W", "lpg"],
+      ["generator.power.starting", 5500, "W", undefined],
+    ],
+  );
+  assert.deepEqual(
+    gaps.filter((g) => g.key.startsWith("generator.")),
+    [],
+  );
+  // A cell with one figure has no second part; a rule for it reads nothing, and the first-part rule reads it whole.
+  const lone = build({
+    models: [genset],
+    mappings: [
+      acme({
+        rules: [{ key: "generator.power.running", names: ["Watts"], part: 2, basis: "the second" }],
+      }),
+    ],
+    specs: [figure(genset.id, "Watts", "4000", { unit: "W" })],
+  });
+  assert.deepEqual(
+    lone.gaps.filter((g) => g.key === "generator.power.running").map((g) => [g.reason, g.claims]),
+    [["no-claim", 0]],
+  );
+});
+
 test("a duration in a value's aside is the peak's condition on a key that takes one, and a different figure on a key that does not", () => {
   const cell = Model.parse({
     id: "acme-cell-100",
@@ -1319,5 +1394,187 @@ test("an aside that structures into nothing the property keeps is refused, and a
         'an aside states something the figure cannot keep: "(120V)"',
       ],
     ],
+  );
+});
+
+test("a lone value a part rule passes over falls to the shared rule, and two parts of one cell reach one key as two properties", () => {
+  const sharedWatts = Mapping.parse({
+    id: "shared",
+    version: 1,
+    reviewedBy: "ada",
+    checkedAt: "2026-09-12",
+    rules: [{ key: "generator.power.running", names: ["Watts"], basis: "the cell" }],
+  });
+  const fallen = build({
+    models: [genset],
+    mappings: [
+      acme({
+        rules: [{ key: "generator.power.running", names: ["Watts"], part: 2, basis: "the second" }],
+      }),
+      sharedWatts,
+    ],
+    specs: [figure(genset.id, "Watts", "4000", { unit: "W" })],
+  });
+  assert.deepEqual(
+    fallen.properties.map((p) => [p.key, p.value, p.mappedBy]),
+    [["generator.power.running", 4000, "rule:shared@1#1"]],
+  );
+  // Two parts of one cell under one key, each its own property; the whole cell is not read on top of them.
+  const both = build({
+    models: [genset],
+    mappings: [
+      acme({
+        rules: [
+          {
+            key: "generator.power.running",
+            names: ["Watts by fuel"],
+            part: 1,
+            conditions: { fuel: "gasoline" },
+            basis: "the first",
+          },
+          {
+            key: "generator.power.running",
+            names: ["Watts by fuel"],
+            part: 2,
+            conditions: { fuel: "lpg" },
+            basis: "the second",
+          },
+          { key: "generator.power.running", names: ["Watts by fuel"], basis: "the whole cell" },
+        ],
+      }),
+    ],
+    specs: [figure(genset.id, "Watts by fuel", "4000/3600", { unit: "W" })],
+  });
+  assert.deepEqual(
+    both.properties.map((p) => [p.key, p.value, p.conditions.fuel]),
+    [
+      ["generator.power.running", 4000, "gasoline"],
+      ["generator.power.running", 3600, "lpg"],
+    ],
+  );
+});
+
+test("a head printed after a flow is the flow's condition, and a different figure on a key with no head", () => {
+  const pump = Model.parse({
+    id: "acme-pump-1",
+    manufacturer: "acme",
+    name: "Pump 1",
+    kind: "pump",
+  });
+  const { properties, gaps } = build({
+    models: [pump],
+    mappings: [
+      acme({
+        rules: [
+          { key: "pump.flow.rated", names: ["Max flow"], basis: "the sheet" },
+          { key: "pump.pressure.max", names: ["Max pressure"], basis: "the sheet" },
+        ],
+      }),
+    ],
+    specs: [
+      figure(pump.id, "Max flow", "145 GPM (549 LPM) at 5’"),
+      figure(pump.id, "Max pressure", "60 psi at 5’"),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.key, p.value, p.conditions.head]),
+    [["pump.flow.rated", 548.8847087, 1.524]],
+  );
+  assert.deepEqual(
+    gaps.filter((g) => g.key === "pump.pressure.max").map((g) => [g.reason, g.detail]),
+    [["unparsed", "the value states a head the key does not take"]],
+  );
+});
+
+test("a part rule leaves a unit's slash alone, and a name that says one head over a value that says another is refused", () => {
+  const pump = Model.parse({
+    id: "acme-pump-2",
+    manufacturer: "acme",
+    name: "Pump 2",
+    kind: "pump",
+  });
+  const { properties, gaps } = build({
+    models: [pump],
+    mappings: [
+      acme({
+        rules: [
+          { key: "pump.flow.rated", names: ["Flow"], part: 2, basis: "the second" },
+          { key: "pump.flow.rated", names: ["Flow at 10 ft"], basis: "the sheet" },
+        ],
+      }),
+      Mapping.parse({
+        id: "shared",
+        version: 1,
+        reviewedBy: "ada",
+        checkedAt: "2026-09-13",
+        rules: [{ key: "pump.flow.rated", names: ["Flow"], basis: "the whole value" }],
+      }),
+    ],
+    specs: [
+      figure(pump.id, "Flow", "4.2 L/min"),
+      figure(pump.id, "Flow at 10 ft", "50 GPM at 5 ft", { source: "doc-b" }),
+    ],
+  });
+  // "4.2 L/min" has no second part, so the shared rule reads it whole.
+  assert.deepEqual(
+    properties.map((p) => [p.value, p.claim.replace(`${pump.id}--`, "")]),
+    [[4.2, "flow"]],
+  );
+  assert.deepEqual(
+    gaps.filter((g) => g.key === "pump.flow.rated").map((g) => g.detail),
+    ["the name and the value state different head, beside 1 usable figure"],
+  );
+});
+
+test("a part takes the unit the cell prints once at its end, and a fractional horsepower has no second part", () => {
+  const hybrid2 = Model.parse({
+    id: "acme-hybrid-6000",
+    manufacturer: "acme",
+    name: "Hybrid 6000",
+    kind: "inverter-charger",
+  });
+  const pump = Model.parse({
+    id: "acme-pump-3",
+    manufacturer: "acme",
+    name: "Pump 3",
+    kind: "pump",
+  });
+  const { properties, gaps } = build({
+    models: [hybrid2, pump],
+    mappings: [
+      acme({
+        rules: [
+          {
+            key: "charge.current.max",
+            names: ["Max charge/discharge current"],
+            part: 1,
+            basis: "the first",
+          },
+          { key: "pump.power.rated", names: ["Horsepower"], part: 2, basis: "the second" },
+        ],
+      }),
+      Mapping.parse({
+        id: "shared",
+        version: 1,
+        reviewedBy: "ada",
+        checkedAt: "2026-09-14",
+        rules: [{ key: "pump.power.rated", names: ["Horsepower"], basis: "the whole" }],
+      }),
+    ],
+    specs: [
+      figure(hybrid2.id, "Max charge/discharge current", "125/140 A"),
+      figure(pump.id, "Horsepower", "1/2 HP"),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.key, p.value, p.unit, p.mappedBy]),
+    [
+      ["charge.current.max", 125, "A", "rule:acme@1#1"],
+      ["pump.power.rated", 372.8499358, "W", "rule:shared@1#1"],
+    ],
+  );
+  assert.deepEqual(
+    gaps.filter((g) => g.claims > 0),
+    [],
   );
 });

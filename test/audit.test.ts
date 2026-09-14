@@ -90,6 +90,65 @@ test("a maker's rule naming a figure of a kind its key does not have is noted, s
   ]);
 });
 
+test("a rule for one part of a cell is not faulted for a value with fewer parts, which it does not read", () => {
+  const genset = model("acme-genset-5500", "generator");
+  const r = records(
+    [genset],
+    [
+      figure(genset.id, "Watts", "5500/4000", { unit: "W" }),
+      figure(genset.id, "Watts", "4000", {
+        unit: "W",
+        id: `${genset.id}--watts-lone`,
+        source: "doc-a",
+      }),
+    ],
+    [
+      mapping([
+        { key: "generator.power.starting", names: ["Watts"], part: 1, basis: "the first" },
+        { key: "generator.power.running", names: ["Watts"], part: 2, basis: "the second" },
+      ]),
+    ],
+  );
+  // Neither an error nor a near-miss note: the rule names the figure, it just has no second part.
+  assert.deepEqual(audit(r), { errors: [], notes: [] });
+});
+
+test("a generator or pump none of whose figures is an output is noted, unless a person has reviewed it", () => {
+  const engine = model("acme-224cc", "generator");
+  const genset = model("acme-genset-4000", "generator");
+  const engine2 = model("acme-r420", "generator");
+  const ats = model("acme-ats-100", "generator");
+  const reviewed = Model.parse({
+    ...model("acme-r210", "generator"),
+    reviewedBy: "ada",
+    checkedAt: "2026-09-13",
+    basis: "an engine, kept for its tank",
+  });
+  const r = records(
+    [engine, genset, reviewed, engine2, ats],
+    [
+      figure(engine.id, "Displacement", "224 cc"),
+      figure(engine.id, "Gasoline Capacity", "5"),
+      figure(genset.id, "Running Watts", "4000", { unit: "W" }),
+      figure(reviewed.id, "Displacement", "212 cc"),
+      // An engine's horsepower is not a generator's power, and a switch's voltage is no output.
+      figure(engine2.id, "Horsepower", "13 HP"),
+      figure(ats.id, "AC VOLTS", "120/240"),
+      figure(ats.id, "UTILITY/GENERATOR", "100A/100A"),
+    ],
+    [mapping([{ key: "generator.power.running", names: ["Running Watts"], basis: "the sheet" }])],
+  );
+  const { notes } = audit(r);
+  assert.deepEqual(
+    notes.filter((n) => n.includes("none of its")),
+    [
+      "model acme-224cc is filed as a generator but none of its 2 figures is an output; it may be an engine, a switch or a part",
+      "model acme-ats-100 is filed as a generator but none of its 2 figures is an output; it may be an engine, a switch or a part",
+      "model acme-r420 is filed as a generator but none of its 1 figures is an output; it may be an engine, a switch or a part",
+    ],
+  );
+});
+
 test("an unmapped name one step from a mapped one is noted, a lone word is not", () => {
   const battery = model("acme-cell-200", "battery");
   const r = records(

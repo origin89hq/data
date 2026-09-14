@@ -7,7 +7,7 @@ import {
   type Property,
 } from "@origin89/equipment-schema/properties";
 import { conditionsFrom } from "./conditions.ts";
-import type { PropertiesOutput } from "./properties.ts";
+import { type PropertiesOutput, partOf } from "./properties.ts";
 import type { Records } from "./records.ts";
 
 /**
@@ -110,7 +110,14 @@ export function auditMappings(records: Records, built: Pick<PropertiesOutput, "c
         if (r.rule.source && spec.source !== r.rule.source) continue;
         if (!named(spec, r.names)) continue;
         if (!r.ownRule && named(spec, except)) continue;
+        // A rule for one part of a cell names the figure, so it is no near miss, but reads only a
+        // value that has that part, as the builder does.
         namedByAny = true;
+        if (
+          r.rule.part !== undefined &&
+          partOf(spec.value, r.rule.part, spec.unit ?? r.rule.unit) === undefined
+        )
+          continue;
         const applies = kindsOf(r.property).includes(kind);
         if (applies && !built.claimed.has(spec.id))
           errors.push(
@@ -184,6 +191,23 @@ export function auditMappings(records: Records, built: Pick<PropertiesOutput, "c
     if (charger)
       notes.push(
         `model ${model.id} is filed as an inverter but prints a charger's output, "${charger.name}"; an inverter/charger's keys would read it`,
+      );
+  }
+  // A generator that prints no watts, or a pump no flow, head, pressure or horsepower, is most
+  // often something else filed under that kind: a bare engine, a transfer switch, a filter
+  // cartridge. A voltage alone is no output, since a switch prints the voltage it switches, and
+  // an engine's horsepower is not a generator's power. Ten such turned up in one review.
+  const OUTPUT: Partial<Record<string, RegExp>> = {
+    generator: /watt|\bkw\b|(?<!horse)power(?!\s*factor)|puissance|potencia/i,
+    pump: /flow|gpm|lpm|head|lift|psi|pressure|\bhp\b|horsepower|capacity/i,
+  };
+  for (const model of records.models) {
+    const pattern = model.kind ? OUTPUT[model.kind] : undefined;
+    if (!pattern || model.reviewedBy) continue;
+    const own = records.specs.filter((s) => s.model === model.id);
+    if (own.length > 0 && !own.some((s) => pattern.test(s.name)))
+      notes.push(
+        `model ${model.id} is filed as a ${model.kind} but none of its ${own.length} figures is an output; it may be an engine, a switch or a part`,
       );
   }
   return { errors: errors.sort(), notes: notes.sort() };

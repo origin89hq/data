@@ -4,6 +4,7 @@ import { PROPERTY_BY_KEY } from "@origin89/equipment-schema/properties";
 import {
   conditionAsides,
   parseQuantity,
+  partsOf,
   printedQuantities,
   printedQuantity,
   type Read,
@@ -239,6 +240,81 @@ test("a bound, a sentence, and a word in the unit's place are not figures", () =
   );
 });
 
+test("a tank, a flow, a pressure, a head and a motor read in litres, litres a minute, bar, metres and watts", () => {
+  assert.deepEqual(parseQuantity("2.25 gal.", undefined, "volume"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 8.517176514, unit: "L" },
+  });
+  assert.deepEqual(parseQuantity("8 quarts", undefined, "volume"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 7.570823568, unit: "L" },
+  });
+  assert.deepEqual(parseQuantity("2.5 gpm (9.5 Lpm)", undefined, "flow"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 9.46352946, unit: "L/min" },
+  });
+  assert.deepEqual(parseQuantity("4.2 gallons per minute", undefined, "flow"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 15.89872949, unit: "L/min" },
+  });
+  assert.deepEqual(parseQuantity("3 m3/h", undefined, "flow"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 50, unit: "L/min" },
+  });
+  assert.deepEqual(parseQuantity("929", "psi", "pressure"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 64.05229522, unit: "bar" },
+  });
+  assert.deepEqual(parseQuantity("10 - 125 psi (0.7 – 8.6 bar)", undefined, "pressure"), {
+    ok: true,
+    parsed: { shape: "range", min: 0.689475729, max: 8.618446612, unit: "bar" },
+  });
+  assert.deepEqual(parseQuantity("22 ft", undefined, "length"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 6.7056, unit: "m" },
+  });
+  assert.deepEqual(parseQuantity("15.0 hp", undefined, "power"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 11185.49807, unit: "W" },
+  });
+  // Fractional horsepower is one figure, with the unit in the text or in the field; "1/2" alone is still alternatives.
+  assert.deepEqual(parseQuantity("1/2 HP", undefined, "power"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 372.8499358, unit: "W" },
+  });
+  assert.deepEqual(parseQuantity("4/10", "hp", "power"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 298.2799486, unit: "W" },
+  });
+  assert.deepEqual(parseQuantity("1/2", "V", "voltage"), {
+    ok: true,
+    parsed: { shape: "set", values: [1, 2], unit: "V" },
+  });
+  // A trailing tilde is a generator sheet's mark for alternating current, not a unit.
+  assert.deepEqual(parseQuantity("120/240~", "V", "voltage"), {
+    ok: true,
+    parsed: { shape: "set", values: [120, 240], unit: "V" },
+  });
+  assert.deepEqual(parseQuantity("120 / 240~", "V", "voltage"), {
+    ok: true,
+    parsed: { shape: "set", values: [120, 240], unit: "V" },
+  });
+  // On anything but a voltage the tilde is an approximation's, and stays refused.
+  assert.match(refused(parseQuantity("20 W~", undefined, "power")), /not a unit|approximation/);
+  assert.deepEqual(parseQuantity("22’ (6.7 m)", undefined, "length"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 6.7056, unit: "m" },
+  });
+  assert.deepEqual(parseQuantity("98 ft. (29.9 m)", undefined, "length"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 29.8704, unit: "m" },
+  });
+  assert.match(
+    refused(parseQuantity("63 GPM", undefined, "volume")),
+    /gpm measures flow, not volume/,
+  );
+});
+
 test("an aside after the unit, a cut-off voltage, a bare decimal and a hyphenated unit are the maker's spelling, not a different figure", () => {
   // A charger's amps per bank, and a word in brackets: the unit stands before the aside.
   assert.deepEqual(parseQuantity("5A (12V)", undefined, "current"), {
@@ -345,6 +421,16 @@ test("an aside after the unit, a cut-off voltage, a bare decimal and a hyphenate
     refused(parseQuantity("92V(25℃)；95V(Lowest ambient temperature)", undefined, "voltage")),
     /not a unit/,
   );
+});
+
+test("a value's parts carry the unit the last one prints, and a fractional horsepower is one part", () => {
+  assert.deepEqual(partsOf("125/140 A"), ["125 A", "140 A"]);
+  assert.deepEqual(partsOf("5500/4000"), ["5500", "4000"]);
+  assert.deepEqual(partsOf("12V/5A"), ["12V", "5A"], "each with its own unit");
+  assert.deepEqual(partsOf("4.2 L/min"), ["4.2 L/min"]);
+  assert.deepEqual(partsOf("1/2 HP"), ["1/2 HP"]);
+  assert.deepEqual(partsOf("4/10", "hp"), ["4/10"]);
+  assert.deepEqual(partsOf("4/10"), ["4", "10"], "a bare fraction under no horsepower unit is two");
 });
 
 test("the asides that carry a condition are the figures of another kind, one list per alternative", () => {

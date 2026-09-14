@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { Mapping } from "@origin89/equipment-schema/mapping";
+import { Mapping, MappingRule } from "@origin89/equipment-schema/mapping";
 import type { Records } from "../src/records.ts";
 import { validate } from "../src/validate.ts";
 
@@ -159,6 +159,13 @@ test("a maker may except only a name some shared rule lists", () => {
     errorsOf({ ...good, except: ["Max. input voltage"] }),
     /excepts "Max\. input voltage", which no shared rule names/,
   );
+});
+
+test("a rule's part is a whole number counted from one", () => {
+  const rule = { key: "generator.power.running", names: ["Watts"], basis: "the cell" };
+  assert.equal(MappingRule.safeParse({ ...rule, part: 2 }).success, true);
+  assert.equal(MappingRule.safeParse({ ...rule, part: 0 }).success, false);
+  assert.equal(MappingRule.safeParse({ ...rule, part: 1.5 }).success, false);
 });
 
 test("a rule may set a scope only on a key that has one", () => {
