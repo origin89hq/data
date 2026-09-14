@@ -45,7 +45,8 @@ export function diffDumps(before: Dump, after: Dump): Diff {
   for (const [id, b] of gapsWere) {
     const a = gapsAre.get(id);
     if (!a) gaps.push({ before: b });
-    else if (a.reason !== b.reason || a.detail !== b.detail) gaps.push({ before: b, after: a });
+    else if (a.reason !== b.reason || a.detail !== b.detail || a.claims !== b.claims)
+      gaps.push({ before: b, after: a });
   }
   for (const [id, a] of gapsAre) if (!gapsWere.has(id)) gaps.push({ after: a });
   return { added, removed, changed, gaps };
@@ -66,8 +67,11 @@ export function report(diff: Diff): string[] {
       `~ ${before.model} ${before.key}: ${shown(before)} ${before.unit} -> ${shown(after)} ${after.unit}  <- ${after.claim}`,
     );
   for (const { before, after } of diff.gaps) {
-    const b = before ? `${before.reason}${before.detail ? ` (${before.detail})` : ""}` : "no gap";
-    const a = after ? `${after.reason}${after.detail ? ` (${after.detail})` : ""}` : "no gap";
+    // The claim count is part of the gap: a second unread figure under the same reason is a move.
+    const said = (g: DumpedGap): string =>
+      `${g.reason}${g.detail ? ` (${g.detail})` : ""}, ${g.claims} claim${g.claims === 1 ? "" : "s"}`;
+    const b = before ? said(before) : "no gap";
+    const a = after ? said(after) : "no gap";
     out.push(`? ${(before ?? after)?.model} ${(before ?? after)?.key}: ${b} -> ${a}`);
   }
   return out;

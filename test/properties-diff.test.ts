@@ -65,7 +65,24 @@ test("a properties diff names each row that appeared, went or changed, and each 
   assert.ok(lines.some((l) => l.startsWith("+ acme-x pv.power.max = 1000 W")));
   assert.ok(lines.some((l) => l.startsWith("- acme-x pv.isc.max = 20 A")));
   assert.ok(lines.some((l) => l.startsWith("~ acme-x pv.voc.max: 150 V -> 145 V")));
-  assert.ok(lines.some((l) => l.startsWith("? acme-x pv.power.max: unparsed (no unit) -> no gap")));
+  assert.ok(
+    lines.some((l) => l.startsWith("? acme-x pv.power.max: unparsed (no unit), 1 claim -> no gap")),
+  );
+  // A gap whose reason stands but whose claims grew is a move too: a second unread figure arrived.
+  const gap = (claims: number) => ({
+    model: "acme-x",
+    key: "pv.isc.max",
+    reason: "unparsed" as const,
+    detail: "no unit",
+    claims,
+  });
+  const grew = diffDumps({ properties: [], gaps: [gap(1)] }, { properties: [], gaps: [gap(2)] });
+  assert.equal(grew.gaps.length, 1);
+  assert.ok(
+    report(grew).some((l) =>
+      l.endsWith("unparsed (no unit), 1 claim -> unparsed (no unit), 2 claims"),
+    ),
+  );
   // Nothing moved: one line.
   assert.deepEqual(report(diffDumps(before, before)), [
     "0 properties added, 0 removed, 0 changed; 0 gaps moved",
