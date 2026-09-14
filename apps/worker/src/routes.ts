@@ -17,7 +17,16 @@ import { z } from "zod";
 import specPages from "../../../feeds/spec-pages.json" with { type: "json" };
 import { activityPage, actor } from "./activity.ts";
 import { bearer } from "./authorised.ts";
-import { classifyRun, convertRun, specPagesRun, visionRun } from "./enqueue.ts";
+import {
+  BadStart,
+  classifyRun,
+  convertRun,
+  forgetReadings,
+  NothingApproved,
+  RunMoved,
+  specPagesRun,
+  visionRun,
+} from "./enqueue.ts";
 import { hasFeed } from "./feeds.ts";
 import { LeaseHeld, OFFER_LEASE_MS, underLease } from "./lease.ts";
 import { manufacturers } from "./manufacturers.ts";
@@ -240,6 +249,7 @@ export const CONTROL_PATHS = [
   "/classify",
   "/convert",
   "/discover-all",
+  "/forget",
   "/maker",
   "/readings",
   "/run",
@@ -597,6 +607,31 @@ controlRoutes.post("/convert", async (c) => {
 
 // The supervisor does this every day for whatever converted since it last looked; this is for not
 // waiting until tomorrow. A document with a text layer is looked up and left alone.
+/**
+ * Forget a maker's prompted readings so the next convert reads its documents again. `dry` is
+ * true unless it says `false`: counting is free, and what this removes was paid for.
+ */
+controlRoutes.post("/forget", async (c) => {
+  const manufacturerId = c.req.query("id");
+  if (!manufacturerId) return c.json({ error: "id required" }, 400);
+  const dry = c.req.query("dry") !== "false";
+  const from = Number(c.req.query("from") ?? 0);
+  if (!Number.isSafeInteger(from) || from < 0)
+    return c.json({ error: "from must be a count" }, 400);
+  // An empty run is no run named: the first batch has none to name yet.
+  const run = c.req.query("run") || undefined;
+  // Only what the caller can put right is answered with a 4xx; a bucket or a manifest that fails
+  // mid-batch is a 500, so a batch that removed some readings and stopped is not reported as done.
+  try {
+    return c.json(await forgetReadings(c.env, manufacturerId, dry, from, run));
+  } catch (error) {
+    if (error instanceof RunMoved) return c.json({ error: error.message }, 409);
+    if (error instanceof BadStart) return c.json({ error: error.message }, 400);
+    if (error instanceof NothingApproved) return c.json({ error: error.message }, 404);
+    throw error;
+  }
+});
+
 controlRoutes.post("/vision", async (c) => {
   const manufacturerId = c.req.query("id");
   const checkedAt = c.req.query("date");

@@ -2,7 +2,9 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { mock, test } from "node:test";
 import { READS_PER_REQUEST } from "@origin89/equipment-schema/provenance";
+import { FORGET_AT_ONCE } from "../src/enqueue.ts";
 import { GITHUB_ISSUER } from "../src/oidc.ts";
+import { EXTRACTOR_ID, VISION_EXTRACTOR_ID } from "../src/reading.ts";
 import {
   app,
   CONTROL_PATHS,
@@ -15,6 +17,7 @@ import {
 } from "../src/routes.ts";
 import { datasetType } from "../src/runs.ts";
 import { authRoutes } from "../src/sign-in.ts";
+import { readerKey } from "../src/work.ts";
 import { jobToken, jwks } from "./github-token.ts";
 import { world } from "./world.ts";
 
@@ -171,6 +174,171 @@ test("a reading that already ends in a newline does not become a blank line", as
   const env = archive({ [`archive/${digest(1)}.text.reading.json`]: '{"a":1}\n\n\n' });
   const res = await ask(env, { documents: [digest(1)], readers: ["text"] });
   assert.equal(await res.text(), '{"a":1}\n');
+});
+
+const forget = (env: Env, query: string) =>
+  app.request(
+    `${LOCAL}/forget?${query}`,
+    { method: "POST", headers: { authorization: "Bearer the-real-token" } },
+    env,
+  );
+const TEXT = readerKey(EXTRACTOR_ID);
+const VISION = readerKey(VISION_EXTRACTOR_ID);
+/** A maker with one approved run of two documents, read by both prompted readers and the table parser. */
+const readMaker = () =>
+  archive({
+    "documents/acme/current.json": JSON.stringify({ run: "r1", date: "2026-09-12" }),
+    "documents/acme/runs/r1/seeing.json": JSON.stringify({ extractedBy: "vision", converted: 2 }),
+    "documents/acme/runs/r1/manifest.json": JSON.stringify({
+      documents: [
+        { url: "https://acme.example/a.pdf", sha256: digest(1), contentType: "application/pdf" },
+        { url: "https://shop.example/a.pdf", sha256: digest(1), contentType: "application/pdf" },
+        { url: "https://acme.example/b.pdf", sha256: digest(2), contentType: "application/pdf" },
+        // The French edition is not converted, so its reading is not forgotten either.
+        { url: "https://acme.example/b-fr.pdf", sha256: digest(3), contentType: "application/pdf" },
+      ],
+    }),
+    [`archive/${digest(3)}.${TEXT}.reading.json`]: "{}",
+    [`archive/${digest(1)}.${TEXT}.reading.json`]: "{}",
+    [`archive/${digest(1)}.${TEXT}.window-0001.json`]: "{}",
+    [`archive/${digest(1)}.${TEXT}.window-0002.json`]: "{}",
+    [`archive/${digest(1)}.${VISION}.reading.json`]: "{}",
+    [`archive/${digest(1)}.${VISION}.window-0001.json`]: "{}",
+    [`archive/${digest(1)}.${VISION}.page-0001.json`]: "{}",
+    [`archive/${digest(1)}.md`]: "# a",
+    [`archive/${digest(1)}.table.reading.json`]: "{}",
+    [`archive/${digest(2)}.${TEXT}.reading.json`]: "{}",
+    [`archive/${digest(9)}.${TEXT}.reading.json`]: "{}",
+  });
+
+test("forgetting a maker's readings counts first, and removes only the prompted readers' readings and windows when told to", async () => {
+  const env = readMaker();
+  const dry = await forget(env, "id=acme");
+  assert.equal(dry.status, 200);
+  assert.deepEqual(await dry.json(), {
+    run: "r1",
+    documents: 2,
+    from: 0,
+    readings: 3,
+    windows: 3,
+    deleted: false,
+  });
+  assert.ok(await env.ARCHIVE.head(`archive/${digest(1)}.${TEXT}.reading.json`), "a dry run keeps");
+  assert.ok(await env.ARCHIVE.head("documents/acme/runs/r1/seeing.json"), "and keeps the offer");
+  const wet = await forget(env, "id=acme&dry=false");
+  assert.deepEqual(await wet.json(), {
+    run: "r1",
+    documents: 2,
+    from: 0,
+    readings: 3,
+    windows: 3,
+    deleted: true,
+  });
+  // The page reader's offer marker goes too, or the run would count as offered and never be sent again.
+  assert.equal(await env.ARCHIVE.head("documents/acme/runs/r1/seeing.json"), null);
+  for (const gone of [
+    `archive/${digest(1)}.${TEXT}.reading.json`,
+    `archive/${digest(1)}.${TEXT}.window-0001.json`,
+    `archive/${digest(1)}.${TEXT}.window-0002.json`,
+    `archive/${digest(1)}.${VISION}.reading.json`,
+    `archive/${digest(1)}.${VISION}.window-0001.json`,
+    `archive/${digest(2)}.${TEXT}.reading.json`,
+  ])
+    assert.equal(await env.ARCHIVE.head(gone), null, gone);
+  // The markdown, the transcribed page, the table parser's reading and another maker's document stay.
+  for (const kept of [
+    `archive/${digest(3)}.${TEXT}.reading.json`,
+    `archive/${digest(1)}.md`,
+    `archive/${digest(1)}.${VISION}.page-0001.json`,
+    `archive/${digest(1)}.table.reading.json`,
+    `archive/${digest(9)}.${TEXT}.reading.json`,
+  ])
+    assert.ok(await env.ARCHIVE.head(kept), kept);
+  // Forgetting twice removes nothing more.
+  assert.deepEqual(await (await forget(env, "id=acme&dry=false")).json(), {
+    run: "r1",
+    documents: 2,
+    from: 0,
+    readings: 0,
+    windows: 0,
+    deleted: true,
+  });
+});
+
+test("a maker with more documents than one call takes is forgotten in batches, and the offer goes with the last", async () => {
+  const many = Array.from({ length: FORGET_AT_ONCE + 1 }, (_, i) => ({
+    url: `https://acme.example/${i}.pdf`,
+    sha256: digest(i + 1),
+    contentType: "application/pdf",
+  }));
+  const env = archive({
+    "documents/acme/current.json": JSON.stringify({ run: "r1", date: "2026-09-12" }),
+    "documents/acme/runs/r1/seeing.json": "{}",
+    "documents/acme/runs/r1/manifest.json": JSON.stringify({ documents: many }),
+    [`archive/${digest(1)}.${TEXT}.reading.json`]: "{}",
+    [`archive/${digest(FORGET_AT_ONCE + 1)}.${TEXT}.reading.json`]: "{}",
+  });
+  const first = await (await forget(env, "id=acme&dry=false")).json();
+  assert.deepEqual(first, {
+    run: "r1",
+    documents: FORGET_AT_ONCE + 1,
+    from: 0,
+    next: FORGET_AT_ONCE,
+    readings: 1,
+    windows: 0,
+    deleted: true,
+  });
+  assert.ok(await env.ARCHIVE.head("documents/acme/runs/r1/seeing.json"), "not done yet");
+  const last = await (await forget(env, `id=acme&dry=false&from=${FORGET_AT_ONCE}`)).json();
+  assert.deepEqual(last, {
+    run: "r1",
+    documents: FORGET_AT_ONCE + 1,
+    from: FORGET_AT_ONCE,
+    readings: 1,
+    windows: 0,
+    deleted: true,
+  });
+  assert.equal(await env.ARCHIVE.head("documents/acme/runs/r1/seeing.json"), null);
+  // A start is the next the last batch answered with, and the run remembers it: not negative, not
+  // one nobody issued, and not a dry run's continuation on a real run.
+  for (const bad of ["from=-1", "from=1", `from=${FORGET_AT_ONCE * 2}`, "from=999999"])
+    assert.equal((await forget(env, `id=acme&dry=false&${bad}`)).status, 400, bad);
+  assert.equal((await forget(env, "id=acme&dry=false")).status, 200, "a fresh start issues a next");
+  assert.equal(
+    (await forget(env, `id=acme&from=${FORGET_AT_ONCE}`)).status,
+    400,
+    "a dry run cannot continue a real one",
+  );
+  assert.equal((await forget(env, `id=acme&dry=false&from=${FORGET_AT_ONCE}`)).status, 200);
+  assert.equal(
+    (await forget(env, `id=acme&dry=false&from=${FORGET_AT_ONCE}`)).status,
+    400,
+    "a next is issued once",
+  );
+  // A batch naming the run it continues is refused once the maker's current run has moved on; the
+  // first batch, with no run to name yet, sends an empty one.
+  assert.equal((await forget(env, "id=acme&from=0&run=")).status, 200);
+  assert.equal((await forget(env, "id=acme&from=200&run=r1")).status, 200);
+  assert.equal((await forget(env, "id=acme&from=0&run=")).status, 200);
+  // The new run has no manifest yet, as a run just reserved has none; the answer is still the 409.
+  await env.ARCHIVE.put(
+    "documents/acme/current.json",
+    JSON.stringify({ run: "r2", date: "2026-09-13" }),
+  );
+  const moved = await forget(env, "id=acme&from=200&run=r1");
+  assert.equal(moved.status, 409);
+  assert.match(await errorOf(moved), /run r1 is no longer current; r2 is/);
+});
+
+test("forgetting needs a maker, and one with no approved run is told so rather than served an error", async () => {
+  const env = readMaker();
+  assert.equal((await forget(env, "")).status, 400);
+  const none = await forget(env, "id=nobody");
+  assert.equal(none.status, 404);
+  assert.match(await errorOf(none), /nobody: no current run/);
+  // A manifest that cannot be read is not a missing one: the failure surfaces as a server error.
+  await env.ARCHIVE.put("documents/acme/runs/r1/manifest.json", "not json");
+  assert.equal((await forget(env, "id=acme")).status, 500);
 });
 
 test("a batch bigger than the cap is refused rather than trimmed", async () => {

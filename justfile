@@ -99,6 +99,20 @@ convert maker date:
 vision maker date:
     @just _post "/vision?id=$1&date=$2"
 
+# Forget what the prompted readers said about a maker's approved documents, so the next `just convert` reads them again with the prompts as they are now. Counts only, unless dry is false; the convert that follows spends reader credits.
+forget maker dry="true":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    from=0
+    run=""
+    while :; do
+      answer=$(just _post "/forget?id=$1&dry=$2&from=$from${run:+&run=$run}")
+      echo "$answer"
+      run=$(node -e 'console.log(JSON.parse(process.argv[1]).run)' "$answer")
+      from=$(node -e 'const a = JSON.parse(process.argv[1]); console.log(a.next ?? "")' "$answer")
+      [ -n "$from" ] || break
+    done
+
 # Build the site the Worker serves.
 site:
     cd apps/site && pnpm build

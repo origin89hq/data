@@ -4,7 +4,7 @@ import { classifierKey } from "./classify.ts";
 import { clearPrefix } from "./feeds.ts";
 import { CONVERTER, EXTRACTOR_ID, VISION_EXTRACTOR_ID } from "./reading.ts";
 import { pointerKey, readPointer, runPrefix } from "./runs.ts";
-import { batches, sendAll, type Work } from "./work.ts";
+import { batches, partKey, readerKey, sendAll, type Work } from "./work.ts";
 
 /** Listings per model call. Ten, because answers are matched to listings by position and a long list is where a model starts skipping one. */
 export const CLASSIFY_BATCH = 10;
@@ -126,25 +126,158 @@ export async function specPagesRun(
  * Fill the queue from the documents a person approved. Each converted document enqueues its own
  * reading, so one call runs both halves without anything supervising from above.
  */
-export async function convertRun(
+interface ApprovedDocument {
+  url: string;
+  sha256: string;
+  contentType: string;
+}
+
+/**
+ * A maker's current run and the documents conversion will take from it: one per distinct
+ * content, and a translation dropped where the maker also publishes an edition not marked as one.
+ * Forgetting works from the same list, so a reading it removes is one the next convert asks for.
+ */
+async function approvedDocuments(
   env: Env,
   manufacturer: string,
-  date: string,
-): Promise<{ documents: number; translations: number }> {
+): Promise<{
+  run: string;
+  prefix: string;
+  documents: ApprovedDocument[];
+  translations: { url: string; language: string }[];
+}> {
   const pointer = await readPointer(env.ARCHIVE, pointerKey.documents(manufacturer));
-  if (!pointer) throw new Error(`${manufacturer}: no current run`);
+  if (!pointer) throw new NothingApproved(`${manufacturer}: no current run`);
   const prefix = runPrefix.documents(manufacturer, pointer.run);
   const manifest = await env.ARCHIVE.get(`${prefix}/manifest.json`);
-  if (!manifest) throw new Error(`${prefix}: nothing approved to convert`);
-  const { documents } = await manifest.json<{
-    documents: { url: string; sha256: string; contentType: string }[];
-  }>();
+  if (!manifest) throw new NothingApproved(`${prefix}: nothing approved to convert`);
+  const { documents } = await manifest.json<{ documents: ApprovedDocument[] }>();
   // Two shops can link the same PDF; the archive keys by content, so one document is one message.
   const deduplicated = [...new Map(documents.map((d) => [d.sha256, d])).values()];
   // A maker's Spanish edition of a manual it also publishes in English states the same figures in
   // another language. Converting it costs a reading and a model call for figures already held, so
   // it is dropped here rather than after the money is spent.
-  const { keep: unique, dropped } = withoutTranslations(deduplicated);
+  const { keep, dropped } = withoutTranslations(deduplicated);
+  return { run: pointer.run, prefix, documents: keep, translations: dropped };
+}
+
+/** The readers whose answers depend on a prompt: the text reader and the page reader. The table reader is a parser. */
+const PROMPTED_READERS = () => [readerKey(EXTRACTOR_ID), readerKey(VISION_EXTRACTOR_ID)];
+
+/** Documents forgotten in one call. Each costs a list and, when removing, a delete; a Worker gets a thousand such calls. */
+export const FORGET_AT_ONCE = 200;
+
+/**
+ * Forget what the prompted readers said about a maker's approved documents, so the next
+ * `convert` reads them again with the prompts as they are now.
+ *
+ * A reading is addressed by the document's bytes and the reader, and a document read once is
+ * never read again; that is what keeps a second run from paying twice, and it is also what keeps
+ * a changed prompt from reaching a document already read (#127). Forgetting removes the reading
+ * and the windows kept beside it for each prompted reader, and nothing else: the converted
+ * markdown, the transcribed pages and the table reader's parse cost nothing to keep and are not
+ * what changed. The page reader's offer marker goes with them, or the run would count as offered
+ * already and never send the scanned documents again. A dry run counts what would go and removes
+ * nothing. The documents are taken `FORGET_AT_ONCE` at a time from `from`, and `next` says where
+ * the next call starts, so a maker of four hundred documents stays inside a Worker's budget.
+ */
+/** The run a later batch names is not the maker's current run: the pointer moved between two calls. */
+export class RunMoved extends Error {}
+/** A batch's start is not one a previous batch answered with. */
+export class BadStart extends Error {}
+/** The maker has no current run, or its run has nothing approved: nothing to forget. */
+export class NothingApproved extends Error {}
+
+export async function forgetReadings(
+  env: Env,
+  manufacturer: string,
+  dryRun: boolean,
+  from = 0,
+  expectedRun?: string,
+): Promise<{
+  run: string;
+  documents: number;
+  from: number;
+  next?: number;
+  readings: number;
+  windows: number;
+  deleted: boolean;
+}> {
+  // Every batch counts from one manifest: a later one names the run the first answered with, and
+  // the pointer is compared before the new run's manifest is asked for, since a run that has just
+  // been reserved has none yet.
+  if (expectedRun !== undefined) {
+    const pointer = await readPointer(env.ARCHIVE, pointerKey.documents(manufacturer));
+    if (pointer && pointer.run !== expectedRun)
+      throw new RunMoved(
+        `${manufacturer}: run ${expectedRun} is no longer current; ${pointer.run} is`,
+      );
+  }
+  const { run, prefix, documents } = await approvedDocuments(env, manufacturer);
+  // A batch starts where the last one said the next begins, and the run remembers what it said:
+  // a start with no batch before it would count the maker done with readings still on file.
+  const marker = `${prefix}/forgetting.json`;
+  if (from !== 0) {
+    const issued = await (await env.ARCHIVE.get(marker))?.json<{ next?: number; dry?: boolean }>();
+    if (issued?.next !== from || issued.dry !== dryRun)
+      throw new BadStart(`${manufacturer}: from must be the next the last batch answered with`);
+  }
+  const readers = PROMPTED_READERS();
+  const batch = documents.slice(from, from + FORGET_AT_ONCE);
+  let readings = 0;
+  let windows = 0;
+  for (const { sha256 } of batch) {
+    // One list per document covers both readers' reading and windows: the keys share its prefix.
+    const keys: string[] = [];
+    for (let cursor: string | undefined; ; ) {
+      const page = await env.ARCHIVE.list({ prefix: `archive/${sha256}.`, limit: 1000, cursor });
+      keys.push(...page.objects.map((o) => o.key));
+      if (!page.truncated) break;
+      cursor = page.cursor;
+    }
+    const gone = keys.filter((key) =>
+      readers.some(
+        (reader) =>
+          key === partKey.reading(sha256, reader) ||
+          key.startsWith(partKey.windows(sha256, reader)),
+      ),
+    );
+    readings += gone.filter((key) => key.endsWith(".reading.json")).length;
+    windows += gone.length - gone.filter((key) => key.endsWith(".reading.json")).length;
+    if (!dryRun && gone.length > 0) await env.ARCHIVE.delete(gone);
+  }
+  const next = from + batch.length < documents.length ? from + batch.length : undefined;
+  // On the last real batch the offer marker goes before the continuation does: if the second
+  // delete fails, the continuation still stands and the batch can be sent again, rather than
+  // refused for a marker already gone while the stale offer keeps the scanned documents unsent.
+  if (!dryRun && next === undefined) await env.ARCHIVE.delete(`${prefix}/seeing.json`);
+  if (next === undefined) await env.ARCHIVE.delete(marker);
+  else
+    await env.ARCHIVE.put(marker, JSON.stringify({ run, next, dry: dryRun }), {
+      httpMetadata: { contentType: "application/json" },
+    });
+  return {
+    run,
+    documents: documents.length,
+    from,
+    ...(next === undefined ? {} : { next }),
+    readings,
+    windows,
+    deleted: !dryRun,
+  };
+}
+
+export async function convertRun(
+  env: Env,
+  manufacturer: string,
+  date: string,
+): Promise<{ documents: number; translations: number }> {
+  const {
+    run,
+    prefix,
+    documents: unique,
+    translations: dropped,
+  } = await approvedDocuments(env, manufacturer);
   await env.ARCHIVE.put(
     `${prefix}/converting.json`,
     JSON.stringify(
@@ -169,7 +302,7 @@ export async function convertRun(
         kind: "convert",
         manufacturer,
         date,
-        run: pointer.run,
+        run,
         sha256: d.sha256,
         url: d.url,
         contentType: d.contentType,
