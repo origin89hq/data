@@ -11,6 +11,7 @@ import {
   specId,
   specsFrom,
   splitUnit,
+  staleFigures,
 } from "../src/specs.ts";
 
 const models: Model[] = [
@@ -420,5 +421,55 @@ test("a second row under an id already taken is kept aside, so a held figure und
   assert.deepEqual(
     repeatedRows.map((row) => [row.value, row.conditions]),
     [["400", "≥25 °C"]],
+  );
+});
+
+const weight = (over: Partial<Spec>): Spec =>
+  figure({
+    id: "rolls-battery-s-550--weight",
+    name: "Weight",
+    value: "57",
+    unit: "kg",
+    conditions: undefined,
+    ...over,
+  });
+const rollsRun = (reread: string[], produced: string[] = []) => ({
+  models: new Set(["rolls-battery-s-550"]),
+  produced: new Set(produced),
+  reread: new Set(reread),
+});
+
+test("a pull removes a figure only when the document that gave it was read again and gave it no more", () => {
+  const fromReread = figure({ source: "doc-aaaa" });
+  const fromUnread = weight({ source: "doc-bbbb" });
+  assert.deepEqual(
+    staleFigures([fromReread, fromUnread], rollsRun(["doc-aaaa"])).map((spec) => spec.id),
+    [fromReread.id],
+  );
+});
+
+test("a run that read none of the documents the records cite removes nothing", () => {
+  // Champion's 2026-09-11 run fetched twenty documents, none of the fifty-eight its figures came from.
+  const cited = [figure({ source: "doc-aaaa" }), weight({ source: "doc-bbbb" })];
+  assert.deepEqual(staleFigures(cited, rollsRun(["doc-cccc"])), []);
+  assert.deepEqual(staleFigures(cited, rollsRun([])), [], "nor does a run with no whole reading");
+});
+
+test("a figure read again, held by a person, or on another maker's model is never stale", () => {
+  const readAgain = figure({ source: "doc-aaaa" });
+  const reviewed = weight({ source: "doc-aaaa", reviewedBy: "david", checkedAt: "2026-09-01" });
+  const byHand = weight({
+    id: "rolls-battery-s-550--length",
+    source: "doc-aaaa",
+    extractedBy: undefined,
+  });
+  const anothers = figure({
+    id: "epever-xtra4210n--rated-capacity-20-hour-rate",
+    model: "epever-xtra4210n",
+    source: "doc-aaaa",
+  });
+  assert.deepEqual(
+    staleFigures([readAgain, reviewed, byHand, anothers], rollsRun(["doc-aaaa"], [readAgain.id])),
+    [],
   );
 });
