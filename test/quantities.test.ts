@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { PROPERTY_BY_KEY } from "@origin89/equipment-schema/properties";
 import {
+  conditionAsides,
   parseQuantity,
   printedQuantities,
   printedQuantity,
@@ -236,6 +237,125 @@ test("a bound, a sentence, and a word in the unit's place are not figures", () =
     refused(parseQuantity("92V(25℃)；95V(Lowest ambient temperature)", undefined, "voltage")),
     /not a unit/,
   );
+});
+
+test("an aside after the unit, a cut-off voltage, a bare decimal and a hyphenated unit are the maker's spelling, not a different figure", () => {
+  // A charger's amps per bank, and a word in brackets: the unit stands before the aside.
+  assert.deepEqual(parseQuantity("5A (12V)", undefined, "current"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 5, unit: "A" },
+  });
+  assert.deepEqual(parseQuantity("2000mA (12V)", undefined, "current"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 2, unit: "A" },
+  });
+  assert.deepEqual(parseQuantity("24A (Max)", undefined, "current"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 24, unit: "A" },
+  });
+  // The same range in other units after it is not a second range.
+  assert.deepEqual(parseQuantity("35 - 100°F (2 - 38°C)", undefined, "temperature"), {
+    ok: true,
+    parsed: { shape: "range", min: 1.666666667, max: 37.77777778, unit: "°C" },
+  });
+  // A unit that is only in the aside is still the unit.
+  assert.deepEqual(parseQuantity("72 (W)", undefined, "power"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 72, unit: "W" },
+  });
+  // A lead-acid capacity drawn down to a cell voltage: the voltage is a condition, not a range's end.
+  assert.deepEqual(parseQuantity("155 A.H. to 1.70 VPC", undefined, "charge"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 155, unit: "Ah" },
+  });
+  assert.deepEqual(parseQuantity("96 Ampere-Hours @ 1.75 V.P.C.", undefined, "charge"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 96, unit: "Ah" },
+  });
+  // A range of cell voltages ending in VPC is not a capacity with a cut-off, and keeps its second end.
+  assert.match(refused(parseQuantity("2.35 to 2.40 VPC", "V", "voltage")), /not a unit/);
+  assert.deepEqual(parseQuantity(".281KWH", undefined, "energy"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 281, unit: "Wh" },
+  });
+  assert.deepEqual(parseQuantity("12-Volts", undefined, "voltage"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 12, unit: "V" },
+  });
+  // A tolerance restates the figure; a second figure of the same kind changes it, and stays unread.
+  assert.deepEqual(parseQuantity("13kW(±5%)", undefined, "power"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 13000, unit: "W" },
+  });
+  assert.match(
+    refused(parseQuantity("190A (software limited 185A)", undefined, "current")),
+    /changes the figure/,
+  );
+  assert.match(
+    refused(parseQuantity("2.25 gal (9.9 L)", undefined, "volume")),
+    /changes the figure/,
+  );
+  // An absolute tolerance, a note with a number in it, and figures of other kinds all restate it.
+  assert.deepEqual(parseQuantity("120 VAC (± 5 VAC)", undefined, "voltage"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 120, unit: "V" },
+  });
+  // The tolerance's own slash is not a second figure, and a tolerance in another unit is not a tolerance.
+  assert.deepEqual(parseQuantity("13kW (+/-5%)", undefined, "power"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 13000, unit: "W" },
+  });
+  assert.match(refused(parseQuantity("120V (± 5A)", undefined, "voltage")), /changes the figure/);
+  assert.deepEqual(parseQuantity("230V (L+N+PE)", undefined, "voltage"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 230, unit: "V" },
+  });
+  assert.deepEqual(parseQuantity("400V (L1+L2+L3+N+PE)", undefined, "voltage"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 400, unit: "V" },
+  });
+  // Words that say something the figure does not, a second figure of the same kind that nearly
+  // agrees, a figure with a note around it, and a bounded time all change the figure.
+  for (const [changed, quantity] of [
+    ["24A (per input)", "current"],
+    ["190A (188A)", "current"],
+    ["1100mA (1.00A)", "current"],
+    ["5A (12-24V)", "current"],
+    ["3600W (30A @ 230VAC)", "power"],
+    ["500 Watts (< 8 ms)", "power"],
+    ["120 VAC (nominal, L-N)", "voltage"],
+  ] as const)
+    assert.match(
+      refused(parseQuantity(changed, undefined, quantity)),
+      /changes the figure/,
+      changed,
+    );
+  assert.deepEqual(parseQuantity("120 VAC (L-N)", undefined, "voltage"), {
+    ok: true,
+    parsed: { shape: "scalar", value: 120, unit: "V" },
+  });
+  // Alternatives that begin with a bare decimal split like any others.
+  assert.deepEqual(parseQuantity(".5/.7A", undefined, "current"), {
+    ok: true,
+    parsed: { shape: "set", values: [0.5, 0.7], unit: "A" },
+  });
+  // Two banks' worth in one figure, and a second figure after a semicolon, are still not one figure.
+  assert.match(refused(parseQuantity("5Ax2(12V)", undefined, "current")), /not a unit/);
+  assert.match(
+    refused(parseQuantity("92V(25℃)；95V(Lowest ambient temperature)", undefined, "voltage")),
+    /not a unit/,
+  );
+});
+
+test("the asides that carry a condition are the figures of another kind, one list per alternative", () => {
+  assert.deepEqual(conditionAsides("5A (12V)"), [["12V"]]);
+  assert.deepEqual(conditionAsides("5A (12V)/5A (24V)"), [["12V"], ["24V"]]);
+  assert.deepEqual(conditionAsides("200A (15s)"), [["15s"]]);
+  assert.deepEqual(conditionAsides("12000mV (12V)"), [[]], "the same figure in other units");
+  assert.deepEqual(conditionAsides("13kW (±5%)"), [[]], "a tolerance");
+  assert.deepEqual(conditionAsides("400V (L1+L2+L3+N+PE)"), [[]], "a wiring note");
+  assert.deepEqual(conditionAsides("24A (Max)"), [[]], "a word");
+  assert.deepEqual(conditionAsides("12/24/48V DC"), [[], [], []]);
 });
 
 const property = (key: string) => {

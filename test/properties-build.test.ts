@@ -322,7 +322,7 @@ test("a figure the parser refuses is a gap that says why, and a rule scoped to a
       model: tristar.id,
       key: "charge.current.max",
       reason: "unparsed",
-      detail: '"%ofthecontroller’soutputcurrentrating(approximate)" is not a unit',
+      detail: '"%ofthecontroller’soutputcurrentrating" is not a unit',
       claims: 1,
     },
   );
@@ -948,7 +948,7 @@ test("a VA figure the parser refuses is still the apparent key's gap, not the wa
   );
 });
 
-test("a value printed in VA and W feeds both keys, and a VA value with an aside is the apparent key's gap", () => {
+test("a value printed in VA and W feeds both keys, and a VA value with words after its unit is the apparent key's gap", () => {
   const { properties, gaps } = build({
     models: [hybrid],
     mappings: [
@@ -958,7 +958,7 @@ test("a value printed in VA and W feeds both keys, and a VA value with an aside 
     ],
     specs: [
       figure(hybrid.id, "Rated output power", "6KVA/6KW"),
-      figure(hybrid.id, "Rated output power", "4000 VA (L-L)", { source: "doc-b" }),
+      figure(hybrid.id, "Rated output power", "4000 VA per phase", { source: "doc-b" }),
     ],
   });
   assert.deepEqual(
@@ -973,7 +973,12 @@ test("a value printed in VA and W feeds both keys, and a VA value with an aside 
       .filter((g) => g.key.startsWith("inverter.power."))
       .map((g) => [g.key, g.reason, g.detail, g.claims]),
     [
-      ["inverter.power.apparent", "unparsed", '"VA(L-L)" is not a unit, beside 1 usable figure', 2],
+      [
+        "inverter.power.apparent",
+        "unparsed",
+        '"VAperphase" is not a unit, beside 1 usable figure',
+        2,
+      ],
       ["inverter.power.apparent.surge", "no-claim", undefined, 0],
       ["inverter.power.idle", "no-claim", undefined, 0],
       ["inverter.power.surge", "no-claim", undefined, 0],
@@ -1157,4 +1162,162 @@ test("a lithium pack that states its rate keeps it, and two rates stay two prope
     ],
   );
   assert.ok(!gaps.some((g) => g.key === "battery.capacity"));
+});
+
+test("a duration in a value's aside is the peak's condition on a key that takes one, and a different figure on a key that does not", () => {
+  const cell = Model.parse({
+    id: "acme-cell-100",
+    manufacturer: "acme",
+    name: "Cell 100",
+    kind: "battery",
+  });
+  const { properties, gaps } = build({
+    models: [cell],
+    mappings: [
+      acme({
+        rules: [
+          { key: "battery.discharge.current.peak", names: ["Peak current"], basis: "the sheet" },
+          { key: "battery.discharge.current.max", names: ["Max current"], basis: "the sheet" },
+        ],
+      }),
+    ],
+    specs: [
+      figure(cell.id, "Peak current", "200A (15s)"),
+      figure(cell.id, "Max current", "200A (15s)"),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.key, p.value, p.conditions.duration]),
+    [["battery.discharge.current.peak", 200, 15]],
+  );
+  assert.deepEqual(
+    gaps.filter((g) => g.key === "battery.discharge.current.max").map((g) => [g.reason, g.detail]),
+    [["unparsed", "an aside states a duration the key does not take"]],
+  );
+});
+
+test("a condition the value's aside states wins over the name's wording, and a name that contradicts the aside is refused", () => {
+  const cell = Model.parse({
+    id: "acme-cell-200",
+    manufacturer: "acme",
+    name: "Cell 200",
+    kind: "battery",
+  });
+  const { properties, gaps } = build({
+    models: [cell],
+    mappings: [
+      acme({
+        rules: [
+          {
+            key: "battery.discharge.current.peak",
+            names: ["Surge current", "5 sec surge current"],
+            basis: "the sheet",
+          },
+        ],
+      }),
+    ],
+    specs: [
+      figure(cell.id, "Surge current", "200A (15s)"),
+      figure(cell.id, "5 sec surge current", "300A (15s)", { source: "doc-b" }),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.value, p.conditions.duration]),
+    [[200, 15]],
+  );
+  assert.deepEqual(
+    gaps.filter((g) => g.key === "battery.discharge.current.peak").map((g) => [g.reason, g.detail]),
+    [["unparsed", "the name and the value state different duration, beside 1 usable figure"]],
+  );
+});
+
+test("an aside that restates the figure names no condition, and alternatives under different conditions are refused", () => {
+  const charger = Model.parse({
+    id: "acme-charger-5",
+    manufacturer: "acme",
+    name: "Charger 5",
+    kind: "ac-charger",
+  });
+  const cell = Model.parse({
+    id: "acme-cell-300",
+    manufacturer: "acme",
+    name: "Cell 300",
+    kind: "battery",
+  });
+  const { properties, gaps } = build({
+    models: [charger, cell],
+    mappings: [
+      acme({
+        rules: [
+          { key: "battery.voltage.nominal", names: ["Nominal voltage"], basis: "the sheet" },
+          { key: "charge.current.max", names: ["Charging current"], basis: "the sheet" },
+        ],
+      }),
+    ],
+    specs: [
+      figure(cell.id, "Nominal voltage", "12000mV (12V)"),
+      figure(charger.id, "Charging current", "5A (12V)/5A (24V)"),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.key, p.values, p.conditions]),
+    [["battery.voltage.nominal", [12], {}]],
+  );
+  assert.deepEqual(
+    gaps.filter((g) => g.key === "charge.current.max").map((g) => [g.reason, g.detail]),
+    [["unparsed", "the alternatives are stated under different conditions"]],
+  );
+});
+
+test("an aside that structures into nothing the property keeps is refused, and an aside is seen past a duration suffix", () => {
+  const charger = Model.parse({
+    id: "acme-charger-6",
+    manufacturer: "acme",
+    name: "Charger 6",
+    kind: "ac-charger",
+  });
+  const cell = Model.parse({
+    id: "acme-cell-400",
+    manufacturer: "acme",
+    name: "Cell 400",
+    kind: "battery",
+  });
+  const { properties, gaps } = build({
+    models: [charger, cell],
+    mappings: [
+      acme({
+        rules: [
+          { key: "charge.current.max", names: ["Charging current"], basis: "the sheet" },
+          { key: "battery.discharge.current.peak", names: ["Peak current"], basis: "the sheet" },
+        ],
+      }),
+    ],
+    specs: [
+      figure(charger.id, "Charging current", "5A (120V)"),
+      figure(cell.id, "Peak current", "300A (15s) for 10s"),
+      figure(cell.id, "Peak current", "250A (10s) for 10s", { source: "doc-b" }),
+    ],
+  });
+  assert.deepEqual(
+    properties.map((p) => [p.key, p.value, p.conditions.duration]),
+    [["battery.discharge.current.peak", 250, 10]],
+  );
+  assert.deepEqual(
+    gaps
+      .filter((g) => g.claims > 0)
+      .map((g) => [g.key, g.reason, g.detail])
+      .sort((a, b) => String(a[0]).localeCompare(String(b[0]))),
+    [
+      [
+        "battery.discharge.current.peak",
+        "unparsed",
+        "the name and the value state different duration, beside 1 usable figure",
+      ],
+      [
+        "charge.current.max",
+        "unparsed",
+        'an aside states something the figure cannot keep: "(120V)"',
+      ],
+    ],
+  );
 });

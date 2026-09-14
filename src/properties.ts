@@ -2,7 +2,7 @@ import { type Mapping, type MappingRule, SHARED_MAPPING } from "@origin89/equipm
 import type { Model, Spec } from "@origin89/equipment-schema/model";
 import {
   type Basis,
-  type ConditionKey,
+  ConditionKey,
   type Conditions,
   type GapReason,
   PROPERTIES,
@@ -12,7 +12,7 @@ import {
 } from "@origin89/equipment-schema/properties";
 import { conditionsFrom, conditionsKey, mergeConditions, splitDuration } from "./conditions.ts";
 import { type Feed, type FeedModel, feedSpecId } from "./feeds.ts";
-import { type Parsed, printedQuantities, readProperty } from "./quantities.ts";
+import { conditionAsides, type Parsed, printedQuantities, readProperty } from "./quantities.ts";
 
 /**
  * Build the normalized properties beside the printed figures.
@@ -287,15 +287,65 @@ function read(
   // keeps the rate, and two rates stay two properties.
   const accepts = [...new Set([...property.needs, ...(claim.requires ?? []), ...property.accepts])];
   const split = splitDuration(claim.value);
-  const conditions = mergeConditions(
-    claim.conditions,
-    conditionsFrom(claim.text, accepts),
+  // A condition printed inside the value's aside, "5A (12V)", is the figure's as much as one in
+  // its name, and nearer to it: the aside's reading wins where the two differ in wording, and a
+  // figure whose name and value state different conditions is refused rather than read either way.
+  // Only an aside that is a figure of another kind carries a condition: "12000mV (12V)" restates
+  // its figure and names no bank. Alternatives that carry different conditions, "5A (12V)/5A (24V)",
+  // cannot be one property, and are refused rather than read as the first. The asides are those
+  // of the value with its suffix off, so "(15s)" in "300A (15s) for 10s" is still seen.
+  const perAlternative = conditionAsides(split.value);
+  const asides = perAlternative.flat().join(" ");
+  const named = conditionsFrom(claim.text, accepts);
+  const inAside = conditionsFrom(asides, accepts);
+  // An aside that is a figure of another kind but structures into no condition, "5A (120V)" where
+  // 120 V is no bank, says something the property cannot keep.
+  const unkept = perAlternative
+    .flat()
+    .filter((a) => Object.keys(conditionsFrom(a, ConditionKey.options)).length === 0);
+  const suffix: Conditions =
     split.duration !== undefined && accepts.includes("duration")
       ? { duration: split.duration }
-      : undefined,
+      : {};
+  const contradicted = (Object.keys(inAside) as ConditionKey[]).filter(
+    (c) =>
+      (named[c] !== undefined && named[c] !== inAside[c]) ||
+      (suffix[c] !== undefined && suffix[c] !== inAside[c]),
   );
+  const alternativesDiffer =
+    perAlternative.length > 1 &&
+    new Set(perAlternative.map((list) => conditionsKey(conditionsFrom(list.join(" "), accepts))))
+      .size > 1;
+  const conditions = mergeConditions(claim.conditions, named, inAside, suffix);
   const missing = needs.filter((c) => conditions[c] === undefined);
-  const result = readProperty(split.value, claim.unit, property, { reference });
+  // An aside that states a condition the key does not keep, "(15s)" on a continuous current, is a
+  // different figure: a peak, not the rating. The name's words are the rule's to weigh; the
+  // value's aside is the figure's own.
+  const stated = Object.keys(conditionsFrom(asides, ConditionKey.options)).filter(
+    (c) => c !== "stc" && c !== "note" && !accepts.includes(c as ConditionKey),
+  );
+  const result =
+    stated.length > 0
+      ? {
+          ok: false as const,
+          reason: `an aside states a ${stated.join(", ")} the key does not take`,
+        }
+      : unkept.length > 0
+        ? {
+            ok: false as const,
+            reason: `an aside states something the figure cannot keep: "(${unkept.join(") (")})"`,
+          }
+        : contradicted.length > 0
+          ? {
+              ok: false as const,
+              reason: `the name and the value state different ${contradicted.join(", ")}`,
+            }
+          : alternativesDiffer
+            ? {
+                ok: false as const,
+                reason: "the alternatives are stated under different conditions",
+              }
+            : readProperty(split.value, claim.unit, property, { reference });
   const stillMissing = unwaived && missing.length > 0;
   return result.ok
     ? { claim, parsed: result.parsed, conditions, missing, unwaived: stillMissing }

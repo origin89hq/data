@@ -23,7 +23,7 @@ const gap = (gaps: GapRow[], key: string) => gaps.find((g) => g.key === key);
 const own = (maker: string, rows: PropertyRow[]) =>
   rows.every((p) => p.mappedBy.startsWith(`rule:${maker}@`));
 
-test("Magnum: the surge lines read in watts with their durations, the charger's amps under the charge key, and the VA continuous figure as the apparent key's gap", () => {
+test("Magnum: the surge lines read in watts with their durations, the charger's amps under the charge key, and the VA continuous figure under the apparent key", () => {
   const { properties, gaps } = of("magnum-energy-ms4024pae");
   const surge = values(properties, "inverter.power.surge");
   assert.deepEqual(
@@ -40,8 +40,11 @@ test("Magnum: the surge lines read in watts with their durations, the charger's 
     values(properties, "charge.current.max").map((p) => [p.value, p.unit]),
     [[105, "A"]],
   );
-  // Its '4000 VA (L-L)' is the apparent key's gap, and the watt key was never claimed by it.
-  assert.equal(gap(gaps, "inverter.power.apparent")?.reason, "unparsed");
+  // Its '4000 VA (L-L)' is 4000 VA, the aside being the phases, under the apparent key; the watt key was never claimed by it.
+  assert.deepEqual(
+    values(properties, "inverter.power.apparent").map((p) => [p.value, p.unit]),
+    [[4000, "VA"]],
+  );
   assert.equal(gap(gaps, "inverter.power.continuous")?.reason, "no-claim");
   // The MM1012E's charger line and the 12NP10's output line carry no unit; the rules say which.
   assert.deepEqual(
@@ -310,7 +313,7 @@ test("Xantrex: the Freedom's charger amps, no idle draw from its search threshol
   assert.ok(own("xantrex", c35));
 });
 
-test("Sol-Ark: the 15K's surges with their times, one battery current, the usable PV power, and the 12K's per-MPPT power beside a refused total", () => {
+test("Sol-Ark: the 15K's surges with their times, one battery current, the usable PV power, and the 12K's per-MPPT power beside its total", () => {
   const { properties, gaps } = of("sol-ark-15k-2p-lv");
   assert.deepEqual(
     values(properties, "inverter.power.surge").map((p) => [p.value, p.conditions.duration]),
@@ -333,11 +336,15 @@ test("Sol-Ark: the 15K's surges with their times, one battery current, the usabl
   );
   assert.equal(gap(gaps, "inverter.voltage.ac")?.reason, "unparsed");
   const twelve = of("sol-ark-sol-ark-12k-2p-n");
+  // Its total is printed '13kW(±5%)'; the tolerance is an aside, and the figure reads beside the per-MPPT one.
   assert.deepEqual(
     values(twelve.properties, "pv.power.max").map((p) => [p.value, p.scope]),
-    [[6500, "per-input"]],
+    [
+      [13000, "total"],
+      [6500, "per-input"],
+    ],
   );
-  assert.match(gap(twelve.gaps, "pv.power.max")?.detail ?? "", /kW\(±5%\)/);
+  assert.equal(gap(twelve.gaps, "pv.power.max"), undefined);
   // The 12K-P prints the allowed array size, 13 kW, beside the 12 kW it delivers; only the latter is read.
   const twelveP = of("sol-ark-sol-ark-12k-p");
   assert.deepEqual(
@@ -381,7 +388,7 @@ test("EG4: the 12kPV's kilowatts as watts, its PV limits, the mini split's bare 
   assert.ok(own("eg4-electronics", mini));
 });
 
-test("NOCO: the NLX's voltage, energy and both battery currents, its capacity as a gap without a chemistry, and a charger's per-bank amps as a gap", () => {
+test("NOCO: the NLX's voltage, energy and both battery currents, its capacity as a gap without a chemistry, and a charger's amps with their bank", () => {
   const { properties, gaps } = of("noco-nlx27");
   assert.deepEqual(
     values(properties, "battery.voltage.nominal").map((p) => p.values),
@@ -409,10 +416,18 @@ test("NOCO: the NLX's voltage, energy and both battery currents, its capacity as
     [[40, {}]],
   );
   assert.ok(own("noco", nlx24));
-  // A charger's 'Charging Current' is the charger's, printed per bank as '10A (12V)', which is not yet read.
+  // A charger's 'Charging Current' is the charger's, printed per bank as '10A (12V)': 10 A at a 12 V bank.
   const charger = of("noco-genpro10x1");
-  assert.equal(gap(charger.gaps, "charge.current.max")?.reason, "unparsed");
+  assert.deepEqual(
+    values(charger.properties, "charge.current.max").map((p) => [
+      p.value,
+      p.conditions.bankVoltage,
+    ]),
+    [[10, 12]],
+  );
   assert.equal(values(charger.properties, "battery.charge.current.max").length, 0);
+  // Two banks' worth in one figure, '10Ax2(12V)', is still refused.
+  assert.equal(gap(of("noco-genpro10x2").gaps, "charge.current.max")?.reason, "unparsed");
   // The Genius 2D manual prints the same name for a 2 A maintainer; the rules read the GEN and GENPRO sheets only.
   assert.equal(gap(of("noco-noco").gaps, "charge.current.max")?.claims, 0);
 });
@@ -516,7 +531,7 @@ test("Energizer Solar: a module's STC figures with its watt-peak, the Force's PV
   );
 });
 
-test("East Penn: the AVR table's kilowatt-hours and the 8GGC2's, and a '12-Volts' voltage, an 'A.H.' capacity and a unitless 'Rated Capacity' as gaps", () => {
+test("East Penn: the AVR table's kilowatt-hours and the 8GGC2's, a '12-Volts' voltage, an 'A.H.' capacity waiting on its rate, and a unitless 'Rated Capacity' as a gap", () => {
   const avr = of("east-penn-avr95-27");
   const energy = values(avr.properties, "battery.energy");
   assert.deepEqual(
@@ -533,10 +548,13 @@ test("East Penn: the AVR table's kilowatt-hours and the 8GGC2's, and a '12-Volts
     values(gel.properties, "battery.energy").map((p) => p.value),
     [3600],
   );
-  assert.equal(gap(gel.gaps, "battery.capacity")?.reason, "unparsed");
-  const hr = of("east-penn-hr3500");
-  assert.equal(gap(hr.gaps, "battery.voltage.nominal")?.reason, "unparsed");
-  assert.match(gap(hr.gaps, "battery.voltage.nominal")?.detail ?? "", /-Volts/);
+  // '155 A.H. to 1.70 VPC' is 155 Ah drawn down to a cell voltage; the sheet states no rate, so it waits.
+  assert.equal(gap(gel.gaps, "battery.capacity")?.reason, "needs-conditions");
+  assert.match(gap(gel.gaps, "battery.capacity")?.detail ?? "", /dischargeHours/);
+  assert.deepEqual(
+    values(of("east-penn-hr3500").properties, "battery.voltage.nominal").map((p) => p.values),
+    [[12]],
+  );
 });
 
 test("Rolls: the STACK-LV manual's bare 'Voltage' read on that manual only, its timed peak discharge, and the AGM sheet's bare 'Volts'", () => {
@@ -563,7 +581,7 @@ test("Rolls: the STACK-LV manual's bare 'Voltage' read on that manual only, its 
   );
 });
 
-test("Millertech: a pack's voltage, energy and five-second discharge current, a '.281KWH' energy as a gap, and the 16V charger's output amps", () => {
+test("Millertech: a pack's voltage, energy and five-second discharge current, a '.281KWH' energy read as one, and the 16V charger's output amps", () => {
   const pack = of("millertech-12v-100ah-lifepo4-millertech-battery");
   assert.deepEqual(
     values(pack.properties, "battery.voltage.nominal").map((p) => p.values),
@@ -580,8 +598,12 @@ test("Millertech: a pack's voltage, energy and five-second discharge current, a 
     ]),
     [[300, 5]],
   );
-  const small = of("millertech-12v-22ah-lifepo4-millertech-battery");
-  assert.equal(gap(small.gaps, "battery.energy")?.reason, "unparsed");
+  assert.deepEqual(
+    values(of("millertech-12v-22ah-lifepo4-millertech-battery").properties, "battery.energy").map(
+      (p) => p.value,
+    ),
+    [281],
+  );
   assert.deepEqual(
     values(of("millertech-16v-15a").properties, "charge.current.max").map((p) => p.value),
     [15],
@@ -682,9 +704,12 @@ test("a Luxpower rating printed as '6KVA/6KW' reaches both the watt key and its 
     values(properties, "inverter.power.apparent").map((p) => [p.value, p.claim]),
     [[6000, "luxpower-sna-us-600033--rated-output-power"]],
   );
-  // Magnum's '4000 VA (L-L)' is the apparent key's gap now, not the watt key's.
+  // Magnum's '4000 VA (L-L)' is the apparent key's value now, not the watt key's.
   const ms = of("magnum-energy-ms4024pae");
-  assert.equal(gap(ms.gaps, "inverter.power.apparent")?.reason, "unparsed");
+  assert.deepEqual(
+    values(ms.properties, "inverter.power.apparent").map((p) => p.value),
+    [4000],
+  );
   assert.equal(gap(ms.gaps, "inverter.power.continuous")?.reason, "no-claim");
 });
 
