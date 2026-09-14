@@ -193,6 +193,7 @@ const usedSources = new Map<string, { url: string; sha256: string }>();
 // with a figure a person holds has to name a document somebody can open.
 const documentUrls = new Map<string, string>();
 let repeatedTotal = 0;
+let garbledTotal = 0;
 const figuresOf = (document: (typeof readings.readings)[number]) =>
   specsFrom({
     reports: document.products,
@@ -210,8 +211,9 @@ for (const document of readings.readings) {
   if (document.products.length === 0) continue;
   const sourceId = `doc-${document.sha256.slice(0, 32)}`;
   documentUrls.set(sourceId, document.url);
-  const { specs, unmatched: missing, repeated, repeatedRows } = figuresOf(document);
+  const { specs, unmatched: missing, repeated, repeatedRows, garbled } = figuresOf(document);
   repeatedTotal += repeated;
+  garbledTotal += garbled.length;
   for (const spec of specs) {
     collected.set(spec.id, spec);
     candidate(spec);
@@ -378,6 +380,8 @@ if (repeatedTotal)
   console.log(
     `  ${repeatedTotal} figures dropped where a multilingual document stated them again in another language`,
   );
+if (garbledTotal)
+  console.log(`  ${garbledTotal} figures refused: the reader garbled a symbol in the value`);
 if (aligned.dropped.length)
   console.log(
     `  ${aligned.dropped.length} figures dropped: named in another language on a model that already has English figures`,

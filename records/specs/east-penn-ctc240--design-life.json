@@ -1,9 +1,0 @@
-{
-  "id": "east-penn-ctc240--design-life",
-  "model": "east-penn-ctc240",
-  "name": "Design life",
-  "value": "10 years in float applications @ 77¸F (25¸C)",
-  "source": "doc-fbb4a6400392e7df529a22b56fc1b349",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

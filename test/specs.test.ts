@@ -121,6 +121,25 @@ test("a figure with no name or no value is dropped rather than stored empty", ()
   assert.equal(specs[0].name, "Rated current");
 });
 
+test("a figure whose symbol the reader garbled is refused and listed, and the printed symbol is kept", () => {
+  const read = (value: string) =>
+    specsFrom({
+      ...base,
+      manufacturer: "epever",
+      reports: [{ model: "XTRA4210N", specs: [{ name: "Cycle life", value }] }],
+    });
+  const garbledRead = read("£8000 cycles");
+  assert.deepEqual(garbledRead.specs, []);
+  assert.deepEqual(garbledRead.garbled, ["Cycle life = £8000 cycles"]);
+  assert.deepEqual(garbledRead.truncated, [], "a garbled value is not reported as a fragment");
+  const printed = read("≥8000 cycles");
+  assert.deepEqual(
+    printed.specs.map((spec) => spec.value),
+    ["≥8000 cycles"],
+  );
+  assert.deepEqual(printed.garbled, []);
+});
+
 test("every extracted figure names the model that read it, so nothing looks confirmed", () => {
   const { specs } = specsFrom({
     ...base,
