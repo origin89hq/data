@@ -4,9 +4,11 @@ import {
   EXTRACT_MODEL,
   EXTRACTOR_ID,
   mergeReports,
+  pageOfFigure,
   RESPONSE_SCHEMA,
   type Reported,
   SYSTEM,
+  type Window,
 } from "./reading.ts";
 import { LAST_ATTEMPT, partKey, readerKey, type Work } from "./work.ts";
 
@@ -126,8 +128,8 @@ async function keptWindows(
   );
 }
 
-/** One model call for one window, with each figure given the page the window starts on. */
-async function readWindow(env: Env, window: { text: string; page?: number }): Promise<Reported[]> {
+/** One model call for one window, with each figure given the page its value is printed on. */
+async function readWindow(env: Env, window: Window): Promise<Reported[]> {
   const response = await env.AI.run(EXTRACT_MODEL, {
     messages: [
       { role: "system", content: SYSTEM },
@@ -138,15 +140,23 @@ async function readWindow(env: Env, window: { text: string; page?: number }): Pr
   } as never);
   const parsed = JSON.parse(contentOf(response)) as { products?: Reported[] };
   if (!Array.isArray(parsed.products)) return [];
-  // The page comes from where the window started, not from the model: an invented page number is
-  // worse than none, because it looks checkable.
+  // The page comes from where the value is printed in the window, not from the model: an invented
+  // page number is worse than none, because it looks checkable. The model's is dropped even where
+  // no page is found, which a window with no page markers used to keep.
   return parsed.products
     .filter((product) => Array.isArray(product?.specs))
     .map((product) => ({
       ...product,
-      specs: product.specs.map((s) => ({
-        ...s,
-        ...(window.page === undefined ? {} : { page: window.page }),
-      })),
+      // A null or a bare string among a product's figures is dropped rather than failing the window;
+      // a name or value that is not a string is left for the merge to refuse.
+      specs: product.specs
+        .filter((s) => typeof s === "object" && s !== null)
+        .map(({ page: _claimed, ...figure }) => {
+          const page =
+            typeof figure.name === "string" && typeof figure.value === "string"
+              ? pageOfFigure(window, figure)
+              : window.page;
+          return { ...figure, ...(page === undefined ? {} : { page }) };
+        }),
     }));
 }
