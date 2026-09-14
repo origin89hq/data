@@ -1,11 +1,13 @@
 import { contentOf } from "./classify.ts";
 import { makerName } from "./manufacturers.ts";
 import {
+  asciiSymbols,
   chunk,
   EXTRACT_MODEL,
   EXTRACTOR_ID,
   mergeReports,
   pageOfFigure,
+  printedSymbols,
   RESPONSE_SCHEMA,
   type Reported,
   SYSTEM,
@@ -135,13 +137,15 @@ async function keptWindows(
 /**
  * One model call for one window, with each figure given the page its value is printed on. The
  * message starts with the maker's name, so the model can leave out another company's products and
- * the settings a maker prints for them (#144).
+ * the settings a maker prints for them (#144). The window's "≥", "≤" and "～" are spelled in ASCII,
+ * which the model copies where it garbled the symbols, and its answer is given "≥" and "≤" back
+ * (#145).
  */
 async function readWindow(env: Env, window: Window, maker: string): Promise<Reported[]> {
   const response = await env.AI.run(EXTRACT_MODEL, {
     messages: [
       { role: "system", content: SYSTEM },
-      { role: "user", content: `Maker: ${maker}\n\n${window.text}` },
+      { role: "user", content: `Maker: ${maker}\n\n${asciiSymbols(window.text)}` },
     ],
     response_format: { type: "json_schema", json_schema: RESPONSE_SCHEMA },
     max_tokens: 3072,
@@ -159,7 +163,17 @@ async function readWindow(env: Env, window: Window, maker: string): Promise<Repo
       // a name or value that is not a string is left for the merge to refuse.
       specs: product.specs
         .filter((s) => typeof s === "object" && s !== null)
-        .map(({ page: _claimed, ...figure }) => {
+        .map(({ page: _claimed, ...read }) => {
+          // The symbols the window was shown without go back first, so the page is looked up for
+          // the value its document prints.
+          const figure = {
+            ...read,
+            ...(typeof read.name === "string" ? { name: printedSymbols(read.name) } : {}),
+            ...(typeof read.value === "string" ? { value: printedSymbols(read.value) } : {}),
+            ...(typeof read.conditions === "string"
+              ? { conditions: printedSymbols(read.conditions) }
+              : {}),
+          };
           const page =
             typeof figure.name === "string" && typeof figure.value === "string"
               ? pageOfFigure(window, figure)

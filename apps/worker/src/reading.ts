@@ -238,6 +238,28 @@ function printedAt(text: string, words: string): number[] {
   return [...text.matchAll(new RegExp(`${before}${body}${after}`, "g"))].map((m) => m.index ?? 0);
 }
 
+/**
+ * Symbols the text reader writes back as something else (#145): Volthium's manual prints "≥8000
+ * cycles" and the reading said "£8000 cycles". The window is shown to the model with them spelled
+ * in ASCII, and what it reports is given "≥" and "≤" back, so a figure keeps the symbol its
+ * document prints. "～" stays "~", which the records read the same way in a range.
+ */
+const SPELLED: readonly (readonly [symbol: string, ascii: string])[] = [
+  ["≥", ">="],
+  ["≤", "<="],
+  ["～", "~"],
+];
+
+/** A window's text with the symbols the reader garbles spelled in ASCII. */
+export function asciiSymbols(text: string): string {
+  return SPELLED.reduce((out, [symbol, ascii]) => out.replaceAll(symbol, ascii), text);
+}
+
+/** What the reader reported, with "≥" and "≤" given back where it wrote them in ASCII. */
+export function printedSymbols(text: string): string {
+  return text.replaceAll(">=", "≥").replaceAll("<=", "≤");
+}
+
 export interface Reported {
   model: string;
   specs: { name: string; value: string; unit?: string; conditions?: string; page?: number }[];
