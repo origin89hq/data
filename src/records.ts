@@ -7,6 +7,7 @@ import { Family } from "@origin89/equipment-schema/family";
 import { Manufacturer } from "@origin89/equipment-schema/manufacturer";
 import { Mapping } from "@origin89/equipment-schema/mapping";
 import { Model, Spec } from "@origin89/equipment-schema/model";
+import { Rejections } from "@origin89/equipment-schema/rejection";
 import { Source } from "@origin89/equipment-schema/source";
 
 export const RECORDS_DIR = new URL("../records/", import.meta.url).pathname;
@@ -21,6 +22,8 @@ export interface Records {
   specs: Spec[];
   /** How each maker's printed figures reach the property registry, one file per maker. */
   mappings: Mapping[];
+  /** What a person rejected in each maker's readings, so the pull does not write it again. */
+  rejections: Rejections[];
 }
 
 /** A record's file, so a validation message can name the line to open. */
@@ -41,7 +44,18 @@ export function loadRecords(dir = RECORDS_DIR): Records {
   const models = readJsonDir(join(dir, "models"), Model);
   const specs = readJsonDir(join(dir, "specs"), Spec);
   const mappings = readJsonDir(join(dir, "mappings"), Mapping);
-  return { families, dialects, sources, manufacturers, brands, models, specs, mappings };
+  const rejections = readJsonDir(join(dir, "rejections"), Rejections);
+  return {
+    families,
+    dialects,
+    sources,
+    manufacturers,
+    brands,
+    models,
+    specs,
+    mappings,
+    rejections,
+  };
 }
 
 function readJsonDir<T>(dir: string, schema: { parse(value: unknown): T }): T[] {
@@ -84,7 +98,8 @@ export type Kind =
   | "brands"
   | "models"
   | "specs"
-  | "mappings";
+  | "mappings"
+  | "rejections";
 export const KINDS: Kind[] = [
   "families",
   "dialects",
@@ -94,6 +109,7 @@ export const KINDS: Kind[] = [
   "models",
   "specs",
   "mappings",
+  "rejections",
 ];
 
 /**
@@ -131,6 +147,7 @@ export function writeRecords(records: Records, dir = RECORDS_DIR, replace: Kind[
     (s) => s.model,
   );
   write("mappings", records.mappings, (m) => m.id);
+  write("rejections", records.rejections, (r) => r.id);
 }
 
 function writeJson(path: string, value: unknown): void {

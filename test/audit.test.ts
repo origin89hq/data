@@ -44,6 +44,7 @@ function records(models: Model[], specs: Spec[], mappings: Mapping[]): Records {
     models,
     specs,
     mappings,
+    rejections: [],
   };
 }
 const audit = (r: Records) =>

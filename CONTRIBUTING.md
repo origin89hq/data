@@ -17,6 +17,13 @@ carries the source, and the reviewer reads the source, not the diff.
   merging the pull request that brings it in does not review it. Consumers
   filter on `reviewed_by` for checked facts; the published `tier` only says
   whether a row is a record here or a feed row.
+- A rejection under `records/rejections/<manufacturer>.json` is a person's no to
+  something a maker's readings give: a whole document that is not the maker's
+  ratings, one figure of one document by its model and printed name, or a
+  product name that is not the maker's product. It carries the reason,
+  `reviewedBy` and `checkedAt`, and lands with the deletion of what it rejects,
+  since validation refuses a rejected figure or product the records still hold.
+  A read figure deleted without one comes back with the next pull.
 - A mapping record under `records/mappings/<manufacturer>.json` says which of a
   maker's printed names reach which property key, with the sheet's own words as
   its basis. A rule is scoped to one maker, and to one document where the

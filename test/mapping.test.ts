@@ -33,6 +33,7 @@ function fixture(mapping: unknown = good): Records {
   return {
     families: [],
     dialects: [],
+    rejections: [],
     sources: [{ id: "doc-a", url: "https://x/a" }],
     manufacturers: [
       { id: "victron-energy", name: "Victron Energy", domains: ["victronenergy.com"] },
