@@ -8,5 +8,14 @@
   "aliases": [
     "Rolls S48-100LFP ESS"
   ],
-  "dialects": []
+  "dialects": [
+    {
+      "dialect": "rolls-lfp-ess-48v",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": []
+      },
+      "confidence": "unverified"
+    }
+  ]
 }

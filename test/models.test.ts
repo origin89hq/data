@@ -6,10 +6,12 @@ import type { Guess } from "@origin89/equipment-schema/guess";
 import { Model } from "@origin89/equipment-schema/model";
 import type { Sighting } from "@origin89/equipment-schema/sighting";
 import {
+  coreName,
   deriveModels,
   familyOf,
   familyOfAnotherMaker,
   looksLikeModelName,
+  mintRefusal,
   modelId,
   normaliseModelName,
   preferredName,
@@ -448,4 +450,42 @@ test("a maker's own family, a shared word, and a new family are all still its ow
     "a name that leads with a number claims no family",
   );
   assert.equal(familyOfAnotherMaker([], "rolls-battery", "MultiPlus-II 48/3000"), undefined);
+});
+
+test("a maker's name in front and what a thing is behind come off a name, and a variant stays (#150)", () => {
+  assert.equal(coreName("IOTA ILBLP CP15 HE SD", ["IOTA Engineering"]), "ILBLP CP15 HE SD");
+  assert.equal(coreName("MS2000 Inverter/Charger", []), "MS2000");
+  assert.equal(coreName("XPLORE 120/12 Battery Charger", ["Xantrex"]), "XPLORE 120/12");
+  assert.equal(
+    coreName("SP-100 24V", ["PulseTech"]),
+    undefined,
+    "a voltage behind the name is another product",
+  );
+  assert.equal(coreName("Fusion5s 2.0", ["SureCall"]), undefined, "and so is an edition");
+  assert.equal(coreName("NOCO Battery", ["NOCO"]), undefined, "nothing with a digit is left");
+  assert.equal(coreName("EG4", ["EG4 Electronics"]), undefined, "a single word is never taken off");
+});
+
+test("a table's placeholder, two names joined, the maker's own name and a list of ratings mint nothing (#150)", () => {
+  const placeholder = "a table's placeholder for several models";
+  assert.equal(mintRefusal("PD9_45(L)", []), placeholder);
+  assert.equal(mintRefusal("BSL48XX", []), placeholder);
+  assert.equal(mintRefusal("XXX-XXX-175", []), placeholder);
+  assert.equal(mintRefusal("BR-DC175 and BR-DC250", []), "two names joined");
+  assert.equal(mintRefusal("UNIQUE", ["Unique Appliances"]), "the maker's own name");
+  assert.equal(mintRefusal("12.8V 200Ah", []), "ratings, not a product");
+  assert.equal(mintRefusal("12.8V/50Ah", []), "ratings, not a product");
+});
+
+test("an underscore or a pipe inside a part number, and a name with a word beside its ratings, still mint", () => {
+  for (const name of [
+    "KIN_K3AGM_10",
+    "MNPV8HV-DLTL-3R_EA",
+    "SmartSolar MPPT 75|15",
+    "BlueSolar MPPT100|20_48V",
+    "Charger 40A and Lead Set",
+    "12V LiFePO4 Battery",
+    "S-550",
+  ])
+    assert.equal(mintRefusal(name, ["Rolls Battery"]), undefined, name);
 });

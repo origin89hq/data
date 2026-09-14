@@ -1,6 +1,6 @@
 import type { Model, Spec } from "@origin89/equipment-schema/model";
 import { englishWords, looksForeign, withoutRedundantTranslations } from "./language.ts";
-import { normaliseModelName } from "./models.ts";
+import { coreName, normaliseModelName } from "./models.ts";
 import { repairMojibake } from "./text.ts";
 import { englishName } from "./translations.ts";
 import { looksGarbled, looksTruncated, splitValueUnit, statesNothing } from "./units.ts";
@@ -64,17 +64,25 @@ export function sameName(a: string, b: string): boolean {
  * own name for the product matches a model already held for that manufacturer, by name or by one
  * of its aliases. A near match is not a match: attaching a rating to the wrong variant is how
  * somebody sizes a bank from a sheet for a different battery.
+ *
+ * Given `makerNames`, a name that is a held one with a maker's name in front or words saying what
+ * the thing is behind reaches it too, "IOTA ILBLP CP15 HE SD" and "MS2000 Inverter/Charger" among
+ * them, rather than becoming a second model (#150). A suffix that tells products apart does not.
  */
 export function matchModel(
   models: Model[],
   manufacturer: string,
   reported: string,
+  makerNames: readonly string[] = [],
 ): Model | undefined {
   const ours = models.filter((m) => m.manufacturer === manufacturer);
-  return (
-    ours.find((m) => sameName(m.name, reported)) ??
-    ours.find((m) => m.aliases.some((a) => sameName(a, reported)))
-  );
+  const find = (name: string) =>
+    ours.find((m) => sameName(m.name, name)) ??
+    ours.find((m) => m.aliases.some((a) => sameName(a, name)));
+  const exact = find(reported);
+  if (exact) return exact;
+  const core = coreName(reported, makerNames);
+  return core ? find(core) : undefined;
 }
 
 export interface SpecsFromInput {
@@ -85,6 +93,8 @@ export interface SpecsFromInput {
   extractedBy: string;
   /** How much weight the document itself carries, which is the ceiling on any figure taken from it. */
   confidence: Spec["confidence"];
+  /** Every name a maker goes by, so a maker's name in front of a held product still reaches it. */
+  makerNames?: readonly string[];
 }
 
 export interface SpecsFromResult {
@@ -109,6 +119,7 @@ export function specsFrom({
   source,
   extractedBy,
   confidence,
+  makerNames = [],
 }: SpecsFromInput): SpecsFromResult {
   const specs = new Map<string, Spec>();
   const unmatched: string[] = [];
@@ -116,7 +127,7 @@ export function specsFrom({
   const garbled: string[] = [];
   const repeatedRows: Spec[] = [];
   for (const report of reports) {
-    const model = matchModel(models, manufacturer, report.model);
+    const model = matchModel(models, manufacturer, report.model, makerNames);
     if (!model) {
       if (report.model.trim() && !unmatched.includes(report.model)) unmatched.push(report.model);
       continue;

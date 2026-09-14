@@ -3,12 +3,15 @@
   "manufacturer": "noco",
   "name": "GENIUSPRO50",
   "kind": "ac-charger",
-  "aliases": [],
+  "aliases": [
+    "NOCO GENIUSPRO50"
+  ],
   "dialects": [
     {
       "dialect": "noco-geniuspro",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     }

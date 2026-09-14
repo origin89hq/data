@@ -10,7 +10,8 @@
     {
       "dialect": "eg4-luxpower-v58",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     }

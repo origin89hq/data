@@ -1,0 +1,10 @@
+{
+  "id": "eg4-electronics-flexboss18--external-bus-bar-rating",
+  "model": "eg4-electronics-flexboss18",
+  "name": "External bus bar rating",
+  "value": ">=250 Amps",
+  "source": "doc-cbb53f30009b649e62e59bda36a4e4f9",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 9,
+  "confidence": "vendor-doc"
+}

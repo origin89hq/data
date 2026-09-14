@@ -12,14 +12,16 @@
     {
       "dialect": "rolls-lfp-stack-lv-48v",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     },
     {
       "dialect": "rolls-stack-lv-can",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     }

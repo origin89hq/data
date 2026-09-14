@@ -9,6 +9,7 @@ import { withoutTranslatedReadings } from "../../src/language.ts";
 import {
   familyOfAnotherMaker,
   looksLikeModelName,
+  mintRefusal,
   modelId,
   normaliseModelName,
 } from "../../src/models.ts";
@@ -150,6 +151,17 @@ const makerNames = [
   ...records.manufacturers.map((m) => m.name),
   ...records.brands.flatMap((b) => (b.decision === "manufacturer" ? [b.brand] : [])),
 ];
+/** The names this maker goes by, so a document naming only the maker mints nothing. */
+const ownNames = [
+  ...records.manufacturers.filter((m) => m.id === manufacturer).map((m) => m.name),
+  ...records.brands.flatMap((b) =>
+    b.decision === "manufacturer" && b.manufacturer === manufacturer ? [b.brand] : [],
+  ),
+];
+/** Names that are no product, with why, left unminted for a person to look at (#150). */
+const notProducts = new Map<string, string>();
+/** Every model this pull mints, listed in its summary so a person sees them before merging. */
+const minted: string[] = [];
 
 if (addModels) {
   // A pass over the documents first, so a figure found in the same run has a model to attach to.
@@ -164,8 +176,16 @@ if (addModels) {
       // New only if the match the figures use below finds nothing. That match reads through
       // punctuation and case, so SRNE's "RM-12" is its RM12; comparing ids made an empty "rm-12"
       // model beside the "rm12" its figures went to.
-      if (records.models.some((m) => m.id === id) || matchModel(records.models, manufacturer, name))
+      if (
+        records.models.some((m) => m.id === id) ||
+        matchModel(records.models, manufacturer, name, makerNames)
+      )
         continue;
+      const refusal = mintRefusal(name, ownNames);
+      if (refusal) {
+        notProducts.set(name, refusal);
+        continue;
+      }
       // A battery guide's table of the inverters it works with names another maker's products,
       // and minting them here filed a MultiPlus under Rolls with a battery's limits (#86).
       const another = familyOfAnotherMaker(records.models, manufacturer, name, makerNames);
@@ -177,6 +197,7 @@ if (addModels) {
       if (!dryRun) writeRecord(RECORDS_DIR, "models", id, model);
       records.models.push(model);
       modelsAdded += 1;
+      minted.push(name);
     }
   }
 }
@@ -199,6 +220,7 @@ const figuresOf = (document: (typeof readings.readings)[number]) =>
     reports: document.products,
     models: records.models,
     manufacturer,
+    makerNames,
     source: `doc-${document.sha256.slice(0, 32)}`,
     extractedBy: document.extractedBy ?? EXTRACTOR_ID,
     // A manufacturer's own document is a vendor document. What the figure is not is confirmed:
@@ -420,7 +442,17 @@ if (anothers.size) {
   for (const [name, { family, manufacturer: owner }] of [...anothers].sort())
     console.log(`  not minted: ${name} (${family} is ${owner}'s)`);
 }
-const stillUnmatched = [...unmatched].filter((m) => !anothers.has(normaliseModelName(m)));
+if (notProducts.size) {
+  console.log(`\n${notProducts.size} product names that name no single product, not minted:`);
+  for (const [name, why] of [...notProducts].sort()) console.log(`  not minted: ${name} (${why})`);
+}
+// On one line, so the daily job's summary carries every model a merge would add.
+if (minted.length) console.log(`  new models: ${[...minted].sort().join(", ")}`);
+// Names already listed as not minted are left out, so placeholders and joined names cannot fill the
+// list and hide a product that still needs a model.
+const stillUnmatched = [...unmatched].filter(
+  (m) => !anothers.has(normaliseModelName(m)) && !notProducts.has(normaliseModelName(m)),
+);
 if (stillUnmatched.length) {
   console.log(`\n${stillUnmatched.length} products the documents name that still reach no model:`);
   for (const m of stillUnmatched.sort().slice(0, 25)) console.log(`  ${m}`);

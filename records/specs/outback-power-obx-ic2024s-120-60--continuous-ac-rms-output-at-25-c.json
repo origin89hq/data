@@ -1,0 +1,11 @@
+{
+  "id": "outback-power-obx-ic2024s-120-60--continuous-ac-rms-output-at-25-c",
+  "model": "outback-power-obx-ic2024s-120-60",
+  "name": "Continuous AC RMS Output at 25°C",
+  "value": "16.7",
+  "unit": "A",
+  "source": "doc-110cda8af19121ddd70a826f5f1c1fcc",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 34,
+  "confidence": "vendor-doc"
+}

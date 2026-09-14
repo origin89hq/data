@@ -109,6 +109,59 @@ const GENERIC = new Set([
   "flooded",
 ]);
 
+/** What a word is when a name is compared: lower case, without the brackets or quotes around it. */
+const bareWord = (word: string): string =>
+  word.toLowerCase().replace(/^[^a-z0-9]+|[^a-z0-9/]+$/g, "");
+
+/**
+ * A product name with a maker's name taken off the front and words that say what the thing is
+ * taken off the end: "IOTA ILBLP CP15 HE SD" is ILBLP CP15 HE SD, "MS2000 Inverter/Charger" is
+ * MS2000 and "XPLORE 120/12 Battery Charger" is XPLORE 120/12 (#150). Nothing when neither is
+ * there, or when what is left has no digit, since "NOCO Battery" is not a part number. A voltage
+ * or an edition at the end is kept: "SP-100 24V" and "Fusion5s 2.0" are other products.
+ */
+export function coreName(name: string, makerNames: readonly string[]): string | undefined {
+  const makerWords = new Set(
+    makerNames.flatMap((n) => n.toLowerCase().split(/[^a-z0-9]+/)).filter((w) => w.length > 1),
+  );
+  const words = normaliseModelName(name).split(" ").filter(Boolean);
+  let first = 0;
+  let last = words.length;
+  while (first < last - 1 && makerWords.has(bareWord(words[first] ?? ""))) first += 1;
+  while (
+    last > first + 1 &&
+    bareWord(words[last - 1] ?? "")
+      .split("/")
+      .every((part) => GENERIC.has(part))
+  )
+    last -= 1;
+  if (first === 0 && last === words.length) return undefined;
+  const core = words.slice(first, last).join(" ");
+  return /\d/.test(core) ? core : undefined;
+}
+
+/**
+ * Why a name a document gave is not a product to mint, or nothing when it may be one (#150). A
+ * table's placeholder stands for several models: "PD9_45(L)" is the PD9145L and the PD9245L, and
+ * "BSL48XX" every BSL48 pack. Two names joined are two products. The maker's own name, or a name
+ * of nothing but ratings such as "12.8V 200Ah", names no product at all. An underscore inside a
+ * part number is not a placeholder (Kinetic's "KIN_K3AGM_10"), and neither is Victron's "75|15".
+ */
+export function mintRefusal(name: string, ownNames: readonly string[]): string | undefined {
+  const text = normaliseModelName(name);
+  if (/(^|\s)[A-Za-z]+\d_\d/.test(text) || /\dX{2}\b/i.test(text) || /X{3}/.test(text))
+    return "a table's placeholder for several models";
+  const joined = text.split(/\s(?:and|&)\s/i);
+  if (joined.length > 1 && joined.every((part) => /\d/.test(part))) return "two names joined";
+  const own = new Set(
+    ownNames.flatMap((n) => n.toLowerCase().split(/[^a-z0-9]+/)).filter((w) => w.length > 1),
+  );
+  const words = text.split(" ").map(bareWord).filter(Boolean);
+  if (words.length > 0 && words.every((word) => own.has(word))) return "the maker's own name";
+  if (text.split(/[\s/]+/).every((part) => MEASUREMENT.test(part))) return "ratings, not a product";
+  return undefined;
+}
+
 /**
  * The family a model's name leads with: "MultiPlus-II" in "MultiPlus-II 48/3000/35-50",
  * "SmartSolar" in "SmartSolar MPPT 100/20". Nothing for a name that leads with a number or a

@@ -362,7 +362,7 @@ test("Sol-Ark: the 15K's surges with their times, one battery current, the usabl
 });
 
 test("EG4: the 12kPV's kilowatts as watts, its PV limits, the mini split's bare MPPT heading, and a bounded idle figure as a gap", () => {
-  const { properties, gaps } = of("eg4-electronics-eg4-12kpv");
+  const { properties, gaps } = of("eg4-electronics-12kpv");
   assert.deepEqual(
     values(properties, "inverter.power.continuous").map((p) => [p.value, p.unit]),
     [[8000, "W"]],
