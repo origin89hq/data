@@ -10,6 +10,7 @@ import {
   EXTRACTOR_ID,
   mergeReports,
   namesOneProduct,
+  pageOfFigure,
   pageOffsets,
   type Reported,
   SYSTEM,
@@ -40,6 +41,89 @@ test("a window carries the page it starts on, so a figure can be checked against
     chunk("no page headings here at all")[0].page,
     undefined,
     "a document with no page markers gives no page, rather than page one",
+  );
+});
+
+/** A window that starts on page 4 and runs on over pages 5 and 6. */
+const RUNS_ON = {
+  page: 4,
+  text: [
+    "4 cells in series.",
+    "### Page 5",
+    "| Nominal voltage | 12.8 V |",
+    "### Page 6",
+    "| Weight | 11 kg |",
+  ].join("\n"),
+};
+
+test("a figure cites the page its value is printed on, not the page its window starts on", () => {
+  assert.equal(pageOfFigure(RUNS_ON, { name: "Weight", value: "11" }), 6);
+  assert.equal(
+    pageOfFigure(RUNS_ON, { name: "Nominal voltage", value: "12.8" }),
+    5,
+    "the last marker before the value, not the last in the window",
+  );
+});
+
+test("a value printed before the window's first page marker keeps the window's page", () => {
+  assert.equal(pageOfFigure(RUNS_ON, { name: "Cells", value: "4" }), 4);
+  // The first window of a converted PDF starts in its title and metadata, which are on no page.
+  const first = {
+    text: "# sheet.pdf\n## Metadata\n- PageCount=2\n- PDFFormatVersion=1.7\n\n## Contents\n### Page 1\nIntro\n### Page 2\n| Cells | 2 |",
+  };
+  assert.equal(
+    pageOfFigure(first, { name: "Cells", value: "2" }),
+    2,
+    "a value in the metadata is passed over for the page that prints it",
+  );
+  assert.equal(pageOfFigure(first, { name: "PDF version", value: "1.7" }), undefined);
+});
+
+test("a value that is not printed in the window keeps the window's page, or none", () => {
+  assert.equal(pageOfFigure(RUNS_ON, { name: "Float voltage", value: "13.6" }), 4);
+  assert.equal(
+    pageOfFigure({ text: RUNS_ON.text }, { name: "Float voltage", value: "13.6" }),
+    undefined,
+  );
+});
+
+test("a value printed on two pages is taken where it is printed first, unless its name is beside a later one", () => {
+  const window = {
+    page: 1,
+    text: "### Page 1\nCharge at 14.4 V for a full battery.\n### Page 2\nSee the table.\n### Page 3\n| Absorption voltage | 14.4 V |",
+  };
+  assert.equal(pageOfFigure(window, { name: "Charge voltage", value: "14.4" }), 1);
+  assert.equal(pageOfFigure(window, { name: "Absorption voltage", value: "14.4" }), 3);
+});
+
+test("a figure's name is looked for only when its value is not printed", () => {
+  const window = {
+    page: 7,
+    text: "### Page 7\nWeight is listed with the dimensions.\n### Page 8\n| Mass | 11 kg |\n### Page 9\n| Terminal torque | 9 N·m |",
+  };
+  assert.equal(
+    pageOfFigure(window, { name: "Weight", value: "11" }),
+    8,
+    "the value is printed, so the name printed a page earlier is not used",
+  );
+  assert.equal(
+    pageOfFigure(window, { name: "Terminal torque", value: "9.0" }),
+    9,
+    "the value is written differently, so its name gives the page",
+  );
+});
+
+test("a value is found whole across a change of whitespace, and not inside a longer number, a name or a page marker", () => {
+  const window = {
+    page: 1,
+    text: "### Page 1\n| Model | RM-12 |\n| Capacity | 120 Ah |\n| Voltage | 12.8 V |\n### Page 2\n| Charger | 12V |\n| Size | 216 x  295\nx 103 mm |",
+  };
+  assert.equal(pageOfFigure(window, { name: "Charger voltage", value: "12" }), 2);
+  assert.equal(pageOfFigure(window, { name: "Dimensions", value: "216 x 295 x 103" }), 2);
+  assert.equal(
+    pageOfFigure(window, { name: "Cells", value: "2" }),
+    1,
+    "the 2 of the page 2 marker is not a figure",
   );
 });
 
@@ -186,12 +270,36 @@ test("a sheet is read a window at a time, each window kept, and the reading writ
   assert.deepEqual(
     reading.products.map((p) => [p.model, p.specs[0].page]),
     WINDOWS.map((w, i) => [`S-${550 + i * 50}`, w.page]),
-    "each figure has the page its window starts on, never the model's",
+    "a figure whose value the window does not print has the page its window starts on, never the model's",
   );
   assert.equal(readObject<ReadWindow>(windowKey(2)).products[0].model, "S-600");
 
   await readDocument(message, env, 1);
   assert.equal(asked.length, 3, "a document read before is not read again");
+});
+
+test("a figure in a reading cites the page its value is printed on, and never the model's page", async () => {
+  const answer = () => ({
+    response: JSON.stringify({
+      products: [{ model: "S-550", specs: [{ name: "Weight", value: "42", unit: "kg", page: 9 }] }],
+    }),
+  });
+  const unpaged = world({ [MARKDOWN]: "| Weight | 42 kg |\n" }, answer);
+  await readDocument(message, unpaged.env, 1);
+  assert.deepEqual(
+    unpaged.readObject<Reading>(readingKey).products[0]?.specs.map((s) => s.page),
+    [undefined],
+    "a document with no page markers gives no page, whatever page the model claims",
+  );
+
+  const paged = `### Page 1\nThe S-550 is a deep-cycle battery.\n### Page 2\n| Weight | 42 kg |\n`;
+  const first = world({ [MARKDOWN]: paged }, answer);
+  await readDocument(message, first.env, 1);
+  assert.deepEqual(
+    first.readObject<Reading>(readingKey).products[0]?.specs.map((s) => s.page),
+    [2],
+    "the table is on page 2, below the window's start on page 1",
+  );
 });
 
 test("an answer cut short is left for the queue, and the next delivery reads only the window missed", async () => {

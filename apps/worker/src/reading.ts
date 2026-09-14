@@ -175,6 +175,67 @@ export function chunk(
   return out;
 }
 
+/**
+ * The page a figure is printed on, from where its value sits in its window: the last page marker
+ * before the value, or the page the window starts on when the value comes before the first marker
+ * in it. A window is six thousand characters and can run over several pages, and citing the page it
+ * starts on put a table lower in the window on an earlier page than the one that prints it (#148).
+ *
+ * A value printed on more than one page is taken where its name is printed on the same line, and
+ * otherwise where it is printed first. A value not printed at all is looked for by its name, and a
+ * figure whose value and name are both missing keeps the window's page. Before the first page,
+ * in a document's title and metadata, nothing is printed on a page, so nothing there is taken.
+ *
+ * Only whitespace is forgiven, since the model folds a line break or a double space into one. A
+ * value is found whole, so "12" is not found inside "120", "12.8" or "RM-12", though it is inside
+ * "12V"; a looser match would put a figure on a page that does not print it.
+ */
+export function pageOfFigure(
+  window: Window,
+  figure: { name: string; value: string },
+): number | undefined {
+  const markers = pageOffsets(window.text);
+  // A marker's own number is not a figure. Blanked with spaces, so every match keeps its place and
+  // its line.
+  const text = window.text.replace(PAGE_HEADING, (heading) => heading.replace(/[^\n]/g, " "));
+  const onAPage = (words: string) =>
+    printedAt(text, words).flatMap((at) => {
+      const page = pageAt(markers, at) ?? window.page;
+      return page === undefined ? [] : [{ at, page }];
+    });
+  const values = onAPage(figure.value);
+  if (new Set(values.map((v) => v.page)).size > 1) {
+    const named = values.find(({ at }) => {
+      const end = text.indexOf("\n", at);
+      const line = text.slice(text.lastIndexOf("\n", at) + 1, end === -1 ? undefined : end);
+      return printedAt(line, figure.name).length > 0;
+    });
+    if (named) return named.page;
+  }
+  return (values[0] ?? onAPage(figure.name)[0])?.page ?? window.page;
+}
+
+/**
+ * Where some words are printed in a text, with any run of whitespace in them matching any other.
+ * They are found whole: not inside a longer word or number, and not joined to one by a hyphen or a
+ * slash, which makes them part of a name, a range or a fraction. A unit may follow a number.
+ */
+function printedAt(text: string, words: string): number[] {
+  const trimmed = words.trim();
+  if (!trimmed) return [];
+  const body = trimmed
+    .split(/\s+/)
+    .map((word) => word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+    .join("\\s+");
+  const before = /^\w/.test(trimmed) ? "(?<!\\w|\\d[.,]|\\w[-/])" : "";
+  const after = /\d$/.test(trimmed)
+    ? "(?![\\d_]|[.,]\\d|[-/]\\w)"
+    : /\w$/.test(trimmed)
+      ? "(?!\\w|[-/]\\w)"
+      : "";
+  return [...text.matchAll(new RegExp(`${before}${body}${after}`, "g"))].map((m) => m.index ?? 0);
+}
+
 export interface Reported {
   model: string;
   specs: { name: string; value: string; unit?: string; conditions?: string; page?: number }[];
