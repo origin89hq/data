@@ -448,7 +448,11 @@ if (notProducts.size) {
 }
 // On one line, so the daily job's summary carries every model a merge would add.
 if (minted.length) console.log(`  new models: ${[...minted].sort().join(", ")}`);
-const stillUnmatched = [...unmatched].filter((m) => !anothers.has(normaliseModelName(m)));
+// Names already listed as not minted are left out, so placeholders and joined names cannot fill the
+// list and hide a product that still needs a model.
+const stillUnmatched = [...unmatched].filter(
+  (m) => !anothers.has(normaliseModelName(m)) && !notProducts.has(normaliseModelName(m)),
+);
 if (stillUnmatched.length) {
   console.log(`\n${stillUnmatched.length} products the documents name that still reach no model:`);
   for (const m of stillUnmatched.sort().slice(0, 25)) console.log(`  ${m}`);
