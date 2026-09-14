@@ -3,12 +3,15 @@
   "manufacturer": "eg4-electronics",
   "name": "FLEXBOSS18",
   "kind": "out-of-scope",
-  "aliases": [],
+  "aliases": [
+    "EG4 FlexBOSS18"
+  ],
   "dialects": [
     {
       "dialect": "eg4-luxpower-v58",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     }

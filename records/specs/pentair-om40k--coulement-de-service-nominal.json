@@ -1,0 +1,11 @@
+{
+  "id": "pentair-om40k--coulement-de-service-nominal",
+  "model": "pentair-om40k",
+  "name": "Écoulement de service nominal",
+  "english": "Rated service flow",
+  "value": "10.7 gpm (W/upper collector)",
+  "source": "doc-a05d04ac4987139b1e825e769688c178",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 55,
+  "confidence": "vendor-doc"
+}

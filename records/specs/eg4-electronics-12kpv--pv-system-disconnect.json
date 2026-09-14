@@ -1,0 +1,11 @@
+{
+  "id": "eg4-electronics-12kpv--pv-system-disconnect",
+  "model": "eg4-electronics-12kpv",
+  "name": "PV System Disconnect",
+  "value": "60",
+  "unit": "A",
+  "source": "doc-3edb02be8d70fbc8671c6ebccf37ac0d",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 6,
+  "confidence": "vendor-doc"
+}

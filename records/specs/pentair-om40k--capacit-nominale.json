@@ -1,0 +1,11 @@
+{
+  "id": "pentair-om40k--capacit-nominale",
+  "model": "pentair-om40k",
+  "name": "Capacité nominale",
+  "english": "Rated capacity",
+  "value": "34,433 grains par lb de sel @ 16⁷ lbs",
+  "source": "doc-a05d04ac4987139b1e825e769688c178",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 55,
+  "confidence": "vendor-doc"
+}
