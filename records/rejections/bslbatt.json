@@ -1,0 +1,11 @@
+{
+  "id": "bslbatt",
+  "rejections": [
+    {
+      "source": "doc-b8e1ecce1205424880bc7628a3bd6921",
+      "reason": "A technical specification for the QRR0.04GW/S condensed-aerosol fire extinguishing device that never names BSLBatt, not a BSLBatt product document.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    }
+  ]
+}

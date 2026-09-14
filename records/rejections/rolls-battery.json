@@ -1,0 +1,11 @@
+{
+  "id": "rolls-battery",
+  "rejections": [
+    {
+      "source": "doc-84dac644c654a71983651d6ca147de02",
+      "reason": "The LFP Connect Card manual lists VE.Configure and VictronConnect settings for Victron devices, not ratings of Rolls batteries.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    }
+  ]
+}

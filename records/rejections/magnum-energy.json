@@ -1,0 +1,205 @@
+{
+  "id": "magnum-energy",
+  "rejections": [
+    {
+      "source": "doc-acb7d6d19bbdff1009e33b6d6530ff16",
+      "model": "magnum-energy-ms4024pae",
+      "name": "AC Input Voltage",
+      "reason": "The ME-RTR router manual's menu map shows this as an example display (\"PORT displays shown are examples\"), not an MS4024PAE rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-acb7d6d19bbdff1009e33b6d6530ff16",
+      "model": "magnum-energy-ms4024pae",
+      "name": "AC Output Frequency",
+      "reason": "The ME-RTR router manual's menu map shows this as an example display (\"PORT displays shown are examples\"), not an MS4024PAE rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-acb7d6d19bbdff1009e33b6d6530ff16",
+      "model": "magnum-energy-ms4024pae",
+      "name": "AC Output Voltage",
+      "reason": "The ME-RTR router manual's menu map shows this as an example display (\"PORT displays shown are examples\"), not an MS4024PAE rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-acb7d6d19bbdff1009e33b6d6530ff16",
+      "model": "magnum-energy-ms4024pae",
+      "name": "Battery Current",
+      "reason": "The ME-RTR router manual's menu map shows this as an example display (\"PORT displays shown are examples\"), not an MS4024PAE rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-acb7d6d19bbdff1009e33b6d6530ff16",
+      "model": "magnum-energy-ms4024pae",
+      "name": "Battery Voltage",
+      "reason": "The ME-RTR router manual's menu map shows this as an example display (\"PORT displays shown are examples\"), not an MS4024PAE rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-acb7d6d19bbdff1009e33b6d6530ff16",
+      "model": "magnum-energy-ms4024pae",
+      "name": "Charge Time",
+      "reason": "The ME-RTR router manual's menu map shows this as an example display (\"PORT displays shown are examples\"), not an MS4024PAE rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-acb7d6d19bbdff1009e33b6d6530ff16",
+      "model": "magnum-energy-ms4024pae",
+      "name": "Days Since Absorb/CV Done",
+      "reason": "The ME-RTR router manual's menu map shows this as an example display (\"PORT displays shown are examples\"), not an MS4024PAE rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-acb7d6d19bbdff1009e33b6d6530ff16",
+      "model": "magnum-energy-ms4024pae",
+      "name": "Days Since EQ Chg Started",
+      "reason": "The ME-RTR router manual's menu map shows this as an example display (\"PORT displays shown are examples\"), not an MS4024PAE rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-acb7d6d19bbdff1009e33b6d6530ff16",
+      "model": "magnum-energy-ms4024pae",
+      "name": "Inverter Current",
+      "reason": "The ME-RTR router manual's menu map shows this as an example display (\"PORT displays shown are examples\"), not an MS4024PAE rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-acb7d6d19bbdff1009e33b6d6530ff16",
+      "model": "magnum-energy-ms4024pae",
+      "name": "Inverter Voltage",
+      "reason": "The ME-RTR router manual's menu map shows this as an example display (\"PORT displays shown are examples\"), not an MS4024PAE rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-acb7d6d19bbdff1009e33b6d6530ff16",
+      "model": "magnum-energy-ms4024pae",
+      "name": "AC In - SOC Connect",
+      "reason": "This is the default of an adjustable ME-RTR router setting from its menu map, not an MS4024PAE rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-acb7d6d19bbdff1009e33b6d6530ff16",
+      "model": "magnum-energy-ms4024pae",
+      "name": "AC In - SOC Disconnect",
+      "reason": "This is the default of an adjustable ME-RTR router setting from its menu map, not an MS4024PAE rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-acb7d6d19bbdff1009e33b6d6530ff16",
+      "model": "magnum-energy-ms4024pae",
+      "name": "AC In - Time Connect",
+      "reason": "This is the default of an adjustable ME-RTR router setting from its menu map, not an MS4024PAE rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-acb7d6d19bbdff1009e33b6d6530ff16",
+      "model": "magnum-energy-ms4024pae",
+      "name": "AC In - Time Disconnect",
+      "reason": "This is the default of an adjustable ME-RTR router setting from its menu map, not an MS4024PAE rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-acb7d6d19bbdff1009e33b6d6530ff16",
+      "model": "magnum-energy-ms4024pae",
+      "name": "AC In - Volts DC Connect",
+      "reason": "This is the default of an adjustable ME-RTR router setting from its menu map, not an MS4024PAE rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-acb7d6d19bbdff1009e33b6d6530ff16",
+      "model": "magnum-energy-ms4024pae",
+      "name": "AC In - Volts DC Disconnect",
+      "reason": "This is the default of an adjustable ME-RTR router setting from its menu map, not an MS4024PAE rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-acb7d6d19bbdff1009e33b6d6530ff16",
+      "model": "magnum-energy-ms4024pae",
+      "name": "Inverter Threshold to Start Parallel",
+      "reason": "This is the default of an adjustable ME-RTR router setting from its menu map, not an MS4024PAE rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-acb7d6d19bbdff1009e33b6d6530ff16",
+      "model": "magnum-energy-ms4024pae",
+      "name": "Low Battery Cut Out (LBCO) Volts",
+      "reason": "This is the default of an adjustable ME-RTR router setting from its menu map, not an MS4024PAE rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-587110f2dcef9286050ff2cce9977ec9",
+      "model": "magnum-energy-me-arc50",
+      "name": "Float Charging",
+      "reason": "The ME-ARC manual's front-panel illustration shows \"Float Charging DC 13.34V + 0A\" as a sample screen, not a rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-587110f2dcef9286050ff2cce9977ec9",
+      "model": "magnum-energy-msh4024re",
+      "name": "Float Charging",
+      "reason": "The ME-ARC manual's front-panel illustration shows \"Float Charging DC 13.34V + 0A\" as a sample screen, not a rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-fbd489677fcf33043fe94824954971dd",
+      "model": "magnum-energy-msh4024re",
+      "name": "VAC Dropout",
+      "reason": "The 80 VAC is the default VAC Dropout setting the ME-ARC manual gives for \"all models except MSH4024RE\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-1d15046a10420ff62cb2ca0faaa419ad",
+      "model": "magnum-energy-me-rc",
+      "name": "DC",
+      "reason": "The ME-RC manual's front-panel illustration shows \"Inverting DC: 12.6V 50A\" as a sample screen, not a rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-178a63d1bb8785b3f2e49960149ea4a9",
+      "model": "magnum-energy-me-rc",
+      "name": "Inverting DC",
+      "reason": "The ME-RC manual's front-panel illustration shows \"Inverting DC: 12.6V 50A\" as a sample screen, not a rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-500fbb3f4db5fffac69cbb7b33677f7a",
+      "model": "magnum-energy-me-rc",
+      "name": "Current",
+      "reason": "The ME-RC manual's front-panel illustration shows \"Inverting DC: 12.6V 50A\" as a sample screen, not a rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-500fbb3f4db5fffac69cbb7b33677f7a",
+      "model": "magnum-energy-me-rc",
+      "name": "DC voltage",
+      "reason": "The ME-RC manual's front-panel illustration shows \"Inverting DC: 12.6V 50A\" as a sample screen, not a rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    }
+  ]
+}
