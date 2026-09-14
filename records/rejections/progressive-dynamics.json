@@ -1,0 +1,13 @@
+{
+  "id": "progressive-dynamics",
+  "rejections": [
+    {
+      "source": "doc-7000669d0cfb1665dc1ced5eea152606",
+      "model": "progressive-dynamics-pd2160",
+      "name": "Reverse Battery Protection Fuse",
+      "reason": "The label drawing prints a 30 A fuse, but the manual says the 60 A and 80 A versions use 25 A fuses, so the PD2160's fuse is not settled by the label.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "iota-engineering",
+  "rejections": [
+    {
+      "source": "doc-a673ea88f41cd0933c5f1577a9b859ac",
+      "model": "iota-engineering-ilbhi-cp20-he-sd-hv",
+      "name": "Input Current (347V/480V)",
+      "reason": "This name and its 0.022 A are printed in the 30 W CP30 block; the CP20 block prints Input Current (347/480V) 0.015A.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-a673ea88f41cd0933c5f1577a9b859ac",
+      "model": "iota-engineering-ilbhi-cp30-he-sd-hv",
+      "name": "Input Current (347/480V)",
+      "reason": "This name and its 0.015 A are printed in the 20 W CP20 block; the CP30 block prints Input Current (347V/480V) 0.022A.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    }
+  ]
+}

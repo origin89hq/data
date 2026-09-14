@@ -1,0 +1,45 @@
+{
+  "id": "wilson-electronics",
+  "rejections": [
+    {
+      "source": "doc-da33c0337337c4113ee1cdb398994fb7",
+      "model": "wilson-electronics-pwo460020",
+      "name": "Power output for single cell phone",
+      "reason": "23.94 dBm is the 700 MHz B12/17 uplink figure, one of five bands in the guide's table.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-f2ef464b6f5080f3634ca8930a2924aa",
+      "model": "wilson-electronics-pwo460060",
+      "name": "Power output for single cell phone",
+      "reason": "25.2 dBm is one band's uplink figure (1900 MHz B25/2); the guide lists a figure for each band.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-f2ef464b6f5080f3634ca8930a2924aa",
+      "model": "wilson-electronics-pwo460060",
+      "name": "Inside antenna maximum permissible antenna gain",
+      "reason": "2.4 dBi is one band's limit; the guide lists a different inside antenna gain for each of five bands.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-f2ef464b6f5080f3634ca8930a2924aa",
+      "model": "wilson-electronics-pwo460060",
+      "name": "Outside antenna maximum permissible antenna gain",
+      "reason": "4.4 dBi is one band's limit; the guide lists a different outside antenna gain for each of five bands.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-99d8e17518714b286399367b87dd13c3",
+      "model": "wilson-electronics-pwo460061",
+      "name": "Power output for single cell phone",
+      "reason": "25.6 dBm is one band's uplink figure (700 MHz B13); the guide lists a figure for each of five bands.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    }
+  ]
+}

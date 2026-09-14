@@ -58,6 +58,78 @@
       "reason": "The 890PT manual prints this on a sample system-test result screen, so it is a vehicle's reading, not a rating of the tester.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-865789b766e0e7cc079075fac287807b",
+      "model": "pulsetech-sp-100",
+      "name": "Max Charging Current",
+      "reason": "The sheet is the SP-100 24V kit (part 735X348), not an SP-100 of unstated voltage.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-865789b766e0e7cc079075fac287807b",
+      "model": "pulsetech-sp-100",
+      "name": "Max Charging DC Voltage",
+      "reason": "The sheet is the SP-100 24V kit (part 735X348), not an SP-100 of unstated voltage.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-865789b766e0e7cc079075fac287807b",
+      "model": "pulsetech-sp-100",
+      "name": "Operating Temperature",
+      "reason": "The sheet is the SP-100 24V kit (part 735X348), not an SP-100 of unstated voltage.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-865789b766e0e7cc079075fac287807b",
+      "model": "pulsetech-sp-100",
+      "name": "Protection Category",
+      "reason": "The sheet is the SP-100 24V kit (part 735X348), not an SP-100 of unstated voltage.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-865789b766e0e7cc079075fac287807b",
+      "model": "pulsetech-sp-100",
+      "name": "Solar Panel",
+      "reason": "The sheet is the SP-100 24V kit (part 735X348), not an SP-100 of unstated voltage.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-865789b766e0e7cc079075fac287807b",
+      "model": "pulsetech-sp-100",
+      "name": "Solar Panel Dimensions",
+      "reason": "The sheet is the SP-100 24V kit (part 735X348), not an SP-100 of unstated voltage.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-865789b766e0e7cc079075fac287807b",
+      "model": "pulsetech-sp-100",
+      "name": "Storage Temperature",
+      "reason": "The sheet is the SP-100 24V kit (part 735X348), not an SP-100 of unstated voltage.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-23626c7771110fd9944d219a50d60d5f",
+      "model": "pulsetech-pt20",
+      "name": "Maximum Nominal Panel Wattage",
+      "reason": "The table prints 400 W for a 12 V battery and 800 W for 24 V; the figure took the 12 V value without its condition.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-23626c7771110fd9944d219a50d60d5f",
+      "model": "pulsetech-pt20",
+      "name": "Minimum Solar Input Voltage",
+      "reason": "The table prints 15 V for a 12 V battery and 30 V for 24 V; the figure took the 12 V value without its condition.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
     }
   ]
 }

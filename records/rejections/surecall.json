@@ -1,0 +1,141 @@
+{
+  "id": "surecall",
+  "rejections": [
+    {
+      "source": "doc-7e08293f87e916929c2e41a58589c5a8",
+      "model": "surecall-fusion5s",
+      "name": "Cable",
+      "reason": "The Fusion5s 2.0 User Guide gives the Fusion5s 2.0's figures, not the Fusion5s's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-7e08293f87e916929c2e41a58589c5a8",
+      "model": "surecall-fusion5s",
+      "name": "Dimensions",
+      "reason": "The Fusion5s 2.0 User Guide gives the Fusion5s 2.0's figures, not the Fusion5s's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-7e08293f87e916929c2e41a58589c5a8",
+      "model": "surecall-fusion5s",
+      "name": "Downlink Frequency Range",
+      "reason": "The Fusion5s 2.0 User Guide gives the Fusion5s 2.0's figures, not the Fusion5s's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-7e08293f87e916929c2e41a58589c5a8",
+      "model": "surecall-fusion5s",
+      "name": "Input / Output Impedance",
+      "reason": "The Fusion5s 2.0 User Guide gives the Fusion5s 2.0's figures, not the Fusion5s's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-7e08293f87e916929c2e41a58589c5a8",
+      "model": "surecall-fusion5s",
+      "name": "Max Downlink",
+      "reason": "The Fusion5s 2.0 User Guide gives the Fusion5s 2.0's figures, not the Fusion5s's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-7e08293f87e916929c2e41a58589c5a8",
+      "model": "surecall-fusion5s",
+      "name": "Maximum Gain",
+      "reason": "The Fusion5s 2.0 User Guide gives the Fusion5s 2.0's figures, not the Fusion5s's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-7e08293f87e916929c2e41a58589c5a8",
+      "model": "surecall-fusion5s",
+      "name": "Maximum Output Power",
+      "reason": "The Fusion5s 2.0 User Guide gives the Fusion5s 2.0's figures, not the Fusion5s's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-7e08293f87e916929c2e41a58589c5a8",
+      "model": "surecall-fusion5s",
+      "name": "Noise Figure",
+      "reason": "The Fusion5s 2.0 User Guide gives the Fusion5s 2.0's figures, not the Fusion5s's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-7e08293f87e916929c2e41a58589c5a8",
+      "model": "surecall-fusion5s",
+      "name": "Operation Temperature",
+      "reason": "The Fusion5s 2.0 User Guide gives the Fusion5s 2.0's figures, not the Fusion5s's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-7e08293f87e916929c2e41a58589c5a8",
+      "model": "surecall-fusion5s",
+      "name": "Output DC",
+      "reason": "The Fusion5s 2.0 User Guide gives the Fusion5s 2.0's figures, not the Fusion5s's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-7e08293f87e916929c2e41a58589c5a8",
+      "model": "surecall-fusion5s",
+      "name": "Power Consumption",
+      "reason": "The Fusion5s 2.0 User Guide gives the Fusion5s 2.0's figures, not the Fusion5s's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-7e08293f87e916929c2e41a58589c5a8",
+      "model": "surecall-fusion5s",
+      "name": "RF Connectors",
+      "reason": "The Fusion5s 2.0 User Guide gives the Fusion5s 2.0's figures, not the Fusion5s's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-7e08293f87e916929c2e41a58589c5a8",
+      "model": "surecall-fusion5s",
+      "name": "Supported Standards",
+      "reason": "The Fusion5s 2.0 User Guide gives the Fusion5s 2.0's figures, not the Fusion5s's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-7e08293f87e916929c2e41a58589c5a8",
+      "model": "surecall-fusion5s",
+      "name": "Uplink Frequency Range",
+      "reason": "The Fusion5s 2.0 User Guide gives the Fusion5s 2.0's figures, not the Fusion5s's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-7e08293f87e916929c2e41a58589c5a8",
+      "model": "surecall-fusion5s",
+      "name": "VWSR",
+      "reason": "The Fusion5s 2.0 User Guide gives the Fusion5s 2.0's figures, not the Fusion5s's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-7e08293f87e916929c2e41a58589c5a8",
+      "model": "surecall-fusion5s",
+      "name": "Weight",
+      "reason": "The Fusion5s 2.0 User Guide gives the Fusion5s 2.0's figures, not the Fusion5s's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-2e0c4747311fab9e7645c70978fc292e",
+      "model": "surecall-fusion4home",
+      "name": "Maximum Gain",
+      "reason": "The sheet prints a maximum gain for each of five bands; the figure kept one band as the model s maximum gain.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    }
+  ]
+}

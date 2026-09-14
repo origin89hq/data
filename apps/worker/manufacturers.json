@@ -500,7 +500,13 @@
     "name": "IOTA Engineering",
     "domains": [
       "iotaengineering.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://www.iotaengineering.com/api/products/getasset/iota/1278937/64b7f8f1-b756-4a84-90ef-dd70265d3a61/product-spotlight_ilbhi-hv.pdf?abl_version=10%2f27%2f2025+20%3a39%3a46&DOC_Type=Sell_Sheet&attachment=true"
+      ],
+      "pages": []
+    }
   },
   {
     "id": "ja-solar",
@@ -1105,7 +1111,13 @@
     "name": "Progressive Dynamics",
     "domains": [
       "progressivedyn.com"
-    ]
+    ],
+    "cited": {
+      "documents": [
+        "https://www.progressivedyn.com/wp-content/uploads/2017/05/110043-2100-marine-manual.pdf"
+      ],
+      "pages": []
+    }
   },
   {
     "id": "pulsetech",
@@ -1662,7 +1674,8 @@
         "https://volthium.com/wp-content/uploads/2024/04/User-manual_4D-8D_EN.pdf",
         "https://volthium.com/wp-content/uploads/2024/05/EN_20250305-25.6-200-R-H-3U-Manual-1.pdf",
         "https://volthium.com/wp-content/uploads/2024/08/EN_51.2-100-R-3U-C-Manual.pdf",
-        "https://volthium.com/wp-content/uploads/2024/10/User-manual_Rackmount-51.2V_EN.pdf"
+        "https://volthium.com/wp-content/uploads/2024/10/User-manual_Rackmount-51.2V_EN.pdf",
+        "https://volthium.com/wp-content/uploads/2026/02/Technical-Sheet-2025_12-V-100-Ah-GR24.pdf"
       ],
       "pages": [
         "https://volthium.com/en/categorie-produit/accessoires-en/",
@@ -1714,7 +1727,9 @@
     "cited": {
       "documents": [
         "https://assets.wilsonelectronics.com/m/4e138f965f8675be/original/WilsonPro-A1000-Spec-Sheet.pdf",
-        "https://assetsv2.wilsonelectronics.com/m/3a89399de4140fa/original/drive-reach-fleet-470254-spec-sheet.pdf"
+        "https://assetsv2.wilsonelectronics.com/m/3a89399de4140fa/original/drive-reach-fleet-470254-spec-sheet.pdf",
+        "https://assetsv2.wilsonelectronics.com/m/47973bf70523a5c9/original/474061-Drive-Reach-RV-II-Spec-Sheet.pdf",
+        "https://assetsv2.wilsonelectronics.com/m/7fdf9c18d2f80b1b/original/Home-Room-Installation-Guide.pdf"
       ],
       "pages": []
     }

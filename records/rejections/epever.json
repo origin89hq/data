@@ -1,0 +1,45 @@
+{
+  "id": "epever",
+  "rejections": [
+    {
+      "source": "doc-567f446589aaf640b63a17563f0f9bd0",
+      "model": "epever-duc3011",
+      "name": "Output Charging Voltage Range",
+      "reason": "The value is the Rated Voltage row (12V-12V), filed under the output charging range.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-567f446589aaf640b63a17563f0f9bd0",
+      "model": "epever-duc4011",
+      "name": "Output Charging Voltage Range",
+      "reason": "The value is the Rated Voltage row (12V-12V), filed under the output charging range.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-567f446589aaf640b63a17563f0f9bd0",
+      "model": "epever-duc5011",
+      "name": "Output Charging Voltage Range",
+      "reason": "The value is the Rated Voltage row (12V-12V), filed under the output charging range.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-567f446589aaf640b63a17563f0f9bd0",
+      "model": "epever-duc4011",
+      "name": "Input Voltage Range",
+      "reason": "The sheet lists the ranges on lines apart from their labels, and this row took the neighbouring range; which range is whose cannot be read with certainty.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-567f446589aaf640b63a17563f0f9bd0",
+      "model": "epever-duc5011",
+      "name": "Input Voltage Range",
+      "reason": "The sheet lists the ranges on lines apart from their labels, and this row took the neighbouring range; which range is whose cannot be read with certainty.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    }
+  ]
+}
