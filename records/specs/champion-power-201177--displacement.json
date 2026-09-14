@@ -1,9 +1,8 @@
 {
-  "id": "champion-power-r420n-vp--height",
-  "model": "champion-power-r420n-vp",
-  "name": "Height",
-  "value": "26.0",
-  "unit": "in",
+  "id": "champion-power-201177--displacement",
+  "model": "champion-power-201177",
+  "name": "Displacement",
+  "value": "420 cc",
   "source": "doc-998e02d73ad6c6644884a98a7b0812b4",
   "page": 38,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",

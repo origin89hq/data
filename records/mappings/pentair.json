@@ -1,0 +1,76 @@
+{
+  "id": "pentair",
+  "version": 1,
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-12",
+  "rules": [
+    {
+      "key": "pump.flow.rated",
+      "names": [
+        "Flow rate"
+      ],
+      "basis": "The B4ZRKS sheet states 'Flow rate' as '450 GPM' beside 'Head' of 95 ft on the same page, the point the pump is rated at; the head is the rule's condition, since the flow's own words do not carry it. The Fleck flow-control parts print the same name for the flow a restrictor lets through and are out of scope.",
+      "source": "doc-d41e86f4401939f14899953edd68199f",
+      "conditions": {
+        "head": 28.956
+      }
+    },
+    {
+      "key": "pump.flow.rated",
+      "names": [
+        "Capacity"
+      ],
+      "source": "doc-ad2e30f8ee91e3c766fd0928469628a1",
+      "basis": "The MES sheet heads its flow column 'Capacity', '63 GPM'; on the filter sheets the same name is gallons of service life, so the rule reads that sheet only."
+    },
+    {
+      "key": "pump.pressure.max",
+      "names": [
+        "MAX. PSI"
+      ],
+      "unit": "psi",
+      "source": "doc-4b1237cb5e14a1f7dfd699c0f51d4b52",
+      "basis": "The MA-240 HD sheet states the pressure limit under 'MAX. PSI' as a bare number in the unit the name carries."
+    },
+    {
+      "key": "pump.power.rated",
+      "names": [
+        "Maximum Rated Power"
+      ],
+      "basis": "The MA plunger pump sheets state 'Maximum Rated Power' in horsepower, '15.0 hp'; a cell that also prints the kilowatts, '144.0 hp 107.4 kW', is refused. 'Motor HP' prints fractions such as '4/10', which read as two figures, and is not read."
+    },
+    {
+      "key": "pump.power.rated",
+      "names": [
+        "Motor HP",
+        "HP",
+        "Horsepower"
+      ],
+      "unit": "hp",
+      "basis": "The Myers and Sta-Rite pump sheets state the motor in horsepower under 'Motor HP', 'HP' or 'Horsepower', as '1 HP', '1/2 HP' or a bare fraction such as '4/10' in a horsepower column; a fraction is one figure."
+    },
+    {
+      "key": "pump.flow.rated",
+      "names": [
+        "Capacity Gallons/Minute at 5 feet",
+        "Capacity Gallons/Minute at 10 feet",
+        "Capacity Gallons/Minute at 15 feet",
+        "Capacity Gallons/Minute at 20 feet",
+        "Capacity Gallons/Minute at 25 feet",
+        "Capacity Gallons/Minute at 30 feet"
+      ],
+      "unit": "gpm",
+      "source": "doc-f232d33dc77786f1fd3a619d3b896189",
+      "basis": "The SHEF42 sheet prints the pump's curve as one column per head, 'Capacity Gallons/Minute at 5 feet' to 'at 30 feet', bare figures in the gallons a minute the name carries; the head is read off the name, so each point keeps its height."
+    },
+    {
+      "key": "pump.head.max",
+      "names": [
+        "Maximum Shut-Off Head"
+      ],
+      "unit": "ft",
+      "source": "doc-e89eb92143d86f95f550052a414f71eb",
+      "basis": "The SB24VRS sheet prints 'Maximum Shut-Off Head' as '60\u2019 (18.6 m)' for one package and a bare 60 for the other, in the feet the first carries; the rule supplies feet where the figure prints none."
+    }
+  ]
+}

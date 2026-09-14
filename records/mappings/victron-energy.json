@@ -1,8 +1,8 @@
 {
   "id": "victron-energy",
-  "version": 2,
+  "version": 3,
   "reviewedBy": "lemarier",
-  "checkedAt": "2026-09-11",
+  "checkedAt": "2026-09-13",
   "rules": [
     {
       "key": "pv.voc.max",
@@ -81,6 +81,14 @@
         "AC output voltage"
       ],
       "basis": "The sheets state the nominal AC output voltage, often with its tolerance, which the parser refuses rather than halves."
+    },
+    {
+      "key": "charge.battery.capacity",
+      "names": [
+        "Battery capacity"
+      ],
+      "source": "doc-2375e9a6ed181d8a7987453c98e92412",
+      "basis": "The Skylla-TG sheet states 'Battery capacity' as the range of banks each charger is for, '125-250 Ah' to '500-1000 Ah'; on the BMV monitors' sheets the same name is a setting, so the rule reads the charger sheet only."
     }
   ]
 }

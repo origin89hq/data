@@ -1,8 +1,8 @@
 {
-  "id": "champion-power-yf172fd-l-g--phase",
-  "model": "champion-power-yf172fd-l-g",
-  "name": "Phase",
-  "value": "Single",
+  "id": "champion-power-201076--gasoline-capacity",
+  "model": "champion-power-201076",
+  "name": "Gasoline Capacity",
+  "value": "4.7 gal. (17.8 L)",
   "source": "doc-eb2419b2599e4c852b226ccf4a18659e",
   "page": 30,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",

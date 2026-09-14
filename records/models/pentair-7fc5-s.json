@@ -2,7 +2,10 @@
   "id": "pentair-7fc5-s",
   "manufacturer": "pentair",
   "name": "7FC5-S",
-  "kind": "pump",
+  "kind": "out-of-scope",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "basis": "An Everpure or Fleck water filter: its figures are a cartridge's service flow, service life and filtration, and it moves no water of its own; nothing the dataset describes.",
+  "checkedAt": "2026-09-14",
+  "reviewedBy": "lemarier"
 }

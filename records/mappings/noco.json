@@ -1,6 +1,6 @@
 {
   "id": "noco",
-  "version": 1,
+  "version": 2,
   "reviewedBy": "lemarier",
   "checkedAt": "2026-09-12",
   "rules": [
@@ -56,6 +56,21 @@
         "Continuous Current"
       ],
       "basis": "The NLP and NLX sheets print 'Continuous Current', 20 to 200 A, beside 'Starting Current' and 'Charging Current': the current the pack sustains on discharge, as against the seconds-long engine start."
+    },
+    {
+      "key": "charge.power.max",
+      "names": [
+        "Output Power",
+        "OUTPUT POWER"
+      ],
+      "basis": "The charger sheets state 'Output Power' as '72 W Max' or '150 W Max', the most the charger delivers; a multi-bank figure such as '72x2 W Max' is refused until it is read as one bank's."
+    },
+    {
+      "key": "charge.battery.capacity",
+      "names": [
+        "Battery Capacity"
+      ],
+      "basis": "The charger sheets state the battery sizes the charger is for: the GX3626 as '55-425Ah', the GEN and GENIUS sheets as 'Up to 120Ah', a bound the parser refuses."
     }
   ]
 }

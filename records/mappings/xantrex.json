@@ -1,8 +1,8 @@
 {
   "id": "xantrex",
-  "version": 1,
+  "version": 2,
   "reviewedBy": "lemarier",
-  "checkedAt": "2026-09-12",
+  "checkedAt": "2026-09-13",
   "rules": [
     {
       "key": "inverter.power.continuous",
@@ -49,6 +49,13 @@
         "Charging / Load Current @ 25°C (77°F)"
       ],
       "basis": "The Freedom SW and EX sheets state the charger's output in amps, 65 to 90 A, the SW's continuous at 25 °C, which the figure keeps; the C-series controller sheets state the charging or load current rating at 25 °C, 35 to 60 A. The Freedom XC manuals' 'Charging current' is a display reading on a status page, 30 A where the sheet rates the charger at 80 A, and is not read."
+    },
+    {
+      "key": "charge.battery.capacity.recommended",
+      "names": [
+        "Recommended battery capacity"
+      ],
+      "basis": "The Freedom XC sheet states 'Recommended battery capacity' as one figure, 100 Ah; the Freedom XC 1800's '100 Ah or more' is a bound and stays unread."
     }
   ]
 }

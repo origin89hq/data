@@ -1,6 +1,6 @@
 {
   "id": "shared",
-  "version": 3,
+  "version": 4,
   "reviewedBy": "lemarier",
   "checkedAt": "2026-09-12",
   "rules": [
@@ -266,6 +266,63 @@
         "Peak Apparent Power (10s, off-grid)"
       ],
       "basis": "The Sol-Ark 5K sheet states its off-grid peak in VA for 100 ms and 10 s, the time in the name; an overload figure under a watt name that a sheet prints in VA reaches this key through that name's rule."
+    },
+    {
+      "key": "generator.power.running",
+      "names": [
+        "Running watts",
+        "Rated running watts",
+        "Continuous running watts"
+      ],
+      "unit": "W",
+      "basis": "A generator sheet's running watts is the power it sustains, under whichever fuel the name states; a bare figure under the name is in the watts the name carries."
+    },
+    {
+      "key": "generator.power.running",
+      "names": [
+        "Running power"
+      ],
+      "basis": "A generator sheet's running power is the power it sustains, in the unit it prints."
+    },
+    {
+      "key": "generator.power.starting",
+      "names": [
+        "Starting watts",
+        "Rated starting watts",
+        "Peak starting watts"
+      ],
+      "unit": "W",
+      "basis": "A generator sheet's starting watts is what it gives for the seconds a motor takes to start, under whichever fuel the name states; a bare figure under the name is in the watts the name carries."
+    },
+    {
+      "key": "generator.power.starting",
+      "names": [
+        "Starting power"
+      ],
+      "basis": "A generator sheet's starting power is what it gives for the seconds a motor takes to start, in the unit it prints."
+    },
+    {
+      "key": "pump.head.max",
+      "names": [
+        "Max shut-off head",
+        "Maximum shut-off head",
+        "Max head",
+        "Maximum head",
+        "Max total head",
+        "Maximum total head"
+      ],
+      "basis": "A pump sheet's shut-off head, or its maximum total head, is the height of water it lifts against with no flow; a bare 'Total head' can be an operating point and stays a maker's own. A value printed as feet with the metres beside it is read as feet."
+    },
+    {
+      "key": "pump.pressure.max",
+      "names": [
+        "Maximum continuous working pressure",
+        "Max. continuous working pressure",
+        "Maximum working pressure",
+        "Max. working pressure",
+        "Max working pressure"
+      ],
+      "basis": "A pump sheet's maximum working pressure is the most it works at continuously."
     }
   ]
 }

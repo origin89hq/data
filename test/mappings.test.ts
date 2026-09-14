@@ -429,7 +429,7 @@ test("NOCO: the NLX's voltage, energy and both battery currents, its capacity as
   // Two banks' worth in one figure, '10Ax2(12V)', is still refused.
   assert.equal(gap(of("noco-genpro10x2").gaps, "charge.current.max")?.reason, "unparsed");
   // The Genius 2D manual prints the same name for a 2 A maintainer; the rules read the GEN and GENPRO sheets only.
-  assert.equal(gap(of("noco-noco").gaps, "charge.current.max")?.claims, 0);
+  assert.equal(of("noco-noco").gaps.length, 0);
 });
 
 test("Energizer Solar: a module's STC figures with its watt-peak, the Force's PV limits, the PS2900H's one current under both battery keys and its timed peak, and the HP-6M's watts", () => {
@@ -658,6 +658,198 @@ test("Sigineer: the ESF's open-circuit limit, charge amps and PV power at four b
     values(of("sigineer-m48120").properties, "charge.current.max").map((p) => p.value),
     [120],
   );
+});
+
+test("Champion: a generator's starting and running watts from one cell, by fuel, its tank in litres, its AC voltages, and a water pump's flow and head", () => {
+  const dual = of("champion-power-201424");
+  assert.deepEqual(
+    values(dual.properties, "generator.power.starting").map((p) => [p.value, p.conditions.fuel]),
+    [
+      [11000, "lpg"],
+      [11000, "natural-gas"],
+      [11000, "gasoline"],
+    ],
+  );
+  assert.deepEqual(
+    values(dual.properties, "generator.power.running").map((p) => [p.value, p.conditions.fuel]),
+    [
+      [8100, "lpg"],
+      [7290, "natural-gas"],
+      [9000, "gasoline"],
+    ],
+  );
+  assert.deepEqual(
+    values(dual.properties, "inverter.voltage.ac").map((p) => p.values),
+    [[120, 240]],
+  );
+  // The GB225 manual calls its gasoline cell 'Manual Watts'; on that manual it is read as such.
+  assert.deepEqual(
+    values(of("champion-power-gb225bt-2").properties, "generator.power.running")
+      .map((p) => [p.conditions.fuel ?? "", p.value])
+      .sort((a, b) => String(a[0]).localeCompare(String(b[0]))),
+    [
+      ["gasoline", 4000],
+      ["lpg", 3600],
+      ["natural-gas", 3240],
+    ],
+  );
+  const standby = of("champion-power-100304");
+  assert.deepEqual(
+    values(standby.properties, "generator.power.running").map((p) => [p.value, p.conditions.fuel]),
+    [
+      [22000, "lpg"],
+      [19800, "natural-gas"],
+    ],
+  );
+  assert.deepEqual(
+    values(of("champion-power-201154").properties, "generator.fuel.tank").map((p) => [
+      p.value,
+      p.unit,
+      p.conditions.fuel,
+    ]),
+    [[8.517176514, "L", "gasoline"]],
+  );
+  // A bare '5' under 'Gasoline Capacity' is gallons on the US sheet, as the rule says.
+  assert.deepEqual(
+    values(of("champion-power-201445").properties, "generator.fuel.tank").map((p) => p.value),
+    [18.92705892],
+  );
+  const pump = of("champion-power-100113");
+  assert.deepEqual(
+    values(pump.properties, "pump.flow.rated").map((p) => [p.value, p.unit]),
+    [[598.0950619, "L/min"]],
+  );
+  assert.deepEqual(
+    values(pump.properties, "pump.head.max").map((p) => [p.value, p.unit]),
+    [[29.8704, "m"]],
+  );
+  // Its engine's 'Fuel Capacity' is not a generator's tank: the key's kinds keep it out.
+  assert.equal(values(pump.properties, "generator.fuel.tank").length, 0);
+  // The bare engines and the transfer switches filed as generators are reviewed out of scope, so
+  // an engine's tank and a switch's voltage are nobody's generator's.
+  for (const other of [
+    "champion-power-224cc-ohv-cpe",
+    "champion-power-r210p",
+    "champion-power-201020",
+    "champion-power-201039",
+  ])
+    assert.equal(of(other).properties.length, 0, other);
+  // The YF172FD and R420N tables were the 201076's and 201177's own manuals naming their engines:
+  // the designations are aliases now and the tanks are the generators'.
+  assert.deepEqual(
+    values(of("champion-power-201076").properties, "generator.fuel.tank").map((p) => p.value),
+    [17.79143538],
+  );
+  assert.deepEqual(
+    values(of("champion-power-201177").properties, "generator.fuel.tank").map((p) => p.value),
+    [20.17624481],
+  );
+  // Victron's Skylla-TG prints 'Battery capacity' as the banks it is for; that is Victron's own rule.
+  const skylla = values(of("victron-energy-skylla-tg-48-25").properties, "charge.battery.capacity");
+  assert.deepEqual(
+    skylla.map((p) => [p.min, p.max]),
+    [[125, 250]],
+  );
+  assert.ok(own("victron-energy", skylla));
+  // Xantrex's Freedom XC recommends one size, 100 Ah, which is the scalar key's; its '100 Ah or more' is a bound.
+  assert.deepEqual(
+    values(of("xantrex-freedom-xc").properties, "charge.battery.capacity.recommended").map((p) => [
+      p.value,
+      p.unit,
+    ]),
+    [[100, "Ah"]],
+  );
+  assert.equal(
+    gap(of("xantrex-freedom-xc-1800-12vdc").gaps, "charge.battery.capacity.recommended")?.reason,
+    "unparsed",
+  );
+});
+
+test("Pentair: a plunger pump's pressure in bar and its horsepower in watts, a fractional horsepower, a bare 'Flow rate' under its own rule, the MES sheet's 'Capacity' read on that sheet only, and the filters out of scope", () => {
+  const plunger = of("pentair-ma-240l-hd");
+  assert.deepEqual(
+    values(plunger.properties, "pump.pressure.max").map((p) => [p.value, p.unit]),
+    [[70.11968164, "bar"]],
+  );
+  assert.deepEqual(
+    values(of("pentair-ma-15h").properties, "pump.power.rated").map((p) => [p.value, p.unit]),
+    [[11185.49807, "W"]],
+  );
+  // The Everpure filters that printed a service flow are reviewed out of scope: a cartridge moves no water.
+  assert.equal(of("pentair-ev9337-44").properties.length, 0);
+  // '1/2' under 'HP' and '4/10' under 'Motor HP' are fractions of a horsepower, not two figures.
+  assert.deepEqual(
+    values(of("pentair-ms50pt").properties, "pump.power.rated").map((p) => [p.value, p.unit]),
+    [[372.8499358, "W"]],
+  );
+  assert.deepEqual(
+    values(of("pentair-shef42a1").properties, "pump.power.rated").map((p) => p.value),
+    [298.2799486],
+  );
+  // 'Flow rate' is Pentair's own rule, not the shared mapping's.
+  const flow = values(of("pentair-b4zrks").properties, "pump.flow.rated");
+  assert.deepEqual(
+    flow.map((p) => [p.value, p.conditions.head]),
+    [[1703.435303, 28.956]],
+  );
+  // The SB24VRS sheet's shut-off head, printed with its feet on one package and bare on the other.
+  assert.deepEqual(
+    values(of("pentair-sb24vrs1021").properties, "pump.head.max").map((p) => p.value),
+    [18.288],
+  );
+  // Its sibling prints '60’ (18.6 m)', a conversion off by 1.7 %, which the parser refuses as it should.
+  assert.match(
+    gap(of("pentair-sb24vrs10").gaps, "pump.head.max")?.detail ?? "",
+    /changes the figure/,
+  );
+  assert.ok(own("pentair", flow));
+  // The SHEF42's curve: one flow at each head, from the column names, kept apart by the height.
+  assert.deepEqual(
+    values(of("pentair-shef42a1").properties, "pump.flow.rated")
+      .map((p) => [p.value, p.conditions.head ?? 0])
+      .sort((a, b) => a[1] - b[1]),
+    [
+      [230.9101188, 1.524],
+      [196.8414128, 3.048],
+      [170.3435303, 4.572],
+      [143.8456478, 6.096],
+      [113.5623535, 7.62],
+      [79.49364746, 9.144],
+    ],
+  );
+  const mes = values(of("pentair-mes50").properties, "pump.flow.rated");
+  assert.deepEqual(
+    mes.map((p) => p.value),
+    [238.4809424],
+  );
+  assert.ok(own("pentair", mes));
+  // On a filter sheet 'Capacity' is gallons of service life, which the source-scoped rule leaves alone.
+  assert.equal(of("pentair-7fc5-s").properties.length, 0);
+  // The Fleck flow controls are restrictors, out of scope: 'Flow rate' reads the B4ZRKS sheet only.
+  assert.equal(of("pentair-blfc-assy-1-2-12-gpm").properties.length, 0);
+  // The HPGR200 is a grinder pump filed as a generator: reviewed as a pump, its 'Full Load kW' is
+  // its motor's load and reads under no generator key, and its 2 HP reads under the pump's.
+  assert.equal(values(of("pentair-hpgr200").properties, "generator.power.running").length, 0);
+  assert.deepEqual(
+    values(of("pentair-hydromatic-hpgr200").properties, "pump.power.rated").map((p) => p.value),
+    [1491.399743],
+  );
+});
+
+test("NOCO's chargers: the output watts, the battery sizes as a range, and a bound as the gap it is", () => {
+  assert.deepEqual(
+    values(of("noco-gen5x1").properties, "charge.power.max").map((p) => [p.value, p.unit]),
+    [[72, "W"]],
+  );
+  assert.deepEqual(
+    values(of("noco-gx3626").properties, "charge.battery.capacity").map((p) => [p.min, p.max]),
+    [[55, 425]],
+  );
+  // The record minted under the maker's own name is out of scope: its figures are other models'.
+  assert.equal(of("noco-noco").properties.length, 0);
+  const genius = of("noco-genius2");
+  assert.equal(gap(genius.gaps, "charge.battery.capacity")?.reason, "unparsed");
+  assert.match(gap(genius.gaps, "charge.battery.capacity")?.detail ?? "", /bound/);
 });
 
 test("OutBack's VA figures reach the apparent-power keys through the watt rules that name them", () => {

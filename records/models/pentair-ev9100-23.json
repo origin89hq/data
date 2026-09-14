@@ -2,7 +2,10 @@
   "id": "pentair-ev9100-23",
   "manufacturer": "pentair",
   "name": "EV9100-23",
-  "kind": "pump",
+  "kind": "out-of-scope",
   "aliases": [],
-  "dialects": []
+  "dialects": [],
+  "basis": "An Everpure or Fleck water filter: its figures are a cartridge's service flow, service life and filtration, and it moves no water of its own; nothing the dataset describes.",
+  "checkedAt": "2026-09-14",
+  "reviewedBy": "lemarier"
 }
