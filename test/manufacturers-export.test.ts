@@ -10,6 +10,7 @@ const exported = JSON.parse(
   readFileSync(new URL("../apps/worker/manufacturers.json", import.meta.url), "utf8"),
 ) as {
   id: string;
+  name: string;
   domains: string[];
   documentHosts?: string[];
   cited?: { documents: string[]; pages: string[] };
@@ -23,6 +24,7 @@ test("the bundled list matches the records it was generated from", () => {
       const cited = citedFor(m, records.sources, sourceIdsCitedBy(m.id, records));
       return {
         id: m.id,
+        name: m.name,
         domains: m.domains,
         ...(m.documentHosts?.length ? { documentHosts: m.documentHosts } : {}),
         ...(cited.documents.length || cited.pages.length ? { cited } : {}),

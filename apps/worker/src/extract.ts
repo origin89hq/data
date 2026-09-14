@@ -1,4 +1,5 @@
 import { contentOf } from "./classify.ts";
+import { makerName } from "./manufacturers.ts";
 import {
   chunk,
   EXTRACT_MODEL,
@@ -65,7 +66,10 @@ export async function readDocument(
     }
     let answer: ReadWindow;
     try {
-      answer = { window: number, products: await readWindow(env, window) };
+      answer = {
+        window: number,
+        products: await readWindow(env, window, makerName(message.manufacturer)),
+      };
     } catch (error) {
       // The rest of the windows are still read, so one delivery again covers every window missed.
       if (attempt < LAST_ATTEMPT) {
@@ -128,12 +132,16 @@ async function keptWindows(
   );
 }
 
-/** One model call for one window, with each figure given the page its value is printed on. */
-async function readWindow(env: Env, window: Window): Promise<Reported[]> {
+/**
+ * One model call for one window, with each figure given the page its value is printed on. The
+ * message starts with the maker's name, so the model can leave out another company's products and
+ * the settings a maker prints for them (#144).
+ */
+async function readWindow(env: Env, window: Window, maker: string): Promise<Reported[]> {
   const response = await env.AI.run(EXTRACT_MODEL, {
     messages: [
       { role: "system", content: SYSTEM },
-      { role: "user", content: window.text },
+      { role: "user", content: `Maker: ${maker}\n\n${window.text}` },
     ],
     response_format: { type: "json_schema", json_schema: RESPONSE_SCHEMA },
     max_tokens: 3072,

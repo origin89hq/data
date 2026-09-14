@@ -603,7 +603,11 @@ function kimi(
     if (input.response_format.json_schema.name !== "page") {
       const content = input.messages[1].content;
       assert.equal(typeof content, "string");
-      return read(content as string);
+      // Every figures call names the document's maker first (#144), and what follows is the window.
+      const text = content as string;
+      const start = text.indexOf("\n\n");
+      assert.match(text.slice(0, start), /^Maker: \S/, "the figures call names the maker first");
+      return read(text.slice(start + 2));
     }
     const transcript = transcripts[drawn++];
     return transcript instanceof Error ? transcript : answer({ markdown: transcript });

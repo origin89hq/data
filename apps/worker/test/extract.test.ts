@@ -246,7 +246,11 @@ interface Reading {
  */
 function reader(broken: Set<number> = new Set()) {
   return (_call: number, input: TestAiInput): unknown => {
-    const window = WINDOWS.findIndex((w) => w.text === input.messages[1].content) + 1;
+    // The message names the document's maker first (#144), and what follows is the window.
+    const content = String(input.messages[1].content);
+    assert.match(content, /^Maker: maker\n\n/);
+    const shown = content.slice(content.indexOf("\n\n") + 2);
+    const window = WINDOWS.findIndex((w) => w.text === shown) + 1;
     if (broken.has(window))
       return { response: '{"products":[{"model":"S-550","specs":[{"name":"Rated' };
     return {
@@ -382,4 +386,31 @@ test("both readers are told to carry a table's header unit into each figure and 
       "and never an invented one",
     );
   }
+});
+
+test("both readers are told a maker's settings, screens, examples and other companies' products are not its ratings (#144)", () => {
+  for (const prompt of [SYSTEM, DOCUMENT_FIGURES_SYSTEM]) {
+    assert.match(prompt, /The message starts with the maker whose document this is/);
+    assert.match(
+      prompt,
+      /settings it recommends for another company's battery, inverter or charger/,
+    );
+    assert.match(prompt, /values drawn on a screen, display or app in an illustration/);
+    assert.match(prompt, /worked example/);
+    assert.match(prompt, /another company's products listed beside its own/);
+  }
+});
+
+test("the text reader tells the model whose document it reads, by the maker's name or else its id", async () => {
+  const nothing = () => ({ response: JSON.stringify({ products: [] }) });
+  const named = world({ [MARKDOWN]: SHEET }, nothing);
+  await readDocument({ ...message, manufacturer: "victron-energy" }, named.env, 1);
+  assert.match(String(named.asked[0]?.input.messages[1]?.content), /^Maker: Victron Energy\n\n/);
+  const unlisted = world({ [MARKDOWN]: SHEET }, nothing);
+  await readDocument({ ...message, manufacturer: "nobody-listed" }, unlisted.env, 1);
+  assert.match(
+    String(unlisted.asked[0]?.input.messages[1]?.content),
+    /^Maker: nobody-listed\n\n/,
+    "a maker the bundled list does not name is given by its id",
+  );
 });
