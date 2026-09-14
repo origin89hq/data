@@ -67,9 +67,9 @@
       "needsConditions": 13
     },
     "pentair": {
-      "values": 52,
+      "values": 53,
       "conflicts": 0,
-      "unparsed": 3,
+      "unparsed": 2,
       "needsConditions": 0
     },
     "rolls-battery": {
@@ -478,10 +478,10 @@
     },
     "pump.head.max pump": {
       "models": 84,
-      "values": 4,
+      "values": 5,
       "partial": 0,
       "conflicts": 0,
-      "unparsed": 2,
+      "unparsed": 1,
       "needsConditions": 0,
       "noClaim": 78
     },

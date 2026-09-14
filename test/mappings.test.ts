@@ -789,8 +789,18 @@ test("Pentair: a plunger pump's pressure in bar and its horsepower in watts, a f
   // 'Flow rate' is Pentair's own rule, not the shared mapping's.
   const flow = values(of("pentair-b4zrks").properties, "pump.flow.rated");
   assert.deepEqual(
-    flow.map((p) => p.value),
-    [1703.435303],
+    flow.map((p) => [p.value, p.conditions.head]),
+    [[1703.435303, 28.956]],
+  );
+  // The SB24VRS sheet's shut-off head, printed with its feet on one package and bare on the other.
+  assert.deepEqual(
+    values(of("pentair-sb24vrs1021").properties, "pump.head.max").map((p) => p.value),
+    [18.288],
+  );
+  // Its sibling prints '60’ (18.6 m)', a conversion off by 1.7 %, which the parser refuses as it should.
+  assert.match(
+    gap(of("pentair-sb24vrs10").gaps, "pump.head.max")?.detail ?? "",
+    /changes the figure/,
   );
   assert.ok(own("pentair", flow));
   // The SHEF42's curve: one flow at each head, from the column names, kept apart by the height.
