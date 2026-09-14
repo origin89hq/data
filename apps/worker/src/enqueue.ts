@@ -207,7 +207,9 @@ export async function forgetReadings(
   if (expectedRun !== undefined) {
     const pointer = await readPointer(env.ARCHIVE, pointerKey.documents(manufacturer));
     if (pointer && pointer.run !== expectedRun)
-      throw new RunMoved(`${manufacturer}: run ${expectedRun} is no longer current; ${pointer.run} is`);
+      throw new RunMoved(
+        `${manufacturer}: run ${expectedRun} is no longer current; ${pointer.run} is`,
+      );
   }
   const { run, prefix, documents } = await approvedDocuments(env, manufacturer);
   // A batch starts where the last one said the next begins, and the run remembers what it said:

@@ -320,11 +320,11 @@ test("a maker with more documents than one call takes is forgotten in batches, a
   assert.equal((await forget(env, "id=acme&from=0&run=")).status, 200);
   assert.equal((await forget(env, "id=acme&from=200&run=r1")).status, 200);
   assert.equal((await forget(env, "id=acme&from=0&run=")).status, 200);
+  // The new run has no manifest yet, as a run just reserved has none; the answer is still the 409.
   await env.ARCHIVE.put(
     "documents/acme/current.json",
     JSON.stringify({ run: "r2", date: "2026-09-13" }),
   );
-  await env.ARCHIVE.put("documents/acme/runs/r2/manifest.json", JSON.stringify({ documents: [] }));
   const moved = await forget(env, "id=acme&from=200&run=r1");
   assert.equal(moved.status, 409);
   assert.match(await errorOf(moved), /run r1 is no longer current; r2 is/);
