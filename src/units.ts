@@ -367,3 +367,30 @@ export function looksTruncated(value: string): boolean {
   if (/[{}[\]]/.test(value)) return true;
   return /[,;]\s*$/.test(value);
 }
+
+/**
+ * Characters the reader writes in place of a symbol it could not copy (#145). Volthium's manual
+ * prints "≥8000 cycles" and the reading says "£8000 cycles"; SureCall's "≤ 2.0" came back as
+ * "¥ 2.0" and "â€™2.0". Each form below stands where no figure puts it: a currency or section sign,
+ * a micro sign or a superscript before a digit, a superscript on its own, a mojibake run, a degree
+ * sign turned into "ø" or "¸" between a number and C or F, and symbols no sheet prints in a value.
+ * "±5%", "6 mm²", "0ºC" and "20μa" are not among them.
+ */
+const GARBLED = [
+  /[£¥§¶»]\s?\d/,
+  /µ\d/,
+  /[⁰-₟]+\d/,
+  /(^|\s)[⁰-₟](\s|$)/,
+  /â€/,
+  /[⎖□∔ℇ∥]/,
+  /「\s?\d/,
+  /\d\s?[ø¸˛][CF]\b/,
+];
+
+/**
+ * Whether a value carries a symbol the reader garbled. Refused like a truncated value: what the
+ * document printed cannot be read back out of it, and "£8000" hides that it meant "at least".
+ */
+export function looksGarbled(value: string): boolean {
+  return GARBLED.some((form) => form.test(value));
+}

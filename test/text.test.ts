@@ -4,7 +4,7 @@ import { looksForeign } from "../src/language.ts";
 import { loadRecords } from "../src/records.ts";
 import { repairMojibake } from "../src/text.ts";
 import { englishName } from "../src/translations.ts";
-import { looksTruncated } from "../src/units.ts";
+import { looksGarbled, looksTruncated } from "../src/units.ts";
 
 const records = loadRecords();
 
@@ -29,9 +29,51 @@ test("a value that is a fragment of its own JSON is refused, and an inch mark is
   assert.equal(looksTruncated("12/24"), false);
 });
 
+test("a value whose symbol the reader garbled is refused, whichever form the garbling took", () => {
+  // Each from a reading: Volthium, SureCall, Magnum, EPEVER, SRNE, IOTA, Energizer and NOCO.
+  for (const garbled of [
+    "£8000 cycles",
+    "¥ 2.0",
+    "§10m",
+    "» 4000 cycles",
+    "µ12.5 VDC",
+    "8V⁰⁷68V",
+    "3V ⁻ 11V × 2/24V",
+    "â€™2.0",
+    "∥ 0.85",
+    "-20℃ℇ70℃",
+    "28V⎖ 6.6A",
+    "「 60V 「 95V",
+    "32° to 104øF (0° to +40¸C)",
+    "-40 ~ 140˛F /-40 ~ 60˛C",
+  ])
+    assert.equal(looksGarbled(garbled), true, garbled);
+});
+
+test("a symbol a sheet does print is not taken for a garbled one", () => {
+  for (const printed of [
+    "≥8000 cycles",
+    "≤ 90% RH",
+    "125～425Vdc",
+    "13.50V per battery ± 0.5% @ 77°F (25°C)",
+    "6 mm²",
+    "1.04 ft³ per tank",
+    "0ºC to +40ºC",
+    "20μa",
+    "100 µF",
+    "1×10⁻⁶/°C",
+    "18V⎓6.6A",
+    "Convecção natural",
+    "£",
+    "",
+  ])
+    assert.equal(looksGarbled(printed), false, printed);
+});
+
 test("no committed figure carries a fragment as its value or an undecoded accent in its name", () => {
   for (const spec of records.specs) {
     assert.equal(looksTruncated(spec.value), false, `${spec.id} = ${spec.value}`);
+    assert.equal(looksGarbled(spec.value), false, `${spec.id} has a garbled value: ${spec.value}`);
     assert.equal(
       repairMojibake(spec.name),
       spec.name,

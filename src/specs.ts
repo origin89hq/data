@@ -3,7 +3,7 @@ import { englishWords, looksForeign, withoutRedundantTranslations } from "./lang
 import { normaliseModelName } from "./models.ts";
 import { repairMojibake } from "./text.ts";
 import { englishName } from "./translations.ts";
-import { looksTruncated, splitValueUnit, statesNothing } from "./units.ts";
+import { looksGarbled, looksTruncated, splitValueUnit, statesNothing } from "./units.ts";
 
 /** What a model reported reading out of a document, before anything checks it. */
 export interface ReportedSpec {
@@ -93,6 +93,8 @@ export interface SpecsFromResult {
   unmatched: string[];
   /** Figures refused because their value was a fragment of the JSON they were read out of. */
   truncated: string[];
+  /** Figures refused because their value carries a symbol the reader garbled. */
+  garbled: string[];
   /** Figures dropped because a multilingual document stated them again in another language. */
   repeated: number;
   /** Those rows, and the rows a document stated again under an id already taken, kept so a figure a person holds under one of their ids can still be compared with what the document said. */
@@ -111,6 +113,7 @@ export function specsFrom({
   const specs = new Map<string, Spec>();
   const unmatched: string[] = [];
   const truncated: string[] = [];
+  const garbled: string[] = [];
   const repeatedRows: Spec[] = [];
   for (const report of reports) {
     const model = matchModel(models, manufacturer, report.model);
@@ -134,6 +137,12 @@ export function specsFrom({
       // a figure. Refused rather than published with a caveat nobody can resolve.
       if (looksTruncated(cleanValue) || statesNothing(cleanValue)) {
         truncated.push(`${name} = ${cleanValue}`);
+        continue;
+      }
+      // Nor is a value carrying a symbol the reader garbled: "£8000 cycles" was "≥8000 cycles",
+      // and nothing in it says so (#145).
+      if (looksGarbled(cleanValue)) {
+        garbled.push(`${name} = ${cleanValue}`);
         continue;
       }
       const conditions = s.conditions?.trim() || undefined;
@@ -216,6 +225,7 @@ export function specsFrom({
     specs: [...specs.values()].sort((a, b) => a.id.localeCompare(b.id)),
     unmatched,
     truncated,
+    garbled,
     repeated: repeated.size,
     repeatedRows,
   };
