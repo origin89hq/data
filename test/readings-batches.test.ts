@@ -142,7 +142,8 @@ test("the figures pull writes through the guard that keeps a person's figures, a
   const source = readFileSync(new URL("../tools/gate/pull-specs.ts", import.meta.url), "utf8");
   assert.match(source, /pullWrites\(records\.specs, read, candidates\)/);
   assert.match(source, /for \(const spec of held\.write\) collected\.set/);
-  assert.match(source, /if \(heldByPerson\(spec\)\)/);
+  assert.match(source, /staleFigures\(records\.specs, \{ models: mine, produced, reread \}\)/);
+  assert.match(source, /for \(const spec of dryRun \? \[\] : staleSpecs\) \{\s*rmSync\(/);
 });
 
 test("the figures pull reads the translated editions it sets aside for comparison only, and cites documents by address", () => {

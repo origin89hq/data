@@ -19,6 +19,7 @@ import {
   pullWrites,
   type ReportedProduct,
   specsFrom,
+  staleFigures,
 } from "../../src/specs.ts";
 import { currentRun, jsonValues, object, PULLED_READERS, readingsOf } from "./archive.ts";
 import { creditedReadings, textKey } from "./retailer.ts";
@@ -67,6 +68,9 @@ const readings: {
     url: string;
     extractedBy?: string;
     products: (ReportedProduct & { specs: { page?: number }[] })[];
+    /** Windows the reader gave up on at its last attempt, so the reading is partial. */
+    failed?: number;
+    refused?: string;
   }[];
 } = { readings: [] };
 // A reading lives beside its document, so this run's readings are those of the documents it
@@ -258,13 +262,21 @@ for (const spec of collected.values()) {
 
 // A figure this run no longer produces has to go, or a refinement only ever adds. Tightening the
 // language rules stopped emitting a NOCO charger's capacity in two languages and both stayed on
-// disk anyway, because writing is not the same as replacing.
-let stale = 0;
+// disk anyway, because writing is not the same as replacing. Only a document this run read again
+// in full can take a figure back: a run can leave out most of what the records cite, and a partial
+// reading may have missed the window that stated it.
 let unread = 0;
+let notReread = 0;
 const mine = new Set(
   records.models.filter((m) => m.manufacturer === manufacturer).map((m) => m.id),
 );
 const produced = new Set(aligned.keep.map((spec) => spec.id));
+const reread = new Set(
+  everyReading
+    .filter((reading) => !reading.refused && !reading.failed)
+    .map((reading) => `doc-${reading.sha256.slice(0, 32)}`),
+);
+const staleSpecs = staleFigures(records.specs, { models: mine, produced, reread });
 for (const spec of records.specs) {
   if (!mine.has(spec.model) || produced.has(spec.id)) continue;
   // Only what this run is responsible for: a figure a person holds is not a run's to delete, and
@@ -272,20 +284,19 @@ for (const spec of records.specs) {
   if (heldByPerson(spec)) {
     // Read but dropped as a repeated translation is still read, and was compared above.
     if (!readIds.has(spec.id)) unread += 1;
-    continue;
-  }
-  if (dryRun) continue;
-  rmSync(join(RECORDS_DIR, "specs", `${spec.id}.json`), { force: true });
-  stale += 1;
+  } else if (!reread.has(spec.source)) notReread += 1;
 }
+for (const spec of dryRun ? [] : staleSpecs) {
+  rmSync(join(RECORDS_DIR, "specs", `${spec.id}.json`), { force: true });
+}
+const stale = dryRun ? 0 : staleSpecs.length;
 
 // A battery whose sheet or name states its chemistry gets it now, so its capacity can publish;
 // one whose cited figure this run dropped is read again from what is left, after the stale
 // figures are gone, so no model cites a figure that no longer exists.
+const staleIds = new Set(staleSpecs.map((spec) => spec.id));
 const surviving = [
-  ...records.specs.filter(
-    (s) => !collected.has(s.id) && (!mine.has(s.model) || produced.has(s.id) || heldByPerson(s)),
-  ),
+  ...records.specs.filter((s) => !collected.has(s.id) && !staleIds.has(s.id)),
   ...collected.values(),
 ];
 const chemistry = applyChemistry(
@@ -304,6 +315,8 @@ if (chemistry.set > 0 || chemistry.cleared > 0)
     `${chemistry.set} batteries given a chemistry, ${chemistry.cleared} lost one whose figure is gone`,
   );
 if (stale) console.log(`  ${stale} figures removed, which this run no longer produces`);
+if (notReread)
+  console.log(`  ${notReread} figures kept, from documents this run did not read in full`);
 if (held.agreed)
   console.log(
     `  ${held.agreed} figures a person holds were read again the same way and left as they are`,

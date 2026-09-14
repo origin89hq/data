@@ -72,6 +72,14 @@ jobs:
         if: steps.branch.outputs.skip == 'false'
         run: |
           if [ -n "$(git status --porcelain -- records)" ]; then echo "changed=true" >> "$GITHUB_OUTPUT"; else echo "changed=false" >> "$GITHUB_OUTPUT"; fi
+      # Check compares the coverage snapshot and the Worker's bundled maker list with the records, so
+      # a pull that moves a figure or a source moves both. They go in the pull request beside the
+      # records, where a reviewer reads what the pull did to coverage.
+      - name: Regenerate what is built from the records
+        if: steps.changed.outputs.changed == 'true'
+        run: |
+          just coverage-snapshot
+          just export-makers
       # The gate the merge would face. A pull request opened with this job's own token starts no
       # other workflow, so Check would never run on it: Check's own command runs here, before it opens.
       - name: Run what Check runs
@@ -88,7 +96,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -C "$BRANCH"
-          git add -- records
+          git add -- records test/fixtures/property-coverage.json apps/worker/manufacturers.json
           {
             echo "Figures the spider has read and records do not have yet, from every maker whose current run has finished converting. Merging publishes them."
             echo

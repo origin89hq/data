@@ -60,6 +60,10 @@ export const ENGLISH: Record<string, string> = {
   "CONSOMMATION D’ÉLECTRICITÉ": "Power consumption",
   "PLAGE DE TEMPÉRATURE DE CONGÉLATEUR": "Freezer temperature range",
   "PLAGE DE TEMPÉRATURE DE RÉFRIGÉRATEUR": "Refrigerator temperature range",
+  "HAUTEUR DE FLAMME MINIMUM": "Minimum flame height",
+  "TAUX D’ENTRÉE DU BRÛleUR": "Burner input rate",
+  "Profondeur maximale des armoires au-dessus de la surface de cuisson":
+    "Maximum depth of cabinets above the cooking surface",
 
   // Spanish
   "Diámetro del orificio del cable": "Cable entry diameter",

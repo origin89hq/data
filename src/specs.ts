@@ -322,3 +322,30 @@ export function pullWrites(
   const writable = new Set(held.write.map((spec) => spec.id));
   return { ...held, write: aligned.keep.filter((spec) => writable.has(spec.id)), aligned };
 }
+
+/**
+ * The figures a pull removes: a maker's figures that nobody holds, that the run no longer
+ * produces, and whose document the run read again. `reread` holds the source ids of those
+ * documents.
+ *
+ * A run holds only what its discovery offered and a person approved, which can leave out most of
+ * what the records cite: Champion's 2026-09-11 run fetched 20 of 253 documents offered, none of
+ * them the 58 its figures came from. Only a document read again can take back a figure it gave;
+ * one this run never read says nothing about it.
+ */
+export function staleFigures(
+  existing: readonly Spec[],
+  run: {
+    models: ReadonlySet<string>;
+    produced: ReadonlySet<string>;
+    reread: ReadonlySet<string>;
+  },
+): Spec[] {
+  return existing.filter(
+    (spec) =>
+      run.models.has(spec.model) &&
+      !run.produced.has(spec.id) &&
+      !heldByPerson(spec) &&
+      run.reread.has(spec.source),
+  );
+}
