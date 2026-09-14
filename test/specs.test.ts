@@ -102,6 +102,38 @@ test("an alias reaches the model, since a document often prints the part number"
   assert.equal(matchModel(models, "rolls-battery", "8 CS 27P")?.id, "rolls-battery-s-550");
 });
 
+test("a held name reaches its model with a maker's name in front or what it is behind, and a variant does not (#150)", () => {
+  const makers = ["Rolls Battery", "EPEver"];
+  assert.equal(
+    matchModel(models, "rolls-battery", "Rolls S-550", makers)?.id,
+    "rolls-battery-s-550",
+  );
+  assert.equal(
+    matchModel(models, "rolls-battery", "S-550 Battery", makers)?.id,
+    "rolls-battery-s-550",
+  );
+  assert.equal(
+    matchModel(models, "epever", "EPEver XTRA4210N Controller", makers)?.id,
+    "epever-xtra4210n",
+  );
+  assert.equal(
+    matchModel(models, "rolls-battery", "S-550 24V", makers),
+    undefined,
+    "a voltage behind the name is another product",
+  );
+  assert.equal(matchModel(models, "rolls-battery", "Rolls S-551", makers), undefined);
+  assert.equal(
+    matchModel(models, "rolls-battery", "Rolls S-550"),
+    undefined,
+    "without the makers' names nothing is taken off",
+  );
+  assert.equal(
+    matchModel(models, "epever", "Rolls S-550", makers),
+    undefined,
+    "what is left still has to be this maker's",
+  );
+});
+
 test("a figure with no name or no value is dropped rather than stored empty", () => {
   const { specs } = specsFrom({
     ...base,
