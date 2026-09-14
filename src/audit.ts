@@ -193,11 +193,12 @@ export function auditMappings(records: Records, built: Pick<PropertiesOutput, "c
         `model ${model.id} is filed as an inverter but prints a charger's output, "${charger.name}"; an inverter/charger's keys would read it`,
       );
   }
-  // A generator that prints no watts and no AC voltage, or a pump no flow, head, pressure or
-  // horsepower, is most often something else filed under that kind: a bare engine, a transfer
-  // switch, a filter cartridge. Four such turned up in one review.
+  // A generator that prints no watts, or a pump no flow, head, pressure or horsepower, is most
+  // often something else filed under that kind: a bare engine, a transfer switch, a filter
+  // cartridge. A voltage alone is no output, since a switch prints the voltage it switches, and
+  // an engine's horsepower is not a generator's power. Ten such turned up in one review.
   const OUTPUT: Partial<Record<string, RegExp>> = {
-    generator: /watt|\bkw\b|power|volts?\s*ac|ac\s*volts?|rated voltage|puissance|potencia/i,
+    generator: /watt|\bkw\b|(?<!horse)power(?!\s*factor)|puissance|potencia/i,
     pump: /flow|gpm|lpm|head|lift|psi|pressure|\bhp\b|horsepower|capacity/i,
   };
   for (const model of records.models) {
