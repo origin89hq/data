@@ -2,7 +2,12 @@
   "id": "champion-power-201177",
   "manufacturer": "champion-power",
   "name": "201177",
-  "aliases": [],
+  "kind": "generator",
+  "aliases": [
+    "R420N-VP"
+  ],
   "dialects": [],
-  "kind": "generator"
+  "basis": "Its manual names the engine R420N-VP in its own table, and the reader filed that table under the engine's designation as a product; the tank, dimensions and weight there are this generator's, so the designation is an alias and the figures are moved here.",
+  "checkedAt": "2026-09-14",
+  "reviewedBy": "lemarier"
 }

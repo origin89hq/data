@@ -2,7 +2,12 @@
   "id": "champion-power-201076",
   "manufacturer": "champion-power",
   "name": "201076",
-  "aliases": [],
+  "kind": "generator",
+  "aliases": [
+    "YF172FD-L_G"
+  ],
   "dialects": [],
-  "kind": "generator"
+  "basis": "Its manual names the engine YF172FD-L_G in its own table, and the reader filed that table under the engine's designation as a product; the tank, dimensions and weight there are this generator's, so the designation is an alias and the figures are moved here.",
+  "checkedAt": "2026-09-14",
+  "reviewedBy": "lemarier"
 }

@@ -730,12 +730,20 @@ test("Champion: a generator's starting and running watts from one cell, by fuel,
   for (const other of [
     "champion-power-224cc-ohv-cpe",
     "champion-power-r210p",
-    "champion-power-yf172fd-l-g",
-    "champion-power-r420n-vp",
     "champion-power-201020",
     "champion-power-201039",
   ])
     assert.equal(of(other).properties.length, 0, other);
+  // The YF172FD and R420N tables were the 201076's and 201177's own manuals naming their engines:
+  // the designations are aliases now and the tanks are the generators'.
+  assert.deepEqual(
+    values(of("champion-power-201076").properties, "generator.fuel.tank").map((p) => p.value),
+    [17.79143538],
+  );
+  assert.deepEqual(
+    values(of("champion-power-201177").properties, "generator.fuel.tank").map((p) => p.value),
+    [20.17624481],
+  );
   // Victron's Skylla-TG prints 'Battery capacity' as the banks it is for; that is Victron's own rule.
   const skylla = values(of("victron-energy-skylla-tg-48-25").properties, "charge.battery.capacity");
   assert.deepEqual(
@@ -757,7 +765,7 @@ test("Champion: a generator's starting and running watts from one cell, by fuel,
   );
 });
 
-test("Pentair: a plunger pump's pressure in bar and its horsepower in watts, a fractional horsepower, a bare 'Flow rate' under its own rule, and the MES sheet's 'Capacity' read on that sheet only", () => {
+test("Pentair: a plunger pump's pressure in bar and its horsepower in watts, a fractional horsepower, a bare 'Flow rate' under its own rule, the MES sheet's 'Capacity' read on that sheet only, and the filters out of scope", () => {
   const plunger = of("pentair-ma-240l-hd");
   assert.deepEqual(
     values(plunger.properties, "pump.pressure.max").map((p) => [p.value, p.unit]),
@@ -767,10 +775,8 @@ test("Pentair: a plunger pump's pressure in bar and its horsepower in watts, a f
     values(of("pentair-ma-15h").properties, "pump.power.rated").map((p) => [p.value, p.unit]),
     [[11185.49807, "W"]],
   );
-  assert.deepEqual(
-    values(of("pentair-ev9337-44").properties, "pump.flow.rated").map((p) => p.value),
-    [50.57310143],
-  );
+  // The Everpure filters that printed a service flow are reviewed out of scope: a cartridge moves no water.
+  assert.equal(of("pentair-ev9337-44").properties.length, 0);
   // '1/2' under 'HP' and '4/10' under 'Motor HP' are fractions of a horsepower, not two figures.
   assert.deepEqual(
     values(of("pentair-ms50pt").properties, "pump.power.rated").map((p) => [p.value, p.unit]),
@@ -807,11 +813,8 @@ test("Pentair: a plunger pump's pressure in bar and its horsepower in watts, a f
     [238.4809424],
   );
   assert.ok(own("pentair", mes));
-  // On a filter sheet 'Capacity' is gallons of service life, which the source-scoped rule leaves alone: the 7FC5-S's flow is its service flow only.
-  assert.deepEqual(
-    values(of("pentair-7fc5-s").properties, "pump.flow.rated").map((p) => [p.value, p.claim]),
-    [[9.46352946, "pentair-7fc5-s--service-flow-rate"]],
-  );
+  // On a filter sheet 'Capacity' is gallons of service life, which the source-scoped rule leaves alone.
+  assert.equal(of("pentair-7fc5-s").properties.length, 0);
   // The HPGR200 is a grinder pump filed as a generator: reviewed as a pump, its 'Full Load kW' is
   // its motor's load and reads under no generator key, and its 2 HP reads under the pump's.
   assert.equal(values(of("pentair-hpgr200").properties, "generator.power.running").length, 0);

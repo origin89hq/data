@@ -14,13 +14,6 @@
     {
       "key": "pump.flow.rated",
       "names": [
-        "Service Flow Rate"
-      ],
-      "basis": "The Everpure and Fleck sheets state the flow the unit is rated for service at, '2.5 gpm (9.5 Lpm)'."
-    },
-    {
-      "key": "pump.flow.rated",
-      "names": [
         "Capacity"
       ],
       "source": "doc-ad2e30f8ee91e3c766fd0928469628a1",

@@ -1,9 +1,8 @@
 {
-  "id": "champion-power-yf172fd-l-g--frequency",
-  "model": "champion-power-yf172fd-l-g",
-  "name": "Frequency",
-  "value": "60",
-  "unit": "Hz",
+  "id": "champion-power-201076--type",
+  "model": "champion-power-201076",
+  "name": "Type",
+  "value": "4-Stroke OHV",
   "source": "doc-eb2419b2599e4c852b226ccf4a18659e",
   "page": 30,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",

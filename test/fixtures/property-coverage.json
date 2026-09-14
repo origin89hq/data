@@ -7,7 +7,7 @@
       "needsConditions": 0
     },
     "champion-power": {
-      "values": 103,
+      "values": 105,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0
@@ -67,7 +67,7 @@
       "needsConditions": 13
     },
     "pentair": {
-      "values": 63,
+      "values": 58,
       "conflicts": 0,
       "unparsed": 3,
       "needsConditions": 0
@@ -289,12 +289,12 @@
     },
     "generator.fuel.tank generator": {
       "models": 114,
-      "values": 8,
+      "values": 10,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0,
-      "noClaim": 106
+      "noClaim": 104
     },
     "generator.power.running generator": {
       "models": 114,
@@ -468,8 +468,8 @@
       "noClaim": 169
     },
     "pump.flow.rated pump": {
-      "models": 95,
-      "values": 17,
+      "models": 90,
+      "values": 12,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
@@ -477,31 +477,31 @@
       "noClaim": 78
     },
     "pump.head.max pump": {
-      "models": 95,
+      "models": 90,
       "values": 4,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 2,
       "needsConditions": 0,
-      "noClaim": 89
+      "noClaim": 84
     },
     "pump.power.rated pump": {
-      "models": 95,
+      "models": 90,
       "values": 17,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0,
-      "noClaim": 78
+      "noClaim": 73
     },
     "pump.pressure.max pump": {
-      "models": 95,
+      "models": 90,
       "values": 15,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 1,
       "needsConditions": 0,
-      "noClaim": 79
+      "noClaim": 74
     },
     "pv.isc.max charge-controller": {
       "models": 610,
