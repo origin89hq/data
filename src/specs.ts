@@ -3,7 +3,14 @@ import { englishWords, looksForeign, withoutRedundantTranslations } from "./lang
 import { coreName, normaliseModelName } from "./models.ts";
 import { repairMojibake } from "./text.ts";
 import { englishName } from "./translations.ts";
-import { looksGarbled, looksTruncated, splitValueUnit, statesNothing } from "./units.ts";
+import {
+  canonicalUnit,
+  looksGarbled,
+  looksTruncated,
+  QUANTITY_OF,
+  splitValueUnit,
+  statesNothing,
+} from "./units.ts";
 
 /** What a model reported reading out of a document, before anything checks it. */
 export interface ReportedSpec {
@@ -42,13 +49,15 @@ export function splitUnit(name: string, unit: string | undefined): { name: strin
 
 /** A stable id for a figure, so re-running an extraction rewrites rows rather than piling up duplicates. */
 export function specId(modelId: string, name: string, conditions?: string): string {
-  const slug = [name, conditions ?? ""]
-    .join(" ")
+  return `${modelId}--${slug(`${name} ${conditions ?? ""}`)}`.slice(0, 160).replace(/-+$/, "");
+}
+
+/** Text as an id spells it: lower case, with every run of anything but letters and digits one hyphen. */
+const slug = (text: string): string =>
+  text
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
-  return `${modelId}--${slug}`.slice(0, 160).replace(/-+$/, "");
-}
 
 /** Compare two names the way a person would: ignoring case, spacing and the punctuation between parts. */
 export function sameName(a: string, b: string): boolean {
@@ -370,3 +379,82 @@ export function staleFigures(
       run.reread.has(spec.source),
   );
 }
+
+/** An id a run gave a figure with its unit in it, because it read the same name in another unit. */
+export interface UnitSplit {
+  /** The id the model, name and conditions make, and the unit of the figure that keeps it. */
+  id: string;
+  unit: string;
+  /** The id the figure in the other unit is written under instead, and that unit. */
+  splitId: string;
+  splitUnit: string;
+}
+
+/**
+ * Keep one name the documents print in two units as two figures. The id is the model, the name and
+ * the conditions, so Victron's "Cont. output power at 25 °C" at 1600 W in one brochure and 2000 VA
+ * in another was one id, and the later brochure's figure replaced the other (#147). Those are two
+ * ratings. `read` is every figure a pull would write, in the order it read them, and `place` gives
+ * each one the id it is written under: its own, or, in the other unit, its own with the unit added.
+ *
+ * Two units are two ratings when they measure two quantities: W and VA are real and apparent power.
+ * "Wp" and "Watts" are W spelled another way and kW is W at another scale, so those stay one figure,
+ * where a later reading corrects an earlier one as it always did. A unit this repository cannot name
+ * could be either, so like a figure with no unit it splits nothing and keeps the plain id.
+ *
+ * The plain id stays with the quantity the records already hold under it, so a figure does not move
+ * from one id to the other between runs, and a run that read only the other brochure gives its
+ * figure an id of its own rather than writing over the one held. With nothing held there, the plain
+ * id goes to the first quantity read. A unit that already has an id of its own goes back to it.
+ *
+ * `splits` names only the ids a run gives out that the records do not hold yet, which is what a
+ * reviewer reading the diff needs told: an added figure, not a changed one.
+ */
+export function keepUnitsApart(
+  existing: readonly Spec[],
+  read: readonly Spec[],
+): { place: (spec: Spec) => Spec; splits: UnitSplit[] } {
+  const held = new Map(existing.map((spec) => [spec.id, spec]));
+  const quantityOf = (unit: string | undefined): string | undefined => {
+    const canonical = canonicalUnit(unit);
+    return canonical ? QUANTITY_OF[canonical] : undefined;
+  };
+  const unitsRead = new Map<string, string[]>();
+  for (const { id, unit } of read) {
+    if (!unit || !quantityOf(unit)) continue;
+    const units = unitsRead.get(id) ?? [];
+    if (!units.includes(unit)) unitsRead.set(id, [...units, unit]);
+  }
+  const moved = new Map<string, Map<string, string>>();
+  const splits: UnitSplit[] = [];
+  for (const [id, units] of unitsRead) {
+    const own = (unit: string) => `${id}-${unitSlug(canonicalUnit(unit) ?? unit)}`;
+    const housed = (unit: string) => quantityOf(held.get(own(unit))?.unit) === quantityOf(unit);
+    const heldUnit = held.get(id)?.unit;
+    const plain = quantityOf(heldUnit) ? heldUnit : units.find((unit) => !housed(unit));
+    const to = new Map<string, string>();
+    for (const unit of units) {
+      if (!housed(unit) && quantityOf(unit) === quantityOf(plain)) continue;
+      to.set(unit, own(unit));
+      if (plain !== undefined && !housed(unit))
+        splits.push({ id, unit: plain, splitId: own(unit), splitUnit: unit });
+    }
+    if (to.size > 0) moved.set(id, to);
+  }
+  return {
+    place: (spec) => {
+      const id = spec.unit === undefined ? undefined : moved.get(spec.id)?.get(spec.unit);
+      return id ? { ...spec, id } : spec;
+    },
+    splits,
+  };
+}
+
+/**
+ * A unit as the end of an id spells it. "%" and "Ω" are nothing but a symbol the slug drops, and
+ * "m²" would read as "m", so those are written out.
+ */
+const unitSlug = (unit: string): string =>
+  slug(
+    unit.replace(/%/g, " percent ").replace(/Ω/g, " ohm ").replace(/²/g, "2").replace(/³/g, "3"),
+  );
