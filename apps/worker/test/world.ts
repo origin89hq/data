@@ -7,6 +7,7 @@ export interface TestAiInput {
     content: string | { type: string; text?: string; image_url?: { url: string } }[];
   }[];
   response_format: { json_schema: { name: string; schema: unknown } };
+  max_tokens?: number;
   chat_template_kwargs: { thinking: boolean };
 }
 

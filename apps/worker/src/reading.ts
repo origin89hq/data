@@ -61,7 +61,9 @@ CHEMISTRY. For a battery, report its chemistry as a figure named "Chemistry" wit
 
 THE MAKER'S OWN RATINGS. The message starts with the maker whose document this is. Report the ratings of that maker's own products only. Its documents also print what is not a rating of its products: settings it recommends for another company's battery, inverter or charger; values drawn on a screen, display or app in an illustration; the results of a worked example, a test or a demonstration; and the figures of another company's products listed beside its own. Leave those out.
 
-Do not report prices, warranty periods, part numbers, packaging weights, ordering codes or marketing claims.`;
+Do not report prices, warranty periods, part numbers, packaging weights, ordering codes or marketing claims.
+
+ANSWER. Reply with JSON only, no prose: {"products":[{"model":"...","specs":[{"name":"...","value":"...","unit":"...","conditions":"..."}]}]}. Leave out a unit or conditions the text does not give.`;
 
 /** A name that describes a line of products rather than one of them. */
 const SERIES = /\b(series|family|range|line-?up)\b/i;
@@ -89,7 +91,7 @@ export function statesOneFigure(value: string): boolean {
   return numbers.length < 2 || !JOINER.test(text);
 }
 
-/** The answer every reader gives, differing only in which fields of a figure it must fill. */
+/** The answer the page reader is held to, with the fields of a figure it must fill. */
 function figuresSchema(figureRequired: string[]) {
   return {
     type: "object",
@@ -121,8 +123,6 @@ function figuresSchema(figureRequired: string[]) {
     required: ["products"],
   };
 }
-
-export const RESPONSE_SCHEMA = figuresSchema(["name", "value"]);
 
 /** One window of a document, and the page it starts on. */
 export interface Window {
