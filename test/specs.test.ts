@@ -765,7 +765,7 @@ test("a model a pull minted is written only when a figure it writes cites it (#1
   );
 });
 
-test("a name reaches a held model past the region it is sold in or a line's words before its part number (#150)", () => {
+test("a name reaches a held model past a line's words before its part number, and not past a region (#150, #172)", () => {
   const held = (name: string) => ({
     id: `m-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
     manufacturer: "m",
@@ -777,7 +777,6 @@ test("a name reaches a held model past the region it is sold in or a line's word
     held("XC450"),
     held("OMNIFilter OM26K"),
     held("Fusion4Home Max"),
-    held("Fusion4Home Max (US and Canada)"),
     held("Freedom XC 1800"),
     held("VFXR3524A-01"),
     held("MPPT 100/30"),
@@ -788,9 +787,9 @@ test("a name reaches a held model past the region it is sold in or a line's word
   assert.equal(reach("Xtreme Charge XC450"), "XC450");
   assert.equal(reach("OM26K"), "OMNIFilter OM26K", "the other way round too");
   assert.equal(
-    reach("Fusion4Home Max (E.-U.)"),
-    "Fusion4Home Max",
-    "the bare name wins over another region",
+    reach("Fusion4Home Max (Canada)"),
+    undefined,
+    "a region is part of the name until a model records it (#172)",
   );
   assert.equal(
     reach("Freedom XC 1800 (12VDC)"),
