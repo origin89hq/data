@@ -10,12 +10,14 @@ import {
   deriveModels,
   familyOf,
   familyOfAnotherMaker,
+  lineCode,
   looksLikeModelName,
   mintRefusal,
   modelId,
   normaliseModelName,
   preferredName,
   productKey,
+  withoutRegion,
 } from "../src/models.ts";
 
 const brands: Brand[] = [
@@ -488,4 +490,27 @@ test("an underscore or a pipe inside a part number, and a name with a word besid
     "S-550",
   ])
     assert.equal(mintRefusal(name, ["Rolls Battery"]), undefined, name);
+});
+
+test("a region a product is sold in, and a product line's words before its part number, are set apart (#150)", () => {
+  assert.equal(withoutRegion("Fusion4Home Max (US and Canada)"), "Fusion4Home Max");
+  assert.equal(withoutRegion("Fusion4Home 3.0 / 3.1 (E.-U.)"), "Fusion4Home 3.0 / 3.1");
+  assert.equal(withoutRegion("DWA4-09KR2(US)"), "DWA4-09KR2");
+  assert.equal(
+    withoutRegion("Freedom XC 1800 (12VDC)"),
+    "Freedom XC 1800 (12VDC)",
+    "a voltage is not a region",
+  );
+  assert.equal(withoutRegion("F-10A(5PK)"), "F-10A(5PK)", "and neither is a pack size");
+  assert.equal(lineCode("Xtreme Charge XC450"), "XC450");
+  assert.equal(lineCode("OMNIFilter OM26K"), "OM26K");
+  assert.equal(lineCode("XC450"), undefined, "a code alone has no line in front of it");
+  assert.equal(
+    lineCode("FP1 VFXR3524A-01"),
+    undefined,
+    "a word with a digit in front names a system",
+  );
+  assert.equal(lineCode("SmartSolar MPPT 100/30"), undefined, "a rating is not a code");
+  assert.equal(lineCode("Lithium 12V"), undefined, "nor is a measurement");
+  assert.equal(lineCode("Genius5 Charger"), undefined, "the code has to come last");
 });

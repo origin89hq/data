@@ -114,6 +114,33 @@ const bareWord = (word: string): string =>
   word.toLowerCase().replace(/^[^a-z0-9]+|[^a-z0-9/]+$/g, "");
 
 /**
+ * A region a maker's name for a product ends with, which sells the same product somewhere else:
+ * SureCall's "Fusion4Home Max (US and Canada)" is its Fusion4Home Max, and "(E.-U.)" is the French
+ * edition's "(US)" (#150). A voltage or a pack size in brackets tells products apart and stays.
+ */
+const REGION = /\s*\((?:US|USA|Canada|US and Canada|[EÉ]\.-U\.)\)$/i;
+
+/** A name without the region it ends with, or the name as it is when it ends with none. */
+export function withoutRegion(name: string): string {
+  return normaliseModelName(name).replace(REGION, "");
+}
+
+/**
+ * The part number a name ends with after words of a product line: "XC450" in PulseTech's "Xtreme
+ * Charge XC450" and "OM26K" in Pentair's "OMNIFilter OM26K", so both spellings reach one model
+ * (#150). Only a single code of letters and digits counts, after words with no digit in them:
+ * OutBack's "FP1 VFXR3524A-01" is a system built around the inverter, "MPPT 100/30" ends in a
+ * rating rather than a code, and "Lithium 12V" in a measurement.
+ */
+export function lineCode(name: string): string | undefined {
+  const words = normaliseModelName(name).split(" ");
+  const code = words.at(-1) ?? "";
+  if (words.length < 2 || words.slice(0, -1).some((word) => /\d/.test(word))) return undefined;
+  if (!/[A-Za-z]/.test(code) || !/\d/.test(code) || MEASUREMENT.test(code)) return undefined;
+  return code;
+}
+
+/**
  * A product name with a maker's name taken off the front and words that say what the thing is
  * taken off the end: "IOTA ILBLP CP15 HE SD" is ILBLP CP15 HE SD, "MS2000 Inverter/Charger" is
  * MS2000 and "XPLORE 120/12 Battery Charger" is XPLORE 120/12 (#150). Nothing when neither is
