@@ -1,0 +1,93 @@
+{
+  "id": "emporia",
+  "rejections": [
+    {
+      "source": "doc-e44cae2a6b8535ee6806ff6f5600735d",
+      "model": "emporia-emv3a",
+      "name": "Altitude",
+      "reason": "Part of one \"Operating conditions\" value; the name given is not printed.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-e44cae2a6b8535ee6806ff6f5600735d",
+      "model": "emporia-emv3a",
+      "name": "Relative Humidity",
+      "reason": "Part of one \"Operating conditions\" value; the name given is not printed.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-e44cae2a6b8535ee6806ff6f5600735d",
+      "model": "emporia-emv3ct2-a",
+      "name": "Altitude",
+      "reason": "Part of one \"Operating conditions\" value; the name given is not printed.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-e44cae2a6b8535ee6806ff6f5600735d",
+      "model": "emporia-emv3ct2-a",
+      "name": "Relative Humidity",
+      "reason": "Part of one \"Operating conditions\" value; the name given is not printed.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-e44cae2a6b8535ee6806ff6f5600735d",
+      "model": "emporia-emv3ct5-a",
+      "name": "Altitude",
+      "reason": "Part of one \"Operating conditions\" value; the name given is not printed.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-e44cae2a6b8535ee6806ff6f5600735d",
+      "model": "emporia-emv3ct5-a",
+      "name": "Relative Humidity",
+      "reason": "Part of one \"Operating conditions\" value; the name given is not printed.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-d6210a1a6a0c21eccfa4994aaa7831e4",
+      "model": "emporia-200a-current-transformer",
+      "name": "Diameter",
+      "reason": "Printed \"Inside diameter\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-d6210a1a6a0c21eccfa4994aaa7831e4",
+      "model": "emporia-200a-current-transformer",
+      "name": "Length",
+      "reason": "Printed \"Cable length\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-e44cae2a6b8535ee6806ff6f5600735d",
+      "model": "emporia-emv3a",
+      "name": "Operating temperature",
+      "reason": "Part of one \"Operating conditions\" value; the name given is not printed.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-e44cae2a6b8535ee6806ff6f5600735d",
+      "model": "emporia-emv3ct2-a",
+      "name": "Operating temperature",
+      "reason": "Part of one \"Operating conditions\" value; the name given is not printed.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-e44cae2a6b8535ee6806ff6f5600735d",
+      "model": "emporia-emv3ct5-a",
+      "name": "Operating temperature",
+      "reason": "Part of one \"Operating conditions\" value; the name given is not printed.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    }
+  ]
+}

@@ -40,6 +40,22 @@
       "reason": "The sheet lists the ranges on lines apart from their labels, and this row took the neighbouring range; which range is whose cannot be read with certainty.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-d1bc52bc0bb701566219e695af1d35bf",
+      "model": "epever-mt-50",
+      "name": "Frame dimensions",
+      "reason": "Printed \"114×114\", not 114×144.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-2d695956cc975642e593ea057a5d4f1a",
+      "model": "epever-mt11",
+      "name": "Dimension",
+      "reason": "Printed \"114×114\", not 114×144.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
     }
   ]
 }

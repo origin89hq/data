@@ -48,6 +48,22 @@
       "reason": "The sheet prints a 30 A and a 50 A main breaker for one model column; the figure kept one service as if it were this model alone.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-2e9bfa1b129f68b2fa6491f42fde9209",
+      "model": "powermax-converters-pmts-30",
+      "name": "Momentary current delivery",
+      "reason": "A sentence, not a label: \"rated for use on a circuit capable of momentarily delivering not more than\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-2e9bfa1b129f68b2fa6491f42fde9209",
+      "model": "powermax-converters-pmts-50",
+      "name": "Momentary current delivery",
+      "reason": "A sentence, not a label: \"rated for use on a circuit capable of momentarily delivering not more than\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
     }
   ]
 }

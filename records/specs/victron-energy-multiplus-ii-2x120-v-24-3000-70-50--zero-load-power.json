@@ -2,10 +2,12 @@
   "id": "victron-energy-multiplus-ii-2x120-v-24-3000-70-50--zero-load-power",
   "model": "victron-energy-multiplus-ii-2x120-v-24-3000-70-50",
   "name": "Zero load power",
-  "value": "15",
+  "value": "11",
   "unit": "W",
   "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
-  "page": 56,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-15",
+  "page": 57,
   "confidence": "vendor-doc"
 }

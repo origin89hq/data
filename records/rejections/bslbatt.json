@@ -94,6 +94,14 @@
       "reason": "The value is the 200E pack weight in kg, read from columns the conversion ran together; the discharge voltage cannot be placed from the text.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-312d59747a89e6e2100273078883892e",
+      "model": "bslbatt-b-lfp48-460mh",
+      "name": "Rated voltage",
+      "reason": "Printed \"Ratings: 51.2V, 460Ah, 23552Wh\"; no rated voltage label.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
     }
   ]
 }

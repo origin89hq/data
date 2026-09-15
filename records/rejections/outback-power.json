@@ -80,6 +80,14 @@
       "reason": "The 85% is a reading drawn on the example Home screen illustration; the guide prints no efficiency.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-9ad2253f663deb28090828e648601ec8",
+      "model": "outback-power-flexmax-60",
+      "name": "PV array voltage",
+      "reason": "Prose, \"must never exceed 150 Voc\", repeating the rated \"PV Open Circuit Voltage (Voc) 150 Vdc maximum\" held under its own name.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
     }
   ]
 }

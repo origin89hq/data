@@ -1,0 +1,37 @@
+{
+  "id": "pentair",
+  "rejections": [
+    {
+      "source": "doc-6117fcfac8021a4804b25fd05035dafe",
+      "model": "pentair-blfc",
+      "name": "Flow rate",
+      "reason": "BLFC is a brine line flow control sold in four sizes, parts 60022-12, 60022-25, 60022-50 and 60022-100, from .125 to 1.0 gpm; 12.5 gpm is not printed and the name covers all four.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-a05d04ac4987139b1e825e769688c178",
+      "model": "pentair-om40k",
+      "name": "Capacité nominale",
+      "reason": "The table gives OM34K's cells \"15,095 @ 3 4\" and \"34,433 @ 16 7\" before OM40K's \"18,143 @ 4 12\" and \"41,386 @ 20 0\"; 34,433 grains is OM34K's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-b6da8052bcdf2554963aaa6754e5cd09",
+      "model": "pentair-shurflo-4008",
+      "name": "Maximum operating pressure",
+      "reason": "A by-pass setting, not a maximum: the by-pass \"is set to begin opening at about 40 psi\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-b60d32dd0dd95ddce71ef6c3ff760f52",
+      "model": "pentair-blfc-assy-3-8",
+      "name": "Flow rate",
+      "reason": "Five parts share the name, \"BLFC Assy 3/8\", Blank\" to \"1.0 GPM\"; 1.0 GPM is part 61450-100 only.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    }
+  ]
+}

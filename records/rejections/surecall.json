@@ -136,6 +136,22 @@
       "reason": "The sheet prints a maximum gain for each of five bands; the figure kept one band as the model s maximum gain.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-a7eca80ce1a1b083afcd2d223e60e0d6",
+      "model": "surecall-sc-ac-59v28a-b",
+      "name": "Output Current",
+      "reason": "No label: \"AC adapter power cable (5.9V/2.8A)\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-a7eca80ce1a1b083afcd2d223e60e0d6",
+      "model": "surecall-sc-ac-59v28a-b",
+      "name": "Output Voltage",
+      "reason": "No label: \"AC adapter power cable (5.9V/2.8A)\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
     }
   ]
 }

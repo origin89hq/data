@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america",
+  "rejections": [
+    {
+      "product": "IONSEC-1223BBM",
+      "reason": "Text run together, \"DESCRIPTIONSEC-1223BBM\": the product is SEC-1223BBM, held as samlex-america-sec-1223bbm.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    }
+  ]
+}

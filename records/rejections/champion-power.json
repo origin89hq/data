@@ -1,0 +1,13 @@
+{
+  "id": "champion-power",
+  "rejections": [
+    {
+      "source": "doc-cbccbf3d3675f4a6c35d87badbad22c8",
+      "model": "champion-power-100428",
+      "name": "Unit",
+      "reason": "A unit pair read as a figure: the manual prints \"3,500 lb. (1,588 kg)\", and the value given is only its units, lb. and kg, without the numbers.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    }
+  ]
+}

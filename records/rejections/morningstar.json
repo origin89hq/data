@@ -98,6 +98,12 @@
       "reason": "The 23 °C is the heat sink temperature rise in the whitepaper's sample calculation, not a rating.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-14"
+    },
+    {
+      "product": "SS-6-12V1",
+      "reason": "The label \"SS-6-12V\" followed by the figure's first callout number: the product is SS-6-12V, held as morningstar-ss-6-12v.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
     }
   ]
 }

@@ -70,6 +70,366 @@
       "reason": "The 1.5 A is the discharge current that raises error #36 while ATD is disabled, not a discharge current rating.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
+      "model": "victron-energy-12-2000-80",
+      "name": "Charge current house battery",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
+      "model": "victron-energy-12-2000-80",
+      "name": "Charge current house battery",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
+      "model": "victron-energy-12-2000-80",
+      "name": "Maximum efficiency",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
+      "model": "victron-energy-12-2000-80",
+      "name": "Maximum efficiency",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
+      "model": "victron-energy-12-2000-80",
+      "name": "Zero load power in AES mode",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
+      "model": "victron-energy-12-2000-80",
+      "name": "Zero load power in AES mode",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
+      "model": "victron-energy-12-2000-80",
+      "name": "Zero load power in Search mode",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
+      "model": "victron-energy-12-2000-80",
+      "name": "Zero load power in Search mode",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
+      "model": "victron-energy-12-2000-80",
+      "name": "Zero load power",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
+      "model": "victron-energy-12-2000-80",
+      "name": "Zero load power",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
+      "model": "victron-energy-24-3000-70",
+      "name": "Charge current house battery",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
+      "model": "victron-energy-24-3000-70",
+      "name": "Charge current house battery",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
+      "model": "victron-energy-24-3000-70",
+      "name": "Charge voltage 'absorption'",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
+      "model": "victron-energy-24-3000-70",
+      "name": "Charge voltage 'absorption'",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
+      "model": "victron-energy-24-3000-70",
+      "name": "Charge voltage 'float'",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
+      "model": "victron-energy-24-3000-70",
+      "name": "Charge voltage 'float'",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
+      "model": "victron-energy-24-3000-70",
+      "name": "Maximum efficiency",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
+      "model": "victron-energy-24-3000-70",
+      "name": "Maximum efficiency",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
+      "model": "victron-energy-24-3000-70",
+      "name": "Storage mode",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
+      "model": "victron-energy-24-3000-70",
+      "name": "Storage mode",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
+      "model": "victron-energy-24-3000-70",
+      "name": "Zero load power in AES mode",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
+      "model": "victron-energy-24-3000-70",
+      "name": "Zero load power in AES mode",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
+      "model": "victron-energy-24-3000-70",
+      "name": "Zero load power in Search mode",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
+      "model": "victron-energy-24-3000-70",
+      "name": "Zero load power in Search mode",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
+      "model": "victron-energy-24-3000-70",
+      "name": "Zero load power",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
+      "model": "victron-energy-24-3000-70",
+      "name": "Zero load power",
+      "reason": "One cell prints several models' values joined by slashes, as the Marine brochure's MultiPlus table does: \"Charge current house battery (4) 20 / 10 / 6 A 35 / 16 / 9 A 50 / 25 / 13 A 70 / 40 / 20 A 80 / 50/ 25 A\". The bare name is shared by 120 V, 230 V and Compact MultiPlus models with different figures, so no one value belongs to this record.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
+      "model": "victron-energy-inverter-rs-smart-solar-48-6000",
+      "name": "Charge voltage 'absorption'",
+      "reason": "Printed as a default setting, not a rating: \"Default setting: 57,6 V (adjustable)\" and \"Default setting: 55,2 V (adjustable)\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-2375e9a6ed181d8a7987453c98e92412",
+      "model": "victron-energy-inverter-rs-smart-solar-48-6000",
+      "name": "Charge voltage 'absorption'",
+      "reason": "Printed as a default setting, not a rating: \"Default setting: 57,6 V (adjustable)\" and \"Default setting: 55,2 V (adjustable)\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
+      "model": "victron-energy-inverter-rs-smart-solar-48-6000",
+      "name": "Charge voltage 'float'",
+      "reason": "Printed as a default setting, not a rating: \"Default setting: 57,6 V (adjustable)\" and \"Default setting: 55,2 V (adjustable)\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-2375e9a6ed181d8a7987453c98e92412",
+      "model": "victron-energy-inverter-rs-smart-solar-48-6000",
+      "name": "Charge voltage 'float'",
+      "reason": "Printed as a default setting, not a rating: \"Default setting: 57,6 V (adjustable)\" and \"Default setting: 55,2 V (adjustable)\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
+      "model": "victron-energy-inverter-rs-smart-solar-48-6000",
+      "name": "Low Battery restart",
+      "reason": "An adjustable setting printed beside the default charge voltages (\"Default setting: 57,6 V (adjustable)\"), not a rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-2375e9a6ed181d8a7987453c98e92412",
+      "model": "victron-energy-inverter-rs-smart-solar-48-6000",
+      "name": "Low Battery restart",
+      "reason": "An adjustable setting printed beside the default charge voltages (\"Default setting: 57,6 V (adjustable)\"), not a rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
+      "model": "victron-energy-inverter-rs-smart-solar-48-6000",
+      "name": "Low Battery shutdown",
+      "reason": "An adjustable setting printed beside the default charge voltages (\"Default setting: 57,6 V (adjustable)\"), not a rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-2375e9a6ed181d8a7987453c98e92412",
+      "model": "victron-energy-inverter-rs-smart-solar-48-6000",
+      "name": "Low Battery shutdown",
+      "reason": "An adjustable setting printed beside the default charge voltages (\"Default setting: 57,6 V (adjustable)\"), not a rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
+      "model": "victron-energy-mppt-150-70-ve-can",
+      "name": "Charge voltage 'absorption'",
+      "reason": "Printed as a default setting for four battery voltages at once: \"Default setting: 14,4 / 28,8 / 43,2 / 57,6 V\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
+      "model": "victron-energy-mppt-150-70-ve-can",
+      "name": "Charge voltage 'float'",
+      "reason": "Printed as a default setting for four battery voltages at once: \"Default setting: 14,4 / 28,8 / 43,2 / 57,6 V\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
+      "model": "victron-energy-multiplus-ii-2x120-v-12-3000-120-50",
+      "name": "External AC current sensor",
+      "reason": "\"External AC current sensor (optional) 100 A\" rates an optional accessory, not the inverter/charger.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
+      "model": "victron-energy-multiplus-ii-2x120-v-12-3000-120-50",
+      "name": "External AC current sensor",
+      "reason": "\"External AC current sensor (optional) 100 A\" rates an optional accessory, not the inverter/charger.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
+      "model": "victron-energy-multiplus-ii-2x120-v-24-3000-70-50",
+      "name": "AC Input",
+      "reason": "The value keeps only the split-phase range; the table also prints \"Single phase: 90-140 VAC\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
+      "model": "victron-energy-multiplus-ii-2x120-v-24-3000-70-50",
+      "name": "External AC current sensor",
+      "reason": "\"External AC current sensor (optional) 100 A\" rates an optional accessory, not the inverter/charger.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
+      "model": "victron-energy-multiplus-ii-2x120-v-24-3000-70-50",
+      "name": "External AC current sensor",
+      "reason": "\"External AC current sensor (optional) 100 A\" rates an optional accessory, not the inverter/charger.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
+      "model": "victron-energy-smartshunt-ip65-1000-a",
+      "name": "Offset",
+      "reason": "One cell for four models, in the heading's order: \"Offset Less than 10 / 10 / 20 / 40 mA\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
+      "model": "victron-energy-smartshunt-ip65-2000-a",
+      "name": "Offset",
+      "reason": "One cell for four models, in the heading's order: \"Offset Less than 10 / 10 / 20 / 40 mA\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
+      "model": "victron-energy-smartshunt-ip65-300-a",
+      "name": "Offset",
+      "reason": "One cell for four models, in the heading's order: \"Offset Less than 10 / 10 / 20 / 40 mA\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
+      "model": "victron-energy-smartshunt-ip65-500-a",
+      "name": "Offset",
+      "reason": "One cell for four models, in the heading's order: \"Offset Less than 10 / 10 / 20 / 40 mA\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
     }
   ]
 }
