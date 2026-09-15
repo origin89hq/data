@@ -429,7 +429,9 @@ test("NOCO: the NLX's voltage, energy and both battery currents, its capacity as
   // Two banks' worth in one figure, '10Ax2(12V)', is still refused.
   assert.equal(gap(of("noco-genpro10x2").gaps, "charge.current.max")?.reason, "unparsed");
   // The Genius 2D manual prints the same name for a 2 A maintainer; the rules read the GEN and GENPRO sheets only.
-  assert.equal(of("noco-noco").gaps.length, 0);
+  const maintainer = of("noco-genius-2d");
+  assert.equal(values(maintainer.properties, "charge.current.max").length, 0);
+  assert.equal(gap(maintainer.gaps, "charge.current.max")?.reason, "no-claim");
 });
 
 test("Energizer Solar: a module's STC figures with its watt-peak, the Force's PV limits, the PS2900H's one current under both battery keys and its timed peak, and the HP-6M's watts", () => {
@@ -845,8 +847,6 @@ test("NOCO's chargers: the output watts, the battery sizes as a range, and a bou
     values(of("noco-gx3626").properties, "charge.battery.capacity").map((p) => [p.min, p.max]),
     [[55, 425]],
   );
-  // The record minted under the maker's own name is out of scope: its figures are other models'.
-  assert.equal(of("noco-noco").properties.length, 0);
   const genius = of("noco-genius2");
   assert.equal(gap(genius.gaps, "charge.battery.capacity")?.reason, "unparsed");
   assert.match(gap(genius.gaps, "charge.battery.capacity")?.detail ?? "", /bound/);

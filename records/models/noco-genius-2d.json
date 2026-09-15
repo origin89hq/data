@@ -2,15 +2,19 @@
   "id": "noco-genius-2d",
   "manufacturer": "noco",
   "name": "Genius 2D",
-  "kind": "battery",
+  "kind": "ac-charger",
   "aliases": [],
   "dialects": [
     {
       "dialect": "noco-charger-unread",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     }
-  ]
+  ],
+  "checkedAt": "2026-09-15",
+  "reviewedBy": "lemarier",
+  "basis": "Its user guide says \"The Genius 2D is designed for charging the types of 12V lead-acid batteries\" (doc-9c256d83fe825b45b91cbebd24faaad5, p2) and lists \"Input Voltage AC:100-240 VAC, 50-60Hz\" and \"Charging Current:2000mA (12V)\" (p7); it is a charger, as the GENIUS5 is."
 }

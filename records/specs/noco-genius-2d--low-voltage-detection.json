@@ -1,11 +1,13 @@
 {
-  "id": "noco-noco--low-voltage-detection",
-  "model": "noco-noco",
+  "id": "noco-genius-2d--low-voltage-detection",
+  "model": "noco-genius-2d",
   "name": "Low-Voltage Detection",
   "value": "1",
   "unit": "V",
   "source": "doc-9c256d83fe825b45b91cbebd24faaad5",
-  "page": 6,
+  "page": 7,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
+  "confidence": "vendor-doc",
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-15"
 }
