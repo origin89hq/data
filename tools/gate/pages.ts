@@ -16,6 +16,19 @@ export interface KeptWindow {
   products: unknown[];
 }
 
+/**
+ * The windows among archived values that are a kept window's shape. Whatever the archive holds is
+ * whatever was written into it, possibly years ago and by an older Worker, so it is checked rather
+ * than asserted: one object of another shape would otherwise throw here and take down the pull of
+ * every maker. A reading left with no usable window is looked up by the pages its figures cite.
+ */
+export function keptWindows(values: readonly unknown[]): KeptWindow[] {
+  return values.filter(
+    (value): value is KeptWindow =>
+      isRecord(value) && Number.isInteger(value.window) && Array.isArray(value.products),
+  );
+}
+
 /** What the lookup did to a reading's figures. */
 export interface PageCounts {
   /** Figures that had no page and now cite the one their value is printed on. */
@@ -65,7 +78,7 @@ export function printedPages(
     printedPage(window, { name: asciiSymbols(figure.name), value: asciiSymbols(figure.value) });
   const found = new Map<string, number>();
   for (const part of [...windows].sort((a, b) => a.window - b.window)) {
-    const window = Number.isInteger(part.window) ? shown[part.window - 1] : undefined;
+    const window = shown[part.window - 1];
     if (!window) continue;
     for (const product of part.products) {
       if (!isRecord(product) || typeof product.model !== "string") continue;

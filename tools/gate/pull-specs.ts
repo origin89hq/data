@@ -31,7 +31,7 @@ import {
   staleFigures,
 } from "../../src/specs.ts";
 import { currentRun, jsonValues, object, PULLED_READERS, readingsOf, under } from "./archive.ts";
-import { type KeptWindow, noPages, printedPages } from "./pages.ts";
+import { keptWindows, noPages, printedPages } from "./pages.ts";
 import { creditedReadings, textKey } from "./retailer.ts";
 
 /**
@@ -162,7 +162,7 @@ for (let i = 0; i < textReadings.length; i += PAGE_LOOKUPS_AT_ONCE) {
         object(textKey(reading), remote),
         under(`archive/${reading.sha256}.${TEXT_READER}.window-`, remote),
       ]);
-      const windows = jsonValues<KeptWindow>(parts);
+      const windows = keptWindows(jsonValues<unknown>(parts));
       if (!markdown) {
         pagesNotLooked += 1;
         return;
@@ -434,7 +434,7 @@ if (held.agreed)
 if (unread) console.log(`  ${unread} figures a person holds were not read by this run and stay`);
 // Counted over every figure the text reader read, written or not, so a pull whose diff is mostly
 // pages says so.
-if (pages.set || pages.moved)
+if (pages.set || pages.moved || pages.unfound)
   console.log(
     `  pages: ${pages.set} figures given the page their value is printed on, ${pages.moved} moved to it, ${pages.kept} already on it, ${pages.unfound} not found in their windows and left as read`,
   );

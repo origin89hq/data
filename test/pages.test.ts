@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { CHUNK_CHARACTERS, CHUNK_OVERLAP, chunk } from "../apps/worker/src/reading.ts";
-import { noPages, printedPages } from "../tools/gate/pages.ts";
+import { keptWindows, noPages, printedPages } from "../tools/gate/pages.ts";
 
 /** Words with no digit in them, so filler never prints a figure's value. */
 const filler = (characters: number): string =>
@@ -146,6 +146,24 @@ test("a figure two overlapping windows reported is one figure with one page, not
   assert.equal(out[0]?.specs.length, 1);
   assert.equal(out[0]?.specs[0]?.page, 3);
   assert.deepEqual(counts, { ...noPages(), set: 1 });
+});
+
+test("an archived value that is not a window is left out, and the reading falls back to its pages", () => {
+  const archived = [
+    null,
+    7,
+    "window-0001",
+    [{ window: 1, products: [] }],
+    { window: 1 },
+    { window: 1, products: null },
+    { window: 1.5, products: [] },
+    { products: [{ model: "B-100", specs: [{ name: "Weight", value: "11" }] }] },
+  ];
+  assert.deepEqual(keptWindows(archived), []);
+  const products = [{ model: "B-100", specs: [{ name: "Float voltage", value: "13.6", page: 3 }] }];
+  const { products: out, counts } = printedPages(products, SHEET, keptWindows(archived));
+  assert.equal(out[0]?.specs[0]?.page, 4);
+  assert.deepEqual(counts, { ...noPages(), moved: 1 });
 });
 
 test("a window part that is not a reading's shape is passed over rather than trusted", () => {
