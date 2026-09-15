@@ -1,0 +1,13 @@
+{
+  "id": "progressive-dynamics-pd2140--power",
+  "model": "progressive-dynamics-pd2140",
+  "name": "Power",
+  "value": "650",
+  "unit": "W",
+  "source": "doc-7000669d0cfb1665dc1ced5eea152606",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-14",
+  "page": 3,
+  "confidence": "vendor-doc"
+}

@@ -6,6 +6,94 @@
       "reason": "A technical specification for the QRR0.04GW/S condensed-aerosol fire extinguishing device that never names BSLBatt, not a BSLBatt product document.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-00b5ed69a1e2f7909133dfef71f40617",
+      "model": "bslbatt-b-lfp48-100e",
+      "name": "Max. Current / Power",
+      "reason": "The sheet prints a charge and a discharge Max. Current / Power, and the column order of the six currents does not show which one this is.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-00b5ed69a1e2f7909133dfef71f40617",
+      "model": "bslbatt-b-lfp48-200e",
+      "name": "Max. Current / Power",
+      "reason": "The sheet prints a charge and a discharge Max. Current / Power, and the column order of the six currents does not show which one this is.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-382c5a7971015da9db65bfbb1c541856",
+      "model": "bslbatt-b-lfp48-300pw",
+      "name": "Charge Rate Current / Power",
+      "reason": "The sheet lists six charge and discharge currents apart from their row names, so it does not show which current is this row's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-382c5a7971015da9db65bfbb1c541856",
+      "model": "bslbatt-b-lfp48-300pw",
+      "name": "Discharge Rate Current / Power",
+      "reason": "The sheet lists six charge and discharge currents apart from their row names, so it does not show which current is this row's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-382c5a7971015da9db65bfbb1c541856",
+      "model": "bslbatt-b-lfp48-300pw",
+      "name": "Max. Charge Current / Power",
+      "reason": "The sheet lists six charge and discharge currents apart from their row names, so it does not show which current is this row's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-382c5a7971015da9db65bfbb1c541856",
+      "model": "bslbatt-b-lfp48-300pw",
+      "name": "Max. Discharge Current / Power",
+      "reason": "The sheet lists six charge and discharge currents apart from their row names, so it does not show which current is this row's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-382c5a7971015da9db65bfbb1c541856",
+      "model": "bslbatt-b-lfp48-300pw",
+      "name": "Peak Charge Current / Power",
+      "reason": "The sheet lists six charge and discharge currents apart from their row names, so it does not show which current is this row's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-382c5a7971015da9db65bfbb1c541856",
+      "model": "bslbatt-b-lfp48-300pw",
+      "name": "Peak Discharge Current / Power",
+      "reason": "The sheet lists six charge and discharge currents apart from their row names, so it does not show which current is this row's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-382c5a7971015da9db65bfbb1c541856",
+      "model": "bslbatt-b-lfp48-300pw",
+      "name": "Storage Temperature",
+      "reason": "-20~55℃ is printed on the Working Temperature line beside 0~55℃, and the range next to the storage row is 0~35℃, so this is not shown to be the storage temperature.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-00b5ed69a1e2f7909133dfef71f40617",
+      "model": "bslbatt-b-lfp48-100e",
+      "name": "Discharge Voltage",
+      "reason": "The value is the pack weight in kg, read from columns the conversion ran together; the discharge voltage cannot be placed from the text.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-00b5ed69a1e2f7909133dfef71f40617",
+      "model": "bslbatt-b-lfp48-300e",
+      "name": "Discharge Voltage",
+      "reason": "The value is the 200E pack weight in kg, read from columns the conversion ran together; the discharge voltage cannot be placed from the text.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
     }
   ]
 }

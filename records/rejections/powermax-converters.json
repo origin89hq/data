@@ -1,0 +1,53 @@
+{
+  "id": "powermax-converters",
+  "rejections": [
+    {
+      "source": "doc-aa10b2ab94603707e362b938e91785d8",
+      "model": "powermax-converters-pmx-3000ps",
+      "name": "Continuous output power",
+      "reason": "Up to 1000 W is not this model's rating: the manual's table prints it in the PMX-1000 column, and the manual names no PMX-3000PS.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-aa10b2ab94603707e362b938e91785d8",
+      "model": "powermax-converters-pmx-3000ps",
+      "name": "Surge output power",
+      "reason": "2000 W is not this model's rating: the manual's table prints it in the PMX-1000 column, and the manual names no PMX-3000PS.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-aa10b2ab94603707e362b938e91785d8",
+      "model": "powermax-converters-pmx-3000ps",
+      "name": "Typical No Load Current",
+      "reason": "0.9 ADC is not this model's rating: the manual's table prints it in the PMX-1000 column, and the manual names no PMX-3000PS.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-aa10b2ab94603707e362b938e91785d8",
+      "model": "powermax-converters-pmx-3000ps",
+      "name": "Input fuse",
+      "reason": "25A AC Fuse labels the PMX-3000PSPT pass-through wiring sketch, not the table's input fuse row, and the manual names no PMX-3000PS.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-1d94f09384aa7d42de2b25aa0c9f780a",
+      "model": "powermax-converters-pmdp-30-50",
+      "name": "Input Breakers",
+      "reason": "The sheet prints a 30 A and a 50 A main breaker for one model column; the figure kept one service as if it were this model alone.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-1d94f09384aa7d42de2b25aa0c9f780a",
+      "model": "powermax-converters-pmdp-30-50-bt",
+      "name": "Input Breakers",
+      "reason": "The sheet prints a 30 A and a 50 A main breaker for one model column; the figure kept one service as if it were this model alone.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    }
+  ]
+}
