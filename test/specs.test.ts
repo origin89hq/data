@@ -922,6 +922,13 @@ test("a reading that states everything another does and more keeps its figure, a
   );
   assert.equal(statesMore(read("±0.1 V tolerance"), read("0.1", "V")), false);
   assert.equal(
+    statesMore(read("≥ 8000 cycles"), read("8000 cycles")),
+    false,
+    "a bound set apart by a space still stays on its number",
+  );
+  assert.equal(statesMore(read("± 0.1 V tolerance"), read("0.1", "V")), false);
+  assert.equal(statesMore(read("10 m²"), read("10 m")), false, "a superscript stays in its unit");
+  assert.equal(
     statesMore(read("0-100A @240VAC"), read("100A @240VAC")),
     true,
     "a dash between two numbers is a range, not a sign",
