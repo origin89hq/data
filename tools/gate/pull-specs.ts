@@ -21,7 +21,9 @@ import {
   rejectsProduct,
 } from "../../src/rejections.ts";
 import {
+  fullestReadings,
   heldByPerson,
+  keepFullerOnMain,
   keepUnitsApart,
   matchModel,
   mintedWithFigures,
@@ -287,7 +289,10 @@ for (const document of comparisonOnly) {
 // reading goes under the id it is written to, so a figure a person holds is compared with the
 // readings in its own unit, and a figure under its unit's id counts as produced.
 const units = keepUnitsApart(records.specs, toWrite);
-for (const spec of toWrite.map(units.place)) collected.set(spec.id, spec);
+// A later document that states less does not take a figure from one that stated more (#175).
+const fullest = fullestReadings(toWrite.map(units.place));
+for (const [id, spec] of fullest.readings) collected.set(id, spec);
+let saidLess = fullest.saidLess;
 for (const spec of everyRead.map(units.place))
   candidates.set(spec.id, [...(candidates.get(spec.id) ?? []), spec]);
 
@@ -301,7 +306,10 @@ const readIds = new Set(candidates.keys());
 const held = pullWrites(records.specs, read, candidates);
 const aligned = held.aligned;
 collected.clear();
-for (const spec of held.write) collected.set(spec.id, spec);
+// Nor from the figure main already has, when that figure states the same and more.
+const reconciled = keepFullerOnMain(held.write, records.specs);
+for (const spec of reconciled.write) collected.set(spec.id, spec);
+saidLess += reconciled.saidLess;
 
 // A model this run minted is written only once a figure it writes cites it. A name whose every
 // figure was rejected, held under another model or dropped as a translation minted an empty model
@@ -386,6 +394,10 @@ if (chemistry.set > 0 || chemistry.cleared > 0)
     `${chemistry.set} batteries given a chemistry, ${chemistry.cleared} lost one whose figure is gone`,
   );
 if (stale) console.log(`  ${stale} figures removed, which this run no longer produces`);
+if (saidLess)
+  console.log(
+    `  ${saidLess} readings left out that stated less than a figure another document gave`,
+  );
 if (notReread)
   console.log(`  ${notReread} figures kept, from documents this run did not read in full`);
 if (held.agreed)
