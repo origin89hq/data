@@ -14,6 +14,7 @@ import {
   specsFrom,
   splitUnit,
   staleFigures,
+  statesMore,
 } from "../src/specs.ts";
 
 const models: Model[] = [
@@ -866,4 +867,45 @@ test("a held name with the maker's name in front is reached by the bare name, an
     undefined,
     "two held names with the same core leave the name unmatched",
   );
+});
+
+test("a reading that states everything another does and more keeps its figure, and a unit read apart is no loss (#175)", () => {
+  const read = (value: string, unit?: string) => ({ value, ...(unit ? { unit } : {}) });
+  assert.equal(
+    statesMore(read("2.6 W @ 12 V | 3.0 W @ 24 V | 3.7 W @ 48 V"), read("2.6 W @ 12 V")),
+    true,
+  );
+  assert.equal(statesMore(read("60Hz (50Hz)"), read("60", "Hz")), true);
+  assert.equal(statesMore(read("100 psi / 6.89 bar / 689.48 kPa"), read("100", "psi")), true);
+  assert.equal(
+    statesMore(read("12V Lead-Acid Only (Wet, Gel, MF, EFB, AGM)"), read("12V Lead-Acid Only")),
+    true,
+  );
+  assert.equal(
+    statesMore(read("24.5", "V"), read("24.5")),
+    true,
+    "a unit the other reading lost is more",
+  );
+  assert.equal(
+    statesMore(read("2.6 W @ 12 V"), read("2.6 W @ 12 V | 3.0 W @ 24 V")),
+    false,
+    "never the shorter one",
+  );
+  assert.equal(statesMore(read("1500", "W"), read("500", "W")), false, "a number is found whole");
+  assert.equal(
+    statesMore(read("12 V 100 Ah"), read("100", "V")),
+    false,
+    "and in order, beside its unit",
+  );
+  assert.equal(
+    statesMore(read("525 Wp"), read("525", "W")),
+    false,
+    "a unit read apart is the parser's to write",
+  );
+  assert.equal(
+    statesMore(read("54 to 66 Hz"), read("54 to 66", "Hz")),
+    false,
+    "two equal readings",
+  );
+  assert.equal(statesMore(read("57,6 V"), read("57.6", "V")), false);
 });

@@ -141,7 +141,12 @@ test("a reader list that cannot be batched is refused here, not by the Worker", 
 test("the figures pull writes through the guard that keeps a person's figures, and deletes past it too", () => {
   const source = readFileSync(new URL("../tools/gate/pull-specs.ts", import.meta.url), "utf8");
   assert.match(source, /pullWrites\(records\.specs, read, candidates\)/);
-  assert.match(source, /for \(const spec of held\.write\) collected\.set/);
+  assert.match(
+    source,
+    /for \(const spec of held\.write\) \{[^}]*\} else collected\.set\(spec\.id, spec\);/,
+  );
+  // A reading that states less keeps main's figure only where no person holds it (#175).
+  assert.match(source, /current && !heldByPerson\(current\) && statesMore\(current, spec\)/);
   assert.match(source, /staleFigures\(records\.specs, \{ models: mine, produced, reread \}\)/);
   assert.match(source, /for \(const spec of dryRun \? \[\] : staleSpecs\) \{\s*rmSync\(/);
 });

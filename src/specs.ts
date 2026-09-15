@@ -440,6 +440,29 @@ export function mintedWithFigures(
   };
 }
 
+/** A reading's words and numbers in order, value then unit, for telling what two readings say. */
+const wordsOf = (spec: Pick<Spec, "value" | "unit">): string[] =>
+  `${spec.value} ${spec.unit ?? ""}`.toLowerCase().match(/\d+(?:[.,]\d+)*|[a-z]+/g) ?? [];
+
+/**
+ * Whether one reading of a figure states everything another does and more (#175): the Ekrano's
+ * "2.6 W @ 12 V | 3.0 W @ 24 V | 3.7 W @ 48 V" against "2.6 W @ 12 V", or an inverter's "60Hz
+ * (50Hz)" against 60 Hz. The other reading's words and numbers have to stand in this one side by
+ * side and in order, so "500 W" is not found in "1500 W" nor "100 V" in "12 V 100 Ah". A unit read
+ * apart is no loss either: "525 Wp" and 525 W are other words, so the parser's reading still wins.
+ */
+export function statesMore(
+  fuller: Pick<Spec, "value" | "unit">,
+  other: Pick<Spec, "value" | "unit">,
+): boolean {
+  const long = wordsOf(fuller);
+  const short = wordsOf(other);
+  if (short.length === 0 || short.length >= long.length) return false;
+  for (let at = 0; at + short.length <= long.length; at += 1)
+    if (short.every((word, i) => long[at + i] === word)) return true;
+  return false;
+}
+
 /**
  * Keep one name the documents print in two units as two figures. The id is the model, the name and
  * the conditions, so Victron's "Cont. output power at 25 °C" at 1600 W in one brochure and 2000 VA
