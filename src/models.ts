@@ -120,18 +120,6 @@ const bareWord = (word: string): string =>
   word.toLowerCase().replace(/^[^a-z0-9]+|[^a-z0-9/]+$/g, "");
 
 /**
- * A region a maker's name for a product ends with, which sells the same product somewhere else:
- * SureCall's "Fusion4Home Max (US and Canada)" is its Fusion4Home Max, and "(E.-U.)" is the French
- * edition's "(US)" (#150). A voltage or a pack size in brackets tells products apart and stays.
- */
-const REGION = /\s*\((?:US|USA|Canada|US and Canada|[EÉ]\.-U\.)\)$/i;
-
-/** A name without the region it ends with, or the name as it is when it ends with none. */
-export function withoutRegion(name: string): string {
-  return normaliseModelName(name).replace(REGION, "");
-}
-
-/**
  * The part number a name ends with after words of a product line: "XC450" in PulseTech's "Xtreme
  * Charge XC450" and "OM26K" in Pentair's "OMNIFilter OM26K", so both spellings reach one model
  * (#150). Only a single code of letters and digits counts, after words with no digit in them:

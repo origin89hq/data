@@ -1,6 +1,6 @@
 import type { Model, Spec } from "@origin89/equipment-schema/model";
 import { englishWords, looksForeign, withoutRedundantTranslations } from "./language.ts";
-import { coreName, lineCode, normaliseModelName, withoutRegion } from "./models.ts";
+import { coreName, lineCode, normaliseModelName } from "./models.ts";
 import { repairMojibake } from "./text.ts";
 import { englishName } from "./translations.ts";
 import {
@@ -79,11 +79,11 @@ export function sameName(a: string, b: string): boolean {
  * the thing is behind reaches it too, "IOTA ILBLP CP15 HE SD" and "MS2000 Inverter/Charger" among
  * them, rather than becoming a second model (#150). A suffix that tells products apart does not.
  *
- * So does a name that differs from a held one only by the region it is sold in, or that is a held
- * part number with a product line's words in front, either way round: "Fusion4Home Max (US and
- * Canada)" reaches Fusion4Home Max, and "XC450" reaches "Xtreme Charge XC450". Two lines in front
- * of one code do not: Victron's BlueSolar and SmartSolar "MPPT100|30" are two controllers. When
- * several held models answer, the one with neither a region nor a line is taken, else none is.
+ * So does a held part number with a product line's words in front, either way round: "XC450"
+ * reaches "Xtreme Charge XC450". Two lines in front of one code do not: Victron's BlueSolar and
+ * SmartSolar "MPPT100|30" are two controllers. When several held models answer, the one with no
+ * line in front is taken, else none is. A region stays part of the name until a model records
+ * where it is sold (#172): SureCall certifies its Canadian Fusion4Home apart from the US one.
  */
 export function matchModel(
   models: Model[],
@@ -100,25 +100,20 @@ export function matchModel(
   const core = coreName(reported, makerNames);
   const byCore = core ? find(core) : undefined;
   if (byCore) return byCore;
-  // The same product sold in another region, or held under its bare part number with a line's
-  // words in front of it on one side only: two lines that share a code are two products.
-  const plain = withoutRegion(reported);
-  const code = lineCode(plain);
-  const single = (name: string) => !/\s/.test(name);
+  // Held under its bare part number with a line's words in front of it on one side only: two lines
+  // that share a code are two products.
+  const code = lineCode(reported);
+  const single = (name: string) => !/\s/.test(normaliseModelName(name));
   const answering = ours.filter((m) =>
     [m.name, ...m.aliases].some((name) => {
-      const held = withoutRegion(name);
-      const heldCode = lineCode(held);
+      const heldCode = lineCode(name);
       return (
-        sameName(held, plain) ||
-        (code !== undefined && single(held) && sameName(held, code)) ||
-        (heldCode !== undefined && single(plain) && sameName(heldCode, plain))
+        (code !== undefined && single(name) && sameName(name, code)) ||
+        (heldCode !== undefined && single(reported) && sameName(heldCode, reported))
       );
     }),
   );
-  const bare = answering.filter(
-    (m) => sameName(withoutRegion(m.name), m.name) && lineCode(m.name) === undefined,
-  );
+  const bare = answering.filter((m) => lineCode(m.name) === undefined);
   if (bare.length === 1) return bare[0];
   return answering.length === 1 ? answering[0] : undefined;
 }
