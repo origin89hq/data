@@ -96,6 +96,21 @@ test("a generator is preferred to a battery, by its largest running power across
   ]);
 });
 
+test("between two qualifying models of one kind, the lower model id leads, whatever its figure", () => {
+  const [row] = pick({
+    models: [
+      ["gen-b", "generator", "acme"],
+      ["gen-a", "generator", "acme"],
+    ],
+    properties: [
+      ["gen-b", "generator.power.running", "value", 9000, "W", "gasoline", 12, "c1"],
+      ["gen-a", "generator.power.running", "value", 3000, "W", "gasoline", 4, "c2"],
+    ],
+  });
+  assert.equal(row?.model_id, "gen-a");
+  assert.equal(row?.value, 3000);
+});
+
 test("a generator's starter battery is not its headline: the key has to be its kind's", () => {
   const [row] = pick({
     models: [
