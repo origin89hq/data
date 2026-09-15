@@ -8,7 +8,8 @@ import { RecordId } from "./enums.ts";
  * kept, and the pull writes every figure they give unless a person holds it. Holding a figure keeps a
  * right value; a rejection keeps a wrong one out (#144, #146, #149). It names one of three things: a
  * whole document that is not the maker's ratings, such as a compatibility note, a test report or a
- * slide deck; one figure of one document, by the model it was filed under and its printed name; or a
+ * slide deck, or that rates only equipment this dataset does not cover, such as a lift truck's
+ * battery; one figure of one document, by the model it was filed under and its printed name; or a
  * product name that is not a product of this maker, which the pull then never mints.
  */
 export const Rejection = z
