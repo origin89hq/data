@@ -8,7 +8,6 @@ import {
   mergeReports,
   pageOfFigure,
   printedSymbols,
-  RESPONSE_SCHEMA,
   type Reported,
   SYSTEM,
   type Window,
@@ -35,6 +34,12 @@ const reason = (error: unknown): string => (error instanceof Error ? error.messa
 
 /** Windows a message reads when it does not say, so one long manual cannot spend a run's budget. */
 export const MAX_WINDOWS = 60;
+
+/**
+ * Room for one window's answer. A dense table of several models runs past two thousand tokens, and
+ * an answer cut short is a window read again.
+ */
+const ANSWER_TOKENS = 8192;
 
 /**
  * Read a converted document for the figures it states, and write the reading once every window is
@@ -148,8 +153,11 @@ async function readWindow(env: Env, window: Window, maker: string): Promise<Repo
       { role: "system", content: SYSTEM },
       { role: "user", content: `Maker: ${maker}\n\n${shown.text}` },
     ],
-    response_format: { type: "json_schema", json_schema: RESPONSE_SCHEMA },
-    max_tokens: 3072,
+    // No `response_format`. Held to a JSON schema, the model answered `{"products":[]}` in six
+    // tokens for windows it reads in full without one, at any temperature: the ratings tables of
+    // Rolls' S48-100LFP STACK-LV manual and of Victron's off-grid brochure. The prompt gives the
+    // answer's shape instead, and an answer that is not JSON fails the window like one cut short.
+    max_tokens: ANSWER_TOKENS,
   } as never);
   const parsed = JSON.parse(contentOf(response)) as { products?: Reported[] };
   if (!Array.isArray(parsed.products)) return [];

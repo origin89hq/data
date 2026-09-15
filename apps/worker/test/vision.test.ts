@@ -28,7 +28,6 @@ import {
   notTranscribed,
   PAGE_CONVERTER,
   pageOffsets,
-  RESPONSE_SCHEMA,
   reportsInWindow,
   TRANSCRIPT_SCHEMA,
   textLayer,
@@ -138,11 +137,11 @@ test("the page reader has an id the spec schema accepts, and keys of its own bes
   );
 });
 
-test("the page reader must give every figure a unit, and the text reader's answer is unchanged", () => {
-  const figure = (schema: typeof RESPONSE_SCHEMA) =>
-    schema.properties.products.items.properties.specs.items;
-  assert.deepEqual(figure(VISION_RESPONSE_SCHEMA).required, ["name", "value", "unit"]);
-  assert.deepEqual(figure(RESPONSE_SCHEMA).required, ["name", "value"]);
+test("the page reader must give every figure a unit", () => {
+  assert.deepEqual(
+    VISION_RESPONSE_SCHEMA.properties.products.items.properties.specs.items.required,
+    ["name", "value", "unit"],
+  );
 });
 
 /** Kinetic Solar's CSA certificate as the page reader wrote it down: the product on page 1, its ratings on page 2. */

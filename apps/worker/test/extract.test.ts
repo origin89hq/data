@@ -417,6 +417,44 @@ test("the text reader tells the model whose document it reads, by the maker's na
   );
 });
 
+test("the text reader gives the answer's shape in its prompt and holds the model to no schema", async () => {
+  const { env, asked } = world({ [MARKDOWN]: SHEET }, reader());
+  await readDocument(message, env, 1);
+  assert.equal(asked.length, 3);
+  for (const { input } of asked) {
+    assert.equal(
+      input.response_format,
+      undefined,
+      "held to a schema, the model answered windows it reads in full with an empty list",
+    );
+    assert.equal(input.max_tokens, 8192, "room for the answer to a dense table of several models");
+  }
+  assert.match(
+    SYSTEM,
+    /Reply with JSON only, no prose: \{"products":\[\{"model":"\.\.\.","specs":\[\{"name":"\.\.\.","value":"\.\.\.","unit":"\.\.\.","conditions":"\.\.\."\}\]\}\]\}/,
+  );
+});
+
+test("an answer in a code fence is read, and prose in place of JSON leaves the window for the queue", async () => {
+  const sheet = "| Weight | 42 kg |\n";
+  const answer = { products: [{ model: "S-550", specs: [{ name: "Weight", value: "42 kg" }] }] };
+  const fenced = world({ [MARKDOWN]: sheet }, () => ({
+    response: `\`\`\`json\n${JSON.stringify(answer)}\n\`\`\``,
+  }));
+  await readDocument(message, fenced.env, 1);
+  assert.deepEqual(
+    fenced.readObject<Reading>(readingKey).products.map((p) => [p.model, p.specs[0]?.value]),
+    [["S-550", "42 kg"]],
+  );
+
+  const prose = world({ [MARKDOWN]: sheet }, () => ({ response: "The S-550 weighs 42 kg." }));
+  await assert.rejects(readDocument(message, prose.env, 1), {
+    message: /^1 of 1 windows not read; window 1: Unexpected token/,
+  });
+  assert.equal(prose.read(readingKey), undefined, "no reading from an answer that is not JSON");
+  assert.equal(prose.read(windowKey(1)), undefined, "and no window kept to stop the retry");
+});
+
 test("the symbols the reader garbles are spelled in ASCII for it, and given back in what it reports (#145)", () => {
   assert.equal(
     asciiSymbols("≥8000 cycles, VSWR ≤ 2.0, 9～17V"),
