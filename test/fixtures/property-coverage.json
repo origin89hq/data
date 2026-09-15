@@ -117,49 +117,49 @@
   },
   "keys": {
     "battery.capacity battery": {
-      "models": 513,
+      "models": 502,
       "values": 34,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 17,
       "needsConditions": 28,
-      "noClaim": 434
+      "noClaim": 423
     },
     "battery.charge.current.max battery": {
-      "models": 513,
+      "models": 502,
       "values": 56,
       "partial": 8,
       "conflicts": 0,
       "unparsed": 12,
       "needsConditions": 0,
-      "noClaim": 445
+      "noClaim": 434
     },
     "battery.discharge.current.max battery": {
-      "models": 513,
+      "models": 502,
       "values": 53,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 10,
       "needsConditions": 0,
-      "noClaim": 450
+      "noClaim": 439
     },
     "battery.discharge.current.peak battery": {
-      "models": 513,
+      "models": 502,
       "values": 15,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 11,
-      "noClaim": 487
+      "noClaim": 476
     },
     "battery.energy battery": {
-      "models": 513,
+      "models": 502,
       "values": 59,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0,
-      "noClaim": 454
+      "noClaim": 443
     },
     "battery.voltage.nominal ac-charger": {
       "models": 77,
@@ -171,13 +171,13 @@
       "noClaim": 76
     },
     "battery.voltage.nominal battery": {
-      "models": 513,
+      "models": 502,
       "values": 67,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 1,
       "needsConditions": 0,
-      "noClaim": 445
+      "noClaim": 434
     },
     "battery.voltage.nominal charge-controller": {
       "models": 608,

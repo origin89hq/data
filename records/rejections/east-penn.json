@@ -1,0 +1,335 @@
+{
+  "id": "east-penn",
+  "rejections": [
+    {
+      "source": "doc-3822390a7e298012bac8c5d2b59e0779",
+      "reason": "0656-Service-Manual-1.pdf prints \"Motive Power\": Deka motive-power batteries or their upkeep, for lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-76bd1eddabed5572d8df5f63b9f61b64",
+      "reason": "2490-Deka-Ready-Power-Li-ion-by-Navitas-product-flyer.pdf prints \"forklift\": Deka Ready Power lithium-ion motive-power batteries for lift trucks, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-9140586927b220bb8991ff3aa9dae659",
+      "reason": "2503-Li-ion-ReadyPower-Specifications.pdf prints \"forklift\": Deka Ready Power lithium-ion motive-power batteries for lift trucks, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-ede37bdea84d9da6ff20a666c3053d87",
+      "reason": "2664-PowerForce-charger.pdf prints \"Lift Truck\": a charger for the motive-power batteries of lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-4996185f4de8b84f7a9c16ef3446a3d9",
+      "reason": "2666-Conventional-Charger-Spec-sheet.pdf prints \"Industrial Battery Charger\": a charger for the motive-power batteries of lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-cb2910ad394c7fe71589880af12700fe",
+      "reason": "2667-Opportunity-Charger-Spec-sheet.pdf prints \"forklift battery compartment\": a charger for the motive-power batteries of lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-9ccfb943d8ad1dec24b7f5f70018f4da",
+      "reason": "2668-Fast-Charger-Spec-sheet.pdf prints \"forklift battery compartment\": a charger for the motive-power batteries of lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-323d6259e18f824f5bb2ce36eac709fd",
+      "reason": "2699-Deka-ReadyPower-User-Manual.pdf prints \"Motive Power Industrial Battery\": Deka Ready Power lithium-ion motive-power batteries for lift trucks, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-48e865fcfab7e9410bb2d1ba53777a55",
+      "reason": "2709-Deka-PowerForce-User-Manual.pdf prints \"MOTIVE POWER CHARGER\": a charger for the motive-power batteries of lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-90ba7195d061942502287917f16d5706",
+      "reason": "Atlet.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-58a448aea323beaabec5024d66fe11e6",
+      "reason": "Barrett.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-4816f37230fe63ad26a28db18af45f2c",
+      "reason": "BigJoe.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-72b195bfbb8551cb9777fc6ad54272d1",
+      "reason": "BTPrimeMover.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-c767848e6bc98fa93082d5079cb35b2b",
+      "reason": "Caterpillar.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-50f123a31027b04af041cdc8d39e924d",
+      "reason": "Clark.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-8d987b1fd675ee6faa3c8ade89002e82",
+      "reason": "Class-III-Flyer-2330-1.pdf prints \"PALLET JACK\": Deka motive-power batteries or their upkeep, for lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-045f08a427a2ef739ed70995d2bcc2d9",
+      "reason": "Crown.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-a6c8a978641ae472eee085290628b2c5",
+      "reason": "D-Series-Flyer-0705.pdf prints \"MOTIVE POWER BATTERIES\": Deka motive-power batteries or their upkeep, for lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-beae5eb3f74253435c9fbc57acda4206",
+      "reason": "D-Series-IO-Manual-0628.pdf prints \"truck nameplate\": Deka motive-power batteries or their upkeep, for lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-ded141931495156f2500e86aa44fbd20",
+      "reason": "DaewooDoosan.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-530fe8bdbee50ce7bb24d2b3850e259c",
+      "reason": "Deka-D-Series-Spanish-2053.pdf prints \"FUERZA MOTRIZ\": Deka motive-power batteries or their upkeep, for lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-417bbc82650feee0b275bb92fc9b5463",
+      "reason": "Deka-PowerForce-2-Circuit-Option-2760.pdf prints \"forklift battery compartment\": a charger for the motive-power batteries of lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-6fd67eace3a978190ea813e72858fb16",
+      "reason": "Deka-Ready-Power-Flyer-Spanish-2490S.pdf prints \"montacargas\": Deka Ready Power lithium-ion motive-power batteries for lift trucks, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-42e7e963961d376e3831209ada3ffb1c",
+      "reason": "Deka-Ready-Power-Service-Manual-2708.pdf prints \"forklift\": Deka Ready Power lithium-ion motive-power batteries for lift trucks, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-37480560af90ce93f9f41eab47b1f0dd",
+      "reason": "Deka-Ready-Power-Service-Manual-Spanish-(2708S).pdf prints \"montacargas\": Deka Ready Power lithium-ion motive-power batteries for lift trucks, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-f6a0a15137f7add8ccab6a169f495428",
+      "reason": "Deka-ReadyPower-Case-Study-2565.pdf prints \"forklift\": Deka Ready Power lithium-ion motive-power batteries for lift trucks, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-8b18935810d8432fc35443e0970bb373",
+      "reason": "Dominator-2298.pdf prints \"MOTIVE POWER BaTTERIEs\": Deka motive-power batteries or their upkeep, for lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-a56bb4318ebd2e9a8ce7d9e63ba29b01",
+      "reason": "Drexel.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-251f3318e047b67cabfca8958c2bd17d",
+      "reason": "Fast-Charge-Flyer-1611.pdf prints \"Industrial Truck Association\": Deka motive-power batteries or their upkeep, for lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-a412365b37bb20d3dbb62cb24ef71f4a",
+      "reason": "Fast-Charge-IO-Manual-0720.pdf prints \"truck nameplate\": Deka motive-power batteries or their upkeep, for lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-44c6e893ddacaa8c80dc1de716087f47",
+      "reason": "Gregory.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-aa18e4ec8fe9cec0303c3b6b80582d83",
+      "reason": "Hoist.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-9a8ef16fad96e5a4c0a474550062828f",
+      "reason": "HydraSaver-Flyer0728.pdf prints \"MOTIVE POWER BATTERIES\": Deka motive-power batteries or their upkeep, for lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-50c5a60dbc0e0d78cda52083c140acb0",
+      "reason": "Hydrasaver-IO-Manual-0731.pdf prints \"truck nameplate\": Deka motive-power batteries or their upkeep, for lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-a2d5ddbb99c68df4e9ad950413557ac9",
+      "reason": "Hyster.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-bf2ad589851630b8c8490b1a05550501",
+      "reason": "Hyundai.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-5a6068deeee4ba4f158233638abaf052",
+      "reason": "Komatsu.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-a1912b0197942c10801f7be612e4e9e3",
+      "reason": "Lead-Lithium-Motive-Power-Solutions-Journal-2561.pdf prints \"MOTIVE POWER\": Deka motive-power batteries or their upkeep, for lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-9c2b8265df3c068fff95c8844c17e368",
+      "reason": "LindeKion.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-00dfd720ec9a70823ec72017202b6aa9",
+      "reason": "Max-Powr-Flyer-0602.pdf prints \"MOTIVE POWER BaTTERIEs\": Deka motive-power batteries or their upkeep, for lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-7e2950a17f0c852c3fb4f8a320064e43",
+      "reason": "Max-Powr-IO-Manual-0608.pdf prints \"truck nameplate\": Deka motive-power batteries or their upkeep, for lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-b278495f190b8ddc3f32b75b9ccc8381",
+      "reason": "Max-Powr-IO-Manual-0608.pdf prints \"truck nameplate\": Deka motive-power batteries or their upkeep, for lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-7b5f0fc3bd1ef6455e8367d842a22bd2",
+      "reason": "Mitsubishi.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-1128b88bfbbc6ad9a4532ead4d7ac450",
+      "reason": "Nissan.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-9006dc77011571bb99f4965fc42081f5",
+      "reason": "Optimizing-Your-Fleet-2564.pdf prints \"MOTIVE POWER BATTERIES\": Deka motive-power batteries or their upkeep, for lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-ca08d379d74014a3367170b1c557646c",
+      "reason": "Powering-Your-Fleet-2562.pdf prints \"MOTIVE POWER BATTERIES\": Deka motive-power batteries or their upkeep, for lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-67064ca8c915efaf30b38d670e73d50f",
+      "reason": "Raymond.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-4f5f74c9ee7098695767177014d95b7a",
+      "reason": "Ready-Power-Lithium-Maintenance-2538.pdf prints \"M O T I V E P O W E R\": Deka Ready Power lithium-ion motive-power batteries for lift trucks, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-496f6f9e48f5e5a0a6be1672c845e13e",
+      "reason": "Rico.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-cab31a450b9fbc199336d839129b9a2f",
+      "reason": "Selector-Guide-0601.pdf prints \"Industrial Truck Association\": Deka motive-power batteries or their upkeep, for lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-1c1302c86f8adb3d4de5672c303b5117",
+      "reason": "TCM.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-0b407033bf60a7fe69fddd3f135e84ed",
+      "reason": "Tennant.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-ec77b66d0b4a5299cc0ac2cf6b8ea358",
+      "reason": "Total-Cost-of-Ownership-Analysis-1735.pdf prints \"Motive Power\": Deka motive-power batteries or their upkeep, for lift trucks and other industrial vehicles, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-de707e0581c76d51264949a00faa73f1",
+      "reason": "Toyota.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-1c6d54a881d47dcd2ae6b08ffe08aad3",
+      "reason": "Yale.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    }
+  ]
+}
