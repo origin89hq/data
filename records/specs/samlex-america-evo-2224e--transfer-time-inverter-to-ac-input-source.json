@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-2224e--transfer-time-inverter-to-ac-input-source",
+  "model": "samlex-america-evo-2224e",
+  "name": "Transfer Time – Inverter to AC Input Source",
+  "value": "< 1 ms",
+  "source": "doc-e0e0b23437fb8228c998f5f0bae57ef9",
+  "page": 117,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

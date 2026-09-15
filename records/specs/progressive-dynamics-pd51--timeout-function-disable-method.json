@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd51--timeout-function-disable-method",
+  "model": "progressive-dynamics-pd51",
+  "name": "Timeout function disable method",
+  "value": "0.100” pitch jumper on header at H2 on the PCB",
+  "source": "doc-01cbc10abb4dc4de8e704ee77db1bac8",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

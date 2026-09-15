@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-4024e--power-boost-for-5-min",
+  "model": "samlex-america-evo-4024e",
+  "name": "Power Boost for 5 min",
+  "value": "120% (4800W)",
+  "source": "doc-e0e0b23437fb8228c998f5f0bae57ef9",
+  "page": 117,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

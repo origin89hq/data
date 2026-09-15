@@ -1,0 +1,9 @@
+{
+  "id": "pentair-rom-iv--temperature-range",
+  "model": "pentair-rom-iv",
+  "name": "Temperature Range",
+  "value": "32-120°F (0-49°C)",
+  "source": "doc-bb63457daee72616a14f5d2aa3231513",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

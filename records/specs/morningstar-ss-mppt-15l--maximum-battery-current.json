@@ -4,8 +4,7 @@
   "name": "Maximum Battery Current",
   "value": "15",
   "unit": "A",
-  "source": "doc-d0e875dec70c9b017e0e9e1236fb4cdd",
-  "page": 13,
+  "source": "doc-1ca9bd2431f89efb4cc54c3e6b26224a",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

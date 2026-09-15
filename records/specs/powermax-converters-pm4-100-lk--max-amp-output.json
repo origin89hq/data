@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pm4-100-lk--max-amp-output",
+  "model": "powermax-converters-pm4-100-lk",
+  "name": "Max Amp Output",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-7b991c3daec5966ca5048103aa8ae336",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

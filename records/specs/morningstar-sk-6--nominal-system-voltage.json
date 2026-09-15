@@ -4,8 +4,7 @@
   "name": "Nominal System Voltage",
   "value": "12",
   "unit": "V",
-  "source": "doc-d0e875dec70c9b017e0e9e1236fb4cdd",
-  "page": 16,
+  "source": "doc-5d9b386e5c8e37dcd8c171d8dc9605e3",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

@@ -1,0 +1,9 @@
+{
+  "id": "pentair-204-53040--shipping-weight",
+  "model": "pentair-204-53040",
+  "name": "Shipping Weight",
+  "value": "5 lbs (2.3 kgs)",
+  "source": "doc-0c24ff997eb7601e093dabe630483ef1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

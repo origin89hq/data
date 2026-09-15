@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-sc-2--operating-temperature",
+  "model": "pulsetech-sc-2",
+  "name": "Operating Temperature",
+  "value": "0°F to 130°F (-18°C to 54°C)",
+  "source": "doc-bf9be7dbceb7454ea9454d5d314d8a3b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

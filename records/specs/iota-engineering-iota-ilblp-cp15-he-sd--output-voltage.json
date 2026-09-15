@@ -1,0 +1,9 @@
+{
+  "id": "iota-engineering-iota-ilblp-cp15-he-sd--output-voltage",
+  "model": "iota-engineering-iota-ilblp-cp15-he-sd",
+  "name": "Output Voltage",
+  "value": "20-55VDC Class 2 Compliant",
+  "source": "doc-668127f8728f21471af7b6df6f82db0f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

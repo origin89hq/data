@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-mppt-control--operating-temperature-range",
+  "model": "victron-energy-mppt-control",
+  "name": "Operating temperature range",
+  "value": "-20 - +50°C (0 - 120°C)",
+  "source": "doc-587076f43b6726c01cfbc0d5c4de02d2",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

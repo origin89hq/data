@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-120-12--surge-output-power-at-power-factor-1",
+  "model": "samlex-america-pst-120-12",
+  "name": "SURGE OUTPUT POWER (AT POWER FACTOR = 1)",
+  "value": "120",
+  "unit": "W",
+  "source": "doc-821a0bf5cad7d362ee4a558d0ee4491b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

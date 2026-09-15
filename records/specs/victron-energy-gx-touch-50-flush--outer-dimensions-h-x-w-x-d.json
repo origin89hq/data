@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-gx-touch-50-flush--outer-dimensions-h-x-w-x-d",
+  "model": "victron-energy-gx-touch-50-flush",
+  "name": "Outer dimensions (h x w x d)",
+  "value": "94 x 136 x 12 mm",
+  "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
+  "page": 77,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-mart-ip43-charger--weight",
+  "model": "victron-energy-mart-ip43-charger",
+  "name": "Weight",
+  "value": "2.7",
+  "unit": "kg",
+  "source": "doc-e0c69ffcda8ec26fbf0ee4880f56a6c6",
+  "page": 62,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

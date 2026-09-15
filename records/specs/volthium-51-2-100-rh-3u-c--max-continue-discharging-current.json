@@ -1,0 +1,11 @@
+{
+  "id": "volthium-51-2-100-rh-3u-c--max-continue-discharging-current",
+  "model": "volthium-51-2-100-rh-3u-c",
+  "name": "Max. continue discharging current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-43bbf4f24819d6e49e58b5e94d46a787",
+  "page": 173,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

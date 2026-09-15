@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-mppt-150-70-ve-can--nominal-pv-power-36-v",
+  "model": "victron-energy-mppt-150-70-ve-can",
+  "name": "Nominal PV power, 36 V",
+  "value": "3000",
+  "unit": "W",
+  "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
+  "page": 91,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-mbt-1--weight",
+  "model": "pulsetech-mbt-1",
+  "name": "Weight",
+  "value": "1.5 oz",
+  "source": "doc-0a95c46f44b1d57b844774cdf1e83bd2",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

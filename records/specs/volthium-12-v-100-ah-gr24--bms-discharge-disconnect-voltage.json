@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-100-ah-gr24--bms-discharge-disconnect-voltage",
+  "model": "volthium-12-v-100-ah-gr24",
+  "name": "BMS – Discharge disconnect voltage",
+  "value": "10",
+  "unit": "V",
+  "source": "doc-6cf31b135d5d636c7fbcd2d9e1fd28f9",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

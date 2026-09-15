@@ -1,0 +1,9 @@
+{
+  "id": "powermax-converters-pmdp-30-50-bt--dc-circuits",
+  "model": "powermax-converters-pmdp-30-50-bt",
+  "name": "DC Circuits",
+  "value": "17 (3)-30A and (14)-20A Max",
+  "source": "doc-1d94f09384aa7d42de2b25aa0c9f780a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

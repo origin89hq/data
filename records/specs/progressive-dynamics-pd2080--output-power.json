@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd2080--output-power",
+  "model": "progressive-dynamics-pd2080",
+  "name": "Output Power",
+  "value": "1300",
+  "unit": "W",
+  "source": "doc-39647255f1520f8290624f2a53a078b2",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

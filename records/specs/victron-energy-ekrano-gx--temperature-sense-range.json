@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-ekrano-gx--temperature-sense-range",
+  "model": "victron-energy-ekrano-gx",
+  "name": "Temperature sense range",
+  "value": "-20 to +70 °C",
+  "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
+  "page": 76,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

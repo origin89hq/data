@@ -2,7 +2,8 @@
   "id": "energizer-solar-ensp54ndg2s440bl--stc-rated-output",
   "model": "energizer-solar-ensp54ndg2s440bl",
   "name": "STC rated output",
-  "value": "440 Wp",
+  "value": "440",
+  "unit": "W",
   "source": "doc-c6bebb90bf4abeb3c1454062e1c571d9",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"

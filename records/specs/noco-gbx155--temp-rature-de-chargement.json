@@ -1,0 +1,11 @@
+{
+  "id": "noco-gbx155--temp-rature-de-chargement",
+  "model": "noco-gbx155",
+  "name": "Température de chargement",
+  "english": "Charging temperature",
+  "value": "0ºC à +40ºC",
+  "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

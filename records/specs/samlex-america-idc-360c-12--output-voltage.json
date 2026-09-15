@@ -1,10 +1,10 @@
 {
   "id": "samlex-america-idc-360c-12--output-voltage",
   "model": "samlex-america-idc-360c-12",
-  "name": "Output Voltage",
+  "name": "OUTPUT VOLTAGE",
   "value": "12.5",
-  "source": "doc-0e3c2b9e542f8aa4fec1aa06ea131fb9",
-  "page": 2,
+  "unit": "V",
+  "source": "doc-a24e188b98d35649a342f0223cc13078",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

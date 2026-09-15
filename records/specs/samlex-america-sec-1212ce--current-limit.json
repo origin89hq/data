@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-1212ce--current-limit",
+  "model": "samlex-america-sec-1212ce",
+  "name": "CURRENT LIMIT",
+  "value": "14",
+  "unit": "A",
+  "source": "doc-f65a60ce14be791ced4de24203498ec8",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

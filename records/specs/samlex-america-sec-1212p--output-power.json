@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-1212p--output-power",
+  "model": "samlex-america-sec-1212p",
+  "name": "OUTPUT POWER",
+  "value": "151.8",
+  "unit": "W",
+  "source": "doc-3d1a85d2cffa78f4a81fe4b64b858bef",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

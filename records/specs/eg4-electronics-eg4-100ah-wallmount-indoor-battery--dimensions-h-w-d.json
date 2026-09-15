@@ -1,0 +1,9 @@
+{
+  "id": "eg4-electronics-eg4-100ah-wallmount-indoor-battery--dimensions-h-w-d",
+  "model": "eg4-electronics-eg4-100ah-wallmount-indoor-battery",
+  "name": "DIMENSIONS (H × W × D)",
+  "value": "23.2 in. × 17.8 in. × 7.6 in.",
+  "source": "doc-360750ab157677990600d6301a67c1b1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

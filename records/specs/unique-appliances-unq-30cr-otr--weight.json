@@ -1,0 +1,9 @@
+{
+  "id": "unique-appliances-unq-30cr-otr--weight",
+  "model": "unique-appliances-unq-30cr-otr",
+  "name": "WEIGHT",
+  "value": "51.4 lbs. / 25.5 kg",
+  "source": "doc-83d11f0a5cad3c9da1c6fbaf18a8e00f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-iota-ilblp-cp15-he-sd--max-ac-driver-output-current",
+  "model": "iota-engineering-iota-ilblp-cp15-he-sd",
+  "name": "Max. AC Driver Output Current",
+  "value": "3",
+  "unit": "A",
+  "source": "doc-668127f8728f21471af7b6df6f82db0f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "surecall-fusion2go-ultra--maximum-output-power",
+  "model": "surecall-fusion2go-ultra",
+  "name": "Maximum Output Power",
+  "value": "1 Watt EIRP",
+  "source": "doc-976209bdb74ff308bbac453001120925",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

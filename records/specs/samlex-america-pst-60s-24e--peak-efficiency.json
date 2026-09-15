@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-pst-60s-24e--peak-efficiency",
+  "model": "samlex-america-pst-60s-24e",
+  "name": "PEAK EFFICIENCY",
+  "value": "> 85% (At full load)",
+  "source": "doc-d7b660df36d8a802005013686e792d21",
+  "page": 47,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

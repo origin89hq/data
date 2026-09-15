@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd1610--max-power",
+  "model": "progressive-dynamics-pd1610",
+  "name": "Max Power",
+  "value": "1000W', 'unit':",
+  "source": "doc-b62bb7ca6d8c322a910799b6750afd08",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

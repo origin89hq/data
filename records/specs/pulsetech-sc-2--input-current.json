@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-sc-2--input-current",
+  "model": "pulsetech-sc-2",
+  "name": "Input Current",
+  "value": "5.8A max at 100VAC (all outputs 14VDC at 10A)",
+  "source": "doc-06c4ef44dafa61b49912b97079166261",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

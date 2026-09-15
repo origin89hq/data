@@ -1,0 +1,9 @@
+{
+  "id": "volthium-powerstation-1600w--qc18w",
+  "model": "volthium-powerstation-1600w",
+  "name": "QC18W",
+  "value": "5V3A / 9V2A / 12V1.5A",
+  "source": "doc-539db762e00cb2755331d36d5d4e2019",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

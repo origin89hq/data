@@ -1,0 +1,10 @@
+{
+  "id": "noco-gbx155--oppbevaringstemperatur",
+  "model": "noco-gbx155",
+  "name": "Oppbevaringstemperatur",
+  "value": "-20°C til +50°C (gj.snitt)",
+  "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
+  "page": 96,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

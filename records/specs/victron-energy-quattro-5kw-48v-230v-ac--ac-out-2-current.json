@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-quattro-5kw-48v-230v-ac--ac-out-2-current",
+  "model": "victron-energy-quattro-5kw-48v-230v-ac",
+  "name": "AC Out-2 current",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-77a2e5eade75c2e6c7587026e783a60c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

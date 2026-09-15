@@ -5,7 +5,7 @@
   "english": "Rated efficiency",
   "value": "4,400 lbs de sel à 4ⁱ lbs",
   "source": "doc-a05d04ac4987139b1e825e769688c178",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "page": 55,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

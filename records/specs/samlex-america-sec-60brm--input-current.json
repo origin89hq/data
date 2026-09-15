@@ -1,10 +1,11 @@
 {
   "id": "samlex-america-sec-60brm--input-current",
   "model": "samlex-america-sec-60brm",
-  "name": "INPUT CURRENT",
+  "name": "Input Current",
   "value": "12",
   "unit": "A",
-  "source": "doc-6c10a0b957d67e4ae699392aa9450dd2",
+  "source": "doc-a7a09a703006981a06149986d1518688",
+  "page": 18,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

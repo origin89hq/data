@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-idc-360a-24--operating-temperature-range",
+  "model": "samlex-america-idc-360a-24",
+  "name": "OPERATING TEMPERATURE RANGE",
+  "value": "-20°C / -4°F to +30°C / 86°F",
+  "source": "doc-467fa2e33f7702049cb590017cd5a87e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -2,7 +2,8 @@
   "id": "energizer-solar-ensp54ndgt2s445bl--rated-output-pmpp-at-nmot",
   "model": "energizer-solar-ensp54ndgt2s445bl",
   "name": "Rated output (Pmpp) at NMOT",
-  "value": "334.6 Wp",
+  "value": "334.6",
+  "unit": "W",
   "source": "doc-baa70c08d04e859a050dcca55732f9bd",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"

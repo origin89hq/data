@@ -2,9 +2,9 @@
   "id": "magnum-energy-csw412--dc-operation-voltage-range",
   "model": "magnum-energy-csw412",
   "name": "DC Operation Voltage Range",
-  "value": "10.5 - 15.75",
-  "source": "doc-99173ac940c31c21b646a0772d0d7ece",
-  "page": 28,
+  "value": "10.5 – 15.75 VDC",
+  "source": "doc-6ab55324b88b792cc1f0e718cc8e9d2d",
+  "page": 27,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

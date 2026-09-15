@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ts-45--maximum-heat-sink-temperature",
+  "model": "morningstar-ts-45",
+  "name": "Maximum heat sink temperature",
+  "value": "90",
+  "unit": "°C",
+  "source": "doc-687a3ce0efb1ec0ba34bd644ddc9d45d",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

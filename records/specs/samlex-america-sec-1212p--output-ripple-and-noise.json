@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-sec-1212p--output-ripple-and-noise",
+  "model": "samlex-america-sec-1212p",
+  "name": "OUTPUT RIPPLE AND NOISE",
+  "value": "100 mV peak to peak at full load",
+  "source": "doc-3d1a85d2cffa78f4a81fe4b64b858bef",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

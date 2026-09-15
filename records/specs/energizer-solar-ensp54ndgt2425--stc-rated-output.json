@@ -2,7 +2,8 @@
   "id": "energizer-solar-ensp54ndgt2425--stc-rated-output",
   "model": "energizer-solar-ensp54ndgt2425",
   "name": "STC rated output",
-  "value": "425 Wp",
+  "value": "425",
+  "unit": "W",
   "source": "doc-547c993041231447083492d7f12dd7a8",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"

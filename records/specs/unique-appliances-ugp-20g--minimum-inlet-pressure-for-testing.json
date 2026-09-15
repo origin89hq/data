@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-20g--minimum-inlet-pressure-for-testing",
+  "model": "unique-appliances-ugp-20g",
+  "name": "Minimum inlet pressure for testing",
+  "value": "1\" more than the operating pressure",
+  "source": "doc-a02fce8b3a5ca08271c1d8617ffd4bf0",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

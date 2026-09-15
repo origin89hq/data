@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-3012e--transfer-time-ac-input-source-to-inverter",
+  "model": "samlex-america-evo-3012e",
+  "name": "Transfer Time – AC Input Source to Inverter",
+  "value": "Up to 16 ms",
+  "source": "doc-e0e0b23437fb8228c998f5f0bae57ef9",
+  "page": 117,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-idc-360a-24--input-to-output-isolation",
+  "model": "samlex-america-idc-360a-24",
+  "name": "INPUT TO OUTPUT ISOLATION",
+  "value": "≥400V RMS",
+  "source": "doc-467fa2e33f7702049cb590017cd5a87e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

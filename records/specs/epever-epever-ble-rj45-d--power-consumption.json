@@ -1,0 +1,9 @@
+{
+  "id": "epever-epever-ble-rj45-d--power-consumption",
+  "model": "epever-epever-ble-rj45-d",
+  "name": "Power consumption",
+  "value": "5V@10mA",
+  "source": "doc-d4ad09da679eed83a44519bcba74ef5c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

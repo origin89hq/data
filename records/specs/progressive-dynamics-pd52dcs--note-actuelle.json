@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd52dcs--note-actuelle",
+  "model": "progressive-dynamics-pd52dcs",
+  "name": "Note actuelle",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-72f58fdea2e66524cf593ba55984560a",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

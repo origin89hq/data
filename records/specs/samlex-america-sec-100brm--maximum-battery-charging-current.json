@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-100brm--maximum-battery-charging-current",
+  "model": "samlex-america-sec-100brm",
+  "name": "MAXIMUM BATTERY CHARGING CURRENT",
+  "value": "8",
+  "unit": "A",
+  "source": "doc-86dcb08bc2d22d4b8e3d808ddf3c0603",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

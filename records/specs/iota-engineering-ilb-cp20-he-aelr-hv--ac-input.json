@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilb-cp20-he-aelr-hv--ac-input",
+  "model": "iota-engineering-ilb-cp20-he-aelr-hv",
+  "name": "AC Input",
+  "value": "120-277 volts",
+  "source": "doc-da52b4772e0d9aaf48651a05a08272a3",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

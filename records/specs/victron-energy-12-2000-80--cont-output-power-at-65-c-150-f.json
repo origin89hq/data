@@ -4,8 +4,8 @@
   "name": "Cont. output power at 65 °C / 150 °F",
   "value": "1100",
   "unit": "W",
-  "source": "doc-b193151ad470eb03cfd2c046b07e4e93",
-  "page": 56,
+  "source": "doc-44c1a1bd1b6e7b2d6676678bc0340b6c",
+  "page": 62,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

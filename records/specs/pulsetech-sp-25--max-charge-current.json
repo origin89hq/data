@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-25--max-charge-current",
+  "model": "pulsetech-sp-25",
+  "name": "Max Charge Current",
+  "value": "1.6",
+  "unit": "A",
+  "source": "doc-59f03716fc92d291e8f17d044f9651ea",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

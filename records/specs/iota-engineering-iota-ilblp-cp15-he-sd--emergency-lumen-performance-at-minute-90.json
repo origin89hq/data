@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-iota-ilblp-cp15-he-sd--emergency-lumen-performance-at-minute-90",
+  "model": "iota-engineering-iota-ilblp-cp15-he-sd",
+  "name": "Emergency Lumen Performance at Minute 90",
+  "value": "1500, 1650, 1800, 1950",
+  "source": "doc-668127f8728f21471af7b6df6f82db0f",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

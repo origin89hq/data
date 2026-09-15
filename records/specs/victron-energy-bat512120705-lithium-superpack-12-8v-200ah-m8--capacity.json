@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-bat512120705-lithium-superpack-12-8v-200ah-m8--capacity",
+  "model": "victron-energy-bat512120705-lithium-superpack-12-8v-200ah-m8",
+  "name": "Capacity",
+  "value": "200",
+  "unit": "Ah",
+  "source": "doc-f88b80d6cc66989c52cfb8fc2fea2256",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

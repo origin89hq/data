@@ -1,0 +1,9 @@
+{
+  "id": "volthium-r-b1250a--operation-altitude",
+  "model": "volthium-r-b1250a",
+  "name": "Operation altitude",
+  "value": "< 3000 m",
+  "source": "doc-351fd519eb6040042623bf73c333c5ed",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

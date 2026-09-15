@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion-go-xr-rv--uplink-frequency",
+  "model": "surecall-fusion-go-xr-rv",
+  "name": "Uplink Frequency",
+  "value": "698-716 / 776-787 / 824-849 / 1850-1915 / 1710-1780",
+  "source": "doc-fd120796536b0cde0d5c9324120411db",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

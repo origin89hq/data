@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-pst-120-12--dc-input-current-at-no-load",
+  "model": "samlex-america-pst-120-12",
+  "name": "DC INPUT CURRENT AT NO LOAD",
+  "value": "< 500 mA",
+  "source": "doc-821a0bf5cad7d362ee4a558d0ee4491b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

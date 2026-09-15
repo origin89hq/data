@@ -1,0 +1,9 @@
+{
+  "id": "surecall-fusion2go-xr--max-uplink-power",
+  "model": "surecall-fusion2go-xr",
+  "name": "Max Uplink Power",
+  "value": "29.0 dBm",
+  "source": "doc-489b28de8fa17020ba61f7eeb4f96e30",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

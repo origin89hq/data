@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd-n--emergency-operation",
+  "model": "iota-engineering-ilblp-cp15-he-sd-n",
+  "name": "Emergency Operation",
+  "value": "90",
+  "unit": "min",
+  "source": "doc-82edb7c4d7d32658e2770f0aedf0b0dd",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

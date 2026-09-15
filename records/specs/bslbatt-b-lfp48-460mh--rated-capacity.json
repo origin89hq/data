@@ -1,0 +1,11 @@
+{
+  "id": "bslbatt-b-lfp48-460mh--rated-capacity",
+  "model": "bslbatt-b-lfp48-460mh",
+  "name": "Rated capacity",
+  "value": "460",
+  "unit": "Ah",
+  "source": "doc-312d59747a89e6e2100273078883892e",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

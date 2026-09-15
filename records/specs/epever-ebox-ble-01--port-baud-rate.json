@@ -1,0 +1,9 @@
+{
+  "id": "epever-ebox-ble-01--port-baud-rate",
+  "model": "epever-ebox-ble-01",
+  "name": "Port baud rate",
+  "value": "300bps~230400bps",
+  "source": "doc-ed8f9177be1bc95783159c5ce0ce282d",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

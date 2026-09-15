@@ -1,0 +1,9 @@
+{
+  "id": "powermax-converters-pm3-55-e--withstand-voltage",
+  "model": "powermax-converters-pm3-55-e",
+  "name": "Withstand voltage",
+  "value": "1240V @ Leads",
+  "source": "doc-de727abd1d0b2f73b03fe57feddd50a7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-smallbms-ng--recommended-fuse-size",
+  "model": "victron-energy-smallbms-ng",
+  "name": "Recommended fuse size",
+  "value": "0.3 A - 2.5 A",
+  "source": "doc-c70238c6466c4b95e1fed9565320a2ae",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-mart-ip43-charger--protection-category-electronic-components",
+  "model": "victron-energy-mart-ip43-charger",
+  "name": "Protection category Electronic components",
+  "value": "IP43",
+  "source": "doc-e0c69ffcda8ec26fbf0ee4880f56a6c6",
+  "page": 62,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

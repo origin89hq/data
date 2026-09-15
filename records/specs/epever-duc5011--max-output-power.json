@@ -1,0 +1,10 @@
+{
+  "id": "epever-duc5011--max-output-power",
+  "model": "epever-duc5011",
+  "name": "Max. Output Power",
+  "value": "700",
+  "unit": "W",
+  "source": "doc-567f446589aaf640b63a17563f0f9bd0",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

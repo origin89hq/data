@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-xcr-20--dimensions",
+  "model": "pulsetech-xcr-20",
+  "name": "Dimensions",
+  "value": "14.2\" L x 11.4\" W x 6.5\" H",
+  "source": "doc-b5b1fda82f3ff25f3d4e844d5513b277",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

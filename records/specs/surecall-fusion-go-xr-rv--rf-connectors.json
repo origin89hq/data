@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion-go-xr-rv--rf-connectors",
+  "model": "surecall-fusion-go-xr-rv",
+  "name": "RF Connectors",
+  "value": "FME Male (both ends)",
+  "source": "doc-fd120796536b0cde0d5c9324120411db",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pentair-plm100--filter-area",
+  "model": "pentair-plm100",
+  "name": "Filter Area",
+  "value": "100 sq. ft. (9.3 m2)",
+  "source": "doc-a887aef40c40412b07fea80d27e7ac9d",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

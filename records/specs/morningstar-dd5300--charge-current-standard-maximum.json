@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-dd5300--charge-current-standard-maximum",
+  "model": "morningstar-dd5300",
+  "name": "Charge Current Standard/ Maximum",
+  "value": "100Adc/ 110 Adc",
+  "source": "doc-847c83ef8d9ead0714a08ef9c5d5bedc",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

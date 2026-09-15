@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-idc-360c-12--maximum-input-current",
+  "model": "samlex-america-idc-360c-12",
+  "name": "MAXIMUM INPUT CURRENT",
+  "value": "< 20A",
+  "source": "doc-a24e188b98d35649a342f0223cc13078",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

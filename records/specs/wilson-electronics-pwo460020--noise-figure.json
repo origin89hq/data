@@ -1,0 +1,11 @@
+{
+  "id": "wilson-electronics-pwo460020--noise-figure",
+  "model": "wilson-electronics-pwo460020",
+  "name": "Noise Figure",
+  "value": "5",
+  "unit": "dB",
+  "source": "doc-da33c0337337c4113ee1cdb398994fb7",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

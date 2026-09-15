@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-force-4-6s--rated-output-power",
+  "model": "energizer-solar-force-4-6s",
+  "name": "Rated Output Power",
+  "value": "4600",
+  "unit": "W",
+  "source": "doc-687a8ad27f43d764c66ec02c00ea6ff8",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

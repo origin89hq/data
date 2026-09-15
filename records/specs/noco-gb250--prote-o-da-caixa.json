@@ -3,8 +3,8 @@
   "model": "noco-gb250",
   "name": "Proteção da caixa",
   "english": "Enclosure protection",
-  "value": "IP65",
-  "source": "doc-12fc201334315c4c41c495ec3ca639b3",
+  "value": "IP65 (com as portas fechadas)",
+  "source": "doc-b62a0dca76d9ee06431ee2d2fa567791",
   "page": 74,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"

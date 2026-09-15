@@ -1,0 +1,9 @@
+{
+  "id": "pentair-204-53040--overall-dimensions",
+  "model": "pentair-204-53040",
+  "name": "Overall Dimensions",
+  "value": "17.5\" L x 4.0\" W x 4.0\" D",
+  "source": "doc-0c24ff997eb7601e093dabe630483ef1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

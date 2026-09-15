@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-idc-100c-12--peak-efficiency",
+  "model": "samlex-america-idc-100c-12",
+  "name": "PEAK EFFICIENCY",
+  "value": "85",
+  "unit": "%",
+  "source": "doc-fc85014ba9b8664b796f94ac46d0eea5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-24cr-rh--weight",
+  "model": "unique-appliances-ugp-24cr-rh",
+  "name": "WEIGHT",
+  "value": "31 lbs / 14 kg",
+  "source": "doc-a88fe002c46563bcf5fdc4b45e80d573",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

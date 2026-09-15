@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ams-qt15--rated-capacity",
+  "model": "pentair-ams-qt15",
+  "name": "Rated Capacity",
+  "value": "Up to 175 gpd (662 Lpd)",
+  "source": "doc-aca072b732a533d367c119dd4fd90b2c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

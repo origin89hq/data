@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-xc450--functional-output-cable-length",
+  "model": "pulsetech-xc450",
+  "name": "Functional Output Cable Length",
+  "value": "8",
+  "unit": "ft",
+  "source": "doc-21c090a44b6e5a63365ed7e60d79ad85",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

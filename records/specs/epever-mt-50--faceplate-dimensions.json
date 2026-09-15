@@ -1,0 +1,9 @@
+{
+  "id": "epever-mt-50--faceplate-dimensions",
+  "model": "epever-mt-50",
+  "name": "Faceplate dimensions",
+  "value": "98×98 mm",
+  "source": "doc-d1bc52bc0bb701566219e695af1d35bf",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

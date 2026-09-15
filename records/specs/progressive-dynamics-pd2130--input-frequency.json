@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd2130--input-frequency",
+  "model": "progressive-dynamics-pd2130",
+  "name": "Input Frequency",
+  "value": "50/60 Hz",
+  "source": "doc-7000669d0cfb1665dc1ced5eea152606",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

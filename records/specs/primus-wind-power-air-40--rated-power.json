@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-40--rated-power",
+  "model": "primus-wind-power-air-40",
+  "name": "Rated Power",
+  "value": "160 watts @ 28 mph (12.5 m/s)",
+  "source": "doc-0e96333eb489fa1e5451a0a8fa59b95d",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

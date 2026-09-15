@@ -4,7 +4,7 @@
   "name": "Output Current",
   "value": "100",
   "unit": "A",
-  "source": "doc-bde0f3bfe26d3bd33a11cbb0bc649efd",
+  "source": "doc-a7a09a703006981a06149986d1518688",
   "page": 18,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
