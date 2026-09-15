@@ -2,7 +2,8 @@
   "id": "energizer-solar-ensp54ndgt2s435bl--temperature-coefficient",
   "model": "energizer-solar-ensp54ndgt2s435bl",
   "name": "Temperature coefficient",
-  "value": "-0.29%/°C",
+  "value": "-0.29",
+  "unit": "%/K",
   "source": "doc-baa70c08d04e859a050dcca55732f9bd",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"

@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-ss-mppt-15l--load-hvr",
+  "model": "morningstar-ss-mppt-15l",
+  "name": "Load HVR",
+  "value": "Highest voltage set point + 0.5 V",
+  "source": "doc-1ca9bd2431f89efb4cc54c3e6b26224a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

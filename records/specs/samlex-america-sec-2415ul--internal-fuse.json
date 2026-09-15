@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-sec-2415ul--internal-fuse",
+  "model": "samlex-america-sec-2415ul",
+  "name": "Internal Fuse",
+  "value": "20",
+  "unit": "A",
+  "source": "doc-94ac3d73a558b005226a1f08524621cf",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

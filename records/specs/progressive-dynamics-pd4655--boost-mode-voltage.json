@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd4655--boost-mode-voltage",
+  "model": "progressive-dynamics-pd4655",
+  "name": "BOOST Mode Voltage",
+  "value": "14.4",
+  "unit": "V",
+  "source": "doc-51d603f24aeb18f79dfc121aa98503da",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

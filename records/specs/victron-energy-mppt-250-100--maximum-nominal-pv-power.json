@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-mppt-250-100--maximum-nominal-pv-power",
+  "model": "victron-energy-mppt-250-100",
+  "name": "Maximum nominal PV power",
+  "value": "48V/5800W",
+  "source": "doc-913a76359dfe7996f75469bea31fad72",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

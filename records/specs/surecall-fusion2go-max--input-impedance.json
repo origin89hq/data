@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-max--input-impedance",
+  "model": "surecall-fusion2go-max",
+  "name": "Input Impedance",
+  "value": "50",
+  "unit": "Ω",
+  "source": "doc-e2480c97013e077f943b5000b1f6ec68",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ev9627-16--service-flow-rate",
+  "model": "pentair-ev9627-16",
+  "name": "Service Flow Rate",
+  "value": "2.5 gpm (9.5 Lpm)",
+  "source": "doc-f9e9d0413147d3f39bd206a4d9b8aea5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

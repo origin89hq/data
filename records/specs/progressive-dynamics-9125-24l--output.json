@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-9125-24l--output",
+  "model": "progressive-dynamics-9125-24l",
+  "name": "Output",
+  "value": "28.55",
+  "unit": "V",
+  "source": "doc-085dfc48ebafc1f0cd7bf7c1150db5c9",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

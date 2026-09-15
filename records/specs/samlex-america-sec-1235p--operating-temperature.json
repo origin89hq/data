@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-1235p--operating-temperature",
+  "model": "samlex-america-sec-1235p",
+  "name": "Operating Temperature",
+  "value": "-20°C to +50°C",
+  "source": "doc-4523e2492377d6ea86afad0455b81118",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-lfp-51-2-v-100-ah--self-discharge-rate",
+  "model": "victron-energy-lfp-51-2-v-100-ah",
+  "name": "Self-discharge rate",
+  "value": "≤ 3 % per month @ 25 °C",
+  "source": "doc-bba1630c5ec77e2d2b039d56130ce12c",
+  "page": 30,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

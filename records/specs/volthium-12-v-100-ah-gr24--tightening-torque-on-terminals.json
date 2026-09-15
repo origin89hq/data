@@ -1,0 +1,9 @@
+{
+  "id": "volthium-12-v-100-ah-gr24--tightening-torque-on-terminals",
+  "model": "volthium-12-v-100-ah-gr24",
+  "name": "Tightening torque on terminals",
+  "value": "8~10 nm",
+  "source": "doc-6cf31b135d5d636c7fbcd2d9e1fd28f9",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

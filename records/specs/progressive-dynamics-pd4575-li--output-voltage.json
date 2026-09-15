@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4575-li--output-voltage",
+  "model": "progressive-dynamics-pd4575-li",
+  "name": "Output Voltage",
+  "value": "13.6-14.6 VDC (14.6 VDC)",
+  "source": "doc-cc746b613ecdfaa58015ab49a66a9d94",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

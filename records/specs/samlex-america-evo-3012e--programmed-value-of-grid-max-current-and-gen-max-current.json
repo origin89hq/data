@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-evo-3012e--programmed-value-of-grid-max-current-and-gen-max-current",
+  "model": "samlex-america-evo-3012e",
+  "name": "Programmed Value of GRID MAX CURRENT and GEN MAX CURRENT",
+  "value": "25",
+  "unit": "A",
+  "source": "doc-e0e0b23437fb8228c998f5f0bae57ef9",
+  "page": 50,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

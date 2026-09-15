@@ -1,0 +1,10 @@
+{
+  "id": "energizer-solar-force-3s--max-euro-efficiency",
+  "model": "energizer-solar-force-3s",
+  "name": "Max. Euro Efficiency",
+  "value": "96.80",
+  "unit": "%",
+  "source": "doc-687a8ad27f43d764c66ec02c00ea6ff8",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

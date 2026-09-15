@@ -1,0 +1,10 @@
+{
+  "id": "watersprint-watersprint-solo-nautic-ii--vattentryck",
+  "model": "watersprint-watersprint-solo-nautic-ii",
+  "name": "Vattentryck",
+  "value": "10",
+  "unit": "bar",
+  "source": "doc-356bcf9412faeab88b44d09774e8583c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

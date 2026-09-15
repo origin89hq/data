@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-sp-3--output-voltage-bulk-charge",
+  "model": "pulsetech-sp-3",
+  "name": "Output Voltage, Bulk Charge",
+  "value": "16.5 V dc",
+  "source": "doc-09d1eafc9e5ca81a8845b0cb73172e4b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

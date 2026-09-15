@@ -1,0 +1,10 @@
+{
+  "id": "pentair-shurflo-4008--minimum-wire-size-for-70-110-ft",
+  "model": "pentair-shurflo-4008",
+  "name": "Minimum wire size for 70-110 ft",
+  "value": "10",
+  "source": "doc-b6da8052bcdf2554963aaa6754e5cd09",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

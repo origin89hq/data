@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-xc450--battery-capacity",
+  "model": "pulsetech-xc450",
+  "name": "Battery Capacity",
+  "value": "7AH to 96AH",
+  "source": "doc-66ae7b6a91c205ca4abb8d03ec45cee3",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

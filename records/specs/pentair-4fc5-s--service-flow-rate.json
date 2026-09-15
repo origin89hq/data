@@ -2,7 +2,8 @@
   "id": "pentair-4fc5-s--service-flow-rate",
   "model": "pentair-4fc5-s",
   "name": "Service Flow Rate",
-  "value": "2.5 gpm",
+  "value": "2.5",
+  "unit": "gpm",
   "source": "doc-db412ebceae5f6415acf051159f09b0a",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"

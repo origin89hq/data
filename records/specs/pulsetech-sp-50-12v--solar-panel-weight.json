@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-50-12v--solar-panel-weight",
+  "model": "pulsetech-sp-50-12v",
+  "name": "Solar Panel Weight",
+  "value": "9.0",
+  "unit": "lb",
+  "source": "doc-dc486b0c7095bc807c53c71add39a126",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

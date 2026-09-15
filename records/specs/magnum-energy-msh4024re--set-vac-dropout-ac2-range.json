@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-msh4024re--set-vac-dropout-ac2-range",
+  "model": "magnum-energy-msh4024re",
+  "name": "Set VAC Dropout AC2 range",
+  "value": "60 a 100 VCA",
+  "source": "doc-587110f2dcef9286050ff2cce9977ec9",
+  "page": 41,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

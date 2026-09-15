@@ -2,7 +2,8 @@
   "id": "pentair-ma-15m--maximum-rated-power",
   "model": "pentair-ma-15m",
   "name": "Maximum Rated Power",
-  "value": "15.0 hp",
+  "value": "15.0",
+  "unit": "hp",
   "source": "doc-1acd9c15e6f3719500624ec6751dd44f",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"

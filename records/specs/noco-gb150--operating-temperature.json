@@ -1,10 +1,9 @@
 {
   "id": "noco-gb150--operating-temperature",
   "model": "noco-gb150",
-  "name": "Operating Temperature",
-  "value": "-20°C to +50°C",
-  "source": "doc-053a1e6bf9b140c56d7d670f15461687",
-  "page": 6,
+  "name": "OPERATING TEMPERATURE",
+  "value": "-4°F to +122°F(-20°C to +50°C)",
+  "source": "doc-ee3149d3c5dfda97a784de32b64eca99",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

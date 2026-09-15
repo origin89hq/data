@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-evo-2212e--output-frequency",
+  "model": "samlex-america-evo-2212e",
+  "name": "Output Frequency",
+  "value": "50 Hz / 60Hz ± 0.1 Hz",
+  "source": "doc-e0e0b23437fb8228c998f5f0bae57ef9",
+  "page": 117,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

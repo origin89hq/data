@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-lynx-smart-bms-500-a--humidity",
+  "model": "victron-energy-lynx-smart-bms-500-a",
+  "name": "Humidity",
+  "value": "Max. 95 % (non-condensing)",
+  "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
+  "page": 122,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

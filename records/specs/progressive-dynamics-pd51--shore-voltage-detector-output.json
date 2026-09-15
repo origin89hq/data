@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd51--shore-voltage-detector-output",
+  "model": "progressive-dynamics-pd51",
+  "name": "SHORE VOLTAGE DETECTOR output",
+  "value": "16",
+  "unit": "V",
+  "source": "doc-01cbc10abb4dc4de8e704ee77db1bac8",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

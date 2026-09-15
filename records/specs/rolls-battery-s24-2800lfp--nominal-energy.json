@@ -1,0 +1,11 @@
+{
+  "id": "rolls-battery-s24-2800lfp--nominal-energy",
+  "model": "rolls-battery-s24-2800lfp",
+  "name": "Nominal Energy",
+  "value": "2816",
+  "unit": "Wh",
+  "source": "doc-146ddda0ab3200a786a344a20bcf51a7",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -4,8 +4,8 @@
   "name": "Continuous Output Power",
   "value": "4000",
   "unit": "VA",
-  "source": "doc-5e6e8e162810e20e7a25133fcf481770",
-  "page": 4,
+  "source": "doc-e0e0b23437fb8228c998f5f0bae57ef9",
+  "page": 117,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

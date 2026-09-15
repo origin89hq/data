@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd1620--ac-pass-through-current",
+  "model": "progressive-dynamics-pd1620",
+  "name": "AC Pass-Through Current",
+  "value": "20",
+  "unit": "A",
+  "source": "doc-aec1d7db6c90b32d88c049ca0c90a121",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

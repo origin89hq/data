@@ -2,9 +2,9 @@
   "id": "noco-noco--operating-temperature",
   "model": "noco-noco",
   "name": "Operating Temperature",
-  "value": "-4°F to 104°F (-20°C to 40°C)",
-  "source": "doc-2ac853c4c275423f39d96437b5ce7234",
-  "page": 9,
+  "value": "-20°C to +50°C",
+  "source": "doc-12fc201334315c4c41c495ec3ca639b3",
+  "page": 10,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

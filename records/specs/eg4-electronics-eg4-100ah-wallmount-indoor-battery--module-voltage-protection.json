@@ -1,0 +1,10 @@
+{
+  "id": "eg4-electronics-eg4-100ah-wallmount-indoor-battery--module-voltage-protection",
+  "model": "eg4-electronics-eg4-100ah-wallmount-indoor-battery",
+  "name": "MODULE VOLTAGE PROTECTION",
+  "value": "60.0",
+  "unit": "V",
+  "source": "doc-360750ab157677990600d6301a67c1b1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

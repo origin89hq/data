@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xtreme-charge-xc450--maximum-charge-current",
+  "model": "pulsetech-xtreme-charge-xc450",
+  "name": "Maximum Charge Current",
+  "value": "4 Amps +/-10%",
+  "source": "doc-21c090a44b6e5a63365ed7e60d79ad85",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

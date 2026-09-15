@@ -4,7 +4,7 @@
   "name": "Input current per phase",
   "value": "100",
   "unit": "A",
-  "source": "doc-3c840784cccb24bf9c38da111c20e2b0",
+  "source": "doc-77a2e5eade75c2e6c7587026e783a60c",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

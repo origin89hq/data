@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4060-li--converter-section-output",
+  "model": "progressive-dynamics-pd4060-li",
+  "name": "Converter Section Output",
+  "value": "13.6-14.6 VDC (14.6 VDC)",
+  "source": "doc-1906ac761d8dfc9a7065daaa82245693",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

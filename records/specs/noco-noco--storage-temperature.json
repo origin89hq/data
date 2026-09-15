@@ -2,9 +2,9 @@
   "id": "noco-noco--storage-temperature",
   "model": "noco-noco",
   "name": "Storage Temperature",
-  "value": "-22°F to 140°F (-30°C to 60°C)",
-  "source": "doc-2ac853c4c275423f39d96437b5ce7234",
-  "page": 9,
+  "value": "-20ºC to +50ºC (Avg Temp.)",
+  "source": "doc-b62a0dca76d9ee06431ee2d2fa567791",
+  "page": 11,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

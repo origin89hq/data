@@ -1,0 +1,11 @@
+{
+  "id": "noco-gbx155--bater-a-interna",
+  "model": "noco-gbx155",
+  "name": "Batería interna",
+  "english": "Internal battery",
+  "value": "99Wh Ión de litio",
+  "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
+  "page": 55,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

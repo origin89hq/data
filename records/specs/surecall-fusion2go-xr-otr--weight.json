@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-xr-otr--weight",
+  "model": "surecall-fusion2go-xr-otr",
+  "name": "Weight",
+  "value": "1.43",
+  "unit": "lb",
+  "source": "doc-b3a75dfc664e7611b7cd67ecdec5fa9e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

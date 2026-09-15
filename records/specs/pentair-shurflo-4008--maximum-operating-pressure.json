@@ -1,0 +1,10 @@
+{
+  "id": "pentair-shurflo-4008--maximum-operating-pressure",
+  "model": "pentair-shurflo-4008",
+  "name": "Maximum operating pressure",
+  "value": "40-psi",
+  "source": "doc-b6da8052bcdf2554963aaa6754e5cd09",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

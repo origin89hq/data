@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-3--output-current",
+  "model": "pulsetech-sp-3",
+  "name": "Output Current",
+  "value": "240",
+  "unit": "mA",
+  "source": "doc-dada2ca712fc272b45f663227e5b4d11",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "volthium-r-b1250a--capacity-0-c",
+  "model": "volthium-r-b1250a",
+  "name": "Capacity @ 0 °C",
+  "value": "· 80 %",
+  "source": "doc-351fd519eb6040042623bf73c333c5ed",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

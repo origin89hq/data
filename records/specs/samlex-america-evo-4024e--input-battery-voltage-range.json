@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-evo-4024e--input-battery-voltage-range",
+  "model": "samlex-america-evo-4024e",
+  "name": "INPUT BATTERY VOLTAGE RANGE",
+  "value": "18.1 - 34 VDC",
+  "source": "doc-868ad4a28bf1f45acf875ffd21fcc035",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-3000ps--nominal-output-voltage",
+  "model": "powermax-converters-pmx-3000ps",
+  "name": "Nominal output voltage",
+  "value": "120 ± 10% VAC",
+  "source": "doc-aa10b2ab94603707e362b938e91785d8",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

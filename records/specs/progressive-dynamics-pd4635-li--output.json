@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4635-li--output",
+  "model": "progressive-dynamics-pd4635-li",
+  "name": "Output",
+  "value": "13.6 VDC (14.6 VDC)",
+  "source": "doc-75fd5b55776be4b8a2f07f1f7f4feaff",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

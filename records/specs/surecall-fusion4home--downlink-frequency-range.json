@@ -1,0 +1,9 @@
+{
+  "id": "surecall-fusion4home--downlink-frequency-range",
+  "model": "surecall-fusion4home",
+  "name": "Downlink Frequency Range",
+  "value": "728–746 / 746–757 / 869–894 / 1930–1995 / 2110–2155",
+  "source": "doc-2e0c4747311fab9e7645c70978fc292e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

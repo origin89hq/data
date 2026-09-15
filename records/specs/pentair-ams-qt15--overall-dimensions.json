@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ams-qt15--overall-dimensions",
+  "model": "pentair-ams-qt15",
+  "name": "Overall Dimensions",
+  "value": "12.8\" L x 4.0\" W x 4.0\" D",
+  "source": "doc-aca072b732a533d367c119dd4fd90b2c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

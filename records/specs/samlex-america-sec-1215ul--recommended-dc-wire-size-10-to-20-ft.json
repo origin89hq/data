@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-1215ul--recommended-dc-wire-size-10-to-20-ft",
+  "model": "samlex-america-sec-1215ul",
+  "name": "Recommended DC Wire Size (10 to 20 ft)",
+  "value": "AWG #6",
+  "source": "doc-94ac3d73a558b005226a1f08524621cf",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

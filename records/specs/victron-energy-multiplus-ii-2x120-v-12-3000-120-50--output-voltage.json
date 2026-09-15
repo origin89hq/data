@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-multiplus-ii-2x120-v-12-3000-120-50--output-voltage",
+  "model": "victron-energy-multiplus-ii-2x120-v-12-3000-120-50",
+  "name": "Output voltage",
+  "value": "120 VAC ± 2 %",
+  "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
+  "page": 62,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

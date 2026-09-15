@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd53--dimensions",
+  "model": "progressive-dynamics-pd53",
+  "name": "Dimensions",
+  "value": "30.5L x 25.4W x 15.2H",
+  "source": "doc-72f58fdea2e66524cf593ba55984560a",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

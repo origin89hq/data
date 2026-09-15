@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd4575-li--ac-power",
+  "model": "progressive-dynamics-pd4575-li",
+  "name": "AC Power",
+  "value": "1250",
+  "unit": "W",
+  "source": "doc-cc746b613ecdfaa58015ab49a66a9d94",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "wilson-electronics-pwo460060--power-requirements",
+  "model": "wilson-electronics-pwo460060",
+  "name": "Power Requirements",
+  "value": "5",
+  "unit": "V",
+  "source": "doc-f2ef464b6f5080f3634ca8930a2924aa",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

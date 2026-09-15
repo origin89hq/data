@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pt20--overcurrent-protection",
+  "model": "pulsetech-pt20",
+  "name": "Overcurrent Protection",
+  "value": "22-amps",
+  "source": "doc-23626c7771110fd9944d219a50d60d5f",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

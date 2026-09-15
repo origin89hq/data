@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-dd5300--nominal-voltage",
+  "model": "morningstar-dd5300",
+  "name": "Nominal Voltage",
+  "value": "52",
+  "unit": "V",
+  "source": "doc-847c83ef8d9ead0714a08ef9c5d5bedc",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

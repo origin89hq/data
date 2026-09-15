@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-12--system-voltage",
+  "model": "pulsetech-sp-12",
+  "name": "System voltage",
+  "value": "24",
+  "unit": "V",
+  "source": "doc-88a876f6b5059dfae584e5c726bc0b8d",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

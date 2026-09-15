@@ -1,0 +1,9 @@
+{
+  "id": "surecall-fusion2go-xr-otr--downlink-frequency",
+  "model": "surecall-fusion2go-xr-otr",
+  "name": "Downlink Frequency",
+  "value": "728-746 / 746-757 / 869-894 / 1930-1995 / 2110-2180",
+  "source": "doc-b3a75dfc664e7611b7cd67ecdec5fa9e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "unique-appliances-ugp-30cr-ec--rear-burner-btu",
+  "model": "unique-appliances-ugp-30cr-ec",
+  "name": "Rear burner BTU",
+  "value": "G. 1 200 / M. 100 /D. 1 200",
+  "source": "doc-c7d7b5e9f102b8acb17ad5c8bb933fa6",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

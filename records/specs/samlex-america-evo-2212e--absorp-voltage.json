@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-evo-2212e--absorp-voltage",
+  "model": "samlex-america-evo-2212e",
+  "name": "ABSORP VOLTAGE",
+  "value": "14.4",
+  "unit": "V",
+  "source": "doc-e0e0b23437fb8228c998f5f0bae57ef9",
+  "page": 89,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

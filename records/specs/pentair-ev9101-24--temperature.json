@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ev9101-24--temperature",
+  "model": "pentair-ev9101-24",
+  "name": "Temperature",
+  "value": "40 – 100°F (4.4 – 38°C)",
+  "source": "doc-2eddc71c68e143eeec880dc40c38b3e5",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

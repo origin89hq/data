@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-pst-120-12--continuous-output-power",
+  "model": "samlex-america-pst-120-12",
+  "name": "CONTINUOUS OUTPUT POWER",
+  "value": "120",
+  "unit": "W",
+  "source": "doc-f56a10b8c75d28d7a5bb1e6ac45d6fac",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

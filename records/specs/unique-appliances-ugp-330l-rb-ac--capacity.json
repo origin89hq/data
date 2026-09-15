@@ -1,0 +1,9 @@
+{
+  "id": "unique-appliances-ugp-330l-rb-ac--capacity",
+  "model": "unique-appliances-ugp-330l-rb-ac",
+  "name": "Capacity",
+  "value": "11.65 Cubic Feet",
+  "source": "doc-772f70d88b3ff434555b7ad5d3fb9572",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "surecall-sc-fusion2go3-otr--operation-temperature",
+  "model": "surecall-sc-fusion2go3-otr",
+  "name": "Operation Temperature",
+  "value": "-4°F to +158°F",
+  "source": "doc-1a9156d51ecd50bc8f3202040d099930",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

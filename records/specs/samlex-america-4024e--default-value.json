@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-4024e--default-value",
+  "model": "samlex-america-4024e",
+  "name": "Default value",
+  "value": "24.0",
+  "unit": "V",
+  "source": "doc-e0e0b23437fb8228c998f5f0bae57ef9",
+  "page": 93,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

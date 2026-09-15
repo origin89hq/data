@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-sk-12--humidity",
+  "model": "morningstar-sk-12",
+  "name": "Humidity",
+  "value": "100",
+  "unit": "%",
+  "source": "doc-5d9b386e5c8e37dcd8c171d8dc9605e3",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

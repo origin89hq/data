@@ -1,0 +1,9 @@
+{
+  "id": "p3-international-p7825--dimensions",
+  "model": "p3-international-p7825",
+  "name": "Dimensions",
+  "value": "5 1/8 x 2 ½ x 1 5/8 (L/W/H)",
+  "source": "doc-4d33ddf81a8ff8227e6533eafef2ec67",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

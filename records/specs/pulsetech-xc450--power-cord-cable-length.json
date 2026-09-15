@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc450--power-cord-cable-length",
+  "model": "pulsetech-xc450",
+  "name": "Power Cord Cable Length",
+  "value": "6",
+  "unit": "ft",
+  "source": "doc-66ae7b6a91c205ca4abb8d03ec45cee3",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}
