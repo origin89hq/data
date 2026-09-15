@@ -202,6 +202,19 @@ test("a unit trapped in the table header becomes the unit, and a qualifier is le
     unit: "°C",
   });
   assert.deepEqual(splitUnit("Dimensions (D*W*H)", undefined), { name: "Dimensions (D*W*H)" });
+  // A qualifier is what tells two rows apart, so it stays in the name (#189).
+  assert.deepEqual(splitUnit("Max Power (Cont)", undefined), { name: "Max Power (Cont)" });
+  assert.deepEqual(splitUnit("Max Power (Peak)", undefined), { name: "Max Power (Peak)" });
+  assert.deepEqual(splitUnit("CELL VOLTAGE PROTECTION (CHARGE)", undefined), {
+    name: "CELL VOLTAGE PROTECTION (CHARGE)",
+  });
+  assert.deepEqual(splitUnit("CHARGING VOLTAGE (BULK/ABSORB)", undefined), {
+    name: "CHARGING VOLTAGE (BULK/ABSORB)",
+  });
+  assert.deepEqual(splitUnit("Output voltage (VDC)", undefined), {
+    name: "Output voltage",
+    unit: "VDC",
+  });
   assert.deepEqual(splitUnit("Capacity (at 25 degrees)", undefined), {
     name: "Capacity (at 25 degrees)",
   });

@@ -272,6 +272,34 @@ export function canonicalUnit(raw: string | undefined): Unit | undefined {
 }
 
 /**
+ * The key a reader's answer carries on to after a value, which the value sometimes keeps: PD1600's
+ * figures came back as "1000W', 'unit': " and NorthStar's as "31 lb, unit:", each a figure followed
+ * by the next field of the structure the model was writing in (#188).
+ */
+const ANSWER_TAIL =
+  /\s*['"]?\s*,\s*['"]?(?:unit|units|conditions|page|name)['"]?\s*:\s*['"]?([^'"]*?)['"]?\s*$/i;
+
+/** Where a model wrote a list where one value belongs: `20.70" L x 3.34" dia', '52.58 x 8.48 cm`. */
+const ANSWER_LIST = /['"]\s*,\s*['"]/;
+
+/**
+ * A value with the answer's own structure taken off it, and the unit that structure named where it
+ * named one. What stands before the structure is what the document prints. A value that is nothing
+ * but structure is returned as it came, for the truncation check to refuse.
+ */
+export function withoutAnswerTail(value: string): { value: string; unit?: string } {
+  const tail = ANSWER_TAIL.exec(value);
+  const head = (tail ? value.slice(0, tail.index) : value).split(ANSWER_LIST)[0] ?? "";
+  const printed = head
+    .trim()
+    .replace(/['"]+$/, "")
+    .trim();
+  if (!printed) return { value };
+  const unit = tail?.[1]?.trim();
+  return { value: printed, ...(unit ? { unit } : {}) };
+}
+
+/**
  * Pull a unit out of a value that has one glued on. A model told to put the unit in its own field
  * writes "57.6V" anyway, and twenty-two figures in one run did exactly that: the number is right
  * and the unit is right, and only the shape is wrong.
