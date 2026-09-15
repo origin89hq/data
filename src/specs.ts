@@ -78,6 +78,9 @@ export function sameName(a: string, b: string): boolean {
  * Given `makerNames`, a name that is a held one with a maker's name in front or words saying what
  * the thing is behind reaches it too, "IOTA ILBLP CP15 HE SD" and "MS2000 Inverter/Charger" among
  * them, rather than becoming a second model (#150). A suffix that tells products apart does not.
+ * It works the other way round as well: a held "IOTA ILBLP CP15 HE SD" is reached by the bare
+ * "ILBLP CP15 HE SD" a specification sheet prints, since whichever document a pull reads first
+ * names the model (#176).
  *
  * So does a held part number with a product line's words in front, either way round: "XC450"
  * reaches "Xtreme Charge XC450". Two lines in front of one code do not: Victron's BlueSolar and
@@ -100,6 +103,13 @@ export function matchModel(
   const core = coreName(reported, makerNames);
   const byCore = core ? find(core) : undefined;
   if (byCore) return byCore;
+  const heldCore = ours.filter((m) =>
+    [m.name, ...m.aliases].some((name) => {
+      const held = coreName(name, makerNames);
+      return held !== undefined && sameName(held, reported);
+    }),
+  );
+  if (heldCore.length === 1) return heldCore[0];
   // Held under its bare part number with a line's words in front of it on one side only: two lines
   // that share a code are two products.
   const code = lineCode(reported);

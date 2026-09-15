@@ -827,3 +827,43 @@ test("a name reaches a held model past a line's words before its part number, an
     "two lines with the same part number leave the name unmatched",
   );
 });
+
+test("a held name with the maker's name in front is reached by the bare name, and by nothing shorter (#176)", () => {
+  const iota: Model[] = [
+    {
+      id: "iota-engineering-iota-ilblp-cp15-he-sd",
+      manufacturer: "iota-engineering",
+      name: "IOTA ILBLP CP15 HE SD",
+      aliases: [],
+      dialects: [],
+    },
+  ];
+  const makers = ["IOTA Engineering"];
+  assert.equal(
+    matchModel(iota, "iota-engineering", "ILBLP CP15 HE SD", makers)?.id,
+    "iota-engineering-iota-ilblp-cp15-he-sd",
+  );
+  assert.equal(
+    matchModel(iota, "iota-engineering", "ILBLP CP15 HE SD"),
+    undefined,
+    "without the makers' names nothing is taken off the held name either",
+  );
+  assert.equal(matchModel(iota, "iota-engineering", "ILBLP CP15", makers), undefined);
+  assert.equal(
+    matchModel(
+      [
+        ...iota,
+        {
+          ...iota[0],
+          id: "iota-engineering-iota-ilblp-cp15-he-sd-2",
+          name: "Iota ILBLP CP15 HE SD Battery",
+        },
+      ],
+      "iota-engineering",
+      "ILBLP CP15 HE SD",
+      [...makers, "Iota"],
+    ),
+    undefined,
+    "two held names with the same core leave the name unmatched",
+  );
+});
