@@ -1,9 +1,0 @@
-{
-  "id": "unique-appliances-ugp-215l-lg-ac--capacity",
-  "model": "unique-appliances-ugp-215l-lg-ac",
-  "name": "Capacity",
-  "value": "7.0 Cubic Feet",
-  "source": "doc-2c634112cb4e5626791a97de87cdb71a",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

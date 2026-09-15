@@ -1,0 +1,13 @@
+{
+  "id": "unique-appliances-ugp-330l-w-ac",
+  "manufacturer": "unique-appliances",
+  "name": "UGP-330L W AC",
+  "kind": "appliance",
+  "aliases": [
+    "UGP-330L RB AC",
+    "UGP-330L LG AC",
+    "UGP-330L T AC",
+    "UGP-330L B AC"
+  ],
+  "dialects": []
+}
