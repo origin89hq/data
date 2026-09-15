@@ -125,9 +125,9 @@ test("a held name reaches its model with a maker's name in front or what it is b
   );
   assert.equal(matchModel(models, "rolls-battery", "Rolls S-551", makers), undefined);
   assert.equal(
-    matchModel(models, "rolls-battery", "Rolls S-550"),
+    matchModel(models, "rolls-battery", "Rolls S-550 Battery"),
     undefined,
-    "without the makers' names nothing is taken off",
+    "without the makers' names a maker's word in front and what it is behind are not both taken off",
   );
   assert.equal(
     matchModel(models, "epever", "Rolls S-550", makers),
@@ -762,5 +762,69 @@ test("a model a pull minted is written only when a figure it writes cites it (#1
     mintedWithFigures([minted("SP-7")], []),
     { kept: [], empty: [minted("SP-7")] },
     "with nothing written, nothing minted is kept",
+  );
+});
+
+test("a name reaches a held model past the region it is sold in or a line's words before its part number (#150)", () => {
+  const held = (name: string) => ({
+    id: `m-${name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
+    manufacturer: "m",
+    name,
+    aliases: [],
+    dialects: [],
+  });
+  const models = [
+    held("XC450"),
+    held("OMNIFilter OM26K"),
+    held("Fusion4Home Max"),
+    held("Fusion4Home Max (US and Canada)"),
+    held("Freedom XC 1800"),
+    held("VFXR3524A-01"),
+    held("MPPT 100/30"),
+    held("SmartSolar MPPT100|30"),
+    held("MPPT 100/20"),
+  ];
+  const reach = (name: string) => matchModel(models, "m", name)?.name;
+  assert.equal(reach("Xtreme Charge XC450"), "XC450");
+  assert.equal(reach("OM26K"), "OMNIFilter OM26K", "the other way round too");
+  assert.equal(
+    reach("Fusion4Home Max (E.-U.)"),
+    "Fusion4Home Max",
+    "the bare name wins over another region",
+  );
+  assert.equal(
+    reach("Freedom XC 1800 (12VDC)"),
+    undefined,
+    "a voltage in brackets is another product",
+  );
+  assert.equal(
+    reach("FP1 VFXR3524A-01"),
+    undefined,
+    "a system named for its inverter is not the inverter",
+  );
+  assert.equal(
+    reach("BlueSolar MPPT 100/30"),
+    undefined,
+    "a rating after a line is no part number",
+  );
+  assert.equal(
+    reach("BlueSolar MPPT100|30"),
+    undefined,
+    "two lines in front of one code are two products",
+  );
+  assert.equal(
+    reach("BlueSolar MPPT100|20"),
+    undefined,
+    "and a code is matched only by a name that is that code alone",
+  );
+  assert.equal(
+    matchModel([...models, held("Boost XC450")], "m", "XC4 50")?.name,
+    "XC450",
+    "an exact match still comes first",
+  );
+  assert.equal(
+    matchModel([held("Xtreme Charge XC450"), held("Boost XC450")], "m", "XC450"),
+    undefined,
+    "two lines with the same part number leave the name unmatched",
   );
 });
