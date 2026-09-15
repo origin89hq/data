@@ -130,6 +130,18 @@
       "reason": "The table prints 15 V for a 12 V battery and 30 V for 24 V; the figure took the 12 V value without its condition.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-14"
+    },
+    {
+      "product": "PT20 12V System",
+      "reason": "The PT20 (part 746X920) is one controller that detects the battery voltage, \"12/24V (Automatically Detected)\"; \"12V System\" is one of its configurations, not a product.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "product": "PT20 24V System",
+      "reason": "The PT20 (part 746X920) is one controller that detects the battery voltage, \"12/24V (Automatically Detected)\"; \"24V System\" is one of its configurations, not a product.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
     }
   ]
 }

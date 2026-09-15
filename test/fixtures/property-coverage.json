@@ -103,9 +103,9 @@
       "needsConditions": 25
     },
     "victron-energy": {
-      "values": 203,
+      "values": 202,
       "conflicts": 0,
-      "unparsed": 18,
+      "unparsed": 16,
       "needsConditions": 24
     },
     "xantrex": {
@@ -370,12 +370,12 @@
     },
     "inverter.power.idle inverter-charger": {
       "models": 729,
-      "values": 70,
-      "partial": 21,
+      "values": 69,
+      "partial": 20,
       "conflicts": 0,
-      "unparsed": 11,
+      "unparsed": 10,
       "needsConditions": 0,
-      "noClaim": 648
+      "noClaim": 650
     },
     "inverter.power.surge inverter": {
       "models": 221,

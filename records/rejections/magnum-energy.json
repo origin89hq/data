@@ -200,6 +200,14 @@
       "reason": "The ME-RC manual's front-panel illustration shows \"Inverting DC: 12.6V 50A\" as a sample screen, not a rating.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-587110f2dcef9286050ff2cce9977ec9",
+      "model": "magnum-energy-msh4024re",
+      "name": "Absorb Done Time",
+      "reason": "A default of the ME-ARC remote menu, for every Magnum inverter: \"Absorb Done Time = 2.0 horas\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
     }
   ]
 }

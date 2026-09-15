@@ -1,0 +1,53 @@
+{
+  "id": "eg4-electronics",
+  "rejections": [
+    {
+      "source": "doc-c9f5fe331c3accbf0c788e901cb5a0af",
+      "model": "eg4-electronics-eg4-wallmount-indoor-100ah-lithium",
+      "name": "Chemistry",
+      "reason": "\"Lithium\" comes from the product name \"WallMount Indoor 100Ah Lithium\"; the specification tables have no chemistry row.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-360750ab157677990600d6301a67c1b1",
+      "model": "eg4-electronics-eg4-100ah-wallmount-indoor-battery",
+      "name": "CELL VOLTAGE PROTECTION",
+      "reason": "The CHARGE row; the DISCHARGE row prints the same name with another value, so the name alone does not say which.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-360750ab157677990600d6301a67c1b1",
+      "model": "eg4-electronics-eg4-100ah-wallmount-indoor-battery",
+      "name": "CHARGING VOLTAGE",
+      "reason": "Printed \"CHARGING VOLTAGE (BULK/ABSORB)\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-360750ab157677990600d6301a67c1b1",
+      "model": "eg4-electronics-eg4-100ah-wallmount-indoor-battery",
+      "name": "MODULE VOLTAGE PROTECTION",
+      "reason": "The CHARGE row; the DISCHARGE row prints the same name with another value, so the name alone does not say which.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-360750ab157677990600d6301a67c1b1",
+      "model": "eg4-electronics-eg4-100ah-wallmount-indoor-battery",
+      "name": "POWER CONSUMPTION",
+      "reason": "Printed \"POWER CONSUMPTION (OPERATING)\"; another row is \"POWER CONSUMPTION (SLEEP & OFF MODE)\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-360750ab157677990600d6301a67c1b1",
+      "model": "eg4-electronics-eg4-100ah-wallmount-indoor-battery",
+      "name": "SOC CUTOFF",
+      "reason": "A recommended setting, not a rating: \"| SOC CUTOFF | - | *20% |\" under \"RECOMMENDED SETTING\", with no BMS value.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    }
+  ]
+}

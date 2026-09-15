@@ -16,6 +16,14 @@
       "reason": "This name and its 0.015 A are printed in the 20 W CP20 block; the CP30 block prints Input Current (347V/480V) 0.022A.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-668127f8728f21471af7b6df6f82db0f",
+      "model": "iota-engineering-ilblp-cp15-he-sd",
+      "name": "Frequency",
+      "reason": "\"50/60Hz\" is part of the \"Input Voltage\" line; no frequency label is printed.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
     }
   ]
 }

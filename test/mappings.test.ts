@@ -168,7 +168,7 @@ test("OutBack: the Radian's watts, its three idle modes, the charger's amps, and
   );
   assert.deepEqual(
     values(flexmax, "pv.voc.max").map((p) => [p.value, p.claim]),
-    [[150, "outback-power-flexmax-60--pv-array-voltage"]],
+    [[150, "outback-power-flexmax-60--pv-open-circuit-voltage"]],
   );
   assert.ok(own("outback-power", values(flexmax, "pv.voc.max")));
   // The GS3548E prints a 50 A continuous charge beside its 55 A maximum; only the maximum is read.

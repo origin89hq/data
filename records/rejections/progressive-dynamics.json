@@ -8,6 +8,46 @@
       "reason": "The label drawing prints a 30 A fuse, but the manual says the 60 A and 80 A versions use 25 A fuses, so the PD2160's fuse is not settled by the label.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-085dfc48ebafc1f0cd7bf7c1150db5c9",
+      "model": "progressive-dynamics-9130l",
+      "name": "Output current",
+      "reason": "Printed only as part of an \"Output\" cell for PD9130(L); no output current label.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-9b5a35cf0b2f79edbd3df1d0f1a87246",
+      "model": "progressive-dynamics-pd1610",
+      "name": "Max Power",
+      "reason": "Printed \"Max Power (Cont)\"; the \"Max Power (Peak)\" row prints other values under the same words.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-9b5a35cf0b2f79edbd3df1d0f1a87246",
+      "model": "progressive-dynamics-pd1618",
+      "name": "Max Power",
+      "reason": "Printed \"Max Power (Cont)\"; the \"Max Power (Peak)\" row prints other values under the same words.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-9b5a35cf0b2f79edbd3df1d0f1a87246",
+      "model": "progressive-dynamics-pd1620",
+      "name": "Max Power",
+      "reason": "Printed \"Max Power (Cont)\"; the \"Max Power (Peak)\" row prints other values under the same words.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-02863f66a1a007ef842aa7fba664e0d0",
+      "model": "progressive-dynamics-pd4135",
+      "name": "Input Voltage",
+      "reason": "Printed as part of the \"Input\" cell; no input voltage label.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
     }
   ]
 }

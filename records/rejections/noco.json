@@ -24,6 +24,46 @@
       "reason": "The guide says the GBX155 is only compatible with 12-volt lead-acid batteries, which is the vehicle's battery; its own battery is lithium-ion.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
+      "model": "noco-gbx55",
+      "name": "Dimensões (C x L x A)",
+      "reason": "The document is the GBX155 user guide; \"GBX55\" is a typo in the Portuguese section, and the figures are the GBX155's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
+      "model": "noco-gbx55",
+      "name": "Proteção da caixa",
+      "reason": "The document is the GBX155 user guide; \"GBX55\" is a typo in the Portuguese section, and the figures are the GBX155's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
+      "model": "noco-gbx55",
+      "name": "USB-C (saída)",
+      "reason": "The document is the GBX155 user guide; \"GBX55\" is a typo in the Portuguese section, and the figures are the GBX155's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
+      "model": "noco-gbx55",
+      "name": "USB-C",
+      "reason": "The document is the GBX155 user guide; \"GBX55\" is a typo in the Portuguese section, and the figures are the GBX155's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
+      "model": "noco-gbx55",
+      "name": "USB (saída)",
+      "reason": "The document is the GBX155 user guide; \"GBX55\" is a typo in the Portuguese section, and the figures are the GBX155's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
     }
   ]
 }

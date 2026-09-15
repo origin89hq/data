@@ -12,6 +12,30 @@
       "reason": "\"This UNIQUE appliance\" is warranty wording in the UGP-30CR EC range manual, not a model.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-c7d7b5e9f102b8acb17ad5c8bb933fa6",
+      "model": "unique-appliances-ugp-30cr-ec",
+      "name": "Front burner BTU",
+      "reason": "The French sheet prints \"Avant : G. 1 800 / D. 3 000\" under \"BTU\"; the name is a translation.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-c7d7b5e9f102b8acb17ad5c8bb933fa6",
+      "model": "unique-appliances-ugp-30cr-ec",
+      "name": "Rear burner BTU",
+      "reason": "The French sheet prints \"Arrière : G. 1 200\" under \"BTU\"; the name is a translation.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-c7d7b5e9f102b8acb17ad5c8bb933fa6",
+      "model": "unique-appliances-ugp-30cr-ec",
+      "name": "Voltage",
+      "reason": "The French sheet prints \"OPÉRATION\"; the name is a translation.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
     }
   ]
 }
