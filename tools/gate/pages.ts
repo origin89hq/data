@@ -123,3 +123,36 @@ export function printedPages(
   }));
   return { products: repaired, counts };
 }
+
+/** What looking one reading's pages up did: its products and counts, or why they were left as read. */
+export type PageLookup =
+  | { status: "looked"; products: ReportedProduct[]; counts: PageCounts; windows: number }
+  | { status: "no-text" }
+  | { status: "unreadable"; error: string };
+
+/**
+ * Look one reading's pages up from what is kept beside its document: the converted text and the
+ * values of its windows, which `load` fetches and parses. A reading whose kept objects cannot be
+ * read, because the archive failed or holds something that is not JSON, is left with the pages it
+ * was read with and reported, so one document cannot stop a maker's pull every day after.
+ */
+export async function lookUpPages(
+  products: readonly ReportedProduct[],
+  load: { text(): Promise<string | undefined>; windows(): Promise<readonly unknown[]> },
+): Promise<PageLookup> {
+  let markdown: string | undefined;
+  let windows: KeptWindow[];
+  try {
+    const [text, values] = await Promise.all([load.text(), load.windows()]);
+    markdown = text;
+    windows = keptWindows(values);
+  } catch (error) {
+    return { status: "unreadable", error: error instanceof Error ? error.message : String(error) };
+  }
+  if (!markdown) return { status: "no-text" };
+  return {
+    status: "looked",
+    ...printedPages(products, markdown, windows),
+    windows: windows.length,
+  };
+}

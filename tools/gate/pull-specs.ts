@@ -31,7 +31,7 @@ import {
   staleFigures,
 } from "../../src/specs.ts";
 import { currentRun, jsonValues, object, PULLED_READERS, readingsOf, under } from "./archive.ts";
-import { keptWindows, noPages, printedPages } from "./pages.ts";
+import { lookUpPages, noPages } from "./pages.ts";
 import { creditedReadings, textKey } from "./retailer.ts";
 
 /**
@@ -145,12 +145,15 @@ readings.readings = readings.readings.filter((reading) => !isRejected(reading));
 // kept beside the document, so every text-reader figure is given the page its value is printed on
 // here, without reading anything again: two requests a document, a few documents at a time. A
 // reading from before #42 kept no windows and is looked up in the windows starting on the page each
-// figure cites; a document with no converted text keeps the pages it was read with.
+// figure cites; a document with no converted text keeps the pages it was read with, and so does one
+// whose kept text or windows cannot be read, which is counted rather than stopping the pull.
 const TEXT_READER = readerKey(EXTRACTOR_ID);
 const PAGE_LOOKUPS_AT_ONCE = 6;
 const pages = noPages();
 let pagesNotLooked = 0;
 let readingsWithoutWindows = 0;
+let pagesUnreadable = 0;
+let firstUnreadable = "";
 const textReadings = readings.readings.filter(
   (reading) =>
     (reading.extractedBy ?? EXTRACTOR_ID) === EXTRACTOR_ID && reading.products.length > 0,
@@ -158,17 +161,23 @@ const textReadings = readings.readings.filter(
 for (let i = 0; i < textReadings.length; i += PAGE_LOOKUPS_AT_ONCE) {
   await Promise.all(
     textReadings.slice(i, i + PAGE_LOOKUPS_AT_ONCE).map(async (reading) => {
-      const [markdown, parts] = await Promise.all([
-        object(textKey(reading), remote),
-        under(`archive/${reading.sha256}.${TEXT_READER}.window-`, remote),
-      ]);
-      const windows = keptWindows(jsonValues<unknown>(parts));
-      if (!markdown) {
+      const looked = await lookUpPages(reading.products, {
+        text: () => object(textKey(reading), remote),
+        windows: async () =>
+          jsonValues<unknown>(
+            await under(`archive/${reading.sha256}.${TEXT_READER}.window-`, remote),
+          ),
+      });
+      if (looked.status === "unreadable") {
+        pagesUnreadable += 1;
+        firstUnreadable ||= `${reading.url.split("/").pop()}: ${looked.error}`;
+        return;
+      }
+      if (looked.status === "no-text") {
         pagesNotLooked += 1;
         return;
       }
-      if (windows.length === 0) readingsWithoutWindows += 1;
-      const looked = printedPages(reading.products, markdown, windows);
+      if (looked.windows === 0) readingsWithoutWindows += 1;
       reading.products = looked.products;
       pages.set += looked.counts.set;
       pages.moved += looked.counts.moved;
@@ -432,8 +441,8 @@ if (held.agreed)
     `  ${held.agreed} figures a person holds were read again the same way and left as they are`,
   );
 if (unread) console.log(`  ${unread} figures a person holds were not read by this run and stay`);
-// Counted over every figure the text reader read, written or not, so a pull whose diff is mostly
-// pages says so.
+// Counted over the text readings this pull uses, once translated editions, other makers' documents
+// and rejected documents are set aside, written or not, so a pull whose diff is mostly pages says so.
 if (pages.set || pages.moved || pages.kept || pages.unfound)
   console.log(
     `  pages: ${pages.set} figures given the page their value is printed on, ${pages.moved} moved to it, ${pages.kept} already on it, ${pages.unfound} not found in their windows and left as read`,
@@ -445,6 +454,10 @@ if (readingsWithoutWindows)
 if (pagesNotLooked)
   console.log(
     `  pages: ${pagesNotLooked} readings left as read, with no converted text to look in`,
+  );
+if (pagesUnreadable)
+  console.log(
+    `  pages: ${pagesUnreadable} readings left as read, their kept text or windows could not be read (first: ${firstUnreadable})`,
   );
 // Each id a name took for its second unit, where that figure is written, so a reviewer reads the
 // added record as another rating rather than looking for the value it replaced.

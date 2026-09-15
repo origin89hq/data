@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { CHUNK_CHARACTERS, CHUNK_OVERLAP, chunk } from "../apps/worker/src/reading.ts";
-import { keptWindows, noPages, printedPages } from "../tools/gate/pages.ts";
+import { keptWindows, lookUpPages, noPages, printedPages } from "../tools/gate/pages.ts";
 
 /** Words with no digit in them, so filler never prints a figure's value. */
 const filler = (characters: number): string =>
@@ -186,4 +186,42 @@ test("a window part that is not a reading's shape is passed over rather than tru
     },
   ]);
   assert.deepEqual(counts, { ...noPages(), unfound: 1 });
+});
+
+test("a reading whose kept text or windows cannot be read is left as read and reported, apart from one with no text", async () => {
+  const products = [
+    { model: "LFP-12100", specs: [{ name: "Nominal voltage", value: "12.8 V", page: 1 }] },
+  ];
+  assert.deepEqual(
+    await lookUpPages(products, {
+      text: async () => {
+        throw new Error("/archive: HTTP 500");
+      },
+      windows: async () => [],
+    }),
+    { status: "unreadable", error: "/archive: HTTP 500" },
+    "a failed fetch leaves the reading as read",
+  );
+  assert.deepEqual(
+    await lookUpPages(products, {
+      text: async () => SHEET,
+      windows: async () => {
+        throw new Error("unbalanced JSON in the archive stream");
+      },
+    }),
+    { status: "unreadable", error: "unbalanced JSON in the archive stream" },
+    "and so does a window stream that is not JSON",
+  );
+  assert.deepEqual(
+    await lookUpPages(products, { text: async () => undefined, windows: async () => [] }),
+    { status: "no-text" },
+  );
+  const looked = await lookUpPages(products, { text: async () => SHEET, windows: async () => [] });
+  assert.equal(looked.status, "looked");
+  if (looked.status === "looked") {
+    const { set, moved, kept, unfound } = looked.counts;
+    assert.equal(set + moved + kept + unfound, 1, "the one figure is counted once");
+    assert.equal(looked.windows, 0);
+    assert.equal(looked.products.length, 1);
+  }
 });
