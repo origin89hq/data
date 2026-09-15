@@ -276,26 +276,34 @@ export function canonicalUnit(raw: string | undefined): Unit | undefined {
  * figures came back as "1000W', 'unit': " and NorthStar's as "31 lb, unit:", each a figure followed
  * by the next field of the structure the model was writing in (#188).
  */
-const ANSWER_TAIL =
-  /\s*['"]?\s*,\s*['"]?(?:unit|units|conditions|page|name)['"]?\s*:\s*['"]?([^'"]*?)['"]?\s*$/i;
+const ANSWER_KEY = String.raw`['"]?\s*,\s*['"]?(?:unit|units|conditions|page|name)['"]?\s*:`;
+
+/** A value that ends in the answer's structure: a key, and whatever the model wrote after it. */
+const ANSWER_TAIL = new RegExp(`${ANSWER_KEY}\\s*['"]?[^'"]*['"]?\\s*$`, "i");
+
+/** Where that structure starts: the first key, which may be followed by several more. */
+const ANSWER_START = new RegExp(ANSWER_KEY, "i");
+
+/** The unit key among them, wherever it sits: `'conditions': 'at 25 C', 'unit': 'V`. */
+const ANSWER_UNIT = /['"]?units?['"]?\s*:\s*['"]?([^'",]*)/i;
 
 /** Where a model wrote a list where one value belongs: `20.70" L x 3.34" dia', '52.58 x 8.48 cm`. */
 const ANSWER_LIST = /['"]\s*,\s*['"]/;
 
 /**
  * A value with the answer's own structure taken off it, and the unit that structure named where it
- * named one. What stands before the structure is what the document prints. A value that is nothing
+ * named one. What stands before the first key is what the document prints. A value that is nothing
  * but structure is returned as it came, for the truncation check to refuse.
  */
 export function withoutAnswerTail(value: string): { value: string; unit?: string } {
-  const tail = ANSWER_TAIL.exec(value);
-  const head = (tail ? value.slice(0, tail.index) : value).split(ANSWER_LIST)[0] ?? "";
+  const start = ANSWER_TAIL.test(value) ? value.search(ANSWER_START) : -1;
+  const head = (start === -1 ? value : value.slice(0, start)).split(ANSWER_LIST)[0] ?? "";
   const printed = head
     .trim()
     .replace(/['"]+$/, "")
     .trim();
   if (!printed) return { value };
-  const unit = tail?.[1]?.trim();
+  const unit = start === -1 ? undefined : ANSWER_UNIT.exec(value.slice(start))?.[1]?.trim();
   return { value: printed, ...(unit ? { unit } : {}) };
 }
 

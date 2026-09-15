@@ -18,6 +18,16 @@ test("a value that kept the answer's next key is cut back to what the document p
     unit: "V",
   });
   assert.deepEqual(withoutAnswerTail("Pure Sine Wave', 'unit': "), { value: "Pure Sine Wave" });
+  // The unit is the one the unit key names, wherever it sits among the keys that follow.
+  assert.deepEqual(withoutAnswerTail("1000', 'unit': 'W', 'conditions': 'at 25 C"), {
+    value: "1000",
+    unit: "W",
+  });
+  assert.deepEqual(withoutAnswerTail("12.8', 'conditions': 'at 25 C', 'unit': 'V"), {
+    value: "12.8",
+    unit: "V",
+  });
+  assert.deepEqual(withoutAnswerTail("60 Hz', 'conditions': 'nominal"), { value: "60 Hz" });
   assert.deepEqual(
     withoutAnswerTail("20.70\" L x 3.34\" dia', '52.58 x 8.48 cm"),
     { value: '20.70" L x 3.34" dia' },
