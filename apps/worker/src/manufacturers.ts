@@ -8,6 +8,8 @@ import raw from "../manufacturers.json" with { type: "json" };
 export const CrawlableMaker = z
   .object({
     id: z.string().min(1),
+    /** The maker's name, so a reader can be told whose document it is reading (#144). */
+    name: z.string().min(1),
     domains: z.array(z.string().min(1)).min(1),
     /** Hosts its pages keep documents on, from the record. Documents only: no page here is read. */
     documentHosts: z.array(z.string().min(1)).optional(),
@@ -21,3 +23,7 @@ export type CrawlableMaker = z.infer<typeof CrawlableMaker>;
 
 /** Parsed once at module load, so a bad entry fails the deploy rather than a crawl. */
 export const manufacturers: CrawlableMaker[] = raw.map((m) => CrawlableMaker.parse(m));
+
+/** The name a reader is told a document's maker goes by, or the maker's id when the list has none. */
+export const makerName = (id: string): string =>
+  manufacturers.find((maker) => maker.id === id)?.name ?? id;

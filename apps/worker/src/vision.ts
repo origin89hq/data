@@ -1,4 +1,5 @@
 import { contentOf } from "./classify.ts";
+import { makerName } from "./manufacturers.ts";
 import {
   CONVERTER,
   DOCUMENT_FIGURES_SYSTEM,
@@ -394,7 +395,10 @@ async function figuresIn(
   const response = await env.AI.run(VISION_MODEL, {
     messages: [
       { role: "system", content: DOCUMENT_FIGURES_SYSTEM },
-      { role: "user", content: windowPrompt(transcript, window) },
+      {
+        role: "user",
+        content: `Maker: ${makerName(message.manufacturer)}\n\n${windowPrompt(transcript, window)}`,
+      },
     ],
     response_format: {
       type: "json_schema",

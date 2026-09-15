@@ -1,0 +1,63 @@
+{
+  "id": "pulsetech",
+  "rejections": [
+    {
+      "source": "doc-7b83ee07626a733e37279eff1cb5aabf",
+      "reason": "A USMC battery-maintenance slide deck whose battery figures are Exide, Hawker, Ranger, FIAM, SAFT, Concorde and Teledyne military batteries, not Pulse Tech products.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-9fa0772c1a69aebc25e17534e3a34153",
+      "reason": "A BMW Owners News magazine review of the XC100, not a Pulse Tech document; its figures are the reviewer's paraphrase.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "product": "MLT5060MIT",
+      "reason": "MLT5060MIT is the USMC Floodlight Set; the 28 VDC and 200 mA belong to the Pulse Solar Charger kit fitted to it.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-507a0bdb8d38534cdb6a80f76139fd85",
+      "model": "pulsetech-890pt",
+      "name": "Cranking Voltage",
+      "reason": "The 890PT manual prints this on a sample system-test result screen, so it is a vehicle's reading, not a rating of the tester.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-507a0bdb8d38534cdb6a80f76139fd85",
+      "model": "pulsetech-890pt",
+      "name": "Idle Voltage",
+      "reason": "The 890PT manual prints this on a sample system-test result screen, so it is a vehicle's reading, not a rating of the tester.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-507a0bdb8d38534cdb6a80f76139fd85",
+      "model": "pulsetech-890pt",
+      "name": "Load Voltage",
+      "reason": "The 890PT manual prints this on a sample system-test result screen, so it is a vehicle's reading, not a rating of the tester.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-507a0bdb8d38534cdb6a80f76139fd85",
+      "model": "pulsetech-890pt",
+      "name": "Lowest Voltage",
+      "reason": "The 890PT manual prints this on a sample system-test result screen, so it is a vehicle's reading, not a rating of the tester.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-507a0bdb8d38534cdb6a80f76139fd85",
+      "model": "pulsetech-890pt",
+      "name": "Ripple Voltage",
+      "reason": "The 890PT manual prints this on a sample system-test result screen, so it is a vehicle's reading, not a rating of the tester.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    }
+  ]
+}

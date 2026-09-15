@@ -19,6 +19,7 @@ const makers = records.manufacturers
     const cited = citedFor(m, records.sources, sourceIdsCitedBy(m.id, records));
     return {
       id: m.id,
+      name: m.name,
       domains: m.domains,
       ...(m.documentHosts?.length ? { documentHosts: m.documentHosts } : {}),
       ...(cited.documents.length || cited.pages.length ? { cited } : {}),

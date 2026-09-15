@@ -1,0 +1,103 @@
+{
+  "id": "morningstar",
+  "rejections": [
+    {
+      "source": "doc-0c5182fdcf174fd7bc5aa4435d69681f",
+      "reason": "A Deka Duration compatibility technote: the DD5300 figures are MK Battery's battery and the rest are recommended custom settings for Morningstar controllers.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-a1bbdf785ed3fb93cf6835335eb741d5",
+      "reason": "A Moura battery compatibility technote whose figures are recommended custom settings for Morningstar controllers, not their ratings.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-31c9b1fd6776489b3d9c29123c41e860",
+      "reason": "A technote giving custom settings for Morningstar controllers to charge NEC's ALM 12V35 batteries, not ratings of the controllers.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-899310a60c10064b10684f0a8f5ee448",
+      "model": "morningstar-ss-10l-12v",
+      "name": "continuous current draw",
+      "reason": "The 10 A is the continuous draw of the incandescent test bulbs in Figure 1, not the controller's rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-899310a60c10064b10684f0a8f5ee448",
+      "model": "morningstar-ss-10l-12v",
+      "name": "startup current surge",
+      "reason": "The 60 A is the surge the cold test bulbs drew in the Figure 1 oscilloscope capture, not a rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-899310a60c10064b10684f0a8f5ee448",
+      "model": "morningstar-ss-20l-12v",
+      "name": "startup current surge",
+      "reason": "The 155 A is the surge measured turning on a bank of test lights in Figure 3, not a rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-899310a60c10064b10684f0a8f5ee448",
+      "model": "morningstar-ss-10-12v",
+      "name": "continuous current",
+      "reason": "The 15 A is roughly what the internal jumper in non-L SunSaver units can handle, not the SS-10-12V's rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-687a3ce0efb1ec0ba34bd644ddc9d45d",
+      "model": "morningstar-ts-60",
+      "name": "Heat Dissipation",
+      "reason": "The 17 W is the heat dissipation the whitepaper's sample calculation found for a 1600 W array, not a rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-687a3ce0efb1ec0ba34bd644ddc9d45d",
+      "model": "morningstar-ts-60",
+      "name": "Thermal dissipation",
+      "reason": "The 17 W is read off the heating curve at 46.5 A in the whitepaper's sample calculation, not a rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-687a3ce0efb1ec0ba34bd644ddc9d45d",
+      "model": "morningstar-ts-60",
+      "name": "Temperature Rise",
+      "reason": "The 25 °C is the heat sink temperature rise in the whitepaper's sample calculation, not a rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-687a3ce0efb1ec0ba34bd644ddc9d45d",
+      "model": "morningstar-ts-mppt-60",
+      "name": "Heat Dissipation",
+      "reason": "The 27 W is the heat dissipation the whitepaper's sample calculation found for a 1600 W array, not a rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-687a3ce0efb1ec0ba34bd644ddc9d45d",
+      "model": "morningstar-ts-mppt-60",
+      "name": "Thermal dissipation",
+      "reason": "The 27 W is the thermal loss at 98% efficiency and 1341 W in the whitepaper's sample calculation, not a rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-687a3ce0efb1ec0ba34bd644ddc9d45d",
+      "model": "morningstar-ts-mppt-60",
+      "name": "Temperature Rise",
+      "reason": "The 23 °C is the heat sink temperature rise in the whitepaper's sample calculation, not a rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "id": "victron-energy",
+  "rejections": [
+    {
+      "source": "doc-23fb52268464408fe25e8af435fef039",
+      "reason": "A 2007 marine generator test whose figures are test results for Mastervolt and Onan generators, not Victron products.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-6652fcdf0e9f05f446c2f8eda5284b2b",
+      "model": "victron-energy-lynx-smart-bms-ng",
+      "name": "Charge voltage limit",
+      "reason": "The manual says a firmware update or new charge cycle raises the charge voltage limit from 13.5 V to 14.0 V; 13.5 V is not a rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-6652fcdf0e9f05f446c2f8eda5284b2b",
+      "model": "victron-energy-lynx-smart-bms-ng",
+      "name": "Charged voltage",
+      "reason": "The 14.0 V is the charge voltage limit a firmware update or new charge cycle sets on a 12 V system, not a rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-6652fcdf0e9f05f446c2f8eda5284b2b",
+      "model": "victron-energy-lynx-smart-bms-ng",
+      "name": "Current",
+      "reason": "Troubleshooting advice to keep the current below 500 A (1000 A), covering both versions, not one model's rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-6652fcdf0e9f05f446c2f8eda5284b2b",
+      "model": "victron-energy-lynx-smart-bms-ng",
+      "name": "Low SoC shutdown",
+      "reason": "The 3.37 V is the cell voltage at which the BMS leaves OFF mode after a low SoC shutdown, not a shutdown level.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-6652fcdf0e9f05f446c2f8eda5284b2b",
+      "model": "victron-energy-lynx-smart-bms-ng",
+      "name": "Maximum voltage",
+      "reason": "The 70 V is the maximum voltage for the remote on/off H and L pins, not the BMS's voltage rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-6652fcdf0e9f05f446c2f8eda5284b2b",
+      "model": "victron-energy-lynx-smart-bms-ng",
+      "name": "Minimum voltage",
+      "reason": "The -70 V is the minimum voltage for the remote on/off H and L pins, not the BMS's voltage rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-6652fcdf0e9f05f446c2f8eda5284b2b",
+      "model": "victron-energy-lynx-smart-bms-ng",
+      "name": "Charge current",
+      "reason": "The 1 A is the charge current that raises error #36 while ATC is disabled, not a charge current rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-6652fcdf0e9f05f446c2f8eda5284b2b",
+      "model": "victron-energy-lynx-smart-bms-ng",
+      "name": "Discharge current",
+      "reason": "The 1.5 A is the discharge current that raises error #36 while ATD is disabled, not a discharge current rating.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "id": "noco",
+  "rejections": [
+    {
+      "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
+      "model": "noco-gbx155",
+      "name": "Input power",
+      "reason": "2.5W is the charger rating in the guide's recharge-time table (\"64h 2.5W\"), not the GBX155's input power.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
+      "model": "noco-gbx155",
+      "name": "Química de la batería",
+      "reason": "The guide says the GBX155 is only for 12-volt lead-acid batteries, which is the vehicle's battery; its own battery is lithium-ion.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
+      "model": "noco-gbx155",
+      "name": "Tipo de batería",
+      "reason": "The guide says the GBX155 is only compatible with 12-volt lead-acid batteries, which is the vehicle's battery; its own battery is lithium-ion.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    }
+  ]
+}

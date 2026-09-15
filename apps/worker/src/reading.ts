@@ -59,6 +59,8 @@ CONDITIONS. What the figure is true under, when the text says: the discharge rat
 
 CHEMISTRY. For a battery, report its chemistry as a figure named "Chemistry" with the document's own words — "LiFePO4", "Lithium Iron Phosphate", "AGM", "Gel", "Flooded", "Lead-acid" — read from the title, the description or the table, wherever the document states it. It has no unit. Do not report one the document does not state.
 
+THE MAKER'S OWN RATINGS. The message starts with the maker whose document this is. Report the ratings of that maker's own products only. Its documents also print what is not a rating of its products: settings it recommends for another company's battery, inverter or charger; values drawn on a screen, display or app in an illustration; the results of a worked example, a test or a demonstration; and the figures of another company's products listed beside its own. Leave those out.
+
 Do not report prices, warranty periods, part numbers, packaging weights, ordering codes or marketing claims.`;
 
 /** A name that describes a line of products rather than one of them. */
@@ -455,6 +457,8 @@ Report only figures the document prints. Never calculate, convert, round or infe
 MODEL. Name the single product the figures belong to, as the document prints it. The name may be printed away from the figures: on the first page, in a title or heading, or in the row or column heading of a table. Put together a name the document splits: a table whose "Family" row reads "MultiPlus-II" and whose "Model" row reads "48/3000/35-32 230V" names the product "MultiPlus-II 48/3000/35-32 230V". A family or a series on its own is not a product; when a table gives several products of one family, report each under its own full name. These are never product names: a form, certificate, report, project, file or document number; a page header or footer; a heading that stands for a range, such as "xx/3000". If you cannot tell which single product a figure belongs to, do not report the figure.
 
 RATINGS, NOT RESULTS. Report what the maker states the product is rated for. A certificate or test report also prints what was measured during a test — harmonic currents, values measured at a given load, trip times, pass or fail. Those are results, not ratings: leave them out.
+
+THE MAKER'S OWN RATINGS. The message starts with the maker whose document this is. Report the ratings of that maker's own products only. Its documents also print what is not a rating of its products: settings it recommends for another company's battery, inverter or charger; values drawn on a screen, display or app in an illustration; the results of a worked example or a demonstration; and the figures of another company's products listed beside its own. Leave those out.
 
 VALUE. One figure, one value, kept exactly as printed, so "12/24" stays "12/24". Where one cell prints figures for several parts of one product — two outputs, four burners, three phases — report each as its own figure, named for its part. Where one figure is printed in two units, report it once, in the unit printed first.
 

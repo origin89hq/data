@@ -1,0 +1,11 @@
+{
+  "id": "volthium",
+  "rejections": [
+    {
+      "source": "doc-8152fde95d098c13eccd8b71cbca607b",
+      "reason": "This is Victron Energy's Ekrano, Venus and Cerbo GX manual hosted by Volthium; the Cerbo GX is Victron's product, not Volthium's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    }
+  ]
+}
