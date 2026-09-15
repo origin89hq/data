@@ -1,6 +1,7 @@
-import { contentOf } from "./classify.ts";
+import { answerText } from "./classify.ts";
 import { makerName } from "./manufacturers.ts";
 import {
+  answerObjects,
   asciiSymbols,
   chunk,
   EXTRACT_MODEL,
@@ -159,12 +160,16 @@ async function readWindow(env: Env, window: Window, maker: string): Promise<Repo
     // answer's shape instead, and an answer that is not JSON fails the window like one cut short.
     max_tokens: ANSWER_TOKENS,
   } as never);
-  const parsed = JSON.parse(contentOf(response)) as { products?: Reported[] };
-  if (!Array.isArray(parsed.products)) return [];
+  // Every object in the answer counts, fenced or not: a note after it, or an empty answer before the
+  // real one, no longer fails the window or hides the figures.
+  const products = answerObjects(answerText(response)).flatMap((answer) => {
+    const listed = (answer as { products?: unknown } | null)?.products;
+    return Array.isArray(listed) ? (listed as Reported[]) : [];
+  });
   // The page comes from where the value is printed in the window, not from the model: an invented
   // page number is worse than none, because it looks checkable. The model's is dropped even where
   // no page is found, which a window with no page markers used to keep.
-  return parsed.products
+  return products
     .filter((product) => Array.isArray(product?.specs))
     .map((product) => ({
       ...product,

@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { type ReadWindow, readDocument } from "../src/extract.ts";
 import {
+  answerObjects,
   asciiSymbols,
   CHUNK_CHARACTERS,
   CONVERTER,
@@ -432,6 +433,70 @@ test("the text reader gives the answer's shape in its prompt and holds the model
   assert.match(
     SYSTEM,
     /Reply with JSON only, no prose: \{"products":\[\{"model":"\.\.\.","specs":\[\{"name":"\.\.\.","value":"\.\.\.","unit":"\.\.\.","conditions":"\.\.\."\}\]\}\]\}/,
+  );
+});
+
+test("an answer's JSON objects are read past a note or a second object, and one cut short still throws", () => {
+  assert.deepEqual(answerObjects('{"products":[]}'), [{ products: [] }]);
+  assert.deepEqual(
+    answerObjects('{"products":[]}\n\n{"products":[{"model":"S-550","specs":[]}]}'),
+    [{ products: [] }, { products: [{ model: "S-550", specs: [] }] }],
+    "an empty answer and then the real one keeps both",
+  );
+  assert.deepEqual(
+    answerObjects(
+      'Ratings:\n{"products":[{"model":"12\\" {x} ]","specs":[]}]}\nNote: no units are printed.',
+    ),
+    [{ products: [{ model: '12" {x} ]', specs: [] }] }],
+    "text around the object is left out, and a brace or an escaped quote inside a string ends nothing",
+  );
+  assert.throws(
+    () => answerObjects('{"products":[]} {"products":[{"model":"S-5'),
+    /Unterminated string in JSON/,
+    "an object cut short after a whole one still fails the window",
+  );
+  assert.throws(() => answerObjects("The S-550 weighs 42 kg."), /Unexpected token/);
+  assert.throws(() => answerObjects(""), SyntaxError, "and so does no answer at all");
+  assert.deepEqual(
+    answerObjects('Note {draft}. {"products":[]} See {p. 3}.'),
+    [{ products: [] }],
+    "braces that open on no quoted key are prose",
+  );
+  assert.throws(
+    () => answerObjects("See {draft}."),
+    SyntaxError,
+    "prose braces alone are no answer",
+  );
+  assert.throws(
+    () => answerObjects('{"products":[{"model":"S-550","specs":[]}],}'),
+    SyntaxError,
+    "an object that opens like JSON and is malformed fails the window rather than reading as empty",
+  );
+});
+
+test("a window whose answer has a note or a second object after its JSON is read, not failed", async () => {
+  const product = { model: "S-550", specs: [{ name: "Weight", value: "42 kg" }] };
+  const { env, readObject } = world({ [MARKDOWN]: "| Weight | 42 kg |\n" }, () => ({
+    response: `{"products":[]}\n${JSON.stringify({ products: [product] })}\nNote: the weight is per unit.`,
+  }));
+  await readDocument(message, env, 1);
+  const reading = readObject<Reading>(readingKey);
+  assert.deepEqual(
+    [reading.failed, reading.products.map((p) => [p.model, p.specs[0]?.value])],
+    [0, [["S-550", "42 kg"]]],
+  );
+});
+
+test("every fenced block of an answer is read, not only the first", async () => {
+  const product = { model: "S-550", specs: [{ name: "Weight", value: "42 kg" }] };
+  const { env, readObject } = world({ [MARKDOWN]: "| Weight | 42 kg |\n" }, () => ({
+    response: `\`\`\`json\n{"products":[]}\n\`\`\`\n\nAnd with the table:\n\n\`\`\`json\n${JSON.stringify({ products: [product] })}\n\`\`\``,
+  }));
+  await readDocument(message, env, 1);
+  assert.deepEqual(
+    readObject<Reading>(readingKey).products.map((p) => [p.model, p.specs[0]?.value]),
+    [["S-550", "42 kg"]],
+    "an empty first block does not hide the figures in the second",
   );
 });
 
