@@ -154,6 +154,11 @@ nav {
   width: 39px;
   height: auto;
 }
+.record-top .record-logo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
 .record-name {
   font-size: 22px;
   font-weight: 500;

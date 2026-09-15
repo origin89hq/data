@@ -7,6 +7,8 @@ const EXPLORER_TABLES: ReadonlySet<string> = new Set([
   "sources",
   "dialects",
   "model_dialects",
+  "properties",
+  "manufacturers",
 ]);
 
 /** A table past this belongs in a download, not in a page's memory. */
