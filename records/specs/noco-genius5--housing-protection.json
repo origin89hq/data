@@ -1,10 +1,12 @@
 {
-  "id": "noco-noco--housing-protection",
-  "model": "noco-noco",
+  "id": "noco-genius5--housing-protection",
+  "model": "noco-genius5",
   "name": "Housing Protection",
   "value": "IP65",
   "source": "doc-2ac853c4c275423f39d96437b5ce7234",
-  "page": 9,
+  "page": 11,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
+  "confidence": "vendor-doc",
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-15"
 }

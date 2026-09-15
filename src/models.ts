@@ -109,6 +109,12 @@ const GENERIC = new Set([
   "flooded",
 ]);
 
+/**
+ * Words that say what a thing is and name no product beside a maker's name: "NOCO Product" and
+ * "UNIQUE appliance" are the maker again (#166), as "NOCO Battery" is.
+ */
+const NAMES_NOTHING = new Set([...GENERIC, "product", "products", "appliance", "appliances"]);
+
 /** What a word is when a name is compared: lower case, without the brackets or quotes around it. */
 const bareWord = (word: string): string =>
   word.toLowerCase().replace(/^[^a-z0-9]+|[^a-z0-9/]+$/g, "");
@@ -172,9 +178,10 @@ export function coreName(name: string, makerNames: readonly string[]): string | 
  * table's placeholder stands for several models: "PD9_45(L)" heads Progressive Dynamics' column for
  * the PD9145 and the PD9245, and "BSL48XX" every BSL48 pack. A column headed "PD9130(L)" gives the
  * PD9130's 13.6 V and the 9130L's 14.4 V, and "PD4655 (LI)" a cell of both, so a name ending in
- * "(L)" or "(LI)" is two products too. Two names joined are two products. The maker's own name, or a name
- * of nothing but ratings such as "12.8V 200Ah", names no product at all. An underscore inside a
- * part number is not a placeholder (Kinetic's "KIN_K3AGM_10"), and neither is Victron's "75|15".
+ * "(L)" or "(LI)" is two products too. Two names joined are two products. The maker's own name,
+ * alone or with words saying what the thing is ("NOCO Product"), or a name of nothing but ratings
+ * such as "12.8V 200Ah", names no product at all. An underscore inside a part number is not a
+ * placeholder (Kinetic's "KIN_K3AGM_10"), and neither is Victron's "75|15".
  */
 export function mintRefusal(name: string, ownNames: readonly string[]): string | undefined {
   const text = normaliseModelName(name);
@@ -188,7 +195,11 @@ export function mintRefusal(name: string, ownNames: readonly string[]): string |
     ownNames.flatMap((n) => n.toLowerCase().split(/[^a-z0-9]+/)).filter((w) => w.length > 1),
   );
   const words = text.split(" ").map(bareWord).filter(Boolean);
-  if (words.length > 0 && words.every((word) => own.has(word))) return "the maker's own name";
+  if (
+    words.some((word) => own.has(word)) &&
+    words.every((word) => own.has(word) || NAMES_NOTHING.has(word))
+  )
+    return "the maker's own name";
   if (text.split(/[\s/]+/).every((part) => MEASUREMENT.test(part))) return "ratings, not a product";
   return undefined;
 }
