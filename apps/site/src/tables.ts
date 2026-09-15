@@ -111,8 +111,11 @@ export async function readTable(
     const cache: RequestCache = attempt === 1 ? "default" : "reload";
     try {
       const bytes = await readOnce(table, { get, stallMs, maxBytes, signal, cache });
-      if (cache === "reload" || attempt >= attempts || (await published(table, bytes))) {
-        return bytes;
+      if (cache === "reload" || (await published(table, bytes))) return bytes;
+      // Only a copy fetched past the cache is trusted over the index; with no attempt left to
+      // fetch one, an unmatched copy is refused rather than handed to DuckDB.
+      if (attempt >= attempts) {
+        throw new TableReadError(`${table.file} does not match the index`, true);
       }
     } catch (error) {
       if (signal?.aborted) throw signal.reason;

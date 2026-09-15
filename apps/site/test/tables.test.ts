@@ -188,6 +188,21 @@ test("a cached copy of another release, by size or by digest, is replaced by the
   assert.deepEqual(sameSize.caches, ["default", "reload"]);
 });
 
+test("with no attempt left to fetch past the cache, a copy that differs from the index is refused", async () => {
+  const { get, calls, caches } = scripted(async ({ signal }) =>
+    body([parquet(9, 9, 9, 9, 9, 9, 9)], signal),
+  );
+  await assert.rejects(
+    readTable(table, { fetch: get, attempts: 1 }),
+    (error) =>
+      error instanceof TableReadError &&
+      error.retryable &&
+      error.message === "specs.parquet does not match the index",
+  );
+  assert.equal(calls.length, 1);
+  assert.deepEqual(caches, ["default"]);
+});
+
 test("the server's complete file is kept when the index has not caught up with it", async () => {
   const newer = parquet(1, 2, 3, 4, 5, 6, 7);
   const { get, caches } = scripted(
