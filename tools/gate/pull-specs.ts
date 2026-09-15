@@ -434,7 +434,7 @@ if (held.agreed)
 if (unread) console.log(`  ${unread} figures a person holds were not read by this run and stay`);
 // Counted over every figure the text reader read, written or not, so a pull whose diff is mostly
 // pages says so.
-if (pages.set || pages.moved || pages.unfound)
+if (pages.set || pages.moved || pages.kept || pages.unfound)
   console.log(
     `  pages: ${pages.set} figures given the page their value is printed on, ${pages.moved} moved to it, ${pages.kept} already on it, ${pages.unfound} not found in their windows and left as read`,
   );
