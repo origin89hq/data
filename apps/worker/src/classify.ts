@@ -111,11 +111,20 @@ export function guessesFrom(batch: Sighting[], raw: unknown): Guess[] {
   });
 }
 
-/** Workers AI answers OpenAI-style for chat models and `{response}` for others. Read both, refuse anything else. */
-export function contentOf(response: unknown): string {
+/**
+ * A model's answer as it came, before anything is taken out of it. Workers AI answers OpenAI-style
+ * for chat models and `{response}` for others. Read both, refuse anything else.
+ */
+export function answerText(response: unknown): string {
   const r = response as { response?: unknown; choices?: { message?: { content?: unknown } }[] };
   const content = typeof r?.response === "string" ? r.response : r?.choices?.[0]?.message?.content;
   if (typeof content !== "string") throw new Error("model returned no text");
+  return content;
+}
+
+/** The one JSON value an answer gives, taken out of its code fence when it has one. */
+export function contentOf(response: unknown): string {
+  const content = answerText(response);
   const fenced = /```(?:json)?\s*([\s\S]*?)```/.exec(content);
   return (fenced ? fenced[1] : content).trim();
 }

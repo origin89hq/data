@@ -1,4 +1,4 @@
-import { contentOf } from "./classify.ts";
+import { answerText } from "./classify.ts";
 import { makerName } from "./manufacturers.ts";
 import {
   answerObjects,
@@ -160,9 +160,9 @@ async function readWindow(env: Env, window: Window, maker: string): Promise<Repo
     // answer's shape instead, and an answer that is not JSON fails the window like one cut short.
     max_tokens: ANSWER_TOKENS,
   } as never);
-  // Every object in the answer counts: a note after it, or an empty answer before the real one, no
-  // longer fails the window.
-  const products = answerObjects(contentOf(response)).flatMap((answer) => {
+  // Every object in the answer counts, fenced or not: a note after it, or an empty answer before the
+  // real one, no longer fails the window or hides the figures.
+  const products = answerObjects(answerText(response)).flatMap((answer) => {
     const listed = (answer as { products?: unknown } | null)?.products;
     return Array.isArray(listed) ? (listed as Reported[]) : [];
   });

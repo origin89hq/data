@@ -1,4 +1,4 @@
-import { contentOf } from "./classify.ts";
+import { answerText, contentOf } from "./classify.ts";
 import { makerName } from "./manufacturers.ts";
 import {
   CONVERTER,
@@ -128,14 +128,6 @@ async function waitTurn(
     { ...message, waits: (message.waits ?? 0) + 1 },
     { delaySeconds: waitFor(message) },
   );
-}
-
-/** A model's answer as it came, before anything is taken out of it. */
-function answerText(response: unknown): string {
-  const r = response as { response?: unknown; choices?: { message?: { content?: unknown } }[] };
-  const content = typeof r?.response === "string" ? r.response : r?.choices?.[0]?.message?.content;
-  if (typeof content !== "string") throw new Error("model returned no text");
-  return content;
 }
 
 /**

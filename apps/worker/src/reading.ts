@@ -268,26 +268,43 @@ export function printedSymbols(printed: string, reported: string): string {
   return symbols;
 }
 
+/** Where a JSON object starts: a brace and then its first key, which is quoted, or its end. */
+const OBJECT_START = /\{\s*["}]/y;
+
 /**
  * The JSON objects an answer holds, in order, with the text around them left out. Held to no
- * schema, the model sometimes writes a note after its answer, or an empty answer and then the one it
- * meant, and parsing the whole text failed that window on every attempt. An object cut short, or an
- * answer with no object at all, throws as `JSON.parse` does, so the window is read again.
+ * schema, the model sometimes writes a note after its answer, fences it, or gives an empty answer
+ * and then the one it meant, and parsing the whole text failed that window on every attempt. Braces
+ * that do not open on a quoted key are prose and are passed over. An object cut short or malformed,
+ * or an answer with no object at all, throws as `JSON.parse` does, so the window is read again
+ * rather than read as empty.
  */
 export function answerObjects(text: string): unknown[] {
   const objects: unknown[] = [];
-  let start = -1;
+  let start = text.indexOf("{");
+  while (start >= 0) {
+    OBJECT_START.lastIndex = start;
+    if (!OBJECT_START.test(text)) {
+      start = text.indexOf("{", start + 1);
+      continue;
+    }
+    const end = objectEnd(text, start);
+    // Still open at the end of the text, the object was cut short, and parsing it says so.
+    objects.push(JSON.parse(end < 0 ? text.slice(start) : text.slice(start, end + 1)));
+    start = end < 0 ? -1 : text.indexOf("{", end + 1);
+  }
+  if (objects.length === 0) JSON.parse(text);
+  return objects;
+}
+
+/** Where the object opening at `start` closes, counting brackets outside strings, or -1. */
+function objectEnd(text: string, start: number): number {
   let depth = 0;
   let inString = false;
   let escaped = false;
-  for (let i = 0; i < text.length; i += 1) {
+  for (let i = start; i < text.length; i += 1) {
     const c = text[i];
-    if (depth === 0) {
-      if (c === "{") {
-        start = i;
-        depth = 1;
-      }
-    } else if (inString) {
+    if (inString) {
       if (escaped) escaped = false;
       else if (c === "\\") escaped = true;
       else if (c === '"') inString = false;
@@ -297,16 +314,10 @@ export function answerObjects(text: string): unknown[] {
       depth += 1;
     } else if (c === "}" || c === "]") {
       depth -= 1;
-      if (depth === 0) {
-        objects.push(JSON.parse(text.slice(start, i + 1)));
-        start = -1;
-      }
+      if (depth === 0) return i;
     }
   }
-  // An object still open was cut short, and text with no object in it is no answer.
-  if (start >= 0) JSON.parse(text.slice(start));
-  else if (objects.length === 0) JSON.parse(text);
-  return objects;
+  return -1;
 }
 
 export interface Reported {
