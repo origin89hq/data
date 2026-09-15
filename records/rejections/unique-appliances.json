@@ -1,0 +1,17 @@
+{
+  "id": "unique-appliances",
+  "rejections": [
+    {
+      "product": "UNIQUE",
+      "reason": "UNIQUE is the brand on the UGP-24CR DW dishwasher manual (\"CLASSIC RETRO BY UNIQUE\"), not a model.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "product": "UNIQUE appliance",
+      "reason": "\"This UNIQUE appliance\" is warranty wording in the UGP-30CR EC range manual, not a model.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    }
+  ]
+}

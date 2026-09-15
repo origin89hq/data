@@ -1,0 +1,41 @@
+{
+  "id": "energizer-solar",
+  "rejections": [
+    {
+      "product": "Energizer Beam Plus 392.3W",
+      "reason": "The sheet prints this wattage in the NMOT rows of the Beam 2 Plus 525–550 W modules; it is not a separate product.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "product": "Energizer Beam Plus 396.1W",
+      "reason": "The sheet prints this wattage in the NMOT rows of the Beam 2 Plus 525–550 W modules; it is not a separate product.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "product": "Energizer Beam Plus 399.8W",
+      "reason": "The sheet prints this wattage in the NMOT rows of the Beam 2 Plus 525–550 W modules; it is not a separate product.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "product": "Energizer Beam Plus 403.5W",
+      "reason": "The sheet prints this wattage in the NMOT rows of the Beam 2 Plus 525–550 W modules; it is not a separate product.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "product": "Energizer Beam Plus 407.3W",
+      "reason": "The sheet prints this wattage in the NMOT rows of the Beam 2 Plus 525–550 W modules; it is not a separate product.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    },
+    {
+      "product": "Energizer Beam Plus 411W",
+      "reason": "The sheet prints this wattage in the NMOT rows of the Beam 2 Plus 525–550 W modules; it is not a separate product.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-14"
+    }
+  ]
+}

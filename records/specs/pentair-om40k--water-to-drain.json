@@ -2,9 +2,11 @@
   "id": "pentair-om40k--water-to-drain",
   "model": "pentair-om40k",
   "name": "Water to Drain",
-  "value": "58 gal to 72 gal",
+  "value": "58.7 gal to 72.1 gal",
   "source": "doc-a05d04ac4987139b1e825e769688c178",
-  "page": 11,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-14",
+  "page": 12,
   "confidence": "vendor-doc"
 }
