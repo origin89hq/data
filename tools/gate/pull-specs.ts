@@ -2,7 +2,7 @@ import { rmSync } from "node:fs";
 import { join } from "node:path";
 import { withoutTranslations } from "@origin89/equipment-schema/documents";
 import { Model } from "@origin89/equipment-schema/model";
-import { EXTRACTOR_ID } from "@origin89/equipment-schema/provenance";
+import { EXTRACTOR_ID, readerKey } from "@origin89/equipment-schema/provenance";
 import { Source } from "@origin89/equipment-schema/source";
 import { applyChemistry } from "../../src/chemistry.ts";
 import { withoutTranslatedReadings } from "../../src/language.ts";
@@ -30,7 +30,8 @@ import {
   specsFrom,
   staleFigures,
 } from "../../src/specs.ts";
-import { currentRun, jsonValues, object, PULLED_READERS, readingsOf } from "./archive.ts";
+import { currentRun, jsonValues, object, PULLED_READERS, readingsOf, under } from "./archive.ts";
+import { type KeptWindow, noPages, printedPages } from "./pages.ts";
 import { creditedReadings, textKey } from "./retailer.ts";
 
 /**
@@ -138,6 +139,44 @@ const isRejected = (reading: { sha256: string }) =>
   rejectsDocument(rejections, `doc-${reading.sha256.slice(0, 32)}`);
 const rejectedDocuments = readings.readings.filter(isRejected).length;
 readings.readings = readings.readings.filter((reading) => !isRejected(reading));
+
+// A reading made before #152 cites the page its window starts on, or none when that window starts
+// in the converter's title and metadata (#182). The converted text and each window's answer are
+// kept beside the document, so every text-reader figure is given the page its value is printed on
+// here, without reading anything again: two requests a document, a few documents at a time. A
+// reading from before #42 kept no windows and is looked up in the windows starting on the page each
+// figure cites; a document with no converted text keeps the pages it was read with.
+const TEXT_READER = readerKey(EXTRACTOR_ID);
+const PAGE_LOOKUPS_AT_ONCE = 6;
+const pages = noPages();
+let pagesNotLooked = 0;
+let readingsWithoutWindows = 0;
+const textReadings = readings.readings.filter(
+  (reading) =>
+    (reading.extractedBy ?? EXTRACTOR_ID) === EXTRACTOR_ID && reading.products.length > 0,
+);
+for (let i = 0; i < textReadings.length; i += PAGE_LOOKUPS_AT_ONCE) {
+  await Promise.all(
+    textReadings.slice(i, i + PAGE_LOOKUPS_AT_ONCE).map(async (reading) => {
+      const [markdown, parts] = await Promise.all([
+        object(textKey(reading), remote),
+        under(`archive/${reading.sha256}.${TEXT_READER}.window-`, remote),
+      ]);
+      const windows = jsonValues<KeptWindow>(parts);
+      if (!markdown) {
+        pagesNotLooked += 1;
+        return;
+      }
+      if (windows.length === 0) readingsWithoutWindows += 1;
+      const looked = printedPages(reading.products, markdown, windows);
+      reading.products = looked.products;
+      pages.set += looked.counts.set;
+      pages.moved += looked.counts.moved;
+      pages.kept += looked.counts.kept;
+      pages.unfound += looked.counts.unfound;
+    }),
+  );
+}
 // The translated editions set aside above were still read, and a person may hold a figure under
 // one of their ids. They are read for comparison only: nothing of theirs is written or cited.
 // A retailer's withheld documents are not the maker's own and stay out of the comparison too,
@@ -393,6 +432,20 @@ if (held.agreed)
     `  ${held.agreed} figures a person holds were read again the same way and left as they are`,
   );
 if (unread) console.log(`  ${unread} figures a person holds were not read by this run and stay`);
+// Counted over every figure the text reader read, written or not, so a pull whose diff is mostly
+// pages says so.
+if (pages.set || pages.moved)
+  console.log(
+    `  pages: ${pages.set} figures given the page their value is printed on, ${pages.moved} moved to it, ${pages.kept} already on it, ${pages.unfound} not found in their windows and left as read`,
+  );
+if (readingsWithoutWindows)
+  console.log(
+    `  pages: ${readingsWithoutWindows} readings kept no windows, so their figures were looked up in the windows starting on the page they cite`,
+  );
+if (pagesNotLooked)
+  console.log(
+    `  pages: ${pagesNotLooked} readings left as read, with no converted text to look in`,
+  );
 // Each id a name took for its second unit, where that figure is written, so a reviewer reads the
 // added record as another rating rather than looking for the value it replaced.
 for (const split of units.splits.filter((s) => collected.has(s.splitId)))

@@ -196,6 +196,18 @@ export function pageOfFigure(
   window: Window,
   figure: { name: string; value: string },
 ): number | undefined {
+  return printedPage(window, figure) ?? window.page;
+}
+
+/**
+ * The page a figure's value, or failing that its name, is printed on in its window, and nothing when
+ * neither is: `pageOfFigure` without its fall-back to the page the window starts on. The pull uses
+ * it to put a page read before #152 right only where the window shows the right one (#182).
+ */
+export function printedPage(
+  window: Window,
+  figure: { name: string; value: string },
+): number | undefined {
   const markers = pageOffsets(window.text);
   // A marker's own number is not a figure. Blanked with spaces, so every match keeps its place and
   // its line.
@@ -214,7 +226,7 @@ export function pageOfFigure(
     });
     if (named) return named.page;
   }
-  return (values[0] ?? onAPage(figure.name)[0])?.page ?? window.page;
+  return (values[0] ?? onAPage(figure.name)[0])?.page;
 }
 
 /**

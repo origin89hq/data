@@ -13,6 +13,7 @@ import {
   namesOneProduct,
   pageOfFigure,
   pageOffsets,
+  printedPage,
   printedSymbols,
   type Reported,
   SYSTEM,
@@ -86,6 +87,24 @@ test("a value that is not printed in the window keeps the window's page, or none
   assert.equal(
     pageOfFigure({ text: RUNS_ON.text }, { name: "Float voltage", value: "13.6" }),
     undefined,
+  );
+});
+
+test("printedPage gives a page only where the value or its name is printed, with no fall-back to the window's", () => {
+  assert.equal(printedPage(RUNS_ON, { name: "Weight", value: "11" }), 6);
+  assert.equal(
+    printedPage(RUNS_ON, { name: "Cells", value: "4" }),
+    4,
+    "printed before the first marker, on the page the window starts on",
+  );
+  assert.equal(printedPage(RUNS_ON, { name: "Float voltage", value: "13.6" }), undefined);
+  const first = {
+    text: "# sheet.pdf\n## Metadata\n- PDFFormatVersion=1.7\n\n## Contents\n### Page 1\nIntro",
+  };
+  assert.equal(
+    printedPage(first, { name: "PDF version", value: "1.7" }),
+    undefined,
+    "the title and metadata are on no page",
   );
 });
 
