@@ -21,7 +21,9 @@ import {
   rejectsProduct,
 } from "../../src/rejections.ts";
 import {
+  fullestReadings,
   heldByPerson,
+  keepFullerOnMain,
   keepUnitsApart,
   matchModel,
   mintedWithFigures,
@@ -29,7 +31,6 @@ import {
   type ReportedProduct,
   specsFrom,
   staleFigures,
-  statesMore,
 } from "../../src/specs.ts";
 import { currentRun, jsonValues, object, PULLED_READERS, readingsOf } from "./archive.ts";
 import { creditedReadings, textKey } from "./retailer.ts";
@@ -289,15 +290,9 @@ for (const document of comparisonOnly) {
 // readings in its own unit, and a figure under its unit's id counts as produced.
 const units = keepUnitsApart(records.specs, toWrite);
 // A later document that states less does not take a figure from one that stated more (#175).
-let saidLess = 0;
-for (const spec of toWrite.map(units.place)) {
-  const earlier = collected.get(spec.id);
-  if (earlier && statesMore(earlier, spec)) {
-    saidLess += 1;
-    continue;
-  }
-  collected.set(spec.id, spec);
-}
+const fullest = fullestReadings(toWrite.map(units.place));
+for (const [id, spec] of fullest.readings) collected.set(id, spec);
+let saidLess = fullest.saidLess;
 for (const spec of everyRead.map(units.place))
   candidates.set(spec.id, [...(candidates.get(spec.id) ?? []), spec]);
 
@@ -311,16 +306,10 @@ const readIds = new Set(candidates.keys());
 const held = pullWrites(records.specs, read, candidates);
 const aligned = held.aligned;
 collected.clear();
-// Nor from the figure main already has, when that figure states the same and more: it stays as it
-// is, source and page included, whichever documents this run read.
-const onMain = new Map(records.specs.map((spec) => [spec.id, spec]));
-for (const spec of held.write) {
-  const current = onMain.get(spec.id);
-  if (current && !heldByPerson(current) && statesMore(current, spec)) {
-    collected.set(spec.id, current);
-    saidLess += 1;
-  } else collected.set(spec.id, spec);
-}
+// Nor from the figure main already has, when that figure states the same and more.
+const reconciled = keepFullerOnMain(held.write, records.specs);
+for (const spec of reconciled.write) collected.set(spec.id, spec);
+saidLess += reconciled.saidLess;
 
 // A model this run minted is written only once a figure it writes cites it. A name whose every
 // figure was rejected, held under another model or dropped as a translation minted an empty model

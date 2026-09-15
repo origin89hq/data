@@ -3,7 +3,9 @@ import { test } from "node:test";
 import type { Model } from "@origin89/equipment-schema/model";
 import { Spec } from "@origin89/equipment-schema/model";
 import {
+  fullestReadings,
   heldByPerson,
+  keepFullerOnMain,
   keepHeld,
   keepUnitsApart,
   matchModel,
@@ -908,4 +910,89 @@ test("a reading that states everything another does and more keeps its figure, a
     "two equal readings",
   );
   assert.equal(statesMore(read("57,6 V"), read("57.6", "V")), false);
+  assert.equal(
+    statesMore(read("-20 V nominal"), read("20", "V")),
+    false,
+    "a sign stays on its number",
+  );
+  assert.equal(
+    statesMore(read("≥8000 cycles at 25°C"), read("8000 cycles")),
+    false,
+    "and so does a bound",
+  );
+  assert.equal(statesMore(read("±0.1 V tolerance"), read("0.1", "V")), false);
+  assert.equal(
+    statesMore(read("0-100A @240VAC"), read("100A @240VAC")),
+    true,
+    "a dash between two numbers is a range, not a sign",
+  );
+  assert.equal(
+    statesMore(
+      { value: "2.6 W @ 12 V | 3.0 W @ 24 V", conditions: "display on" },
+      { value: "2.6 W @ 12 V" },
+    ),
+    false,
+    "under other conditions neither reading states more",
+  );
+});
+
+test("a pull keeps the fuller of two readings, and main's own unheld figure where it states more (#175)", () => {
+  const figure = (value: string, extra: Record<string, unknown> = {}) => ({
+    id: "victron-energy-ekrano-gx--power-draw-display-off",
+    model: "victron-energy-ekrano-gx",
+    name: "Power draw, display off",
+    value,
+    source: "doc-2a8650d668cef6cc5a78c92979a11aa1",
+    extractedBy: "ai:reader",
+    confidence: "vendor-doc" as const,
+    ...extra,
+  });
+  const full = "2.6 W @ 12 V | 3.0 W @ 24 V | 3.7 W @ 48 V";
+  const id = figure(full).id;
+  const earlier = fullestReadings([
+    figure(full, { source: "doc-a" }),
+    figure("2.6 W @ 12 V", { source: "doc-b" }),
+  ]);
+  assert.equal(
+    earlier.readings.get(id)?.source,
+    "doc-a",
+    "an earlier reading that states more stays",
+  );
+  assert.equal(earlier.saidLess, 1);
+  const later = fullestReadings([
+    figure("2.6 W @ 12 V", { source: "doc-a" }),
+    figure(full, { source: "doc-b" }),
+  ]);
+  assert.equal(later.readings.get(id)?.source, "doc-b", "a later reading that states more wins");
+  assert.equal(later.saidLess, 0);
+  assert.equal(
+    fullestReadings([
+      figure("2.6 W", { source: "doc-a" }),
+      figure("3.0 W", { source: "doc-b" }),
+    ]).readings.get(id)?.source,
+    "doc-b",
+    "two readings that disagree: the later document still wins",
+  );
+
+  const onMain = figure(full, { source: "doc-44c1a1bd", page: 3 });
+  const shorter = figure("2.6 W @ 12 V", { page: 9 });
+  const kept = keepFullerOnMain([shorter], [onMain]);
+  assert.deepEqual(kept.write, [onMain], "main's figure stays, source and page included");
+  assert.equal(kept.saidLess, 1);
+  assert.deepEqual(
+    keepFullerOnMain([shorter], [{ ...onMain, reviewedBy: "lemarier" }]).write,
+    [shorter],
+    "a figure a person holds is never taken as a reading",
+  );
+  const otherConditions = { ...shorter, conditions: "display on" };
+  assert.deepEqual(
+    keepFullerOnMain([otherConditions], [onMain]).write,
+    [otherConditions],
+    "nor one given under other conditions",
+  );
+  assert.deepEqual(
+    keepFullerOnMain([onMain], [shorter]).write,
+    [onMain],
+    "and a reading that states more than main is written",
+  );
 });

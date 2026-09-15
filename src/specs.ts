@@ -440,9 +440,15 @@ export function mintedWithFigures(
   };
 }
 
-/** A reading's words and numbers in order, value then unit, for telling what two readings say. */
+/**
+ * A reading's words and numbers in order, value then unit, for telling what two readings say. A sign
+ * or a bound stays on its number, so "-20 V" is not "20 V" and "≥8000" is not "8000"; a dash between
+ * two numbers is a range, not a sign.
+ */
 const wordsOf = (spec: Pick<Spec, "value" | "unit">): string[] =>
-  `${spec.value} ${spec.unit ?? ""}`.toLowerCase().match(/\d+(?:[.,]\d+)*|[a-z]+/g) ?? [];
+  `${spec.value} ${spec.unit ?? ""}`
+    .toLowerCase()
+    .match(/(?:(?<![\p{L}\p{N}.])[-+]|[±≥≤~]|>=|<=|[<>])?\d+(?:[.,]\d+)*|\p{L}+/gu) ?? [];
 
 /**
  * Whether one reading of a figure states everything another does and more (#175): the Ekrano's
@@ -450,17 +456,57 @@ const wordsOf = (spec: Pick<Spec, "value" | "unit">): string[] =>
  * (50Hz)" against 60 Hz. The other reading's words and numbers have to stand in this one side by
  * side and in order, so "500 W" is not found in "1500 W" nor "100 V" in "12 V 100 Ah". A unit read
  * apart is no loss either: "525 Wp" and 525 W are other words, so the parser's reading still wins.
+ * Under other conditions a reading is another statement, and neither states more.
  */
 export function statesMore(
-  fuller: Pick<Spec, "value" | "unit">,
-  other: Pick<Spec, "value" | "unit">,
+  fuller: Pick<Spec, "value" | "unit" | "conditions">,
+  other: Pick<Spec, "value" | "unit" | "conditions">,
 ): boolean {
+  if ((fuller.conditions ?? "") !== (other.conditions ?? "")) return false;
   const long = wordsOf(fuller);
   const short = wordsOf(other);
   if (short.length === 0 || short.length >= long.length) return false;
   for (let at = 0; at + short.length <= long.length; at += 1)
     if (short.every((word, i) => long[at + i] === word)) return true;
   return false;
+}
+
+/**
+ * One reading per id from a pull's readings, in the order they were read: a later reading replaces an
+ * earlier one, as a later document always did, unless the earlier one states everything the later
+ * does and more (#175). How many were left out that way is counted for the pull's log.
+ */
+export function fullestReadings<T extends Pick<Spec, "id" | "value" | "unit" | "conditions">>(
+  readings: readonly T[],
+): { readings: Map<string, T>; saidLess: number } {
+  const kept = new Map<string, T>();
+  let saidLess = 0;
+  for (const reading of readings) {
+    const earlier = kept.get(reading.id);
+    if (earlier && statesMore(earlier, reading)) saidLess += 1;
+    else kept.set(reading.id, reading);
+  }
+  return { readings: kept, saidLess };
+}
+
+/**
+ * What a pull writes, with main's own figure left as it is, source and page included, where that
+ * figure states the same and more than the reading that would replace it (#175). Only a figure no
+ * person holds: one a person holds is never the pull's to write, and is not taken as a reading here.
+ */
+export function keepFullerOnMain(
+  write: readonly Spec[],
+  onMain: readonly Spec[],
+): { write: Spec[]; saidLess: number } {
+  const current = new Map(onMain.map((spec) => [spec.id, spec]));
+  let saidLess = 0;
+  const kept = write.map((spec) => {
+    const existing = current.get(spec.id);
+    if (!existing || heldByPerson(existing) || !statesMore(existing, spec)) return spec;
+    saidLess += 1;
+    return existing;
+  });
+  return { write: kept, saidLess };
 }
 
 /**
