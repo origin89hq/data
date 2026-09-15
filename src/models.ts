@@ -169,8 +169,10 @@ export function coreName(name: string, makerNames: readonly string[]): string | 
 
 /**
  * Why a name a document gave is not a product to mint, or nothing when it may be one (#150). A
- * table's placeholder stands for several models: "PD9_45(L)" is the PD9145L and the PD9245L, and
- * "BSL48XX" every BSL48 pack. Two names joined are two products. The maker's own name, or a name
+ * table's placeholder stands for several models: "PD9_45(L)" heads Progressive Dynamics' column for
+ * the PD9145 and the PD9245, and "BSL48XX" every BSL48 pack. A column headed "PD9130(L)" gives the
+ * PD9130's 13.6 V and the 9130L's 14.4 V, and "PD4655 (LI)" a cell of both, so a name ending in
+ * "(L)" or "(LI)" is two products too. Two names joined are two products. The maker's own name, or a name
  * of nothing but ratings such as "12.8V 200Ah", names no product at all. An underscore inside a
  * part number is not a placeholder (Kinetic's "KIN_K3AGM_10"), and neither is Victron's "75|15".
  */
@@ -178,6 +180,8 @@ export function mintRefusal(name: string, ownNames: readonly string[]): string |
   const text = normaliseModelName(name);
   if (/(^|\s)[A-Za-z]+\d_\d/.test(text) || /\dX{2}\b/i.test(text) || /X{3}/.test(text))
     return "a table's placeholder for several models";
+  if (/\d\s?\((?:L|LI)\)$/.test(text))
+    return "a table's column for a model with and without its suffix";
   const joined = text.split(/\s(?:and|&)\s/i);
   if (joined.length > 1 && joined.every((part) => /\d/.test(part))) return "two names joined";
   const own = new Set(

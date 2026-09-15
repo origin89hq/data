@@ -514,3 +514,14 @@ test("a region a product is sold in, and a product line's words before its part 
   assert.equal(lineCode("Lithium 12V"), undefined, "nor is a measurement");
   assert.equal(lineCode("Genius5 Charger"), undefined, "the code has to come last");
 });
+
+test("a column for a model with and without its (L) or (LI) suffix mints nothing, and other brackets still mint (#150)", () => {
+  const column = "a table's column for a model with and without its suffix";
+  assert.equal(mintRefusal("PD9130(L)", []), column);
+  assert.equal(mintRefusal("PD4655 (LI)", []), column);
+  assert.equal(mintRefusal("PD4045(LI)", []), column);
+  assert.equal(mintRefusal("9130L", []), undefined, "the variant printed on its own is a product");
+  assert.equal(mintRefusal("IP3000-11-PLUS(T) 12", []), undefined);
+  assert.equal(mintRefusal("DWA4-09KR2(US)", []), undefined);
+  assert.equal(mintRefusal("F-10A(5PK)", []), undefined);
+});

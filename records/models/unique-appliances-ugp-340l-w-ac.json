@@ -3,6 +3,13 @@
   "manufacturer": "unique-appliances",
   "name": "UGP-340L W AC",
   "kind": "appliance",
-  "aliases": [],
+  "aliases": [
+    "UGP-340L B AC",
+    "UGP-340L T AC",
+    "UGP-340L LG AC",
+    "UGP-340L O AC",
+    "UGP-340L Y AC",
+    "UGP-340L MB AC"
+  ],
   "dialects": []
 }
