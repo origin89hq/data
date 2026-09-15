@@ -11,6 +11,7 @@ import {
   splitValueUnit,
   statesNothing,
   UNITS,
+  withoutAnswerTail,
 } from "./units.ts";
 
 /** What a model reported reading out of a document, before anything checks it. */
@@ -39,13 +40,11 @@ export function splitUnit(name: string, unit: string | undefined): { name: strin
   const match = /^(.*?)\s*[（(]\s*([^()（）]{1,12}?)\s*[）)]\s*$/.exec(name.trim());
   if (!match) return { name: name.trim() };
   const [, bare, candidate] = match;
-  // Only a unit, not a qualifier: "(Ah)" is one, "(at 25 °C)" and "(D*W*H)" are not.
-  if (
-    !/^[A-Za-zΩ°µ%/·.]+[0-9]?$/.test(candidate) ||
-    /^(d\*w\*h|l\*w\*h|max|min|typ|optional|nominal)$/i.test(candidate)
-  )
-    return { name: name.trim() };
-  return bare ? { name: bare, unit: candidate } : { name: name.trim() };
+  // Only a unit the records know: "(Ah)" and "(VDC)" are units, "(Cont)", "(CHARGE)", "(at 25 °C)"
+  // and "(D*W*H)" are qualifiers. Taking a qualifier for a unit dropped it from the name, and
+  // "Max Power (Cont)" and "Max Power (Peak)" then shared one id (#189).
+  if (!bare || !candidate || !canonicalUnit(candidate)) return { name: name.trim() };
+  return { name: bare, unit: candidate };
 }
 
 /** A stable id for a figure, so re-running an extraction rewrites rows rather than piling up duplicates. */
@@ -186,7 +185,10 @@ export function specsFrom({
       // A maker's own language reaches the same unit; a word that ended up in the unit field is
       // dropped rather than published as another quantity; and a unit glued to the value —
       // "57.6V" — is pulled off, since the number and the unit are both right already.
-      const { value: cleanValue, unit } = splitValueUnit(repairMojibake(value), split.unit);
+      // A value that kept the next key of the answer it was written in — "1000W', 'unit': " — is
+      // cut back to what the document prints, and a unit named in that tail is the figure's (#188).
+      const printed = withoutAnswerTail(repairMojibake(value));
+      const { value: cleanValue, unit } = splitValueUnit(printed.value, split.unit ?? printed.unit);
       // A value that is a piece of the JSON it was read out of is not a doubtful figure, it is not
       // a figure. Refused rather than published with a caveat nobody can resolve.
       if (looksTruncated(cleanValue) || statesNothing(cleanValue)) {

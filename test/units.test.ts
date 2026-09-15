@@ -7,7 +7,52 @@ import {
   QUANTITY_OF,
   splitValueUnit,
   statesNothing,
+  withoutAnswerTail,
 } from "../src/units.ts";
+
+test("a value that kept the answer's next key is cut back to what the document prints (#188)", () => {
+  assert.deepEqual(withoutAnswerTail("1000W', 'unit': "), { value: "1000W" });
+  assert.deepEqual(withoutAnswerTail("31 lb, unit:"), { value: "31 lb" });
+  assert.deepEqual(withoutAnswerTail("120/208V a.c.', 'unit': 'V"), {
+    value: "120/208V a.c.",
+    unit: "V",
+  });
+  assert.deepEqual(withoutAnswerTail("Pure Sine Wave', 'unit': "), { value: "Pure Sine Wave" });
+  // The unit is the one the unit key names, wherever it sits among the keys that follow.
+  assert.deepEqual(withoutAnswerTail("1000', 'unit': 'W', 'conditions': 'at 25 C"), {
+    value: "1000",
+    unit: "W",
+  });
+  assert.deepEqual(withoutAnswerTail("12.8', 'conditions': 'at 25 C', 'unit': 'V"), {
+    value: "12.8",
+    unit: "V",
+  });
+  assert.deepEqual(withoutAnswerTail("60 Hz', 'conditions': 'nominal"), { value: "60 Hz" });
+  // A quote inside a later field's value does not hide the structure.
+  assert.deepEqual(withoutAnswerTail("1000', 'unit': 'W', 'conditions': 'manufacturer's rating'"), {
+    value: "1000",
+    unit: "W",
+  });
+  assert.deepEqual(withoutAnswerTail("31 lb, unit: lb, conditions: manufacturer's rating"), {
+    value: "31 lb",
+    unit: "lb",
+  });
+  assert.deepEqual(
+    withoutAnswerTail("20.70\" L x 3.34\" dia', '52.58 x 8.48 cm"),
+    { value: '20.70" L x 3.34" dia' },
+    "a list where one value belongs keeps the first",
+  );
+});
+
+test("a value with no answer structure in it is left exactly as it is", () => {
+  for (const value of ["95 - 135 VAC", "12/24", "3,500 lb", "1.0 GPM", "IP65 (with ports closed)"])
+    assert.deepEqual(withoutAnswerTail(value), { value }, value);
+  assert.deepEqual(
+    withoutAnswerTail("', 'unit': "),
+    { value: "', 'unit': " },
+    "a value that is nothing but structure is left for the truncation check",
+  );
+});
 
 test("a maker's own language reaches the same unit, since VCD and volts are volts", () => {
   assert.equal(canonicalUnit("V"), "V");

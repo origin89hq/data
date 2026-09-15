@@ -272,6 +272,43 @@ export function canonicalUnit(raw: string | undefined): Unit | undefined {
 }
 
 /**
+ * The key a reader's answer carries on to after a value, which the value sometimes keeps: PD1600's
+ * figures came back as "1000W', 'unit': " and NorthStar's as "31 lb, unit:", each a figure followed
+ * by the next field of the structure the model was writing in (#188).
+ */
+const ANSWER_KEY = String.raw`['"]?\s*,\s*['"]?(?:unit|units|conditions|page|name)['"]?\s*:`;
+
+/**
+ * Where that structure starts: the first key, which may be followed by several more. What follows a
+ * key is not read as a whole, since a model's value there can carry a quote of its own, as in
+ * `'conditions': 'manufacturer's rating`.
+ */
+const ANSWER_START = new RegExp(ANSWER_KEY, "i");
+
+/** The unit key among them, wherever it sits: `'conditions': 'at 25 C', 'unit': 'V`. */
+const ANSWER_UNIT = /['"]?units?['"]?\s*:\s*['"]?([^'",]*)/i;
+
+/** Where a model wrote a list where one value belongs: `20.70" L x 3.34" dia', '52.58 x 8.48 cm`. */
+const ANSWER_LIST = /['"]\s*,\s*['"]/;
+
+/**
+ * A value with the answer's own structure taken off it, and the unit that structure named where it
+ * named one. What stands before the first key is what the document prints. A value that is nothing
+ * but structure is returned as it came, for the truncation check to refuse.
+ */
+export function withoutAnswerTail(value: string): { value: string; unit?: string } {
+  const start = value.search(ANSWER_START);
+  const head = (start === -1 ? value : value.slice(0, start)).split(ANSWER_LIST)[0] ?? "";
+  const printed = head
+    .trim()
+    .replace(/['"]+$/, "")
+    .trim();
+  if (!printed) return { value };
+  const unit = start === -1 ? undefined : ANSWER_UNIT.exec(value.slice(start))?.[1]?.trim();
+  return { value: printed, ...(unit ? { unit } : {}) };
+}
+
+/**
  * Pull a unit out of a value that has one glued on. A model told to put the unit in its own field
  * writes "57.6V" anyway, and twenty-two figures in one run did exactly that: the number is right
  * and the unit is right, and only the shape is wrong.
