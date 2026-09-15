@@ -12,6 +12,9 @@ const EXPLORER_TABLES: ReadonlySet<string> = new Set([
 /** A table past this belongs in a download, not in a page's memory. */
 export const MAX_TABLE_BYTES = 32 * 1024 * 1024;
 
+/** Parquet opens and closes with these four bytes. */
+const PARQUET_MAGIC = "PAR1";
+
 /** A published table the explorer reads whole and hands to DuckDB. */
 export interface Table {
   /** The view a query names. */
@@ -23,6 +26,9 @@ export interface Table {
    */
   file: string;
   url: string;
+  /** Its size and digest in the index, which tell the published file from an older copy. */
+  bytes: number;
+  sha256: string;
   sql: string;
 }
 
@@ -37,6 +43,8 @@ export function explorerTables(files: Index["files"]): Table[] {
         name,
         file,
         url: entry.url,
+        bytes: entry.bytes,
+        sha256: entry.sha256,
         sql: `CREATE VIEW "${name}" AS SELECT * FROM read_parquet('${file}')`,
       },
     ];
@@ -45,7 +53,10 @@ export function explorerTables(files: Index["files"]): Table[] {
 
 /** Why a table could not be read, and whether asking again could help. */
 export class TableReadError extends Error {
-  /** A stall, a dropped connection or a server error; not a missing file or an oversized one. */
+  /**
+   * A stall, a dropped connection, a body cut short or a server error; not a missing file or an
+   * oversized one.
+   */
   readonly retryable: boolean;
 
   constructor(message: string, retryable: boolean) {
@@ -55,7 +66,7 @@ export class TableReadError extends Error {
   }
 }
 
-type Fetch = (url: string, init: { signal: AbortSignal }) => Promise<Response>;
+type Fetch = (url: string, init: { signal: AbortSignal; cache: RequestCache }) => Promise<Response>;
 
 export interface ReadOptions {
   /** Stops the read, and any attempt still to come. */
@@ -70,14 +81,24 @@ export interface ReadOptions {
 }
 
 /**
- * One table's bytes, whole.
+ * One table's bytes, whole, as the index publishes them.
  *
  * A request can be lost on the way without the connection failing: a QUIC stream whose packets
  * never arrive waits indefinitely. So an attempt is abandoned when neither headers nor bytes have
  * arrived for `stallMs`, however slowly the file was arriving before, and asked again up to
  * `attempts` times.
+ *
+ * A finished download can still be the wrong bytes: a body that ended early, or the browser's
+ * cached copy of an earlier release. A body shorter than its length or without Parquet's closing
+ * bytes is asked again, and so is one whose size or digest differs from the index. Every attempt
+ * after the first bypasses the browser's cache, where a bad copy would otherwise come back. A
+ * complete file fetched that way is kept even when it differs from the index, because a publish
+ * uploads its files before its index.
  */
-export async function readTable(table: Table, options: ReadOptions = {}): Promise<Uint8Array> {
+export async function readTable(
+  table: Table,
+  options: ReadOptions = {},
+): Promise<Uint8Array<ArrayBuffer>> {
   const {
     signal,
     stallMs = 15_000,
@@ -87,8 +108,12 @@ export async function readTable(table: Table, options: ReadOptions = {}): Promis
     fetch: get = (url, init) => fetch(url, init),
   } = options;
   for (let attempt = 1; ; attempt += 1) {
+    const cache: RequestCache = attempt === 1 ? "default" : "reload";
     try {
-      return await readOnce(table, { get, stallMs, maxBytes, signal });
+      const bytes = await readOnce(table, { get, stallMs, maxBytes, signal, cache });
+      if (cache === "reload" || attempt >= attempts || (await published(table, bytes))) {
+        return bytes;
+      }
     } catch (error) {
       if (signal?.aborted) throw signal.reason;
       if (!(error instanceof TableReadError) || !error.retryable || attempt >= attempts) {
@@ -106,8 +131,15 @@ async function readOnce(
     stallMs,
     maxBytes,
     signal,
-  }: { get: Fetch; stallMs: number; maxBytes: number; signal: AbortSignal | undefined },
-): Promise<Uint8Array> {
+    cache,
+  }: {
+    get: Fetch;
+    stallMs: number;
+    maxBytes: number;
+    signal: AbortSignal | undefined;
+    cache: RequestCache;
+  },
+): Promise<Uint8Array<ArrayBuffer>> {
   signal?.throwIfAborted();
   const request = new AbortController();
   const forward = () => request.abort(signal?.reason);
@@ -123,7 +155,7 @@ async function readOnce(
   };
   try {
     watch();
-    const response = await get(table.url, { signal: request.signal });
+    const response = await get(table.url, { signal: request.signal, cache });
     if (!response.ok) {
       throw new TableReadError(`${table.file} answered ${response.status}`, response.status >= 500);
     }
@@ -151,6 +183,13 @@ async function readOnce(
       bytes.set(chunk, offset);
       offset += chunk.byteLength;
     }
+    // An encoded body's length is not the length of the bytes it decodes to.
+    const declared = response.headers.get("content-encoding")
+      ? null
+      : response.headers.get("content-length");
+    if ((declared !== null && Number(declared) !== size) || !isParquet(bytes)) {
+      throw new TableReadError(`${table.file} arrived incomplete (${size} bytes)`, true);
+    }
     return bytes;
   } catch (error) {
     if (error instanceof TableReadError) throw error;
@@ -163,6 +202,24 @@ async function readOnce(
     clearTimeout(timer);
     signal?.removeEventListener("abort", forward);
   }
+}
+
+/** A body cut short loses Parquet's closing bytes; one that never was Parquet lacks both. */
+function isParquet(bytes: Uint8Array): boolean {
+  const magic = (start: number) => String.fromCharCode(...bytes.subarray(start, start + 4));
+  return (
+    bytes.byteLength >= 12 &&
+    magic(0) === PARQUET_MAGIC &&
+    magic(bytes.byteLength - 4) === PARQUET_MAGIC
+  );
+}
+
+/** Whether these are the bytes the index describes. */
+async function published(table: Table, bytes: Uint8Array<ArrayBuffer>): Promise<boolean> {
+  if (bytes.byteLength !== table.bytes) return false;
+  const digest = new Uint8Array(await crypto.subtle.digest("SHA-256", bytes));
+  const hex = Array.from(digest, (byte) => byte.toString(16).padStart(2, "0")).join("");
+  return hex === table.sha256;
 }
 
 function delay(ms: number, signal: AbortSignal | undefined): Promise<void> {

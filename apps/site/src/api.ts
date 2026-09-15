@@ -23,8 +23,12 @@ export interface Maker {
 /** The origin the tables are served from. Same host in production; the Vite proxy in development. */
 export const base = "";
 
+/**
+ * The index, revalidated on every load: each table is checked against it, and an index kept from
+ * an earlier release would make the current tables look wrong.
+ */
 export async function fetchIndex(): Promise<Index> {
-  const res = await fetch(`${base}/manifest.json`);
+  const res = await fetch(`${base}/manifest.json`, { cache: "no-cache" });
   if (!res.ok) throw new Error(`the index answered ${res.status}`);
   return (await res.json()) as Index;
 }
