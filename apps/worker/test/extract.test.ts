@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { type ReadWindow, readDocument } from "../src/extract.ts";
 import {
+  asciiSymbols,
   CHUNK_CHARACTERS,
   CONVERTER,
   chunk,
@@ -12,6 +13,7 @@ import {
   namesOneProduct,
   pageOfFigure,
   pageOffsets,
+  printedSymbols,
   type Reported,
   SYSTEM,
   statesOneFigure,
@@ -412,5 +414,90 @@ test("the text reader tells the model whose document it reads, by the maker's na
     String(unlisted.asked[0]?.input.messages[1]?.content),
     /^Maker: nobody-listed\n\n/,
     "a maker the bundled list does not name is given by its id",
+  );
+});
+
+test("the symbols the reader garbles are spelled in ASCII for it, and given back in what it reports (#145)", () => {
+  assert.equal(
+    asciiSymbols("≥8000 cycles, VSWR ≤ 2.0, 9～17V"),
+    ">=8000 cycles, VSWR <= 2.0, 9~17V",
+  );
+  assert.equal(printedSymbols("≥8000 cycles, VSWR ≤ 2.0", "VSWR <= 2.0"), "VSWR ≤ 2.0");
+  assert.equal(asciiSymbols("12/24 V"), "12/24 V", "text with none of them is left as it is");
+  assert.equal(
+    printedSymbols("9～17V", "9~17V"),
+    "9~17V",
+    "a tilde stays, since it reads the same in a range",
+  );
+  assert.equal(
+    printedSymbols("Charge temperature >=0°C", ">=0°C"),
+    ">=0°C",
+    "an operator the sheet prints in ASCII is kept",
+  );
+  assert.equal(
+    printedSymbols("Cycle life ≥8000 cycles at 25°C", ">=8000 cycles"),
+    "≥8000 cycles",
+    "words not printed as reported are given the symbol when the text has no ASCII operator",
+  );
+  assert.equal(
+    printedSymbols("VSWR >=1.5 and ≤2.0", ">= 2.0"),
+    ">= 2.0",
+    "and keep what the model wrote when the text has one it could have copied",
+  );
+});
+
+test("a figure printed with an ASCII operator or a full-width tilde keeps its page when its name is reworded (#145)", async () => {
+  const sheet =
+    "### Page 1\nSee the next page.\n### Page 2\n| Charge temperature | >=0°C |\n| Input | 9～17V |\n";
+  const { env, readObject } = world({ [MARKDOWN]: sheet }, () => ({
+    response: JSON.stringify({
+      products: [
+        {
+          model: "S-550",
+          specs: [
+            { name: "Charging temperature", value: ">=0°C" },
+            { name: "Input voltage range", value: "9~17V" },
+          ],
+        },
+      ],
+    }),
+  }));
+  await readDocument(message, env, 1);
+  assert.deepEqual(
+    readObject<Reading>(readingKey).products[0]?.specs.map((s) => [s.value, s.page]),
+    [
+      [">=0°C", 2],
+      ["9~17V", 2],
+    ],
+  );
+});
+
+test("the text reader sends a window without the symbols it garbles, and a figure keeps the symbol and page its document prints", async () => {
+  const sheet =
+    "### Page 1\nSee the next page.\n### Page 2\n| Cycle life | ≥8000 cycles |\n| Self-discharge | ≤3%/month |\n";
+  const { env, asked, readObject } = world({ [MARKDOWN]: sheet }, (_call, input) => {
+    assert.doesNotMatch(String(input.messages[1]?.content), /[≥≤～]/);
+    return {
+      response: JSON.stringify({
+        products: [
+          {
+            model: "S-550",
+            specs: [
+              { name: "Cycle life", value: ">=8000 cycles" },
+              { name: "Self-discharge", value: "<=3%/month" },
+            ],
+          },
+        ],
+      }),
+    };
+  });
+  await readDocument(message, env, 1);
+  assert.equal(asked.length, 1);
+  assert.deepEqual(
+    readObject<Reading>(readingKey).products[0]?.specs.map((s) => [s.value, s.page]),
+    [
+      ["≥8000 cycles", 2],
+      ["≤3%/month", 2],
+    ],
   );
 });
