@@ -22,6 +22,7 @@ import {
 } from "../../src/rejections.ts";
 import {
   heldByPerson,
+  keepUnitsApart,
   matchModel,
   pullWrites,
   type ReportedProduct,
@@ -222,10 +223,13 @@ if (addModels) {
 
 // Every figure first, then the sources. Two datasheets can state the same figure for the same
 // model, and the id is the model and the figure, so the later document wins — writing each
-// document's source as it went left the earlier one cited by nothing.
+// document's source as it went left the earlier one cited by nothing. The same name in another
+// unit is another figure, and which id each takes is known only once every document is in.
+const toWrite: ReturnType<typeof specsFrom>["specs"] = [];
 const collected = new Map<string, ReturnType<typeof specsFrom>["specs"][number]>();
 // And every reading each id had, so a figure a person holds is compared with all of them, not
 // only with the document that won.
+const everyRead: ReturnType<typeof specsFrom>["specs"] = [];
 const candidates = new Map<string, ReturnType<typeof specsFrom>["specs"]>();
 const usedSources = new Map<string, { url: string; sha256: string }>();
 // Where each document of this run is, whether or not anything of it is written: a disagreement
@@ -246,8 +250,7 @@ const figuresOf = (document: (typeof readings.readings)[number]) =>
     // `extractedBy` with no reviewer says a model read it and nobody has checked the row.
     confidence: "vendor-doc",
   });
-const candidate = (spec: ReturnType<typeof specsFrom>["specs"][number]) =>
-  candidates.set(spec.id, [...(candidates.get(spec.id) ?? []), spec]);
+const candidate = (spec: ReturnType<typeof specsFrom>["specs"][number]) => everyRead.push(spec);
 for (const document of readings.readings) {
   if (document.products.length === 0) continue;
   const sourceId = `doc-${document.sha256.slice(0, 32)}`;
@@ -259,7 +262,7 @@ for (const document of readings.readings) {
   const specs = given.filter((spec) => !rejectsFigure(rejections, spec));
   rejectedFigures += given.length - specs.length;
   for (const spec of specs) {
-    collected.set(spec.id, spec);
+    toWrite.push(spec);
     candidate(spec);
   }
   // A row the document's own translation rule dropped was still read, and a person may hold a
@@ -278,6 +281,14 @@ for (const document of comparisonOnly) {
   for (const spec of [...specs, ...repeatedRows])
     if (!rejectsFigure(rejections, spec)) candidate(spec);
 }
+
+// A name read in two units is two figures, not one the later document overwrote (#147). Every
+// reading goes under the id it is written to, so a figure a person holds is compared with the
+// readings in its own unit, and a figure under its unit's id counts as produced.
+const units = keepUnitsApart(records.specs, toWrite);
+for (const spec of toWrite.map(units.place)) collected.set(spec.id, spec);
+for (const spec of everyRead.map(units.place))
+  candidates.set(spec.id, [...(candidates.get(spec.id) ?? []), spec]);
 
 // Once the maker's whole set is in hand. A figure a person confirmed or wrote by hand is not the
 // run's to write over (#63): it stays exactly as it is, source and review included, and a reading
@@ -370,6 +381,12 @@ if (held.agreed)
     `  ${held.agreed} figures a person holds were read again the same way and left as they are`,
   );
 if (unread) console.log(`  ${unread} figures a person holds were not read by this run and stay`);
+// Each id a name took for its second unit, where that figure is written, so a reviewer reads the
+// added record as another rating rather than looking for the value it replaced.
+for (const split of units.splits.filter((s) => collected.has(s.splitId)))
+  console.log(
+    `  kept in two units: ${split.id} in ${split.unit}, ${split.splitId} in ${split.splitUnit}`,
+  );
 if (held.disagreements.length) {
   console.log(
     `  ${held.disagreements.length} readings disagree with a figure a person holds; the figure stays and the reading is not written:`,

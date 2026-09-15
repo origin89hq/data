@@ -63,11 +63,14 @@ for (const maker of makers) {
     process.exit(result.status ?? 1);
   }
   // Each pull's headline, anything it took away, any reading it refused to write over a figure a
-  // person holds, any product it left unminted, and the models it minted: removals,
-  // disagreements, refusals and new products are what a reviewer most needs to see.
+  // person holds, any product it left unminted, the models it minted, and any name it kept in two
+  // units: removals, disagreements, refusals, new products and a figure that looks added rather
+  // than changed are what a reviewer most needs to see.
   const [headline = "", ...rest] = result.stdout.split("\n");
   const removed = rest
-    .filter((line) => /removed|disagree|: held |not minted: |new models: /.test(line))
+    .filter((line) =>
+      /removed|disagree|: held |not minted: |new models: |in two units: /.test(line),
+    )
     .map((line) => line.trim());
   summary.push(`- **${maker.maker}** (${maker.date}): ${[headline, ...removed].join("; ")}`);
 }

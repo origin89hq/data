@@ -5,6 +5,7 @@ import { Spec } from "@origin89/equipment-schema/model";
 import {
   heldByPerson,
   keepHeld,
+  keepUnitsApart,
   matchModel,
   pullWrites,
   sameName,
@@ -523,4 +524,214 @@ test("a figure read again, held by a person, or on another maker's model is neve
     staleFigures([readAgain, reviewed, byHand, anothers], rollsRun(["doc-aaaa"], [readAgain.id])),
     [],
   );
+});
+
+const power = (over: Partial<Spec>): Spec =>
+  figure({
+    id: "victron-energy-12-2000-80--cont-output-power-at-25-c-77-f",
+    model: "victron-energy-12-2000-80",
+    name: "Cont. output power at 25 °C / 77 °F",
+    value: "1600",
+    unit: "W",
+    conditions: undefined,
+    source: "doc-aaaa",
+    page: 56,
+    ...over,
+  });
+const plainId = "victron-energy-12-2000-80--cont-output-power-at-25-c-77-f";
+const vaId = `${plainId}-va`;
+
+test("a name two documents print in two units is two figures, the later unit's under an id that names it", () => {
+  const watts = power({});
+  const voltAmps = power({ value: "2000", unit: "VA", source: "doc-bbbb", page: 62 });
+  const { place, splits } = keepUnitsApart([], [watts, voltAmps]);
+  const placed = [watts, voltAmps].map(place);
+  assert.deepEqual(
+    placed.map((spec) => [spec.id, spec.value, spec.unit, spec.source]),
+    [
+      [plainId, "1600", "W", "doc-aaaa"],
+      [vaId, "2000", "VA", "doc-bbbb"],
+    ],
+  );
+  for (const spec of placed) Spec.parse(spec);
+  assert.deepEqual(splits, [{ id: plainId, unit: "W", splitId: vaId, splitUnit: "VA" }]);
+  assert.deepEqual(
+    pullWrites([], placed).write.map((spec) => spec.id),
+    [plainId, vaId],
+    "both are written",
+  );
+});
+
+test("one name read twice in one unit is still one figure, and the later document's reading wins", () => {
+  const earlier = power({});
+  const later = power({ value: "1650", source: "doc-bbbb", page: 62 });
+  const { place, splits } = keepUnitsApart([], [earlier, later]);
+  const placed = [earlier, later].map(place);
+  assert.deepEqual(placed, [earlier, later], "both keep the plain id, in the order they were read");
+  assert.deepEqual(splits, []);
+  // Folded by id in reading order, as the pull folds them.
+  const folded = [...new Map(placed.map((spec) => [spec.id, spec])).values()];
+  assert.deepEqual(pullWrites([], folded).write, [later]);
+});
+
+test("a figure with no unit splits nothing, on either side, since it could be in either unit", () => {
+  const watts = power({});
+  const bare = power({ value: "2000", unit: undefined, source: "doc-bbbb" });
+  const alone = keepUnitsApart([], [watts, bare]);
+  assert.deepEqual([watts, bare].map(alone.place), [watts, bare]);
+  assert.deepEqual(alone.splits, []);
+
+  const voltAmps = power({ value: "2000", unit: "VA", source: "doc-cccc" });
+  const beside = keepUnitsApart([], [watts, bare, voltAmps]);
+  assert.deepEqual(
+    [watts, bare, voltAmps].map(beside.place).map((spec) => spec.id),
+    [plainId, plainId, vaId],
+    "the bare reading stays with the plain id while the two units part",
+  );
+
+  // Held with no unit, the record says nothing about which unit is its own: the first unit read is.
+  const heldBare = keepUnitsApart([bare], [voltAmps, watts]);
+  assert.deepEqual(
+    [voltAmps, watts].map(heldBare.place).map((spec) => spec.id),
+    [plainId, `${plainId}-w`],
+  );
+});
+
+test("a figure a person holds under the plain id keeps it, and the reading in the other unit takes its own id", () => {
+  const reviewed = power({ reviewedBy: "david", checkedAt: "2026-09-01" });
+  // The VA brochure is read first, so it is the held figure's unit that decides, not the order.
+  const voltAmps = power({ value: "2000", unit: "VA", source: "doc-bbbb", page: 62 });
+  const watts = power({ source: "doc-cccc" });
+  const { place, splits } = keepUnitsApart([reviewed], [voltAmps, watts]);
+  const placed = [voltAmps, watts].map(place);
+  assert.deepEqual(
+    placed.map((spec) => spec.id),
+    [vaId, plainId],
+  );
+  assert.deepEqual(splits, [{ id: plainId, unit: "W", splitId: vaId, splitUnit: "VA" }]);
+  const pulled = pullWrites([reviewed], placed);
+  assert.deepEqual(
+    pulled.write.map((spec) => [spec.id, spec.value]),
+    [[vaId, "2000"]],
+    "the held figure is not written over",
+  );
+  assert.equal(pulled.agreed, 1);
+  assert.deepEqual(
+    pulled.disagreements,
+    [],
+    "the VA figure is written under its own id, not reported against the W one",
+  );
+
+  // Held in kW, the same quantity as W: the W reading is the held figure read again, and disagrees
+  // with it, while the VA reading is another rating with its own id.
+  const inKilowatts = power({ value: "1.6", unit: "kW", reviewedBy: "david" });
+  const apart = keepUnitsApart([inKilowatts], [voltAmps, watts]);
+  const placedApart = [voltAmps, watts].map(apart.place);
+  assert.deepEqual(
+    placedApart.map((spec) => spec.id),
+    [vaId, plainId],
+  );
+  const againstKilowatts = pullWrites([inKilowatts], placedApart);
+  assert.deepEqual(
+    againstKilowatts.write.map((spec) => spec.id),
+    [vaId],
+  );
+  assert.deepEqual(
+    againstKilowatts.disagreements.map((d) => d.id),
+    [plainId],
+  );
+});
+
+test("a unit that already has its own id goes back to it when a run reads only that unit, and the other figure stays", () => {
+  const watts = power({});
+  const voltAmps = power({ id: vaId, value: "2000", unit: "VA", source: "doc-bbbb", page: 62 });
+  const reread = power({ value: "2000", unit: "VA", source: "doc-bbbb", page: 62 });
+  const { place, splits } = keepUnitsApart([watts, voltAmps], [reread]);
+  assert.equal(place(reread).id, vaId);
+  assert.deepEqual(splits, [], "the id is not new, so there is nothing to report");
+  assert.deepEqual(
+    staleFigures([watts, voltAmps], {
+      models: new Set([watts.model]),
+      produced: new Set([place(reread).id]),
+      reread: new Set(["doc-bbbb"]),
+    }),
+    [],
+    "the W brochure was not read again, and the VA figure was produced",
+  );
+});
+
+test("a run that reads only the other quantity gives it its own id and leaves the held figure", () => {
+  // The current run holds the Marine brochure's VA figure and not the brochure the W figure came from.
+  const watts = power({});
+  const voltAmps = power({ value: "2000", unit: "VA", source: "doc-bbbb", page: 62 });
+  const { place, splits } = keepUnitsApart([watts], [voltAmps]);
+  assert.equal(place(voltAmps).id, vaId);
+  assert.deepEqual(splits, [{ id: plainId, unit: "W", splitId: vaId, splitUnit: "VA" }]);
+  assert.deepEqual(
+    staleFigures([watts], {
+      models: new Set([watts.model]),
+      produced: new Set([vaId]),
+      reread: new Set(["doc-bbbb"]),
+    }),
+    [],
+    "the W figure is not stale: its brochure was not read",
+  );
+});
+
+test("the same quantity spelled or scaled another way is one figure, and a unit nobody can name splits nothing", () => {
+  const watts = power({});
+  for (const unit of ["Wp", "Watts", "kW"]) {
+    const respelled = power({ value: unit === "kW" ? "1.6" : "1600", unit, source: "doc-bbbb" });
+    const { place, splits } = keepUnitsApart([watts], [respelled]);
+    assert.equal(place(respelled).id, plainId, unit);
+    assert.deepEqual(splits, [], unit);
+  }
+  const unnamed = power({ value: "1600", unit: "furlongs", source: "doc-bbbb" });
+  const withUnnamed = keepUnitsApart([], [watts, unnamed]);
+  assert.deepEqual(
+    [watts, unnamed].map(withUnnamed.place).map((spec) => spec.id),
+    [plainId, plainId],
+  );
+  assert.deepEqual(withUnnamed.splits, []);
+});
+
+test("each quantity read gets an id of its own, named by its unit, the ones that are only a symbol included", () => {
+  const readings = ["W", "VA", "%", "Ω", "m²", "m", "kW"].map((unit) =>
+    power({ unit, value: "1" }),
+  );
+  const { place, splits } = keepUnitsApart([], readings);
+  assert.deepEqual(
+    readings.map(place).map((spec) => spec.id),
+    [
+      plainId,
+      vaId,
+      `${plainId}-percent`,
+      `${plainId}-ohm`,
+      `${plainId}-m2`,
+      `${plainId}-m`,
+      plainId,
+    ],
+    "kW measures what W does and shares its id",
+  );
+  for (const spec of readings.map(place)) Spec.parse(spec);
+  assert.equal(splits.length, 5, "every quantity but the first read is reported");
+});
+
+test("readings of one quantity at two scales share one id when another quantity holds the plain id", () => {
+  // The VA brochure's figure holds the plain id; one sheet prints the rating in W, another in kW.
+  const heldVoltAmps = power({ value: "2000", unit: "VA", source: "doc-bbbb" });
+  const watts = power({ value: "1600", unit: "W", source: "doc-cccc" });
+  const kilowatts = power({ value: "1.6", unit: "kW", source: "doc-dddd" });
+  const { place, splits } = keepUnitsApart([heldVoltAmps], [watts, kilowatts]);
+  assert.deepEqual(
+    [watts, kilowatts].map(place).map((spec) => spec.id),
+    [`${plainId}-w`, `${plainId}-w`],
+  );
+  assert.deepEqual(splits, [{ id: plainId, unit: "VA", splitId: `${plainId}-w`, splitUnit: "W" }]);
+
+  // Held under an id of its own in kW, a later reading in W goes back to that id.
+  const heldKilowatts = power({ id: `${plainId}-kw`, value: "1.6", unit: "kW" });
+  const again = keepUnitsApart([heldVoltAmps, heldKilowatts], [watts]);
+  assert.equal(again.place(watts).id, `${plainId}-kw`);
+  assert.deepEqual(again.splits, []);
 });

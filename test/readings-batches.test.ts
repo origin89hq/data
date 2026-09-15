@@ -184,9 +184,13 @@ test("the figures pull reads the translated editions it sets aside for compariso
     /const comparisonOnly = \(\s*await creditedReadings\(/,
     "a retailer's set-aside editions are credited before they are compared",
   );
+  // The loop's own body, up to the brace that closes it: the figures to write are gathered, then
+  // placed under their ids, so a window of characters after the loop no longer says what it does.
+  const comparing = /for \(const document of comparisonOnly\) \{\n([\s\S]*?)\n\}/.exec(source)?.[1];
+  assert.match(comparing ?? "", /candidate\(spec\)/);
   assert.doesNotMatch(
-    source.slice(source.indexOf("for (const document of comparisonOnly)")),
-    /comparisonOnly\)[\s\S]{0,400}(collected\.set|usedSources\.set)/,
+    comparing ?? "",
+    /collected\.set|toWrite\.push|usedSources\.set/,
     "a comparison-only document is neither written nor cited",
   );
   assert.match(
