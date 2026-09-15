@@ -19,8 +19,9 @@ carries the source, and the reviewer reads the source, not the diff.
   whether a row is a record here or a feed row.
 - A rejection under `records/rejections/<manufacturer>.json` is a person's no to
   something a maker's readings give: a whole document that is not the maker's
-  ratings, one figure of one document by its model and printed name, or a
-  product name that is not the maker's product. It carries the reason,
+  ratings, or that rates only equipment this dataset does not cover, such as a
+  lift truck's battery; one figure of one document by its model and printed
+  name; or a product name that is not the maker's product. It carries the reason,
   `reviewedBy` and `checkedAt`, and lands with the deletion of what it rejects,
   since validation refuses a rejected figure or product the records still hold.
   A read figure deleted without one comes back with the next pull.
