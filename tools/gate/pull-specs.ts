@@ -24,6 +24,7 @@ import {
   heldByPerson,
   keepUnitsApart,
   matchModel,
+  mintedWithFigures,
   pullWrites,
   type ReportedProduct,
   specsFrom,
@@ -176,6 +177,8 @@ const ownNames = [
 const notProducts = new Map<string, string>();
 /** Every model this pull mints, listed in its summary so a person sees them before merging. */
 const minted: string[] = [];
+/** The models the pass below mints, written once the figures show which of them any figure cites. */
+const mintedModels: Model[] = [];
 
 if (addModels) {
   // A pass over the documents first, so a figure found in the same run has a model to attach to.
@@ -213,10 +216,8 @@ if (addModels) {
         continue;
       }
       const model = Model.parse({ id, manufacturer, name, aliases: [], dialects: [] });
-      if (!dryRun) writeRecord(RECORDS_DIR, "models", id, model);
       records.models.push(model);
-      modelsAdded += 1;
-      minted.push(name);
+      mintedModels.push(model);
     }
   }
 }
@@ -301,6 +302,17 @@ const held = pullWrites(records.specs, read, candidates);
 const aligned = held.aligned;
 collected.clear();
 for (const spec of held.write) collected.set(spec.id, spec);
+
+// A model this run minted is written only once a figure it writes cites it. A name whose every
+// figure was rejected, held under another model or dropped as a translation minted an empty model
+// beside the one a person meant (#165), so it goes back out before anything else reads the models.
+const newModels = mintedWithFigures(mintedModels, collected.values());
+for (const model of newModels.kept) {
+  if (!dryRun) writeRecord(RECORDS_DIR, "models", model.id, model);
+  modelsAdded += 1;
+  minted.push(model.name);
+}
+for (const model of newModels.empty) records.models.splice(records.models.indexOf(model), 1);
 
 const cited = new Set([...collected.values()].map((s) => s.source));
 for (const [sourceId, document] of usedSources) {
@@ -490,6 +502,11 @@ if (anothers.size) {
 if (notProducts.size) {
   console.log(`\n${notProducts.size} product names that name no single product, not minted:`);
   for (const [name, why] of [...notProducts].sort()) console.log(`  not minted: ${name} (${why})`);
+}
+if (newModels.empty.length) {
+  console.log(`\n${newModels.empty.length} product names with no figure written, not minted:`);
+  for (const name of newModels.empty.map((model) => model.name).sort())
+    console.log(`  not minted: ${name} (no figure of it is written)`);
 }
 // On one line, so the daily job's summary carries every model a merge would add.
 if (minted.length) console.log(`  new models: ${[...minted].sort().join(", ")}`);

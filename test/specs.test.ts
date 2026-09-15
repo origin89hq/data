@@ -7,6 +7,7 @@ import {
   keepHeld,
   keepUnitsApart,
   matchModel,
+  mintedWithFigures,
   pullWrites,
   sameName,
   specId,
@@ -734,4 +735,32 @@ test("readings of one quantity at two scales share one id when another quantity 
   const again = keepUnitsApart([heldVoltAmps, heldKilowatts], [watts]);
   assert.equal(again.place(watts).id, `${plainId}-kw`);
   assert.deepEqual(again.splits, []);
+});
+
+test("a model a pull minted is written only when a figure it writes cites it (#165)", () => {
+  const minted = (name: string) => ({
+    id: `pulsetech-${name.toLowerCase()}`,
+    manufacturer: "pulsetech",
+    name,
+    aliases: [],
+    dialects: [],
+  });
+  const { kept, empty } = mintedWithFigures(
+    [minted("SP-7"), minted("SP-100"), minted("890PT")],
+    [{ model: "pulsetech-sp-7" }, { model: "pulsetech-sp-7" }, { model: "pulsetech-xc450" }],
+  );
+  assert.deepEqual(
+    kept.map((m) => m.name),
+    ["SP-7"],
+  );
+  assert.deepEqual(
+    empty.map((m) => m.name),
+    ["SP-100", "890PT"],
+    "a name whose figures all went is not written, and a figure for a held model changes nothing",
+  );
+  assert.deepEqual(
+    mintedWithFigures([minted("SP-7")], []),
+    { kept: [], empty: [minted("SP-7")] },
+    "with nothing written, nothing minted is kept",
+  );
 });

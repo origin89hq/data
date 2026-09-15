@@ -392,6 +392,22 @@ export interface UnitSplit {
 }
 
 /**
+ * The models a pull minted, split by whether a figure it writes cites them (#165). A name is minted
+ * before its figures are filtered, and one whose every figure is then rejected, held under another
+ * model or dropped as a repeated translation would be a product with nothing known about it.
+ */
+export function mintedWithFigures(
+  minted: readonly Model[],
+  written: Iterable<Pick<Spec, "model">>,
+): { kept: Model[]; empty: Model[] } {
+  const cited = new Set([...written].map((spec) => spec.model));
+  return {
+    kept: minted.filter((model) => cited.has(model.id)),
+    empty: minted.filter((model) => !cited.has(model.id)),
+  };
+}
+
+/**
  * Keep one name the documents print in two units as two figures. The id is the model, the name and
  * the conditions, so Victron's "Cont. output power at 25 °C" at 1600 W in one brochure and 2000 VA
  * in another was one id, and the later brochure's figure replaced the other (#147). Those are two
