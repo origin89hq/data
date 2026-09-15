@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import type { Index } from "./api.ts";
 import { queryRow } from "./query-row.ts";
+import { explorerTables, readTable } from "./tables.ts";
 
 export interface Query {
   columns: string[];
@@ -13,11 +14,12 @@ export type State =
   | { ready: true; tables: string[]; run: (sql: string) => Promise<Query> };
 
 /**
- * DuckDB in the reader's own browser, reading the published Parquet over HTTP ranges.
+ * DuckDB in the reader's own browser, over the published Parquet.
  *
- * Nothing is uploaded and nothing is proxied: the same query written here is the query you would
- * write on your own machine, against the same URLs. Each published table becomes a view, so a
- * question asks the file rather than a copy of it.
+ * Each table is fetched whole and handed to DuckDB as bytes. DuckDB-WASM reads a remote file with
+ * synchronous requests that have no timeout, so one request lost on the network left the explorer
+ * connecting forever; a fetch notices the stall and asks again. Nothing is uploaded and nothing is
+ * proxied, and each published table becomes a view.
  */
 export function useDuckDb(index: Index | undefined): State {
   const [attempt, setAttempt] = useState(0);
@@ -32,6 +34,7 @@ export function useDuckDb(index: Index | undefined): State {
     if (!index) return;
     let closed = false;
     let cleanup: (() => void) | undefined;
+    const downloads = new AbortController();
     setState({ ready: false, message: "Preparing the data explorer…" });
 
     void (async () => {
@@ -55,34 +58,30 @@ export function useDuckDb(index: Index | undefined): State {
         };
         await db.instantiate(bundle.mainModule, bundle.pthreadWorker);
         if (closed) return;
-        // Probe range support rather than buffering each entire remote file at startup.
-        await db.open({
-          filesystem: {
-            reliableHeadRequests: false,
-            allowFullHTTPReads: true,
-            forceFullHTTPReads: false,
-          },
-        });
+        await db.open({});
         if (closed) return;
         const connection = await db.connect();
         if (closed) return;
 
         setState({ ready: false, message: "Connecting to the published tables…" });
-        const views = parquetViews(index.files).filter(({ name }) =>
-          ["models", "specs", "sources", "dialects", "model_dialects"].includes(name),
+        const tables = explorerTables(index.files);
+        const read = await Promise.all(
+          tables.map(async (table) => ({
+            table,
+            bytes: await readTable(table, { signal: downloads.signal }),
+          })),
         );
-        const tables = views.map((view) => view.name);
-        for (const view of views) {
+        for (const { table, bytes } of read) {
           if (closed) return;
-          await db.registerFileURL(view.url, view.url, duckdb.DuckDBDataProtocol.HTTP, false);
+          await db.registerFileBuffer(table.file, bytes);
           if (closed) return;
-          await connection.query(view.sql);
+          await connection.query(table.sql);
         }
         if (closed) return;
 
         setState({
           ready: true,
-          tables,
+          tables: tables.map((table) => table.name),
           run: async (sql) => {
             const started = performance.now();
             const result = await connection.query(sql);
@@ -98,6 +97,8 @@ export function useDuckDb(index: Index | undefined): State {
           },
         });
       } catch (error) {
+        // One table that failed leaves no reason to finish downloading the others.
+        downloads.abort();
         cleanup?.();
         cleanup = undefined;
         if (!closed) setState({ ready: false, error: String(error).slice(0, 140), retry });
@@ -106,26 +107,10 @@ export function useDuckDb(index: Index | undefined): State {
 
     return () => {
       closed = true;
+      downloads.abort();
       cleanup?.();
     };
   }, [index, attempt, retry]);
 
   return state;
-}
-
-/** Quote filenames and URLs from the published index as SQL data. */
-export function parquetViews(files: Index["files"]): { name: string; url: string; sql: string }[] {
-  return Object.entries(files)
-    .filter(([file]) => file.endsWith(".parquet"))
-    .map(([file, entry]) => {
-      const name = file.slice(0, -".parquet".length);
-      if (!name) throw new Error("Parquet file has no table name");
-      const identifier = name.replaceAll('"', '""');
-      const url = entry.url.replaceAll("'", "''");
-      return {
-        name,
-        url: entry.url,
-        sql: `CREATE VIEW "${identifier}" AS SELECT * FROM read_parquet('${url}')`,
-      };
-    });
 }
