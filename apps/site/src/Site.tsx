@@ -8,6 +8,7 @@ import { Buddy } from "./Buddy.tsx";
 import { Build } from "./build.tsx";
 import { DataLoading, DataProblem, Skeleton } from "./DataState.tsx";
 import { Explorer } from "./explorer.tsx";
+import { HERO_QUERY, heroFigure } from "./hero.ts";
 import { Icon } from "./icons.tsx";
 import { Coverage, Evidence } from "./panels.tsx";
 import { type State, useDuckDb } from "./useDuckDb.ts";
@@ -335,25 +336,32 @@ export function Site() {
   );
 }
 
-/** The card at the centre of the hero: a real figure, fetched, with its page reference. */
+/**
+ * The card at the centre of the hero: a real figure, fetched, with its page reference. It leads with
+ * the figure that describes the model's kind, under its maker's mark.
+ */
 function HeroRecord({ db }: { db: State }) {
-  const result = useQuery(
-    db,
-    `SELECT model_id, value, page FROM specs
-      WHERE unit = 'Ah' AND tier <> 'feed' AND page IS NOT NULL AND doubt IS NULL
-      ORDER BY model_id LIMIT 1`,
+  const result = useQuery(db, HERO_QUERY);
+  const figure = heroFigure(result.status === "ready" ? result.data[0]?.rows[0] : undefined);
+  const identity = figure?.logo ? (
+    <img
+      className="record-logo"
+      src={figure.logo}
+      alt={figure.maker ?? ""}
+      width="24"
+      height="24"
+    />
+  ) : (
+    <img src={mark} alt="" width="34" height="19" />
   );
-  const row = result.status === "ready" ? result.data[0]?.rows[0] : undefined;
-  const figure = row
-    ? { model: String(row.model_id), value: String(row.value), page: String(row.page) }
-    : undefined;
+  const kind = figure ? `EQUIPMENT / ${figure.kind.toUpperCase()}` : "EQUIPMENT";
 
   if (result.status === "error") {
     return (
       <div className="record-card">
         <span className="record-top">
-          <img src={mark} alt="" width="34" height="19" />
-          <span>EQUIPMENT / BATTERY</span>
+          {identity}
+          <span>{kind}</span>
         </span>
         <DataProblem label="The source example couldn’t be loaded." retry={result.retry} />
       </div>
@@ -361,10 +369,18 @@ function HeroRecord({ db }: { db: State }) {
   }
 
   return (
-    <a className="record-card" href="#evidence" aria-label="Inspect a capacity and its source">
+    <a
+      className="record-card"
+      href="#evidence"
+      aria-label={
+        figure
+          ? `Inspect the ${figure.label.toLowerCase()} of ${figure.model} and its source`
+          : "Inspect a sourced figure"
+      }
+    >
       <span className="record-top">
-        <img src={mark} alt="" width="34" height="19" />
-        <span>EQUIPMENT / BATTERY</span>
+        {identity}
+        <span>{kind}</span>
         <Icon name="arrowUpRight" className="record-arrow" />
       </span>
       {result.status === "loading" ? (
@@ -374,21 +390,22 @@ function HeroRecord({ db }: { db: State }) {
           <Skeleton width="74%" />
         </DataLoading>
       ) : !figure ? (
-        <span className="record-name">No capacity example in this release</span>
+        <span className="record-name">No sourced example in this release</span>
       ) : (
         <>
-          <span className="record-name">{figure?.model ?? "Equipment & its source"}</span>
+          <span className="record-name">{figure.model}</span>
           <span className="record-fact">
-            <span>Capacity</span>
+            <span>
+              {figure.label}
+              {figure.condition ? ` · ${figure.condition}` : ""}
+            </span>
             <strong>
-              {figure?.value ?? "—"} <small>{"Ah"}</small>
+              {figure.value} <small>{figure.unit}</small>
             </strong>
           </span>
           <span className="record-bottom">
-            <span className="source-mini">
-              ↳ Source{figure?.page ? ` · page ${figure.page}` : ""}
-            </span>
-            <span className="evidence amber">Extracted</span>
+            <span className="source-mini">↳ Source · page {figure.page}</span>
+            <span className="evidence amber">{figure.basis}</span>
           </span>
         </>
       )}
