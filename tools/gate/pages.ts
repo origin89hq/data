@@ -25,7 +25,10 @@ export interface KeptWindow {
 export function keptWindows(values: readonly unknown[]): KeptWindow[] {
   return values.filter(
     (value): value is KeptWindow =>
-      isRecord(value) && Number.isInteger(value.window) && Array.isArray(value.products),
+      isRecord(value) &&
+      Number.isInteger(value.window) &&
+      (value.window as number) >= 1 &&
+      Array.isArray(value.products),
   );
 }
 

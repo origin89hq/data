@@ -157,6 +157,12 @@ test("an archived value that is not a window is left out, and the reading falls 
     { window: 1 },
     { window: 1, products: null },
     { window: 1.5, products: [] },
+    // The Worker counts windows from one, so nothing at zero or below is a window it wrote.
+    {
+      window: 0,
+      products: [{ model: "B-100", specs: [{ name: "Float voltage", value: "13.6" }] }],
+    },
+    { window: -1, products: [] },
     { products: [{ model: "B-100", specs: [{ name: "Weight", value: "11" }] }] },
   ];
   assert.deepEqual(keptWindows(archived), []);
