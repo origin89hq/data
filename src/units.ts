@@ -278,10 +278,11 @@ export function canonicalUnit(raw: string | undefined): Unit | undefined {
  */
 const ANSWER_KEY = String.raw`['"]?\s*,\s*['"]?(?:unit|units|conditions|page|name)['"]?\s*:`;
 
-/** A value that ends in the answer's structure: a key, and whatever the model wrote after it. */
-const ANSWER_TAIL = new RegExp(`${ANSWER_KEY}\\s*['"]?[^'"]*['"]?\\s*$`, "i");
-
-/** Where that structure starts: the first key, which may be followed by several more. */
+/**
+ * Where that structure starts: the first key, which may be followed by several more. What follows a
+ * key is not read as a whole, since a model's value there can carry a quote of its own, as in
+ * `'conditions': 'manufacturer's rating`.
+ */
 const ANSWER_START = new RegExp(ANSWER_KEY, "i");
 
 /** The unit key among them, wherever it sits: `'conditions': 'at 25 C', 'unit': 'V`. */
@@ -296,7 +297,7 @@ const ANSWER_LIST = /['"]\s*,\s*['"]/;
  * but structure is returned as it came, for the truncation check to refuse.
  */
 export function withoutAnswerTail(value: string): { value: string; unit?: string } {
-  const start = ANSWER_TAIL.test(value) ? value.search(ANSWER_START) : -1;
+  const start = value.search(ANSWER_START);
   const head = (start === -1 ? value : value.slice(0, start)).split(ANSWER_LIST)[0] ?? "";
   const printed = head
     .trim()

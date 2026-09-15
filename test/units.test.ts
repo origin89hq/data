@@ -28,6 +28,15 @@ test("a value that kept the answer's next key is cut back to what the document p
     unit: "V",
   });
   assert.deepEqual(withoutAnswerTail("60 Hz', 'conditions': 'nominal"), { value: "60 Hz" });
+  // A quote inside a later field's value does not hide the structure.
+  assert.deepEqual(withoutAnswerTail("1000', 'unit': 'W', 'conditions': 'manufacturer's rating'"), {
+    value: "1000",
+    unit: "W",
+  });
+  assert.deepEqual(withoutAnswerTail("31 lb, unit: lb, conditions: manufacturer's rating"), {
+    value: "31 lb",
+    unit: "lb",
+  });
   assert.deepEqual(
     withoutAnswerTail("20.70\" L x 3.34\" dia', '52.58 x 8.48 cm"),
     { value: '20.70" L x 3.34" dia' },
