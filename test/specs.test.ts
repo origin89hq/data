@@ -929,6 +929,13 @@ test("a reading that states everything another does and more keeps its figure, a
   assert.equal(statesMore(read("± 0.1 V tolerance"), read("0.1", "V")), false);
   assert.equal(statesMore(read("10 m²"), read("10 m")), false, "a superscript stays in its unit");
   assert.equal(
+    statesMore(read("90", "%"), read("90")),
+    true,
+    "a percent sign the other lost is more",
+  );
+  assert.equal(statesMore(read("90"), read("90", "%")), false);
+  assert.equal(statesMore(read("30°"), read("30")), true, "and so is a degree sign");
+  assert.equal(
     statesMore(read("0-100A @240VAC"), read("100A @240VAC")),
     true,
     "a dash between two numbers is a range, not a sign",

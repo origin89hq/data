@@ -444,13 +444,14 @@ export function mintedWithFigures(
  * A reading's words and numbers in order, value then unit, for telling what two readings say. A sign
  * or a bound stays on its number, spaced or not, so "-20 V" is not "20 V" and "≥ 8000" is not "8000";
  * a dash between two numbers is a range, not a sign. Letters and digits stay one word, so "m²" is not
- * "m".
+ * "m", and a percent or degree sign is a word of its own, so "90 %" is not "90".
  */
 const wordsOf = (spec: Pick<Spec, "value" | "unit">): string[] =>
   `${spec.value} ${spec.unit ?? ""}`
     .toLowerCase()
     .replace(/([±≥≤~]|>=|<=|[<>])\s+(?=\d)/gu, "$1")
-    .match(/(?:(?<![\p{L}\p{N}.])[-+]|[±≥≤~]|>=|<=|[<>])?\d+(?:[.,]\d+)*|[\p{L}\p{N}]+/gu) ?? [];
+    .match(/(?:(?<![\p{L}\p{N}.])[-+]|[±≥≤~]|>=|<=|[<>])?\d+(?:[.,]\d+)*|[%°]|[\p{L}\p{N}]+/gu) ??
+  [];
 
 /**
  * Whether one reading of a figure states everything another does and more (#175): the Ekrano's
