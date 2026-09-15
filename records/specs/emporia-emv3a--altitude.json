@@ -1,0 +1,10 @@
+{
+  "id": "emporia-emv3a--altitude",
+  "model": "emporia-emv3a",
+  "name": "Altitude",
+  "value": "Upto 3,000 meters above sea level",
+  "source": "doc-e44cae2a6b8535ee6806ff6f5600735d",
+  "page": 36,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

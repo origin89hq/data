@@ -1,0 +1,9 @@
+{
+  "id": "epever-mt11--dimension",
+  "model": "epever-mt11",
+  "name": "Dimension",
+  "value": "114×144mm",
+  "source": "doc-2d695956cc975642e593ea057a5d4f1a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

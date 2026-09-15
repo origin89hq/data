@@ -2,7 +2,8 @@
   "id": "pentair-ma-155m--maximum-rated-power",
   "model": "pentair-ma-155m",
   "name": "Maximum rated power",
-  "value": "155.0 hp",
+  "value": "155.0",
+  "unit": "hp",
   "source": "doc-63ede5d11870425ff771c12606630cb5",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"

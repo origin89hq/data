@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ams-qt10--pressure-requirements",
+  "model": "pentair-ams-qt10",
+  "name": "Pressure Requirements",
+  "value": "10 – 125 psi (0.7 – 8.6 bar)",
+  "source": "doc-30336259ae6f244a906302ff66ad406b",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

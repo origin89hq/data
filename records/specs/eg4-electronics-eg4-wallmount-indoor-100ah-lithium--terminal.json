@@ -1,0 +1,10 @@
+{
+  "id": "eg4-electronics-eg4-wallmount-indoor-100ah-lithium--terminal",
+  "model": "eg4-electronics-eg4-wallmount-indoor-100ah-lithium",
+  "name": "Terminal",
+  "value": "120A rated Degson battery connector",
+  "source": "doc-c9f5fe331c3accbf0c788e901cb5a0af",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

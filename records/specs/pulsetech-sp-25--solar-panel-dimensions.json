@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-sp-25--solar-panel-dimensions",
+  "model": "pulsetech-sp-25",
+  "name": "Solar Panel Dimensions",
+  "value": "16.13\" L x 18.69\" W x 0.25\" H",
+  "source": "doc-59f03716fc92d291e8f17d044f9651ea",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

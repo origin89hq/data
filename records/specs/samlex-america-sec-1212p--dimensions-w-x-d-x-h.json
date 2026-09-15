@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-sec-1212p--dimensions-w-x-d-x-h",
+  "model": "samlex-america-sec-1212p",
+  "name": "DIMENSIONS (W X D X H)",
+  "value": "185 x 208 x 57.8mm / 7.28 x 8.19 x 2.28 in",
+  "source": "doc-3d1a85d2cffa78f4a81fe4b64b858bef",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

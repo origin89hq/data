@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-1215ul--threshold-current-for-change-over-between-boost-and-float-stages",
+  "model": "samlex-america-sec-1215ul",
+  "name": "Threshold Current for Change Over Between Boost and Float Stages",
+  "value": "1.5 to 2A",
+  "source": "doc-94ac3d73a558b005226a1f08524621cf",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

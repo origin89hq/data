@@ -1,0 +1,9 @@
+{
+  "id": "pentair-ev9601-12--pressure-requirements",
+  "model": "pentair-ev9601-12",
+  "name": "Pressure Requirements",
+  "value": "10 - 125 psi (0.7 - 8.6 bar)",
+  "source": "doc-03d05deaa1a3f2be151fbaa17ac422bd",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ss-6-12v1--solar",
+  "model": "morningstar-ss-6-12v1",
+  "name": "Solar",
+  "value": "6.5",
+  "unit": "A",
+  "source": "doc-2489955a6d0938e8a6317802b54327a3",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

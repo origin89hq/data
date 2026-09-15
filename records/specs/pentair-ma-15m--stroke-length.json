@@ -2,7 +2,8 @@
   "id": "pentair-ma-15m--stroke-length",
   "model": "pentair-ma-15m",
   "name": "Stroke Length",
-  "value": "1.50 in.",
+  "value": "1.50",
+  "unit": "in",
   "source": "doc-1acd9c15e6f3719500624ec6751dd44f",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"

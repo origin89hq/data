@@ -1,0 +1,11 @@
+{
+  "id": "unique-appliances-ugp-30g-of1--profondeur-maximale-des-armoires-au-dessus-de-la-surface-de-cuisson",
+  "model": "unique-appliances-ugp-30g-of1",
+  "name": "Profondeur maximale des armoires au-dessus de la surface de cuisson",
+  "english": "Maximum depth of cabinets above the cooking surface",
+  "value": "13 po/33 cm",
+  "source": "doc-377739b9bbadda20ba93aa98d4c2b88c",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

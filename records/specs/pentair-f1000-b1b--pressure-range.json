@@ -1,0 +1,10 @@
+{
+  "id": "pentair-f1000-b1b--pressure-range",
+  "model": "pentair-f1000-b1b",
+  "name": "Pressure range",
+  "value": "2.75 a 6.89 bars (40 a 100 psi)",
+  "source": "doc-be3c1e40991185fcfde68772f3ee29de",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

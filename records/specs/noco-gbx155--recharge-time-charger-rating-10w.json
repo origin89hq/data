@@ -1,0 +1,12 @@
+{
+  "id": "noco-gbx155--recharge-time-charger-rating-10w",
+  "model": "noco-gbx155",
+  "name": "Recharge Time",
+  "value": "16",
+  "unit": "h",
+  "conditions": "Charger Rating: 10W",
+  "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

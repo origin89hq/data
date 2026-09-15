@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-mppt-control--supply-voltage-range-when-powered-via-ve-direct-cable",
+  "model": "victron-energy-mppt-control",
+  "name": "Supply voltage range when powered via VE.Direct cable",
+  "value": "5",
+  "unit": "V",
+  "source": "doc-587076f43b6726c01cfbc0d5c4de02d2",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

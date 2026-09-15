@@ -5,7 +5,7 @@
   "value": "100",
   "unit": "A",
   "source": "doc-110cda8af19121ddd70a826f5f1c1fcc",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "page": 34,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

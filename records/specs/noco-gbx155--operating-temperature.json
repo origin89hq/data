@@ -1,0 +1,10 @@
+{
+  "id": "noco-gbx155--operating-temperature",
+  "model": "noco-gbx155",
+  "name": "Operating Temperature",
+  "value": "-20°C to +50°C",
+  "source": "doc-c40bdbfb7b4caa336e41934030e0fd1e",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

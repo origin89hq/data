@@ -1,0 +1,11 @@
+{
+  "id": "victron-energy-lfp-51-2-v-100-ah--cycle-life",
+  "model": "victron-energy-lfp-51-2-v-100-ah",
+  "name": "Cycle life",
+  "value": "2500",
+  "unit": "cycles",
+  "source": "doc-bba1630c5ec77e2d2b039d56130ce12c",
+  "page": 30,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-2415ul--recommended-dc-wire-size-0-to-6-ft",
+  "model": "samlex-america-sec-2415ul",
+  "name": "Recommended DC Wire Size (0 to 6 ft)",
+  "value": "AWG #8",
+  "source": "doc-94ac3d73a558b005226a1f08524621cf",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

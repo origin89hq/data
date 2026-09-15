@@ -1,0 +1,11 @@
+{
+  "id": "volthium-51-2-100-r-3u-c--max-charge-current",
+  "model": "volthium-51-2-100-r-3u-c",
+  "name": "Max. charge current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-2d45f5b318a0811f04d0ad9ce1e78efe",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

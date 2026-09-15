@@ -1,0 +1,9 @@
+{
+  "id": "lorentz-ps2-4000-hr--max-power-voltage",
+  "model": "lorentz-ps2-4000-hr",
+  "name": "max. power voltage",
+  "value": "> 238 V DC",
+  "source": "doc-2cbbf09739290e69e1fce533ecbc8b7f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

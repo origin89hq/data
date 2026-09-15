@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-100brm--no-load-output-voltage",
+  "model": "samlex-america-sec-100brm",
+  "name": "NO LOAD OUTPUT VOLTAGE",
+  "value": "14",
+  "unit": "V",
+  "source": "doc-86dcb08bc2d22d4b8e3d808ddf3c0603",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

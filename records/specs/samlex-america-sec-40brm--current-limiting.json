@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-sec-40brm--current-limiting",
+  "model": "samlex-america-sec-40brm",
+  "name": "Current Limiting",
+  "value": "56",
+  "unit": "A",
+  "source": "doc-a7a09a703006981a06149986d1518688",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

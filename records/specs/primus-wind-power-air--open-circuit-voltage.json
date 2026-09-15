@@ -1,0 +1,11 @@
+{
+  "id": "primus-wind-power-air--open-circuit-voltage",
+  "model": "primus-wind-power-air",
+  "name": "open circuit voltage",
+  "value": "10.5",
+  "unit": "V",
+  "source": "doc-cf29a085afbab6cd0bc87e1b22acbc73",
+  "page": 30,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

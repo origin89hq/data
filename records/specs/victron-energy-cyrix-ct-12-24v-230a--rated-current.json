@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-cyrix-ct-12-24v-230a--rated-current",
+  "model": "victron-energy-cyrix-ct-12-24v-230a",
+  "name": "Rated current",
+  "value": "230",
+  "unit": "A",
+  "source": "doc-68688a34ca1addaab77449e59d26d0a5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

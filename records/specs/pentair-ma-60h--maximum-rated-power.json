@@ -2,7 +2,8 @@
   "id": "pentair-ma-60h--maximum-rated-power",
   "model": "pentair-ma-60h",
   "name": "Maximum rated power",
-  "value": "60.0 HP",
+  "value": "60.0",
+  "unit": "hp",
   "source": "doc-f0311c333eeb3ce5b4f00409fefd83c7",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"

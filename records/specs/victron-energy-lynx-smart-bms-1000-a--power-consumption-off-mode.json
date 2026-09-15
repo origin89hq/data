@@ -2,9 +2,8 @@
   "id": "victron-energy-lynx-smart-bms-1000-a--power-consumption-off-mode",
   "model": "victron-energy-lynx-smart-bms-1000-a",
   "name": "Power consumption OFF mode",
-  "value": "0.3",
-  "unit": "mA",
-  "source": "doc-2375e9a6ed181d8a7987453c98e92412",
+  "value": "0.3 mA for all system voltages",
+  "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
   "page": 122,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"

@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion4home-3-0-3-1--input-impedance",
+  "model": "surecall-fusion4home-3-0-3-1",
+  "name": "Input Impedance",
+  "value": "75Ω donor port / 50Ω server port",
+  "source": "doc-b042d39a8f47c1f852da1634fbcfed6e",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

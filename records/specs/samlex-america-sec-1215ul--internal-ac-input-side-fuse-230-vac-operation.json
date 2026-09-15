@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-sec-1215ul--internal-ac-input-side-fuse-230-vac-operation",
+  "model": "samlex-america-sec-1215ul",
+  "name": "INTERNAL AC INPUT SIDE FUSE (230 VAC OPERATION)",
+  "value": "2",
+  "unit": "A",
+  "source": "doc-94ac3d73a558b005226a1f08524621cf",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pt20--min-max-operating-ambient-temperature-range",
+  "model": "pulsetech-pt20",
+  "name": "Min~Max Operating Ambient Temperature Range",
+  "value": "-31°F ~ 149°F",
+  "source": "doc-23626c7771110fd9944d219a50d60d5f",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

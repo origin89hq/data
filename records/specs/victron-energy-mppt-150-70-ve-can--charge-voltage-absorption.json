@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-mppt-150-70-ve-can--charge-voltage-absorption",
+  "model": "victron-energy-mppt-150-70-ve-can",
+  "name": "Charge voltage 'absorption'",
+  "value": "14,4 / 28,8 / 43,2 / 57,6 V",
+  "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
+  "page": 91,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd2160--torque-output-terminals",
+  "model": "progressive-dynamics-pd2160",
+  "name": "Torque Output Terminals",
+  "value": "50 Inch Pounds",
+  "source": "doc-7000669d0cfb1665dc1ced5eea152606",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

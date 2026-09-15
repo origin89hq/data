@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-100-ah-gr24--voltage",
+  "model": "volthium-12-v-100-ah-gr24",
+  "name": "Voltage",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-d480da931917808c709e6a5c5f175337",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "rolls-battery-s48-6650lfp--nominal-capacity",
+  "model": "rolls-battery-s48-6650lfp",
+  "name": "Nominal Capacity",
+  "value": "130",
+  "unit": "Ah",
+  "source": "doc-146ddda0ab3200a786a344a20bcf51a7",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

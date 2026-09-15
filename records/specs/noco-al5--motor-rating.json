@@ -1,0 +1,10 @@
+{
+  "id": "noco-al5--motor-rating",
+  "model": "noco-al5",
+  "name": "MOTOR RATING",
+  "value": "90",
+  "unit": "W",
+  "source": "doc-67b7aaac109d43905448d192d74bd30e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

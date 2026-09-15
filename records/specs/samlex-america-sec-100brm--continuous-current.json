@@ -1,0 +1,11 @@
+{
+  "id": "samlex-america-sec-100brm--continuous-current",
+  "model": "samlex-america-sec-100brm",
+  "name": "Continuous Current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-a7a09a703006981a06149986d1518688",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

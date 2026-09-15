@@ -1,0 +1,10 @@
+{
+  "id": "volthium-r-b1250a--float-voltage",
+  "model": "volthium-r-b1250a",
+  "name": "Float voltage",
+  "value": "13.8",
+  "unit": "V",
+  "source": "doc-351fd519eb6040042623bf73c333c5ed",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

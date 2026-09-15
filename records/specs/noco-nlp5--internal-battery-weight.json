@@ -1,0 +1,9 @@
+{
+  "id": "noco-nlp5--internal-battery-weight",
+  "model": "noco-nlp5",
+  "name": "INTERNAL BATTERY WEIGHT",
+  "value": "0.61 lbs (0.28 kg)",
+  "source": "doc-05a40fa3dbdb83a1e6a1960a91b293d7",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

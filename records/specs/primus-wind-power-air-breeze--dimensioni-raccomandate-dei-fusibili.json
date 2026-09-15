@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-breeze--dimensioni-raccomandate-dei-fusibili",
+  "model": "primus-wind-power-air-breeze",
+  "name": "Dimensioni raccomandate dei fusibili",
+  "value": "20A (ritardato)",
+  "source": "doc-28f6fc708d7abe100b37f2ea098f0385",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

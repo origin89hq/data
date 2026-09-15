@@ -1,0 +1,9 @@
+{
+  "id": "samlex-america-sec-1212p--input-frequency-range",
+  "model": "samlex-america-sec-1212p",
+  "name": "INPUT FREQUENCY RANGE",
+  "value": "50-60Hz (47-63Hz)",
+  "source": "doc-3d1a85d2cffa78f4a81fe4b64b858bef",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "emporia-200a-current-transformer--length",
+  "model": "emporia-200a-current-transformer",
+  "name": "Length",
+  "value": "1",
+  "unit": "m",
+  "source": "doc-d6210a1a6a0c21eccfa4994aaa7831e4",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

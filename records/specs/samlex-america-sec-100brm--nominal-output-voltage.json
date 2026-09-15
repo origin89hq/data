@@ -1,0 +1,10 @@
+{
+  "id": "samlex-america-sec-100brm--nominal-output-voltage",
+  "model": "samlex-america-sec-100brm",
+  "name": "NOMINAL OUTPUT VOLTAGE",
+  "value": "13.8",
+  "unit": "V",
+  "source": "doc-86dcb08bc2d22d4b8e3d808ddf3c0603",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

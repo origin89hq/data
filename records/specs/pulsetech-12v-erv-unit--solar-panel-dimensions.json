@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-12v-erv-unit--solar-panel-dimensions",
+  "model": "pulsetech-12v-erv-unit",
+  "name": "Solar Panel Dimensions",
+  "value": "16\" L x 4.93\" W x 0.25\" H",
+  "source": "doc-ba7da71459330dd1dec34b2c2834d6a9",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "surecall-fusion5s-2-0--downlink-freq-range",
+  "model": "surecall-fusion5s-2-0",
+  "name": "Downlink Freq. Range",
+  "value": "728–746 / 746–757 / 869–894 / 1930–1995 / 2110–2155 MHz",
+  "source": "doc-e00b7eba0dbeec9c016e9253c8d5fd1a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

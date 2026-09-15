@@ -1,0 +1,10 @@
+{
+  "id": "pentair-intelliproxf-vsf--caudal",
+  "model": "pentair-intelliproxf-vsf",
+  "name": "Caudal",
+  "value": "20 y 140 GPM",
+  "source": "doc-9323aebdcd5a574cda6f7ea625c88026",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

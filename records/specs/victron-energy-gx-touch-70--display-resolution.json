@@ -1,0 +1,10 @@
+{
+  "id": "victron-energy-gx-touch-70--display-resolution",
+  "model": "victron-energy-gx-touch-70",
+  "name": "Display Resolution",
+  "value": "1024 x 600",
+  "source": "doc-2a8650d668cef6cc5a78c92979a11aa1",
+  "page": 77,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

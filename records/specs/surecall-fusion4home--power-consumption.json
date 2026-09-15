@@ -1,0 +1,9 @@
+{
+  "id": "surecall-fusion4home--power-consumption",
+  "model": "surecall-fusion4home",
+  "name": "Power Consumption",
+  "value": "<15W",
+  "source": "doc-2e0c4747311fab9e7645c70978fc292e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

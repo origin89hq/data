@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-eb-mppt-40--rated-load-current",
+  "model": "morningstar-eb-mppt-40",
+  "name": "Rated Load Current",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-5600884e5ab903ad27bd4d3992778409",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

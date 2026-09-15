@@ -1,0 +1,9 @@
+{
+  "id": "epever-duc4011--dimensions",
+  "model": "epever-duc4011",
+  "name": "Dimensions",
+  "value": "191×181×76.5",
+  "source": "doc-567f446589aaf640b63a17563f0f9bd0",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

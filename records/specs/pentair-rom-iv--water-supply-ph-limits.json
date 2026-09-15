@@ -1,0 +1,9 @@
+{
+  "id": "pentair-rom-iv--water-supply-ph-limits",
+  "model": "pentair-rom-iv",
+  "name": "Water Supply pH Limits",
+  "value": "4 to 11",
+  "source": "doc-bb63457daee72616a14f5d2aa3231513",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

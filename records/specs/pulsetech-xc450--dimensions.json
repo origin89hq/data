@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc450--dimensions",
+  "model": "pulsetech-xc450",
+  "name": "Dimensions",
+  "value": "6.8\"L x 3.5\"W x 1.9\"L",
+  "source": "doc-21c090a44b6e5a63365ed7e60d79ad85",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

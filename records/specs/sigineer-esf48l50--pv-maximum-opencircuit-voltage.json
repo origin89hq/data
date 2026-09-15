@@ -2,7 +2,7 @@
   "id": "sigineer-esf48l50--pv-maximum-opencircuit-voltage",
   "model": "sigineer-esf48l50",
   "name": "PV Maximum OpenCircuit Voltage",
-  "value": "200",
+  "value": "200Vdc",
   "unit": "V",
   "source": "doc-0d3e50facf97007d55c11238f6d4de49",
   "page": 5,

@@ -1,0 +1,9 @@
+{
+  "id": "volthium-r-b1250a--allowed-max-charge-current",
+  "model": "volthium-r-b1250a",
+  "name": "Allowed MAX charge current",
+  "value": "50.0 A | @ 25 °C",
+  "source": "doc-351fd519eb6040042623bf73c333c5ed",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

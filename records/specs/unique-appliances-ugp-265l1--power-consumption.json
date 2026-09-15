@@ -1,0 +1,11 @@
+{
+  "id": "unique-appliances-ugp-265l1--power-consumption",
+  "model": "unique-appliances-ugp-265l1",
+  "name": "POWER CONSUMPTION",
+  "value": "69",
+  "unit": "W",
+  "source": "doc-b96a7d171d7ac85e63eba0a44cb1e1b5",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

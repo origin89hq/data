@@ -1,0 +1,9 @@
+{
+  "id": "pentair-f1000-dfb--weight",
+  "model": "pentair-f1000-dfb",
+  "name": "Weight",
+  "value": "1.6 lbs (0.72 kg)",
+  "source": "doc-be3c1e40991185fcfde68772f3ee29de",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

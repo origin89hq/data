@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilblp-cp-he-sd--ac-input",
+  "model": "iota-engineering-ilblp-cp-he-sd",
+  "name": "AC Input",
+  "value": "120/277 volts",
+  "source": "doc-8d09a9f90d309bc90ddc8ef78274f4b7",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

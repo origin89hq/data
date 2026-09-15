@@ -1,10 +1,10 @@
 {
   "id": "noco-ax65--max-pressure",
   "model": "noco-ax65",
-  "name": "Max Pressure",
-  "value": "100 psi / 6.89 bar / 689.48 kPa",
-  "source": "doc-7cd619ec8cb5a7083981933be601e7a3",
-  "page": 9,
+  "name": "MAX PRESSURE",
+  "value": "100",
+  "unit": "psi",
+  "source": "doc-9485107b3a129c50a775216b87ffe9a7",
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }
