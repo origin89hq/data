@@ -525,3 +525,21 @@ test("a column for a model with and without its (L) or (LI) suffix mints nothing
   assert.equal(mintRefusal("DWA4-09KR2(US)", []), undefined);
   assert.equal(mintRefusal("F-10A(5PK)", []), undefined);
 });
+
+test("the maker's name with only what the thing is mints nothing, and a part number beside it still mints (#166)", () => {
+  const own = "the maker's own name";
+  assert.equal(mintRefusal("NOCO Product", ["NOCO"]), own);
+  assert.equal(mintRefusal("UNIQUE appliance", ["Unique Appliances"]), own);
+  assert.equal(mintRefusal("NOCO Battery Charger", ["NOCO"]), own);
+  assert.equal(mintRefusal("NOCO GB250", ["NOCO"]), undefined);
+  assert.equal(
+    mintRefusal("PYTES-BUSBAR", ["Pytes Energy"]),
+    undefined,
+    "a part number with the maker in it",
+  );
+  assert.equal(
+    mintRefusal("Product", ["NOCO"]),
+    undefined,
+    "and a word with no maker in it is left to the other rules",
+  );
+});
