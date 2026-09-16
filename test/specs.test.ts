@@ -906,6 +906,17 @@ test("a reading that states everything another does and more keeps its figure, a
     false,
     "never the shorter one",
   );
+  assert.equal(
+    statesMore(read("1,000 active hours"), read("1000")),
+    true,
+    "a thousands separator is not a word (#196)",
+  );
+  assert.equal(statesMore(read("1,000 h"), read("100")), false, "nor does it make 1,000 a 100");
+  assert.equal(
+    statesMore(read("0,046 %/K"), read("46", "%/K")),
+    false,
+    "a decimal comma after a zero stays a decimal",
+  );
   assert.equal(statesMore(read("1500", "W"), read("500", "W")), false, "a number is found whole");
   assert.equal(
     statesMore(read("12 V 100 Ah"), read("100", "V")),
