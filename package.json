@@ -24,7 +24,7 @@
     "format:check": "biome format .",
     "lint": "biome ci . --error-on-warnings",
     "lint:fix": "biome check --write .",
-    "typecheck": "pnpm --filter offgrid-equipment-site check && pnpm --filter offgrid-equipment-worker check",
+    "typecheck": "pnpm --filter offgrid-equipment-site check && pnpm --filter offgrid-equipment-worker check && tsc -p tsconfig.json",
     "test:apps": "pnpm --filter offgrid-equipment-worker test && pnpm --filter offgrid-equipment-site test",
     "build:site": "pnpm --filter offgrid-equipment-site build",
     "check": "pnpm lint && pnpm test && pnpm test:apps && pnpm typecheck && pnpm validate && pnpm build:site && pnpm build:repeat",
@@ -38,6 +38,8 @@
   },
   "devDependencies": {
     "sharp": "0.35.4",
-    "@biomejs/biome": "2.5.13"
+    "@biomejs/biome": "2.5.13",
+    "@types/node": "24.13.4",
+    "typescript": "7.0.2"
   }
 }

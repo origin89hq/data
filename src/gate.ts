@@ -22,6 +22,17 @@ export interface GateInput {
   seenAt: string;
 }
 
+interface BrandRow {
+  brand: string;
+  sellers: Set<string>;
+  listings: number;
+  inScope: number;
+  kinds: Map<string, number>;
+  models: Set<string>;
+  proposed: Set<string>;
+  examples: string[];
+}
+
 /**
  * Gather what the crawls say about each brand string. Sorted by in-scope listings, because the
  * brand behind forty charge controllers is worth a reviewer's minute and the one behind a single
@@ -32,24 +43,12 @@ export function gatherBrands({
   guesses,
   seenAt,
 }: GateInput): { id: string; brand: string; evidence: BrandEvidence }[] {
-  const rows = new Map<
-    string,
-    {
-      brand: string;
-      sellers: Set<string>;
-      listings: number;
-      inScope: number;
-      kinds: Map<string, number>;
-      models: Set<string>;
-      proposed: Set<string>;
-      examples: string[];
-    }
-  >();
+  const rows = new Map<string, BrandRow>();
   for (const s of sightings) {
     const brand = s.brand?.trim();
     if (!brand) continue;
     const id = brandId(brand);
-    const row = rows.get(id) ?? {
+    const row: BrandRow = rows.get(id) ?? {
       brand,
       sellers: new Set(),
       listings: 0,

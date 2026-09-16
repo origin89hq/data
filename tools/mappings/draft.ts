@@ -57,7 +57,7 @@ for (const s of unmappedFigures(records, maker)) {
   if (!m?.kind) continue;
   const key = guess(s.name);
   const group = byKey.get(key) ?? new Map<string, Entry>();
-  const e = group.get(said(s.name)) ?? {
+  const e: Entry = group.get(said(s.name)) ?? {
     name: s.name,
     count: 0,
     kinds: new Map(),
