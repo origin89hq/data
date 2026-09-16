@@ -7,6 +7,7 @@ import {
   type FileMeta,
   type RecordKind,
   Release,
+  releaseContent,
   SNAPSHOT_PART_MAX,
   SNAPSHOT_PART_ROWS,
   snapshotName,
@@ -27,7 +28,7 @@ export async function saveRelease(
   attempt = "1",
   plans: Pick<Release, "load" | "snapshots"> = {},
 ) {
-  const content = await digest(canonical(files));
+  const content = await releaseContent(files);
   // A retry within one job attempt is the same publication. Another job or rerun is a new
   // occurrence, even when it restores older content. Snapshot bytes still deduplicate by hash.
   const id = await digest(`${content}:${sha}:${job}:${attempt}`);

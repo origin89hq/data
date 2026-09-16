@@ -127,7 +127,9 @@ async function endpoints(
       res.writeHead(answered.status, Object.fromEntries(answered.headers));
       res.end(Buffer.from(await answered.arrayBuffer()));
     } else if (url.pathname === "/manifest.json") {
-      res.end(JSON.stringify({ publication: { historyVersion: 3 } }));
+      res.end(JSON.stringify({ publication: { historyVersion: 4 } }));
+    } else if (url.pathname === "/publication") {
+      res.end(JSON.stringify({ manifest: null, release: null }));
     } else if (url.pathname === "/token") {
       issued += 1;
       res.end(JSON.stringify({ value: `job-token-${issued}` }));
@@ -178,17 +180,25 @@ test("every file goes up with its digest and a fresh job token, and the manifest
   assert.equal(result.status, 0, result.stderr);
   assert.deepEqual(
     seen.slice(1).map((s) => `${s.method} ${s.path}`),
-    [TOKEN_REQUEST, "PUT /v1/models.csv", TOKEN_REQUEST, "PUT /v1/manifest.json"],
+    [
+      TOKEN_REQUEST,
+      "GET /publication",
+      TOKEN_REQUEST,
+      "PUT /v1/models.csv",
+      TOKEN_REQUEST,
+      "PUT /v1/manifest.json",
+    ],
   );
   assert.match(seen[0].path, /^\/manifest\.json\?publication-check=/);
   assert.equal(seen[0].authorization, undefined);
-  const [token, file, , manifest] = seen.slice(1);
+  const [token, asked, , file, , manifest] = seen.slice(1);
   assert.equal(token.authorization, "Bearer runner-request-token");
-  assert.equal(file.authorization, "Bearer job-token-1");
+  assert.equal(asked.authorization, "Bearer job-token-1");
+  assert.equal(file.authorization, "Bearer job-token-2");
   assert.equal(file.sha256, createHash("sha256").update("model\nbattery\n").digest("hex"));
   assert.equal(file.length, "14");
   assert.equal(file.body, "model\nbattery\n");
-  assert.equal(manifest.authorization, "Bearer job-token-2");
+  assert.equal(manifest.authorization, "Bearer job-token-3");
   assert.equal(manifest.body, readFileSync(join(dir, "manifest.json"), "utf8"));
   assert.match(result.stdout, /2 files published/);
 });
@@ -305,8 +315,13 @@ test("logo upload finds the moved Worker and keeps absolute file arguments", (t)
 });
 
 test("an older Worker is refused before any credential request or upload", async (t) => {
-  // One with no release history at all, and one that loads releases but keeps snapshots whole.
-  for (const index of [{ files: {} }, { files: {}, publication: { historyVersion: 2 } }]) {
+  // One with no release history at all, one that keeps snapshots whole, and one that cannot say
+  // what it already publishes.
+  for (const index of [
+    { files: {} },
+    { files: {}, publication: { historyVersion: 2 } },
+    { files: {}, publication: { historyVersion: 3 } },
+  ]) {
     const { dir } = fixture(t);
     dataset(dir);
     const { seen, job } = await endpoints(t, (path) =>
@@ -314,10 +329,136 @@ test("an older Worker is refused before any credential request or upload", async
     );
     const result = await publishing(dir, job);
     assert.equal(result.status, 1);
-    assert.match(result.stderr, /does not keep record snapshots in parts yet/);
+    assert.match(result.stderr, /cannot say what it already publishes yet/);
     assert.equal(seen.length, 1);
     assert.equal(seen[0].method, "GET");
     assert.match(seen[0].path, /^\/manifest\.json\?publication-check=/);
     assert.equal(seen[0].authorization, undefined);
   }
+});
+
+const sha256 = (bytes: string | Buffer) => createHash("sha256").update(bytes).digest("hex");
+/** What the Worker records as the content of `dataset(dir)`: the sha256 of its files, keys sorted. */
+const CONTENT = sha256(
+  `{"models.csv":{"bytes":14,"rows":1,"sha256":"${sha256("model\nbattery\n")}"}}`,
+);
+const RELEASE = "e".repeat(64);
+const servedManifest = (dir: string) => sha256(readFileSync(join(dir, "manifest.json")));
+
+test("a dataset the front door serves and the store holds or is loading is not sent again", async (t) => {
+  for (const [state, says] of [
+    ["active", "answers from"],
+    ["loading", "is loading"],
+  ]) {
+    const { dir } = fixture(t);
+    dataset(dir);
+    const { seen, job } = await endpoints(t, (path) =>
+      path === "/publication"
+        ? Response.json({
+            manifest: servedManifest(dir),
+            release: { id: RELEASE, content: CONTENT, state },
+          })
+        : undefined,
+    );
+    const result = await publishing(dir, job);
+    assert.equal(result.status, 0, result.stderr);
+    assert.ok(
+      result.stdout.includes(
+        `already serves this manifest and ${says} release ${RELEASE}; nothing published`,
+      ),
+      result.stdout,
+    );
+    assert.deepEqual(
+      seen.filter((s) => s.method === "PUT"),
+      [],
+      `${state}: something was sent`,
+    );
+    assert.equal(seen.find((s) => s.path === "/publication")?.authorization, "Bearer job-token-1");
+  }
+});
+
+test("a dataset goes up when the front door or the store lacks it", async (t) => {
+  const cases: [string, (dir: string) => unknown][] = [
+    ["nothing published", () => ({ manifest: null, release: null })],
+    // A failed load or a recreated store holds nothing, whatever the front door serves.
+    ["a store that holds nothing", (dir) => ({ manifest: servedManifest(dir), release: null })],
+    [
+      "a store on other content",
+      (dir) => ({
+        manifest: servedManifest(dir),
+        release: { id: RELEASE, content: "f".repeat(64), state: "active" },
+      }),
+    ],
+    [
+      "a front door on another manifest",
+      () => ({
+        manifest: "f".repeat(64),
+        release: { id: RELEASE, content: CONTENT, state: "loading" },
+      }),
+    ],
+  ];
+  for (const [what, answer] of cases) {
+    const { dir } = fixture(t);
+    dataset(dir);
+    const { seen, job } = await endpoints(t, (path) =>
+      path === "/publication" ? Response.json(answer(dir)) : undefined,
+    );
+    const result = await publishing(dir, job);
+    assert.equal(result.status, 0, `${what}: ${result.stderr}`);
+    assert.deepEqual(
+      seen.flatMap((s) => (s.method === "PUT" ? [s.path] : [])),
+      ["/v1/models.csv", "/v1/manifest.json"],
+      what,
+    );
+    assert.match(result.stdout, /2 files published/, what);
+  }
+});
+
+test("a Worker that cannot say what it publishes stops the publish before any upload", async (t) => {
+  const answers: [() => Response, RegExp][] = [
+    [() => new Response("D1 is away", { status: 500 }), /HTTP 500 D1 is away/],
+    [() => Response.json({ manifest: "not a digest", release: null }), /not a publication/],
+    [() => new Response("<html>the site</html>"), /not a publication/],
+  ];
+  for (const [answer, reason] of answers) {
+    const { dir } = fixture(t);
+    dataset(dir);
+    const { seen, job } = await endpoints(t, (path) =>
+      path === "/publication" ? answer() : undefined,
+    );
+    const result = await publishing(dir, job);
+    assert.equal(result.status, 1);
+    assert.match(result.stderr, reason);
+    assert.deepEqual(
+      seen.filter((s) => s.method === "PUT"),
+      [],
+    );
+  }
+});
+
+test("the real Worker, once its store holds a publication, is not sent the same dataset again", async (t) => {
+  const { dir } = fixture(t);
+  dataset(dir);
+  const archive = world();
+  const env = { ...archive.env, SITE: { fetch: async () => new Response("the site") } } as Env;
+  t.mock.method(globalThis, "fetch", async () => Response.json(jwks));
+  const { seen, job } = await endpoints(t, async (path, request) =>
+    path === "/token" ? Response.json({ value: await jobToken() }) : app.fetch(request, env),
+  );
+  assert.equal((await publishing(dir, job)).status, 0);
+  const sent = seen.filter((s) => s.method === "PUT").length;
+  assert.equal(sent, 2);
+  // This dataset has no load plan, so nothing loads it; the store takes the release as a load would.
+  const key = [...archive.store.keys()].find((k) => k.startsWith("releases/versions/"));
+  assert.ok(key);
+  const release = JSON.parse(archive.text(key)) as { id: string; content: string; at: string };
+  await env.RELEASES.prepare(
+    "INSERT INTO releases (id, content, published_at, state) VALUES (?, ?, ?, 'active')",
+  )
+    .bind(release.id, release.content, release.at)
+    .run();
+  const again = await publishing(dir, job);
+  assert.equal(again.status, 0, again.stderr);
+  assert.match(again.stdout, new RegExp(`answers from release ${release.id}; nothing published`));
+  assert.equal(seen.filter((s) => s.method === "PUT").length, sent);
 });

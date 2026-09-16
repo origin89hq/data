@@ -1363,3 +1363,67 @@ test("a release can be put into the store by hand, once, and only by its id (#83
   const nobody = await app.request(`${LOCAL}/load?release=${id}`, { method: "POST" }, env);
   assert.equal(nobody.status, 401, "the load is a control route like the rest");
 });
+
+const askPublication = async (env: Env, token?: string) =>
+  app.request(
+    "https://data.example/publication",
+    { headers: { authorization: `Bearer ${token ?? (await jobToken())}` } },
+    env,
+  );
+const storeRelease = (env: Env, id: string, content: string, at: string, state: string) =>
+  env.RELEASES.prepare(
+    "INSERT INTO releases (id, content, published_at, state) VALUES (?, ?, ?, ?)",
+  )
+    .bind(id, content, at, state)
+    .run();
+
+test("the publisher learns the manifest the front door serves and the newest release the store holds or is loading", async () => {
+  const { env } = bucket();
+  const empty = await askPublication(env);
+  assert.equal(empty.status, 200, await empty.clone().text());
+  assert.deepEqual(await empty.json(), { manifest: null, release: null });
+
+  await putFile(env, "models.csv", "model\nbattery\n");
+  const manifest = manifestOf({ "models.csv": "model\nbattery\n" });
+  assert.equal((await putManifest(env, manifest)).status, 200);
+  await storeRelease(env, "a".repeat(64), "1".repeat(64), "2026-09-16T10:00:00Z", "active");
+  await storeRelease(env, "b".repeat(64), "2".repeat(64), "2026-09-16T11:00:00Z", "loading");
+  // Newer, and holding nothing: the store still answers from the older ones.
+  await storeRelease(env, "c".repeat(64), "3".repeat(64), "2026-09-16T12:00:00Z", "failed");
+  const held = await askPublication(env);
+  assert.equal(held.status, 200);
+  assert.deepEqual(await held.json(), {
+    manifest: sha256(manifest),
+    release: { id: "b".repeat(64), content: "2".repeat(64), state: "loading" },
+  });
+  // A publish that stopped after one file: the manifest no longer describes what is served.
+  await putFile(env, "models.csv", "model\ninverter\n");
+  const partial = (await (await askPublication(env)).json()) as { manifest: string | null };
+  assert.equal(partial.manifest, null);
+});
+
+test("a store on an older schema is recreated when the publisher asks, so it holds nothing to skip for", async () => {
+  const { env } = bucket();
+  const db = env.RELEASES;
+  await db.exec("CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL)");
+  await db.prepare("INSERT INTO meta VALUES ('schema_version', ?)").bind("0").run();
+  await db.exec(
+    "CREATE TABLE releases (id TEXT PRIMARY KEY, content TEXT NOT NULL, published_at TEXT NOT NULL, state TEXT NOT NULL)",
+  );
+  await storeRelease(env, "a".repeat(64), "1".repeat(64), "2026-09-16T10:00:00Z", "active");
+  const res = await askPublication(env);
+  assert.equal(res.status, 200, await res.clone().text());
+  assert.deepEqual(await res.json(), { manifest: null, release: null });
+});
+
+test("only the production publish job asks what is published", async () => {
+  const { env } = bucket();
+  const pull = await askPublication(env, await jobFrom("pull-figures.yml", "schedule"));
+  assert.equal(pull.status, 403);
+  assert.equal(await errorOf(pull), "pull-figures.yml may not call /publication");
+  const elsewhere = await askPublication(env, await jobToken({ environment: "preview" }));
+  assert.equal(elsewhere.status, 403);
+  assert.match(await errorOf(elsewhere), /environment is preview/);
+  const nobody = await app.request("https://data.example/publication", {}, env);
+  assert.equal(nobody.status, 401);
+});

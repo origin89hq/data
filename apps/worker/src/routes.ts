@@ -9,6 +9,7 @@ import {
   LOAD_PART_MAX,
   LOAD_PART_ROWS,
   LoadPlan,
+  type Publication,
   RecordKind,
   SNAPSHOT_PART_MAX,
   SNAPSHOT_PART_ROWS,
@@ -19,7 +20,7 @@ import {
 import { type Context, Hono } from "hono";
 import { z } from "zod";
 import specPages from "../../../feeds/spec-pages.json" with { type: "json" };
-import { activityPage, actor } from "./activity.ts";
+import { activityPage, actor, digest } from "./activity.ts";
 import { bearer } from "./authorised.ts";
 import {
   BadStart,
@@ -45,7 +46,8 @@ import {
   type WorkflowCheck,
   type WorkflowRule,
 } from "./oidc.ts";
-import { loadInstanceId, reloadInstanceId } from "./release-load.ts";
+import { loadInstanceId, prepareStore, reloadInstanceId } from "./release-load.ts";
+import { newestRelease } from "./release-store.ts";
 import {
   compareReleases,
   HistoryUnavailable,
@@ -141,8 +143,9 @@ publicRoutes.on(["GET", "HEAD"], "/manifest.json", async (c) => {
       name: "offgrid-equipment",
       // 2: the Worker loads each release into the store behind the API; a publisher on 1 would
       // publish parts nothing loads. 3: record snapshots come in parts; a Worker on 2 would keep
-      // them as plain files and record releases nothing can compare.
-      publication: { historyVersion: 3 },
+      // them as plain files and record releases nothing can compare. 4: `/publication` says what
+      // is already published, so the publisher sends a dataset only when something lacks it.
+      publication: { historyVersion: 4 },
       description:
         "Off-grid power equipment: manufacturers, models, rated figures and the protocols a controller can speak to them with.",
       licence: "MIT, for the tooling and the records alike",
@@ -274,6 +277,7 @@ export const CONTROL_PATHS = [
   "/runs",
   "/spec-pages",
   "/load",
+  "/publication",
   "/state",
   "/status",
   "/supervise",
@@ -283,11 +287,20 @@ export const CONTROL_PATHS = [
 
 type ControlPath = (typeof CONTROL_PATHS)[number];
 
+/** The job that publishes the dataset: publish.yml on main, in the production environment. */
+const PUBLISH_JOB: WorkflowRule = {
+  workflow: "publish.yml",
+  events: ["push", "workflow_dispatch", "workflow_run"],
+  environment: PRODUCTION,
+};
+
 /**
- * The workflows that call control routes, and the routes each may call. Neither deploys, so
- * neither needs the production environment, and the daily pull starts on a schedule.
+ * The workflows that call control routes, and the routes each may call. The pull and the
+ * supervisor do not deploy, so neither needs the production environment, and the daily pull
+ * starts on a schedule. The publisher only asks what is already published.
  */
 export const CONTROL_WORKFLOWS: readonly (WorkflowRule & { paths: readonly ControlPath[] })[] = [
+  { ...PUBLISH_JOB, paths: ["/publication"] },
   {
     workflow: "pull-figures.yml",
     events: ["schedule", "workflow_dispatch"],
@@ -442,6 +455,17 @@ controlRoutes.post("/load", async (c) => {
       return c.json({ release, load: "already" }, 409);
     throw error;
   }
+});
+
+// Before a publication: the manifest the front door serves whole, and the newest release the store
+// behind the API holds or is loading. A load writes every row again, so the publisher skips a
+// dataset both already have. A store on an older schema is recreated here, as by any reader, and
+// then holds nothing.
+controlRoutes.get("/publication", async (c) => {
+  const manifest = await servedManifest(c.env.ARCHIVE);
+  await prepareStore(c.env.ARCHIVE, c.env.RELEASES);
+  const publication: Publication = { manifest, release: await newestRelease(c.env.RELEASES) };
+  return c.json(publication);
 });
 
 controlRoutes.get("/state", async (c) => {
@@ -821,11 +845,7 @@ export const WORKFLOW_ROUTES: readonly { method: "PUT"; path: string; rule: Work
   {
     method: "PUT",
     path: "/v1/:file",
-    rule: {
-      workflow: "publish.yml",
-      events: ["push", "workflow_dispatch", "workflow_run"],
-      environment: PRODUCTION,
-    },
+    rule: PUBLISH_JOB,
   },
 ];
 
@@ -1016,6 +1036,47 @@ async function putFile(c: Context<PublicationEnv>, name: string): Promise<Respon
   }
 }
 
+/** Each file the front door serves that is not stored as the manifest names it. */
+async function unlikeStored(
+  bucket: R2Bucket,
+  files: [string, z.infer<typeof DatasetManifest>["files"][string]][],
+): Promise<string[]> {
+  const disagree: string[] = [];
+  for (const [name, meta] of files) {
+    const stored = await bucket.head(datasetKey(name));
+    const sha256 = stored?.checksums.toJSON().sha256;
+    if (!stored) disagree.push(`${name}: not uploaded`);
+    else if (stored.size !== meta.bytes)
+      disagree.push(`${name}: ${stored.size} bytes stored, the manifest says ${meta.bytes}`);
+    else if (sha256 !== meta.sha256)
+      disagree.push(
+        `${name}: stored sha256 is ${sha256 ?? "unrecorded"}, the manifest says ${meta.sha256}`,
+      );
+  }
+  return disagree;
+}
+
+/**
+ * The sha256 of the manifest the front door serves, when every file it names is stored as it
+ * says. A publish that stopped partway leaves the old manifest over some newer files, and a
+ * dataset matching that manifest still has to go up.
+ */
+async function servedManifest(bucket: R2Bucket): Promise<string | null> {
+  const object = await bucket.get(datasetKey(MANIFEST));
+  if (!object) return null;
+  const text = await object.text();
+  let json: unknown;
+  try {
+    json = JSON.parse(text);
+  } catch {
+    return null;
+  }
+  const parsed = DatasetManifest.safeParse(json);
+  if (!parsed.success) return null;
+  const unlike = await unlikeStored(bucket, Object.entries(parsed.data.files));
+  return unlike.length === 0 ? digest(text) : null;
+}
+
 async function putManifest(c: Context<PublicationEnv>): Promise<Response> {
   const length = Number(c.req.header("content-length"));
   if (!Number.isSafeInteger(length) || length <= 0)
@@ -1039,18 +1100,7 @@ async function putManifest(c: Context<PublicationEnv>): Promise<Response> {
   if (files.length === 0)
     return c.json({ error: "a manifest that names no files would unpublish the dataset" }, 400);
 
-  const disagree: string[] = [];
-  for (const [name, meta] of files) {
-    const stored = await c.env.ARCHIVE.head(datasetKey(name));
-    const sha256 = stored?.checksums.toJSON().sha256;
-    if (!stored) disagree.push(`${name}: not uploaded`);
-    else if (stored.size !== meta.bytes)
-      disagree.push(`${name}: ${stored.size} bytes stored, the manifest says ${meta.bytes}`);
-    else if (sha256 !== meta.sha256)
-      disagree.push(
-        `${name}: stored sha256 is ${sha256 ?? "unrecorded"}, the manifest says ${meta.sha256}`,
-      );
-  }
+  const disagree = await unlikeStored(c.env.ARCHIVE, files);
   for (const [name, meta] of files) {
     const kind = isLoadPart(name) ? "load" : isSnapshotPart(name) ? "snapshot" : undefined;
     if (!kind) continue;
