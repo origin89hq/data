@@ -1,7 +1,7 @@
 import type { Guess } from "@origin89/equipment-schema/guess";
 import type { Model } from "@origin89/equipment-schema/model";
 import type { Sighting } from "@origin89/equipment-schema/sighting";
-import { type FoldOutcome, foldDerived } from "../../src/model-records.ts";
+import { type FoldOutcome, foldDerived, namesOf } from "../../src/model-records.ts";
 import { deriveModels } from "../../src/models.ts";
 import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 import { readCrawl } from "./archive.ts";
@@ -50,11 +50,6 @@ const derived = deriveModels({
   brands: records.brands,
   dialects: records.dialects,
 });
-/** Every name a maker goes by, so one in front of a product name still reaches the model. */
-const makerNames = [
-  ...records.manufacturers.map((m) => m.name),
-  ...records.brands.flatMap((b) => (b.decision === "manufacturer" ? [b.brand] : [])),
-];
 const held = new Map<string, Map<string, Model>>();
 for (const model of records.models)
   held.set(model.manufacturer, (held.get(model.manufacturer) ?? new Map()).set(model.id, model));
@@ -62,7 +57,12 @@ for (const model of records.models)
 const counts: Record<FoldOutcome, number> = { added: 0, refreshed: 0, folded: 0 };
 for (const { model } of derived) {
   const ours = held.get(model.manufacturer) ?? new Map<string, Model>();
-  const { record, outcome } = foldDerived([...ours.values()], model, makerNames);
+  // Only the maker's own names come off the front: another maker's name there is another product.
+  const { record, outcome } = foldDerived(
+    [...ours.values()],
+    model,
+    namesOf(records, model.manufacturer),
+  );
   held.set(model.manufacturer, ours.set(record.id, record));
   if (!dryRun) writeRecord(RECORDS_DIR, "models", record.id, record);
   counts[outcome] += 1;

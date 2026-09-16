@@ -325,6 +325,10 @@ test("a merge keeps a reviewed record, then one holding figures, and the shorter
     sheet,
   );
 
+  const read = record("hpgr200", "HPGR200 Grinder", { reviewedBy: "lemarier" });
+  const named = record("hp200", "HPGR200", { reviewedBy: "lemarier" });
+  assert.equal(keeperOf([named, read], figures({ hpgr200: 8 })), read);
+
   const seller = record("pveg4-6000xp-inverter", "PVEG4 6000XP Inverter");
   const maker = record("6000xp", "6000XP");
   assert.equal(keeperOf([seller, maker], figures({})), maker);

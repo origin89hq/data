@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import type { DialectLink, Model } from "@origin89/equipment-schema/model";
-import { foldDerived } from "../src/model-records.ts";
+import { foldDerived, namesOf } from "../src/model-records.ts";
 
 const link = (dialect: string): DialectLink => ({
   dialect,
@@ -95,7 +95,7 @@ test("a name no held model answers to is minted, including one of another maker 
   assert.equal(foldDerived(held, voltage).outcome, "added");
 });
 
-test("a model held under the derived id is refreshed and keeps what later steps put on it", () => {
+test("a model held under the derived id is refreshed, keeps its name and what later steps put on it", () => {
   const battery = model("rolls-battery", "s6-460agm", "S6-460AGM", {
     kind: "battery",
     chemistry: "agm",
@@ -106,11 +106,15 @@ test("a model held under the derived id is refreshed and keeps what later steps 
   });
   const same = foldDerived(
     [battery],
-    model("rolls-battery", "s6-460agm", "S6-460AGM", { aliases: ["S6460AGM", "ROL-1"] }),
+    model("rolls-battery", "s6-460agm", "S6/460AGM", { aliases: ["S6460AGM", "ROL-1"] }),
   );
   assert.equal(same.outcome, "refreshed");
-  // The crawl ran with no classifier, so the kind and the chemistry that comes with it stay.
-  assert.deepEqual(same.record, { ...battery, aliases: ["ROL-1", "S6 460AGM", "S6460AGM"] });
+  // The crawl ran with no classifier, so the kind and the chemistry that comes with it stay, and a
+  // spelling that gives the same id is an alias rather than the name.
+  assert.deepEqual(same.record, {
+    ...battery,
+    aliases: ["ROL-1", "S6 460AGM", "S6/460AGM", "S6460AGM"],
+  });
 
   const reclassified = foldDerived(
     [battery],
@@ -131,8 +135,49 @@ test("a reviewed model held under the derived id keeps everything but gains the 
   });
   const { record, outcome } = foldDerived(
     [reviewed],
-    model("epever", "xtra4210n", "xtra4210n", { kind: "inverter", aliases: ["EP-1234"] }),
+    model("epever", "xtra4210n", "XTRA 4210N", {
+      kind: "inverter",
+      aliases: ["EP-1234", "xtra4210n"],
+    }),
   );
   assert.equal(outcome, "refreshed");
-  assert.deepEqual(record, { ...reviewed, aliases: ["EP-1234"] });
+  // Another case of the name adds nothing; another spacing is kept.
+  assert.deepEqual(record, { ...reviewed, aliases: ["EP-1234", "XTRA 4210N"] });
+});
+
+test("only the maker's own names come off the front, so another maker's name in front is another product", () => {
+  const records = {
+    manufacturers: [
+      { id: "victron-energy", name: "Victron Energy" },
+      { id: "rolls-battery", name: "Rolls Battery" },
+    ],
+    brands: [
+      { brand: "Victron", decision: "manufacturer", manufacturer: "victron-energy" },
+      { brand: "Rolls", decision: "manufacturer", manufacturer: "rolls-battery" },
+      { brand: "Surrette", decision: "manufacturer", manufacturer: "rolls-battery" },
+      { brand: "Lodge", decision: "out-of-scope" },
+    ],
+  };
+  assert.deepEqual(namesOf(records, "rolls-battery"), ["Rolls Battery", "Rolls", "Surrette"]);
+  assert.deepEqual(namesOf(records, "nobody"), []);
+
+  // A multi-word part number is reached past a maker's name only; a single code after any words is
+  // matchModel's product-line rule, the same for every maker.
+  const held = [model("iota-engineering", "ilblp-cp15-he-sd", "ILBLP CP15 HE SD")];
+  const iota = {
+    ...records,
+    manufacturers: [{ id: "iota-engineering", name: "IOTA Engineering" }],
+  };
+  const own = foldDerived(
+    held,
+    model("iota-engineering", "iota-ilblp-cp15-he-sd", "IOTA ILBLP CP15 HE SD"),
+    namesOf(iota, "iota-engineering"),
+  );
+  assert.equal(own.outcome, "folded");
+  const other = model("iota-engineering", "victron-ilblp-cp15-he-sd", "Victron ILBLP CP15 HE SD");
+  assert.equal(foldDerived(held, other, namesOf(iota, "iota-engineering")).outcome, "added");
+  assert.equal(
+    foldDerived(held, other, ["IOTA Engineering", ...namesOf(records, "victron-energy")]).outcome,
+    "folded",
+  );
 });
