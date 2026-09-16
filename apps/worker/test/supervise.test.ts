@@ -1,9 +1,11 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
+import { EARLIER_EXTRACTOR_IDS } from "@origin89/equipment-schema/provenance";
 import { classifierKey } from "../src/classify.ts";
+import { EXTRACTOR_ID } from "../src/reading.ts";
 import { type SupervisionReport, supervise, VISION_OFFERS_PER_PASS } from "../src/supervise.ts";
-import { inputKey, type Work } from "../src/work.ts";
+import { inputKey, readerKey, type Work } from "../src/work.ts";
 import { world } from "./world.ts";
 
 const source = readFileSync(new URL("../src/supervise.ts", import.meta.url), "utf8");
@@ -291,6 +293,25 @@ test("an offer the queue refuses is a concern, and still counts toward the pass"
     read("documents/maker-01/runs/2026-09-10-maker-01/seeing.json"),
     undefined,
     "the refused maker is offered again on the next pass",
+  );
+});
+
+test("a maker's adopted specification pages are fetched for a run no text reader has read, and only then", async () => {
+  const specTables = (sent: Work[]) => sent.filter((m) => m.kind === "spec-table").length;
+  const pass = async (reader?: string) => {
+    const objects: Record<string, string> = {};
+    converted(objects, "morningstar", "a".repeat(64));
+    if (reader) objects[`archive/${"a".repeat(64)}.${readerKey(reader)}.reading.json`] = "{}";
+    const { env, sent } = world(objects);
+    await supervise(env, "2026-09-11");
+    return specTables(sent);
+  };
+  assert.equal(await pass(), 4, "Morningstar's four adopted pages, for a run nothing has read");
+  assert.equal(await pass(EXTRACTOR_ID), 0, "not once this reader has read it");
+  assert.equal(
+    await pass(EARLIER_EXTRACTOR_IDS[0]),
+    0,
+    "nor when only an earlier reader has: a new reader does not fetch them again on every pass",
   );
 });
 

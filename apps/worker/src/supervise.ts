@@ -138,8 +138,9 @@ async function pass(env: Env, today: string, by: string): Promise<SupervisionRep
     if (!date) continue;
 
     // A maker's own specification pages need no approval: they are pages it publishes for people
-    // to read, and a parser reads them. Only pages already adopted into the feed list are fetched.
-    if (pages.has(maker.maker) && !maker.read) {
+    // to read, and a parser reads them. Only pages already adopted into the feed list are fetched,
+    // and only for a run no text reader has read: a new reader does not make them fetched again.
+    if (pages.has(maker.maker) && !maker.read && !maker.readBefore) {
       await step(report, "spec-pages", maker.maker, async () => {
         const { pages: sent } = await specPagesRun(env, maker.maker, date, specPages.pages);
         if (sent > 0)

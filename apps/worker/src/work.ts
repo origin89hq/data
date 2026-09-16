@@ -55,6 +55,8 @@ export const Work = z.discriminatedUnion("kind", [
       key: z.string().min(1),
       /** Windows this message may read, so one long manual cannot spend a run's whole budget. */
       maxWindows: z.number().int().positive().max(MOST_WINDOWS).optional(),
+      /** Times the document was put back to wait its turn with the model, so the waiting has an end. */
+      waits: z.number().int().nonnegative().optional(),
     })
     .strict(),
   z

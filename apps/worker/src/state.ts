@@ -1,5 +1,5 @@
 import { DownloadDecision } from "@origin89/equipment-schema/documents";
-import { PULL_PAGE_READER } from "@origin89/equipment-schema/provenance";
+import { EARLIER_EXTRACTOR_IDS, PULL_PAGE_READER } from "@origin89/equipment-schema/provenance";
 import { atOnce, R2_AT_ONCE } from "./at-once.ts";
 import { classifierKey } from "./classify.ts";
 import type { DiscoverySeen } from "./discover.ts";
@@ -51,6 +51,8 @@ export interface MakerState {
   sent?: number;
   converted?: number;
   read?: number;
+  /** Documents an earlier text reader read that this one has not, so the run was read once before. */
+  readBefore?: number;
   /** How many converted documents there were when the run was last offered to the page reader. */
   seeing?: number;
   /** Documents with no text layer that the page reader has read. */
@@ -91,10 +93,11 @@ const ARCHIVE_PARTS = [..."0123456789abcdef"].map((digit) => `archive/${digit}`)
 /** The sha256 of every document the text reader has read, and of every one the page reader has. */
 const readingsPresent = async (
   bucket: R2Bucket,
-): Promise<{ text: Set<string>; pages: Set<string> }> => {
+): Promise<{ text: Set<string>; pages: Set<string>; before: Set<string> }> => {
   const text = `.${readerKey(EXTRACTOR_ID)}.reading.json`;
   const pages = `.${readerKey(VISION_EXTRACTOR_ID)}.reading.json`;
-  const present = { text: new Set<string>(), pages: new Set<string>() };
+  const earlier = EARLIER_EXTRACTOR_IDS.map((id) => `.${readerKey(id)}.reading.json`);
+  const present = { text: new Set<string>(), pages: new Set<string>(), before: new Set<string>() };
   // One listing for both: the archive holds every document there is, and listing it is the cost.
   // Its twenty thousand keys took thirteen seconds to list one page after another (#72), so the
   // parts are listed at once, and only the readings are kept.
@@ -102,6 +105,10 @@ const readingsPresent = async (
     eachKey(bucket, part, (key) => {
       if (key.endsWith(text)) present.text.add(key.slice("archive/".length, -text.length));
       else if (key.endsWith(pages)) present.pages.add(key.slice("archive/".length, -pages.length));
+      else {
+        const suffix = earlier.find((e) => key.endsWith(e));
+        if (suffix) present.before.add(key.slice("archive/".length, -suffix.length));
+      }
     }),
   );
   return present;
@@ -278,10 +285,12 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
     // Readings live beside their documents, so this run's progress is how many of the documents
     // it approved have one.
     let read = 0;
+    let readBefore = 0;
     let seen = 0;
     for (const doc of converting?.documents ?? []) {
       const sha = (doc as { sha256?: string }).sha256;
       if (sha && readings.text.has(sha)) read += 1;
+      else if (sha && readings.before.has(sha)) readBefore += 1;
       if (sha && readings.pages.has(sha)) seen += 1;
     }
 
@@ -317,6 +326,7 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
       ...(manifest ? { fetched: manifest.fetched } : {}),
       ...(converting ? { sent: converting.documents.length, converted } : {}),
       ...(read ? { read } : {}),
+      ...(readBefore ? { readBefore } : {}),
       ...(seeing ? { seeing: seeing.converted } : {}),
       ...(seen ? { seen } : {}),
       waitingOn,

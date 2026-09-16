@@ -1,5 +1,6 @@
 import { answerText, contentOf } from "./classify.ts";
 import { makerName } from "./manufacturers.ts";
+import { MAX_WAITS, NotYet, rateLimited, takeTurn, waitTurn } from "./pace.ts";
 import {
   CONVERTER,
   DOCUMENT_FIGURES_SYSTEM,
@@ -66,69 +67,7 @@ const reason = (error: unknown): string => (error instanceof Error ? error.messa
 // Kimi's own name for the switch: `enable_thinking`, which other models take, it ignores.
 const QUIETLY = { temperature: 0, chat_template_kwargs: { thinking: false } };
 
-/**
- * The model, or the page reader's own pace, said not yet. The page or window goes back on the queue
- * to wait its turn, and the refusal is not written down as its answer. Retried at once, all four
- * deliveries of a page fell inside one minute of Kimi's limit, and 1,996 of 2,148 pages were kept
- * as failed (#29).
- */
-class NotYet extends Error {}
-
-/** Workers AI's answer when an account is over a model's requests per minute. */
-const rateLimited = (error: unknown): boolean => /\b3021\b/.test(reason(error));
-
-/**
- * Times a page or window is put back before a refusal counts as a failure like any other. Thirty
- * waits, most of them at the half-hour cap, is about half a day: longer than the whole backlog of
- * scans takes at the page reader's pace, and still an end for one the model never serves.
- */
-export const MAX_WAITS = 30;
-
-/**
- * How long a page or window waits before it is tried again: a minute, doubling to half an hour,
- * and up to a minute more by its place, so a document's pages turned away together do not all come
- * back together.
- */
-export function waitFor(message: VisionPage | VisionWindow): number {
-  const waits = message.waits ?? 0;
-  const place = message.kind === "vision-page" ? message.page : message.window;
-  const spread = (Number.parseInt(message.sha256.slice(0, 4), 16) + place) % 60;
-  return Math.min(60 * 2 ** waits, 1800) + spread;
-}
-
-/** A turn with the model, asked before any work: one check for a page or window turned away. */
-async function takeTurn(env: Env, message: VisionPage | VisionWindow): Promise<boolean> {
-  // Past its last wait nothing is held back any more: whatever the model says next is the answer.
-  const mayWait = (message.waits ?? 0) < MAX_WAITS;
-  if (mayWait && !(await env.PAGE_READER_PACE.limit({ key: VISION_MODEL })).success)
-    throw new NotYet("over the page reader's pace");
-  return mayWait;
-}
-
-/** Put a page or window back on the queue to wait its turn, and say why in the logs. */
-async function waitTurn(
-  env: Env,
-  message: VisionPage | VisionWindow,
-  error: NotYet,
-): Promise<void> {
-  // Logged with its reason, so the logs say how often Kimi itself still refused. The pace is
-  // counted per Cloudflare location, and a refusal past it is how that would show.
-  console.log(
-    JSON.stringify({
-      message: `${message.kind === "vision-page" ? "page" : "window"} waits its turn`,
-      sha256: message.sha256,
-      ...(message.kind === "vision-page" ? { page: message.page } : { window: message.window }),
-      waits: (message.waits ?? 0) + 1,
-      reason: error.message,
-    }),
-  );
-  // A new message rather than a retry, so waiting its turn does not use up the deliveries it gets
-  // for failures of its own.
-  await env.WORK.send(
-    { ...message, waits: (message.waits ?? 0) + 1 },
-    { delaySeconds: waitFor(message) },
-  );
-}
+export { MAX_WAITS, waitFor } from "./pace.ts";
 
 /**
  * Whether a converted document needs its pages looked at, and if it does, one message per page.
@@ -224,7 +163,7 @@ async function transcribePage(
   library: () => Promise<Pdfium>,
 ): Promise<SeenPage> {
   const { page } = message;
-  const mayWait = await takeTurn(env, message);
+  const mayWait = await takeTurn(env, message, VISION_MODEL);
   const source = await env.ARCHIVE.get(`archive/${message.sha256}`);
   if (!source) throw new Error(`archive/${message.sha256} is not in the archive`);
   const pdfium = await library();
@@ -357,7 +296,7 @@ async function readWindow(message: VisionWindow, env: Env, attempt: number): Pro
     if ((message.waits ?? 0) < MAX_WAITS) throw new NotYet("the transcript is not written yet");
     throw new Error(`the transcript of ${message.sha256} is not in the archive`);
   }
-  const mayWait = await takeTurn(env, message);
+  const mayWait = await takeTurn(env, message, VISION_MODEL);
   const transcript = await object.text();
   const window = figureWindows(transcript)[message.window - 1];
   if (!window) return { window: message.window, products: [] };
@@ -404,9 +343,9 @@ async function figuresIn(
   } catch (error) {
     if (!(error instanceof SyntaxError) || window.text.length < 2 * SMALLEST_WINDOW) throw error;
     const [first, second] = halves(transcript, window);
-    await takeTurn(env, message);
+    await takeTurn(env, message, VISION_MODEL);
     const left = await figuresIn(env, message, transcript, first);
-    await takeTurn(env, message);
+    await takeTurn(env, message, VISION_MODEL);
     const both = [...left, ...(await figuresIn(env, message, transcript, second))];
     // Each figure's page is found again in the whole window: a value each half saw once may be
     // printed in both, and then it has no page, as it would have had read whole.

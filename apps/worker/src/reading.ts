@@ -222,6 +222,42 @@ export function pageOfFigure(
  * They are found whole: not inside a longer word or number, and not joined to one by a hyphen or a
  * slash, which makes them part of a name, a range or a fraction. A unit may follow a number.
  */
+/**
+ * Whether a window prints a value the reader reported. A value it did not read off the window is not
+ * a figure of this document: a chemistry taken from the kind of product, a number from outside the
+ * window. Every number in the value has to be printed, however the document writes it — "1000" as
+ * "1,000", "13.8" as "13,8", "12" as "12.0" — and a value with no number is found by its letters and
+ * digits run together, so spacing, case and punctuation do not matter. A value with neither, such as
+ * a tick, cannot be looked for and is kept.
+ */
+export function printsValue(text: string, value: string): boolean {
+  const spellings = (number: string): string[] => {
+    const point = number.replace(/,/g, ".");
+    const bare = number.replace(/[.,](?=\d{3}(?!\d))/g, "");
+    return [number, point, bare, bare.replace(/,/g, "."), number.replace(/[.,]/g, "")].flatMap(
+      (n) => [n, n.replace(/\.0+$/, "")],
+    );
+  };
+  // "10¼" is ten and a quarter, which NFKC would write "101⁄4": the fraction is set apart first.
+  const numbersIn = (s: string) =>
+    s
+      .replace(/(\d)(?=[\u00BC-\u00BE\u2150-\u215E])/g, "$1 ")
+      .normalize("NFKC")
+      .match(/\d+(?:[.,]\d+)*/g) ?? [];
+  const wanted = numbersIn(value);
+  if (wanted.length > 0) {
+    const printed = new Set(numbersIn(text).flatMap(spellings));
+    return wanted.every((number) => spellings(number).some((n) => printed.has(n)));
+  }
+  const letters = (s: string) =>
+    s
+      .normalize("NFKC")
+      .toLowerCase()
+      .replace(/[^\p{L}\p{N}]+/gu, "");
+  const words = letters(value);
+  return !words || letters(text).includes(words);
+}
+
 function printedAt(text: string, words: string): number[] {
   const trimmed = words.trim();
   if (!trimmed) return [];
@@ -560,6 +596,9 @@ Do not report prices, warranty periods, part numbers, packaging weights, orderin
  * the right one. The rule costs a model that fills units anyway nothing.
  */
 export const VISION_RESPONSE_SCHEMA = figuresSchema(["name", "value", "unit"]);
+
+/** The answer the text reader is held to. Kimi writes its thinking into an answer held to none. */
+export const TEXT_RESPONSE_SCHEMA = figuresSchema(["name", "value"]);
 
 /**
  * How much of a transcript one call reads. Big, because a product's name and its ratings can sit

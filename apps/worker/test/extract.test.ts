@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { type ReadWindow, readDocument } from "../src/extract.ts";
+import { MAX_WAITS } from "../src/pace.ts";
 import {
   answerObjects,
   asciiSymbols,
@@ -15,9 +16,11 @@ import {
   pageOfFigure,
   pageOffsets,
   printedSymbols,
+  printsValue,
   type Reported,
   SYSTEM,
   statesOneFigure,
+  TEXT_RESPONSE_SCHEMA,
 } from "../src/reading.ts";
 import { LAST_ATTEMPT, partKey, readerKey } from "../src/work.ts";
 import { type TestAiInput, world } from "./world.ts";
@@ -233,8 +236,10 @@ const message = {
   key: MARKDOWN,
 };
 
-/** Three pages of a converted sheet, long enough for three windows. */
-const SHEET = [1, 2, 3].map((page) => `### Page ${page}\n${"x".repeat(5000)}\n`).join("");
+/** Three pages of a converted sheet, long enough for three windows, each ending on a weight. */
+const SHEET = [1, 2, 3]
+  .map((page) => `### Page ${page}\n${"x".repeat(4985)}\nWeight 42 kg\n`)
+  .join("");
 const WINDOWS = chunk(SHEET);
 
 interface Reading {
@@ -277,7 +282,7 @@ test("a sheet is read a window at a time, each window kept, and the reading writ
   assert.deepEqual(
     reading.products.map((p) => [p.model, p.specs[0].page]),
     WINDOWS.map((w, i) => [`S-${550 + i * 50}`, w.page]),
-    "a figure whose value the window does not print has the page its window starts on, never the model's",
+    "each figure has the page its window prints its value on, never the model's",
   );
   assert.equal(readObject<ReadWindow>(windowKey(2)).products[0].model, "S-600");
 
@@ -328,6 +333,56 @@ test("an answer cut short is left for the queue, and the next delivery reads onl
     [reading.failed, reading.products.map((p) => p.model)],
     [0, ["S-550", "S-600", "S-650"]],
   );
+});
+
+test("a window Kimi's pace turns away waits its turn: what was read is kept, and the document goes back on the queue", async () => {
+  const { env, asked, sent, delays, pace, read } = world({ [MARKDOWN]: SHEET }, reader());
+  pace.allow = () => pace.asked < 2;
+  await readDocument(message, env, LAST_ATTEMPT);
+  assert.equal(asked.length, 1, "window 1 had its turn, window 2 was turned away before calling");
+  assert.ok(read(windowKey(1)), "and window 1 is kept");
+  assert.equal(
+    read(windowKey(2)),
+    undefined,
+    "a refusal is not written down as the window's answer",
+  );
+  assert.equal(read(readingKey), undefined, "nor is the reading, with windows still to read");
+  assert.deepEqual(sent, [{ ...message, waits: 1 }], "sent again, to go on when its turn comes");
+  assert.deepEqual(delays, [86], "a minute, and 26 seconds by the document");
+});
+
+test("Kimi refusing for its own limit is waiting too, even on the last delivery, and never a failure", async () => {
+  const limited = (call: number, input: TestAiInput) =>
+    call === 2
+      ? new Error("3021: rate limiting: inference request per min rate reached")
+      : reader()(call, input);
+  const { env, asked, sent, read } = world({ [MARKDOWN]: SHEET }, limited);
+  await readDocument(message, env, LAST_ATTEMPT);
+  assert.equal(asked.length, 2, "window 3 is left for the next turn");
+  assert.equal(read(windowKey(2)), undefined);
+  assert.deepEqual(sent, [{ ...message, waits: 1 }]);
+
+  const resumed = world(
+    { [MARKDOWN]: SHEET, [windowKey(1)]: `${JSON.stringify(read(windowKey(1)))}\n` },
+    reader(),
+  );
+  await readDocument({ ...message, waits: 1 }, resumed.env, 1);
+  assert.equal(resumed.asked.length, 2, "the document sent again reads only windows 2 and 3");
+  assert.equal(resumed.readObject<Reading>(readingKey).windows, 3);
+});
+
+test("past its last wait a document asks no turn, and a refusal fails its window like any other error", async () => {
+  const limited = (call: number, input: TestAiInput) =>
+    call === 2
+      ? new Error("3021: rate limiting: inference request per min rate reached")
+      : reader()(call, input);
+  const { env, pace, sent, readObject } = world({ [MARKDOWN]: SHEET }, limited);
+  pace.allow = () => false;
+  await readDocument({ ...message, waits: MAX_WAITS }, env, LAST_ATTEMPT);
+  assert.equal(pace.asked, 0, "nothing is held back any more");
+  assert.deepEqual(sent, [], "and nothing is sent back to wait");
+  assert.match(readObject<ReadWindow>(windowKey(2)).failed ?? "", /^not read: 3021/);
+  assert.deepEqual(readObject<Reading>(readingKey).failed, 1);
 });
 
 test("a window that fails on the last attempt is written down, and the reading still finishes", async () => {
@@ -418,21 +473,66 @@ test("the text reader tells the model whose document it reads, by the maker's na
   );
 });
 
-test("the text reader gives the answer's shape in its prompt and holds the model to no schema", async () => {
+test("the text reader holds Kimi to the figures schema, with its thinking off and room for a dense table", async () => {
   const { env, asked } = world({ [MARKDOWN]: SHEET }, reader());
   await readDocument(message, env, 1);
   assert.equal(asked.length, 3);
-  for (const { input } of asked) {
-    assert.equal(
-      input.response_format,
-      undefined,
-      "held to a schema, the model answered windows it reads in full with an empty list",
+  for (const { model, input } of asked) {
+    assert.equal(model, "@cf/moonshotai/kimi-k2.7-code");
+    assert.deepEqual(input.response_format.json_schema.schema, TEXT_RESPONSE_SCHEMA);
+    assert.deepEqual(
+      input.chat_template_kwargs,
+      { thinking: false },
+      "or it thinks into its answer",
     );
     assert.equal(input.max_tokens, 8192, "room for the answer to a dense table of several models");
   }
   assert.match(
     SYSTEM,
     /Reply with JSON only, no prose: \{"products":\[\{"model":"\.\.\.","specs":\[\{"name":"\.\.\.","value":"\.\.\.","unit":"\.\.\.","conditions":"\.\.\."\}\]\}\]\}/,
+  );
+});
+
+test("a value is printed however the document writes its numbers, and a value with none by its letters", () => {
+  const text =
+    "| Weight | 1,000 lb |\n| Float | 13,8 V |\n| Voltage | 12.0 V |\n| Size | 10¼ in |\nChemistry: LiFePO4";
+  assert.equal(printsValue(text, "1000"), true, "a thousands separator");
+  assert.equal(printsValue(text, "1,000 lb"), true);
+  assert.equal(printsValue(text, "13.8"), true, "a decimal comma");
+  assert.equal(printsValue(text, "12"), true, "a trailing zero");
+  assert.equal(printsValue(text, "10 1/4"), true, "a fraction");
+  assert.equal(
+    printsValue(text, "Lifepo 4"),
+    true,
+    "letters and digits whatever the spacing and case",
+  );
+  assert.equal(printsValue(text, "14.4"), false, "a number the window does not print");
+  assert.equal(printsValue(text, "13.8 / 14.4"), false, "every number, not only one");
+  assert.equal(printsValue(text, "Lead-acid"), false, "a chemistry the window does not name");
+  assert.equal(printsValue(text, "✓"), true, "nothing to look for is kept");
+});
+
+test("a figure whose value the window does not print is left out of the reading", async () => {
+  const answer = () => ({
+    response: JSON.stringify({
+      products: [
+        {
+          model: "S-550",
+          specs: [
+            { name: "Weight", value: "42", unit: "kg" },
+            { name: "Chemistry", value: "Lead-acid" },
+            { name: "Capacity", value: "428", unit: "Ah" },
+          ],
+        },
+      ],
+    }),
+  });
+  const { env, readObject } = world({ [MARKDOWN]: "| S-550 | Weight | 42 kg |\n" }, answer);
+  await readDocument(message, env, 1);
+  assert.deepEqual(
+    readObject<Reading>(readingKey).products[0]?.specs.map((s) => s.name),
+    ["Weight"],
+    "a chemistry and a capacity the window never prints are not the document's",
   );
 });
 

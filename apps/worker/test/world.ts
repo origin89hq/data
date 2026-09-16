@@ -18,7 +18,7 @@ import { d1Double } from "./d1.ts";
  * Enough of R2, the queue and the model for the page reader and the supervisor: an archive in
  * memory, a record of every message sent (with its delay), every prefix listed and every model
  * call made, a model that answers whatever `answer` returns for the nth call and its request (or
- * throws, when that is an Error), and a page reader's pace that lets every page through until
+ * throws, when that is an Error), and Kimi's pace that lets every call through until
  * `pace.allow` says otherwise.
  */
 export function world(
@@ -199,7 +199,7 @@ export function world(
         delays.push(...batch.map((m) => m.delaySeconds));
       },
     },
-    PAGE_READER_PACE: {
+    KIMI_PACE: {
       limit: async () => {
         pace.asked += 1;
         return { success: pace.allow() };

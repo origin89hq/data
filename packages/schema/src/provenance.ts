@@ -8,9 +8,26 @@ export function classifierKey(id = CLASSIFIER_ID): string {
   return id.replace(/[^\w.-]+/g, "_");
 }
 
-export const EXTRACT_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
+/**
+ * The text reader. Kimi K2.7 replaced Llama 3.3 70B after a blind comparison on sixty windows of
+ * twenty documents whose figures had been checked against their text (the figures pull #196): with
+ * the same prompt it gave about half again as many right figures and about forty percent fewer wrong
+ * ones, and read almost no value from another column or model. A new model is a new reader id, so
+ * every document counts as unread by it until `just convert` reads it again; the earlier readings
+ * stay in the archive and are no longer pulled.
+ */
+export const EXTRACT_MODEL = "@cf/moonshotai/kimi-k2.7-code";
 export const EXTRACT_PROMPT_VERSION = "2";
 export const EXTRACTOR_ID = `ai:${EXTRACT_MODEL}@p${EXTRACT_PROMPT_VERSION}`;
+
+/**
+ * Text readers before this one. A document one of them read has been read before, which the
+ * spec-pages pass needs to know: it runs for a maker none of whose documents is read yet, and a new
+ * reader would otherwise fetch every adopted page again on each pass until its own readings exist.
+ */
+export const EARLIER_EXTRACTOR_IDS: readonly string[] = [
+  "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+];
 
 export const VISION_MODEL = "@cf/moonshotai/kimi-k2.7-code";
 /**

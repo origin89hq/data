@@ -116,7 +116,9 @@ change is not a reason to ask again.
 **A document is read once.** Conversion already skipped what it had, because the
 markdown is keyed by the document's content hash. Reading now skips too: a
 reading that exists is a reading of exactly those bytes by exactly that
-extractor.
+extractor. A new reader model is a new extractor, so after a change of model
+every document is unread by it until `just convert` asks; the earlier readings
+stay in the archive and the pull no longer takes them.
 
 **Reading results back was the real bottleneck**, and it was not the pipeline.
 The first version fetched one object per request through the wrangler CLI, which
@@ -144,14 +146,26 @@ documentation suggested. Only a conversion with no text layer is drawn, and a
 document too large for PDFium to hold in a Worker's memory is refused in writing
 rather than risked.
 
-Reading the markdown is the real cost, and it is a 70B model over every window
-at $0.293 per million input tokens and $2.253 per million output:
+Reading the markdown is the real cost, and it is Kimi K2.7 over every window at
+$0.95 per million input tokens and $4.00 per million output, about half a cent a
+window. It replaced Llama 3.3 70B, which cost less than half as much: read
+blind against sixty windows of twenty documents whose figures had been checked
+by hand, Kimi gave about half again as many right figures and about forty
+percent fewer wrong ones. A figure whose value its window does not print is left
+out of the reading, since every such figure in that comparison was wrong.
+
+Kimi serves an account twenty requests a minute, and both readers call it, so
+they share one pace of eighteen a minute (`KIMI_PACE`). A window turned away by
+the pace or by Kimi's own limit is not a failure: the windows already read are
+kept, and the document goes back on the queue to read the rest when its turn
+comes. That pace is also how long a reading takes: about a thousand windows an
+hour for every maker together.
 
 | | |
 |---|---|
-| A datasheet, about four windows | under a cent |
-| 300 documents from one maker | roughly two dollars |
-| Every maker at that rate | about a hundred and sixty |
+| A datasheet, about four windows | about two cents |
+| 300 documents from one maker | roughly five dollars |
+| Every maker at that rate | about four hundred |
 
 Classifying every model held here, 5,600 of them in batches of ten, is about
 sixty cents. So the classifier is free in practice and the reading is not.
