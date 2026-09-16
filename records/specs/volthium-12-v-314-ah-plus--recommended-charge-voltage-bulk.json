@@ -1,0 +1,11 @@
+{
+  "id": "volthium-12-v-314-ah-plus--recommended-charge-voltage-bulk",
+  "model": "volthium-12-v-314-ah-plus",
+  "name": "Recommended charge voltage",
+  "value": "14.2 - 14.6",
+  "unit": "V",
+  "conditions": "Bulk",
+  "source": "doc-72b25da84c7c1735ef7b021c74d682b6",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

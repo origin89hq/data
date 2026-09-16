@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-lfp12180--battery-current-limit",
+  "model": "morningstar-lfp12180",
+  "name": "Battery Current Limit",
+  "value": "15A",
+  "unit": "A",
+  "source": "doc-c112cf10545eb3a0494f715ec3f0a28c",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

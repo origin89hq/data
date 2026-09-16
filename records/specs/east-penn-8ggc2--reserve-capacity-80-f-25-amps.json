@@ -1,0 +1,12 @@
+{
+  "id": "east-penn-8ggc2--reserve-capacity-80-f-25-amps",
+  "model": "east-penn-8ggc2",
+  "name": "Reserve Capacity",
+  "value": "136",
+  "unit": "min",
+  "conditions": "80°F, 25 Amps",
+  "source": "doc-6d4ec44118d5b194e963051ca650fbce",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "precision-circuits-00-10024-100--relay-voltage-ac-i-o-module",
+  "model": "precision-circuits-00-10024-100",
+  "name": "Relay voltage",
+  "value": "120",
+  "unit": "V",
+  "conditions": "AC (I/O Module)",
+  "source": "doc-cdf8d050240251fb563975bbf15ec24d",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

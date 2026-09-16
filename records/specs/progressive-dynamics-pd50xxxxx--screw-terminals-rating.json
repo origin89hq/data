@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd50xxxxx--screw-terminals-rating",
+  "model": "progressive-dynamics-pd50xxxxx",
+  "name": "Screw Terminals rating",
+  "value": "20",
+  "unit": "A",
+  "source": "doc-e2b8de31b4b6d2e0fbf604f77f69db85",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

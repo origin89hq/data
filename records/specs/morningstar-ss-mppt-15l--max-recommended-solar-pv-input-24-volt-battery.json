@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ss-mppt-15l--max-recommended-solar-pv-input-24-volt-battery",
+  "model": "morningstar-ss-mppt-15l",
+  "name": "Max Recommended Solar PV Input (24 volt battery)",
+  "value": "520",
+  "unit": "W",
+  "source": "doc-d9179191e76c8c62cd951e86433433be",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

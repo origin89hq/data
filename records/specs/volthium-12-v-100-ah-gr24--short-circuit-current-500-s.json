@@ -1,0 +1,12 @@
+{
+  "id": "volthium-12-v-100-ah-gr24--short-circuit-current-500-s",
+  "model": "volthium-12-v-100-ah-gr24",
+  "name": "Short circuit current",
+  "value": "800 A",
+  "unit": "A",
+  "conditions": "@500 μs",
+  "source": "doc-d480da931917808c709e6a5c5f175337",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

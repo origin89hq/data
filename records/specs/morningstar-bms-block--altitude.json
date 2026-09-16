@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-bms-block--altitude",
+  "model": "morningstar-bms-block",
+  "name": "Altitude",
+  "value": "3000",
+  "source": "doc-82db1d14c9d2101cfa2df7bcef256c86",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

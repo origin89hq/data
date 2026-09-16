@@ -1,0 +1,12 @@
+{
+  "id": "east-penn-g45--6-hr-a-h-rating-15-plates-per-cell",
+  "model": "east-penn-g45",
+  "name": "6 Hr A.H. Rating",
+  "value": "315",
+  "unit": "Ah",
+  "conditions": "15 plates per cell",
+  "source": "doc-ce3547456ecbbea3269859952534fb13",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

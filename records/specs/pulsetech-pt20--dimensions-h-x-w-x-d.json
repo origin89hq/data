@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-pt20--dimensions-h-x-w-x-d",
+  "model": "pulsetech-pt20",
+  "name": "Dimensions (h x w x d)",
+  "value": "3.62\"x 4.53\"x 1.52",
+  "unit": "in",
+  "source": "doc-23626c7771110fd9944d219a50d60d5f",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

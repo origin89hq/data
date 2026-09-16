@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-b-lfp48-200pw--chemistry",
+  "model": "bslbatt-b-lfp48-200pw",
+  "name": "Chemistry",
+  "value": "LiFePO4",
+  "source": "doc-37abc5bd32954167fd1903ffc9109ec4",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

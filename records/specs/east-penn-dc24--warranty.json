@@ -1,0 +1,10 @@
+{
+  "id": "east-penn-dc24--warranty",
+  "model": "east-penn-dc24",
+  "name": "WARRANTY",
+  "value": "12",
+  "source": "doc-d8153762a2b52196cc4ca1ddbdb87a2f",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "volthium-51-2-100v7-xw-pro-6-8k1--max-output-apparent-power",
+  "model": "volthium-51-2-100v7-xw-pro-6-8k1",
+  "name": "Max. output apparent Power",
+  "value": "6800",
+  "unit": "VA",
+  "source": "doc-43bbf4f24819d6e49e58b5e94d46a787",
+  "page": 153,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

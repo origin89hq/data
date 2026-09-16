@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd1620--wattage",
+  "model": "progressive-dynamics-pd1620",
+  "name": "Wattage",
+  "value": "2000",
+  "unit": "W",
+  "source": "doc-b62bb7ca6d8c322a910799b6750afd08",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

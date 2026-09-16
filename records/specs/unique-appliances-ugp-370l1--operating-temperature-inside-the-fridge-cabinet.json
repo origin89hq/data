@@ -1,0 +1,11 @@
+{
+  "id": "unique-appliances-ugp-370l1--operating-temperature-inside-the-fridge-cabinet",
+  "model": "unique-appliances-ugp-370l1",
+  "name": "Operating Temperature",
+  "value": "2˚C/36˚F to 4˚C/39˚F",
+  "conditions": "inside the fridge cabinet",
+  "source": "doc-b83aa402a22866c0a598b459f2a43088",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

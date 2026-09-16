@@ -1,0 +1,10 @@
+{
+  "id": "epever-xtra4210-4215-4415n-g3--circuit-breaker",
+  "model": "epever-xtra4210-4215-4415n-g3",
+  "name": "Circuit Breaker",
+  "value": "63A/125V/2 P",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

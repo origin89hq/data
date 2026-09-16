@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-tristar-mppt-600v--delay-before-load-lvd",
+  "model": "morningstar-tristar-mppt-600v",
+  "name": "Delay Before Load LVD",
+  "value": "5",
+  "unit": "min",
+  "source": "doc-b746a07a04f315d810eff7ea665a8d9a",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-7-obd-a--main-cable-length",
+  "model": "pulsetech-sp-7-obd-a",
+  "name": "Main Cable Length",
+  "value": "17",
+  "source": "doc-8d35392c02fe1c45499aaf53c16055b3",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

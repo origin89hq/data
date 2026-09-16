@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-12v-100ah--max-charge-current",
+  "model": "powermax-converters-12v-100ah",
+  "name": "Max Charge Current",
+  "value": "100A",
+  "unit": "A",
+  "source": "doc-aceddf6feeed98dd56cffa4cfb015d2c",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

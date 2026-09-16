@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-7--solar-panel",
+  "model": "pulsetech-sp-7",
+  "name": "Solar Panel",
+  "value": "10.25\" x 8.85\" x 0.25",
+  "source": "doc-84734d2a695d7413723103d9ac24c95d",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

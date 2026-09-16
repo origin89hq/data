@@ -1,0 +1,10 @@
+{
+  "id": "epever-rc-11--battery",
+  "model": "epever-rc-11",
+  "name": "Battery",
+  "value": "2 batteries (size AA)",
+  "source": "doc-9fdc9c2ded364f7739940150ca551e0a",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

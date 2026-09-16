@@ -1,0 +1,11 @@
+{
+  "id": "wilson-electronics-pwo460060--power-output-for-single-cell-phone-uplink-800-mhz-b5",
+  "model": "wilson-electronics-pwo460060",
+  "name": "Power output for single cell phone (Uplink)",
+  "value": "25.8",
+  "conditions": "800 MHz B5",
+  "source": "doc-f2ef464b6f5080f3634ca8930a2924aa",
+  "page": 26,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

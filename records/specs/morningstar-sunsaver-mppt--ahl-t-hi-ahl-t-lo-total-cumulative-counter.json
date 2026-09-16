@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-sunsaver-mppt--ahl-t-hi-ahl-t-lo-total-cumulative-counter",
+  "model": "morningstar-sunsaver-mppt",
+  "name": "Ahl_t_HI / Ahl_t_LO",
+  "value": "32, 33",
+  "unit": "Ah",
+  "conditions": "total cumulative counter",
+  "source": "doc-5fa76468db54265325cd046fadd31f6c",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

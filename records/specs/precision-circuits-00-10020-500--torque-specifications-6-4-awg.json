@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-00-10020-500--torque-specifications-6-4-awg",
+  "model": "precision-circuits-00-10020-500",
+  "name": "Torque Specifications",
+  "value": "35-45",
+  "conditions": "6-4 AWG",
+  "source": "doc-177d61e85ea797f76313f9af96b45147",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

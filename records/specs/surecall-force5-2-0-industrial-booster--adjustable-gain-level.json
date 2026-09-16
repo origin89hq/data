@@ -1,0 +1,11 @@
+{
+  "id": "surecall-force5-2-0-industrial-booster--adjustable-gain-level",
+  "model": "surecall-force5-2-0-industrial-booster",
+  "name": "Adjustable gain level",
+  "value": "31 dB",
+  "unit": "dB",
+  "source": "doc-bf8db7e854ebb90b299f7bf841eeb449",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

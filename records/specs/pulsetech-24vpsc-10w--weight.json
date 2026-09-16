@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-24vpsc-10w--weight",
+  "model": "pulsetech-24vpsc-10w",
+  "name": "Weight",
+  "value": "5.5",
+  "unit": "lb",
+  "source": "doc-b14d6e36ce207a807b211f076834e7ad",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

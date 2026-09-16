@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion4home--dimensions",
+  "model": "surecall-fusion4home",
+  "name": "Dimensions",
+  "value": "7.875 x 5 x 1.188",
+  "unit": "in",
+  "source": "doc-2e0c4747311fab9e7645c70978fc292e",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

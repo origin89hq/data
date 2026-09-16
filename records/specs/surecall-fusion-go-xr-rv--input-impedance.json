@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion-go-xr-rv--input-impedance",
+  "model": "surecall-fusion-go-xr-rv",
+  "name": "Input Impedance",
+  "value": "50",
+  "unit": "Ω",
+  "source": "doc-fd120796536b0cde0d5c9324120411db",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

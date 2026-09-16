@@ -1,0 +1,11 @@
+{
+  "id": "bslbatt-b-lfp12-120--dimension",
+  "model": "bslbatt-b-lfp12-120",
+  "name": "Dimension",
+  "value": "330*172*215",
+  "unit": "mm",
+  "source": "doc-86c3e874ae2eee0d8976df5b8576fa84",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

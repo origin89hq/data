@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-genstar-mppt--voltage-drop-limit",
+  "model": "morningstar-genstar-mppt",
+  "name": "Voltage drop limit",
+  "value": "2",
+  "unit": "%",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 32,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

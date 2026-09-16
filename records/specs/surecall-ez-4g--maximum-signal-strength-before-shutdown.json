@@ -1,0 +1,12 @@
+{
+  "id": "surecall-ez-4g--maximum-signal-strength-before-shutdown",
+  "model": "surecall-ez-4g",
+  "name": "Maximum signal strength",
+  "value": "-50 dB",
+  "unit": "dB",
+  "conditions": "before shutdown",
+  "source": "doc-237c5a52d2ace94be8cf449dd645a478",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

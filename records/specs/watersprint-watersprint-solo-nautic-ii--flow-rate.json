@@ -1,0 +1,11 @@
+{
+  "id": "watersprint-watersprint-solo-nautic-ii--flow-rate",
+  "model": "watersprint-watersprint-solo-nautic-ii",
+  "name": "Flow rate",
+  "value": "2.6",
+  "unit": "gpm",
+  "source": "doc-cdd91de7784cc2c130d0c0eb3c09ec3b",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

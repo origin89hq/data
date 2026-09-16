@@ -1,0 +1,12 @@
+{
+  "id": "surecall-fusion2go-3-0-v2-canada--consommation-d-lectricit",
+  "model": "surecall-fusion2go-3-0-v2-canada",
+  "name": "Consommation d’électricité",
+  "english": "Power consumption",
+  "value": "≤ 10",
+  "unit": "W",
+  "source": "doc-9d902254b983884ec3de13ae942c7f89",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "progressive-dynamics-pd9145a--input-50-60-hz",
+  "model": "progressive-dynamics-pd9145a",
+  "name": "Input",
+  "value": "105-130 VAC",
+  "unit": "V",
+  "conditions": "50/60 Hz",
+  "source": "doc-aec1d7db6c90b32d88c049ca0c90a121",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

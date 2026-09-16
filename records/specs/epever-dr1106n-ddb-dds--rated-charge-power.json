@@ -1,0 +1,10 @@
+{
+  "id": "epever-dr1106n-ddb-dds--rated-charge-power",
+  "model": "epever-dr1106n-ddb-dds",
+  "name": "Rated charge power",
+  "value": "130W/12V",
+  "source": "doc-f4b3ef954e09ccc7732e9135ee547ca7",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

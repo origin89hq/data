@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd1620--torque-for-m8-nut",
+  "model": "progressive-dynamics-pd1620",
+  "name": "Torque for M8 nut",
+  "value": "79.5 in-lbs",
+  "source": "doc-b62bb7ca6d8c322a910799b6750afd08",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

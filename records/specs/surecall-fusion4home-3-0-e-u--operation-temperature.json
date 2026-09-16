@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion4home-3-0-e-u--operation-temperature",
+  "model": "surecall-fusion4home-3-0-e-u",
+  "name": "Operation Temperature",
+  "value": "-4° to +158°",
+  "unit": "°F",
+  "source": "doc-8e93b1e27579ab0d8728e89255e6cb36",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

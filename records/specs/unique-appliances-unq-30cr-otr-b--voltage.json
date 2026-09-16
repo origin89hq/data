@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-unq-30cr-otr-b--voltage",
+  "model": "unique-appliances-unq-30cr-otr-b",
+  "name": "Voltage",
+  "value": "120",
+  "source": "doc-3f5abc79acc2831a54bcb08ff6aaa167",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

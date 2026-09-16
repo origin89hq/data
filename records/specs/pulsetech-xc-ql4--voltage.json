@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc-ql4--voltage",
+  "model": "pulsetech-xc-ql4",
+  "name": "Voltage",
+  "value": "12, 24, 36, 48",
+  "unit": "V",
+  "source": "doc-feacfcbdccea522ecd1ba703d2e2a49a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

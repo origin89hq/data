@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-bt-2--dimensions",
+  "model": "pulsetech-bt-2",
+  "name": "Dimensions",
+  "value": "15 x 9.17 x 3.38",
+  "unit": "in",
+  "source": "doc-5452174c9b3e2d65a71630e4cbe5c979",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

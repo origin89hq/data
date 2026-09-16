@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-dual-12v-charger--charging-current-per-channel",
+  "model": "pulsetech-dual-12v-charger",
+  "name": "Charging current per channel",
+  "value": "10",
+  "unit": "A",
+  "source": "doc-d7717eecf4d79299be6b534a63efc793",
+  "page": 32,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

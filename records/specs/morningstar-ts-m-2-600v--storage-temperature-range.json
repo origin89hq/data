@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ts-m-2-600v--storage-temperature-range",
+  "model": "morningstar-ts-m-2-600v",
+  "name": "Storage Temperature Range",
+  "value": "-55 °C to +85 °C",
+  "unit": "°C",
+  "source": "doc-fe81f786ffcf4110c4eab5e48b9d134a",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

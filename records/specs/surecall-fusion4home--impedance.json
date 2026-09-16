@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion4home--impedance",
+  "model": "surecall-fusion4home",
+  "name": "Impedance",
+  "value": "75Ω in / 50Ω out",
+  "source": "doc-2e0c4747311fab9e7645c70978fc292e",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

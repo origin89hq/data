@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilb-cp10--wattage",
+  "model": "iota-engineering-ilb-cp10",
+  "name": "Wattage",
+  "value": "10",
+  "unit": "W",
+  "source": "doc-f0ec5d02dffb12fe862fb2a2d8ec4f08",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

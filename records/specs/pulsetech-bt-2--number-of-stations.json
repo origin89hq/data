@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-bt-2--number-of-stations",
+  "model": "pulsetech-bt-2",
+  "name": "Number of stations",
+  "value": "2",
+  "source": "doc-a01a6cfa54523c58631d424a3f095fdb",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

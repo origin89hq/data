@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion4home-max--power-consumption",
+  "model": "surecall-fusion4home-max",
+  "name": "Power Consumption",
+  "value": "≤25",
+  "unit": "W",
+  "source": "doc-93c3ea60ae741852619cd9aa5a79e7e9",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-gs-mppt-100m-200v--nominal-maximum-output-power",
+  "model": "morningstar-gs-mppt-100m-200v",
+  "name": "Nominal Maximum Output Power",
+  "value": "1330, 2660, 5320",
+  "unit": "W",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 151,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "epever-mt75--mounting-hole-size-base",
+  "model": "epever-mt75",
+  "name": "Mounting hole size",
+  "value": "φ5mm",
+  "unit": "mm",
+  "conditions": "base",
+  "source": "doc-811df31d579f6531a9146de3669626d4",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-gs-mppt-60m-200v--battery-circuit-breaker-fuse-rating",
+  "model": "morningstar-gs-mppt-60m-200v",
+  "name": "Battery Circuit Breaker/Fuse Rating",
+  "value": "75 or 80",
+  "unit": "A",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 27,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

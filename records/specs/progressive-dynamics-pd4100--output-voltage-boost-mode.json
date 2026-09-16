@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd4100--output-voltage-boost-mode",
+  "model": "progressive-dynamics-pd4100",
+  "name": "Output Voltage (Boost mode)",
+  "value": "14.4",
+  "unit": "V",
+  "source": "doc-02863f66a1a007ef842aa7fba664e0d0",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

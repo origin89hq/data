@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-genstar-mppt--default-port-assignment-for-snmp-agent-receiving-port",
+  "model": "morningstar-genstar-mppt",
+  "name": "Default port assignment",
+  "value": "161",
+  "conditions": "for SNMP Agent Receiving Port",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 128,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

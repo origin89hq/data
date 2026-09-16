@@ -1,0 +1,11 @@
+{
+  "id": "epever-it6415nd--nominal-system-voltage-automatic-system-voltage-detection",
+  "model": "epever-it6415nd",
+  "name": "Nominal system voltage",
+  "value": "12V/24V/36V/48V",
+  "conditions": "automatic system voltage detection",
+  "source": "doc-8f55840d9ba489753a0f6776b1e8aec3",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

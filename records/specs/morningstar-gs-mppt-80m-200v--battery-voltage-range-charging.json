@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-gs-mppt-80m-200v--battery-voltage-range-charging",
+  "model": "morningstar-gs-mppt-80m-200v",
+  "name": "Battery Voltage Range",
+  "value": "9V - 72V",
+  "unit": "V",
+  "conditions": "Charging",
+  "source": "doc-8064daa49fc5ab905383d7bdc59b841f",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

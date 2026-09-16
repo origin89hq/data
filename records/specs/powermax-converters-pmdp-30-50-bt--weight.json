@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pmdp-30-50-bt--weight",
+  "model": "powermax-converters-pmdp-30-50-bt",
+  "name": "Weight",
+  "value": "3.75",
+  "unit": "lb",
+  "source": "doc-1d94f09384aa7d42de2b25aa0c9f780a",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

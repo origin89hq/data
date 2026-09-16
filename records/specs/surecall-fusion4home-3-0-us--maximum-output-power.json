@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion4home-3-0-us--maximum-output-power",
+  "model": "surecall-fusion4home-3-0-us",
+  "name": "Maximum Output Power",
+  "value": "1",
+  "source": "doc-8e93b1e27579ab0d8728e89255e6cb36",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

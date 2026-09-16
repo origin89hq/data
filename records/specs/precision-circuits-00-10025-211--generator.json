@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-00-10025-211--generator",
+  "model": "precision-circuits-00-10025-211",
+  "name": "Generator",
+  "value": "22",
+  "unit": "A",
+  "source": "doc-2307de4e8c7410202b74ade0d88730b7",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

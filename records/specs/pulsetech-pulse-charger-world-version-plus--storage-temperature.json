@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-pulse-charger-world-version-plus--storage-temperature",
+  "model": "pulsetech-pulse-charger-world-version-plus",
+  "name": "Storage temperature",
+  "value": "-4°F to 150°F",
+  "unit": "°F",
+  "source": "doc-4cce4d28240a6fcb9327e855eb61783d",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

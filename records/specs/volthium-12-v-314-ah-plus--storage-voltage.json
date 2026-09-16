@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-314-ah-plus--storage-voltage",
+  "model": "volthium-12-v-314-ah-plus",
+  "name": "Storage voltage",
+  "value": "13.1 - 13.3",
+  "unit": "V",
+  "source": "doc-72b25da84c7c1735ef7b021c74d682b6",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

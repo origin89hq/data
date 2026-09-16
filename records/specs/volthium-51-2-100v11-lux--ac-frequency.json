@@ -1,0 +1,11 @@
+{
+  "id": "volthium-51-2-100v11-lux--ac-frequency",
+  "model": "volthium-51-2-100v11-lux",
+  "name": "AC frequency",
+  "value": "60",
+  "unit": "Hz",
+  "source": "doc-43bbf4f24819d6e49e58b5e94d46a787",
+  "page": 212,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

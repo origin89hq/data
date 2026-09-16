@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-12v-230ah--dimensions",
+  "model": "powermax-converters-12v-230ah",
+  "name": "Dimensions",
+  "value": "12.6\" x 6.86\" x 8.95",
+  "unit": "in",
+  "source": "doc-aceddf6feeed98dd56cffa4cfb015d2c",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

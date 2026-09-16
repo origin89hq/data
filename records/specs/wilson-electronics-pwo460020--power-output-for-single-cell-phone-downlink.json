@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-pwo460020--power-output-for-single-cell-phone-downlink",
+  "model": "wilson-electronics-pwo460020",
+  "name": "Power output for single cell phone (Downlink)",
+  "value": "9.5",
+  "source": "doc-da33c0337337c4113ee1cdb398994fb7",
+  "page": 23,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

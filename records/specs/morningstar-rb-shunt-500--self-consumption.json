@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-rb-shunt-500--self-consumption",
+  "model": "morningstar-rb-shunt-500",
+  "name": "Self Consumption",
+  "value": "< 0.8",
+  "unit": "W",
+  "source": "doc-4844af010baa4dcda3d2d1d231b41ce2",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

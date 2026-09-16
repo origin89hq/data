@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-tristar-60--current-rating",
+  "model": "morningstar-tristar-60",
+  "name": "Current Rating",
+  "value": "60",
+  "unit": "A",
+  "source": "doc-95d422430ca0c806b88a2178ce95545d",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

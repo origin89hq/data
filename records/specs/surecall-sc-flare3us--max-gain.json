@@ -1,0 +1,11 @@
+{
+  "id": "surecall-sc-flare3us--max-gain",
+  "model": "surecall-sc-flare3us",
+  "name": "Max Gain",
+  "value": "72",
+  "unit": "dB",
+  "source": "doc-0265182c13db2b24e5dc5caabf89a683",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

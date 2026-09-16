@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pmx-2000pspt--typical-no-load-current",
+  "model": "powermax-converters-pmx-2000pspt",
+  "name": "Typical No Load Current",
+  "value": "1.9 ADC",
+  "unit": "A",
+  "source": "doc-aa10b2ab94603707e362b938e91785d8",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

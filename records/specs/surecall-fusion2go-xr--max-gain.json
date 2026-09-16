@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion2go-xr--max-gain",
+  "model": "surecall-fusion2go-xr",
+  "name": "Max Gain",
+  "value": "50",
+  "unit": "dB",
+  "source": "doc-489b28de8fa17020ba61f7eeb4f96e30",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

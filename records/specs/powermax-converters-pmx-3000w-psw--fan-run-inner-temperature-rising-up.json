@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pmx-3000w-psw--fan-run-inner-temperature-rising-up",
+  "model": "powermax-converters-pmx-3000w-psw",
+  "name": "Fan Run",
+  "value": "45",
+  "conditions": "inner temperature rising up",
+  "source": "doc-39140d23c40e0c6d760fa8b9948caf17",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-si-700-12-120-60-b--battery-voltage",
+  "model": "morningstar-si-700-12-120-60-b",
+  "name": "Battery Voltage",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-9d24c6fe1606ecc4c1e36f6cb5ae7bb7",
+  "page": 59,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

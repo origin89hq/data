@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd1610--over-voltage-restart",
+  "model": "progressive-dynamics-pd1610",
+  "name": "Over-Voltage Restart",
+  "value": "15.0 VDC",
+  "unit": "V",
+  "source": "doc-9b5a35cf0b2f79edbd3df1d0f1a87246",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sc-6--storage-temperature",
+  "model": "pulsetech-sc-6",
+  "name": "Storage Temperature",
+  "value": "0ºF to 150ºF",
+  "source": "doc-a01a6cfa54523c58631d424a3f095fdb",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

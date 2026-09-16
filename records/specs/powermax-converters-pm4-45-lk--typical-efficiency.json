@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pm4-45-lk--typical-efficiency",
+  "model": "powermax-converters-pm4-45-lk",
+  "name": "Typical Efficiency",
+  "value": ">85",
+  "unit": "%",
+  "source": "doc-7b991c3daec5966ca5048103aa8ae336",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

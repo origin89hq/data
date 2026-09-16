@@ -1,0 +1,11 @@
+{
+  "id": "watersprint-arrow-max-home-10k--power-consumption-in-standby-mode",
+  "model": "watersprint-arrow-max-home-10k",
+  "name": "Power consumption in standby mode",
+  "value": "< 4",
+  "unit": "W",
+  "source": "doc-a8e914a602727a8061c4379fbb15439d",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

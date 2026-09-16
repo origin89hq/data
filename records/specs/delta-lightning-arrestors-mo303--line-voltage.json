@@ -1,0 +1,11 @@
+{
+  "id": "delta-lightning-arrestors-mo303--line-voltage",
+  "model": "delta-lightning-arrestors-mo303",
+  "name": "Line Voltage",
+  "value": "120 / 208-240",
+  "unit": "V",
+  "source": "doc-46921a96fb0ee85a0ccbf64c9d7e20d2",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

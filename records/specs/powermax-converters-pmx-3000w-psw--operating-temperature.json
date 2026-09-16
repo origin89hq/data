@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-3000w-psw--operating-temperature",
+  "model": "powermax-converters-pmx-3000w-psw",
+  "name": "Operating temperature",
+  "value": "0-40",
+  "source": "doc-39140d23c40e0c6d760fa8b9948caf17",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-gs-mppt-100m-200v--operating-ambient",
+  "model": "morningstar-gs-mppt-100m-200v",
+  "name": "Operating Ambient",
+  "value": "-30 to 45",
+  "unit": "°C",
+  "source": "doc-8064daa49fc5ab905383d7bdc59b841f",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

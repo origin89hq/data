@@ -1,0 +1,10 @@
+{
+  "id": "quickcable-5954fv--treatment",
+  "model": "quickcable-5954fv",
+  "name": "Treatment",
+  "value": "Tin plated",
+  "source": "doc-4f0629d646e25d9c7da6d1a64d8c06ef",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

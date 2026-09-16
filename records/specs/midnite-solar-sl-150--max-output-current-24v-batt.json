@@ -1,0 +1,12 @@
+{
+  "id": "midnite-solar-sl-150--max-output-current-24v-batt",
+  "model": "midnite-solar-sl-150",
+  "name": "Max Output Current",
+  "value": "94A",
+  "unit": "A",
+  "conditions": "24V batt",
+  "source": "doc-15a220e7f0e314453383ac65a0d8a2b4",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

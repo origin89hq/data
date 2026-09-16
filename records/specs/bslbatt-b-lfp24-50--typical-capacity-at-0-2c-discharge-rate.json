@@ -1,0 +1,12 @@
+{
+  "id": "bslbatt-b-lfp24-50--typical-capacity-at-0-2c-discharge-rate",
+  "model": "bslbatt-b-lfp24-50",
+  "name": "Typical Capacity",
+  "value": "50±1Ah",
+  "unit": "Ah",
+  "conditions": "At 0.2c Discharge Rate",
+  "source": "doc-86c3e874ae2eee0d8976df5b8576fa84",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion4home--recommended-signal-range",
+  "model": "surecall-fusion4home",
+  "name": "Recommended signal range",
+  "value": "-70 to -90",
+  "unit": "dB",
+  "source": "doc-8e93b1e27579ab0d8728e89255e6cb36",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

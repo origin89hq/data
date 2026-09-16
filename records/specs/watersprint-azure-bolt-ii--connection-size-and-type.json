@@ -1,0 +1,11 @@
+{
+  "id": "watersprint-azure-bolt-ii--connection-size-and-type",
+  "model": "watersprint-azure-bolt-ii",
+  "name": "Connection size and type",
+  "value": "3/8 ” male",
+  "unit": "in",
+  "source": "doc-cf473b180c6fec9945c1e70675f892df",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

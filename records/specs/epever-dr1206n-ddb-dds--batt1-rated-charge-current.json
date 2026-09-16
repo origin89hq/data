@@ -1,0 +1,11 @@
+{
+  "id": "epever-dr1206n-ddb-dds--batt1-rated-charge-current",
+  "model": "epever-dr1206n-ddb-dds",
+  "name": "BATT1 rated charge current",
+  "value": "10A",
+  "unit": "A",
+  "source": "doc-f4b3ef954e09ccc7732e9135ee547ca7",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

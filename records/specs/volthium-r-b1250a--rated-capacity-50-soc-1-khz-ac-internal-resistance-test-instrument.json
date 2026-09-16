@@ -1,0 +1,12 @@
+{
+  "id": "volthium-r-b1250a--rated-capacity-50-soc-1-khz-ac-internal-resistance-test-instrument",
+  "model": "volthium-r-b1250a",
+  "name": "Rated Capacity",
+  "value": "48.5",
+  "unit": "Ah",
+  "conditions": "@ 50 % SOC @ 1 kHz AC internal resistance test instrument",
+  "source": "doc-351fd519eb6040042623bf73c333c5ed",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

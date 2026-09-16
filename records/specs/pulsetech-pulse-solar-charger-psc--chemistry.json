@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-pulse-solar-charger-psc--chemistry",
+  "model": "pulsetech-pulse-solar-charger-psc",
+  "name": "Chemistry",
+  "value": "AGM, Flooded",
+  "source": "doc-444eb31c14ebe182daad8eae904a52eb",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-genstar-mppt--system-voltage-for-powering-the-eia-485-network-directly-from-the-system-battery",
+  "model": "morningstar-genstar-mppt",
+  "name": "System voltage",
+  "value": "12",
+  "unit": "V",
+  "conditions": "for powering the EIA-485 network directly from the system battery",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 124,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-sunsaver-mppt--hourmeter-hi-hourmeter-lo-hour-meter-counter",
+  "model": "morningstar-sunsaver-mppt",
+  "name": "hourmeter_HI / hourmeter_LO",
+  "value": "34, 35",
+  "unit": "h",
+  "conditions": "hour meter counter",
+  "source": "doc-5fa76468db54265325cd046fadd31f6c",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

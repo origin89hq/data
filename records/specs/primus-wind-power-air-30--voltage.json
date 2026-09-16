@@ -1,0 +1,11 @@
+{
+  "id": "primus-wind-power-air-30--voltage",
+  "model": "primus-wind-power-air-30",
+  "name": "Voltage",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-421ef324782c5db41d53e8f26a08438b",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

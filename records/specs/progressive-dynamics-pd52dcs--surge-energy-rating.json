@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd52dcs--surge-energy-rating",
+  "model": "progressive-dynamics-pd52dcs",
+  "name": "Surge Energy Rating",
+  "value": "3,300",
+  "source": "doc-e65476d5efab431000ba9e990a9ff93f",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

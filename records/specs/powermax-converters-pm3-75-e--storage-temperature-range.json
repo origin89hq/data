@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pm3-75-e--storage-temperature-range",
+  "model": "powermax-converters-pm3-75-e",
+  "name": "Storage Temperature Range",
+  "value": "-20 to 80C",
+  "unit": "°C",
+  "source": "doc-de727abd1d0b2f73b03fe57feddd50a7",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "precision-circuits-mini-pcs--current-limit-20-amp-service",
+  "model": "precision-circuits-mini-pcs",
+  "name": "Current Limit",
+  "value": "20",
+  "unit": "A",
+  "conditions": "20-amp Service",
+  "source": "doc-443fc13123a147bb1a786503b6da6356",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "watersprint-activated-carbon-filter--water-pressure-max",
+  "model": "watersprint-activated-carbon-filter",
+  "name": "Water pressure",
+  "value": "8.6",
+  "unit": "bar",
+  "conditions": "Max.",
+  "source": "doc-64d9f9d22065d996cba8b1bed76ea8be",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

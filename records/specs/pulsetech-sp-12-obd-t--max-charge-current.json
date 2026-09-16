@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-12-obd-t--max-charge-current",
+  "model": "pulsetech-sp-12-obd-t",
+  "name": "Max Charge Current",
+  "value": "750 mA",
+  "unit": "mA",
+  "source": "doc-7093b0f365901dd67c872dd5806667b3",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

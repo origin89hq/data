@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-sk-12--float-voltage-at-25-c",
+  "model": "morningstar-sk-12",
+  "name": "Float Voltage",
+  "value": "13.7",
+  "unit": "V",
+  "conditions": "at 25°C",
+  "source": "doc-5d9b386e5c8e37dcd8c171d8dc9605e3",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

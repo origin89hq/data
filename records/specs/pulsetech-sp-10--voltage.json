@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-10--voltage",
+  "model": "pulsetech-sp-10",
+  "name": "Voltage",
+  "value": "12V",
+  "unit": "V",
+  "source": "doc-f7ca01fcc7426d5677b277de98c1f62f",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-314-ah-plus--maximum-unit-in-parallel",
+  "model": "volthium-12-v-314-ah-plus",
+  "name": "Maximum unit in parallel",
+  "value": "16",
+  "source": "doc-077d2d659a35c4c9e5e7cf891e028345",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

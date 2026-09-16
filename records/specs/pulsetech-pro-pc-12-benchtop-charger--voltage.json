@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-pro-pc-12-benchtop-charger--voltage",
+  "model": "pulsetech-pro-pc-12-benchtop-charger",
+  "name": "Voltage",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-8c35ef5b3df7b5fcf9d30ebad67f662d",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

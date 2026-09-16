@@ -1,0 +1,12 @@
+{
+  "id": "volthium-12-v-314-ah-plus--allowed-max-charge-current-25-c",
+  "model": "volthium-12-v-314-ah-plus",
+  "name": "Allowed MAX. charge current",
+  "value": "150 A",
+  "unit": "A",
+  "conditions": "@25°C",
+  "source": "doc-c2aa44762c5f60f01eee0b982da82c62",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

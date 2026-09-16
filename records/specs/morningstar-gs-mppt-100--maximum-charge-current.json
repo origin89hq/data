@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-gs-mppt-100--maximum-charge-current",
+  "model": "morningstar-gs-mppt-100",
+  "name": "Maximum Charge Current",
+  "value": "100A",
+  "unit": "A",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

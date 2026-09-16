@@ -1,0 +1,11 @@
+{
+  "id": "bslbatt-b-lfp48-300e--peak-current-power-discharge",
+  "model": "bslbatt-b-lfp48-300e",
+  "name": "Peak Current / Power (Discharge)",
+  "value": "220",
+  "unit": "A",
+  "source": "doc-00b5ed69a1e2f7909133dfef71f40617",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

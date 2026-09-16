@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ets20-dr--maximum-switching-current",
+  "model": "iota-engineering-ets20-dr",
+  "name": "Maximum Switching Current",
+  "value": "Up to 20",
+  "unit": "A",
+  "source": "doc-e5416223dd9367e284cc5c8c574a6f3e",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

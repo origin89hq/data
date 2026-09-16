@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ecoboost-mppt--battery-voltage-min",
+  "model": "morningstar-ecoboost-mppt",
+  "name": "Battery Voltage Min",
+  "value": "12.49",
+  "unit": "V",
+  "source": "doc-5600884e5ab903ad27bd4d3992778409",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

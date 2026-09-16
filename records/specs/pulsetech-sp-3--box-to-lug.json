@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-3--box-to-lug",
+  "model": "pulsetech-sp-3",
+  "name": "Box to Lug",
+  "value": "3",
+  "source": "doc-84734d2a695d7413723103d9ac24c95d",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

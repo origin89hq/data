@@ -1,0 +1,11 @@
+{
+  "id": "epever-tp10kb-220-220-1--bypass-input-voltage-range",
+  "model": "epever-tp10kb-220-220-1",
+  "name": "Bypass Input voltage range",
+  "value": "170~275VAC",
+  "unit": "V",
+  "source": "doc-81e78093b9671e24fe5a3d9c1812a057",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

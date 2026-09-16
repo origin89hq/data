@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4590--converter-output-with-ac-power-on",
+  "model": "progressive-dynamics-pd4590",
+  "name": "Converter Output",
+  "value": "13.2-14.4",
+  "conditions": "with AC power on",
+  "source": "doc-434dea085461d2a11f718ebbecb87f1e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

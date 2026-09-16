@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-xcr-20--current",
+  "model": "pulsetech-xcr-20",
+  "name": "Current",
+  "value": "16",
+  "unit": "A",
+  "source": "doc-1ab061026dd400d0f48b5ceb0efeb1d7",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-3--operating-temperature",
+  "model": "pulsetech-sp-3",
+  "name": "Operating Temperature",
+  "value": "0° to 130°F",
+  "unit": "°F",
+  "source": "doc-dada2ca712fc272b45f663227e5b4d11",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

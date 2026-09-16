@@ -1,0 +1,11 @@
+{
+  "id": "quickcable-126412--current",
+  "model": "quickcable-126412",
+  "name": "Current",
+  "value": "175",
+  "unit": "A",
+  "source": "doc-836c3005a5f0be721493e01b3eb93a3c",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

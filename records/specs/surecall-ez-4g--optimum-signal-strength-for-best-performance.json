@@ -1,0 +1,12 @@
+{
+  "id": "surecall-ez-4g--optimum-signal-strength-for-best-performance",
+  "model": "surecall-ez-4g",
+  "name": "Optimum signal strength",
+  "value": "-65 to -85",
+  "unit": "dB",
+  "conditions": "for best performance",
+  "source": "doc-237c5a52d2ace94be8cf449dd645a478",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

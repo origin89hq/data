@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xcr--output-capacity",
+  "model": "pulsetech-xcr",
+  "name": "Output Capacity",
+  "value": "16",
+  "unit": "A",
+  "source": "doc-a841f090a83f8083926291c9590a9c0c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-12-obd-t--power",
+  "model": "pulsetech-sp-12-obd-t",
+  "name": "Power",
+  "value": "12",
+  "unit": "W",
+  "source": "doc-ac334ea2c81f64dbd5904c4f1cc3c52f",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -2,9 +2,10 @@
   "id": "rstc-enterprises-0799--voltage",
   "model": "rstc-enterprises-0799",
   "name": "Voltage",
-  "value": "600V ac/dc",
-  "source": "doc-757b32549928df239567c265134c9fb2",
-  "page": 3,
+  "value": "0 à 600 VCC",
+  "unit": "V",
+  "source": "doc-7673f4031eaffe80bb5ce09918836b4e",
+  "page": 2,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

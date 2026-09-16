@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilbhi-cp-he-sd-hv--duration-of-emergency-mode",
+  "model": "iota-engineering-ilbhi-cp-he-sd-hv",
+  "name": "Duration of emergency mode",
+  "value": "90",
+  "unit": "min",
+  "source": "doc-925ff26b906545c42a9ae30dec61ceb2",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

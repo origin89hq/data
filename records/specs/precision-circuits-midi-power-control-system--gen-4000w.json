@@ -1,0 +1,12 @@
+{
+  "id": "precision-circuits-midi-power-control-system--gen-4000w",
+  "model": "precision-circuits-midi-power-control-system",
+  "name": "GEN",
+  "value": "30A",
+  "unit": "A",
+  "conditions": "4000W",
+  "source": "doc-c38c3a1392a8ce77c3d8f268518cc3b6",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

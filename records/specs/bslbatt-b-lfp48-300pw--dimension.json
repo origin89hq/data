@@ -1,0 +1,11 @@
+{
+  "id": "bslbatt-b-lfp48-300pw--dimension",
+  "model": "bslbatt-b-lfp48-300pw",
+  "name": "Dimension",
+  "value": "900*660*220",
+  "unit": "mm",
+  "source": "doc-382c5a7971015da9db65bfbb1c541856",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

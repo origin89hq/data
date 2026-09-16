@@ -1,0 +1,12 @@
+{
+  "id": "precision-circuits-midi-power-control-system--current-limit-gen-2500w",
+  "model": "precision-circuits-midi-power-control-system",
+  "name": "Current Limit",
+  "value": "20A",
+  "unit": "A",
+  "conditions": "GEN = 2500W",
+  "source": "doc-3154e98a67a630726a39dc15da354ed9",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

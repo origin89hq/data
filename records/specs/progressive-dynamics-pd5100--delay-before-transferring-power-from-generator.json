@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd5100--delay-before-transferring-power-from-generator",
+  "model": "progressive-dynamics-pd5100",
+  "name": "Delay before transferring power from generator",
+  "value": "20-45",
+  "unit": "s",
+  "source": "doc-3dd92b531073c60ed47153d3fb12e5ec",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

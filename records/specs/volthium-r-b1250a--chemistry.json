@@ -1,0 +1,10 @@
+{
+  "id": "volthium-r-b1250a--chemistry",
+  "model": "volthium-r-b1250a",
+  "name": "Chemistry",
+  "value": "LiFePO4",
+  "source": "doc-351fd519eb6040042623bf73c333c5ed",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

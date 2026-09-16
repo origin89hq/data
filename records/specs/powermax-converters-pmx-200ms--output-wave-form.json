@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-200ms--output-wave-form",
+  "model": "powermax-converters-pmx-200ms",
+  "name": "Output Wave Form",
+  "value": "Modified Sine",
+  "source": "doc-043354167fdf2b4f15d7bd78ae3baa1e",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

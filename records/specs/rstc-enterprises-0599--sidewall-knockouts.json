@@ -1,0 +1,9 @@
+{
+  "id": "rstc-enterprises-0599--sidewall-knockouts",
+  "model": "rstc-enterprises-0599",
+  "name": "Sidewall knockouts",
+  "value": "(1) .75\" (left), (1) .75\" (right), (2) .75\" (bottom)",
+  "source": "doc-63e76872134b53d777aee534184424fa",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

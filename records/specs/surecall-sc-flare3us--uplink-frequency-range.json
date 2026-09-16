@@ -1,0 +1,10 @@
+{
+  "id": "surecall-sc-flare3us--uplink-frequency-range",
+  "model": "surecall-sc-flare3us",
+  "name": "Uplink Frequency Range",
+  "value": "698-716 / 776-787 / 824-849 / 1710-1755 / 1850-1915",
+  "source": "doc-0265182c13db2b24e5dc5caabf89a683",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "epever-xtra4215n-g3-g3-ble--maximum-pv-open-circuit-voltage-at-minimum-operating-environment-temperature",
+  "model": "epever-xtra4215n-g3-g3-ble",
+  "name": "Maximum PV Open-circuit Voltage",
+  "value": "150V",
+  "unit": "V",
+  "conditions": "At minimum operating environment temperature",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 52,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

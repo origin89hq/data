@@ -1,0 +1,11 @@
+{
+  "id": "east-penn-8g30h--max-charge-current",
+  "model": "east-penn-8g30h",
+  "name": "Max. Charge Current",
+  "value": "29.3",
+  "unit": "A",
+  "source": "doc-3e33a3ba9672453823f85e98d26815a6",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

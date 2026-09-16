@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-7--wattage",
+  "model": "pulsetech-sp-7",
+  "name": "Wattage",
+  "value": "7 W",
+  "unit": "W",
+  "source": "doc-04a98f2971e4133df5b343ce37fa51fd",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

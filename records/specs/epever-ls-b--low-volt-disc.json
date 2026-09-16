@@ -1,0 +1,11 @@
+{
+  "id": "epever-ls-b--low-volt-disc",
+  "model": "epever-ls-b",
+  "name": "Low Volt. Disc",
+  "value": "11.1V",
+  "unit": "V",
+  "source": "doc-53db1d7b511380afdf031b1284c6f1a5",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

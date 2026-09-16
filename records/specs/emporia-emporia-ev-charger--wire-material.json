@@ -1,0 +1,10 @@
+{
+  "id": "emporia-emporia-ev-charger--wire-material",
+  "model": "emporia-emporia-ev-charger",
+  "name": "Wire material",
+  "value": "copper",
+  "source": "doc-7d01db2b90fcec799c2197efac5b6a09",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

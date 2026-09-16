@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-x-marine--hub-to-rotor-nut",
+  "model": "primus-wind-power-air-x-marine",
+  "name": "Hub to rotor nut",
+  "value": "40 lb.-ft (55 Nm)",
+  "source": "doc-0e96333eb489fa1e5451a0a8fa59b95d",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

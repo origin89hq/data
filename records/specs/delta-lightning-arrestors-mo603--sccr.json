@@ -1,0 +1,11 @@
+{
+  "id": "delta-lightning-arrestors-mo603--sccr",
+  "model": "delta-lightning-arrestors-mo603",
+  "name": "SCCR",
+  "value": "10k",
+  "unit": "A",
+  "source": "doc-ad1998aff20e02b2f0a45cd9219485cd",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

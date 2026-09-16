@@ -1,0 +1,9 @@
+{
+  "id": "volthium-12-v-100-ah-pro2--weight",
+  "model": "volthium-12-v-100-ah-pro2",
+  "name": "Weight",
+  "value": "2.5X lighter",
+  "source": "doc-df583f3eecc75343578678d34a6346b5",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

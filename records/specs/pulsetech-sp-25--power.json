@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-25--power",
+  "model": "pulsetech-sp-25",
+  "name": "Power",
+  "value": "25",
+  "unit": "W",
+  "source": "doc-2601ae949e181db1efbb361e32560869",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

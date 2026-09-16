@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd53--current-rating-neutral",
+  "model": "progressive-dynamics-pd53",
+  "name": "Current Rating (neutral)",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-e65476d5efab431000ba9e990a9ff93f",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

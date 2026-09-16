@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pmts-30--output-current",
+  "model": "powermax-converters-pmts-30",
+  "name": "Output Current",
+  "value": "30 A",
+  "unit": "A",
+  "source": "doc-b504190d7e7ca605d94f62b72008a125",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

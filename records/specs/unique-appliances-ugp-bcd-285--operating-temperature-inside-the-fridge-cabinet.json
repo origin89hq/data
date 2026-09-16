@@ -1,0 +1,11 @@
+{
+  "id": "unique-appliances-ugp-bcd-285--operating-temperature-inside-the-fridge-cabinet",
+  "model": "unique-appliances-ugp-bcd-285",
+  "name": "Operating temperature",
+  "value": "2˚C/36˚F to 4˚C/39˚F",
+  "conditions": "inside the fridge cabinet",
+  "source": "doc-9bcc835ee16f5f3131b2c08dbbe935fc",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

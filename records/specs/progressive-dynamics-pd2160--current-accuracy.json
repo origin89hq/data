@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd2160--current-accuracy",
+  "model": "progressive-dynamics-pd2160",
+  "name": "Current accuracy",
+  "value": "+/- 5%",
+  "unit": "%",
+  "source": "doc-df8db387122c45bb72c1ca96984d13b1",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

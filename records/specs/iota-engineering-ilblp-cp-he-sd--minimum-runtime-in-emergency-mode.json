@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilblp-cp-he-sd--minimum-runtime-in-emergency-mode",
+  "model": "iota-engineering-ilblp-cp-he-sd",
+  "name": "Minimum runtime in emergency mode",
+  "value": "90",
+  "unit": "min",
+  "source": "doc-8d09a9f90d309bc90ddc8ef78274f4b7",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

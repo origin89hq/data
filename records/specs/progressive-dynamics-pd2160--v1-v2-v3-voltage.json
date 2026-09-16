@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd2160--v1-v2-v3-voltage",
+  "model": "progressive-dynamics-pd2160",
+  "name": "V1, V2, V3 voltage",
+  "value": "13.9-volts",
+  "unit": "V",
+  "source": "doc-df8db387122c45bb72c1ca96984d13b1",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "powermax-converters-pmx-1000w-psw--usb-power-port-output-2100ma",
+  "model": "powermax-converters-pmx-1000w-psw",
+  "name": "USB Power Port Output",
+  "value": "DC4.7-5.3",
+  "unit": "V",
+  "conditions": "2100mA",
+  "source": "doc-d7a679d3d4e4f0c9d2274cb69ddcda28",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

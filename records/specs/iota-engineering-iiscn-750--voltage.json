@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-iiscn-750--voltage",
+  "model": "iota-engineering-iiscn-750",
+  "name": "Voltage",
+  "value": "120/208",
+  "unit": "V",
+  "source": "doc-8679f62e38c4978e5553237782afd3f3",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

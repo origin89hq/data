@@ -1,0 +1,12 @@
+{
+  "id": "surecall-force8-industrial--gain-level-adjustable",
+  "model": "surecall-force8-industrial",
+  "name": "Gain level",
+  "value": "50 dB",
+  "unit": "dB",
+  "conditions": "adjustable",
+  "source": "doc-f19061fa513159d7d5e9e0881449a673",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "epever-mt-50--net-weight-standard-package",
+  "model": "epever-mt-50",
+  "name": "Net weight",
+  "value": "0.32",
+  "unit": "kg",
+  "conditions": "Standard package",
+  "source": "doc-53db1d7b511380afdf031b1284c6f1a5",
+  "page": 37,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

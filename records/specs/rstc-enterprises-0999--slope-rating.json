@@ -1,0 +1,9 @@
+{
+  "id": "rstc-enterprises-0999--slope-rating",
+  "model": "rstc-enterprises-0999",
+  "name": "Slope rating",
+  "value": "2/12 - 12/12",
+  "source": "doc-a9320adc803dfc834a284e666ffb290c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

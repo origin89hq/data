@@ -1,0 +1,12 @@
+{
+  "id": "pulsetech-xc450--sleep-mode-duration-minimum-duration",
+  "model": "pulsetech-xc450",
+  "name": "Sleep mode duration",
+  "value": "2 hours",
+  "unit": "h",
+  "conditions": "minimum duration",
+  "source": "doc-21c090a44b6e5a63365ed7e60d79ad85",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

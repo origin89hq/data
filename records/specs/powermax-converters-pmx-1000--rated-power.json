@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pmx-1000--rated-power",
+  "model": "powermax-converters-pmx-1000",
+  "name": "Rated power",
+  "value": "1000",
+  "unit": "W",
+  "source": "doc-aa10b2ab94603707e362b938e91785d8",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

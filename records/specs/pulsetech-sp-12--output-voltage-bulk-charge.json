@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-12--output-voltage-bulk-charge",
+  "model": "pulsetech-sp-12",
+  "name": "Output Voltage, Bulk Charge",
+  "value": "16.5",
+  "unit": "V",
+  "source": "doc-09d1eafc9e5ca81a8845b0cb73172e4b",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

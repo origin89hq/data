@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sc-2--output-cable",
+  "model": "pulsetech-sc-2",
+  "name": "Output Cable",
+  "value": "1.8 meters",
+  "source": "doc-06c4ef44dafa61b49912b97079166261",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

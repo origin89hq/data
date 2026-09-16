@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-00-10025-551--service-status",
+  "model": "precision-circuits-00-10025-551",
+  "name": "Service Status",
+  "value": "50A",
+  "unit": "A",
+  "source": "doc-e368767fbd2aaf25d6febef52e5d6ef3",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "volthium-rackmount-3u--capacity-20a-20a",
+  "model": "volthium-rackmount-3u",
+  "name": "Capacity @ 20A",
+  "value": "100 Ah",
+  "unit": "Ah",
+  "conditions": "@ 20A",
+  "source": "doc-f4a61c5d9d64955b46bfdb9be5b5ce14",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

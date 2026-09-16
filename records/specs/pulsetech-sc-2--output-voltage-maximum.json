@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sc-2--output-voltage-maximum",
+  "model": "pulsetech-sc-2",
+  "name": "Output Voltage Maximum",
+  "value": "14.8",
+  "unit": "V",
+  "source": "doc-bf9be7dbceb7454ea9454d5d314d8a3b",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

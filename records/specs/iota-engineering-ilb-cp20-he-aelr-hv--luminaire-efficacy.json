@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilb-cp20-he-aelr-hv--luminaire-efficacy",
+  "model": "iota-engineering-ilb-cp20-he-aelr-hv",
+  "name": "Luminaire Efficacy",
+  "value": "100-130",
+  "source": "doc-141e07689edcb477cd254ab294e0d489",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

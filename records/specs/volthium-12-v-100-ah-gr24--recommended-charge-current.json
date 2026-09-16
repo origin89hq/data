@@ -1,0 +1,11 @@
+{
+  "id": "volthium-12-v-100-ah-gr24--recommended-charge-current",
+  "model": "volthium-12-v-100-ah-gr24",
+  "name": "Recommended charge current",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-6cf31b135d5d636c7fbcd2d9e1fd28f9",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

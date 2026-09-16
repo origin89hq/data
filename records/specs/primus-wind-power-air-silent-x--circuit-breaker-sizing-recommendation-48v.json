@@ -1,0 +1,12 @@
+{
+  "id": "primus-wind-power-air-silent-x--circuit-breaker-sizing-recommendation-48v",
+  "model": "primus-wind-power-air-silent-x",
+  "name": "Circuit Breaker Sizing Recommendation",
+  "value": "20 AMP",
+  "unit": "A",
+  "conditions": "48V",
+  "source": "doc-0e96333eb489fa1e5451a0a8fa59b95d",
+  "page": 27,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

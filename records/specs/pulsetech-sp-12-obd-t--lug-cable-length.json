@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-12-obd-t--lug-cable-length",
+  "model": "pulsetech-sp-12-obd-t",
+  "name": "Lug Cable Length",
+  "value": "3",
+  "unit": "ft",
+  "source": "doc-7093b0f365901dd67c872dd5806667b3",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

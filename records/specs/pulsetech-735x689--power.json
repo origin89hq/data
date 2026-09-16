@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-735x689--power",
+  "model": "pulsetech-735x689",
+  "name": "Power",
+  "value": "25",
+  "unit": "W",
+  "source": "doc-f112bb32236d4734a0ff8419c713b260",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

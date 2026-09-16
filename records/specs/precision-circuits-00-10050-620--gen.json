@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-00-10050-620--gen",
+  "model": "precision-circuits-00-10050-620",
+  "name": "GEN",
+  "value": "2400W",
+  "unit": "W",
+  "source": "doc-32555f102e3f4e90b1d9dba28eb3d6d3",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

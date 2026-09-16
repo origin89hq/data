@@ -1,0 +1,11 @@
+{
+  "id": "epever-xtra2206n-g3--mppt-voltage-range",
+  "model": "epever-xtra2206n-g3",
+  "name": "MPPT Voltage Range",
+  "value": "(Battery voltage + 2V) to 72V",
+  "unit": "V",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 49,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

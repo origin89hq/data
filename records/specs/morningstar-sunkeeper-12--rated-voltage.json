@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-sunkeeper-12--rated-voltage",
+  "model": "morningstar-sunkeeper-12",
+  "name": "Rated voltage",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-d82902d49ba6250778d2c652a7ce8eee",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

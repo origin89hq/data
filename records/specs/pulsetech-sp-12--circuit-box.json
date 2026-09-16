@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-12--circuit-box",
+  "model": "pulsetech-sp-12",
+  "name": "Circuit Box",
+  "value": "3.4\" x 2.4\" x 1.5",
+  "source": "doc-84734d2a695d7413723103d9ac24c95d",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

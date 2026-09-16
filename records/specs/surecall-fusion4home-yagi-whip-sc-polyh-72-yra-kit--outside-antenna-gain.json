@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion4home-yagi-whip-sc-polyh-72-yra-kit--outside-antenna-gain",
+  "model": "surecall-fusion4home-yagi-whip-sc-polyh-72-yra-kit",
+  "name": "Outside Antenna Gain",
+  "value": "8",
+  "source": "doc-2e0c4747311fab9e7645c70978fc292e",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

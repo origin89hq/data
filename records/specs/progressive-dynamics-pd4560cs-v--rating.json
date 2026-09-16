@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4560cs-v--rating",
+  "model": "progressive-dynamics-pd4560cs-v",
+  "name": "Rating",
+  "value": "60",
+  "unit": "A",
+  "source": "doc-434dea085461d2a11f718ebbecb87f1e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

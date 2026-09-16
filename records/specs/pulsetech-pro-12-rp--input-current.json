@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-pro-12-rp--input-current",
+  "model": "pulsetech-pro-12-rp",
+  "name": "Input Current",
+  "value": "140 mA Max",
+  "unit": "mA",
+  "source": "doc-a01a6cfa54523c58631d424a3f095fdb",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

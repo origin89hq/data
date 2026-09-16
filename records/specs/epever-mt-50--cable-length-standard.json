@@ -1,0 +1,12 @@
+{
+  "id": "epever-mt-50--cable-length-standard",
+  "model": "epever-mt-50",
+  "name": "Cable length",
+  "value": "2",
+  "unit": "m",
+  "conditions": "Standard",
+  "source": "doc-53db1d7b511380afdf031b1284c6f1a5",
+  "page": 37,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

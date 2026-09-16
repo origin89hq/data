@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-10w-narrow-profile-emergency-drivers--voltage",
+  "model": "iota-engineering-10w-narrow-profile-emergency-drivers",
+  "name": "Voltage",
+  "value": "10-60",
+  "unit": "V",
+  "source": "doc-b41367bdda196b215b9e4ec4e08057b8",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

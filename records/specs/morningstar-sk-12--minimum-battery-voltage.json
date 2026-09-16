@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-sk-12--minimum-battery-voltage",
+  "model": "morningstar-sk-12",
+  "name": "Minimum Battery Voltage",
+  "value": "0",
+  "unit": "V",
+  "source": "doc-5d9b386e5c8e37dcd8c171d8dc9605e3",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

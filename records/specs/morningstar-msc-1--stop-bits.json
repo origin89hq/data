@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-msc-1--stop-bits",
+  "model": "morningstar-msc-1",
+  "name": "Stop Bits",
+  "value": "1 or 2",
+  "source": "doc-cade2f95b4cce5dbc73fece20efd57e9",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

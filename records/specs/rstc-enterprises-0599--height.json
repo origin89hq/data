@@ -1,0 +1,10 @@
+{
+  "id": "rstc-enterprises-0599--height",
+  "model": "rstc-enterprises-0599",
+  "name": "Height",
+  "value": "2.6",
+  "unit": "in",
+  "source": "doc-63e76872134b53d777aee534184424fa",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

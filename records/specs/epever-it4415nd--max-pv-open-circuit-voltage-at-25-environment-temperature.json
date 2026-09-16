@@ -1,0 +1,12 @@
+{
+  "id": "epever-it4415nd--max-pv-open-circuit-voltage-at-25-environment-temperature",
+  "model": "epever-it4415nd",
+  "name": "Max. PV open circuit voltage",
+  "value": "138",
+  "unit": "V",
+  "conditions": "at 25℃ environment temperature",
+  "source": "doc-df1ca9dee1b40e9e7ed1860444f80da7",
+  "page": 39,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

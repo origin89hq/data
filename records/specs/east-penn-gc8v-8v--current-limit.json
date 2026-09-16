@@ -1,0 +1,11 @@
+{
+  "id": "east-penn-gc8v-8v--current-limit",
+  "model": "east-penn-gc8v-8v",
+  "name": "CURRENT LIMIT",
+  "value": "49.5",
+  "unit": "A",
+  "source": "doc-4df1f3c7e7b80602166b1ffd8ea15816",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

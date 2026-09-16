@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-sternmount-marine-tower-kit--mast-outer-diameter",
+  "model": "primus-wind-power-air-sternmount-marine-tower-kit",
+  "name": "Mast outer diameter",
+  "value": "1.9 inches",
+  "unit": "in",
+  "source": "doc-ac54bef7dd1f50567f10297800d66c4d",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

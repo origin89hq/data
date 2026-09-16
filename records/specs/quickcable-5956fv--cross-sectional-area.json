@@ -1,0 +1,10 @@
+{
+  "id": "quickcable-5956fv--cross-sectional-area",
+  "model": "quickcable-5956fv",
+  "name": "Cross-sectional area",
+  "value": "62",
+  "source": "doc-d54e2b95eb9c46901e58f566a2ddee28",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

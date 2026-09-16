@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-4k4-lt--chemistry",
+  "model": "morningstar-4k4-lt",
+  "name": "Chemistry",
+  "value": "Lithium",
+  "source": "doc-c089177c24e8ea3c40780d7c1d495743",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

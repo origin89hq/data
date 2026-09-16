@@ -1,0 +1,11 @@
+{
+  "id": "epever-xtra4215n-g3-g3-ble--mppt-voltage-range",
+  "model": "epever-xtra4215n-g3-g3-ble",
+  "name": "MPPT Voltage Range",
+  "value": "(Battery voltage + 2V) to 108V",
+  "unit": "V",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 52,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

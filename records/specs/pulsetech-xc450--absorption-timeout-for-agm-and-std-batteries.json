@@ -1,0 +1,12 @@
+{
+  "id": "pulsetech-xc450--absorption-timeout-for-agm-and-std-batteries",
+  "model": "pulsetech-xc450",
+  "name": "Absorption timeout",
+  "value": "12 hours/max",
+  "unit": "h",
+  "conditions": "for AGM and STD batteries",
+  "source": "doc-21c090a44b6e5a63365ed7e60d79ad85",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "epever-ls-b--chemistry",
+  "model": "epever-ls-b",
+  "name": "Chemistry",
+  "value": "Sealed",
+  "source": "doc-53db1d7b511380afdf031b1284c6f1a5",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

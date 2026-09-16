@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-spcms-7-2-watt--power",
+  "model": "pulsetech-spcms-7-2-watt",
+  "name": "Power",
+  "value": "7.2",
+  "unit": "W",
+  "source": "doc-cc8769955ceba4916c284daa0b5a22f6",
+  "page": 38,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

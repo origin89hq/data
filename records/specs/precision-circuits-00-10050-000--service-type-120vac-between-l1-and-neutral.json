@@ -1,0 +1,12 @@
+{
+  "id": "precision-circuits-00-10050-000--service-type-120vac-between-l1-and-neutral",
+  "model": "precision-circuits-00-10050-000",
+  "name": "Service Type",
+  "value": "30 A",
+  "unit": "A",
+  "conditions": "120VAC between L1 and Neutral",
+  "source": "doc-ee1ce06ed25b46152fdaba517061568b",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

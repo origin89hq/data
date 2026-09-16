@@ -1,0 +1,11 @@
+{
+  "id": "wilson-electronics-wilsonpro-a500--dimensions",
+  "model": "wilson-electronics-wilsonpro-a500",
+  "name": "Dimensions",
+  "value": "22.23 x 21.59 x 5.72",
+  "unit": "cm",
+  "source": "doc-81d6899f31f97e6ee0b4263c003c7e89",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

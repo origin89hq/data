@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilbhi-cp20-hv--minimum-operation",
+  "model": "iota-engineering-ilbhi-cp20-hv",
+  "name": "Minimum Operation",
+  "value": "90",
+  "unit": "min",
+  "source": "doc-925ff26b906545c42a9ae30dec61ceb2",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

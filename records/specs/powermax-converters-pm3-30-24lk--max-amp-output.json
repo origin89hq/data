@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pm3-30-24lk--max-amp-output",
+  "model": "powermax-converters-pm3-30-24lk",
+  "name": "Max Amp Output",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-f3047a75ec3b76afba0457487899978e",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

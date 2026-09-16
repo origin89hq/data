@@ -1,0 +1,12 @@
+{
+  "id": "precision-circuits-00-10024-100--volts-dc-typical",
+  "model": "precision-circuits-00-10024-100",
+  "name": "Volts DC",
+  "value": "12.0VDC",
+  "unit": "V",
+  "conditions": "Typical",
+  "source": "doc-cdf8d050240251fb563975bbf15ec24d",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "wilson-electronics-wilsonpro-a500--max-gain",
+  "model": "wilson-electronics-wilsonpro-a500",
+  "name": "Max gain",
+  "value": "68dB(B1) / 65dB(B3) / 66dB(B8)",
+  "unit": "dB",
+  "source": "doc-81d6899f31f97e6ee0b4263c003c7e89",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

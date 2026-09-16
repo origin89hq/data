@@ -1,0 +1,11 @@
+{
+  "id": "surecall-sc-288w--oag-gain",
+  "model": "surecall-sc-288w",
+  "name": "OAG Gain",
+  "value": "+3",
+  "unit": "dB",
+  "source": "doc-bf8db7e854ebb90b299f7bf841eeb449",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

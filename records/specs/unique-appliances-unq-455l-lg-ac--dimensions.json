@@ -1,0 +1,9 @@
+{
+  "id": "unique-appliances-unq-455l-lg-ac--dimensions",
+  "model": "unique-appliances-unq-455l-lg-ac",
+  "name": "Dimensions",
+  "value": "27.95\" x 74.84\" x 29.37",
+  "source": "doc-1d6e02695ffaf3421cdcf33ceca9edd6",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

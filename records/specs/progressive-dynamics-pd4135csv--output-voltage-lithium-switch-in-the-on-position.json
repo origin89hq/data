@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd4135csv--output-voltage-lithium-switch-in-the-on-position",
+  "model": "progressive-dynamics-pd4135csv",
+  "name": "Output Voltage",
+  "value": "14.4-14.6",
+  "unit": "V",
+  "conditions": "Lithium switch in the ON position",
+  "source": "doc-2ad92137bbd4e1c5a1855dcd3f6fc87a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

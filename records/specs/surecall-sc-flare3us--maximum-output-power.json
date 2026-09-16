@@ -1,0 +1,11 @@
+{
+  "id": "surecall-sc-flare3us--maximum-output-power",
+  "model": "surecall-sc-flare3us",
+  "name": "Maximum Output Power",
+  "value": "1",
+  "unit": "W",
+  "source": "doc-0265182c13db2b24e5dc5caabf89a683",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

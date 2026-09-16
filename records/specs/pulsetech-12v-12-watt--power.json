@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-12v-12-watt--power",
+  "model": "pulsetech-12v-12-watt",
+  "name": "Power",
+  "value": "12",
+  "unit": "W",
+  "source": "doc-8c35ef5b3df7b5fcf9d30ebad67f662d",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

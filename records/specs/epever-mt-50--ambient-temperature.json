@@ -1,0 +1,10 @@
+{
+  "id": "epever-mt-50--ambient-temperature",
+  "model": "epever-mt-50",
+  "name": "Ambient temperature",
+  "value": "-20℃~+70℃",
+  "source": "doc-d1bc52bc0bb701566219e695af1d35bf",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

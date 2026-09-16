@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd9225-24--output-current",
+  "model": "progressive-dynamics-pd9225-24",
+  "name": "Output Current",
+  "value": "25",
+  "unit": "A",
+  "source": "doc-aec1d7db6c90b32d88c049ca0c90a121",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-100m-200v--dimensions",
+  "model": "morningstar-gs-mppt-100m-200v",
+  "name": "Dimensions",
+  "value": "36.4/14.3 (H) x 22.2/8.7 (W) x 17.0/6.7 (D)",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 151,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

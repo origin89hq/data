@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sc-12--output-current",
+  "model": "pulsetech-sc-12",
+  "name": "Output Current",
+  "value": "6 Amps/Channel, 72 Amps Max",
+  "unit": "A",
+  "source": "doc-a01a6cfa54523c58631d424a3f095fdb",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

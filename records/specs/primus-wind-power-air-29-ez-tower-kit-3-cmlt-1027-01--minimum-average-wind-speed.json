@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-29-ez-tower-kit-3-cmlt-1027-01--minimum-average-wind-speed",
+  "model": "primus-wind-power-air-29-ez-tower-kit-3-cmlt-1027-01",
+  "name": "Minimum average wind speed",
+  "value": "8 mph",
+  "source": "doc-01d16896af11aea6ec7d1f7ffd4266ab",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

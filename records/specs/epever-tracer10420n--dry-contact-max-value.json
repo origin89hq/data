@@ -1,0 +1,10 @@
+{
+  "id": "epever-tracer10420n--dry-contact-max-value",
+  "model": "epever-tracer10420n",
+  "name": "Dry contact Max. value",
+  "value": "0.5A/60VDC",
+  "source": "doc-0d6a013f74408184c3a6e76c131a81f2",
+  "page": 39,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

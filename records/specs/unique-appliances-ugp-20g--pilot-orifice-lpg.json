@@ -1,0 +1,12 @@
+{
+  "id": "unique-appliances-ugp-20g--pilot-orifice-lpg",
+  "model": "unique-appliances-ugp-20g",
+  "name": "Pilot Orifice",
+  "value": "0.14 mm",
+  "unit": "mm",
+  "conditions": "LPG",
+  "source": "doc-a02fce8b3a5ca08271c1d8617ffd4bf0",
+  "page": 25,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

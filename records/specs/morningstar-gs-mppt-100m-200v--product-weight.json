@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-gs-mppt-100m-200v--product-weight",
+  "model": "morningstar-gs-mppt-100m-200v",
+  "name": "Product Weight",
+  "value": "16lb 7oz",
+  "unit": "lb",
+  "source": "doc-2e0d175d4cf50dfa7df1901354c9760f",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

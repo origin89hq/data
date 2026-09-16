@@ -1,0 +1,12 @@
+{
+  "id": "volthium-12-v-314-ah-plus--peal-surge-current-limit-5-s",
+  "model": "volthium-12-v-314-ah-plus",
+  "name": "Peal /Surge current limit",
+  "value": "800 A",
+  "unit": "A",
+  "conditions": "@5 s",
+  "source": "doc-c2aa44762c5f60f01eee0b982da82c62",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

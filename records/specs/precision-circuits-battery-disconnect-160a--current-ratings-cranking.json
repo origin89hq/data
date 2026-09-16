@@ -1,0 +1,12 @@
+{
+  "id": "precision-circuits-battery-disconnect-160a--current-ratings-cranking",
+  "model": "precision-circuits-battery-disconnect-160a",
+  "name": "Current Ratings",
+  "value": "600A",
+  "unit": "A",
+  "conditions": "Cranking",
+  "source": "doc-7bd930b049a801da7eb2445a3882d3a9",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

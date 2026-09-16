@@ -1,0 +1,12 @@
+{
+  "id": "precision-circuits-00-10050-550--resistance-between-pins-1-2",
+  "model": "precision-circuits-00-10050-550",
+  "name": "Resistance",
+  "value": "100K",
+  "unit": "Ω",
+  "conditions": "between pins 1 & 2",
+  "source": "doc-c8f8bab3851673daf65d7028532ad81a",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

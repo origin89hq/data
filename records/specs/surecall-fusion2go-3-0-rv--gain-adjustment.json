@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion2go-3-0-rv--gain-adjustment",
+  "model": "surecall-fusion2go-3-0-rv",
+  "name": "Gain Adjustment",
+  "value": "20",
+  "unit": "dB",
+  "source": "doc-724f1918caff7acd8329e4b73f811441",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

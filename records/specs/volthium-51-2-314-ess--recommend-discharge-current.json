@@ -1,0 +1,11 @@
+{
+  "id": "volthium-51-2-314-ess--recommend-discharge-current",
+  "model": "volthium-51-2-314-ess",
+  "name": "Recommend discharge current",
+  "value": "≤150A",
+  "unit": "A",
+  "source": "doc-70b77cf2d1e1ebb8fadfde03a8d95990",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

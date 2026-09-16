@@ -1,0 +1,10 @@
+{
+  "id": "surecall-sc-fusion2go3-otr--downlink-frequency-ranges",
+  "model": "surecall-sc-fusion2go3-otr",
+  "name": "Downlink Frequency Ranges",
+  "value": "728-746 / 746-757 / 869-894",
+  "source": "doc-1a9156d51ecd50bc8f3202040d099930",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

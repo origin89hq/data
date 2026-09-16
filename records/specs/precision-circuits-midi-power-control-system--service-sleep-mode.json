@@ -1,0 +1,12 @@
+{
+  "id": "precision-circuits-midi-power-control-system--service-sleep-mode",
+  "model": "precision-circuits-midi-power-control-system",
+  "name": "Service",
+  "value": "50A",
+  "unit": "A",
+  "conditions": "Sleep Mode",
+  "source": "doc-948b87da61c6a503dc1d1ef23c72ada5",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

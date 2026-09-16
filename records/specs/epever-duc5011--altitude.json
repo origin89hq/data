@@ -1,0 +1,11 @@
+{
+  "id": "epever-duc5011--altitude",
+  "model": "epever-duc5011",
+  "name": "Altitude",
+  "value": "2000m",
+  "unit": "m",
+  "source": "doc-567f446589aaf640b63a17563f0f9bd0",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

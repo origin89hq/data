@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-741x890--chemistry",
+  "model": "pulsetech-741x890",
+  "name": "Chemistry",
+  "value": "Lead-acid, Li-ion, LiFePO4",
+  "source": "doc-507a0bdb8d38534cdb6a80f76139fd85",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

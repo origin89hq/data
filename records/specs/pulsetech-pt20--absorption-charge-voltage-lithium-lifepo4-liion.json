@@ -1,0 +1,12 @@
+{
+  "id": "pulsetech-pt20--absorption-charge-voltage-lithium-lifepo4-liion",
+  "model": "pulsetech-pt20",
+  "name": "Absorption Charge Voltage",
+  "value": "14.4V",
+  "unit": "V",
+  "conditions": "Lithium (LiFePo4/LiIon)",
+  "source": "doc-23626c7771110fd9944d219a50d60d5f",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

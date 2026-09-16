@@ -1,0 +1,11 @@
+{
+  "id": "watersprint-watersprintsolo-40--ambient-temperature",
+  "model": "watersprint-watersprintsolo-40",
+  "name": "Ambient temperature",
+  "value": "34 – 113°F",
+  "unit": "°F",
+  "source": "doc-1c34d429779316455fe36aac66834ba4",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

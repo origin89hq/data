@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-pp-36-l--shipping-weight",
+  "model": "pulsetech-pp-36-l",
+  "name": "Shipping Weight",
+  "value": "0.5",
+  "unit": "lb",
+  "source": "doc-b1b7cc2dd37fbc18674d6a62c85d84b3",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

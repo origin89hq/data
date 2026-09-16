@@ -1,0 +1,12 @@
+{
+  "id": "precision-circuits-midi-pcs--amps-water-htr-not-shed",
+  "model": "precision-circuits-midi-pcs",
+  "name": "Amps",
+  "value": "25",
+  "unit": "A",
+  "conditions": "Water Htr Not Shed",
+  "source": "doc-ee1ce06ed25b46152fdaba517061568b",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

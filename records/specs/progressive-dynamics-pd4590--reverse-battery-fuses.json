@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4590--reverse-battery-fuses",
+  "model": "progressive-dynamics-pd4590",
+  "name": "Reverse Battery Fuses",
+  "value": "4",
+  "source": "doc-434dea085461d2a11f718ebbecb87f1e",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

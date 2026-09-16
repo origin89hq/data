@@ -1,0 +1,11 @@
+{
+  "id": "watersprint-acuva-arrowmax-explore-2--water-pressure",
+  "model": "watersprint-acuva-arrowmax-explore-2",
+  "name": "Water pressure",
+  "value": "Max 101",
+  "unit": "psi",
+  "source": "doc-fee4569d270421b6d01a6f1ebd800443",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

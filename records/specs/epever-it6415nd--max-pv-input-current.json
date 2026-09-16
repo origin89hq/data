@@ -1,0 +1,11 @@
+{
+  "id": "epever-it6415nd--max-pv-input-current",
+  "model": "epever-it6415nd",
+  "name": "Max. PV input current",
+  "value": "60A",
+  "unit": "A",
+  "source": "doc-df1ca9dee1b40e9e7ed1860444f80da7",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

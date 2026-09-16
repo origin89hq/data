@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-340l-r-ac--estimated-yearly-energy-cost",
+  "model": "unique-appliances-ugp-340l-r-ac",
+  "name": "Estimated Yearly Energy Cost",
+  "value": "$56",
+  "source": "doc-baccb93c9da3dd9d43215275dac0220b",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

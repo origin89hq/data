@@ -1,0 +1,12 @@
+{
+  "id": "east-penn-8ggc2--capacity-3-hrs",
+  "model": "east-penn-8ggc2",
+  "name": "Capacity",
+  "value": "68.4",
+  "unit": "Ah",
+  "conditions": "3 Hrs.",
+  "source": "doc-6d4ec44118d5b194e963051ca650fbce",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

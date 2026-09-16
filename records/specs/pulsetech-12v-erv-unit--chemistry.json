@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-12v-erv-unit--chemistry",
+  "model": "pulsetech-12v-erv-unit",
+  "name": "Chemistry",
+  "value": "lead-acid",
+  "source": "doc-1b2657f72e87d693842dfc67b680f4d1",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

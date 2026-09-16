@@ -1,0 +1,12 @@
+{
+  "id": "precision-circuits-battery-guard-160a--coil-amps-dc-0-5-sec-max-internally-protected",
+  "model": "precision-circuits-battery-guard-160a",
+  "name": "Coil Amps DC",
+  "value": "10amps",
+  "unit": "A",
+  "conditions": "0.5 sec max internally protected",
+  "source": "doc-f007f665b61a9fef6e28cf905544ebd6",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

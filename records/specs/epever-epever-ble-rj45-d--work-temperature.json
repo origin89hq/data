@@ -1,0 +1,10 @@
+{
+  "id": "epever-epever-ble-rj45-d--work-temperature",
+  "model": "epever-epever-ble-rj45-d",
+  "name": "Work temperature",
+  "value": "-20℃~70℃",
+  "source": "doc-d4ad09da679eed83a44519bcba74ef5c",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

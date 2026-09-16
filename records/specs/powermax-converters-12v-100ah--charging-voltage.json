@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-12v-100ah--charging-voltage",
+  "model": "powermax-converters-12v-100ah",
+  "name": "Charging Voltage",
+  "value": "14.4Vdc",
+  "unit": "V",
+  "source": "doc-aceddf6feeed98dd56cffa4cfb015d2c",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

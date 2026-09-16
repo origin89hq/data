@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-rsc-1--external-power-source",
+  "model": "morningstar-rsc-1",
+  "name": "External power source",
+  "value": "12 Volt battery",
+  "source": "doc-4adec92411b29cf56b15c772390ec17a",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

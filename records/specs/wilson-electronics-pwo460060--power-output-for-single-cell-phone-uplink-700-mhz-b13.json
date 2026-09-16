@@ -1,0 +1,11 @@
+{
+  "id": "wilson-electronics-pwo460060--power-output-for-single-cell-phone-uplink-700-mhz-b13",
+  "model": "wilson-electronics-pwo460060",
+  "name": "Power output for single cell phone (Uplink)",
+  "value": "25.2",
+  "conditions": "700 MHz B13",
+  "source": "doc-f2ef464b6f5080f3634ca8930a2924aa",
+  "page": 26,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

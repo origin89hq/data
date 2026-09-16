@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pm3-45-e--output-amperage-max-continuous",
+  "model": "powermax-converters-pm3-45-e",
+  "name": "Output Amperage, Max Continuous",
+  "value": "45 amps",
+  "unit": "A",
+  "source": "doc-de727abd1d0b2f73b03fe57feddd50a7",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd4135--maximum-continuous-load",
+  "model": "progressive-dynamics-pd4135",
+  "name": "Maximum Continuous Load",
+  "value": "80% of circuit breaker ratings",
+  "unit": "%",
+  "source": "doc-02863f66a1a007ef842aa7fba664e0d0",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

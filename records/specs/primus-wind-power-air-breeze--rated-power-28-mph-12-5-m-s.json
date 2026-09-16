@@ -1,0 +1,12 @@
+{
+  "id": "primus-wind-power-air-breeze--rated-power-28-mph-12-5-m-s",
+  "model": "primus-wind-power-air-breeze",
+  "name": "Rated Power",
+  "value": "160 watts",
+  "unit": "W",
+  "conditions": "@ 28 mph (12.5 m/s)",
+  "source": "doc-0e96333eb489fa1e5451a0a8fa59b95d",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

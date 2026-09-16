@@ -1,0 +1,10 @@
+{
+  "id": "volthium-rackmount-3u--maximum-unit-in-parallel",
+  "model": "volthium-rackmount-3u",
+  "name": "Maximum unit in parallel",
+  "value": "32",
+  "source": "doc-f4a61c5d9d64955b46bfdb9be5b5ce14",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

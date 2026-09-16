@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-sunsaver-mppt--kwhc-reset-able-counter",
+  "model": "morningstar-sunsaver-mppt",
+  "name": "kWhc",
+  "value": "26",
+  "unit": "kWh",
+  "conditions": "reset-able counter",
+  "source": "doc-5fa76468db54265325cd046fadd31f6c",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

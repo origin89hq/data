@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go5g--uplink-frequency",
+  "model": "surecall-fusion2go5g",
+  "name": "Uplink Frequency",
+  "value": "698-716 / 776-787 / 824-849 / 1850-1915 / 1710-1755",
+  "source": "doc-444af34d73d756f8620e3827d2cc8016",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

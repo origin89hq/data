@@ -1,0 +1,11 @@
+{
+  "id": "watersprint-watersprint-solo-nautic-ii--weight",
+  "model": "watersprint-watersprint-solo-nautic-ii",
+  "name": "Weight",
+  "value": "0.5",
+  "unit": "kg",
+  "source": "doc-64d9f9d22065d996cba8b1bed76ea8be",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

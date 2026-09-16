@@ -1,0 +1,11 @@
+{
+  "id": "epever-epever-wifi-2-4g-rj45-d--net-weight",
+  "model": "epever-epever-wifi-2-4g-rj45-d",
+  "name": "Net weight",
+  "value": "7.7g",
+  "unit": "g",
+  "source": "doc-67e5b7f8aec561c879bddb5a466b417b",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

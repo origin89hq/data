@@ -1,0 +1,12 @@
+{
+  "id": "unique-appliances-ugp-290l--power-consumption-on-12v",
+  "model": "unique-appliances-ugp-290l",
+  "name": "Power Consumption",
+  "value": "70W",
+  "unit": "W",
+  "conditions": "on 12V",
+  "source": "doc-9bcc835ee16f5f3131b2c08dbbe935fc",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

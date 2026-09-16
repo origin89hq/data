@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd9125-24lv--input-frequency",
+  "model": "progressive-dynamics-pd9125-24lv",
+  "name": "Input Frequency",
+  "value": "50/60",
+  "unit": "Hz",
+  "source": "doc-aec1d7db6c90b32d88c049ca0c90a121",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

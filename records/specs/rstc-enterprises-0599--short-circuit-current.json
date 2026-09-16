@@ -1,0 +1,11 @@
+{
+  "id": "rstc-enterprises-0599--short-circuit-current",
+  "model": "rstc-enterprises-0599",
+  "name": "Short-circuit current",
+  "value": "10 kA",
+  "unit": "A",
+  "source": "doc-7673f4031eaffe80bb5ce09918836b4e",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

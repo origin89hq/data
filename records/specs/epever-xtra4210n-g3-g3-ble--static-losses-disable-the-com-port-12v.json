@@ -1,0 +1,12 @@
+{
+  "id": "epever-xtra4210n-g3-g3-ble--static-losses-disable-the-com-port-12v",
+  "model": "epever-xtra4210n-g3-g3-ble",
+  "name": "Static Losses (Disable the com. port)",
+  "value": "≤ 8mA",
+  "unit": "mA",
+  "conditions": "12V",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 51,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

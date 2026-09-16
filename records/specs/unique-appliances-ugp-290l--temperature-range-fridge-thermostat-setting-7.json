@@ -1,0 +1,11 @@
+{
+  "id": "unique-appliances-ugp-290l--temperature-range-fridge-thermostat-setting-7",
+  "model": "unique-appliances-ugp-290l",
+  "name": "Temperature range",
+  "value": "-3˚C",
+  "conditions": "Fridge, thermostat setting 7",
+  "source": "doc-9bcc835ee16f5f3131b2c08dbbe935fc",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

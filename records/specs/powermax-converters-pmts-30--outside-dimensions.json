@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pmts-30--outside-dimensions",
+  "model": "powermax-converters-pmts-30",
+  "name": "Outside Dimensions",
+  "value": "3.875\" wide; 11.625\" high; 9\" deep",
+  "unit": "in",
+  "source": "doc-b504190d7e7ca605d94f62b72008a125",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

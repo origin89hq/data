@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-12--weight",
+  "model": "pulsetech-sp-12",
+  "name": "Weight",
+  "value": "2.5",
+  "unit": "lb",
+  "source": "doc-995db75d36a004a7ee894499a5c004ec",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

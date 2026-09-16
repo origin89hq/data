@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-rb-50-50--voltage",
+  "model": "morningstar-rb-50-50",
+  "name": "Voltage",
+  "value": "50",
+  "unit": "mV",
+  "source": "doc-12e9e5caa78a1aabd300f5f6d984f076",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

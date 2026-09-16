@@ -1,0 +1,11 @@
+{
+  "id": "epever-xtra1206-1210n-g3--rated-discharge-current",
+  "model": "epever-xtra1206-1210n-g3",
+  "name": "Rated Discharge Current",
+  "value": "10A",
+  "unit": "A",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "midnite-solar-classic150--hypervoc-voltage-limit-48v-battery-bank",
+  "model": "midnite-solar-classic150",
+  "name": "HyperVOC voltage limit",
+  "value": "150V + 48V",
+  "unit": "V",
+  "conditions": "48V battery bank",
+  "source": "doc-1a3d5010d988de531d75048b7ab0028a",
+  "page": 55,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

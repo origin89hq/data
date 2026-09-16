@@ -1,9 +1,10 @@
 {
   "id": "rstc-enterprises-0799--ambient-temperature",
   "model": "rstc-enterprises-0799",
-  "name": "Ambient Temperature",
-  "value": "75C°",
-  "source": "doc-757b32549928df239567c265134c9fb2",
+  "name": "Ambient temperature",
+  "value": "75",
+  "unit": "°C",
+  "source": "doc-7673f4031eaffe80bb5ce09918836b4e",
   "page": 2,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"

@@ -1,0 +1,12 @@
+{
+  "id": "progressive-dynamics-pd51--d-lai-d-activation-du-relais-lorsque-l-alimentation-du-g-n-rateur-est-appliqu-e",
+  "model": "progressive-dynamics-pd51",
+  "name": "Délai d'activation du relais",
+  "english": "Relay activation delay",
+  "value": "20 à 45",
+  "conditions": "lorsque l'alimentation du générateur est appliquée",
+  "source": "doc-3dd92b531073c60ed47153d3fb12e5ec",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

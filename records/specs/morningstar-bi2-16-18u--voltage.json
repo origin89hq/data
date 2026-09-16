@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-bi2-16-18u--voltage",
+  "model": "morningstar-bi2-16-18u",
+  "name": "Voltage",
+  "value": "48",
+  "unit": "V",
+  "source": "doc-c19f2fbdde3d8efdb85a1add56aaab51",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

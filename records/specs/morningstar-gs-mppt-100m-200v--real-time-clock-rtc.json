@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-100m-200v--real-time-clock-rtc",
+  "model": "morningstar-gs-mppt-100m-200v",
+  "name": "Real Time Clock (RTC)",
+  "value": "With coin cell (CR-2032)",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 150,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

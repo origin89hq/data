@@ -1,0 +1,11 @@
+{
+  "id": "wilson-electronics-pwo460061--power-output-for-single-cell-phone-downlink-700-mhz-b12-17",
+  "model": "wilson-electronics-pwo460061",
+  "name": "Power output for single cell phone (Downlink)",
+  "value": "4.6",
+  "conditions": "700 MHz B12/17",
+  "source": "doc-99d8e17518714b286399367b87dd13c3",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

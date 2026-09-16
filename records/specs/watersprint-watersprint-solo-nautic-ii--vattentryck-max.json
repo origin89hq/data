@@ -1,0 +1,12 @@
+{
+  "id": "watersprint-watersprint-solo-nautic-ii--vattentryck-max",
+  "model": "watersprint-watersprint-solo-nautic-ii",
+  "name": "Vattentryck",
+  "value": "8.6",
+  "unit": "bar",
+  "conditions": "Max.",
+  "source": "doc-356bcf9412faeab88b44d09774e8583c",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

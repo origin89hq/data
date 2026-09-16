@@ -1,0 +1,12 @@
+{
+  "id": "volthium-rackmount-3u-51-2v-100ah--recommended-charge-voltage-float",
+  "model": "volthium-rackmount-3u-51-2v-100ah",
+  "name": "Recommended charge voltage",
+  "value": "54.6",
+  "unit": "V",
+  "conditions": "(Float)",
+  "source": "doc-69d9a0eb8fe8d2224c7dbd6179e15d2a",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pro-hd-12-24v-charger--pulses-per-second",
+  "model": "pulsetech-pro-hd-12-24v-charger",
+  "name": "Pulses per second",
+  "value": "over 25k",
+  "source": "doc-cc8769955ceba4916c284daa0b5a22f6",
+  "page": 29,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

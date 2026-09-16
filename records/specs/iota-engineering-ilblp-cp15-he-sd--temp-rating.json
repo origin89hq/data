@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd--temp-rating",
+  "model": "iota-engineering-ilblp-cp15-he-sd",
+  "name": "Temp. Rating",
+  "value": "61",
+  "unit": "°C",
+  "source": "doc-8c40f44f68ff7d37edfce7e8fa963a16",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

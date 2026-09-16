@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-12v-100ah--dimensions",
+  "model": "powermax-converters-12v-100ah",
+  "name": "Dimensions",
+  "value": "10.4\" x 7.7\" x 8.2",
+  "unit": "in",
+  "source": "doc-aceddf6feeed98dd56cffa4cfb015d2c",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

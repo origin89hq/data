@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-iis-125-he--load-size",
+  "model": "iota-engineering-iis-125-he",
+  "name": "Load Size",
+  "value": "125",
+  "unit": "W",
+  "source": "doc-2bbd95b8e86cbebf7e7eeb3e349b413d",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

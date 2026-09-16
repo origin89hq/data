@@ -1,0 +1,11 @@
+{
+  "id": "epever-xtra3415n-g3-g3-ble--net-weight",
+  "model": "epever-xtra3415n-g3-g3-ble",
+  "name": "Net Weight",
+  "value": "2.16kg",
+  "unit": "kg",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 53,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

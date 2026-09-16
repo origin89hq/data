@@ -1,0 +1,12 @@
+{
+  "id": "powermax-converters-pmx-2000w-psw--high-voltage-cut-off-level-ambient-temperature-23-2-c-humidity-40-90-rh-input-dc12-5v",
+  "model": "powermax-converters-pmx-2000w-psw",
+  "name": "High Voltage Cut Off Level",
+  "value": "15-16.5",
+  "unit": "V",
+  "conditions": "Ambient Temperature 23±2°C, Humidity 40▪-90%RH, Input DC12.5V",
+  "source": "doc-2b315a6a3cfa4facc4006026703bf60a",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

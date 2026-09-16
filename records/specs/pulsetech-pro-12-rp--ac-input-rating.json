@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pro-12-rp--ac-input-rating",
+  "model": "pulsetech-pro-12-rp",
+  "name": "AC input rating",
+  "value": "110-volt or 220-volt",
+  "source": "doc-ed0bab0123d936e46c72ccc5948afcab",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-xc450--input-voltage",
+  "model": "pulsetech-xc450",
+  "name": "Input Voltage",
+  "value": "100-240 Vac +/-10%",
+  "unit": "V",
+  "source": "doc-66ae7b6a91c205ca4abb8d03ec45cee3",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

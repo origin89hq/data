@@ -1,0 +1,11 @@
+{
+  "id": "primus-wind-power-air-wind-module--outside-diameter-of-pole",
+  "model": "primus-wind-power-air-wind-module",
+  "name": "Outside diameter of pole",
+  "value": "1.875 in.",
+  "unit": "in",
+  "source": "doc-d1df6c0ece9221f81b29b30e3f7a3ddc",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

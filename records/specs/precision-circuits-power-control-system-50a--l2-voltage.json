@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-power-control-system-50a--l2-voltage",
+  "model": "precision-circuits-power-control-system-50a",
+  "name": "L2 Voltage",
+  "value": "115",
+  "unit": "V",
+  "source": "doc-b68085d37c23ae16bdf852fc3930ad6f",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

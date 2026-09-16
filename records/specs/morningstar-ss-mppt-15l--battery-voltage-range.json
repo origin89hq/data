@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ss-mppt-15l--battery-voltage-range",
+  "model": "morningstar-ss-mppt-15l",
+  "name": "Battery Voltage Range",
+  "value": "7 – 36",
+  "unit": "V",
+  "source": "doc-1ca9bd2431f89efb4cc54c3e6b26224a",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

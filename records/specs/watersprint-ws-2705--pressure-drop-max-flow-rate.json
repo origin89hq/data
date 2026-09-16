@@ -1,0 +1,11 @@
+{
+  "id": "watersprint-ws-2705--pressure-drop-max-flow-rate",
+  "model": "watersprint-ws-2705",
+  "name": "Pressure drop @ max. flow rate",
+  "value": "<0,5",
+  "unit": "bar",
+  "source": "doc-5e79330639a8503ffff2b7fac066b90f",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

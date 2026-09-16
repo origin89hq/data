@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-genstar-mppt--battery-and-pv-input-terminal-sizes",
+  "model": "morningstar-genstar-mppt",
+  "name": "Battery and PV input terminal sizes",
+  "value": "8 - 1/0 AWG",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 31,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

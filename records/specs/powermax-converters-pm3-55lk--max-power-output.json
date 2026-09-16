@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pm3-55lk--max-power-output",
+  "model": "powermax-converters-pm3-55lk",
+  "name": "Max Power Output",
+  "value": "800 watts",
+  "unit": "W",
+  "source": "doc-73d2692d88fd6c2869110f519241800a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-30cr-ec--dimensions",
+  "model": "unique-appliances-ugp-30cr-ec",
+  "name": "Dimensions",
+  "value": "H41,5 po x L 30 po x P 27,5 po",
+  "source": "doc-c7d7b5e9f102b8acb17ad5c8bb933fa6",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

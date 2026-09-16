@@ -1,0 +1,12 @@
+{
+  "id": "precision-circuits-battery-disconnect-225a--coil-amps-dc-0-5-sec-max-internally-protected",
+  "model": "precision-circuits-battery-disconnect-225a",
+  "name": "Coil Amps DC",
+  "value": "10",
+  "unit": "A",
+  "conditions": "0.5 sec max internally protected",
+  "source": "doc-7bd930b049a801da7eb2445a3882d3a9",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

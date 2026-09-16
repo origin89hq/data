@@ -1,0 +1,11 @@
+{
+  "id": "volthium-51-2-100v3-lux--total-energy",
+  "model": "volthium-51-2-100v3-lux",
+  "name": "Total energy",
+  "value": "15.36kWh",
+  "unit": "kWh",
+  "source": "doc-43bbf4f24819d6e49e58b5e94d46a787",
+  "page": 210,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

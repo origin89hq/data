@@ -1,0 +1,12 @@
+{
+  "id": "powermax-converters-pmbc-100-se--output-voltage-no-load",
+  "model": "powermax-converters-pmbc-100-se",
+  "name": "Output Voltage",
+  "value": "14.4 +/- 0.2",
+  "unit": "V",
+  "conditions": "no load",
+  "source": "doc-554e50421ecfb6d771e2afd1452e961a",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-phi-3-8--chemistry",
+  "model": "morningstar-phi-3-8",
+  "name": "Chemistry",
+  "value": "Lithium Ferro Phosphate (LFP)",
+  "source": "doc-6ee4c7c8a8d951c421cf899f639c1c70",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

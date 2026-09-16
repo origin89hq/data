@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-mini-power-control-system--gen-current-limit",
+  "model": "precision-circuits-mini-power-control-system",
+  "name": "GEN Current Limit",
+  "value": "44A",
+  "unit": "A",
+  "source": "doc-188bfefda72e84e6e3f0b2235fdd4852",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

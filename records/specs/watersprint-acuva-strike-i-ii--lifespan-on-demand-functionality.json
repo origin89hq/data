@@ -1,0 +1,12 @@
+{
+  "id": "watersprint-acuva-strike-i-ii--lifespan-on-demand-functionality",
+  "model": "watersprint-acuva-strike-i-ii",
+  "name": "Lifespan",
+  "value": "1,000 hours",
+  "unit": "h",
+  "conditions": "on-demand functionality",
+  "source": "doc-92e22fb651bb03b17fd20f0d494b210c",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

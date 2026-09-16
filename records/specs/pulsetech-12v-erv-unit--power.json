@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-12v-erv-unit--power",
+  "model": "pulsetech-12v-erv-unit",
+  "name": "Power",
+  "value": "7-Watt",
+  "source": "doc-ef7993ef63d1ae7f44a243ae339e26e9",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

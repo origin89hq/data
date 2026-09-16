@@ -1,0 +1,11 @@
+{
+  "id": "primus-wind-power-air--recommended-wall-thickness-for-84-mph-wind-speed",
+  "model": "primus-wind-power-air",
+  "name": "Recommended wall thickness for 84 mph wind speed",
+  "value": "0.065 inch",
+  "unit": "in",
+  "source": "doc-c13c4ed29b15f9da006ce928b9e8a3de",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

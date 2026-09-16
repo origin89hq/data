@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-60--heat-dissipation-per-ft2",
+  "model": "morningstar-ts-60",
+  "name": "Heat Dissipation per ft2",
+  "value": "4.3",
+  "source": "doc-687a3ce0efb1ec0ba34bd644ddc9d45d",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

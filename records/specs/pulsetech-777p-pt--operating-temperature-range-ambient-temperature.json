@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-777p-pt--operating-temperature-range-ambient-temperature",
+  "model": "pulsetech-777p-pt",
+  "name": "Operating Temperature Range",
+  "value": "32°F (0°C) to 122°F (50°C)",
+  "conditions": "ambient temperature",
+  "source": "doc-00aab7b9db11edabc25224ae94a1941f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

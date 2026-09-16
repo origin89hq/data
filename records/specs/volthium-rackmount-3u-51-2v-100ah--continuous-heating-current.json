@@ -1,0 +1,11 @@
+{
+  "id": "volthium-rackmount-3u-51-2v-100ah--continuous-heating-current",
+  "model": "volthium-rackmount-3u-51-2v-100ah",
+  "name": "Continuous heating current",
+  "value": "4",
+  "unit": "A",
+  "source": "doc-69d9a0eb8fe8d2224c7dbd6179e15d2a",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

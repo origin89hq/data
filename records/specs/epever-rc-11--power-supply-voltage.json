@@ -1,0 +1,11 @@
+{
+  "id": "epever-rc-11--power-supply-voltage",
+  "model": "epever-rc-11",
+  "name": "Power supply voltage",
+  "value": "3",
+  "unit": "V",
+  "source": "doc-9fdc9c2ded364f7739940150ca551e0a",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

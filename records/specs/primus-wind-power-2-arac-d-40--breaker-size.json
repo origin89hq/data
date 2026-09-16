@@ -1,0 +1,11 @@
+{
+  "id": "primus-wind-power-2-arac-d-40--breaker-size",
+  "model": "primus-wind-power-2-arac-d-40",
+  "name": "Breaker size",
+  "value": "40",
+  "unit": "A",
+  "source": "doc-0b543150591b2ba0a1fe29bcb4907c11",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

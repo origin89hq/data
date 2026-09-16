@@ -1,0 +1,10 @@
+{
+  "id": "snapnrack-omnilug--torque-specification",
+  "model": "snapnrack-omnilug",
+  "name": "Torque Specification",
+  "value": "130",
+  "source": "doc-a9d292e54e4c2ac8972175c23fc86b36",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmts-30--momentary-current-rating",
+  "model": "powermax-converters-pmts-30",
+  "name": "Momentary current rating",
+  "value": "3000",
+  "source": "doc-2e9bfa1b129f68b2fa6491f42fde9209",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

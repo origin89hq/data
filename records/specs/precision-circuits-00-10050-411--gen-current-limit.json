@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-00-10050-411--gen-current-limit",
+  "model": "precision-circuits-00-10050-411",
+  "name": "GEN Current Limit",
+  "value": "45A",
+  "unit": "A",
+  "source": "doc-0edfc65a3ec57258824608989f379f5a",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

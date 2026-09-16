@@ -1,0 +1,11 @@
+{
+  "id": "east-penn-8c11-6v--single-unit-voltage-target",
+  "model": "east-penn-8c11-6v",
+  "name": "SINGLE UNIT VOLTAGE TARGET",
+  "value": "6.9 to 7.05",
+  "unit": "V",
+  "source": "doc-4df1f3c7e7b80602166b1ffd8ea15816",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

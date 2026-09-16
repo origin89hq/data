@@ -1,0 +1,12 @@
+{
+  "id": "precision-circuits-battery-guard-160a--low-voltage-sense-for-2-mins-engine-battery",
+  "model": "precision-circuits-battery-guard-160a",
+  "name": "Low Voltage Sense",
+  "value": "<12.2V",
+  "unit": "V",
+  "conditions": "for 2 mins, Engine Battery",
+  "source": "doc-d74cf300ec36073149f4d3647a95c8fd",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

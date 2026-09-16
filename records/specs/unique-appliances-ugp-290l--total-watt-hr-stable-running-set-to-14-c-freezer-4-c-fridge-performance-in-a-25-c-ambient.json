@@ -1,0 +1,11 @@
+{
+  "id": "unique-appliances-ugp-290l--total-watt-hr-stable-running-set-to-14-c-freezer-4-c-fridge-performance-in-a-25-c-ambient",
+  "model": "unique-appliances-ugp-290l",
+  "name": "Total Watt Hr. Stable Running",
+  "value": "524 Wh/24hrs",
+  "conditions": "set to -14˚C freezer/+4˚C fridge performance in a +25˚C ambient",
+  "source": "doc-9bcc835ee16f5f3131b2c08dbbe935fc",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

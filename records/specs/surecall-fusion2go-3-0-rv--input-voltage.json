@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion2go-3-0-rv--input-voltage",
+  "model": "surecall-fusion2go-3-0-rv",
+  "name": "Input Voltage",
+  "value": "5-15V",
+  "unit": "V",
+  "source": "doc-9b9477215d449f6849ec5cf4f9a8a178",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

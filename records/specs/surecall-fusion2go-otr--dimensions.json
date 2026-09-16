@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion2go-otr--dimensions",
+  "model": "surecall-fusion2go-otr",
+  "name": "Dimensions",
+  "value": "5.625 x 4 x 1.125",
+  "unit": "in",
+  "source": "doc-1a9156d51ecd50bc8f3202040d099930",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

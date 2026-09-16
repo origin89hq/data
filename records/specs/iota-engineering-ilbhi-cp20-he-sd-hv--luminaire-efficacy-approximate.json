@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilbhi-cp20-he-sd-hv--luminaire-efficacy-approximate",
+  "model": "iota-engineering-ilbhi-cp20-he-sd-hv",
+  "name": "Luminaire efficacy",
+  "value": "100-150",
+  "conditions": "approximate",
+  "source": "doc-284df3b8fd736b905fee2104c56c788b",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-bfv-hull-batteries--chemistry",
+  "model": "pulsetech-bfv-hull-batteries",
+  "name": "Chemistry",
+  "value": "AGM Flat Plate Batteries",
+  "source": "doc-cc8769955ceba4916c284daa0b5a22f6",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-genstar-mppt--chemistry-preset-5-7",
+  "model": "morningstar-genstar-mppt",
+  "name": "Chemistry",
+  "value": "Lithium LiFePO4",
+  "conditions": "Preset 5-7",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 96,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

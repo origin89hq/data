@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-xc400--voltage",
+  "model": "pulsetech-xc400",
+  "name": "Voltage",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-feacfcbdccea522ecd1ba703d2e2a49a",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

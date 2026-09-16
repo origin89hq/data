@@ -1,0 +1,10 @@
+{
+  "id": "delta-lightning-arrestors-mo302--clamping-voltage-line-to-neutral-20ka-8-x-20-microsecond-wave-shape",
+  "model": "delta-lightning-arrestors-mo302",
+  "name": "Clamping Voltage (Line to Neutral)",
+  "value": "3.21kV",
+  "conditions": "20kA, 8 x 20 microsecond wave shape",
+  "source": "doc-46921a96fb0ee85a0ccbf64c9d7e20d2",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

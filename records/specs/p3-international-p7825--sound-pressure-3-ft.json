@@ -1,0 +1,12 @@
+{
+  "id": "p3-international-p7825--sound-pressure-3-ft",
+  "model": "p3-international-p7825",
+  "name": "Sound Pressure",
+  "value": "85",
+  "unit": "dB",
+  "conditions": "@ 3 Ft.",
+  "source": "doc-4d33ddf81a8ff8227e6533eafef2ec67",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

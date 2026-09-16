@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-sunsaver-mppt--sweep-voc-solar-array-voc",
+  "model": "morningstar-sunsaver-mppt",
+  "name": "Sweep_Voc",
+  "value": "43",
+  "unit": "V",
+  "conditions": "solar array Voc",
+  "source": "doc-5fa76468db54265325cd046fadd31f6c",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-iiscn-1500-to-16700--load-size",
+  "model": "iota-engineering-iiscn-1500-to-16700",
+  "name": "Load Size",
+  "value": "1.5 / 2.25 / 3 / 3.75 / 5 / 6 / 8 / 10 / 12.5 / 16.7",
+  "unit": "kVA",
+  "source": "doc-8679f62e38c4978e5553237782afd3f3",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

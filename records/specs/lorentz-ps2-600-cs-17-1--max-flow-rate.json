@@ -1,0 +1,10 @@
+{
+  "id": "lorentz-ps2-600-cs-17-1--max-flow-rate",
+  "model": "lorentz-ps2-600-cs-17-1",
+  "name": "max. flow rate",
+  "value": "5,000",
+  "source": "doc-3239fa3cd436f75d80c43f01aa9ea611",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

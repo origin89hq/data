@@ -1,0 +1,11 @@
+{
+  "id": "bslbatt-b-lfp12-72--charging-cutoff-current",
+  "model": "bslbatt-b-lfp12-72",
+  "name": "Charging Cutoff Current",
+  "value": "About 2.5A",
+  "unit": "A",
+  "source": "doc-86c3e874ae2eee0d8976df5b8576fa84",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

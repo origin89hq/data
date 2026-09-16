@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ss-10-12v--load-in-rush-capability",
+  "model": "morningstar-ss-10-12v",
+  "name": "Load In-Rush Capability",
+  "value": "45A",
+  "unit": "A",
+  "source": "doc-faccf02ddc4b17991ff29bc933fe693a",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "epever-it6415nd--discharge-circuit-voltage-drop",
+  "model": "epever-it6415nd",
+  "name": "Discharge Circuit Voltage Drop",
+  "value": "≤0.3",
+  "unit": "V",
+  "source": "doc-df1ca9dee1b40e9e7ed1860444f80da7",
+  "page": 39,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

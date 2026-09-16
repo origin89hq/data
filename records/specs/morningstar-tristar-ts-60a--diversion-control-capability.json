@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-tristar-ts-60a--diversion-control-capability",
+  "model": "morningstar-tristar-ts-60a",
+  "name": "Diversion control capability",
+  "value": "1.2kW",
+  "unit": "kW",
+  "source": "doc-29e5848624ebfbae39ca90b2c8b9dd70",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

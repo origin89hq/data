@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-2000w-psw--storage-relative-humidity",
+  "model": "powermax-converters-pmx-2000w-psw",
+  "name": "Storage Relative Humidity",
+  "value": "10-95",
+  "source": "doc-2b315a6a3cfa4facc4006026703bf60a",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

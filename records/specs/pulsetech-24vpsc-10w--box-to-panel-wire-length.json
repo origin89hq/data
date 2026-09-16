@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-24vpsc-10w--box-to-panel-wire-length",
+  "model": "pulsetech-24vpsc-10w",
+  "name": "Box to Panel Wire Length",
+  "value": "25",
+  "unit": "ft",
+  "source": "doc-b14d6e36ce207a807b211f076834e7ad",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

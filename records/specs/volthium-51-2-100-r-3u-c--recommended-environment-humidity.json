@@ -1,0 +1,11 @@
+{
+  "id": "volthium-51-2-100-r-3u-c--recommended-environment-humidity",
+  "model": "volthium-51-2-100-r-3u-c",
+  "name": "Recommended environment",
+  "value": "5~75",
+  "conditions": "humidity",
+  "source": "doc-2d45f5b318a0811f04d0ad9ce1e78efe",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

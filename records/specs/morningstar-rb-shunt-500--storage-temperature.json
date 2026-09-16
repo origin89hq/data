@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-rb-shunt-500--storage-temperature",
+  "model": "morningstar-rb-shunt-500",
+  "name": "Storage Temperature",
+  "value": "-40 to +60",
+  "unit": "°C",
+  "source": "doc-4844af010baa4dcda3d2d1d231b41ce2",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

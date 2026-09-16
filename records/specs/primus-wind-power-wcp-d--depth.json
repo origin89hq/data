@@ -1,0 +1,11 @@
+{
+  "id": "primus-wind-power-wcp-d--depth",
+  "model": "primus-wind-power-wcp-d",
+  "name": "Depth",
+  "value": "2.5",
+  "unit": "in",
+  "source": "doc-926c9c918904f608b64fddd9b3502fc1",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "surecall-flare-db--input-voltage",
+  "model": "surecall-flare-db",
+  "name": "Input Voltage",
+  "value": "5-15V",
+  "unit": "V",
+  "source": "doc-58b3bbf49b52bf14005ccfb9ea2c8d6d",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

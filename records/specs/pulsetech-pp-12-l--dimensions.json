@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pp-12-l--dimensions",
+  "model": "pulsetech-pp-12-l",
+  "name": "Dimensions",
+  "value": "4\" L x 1.75\" W x 1\" H",
+  "source": "doc-b1b7cc2dd37fbc18674d6a62c85d84b3",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

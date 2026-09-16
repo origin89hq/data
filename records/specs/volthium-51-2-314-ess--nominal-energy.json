@@ -1,0 +1,11 @@
+{
+  "id": "volthium-51-2-314-ess--nominal-energy",
+  "model": "volthium-51-2-314-ess",
+  "name": "Nominal energy",
+  "value": "16.1KWh",
+  "unit": "kWh",
+  "source": "doc-70b77cf2d1e1ebb8fadfde03a8d95990",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

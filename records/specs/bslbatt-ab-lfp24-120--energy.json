@@ -1,0 +1,11 @@
+{
+  "id": "bslbatt-ab-lfp24-120--energy",
+  "model": "bslbatt-ab-lfp24-120",
+  "name": "Energy",
+  "value": "3072Wh",
+  "unit": "Wh",
+  "source": "doc-86c3e874ae2eee0d8976df5b8576fa84",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

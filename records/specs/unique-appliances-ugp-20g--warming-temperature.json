@@ -1,0 +1,11 @@
+{
+  "id": "unique-appliances-ugp-20g--warming-temperature",
+  "model": "unique-appliances-ugp-20g",
+  "name": "Warming temperature",
+  "value": "175°F to 225°F",
+  "unit": "°F",
+  "source": "doc-a02fce8b3a5ca08271c1d8617ffd4bf0",
+  "page": 30,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

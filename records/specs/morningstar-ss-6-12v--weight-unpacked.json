@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ss-6-12v--weight-unpacked",
+  "model": "morningstar-ss-6-12v",
+  "name": "Weight (unpacked)",
+  "value": "0.23 kg / 8 oz",
+  "source": "doc-faccf02ddc4b17991ff29bc933fe693a",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

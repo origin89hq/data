@@ -1,0 +1,11 @@
+{
+  "id": "volthium-51-2-100v25-lux-12k2--total-capacity",
+  "model": "volthium-51-2-100v25-lux-12k2",
+  "name": "Total capacity",
+  "value": "2500",
+  "unit": "Ah",
+  "source": "doc-43bbf4f24819d6e49e58b5e94d46a787",
+  "page": 208,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

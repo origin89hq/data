@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-370l1--fridge-temperature-range",
+  "model": "unique-appliances-ugp-370l1",
+  "name": "Fridge Temperature Range",
+  "value": "-3˚C to +10˚C",
+  "source": "doc-b83aa402a22866c0a598b459f2a43088",
+  "page": 24,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

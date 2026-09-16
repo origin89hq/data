@@ -1,0 +1,10 @@
+{
+  "id": "quickcable-4110n--o-d",
+  "model": "quickcable-4110n",
+  "name": "O.D.",
+  "value": "2132",
+  "source": "doc-e5d136024419b7821894464e500beff3",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

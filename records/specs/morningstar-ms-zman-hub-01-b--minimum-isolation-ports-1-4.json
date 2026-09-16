@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ms-zman-hub-01-b--minimum-isolation-ports-1-4",
+  "model": "morningstar-ms-zman-hub-01-b",
+  "name": "Minimum Isolation (Ports 1-4)",
+  "value": "500",
+  "unit": "V",
+  "source": "doc-67795a5d8bfe4db1e68aa1e613839dce",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

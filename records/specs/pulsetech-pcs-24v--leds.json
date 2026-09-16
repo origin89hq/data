@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pcs-24v--leds",
+  "model": "pulsetech-pcs-24v",
+  "name": "LEDs",
+  "value": "3",
+  "source": "doc-0f2e13b4eef82acc8c38be711d1a2b98",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

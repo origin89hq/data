@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-ijpmwp3g-12v--flow-rate",
+  "model": "powermax-converters-ijpmwp3g-12v",
+  "name": "Flow rate",
+  "value": "3",
+  "unit": "gpm",
+  "source": "doc-d274f2cdb4de16aba8fe000a6d2e5d71",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

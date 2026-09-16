@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-world-charger-12v--output-voltage",
+  "model": "pulsetech-world-charger-12v",
+  "name": "Output voltage",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-d7717eecf4d79299be6b534a63efc793",
+  "page": 27,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

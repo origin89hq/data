@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-hawker-6tagm--cca",
+  "model": "pulsetech-hawker-6tagm",
+  "name": "CCA",
+  "value": "1225",
+  "source": "doc-cc8769955ceba4916c284daa0b5a22f6",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

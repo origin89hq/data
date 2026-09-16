@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-12--solar-panel-dim",
+  "model": "pulsetech-sp-12",
+  "name": "Solar Panel Dim.",
+  "value": "12.41\" x 9.85\" x .2",
+  "source": "doc-04a98f2971e4133df5b343ce37fa51fd",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

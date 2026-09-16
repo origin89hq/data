@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-5-otr-solar-charger-maintainer--power",
+  "model": "pulsetech-sp-5-otr-solar-charger-maintainer",
+  "name": "Power",
+  "value": "5",
+  "unit": "W",
+  "source": "doc-e952e665d5b074eda4fab6bd3520a36c",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

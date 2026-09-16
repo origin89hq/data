@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-sp-10--chemistry",
+  "model": "pulsetech-sp-10",
+  "name": "Chemistry",
+  "value": "conventional flooded, gel, AGM, VRLA",
+  "source": "doc-f7ca01fcc7426d5677b277de98c1f62f",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "surecall-sc-400--cl-loss-30-ft",
+  "model": "surecall-sc-400",
+  "name": "CL Loss",
+  "value": "-2 dB / -4 dB",
+  "unit": "dB",
+  "conditions": "30 ft.",
+  "source": "doc-bf8db7e854ebb90b299f7bf841eeb449",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

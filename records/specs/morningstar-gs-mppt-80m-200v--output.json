@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-gs-mppt-80m-200v--output",
+  "model": "morningstar-gs-mppt-80m-200v",
+  "name": "Output",
+  "value": "2150",
+  "unit": "W",
+  "source": "doc-2e0d175d4cf50dfa7df1901354c9760f",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

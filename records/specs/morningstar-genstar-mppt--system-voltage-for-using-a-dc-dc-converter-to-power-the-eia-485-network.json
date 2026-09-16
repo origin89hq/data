@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-genstar-mppt--system-voltage-for-using-a-dc-dc-converter-to-power-the-eia-485-network",
+  "model": "morningstar-genstar-mppt",
+  "name": "System voltage",
+  "value": "24, 36, 48",
+  "unit": "V",
+  "conditions": "for using a DC-DC converter to power the EIA-485 network",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 123,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

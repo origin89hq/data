@@ -1,0 +1,11 @@
+{
+  "id": "epever-dr2106n-ddb-dds--batt2-charge-return-voltage",
+  "model": "epever-dr2106n-ddb-dds",
+  "name": "BATT2 charge return voltage",
+  "value": "13V/12V",
+  "unit": "V",
+  "source": "doc-f4b3ef954e09ccc7732e9135ee547ca7",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "honda-power-eu7000isn--displacement",
+  "model": "honda-power-eu7000isn",
+  "name": "Displacement",
+  "value": "23.7 cu-in",
+  "source": "doc-311eda81944ed7606fc98e1f1492582d",
+  "page": 103,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

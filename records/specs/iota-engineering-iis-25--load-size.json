@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-iis-25--load-size",
+  "model": "iota-engineering-iis-25",
+  "name": "Load Size",
+  "value": "25W",
+  "unit": "W",
+  "source": "doc-42dda0f81c3d94e346e5b8f15fe049cd",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilbhi-cp20-he-sd-hv--temp-rating",
+  "model": "iota-engineering-ilbhi-cp20-he-sd-hv",
+  "name": "Temp. Rating",
+  "value": "70",
+  "unit": "°C",
+  "source": "doc-b9e2b9a0149990dd0f5dd829b97de6de",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "epever-up3000-m6142--max-efficiency",
+  "model": "epever-up3000-m6142",
+  "name": "Max.efficiency",
+  "value": "95%",
+  "unit": "%",
+  "source": "doc-c671251fdb0602bd2a8b1634ff16eacc",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "unique-appliances-ugp-260l1--av-run-current",
+  "model": "unique-appliances-ugp-260l1",
+  "name": "Av. Run Current",
+  "value": "4.5A on 12V - 2.5A on 24V",
+  "unit": "A",
+  "source": "doc-d2a8978c382c66e3fc2eebeec2044fc3",
+  "page": 24,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

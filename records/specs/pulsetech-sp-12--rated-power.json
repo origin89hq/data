@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-12--rated-power",
+  "model": "pulsetech-sp-12",
+  "name": "Rated Power",
+  "value": "12",
+  "unit": "W",
+  "source": "doc-a841f090a83f8083926291c9590a9c0c",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

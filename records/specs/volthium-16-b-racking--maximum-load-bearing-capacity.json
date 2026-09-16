@@ -1,0 +1,11 @@
+{
+  "id": "volthium-16-b-racking--maximum-load-bearing-capacity",
+  "model": "volthium-16-b-racking",
+  "name": "Maximum load-bearing capacity",
+  "value": "500",
+  "unit": "kg",
+  "source": "doc-224ba3e3abc3b0651d6f59017ec87df7",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

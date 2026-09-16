@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ss-10l-12v--startup-current-surge-threshold",
+  "model": "morningstar-ss-10l-12v",
+  "name": "Startup current surge threshold",
+  "value": "68A",
+  "unit": "A",
+  "source": "doc-899310a60c10064b10684f0a8f5ee448",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

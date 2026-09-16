@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-00-10041-260--relay-contacts",
+  "model": "precision-circuits-00-10041-260",
+  "name": "Relay Contacts",
+  "value": "160",
+  "source": "doc-ed6b3d313a81c75227ed82c83fc42d5f",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

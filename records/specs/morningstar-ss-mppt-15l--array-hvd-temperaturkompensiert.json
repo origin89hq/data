@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ss-mppt-15l--array-hvd-temperaturkompensiert",
+  "model": "morningstar-ss-mppt-15l",
+  "name": "Array HVD (temperaturkompensiert)",
+  "value": "Höchster Spannungssollwert + 0,5 V",
+  "unit": "V",
+  "source": "doc-3753da4c81d5cd18b923af9e2dcefa04",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

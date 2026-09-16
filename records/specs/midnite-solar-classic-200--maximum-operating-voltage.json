@@ -1,0 +1,11 @@
+{
+  "id": "midnite-solar-classic-200--maximum-operating-voltage",
+  "model": "midnite-solar-classic-200",
+  "name": "Maximum operating voltage",
+  "value": "200",
+  "unit": "V",
+  "source": "doc-1a3d5010d988de531d75048b7ab0028a",
+  "page": 53,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

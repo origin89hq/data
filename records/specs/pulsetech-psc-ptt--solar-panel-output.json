@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-psc-ptt--solar-panel-output",
+  "model": "pulsetech-psc-ptt",
+  "name": "Solar panel output",
+  "value": "200",
+  "unit": "mA",
+  "source": "doc-397ca4515cc554a6f5db794e7b9c979a",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

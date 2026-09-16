@@ -1,0 +1,12 @@
+{
+  "id": "volthium-51-2-100-r-3u-c--peak-discharge-current-15s",
+  "model": "volthium-51-2-100-r-3u-c",
+  "name": "Peak discharge current",
+  "value": "120~200",
+  "unit": "A",
+  "conditions": "@15S",
+  "source": "doc-2d45f5b318a0811f04d0ad9ce1e78efe",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

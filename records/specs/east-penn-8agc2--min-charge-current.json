@@ -1,0 +1,11 @@
+{
+  "id": "east-penn-8agc2--min-charge-current",
+  "model": "east-penn-8agc2",
+  "name": "Min. Charge Current",
+  "value": "17.1",
+  "unit": "A",
+  "source": "doc-3e33a3ba9672453823f85e98d26815a6",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

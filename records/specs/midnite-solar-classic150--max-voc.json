@@ -1,0 +1,11 @@
+{
+  "id": "midnite-solar-classic150--max-voc",
+  "model": "midnite-solar-classic150",
+  "name": "Max VOC",
+  "value": "145",
+  "unit": "V",
+  "source": "doc-fe89d8eb47f7711890b412c2fa8a8168",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

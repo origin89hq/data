@@ -1,0 +1,11 @@
+{
+  "id": "volthium-51-2-100v4-lux-12k1--total-capacity",
+  "model": "volthium-51-2-100v4-lux-12k1",
+  "name": "Total capacity",
+  "value": "400Ah",
+  "unit": "Ah",
+  "source": "doc-43bbf4f24819d6e49e58b5e94d46a787",
+  "page": 199,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

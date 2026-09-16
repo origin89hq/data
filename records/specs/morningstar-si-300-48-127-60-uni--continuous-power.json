@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-si-300-48-127-60-uni--continuous-power",
+  "model": "morningstar-si-300-48-127-60-uni",
+  "name": "Continuous Power",
+  "value": "300",
+  "unit": "W",
+  "source": "doc-9d24c6fe1606ecc4c1e36f6cb5ae7bb7",
+  "page": 60,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

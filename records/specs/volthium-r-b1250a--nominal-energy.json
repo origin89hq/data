@@ -1,0 +1,11 @@
+{
+  "id": "volthium-r-b1250a--nominal-energy",
+  "model": "volthium-r-b1250a",
+  "name": "Nominal energy",
+  "value": "640",
+  "unit": "Wh",
+  "source": "doc-351fd519eb6040042623bf73c333c5ed",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-12--output-voltage-maximum",
+  "model": "pulsetech-sp-12",
+  "name": "Output Voltage, Maximum",
+  "value": "16.5",
+  "unit": "V",
+  "source": "doc-995db75d36a004a7ee894499a5c004ec",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

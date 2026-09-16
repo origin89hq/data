@@ -1,0 +1,11 @@
+{
+  "id": "unique-appliances-ugp-20g--preheating-time-for-temperatures-up-to-425-f",
+  "model": "unique-appliances-ugp-20g",
+  "name": "Preheating time for temperatures up to 425°F",
+  "value": "30",
+  "unit": "min",
+  "source": "doc-a02fce8b3a5ca08271c1d8617ffd4bf0",
+  "page": 30,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

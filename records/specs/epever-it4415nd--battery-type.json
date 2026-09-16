@@ -1,0 +1,10 @@
+{
+  "id": "epever-it4415nd--battery-type",
+  "model": "epever-it4415nd",
+  "name": "Battery type",
+  "value": "Sealed(Default) / Gel / Flooded",
+  "source": "doc-8f55840d9ba489753a0f6776b1e8aec3",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

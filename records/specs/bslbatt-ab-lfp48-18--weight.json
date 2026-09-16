@@ -1,0 +1,11 @@
+{
+  "id": "bslbatt-ab-lfp48-18--weight",
+  "model": "bslbatt-ab-lfp48-18",
+  "name": "Weight",
+  "value": "About 8.3Kg",
+  "unit": "kg",
+  "source": "doc-86c3e874ae2eee0d8976df5b8576fa84",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

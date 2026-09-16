@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion4home-yagi-panel--recommended-signal-range-for-best-performance",
+  "model": "surecall-fusion4home-yagi-panel",
+  "name": "Recommended signal range",
+  "value": "-70dB to -90dB",
+  "unit": "dB",
+  "conditions": "for best performance",
+  "source": "doc-b042d39a8f47c1f852da1634fbcfed6e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

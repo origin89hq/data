@@ -1,0 +1,11 @@
+{
+  "id": "epever-ls-b--char-cur",
+  "model": "epever-ls-b",
+  "name": "Char.Cur",
+  "value": "10.0A",
+  "unit": "A",
+  "source": "doc-53db1d7b511380afdf031b1284c6f1a5",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

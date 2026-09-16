@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-lfp-10--battery-current-limit-recommended-per-battery",
+  "model": "morningstar-lfp-10",
+  "name": "Battery Current Limit",
+  "value": "50",
+  "unit": "A",
+  "conditions": "recommended per battery",
+  "source": "doc-ce0c71bf40b3e8d867fc5795278f8d80",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

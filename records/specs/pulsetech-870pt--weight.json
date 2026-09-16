@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-870pt--weight",
+  "model": "pulsetech-870pt",
+  "name": "Weight",
+  "value": "6.5 lbs",
+  "unit": "lb",
+  "source": "doc-a01a6cfa54523c58631d424a3f095fdb",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

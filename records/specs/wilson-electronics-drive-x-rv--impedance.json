@@ -1,0 +1,11 @@
+{
+  "id": "wilson-electronics-drive-x-rv--impedance",
+  "model": "wilson-electronics-drive-x-rv",
+  "name": "Impedance",
+  "value": "50",
+  "unit": "Ω",
+  "source": "doc-841fa14a71a2fcf198c85f2909ab387b",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

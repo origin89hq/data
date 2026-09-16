@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-sunsaver-mppt--power-out-charge-output-power",
+  "model": "morningstar-sunsaver-mppt",
+  "name": "Power_out",
+  "value": "40",
+  "unit": "W",
+  "conditions": "charge output power",
+  "source": "doc-5fa76468db54265325cd046fadd31f6c",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

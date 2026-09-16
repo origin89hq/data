@@ -1,0 +1,10 @@
+{
+  "id": "volthium-51-2-100v11-lux-12k2--max-charge-current",
+  "model": "volthium-51-2-100v11-lux-12k2",
+  "name": "Max. charge current",
+  "value": "500",
+  "source": "doc-43bbf4f24819d6e49e58b5e94d46a787",
+  "page": 204,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

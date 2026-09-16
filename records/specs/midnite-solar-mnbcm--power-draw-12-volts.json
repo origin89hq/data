@@ -1,0 +1,12 @@
+{
+  "id": "midnite-solar-mnbcm--power-draw-12-volts",
+  "model": "midnite-solar-mnbcm",
+  "name": "Power draw",
+  "value": "6 ma",
+  "unit": "A",
+  "conditions": "12 volts",
+  "source": "doc-e2c88bb28162a05c96a4bf9860156eb0",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

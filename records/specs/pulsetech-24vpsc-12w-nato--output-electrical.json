@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-24vpsc-12w-nato--output-electrical",
+  "model": "pulsetech-24vpsc-12w-nato",
+  "name": "Output Electrical",
+  "value": "357",
+  "unit": "mA",
+  "source": "doc-553365674ce12eca786767c9177d7ef7",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

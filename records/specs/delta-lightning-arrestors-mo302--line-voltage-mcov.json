@@ -2,8 +2,10 @@
   "id": "delta-lightning-arrestors-mo302--line-voltage-mcov",
   "model": "delta-lightning-arrestors-mo302",
   "name": "Line Voltage MCOV",
-  "value": "120 / 240 VAC",
+  "value": "120 / 240",
+  "unit": "V",
   "source": "doc-46921a96fb0ee85a0ccbf64c9d7e20d2",
+  "page": 1,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

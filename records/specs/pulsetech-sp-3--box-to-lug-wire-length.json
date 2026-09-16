@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-3--box-to-lug-wire-length",
+  "model": "pulsetech-sp-3",
+  "name": "Box to Lug Wire Length",
+  "value": "3",
+  "source": "doc-b875846362fe741363888302e6bdde80",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

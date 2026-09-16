@@ -1,0 +1,12 @@
+{
+  "id": "primus-wind-power-air-x-marine--circuit-breaker-sizing-recommendation-12v",
+  "model": "primus-wind-power-air-x-marine",
+  "name": "Circuit Breaker Sizing Recommendation",
+  "value": "40 AMP",
+  "unit": "A",
+  "conditions": "12V",
+  "source": "doc-0e96333eb489fa1e5451a0a8fa59b95d",
+  "page": 27,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

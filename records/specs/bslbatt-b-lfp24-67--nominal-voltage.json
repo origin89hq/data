@@ -1,0 +1,11 @@
+{
+  "id": "bslbatt-b-lfp24-67--nominal-voltage",
+  "model": "bslbatt-b-lfp24-67",
+  "name": "Nominal Voltage",
+  "value": "25.6V",
+  "unit": "V",
+  "source": "doc-86c3e874ae2eee0d8976df5b8576fa84",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "powermax-converters-pmx-3000w-psw--dc-input-static-current-no-load-ambient-temperature-23-2-humidity-40-90-rh-input-dc12-5v",
+  "model": "powermax-converters-pmx-3000w-psw",
+  "name": "DC Input Static Current(No Load)",
+  "value": "½1.5",
+  "unit": "A",
+  "conditions": "Ambient Temperature 23±2℃, Humidity 40–90%RH, Input DC12.5V",
+  "source": "doc-39140d23c40e0c6d760fa8b9948caf17",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

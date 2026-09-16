@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pm3-45-e--overload-protection",
+  "model": "powermax-converters-pm3-45-e",
+  "name": "Overload Protection",
+  "value": ">100%",
+  "source": "doc-de727abd1d0b2f73b03fe57feddd50a7",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

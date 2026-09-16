@@ -1,0 +1,12 @@
+{
+  "id": "powermax-converters-pm3-120--output-voltage-2-3-of-rated-capacity",
+  "model": "powermax-converters-pm3-120",
+  "name": "Output Voltage",
+  "value": "14.6",
+  "unit": "V",
+  "conditions": "2/3 of rated capacity",
+  "source": "doc-273757f7f1553c150a5d2558313e2cf7",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

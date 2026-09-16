@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-battery-guard-160a--continuous-current",
+  "model": "precision-circuits-battery-guard-160a",
+  "name": "Continuous Current",
+  "value": "160A",
+  "unit": "A",
+  "source": "doc-f007f665b61a9fef6e28cf905544ebd6",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion4home-max-us-and-canada--operation-temperature-outside-amp",
+  "model": "surecall-fusion4home-max-us-and-canada",
+  "name": "Operation Temperature (Outside Amp)",
+  "value": "-4° to +158°",
+  "unit": "°F",
+  "source": "doc-9082b148ebea0ffc33b8fcaf405b369f",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

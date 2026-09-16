@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pm3-24v-lk--output-voltage",
+  "model": "powermax-converters-pm3-24v-lk",
+  "name": "Output Voltage",
+  "value": "27.6 +/- 0.1",
+  "unit": "V",
+  "source": "doc-3a1d05bd1f7ab8e399b5f706f7841832",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

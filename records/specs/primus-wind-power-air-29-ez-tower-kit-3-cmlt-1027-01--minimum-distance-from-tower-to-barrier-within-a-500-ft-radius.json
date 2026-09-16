@@ -1,0 +1,11 @@
+{
+  "id": "primus-wind-power-air-29-ez-tower-kit-3-cmlt-1027-01--minimum-distance-from-tower-to-barrier-within-a-500-ft-radius",
+  "model": "primus-wind-power-air-29-ez-tower-kit-3-cmlt-1027-01",
+  "name": "Minimum distance from tower to barrier within a 500 ft radius",
+  "value": "20 ft",
+  "unit": "ft",
+  "source": "doc-01d16896af11aea6ec7d1f7ffd4266ab",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

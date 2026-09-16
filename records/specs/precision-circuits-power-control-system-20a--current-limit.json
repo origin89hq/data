@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-power-control-system-20a--current-limit",
+  "model": "precision-circuits-power-control-system-20a",
+  "name": "current limit",
+  "value": "20",
+  "unit": "A",
+  "source": "doc-b68085d37c23ae16bdf852fc3930ad6f",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

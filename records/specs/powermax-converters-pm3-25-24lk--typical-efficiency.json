@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pm3-25-24lk--typical-efficiency",
+  "model": "powermax-converters-pm3-25-24lk",
+  "name": "Typical Efficiency",
+  "value": ">85",
+  "unit": "%",
+  "source": "doc-f3047a75ec3b76afba0457487899978e",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-xc-ql4--input-voltage",
+  "model": "pulsetech-xc-ql4",
+  "name": "Input Voltage",
+  "value": "4 V dc to 18 V dc",
+  "unit": "V",
+  "source": "doc-3103d5f8bcbc21e2716180ba1684f8a9",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

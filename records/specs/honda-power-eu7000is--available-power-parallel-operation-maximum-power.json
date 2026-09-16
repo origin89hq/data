@@ -1,0 +1,12 @@
+{
+  "id": "honda-power-eu7000is--available-power-parallel-operation-maximum-power",
+  "model": "honda-power-eu7000is",
+  "name": "Available Power",
+  "value": "12.0",
+  "unit": "kVA",
+  "conditions": "parallel operation, maximum power",
+  "source": "doc-311eda81944ed7606fc98e1f1492582d",
+  "page": 71,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

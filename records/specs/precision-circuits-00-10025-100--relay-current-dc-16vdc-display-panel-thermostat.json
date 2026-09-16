@@ -1,0 +1,12 @@
+{
+  "id": "precision-circuits-00-10025-100--relay-current-dc-16vdc-display-panel-thermostat",
+  "model": "precision-circuits-00-10025-100",
+  "name": "Relay current",
+  "value": "1.0",
+  "unit": "A",
+  "conditions": "DC 16VDC (Display Panel, Thermostat)",
+  "source": "doc-cdf8d050240251fb563975bbf15ec24d",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

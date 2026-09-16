@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-gs-mppt-60m-200v--nominal-battery-voltage",
+  "model": "morningstar-gs-mppt-60m-200v",
+  "name": "Nominal Battery Voltage",
+  "value": "12-24-48",
+  "unit": "V",
+  "source": "doc-8064daa49fc5ab905383d7bdc59b841f",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

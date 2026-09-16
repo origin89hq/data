@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd5100--tightening-torque-for-ac-wiring-terminal",
+  "model": "progressive-dynamics-pd5100",
+  "name": "Tightening torque for AC wiring terminal",
+  "value": "1.81",
+  "source": "doc-3dd92b531073c60ed47153d3fb12e5ec",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

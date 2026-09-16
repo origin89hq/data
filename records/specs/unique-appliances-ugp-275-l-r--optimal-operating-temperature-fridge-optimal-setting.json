@@ -1,0 +1,12 @@
+{
+  "id": "unique-appliances-ugp-275-l-r--optimal-operating-temperature-fridge-optimal-setting",
+  "model": "unique-appliances-ugp-275-l-r",
+  "name": "Optimal operating temperature",
+  "value": "1°C to 4°C",
+  "unit": "°C",
+  "conditions": "Fridge, optimal setting",
+  "source": "doc-72d4edea21f290ad9a4195d19fa8a238",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

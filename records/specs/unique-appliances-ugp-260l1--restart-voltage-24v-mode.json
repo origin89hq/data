@@ -1,0 +1,12 @@
+{
+  "id": "unique-appliances-ugp-260l1--restart-voltage-24v-mode",
+  "model": "unique-appliances-ugp-260l1",
+  "name": "Restart Voltage",
+  "value": "24.2V",
+  "unit": "V",
+  "conditions": "24V mode",
+  "source": "doc-d2a8978c382c66e3fc2eebeec2044fc3",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

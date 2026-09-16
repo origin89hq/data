@@ -1,0 +1,11 @@
+{
+  "id": "bslbatt-bsl-48-200--applicable-voltage-platform",
+  "model": "bslbatt-bsl-48-200",
+  "name": "Applicable voltage platform",
+  "value": "38.6V/51.2V",
+  "unit": "V",
+  "source": "doc-40c3daaff587ebd783d97d0fbe3a6a4a",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

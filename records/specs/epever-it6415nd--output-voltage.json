@@ -1,0 +1,11 @@
+{
+  "id": "epever-it6415nd--output-voltage",
+  "model": "epever-it6415nd",
+  "name": "Output Voltage",
+  "value": "12/24/36/48V",
+  "unit": "V",
+  "source": "doc-8f55840d9ba489753a0f6776b1e8aec3",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "progressive-dynamics-pd51--tension-de-sortie-pr-sence-d-une-alimentation-quai",
+  "model": "progressive-dynamics-pd51",
+  "name": "Tension de sortie",
+  "english": "Output voltage",
+  "value": "16",
+  "unit": "V",
+  "conditions": "présence d'une alimentation à quai",
+  "source": "doc-3dd92b531073c60ed47153d3fb12e5ec",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

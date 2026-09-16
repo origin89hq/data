@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pulse-solar-charger-psc--pru-power-drain",
+  "model": "pulsetech-pulse-solar-charger-psc",
+  "name": "PRU power drain",
+  "value": "3-5",
+  "unit": "mA",
+  "source": "doc-444eb31c14ebe182daad8eae904a52eb",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "epever-xtra3215n-g3-g3-ble--rated-charging-current",
+  "model": "epever-xtra3215n-g3-g3-ble",
+  "name": "Rated Charging Current",
+  "value": "30A",
+  "unit": "A",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 50,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

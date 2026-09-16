@@ -2,9 +2,10 @@
   "id": "rstc-enterprises-0599--current",
   "model": "rstc-enterprises-0599",
   "name": "Current",
-  "value": "100",
+  "value": "100 A",
   "unit": "A",
-  "source": "doc-63e76872134b53d777aee534184424fa",
+  "source": "doc-7673f4031eaffe80bb5ce09918836b4e",
+  "page": 2,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

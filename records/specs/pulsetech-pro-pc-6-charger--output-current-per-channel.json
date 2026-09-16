@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-pro-pc-6-charger--output-current-per-channel",
+  "model": "pulsetech-pro-pc-6-charger",
+  "name": "Output current per channel",
+  "value": "6.5",
+  "unit": "A",
+  "source": "doc-cc8769955ceba4916c284daa0b5a22f6",
+  "page": 32,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

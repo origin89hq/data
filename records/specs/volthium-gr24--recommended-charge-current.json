@@ -1,0 +1,11 @@
+{
+  "id": "volthium-gr24--recommended-charge-current",
+  "model": "volthium-gr24",
+  "name": "Recommended charge current",
+  "value": "0.3",
+  "unit": "°C",
+  "source": "doc-d480da931917808c709e6a5c5f175337",
+  "page": 8,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

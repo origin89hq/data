@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-b-lfp48-300e--max-current-power-discharge",
+  "model": "bslbatt-b-lfp48-300e",
+  "name": "Max. Current / Power (Discharge)",
+  "value": "200A / 10.24kW",
+  "source": "doc-a5280ed309433548bf133d18361db832",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

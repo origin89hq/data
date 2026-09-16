@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd4100--minimum-compartment-size-for-proper-ventilation",
+  "model": "progressive-dynamics-pd4100",
+  "name": "Minimum compartment size",
+  "value": "3",
+  "conditions": "for proper ventilation",
+  "source": "doc-cc076a27326563687e6f4e3ff1d8a2b5",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

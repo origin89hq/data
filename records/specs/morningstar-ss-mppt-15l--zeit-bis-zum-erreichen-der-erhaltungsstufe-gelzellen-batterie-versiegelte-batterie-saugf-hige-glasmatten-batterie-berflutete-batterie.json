@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-ss-mppt-15l--zeit-bis-zum-erreichen-der-erhaltungsstufe-gelzellen-batterie-versiegelte-batterie-saugf-hige-glasmatten-batterie-berflutete-batterie",
+  "model": "morningstar-ss-mppt-15l",
+  "name": "Zeit bis zum Erreichen der Erhaltungsstufe",
+  "value": "3 Stunden",
+  "unit": "h",
+  "conditions": "Gelzellen-batterie, Versiegelte-batterie, Saugfähige Glasmatten-batterie, Überflutete-batterie",
+  "source": "doc-3753da4c81d5cd18b923af9e2dcefa04",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

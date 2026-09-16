@@ -1,0 +1,11 @@
+{
+  "id": "bslbatt-bsl-24-50--output-power",
+  "model": "bslbatt-bsl-24-50",
+  "name": "Output power",
+  "value": "1.2KW",
+  "unit": "kW",
+  "source": "doc-40c3daaff587ebd783d97d0fbe3a6a4a",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

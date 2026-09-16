@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion4home-3-1--input-voltage",
+  "model": "surecall-fusion4home-3-1",
+  "name": "Input voltage",
+  "value": "5-15V",
+  "unit": "V",
+  "source": "doc-7ab1d6648a827d64bf43f8ebfb71eca1",
+  "page": 9,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

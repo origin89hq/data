@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-wind-turbine--rpm-for-current-output",
+  "model": "primus-wind-power-air-wind-turbine",
+  "name": "RPM for current output",
+  "value": "450",
+  "source": "doc-cf29a085afbab6cd0bc87e1b22acbc73",
+  "page": 34,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

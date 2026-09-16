@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-sk-12--temperature-compensation-attaching-remote-temp-sensor",
+  "model": "morningstar-sk-12",
+  "name": "Temperature Compensation",
+  "value": "–30",
+  "unit": "mV/K",
+  "conditions": "attaching remote temp sensor",
+  "source": "doc-5d9b386e5c8e37dcd8c171d8dc9605e3",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

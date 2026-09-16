@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-xc450--recovery-charge-current",
+  "model": "pulsetech-xc450",
+  "name": "Recovery charge current",
+  "value": "2",
+  "unit": "A",
+  "source": "doc-c22d860060a20389dd285ad63350c826",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

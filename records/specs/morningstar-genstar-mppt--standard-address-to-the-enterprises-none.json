@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-genstar-mppt--standard-address-to-the-enterprises-none",
+  "model": "morningstar-genstar-mppt",
+  "name": "Standard address to the enterprises",
+  "value": "1.3.6.1.4.1",
+  "conditions": "none",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 128,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-sk-12--maximum-solar-input-voltage",
+  "model": "morningstar-sk-12",
+  "name": "Maximum Solar Input Voltage",
+  "value": "30",
+  "unit": "V",
+  "source": "doc-d82902d49ba6250778d2c652a7ce8eee",
+  "page": 22,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

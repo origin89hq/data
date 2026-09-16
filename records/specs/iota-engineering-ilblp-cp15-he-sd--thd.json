@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd--thd",
+  "model": "iota-engineering-ilblp-cp15-he-sd",
+  "name": "THD",
+  "value": "< 10%",
+  "unit": "%",
+  "source": "doc-668127f8728f21471af7b6df6f82db0f",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

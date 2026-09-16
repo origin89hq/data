@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-7--output-current",
+  "model": "pulsetech-sp-7",
+  "name": "Output Current",
+  "value": "450 mA",
+  "unit": "mA",
+  "source": "doc-04a98f2971e4133df5b343ce37fa51fd",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

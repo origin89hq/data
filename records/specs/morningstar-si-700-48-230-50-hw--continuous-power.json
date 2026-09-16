@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-si-700-48-230-50-hw--continuous-power",
+  "model": "morningstar-si-700-48-230-50-hw",
+  "name": "Continuous Power",
+  "value": "700",
+  "unit": "W",
+  "source": "doc-9d24c6fe1606ecc4c1e36f6cb5ae7bb7",
+  "page": 60,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

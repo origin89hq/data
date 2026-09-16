@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-2000w--output-wave-form",
+  "model": "powermax-converters-pmx-2000w",
+  "name": "Output Wave Form",
+  "value": "Pure Sine Wave",
+  "source": "doc-c8eeee8d89186b67f0b0171651f69587",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

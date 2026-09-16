@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-us3000c--capacity",
+  "model": "morningstar-us3000c",
+  "name": "Capacity",
+  "value": "4.8 kWh / 100 Ah",
+  "source": "doc-486a48cd1c1125773675e16b3231d6d3",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

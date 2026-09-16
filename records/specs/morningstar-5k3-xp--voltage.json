@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-5k3-xp--voltage",
+  "model": "morningstar-5k3-xp",
+  "name": "Voltage",
+  "value": "51.2",
+  "unit": "V",
+  "source": "doc-c089177c24e8ea3c40780d7c1d495743",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

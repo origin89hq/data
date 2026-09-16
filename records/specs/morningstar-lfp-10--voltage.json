@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-lfp-10--voltage",
+  "model": "morningstar-lfp-10",
+  "name": "Voltage",
+  "value": "48",
+  "unit": "V",
+  "source": "doc-ce0c71bf40b3e8d867fc5795278f8d80",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ss-10l-12v--max-solar-voltage",
+  "model": "morningstar-ss-10l-12v",
+  "name": "Max. Solar Voltage",
+  "value": "30 V",
+  "unit": "V",
+  "source": "doc-7d62d00d3e8ba46b4599234733cbe8e8",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "pulsetech-sc-2-2-battery-10-amp-recovery-charger--bulk-charging-current-voltage-1v-and-7v",
+  "model": "pulsetech-sc-2-2-battery-10-amp-recovery-charger",
+  "name": "Bulk charging current",
+  "value": "3.5A",
+  "unit": "A",
+  "conditions": "Voltage ≥1V and <7V",
+  "source": "doc-7527b0bbe7bd1fc3d983a0eba854331c",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

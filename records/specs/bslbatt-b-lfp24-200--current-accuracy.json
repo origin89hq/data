@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-b-lfp24-200--current-accuracy",
+  "model": "bslbatt-b-lfp24-200",
+  "name": "CURRENT ACCURACY",
+  "value": "±1%",
+  "source": "doc-312d59747a89e6e2100273078883892e",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

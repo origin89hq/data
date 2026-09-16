@@ -1,0 +1,11 @@
+{
+  "id": "east-penn-8agc2--mca",
+  "model": "east-penn-8agc2",
+  "name": "MCA",
+  "value": "900",
+  "unit": "A",
+  "source": "doc-e744c50aca3b14706c2599d0d01461fb",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "epever-tracer10420an--internal-temperature-resume-work",
+  "model": "epever-tracer10420an",
+  "name": "Internal Temperature",
+  "value": "75",
+  "conditions": "resume work",
+  "source": "doc-0d6a013f74408184c3a6e76c131a81f2",
+  "page": 33,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

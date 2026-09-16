@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilb-cp20-he-aelr-hv--output-wattage",
+  "model": "iota-engineering-ilb-cp20-he-aelr-hv",
+  "name": "Output Wattage",
+  "value": "20",
+  "unit": "W",
+  "source": "doc-e5416223dd9367e284cc5c8c574a6f3e",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

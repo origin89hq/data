@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-3-0-rv--max-uplink-power",
+  "model": "surecall-fusion2go-3-0-rv",
+  "name": "Max Uplink Power",
+  "value": "29.0",
+  "source": "doc-724f1918caff7acd8329e4b73f811441",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

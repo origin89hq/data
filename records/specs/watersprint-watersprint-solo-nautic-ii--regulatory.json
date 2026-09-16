@@ -1,0 +1,10 @@
+{
+  "id": "watersprint-watersprint-solo-nautic-ii--regulatory",
+  "model": "watersprint-watersprint-solo-nautic-ii",
+  "name": "Regulatory",
+  "value": "RoHS, REACH, CE (EMC/LVD)",
+  "source": "doc-33078f0ceb28e13fbf52f092a4ee71a2",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

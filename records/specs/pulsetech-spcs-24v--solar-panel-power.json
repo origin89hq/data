@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-spcs-24v--solar-panel-power",
+  "model": "pulsetech-spcs-24v",
+  "name": "Solar Panel Power",
+  "value": "6.3",
+  "unit": "W",
+  "source": "doc-0f2e13b4eef82acc8c38be711d1a2b98",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

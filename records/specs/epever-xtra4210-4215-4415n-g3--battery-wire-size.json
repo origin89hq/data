@@ -1,0 +1,10 @@
+{
+  "id": "epever-xtra4210-4215-4415n-g3--battery-wire-size",
+  "model": "epever-xtra4210-4215-4415n-g3",
+  "name": "Battery Wire Size",
+  "value": "16mm2/6AWG",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

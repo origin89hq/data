@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ifr26650--chemistry",
+  "model": "iota-engineering-ifr26650",
+  "name": "Chemistry",
+  "value": "Lithium Ion",
+  "source": "doc-f04960bdccba8616c279795fd3f2dfa2",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

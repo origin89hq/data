@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd4600--output-voltage-for-lithium-batteries",
+  "model": "progressive-dynamics-pd4600",
+  "name": "Output Voltage",
+  "value": "14.4",
+  "unit": "V",
+  "conditions": "for lithium batteries",
+  "source": "doc-b3fb43fc8b96d3e2c2630896b3cad132",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

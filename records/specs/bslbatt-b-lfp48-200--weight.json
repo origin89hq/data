@@ -1,0 +1,11 @@
+{
+  "id": "bslbatt-b-lfp48-200--weight",
+  "model": "bslbatt-b-lfp48-200",
+  "name": "Weight",
+  "value": "38 ± 1 kg",
+  "unit": "kg",
+  "source": "doc-312d59747a89e6e2100273078883892e",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

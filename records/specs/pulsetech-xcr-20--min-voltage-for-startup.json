@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-xcr-20--min-voltage-for-startup",
+  "model": "pulsetech-xcr-20",
+  "name": "Min. Voltage for Startup",
+  "value": "4",
+  "unit": "V",
+  "source": "doc-b5b1fda82f3ff25f3d4e844d5513b277",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

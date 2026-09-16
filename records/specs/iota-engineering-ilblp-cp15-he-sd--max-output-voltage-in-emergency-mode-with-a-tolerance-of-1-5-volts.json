@@ -1,0 +1,12 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd--max-output-voltage-in-emergency-mode-with-a-tolerance-of-1-5-volts",
+  "model": "iota-engineering-ilblp-cp15-he-sd",
+  "name": "Max. output voltage in emergency mode",
+  "value": "58.5 VDC",
+  "unit": "V",
+  "conditions": "with a + tolerance of 1.5 volts",
+  "source": "doc-668127f8728f21471af7b6df6f82db0f",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

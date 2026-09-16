@@ -1,0 +1,10 @@
+{
+  "id": "epever-xtra2206n-g3--recommended-wire-size",
+  "model": "epever-xtra2206n-g3",
+  "name": "Recommended Wire Size",
+  "value": "10AWG (6mm2)",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 50,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

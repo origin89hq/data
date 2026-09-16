@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-260l1--dimensions-unboxed",
+  "model": "unique-appliances-ugp-260l1",
+  "name": "Dimensions (unboxed)",
+  "value": "H 64\" x W 21.4\" x D 22.4",
+  "source": "doc-d2a8978c382c66e3fc2eebeec2044fc3",
+  "page": 20,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

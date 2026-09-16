@@ -1,0 +1,11 @@
+{
+  "id": "primus-wind-power-air-silent-x--torque-on-screws",
+  "model": "primus-wind-power-air-silent-x",
+  "name": "Torque",
+  "value": "7-8 Nm",
+  "conditions": "on screws",
+  "source": "doc-bea106362dcc42cf99a61871ae73edaa",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

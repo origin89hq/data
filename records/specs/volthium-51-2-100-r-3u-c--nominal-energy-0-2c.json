@@ -1,0 +1,12 @@
+{
+  "id": "volthium-51-2-100-r-3u-c--nominal-energy-0-2c",
+  "model": "volthium-51-2-100-r-3u-c",
+  "name": "Nominal energy",
+  "value": "5.12",
+  "unit": "kWh",
+  "conditions": "@0.2C",
+  "source": "doc-2d45f5b318a0811f04d0ad9ce1e78efe",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

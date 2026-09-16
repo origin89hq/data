@@ -1,0 +1,11 @@
+{
+  "id": "volthium-volthium-pro2--recommended-charge-current",
+  "model": "volthium-volthium-pro2",
+  "name": "Recommended charge current",
+  "value": "0.3",
+  "unit": "°C",
+  "source": "doc-7b9c445691ca06789041402ec3fefe03",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

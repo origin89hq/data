@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-us2000c--nominal-voltage",
+  "model": "morningstar-us2000c",
+  "name": "Nominal Voltage",
+  "value": "48V",
+  "unit": "V",
+  "source": "doc-486a48cd1c1125773675e16b3231d6d3",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

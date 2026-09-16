@@ -1,0 +1,12 @@
+{
+  "id": "precision-circuits-00-10025-100--delay-minimum-off-time-on-all-loads",
+  "model": "precision-circuits-00-10025-100",
+  "name": "Delay",
+  "value": "2 minute",
+  "unit": "min",
+  "conditions": "Minimum off time on all loads",
+  "source": "doc-cdf8d050240251fb563975bbf15ec24d",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

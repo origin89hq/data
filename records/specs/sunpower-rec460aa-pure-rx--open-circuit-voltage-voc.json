@@ -1,0 +1,11 @@
+{
+  "id": "sunpower-rec460aa-pure-rx--open-circuit-voltage-voc",
+  "model": "sunpower-rec460aa-pure-rx",
+  "name": "Open Circuit Voltage - VOC",
+  "value": "65.7",
+  "unit": "V",
+  "source": "doc-0be4d97cdd84e6e6a5d778d6316a1276",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-sunsaver-mppt--torque-specification",
+  "model": "morningstar-sunsaver-mppt",
+  "name": "Torque Specification",
+  "value": "3.5 in-lbs",
+  "source": "doc-1ca9bd2431f89efb4cc54c3e6b26224a",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

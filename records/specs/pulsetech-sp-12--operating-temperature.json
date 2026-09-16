@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-12--operating-temperature",
+  "model": "pulsetech-sp-12",
+  "name": "Operating Temperature",
+  "value": "0ºF to 130ºF (-18ºC to 54ºC)",
+  "source": "doc-995db75d36a004a7ee894499a5c004ec",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

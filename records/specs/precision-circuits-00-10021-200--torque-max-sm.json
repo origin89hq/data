@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-00-10021-200--torque-max-sm",
+  "model": "precision-circuits-00-10021-200",
+  "name": "Torque Max",
+  "value": "20",
+  "conditions": "SM",
+  "source": "doc-b48fb52f516f6614e938a087fe4ecc85",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

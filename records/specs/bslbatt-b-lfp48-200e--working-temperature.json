@@ -1,0 +1,9 @@
+{
+  "id": "bslbatt-b-lfp48-200e--working-temperature",
+  "model": "bslbatt-b-lfp48-200e",
+  "name": "Working Temperature",
+  "value": "0~55°C",
+  "source": "doc-a5280ed309433548bf133d18361db832",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

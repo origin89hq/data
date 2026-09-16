@@ -1,0 +1,11 @@
+{
+  "id": "watersprint-watersprintsolo-40--pressure-drop-max-flow-rate",
+  "model": "watersprint-watersprintsolo-40",
+  "name": "Pressure drop @ max. flow rate",
+  "value": "4.4 psi",
+  "unit": "psi",
+  "source": "doc-1c34d429779316455fe36aac66834ba4",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pm3-60lk--weight",
+  "model": "powermax-converters-pm3-60lk",
+  "name": "Weight",
+  "value": "7.0 lbs",
+  "unit": "lb",
+  "source": "doc-73d2692d88fd6c2869110f519241800a",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

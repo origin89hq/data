@@ -1,0 +1,12 @@
+{
+  "id": "iota-engineering-ilbhi-cp20-he-sd-hv--input-current-347-480v-max",
+  "model": "iota-engineering-ilbhi-cp20-he-sd-hv",
+  "name": "Input Current",
+  "value": "0.015A",
+  "unit": "A",
+  "conditions": "347/480V, max",
+  "source": "doc-284df3b8fd736b905fee2104c56c788b",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

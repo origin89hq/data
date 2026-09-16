@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-470210--frequencies",
+  "model": "wilson-electronics-470210",
+  "name": "FREQUENCIES",
+  "value": "Band 12/17 700 MHz",
+  "source": "doc-b3904e641cd8119e2f94214dd883afd2",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

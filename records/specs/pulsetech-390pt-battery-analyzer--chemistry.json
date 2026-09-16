@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-390pt-battery-analyzer--chemistry",
+  "model": "pulsetech-390pt-battery-analyzer",
+  "name": "Chemistry",
+  "value": "lead-acid (VRLA, AGM, gel and flooded cell)",
+  "source": "doc-465ca4bd12333e9c56f0c4f4f05f26df",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

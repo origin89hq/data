@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-10c-s-s--min-clearances",
+  "model": "unique-appliances-ugp-10c-s-s",
+  "name": "MIN. CLEARANCES",
+  "value": "2",
+  "unit": "in",
+  "source": "doc-59c0afb0d05688e25ab54a95f4188599",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

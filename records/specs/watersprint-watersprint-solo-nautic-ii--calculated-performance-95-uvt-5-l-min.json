@@ -1,0 +1,11 @@
+{
+  "id": "watersprint-watersprint-solo-nautic-ii--calculated-performance-95-uvt-5-l-min",
+  "model": "watersprint-watersprint-solo-nautic-ii",
+  "name": "Calculated performance",
+  "value": "30 mJ/cm²",
+  "conditions": "@95% UVT, 5 l/min",
+  "source": "doc-64d9f9d22065d996cba8b1bed76ea8be",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "epever-tracer8420n--wire-size",
+  "model": "epever-tracer8420n",
+  "name": "Wire size",
+  "value": "2AWG/ 35mm2",
+  "source": "doc-0d6a013f74408184c3a6e76c131a81f2",
+  "page": 38,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

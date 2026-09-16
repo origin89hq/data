@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-pulse-solar-charger-psc--solar-panel-output",
+  "model": "pulsetech-pulse-solar-charger-psc",
+  "name": "Solar panel output",
+  "value": "155",
+  "unit": "mA",
+  "source": "doc-444eb31c14ebe182daad8eae904a52eb",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

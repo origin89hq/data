@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-genstar-mppt--absorption-target-voltage",
+  "model": "morningstar-genstar-mppt",
+  "name": "Absorption Target Voltage",
+  "value": "14.4V",
+  "unit": "V",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 34,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

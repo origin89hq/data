@@ -1,0 +1,11 @@
+{
+  "id": "lorentz-ps2-150-c--max-total-dynamic-head-tdh",
+  "model": "lorentz-ps2-150-c",
+  "name": "max. total dynamic head (TDH)",
+  "value": "65",
+  "unit": "ft",
+  "source": "doc-4884e1f3fb3b081e2563b4b58ea7c88d",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

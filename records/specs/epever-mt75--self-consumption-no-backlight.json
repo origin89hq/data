@@ -1,0 +1,12 @@
+{
+  "id": "epever-mt75--self-consumption-no-backlight",
+  "model": "epever-mt75",
+  "name": "Self-consumption",
+  "value": "14mA/5V",
+  "unit": "mA",
+  "conditions": "no backlight",
+  "source": "doc-811df31d579f6531a9146de3669626d4",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

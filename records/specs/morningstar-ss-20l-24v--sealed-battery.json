@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ss-20l-24v--sealed-battery",
+  "model": "morningstar-ss-20l-24v",
+  "name": "Sealed Battery",
+  "value": "28.2V",
+  "unit": "V",
+  "source": "doc-faccf02ddc4b17991ff29bc933fe693a",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "wilson-electronics-472120--booster-dimensions",
+  "model": "wilson-electronics-472120",
+  "name": "Booster Dimensions",
+  "value": "6.5 x 4.25 x 1.25",
+  "unit": "in",
+  "source": "doc-3aca1ebe939d9f098dfb5b2657ad1e42",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

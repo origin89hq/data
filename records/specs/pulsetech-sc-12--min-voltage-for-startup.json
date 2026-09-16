@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sc-12--min-voltage-for-startup",
+  "model": "pulsetech-sc-12",
+  "name": "Min. Voltage for Startup",
+  "value": "4 Volts",
+  "unit": "V",
+  "source": "doc-a01a6cfa54523c58631d424a3f095fdb",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

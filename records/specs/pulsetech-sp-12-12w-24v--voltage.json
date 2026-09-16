@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-12-12w-24v--voltage",
+  "model": "pulsetech-sp-12-12w-24v",
+  "name": "Voltage",
+  "value": "24",
+  "unit": "V",
+  "source": "doc-88a876f6b5059dfae584e5c726bc0b8d",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pro-12-rp--number-of-batteries",
+  "model": "pulsetech-pro-12-rp",
+  "name": "Number of Batteries",
+  "value": "12",
+  "source": "doc-a841f090a83f8083926291c9590a9c0c",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

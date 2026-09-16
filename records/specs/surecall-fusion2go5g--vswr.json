@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go5g--vswr",
+  "model": "surecall-fusion2go5g",
+  "name": "VSWR",
+  "value": "≤ 2.0",
+  "source": "doc-c0e6541a069b7d834a6f47b96f057c51",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

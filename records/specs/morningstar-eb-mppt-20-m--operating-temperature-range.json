@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-eb-mppt-20-m--operating-temperature-range",
+  "model": "morningstar-eb-mppt-20-m",
+  "name": "Operating Temperature Range",
+  "value": "-40 to +60",
+  "unit": "°C",
+  "source": "doc-63c82097357d9e357915644c11574328",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

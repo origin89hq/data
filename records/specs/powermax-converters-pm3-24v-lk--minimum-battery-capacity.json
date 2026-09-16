@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pm3-24v-lk--minimum-battery-capacity",
+  "model": "powermax-converters-pm3-24v-lk",
+  "name": "Minimum Battery Capacity",
+  "value": "90",
+  "unit": "Ah",
+  "source": "doc-3a1d05bd1f7ab8e399b5f706f7841832",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-sunsaver-mppt--t-amb-ambient-temperature-sensor",
+  "model": "morningstar-sunsaver-mppt",
+  "name": "T_amb",
+  "value": "16",
+  "unit": "°C",
+  "conditions": "ambient temperature sensor",
+  "source": "doc-5fa76468db54265325cd046fadd31f6c",
+  "page": 11,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

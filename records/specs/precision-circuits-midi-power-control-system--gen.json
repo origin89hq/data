@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-midi-power-control-system--gen",
+  "model": "precision-circuits-midi-power-control-system",
+  "name": "GEN",
+  "value": "30A",
+  "unit": "A",
+  "source": "doc-11d0474ccac56785f048a743dcf083e3",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

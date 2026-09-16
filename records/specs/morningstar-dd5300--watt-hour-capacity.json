@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-dd5300--watt-hour-capacity",
+  "model": "morningstar-dd5300",
+  "name": "Watt Hour Capacity",
+  "value": "5.3",
+  "unit": "kWh",
+  "source": "doc-847c83ef8d9ead0714a08ef9c5d5bedc",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

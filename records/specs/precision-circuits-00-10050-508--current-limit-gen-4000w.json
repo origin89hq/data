@@ -1,0 +1,12 @@
+{
+  "id": "precision-circuits-00-10050-508--current-limit-gen-4000w",
+  "model": "precision-circuits-00-10050-508",
+  "name": "Current Limit",
+  "value": "33A",
+  "unit": "A",
+  "conditions": "GEN = 4000W",
+  "source": "doc-9621d3efa0d1611d854f33891b3420db",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

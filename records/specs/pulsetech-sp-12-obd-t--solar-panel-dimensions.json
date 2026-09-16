@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-12-obd-t--solar-panel-dimensions",
+  "model": "pulsetech-sp-12-obd-t",
+  "name": "Solar Panel Dimensions",
+  "value": "12.41\" L x 9.85\" W x 0.2\" H",
+  "unit": "in",
+  "source": "doc-7093b0f365901dd67c872dd5806667b3",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

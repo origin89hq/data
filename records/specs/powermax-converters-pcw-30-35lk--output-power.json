@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pcw-30-35lk--output-power",
+  "model": "powermax-converters-pcw-30-35lk",
+  "name": "Output Power",
+  "value": "476",
+  "unit": "W",
+  "source": "doc-18df3b2bff7fce76a234d3382c63a58a",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

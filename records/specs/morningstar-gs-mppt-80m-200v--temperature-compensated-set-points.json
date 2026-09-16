@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-80m-200v--temperature-compensated-set-points",
+  "model": "morningstar-gs-mppt-80m-200v",
+  "name": "Temperature-compensated set-points",
+  "value": "Absorption, Float, Equalize, HVD, HVDR (solar)",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 152,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

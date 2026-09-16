@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-sunsaver-mppt--vb-max-daily-today-s-maximum-battery-voltage",
+  "model": "morningstar-sunsaver-mppt",
+  "name": "Vb_max_daily",
+  "value": "45",
+  "unit": "V",
+  "conditions": "today's maximum battery voltage",
+  "source": "doc-5fa76468db54265325cd046fadd31f6c",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

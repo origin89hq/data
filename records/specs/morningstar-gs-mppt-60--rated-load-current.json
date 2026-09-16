@@ -2,9 +2,10 @@
   "id": "morningstar-gs-mppt-60--rated-load-current",
   "model": "morningstar-gs-mppt-60",
   "name": "Rated Load Current",
-  "value": "30",
+  "value": "30A",
   "unit": "A",
   "source": "doc-3c6c284318c045cf3e87c0f37104f855",
+  "page": 1,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

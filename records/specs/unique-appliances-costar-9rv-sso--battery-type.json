@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-costar-9rv-sso--battery-type",
+  "model": "unique-appliances-costar-9rv-sso",
+  "name": "Battery type",
+  "value": "Alkaline",
+  "source": "doc-2ded12939db1a6dc1a3309490a1b238f",
+  "page": 30,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

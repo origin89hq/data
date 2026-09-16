@@ -1,0 +1,11 @@
+{
+  "id": "midnite-solar-mnx-240-autoformer--power",
+  "model": "midnite-solar-mnx-240-autoformer",
+  "name": "Power",
+  "value": "6000",
+  "unit": "W",
+  "source": "doc-f1ffddc8510c912e9f4e1985afe9b586",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -4,6 +4,7 @@
   "name": "OVEN SIZE",
   "value": "H 16” x W 30” x D 18”",
   "source": "doc-667775c850e5e573b22b366d1656bd01",
+  "page": 1,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-sunsaver-mppt--bps",
+  "model": "morningstar-sunsaver-mppt",
+  "name": "BPS",
+  "value": "9600",
+  "source": "doc-5fa76468db54265325cd046fadd31f6c",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

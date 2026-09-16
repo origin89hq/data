@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-genstar-mppt--lvd-preset-5-nominal-12-volt-batteries-lithium-lifepo4",
+  "model": "morningstar-genstar-mppt",
+  "name": "LVD",
+  "value": "12.50",
+  "unit": "V",
+  "conditions": "Preset 5, nominal 12 Volt batteries, Lithium LiFePO4",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 96,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

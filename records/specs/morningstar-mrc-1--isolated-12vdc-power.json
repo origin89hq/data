@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-mrc-1--isolated-12vdc-power",
+  "model": "morningstar-mrc-1",
+  "name": "Isolated 12VDC power",
+  "value": "12VDC",
+  "unit": "V",
+  "source": "doc-4adec92411b29cf56b15c772390ec17a",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

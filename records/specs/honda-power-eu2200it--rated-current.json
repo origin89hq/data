@@ -1,0 +1,11 @@
+{
+  "id": "honda-power-eu2200it--rated-current",
+  "model": "honda-power-eu2200it",
+  "name": "Rated current",
+  "value": "15",
+  "unit": "A",
+  "source": "doc-d1046b08ac3886c1c4dcfc20fb1fe4e9",
+  "page": 76,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

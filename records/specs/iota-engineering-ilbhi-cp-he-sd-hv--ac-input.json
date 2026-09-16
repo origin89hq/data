@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilbhi-cp-he-sd-hv--ac-input",
+  "model": "iota-engineering-ilbhi-cp-he-sd-hv",
+  "name": "AC Input",
+  "value": "347-480",
+  "unit": "V",
+  "source": "doc-925ff26b906545c42a9ae30dec61ceb2",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "powermax-converters-pm3-120--output-voltage-no-load",
+  "model": "powermax-converters-pm3-120",
+  "name": "Output Voltage",
+  "value": "14.4 +/- 0.2",
+  "unit": "V",
+  "conditions": "No load",
+  "source": "doc-9d8208776180d6fb3fa67f2f623ca7d9",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-gs-mppt-60m-200v--standby-power-48v",
+  "model": "morningstar-gs-mppt-60m-200v",
+  "name": "Standby power",
+  "value": "< 3.2",
+  "unit": "W",
+  "conditions": "48V",
+  "source": "doc-8064daa49fc5ab905383d7bdc59b841f",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

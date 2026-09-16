@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pmx-1000w-psw--auto-reset-after-shut-down",
+  "model": "powermax-converters-pmx-1000w-psw",
+  "name": "Auto-reset after shut-down",
+  "value": "12±0.5",
+  "unit": "V",
+  "source": "doc-d7a679d3d4e4f0c9d2274cb69ddcda28",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion2go-xr--dc-power",
+  "model": "surecall-fusion2go-xr",
+  "name": "DC Power",
+  "value": "6-15",
+  "unit": "V",
+  "source": "doc-35907ecc9515ab2ad38e6c67a67043ca",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-3000w--continuous-power",
+  "model": "powermax-converters-pmx-3000w",
+  "name": "Continuous Power",
+  "value": "3000W",
+  "unit": "W",
+  "source": "doc-c8eeee8d89186b67f0b0171651f69587",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

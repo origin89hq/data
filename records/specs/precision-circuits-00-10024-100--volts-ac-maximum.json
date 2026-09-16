@@ -1,0 +1,12 @@
+{
+  "id": "precision-circuits-00-10024-100--volts-ac-maximum",
+  "model": "precision-circuits-00-10024-100",
+  "name": "Volts AC",
+  "value": "135VAC/line",
+  "unit": "V",
+  "conditions": "Maximum",
+  "source": "doc-cdf8d050240251fb563975bbf15ec24d",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

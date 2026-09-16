@@ -1,0 +1,10 @@
+{
+  "id": "watersprint-strike-ii--regulatory",
+  "model": "watersprint-strike-ii",
+  "name": "Regulatory",
+  "value": "Complies with NSF/ANSI55 Class B, ACS, WRASand UK Reg4.",
+  "source": "doc-85b0b752834731dd5322bae5097045d5",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

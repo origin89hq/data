@@ -1,0 +1,12 @@
+{
+  "id": "midnite-solar-classic150--output-current-12v",
+  "model": "midnite-solar-classic150",
+  "name": "Output Current",
+  "value": "96",
+  "unit": "A",
+  "conditions": "12V",
+  "source": "doc-1a3d5010d988de531d75048b7ab0028a",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

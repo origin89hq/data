@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-60m-200v--max-operating-altitude",
+  "model": "morningstar-gs-mppt-60m-200v",
+  "name": "Max. Operating Altitude",
+  "value": "3000",
+  "source": "doc-2e0d175d4cf50dfa7df1901354c9760f",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

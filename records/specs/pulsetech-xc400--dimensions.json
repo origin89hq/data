@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-xc400--dimensions",
+  "model": "pulsetech-xc400",
+  "name": "Dimensions",
+  "value": "7.15” L x 3.62” W x 1.96”",
+  "unit": "h",
+  "source": "doc-039ff01af7fe0b361fb286cdbd9d5698",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

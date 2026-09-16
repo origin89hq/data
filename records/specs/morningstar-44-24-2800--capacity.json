@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-44-24-2800--capacity",
+  "model": "morningstar-44-24-2800",
+  "name": "Capacity",
+  "value": "110",
+  "unit": "Ah",
+  "source": "doc-8c385ec7d5ff94a5f84b3ae2f4b323f5",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "champion-power-100139--rated-capacity",
+  "model": "champion-power-100139",
+  "name": "Rated capacity",
+  "value": "11,000",
+  "unit": "lb",
+  "source": "doc-75dd9ee0fb16a1eb43827171086e9cab",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

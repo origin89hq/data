@@ -1,0 +1,11 @@
+{
+  "id": "champion-power-100319--circuit-breaker",
+  "model": "champion-power-100319",
+  "name": "Circuit Breaker",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-5139627e3b9ac43ad6e7ebccc8087ebd",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

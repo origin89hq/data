@@ -1,0 +1,11 @@
+{
+  "id": "epever-duc3011--input-and-output-current-range",
+  "model": "epever-duc3011",
+  "name": "Input and Output Current Range",
+  "value": "1~30A",
+  "unit": "A",
+  "source": "doc-567f446589aaf640b63a17563f0f9bd0",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

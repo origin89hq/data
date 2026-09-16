@@ -1,0 +1,11 @@
+{
+  "id": "midnite-solar-mne250sma-ac-single--main-breaker-current-rating",
+  "model": "midnite-solar-mne250sma-ac-single",
+  "name": "Main Breaker Current Rating",
+  "value": "250",
+  "unit": "A",
+  "source": "doc-f1ffddc8510c912e9f4e1985afe9b586",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

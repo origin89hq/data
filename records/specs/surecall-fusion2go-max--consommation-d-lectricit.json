@@ -1,0 +1,12 @@
+{
+  "id": "surecall-fusion2go-max--consommation-d-lectricit",
+  "model": "surecall-fusion2go-max",
+  "name": "Consommation d’électricité",
+  "english": "Power consumption",
+  "value": "≤ 10W",
+  "unit": "W",
+  "source": "doc-e2480c97013e077f943b5000b1f6ec68",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

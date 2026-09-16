@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-sunsaver-mppt--t-rts-optional-remote-temperature-sensor-rts",
+  "model": "morningstar-sunsaver-mppt",
+  "name": "T_rts",
+  "value": "17",
+  "unit": "°C",
+  "conditions": "optional Remote Temperature Sensor (RTS)",
+  "source": "doc-5fa76468db54265325cd046fadd31f6c",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

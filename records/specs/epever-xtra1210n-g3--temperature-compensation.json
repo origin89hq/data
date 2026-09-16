@@ -1,0 +1,10 @@
+{
+  "id": "epever-xtra1210n-g3--temperature-compensation",
+  "model": "epever-xtra1210n-g3",
+  "name": "Temperature Compensation",
+  "value": "-3mV/℃/2V",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 49,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

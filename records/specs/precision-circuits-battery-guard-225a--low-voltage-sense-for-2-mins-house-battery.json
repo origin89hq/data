@@ -1,0 +1,12 @@
+{
+  "id": "precision-circuits-battery-guard-225a--low-voltage-sense-for-2-mins-house-battery",
+  "model": "precision-circuits-battery-guard-225a",
+  "name": "Low Voltage Sense",
+  "value": "<10.5V",
+  "unit": "V",
+  "conditions": "for 2 mins, House Battery",
+  "source": "doc-d74cf300ec36073149f4d3647a95c8fd",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

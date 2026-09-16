@@ -1,0 +1,11 @@
+{
+  "id": "rstc-enterprises-0999--short-circuit",
+  "model": "rstc-enterprises-0999",
+  "name": "Short Circuit",
+  "value": "10Ka",
+  "unit": "A",
+  "source": "doc-757b32549928df239567c265134c9fb2",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

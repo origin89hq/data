@@ -1,0 +1,11 @@
+{
+  "id": "unique-appliances-ugp-370l1--total-amp-hour-pull-down-set-to-14-c-freezer-4-c-fridge-performance-in-a-25-c-ambient",
+  "model": "unique-appliances-ugp-370l1",
+  "name": "Total Amp Hour Pull Down",
+  "value": "24 Ah/24hrs",
+  "conditions": "set to -14˚C freezer/+4˚C fridge performance in a +25˚C ambient",
+  "source": "doc-b83aa402a22866c0a598b459f2a43088",
+  "page": 23,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

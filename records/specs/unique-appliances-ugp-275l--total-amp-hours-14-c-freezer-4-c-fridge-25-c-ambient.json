@@ -1,0 +1,11 @@
+{
+  "id": "unique-appliances-ugp-275l--total-amp-hours-14-c-freezer-4-c-fridge-25-c-ambient",
+  "model": "unique-appliances-ugp-275l",
+  "name": "Total amp hours",
+  "value": "21.5",
+  "conditions": "-14˚C freezer, +4˚C fridge, +25˚C ambient",
+  "source": "doc-72d4edea21f290ad9a4195d19fa8a238",
+  "page": 24,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

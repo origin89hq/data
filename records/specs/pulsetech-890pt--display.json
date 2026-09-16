@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-890pt--display",
+  "model": "pulsetech-890pt",
+  "name": "Display",
+  "value": "2.8",
+  "source": "doc-03b6acecfa18733b3987c167f7f9379d",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

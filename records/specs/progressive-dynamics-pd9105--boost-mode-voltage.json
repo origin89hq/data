@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd9105--boost-mode-voltage",
+  "model": "progressive-dynamics-pd9105",
+  "name": "Boost Mode Voltage",
+  "value": "14.4V",
+  "unit": "V",
+  "source": "doc-99ee695cb32a17bc531a462842861713",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

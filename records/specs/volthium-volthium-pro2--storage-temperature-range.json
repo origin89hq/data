@@ -1,0 +1,11 @@
+{
+  "id": "volthium-volthium-pro2--storage-temperature-range",
+  "model": "volthium-volthium-pro2",
+  "name": "Storage temperature range",
+  "value": "15~35",
+  "unit": "°C",
+  "source": "doc-7b9c445691ca06789041402ec3fefe03",
+  "page": 15,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

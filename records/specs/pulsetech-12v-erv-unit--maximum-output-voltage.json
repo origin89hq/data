@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-12v-erv-unit--maximum-output-voltage",
+  "model": "pulsetech-12v-erv-unit",
+  "name": "Maximum Output Voltage",
+  "value": "16.5",
+  "unit": "V",
+  "source": "doc-ba7da71459330dd1dec34b2c2834d6a9",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

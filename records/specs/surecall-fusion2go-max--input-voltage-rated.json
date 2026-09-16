@@ -1,0 +1,12 @@
+{
+  "id": "surecall-fusion2go-max--input-voltage-rated",
+  "model": "surecall-fusion2go-max",
+  "name": "Input Voltage",
+  "value": "5-15V",
+  "unit": "V",
+  "conditions": "rated",
+  "source": "doc-7c52b9c46b70e7390c9bb3156b3de077",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "surecall-ez-4g--power-consumption",
+  "model": "surecall-ez-4g",
+  "name": "Power Consumption",
+  "value": "<10",
+  "unit": "W",
+  "source": "doc-237c5a52d2ace94be8cf449dd645a478",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

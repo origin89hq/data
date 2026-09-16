@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-12v-230ah--cycle-life-dod-80",
+  "model": "powermax-converters-12v-230ah",
+  "name": "Cycle Life",
+  "value": "6000 Cycle",
+  "conditions": "@DOD 80%",
+  "source": "doc-aceddf6feeed98dd56cffa4cfb015d2c",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

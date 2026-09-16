@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion4home-yagi-panel--maximum-input-voltage",
+  "model": "surecall-fusion4home-yagi-panel",
+  "name": "Maximum input voltage",
+  "value": "5-15V",
+  "unit": "V",
+  "source": "doc-b042d39a8f47c1f852da1634fbcfed6e",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-us3000c--max-charge-discharge-currents-recommend-continuous",
+  "model": "morningstar-us3000c",
+  "name": "Max Charge/Discharge Currents Recommend/ Continuous",
+  "value": "80/ 100 Amps",
+  "unit": "A",
+  "source": "doc-486a48cd1c1125773675e16b3231d6d3",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

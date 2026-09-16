@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion5s-v2-0--dimensions",
+  "model": "surecall-fusion5s-v2-0",
+  "name": "Dimensions",
+  "value": "9.6 x 6.46 x 2",
+  "unit": "in",
+  "source": "doc-7e08293f87e916929c2e41a58589c5a8",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

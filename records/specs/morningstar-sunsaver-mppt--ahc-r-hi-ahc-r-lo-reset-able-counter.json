@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-sunsaver-mppt--ahc-r-hi-ahc-r-lo-reset-able-counter",
+  "model": "morningstar-sunsaver-mppt",
+  "name": "Ahc_r_HI / Ahc_r_LO",
+  "value": "22, 23",
+  "unit": "Ah",
+  "conditions": "reset-able counter",
+  "source": "doc-5fa76468db54265325cd046fadd31f6c",
+  "page": 13,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

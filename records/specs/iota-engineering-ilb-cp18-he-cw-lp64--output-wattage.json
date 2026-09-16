@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilb-cp18-he-cw-lp64--output-wattage",
+  "model": "iota-engineering-ilb-cp18-he-cw-lp64",
+  "name": "Output Wattage",
+  "value": "18",
+  "unit": "W",
+  "source": "doc-e5416223dd9367e284cc5c8c574a6f3e",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

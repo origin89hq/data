@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd52--voltage-shore-power-or-generator-power",
+  "model": "progressive-dynamics-pd52",
+  "name": "Voltage",
+  "value": "105-130",
+  "unit": "V",
+  "conditions": "Shore power or generator power",
+  "source": "doc-9cb5891df5dfc1d6f59e21680149b71a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "epever-ls-b--float-charge",
+  "model": "epever-ls-b",
+  "name": "Float Charge",
+  "value": "13.8V",
+  "unit": "V",
+  "source": "doc-53db1d7b511380afdf031b1284c6f1a5",
+  "page": 18,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

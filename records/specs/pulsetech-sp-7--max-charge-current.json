@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-7--max-charge-current",
+  "model": "pulsetech-sp-7",
+  "name": "Max Charge Current",
+  "value": "450",
+  "unit": "mA",
+  "source": "doc-59f03716fc92d291e8f17d044f9651ea",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

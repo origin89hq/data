@@ -1,0 +1,11 @@
+{
+  "id": "wilson-electronics-wilsonpro-a500--impedance",
+  "model": "wilson-electronics-wilsonpro-a500",
+  "name": "Impedance",
+  "value": "50",
+  "unit": "Ω",
+  "source": "doc-81d6899f31f97e6ee0b4263c003c7e89",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

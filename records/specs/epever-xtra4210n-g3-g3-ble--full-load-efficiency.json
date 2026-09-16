@@ -1,0 +1,11 @@
+{
+  "id": "epever-xtra4210n-g3-g3-ble--full-load-efficiency",
+  "model": "epever-xtra4210n-g3-g3-ble",
+  "name": "Full-load Efficiency",
+  "value": "96.5%",
+  "unit": "%",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 51,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

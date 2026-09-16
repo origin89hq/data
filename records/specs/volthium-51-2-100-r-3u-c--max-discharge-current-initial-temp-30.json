@@ -1,0 +1,12 @@
+{
+  "id": "volthium-51-2-100-r-3u-c--max-discharge-current-initial-temp-30",
+  "model": "volthium-51-2-100-r-3u-c",
+  "name": "Max. discharge current",
+  "value": "100",
+  "unit": "A",
+  "conditions": "initial temp. ≤30",
+  "source": "doc-2d45f5b318a0811f04d0ad9ce1e78efe",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

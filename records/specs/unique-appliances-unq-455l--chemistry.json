@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-unq-455l--chemistry",
+  "model": "unique-appliances-unq-455l",
+  "name": "Chemistry",
+  "value": "Cyclopentane",
+  "source": "doc-7452bb7dd3bf3d9311055a5578a00806",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

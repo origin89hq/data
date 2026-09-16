@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-1000w-psw--operating-relative-humidity",
+  "model": "powermax-converters-pmx-1000w-psw",
+  "name": "Operating Relative Humidity",
+  "value": "10-90",
+  "source": "doc-d7a679d3d4e4f0c9d2274cb69ddcda28",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

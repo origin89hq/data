@@ -2,7 +2,9 @@
   "id": "east-penn-8ggc2-24v",
   "manufacturer": "east-penn",
   "name": "8GGC2-24V",
+  "kind": "battery",
+  "chemistry": "lead-acid",
+  "chemistryBasis": "spec:east-penn-8ggc2-24v--chemistry",
   "aliases": [],
-  "dialects": [],
-  "kind": "battery"
+  "dialects": []
 }

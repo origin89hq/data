@@ -1,0 +1,11 @@
+{
+  "id": "lorentz-ps2-4000-hr--max-power-voltage-vmp",
+  "model": "lorentz-ps2-4000-hr",
+  "name": "max. power voltage (Vmp)",
+  "value": "> 238",
+  "unit": "V",
+  "source": "doc-2cbbf09739290e69e1fce533ecbc8b7f",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

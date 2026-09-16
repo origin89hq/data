@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd5100--torque-specification-for-10-14-cables",
+  "model": "progressive-dynamics-pd5100",
+  "name": "Torque specification for #10 - #14 cables",
+  "value": "2.82",
+  "source": "doc-3dd92b531073c60ed47153d3fb12e5ec",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-genstar-mppt--maximum-load-rating",
+  "model": "morningstar-genstar-mppt",
+  "name": "Maximum load rating",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 96,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

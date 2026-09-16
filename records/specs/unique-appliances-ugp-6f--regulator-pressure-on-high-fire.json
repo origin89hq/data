@@ -1,0 +1,12 @@
+{
+  "id": "unique-appliances-ugp-6f--regulator-pressure-on-high-fire",
+  "model": "unique-appliances-ugp-6f",
+  "name": "Regulator pressure",
+  "value": "11",
+  "unit": "in",
+  "conditions": "on high fire",
+  "source": "doc-2ded12939db1a6dc1a3309490a1b238f",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "progressive-dynamics-pd51--tension-minimale-du-g-n-rateur-sous-charge",
+  "model": "progressive-dynamics-pd51",
+  "name": "Tension minimale du générateur",
+  "english": "Minimum generator voltage",
+  "value": "90",
+  "unit": "V",
+  "conditions": "sous charge",
+  "source": "doc-3dd92b531073c60ed47153d3fb12e5ec",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

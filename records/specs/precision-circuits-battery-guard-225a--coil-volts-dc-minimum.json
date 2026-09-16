@@ -1,0 +1,12 @@
+{
+  "id": "precision-circuits-battery-guard-225a--coil-volts-dc-minimum",
+  "model": "precision-circuits-battery-guard-225a",
+  "name": "Coil Volts DC",
+  "value": "9.0VDC",
+  "unit": "V",
+  "conditions": "Minimum",
+  "source": "doc-f007f665b61a9fef6e28cf905544ebd6",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "epever-tp30k-220-220-1--operating-temp",
+  "model": "epever-tp30k-220-220-1",
+  "name": "Operating temp.",
+  "value": "-25℃~50℃",
+  "source": "doc-81e78093b9671e24fe5a3d9c1812a057",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

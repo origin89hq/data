@@ -1,0 +1,10 @@
+{
+  "id": "quickcable-205719--cable-size",
+  "model": "quickcable-205719",
+  "name": "Cable Size",
+  "value": "6 Ga.",
+  "source": "doc-a40911a487006da785652fde9995f65b",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

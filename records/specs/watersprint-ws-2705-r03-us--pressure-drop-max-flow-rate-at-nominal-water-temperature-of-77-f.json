@@ -1,0 +1,12 @@
+{
+  "id": "watersprint-ws-2705-r03-us--pressure-drop-max-flow-rate-at-nominal-water-temperature-of-77-f",
+  "model": "watersprint-ws-2705-r03-us",
+  "name": "Pressure drop @ max. flow rate",
+  "value": "<7.25",
+  "unit": "psi",
+  "conditions": "at nominal water temperature of 77 ° F",
+  "source": "doc-f7a098e756bf31ad13e410ab8adb7a37",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

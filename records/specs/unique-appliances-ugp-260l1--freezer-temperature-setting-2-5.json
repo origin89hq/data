@@ -1,0 +1,11 @@
+{
+  "id": "unique-appliances-ugp-260l1--freezer-temperature-setting-2-5",
+  "model": "unique-appliances-ugp-260l1",
+  "name": "Freezer Temperature",
+  "value": "-10˚C to -15˚C",
+  "conditions": "Setting = 2.5",
+  "source": "doc-d2a8978c382c66e3fc2eebeec2044fc3",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

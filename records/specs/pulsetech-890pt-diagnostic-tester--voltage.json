@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-890pt-diagnostic-tester--voltage",
+  "model": "pulsetech-890pt-diagnostic-tester",
+  "name": "Voltage",
+  "value": "6, 12, 24",
+  "unit": "V",
+  "source": "doc-8c35ef5b3df7b5fcf9d30ebad67f662d",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

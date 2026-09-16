@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-battery-guard-160a--switch-life",
+  "model": "precision-circuits-battery-guard-160a",
+  "name": "Switch Life",
+  "value": "50,000",
+  "unit": "cycles",
+  "source": "doc-f007f665b61a9fef6e28cf905544ebd6",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

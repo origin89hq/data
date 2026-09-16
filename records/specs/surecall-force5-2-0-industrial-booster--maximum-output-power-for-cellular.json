@@ -1,0 +1,12 @@
+{
+  "id": "surecall-force5-2-0-industrial-booster--maximum-output-power-for-cellular",
+  "model": "surecall-force5-2-0-industrial-booster",
+  "name": "Maximum output power",
+  "value": "3",
+  "unit": "W",
+  "conditions": "for Cellular",
+  "source": "doc-bf8db7e854ebb90b299f7bf841eeb449",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

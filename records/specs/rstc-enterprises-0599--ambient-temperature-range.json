@@ -1,0 +1,10 @@
+{
+  "id": "rstc-enterprises-0599--ambient-temperature-range",
+  "model": "rstc-enterprises-0599",
+  "name": "Ambient temperature range",
+  "value": "-35 à +75",
+  "unit": "°C",
+  "source": "doc-bc3481a09d2fe8327d70fce433fb62e1",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

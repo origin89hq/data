@@ -1,0 +1,12 @@
+{
+  "id": "epever-it4415nd--maximum-pv-open-circuit-voltage-at-minimum-operating-environment-temperature",
+  "model": "epever-it4415nd",
+  "name": "Maximum PV open circuit voltage",
+  "value": "150",
+  "unit": "V",
+  "conditions": "at minimum operating environment temperature",
+  "source": "doc-8f55840d9ba489753a0f6776b1e8aec3",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pm3-55-e--maximum-power-output-continuous",
+  "model": "powermax-converters-pm3-55-e",
+  "name": "Maximum Power Output, Continuous",
+  "value": "780 watts",
+  "unit": "W",
+  "source": "doc-de727abd1d0b2f73b03fe57feddd50a7",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

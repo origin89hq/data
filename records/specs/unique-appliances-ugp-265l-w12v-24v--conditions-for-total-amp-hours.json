@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-265l-w12v-24v--conditions-for-total-amp-hours",
+  "model": "unique-appliances-ugp-265l-w12v-24v",
+  "name": "Conditions for Total Amp Hours",
+  "value": "set to -14˚C in the freezer, performance in a +25˚C ambient",
+  "source": "doc-13f5ba6c6682ad847dfb5059f908d547",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "precision-circuits-midi-power-control-system--current-limit-gen-4000w",
+  "model": "precision-circuits-midi-power-control-system",
+  "name": "Current Limit",
+  "value": "33A",
+  "unit": "A",
+  "conditions": "GEN = 4000W",
+  "source": "doc-a9c6631136b41ebdd42edb943f8ece4b",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

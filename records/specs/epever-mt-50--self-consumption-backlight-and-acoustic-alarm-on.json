@@ -1,0 +1,12 @@
+{
+  "id": "epever-mt-50--self-consumption-backlight-and-acoustic-alarm-on",
+  "model": "epever-mt-50",
+  "name": "Self-consumption",
+  "value": "<65mA",
+  "unit": "mA",
+  "conditions": "Backlight and acoustic alarm ON",
+  "source": "doc-d1bc52bc0bb701566219e695af1d35bf",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

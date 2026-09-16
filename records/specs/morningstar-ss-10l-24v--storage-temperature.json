@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ss-10l-24v--storage-temperature",
+  "model": "morningstar-ss-10l-24v",
+  "name": "Storage Temperature",
+  "value": "−55°C to +80°C",
+  "unit": "°C",
+  "source": "doc-faccf02ddc4b17991ff29bc933fe693a",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

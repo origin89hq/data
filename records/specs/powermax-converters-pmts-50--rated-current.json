@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pmts-50--rated-current",
+  "model": "powermax-converters-pmts-50",
+  "name": "Rated current",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-2e9bfa1b129f68b2fa6491f42fde9209",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

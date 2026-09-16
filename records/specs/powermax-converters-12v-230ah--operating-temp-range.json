@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-12v-230ah--operating-temp-range",
+  "model": "powermax-converters-12v-230ah",
+  "name": "Operating Temp Range",
+  "value": "-40~+55",
+  "unit": "°C",
+  "source": "doc-aceddf6feeed98dd56cffa4cfb015d2c",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "volthium-powerstation-1600w--pd-100w",
+  "model": "volthium-powerstation-1600w",
+  "name": "PD 100W",
+  "value": "5V/3A 9V/3A 12V/3A 15V/3A 20V/5A",
+  "source": "doc-539db762e00cb2755331d36d5d4e2019",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

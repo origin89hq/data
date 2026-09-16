@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-tristar-mppt-600v--load-hvd-high-voltage-disconnect",
+  "model": "morningstar-tristar-mppt-600v",
+  "name": "Load HVD/High Voltage Disconnect",
+  "value": "15.50",
+  "unit": "V",
+  "source": "doc-b746a07a04f315d810eff7ea665a8d9a",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

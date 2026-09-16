@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-pro-12-rp--chemistry",
+  "model": "pulsetech-pro-12-rp",
+  "name": "Chemistry",
+  "value": "Lead-acid",
+  "source": "doc-ed0bab0123d936e46c72ccc5948afcab",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

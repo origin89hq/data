@@ -1,0 +1,10 @@
+{
+  "id": "epever-xtra4215n-g3-g3-ble--grounding-type",
+  "model": "epever-xtra4215n-g3-g3-ble",
+  "name": "Grounding Type",
+  "value": "Common negative",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 51,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

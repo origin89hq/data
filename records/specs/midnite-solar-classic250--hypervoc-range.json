@@ -1,0 +1,11 @@
+{
+  "id": "midnite-solar-classic250--hypervoc-range",
+  "model": "midnite-solar-classic250",
+  "name": "HyperVOC Range",
+  "value": "250V to 298V",
+  "unit": "V",
+  "source": "doc-99e13d49dba2dfea2ab587f317bb9af8",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

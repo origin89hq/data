@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pmx-3000pspt--continuous-output-power",
+  "model": "powermax-converters-pmx-3000pspt",
+  "name": "Continuous output power",
+  "value": "Up to 3000 W",
+  "unit": "W",
+  "source": "doc-aa10b2ab94603707e362b938e91785d8",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -2,10 +2,10 @@
   "id": "unique-appliances-ugp-260l1--fuse",
   "model": "unique-appliances-ugp-260l1",
   "name": "Fuse",
-  "value": "15",
+  "value": "15 A",
   "unit": "A",
   "source": "doc-b83aa402a22866c0a598b459f2a43088",
-  "page": 8,
+  "page": 10,
   "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "confidence": "vendor-doc"
 }

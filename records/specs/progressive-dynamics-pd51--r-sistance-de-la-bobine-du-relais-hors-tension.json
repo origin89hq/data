@@ -1,0 +1,13 @@
+{
+  "id": "progressive-dynamics-pd51--r-sistance-de-la-bobine-du-relais-hors-tension",
+  "model": "progressive-dynamics-pd51",
+  "name": "Résistance de la bobine du relais",
+  "english": "Relay coil resistance",
+  "value": "3k - 7k",
+  "unit": "Ω",
+  "conditions": "hors tension",
+  "source": "doc-3dd92b531073c60ed47153d3fb12e5ec",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion-go-max--operation-temperature",
+  "model": "surecall-fusion-go-max",
+  "name": "Operation Temperature",
+  "value": "-4 to +158",
+  "source": "doc-7acc5516732c29845f9d5dfea50c393f",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

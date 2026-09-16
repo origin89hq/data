@@ -1,0 +1,10 @@
+{
+  "id": "rstc-enterprises-0599--dc-current-rating",
+  "model": "rstc-enterprises-0599",
+  "name": "DC current rating",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-63e76872134b53d777aee534184424fa",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

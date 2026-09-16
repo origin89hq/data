@@ -1,0 +1,12 @@
+{
+  "id": "epever-mt11--self-consumption-power-on-5vdc",
+  "model": "epever-mt11",
+  "name": "Self-consumption(Power on)",
+  "value": "13mA",
+  "unit": "mA",
+  "conditions": "5Vdc",
+  "source": "doc-2d695956cc975642e593ea057a5d4f1a",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "emporia-emv3ct5-a--inside-diameter",
+  "model": "emporia-emv3ct5-a",
+  "name": "Inside diameter",
+  "value": "10",
+  "unit": "mm",
+  "source": "doc-e44cae2a6b8535ee6806ff6f5600735d",
+  "page": 37,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

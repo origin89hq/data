@@ -1,0 +1,11 @@
+{
+  "id": "east-penn-gc10-6v--36v-pack-voltage-target",
+  "model": "east-penn-gc10-6v",
+  "name": "36V PACK VOLTAGE TARGET",
+  "value": "41.4 to 42.3",
+  "unit": "V",
+  "source": "doc-4df1f3c7e7b80602166b1ffd8ea15816",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

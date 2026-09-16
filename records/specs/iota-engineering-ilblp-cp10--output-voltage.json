@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilblp-cp10--output-voltage",
+  "model": "iota-engineering-ilblp-cp10",
+  "name": "Output Voltage",
+  "value": "15-55",
+  "unit": "V",
+  "source": "doc-74c8271a2228320fb8bcea930046b55f",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

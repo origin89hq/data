@@ -1,0 +1,11 @@
+{
+  "id": "volthium-12-v-314-ah-plus--continuous-discharge-current",
+  "model": "volthium-12-v-314-ah-plus",
+  "name": "Continuous discharge current",
+  "value": "150",
+  "unit": "A",
+  "source": "doc-077d2d659a35c4c9e5e7cf891e028345",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

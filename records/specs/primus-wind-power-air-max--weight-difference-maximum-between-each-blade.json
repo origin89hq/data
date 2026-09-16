@@ -1,0 +1,12 @@
+{
+  "id": "primus-wind-power-air-max--weight-difference-maximum-between-each-blade",
+  "model": "primus-wind-power-air-max",
+  "name": "Weight difference",
+  "value": "0.5 g",
+  "unit": "g",
+  "conditions": "maximum between each blade",
+  "source": "doc-bea106362dcc42cf99a61871ae73edaa",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

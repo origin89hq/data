@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-genstar-mppt--minimum-over-current-protection-device-interrupt-rating-for-48v-systems",
+  "model": "morningstar-genstar-mppt",
+  "name": "Minimum over-current protection device interrupt rating for 48V systems",
+  "value": "5kA",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 19,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

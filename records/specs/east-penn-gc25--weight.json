@@ -1,0 +1,10 @@
+{
+  "id": "east-penn-gc25--weight",
+  "model": "east-penn-gc25",
+  "name": "WEIGHT",
+  "value": "68",
+  "source": "doc-298020c480db519a900feeab4daf9343",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "wilson-electronics-wilsonpro-a500--weight",
+  "model": "wilson-electronics-wilsonpro-a500",
+  "name": "Weight",
+  "value": "1.25",
+  "unit": "kg",
+  "source": "doc-81d6899f31f97e6ee0b4263c003c7e89",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

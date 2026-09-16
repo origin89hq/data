@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4100--chemistry",
+  "model": "progressive-dynamics-pd4100",
+  "name": "Chemistry",
+  "value": "Flooded Lead Acid or AGM",
+  "source": "doc-cc076a27326563687e6f4e3ff1d8a2b5",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

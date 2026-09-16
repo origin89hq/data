@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ts-60--thermal-shutdown-temperature",
+  "model": "morningstar-ts-60",
+  "name": "Thermal shutdown temperature",
+  "value": "95",
+  "unit": "°C",
+  "source": "doc-687a3ce0efb1ec0ba34bd644ddc9d45d",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

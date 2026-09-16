@@ -1,0 +1,11 @@
+{
+  "id": "champion-power-100428--width",
+  "model": "champion-power-100428",
+  "name": "Width",
+  "value": "4.1 in.",
+  "unit": "in",
+  "source": "doc-b7a025d0c8d715a43c9d66d47cb1d468",
+  "page": 17,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

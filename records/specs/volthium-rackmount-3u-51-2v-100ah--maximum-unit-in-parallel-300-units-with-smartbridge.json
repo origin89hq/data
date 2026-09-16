@@ -1,0 +1,11 @@
+{
+  "id": "volthium-rackmount-3u-51-2v-100ah--maximum-unit-in-parallel-300-units-with-smartbridge",
+  "model": "volthium-rackmount-3u-51-2v-100ah",
+  "name": "Maximum unit in parallel",
+  "value": "48~65",
+  "conditions": "(300 units with SmartBridge)",
+  "source": "doc-69d9a0eb8fe8d2224c7dbd6179e15d2a",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

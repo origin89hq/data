@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-hd-jump-start--chemistry",
+  "model": "pulsetech-hd-jump-start",
+  "name": "Chemistry",
+  "value": "AGM lead acid",
+  "source": "doc-cc8769955ceba4916c284daa0b5a22f6",
+  "page": 43,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

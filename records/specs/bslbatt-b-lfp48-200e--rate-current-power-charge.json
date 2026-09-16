@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-b-lfp48-200e--rate-current-power-charge",
+  "model": "bslbatt-b-lfp48-200e",
+  "name": "Rate. Current / Power (Charge)",
+  "value": "160A / 8.192kW",
+  "source": "doc-00b5ed69a1e2f7909133dfef71f40617",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

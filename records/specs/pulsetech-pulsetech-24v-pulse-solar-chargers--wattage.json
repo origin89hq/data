@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-pulsetech-24v-pulse-solar-chargers--wattage",
+  "model": "pulsetech-pulsetech-24v-pulse-solar-chargers",
+  "name": "Wattage",
+  "value": "7.2",
+  "unit": "W",
+  "source": "doc-9b7ba0466bce797c8c8c4557f27a9c9b",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

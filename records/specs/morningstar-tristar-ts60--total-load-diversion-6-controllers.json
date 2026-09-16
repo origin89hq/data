@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-tristar-ts60--total-load-diversion-6-controllers",
+  "model": "morningstar-tristar-ts60",
+  "name": "Total load diversion",
+  "value": "7.2kW",
+  "unit": "kW",
+  "conditions": "6 controllers",
+  "source": "doc-29e5848624ebfbae39ca90b2c8b9dd70",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

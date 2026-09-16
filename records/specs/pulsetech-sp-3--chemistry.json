@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-3--chemistry",
+  "model": "pulsetech-sp-3",
+  "name": "Chemistry",
+  "value": "Lead-Acid",
+  "source": "doc-dc486b0c7095bc807c53c71add39a126",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

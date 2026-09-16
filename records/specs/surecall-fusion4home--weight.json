@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion4home--weight",
+  "model": "surecall-fusion4home",
+  "name": "Weight",
+  "value": "2 lb 3 oz",
+  "source": "doc-2e0c4747311fab9e7645c70978fc292e",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd1610--rated-power",
+  "model": "progressive-dynamics-pd1610",
+  "name": "Rated power",
+  "value": "1000",
+  "unit": "W",
+  "source": "doc-9b5a35cf0b2f79edbd3df1d0f1a87246",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

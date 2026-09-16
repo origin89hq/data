@@ -1,0 +1,11 @@
+{
+  "id": "epever-mt91--power-supply",
+  "model": "epever-mt91",
+  "name": "Power supply",
+  "value": "5VDC",
+  "unit": "V",
+  "source": "doc-85a43b5963b01d0894deeabea7ee8118",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "epever-xtra4215n-g3-g3-ble--battery-rated-voltage",
+  "model": "epever-xtra4215n-g3-g3-ble",
+  "name": "Battery Rated Voltage",
+  "value": "12/24VDC",
+  "unit": "V",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 50,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

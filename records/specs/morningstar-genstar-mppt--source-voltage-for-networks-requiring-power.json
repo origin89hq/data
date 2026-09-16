@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-genstar-mppt--source-voltage-for-networks-requiring-power",
+  "model": "morningstar-genstar-mppt",
+  "name": "Source voltage",
+  "value": "8-16",
+  "unit": "V",
+  "conditions": "for networks requiring power",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 124,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

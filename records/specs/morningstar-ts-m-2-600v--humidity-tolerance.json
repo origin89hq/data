@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ts-m-2-600v--humidity-tolerance",
+  "model": "morningstar-ts-m-2-600v",
+  "name": "Humidity Tolerance",
+  "value": "5 to 95 %",
+  "unit": "%",
+  "source": "doc-fe81f786ffcf4110c4eab5e48b9d134a",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

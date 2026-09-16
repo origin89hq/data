@@ -1,0 +1,11 @@
+{
+  "id": "epever-mt75--net-weight",
+  "model": "epever-mt75",
+  "name": "Net Weight",
+  "value": "0.29Kg",
+  "unit": "kg",
+  "source": "doc-cbd3409beacec46a7bd1caea31b46761",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

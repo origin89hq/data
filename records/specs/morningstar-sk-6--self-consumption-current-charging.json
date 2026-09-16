@@ -1,0 +1,12 @@
+{
+  "id": "morningstar-sk-6--self-consumption-current-charging",
+  "model": "morningstar-sk-6",
+  "name": "Self-consumption Current",
+  "value": "< 7.0",
+  "unit": "mA",
+  "conditions": "charging",
+  "source": "doc-d82902d49ba6250778d2c652a7ce8eee",
+  "page": 22,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

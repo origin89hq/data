@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-00-10041-200--ambient-temperature",
+  "model": "precision-circuits-00-10041-200",
+  "name": "Ambient Temperature",
+  "value": "-40",
+  "unit": "°C",
+  "source": "doc-cd76c65396af09504c09d76e85c5b33a",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

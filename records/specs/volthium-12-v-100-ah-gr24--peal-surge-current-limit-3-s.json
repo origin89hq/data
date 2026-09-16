@@ -1,0 +1,12 @@
+{
+  "id": "volthium-12-v-100-ah-gr24--peal-surge-current-limit-3-s",
+  "model": "volthium-12-v-100-ah-gr24",
+  "name": "Peal /Surge current limit",
+  "value": "350 A",
+  "unit": "A",
+  "conditions": "@3 s",
+  "source": "doc-d480da931917808c709e6a5c5f175337",
+  "page": 6,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

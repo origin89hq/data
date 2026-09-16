@@ -1,0 +1,11 @@
+{
+  "id": "bslbatt-bsl-48-250--maximum-output-current",
+  "model": "bslbatt-bsl-48-250",
+  "name": "Maximum output current",
+  "value": "250A",
+  "unit": "A",
+  "source": "doc-40c3daaff587ebd783d97d0fbe3a6a4a",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

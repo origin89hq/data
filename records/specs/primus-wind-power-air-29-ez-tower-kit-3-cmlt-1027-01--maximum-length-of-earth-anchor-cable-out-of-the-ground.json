@@ -1,0 +1,11 @@
+{
+  "id": "primus-wind-power-air-29-ez-tower-kit-3-cmlt-1027-01--maximum-length-of-earth-anchor-cable-out-of-the-ground",
+  "model": "primus-wind-power-air-29-ez-tower-kit-3-cmlt-1027-01",
+  "name": "Maximum length of earth anchor cable out of the ground",
+  "value": "12 in",
+  "unit": "in",
+  "source": "doc-01d16896af11aea6ec7d1f7ffd4266ab",
+  "page": 14,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

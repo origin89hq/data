@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-x-24-volt-model--recommended-fuse-or-circuit-breaker-size",
+  "model": "primus-wind-power-air-x-24-volt-model",
+  "name": "Recommended fuse or circuit breaker size",
+  "value": "20",
+  "source": "doc-aa3eaa6a084a58206d83d4b229175f24",
+  "page": 21,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

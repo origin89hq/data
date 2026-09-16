@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-00-10050-552--gen",
+  "model": "precision-circuits-00-10050-552",
+  "name": "GEN",
+  "value": "6000",
+  "unit": "W",
+  "source": "doc-4d2f932734712595fe0726841bf7895e",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

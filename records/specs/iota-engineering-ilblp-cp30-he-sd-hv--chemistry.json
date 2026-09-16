@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilblp-cp30-he-sd-hv--chemistry",
+  "model": "iota-engineering-ilblp-cp30-he-sd-hv",
+  "name": "Chemistry",
+  "value": "LiFePO4",
+  "source": "doc-74cbfbc3329ad9f9d7c81644bdf776fc",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

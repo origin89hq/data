@@ -1,0 +1,11 @@
+{
+  "id": "bslbatt-bsl-24-150--applicable-voltage-platform",
+  "model": "bslbatt-bsl-24-150",
+  "name": "Applicable voltage platform",
+  "value": "25.6V",
+  "unit": "V",
+  "source": "doc-40c3daaff587ebd783d97d0fbe3a6a4a",
+  "page": 7,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "volthium-rackmount-10kw--continuous-discharge-current",
+  "model": "volthium-rackmount-10kw",
+  "name": "Continuous discharge current",
+  "value": "125",
+  "unit": "A",
+  "source": "doc-9efa19a8c01bb2abba05e00d45135a40",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

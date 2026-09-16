@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion4home-3-0-3-1-e-u--amplification-gain-maximum",
+  "model": "surecall-fusion4home-3-0-3-1-e-u",
+  "name": "Amplification (gain) maximum",
+  "value": "72",
+  "unit": "dB",
+  "source": "doc-b042d39a8f47c1f852da1634fbcfed6e",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

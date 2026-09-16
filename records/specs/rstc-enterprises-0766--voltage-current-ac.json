@@ -1,0 +1,10 @@
+{
+  "id": "rstc-enterprises-0766--voltage-current-ac",
+  "model": "rstc-enterprises-0766",
+  "name": "Voltage/Current AC",
+  "value": "240 VAC",
+  "unit": "V",
+  "source": "doc-3624ffaea262125ea3f81b5b0f7a722a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

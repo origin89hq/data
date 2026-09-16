@@ -1,0 +1,10 @@
+{
+  "id": "rstc-enterprises-0599--csa-enclosure-type",
+  "model": "rstc-enterprises-0599",
+  "name": "CSA enclosure type",
+  "value": "Nema Type 3R",
+  "source": "doc-63e76872134b53d777aee534184424fa",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

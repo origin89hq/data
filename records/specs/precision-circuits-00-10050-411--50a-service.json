@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-00-10050-411--50a-service",
+  "model": "precision-circuits-00-10050-411",
+  "name": "50A Service",
+  "value": "Sleep Mode",
+  "source": "doc-0edfc65a3ec57258824608989f379f5a",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

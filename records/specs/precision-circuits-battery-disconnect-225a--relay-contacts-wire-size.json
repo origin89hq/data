@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-battery-disconnect-225a--relay-contacts-wire-size",
+  "model": "precision-circuits-battery-disconnect-225a",
+  "name": "Relay Contacts",
+  "value": "2/0",
+  "conditions": "Wire Size",
+  "source": "doc-7bd930b049a801da7eb2445a3882d3a9",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

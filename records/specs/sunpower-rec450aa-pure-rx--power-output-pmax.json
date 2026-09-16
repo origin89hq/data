@@ -1,0 +1,11 @@
+{
+  "id": "sunpower-rec450aa-pure-rx--power-output-pmax",
+  "model": "sunpower-rec450aa-pure-rx",
+  "name": "Power Output - PMAX",
+  "value": "450",
+  "unit": "W",
+  "source": "doc-0be4d97cdd84e6e6a5d778d6316a1276",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

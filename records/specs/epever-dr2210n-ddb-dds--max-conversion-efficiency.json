@@ -1,0 +1,11 @@
+{
+  "id": "epever-dr2210n-ddb-dds--max-conversion-efficiency",
+  "model": "epever-dr2210n-ddb-dds",
+  "name": "Max. conversion efficiency",
+  "value": "97.50%",
+  "unit": "%",
+  "source": "doc-f4b3ef954e09ccc7732e9135ee547ca7",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

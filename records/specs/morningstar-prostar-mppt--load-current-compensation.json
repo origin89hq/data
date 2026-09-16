@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-prostar-mppt--load-current-compensation",
+  "model": "morningstar-prostar-mppt",
+  "name": "Load Current Compensation",
+  "value": "0.015",
+  "source": "doc-b746a07a04f315d810eff7ea665a8d9a",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

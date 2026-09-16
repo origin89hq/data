@@ -1,0 +1,10 @@
+{
+  "id": "volthium-51-2-314-ess--chemistry",
+  "model": "volthium-51-2-314-ess",
+  "name": "Chemistry",
+  "value": "LiFePO4",
+  "source": "doc-70b77cf2d1e1ebb8fadfde03a8d95990",
+  "page": 10,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

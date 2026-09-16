@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-ijpmwp3g-12v--self-priming",
+  "model": "powermax-converters-ijpmwp3g-12v",
+  "name": "Self-priming",
+  "value": "6",
+  "source": "doc-d274f2cdb4de16aba8fe000a6d2e5d71",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "volthium-51-2-100v15-xw-pro-6-8k2--parallel-number",
+  "model": "volthium-51-2-100v15-xw-pro-6-8k2",
+  "name": "Parallel Number",
+  "value": "1S15P",
+  "source": "doc-43bbf4f24819d6e49e58b5e94d46a787",
+  "page": 159,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

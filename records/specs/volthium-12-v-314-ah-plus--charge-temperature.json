@@ -1,0 +1,11 @@
+{
+  "id": "volthium-12-v-314-ah-plus--charge-temperature",
+  "model": "volthium-12-v-314-ah-plus",
+  "name": "Charge temperature",
+  "value": "-20 à 60",
+  "unit": "°C",
+  "source": "doc-72b25da84c7c1735ef7b021c74d682b6",
+  "page": 3,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

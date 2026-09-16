@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-mrc-1--input-voltage",
+  "model": "morningstar-mrc-1",
+  "name": "Input voltage",
+  "value": "8-16V",
+  "unit": "V",
+  "source": "doc-4adec92411b29cf56b15c772390ec17a",
+  "page": 5,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

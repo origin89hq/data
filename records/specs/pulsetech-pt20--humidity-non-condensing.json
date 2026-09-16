@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-pt20--humidity-non-condensing",
+  "model": "pulsetech-pt20",
+  "name": "Humidity (non-condensing)",
+  "value": "Max 98",
+  "unit": "%",
+  "source": "doc-23626c7771110fd9944d219a50d60d5f",
+  "page": 12,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

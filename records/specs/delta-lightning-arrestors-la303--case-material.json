@@ -1,0 +1,10 @@
+{
+  "id": "delta-lightning-arrestors-la303--case-material",
+  "model": "delta-lightning-arrestors-la303",
+  "name": "Case material",
+  "value": "PVC",
+  "source": "doc-89c9a82e8cb094866c3e6c713e362f6d",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

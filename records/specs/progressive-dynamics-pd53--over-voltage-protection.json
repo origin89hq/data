@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd53--over-voltage-protection",
+  "model": "progressive-dynamics-pd53",
+  "name": "Over Voltage Protection",
+  "value": "No",
+  "source": "doc-e65476d5efab431000ba9e990a9ff93f",
+  "page": 4,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

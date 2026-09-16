@@ -1,0 +1,10 @@
+{
+  "id": "volthium-rackmount-3u-51-2v-100ah--bms-reconnection-voltage",
+  "model": "volthium-rackmount-3u-51-2v-100ah",
+  "name": "BMS - Reconnection voltage",
+  "value": "43.2 ~ 45",
+  "unit": "V",
+  "source": "doc-69d9a0eb8fe8d2224c7dbd6179e15d2a",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "honda-power-eu2200i-companion--rated-power",
+  "model": "honda-power-eu2200i-companion",
+  "name": "Rated power",
+  "value": "1.8",
+  "unit": "kVA",
+  "source": "doc-d1046b08ac3886c1c4dcfc20fb1fe4e9",
+  "page": 34,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

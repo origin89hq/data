@@ -1,0 +1,11 @@
+{
+  "id": "epever-xtra2206n-g3--mounting-hole-size",
+  "model": "epever-xtra2206n-g3",
+  "name": "Mounting Hole Size",
+  "value": "Φ 5mm",
+  "unit": "mm",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 50,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

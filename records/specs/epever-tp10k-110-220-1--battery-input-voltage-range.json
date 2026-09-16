@@ -1,0 +1,11 @@
+{
+  "id": "epever-tp10k-110-220-1--battery-input-voltage-range",
+  "model": "epever-tp10k-110-220-1",
+  "name": "Battery Input voltage range",
+  "value": "93~146Vdc",
+  "unit": "V",
+  "source": "doc-81e78093b9671e24fe5a3d9c1812a057",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

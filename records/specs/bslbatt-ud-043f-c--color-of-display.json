@@ -1,0 +1,11 @@
+{
+  "id": "bslbatt-ud-043f-c--color-of-display",
+  "model": "bslbatt-ud-043f-c",
+  "name": "Color Of Display",
+  "value": "16.7",
+  "unit": "m",
+  "source": "doc-7312ba729bee055a0d9bb94283b959b8",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

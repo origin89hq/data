@@ -1,0 +1,11 @@
+{
+  "id": "east-penn-426g--width",
+  "model": "east-penn-426g",
+  "name": "WIDTH",
+  "value": "555",
+  "unit": "mm",
+  "source": "doc-298020c480db519a900feeab4daf9343",
+  "page": 2,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

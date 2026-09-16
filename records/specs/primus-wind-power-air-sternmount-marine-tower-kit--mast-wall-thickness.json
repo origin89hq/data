@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-sternmount-marine-tower-kit--mast-wall-thickness",
+  "model": "primus-wind-power-air-sternmount-marine-tower-kit",
+  "name": "Mast wall thickness",
+  "value": "0.135 inch",
+  "unit": "in",
+  "source": "doc-ac54bef7dd1f50567f10297800d66c4d",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

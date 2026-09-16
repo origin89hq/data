@@ -1,0 +1,11 @@
+{
+  "id": "wilson-electronics-connect-rv-65--power-output-for-single-cell-phone-downlink-700-mhz-band-13",
+  "model": "wilson-electronics-connect-rv-65",
+  "name": "Power output for single cell phone (Downlink)",
+  "value": "11.92",
+  "conditions": "700 MHz Band 13",
+  "source": "doc-442f3f3fe1acf3a5ae38e048775c469d",
+  "page": 16,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

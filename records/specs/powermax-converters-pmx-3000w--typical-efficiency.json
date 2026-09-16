@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pmx-3000w--typical-efficiency",
+  "model": "powermax-converters-pmx-3000w",
+  "name": "Typical Efficiency",
+  "value": ">80%",
+  "unit": "%",
+  "source": "doc-c8eeee8d89186b67f0b0171651f69587",
+  "page": 1,
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}
