@@ -7,5 +7,8 @@
     "Pentair Pentek Solar Drive PSD15",
     "Pentair Pentek SolarDrive PSD15"
   ],
-  "dialects": []
+  "dialects": [],
+  "checkedAt": "2026-09-16",
+  "reviewedBy": "lemarier",
+  "basis": "Its manual calls the PSD15 \"an off-grid solar controller\" that operates \"3-phase\" \"(AC) motor loads up to 1.5HP from solar photovoltaic (PV) power\" (doc-ad792b6bb4700d48e2ae347798e185bb, p4) and rates \"Maximum Output Current: 7 Arms (3-phase motors)\" (p5), with no battery; it converts PV to AC for a pump motor, not a charge controller."
 }

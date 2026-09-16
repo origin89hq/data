@@ -6,5 +6,8 @@
   "aliases": [
     "EG4 ChargeVerter-GC"
   ],
-  "dialects": []
+  "dialects": [],
+  "checkedAt": "2026-09-16",
+  "reviewedBy": "lemarier",
+  "basis": "Its manual rates an \"AC Input Voltage Range\" of \"90-264VAC\" and a \"Charge Voltage (adjustable)\" of \"43-57VDC (default 54VDC)\" (doc-f0b2ed205965be71dd20402bf570ed32, p3), and prints no inverter output; it is a battery charger, not an inverter/charger."
 }

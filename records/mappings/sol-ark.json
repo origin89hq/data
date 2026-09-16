@@ -77,7 +77,7 @@
         "max usable PV power",
         "Max PV power delivered to Battery & AC outputs"
       ],
-      "basis": "The sheets state the most PV the unit uses as '13 kW (± 5%)', which the parser refuses for its tolerance, or in watts, the 12K-P's as 'Max PV power delivered to Battery & AC outputs', 12,000 W; 'Max. STC Rated PV Power', 'Max allowed PV DC Capacity' and the shared file's 'Max. Allowed PV Power', set aside under except, are array sizes above what the unit uses, 13,000 W beside that 12,000 W, and are not read. Nor is the shared 'Maximum solar input power': the 15K manual's 19,200 W under that name is its limit for AC-coupled input on the GEN terminal (pp. 16 and 24), not PV."
+      "basis": "The sheets state the most PV the unit uses as '13 kW (± 5%)', which the parser refuses for its tolerance, or in watts, the 12K-P's as 'Max PV power delivered to Battery & AC outputs', 12,000 W; 'Max. STC Rated PV Power', 'Max allowed PV DC Capacity' and the shared file's 'Max. Allowed PV Power', set aside under except, are array sizes above what the unit uses, 13,000 W beside that 12,000 W, and are not read."
     },
     {
       "key": "pv.power.max",
@@ -90,7 +90,6 @@
     }
   ],
   "except": [
-    "Max. Allowed PV Power",
-    "Maximum solar input power"
+    "Max. Allowed PV Power"
   ]
 }

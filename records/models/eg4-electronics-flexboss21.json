@@ -16,5 +16,8 @@
       },
       "confidence": "unverified"
     }
-  ]
+  ],
+  "checkedAt": "2026-09-16",
+  "reviewedBy": "lemarier",
+  "basis": "Its wiring guide draws it as a \"Hybrid Inverter\" on the battery, PV and grid (doc-22046aec6a8b52e3f9daaef246354f01, p3) and says it \"adds 50 A to the total house loads with it’s battery charger\" (p12); it is an inverter/charger, not a bms."
 }
