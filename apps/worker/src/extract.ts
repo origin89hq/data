@@ -1,5 +1,6 @@
 import { answerText } from "./classify.ts";
 import { makerName } from "./manufacturers.ts";
+import { NotYet, rateLimited, takeTurn, waitTurn } from "./pace.ts";
 import {
   answerObjects,
   asciiSymbols,
@@ -9,8 +10,10 @@ import {
   mergeReports,
   pageOfFigure,
   printedSymbols,
+  printsValue,
   type Reported,
   SYSTEM,
+  TEXT_RESPONSE_SCHEMA,
   type Window,
 } from "./reading.ts";
 import { LAST_ATTEMPT, partKey, readerKey, type Work } from "./work.ts";
@@ -65,6 +68,7 @@ export async function readDocument(
   const kept = await keptWindows(env, message.sha256, windows.length);
   const read: ReadWindow[] = [];
   const unread: string[] = [];
+  let turnedAway: NotYet | undefined;
   for (const [i, window] of windows.entries()) {
     const number = i + 1;
     const done = kept.get(number);
@@ -74,11 +78,22 @@ export async function readDocument(
     }
     let answer: ReadWindow;
     try {
-      answer = {
-        window: number,
-        products: await readWindow(env, window, makerName(message.manufacturer)),
-      };
+      // A turn with Kimi for each window, from the budget the page reader shares.
+      const mayWait = await takeTurn(env, message, EXTRACT_MODEL);
+      try {
+        answer = {
+          window: number,
+          products: await readWindow(env, window, makerName(message.manufacturer)),
+        };
+      } catch (error) {
+        if (mayWait && rateLimited(error)) throw new NotYet(reason(error));
+        throw error;
+      }
     } catch (error) {
+      if (error instanceof NotYet) {
+        turnedAway = error;
+        break;
+      }
       // The rest of the windows are still read, so one delivery again covers every window missed.
       if (attempt < LAST_ATTEMPT) {
         unread.push(`window ${number}: ${reason(error)}`);
@@ -92,6 +107,12 @@ export async function readDocument(
       AS_JSON,
     );
     read.push(answer);
+  }
+  // Turned away: the windows read are kept, and the document goes back on the queue to read the
+  // rest when its turn comes, without using up a delivery of its own.
+  if (turnedAway) {
+    await waitTurn(env, message, turnedAway);
+    return;
   }
   if (unread.length > 0)
     throw new Error(`${unread.length} of ${windows.length} windows not read; ${unread[0]}`);
@@ -154,10 +175,16 @@ async function readWindow(env: Env, window: Window, maker: string): Promise<Repo
       { role: "system", content: SYSTEM },
       { role: "user", content: `Maker: ${maker}\n\n${shown.text}` },
     ],
-    // No `response_format`. Held to a JSON schema, the model answered `{"products":[]}` in six
-    // tokens for windows it reads in full without one, at any temperature: the ratings tables of
-    // Rolls' S48-100LFP STACK-LV manual and of Victron's off-grid brochure. The prompt gives the
-    // answer's shape instead, and an answer that is not JSON fails the window like one cut short.
+    // Held to the schema and told not to think, as the page reader's calls to the same model are:
+    // without both, Kimi writes its thinking into the answer. (Llama 3.3, the reader before it,
+    // answered `{"products":[]}` for whole windows when held to a schema, and was held to none.) The
+    // prompt still gives the answer's shape, and an answer that is not JSON fails the window like
+    // one cut short.
+    response_format: {
+      type: "json_schema",
+      json_schema: { name: "figures", schema: TEXT_RESPONSE_SCHEMA, strict: false },
+    },
+    chat_template_kwargs: { thinking: false },
     max_tokens: ANSWER_TOKENS,
   } as never);
   // Every object in the answer counts, fenced or not: a note after it, or an empty answer before the
@@ -177,6 +204,11 @@ async function readWindow(env: Env, window: Window, maker: string): Promise<Repo
       // a name or value that is not a string is left for the merge to refuse.
       specs: product.specs
         .filter((s) => typeof s === "object" && s !== null)
+        // A value the window does not print was not read from it: the comparison that chose this
+        // reader found every such figure wrong, and no right one among them.
+        .filter(
+          (s) => typeof s.value !== "string" || printsValue(shown.text, asciiSymbols(s.value)),
+        )
         .map(({ page: _claimed, ...read }) => {
           // The page is looked up in the window as the model was shown it, so a value it copied
           // with "~" or with an operator the sheet prints in ASCII is still found.

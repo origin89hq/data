@@ -64,13 +64,13 @@
   // somebody sending made-up tokens would spend the app's allowance and lock members out. So those
   // calls are rationed per address. The namespace is this Worker's own.
   //
-  // The page reader's pace. Kimi K2.7 serves an account 20 requests a minute on standard billing,
-  // and writing down a page or reading a window of a transcript is one of them, so eighteen a minute
-  // stays under it. Twenty consumers each calling as fast as they could lost 1,996 of 2,148 pages
-  // to the limit (#29).
+  // Kimi's pace. Kimi K2.7 serves an account 20 requests a minute on standard billing, and both
+  // readers call it: a window of a converted document, a page written down, a window of a
+  // transcript is each one of them, so eighteen a minute stays under it. Twenty consumers each
+  // calling as fast as they could lost 1,996 of 2,148 pages to the limit (#29).
   "ratelimits": [
     { "name": "SIGN_IN_CHECKS", "namespace_id": "89001", "simple": { "limit": 30, "period": 60 } },
-    { "name": "PAGE_READER_PACE", "namespace_id": "89002", "simple": { "limit": 18, "period": 60 } }
+    { "name": "KIMI_PACE", "namespace_id": "89002", "simple": { "limit": 18, "period": 60 } }
   ],
   // The origin89hq GitHub App people sign in through. A client id is not a secret: it is in every
   // sign-in URL. Its client secret is, and is the one below.

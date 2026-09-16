@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import type { DownloadDecision } from "@origin89/equipment-schema/documents";
-import { PULL_PAGE_READER } from "@origin89/equipment-schema/provenance";
+import { EARLIER_EXTRACTOR_IDS, PULL_PAGE_READER } from "@origin89/equipment-schema/provenance";
 import { R2_AT_ONCE } from "../src/at-once.ts";
 import { classifierKey } from "../src/classify.ts";
 import type { DiscoverySeen, HostSeen } from "../src/discover.ts";
@@ -40,6 +40,8 @@ function run(
     sent?: string[];
     converted?: string[];
     text?: string[];
+    /** Read by the text reader before this one. */
+    before?: string[];
     pages?: string[];
   },
   maker = "maker",
@@ -69,6 +71,8 @@ function run(
     objects[partKey.reading(sha(c), readerKey(EXTRACTOR_ID))] = "{}";
   for (const c of stages.pages ?? [])
     objects[partKey.reading(sha(c), readerKey(VISION_EXTRACTOR_ID))] = "{}";
+  for (const c of stages.before ?? [])
+    objects[partKey.reading(sha(c), readerKey(EARLIER_EXTRACTOR_IDS[0] ?? ""))] = "{}";
   return objects;
 }
 
@@ -314,6 +318,21 @@ test("a run that is converted and read is ready to pull", async () => {
   );
   assert.deepEqual([maker.sent, maker.converted, maker.read], [2, 2, 2]);
   assert.equal(readyToPull(maker), true);
+});
+
+test("a run only an earlier reader read waits on reading and is not ready to pull, but counts as read before", async () => {
+  const stages = { plan: true, approved: true, sent: ["b", "c", "d"], converted: ["b", "c", "d"] };
+  const before = await state(run({ ...stages, before: ["b", "c", "d"] }));
+  assert.deepEqual([before.read, before.readBefore], [undefined, 3]);
+  assert.equal(before.waitingOn, "reading, 3 of 3 left", "this reader has read none of it");
+  assert.equal(readyToPull(before), false, "a pull would find none of this reader's readings");
+  const partly = await state(run({ ...stages, text: ["b"], before: ["b", "c"] }));
+  assert.deepEqual(
+    [partly.read, partly.readBefore],
+    [1, 1],
+    "a document this reader read too counts once, as read",
+  );
+  assert.equal((await state(run(stages))).readBefore, undefined, "and a run nobody read has none");
 });
 
 test("a run discovery has just started is not, because pulling it would delete every figure", async () => {

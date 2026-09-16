@@ -51,19 +51,17 @@ test("a page message names its page and the pages it belongs to, and cannot name
   assert.equal(Work.safeParse({ ...page, waits: 1.5 }).success, false);
 });
 
-test("the page reader's pace keeps its calls under Kimi's twenty a minute", () => {
+test("Kimi's pace keeps both readers' calls under its twenty a minute", () => {
   // Cloudflare's published limit for @cf/moonshotai/kimi-k2.7-code on standard billing is twenty
   // requests a minute for the whole account. Over it, pages were refused faster than they could
   // wait, and 1,996 of 2,148 were kept as failed (#29).
   const config = readFileSync(new URL("../wrangler.jsonc", import.meta.url), "utf8");
   const pace =
-    /"name":\s*"PAGE_READER_PACE"[^}]*"simple":\s*\{\s*"limit":\s*(\d+),\s*"period":\s*(\d+)/.exec(
-      config,
-    );
+    /"name":\s*"KIMI_PACE"[^}]*"simple":\s*\{\s*"limit":\s*(\d+),\s*"period":\s*(\d+)/.exec(config);
   assert.ok(pace, "the pace is configured");
   const [limit, period] = [Number(pace[1]), Number(pace[2])];
   assert.equal(period, 60, "counted by the minute, as the model's limit is");
-  // A turn is one call: a page written down, or a window of a transcript read for figures.
+  // A turn is one call: a window of a document, a page written down, or a window of a transcript.
   assert.ok(limit > 0 && limit <= 20, `${limit} calls a minute`);
 });
 

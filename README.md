@@ -119,7 +119,9 @@ pnpm specs:pull rolls-battery <date>                                  # write th
 A reading is addressed by the document's bytes and the reader, so a document
 read once is never read again, whichever run asks: that is what keeps a second
 run from paying twice, and also what keeps a changed prompt from reaching a
-document already read. `just forget <maker>` counts the prompted readers'
+document already read. A new reader model is a new reader: after a change of
+model every document is unread by it, and `just convert` reads it again without
+`just forget` first. `just forget <maker>` counts the prompted readers'
 readings and windows for the maker's approved documents, and
 `just forget <maker> false` removes them, two hundred documents a call until
 the maker is done; the next `just convert` then reads those documents again,
