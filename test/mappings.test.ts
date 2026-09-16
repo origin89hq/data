@@ -808,7 +808,7 @@ test("Pentair: a plunger pump's pressure in bar and its horsepower in watts, a f
   // The SHEF42's curve: one flow at each head, from the column names, kept apart by the height.
   assert.deepEqual(
     values(of("pentair-shef42a1").properties, "pump.flow.rated")
-      .map((p) => [p.value, p.conditions.head ?? 0])
+      .map((p) => [p.value, p.conditions.head ?? 0] as const)
       .sort((a, b) => a[1] - b[1]),
     [
       [230.9101188, 1.524],

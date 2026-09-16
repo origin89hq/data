@@ -159,7 +159,13 @@ function publishing(dir: string, env: Record<string, string>, ...flags: string[]
     execFile(
       process.execPath,
       [new URL("../tools/dataset/publish.ts", import.meta.url).pathname, "--dir", dir, ...flags],
-      { cwd: tmpdir(), timeout: 15000, env: { PATH: process.env.PATH ?? "", ...env } },
+      {
+        cwd: tmpdir(),
+        timeout: 15000,
+        // The Worker's generated types declare its two sign-in variables on every process's
+        // environment; a publisher's child process has neither.
+        env: { PATH: process.env.PATH ?? "", ...env } as unknown as NodeJS.ProcessEnv,
+      },
       (error, stdout, stderr) =>
         finished({
           status: error ? (typeof error.code === "number" ? error.code : 1) : 0,
@@ -286,7 +292,10 @@ test("what the publisher sends is what the Worker takes: files, digests, and the
   const { dir } = fixture(t);
   dataset(dir);
   const archive = world();
-  const env = { ...archive.env, SITE: { fetch: async () => new Response("the site") } } as Env;
+  const env = {
+    ...archive.env,
+    SITE: { fetch: async () => new Response("the site") },
+  } as unknown as Env;
   t.mock.method(globalThis, "fetch", async () => Response.json(jwks));
   const { job } = await endpoints(t, async (path, request) =>
     path === "/token" ? Response.json({ value: await jobToken() }) : app.fetch(request, env),
@@ -440,7 +449,10 @@ test("the real Worker, once its store holds a publication, is not sent the same 
   const { dir } = fixture(t);
   dataset(dir);
   const archive = world();
-  const env = { ...archive.env, SITE: { fetch: async () => new Response("the site") } } as Env;
+  const env = {
+    ...archive.env,
+    SITE: { fetch: async () => new Response("the site") },
+  } as unknown as Env;
   t.mock.method(globalThis, "fetch", async () => Response.json(jwks));
   const { seen, job } = await endpoints(t, async (path, request) =>
     path === "/token" ? Response.json({ value: await jobToken() }) : app.fetch(request, env),
@@ -451,7 +463,9 @@ test("the real Worker, once its store holds a publication, is not sent the same 
   // This dataset has no load plan, so nothing loads it; the store takes the release as a load would.
   const key = [...archive.store.keys()].find((k) => k.startsWith("releases/versions/"));
   assert.ok(key);
-  const release = JSON.parse(archive.text(key)) as { id: string; content: string; at: string };
+  const stored = archive.text(key);
+  assert.ok(stored);
+  const release = JSON.parse(stored) as { id: string; content: string; at: string };
   await env.RELEASES.prepare(
     "INSERT INTO releases (id, content, published_at, state) VALUES (?, ?, ?, 'active')",
   )

@@ -42,7 +42,7 @@ export function world(
   const body = (bytes: Uint8Array) => ({
     size: bytes.length,
     get body() {
-      return new Blob([bytes]).stream();
+      return new Blob([bytes.slice()]).stream();
     },
     etag: etag(bytes),
     httpEtag: `"${etag(bytes)}"`,

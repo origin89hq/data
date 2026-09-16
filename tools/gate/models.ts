@@ -75,7 +75,10 @@ for (const { model } of derived) {
 
 const withDialect = derived.filter((d) => d.model.dialects.length > 0).length;
 const kinds = new Map<string, number>();
-for (const d of derived) kinds.set(d.model.kind, (kinds.get(d.model.kind) ?? 0) + 1);
+for (const d of derived) {
+  const kind = d.model.kind ?? "(no kind)";
+  kinds.set(kind, (kinds.get(kind) ?? 0) + 1);
+}
 console.log(
   `${sightings.length} sightings from ${sellers.length} sellers → ${derived.length} models${dryRun ? " (dry run, nothing written)" : `: ${added} new, ${kept} refreshed`}`,
 );

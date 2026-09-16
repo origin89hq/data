@@ -38,15 +38,15 @@ test("an English name that shares a root with a foreign one is not foreign", () 
 
 test("a foreign figure is dropped only when its model has English figures to fall back on", () => {
   const covered = [
-    { model: "a", name: "Maximum current" },
-    { model: "a", name: "Corriente máxima" },
+    { id: "a--maximum-current", model: "a", name: "Maximum current", value: "10" },
+    { id: "a--corriente-maxima", model: "a", name: "Corriente máxima", value: "10" },
   ];
   assert.deepEqual(
     withoutRedundantTranslations(covered).keep.map((s) => s.name),
     ["Maximum current"],
   );
   // The only description a model has stays, whatever language it is in.
-  const alone = [{ model: "b", name: "Corriente máxima" }];
+  const alone = [{ id: "b--corriente-maxima", model: "b", name: "Corriente máxima", value: "10" }];
   assert.deepEqual(withoutRedundantTranslations(alone).keep, alone);
   assert.equal(withoutRedundantTranslations(alone).kept.length, 1);
 });

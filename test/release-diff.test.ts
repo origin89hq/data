@@ -4,6 +4,7 @@ import { test } from "node:test";
 import {
   canonical,
   changedFields,
+  type Release,
   releaseContent,
   sourceComparison,
 } from "@origin89/equipment-schema/releases";
@@ -58,11 +59,12 @@ test("a release's content is the sha256 of its files with keys sorted, whatever 
     }),
     pinned,
   );
-  for (const changed of [
+  const changes: Release["files"][] = [
     { ...files, "models.csv": { ...files["models.csv"], rows: 2 } },
     { ...files, "models.csv": { ...files["models.csv"], sha256: "b".repeat(64) } },
     { "models.csv": files["models.csv"] },
     {},
-  ])
+  ];
+  for (const changed of changes)
     assert.notEqual(await releaseContent(changed), pinned, JSON.stringify(changed));
 });

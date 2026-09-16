@@ -122,9 +122,15 @@ importers:
       '@biomejs/biome':
         specifier: 2.5.13
         version: 2.5.13
+      '@types/node':
+        specifier: 24.13.4
+        version: 24.13.4
       sharp:
         specifier: 0.35.4
-        version: 0.35.4(@types/node@20.19.43)
+        version: 0.35.4(@types/node@24.13.4)
+      typescript:
+        specifier: 7.0.2
+        version: 7.0.2
 
   apps/site:
     dependencies:
@@ -155,13 +161,13 @@ importers:
         version: 19.3.0(@types/react@19.3.0)
       '@vitejs/plugin-react':
         specifier: 6.1.1
-        version: 6.1.1(vite@8.2.2(@types/node@20.19.43)(esbuild@0.28.1))
+        version: 6.1.1(vite@8.2.2(@types/node@24.13.4)(esbuild@0.28.1))
       typescript:
         specifier: 6.0.3
         version: 6.0.3
       vite:
         specifier: 8.2.2
-        version: 8.2.2(@types/node@20.19.43)(esbuild@0.28.1)
+        version: 8.2.2(@types/node@24.13.4)(esbuild@0.28.1)
 
   apps/worker:
     dependencies:
@@ -968,6 +974,9 @@ packages:
   '@types/node@20.19.43':
     resolution: {integrity: sha512-6oYBAi5ikg4Pl+kGsoYtawUMBT2zZMCvPNF7pVLnHZfd1zf38DRiWn/gT01RYCdUqkv7Fhr+C9ot4/tb+2sVvA==}
 
+  '@types/node@24.13.4':
+    resolution: {integrity: sha512-YJ7EqCstVTzIr0fMr7qul/977en+pQHrfmuKIo6Zr9i75Be21dr3MovcfvGtyvi2HAUrRerWps5sMO9I7WaxDw==}
+
   '@types/react-dom@19.3.0':
     resolution: {integrity: sha512-ZI7bU42mZXXKHn/qNLEw2IrbiINU7X5+vfgdixBHkCNpYWXjKgfQ/P+uyGb5CjOLB9UcnTeg3rylQtV2hym44Q==}
     peerDependencies:
@@ -1415,6 +1424,9 @@ packages:
 
   undici-types@6.21.0:
     resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
+
+  undici-types@7.18.2:
+    resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
 
   undici@7.29.0:
     resolution: {integrity: sha512-IDxfleLmmbSskfWSUATiN1nfn2rDuvnMOqb5CWR92iIfojA0Ud+ulOAAEQ57LPr9rWmsreUyf5lwyao+7GNNVw==}
@@ -1989,6 +2001,10 @@ snapshots:
     dependencies:
       undici-types: 6.21.0
 
+  '@types/node@24.13.4':
+    dependencies:
+      undici-types: 7.18.2
+
   '@types/react-dom@19.3.0(@types/react@19.3.0)':
     dependencies:
       '@types/react': 19.3.0
@@ -2057,10 +2073,10 @@ snapshots:
   '@typescript/typescript-win32-x64@7.0.2':
     optional: true
 
-  '@vitejs/plugin-react@6.1.1(vite@8.2.2(@types/node@20.19.43)(esbuild@0.28.1))':
+  '@vitejs/plugin-react@6.1.1(vite@8.2.2(@types/node@24.13.4)(esbuild@0.28.1))':
     dependencies:
       '@rolldown/pluginutils': 1.0.1
-      vite: 8.2.2(@types/node@20.19.43)(esbuild@0.28.1)
+      vite: 8.2.2(@types/node@24.13.4)(esbuild@0.28.1)
 
   ansi-styles@4.3.0:
     dependencies:
@@ -2328,7 +2344,7 @@ snapshots:
       '@img/sharp-win32-ia32': 0.35.2
       '@img/sharp-win32-x64': 0.35.2
 
-  sharp@0.35.4(@types/node@20.19.43):
+  sharp@0.35.4(@types/node@24.13.4):
     dependencies:
       '@img/colour': 1.1.0
       detect-libc: 2.1.2
@@ -2359,7 +2375,7 @@ snapshots:
       '@img/sharp-win32-arm64': 0.35.4
       '@img/sharp-win32-ia32': 0.35.4
       '@img/sharp-win32-x64': 0.35.4
-      '@types/node': 20.19.43
+      '@types/node': 24.13.4
 
   source-map-js@1.2.1: {}
 
@@ -2412,6 +2428,8 @@ snapshots:
 
   undici-types@6.21.0: {}
 
+  undici-types@7.18.2: {}
+
   undici@7.29.0: {}
 
   unenv@2.0.0-rc.24:
@@ -2422,7 +2440,7 @@ snapshots:
     dependencies:
       react: 19.3.0
 
-  vite@8.2.2(@types/node@20.19.43)(esbuild@0.28.1):
+  vite@8.2.2(@types/node@24.13.4)(esbuild@0.28.1):
     dependencies:
       lightningcss: 1.33.0
       picomatch: 4.0.7
@@ -2430,7 +2448,7 @@ snapshots:
       rolldown: 1.2.8
       tinyglobby: 0.2.17
     optionalDependencies:
-      '@types/node': 20.19.43
+      '@types/node': 24.13.4
       esbuild: 0.28.1
       fsevents: 2.3.3
 

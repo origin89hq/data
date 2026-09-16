@@ -1,0 +1,21 @@
+{
+  // The code Node runs with type stripping: the dataset build, the tools and the root tests. The
+  // apps check their own; this covers what their checks never see (#104).
+  "compilerOptions": {
+    "target": "es2024",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    // The tests import the ops pages' client code, which runs in a browser.
+    "lib": ["es2024", "dom", "dom.iterable"],
+    // The tools and tests import the Worker's source, which is typed against its bindings.
+    "types": ["node", "./apps/worker/worker-configuration.d.ts"],
+    "allowImportingTsExtensions": true,
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*.ts", "tools/**/*.ts", "test/**/*.ts", "packages/*/src/**/*.ts"]
+}
