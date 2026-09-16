@@ -1,6 +1,12 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { test } from "node:test";
-import { canonical, changedFields, sourceComparison } from "@origin89/equipment-schema/releases";
+import {
+  canonical,
+  changedFields,
+  releaseContent,
+  sourceComparison,
+} from "@origin89/equipment-schema/releases";
 
 test("field comparison ignores object key order but preserves missing, null, arrays and provenance", () => {
   assert.equal(canonical({ b: 2, a: 1 }), canonical({ a: 1, b: 2 }));
@@ -30,4 +36,33 @@ test("source comparisons preserve the chosen direction including newer to older"
     sourceComparison(newer, older),
     `https://github.com/origin89hq/offgrid-equipment/compare/${newer}..${older}`,
   );
+});
+
+test("a release's content is the sha256 of its files with keys sorted, whatever order they came in", async () => {
+  const sha = "a".repeat(64);
+  const files = {
+    "models.csv": { rows: 1, bytes: 14, sha256: sha },
+    "specs.csv": { bytes: 9, sha256: sha },
+  };
+  // Pinned, not recomputed: a publisher and a Worker that drifted apart here would never match.
+  const pinned = createHash("sha256")
+    .update(
+      `{"models.csv":{"bytes":14,"rows":1,"sha256":"${sha}"},"specs.csv":{"bytes":9,"sha256":"${sha}"}}`,
+    )
+    .digest("hex");
+  assert.equal(await releaseContent(files), pinned);
+  assert.equal(
+    await releaseContent({
+      "specs.csv": { sha256: sha, bytes: 9 },
+      "models.csv": { sha256: sha, bytes: 14, rows: 1 },
+    }),
+    pinned,
+  );
+  for (const changed of [
+    { ...files, "models.csv": { ...files["models.csv"], rows: 2 } },
+    { ...files, "models.csv": { ...files["models.csv"], sha256: "b".repeat(64) } },
+    { "models.csv": files["models.csv"] },
+    {},
+  ])
+    assert.notEqual(await releaseContent(changed), pinned, JSON.stringify(changed));
 });
