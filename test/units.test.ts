@@ -152,6 +152,32 @@ test("a unit glued to the value is pulled off, since the number and the unit are
   assert.deepEqual(splitValueUnit("Yes", undefined), { value: "Yes" });
 });
 
+test("a unit written in the value and in the unit field comes off the value once (#196)", () => {
+  assert.deepEqual(splitValueUnit("100A", "A"), { value: "100", unit: "A" });
+  assert.deepEqual(splitValueUnit("20 Amps", "A"), { value: "20", unit: "A" });
+  assert.deepEqual(splitValueUnit("28.8±0.2V", "V"), { value: "28.8±0.2", unit: "V" });
+  assert.deepEqual(splitValueUnit("About 5A", "A"), { value: "About 5", unit: "A" });
+  assert.deepEqual(splitValueUnit("12-24-48V", "V"), { value: "12-24-48", unit: "V" });
+  assert.deepEqual(splitValueUnit("34 –122°F", "°F"), { value: "34 –122", unit: "°F" });
+  assert.deepEqual(splitValueUnit("47,2cm", "cm"), { value: "47.2", unit: "cm" });
+  // What the unit field cannot say stays in the value: AC or DC, open circuit, a panel's peak.
+  assert.deepEqual(splitValueUnit("120 VAC", "V"), { value: "120 VAC", unit: "V" });
+  assert.deepEqual(splitValueUnit("12-24 VDC", "V"), { value: "12-24 VDC", unit: "V" });
+  assert.deepEqual(splitValueUnit("525 Wp", "W"), { value: "525 Wp", unit: "W" });
+  // A unit printed more than once, or beside another, is left where it is.
+  assert.deepEqual(splitValueUnit("12 V / 24 V", "V"), { value: "12 V / 24 V", unit: "V" });
+  assert.deepEqual(splitValueUnit("12.8V 100Ah", "Ah"), { value: "12.8V 100Ah", unit: "Ah" });
+  assert.deepEqual(splitValueUnit("600V ac/dc", "V"), { value: "600V ac/dc", unit: "V" });
+  // A number printed with a unit of the same quantity keeps it; another quantity's unit is no answer.
+  assert.deepEqual(splitValueUnit("11mA", "A"), { value: "11", unit: "mA" });
+  assert.deepEqual(splitValueUnit("+11mA", "A"), { value: "+11", unit: "mA" });
+  assert.deepEqual(splitValueUnit("2.5 kW", "W"), { value: "2.5", unit: "kW" });
+  assert.deepEqual(splitValueUnit("5Ah", "A"), { value: "5Ah", unit: "A" });
+  // Another unit at the end, or no number before it, is not the unit repeated.
+  assert.deepEqual(splitValueUnit("2560Wh", "V"), { value: "2560Wh", unit: "V" });
+  assert.deepEqual(splitValueUnit("Pure Sine Wave", "V"), { value: "Pure Sine Wave", unit: "V" });
+});
+
 test("a European decimal comma becomes a point, and a thousands separator is left alone", () => {
   // An OutBack case height of "47,2 cm" read as a number is 472, so publishing the comma is a trap.
   assert.deepEqual(splitValueUnit("47,2", "cm"), { value: "47.2", unit: "cm" });

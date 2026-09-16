@@ -472,6 +472,10 @@ test("a table's placeholder, two names joined, the maker's own name and a list o
   assert.equal(mintRefusal("PD9_45(L)", []), placeholder);
   assert.equal(mintRefusal("BSL48XX", []), placeholder);
   assert.equal(mintRefusal("XXX-XXX-175", []), placeholder);
+  assert.equal(mintRefusal("LS****B", []), placeholder, "stars stand for the digits (#196)");
+  assert.equal(mintRefusal("PD50xxxxx", []), placeholder, "and so do lower-case x's");
+  assert.equal(mintRefusal("PMX-1000W", []), undefined, "one x in a part number is a letter");
+  assert.equal(mintRefusal("Max 1*2", []), undefined, "one star is not a placeholder");
   assert.equal(mintRefusal("BR-DC175 and BR-DC250", []), "two names joined");
   assert.equal(mintRefusal("UNIQUE", ["Unique Appliances"]), "the maker's own name");
   assert.equal(mintRefusal("12.8V 200Ah", []), "ratings, not a product");

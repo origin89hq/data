@@ -309,18 +309,70 @@ export function withoutAnswerTail(value: string): { value: string; unit?: string
 }
 
 /**
+ * Spellings of a unit that say more than the unit field can: whether a voltage or a current is AC
+ * or DC, that a voltage is open-circuit, that a watt is a panel's peak. A value keeps them.
+ */
+const QUALIFIED_UNITS = new Set([
+  "vdc",
+  "vac",
+  "vcd",
+  "vca",
+  "vcc",
+  "vd.c.",
+  "va.c.",
+  "voc",
+  "adc",
+  "aac",
+  "ad.c.",
+  "aa.c.",
+  "wp",
+]);
+
+/**
+ * A value with its unit taken off the end when the unit field already says it: the reader writes
+ * "100A" with a unit of A, "28.8±0.2V" with V (#196). Only a unit printed once, at the end, after a
+ * number, comes off. "12 V / 24 V" keeps both, since taking the last would leave the first alone;
+ * "12.8V 100Ah" keeps its tail beside another unit; "120 VAC" keeps the AC.
+ */
+function withoutRepeatedUnit(value: string, unit: Unit): string {
+  const match = /^(.*[\d)\]½¼¾⅛⅜⅝⅞])\s*([A-Za-zΩ°℃µ%][A-Za-zΩ°℃µ%²³/·.]{0,9})$/u.exec(value);
+  const head = match?.[1];
+  const tail = match?.[2];
+  if (!head || !tail || canonicalUnit(tail) !== unit || QUALIFIED_UNITS.has(tail.toLowerCase()))
+    return value;
+  const words = head.match(/[A-Za-zΩ°℃µ%]+/gu) ?? [];
+  if (words.some((word) => canonicalUnit(word) !== undefined)) return value;
+  return head.trim();
+}
+
+/**
  * Pull a unit out of a value that has one glued on. A model told to put the unit in its own field
  * writes "57.6V" anyway, and twenty-two figures in one run did exactly that: the number is right
- * and the unit is right, and only the shape is wrong.
+ * and the unit is right, and only the shape is wrong. A unit written in both places comes off the
+ * value too.
  */
 export function splitValueUnit(
   value: string,
   unit: string | undefined,
 ): { value: string; unit?: string } {
   const canonical = canonicalUnit(unit);
-  if (canonical) return { value: decimalPoint(value.trim()), unit: canonical };
-  const match = /^(-?\d+(?:[.,]\d+)?)\s*([A-Za-zΩ°℃µ%][A-Za-zΩ°℃µ%²³/·.]{0,9})$/.exec(value.trim());
+  const match = /^([-+]?\d+(?:[.,]\d+)?)\s*([A-Za-zΩ°℃µ%][A-Za-zΩ°℃µ%²³/·.]{0,9})$/.exec(
+    value.trim(),
+  );
   const pulled = match ? canonicalUnit(match[2]) : undefined;
+  // A number printed with its own unit of the same quantity keeps the printed one: "11mA" is not
+  // eleven amps because the unit field said A (#196).
+  if (
+    canonical &&
+    match &&
+    pulled &&
+    pulled !== canonical &&
+    !QUALIFIED_UNITS.has(match[2].toLowerCase()) &&
+    QUANTITY_OF[pulled] === QUANTITY_OF[canonical]
+  )
+    return { value: decimalPoint(match[1]), unit: pulled };
+  if (canonical)
+    return { value: decimalPoint(withoutRepeatedUnit(value.trim(), canonical)), unit: canonical };
   return pulled && match
     ? { value: decimalPoint(match[1]), unit: pulled }
     : { value: decimalPoint(value.trim()) };

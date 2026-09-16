@@ -173,7 +173,13 @@ export function coreName(name: string, makerNames: readonly string[]): string | 
  */
 export function mintRefusal(name: string, ownNames: readonly string[]): string | undefined {
   const text = normaliseModelName(name);
-  if (/(^|\s)[A-Za-z]+\d_\d/.test(text) || /\dX{2}\b/i.test(text) || /X{3}/.test(text))
+  if (
+    /(^|\s)[A-Za-z]+\d_\d/.test(text) ||
+    /\dX{2}\b/i.test(text) ||
+    /X{3}/.test(text) ||
+    /\dx{3,}/i.test(text) ||
+    /\*{2,}/.test(text)
+  )
     return "a table's placeholder for several models";
   if (/\d\s?\((?:L|LI)\)$/.test(text))
     return "a table's column for a model with and without its suffix";
