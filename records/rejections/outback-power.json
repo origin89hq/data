@@ -88,6 +88,14 @@
       "reason": "Prose, \"must never exceed 150 Voc\", repeating the rated \"PV Open Circuit Voltage (Voc) 150 Vdc maximum\" held under its own name.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-8f888711145dfb393a31a26b9fe2f6ae",
+      "model": "outback-power-1000xlc",
+      "name": "Voltage per cell",
+      "reason": "No cell voltage is rated under that name: the 2.2 Vpc is a resting state of charge, \"a battery at 52.8 Vdc (2.2 Vpc) will be at 100% SoC\" (p8), and the 2.11 Vpc a commissioning threshold, \"individual cell voltage less than 2.11 Vpc), apply a freshening charge\" (p25).",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-16"
     }
   ]
 }

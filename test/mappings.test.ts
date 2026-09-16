@@ -326,8 +326,8 @@ test("Sol-Ark: the 15K's surges with their times, one battery current, the usabl
     values(properties, "charge.current.max").map((p) => p.value),
     [275],
   );
-  // The manual's 19,200 W "Maximum solar input power" is the GEN terminal's AC-coupling limit, not a
-  // second PV total disagreeing with the sheet's 19,500 W.
+  // The manual's per-MPPT figure reads beside the sheet's total. Its 19,200 W "Maximum solar input
+  // power" was the GEN terminal's AC-coupling limit and is rejected, so no second total disagrees.
   assert.deepEqual(
     values(properties, "pv.power.max").map((p) => [p.value, p.scope]),
     [

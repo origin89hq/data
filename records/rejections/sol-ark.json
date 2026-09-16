@@ -8,6 +8,14 @@
       "reason": "Spanish prose on the battery's limit, with no label: \"rango de voltaje de funcionamiento de 160 VCC a 500 VCC\".",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-e8a5f883b41371b0b427044b95831d40",
+      "model": "sol-ark-15k-2p-lv",
+      "name": "Maximum solar input power",
+      "reason": "The manual prints 19,200 W only as the AC input the GEN terminal takes, not a solar rating: \"a generator or an AC-coupled source (80 A max or 19,200W)\" (p16) and \"The maximum allowed AC coupling input is 19,200W.\" (p24).",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-16"
     }
   ]
 }
