@@ -4,20 +4,25 @@
   "name": "12K-2P-N",
   "kind": "inverter-charger",
   "aliases": [
-    "SAK-224-101"
+    "SAK-224-101",
+    "SOL-12K-2P-N",
+    "Sol-Ark 12K-2P-N",
+    "Sol-Ark12K-2P-N"
   ],
   "dialects": [
     {
       "dialect": "solark-hybrid-rtu-v1",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     },
     {
       "dialect": "solark-mysolark-cloud",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     }

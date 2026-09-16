@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-sna5000wpv--pv-input-voltage-range",
+  "model": "luxpower-sna5000wpv",
+  "name": "PV Input Voltage Range",
+  "value": "100~480 V",
+  "source": "doc-382ae6d157ec388999d842200da8a1ed",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 55,
+  "confidence": "vendor-doc"
+}

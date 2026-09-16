@@ -1,0 +1,11 @@
+{
+  "id": "sol-ark-60k-3p-480v--max-battery-charge-discharge-using-both-terminals",
+  "model": "sol-ark-60k-3p-480v",
+  "name": "Max Battery Charge/Discharge (using both terminals)",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-bc0135a643a0f04a6b415b6ff7c18fbe",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 14,
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,20 @@
+{
+  "id": "eg4-electronics-flexboss21",
+  "manufacturer": "eg4-electronics",
+  "name": "FlexBOSS21",
+  "kind": "inverter-charger",
+  "aliases": [
+    "EG4 FlexBOSS21",
+    "EG4 FlexBOSS21 Inverter"
+  ],
+  "dialects": [
+    {
+      "dialect": "eg4-luxpower-v58",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": []
+      },
+      "confidence": "unverified"
+    }
+  ]
+}

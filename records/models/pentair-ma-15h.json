@@ -3,6 +3,8 @@
   "manufacturer": "pentair",
   "name": "MA-15H",
   "kind": "pump",
-  "aliases": [],
+  "aliases": [
+    "Triplex Pump MA-15H"
+  ],
   "dialects": []
 }

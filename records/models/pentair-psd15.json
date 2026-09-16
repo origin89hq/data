@@ -2,7 +2,10 @@
   "id": "pentair-psd15",
   "manufacturer": "pentair",
   "name": "PSD15",
-  "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "kind": "inverter",
+  "aliases": [
+    "Pentair Pentek Solar Drive PSD15",
+    "Pentair Pentek SolarDrive PSD15"
+  ],
+  "dialects": []
 }

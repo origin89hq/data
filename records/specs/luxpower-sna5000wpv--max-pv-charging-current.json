@@ -1,0 +1,11 @@
+{
+  "id": "luxpower-sna5000wpv--max-pv-charging-current",
+  "model": "luxpower-sna5000wpv",
+  "name": "Max. PV Charging Current",
+  "value": "110",
+  "unit": "A",
+  "source": "doc-382ae6d157ec388999d842200da8a1ed",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 55,
+  "confidence": "vendor-doc"
+}

@@ -2,7 +2,9 @@
   "id": "magnum-energy-24np8v",
   "manufacturer": "magnum-energy",
   "name": "24NP8V",
-  "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "kind": "inverter-charger",
+  "aliases": [
+    "INVERTER 24NP8V"
+  ],
+  "dialects": []
 }

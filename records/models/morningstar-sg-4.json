@@ -3,6 +3,8 @@
   "manufacturer": "morningstar",
   "name": "SG-4",
   "kind": "charge-controller",
-  "aliases": [],
+  "aliases": [
+    "SunGuard SG-4"
+  ],
   "dialects": []
 }

@@ -2,15 +2,18 @@
   "id": "morningstar-ts-60",
   "manufacturer": "morningstar",
   "name": "TS-60",
-  "aliases": [],
+  "kind": "charge-controller",
+  "aliases": [
+    "TS60"
+  ],
   "dialects": [
     {
       "dialect": "morningstar-tristar-pwm",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     }
-  ],
-  "kind": "charge-controller"
+  ]
 }

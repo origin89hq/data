@@ -2,15 +2,19 @@
   "id": "morningstar-ts-45",
   "manufacturer": "morningstar",
   "name": "TS-45",
-  "aliases": [],
+  "kind": "charge-controller",
+  "aliases": [
+    "TS45",
+    "XXX-XXX-131"
+  ],
   "dialects": [
     {
       "dialect": "morningstar-tristar-pwm",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     }
-  ],
-  "kind": "charge-controller"
+  ]
 }

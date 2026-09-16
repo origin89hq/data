@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-lxp-3600acs--thdv",
+  "model": "luxpower-lxp-3600acs",
+  "name": "THDV",
+  "value": "3",
+  "unit": "%",
+  "source": "doc-863296de3b51cb17dbfbf2244df36565",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

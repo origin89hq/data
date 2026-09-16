@@ -1,0 +1,11 @@
+{
+  "id": "sol-ark-12k-2p-ll--height-of-large-black-filter-ring-for-battery",
+  "model": "sol-ark-12k-2p-ll",
+  "name": "Height of large black filter ring for battery",
+  "value": "20",
+  "unit": "mm",
+  "source": "doc-4ab5449e5d2737fb3c31104fb8bb7698",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 27,
+  "confidence": "vendor-doc"
+}

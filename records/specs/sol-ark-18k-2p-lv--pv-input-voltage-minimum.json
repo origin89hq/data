@@ -1,0 +1,11 @@
+{
+  "id": "sol-ark-18k-2p-lv--pv-input-voltage-minimum",
+  "model": "sol-ark-18k-2p-lv",
+  "name": "PV input voltage minimum",
+  "value": "125",
+  "unit": "V",
+  "source": "doc-a723a99f2220e4f917b38f6387851639",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 35,
+  "confidence": "vendor-doc"
+}

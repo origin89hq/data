@@ -1,0 +1,11 @@
+{
+  "id": "sol-ark-15k-2p-lv--maximum-solar-input-power",
+  "model": "sol-ark-15k-2p-lv",
+  "name": "Maximum solar input power",
+  "value": "19,200",
+  "unit": "W",
+  "source": "doc-e8a5f883b41371b0b427044b95831d40",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 23,
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "sol-ark-12k-2p-ll--inside-diameter-of-small-black-filter-ring-for-temperature-sensor",
+  "model": "sol-ark-12k-2p-ll",
+  "name": "Inside diameter of small black filter ring for temperature sensor",
+  "value": "13",
+  "unit": "mm",
+  "source": "doc-4ab5449e5d2737fb3c31104fb8bb7698",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 27,
+  "confidence": "vendor-doc"
+}

@@ -263,11 +263,11 @@ test("Luxpower: the hybrid's PV limits per input, its DC power, and one battery 
   assert.ok(own("luxpower", values(properties, "pv.power.max")));
   // The SNA sheet prints one current for charge and discharge as '110/110 A', read as one figure.
   assert.deepEqual(
-    values(of("luxpower-sna5000-wpv").properties, "charge.current.max").map((p) => [
+    values(of("luxpower-sna5000wpv").properties, "charge.current.max").map((p) => [
       p.value,
       p.claim,
     ]),
-    [[110, "luxpower-sna5000-wpv--max-charging-discharging-current"]],
+    [[110, "luxpower-sna5000wpv--max-charging-discharging-current"]],
   );
   // The LXP sheet prints no surge figure, and the SNA's has no time on its line.
   assert.equal(gap(gaps, "inverter.power.surge")?.reason, "no-claim");
@@ -326,16 +326,21 @@ test("Sol-Ark: the 15K's surges with their times, one battery current, the usabl
     values(properties, "charge.current.max").map((p) => p.value),
     [275],
   );
+  // The manual's 19,200 W "Maximum solar input power" is the GEN terminal's AC-coupling limit, not a
+  // second PV total disagreeing with the sheet's 19,500 W.
   assert.deepEqual(
     values(properties, "pv.power.max").map((p) => [p.value, p.scope]),
-    [[19500, "total"]],
+    [
+      [6500, "per-input"],
+      [19500, "total"],
+    ],
   );
   assert.deepEqual(
     values(properties, "pv.isc.max").map((p) => p.value),
     [44],
   );
   assert.equal(gap(gaps, "inverter.voltage.ac")?.reason, "unparsed");
-  const twelve = of("sol-ark-sol-ark-12k-2p-n");
+  const twelve = of("sol-ark-12k-2p-n");
   // Its total is printed '13kW(±5%)'; the tolerance is an aside, and the figure reads beside the per-MPPT one.
   assert.deepEqual(
     values(twelve.properties, "pv.power.max").map((p) => [p.value, p.scope]),
@@ -353,10 +358,10 @@ test("Sol-Ark: the 15K's surges with their times, one battery current, the usabl
   );
   assert.equal(gap(twelveP.gaps, "pv.power.max"), undefined);
   // The 5K's manual prints 'Max A Charge' as 185 A on a settings screen; its sheet says 120 A.
-  const five = of("sol-ark-sol-ark-5k-2p-n");
+  const five = of("sol-ark-5k-2p-n");
   assert.deepEqual(
     values(five.properties, "charge.current.max").map((p) => [p.value, p.claim]),
-    [[120, "sol-ark-sol-ark-5k-2p-n--max-battery-charge-discharge-current"]],
+    [[120, "sol-ark-5k-2p-n--max-battery-charge-discharge-current"]],
   );
   assert.equal(gap(five.gaps, "charge.current.max"), undefined);
 });
@@ -833,7 +838,7 @@ test("Pentair: a plunger pump's pressure in bar and its horsepower in watts, a f
   // its motor's load and reads under no generator key, and its 2 HP reads under the pump's.
   assert.equal(values(of("pentair-hpgr200").properties, "generator.power.running").length, 0);
   assert.deepEqual(
-    values(of("pentair-hydromatic-hpgr200").properties, "pump.power.rated").map((p) => p.value),
+    values(of("pentair-hpgr200").properties, "pump.power.rated").map((p) => p.value),
     [1491.399743],
   );
 });

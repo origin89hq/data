@@ -1,0 +1,11 @@
+{
+  "id": "sol-ark-5k-2p-n--max-battery-charge-discharge-current",
+  "model": "sol-ark-5k-2p-n",
+  "name": "Max. Battery Charge / Discharge Current",
+  "value": "120",
+  "unit": "A",
+  "source": "doc-759ca07ffded8018dcb7cbd8dcc55424",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 9,
+  "confidence": "vendor-doc"
+}

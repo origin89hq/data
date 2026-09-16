@@ -2,29 +2,35 @@
   "id": "samlex-america-evo-4024",
   "manufacturer": "samlex-america",
   "name": "EVO-4024",
-  "aliases": [],
+  "kind": "inverter-charger",
+  "aliases": [
+    "EVO4024",
+    "evo-4024"
+  ],
   "dialects": [
     {
       "dialect": "samlex-evo-4024-unknown",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     },
     {
       "dialect": "samlex-evo-modbus-22xx-40xx",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     },
     {
       "dialect": "samlex-evo-signal-io",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     }
-  ],
-  "kind": "inverter-charger"
+  ]
 }

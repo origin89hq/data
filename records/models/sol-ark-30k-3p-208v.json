@@ -3,6 +3,8 @@
   "manufacturer": "sol-ark",
   "name": "30K-3P-208V",
   "kind": "inverter-charger",
-  "aliases": [],
+  "aliases": [
+    "Sol-Ark 30K-3P-208V"
+  ],
   "dialects": []
 }

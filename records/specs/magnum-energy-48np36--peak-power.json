@@ -1,0 +1,11 @@
+{
+  "id": "magnum-energy-48np36--peak-power",
+  "model": "magnum-energy-48np36",
+  "name": "Peak Power",
+  "value": "6000",
+  "unit": "W",
+  "source": "doc-021c2d390f60ad1d57a68ab5f5df25b3",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 4,
+  "confidence": "vendor-doc"
+}

@@ -4,7 +4,8 @@
   "name": "SNA-US 6000",
   "kind": "inverter-charger",
   "aliases": [
-    "LXP-227-101"
+    "LXP-227-101",
+    "SNA-US6000"
   ],
   "dialects": []
 }

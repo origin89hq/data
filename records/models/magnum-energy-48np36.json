@@ -2,7 +2,9 @@
   "id": "magnum-energy-48np36",
   "manufacturer": "magnum-energy",
   "name": "48NP36",
-  "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "kind": "inverter-charger",
+  "aliases": [
+    "INVERTER 48NP36"
+  ],
+  "dialects": []
 }

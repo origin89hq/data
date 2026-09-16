@@ -1,0 +1,10 @@
+{
+  "id": "outback-power-1000xlc--battery-weight",
+  "model": "outback-power-1000xlc",
+  "name": "Battery Weight",
+  "value": "73.8",
+  "source": "doc-8f888711145dfb393a31a26b9fe2f6ae",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 29,
+  "confidence": "vendor-doc"
+}

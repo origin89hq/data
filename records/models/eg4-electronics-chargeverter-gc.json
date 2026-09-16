@@ -2,7 +2,9 @@
   "id": "eg4-electronics-chargeverter-gc",
   "manufacturer": "eg4-electronics",
   "name": "Chargeverter-GC",
-  "aliases": [],
-  "dialects": [],
-  "kind": "inverter-charger"
+  "kind": "ac-charger",
+  "aliases": [
+    "EG4 ChargeVerter-GC"
+  ],
+  "dialects": []
 }

@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-5k-1p-n--grid-tie-power-limit",
+  "model": "sol-ark-5k-1p-n",
+  "name": "Grid Tie power limit",
+  "value": "6 kW = 50A continuous @ 120V",
+  "source": "doc-ba8e6898aea687488d99501bb1d5f230",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 11,
+  "confidence": "vendor-doc"
+}

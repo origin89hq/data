@@ -1,0 +1,10 @@
+{
+  "id": "pentair-om26k--default-hardness-setting",
+  "model": "pentair-om26k",
+  "name": "Default hardness setting",
+  "value": "25 grains per gallon",
+  "source": "doc-e94ba6bdcf0826ae0549b4b473eb1683",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 9,
+  "confidence": "vendor-doc"
+}

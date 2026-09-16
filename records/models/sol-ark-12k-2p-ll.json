@@ -4,6 +4,7 @@
   "name": "12K-2P-LL",
   "kind": "inverter-charger",
   "aliases": [
+    "Limitless 12K-2P-LL",
     "SOL-12K-2P-LL"
   ],
   "dialects": []
