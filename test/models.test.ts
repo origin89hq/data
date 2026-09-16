@@ -10,6 +10,7 @@ import {
   deriveModels,
   familyOf,
   familyOfAnotherMaker,
+  keeperOf,
   lineCode,
   looksLikeModelName,
   mintRefusal,
@@ -295,6 +296,39 @@ test("two genuinely different products keep their own records", () => {
 test("the name kept is the maker's, and the seller's becomes an alias", () => {
   assert.equal(preferredName(["PVEG4 6000XP Inverter", "6000XP", "EG4 6000xp"]), "6000XP");
   assert.equal(preferredName(["Sol-Ark 12K-2P-N", "12K-2P-N", "Sol-Ark12K-2P-N"]), "12K-2P-N");
+});
+
+test("a merge keeps a reviewed record, then one holding figures, and the shorter name only between equals (#201)", () => {
+  const record = (id: string, name: string, extra: Partial<Model> = {}): Model => ({
+    id,
+    manufacturer: "m",
+    name,
+    aliases: [],
+    dialects: [],
+    ...extra,
+  });
+  const figures = (counts: Record<string, number>) => (id: string) => counts[id] ?? 0;
+
+  const reviewed = record("genius-2d", "Genius 2D", { reviewedBy: "lemarier" });
+  const shop = record("genius2d", "GENIUS2D");
+  assert.equal(keeperOf([shop, reviewed], figures({ genius2d: 4 })), reviewed);
+
+  const printed = record("ts-45", "TS-45");
+  const listed = record("ts45", "TS45");
+  assert.equal(keeperOf([listed, printed], figures({ "ts-45": 15 })), printed);
+
+  const sheet = record("evo-4024", "EVO-4024");
+  const manual = record("samlex-evo-4024", "Samlex EVO-4024");
+  const bare = record("4024", "4024");
+  assert.equal(
+    keeperOf([manual, bare, sheet], figures({ "evo-4024": 3, "samlex-evo-4024": 9 })),
+    sheet,
+  );
+
+  const seller = record("pveg4-6000xp-inverter", "PVEG4 6000XP Inverter");
+  const maker = record("6000xp", "6000XP");
+  assert.equal(keeperOf([seller, maker], figures({})), maker);
+  assert.equal(keeperOf([], figures({})), undefined);
 });
 
 test("a name's family is the word it leads with, unless that word is anybody's", () => {

@@ -430,3 +430,21 @@ export function productKey(makerName: string, name: string): string {
 export function preferredName(names: readonly string[]): string {
   return [...names].sort((a, b) => a.length - b.length || a.localeCompare(b))[0] ?? "";
 }
+
+/**
+ * Which record of one product filed several times survives a merge. A reviewed record first,
+ * since a person checked that name against a document; then one holding figures, whose name a
+ * maker's document gave; the shorter name only between records alike in both. Taking the shorter
+ * name alone put a shop's "TS45" over the "TS-45" Morningstar prints, and moved the reviewed
+ * "Genius 2D" onto "GENIUS2D" (#201).
+ */
+export function keeperOf(
+  group: readonly Model[],
+  figures: (id: string) => number,
+): Model | undefined {
+  const rank = (m: Model) => (m.reviewedBy ? 2 : figures(m.id) > 0 ? 1 : 0);
+  const best = Math.max(...group.map(rank));
+  const candidates = group.filter((m) => rank(m) === best);
+  const name = preferredName(candidates.map((m) => m.name));
+  return candidates.find((m) => m.name === name);
+}

@@ -2,7 +2,7 @@ import { readdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { Model, Spec } from "@origin89/equipment-schema/model";
 import { mergeLinks } from "../../src/dialect-links.ts";
-import { preferredName, productKey } from "../../src/models.ts";
+import { keeperOf, productKey } from "../../src/models.ts";
 import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 
 /**
@@ -12,8 +12,9 @@ import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
  * "PVEG4 6000XP Inverter". Each reached the records as its own model, so the dataset claimed three
  * products where there is one, and split that product's figures three ways.
  *
- * What survives is the maker's own name; the others become aliases, and their figures and dialects
- * move across. A figure that says the same thing under the same conditions is one figure.
+ * What survives is a reviewed record, else one holding figures, else the shortest name; the others
+ * become aliases, and their figures and dialects move across. A figure that says the same thing
+ * under the same conditions is one figure.
  *
  * Two records that disagree about what the product *is* are not merged. An OutBack MATE3-S is
  * filed once as a bms and once as a charge-controller, and picking one would settle by coin toss a
@@ -47,8 +48,7 @@ for (const group of groups.values()) {
     disputed.push(group);
     continue;
   }
-  const name = preferredName(group.map((m) => m.name));
-  const keep = group.find((m) => m.name === name) ?? group[0];
+  const keep = keeperOf(group, (id) => specsOf.get(id)?.length ?? 0);
   if (!keep) throw new Error("Duplicate group has no keeper");
   const drop = group.filter((m) => m.id !== keep.id);
   const aliases = new Set([...keep.aliases, ...drop.flatMap((m) => [m.name, ...m.aliases])]);
