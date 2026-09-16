@@ -69,6 +69,8 @@ export async function readDocument(
   const read: ReadWindow[] = [];
   const unread: string[] = [];
   let turnedAway: NotYet | undefined;
+  // Windows this delivery read itself, so a document turned away after reading knows it had a turn.
+  let readNow = 0;
   for (const [i, window] of windows.entries()) {
     const number = i + 1;
     const done = kept.get(number);
@@ -107,11 +109,12 @@ export async function readDocument(
       AS_JSON,
     );
     read.push(answer);
+    readNow += 1;
   }
   // Turned away: the windows read are kept, and the document goes back on the queue to read the
   // rest when its turn comes, without using up a delivery of its own.
   if (turnedAway) {
-    await waitTurn(env, message, turnedAway);
+    await waitTurn(env, message, turnedAway, readNow > 0);
     return;
   }
   if (unread.length > 0)

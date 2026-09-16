@@ -27,12 +27,26 @@ export const rateLimited = (error: unknown): boolean => /\b3021\b/.test(reason(e
 export const MAX_WAITS = 30;
 
 /**
+ * The same for a converted document the text reader reads a window at a time. A backlog of a
+ * thousand documents queued at once takes hours at the pace, and a document can go that long
+ * without a turn; after its last wait it would call unpaced and have its windows written as failed.
+ * Three hundred waits at the five-minute cap is about a day.
+ */
+export const MAX_DOCUMENT_WAITS = 300;
+
+const maxWaits = (message: Paced): number =>
+  message.kind === "extract" ? MAX_DOCUMENT_WAITS : MAX_WAITS;
+
+/**
  * How long a message waits before it is tried again: a minute, doubling to half an hour, and up to
  * a minute more by its document and place, so a document's pages turned away together do not all
- * come back together.
+ * come back together. A document the text reader reads doubles to five minutes only: it asks a turn
+ * for each of its windows, and at half an hour between turns a queue of them used under a third of
+ * the pace (#198).
  */
 export function waitFor(message: Paced): number {
   const waits = message.waits ?? 0;
+  const cap = message.kind === "extract" ? 300 : 1800;
   const place =
     message.kind === "vision-page"
       ? message.page
@@ -40,7 +54,7 @@ export function waitFor(message: Paced): number {
         ? message.window
         : 0;
   const spread = (Number.parseInt(message.sha256.slice(0, 4), 16) + place) % 60;
-  return Math.min(60 * 2 ** waits, 1800) + spread;
+  return Math.min(60 * 2 ** waits, cap) + spread;
 }
 
 /**
@@ -49,14 +63,24 @@ export function waitFor(message: Paced): number {
  * model says next is the answer.
  */
 export async function takeTurn(env: Env, message: Paced, model: string): Promise<boolean> {
-  const mayWait = (message.waits ?? 0) < MAX_WAITS;
+  const mayWait = (message.waits ?? 0) < maxWaits(message);
   if (mayWait && !(await env.KIMI_PACE.limit({ key: model })).success)
     throw new NotYet("over Kimi's pace");
   return mayWait;
 }
 
-/** Put a message back on the queue to wait its turn, and say why in the logs. */
-export async function waitTurn(env: Env, message: Paced, error: NotYet): Promise<void> {
+/**
+ * Put a message back on the queue to wait its turn, and say why in the logs. A message that got
+ * something read before it was turned away had its turn, so its waiting starts over: it comes back
+ * in a minute rather than after a wait that grew while it was reading.
+ */
+export async function waitTurn(
+  env: Env,
+  message: Paced,
+  error: NotYet,
+  progressed = false,
+): Promise<void> {
+  const next = { ...message, waits: progressed ? 0 : (message.waits ?? 0) + 1 };
   // Logged with its reason, so the logs say how often Kimi itself still refused. The pace is
   // counted per Cloudflare location, and a refusal past it is how that would show.
   console.log(
@@ -65,14 +89,11 @@ export async function waitTurn(env: Env, message: Paced, error: NotYet): Promise
       sha256: message.sha256,
       ...(message.kind === "vision-page" ? { page: message.page } : {}),
       ...(message.kind === "vision-window" ? { window: message.window } : {}),
-      waits: (message.waits ?? 0) + 1,
+      waits: next.waits,
       reason: error.message,
     }),
   );
   // A new message rather than a retry, so waiting its turn does not use up the deliveries it gets
   // for failures of its own.
-  await env.WORK.send(
-    { ...message, waits: (message.waits ?? 0) + 1 },
-    { delaySeconds: waitFor(message) },
-  );
+  await env.WORK.send(next, { delaySeconds: waitFor(progressed ? next : message) });
 }
