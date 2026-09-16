@@ -1,0 +1,107 @@
+{
+  "id": "southwire",
+  "rejections": [
+    {
+      "source": "doc-c6c6d101b1c9f076542232f5917a9862",
+      "reason": "1-EMT-Section-Catalog-WEB.pdf prints \"LIQUIDTIGHT\": a catalogue of electrical boxes, covers and conduit fittings, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-686329bb21fd190e2e1de0fa7688a1ae",
+      "reason": "10-Boxes-and-Covers-Section-Catalog-WEB.pdf prints \"BOXES ANDCOVERS\": a catalogue of electrical boxes, covers and conduit fittings, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-eb9ee112e4ebc5e53c7b89daded17776",
+      "reason": "11-Weatherproof-Section-Catalog-WEB.pdf prints \"WEATHERPROOF\": a catalogue of electrical boxes, covers and conduit fittings, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-228c2a1e14f7fb7f36ce5f39431a88f5",
+      "reason": "12-Hanging-Support-Section-Catalog-WEB.pdf prints \"HANGING & SUPPORT\": a catalogue of hand tools, jobsite equipment, hanging hardware or vehicle accessories, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-152d7c57e6b8b31ea5c719ebaa75ff0f",
+      "reason": "14-Panels-Breakers-Accessories-Section-Catalog-WEB.pdf prints \"PANEL ANDBREAKERACCESSORIES\": a catalogue of electrical boxes, covers and conduit fittings, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-77f2c4ee8d68b7ec976f76da5e19e3c1",
+      "reason": "2-Liquidtight-Section-Catalog-WEB.pdf prints \"LIQUIDTIGHTFITTINGS\": a catalogue of electrical boxes, covers and conduit fittings, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-dc9e03fd3643d3cabfe37cc8b3f8c95a",
+      "reason": "2404-Woods-Catalog-WEB.pdf prints \"ABOUT WOODS\": a catalogue of portable power accessories: cord sets with GFCI, power strips, spider boxes and work lights, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-46f632b460022c871210ce59a06d521c",
+      "reason": "2404-Yellow-Jacket-Product-Catalog-WEB.pdf prints \"ABOUT YELLOW JACKET\": a catalogue of portable power accessories: cord sets with GFCI, power strips, spider boxes and work lights, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-17de1283a22be38893fdf9e6c353fa43",
+      "reason": "2410-Circuit-Protection-Catalog-WEB.pdf prints \"CIRCUIT PROTECTION\": a catalogue of portable power accessories: cord sets with GFCI, power strips, spider boxes and work lights, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-11a9cf9052e867f4139f3fcec446578f",
+      "reason": "2410-Hand-Tools-Catalog-WEB.pdf prints \"HAND TOOLS\": a catalogue of hand tools, jobsite equipment, hanging hardware or vehicle accessories, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-ecead690a6fd16a69e8ab737b8bdb0a4",
+      "reason": "2410-Southwire-Transportation-Catalog-Web.pdf prints \"HAND TOOLS\": a catalogue of hand tools, jobsite equipment, hanging hardware or vehicle accessories, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-0034dca58daa49959b73bd6162e6cc3a",
+      "reason": "2410-TempPower-Catalog-EMBEDDED-WEB-1-.pdf prints \"TEMPORARY POWER\": a catalogue of portable power accessories: cord sets with GFCI, power strips, spider boxes and work lights, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-5d7852ff29730b4464e04dde43114a88",
+      "reason": "2411-Temporary-Lighting-Catalog-WEB.pdf prints \"LIGHTING SOLUTIONS\": a catalogue of lighting fixtures and lamps for buildings and job sites, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-130b9e7ac78294b201b91f8268e447be",
+      "reason": "2412-Engineered-Solutions-Catalog-WEB.pdf prints \"CIRCUIT PROTECTION\": a catalogue of portable power accessories: cord sets with GFCI, power strips, spider boxes and work lights, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-587e1e14acec58bffb1d66a662c88fc9",
+      "reason": "2507-Tools-Equipment-Catalog-WEB.pdf prints \"HAND TOOLS\": a catalogue of hand tools, jobsite equipment, hanging hardware or vehicle accessories, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-f274c76754366117e2ca8bb8d76ec585",
+      "reason": "2511-Permanent-Lighting-Catalog-WEB.pdf prints \"LIGHTING SOLUTIONS\": a catalogue of lighting fixtures and lamps for buildings and job sites, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-2ca29c099fa1e8971170879b87076015",
+      "reason": "3-BX-Flex-MC-Section-Catalog-WEB.pdf prints \"BX, FLEXAND MCFITTINGS\": a catalogue of electrical boxes, covers and conduit fittings, which this dataset of off-grid equipment does not cover.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-15"
+    }
+  ]
+}
