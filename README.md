@@ -517,11 +517,17 @@ manifest's `load` section says which parts make each table. The publish step kee
 every part content-addressed as well, so a loader reading a release by its manifest
 reads the bytes that manifest named, whatever was published since (#83).
 
-The build adds `records_<kind>.json` snapshots for the seven authored record
-types. Publication keeps these by SHA-256 in R2 and validates their presence before
-accepting the manifest. Snapshots are limited to 6 MiB per kind and 50,000 records
-per comparison; oversized or missing history is reported explicitly. History
-reads require the existing member session. History itself needs no binding beyond R2.
+The build also writes a snapshot of each authored record type for comparing
+versions: its records in id order as JSON arrays, `records_specs_0001.json` and so
+on, each part at most 2 MiB and 10,000 records, and the manifest's `snapshots`
+section says which parts hold each type. Publication keeps every part by SHA-256
+in R2 and checks the plan against the stored parts before accepting the manifest.
+A comparison walks both versions' parts in id order, holding one part of each in
+memory, and reads at most 64 parts a type. Versions published before snapshots
+had parts keep one `records_<kind>.json` of at most 6 MiB and 50,000 records, and
+still compare. Missing, oversized, malformed or out-of-order history is reported
+explicitly. History reads require the existing member session. History itself
+needs no binding beyond R2.
 
 An accepted manifest also starts a `release-load` Workflow, which loads the
 release's tables from their content-addressed parts into the `RELEASES` D1

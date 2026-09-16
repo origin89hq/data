@@ -5,12 +5,16 @@ import {
   CompareQuery,
   canonical,
   isLoadPart,
+  isSnapshotPart,
   LOAD_PART_MAX,
   LOAD_PART_ROWS,
   LoadPlan,
-  RECORD_SNAPSHOT_MAX,
   RecordKind,
+  SNAPSHOT_PART_MAX,
+  SNAPSHOT_PART_ROWS,
+  SnapshotPlan,
   snapshotName,
+  snapshotPartName,
 } from "@origin89/equipment-schema/releases";
 import { type Context, Hono } from "hono";
 import { z } from "zod";
@@ -128,6 +132,7 @@ publicRoutes.on(["GET", "HEAD"], "/manifest.json", async (c) => {
         counts?: Record<string, number>;
         files?: Record<string, { rows?: number; bytes: number; sha256: string }>;
         load?: unknown;
+        snapshots?: unknown;
       }>()
     : undefined;
   const origin = new URL(c.req.url).origin;
@@ -135,8 +140,9 @@ publicRoutes.on(["GET", "HEAD"], "/manifest.json", async (c) => {
     {
       name: "offgrid-equipment",
       // 2: the Worker loads each release into the store behind the API; a publisher on 1 would
-      // publish parts nothing loads.
-      publication: { historyVersion: 2 },
+      // publish parts nothing loads. 3: record snapshots come in parts; a Worker on 2 would keep
+      // them as plain files and record releases nothing can compare.
+      publication: { historyVersion: 3 },
       description:
         "Off-grid power equipment: manufacturers, models, rated figures and the protocols a controller can speak to them with.",
       licence: "MIT, for the tooling and the records alike",
@@ -152,6 +158,8 @@ publicRoutes.on(["GET", "HEAD"], "/manifest.json", async (c) => {
       // Which load parts make each table, in order, and the column that keys it: what a reader of
       // the NDJSON needs and the file list alone does not say.
       ...(published?.load ? { load: published.load } : {}),
+      // Which snapshot parts hold each record kind, in id order, now that a kind is no one file.
+      ...(published?.snapshots ? { snapshots: published.snapshots } : {}),
       index: `${origin}/manifest.json`,
       files: Object.fromEntries(
         Object.entries(published?.files ?? {}).map(([name, meta]) => [
@@ -183,10 +191,20 @@ publicRoutes.on(["GET", "HEAD"], "/logos/:file", async (c) => {
   });
 });
 
+/** The kind of a whole record snapshot, as releases wrote one before snapshots had parts. */
+const wholeSnapshot = (name: string) =>
+  RecordKind.options.find((kind) => snapshotName(kind) === name);
+const inParts = (kind: z.infer<typeof RecordKind>) =>
+  `record snapshots are published in parts, ${snapshotPartName(kind, 1)} and on`;
+
 publicRoutes.on(["GET", "HEAD"], "/v1/:file", async (c) => {
   const path = new URL(c.req.url).pathname;
   if (!DATASET_PATH.test(path)) return c.notFound();
   const name = path.slice("/v1/".length);
+  // Nothing publishes a whole snapshot any more, so the copy the last one left would be served
+  // stale for as long as it stays in the bucket.
+  const whole = wholeSnapshot(name);
+  if (whole) return c.text(inParts(whole), 404);
   // A range, because that is how a query engine reads Parquet: the footer first, then the row
   // groups it needs. Serving only whole files would make every question cost the file.
   const asked = c.req.header("range");
@@ -854,6 +872,7 @@ const DatasetManifest = z.object({
     )
     .refine((files) => Object.keys(files).length <= 256, "too many dataset files"),
   load: LoadPlan.optional(),
+  snapshots: SnapshotPlan.optional(),
 });
 
 /**
@@ -902,6 +921,37 @@ export function ndjsonRows(bytes: Uint8Array): number {
   return rows;
 }
 
+/**
+ * The records in a snapshot part: a JSON array of objects, each with an id, in id order, at least
+ * one and at most `SNAPSHOT_PART_ROWS` of them. Anything else is refused, so a comparison never
+ * meets a part it cannot walk.
+ */
+export function snapshotRows(bytes: Uint8Array): number {
+  let value: unknown;
+  try {
+    value = JSON.parse(new TextDecoder("utf-8", { fatal: true, ignoreBOM: false }).decode(bytes));
+  } catch {
+    throw new RangeError("not UTF-8 JSON");
+  }
+  if (!Array.isArray(value)) throw new RangeError("not a JSON array");
+  if (value.length === 0) throw new RangeError("no records");
+  if (value.length > SNAPSHOT_PART_ROWS)
+    throw new RangeError(`more than ${SNAPSHOT_PART_ROWS} records`);
+  let last: string | undefined;
+  for (const [at, record] of value.entries()) {
+    const id: unknown =
+      record !== null && typeof record === "object" && !Array.isArray(record)
+        ? (record as { id?: unknown }).id
+        : undefined;
+    if (typeof id !== "string" || id === "")
+      throw new RangeError(`record ${at + 1} is not an object with an id`);
+    if (last !== undefined && !(last < id))
+      throw new RangeError(`record ${at + 1}, ${id}, is out of id order`);
+    last = id;
+  }
+  return value.length;
+}
+
 async function putFile(c: Context<PublicationEnv>, name: string): Promise<Response> {
   const sha256 = c.req.header("x-content-sha256");
   if (!sha256 || !SHA256.test(sha256))
@@ -911,32 +961,41 @@ async function putFile(c: Context<PublicationEnv>, name: string): Promise<Respon
   const body = c.req.raw.body;
   if (!body || !Number.isSafeInteger(length) || length <= 0)
     return c.json({ error: "the file must be sent with its content-length" }, 411);
-  const isSnapshot = RecordKind.options.some((kind) => snapshotName(kind) === name);
-  if (isSnapshot && length > RECORD_SNAPSHOT_MAX)
-    return c.json({ error: "Record snapshot is too large" }, 413);
+  // A whole snapshot would be kept as a plain file, with no immutable copy for a comparison to read.
+  const whole = wholeSnapshot(name);
+  if (whole) return c.json({ error: inParts(whole) }, 400);
+  const isSnapshot = isSnapshotPart(name);
+  if (isSnapshot && length > SNAPSHOT_PART_MAX)
+    return c.json({ error: "Record snapshot part is too large" }, 413);
   const isLoad = isLoadPart(name);
   if (isLoad && length > LOAD_PART_MAX) return c.json({ error: "Load part is too large" }, 413);
   try {
     // A snapshot or a load part is bounded and content-addressed before the mutable public copy
-    // changes: a loader reads the part by its hash, whatever was published since.
+    // changes: a loader or a comparison reads the part by its hash, whatever was published since.
     const content = isSnapshot || isLoad ? new Uint8Array(await c.req.arrayBuffer()) : body;
+    // A part's records are counted and checked as it is stored, so the manifest's count is held
+    // against the bytes rather than repeated from the plan, and a malformed part is refused.
+    let rows = 0;
+    if ((isSnapshot || isLoad) && content instanceof Uint8Array) {
+      try {
+        rows = isSnapshot ? snapshotRows(content) : ndjsonRows(content);
+      } catch (error) {
+        if (error instanceof RangeError)
+          return c.json(
+            {
+              error: `${name} is not a ${isSnapshot ? "snapshot" : "load"} part: ${error.message}`,
+            },
+            422,
+          );
+        throw error;
+      }
+    }
     if (isSnapshot)
       await c.env.ARCHIVE.put(snapshotKey(sha256), content, {
         sha256,
         httpMetadata: { contentType: "application/json" },
+        customMetadata: { rows: String(rows) },
       });
-    // A part's records are counted and checked as it is stored, so the manifest's count is held
-    // against the bytes rather than repeated from the plan, and a malformed part is refused.
-    let rows = 0;
-    if (isLoad && content instanceof Uint8Array) {
-      try {
-        rows = ndjsonRows(content);
-      } catch (error) {
-        if (error instanceof RangeError)
-          return c.json({ error: `${name} is not a load part: ${error.message}` }, 422);
-        throw error;
-      }
-    }
     if (isLoad)
       await c.env.ARCHIVE.put(loadKey(sha256), content, {
         sha256,
@@ -992,22 +1051,14 @@ async function putManifest(c: Context<PublicationEnv>): Promise<Response> {
         `${name}: stored sha256 is ${sha256 ?? "unrecorded"}, the manifest says ${meta.sha256}`,
       );
   }
-  for (const kind of RecordKind.options) {
-    const meta = parsed.data.files[snapshotName(kind)];
-    if (!meta) continue;
-    const snapshot = await c.env.ARCHIVE.head(snapshotKey(meta.sha256));
-    if (
-      !snapshot ||
-      snapshot.size !== meta.bytes ||
-      snapshot.checksums.toJSON().sha256 !== meta.sha256
-    )
-      disagree.push(`${snapshotName(kind)}: immutable snapshot is missing or inconsistent`);
-  }
   for (const [name, meta] of files) {
-    if (!isLoadPart(name)) continue;
-    const part = await c.env.ARCHIVE.head(loadKey(meta.sha256));
+    const kind = isLoadPart(name) ? "load" : isSnapshotPart(name) ? "snapshot" : undefined;
+    if (!kind) continue;
+    const part = await c.env.ARCHIVE.head(
+      kind === "load" ? loadKey(meta.sha256) : snapshotKey(meta.sha256),
+    );
     if (!part || part.size !== meta.bytes || part.checksums.toJSON().sha256 !== meta.sha256)
-      disagree.push(`${name}: immutable load part is missing or inconsistent`);
+      disagree.push(`${name}: immutable ${kind} part is missing or inconsistent`);
     else if (meta.rows !== undefined && Number(part.customMetadata?.rows) !== meta.rows)
       disagree.push(
         `${name}: holds ${part.customMetadata?.rows ?? "an uncounted number of"} records, the manifest says ${meta.rows}`,
@@ -1056,6 +1107,44 @@ async function putManifest(c: Context<PublicationEnv>): Promise<Response> {
       if (meta.rows !== undefined && meta.rows > LOAD_PART_ROWS)
         disagree.push(`${name}: ${meta.rows} rows, over the ${LOAD_PART_ROWS} a part may hold`);
     }
+  // A snapshot plan gives every record kind and no other, each kind's parts numbered from 1 and
+  // listed in the manifest with a row count, adding up to the records the plan states; and every
+  // snapshot part the manifest lists is in it. A kind missing a part would compare as a release
+  // that dropped its records.
+  const snapshotFiles = files.filter(([name]) => isSnapshotPart(name));
+  const snapshots = parsed.data.snapshots;
+  if (!snapshots && snapshotFiles.length > 0)
+    disagree.push("snapshot parts are listed and no snapshot plan says which kind each holds");
+  if (snapshots) {
+    const planned = new Set<string>();
+    for (const kind of Object.keys(snapshots.kinds))
+      if (!RecordKind.safeParse(kind).success)
+        disagree.push(`${kind}: in the snapshot plan and not a record kind`);
+    for (const kind of RecordKind.options) {
+      const plan = snapshots.kinds[kind];
+      if (!plan) {
+        disagree.push(`${kind}: absent from the snapshot plan`);
+        continue;
+      }
+      let rows = 0;
+      for (const [at, part] of plan.parts.entries()) {
+        planned.add(part);
+        const meta = parsed.data.files[part];
+        if (part !== snapshotPartName(kind, at + 1))
+          disagree.push(`${kind}: snapshot part ${at + 1} is named ${part}`);
+        else if (!meta) disagree.push(`${kind}: snapshot part ${part} is not in the manifest`);
+        else if (meta.rows === undefined)
+          disagree.push(`${kind}: snapshot part ${part} states no row count`);
+        else rows += meta.rows;
+      }
+      if (rows !== plan.rows)
+        disagree.push(
+          `${kind}: its snapshot parts hold ${rows} records, the plan says ${plan.rows}`,
+        );
+    }
+    for (const [name] of snapshotFiles)
+      if (!planned.has(name)) disagree.push(`${name}: a snapshot part in no kind's plan`);
+  }
   if (disagree.length > 0)
     return c.json({ error: "the manifest does not describe what is stored", files: disagree }, 409);
 
@@ -1070,20 +1159,26 @@ async function putManifest(c: Context<PublicationEnv>): Promise<Response> {
     job.sha,
     job.runId,
     job.runAttempt,
-    parsed.data.load,
+    {
+      ...(parsed.data.load ? { load: parsed.data.load } : {}),
+      ...(parsed.data.snapshots ? { snapshots: parsed.data.snapshots } : {}),
+    },
   );
-  // A release record is immutable and named by its files and job attempt, not its plan: a retry
-  // of one attempt that changes the plan would start a load of a record that carries the old
-  // one, so it is refused and a new attempt is what carries a new plan.
-  if (canonical(release.load ?? null) !== canonical(parsed.data.load ?? null))
-    return c.json(
-      {
-        error:
-          "this publication was already recorded with a different load plan; a new job attempt carries a new plan",
-        release: release.id,
-      },
-      409,
-    );
+  // A release record is immutable and named by its files and job attempt, not its plans: a retry
+  // of one attempt that changes a plan would load or compare a record that carries the old one,
+  // so it is refused and a new attempt is what carries a new plan.
+  for (const [plan, what] of [
+    ["load", "load"],
+    ["snapshots", "snapshot"],
+  ] as const)
+    if (canonical(release[plan] ?? null) !== canonical(parsed.data[plan] ?? null))
+      return c.json(
+        {
+          error: `this publication was already recorded with a different ${what} plan; a new job attempt carries a new plan`,
+          release: release.id,
+        },
+        409,
+      );
   // The store behind the API loads the release from its content-addressed parts (#83). One
   // instance per release: a retried manifest finds it already created and leaves it be.
   let load: "started" | "already" | "not started" = "not started";
