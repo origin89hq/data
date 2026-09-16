@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { mock, test } from "node:test";
 import { READS_PER_REQUEST } from "@origin89/equipment-schema/provenance";
+import { RecordKind, SNAPSHOT_PART_MAX } from "@origin89/equipment-schema/releases";
 import { FORGET_AT_ONCE } from "../src/enqueue.ts";
 import { GITHUB_ISSUER } from "../src/oidc.ts";
 import { EXTRACTOR_ID, VISION_EXTRACTOR_ID } from "../src/reading.ts";
@@ -12,6 +13,7 @@ import {
   memberPages,
   ndjsonRows,
   publicRoutes,
+  snapshotRows,
   WORKFLOW_ROUTES,
   workflowRoutes,
 } from "../src/routes.ts";
@@ -431,6 +433,16 @@ const manifestOf = (files: Record<string, string>) =>
       ]),
     ),
   });
+/** A snapshot plan with every record kind, the ones given holding those parts of one record each. */
+const snapshotPlan = (parts: Record<string, string[]> = {}, rows: Record<string, number> = {}) => ({
+  version: 1,
+  kinds: Object.fromEntries(
+    RecordKind.options.map((kind) => [
+      kind,
+      { parts: parts[kind] ?? [], rows: rows[kind] ?? parts[kind]?.length ?? 0 },
+    ]),
+  ),
+});
 const putManifest = async (env: Env, manifest: string) =>
   put(env, "manifest.json", manifest, await publish());
 const errorOf = async (res: Response) => ((await res.json()) as { error: string }).error;
@@ -829,13 +841,11 @@ test("the supervisor's job token runs a pass and offers a maker to the page read
   assert.equal(archive.sent.length, 1, "no page reading was queued");
 });
 
-test("publication keeps immutable snapshots and exposes authenticated version comparisons", async () => {
+test("publication keeps immutable snapshot parts and exposes authenticated version comparisons", async () => {
   const { env, text } = bucket();
   const before = JSON.stringify([{ id: "battery", capacity: 100 }]);
-  const after = JSON.stringify([
-    { id: "battery", capacity: 120 },
-    { id: "inverter", watts: 3000 },
-  ]);
+  const after = JSON.stringify([{ id: "battery", capacity: 120 }]);
+  const added = JSON.stringify([{ id: "inverter", watts: 3000 }]);
   const readHistory = async () => {
     const response = await app.request(
       `${LOCAL}/releases`,
@@ -845,18 +855,31 @@ test("publication keeps immutable snapshots and exposes authenticated version co
     assert.equal(response.status, 200);
     return (await response.json()) as { releases: { id: string; sha: string; job: string }[] };
   };
-  assert.equal((await putFile(env, "records_models.json", before)).status, 200);
-  assert.equal((await putManifest(env, manifestOf({ "records_models.json": before }))).status, 200);
+  const withParts = (files: Record<string, string>) =>
+    JSON.stringify({
+      ...JSON.parse(manifestOf(files)),
+      snapshots: snapshotPlan({ models: Object.keys(files) }),
+    });
+  const once = withParts({ "records_models_0001.json": before });
+  assert.equal((await putFile(env, "records_models_0001.json", before)).status, 200);
+  assert.equal((await putManifest(env, once)).status, 200);
   const first = (await readHistory()).releases[0];
   await env.ARCHIVE.delete(`releases/snapshots/${sha256(before)}.json`);
-  assert.equal((await putManifest(env, manifestOf({ "records_models.json": before }))).status, 409);
-  await putFile(env, "records_models.json", before);
+  const gone = await putManifest(env, once);
+  assert.equal(gone.status, 409);
+  assert.match(
+    JSON.stringify(await gone.json()),
+    /records_models_0001.json: immutable snapshot part is missing/,
+  );
+  await putFile(env, "records_models_0001.json", before);
   assert.equal(first.sha.length, 40);
   assert.equal(first.job, "17000000001");
-  assert.equal((await putFile(env, "records_models.json", after)).status, 200);
-  assert.equal((await putManifest(env, manifestOf({ "records_models.json": after }))).status, 200);
+  assert.equal((await putFile(env, "records_models_0001.json", after)).status, 200);
+  assert.equal((await putFile(env, "records_models_0002.json", added)).status, 200);
+  const twoParts = { "records_models_0001.json": after, "records_models_0002.json": added };
+  assert.equal((await putManifest(env, withParts(twoParts))).status, 200);
   assert.equal(text(`releases/snapshots/${sha256(before)}.json`), before);
-  assert.equal(text("dataset/v1/records_models.json"), after);
+  assert.equal(text("dataset/v1/records_models_0001.json"), after);
   const history = await readHistory();
   assert.equal(history.releases.length, 2);
   const second = history.releases.find((release) => release.id !== first.id);
@@ -872,15 +895,184 @@ test("publication keeps immutable snapshots and exposes authenticated version co
     changed: 1,
   });
   // A failed checksum must neither replace the current snapshot nor create historical content.
-  assert.equal((await putFile(env, "records_models.json", "truncated", sha256(after))).status, 422);
+  const truncated = JSON.stringify([{ id: "battery" }]);
+  assert.equal(
+    (await putFile(env, "records_models_0001.json", truncated, sha256(after))).status,
+    422,
+  );
   assert.equal(text(`releases/snapshots/${sha256(after)}.json`), after);
+  assert.equal(text("dataset/v1/records_models_0001.json"), after);
+});
+
+test("a snapshot part is checked as it is stored, and the manifest's snapshot plan against what is stored", async () => {
+  const { env, store } = bucket();
+  const encode = (text: string) => new TextEncoder().encode(text);
+  assert.equal(snapshotRows(encode('[{"id":"a"},{"id":"b","watts":3}]')), 2);
+  assert.throws(() => snapshotRows(encode("[")), /not UTF-8 JSON/);
+  assert.throws(() => snapshotRows(encode('{"id":"a"}')), /not a JSON array/);
+  assert.throws(() => snapshotRows(encode("[]")), /no records/);
+  assert.throws(() => snapshotRows(encode('[{"id":"a"},["b"]]')), /record 2 is not an object/);
+  assert.throws(() => snapshotRows(encode('[{"id":""}]')), /record 1 is not an object with an id/);
+  assert.throws(
+    () => snapshotRows(encode('[{"id":"b"},{"id":"a"}]')),
+    /record 2, a, is out of id order/,
+  );
+  assert.throws(
+    () => snapshotRows(encode('[{"id":"a"},{"id":"a"}]')),
+    /record 2, a, is out of id order/,
+  );
+  const tooMany = JSON.stringify(
+    Array.from({ length: 10_001 }, (_, i) => ({ id: `r${String(i).padStart(5, "0")}` })),
+  );
+  assert.throws(() => snapshotRows(encode(tooMany)), /more than 10000 records/);
+
+  const unordered = '[{"id":"b"},{"id":"a"}]';
+  const refused = await putFile(env, "records_models_0001.json", unordered);
+  assert.equal(refused.status, 422);
+  assert.match(
+    await errorOf(refused),
+    /records_models_0001.json is not a snapshot part: record 2, a, is out of id order/,
+  );
+  assert.equal(
+    [...store.keys()].some((key) => key.includes(sha256(unordered))),
+    false,
+    "a malformed part is refused before any copy is stored",
+  );
+  const whole = await putFile(env, "records_specs.json", '[{"id":"a"}]');
+  assert.equal(whole.status, 400, "a whole snapshot would have no immutable copy to compare");
+  assert.match(await errorOf(whole), /published in parts, records_specs_0001.json and on/);
+  // The copy the last whole snapshot left in the bucket is not served as if it were current.
+  await env.ARCHIVE.put("dataset/v1/records_specs.json", '[{"id":"stale"}]');
+  const left = await app.request("https://data.example/v1/records_specs.json", {}, env);
+  assert.equal(left.status, 404);
+  assert.match(await left.text(), /published in parts, records_specs_0001.json and on/);
+  const huge = await put(env, "records_models_0003.json", "x", {
+    ...(await publish()),
+    "x-content-sha256": sha256("x"),
+    "content-length": String(SNAPSHOT_PART_MAX + 1),
+  });
+  assert.equal(huge.status, 413);
+
+  const part = '[{"id":"a"}]';
+  const next = '[{"id":"b"}]';
+  assert.equal((await putFile(env, "records_models_0001.json", part)).status, 200);
+  assert.equal((await putFile(env, "records_models_0002.json", next)).status, 200);
+  const both = { "records_models_0001.json": part, "records_models_0002.json": next };
+  const manifest = (plan: unknown, files: Record<string, string> = both) =>
+    JSON.stringify({ ...JSON.parse(manifestOf(files)), ...(plan ? { snapshots: plan } : {}) });
+  const refusal = async (text: string) => {
+    const response = await putManifest(env, text);
+    assert.equal(response.status, 409);
+    return ((await response.json()) as { files: string[] }).files;
+  };
+  const good = snapshotPlan({ models: ["records_models_0001.json", "records_models_0002.json"] });
+  assert.deepEqual(await refusal(manifest(undefined)), [
+    "snapshot parts are listed and no snapshot plan says which kind each holds",
+  ]);
+  const { specs: _, ...withoutSpecs } = good.kinds;
+  assert.deepEqual(
+    await refusal(
+      manifest({ ...good, kinds: { ...withoutSpecs, gadgets: { parts: [], rows: 0 } } }),
+    ),
+    ["gadgets: in the snapshot plan and not a record kind", "specs: absent from the snapshot plan"],
+  );
+  assert.deepEqual(
+    await refusal(
+      manifest(snapshotPlan({ models: ["records_models_0002.json", "records_models_0001.json"] })),
+    ),
+    [
+      "models: snapshot part 1 is named records_models_0002.json",
+      "models: snapshot part 2 is named records_models_0001.json",
+      "models: its snapshot parts hold 0 records, the plan says 2",
+    ],
+    "parts are numbered from 1, in order",
+  );
+  assert.deepEqual(
+    await refusal(
+      manifest(
+        snapshotPlan({ models: ["records_models_0001.json"], specs: ["records_models_0002.json"] }),
+      ),
+    ),
+    [
+      "specs: snapshot part 1 is named records_models_0002.json",
+      "specs: its snapshot parts hold 0 records, the plan says 1",
+    ],
+    "a part holds the kind it is named for",
+  );
+  assert.deepEqual(
+    await refusal(manifest(snapshotPlan({ models: ["records_models_0001.json"] }))),
+    ["records_models_0002.json: a snapshot part in no kind's plan"],
+    "a plan that drops the last part would compare as a release without its records",
+  );
+  assert.deepEqual(await refusal(manifest(good, { "records_models_0001.json": part })), [
+    "models: snapshot part records_models_0002.json is not in the manifest",
+    "models: its snapshot parts hold 1 records, the plan says 2",
+  ]);
+  assert.deepEqual(
+    await refusal(
+      manifest(
+        snapshotPlan(
+          { models: ["records_models_0001.json", "records_models_0002.json"] },
+          { models: 3 },
+        ),
+      ),
+    ),
+    ["models: its snapshot parts hold 2 records, the plan says 3"],
+  );
+  const counted = (rows?: number) =>
+    JSON.stringify({
+      ...JSON.parse(
+        manifest(
+          snapshotPlan(
+            { models: ["records_models_0001.json", "records_models_0002.json"] },
+            { models: 3 },
+          ),
+        ),
+      ),
+      files: {
+        "records_models_0001.json": {
+          ...(rows === undefined ? {} : { rows }),
+          sha256: sha256(part),
+          bytes: Buffer.byteLength(part),
+        },
+        "records_models_0002.json": {
+          rows: 1,
+          sha256: sha256(next),
+          bytes: Buffer.byteLength(next),
+        },
+      },
+    });
+  assert.deepEqual(await refusal(counted()), [
+    "models: snapshot part records_models_0001.json states no row count",
+    "models: its snapshot parts hold 1 records, the plan says 3",
+  ]);
+  assert.deepEqual(
+    await refusal(counted(2)),
+    ["records_models_0001.json: holds 1 records, the manifest says 2"],
+    "a count the stored bytes contradict is refused, however consistently the plan repeats it",
+  );
+  const wrongVersion = await putManifest(env, manifest({ ...good, version: 2 }));
+  assert.equal(wrongVersion.status, 400, "a plan of another version is not a manifest");
+
+  assert.equal((await putManifest(env, manifest(good))).status, 200);
+  const index = (await (
+    await app.request("https://data.example/manifest.json", {}, env)
+  ).json()) as { snapshots?: unknown };
+  assert.deepEqual(index.snapshots, good, "the public index says which parts hold each kind");
+  // The same attempt with another plan is not the same publication.
+  const csv = "id\na\n";
+  await putFile(env, "models.csv", csv);
+  assert.equal((await putManifest(env, manifestOf({ "models.csv": csv }))).status, 200);
+  const replanned = await putManifest(env, manifest(snapshotPlan(), { "models.csv": csv }));
+  assert.equal(replanned.status, 409);
+  assert.match(await errorOf(replanned), /different snapshot plan/);
 });
 
 test("release indexing failure is repaired by republishing the same version", async () => {
   const { env, store } = bucket();
-  const body = JSON.stringify([{ id: "battery", capacity: 100 }]);
-  await putFile(env, "records_models.json", body);
-  const manifest = manifestOf({ "records_models.json": body });
+  const body = "id\nbattery\n";
+  await putFile(env, "models.csv", body);
+  const manifest = manifestOf({ "models.csv": body });
   const original = env.ARCHIVE.put.bind(env.ARCHIVE);
   let fail = true;
   env.ARCHIVE.put = (async (key, ...args) => {
@@ -898,9 +1090,9 @@ test("release indexing failure is repaired by republishing the same version", as
 
 test("a failed public manifest write retains no attribution from the failed publishing job", async () => {
   const { env, store } = bucket();
-  const body = JSON.stringify([{ id: "battery" }]);
-  await putFile(env, "records_models.json", body);
-  const manifest = manifestOf({ "records_models.json": body });
+  const body = "id\nbattery\n";
+  await putFile(env, "models.csv", body);
+  const manifest = manifestOf({ "models.csv": body });
   const original = env.ARCHIVE.put.bind(env.ARCHIVE);
   let fail = true;
   env.ARCHIVE.put = (async (key, ...args) => {

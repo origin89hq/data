@@ -7,9 +7,9 @@ export async function requireReleaseHistory(base: string): Promise<void> {
   });
   if (!response.ok) throw new Error(`Cannot check publication support: HTTP ${response.status}`);
   const value = (await response.json()) as { publication?: { historyVersion?: number } };
-  // 2 is the Worker that loads each release into the store behind the API (#83).
-  if (value?.publication?.historyVersion !== 2)
+  // 3 is the Worker that keeps record snapshots in parts; 2 loaded releases into the store behind the API (#83).
+  if (value?.publication?.historyVersion !== 3)
     throw new Error(
-      "The Worker does not load releases yet. Deploy the updated Worker; a successful deployment automatically starts a fresh publication. No files were uploaded.",
+      "The Worker does not keep record snapshots in parts yet. Deploy the updated Worker; a successful deployment automatically starts a fresh publication. No files were uploaded.",
     );
 }

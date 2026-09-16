@@ -5,6 +5,7 @@ import { join } from "node:path";
 import { test } from "node:test";
 import { Dialect } from "@origin89/equipment-schema/dialect";
 import { Model } from "@origin89/equipment-schema/model";
+import { RecordKind, type SnapshotPlan } from "@origin89/equipment-schema/releases";
 import { build } from "../src/build.ts";
 import { toCsv } from "../src/csv.ts";
 import { loadRecords, type Records, writeRecords } from "../src/records.ts";
@@ -134,6 +135,7 @@ test("the build refuses invalid records and otherwise emits every table twice wi
     const manifest = build(fixture(), dist) as {
       counts: { sources: number };
       files: Record<string, { rows?: number; sha256: string }>;
+      snapshots: SnapshotPlan;
     };
     assert.equal(
       manifest.counts.sources,
@@ -143,6 +145,21 @@ test("the build refuses invalid records and otherwise emits every table twice wi
     assert.equal(manifest.files["dialects.csv"].rows, 2);
     assert.equal(manifest.files["dialects.parquet"].rows, 2);
     assert.equal(manifest.files["dialect_see_also.csv"].rows, 1);
+    // Every record kind is in the snapshot plan; one with records has its part listed, and one
+    // with none has no part rather than an empty one.
+    assert.deepEqual(Object.keys(manifest.snapshots.kinds), RecordKind.options);
+    assert.deepEqual(manifest.snapshots.kinds.dialects, {
+      parts: ["records_dialects_0001.json"],
+      rows: 2,
+    });
+    assert.deepEqual(manifest.snapshots.kinds.mappings, { parts: [], rows: 0 });
+    assert.equal(manifest.files["records_dialects_0001.json"].rows, 2);
+    assert.deepEqual(
+      JSON.parse(readFileSync(join(dist, "records_dialects_0001.json"), "utf8")).map(
+        (d: { id: string }) => d.id,
+      ),
+      ["a", "b"],
+    );
     const again = build(fixture(), dist) as { files: Record<string, { sha256: string }> };
     for (const [name, f] of Object.entries(manifest.files))
       assert.equal(

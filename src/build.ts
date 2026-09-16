@@ -3,15 +3,11 @@ import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { PROPERTIES } from "@origin89/equipment-schema/properties";
-import {
-  type LoadPlan,
-  RECORD_SNAPSHOT_MAX,
-  RecordKind,
-  snapshotName,
-} from "@origin89/equipment-schema/releases";
+import { type LoadPlan, RecordKind, type SnapshotPlan } from "@origin89/equipment-schema/releases";
 import { toCsv } from "./csv.ts";
 import { loadParts } from "./load-files.ts";
 import { loadRecords, type Records } from "./records.ts";
+import { snapshotParts } from "./snapshot-files.ts";
 import { duplicateIds, type Table, tables } from "./tables.ts";
 import { validate } from "./validate.ts";
 import { vocabulary } from "./vocabulary.ts";
@@ -20,7 +16,7 @@ export const DIST_DIR = new URL("../dist/", import.meta.url).pathname;
 
 /**
  * Emit the release: one CSV, one Parquet and the NDJSON load parts per table, the nested dialect
- * JSON, and a manifest with a hash of each. No timestamp anywhere, so the same records build the same bytes.
+ * JSON, the record snapshot parts of each kind, and a manifest with a hash of each. No timestamp anywhere, so the same records build the same bytes.
  */
 export function build(records: Records, dist = DIST_DIR): Record<string, unknown> {
   const report = validate(records);
@@ -43,8 +39,11 @@ export function build(records: Records, dist = DIST_DIR): Record<string, unknown
     files: {} as Record<string, { rows?: number; sha256: string; bytes: number }>,
     // Which load parts make each table, for the loader that puts a release behind the API (#83).
     load: { version: 1, tables: {} } as LoadPlan,
+    // Which snapshot parts hold each record kind, for the comparison of two releases.
+    snapshots: { version: 1, kinds: {} } as SnapshotPlan,
   };
   const load = manifest.load as LoadPlan;
+  const snapshots = manifest.snapshots as SnapshotPlan;
   const files = manifest.files as Record<string, { rows?: number; sha256: string; bytes: number }>;
   const record = (name: string, rows?: number) => {
     const bytes = readFileSync(join(dist, name));
@@ -101,14 +100,12 @@ export function build(records: Records, dist = DIST_DIR): Record<string, unknown
     Object.values(words).reduce((n, list) => n + list.length, 0),
   );
   for (const kind of RecordKind.options) {
-    const name = snapshotName(kind);
-    const snapshot = JSON.stringify(records[kind]);
-    if (Buffer.byteLength(snapshot) > RECORD_SNAPSHOT_MAX)
-      throw new Error(
-        `${name} exceeds the supported snapshot size; shard snapshots before growing this release`,
-      );
-    writeFileSync(join(dist, name), snapshot);
-    record(name, records[kind].length);
+    const parts = snapshotParts(kind, records[kind]);
+    for (const part of parts) {
+      writeFileSync(join(dist, part.name), part.text);
+      record(part.name, part.rows);
+    }
+    snapshots.kinds[kind] = { parts: parts.map((p) => p.name), rows: records[kind].length };
   }
   writeFileSync(join(dist, "manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
   return manifest;

@@ -127,7 +127,7 @@ async function endpoints(
       res.writeHead(answered.status, Object.fromEntries(answered.headers));
       res.end(Buffer.from(await answered.arrayBuffer()));
     } else if (url.pathname === "/manifest.json") {
-      res.end(JSON.stringify({ publication: { historyVersion: 2 } }));
+      res.end(JSON.stringify({ publication: { historyVersion: 3 } }));
     } else if (url.pathname === "/token") {
       issued += 1;
       res.end(JSON.stringify({ value: `job-token-${issued}` }));
@@ -305,16 +305,19 @@ test("logo upload finds the moved Worker and keeps absolute file arguments", (t)
 });
 
 test("an older Worker is refused before any credential request or upload", async (t) => {
-  const { dir } = fixture(t);
-  dataset(dir);
-  const { seen, job } = await endpoints(t, (path) =>
-    path === "/manifest.json" ? Response.json({ files: {} }) : undefined,
-  );
-  const result = await publishing(dir, job);
-  assert.equal(result.status, 1);
-  assert.match(result.stderr, /does not load releases yet/);
-  assert.equal(seen.length, 1);
-  assert.equal(seen[0].method, "GET");
-  assert.match(seen[0].path, /^\/manifest\.json\?publication-check=/);
-  assert.equal(seen[0].authorization, undefined);
+  // One with no release history at all, and one that loads releases but keeps snapshots whole.
+  for (const index of [{ files: {} }, { files: {}, publication: { historyVersion: 2 } }]) {
+    const { dir } = fixture(t);
+    dataset(dir);
+    const { seen, job } = await endpoints(t, (path) =>
+      path === "/manifest.json" ? Response.json(index) : undefined,
+    );
+    const result = await publishing(dir, job);
+    assert.equal(result.status, 1);
+    assert.match(result.stderr, /does not keep record snapshots in parts yet/);
+    assert.equal(seen.length, 1);
+    assert.equal(seen[0].method, "GET");
+    assert.match(seen[0].path, /^\/manifest\.json\?publication-check=/);
+    assert.equal(seen[0].authorization, undefined);
+  }
 });

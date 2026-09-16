@@ -29,6 +29,8 @@ export const Release = z.object({
   files: z.record(z.string(), FileMeta),
   /** Which load parts make each table, for the store behind the API. Absent on a release published before there were any. */
   load: z.lazy(() => LoadPlan).optional(),
+  /** Which snapshot parts hold each record kind. Absent on a release published before snapshots had parts. */
+  snapshots: z.lazy(() => SnapshotPlan).optional(),
 });
 export type Release = z.infer<typeof Release>;
 export const ReleasePage = z.object({ releases: z.array(Release), cursor: z.string().optional() });
@@ -68,8 +70,44 @@ export const Comparison = z.object({
   ),
 });
 export type Comparison = z.infer<typeof Comparison>;
-export const RECORD_SNAPSHOT_MAX = 6 * 1024 * 1024;
+/** A whole snapshot of a kind, as releases published before snapshots had parts wrote it. */
 export const snapshotName = (kind: z.infer<typeof RecordKind>) => `records_${kind}.json`;
+
+/**
+ * The record snapshots of a release: each authored record kind as JSON arrays of its records in
+ * id order, split into parts of bounded size, `records_specs_0001.json` and on. A comparison walks
+ * two releases' parts side by side and holds one part of each in memory, so a kind can outgrow a
+ * part without the comparison buffering it whole. The manifest's `snapshots` section says which
+ * parts make each kind.
+ */
+export const SNAPSHOT_PART_MAX = 2 * 1024 * 1024;
+export const SNAPSHOT_PART_ROWS = 10_000;
+/** The most parts a kind may have; a comparison reads all of them for each side. */
+export const SNAPSHOT_PARTS_MAX = 64;
+export const snapshotPartName = (kind: z.infer<typeof RecordKind>, part: number): string =>
+  `records_${kind}_${String(part).padStart(4, "0")}.json`;
+export const isSnapshotPart = (name: string): boolean => /^records_[a-z]+_\d{4}\.json$/.test(name);
+/** Record ids in the order snapshot parts keep them: by UTF-16 code unit, as `Array.sort` orders strings. */
+export const byId = (a: { id: string }, b: { id: string }): number =>
+  a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+export const SnapshotPlan = z
+  .object({
+    version: z.literal(1),
+    kinds: z.record(
+      z.string().regex(/^[a-z]+$/),
+      z
+        .object({
+          /** The parts in order, numbered from 1; each is a file the manifest lists. A kind with no records has none. */
+          parts: z
+            .array(z.string().refine(isSnapshotPart, "not a snapshot part"))
+            .max(SNAPSHOT_PARTS_MAX),
+          rows: z.number().int().nonnegative(),
+        })
+        .strict(),
+    ),
+  })
+  .strict();
+export type SnapshotPlan = z.infer<typeof SnapshotPlan>;
 
 /** Object key order is immaterial. Array order and missing versus null remain meaningful. */
 export function canonical(value: unknown): string {
