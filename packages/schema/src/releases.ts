@@ -119,6 +119,22 @@ export function canonical(value: unknown): string {
       .join(",")}}`;
   return JSON.stringify(value) ?? "undefined";
 }
+/** A release's content: the sha256 of its files, the same whichever job published them. */
+export async function releaseContent(files: Release["files"]): Promise<string> {
+  const bytes = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(canonical(files)));
+  return [...new Uint8Array(bytes)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+/**
+ * What the Worker already publishes: the sha256 of the manifest the front door serves, and the
+ * newest release the store behind the API holds or is loading. Either is null when there is none.
+ */
+export const Publication = z.object({
+  manifest: ReleaseId.nullable(),
+  release: z
+    .object({ id: ReleaseId, content: ReleaseId, state: z.enum(["active", "loading"]) })
+    .nullable(),
+});
+export type Publication = z.infer<typeof Publication>;
 export function changedFields(
   before: Record<string, unknown>,
   after: Record<string, unknown>,

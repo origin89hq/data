@@ -56,6 +56,8 @@ jobs:
           node src/build.ts > /dev/null
           sha256sum dist/* | sort > "$RUNNER_TEMP/build-2"
           diff "$RUNNER_TEMP/build-1" "$RUNNER_TEMP/build-2"
+      # Sends nothing when the front door serves this manifest and the store holds these files: a
+      # deploy starts this again, and loading the same release twice writes every row twice.
       - name: Publish to data.origin89.com
         run: node tools/dataset/publish.ts
       - name: Check the front door serves what was just published

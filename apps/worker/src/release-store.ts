@@ -272,6 +272,16 @@ export async function activeRelease(db: Store): Promise<ReleaseRow | null> {
   return db.prepare("SELECT * FROM releases WHERE state = 'active'").first<ReleaseRow>();
 }
 
+/** The latest publication the store answers from or is loading. A failed load is not one. */
+export async function newestRelease(db: Store): Promise<NewestRelease | null> {
+  return db
+    .prepare(
+      "SELECT id, content, state FROM releases WHERE state IN ('active', 'loading') ORDER BY published_at DESC LIMIT 1",
+    )
+    .first<NewestRelease>();
+}
+type NewestRelease = Pick<ReleaseRow, "id" | "content"> & { state: "active" | "loading" };
+
 /**
  * Make a loaded release the active one, unless the active one was published later: a slow load
  * of an older publication must not overtake a newer one. Either way the release stays loaded.
