@@ -356,7 +356,9 @@ export function splitValueUnit(
   unit: string | undefined,
 ): { value: string; unit?: string } {
   const canonical = canonicalUnit(unit);
-  const match = /^(-?\d+(?:[.,]\d+)?)\s*([A-Za-zΩ°℃µ%][A-Za-zΩ°℃µ%²³/·.]{0,9})$/.exec(value.trim());
+  const match = /^([-+]?\d+(?:[.,]\d+)?)\s*([A-Za-zΩ°℃µ%][A-Za-zΩ°℃µ%²³/·.]{0,9})$/.exec(
+    value.trim(),
+  );
   const pulled = match ? canonicalUnit(match[2]) : undefined;
   // A number printed with its own unit of the same quantity keeps the printed one: "11mA" is not
   // eleven amps because the unit field said A (#196).

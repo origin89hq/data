@@ -170,6 +170,7 @@ test("a unit written in the value and in the unit field comes off the value once
   assert.deepEqual(splitValueUnit("600V ac/dc", "V"), { value: "600V ac/dc", unit: "V" });
   // A number printed with a unit of the same quantity keeps it; another quantity's unit is no answer.
   assert.deepEqual(splitValueUnit("11mA", "A"), { value: "11", unit: "mA" });
+  assert.deepEqual(splitValueUnit("+11mA", "A"), { value: "+11", unit: "mA" });
   assert.deepEqual(splitValueUnit("2.5 kW", "W"), { value: "2.5", unit: "kW" });
   assert.deepEqual(splitValueUnit("5Ah", "A"), { value: "5Ah", unit: "A" });
   // Another unit at the end, or no number before it, is not the unit repeated.
