@@ -158,8 +158,9 @@ Kimi serves an account twenty requests a minute, and both readers call it, so
 they share one pace of eighteen a minute (`KIMI_PACE`). A window turned away by
 the pace or by Kimi's own limit is not a failure: the windows already read are
 kept, and the document goes back on the queue to read the rest when its turn
-comes. That pace is also how long a reading takes: about a thousand windows an
-hour for every maker together.
+comes: in a minute if it read a window before it was turned away, and otherwise
+after a wait that doubles to five minutes. That pace is also how long a reading
+takes: about a thousand windows an hour for every maker together.
 
 | | |
 |---|---|

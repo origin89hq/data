@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { type ReadWindow, readDocument } from "../src/extract.ts";
-import { MAX_WAITS } from "../src/pace.ts";
+import { MAX_DOCUMENT_WAITS, MAX_WAITS } from "../src/pace.ts";
 import {
   answerObjects,
   asciiSymbols,
@@ -347,8 +347,41 @@ test("a window Kimi's pace turns away waits its turn: what was read is kept, and
     "a refusal is not written down as the window's answer",
   );
   assert.equal(read(readingKey), undefined, "nor is the reading, with windows still to read");
-  assert.deepEqual(sent, [{ ...message, waits: 1 }], "sent again, to go on when its turn comes");
+  assert.deepEqual(
+    sent,
+    [{ ...message, waits: 0 }],
+    "sent again to go on, its waiting started over because it had a turn",
+  );
   assert.deepEqual(delays, [86], "a minute, and 26 seconds by the document");
+
+  const waited = world({ [MARKDOWN]: SHEET }, reader());
+  waited.pace.allow = () => waited.pace.asked < 2;
+  await readDocument({ ...message, waits: 5 }, waited.env, 1);
+  assert.deepEqual(waited.sent, [{ ...message, waits: 0 }]);
+  assert.deepEqual(
+    waited.delays,
+    [86],
+    "a turn had, so not the five minutes its five waits had reached",
+  );
+});
+
+test("a document turned away before reading anything waits longer each time, up to five minutes", async () => {
+  const delayAfter = async (waits: number) => {
+    const { env, sent, delays, pace, asked } = world({ [MARKDOWN]: SHEET }, reader());
+    pace.allow = () => false;
+    await readDocument({ ...message, waits }, env, 1);
+    assert.equal(asked.length, 0);
+    assert.deepEqual(sent, [{ ...message, waits: waits + 1 }], "one more wait counted");
+    return delays[0];
+  };
+  assert.equal(await delayAfter(0), 86, "a minute");
+  assert.equal(await delayAfter(2), 266, "four minutes");
+  assert.equal(await delayAfter(8), 326, "never more than five, where a page waits half an hour");
+  assert.equal(
+    await delayAfter(MAX_WAITS),
+    326,
+    "and past a page's last wait a document still waits, since a backlog of documents takes hours",
+  );
 });
 
 test("Kimi refusing for its own limit is waiting too, even on the last delivery, and never a failure", async () => {
@@ -360,7 +393,11 @@ test("Kimi refusing for its own limit is waiting too, even on the last delivery,
   await readDocument(message, env, LAST_ATTEMPT);
   assert.equal(asked.length, 2, "window 3 is left for the next turn");
   assert.equal(read(windowKey(2)), undefined);
-  assert.deepEqual(sent, [{ ...message, waits: 1 }]);
+  assert.deepEqual(
+    sent,
+    [{ ...message, waits: 0 }],
+    "window 1 was read, so the waiting starts over",
+  );
 
   const resumed = world(
     { [MARKDOWN]: SHEET, [windowKey(1)]: `${JSON.stringify(read(windowKey(1)))}\n` },
@@ -378,7 +415,7 @@ test("past its last wait a document asks no turn, and a refusal fails its window
       : reader()(call, input);
   const { env, pace, sent, readObject } = world({ [MARKDOWN]: SHEET }, limited);
   pace.allow = () => false;
-  await readDocument({ ...message, waits: MAX_WAITS }, env, LAST_ATTEMPT);
+  await readDocument({ ...message, waits: MAX_DOCUMENT_WAITS }, env, LAST_ATTEMPT);
   assert.equal(pace.asked, 0, "nothing is held back any more");
   assert.deepEqual(sent, [], "and nothing is sent back to wait");
   assert.match(readObject<ReadWindow>(windowKey(2)).failed ?? "", /^not read: 3021/);
