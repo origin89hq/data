@@ -1,0 +1,9 @@
+{
+  "id": "eg4-electronics-chargeverter-gc--idle-consumption",
+  "model": "eg4-electronics-chargeverter-gc",
+  "name": "Idle Consumption",
+  "value": "~10W",
+  "source": "doc-53a282af6f4deaad6d132502faae596c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

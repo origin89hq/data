@@ -2,7 +2,9 @@
   "id": "pentair-om26k",
   "manufacturer": "pentair",
   "name": "OM26K",
-  "aliases": [],
-  "dialects": [],
-  "kind": "out-of-scope"
+  "kind": "out-of-scope",
+  "aliases": [
+    "OMNIFilter OM26K"
+  ],
+  "dialects": []
 }

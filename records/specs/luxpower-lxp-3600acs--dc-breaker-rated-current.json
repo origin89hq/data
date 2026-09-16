@@ -1,0 +1,10 @@
+{
+  "id": "luxpower-lxp-3600acs--dc-breaker-rated-current",
+  "model": "luxpower-lxp-3600acs",
+  "name": "DC breaker rated current",
+  "value": "≥100A",
+  "source": "doc-5c8289104af40965f63670b8633f69fe",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 13,
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pentair-hpgr200--r-p-m",
+  "model": "pentair-hpgr200",
+  "name": "R.P.M",
+  "value": "2900/3450",
+  "source": "doc-16918560594a59e8bc9791046c3deed4",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 4,
+  "confidence": "vendor-doc"
+}

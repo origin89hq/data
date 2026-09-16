@@ -1,0 +1,11 @@
+{
+  "id": "sol-ark-15k-2p-lv--max-current-for-rsd-transmitters",
+  "model": "sol-ark-15k-2p-lv",
+  "name": "Max current for RSD transmitters",
+  "value": "100",
+  "unit": "mA",
+  "source": "doc-e8a5f883b41371b0b427044b95831d40",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 26,
+  "confidence": "vendor-doc"
+}

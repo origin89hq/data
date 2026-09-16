@@ -1,0 +1,11 @@
+{
+  "id": "sol-ark-8k-2p-n--weight",
+  "model": "sol-ark-8k-2p-n",
+  "name": "Weight",
+  "value": "78",
+  "unit": "lb",
+  "source": "doc-2d78833f0dfd3579b769cf106c70364e",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 9,
+  "confidence": "vendor-doc"
+}

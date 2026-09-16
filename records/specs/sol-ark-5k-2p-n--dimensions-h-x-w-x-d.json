@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-5k-2p-n--dimensions-h-x-w-x-d",
+  "model": "sol-ark-5k-2p-n",
+  "name": "Dimensions (H x W x D)",
+  "value": "750 x 450 x 254 mm",
+  "source": "doc-759ca07ffded8018dcb7cbd8dcc55424",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 9,
+  "confidence": "vendor-doc"
+}

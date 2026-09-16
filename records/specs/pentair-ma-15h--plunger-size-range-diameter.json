@@ -1,0 +1,10 @@
+{
+  "id": "pentair-ma-15h--plunger-size-range-diameter",
+  "model": "pentair-ma-15h",
+  "name": "Plunger Size Range, Diameter",
+  "value": "3/4\"",
+  "source": "doc-17900052de74eb9fc01960d9f44a60bf",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 3,
+  "confidence": "vendor-doc"
+}

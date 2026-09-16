@@ -10,7 +10,8 @@
     {
       "dialect": "solark-hybrid-rtu-v1",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     }

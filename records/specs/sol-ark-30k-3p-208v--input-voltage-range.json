@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-30k-3p-208v--input-voltage-range",
+  "model": "sol-ark-30k-3p-208v",
+  "name": "Input voltage range",
+  "value": "160 VDC – 500 VDC",
+  "source": "doc-69da757b50746ca11ac81fd6741cab8c",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 33,
+  "confidence": "vendor-doc"
+}

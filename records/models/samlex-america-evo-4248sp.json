@@ -2,29 +2,34 @@
   "id": "samlex-america-evo-4248sp",
   "manufacturer": "samlex-america",
   "name": "EVO-4248SP",
-  "aliases": [],
+  "kind": "inverter-charger",
+  "aliases": [
+    "EVO4248SP"
+  ],
   "dialects": [
     {
       "dialect": "samlex-evo-4248sp-unknown",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     },
     {
       "dialect": "samlex-evo-modbus-4248sp",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     },
     {
       "dialect": "samlex-evo-signal-io",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     }
-  ],
-  "kind": "inverter-charger"
+  ]
 }

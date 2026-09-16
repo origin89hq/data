@@ -1,0 +1,11 @@
+{
+  "id": "sol-ark-12k-2p-n--max-input-power-per-mppt",
+  "model": "sol-ark-12k-2p-n",
+  "name": "Max input power per MPPT",
+  "value": "6.5",
+  "unit": "kW",
+  "source": "doc-a6309d995ea95cdfb312cc5335f5fbe8",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 12,
+  "confidence": "vendor-doc"
+}

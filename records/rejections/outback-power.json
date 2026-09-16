@@ -3,7 +3,7 @@
   "rejections": [
     {
       "source": "doc-59524b82f88d1eb8a96033734f91f30e",
-      "model": "outback-power-mate3-s",
+      "model": "outback-power-mate3s",
       "name": "AC INPUT",
       "reason": "The 115 V is a reading drawn on the example Home screen illustration, not a MATE3s rating.",
       "reviewedBy": "lemarier",
@@ -11,7 +11,7 @@
     },
     {
       "source": "doc-6b3194c1fd365a40d329d9e079822b7e",
-      "model": "outback-power-mate3-s",
+      "model": "outback-power-mate3s",
       "name": "AC INPUT",
       "reason": "The 115 V is a reading drawn on the example Home screen illustration, not a MATE3s rating.",
       "reviewedBy": "lemarier",
@@ -19,7 +19,7 @@
     },
     {
       "source": "doc-59524b82f88d1eb8a96033734f91f30e",
-      "model": "outback-power-mate3-s",
+      "model": "outback-power-mate3s",
       "name": "BATTERY VOLTAGE",
       "reason": "The 28.5 V is a battery reading drawn on the example Home screen illustration, not a MATE3s rating.",
       "reviewedBy": "lemarier",
@@ -27,7 +27,7 @@
     },
     {
       "source": "doc-6b3194c1fd365a40d329d9e079822b7e",
-      "model": "outback-power-mate3-s",
+      "model": "outback-power-mate3s",
       "name": "BATTERY VOLTAGE",
       "reason": "The 28.5 V is a battery reading drawn on the example Home screen illustration, not a MATE3s rating.",
       "reviewedBy": "lemarier",
@@ -35,7 +35,7 @@
     },
     {
       "source": "doc-59524b82f88d1eb8a96033734f91f30e",
-      "model": "outback-power-mate3-s",
+      "model": "outback-power-mate3s",
       "name": "CHARGER",
       "reason": "The 0.1 kW is a charger reading drawn on the example Home screen illustration, not a MATE3s rating.",
       "reviewedBy": "lemarier",
@@ -43,7 +43,7 @@
     },
     {
       "source": "doc-6b3194c1fd365a40d329d9e079822b7e",
-      "model": "outback-power-mate3-s",
+      "model": "outback-power-mate3s",
       "name": "CHARGER",
       "reason": "The 0.1 kW is a charger reading drawn on the example Home screen illustration, not a MATE3s rating.",
       "reviewedBy": "lemarier",
@@ -51,7 +51,7 @@
     },
     {
       "source": "doc-59524b82f88d1eb8a96033734f91f30e",
-      "model": "outback-power-mate3-s",
+      "model": "outback-power-mate3s",
       "name": "INVERTER",
       "reason": "The 1.5 kW is an inverter reading drawn on the example Home screen illustration, not a MATE3s rating.",
       "reviewedBy": "lemarier",
@@ -59,7 +59,7 @@
     },
     {
       "source": "doc-6b3194c1fd365a40d329d9e079822b7e",
-      "model": "outback-power-mate3-s",
+      "model": "outback-power-mate3s",
       "name": "INVERTER",
       "reason": "The 1.5 kW is an inverter reading drawn on the example Home screen illustration, not a MATE3s rating.",
       "reviewedBy": "lemarier",
@@ -67,7 +67,7 @@
     },
     {
       "source": "doc-59524b82f88d1eb8a96033734f91f30e",
-      "model": "outback-power-mate3-s",
+      "model": "outback-power-mate3s",
       "name": "EFFICENCY",
       "reason": "The 85% is a reading drawn on the example Home screen illustration; the guide prints no efficiency.",
       "reviewedBy": "lemarier",
@@ -75,7 +75,7 @@
     },
     {
       "source": "doc-6b3194c1fd365a40d329d9e079822b7e",
-      "model": "outback-power-mate3-s",
+      "model": "outback-power-mate3s",
       "name": "EFFICACY",
       "reason": "The 85% is a reading drawn on the example Home screen illustration; the guide prints no efficiency.",
       "reviewedBy": "lemarier",
@@ -88,6 +88,14 @@
       "reason": "Prose, \"must never exceed 150 Voc\", repeating the rated \"PV Open Circuit Voltage (Voc) 150 Vdc maximum\" held under its own name.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-8f888711145dfb393a31a26b9fe2f6ae",
+      "model": "outback-power-1000xlc",
+      "name": "Voltage per cell",
+      "reason": "No cell voltage is rated under that name: the 2.2 Vpc is a resting state of charge, \"a battery at 52.8 Vdc (2.2 Vpc) will be at 100% SoC\" (p8), and the 2.11 Vpc a commissioning threshold, \"individual cell voltage less than 2.11 Vpc), apply a freshening charge\" (p25).",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-16"
     }
   ]
 }

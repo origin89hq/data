@@ -1,0 +1,10 @@
+{
+  "id": "eg4-electronics-flexboss21--fused-positive-battery-bus-bar-rating",
+  "model": "eg4-electronics-flexboss21",
+  "name": "Fused positive battery bus bar rating",
+  "value": ">=250 Amps",
+  "source": "doc-22046aec6a8b52e3f9daaef246354f01",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 14,
+  "confidence": "vendor-doc"
+}

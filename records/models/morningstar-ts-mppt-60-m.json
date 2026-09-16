@@ -2,7 +2,9 @@
   "id": "morningstar-ts-mppt-60-m",
   "manufacturer": "morningstar",
   "name": "TS-MPPT-60/M",
-  "aliases": [],
-  "dialects": [],
-  "kind": "charge-controller"
+  "kind": "charge-controller",
+  "aliases": [
+    "TS MPPT-60M"
+  ],
+  "dialects": []
 }

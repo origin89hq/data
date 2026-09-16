@@ -2,7 +2,9 @@
   "id": "outback-power-1000xlc",
   "manufacturer": "outback-power",
   "name": "1000XLC",
-  "aliases": [],
-  "dialects": [],
-  "kind": "battery"
+  "kind": "battery",
+  "aliases": [
+    "EnergyCell 1000XLC"
+  ],
+  "dialects": []
 }

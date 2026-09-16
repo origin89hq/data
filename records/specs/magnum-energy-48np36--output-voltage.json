@@ -1,0 +1,10 @@
+{
+  "id": "magnum-energy-48np36--output-voltage",
+  "model": "magnum-energy-48np36",
+  "name": "Output Voltage",
+  "value": "120 +/- 3% VAC",
+  "source": "doc-021c2d390f60ad1d57a68ab5f5df25b3",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 4,
+  "confidence": "vendor-doc"
+}

@@ -3,7 +3,9 @@
   "manufacturer": "noco",
   "name": "Genius 2D",
   "kind": "ac-charger",
-  "aliases": [],
+  "aliases": [
+    "GENIUS2D"
+  ],
   "dialects": [
     {
       "dialect": "noco-charger-unread",

@@ -1,0 +1,10 @@
+{
+  "id": "sol-ark-15k-2p-lv--gen-or-grid-a",
+  "model": "sol-ark-15k-2p-lv",
+  "name": "GEN or GRID A",
+  "value": "5% of its rated capacity in Amperes (A)",
+  "source": "doc-e8a5f883b41371b0b427044b95831d40",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 26,
+  "confidence": "vendor-doc"
+}

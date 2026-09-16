@@ -2,6 +2,9 @@
   "id": "fronius-4210144800",
   "manufacturer": "fronius",
   "name": "4210144800",
-  "aliases": [],
+  "aliases": [
+    "4,210,144,800",
+    "FRO-224-190"
+  ],
   "dialects": []
 }

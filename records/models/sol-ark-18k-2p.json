@@ -3,26 +3,32 @@
   "manufacturer": "sol-ark",
   "name": "18K-2P",
   "kind": "inverter-charger",
-  "aliases": [],
+  "aliases": [
+    "SOL-18K-2P",
+    "SOL-ARK-18K-2P"
+  ],
   "dialects": [
     {
       "dialect": "solark-18k-2p-unknown",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     },
     {
       "dialect": "solark-dongle-uart",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     },
     {
       "dialect": "solark-mysolark-cloud",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     }

@@ -1,0 +1,29 @@
+{
+  "id": "sol-ark-5k-2p-n",
+  "manufacturer": "sol-ark",
+  "name": "5K-2P-N",
+  "kind": "inverter-charger",
+  "aliases": [
+    "SOL-5K-2P-N",
+    "Sol-Ark 5K-2P-N",
+    "Sol-Ark5K-2P-N"
+  ],
+  "dialects": [
+    {
+      "dialect": "solark-hybrid-rtu-v1",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": []
+      },
+      "confidence": "unverified"
+    },
+    {
+      "dialect": "solark-mysolark-cloud",
+      "evidence": {
+        "kind": "catalogue-name",
+        "sources": []
+      },
+      "confidence": "unverified"
+    }
+  ]
+}

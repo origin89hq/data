@@ -2,7 +2,12 @@
   "id": "magnum-energy-48np36",
   "manufacturer": "magnum-energy",
   "name": "48NP36",
-  "aliases": [],
+  "kind": "inverter-charger",
+  "aliases": [
+    "INVERTER 48NP36"
+  ],
   "dialects": [],
-  "kind": "out-of-scope"
+  "checkedAt": "2026-09-16",
+  "reviewedBy": "lemarier",
+  "basis": "Its owner's manual is titled \"DC to AC Power Inverter/Charger\" for \"Model: 48NP36\" (doc-021c2d390f60ad1d57a68ab5f5df25b3, p1) and rates \"Output Power (Watts Cont.) 3600\" (p5); it is an inverter/charger, not out of scope."
 }

@@ -2,22 +2,26 @@
   "id": "samlex-america-evo-1212f",
   "manufacturer": "samlex-america",
   "name": "EVO-1212F",
-  "aliases": [],
+  "kind": "inverter-charger",
+  "aliases": [
+    "EVO1212F"
+  ],
   "dialects": [
     {
       "dialect": "samlex-evo-1212f-no-bus",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     },
     {
       "dialect": "samlex-evo-signal-io",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     }
-  ],
-  "kind": "inverter-charger"
+  ]
 }

@@ -1,0 +1,9 @@
+{
+  "id": "luxpower-lxp-3600acs--rated-ac-frequency",
+  "model": "luxpower-lxp-3600acs",
+  "name": "Rated AC frequency",
+  "value": "50 / 60 Hz",
+  "source": "doc-863296de3b51cb17dbfbf2244df36565",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

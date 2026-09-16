@@ -1,0 +1,9 @@
+{
+  "id": "eg4-electronics-chargeverter-gc--charging-power",
+  "model": "eg4-electronics-chargeverter-gc",
+  "name": "Charging Power",
+  "value": "Up to 5120W @ 240VAC",
+  "source": "doc-544e9046a7910f6a03b81a8f3198b3bb",
+  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "confidence": "vendor-doc"
+}

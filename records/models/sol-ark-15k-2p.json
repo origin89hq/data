@@ -3,26 +3,31 @@
   "manufacturer": "sol-ark",
   "name": "15K-2P",
   "kind": "inverter-charger",
-  "aliases": [],
+  "aliases": [
+    "SOL-15K-2P"
+  ],
   "dialects": [
     {
       "dialect": "solark-dongle-uart",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     },
     {
       "dialect": "solark-hybrid-rtu-v1",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     },
     {
       "dialect": "solark-mysolark-cloud",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     }

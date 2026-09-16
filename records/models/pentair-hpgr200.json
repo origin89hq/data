@@ -3,9 +3,11 @@
   "manufacturer": "pentair",
   "name": "HPGR200",
   "kind": "pump",
-  "aliases": [],
+  "aliases": [
+    "hydromatic hPgr200"
+  ],
   "dialects": [],
-  "basis": "Its sheet gives a motor's full-load amps and kilowatts, locked-rotor amps and stator temperature, and no generated output: the Hydromatic HPGR200 is a grinder pump, whose 'Full Load kW' is the load its motor draws.",
   "checkedAt": "2026-09-13",
-  "reviewedBy": "lemarier"
+  "reviewedBy": "lemarier",
+  "basis": "Its sheet gives a motor's full-load amps and kilowatts, locked-rotor amps and stator temperature, and no generated output: the Hydromatic HPGR200 is a grinder pump, whose 'Full Load kW' is the load its motor draws."
 }
