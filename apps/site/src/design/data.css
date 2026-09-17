@@ -1,0 +1,415 @@
+/* The record surfaces: what loads, what is in the tables, and what a single record says. Both the
+ * public page and the workspace render these, so they carry no page-specific layout. */
+
+/* Loading, failure and absence. A reading that has not arrived is a state, never a zero, so these
+ * say which of the three it is in words as well as in colour. */
+.data-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font: 14px var(--font-text);
+  color: var(--color-muted);
+}
+.data-loading {
+  display: grid;
+  gap: 12px;
+  padding: 16px 0;
+}
+.loading-indicator {
+  width: 13px;
+  height: 13px;
+  flex: none;
+  border: 2px solid var(--color-line-strong);
+  border-top-color: var(--color-signal);
+  border-radius: 50%;
+  animation: data-spin 0.9s linear infinite;
+}
+.data-skeleton {
+  display: block;
+  height: 13px;
+  margin: 8px 0;
+  background: var(--color-line);
+  animation: data-pulse 1.6s ease-in-out infinite alternate;
+}
+.data-problem {
+  display: grid;
+  justify-items: start;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid var(--color-line-strong);
+  border-left: 3px solid var(--color-alarm);
+  border-radius: 12px;
+  corner-shape: bevel;
+  background: var(--color-surface);
+}
+.data-problem p {
+  color: var(--color-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+@keyframes data-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes data-pulse {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 0.7;
+  }
+}
+
+/* Evidence chips. Colour alone cannot carry the state: a cited figure gets a solid rule, an
+ * unconfirmed one a dashed rule, which survives both protanopia and a monochrome print-out. */
+.evidence {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  border: 1px solid currentColor;
+  font: 12px var(--font-data);
+  white-space: nowrap;
+}
+.evidence.blue {
+  color: var(--color-info);
+}
+.evidence.amber {
+  color: var(--color-warning);
+  border-style: dashed;
+}
+.amber-text {
+  color: var(--color-warning);
+}
+.accent-text {
+  color: var(--color-faint);
+}
+
+/* A reading, in the technical voice with its unit visible and its digits tabular. */
+.big-reading {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 20px;
+  font-size: 56px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.big-reading span {
+  font: 20px var(--font-data);
+  color: var(--color-muted);
+  letter-spacing: 0;
+}
+.reading-label {
+  display: block;
+  margin-top: 12px;
+  color: var(--color-muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* The explorer: tabs over the published tables, a search, and the rows themselves. */
+.explorer {
+  margin-top: 40px;
+}
+.explorer-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.table-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.table-tabs button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--color-line-strong);
+  border-radius: 10px;
+  corner-shape: bevel;
+  color: var(--color-muted);
+  font-size: 14px;
+  font-weight: 500;
+  transition:
+    color 0.2s var(--ease),
+    background 0.2s var(--ease),
+    border-color 0.2s var(--ease);
+}
+.table-tabs button span {
+  font: 12px var(--font-data);
+  color: var(--color-faint);
+  font-variant-numeric: tabular-nums;
+}
+.table-tabs button:hover {
+  color: var(--color-fg);
+}
+.table-tabs button[aria-selected="true"] {
+  background: var(--color-surface-raised);
+  border-color: var(--color-muted);
+  color: var(--color-fg);
+}
+.table-tabs button[aria-selected="true"] span {
+  color: var(--color-signal);
+}
+.sample-label {
+  font: 12px var(--font-data);
+  letter-spacing: 0.06em;
+  color: var(--color-faint);
+}
+.explorer-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 320px;
+  min-width: 0;
+  padding: 0 14px;
+  min-height: 48px;
+  border: 1px solid var(--color-line-strong);
+  border-radius: 10px;
+  corner-shape: bevel;
+  background: var(--color-surface);
+  color: var(--color-muted);
+}
+.search-box input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  padding: 12px 0;
+  background: none;
+  color: var(--color-fg);
+  font-size: 15px;
+  outline: none;
+}
+.search-box:focus-within {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+.explorer-tools select {
+  min-height: 48px;
+  padding: 0 14px;
+  border: 1px solid var(--color-line-strong);
+  border-radius: 10px;
+  corner-shape: bevel;
+  background: var(--color-surface);
+  color: var(--color-fg);
+  font-size: 15px;
+}
+.table-scroll {
+  min-width: 0;
+  overflow-x: auto;
+  border: 1px solid var(--color-line);
+  border-radius: 14px;
+  corner-shape: bevel;
+  background: var(--color-surface);
+}
+.table-scroll table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  text-align: left;
+}
+.table-scroll thead th {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--color-line);
+  background: var(--color-surface-raised);
+  font: 12px var(--font-data);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-faint);
+  white-space: nowrap;
+}
+.table-scroll tbody td {
+  padding: 16px 20px;
+  border-top: 1px solid var(--color-line);
+  font-size: 14px;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+.table-scroll tbody td:first-child {
+  font-family: var(--font-data);
+  color: var(--color-fg);
+}
+.table-scroll tbody tr:hover td {
+  background: var(--color-surface-raised);
+  color: var(--color-fg);
+}
+.table-scroll tbody tr:first-child td {
+  border-top: 0;
+}
+.skeleton-row td {
+  color: transparent;
+}
+.explorer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 16px;
+  color: var(--color-muted);
+  font-size: 14px;
+}
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: 14px var(--font-data);
+  font-variant-numeric: tabular-nums;
+}
+.pagination button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-line-strong);
+  border-radius: 10px;
+  corner-shape: bevel;
+  color: var(--color-muted);
+}
+.pagination button:not(:disabled):hover {
+  color: var(--color-fg);
+  background: var(--color-surface-raised);
+}
+
+/* One record, opened. */
+dialog {
+  width: min(720px, calc(100% - 2 * var(--gutter)));
+  max-height: min(860px, 88vh);
+  padding: 0;
+  border: 1px solid var(--color-line-strong);
+  border-radius: 16px;
+  corner-shape: bevel;
+  background: var(--color-surface);
+  color: var(--color-fg);
+  overflow: auto;
+}
+dialog::backdrop {
+  background: rgb(7 9 12 / 0.72);
+  backdrop-filter: blur(4px);
+}
+.dialog-top {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--color-line);
+  background: var(--color-surface);
+}
+.close-dialog {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-line-strong);
+  border-radius: 10px;
+  corner-shape: bevel;
+  color: var(--color-muted);
+}
+.close-dialog:hover {
+  color: var(--color-fg);
+  background: var(--color-surface-raised);
+}
+#detail-content {
+  padding: 28px 28px 40px;
+}
+#detail-content > h2 {
+  margin-top: 12px;
+  font-size: 40px;
+}
+.detail-sub {
+  margin-top: 8px;
+  font: 14px var(--font-data);
+  color: var(--color-muted);
+}
+.detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin-top: 16px;
+  font-size: 14px;
+  color: var(--color-muted);
+}
+.detail-spec {
+  padding: 14px 0;
+  border-top: 1px solid var(--color-line);
+}
+.detail-spec header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+}
+.detail-spec h3 {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-muted);
+  letter-spacing: 0;
+}
+.detail-spec strong {
+  font: 16px var(--font-data);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+.detail-spec a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-link);
+}
+.detail-notice {
+  margin-top: 24px;
+  padding: 16px;
+  border: 1px solid var(--color-line);
+  border-left: 3px solid var(--color-info);
+  border-radius: 10px;
+  corner-shape: bevel;
+  background: var(--color-surface-raised);
+  color: var(--color-muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+#detail-content .o89-plate {
+  margin-top: 24px;
+}
+@media (max-width: 640px) {
+  .big-reading {
+    font-size: 40px;
+  }
+  #detail-content > h2 {
+    font-size: 28px;
+  }
+  #detail-content,
+  .dialog-top {
+    padding-inline: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-indicator,
+  .data-skeleton {
+    animation: none;
+  }
+}

@@ -41,127 +41,131 @@ export function Evidence({ db }: { db: State }) {
   const trail = row as unknown as Trail | undefined;
 
   return (
-    <section id="evidence" className="section wrap evidence-section">
-      <div className="evidence-story">
-        <p className="eyebrow">03 / THE EVIDENCE COMES WITH IT</p>
-        <h2>
-          A number is useful.
-          <br />
-          <span className="accent-text">Its source is essential.</span>
-        </h2>
-        <p>
-          A battery’s capacity means little without its conditions. A protocol claim needs more than
-          a familiar connector. Keep the context with the claim.
-        </p>
-        <ol className="evidence-steps">
-          <li>
-            <span>01</span>
-            <div>
-              <h3>Find the original source</h3>
-              <p>Document links and page references, where available.</p>
-            </div>
-          </li>
-          <li>
-            <span>02</span>
-            <div>
-              <h3>Know how the figure arrived</h3>
-              <p>Public feed, automated extraction, or human review.</p>
-            </div>
-          </li>
-          <li>
-            <span>03</span>
-            <div>
-              <h3>See what still needs checking</h3>
-              <p>Confidence, reviewer, and doubt fields stay visible.</p>
-            </div>
-          </li>
-        </ol>
-        <a className="text-link" href="#explore">
-          Inspect an actual record <Icon name="arrowUpRight" />
-        </a>
-      </div>
-      <div className="provenance-card">
-        <div className="panel-cap">
-          <span>SPECIFICATION / SOURCE TRAIL</span>
-          <Icon name="arrowUpRight" />
-        </div>
-        <div className="provenance-main" data-loading={result.status === "loading"}>
-          {result.status === "loading" ? (
-            <DataLoading label="Loading a figure and its source…">
-              <Skeleton width="74%" />
-              <Skeleton width="48%" />
-              <Skeleton />
-              <Skeleton width="82%" />
-            </DataLoading>
-          ) : result.status === "error" ? (
-            <DataProblem label="The source example couldn’t be loaded." retry={result.retry} />
-          ) : !trail ? (
-            <p>No sourced capacity example is available in this release.</p>
-          ) : (
-            <>
-              <span className="eyebrow">
-                {(trail?.model_id ?? "").split("-")[0]?.toUpperCase() || "MANUFACTURER"}
-              </span>
-              <h3>{trail?.model_id ?? "—"}</h3>
-              <div className="big-reading">
-                {trail?.value ?? "—"}
-                <span>{trail?.unit ?? ""}</span>
-              </div>
-              <span className="reading-label">
-                {trail?.name ?? "Capacity"} · as stated in source
-                {trail?.printed && trail.printed !== trail.name
-                  ? `, where the maker wrote “${trail.printed}”`
-                  : ""}
-              </span>
-              <div className="source-document">
-                <span className="document-symbol">PDF</span>
-                <div>
-                  <strong>
-                    {trail?.title ?? (trail?.url ?? "").split("/").pop() ?? "Manufacturer document"}
-                  </strong>
-                  <span>Original source{trail?.page ? ` · page ${trail.page}` : ""}</span>
-                </div>
-                {trail?.url && (
-                  <a
-                    href={trail.url}
-                    target="_blank"
-                    rel="noopener"
-                    aria-label="Open the original manufacturer source"
-                  >
-                    <Icon name="arrowUpRight" />
-                  </a>
-                )}
-              </div>
-              <dl>
-                <div>
-                  <dt>Evidence</dt>
-                  <dd>{trail?.confidence ?? "—"}</dd>
-                </div>
-                <div>
-                  <dt>Method</dt>
-                  <dd>
-                    {trail?.extracted_by?.startsWith("table:")
-                      ? "Table parser"
-                      : trail?.extracted_by
-                        ? "Automated extraction"
-                        : "—"}
-                  </dd>
-                </div>
-                <div>
-                  <dt>Human review</dt>
-                  <dd className="amber-text">{trail?.reviewed_by ?? "Not yet reviewed"}</dd>
-                </div>
-              </dl>
-            </>
-          )}
-        </div>
-        <div className="buddy-note">
-          <img src={avatar} width="45" height="45" alt="Buddy" />
-          <p>
-            “I can point you to the page.
+    <section id="evidence" className="section">
+      <div className="o89-wrap open-grid">
+        <div className="open-copy">
+          <p className="eyebrow">03 / The evidence comes with it</p>
+          <h2 className="h-l">
+            A number is useful.
             <br />
-            Check the original before sizing your system.”
+            <span className="accent-text">Its source is essential.</span>
+          </h2>
+          <p className="lede">
+            A battery’s capacity means little without its conditions. A protocol claim needs more
+            than a familiar connector. Keep the context with the claim.
           </p>
+          <ol className="evidence-steps">
+            <li>
+              <span>01</span>
+              <div>
+                <h3>Find the original source</h3>
+                <p>Document links and page references, where available.</p>
+              </div>
+            </li>
+            <li>
+              <span>02</span>
+              <div>
+                <h3>Know how the figure arrived</h3>
+                <p>Public feed, automated extraction, or human review.</p>
+              </div>
+            </li>
+            <li>
+              <span>03</span>
+              <div>
+                <h3>See what still needs checking</h3>
+                <p>Confidence, reviewer, and doubt fields stay visible.</p>
+              </div>
+            </li>
+          </ol>
+          <a className="o89-text-link" href="#explore">
+            Inspect an actual record <Icon name="arrowUpRight" />
+          </a>
+        </div>
+        <div className="artifacts">
+          <article className="artifact provenance-card">
+            <header>
+              <span className="mono">specification / source trail</span>
+              <b>live</b>
+            </header>
+            <div className="body provenance-main" data-loading={result.status === "loading"}>
+              {result.status === "loading" ? (
+                <DataLoading label="Loading a figure and its source…">
+                  <Skeleton width="74%" />
+                  <Skeleton width="48%" />
+                  <Skeleton />
+                  <Skeleton width="82%" />
+                </DataLoading>
+              ) : result.status === "error" ? (
+                <DataProblem label="The source example couldn’t be loaded." retry={result.retry} />
+              ) : !trail ? (
+                <p>No sourced capacity example is available in this release.</p>
+              ) : (
+                <>
+                  <span className="eyebrow">
+                    {(trail?.model_id ?? "").split("-")[0] || "Manufacturer"}
+                  </span>
+                  <h3>{trail?.model_id ?? "—"}</h3>
+                  <div className="big-reading">
+                    {trail?.value ?? "—"}
+                    <span>{trail?.unit ?? ""}</span>
+                  </div>
+                  <span className="reading-label">
+                    {trail?.name ?? "Capacity"} · as stated in source
+                    {trail?.printed && trail.printed !== trail.name
+                      ? `, where the maker wrote “${trail.printed}”`
+                      : ""}
+                  </span>
+                  <div className="source-document">
+                    <span className="document-symbol">PDF</span>
+                    <div>
+                      <strong>
+                        {trail?.title ??
+                          (trail?.url ?? "").split("/").pop() ??
+                          "Manufacturer document"}
+                      </strong>
+                      <span>Original source{trail?.page ? ` · page ${trail.page}` : ""}</span>
+                    </div>
+                    {trail?.url && (
+                      <a
+                        href={trail.url}
+                        target="_blank"
+                        rel="noopener"
+                        aria-label="Open the original manufacturer source"
+                      >
+                        <Icon name="arrowUpRight" />
+                      </a>
+                    )}
+                  </div>
+                  <dl>
+                    <div>
+                      <dt>Evidence</dt>
+                      <dd>{trail?.confidence ?? "—"}</dd>
+                    </div>
+                    <div>
+                      <dt>Method</dt>
+                      <dd>
+                        {trail?.extracted_by?.startsWith("table:")
+                          ? "Table parser"
+                          : trail?.extracted_by
+                            ? "Automated extraction"
+                            : "—"}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>Human review</dt>
+                      <dd className="amber-text">{trail?.reviewed_by ?? "Not yet reviewed"}</dd>
+                    </div>
+                  </dl>
+                </>
+              )}
+            </div>
+          </article>
+          <article className="artifact buddy-note">
+            <div className="body">
+              <img src={avatar} width="45" height="45" alt="Buddy" />
+              <p>“I can point you to the page. Check the original before sizing your system.”</p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -202,18 +206,14 @@ export function Coverage({ db }: { db: State }) {
   const documented = families.reduce((n, row) => n + Number(row.documented), 0);
 
   return (
-    <section className="section coverage-section">
-      <div className="wrap">
-        <div className="section-heading">
+    <section id="coverage" className="section coverage-section">
+      <div className="o89-wrap">
+        <div className="device-head">
           <div>
-            <p className="eyebrow">04 / A CLEAR VIEW OF COVERAGE</p>
-            <h2>
-              See what’s here.
-              <br />
-              And where the gaps are.
-            </h2>
+            <p className="eyebrow">04 / A clear view of coverage</p>
+            <h2 className="h-l">See what’s here. And where the gaps are.</h2>
           </div>
-          <p>
+          <p className="lede">
             Coverage is a starting point. Evidence quality and implementation status are separate
             questions.
           </p>
@@ -285,7 +285,7 @@ export function Coverage({ db }: { db: State }) {
             </div>
           </div>
           <div className="coverage-aside">
-            <span className="eyebrow">EVIDENCE AT A GLANCE</span>
+            <span className="eyebrow">Evidence at a glance</span>
             <div className="coverage-number" aria-busy={result.status === "loading"}>
               {result.status === "loading" ? (
                 <Skeleton width="70%" />
@@ -311,7 +311,7 @@ export function Coverage({ db }: { db: State }) {
                 </div>
               ))}
             </div>
-            <a className="text-link" href="#explore">
+            <a className="o89-text-link" href="#explore">
               Explore the protocols <Icon name="arrowUpRight" />
             </a>
           </div>

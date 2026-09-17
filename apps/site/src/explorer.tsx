@@ -4,6 +4,7 @@ import { DataLoading, DataProblem, Skeleton } from "./DataState.tsx";
 import { documentLabels, figuresQuery, provenanceLabel } from "./figures.ts";
 import { Icon } from "./icons.tsx";
 import type { CorrectionTarget } from "./ops/corrections.ts";
+import { tablistKeys } from "./tabs.ts";
 import type { State } from "./useDuckDb.ts";
 import { useQuery } from "./useQuery.ts";
 
@@ -52,6 +53,8 @@ const TABLES = {
 } as const;
 
 type TabName = keyof typeof TABLES;
+
+const TAB_NAMES = Object.keys(TABLES) as TabName[];
 
 /** The name a column answers to, which for an expression is what it was aliased as. */
 const alias = (column: string): string => column.split(/\s+AS\s+/i).pop() ?? column;
@@ -123,23 +126,32 @@ export function Explorer({
     : `Finding ${spec.label.toLowerCase()}…`;
 
   const pages = Math.max(1, Math.ceil(total / PAGE));
+  // A table's filter and page belong to that table, so moving away drops both.
+  const choose = (name: TabName) => {
+    setTab(name);
+    setPage(0);
+    setFilter("");
+    setChosen(undefined);
+  };
   return (
     <div className="explorer">
       <div className="explorer-top">
-        <div className="table-tabs" role="tablist" aria-label="Dataset tables">
-          {(Object.keys(TABLES) as TabName[]).map((name) => (
+        <div
+          className="table-tabs"
+          role="tablist"
+          aria-label="Dataset tables"
+          onKeyDown={tablistKeys(TAB_NAMES, tab, choose)}
+        >
+          {TAB_NAMES.map((name) => (
             <button
               type="button"
               key={name}
+              id={`table-tab-${name}`}
               role="tab"
               aria-selected={tab === name}
+              aria-controls="table-panel"
               tabIndex={tab === name ? 0 : -1}
-              onClick={() => {
-                setTab(name);
-                setPage(0);
-                setFilter("");
-                setChosen(undefined);
-              }}
+              onClick={() => choose(name)}
             >
               {TABLES[name].label}{" "}
               <span>{index ? count(index.files[`${name}.parquet`]?.rows ?? 0) : "—"}</span>
@@ -148,10 +160,10 @@ export function Explorer({
         </div>
         <span className="sample-label">
           {result.status === "error"
-            ? "DATA UNAVAILABLE"
+            ? "Data unavailable"
             : loading
-              ? "READING THE DATA"
-              : "LIVE FROM THE PUBLISHED TABLES"}
+              ? "Reading the data"
+              : "Live from the published tables"}
         </span>
       </div>
       <div className="explorer-tools">
@@ -192,7 +204,7 @@ export function Explorer({
       {options.status === "error" && db.ready && (
         <DataProblem label="The filters couldn’t be loaded." retry={options.retry} />
       )}
-      <div role="tabpanel" aria-label={spec.label}>
+      <div id="table-panel" role="tabpanel" aria-labelledby={`table-tab-${tab}`}>
         {loading && <DataLoading label={loadingLabel} />}
         {result.status === "error" && (
           <DataProblem label="These records couldn’t be loaded." retry={result.retry} />
@@ -339,7 +351,7 @@ function RecordDialog({
       onClick={(event) => event.target === dialog.current && onClose()}
     >
       <div className="dialog-top">
-        <span className="eyebrow">ORIGIN89 DATA / RECORD DETAIL</span>
+        <span className="eyebrow">Origin89 data / record detail</span>
         <button
           type="button"
           className="close-dialog"
@@ -352,10 +364,10 @@ function RecordDialog({
       <div id="detail-content">
         <p className="eyebrow">
           {table === "specs"
-            ? "SPECIFICATION"
+            ? "Specification"
             : table === "dialects"
-              ? "PROTOCOL DIALECT"
-              : "EQUIPMENT"}
+              ? "Protocol dialect"
+              : "Equipment"}
         </p>
         <h2 id="detail-title">{table === "models" ? (text("name") ?? heading) : heading}</h2>
         <p className="detail-sub">{under}</p>
@@ -443,7 +455,7 @@ function RecordDialog({
         {onCorrect && text("id") && (
           <button
             type="button"
-            className="button primary"
+            className="o89-plate o89-plate-action"
             onClick={() => {
               onClose();
               onCorrect({
@@ -486,7 +498,7 @@ function ModelFigures({ model, db }: { model: string; db: State }) {
   return (
     <>
       <p className="eyebrow" style={{ marginTop: "26px" }}>
-        RATED FIGURES
+        Rated figures
       </p>
       {figures.map((figure) => (
         <div key={JSON.stringify(figure)} className="detail-spec">

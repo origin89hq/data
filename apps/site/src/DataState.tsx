@@ -16,7 +16,7 @@ export function DataProblem({ label, retry }: { label: string; retry: () => void
   return (
     <div className="data-problem" role="alert">
       <p>{label} Check your connection and try again.</p>
-      <button type="button" className="button small" onClick={retry}>
+      <button type="button" className="o89-plate o89-plate-ghost o89-plate-sm" onClick={retry}>
         Try again
       </button>
     </div>

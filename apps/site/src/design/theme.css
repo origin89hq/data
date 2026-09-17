@@ -1,0 +1,279 @@
+/* The data site wears the Origin89 dark identity described in the Plate 89 design guide v1.0.
+ *
+ * Colour comes from @origin89/brand and is never copied here. The brand sheet is dark by default
+ * and switches to paper under a light operating-system preference; both documents carry
+ * `data-theme="dark"`, which pins the dark values in either case. Off-grid equipment is read at
+ * four in the morning in a cabin, so paper is the deliberate opt-in, and this site does not take it.
+ *
+ * Geometry is the plate: four clipped corners, never rounded into an app tile. Type is Inter Tight
+ * for language and IBM Plex Mono for readings and identifiers, on the guide's 12/14/16/20/28/40/56
+ * scale with a 4/8/16/24/40/64 spacing rhythm.
+ */
+@import "@origin89/brand/tokens/themes.css";
+
+@font-face {
+  font-family: Concept;
+  src: url("@origin89/brand/fonts/InterTight-Variable.ttf") format("truetype");
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: Technical;
+  src: url("@origin89/brand/fonts/IBMPlexMono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  --font-text: Concept, "Helvetica Neue", Arial, sans-serif;
+  --font-data: Technical, ui-monospace, "SF Mono", Menlo, monospace;
+  --max: 1320px;
+  --gutter: clamp(16px, 4vw, 56px);
+  /* The chamfer, at the scale a 14px frame can carry. */
+  --cut: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: dark;
+  scroll-behavior: smooth;
+  /* Clears the floating navigation when a hash lands on a section. */
+  scroll-padding-top: 108px;
+}
+
+* {
+  box-sizing: border-box;
+}
+html {
+  background: var(--color-page);
+  scrollbar-color: var(--color-line-strong) var(--color-page);
+}
+body {
+  margin: 0;
+  background: var(--color-page);
+  color: var(--color-fg);
+  font: 16px / 1.5 var(--font-text);
+  -webkit-font-smoothing: antialiased;
+}
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+p {
+  margin: 0;
+}
+img {
+  display: block;
+  max-width: 100%;
+  object-fit: contain;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+button {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+button,
+a,
+summary,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+button,
+a {
+  touch-action: manipulation;
+}
+::selection {
+  background: var(--color-action-lit);
+  color: var(--color-on-fill);
+}
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+/* Bridge blue measures 2.40:1 on ink and cannot carry running text; the lightened link token can. */
+.prose a,
+p a {
+  color: var(--color-link);
+}
+.prose a:hover,
+p a:hover {
+  color: var(--color-fg);
+}
+
+.o89-wrap {
+  width: min(100% - 2 * var(--gutter), var(--max));
+  margin-inline: auto;
+}
+
+/* Plate buttons. The fill is 2.40:1 against its own ground, so the rim carries the control
+ * boundary rather than the fill. Removing it is an accessibility regression, not a style change. */
+.o89-plate {
+  --c: var(--cut);
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 0;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 15px;
+  white-space: nowrap;
+  clip-path: polygon(
+    var(--c) 0,
+    calc(100% - var(--c)) 0,
+    100% var(--c),
+    100% calc(100% - var(--c)),
+    calc(100% - var(--c)) 100%,
+    var(--c) 100%,
+    0 calc(100% - var(--c)),
+    0 var(--c)
+  );
+  transition: background 0.22s var(--ease);
+}
+.o89-plate::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  clip-path: inherit;
+  transition: background 0.22s var(--ease);
+}
+.o89-plate-action {
+  background: var(--color-action-rim);
+  color: var(--color-on-fill);
+}
+.o89-plate-action::before {
+  background: var(--color-action);
+}
+.o89-plate-action:hover::before {
+  background: var(--color-action-lit);
+}
+.o89-plate-ghost {
+  background: var(--color-line-strong);
+  color: var(--color-fg);
+}
+.o89-plate-ghost::before {
+  background: var(--color-page);
+}
+.o89-plate-ghost:hover {
+  background: var(--color-muted);
+}
+.o89-plate-ghost:is([aria-pressed="true"], [aria-selected="true"]) {
+  background: var(--color-fg);
+}
+.o89-plate-ghost:is([aria-pressed="true"], [aria-selected="true"])::before {
+  background: var(--color-surface-raised);
+}
+.o89-plate-sm {
+  --c: 7px;
+  min-height: 40px;
+  padding: 0 16px;
+  font-size: 14px;
+}
+.o89-plate:disabled {
+  opacity: 0.45;
+}
+
+/* A panel that lifts off the page, wearing the plate's clipped corner. */
+.o89-frame {
+  border: 1px solid var(--color-line-strong);
+  border-radius: 14px;
+  corner-shape: bevel;
+  background: var(--color-surface);
+}
+
+.o89-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: var(--color-fg);
+  font-weight: 600;
+  font-size: 15px;
+}
+.o89-text-link svg {
+  transition: transform 0.24s var(--ease);
+}
+.o89-text-link:hover {
+  color: var(--color-link);
+}
+.o89-text-link:hover svg {
+  transform: translateX(4px);
+}
+
+/* Eyebrows, captions, readings and identifiers: the technical voice. */
+.eyebrow {
+  margin: 0;
+  font: 12px / 1.65 var(--font-data);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-faint);
+}
+.mono {
+  font-family: var(--font-data);
+  font-variant-numeric: tabular-nums;
+}
+.little-dot {
+  width: 6px;
+  height: 6px;
+  flex: none;
+  display: inline-block;
+  background: var(--color-signal);
+}
+
+.ui-icon {
+  flex: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.skip {
+  position: fixed;
+  top: -80px;
+  left: 16px;
+  z-index: 100;
+  padding: 12px 16px;
+  background: var(--color-surface-raised);
+  color: var(--color-fg);
+  border: 1px solid var(--color-line-strong);
+}
+.skip:focus {
+  top: 12px;
+}
+
+/* Transitions here are the guide's 180-240 ms and stay. What reduced motion switches off is
+ * anything that moves on its own: each sheet turns off the loops it owns. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    scroll-behavior: auto;
+  }
+}

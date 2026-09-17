@@ -1,6 +1,7 @@
 import { type ReactNode, useState } from "react";
 import { type Index, kb } from "./api.ts";
 import { Icon } from "./icons.tsx";
+import { tablistKeys } from "./tabs.ts";
 
 /** Written against the live origin, so a reader can copy one and it runs. */
 const snippets = (
@@ -108,11 +109,14 @@ function colour(code: string): ReactNode[] {
   });
 }
 
+type Language = keyof ReturnType<typeof snippets>;
+const LANGUAGES: readonly Language[] = ["sql", "python", "curl"];
+
 export function Build({ index }: { index?: Index }) {
   const origin =
     typeof window === "undefined" ? "https://data.origin89.com" : window.location.origin;
   const all = snippets(origin);
-  const [tab, setTab] = useState<keyof ReturnType<typeof snippets>>("sql");
+  const [tab, setTab] = useState<Language>("sql");
   const [copied, setCopied] = useState(false);
 
   const copy = () => {
@@ -124,26 +128,26 @@ export function Build({ index }: { index?: Index }) {
 
   return (
     <>
-      <section id="build" className="section wrap">
-        <div className="developer-grid">
-          <div className="developer-story">
-            <p className="eyebrow">05 / BUILT TO BE BUILT ON</p>
-            <h2>
+      <section id="build" className="section">
+        <div className="o89-wrap open-grid">
+          <div className="open-copy">
+            <p className="eyebrow">05 / Built to be built on</p>
+            <h2 className="h-l">
               Your stack.
               <br />
               Your next idea.
             </h2>
-            <p>
+            <p className="lede">
               Bring the dataset into a notebook, a product catalogue, or your next integration. Open
               files, stable joins, and the tools you already use.
             </p>
             <div className="format-tags">
-              <span>PARQUET</span>
+              <span>Parquet</span>
               <span>CSV</span>
-              <span>JSON CATALOGUE</span>
+              <span>JSON catalogue</span>
             </div>
             <a
-              className="text-link"
+              className="o89-text-link"
               href="https://github.com/origin89hq/offgrid-equipment"
               target="_blank"
               rel="noopener"
@@ -159,78 +163,92 @@ export function Build({ index }: { index?: Index }) {
               </p>
             </div>
           </div>
-          <div className="code-panel">
-            <div className="code-tabs" role="tablist" aria-label="Code language">
-              {Object.entries(all).map(([key, snippet]) => (
-                <button
-                  type="button"
-                  key={key}
-                  role="tab"
-                  aria-selected={tab === key}
-                  tabIndex={tab === key ? 0 : -1}
-                  onClick={() => {
-                    if (key === "sql" || key === "python" || key === "curl") setTab(key);
-                  }}
+          <div className="artifacts">
+            <article className="artifact code-panel">
+              <header className="code-tabs">
+                {/* The copy button stays outside the tablist: a tablist holds tabs only, and the
+                    arrow keys here move between languages. */}
+                <div
+                  className="tabs"
+                  role="tablist"
+                  aria-label="Code language"
+                  onKeyDown={tablistKeys(LANGUAGES, tab, setTab)}
                 >
-                  {snippet.label}
+                  {LANGUAGES.map((key) => (
+                    <button
+                      type="button"
+                      key={key}
+                      id={`code-tab-${key}`}
+                      role="tab"
+                      aria-selected={tab === key}
+                      aria-controls="code-panel"
+                      tabIndex={tab === key ? 0 : -1}
+                      onClick={() => setTab(key)}
+                    >
+                      {all[key].label}
+                    </button>
+                  ))}
+                </div>
+                <button type="button" className="copy-code" onClick={copy} aria-label="Copy code">
+                  {copied ? "Copied" : "Copy"} <Icon name="copy" />
                 </button>
-              ))}
-              <button type="button" className="copy-code" onClick={copy} aria-label="Copy code">
-                {copied ? "Copied" : "Copy"} <Icon name="copy" />
-              </button>
-            </div>
-            <pre role="tabpanel">
-              <code>{colour(all[tab].code)}</code>
-            </pre>
-            <div className="code-footer">
-              <span className="little-dot" /> Public endpoints · no authentication required
-            </div>
+              </header>
+              {/* biome-ignore lint/a11y/noNoninteractiveTabindex: The ARIA tabs pattern asks for
+                  tabindex="0" on a tab panel with no focusable children, and this one scrolls
+                  sideways, so without it a keyboard cannot reach the end of a long line. */}
+              <pre id="code-panel" role="tabpanel" aria-labelledby={`code-tab-${tab}`} tabIndex={0}>
+                <code>{colour(all[tab].code)}</code>
+              </pre>
+              <div className="code-footer">
+                <span className="little-dot" /> Public endpoints · no authentication required
+              </div>
+            </article>
+            <article className="artifact download-row">
+              <header>
+                <span className="mono">take the data with you</span>
+                <b>row counts and hashes in the index</b>
+              </header>
+              <div className="body">
+                <a className="o89-plate o89-plate-ghost o89-plate-sm" href="/v1/models.parquet">
+                  <Icon name="download" /> models.parquet
+                  <span>
+                    {index?.files["models.parquet"] ? kb(index.files["models.parquet"].bytes) : ""}
+                  </span>
+                </a>
+                <a className="o89-plate o89-plate-ghost o89-plate-sm" href="/v1/specs.csv">
+                  <Icon name="download" /> specs.csv
+                  <span>{index?.files["specs.csv"] ? kb(index.files["specs.csv"].bytes) : ""}</span>
+                </a>
+                <a className="o89-text-link" href="/manifest.json" target="_blank" rel="noopener">
+                  View the index <Icon name="arrowUpRight" />
+                </a>
+              </div>
+            </article>
           </div>
-        </div>
-        <div className="download-row">
-          <div>
-            <h3>Take the data with you.</h3>
-            <p>Published files, with row counts and content hashes in the index.</p>
-          </div>
-          <a className="button small" href="/v1/models.parquet">
-            models.parquet{" "}
-            <span>
-              <Icon name="download" />{" "}
-              {index?.files["models.parquet"] ? kb(index.files["models.parquet"].bytes) : ""}
-            </span>
-          </a>
-          <a className="button small" href="/v1/specs.csv">
-            specs.csv{" "}
-            <span>
-              <Icon name="download" />{" "}
-              {index?.files["specs.csv"] ? kb(index.files["specs.csv"].bytes) : ""}
-            </span>
-          </a>
-          <a className="text-link" href="/manifest.json" target="_blank" rel="noopener">
-            View the index <Icon name="arrowUpRight" />
-          </a>
         </div>
       </section>
 
-      <section className="closing wrap">
-        <p className="eyebrow">MADE FOR THE PEOPLE BUILDING OFF-GRID.</p>
-        <h2>
-          Start with the equipment.
-          <br />
-          Build from what you know.
-        </h2>
-        <div className="hero-actions">
-          <a className="button primary" href="#explore">
-            Explore the dataset <Icon name="arrowUpRight" />
-          </a>
-          <a
-            className="button quiet"
-            href="https://github.com/origin89hq/offgrid-equipment/blob/main/CONTRIBUTING.md"
-            target="_blank"
-            rel="noopener"
-          >
-            Contribute a correction <Icon name="arrowUpRight" />
-          </a>
+      <section className="section closing">
+        <div className="o89-wrap">
+          <p className="eyebrow">Made for the people building off-grid</p>
+          <h2 className="h-xl">
+            Start with the equipment.
+            <br />
+            Build from what you know.
+          </h2>
+          <div className="hero-actions">
+            <a className="o89-plate o89-plate-action" href="#explore">
+              Explore the dataset <Icon name="arrowUpRight" />
+            </a>
+            <a
+              className="o89-text-link"
+              href="https://github.com/origin89hq/offgrid-equipment/blob/main/CONTRIBUTING.md"
+              target="_blank"
+              rel="noopener"
+            >
+              Contribute a correction <Icon name="arrowUpRight" />
+            </a>
+          </div>
         </div>
       </section>
     </>
