@@ -518,6 +518,17 @@ test("publishing without publish.yml's token is refused, and the control token i
   });
   assert.equal(deploy.status, 401);
   assert.match(await errorOf(deploy), /from deploy\.yml; this route takes publish\.yml/);
+  // The dataset goes out once a day, after a deploy, or by hand. A merge publishes nothing, so a
+  // push token is not one this route takes, however it was obtained.
+  const pushed = await put(env, "models.csv", body, {
+    ...digest,
+    authorization: `Bearer ${await jobToken({ event_name: "push" })}`,
+  });
+  assert.equal(pushed.status, 401);
+  assert.match(
+    await errorOf(pushed),
+    /started by push; this route takes schedule or workflow_dispatch or workflow_run/,
+  );
   assert.deepEqual([...store.keys()], [], "a refused publish wrote something");
 });
 

@@ -427,7 +427,7 @@ owner ID, and only from the workflow each route names:
 
 | Workflow | Routes | Started by | Environment |
 |---|---|---|---|
-| `publish.yml` | `PUT /v1/:file` | a push, by hand, or after a successful Worker deployment | `offgrid-equipment-production` |
+| `publish.yml` | `PUT /v1/:file` | daily, by hand, or after a successful Worker deployment | `offgrid-equipment-production` |
 | `pull-figures.yml` | `/state`, `/archive`, `/readings` | its schedule, or by hand | any |
 | `supervise.yml` | `/supervise`, `/state`, `/vision` | by hand | any |
 

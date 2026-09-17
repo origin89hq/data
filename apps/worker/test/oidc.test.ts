@@ -20,7 +20,7 @@ const keys = createLocalJWKSet(jwks);
 /** What the publish route takes. */
 const PUBLISH: WorkflowRule = {
   workflow: "publish.yml",
-  events: ["push", "workflow_dispatch"],
+  events: ["schedule", "workflow_dispatch", "workflow_run"],
   environment: PRODUCTION,
 };
 const verify = (token: string, rule = PUBLISH) => verifyWorkflow(token, rule, keys);
@@ -32,20 +32,22 @@ async function refused(token: string, reason: RegExp, rule?: WorkflowRule) {
   if (!check.ok) assert.match(check.reason, reason);
 }
 
-test("a token from publish.yml on main, pushed or dispatched, is accepted", async () => {
-  const pushed = await verify(await jobToken());
-  assert.deepEqual(pushed, {
+test("a token from publish.yml on main, scheduled, dispatched or after a deploy, is accepted", async () => {
+  const scheduled = await verify(await jobToken());
+  assert.deepEqual(scheduled, {
     ok: true,
     job: {
       workflow: "publish.yml",
-      event: "push",
+      event: "schedule",
       environment: PRODUCTION,
       runId: publishJob.run_id,
       sha: publishJob.sha,
     },
   });
-  const dispatched = await verify(await jobToken({ event_name: "workflow_dispatch" }));
-  assert.equal(dispatched.ok, true);
+  for (const event of ["workflow_dispatch", "workflow_run"])
+    assert.equal((await verify(await jobToken({ event_name: event }))).ok, true, event);
+  // The dataset goes out once a day rather than on every merge, so a push publishes nothing.
+  await refused(await jobToken({ event_name: "push" }), /started by push; this route takes/);
 });
 
 test("a token GitHub did not issue, or issued for another service, is refused", async () => {

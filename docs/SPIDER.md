@@ -101,7 +101,8 @@ its own.
 - **Outside the crawler:** the review, the records, and the build. A model's
   output is a candidate, and it becomes a record when a person attaches the
   source. A job pulls whatever has been read into one pull request each day, so
-  the person's part is reading that diff and merging it; the merge publishes.
+  the person's part is reading that diff and merging it; what is merged is
+  published that evening, a day's merges together.
 
 ## What a second run costs
 

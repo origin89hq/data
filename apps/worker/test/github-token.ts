@@ -20,7 +20,7 @@ export const publishJob = {
   ref: "refs/heads/main",
   workflow_ref: "origin89hq/data/.github/workflows/publish.yml@refs/heads/main",
   environment: "offgrid-equipment-production",
-  event_name: "push",
+  event_name: "schedule",
   run_id: "17000000001",
   sha: "4c1f2d0e9b8a7c6d5e4f3a2b1c0d9e8f7a6b5c4d",
 };

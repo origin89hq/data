@@ -291,7 +291,7 @@ type ControlPath = (typeof CONTROL_PATHS)[number];
 /** The job that publishes the dataset: publish.yml on main, in the production environment. */
 const PUBLISH_JOB: WorkflowRule = {
   workflow: "publish.yml",
-  events: ["push", "workflow_dispatch", "workflow_run"],
+  events: ["schedule", "workflow_dispatch", "workflow_run"],
   environment: PRODUCTION,
 };
 
