@@ -116,7 +116,10 @@ change is not a reason to ask again.
 **A document is read once.** Conversion already skipped what it had, because the
 markdown is keyed by the document's content hash. Reading now skips too: a
 reading that exists is a reading of exactly those bytes by exactly that
-extractor. A new reader model is a new extractor, so after a change of model
+extractor for that maker. The maker is part of the key because the reader is
+told whose document it reads and keeps only that maker's ratings, and a shop
+can publish the manual of a maker it sells; each is read for its own. A new
+reader model is a new extractor, so after a change of model
 every document is unread by it until `just convert` asks; the earlier readings
 stay in the archive and the pull no longer takes them.
 
@@ -153,6 +156,18 @@ blind against sixty windows of twenty documents whose figures had been checked
 by hand, Kimi gave about half again as many right figures and about forty
 percent fewer wrong ones. A figure whose value its window does not print is left
 out of the reading, since every such figure in that comparison was wrong.
+
+Two things keep what is read to ratings of the maker's own products. A converted
+document is first sorted by kind from its opening pages, one call per document:
+certificates and test reports, compatibility notes about another company's
+products, safety data sheets, training decks, letters, case studies and settings
+templates are written down as read with nothing in them, and none of their
+windows is read. And the reader labels each product it reports (a product, a
+family, a kit, another company's) and each figure (a rating, a setting, an
+instruction, a test, an example); a reading keeps only ratings of products. Read
+blind against the same sixty windows, the labels halved the wrong figures for
+about a sixth fewer right ones, and in the pull of thirty makers the kinds left
+unread held 105 of the wrong figures in a sample of 539 and 7 right ones.
 
 Kimi serves an account twenty requests a minute, and both readers call it, so
 they share one pace of eighteen a minute (`KIMI_PACE`). A window turned away by

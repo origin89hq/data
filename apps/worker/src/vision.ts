@@ -55,11 +55,11 @@ export interface ReadWindow {
   failed?: string;
 }
 
-/** The figures reader: its windows and its reading are keyed by it. */
+/** The figures reader: its windows and its reading are keyed by it and by the maker it reads for. */
 const READER = readerKey(VISION_EXTRACTOR_ID);
 /**
- * The transcription: its pages and the transcript are keyed by it, not by the figures reader, so a
- * new way of reading figures reads the transcripts already made.
+ * The transcription: its pages and the transcript are keyed by it, not by the figures reader or
+ * the maker, so a new way of reading figures, or a second maker, reads the transcripts already made.
  */
 const TRANSCRIBER = PAGE_CONVERTER;
 const AS_JSON = { httpMetadata: { contentType: "application/json" } };
@@ -74,7 +74,7 @@ export { MAX_WAITS, waitFor } from "./pace.ts";
  * A document whose pages were written down before goes straight to having its figures read.
  */
 export async function seeDocument(message: VisionDocument, env: Env): Promise<void> {
-  const reading = partKey.reading(message.sha256, READER);
+  const reading = partKey.reading(message.sha256, message.manufacturer, READER);
   if (await env.ARCHIVE.head(reading)) return;
   const transcribed = await env.ARCHIVE.get(partKey.markdown(message.sha256, TRANSCRIBER));
   if (transcribed) {
@@ -271,8 +271,8 @@ async function sendWindows(
 
 /** One window: read once for figures, then put together with the others if it was the last to land. */
 export async function seeWindow(message: VisionWindow, env: Env, attempt: number): Promise<void> {
-  if (await env.ARCHIVE.head(partKey.reading(message.sha256, READER))) return;
-  const key = partKey.window(message.sha256, READER, message.window);
+  if (await env.ARCHIVE.head(partKey.reading(message.sha256, message.manufacturer, READER))) return;
+  const key = partKey.window(message.sha256, message.manufacturer, READER, message.window);
   if (!(await env.ARCHIVE.head(key))) {
     let read: ReadWindow;
     try {
@@ -356,7 +356,7 @@ async function figuresIn(
 /** Put a document's windows together into its reading once every one is in. */
 async function gatherWindows(message: VisionWindow, env: Env): Promise<void> {
   const listed = await env.ARCHIVE.list({
-    prefix: partKey.windows(message.sha256, READER),
+    prefix: partKey.windows(message.sha256, message.manufacturer, READER),
     limit: 1000,
   });
   const windows = (
@@ -391,7 +391,7 @@ async function writeReading(
     extractedBy: VISION_EXTRACTOR_ID,
   };
   await env.ARCHIVE.put(
-    partKey.reading(message.sha256, READER),
+    partKey.reading(message.sha256, message.manufacturer, READER),
     `${JSON.stringify(reading)}\n`,
     AS_JSON,
   );

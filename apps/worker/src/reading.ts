@@ -63,7 +63,7 @@ THE MAKER'S OWN RATINGS. The message starts with the maker whose document this i
 
 Do not report prices, warranty periods, part numbers, packaging weights, ordering codes or marketing claims.
 
-ANSWER. Reply with JSON only, no prose: {"products":[{"model":"...","specs":[{"name":"...","value":"...","unit":"...","conditions":"..."}]}]}. Leave out a unit or conditions the text does not give.`;
+ANSWER. Reply with JSON only, no prose: {"products":[{"model":"...","is":"...","specs":[{"name":"...","value":"...","unit":"...","conditions":"...","is":"..."}]}]}. Leave out a unit or conditions the text does not give. Say what each product is: "product" for one product of the maker, "family" for a series or for several products under one name, "kit" for a kit, bundle or system of several products, "other-maker" for another company's product. Say what each figure is: "rating" for a rated or specified figure of the product, "setting" for a default, a preset or a value the user sets, "instruction" for what an installer or user must provide or do, "test" for a test condition or an expected reading, "example" for an illustration, a screen or a worked example.`;
 
 /** A name that describes a line of products rather than one of them. */
 const SERIES = /\b(series|family|range|line-?up)\b/i;
@@ -598,7 +598,45 @@ Do not report prices, warranty periods, part numbers, packaging weights, orderin
 export const VISION_RESPONSE_SCHEMA = figuresSchema(["name", "value", "unit"]);
 
 /** The answer the text reader is held to. Kimi writes its thinking into an answer held to none. */
-export const TEXT_RESPONSE_SCHEMA = figuresSchema(["name", "value"]);
+export const PRODUCT_LABELS = ["product", "family", "kit", "other-maker"] as const;
+export const FIGURE_LABELS = ["rating", "setting", "instruction", "test", "example"] as const;
+
+/**
+ * The answer the text reader is held to: each product and each figure labelled for what it is, so
+ * the reading keeps ratings of products and nothing else. Asked to leave the rest out, the model
+ * still reported it; asked to say what each one is, it tells them apart (#196).
+ */
+export const TEXT_RESPONSE_SCHEMA = {
+  type: "object",
+  properties: {
+    products: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          model: { type: "string" },
+          is: { type: "string", enum: PRODUCT_LABELS },
+          specs: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                name: { type: "string" },
+                value: { type: "string" },
+                unit: { type: "string" },
+                conditions: { type: "string" },
+                is: { type: "string", enum: FIGURE_LABELS },
+              },
+              required: ["name", "value", "is"],
+            },
+          },
+        },
+        required: ["model", "is", "specs"],
+      },
+    },
+  },
+  required: ["products"],
+};
 
 /**
  * How much of a transcript one call reads. Big, because a product's name and its ratings can sit

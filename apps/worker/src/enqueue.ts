@@ -171,10 +171,11 @@ export const FORGET_AT_ONCE = 200;
  * Forget what the prompted readers said about a maker's approved documents, so the next
  * `convert` reads them again with the prompts as they are now.
  *
- * A reading is addressed by the document's bytes and the reader, and a document read once is
- * never read again; that is what keeps a second run from paying twice, and it is also what keeps
- * a changed prompt from reaching a document already read (#127). Forgetting removes the reading
- * and the windows kept beside it for each prompted reader, and nothing else: the converted
+ * A reading is addressed by the document's bytes, the maker and the reader, and a document read
+ * once is never read again; that is what keeps a second run from paying twice, and it is also what
+ * keeps a changed prompt from reaching a document already read (#127). Forgetting removes the
+ * reading and the windows kept beside it for each prompted reader, for this maker only; another
+ * maker that publishes the same document keeps its own. Nothing else goes: the converted
  * markdown, the transcribed pages and the table reader's parse cost nothing to keep and are not
  * what changed. The page reader's offer marker goes with them, or the run would count as offered
  * already and never send the scanned documents again. A dry run counts what would go and removes
@@ -227,10 +228,15 @@ export async function forgetReadings(
   let readings = 0;
   let windows = 0;
   for (const { sha256 } of batch) {
-    // One list per document covers both readers' reading and windows: the keys share its prefix.
+    // One list per document covers both readers' reading and windows for this maker: the keys
+    // share its prefix.
     const keys: string[] = [];
     for (let cursor: string | undefined; ; ) {
-      const page = await env.ARCHIVE.list({ prefix: `archive/${sha256}.`, limit: 1000, cursor });
+      const page = await env.ARCHIVE.list({
+        prefix: `archive/${sha256}.${manufacturer}.`,
+        limit: 1000,
+        cursor,
+      });
       keys.push(...page.objects.map((o) => o.key));
       if (!page.truncated) break;
       cursor = page.cursor;
@@ -238,8 +244,8 @@ export async function forgetReadings(
     const gone = keys.filter((key) =>
       readers.some(
         (reader) =>
-          key === partKey.reading(sha256, reader) ||
-          key.startsWith(partKey.windows(sha256, reader)),
+          key === partKey.reading(sha256, manufacturer, reader) ||
+          key.startsWith(partKey.windows(sha256, manufacturer, reader)),
       ),
     );
     readings += gone.filter((key) => key.endsWith(".reading.json")).length;

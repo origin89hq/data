@@ -88,7 +88,7 @@ test("a page of a reading lives beside the document, and every page of it shares
   assert.equal(partKey.page(sha, "ex", 7), `archive/${sha}.ex.page-0007.json`);
   assert.ok(partKey.page(sha, "ex", 7).startsWith(partKey.pages(sha, "ex")));
   assert.ok(
-    !partKey.reading(sha, "ex").startsWith(partKey.pages(sha, "ex")),
+    !partKey.reading(sha, "maker", "ex").startsWith(partKey.pages(sha, "ex")),
     "the reading itself is not one of its pages",
   );
   assert.ok(
@@ -211,9 +211,20 @@ test("result keys are derived from the run, so a reader knows what to look for a
     `documents/rolls/runs/r1/converted/${"b".repeat(64)}.json`,
   );
   assert.equal(
-    partKey.reading("c".repeat(64), "ex"),
-    `archive/${"c".repeat(64)}.ex.reading.json`,
-    "a reading depends on the document and the reader, not on the run that asked",
+    partKey.reading("c".repeat(64), "rolls", "ex"),
+    `archive/${"c".repeat(64)}.rolls.ex.reading.json`,
+    "a reading depends on the document, the maker and the reader, not on the run that asked",
+  );
+  assert.ok(
+    partKey
+      .window("c".repeat(64), "rolls", "ex", 2)
+      .startsWith(partKey.windows("c".repeat(64), "rolls", "ex")),
+  );
+  assert.ok(
+    !partKey
+      .window("c".repeat(64), "rolls-battery", "ex", 2)
+      .startsWith(partKey.windows("c".repeat(64), "rolls", "ex")),
+    "another maker's windows are not this maker's, even when its id starts the same",
   );
 });
 

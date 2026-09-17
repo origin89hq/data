@@ -15,7 +15,7 @@ import { PULLED_READERS, readingsOf } from "../tools/gate/archive.ts";
  * large is a whole maker's figures lost to a 400, so the arithmetic is worth pinning.
  */
 const digest = (n: number) => String(n).padStart(64, "0");
-const asked: { documents: string[]; readers: string[] }[] = [];
+const asked: { maker: string; documents: string[]; readers: string[] }[] = [];
 let answer: (n: number) => Response = () => new Response("");
 const realFetch = globalThis.fetch;
 
@@ -37,13 +37,14 @@ afterEach(() => {
 test("every document is asked for exactly once, in batches the Worker will accept", () => {
   const documents = Array.from({ length: 1500 }, (_, i) => digest(i));
   const readers = ["text", "vision", "table"];
-  return readingsOf(documents, readers, true).then(() => {
+  return readingsOf("rolls", documents, readers, true).then(() => {
     for (const batch of asked) {
       assert.ok(
         batch.documents.length * batch.readers.length <= READS_PER_REQUEST,
         `a batch of ${batch.documents.length} by ${batch.readers.length} is over the cap the Worker refuses`,
       );
       assert.deepEqual(batch.readers, readers);
+      assert.equal(batch.maker, "rolls", "every batch names the maker its readings were read for");
     }
     assert.deepEqual(
       asked.flatMap((batch) => batch.documents),
@@ -58,6 +59,7 @@ test("one reader fills a batch to the cap and never one past it", async () => {
   // reads, not documents, so the reader list is half of it: six readers means a third as many
   // documents per request, and a batch that ignored them would be refused every time.
   await readingsOf(
+    "rolls",
     Array.from({ length: READS_PER_REQUEST + 1 }, (_, i) => digest(i)),
     ["text"],
     true,
@@ -70,6 +72,7 @@ test("one reader fills a batch to the cap and never one past it", async () => {
   asked.length = 0;
   const six = Array.from({ length: 6 }, (_, i) => `r${i}`);
   await readingsOf(
+    "rolls",
     Array.from({ length: 334 }, (_, i) => digest(i)),
     six,
     true,
@@ -81,13 +84,14 @@ test("one reader fills a batch to the cap and never one past it", async () => {
 });
 
 test("a maker with nothing converted makes no request at all", async () => {
-  assert.equal(await readingsOf([], ["text"], true), "");
+  assert.equal(await readingsOf("rolls", [], ["text"], true), "");
   assert.equal(asked.length, 0, "asking for no documents is a request the Worker would refuse");
 });
 
 test("the batches concatenate into one stream, and each keeps its own last value whole", async () => {
   answer = (n) => new Response(`{"batch":${n}}\n`);
   const ndjson = await readingsOf(
+    "rolls",
     Array.from({ length: READS_PER_REQUEST * 2 }, (_, i) => digest(i)),
     ["text"],
     true,
@@ -101,6 +105,7 @@ test("a batch the Worker refuses stops the pull rather than returning the ones t
   answer = (n) => (n === 2 ? new Response("over the cap", { status: 400 }) : new Response(""));
   await assert.rejects(
     readingsOf(
+      "rolls",
       Array.from({ length: READS_PER_REQUEST * 2 }, (_, i) => digest(i)),
       ["text"],
       true,
@@ -117,8 +122,8 @@ test("the figures pull asks for the text reader and the table parser, and not th
   );
   assert.match(
     readFileSync(new URL("../tools/gate/pull-specs.ts", import.meta.url), "utf8"),
-    /readingsOf\([\s\S]*?PULLED_READERS,\s*remote,?\s*\)/,
-    "the pull must ask for this list, not a copy of its own",
+    /readingsOf\(\s*manufacturer,[\s\S]*?PULLED_READERS,\s*remote,?\s*\)/,
+    "the pull must ask for this list, for its own maker, not a copy of its own",
   );
 });
 
@@ -126,9 +131,13 @@ test("a reader list that cannot be batched is refused here, not by the Worker", 
   // No readers divides by nothing: the batch became the whole document list, which the Worker
   // refuses for a reason that says nothing about the readers. More readers than the cap sizes
   // every batch at one document and has each of them refused in turn.
-  await assert.rejects(readingsOf([digest(1)], [], true), /needs 1 to 2000 readers, not 0/);
+  await assert.rejects(
+    readingsOf("rolls", [digest(1)], [], true),
+    /needs 1 to 2000 readers, not 0/,
+  );
   await assert.rejects(
     readingsOf(
+      "rolls",
       [digest(1)],
       Array.from({ length: READS_PER_REQUEST + 1 }, (_, i) => `r${i}`),
       true,

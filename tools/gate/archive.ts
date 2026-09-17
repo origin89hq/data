@@ -223,16 +223,17 @@ export const PULLED_READERS: readonly string[] = [
 /**
  * Every reading of these documents, in one request per batch.
  *
- * Readings are addressed by the bytes they read, so a maker's are scattered across a flat prefix
- * with nothing to stream by. Fetching them one at a time was a round trip each, which for four
- * thousand documents across three readers is thirteen thousand of them — the daily pull spent
- * twenty-eight minutes on it and was climbing.
+ * Readings are addressed by the bytes they read and the maker they were read for, so a maker's are
+ * scattered across a flat prefix with nothing to stream by. Fetching them one at a time was a round
+ * trip each, which for four thousand documents across three readers is thirteen thousand of them —
+ * the daily pull spent twenty-eight minutes on it and was climbing.
  *
  * The batch is sized from the Worker's own cap, so the two cannot disagree about it: a request
  * over the cap is refused there rather than trimmed, and a trimmed answer would have looked like
  * documents nobody had read.
  */
 export async function readingsOf(
+  maker: string,
   documents: readonly string[],
   readers: readonly string[],
   remote: boolean,
@@ -248,7 +249,7 @@ export async function readingsOf(
   for (let i = 0; i < documents.length; i += perRequest) {
     const response = await post(
       "/readings",
-      { documents: documents.slice(i, i + perRequest), readers },
+      { maker, documents: documents.slice(i, i + perRequest), readers },
       remote,
     );
     ndjson += await response.text();

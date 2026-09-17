@@ -17,7 +17,11 @@ export function classifierKey(id = CLASSIFIER_ID): string {
  * stay in the archive and are no longer pulled.
  */
 export const EXTRACT_MODEL = "@cf/moonshotai/kimi-k2.7-code";
-export const EXTRACT_PROMPT_VERSION = "2";
+/**
+ * 3: the reader labels each product (a product, a family, a kit, another company's) and each figure
+ * (a rating, a setting, an instruction, a test, an example), and only ratings of products are kept.
+ */
+export const EXTRACT_PROMPT_VERSION = "3";
 export const EXTRACTOR_ID = `ai:${EXTRACT_MODEL}@p${EXTRACT_PROMPT_VERSION}`;
 
 /**
@@ -27,7 +31,14 @@ export const EXTRACTOR_ID = `ai:${EXTRACT_MODEL}@p${EXTRACT_PROMPT_VERSION}`;
  */
 export const EARLIER_EXTRACTOR_IDS: readonly string[] = [
   "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "ai:@cf/moonshotai/kimi-k2.7-code@p2",
 ];
+
+/**
+ * What sorts a converted document by kind before it is read: certificates, compatibility notes,
+ * safety data sheets and the like are not the maker's ratings, and are not read at all.
+ */
+export const GATE_ID = `ai:${EXTRACT_MODEL}@gate-p1`;
 
 export const VISION_MODEL = "@cf/moonshotai/kimi-k2.7-code";
 /**
