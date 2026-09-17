@@ -8,7 +8,7 @@ import { type TestAiInput, world } from "./world.ts";
 
 const SHA = "d".repeat(64);
 const MARKDOWN = partKey.markdown(SHA, CONVERTER);
-const readingKey = partKey.reading(SHA, readerKey(EXTRACTOR_ID));
+const readingKey = partKey.reading(SHA, "maker", readerKey(EXTRACTOR_ID));
 const message = {
   kind: "extract" as const,
   run: "2026-09-17-aaaaaaaa",
@@ -49,7 +49,7 @@ test("a document of a kind that rates nothing of the maker's is sorted once and 
   await readDocument(message, env, 1);
   assert.equal(asked.length, 1, "the gate's call alone: no window is read");
   assert.equal(pace.asked, 1, "and it took a turn with the model");
-  assert.deepEqual(readObject(gateKey(SHA)), note, "the kind is kept beside the document");
+  assert.deepEqual(readObject(gateKey(SHA, "maker")), note, "the kind is kept beside the document");
   assert.deepEqual(readObject(readingKey), {
     sha256: SHA,
     url: message.url,
@@ -72,12 +72,39 @@ test("a document that rates the maker's products is sorted once and read, and a 
   );
 
   const again = world(
-    { [MARKDOWN]: DOCUMENT, [gateKey(SHA)]: `${JSON.stringify(sheet)}\n` },
+    { [MARKDOWN]: DOCUMENT, [gateKey(SHA, "maker")]: `${JSON.stringify(sheet)}\n` },
     model(sheet),
   );
   await readDocument(message, again.env, 1);
   assert.equal(gateCalls(again.asked), 0, "a kind kept is not asked for again");
   assert.equal(again.pace.asked, 1, "and costs no turn: only the window's");
+});
+
+test("a document two makers publish is sorted and read for each, and one maker's answer is never the other's (#206)", async () => {
+  const kinds: Record<string, object> = {
+    maker: { kind: "datasheet", ownRatings: true, reason: "Its own sheet." },
+    shop: { kind: "compatibility-note", ownRatings: false, reason: "A supplier's battery." },
+  };
+  const { env, asked, readObject } = world({ [MARKDOWN]: DOCUMENT }, (call, input) => {
+    if (input.messages[0]?.content !== GATE_SYSTEM) return model({})(call, input);
+    const maker = /^Maker: (\S+)/.exec(String(input.messages[1]?.content))?.[1] ?? "";
+    return { response: JSON.stringify(kinds[maker]) };
+  });
+  await readDocument({ ...message, manufacturer: "shop" }, env, 1);
+  await readDocument(message, env, 1);
+  assert.equal(gateCalls(asked), 2, "sorted once for each maker");
+  assert.deepEqual(readObject(gateKey(SHA, "shop")), kinds.shop);
+  assert.deepEqual(readObject(gateKey(SHA, "maker")), kinds.maker);
+  const shop = readObject(partKey.reading(SHA, "shop", readerKey(EXTRACTOR_ID))) as {
+    products: unknown[];
+    skipped?: object;
+  };
+  assert.deepEqual([shop.products, shop.skipped], [[], kinds.shop]);
+  assert.deepEqual(
+    (readObject(readingKey) as { products: { model: string }[] }).products.map((p) => p.model),
+    ["S-550"],
+    "the maker's own sheet is read, not left unread as the shop's was",
+  );
 });
 
 test("a selector guide is read when it rates the maker's products and left when it rates another company's equipment", () => {
@@ -112,7 +139,7 @@ test("a document the pace turns away before sorting waits its turn, with nothing
   await readDocument(message, env, 1);
   assert.equal(asked.length, 0);
   assert.deepEqual(sent, [{ ...message, waits: 1 }]);
-  assert.equal(read(gateKey(SHA)), undefined);
+  assert.equal(read(gateKey(SHA, "maker")), undefined);
   assert.equal(read(readingKey), undefined);
 });
 
@@ -126,7 +153,7 @@ test("a gate answer that cannot be read is retried, and on the last delivery the
     model('{"kind":"poster","ownRatings":true,"reason":""}'),
   );
   await readDocument(message, last.env, LAST_ATTEMPT);
-  assert.equal(last.read(gateKey(SHA)), undefined, "a kind outside the list is not kept");
+  assert.equal(last.read(gateKey(SHA, "maker")), undefined, "a kind outside the list is not kept");
   assert.deepEqual(
     (last.readObject(readingKey) as { products: { model: string }[] }).products.map((p) => p.model),
     ["S-550"],

@@ -1,6 +1,6 @@
 import { ActivityQuery } from "@origin89/equipment-schema/activity";
 import { APPROVAL_EVENT, CrawlApproval } from "@origin89/equipment-schema/documents";
-import { READS_PER_REQUEST } from "@origin89/equipment-schema/provenance";
+import { READS_PER_REQUEST, readerKey } from "@origin89/equipment-schema/provenance";
 import {
   CompareQuery,
   canonical,
@@ -76,6 +76,7 @@ import {
   identify,
   localControlToken,
 } from "./sign-in.ts";
+import { TABLE_READER } from "./spec-table.ts";
 import {
   RunConflict,
   RunStartUncertain,
@@ -530,6 +531,8 @@ const READS_AT_ONCE = 16;
 /** A content address and a reader key: nothing that could interpolate into another key. */
 const DIGEST = /^[0-9a-f]{64}$/;
 const READER = /^[a-z0-9][a-z0-9._-]*$/;
+/** Readers given a document's bytes and nothing else, whose readings are the same for every maker. */
+const PARSERS: ReadonlySet<string> = new Set([readerKey(TABLE_READER)]);
 
 /**
  * Every reading of the documents asked for, in one response.
@@ -539,13 +542,18 @@ const READER = /^[a-z0-9][a-z0-9._-]*$/;
  * four thousand documents across three readers is thirteen thousand round trips, and the nightly
  * pull was heading past its hour. The caller already holds the document list, so it says which
  * ones it wants and the reads happen next to the bucket.
+ *
+ * A prompted reader reads a document for a maker, so the caller names the maker too, and gets that
+ * maker's readings. A parser's are the same for every maker.
  */
 controlRoutes.post("/readings", async (c) => {
   const asked = await c.req
-    .json<{ documents?: unknown; readers?: unknown }>()
+    .json<{ maker?: unknown; documents?: unknown; readers?: unknown }>()
     .catch(() => undefined);
+  const maker = manufacturers.find((m) => m.id === asked?.maker)?.id;
   const documents = Array.isArray(asked?.documents) ? asked.documents : [];
   const readers = Array.isArray(asked?.readers) ? asked.readers : [];
+  if (!maker) return c.json({ error: "a known maker required" }, 400);
   if (documents.length === 0) return c.json({ error: "documents required" }, 400);
   if (readers.length === 0) return c.json({ error: "readers required" }, 400);
   if (!documents.every((d): d is string => typeof d === "string" && DIGEST.test(d)))
@@ -563,7 +571,9 @@ controlRoutes.post("/readings", async (c) => {
 
   const bucket = c.env.ARCHIVE;
   const keys = documents.flatMap((sha256) =>
-    readers.map((reader) => partKey.reading(sha256, reader)),
+    readers.map((reader) =>
+      PARSERS.has(reader) ? partKey.parsed(sha256, reader) : partKey.reading(sha256, maker, reader),
+    ),
   );
   const stream = new ReadableStream({
     async start(controller) {

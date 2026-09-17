@@ -225,13 +225,14 @@ test("three products' figures written together are not one value", () => {
 const SHA = "e".repeat(64);
 const MARKDOWN = partKey.markdown(SHA, CONVERTER);
 const READER = readerKey(EXTRACTOR_ID);
-const readingKey = partKey.reading(SHA, READER);
-/** The document already sorted as a datasheet, so a test of reading its windows asks no gate. */
-const SORTED = {
-  [gateKey(SHA)]:
+const readingKey = partKey.reading(SHA, "maker", READER);
+/** The document already sorted as a datasheet for a maker, so a test of reading its windows asks no gate. */
+const sortedFor = (maker: string) => ({
+  [gateKey(SHA, maker)]:
     `${JSON.stringify({ kind: "datasheet", ownRatings: true, reason: "A spec sheet." })}\n`,
-};
-const windowKey = (window: number) => partKey.window(SHA, READER, window);
+});
+const SORTED = sortedFor("maker");
+const windowKey = (window: number) => partKey.window(SHA, "maker", READER, window);
 const message = {
   kind: "extract" as const,
   run: "2026-09-10-aaaaaaaa",
@@ -507,10 +508,10 @@ test("both readers are told a maker's settings, screens, examples and other comp
 
 test("the text reader tells the model whose document it reads, by the maker's name or else its id", async () => {
   const nothing = () => ({ response: JSON.stringify({ products: [] }) });
-  const named = world({ ...SORTED, [MARKDOWN]: SHEET }, nothing);
+  const named = world({ ...sortedFor("victron-energy"), [MARKDOWN]: SHEET }, nothing);
   await readDocument({ ...message, manufacturer: "victron-energy" }, named.env, 1);
   assert.match(String(named.asked[0]?.input.messages[1]?.content), /^Maker: Victron Energy\n\n/);
-  const unlisted = world({ ...SORTED, [MARKDOWN]: SHEET }, nothing);
+  const unlisted = world({ ...sortedFor("nobody-listed"), [MARKDOWN]: SHEET }, nothing);
   await readDocument({ ...message, manufacturer: "nobody-listed" }, unlisted.env, 1);
   assert.match(
     String(unlisted.asked[0]?.input.messages[1]?.content),
@@ -536,6 +537,37 @@ test("the text reader holds Kimi to the figures schema, with its thinking off an
   assert.match(
     SYSTEM,
     /Reply with JSON only, no prose: \{"products":\[\{"model":"\.\.\.","is":"\.\.\.","specs":\[\{"name":"\.\.\.","value":"\.\.\.","unit":"\.\.\.","conditions":"\.\.\.","is":"\.\.\."\}\]\}\]\}/,
+  );
+});
+
+test("a window read for one maker is not another's: a shop reading its supplier's sheet leaves the supplier's own to read (#206)", async () => {
+  // The model calls S-550 the maker's own product only when it is told the maker is "maker".
+  const labelling = (_call: number, input: TestAiInput) => {
+    const own = String(input.messages[1].content).startsWith("Maker: maker\n\n");
+    return {
+      response: JSON.stringify({
+        products: [
+          {
+            model: "S-550",
+            is: own ? "product" : "other-maker",
+            specs: [{ name: "Weight", value: "42", unit: "kg", is: "rating" }],
+          },
+        ],
+      }),
+    };
+  };
+  const { env, asked, readObject } = world(
+    { ...SORTED, ...sortedFor("shop"), [MARKDOWN]: SHEET },
+    labelling,
+  );
+  await readDocument({ ...message, manufacturer: "shop" }, env, 1);
+  assert.equal(asked.length, 3);
+  assert.deepEqual(readObject<Reading>(partKey.reading(SHA, "shop", READER)).products, []);
+  await readDocument(message, env, 1);
+  assert.equal(asked.length, 6, "every window is read again for the maker");
+  assert.deepEqual(
+    readObject<Reading>(readingKey).products.map((p) => p.model),
+    ["S-550"],
   );
 });
 

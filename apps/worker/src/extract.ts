@@ -58,10 +58,10 @@ export async function readDocument(
   env: Env,
   attempt: number,
 ): Promise<void> {
-  const reading = partKey.reading(message.sha256, READER);
+  const reading = partKey.reading(message.sha256, message.manufacturer, READER);
   // Reading a document is the expensive step, and both the document and the reading are
   // addressed by content, so a reading that exists is a reading of exactly these bytes by
-  // exactly this reader — whichever run asked for it.
+  // exactly this reader for this maker — whichever of its runs asked for it.
   if (await env.ARCHIVE.head(reading)) return;
   const object = await env.ARCHIVE.get(message.key);
   if (!object) throw new Error(`${message.key} is gone`);
@@ -70,7 +70,7 @@ export async function readDocument(
   // states no ratings of the maker's products is written down as read with nothing in it, so the
   // run counts it read and the pull clears figures it gave before. A document the gate cannot sort
   // by its last delivery is read, since leaving it unread would lose its ratings for good.
-  let sorted: DocumentKind | undefined = await keptKind(env, message.sha256);
+  let sorted: DocumentKind | undefined = await keptKind(env, message.sha256, message.manufacturer);
   if (!sorted) {
     try {
       const mayWait = await takeTurn(env, message, EXTRACT_MODEL);
@@ -97,7 +97,7 @@ export async function readDocument(
     return;
   }
   const windows = chunk(markdown).slice(0, message.maxWindows ?? MAX_WINDOWS);
-  const kept = await keptWindows(env, message.sha256, windows.length);
+  const kept = await keptWindows(env, message, windows.length);
   const read: ReadWindow[] = [];
   const unread: string[] = [];
   let turnedAway: NotYet | undefined;
@@ -136,7 +136,7 @@ export async function readDocument(
       answer = { window: number, products: [], failed: `not read: ${reason(error)}` };
     }
     await env.ARCHIVE.put(
-      partKey.window(message.sha256, READER, number),
+      partKey.window(message.sha256, message.manufacturer, READER, number),
       `${JSON.stringify(answer)}\n`,
       AS_JSON,
     );
@@ -172,14 +172,14 @@ export async function readDocument(
  */
 async function keptWindows(
   env: Env,
-  sha256: string,
+  { sha256, manufacturer }: ExtractMessage,
   windows: number,
 ): Promise<Map<number, ReadWindow>> {
   const keys: string[] = [];
   let cursor: string | undefined;
   do {
     const page = await env.ARCHIVE.list({
-      prefix: partKey.windows(sha256, READER),
+      prefix: partKey.windows(sha256, manufacturer, READER),
       limit: 1000,
       cursor,
     });

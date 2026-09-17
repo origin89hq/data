@@ -116,7 +116,10 @@ change is not a reason to ask again.
 **A document is read once.** Conversion already skipped what it had, because the
 markdown is keyed by the document's content hash. Reading now skips too: a
 reading that exists is a reading of exactly those bytes by exactly that
-extractor. A new reader model is a new extractor, so after a change of model
+extractor for that maker. The maker is part of the key because the reader is
+told whose document it reads and keeps only that maker's ratings, and a shop
+can publish the manual of a maker it sells; each is read for its own. A new
+reader model is a new extractor, so after a change of model
 every document is unread by it until `just convert` asks; the earlier readings
 stay in the archive and the pull no longer takes them.
 

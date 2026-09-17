@@ -5,7 +5,7 @@ import { EARLIER_EXTRACTOR_IDS } from "@origin89/equipment-schema/provenance";
 import { classifierKey } from "../src/classify.ts";
 import { EXTRACTOR_ID } from "../src/reading.ts";
 import { type SupervisionReport, supervise, VISION_OFFERS_PER_PASS } from "../src/supervise.ts";
-import { inputKey, readerKey, type Work } from "../src/work.ts";
+import { inputKey, partKey, readerKey, type Work } from "../src/work.ts";
 import { world } from "./world.ts";
 
 const source = readFileSync(new URL("../src/supervise.ts", import.meta.url), "utf8");
@@ -301,7 +301,13 @@ test("a maker's adopted specification pages are fetched for a run no text reader
   const pass = async (reader?: string) => {
     const objects: Record<string, string> = {};
     converted(objects, "morningstar", "a".repeat(64));
-    if (reader) objects[`archive/${"a".repeat(64)}.${readerKey(reader)}.reading.json`] = "{}";
+    // This reader's readings are the maker's; an earlier reader's belong to no maker.
+    if (reader)
+      objects[
+        reader === EXTRACTOR_ID
+          ? partKey.reading("a".repeat(64), "morningstar", readerKey(reader))
+          : `archive/${"a".repeat(64)}.${readerKey(reader)}.reading.json`
+      ] = "{}";
     const { env, sent } = world(objects);
     await supervise(env, "2026-09-11");
     return specTables(sent);

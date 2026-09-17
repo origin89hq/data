@@ -68,11 +68,12 @@ function run(
     objects[`${base}/converting.json`] = JSON.stringify({ documents: stages.sent.map(doc) });
   for (const c of stages.converted ?? []) objects[`${base}/converted/${sha(c)}.json`] = "{}";
   for (const c of stages.text ?? [])
-    objects[partKey.reading(sha(c), readerKey(EXTRACTOR_ID))] = "{}";
+    objects[partKey.reading(sha(c), maker, readerKey(EXTRACTOR_ID))] = "{}";
   for (const c of stages.pages ?? [])
-    objects[partKey.reading(sha(c), readerKey(VISION_EXTRACTOR_ID))] = "{}";
+    objects[partKey.reading(sha(c), maker, readerKey(VISION_EXTRACTOR_ID))] = "{}";
+  // An earlier reader kept one reading a document, for no maker in particular.
   for (const c of stages.before ?? [])
-    objects[partKey.reading(sha(c), readerKey(EARLIER_EXTRACTOR_IDS[0] ?? ""))] = "{}";
+    objects[`archive/${sha(c)}.${readerKey(EARLIER_EXTRACTOR_IDS[0] ?? "")}.reading.json`] = "{}";
   return objects;
 }
 
@@ -545,6 +546,34 @@ test("each maker's state is its own, in name order, with a few makers read at a 
     ],
   );
   assert.equal(peak(makerOf), R2_AT_ONCE, "as many makers at once as there are connections");
+});
+
+test("a document one maker had read is unread for another that publishes it too (#206)", async () => {
+  const { env } = world({
+    ...run(
+      {
+        plan: true,
+        approved: true,
+        sent: ["1", "2"],
+        converted: ["1", "2"],
+        text: ["1", "2"],
+        pages: ["2"],
+      },
+      "the-shop",
+    ),
+    ...run(
+      { plan: true, approved: true, sent: ["1", "2"], converted: ["1", "2"], text: ["2"] },
+      "maker",
+    ),
+  });
+  const states = await makerStates(env.ARCHIVE);
+  assert.deepEqual(
+    states.map((m) => [m.maker, m.read, m.seen, m.waitingOn]),
+    [
+      ["maker", 1, undefined, "reading, 1 of 2 left"],
+      ["the-shop", 2, 1, "its figures to be pulled into records"],
+    ],
+  );
 });
 
 test("a reading is found whichever digit its document starts with, the archive listed in parts at once", async () => {

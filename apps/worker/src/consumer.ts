@@ -91,7 +91,7 @@ export async function handle(message: Work, env: Env, attempt = 1): Promise<void
       });
       const products = parseSpecTables(html);
       await env.ARCHIVE.put(
-        partKey.reading(sha256, TABLE_READER.replace(/[^\w.-]+/g, "_")),
+        partKey.parsed(sha256, TABLE_READER.replace(/[^\w.-]+/g, "_")),
         `${JSON.stringify({ sha256, url: message.url, products, windows: 0, failed: 0, extractedBy: TABLE_READER })}\n`,
         {
           httpMetadata: { contentType: "application/json" },

@@ -89,13 +89,20 @@ export function gatePrompt(maker: string, url: string, markdown: string): string
   return `Maker: ${maker}\nAddress: ${address}\n\n${markdown.slice(Math.max(0, firstPage), Math.max(0, firstPage) + SHOWN)}`;
 }
 
-/** The kind of a document, beside it in the archive as its readings are. */
-export const gateKey = (sha256: string): string =>
-  `archive/${sha256}.${readerKey(GATE_ID)}.kind.json`;
+/**
+ * The kind of a document, keyed as its readings are: whether it states the maker's own ratings
+ * depends on the maker it is sorted for.
+ */
+export const gateKey = (sha256: string, maker: string): string =>
+  `archive/${sha256}.${maker}.${readerKey(GATE_ID)}.kind.json`;
 
-/** The kind a document was sorted into before, if it was. */
-export async function keptKind(env: Env, sha256: string): Promise<DocumentKind | undefined> {
-  const kept = await env.ARCHIVE.get(gateKey(sha256));
+/** The kind a document was sorted into for this maker before, if it was. */
+export async function keptKind(
+  env: Env,
+  sha256: string,
+  maker: string,
+): Promise<DocumentKind | undefined> {
+  const kept = await env.ARCHIVE.get(gateKey(sha256, maker));
   if (!kept) return undefined;
   const parsed = DocumentKind.safeParse(await kept.json());
   return parsed.success ? parsed.data : undefined;
@@ -125,8 +132,12 @@ export async function sortDocument(
     max_tokens: 400,
   } as never);
   const sorted = DocumentKind.parse(answerObjects(answerText(response))[0]);
-  await env.ARCHIVE.put(gateKey(message.sha256), `${JSON.stringify(sorted)}\n`, {
-    httpMetadata: { contentType: "application/json" },
-  });
+  await env.ARCHIVE.put(
+    gateKey(message.sha256, message.manufacturer),
+    `${JSON.stringify(sorted)}\n`,
+    {
+      httpMetadata: { contentType: "application/json" },
+    },
+  );
   return sorted;
 }

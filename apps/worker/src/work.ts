@@ -153,24 +153,33 @@ export const partKey = {
   converted: (manufacturer: string, run: string, sha256: string) =>
     `documents/${manufacturer}/runs/${run}/converted/${sha256}.json`,
   /**
-   * A reading is a function of the document's bytes and the reader, and of nothing else — so it
-   * lives beside the document, not inside a run. Keying it per run meant a second run re-read
+   * A parser's reading is a function of the document's bytes and the parser, and of nothing else,
+   * so it lives beside the document, not inside a run. Keying it per run meant a second run re-read
    * nine hundred documents it had already paid to read, for the same answer.
    */
-  reading: (sha256: string, extractor: string) => `archive/${sha256}.${extractor}.reading.json`,
+  parsed: (sha256: string, parser: string) => `archive/${sha256}.${parser}.reading.json`,
   /**
-   * One page of a reading that is read a page at a time. Beside the document for the same reason
-   * the reading is: a page read once is never read again, whichever run asks.
+   * A prompted reader is told whose document it reads, and keeps only that maker's ratings, so its
+   * reading is the maker's as well as the document's. Beside the document still, so a second run of
+   * the maker reads nothing again; a document two makers publish is read once for each (#206).
+   */
+  reading: (sha256: string, maker: string, extractor: string) =>
+    `archive/${sha256}.${maker}.${extractor}.reading.json`,
+  /**
+   * One page of a transcription, which copies what a page says and is told nothing else. Beside the
+   * document for the same reason a parser's reading is: a page written down once is never written
+   * down again, whichever run or maker asks.
    */
   page: (sha256: string, extractor: string, page: number) =>
     `archive/${sha256}.${extractor}.page-${String(page).padStart(4, "0")}.json`,
-  /** Every page of that reading, and nothing else: the prefix ends before the page number. */
+  /** Every page of that transcription, and nothing else: the prefix ends before the page number. */
   pages: (sha256: string, extractor: string) => `archive/${sha256}.${extractor}.page-`,
-  /** One window of a reading that is read a window at a time. Beside the document, like its pages. */
-  window: (sha256: string, extractor: string, window: number) =>
-    `archive/${sha256}.${extractor}.window-${String(window).padStart(4, "0")}.json`,
+  /** One window of a prompted reading that is read a window at a time. Keyed as its reading is. */
+  window: (sha256: string, maker: string, extractor: string, window: number) =>
+    `archive/${sha256}.${maker}.${extractor}.window-${String(window).padStart(4, "0")}.json`,
   /** Every window of that reading, and nothing else. */
-  windows: (sha256: string, extractor: string) => `archive/${sha256}.${extractor}.window-`,
+  windows: (sha256: string, maker: string, extractor: string) =>
+    `archive/${sha256}.${maker}.${extractor}.window-`,
 };
 
 /**

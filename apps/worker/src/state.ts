@@ -90,25 +90,41 @@ const countKeys = async (bucket: R2Bucket, prefix: string): Promise<number> => {
  */
 const ARCHIVE_PARTS = [..."0123456789abcdef"].map((digit) => `archive/${digit}`);
 
-/** The sha256 of every document the text reader has read, and of every one the page reader has. */
+/** A document read for a maker, as the readings present name it. */
+const readFor = (maker: string, sha256: string): string => `${maker}/${sha256}`;
+
+/**
+ * Every document the text reader has read, and every one the page reader has, each with the maker
+ * it was read for; and the sha256 of every document an earlier text reader read, for any maker.
+ */
 const readingsPresent = async (
   bucket: R2Bucket,
 ): Promise<{ text: Set<string>; pages: Set<string>; before: Set<string> }> => {
   const text = `.${readerKey(EXTRACTOR_ID)}.reading.json`;
   const pages = `.${readerKey(VISION_EXTRACTOR_ID)}.reading.json`;
-  const earlier = EARLIER_EXTRACTOR_IDS.map((id) => `.${readerKey(id)}.reading.json`);
+  // Earlier readers kept one reading a document, for whichever maker read it first.
+  const earlier = new Set(EARLIER_EXTRACTOR_IDS.map((id) => `${readerKey(id)}.reading.json`));
   const present = { text: new Set<string>(), pages: new Set<string>(), before: new Set<string>() };
   // One listing for both: the archive holds every document there is, and listing it is the cost.
   // Its twenty thousand keys took thirteen seconds to list one page after another (#72), so the
   // parts are listed at once, and only the readings are kept.
   await atOnce(ARCHIVE_PARTS, R2_AT_ONCE, (part) =>
     eachKey(bucket, part, (key) => {
-      if (key.endsWith(text)) present.text.add(key.slice("archive/".length, -text.length));
-      else if (key.endsWith(pages)) present.pages.add(key.slice("archive/".length, -pages.length));
-      else {
-        const suffix = earlier.find((e) => key.endsWith(e));
-        if (suffix) present.before.add(key.slice("archive/".length, -suffix.length));
+      // `archive/<sha256>.<maker>.<reader>.reading.json`: a maker ID has no dot, and a reader key
+      // may, so the maker ends at the first dot after the digest.
+      const name = key.slice("archive/".length);
+      const sha256 = name.slice(0, 64);
+      if (name[64] !== ".") return;
+      const rest = name.slice(65);
+      if (earlier.has(rest)) {
+        present.before.add(sha256);
+        return;
       }
+      const dot = rest.indexOf(".");
+      if (dot < 1) return;
+      const reader = rest.slice(dot);
+      if (reader === text) present.text.add(readFor(rest.slice(0, dot), sha256));
+      else if (reader === pages) present.pages.add(readFor(rest.slice(0, dot), sha256));
     }),
   );
   return present;
@@ -283,15 +299,16 @@ export async function makerStates(bucket: R2Bucket): Promise<MakerState[]> {
     // readings are made again, and nothing reads a document it was never offered.
     const seeing = offer?.extractedBy === VISION_EXTRACTOR_ID ? offer : undefined;
     // Readings live beside their documents, so this run's progress is how many of the documents
-    // it approved have one.
+    // it approved have one read for this maker.
     let read = 0;
     let readBefore = 0;
     let seen = 0;
     for (const doc of converting?.documents ?? []) {
       const sha = (doc as { sha256?: string }).sha256;
-      if (sha && readings.text.has(sha)) read += 1;
-      else if (sha && readings.before.has(sha)) readBefore += 1;
-      if (sha && readings.pages.has(sha)) seen += 1;
+      if (!sha) continue;
+      if (readings.text.has(readFor(maker, sha))) read += 1;
+      else if (readings.before.has(sha)) readBefore += 1;
+      if (readings.pages.has(readFor(maker, sha))) seen += 1;
     }
 
     const offered = plan?.documents?.length ?? 0;

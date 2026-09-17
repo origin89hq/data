@@ -150,11 +150,18 @@ test("a run's own results are keyed by run, so two runs never share a directory"
   assert.match(a, /documents\/epever\/runs\/2026-09-09-aaaaaaaa\//);
 });
 
-test("a reading is keyed by the document and the reader, because that is all it depends on", () => {
-  const one = partKey.reading("a".repeat(64), "p2");
-  assert.equal(one, `archive/${"a".repeat(64)}.p2.reading.json`);
+test("a reading is keyed by the document, the maker it was read for and the reader, because that is all it depends on", () => {
+  const one = partKey.reading("a".repeat(64), "rolls", "p2");
+  assert.equal(one, `archive/${"a".repeat(64)}.rolls.p2.reading.json`);
   // Two prompts still keep their answers apart; two runs asking the same question do not pay twice.
-  assert.notEqual(partKey.reading("a".repeat(64), "p1"), one);
+  assert.notEqual(partKey.reading("a".repeat(64), "rolls", "p1"), one);
+  // A shop that publishes the maker's manual is told it reads for the shop, and keeps its own answer.
+  assert.notEqual(partKey.reading("a".repeat(64), "the-cabin-depot", "p2"), one);
+  // A parser is told nothing but the bytes, so its reading is the document's.
+  assert.equal(
+    partKey.parsed("a".repeat(64), "table_spec-table_v1"),
+    `archive/${"a".repeat(64)}.table_spec-table_v1.reading.json`,
+  );
 });
 
 test("a pointer is per entity, and says which run is current", () => {
@@ -182,7 +189,9 @@ test("every key a writer produces sits under a prefix the read endpoint allows",
     runPrefix.guesses("the-cabin-depot", "2026-09-10-abcd1234", "ai:x"),
     pointerKey.documents("victron-energy"),
     pointerKey.sightings("the-cabin-depot"),
-    partKey.reading("0".repeat(64), "ai_cf_meta_llama_p2"),
+    partKey.reading("0".repeat(64), "victron-energy", "ai_cf_meta_llama_p2"),
+    partKey.window("0".repeat(64), "victron-energy", "ai_cf_meta_llama_p2", 1),
+    partKey.parsed("0".repeat(64), "table_spec-table_v1"),
     partKey.markdown("0".repeat(64), "toMarkdown"),
     partKey.converted("victron-energy", "2026-09-10-abcd1234", "0".repeat(64)),
     partKey.classify("ai:x", "the-cabin-depot", "2026-09-10-abcd1234", 1),

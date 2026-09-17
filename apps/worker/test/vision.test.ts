@@ -505,10 +505,10 @@ const ids = {
 const READER = readerKey(VISION_EXTRACTOR_ID);
 
 const markdownKey = partKey.markdown(SHA, CONVERTER);
-const readingKey = partKey.reading(SHA, READER);
+const readingKey = partKey.reading(SHA, "maker", READER);
 const transcriptKey = partKey.markdown(SHA, PAGE_CONVERTER);
 const pageKey = (page: number) => partKey.page(SHA, PAGE_CONVERTER, page);
-const windowKey = (window: number) => partKey.window(SHA, READER, window);
+const windowKey = (window: number) => partKey.window(SHA, "maker", READER, window);
 
 test("a scan is sent on one page at a time, each message saying how many pages the reading waits for", async () => {
   const { env, sent } = world({

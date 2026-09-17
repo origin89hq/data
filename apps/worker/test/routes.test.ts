@@ -19,6 +19,7 @@ import {
 } from "../src/routes.ts";
 import { datasetType } from "../src/runs.ts";
 import { authRoutes } from "../src/sign-in.ts";
+import { TABLE_READER } from "../src/spec-table.ts";
 import { readerKey } from "../src/work.ts";
 import { jobToken, jwks } from "./github-token.ts";
 import { world } from "./world.ts";
@@ -148,14 +149,19 @@ const ask = (env: Env, body: unknown) =>
 test("a batch of documents comes back as one reading per line, and an unread one is simply absent", async () => {
   // The failure this replaced: one request per document per reader, which for four thousand
   // documents across three readers is thirteen thousand round trips and half an hour of CI.
+  const table = readerKey(TABLE_READER);
   const env = archive({
-    [`archive/${digest(1)}.text.reading.json`]: '{"sha256":"one","by":"text"}\n',
-    [`archive/${digest(1)}.vision.reading.json`]: '{"sha256":"one","by":"vision"}',
-    [`archive/${digest(3)}.text.reading.json`]: '{"sha256":"three","by":"text"}',
+    [`archive/${digest(1)}.victron-energy.text.reading.json`]: '{"sha256":"one","by":"text"}\n',
+    [`archive/${digest(1)}.victron-energy.vision.reading.json`]: '{"sha256":"one","by":"vision"}',
+    [`archive/${digest(1)}.${table}.reading.json`]: '{"sha256":"one","by":"table"}',
+    [`archive/${digest(3)}.victron-energy.text.reading.json`]: '{"sha256":"three","by":"text"}',
+    // A shop's reading of a document the maker publishes too is the shop's, not the maker's.
+    [`archive/${digest(2)}.the-cabin-depot.text.reading.json`]: '{"sha256":"two","by":"shop"}',
   });
   const res = await ask(env, {
+    maker: "victron-energy",
     documents: [digest(1), digest(2), digest(3)],
-    readers: ["text", "vision"],
+    readers: ["text", "vision", table],
   });
   assert.equal(res.status, 200);
   assert.equal(res.headers.get("content-type"), "application/x-ndjson");
@@ -165,16 +171,24 @@ test("a batch of documents comes back as one reading per line, and an unread one
     [
       { sha256: "one", by: "text" },
       { sha256: "one", by: "vision" },
+      { sha256: "one", by: "table" },
       { sha256: "three", by: "text" },
     ],
+    "a prompted reader's reading for this maker, and the parser's for every maker",
   );
 });
 
 test("a reading that already ends in a newline does not become a blank line", async () => {
   // jsonValues on the other end refuses an unbalanced value, so a stray blank line would have
   // stopped a maker's whole pull rather than lost one figure.
-  const env = archive({ [`archive/${digest(1)}.text.reading.json`]: '{"a":1}\n\n\n' });
-  const res = await ask(env, { documents: [digest(1)], readers: ["text"] });
+  const env = archive({
+    [`archive/${digest(1)}.victron-energy.text.reading.json`]: '{"a":1}\n\n\n',
+  });
+  const res = await ask(env, {
+    maker: "victron-energy",
+    documents: [digest(1)],
+    readers: ["text"],
+  });
   assert.equal(await res.text(), '{"a":1}\n');
 });
 
@@ -200,17 +214,20 @@ const readMaker = () =>
         { url: "https://acme.example/b-fr.pdf", sha256: digest(3), contentType: "application/pdf" },
       ],
     }),
-    [`archive/${digest(3)}.${TEXT}.reading.json`]: "{}",
-    [`archive/${digest(1)}.${TEXT}.reading.json`]: "{}",
-    [`archive/${digest(1)}.${TEXT}.window-0001.json`]: "{}",
-    [`archive/${digest(1)}.${TEXT}.window-0002.json`]: "{}",
-    [`archive/${digest(1)}.${VISION}.reading.json`]: "{}",
-    [`archive/${digest(1)}.${VISION}.window-0001.json`]: "{}",
+    [`archive/${digest(3)}.acme.${TEXT}.reading.json`]: "{}",
+    [`archive/${digest(1)}.acme.${TEXT}.reading.json`]: "{}",
+    [`archive/${digest(1)}.acme.${TEXT}.window-0001.json`]: "{}",
+    [`archive/${digest(1)}.acme.${TEXT}.window-0002.json`]: "{}",
+    [`archive/${digest(1)}.acme.${VISION}.reading.json`]: "{}",
+    [`archive/${digest(1)}.acme.${VISION}.window-0001.json`]: "{}",
     [`archive/${digest(1)}.${VISION}.page-0001.json`]: "{}",
     [`archive/${digest(1)}.md`]: "# a",
     [`archive/${digest(1)}.table.reading.json`]: "{}",
-    [`archive/${digest(2)}.${TEXT}.reading.json`]: "{}",
-    [`archive/${digest(9)}.${TEXT}.reading.json`]: "{}",
+    // A shop that publishes the same document keeps its own reading of it.
+    [`archive/${digest(1)}.shop.${TEXT}.reading.json`]: "{}",
+    [`archive/${digest(1)}.shop.${TEXT}.window-0001.json`]: "{}",
+    [`archive/${digest(2)}.acme.${TEXT}.reading.json`]: "{}",
+    [`archive/${digest(9)}.other.${TEXT}.reading.json`]: "{}",
   });
 
 test("forgetting a maker's readings counts first, and removes only the prompted readers' readings and windows when told to", async () => {
@@ -225,7 +242,10 @@ test("forgetting a maker's readings counts first, and removes only the prompted 
     windows: 3,
     deleted: false,
   });
-  assert.ok(await env.ARCHIVE.head(`archive/${digest(1)}.${TEXT}.reading.json`), "a dry run keeps");
+  assert.ok(
+    await env.ARCHIVE.head(`archive/${digest(1)}.acme.${TEXT}.reading.json`),
+    "a dry run keeps",
+  );
   assert.ok(await env.ARCHIVE.head("documents/acme/runs/r1/seeing.json"), "and keeps the offer");
   const wet = await forget(env, "id=acme&dry=false");
   assert.deepEqual(await wet.json(), {
@@ -239,21 +259,24 @@ test("forgetting a maker's readings counts first, and removes only the prompted 
   // The page reader's offer marker goes too, or the run would count as offered and never be sent again.
   assert.equal(await env.ARCHIVE.head("documents/acme/runs/r1/seeing.json"), null);
   for (const gone of [
-    `archive/${digest(1)}.${TEXT}.reading.json`,
-    `archive/${digest(1)}.${TEXT}.window-0001.json`,
-    `archive/${digest(1)}.${TEXT}.window-0002.json`,
-    `archive/${digest(1)}.${VISION}.reading.json`,
-    `archive/${digest(1)}.${VISION}.window-0001.json`,
-    `archive/${digest(2)}.${TEXT}.reading.json`,
+    `archive/${digest(1)}.acme.${TEXT}.reading.json`,
+    `archive/${digest(1)}.acme.${TEXT}.window-0001.json`,
+    `archive/${digest(1)}.acme.${TEXT}.window-0002.json`,
+    `archive/${digest(1)}.acme.${VISION}.reading.json`,
+    `archive/${digest(1)}.acme.${VISION}.window-0001.json`,
+    `archive/${digest(2)}.acme.${TEXT}.reading.json`,
   ])
     assert.equal(await env.ARCHIVE.head(gone), null, gone);
-  // The markdown, the transcribed page, the table parser's reading and another maker's document stay.
+  // The markdown, the transcribed page, the table parser's reading, another maker's reading of the
+  // same document and another maker's document stay.
   for (const kept of [
-    `archive/${digest(3)}.${TEXT}.reading.json`,
+    `archive/${digest(3)}.acme.${TEXT}.reading.json`,
     `archive/${digest(1)}.md`,
     `archive/${digest(1)}.${VISION}.page-0001.json`,
     `archive/${digest(1)}.table.reading.json`,
-    `archive/${digest(9)}.${TEXT}.reading.json`,
+    `archive/${digest(1)}.shop.${TEXT}.reading.json`,
+    `archive/${digest(1)}.shop.${TEXT}.window-0001.json`,
+    `archive/${digest(9)}.other.${TEXT}.reading.json`,
   ])
     assert.ok(await env.ARCHIVE.head(kept), kept);
   // Forgetting twice removes nothing more.
@@ -277,8 +300,8 @@ test("a maker with more documents than one call takes is forgotten in batches, a
     "documents/acme/current.json": JSON.stringify({ run: "r1", date: "2026-09-12" }),
     "documents/acme/runs/r1/seeing.json": "{}",
     "documents/acme/runs/r1/manifest.json": JSON.stringify({ documents: many }),
-    [`archive/${digest(1)}.${TEXT}.reading.json`]: "{}",
-    [`archive/${digest(FORGET_AT_ONCE + 1)}.${TEXT}.reading.json`]: "{}",
+    [`archive/${digest(1)}.acme.${TEXT}.reading.json`]: "{}",
+    [`archive/${digest(FORGET_AT_ONCE + 1)}.acme.${TEXT}.reading.json`]: "{}",
   });
   const first = await (await forget(env, "id=acme&dry=false")).json();
   assert.deepEqual(first, {
@@ -348,11 +371,19 @@ test("a batch bigger than the cap is refused rather than trimmed", async () => {
   // out partway is a 200 with fewer readings in it, which reads exactly like documents nobody has
   // read yet — the maker would quietly lose figures and nothing would say so.
   const documents = Array.from({ length: READS_PER_REQUEST }, (_, i) => digest(i));
-  const res = await ask(archive({}), { documents, readers: ["text", "vision"] });
+  const res = await ask(archive({}), {
+    maker: "victron-energy",
+    documents,
+    readers: ["text", "vision"],
+  });
   assert.equal(res.status, 400);
   assert.match(String(((await res.json()) as { error: string }).error), /more than 2000 reads/);
 
-  const fits = await ask(archive({}), { documents: documents.slice(0, 1000), readers: ["a", "b"] });
+  const fits = await ask(archive({}), {
+    maker: "victron-energy",
+    documents: documents.slice(0, 1000),
+    readers: ["a", "b"],
+  });
   assert.equal(fits.status, 200, "the cap itself must be allowed, not one short of it");
 });
 
@@ -365,20 +396,30 @@ test("a document that is not a content address cannot name another key", async (
     ["../../dataset/v1/equipment"],
     [42],
   ]) {
-    const res = await ask(archive({}), { documents, readers: ["text"] });
+    const res = await ask(archive({}), { maker: "victron-energy", documents, readers: ["text"] });
     assert.equal(res.status, 400, `${String(documents[0])} was not refused`);
   }
-  const reader = await ask(archive({}), { documents: [digest(1)], readers: ["../pointer"] });
+  const reader = await ask(archive({}), {
+    maker: "victron-energy",
+    documents: [digest(1)],
+    readers: ["../pointer"],
+  });
   assert.equal(reader.status, 400, "a reader key may not climb out of the key either");
+  for (const maker of ["victron-energy/../../dataset", "victron-energy.", "nobody-listed", 7]) {
+    const res = await ask(archive({}), { maker, documents: [digest(1)], readers: ["text"] });
+    assert.equal(res.status, 400, `${String(maker)} was not refused`);
+    assert.deepEqual(await res.json(), { error: "a known maker required" });
+  }
 });
 
 test("asking for nothing is refused, so an empty answer is never mistaken for an empty archive", async () => {
   for (const body of [
     {},
-    { readers: ["text"] },
-    { documents: [digest(1)] },
-    { documents: [], readers: ["text"] },
-    { documents: [digest(1)], readers: [] },
+    { documents: [digest(1)], readers: ["text"] },
+    { maker: "victron-energy", readers: ["text"] },
+    { maker: "victron-energy", documents: [digest(1)] },
+    { maker: "victron-energy", documents: [], readers: ["text"] },
+    { maker: "victron-energy", documents: [digest(1)], readers: [] },
   ]) {
     const res = await ask(archive({}), body);
     assert.equal(res.status, 400, `${JSON.stringify(body)} was answered ${res.status}`);
@@ -735,7 +776,7 @@ const asJob = (token: string, path: string, init: RequestInit = {}) =>
   );
 const readOne = {
   method: "POST",
-  body: JSON.stringify({ documents: [digest(1)], readers: ["text"] }),
+  body: JSON.stringify({ maker: "victron-energy", documents: [digest(1)], readers: ["text"] }),
 };
 
 test("the daily pull's job token reads the three routes it needs, and opens nothing else", async () => {
