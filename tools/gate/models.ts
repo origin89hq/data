@@ -1,6 +1,7 @@
 import type { Guess } from "@origin89/equipment-schema/guess";
+import type { Model } from "@origin89/equipment-schema/model";
 import type { Sighting } from "@origin89/equipment-schema/sighting";
-import { mergeLinks } from "../../src/dialect-links.ts";
+import { type FoldOutcome, foldDerived, namesOf } from "../../src/model-records.ts";
 import { deriveModels } from "../../src/models.ts";
 import { loadRecords, RECORDS_DIR, writeRecord } from "../../src/records.ts";
 import { readCrawl } from "./archive.ts";
@@ -11,6 +12,8 @@ import { readCrawl } from "./archive.ts";
  *
  * Nothing derived here is reviewed. A model that already carries a reviewer keeps everything a
  * person put on it — the name, the variant, the dialects, the basis — and only its aliases grow.
+ * A name a held model already answers to under another spelling becomes its alias rather than a
+ * second record, including a model written earlier in the same run.
  *
  * Usage: models.ts <date> <seller...> [--remote] [--dry-run]
  */
@@ -41,36 +44,28 @@ for (const seller of sellers) {
 }
 
 const records = loadRecords();
-const existing = new Map(records.models.map((m) => [m.id, m]));
 const derived = deriveModels({
   sightings,
   guesses,
   brands: records.brands,
   dialects: records.dialects,
 });
+const held = new Map<string, Map<string, Model>>();
+for (const model of records.models)
+  held.set(model.manufacturer, (held.get(model.manufacturer) ?? new Map()).set(model.id, model));
 
-let added = 0;
-let kept = 0;
+const counts: Record<FoldOutcome, number> = { added: 0, refreshed: 0, folded: 0 };
 for (const { model } of derived) {
-  const before = existing.get(model.id);
-  // A reviewed model is a person's work. Only the alias list grows under it; the name, kind,
-  // variant and dialect links stay as they were reviewed.
-  const kind = model.kind ?? before?.kind;
-  const next = before?.reviewedBy
-    ? { ...before, aliases: [...new Set([...before.aliases, ...model.aliases])].sort() }
-    : before
-      ? {
-          ...model,
-          // A kind an earlier crawl established survives a later one that ran with no classifier:
-          // absence of evidence is not evidence that the kind changed.
-          ...(kind ? { kind } : {}),
-          aliases: [...new Set([...before.aliases, ...model.aliases])].sort(),
-          dialects: mergeLinks(before.dialects, model.dialects),
-        }
-      : model;
-  if (!dryRun) writeRecord(RECORDS_DIR, "models", model.id, next);
-  if (before) kept += 1;
-  else added += 1;
+  const ours = held.get(model.manufacturer) ?? new Map<string, Model>();
+  // Only the maker's own names come off the front: another maker's name there is another product.
+  const { record, outcome } = foldDerived(
+    [...ours.values()],
+    model,
+    namesOf(records, model.manufacturer),
+  );
+  held.set(model.manufacturer, ours.set(record.id, record));
+  if (!dryRun) writeRecord(RECORDS_DIR, "models", record.id, record);
+  counts[outcome] += 1;
 }
 
 const withDialect = derived.filter((d) => d.model.dialects.length > 0).length;
@@ -80,7 +75,7 @@ for (const d of derived) {
   kinds.set(kind, (kinds.get(kind) ?? 0) + 1);
 }
 console.log(
-  `${sightings.length} sightings from ${sellers.length} sellers → ${derived.length} models${dryRun ? " (dry run, nothing written)" : `: ${added} new, ${kept} refreshed`}`,
+  `${sightings.length} sightings from ${sellers.length} sellers → ${derived.length} models${dryRun ? " (dry run, nothing written)" : ""}: ${counts.added} new, ${counts.refreshed} refreshed, ${counts.folded} folded into a model held under another spelling`,
 );
 console.log(`${withDialect} join a dialect this repo already documents`);
 console.log(
