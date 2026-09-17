@@ -2,18 +2,18 @@ name: Publish the dataset
 # Unlike the deploy, this runs itself. A deploy arms a weekly cron that crawls three dozen shops
 # and can spend money on a model, so somebody decides it. Publishing only copies tables that were
 # already built from records already reviewed and merged, and a dataset nobody can fetch is not
-# published at all — so the moment the records change on main, the tables follow.
+# published at all.
+#
+# Once a day, not on every merge. A published version is loaded into D1 row by row, and D1 charges
+# for each row and each index entry: a version is about 380,000 rows, near 1.25M writes, and as
+# much again when it is retired. That is about $2.50 a version, and four merges that touched
+# records in a day were four of them for one day's figures. A day's merges now go out together.
+# `workflow_dispatch` publishes at once when something should not wait.
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'records/**'
-      - 'feeds/**'
-      - 'packages/schema/**'
-      - 'src/**'
-      - '.github/workflows/publish.yml'
-      - '.github/actions/setup*/**'
-      - 'pnpm-lock.yaml'
+  schedule:
+    # Eleven hours after the daily pull opens its pull request, so a day's records go out the
+    # evening they are merged.
+    - cron: "0 23 * * *"
   workflow_dispatch:
   workflow_run:
     workflows: ['Deploy the spider']
