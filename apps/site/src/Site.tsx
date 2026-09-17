@@ -167,12 +167,16 @@ export function Site() {
                 preserveAspectRatio="none"
                 aria-hidden="true"
               >
+                {/* User space, not the default object bounding box: the straight connectors are
+                    horizontal, so their bounding box has no height and a proportional gradient
+                    would be ignored, leaving those two paths unpainted. The coordinates span each
+                    group, so every path in it shares one fade. */}
                 <defs>
-                  <linearGradient id="line-in">
+                  <linearGradient id="line-in" gradientUnits="userSpaceOnUse" x1="200" x2="390">
                     <stop stopColor="currentColor" stopOpacity="0.15" />
                     <stop offset="1" stopColor="currentColor" stopOpacity="0.9" />
                   </linearGradient>
-                  <linearGradient id="line-out">
+                  <linearGradient id="line-out" gradientUnits="userSpaceOnUse" x1="730" x2="920">
                     <stop stopColor="currentColor" stopOpacity="0.9" />
                     <stop offset="1" stopColor="currentColor" stopOpacity="0.15" />
                   </linearGradient>

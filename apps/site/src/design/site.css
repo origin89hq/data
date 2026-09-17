@@ -899,6 +899,10 @@ a.record-card:hover {
   gap: 4px;
   padding: 8px 8px 8px 12px;
 }
+.code-tabs .tabs {
+  display: flex;
+  gap: 4px;
+}
 .code-tabs button {
   min-height: 36px;
   padding: 0 12px;
@@ -925,6 +929,7 @@ a.record-card:hover {
 }
 .code-panel pre {
   margin: 0;
+  outline-offset: -2px;
   padding: 20px;
   overflow-x: auto;
   font: 13px / 1.7 var(--font-data);

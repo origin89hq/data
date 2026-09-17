@@ -1,6 +1,7 @@
 import { type ReactNode, useState } from "react";
 import { type Index, kb } from "./api.ts";
 import { Icon } from "./icons.tsx";
+import { tablistKeys } from "./tabs.ts";
 
 /** Written against the live origin, so a reader can copy one and it runs. */
 const snippets = (
@@ -108,11 +109,14 @@ function colour(code: string): ReactNode[] {
   });
 }
 
+type Language = keyof ReturnType<typeof snippets>;
+const LANGUAGES: readonly Language[] = ["sql", "python", "curl"];
+
 export function Build({ index }: { index?: Index }) {
   const origin =
     typeof window === "undefined" ? "https://data.origin89.com" : window.location.origin;
   const all = snippets(origin);
-  const [tab, setTab] = useState<keyof ReturnType<typeof snippets>>("sql");
+  const [tab, setTab] = useState<Language>("sql");
   const [copied, setCopied] = useState(false);
 
   const copy = () => {
@@ -161,26 +165,38 @@ export function Build({ index }: { index?: Index }) {
           </div>
           <div className="artifacts">
             <article className="artifact code-panel">
-              <header className="code-tabs" role="tablist" aria-label="Code language">
-                {Object.entries(all).map(([key, snippet]) => (
-                  <button
-                    type="button"
-                    key={key}
-                    role="tab"
-                    aria-selected={tab === key}
-                    tabIndex={tab === key ? 0 : -1}
-                    onClick={() => {
-                      if (key === "sql" || key === "python" || key === "curl") setTab(key);
-                    }}
-                  >
-                    {snippet.label}
-                  </button>
-                ))}
+              <header className="code-tabs">
+                {/* The copy button stays outside the tablist: a tablist holds tabs only, and the
+                    arrow keys here move between languages. */}
+                <div
+                  className="tabs"
+                  role="tablist"
+                  aria-label="Code language"
+                  onKeyDown={tablistKeys(LANGUAGES, tab, setTab)}
+                >
+                  {LANGUAGES.map((key) => (
+                    <button
+                      type="button"
+                      key={key}
+                      id={`code-tab-${key}`}
+                      role="tab"
+                      aria-selected={tab === key}
+                      aria-controls="code-panel"
+                      tabIndex={tab === key ? 0 : -1}
+                      onClick={() => setTab(key)}
+                    >
+                      {all[key].label}
+                    </button>
+                  ))}
+                </div>
                 <button type="button" className="copy-code" onClick={copy} aria-label="Copy code">
                   {copied ? "Copied" : "Copy"} <Icon name="copy" />
                 </button>
               </header>
-              <pre role="tabpanel">
+              {/* biome-ignore lint/a11y/noNoninteractiveTabindex: The ARIA tabs pattern asks for
+                  tabindex="0" on a tab panel with no focusable children, and this one scrolls
+                  sideways, so without it a keyboard cannot reach the end of a long line. */}
+              <pre id="code-panel" role="tabpanel" aria-labelledby={`code-tab-${tab}`} tabIndex={0}>
                 <code>{colour(all[tab].code)}</code>
               </pre>
               <div className="code-footer">

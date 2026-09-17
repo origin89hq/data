@@ -4,6 +4,7 @@ import { DataLoading, DataProblem, Skeleton } from "./DataState.tsx";
 import { documentLabels, figuresQuery, provenanceLabel } from "./figures.ts";
 import { Icon } from "./icons.tsx";
 import type { CorrectionTarget } from "./ops/corrections.ts";
+import { tablistKeys } from "./tabs.ts";
 import type { State } from "./useDuckDb.ts";
 import { useQuery } from "./useQuery.ts";
 
@@ -52,6 +53,8 @@ const TABLES = {
 } as const;
 
 type TabName = keyof typeof TABLES;
+
+const TAB_NAMES = Object.keys(TABLES) as TabName[];
 
 /** The name a column answers to, which for an expression is what it was aliased as. */
 const alias = (column: string): string => column.split(/\s+AS\s+/i).pop() ?? column;
@@ -123,23 +126,32 @@ export function Explorer({
     : `Finding ${spec.label.toLowerCase()}…`;
 
   const pages = Math.max(1, Math.ceil(total / PAGE));
+  // A table's filter and page belong to that table, so moving away drops both.
+  const choose = (name: TabName) => {
+    setTab(name);
+    setPage(0);
+    setFilter("");
+    setChosen(undefined);
+  };
   return (
     <div className="explorer">
       <div className="explorer-top">
-        <div className="table-tabs" role="tablist" aria-label="Dataset tables">
-          {(Object.keys(TABLES) as TabName[]).map((name) => (
+        <div
+          className="table-tabs"
+          role="tablist"
+          aria-label="Dataset tables"
+          onKeyDown={tablistKeys(TAB_NAMES, tab, choose)}
+        >
+          {TAB_NAMES.map((name) => (
             <button
               type="button"
               key={name}
+              id={`table-tab-${name}`}
               role="tab"
               aria-selected={tab === name}
+              aria-controls="table-panel"
               tabIndex={tab === name ? 0 : -1}
-              onClick={() => {
-                setTab(name);
-                setPage(0);
-                setFilter("");
-                setChosen(undefined);
-              }}
+              onClick={() => choose(name)}
             >
               {TABLES[name].label}{" "}
               <span>{index ? count(index.files[`${name}.parquet`]?.rows ?? 0) : "—"}</span>
@@ -192,7 +204,7 @@ export function Explorer({
       {options.status === "error" && db.ready && (
         <DataProblem label="The filters couldn’t be loaded." retry={options.retry} />
       )}
-      <div role="tabpanel" aria-label={spec.label}>
+      <div id="table-panel" role="tabpanel" aria-labelledby={`table-tab-${tab}`}>
         {loading && <DataLoading label={loadingLabel} />}
         {result.status === "error" && (
           <DataProblem label="These records couldn’t be loaded." retry={result.retry} />
