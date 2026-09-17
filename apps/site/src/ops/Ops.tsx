@@ -1,7 +1,6 @@
 import avatar from "@origin89/brand/art/avatar-round.webp";
 import favicon from "@origin89/brand/icons/favicon.svg";
-import logoBlue from "@origin89/brand/logos/origin89-horizontal-blue.svg";
-import logoWhite from "@origin89/brand/logos/origin89-horizontal-white.svg";
+import logo from "@origin89/brand/logos/origin89-horizontal-white.svg";
 import { getRouteApi, Link } from "@tanstack/react-router";
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Icon } from "../icons.tsx";
@@ -96,13 +95,6 @@ export function Ops() {
   const releaseSelection = state.release;
   const [toast, setToast] = useState("");
   const [dirty, setDirty] = useState(false);
-  const [theme, setTheme] = useState<"light" | "dark">(() => {
-    try {
-      return localStorage.getItem("origin89-ops-theme") === "dark" ? "dark" : "light";
-    } catch {
-      return "light";
-    }
-  });
   const login = useResource<string>();
   const report = useResource<SupervisionReport | null>();
   const runs = useResource<Pipeline>();
@@ -117,12 +109,6 @@ export function Ops() {
       void files.load(published);
     }
   }, [login.value, report.load, files.load]);
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    try {
-      localStorage.setItem("origin89-ops-theme", theme);
-    } catch {}
-  }, [theme]);
   const selectedView = useRef(view);
   useEffect(() => {
     if (selectedView.current !== view) {
@@ -181,7 +167,7 @@ export function Ops() {
     return (
       <div className="ops-signin">
         <link rel="icon" href={favicon} />
-        <img src={logoBlue} alt="Origin89" width="190" />
+        <img src={logo} alt="Origin89" width="190" />
         {login.error ? (
           <>
             <h1>Sign in to your data workspace.</h1>
@@ -211,7 +197,7 @@ export function Ops() {
       </a>
       <aside className="ops-sidebar">
         <a className="ops-identity" href="/" aria-label="Origin89 Data home">
-          <img src={theme === "dark" ? logoWhite : logoBlue} width="182" alt="Origin89" />
+          <img src={logo} width="182" alt="Origin89" />
           <span>DATA WORKSPACE</span>
         </a>
         <p className="ops-nav-label">COLLECTION & CURATION</p>
@@ -258,13 +244,6 @@ export function Ops() {
             <strong>{NAV.find((item) => item.id === view)?.label}</strong>
           </div>
           <div className="ops-account">
-            <button
-              type="button"
-              className="ops-quiet"
-              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-            >
-              {theme === "light" ? "Dark mode" : "Light mode"}
-            </button>
             <span className="ops-account-name">
               <span className="ops-avatar">{login.value.slice(0, 2).toUpperCase()}</span>
               {login.value}

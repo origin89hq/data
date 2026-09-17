@@ -138,8 +138,8 @@ importers:
         specifier: ^1.29.0
         version: 1.32.0
       '@origin89/brand':
-        specifier: 0.3.1
-        version: 0.3.1
+        specifier: 0.4.0
+        version: 0.4.0
       '@origin89/equipment-schema':
         specifier: workspace:*
         version: link:../../packages/schema
@@ -816,8 +816,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
-  '@origin89/brand@0.3.1':
-    resolution: {integrity: sha512-H0d49I0nWyYmq9CPr/4e8/lo1yRUYyaEMhqqNxxvM5xvk3ujnnvSZP02t1Zp7ncCjwRW4ihVzPmL5RXIwxP13Q==}
+  '@origin89/brand@0.4.0':
+    resolution: {integrity: sha512-vX9eehWsu+7J81k685wKlR+G+VtyfMnk0bk9JVM1YNfCWtD0hQLe8fC+xGzLTu2kFJUQWFW3qWh3uwNhS7sbBQ==}
     engines: {node: '>=22.12.0'}
 
   '@oxc-project/types@0.149.0':
@@ -1895,7 +1895,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.6.0
 
-  '@origin89/brand@0.3.1': {}
+  '@origin89/brand@0.4.0': {}
 
   '@oxc-project/types@0.149.0': {}
 

@@ -148,10 +148,10 @@ export function Explorer({
         </div>
         <span className="sample-label">
           {result.status === "error"
-            ? "DATA UNAVAILABLE"
+            ? "Data unavailable"
             : loading
-              ? "READING THE DATA"
-              : "LIVE FROM THE PUBLISHED TABLES"}
+              ? "Reading the data"
+              : "Live from the published tables"}
         </span>
       </div>
       <div className="explorer-tools">
@@ -339,7 +339,7 @@ function RecordDialog({
       onClick={(event) => event.target === dialog.current && onClose()}
     >
       <div className="dialog-top">
-        <span className="eyebrow">ORIGIN89 DATA / RECORD DETAIL</span>
+        <span className="eyebrow">Origin89 data / record detail</span>
         <button
           type="button"
           className="close-dialog"
@@ -352,10 +352,10 @@ function RecordDialog({
       <div id="detail-content">
         <p className="eyebrow">
           {table === "specs"
-            ? "SPECIFICATION"
+            ? "Specification"
             : table === "dialects"
-              ? "PROTOCOL DIALECT"
-              : "EQUIPMENT"}
+              ? "Protocol dialect"
+              : "Equipment"}
         </p>
         <h2 id="detail-title">{table === "models" ? (text("name") ?? heading) : heading}</h2>
         <p className="detail-sub">{under}</p>
@@ -443,7 +443,7 @@ function RecordDialog({
         {onCorrect && text("id") && (
           <button
             type="button"
-            className="button primary"
+            className="o89-plate o89-plate-action"
             onClick={() => {
               onClose();
               onCorrect({
@@ -486,7 +486,7 @@ function ModelFigures({ model, db }: { model: string; db: State }) {
   return (
     <>
       <p className="eyebrow" style={{ marginTop: "26px" }}>
-        RATED FIGURES
+        Rated figures
       </p>
       {figures.map((figure) => (
         <div key={JSON.stringify(figure)} className="detail-spec">
