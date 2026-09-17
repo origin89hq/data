@@ -1,4 +1,5 @@
 import { answerText } from "./classify.ts";
+import { type DocumentKind, keptKind, leftUnread, sortDocument } from "./gate.ts";
 import { makerName } from "./manufacturers.ts";
 import { NotYet, rateLimited, takeTurn, waitTurn } from "./pace.ts";
 import {
@@ -64,7 +65,38 @@ export async function readDocument(
   if (await env.ARCHIVE.head(reading)) return;
   const object = await env.ARCHIVE.get(message.key);
   if (!object) throw new Error(`${message.key} is gone`);
-  const windows = chunk(await object.text()).slice(0, message.maxWindows ?? MAX_WINDOWS);
+  const markdown = await object.text();
+  // The document is sorted by kind before any window is read, with a turn of its own. A kind that
+  // states no ratings of the maker's products is written down as read with nothing in it, so the
+  // run counts it read and the pull clears figures it gave before. A document the gate cannot sort
+  // by its last delivery is read, since leaving it unread would lose its ratings for good.
+  let sorted: DocumentKind | undefined = await keptKind(env, message.sha256);
+  if (!sorted) {
+    try {
+      const mayWait = await takeTurn(env, message, EXTRACT_MODEL);
+      try {
+        sorted = await sortDocument(env, message, makerName(message.manufacturer), markdown);
+      } catch (error) {
+        if (mayWait && rateLimited(error)) throw new NotYet(reason(error));
+        throw error;
+      }
+    } catch (error) {
+      if (error instanceof NotYet) {
+        await waitTurn(env, message, error);
+        return;
+      }
+      if (attempt < LAST_ATTEMPT) throw error;
+    }
+  }
+  if (sorted && leftUnread(sorted)) {
+    await env.ARCHIVE.put(
+      reading,
+      `${JSON.stringify({ sha256: message.sha256, url: message.url, products: [], windows: 0, failed: 0, skipped: sorted })}\n`,
+      AS_JSON,
+    );
+    return;
+  }
+  const windows = chunk(markdown).slice(0, message.maxWindows ?? MAX_WINDOWS);
   const kept = await keptWindows(env, message.sha256, windows.length);
   const read: ReadWindow[] = [];
   const unread: string[] = [];
@@ -164,6 +196,13 @@ async function keptWindows(
   );
 }
 
+/** A product and its figures as the model labels them, before only ratings of products are kept. */
+type Labelled = {
+  model: string;
+  is?: unknown;
+  specs: (Reported["specs"][number] & { is?: unknown })[];
+};
+
 /**
  * One model call for one window, with each figure given the page its value is printed on. The
  * message starts with the maker's name, so the model can leave out another company's products and
@@ -194,47 +233,54 @@ async function readWindow(env: Env, window: Window, maker: string): Promise<Repo
   // real one, no longer fails the window or hides the figures.
   const products = answerObjects(answerText(response)).flatMap((answer) => {
     const listed = (answer as { products?: unknown } | null)?.products;
-    return Array.isArray(listed) ? (listed as Reported[]) : [];
+    return Array.isArray(listed) ? (listed as Labelled[]) : [];
   });
   // The page comes from where the value is printed in the window, not from the model: an invented
   // page number is worse than none, because it looks checkable. The model's is dropped even where
   // no page is found, which a window with no page markers used to keep.
-  return products
-    .filter((product) => Array.isArray(product?.specs))
-    .map((product) => ({
-      ...product,
-      // A null or a bare string among a product's figures is dropped rather than failing the window;
-      // a name or value that is not a string is left for the merge to refuse.
-      specs: product.specs
-        .filter((s) => typeof s === "object" && s !== null)
-        // A value the window does not print was not read from it: the comparison that chose this
-        // reader found every such figure wrong, and no right one among them.
-        .filter(
-          (s) => typeof s.value !== "string" || printsValue(shown.text, asciiSymbols(s.value)),
-        )
-        .map(({ page: _claimed, ...read }) => {
-          // The page is looked up in the window as the model was shown it, so a value it copied
-          // with "~" or with an operator the sheet prints in ASCII is still found.
-          const page =
-            typeof read.name === "string" && typeof read.value === "string"
-              ? pageOfFigure(shown, {
-                  name: asciiSymbols(read.name),
-                  value: asciiSymbols(read.value),
-                })
-              : window.page;
-          return {
-            ...read,
-            ...(typeof read.name === "string"
-              ? { name: printedSymbols(window.text, read.name) }
-              : {}),
-            ...(typeof read.value === "string"
-              ? { value: printedSymbols(window.text, read.value) }
-              : {}),
-            ...(typeof read.conditions === "string"
-              ? { conditions: printedSymbols(window.text, read.conditions) }
-              : {}),
-            ...(page === undefined ? {} : { page }),
-          };
-        }),
-    }));
+  return (
+    products
+      .filter((product) => Array.isArray(product?.specs))
+      // Only a product of the maker's own is filed: the model labels a family, a kit and another
+      // company's product for what they are. A product it gave no label is kept rather than lost.
+      .filter((product) => product.is === undefined || product.is === "product")
+      .map(({ is: _product, ...product }) => ({
+        ...product,
+        // A null or a bare string among a product's figures is dropped rather than failing the window;
+        // a name or value that is not a string is left for the merge to refuse.
+        specs: product.specs
+          .filter((s) => typeof s === "object" && s !== null)
+          // And only its ratings: a setting, an instruction, a test and an example are labelled too.
+          .filter((s) => s.is === undefined || s.is === "rating")
+          // A value the window does not print was not read from it: the comparison that chose this
+          // reader found every such figure wrong, and no right one among them.
+          .filter(
+            (s) => typeof s.value !== "string" || printsValue(shown.text, asciiSymbols(s.value)),
+          )
+          .map(({ page: _claimed, is: _figure, ...read }) => {
+            // The page is looked up in the window as the model was shown it, so a value it copied
+            // with "~" or with an operator the sheet prints in ASCII is still found.
+            const page =
+              typeof read.name === "string" && typeof read.value === "string"
+                ? pageOfFigure(shown, {
+                    name: asciiSymbols(read.name),
+                    value: asciiSymbols(read.value),
+                  })
+                : window.page;
+            return {
+              ...read,
+              ...(typeof read.name === "string"
+                ? { name: printedSymbols(window.text, read.name) }
+                : {}),
+              ...(typeof read.value === "string"
+                ? { value: printedSymbols(window.text, read.value) }
+                : {}),
+              ...(typeof read.conditions === "string"
+                ? { conditions: printedSymbols(window.text, read.conditions) }
+                : {}),
+              ...(page === undefined ? {} : { page }),
+            };
+          }),
+      }))
+  );
 }

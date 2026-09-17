@@ -154,6 +154,18 @@ by hand, Kimi gave about half again as many right figures and about forty
 percent fewer wrong ones. A figure whose value its window does not print is left
 out of the reading, since every such figure in that comparison was wrong.
 
+Two things keep what is read to ratings of the maker's own products. A converted
+document is first sorted by kind from its opening pages, one call per document:
+certificates and test reports, compatibility notes about another company's
+products, safety data sheets, training decks, letters, case studies and settings
+templates are written down as read with nothing in them, and none of their
+windows is read. And the reader labels each product it reports (a product, a
+family, a kit, another company's) and each figure (a rating, a setting, an
+instruction, a test, an example); a reading keeps only ratings of products. Read
+blind against the same sixty windows, the labels halved the wrong figures for
+about a sixth fewer right ones, and in the pull of thirty makers the kinds left
+unread held 105 of the wrong figures in a sample of 539 and 7 right ones.
+
 Kimi serves an account twenty requests a minute, and both readers call it, so
 they share one pace of eighteen a minute (`KIMI_PACE`). A window turned away by
 the pace or by Kimi's own limit is not a failure: the windows already read are
