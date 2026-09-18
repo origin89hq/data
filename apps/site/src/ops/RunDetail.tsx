@@ -1,3 +1,4 @@
+import { Tabs } from "@base-ui-components/react/tabs";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "../icons.tsx";
 import {
@@ -115,269 +116,290 @@ export function RunDetail({
         <Status value={run?.status} />
         <span className="ops-mono">{row.date ?? "Date not reported"}</span>
       </div>
-      <nav className="ops-detail-tabs" aria-label="Run detail views">
-        {(
-          ["summary", ...(row.kind === "maker" ? ["documents"] : []), "archive", "actions"] as const
-        ).map((item) => (
-          <button
-            type="button"
-            key={item}
-            aria-pressed={tab === item}
-            onClick={() => view(item as typeof tab)}
-          >
-            {item === "summary"
-              ? "Overview"
-              : item === "documents"
-                ? "Documents"
-                : item === "archive"
-                  ? "Run files"
-                  : "Actions"}
-          </button>
-        ))}
-      </nav>
-      {tab === "summary" && (
-        <>
-          <div className="ops-next">
-            <p className="ops-eyebrow">NEXT STEP</p>
-            <h3>{row.next}</h3>
-            {reviewing && submission?.state !== "sent" && (
-              <button
-                type="button"
-                className="ops-button primary"
-                onClick={() => view("documents")}
-              >
-                Review download plan <Icon name="arrowRight" />
-              </button>
-            )}
-          </div>
-          <dl className="ops-facts">
-            {facts.map(([label, value]) => (
-              <div key={label}>
-                <dt>{label}</dt>
-                <dd>{count(value)}</dd>
-              </div>
-            ))}
-          </dl>
-          <p className="ops-note">A dash means the archive has not reported a count.</p>
-          <dl className="ops-meta">
-            <div>
-              <dt>Entity</dt>
-              <dd>{row.entity}</dd>
-            </div>
-            <div>
-              <dt>Run ID</dt>
-              <dd>{run?.run ?? "Not reported"}</dd>
-            </div>
-            <div>
-              <dt>Workflow instance</dt>
-              <dd>{run?.instance ?? "Not recorded"}</dd>
-            </div>
-            {row.maker && (
-              <div>
-                <dt>Approved by</dt>
-                <dd>{row.maker.approvedBy ?? "No approval recorded"}</dd>
-              </div>
-            )}
-          </dl>
-          {run?.error && <Notice alarm>{run.error}</Notice>}
-          <a className="ops-text-link" href="/#explore" target="_blank" rel="noopener">
-            Explore published equipment <Icon name="arrowUpRight" />
-          </a>
-        </>
-      )}
-      {tab === "documents" &&
-        (!run ? (
-          <Empty title="No workflow instance recorded">
-            Refresh the workspace before reviewing a download plan.
-          </Empty>
-        ) : (
+      {/* A real tablist. The selected state is read from aria-selected rather than Base UI's
+          data-active, which is internal to the library and is a release candidate. These were <nav> buttons carrying aria-pressed, which is toggle-button
+          semantics: no tab roles, no panel association, and no way to move between them with the
+          arrow keys. */}
+      <Tabs.Root value={tab} onValueChange={(next) => view(next as typeof tab)}>
+        <Tabs.List
+          className="mt-6 flex gap-5 border-b border-line max-[640px]:gap-4"
+          aria-label="Run detail views"
+        >
+          {(
+            [
+              "summary",
+              ...(row.kind === "maker" ? ["documents"] : []),
+              "archive",
+              "actions",
+            ] as const
+          ).map((item) => (
+            <Tabs.Tab
+              key={item}
+              value={item}
+              className="min-h-11 border-b-2 border-transparent py-2.5 text-[13px] text-muted hover:text-fg aria-[selected=true]:border-signal aria-[selected=true]:text-fg"
+            >
+              {item === "summary"
+                ? "Overview"
+                : item === "documents"
+                  ? "Documents"
+                  : item === "archive"
+                    ? "Run files"
+                    : "Actions"}
+            </Tabs.Tab>
+          ))}
+        </Tabs.List>
+        <Tabs.Panel value="summary" className="pt-6">
           <>
-            {documents.loading && <Loading label="Reading this run’s document plan…" />}
-            {documents.error && (
-              <Notice alarm>
-                {documents.error}
-                <button
-                  className="ops-button"
-                  type="button"
-                  onClick={() => void documents.load((signal) => plan(run, signal))}
-                >
-                  Read plan again
-                </button>
-              </Notice>
-            )}
-            {selected && (
-              <>
-                <div className="ops-plan-summary">
-                  <div>
-                    <strong>{count(selected.documents.length)}</strong>
-                    <span>documents offered</span>
-                  </div>
-                  <div>
-                    <strong>
-                      {bytes(selected.documents.reduce((sum, doc) => sum + (doc.bytes ?? 0), 0))}
-                    </strong>
-                    <span>
-                      known size ·{" "}
-                      {selected.documents.filter((doc) => doc.bytes === undefined).length} unknown
-                    </span>
-                  </div>
-                </div>
-                <label className="ops-search">
-                  <Icon name="search" />
-                  <input
-                    aria-label="Search documents"
-                    placeholder="Find a document or host…"
-                    value={query}
-                    onChange={(event) => {
-                      setQuery(event.target.value);
-                      setDocumentPage(0);
-                    }}
-                  />
-                </label>
-                <div className="ops-document-list">
-                  {matchingDocuments
-                    .slice(documentPage * 50, (documentPage + 1) * 50)
-                    .map((doc) => (
-                      <a href={doc.url} target="_blank" rel="noopener" key={doc.url}>
-                        <span className="ops-file-icon">
-                          {new URL(doc.url).pathname.split(".").pop()?.slice(0, 4).toUpperCase() ||
-                            "FILE"}
-                        </span>
-                        <span>
-                          <strong>{decodeName(doc.url)}</strong>
-                          <small>
-                            {doc.host} · {bytes(doc.bytes)}
-                            {doc.cited ? " · cited by a record" : ""}
-                          </small>
-                        </span>
-                        <Icon name="arrowUpRight" />
-                      </a>
-                    ))}
-                </div>
-                <Pages
-                  page={documentPage}
-                  total={matchingDocuments.length}
-                  onPage={setDocumentPage}
-                  label="documents"
-                />
-                {reviewing && !documents.error && submission?.state !== "sent" && (
-                  <div className="ops-approval">
-                    <p className="ops-eyebrow">REVIEW BEFORE DOWNLOADING</p>
-                    <h3>Give this run the go-ahead.</h3>
-                    <p>
-                      A limit takes the documents the records already cite first, then the rest in
-                      the plan’s order. This approval applies only to the workflow shown above and
-                      is attributed to <strong>{login}</strong>.
-                    </p>
-                    <label>
-                      Maximum documents
-                      <input
-                        type="number"
-                        min="1"
-                        max={selected.documents.length}
-                        value={limit}
-                        disabled={!!submission}
-                        onChange={(event) => {
-                          setLimit(event.target.value);
-                          setAcknowledged(false);
-                        }}
-                      />
-                    </label>
-                    <label className="ops-check">
-                      <input
-                        type="checkbox"
-                        checked={acknowledged}
-                        disabled={!!submission}
-                        onChange={(event) => setAcknowledged(event.target.checked)}
-                      />
-                      <span>
-                        I reviewed this plan and approve downloading up to {limit || "—"} documents.
-                      </span>
-                    </label>
-                    <button
-                      type="button"
-                      className="ops-button primary"
-                      disabled={
-                        documents.loading ||
-                        !acknowledged ||
-                        !!submission ||
-                        !Number.isSafeInteger(Number(limit)) ||
-                        Number(limit) < 1 ||
-                        Number(limit) > selected.documents.length
-                      }
-                      onClick={() => void submit()}
-                    >
-                      Approve downloads <Icon name="arrowRight" />
-                    </button>
-                  </div>
-                )}
-                {submission && (
-                  <Notice alarm={submission.state === "uncertain"}>{submission.text}</Notice>
-                )}
-                {!reviewing && !submission && (
-                  <p className="ops-note">
-                    This snapshot does not show a workflow awaiting download approval.
-                  </p>
-                )}
-              </>
-            )}
-          </>
-        ))}
-      {tab === "archive" &&
-        (!run ? (
-          <Empty title="No run files to locate">
-            The current snapshot has no workflow instance for this entity.
-          </Empty>
-        ) : (
-          <>
-            <p className="ops-note">
-              Files belonging to run <code>{run.run}</code>. Open text artifacts to inspect their
-              contents.
-            </p>
-            {files.loading && <Loading label="Listing run files…" />}
-            {files.error && (
-              <Notice alarm>
-                {files.error}
+            <div className="ops-next">
+              <p className="ops-eyebrow">NEXT STEP</p>
+              <h3>{row.next}</h3>
+              {reviewing && submission?.state !== "sent" && (
                 <button
                   type="button"
-                  className="ops-button"
-                  onClick={() => void files.load((signal) => archive(run, signal))}
+                  className="ops-button primary"
+                  onClick={() => view("documents")}
                 >
-                  Try again
+                  Review download plan <Icon name="arrowRight" />
                 </button>
-              </Notice>
-            )}
-            {files.value?.length === 0 && (
-              <Empty title="No files yet">This run has not written any artifacts.</Empty>
-            )}
-            <div className="ops-artifacts">
-              {files.value?.slice(filePage * 50, (filePage + 1) * 50).map((file) => (
-                <div key={file}>
-                  <code>{file.slice(runPrefix(run).length + 1)}</code>
-                  {/\.(json|jsonl|md|txt)$/.test(file) ? (
-                    <a
-                      href={archiveUrl(file)}
-                      target="_blank"
-                      rel="noopener"
-                      aria-label={`Open ${file}`}
-                    >
-                      <Icon name="arrowUpRight" />
-                    </a>
-                  ) : (
-                    <span className="ops-note">Binary artifact</span>
-                  )}
+              )}
+            </div>
+            <dl className="ops-facts">
+              {facts.map(([label, value]) => (
+                <div key={label}>
+                  <dt>{label}</dt>
+                  <dd>{count(value)}</dd>
                 </div>
               ))}
-            </div>
-            <Pages
-              page={filePage}
-              total={files.value?.length ?? 0}
-              onPage={setFilePage}
-              label="files"
-            />
+            </dl>
+            <p className="ops-note">A dash means the archive has not reported a count.</p>
+            <dl className="ops-meta">
+              <div>
+                <dt>Entity</dt>
+                <dd>{row.entity}</dd>
+              </div>
+              <div>
+                <dt>Run ID</dt>
+                <dd>{run?.run ?? "Not reported"}</dd>
+              </div>
+              <div>
+                <dt>Workflow instance</dt>
+                <dd>{run?.instance ?? "Not recorded"}</dd>
+              </div>
+              {row.maker && (
+                <div>
+                  <dt>Approved by</dt>
+                  <dd>{row.maker.approvedBy ?? "No approval recorded"}</dd>
+                </div>
+              )}
+            </dl>
+            {run?.error && <Notice alarm>{run.error}</Notice>}
+            <a className="ops-text-link" href="/#explore" target="_blank" rel="noopener">
+              Explore published equipment <Icon name="arrowUpRight" />
+            </a>
           </>
-        ))}
-      {tab === "actions" && <NewRun row={row} onChanged={onChanged} />}
+        </Tabs.Panel>
+        <Tabs.Panel value="documents" className="pt-6">
+          {!run ? (
+            <Empty title="No workflow instance recorded">
+              Refresh the workspace before reviewing a download plan.
+            </Empty>
+          ) : (
+            <>
+              {documents.loading && <Loading label="Reading this run’s document plan…" />}
+              {documents.error && (
+                <Notice alarm>
+                  {documents.error}
+                  <button
+                    className="ops-button"
+                    type="button"
+                    onClick={() => void documents.load((signal) => plan(run, signal))}
+                  >
+                    Read plan again
+                  </button>
+                </Notice>
+              )}
+              {selected && (
+                <>
+                  <div className="ops-plan-summary">
+                    <div>
+                      <strong>{count(selected.documents.length)}</strong>
+                      <span>documents offered</span>
+                    </div>
+                    <div>
+                      <strong>
+                        {bytes(selected.documents.reduce((sum, doc) => sum + (doc.bytes ?? 0), 0))}
+                      </strong>
+                      <span>
+                        known size ·{" "}
+                        {selected.documents.filter((doc) => doc.bytes === undefined).length} unknown
+                      </span>
+                    </div>
+                  </div>
+                  <label className="ops-search">
+                    <Icon name="search" />
+                    <input
+                      aria-label="Search documents"
+                      placeholder="Find a document or host…"
+                      value={query}
+                      onChange={(event) => {
+                        setQuery(event.target.value);
+                        setDocumentPage(0);
+                      }}
+                    />
+                  </label>
+                  <div className="ops-document-list">
+                    {matchingDocuments
+                      .slice(documentPage * 50, (documentPage + 1) * 50)
+                      .map((doc) => (
+                        <a href={doc.url} target="_blank" rel="noopener" key={doc.url}>
+                          <span className="ops-file-icon">
+                            {new URL(doc.url).pathname
+                              .split(".")
+                              .pop()
+                              ?.slice(0, 4)
+                              .toUpperCase() || "FILE"}
+                          </span>
+                          <span>
+                            <strong>{decodeName(doc.url)}</strong>
+                            <small>
+                              {doc.host} · {bytes(doc.bytes)}
+                              {doc.cited ? " · cited by a record" : ""}
+                            </small>
+                          </span>
+                          <Icon name="arrowUpRight" />
+                        </a>
+                      ))}
+                  </div>
+                  <Pages
+                    page={documentPage}
+                    total={matchingDocuments.length}
+                    onPage={setDocumentPage}
+                    label="documents"
+                  />
+                  {reviewing && !documents.error && submission?.state !== "sent" && (
+                    <div className="ops-approval">
+                      <p className="ops-eyebrow">REVIEW BEFORE DOWNLOADING</p>
+                      <h3>Give this run the go-ahead.</h3>
+                      <p>
+                        A limit takes the documents the records already cite first, then the rest in
+                        the plan’s order. This approval applies only to the workflow shown above and
+                        is attributed to <strong>{login}</strong>.
+                      </p>
+                      <label>
+                        Maximum documents
+                        <input
+                          type="number"
+                          min="1"
+                          max={selected.documents.length}
+                          value={limit}
+                          disabled={!!submission}
+                          onChange={(event) => {
+                            setLimit(event.target.value);
+                            setAcknowledged(false);
+                          }}
+                        />
+                      </label>
+                      <label className="ops-check">
+                        <input
+                          type="checkbox"
+                          checked={acknowledged}
+                          disabled={!!submission}
+                          onChange={(event) => setAcknowledged(event.target.checked)}
+                        />
+                        <span>
+                          I reviewed this plan and approve downloading up to {limit || "—"}{" "}
+                          documents.
+                        </span>
+                      </label>
+                      <button
+                        type="button"
+                        className="ops-button primary"
+                        disabled={
+                          documents.loading ||
+                          !acknowledged ||
+                          !!submission ||
+                          !Number.isSafeInteger(Number(limit)) ||
+                          Number(limit) < 1 ||
+                          Number(limit) > selected.documents.length
+                        }
+                        onClick={() => void submit()}
+                      >
+                        Approve downloads <Icon name="arrowRight" />
+                      </button>
+                    </div>
+                  )}
+                  {submission && (
+                    <Notice alarm={submission.state === "uncertain"}>{submission.text}</Notice>
+                  )}
+                  {!reviewing && !submission && (
+                    <p className="ops-note">
+                      This snapshot does not show a workflow awaiting download approval.
+                    </p>
+                  )}
+                </>
+              )}
+            </>
+          )}
+        </Tabs.Panel>
+        <Tabs.Panel value="archive" className="pt-6">
+          {!run ? (
+            <Empty title="No run files to locate">
+              The current snapshot has no workflow instance for this entity.
+            </Empty>
+          ) : (
+            <>
+              <p className="ops-note">
+                Files belonging to run <code>{run.run}</code>. Open text artifacts to inspect their
+                contents.
+              </p>
+              {files.loading && <Loading label="Listing run files…" />}
+              {files.error && (
+                <Notice alarm>
+                  {files.error}
+                  <button
+                    type="button"
+                    className="ops-button"
+                    onClick={() => void files.load((signal) => archive(run, signal))}
+                  >
+                    Try again
+                  </button>
+                </Notice>
+              )}
+              {files.value?.length === 0 && (
+                <Empty title="No files yet">This run has not written any artifacts.</Empty>
+              )}
+              <div className="ops-artifacts">
+                {files.value?.slice(filePage * 50, (filePage + 1) * 50).map((file) => (
+                  <div key={file}>
+                    <code>{file.slice(runPrefix(run).length + 1)}</code>
+                    {/\.(json|jsonl|md|txt)$/.test(file) ? (
+                      <a
+                        href={archiveUrl(file)}
+                        target="_blank"
+                        rel="noopener"
+                        aria-label={`Open ${file}`}
+                      >
+                        <Icon name="arrowUpRight" />
+                      </a>
+                    ) : (
+                      <span className="ops-note">Binary artifact</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+              <Pages
+                page={filePage}
+                total={files.value?.length ?? 0}
+                onPage={setFilePage}
+                label="files"
+              />
+            </>
+          )}
+        </Tabs.Panel>
+        <Tabs.Panel value="actions" className="pt-6">
+          <NewRun row={row} onChanged={onChanged} />
+        </Tabs.Panel>
+      </Tabs.Root>
     </Drawer>
   );
 }

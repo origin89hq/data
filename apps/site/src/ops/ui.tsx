@@ -1,4 +1,5 @@
-import { type ReactNode, useEffect, useRef } from "react";
+import { Dialog } from "@base-ui-components/react/dialog";
+import type { ReactNode } from "react";
 import { Icon } from "../icons.tsx";
 export function Status({ value }: { value?: string }) {
   const tone =
@@ -40,6 +41,13 @@ export function Notice({ children, alarm = false }: { children: ReactNode; alarm
     </div>
   );
 }
+/**
+ * The run drawer.
+ *
+ * The native `<dialog>` this replaces trapped focus and closed on Escape, but left the page
+ * behind it scrolling, ignored a click on the backdrop, and returned focus to the document rather
+ * than to the row that opened it, so a keyboard restarted from the top of the page each time.
+ */
 export function Drawer({
   title,
   eyebrow,
@@ -51,40 +59,31 @@ export function Drawer({
   onClose: () => void;
   children: ReactNode;
 }) {
-  const ref = useRef<HTMLDialogElement>(null);
-  useEffect(() => {
-    const dialog = ref.current;
-    dialog?.showModal();
-    return () => dialog?.close();
-  }, []);
   return (
-    <dialog
-      className="ops-drawer"
-      ref={ref}
-      aria-labelledby="ops-detail-title"
-      onCancel={(event) => {
-        event.preventDefault();
-        onClose();
-      }}
-    >
-      <header>
-        <div>
-          <p className="ops-eyebrow">{eyebrow}</p>
-          <h2 id="ops-detail-title">{title}</h2>
-        </div>
-        <button
-          className="ops-icon-button"
-          type="button"
-          aria-label="Close details"
-          onClick={onClose}
-        >
-          <Icon name="close" />
-        </button>
-      </header>
-      <div className="ops-drawer-body">{children}</div>
-    </dialog>
+    <Dialog.Root open onOpenChange={(next) => !next && onClose()}>
+      <Dialog.Portal>
+        <Dialog.Backdrop className="fixed inset-0 z-50 bg-page/65" />
+        <Dialog.Popup className="ops-drawer fixed inset-y-0 right-0 z-50 flex h-dvh w-[min(680px,100%)] flex-col border-l border-line-strong bg-page text-sm text-fg">
+          <header className="flex items-center justify-between gap-5 border-b border-line px-7 py-6 max-[640px]:px-5">
+            <div className="min-w-0">
+              <p className="ops-eyebrow">{eyebrow}</p>
+              <Dialog.Title className="text-[28px] font-bold tracking-[-0.035em] max-[640px]:text-2xl">
+                {title}
+              </Dialog.Title>
+            </div>
+            <Dialog.Close className="ops-icon-button" aria-label="Close details">
+              <Icon name="close" />
+            </Dialog.Close>
+          </header>
+          <div className="min-h-0 flex-1 overflow-auto px-7 pt-6 pb-12 max-[640px]:px-5">
+            {children}
+          </div>
+        </Dialog.Popup>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 }
+
 export function Empty({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div className="ops-empty">
