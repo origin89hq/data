@@ -74,7 +74,7 @@ export function Releases({ selected, refresh }: { selected?: string; refresh: nu
             snapshots.
           </Empty>
         ) : (
-          <div className="ops-release-list">
+          <div className="my-6 max-h-[480px] overflow-auto [&_article]:grid [&_article]:grid-cols-[minmax(200px,1fr)_1fr_auto] [&_article]:items-center [&_article]:gap-5 [&_article]:border-t [&_article]:border-line [&_article]:px-4 [&_article]:py-5 [&_article]:max-[800px]:grid-cols-1 [&_article]:max-[800px]:gap-4 [&_article]:max-[800px]:px-0 [&_article.selected]:bg-surface-raised [&_article.selected]:shadow-[inset_2px_0_var(--color-signal)] [&_article>button]:max-[800px]:justify-self-start [&_h3]:mt-2.5 [&_h3]:mb-1.5 [&_h3]:text-[20px] [&_time]:font-data [&_time]:text-[12px] [&_time]:leading-[normal] [&_time]:text-faint">
             {releases.map((release, i) => (
               <article key={release.id} className={destination === release.id ? "selected" : ""}>
                 <div>
@@ -84,7 +84,7 @@ export function Releases({ selected, refresh }: { selected?: string; refresh: nu
                   </h3>
                   <time dateTime={release.at}>{when(release.at)}</time>
                 </div>
-                <div className="ops-history-meta">
+                <div className="flex flex-wrap items-center gap-x-[18px] gap-y-2 text-[12px] text-faint [&_a]:inline-flex [&_a]:items-center [&_a]:gap-1 [&_a]:text-link [&_svg]:size-[13px]">
                   <span>{Object.keys(release.files).length} files</span>
                   <code title={release.content}>Content {release.content.slice(0, 12)}</code>
                   <a href={`${repo}/commit/${release.sha}`} target="_blank" rel="noopener">
@@ -153,7 +153,7 @@ export function Releases({ selected, refresh }: { selected?: string; refresh: nu
             </div>
           </div>
           <form
-            className="ops-history-filters ops-compare-controls"
+            className="my-6 flex flex-wrap items-end gap-3.5 [&>label]:grid [&>label]:gap-2 [&>label]:text-[13px] [&>label]:text-muted [&>label]:max-[800px]:flex-[1_1_140px] [&_select]:bevel-sm [&_select]:max-w-full [&_select]:min-h-[42px] [&_select]:border [&_select]:border-line-strong [&_select]:bg-surface-raised [&_select]:px-3 [&_select]:py-2.5 [&_select]:font-[inherit] [&_select]:text-fg [&_input]:bevel-sm [&_input]:max-w-full [&_input]:min-h-[42px] [&_input]:border [&_input]:border-line-strong [&_input]:bg-surface-raised [&_input]:px-3 [&_input]:py-2.5 [&_input]:font-[inherit] [&_input]:text-fg [@media(pointer:coarse)]:[&_select]:min-h-11 [@media(pointer:coarse)]:[&_input]:min-h-11 [&_button]:max-[800px]:w-full mt-6"
             onSubmit={(event) => {
               event.preventDefault();
               setComparison(
@@ -204,7 +204,7 @@ export function Releases({ selected, refresh }: { selected?: string; refresh: nu
                 <option value="changed">Changed</option>
               </select>
             </label>
-            <label className="ops-history-search">
+            <label className="min-w-[180px] flex-1">
               Record ID
               <input
                 type="search"
@@ -266,7 +266,7 @@ function Compare({ query }: { query: string }) {
   }, [load, query, offset]);
   const value = result.value;
   return (
-    <div className="ops-comparison">
+    <div className="mt-6">
       {result.error && (
         <Notice alarm>
           {value ? "Comparison refresh failed; the prior page is shown. " : ""}
@@ -310,7 +310,7 @@ function Compare({ query }: { query: string }) {
                 Source comparison <Icon name="arrowUpRight" />
               </TextLink>
             </div>
-            <div className="ops-diff-stats">
+            <div className="my-[22px] grid grid-cols-3 gap-px border border-line bg-line [&>div]:grid [&>div]:gap-2 [&>div]:bg-surface [&>div]:p-5 [&>div]:max-[800px]:p-4 [&_strong]:text-[32px] [&_strong]:font-semibold [&_strong]:tracking-[-0.035em] [&_strong]:tabular-nums [&_span]:font-data [&_span]:text-[12px] [&_span]:leading-[normal] [&_span]:tracking-[0.05em] [&_span]:text-faint [&_span]:uppercase">
               {(["added", "removed", "changed"] as const).map((kind) => (
                 <div key={kind} className={kind}>
                   <strong>{count(value.counts[kind])}</strong>
@@ -329,7 +329,7 @@ function Compare({ query }: { query: string }) {
                 Try another record type or adjust the filters. File changes are listed below.
               </Empty>
             ) : (
-              <div className="ops-record-diffs">
+              <div className="[&_details]:border-t [&_details]:border-t-line [&_details]:py-3.5 [&_summary]:flex [&_summary]:cursor-pointer [&_summary]:items-center [&_summary]:gap-3 [&_summary]:text-[13px] [&_summary_code]:flex-1 [&_summary_code]:font-data [&_summary_code]:wrap-anywhere [&_summary]:after:font-data [&_summary]:after:text-[18px] [&_summary]:after:leading-[normal] [&_summary]:after:text-faint [&_summary]:after:content-['+'] [&_details[open]_summary]:after:content-['\2212']">
                 {value.changes.map((item) => (
                   <details key={item.id}>
                     <summary>
@@ -343,7 +343,7 @@ function Compare({ query }: { query: string }) {
                       </span>
                     </summary>
                     <p className="ops-note">Changed paths: {item.fields.join(", ")}</p>
-                    <div className="ops-diff-values">
+                    <div className="my-4 grid grid-cols-2 gap-4 max-[800px]:grid-cols-1 [&>div]:min-w-0 [&_h4]:my-2.5 [&_h4]:text-[13px] [&_h4]:font-medium [&_h4]:text-muted [&_pre]:bevel-[10px] [&_pre]:max-h-[420px] [&_pre]:overflow-auto [&_pre]:border [&_pre]:border-line [&_pre]:bg-surface [&_pre]:p-3.5 [&_pre]:font-data [&_pre]:text-[12px] [&_pre]:leading-[1.6]">
                       <div>
                         <h4>Before</h4>
                         <pre>
@@ -361,7 +361,7 @@ function Compare({ query }: { query: string }) {
                 ))}
               </div>
             )}
-            <div className="ops-history-footer">
+            <div className="flex flex-wrap items-center justify-between gap-4 border-t border-line pt-[18px] [&>div]:flex [&>div]:flex-wrap [&>div]:items-center [&>div]:gap-3.5">
               <span className="ops-note">Page {Math.floor(value.offset / 10) + 1}</span>
               <div>
                 <Button
@@ -380,7 +380,7 @@ function Compare({ query }: { query: string }) {
                 </Button>
               </div>
             </div>
-            <details className="ops-file-diff">
+            <details className="mt-[26px] [&>summary]:cursor-pointer [&>summary]:px-0 [&>summary]:py-3.5 [&>summary]:text-sm">
               <summary>{value.files.length} changed files across the dataset</summary>
               <Table>
                 <thead>
