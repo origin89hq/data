@@ -20,8 +20,12 @@ export const EXTRACT_MODEL = "@cf/moonshotai/kimi-k2.7-code";
 /**
  * 3: the reader labels each product (a product, a family, a kit, another company's) and each figure
  * (a rating, a setting, an instruction, a test, an example), and only ratings of products are kept.
+ * 4: a PDF is converted from where its characters sit, so a table keeps its columns and a value
+ * stays under the model it belongs to, and each window is read with the section the document prints
+ * it in. A reading is keyed by the document, the maker and the reader, but not by the converter, so
+ * this version is what makes documents be read from the new text rather than from the old.
  */
-export const EXTRACT_PROMPT_VERSION = "3";
+export const EXTRACT_PROMPT_VERSION = "4";
 export const EXTRACTOR_ID = `ai:${EXTRACT_MODEL}@p${EXTRACT_PROMPT_VERSION}`;
 
 /**
@@ -32,6 +36,7 @@ export const EXTRACTOR_ID = `ai:${EXTRACT_MODEL}@p${EXTRACT_PROMPT_VERSION}`;
 export const EARLIER_EXTRACTOR_IDS: readonly string[] = [
   "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
   "ai:@cf/moonshotai/kimi-k2.7-code@p2",
+  "ai:@cf/moonshotai/kimi-k2.7-code@p3",
 ];
 
 /**

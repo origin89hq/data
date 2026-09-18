@@ -1,4 +1,6 @@
 import { init, type WrappedPdfiumModule } from "@embedpdf/pdfium";
+import { type Char, type Heading, headingsOn, markdownOf } from "./layout.ts";
+import { MAX_PAGES } from "./reading.ts";
 
 /**
  * Drawing a PDF page inside a Worker, which has no canvas.
@@ -12,6 +14,7 @@ import { init, type WrappedPdfiumModule } from "@embedpdf/pdfium";
  * with the same binary the Worker runs.
  */
 export type Pdfium = WrappedPdfiumModule;
+export type { Char, Heading };
 
 /** Pixels on the long edge of a drawn page: small type in a spec table stays legible to the model. */
 export const LONG_EDGE = 1600;
@@ -139,8 +142,287 @@ export function renderPage(
   }
 }
 
+/**
+ * A whole document as Markdown, one page at a time, each under the page heading the reader windows
+ * on. Pages are read from where their characters sit, so a table stays a table; a page with no
+ * characters is left empty, and a document of those is a scan for the page reader.
+ */
+export function markdownOfDocument(
+  pdfium: Pdfium,
+  bytes: Uint8Array,
+  mostPages = MAX_PAGES,
+): string {
+  const pages = pageCount(pdfium, bytes);
+  const out: string[] = [];
+  for (let page = 1; page <= Math.min(pages, mostPages); page += 1) {
+    out.push(`### Page ${page}`);
+    // Said under the heading, not in it: the reader windows on the heading and would not find one
+    // written any other way.
+    const chars = charsOn(pdfium, bytes, page);
+    // Said only where there is text to qualify. A page of pictures and nothing else has nothing to
+    // read, and a notice on it would count as the document's text — an image-only PDF would then
+    // be stored as converted, and never reach the reader that draws its pages.
+    if (chars.length > 0 && picturesOn(pdfium, bytes, page) >= MOSTLY_DRAWN)
+      out.push("_This page is mostly a picture; the text on it labels what is drawn._");
+    out.push(markdownOf(chars, rulesOn(pdfium, bytes, page)));
+  }
+  return `${out.join("\n")}\n`;
+}
+
+/**
+ * A document's outline: every heading of every page, in order, with the page it stands on. One
+ * short list for a manual of eighty pages, which is what a reader can be asked about before it is
+ * asked to read anything.
+ */
+export function outlineOf(pdfium: Pdfium, bytes: Uint8Array, mostPages = MAX_PAGES): Heading[] {
+  const pages = Math.min(pageCount(pdfium, bytes), mostPages);
+  const outline: Heading[] = [];
+  for (let page = 1; page <= pages; page += 1)
+    outline.push(...headingsOn(charsOn(pdfium, bytes, page), page));
+  return outline;
+}
+
+/**
+ * How much of a page its pictures cover, as a fraction of it.
+ *
+ * A page a document draws is not a page it tabulates. EPEVER's appendix gives a conversion
+ * efficiency curve a page at a time, each headed "Solar Module MPP Voltage (17V, 34V)/Nominal
+ * System Voltage (13V)" — the conditions the curve was measured at, in the shape of a
+ * specification. Read as a table, ten such headings in sixty figures became ratings of a
+ * controller. A product photograph beside a paragraph covers a seventh of its page; these cover
+ * nearly half.
+ */
+export function picturesOn(pdfium: Pdfium, bytes: Uint8Array, page: number): number {
+  const pointer = pdfium.pdfium.wasmExports.malloc(bytes.length);
+  if (!pointer) throw new Error(`PDFium could not make room for ${bytes.length} bytes`);
+  try {
+    heap(pdfium).set(bytes, pointer);
+    const document = pdfium.FPDF_LoadMemDocument64(pointer, bytes.length, "");
+    if (!document) return 0;
+    try {
+      const loaded = pdfium.FPDF_LoadPage(document, page - 1);
+      if (!loaded) return 0;
+      const box = pdfium.pdfium.wasmExports.malloc(4 * 4);
+      try {
+        const width = pdfium.FPDF_GetPageWidthF(loaded);
+        const height = pdfium.FPDF_GetPageHeightF(loaded);
+        if (!(width > 0 && height > 0) || !box) return 0;
+        // What the pictures cover between them, marked on a grid over the page. Adding their areas
+        // up counted a picture drawn over another one twice, and counted what hangs off the page:
+        // enough of either and a page of specifications would be called a drawing, its text read as
+        // labels, and its ratings left out.
+        const over = new Uint8Array(GRID * GRID);
+        for (let i = 0; i < pdfium.FPDFPage_CountObjects(loaded); i += 1) {
+          const object = pdfium.FPDFPage_GetObject(loaded, i);
+          // 3 is an image; text, paths and shading are what a table and its rules are made of.
+          if (pdfium.FPDFPageObj_GetType(object) !== 3) continue;
+          if (!pdfium.FPDFPageObj_GetBounds(object, box, box + 4, box + 8, box + 12)) continue;
+          const at = new Float32Array(heap(pdfium).buffer, box, 4);
+          const [left, bottom, right, top] = at;
+          if (
+            left === undefined ||
+            bottom === undefined ||
+            right === undefined ||
+            top === undefined
+          )
+            continue;
+          const fromX = Math.max(0, left);
+          const fromY = Math.max(0, bottom);
+          const toX = Math.min(width, right);
+          const toY = Math.min(height, top);
+          for (
+            let x = Math.floor((fromX / width) * GRID);
+            x < Math.ceil((toX / width) * GRID);
+            x += 1
+          )
+            for (
+              let y = Math.floor((fromY / height) * GRID);
+              y < Math.ceil((toY / height) * GRID);
+              y += 1
+            )
+              if (x >= 0 && y >= 0 && x < GRID && y < GRID) over[y * GRID + x] = 1;
+        }
+        let cells = 0;
+        for (const cell of over) cells += cell;
+        return cells / (GRID * GRID);
+      } finally {
+        if (box) pdfium.pdfium.wasmExports.free(box);
+        pdfium.FPDF_ClosePage(loaded);
+      }
+    } finally {
+      pdfium.FPDF_CloseDocument(document);
+    }
+  } finally {
+    pdfium.pdfium.wasmExports.free(pointer);
+  }
+}
+
+/**
+ * Where a page rules its table: the x of every line drawn down it, in points.
+ *
+ * A ruled table says where its columns are, and reading them from the rules is exact where reading
+ * them from the text is a guess. It is also the only way to see a cell drawn across two columns:
+ * EPEVER's specification table merges XTRA1206N and XTRA2206N into one cell, and placed under one
+ * of them the other model took the value of the model after it.
+ */
+export function rulesOn(pdfium: Pdfium, bytes: Uint8Array, page: number): number[] {
+  const pointer = pdfium.pdfium.wasmExports.malloc(bytes.length);
+  if (!pointer) throw new Error(`PDFium could not make room for ${bytes.length} bytes`);
+  try {
+    heap(pdfium).set(bytes, pointer);
+    const document = pdfium.FPDF_LoadMemDocument64(pointer, bytes.length, "");
+    if (!document) return [];
+    try {
+      const loaded = pdfium.FPDF_LoadPage(document, page - 1);
+      if (!loaded) return [];
+      const box = pdfium.pdfium.wasmExports.malloc(4 * 4);
+      try {
+        if (!box) return [];
+        const down: number[] = [];
+        for (let i = 0; i < pdfium.FPDFPage_CountObjects(loaded); i += 1) {
+          const object = pdfium.FPDFPage_GetObject(loaded, i);
+          // 2 is a path: the lines a table is ruled with, among whatever else is drawn.
+          if (pdfium.FPDFPageObj_GetType(object) !== 2) continue;
+          if (!pdfium.FPDFPageObj_GetBounds(object, box, box + 4, box + 8, box + 12)) continue;
+          const at = new Float32Array(heap(pdfium).buffer, box, 4);
+          const [left, bottom, right, top] = at;
+          if (
+            left === undefined ||
+            bottom === undefined ||
+            right === undefined ||
+            top === undefined
+          )
+            continue;
+          // A rule down the page is thin and long; a box, an arrow or a logo is neither.
+          if (right - left < RULE_THIN && top - bottom > RULE_LONG) down.push((left + right) / 2);
+        }
+        return down.sort((a, b) => a - b);
+      } finally {
+        if (box) pdfium.pdfium.wasmExports.free(box);
+        pdfium.FPDF_ClosePage(loaded);
+      }
+    } finally {
+      pdfium.FPDF_CloseDocument(document);
+    }
+  } finally {
+    pdfium.pdfium.wasmExports.free(pointer);
+  }
+}
+
+/** How thin a drawn line must be to be a rule, and how long, in points. */
+const RULE_THIN = 2;
+const RULE_LONG = 5;
+
+/** How finely a page is divided to measure what its pictures cover between them. */
+const GRID = 64;
+
+/** How much of a page must be picture before its text is read as labelling one. */
+export const MOSTLY_DRAWN = 0.3;
+
+/** How many pages a document has, without drawing or reading any of them. */
+export function pageCount(pdfium: Pdfium, bytes: Uint8Array): number {
+  const pointer = pdfium.pdfium.wasmExports.malloc(bytes.length);
+  if (!pointer) throw new Error(`PDFium could not make room for ${bytes.length} bytes`);
+  try {
+    heap(pdfium).set(bytes, pointer);
+    const document = pdfium.FPDF_LoadMemDocument64(pointer, bytes.length, "");
+    if (!document)
+      throw new Error(
+        `PDFium could not open it: ${LOAD_ERRORS[pdfium.FPDF_GetLastError()] ?? "an unknown error"}`,
+      );
+    try {
+      return pdfium.FPDF_GetPageCount(document);
+    } finally {
+      pdfium.FPDF_CloseDocument(document);
+    }
+  } finally {
+    pdfium.pdfium.wasmExports.free(pointer);
+  }
+}
+
 const heap = (pdfium: Pdfium): Uint8Array =>
   (pdfium.pdfium as unknown as { HEAPU8: Uint8Array }).HEAPU8;
+
+/**
+ * Every character of a page, with the box PDFium says it occupies, in points from the bottom left.
+ *
+ * The same library the page reader draws with knows where each character sits, so a table can be
+ * read from the page rather than from a stream of text that lost its columns. A page drawn as
+ * pictures has no characters and gives none: that is what the page reader is for.
+ *
+ * Synchronous from opening the document to closing it, for the reason `renderPage` is.
+ */
+export function charsOn(pdfium: Pdfium, bytes: Uint8Array, page: number): Char[] {
+  const pointer = pdfium.pdfium.wasmExports.malloc(bytes.length);
+  if (!pointer) throw new Error(`PDFium could not make room for ${bytes.length} bytes`);
+  try {
+    heap(pdfium).set(bytes, pointer);
+    const document = pdfium.FPDF_LoadMemDocument64(pointer, bytes.length, "");
+    if (!document)
+      throw new Error(
+        `PDFium could not open it: ${LOAD_ERRORS[pdfium.FPDF_GetLastError()] ?? "an unknown error"}`,
+      );
+    try {
+      const pages = pdfium.FPDF_GetPageCount(document);
+      if (page < 1 || page > pages) throw new Error(`there is no page ${page} in ${pages}`);
+      const loaded = pdfium.FPDF_LoadPage(document, page - 1);
+      if (!loaded) throw new Error(`PDFium could not load page ${page}`);
+      try {
+        const text = pdfium.FPDFText_LoadPage(loaded);
+        if (!text) throw new Error(`PDFium could not read the text of page ${page}`);
+        try {
+          // Four doubles, written by PDFium and read back after every call: left, right, bottom, top.
+          const box = pdfium.pdfium.wasmExports.malloc(8 * 4);
+          if (!box) throw new Error("PDFium could not make room for a character box");
+          try {
+            const chars: Char[] = [];
+            const count = pdfium.FPDFText_CountChars(text);
+            for (let index = 0; index < count; index += 1) {
+              if (!pdfium.FPDFText_GetCharBox(text, index, box, box + 8, box + 16, box + 24))
+                continue;
+              const at = new Float64Array(heap(pdfium).buffer, box, 4);
+              const code = pdfium.FPDFText_GetUnicode(text, index);
+              const [left, right, bottom, top] = at;
+              if (
+                left === undefined ||
+                right === undefined ||
+                bottom === undefined ||
+                top === undefined
+              )
+                continue;
+              // Which way the character faces. A label printed up the side of a page is a line of
+              // its own, and read as though it were upright its letters fall one into each row it
+              // passes: a Progressive Dynamics manual came out as "OOCCACC/RERRTREVNERMINRTELE".
+              const angle = pdfium.FPDFText_GetCharAngle(text, index);
+              // The size it is set in, which is how a section's heading is told from its text.
+              const size = pdfium.FPDFText_GetFontSize(text, index);
+              chars.push({
+                text: String.fromCodePoint(code),
+                left,
+                right,
+                bottom,
+                top,
+                ...(Number.isFinite(angle) && Math.abs(angle) > 0.01 ? { angle } : {}),
+                ...(Number.isFinite(size) && size > 0 ? { size } : {}),
+              });
+            }
+            return chars;
+          } finally {
+            pdfium.pdfium.wasmExports.free(box);
+          }
+        } finally {
+          pdfium.FPDFText_ClosePage(text);
+        }
+      } finally {
+        pdfium.FPDF_ClosePage(loaded);
+      }
+    } finally {
+      pdfium.FPDF_CloseDocument(document);
+    }
+  } finally {
+    pdfium.pdfium.wasmExports.free(pointer);
+  }
+}
 
 const CRC_TABLE = (() => {
   const table = new Uint32Array(256);
