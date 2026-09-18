@@ -520,6 +520,21 @@ test("the text reader tells the model whose document it reads, by the maker's na
   );
 });
 
+test("the reader is told a condition belongs beside its figure, never as one", () => {
+  // A cell reads "138V (At 25℃)" or "≤14mA(12V), ≤9mA(24V)", and the reader answered with figures
+  // named "Maximum PV Open-circuit Voltage conditions" whose value was "At 25ºC": seven of sixty in
+  // a manual read this way, judged against pictures of its pages.
+  assert.match(SYSTEM, /A CONDITION IS NOT A FIGURE\./);
+  assert.match(SYSTEM, /belongs in its conditions field/);
+  assert.match(SYSTEM, /never name a figure after one/);
+  // The answer has somewhere to put it.
+  assert.equal(
+    TEXT_RESPONSE_SCHEMA.properties.products.items.properties.specs.items.properties.conditions
+      .type,
+    "string",
+  );
+});
+
 test("a window is read with the section the document prints it in, when the converter found one", async () => {
   const outline = [
     { title: "2.3 Wire size and circuit breaker", from: 1, to: 1 },
