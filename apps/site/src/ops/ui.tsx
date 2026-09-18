@@ -58,6 +58,66 @@ export function TextLink({ className = "", ...rest }: ComponentProps<"a">) {
   return <a className={`${TEXT} ${className}`} {...rest} />;
 }
 
+/* Tables. The head, body and hover treatments are descendant rules by nature, so they ride on the
+ * wrapper as variants rather than being repeated on every th and td a view writes. */
+export function Table({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return (
+    <div className={`-mx-6 overflow-x-auto max-[640px]:-mx-4 ${className}`}>
+      <table className="w-full min-w-[750px] border-collapse text-left text-[13px] [&_thead_th]:border-b [&_thead_th]:border-line [&_thead_th]:bg-surface-raised [&_thead_th]:px-5 [&_thead_th]:py-3 [&_thead_th]:font-data [&_thead_th]:text-[12px] [&_thead_th]:leading-[normal] [&_thead_th]:font-normal [&_thead_th]:tracking-[0.04em] [&_thead_th]:whitespace-nowrap [&_thead_th]:text-faint [&_thead_th]:uppercase [&_tbody_td]:border-t [&_tbody_td]:border-line [&_tbody_td]:px-5 [&_tbody_td]:py-4 [&_tbody_td]:align-middle [&_tbody_td]:font-normal [&_tbody_td]:text-muted [&_tbody_th]:border-t [&_tbody_th]:border-line [&_tbody_th]:px-5 [&_tbody_th]:py-4 [&_tbody_th]:align-middle [&_tbody_th]:font-normal [&_tbody_th]:text-muted [&_tbody_tr:hover_td]:bg-surface-raised [&_tbody_tr:hover_td]:text-fg [&_tbody_tr:hover_th]:bg-surface-raised [&_tbody_tr:hover_th]:text-fg [&_details]:mt-1.5 [&_details]:text-[12px] [&_details]:text-faint [&_details_code]:mt-1.5 [&_details_code]:block [&_details_code]:max-w-[230px] [&_details_code]:font-data [&_details_code]:whitespace-normal [&_details_code]:wrap-anywhere">
+        {children}
+      </table>
+    </div>
+  );
+}
+
+export function TableFoot({ children }: { children: ReactNode }) {
+  return (
+    <div className="flex items-center justify-between gap-4 py-4 text-[12px] text-faint [&>div]:flex [&>div]:items-center [&>div]:gap-3">
+      {children}
+    </div>
+  );
+}
+
+export function Toolbar({ children }: { children: ReactNode }) {
+  return (
+    <div className="mb-4 flex items-center gap-3 max-[640px]:flex-wrap [&>label]:max-[640px]:basis-full [&_select]:bevel-sm [&_select]:min-h-10 [&_select]:border [&_select]:border-line-strong [&_select]:bg-surface-raised [&_select]:px-3 [&_select]:py-0 [&_select]:text-[13px] [&_select]:text-fg [@media(pointer:coarse)]:[&_select]:min-h-11 [&_select]:max-[640px]:w-full">
+      {children}
+    </div>
+  );
+}
+
+/* A search field. The label is the target, so the input stretches to fill it rather than leaving a
+ * dead band a finger can miss. */
+export function Search({ children }: { children: ReactNode }) {
+  return (
+    // Wrapping the field is the point: the whole box is the target, which is what the touch pass
+    // in #210 established for this control.
+    // biome-ignore lint/a11y/noLabelWithoutControl: the input is the child every caller passes in, so the rule cannot see it from here
+    <label className="bevel-sm flex min-h-10 flex-1 items-center gap-2.5 border border-line-strong bg-surface-raised px-3 focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-focus [@media(pointer:coarse)]:min-h-11 [&>svg]:text-muted [&_input]:w-full [&_input]:min-w-0 [&_input]:border-0 [&_input]:bg-transparent [&_input]:px-0 [&_input]:py-2.5 [&_input]:text-[13px] [&_input]:text-fg [&_input]:outline-none [@media(pointer:coarse)]:[&_input]:self-stretch [&_kbd]:border [&_kbd]:border-line-strong [&_kbd]:px-1.5 [&_kbd]:py-0.5 [&_kbd]:font-data [&_kbd]:text-[12px] [&_kbd]:leading-[normal] [&_kbd]:text-faint">
+      {children}
+    </label>
+  );
+}
+
+export function Filters({ children, ...rest }: ComponentProps<"section">) {
+  return (
+    <section
+      {...rest}
+      className="mb-5 flex flex-wrap gap-2 [&>button]:bevel-sm [&>button]:min-h-8 [&>button]:border [&>button]:border-transparent [&>button]:px-2.5 [&>button]:text-[12px] [&>button]:text-muted [&>button:hover]:text-fg [&>button[aria-pressed=true]]:border-line-strong [&>button[aria-pressed=true]]:bg-surface-raised [&>button[aria-pressed=true]]:text-fg [@media(pointer:coarse)]:[&>button]:min-h-11 [&_span]:ml-2 [&_span]:font-data [&_span]:text-[12px] [&_span]:leading-[normal] [&_span]:text-faint"
+    >
+      {children}
+    </section>
+  );
+}
+
+export function Tag({ children }: { children: ReactNode }) {
+  return (
+    <span className="border border-line-strong px-2 py-[5px] font-data text-[12px] leading-[normal] tracking-[0.04em] whitespace-nowrap text-faint max-[1250px]:hidden">
+      {children}
+    </span>
+  );
+}
+
 /* A reading's state is never carried by colour alone: each tone pairs its hue with a glyph and a
  * border treatment, so the row still separates in monochrome or under protanopia. */
 const TONE = {

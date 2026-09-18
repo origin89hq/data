@@ -8,7 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import { Icon } from "../icons.tsx";
 import { read } from "./api.ts";
-import { Button, Empty, Loading, Notice, Panel, TextButton, TextLink } from "./ui.tsx";
+import { Button, Empty, Loading, Notice, Panel, Table, Tag, TextButton, TextLink } from "./ui.tsx";
 import { useResource } from "./useResource.ts";
 import { bytes, count, when } from "./workspace.ts";
 
@@ -78,9 +78,7 @@ export function Releases({ selected, refresh }: { selected?: string; refresh: nu
             {releases.map((release, i) => (
               <article key={release.id} className={destination === release.id ? "selected" : ""}>
                 <div>
-                  <span className="ops-tag">
-                    {i === 0 ? "LATEST PUBLICATION" : "DATASET PUBLICATION"}
-                  </span>
+                  <Tag>{i === 0 ? "LATEST PUBLICATION" : "DATASET PUBLICATION"}</Tag>
                   <h3>
                     <code title={release.id}>{release.id.slice(0, 12)}</code>
                   </h3>
@@ -384,32 +382,30 @@ function Compare({ query }: { query: string }) {
             </div>
             <details className="ops-file-diff">
               <summary>{value.files.length} changed files across the dataset</summary>
-              <div className="ops-table-scroll">
-                <table className="ops-table">
-                  <thead>
-                    <tr>
-                      <th scope="col">File</th>
-                      <th scope="col">Change</th>
-                      <th scope="col">Rows before → after</th>
-                      <th scope="col">Size before → after</th>
+              <Table>
+                <thead>
+                  <tr>
+                    <th scope="col">File</th>
+                    <th scope="col">Change</th>
+                    <th scope="col">Rows before → after</th>
+                    <th scope="col">Size before → after</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {value.files.map((file) => (
+                    <tr key={file.name}>
+                      <th scope="row">{file.name}</th>
+                      <td>{file.change}</td>
+                      <td>
+                        {count(file.before?.rows)} → {count(file.after?.rows)}
+                      </td>
+                      <td>
+                        {bytes(file.before?.bytes)} → {bytes(file.after?.bytes)}
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {value.files.map((file) => (
-                      <tr key={file.name}>
-                        <th scope="row">{file.name}</th>
-                        <td>{file.change}</td>
-                        <td>
-                          {count(file.before?.rows)} → {count(file.after?.rows)}
-                        </td>
-                        <td>
-                          {bytes(file.before?.bytes)} → {bytes(file.after?.bytes)}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                  ))}
+                </tbody>
+              </Table>
             </details>
           </>
         )
