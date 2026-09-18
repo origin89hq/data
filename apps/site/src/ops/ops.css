@@ -15,59 +15,12 @@
   width: 18px;
   height: 18px;
 }
-
-/* Sidebar. */
-.ops-sidebar {
-  position: sticky;
-  top: 0;
-  height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  padding: 28px 16px 20px;
-  border-right: 1px solid var(--color-line);
-  background: var(--color-surface);
-}
-
-/* Top bar. */
-.ops-workspace {
-  min-width: 0;
-}
-
-/* Page heading. */
-.ops-page-heading {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 24px;
-  margin-bottom: 24px;
-}
 .ops-eyebrow {
   margin: 0 0 12px;
   font: 12px var(--font-data);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-faint);
-}
-
-/* Controls. The action fill is 2.40:1 on its own ground, so its rim carries the boundary. */
-.ops-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-height: 40px;
-  padding: 0 16px;
-  border: 1px solid var(--color-line-strong);
-  border-radius: 8px;
-  corner-shape: bevel;
-  background: var(--color-surface-raised);
-  color: var(--color-fg);
-  font-size: 13px;
-  font-weight: 500;
-  white-space: nowrap;
-  transition:
-    background 0.18s var(--ease),
-    border-color 0.18s var(--ease);
 }
 .ops-text-link {
   display: inline-flex;
@@ -141,194 +94,6 @@ small.ops-note {
 .ops-signin p {
   margin: 16px 0 24px;
   color: var(--color-muted);
-}
-
-/* The record drawer: one run, source or release, opened beside the table it came from. */
-.ops-drawer {
-  position: fixed;
-  inset: 0 0 0 auto;
-  width: min(680px, 100%);
-  max-width: 100%;
-  height: 100dvh;
-  max-height: 100dvh;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  border-left: 1px solid var(--color-line-strong);
-  border-radius: 0;
-  background: var(--color-page);
-  color: var(--color-fg);
-  overflow: auto;
-}
-.ops-drawer h3 {
-  margin: 8px 0 16px;
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 1.3;
-}
-.ops-drawer .ops-eyebrow {
-  overflow-wrap: anywhere;
-}
-.ops-detail-summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-.ops-next {
-  margin-bottom: 20px;
-  padding: 20px;
-  border: 1px solid var(--color-line);
-  border-radius: 12px;
-  corner-shape: bevel;
-  background: var(--color-surface);
-}
-.ops-facts {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0 24px;
-}
-.ops-facts > div {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--color-line);
-}
-.ops-facts dt {
-  color: var(--color-muted);
-  font-size: 13px;
-}
-.ops-facts dd {
-  margin: 0;
-  font: 15px var(--font-data);
-  font-variant-numeric: tabular-nums;
-}
-.ops-meta {
-  margin: 28px 0;
-}
-.ops-meta > div {
-  padding: 10px 0;
-}
-.ops-meta dt {
-  margin-bottom: 6px;
-  font: 12px var(--font-data);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--color-faint);
-}
-.ops-meta dd {
-  margin: 0;
-  font: 13px var(--font-data);
-  overflow-wrap: anywhere;
-}
-.ops-plan-summary {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  padding-bottom: 24px;
-}
-.ops-plan-summary strong {
-  display: block;
-  font-size: 32px;
-  font-weight: 600;
-  letter-spacing: -0.035em;
-  font-variant-numeric: tabular-nums;
-}
-.ops-plan-summary span {
-  display: block;
-  margin-top: 6px;
-  color: var(--color-faint);
-  font-size: 12px;
-}
-.ops-document-list {
-  max-height: 390px;
-  overflow: auto;
-  margin: 16px 0 24px;
-}
-.ops-document-list a {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--color-line);
-  color: var(--color-fg);
-}
-.ops-document-list a:hover {
-  color: var(--color-link);
-}
-.ops-document-list a > span:nth-child(2) {
-  min-width: 0;
-  flex: 1;
-}
-.ops-document-list strong {
-  display: block;
-  font-size: 13px;
-  font-weight: 500;
-  overflow-wrap: anywhere;
-}
-.ops-document-list small {
-  display: block;
-  margin-top: 4px;
-  color: var(--color-faint);
-  font-size: 12px;
-}
-.ops-file-icon {
-  padding: 6px 5px;
-  border: 1px solid var(--color-line-strong);
-  font: 12px var(--font-data);
-  color: var(--color-signal);
-}
-
-/* Forms: approvals, corrections and the plan editor. */
-.ops-approval,
-.ops-action-form {
-  padding: 20px;
-  border: 1px solid var(--color-line);
-  border-radius: 12px;
-  corner-shape: bevel;
-  background: var(--color-surface);
-}
-.ops-approval > p,
-.ops-action-form > p {
-  color: var(--color-muted);
-  font-size: 13px;
-  line-height: 1.65;
-}
-.ops-approval label,
-.ops-action-form label {
-  display: grid;
-  gap: 8px;
-  margin: 20px 0;
-  font-size: 13px;
-}
-.ops-approval input:not([type="checkbox"]),
-.ops-action-form input:not([type="checkbox"]) {
-  width: 100%;
-  min-width: 0;
-  padding: 10px 12px;
-  border: 1px solid var(--color-line-strong);
-  border-radius: 8px;
-  corner-shape: bevel;
-  background: var(--color-surface-raised);
-  color: var(--color-fg);
-}
-.ops-action-form small {
-  color: var(--color-faint);
-}
-.ops-approval .ops-check,
-.ops-action-form .ops-check {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  line-height: 1.6;
-}
-.ops-check input {
-  width: 16px;
-  height: 16px;
-  margin-top: 3px;
-  flex: none;
-  accent-color: var(--color-action);
 }
 .ops-inline-label {
   display: flex;
@@ -418,23 +183,6 @@ small.ops-note {
 .ops-field-grid textarea {
   resize: vertical;
   font: 13px / 1.7 var(--font-data);
-}
-
-/* Published artifacts. */
-.ops-artifacts > div {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--color-line);
-}
-.ops-artifacts code {
-  font: 12px var(--font-data);
-  overflow-wrap: anywhere;
-}
-.ops-artifacts a {
-  color: var(--color-link);
 }
 /* Activity. */
 
@@ -775,17 +523,6 @@ small.ops-note {
     flex-wrap: wrap;
     align-items: flex-start;
   }
-  .ops-next,
-  .ops-approval,
-  .ops-action-form {
-    padding: 18px;
-  }
-  .ops-facts {
-    grid-template-columns: 1fr;
-  }
-  .ops-plan-summary strong {
-    font-size: 26px;
-  }
   .ops-inline-label {
     white-space: normal;
   }
@@ -827,23 +564,9 @@ small.ops-note {
  * link, refresh activity and the filter row are exactly what gets reached one-handed away from a
  * desk, so on touch they take the guide's full target. */
 @media (pointer: coarse) {
-  .ops-quiet,
   .ops-text-link,
-  .ops-button,
   .ops-history-filters select,
   .ops-history-filters input {
-    min-height: 44px;
-  }
-  .ops-icon-button {
-    width: 44px;
-    height: 44px;
-  }
-  /* The label is the target, so let the field fill it rather than leave a dead 2px band. */
-
-  .ops-document-list a,
-  .ops-artifacts a {
-    display: inline-flex;
-    align-items: center;
     min-height: 44px;
   }
 }

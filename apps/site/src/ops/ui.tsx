@@ -204,7 +204,7 @@ export function Drawer({
     <Dialog.Root open onOpenChange={(next) => !next && onClose()}>
       <Dialog.Portal>
         <Dialog.Backdrop className="fixed inset-0 z-50 bg-page/65" />
-        <Dialog.Popup className="ops-drawer fixed inset-y-0 right-0 z-50 flex h-dvh w-[min(680px,100%)] flex-col border-l border-line-strong bg-page text-sm text-fg">
+        <Dialog.Popup className="fixed inset-y-0 right-0 z-50 flex h-dvh w-[min(680px,100%)] flex-col border-l border-line-strong bg-page text-sm text-fg [&_h3]:mt-2 [&_h3]:mb-4 [&_h3]:text-[20px] [&_h3]:leading-[1.3] [&_h3]:font-semibold [&_.ops-eyebrow]:wrap-anywhere [&_.ui-icon]:size-[18px]">
           <header className="flex items-center justify-between gap-5 border-b border-line px-7 py-6 max-[640px]:px-5">
             <div className="min-w-0">
               <p className="ops-eyebrow">{eyebrow}</p>
