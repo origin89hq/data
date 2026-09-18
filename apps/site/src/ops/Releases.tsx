@@ -8,7 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import { Icon } from "../icons.tsx";
 import { read } from "./api.ts";
-import { Button, Empty, Loading, Notice, TextButton, TextLink } from "./ui.tsx";
+import { Button, Empty, Loading, Notice, Panel, TextButton, TextLink } from "./ui.tsx";
 import { useResource } from "./useResource.ts";
 import { bytes, count, when } from "./workspace.ts";
 
@@ -32,7 +32,7 @@ export function Releases({ selected, refresh }: { selected?: string; refresh: nu
   const selectedMissing = destination && !releases.some((release) => release.id === destination);
   return (
     <>
-      <section className="ops-panel">
+      <Panel>
         <div className="ops-section-heading">
           <div>
             <p className="ops-eyebrow">PUBLISHED DATA / VERSION HISTORY</p>
@@ -145,9 +145,9 @@ export function Releases({ selected, refresh }: { selected?: string; refresh: nu
             Load older versions
           </Button>
         )}
-      </section>
+      </Panel>
       {(releases.length >= 2 || selectedMissing) && (
-        <section className="ops-panel">
+        <Panel>
           <div className="ops-section-heading">
             <div>
               <p className="ops-eyebrow">UNDERSTAND WHAT CHANGED</p>
@@ -225,7 +225,7 @@ export function Releases({ selected, refresh }: { selected?: string; refresh: nu
             changed values retain their original provenance.
           </p>
           {comparison && <Compare key={comparison} query={comparison} />}
-        </section>
+        </Panel>
       )}
     </>
   );

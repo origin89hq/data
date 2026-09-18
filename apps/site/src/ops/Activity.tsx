@@ -6,7 +6,7 @@ import {
 import { useEffect, useState } from "react";
 import { Icon } from "../icons.tsx";
 import { read } from "./api.ts";
-import { Button, Empty, Loading, Notice, TextButton } from "./ui.tsx";
+import { Button, Empty, Loading, Notice, Panel, TextButton } from "./ui.tsx";
 import { useResource } from "./useResource.ts";
 import { displayName, when } from "./workspace.ts";
 
@@ -35,7 +35,7 @@ export function Activity({
   const [days, setDays] = useState("");
   const [applied, setApplied] = useState("");
   return (
-    <section className="ops-panel">
+    <Panel>
       <div className="ops-section-heading">
         <div>
           <p className="ops-eyebrow">THE WORK, AS IT HAPPENED</p>
@@ -100,7 +100,7 @@ export function Activity({
         refresh={refresh}
         onRelease={onRelease}
       />
-    </section>
+    </Panel>
   );
 }
 function ActivityList({
