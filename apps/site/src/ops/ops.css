@@ -80,94 +80,15 @@
 .ops-text-link:hover {
   color: var(--color-fg);
 }
-
 /* The state strip under the heading. */
-.ops-snapshot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 24px;
-  padding: 12px 0;
-  border-block: 1px solid var(--color-line);
-  color: var(--color-faint);
-  font: 12px var(--font-data);
-}
+
 /* Unsaved work is a warning, and says so in the strip beside it as well as in the dot. */
-.ops-dot.warning {
-  border-radius: 1px;
-  background: var(--color-warning);
-}
 
 /* Metrics, cards and panels. */
-.ops-metrics {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
-  margin-bottom: 24px;
-}
-.ops-metrics > button {
-  padding: 18px;
-  border: 1px solid var(--color-line);
-  border-radius: 12px;
-  corner-shape: bevel;
-  background: var(--color-surface);
-  color: var(--color-fg);
-  text-align: left;
-  transition:
-    border-color 0.18s var(--ease),
-    background 0.18s var(--ease);
-}
-.ops-metrics > button:hover {
-  border-color: var(--color-line-strong);
-  background: var(--color-surface-raised);
-}
-.ops-metrics > button > span {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  font-size: 13px;
-  color: var(--color-muted);
-}
-.ops-metrics strong {
-  display: block;
-  margin: 12px 0 4px;
-  font-size: 40px;
-  font-weight: 600;
-  letter-spacing: -0.04em;
-  line-height: 1.1;
-  font-variant-numeric: tabular-nums;
-}
-.ops-metrics small {
-  font-size: 12px;
-  color: var(--color-faint);
-}
-.ops-overview-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-.ops-summary-card {
-  padding: 22px;
-  border: 1px solid var(--color-line);
-  border-radius: 12px;
-  corner-shape: bevel;
-  background: var(--color-surface);
-}
+
 /* The supervisor card is marked as the notable one with the informational accent. It deliberately
    does not use nominal: a green edge would read as "healthy" whatever the pass actually reports. */
-.ops-summary-card.field {
-  border-left: 3px solid var(--color-signal);
-}
-.ops-summary-card > p {
-  margin: 10px 0;
-  color: var(--color-muted);
-  font-size: 13px;
-  line-height: 1.65;
-}
+
 .ops-section-heading {
   display: flex;
   align-items: center;
@@ -186,124 +107,10 @@
   color: var(--color-muted);
   font-size: 13px;
 }
-.ops-quick-views {
-  display: grid;
-  margin-top: 16px;
-}
-.ops-quick-views button {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 0;
-  border-top: 1px solid var(--color-line);
-  color: var(--color-fg);
-  font-size: 13px;
-  text-align: left;
-}
-.ops-quick-views button > .ui-icon:first-child {
-  color: var(--color-signal);
-}
-.ops-quick-views button > .ui-icon:last-child {
-  margin-left: auto;
-  color: var(--color-faint);
-}
-.ops-quick-views button:hover > .ui-icon:last-child {
-  color: var(--color-fg);
-}
-.ops-quick-views small {
-  display: block;
-  margin-top: 4px;
-  color: var(--color-faint);
-  font-size: 12px;
-}
-.ops-pass-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin: 24px 0;
-}
-.ops-pass-stats strong {
-  display: block;
-  font-size: 32px;
-  font-weight: 600;
-  letter-spacing: -0.035em;
-  line-height: 1.1;
-  font-variant-numeric: tabular-nums;
-}
-.ops-pass-stats span {
-  font-size: 12px;
-  color: var(--color-faint);
-}
-/* Toolbar, filters and search. */
+/* Toolbar, filters and search. */ /* Tables. */
 
-/* Tables. */
-
-.ops-source-button {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 0;
-  color: var(--color-fg);
-  font-weight: 500;
-  text-align: left;
-  white-space: nowrap;
-}
-.ops-source-button:hover {
-  color: var(--color-link);
-}
-.ops-source-button small {
-  display: block;
-  margin-top: 4px;
-  color: var(--color-faint);
-  font-weight: 400;
-  font-size: 12px;
-}
-.ops-source-initial {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  flex: none;
-  border: 1px solid var(--color-line-strong);
-  border-radius: 8px;
-  corner-shape: bevel;
-  background: var(--color-surface-raised);
-  color: var(--color-muted);
-  font: 12px var(--font-data);
-}
 /* State. Each one pairs its hue with a shape, so the row still reads in monochrome. */
 
-.ops-activity.alarm {
-  color: var(--color-alarm);
-}
-.ops-next-text.warning {
-  color: var(--color-warning);
-}
-.ops-progress {
-  min-width: 140px;
-  font: 12px var(--font-data);
-  color: var(--color-faint);
-  font-variant-numeric: tabular-nums;
-}
-.ops-progress > div {
-  width: 125px;
-  height: 3px;
-  margin-top: 8px;
-  overflow: hidden;
-  background: var(--color-line);
-}
-.ops-progress > div > span {
-  display: block;
-  height: 100%;
-  background: var(--color-signal);
-}
-.ops-next-text {
-  display: block;
-  max-width: 240px;
-  color: var(--color-muted);
-  font-size: 12px;
-  line-height: 1.5;
-}
 /* Absence, loading and failure. */
 
 .ops-note {
@@ -629,66 +436,8 @@ small.ops-note {
 .ops-artifacts a {
   color: var(--color-link);
 }
-.ops-file-type {
-  display: inline-block;
-  margin-right: 10px;
-  padding: 4px 8px;
-  border: 1px solid var(--color-line-strong);
-  font: 12px var(--font-data);
-  text-transform: uppercase;
-  color: var(--color-faint);
-}
-.ops-hash {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0;
-  font: 12px var(--font-data);
-  color: var(--color-faint);
-}
-.ops-hash:hover {
-  color: var(--color-fg);
-}
-
 /* Activity. */
-.ops-activity-columns {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
-  padding: 8px 0 24px;
-}
-.ops-activity-columns h3 {
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--color-line);
-  font-size: 15px;
-  font-weight: 600;
-}
-.ops-activity-columns h3 span {
-  font: 13px var(--font-data);
-  font-weight: 400;
-  color: var(--color-faint);
-  font-variant-numeric: tabular-nums;
-}
-.ops-activity {
-  display: flex;
-  gap: 12px;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--color-line);
-  color: var(--color-muted);
-  font-size: 13px;
-  line-height: 1.65;
-}
-.ops-activity > span {
-  flex: none;
-  color: var(--color-faint);
-}
-.ops-activity small {
-  display: block;
-  margin-top: 4px;
-  color: var(--color-faint);
-}
+
 .ops-note-card {
   display: flex;
   gap: 16px;
@@ -1021,34 +770,7 @@ small.ops-note {
   cursor: pointer;
   font-size: 14px;
 }
-
-@media (max-width: 1250px) {
-  .ops-metrics > button {
-    padding: 16px;
-  }
-  .ops-overview-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-  .ops-summary-card {
-    padding: 18px;
-  }
-}
-@media (max-width: 980px) {
-  .ops-activity-columns {
-    grid-template-columns: 1fr;
-  }
-}
 @media (max-width: 640px) {
-  .ops-metrics {
-    grid-template-columns: 1fr 1fr;
-  }
-  .ops-metrics strong {
-    font-size: 32px;
-  }
-  .ops-overview-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
   .ops-section-heading {
     flex-wrap: wrap;
     align-items: flex-start;
@@ -1107,7 +829,6 @@ small.ops-note {
 @media (pointer: coarse) {
   .ops-quiet,
   .ops-text-link,
-  .ops-hash,
   .ops-button,
   .ops-history-filters select,
   .ops-history-filters input {
