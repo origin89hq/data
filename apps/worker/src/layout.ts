@@ -68,26 +68,45 @@ function cellsOf(chars: readonly Char[]): Cell[] {
     .filter((w) => w > 0);
   const letter = median(widths);
   const gap = Math.max(letter * 1.2, 3);
-  // Some documents set no spaces at all and put their words apart by moving the pen: an EPEVER
-  // manual reads "Becarefulwheninstallingthebatteries". Where a line writes its own spaces they are
-  // the line's, and nothing is added; where it writes none, a gap wider than its letters is one.
-  const spaces = chars.some((c) => /\s/.test(c.text));
-  const space = spaces ? Number.POSITIVE_INFINITY : Math.max(letter * 0.6, 0.6);
-  const cells: Cell[] = [];
+  const cells: (Cell & { chars: Char[] })[] = [];
   for (const char of chars) {
     const open = cells.at(-1);
     if (open && char.left - open.right <= gap) {
-      const apart = char.left - open.right;
-      if (apart > space && !/\s$/.test(open.text) && !/^\s/.test(char.text)) open.text += " ";
       open.text += char.text;
+      open.chars.push(char);
       open.right = Math.max(open.right, char.right);
       continue;
     }
-    cells.push({ text: char.text, left: char.left, right: char.right });
+    cells.push({ text: char.text, left: char.left, right: char.right, chars: [char] });
   }
   return cells
-    .map((cell) => ({ ...cell, text: cell.text.replace(/\s+/g, " ").trim() }))
+    .map(({ chars: run, ...cell }) => ({ ...cell, text: spaced(run, cell.text).trim() }))
     .filter((cell) => cell.text);
+}
+
+/**
+ * The words of one cell. Some documents set no spaces at all and put their words apart by moving
+ * the pen: an EPEVER manual reads "Becarefulwheninstallingthebatteries", and its section titles
+ * read "Requirementsforthe PVarray". Where a run of text writes its own spaces they are its own and
+ * nothing is added; where it writes none, a gap much wider than the ones between its letters is a
+ * space.
+ */
+function spaced(run: readonly Char[], text: string): string {
+  if (/\s/.test(text) || run.length < 3) return text.replace(/\s+/g, " ");
+  const between: number[] = [];
+  for (let i = 1; i < run.length; i += 1) {
+    const apart = (run[i]?.left ?? 0) - (run[i - 1]?.right ?? 0);
+    if (apart > 0) between.push(apart);
+  }
+  if (between.length === 0) return text;
+  const widths = run.map((c) => c.right - c.left).filter((w) => w > 0);
+  const space = Math.max(median(between) * 2.5, median(widths) * 0.45);
+  let out = run[0]?.text ?? "";
+  for (let i = 1; i < run.length; i += 1) {
+    const apart = (run[i]?.left ?? 0) - (run[i - 1]?.right ?? 0);
+    out += (apart > space ? " " : "") + (run[i]?.text ?? "");
+  }
+  return out;
 }
 
 /** A page's characters as rows of cells, top of the page first. */
