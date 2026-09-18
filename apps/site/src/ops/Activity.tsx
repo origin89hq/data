@@ -49,7 +49,7 @@ export function Activity({
       </div>
       {!compact && (
         <form
-          className="ops-toolbar ops-history-filters"
+          className="flex items-center gap-3 max-[640px]:flex-wrap [&>label]:max-[640px]:basis-full [&_select]:bevel-sm [&_select]:min-h-10 [&_select]:border [&_select]:border-line-strong [&_select]:bg-surface-raised [&_select]:px-3 [&_select]:py-0 [&_select]:text-[13px] [&_select]:text-fg [@media(pointer:coarse)]:[&_select]:min-h-11 [&_select]:max-[640px]:w-full my-6 flex flex-wrap items-end gap-3.5 [&>label]:grid [&>label]:gap-2 [&>label]:text-[13px] [&>label]:text-muted [&>label]:max-[800px]:flex-[1_1_140px] [&_select]:bevel-sm [&_select]:max-w-full [&_select]:min-h-[42px] [&_select]:border [&_select]:border-line-strong [&_select]:bg-surface-raised [&_select]:px-3 [&_select]:py-2.5 [&_select]:font-[inherit] [&_select]:text-fg [&_input]:bevel-sm [&_input]:max-w-full [&_input]:min-h-[42px] [&_input]:border [&_input]:border-line-strong [&_input]:bg-surface-raised [&_input]:px-3 [&_input]:py-2.5 [&_input]:font-[inherit] [&_input]:text-fg [@media(pointer:coarse)]:[&_select]:min-h-11 [@media(pointer:coarse)]:[&_input]:min-h-11 [&_button]:max-[800px]:w-full"
           onSubmit={(event) => {
             event.preventDefault();
             const params = new URLSearchParams();
@@ -80,7 +80,7 @@ export function Activity({
               <option value="30">Last 30 days</option>
             </select>
           </label>
-          <label className="ops-history-search">
+          <label className="min-w-[180px] flex-1">
             Search
             <input
               type="search"
@@ -153,21 +153,27 @@ function ActivityList({
         </Empty>
       ) : (
         value && (
-          <ol className="ops-timeline">
+          <ol className="mt-6 mb-0 list-none p-0 [&>li]:relative [&>li]:flex [&>li]:gap-[18px] [&>li]:pb-7 [&>li]:max-[800px]:gap-3 [&>li:not(:last-child)]:before:absolute [&>li:not(:last-child)]:before:top-8 [&>li:not(:last-child)]:before:bottom-0 [&>li:not(:last-child)]:before:left-[17px] [&>li:not(:last-child)]:before:border-l [&>li:not(:last-child)]:before:border-l-line [&>li:not(:last-child)]:before:content-['']">
             {value.events.map((event) => (
-              <li key={event.id} className={event.kind === "collection_failed" ? "alarm" : ""}>
-                <span className="ops-timeline-dot" aria-hidden="true">
+              <li
+                key={event.id}
+                className={`group/row ${event.kind === "collection_failed" ? "alarm" : ""}`}
+              >
+                <span
+                  className="grid h-9 flex-[0_0_36px] place-items-center rounded-full border border-line-strong bg-surface text-signal group-[.alarm]/row:border-2 group-[.alarm]/row:border-alarm group-[.alarm]/row:text-alarm"
+                  aria-hidden="true"
+                >
                   <Icon name={event.kind === "release" ? "download" : "activity"} />
                 </span>
-                <div className="ops-timeline-entry">
-                  <div className="ops-history-heading">
+                <div className="min-w-0 flex-1 [&>p]:my-2 [&>p]:text-sm [&>p]:leading-[1.6] [&>p]:wrap-anywhere [&>p]:text-muted [&>code]:mt-2.5 [&>code]:block [&>code]:font-data [&>code]:text-[12px] [&>code]:leading-[normal] [&>code]:wrap-anywhere [&>code]:text-faint">
+                  <div className="flex flex-wrap justify-between gap-x-5 gap-y-2 [&_strong]:text-[15px] [&_strong]:font-semibold [&_time]:font-data [&_time]:text-[12px] [&_time]:leading-[normal] [&_time]:text-faint">
                     <strong>{labels[event.kind]}</strong>
                     <time dateTime={event.at} title={event.at}>
                       {when(event.at)}
                     </time>
                   </div>
                   <p>{event.summary}</p>
-                  <div className="ops-history-meta">
+                  <div className="flex flex-wrap items-center gap-x-[18px] gap-y-2 text-[12px] text-faint [&_a]:inline-flex [&_a]:items-center [&_a]:gap-1 [&_a]:text-link">
                     <span>{displayName(event.entity)}</span>
                     <span>by {event.actor}</span>
                     {event.run && (
@@ -193,7 +199,7 @@ function ActivityList({
           </ol>
         )
       )}
-      <div className="ops-history-footer">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-t border-t-line pt-[18px] [&>div]:flex [&>div]:flex-wrap [&>div]:items-center [&>div]:gap-3.5">
         <span className="ops-note">
           {value ? `Recorded history · refreshed ${when(value.at)}` : "Server-recorded history"}
         </span>
