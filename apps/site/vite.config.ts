@@ -1,4 +1,5 @@
 import { fileURLToPath } from "node:url";
+import tailwind from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
@@ -15,6 +16,7 @@ const worker = "http://localhost:8790";
 export default defineConfig({
   plugins: [
     react(),
+    tailwind(),
     {
       name: "ops-history-fallback",
       configureServer(server) {
@@ -36,6 +38,7 @@ export default defineConfig({
       input: {
         site: fileURLToPath(new URL("index.html", import.meta.url)),
         ops: fileURLToPath(new URL("ops.html", import.meta.url)),
+        spike: fileURLToPath(new URL("ops-spike.html", import.meta.url)),
       },
     },
   },

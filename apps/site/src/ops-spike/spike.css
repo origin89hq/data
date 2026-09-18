@@ -1,0 +1,80 @@
+/* The workspace, rebuilt on Tailwind and Base UI, to compare against the hand-written sheet.
+ *
+ * There is no token bridge here on purpose: @origin89/brand already ships tokens/tailwind.css,
+ * an @theme block holding the dark palette, so `bg-surface`, `text-muted`, `border-line-strong`
+ * and `text-signal` exist without this file naming a single colour. */
+@import "tailwindcss";
+@import "@origin89/brand/tokens/tailwind.css";
+
+@font-face {
+  font-family: Concept;
+  src: url("@origin89/brand/fonts/InterTight-Variable.ttf") format("truetype");
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: Technical;
+  src: url("@origin89/brand/fonts/IBMPlexMono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@theme {
+  --font-text: Concept, "Helvetica Neue", Arial, sans-serif;
+  --font-data: Technical, ui-monospace, Menlo, monospace;
+  --ease-plate: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* The one part of the identity Tailwind has no vocabulary for. The chamfer is the mark, so it
+ * gets a first-class utility rather than an arbitrary value repeated at every call site. */
+@utility bevel {
+  border-radius: 12px;
+  corner-shape: bevel;
+}
+@utility bevel-sm {
+  border-radius: 8px;
+  corner-shape: bevel;
+}
+
+/* The plate's rim carries the control boundary the 2.40:1 fill cannot; a clip-path octagon is not
+ * a utility either. In production this comes from @origin89/brand/tokens/plate.css. */
+@layer components {
+  .plate {
+    --c: 7px;
+    position: relative;
+    isolation: isolate;
+    clip-path: polygon(
+      var(--c) 0,
+      calc(100% - var(--c)) 0,
+      100% var(--c),
+      100% calc(100% - var(--c)),
+      calc(100% - var(--c)) 100%,
+      var(--c) 100%,
+      0 calc(100% - var(--c)),
+      0 var(--c)
+    );
+    background: var(--color-action-rim);
+  }
+  .plate::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    z-index: -1;
+    clip-path: inherit;
+    background: var(--color-action);
+    transition: background 0.22s var(--ease-plate);
+  }
+  .plate:hover::before {
+    background: var(--color-action-lit);
+  }
+}
+
+body {
+  background: var(--color-page);
+  color: var(--color-fg);
+  font-family: var(--font-text);
+}
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
