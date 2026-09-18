@@ -159,6 +159,10 @@ const ALIASES: Record<string, Unit> = {
   ohms: "Ω",
   c: "°C",
   "°c": "°C",
+  // One character for the whole unit, which a Chinese-typeset sheet prints and a lookup by
+  // spelling would otherwise miss: "8℃" kept the glyph in the value, and "8" with "℃" beside it
+  // lost the unit altogether.
+  "℃": "°C",
   celsius: "°C",
   f: "°F",
   "°f": "°F",
@@ -383,9 +387,14 @@ export function splitValueUnit(
     : { value: decimalPoint(value.trim()) };
 }
 
-/** Whether a figure's name says it states a temperature, which is what makes a bare C degrees. */
+/**
+ * Whether a figure's name says it states a temperature, which is what makes a bare C degrees. The
+ * maker's own language counts: "Température ambiante" is the same name as "Ambient temperature",
+ * so the accents come off before the words are matched.
+ */
 function temperatureFigure(name: string): boolean {
-  return /temperatur|thermal|ambient|\bheat\b|°\s*c\b|℃/i.test(name);
+  const plain = name.normalize("NFD").replace(/\p{Diacritic}/gu, "");
+  return /temperatur|thermal|ambient|\bheat\b|°\s*c\b|℃/i.test(plain);
 }
 
 /**

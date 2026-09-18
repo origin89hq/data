@@ -186,6 +186,33 @@ test("a battery's C-rate is not degrees Celsius, whichever field the C arrived i
     { value: "-0.29", unit: "%/K" },
     "a coefficient per degree is untouched",
   );
+  // A maker states the temperature in its own language, and the accents are part of the word.
+  assert.deepEqual(splitValueUnit("8C", undefined, "Température ambiante"), {
+    value: "8",
+    unit: "°C",
+  });
+  // Ten times its capacity is the most any sheet claims; above that a bare C is degrees.
+  assert.deepEqual(splitValueUnit("10C", undefined, "Discharge current"), { value: "10C" });
+  assert.deepEqual(splitValueUnit("-10C", undefined, "Charge current"), { value: "-10C" });
+  assert.deepEqual(splitValueUnit("11C", undefined, "Working current"), {
+    value: "11",
+    unit: "°C",
+  });
+  assert.deepEqual(splitValueUnit("-11C", undefined, "Working current"), {
+    value: "-11",
+    unit: "°C",
+  });
+  assert.deepEqual(splitValueUnit("10", "C", "Discharge current"), { value: "10" });
+  assert.deepEqual(splitValueUnit("11", "C", "Discharge current"), { value: "11", unit: "°C" });
+});
+
+test("a temperature written with the single ℃ character is the same unit as °C", () => {
+  assert.equal(canonicalUnit("℃"), "°C");
+  assert.deepEqual(splitValueUnit("8℃", undefined, "Storage temperature"), {
+    value: "8",
+    unit: "°C",
+  });
+  assert.deepEqual(splitValueUnit("8", "℃", "Storage temperature"), { value: "8", unit: "°C" });
 });
 
 test("a unit written in the value and in the unit field comes off the value once (#196)", () => {
