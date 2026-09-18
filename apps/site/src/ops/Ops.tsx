@@ -190,18 +190,29 @@ export function Ops() {
       </div>
     );
   return (
-    <div className="ops-app">
+    <div className="ops-app grid min-h-screen grid-cols-[252px_minmax(0,1fr)] text-sm max-[1250px]:grid-cols-[212px_minmax(0,1fr)] max-[980px]:block">
       <link rel="icon" href={favicon} />
       <a className="skip" href="#ops-main">
         Skip to workspace
       </a>
-      <aside className="ops-sidebar">
-        <a className="ops-identity" href="/" aria-label="Origin89 Data home">
-          <img src={logo} width="182" alt="Origin89" />
-          <span>DATA WORKSPACE</span>
+      <aside className="sticky top-0 flex h-dvh flex-col border-r border-line bg-surface px-4 pt-7 pb-5 max-[1250px]:px-3 max-[980px]:static max-[980px]:h-auto max-[980px]:border-r-0 max-[980px]:border-b max-[980px]:px-5.5 max-[980px]:pt-4.5 max-[980px]:pb-0 max-[640px]:px-4">
+        <a
+          className="block px-2.5 pb-8 max-[980px]:flex max-[980px]:items-center max-[980px]:gap-5 max-[980px]:px-0 max-[980px]:pb-4.5"
+          href="/"
+          aria-label="Origin89 Data home"
+        >
+          <img src={logo} width="182" alt="Origin89" className="max-[1250px]:w-[170px]" />
+          <span className="mt-3.5 block font-data text-xs tracking-[0.1em] text-faint uppercase max-[980px]:mt-0">
+            Data workspace
+          </span>
         </a>
-        <p className="ops-nav-label">COLLECTION & CURATION</p>
-        <nav className="ops-nav" aria-label="Workspace navigation">
+        <p className="mx-2.5 mb-3 font-data text-xs tracking-wider text-faint uppercase max-[980px]:hidden">
+          Collection &amp; curation
+        </p>
+        <nav
+          className="ops-nav grid gap-0.5 max-[980px]:flex max-[980px]:gap-2 max-[980px]:overflow-x-auto max-[980px]:pb-2.5"
+          aria-label="Workspace navigation"
+        >
           {NAV.map((item) => (
             <Link
               key={item.id}
@@ -210,57 +221,82 @@ export function Ops() {
               search={{}}
               activeOptions={{ includeSearch: false }}
               aria-current={view === item.id ? "page" : undefined}
+              className="bevel-sm flex min-h-11 items-center gap-3 px-2.5 text-sm text-muted transition-colors hover:bg-surface-raised hover:text-fg aria-[current=page]:bg-surface-raised aria-[current=page]:text-fg aria-[current=page]:shadow-[inset_2px_0_var(--color-signal)] max-[980px]:flex-none max-[980px]:whitespace-nowrap max-[640px]:text-xs"
             >
-              <Icon name={item.icon} />
+              <Icon name={item.icon} className="aria-[current=page]:text-signal" />
               <span>{item.label}</span>
               {item.id === "makers" && runs.value ? (
-                <small>{runs.value.makers.length}</small>
+                <small className="ml-auto font-data text-xs text-faint tabular-nums max-[980px]:hidden">
+                  {runs.value.makers.length}
+                </small>
               ) : item.id === "sellers" && runs.value ? (
-                <small>{runs.value.sellers.length}</small>
+                <small className="ml-auto font-data text-xs text-faint tabular-nums max-[980px]:hidden">
+                  {runs.value.sellers.length}
+                </small>
               ) : null}
             </Link>
           ))}
         </nav>
-        <div className="ops-sidebar-bottom">
-          <div className="ops-buddy-tip">
-            <img src={avatar} width="38" height="38" alt="Buddy" />
-            <p>
-              Keep the source close.<span>Every correction starts with a document.</span>
+        <div className="mt-auto grid gap-1 px-2.5 pt-6 max-[980px]:hidden">
+          <div className="mb-3 flex items-start gap-3 border-t border-line pt-5">
+            <img src={avatar} width="38" height="38" alt="Buddy" className="rounded-full" />
+            <p className="text-[13px] leading-normal">
+              Keep the source close.
+              <span className="mt-1 block text-xs text-faint">
+                Every correction starts with a document.
+              </span>
             </p>
           </div>
-          <a href="/" target="_blank" rel="noopener">
+          <a
+            className="flex min-h-10 items-center justify-between text-[13px] text-muted hover:text-fg"
+            href="/"
+            target="_blank"
+            rel="noopener"
+          >
             Visit the public dataset <Icon name="arrowUpRight" />
           </a>
-          <a href="https://github.com/origin89hq/offgrid-equipment" target="_blank" rel="noopener">
+          <a
+            className="flex min-h-10 items-center justify-between text-[13px] text-muted hover:text-fg"
+            href="https://github.com/origin89hq/offgrid-equipment"
+            target="_blank"
+            rel="noopener"
+          >
             Repository <Icon name="arrowUpRight" />
           </a>
         </div>
       </aside>
-      <div className="ops-workspace">
-        <header className="ops-topbar">
-          <div>
-            <span className="ops-breadcrumb">Origin89 Data</span>
-            <span>/</span>
-            <strong>{NAV.find((item) => item.id === view)?.label}</strong>
+      <div className="min-w-0">
+        <header className="sticky top-0 z-10 flex min-h-[72px] items-center justify-between gap-5 border-b border-line bg-page px-8 py-3.5 max-[1250px]:px-6 max-[980px]:min-h-[60px] max-[640px]:px-4">
+          <div className="flex items-center gap-3 text-[13px] max-[640px]:hidden">
+            <span className="text-faint max-[1250px]:hidden">Origin89 Data</span>
+            <span className="text-faint max-[1250px]:hidden">/</span>
+            <strong className="font-semibold">{NAV.find((item) => item.id === view)?.label}</strong>
           </div>
-          <div className="ops-account">
-            <span className="ops-account-name">
-              <span className="ops-avatar">{login.value.slice(0, 2).toUpperCase()}</span>
+          <div className="flex items-center gap-3 text-[13px] max-[640px]:w-full max-[640px]:justify-between">
+            <span className="flex items-center gap-2 text-muted">
+              <span className="bevel-sm grid size-[30px] place-items-center border border-line-strong bg-surface-raised font-data text-xs">
+                {login.value.slice(0, 2).toUpperCase()}
+              </span>
               {login.value}
             </span>
-            <form method="post" action="/auth/logout">
+            <form method="post" action="/auth/logout" className="m-0">
               <button type="submit" className="ops-quiet">
                 Sign out
               </button>
             </form>
           </div>
         </header>
-        <main id="ops-main" className="ops-main">
-          <div className="ops-page-heading">
+        <main
+          id="ops-main"
+          className="mx-auto max-w-[1560px] px-8 pt-8 pb-6 max-[1250px]:p-7 max-[980px]:px-5.5 max-[640px]:px-4 max-[640px]:pt-6"
+        >
+          <div className="mb-6 flex items-end justify-between gap-6 max-[640px]:flex-col max-[640px]:items-start max-[640px]:gap-4.5">
             <div>
               <p className="ops-eyebrow">EQUIPMENT KNOWLEDGE / OPERATIONS</p>
-              <h1>{TITLES[view][0]}</h1>
-              <p>{TITLES[view][1]}</p>
+              <h1 className="text-[clamp(28px,2.4vw,40px)] leading-[1.05] font-bold tracking-[-0.035em] max-[640px]:text-[28px]">
+                {TITLES[view][0]}
+              </h1>
+              <p className="mt-3 text-sm text-muted">{TITLES[view][1]}</p>
             </div>
             <button
               type="button"
@@ -276,14 +312,16 @@ export function Ops() {
                   : "Load current runs"}
             </button>
           </div>
-          <div className="ops-snapshot">
-            <span>
-              <span className={`ops-dot ${dirty ? "warning" : ""}`} />
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-y border-line py-3 font-data text-xs text-faint max-[640px]:flex-col max-[640px]:items-start max-[640px]:gap-2">
+            <span className="flex items-center gap-2.5">
+              <span
+                className={`size-1.5 flex-none ${dirty ? "rounded-[1px] bg-warning" : "rounded-full bg-muted"}`}
+              />
               {runs.value
                 ? `${runs.error ? "Last successful snapshot" : "Snapshot"} · ${when(runs.value.at)}`
                 : "Current runs haven’t been loaded yet"}
             </span>
-            <span>
+            <span className="flex items-center gap-5">
               Refresh on demand{" "}
               <button className="ops-quiet" type="button" onClick={() => void share()}>
                 <Icon name="copy" />
@@ -577,7 +615,7 @@ export function Ops() {
               }}
             />
           )}
-          <footer className="ops-footer">
+          <footer className="flex justify-between gap-5 pt-8 font-data text-xs text-faint max-[640px]:flex-col max-[640px]:gap-2">
             <span>Origin89 / Data workspace</span>
             <span>Private to the working group · Sources stay attached</span>
           </footer>

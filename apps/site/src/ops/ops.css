@@ -5,12 +5,8 @@
  * language, IBM Plex Mono for readings and identifiers, and the plate's clipped corner on every
  * frame and control. Nothing here restates a colour; all of it comes from the theme.
  */
-.ops-app {
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: 252px minmax(0, 1fr);
-  font-size: 14px;
-}
+/* Kept only as a scope for the two descendant rules below, which still reach views this
+ * migration has not converted. Its own layout is on the element as utilities. */
 .ops-app a {
   text-decoration: none;
 }
@@ -31,162 +27,10 @@
   border-right: 1px solid var(--color-line);
   background: var(--color-surface);
 }
-.ops-identity {
-  display: block;
-  padding: 0 10px 32px;
-}
-.ops-identity img {
-  width: 182px;
-  height: auto;
-}
-.ops-identity > span {
-  display: block;
-  margin-top: 14px;
-  font: 12px var(--font-data);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-faint);
-}
-.ops-nav-label {
-  margin: 0 10px 12px;
-  font: 12px var(--font-data);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--color-faint);
-}
-.ops-nav {
-  display: grid;
-  gap: 2px;
-}
-.ops-nav a {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 44px;
-  padding: 0 10px;
-  border-radius: 8px;
-  corner-shape: bevel;
-  color: var(--color-muted);
-  font-size: 14px;
-  transition:
-    background 0.18s var(--ease),
-    color 0.18s var(--ease);
-}
-.ops-nav a small {
-  margin-left: auto;
-  font: 12px var(--font-data);
-  font-variant-numeric: tabular-nums;
-  color: var(--color-faint);
-}
-.ops-nav a:hover {
-  background: var(--color-surface-raised);
-  color: var(--color-fg);
-}
-.ops-nav a[aria-current="page"] {
-  background: var(--color-surface-raised);
-  color: var(--color-fg);
-  box-shadow: inset 2px 0 var(--color-signal);
-}
-.ops-nav a[aria-current="page"] .ui-icon {
-  color: var(--color-signal);
-}
-.ops-sidebar-bottom {
-  margin-top: auto;
-  padding: 24px 10px 0;
-  display: grid;
-  gap: 4px;
-}
-.ops-sidebar-bottom > a {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 40px;
-  color: var(--color-muted);
-  font-size: 13px;
-}
-.ops-sidebar-bottom > a:hover {
-  color: var(--color-fg);
-}
-.ops-buddy-tip {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  margin-bottom: 12px;
-  padding-top: 20px;
-  border-top: 1px solid var(--color-line);
-}
-.ops-buddy-tip img {
-  border-radius: 50%;
-  flex: none;
-}
-.ops-buddy-tip p {
-  font-size: 13px;
-  line-height: 1.5;
-}
-.ops-buddy-tip span {
-  display: block;
-  margin-top: 4px;
-  color: var(--color-faint);
-  font-size: 12px;
-}
 
 /* Top bar. */
 .ops-workspace {
   min-width: 0;
-}
-.ops-topbar {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  min-height: 72px;
-  padding: 14px 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  border-bottom: 1px solid var(--color-line);
-  background: var(--color-page);
-}
-.ops-topbar > div {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 13px;
-}
-.ops-breadcrumb {
-  color: var(--color-faint);
-}
-.ops-topbar > div > span:nth-child(2) {
-  color: var(--color-faint);
-}
-.ops-topbar strong {
-  font-weight: 600;
-}
-.ops-account-name {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  color: var(--color-muted);
-}
-.ops-avatar {
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  border: 1px solid var(--color-line-strong);
-  border-radius: 8px;
-  corner-shape: bevel;
-  background: var(--color-surface-raised);
-  color: var(--color-muted);
-  font: 12px var(--font-data);
-}
-.ops-account form {
-  margin: 0;
-}
-.ops-main {
-  max-width: 1560px;
-  margin-inline: auto;
-  padding: 32px 32px 24px;
 }
 
 /* Page heading. */
@@ -203,17 +47,6 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-faint);
-}
-.ops-page-heading h1 {
-  font-size: clamp(28px, 2.4vw, 40px);
-  font-weight: 700;
-  letter-spacing: -0.035em;
-  line-height: 1.05;
-}
-.ops-page-heading p:not(.ops-eyebrow) {
-  margin-top: 12px;
-  color: var(--color-muted);
-  font-size: 14px;
 }
 
 /* Controls. The action fill is 2.40:1 on its own ground, so its rim carries the boundary. */
@@ -299,21 +132,6 @@
   border-block: 1px solid var(--color-line);
   color: var(--color-faint);
   font: 12px var(--font-data);
-}
-.ops-snapshot > span {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.ops-snapshot > span:last-child {
-  gap: 20px;
-}
-.ops-dot {
-  width: 6px;
-  height: 6px;
-  flex: none;
-  border-radius: 50%;
-  background: var(--color-muted);
 }
 /* Unsaved work is a warning, and says so in the strip beside it as well as in the dot. */
 .ops-dot.warning {
@@ -810,7 +628,6 @@
     opacity: 0.7;
   }
 }
-
 .ops-note {
   color: var(--color-muted);
   font-size: 13px;
@@ -826,14 +643,6 @@ small.ops-note {
   font-family: var(--font-data);
   font-size: 12px;
   font-variant-numeric: tabular-nums;
-}
-.ops-footer {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  padding-top: 32px;
-  color: var(--color-faint);
-  font: 12px var(--font-data);
 }
 .ops-signin {
   max-width: 600px;
@@ -1587,21 +1396,6 @@ small.ops-note {
 }
 
 @media (max-width: 1250px) {
-  .ops-app {
-    grid-template-columns: 212px minmax(0, 1fr);
-  }
-  .ops-sidebar {
-    padding-inline: 12px;
-  }
-  .ops-identity img {
-    width: 170px;
-  }
-  .ops-main {
-    padding: 28px 24px;
-  }
-  .ops-topbar {
-    padding: 14px 24px;
-  }
   .ops-metrics > button {
     padding: 16px;
   }
@@ -1611,89 +1405,16 @@ small.ops-note {
   .ops-summary-card {
     padding: 18px;
   }
-  .ops-tag,
-  .ops-topbar .ops-breadcrumb {
+  .ops-tag {
     display: none;
   }
 }
 @media (max-width: 980px) {
-  .ops-app {
-    display: block;
-  }
-  .ops-sidebar {
-    position: static;
-    height: auto;
-    padding: 18px 22px 0;
-    border-right: 0;
-    border-bottom: 1px solid var(--color-line);
-  }
-  .ops-identity {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 0 0 18px;
-  }
-  .ops-identity > span {
-    margin: 0;
-  }
-  .ops-nav-label,
-  .ops-sidebar-bottom {
-    display: none;
-  }
-  .ops-nav {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    padding-bottom: 10px;
-  }
-  .ops-nav a {
-    flex: none;
-    white-space: nowrap;
-  }
-  .ops-nav a small {
-    display: none;
-  }
-  .ops-topbar {
-    min-height: 60px;
-  }
-  .ops-main {
-    padding: 28px 22px;
-  }
   .ops-activity-columns {
     grid-template-columns: 1fr;
   }
 }
 @media (max-width: 640px) {
-  .ops-main {
-    padding: 24px 16px;
-  }
-  .ops-sidebar {
-    padding-inline: 16px;
-  }
-  .ops-topbar {
-    padding: 12px 16px;
-  }
-  .ops-topbar > div:first-child {
-    display: none;
-  }
-  .ops-topbar > div.ops-account {
-    width: 100%;
-    justify-content: space-between;
-    gap: 10px;
-  }
-  .ops-page-heading {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 18px;
-  }
-  .ops-page-heading h1 {
-    font-size: 28px;
-  }
-  .ops-snapshot {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
   .ops-metrics {
     grid-template-columns: 1fr 1fr;
   }
@@ -1722,10 +1443,6 @@ small.ops-note {
   }
   .ops-table-scroll {
     margin-inline: -16px;
-  }
-  .ops-footer {
-    flex-direction: column;
-    gap: 8px;
   }
   .ops-drawer > header,
   .ops-drawer-body {
