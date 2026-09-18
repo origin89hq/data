@@ -141,3 +141,125 @@ export async function sortDocument(
   );
   return sorted;
 }
+
+/**
+ * The section gate: which sections of a long document state the maker's own rated figures.
+ *
+ * The document gate keeps a manual whole, and a manual is mostly not ratings — precautions,
+ * wiring, troubleshooting, warranty, compliance. Read whole, its installation section gave the
+ * reader EPEVER's "Requirements for the PV array" tables, which say how many modules to string and
+ * are marked "for reference only"; every figure taken from them was judged not a rating, and they
+ * were the only wrong figures a page-read conversion produced in a sample of seventy.
+ *
+ * One call over the outline, which is a few hundred tokens for a manual of eighty pages, and the
+ * windows of the sections left out are never read: cheaper as well as narrower.
+ */
+export const SECTIONS_SYSTEM = `You are given a manufacturer's document as its list of sections, and you say which of them state rated figures of that manufacturer's own products.
+
+A rated figure is what the product is specified to do or to be: its voltages, currents, capacities, temperatures, dimensions, weights, efficiencies, chemistries.
+
+Say a section is read when it states such figures: specifications, technical data, models, ordering information, a datasheet's tables.
+
+Say a section is not read when what it prints is:
+- how to install, wire, mount or commission the product, including the wire, breaker and array sizes an installer must choose;
+- what to set, program or select, including default settings and menu options;
+- safety instructions, warnings, warranty terms, compliance and certification statements;
+- troubleshooting, maintenance, storage, disposal, packaging or transport;
+- what the product is for, who makes it, or how to order support.
+
+When a section's name does not say, read it. A section wrongly left out loses figures nobody can recover; a section wrongly read costs a model call.
+
+The first section of a document often has no heading. Read it.`;
+
+/** Which sections to read, by the numbers the prompt gives them. */
+export const SECTIONS_SCHEMA = {
+  type: "object",
+  properties: {
+    read: { type: "array", items: { type: "integer" } },
+    reason: { type: "string" },
+  },
+  required: ["read"],
+};
+
+export const KeptSections = z.object({
+  read: z.array(z.number().int().nonnegative()),
+  reason: z.string().optional(),
+});
+export type KeptSections = z.infer<typeof KeptSections>;
+
+/** The outline as the model is shown it: one numbered line a section, with the pages it runs over. */
+export function sectionsPrompt(
+  maker: string,
+  sections: readonly { title: string; from: number; to: number }[],
+): string {
+  const lines = sections.map(
+    (section, index) =>
+      `${index}. pages ${section.from}-${section.to}: ${section.title || "(no heading)"}`,
+  );
+  return `Maker: ${maker}\n\nSections:\n${lines.join("\n")}`;
+}
+
+/** Where a document's kept sections are kept, beside it, as its kind is. */
+export const sectionsKey = (sha256: string, maker: string): string =>
+  `archive/${sha256}.${maker}.${readerKey(GATE_ID)}.sections.json`;
+
+/** The sections kept for this maker before, if they were. */
+export async function keptSections(
+  env: Env,
+  sha256: string,
+  maker: string,
+): Promise<KeptSections | undefined> {
+  const kept = await env.ARCHIVE.get(sectionsKey(sha256, maker));
+  if (!kept) return undefined;
+  const parsed = KeptSections.safeParse(await kept.json());
+  return parsed.success ? parsed.data : undefined;
+}
+
+/**
+ * The pages of the sections to read. A document whose outline says nothing — no headings, or an
+ * answer that keeps none — is read whole: leaving a document unread on a gate's silence would lose
+ * its figures for good, and the document gate is what decides whether to read it at all.
+ */
+export function pagesToRead(
+  sections: readonly { title: string; from: number; to: number }[],
+  kept: KeptSections,
+): Set<number> | undefined {
+  const pages = new Set<number>();
+  for (const index of kept.read) {
+    const section = sections[index];
+    if (!section) continue;
+    for (let page = section.from; page <= section.to; page += 1) pages.add(page);
+  }
+  return pages.size > 0 ? pages : undefined;
+}
+
+/**
+ * Ask which sections to read, once per document and maker, and keep the answer beside it. Throws
+ * what the call throws, for the reader to wait its turn or retry.
+ */
+export async function sortSections(
+  env: Env,
+  message: ExtractMessage,
+  maker: string,
+  sections: readonly { title: string; from: number; to: number }[],
+): Promise<KeptSections> {
+  const response = await env.AI.run(EXTRACT_MODEL, {
+    messages: [
+      { role: "system", content: SECTIONS_SYSTEM },
+      { role: "user", content: sectionsPrompt(maker, sections) },
+    ],
+    response_format: {
+      type: "json_schema",
+      json_schema: { name: "sections", schema: SECTIONS_SCHEMA, strict: false },
+    },
+    chat_template_kwargs: { thinking: false },
+    max_tokens: 600,
+  } as never);
+  const kept = KeptSections.parse(answerObjects(answerText(response))[0]);
+  await env.ARCHIVE.put(
+    sectionsKey(message.sha256, message.manufacturer),
+    `${JSON.stringify(kept)}\n`,
+    { httpMetadata: { contentType: "application/json" } },
+  );
+  return kept;
+}

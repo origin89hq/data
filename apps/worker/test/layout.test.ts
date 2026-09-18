@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { columnsOf, gridOf, markdownOf, rowsOf } from "../src/layout.ts";
+import { columnsOf, gridOf, markdownOf, rowsOf, sectionsOf } from "../src/layout.ts";
 import { charsOn, markdownOfDocument, outlineOf, pageCount } from "../src/render.ts";
 import { BLACK_BOX, type Placed, pdfium, tinyPdf, writtenPdf } from "./pdf.ts";
 
@@ -201,4 +201,28 @@ test("a document's outline is its headings, each with the page it stands on", as
 test("a page drawn as a picture has no characters to read, and is left to the page reader", async () => {
   assert.deepEqual(charsOn(await pdfium(), tinyPdf([BLACK_BOX]), 1), []);
   assert.equal(markdownOf([]), "");
+});
+
+test("a document's sections run from their heading to the next one no deeper", async () => {
+  const outline = [
+    { page: 5, text: "1 General information", size: 12 },
+    { page: 8, text: "1.1 Overview", size: 10 },
+    { page: 13, text: "2 Installation", size: 12 },
+    { page: 15, text: "2.2 Requirements for the PV array", size: 10 },
+    { page: 49, text: "6 Technical Specifications", size: 12 },
+  ];
+  assert.deepEqual(
+    sectionsOf(outline, 54).map((s) => [s.title, s.from, s.to]),
+    [
+      // What stands before the first heading is a section: a datasheet states its figures there.
+      ["", 1, 4],
+      ["1 General information", 5, 12],
+      ["1.1 Overview", 8, 12],
+      ["2 Installation", 13, 48],
+      ["2.2 Requirements for the PV array", 15, 48],
+      ["6 Technical Specifications", 49, 54],
+    ],
+  );
+  // A document with no headings is one section: the whole of it.
+  assert.deepEqual(sectionsOf([], 3), [{ title: "", from: 1, to: 3 }]);
 });

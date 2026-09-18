@@ -117,6 +117,45 @@ export function rowsOf(chars: readonly Char[]): Row[] {
   );
 }
 
+/** A stretch of a document under one heading: what it is called, and the pages it runs over. */
+export interface Section {
+  title: string;
+  from: number;
+  to: number;
+}
+
+/**
+ * A document's sections, from its headings: each runs from its own page to the page before the next
+ * heading no deeper than itself. "2 Installation" ends where "3 Working" begins, and "2.2
+ * Requirements for the PV array" ends within it.
+ *
+ * What runs before the first heading is a section of its own, since a datasheet states its figures
+ * on page one under no heading at all, and a document with no headings is one section: the whole of
+ * it. Neither may be lost by asking which sections to read.
+ */
+export function sectionsOf(outline: readonly Heading[], pages: number): Section[] {
+  const depth = (heading: Heading): number => {
+    const numbered = /^(\d+(?:\.\d+)*)/.exec(heading.text);
+    return numbered ? (numbered[1]?.split(".").length ?? 1) : 0;
+  };
+  const sections: Section[] = [];
+  const first = outline[0];
+  if (!first || first.page > 1)
+    sections.push({ title: "", from: 1, to: (first?.page ?? pages + 1) - 1 });
+  for (const [index, heading] of outline.entries()) {
+    const mine = depth(heading);
+    const next = outline
+      .slice(index + 1)
+      .find((later) => depth(later) <= mine && later.page > heading.page);
+    sections.push({
+      title: heading.text,
+      from: heading.page,
+      to: next ? Math.max(heading.page, next.page - 1) : pages,
+    });
+  }
+  return sections;
+}
+
 /** A line a document sets apart as a heading, with the page it stands on. */
 export interface Heading {
   page: number;

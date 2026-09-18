@@ -1,7 +1,17 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { readDocument } from "../src/extract.ts";
-import { GATE_SYSTEM, gateKey, gatePrompt, leftUnread } from "../src/gate.ts";
+import {
+  GATE_SYSTEM,
+  gateKey,
+  gatePrompt,
+  keptSections,
+  leftUnread,
+  pagesToRead,
+  SECTIONS_SYSTEM,
+  sectionsKey,
+  sectionsPrompt,
+} from "../src/gate.ts";
 import { CONVERTER, EXTRACTOR_ID } from "../src/reading.ts";
 import { LAST_ATTEMPT, partKey, readerKey } from "../src/work.ts";
 import { type TestAiInput, world } from "./world.ts";
@@ -181,4 +191,59 @@ test("the gate is shown the maker, the decoded address and the document from its
     /Address: %E0%A4%A\n\nno pages$/,
     "an address that does not decode is shown as given, and a document with no page markers from its start",
   );
+});
+
+// ---- the section gate ----
+
+const OUTLINE = [
+  { title: "", from: 1, to: 4 },
+  { title: "1 General information", from: 5, to: 12 },
+  { title: "2 Installation", from: 13, to: 40 },
+  { title: "2.2 Requirements for the PV array", from: 15, to: 16 },
+  { title: "5 Others", from: 41, to: 48 },
+  { title: "6 Technical Specifications", from: 49, to: 54 },
+];
+
+test("the section gate is shown the maker and every section with its pages, numbered from nothing", () => {
+  const prompt = sectionsPrompt("EPEVER", OUTLINE);
+  assert.match(prompt, /^Maker: EPEVER$/m);
+  assert.match(prompt, /^0\. pages 1-4: \(no heading\)$/m);
+  assert.match(prompt, /^5\. pages 49-54: 6 Technical Specifications$/m);
+  // What the sections are for is said in the prompt, and what to do when a name says nothing.
+  assert.match(SECTIONS_SYSTEM, /When a section's name does not say, read it\./);
+  assert.match(SECTIONS_SYSTEM, /wrongly left out loses figures/);
+});
+
+test("only the kept sections' pages are read, and a document nothing was kept of is read whole", () => {
+  assert.deepEqual(
+    [...(pagesToRead(OUTLINE, { read: [5] }) ?? [])],
+    [49, 50, 51, 52, 53, 54],
+    "the specifications, and nothing else",
+  );
+  assert.deepEqual([...(pagesToRead(OUTLINE, { read: [0, 3] }) ?? [])], [1, 2, 3, 4, 15, 16]);
+  // A section the answer names that the outline does not have is not a page range anybody can read.
+  assert.deepEqual([...(pagesToRead(OUTLINE, { read: [9] }) ?? [])], []);
+  assert.equal(
+    pagesToRead(OUTLINE, { read: [] }),
+    undefined,
+    "keeping none is not reading none: the document is read whole",
+  );
+  assert.equal(pagesToRead([], { read: [0] }), undefined);
+});
+
+test("a document's sections are kept beside it, by maker, and read back", async () => {
+  const kept = { read: [0, 5], reason: "the datasheet page and the specifications" };
+  const { env, readObject } = world({
+    [sectionsKey(SHA, "maker")]: `${JSON.stringify(kept)}\n`,
+  });
+  assert.deepEqual(await keptSections(env, SHA, "maker"), kept);
+  assert.equal(
+    await keptSections(env, SHA, "other-maker"),
+    undefined,
+    "another maker's is not this one's",
+  );
+  assert.equal(readObject(sectionsKey(SHA, "maker")) !== undefined, true);
+  // A file that is not an answer is no answer, rather than an answer nobody checked.
+  const broken = world({ [sectionsKey(SHA, "maker")]: '{"read":"all"}\n' });
+  assert.equal(await keptSections(broken.env, SHA, "maker"), undefined);
 });
