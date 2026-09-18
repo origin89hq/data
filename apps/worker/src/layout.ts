@@ -159,8 +159,13 @@ export const OPENING = 240;
  */
 export function withOpenings(markdown: string, sections: readonly Section[]): Section[] {
   const lines = markdown.split("\n");
+  // A heading is matched by its letters: the outline reads a page's own characters and the markdown
+  // is written from cells, and the two space a title differently — "MPPVoltage" against "MPP
+  // Voltage" — which as an exact match found a heading in one section of eight.
+  const same = (text: string): string => text.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, "");
+  const folded = lines.map(same);
   return sections.map((section) => {
-    const at = section.title ? lines.findIndex((line) => line.trim() === section.title.trim()) : 0;
+    const at = section.title ? folded.indexOf(same(section.title)) : 0;
     if (at < 0) return section;
     const after = lines
       .slice(at + 1)
