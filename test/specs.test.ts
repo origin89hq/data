@@ -433,6 +433,98 @@ test("a row a document repeats in another language is returned, not lost, so a h
   );
 });
 
+test("a bilingual document states one figure twice: the range word and the degree sign differ, the figure does not", () => {
+  // NOCO's GB250 guide prints its charging temperature in English on page 6 and in French on
+  // page 22, and the two values matched nowhere: "to" against "à", and the degree sign against
+  // the masculine ordinal a typesetter reached for. Both were published, for one figure.
+  const { specs, repeated, repeatedRows } = specsFrom({
+    ...base,
+    manufacturer: "rolls-battery",
+    reports: [
+      {
+        model: "S-550",
+        specs: [
+          { name: "Charging Temperature", value: "0°C to +40°C", page: 6 },
+          { name: "Température de chargement", value: "0ºC à +40ºC", page: 22 },
+          // The same battery, said twice in words no number can compare.
+          { name: "Internal Battery", value: "Lithium Ion", page: 6 },
+          { name: "Batería interna", value: "Ión de litio", page: 30 },
+        ],
+      },
+    ],
+  });
+  assert.deepEqual(
+    specs.map((row) => [row.name, row.page]),
+    [
+      ["Charging Temperature", 6],
+      ["Internal Battery", 6],
+    ],
+    "the English page is kept, with its own page",
+  );
+  assert.equal(repeated, 2);
+  assert.deepEqual(repeatedRows.map((row) => row.name).sort(), [
+    "Batería interna",
+    "Température de chargement",
+  ]);
+});
+
+test("one figure said in two languages the vocabulary does not align is still one figure", () => {
+  // Nobody has given "Ladetemperatur" an English name, so the names cannot align these two. What
+  // does is the value: the same range, written with the German range word and the printed degree.
+  // The French row is what shows the guide is multilingual, as NOCO's four-language guides are.
+  const { specs, repeated } = specsFrom({
+    ...base,
+    manufacturer: "rolls-battery",
+    reports: [
+      {
+        model: "S-550",
+        specs: [
+          { name: "Charging Temperature", value: "0°C to +40°C", page: 6 },
+          { name: "Ladetemperatur", value: "0 ºC bis +40 ºC", page: 40 },
+          { name: "Capacité nominale", value: "428", unit: "Ah", page: 22 },
+        ],
+      },
+    ],
+  });
+  assert.deepEqual(
+    specs.map((row) => row.name).sort(),
+    ["Capacité nominale", "Charging Temperature"],
+    "the German saying of the temperature goes; the French capacity is said once and stays",
+  );
+  assert.equal(repeated, 1);
+});
+
+test("two figures of one multilingual document that state different numbers are two figures", () => {
+  // The same English name is not the same figure: an input and an output both read as "Voltage",
+  // and a sheet that prints one in each language must not fold them together.
+  const { specs, repeated } = specsFrom({
+    ...base,
+    manufacturer: "rolls-battery",
+    reports: [
+      {
+        model: "S-550",
+        specs: [
+          { name: "Tension d'entrée", value: "230", unit: "V" },
+          { name: "Input voltage", value: "120", unit: "V" },
+          { name: "Operating temperature", value: "-20°C to +50°C" },
+          { name: "Température de fonctionnement", value: "-30ºC à +50ºC" },
+        ],
+      },
+    ],
+  });
+  assert.deepEqual(
+    specs.map((row) => [row.name, row.value]).sort(),
+    [
+      ["Input voltage", "120"],
+      ["Operating temperature", "-20°C to +50°C"],
+      ["Température de fonctionnement", "-30ºC à +50ºC"],
+      ["Tension d'entrée", "230"],
+    ],
+    "different numbers, so nothing is folded away",
+  );
+  assert.equal(repeated, 0);
+});
+
 test("a held figure the run read only under a dropped row is still compared, and never written", () => {
   const frenchId = "rolls-battery-s-550--capacit-nominale";
   const heldFrench = figure({
