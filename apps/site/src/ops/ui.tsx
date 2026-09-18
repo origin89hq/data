@@ -90,6 +90,9 @@ export function Toolbar({ children }: { children: ReactNode }) {
  * dead band a finger can miss. */
 export function Search({ children }: { children: ReactNode }) {
   return (
+    // Wrapping the field is the point: the whole box is the target, which is what the touch pass
+    // in #210 established for this control.
+    // biome-ignore lint/a11y/noLabelWithoutControl: the input is the child every caller passes in, so the rule cannot see it from here
     <label className="bevel-sm flex min-h-10 flex-1 items-center gap-2.5 border border-line-strong bg-surface-raised px-3 focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-focus [@media(pointer:coarse)]:min-h-11 [&>svg]:text-muted [&_input]:w-full [&_input]:min-w-0 [&_input]:border-0 [&_input]:bg-transparent [&_input]:px-0 [&_input]:py-2.5 [&_input]:text-[13px] [&_input]:text-fg [&_input]:outline-none [@media(pointer:coarse)]:[&_input]:self-stretch [&_kbd]:border [&_kbd]:border-line-strong [&_kbd]:px-1.5 [&_kbd]:py-0.5 [&_kbd]:font-data [&_kbd]:text-[12px] [&_kbd]:leading-[normal] [&_kbd]:text-faint">
       {children}
     </label>
