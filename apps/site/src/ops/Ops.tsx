@@ -227,7 +227,7 @@ export function Ops() {
           Collection &amp; curation
         </p>
         <nav
-          className="ops-nav grid gap-0.5 max-[980px]:flex max-[980px]:gap-2 max-[980px]:overflow-x-auto max-[980px]:pb-2.5"
+          className="grid gap-0.5 max-[980px]:flex max-[980px]:gap-2 max-[980px]:overflow-x-auto max-[980px]:pb-2.5"
           aria-label="Workspace navigation"
         >
           {NAV.map((item) => (
@@ -381,8 +381,8 @@ export function Ops() {
                   setFilter(category);
                 }}
               />
-              <div className="ops-overview-grid">
-                <div className="ops-summary-card">
+              <div className="mb-6 grid grid-cols-[1.2fr_1fr] gap-4 max-[1250px]:grid-cols-2 max-[640px]:grid-cols-1 max-[640px]:gap-3.5">
+                <div className="bevel border border-line bg-surface p-[22px] max-[1250px]:p-[18px] [&>p]:my-2.5 [&>p]:text-[13px] [&>p]:leading-[1.65] [&>p]:text-muted">
                   <div className="ops-section-heading">
                     <h2>Next up</h2>
                     <Tag>HUMAN IN THE LOOP</Tag>
@@ -391,7 +391,7 @@ export function Ops() {
                     Review a document plan before its downloads begin. Investigate stopped workflows
                     from the same queue.
                   </p>
-                  <div className="ops-quick-views">
+                  <div className="mt-4 grid [&>button]:flex [&>button]:items-center [&>button]:gap-3 [&>button]:border-t [&>button]:border-line [&>button]:px-0 [&>button]:py-3.5 [&>button]:text-left [&>button]:text-[13px] [&>button]:text-fg [&>button>svg:first-child]:text-signal [&>button>svg:last-child]:ml-auto [&>button>svg:last-child]:text-faint [&>button:hover>svg:last-child]:text-fg [&_small]:mt-1 [&_small]:block [&_small]:text-[12px] [&_small]:text-faint">
                     <button
                       type="button"
                       onClick={() => {
@@ -419,7 +419,7 @@ export function Ops() {
                     </button>
                   </div>
                 </div>
-                <div className="ops-summary-card field">
+                <div className="bevel border border-line border-l-[3px] border-l-signal bg-surface p-[22px] max-[1250px]:p-[18px] [&>p]:my-2.5 [&>p]:text-[13px] [&>p]:leading-[1.65] [&>p]:text-muted">
                   <div className="ops-section-heading">
                     <h2>Latest supervisor pass</h2>
                     <TextButton type="button" onClick={() => navigate("supervisor")}>
@@ -433,7 +433,7 @@ export function Ops() {
                   ) : report.value ? (
                     <>
                       <p className="ops-note">{when(report.value.at)}</p>
-                      <div className="ops-pass-stats">
+                      <div className="my-6 grid grid-cols-3 gap-4 [&_strong]:block [&_strong]:text-[32px] [&_strong]:leading-[1.1] [&_strong]:font-semibold [&_strong]:tracking-[-0.035em] [&_strong]:tabular-nums [&_span]:text-[12px] [&_span]:text-faint">
                         <div>
                           <strong>{report.value.started.length}</strong>
                           <span>started</span>
@@ -654,7 +654,7 @@ function Metrics({
     ["readings", "Readings available", "Makers with extracted figures"],
   ];
   return (
-    <div className="ops-metrics">
+    <div className="mb-6 grid grid-cols-4 gap-3 max-[640px]:grid-cols-2 [&>button]:bevel [&>button]:border [&>button]:border-line [&>button]:bg-surface [&>button]:p-[18px] [&>button]:text-left [&>button]:text-fg [&>button]:transition-[border-color,background] [&>button]:duration-[180ms] [&>button]:ease-[var(--ease)] [&>button]:max-[1250px]:p-4 [&>button:hover]:border-line-strong [&>button:hover]:bg-surface-raised [&>button>span]:flex [&>button>span]:items-center [&>button>span]:justify-between [&>button>span]:gap-2 [&>button>span]:text-[13px] [&>button>span]:text-muted [&_strong]:mt-3 [&_strong]:mb-1 [&_strong]:block [&_strong]:text-[40px] [&_strong]:leading-[1.1] [&_strong]:font-semibold [&_strong]:tracking-[-0.04em] [&_strong]:tabular-nums [&_strong]:max-[640px]:text-[32px] [&_small]:text-[12px] [&_small]:text-faint">
       {items.map(([filter, label, note]) => (
         <button type="button" key={filter} onClick={() => onFilter(filter)}>
           <span>
@@ -694,8 +694,14 @@ function RunTable({ rows, onSelect }: { rows: RunRow[]; onSelect: (row: RunRow) 
         {rows.map((row) => (
           <tr key={row.key}>
             <th scope="row">
-              <button type="button" className="ops-source-button" onClick={() => onSelect(row)}>
-                <span className="ops-source-initial">{row.entity.slice(0, 2).toUpperCase()}</span>
+              <button
+                type="button"
+                className="flex items-center gap-3 p-0 text-left font-medium whitespace-nowrap text-fg hover:text-link [&_small]:mt-1 [&_small]:block [&_small]:text-[12px] [&_small]:font-normal [&_small]:text-faint"
+                onClick={() => onSelect(row)}
+              >
+                <span className="bevel-sm grid size-[34px] flex-none place-items-center border border-line-strong bg-surface-raised font-data text-[12px] leading-[normal] text-muted">
+                  {row.entity.slice(0, 2).toUpperCase()}
+                </span>
                 <span>
                   {displayName(row.entity)}
                   <small>
@@ -711,7 +717,9 @@ function RunTable({ rows, onSelect }: { rows: RunRow[]; onSelect: (row: RunRow) 
               <Progress row={row} />
             </td>
             <td>
-              <span className={`ops-next-text ${row.category === "review" ? "warning" : ""}`}>
+              <span
+                className={`block max-w-[240px] text-[12px] leading-[1.5] ${row.category === "review" ? "text-warning" : "text-muted"}`}
+              >
                 {row.next}
               </span>
               {row.maker?.approvedBy && (
@@ -738,7 +746,7 @@ function Progress({ row }: { row: RunRow }) {
   const total = row.maker ? row.maker.sent : row.seller?.classified?.parts;
   const label = row.maker ? "converted" : "classified parts";
   return (
-    <div className="ops-progress">
+    <div className="min-w-[140px] font-data text-[12px] leading-[normal] text-faint tabular-nums [&>div]:mt-2 [&>div]:h-[3px] [&>div]:w-[125px] [&>div]:overflow-hidden [&>div]:bg-line [&>div>span]:block [&>div>span]:h-full [&>div>span]:bg-signal">
       <span>
         {done === undefined || total === undefined
           ? row.maker
@@ -849,7 +857,9 @@ function Published({
             {shown.map((file) => (
               <tr key={file.name}>
                 <th scope="row">
-                  <span className="ops-file-type">{file.name.split(".").pop()}</span>
+                  <span className="mr-2.5 inline-block border border-line-strong px-2 py-1 font-data text-[12px] leading-[normal] text-faint uppercase">
+                    {file.name.split(".").pop()}
+                  </span>
                   {file.name}
                 </th>
                 <td className="ops-mono">{count(file.rows)}</td>
@@ -857,7 +867,7 @@ function Published({
                 <td>
                   <button
                     type="button"
-                    className="ops-hash"
+                    className="flex items-center gap-2 p-0 font-data text-[12px] leading-[normal] text-faint hover:text-fg [@media(pointer:coarse)]:min-h-11"
                     title={file.sha256}
                     onClick={() => void copy(file.sha256)}
                   >
@@ -906,14 +916,17 @@ function Supervisor({
           The supervisor’s latest pass will appear here when it has run.
         </Empty>
       ) : (
-        <div className="ops-activity-columns">
+        <div className="grid grid-cols-3 gap-6 pt-2 pb-6 max-[980px]:grid-cols-1 [&_h3]:flex [&_h3]:justify-between [&_h3]:border-b [&_h3]:border-line [&_h3]:pb-3.5 [&_h3]:text-[15px] [&_h3]:font-semibold [&_h3>span]:font-data [&_h3>span]:text-[13px] [&_h3>span]:leading-[normal] [&_h3>span]:font-normal [&_h3>span]:text-faint [&_h3>span]:tabular-nums">
           <div>
             <h3>
               Concerns <span>{report.concerns.length}</span>
             </h3>
             {report.concerns.length ? (
               report.concerns.map((text) => (
-                <div className="ops-activity alarm" key={text}>
+                <div
+                  className="flex gap-3 border-b border-line py-4 text-[13px] leading-[1.65] [&>span]:flex-none [&>span]:text-faint [&_small]:mt-1 [&_small]:block [&_small]:text-faint text-alarm"
+                  key={text}
+                >
                   <span>!</span>
                   <p>{text}</p>
                 </div>
@@ -928,7 +941,10 @@ function Supervisor({
             </h3>
             {report.started.length ? (
               report.started.map((item) => (
-                <div className="ops-activity" key={`${item.what}:${item.entity}:${item.detail}`}>
+                <div
+                  className="flex gap-3 border-b border-line py-4 text-[13px] leading-[1.65] [&>span]:flex-none [&>span]:text-faint [&_small]:mt-1 [&_small]:block [&_small]:text-faint text-muted"
+                  key={`${item.what}:${item.entity}:${item.detail}`}
+                >
                   <span>↗</span>
                   <div>
                     <TextButton
@@ -953,7 +969,10 @@ function Supervisor({
             </h3>
             {report.blocked.length ? (
               report.blocked.map((item) => (
-                <div className="ops-activity" key={`${item.entity}:${item.waitingOn}`}>
+                <div
+                  className="flex gap-3 border-b border-line py-4 text-[13px] leading-[1.65] [&>span]:flex-none [&>span]:text-faint [&_small]:mt-1 [&_small]:block [&_small]:text-faint text-muted"
+                  key={`${item.entity}:${item.waitingOn}`}
+                >
                   <span>—</span>
                   <div>
                     <TextButton
