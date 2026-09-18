@@ -122,7 +122,7 @@ export function RunDetail({
       eyebrow={`${row.kind === "maker" ? "MANUFACTURER" : "SELLER"} / CURRENT RUN`}
       onClose={onClose}
     >
-      <div className="ops-detail-summary">
+      <div className="flex items-center justify-between gap-3">
         <Status value={run?.status} />
         <span className="ops-mono">{row.date ?? "Date not reported"}</span>
       </div>
@@ -160,7 +160,7 @@ export function RunDetail({
         </Tabs.List>
         <Tabs.Panel value="summary" className="pt-6">
           <>
-            <div className="ops-next">
+            <div className="bevel mb-5 border border-line bg-surface p-5 max-[640px]:p-[18px]">
               <p className="ops-eyebrow">NEXT STEP</p>
               <h3>{row.next}</h3>
               {reviewing && submission?.state !== "sent" && (
@@ -169,7 +169,7 @@ export function RunDetail({
                 </Button>
               )}
             </div>
-            <dl className="ops-facts">
+            <dl className="grid grid-cols-2 gap-x-6 max-[640px]:grid-cols-1 [&>div]:flex [&>div]:justify-between [&>div]:gap-3 [&>div]:border-b [&>div]:border-line [&>div]:py-3.5 [&_dt]:text-[13px] [&_dt]:text-muted [&_dd]:m-0 [&_dd]:font-data [&_dd]:text-[15px] [&_dd]:leading-[normal] [&_dd]:tabular-nums">
               {facts.map(([label, value]) => (
                 <div key={label}>
                   <dt>{label}</dt>
@@ -178,7 +178,7 @@ export function RunDetail({
               ))}
             </dl>
             <p className="ops-note">A dash means the archive has not reported a count.</p>
-            <dl className="ops-meta">
+            <dl className="my-7 [&>div]:py-2.5 [&_dt]:mb-1.5 [&_dt]:font-data [&_dt]:text-[12px] [&_dt]:leading-[normal] [&_dt]:tracking-[0.05em] [&_dt]:text-faint [&_dt]:uppercase [&_dd]:m-0 [&_dd]:font-data [&_dd]:text-[13px] [&_dd]:leading-[normal] [&_dd]:wrap-anywhere">
               <div>
                 <dt>Entity</dt>
                 <dd>{row.entity}</dd>
@@ -225,7 +225,7 @@ export function RunDetail({
               )}
               {selected && (
                 <>
-                  <div className="ops-plan-summary">
+                  <div className="grid grid-cols-2 gap-5 pb-6 [&_strong]:block [&_strong]:text-[32px] [&_strong]:font-semibold [&_strong]:tracking-[-0.035em] [&_strong]:tabular-nums [&_strong]:max-[640px]:text-[26px] [&_span]:mt-1.5 [&_span]:block [&_span]:text-[12px] [&_span]:text-faint">
                     <div>
                       <strong>{count(selected.documents.length)}</strong>
                       <span>documents offered</span>
@@ -252,12 +252,12 @@ export function RunDetail({
                       }}
                     />
                   </Search>
-                  <div className="ops-document-list">
+                  <div className="my-4 mb-6 max-h-[390px] overflow-auto [&_a]:flex [&_a]:items-center [&_a]:gap-3 [&_a]:border-b [&_a]:border-line [&_a]:px-0 [&_a]:py-3.5 [&_a]:text-fg [&_a:hover]:text-link [&_a>span:nth-child(2)]:min-w-0 [&_a>span:nth-child(2)]:flex-1 [&_strong]:block [&_strong]:text-[13px] [&_strong]:font-medium [&_strong]:wrap-anywhere [&_small]:mt-1 [&_small]:block [&_small]:text-[12px] [&_small]:text-faint [@media(pointer:coarse)]:[&_a]:inline-flex [@media(pointer:coarse)]:[&_a]:min-h-11">
                     {matchingDocuments
                       .slice(documentPage * 50, (documentPage + 1) * 50)
                       .map((doc) => (
                         <a href={doc.url} target="_blank" rel="noopener" key={doc.url}>
-                          <span className="ops-file-icon">
+                          <span className="border border-line-strong px-[5px] py-1.5 font-data text-[12px] leading-[normal] text-signal">
                             {new URL(doc.url).pathname
                               .split(".")
                               .pop()
@@ -282,7 +282,7 @@ export function RunDetail({
                     label="documents"
                   />
                   {reviewing && !documents.error && submission?.state !== "sent" && (
-                    <div className="ops-approval">
+                    <div className="bevel border border-line bg-surface p-5 max-[640px]:p-[18px] [&>p]:text-[13px] [&>p]:leading-[1.65] [&>p]:text-muted [&>label]:my-5 [&>label]:grid [&>label]:gap-2 [&>label]:text-[13px] [&_input:not([type=checkbox])]:bevel-sm [&_input:not([type=checkbox])]:w-full [&_input:not([type=checkbox])]:min-w-0 [&_input:not([type=checkbox])]:border [&_input:not([type=checkbox])]:border-line-strong [&_input:not([type=checkbox])]:bg-surface-raised [&_input:not([type=checkbox])]:px-3 [&_input:not([type=checkbox])]:py-2.5 [&_input:not([type=checkbox])]:text-fg [&_small]:text-faint">
                       <p className="ops-eyebrow">REVIEW BEFORE DOWNLOADING</p>
                       <h3>Give this run the go-ahead.</h3>
                       <p>
@@ -304,7 +304,7 @@ export function RunDetail({
                           }}
                         />
                       </label>
-                      <label className="ops-check">
+                      <label className="flex items-start gap-2.5 leading-[1.6] [&_input]:mt-[3px] [&_input]:size-4 [&_input]:flex-none [&_input]:accent-action">
                         <input
                           type="checkbox"
                           checked={acknowledged}
@@ -372,7 +372,7 @@ export function RunDetail({
               {files.value?.length === 0 && (
                 <Empty title="No files yet">This run has not written any artifacts.</Empty>
               )}
-              <div className="ops-artifacts">
+              <div className="[&>div]:flex [&>div]:items-center [&>div]:justify-between [&>div]:gap-5 [&>div]:border-b [&>div]:border-line [&>div]:py-3.5 [&_code]:font-data [&_code]:text-[12px] [&_code]:leading-[normal] [&_code]:wrap-anywhere [&_a]:text-link [@media(pointer:coarse)]:[&_a]:inline-flex [@media(pointer:coarse)]:[&_a]:min-h-11 [@media(pointer:coarse)]:[&_a]:items-center">
                 {files.value?.slice(filePage * 50, (filePage + 1) * 50).map((file) => (
                   <div key={file}>
                     <code>{file.slice(runPrefix(run).length + 1)}</code>
@@ -457,7 +457,7 @@ function NewRun({ row, onChanged }: { row: RunRow; onChanged: () => void }) {
     row.run &&
     ["queued", "running", "waiting", "paused", "waitingForPause"].includes(row.run.status);
   return (
-    <div className="ops-action-form">
+    <div className="bevel border border-line bg-surface p-5 max-[640px]:p-[18px] [&>p]:text-[13px] [&>p]:leading-[1.65] [&>p]:text-muted [&>label]:my-5 [&>label]:grid [&>label]:gap-2 [&>label]:text-[13px] [&_input:not([type=checkbox])]:bevel-sm [&_input:not([type=checkbox])]:w-full [&_input:not([type=checkbox])]:min-w-0 [&_input:not([type=checkbox])]:border [&_input:not([type=checkbox])]:border-line-strong [&_input:not([type=checkbox])]:bg-surface-raised [&_input:not([type=checkbox])]:px-3 [&_input:not([type=checkbox])]:py-2.5 [&_input:not([type=checkbox])]:text-fg [&_small]:text-faint">
       <p className="ops-eyebrow">COLLECTION CONTROL</p>
       <h3>Start a fresh {row.kind === "maker" ? "discovery" : "collection"} run</h3>
       <p>
@@ -506,7 +506,7 @@ function NewRun({ row, onChanged }: { row: RunRow; onChanged: () => void }) {
       {settingsError && (domains.trim() || row.kind === "seller" || !limit) && (
         <Notice alarm>{settingsError}</Notice>
       )}
-      <label className="ops-check">
+      <label className="flex items-start gap-2.5 leading-[1.6] [&_input]:mt-[3px] [&_input]:size-4 [&_input]:flex-none [&_input]:accent-action">
         <input
           type="checkbox"
           checked={confirm}
