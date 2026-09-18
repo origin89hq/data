@@ -67,11 +67,13 @@ export function Site() {
               <div className="hero-main">
                 <p className="eyebrow">Open equipment data / by Origin89</p>
                 <h1 id="hero-title">
-                  A clearer picture <span>of off-grid equipment.</span>
+                  A clearer picture
+                  <br />
+                  <span>of off-grid equipment.</span>
                 </h1>
                 <p className="lede">
-                  Solar from one brand. Batteries from another. Find the models, read the
-                  specifications, and follow every figure back to the document it was read from.
+                  Solar from one brand, batteries from another — with every figure traced back to
+                  the document it was read from.
                 </p>
                 <div className="hero-actions">
                   <a className="o89-plate o89-plate-action" href="#explore">
@@ -111,10 +113,8 @@ export function Site() {
         <section className="section statement">
           <div className="o89-wrap">
             <h2>
-              <span>Different</span>
-              <span>equipment.</span>
-              <span>Common</span>
-              <span>ground.</span>
+              <span>Different equipment.</span>
+              <span>Common ground.</span>
             </h2>
             <p className="lede">
               Register maps to rated figures, panels to battery banks. The details that belong
@@ -298,11 +298,10 @@ export function Site() {
             <div className="device-head">
               <div>
                 <p className="eyebrow">02 / Get to know the data</p>
-                <h2 className="h-l">Find the equipment. See what’s documented.</h2>
+                <h2 className="h-l">Find the equipment.</h2>
               </div>
               <p className="lede">
-                Start with a model. Inspect a figure. Follow the evidence all the way back. Every
-                row here is read from the published tables in your own browser.
+                Start with a model, inspect a figure, and follow the evidence back to its document.
               </p>
             </div>
             <Explorer index={index} tier="records" db={db} />

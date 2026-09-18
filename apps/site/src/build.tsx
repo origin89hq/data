@@ -234,7 +234,7 @@ export function Build({ index }: { index?: Index }) {
           <h2 className="h-xl">
             Start with the equipment.
             <br />
-            Build from what you know.
+            <span className="accent-text">Build from what you know.</span>
           </h2>
           <div className="hero-actions">
             <a className="o89-plate o89-plate-action" href="#explore">
