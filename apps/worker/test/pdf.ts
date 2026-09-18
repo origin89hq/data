@@ -36,6 +36,8 @@ export interface Placed {
   x: number;
   y: number;
   size?: number;
+  /** Quarter turns anticlockwise, for a label printed up the side of a page. */
+  turn?: 0 | 1 | 3;
 }
 
 /**
@@ -46,10 +48,15 @@ export interface Placed {
 export function writtenPdf(pages: Placed[][], width = 300, height = 200): Uint8Array {
   const streams = pages.map((page) =>
     page
-      .map(
-        ({ text, x, y, size = 10 }) =>
-          `BT /F1 ${size} Tf ${x} ${y} Td (${text.replace(/([()\\])/g, "\\$1")}) Tj ET`,
-      )
+      .map(({ text, x, y, size = 10, turn = 0 }) => {
+        const placed =
+          turn === 1
+            ? `0 1 -1 0 ${x} ${y} Tm`
+            : turn === 3
+              ? `0 -1 1 0 ${x} ${y} Tm`
+              : `${x} ${y} Td`;
+        return `BT /F1 ${size} Tf ${placed} (${text.replace(/([()\\])/g, "\\$1")}) Tj ET`;
+      })
       .join("\n"),
   );
   const objects: string[] = [];

@@ -232,7 +232,18 @@ export function charsOn(pdfium: Pdfium, bytes: Uint8Array, page: number): Char[]
                 top === undefined
               )
                 continue;
-              chars.push({ text: String.fromCodePoint(code), left, right, bottom, top });
+              // Which way the character faces. A label printed up the side of a page is a line of
+              // its own, and read as though it were upright its letters fall one into each row it
+              // passes: a Progressive Dynamics manual came out as "OOCCACC/RERRTREVNERMINRTELE".
+              const angle = pdfium.FPDFText_GetCharAngle(text, index);
+              chars.push({
+                text: String.fromCodePoint(code),
+                left,
+                right,
+                bottom,
+                top,
+                ...(Number.isFinite(angle) && Math.abs(angle) > 0.01 ? { angle } : {}),
+              });
             }
             return chars;
           } finally {

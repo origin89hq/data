@@ -106,6 +106,32 @@ test("two columns no row ever fills at once are one column said twice", async ()
   assert.equal(columnsOf(rows).length, 3);
 });
 
+test("a label printed up the side is a line of its own, not a letter in every row", async () => {
+  // A Progressive Dynamics manual is typeset sideways, every character turned a quarter circle.
+  // Read as though upright, its letters fell one into each row they passed: the page came out as
+  // "OOCCACC/RERRTREVNERMINRTELE".
+  const markdown = markdownOf(
+    await charsOfPage([...SHEET, { text: "Page: 16", x: 280, y: 20, turn: 1 }]),
+  );
+  assert.match(markdown, /\| Weight \| 42 kg \| 51 kg \|/, markdown);
+  assert.match(markdown, /^Page: 16$/m, markdown);
+});
+
+test("a page typeset sideways reads as the page it is", async () => {
+  const markdown = markdownOf(
+    await charsOfPage([
+      { text: "Model", x: 40, y: 20, turn: 1 },
+      { text: "S-550", x: 40, y: 120, turn: 1 },
+      { text: "Weight", x: 60, y: 20, turn: 1 },
+      { text: "42 kg", x: 60, y: 120, turn: 1 },
+      { text: "Rated capacity", x: 80, y: 20, turn: 1 },
+      { text: "100 Ah", x: 80, y: 120, turn: 1 },
+    ]),
+  );
+  assert.match(markdown, /\| Weight \| 42 kg \|/, markdown);
+  assert.match(markdown, /\| Rated capacity \| 100 Ah \|/, markdown);
+});
+
 test("a document reads page by page, under the headings the reader windows on", async () => {
   const pdf = writtenPdf([
     SHEET,

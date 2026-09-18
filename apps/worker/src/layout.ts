@@ -19,6 +19,8 @@ export interface Char {
   right: number;
   bottom: number;
   top: number;
+  /** Which way it faces, in radians, when that is not along the page. */
+  angle?: number;
 }
 
 /** A run of characters with no gap wide enough to be a column: one cell of one row. */
@@ -164,6 +166,27 @@ export function gridOf(rows: readonly Row[], columns: readonly number[]): string
   });
 }
 
+/** A quarter turn, to the nearest one: 0 along the page, 1 up the side, 2 upside down, 3 down it. */
+function quarterTurn(char: Char): number {
+  return ((Math.round((char.angle ?? 0) / (Math.PI / 2)) % 4) + 4) % 4;
+}
+
+/**
+ * A character placed as though its own direction were along the page, so a label printed sideways
+ * is a line of text rather than one letter of every row it stands beside.
+ */
+function turned(char: Char, turn: number): Char {
+  // The angle goes with the turn: placed along the page, the character faces along it, and a
+  // second turn would take it off again.
+  const { left, right, bottom, top, angle: _placed, ...rest } = char;
+  // A quarter turn one way reads down the page, the other reads up it; the line beside it is the
+  // next column of the page it was printed on.
+  if (turn === 1) return { ...rest, left: -top, right: -bottom, bottom: -right, top: -left };
+  if (turn === 2) return { ...rest, left: -right, right: -left, bottom: -top, top: -bottom };
+  if (turn === 3) return { ...rest, left: bottom, right: top, bottom: -right, top: -left };
+  return { ...rest, left, right, bottom, top };
+}
+
 /** A cell as Markdown: a pipe inside one would end the cell it is in. */
 const escaped = (text: string): string => text.replace(/\|/g, "\\|");
 
@@ -173,7 +196,21 @@ const escaped = (text: string): string => text.replace(/\|/g, "\\|");
  * table with one cell a row, and reading them as one would put a pipe through every sentence.
  */
 export function markdownOf(chars: readonly Char[]): string {
-  const rows = rowsOf(chars);
+  const facing = new Map<number, Char[]>();
+  for (const char of chars) {
+    const turn = quarterTurn(char);
+    facing.set(turn, [...(facing.get(turn) ?? []), turned(char, turn)]);
+  }
+  // Read what faces along the page first, then each direction printed across it, so a page number
+  // up the spine is a line after the page rather than a letter in every row it passes.
+  if (facing.size > 1) {
+    return [...facing.entries()]
+      .sort(([a], [b]) => a - b)
+      .map(([, side]) => markdownOf(side))
+      .filter((part) => part.trim())
+      .join("\n\n");
+  }
+  const rows = rowsOf([...facing.values()][0] ?? []);
   const columns = columnsOf(rows);
   if (columns.length < 2)
     return rows.map((row) => row.cells.map((c) => c.text).join(" ")).join("\n");
