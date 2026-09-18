@@ -3,9 +3,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Ops } from "./Ops.tsx";
 import { createOpsRouter } from "./router.ts";
-import "../design/theme.css";
-import "../design/data.css";
-import "./ops.css";
+import "./tailwind.css";
 
 const router = createOpsRouter({
   component: Ops,

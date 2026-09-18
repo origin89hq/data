@@ -1,0 +1,43 @@
+/* Tailwind for the workspace, layered so it can sit beside the rules it has not replaced yet.
+ *
+ * Preflight is deliberately absent. The full `@import "tailwindcss"` brings a global reset that
+ * would restyle every view still on ops.css, which is the failure mode of a half-finished
+ * migration. Importing theme and utilities only — which is what the website does too — keeps the
+ * conversion view by view and reversible.
+ *
+ * There is no token bridge here either: @origin89/brand ships tokens/tailwind.css, an @theme block
+ * carrying the dark palette, so bg-surface, text-faint and border-line-strong come from the brand
+ * package rather than from a second list of colours kept in step by hand. */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "@origin89/brand/tokens/tailwind.css" layer(theme);
+
+/* Every stylesheet this bundle loads is placed in a layer, and that has to be all of them.
+ *
+ * Unlayered CSS beats layered CSS whatever the specificity. Import ops.css plainly and each rule
+ * this migration has not reached yet silently outranks the utility replacing it. Layer ops.css but
+ * leave the reset in theme.css unlayered and the reverse breaks: `button { background: transparent }`
+ * starts beating `.ops-button.primary { background: var(--color-action) }`, and the primary control
+ * loses its fill while keeping its rim. Specificity does not enter into it.
+ *
+ * So: the reset sits in `base`, the rules being converted in `components`, utilities above both. */
+@import "../design/theme.css" layer(base);
+@import "../design/data.css" layer(components);
+@import "./ops.css" layer(components);
+
+@theme {
+  --font-text: Concept, "Helvetica Neue", Arial, sans-serif;
+  --font-data: Technical, ui-monospace, Menlo, monospace;
+}
+
+/* The chamfer is the mark and Tailwind has no vocabulary for it, so it gets a first-class utility
+ * rather than an arbitrary value repeated at every call site. */
+@utility bevel {
+  border-radius: 12px;
+  corner-shape: bevel;
+}
+@utility bevel-sm {
+  border-radius: 8px;
+  corner-shape: bevel;
+}

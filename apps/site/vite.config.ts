@@ -1,4 +1,5 @@
 import { fileURLToPath } from "node:url";
+import tailwind from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
@@ -15,6 +16,7 @@ const worker = "http://localhost:8790";
 export default defineConfig({
   plugins: [
     react(),
+    tailwind(),
     {
       name: "ops-history-fallback",
       configureServer(server) {
