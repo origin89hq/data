@@ -211,7 +211,11 @@ export function Coverage({ db }: { db: State }) {
         <div className="device-head">
           <div>
             <p className="eyebrow">04 / A clear view of coverage</p>
-            <h2 className="h-l">See what’s here. And where the gaps are.</h2>
+            <h2 className="h-l">
+              See what’s here.
+              <br />
+              <span className="accent-text">And where the gaps are.</span>
+            </h2>
           </div>
           <p className="lede">
             Coverage is a starting point. Evidence quality and implementation status are separate

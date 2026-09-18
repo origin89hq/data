@@ -14,10 +14,17 @@
   max-width: 60ch;
 }
 .h-xl {
-  font-size: clamp(44px, 6.4vw, 104px);
+  font-size: clamp(38px, 5.4vw, 86px);
 }
 .h-l {
-  font-size: clamp(38px, 4.9vw, 78px);
+  font-size: clamp(34px, 4.4vw, 68px);
+}
+/* A headline sharing a row with its lede, or sitting in the six-column copy well, has about half
+ * the room a full-width one does. At the shared size its lines broke where the box ran out rather
+ * than where the sentence did. */
+.device-head h2,
+.open-copy h2 {
+  font-size: clamp(30px, 3.3vw, 50px);
 }
 .field-note {
   margin-top: 28px;
@@ -82,7 +89,6 @@
   min-width: 0;
 }
 .hero h1 {
-  max-width: 13ch;
   margin-top: 24px;
   font-size: clamp(44px, 5.4vw, 96px);
   line-height: 0.96;
@@ -219,21 +225,18 @@
 }
 
 /* The statement: the one place the type is allowed to be the whole picture. */
+/* Two sentences, one line each. Splitting them word by word the way the website's statement does
+ * stranded "equipment." and "ground." out to the right, where they read as fragments rather than
+ * as the two statements they are. The size is set so each line holds without wrapping. */
 .statement h2 {
   display: grid;
-  gap: 0.04em;
-  font-size: clamp(46px, 8.2vw, 138px);
+  gap: 0.06em;
+  font-size: clamp(36px, 5.6vw, 92px);
+  text-wrap: nowrap;
 }
 .statement h2 span:nth-child(2) {
-  padding-left: 1.6em;
-}
-.statement h2 span:nth-child(3) {
   color: var(--color-faint);
-  padding-left: 0.6em;
-}
-.statement h2 span:nth-child(4) {
-  color: var(--color-faint);
-  padding-left: 2.2em;
+  padding-left: 1.4em;
 }
 .statement .lede {
   margin-top: clamp(40px, 5vw, 64px);
@@ -262,9 +265,15 @@
   font-size: 13px;
 }
 @media (max-width: 900px) {
-  /* :nth-child(n) matches the staggered rules' specificity, so the later rule simply wins. */
+  /* :nth-child(n) matches the staggered rule's specificity, so the later rule simply wins. */
   .statement h2 span:nth-child(n) {
     padding-left: 0;
+  }
+}
+/* Below this the line cannot hold at a readable size, so let it wrap rather than overflow. */
+@media (max-width: 560px) {
+  .statement h2 {
+    text-wrap: balance;
   }
 }
 
@@ -1010,7 +1019,6 @@ a.record-card:hover {
 /* Closing. */
 .closing h2 {
   margin-top: 24px;
-  max-width: 16ch;
 }
 .closing .hero-actions {
   margin-top: 48px;
