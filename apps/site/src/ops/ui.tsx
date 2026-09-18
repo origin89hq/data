@@ -114,7 +114,7 @@ export function Loading({ label = "Loading workspace…" }: { label?: string }) 
 export function Notice({ children, alarm = false }: { children: ReactNode; alarm?: boolean }) {
   return (
     <div
-      className={`bevel-[10px] my-4 flex flex-wrap items-center gap-3 border border-line border-l-[3px] bg-surface px-4 py-3.5 text-[13px] leading-[1.65] wrap-anywhere [&_a]:text-inherit [&_a]:underline [&_code]:font-data [&_code]:text-[12px] ${alarm ? "border-l-alarm text-alarm" : "border-l-info text-muted"}`}
+      className={`bevel-[10px] my-4 flex flex-wrap items-center gap-3 border border-line border-l-[3px] bg-surface px-4 py-3.5 text-[13px] leading-[1.65] wrap-anywhere [&_a]:text-inherit [&_a]:underline [&_code]:font-data [&_code]:text-[12px] [@media(pointer:coarse)]:[&_a]:inline-flex [@media(pointer:coarse)]:[&_a]:min-h-11 [@media(pointer:coarse)]:[&_a]:items-center ${alarm ? "border-l-alarm text-alarm" : "border-l-info text-muted"}`}
       role={alarm ? "alert" : "status"}
     >
       {children}
@@ -179,7 +179,7 @@ export function Empty({ title, children }: { title: string; children: ReactNode 
  * in, and writing that as [&_h2] variants reads worse than the rule it replaces. */
 export function Panel({ children }: { children: ReactNode }) {
   return (
-    <section className="bevel min-w-0 border border-line bg-surface px-6 pt-[22px]">
+    <section className="bevel min-w-0 border border-line bg-surface px-6 pt-[22px] max-[640px]:px-4 max-[640px]:pt-5">
       {children}
     </section>
   );
