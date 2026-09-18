@@ -5,7 +5,7 @@ import { Icon } from "../icons.tsx";
 /* The workspace's controls. These were four class names applied at forty call sites; as components
  * the geometry is written once, and they are the shape that would move to @origin89/ui-react. */
 const CONTROL =
-  "inline-flex items-center justify-center gap-2 bevel-sm border px-4 py-0 text-[13px] font-medium whitespace-nowrap transition-colors disabled:cursor-not-allowed disabled:opacity-45 min-h-10 [@media(pointer:coarse)]:min-h-11";
+  "inline-flex appearance-none items-center justify-center gap-2 bevel-sm border px-4 py-0 text-[13px] font-medium whitespace-nowrap transition-colors disabled:cursor-not-allowed disabled:opacity-45 min-h-10 [@media(pointer:coarse)]:min-h-11";
 const QUIET = "border-line-strong bg-surface-raised text-fg not-disabled:hover:border-muted";
 /* The plate's fill is 2.40:1 on its own ground, so the rim carries the control boundary. */
 const FILLED =
@@ -28,7 +28,7 @@ export function ButtonLink({
 }
 
 const ICON_CONTROL =
-  "bevel-sm grid size-9 place-items-center border border-line-strong p-0 text-muted not-disabled:hover:bg-surface-raised not-disabled:hover:text-fg disabled:cursor-not-allowed disabled:opacity-45 [@media(pointer:coarse)]:size-11";
+  "bevel-sm grid size-9 appearance-none place-items-center border border-line-strong p-0 text-muted not-disabled:hover:bg-surface-raised not-disabled:hover:text-fg disabled:cursor-not-allowed disabled:opacity-45 [@media(pointer:coarse)]:size-11";
 
 /* An icon-only control carries no text, so the type makes its label mandatory rather than leaving
  * it to review. */
@@ -48,7 +48,7 @@ export function IconButton({
 
 /* The quiet control: no border, no fill, but still a control, so it keeps a full target on touch. */
 const TEXT =
-  "inline-flex items-center gap-1.5 px-0 py-1 text-left text-[13px] text-muted hover:text-fg [@media(pointer:coarse)]:min-h-11";
+  "inline-flex appearance-none items-center gap-1.5 px-0 py-1 text-left text-[13px] text-muted hover:text-fg [@media(pointer:coarse)]:min-h-11";
 
 export function TextButton({ className = "", ...rest }: ComponentProps<"button">) {
   return <button className={`${TEXT} ${className}`} {...rest} />;
