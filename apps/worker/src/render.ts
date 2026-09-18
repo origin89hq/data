@@ -1,5 +1,6 @@
 import { init, type WrappedPdfiumModule } from "@embedpdf/pdfium";
-import type { Char } from "./layout.ts";
+import { type Char, markdownOf } from "./layout.ts";
+import { MAX_PAGES } from "./reading.ts";
 
 /**
  * Drawing a PDF page inside a Worker, which has no canvas.
@@ -133,6 +134,46 @@ export function renderPage(
       } finally {
         pdfium.FPDF_ClosePage(loaded);
       }
+    } finally {
+      pdfium.FPDF_CloseDocument(document);
+    }
+  } finally {
+    pdfium.pdfium.wasmExports.free(pointer);
+  }
+}
+
+/**
+ * A whole document as Markdown, one page at a time, each under the page heading the reader windows
+ * on. Pages are read from where their characters sit, so a table stays a table; a page with no
+ * characters is left empty, and a document of those is a scan for the page reader.
+ */
+export function markdownOfDocument(
+  pdfium: Pdfium,
+  bytes: Uint8Array,
+  mostPages = MAX_PAGES,
+): string {
+  const pages = pageCount(pdfium, bytes);
+  const out: string[] = [];
+  for (let page = 1; page <= Math.min(pages, mostPages); page += 1) {
+    out.push(`### Page ${page}`);
+    out.push(markdownOf(charsOn(pdfium, bytes, page)));
+  }
+  return `${out.join("\n")}\n`;
+}
+
+/** How many pages a document has, without drawing or reading any of them. */
+export function pageCount(pdfium: Pdfium, bytes: Uint8Array): number {
+  const pointer = pdfium.pdfium.wasmExports.malloc(bytes.length);
+  if (!pointer) throw new Error(`PDFium could not make room for ${bytes.length} bytes`);
+  try {
+    heap(pdfium).set(bytes, pointer);
+    const document = pdfium.FPDF_LoadMemDocument64(pointer, bytes.length, "");
+    if (!document)
+      throw new Error(
+        `PDFium could not open it: ${LOAD_ERRORS[pdfium.FPDF_GetLastError()] ?? "an unknown error"}`,
+      );
+    try {
+      return pdfium.FPDF_GetPageCount(document);
     } finally {
       pdfium.FPDF_CloseDocument(document);
     }

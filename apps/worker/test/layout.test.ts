@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { columnsOf, gridOf, markdownOf, rowsOf } from "../src/layout.ts";
-import { charsOn } from "../src/render.ts";
+import { charsOn, markdownOfDocument, pageCount } from "../src/render.ts";
 import { BLACK_BOX, type Placed, pdfium, tinyPdf, writtenPdf } from "./pdf.ts";
 
 /** A datasheet's shape: a name at the left and a value under each model's heading. */
@@ -104,6 +104,30 @@ test("two columns no row ever fills at once are one column said twice", async ()
     ]),
   );
   assert.equal(columnsOf(rows).length, 3);
+});
+
+test("a document reads page by page, under the headings the reader windows on", async () => {
+  const pdf = writtenPdf([
+    SHEET,
+    [{ text: "Read this manual before installing the inverter.", x: 20, y: 180 }],
+  ]);
+  const markdown = markdownOfDocument(await pdfium(), pdf);
+  assert.equal(pageCount(await pdfium(), pdf), 2);
+  assert.deepEqual(
+    markdown.split("\n").filter((line) => line.startsWith("### Page")),
+    ["### Page 1", "### Page 2"],
+  );
+  assert.match(markdown, /### Page 1\n[\s\S]*\| Weight \| 42 kg \| 51 kg \|/);
+  assert.match(markdown, /### Page 2\nRead this manual before installing the inverter\./);
+});
+
+test("a document longer than the reader takes is cut where the reader stops", async () => {
+  const pages = Array.from({ length: 4 }, (_, i) => [{ text: `Page ${i + 1}`, x: 20, y: 180 }]);
+  const markdown = markdownOfDocument(await pdfium(), writtenPdf(pages), 2);
+  assert.deepEqual(
+    markdown.split("\n").filter((line) => line.startsWith("### Page")),
+    ["### Page 1", "### Page 2"],
+  );
 });
 
 test("a page drawn as a picture has no characters to read, and is left to the page reader", async () => {
