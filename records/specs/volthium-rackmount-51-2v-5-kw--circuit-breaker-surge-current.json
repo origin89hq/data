@@ -1,0 +1,11 @@
+{
+  "id": "volthium-rackmount-51-2v-5-kw--circuit-breaker-surge-current",
+  "model": "volthium-rackmount-51-2v-5-kw",
+  "name": "Circuit breaker surge current",
+  "value": "150",
+  "unit": "A",
+  "source": "doc-d64d340b8b0b310296b4dc7519d39d90",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

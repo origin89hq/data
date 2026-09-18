@@ -1,0 +1,11 @@
+{
+  "id": "epever-up5000-m8342--net-weight",
+  "model": "epever-up5000-m8342",
+  "name": "Net weight",
+  "value": "17.5",
+  "unit": "kg",
+  "source": "doc-c671251fdb0602bd2a8b1634ff16eacc",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

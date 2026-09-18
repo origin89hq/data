@@ -1,0 +1,12 @@
+{
+  "id": "epever-xtra3210n-g3-g3-ble--mounting-size-l-w",
+  "model": "epever-xtra3210n-g3-g3-ble",
+  "name": "Mounting Size (L× W)",
+  "value": "173mm × 156mm",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 51,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc",
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-18"
+}

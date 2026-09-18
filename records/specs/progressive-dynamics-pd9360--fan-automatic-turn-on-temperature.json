@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd9360--fan-automatic-turn-on-temperature",
+  "model": "progressive-dynamics-pd9360",
+  "name": "Fan automatic turn-on temperature",
+  "value": "140 degrés Fahrenheit",
+  "source": "doc-1dab4b387c0ab260ae5e008c4f30b9a2",
+  "page": 13,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

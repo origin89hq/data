@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-100428--gross-weight",
+  "model": "champion-power-100428",
+  "name": "Gross Weight",
+  "value": "20.5 lb (9.3 kg)",
+  "source": "doc-b7a025d0c8d715a43c9d66d47cb1d468",
+  "page": 17,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

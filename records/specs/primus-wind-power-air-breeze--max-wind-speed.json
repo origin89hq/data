@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-breeze--max-wind-speed",
+  "model": "primus-wind-power-air-breeze",
+  "name": "Max. Wind Speed",
+  "value": "90 mph (40.2 m/s)",
+  "source": "doc-41972c1d85892e0fb15407c2bf926a6d",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

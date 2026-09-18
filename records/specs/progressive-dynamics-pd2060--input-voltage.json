@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd2060--input-voltage",
+  "model": "progressive-dynamics-pd2060",
+  "name": "Input voltage",
+  "value": "105-130 VAC 50/60 Hz",
+  "source": "doc-39647255f1520f8290624f2a53a078b2",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

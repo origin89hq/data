@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-sunsaver-mppt--firmware-version",
+  "model": "morningstar-sunsaver-mppt",
+  "name": "Firmware version",
+  "value": "v09",
+  "source": "doc-76b371a8adfa469fe56ac2b6e72956e3",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

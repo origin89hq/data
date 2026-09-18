@@ -1,0 +1,11 @@
+{
+  "id": "midnite-solar-classic150--maximum-input-voltage",
+  "model": "midnite-solar-classic150",
+  "name": "Maximum input voltage",
+  "value": "150",
+  "unit": "V",
+  "source": "doc-99e13d49dba2dfea2ab587f317bb9af8",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-rb-100-50--voltage-drop",
+  "model": "morningstar-rb-100-50",
+  "name": "Voltage Drop",
+  "value": "50",
+  "unit": "mV",
+  "source": "doc-12e9e5caa78a1aabd300f5f6d984f076",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

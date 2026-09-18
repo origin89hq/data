@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd9330--output-voltage",
+  "model": "progressive-dynamics-pd9330",
+  "name": "Output voltage",
+  "value": "13.2 – 14.7 Volts DC",
+  "source": "doc-f91d951a638434c8e0da8afaece365aa",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-100428--motor-voltage",
+  "model": "champion-power-100428",
+  "name": "Motor voltage",
+  "value": "12V CC",
+  "source": "doc-b73d3308b7cb4fb1b9a09a3c6c50d8f3",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

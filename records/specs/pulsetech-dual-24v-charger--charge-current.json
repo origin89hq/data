@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-dual-24v-charger--charge-current",
+  "model": "pulsetech-dual-24v-charger",
+  "name": "Charge current",
+  "value": "3.5 amp per channel",
+  "source": "doc-8c35ef5b3df7b5fcf9d30ebad67f662d",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-ss-mppt-15l--dimensions",
+  "model": "morningstar-ss-mppt-15l",
+  "name": "Dimensions",
+  "value": "16.9 x 6.4 x 7.3 cm / 6.6 x 2.5 x 2.9 in",
+  "source": "doc-d9179191e76c8c62cd951e86433433be",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

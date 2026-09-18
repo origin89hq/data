@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilblp-cp10--output-voltage",
+  "model": "iota-engineering-ilblp-cp10",
+  "name": "Output Voltage",
+  "value": "15-55 VDC",
+  "source": "doc-74c8271a2228320fb8bcea930046b55f",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "epever-epever-ble-rj45-d--communication-distance",
+  "model": "epever-epever-ble-rj45-d",
+  "name": "Communication distance",
+  "value": "≤ 10m",
+  "source": "doc-d4ad09da679eed83a44519bcba74ef5c",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

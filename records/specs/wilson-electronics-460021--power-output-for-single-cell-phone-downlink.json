@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-460021--power-output-for-single-cell-phone-downlink",
+  "model": "wilson-electronics-460021",
+  "name": "Power output for single cell phone (Downlink)",
+  "value": "1.92 dBm at 700 MHz B12/17",
+  "source": "doc-d38029b7c1207972692fd4c773174008",
+  "page": 18,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

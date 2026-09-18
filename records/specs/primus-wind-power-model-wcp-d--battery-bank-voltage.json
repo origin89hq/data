@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-model-wcp-d--battery-bank-voltage",
+  "model": "primus-wind-power-model-wcp-d",
+  "name": "Battery bank voltage",
+  "value": "12-48 VDC",
+  "source": "doc-0b543150591b2ba0a1fe29bcb4907c11",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

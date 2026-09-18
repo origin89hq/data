@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmbc--dimensions-l-x-w-x-h",
+  "model": "powermax-converters-pmbc",
+  "name": "Dimensions (L x W x H)",
+  "value": "8.66 x 3.74 x 2.36 Inches",
+  "source": "doc-2d60dd84c492d816f310eabe743db17b",
+  "page": 11,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

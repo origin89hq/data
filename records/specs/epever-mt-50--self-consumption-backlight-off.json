@@ -1,0 +1,9 @@
+{
+  "id": "epever-mt-50--self-consumption-backlight-off",
+  "model": "epever-mt-50",
+  "name": "Self-consumption, Backlight OFF",
+  "value": "<15mA",
+  "source": "doc-d1bc52bc0bb701566219e695af1d35bf",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

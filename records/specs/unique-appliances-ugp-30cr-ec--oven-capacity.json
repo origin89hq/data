@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-30cr-ec--oven-capacity",
+  "model": "unique-appliances-ugp-30cr-ec",
+  "name": "Oven Capacity",
+  "value": "3.9",
+  "source": "doc-7cc86bd3c7329eddb7c13b40d198769a",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-mnbcm--idle-standby-power-draw-leds-off",
+  "model": "midnite-solar-mnbcm",
+  "name": "Idle/standby power draw (LEDs off)",
+  "value": "6 ma @ 12 volts",
+  "source": "doc-e2c88bb28162a05c96a4bf9860156eb0",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-12-obd-a--battery-voltage",
+  "model": "pulsetech-sp-12-obd-a",
+  "name": "Battery voltage",
+  "value": "12-volt",
+  "source": "doc-8cf35cd43b1658b3d7f332be84584c0b",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

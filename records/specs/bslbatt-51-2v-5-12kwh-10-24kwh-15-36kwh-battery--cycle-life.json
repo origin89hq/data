@@ -1,0 +1,9 @@
+{
+  "id": "bslbatt-51-2v-5-12kwh-10-24kwh-15-36kwh-battery--cycle-life",
+  "model": "bslbatt-51-2v-5-12kwh-10-24kwh-15-36kwh-battery",
+  "name": "Cycle Life",
+  "value": "6000 cycles @ 90% DOD",
+  "source": "doc-37abc5bd32954167fd1903ffc9109ec4",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

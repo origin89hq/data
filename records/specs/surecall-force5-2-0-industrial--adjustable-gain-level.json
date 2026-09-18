@@ -1,0 +1,11 @@
+{
+  "id": "surecall-force5-2-0-industrial--adjustable-gain-level",
+  "model": "surecall-force5-2-0-industrial",
+  "name": "Adjustable gain level",
+  "value": "31",
+  "unit": "dB",
+  "source": "doc-bf8db7e854ebb90b299f7bf841eeb449",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd--battery-life-expectancy",
+  "model": "iota-engineering-ilblp-cp15-he-sd",
+  "name": "Battery life expectancy",
+  "value": "5-7",
+  "source": "doc-668127f8728f21471af7b6df6f82db0f",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

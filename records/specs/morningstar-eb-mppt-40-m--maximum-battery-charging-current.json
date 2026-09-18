@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-eb-mppt-40-m--maximum-battery-charging-current",
+  "model": "morningstar-eb-mppt-40-m",
+  "name": "Maximum Battery Charging Current",
+  "value": "40",
+  "unit": "A",
+  "source": "doc-5600884e5ab903ad27bd4d3992778409",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

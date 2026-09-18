@@ -1,0 +1,9 @@
+{
+  "id": "volthium-12v-400ah-abs--tightening-torque-on-terminals",
+  "model": "volthium-12v-400ah-abs",
+  "name": "Tightening torque on terminals",
+  "value": "8~10nm / 6-8 ft/lb",
+  "source": "doc-99ceb53b046af7cefe6cab5548609aa3",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "volthium-12v-400ah-abs--nominal-voltage",
+  "model": "volthium-12v-400ah-abs",
+  "name": "Nominal voltage",
+  "value": "12 V / 12.8 V / 12.8 volt",
+  "source": "doc-99ceb53b046af7cefe6cab5548609aa3",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

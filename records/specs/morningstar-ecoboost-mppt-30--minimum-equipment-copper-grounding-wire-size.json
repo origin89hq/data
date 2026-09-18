@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ecoboost-mppt-30--minimum-equipment-copper-grounding-wire-size",
+  "model": "morningstar-ecoboost-mppt-30",
+  "name": "Minimum equipment copper grounding wire size",
+  "value": "10 mm2",
+  "source": "doc-15aaa2603340519a063c6fdaff24a15e",
+  "page": 12,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

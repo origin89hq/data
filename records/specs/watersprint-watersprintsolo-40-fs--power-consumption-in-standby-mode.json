@@ -1,0 +1,10 @@
+{
+  "id": "watersprint-watersprintsolo-40-fs--power-consumption-in-standby-mode",
+  "model": "watersprint-watersprintsolo-40-fs",
+  "name": "Power consumption in standby mode",
+  "value": "<1",
+  "source": "doc-1c34d429779316455fe36aac66834ba4",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

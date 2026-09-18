@@ -1,0 +1,10 @@
+{
+  "id": "volthium-51-2v-100ah-abs--ingress-protection-rating",
+  "model": "volthium-51-2v-100ah-abs",
+  "name": "Ingress protection rating",
+  "value": "IP55 (Against low-pressure water jets and dust)",
+  "source": "doc-5c66a3655476e7c45fb3f10c82718104",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

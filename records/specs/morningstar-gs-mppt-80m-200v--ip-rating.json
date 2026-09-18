@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-80m-200v--ip-rating",
+  "model": "morningstar-gs-mppt-80m-200v",
+  "name": "IP rating",
+  "value": "IP20",
+  "source": "doc-2e0d175d4cf50dfa7df1901354c9760f",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

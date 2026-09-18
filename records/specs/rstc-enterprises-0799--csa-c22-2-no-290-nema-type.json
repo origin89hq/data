@@ -1,0 +1,10 @@
+{
+  "id": "rstc-enterprises-0799--csa-c22-2-no-290-nema-type",
+  "model": "rstc-enterprises-0799",
+  "name": "CSA C22.2 No. 290 NEMA Type",
+  "value": "3R",
+  "source": "doc-a9320adc803dfc834a284e666ffb290c",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

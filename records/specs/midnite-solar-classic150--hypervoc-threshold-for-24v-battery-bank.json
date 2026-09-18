@@ -1,0 +1,11 @@
+{
+  "id": "midnite-solar-classic150--hypervoc-threshold-for-24v-battery-bank",
+  "model": "midnite-solar-classic150",
+  "name": "HyperVOC threshold for 24V battery bank",
+  "value": "162",
+  "unit": "V",
+  "source": "doc-99e13d49dba2dfea2ab587f317bb9af8",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

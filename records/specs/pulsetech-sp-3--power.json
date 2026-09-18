@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-3--power",
+  "model": "pulsetech-sp-3",
+  "name": "Power",
+  "value": "3-Watt 12-Volt Solar Battery Maintainer",
+  "source": "doc-19de4697049dadc06ace405a9f0d8eff",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

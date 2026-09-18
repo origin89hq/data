@@ -1,0 +1,11 @@
+{
+  "id": "rstc-enterprises-0999--rated-ambient-temperature",
+  "model": "rstc-enterprises-0999",
+  "name": "Rated ambient temperature",
+  "value": "75",
+  "unit": "°C",
+  "source": "doc-7673f4031eaffe80bb5ce09918836b4e",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

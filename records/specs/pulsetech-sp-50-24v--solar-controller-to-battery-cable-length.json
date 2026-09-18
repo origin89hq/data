@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-50-24v--solar-controller-to-battery-cable-length",
+  "model": "pulsetech-sp-50-24v",
+  "name": "Solar Controller to Battery Cable Length",
+  "value": "3 meter (118\")",
+  "source": "doc-dc486b0c7095bc807c53c71add39a126",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

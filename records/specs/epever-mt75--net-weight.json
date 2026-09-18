@@ -1,0 +1,10 @@
+{
+  "id": "epever-mt75--net-weight",
+  "model": "epever-mt75",
+  "name": "Net Weight",
+  "value": "0.29Kg(base)/0.22Kg(no base)",
+  "source": "doc-baf42b6a806815524e9b50816fcac79f",
+  "page": 12,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

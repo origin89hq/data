@@ -1,0 +1,11 @@
+{
+  "id": "surecall-force5-2-0--maximum-gain",
+  "model": "surecall-force5-2-0",
+  "name": "Maximum gain",
+  "value": "80",
+  "unit": "dB",
+  "source": "doc-bf8db7e854ebb90b299f7bf841eeb449",
+  "page": 18,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

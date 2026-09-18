@@ -1,0 +1,11 @@
+{
+  "id": "unique-appliances-ugp-325l-dc--freezer-volume",
+  "model": "unique-appliances-ugp-325l-dc",
+  "name": "Freezer Volume",
+  "value": "96",
+  "unit": "L",
+  "source": "doc-66962ad14b4fc16a982601236e6e5785",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

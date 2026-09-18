@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sc-2--weight",
+  "model": "pulsetech-sc-2",
+  "name": "Weight",
+  "value": "5.5 lbs (2.49 kg)",
+  "source": "doc-bf9be7dbceb7454ea9454d5d314d8a3b",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

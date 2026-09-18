@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-00-10025-351--a-c-common-normally-closed-resistance-when-shed",
+  "model": "precision-circuits-00-10025-351",
+  "name": "A/C Common-Normally Closed resistance when shed",
+  "value": "100K ohm",
+  "source": "doc-c23f2581265359d3abfd301d8e395245",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

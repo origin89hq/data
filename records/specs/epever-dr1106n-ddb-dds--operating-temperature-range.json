@@ -1,0 +1,10 @@
+{
+  "id": "epever-dr1106n-ddb-dds--operating-temperature-range",
+  "model": "epever-dr1106n-ddb-dds",
+  "name": "Operating temperature range",
+  "value": "-20℃~+50℃(DDS)-30℃~+50℃(DDB)",
+  "source": "doc-f4b3ef954e09ccc7732e9135ee547ca7",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-ts-m-2-600v--cable-length",
+  "model": "morningstar-ts-m-2-600v",
+  "name": "Cable length",
+  "value": "0.35 m / 14 in",
+  "source": "doc-fe81f786ffcf4110c4eab5e48b9d134a",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

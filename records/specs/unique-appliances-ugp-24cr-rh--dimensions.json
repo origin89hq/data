@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-24cr-rh--dimensions",
+  "model": "unique-appliances-ugp-24cr-rh",
+  "name": "Dimensions",
+  "value": "L 24,25 x H 10 x D 22 po",
+  "source": "doc-26ee7d00501d5adfa3f5b71b62d23236",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ts-45--maximum-combined-charging-source-input-current",
+  "model": "morningstar-ts-45",
+  "name": "Maximum combined charging source input current",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-95d422430ca0c806b88a2178ce95545d",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

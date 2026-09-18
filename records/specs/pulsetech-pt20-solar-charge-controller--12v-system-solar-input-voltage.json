@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pt20-solar-charge-controller--12v-system-solar-input-voltage",
+  "model": "pulsetech-pt20-solar-charge-controller",
+  "name": "12V system solar input voltage",
+  "value": "15V-28V",
+  "source": "doc-23626c7771110fd9944d219a50d60d5f",
+  "page": 6,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

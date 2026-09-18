@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-890pt--test-discharged-battery",
+  "model": "pulsetech-890pt",
+  "name": "Test Discharged Battery",
+  "value": "Down to 1.5",
+  "unit": "V",
+  "source": "doc-03b6acecfa18733b3987c167f7f9379d",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

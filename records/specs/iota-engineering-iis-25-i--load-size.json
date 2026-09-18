@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-iis-25-i--load-size",
+  "model": "iota-engineering-iis-25-i",
+  "name": "Load Size",
+  "value": "25",
+  "unit": "W",
+  "source": "doc-42dda0f81c3d94e346e5b8f15fe049cd",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

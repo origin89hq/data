@@ -1,0 +1,9 @@
+{
+  "id": "volthium-12-v-560-ah-pro--temperature-discharge",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "Temperature - Discharge",
+  "value": "De -45 à 60°C (en activant le thermostat）",
+  "source": "doc-aeb5cccfeafcd4e86f6eefd9ccdacbe9",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

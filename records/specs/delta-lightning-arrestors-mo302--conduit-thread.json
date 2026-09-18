@@ -1,0 +1,9 @@
+{
+  "id": "delta-lightning-arrestors-mo302--conduit-thread",
+  "model": "delta-lightning-arrestors-mo302",
+  "name": "Conduit thread",
+  "value": "1/2\" Locknut & 1/2\" x 1 reducing washer",
+  "source": "doc-46921a96fb0ee85a0ccbf64c9d7e20d2",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "bslbatt-b-lfp48-200e--nominal-capacity",
+  "model": "bslbatt-b-lfp48-200e",
+  "name": "Nominal Capacity",
+  "value": "10240",
+  "unit": "Wh",
+  "source": "doc-a5280ed309433548bf133d18361db832",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

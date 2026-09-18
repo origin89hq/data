@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-100m-200v--battery-charging",
+  "model": "morningstar-gs-mppt-100m-200v",
+  "name": "Battery Charging",
+  "value": "4-stage Charging Bulk, Absorption, Float, Equalization",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 147,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

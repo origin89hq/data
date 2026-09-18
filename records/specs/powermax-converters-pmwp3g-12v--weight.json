@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmwp3g-12v--weight",
+  "model": "powermax-converters-pmwp3g-12v",
+  "name": "Weight",
+  "value": "4.85",
+  "unit": "lb",
+  "source": "doc-587449c6f7cc6ba4812ec285251c1d33",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

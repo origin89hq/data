@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sc-2--auto-start-stop-charging",
+  "model": "pulsetech-sc-2",
+  "name": "Auto Start/Stop Charging",
+  "value": "Auto stop when fully charged; auto restart below 12.6V",
+  "source": "doc-06c4ef44dafa61b49912b97079166261",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

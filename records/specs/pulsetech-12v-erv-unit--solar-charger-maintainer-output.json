@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-12v-erv-unit--solar-charger-maintainer-output",
+  "model": "pulsetech-12v-erv-unit",
+  "name": "Solar charger maintainer output",
+  "value": "7-Watt",
+  "source": "doc-feacfcbdccea522ecd1ba703d2e2a49a",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-300e--energy",
+  "model": "bslbatt-300e",
+  "name": "Energy",
+  "value": "15.36",
+  "unit": "kWh",
+  "source": "doc-00b5ed69a1e2f7909133dfef71f40617",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

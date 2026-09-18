@@ -1,0 +1,10 @@
+{
+  "id": "volthium-eqp-pwrstn-1600w--dc-output-1",
+  "model": "volthium-eqp-pwrstn-1600w",
+  "name": "DC output 1",
+  "value": "12V/10A,24V/10A (MaX 240W)",
+  "source": "doc-3fc12c58a7dbea3701ac9cccf68420ba",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

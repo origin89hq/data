@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-b-lfp48-18--discharging-inner-resistance",
+  "model": "bslbatt-b-lfp48-18",
+  "name": "Discharging Inner Resistance",
+  "value": "≤ 160mΩ",
+  "source": "doc-86c3e874ae2eee0d8976df5b8576fa84",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

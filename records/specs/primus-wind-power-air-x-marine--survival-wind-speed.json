@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-x-marine--survival-wind-speed",
+  "model": "primus-wind-power-air-x-marine",
+  "name": "Survival wind speed",
+  "value": "49.2 m/s (110 mph)",
+  "source": "doc-e77976cddd9bc48dc24e165f74b2ec72",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

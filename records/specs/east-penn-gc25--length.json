@@ -1,0 +1,9 @@
+{
+  "id": "east-penn-gc25--length",
+  "model": "east-penn-gc25",
+  "name": "Length",
+  "value": "10-1/4 in",
+  "source": "doc-298020c480db519a900feeab4daf9343",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

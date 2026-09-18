@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-3--supported-batteries",
+  "model": "pulsetech-sp-3",
+  "name": "Supported batteries",
+  "value": "1 Battery",
+  "source": "doc-85854ca79ef7fd2befb2673c3fea7270",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

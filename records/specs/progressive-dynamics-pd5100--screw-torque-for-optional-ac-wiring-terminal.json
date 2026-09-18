@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd5100--screw-torque-for-optional-ac-wiring-terminal",
+  "model": "progressive-dynamics-pd5100",
+  "name": "Screw torque for optional AC wiring terminal",
+  "value": "16 in-lbs",
+  "source": "doc-01cbc10abb4dc4de8e704ee77db1bac8",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

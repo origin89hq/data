@@ -1,0 +1,11 @@
+{
+  "id": "epever-xtra4415n-g3--max-pv-input-current",
+  "model": "epever-xtra4415n-g3",
+  "name": "Max. PV input current",
+  "value": "40",
+  "unit": "A",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 17,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

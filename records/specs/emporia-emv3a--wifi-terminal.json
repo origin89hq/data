@@ -1,0 +1,10 @@
+{
+  "id": "emporia-emv3a--wifi-terminal",
+  "model": "emporia-emv3a",
+  "name": "WiFi terminal",
+  "value": "SMA coaxial cable, 50Ω impedance, 600V insulation required",
+  "source": "doc-e44cae2a6b8535ee6806ff6f5600735d",
+  "page": 37,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

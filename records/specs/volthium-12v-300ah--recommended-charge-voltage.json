@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12v-300ah--recommended-charge-voltage",
+  "model": "volthium-12v-300ah",
+  "name": "Recommended charge voltage",
+  "value": "14.2 V - 14.6 V (Bulk) | 13.6 V (Float)",
+  "source": "doc-1f59f71da2d3ceb9721a2230297cbe2c",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

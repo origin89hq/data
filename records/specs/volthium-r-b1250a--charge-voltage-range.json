@@ -1,0 +1,10 @@
+{
+  "id": "volthium-r-b1250a--charge-voltage-range",
+  "model": "volthium-r-b1250a",
+  "name": "Charge voltage range",
+  "value": "14.2 - 14.6 V",
+  "source": "doc-351fd519eb6040042623bf73c333c5ed",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

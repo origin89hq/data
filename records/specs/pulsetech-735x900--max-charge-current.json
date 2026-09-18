@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-735x900--max-charge-current",
+  "model": "pulsetech-735x900",
+  "name": "Max Charge Current",
+  "value": "403",
+  "unit": "mA",
+  "source": "doc-52d227f711db7c1eaf48f84037bc7d3a",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

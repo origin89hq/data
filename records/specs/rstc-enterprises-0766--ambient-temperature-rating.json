@@ -1,0 +1,10 @@
+{
+  "id": "rstc-enterprises-0766--ambient-temperature-rating",
+  "model": "rstc-enterprises-0766",
+  "name": "Ambient temperature rating",
+  "value": "(-35°C) - (+75°C)",
+  "source": "doc-3624ffaea262125ea3f81b5b0f7a722a",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

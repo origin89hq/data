@@ -1,0 +1,10 @@
+{
+  "id": "epever-tp10k-110-220-1--max-inverter-efficiency",
+  "model": "epever-tp10k-110-220-1",
+  "name": "Max. inverter efficiency",
+  "value": ">90%",
+  "source": "doc-81e78093b9671e24fe5a3d9c1812a057",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

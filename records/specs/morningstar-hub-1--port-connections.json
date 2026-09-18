@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-hub-1--port-connections",
+  "model": "morningstar-hub-1",
+  "name": "Port Connections",
+  "value": "RJ-11, gold plated",
+  "source": "doc-5293e48fcf72f901319ac146ef0b40d6",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

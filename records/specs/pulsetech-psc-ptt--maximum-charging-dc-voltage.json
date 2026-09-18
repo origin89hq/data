@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-psc-ptt--maximum-charging-dc-voltage",
+  "model": "pulsetech-psc-ptt",
+  "name": "Maximum charging DC voltage",
+  "value": "28",
+  "unit": "V",
+  "source": "doc-397ca4515cc554a6f5db794e7b9c979a",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

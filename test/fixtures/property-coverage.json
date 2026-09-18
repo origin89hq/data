@@ -30,6 +30,12 @@
       "unparsed": 14,
       "needsConditions": 11
     },
+    "epever": {
+      "values": 7,
+      "conflicts": 0,
+      "unparsed": 0,
+      "needsConditions": 0
+    },
     "luxpower": {
       "values": 99,
       "conflicts": 1,
@@ -49,9 +55,9 @@
       "needsConditions": 0
     },
     "morningstar": {
-      "values": 73,
-      "conflicts": 0,
-      "unparsed": 12,
+      "values": 97,
+      "conflicts": 1,
+      "unparsed": 14,
       "needsConditions": 3
     },
     "noco": {
@@ -108,6 +114,12 @@
       "unparsed": 16,
       "needsConditions": 24
     },
+    "volthium": {
+      "values": 3,
+      "conflicts": 0,
+      "unparsed": 1,
+      "needsConditions": 0
+    },
     "xantrex": {
       "values": 46,
       "conflicts": 0,
@@ -127,39 +139,39 @@
     },
     "battery.charge.current.max battery": {
       "models": 500,
-      "values": 56,
+      "values": 57,
       "partial": 8,
       "conflicts": 0,
       "unparsed": 12,
       "needsConditions": 0,
-      "noClaim": 432
+      "noClaim": 431
     },
     "battery.discharge.current.max battery": {
       "models": 500,
-      "values": 53,
+      "values": 54,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 10,
       "needsConditions": 0,
-      "noClaim": 437
+      "noClaim": 436
     },
     "battery.discharge.current.peak battery": {
       "models": 500,
       "values": 15,
       "partial": 0,
       "conflicts": 0,
-      "unparsed": 0,
+      "unparsed": 1,
       "needsConditions": 11,
-      "noClaim": 474
+      "noClaim": 473
     },
     "battery.energy battery": {
       "models": 500,
-      "values": 59,
+      "values": 60,
       "partial": 0,
       "conflicts": 0,
       "unparsed": 0,
       "needsConditions": 0,
-      "noClaim": 441
+      "noClaim": 440
     },
     "battery.voltage.nominal ac-charger": {
       "models": 77,
@@ -181,12 +193,12 @@
     },
     "battery.voltage.nominal charge-controller": {
       "models": 601,
-      "values": 77,
+      "values": 87,
       "partial": 3,
       "conflicts": 0,
-      "unparsed": 5,
+      "unparsed": 6,
       "needsConditions": 0,
-      "noClaim": 519
+      "noClaim": 508
     },
     "battery.voltage.nominal inverter": {
       "models": 213,
@@ -244,12 +256,12 @@
     },
     "charge.current.max charge-controller": {
       "models": 601,
-      "values": 86,
-      "partial": 6,
+      "values": 94,
+      "partial": 7,
       "conflicts": 0,
       "unparsed": 3,
       "needsConditions": 0,
-      "noClaim": 512
+      "noClaim": 504
     },
     "charge.current.max dc-dc-converter": {
       "models": 96,
@@ -586,12 +598,12 @@
     },
     "pv.voc.max charge-controller": {
       "models": 601,
-      "values": 68,
+      "values": 81,
       "partial": 1,
-      "conflicts": 0,
+      "conflicts": 1,
       "unparsed": 2,
       "needsConditions": 0,
-      "noClaim": 531
+      "noClaim": 517
     },
     "pv.voc.max inverter": {
       "models": 213,

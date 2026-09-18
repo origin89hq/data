@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pmbc-100-se--output-current",
+  "model": "powermax-converters-pmbc-100-se",
+  "name": "Output current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-554e50421ecfb6d771e2afd1452e961a",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

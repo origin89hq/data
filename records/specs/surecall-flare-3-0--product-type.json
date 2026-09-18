@@ -1,0 +1,10 @@
+{
+  "id": "surecall-flare-3-0--product-type",
+  "model": "surecall-flare-3-0",
+  "name": "Product type",
+  "value": "Cellular signal booster kit with combined booster and indoor antenna",
+  "source": "doc-4bee76a5ebcfe22b3e44456e2eea1bb6",
+  "page": 23,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

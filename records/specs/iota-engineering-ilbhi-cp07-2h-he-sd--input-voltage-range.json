@@ -1,0 +1,9 @@
+{
+  "id": "iota-engineering-ilbhi-cp07-2h-he-sd--input-voltage-range",
+  "model": "iota-engineering-ilbhi-cp07-2h-he-sd",
+  "name": "Input voltage range",
+  "value": "15-55VDC",
+  "source": "doc-09a924218835dd3d442600441c0a8241",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

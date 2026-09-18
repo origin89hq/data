@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-50--max-charging-current",
+  "model": "pulsetech-sp-50",
+  "name": "Max charging current",
+  "value": "1.62",
+  "unit": "A",
+  "source": "doc-8be9495f7f8c765bf095c64e22f8a7b8",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

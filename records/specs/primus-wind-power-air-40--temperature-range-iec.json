@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-40--temperature-range-iec",
+  "model": "primus-wind-power-air-40",
+  "name": "Temperature range IEC",
+  "value": "14 ºF (-10 ºC) a 104 ºF (40 ºC)",
+  "source": "doc-c15058cdcf6c0ae389d24523d639366a",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

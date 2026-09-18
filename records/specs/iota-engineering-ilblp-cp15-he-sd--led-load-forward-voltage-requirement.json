@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd--led-load-forward-voltage-requirement",
+  "model": "iota-engineering-ilblp-cp15-he-sd",
+  "name": "LED load forward voltage requirement",
+  "value": "20 to 55VDC",
+  "source": "doc-668127f8728f21471af7b6df6f82db0f",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-3000w--overload-power-range",
+  "model": "powermax-converters-pmx-3000w",
+  "name": "Overload Power Range",
+  "value": "3000 Watts +5% - +30%",
+  "source": "doc-39140d23c40e0c6d760fa8b9948caf17",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

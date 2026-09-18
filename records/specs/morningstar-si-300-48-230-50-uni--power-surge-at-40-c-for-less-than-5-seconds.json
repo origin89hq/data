@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-si-300-48-230-50-uni--power-surge-at-40-c-for-less-than-5-seconds",
+  "model": "morningstar-si-300-48-230-50-uni",
+  "name": "Power Surge at 40°C for less than 5 seconds",
+  "value": "600",
+  "unit": "W",
+  "source": "doc-9d24c6fe1606ecc4c1e36f6cb5ae7bb7",
+  "page": 62,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

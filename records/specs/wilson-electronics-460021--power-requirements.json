@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-460021--power-requirements",
+  "model": "wilson-electronics-460021",
+  "name": "Power Requirements",
+  "value": "6 V 2 A",
+  "source": "doc-e6af55c31c9dd88ef2f57af568f84606",
+  "page": 22,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

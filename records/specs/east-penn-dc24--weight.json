@@ -1,0 +1,10 @@
+{
+  "id": "east-penn-dc24--weight",
+  "model": "east-penn-dc24",
+  "name": "WEIGHT",
+  "value": "45.5",
+  "source": "doc-d8153762a2b52196cc4ca1ddbdb87a2f",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

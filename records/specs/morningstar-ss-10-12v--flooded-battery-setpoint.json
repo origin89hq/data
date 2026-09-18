@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ss-10-12v--flooded-battery-setpoint",
+  "model": "morningstar-ss-10-12v",
+  "name": "Flooded Battery Setpoint",
+  "value": "14.6",
+  "unit": "V",
+  "source": "doc-faccf02ddc4b17991ff29bc933fe693a",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

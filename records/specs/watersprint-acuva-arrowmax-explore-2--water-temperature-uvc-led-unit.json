@@ -1,0 +1,10 @@
+{
+  "id": "watersprint-acuva-arrowmax-explore-2--water-temperature-uvc-led-unit",
+  "model": "watersprint-acuva-arrowmax-explore-2",
+  "name": "Water temperature (UVC LED Unit)",
+  "value": "34–104°F",
+  "source": "doc-fee4569d270421b6d01a6f1ebd800443",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

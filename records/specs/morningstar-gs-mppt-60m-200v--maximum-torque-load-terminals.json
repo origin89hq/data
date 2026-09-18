@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-60m-200v--maximum-torque-load-terminals",
+  "model": "morningstar-gs-mppt-60m-200v",
+  "name": "Maximum torque - Load terminals",
+  "value": "35 in-lb / 3.9 N-m",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 151,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

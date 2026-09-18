@@ -1,0 +1,11 @@
+{
+  "id": "volthium-rackmount-3u-51-2v-100ah--continuous-discharge-current",
+  "model": "volthium-rackmount-3u-51-2v-100ah",
+  "name": "Continuous discharge current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-3c151d9fbc3b418d555a506a636fdddc",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

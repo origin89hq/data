@@ -1,0 +1,11 @@
+{
+  "id": "volthium-12-v-560-ah-pro--capacity",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "Capacity",
+  "value": "560",
+  "unit": "Ah",
+  "source": "doc-d936948a48804fb1a569a0aaeec6a0d8",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

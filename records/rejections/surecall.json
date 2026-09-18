@@ -152,6 +152,50 @@
       "reason": "No label: \"AC adapter power cable (5.9V/2.8A)\".",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-2e0c4747311fab9e7645c70978fc292e",
+      "model": "surecall-fusion4home",
+      "name": "Network support",
+      "reason": "The data sheet prints no network-support figure: its specification list gives \"Supported Standards: CDMA, WCDMA, GSM, EDGE, HSPA+, EVDO, LTE and all cellular standards\", while \"Voice & 4G LTE\" is banner text and \"all US cell carriers\" comes from the overview bullets.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    },
+    {
+      "source": "doc-2e0c4747311fab9e7645c70978fc292e",
+      "product": "Fusion4Home Omni / Whip",
+      "reason": "Page 1 lists \"Fusion4Home Omni / Whip\" with model number SC-PolyH-72-ORA-Kit among the signal booster kits that \"ship complete with indoor and outdoor antennas and coax cables\", while page 2 gives the booster itself as \"Model No. Fusion4Home\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    },
+    {
+      "source": "doc-444af34d73d756f8620e3827d2cc8016",
+      "product": "Fusion2Go 5G",
+      "reason": "The name is read out of the FCC ID \"RSN-FUSION2GO5G\" printed in the Fusion2Go XR guides; those documents are the XR’s, and their figures are its.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    },
+    {
+      "source": "doc-cb4dffe8d1d5c0700ae31f5c491db2c2",
+      "model": "surecall-force5-2-0",
+      "name": "DIP switch attenuation 1",
+      "reason": "Page 19 gives 1 dB as the attenuation DIP switch 1 adds within a bank when the installer turns it on, an adjustment the installer makes rather than a rating of the booster.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    },
+    {
+      "source": "doc-e00b7eba0dbeec9c016e9253c8d5fd1a",
+      "product": "Fusion5s 2.0 Yagi/Panel SC-PolysH/O-72-YP-Kit",
+      "reason": "The sheet lists this under \"Fusion5s 2.0 Kits & Contents\" as one of six kits, a Fusion5s 2.0 booster packed with one Yagi and one panel antenna, and the coverage up to 10,000 sq ft is the booster's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    },
+    {
+      "source": "doc-e00b7eba0dbeec9c016e9253c8d5fd1a",
+      "product": "Fusion5s 2.0 Yagi/2 Panel SC-PolysH/O-72-YP2-Kit",
+      "reason": "The sheet lists this under \"Fusion5s 2.0 Kits & Contents\" as one of six kits, a Fusion5s 2.0 booster packed with one Yagi and two panel antennas, and the <25W power consumption is in the Fusion5s 2.0 specifications.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
     }
   ]
 }

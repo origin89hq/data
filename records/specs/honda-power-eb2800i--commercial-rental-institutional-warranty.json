@@ -1,0 +1,10 @@
+{
+  "id": "honda-power-eb2800i--commercial-rental-institutional-warranty",
+  "model": "honda-power-eb2800i",
+  "name": "Commercial/rental/institutional warranty",
+  "value": "12 months",
+  "source": "doc-d1046b08ac3886c1c4dcfc20fb1fe4e9",
+  "page": 81,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

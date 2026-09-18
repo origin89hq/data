@@ -1,0 +1,11 @@
+{
+  "id": "volthium-51-2-314-ess--nominal-energy-0-2c",
+  "model": "volthium-51-2-314-ess",
+  "name": "Nominal energy@0.2C",
+  "value": "16.1",
+  "unit": "kWh",
+  "source": "doc-70b77cf2d1e1ebb8fadfde03a8d95990",
+  "page": 13,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

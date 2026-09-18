@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4560li--converter-input",
+  "model": "progressive-dynamics-pd4560li",
+  "name": "Converter input",
+  "value": "105-130 VAC 50/60 Hz",
+  "source": "doc-a8da69b4171db359f3e1bc693fdbc280",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

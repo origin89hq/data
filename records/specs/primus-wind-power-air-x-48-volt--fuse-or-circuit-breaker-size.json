@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-x-48-volt--fuse-or-circuit-breaker-size",
+  "model": "primus-wind-power-air-x-48-volt",
+  "name": "Fuse or circuit breaker size",
+  "value": "10 amp DC",
+  "source": "doc-aa3eaa6a084a58206d83d4b229175f24",
+  "page": 21,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

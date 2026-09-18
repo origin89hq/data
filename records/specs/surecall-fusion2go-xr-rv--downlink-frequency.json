@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-xr-rv--downlink-frequency",
+  "model": "surecall-fusion2go-xr-rv",
+  "name": "Downlink Frequency",
+  "value": "728-746 / 746-757 / 869-894 / 1930-1995 / 2110-2180",
+  "source": "doc-fd120796536b0cde0d5c9324120411db",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

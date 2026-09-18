@@ -1,0 +1,9 @@
+{
+  "id": "unique-appliances-ff14v0w--energy-guide-label",
+  "model": "unique-appliances-ff14v0w",
+  "name": "Energy Guide Label",
+  "value": "FF14V0W ENERGY GUIDE LABEL 09012021",
+  "source": "doc-baccb93c9da3dd9d43215275dac0220b",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

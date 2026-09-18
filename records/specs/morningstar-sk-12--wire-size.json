@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-sk-12--wire-size",
+  "model": "morningstar-sk-12",
+  "name": "Wire Size",
+  "value": "2.0 / #14",
+  "source": "doc-5d9b386e5c8e37dcd8c171d8dc9605e3",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

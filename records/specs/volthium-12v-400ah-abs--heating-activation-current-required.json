@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12v-400ah-abs--heating-activation-current-required",
+  "model": "volthium-12v-400ah-abs",
+  "name": "Heating activation current required",
+  "value": "12",
+  "unit": "A",
+  "source": "doc-5f44ad9dbdfba53eeaebb90a2892724f",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

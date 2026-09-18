@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-specifications-12v-230ah--operating-temperature-range-charge",
+  "model": "powermax-converters-specifications-12v-230ah",
+  "name": "Operating Temperature Range - Charge",
+  "value": "-4 to 131°F (-20 to 55°C)",
+  "source": "doc-aceddf6feeed98dd56cffa4cfb015d2c",
+  "page": 15,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "surecall-sc-fusionpro--power-consumption",
+  "model": "surecall-sc-fusionpro",
+  "name": "Power Consumption",
+  "value": "<15W",
+  "source": "doc-22e3aa4cbac9bf4c614387dd70e303cb",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

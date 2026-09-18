@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-powerpulse-48v--application-voltage",
+  "model": "pulsetech-powerpulse-48v",
+  "name": "Application / Voltage",
+  "value": "48",
+  "unit": "V",
+  "source": "doc-b89de8a7f82040452953126ad6830639",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

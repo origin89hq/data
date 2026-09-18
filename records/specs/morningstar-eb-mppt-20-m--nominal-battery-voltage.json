@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-eb-mppt-20-m--nominal-battery-voltage",
+  "model": "morningstar-eb-mppt-20-m",
+  "name": "Nominal Battery Voltage",
+  "value": "12/24 V",
+  "source": "doc-5600884e5ab903ad27bd4d3992778409",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

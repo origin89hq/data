@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-24cr-rh--noise-level",
+  "model": "unique-appliances-ugp-24cr-rh",
+  "name": "Noise level",
+  "value": "Less than 65 dBA",
+  "source": "doc-a60ba9573107e57f3dc0f75ddb339166",
+  "page": 15,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

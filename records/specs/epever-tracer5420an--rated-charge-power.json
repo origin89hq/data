@@ -1,0 +1,10 @@
+{
+  "id": "epever-tracer5420an--rated-charge-power",
+  "model": "epever-tracer5420an",
+  "name": "Rated charge power",
+  "value": "625W/12V 1250W/24V 1875W/36V 2500W/48V",
+  "source": "doc-0d6a013f74408184c3a6e76c131a81f2",
+  "page": 17,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

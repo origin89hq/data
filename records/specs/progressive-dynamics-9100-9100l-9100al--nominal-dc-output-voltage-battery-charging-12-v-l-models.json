@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-9100-9100l-9100al--nominal-dc-output-voltage-battery-charging-12-v-l-models",
+  "model": "progressive-dynamics-9100-9100l-9100al",
+  "name": "Nominal DC output voltage (battery charging, 12 V L models)",
+  "value": "14.4",
+  "unit": "V",
+  "source": "doc-085dfc48ebafc1f0cd7bf7c1150db5c9",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

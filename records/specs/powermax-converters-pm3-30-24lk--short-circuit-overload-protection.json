@@ -1,0 +1,9 @@
+{
+  "id": "powermax-converters-pm3-30-24lk--short-circuit-overload-protection",
+  "model": "powermax-converters-pm3-30-24lk",
+  "name": "Short Circuit, Overload Protection",
+  "value": "Yes",
+  "source": "doc-f3047a75ec3b76afba0457487899978e",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

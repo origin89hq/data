@@ -1,0 +1,9 @@
+{
+  "id": "volthium-rackmount-3u-51-2v-100ah--short-circuit-protection",
+  "model": "volthium-rackmount-3u-51-2v-100ah",
+  "name": "Short circuit protection",
+  "value": "25 V??",
+  "source": "doc-3c151d9fbc3b418d555a506a636fdddc",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

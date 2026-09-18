@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ss-20l-12v--nominal-rating",
+  "model": "morningstar-ss-20l-12v",
+  "name": "Nominal Rating",
+  "value": "12 Volts dc",
+  "source": "doc-7d62d00d3e8ba46b4599234733cbe8e8",
+  "page": 11,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

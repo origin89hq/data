@@ -1,0 +1,11 @@
+{
+  "id": "midnite-solar-classic-lite-250ks--output-current",
+  "model": "midnite-solar-classic-lite-250ks",
+  "name": "Output current",
+  "value": "96",
+  "unit": "A",
+  "source": "doc-0857c58e2f6e5faa51cb0c3eba1f3a8f",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

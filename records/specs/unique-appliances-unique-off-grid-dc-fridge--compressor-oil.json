@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-unique-off-grid-dc-fridge--compressor-oil",
+  "model": "unique-appliances-unique-off-grid-dc-fridge",
+  "name": "Compressor oil",
+  "value": "Polyolester",
+  "source": "doc-6d9019a1e78bb7441f365240d881fcb9",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

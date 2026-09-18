@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-m-2-600v--self-consumption",
+  "model": "morningstar-ts-m-2-600v",
+  "name": "Self-Consumption",
+  "value": "<0.5W",
+  "source": "doc-fe81f786ffcf4110c4eab5e48b9d134a",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

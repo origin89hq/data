@@ -1,0 +1,9 @@
+{
+  "id": "volthium-12-v-560-ah-pro--safechargetm-overcurrent-limit",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "SafeChargeTM Overcurrent limit",
+  "value": "Managed by the mobile application",
+  "source": "doc-d936948a48804fb1a569a0aaeec6a0d8",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

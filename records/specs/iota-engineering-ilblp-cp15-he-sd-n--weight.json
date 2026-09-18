@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd-n--weight",
+  "model": "iota-engineering-ilblp-cp15-he-sd-n",
+  "name": "Weight",
+  "value": "2.0 lbs.",
+  "source": "doc-82edb7c4d7d32658e2770f0aedf0b0dd",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12v-400ah-abs--un-classification",
+  "model": "volthium-12v-400ah-abs",
+  "name": "UN classification",
+  "value": "UN 3480 | CLASS 9",
+  "source": "doc-5f44ad9dbdfba53eeaebb90a2892724f",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmbc--type-of-batteries",
+  "model": "powermax-converters-pmbc",
+  "name": "Type of Batteries",
+  "value": "6V & 12V",
+  "source": "doc-2d60dd84c492d816f310eabe743db17b",
+  "page": 11,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

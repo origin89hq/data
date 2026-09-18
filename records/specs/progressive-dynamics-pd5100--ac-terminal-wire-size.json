@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd5100--ac-terminal-wire-size",
+  "model": "progressive-dynamics-pd5100",
+  "name": "AC Terminal Wire Size",
+  "value": "#4 - #6",
+  "source": "doc-3dd92b531073c60ed47153d3fb12e5ec",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-735x468--wattage",
+  "model": "pulsetech-735x468",
+  "name": "Wattage",
+  "value": "12",
+  "unit": "W",
+  "source": "doc-2601ae949e181db1efbb361e32560869",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

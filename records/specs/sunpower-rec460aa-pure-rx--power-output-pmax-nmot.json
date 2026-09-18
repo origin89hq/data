@@ -1,0 +1,9 @@
+{
+  "id": "sunpower-rec460aa-pure-rx--power-output-pmax-nmot",
+  "model": "sunpower-rec460aa-pure-rx",
+  "name": "Power Output - PMAX (NMOT)",
+  "value": "350 WP unit: WP",
+  "source": "doc-0be4d97cdd84e6e6a5d778d6316a1276",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

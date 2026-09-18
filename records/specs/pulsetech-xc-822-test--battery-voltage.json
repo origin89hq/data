@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-xc-822-test--battery-voltage",
+  "model": "pulsetech-xc-822-test",
+  "name": "Battery voltage",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-98efc3137952391b5f63d360143d8308",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

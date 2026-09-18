@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-si-300-48-230-50-uni--battery-operational-voltage-range-at-48-v",
+  "model": "morningstar-si-300-48-230-50-uni",
+  "name": "Battery Operational Voltage Range at 48 V",
+  "value": "40.0 to 66.0 V",
+  "source": "doc-9d24c6fe1606ecc4c1e36f6cb5ae7bb7",
+  "page": 62,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

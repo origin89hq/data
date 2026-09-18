@@ -1,0 +1,10 @@
+{
+  "id": "watersprint-azure-bolt-ii--connection-size-and-type",
+  "model": "watersprint-azure-bolt-ii",
+  "name": "Connection size and type",
+  "value": "3/8\" male for quick-fit connector",
+  "source": "doc-cf473b180c6fec9945c1e70675f892df",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

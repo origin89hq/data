@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-readybms--weight",
+  "model": "morningstar-readybms",
+  "name": "Weight",
+  "value": "2.2 oz",
+  "source": "doc-de5861c1b8bc4551744f673cc6a094f7",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

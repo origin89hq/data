@@ -1,0 +1,11 @@
+{
+  "id": "volthium-r-b1250a--nominal-capacity-0-2-c",
+  "model": "volthium-r-b1250a",
+  "name": "Nominal capacity @ 0.2 C",
+  "value": "50.0",
+  "unit": "Ah",
+  "source": "doc-351fd519eb6040042623bf73c333c5ed",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

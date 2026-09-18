@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-1000w--output-wave-form",
+  "model": "powermax-converters-pmx-1000w",
+  "name": "Output Wave Form",
+  "value": "Pure Sine Wave",
+  "source": "doc-c8eeee8d89186b67f0b0171651f69587",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

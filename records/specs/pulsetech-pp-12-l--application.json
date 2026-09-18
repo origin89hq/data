@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pp-12-l--application",
+  "model": "pulsetech-pp-12-l",
+  "name": "Application",
+  "value": "12V battery systems",
+  "source": "doc-a841f090a83f8083926291c9590a9c0c",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-560-ah-pro--chemestry",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "Chemestry",
+  "value": "Lithium",
+  "source": "doc-df583f3eecc75343578678d34a6346b5",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "snapnrack",
+  "rejections": [
+    {
+      "source": "doc-d62c8dce180413b0a10de8a1a8d3d00a",
+      "product": "SNAPNRACK, OMNILUG, BONDING BRACKET",
+      "reason": "The drawing is of SNAPNRACK, TDS, OMNILUG, part number 242-10034, and \"SNAPNRACK, OMNILUG, BONDING BRACKET, SS\" is item 1 of its parts list, a component of that assembly rather than a product.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-10c-s-s--freezer-capacity",
+  "model": "unique-appliances-ugp-10c-s-s",
+  "name": "Freezer capacity",
+  "value": "2.1 cu/ft",
+  "source": "doc-59c0afb0d05688e25ab54a95f4188599",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

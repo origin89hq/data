@@ -1,0 +1,10 @@
+{
+  "id": "watersprint-solo-nautic-ii--water-temperature",
+  "model": "watersprint-solo-nautic-ii",
+  "name": "Water temperature",
+  "value": "1-45°C",
+  "source": "doc-64d9f9d22065d996cba8b1bed76ea8be",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

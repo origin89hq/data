@@ -1,0 +1,10 @@
+{
+  "id": "watersprint-ws-2643-r04-en--regulatory",
+  "model": "watersprint-ws-2643-r04-en",
+  "name": "Regulatory",
+  "value": "RoHS, REACH, CE (EMC/LVD)",
+  "source": "doc-33078f0ceb28e13fbf52f092a4ee71a2",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

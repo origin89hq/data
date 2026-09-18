@@ -1,0 +1,11 @@
+{
+  "id": "epever-tracer5420n--full-load-efficiency",
+  "model": "epever-tracer5420n",
+  "name": "Full load efficiency",
+  "value": "97.1",
+  "unit": "%",
+  "source": "doc-0d6a013f74408184c3a6e76c131a81f2",
+  "page": 36,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "epever-xtra3415n-g3-g3-ble--mppt-voltage-range",
+  "model": "epever-xtra3415n-g3-g3-ble",
+  "name": "MPPT Voltage Range",
+  "value": "(Battery voltage + 2V) to 108V",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 52,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

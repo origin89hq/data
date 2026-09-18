@@ -1,0 +1,10 @@
+{
+  "id": "epever-xtra1210n-g3-g3-ble--mounting-size-l-w",
+  "model": "epever-xtra1210n-g3-g3-ble",
+  "name": "Mounting size (L × W)",
+  "value": "120mm × 134mm",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 50,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

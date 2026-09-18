@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-265l1--operation",
+  "model": "unique-appliances-ugp-265l1",
+  "name": "Operation",
+  "value": "12V/24V",
+  "source": "doc-b96a7d171d7ac85e63eba0a44cb1e1b5",
+  "page": 21,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

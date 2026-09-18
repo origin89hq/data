@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-rb-shunt--maximum-potential-between-shunts",
+  "model": "morningstar-rb-shunt",
+  "name": "Maximum Potential between Shunts",
+  "value": "1.5",
+  "unit": "V",
+  "source": "doc-4844af010baa4dcda3d2d1d231b41ce2",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

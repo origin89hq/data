@@ -1,0 +1,9 @@
+{
+  "id": "unique-appliances-ugp-36cr--front-right-burner-btu",
+  "model": "unique-appliances-ugp-36cr",
+  "name": "Front right burner BTU",
+  "value": "20,000 BTU",
+  "source": "doc-667775c850e5e573b22b366d1656bd01",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

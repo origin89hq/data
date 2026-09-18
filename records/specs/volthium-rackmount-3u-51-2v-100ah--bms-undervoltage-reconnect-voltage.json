@@ -1,0 +1,10 @@
+{
+  "id": "volthium-rackmount-3u-51-2v-100ah--bms-undervoltage-reconnect-voltage",
+  "model": "volthium-rackmount-3u-51-2v-100ah",
+  "name": "BMS undervoltage reconnect voltage",
+  "value": "43.2 V ~ 45 V",
+  "source": "doc-3c151d9fbc3b418d555a506a636fdddc",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

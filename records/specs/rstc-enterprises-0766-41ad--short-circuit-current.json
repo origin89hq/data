@@ -1,0 +1,10 @@
+{
+  "id": "rstc-enterprises-0766-41ad--short-circuit-current",
+  "model": "rstc-enterprises-0766-41ad",
+  "name": "Short circuit current",
+  "value": "10Ka",
+  "source": "doc-757b32549928df239567c265134c9fb2",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

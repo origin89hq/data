@@ -1,0 +1,11 @@
+{
+  "id": "epever-up5000-m10342--output-power-15min",
+  "model": "epever-up5000-m10342",
+  "name": "Output power 15min.",
+  "value": "5000",
+  "unit": "W",
+  "source": "doc-c671251fdb0602bd2a8b1634ff16eacc",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

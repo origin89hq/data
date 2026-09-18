@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-460020--power-output-for-single-cell-phone-downlink-dbm-700-mhz-band13",
+  "model": "wilson-electronics-460020",
+  "name": "Power output for single cell phone (Downlink) dBm - 700 MHz Band13",
+  "value": "11.92",
+  "source": "doc-442f3f3fe1acf3a5ae38e048775c469d",
+  "page": 16,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-24cr-dw--weight",
+  "model": "unique-appliances-ugp-24cr-dw",
+  "name": "Weight",
+  "value": "91 lbs / 41.2 kg",
+  "source": "doc-48c5dcfc362c53022978dcd1ab72716b",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

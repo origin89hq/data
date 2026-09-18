@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sc-12--input-voltage",
+  "model": "pulsetech-sc-12",
+  "name": "Input Voltage",
+  "value": "110-240 VAC",
+  "source": "doc-a01a6cfa54523c58631d424a3f095fdb",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-classic150--max-voc",
+  "model": "midnite-solar-classic150",
+  "name": "Max VOC",
+  "value": "150",
+  "source": "doc-fe89d8eb47f7711890b412c2fa8a8168",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "volthium-rackmount-3u-51-2v-100ah--bluetooth",
+  "model": "volthium-rackmount-3u-51-2v-100ah",
+  "name": "Bluetooth",
+  "value": "Non",
+  "source": "doc-3c151d9fbc3b418d555a506a636fdddc",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

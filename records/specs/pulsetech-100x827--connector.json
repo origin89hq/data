@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-100x827--connector",
+  "model": "pulsetech-100x827",
+  "name": "Connector",
+  "value": "SAE",
+  "source": "doc-0193346bc27171a118223bfc42412436",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

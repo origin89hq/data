@@ -1,9 +1,0 @@
-{
-  "id": "rstc-enterprises-0999--voltage-current",
-  "model": "rstc-enterprises-0999",
-  "name": "Voltage/Current",
-  "value": "1000 VDC/120 amps",
-  "source": "doc-a9320adc803dfc834a284e666ffb290c",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-m-2--compatibility-tristar-mppt-600v",
+  "model": "morningstar-ts-m-2",
+  "name": "Compatibility - TriStar MPPT 600V",
+  "value": "NO",
+  "source": "doc-fe81f786ffcf4110c4eab5e48b9d134a",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

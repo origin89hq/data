@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-battery-guard-160a--cranking-intermittent-current",
+  "model": "precision-circuits-battery-guard-160a",
+  "name": "Cranking/Intermittent Current",
+  "value": "600",
+  "unit": "A",
+  "source": "doc-f007f665b61a9fef6e28cf905544ebd6",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

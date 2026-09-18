@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-gs-mppt-60m-200v--data-ports",
+  "model": "morningstar-gs-mppt-60m-200v",
+  "name": "Data Ports",
+  "value": "USB-C for data, RS232/EIA-485 ports. Ethernet, Bluetooth Low Power, MS-CAN",
+  "source": "doc-2e0d175d4cf50dfa7df1901354c9760f",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

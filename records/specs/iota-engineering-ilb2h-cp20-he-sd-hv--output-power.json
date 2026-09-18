@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilb2h-cp20-he-sd-hv--output-power",
+  "model": "iota-engineering-ilb2h-cp20-he-sd-hv",
+  "name": "Output power",
+  "value": "20",
+  "unit": "W",
+  "source": "doc-09a924218835dd3d442600441c0a8241",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

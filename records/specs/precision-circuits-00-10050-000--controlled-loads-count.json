@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-00-10050-000--controlled-loads-count",
+  "model": "precision-circuits-00-10050-000",
+  "name": "Controlled loads count",
+  "value": "5",
+  "source": "doc-ee1ce06ed25b46152fdaba517061568b",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

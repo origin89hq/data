@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-275l-w--freezer-temperature-range",
+  "model": "unique-appliances-ugp-275l-w",
+  "name": "Freezer Temperature Range",
+  "value": "-15˚C to -6˚C",
+  "source": "doc-72d4edea21f290ad9a4195d19fa8a238",
+  "page": 24,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

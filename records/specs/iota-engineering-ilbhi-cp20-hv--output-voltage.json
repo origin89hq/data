@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilbhi-cp20-hv--output-voltage",
+  "model": "iota-engineering-ilbhi-cp20-hv",
+  "name": "Output Voltage",
+  "value": "40-200 VDC",
+  "source": "doc-925ff26b906545c42a9ae30dec61ceb2",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

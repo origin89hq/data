@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pm4-100-lk--weight",
+  "model": "powermax-converters-pm4-100-lk",
+  "name": "Weight",
+  "value": "8.0",
+  "unit": "lb",
+  "source": "doc-7b991c3daec5966ca5048103aa8ae336",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

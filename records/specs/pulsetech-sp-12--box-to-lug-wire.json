@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-12--box-to-lug-wire",
+  "model": "pulsetech-sp-12",
+  "name": "Box to Lug Wire",
+  "value": "3",
+  "source": "doc-04a98f2971e4133df5b343ce37fa51fd",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

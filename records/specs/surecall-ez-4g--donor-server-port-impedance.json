@@ -1,0 +1,10 @@
+{
+  "id": "surecall-ez-4g--donor-server-port-impedance",
+  "model": "surecall-ez-4g",
+  "name": "Donor/Server Port Impedance",
+  "value": "50 / 75",
+  "source": "doc-237c5a52d2ace94be8cf449dd645a478",
+  "page": 12,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pm4-60-lk--dimensions",
+  "model": "powermax-converters-pm4-60-lk",
+  "name": "Dimensions",
+  "value": "7.8 x 9.5 x 3.5",
+  "source": "doc-7b991c3daec5966ca5048103aa8ae336",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

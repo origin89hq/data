@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-umc-1--usb-interface",
+  "model": "morningstar-umc-1",
+  "name": "USB interface",
+  "value": "2.0",
+  "source": "doc-969d89e5389779b2c1683297f724d26b",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

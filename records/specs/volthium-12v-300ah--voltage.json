@@ -1,0 +1,11 @@
+{
+  "id": "volthium-12v-300ah--voltage",
+  "model": "volthium-12v-300ah",
+  "name": "Voltage",
+  "value": "12.8",
+  "unit": "V",
+  "source": "doc-1f59f71da2d3ceb9721a2230297cbe2c",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

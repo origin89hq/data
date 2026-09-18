@@ -1,0 +1,10 @@
+{
+  "id": "rstc-enterprises-0766--voltage-ac",
+  "model": "rstc-enterprises-0766",
+  "name": "Voltage AC",
+  "value": "240 VAC/120 amps",
+  "source": "doc-3624ffaea262125ea3f81b5b0f7a722a",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

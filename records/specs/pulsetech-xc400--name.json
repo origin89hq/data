@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-xc400--name",
+  "model": "pulsetech-xc400",
+  "name": "Name",
+  "value": "Xtreme Charge Battery Charger",
+  "source": "doc-87d7cc93135717133b1d88e468c5fe5c",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

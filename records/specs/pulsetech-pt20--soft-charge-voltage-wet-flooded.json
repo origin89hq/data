@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pt20--soft-charge-voltage-wet-flooded",
+  "model": "pulsetech-pt20",
+  "name": "Soft Charge Voltage (Wet/Flooded)",
+  "value": "8V - 10V",
+  "source": "doc-23626c7771110fd9944d219a50d60d5f",
+  "page": 9,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

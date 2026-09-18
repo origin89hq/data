@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pmx-2000w-psw--fan-activation-temperature",
+  "model": "powermax-converters-pmx-2000w-psw",
+  "name": "Fan activation temperature",
+  "value": "45",
+  "unit": "°C",
+  "source": "doc-2b315a6a3cfa4facc4006026703bf60a",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

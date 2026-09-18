@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-290l--chemistry",
+  "model": "unique-appliances-ugp-290l",
+  "name": "Chemistry",
+  "value": "DC compressor (12/24V DC)",
+  "source": "doc-9bcc835ee16f5f3131b2c08dbbe935fc",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "honda-power-eu7000is--width",
+  "model": "honda-power-eu7000is",
+  "name": "Width",
+  "value": "27.6 in (700 mm)",
+  "source": "doc-311eda81944ed7606fc98e1f1492582d",
+  "page": 103,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

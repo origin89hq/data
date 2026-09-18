@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-741x890--suggested-operation-ambient-temperature-range",
+  "model": "pulsetech-741x890",
+  "name": "Suggested operation ambient temperature range",
+  "value": "0ºC to 50ºC",
+  "source": "doc-507a0bdb8d38534cdb6a80f76139fd85",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

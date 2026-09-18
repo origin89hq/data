@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-si-300-48-220-60-uni--total-harmonic-distortion-thd",
+  "model": "morningstar-si-300-48-220-60-uni",
+  "name": "Total Harmonic Distortion (THD)",
+  "value": "< 2%",
+  "source": "doc-9d24c6fe1606ecc4c1e36f6cb5ae7bb7",
+  "page": 62,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

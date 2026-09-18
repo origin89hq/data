@@ -1,0 +1,11 @@
+{
+  "id": "epever-it10415nc-g3-ble--maximum-load-current",
+  "model": "epever-it10415nc-g3-ble",
+  "name": "Maximum load current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-e571c0928ae9e02fb7adf7a6d9c319ab",
+  "page": 69,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

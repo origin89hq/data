@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pro-12-rp--battery-voltage",
+  "model": "pulsetech-pro-12-rp",
+  "name": "Battery voltage",
+  "value": "12-Volt",
+  "source": "doc-3948031b617eef5661dc6f267a78a6a2",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

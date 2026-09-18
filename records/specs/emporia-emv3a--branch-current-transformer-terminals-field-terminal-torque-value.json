@@ -1,0 +1,10 @@
+{
+  "id": "emporia-emv3a--branch-current-transformer-terminals-field-terminal-torque-value",
+  "model": "emporia-emv3a",
+  "name": "Branch Current Transformer Terminals field terminal torque value",
+  "value": "3/0.2",
+  "source": "doc-e44cae2a6b8535ee6806ff6f5600735d",
+  "page": 36,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

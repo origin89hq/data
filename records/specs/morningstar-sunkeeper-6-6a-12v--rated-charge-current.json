@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-sunkeeper-6-6a-12v--rated-charge-current",
+  "model": "morningstar-sunkeeper-6-6a-12v",
+  "name": "Rated charge current",
+  "value": "6A / 12V..?",
+  "source": "doc-d82902d49ba6250778d2c652a7ce8eee",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

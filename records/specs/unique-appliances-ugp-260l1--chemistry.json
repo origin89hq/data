@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-260l1--chemistry",
+  "model": "unique-appliances-ugp-260l1",
+  "name": "Chemistry",
+  "value": "R-134a",
+  "source": "doc-d2a8978c382c66e3fc2eebeec2044fc3",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

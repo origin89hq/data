@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilbhi-cp20-he-sd-hv--life-expectancy",
+  "model": "iota-engineering-ilbhi-cp20-he-sd-hv",
+  "name": "Life Expectancy",
+  "value": "5-7 Year",
+  "source": "doc-a673ea88f41cd0933c5f1577a9b859ac",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

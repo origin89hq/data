@@ -1,0 +1,11 @@
+{
+  "id": "surecall-sc-288w--ceiling-hole-diameter",
+  "model": "surecall-sc-288w",
+  "name": "Ceiling hole diameter",
+  "value": "20",
+  "unit": "mm",
+  "source": "doc-cb4dffe8d1d5c0700ae31f5c491db2c2",
+  "page": 12,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "epever-it4415nd--net-weight",
+  "model": "epever-it4415nd",
+  "name": "Net Weight",
+  "value": "4.6",
+  "unit": "kg",
+  "source": "doc-df1ca9dee1b40e9e7ed1860444f80da7",
+  "page": 39,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

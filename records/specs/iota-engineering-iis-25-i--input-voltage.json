@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-iis-25-i--input-voltage",
+  "model": "iota-engineering-iis-25-i",
+  "name": "Input Voltage",
+  "value": "120-277VAC",
+  "source": "doc-42dda0f81c3d94e346e5b8f15fe049cd",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

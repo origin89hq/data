@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-ss-mppt-15l--maximum-output-power-recommended-pv-input-power-24-v-battery",
+  "model": "morningstar-ss-mppt-15l",
+  "name": "Maximum output power / recommended PV input power (24 V battery)",
+  "value": "400 / 520 W",
+  "source": "doc-af22fe14d72253d58e18896733cb9521",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

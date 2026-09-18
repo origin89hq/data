@@ -1,0 +1,11 @@
+{
+  "id": "midnite-solar-classic150--output-current-at-24v-battery",
+  "model": "midnite-solar-classic150",
+  "name": "Output current at 24V battery",
+  "value": "94",
+  "unit": "A",
+  "source": "doc-1a3d5010d988de531d75048b7ab0028a",
+  "page": 15,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

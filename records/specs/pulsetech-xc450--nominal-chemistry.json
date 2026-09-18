@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-xc450--nominal-chemistry",
+  "model": "pulsetech-xc450",
+  "name": "Nominal chemistry",
+  "value": "Lead-Acid and Lithium",
+  "source": "doc-21c090a44b6e5a63365ed7e60d79ad85",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

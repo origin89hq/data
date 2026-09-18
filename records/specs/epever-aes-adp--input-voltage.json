@@ -1,0 +1,10 @@
+{
+  "id": "epever-aes-adp--input-voltage",
+  "model": "epever-aes-adp",
+  "name": "Input voltage",
+  "value": "8.5V-35V",
+  "source": "doc-f605741c80467647ab168f56ec998172",
+  "page": 10,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

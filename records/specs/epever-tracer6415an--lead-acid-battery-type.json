@@ -1,0 +1,10 @@
+{
+  "id": "epever-tracer6415an--lead-acid-battery-type",
+  "model": "epever-tracer6415an",
+  "name": "Lead-acid battery type",
+  "value": "Sealed(default), GEL, FLD, and user-defined.",
+  "source": "doc-0d6a013f74408184c3a6e76c131a81f2",
+  "page": 37,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

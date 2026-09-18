@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sc-2--capacity",
+  "model": "pulsetech-sc-2",
+  "name": "Capacity",
+  "value": "two batteries",
+  "source": "doc-85854ca79ef7fd2befb2673c3fea7270",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "surecall-fusion2go-xr-otr--uplink-frequency-ranges",
+  "model": "surecall-fusion2go-xr-otr",
+  "name": "Uplink Frequency Ranges",
+  "value": "698-716 / 776-787 / 824-849 / 1710-1780 / 1850-1915 MHz",
+  "source": "doc-b3a75dfc664e7611b7cd67ecdec5fa9e",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

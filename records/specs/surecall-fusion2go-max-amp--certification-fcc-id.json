@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-max-amp--certification-fcc-id",
+  "model": "surecall-fusion2go-max-amp",
+  "name": "Certification FCC ID",
+  "value": "RSNF2GO-MAX",
+  "source": "doc-e2480c97013e077f943b5000b1f6ec68",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

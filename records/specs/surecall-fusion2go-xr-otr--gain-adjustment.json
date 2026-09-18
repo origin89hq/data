@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-xr-otr--gain-adjustment",
+  "model": "surecall-fusion2go-xr-otr",
+  "name": "Gain Adjustment",
+  "value": "20 dB (Automatic)",
+  "source": "doc-b3a75dfc664e7611b7cd67ecdec5fa9e",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

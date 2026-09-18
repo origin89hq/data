@@ -1,0 +1,10 @@
+{
+  "id": "honda-power-eu2200it-companion--fuel-tank-capacity",
+  "model": "honda-power-eu2200it-companion",
+  "name": "Fuel tank capacity",
+  "value": "0.95 US gal (3.6 L)",
+  "source": "doc-d1046b08ac3886c1c4dcfc20fb1fe4e9",
+  "page": 76,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

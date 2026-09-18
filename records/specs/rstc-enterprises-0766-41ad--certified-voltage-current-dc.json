@@ -1,0 +1,10 @@
+{
+  "id": "rstc-enterprises-0766-41ad--certified-voltage-current-dc",
+  "model": "rstc-enterprises-0766-41ad",
+  "name": "Certified voltage/current - DC",
+  "value": "0 à 600 VCC / 120 A (courant de court-circuit maximal de 10 kA)",
+  "source": "doc-7673f4031eaffe80bb5ce09918836b4e",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

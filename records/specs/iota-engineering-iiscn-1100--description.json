@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-iiscn-1100--description",
+  "model": "iota-engineering-iiscn-1100",
+  "name": "Description",
+  "value": "Single Phase Surface Mount Inverter",
+  "source": "doc-8679f62e38c4978e5553237782afd3f3",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

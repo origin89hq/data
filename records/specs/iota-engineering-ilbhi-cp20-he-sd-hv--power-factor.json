@@ -1,0 +1,12 @@
+{
+  "id": "iota-engineering-ilbhi-cp20-he-sd-hv--power-factor",
+  "model": "iota-engineering-ilbhi-cp20-he-sd-hv",
+  "name": "Power factor",
+  "value": "≥0.9",
+  "source": "doc-284df3b8fd736b905fee2104c56c788b",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc",
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-18"
+}

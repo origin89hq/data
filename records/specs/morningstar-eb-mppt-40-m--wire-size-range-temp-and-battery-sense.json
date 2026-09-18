@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-eb-mppt-40-m--wire-size-range-temp-and-battery-sense",
+  "model": "morningstar-eb-mppt-40-m",
+  "name": "Wire Size Range (Temp. and Battery Sense)",
+  "value": "#24 - 16 AWG / 0.25 - 1.0 mm2",
+  "source": "doc-15aaa2603340519a063c6fdaff24a15e",
+  "page": 23,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

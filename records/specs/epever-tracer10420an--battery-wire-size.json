@@ -1,0 +1,10 @@
+{
+  "id": "epever-tracer10420an--battery-wire-size",
+  "model": "epever-tracer10420an",
+  "name": "Battery wire size",
+  "value": "35mm2/2AWG",
+  "source": "doc-0d6a013f74408184c3a6e76c131a81f2",
+  "page": 18,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

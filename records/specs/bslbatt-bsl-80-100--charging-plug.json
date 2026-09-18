@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-bsl-80-100--charging-plug",
+  "model": "bslbatt-bsl-80-100",
+  "name": "Charging plug",
+  "value": "RemaXX/customizable",
+  "source": "doc-40c3daaff587ebd783d97d0fbe3a6a4a",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

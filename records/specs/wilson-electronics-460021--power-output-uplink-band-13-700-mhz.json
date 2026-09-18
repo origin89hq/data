@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-460021--power-output-uplink-band-13-700-mhz",
+  "model": "wilson-electronics-460021",
+  "name": "Power Output Uplink Band 13 700 MHz",
+  "value": "24.35 dBm",
+  "source": "doc-977ff927751261cf0a1f5541f7b5cb4d",
+  "page": 21,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

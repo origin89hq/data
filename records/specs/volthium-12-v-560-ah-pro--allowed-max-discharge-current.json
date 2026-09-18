@@ -1,0 +1,11 @@
+{
+  "id": "volthium-12-v-560-ah-pro--allowed-max-discharge-current",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "Allowed MAX discharge current",
+  "value": "2000",
+  "unit": "A",
+  "source": "doc-d936948a48804fb1a569a0aaeec6a0d8",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

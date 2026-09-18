@@ -1,0 +1,9 @@
+{
+  "id": "volthium-12v-400ah-abs--cycles-at-30-dod",
+  "model": "volthium-12v-400ah-abs",
+  "name": "Cycles at 30% DOD",
+  "value": "8200 < cycles",
+  "source": "doc-5f44ad9dbdfba53eeaebb90a2892724f",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

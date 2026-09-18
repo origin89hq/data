@@ -1,0 +1,10 @@
+{
+  "id": "epever-epever-ble-rj45-d--connection-port",
+  "model": "epever-epever-ble-rj45-d",
+  "name": "Connection port",
+  "value": "RJ45",
+  "source": "doc-d4ad09da679eed83a44519bcba74ef5c",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

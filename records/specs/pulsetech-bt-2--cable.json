@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-bt-2--cable",
+  "model": "pulsetech-bt-2",
+  "name": "Cable",
+  "value": "1.8m Clip Cable (SAE to Clip) x 2; 1.8m O-Ring Terminal Cable (SAE to O-Ring Terminal) x 2; 2m US Power Cord x 1",
+  "source": "doc-11d5f42ba3a1291a556d282520cfa355",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

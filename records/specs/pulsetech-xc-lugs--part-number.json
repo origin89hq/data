@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc-lugs--part-number",
+  "model": "pulsetech-xc-lugs",
+  "name": "Part number",
+  "value": "100X830",
+  "source": "doc-21c090a44b6e5a63365ed7e60d79ad85",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

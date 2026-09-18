@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-b-lfp48-18--charge-working-current",
+  "model": "bslbatt-b-lfp48-18",
+  "name": "Charge Working Current",
+  "value": "0.5C",
+  "source": "doc-86c3e874ae2eee0d8976df5b8576fa84",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

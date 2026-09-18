@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd-n--surge-protection",
+  "model": "iota-engineering-ilblp-cp15-he-sd-n",
+  "name": "Surge Protection",
+  "value": "Meets ANSI/IEEE C62.41.2-2002",
+  "source": "doc-82edb7c4d7d32658e2770f0aedf0b0dd",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

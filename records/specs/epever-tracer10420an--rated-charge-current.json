@@ -1,0 +1,11 @@
+{
+  "id": "epever-tracer10420an--rated-charge-current",
+  "model": "epever-tracer10420an",
+  "name": "Rated charge current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-0d6a013f74408184c3a6e76c131a81f2",
+  "page": 17,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

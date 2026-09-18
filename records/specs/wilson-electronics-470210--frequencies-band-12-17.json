@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-470210--frequencies-band-12-17",
+  "model": "wilson-electronics-470210",
+  "name": "Frequencies Band 12/17",
+  "value": "700 MHz",
+  "source": "doc-b3904e641cd8119e2f94214dd883afd2",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

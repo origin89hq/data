@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd1618--dc-input-current-at-full-power-output",
+  "model": "progressive-dynamics-pd1618",
+  "name": "DC Input Current at full power output",
+  "value": "180",
+  "unit": "A",
+  "source": "doc-aec1d7db6c90b32d88c049ca0c90a121",
+  "page": 6,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

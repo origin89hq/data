@@ -1,0 +1,10 @@
+{
+  "id": "watersprint-arrow-max-home-10k--connection-size-and-type",
+  "model": "watersprint-arrow-max-home-10k",
+  "name": "Connection size and type",
+  "value": "Inlet: 3/4'' FNPT Outlet: 3/4'' MNPT",
+  "source": "doc-7eba679f1e5b485407c6037e24b97ea9",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

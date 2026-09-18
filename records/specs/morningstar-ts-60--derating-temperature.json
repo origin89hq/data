@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-60--derating-temperature",
+  "model": "morningstar-ts-60",
+  "name": "Derating temperature",
+  "value": "90.0",
+  "source": "doc-687a3ce0efb1ec0ba34bd644ddc9d45d",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

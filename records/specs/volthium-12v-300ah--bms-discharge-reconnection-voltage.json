@@ -1,0 +1,11 @@
+{
+  "id": "volthium-12v-300ah--bms-discharge-reconnection-voltage",
+  "model": "volthium-12v-300ah",
+  "name": "BMS – Discharge reconnection voltage",
+  "value": "12.8",
+  "unit": "V",
+  "source": "doc-86b33b67dd54decfd8e363ca89befc64",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

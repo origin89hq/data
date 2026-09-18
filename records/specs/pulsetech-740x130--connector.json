@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-740x130--connector",
+  "model": "pulsetech-740x130",
+  "name": "Connector",
+  "value": "ATP",
+  "source": "doc-0193346bc27171a118223bfc42412436",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

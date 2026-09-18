@@ -1,0 +1,10 @@
+{
+  "id": "volthium-51-2v-100ah-abs--volthium-can-hub-communication-ve-can",
+  "model": "volthium-51-2v-100ah-abs",
+  "name": "Volthium CAN Hub Communication (VE.CAN)",
+  "value": "Optional",
+  "source": "doc-5c66a3655476e7c45fb3f10c82718104",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

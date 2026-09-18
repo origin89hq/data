@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-rb-shunt-kit-500--storage-temperature",
+  "model": "morningstar-rb-shunt-kit-500",
+  "name": "Storage Temperature",
+  "value": "-40ºC to +60ºC",
+  "source": "doc-4844af010baa4dcda3d2d1d231b41ce2",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

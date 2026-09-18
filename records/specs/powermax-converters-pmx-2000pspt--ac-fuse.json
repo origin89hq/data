@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-2000pspt--ac-fuse",
+  "model": "powermax-converters-pmx-2000pspt",
+  "name": "AC fuse",
+  "value": "20A AC Fuse",
+  "source": "doc-aa10b2ab94603707e362b938e91785d8",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

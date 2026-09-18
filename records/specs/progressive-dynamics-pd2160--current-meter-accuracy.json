@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd2160--current-meter-accuracy",
+  "model": "progressive-dynamics-pd2160",
+  "name": "Current meter accuracy",
+  "value": "+/- 5%",
+  "source": "doc-df8db387122c45bb72c1ca96984d13b1",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

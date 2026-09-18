@@ -1,0 +1,11 @@
+{
+  "id": "epever-it15415nc-g3--maximum-pv-open-circuit-voltage",
+  "model": "epever-it15415nc-g3",
+  "name": "Maximum PV open circuit voltage",
+  "value": "138",
+  "unit": "V",
+  "source": "doc-e571c0928ae9e02fb7adf7a6d9c319ab",
+  "page": 19,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

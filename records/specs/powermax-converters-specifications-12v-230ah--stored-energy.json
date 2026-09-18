@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-specifications-12v-230ah--stored-energy",
+  "model": "powermax-converters-specifications-12v-230ah",
+  "name": "Stored Energy",
+  "value": "2944",
+  "unit": "Wh",
+  "source": "doc-aceddf6feeed98dd56cffa4cfb015d2c",
+  "page": 19,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

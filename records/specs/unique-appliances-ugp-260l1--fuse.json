@@ -5,7 +5,7 @@
   "value": "15",
   "unit": "A",
   "source": "doc-b83aa402a22866c0a598b459f2a43088",
-  "page": 8,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 10,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
   "confidence": "vendor-doc"
 }

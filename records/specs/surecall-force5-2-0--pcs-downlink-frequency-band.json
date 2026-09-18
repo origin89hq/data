@@ -1,0 +1,10 @@
+{
+  "id": "surecall-force5-2-0--pcs-downlink-frequency-band",
+  "model": "surecall-force5-2-0",
+  "name": "PCS downlink frequency band",
+  "value": "1900 MHz",
+  "source": "doc-cb4dffe8d1d5c0700ae31f5c491db2c2",
+  "page": 18,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

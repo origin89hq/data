@@ -1,0 +1,10 @@
+{
+  "id": "epever-tracer6415an--mppt-voltage-range",
+  "model": "epever-tracer6415an",
+  "name": "MPPT voltage range",
+  "value": "(Battery voltage +2V)~ 108V(at 25℃)",
+  "source": "doc-0d6a013f74408184c3a6e76c131a81f2",
+  "page": 36,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd55k006--stab-configuration",
+  "model": "progressive-dynamics-pd55k006",
+  "name": "Stab configuration",
+  "value": "7 Dual - 3 Single (50Amp 240VAC / 30Amp 120VAC) with two 7 position neutral bars",
+  "source": "doc-617949bb41425b36a72478d81726efec",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

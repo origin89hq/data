@@ -1,0 +1,9 @@
+{
+  "id": "precision-circuits-00-10050-354--adapter-part-number",
+  "model": "precision-circuits-00-10050-354",
+  "name": "Adapter part number",
+  "value": "11-10025-200 Dometic Adapter",
+  "source": "doc-318d1aac30e3d45adbd669b6465fdc13",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

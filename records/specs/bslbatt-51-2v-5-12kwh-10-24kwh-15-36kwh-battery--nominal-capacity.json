@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-51-2v-5-12kwh-10-24kwh-15-36kwh-battery--nominal-capacity",
+  "model": "bslbatt-51-2v-5-12kwh-10-24kwh-15-36kwh-battery",
+  "name": "Nominal Capacity",
+  "value": "5.12kWh/10.24kWh/15.36kWh",
+  "source": "doc-37abc5bd32954167fd1903ffc9109ec4",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

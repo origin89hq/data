@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pp-24-l--batteries-in-parallel-configuration-voltage",
+  "model": "pulsetech-pp-24-l",
+  "name": "Batteries in parallel configuration voltage",
+  "value": "Up to three 24-Volt",
+  "source": "doc-b1b7cc2dd37fbc18674d6a62c85d84b3",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

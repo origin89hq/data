@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-rb-shunt-kit-500--altitude",
+  "model": "morningstar-rb-shunt-kit-500",
+  "name": "Altitude",
+  "value": "3000 Meters",
+  "source": "doc-4844af010baa4dcda3d2d1d231b41ce2",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

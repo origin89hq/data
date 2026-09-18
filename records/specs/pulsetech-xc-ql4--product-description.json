@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc-ql4--product-description",
+  "model": "pulsetech-xc-ql4",
+  "name": "Product description",
+  "value": "QuadLink 4-Channel Battery Charger Multiplier",
+  "source": "doc-21c090a44b6e5a63365ed7e60d79ad85",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

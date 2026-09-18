@@ -1,0 +1,10 @@
+{
+  "id": "emporia-emv3a--ethernet",
+  "model": "emporia-emv3a",
+  "name": "Ethernet",
+  "value": "10/100Base-T, IEEE 802.3",
+  "source": "doc-e44cae2a6b8535ee6806ff6f5600735d",
+  "page": 37,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

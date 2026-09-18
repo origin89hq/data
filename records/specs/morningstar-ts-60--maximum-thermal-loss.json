@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-60--maximum-thermal-loss",
+  "model": "morningstar-ts-60",
+  "name": "Maximum thermal loss",
+  "value": "28.8 Watts of thermal loss",
+  "source": "doc-687a3ce0efb1ec0ba34bd644ddc9d45d",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

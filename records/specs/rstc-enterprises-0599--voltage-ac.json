@@ -1,0 +1,9 @@
+{
+  "id": "rstc-enterprises-0599--voltage-ac",
+  "model": "rstc-enterprises-0599",
+  "name": "Voltage (AC)",
+  "value": "240 V CA / 100 A",
+  "source": "doc-bc3481a09d2fe8327d70fce433fb62e1",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-unq-455l-r-ac--total-volume",
+  "model": "unique-appliances-unq-455l-r-ac",
+  "name": "Total volume",
+  "value": "17 cu. ft.",
+  "source": "doc-7452bb7dd3bf3d9311055a5578a00806",
+  "page": 23,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

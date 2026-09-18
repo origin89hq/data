@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion2go-ultra--weight",
+  "model": "surecall-fusion2go-ultra",
+  "name": "Weight",
+  "value": "2.25",
+  "unit": "lb",
+  "source": "doc-c3374987b07871b8cc4bc52702a437d4",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "east-penn-m100-15--ocv-at-0-soc",
+  "model": "east-penn-m100-15",
+  "name": "OCV at 0% SOC",
+  "value": "1.97",
+  "source": "doc-16a98e83ba9875ad38fafe602c495e4f",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

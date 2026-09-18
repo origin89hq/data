@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-100-ah-gr24--nominal-voltage",
+  "model": "volthium-12-v-100-ah-gr24",
+  "name": "Nominal voltage",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-d480da931917808c709e6a5c5f175337",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "progressive-dynamics-pd5100--transfer-delay",
+  "model": "progressive-dynamics-pd5100",
+  "name": "Transfer Delay",
+  "value": "20 to 45 seconds",
+  "source": "doc-3dd92b531073c60ed47153d3fb12e5ec",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

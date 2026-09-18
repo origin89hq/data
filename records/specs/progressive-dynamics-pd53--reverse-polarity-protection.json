@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd53--reverse-polarity-protection",
+  "model": "progressive-dynamics-pd53",
+  "name": "Reverse Polarity Protection",
+  "value": "No",
+  "source": "doc-e65476d5efab431000ba9e990a9ff93f",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

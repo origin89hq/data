@@ -2,8 +2,10 @@
   "id": "watersprint-strike-ii--16-mj-cm-95-uvt",
   "model": "watersprint-strike-ii",
   "name": "16 mJ/cm² @ 95% UVT",
-  "value": "0.53 gpm",
+  "value": "0.53",
+  "unit": "gpm",
   "source": "doc-85b0b752834731dd5322bae5097045d5",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
   "confidence": "vendor-doc"
 }

@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmwp3g-12v--dry-prime",
+  "model": "powermax-converters-pmwp3g-12v",
+  "name": "Dry Prime",
+  "value": "6 ft (1.82 m)",
+  "source": "doc-587449c6f7cc6ba4812ec285251c1d33",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

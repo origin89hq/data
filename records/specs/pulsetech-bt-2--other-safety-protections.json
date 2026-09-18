@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-bt-2--other-safety-protections",
+  "model": "pulsetech-bt-2",
+  "name": "Other Safety Protections",
+  "value": "Reverse Polarity Protection; Under-voltage Protection; Over-voltage Protection",
+  "source": "doc-11d5f42ba3a1291a556d282520cfa355",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

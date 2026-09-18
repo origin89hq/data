@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-7-obd-t--maximum-output-voltage",
+  "model": "pulsetech-sp-7-obd-t",
+  "name": "Maximum Output Voltage",
+  "value": "16.5",
+  "unit": "V",
+  "source": "doc-cea62aaf4bb36fc851de75ae7885193d",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd--dimensions",
+  "model": "iota-engineering-ilblp-cp15-he-sd",
+  "name": "Dimensions",
+  "value": "14.68 x 2.34 x 1.18",
+  "unit": "in",
+  "source": "doc-668127f8728f21471af7b6df6f82db0f",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

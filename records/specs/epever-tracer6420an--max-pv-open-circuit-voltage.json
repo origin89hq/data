@@ -1,0 +1,10 @@
+{
+  "id": "epever-tracer6420an--max-pv-open-circuit-voltage",
+  "model": "epever-tracer6420an",
+  "name": "Max. PV open circuit voltage",
+  "value": "200V(lowest temperature) 180V(25℃)",
+  "source": "doc-0d6a013f74408184c3a6e76c131a81f2",
+  "page": 17,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

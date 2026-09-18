@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-costar-9rv-sso--self-test-interval",
+  "model": "unique-appliances-costar-9rv-sso",
+  "name": "Self-test interval",
+  "value": "every 10 minutes",
+  "source": "doc-2ded12939db1a6dc1a3309490a1b238f",
+  "page": 28,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

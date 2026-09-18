@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-silent-x--shaft-thrust",
+  "model": "primus-wind-power-air-silent-x",
+  "name": "Shaft thrust",
+  "value": "80 lb. @ 100 mph wind speed (230 N @ 45 m/s)",
+  "source": "doc-0e96333eb489fa1e5451a0a8fa59b95d",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

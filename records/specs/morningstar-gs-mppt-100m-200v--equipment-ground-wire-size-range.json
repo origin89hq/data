@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-100m-200v--equipment-ground-wire-size-range",
+  "model": "morningstar-gs-mppt-100m-200v",
+  "name": "Equipment Ground Wire Size Range",
+  "value": "2.5 - 33.6 mm2 / # 14 - 2 AWG",
+  "source": "doc-2e0d175d4cf50dfa7df1901354c9760f",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

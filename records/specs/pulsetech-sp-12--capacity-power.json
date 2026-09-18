@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-sp-12--capacity-power",
+  "model": "pulsetech-sp-12",
+  "name": "Capacity / Power",
+  "value": "12-Watt 12V Solar Battery Charger Maintainer",
+  "source": "doc-b89de8a7f82040452953126ad6830639",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

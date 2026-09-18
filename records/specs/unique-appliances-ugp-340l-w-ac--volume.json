@@ -1,0 +1,11 @@
+{
+  "id": "unique-appliances-ugp-340l-w-ac--volume",
+  "model": "unique-appliances-ugp-340l-w-ac",
+  "name": "Volume",
+  "value": "340",
+  "unit": "L",
+  "source": "doc-526ed8f994b30bf1725f38c3e85f9aa0",
+  "page": 19,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

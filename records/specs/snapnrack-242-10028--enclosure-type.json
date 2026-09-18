@@ -1,0 +1,10 @@
+{
+  "id": "snapnrack-242-10028--enclosure-type",
+  "model": "snapnrack-242-10028",
+  "name": "Enclosure type",
+  "value": "TYPE 3R, ROOF PITCH 2:12 - 12:12",
+  "source": "doc-a22cc5e39945c036b6e2490a3c2367dd",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "lorentz-ps2-4000-c--max-total-dynamic-head-tdh",
+  "model": "lorentz-ps2-4000-c",
+  "name": "max. total dynamic head (TDH)",
+  "value": "160",
+  "source": "doc-60788850f1d123d969551b16b94c2b56",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

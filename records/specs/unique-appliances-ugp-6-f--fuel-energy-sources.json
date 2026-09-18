@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-6-f--fuel-energy-sources",
+  "model": "unique-appliances-ugp-6-f",
+  "name": "Fuel/Energy sources",
+  "value": "LP Gas (Propane), 110V (Electricity)",
+  "source": "doc-2ded12939db1a6dc1a3309490a1b238f",
+  "page": 9,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

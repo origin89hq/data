@@ -1,0 +1,11 @@
+{
+  "id": "epever-xtra2206n-g3-g3-ble--rated-discharging-current",
+  "model": "epever-xtra2206n-g3-g3-ble",
+  "name": "Rated discharging current",
+  "value": "20",
+  "unit": "A",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 49,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

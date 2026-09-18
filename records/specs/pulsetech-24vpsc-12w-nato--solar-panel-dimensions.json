@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-24vpsc-12w-nato--solar-panel-dimensions",
+  "model": "pulsetech-24vpsc-12w-nato",
+  "name": "Solar Panel Dimensions",
+  "value": "12.7\" x 9.8\" x 0.125",
+  "source": "doc-553365674ce12eca786767c9177d7ef7",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

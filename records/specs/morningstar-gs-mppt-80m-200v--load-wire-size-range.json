@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-80m-200v--load-wire-size-range",
+  "model": "morningstar-gs-mppt-80m-200v",
+  "name": "Load wire size range",
+  "value": "2.5 - 16 平⽅毫⽶ / 14 - 6 美國線規",
+  "source": "doc-37633f0a761869b4d7d2f61da8e5f63a",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

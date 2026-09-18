@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-7--output-voltage-maximum",
+  "model": "pulsetech-sp-7",
+  "name": "Output Voltage, Maximum",
+  "value": "16.5 V dc",
+  "source": "doc-8c8c4b700a6308c3cf8994621daf3185",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

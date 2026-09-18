@@ -1,0 +1,10 @@
+{
+  "id": "surecall-force5-2-0--recommended-outside-signal-range",
+  "model": "surecall-force5-2-0",
+  "name": "Recommended outside signal range",
+  "value": "-70 dB to -90 dB",
+  "source": "doc-bf8db7e854ebb90b299f7bf841eeb449",
+  "page": 18,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

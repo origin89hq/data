@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-eb-mppt-40-m--battery-charge-algorithm",
+  "model": "morningstar-eb-mppt-40-m",
+  "name": "Battery charge algorithm",
+  "value": "4-stage: bulk, absorption, float, equalization",
+  "source": "doc-15aaa2603340519a063c6fdaff24a15e",
+  "page": 44,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

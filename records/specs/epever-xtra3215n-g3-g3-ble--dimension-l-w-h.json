@@ -1,0 +1,10 @@
+{
+  "id": "epever-xtra3215n-g3-g3-ble--dimension-l-w-h",
+  "model": "epever-xtra3215n-g3-g3-ble",
+  "name": "Dimension (L × W × H)",
+  "value": "255mm × 185mm × 67.8mm",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 51,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "epever-ebox-ble-01--communication-distance",
+  "model": "epever-ebox-ble-01",
+  "name": "Communication distance",
+  "value": "≤10m",
+  "source": "doc-ed8f9177be1bc95783159c5ce0ce282d",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

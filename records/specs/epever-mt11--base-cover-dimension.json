@@ -1,0 +1,10 @@
+{
+  "id": "epever-mt11--base-cover-dimension",
+  "model": "epever-mt11",
+  "name": "Base cover dimension",
+  "value": "98.4×98.4mm",
+  "source": "doc-2d695956cc975642e593ea057a5d4f1a",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

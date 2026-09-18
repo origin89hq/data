@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-10c-s-s--btu-max",
+  "model": "unique-appliances-ugp-10c-s-s",
+  "name": "BTU max",
+  "value": "1600",
+  "source": "doc-59c0afb0d05688e25ab54a95f4188599",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

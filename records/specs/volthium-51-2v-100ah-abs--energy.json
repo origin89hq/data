@@ -1,0 +1,11 @@
+{
+  "id": "volthium-51-2v-100ah-abs--energy",
+  "model": "volthium-51-2v-100ah-abs",
+  "name": "Energy",
+  "value": "5120",
+  "unit": "Wh",
+  "source": "doc-e6810bccb0a4c8b05a54840bfed4465f",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

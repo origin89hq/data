@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-sk-6--approved-solar-input-current",
+  "model": "morningstar-sk-6",
+  "name": "Approved solar input current",
+  "value": "6",
+  "unit": "A",
+  "source": "doc-9c8fca03627e881b29c9764485693776",
+  "page": 12,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

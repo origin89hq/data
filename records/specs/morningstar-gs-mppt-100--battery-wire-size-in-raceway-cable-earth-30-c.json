@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-100--battery-wire-size-in-raceway-cable-earth-30-c",
+  "model": "morningstar-gs-mppt-100",
+  "name": "Battery wire size in raceway/cable/earth @30°C",
+  "value": "#1 AWG",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 163,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "primus-wind-power-air-silent-x--system-voltage",
+  "model": "primus-wind-power-air-silent-x",
+  "name": "System Voltage",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-0e96333eb489fa1e5451a0a8fa59b95d",
+  "page": 47,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

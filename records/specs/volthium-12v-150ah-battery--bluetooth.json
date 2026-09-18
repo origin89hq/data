@@ -1,0 +1,9 @@
+{
+  "id": "volthium-12v-150ah-battery--bluetooth",
+  "model": "volthium-12v-150ah-battery",
+  "name": "Bluetooth",
+  "value": "Compatible",
+  "source": "doc-b53b4280817ee5ba995b9220bb1f06a4",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

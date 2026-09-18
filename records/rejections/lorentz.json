@@ -1,0 +1,13 @@
+{
+  "id": "lorentz",
+  "rejections": [
+    {
+      "source": "doc-3239fa3cd436f75d80c43f01aa9ea611",
+      "model": "lorentz-ps2-600-cs-17-1",
+      "name": "model",
+      "reason": "The data sheet prints PS2-600 CS-17-1 as the heading of a pump system column, naming the product rather than stating a specification of it.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    }
+  ]
+}

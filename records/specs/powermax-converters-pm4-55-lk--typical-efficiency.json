@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pm4-55-lk--typical-efficiency",
+  "model": "powermax-converters-pm4-55-lk",
+  "name": "Typical Efficiency",
+  "value": ">85%",
+  "source": "doc-7b991c3daec5966ca5048103aa8ae336",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

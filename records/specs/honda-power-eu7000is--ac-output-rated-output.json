@@ -1,0 +1,11 @@
+{
+  "id": "honda-power-eu7000is--ac-output-rated-output",
+  "model": "honda-power-eu7000is",
+  "name": "AC output rated output",
+  "value": "5.5",
+  "unit": "kVA",
+  "source": "doc-311eda81944ed7606fc98e1f1492582d",
+  "page": 103,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

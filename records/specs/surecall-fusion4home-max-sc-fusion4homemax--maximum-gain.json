@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion4home-max-sc-fusion4homemax--maximum-gain",
+  "model": "surecall-fusion4home-max-sc-fusion4homemax",
+  "name": "Maximum Gain",
+  "value": "72",
+  "unit": "dB",
+  "source": "doc-93c3ea60ae741852619cd9aa5a79e7e9",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

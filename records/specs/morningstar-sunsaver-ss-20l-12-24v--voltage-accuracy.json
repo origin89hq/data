@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-sunsaver-ss-20l-12-24v--voltage-accuracy",
+  "model": "morningstar-sunsaver-ss-20l-12-24v",
+  "name": "Voltage accuracy",
+  "value": "1",
+  "unit": "%",
+  "source": "doc-7eef275ea7e281f5944910c7b264fa68",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

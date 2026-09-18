@@ -1,0 +1,9 @@
+{
+  "id": "volthium-12-v-100-ah-gr24--ingress-protection-index",
+  "model": "volthium-12-v-100-ah-gr24",
+  "name": "Ingress protection index",
+  "value": "IP66 (Protégé contre la poussière et les faibles jets d'eau)",
+  "source": "doc-e1d7ecedb73c340cb422c11d3c056495",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

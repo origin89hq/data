@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-sunsaver-mppt--modbus-mode",
+  "model": "morningstar-sunsaver-mppt",
+  "name": "MODBUS mode",
+  "value": "RTU",
+  "source": "doc-5fa76468db54265325cd046fadd31f6c",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

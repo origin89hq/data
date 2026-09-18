@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-100m-200v--temperature-compensated-set-points",
+  "model": "morningstar-gs-mppt-100m-200v",
+  "name": "Temperature-compensated set-points",
+  "value": "Shared for Lead-acid presets; disabled by default for Lithium presets",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 152,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

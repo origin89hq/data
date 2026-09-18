@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-umc-1--converter-interface",
+  "model": "morningstar-umc-1",
+  "name": "Converter interface",
+  "value": "Morningstar MeterBus RJ-11 to USB 2.0",
+  "source": "doc-de8f55b837487913cbe2abd1760d5568",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

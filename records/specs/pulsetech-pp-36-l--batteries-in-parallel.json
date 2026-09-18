@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pp-36-l--batteries-in-parallel",
+  "model": "pulsetech-pp-36-l",
+  "name": "Batteries in Parallel",
+  "value": "Up to three 36-Volt",
+  "source": "doc-b875846362fe741363888302e6bdde80",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

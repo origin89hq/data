@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-sk-12--rated-solar-input",
+  "model": "morningstar-sk-12",
+  "name": "Rated Solar Input",
+  "value": "12",
+  "unit": "A",
+  "source": "doc-5d9b386e5c8e37dcd8c171d8dc9605e3",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

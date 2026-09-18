@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-40--tower-load-shaft-thrust",
+  "model": "primus-wind-power-air-40",
+  "name": "Tower Load Shaft Thrust",
+  "value": "80 lb. @ 100 mph wind speed (230 N @ 45 m/s)",
+  "source": "doc-41972c1d85892e0fb15407c2bf926a6d",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

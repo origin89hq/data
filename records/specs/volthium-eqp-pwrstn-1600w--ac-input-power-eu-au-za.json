@@ -1,0 +1,10 @@
+{
+  "id": "volthium-eqp-pwrstn-1600w--ac-input-power-eu-au-za",
+  "model": "volthium-eqp-pwrstn-1600w",
+  "name": "AC input power EU/AU/ZA",
+  "value": "800±200",
+  "unit": "W",
+  "source": "doc-3fc12c58a7dbea3701ac9cccf68420ba",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

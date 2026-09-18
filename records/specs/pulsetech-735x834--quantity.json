@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-735x834--quantity",
+  "model": "pulsetech-735x834",
+  "name": "Quantity",
+  "value": "Four",
+  "source": "doc-0193346bc27171a118223bfc42412436",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

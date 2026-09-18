@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-genstar-mppt--maximum-grounding-terminal-wire-size",
+  "model": "morningstar-genstar-mppt",
+  "name": "Maximum grounding terminal wire size",
+  "value": "#2 AWG / 33.6 mm2",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 20,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "kinetic-solar-weeb-ksr--series-fuse-rating",
+  "model": "kinetic-solar-weeb-ksr",
+  "name": "Series fuse rating",
+  "value": "less than 25A",
+  "source": "doc-5b3110c39ecccb0192ee0229fd17e2a5",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

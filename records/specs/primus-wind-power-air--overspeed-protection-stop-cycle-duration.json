@@ -1,0 +1,11 @@
+{
+  "id": "primus-wind-power-air--overspeed-protection-stop-cycle-duration",
+  "model": "primus-wind-power-air",
+  "name": "Overspeed protection stop cycle duration",
+  "value": "30",
+  "unit": "s",
+  "source": "doc-c15058cdcf6c0ae389d24523d639366a",
+  "page": 28,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

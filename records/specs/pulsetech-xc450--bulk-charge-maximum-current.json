@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-xc450--bulk-charge-maximum-current",
+  "model": "pulsetech-xc450",
+  "name": "BULK Charge Maximum Current",
+  "value": "4",
+  "unit": "A",
+  "source": "doc-c22d860060a20389dd285ad63350c826",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

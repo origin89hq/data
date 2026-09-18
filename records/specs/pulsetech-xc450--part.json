@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc450--part",
+  "model": "pulsetech-xc450",
+  "name": "Part #",
+  "value": "300X010",
+  "source": "doc-c22d860060a20389dd285ad63350c826",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

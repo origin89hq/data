@@ -1,0 +1,9 @@
+{
+  "id": "iota-engineering-ilb-cp20-he-sd--mounting-options",
+  "model": "iota-engineering-ilb-cp20-he-sd",
+  "name": "Mounting Options",
+  "value": "Automatic monthly/annual testing, single or dual-flex options",
+  "source": "doc-e5416223dd9367e284cc5c8c574a6f3e",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

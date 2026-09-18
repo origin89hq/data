@@ -1,0 +1,10 @@
+{
+  "id": "watersprint-ws-40-3140--regulatory",
+  "model": "watersprint-ws-40-3140",
+  "name": "Regulatory",
+  "value": "RoHS, REACH,CE (EMC/LVD)",
+  "source": "doc-cdd91de7784cc2c130d0c0eb3c09ec3b",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

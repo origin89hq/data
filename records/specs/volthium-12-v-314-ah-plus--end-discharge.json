@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-314-ah-plus--end-discharge",
+  "model": "volthium-12-v-314-ah-plus",
+  "name": "End discharge",
+  "value": "11 ~ 11.6 V",
+  "source": "doc-077d2d659a35c4c9e5e7cf891e028345",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

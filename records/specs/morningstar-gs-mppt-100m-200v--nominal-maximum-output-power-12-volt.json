@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-gs-mppt-100m-200v--nominal-maximum-output-power-12-volt",
+  "model": "morningstar-gs-mppt-100m-200v",
+  "name": "Nominal Maximum Output Power 12 Volt",
+  "value": "1350",
+  "unit": "W",
+  "source": "doc-2e0d175d4cf50dfa7df1901354c9760f",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

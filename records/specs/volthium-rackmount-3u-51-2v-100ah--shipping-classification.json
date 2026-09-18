@@ -1,0 +1,10 @@
+{
+  "id": "volthium-rackmount-3u-51-2v-100ah--shipping-classification",
+  "model": "volthium-rackmount-3u-51-2v-100ah",
+  "name": "Shipping classification",
+  "value": "UN 3480 | CLASS 9",
+  "source": "doc-f4a61c5d9d64955b46bfdb9be5b5ce14",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-unique-off-grid-dc-fridge--refrigerant",
+  "model": "unique-appliances-unique-off-grid-dc-fridge",
+  "name": "Refrigerant",
+  "value": "R-134a",
+  "source": "doc-6d9019a1e78bb7441f365240d881fcb9",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

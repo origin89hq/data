@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-100m-200v--ground-leg",
+  "model": "morningstar-gs-mppt-100m-200v",
+  "name": "Ground leg",
+  "value": "負（與單⼀接地點兼容的正接地）",
+  "source": "doc-37633f0a761869b4d7d2f61da8e5f63a",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

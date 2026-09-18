@@ -1,0 +1,11 @@
+{
+  "id": "watersprint-arrow-max-home-10k--flow-rate-at-30-mj-cm-95-uvt",
+  "model": "watersprint-arrow-max-home-10k",
+  "name": "Flow rate at 30 mJ/cm² @ 95% UVT",
+  "value": "23",
+  "unit": "L/min",
+  "source": "doc-7eba679f1e5b485407c6037e24b97ea9",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

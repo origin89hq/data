@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-x--maximum-wind-speed",
+  "model": "primus-wind-power-air-x",
+  "name": "Maximum Wind Speed",
+  "value": "110 mph",
+  "source": "doc-aa3eaa6a084a58206d83d4b229175f24",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-b-lfp48-100e-3u--discharge-voltage-v-rate-current-power",
+  "model": "bslbatt-b-lfp48-100e-3u",
+  "name": "Discharge Voltage (V) - Rate. Current / Power",
+  "value": "80A / 4.096kW",
+  "source": "doc-a5280ed309433548bf133d18361db832",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

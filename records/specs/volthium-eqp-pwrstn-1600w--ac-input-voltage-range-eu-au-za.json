@@ -1,0 +1,13 @@
+{
+  "id": "volthium-eqp-pwrstn-1600w--ac-input-voltage-range-eu-au-za",
+  "model": "volthium-eqp-pwrstn-1600w",
+  "name": "AC input voltage range EU/AU/ZA",
+  "value": "180-250",
+  "unit": "V",
+  "source": "doc-3fc12c58a7dbea3701ac9cccf68420ba",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc",
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-18"
+}

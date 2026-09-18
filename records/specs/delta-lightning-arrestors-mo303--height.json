@@ -1,0 +1,9 @@
+{
+  "id": "delta-lightning-arrestors-mo303--height",
+  "model": "delta-lightning-arrestors-mo303",
+  "name": "Height",
+  "value": "4 1/2",
+  "source": "doc-46921a96fb0ee85a0ccbf64c9d7e20d2",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilb-cp20-he-aelr-hv--power-factor",
+  "model": "iota-engineering-ilb-cp20-he-aelr-hv",
+  "name": "Power Factor",
+  "value": "≥ 0.85",
+  "source": "doc-141e07689edcb477cd254ab294e0d489",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

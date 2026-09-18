@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ss-20l-12v--rated-load-current",
+  "model": "morningstar-ss-20l-12v",
+  "name": "Rated load current",
+  "value": "20",
+  "unit": "A",
+  "source": "doc-899310a60c10064b10684f0a8f5ee448",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd5100--wire-torque",
+  "model": "progressive-dynamics-pd5100",
+  "name": "Wire Torque",
+  "value": "3.95 N*m",
+  "source": "doc-3dd92b531073c60ed47153d3fb12e5ec",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

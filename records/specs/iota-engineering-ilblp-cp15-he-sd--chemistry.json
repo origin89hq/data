@@ -1,0 +1,9 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd--chemistry",
+  "model": "iota-engineering-ilblp-cp15-he-sd",
+  "name": "Chemistry",
+  "value": "Lithium Iron-Phosphate",
+  "source": "doc-668127f8728f21471af7b6df6f82db0f",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

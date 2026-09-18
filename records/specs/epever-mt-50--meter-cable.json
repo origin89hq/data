@@ -1,0 +1,10 @@
+{
+  "id": "epever-mt-50--meter-cable",
+  "model": "epever-mt-50",
+  "name": "Meter cable",
+  "value": "Standard 2m, Max 50 m",
+  "source": "doc-d1bc52bc0bb701566219e695af1d35bf",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

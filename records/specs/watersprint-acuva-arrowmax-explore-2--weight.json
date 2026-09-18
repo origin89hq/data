@@ -1,0 +1,11 @@
+{
+  "id": "watersprint-acuva-arrowmax-explore-2--weight",
+  "model": "watersprint-acuva-arrowmax-explore-2",
+  "name": "Weight",
+  "value": "3.0",
+  "unit": "kg",
+  "source": "doc-58e940db04b47884a527ac6d61304273",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

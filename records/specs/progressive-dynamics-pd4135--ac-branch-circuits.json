@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4135--ac-branch-circuits",
+  "model": "progressive-dynamics-pd4135",
+  "name": "AC branch circuits",
+  "value": "5",
+  "source": "doc-02863f66a1a007ef842aa7fba664e0d0",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

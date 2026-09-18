@@ -1,0 +1,11 @@
+{
+  "id": "champion-power-100166--suction-hose-length",
+  "model": "champion-power-100166",
+  "name": "Suction hose length",
+  "value": "5",
+  "unit": "m",
+  "source": "doc-fa1dbc167393237a0f37d31e1db9e9b8",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

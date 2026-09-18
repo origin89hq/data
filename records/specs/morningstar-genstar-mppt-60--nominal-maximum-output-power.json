@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-genstar-mppt-60--nominal-maximum-output-power",
+  "model": "morningstar-genstar-mppt-60",
+  "name": "Nominal Maximum Output Power",
+  "value": "800-1600-3200W",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 9,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

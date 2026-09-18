@@ -1,0 +1,10 @@
+{
+  "id": "epever-tracer10415an--dry-contact",
+  "model": "epever-tracer10415an",
+  "name": "Dry contact",
+  "value": "Rated value: 5A/30VDC; Max. value: 0.5A/60VDC",
+  "source": "doc-0d6a013f74408184c3a6e76c131a81f2",
+  "page": 39,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

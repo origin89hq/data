@@ -1,0 +1,11 @@
+{
+  "id": "emporia-main-current-transformers-emv3ct2-a--max-primary-current",
+  "model": "emporia-main-current-transformers-emv3ct2-a",
+  "name": "Max primary current",
+  "value": "200",
+  "unit": "A",
+  "source": "doc-e44cae2a6b8535ee6806ff6f5600735d",
+  "page": 37,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

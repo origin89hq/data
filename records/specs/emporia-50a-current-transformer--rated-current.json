@@ -1,0 +1,11 @@
+{
+  "id": "emporia-50a-current-transformer--rated-current",
+  "model": "emporia-50a-current-transformer",
+  "name": "Rated current",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-d6210a1a6a0c21eccfa4994aaa7831e4",
+  "page": 12,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

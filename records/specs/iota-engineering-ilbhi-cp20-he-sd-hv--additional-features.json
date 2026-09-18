@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilbhi-cp20-he-sd-hv--additional-features",
+  "model": "iota-engineering-ilbhi-cp20-he-sd-hv",
+  "name": "Additional Features",
+  "value": "Automatic monthly/annual testing, High voltage output",
+  "source": "doc-e5416223dd9367e284cc5c8c574a6f3e",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

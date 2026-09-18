@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-00-10021-200--torque",
+  "model": "precision-circuits-00-10021-200",
+  "name": "Torque",
+  "value": "20 IN-LBS",
+  "source": "doc-b48fb52f516f6614e938a087fe4ecc85",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

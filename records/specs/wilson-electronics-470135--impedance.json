@@ -1,0 +1,11 @@
+{
+  "id": "wilson-electronics-470135--impedance",
+  "model": "wilson-electronics-470135",
+  "name": "Impedance",
+  "value": "50",
+  "unit": "Ω",
+  "source": "doc-d6fcb2d425742fd610b8d03b3fc36d56",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

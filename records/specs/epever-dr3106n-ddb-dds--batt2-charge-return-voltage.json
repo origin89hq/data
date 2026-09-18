@@ -1,0 +1,10 @@
+{
+  "id": "epever-dr3106n-ddb-dds--batt2-charge-return-voltage",
+  "model": "epever-dr3106n-ddb-dds",
+  "name": "BATT2 Charge return voltage",
+  "value": "13V/12V",
+  "source": "doc-f605741c80467647ab168f56ec998172",
+  "page": 36,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

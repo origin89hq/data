@@ -1,0 +1,9 @@
+{
+  "id": "iota-engineering-ilbhi-cp07-2h-he-sd--emergency-operation",
+  "model": "iota-engineering-ilbhi-cp07-2h-he-sd",
+  "name": "Emergency operation",
+  "value": "Two-Hour",
+  "source": "doc-09a924218835dd3d442600441c0a8241",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

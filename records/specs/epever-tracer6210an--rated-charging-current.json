@@ -1,0 +1,11 @@
+{
+  "id": "epever-tracer6210an--rated-charging-current",
+  "model": "epever-tracer6210an",
+  "name": "Rated charging current",
+  "value": "60",
+  "unit": "A",
+  "source": "doc-0d6a013f74408184c3a6e76c131a81f2",
+  "page": 37,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

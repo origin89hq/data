@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-735x613--circuit-box-length",
+  "model": "pulsetech-735x613",
+  "name": "Circuit box length",
+  "value": "3.4\" L x 2.4\" W x 1.5\" H",
+  "source": "doc-ba7da71459330dd1dec34b2c2834d6a9",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

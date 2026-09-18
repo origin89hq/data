@@ -1,0 +1,9 @@
+{
+  "id": "powermax-converters-pmmc-070501470-rev1-0--battery-charger-type",
+  "model": "powermax-converters-pmmc-070501470-rev1-0",
+  "name": "Battery charger type",
+  "value": "11 stage automatic smart charger",
+  "source": "doc-2d60dd84c492d816f310eabe743db17b",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

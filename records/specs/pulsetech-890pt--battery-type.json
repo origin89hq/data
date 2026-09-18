@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-890pt--battery-type",
+  "model": "pulsetech-890pt",
+  "name": "Battery Type",
+  "value": "Flooded Cell, Gel, AGM Flat Plate, AGM SPiral, LiFePO4, and Lithium-ion batteries",
+  "source": "doc-03b6acecfa18733b3987c167f7f9379d",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

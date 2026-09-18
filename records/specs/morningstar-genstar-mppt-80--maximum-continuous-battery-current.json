@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-genstar-mppt-80--maximum-continuous-battery-current",
+  "model": "morningstar-genstar-mppt-80",
+  "name": "Maximum continuous battery current",
+  "value": "80",
+  "unit": "A",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 11,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

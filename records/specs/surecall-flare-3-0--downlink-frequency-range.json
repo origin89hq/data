@@ -1,0 +1,10 @@
+{
+  "id": "surecall-flare-3-0--downlink-frequency-range",
+  "model": "surecall-flare-3-0",
+  "name": "Downlink Frequency Range",
+  "value": "728-746 / 746-757 / 869-894 / 1930-1995 / 2110-2155",
+  "source": "doc-b9929121b7fb8a2b962b068f4d2d5ba7",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

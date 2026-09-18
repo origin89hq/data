@@ -1,0 +1,10 @@
+{
+  "id": "epever-mt-50--terminal",
+  "model": "epever-mt-50",
+  "name": "Terminal",
+  "value": "Φ5",
+  "source": "doc-53db1d7b511380afdf031b1284c6f1a5",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

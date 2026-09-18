@@ -1,0 +1,10 @@
+{
+  "id": "epever-mt91--lcd-backlight",
+  "model": "epever-mt91",
+  "name": "LCD backlight",
+  "value": "Yes",
+  "source": "doc-85a43b5963b01d0894deeabea7ee8118",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

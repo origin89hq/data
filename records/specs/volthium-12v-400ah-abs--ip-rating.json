@@ -1,0 +1,9 @@
+{
+  "id": "volthium-12v-400ah-abs--ip-rating",
+  "model": "volthium-12v-400ah-abs",
+  "name": "IP rating",
+  "value": "IP55 (Contre les jets d’eau à basse pression et les poussières)",
+  "source": "doc-5f44ad9dbdfba53eeaebb90a2892724f",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

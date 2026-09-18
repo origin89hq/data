@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-sunsaver-mppt--maximum-nominal-input-power-at-24-volt",
+  "model": "morningstar-sunsaver-mppt",
+  "name": "Maximum nominal input power at 24 Volt",
+  "value": "400",
+  "unit": "W",
+  "source": "doc-2d4b53f85406ac4d45a3421a5c2f3745",
+  "page": 12,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

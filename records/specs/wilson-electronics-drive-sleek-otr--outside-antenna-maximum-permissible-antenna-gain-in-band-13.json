@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-drive-sleek-otr--outside-antenna-maximum-permissible-antenna-gain-in-band-13",
+  "model": "wilson-electronics-drive-sleek-otr",
+  "name": "Outside antenna maximum permissible antenna gain in Band 13",
+  "value": "2.9<tool_call>",
+  "source": "doc-e44ef044bccbcc48460b178a7f47452b",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

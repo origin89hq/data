@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd--input-rating",
+  "model": "iota-engineering-ilblp-cp15-he-sd",
+  "name": "Input rating",
+  "value": "0.075",
+  "unit": "A",
+  "source": "doc-668127f8728f21471af7b6df6f82db0f",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

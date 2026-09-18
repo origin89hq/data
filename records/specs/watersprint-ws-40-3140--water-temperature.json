@@ -1,0 +1,10 @@
+{
+  "id": "watersprint-ws-40-3140--water-temperature",
+  "model": "watersprint-ws-40-3140",
+  "name": "Water temperature",
+  "value": "34–113°F",
+  "source": "doc-cdd91de7784cc2c130d0c0eb3c09ec3b",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

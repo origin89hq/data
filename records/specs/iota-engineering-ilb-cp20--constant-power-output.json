@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilb-cp20--constant-power-output",
+  "model": "iota-engineering-ilb-cp20",
+  "name": "Constant Power Output",
+  "value": "20",
+  "source": "doc-76dabf0c175970e04d8dd11a798cd2cd",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

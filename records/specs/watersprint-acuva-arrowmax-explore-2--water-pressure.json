@@ -1,0 +1,10 @@
+{
+  "id": "watersprint-acuva-arrowmax-explore-2--water-pressure",
+  "model": "watersprint-acuva-arrowmax-explore-2",
+  "name": "Water pressure",
+  "value": "Max 7 bar",
+  "source": "doc-58e940db04b47884a527ac6d61304273",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

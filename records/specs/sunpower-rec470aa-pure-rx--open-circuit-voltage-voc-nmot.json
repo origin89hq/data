@@ -1,0 +1,10 @@
+{
+  "id": "sunpower-rec470aa-pure-rx--open-circuit-voltage-voc-nmot",
+  "model": "sunpower-rec470aa-pure-rx",
+  "name": "Open Circuit Voltage - VOC (NMOT)",
+  "value": "61.9",
+  "unit": "V",
+  "source": "doc-0be4d97cdd84e6e6a5d778d6316a1276",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

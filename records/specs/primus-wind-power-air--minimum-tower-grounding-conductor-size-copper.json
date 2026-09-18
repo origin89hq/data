@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air--minimum-tower-grounding-conductor-size-copper",
+  "model": "primus-wind-power-air",
+  "name": "Minimum tower grounding conductor size (copper)",
+  "value": "6 AWG",
+  "source": "doc-c15058cdcf6c0ae389d24523d639366a",
+  "page": 28,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

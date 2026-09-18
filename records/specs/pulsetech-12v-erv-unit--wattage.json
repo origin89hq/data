@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-12v-erv-unit--wattage",
+  "model": "pulsetech-12v-erv-unit",
+  "name": "Wattage",
+  "value": "7-Watt",
+  "source": "doc-ef7993ef63d1ae7f44a243ae339e26e9",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

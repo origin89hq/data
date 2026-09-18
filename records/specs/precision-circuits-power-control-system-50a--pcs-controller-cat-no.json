@@ -1,0 +1,9 @@
+{
+  "id": "precision-circuits-power-control-system-50a--pcs-controller-cat-no",
+  "model": "precision-circuits-power-control-system-50a",
+  "name": "PCS Controller CAT. NO.",
+  "value": "00-10020-500 50AMP PCS CONTROLLER",
+  "source": "doc-177d61e85ea797f76313f9af96b45147",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

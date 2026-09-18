@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc400--input-voltage",
+  "model": "pulsetech-xc400",
+  "name": "Input voltage",
+  "value": "110-220 VAC",
+  "source": "doc-ed4c47f682eefba856ca59a8e80f80b0",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

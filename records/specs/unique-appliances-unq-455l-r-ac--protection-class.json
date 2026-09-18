@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-unq-455l-r-ac--protection-class",
+  "model": "unique-appliances-unq-455l-r-ac",
+  "name": "Protection class",
+  "value": "Class I",
+  "source": "doc-7452bb7dd3bf3d9311055a5578a00806",
+  "page": 21,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

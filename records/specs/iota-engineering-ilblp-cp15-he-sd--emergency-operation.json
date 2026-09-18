@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd--emergency-operation",
+  "model": "iota-engineering-ilblp-cp15-he-sd",
+  "name": "Emergency operation",
+  "value": "90",
+  "unit": "min",
+  "source": "doc-668127f8728f21471af7b6df6f82db0f",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

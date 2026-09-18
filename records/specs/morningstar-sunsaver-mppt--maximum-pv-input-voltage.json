@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-sunsaver-mppt--maximum-pv-input-voltage",
+  "model": "morningstar-sunsaver-mppt",
+  "name": "Maximum PV input voltage",
+  "value": "60",
+  "unit": "V",
+  "source": "doc-3753da4c81d5cd18b923af9e2dcefa04",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "epever-it4415nd--load-wire-size",
+  "model": "epever-it4415nd",
+  "name": "Load wire size",
+  "value": "16mm2/6AWG",
+  "source": "doc-df1ca9dee1b40e9e7ed1860444f80da7",
+  "page": 20,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

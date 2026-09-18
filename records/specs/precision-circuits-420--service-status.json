@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-420--service-status",
+  "model": "precision-circuits-420",
+  "name": "Service Status",
+  "value": "50A = Ignore 50A Service",
+  "source": "doc-ae4f7366a7cf1fa9db6e7682b18a336e",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilbhi-cp-he-sd-hv--automatic-monthly-emergency-test-duration",
+  "model": "iota-engineering-ilbhi-cp-he-sd-hv",
+  "name": "Automatic monthly emergency test duration",
+  "value": "30",
+  "unit": "s",
+  "source": "doc-2c7272194b37159a7d788f231c995aef",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

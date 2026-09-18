@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilbhi-cp30-hv--minimum-runtime",
+  "model": "iota-engineering-ilbhi-cp30-hv",
+  "name": "Minimum runtime",
+  "value": "90 Minutes, unitless",
+  "source": "doc-2c7272194b37159a7d788f231c995aef",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

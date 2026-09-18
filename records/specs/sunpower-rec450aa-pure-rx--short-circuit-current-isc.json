@@ -1,0 +1,11 @@
+{
+  "id": "sunpower-rec450aa-pure-rx--short-circuit-current-isc",
+  "model": "sunpower-rec450aa-pure-rx",
+  "name": "Short Circuit Current - ISC",
+  "value": "8.81",
+  "unit": "A",
+  "source": "doc-0be4d97cdd84e6e6a5d778d6316a1276",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

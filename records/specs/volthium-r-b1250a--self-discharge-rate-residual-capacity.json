@@ -1,0 +1,10 @@
+{
+  "id": "volthium-r-b1250a--self-discharge-rate-residual-capacity",
+  "model": "volthium-r-b1250a",
+  "name": "Self-discharge rate - Residual capacity",
+  "value": "≤ 3 % / month | ≤ 15 % / year",
+  "source": "doc-351fd519eb6040042623bf73c333c5ed",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

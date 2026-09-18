@@ -1,0 +1,10 @@
+{
+  "id": "honda-power-eu7000is--receptacle-available-power-120-v-only-position",
+  "model": "honda-power-eu7000is",
+  "name": "Receptacle available power (120 V ONLY position)",
+  "value": "30 A at 120 V 20 A at 120 V 20 A at 120 V 30 A at 120 V None",
+  "source": "doc-311eda81944ed7606fc98e1f1492582d",
+  "page": 66,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-30-cr-rh--noise-level",
+  "model": "unique-appliances-ugp-30-cr-rh",
+  "name": "Noise level",
+  "value": "Inférieur à 65 dBA",
+  "source": "doc-cbf53d1c4409f24ebd69c8e225d76864",
+  "page": 15,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

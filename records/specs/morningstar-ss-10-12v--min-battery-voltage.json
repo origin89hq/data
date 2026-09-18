@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ss-10-12v--min-battery-voltage",
+  "model": "morningstar-ss-10-12v",
+  "name": "Min. Battery Voltage",
+  "value": "6V*",
+  "source": "doc-faccf02ddc4b17991ff29bc933fe693a",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "volthium-51-2-314-ess--recommend-environment",
+  "model": "volthium-51-2-314-ess",
+  "name": "Recommend environment",
+  "value": "-10 45°C|5",
+  "source": "doc-70b77cf2d1e1ebb8fadfde03a8d95990",
+  "page": 14,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

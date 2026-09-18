@@ -1,0 +1,10 @@
+{
+  "id": "epever-it6415nd--max-pv-array-power",
+  "model": "epever-it6415nd",
+  "name": "Max. PV Array Power",
+  "value": "2400W/12V",
+  "source": "doc-df1ca9dee1b40e9e7ed1860444f80da7",
+  "page": 15,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

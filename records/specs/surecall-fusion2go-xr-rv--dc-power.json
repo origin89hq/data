@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-xr-rv--dc-power",
+  "model": "surecall-fusion2go-xr-rv",
+  "name": "DC Power",
+  "value": "6-15V",
+  "source": "doc-fd120796536b0cde0d5c9324120411db",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-bt-2--battery-type-compatibility",
+  "model": "pulsetech-bt-2",
+  "name": "Battery Type Compatibility",
+  "value": "12V Lead-Acid Batteries – VRLA, AGM, Gel, and Flooded cell",
+  "source": "doc-5452174c9b3e2d65a71630e4cbe5c979",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

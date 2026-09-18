@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-314-ah-plus--short-circuit-current",
+  "model": "volthium-12-v-314-ah-plus",
+  "name": "Short circuit current",
+  "value": "1500 A@500 μs",
+  "source": "doc-c2aa44762c5f60f01eee0b982da82c62",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

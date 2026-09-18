@@ -1,0 +1,10 @@
+{
+  "id": "epever-tp20k-220-220-1--battery-input-voltage-range",
+  "model": "epever-tp20k-220-220-1",
+  "name": "Battery Input voltage range",
+  "value": "185~295Vdc",
+  "source": "doc-81e78093b9671e24fe5a3d9c1812a057",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

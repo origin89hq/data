@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion4home--cable",
+  "model": "surecall-fusion4home",
+  "name": "Cable",
+  "value": "RG6 (50 ft.) / RG6 / SC-240",
+  "source": "doc-2e0c4747311fab9e7645c70978fc292e",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-00-10041-200--wire-size-intermittent-30-secs-with-1-awg-wire",
+  "model": "precision-circuits-00-10041-200",
+  "name": "Wire size intermittent 30-secs with 1 AWG wire",
+  "value": "600",
+  "unit": "A",
+  "source": "doc-cd76c65396af09504c09d76e85c5b33a",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

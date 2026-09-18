@@ -142,6 +142,21 @@
       "reason": "The PT20 (part 746X920) is one controller that detects the battery voltage, \"12/24V (Automatically Detected)\"; \"24V System\" is one of its configurations, not a product.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-cf6ecb813c4a6766fabd0f208e498a37",
+      "product": "735x640",
+      "reason": "735x640 is the part number of the Pulse Solar Charger (PSC) Kit in the materiel list, a kit consisting of a solar panel and a Pulse Receptacle Unit, not a product model.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    },
+    {
+      "source": "doc-0816cfb74752a9e86625f0cad28dac05",
+      "model": "pulsetech-sc-6",
+      "name": "Model",
+      "reason": "Page 2 prints \"Part No:746X816 Model:SC-6\" to identify the charger, which names the product rather than stating a specification of it.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
     }
   ]
 }

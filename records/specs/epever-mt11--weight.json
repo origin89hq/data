@@ -1,0 +1,10 @@
+{
+  "id": "epever-mt11--weight",
+  "model": "epever-mt11",
+  "name": "Weight",
+  "value": "0.11",
+  "source": "doc-2d695956cc975642e593ea057a5d4f1a",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

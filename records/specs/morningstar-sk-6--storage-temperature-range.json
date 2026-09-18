@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-sk-6--storage-temperature-range",
+  "model": "morningstar-sk-6",
+  "name": "Storage temperature range",
+  "value": "-55ºC / -67ºF to 85ºC / 185ºF",
+  "source": "doc-9c8fca03627e881b29c9764485693776",
+  "page": 12,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

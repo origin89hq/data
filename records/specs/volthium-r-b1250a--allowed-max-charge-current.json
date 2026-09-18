@@ -1,0 +1,10 @@
+{
+  "id": "volthium-r-b1250a--allowed-max-charge-current",
+  "model": "volthium-r-b1250a",
+  "name": "Allowed MAX charge current",
+  "value": "50.0 A | @ 25 °C",
+  "source": "doc-351fd519eb6040042623bf73c333c5ed",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pmx-2000w-psw--high-voltage-cut-off",
+  "model": "powermax-converters-pmx-2000w-psw",
+  "name": "High voltage cut-off",
+  "value": "15-16.5",
+  "unit": "V",
+  "source": "doc-2b315a6a3cfa4facc4006026703bf60a",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

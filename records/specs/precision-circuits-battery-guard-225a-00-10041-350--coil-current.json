@@ -1,0 +1,9 @@
+{
+  "id": "precision-circuits-battery-guard-225a-00-10041-350--coil-current",
+  "model": "precision-circuits-battery-guard-225a-00-10041-350",
+  "name": "Coil current",
+  "value": "10amps 0.5 sec max internally protected",
+  "source": "doc-d74cf300ec36073149f4d3647a95c8fd",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

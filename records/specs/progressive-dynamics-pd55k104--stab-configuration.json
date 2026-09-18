@@ -1,0 +1,9 @@
+{
+  "id": "progressive-dynamics-pd55k104--stab-configuration",
+  "model": "progressive-dynamics-pd55k104",
+  "name": "Stab configuration",
+  "value": "5 Single - 5 Single (50Amp 120VAC) with one 15 position neutral bar with 15 Amp outlet on back",
+  "source": "doc-617949bb41425b36a72478d81726efec",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

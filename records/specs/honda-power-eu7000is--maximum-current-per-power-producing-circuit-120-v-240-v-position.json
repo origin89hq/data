@@ -1,0 +1,10 @@
+{
+  "id": "honda-power-eu7000is--maximum-current-per-power-producing-circuit-120-v-240-v-position",
+  "model": "honda-power-eu7000is",
+  "name": "Maximum current per power producing circuit (120 V/240 V position)",
+  "value": "22.9 A at 120 V 240 V",
+  "source": "doc-311eda81944ed7606fc98e1f1492582d",
+  "page": 66,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "unique-appliances-unique-off-grid-dc-fridge--maximum-ambient-temperature-for-correct-function",
+  "model": "unique-appliances-unique-off-grid-dc-fridge",
+  "name": "Maximum ambient temperature for correct function",
+  "value": "100",
+  "unit": "°F",
+  "source": "doc-6d9019a1e78bb7441f365240d881fcb9",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

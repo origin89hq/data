@@ -1,0 +1,10 @@
+{
+  "id": "volthium-eqp-pwrstn-1600w--solar-input",
+  "model": "volthium-eqp-pwrstn-1600w",
+  "name": "Solar input",
+  "value": "11.5-55 (MaX 550W)",
+  "unit": "V",
+  "source": "doc-3fc12c58a7dbea3701ac9cccf68420ba",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "volthium-51-2v-100ah-abs--cycles-at-100-discharge",
+  "model": "volthium-51-2v-100ah-abs",
+  "name": "Cycles at 100% discharge",
+  "value": "3500 < cycles",
+  "source": "doc-e6810bccb0a4c8b05a54840bfed4465f",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

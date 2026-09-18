@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-50--solar-panel-power",
+  "model": "pulsetech-sp-50",
+  "name": "Solar panel power",
+  "value": "53.65",
+  "unit": "W",
+  "source": "doc-8be9495f7f8c765bf095c64e22f8a7b8",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

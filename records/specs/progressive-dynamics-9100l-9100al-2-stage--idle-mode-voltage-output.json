@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-9100l-9100al-2-stage--idle-mode-voltage-output",
+  "model": "progressive-dynamics-9100l-9100al-2-stage",
+  "name": "Idle mode voltage output",
+  "value": "13.6",
+  "unit": "V",
+  "source": "doc-085dfc48ebafc1f0cd7bf7c1150db5c9",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion4home-max-sc-fusion4homemax--cellular-bands",
+  "model": "surecall-fusion4home-max-sc-fusion4homemax",
+  "name": "Cellular Bands",
+  "value": "12 / 17 / 13 / 5 / 26 / 2 / 25 / 4",
+  "source": "doc-93c3ea60ae741852619cd9aa5a79e7e9",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

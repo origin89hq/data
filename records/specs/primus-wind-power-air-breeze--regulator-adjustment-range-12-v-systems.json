@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-breeze--regulator-adjustment-range-12-v-systems",
+  "model": "primus-wind-power-air-breeze",
+  "name": "Regulator adjustment range 12 V systems",
+  "value": "13,6 e 17,0V (aproximadamente)",
+  "source": "doc-c15058cdcf6c0ae389d24523d639366a",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "volthium-12v-300ah--protection-index",
+  "model": "volthium-12v-300ah",
+  "name": "Protection index",
+  "value": "IP55 (Contre les jets d'eau à basse pression et les poussières)",
+  "source": "doc-1f59f71da2d3ceb9721a2230297cbe2c",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

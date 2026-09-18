@@ -1,0 +1,10 @@
+{
+  "id": "volthium-51-2-100-r-3u-c--storage-temperature-off-mode-3-months",
+  "model": "volthium-51-2-100-r-3u-c",
+  "name": "Storage temperature @off mode 3 months",
+  "value": "-10 <T<45",
+  "source": "doc-2d45f5b318a0811f04d0ad9ce1e78efe",
+  "page": 12,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

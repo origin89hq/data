@@ -1,0 +1,12 @@
+{
+  "id": "primus-wind-power-model-wcp-d--circuit-breaker-size-air-30-air-x-marine-silent-x-48-v-and-air-40-air-breeze-12-v",
+  "model": "primus-wind-power-model-wcp-d",
+  "name": "Circuit breaker size",
+  "value": "20",
+  "unit": "A",
+  "conditions": "AIR 30/AIR X MARINE/SILENT X – 48 V and AIR 40/AIR BREEZE – 12 V",
+  "source": "doc-0b543150591b2ba0a1fe29bcb4907c11",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

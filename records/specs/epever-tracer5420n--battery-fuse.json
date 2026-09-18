@@ -1,0 +1,10 @@
+{
+  "id": "epever-tracer5420n--battery-fuse",
+  "model": "epever-tracer5420n",
+  "name": "Battery fuse",
+  "value": "80A/ 58V",
+  "source": "doc-0d6a013f74408184c3a6e76c131a81f2",
+  "page": 36,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

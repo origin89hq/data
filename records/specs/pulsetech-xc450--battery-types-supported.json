@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-xc450--battery-types-supported",
+  "model": "pulsetech-xc450",
+  "name": "Battery Types Supported",
+  "value": "STD for Flooded Lead Acid, AGM for Absorbed Glass Mat or LiFePO4 for Lithium",
+  "source": "doc-c22d860060a20389dd285ad63350c826",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

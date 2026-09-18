@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-pro-12-rp--charging-rate-13-6-vdc-0-2-a-x-number-of-cables-used",
+  "model": "pulsetech-pro-12-rp",
+  "name": "Charging rate @ 13.6 VDC (0.2 A x number of cables used)",
+  "value": "2.4 W max per battery",
+  "source": "doc-ed0bab0123d936e46c72ccc5948afcab",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

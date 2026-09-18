@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-735x643--chemistry",
+  "model": "pulsetech-735x643",
+  "name": "Chemistry",
+  "value": "Solar",
+  "source": "doc-14b8982a5c88639e2c43fa36a661c4b0",
+  "page": 18,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

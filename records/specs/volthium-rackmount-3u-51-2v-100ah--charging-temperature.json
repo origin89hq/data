@@ -1,0 +1,10 @@
+{
+  "id": "volthium-rackmount-3u-51-2v-100ah--charging-temperature",
+  "model": "volthium-rackmount-3u-51-2v-100ah",
+  "name": "Charging temperature",
+  "value": "From 0 to 45°C",
+  "source": "doc-f4a61c5d9d64955b46bfdb9be5b5ce14",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

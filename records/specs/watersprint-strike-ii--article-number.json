@@ -1,0 +1,10 @@
+{
+  "id": "watersprint-strike-ii--article-number",
+  "model": "watersprint-strike-ii",
+  "name": "Article Number",
+  "value": "600-2330-02",
+  "source": "doc-58dbc12a496927a0a99432bc685884f6",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

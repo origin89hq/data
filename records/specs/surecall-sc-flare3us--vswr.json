@@ -1,0 +1,10 @@
+{
+  "id": "surecall-sc-flare3us--vswr",
+  "model": "surecall-sc-flare3us",
+  "name": "VSWR",
+  "value": "≤ 2.0",
+  "source": "doc-0265182c13db2b24e5dc5caabf89a683",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

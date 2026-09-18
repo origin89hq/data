@@ -1,0 +1,11 @@
+{
+  "id": "watersprint-azure-bolt-ii--16-mj-cm-95-uvt",
+  "model": "watersprint-azure-bolt-ii",
+  "name": "16 mJ/cm² @ 95% UVT",
+  "value": "0.74",
+  "unit": "gpm",
+  "source": "doc-cf473b180c6fec9945c1e70675f892df",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

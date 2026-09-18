@@ -1,0 +1,10 @@
+{
+  "id": "p3-international-p7825--frequency",
+  "model": "p3-international-p7825",
+  "name": "Frequency",
+  "value": "12kHz",
+  "source": "doc-60efba0ffeaec240d80a29018e715890",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

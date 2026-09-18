@@ -1,0 +1,11 @@
+{
+  "id": "emporia-emv3a--voltage-terminals-voltage-line-to-neutral-overvoltage-measurement-cat-iii",
+  "model": "emporia-emv3a",
+  "name": "Voltage Terminals voltage",
+  "value": "100-240, 50/60, 41",
+  "conditions": "line-to-neutral, Overvoltage / Measurement CAT III",
+  "source": "doc-e44cae2a6b8535ee6806ff6f5600735d",
+  "page": 36,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

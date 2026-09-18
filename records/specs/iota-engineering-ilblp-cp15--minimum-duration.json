@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilblp-cp15--minimum-duration",
+  "model": "iota-engineering-ilblp-cp15",
+  "name": "Minimum duration",
+  "value": "90",
+  "unit": "min",
+  "source": "doc-74c8271a2228320fb8bcea930046b55f",
+  "page": 6,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

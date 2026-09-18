@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-30--hysteresis",
+  "model": "primus-wind-power-air-30",
+  "name": "Hysteresis",
+  "value": "approximately 0.6V for 12V turbines, 1.2V for 24V turbines, and 2.4V for 48V turbines",
+  "source": "doc-41972c1d85892e0fb15407c2bf926a6d",
+  "page": 46,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

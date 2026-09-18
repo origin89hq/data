@@ -1,0 +1,10 @@
+{
+  "id": "watersprint-watersprintsolo-40-fs--pressure-drop-max-flow-rate",
+  "model": "watersprint-watersprintsolo-40-fs",
+  "name": "Pressure drop @ max. flow rate",
+  "value": "10.2",
+  "source": "doc-1c34d429779316455fe36aac66834ba4",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

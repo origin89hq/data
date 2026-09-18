@@ -1,0 +1,10 @@
+{
+  "id": "volthium-51-2v-100ah-abs--rs485-can",
+  "model": "volthium-51-2v-100ah-abs",
+  "name": "RS485 / CAN",
+  "value": "En option",
+  "source": "doc-e6810bccb0a4c8b05a54840bfed4465f",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "watersprint-acuva-arrowmax-explore-2--power-consumption-uvc-led-unit",
+  "model": "watersprint-acuva-arrowmax-explore-2",
+  "name": "Power consumption (UVC LED Unit)",
+  "value": "9",
+  "unit": "W",
+  "source": "doc-fee4569d270421b6d01a6f1ebd800443",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

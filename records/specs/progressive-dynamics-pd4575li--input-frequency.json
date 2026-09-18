@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4575li--input-frequency",
+  "model": "progressive-dynamics-pd4575li",
+  "name": "Input frequency",
+  "value": "50/60 Hz",
+  "source": "doc-cc746b613ecdfaa58015ab49a66a9d94",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

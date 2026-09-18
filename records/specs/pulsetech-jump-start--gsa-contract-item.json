@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-jump-start--gsa-contract-item",
+  "model": "pulsetech-jump-start",
+  "name": "GSA Contract Item",
+  "value": "GS-07F-0473M",
+  "source": "doc-59284c718ad994a2b51e6904f8925db9",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

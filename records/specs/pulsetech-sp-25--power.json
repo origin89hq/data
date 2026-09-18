@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-25--power",
+  "model": "pulsetech-sp-25",
+  "name": "Power",
+  "value": "25",
+  "unit": "W",
+  "source": "doc-465ca4bd12333e9c56f0c4f4f05f26df",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

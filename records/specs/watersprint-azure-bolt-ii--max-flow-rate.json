@@ -2,8 +2,10 @@
   "id": "watersprint-azure-bolt-ii--max-flow-rate",
   "model": "watersprint-azure-bolt-ii",
   "name": "Max. flow rate",
-  "value": "2.6 gpm",
+  "value": "2.6",
+  "unit": "gpm",
   "source": "doc-cf473b180c6fec9945c1e70675f892df",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
   "confidence": "vendor-doc"
 }

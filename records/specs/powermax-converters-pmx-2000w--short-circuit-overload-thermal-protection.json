@@ -1,0 +1,9 @@
+{
+  "id": "powermax-converters-pmx-2000w--short-circuit-overload-thermal-protection",
+  "model": "powermax-converters-pmx-2000w",
+  "name": "Short Circuit, Overload, Thermal Protection",
+  "value": "Yes",
+  "source": "doc-c8eeee8d89186b67f0b0171651f69587",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

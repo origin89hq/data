@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc-lugs--fuse-rating",
+  "model": "pulsetech-xc-lugs",
+  "name": "Fuse rating",
+  "value": "7.5-amp",
+  "source": "doc-98efc3137952391b5f63d360143d8308",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

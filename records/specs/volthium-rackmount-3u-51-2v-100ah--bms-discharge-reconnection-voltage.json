@@ -1,0 +1,11 @@
+{
+  "id": "volthium-rackmount-3u-51-2v-100ah--bms-discharge-reconnection-voltage",
+  "model": "volthium-rackmount-3u-51-2v-100ah",
+  "name": "BMS – Discharge reconnection voltage",
+  "value": "52",
+  "unit": "V",
+  "source": "doc-f4a61c5d9d64955b46bfdb9be5b5ce14",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-specifications-12v-100ah--max-discharge-current",
+  "model": "powermax-converters-specifications-12v-100ah",
+  "name": "Max Discharge Current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-aceddf6feeed98dd56cffa4cfb015d2c",
+  "page": 18,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

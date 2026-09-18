@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pt20--solar-panel-to-charge-controller-wire-size",
+  "model": "pulsetech-pt20",
+  "name": "Solar Panel to Charge Controller Wire Size",
+  "value": "10-AWG",
+  "source": "doc-23626c7771110fd9944d219a50d60d5f",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

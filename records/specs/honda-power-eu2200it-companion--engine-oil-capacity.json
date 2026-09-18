@@ -1,0 +1,10 @@
+{
+  "id": "honda-power-eu2200it-companion--engine-oil-capacity",
+  "model": "honda-power-eu2200it-companion",
+  "name": "Engine oil capacity",
+  "value": "14 oz (0.44 L)",
+  "source": "doc-d1046b08ac3886c1c4dcfc20fb1fe4e9",
+  "page": 76,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

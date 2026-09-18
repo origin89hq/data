@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-24vpsc-12w-nato--box-to-nato-cable-length",
+  "model": "pulsetech-24vpsc-12w-nato",
+  "name": "Box to NATO Cable Length",
+  "value": "25",
+  "source": "doc-553365674ce12eca786767c9177d7ef7",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

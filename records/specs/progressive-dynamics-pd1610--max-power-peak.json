@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd1610--max-power-peak",
+  "model": "progressive-dynamics-pd1610",
+  "name": "Max Power (Peak)",
+  "value": "2000",
+  "unit": "W",
+  "source": "doc-9b5a35cf0b2f79edbd3df1d0f1a87246",
+  "page": 17,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

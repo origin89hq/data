@@ -1,0 +1,11 @@
+{
+  "id": "watersprint-acuva-arrowmax-explore-2--input-rating-uvc-led-unit",
+  "model": "watersprint-acuva-arrowmax-explore-2",
+  "name": "Input rating (UVC LED Unit)",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-fee4569d270421b6d01a6f1ebd800443",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

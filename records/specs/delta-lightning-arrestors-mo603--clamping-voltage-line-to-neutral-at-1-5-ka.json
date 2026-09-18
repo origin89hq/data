@@ -1,0 +1,9 @@
+{
+  "id": "delta-lightning-arrestors-mo603--clamping-voltage-line-to-neutral-at-1-5-ka",
+  "model": "delta-lightning-arrestors-mo603",
+  "name": "Clamping Voltage (Line to Neutral) at 1.5 kA",
+  "value": ".98 kV",
+  "source": "doc-ad1998aff20e02b2f0a45cd9219485cd",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

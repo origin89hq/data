@@ -1,0 +1,11 @@
+{
+  "id": "wilson-electronics-520002-wilsonpro-a1000--max-gain-band-8",
+  "model": "wilson-electronics-520002-wilsonpro-a1000",
+  "name": "Max Gain Band 8",
+  "value": "70",
+  "unit": "dB",
+  "source": "doc-48d586cc0488de9cc70b2c81c8a85c2d",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

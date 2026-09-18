@@ -1,0 +1,9 @@
+{
+  "id": "volthium-12v-300ah--cells",
+  "model": "volthium-12v-300ah",
+  "name": "Cells",
+  "value": "Square Cell - LiFePO4 - 102 Ah - 3.2 V - Grade A+",
+  "source": "doc-86b33b67dd54decfd8e363ca89befc64",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-560-ah-pro--shipping-classification",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "Shipping classification",
+  "value": "UN 3480 | CLASS 9",
+  "source": "doc-d936948a48804fb1a569a0aaeec6a0d8",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

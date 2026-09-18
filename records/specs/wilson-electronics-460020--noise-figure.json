@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-460020--noise-figure",
+  "model": "wilson-electronics-460020",
+  "name": "Noise Figure",
+  "value": "5 dB (nominal)",
+  "source": "doc-da33c0337337c4113ee1cdb398994fb7",
+  "page": 23,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

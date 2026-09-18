@@ -1,0 +1,10 @@
+{
+  "id": "volthium-eqp-pwrstn-1600w--car-port-output-1",
+  "model": "volthium-eqp-pwrstn-1600w",
+  "name": "Car port output 1",
+  "value": "13V/10A, Max, 130W",
+  "source": "doc-3fc12c58a7dbea3701ac9cccf68420ba",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

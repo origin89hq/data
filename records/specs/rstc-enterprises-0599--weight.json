@@ -1,0 +1,11 @@
+{
+  "id": "rstc-enterprises-0599--weight",
+  "model": "rstc-enterprises-0599",
+  "name": "Weight",
+  "value": "2.5",
+  "unit": "lb",
+  "source": "doc-63e76872134b53d777aee534184424fa",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-00-10050-626--water-heater-relay",
+  "model": "precision-circuits-00-10050-626",
+  "name": "Water Heater Relay",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-3154e98a67a630726a39dc15da354ed9",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

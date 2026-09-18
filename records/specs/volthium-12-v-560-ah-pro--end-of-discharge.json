@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-560-ah-pro--end-of-discharge",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "End of discharge",
+  "value": "11 ~ 11.6 V",
+  "source": "doc-aeb5cccfeafcd4e86f6eefd9ccdacbe9",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

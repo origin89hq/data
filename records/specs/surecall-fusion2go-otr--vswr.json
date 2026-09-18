@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-otr--vswr",
+  "model": "surecall-fusion2go-otr",
+  "name": "VSWR",
+  "value": "≤ 2.0",
+  "source": "doc-1a9156d51ecd50bc8f3202040d099930",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

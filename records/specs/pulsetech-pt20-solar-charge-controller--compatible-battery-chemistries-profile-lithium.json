@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pt20-solar-charge-controller--compatible-battery-chemistries-profile-lithium",
+  "model": "pulsetech-pt20-solar-charge-controller",
+  "name": "Compatible battery chemistries profile lithium",
+  "value": "Lithium Iron Phosphate and Lithium Ion",
+  "source": "doc-23626c7771110fd9944d219a50d60d5f",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

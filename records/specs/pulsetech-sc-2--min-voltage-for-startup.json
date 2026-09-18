@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sc-2--min-voltage-for-startup",
+  "model": "pulsetech-sc-2",
+  "name": "Min. Voltage for Startup",
+  "value": "1",
+  "unit": "V",
+  "source": "doc-bf9be7dbceb7454ea9454d5d314d8a3b",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

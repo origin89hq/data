@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-b-lfp48-200e--charge-voltage",
+  "model": "bslbatt-b-lfp48-200e",
+  "name": "Charge Voltage",
+  "value": "55",
+  "source": "doc-00b5ed69a1e2f7909133dfef71f40617",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

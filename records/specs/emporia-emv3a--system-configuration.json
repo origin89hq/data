@@ -1,0 +1,10 @@
+{
+  "id": "emporia-emv3a--system-configuration",
+  "model": "emporia-emv3a",
+  "name": "System configuration",
+  "value": "Single phase, 2-wire systems (Up to 240V)",
+  "source": "doc-e44cae2a6b8535ee6806ff6f5600735d",
+  "page": 37,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

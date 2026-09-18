@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd9130--input-voltage",
+  "model": "progressive-dynamics-pd9130",
+  "name": "Input voltage",
+  "value": "105-130 VAC 60 Hz",
+  "source": "doc-98d3fd10e722bb94fe370a38ae998de2",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

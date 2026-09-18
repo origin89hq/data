@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-sp-3--battery-application",
+  "model": "pulsetech-sp-3",
+  "name": "Battery application",
+  "value": "1 - 12V Battery",
+  "source": "doc-dc486b0c7095bc807c53c71add39a126",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

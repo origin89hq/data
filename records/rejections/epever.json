@@ -56,6 +56,14 @@
       "reason": "Printed \"114×114\", not 114×144.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+      "model": "epever-xtra3415n-g3",
+      "name": "Nominal System Voltage",
+      "reason": "The 13V is the nominal system voltage of one conversion-efficiency curve in Appendix I, where page 57 is the XTRA2206N G3 page, while the XTRA3415N G3's specification table gives a battery rated voltage of 12/24/48VDC auto-recognition.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
     }
   ]
 }

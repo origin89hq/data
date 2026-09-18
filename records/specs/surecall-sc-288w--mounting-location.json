@@ -1,0 +1,10 @@
+{
+  "id": "surecall-sc-288w--mounting-location",
+  "model": "surecall-sc-288w",
+  "name": "Mounting location",
+  "value": "central to where signal is needed with minimal obstacles",
+  "source": "doc-cb4dffe8d1d5c0700ae31f5c491db2c2",
+  "page": 11,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

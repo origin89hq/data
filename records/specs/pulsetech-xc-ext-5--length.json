@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-xc-ext-5--length",
+  "model": "pulsetech-xc-ext-5",
+  "name": "Length",
+  "value": "5",
+  "unit": "ft",
+  "source": "doc-21c090a44b6e5a63365ed7e60d79ad85",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

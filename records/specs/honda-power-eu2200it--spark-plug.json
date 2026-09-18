@@ -1,0 +1,10 @@
+{
+  "id": "honda-power-eu2200it--spark-plug",
+  "model": "honda-power-eu2200it",
+  "name": "Spark plug",
+  "value": "CR5HSB (NGK)",
+  "source": "doc-d1046b08ac3886c1c4dcfc20fb1fe4e9",
+  "page": 76,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

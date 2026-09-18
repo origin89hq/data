@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-bt-2--dimensions",
+  "model": "pulsetech-bt-2",
+  "name": "Dimensions",
+  "value": "15\" x 9.17\" x 3.38\" (boot included)",
+  "source": "doc-5452174c9b3e2d65a71630e4cbe5c979",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

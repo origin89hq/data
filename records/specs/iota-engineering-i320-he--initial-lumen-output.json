@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-i320-he--initial-lumen-output",
+  "model": "iota-engineering-i320-he",
+  "name": "Initial Lumen Output",
+  "value": "1350 Lumens",
+  "source": "doc-e5416223dd9367e284cc5c8c574a6f3e",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

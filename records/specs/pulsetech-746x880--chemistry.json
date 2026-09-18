@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-746x880--chemistry",
+  "model": "pulsetech-746x880",
+  "name": "Chemistry",
+  "value": "lead-acid",
+  "source": "doc-a5cc0b1e5859140c48e5fa0f4089ce7f",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

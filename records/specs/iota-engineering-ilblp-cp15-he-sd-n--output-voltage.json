@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd-n--output-voltage",
+  "model": "iota-engineering-ilblp-cp15-he-sd-n",
+  "name": "Output Voltage",
+  "value": "20-55VDC Class 2 Compliant",
+  "source": "doc-82edb7c4d7d32658e2770f0aedf0b0dd",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

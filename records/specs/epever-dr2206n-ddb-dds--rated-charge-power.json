@@ -1,0 +1,10 @@
+{
+  "id": "epever-dr2206n-ddb-dds--rated-charge-power",
+  "model": "epever-dr2206n-ddb-dds",
+  "name": "Rated Charge Power",
+  "value": "260W/12V 520W/24V",
+  "source": "doc-f605741c80467647ab168f56ec998172",
+  "page": 35,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "epever-up3000-m3322--output-power-15min",
+  "model": "epever-up3000-m3322",
+  "name": "Output power 15min.",
+  "value": "3000",
+  "unit": "W",
+  "source": "doc-c671251fdb0602bd2a8b1634ff16eacc",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

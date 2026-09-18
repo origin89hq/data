@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilblp-cp-he-sd--automatic-full-emergency-test-interval",
+  "model": "iota-engineering-ilblp-cp-he-sd",
+  "name": "Automatic full emergency test interval",
+  "value": "12 months",
+  "source": "doc-636c69a8058e5cffba759e4d75496cea",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

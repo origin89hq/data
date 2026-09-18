@@ -1,0 +1,10 @@
+{
+  "id": "epever-dr3210n-ddb-dds--rs485-com-port",
+  "model": "epever-dr3210n-ddb-dds",
+  "name": "RS485 com. port",
+  "value": "5VDC/Max.200mA(3.81-4P)",
+  "source": "doc-f605741c80467647ab168f56ec998172",
+  "page": 36,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

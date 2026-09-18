@@ -1,0 +1,11 @@
+{
+  "id": "surecall-force5-2-0--switch-5-attenuation",
+  "model": "surecall-force5-2-0",
+  "name": "Switch 5 attenuation",
+  "value": "16",
+  "unit": "dB",
+  "source": "doc-bf8db7e854ebb90b299f7bf841eeb449",
+  "page": 17,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

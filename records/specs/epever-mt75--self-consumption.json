@@ -1,0 +1,10 @@
+{
+  "id": "epever-mt75--self-consumption",
+  "model": "epever-mt75",
+  "name": "Self-consumption",
+  "value": "14mA/5V(no backlight)/26mA/5V(backlight)",
+  "source": "doc-baf42b6a806815524e9b50816fcac79f",
+  "page": 12,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

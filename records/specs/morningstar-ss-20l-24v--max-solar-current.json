@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ss-20l-24v--max-solar-current",
+  "model": "morningstar-ss-20l-24v",
+  "name": "Max. Solar Current",
+  "value": "20",
+  "unit": "A",
+  "source": "doc-faccf02ddc4b17991ff29bc933fe693a",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

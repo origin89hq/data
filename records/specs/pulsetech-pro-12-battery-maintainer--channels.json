@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pro-12-battery-maintainer--channels",
+  "model": "pulsetech-pro-12-battery-maintainer",
+  "name": "Channels",
+  "value": "12",
+  "source": "doc-465ca4bd12333e9c56f0c4f4f05f26df",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

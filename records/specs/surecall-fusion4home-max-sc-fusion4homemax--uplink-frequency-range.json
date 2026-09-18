@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion4home-max-sc-fusion4homemax--uplink-frequency-range",
+  "model": "surecall-fusion4home-max-sc-fusion4homemax",
+  "name": "Uplink Frequency Range",
+  "value": "698–716 / 776–787 / 824–849 / 1850–1915 / 1710–1755",
+  "source": "doc-93c3ea60ae741852619cd9aa5a79e7e9",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

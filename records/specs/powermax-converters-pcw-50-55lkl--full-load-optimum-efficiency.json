@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pcw-50-55lkl--full-load-optimum-efficiency",
+  "model": "powermax-converters-pcw-50-55lkl",
+  "name": "Full load optimum efficiency",
+  "value": ">85%",
+  "source": "doc-13ba4e669c5ec3ffde9d385ae2817e9e",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

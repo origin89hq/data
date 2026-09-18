@@ -1,0 +1,10 @@
+{
+  "id": "snapnrack-242-10028--ambient-operating-conditions",
+  "model": "snapnrack-242-10028",
+  "name": "Ambient operating conditions",
+  "value": "-35°C TO 75°C",
+  "source": "doc-a22cc5e39945c036b6e2490a3c2367dd",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

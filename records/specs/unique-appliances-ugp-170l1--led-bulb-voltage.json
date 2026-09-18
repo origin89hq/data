@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-170l1--led-bulb-voltage",
+  "model": "unique-appliances-ugp-170l1",
+  "name": "LED Bulb voltage",
+  "value": "12/24V",
+  "source": "doc-6d9019a1e78bb7441f365240d881fcb9",
+  "page": 20,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

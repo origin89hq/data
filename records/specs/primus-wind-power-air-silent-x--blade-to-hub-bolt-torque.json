@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-silent-x--blade-to-hub-bolt-torque",
+  "model": "primus-wind-power-air-silent-x",
+  "name": "Blade to hub bolt torque",
+  "value": "72 in-lb. (8.0 Nm)",
+  "source": "doc-41972c1d85892e0fb15407c2bf926a6d",
+  "page": 11,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

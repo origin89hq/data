@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-12--output-voltage-bulk-charge",
+  "model": "pulsetech-sp-12",
+  "name": "Output Voltage, Bulk Charge",
+  "value": "16.5 V dc",
+  "source": "doc-09d1eafc9e5ca81a8845b0cb73172e4b",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

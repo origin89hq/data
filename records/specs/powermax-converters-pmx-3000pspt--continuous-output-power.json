@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pmx-3000pspt--continuous-output-power",
+  "model": "powermax-converters-pmx-3000pspt",
+  "name": "Continuous output power",
+  "value": "3000",
+  "unit": "W",
+  "source": "doc-aa10b2ab94603707e362b938e91785d8",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

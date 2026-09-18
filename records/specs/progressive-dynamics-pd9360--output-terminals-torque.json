@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd9360--output-terminals-torque",
+  "model": "progressive-dynamics-pd9360",
+  "name": "Output terminals torque",
+  "value": "30 à 50 po-lb",
+  "source": "doc-1dab4b387c0ab260ae5e008c4f30b9a2",
+  "page": 12,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

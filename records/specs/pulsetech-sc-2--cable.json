@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sc-2--cable",
+  "model": "pulsetech-sc-2",
+  "name": "Cable",
+  "value": "1.8m Clip Cable (Neutrik to Clip) x 2",
+  "source": "doc-06c4ef44dafa61b49912b97079166261",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

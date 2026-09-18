@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-460021--power-output-for-single-cell-phone-uplink-700-mhz-b12-17",
+  "model": "wilson-electronics-460021",
+  "name": "Power output for single cell phone (Uplink) - 700 MHz B12/17",
+  "value": "24.84",
+  "source": "doc-e6af55c31c9dd88ef2f57af568f84606",
+  "page": 22,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

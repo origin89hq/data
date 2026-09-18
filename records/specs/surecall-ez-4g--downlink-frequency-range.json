@@ -1,0 +1,10 @@
+{
+  "id": "surecall-ez-4g--downlink-frequency-range",
+  "model": "surecall-ez-4g",
+  "name": "Downlink Frequency Range",
+  "value": "728-746 / 746 – 757 / 869-894 / 1930-1995 / 2110-2155",
+  "source": "doc-237c5a52d2ace94be8cf449dd645a478",
+  "page": 12,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

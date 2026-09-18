@@ -1,0 +1,12 @@
+{
+  "id": "progressive-dynamics-pd2150--input-voltage-range",
+  "model": "progressive-dynamics-pd2150",
+  "name": "Input voltage range",
+  "value": "105-130 VAC",
+  "source": "doc-7000669d0cfb1665dc1ced5eea152606",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc",
+  "page": 3,
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-18"
+}

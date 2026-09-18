@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-741x060--type",
+  "model": "pulsetech-741x060",
+  "name": "Type",
+  "value": "Battery Stud to Top Post Adapters",
+  "source": "doc-0193346bc27171a118223bfc42412436",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

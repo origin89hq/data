@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-6-f--gas-supply-connection",
+  "model": "unique-appliances-ugp-6-f",
+  "name": "Gas supply connection",
+  "value": "3/8\" SAE (UNF 5/8\" - 18) male flare connection",
+  "source": "doc-2ded12939db1a6dc1a3309490a1b238f",
+  "page": 6,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

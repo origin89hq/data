@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-00-10032-100--backlight-timeout",
+  "model": "precision-circuits-00-10032-100",
+  "name": "Backlight Timeout",
+  "value": "1 minute",
+  "source": "doc-9317b2d160377d4d12fa78bd9b5db5eb",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

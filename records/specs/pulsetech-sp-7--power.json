@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-7--power",
+  "model": "pulsetech-sp-7",
+  "name": "Power",
+  "value": "7-Watt",
+  "source": "doc-a841f090a83f8083926291c9590a9c0c",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

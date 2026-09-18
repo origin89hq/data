@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-breeze--hub-to-rotor-nut-torque",
+  "model": "primus-wind-power-air-breeze",
+  "name": "Hub to rotor nut torque",
+  "value": "40 lb.-ft (55 Nm)",
+  "source": "doc-0e96333eb489fa1e5451a0a8fa59b95d",
+  "page": 11,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion4home--noise-figure",
+  "model": "surecall-fusion4home",
+  "name": "Noise Figure",
+  "value": "8",
+  "unit": "dB",
+  "source": "doc-2e0c4747311fab9e7645c70978fc292e",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

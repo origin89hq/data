@@ -1,0 +1,10 @@
+{
+  "id": "delta-lightning-arrestors-mo302--line-voltage",
+  "model": "delta-lightning-arrestors-mo302",
+  "name": "Line Voltage",
+  "value": "120 / 240",
+  "source": "doc-46921a96fb0ee85a0ccbf64c9d7e20d2",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

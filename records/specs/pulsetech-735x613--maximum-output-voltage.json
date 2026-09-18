@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-735x613--maximum-output-voltage",
+  "model": "pulsetech-735x613",
+  "name": "Maximum output voltage",
+  "value": "16.5 V dc",
+  "source": "doc-ba7da71459330dd1dec34b2c2834d6a9",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

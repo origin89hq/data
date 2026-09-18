@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-30g--recommended-gas-supply-pressure",
+  "model": "unique-appliances-ugp-30g",
+  "name": "Recommended gas supply pressure",
+  "value": "12 po de colonne d'eau pour gaz propane",
+  "source": "doc-377739b9bbadda20ba93aa98d4c2b88c",
+  "page": 23,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

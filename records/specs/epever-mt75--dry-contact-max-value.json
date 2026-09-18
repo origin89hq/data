@@ -1,0 +1,9 @@
+{
+  "id": "epever-mt75--dry-contact-max-value",
+  "model": "epever-mt75",
+  "name": "Dry contact max. value",
+  "value": "0.5A/60VDC",
+  "source": "doc-baf42b6a806815524e9b50816fcac79f",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

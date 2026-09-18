@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-mppt-150v--minimum-battery-voltage",
+  "model": "morningstar-mppt-150v",
+  "name": "Minimum Battery Voltage",
+  "value": "9",
+  "unit": "V",
+  "source": "doc-01349afd31ce2b1542fae2048b3818c0",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

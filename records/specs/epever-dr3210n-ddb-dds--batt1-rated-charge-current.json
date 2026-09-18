@@ -1,0 +1,11 @@
+{
+  "id": "epever-dr3210n-ddb-dds--batt1-rated-charge-current",
+  "model": "epever-dr3210n-ddb-dds",
+  "name": "BATT1 Rated Charge Current",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-f605741c80467647ab168f56ec998172",
+  "page": 35,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

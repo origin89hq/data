@@ -1,0 +1,10 @@
+{
+  "id": "lorentz-ps2-100-motor-ecdrive-100-ahr-s--efficiency",
+  "model": "lorentz-ps2-100-motor-ecdrive-100-ahr-s",
+  "name": "Efficiency",
+  "value": "max. 83 %",
+  "source": "doc-666f559fc38b84cf4c381d238bf12212",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

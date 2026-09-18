@@ -1,0 +1,11 @@
+{
+  "id": "volthium-12-v-560-ah-pro--energy",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "Energy",
+  "value": "7168",
+  "unit": "Wh",
+  "source": "doc-aeb5cccfeafcd4e86f6eefd9ccdacbe9",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

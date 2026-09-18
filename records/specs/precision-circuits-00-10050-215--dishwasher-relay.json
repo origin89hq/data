@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-00-10050-215--dishwasher-relay",
+  "model": "precision-circuits-00-10050-215",
+  "name": "Dishwasher Relay",
+  "value": "4",
+  "source": "doc-d844b6d859a008a54f1338159528c008",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

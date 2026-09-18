@@ -1,0 +1,9 @@
+{
+  "id": "surecall-fusion4home-yagi-panel--inside-antenna",
+  "model": "surecall-fusion4home-yagi-panel",
+  "name": "Inside antenna",
+  "value": "Panel, Directional 7-10 dBi / Panel",
+  "source": "doc-2e0c4747311fab9e7645c70978fc292e",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

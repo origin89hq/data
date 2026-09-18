@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4135--converter-ac-input-voltage-range",
+  "model": "progressive-dynamics-pd4135",
+  "name": "Converter AC input voltage range",
+  "value": "105-130 VAC",
+  "source": "doc-02863f66a1a007ef842aa7fba664e0d0",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

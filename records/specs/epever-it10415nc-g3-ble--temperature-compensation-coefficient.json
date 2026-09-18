@@ -1,0 +1,10 @@
+{
+  "id": "epever-it10415nc-g3-ble--temperature-compensation-coefficient",
+  "model": "epever-it10415nc-g3-ble",
+  "name": "Temperature compensation coefficient",
+  "value": "-3mV/℃/2V (Default)",
+  "source": "doc-e571c0928ae9e02fb7adf7a6d9c319ab",
+  "page": 63,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-890pt--paper-roll",
+  "model": "pulsetech-890pt",
+  "name": "Paper Roll",
+  "value": "2.25\" (W) x 85' (L)",
+  "source": "doc-03b6acecfa18733b3987c167f7f9379d",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

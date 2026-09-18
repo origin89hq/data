@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-12-obd-t--circuit-box-height",
+  "model": "pulsetech-sp-12-obd-t",
+  "name": "Circuit Box Height",
+  "value": "1.5",
+  "source": "doc-7093b0f365901dd67c872dd5806667b3",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

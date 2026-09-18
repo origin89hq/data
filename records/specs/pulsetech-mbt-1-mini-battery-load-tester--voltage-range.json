@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-mbt-1-mini-battery-load-tester--voltage-range",
+  "model": "pulsetech-mbt-1-mini-battery-load-tester",
+  "name": "Voltage Range",
+  "value": "1-14 Volts",
+  "source": "doc-0a95c46f44b1d57b844774cdf1e83bd2",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

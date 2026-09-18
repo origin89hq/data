@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilbhi-cp20-hv--operating-temperature",
+  "model": "iota-engineering-ilbhi-cp20-hv",
+  "name": "Operating temperature",
+  "value": "0 °C to 55 °C",
+  "source": "doc-2c7272194b37159a7d788f231c995aef",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

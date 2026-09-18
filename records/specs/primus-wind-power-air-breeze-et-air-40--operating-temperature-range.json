@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-breeze-et-air-40--operating-temperature-range",
+  "model": "primus-wind-power-air-breeze-et-air-40",
+  "name": "Operating temperature range",
+  "value": "14º F (-10º C) à 104º F (40º C)",
+  "source": "doc-3eb33c3b389736d6aacda91bdc77371f",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

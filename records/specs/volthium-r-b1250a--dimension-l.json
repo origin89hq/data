@@ -1,0 +1,10 @@
+{
+  "id": "volthium-r-b1250a--dimension-l",
+  "model": "volthium-r-b1250a",
+  "name": "Dimension - L",
+  "value": "23.0±3.0 mm",
+  "source": "doc-351fd519eb6040042623bf73c333c5ed",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

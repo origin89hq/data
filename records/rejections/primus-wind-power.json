@@ -1,0 +1,20 @@
+{
+  "id": "primus-wind-power",
+  "rejections": [
+    {
+      "source": "doc-28f6fc708d7abe100b37f2ea098f0385",
+      "model": "primus-wind-power-air-breeze",
+      "name": "Cut-in threshold zone",
+      "reason": "Page 33 is a drill-driven bench test in the troubleshooting section: below 400 rpm the rotor must turn freely with the LED off and at 420 rpm and above the turbine must charge, while the AIR Breeze cut-in figure in the specifications is a wind speed of 7 mph / 3.1 m/s.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    },
+    {
+      "source": "doc-c15058cdcf6c0ae389d24523d639366a",
+      "product": "AIRKIT DE ENVÍO",
+      "reason": "The name is page 12's heading run together: \"Manual del usuario de AIR\" followed by the section title \"KIT DE ENVÍO\", the shipping kit. The manual's product is the AIR wind turbine, and the torque read under this name is the assembly torque of the rotor nut.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    }
+  ]
+}

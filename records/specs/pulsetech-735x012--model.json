@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-735x012--model",
+  "model": "pulsetech-735x012",
+  "name": "Model",
+  "value": "PowerPulse High Frequency Pulsation Battery Maintainer",
+  "source": "doc-8c35ef5b3df7b5fcf9d30ebad67f662d",
+  "page": 14,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

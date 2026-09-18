@@ -1,0 +1,10 @@
+{
+  "id": "surecall-sc-fusionpro--rf-connectors",
+  "model": "surecall-sc-fusionpro",
+  "name": "RF Connectors",
+  "value": "N Female donor / N Female server",
+  "source": "doc-22e3aa4cbac9bf4c614387dd70e303cb",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

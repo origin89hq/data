@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pp-12-l--part-number",
+  "model": "pulsetech-pp-12-l",
+  "name": "Part Number",
+  "value": "735X012",
+  "source": "doc-87d7cc93135717133b1d88e468c5fe5c",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

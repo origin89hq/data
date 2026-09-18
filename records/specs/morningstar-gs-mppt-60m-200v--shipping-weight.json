@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-60m-200v--shipping-weight",
+  "model": "morningstar-gs-mppt-60m-200v",
+  "name": "Shipping weight",
+  "value": "18.5 磅/8.39 千克",
+  "source": "doc-37633f0a761869b4d7d2f61da8e5f63a",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-12--solar-battery-charger-maintainer-power-output",
+  "model": "pulsetech-sp-12",
+  "name": "Solar Battery Charger Maintainer power output",
+  "value": "12",
+  "unit": "W",
+  "source": "doc-87d7cc93135717133b1d88e468c5fe5c",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

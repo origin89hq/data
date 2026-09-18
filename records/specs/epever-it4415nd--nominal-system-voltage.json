@@ -1,0 +1,10 @@
+{
+  "id": "epever-it4415nd--nominal-system-voltage",
+  "model": "epever-it4415nd",
+  "name": "Nominal System Voltage",
+  "value": "12/24/36/48VDC",
+  "source": "doc-df1ca9dee1b40e9e7ed1860444f80da7",
+  "page": 39,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

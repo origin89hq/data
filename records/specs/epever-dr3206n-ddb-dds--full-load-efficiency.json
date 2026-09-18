@@ -1,0 +1,11 @@
+{
+  "id": "epever-dr3206n-ddb-dds--full-load-efficiency",
+  "model": "epever-dr3206n-ddb-dds",
+  "name": "Full load efficiency",
+  "value": "96",
+  "unit": "%",
+  "source": "doc-f605741c80467647ab168f56ec998172",
+  "page": 35,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

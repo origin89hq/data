@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-30--overspeed-protection-entry-wind-speed",
+  "model": "primus-wind-power-air-30",
+  "name": "Overspeed protection entry wind speed",
+  "value": "16 m/s (35 mph)",
+  "source": "doc-0e96333eb489fa1e5451a0a8fa59b95d",
+  "page": 30,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

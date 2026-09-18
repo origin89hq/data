@@ -1,0 +1,10 @@
+{
+  "id": "volthium-rackmount-3u-51-2v-100ah--self-discharge",
+  "model": "volthium-rackmount-3u-51-2v-100ah",
+  "name": "Self-discharge",
+  "value": "< 3% per month",
+  "source": "doc-f4a61c5d9d64955b46bfdb9be5b5ce14",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

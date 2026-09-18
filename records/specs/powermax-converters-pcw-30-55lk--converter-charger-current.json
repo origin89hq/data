@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pcw-30-55lk--converter-charger-current",
+  "model": "powermax-converters-pcw-30-55lk",
+  "name": "Converter/Charger Current",
+  "value": "55",
+  "unit": "A",
+  "source": "doc-18df3b2bff7fce76a234d3382c63a58a",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

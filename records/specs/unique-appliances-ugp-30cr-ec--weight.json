@@ -1,0 +1,9 @@
+{
+  "id": "unique-appliances-ugp-30cr-ec--weight",
+  "model": "unique-appliances-ugp-30cr-ec",
+  "name": "Weight",
+  "value": "168.9 / 76.6",
+  "source": "doc-7cc86bd3c7329eddb7c13b40d198769a",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

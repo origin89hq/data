@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilbhi-cp20-he-sd-hv--surge-protection",
+  "model": "iota-engineering-ilbhi-cp20-he-sd-hv",
+  "name": "Surge Protection",
+  "value": "Meets or Exceeds ANSI/IEEE C62.41.2-2002",
+  "source": "doc-a673ea88f41cd0933c5f1577a9b859ac",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

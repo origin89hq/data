@@ -1,0 +1,10 @@
+{
+  "id": "epever-it7420nc-g3--dry-contact-oil-generator-rated-value",
+  "model": "epever-it7420nc-g3",
+  "name": "Dry contact (oil generator) rated value",
+  "value": "5A/30VDC",
+  "source": "doc-e571c0928ae9e02fb7adf7a6d9c319ab",
+  "page": 64,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

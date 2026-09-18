@@ -1,0 +1,10 @@
+{
+  "id": "epever-rc-11--enclosure",
+  "model": "epever-rc-11",
+  "name": "Enclosure",
+  "value": "IP40",
+  "source": "doc-9fdc9c2ded364f7739940150ca551e0a",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

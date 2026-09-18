@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pmts-50--weight",
+  "model": "powermax-converters-pmts-50",
+  "name": "Weight",
+  "value": "6",
+  "unit": "lb",
+  "source": "doc-b504190d7e7ca605d94f62b72008a125",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

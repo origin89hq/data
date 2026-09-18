@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-2000w-psw--auto-reset-voltage",
+  "model": "powermax-converters-pmx-2000w-psw",
+  "name": "Auto-reset voltage",
+  "value": "12±0.5",
+  "unit": "V",
+  "source": "doc-2b315a6a3cfa4facc4006026703bf60a",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

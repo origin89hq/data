@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-psc-ptt--solar-panel-output-current",
+  "model": "pulsetech-psc-ptt",
+  "name": "Solar panel output current",
+  "value": "200",
+  "unit": "mA",
+  "source": "doc-397ca4515cc554a6f5db794e7b9c979a",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

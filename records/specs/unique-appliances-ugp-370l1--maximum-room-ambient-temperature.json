@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-370l1--maximum-room-ambient-temperature",
+  "model": "unique-appliances-ugp-370l1",
+  "name": "Maximum room/ambient temperature",
+  "value": "100°F (38°C)",
+  "source": "doc-b83aa402a22866c0a598b459f2a43088",
+  "page": 16,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

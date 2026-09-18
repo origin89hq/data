@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4135--converter-dc-output-voltage-range",
+  "model": "progressive-dynamics-pd4135",
+  "name": "Converter DC output voltage range",
+  "value": "13.6 - 14.6 VDC",
+  "source": "doc-02863f66a1a007ef842aa7fba664e0d0",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

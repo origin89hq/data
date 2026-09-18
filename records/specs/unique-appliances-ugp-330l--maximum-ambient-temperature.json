@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-330l--maximum-ambient-temperature",
+  "model": "unique-appliances-ugp-330l",
+  "name": "Maximum ambient temperature",
+  "value": "100°F (38°C)",
+  "source": "doc-89d592fbbd05cad322154a51bf775f82",
+  "page": 11,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

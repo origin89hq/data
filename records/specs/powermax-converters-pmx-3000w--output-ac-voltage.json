@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-3000w--output-ac-voltage",
+  "model": "powermax-converters-pmx-3000w",
+  "name": "Output AC Voltage",
+  "value": "AC 115V±10%. RMS",
+  "source": "doc-39140d23c40e0c6d760fa8b9948caf17",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd9160alv--lithium-charger-type",
+  "model": "progressive-dynamics-pd9160alv",
+  "name": "Lithium charger type",
+  "value": "2 stage Lithium Charger",
+  "source": "doc-42ed0a565eb82dfb06cb8b0fffacf358",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

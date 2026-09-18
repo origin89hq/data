@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-b-lfp48-200e--discharge-voltage-v-max-current-power",
+  "model": "bslbatt-b-lfp48-200e",
+  "name": "Discharge Voltage (V) - Max. Current / Power",
+  "value": "210A / 10.752kW",
+  "source": "doc-a5280ed309433548bf133d18361db832",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

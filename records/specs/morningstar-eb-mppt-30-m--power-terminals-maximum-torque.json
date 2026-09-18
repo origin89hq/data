@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-eb-mppt-30-m--power-terminals-maximum-torque",
+  "model": "morningstar-eb-mppt-30-m",
+  "name": "Power terminals maximum torque",
+  "value": "3,95 N-m",
+  "source": "doc-15aaa2603340519a063c6fdaff24a15e",
+  "page": 46,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

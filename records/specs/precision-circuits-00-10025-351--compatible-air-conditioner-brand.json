@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-00-10025-351--compatible-air-conditioner-brand",
+  "model": "precision-circuits-00-10025-351",
+  "name": "Compatible air conditioner brand",
+  "value": "Dometic",
+  "source": "doc-c23f2581265359d3abfd301d8e395245",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

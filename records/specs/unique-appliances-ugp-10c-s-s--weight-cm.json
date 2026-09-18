@@ -1,0 +1,9 @@
+{
+  "id": "unique-appliances-ugp-10c-s-s--weight-cm",
+  "model": "unique-appliances-ugp-10c-s-s",
+  "name": "Weight CM",
+  "value": "176 lbs / 80 kg",
+  "source": "doc-59c0afb0d05688e25ab54a95f4188599",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-classic150--cost-per-amp",
+  "model": "midnite-solar-classic150",
+  "name": "Cost Per Amp",
+  "value": "$10.63",
+  "source": "doc-fe89d8eb47f7711890b412c2fa8a8168",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

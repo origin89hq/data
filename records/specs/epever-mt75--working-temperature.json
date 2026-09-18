@@ -1,0 +1,10 @@
+{
+  "id": "epever-mt75--working-temperature",
+  "model": "epever-mt75",
+  "name": "Working temperature",
+  "value": "-20℃~+65℃",
+  "source": "doc-cbd3409beacec46a7bd1caea31b46761",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "powermax-converters-pmmc-04--product-type",
+  "model": "powermax-converters-pmmc-04",
+  "name": "Product type",
+  "value": "11 stage automatic smart charger",
+  "source": "doc-b515fdf6fcbb9f313ca189fc417f743b",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

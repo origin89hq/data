@@ -1,0 +1,9 @@
+{
+  "id": "unique-appliances-unq-30cr-otr--model",
+  "model": "unique-appliances-unq-30cr-otr",
+  "name": "Model",
+  "value": "UNQ-30CR OTR",
+  "source": "doc-83d11f0a5cad3c9da1c6fbaf18a8e00f",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pmx-3000pspt--efficiency",
+  "model": "powermax-converters-pmx-3000pspt",
+  "name": "Efficiency",
+  "value": "84",
+  "unit": "%",
+  "source": "doc-aa10b2ab94603707e362b938e91785d8",
+  "page": 14,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

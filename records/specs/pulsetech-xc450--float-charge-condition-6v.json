@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc450--float-charge-condition-6v",
+  "model": "pulsetech-xc450",
+  "name": "FLOAT Charge Condition (6V)",
+  "value": "6.9-7V",
+  "source": "doc-c22d860060a20389dd285ad63350c826",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

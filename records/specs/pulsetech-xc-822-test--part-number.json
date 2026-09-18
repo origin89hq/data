@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc-822-test--part-number",
+  "model": "pulsetech-xc-822-test",
+  "name": "Part number",
+  "value": "100X822",
+  "source": "doc-21c090a44b6e5a63365ed7e60d79ad85",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

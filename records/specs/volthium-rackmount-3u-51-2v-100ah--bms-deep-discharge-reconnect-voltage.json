@@ -1,0 +1,9 @@
+{
+  "id": "volthium-rackmount-3u-51-2v-100ah--bms-deep-discharge-reconnect-voltage",
+  "model": "volthium-rackmount-3u-51-2v-100ah",
+  "name": "BMS deep discharge reconnect voltage",
+  "value": "?",
+  "source": "doc-3c151d9fbc3b418d555a506a636fdddc",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

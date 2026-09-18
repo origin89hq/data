@@ -1,0 +1,10 @@
+{
+  "id": "epever-tracer6210an--lithium-battery-type",
+  "model": "epever-tracer6210an",
+  "name": "Lithium battery type",
+  "value": "LiFePO4/ Li(NiCoMn)O2/ User",
+  "source": "doc-0d6a013f74408184c3a6e76c131a81f2",
+  "page": 36,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

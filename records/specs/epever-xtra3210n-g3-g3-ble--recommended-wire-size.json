@@ -1,0 +1,10 @@
+{
+  "id": "epever-xtra3210n-g3-g3-ble--recommended-wire-size",
+  "model": "epever-xtra3210n-g3-g3-ble",
+  "name": "Recommended Wire Size",
+  "value": "10AWG (6mm2)",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 50,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

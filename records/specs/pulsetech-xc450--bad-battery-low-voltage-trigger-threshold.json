@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc450--bad-battery-low-voltage-trigger-threshold",
+  "model": "pulsetech-xc450",
+  "name": "Bad Battery/Low Voltage Trigger Threshold",
+  "value": "1V or less",
+  "source": "doc-c22d860060a20389dd285ad63350c826",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

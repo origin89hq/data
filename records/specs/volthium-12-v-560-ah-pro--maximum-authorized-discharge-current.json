@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-560-ah-pro--maximum-authorized-discharge-current",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "Maximum authorized discharge current",
+  "value": "400 A pour 30sec | 600 A pour 8sec",
+  "source": "doc-aeb5cccfeafcd4e86f6eefd9ccdacbe9",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

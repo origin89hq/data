@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-24cr-rh--led-bulb-size",
+  "model": "unique-appliances-ugp-24cr-rh",
+  "name": "LED bulb size",
+  "value": "GU10",
+  "source": "doc-a88fe002c46563bcf5fdc4b45e80d573",
+  "page": 16,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

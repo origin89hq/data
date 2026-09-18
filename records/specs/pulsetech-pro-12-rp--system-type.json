@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pro-12-rp--system-type",
+  "model": "pulsetech-pro-12-rp",
+  "name": "System type",
+  "value": "12-Station Battery Maintenance System",
+  "source": "doc-0816cfb74752a9e86625f0cad28dac05",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

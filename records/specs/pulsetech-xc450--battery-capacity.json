@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc450--battery-capacity",
+  "model": "pulsetech-xc450",
+  "name": "Battery Capacity",
+  "value": "7Ah to 110Ah",
+  "source": "doc-21c090a44b6e5a63365ed7e60d79ad85",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

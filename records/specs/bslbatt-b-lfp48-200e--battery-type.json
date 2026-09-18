@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-b-lfp48-200e--battery-type",
+  "model": "bslbatt-b-lfp48-200e",
+  "name": "Battery Type",
+  "value": "LiFePO4",
+  "source": "doc-00b5ed69a1e2f7909133dfef71f40617",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

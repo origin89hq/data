@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-x--weight",
+  "model": "primus-wind-power-air-x",
+  "name": "Weight",
+  "value": "13 lb / 6 kg",
+  "source": "doc-aa3eaa6a084a58206d83d4b229175f24",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

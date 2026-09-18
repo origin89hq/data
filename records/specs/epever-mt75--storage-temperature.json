@@ -1,0 +1,10 @@
+{
+  "id": "epever-mt75--storage-temperature",
+  "model": "epever-mt75",
+  "name": "Storage temperature",
+  "value": "-20℃~+80℃",
+  "source": "doc-cbd3409beacec46a7bd1caea31b46761",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

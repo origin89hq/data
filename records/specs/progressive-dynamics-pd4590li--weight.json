@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd4590li--weight",
+  "model": "progressive-dynamics-pd4590li",
+  "name": "Weight",
+  "value": "4.5",
+  "unit": "kg",
+  "source": "doc-a8da69b4171db359f3e1bc693fdbc280",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

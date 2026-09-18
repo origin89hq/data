@@ -1,0 +1,10 @@
+{
+  "id": "rstc-enterprises-0599--ac-voltage-range",
+  "model": "rstc-enterprises-0599",
+  "name": "AC voltage range",
+  "value": "0 to 240 VAC",
+  "source": "doc-757b32549928df239567c265134c9fb2",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

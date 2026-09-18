@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc-ql4--absorption-to-float-charge-threshold",
+  "model": "pulsetech-xc-ql4",
+  "name": "Absorption to Float Charge Threshold",
+  "value": "Dependent upon connected battery charger",
+  "source": "doc-3103d5f8bcbc21e2716180ba1684f8a9",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

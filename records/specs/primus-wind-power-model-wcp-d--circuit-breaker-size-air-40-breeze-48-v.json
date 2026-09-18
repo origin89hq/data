@@ -1,0 +1,12 @@
+{
+  "id": "primus-wind-power-model-wcp-d--circuit-breaker-size-air-40-breeze-48-v",
+  "model": "primus-wind-power-model-wcp-d",
+  "name": "Circuit breaker size",
+  "value": "5",
+  "unit": "A",
+  "conditions": "AIR 40/BREEZE – 48 V",
+  "source": "doc-0b543150591b2ba0a1fe29bcb4907c11",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

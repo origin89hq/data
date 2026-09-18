@@ -1,0 +1,10 @@
+{
+  "id": "epever-ebox-ble-01--connecting-cable",
+  "model": "epever-ebox-ble-01",
+  "name": "Connecting cable",
+  "value": "Standard network cable(Parallel cable)",
+  "source": "doc-ed8f9177be1bc95783159c5ce0ce282d",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

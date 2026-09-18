@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-40--operating-temperature-range",
+  "model": "primus-wind-power-air-40",
+  "name": "Operating Temperature Range",
+  "value": "14° F / (-10° C) to 104º F (40° C)",
+  "source": "doc-41972c1d85892e0fb15407c2bf926a6d",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

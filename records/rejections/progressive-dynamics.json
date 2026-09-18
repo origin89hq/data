@@ -48,6 +48,20 @@
       "reason": "Printed as part of the \"Input\" cell; no input voltage label.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-90e9ca1485d9d5006d20f73c31b7295f",
+      "product": "PDI 1000W Inverter",
+      "reason": "The guide is the PD1200 Series Inverter quick reference and names the unit \"PD1210 (1000 watt)\"; PDI appears in it only as the company, as in \"Contact the PDI Service Department\".",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    },
+    {
+      "source": "doc-a8da69b4171db359f3e1bc693fdbc280",
+      "product": "PD4500A",
+      "reason": "The manual's specification table names the models PD4560(LI), PD4575(LI) and PD4590(LI), and PD4500A appears only in \"une unité de la série PD4500A (WAGO®)\", which is a series.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
     }
   ]
 }

@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-gs-mppt-80m-200v--nominal-maximum-output-power",
+  "model": "morningstar-gs-mppt-80m-200v",
+  "name": "Nominal Maximum Output Power",
+  "value": "1064, 2128, 4256",
+  "unit": "W",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 151,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

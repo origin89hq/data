@@ -1,0 +1,10 @@
+{
+  "id": "surecall-sc-fusionpro--cable",
+  "model": "surecall-sc-fusionpro",
+  "name": "Cable",
+  "value": "SC-400 / SC-240",
+  "source": "doc-22e3aa4cbac9bf4c614387dd70e303cb",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

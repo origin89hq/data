@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-20g-of1--manifold-pressure",
+  "model": "unique-appliances-ugp-20g-of1",
+  "name": "Manifold Pressure",
+  "value": "Natural Gas: 4\" WC / LP/Propane: 10\" WC",
+  "source": "doc-a02fce8b3a5ca08271c1d8617ffd4bf0",
+  "page": 19,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ss-6l-12v--wire-size",
+  "model": "morningstar-ss-6l-12v",
+  "name": "Wire Size",
+  "value": "5 mm² / #10 AWG",
+  "source": "doc-faccf02ddc4b17991ff29bc933fe693a",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

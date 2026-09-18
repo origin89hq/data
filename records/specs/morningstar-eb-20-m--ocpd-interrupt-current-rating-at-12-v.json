@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-eb-20-m--ocpd-interrupt-current-rating-at-12-v",
+  "model": "morningstar-eb-20-m",
+  "name": "OCPD interrupt current rating at 12 V",
+  "value": "2000",
+  "unit": "A",
+  "source": "doc-15aaa2603340519a063c6fdaff24a15e",
+  "page": 76,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

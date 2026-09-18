@@ -1,0 +1,10 @@
+{
+  "id": "epever-it5420nc-g3--dry-contact-oil-generator",
+  "model": "epever-it5420nc-g3",
+  "name": "Dry Contact (Oil Generator)",
+  "value": "Rated value: 5A/30VDC; Maximum value: 0.5A/60VDC",
+  "source": "doc-e571c0928ae9e02fb7adf7a6d9c319ab",
+  "page": 61,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

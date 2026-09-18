@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ecoboost-30m--maximum-pv-input-voltage",
+  "model": "morningstar-ecoboost-30m",
+  "name": "Maximum PV input voltage",
+  "value": "120",
+  "unit": "V",
+  "source": "doc-15aaa2603340519a063c6fdaff24a15e",
+  "page": 41,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

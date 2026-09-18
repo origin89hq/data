@@ -1,0 +1,11 @@
+{
+  "id": "volthium-12-v-100-ah-pro2--cut-off-voltage",
+  "model": "volthium-12-v-100-ah-pro2",
+  "name": "Cut-off voltage",
+  "value": "11.2",
+  "unit": "V",
+  "source": "doc-7b9c445691ca06789041402ec3fefe03",
+  "page": 14,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

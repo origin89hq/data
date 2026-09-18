@@ -1,0 +1,10 @@
+{
+  "id": "epever-xtra3215n-g3-g3-ble--battery-rated-voltage",
+  "model": "epever-xtra3215n-g3-g3-ble",
+  "name": "Battery Rated Voltage",
+  "value": "12/24VDC ★Auto-recognition",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 50,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

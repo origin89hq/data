@@ -1,0 +1,11 @@
+{
+  "id": "epever-tracer5415an--max-pv-input-current",
+  "model": "epever-tracer5415an",
+  "name": "Max. PV input current",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-0d6a013f74408184c3a6e76c131a81f2",
+  "page": 17,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

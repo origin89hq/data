@@ -1,0 +1,11 @@
+{
+  "id": "surecall-force5-2-0-industrial--maximum-output-power-aws-1710-1755-mhz",
+  "model": "surecall-force5-2-0-industrial",
+  "name": "Maximum output power AWS 1710-1755 MHz",
+  "value": "1",
+  "unit": "W",
+  "source": "doc-bf8db7e854ebb90b299f7bf841eeb449",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

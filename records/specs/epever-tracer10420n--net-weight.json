@@ -1,0 +1,11 @@
+{
+  "id": "epever-tracer10420n--net-weight",
+  "model": "epever-tracer10420n",
+  "name": "Net Weight",
+  "value": "7.4",
+  "unit": "kg",
+  "source": "doc-0d6a013f74408184c3a6e76c131a81f2",
+  "page": 41,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

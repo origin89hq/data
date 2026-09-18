@@ -1,0 +1,11 @@
+{
+  "id": "midnite-solar-classic250--hypervoc-range-upper-maximum-input-voltage-at-24v-battery-bank",
+  "model": "midnite-solar-classic250",
+  "name": "HyperVOC range upper maximum input voltage at 24V battery bank",
+  "value": "274",
+  "unit": "V",
+  "source": "doc-99e13d49dba2dfea2ab587f317bb9af8",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

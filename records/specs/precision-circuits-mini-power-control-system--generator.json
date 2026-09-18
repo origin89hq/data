@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-mini-power-control-system--generator",
+  "model": "precision-circuits-mini-power-control-system",
+  "name": "Generator",
+  "value": "44",
+  "unit": "A",
+  "source": "doc-115bbda348561eb62f480845e6bc3f65",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

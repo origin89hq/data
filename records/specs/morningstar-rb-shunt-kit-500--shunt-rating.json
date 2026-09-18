@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-rb-shunt-kit-500--shunt-rating",
+  "model": "morningstar-rb-shunt-kit-500",
+  "name": "Shunt Rating",
+  "value": "500",
+  "unit": "A",
+  "source": "doc-4844af010baa4dcda3d2d1d231b41ce2",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

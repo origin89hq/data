@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmts-50--momentary-short-circuit-current-rating",
+  "model": "powermax-converters-pmts-50",
+  "name": "Momentary short-circuit current rating",
+  "value": "5000",
+  "source": "doc-2e9bfa1b129f68b2fa6491f42fde9209",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

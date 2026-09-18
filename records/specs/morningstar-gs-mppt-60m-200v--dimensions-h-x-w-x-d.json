@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-60m-200v--dimensions-h-x-w-x-d",
+  "model": "morningstar-gs-mppt-60m-200v",
+  "name": "Dimensions (H x W x D)",
+  "value": "36.4/14.3 x 22.2/8.7 x 17.0/6.7",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 147,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

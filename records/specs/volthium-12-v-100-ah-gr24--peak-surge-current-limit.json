@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-100-ah-gr24--peak-surge-current-limit",
+  "model": "volthium-12-v-100-ah-gr24",
+  "name": "Peak / Surge current limit",
+  "value": "350 A@3 s",
+  "source": "doc-d480da931917808c709e6a5c5f175337",
+  "page": 6,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "epever-mt75--mounting-size-no-base",
+  "model": "epever-mt75",
+  "name": "Mounting size (no base)",
+  "value": "176",
+  "unit": "mm",
+  "source": "doc-811df31d579f6531a9146de3669626d4",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "watersprint-watersprintsolo-40--performance-at-30-mj-cm-95-uvt",
+  "model": "watersprint-watersprintsolo-40",
+  "name": "Performance at 30 mJ/cm² @ 95% UVT",
+  "value": "1.3",
+  "source": "doc-1c34d429779316455fe36aac66834ba4",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

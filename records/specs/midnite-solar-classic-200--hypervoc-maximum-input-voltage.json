@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-classic-200--hypervoc-maximum-input-voltage",
+  "model": "midnite-solar-classic-200",
+  "name": "HyperVOC maximum input voltage",
+  "value": "248",
+  "unit": "V",
+  "source": "doc-99e13d49dba2dfea2ab587f317bb9af8",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

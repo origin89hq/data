@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ss-mppt-15l--temperature-compensation-coefficient",
+  "model": "morningstar-ss-mppt-15l",
+  "name": "Temperature compensation coefficient",
+  "value": "-5mV/°C / Zelle (25°C ref )",
+  "source": "doc-af22fe14d72253d58e18896733cb9521",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

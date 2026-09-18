@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-2000pspt--input-fuse",
+  "model": "powermax-converters-pmx-2000pspt",
+  "name": "Input fuse",
+  "value": "8x30 A",
+  "source": "doc-aa10b2ab94603707e362b938e91785d8",
+  "page": 14,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

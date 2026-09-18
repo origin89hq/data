@@ -1,0 +1,10 @@
+{
+  "id": "volthium-r-b1250a--internal-resistance-1-khz-ac",
+  "model": "volthium-r-b1250a",
+  "name": "Internal resistance @ 1 kHz AC",
+  "value": "< 30.0 mohm",
+  "source": "doc-351fd519eb6040042623bf73c333c5ed",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

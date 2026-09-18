@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-marine-tower-kit--saddle-clamp-distance-from-mast-top",
+  "model": "primus-wind-power-air-marine-tower-kit",
+  "name": "Saddle clamp distance from mast top",
+  "value": "2 feet (0.6 m) minimum, 3 feet (0.9 m) maximum",
+  "source": "doc-ddaa7c38a0c1e191ea58fcd20fc4ecbe",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

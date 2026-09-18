@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-xcr--battery-voltage",
+  "model": "pulsetech-xcr",
+  "name": "Battery voltage",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-3948031b617eef5661dc6f267a78a6a2",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

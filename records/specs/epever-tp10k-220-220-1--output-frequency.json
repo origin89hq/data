@@ -1,0 +1,10 @@
+{
+  "id": "epever-tp10k-220-220-1--output-frequency",
+  "model": "epever-tp10k-220-220-1",
+  "name": "Output frequency",
+  "value": "50Hz/60Hz±3%",
+  "source": "doc-81e78093b9671e24fe5a3d9c1812a057",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

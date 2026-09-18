@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-3000w--auto-reset-after-shut-down",
+  "model": "powermax-converters-pmx-3000w",
+  "name": "Auto-reset after shut-down",
+  "value": "12 V±0.5V",
+  "source": "doc-39140d23c40e0c6d760fa8b9948caf17",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

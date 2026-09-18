@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion5s-v2-0--uplink-frequency-range",
+  "model": "surecall-fusion5s-v2-0",
+  "name": "Uplink Frequency Range",
+  "value": "698–716 / 776–787 / 824–849 / 1850–1915 / 1710–1755 MHz",
+  "source": "doc-7e08293f87e916929c2e41a58589c5a8",
+  "page": 15,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

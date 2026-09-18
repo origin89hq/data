@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-umc-1--rj-11-cable-length",
+  "model": "morningstar-umc-1",
+  "name": "RJ-11 cable length",
+  "value": "1 meter",
+  "source": "doc-969d89e5389779b2c1683297f724d26b",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

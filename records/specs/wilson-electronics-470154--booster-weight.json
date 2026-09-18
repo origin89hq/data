@@ -1,0 +1,11 @@
+{
+  "id": "wilson-electronics-470154--booster-weight",
+  "model": "wilson-electronics-470154",
+  "name": "Booster Weight",
+  "value": "1.80",
+  "unit": "lb",
+  "source": "doc-ed0cbf4509a4aa12dd5e191f1674a407",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

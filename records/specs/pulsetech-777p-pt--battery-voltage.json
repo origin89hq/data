@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-777p-pt--battery-voltage",
+  "model": "pulsetech-777p-pt",
+  "name": "Battery voltage",
+  "value": "6-Volt and 12-Volt",
+  "source": "doc-45f2bf036ee08692c11a5753cb231751",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

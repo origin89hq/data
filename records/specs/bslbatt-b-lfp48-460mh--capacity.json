@@ -1,0 +1,11 @@
+{
+  "id": "bslbatt-b-lfp48-460mh--capacity",
+  "model": "bslbatt-b-lfp48-460mh",
+  "name": "Capacity",
+  "value": "460",
+  "unit": "Ah",
+  "source": "doc-312d59747a89e6e2100273078883892e",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

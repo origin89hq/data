@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion5s-2-0-yagi-2-dome-sc-polysh-o-72-yd2-kit--input-output-impedance",
+  "model": "surecall-fusion5s-2-0-yagi-2-dome-sc-polysh-o-72-yd2-kit",
+  "name": "Input / Output Impedance",
+  "value": "50",
+  "unit": "Ω",
+  "source": "doc-e00b7eba0dbeec9c016e9253c8d5fd1a",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

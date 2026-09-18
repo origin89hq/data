@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-460020--power-requirements",
+  "model": "wilson-electronics-460020",
+  "name": "Power Requirements",
+  "value": "AC / DC 5V, 4A, w/2.5x5.5mm Jack",
+  "source": "doc-da33c0337337c4113ee1cdb398994fb7",
+  "page": 23,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

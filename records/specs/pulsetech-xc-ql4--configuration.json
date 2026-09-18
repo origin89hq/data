@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc-ql4--configuration",
+  "model": "pulsetech-xc-ql4",
+  "name": "Configuration",
+  "value": "4-Channel QuadLink Multiplier",
+  "source": "doc-a841f090a83f8083926291c9590a9c0c",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

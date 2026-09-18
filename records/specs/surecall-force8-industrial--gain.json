@@ -1,0 +1,10 @@
+{
+  "id": "surecall-force8-industrial--gain",
+  "model": "surecall-force8-industrial",
+  "name": "Gain",
+  "value": "50 dB of adjustable gain level",
+  "source": "doc-f19061fa513159d7d5e9e0881449a673",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

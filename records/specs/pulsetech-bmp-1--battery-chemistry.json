@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-bmp-1--battery-chemistry",
+  "model": "pulsetech-bmp-1",
+  "name": "Battery chemistry",
+  "value": "Flooded, VRLA, gel and AGM lead-acid",
+  "source": "doc-45f2bf036ee08692c11a5753cb231751",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

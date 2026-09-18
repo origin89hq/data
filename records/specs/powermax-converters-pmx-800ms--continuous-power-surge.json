@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-800ms--continuous-power-surge",
+  "model": "powermax-converters-pmx-800ms",
+  "name": "Continuous Power/Surge",
+  "value": "800/1600W",
+  "source": "doc-043354167fdf2b4f15d7bd78ae3baa1e",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

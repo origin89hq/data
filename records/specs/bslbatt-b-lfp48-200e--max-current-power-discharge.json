@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-b-lfp48-200e--max-current-power-discharge",
+  "model": "bslbatt-b-lfp48-200e",
+  "name": "Max. Current / Power - Discharge",
+  "value": "200A / 10.24kW",
+  "source": "doc-00b5ed69a1e2f7909133dfef71f40617",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

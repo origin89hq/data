@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-eb-mppt-40-m--load-current-capacity",
+  "model": "morningstar-eb-mppt-40-m",
+  "name": "Load current capacity",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-15aaa2603340519a063c6fdaff24a15e",
+  "page": 90,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

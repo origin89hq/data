@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-6-f2--temperature-limits-for-proper-operation",
+  "model": "unique-appliances-ugp-6-f2",
+  "name": "Temperature limits for proper operation",
+  "value": "-20° F to 120° F (-29° C to 49° C)",
+  "source": "doc-2ded12939db1a6dc1a3309490a1b238f",
+  "page": 26,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

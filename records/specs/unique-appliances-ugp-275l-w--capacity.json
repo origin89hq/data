@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-275l-w--capacity",
+  "model": "unique-appliances-ugp-275l-w",
+  "name": "Capacity",
+  "value": "275L / 10 cu. ft.",
+  "source": "doc-72d4edea21f290ad9a4195d19fa8a238",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

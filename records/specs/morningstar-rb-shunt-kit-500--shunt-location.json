@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-rb-shunt-kit-500--shunt-location",
+  "model": "morningstar-rb-shunt-kit-500",
+  "name": "Shunt Location",
+  "value": "Positive or Negative wiring",
+  "source": "doc-4844af010baa4dcda3d2d1d231b41ce2",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

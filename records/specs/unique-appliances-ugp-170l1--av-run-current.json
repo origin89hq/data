@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-170l1--av-run-current",
+  "model": "unique-appliances-ugp-170l1",
+  "name": "Av. Run Current",
+  "value": "4.3A on 12V - 2.2A on 24V",
+  "source": "doc-6d9019a1e78bb7441f365240d881fcb9",
+  "page": 24,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

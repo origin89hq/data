@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-00-10050-215--service",
+  "model": "precision-circuits-00-10050-215",
+  "name": "Service",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-d844b6d859a008a54f1338159528c008",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

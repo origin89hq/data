@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-460020--power-output-for-single-cell-phone-uplink-dbm-1700-mhz-band-4",
+  "model": "wilson-electronics-460020",
+  "name": "Power output for single cell phone (Uplink) dBm - 1700 MHz Band 4",
+  "value": "24.55",
+  "source": "doc-442f3f3fe1acf3a5ae38e048775c469d",
+  "page": 16,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

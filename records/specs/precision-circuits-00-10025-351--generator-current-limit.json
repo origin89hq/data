@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-00-10025-351--generator-current-limit",
+  "model": "precision-circuits-00-10025-351",
+  "name": "Generator current limit",
+  "value": "44",
+  "unit": "A",
+  "source": "doc-c23f2581265359d3abfd301d8e395245",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

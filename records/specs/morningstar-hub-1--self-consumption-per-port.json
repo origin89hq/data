@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-hub-1--self-consumption-per-port",
+  "model": "morningstar-hub-1",
+  "name": "Self-consumption (per port)",
+  "value": "8",
+  "unit": "mA",
+  "source": "doc-5293e48fcf72f901319ac146ef0b40d6",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

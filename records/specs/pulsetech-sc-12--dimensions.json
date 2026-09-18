@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sc-12--dimensions",
+  "model": "pulsetech-sc-12",
+  "name": "Dimensions",
+  "value": "24.6\" x 19.7\" x 8.6",
+  "source": "doc-a01a6cfa54523c58631d424a3f095fdb",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

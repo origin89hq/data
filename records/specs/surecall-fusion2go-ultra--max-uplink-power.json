@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-ultra--max-uplink-power",
+  "model": "surecall-fusion2go-ultra",
+  "name": "Max Uplink Power",
+  "value": "30 dBm",
+  "source": "doc-c3374987b07871b8cc4bc52702a437d4",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

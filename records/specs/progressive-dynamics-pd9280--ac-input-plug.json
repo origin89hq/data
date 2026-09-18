@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd9280--ac-input-plug",
+  "model": "progressive-dynamics-pd9280",
+  "name": "AC input plug",
+  "value": "20",
+  "unit": "A",
+  "source": "doc-d0ee27ab68279212f70ef993fa8b701b",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

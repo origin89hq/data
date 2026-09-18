@@ -1,0 +1,9 @@
+{
+  "id": "surecall-fusion2go-max--uplink-frequency-ranges",
+  "model": "surecall-fusion2go-max",
+  "name": "Uplink Frequency Ranges",
+  "value": "698-716 / 776-787 / 824-849 / 1710-1755 / 1850-1915",
+  "source": "doc-7acc5516732c29845f9d5dfea50c393f",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "lorentz-ps2-100--pv-module-power-example",
+  "model": "lorentz-ps2-100",
+  "name": "PV module power example",
+  "value": "205",
+  "unit": "W",
+  "source": "doc-4dfb2f7028fef4b058ead6fc84b93d86",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

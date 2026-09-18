@@ -1,0 +1,9 @@
+{
+  "id": "precision-circuits-00-10041-261--name",
+  "model": "precision-circuits-00-10041-261",
+  "name": "Name",
+  "value": "Lithium Battery Isolation Manager Li-BIM",
+  "source": "doc-ed6b3d313a81c75227ed82c83fc42d5f",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

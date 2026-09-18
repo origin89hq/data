@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-00-10050-411--relay-shed-order",
+  "model": "precision-circuits-00-10050-411",
+  "name": "Relay Shed Order",
+  "value": "2-Refrigerator, 4-A/C-Rear, 3-A/C-Front, 1-Not Used, 5-A/C (Relay Not Installed)",
+  "source": "doc-0edfc65a3ec57258824608989f379f5a",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pt20--bulk-charge-voltage",
+  "model": "pulsetech-pt20",
+  "name": "Bulk Charge Voltage",
+  "value": "10V-Absorption Voltage",
+  "source": "doc-23626c7771110fd9944d219a50d60d5f",
+  "page": 9,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

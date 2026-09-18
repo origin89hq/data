@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-ss-10-12v--self-consumption",
+  "model": "morningstar-ss-10-12v",
+  "name": "Self-consumption",
+  "value": "< 8 mA",
+  "source": "doc-7eef275ea7e281f5944910c7b264fa68",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

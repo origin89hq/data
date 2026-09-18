@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-3000w--operating-relative-humidity",
+  "model": "powermax-converters-pmx-3000w",
+  "name": "Operating Relative Humidity",
+  "value": "10-90% RH",
+  "source": "doc-39140d23c40e0c6d760fa8b9948caf17",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

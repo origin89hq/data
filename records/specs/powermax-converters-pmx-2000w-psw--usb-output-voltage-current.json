@@ -1,0 +1,9 @@
+{
+  "id": "powermax-converters-pmx-2000w-psw--usb-output-voltage-current",
+  "model": "powermax-converters-pmx-2000w-psw",
+  "name": "USB output voltage/current",
+  "value": "DC4.7-5.3V/2100mA",
+  "source": "doc-2b315a6a3cfa4facc4006026703bf60a",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

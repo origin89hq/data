@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-gs-mppt-100--charging-current-rating",
+  "model": "morningstar-gs-mppt-100",
+  "name": "Charging current rating",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-6739e7d19f336032814971b4696fd318",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

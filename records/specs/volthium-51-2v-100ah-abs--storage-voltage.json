@@ -1,0 +1,10 @@
+{
+  "id": "volthium-51-2v-100ah-abs--storage-voltage",
+  "model": "volthium-51-2v-100ah-abs",
+  "name": "Storage voltage",
+  "value": "De 52.4 V à 53.6 V",
+  "source": "doc-e6810bccb0a4c8b05a54840bfed4465f",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

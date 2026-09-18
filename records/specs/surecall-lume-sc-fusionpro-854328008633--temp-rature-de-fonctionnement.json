@@ -1,0 +1,11 @@
+{
+  "id": "surecall-lume-sc-fusionpro-854328008633--temp-rature-de-fonctionnement",
+  "model": "surecall-lume-sc-fusionpro-854328008633",
+  "name": "Température de fonctionnement",
+  "english": "Operating temperature",
+  "value": "-4º à +158º F",
+  "source": "doc-22e3aa4cbac9bf4c614387dd70e303cb",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

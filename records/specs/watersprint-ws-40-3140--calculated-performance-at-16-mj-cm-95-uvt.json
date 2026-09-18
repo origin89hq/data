@@ -1,0 +1,11 @@
+{
+  "id": "watersprint-ws-40-3140--calculated-performance-at-16-mj-cm-95-uvt",
+  "model": "watersprint-ws-40-3140",
+  "name": "Calculated performance at 16 mJ/cm² @ 95% UVT",
+  "value": "2.6",
+  "unit": "gpm",
+  "source": "doc-cdd91de7784cc2c130d0c0eb3c09ec3b",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

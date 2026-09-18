@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-100m-200v--battery-voltage-range",
+  "model": "morningstar-gs-mppt-100m-200v",
+  "name": "Battery voltage range",
+  "value": "8V - 72V",
+  "source": "doc-37633f0a761869b4d7d2f61da8e5f63a",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

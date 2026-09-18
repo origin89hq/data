@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-mppt-150v--maximum-wire-size",
+  "model": "morningstar-mppt-150v",
+  "name": "Maximum wire size",
+  "value": "6 AWG",
+  "source": "doc-01349afd31ce2b1542fae2048b3818c0",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

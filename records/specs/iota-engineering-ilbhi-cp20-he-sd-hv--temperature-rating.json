@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilbhi-cp20-he-sd-hv--temperature-rating",
+  "model": "iota-engineering-ilbhi-cp20-he-sd-hv",
+  "name": "Temperature rating",
+  "value": "70",
+  "unit": "°C",
+  "source": "doc-b9e2b9a0149990dd0f5dd829b97de6de",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

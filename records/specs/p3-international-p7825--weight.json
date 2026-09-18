@@ -1,0 +1,10 @@
+{
+  "id": "p3-international-p7825--weight",
+  "model": "p3-international-p7825",
+  "name": "Weight",
+  "value": "Approx. 4 oz. (without batteries)",
+  "source": "doc-4d33ddf81a8ff8227e6533eafef2ec67",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

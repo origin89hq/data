@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-100m-200v--wire-size-range-battery-voltage-sense-and-rts",
+  "model": "morningstar-gs-mppt-100m-200v",
+  "name": "Wire Size Range - Battery voltage sense and RTS",
+  "value": "0.25 - 1.0 mm2 / #24 - 16 AWG",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 151,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

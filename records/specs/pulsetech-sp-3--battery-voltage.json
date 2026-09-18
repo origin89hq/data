@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-3--battery-voltage",
+  "model": "pulsetech-sp-3",
+  "name": "Battery voltage",
+  "value": "12-Volt",
+  "source": "doc-18496c5404bc3106c73abd78c2ba9fae",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

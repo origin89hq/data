@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-sunsaver-ss-20l-12v-gen3--inrush-x",
+  "model": "morningstar-sunsaver-ss-20l-12v-gen3",
+  "name": "Inrush x",
+  "value": "7.5x",
+  "source": "doc-899310a60c10064b10684f0a8f5ee448",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

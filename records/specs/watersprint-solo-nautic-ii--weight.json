@@ -1,0 +1,11 @@
+{
+  "id": "watersprint-solo-nautic-ii--weight",
+  "model": "watersprint-solo-nautic-ii",
+  "name": "Weight",
+  "value": "0.5",
+  "unit": "kg",
+  "source": "doc-64d9f9d22065d996cba8b1bed76ea8be",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

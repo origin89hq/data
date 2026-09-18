@@ -1,0 +1,11 @@
+{
+  "id": "volthium-12-v-560-ah-pro--nominal-voltage",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "Nominal voltage",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-df583f3eecc75343578678d34a6346b5",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

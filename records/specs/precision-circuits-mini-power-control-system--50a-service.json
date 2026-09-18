@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-mini-power-control-system--50a-service",
+  "model": "precision-circuits-mini-power-control-system",
+  "name": "50A Service",
+  "value": "50A Service Sleep Mode",
+  "source": "doc-e8dae6c24b9368ca470a9be5edb98c44",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

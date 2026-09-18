@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sc-2--current-per-channel",
+  "model": "pulsetech-sc-2",
+  "name": "Current per channel",
+  "value": "6-amp-per-channel",
+  "source": "doc-0816cfb74752a9e86625f0cad28dac05",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

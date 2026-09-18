@@ -330,6 +330,26 @@
       "reason": "Yale.pdf prints \"Truck Model and Maximum Battery Size (Inches)\": a table of the Deka motive-power batteries that fit one truck maker's lift trucks and floor machines, which this dataset of off-grid equipment does not cover.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-daee25f2da11c6d823b9262e43ea9294",
+      "reason": "The Procell and Duracell Professional battery catalogue: Duracell's own products, which East Penn distributes under licence and names itself on only as \"Authorized distributor and seller\". Their ratings are Duracell's, not East Penn's.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    },
+    {
+      "source": "doc-4df1f3c7e7b80602166b1ffd8ea15816",
+      "reason": "Charging instructions for flooded cycling batteries: the current limits, voltage targets and per-cell open-circuit voltages it prints are what a charger should be set to, not ratings of any battery in it.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    },
+    {
+      "source": "doc-16a98e83ba9875ad38fafe602c495e4f",
+      "model": "east-penn-m100-15",
+      "name": "OCV at 50% SOC",
+      "reason": "The 2.03 is a row of the manual's general \"% SOC / Specific Gravity / OCV Voltage\" chart for flooded 2 V cells, and the manual names the M100-15 only in a charge-current example, never in a specification of its own.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
     }
   ]
 }

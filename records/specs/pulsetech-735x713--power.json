@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-735x713--power",
+  "model": "pulsetech-735x713",
+  "name": "Power",
+  "value": "12",
+  "unit": "W",
+  "source": "doc-9b7ba0466bce797c8c8c4557f27a9c9b",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

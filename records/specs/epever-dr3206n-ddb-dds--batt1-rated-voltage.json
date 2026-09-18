@@ -1,0 +1,10 @@
+{
+  "id": "epever-dr3206n-ddb-dds--batt1-rated-voltage",
+  "model": "epever-dr3206n-ddb-dds",
+  "name": "BATT1 rated voltage",
+  "value": "12/24VDC",
+  "source": "doc-f605741c80467647ab168f56ec998172",
+  "page": 35,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

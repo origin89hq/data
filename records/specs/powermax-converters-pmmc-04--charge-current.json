@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmmc-04--charge-current",
+  "model": "powermax-converters-pmmc-04",
+  "name": "Charge current",
+  "value": "4.0",
+  "unit": "A",
+  "source": "doc-b515fdf6fcbb9f313ca189fc417f743b",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sc-2-746x814--operating-temperature",
+  "model": "pulsetech-sc-2-746x814",
+  "name": "Operating Temperature",
+  "value": "0ºF to 130ºF (-18ºC to 54ºC)",
+  "source": "doc-7527b0bbe7bd1fc3d983a0eba854331c",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

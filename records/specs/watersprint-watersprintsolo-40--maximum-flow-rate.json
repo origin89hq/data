@@ -4,6 +4,7 @@
   "name": "Maximum flow rate",
   "value": "4.2 gallons per minute",
   "source": "doc-39325226750057ea4456261c249411aa",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
   "confidence": "vendor-doc"
 }

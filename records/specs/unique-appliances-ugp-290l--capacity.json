@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-290l--capacity",
+  "model": "unique-appliances-ugp-290l",
+  "name": "Capacity",
+  "value": "290L / 10.3 cu. ft.",
+  "source": "doc-9bcc835ee16f5f3131b2c08dbbe935fc",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

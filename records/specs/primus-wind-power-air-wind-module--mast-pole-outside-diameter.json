@@ -1,0 +1,11 @@
+{
+  "id": "primus-wind-power-air-wind-module--mast-pole-outside-diameter",
+  "model": "primus-wind-power-air-wind-module",
+  "name": "Mast pole outside diameter",
+  "value": "1.875",
+  "unit": "in",
+  "source": "doc-d1df6c0ece9221f81b29b30e3f7a3ddc",
+  "page": 6,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

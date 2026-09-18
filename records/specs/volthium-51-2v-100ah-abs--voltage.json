@@ -1,0 +1,11 @@
+{
+  "id": "volthium-51-2v-100ah-abs--voltage",
+  "model": "volthium-51-2v-100ah-abs",
+  "name": "Voltage",
+  "value": "51.2",
+  "unit": "V",
+  "source": "doc-e6810bccb0a4c8b05a54840bfed4465f",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

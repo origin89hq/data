@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-mne175sw--inverter-battery-breaker-rating",
+  "model": "midnite-solar-mne175sw",
+  "name": "Inverter battery breaker rating",
+  "value": "175 amp breaker",
+  "source": "doc-f1ffddc8510c912e9f4e1985afe9b586",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

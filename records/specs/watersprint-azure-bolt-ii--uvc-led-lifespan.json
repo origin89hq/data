@@ -4,6 +4,7 @@
   "name": "UVC LED lifespan",
   "value": "1,000 active hours",
   "source": "doc-cf473b180c6fec9945c1e70675f892df",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
   "confidence": "vendor-doc"
 }

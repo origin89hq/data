@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-560-ah-pro--cycles-at-100-discharge",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "Cycles at 100% discharge",
+  "value": "3500 < cycles",
+  "source": "doc-aeb5cccfeafcd4e86f6eefd9ccdacbe9",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "volthium-51-2v-100ah-abs--capacity-20a",
+  "model": "volthium-51-2v-100ah-abs",
+  "name": "Capacity @ 20A",
+  "value": "100",
+  "unit": "Ah",
+  "source": "doc-e6810bccb0a4c8b05a54840bfed4465f",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

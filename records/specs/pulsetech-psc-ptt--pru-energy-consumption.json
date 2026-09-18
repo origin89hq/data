@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-psc-ptt--pru-energy-consumption",
+  "model": "pulsetech-psc-ptt",
+  "name": "PRU energy consumption",
+  "value": "3 Ah per 30 days",
+  "source": "doc-397ca4515cc554a6f5db794e7b9c979a",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

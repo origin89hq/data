@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-sk-6--cable-gland-hole-size",
+  "model": "morningstar-sk-6",
+  "name": "Cable gland hole size",
+  "value": "M20 / PG 13,5 / 0,5 Zoll",
+  "source": "doc-9c8fca03627e881b29c9764485693776",
+  "page": 12,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

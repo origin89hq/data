@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-bsl-80-250--applicable-voltage-platform",
+  "model": "bslbatt-bsl-80-250",
+  "name": "Applicable voltage platform",
+  "value": "76.8V/83.2V",
+  "source": "doc-40c3daaff587ebd783d97d0fbe3a6a4a",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-73-10048-999--associated-component-current",
+  "model": "precision-circuits-73-10048-999",
+  "name": "Associated component current",
+  "value": "1 Amp AutoFill Solenoid",
+  "source": "doc-ad86c0a20e9787de86d924f1f0a94b39",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

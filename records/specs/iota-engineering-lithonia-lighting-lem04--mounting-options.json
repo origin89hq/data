@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-lithonia-lighting-lem04--mounting-options",
+  "model": "iota-engineering-lithonia-lighting-lem04",
+  "name": "Mounting Options",
+  "value": "Flexible conduit or no flex mounting options",
+  "source": "doc-e5416223dd9367e284cc5c8c574a6f3e",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

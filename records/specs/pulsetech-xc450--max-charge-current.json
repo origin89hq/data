@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc450--max-charge-current",
+  "model": "pulsetech-xc450",
+  "name": "Max Charge Current",
+  "value": "4 Amps +/-10%",
+  "source": "doc-66ae7b6a91c205ca4abb8d03ec45cee3",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

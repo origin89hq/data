@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4590li--ac-section-voltage",
+  "model": "progressive-dynamics-pd4590li",
+  "name": "AC section voltage",
+  "value": "120 VAC 50 Ampères Maximum*",
+  "source": "doc-a8da69b4171db359f3e1bc693fdbc280",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

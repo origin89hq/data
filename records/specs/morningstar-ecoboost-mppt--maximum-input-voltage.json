@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ecoboost-mppt--maximum-input-voltage",
+  "model": "morningstar-ecoboost-mppt",
+  "name": "Maximum input voltage",
+  "value": "120",
+  "unit": "V",
+  "source": "doc-15aaa2603340519a063c6fdaff24a15e",
+  "page": 14,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

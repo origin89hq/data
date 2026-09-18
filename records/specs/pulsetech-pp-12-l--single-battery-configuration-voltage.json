@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pp-12-l--single-battery-configuration-voltage",
+  "model": "pulsetech-pp-12-l",
+  "name": "Single battery configuration voltage",
+  "value": "12-Volt",
+  "source": "doc-b1b7cc2dd37fbc18674d6a62c85d84b3",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-midi-power-control-system--current-limit-shed-loads-50a-service-setting",
+  "model": "precision-circuits-midi-power-control-system",
+  "name": "Current limit shed loads - 50A service setting",
+  "value": "50A Service = Ignore",
+  "source": "doc-11d0474ccac56785f048a743dcf083e3",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

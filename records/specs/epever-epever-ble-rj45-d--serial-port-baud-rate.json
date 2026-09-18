@@ -1,0 +1,10 @@
+{
+  "id": "epever-epever-ble-rj45-d--serial-port-baud-rate",
+  "model": "epever-epever-ble-rj45-d",
+  "name": "Serial port baud rate",
+  "value": "115200bps",
+  "source": "doc-d4ad09da679eed83a44519bcba74ef5c",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

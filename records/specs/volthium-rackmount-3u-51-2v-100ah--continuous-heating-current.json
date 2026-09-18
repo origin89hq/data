@@ -1,0 +1,11 @@
+{
+  "id": "volthium-rackmount-3u-51-2v-100ah--continuous-heating-current",
+  "model": "volthium-rackmount-3u-51-2v-100ah",
+  "name": "Continuous heating current",
+  "value": "4",
+  "unit": "A",
+  "source": "doc-3c151d9fbc3b418d555a506a636fdddc",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

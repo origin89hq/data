@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-200ms--typical-efficiency",
+  "model": "powermax-converters-pmx-200ms",
+  "name": "Typical Efficiency",
+  "value": ">80%",
+  "source": "doc-043354167fdf2b4f15d7bd78ae3baa1e",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

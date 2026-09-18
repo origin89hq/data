@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-100m-200v--grounding-leg",
+  "model": "morningstar-gs-mppt-100m-200v",
+  "name": "Grounding Leg",
+  "value": "Negative (Positive Ground compatible with singular ground point)",
+  "source": "doc-2e0d175d4cf50dfa7df1901354c9760f",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

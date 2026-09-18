@@ -1,0 +1,11 @@
+{
+  "id": "volthium-volthium-5-kw-battery--recharge-current",
+  "model": "volthium-volthium-5-kw-battery",
+  "name": "Recharge current",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-d64d340b8b0b310296b4dc7519d39d90",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

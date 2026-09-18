@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-7--rated-power",
+  "model": "pulsetech-sp-7",
+  "name": "Rated power",
+  "value": "7W Charger",
+  "source": "doc-ac334ea2c81f64dbd5904c4f1cc3c52f",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

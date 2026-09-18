@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd--battery-service-life",
+  "model": "iota-engineering-ilblp-cp15-he-sd",
+  "name": "Battery service life",
+  "value": "5 to 7-year",
+  "source": "doc-668127f8728f21471af7b6df6f82db0f",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

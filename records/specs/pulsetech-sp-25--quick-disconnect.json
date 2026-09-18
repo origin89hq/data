@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-25--quick-disconnect",
+  "model": "pulsetech-sp-25",
+  "name": "Quick Disconnect",
+  "value": "At Battery",
+  "source": "doc-59f03716fc92d291e8f17d044f9651ea",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

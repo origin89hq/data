@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-00-10050-000--max-number-of-controlled-loads",
+  "model": "precision-circuits-00-10050-000",
+  "name": "Max number of controlled loads",
+  "value": "5",
+  "source": "doc-ffa952600deed0d2106762e379b3d333",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

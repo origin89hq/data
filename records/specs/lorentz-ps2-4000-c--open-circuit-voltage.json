@@ -1,0 +1,10 @@
+{
+  "id": "lorentz-ps2-4000-c--open-circuit-voltage",
+  "model": "lorentz-ps2-4000-c",
+  "name": "Open circuit voltage",
+  "value": "max. 375",
+  "source": "doc-4884e1f3fb3b081e2563b4b58ea7c88d",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd1610--output-power",
+  "model": "progressive-dynamics-pd1610",
+  "name": "Output power",
+  "value": "1000",
+  "unit": "W",
+  "source": "doc-b62bb7ca6d8c322a910799b6750afd08",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}
