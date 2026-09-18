@@ -53,10 +53,18 @@ export function writtenPdf(
   drawn: number[] = [],
   /** Where each page rules its table, as the x of a line drawn down it. */
   rules: number[][] = [],
+  /** Pictures placed on each page, as [x, y, width, height] in points, to overlap or hang off it. */
+  pictures: [number, number, number, number][][] = [],
 ): Uint8Array {
   const streams = pages.map(
     (page, i) =>
       (rules[i] ?? []).map((x) => `q 0.5 w ${x} 10 m ${x} ${height - 10} l S Q\n`).join("") +
+      (pictures[i] ?? [])
+        .map(
+          ([x, y, w, h]) =>
+            `q ${w} 0 0 ${h} ${x} ${y} cm BI /W 1 /H 1 /CS /G /BPC 8 ID ${String.fromCharCode(0x80)} EI Q\n`,
+        )
+        .join("") +
       (drawn[i]
         ? // One grey pixel stretched over that share of the page, as a chart is placed.
           `q ${Math.round(width * (drawn[i] ?? 0))} 0 0 ${Math.round(height * 0.9)} 0 0 cm BI /W 1 /H 1 /CS /G /BPC 8 ID ${String.fromCharCode(0x80)} EI Q\n`

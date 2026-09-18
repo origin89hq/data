@@ -207,7 +207,11 @@ export function picturesOn(pdfium: Pdfium, bytes: Uint8Array, page: number): num
         const width = pdfium.FPDF_GetPageWidthF(loaded);
         const height = pdfium.FPDF_GetPageHeightF(loaded);
         if (!(width > 0 && height > 0) || !box) return 0;
-        let covered = 0;
+        // What the pictures cover between them, marked on a grid over the page. Adding their areas
+        // up counted a picture drawn over another one twice, and counted what hangs off the page:
+        // enough of either and a page of specifications would be called a drawing, its text read as
+        // labels, and its ratings left out.
+        const over = new Uint8Array(GRID * GRID);
         for (let i = 0; i < pdfium.FPDFPage_CountObjects(loaded); i += 1) {
           const object = pdfium.FPDFPage_GetObject(loaded, i);
           // 3 is an image; text, paths and shading are what a table and its rules are made of.
@@ -222,9 +226,25 @@ export function picturesOn(pdfium: Pdfium, bytes: Uint8Array, page: number): num
             top === undefined
           )
             continue;
-          covered += Math.max(0, right - left) * Math.max(0, top - bottom);
+          const fromX = Math.max(0, left);
+          const fromY = Math.max(0, bottom);
+          const toX = Math.min(width, right);
+          const toY = Math.min(height, top);
+          for (
+            let x = Math.floor((fromX / width) * GRID);
+            x < Math.ceil((toX / width) * GRID);
+            x += 1
+          )
+            for (
+              let y = Math.floor((fromY / height) * GRID);
+              y < Math.ceil((toY / height) * GRID);
+              y += 1
+            )
+              if (x >= 0 && y >= 0 && x < GRID && y < GRID) over[y * GRID + x] = 1;
         }
-        return covered / (width * height);
+        let cells = 0;
+        for (const cell of over) cells += cell;
+        return cells / (GRID * GRID);
       } finally {
         if (box) pdfium.pdfium.wasmExports.free(box);
         pdfium.FPDF_ClosePage(loaded);
@@ -292,6 +312,9 @@ export function rulesOn(pdfium: Pdfium, bytes: Uint8Array, page: number): number
 /** How thin a drawn line must be to be a rule, and how long, in points. */
 const RULE_THIN = 2;
 const RULE_LONG = 5;
+
+/** How finely a page is divided to measure what its pictures cover between them. */
+const GRID = 64;
 
 /** How much of a page must be picture before its text is read as labelling one. */
 export const MOSTLY_DRAWN = 0.3;

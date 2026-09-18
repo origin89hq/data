@@ -277,6 +277,37 @@ test("a page that is mostly a picture is marked, so its labels are read as label
   assert.match(SYSTEM, /conditions a curve was measured at/);
 });
 
+test("what a page's pictures cover is what they cover between them, on the page", async () => {
+  const page = [{ text: "Rated charging current 20A", x: 20, y: 180 }];
+  const library = await pdfium();
+  // One picture over another covers what one of them covers, not twice as much.
+  const twice = writtenPdf(
+    [page],
+    300,
+    200,
+    [],
+    [],
+    [
+      [
+        [0, 0, 120, 200],
+        [0, 0, 120, 200],
+      ],
+    ],
+  );
+  assert.ok(
+    Math.abs(picturesOn(library, twice, 1) - 0.4) < 0.05,
+    String(picturesOn(library, twice, 1)),
+  );
+  // A picture hanging off the page covers only the part of the page it is on.
+  const over = writtenPdf([page], 300, 200, [], [], [[[240, 0, 300, 200]]]);
+  assert.ok(
+    Math.abs(picturesOn(library, over, 1) - 0.2) < 0.05,
+    String(picturesOn(library, over, 1)),
+  );
+  // Both would have passed for a page of drawings when their areas were added up.
+  assert.ok(picturesOn(library, twice, 1) < MOSTLY_DRAWN + 0.11);
+});
+
 test("a page drawn as a picture has no characters to read, and is left to the page reader", async () => {
   assert.deepEqual(charsOn(await pdfium(), tinyPdf([BLACK_BOX]), 1), []);
   assert.equal(markdownOf([]), "");
