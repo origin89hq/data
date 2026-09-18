@@ -8,7 +8,20 @@ import {
 import { useEffect, useState } from "react";
 import { Icon } from "../icons.tsx";
 import { read } from "./api.ts";
-import { Button, Empty, Loading, Notice, Panel, Table, Tag, TextButton, TextLink } from "./ui.tsx";
+import {
+  Button,
+  Empty,
+  EYEBROW,
+  Loading,
+  NOTE,
+  Notice,
+  Panel,
+  SECTION_HEADING,
+  Table,
+  Tag,
+  TextButton,
+  TextLink,
+} from "./ui.tsx";
 import { useResource } from "./useResource.ts";
 import { bytes, count, when } from "./workspace.ts";
 
@@ -33,9 +46,9 @@ export function Releases({ selected, refresh }: { selected?: string; refresh: nu
   return (
     <>
       <Panel>
-        <div className="ops-section-heading">
+        <div className={SECTION_HEADING}>
           <div>
-            <p className="ops-eyebrow">PUBLISHED DATA / VERSION HISTORY</p>
+            <p className={EYEBROW}>PUBLISHED DATA / VERSION HISTORY</p>
             <h2>Every publication has a fingerprint.</h2>
           </div>
           <TextButton
@@ -50,7 +63,7 @@ export function Releases({ selected, refresh }: { selected?: string; refresh: nu
             <Icon name="refresh" /> Refresh releases
           </TextButton>
         </div>
-        <p className="ops-note">
+        <p className={NOTE}>
           Every publication is recorded, including rollbacks. Identical content shares a content
           hash. History begins with the first publication after this feature is deployed.
         </p>
@@ -146,10 +159,12 @@ export function Releases({ selected, refresh }: { selected?: string; refresh: nu
       </Panel>
       {(releases.length >= 2 || selectedMissing) && (
         <Panel>
-          <div className="ops-section-heading">
+          <div className={SECTION_HEADING}>
             <div>
-              <p className="ops-eyebrow">UNDERSTAND WHAT CHANGED</p>
-              <h2 id="ops-compare">Compare two versions.</h2>
+              <p className={EYEBROW}>UNDERSTAND WHAT CHANGED</p>
+              <h2 id="ops-compare" className="scroll-mt-24">
+                Compare two versions.
+              </h2>
             </div>
           </div>
           <form
@@ -218,7 +233,7 @@ export function Releases({ selected, refresh }: { selected?: string; refresh: nu
               Compare versions <Icon name="arrowRight" />
             </Button>
           </form>
-          <p className="ops-note">
+          <p className={NOTE}>
             Choose versions and apply the comparison. Missing fields stay distinct from null;
             changed values retain their original provenance.
           </p>
@@ -297,8 +312,8 @@ function Compare({ query }: { query: string }) {
       ) : (
         value && (
           <>
-            <div className="ops-section-heading">
-              <p className="ops-note">
+            <div className={SECTION_HEADING}>
+              <p className="mt-2.5 text-[13px] leading-[1.65] text-muted">
                 <code>{value.from.id.slice(0, 12)}</code> → <code>{value.to.id.slice(0, 12)}</code>{" "}
                 · {value.kind}
               </p>
@@ -318,7 +333,7 @@ function Compare({ query }: { query: string }) {
                 </div>
               ))}
             </div>
-            <p className="ops-note">
+            <p className={NOTE}>
               {count(value.matched)} matching record changes · {count(value.total)} total in{" "}
               {value.kind}
             </p>
@@ -342,7 +357,7 @@ function Compare({ query }: { query: string }) {
                         {item.fields.length} {item.fields.length === 1 ? "field" : "fields"}
                       </span>
                     </summary>
-                    <p className="ops-note">Changed paths: {item.fields.join(", ")}</p>
+                    <p className={NOTE}>Changed paths: {item.fields.join(", ")}</p>
                     <div className="my-4 grid grid-cols-2 gap-4 max-[800px]:grid-cols-1 [&>div]:min-w-0 [&_h4]:my-2.5 [&_h4]:text-[13px] [&_h4]:font-medium [&_h4]:text-muted [&_pre]:bevel-[10px] [&_pre]:max-h-[420px] [&_pre]:overflow-auto [&_pre]:border [&_pre]:border-line [&_pre]:bg-surface [&_pre]:p-3.5 [&_pre]:font-data [&_pre]:text-[12px] [&_pre]:leading-[1.6]">
                       <div>
                         <h4>Before</h4>
@@ -362,7 +377,7 @@ function Compare({ query }: { query: string }) {
               </div>
             )}
             <div className="flex flex-wrap items-center justify-between gap-4 border-t border-line pt-[18px] [&>div]:flex [&>div]:flex-wrap [&>div]:items-center [&>div]:gap-3.5">
-              <span className="ops-note">Page {Math.floor(value.offset / 10) + 1}</span>
+              <span className={NOTE}>Page {Math.floor(value.offset / 10) + 1}</span>
               <div>
                 <Button
                   type="button"

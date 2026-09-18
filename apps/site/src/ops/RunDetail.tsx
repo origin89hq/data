@@ -17,8 +17,12 @@ import {
   Button,
   Drawer,
   Empty,
+  EYEBROW,
   IconButton,
+  LINK,
   Loading,
+  MONO,
+  NOTE,
   Notice,
   Search,
   Status,
@@ -124,7 +128,7 @@ export function RunDetail({
     >
       <div className="flex items-center justify-between gap-3">
         <Status value={run?.status} />
-        <span className="ops-mono">{row.date ?? "Date not reported"}</span>
+        <span className={MONO}>{row.date ?? "Date not reported"}</span>
       </div>
       {/* A real tablist. The selected state is read from aria-selected rather than Base UI's
           data-active, which is internal to the library and is a release candidate. These were <nav> buttons carrying aria-pressed, which is toggle-button
@@ -161,7 +165,7 @@ export function RunDetail({
         <Tabs.Panel value="summary" className="pt-6">
           <>
             <div className="bevel mb-5 border border-line bg-surface p-5 max-[640px]:p-[18px]">
-              <p className="ops-eyebrow">NEXT STEP</p>
+              <p className={EYEBROW}>NEXT STEP</p>
               <h3>{row.next}</h3>
               {reviewing && submission?.state !== "sent" && (
                 <Button type="button" primary onClick={() => view("documents")}>
@@ -177,7 +181,7 @@ export function RunDetail({
                 </div>
               ))}
             </dl>
-            <p className="ops-note">A dash means the archive has not reported a count.</p>
+            <p className={NOTE}>A dash means the archive has not reported a count.</p>
             <dl className="my-7 [&>div]:py-2.5 [&_dt]:mb-1.5 [&_dt]:font-data [&_dt]:text-[12px] [&_dt]:leading-[normal] [&_dt]:tracking-[0.05em] [&_dt]:text-faint [&_dt]:uppercase [&_dd]:m-0 [&_dd]:font-data [&_dd]:text-[13px] [&_dd]:leading-[normal] [&_dd]:wrap-anywhere">
               <div>
                 <dt>Entity</dt>
@@ -199,7 +203,7 @@ export function RunDetail({
               )}
             </dl>
             {run?.error && <Notice alarm>{run.error}</Notice>}
-            <a className="ops-text-link" href="/#explore" target="_blank" rel="noopener">
+            <a className={LINK} href="/#explore" target="_blank" rel="noopener">
               Explore published equipment <Icon name="arrowUpRight" />
             </a>
           </>
@@ -283,7 +287,7 @@ export function RunDetail({
                   />
                   {reviewing && !documents.error && submission?.state !== "sent" && (
                     <div className="bevel border border-line bg-surface p-5 max-[640px]:p-[18px] [&>p]:text-[13px] [&>p]:leading-[1.65] [&>p]:text-muted [&>label]:my-5 [&>label]:grid [&>label]:gap-2 [&>label]:text-[13px] [&_input:not([type=checkbox])]:bevel-sm [&_input:not([type=checkbox])]:w-full [&_input:not([type=checkbox])]:min-w-0 [&_input:not([type=checkbox])]:border [&_input:not([type=checkbox])]:border-line-strong [&_input:not([type=checkbox])]:bg-surface-raised [&_input:not([type=checkbox])]:px-3 [&_input:not([type=checkbox])]:py-2.5 [&_input:not([type=checkbox])]:text-fg [&_small]:text-faint">
-                      <p className="ops-eyebrow">REVIEW BEFORE DOWNLOADING</p>
+                      <p className={EYEBROW}>REVIEW BEFORE DOWNLOADING</p>
                       <h3>Give this run the go-ahead.</h3>
                       <p>
                         A limit takes the documents the records already cite first, then the rest in
@@ -337,7 +341,7 @@ export function RunDetail({
                     <Notice alarm={submission.state === "uncertain"}>{submission.text}</Notice>
                   )}
                   {!reviewing && !submission && (
-                    <p className="ops-note">
+                    <p className={NOTE}>
                       This snapshot does not show a workflow awaiting download approval.
                     </p>
                   )}
@@ -353,7 +357,7 @@ export function RunDetail({
             </Empty>
           ) : (
             <>
-              <p className="ops-note">
+              <p className={NOTE}>
                 Files belonging to run <code>{run.run}</code>. Open text artifacts to inspect their
                 contents.
               </p>
@@ -386,7 +390,7 @@ export function RunDetail({
                         <Icon name="arrowUpRight" />
                       </a>
                     ) : (
-                      <span className="ops-note">Binary artifact</span>
+                      <span className={NOTE}>Binary artifact</span>
                     )}
                   </div>
                 ))}
@@ -458,7 +462,7 @@ function NewRun({ row, onChanged }: { row: RunRow; onChanged: () => void }) {
     ["queued", "running", "waiting", "paused", "waitingForPause"].includes(row.run.status);
   return (
     <div className="bevel border border-line bg-surface p-5 max-[640px]:p-[18px] [&>p]:text-[13px] [&>p]:leading-[1.65] [&>p]:text-muted [&>label]:my-5 [&>label]:grid [&>label]:gap-2 [&>label]:text-[13px] [&_input:not([type=checkbox])]:bevel-sm [&_input:not([type=checkbox])]:w-full [&_input:not([type=checkbox])]:min-w-0 [&_input:not([type=checkbox])]:border [&_input:not([type=checkbox])]:border-line-strong [&_input:not([type=checkbox])]:bg-surface-raised [&_input:not([type=checkbox])]:px-3 [&_input:not([type=checkbox])]:py-2.5 [&_input:not([type=checkbox])]:text-fg [&_small]:text-faint">
-      <p className="ops-eyebrow">COLLECTION CONTROL</p>
+      <p className={EYEBROW}>COLLECTION CONTROL</p>
       <h3>Start a fresh {row.kind === "maker" ? "discovery" : "collection"} run</h3>
       <p>
         A new run becomes current for {displayName(row.entity)}. Existing archive files stay
@@ -498,7 +502,7 @@ function NewRun({ row, onChanged }: { row: RunRow; onChanged: () => void }) {
           disabled={!!result}
         />
       </label>
-      <p className="ops-note">
+      <p className={NOTE}>
         {row.kind === "maker"
           ? "Discovery reads public pages. Document downloads still require a separate approval."
           : "A seller run can use paid model calls. This limit applies to page crawls; feed crawls read the seller’s configured feed."}

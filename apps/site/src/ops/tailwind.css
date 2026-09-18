@@ -1,9 +1,8 @@
-/* Tailwind for the workspace, layered so it can sit beside the rules it has not replaced yet.
+/* Tailwind for the workspace.
  *
- * Preflight is deliberately absent. The full `@import "tailwindcss"` brings a global reset that
- * would restyle every view still on ops.css, which is the failure mode of a half-finished
- * migration. Importing theme and utilities only — which is what the website does too — keeps the
- * conversion view by view and reversible.
+ * Preflight is deliberately absent. design/theme.css carries the reset, and the public site shares
+ * it while still being written in plain CSS, so adding Tailwind's would leave two resets to keep in
+ * agreement rather than one.
  *
  * There is no token bridge here either: @origin89/brand ships tokens/tailwind.css, an @theme block
  * carrying the dark palette, so bg-surface, text-faint and border-line-strong come from the brand
@@ -15,16 +14,24 @@
 
 /* Every stylesheet this bundle loads is placed in a layer, and that has to be all of them.
  *
- * Unlayered CSS beats layered CSS whatever the specificity. Import ops.css plainly and each rule
- * this migration has not reached yet silently outranks the utility replacing it. Layer ops.css but
- * leave the reset in theme.css unlayered and the reverse breaks: `button { background: transparent }`
- * starts beating `.ops-button.primary { background: var(--color-action) }`, and the primary control
- * loses its fill while keeping its rim. Specificity does not enter into it.
- *
- * So: the reset sits in `base`, the rules being converted in `components`, utilities above both. */
+ * Unlayered CSS beats layered CSS whatever the specificity, in both directions: leave the reset in
+ * theme.css unlayered and `button { background: transparent }` starts beating the utility that
+ * fills a primary control, which keeps its rim and loses its fill. Specificity does not enter into
+ * it. So the reset sits in `base`, the shared record surfaces in `components`, utilities above both.
+ */
 @import "../design/theme.css" layer(base);
 @import "../design/data.css" layer(components);
-@import "./ops.css" layer(components);
+
+/* The workspace's icon size, and the one rule here that has to stay CSS rather than become a
+ * utility on the root. In `components` a caller's own size-* still beats it, which is what Empty's
+ * 28px mark relies on; the same rule written as [&_.ui-icon]:size-[18px] lands in `utilities`,
+ * where it outranks that size-7 on specificity and silently shrinks the icon instead. */
+@layer components {
+  .ops-app .ui-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
 
 @theme {
   --font-text: Concept, "Helvetica Neue", Arial, sans-serif;

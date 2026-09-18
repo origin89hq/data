@@ -58,6 +58,23 @@ export function TextLink({ className = "", ...rest }: ComponentProps<"a">) {
   return <a className={`${TEXT} ${className}`} {...rest} />;
 }
 
+/* Shared text surfaces. They stay strings rather than components so each caller keeps its own
+ * element: the note describes a paragraph, a span, a code span or a small, depending on what it
+ * sits beside. */
+export const EYEBROW =
+  "mb-3 font-data text-[12px] leading-[normal] font-normal tracking-[0.06em] text-faint uppercase";
+export const NOTE = "text-[13px] leading-[1.65] text-muted";
+export const NOTE_SMALL = "mt-1 block text-[12px] leading-[1.65] text-faint";
+export const MONO = "font-data text-[12px] tabular-nums";
+/* The blue link. TextLink above is the quiet control; this one reads as a link and takes the
+ * link token, which is the lightened blue that carries running text. */
+export const LINK =
+  "my-2.5 inline-flex items-center gap-2 text-[13px] text-link hover:text-fg [@media(pointer:coarse)]:min-h-11";
+export const SECTION_HEADING =
+  "mb-5 flex items-center justify-between gap-4 max-[640px]:flex-wrap max-[640px]:items-start [&_h2]:text-[20px] [&_h2]:leading-[1.25] [&_h2]:font-semibold [&_h2]:tracking-[-0.025em]";
+export const SIGNIN =
+  "mx-auto max-w-[600px] px-[30px] py-[12vh] [&_h1]:mt-10 [&_h1]:text-[40px] [&_p]:mt-4 [&_p]:mb-6 [&_p]:text-muted";
+
 /* Tables. The head, body and hover treatments are descendant rules by nature, so they ride on the
  * wrapper as variants rather than being repeated on every th and td a view writes. */
 export function Table({ children, className = "" }: { children: ReactNode; className?: string }) {
@@ -204,10 +221,10 @@ export function Drawer({
     <Dialog.Root open onOpenChange={(next) => !next && onClose()}>
       <Dialog.Portal>
         <Dialog.Backdrop className="fixed inset-0 z-50 bg-page/65" />
-        <Dialog.Popup className="fixed inset-y-0 right-0 z-50 flex h-dvh w-[min(680px,100%)] flex-col border-l border-line-strong bg-page text-sm text-fg [&_h3]:mt-2 [&_h3]:mb-4 [&_h3]:text-[20px] [&_h3]:leading-[1.3] [&_h3]:font-semibold [&_.ops-eyebrow]:wrap-anywhere [&_.ui-icon]:size-[18px]">
+        <Dialog.Popup className="fixed inset-y-0 right-0 z-50 flex h-dvh w-[min(680px,100%)] flex-col border-l border-line-strong bg-page text-sm text-fg [&_h3]:mt-2 [&_h3]:mb-4 [&_h3]:text-[20px] [&_h3]:leading-[1.3] [&_h3]:font-semibold [&_.ui-icon]:size-[18px]">
           <header className="flex items-center justify-between gap-5 border-b border-line px-7 py-6 max-[640px]:px-5">
             <div className="min-w-0">
-              <p className="ops-eyebrow">{eyebrow}</p>
+              <p className={`${EYEBROW} wrap-anywhere`}>{eyebrow}</p>
               <Dialog.Title className="text-[28px] font-bold tracking-[-0.035em] max-[640px]:text-2xl">
                 {title}
               </Dialog.Title>
@@ -235,8 +252,8 @@ export function Empty({ title, children }: { title: string; children: ReactNode 
   );
 }
 
-/* A panel. Its heading stays in ops.css: .ops-section-heading styles the h2 and p that callers pass
- * in, and writing that as [&_h2] variants reads worse than the rule it replaces. */
+/* A panel. Its heading is SECTION_HEADING, which a caller puts on the div wrapping the h2 it
+ * passes in. */
 export function Panel({ children }: { children: ReactNode }) {
   return (
     <section className="bevel min-w-0 border border-line bg-surface px-6 pt-[22px] max-[640px]:px-4 max-[640px]:pt-5">

@@ -6,7 +6,17 @@ import {
 import { useEffect, useState } from "react";
 import { Icon } from "../icons.tsx";
 import { read } from "./api.ts";
-import { Button, Empty, Loading, Notice, Panel, TextButton } from "./ui.tsx";
+import {
+  Button,
+  Empty,
+  EYEBROW,
+  Loading,
+  NOTE,
+  Notice,
+  Panel,
+  SECTION_HEADING,
+  TextButton,
+} from "./ui.tsx";
 import { useResource } from "./useResource.ts";
 import { displayName, when } from "./workspace.ts";
 
@@ -36,9 +46,9 @@ export function Activity({
   const [applied, setApplied] = useState("");
   return (
     <Panel>
-      <div className="ops-section-heading">
+      <div className={SECTION_HEADING}>
         <div>
-          <p className="ops-eyebrow">THE WORK, AS IT HAPPENED</p>
+          <p className={EYEBROW}>THE WORK, AS IT HAPPENED</p>
           <h2>{compact ? "Recent activity" : "Activity feed"}</h2>
         </div>
         {compact && (
@@ -192,7 +202,7 @@ function ActivityList({
                       </TextButton>
                     )}
                   </div>
-                  {!compact && event.run && <code className="ops-note">{event.run.instance}</code>}
+                  {!compact && event.run && <code className={NOTE}>{event.run.instance}</code>}
                 </div>
               </li>
             ))}
@@ -200,7 +210,7 @@ function ActivityList({
         )
       )}
       <div className="flex flex-wrap items-center justify-between gap-4 border-t border-t-line pt-[18px] [&>div]:flex [&>div]:flex-wrap [&>div]:items-center [&>div]:gap-3.5">
-        <span className="ops-note">
+        <span className={NOTE}>
           {value ? `Recorded history · refreshed ${when(value.at)}` : "Server-recorded history"}
         </span>
         <div>
