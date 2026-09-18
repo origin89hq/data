@@ -494,6 +494,32 @@ test("one figure said in two languages the vocabulary does not align is still on
   assert.equal(repeated, 1);
 });
 
+test("two figures named in a script the vocabulary has no words for are two figures", () => {
+  // The names align nothing: nobody has given them English, and the accent-stripping that makes
+  // "Température" into "temperature" has no letters to keep here. Folding them to the empty name
+  // would have made one figure of two, since both state the same numbers.
+  const { specs, repeated } = specsFrom({
+    ...base,
+    manufacturer: "rolls-battery",
+    reports: [
+      {
+        model: "S-550",
+        specs: [
+          { name: "動作温度", value: "0°C to +40°C", conditions: "discharging" },
+          { name: "充電温度", value: "0ºC ~ +40ºC", conditions: "charging" },
+          { name: "Capacité nominale", value: "428", unit: "Ah" },
+        ],
+      },
+    ],
+  });
+  assert.deepEqual(specs.map((row) => row.name).sort(), [
+    "Capacité nominale",
+    "充電温度",
+    "動作温度",
+  ]);
+  assert.equal(repeated, 0);
+});
+
 test("two figures of one multilingual document that state different numbers are two figures", () => {
   // The same English name is not the same figure: an input and an output both read as "Voltage",
   // and a sheet that prints one in each language must not fold them together.

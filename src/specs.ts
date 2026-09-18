@@ -166,13 +166,17 @@ function saidValue(value: string): string {
     .replace(/(?<=[0-9a-z°%])(?:to|à|a|hasta|até|bis)(?=[-+0-9])/g, "-");
 }
 
-/** A name to align one language's figure with another's: no accents, no case, no punctuation. */
+/**
+ * A name to align one language's figure with another's: no accents, no case, no punctuation. Every
+ * script's letters are kept, not the Latin ones alone: stripping them left every Japanese name as
+ * the empty string, and two of a maker's figures would have aligned with each other on nothing.
+ */
 function plainName(name: string): string {
   return name
     .normalize("NFD")
     .replace(/\p{Diacritic}/gu, "")
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
     .trim();
 }
 
@@ -325,7 +329,11 @@ export function specsFrom({
     const byName = new Map<string, Spec[]>();
     for (const spec of specs.values()) {
       if (repeated.has(spec.id)) continue;
-      const key = `${spec.model}|${plainName(spec.english ?? spec.name)}|${spec.unit ?? ""}`;
+      const aligned = plainName(spec.english ?? spec.name);
+      // A name of nothing alignable — punctuation, or a script this has no letters for — aligns
+      // with nothing rather than with every other such name.
+      if (!aligned) continue;
+      const key = `${spec.model}|${aligned}|${spec.unit ?? ""}`;
       byName.set(key, [...(byName.get(key) ?? []), spec]);
     }
     for (const rows of byName.values()) {
