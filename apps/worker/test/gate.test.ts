@@ -220,8 +220,20 @@ test("the section gate is shown the maker and every section with its pages, numb
   assert.match(prompt, /^Maker: EPEVER$/m);
   assert.match(prompt, /^0\. pages 1-4: \(no heading\)$/m);
   assert.match(prompt, /^5\. pages 49-54: 6 Technical Specifications$/m);
-  // What the sections are for is said in the prompt, and what to do when a name says nothing.
-  assert.match(SECTIONS_SYSTEM, /When a section's name does not say, read it\./);
+  // A section given with its opening words is shown with both, so the gate judges by what it holds.
+  assert.match(
+    sectionsPrompt("EPEVER", [
+      {
+        title: "2.2 Requirements for the PV array",
+        from: 15,
+        to: 16,
+        opening: "The below table is for reference only.",
+      },
+    ]),
+    /^0\. pages 15-16: 2\.2 Requirements for the PV array\n {3}opens: The below table is for reference only\.$/m,
+  );
+  // What the sections are for is said in the prompt, and what to do when neither says.
+  assert.match(SECTIONS_SYSTEM, /When neither the name nor the opening says, read it\./);
   assert.match(SECTIONS_SYSTEM, /wrongly left out loses figures/);
 });
 

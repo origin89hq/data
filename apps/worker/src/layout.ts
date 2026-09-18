@@ -141,6 +141,36 @@ export interface Section {
   title: string;
   from: number;
   to: number;
+  /** How the section opens, so what it holds can be judged by more than its name. */
+  opening?: string;
+}
+
+/** How much of a section is shown to say what it holds: a line or two, not the section. */
+export const OPENING = 240;
+
+/**
+ * Each section with the words it opens with, read out of the document's own markdown.
+ *
+ * A title is often not enough to say whether a section states ratings. "Requirements for the PV
+ * array" says nothing either way until its first lines say "the below table is for reference only";
+ * "Wire size and circuit breaker" reads like an installer's section until its table turns out to
+ * state each model's rated current; and an appendix headed "Solar Module MPP Voltage (17V, 34V)"
+ * reads like a specification until the line under it gives the test conditions of a curve.
+ */
+export function withOpenings(markdown: string, sections: readonly Section[]): Section[] {
+  const lines = markdown.split("\n");
+  return sections.map((section) => {
+    const at = section.title ? lines.findIndex((line) => line.trim() === section.title.trim()) : 0;
+    if (at < 0) return section;
+    const after = lines
+      .slice(at + 1)
+      .filter((line) => line.trim() && !/^\|[\s|:-]*\|$/.test(line) && !/^### Page \d+$/.test(line))
+      .join(" ")
+      .replace(/\s+/g, " ")
+      .trim();
+    const opening = after.slice(0, OPENING).trim();
+    return opening ? { ...section, opening } : section;
+  });
 }
 
 /**

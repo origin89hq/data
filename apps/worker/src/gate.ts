@@ -171,7 +171,9 @@ Say a section is not read when what it prints is:
 - troubleshooting, maintenance, storage, disposal, packaging or transport;
 - what the product is for, who makes it, or how to order support.
 
-When a section's name does not say, read it. A section wrongly left out loses figures nobody can recover; a section wrongly read costs a model call.
+Each section is given with the words it opens with, where the document has any. Judge by both: a name says what a section is called, and its opening says what it holds — a table the document introduces as a recommendation or as being for reference only is not ratings, and a section named for wiring that opens with each model's rated current is.
+
+When neither the name nor the opening says, read it. A section wrongly left out loses figures nobody can recover; a section wrongly read costs a model call.
 
 The first section of a document often has no heading. Read it.`;
 
@@ -194,11 +196,13 @@ export type KeptSections = z.infer<typeof KeptSections>;
 /** The outline as the model is shown it: one numbered line a section, with the pages it runs over. */
 export function sectionsPrompt(
   maker: string,
-  sections: readonly { title: string; from: number; to: number }[],
+  sections: readonly { title: string; from: number; to: number; opening?: string }[],
 ): string {
   const lines = sections.map(
     (section, index) =>
-      `${index}. pages ${section.from}-${section.to}: ${section.title || "(no heading)"}`,
+      `${index}. pages ${section.from}-${section.to}: ${section.title || "(no heading)"}${
+        section.opening ? `\n   opens: ${section.opening}` : ""
+      }`,
   );
   return `Maker: ${maker}\n\nSections:\n${lines.join("\n")}`;
 }

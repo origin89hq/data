@@ -1,6 +1,14 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { columnsOf, gridOf, markdownOf, rowsOf, sectionsOf } from "../src/layout.ts";
+import {
+  columnsOf,
+  gridOf,
+  markdownOf,
+  OPENING,
+  rowsOf,
+  sectionsOf,
+  withOpenings,
+} from "../src/layout.ts";
 import { charsOn, markdownOfDocument, outlineOf, pageCount } from "../src/render.ts";
 import { BLACK_BOX, type Placed, pdfium, tinyPdf, writtenPdf } from "./pdf.ts";
 
@@ -201,6 +209,31 @@ test("a document's outline is its headings, each with the page it stands on", as
 test("a page drawn as a picture has no characters to read, and is left to the page reader", async () => {
   assert.deepEqual(charsOn(await pdfium(), tinyPdf([BLACK_BOX]), 1), []);
   assert.equal(markdownOf([]), "");
+});
+
+test("a section is given with the words it opens with, so its name is not all there is to judge", () => {
+  const markdown = [
+    "### Page 15",
+    "2.2 Requirements for the PV array",
+    "The below table is for reference only.",
+    "|  | | |",
+    "|---|---|---|",
+    "| 12V | 1 | 1 |",
+    "### Page 17",
+    "2.3 Wire size and circuit breaker",
+    "| Model | XTRA1206N | XTRA2206N |",
+    "| Rated charge current | 10A | 20A |",
+  ].join("\n");
+  const sections = withOpenings(markdown, [
+    { title: "2.2 Requirements for the PV array", from: 15, to: 16 },
+    { title: "2.3 Wire size and circuit breaker", from: 17, to: 18 },
+    { title: "5 Nothing of that name", from: 19, to: 20 },
+  ]);
+  assert.match(sections[0]?.opening ?? "", /^The below table is for reference only\./);
+  assert.match(sections[1]?.opening ?? "", /Rated charge current \| 10A \| 20A/);
+  assert.ok((sections[0]?.opening?.length ?? 0) <= OPENING);
+  // A heading the markdown does not carry leaves the section as it was, rather than guessing.
+  assert.equal(sections[2]?.opening, undefined);
 });
 
 test("a document's sections run from their heading to the next one no deeper", async () => {

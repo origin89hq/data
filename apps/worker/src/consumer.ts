@@ -2,7 +2,7 @@ import { CLASSIFIER_ID } from "./classify.ts";
 import { readDocument } from "./extract.ts";
 import { USER_AGENT } from "./feeds.ts";
 import { classifyPart } from "./guesses.ts";
-import { sectionsOf } from "./layout.ts";
+import { sectionsOf, withOpenings } from "./layout.ts";
 import { pdfium } from "./pdfium.ts";
 import { CONVERTER, textLayer } from "./reading.ts";
 import { markdownOfDocument, outlineOf, pageCount } from "./render.ts";
@@ -44,7 +44,7 @@ export async function handle(message: Work, env: Env, attempt = 1): Promise<void
             text = read;
             await env.ARCHIVE.put(
               partKey.outline(message.sha256, CONVERTER),
-              `${JSON.stringify(sectionsOf(outlineOf(library, bytes), pageCount(library, bytes)))}\n`,
+              `${JSON.stringify(withOpenings(text, sectionsOf(outlineOf(library, bytes), pageCount(library, bytes))))}\n`,
               { httpMetadata: { contentType: "application/json" } },
             );
           }
