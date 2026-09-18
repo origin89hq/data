@@ -8,7 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import { Icon } from "../icons.tsx";
 import { read } from "./api.ts";
-import { Empty, Loading, Notice } from "./ui.tsx";
+import { Button, Empty, Loading, Notice, TextButton, TextLink } from "./ui.tsx";
 import { useResource } from "./useResource.ts";
 import { bytes, count, when } from "./workspace.ts";
 
@@ -38,8 +38,7 @@ export function Releases({ selected, refresh }: { selected?: string; refresh: nu
             <p className="ops-eyebrow">PUBLISHED DATA / VERSION HISTORY</p>
             <h2>Every publication has a fingerprint.</h2>
           </div>
-          <button
-            className="ops-quiet"
+          <TextButton
             type="button"
             disabled={history.loading || history.expired}
             onClick={() =>
@@ -49,7 +48,7 @@ export function Releases({ selected, refresh }: { selected?: string; refresh: nu
             }
           >
             <Icon name="refresh" /> Refresh releases
-          </button>
+          </TextButton>
         </div>
         <p className="ops-note">
           Every publication is recorded, including rollbacks. Identical content shares a content
@@ -97,8 +96,7 @@ export function Releases({ selected, refresh }: { selected?: string; refresh: nu
                     Publication job <Icon name="arrowUpRight" />
                   </a>
                 </div>
-                <button
-                  className="ops-button"
+                <Button
                   type="button"
                   onClick={() => {
                     setTo(release.id);
@@ -114,14 +112,13 @@ export function Releases({ selected, refresh }: { selected?: string; refresh: nu
                   }}
                 >
                   Compare this version
-                </button>
+                </Button>
               </article>
             ))}
           </div>
         )}
         {history.value?.cursor && (
-          <button
-            className="ops-button"
+          <Button
             type="button"
             disabled={history.loading || history.expired}
             onClick={() =>
@@ -146,7 +143,7 @@ export function Releases({ selected, refresh }: { selected?: string; refresh: nu
             }
           >
             Load older versions
-          </button>
+          </Button>
         )}
       </section>
       {(releases.length >= 2 || selectedMissing) && (
@@ -219,13 +216,9 @@ export function Releases({ selected, refresh }: { selected?: string; refresh: nu
                 placeholder="Filter record IDs…"
               />
             </label>
-            <button
-              className="ops-button primary"
-              type="submit"
-              disabled={!source || !destination || history.expired}
-            >
+            <Button primary type="submit" disabled={!source || !destination || history.expired}>
               Compare versions <Icon name="arrowRight" />
-            </button>
+            </Button>
           </form>
           <p className="ops-note">
             Choose versions and apply the comparison. Missing fields stay distinct from null;
@@ -286,8 +279,7 @@ function Compare({ query }: { query: string }) {
               <a href="/auth/login?next=%2Fops">Sign in again</a>
             </>
           )}
-          <button
-            className="ops-quiet"
+          <TextButton
             type="button"
             disabled={result.loading || result.expired}
             onClick={() =>
@@ -299,7 +291,7 @@ function Compare({ query }: { query: string }) {
             }
           >
             Try again
-          </button>
+          </TextButton>
         </Notice>
       )}
       {result.loading ? (
@@ -312,14 +304,13 @@ function Compare({ query }: { query: string }) {
                 <code>{value.from.id.slice(0, 12)}</code> → <code>{value.to.id.slice(0, 12)}</code>{" "}
                 · {value.kind}
               </p>
-              <a
-                className="ops-quiet"
+              <TextLink
                 href={sourceComparison(value.from.sha, value.to.sha)}
                 target="_blank"
                 rel="noopener"
               >
                 Source comparison <Icon name="arrowUpRight" />
-              </a>
+              </TextLink>
             </div>
             <div className="ops-diff-stats">
               {(["added", "removed", "changed"] as const).map((kind) => (
@@ -375,22 +366,20 @@ function Compare({ query }: { query: string }) {
             <div className="ops-history-footer">
               <span className="ops-note">Page {Math.floor(value.offset / 10) + 1}</span>
               <div>
-                <button
-                  className="ops-button"
+                <Button
                   type="button"
                   disabled={value.offset === 0 || result.expired || !!result.error}
                   onClick={() => setOffset(Math.max(0, value.offset - 10))}
                 >
                   Previous
-                </button>
-                <button
-                  className="ops-button"
+                </Button>
+                <Button
                   type="button"
                   disabled={value.next === undefined || result.expired || !!result.error}
                   onClick={() => setOffset(value.next ?? offset)}
                 >
                   Next
-                </button>
+                </Button>
               </div>
             </div>
             <details className="ops-file-diff">

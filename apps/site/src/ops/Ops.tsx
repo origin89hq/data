@@ -17,7 +17,17 @@ import {
 import { Releases } from "./Releases.tsx";
 import { RunDetail } from "./RunDetail.tsx";
 import type { OpsSearch } from "./router.ts";
-import { Empty, Loading, Notice, Status } from "./ui.tsx";
+import {
+  Button,
+  ButtonLink,
+  Empty,
+  IconButton,
+  IconLink,
+  Loading,
+  Notice,
+  Status,
+  TextButton,
+} from "./ui.tsx";
 import { useResource } from "./useResource.ts";
 import {
   bytes,
@@ -173,16 +183,16 @@ export function Ops() {
             <h1>Sign in to your data workspace.</h1>
             <p>{login.error}</p>
             {!login.expired && (
-              <button className="ops-button" type="button" onClick={() => void login.load(whoami)}>
+              <Button className="mr-3" type="button" onClick={() => void login.load(whoami)}>
                 Try again
-              </button>
+              </Button>
             )}
-            <a
-              className="ops-button primary"
+            <ButtonLink
+              primary
               href={`/auth/login?next=${encodeURIComponent(window.location.pathname + window.location.search)}`}
             >
               Sign in with GitHub <Icon name="arrowRight" />
-            </a>
+            </ButtonLink>
           </>
         ) : (
           <Loading label="Checking your session…" />
@@ -280,9 +290,7 @@ export function Ops() {
               {login.value}
             </span>
             <form method="post" action="/auth/logout" className="m-0">
-              <button type="submit" className="ops-quiet">
-                Sign out
-              </button>
+              <TextButton type="submit">Sign out</TextButton>
             </form>
           </div>
         </header>
@@ -298,19 +306,14 @@ export function Ops() {
               </h1>
               <p className="mt-3 text-sm text-muted">{TITLES[view][1]}</p>
             </div>
-            <button
-              type="button"
-              className="ops-button primary"
-              disabled={loading || expired}
-              onClick={refresh}
-            >
+            <Button type="button" primary disabled={loading || expired} onClick={refresh}>
               <Icon name="refresh" />
               {runs.loading
                 ? "Refreshing…"
                 : runs.value || view === "activity" || view === "releases"
                   ? "Refresh workspace"
                   : "Load current runs"}
-            </button>
+            </Button>
           </div>
           <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-y border-line py-3 font-data text-xs text-faint max-[640px]:flex-col max-[640px]:items-start max-[640px]:gap-2">
             <span className="flex items-center gap-2.5">
@@ -323,18 +326,18 @@ export function Ops() {
             </span>
             <span className="flex items-center gap-5">
               Refresh on demand{" "}
-              <button className="ops-quiet" type="button" onClick={() => void share()}>
+              <TextButton type="button" onClick={() => void share()}>
                 <Icon name="copy" />
                 Copy view link
-              </button>
+              </TextButton>
             </span>
           </div>
           {toast && (
             <Notice>
               {toast}
-              <button className="ops-quiet" type="button" onClick={() => setToast("")}>
+              <TextButton type="button" onClick={() => setToast("")}>
                 Dismiss
-              </button>
+              </TextButton>
             </Notice>
           )}
           {expired && (
@@ -412,13 +415,9 @@ export function Ops() {
                 <div className="ops-summary-card field">
                   <div className="ops-section-heading">
                     <h2>Latest supervisor pass</h2>
-                    <button
-                      className="ops-quiet"
-                      type="button"
-                      onClick={() => navigate("supervisor")}
-                    >
+                    <TextButton type="button" onClick={() => navigate("supervisor")}>
                       View activity <Icon name="arrowRight" />
-                    </button>
+                    </TextButton>
                   </div>
                   {report.error ? (
                     <Notice alarm>{report.error}</Notice>
@@ -476,15 +475,14 @@ export function Ops() {
                         : "Seller collection"}
                   </h2>
                 </div>
-                <button
+                <Button
                   type="button"
-                  className="ops-button"
                   disabled={!runs.value || !shown.length}
                   onClick={() => download("origin89-runs.csv", csv(shown), "text/csv")}
                 >
                   <Icon name="download" />
                   Export view
-                </button>
+                </Button>
               </div>
               <div className="ops-toolbar">
                 <label className="ops-search">
@@ -561,27 +559,25 @@ export function Ops() {
                     runs
                   </span>
                   <div>
-                    <button
+                    <IconButton
                       type="button"
-                      className="ops-icon-button"
                       aria-label="Previous runs page"
                       disabled={currentPage === 0}
                       onClick={() => setPage(currentPage - 1)}
                     >
                       <Icon name="arrowLeft" />
-                    </button>
+                    </IconButton>
                     <span>
                       {currentPage + 1} / {Math.max(1, Math.ceil(shown.length / 12))}
                     </span>
-                    <button
+                    <IconButton
                       type="button"
-                      className="ops-icon-button"
                       aria-label="Next runs page"
                       disabled={(currentPage + 1) * 12 >= shown.length}
                       onClick={() => setPage(currentPage + 1)}
                     >
                       <Icon name="arrowRight" />
-                    </button>
+                    </IconButton>
                   </div>
                 </div>
               )}
@@ -717,14 +713,13 @@ function RunTable({ rows, onSelect }: { rows: RunRow[]; onSelect: (row: RunRow) 
                 )}
               </td>
               <td>
-                <button
-                  className="ops-icon-button"
+                <IconButton
                   type="button"
                   aria-label={`Inspect ${row.entity}`}
                   onClick={() => onSelect(row)}
                 >
                   <Icon name="arrowRight" />
-                </button>
+                </IconButton>
               </td>
             </tr>
           ))}
@@ -797,8 +792,7 @@ function Published({
           <p className="ops-eyebrow">PUBLIC RELEASE</p>
           <h2>Ready for your next tool.</h2>
         </div>
-        <button
-          className="ops-button"
+        <Button
           type="button"
           disabled={!files}
           onClick={() =>
@@ -806,7 +800,7 @@ function Published({
           }
         >
           Export file index <Icon name="download" />
-        </button>
+        </Button>
       </div>
       <div className="ops-toolbar">
         <label className="ops-search">
@@ -871,14 +865,13 @@ function Published({
                     </details>
                   </td>
                   <td>
-                    <a
-                      className="ops-icon-button"
+                    <IconLink
                       href={`/v1/${file.name}`}
                       download
                       aria-label={`Download ${file.name}`}
                     >
                       <Icon name="download" />
-                    </a>
+                    </IconLink>
                   </td>
                 </tr>
               ))}
@@ -939,13 +932,13 @@ function Supervisor({
                 <div className="ops-activity" key={`${item.what}:${item.entity}:${item.detail}`}>
                   <span>↗</span>
                   <div>
-                    <button
+                    <TextButton
+                      className="mb-1 font-medium text-fg"
                       type="button"
-                      className="ops-quiet"
                       onClick={() => onEntity(item.entity)}
                     >
                       {displayName(item.entity)}
-                    </button>
+                    </TextButton>
                     <p>{item.what}</p>
                     <small>{item.detail}</small>
                   </div>
@@ -964,13 +957,13 @@ function Supervisor({
                 <div className="ops-activity" key={`${item.entity}:${item.waitingOn}`}>
                   <span>—</span>
                   <div>
-                    <button
+                    <TextButton
+                      className="mb-1 font-medium text-fg"
                       type="button"
-                      className="ops-quiet"
                       onClick={() => onEntity(item.entity)}
                     >
                       {displayName(item.entity)}
-                    </button>
+                    </TextButton>
                     <p>{item.waitingOn}</p>
                   </div>
                 </div>

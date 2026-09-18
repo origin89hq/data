@@ -6,7 +6,7 @@ import {
 import { useEffect, useState } from "react";
 import { Icon } from "../icons.tsx";
 import { read } from "./api.ts";
-import { Empty, Loading, Notice } from "./ui.tsx";
+import { Button, Empty, Loading, Notice, TextButton } from "./ui.tsx";
 import { useResource } from "./useResource.ts";
 import { displayName, when } from "./workspace.ts";
 
@@ -42,9 +42,9 @@ export function Activity({
           <h2>{compact ? "Recent activity" : "Activity feed"}</h2>
         </div>
         {compact && (
-          <button className="ops-quiet" type="button" onClick={onAll}>
+          <TextButton type="button" onClick={onAll}>
             All activity <Icon name="arrowRight" />
-          </button>
+          </TextButton>
         )}
       </div>
       {!compact && (
@@ -90,9 +90,7 @@ export function Activity({
               onChange={(e) => setQuery(e.target.value)}
             />
           </label>
-          <button className="ops-button" type="submit">
-            Apply filters
-          </button>
+          <Button type="submit">Apply filters</Button>
         </form>
       )}
       <ActivityList
@@ -183,13 +181,9 @@ function ActivityList({
                       </a>
                     )}
                     {event.release && (
-                      <button
-                        className="ops-quiet"
-                        type="button"
-                        onClick={() => onRelease(event.release as string)}
-                      >
+                      <TextButton type="button" onClick={() => onRelease(event.release as string)}>
                         Compare release <Icon name="arrowRight" />
-                      </button>
+                      </TextButton>
                     )}
                   </div>
                   {!compact && event.run && <code className="ops-note">{event.run.instance}</code>}
@@ -205,8 +199,7 @@ function ActivityList({
         </span>
         <div>
           {!compact && value?.cursor && (
-            <button
-              className="ops-button"
+            <Button
               type="button"
               disabled={resource.loading || resource.expired}
               onClick={() =>
@@ -229,16 +222,15 @@ function ActivityList({
               }
             >
               {resource.loading ? "Loading…" : "Load older events"}
-            </button>
+            </Button>
           )}
-          <button
-            className="ops-quiet"
+          <TextButton
             type="button"
             disabled={resource.loading || resource.expired}
             onClick={() => void load(first)}
           >
             <Icon name="refresh" /> Refresh activity
-          </button>
+          </TextButton>
         </div>
       </div>
     </>
