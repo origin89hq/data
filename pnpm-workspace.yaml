@@ -9,7 +9,7 @@ allowBuilds:
   workerd: true
 
 minimumReleaseAgeExclude:
-  - '@origin89/brand@0.2.0 || 0.3.1 || 0.4.0'
+  - '@origin89/brand@0.2.0 || 0.3.1 || 0.4.0 || 0.5.0'
   - '@types/react-dom@19.3.0'
   - '@biomejs/biome@2.5.13'
   - '@biomejs/cli-darwin-arm64@2.5.13'
