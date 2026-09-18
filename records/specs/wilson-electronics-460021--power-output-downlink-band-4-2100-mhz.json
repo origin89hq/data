@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-460021--power-output-downlink-band-4-2100-mhz",
+  "model": "wilson-electronics-460021",
+  "name": "Power Output Downlink Band 4 2100 MHz",
+  "value": "2.0, 2.8, 1.92, 2.87, 2.79 dBm",
+  "source": "doc-977ff927751261cf0a1f5541f7b5cb4d",
+  "page": 21,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

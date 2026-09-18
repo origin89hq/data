@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd9160alv--rating",
+  "model": "progressive-dynamics-pd9160alv",
+  "name": "Rating",
+  "value": "60",
+  "unit": "A",
+  "source": "doc-aec1d7db6c90b32d88c049ca0c90a121",
+  "page": 19,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

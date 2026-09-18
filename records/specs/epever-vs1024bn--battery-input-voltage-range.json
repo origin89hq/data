@@ -1,0 +1,10 @@
+{
+  "id": "epever-vs1024bn--battery-input-voltage-range",
+  "model": "epever-vs1024bn",
+  "name": "Battery input voltage range",
+  "value": "8V~32V",
+  "source": "doc-c3b3144afa7f664d41ac67c03e2feecf",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

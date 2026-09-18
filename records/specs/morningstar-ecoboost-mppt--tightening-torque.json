@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ecoboost-mppt--tightening-torque",
+  "model": "morningstar-ecoboost-mppt",
+  "name": "Tightening torque",
+  "value": "3.95 N-m",
+  "source": "doc-15aaa2603340519a063c6fdaff24a15e",
+  "page": 74,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

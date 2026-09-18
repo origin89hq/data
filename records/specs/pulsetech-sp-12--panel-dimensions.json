@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-12--panel-dimensions",
+  "model": "pulsetech-sp-12",
+  "name": "Panel dimensions",
+  "value": "12.41”L x 9.85”W x 1.5”H",
+  "source": "doc-1b2657f72e87d693842dfc67b680f4d1",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

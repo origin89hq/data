@@ -5,6 +5,7 @@
   "value": "1.1",
   "unit": "lb",
   "source": "doc-85b0b752834731dd5322bae5097045d5",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
   "confidence": "vendor-doc"
 }

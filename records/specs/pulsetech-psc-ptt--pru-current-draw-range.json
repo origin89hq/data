@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-psc-ptt--pru-current-draw-range",
+  "model": "pulsetech-psc-ptt",
+  "name": "PRU current draw range",
+  "value": "3 mA to 5 mA",
+  "source": "doc-397ca4515cc554a6f5db794e7b9c979a",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

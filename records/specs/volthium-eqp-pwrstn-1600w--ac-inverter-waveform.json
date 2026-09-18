@@ -1,0 +1,9 @@
+{
+  "id": "volthium-eqp-pwrstn-1600w--ac-inverter-waveform",
+  "model": "volthium-eqp-pwrstn-1600w",
+  "name": "AC Inverter Waveform",
+  "value": "Pure Sine Wave",
+  "source": "doc-539db762e00cb2755331d36d5d4e2019",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

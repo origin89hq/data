@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-100m-200v--transient-surge-protection",
+  "model": "morningstar-gs-mppt-100m-200v",
+  "name": "Transient Surge Protection",
+  "value": "4500 Watts/port",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 150,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

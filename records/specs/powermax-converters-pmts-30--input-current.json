@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pmts-30--input-current",
+  "model": "powermax-converters-pmts-30",
+  "name": "Input Current",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-b504190d7e7ca605d94f62b72008a125",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

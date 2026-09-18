@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-bt-2--output-cable",
+  "model": "pulsetech-bt-2",
+  "name": "Output Cable",
+  "value": "1.8 meters - 14 AWG",
+  "source": "doc-5452174c9b3e2d65a71630e4cbe5c979",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "delta-lightning-arrestors-tlc250--type",
+  "model": "delta-lightning-arrestors-tlc250",
+  "name": "Type",
+  "value": "MOV, SOV and CAP protection",
+  "source": "doc-ef5c7c07785b47502585cbfe171ded48",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

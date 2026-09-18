@@ -1,0 +1,10 @@
+{
+  "id": "epever-xtra3415n-g3-g3-ble--temperature-compensation",
+  "model": "epever-xtra3415n-g3-g3-ble",
+  "name": "Temperature Compensation",
+  "value": "-3mV/℃/2V (Default)",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 51,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

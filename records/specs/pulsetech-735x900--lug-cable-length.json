@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-735x900--lug-cable-length",
+  "model": "pulsetech-735x900",
+  "name": "Lug Cable Length",
+  "value": "3",
+  "source": "doc-52d227f711db7c1eaf48f84037bc7d3a",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

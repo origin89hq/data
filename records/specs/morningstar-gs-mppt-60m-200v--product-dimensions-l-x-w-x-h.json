@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-60m-200v--product-dimensions-l-x-w-x-h",
+  "model": "morningstar-gs-mppt-60m-200v",
+  "name": "Product dimensions (L x W x H)",
+  "value": "14.19 x 8.74 x 6.70 英⼨/360.4 x 222 x 170.2 毫⽶",
+  "source": "doc-37633f0a761869b4d7d2f61da8e5f63a",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

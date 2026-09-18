@@ -1,0 +1,10 @@
+{
+  "id": "watersprint-azure-bolt-ii--model-number",
+  "model": "watersprint-azure-bolt-ii",
+  "name": "Model Number",
+  "value": "600-2691-06",
+  "source": "doc-cf473b180c6fec9945c1e70675f892df",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

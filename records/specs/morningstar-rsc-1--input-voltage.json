@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-rsc-1--input-voltage",
+  "model": "morningstar-rsc-1",
+  "name": "Input voltage",
+  "value": "8-16V",
+  "source": "doc-4adec92411b29cf56b15c772390ec17a",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

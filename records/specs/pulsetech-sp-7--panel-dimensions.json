@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-sp-7--panel-dimensions",
+  "model": "pulsetech-sp-7",
+  "name": "Panel dimensions",
+  "value": "8.75\" x 8.75\" x 0.125",
+  "source": "doc-1b2657f72e87d693842dfc67b680f4d1",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-mppt-60--eia-485-port",
+  "model": "morningstar-ts-mppt-60",
+  "name": "EIA-485 port",
+  "value": "integrated",
+  "source": "doc-7c8a65a979d8f60abe428695924cd51c",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

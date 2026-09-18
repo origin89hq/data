@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilbhi-cp20-he-sd-hv--led-forward-voltage-maximum-normal-mode",
+  "model": "iota-engineering-ilbhi-cp20-he-sd-hv",
+  "name": "LED forward voltage maximum normal mode",
+  "value": "235",
+  "unit": "V",
+  "source": "doc-284df3b8fd736b905fee2104c56c788b",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

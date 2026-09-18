@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd9130--input-power",
+  "model": "progressive-dynamics-pd9130",
+  "name": "Input power",
+  "value": "500",
+  "unit": "W",
+  "source": "doc-98d3fd10e722bb94fe370a38ae998de2",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

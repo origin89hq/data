@@ -1,0 +1,11 @@
+{
+  "id": "epever-vs4548bn--rated-charge-current",
+  "model": "epever-vs4548bn",
+  "name": "Rated charge current",
+  "value": "45",
+  "unit": "A",
+  "source": "doc-c3b3144afa7f664d41ac67c03e2feecf",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -64,6 +64,13 @@
       "reason": "A sentence, not a label: \"rated for use on a circuit capable of momentarily delivering not more than\".",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-2d60dd84c492d816f310eabe743db17b",
+      "product": "powermax-converters-pmbc",
+      "reason": "The document is the PMMC-07 charger manual, whose technical specifications print \"Efficiency: 85% Approx.\", and it names no PMBC anywhere.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
     }
   ]
 }

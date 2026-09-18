@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-specifications-12v-100ah--charging-voltage",
+  "model": "powermax-converters-specifications-12v-100ah",
+  "name": "Charging Voltage",
+  "value": "14.4Vdc10V",
+  "source": "doc-aceddf6feeed98dd56cffa4cfb015d2c",
+  "page": 18,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

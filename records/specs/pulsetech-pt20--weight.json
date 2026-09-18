@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pt20--weight",
+  "model": "pulsetech-pt20",
+  "name": "Weight",
+  "value": "1.43 lb / 0.65 kg (includes temperature sensor)",
+  "source": "doc-23626c7771110fd9944d219a50d60d5f",
+  "page": 12,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-battery-guard-160a-00-10041-300--switch-life",
+  "model": "precision-circuits-battery-guard-160a-00-10041-300",
+  "name": "Switch life",
+  "value": "50,000",
+  "unit": "cycles",
+  "source": "doc-d74cf300ec36073149f4d3647a95c8fd",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

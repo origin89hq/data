@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-max--dimensions",
+  "model": "surecall-fusion2go-max",
+  "name": "Dimensions",
+  "value": "5.625 x 4 x 1.125 inches",
+  "source": "doc-7acc5516732c29845f9d5dfea50c393f",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

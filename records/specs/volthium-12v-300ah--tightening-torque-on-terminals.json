@@ -1,0 +1,9 @@
+{
+  "id": "volthium-12v-300ah--tightening-torque-on-terminals",
+  "model": "volthium-12v-300ah",
+  "name": "Tightening torque on terminals",
+  "value": "8~10nm / 6-8 ft/lb",
+  "source": "doc-86b33b67dd54decfd8e363ca89befc64",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

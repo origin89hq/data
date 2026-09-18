@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd--weight-configuration-a",
+  "model": "iota-engineering-ilblp-cp15-he-sd",
+  "name": "Weight (Configuration A)",
+  "value": "3.25",
+  "source": "doc-668127f8728f21471af7b6df6f82db0f",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

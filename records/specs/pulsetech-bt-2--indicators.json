@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-bt-2--indicators",
+  "model": "pulsetech-bt-2",
+  "name": "Indicators",
+  "value": "Five LEDs show the individual battery condition for each channel",
+  "source": "doc-a01a6cfa54523c58631d424a3f095fdb",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

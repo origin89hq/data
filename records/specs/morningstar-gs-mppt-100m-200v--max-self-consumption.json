@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-gs-mppt-100m-200v--max-self-consumption",
+  "model": "morningstar-gs-mppt-100m-200v",
+  "name": "Max. self-consumption",
+  "value": "< 3 瓦",
+  "source": "doc-37633f0a761869b4d7d2f61da8e5f63a",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

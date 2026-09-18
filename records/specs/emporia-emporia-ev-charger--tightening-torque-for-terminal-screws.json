@@ -1,0 +1,10 @@
+{
+  "id": "emporia-emporia-ev-charger--tightening-torque-for-terminal-screws",
+  "model": "emporia-emporia-ev-charger",
+  "name": "Tightening torque for terminal screws",
+  "value": "1.2 Nm",
+  "source": "doc-7d01db2b90fcec799c2197efac5b6a09",
+  "page": 9,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

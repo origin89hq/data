@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-12v-12-watt--nsn",
+  "model": "pulsetech-12v-12-watt",
+  "name": "NSN",
+  "value": "NSN Pending",
+  "source": "doc-8c35ef5b3df7b5fcf9d30ebad67f662d",
+  "page": 13,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

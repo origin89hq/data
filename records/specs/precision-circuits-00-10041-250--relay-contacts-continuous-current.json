@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-00-10041-250--relay-contacts-continuous-current",
+  "model": "precision-circuits-00-10041-250",
+  "name": "Relay contacts continuous current",
+  "value": "225",
+  "unit": "A",
+  "source": "doc-cd76c65396af09504c09d76e85c5b33a",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

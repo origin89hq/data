@@ -1,0 +1,10 @@
+{
+  "id": "delta-lightning-arrestors-la-302r--certified-to",
+  "model": "delta-lightning-arrestors-la-302r",
+  "name": "Certified to",
+  "value": "CAN/CSA Std. C22.2 No. 8c",
+  "source": "doc-89c9a82e8cb094866c3e6c713e362f6d",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

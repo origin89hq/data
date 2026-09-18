@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-390pt--tested-battery-voltage",
+  "model": "pulsetech-390pt",
+  "name": "Tested battery voltage",
+  "value": "6- and 12-volt",
+  "source": "doc-7357b52b665ccf4d40f6634c72ed6cd9",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

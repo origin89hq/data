@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ss-20l-12v--max-load-current",
+  "model": "morningstar-ss-20l-12v",
+  "name": "Max. load current",
+  "value": "20.0",
+  "unit": "A",
+  "source": "doc-2489955a6d0938e8a6317802b54327a3",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

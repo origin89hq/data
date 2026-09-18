@@ -1,0 +1,9 @@
+{
+  "id": "iota-engineering-ilbhi-cp20-he-sd-hv--tc-point-coordinates-x",
+  "model": "iota-engineering-ilbhi-cp20-he-sd-hv",
+  "name": "TC Point Coordinates x",
+  "value": "120.65 mm / 4.75 in. Cenario: x measurement as printed gives mm and inches",
+  "source": "doc-b9e2b9a0149990dd0f5dd829b97de6de",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

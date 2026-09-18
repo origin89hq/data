@@ -1,0 +1,10 @@
+{
+  "id": "surecall-sc-flare3us--max-uplink-power",
+  "model": "surecall-sc-flare3us",
+  "name": "Max Uplink Power",
+  "value": "26.0",
+  "source": "doc-0265182c13db2b24e5dc5caabf89a683",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

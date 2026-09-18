@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-sk-6--enclosure-type",
+  "model": "morningstar-sk-6",
+  "name": "Enclosure Type",
+  "value": "IP65",
+  "source": "doc-bcc13582c9bc54c5871cbe1e9655cef5",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

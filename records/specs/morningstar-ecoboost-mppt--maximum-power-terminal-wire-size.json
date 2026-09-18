@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ecoboost-mppt--maximum-power-terminal-wire-size",
+  "model": "morningstar-ecoboost-mppt",
+  "name": "Maximum power terminal wire size",
+  "value": "#2 AWG / 33.6 mm2",
+  "source": "doc-15aaa2603340519a063c6fdaff24a15e",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

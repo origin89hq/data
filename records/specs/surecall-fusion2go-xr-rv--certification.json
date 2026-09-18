@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-xr-rv--certification",
+  "model": "surecall-fusion2go-xr-rv",
+  "name": "Certification",
+  "value": "FCC: RSN-FUSION2GO5G",
+  "source": "doc-fd120796536b0cde0d5c9324120411db",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

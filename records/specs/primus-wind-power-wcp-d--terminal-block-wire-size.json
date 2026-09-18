@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-wcp-d--terminal-block-wire-size",
+  "model": "primus-wind-power-wcp-d",
+  "name": "Terminal block wire size",
+  "value": "8 AWG or smaller",
+  "source": "doc-0b543150591b2ba0a1fe29bcb4907c11",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "volthium-12-v-100-ah-gr24--self-discharge",
+  "model": "volthium-12-v-100-ah-gr24",
+  "name": "Self-discharge",
+  "value": "< 3% par mois",
+  "source": "doc-e1d7ecedb73c340cb422c11d3c056495",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-gs-mppt-60m-200v--max-recommended-solar-pv-input",
+  "model": "morningstar-gs-mppt-60m-200v",
+  "name": "Max. recommended solar PV input",
+  "value": "~150% of nominal maximum output power",
+  "source": "doc-37633f0a761869b4d7d2f61da8e5f63a",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

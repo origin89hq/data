@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-b-lfp48-300e--dimension-mm-w-h-d",
+  "model": "bslbatt-b-lfp48-300e",
+  "name": "Dimension(mm)(W*H*D)",
+  "value": "780*483(442)*222",
+  "source": "doc-a5280ed309433548bf133d18361db832",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-50-24v--input-current",
+  "model": "pulsetech-sp-50-24v",
+  "name": "Input current",
+  "value": "Solar Powered",
+  "source": "doc-dc486b0c7095bc807c53c71add39a126",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

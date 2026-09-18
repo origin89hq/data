@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-746x880--output-voltage-bulk-charge-12v-charging",
+  "model": "pulsetech-746x880",
+  "name": "Output Voltage, Bulk Charge, 12V Charging",
+  "value": "14.8",
+  "unit": "V",
+  "source": "doc-a5cc0b1e5859140c48e5fa0f4089ce7f",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

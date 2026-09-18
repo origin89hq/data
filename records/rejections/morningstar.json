@@ -104,6 +104,44 @@
       "reason": "The label \"SS-6-12V\" followed by the figure's first callout number: the product is SS-6-12V, held as morningstar-ss-6-12v.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-9d24c6fe1606ecc4c1e36f6cb5ae7bb7",
+      "model": "morningstar-si-300-48-220-60-hw",
+      "name": "Maximum Continuous AC Output Current at 127 V",
+      "reason": "Table 12 prints 2.4 A as the SureSine 300's maximum continuous AC output current on the 127 V row, while SI-300-48-220-60-HW is the 220 V/60 Hz model, whose row in that table reads 1.4 A.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    },
+    {
+      "source": "doc-9d24c6fe1606ecc4c1e36f6cb5ae7bb7",
+      "model": "morningstar-si-150-48-220-60-hw",
+      "name": "Maximum Continuous AC Output Current at 120 V",
+      "reason": "Table 12 prints 1.25 A as the SureSine 150's maximum continuous AC output current on the 120 V row, while SI-150-48-220-60-HW is the 220 V/60 Hz model, whose row in that table reads 0.7 A.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    },
+    {
+      "source": "doc-9d24c6fe1606ecc4c1e36f6cb5ae7bb7",
+      "model": "morningstar-si-300-48-230-50-hw",
+      "name": "Maximum Continuous AC Output Current at 120 V",
+      "reason": "SI-300-48-230-50-HW is the 230 V / 50 Hz hardwired SureSine 300, and the specification table gives 2.5 A as the SureSine 300 figure at 120 V while its 230 V maximum continuous AC output current is 1.3 A.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    },
+    {
+      "source": "doc-15aaa2603340519a063c6fdaff24a15e",
+      "product": "morningstar-ecoboost-mppt",
+      "reason": "The manual's cover prints EcoBoost MPPT as the controller line and lists its models as EB-MPPT-20, EB-MPPT-20M, EB-MPPT-30, EB-MPPT-30M, EB-MPPT-40 and EB-MPPT-40M.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    },
+    {
+      "source": "doc-9d24c6fe1606ecc4c1e36f6cb5ae7bb7",
+      "product": "SI-150-48-120-60-UNI",
+      "reason": "Table 11 lists the 48 Vdc 150 W SureSine models as SI-150-48-120-60-B, -120-60-HW, -127-60-HW, -127-60-UNI, -220-60-HW, -220-60-UNI, -230-50-HW and -230-50-UNI, with no SI-150-48-120-60-UNI among them.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
     }
   ]
 }

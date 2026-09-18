@@ -1,0 +1,9 @@
+{
+  "id": "rstc-enterprises-0599--roof-pitch-range",
+  "model": "rstc-enterprises-0599",
+  "name": "Roof pitch range",
+  "value": "2/12 au 12/12",
+  "source": "doc-bc3481a09d2fe8327d70fce433fb62e1",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

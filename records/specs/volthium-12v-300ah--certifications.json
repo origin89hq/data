@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12v-300ah--certifications",
+  "model": "volthium-12v-300ah",
+  "name": "Certifications",
+  "value": "UL1642 / UL1973 / UL9540A / IEC62619 / IEC62660",
+  "source": "doc-86b33b67dd54decfd8e363ca89befc64",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

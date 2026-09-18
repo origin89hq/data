@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-7--solar-panel-dimensions-l-x-w-x-h",
+  "model": "pulsetech-sp-7",
+  "name": "Solar Panel Dimensions (L x W x H)",
+  "value": "10.25\" x 8.85\" x 0.25",
+  "source": "doc-b875846362fe741363888302e6bdde80",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion4home-max-inside-host--certifications",
+  "model": "surecall-fusion4home-max-inside-host",
+  "name": "Certifications",
+  "value": "FCC ID: RSNF4H-MAXS; IC: 7784A-F4HMAXS",
+  "source": "doc-9082b148ebea0ffc33b8fcaf405b369f",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

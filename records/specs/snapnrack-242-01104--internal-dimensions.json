@@ -1,0 +1,9 @@
+{
+  "id": "snapnrack-242-01104--internal-dimensions",
+  "model": "snapnrack-242-01104",
+  "name": "Internal Dimensions",
+  "value": "5.5\" x 4.5\" x 3.2\" (inner box area)",
+  "source": "doc-ec609beae8058bfbf370c984739eaa3e",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

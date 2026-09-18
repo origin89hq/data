@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-390pt-battery-analyzer--test-battery-voltages",
+  "model": "pulsetech-390pt-battery-analyzer",
+  "name": "Test battery voltages",
+  "value": "6V & 12V",
+  "source": "doc-465ca4bd12333e9c56f0c4f4f05f26df",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

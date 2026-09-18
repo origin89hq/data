@@ -1,0 +1,9 @@
+{
+  "id": "precision-circuits-battery-guard-225a--operating-ambient-temperature",
+  "model": "precision-circuits-battery-guard-225a",
+  "name": "Operating Ambient Temperature",
+  "value": "-40 C to +60 C",
+  "source": "doc-f007f665b61a9fef6e28cf905544ebd6",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

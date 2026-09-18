@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-12-12w--wattage",
+  "model": "pulsetech-sp-12-12w",
+  "name": "Wattage",
+  "value": "12",
+  "source": "doc-67090b2d347619ad738c6ffae473b2ef",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

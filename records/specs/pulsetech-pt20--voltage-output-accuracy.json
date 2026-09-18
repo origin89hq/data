@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pt20--voltage-output-accuracy",
+  "model": "pulsetech-pt20",
+  "name": "Voltage Output Accuracy",
+  "value": "+/- 0.1V",
+  "source": "doc-23626c7771110fd9944d219a50d60d5f",
+  "page": 9,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

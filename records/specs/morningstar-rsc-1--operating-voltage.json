@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-rsc-1--operating-voltage",
+  "model": "morningstar-rsc-1",
+  "name": "Operating voltage",
+  "value": "8-16Vdc",
+  "source": "doc-7c8a65a979d8f60abe428695924cd51c",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

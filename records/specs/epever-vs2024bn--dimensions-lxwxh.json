@@ -1,0 +1,11 @@
+{
+  "id": "epever-vs2024bn--dimensions-lxwxh",
+  "model": "epever-vs2024bn",
+  "name": "Dimensions(LxWxH)",
+  "value": "162×102×49.5",
+  "unit": "mm",
+  "source": "doc-c3b3144afa7f664d41ac67c03e2feecf",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

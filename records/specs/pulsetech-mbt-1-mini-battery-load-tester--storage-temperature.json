@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-mbt-1-mini-battery-load-tester--storage-temperature",
+  "model": "pulsetech-mbt-1-mini-battery-load-tester",
+  "name": "Storage Temperature",
+  "value": "0º to 150ºF (-18ºC to 66ºC)",
+  "source": "doc-0a95c46f44b1d57b844774cdf1e83bd2",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

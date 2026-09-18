@@ -1,0 +1,9 @@
+{
+  "id": "iota-engineering-ilb-cp07--rated-power-output",
+  "model": "iota-engineering-ilb-cp07",
+  "name": "Rated power output",
+  "value": "7-Watt",
+  "source": "doc-db85e9fad4362ace0f978663cf6c587f",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

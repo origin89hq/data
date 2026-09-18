@@ -1,0 +1,11 @@
+{
+  "id": "epever-it5420nc-g3--weight-ip32-controller-only",
+  "model": "epever-it5420nc-g3",
+  "name": "Weight IP32 (Controller Only)",
+  "value": "4.86",
+  "unit": "kg",
+  "source": "doc-e571c0928ae9e02fb7adf7a6d9c319ab",
+  "page": 62,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

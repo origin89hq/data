@@ -1,0 +1,10 @@
+{
+  "id": "east-penn-8ggc2--minutes-at-25-amps",
+  "model": "east-penn-8ggc2",
+  "name": "Minutes at 25 Amps",
+  "value": "375",
+  "source": "doc-6d4ec44118d5b194e963051ca650fbce",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

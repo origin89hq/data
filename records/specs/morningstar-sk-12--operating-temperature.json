@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-sk-12--operating-temperature",
+  "model": "morningstar-sk-12",
+  "name": "Operating Temperature",
+  "value": "-40 °C bis +70°C",
+  "source": "doc-bcc13582c9bc54c5871cbe1e9655cef5",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

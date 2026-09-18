@@ -1,0 +1,9 @@
+{
+  "id": "primus-wind-power-air-40--dimensions",
+  "model": "primus-wind-power-air-40",
+  "name": "Dimensions",
+  "value": "686 x 318 x 229 mm (27 x 12.5 x 9 in), 7.7 kg (17 lb)",
+  "source": "doc-e77976cddd9bc48dc24e165f74b2ec72",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

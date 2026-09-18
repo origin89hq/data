@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ss-10l-12v--short-circuit-protection-type",
+  "model": "morningstar-ss-10l-12v",
+  "name": "Short circuit protection type",
+  "value": "hardware",
+  "source": "doc-899310a60c10064b10684f0a8f5ee448",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

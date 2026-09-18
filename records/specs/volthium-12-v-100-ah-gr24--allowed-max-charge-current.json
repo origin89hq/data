@@ -1,0 +1,11 @@
+{
+  "id": "volthium-12-v-100-ah-gr24--allowed-max-charge-current",
+  "model": "volthium-12-v-100-ah-gr24",
+  "name": "Allowed MAX. charge current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-d480da931917808c709e6a5c5f175337",
+  "page": 6,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-100x805--length",
+  "model": "pulsetech-100x805",
+  "name": "Length",
+  "value": "5′",
+  "source": "doc-0193346bc27171a118223bfc42412436",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

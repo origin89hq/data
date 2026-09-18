@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-420--current-limit",
+  "model": "precision-circuits-420",
+  "name": "Current limit",
+  "value": "20A Current Limit",
+  "source": "doc-ae4f7366a7cf1fa9db6e7682b18a336e",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

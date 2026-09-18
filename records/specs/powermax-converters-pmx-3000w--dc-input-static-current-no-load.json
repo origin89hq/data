@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-3000w--dc-input-static-current-no-load",
+  "model": "powermax-converters-pmx-3000w",
+  "name": "DC Input Static Current (No Load)",
+  "value": "≤1.5Amp",
+  "source": "doc-39140d23c40e0c6d760fa8b9948caf17",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

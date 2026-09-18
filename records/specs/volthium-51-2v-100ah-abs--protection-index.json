@@ -1,0 +1,9 @@
+{
+  "id": "volthium-51-2v-100ah-abs--protection-index",
+  "model": "volthium-51-2v-100ah-abs",
+  "name": "Protection index",
+  "value": "IP55 (Contre les jets d'eau à basse pression et les poussières)",
+  "source": "doc-e6810bccb0a4c8b05a54840bfed4465f",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

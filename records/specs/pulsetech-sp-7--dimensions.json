@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-sp-7--dimensions",
+  "model": "pulsetech-sp-7",
+  "name": "Dimensions",
+  "value": "8.75\" x 8.75\" x 0.125",
+  "source": "doc-87d7cc93135717133b1d88e468c5fe5c",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

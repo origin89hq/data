@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilblp-cp10--minimum-operation",
+  "model": "iota-engineering-ilblp-cp10",
+  "name": "Minimum Operation",
+  "value": "90",
+  "unit": "min",
+  "source": "doc-74c8271a2228320fb8bcea930046b55f",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

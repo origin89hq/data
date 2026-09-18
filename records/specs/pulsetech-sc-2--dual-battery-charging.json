@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sc-2--dual-battery-charging",
+  "model": "pulsetech-sc-2",
+  "name": "Dual Battery Charging",
+  "value": "YES",
+  "source": "doc-06c4ef44dafa61b49912b97079166261",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

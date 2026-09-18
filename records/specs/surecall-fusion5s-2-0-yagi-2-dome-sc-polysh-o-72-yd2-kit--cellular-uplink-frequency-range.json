@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion5s-2-0-yagi-2-dome-sc-polysh-o-72-yd2-kit--cellular-uplink-frequency-range",
+  "model": "surecall-fusion5s-2-0-yagi-2-dome-sc-polysh-o-72-yd2-kit",
+  "name": "Cellular Uplink Frequency Range",
+  "value": "698–716 / 776–787 / 824–849 / 1850–1915 / 1710–1755 MHz",
+  "source": "doc-e00b7eba0dbeec9c016e9253c8d5fd1a",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

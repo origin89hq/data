@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion4home-max--inside-panel-antenna-beamwidth",
+  "model": "surecall-fusion4home-max",
+  "name": "Inside panel antenna beamwidth",
+  "value": "120°",
+  "source": "doc-80f57c9c810d55f0c211dbc30007c807",
+  "page": 6,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "iota-engineering-ilbdw-cp20-he-sd-hv--description",
+  "model": "iota-engineering-ilbdw-cp20-he-sd-hv",
+  "name": "Description",
+  "value": "IP66-rate/NSF-certified 20W High Voltage Output Emergency Driver 55-200VDC 10W Low",
+  "source": "doc-53dce9d9477401c10c0d7c80eadff599",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

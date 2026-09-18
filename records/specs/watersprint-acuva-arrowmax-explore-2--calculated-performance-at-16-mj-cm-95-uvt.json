@@ -1,0 +1,11 @@
+{
+  "id": "watersprint-acuva-arrowmax-explore-2--calculated-performance-at-16-mj-cm-95-uvt",
+  "model": "watersprint-acuva-arrowmax-explore-2",
+  "name": "Calculated performance at 16 mJ/cm² @ 95% UVT",
+  "value": "2",
+  "unit": "L/min",
+  "source": "doc-58e940db04b47884a527ac6d61304273",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

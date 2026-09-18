@@ -24,6 +24,13 @@
       "reason": "\"50/60Hz\" is part of the \"Input Voltage\" line; no frequency label is printed.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-e5416223dd9367e284cc5c8c574a6f3e",
+      "product": "iota-engineering-lithonia-lighting-lem08",
+      "reason": "The row is printed as \"Lithonia Lighting® LEM08\" in the Title 20 registration table, so LEM08 is a Lithonia Lighting product listed by IOTA rather than an IOTA model.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
     }
   ]
 }

@@ -1,0 +1,9 @@
+{
+  "id": "progressive-dynamics-pd4045--boost-mode-output-voltage",
+  "model": "progressive-dynamics-pd4045",
+  "name": "Boost mode output voltage",
+  "value": "14.4 +- .3 VDC",
+  "source": "doc-0367c96453cf11d518ce18d795f1ba72",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

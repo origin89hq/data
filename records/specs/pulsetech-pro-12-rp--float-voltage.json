@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-pro-12-rp--float-voltage",
+  "model": "pulsetech-pro-12-rp",
+  "name": "Float voltage",
+  "value": "12 VDC/Battery",
+  "source": "doc-ed0bab0123d936e46c72ccc5948afcab",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

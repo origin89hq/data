@@ -102,6 +102,54 @@
       "reason": "Printed \"Ratings: 51.2V, 460Ah, 23552Wh\"; no rated voltage label.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-37abc5bd32954167fd1903ffc9109ec4",
+      "model": "bslbatt-b-lfp48-100pw",
+      "name": "Charge Voltage Range",
+      "reason": "The wall-mounted B-LFP48 specification table prints 53 as the weight in kg of the B-LFP48-100PW and prints no charge voltage range of 53~55 anywhere.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    },
+    {
+      "source": "doc-86c3e874ae2eee0d8976df5b8576fa84",
+      "model": "bslbatt-b-lfp48-67",
+      "name": "Storage Temperature",
+      "reason": "The storage temperature in the 36 V/48 V series data block is printed as a range running from -20 to 45, and only its lower end was recorded.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    },
+    {
+      "source": "doc-00b5ed69a1e2f7909133dfef71f40617",
+      "model": "bslbatt-b-lfp48-200e",
+      "name": "Rate. Current / Power - Discharge",
+      "reason": "The B-LFP48-200E column runs its six charge and discharge current/power values together (160A / 8.192kW, 100A / 5.12kW, 210A / 10.752kW, 220A / 11.264kW 1s, 200A / 10.24kW, 250A / 12.80kW 1s) without showing which of them is the rated discharge row.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    },
+    {
+      "source": "doc-86c3e874ae2eee0d8976df5b8576fa84",
+      "model": "bslbatt-b-lfp48-18",
+      "name": "Discharge Maximum Current",
+      "reason": "The 36 V/48 V series data block states the currents as C-rates (0.5C, 1C and ≤1C) rather than temperatures, so a maximum discharge current of 1 °C is not a figure the document gives.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    },
+    {
+      "source": "doc-86c3e874ae2eee0d8976df5b8576fa84",
+      "model": "bslbatt-b-lfp36-67",
+      "name": "Storage Temperature",
+      "reason": "The 36V series page prints the storage temperature as the pair -20 and 45, the two ends of a range, so -20 alone is only its lower limit.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    },
+    {
+      "source": "doc-37abc5bd32954167fd1903ffc9109ec4",
+      "model": "bslbatt-b-lfp48-300pw",
+      "name": "Rate. Discharge Current / Power",
+      "reason": "The table prints six charge and discharge currents per column apart from their row names, and the B-LFP48-300PW column carries the same six as the B-LFP48-200PW, so 160A / 8.192kW is not shown to be the 300PW's rated discharge.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
     }
   ]
 }

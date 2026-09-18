@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc400--functional-output-cable-length",
+  "model": "pulsetech-xc400",
+  "name": "Functional Output Cable Length",
+  "value": "8",
+  "source": "doc-039ff01af7fe0b361fb286cdbd9d5698",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

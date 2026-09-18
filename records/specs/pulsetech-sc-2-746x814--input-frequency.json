@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sc-2-746x814--input-frequency",
+  "model": "pulsetech-sc-2-746x814",
+  "name": "Input Frequency",
+  "value": "50-60Hz",
+  "source": "doc-7527b0bbe7bd1fc3d983a0eba854331c",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

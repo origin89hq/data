@@ -1,0 +1,10 @@
+{
+  "id": "watersprint-arrow-max-home-10k--pressure-drop-max-flow-rate",
+  "model": "watersprint-arrow-max-home-10k",
+  "name": "Pressure drop @ max. flow rate",
+  "value": "< 6 psi",
+  "source": "doc-a8e914a602727a8061c4379fbb15439d",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

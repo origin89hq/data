@@ -1,0 +1,11 @@
+{
+  "id": "surecall-ez-4g--indoor-cable-length",
+  "model": "surecall-ez-4g",
+  "name": "Indoor cable length",
+  "value": "50",
+  "unit": "ft",
+  "source": "doc-237c5a52d2ace94be8cf449dd645a478",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

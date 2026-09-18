@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-330l--operating-temperature-inside-fridge-cabinet",
+  "model": "unique-appliances-ugp-330l",
+  "name": "Operating temperature inside fridge cabinet",
+  "value": "2°C/36°F to 4°C/39°F",
+  "source": "doc-89d592fbbd05cad322154a51bf775f82",
+  "page": 11,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

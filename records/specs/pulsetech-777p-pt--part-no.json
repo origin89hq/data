@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-777p-pt--part-no",
+  "model": "pulsetech-777p-pt",
+  "name": "Part No",
+  "value": "741X777",
+  "source": "doc-85854ca79ef7fd2befb2673c3fea7270",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

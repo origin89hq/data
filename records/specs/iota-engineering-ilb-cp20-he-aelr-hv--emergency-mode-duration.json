@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilb-cp20-he-aelr-hv--emergency-mode-duration",
+  "model": "iota-engineering-ilb-cp20-he-aelr-hv",
+  "name": "Emergency mode duration",
+  "value": "minimum of 90 minutes",
+  "source": "doc-da52b4772e0d9aaf48651a05a08272a3",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

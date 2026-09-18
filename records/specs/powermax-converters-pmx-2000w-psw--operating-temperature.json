@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pmx-2000w-psw--operating-temperature",
+  "model": "powermax-converters-pmx-2000w-psw",
+  "name": "Operating temperature",
+  "value": "0-40",
+  "unit": "°C",
+  "source": "doc-2b315a6a3cfa4facc4006026703bf60a",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

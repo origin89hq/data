@@ -1,0 +1,10 @@
+{
+  "id": "epever-dr3206n-ddb-dds--temperature-compensate-coefficient",
+  "model": "epever-dr3206n-ddb-dds",
+  "name": "Temperature compensate coefficient",
+  "value": "-3mV/℃/2V",
+  "source": "doc-f605741c80467647ab168f56ec998172",
+  "page": 36,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ecoboost-mppt--absorption-phase-voltage",
+  "model": "morningstar-ecoboost-mppt",
+  "name": "Absorption phase voltage",
+  "value": "14.40",
+  "unit": "V",
+  "source": "doc-15aaa2603340519a063c6fdaff24a15e",
+  "page": 37,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

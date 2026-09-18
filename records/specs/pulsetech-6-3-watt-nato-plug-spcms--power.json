@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-6-3-watt-nato-plug-spcms--power",
+  "model": "pulsetech-6-3-watt-nato-plug-spcms",
+  "name": "Power",
+  "value": "6.3-Watt",
+  "source": "doc-67090b2d347619ad738c6ffae473b2ef",
+  "page": 10,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

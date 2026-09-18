@@ -1,0 +1,10 @@
+{
+  "id": "surecall-ez-4g--required-minimum-cellular-signal",
+  "model": "surecall-ez-4g",
+  "name": "Required minimum cellular signal",
+  "value": "low -100 dBm to high -90 dBm",
+  "source": "doc-237c5a52d2ace94be8cf449dd645a478",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd1618--pass-through-ampacity",
+  "model": "progressive-dynamics-pd1618",
+  "name": "Pass Through Ampacity",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-9b5a35cf0b2f79edbd3df1d0f1a87246",
+  "page": 17,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

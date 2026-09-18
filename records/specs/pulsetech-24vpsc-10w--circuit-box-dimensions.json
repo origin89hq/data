@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-24vpsc-10w--circuit-box-dimensions",
+  "model": "pulsetech-24vpsc-10w",
+  "name": "Circuit Box Dimensions",
+  "value": "4.9\" x 1.8\" x 1",
+  "source": "doc-b14d6e36ce207a807b211f076834e7ad",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

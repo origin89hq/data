@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12v-400ah-abs--cycles-at-30-discharge",
+  "model": "volthium-12v-400ah-abs",
+  "name": "Cycles at 30% discharge",
+  "value": "8200 < cycles",
+  "source": "doc-99ceb53b046af7cefe6cab5548609aa3",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

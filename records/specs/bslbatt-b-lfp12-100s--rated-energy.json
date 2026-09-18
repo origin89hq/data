@@ -1,0 +1,11 @@
+{
+  "id": "bslbatt-b-lfp12-100s--rated-energy",
+  "model": "bslbatt-b-lfp12-100s",
+  "name": "Rated Energy",
+  "value": "1.28",
+  "unit": "kWh",
+  "source": "doc-86c3e874ae2eee0d8976df5b8576fa84",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

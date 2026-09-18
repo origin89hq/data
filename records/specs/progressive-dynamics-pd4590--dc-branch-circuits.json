@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4590--dc-branch-circuits",
+  "model": "progressive-dynamics-pd4590",
+  "name": "DC branch circuits",
+  "value": "18",
+  "source": "doc-cc746b613ecdfaa58015ab49a66a9d94",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

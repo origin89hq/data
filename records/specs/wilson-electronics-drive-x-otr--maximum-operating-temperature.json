@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-drive-x-otr--maximum-operating-temperature",
+  "model": "wilson-electronics-drive-x-otr",
+  "name": "Maximum operating temperature",
+  "value": "less than 150 degrees Fahrenheit",
+  "source": "doc-e6af55c31c9dd88ef2f57af568f84606",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-eb-mppt-20--max-pv-open-circuit-voltage",
+  "model": "morningstar-eb-mppt-20",
+  "name": "Max. PV Open-Circuit Voltage",
+  "value": "120",
+  "unit": "V",
+  "source": "doc-5600884e5ab903ad27bd4d3992778409",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

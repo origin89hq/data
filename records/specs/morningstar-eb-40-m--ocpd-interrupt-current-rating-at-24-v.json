@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-eb-40-m--ocpd-interrupt-current-rating-at-24-v",
+  "model": "morningstar-eb-40-m",
+  "name": "OCPD interrupt current rating at 24 V",
+  "value": "4000",
+  "unit": "A",
+  "source": "doc-15aaa2603340519a063c6fdaff24a15e",
+  "page": 76,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

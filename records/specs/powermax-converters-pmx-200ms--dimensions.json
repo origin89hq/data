@@ -1,0 +1,9 @@
+{
+  "id": "powermax-converters-pmx-200ms--dimensions",
+  "model": "powermax-converters-pmx-200ms",
+  "name": "Dimensions",
+  "value": "5.4 x 3.9 x 2.2 in",
+  "source": "doc-043354167fdf2b4f15d7bd78ae3baa1e",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

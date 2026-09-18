@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-x-marine--rated-power",
+  "model": "primus-wind-power-air-x-marine",
+  "name": "Rated power",
+  "value": "400 watts @ 28 mph / 12.5 m/s",
+  "source": "doc-0e96333eb489fa1e5451a0a8fa59b95d",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

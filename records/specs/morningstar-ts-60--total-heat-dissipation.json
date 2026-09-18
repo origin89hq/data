@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-60--total-heat-dissipation",
+  "model": "morningstar-ts-60",
+  "name": "Total heat dissipation",
+  "value": "27.0",
+  "source": "doc-687a3ce0efb1ec0ba34bd644ddc9d45d",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

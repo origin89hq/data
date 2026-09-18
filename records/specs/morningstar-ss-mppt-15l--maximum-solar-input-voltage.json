@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ss-mppt-15l--maximum-solar-input-voltage",
+  "model": "morningstar-ss-mppt-15l",
+  "name": "Maximum Solar Input Voltage",
+  "value": "60",
+  "unit": "V",
+  "source": "doc-3753da4c81d5cd18b923af9e2dcefa04",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

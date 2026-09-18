@@ -1,0 +1,11 @@
+{
+  "id": "unique-appliances-ugp-24cr-rh--power",
+  "model": "unique-appliances-ugp-24cr-rh",
+  "name": "Power",
+  "value": "270",
+  "unit": "W",
+  "source": "doc-a88fe002c46563bcf5fdc4b45e80d573",
+  "page": 19,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

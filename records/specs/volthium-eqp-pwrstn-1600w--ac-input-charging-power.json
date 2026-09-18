@@ -1,0 +1,11 @@
+{
+  "id": "volthium-eqp-pwrstn-1600w--ac-input-charging-power",
+  "model": "volthium-eqp-pwrstn-1600w",
+  "name": "AC input charging power",
+  "value": "900",
+  "unit": "W",
+  "source": "doc-539db762e00cb2755331d36d5d4e2019",
+  "page": 6,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

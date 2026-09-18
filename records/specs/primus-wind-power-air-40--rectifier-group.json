@@ -1,0 +1,11 @@
+{
+  "id": "primus-wind-power-air-40--rectifier-group",
+  "model": "primus-wind-power-air-40",
+  "name": "Rectifier group",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-28f6fc708d7abe100b37f2ea098f0385",
+  "page": 35,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "epever-it10415nc-g3--maximum-pv-cable-size",
+  "model": "epever-it10415nc-g3",
+  "name": "Maximum PV cable size",
+  "value": "16mm2/6AWG",
+  "source": "doc-e571c0928ae9e02fb7adf7a6d9c319ab",
+  "page": 19,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

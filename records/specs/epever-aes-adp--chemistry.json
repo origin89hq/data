@@ -1,0 +1,10 @@
+{
+  "id": "epever-aes-adp--chemistry",
+  "model": "epever-aes-adp",
+  "name": "Chemistry",
+  "value": "Lead-acid",
+  "source": "doc-f605741c80467647ab168f56ec998172",
+  "page": 10,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

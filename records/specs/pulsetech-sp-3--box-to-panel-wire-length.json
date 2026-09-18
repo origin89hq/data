@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-3--box-to-panel-wire-length",
+  "model": "pulsetech-sp-3",
+  "name": "Box to Panel Wire Length",
+  "value": "17",
+  "unit": "ft",
+  "source": "doc-b875846362fe741363888302e6bdde80",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

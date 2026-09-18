@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-735x613--solar-panel-length",
+  "model": "pulsetech-735x613",
+  "name": "Solar panel length",
+  "value": "16\" L x 4.93\" W x 0.25\" H",
+  "source": "doc-ba7da71459330dd1dec34b2c2834d6a9",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilb-cp18-he-cw--output-wattage",
+  "model": "iota-engineering-ilb-cp18-he-cw",
+  "name": "Output Wattage",
+  "value": "18",
+  "unit": "W",
+  "source": "doc-e5416223dd9367e284cc5c8c574a6f3e",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

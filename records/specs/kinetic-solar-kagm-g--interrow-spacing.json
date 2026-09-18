@@ -1,0 +1,10 @@
+{
+  "id": "kinetic-solar-kagm-g--interrow-spacing",
+  "model": "kinetic-solar-kagm-g",
+  "name": "Interrow spacing",
+  "value": "124.50 TYP.",
+  "source": "doc-b9daffe5e28cacd5fbde1ff8847117e2",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

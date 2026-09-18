@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ss-10-12v--battery-to-load-internal-jumper-continuous-current",
+  "model": "morningstar-ss-10-12v",
+  "name": "Battery (+) to Load (+) internal jumper continuous current",
+  "value": "approximately 15A",
+  "source": "doc-899310a60c10064b10684f0a8f5ee448",
+  "page": 6,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

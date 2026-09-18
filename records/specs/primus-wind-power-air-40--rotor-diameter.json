@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-40--rotor-diameter",
+  "model": "primus-wind-power-air-40",
+  "name": "Rotor diameter",
+  "value": "46 in / 1.17 m",
+  "source": "doc-0e96333eb489fa1e5451a0a8fa59b95d",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

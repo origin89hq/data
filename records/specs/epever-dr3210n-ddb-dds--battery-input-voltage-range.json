@@ -1,0 +1,10 @@
+{
+  "id": "epever-dr3210n-ddb-dds--battery-input-voltage-range",
+  "model": "epever-dr3210n-ddb-dds",
+  "name": "Battery Input Voltage Range",
+  "value": "8.5~32V",
+  "source": "doc-f605741c80467647ab168f56ec998172",
+  "page": 35,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

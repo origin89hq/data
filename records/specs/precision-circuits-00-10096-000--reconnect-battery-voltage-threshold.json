@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-00-10096-000--reconnect-battery-voltage-threshold",
+  "model": "precision-circuits-00-10096-000",
+  "name": "Reconnect battery voltage threshold",
+  "value": "12.4",
+  "unit": "V",
+  "source": "doc-3a91d02810b46dcc8f89dd8e86b12bb7",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4060k--dc-output",
+  "model": "progressive-dynamics-pd4060k",
+  "name": "DC Output",
+  "value": "13.6-14.6 VDC 60 Amps",
+  "source": "doc-aec1d7db6c90b32d88c049ca0c90a121",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-unq-30cr-otr-t--frequency",
+  "model": "unique-appliances-unq-30cr-otr-t",
+  "name": "Frequency",
+  "value": "60 Hertz",
+  "source": "doc-3f5abc79acc2831a54bcb08ff6aaa167",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "epever-xtra2206n-g3-g3-ble--maximum-pv-open-circuit-voltage",
+  "model": "epever-xtra2206n-g3-g3-ble",
+  "name": "Maximum PV open-circuit voltage",
+  "value": "100V(At minimum operating environment temperature)\n92V (At 25ºC)",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 45,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

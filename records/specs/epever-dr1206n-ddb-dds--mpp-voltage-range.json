@@ -1,0 +1,10 @@
+{
+  "id": "epever-dr1206n-ddb-dds--mpp-voltage-range",
+  "model": "epever-dr1206n-ddb-dds",
+  "name": "MPP Voltage Range",
+  "value": "(Battery Voltage+2V)~72V",
+  "source": "doc-f605741c80467647ab168f56ec998172",
+  "page": 35,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

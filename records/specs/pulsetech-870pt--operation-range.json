@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-870pt--operation-range",
+  "model": "pulsetech-870pt",
+  "name": "Operation Range",
+  "value": "40 to 2000 CCA (SAE)",
+  "source": "doc-a01a6cfa54523c58631d424a3f095fdb",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "honda-power-eu2200it--engine-speed",
+  "model": "honda-power-eu2200it",
+  "name": "Engine speed",
+  "value": "4,000 – 4,500 rpm (with Eco Throttle switch OFF)",
+  "source": "doc-d1046b08ac3886c1c4dcfc20fb1fe4e9",
+  "page": 76,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

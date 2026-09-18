@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-eb-mppt-20-m--transient-overvoltage-protection",
+  "model": "morningstar-eb-mppt-20-m",
+  "name": "Transient overvoltage protection",
+  "value": "4500",
+  "unit": "W",
+  "source": "doc-15aaa2603340519a063c6fdaff24a15e",
+  "page": 90,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

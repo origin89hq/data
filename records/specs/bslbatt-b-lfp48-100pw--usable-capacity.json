@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-b-lfp48-100pw--usable-capacity",
+  "model": "bslbatt-b-lfp48-100pw",
+  "name": "Usable Capacity",
+  "value": "4608",
+  "source": "doc-37abc5bd32954167fd1903ffc9109ec4",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

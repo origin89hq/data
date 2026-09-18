@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-741x890--cranking-charging-system-test-voltages",
+  "model": "pulsetech-741x890",
+  "name": "Cranking & Charging System Test voltages",
+  "value": "12V & 24V",
+  "source": "doc-507a0bdb8d38534cdb6a80f76139fd85",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

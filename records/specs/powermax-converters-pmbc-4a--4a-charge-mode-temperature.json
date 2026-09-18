@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmbc-4a--4a-charge-mode-temperature",
+  "model": "powermax-converters-pmbc-4a",
+  "name": "4A charge mode temperature",
+  "value": "41 F - 122 F (5 - 50 C)",
+  "source": "doc-b515fdf6fcbb9f313ca189fc417f743b",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

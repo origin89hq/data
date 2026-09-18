@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmmc-070501470-rev1-0--supported-battery-capacity",
+  "model": "powermax-converters-pmmc-070501470-rev1-0",
+  "name": "Supported battery capacity",
+  "value": "2 to 230 Amp-Hours",
+  "source": "doc-2d60dd84c492d816f310eabe743db17b",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

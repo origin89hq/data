@@ -1,0 +1,11 @@
+{
+  "id": "volthium-51-2-100-r-3u-c--nominal-energy",
+  "model": "volthium-51-2-100-r-3u-c",
+  "name": "Nominal energy",
+  "value": "5.12",
+  "unit": "kWh",
+  "source": "doc-2d45f5b318a0811f04d0ad9ce1e78efe",
+  "page": 14,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

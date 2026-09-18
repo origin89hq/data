@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xcr-20--current",
+  "model": "pulsetech-xcr-20",
+  "name": "Current",
+  "value": "16",
+  "unit": "A",
+  "source": "doc-45f2bf036ee08692c11a5753cb231751",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-pro-12-rp--bank-station-count",
+  "model": "pulsetech-pro-12-rp",
+  "name": "Bank/station count",
+  "value": "12-station",
+  "source": "doc-85854ca79ef7fd2befb2673c3fea7270",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

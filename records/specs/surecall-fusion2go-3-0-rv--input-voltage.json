@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-3-0-rv--input-voltage",
+  "model": "surecall-fusion2go-3-0-rv",
+  "name": "Input voltage",
+  "value": "5-15V",
+  "source": "doc-d96af7d5156adece0ec068bcb54cbc2d",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

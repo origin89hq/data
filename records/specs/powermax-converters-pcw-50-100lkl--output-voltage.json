@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pcw-50-100lkl--output-voltage",
+  "model": "powermax-converters-pcw-50-100lkl",
+  "name": "Output Voltage",
+  "value": "13.6",
+  "unit": "V",
+  "source": "doc-13ba4e669c5ec3ffde9d385ae2817e9e",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

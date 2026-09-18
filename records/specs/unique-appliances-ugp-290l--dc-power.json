@@ -1,10 +1,10 @@
 {
   "id": "unique-appliances-ugp-290l--dc-power",
   "model": "unique-appliances-ugp-290l",
-  "name": "DC Power",
+  "name": "DC power",
   "value": "12V/24V",
   "source": "doc-9bcc835ee16f5f3131b2c08dbbe935fc",
-  "page": 19,
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "page": 21,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
   "confidence": "vendor-doc"
 }

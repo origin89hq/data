@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-275l-w--average-running-current",
+  "model": "unique-appliances-ugp-275l-w",
+  "name": "Average Running Current",
+  "value": "5.25A on 12V - 2.62A on 24V",
+  "source": "doc-72d4edea21f290ad9a4195d19fa8a238",
+  "page": 24,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

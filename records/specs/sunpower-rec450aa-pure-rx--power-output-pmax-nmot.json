@@ -1,0 +1,9 @@
+{
+  "id": "sunpower-rec450aa-pure-rx--power-output-pmax-nmot",
+  "model": "sunpower-rec450aa-pure-rx",
+  "name": "Power Output - PMAX (NMOT)",
+  "value": "342 WP omitted unit implied by \"WP\" in STC row and by NMOT context — unit: WP",
+  "source": "doc-0be4d97cdd84e6e6a5d778d6316a1276",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

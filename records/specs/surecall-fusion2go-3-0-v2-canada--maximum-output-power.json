@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-3-0-v2-canada--maximum-output-power",
+  "model": "surecall-fusion2go-3-0-v2-canada",
+  "name": "Maximum output power",
+  "value": "1 Watt EIRP",
+  "source": "doc-9d902254b983884ec3de13ae942c7f89",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

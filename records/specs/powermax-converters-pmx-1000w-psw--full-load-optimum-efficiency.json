@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-1000w-psw--full-load-optimum-efficiency",
+  "model": "powermax-converters-pmx-1000w-psw",
+  "name": "Full Load Optimum Efficiency",
+  "value": "≥80%",
+  "source": "doc-d7a679d3d4e4f0c9d2274cb69ddcda28",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

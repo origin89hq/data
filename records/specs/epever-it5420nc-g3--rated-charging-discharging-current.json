@@ -1,0 +1,11 @@
+{
+  "id": "epever-it5420nc-g3--rated-charging-discharging-current",
+  "model": "epever-it5420nc-g3",
+  "name": "Rated Charging/Discharging Current",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-e571c0928ae9e02fb7adf7a6d9c319ab",
+  "page": 61,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

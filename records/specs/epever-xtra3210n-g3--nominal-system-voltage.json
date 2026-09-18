@@ -1,0 +1,11 @@
+{
+  "id": "epever-xtra3210n-g3--nominal-system-voltage",
+  "model": "epever-xtra3210n-g3",
+  "name": "Nominal System Voltage",
+  "value": "13",
+  "unit": "V",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 57,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

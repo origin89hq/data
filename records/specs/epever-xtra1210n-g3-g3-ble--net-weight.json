@@ -1,0 +1,11 @@
+{
+  "id": "epever-xtra1210n-g3-g3-ble--net-weight",
+  "model": "epever-xtra1210n-g3-g3-ble",
+  "name": "Net weight",
+  "value": "0.59",
+  "unit": "kg",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 50,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

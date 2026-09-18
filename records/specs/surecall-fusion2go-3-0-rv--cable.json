@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-3-0-rv--cable",
+  "model": "surecall-fusion2go-3-0-rv",
+  "name": "Cable",
+  "value": "SC-240 (40 ft.)",
+  "source": "doc-724f1918caff7acd8329e4b73f811441",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

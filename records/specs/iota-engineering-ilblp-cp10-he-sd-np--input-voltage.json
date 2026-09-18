@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilblp-cp10-he-sd-np--input-voltage",
+  "model": "iota-engineering-ilblp-cp10-he-sd-np",
+  "name": "Input Voltage",
+  "value": "120-277 VAC",
+  "source": "doc-e5416223dd9367e284cc5c8c574a6f3e",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

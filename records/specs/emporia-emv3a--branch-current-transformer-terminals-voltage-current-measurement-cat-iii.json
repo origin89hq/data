@@ -1,0 +1,11 @@
+{
+  "id": "emporia-emv3a--branch-current-transformer-terminals-voltage-current-measurement-cat-iii",
+  "model": "emporia-emv3a",
+  "name": "Branch Current Transformer Terminals voltage/current",
+  "value": "3.3, 1",
+  "conditions": "Measurement CAT III",
+  "source": "doc-e44cae2a6b8535ee6806ff6f5600735d",
+  "page": 36,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

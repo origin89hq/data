@@ -1,9 +1,0 @@
-{
-  "id": "wilson-electronics-wilsonpro-a1000--dimensions",
-  "model": "wilson-electronics-wilsonpro-a1000",
-  "name": "DIMENSIONS",
-  "value": "22.23 x 21.59 x 5.72 cm / 1.25 kg",
-  "source": "doc-48d586cc0488de9cc70b2c81c8a85c2d",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
-  "confidence": "vendor-doc"
-}

@@ -1,0 +1,11 @@
+{
+  "id": "midnite-solar-classic150--maximum-operating-input-voltage",
+  "model": "midnite-solar-classic150",
+  "name": "Maximum operating input voltage",
+  "value": "150",
+  "unit": "V",
+  "source": "doc-1a3d5010d988de531d75048b7ab0028a",
+  "page": 55,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

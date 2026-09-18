@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-b-lfp12-200--protection-function",
+  "model": "bslbatt-b-lfp12-200",
+  "name": "Protection Function",
+  "value": "Overcharge, over-discharge, over-current, short circuit and other protection functions",
+  "source": "doc-86c3e874ae2eee0d8976df5b8576fa84",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

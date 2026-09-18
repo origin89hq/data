@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ss-mppt-15l--efficiency-peak",
+  "model": "morningstar-ss-mppt-15l",
+  "name": "Efficiency (peak)",
+  "value": "97.5",
+  "unit": "%",
+  "source": "doc-af22fe14d72253d58e18896733cb9521",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

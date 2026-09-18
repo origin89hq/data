@@ -1,0 +1,10 @@
+{
+  "id": "surecall-flare-3-0--certifications-fcc-id",
+  "model": "surecall-flare-3-0",
+  "name": "Certifications FCC ID",
+  "value": "RSNFLARE-3",
+  "source": "doc-b9929121b7fb8a2b962b068f4d2d5ba7",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

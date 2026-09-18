@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-24vpsc--function",
+  "model": "pulsetech-24vpsc",
+  "name": "Function",
+  "value": "Battery Solar Pulse Charger/ Desulfator",
+  "source": "doc-bf71e064e88eadcf0cce3447abc10185",
+  "page": 6,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

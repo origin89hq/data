@@ -1,0 +1,10 @@
+{
+  "id": "honda-power-eu7000is--engine-speed",
+  "model": "honda-power-eu7000is",
+  "name": "Engine speed",
+  "value": "2,400–3,600 rpm",
+  "source": "doc-311eda81944ed7606fc98e1f1492582d",
+  "page": 103,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "volthium-12v-400ah-abs--voltage",
+  "model": "volthium-12v-400ah-abs",
+  "name": "Voltage",
+  "value": "12.8",
+  "unit": "V",
+  "source": "doc-5f44ad9dbdfba53eeaebb90a2892724f",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

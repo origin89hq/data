@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-power-control-system-50a--current-rating",
+  "model": "precision-circuits-power-control-system-50a",
+  "name": "Current Rating",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-177d61e85ea797f76313f9af96b45147",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

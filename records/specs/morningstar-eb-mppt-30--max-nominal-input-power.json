@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-eb-mppt-30--max-nominal-input-power",
+  "model": "morningstar-eb-mppt-30",
+  "name": "Max. nominal input power",
+  "value": "400/800 W",
+  "source": "doc-15aaa2603340519a063c6fdaff24a15e",
+  "page": 48,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

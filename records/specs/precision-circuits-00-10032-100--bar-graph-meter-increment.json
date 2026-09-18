@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-00-10032-100--bar-graph-meter-increment",
+  "model": "precision-circuits-00-10032-100",
+  "name": "Bar Graph Meter Increment",
+  "value": "0.125",
+  "unit": "V",
+  "source": "doc-9317b2d160377d4d12fa78bd9b5db5eb",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

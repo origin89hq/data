@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-xr--ac-adapter-power-rating-optional-accessory",
+  "model": "surecall-fusion2go-xr",
+  "name": "AC adapter power rating (optional accessory)",
+  "value": "5.9V/2.8A",
+  "source": "doc-a7eca80ce1a1b083afcd2d223e60e0d6",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

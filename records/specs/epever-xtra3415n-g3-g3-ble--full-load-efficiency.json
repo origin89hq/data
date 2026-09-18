@@ -1,0 +1,11 @@
+{
+  "id": "epever-xtra3415n-g3-g3-ble--full-load-efficiency",
+  "model": "epever-xtra3415n-g3-g3-ble",
+  "name": "Full-load Efficiency",
+  "value": "96.9",
+  "unit": "%",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 52,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

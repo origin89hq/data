@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sc-2-746x814--input-voltage",
+  "model": "pulsetech-sc-2-746x814",
+  "name": "Input Voltage",
+  "value": "120",
+  "unit": "V",
+  "source": "doc-7527b0bbe7bd1fc3d983a0eba854331c",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

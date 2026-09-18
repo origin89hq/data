@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd--tc-point-y",
+  "model": "iota-engineering-ilblp-cp15-he-sd",
+  "name": "TC Point y",
+  "value": "50.8",
+  "unit": "mm",
+  "source": "doc-8c40f44f68ff7d37edfce7e8fa963a16",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

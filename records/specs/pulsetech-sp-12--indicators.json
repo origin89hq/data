@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-12--indicators",
+  "model": "pulsetech-sp-12",
+  "name": "Indicators",
+  "value": "Red LED shines steady in full sunlight",
+  "source": "doc-995db75d36a004a7ee894499a5c004ec",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

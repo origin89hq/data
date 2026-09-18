@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-24v-25-watt-panels--voltage",
+  "model": "pulsetech-24v-25-watt-panels",
+  "name": "Voltage",
+  "value": "24",
+  "unit": "V",
+  "source": "doc-8c35ef5b3df7b5fcf9d30ebad67f662d",
+  "page": 11,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-472120--frequencies-band-2",
+  "model": "wilson-electronics-472120",
+  "name": "Frequencies Band 2",
+  "value": "1900 MHz",
+  "source": "doc-3aca1ebe939d9f098dfb5b2657ad1e42",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

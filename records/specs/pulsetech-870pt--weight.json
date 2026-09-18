@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-870pt--weight",
+  "model": "pulsetech-870pt",
+  "name": "Weight",
+  "value": "6.5",
+  "unit": "lb",
+  "source": "doc-a01a6cfa54523c58631d424a3f095fdb",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

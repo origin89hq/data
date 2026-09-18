@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-mne250sma-3ph-master--input-output-bypass-system",
+  "model": "midnite-solar-mne250sma-3ph-master",
+  "name": "Input/output bypass system",
+  "value": "three phase 60amp input/output bypass system",
+  "source": "doc-f1ffddc8510c912e9f4e1985afe9b586",
+  "page": 6,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

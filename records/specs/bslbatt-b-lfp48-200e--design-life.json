@@ -1,0 +1,9 @@
+{
+  "id": "bslbatt-b-lfp48-200e--design-life",
+  "model": "bslbatt-b-lfp48-200e",
+  "name": "Design Life",
+  "value": "> 15 Years（25℃ / 77℉）",
+  "source": "doc-a5280ed309433548bf133d18361db832",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

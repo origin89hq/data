@@ -1,0 +1,11 @@
+{
+  "id": "emporia-200a-current-transformer--window-diameter",
+  "model": "emporia-200a-current-transformer",
+  "name": "Window diameter",
+  "value": "26",
+  "unit": "mm",
+  "source": "doc-d6210a1a6a0c21eccfa4994aaa7831e4",
+  "page": 12,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pmx-2000w-psw--low-voltage-cut-off",
+  "model": "powermax-converters-pmx-2000w-psw",
+  "name": "Low voltage cut-off",
+  "value": "10±0.5",
+  "unit": "V",
+  "source": "doc-2b315a6a3cfa4facc4006026703bf60a",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

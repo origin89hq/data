@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-00-10050-359--current-limit-gen",
+  "model": "precision-circuits-00-10050-359",
+  "name": "Current Limit - GEN",
+  "value": "33A (4000W)",
+  "source": "doc-a9c6631136b41ebdd42edb943f8ece4b",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc-822-test--battery-chemistry",
+  "model": "pulsetech-xc-822-test",
+  "name": "Battery chemistry",
+  "value": "lead-acid",
+  "source": "doc-3948031b617eef5661dc6f267a78a6a2",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

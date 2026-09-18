@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd--operating-temperature",
+  "model": "iota-engineering-ilblp-cp15-he-sd",
+  "name": "Operating temperature",
+  "value": "0 to 55",
+  "unit": "°C",
+  "source": "doc-668127f8728f21471af7b6df6f82db0f",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

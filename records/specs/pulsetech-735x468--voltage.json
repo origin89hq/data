@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-735x468--voltage",
+  "model": "pulsetech-735x468",
+  "name": "Voltage",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-bf71e064e88eadcf0cce3447abc10185",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

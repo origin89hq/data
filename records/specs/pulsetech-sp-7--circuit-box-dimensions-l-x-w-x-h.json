@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-7--circuit-box-dimensions-l-x-w-x-h",
+  "model": "pulsetech-sp-7",
+  "name": "Circuit Box Dimensions (L x W x H)",
+  "value": "3.4\" x 2.4\" x 1.5",
+  "source": "doc-b875846362fe741363888302e6bdde80",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

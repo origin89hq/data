@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-eb-mppt-30-m--dimensions",
+  "model": "morningstar-eb-mppt-30-m",
+  "name": "Dimensions",
+  "value": "19.6(W) x 18.1(L) x 7.1(D)",
+  "unit": "cm",
+  "source": "doc-15aaa2603340519a063c6fdaff24a15e",
+  "page": 23,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

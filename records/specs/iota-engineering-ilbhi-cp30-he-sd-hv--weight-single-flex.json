@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilbhi-cp30-he-sd-hv--weight-single-flex",
+  "model": "iota-engineering-ilbhi-cp30-he-sd-hv",
+  "name": "Weight (single flex)",
+  "value": "5.0",
+  "unit": "lb",
+  "source": "doc-a673ea88f41cd0933c5f1577a9b859ac",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

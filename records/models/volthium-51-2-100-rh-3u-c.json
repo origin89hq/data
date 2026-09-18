@@ -3,6 +3,8 @@
   "manufacturer": "volthium",
   "name": "51.2-100-RH-3U-C",
   "kind": "battery",
+  "chemistry": "lifepo4",
+  "chemistryBasis": "spec:volthium-51-2-100-rh-3u-c--chemistry",
   "aliases": [
     "VLT-188-133"
   ],
@@ -10,7 +12,8 @@
     {
       "dialect": "volthium-rack-3u",
       "evidence": {
-        "kind": "catalogue-name"
+        "kind": "catalogue-name",
+        "sources": []
       },
       "confidence": "unverified"
     }

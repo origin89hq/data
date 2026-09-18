@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-mini-pcs--current-limit-20-amp-service",
+  "model": "precision-circuits-mini-pcs",
+  "name": "Current limit - 20-amp Service",
+  "value": "20",
+  "unit": "A",
+  "source": "doc-37b4e741245a38dc2348e9be426173d4",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

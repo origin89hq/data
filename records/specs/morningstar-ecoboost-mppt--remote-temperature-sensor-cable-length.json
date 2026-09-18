@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ecoboost-mppt--remote-temperature-sensor-cable-length",
+  "model": "morningstar-ecoboost-mppt",
+  "name": "Remote Temperature Sensor cable length",
+  "value": "33 ft (10m)",
+  "source": "doc-15aaa2603340519a063c6fdaff24a15e",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

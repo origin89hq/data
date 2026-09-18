@@ -1,0 +1,9 @@
+{
+  "id": "primus-wind-power-air-x-marine--wind-turbines-installed-per-housing-unit",
+  "model": "primus-wind-power-air-x-marine",
+  "name": "Wind turbines installed per housing unit",
+  "value": "up to 8",
+  "source": "doc-aa3eaa6a084a58206d83d4b229175f24",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

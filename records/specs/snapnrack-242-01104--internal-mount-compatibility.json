@@ -1,0 +1,9 @@
+{
+  "id": "snapnrack-242-01104--internal-mount-compatibility",
+  "model": "snapnrack-242-01104",
+  "name": "Internal Mount Compatibility",
+  "value": "Type O DIN Rail",
+  "source": "doc-ec609beae8058bfbf370c984739eaa3e",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

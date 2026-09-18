@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-readybms--canbus-terminator-resistor",
+  "model": "morningstar-readybms",
+  "name": "CANBus terminator resistor",
+  "value": "120",
+  "unit": "Ω",
+  "source": "doc-b329c16ad3f07770c9530d35b77e917e",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

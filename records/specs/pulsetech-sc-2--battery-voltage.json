@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sc-2--battery-voltage",
+  "model": "pulsetech-sc-2",
+  "name": "Battery voltage",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-0816cfb74752a9e86625f0cad28dac05",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

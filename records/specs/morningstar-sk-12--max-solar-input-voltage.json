@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-sk-12--max-solar-input-voltage",
+  "model": "morningstar-sk-12",
+  "name": "Max solar input voltage",
+  "value": "30",
+  "unit": "V",
+  "source": "doc-9c8fca03627e881b29c9764485693776",
+  "page": 12,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

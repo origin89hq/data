@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pm3-65--input-voltage",
+  "model": "powermax-converters-pm3-65",
+  "name": "Input voltage",
+  "value": "120",
+  "unit": "V",
+  "source": "doc-273757f7f1553c150a5d2558313e2cf7",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

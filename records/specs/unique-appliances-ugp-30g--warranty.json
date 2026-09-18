@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-30g--warranty",
+  "model": "unique-appliances-ugp-30g",
+  "name": "Warranty",
+  "value": "1 year",
+  "source": "doc-377739b9bbadda20ba93aa98d4c2b88c",
+  "page": 41,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

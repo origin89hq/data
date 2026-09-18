@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmmc-04--battery-capacity-range",
+  "model": "powermax-converters-pmmc-04",
+  "name": "Battery capacity range",
+  "value": "2 to 120 Amp-Hours",
+  "source": "doc-b515fdf6fcbb9f313ca189fc417f743b",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-7-obd-t--solar-panel-dimensions-length",
+  "model": "pulsetech-sp-7-obd-t",
+  "name": "Solar Panel Dimensions Length",
+  "value": "10.25\" L",
+  "source": "doc-cea62aaf4bb36fc851de75ae7885193d",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

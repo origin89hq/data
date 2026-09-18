@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-735x689--power-rating",
+  "model": "pulsetech-735x689",
+  "name": "Power rating",
+  "value": "25-Watt",
+  "source": "doc-f112bb32236d4734a0ff8419c713b260",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

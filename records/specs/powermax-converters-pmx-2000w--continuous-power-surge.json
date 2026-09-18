@@ -1,0 +1,9 @@
+{
+  "id": "powermax-converters-pmx-2000w--continuous-power-surge",
+  "model": "powermax-converters-pmx-2000w",
+  "name": "Continuous Power/Surge",
+  "value": "2000W/4000W",
+  "source": "doc-c8eeee8d89186b67f0b0171651f69587",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

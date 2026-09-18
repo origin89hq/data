@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pmbc-100-se--storage-stage-voltage",
+  "model": "powermax-converters-pmbc-100-se",
+  "name": "Storage stage voltage",
+  "value": "13.2",
+  "unit": "V",
+  "source": "doc-554e50421ecfb6d771e2afd1452e961a",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

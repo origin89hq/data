@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-00-10050-626--air-conditioner-relay",
+  "model": "precision-circuits-00-10050-626",
+  "name": "Air Conditioner Relay",
+  "value": "1-Air Conditioner",
+  "source": "doc-3154e98a67a630726a39dc15da354ed9",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

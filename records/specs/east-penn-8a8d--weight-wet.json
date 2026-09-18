@@ -1,0 +1,10 @@
+{
+  "id": "east-penn-8a8d--weight-wet",
+  "model": "east-penn-8a8d",
+  "name": "Weight Wet",
+  "value": "163",
+  "source": "doc-e744c50aca3b14706c2599d0d01461fb",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

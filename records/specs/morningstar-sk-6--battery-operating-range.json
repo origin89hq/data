@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-sk-6--battery-operating-range",
+  "model": "morningstar-sk-6",
+  "name": "Battery Operating Range",
+  "value": "0 - 15 V",
+  "source": "doc-d82902d49ba6250778d2c652a7ce8eee",
+  "page": 22,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

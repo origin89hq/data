@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4590li--ac-branch-circuits",
+  "model": "progressive-dynamics-pd4590li",
+  "name": "AC branch circuits",
+  "value": "12 Circuits de succursale",
+  "source": "doc-a8da69b4171db359f3e1bc693fdbc280",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

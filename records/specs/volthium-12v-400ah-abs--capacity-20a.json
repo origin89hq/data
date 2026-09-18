@@ -1,0 +1,11 @@
+{
+  "id": "volthium-12v-400ah-abs--capacity-20a",
+  "model": "volthium-12v-400ah-abs",
+  "name": "Capacity @ 20A",
+  "value": "400",
+  "unit": "Ah",
+  "source": "doc-5f44ad9dbdfba53eeaebb90a2892724f",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

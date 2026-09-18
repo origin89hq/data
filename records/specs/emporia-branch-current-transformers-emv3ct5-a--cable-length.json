@@ -1,0 +1,11 @@
+{
+  "id": "emporia-branch-current-transformers-emv3ct5-a--cable-length",
+  "model": "emporia-branch-current-transformers-emv3ct5-a",
+  "name": "Cable length",
+  "value": "1",
+  "unit": "m",
+  "source": "doc-e44cae2a6b8535ee6806ff6f5600735d",
+  "page": 37,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

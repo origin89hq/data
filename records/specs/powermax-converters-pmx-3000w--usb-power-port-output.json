@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-3000w--usb-power-port-output",
+  "model": "powermax-converters-pmx-3000w",
+  "name": "USB Power Port Output",
+  "value": "DC4.7-5.3V/ 2100mA",
+  "source": "doc-39140d23c40e0c6d760fa8b9948caf17",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

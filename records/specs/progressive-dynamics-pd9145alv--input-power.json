@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd9145alv--input-power",
+  "model": "progressive-dynamics-pd9145alv",
+  "name": "Input power",
+  "value": "725",
+  "unit": "W",
+  "source": "doc-aec1d7db6c90b32d88c049ca0c90a121",
+  "page": 19,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

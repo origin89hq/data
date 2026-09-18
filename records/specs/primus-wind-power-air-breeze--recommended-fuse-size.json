@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-breeze--recommended-fuse-size",
+  "model": "primus-wind-power-air-breeze",
+  "name": "Recommended fuse size",
+  "value": "20 amp (slow blow)",
+  "source": "doc-0e96333eb489fa1e5451a0a8fa59b95d",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "watersprint-solo-nautic-ii--ingress-protection",
+  "model": "watersprint-solo-nautic-ii",
+  "name": "Ingress protection",
+  "value": "IP21",
+  "source": "doc-556a221553770acde089bd5311a06d02",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

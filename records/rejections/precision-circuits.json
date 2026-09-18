@@ -1,0 +1,29 @@
+{
+  "id": "precision-circuits",
+  "rejections": [
+    {
+      "source": "doc-318d1aac30e3d45adbd669b6465fdc13",
+      "model": "precision-circuits-00-10050-354",
+      "name": "Service Type",
+      "reason": "The wiring diagram for part 00-10050-354 lists \"50A Service = Sleep Mode\" among its Program Options, which is how the panel is programmed to behave on a 50 A service rather than a service type of the panel.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    },
+    {
+      "source": "doc-3154e98a67a630726a39dc15da354ed9",
+      "model": "precision-circuits-00-10050-626",
+      "name": "Service Current",
+      "reason": "The wiring diagram for part 00-10050-626 lists \"50A Service = Disable\" among its Program Options and shows the panel set for a 30 A service, so it is not a service current.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    },
+    {
+      "source": "doc-318d1aac30e3d45adbd669b6465fdc13",
+      "model": "precision-circuits-00-10050-354",
+      "name": "Current Limit",
+      "reason": "The wiring diagram lists \"50A Service = Sleep Mode\" and \"GEN =45A Current Limit\" under Program Options, so 45 A is the generator current limit set for this coach, not a current limit of the unit.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "id": "east-penn-gc10--runtime-75a",
+  "model": "east-penn-gc10",
+  "name": "Runtime 75A",
+  "value": "105",
+  "unit": "min",
+  "source": "doc-298020c480db519a900feeab4daf9343",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

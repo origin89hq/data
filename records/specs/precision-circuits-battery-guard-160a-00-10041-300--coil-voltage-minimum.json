@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-battery-guard-160a-00-10041-300--coil-voltage-minimum",
+  "model": "precision-circuits-battery-guard-160a-00-10041-300",
+  "name": "Coil voltage minimum",
+  "value": "9.0",
+  "unit": "V",
+  "source": "doc-d74cf300ec36073149f4d3647a95c8fd",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

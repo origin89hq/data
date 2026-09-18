@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-80--battery-wire-size-in-free-air-30-45-c",
+  "model": "morningstar-gs-mppt-80",
+  "name": "Battery wire size in free air 30°-45°C",
+  "value": "#4 AWG",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 163,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

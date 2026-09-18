@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-00-10050-422--maximum-service",
+  "model": "precision-circuits-00-10050-422",
+  "name": "Maximum Service",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-bdf3492a9c30705a02120386c7cadd7f",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

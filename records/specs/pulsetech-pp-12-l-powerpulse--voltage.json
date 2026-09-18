@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-pp-12-l-powerpulse--voltage",
+  "model": "pulsetech-pp-12-l-powerpulse",
+  "name": "Voltage",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-c4df2a41183cdee5b7b6d67c459ff5cb",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

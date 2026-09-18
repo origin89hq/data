@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-mobile-maxpure-mmp--power-output",
+  "model": "pulsetech-mobile-maxpure-mmp",
+  "name": "Power output",
+  "value": "up to 3.2 kilowatts (kW) of power and up to 30,000 gallons per day of water purification capability TBC: (Text cuts off)",
+  "source": "doc-3f55699c1b6392ff08d33a0523bad9bf",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4560av--lithium-charger-output-voltage",
+  "model": "progressive-dynamics-pd4560av",
+  "name": "Lithium charger output voltage",
+  "value": "14.4-14.6 VDC",
+  "source": "doc-42ed0a565eb82dfb06cb8b0fffacf358",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

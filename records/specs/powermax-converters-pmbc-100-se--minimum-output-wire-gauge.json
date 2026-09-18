@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmbc-100-se--minimum-output-wire-gauge",
+  "model": "powermax-converters-pmbc-100-se",
+  "name": "Minimum output wire gauge",
+  "value": "8 AWG",
+  "source": "doc-554e50421ecfb6d771e2afd1452e961a",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

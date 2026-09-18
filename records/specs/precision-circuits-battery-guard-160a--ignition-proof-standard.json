@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-battery-guard-160a--ignition-proof-standard",
+  "model": "precision-circuits-battery-guard-160a",
+  "name": "Ignition Proof Standard",
+  "value": "SAE J1171",
+  "source": "doc-f007f665b61a9fef6e28cf905544ebd6",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

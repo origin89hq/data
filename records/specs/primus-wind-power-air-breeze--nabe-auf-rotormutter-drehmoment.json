@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-breeze--nabe-auf-rotormutter-drehmoment",
+  "model": "primus-wind-power-air-breeze",
+  "name": "Nabe auf Rotormutter Drehmoment",
+  "value": "55 n·m (40 lb-ft)",
+  "source": "doc-e0af56fd8224288b383ac8c5efa4c08b",
+  "page": 11,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

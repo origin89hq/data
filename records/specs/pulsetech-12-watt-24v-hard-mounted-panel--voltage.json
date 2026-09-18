@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-12-watt-24v-hard-mounted-panel--voltage",
+  "model": "pulsetech-12-watt-24v-hard-mounted-panel",
+  "name": "Voltage",
+  "value": "24",
+  "unit": "V",
+  "source": "doc-67090b2d347619ad738c6ffae473b2ef",
+  "page": 10,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

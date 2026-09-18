@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-bt-2--applicate-battery",
+  "model": "pulsetech-bt-2",
+  "name": "Applicate Battery",
+  "value": "ANY 12V Lead-Acid Battery",
+  "source": "doc-11d5f42ba3a1291a556d282520cfa355",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

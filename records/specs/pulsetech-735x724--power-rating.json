@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-735x724--power-rating",
+  "model": "pulsetech-735x724",
+  "name": "Power rating",
+  "value": "12",
+  "unit": "W",
+  "source": "doc-f112bb32236d4734a0ff8419c713b260",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

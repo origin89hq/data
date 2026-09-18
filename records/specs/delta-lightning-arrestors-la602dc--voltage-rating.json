@@ -1,0 +1,10 @@
+{
+  "id": "delta-lightning-arrestors-la602dc--voltage-rating",
+  "model": "delta-lightning-arrestors-la602dc",
+  "name": "Voltage Rating",
+  "value": "0-600 volts",
+  "source": "doc-ef5c7c07785b47502585cbfe171ded48",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

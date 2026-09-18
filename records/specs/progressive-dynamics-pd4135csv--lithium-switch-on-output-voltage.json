@@ -1,0 +1,9 @@
+{
+  "id": "progressive-dynamics-pd4135csv--lithium-switch-on-output-voltage",
+  "model": "progressive-dynamics-pd4135csv",
+  "name": "Lithium switch ON output voltage",
+  "value": "14.4-14.6 VDC single stage for LiFePO4 batteries",
+  "source": "doc-2ad92137bbd4e1c5a1855dcd3f6fc87a",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

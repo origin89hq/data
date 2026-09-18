@@ -1,0 +1,10 @@
+{
+  "id": "epever-it7415nc-g3--communication-method",
+  "model": "epever-it7415nc-g3",
+  "name": "Communication method",
+  "value": "RS485 5VDC/200mA (RJ45)",
+  "source": "doc-e571c0928ae9e02fb7adf7a6d9c319ab",
+  "page": 64,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

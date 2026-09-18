@@ -1,0 +1,11 @@
+{
+  "id": "watersprint-solo-nautic-ii--calculated-performance-30-mj-cm-95-uvt",
+  "model": "watersprint-solo-nautic-ii",
+  "name": "Calculated performance (30 mJ/cm² @ 95% UVT)",
+  "value": "5",
+  "unit": "L/min",
+  "source": "doc-64d9f9d22065d996cba8b1bed76ea8be",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

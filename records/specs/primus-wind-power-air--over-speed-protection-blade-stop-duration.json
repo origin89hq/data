@@ -1,0 +1,11 @@
+{
+  "id": "primus-wind-power-air--over-speed-protection-blade-stop-duration",
+  "model": "primus-wind-power-air",
+  "name": "Over-speed protection blade stop duration",
+  "value": "30",
+  "unit": "s",
+  "source": "doc-e0af56fd8224288b383ac8c5efa4c08b",
+  "page": 28,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

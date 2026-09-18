@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pm3-30-24lk--max-amp-output-continuous",
+  "model": "powermax-converters-pm3-30-24lk",
+  "name": "Max Amp Output Continuous",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-f3047a75ec3b76afba0457487899978e",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "emporia-vue-200a-current-transformers--max-current",
+  "model": "emporia-vue-200a-current-transformers",
+  "name": "Max current",
+  "value": "200",
+  "unit": "A",
+  "source": "doc-969272a2b1d36a7a12316b057f3cdd9e",
+  "page": 6,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

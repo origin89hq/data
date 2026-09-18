@@ -1,0 +1,10 @@
+{
+  "id": "watersprint-acuva-arrowmax-explore-2--ip-rating",
+  "model": "watersprint-acuva-arrowmax-explore-2",
+  "name": "IP rating",
+  "value": "IP21",
+  "source": "doc-58e940db04b47884a527ac6d61304273",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-40--recommended-fuse-size-24-v-systems",
+  "model": "primus-wind-power-air-40",
+  "name": "Recommended fuse size 24 V systems",
+  "value": "10 A (acción retardada)",
+  "source": "doc-c15058cdcf6c0ae389d24523d639366a",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pmx-2000pspt--continuous-output-power",
+  "model": "powermax-converters-pmx-2000pspt",
+  "name": "Continuous output power",
+  "value": "2000",
+  "unit": "W",
+  "source": "doc-aa10b2ab94603707e362b938e91785d8",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

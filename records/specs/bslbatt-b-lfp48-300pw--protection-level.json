@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-b-lfp48-300pw--protection-level",
+  "model": "bslbatt-b-lfp48-300pw",
+  "name": "Protection Level",
+  "value": "IP65",
+  "source": "doc-382c5a7971015da9db65bfbb1c541856",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

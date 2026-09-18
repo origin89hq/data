@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc-ql4--storage-temperature",
+  "model": "pulsetech-xc-ql4",
+  "name": "Storage Temperature",
+  "value": "0ºF to 150ºF (-18ºC to 66ºC)",
+  "source": "doc-3103d5f8bcbc21e2716180ba1684f8a9",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

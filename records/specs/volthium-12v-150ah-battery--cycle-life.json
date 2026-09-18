@@ -1,0 +1,9 @@
+{
+  "id": "volthium-12v-150ah-battery--cycle-life",
+  "model": "volthium-12v-150ah-battery",
+  "name": "Cycle life",
+  "value": "3500 < cycles at 30% discharge | 6000 < cycles at 80% discharge | 8200 < cycles at 100% discharge",
+  "source": "doc-b53b4280817ee5ba995b9220bb1f06a4",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

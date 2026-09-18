@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-mppt-60--enclosure-temperature-rise",
+  "model": "morningstar-ts-mppt-60",
+  "name": "Enclosure temperature rise",
+  "value": "15.0",
+  "source": "doc-687a3ce0efb1ec0ba34bd644ddc9d45d",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

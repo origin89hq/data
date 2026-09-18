@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-314-ah-plus--internal-resistance-1khz-ac",
+  "model": "volthium-12-v-314-ah-plus",
+  "name": "Internal resistance@1khz AC",
+  "value": "≤10 mΩ",
+  "source": "doc-c2aa44762c5f60f01eee0b982da82c62",
+  "page": 10,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

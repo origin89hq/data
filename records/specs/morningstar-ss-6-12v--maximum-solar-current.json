@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ss-6-12v--maximum-solar-current",
+  "model": "morningstar-ss-6-12v",
+  "name": "Maximum solar current",
+  "value": "6.5",
+  "unit": "A",
+  "source": "doc-7eef275ea7e281f5944910c7b264fa68",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

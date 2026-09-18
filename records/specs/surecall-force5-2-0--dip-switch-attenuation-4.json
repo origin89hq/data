@@ -1,0 +1,11 @@
+{
+  "id": "surecall-force5-2-0--dip-switch-attenuation-4",
+  "model": "surecall-force5-2-0",
+  "name": "DIP switch attenuation 4",
+  "value": "8",
+  "unit": "dB",
+  "source": "doc-cb4dffe8d1d5c0700ae31f5c491db2c2",
+  "page": 19,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

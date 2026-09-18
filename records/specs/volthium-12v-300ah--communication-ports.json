@@ -1,0 +1,9 @@
+{
+  "id": "volthium-12v-300ah--communication-ports",
+  "model": "volthium-12v-300ah",
+  "name": "Communication ports",
+  "value": "RS485, CAN Hub communication (VE.CAN)",
+  "source": "doc-1f59f71da2d3ceb9721a2230297cbe2c",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

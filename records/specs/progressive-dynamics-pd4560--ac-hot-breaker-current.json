@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd4560--ac-hot-breaker-current",
+  "model": "progressive-dynamics-pd4560",
+  "name": "AC HOT breaker current",
+  "value": "15",
+  "unit": "A",
+  "source": "doc-a8da69b4171db359f3e1bc693fdbc280",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

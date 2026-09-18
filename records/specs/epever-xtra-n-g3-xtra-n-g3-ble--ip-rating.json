@@ -1,0 +1,10 @@
+{
+  "id": "epever-xtra-n-g3-xtra-n-g3-ble--ip-rating",
+  "model": "epever-xtra-n-g3-xtra-n-g3-ble",
+  "name": "IP rating",
+  "value": "IP33",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

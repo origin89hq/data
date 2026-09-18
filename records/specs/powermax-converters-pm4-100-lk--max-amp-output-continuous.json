@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pm4-100-lk--max-amp-output-continuous",
+  "model": "powermax-converters-pm4-100-lk",
+  "name": "Max Amp Output Continuous",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-7b991c3daec5966ca5048103aa8ae336",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

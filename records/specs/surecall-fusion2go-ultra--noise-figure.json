@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-ultra--noise-figure",
+  "model": "surecall-fusion2go-ultra",
+  "name": "Noise Figure",
+  "value": "≤ 7 dB",
+  "source": "doc-7cfd16d8ab1341295b37b5dc9920e3a9",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-25--current-rating",
+  "model": "pulsetech-sp-25",
+  "name": "Current rating",
+  "value": "1.6",
+  "unit": "A",
+  "source": "doc-465ca4bd12333e9c56f0c4f4f05f26df",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

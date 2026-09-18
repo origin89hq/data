@@ -1,0 +1,10 @@
+{
+  "id": "epever-mt-50--self-consumption-backlight-and-acoustic-alarm-on",
+  "model": "epever-mt-50",
+  "name": "Self-consumption, Backlight and acoustic alarm ON",
+  "value": "<65mA",
+  "source": "doc-d1bc52bc0bb701566219e695af1d35bf",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

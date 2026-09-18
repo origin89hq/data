@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmbc--input-current",
+  "model": "powermax-converters-pmbc",
+  "name": "Input Current",
+  "value": "2.2A rms (at full charging current)",
+  "source": "doc-2d60dd84c492d816f310eabe743db17b",
+  "page": 11,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

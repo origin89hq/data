@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmbc-4a--4a-charge-mode-voltage-current",
+  "model": "powermax-converters-pmbc-4a",
+  "name": "4A charge mode voltage/current",
+  "value": "14.4V/4A",
+  "source": "doc-b515fdf6fcbb9f313ca189fc417f743b",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

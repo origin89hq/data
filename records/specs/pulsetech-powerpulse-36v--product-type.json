@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-powerpulse-36v--product-type",
+  "model": "pulsetech-powerpulse-36v",
+  "name": "Product Type",
+  "value": "Battery Reconditioner and Maintainer",
+  "source": "doc-b89de8a7f82040452953126ad6830639",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

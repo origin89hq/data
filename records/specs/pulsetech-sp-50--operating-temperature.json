@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-50--operating-temperature",
+  "model": "pulsetech-sp-50",
+  "name": "Operating temperature",
+  "value": "-31ºF to 149ºF (-35ºC to 65ºC)",
+  "source": "doc-8be9495f7f8c765bf095c64e22f8a7b8",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

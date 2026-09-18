@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-560-ah-pro--maximum-charge-current",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "Maximum charge current",
+  "value": "300 A pendant 30 min | 325 A pendant 10 min",
+  "source": "doc-aeb5cccfeafcd4e86f6eefd9ccdacbe9",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

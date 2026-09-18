@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-170l1--dc-power",
+  "model": "unique-appliances-ugp-170l1",
+  "name": "DC Power",
+  "value": "12V/24V",
+  "source": "doc-6d9019a1e78bb7441f365240d881fcb9",
+  "page": 24,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

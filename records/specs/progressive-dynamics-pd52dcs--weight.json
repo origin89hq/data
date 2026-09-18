@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd52dcs--weight",
+  "model": "progressive-dynamics-pd52dcs",
+  "name": "Weight",
+  "value": "10",
+  "unit": "lb",
+  "source": "doc-e65476d5efab431000ba9e990a9ff93f",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

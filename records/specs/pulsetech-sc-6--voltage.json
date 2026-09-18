@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sc-6--voltage",
+  "model": "pulsetech-sc-6",
+  "name": "Voltage",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-1b2657f72e87d693842dfc67b680f4d1",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

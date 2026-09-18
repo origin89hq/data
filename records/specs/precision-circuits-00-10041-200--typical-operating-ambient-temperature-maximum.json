@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-00-10041-200--typical-operating-ambient-temperature-maximum",
+  "model": "precision-circuits-00-10041-200",
+  "name": "Typical operating ambient temperature maximum",
+  "value": "+60",
+  "unit": "°C",
+  "source": "doc-cd76c65396af09504c09d76e85c5b33a",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-gde000592-001-03-27-24--power-output-for-single-cell-phone-uplink",
+  "model": "wilson-electronics-gde000592-001-03-27-24",
+  "name": "Power output for single cell phone (Uplink)",
+  "value": "25.6",
+  "source": "doc-dbea95d21d2340ee2b1aa3e26f138f72",
+  "page": 23,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

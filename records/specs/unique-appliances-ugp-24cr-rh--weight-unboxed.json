@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-24cr-rh--weight-unboxed",
+  "model": "unique-appliances-ugp-24cr-rh",
+  "name": "Weight (unboxed)",
+  "value": "14 kg (31 lbs)",
+  "source": "doc-a60ba9573107e57f3dc0f75ddb339166",
+  "page": 17,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

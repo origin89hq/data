@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-7--circuit-box-dim",
+  "model": "pulsetech-sp-7",
+  "name": "Circuit Box Dim.",
+  "value": "3.4\" x 2.4\" x 1.5",
+  "source": "doc-04a98f2971e4133df5b343ce37fa51fd",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "epever-tracer6210an--rated-charge-power",
+  "model": "epever-tracer6210an",
+  "name": "Rated charge power",
+  "value": "750W/12V 1500W/24V",
+  "source": "doc-0d6a013f74408184c3a6e76c131a81f2",
+  "page": 17,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

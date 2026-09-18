@@ -1,0 +1,10 @@
+{
+  "id": "epever-mt75--dry-contact-rated-value",
+  "model": "epever-mt75",
+  "name": "Dry contact rated value",
+  "value": "5A/30VDC",
+  "source": "doc-baf42b6a806815524e9b50816fcac79f",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

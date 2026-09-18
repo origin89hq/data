@@ -1,0 +1,10 @@
+{
+  "id": "lorentz-ps2-100--maximum-open-circuit-voltage",
+  "model": "lorentz-ps2-100",
+  "name": "Maximum open-circuit voltage",
+  "value": "50V Voc",
+  "source": "doc-4dfb2f7028fef4b058ead6fc84b93d86",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

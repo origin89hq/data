@@ -1,0 +1,10 @@
+{
+  "id": "delta-lightning-arrestors-la602dc--type-of-design",
+  "model": "delta-lightning-arrestors-la602dc",
+  "name": "Type of design",
+  "value": "Silicon Oxide Varistor",
+  "source": "doc-7511ed547f5983baf3cf16e380fb0cc3",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

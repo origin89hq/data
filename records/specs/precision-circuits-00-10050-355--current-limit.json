@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-00-10050-355--current-limit",
+  "model": "precision-circuits-00-10050-355",
+  "name": "Current limit",
+  "value": "45",
+  "unit": "A",
+  "source": "doc-948b87da61c6a503dc1d1ef23c72ada5",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "precision-circuits-00-10024-0004--components",
+  "model": "precision-circuits-00-10024-0004",
+  "name": "Components",
+  "value": "Current sensor, two relays to control 120VAC powered appliances, Service Type detect circuitry",
+  "source": "doc-ee1ce06ed25b46152fdaba517061568b",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

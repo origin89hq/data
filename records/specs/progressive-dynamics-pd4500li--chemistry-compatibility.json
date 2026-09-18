@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4500li--chemistry-compatibility",
+  "model": "progressive-dynamics-pd4500li",
+  "name": "Chemistry compatibility",
+  "value": "Lithium Iron Phosphate (LiFePO4)",
+  "source": "doc-a8da69b4171db359f3e1bc693fdbc280",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

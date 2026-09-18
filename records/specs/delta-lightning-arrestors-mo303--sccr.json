@@ -1,0 +1,10 @@
+{
+  "id": "delta-lightning-arrestors-mo303--sccr",
+  "model": "delta-lightning-arrestors-mo303",
+  "name": "SCCR",
+  "value": "10k",
+  "source": "doc-46921a96fb0ee85a0ccbf64c9d7e20d2",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

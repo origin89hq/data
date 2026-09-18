@@ -1,0 +1,10 @@
+{
+  "id": "rstc-enterprises-0399--ambient-operating-conditions",
+  "model": "rstc-enterprises-0399",
+  "name": "Ambient Operating Conditions",
+  "value": "(-35°C) - (+75°C)",
+  "source": "doc-de2922a54614cb85da917352b5b14f63",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

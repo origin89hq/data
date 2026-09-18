@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-pp-36-l--battery-voltage",
+  "model": "pulsetech-pp-36-l",
+  "name": "Battery voltage",
+  "value": "36-volt",
+  "source": "doc-3948031b617eef5661dc6f267a78a6a2",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

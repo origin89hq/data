@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-eb-mppt-30-m--wire-size-range-power-terminals",
+  "model": "morningstar-eb-mppt-30-m",
+  "name": "Wire Size Range (Power Terminals)",
+  "value": "#14 - 2 AWG / 2.5 - 33.6 mm2",
+  "source": "doc-15aaa2603340519a063c6fdaff24a15e",
+  "page": 23,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

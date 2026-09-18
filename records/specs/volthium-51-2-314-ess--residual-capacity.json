@@ -1,0 +1,10 @@
+{
+  "id": "volthium-51-2-314-ess--residual-capacity",
+  "model": "volthium-51-2-314-ess",
+  "name": "Residual capacity",
+  "value": "≤3 months",
+  "source": "doc-70b77cf2d1e1ebb8fadfde03a8d95990",
+  "page": 14,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-iiscn-1100--load-size",
+  "model": "iota-engineering-iiscn-1100",
+  "name": "Load size",
+  "value": "1100",
+  "unit": "VA",
+  "source": "doc-8679f62e38c4978e5553237782afd3f3",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

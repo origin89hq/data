@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-gs-mppt-60m-200v--load-current",
+  "model": "morningstar-gs-mppt-60m-200v",
+  "name": "Load current",
+  "value": "30",
+  "unit": "A",
+  "source": "doc-37633f0a761869b4d7d2f61da8e5f63a",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

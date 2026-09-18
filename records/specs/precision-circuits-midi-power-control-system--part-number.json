@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-midi-power-control-system--part-number",
+  "model": "precision-circuits-midi-power-control-system",
+  "name": "Part number",
+  "value": "00-10050-213",
+  "source": "doc-11d0474ccac56785f048a743dcf083e3",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

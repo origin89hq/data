@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pt20-solar-charge-controller--maximum-overcurrent-protection",
+  "model": "pulsetech-pt20-solar-charge-controller",
+  "name": "Maximum overcurrent protection",
+  "value": "22-amps",
+  "source": "doc-23626c7771110fd9944d219a50d60d5f",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

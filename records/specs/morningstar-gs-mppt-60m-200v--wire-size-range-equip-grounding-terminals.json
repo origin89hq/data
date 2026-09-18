@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-60m-200v--wire-size-range-equip-grounding-terminals",
+  "model": "morningstar-gs-mppt-60m-200v",
+  "name": "Wire Size Range - Equip. grounding terminals",
+  "value": "2.5 - 33.6 mm2 / #14 - 2 AWG",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 151,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pp-12-l--nsn",
+  "model": "pulsetech-pp-12-l",
+  "name": "NSN",
+  "value": "6130-01-446-7166",
+  "source": "doc-b1b7cc2dd37fbc18674d6a62c85d84b3",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

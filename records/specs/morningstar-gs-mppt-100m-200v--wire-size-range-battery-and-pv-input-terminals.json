@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-100m-200v--wire-size-range-battery-and-pv-input-terminals",
+  "model": "morningstar-gs-mppt-100m-200v",
+  "name": "Wire Size Range - Battery and PV input terminals",
+  "value": "10 - 53.5 mm2 / #8 - 1/0 AWG",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 151,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

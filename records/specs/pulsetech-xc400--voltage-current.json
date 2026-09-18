@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc400--voltage-current",
+  "model": "pulsetech-xc400",
+  "name": "Voltage/Current",
+  "value": "12V 4 Amp",
+  "source": "doc-98efc3137952391b5f63d360143d8308",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

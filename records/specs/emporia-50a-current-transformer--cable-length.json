@@ -1,0 +1,11 @@
+{
+  "id": "emporia-50a-current-transformer--cable-length",
+  "model": "emporia-50a-current-transformer",
+  "name": "Cable length",
+  "value": "1",
+  "unit": "m",
+  "source": "doc-d6210a1a6a0c21eccfa4994aaa7831e4",
+  "page": 12,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

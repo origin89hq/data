@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-170l1--capacity",
+  "model": "unique-appliances-ugp-170l1",
+  "name": "Capacity",
+  "value": "170L / 6.0 cu. ft.",
+  "source": "doc-6d9019a1e78bb7441f365240d881fcb9",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

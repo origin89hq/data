@@ -1,0 +1,10 @@
+{
+  "id": "snapnrack-242-01104--junction-box-channel-nut-torque-specification",
+  "model": "snapnrack-242-01104",
+  "name": "Junction Box Channel Nut Torque Specification",
+  "value": "5 lb-ft (60 lb-in)",
+  "source": "doc-ec609beae8058bfbf370c984739eaa3e",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd--operating-temperature-range",
+  "model": "iota-engineering-ilblp-cp15-he-sd",
+  "name": "Operating temperature range",
+  "value": "0° to 55° C",
+  "source": "doc-668127f8728f21471af7b6df6f82db0f",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

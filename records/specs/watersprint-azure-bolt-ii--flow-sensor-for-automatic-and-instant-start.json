@@ -1,0 +1,10 @@
+{
+  "id": "watersprint-azure-bolt-ii--flow-sensor-for-automatic-and-instant-start",
+  "model": "watersprint-azure-bolt-ii",
+  "name": "Flow Sensor for automatic and instant start",
+  "value": "Optional",
+  "source": "doc-9bb81c04ecf9a5920ce11711ed607e5d",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

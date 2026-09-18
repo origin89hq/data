@@ -1,0 +1,9 @@
+{
+  "id": "precision-circuits-battery-guard-160a-00-10041-300--ambient-temperature",
+  "model": "precision-circuits-battery-guard-160a-00-10041-300",
+  "name": "Ambient temperature",
+  "value": "-40 C to +60 C",
+  "source": "doc-d74cf300ec36073149f4d3647a95c8fd",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

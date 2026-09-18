@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-3--operating-temperature",
+  "model": "pulsetech-sp-3",
+  "name": "Operating Temperature",
+  "value": "0º to 130ºF (-18ºC to 54ºC)",
+  "source": "doc-dada2ca712fc272b45f663227e5b4d11",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

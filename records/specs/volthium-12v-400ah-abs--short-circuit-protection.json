@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12v-400ah-abs--short-circuit-protection",
+  "model": "volthium-12v-400ah-abs",
+  "name": "Short circuit protection",
+  "value": "Oui",
+  "source": "doc-5f44ad9dbdfba53eeaebb90a2892724f",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

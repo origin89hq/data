@@ -1,0 +1,10 @@
+{
+  "id": "volthium-eqp-pwrstn-1600w--usb-a-qc",
+  "model": "volthium-eqp-pwrstn-1600w",
+  "name": "USB-A QC",
+  "value": "18W (5V3A / 9V2A / 12V1.5A)",
+  "source": "doc-3fc12c58a7dbea3701ac9cccf68420ba",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

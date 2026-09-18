@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-si-300-48-127-60-hw--peak-efficiency-at-48-v",
+  "model": "morningstar-si-300-48-127-60-hw",
+  "name": "Peak Efficiency at 48 V",
+  "value": "92",
+  "unit": "%",
+  "source": "doc-9d24c6fe1606ecc4c1e36f6cb5ae7bb7",
+  "page": 62,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

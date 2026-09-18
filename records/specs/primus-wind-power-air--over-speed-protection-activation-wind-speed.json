@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air--over-speed-protection-activation-wind-speed",
+  "model": "primus-wind-power-air",
+  "name": "Over-speed protection activation wind speed",
+  "value": "22 m/s (50 mph)",
+  "source": "doc-e0af56fd8224288b383ac8c5efa4c08b",
+  "page": 30,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

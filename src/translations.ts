@@ -64,6 +64,11 @@ export const ENGLISH: Record<string, string> = {
   "TAUX D’ENTRÉE DU BRÛleUR": "Burner input rate",
   "Profondeur maximale des armoires au-dessus de la surface de cuisson":
     "Maximum depth of cabinets above the cooking surface",
+  "Consommation d’électricité": "Power consumption",
+  "Délai d'activation du relais": "Relay activation delay",
+  "Résistance de la bobine du relais": "Relay coil resistance",
+  "Tension de sortie": "Output voltage",
+  "Tension minimale du générateur": "Minimum generator voltage",
 
   // Spanish
   "Diámetro del orificio del cable": "Cable entry diameter",
@@ -126,6 +131,9 @@ export const ENGLISH: Record<string, string> = {
 
   // Turkish
   "Başlangıç Akımı": "Starting current",
+
+  // German
+  Nennleistung: "Rated power",
 };
 
 /** The English name for a printed one, or undefined when nobody has given it one. */

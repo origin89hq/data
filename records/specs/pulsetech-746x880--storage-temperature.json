@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-746x880--storage-temperature",
+  "model": "pulsetech-746x880",
+  "name": "Storage Temperature",
+  "value": "0ºF to 150ºF (-18ºC to 66ºC)",
+  "source": "doc-a5cc0b1e5859140c48e5fa0f4089ce7f",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-520001--max-gain",
+  "model": "wilson-electronics-520001",
+  "name": "Max gain",
+  "value": "68dB(B1) / 65dB(B3) / 66dB(B8)",
+  "source": "doc-81d6899f31f97e6ee0b4263c003c7e89",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

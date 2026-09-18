@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4590--input-voltage",
+  "model": "progressive-dynamics-pd4590",
+  "name": "Input voltage",
+  "value": "105-130 VAC",
+  "source": "doc-cc746b613ecdfaa58015ab49a66a9d94",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

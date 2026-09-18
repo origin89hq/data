@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc-ql4--battery-cable-length",
+  "model": "pulsetech-xc-ql4",
+  "name": "Battery Cable Length",
+  "value": "5′",
+  "source": "doc-3103d5f8bcbc21e2716180ba1684f8a9",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

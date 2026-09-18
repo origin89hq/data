@@ -1,0 +1,11 @@
+{
+  "id": "volthium-12v-400ah-abs--heating-current",
+  "model": "volthium-12v-400ah-abs",
+  "name": "Heating current",
+  "value": "7",
+  "unit": "A",
+  "source": "doc-99ceb53b046af7cefe6cab5548609aa3",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

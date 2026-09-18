@@ -1,0 +1,11 @@
+{
+  "id": "epever-xtra2206n-g3-g3-ble--maximum-conversion-efficiency",
+  "model": "epever-xtra2206n-g3-g3-ble",
+  "name": "Maximum conversion efficiency",
+  "value": "98.3",
+  "unit": "%",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 49,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

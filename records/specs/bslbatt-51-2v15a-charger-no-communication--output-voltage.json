@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-51-2v15a-charger-no-communication--output-voltage",
+  "model": "bslbatt-51-2v15a-charger-no-communication",
+  "name": "Output voltage",
+  "value": "51.2",
+  "unit": "V",
+  "source": "doc-1ff91de5521bda2e21af7519926a55c8",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

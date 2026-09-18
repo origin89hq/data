@@ -1,0 +1,9 @@
+{
+  "id": "powermax-converters-pm3-45--output-current",
+  "model": "powermax-converters-pm3-45",
+  "name": "Output current",
+  "value": "45 A DC",
+  "source": "doc-273757f7f1553c150a5d2558313e2cf7",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

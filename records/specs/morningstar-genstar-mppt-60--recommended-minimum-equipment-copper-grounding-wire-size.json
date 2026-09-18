@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-genstar-mppt-60--recommended-minimum-equipment-copper-grounding-wire-size",
+  "model": "morningstar-genstar-mppt-60",
+  "name": "Recommended minimum equipment copper grounding wire size",
+  "value": "8 AWG (8.37 mm2)",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 39,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

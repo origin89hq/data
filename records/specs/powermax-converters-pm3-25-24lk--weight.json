@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-pm3-25-24lk--weight",
+  "model": "powermax-converters-pm3-25-24lk",
+  "name": "Weight",
+  "value": "7.0",
+  "unit": "lb",
+  "source": "doc-f3047a75ec3b76afba0457487899978e",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

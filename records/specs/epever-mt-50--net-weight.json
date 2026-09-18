@@ -1,0 +1,11 @@
+{
+  "id": "epever-mt-50--net-weight",
+  "model": "epever-mt-50",
+  "name": "Net weight",
+  "value": "0.23",
+  "unit": "kg",
+  "source": "doc-53db1d7b511380afdf031b1284c6f1a5",
+  "page": 37,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

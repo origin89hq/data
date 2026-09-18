@@ -1,0 +1,9 @@
+{
+  "id": "progressive-dynamics-pd9200-serie--input-voltage-range",
+  "model": "progressive-dynamics-pd9200-serie",
+  "name": "Input voltage range",
+  "value": "105 - 130 Vca <br>205 - 265 Vca pour les modèles 230 V",
+  "source": "doc-98d3fd10e722bb94fe370a38ae998de2",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

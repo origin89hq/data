@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilbhi-cp20-he-sd-hv--description",
+  "model": "iota-engineering-ilbhi-cp20-he-sd-hv",
+  "name": "Description",
+  "value": "347-480V Self-Test/Diagnostic Emergency Driver, high-voltage output",
+  "source": "doc-8fd7a3a616f2bfe71e05b44f426523fd",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

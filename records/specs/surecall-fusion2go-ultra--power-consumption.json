@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-ultra--power-consumption",
+  "model": "surecall-fusion2go-ultra",
+  "name": "Power Consumption",
+  "value": "≤ 15W",
+  "source": "doc-976209bdb74ff308bbac453001120925",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

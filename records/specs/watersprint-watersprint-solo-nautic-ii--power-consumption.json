@@ -1,0 +1,9 @@
+{
+  "id": "watersprint-watersprint-solo-nautic-ii--power-consumption",
+  "model": "watersprint-watersprint-solo-nautic-ii",
+  "name": "Power consumption",
+  "value": "24 W (UVC LED unit); active carbon filter N/A",
+  "source": "doc-356bcf9412faeab88b44d09774e8583c",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

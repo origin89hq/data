@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-890pt--battery-test-rating-type",
+  "model": "pulsetech-890pt",
+  "name": "Battery test rating type",
+  "value": "CCA/SAE",
+  "source": "doc-507a0bdb8d38534cdb6a80f76139fd85",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion4home-max--input-voltage",
+  "model": "surecall-fusion4home-max",
+  "name": "Input voltage",
+  "value": "5-15V",
+  "source": "doc-80f57c9c810d55f0c211dbc30007c807",
+  "page": 10,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

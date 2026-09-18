@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4655tv--maximum-output-current",
+  "model": "progressive-dynamics-pd4655tv",
+  "name": "Maximum output current",
+  "value": "55",
+  "unit": "A",
+  "source": "doc-51d603f24aeb18f79dfc121aa98503da",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

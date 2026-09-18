@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp10--function",
+  "model": "pulsetech-sp10",
+  "name": "Function",
+  "value": "compensate for daily parasitic drain and desulfate all types of 12-Volt lead-acid battery systems",
+  "source": "doc-bf71e064e88eadcf0cce3447abc10185",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

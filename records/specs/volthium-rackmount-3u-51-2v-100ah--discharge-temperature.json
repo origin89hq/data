@@ -1,0 +1,10 @@
+{
+  "id": "volthium-rackmount-3u-51-2v-100ah--discharge-temperature",
+  "model": "volthium-rackmount-3u-51-2v-100ah",
+  "name": "Discharge temperature",
+  "value": "0 à 45°C",
+  "source": "doc-3c151d9fbc3b418d555a506a636fdddc",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

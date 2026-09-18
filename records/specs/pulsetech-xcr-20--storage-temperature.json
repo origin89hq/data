@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xcr-20--storage-temperature",
+  "model": "pulsetech-xcr-20",
+  "name": "Storage Temperature",
+  "value": "0ºF to 150ºF (-18ºC to 66ºC)",
+  "source": "doc-b5b1fda82f3ff25f3d4e844d5513b277",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-ss-mppt-15l--transient-protection",
+  "model": "morningstar-ss-mppt-15l",
+  "name": "Transient protection",
+  "value": "4 x 1500 Watt",
+  "source": "doc-af22fe14d72253d58e18896733cb9521",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

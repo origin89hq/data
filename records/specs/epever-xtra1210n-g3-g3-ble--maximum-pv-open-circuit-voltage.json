@@ -1,0 +1,10 @@
+{
+  "id": "epever-xtra1210n-g3-g3-ble--maximum-pv-open-circuit-voltage",
+  "model": "epever-xtra1210n-g3-g3-ble",
+  "name": "Maximum PV open-circuit voltage",
+  "value": "60V(At minimum operating environment temperature)\n46V (At 25ºC)",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 49,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

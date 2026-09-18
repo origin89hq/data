@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-30--led-blink-cycle",
+  "model": "primus-wind-power-air-30",
+  "name": "LED blink cycle",
+  "value": "same as AIR 40/AIR Breeze or shorter set of blinks (roughly 1/2 second per blink)",
+  "source": "doc-cf29a085afbab6cd0bc87e1b22acbc73",
+  "page": 34,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

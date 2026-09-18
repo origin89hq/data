@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12v-400ah-abs--lcd-screen",
+  "model": "volthium-12v-400ah-abs",
+  "name": "LCD screen",
+  "value": "Optional",
+  "source": "doc-99ceb53b046af7cefe6cab5548609aa3",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

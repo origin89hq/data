@@ -1,0 +1,9 @@
+{
+  "id": "progressive-dynamics-pd9380v--power-factor-correction",
+  "model": "progressive-dynamics-pd9380v",
+  "name": "Power Factor Correction",
+  "value": "does not have Power Factor Correction",
+  "source": "doc-0f5ed09dbf95c4eb32cb827899564ff6",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-560-ah-pro--recommended-charge-voltage",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "Recommended charge voltage",
+  "value": "14.2 V - 14.6 V (Bulk) | 13.6 V - 13.8 V (Float)",
+  "source": "doc-aeb5cccfeafcd4e86f6eefd9ccdacbe9",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

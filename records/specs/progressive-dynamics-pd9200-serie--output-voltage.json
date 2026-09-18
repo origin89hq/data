@@ -1,0 +1,9 @@
+{
+  "id": "progressive-dynamics-pd9200-serie--output-voltage",
+  "model": "progressive-dynamics-pd9200-serie",
+  "name": "Output voltage",
+  "value": "> 13 VDC <br>> 26 VDC (modèles 24V) <br>14.3 VDC (modèles 12V 9100L) <br>28.4 VDC (modèles 24V 9100-24L)",
+  "source": "doc-98d3fd10e722bb94fe370a38ae998de2",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

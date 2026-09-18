@@ -1,0 +1,9 @@
+{
+  "id": "volthium-12-v-100-ah-pro2--ip-rating",
+  "model": "volthium-12-v-100-ah-pro2",
+  "name": "IP rating",
+  "value": "IP65",
+  "source": "doc-7b9c445691ca06789041402ec3fefe03",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

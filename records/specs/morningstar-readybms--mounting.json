@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-readybms--mounting",
+  "model": "morningstar-readybms",
+  "name": "Mounting",
+  "value": "35 mm DIN rail / ReadyRail",
+  "source": "doc-de5861c1b8bc4551744f673cc6a094f7",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

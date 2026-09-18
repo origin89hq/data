@@ -1,0 +1,9 @@
+{
+  "id": "iota-engineering-ilbhi-cp20-he-sd-hv--battery-chemistry",
+  "model": "iota-engineering-ilbhi-cp20-he-sd-hv",
+  "name": "Battery Chemistry",
+  "value": "Maintenance-free LiFePO4 Lithium Iron Phosphate",
+  "source": "doc-284df3b8fd736b905fee2104c56c788b",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

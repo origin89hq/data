@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-sp-12--application",
+  "model": "pulsetech-sp-12",
+  "name": "Application",
+  "value": "3-4 Batteries",
+  "source": "doc-3948031b617eef5661dc6f267a78a6a2",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion2go-xr--input-impedance",
+  "model": "surecall-fusion2go-xr",
+  "name": "Input Impedance",
+  "value": "50",
+  "unit": "Ω",
+  "source": "doc-489b28de8fa17020ba61f7eeb4f96e30",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

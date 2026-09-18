@@ -1,0 +1,12 @@
+{
+  "id": "emporia-branch-current-transformers-emv3ct5-a--accuracy-above-4-f-20-c",
+  "model": "emporia-branch-current-transformers-emv3ct5-a",
+  "name": "Accuracy",
+  "value": "±2",
+  "unit": "%",
+  "conditions": "above 4° F / -20° C",
+  "source": "doc-e44cae2a6b8535ee6806ff6f5600735d",
+  "page": 37,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

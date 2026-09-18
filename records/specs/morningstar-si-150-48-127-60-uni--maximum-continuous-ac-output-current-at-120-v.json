@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-si-150-48-127-60-uni--maximum-continuous-ac-output-current-at-120-v",
+  "model": "morningstar-si-150-48-127-60-uni",
+  "name": "Maximum Continuous AC Output Current at 120 V",
+  "value": "1.25",
+  "unit": "A",
+  "source": "doc-9d24c6fe1606ecc4c1e36f6cb5ae7bb7",
+  "page": 62,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

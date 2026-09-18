@@ -1,9 +1,9 @@
 {
   "id": "morningstar-gs-mppt-100--maximum-recommended-pv-input",
   "model": "morningstar-gs-mppt-100",
-  "name": "Maximum Recommended PV Input",
-  "value": "2000-4000-8000W",
-  "source": "doc-3c6c284318c045cf3e87c0f37104f855",
-  "extractedBy": "ai:@cf/meta/llama-3.3-70b-instruct-fp8-fast@p2",
+  "name": "Maximum recommended PV input",
+  "value": "2000-4000-8000 W",
+  "source": "doc-6739e7d19f336032814971b4696fd318",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
   "confidence": "vendor-doc"
 }

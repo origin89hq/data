@@ -1,0 +1,9 @@
+{
+  "id": "unique-appliances-ugp-20g--product-type",
+  "model": "unique-appliances-ugp-20g",
+  "name": "Product type",
+  "value": "Classic Gas Range (LPG & NG convertible)",
+  "source": "doc-a02fce8b3a5ca08271c1d8617ffd4bf0",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

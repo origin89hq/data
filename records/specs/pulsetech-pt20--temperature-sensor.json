@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pt20--temperature-sensor",
+  "model": "pulsetech-pt20",
+  "name": "Temperature Sensor",
+  "value": "Tape to top or side of the battery",
+  "source": "doc-23626c7771110fd9944d219a50d60d5f",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

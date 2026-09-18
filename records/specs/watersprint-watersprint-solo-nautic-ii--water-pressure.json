@@ -1,0 +1,9 @@
+{
+  "id": "watersprint-watersprint-solo-nautic-ii--water-pressure",
+  "model": "watersprint-watersprint-solo-nautic-ii",
+  "name": "Water pressure",
+  "value": "10 bar (UVC LED unit); min. 0,5 bar max. 8,6 bar (active carbon filter)",
+  "source": "doc-356bcf9412faeab88b44d09774e8583c",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

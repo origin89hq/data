@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-si-150-48-127-60-uni--ac-output-voltage-options",
+  "model": "morningstar-si-150-48-127-60-uni",
+  "name": "AC Output Voltage Options",
+  "value": "120 V (60 Hz) / 230 V (50 Hz) / 127 V (60 Hz) / 220 V (60 Hz.)",
+  "source": "doc-9d24c6fe1606ecc4c1e36f6cb5ae7bb7",
+  "page": 62,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

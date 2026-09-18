@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilb-cp10-he-aelr-a--mounting-configuration",
+  "model": "iota-engineering-ilb-cp10-he-aelr-a",
+  "name": "Mounting Configuration",
+  "value": "Dual Flex",
+  "source": "doc-e3c2b1e046d8ac1688627ea31a3144a4",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

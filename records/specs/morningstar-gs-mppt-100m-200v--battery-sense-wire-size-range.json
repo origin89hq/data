@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-100m-200v--battery-sense-wire-size-range",
+  "model": "morningstar-gs-mppt-100m-200v",
+  "name": "Battery sense wire size range",
+  "value": "0.25 - 1.0 平⽅毫⽶ / 24 - 16 美國線規",
+  "source": "doc-37633f0a761869b4d7d2f61da8e5f63a",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

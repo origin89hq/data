@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-b-lfp48-18--discharge-cut-off-voltage",
+  "model": "bslbatt-b-lfp48-18",
+  "name": "Discharge Cut-off Voltage",
+  "value": "About 40V",
+  "source": "doc-86c3e874ae2eee0d8976df5b8576fa84",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd9105--feedback",
+  "model": "progressive-dynamics-pd9105",
+  "name": "Feedback",
+  "value": "Charge status indicator light",
+  "source": "doc-99ee695cb32a17bc531a462842861713",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

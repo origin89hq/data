@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd9130--output-voltage",
+  "model": "progressive-dynamics-pd9130",
+  "name": "Output voltage",
+  "value": "13.6",
+  "unit": "V",
+  "source": "doc-98d3fd10e722bb94fe370a38ae998de2",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

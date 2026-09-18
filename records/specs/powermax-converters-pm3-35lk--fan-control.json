@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pm3-35lk--fan-control",
+  "model": "powermax-converters-pm3-35lk",
+  "name": "Fan Control",
+  "value": "Proportional",
+  "source": "doc-73d2692d88fd6c2869110f519241800a",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

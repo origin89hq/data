@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-60m-200v--product-dimensions",
+  "model": "morningstar-gs-mppt-60m-200v",
+  "name": "Product Dimensions",
+  "value": "14.19 x 8.74 x 6.70 in / 360.4 x 222 x 170.2 mm",
+  "source": "doc-8064daa49fc5ab905383d7bdc59b841f",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

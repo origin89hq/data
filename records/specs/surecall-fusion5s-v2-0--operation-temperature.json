@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion5s-v2-0--operation-temperature",
+  "model": "surecall-fusion5s-v2-0",
+  "name": "Operation Temperature",
+  "value": "-4º F to +158º F",
+  "source": "doc-7e08293f87e916929c2e41a58589c5a8",
+  "page": 16,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

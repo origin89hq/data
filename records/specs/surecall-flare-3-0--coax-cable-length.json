@@ -1,0 +1,11 @@
+{
+  "id": "surecall-flare-3-0--coax-cable-length",
+  "model": "surecall-flare-3-0",
+  "name": "Coax cable length",
+  "value": "50",
+  "unit": "ft",
+  "source": "doc-0265182c13db2b24e5dc5caabf89a683",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

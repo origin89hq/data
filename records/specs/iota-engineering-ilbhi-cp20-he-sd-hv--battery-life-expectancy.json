@@ -1,0 +1,9 @@
+{
+  "id": "iota-engineering-ilbhi-cp20-he-sd-hv--battery-life-expectancy",
+  "model": "iota-engineering-ilbhi-cp20-he-sd-hv",
+  "name": "Battery Life Expectancy",
+  "value": "5-7 Year",
+  "source": "doc-284df3b8fd736b905fee2104c56c788b",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

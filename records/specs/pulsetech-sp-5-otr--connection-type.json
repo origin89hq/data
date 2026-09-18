@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-5-otr--connection-type",
+  "model": "pulsetech-sp-5-otr",
+  "name": "Connection type",
+  "value": "OBD plug",
+  "source": "doc-e952e665d5b074eda4fab6bd3520a36c",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-genstar-mppt--wire-gauge-range",
+  "model": "morningstar-genstar-mppt",
+  "name": "Wire gauge range",
+  "value": "#14-6 AWG (2.5 - 13.3 mm2)",
+  "source": "doc-6739e7d19f336032814971b4696fd318",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

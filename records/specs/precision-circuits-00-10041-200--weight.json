@@ -1,0 +1,9 @@
+{
+  "id": "precision-circuits-00-10041-200--weight",
+  "model": "precision-circuits-00-10041-200",
+  "name": "Weight",
+  "value": "under 1 pound",
+  "source": "doc-cd76c65396af09504c09d76e85c5b33a",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

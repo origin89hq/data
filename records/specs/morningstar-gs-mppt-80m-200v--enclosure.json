@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-80m-200v--enclosure",
+  "model": "morningstar-gs-mppt-80m-200v",
+  "name": "Enclosure",
+  "value": "IP20, Type 1",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 151,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

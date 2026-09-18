@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-3000w--storage-temperature",
+  "model": "powermax-converters-pmx-3000w",
+  "name": "Storage temperature",
+  "value": "-10 - 50℃",
+  "source": "doc-39140d23c40e0c6d760fa8b9948caf17",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

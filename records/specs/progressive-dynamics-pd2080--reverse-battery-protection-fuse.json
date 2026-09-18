@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd2080--reverse-battery-protection-fuse",
+  "model": "progressive-dynamics-pd2080",
+  "name": "Reverse Battery Protection fuse",
+  "value": "Three 30 AMP Automotive Type (ATC) Fuses",
+  "source": "doc-39647255f1520f8290624f2a53a078b2",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

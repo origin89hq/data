@@ -1,0 +1,9 @@
+{
+  "id": "volthium-rackmount-3u-51-2v-100ah--tightening-torque-on-terminals",
+  "model": "volthium-rackmount-3u-51-2v-100ah",
+  "name": "Tightening torque on terminals",
+  "value": "8~10nm / 6-8 ft/lb",
+  "source": "doc-f4a61c5d9d64955b46bfdb9be5b5ce14",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

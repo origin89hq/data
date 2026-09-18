@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-si-300-48-120-60-hw--3-minute-surge-power-at-40-c",
+  "model": "morningstar-si-300-48-120-60-hw",
+  "name": "3 minute Surge Power at 40°C",
+  "value": "360",
+  "unit": "W",
+  "source": "doc-9d24c6fe1606ecc4c1e36f6cb5ae7bb7",
+  "page": 62,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

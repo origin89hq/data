@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-12v-world-charger--battery-type",
+  "model": "pulsetech-12v-world-charger",
+  "name": "Battery type",
+  "value": "any type or size of 12V lead acid battery (AGM, GEL or flooded cell)",
+  "source": "doc-8c35ef5b3df7b5fcf9d30ebad67f662d",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

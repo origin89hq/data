@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-12--input-electrical",
+  "model": "pulsetech-sp-12",
+  "name": "Input Electrical",
+  "value": "12 watts, Solar-powered",
+  "source": "doc-995db75d36a004a7ee894499a5c004ec",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

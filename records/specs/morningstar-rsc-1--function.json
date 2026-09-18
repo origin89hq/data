@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-rsc-1--function",
+  "model": "morningstar-rsc-1",
+  "name": "Function",
+  "value": "Provides ability to network RS-232 serial devices over EIA-485 bus using MODBUS protocol",
+  "source": "doc-4adec92411b29cf56b15c772390ec17a",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "epever-it7415nc-g3--rated-charging-current",
+  "model": "epever-it7415nc-g3",
+  "name": "Rated Charging Current",
+  "value": "75",
+  "unit": "A",
+  "source": "doc-e571c0928ae9e02fb7adf7a6d9c319ab",
+  "page": 20,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

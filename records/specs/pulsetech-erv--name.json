@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-erv--name",
+  "model": "pulsetech-erv",
+  "name": "Name",
+  "value": "SolarPulse ERV 12V Battery Solar Charger Maintainer",
+  "source": "doc-1b2657f72e87d693842dfc67b680f4d1",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

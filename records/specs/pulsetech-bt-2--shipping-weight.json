@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-bt-2--shipping-weight",
+  "model": "pulsetech-bt-2",
+  "name": "Shipping Weight",
+  "value": "8.9 lbs (4.06 kg)",
+  "source": "doc-5452174c9b3e2d65a71630e4cbe5c979",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

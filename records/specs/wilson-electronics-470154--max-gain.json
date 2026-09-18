@@ -1,0 +1,11 @@
+{
+  "id": "wilson-electronics-470154--max-gain",
+  "model": "wilson-electronics-470154",
+  "name": "Max Gain",
+  "value": "50",
+  "unit": "dB",
+  "source": "doc-ed0cbf4509a4aa12dd5e191f1674a407",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

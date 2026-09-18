@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pp-12-l--battery-system-voltage",
+  "model": "pulsetech-pp-12-l",
+  "name": "Battery system voltage",
+  "value": "12-volt",
+  "source": "doc-feacfcbdccea522ecd1ba703d2e2a49a",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

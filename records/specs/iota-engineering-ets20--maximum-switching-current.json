@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ets20--maximum-switching-current",
+  "model": "iota-engineering-ets20",
+  "name": "Maximum Switching Current",
+  "value": "Up to 20 Amps",
+  "source": "doc-e5416223dd9367e284cc5c8c574a6f3e",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

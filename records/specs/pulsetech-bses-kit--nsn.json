@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-bses-kit--nsn",
+  "model": "pulsetech-bses-kit",
+  "name": "NSN",
+  "value": "6130-01-541-9731",
+  "source": "doc-8c35ef5b3df7b5fcf9d30ebad67f662d",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

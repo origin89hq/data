@@ -1,0 +1,10 @@
+{
+  "id": "east-penn-8ggc2-24v--kwh-capacity",
+  "model": "east-penn-8ggc2-24v",
+  "name": "KWh capacity",
+  "value": "3.60",
+  "source": "doc-ca21a0855b32a3a57d08e88499010829",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

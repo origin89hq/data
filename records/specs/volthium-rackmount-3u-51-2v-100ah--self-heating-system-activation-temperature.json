@@ -1,0 +1,9 @@
+{
+  "id": "volthium-rackmount-3u-51-2v-100ah--self-heating-system-activation-temperature",
+  "model": "volthium-rackmount-3u-51-2v-100ah",
+  "name": "Self-heating system activation temperature",
+  "value": "-25 à 5°C",
+  "source": "doc-3c151d9fbc3b418d555a506a636fdddc",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

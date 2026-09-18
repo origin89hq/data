@@ -1,0 +1,12 @@
+{
+  "id": "precision-circuits-00-10041-200--maximum-product-width",
+  "model": "precision-circuits-00-10041-200",
+  "name": "Maximum product width",
+  "value": "3\"",
+  "source": "doc-cd76c65396af09504c09d76e85c5b33a",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc",
+  "page": 2,
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-18"
+}

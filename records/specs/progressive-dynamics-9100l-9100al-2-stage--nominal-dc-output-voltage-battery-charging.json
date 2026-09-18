@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-9100l-9100al-2-stage--nominal-dc-output-voltage-battery-charging",
+  "model": "progressive-dynamics-9100l-9100al-2-stage",
+  "name": "Nominal DC output voltage (battery charging)",
+  "value": "14.4",
+  "unit": "V",
+  "source": "doc-085dfc48ebafc1f0cd7bf7c1150db5c9",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "epever-it8420nc-g3--dimension-l-w-h-ip32-controller-only",
+  "model": "epever-it8420nc-g3",
+  "name": "Dimension (L × W × H) IP32 (controller only)",
+  "value": "352mm × 212mm × 149mm",
+  "source": "doc-e571c0928ae9e02fb7adf7a6d9c319ab",
+  "page": 68,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

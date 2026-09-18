@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-100x830--fuse-protection",
+  "model": "pulsetech-100x830",
+  "name": "Fuse protection",
+  "value": "7.5-amp",
+  "source": "doc-0193346bc27171a118223bfc42412436",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

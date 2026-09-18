@@ -1,0 +1,10 @@
+{
+  "id": "volthium-rackmount-3u-51-2v-100ah--cycles-at-30-discharge",
+  "model": "volthium-rackmount-3u-51-2v-100ah",
+  "name": "Cycles at 30% discharge",
+  "value": "3500 < cycles",
+  "source": "doc-f4a61c5d9d64955b46bfdb9be5b5ce14",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

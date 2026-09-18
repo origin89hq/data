@@ -1,0 +1,10 @@
+{
+  "id": "east-penn-solar-gel-system-2v--chemistry",
+  "model": "east-penn-solar-gel-system-2v",
+  "name": "Chemistry",
+  "value": "Gel",
+  "source": "doc-b885ef40cb298b16ea07ccb2335d545d",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

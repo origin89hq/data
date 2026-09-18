@@ -1,0 +1,10 @@
+{
+  "id": "epever-tp30kb-220-220-1--output-power-factor",
+  "model": "epever-tp30kb-220-220-1",
+  "name": "Output power factor",
+  "value": "0.2 ~1",
+  "source": "doc-81e78093b9671e24fe5a3d9c1812a057",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

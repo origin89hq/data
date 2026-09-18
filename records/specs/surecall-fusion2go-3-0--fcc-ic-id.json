@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-3-0--fcc-ic-id",
+  "model": "surecall-fusion2go-3-0",
+  "name": "FCC/IC ID",
+  "value": "RSNF2GO3 / 7784A-F2GO3",
+  "source": "doc-40fad87ae7974a59164dc2346e9cac67",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

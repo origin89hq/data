@@ -1,0 +1,9 @@
+{
+  "id": "unique-appliances-ugp-36cr--rear-middle-burner-btu",
+  "model": "unique-appliances-ugp-36cr",
+  "name": "Rear middle burner BTU",
+  "value": "9,000 BTU",
+  "source": "doc-667775c850e5e573b22b366d1656bd01",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

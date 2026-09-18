@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pcs-charger-maintainer-pulse-system--battery-voltage",
+  "model": "pulsetech-pcs-charger-maintainer-pulse-system",
+  "name": "Battery voltage",
+  "value": "12 or 24-Volt",
+  "source": "doc-8c35ef5b3df7b5fcf9d30ebad67f662d",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

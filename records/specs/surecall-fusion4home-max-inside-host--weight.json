@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion4home-max-inside-host--weight",
+  "model": "surecall-fusion4home-max-inside-host",
+  "name": "Weight",
+  "value": "1.90",
+  "unit": "lb",
+  "source": "doc-9082b148ebea0ffc33b8fcaf405b369f",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

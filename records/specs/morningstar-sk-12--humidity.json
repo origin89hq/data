@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-sk-12--humidity",
+  "model": "morningstar-sk-12",
+  "name": "Humidity",
+  "value": "100",
+  "unit": "%",
+  "source": "doc-9c8fca03627e881b29c9764485693776",
+  "page": 14,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

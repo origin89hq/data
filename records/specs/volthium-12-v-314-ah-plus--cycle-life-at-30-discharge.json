@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-314-ah-plus--cycle-life-at-30-discharge",
+  "model": "volthium-12-v-314-ah-plus",
+  "name": "Cycle life at 30% discharge",
+  "value": "8200 < cycles",
+  "source": "doc-077d2d659a35c4c9e5e7cf891e028345",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

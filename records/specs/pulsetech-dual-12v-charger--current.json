@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-dual-12v-charger--current",
+  "model": "pulsetech-dual-12v-charger",
+  "name": "Current",
+  "value": "6",
+  "source": "doc-e0d08e3cccf5f538b9b379eb6f3eacd6",
+  "page": 19,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "surecall-force5-2-0--frequency-band",
+  "model": "surecall-force5-2-0",
+  "name": "Frequency band",
+  "value": "707 MHz",
+  "source": "doc-bf8db7e854ebb90b299f7bf841eeb449",
+  "page": 17,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

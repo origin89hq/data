@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-power-control-system-50a--combined-current-limit",
+  "model": "precision-circuits-power-control-system-50a",
+  "name": "Combined current limit",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-b68085d37c23ae16bdf852fc3930ad6f",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "precision-circuits-00-10041-200--rated-input-voltage-range-minimum-typical-maximum",
+  "model": "precision-circuits-00-10041-200",
+  "name": "Rated input voltage range minimum typical maximum",
+  "value": "9.0VDC / 12.0VDC / 16.0VDC",
+  "source": "doc-cd76c65396af09504c09d76e85c5b33a",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

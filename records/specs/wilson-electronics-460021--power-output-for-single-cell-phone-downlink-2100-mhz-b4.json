@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-460021--power-output-for-single-cell-phone-downlink-2100-mhz-b4",
+  "model": "wilson-electronics-460021",
+  "name": "Power output for single cell phone (Downlink) - 2100 MHz B4",
+  "value": "2.0",
+  "source": "doc-e6af55c31c9dd88ef2f57af568f84606",
+  "page": 22,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

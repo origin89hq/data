@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-max--ic",
+  "model": "surecall-fusion2go-max",
+  "name": "IC",
+  "value": "7784A-F2GOMAXR / 7784A-F2GOMAX",
+  "source": "doc-7acc5516732c29845f9d5dfea50c393f",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

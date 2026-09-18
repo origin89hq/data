@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-rm-2--mounting-plate-dimensions",
+  "model": "morningstar-ts-rm-2",
+  "name": "Mounting Plate Dimensions",
+  "value": "116 x 116 mm / 4.56 x 4.56 in",
+  "source": "doc-fe81f786ffcf4110c4eab5e48b9d134a",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

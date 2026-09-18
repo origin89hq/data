@@ -1,0 +1,9 @@
+{
+  "id": "epever-rc-11--applicable-model",
+  "model": "epever-rc-11",
+  "name": "Applicable model",
+  "value": "LS-LPLI series, Tracer-LPLI series, LS-LPLW series, Tracer-LPLW series",
+  "source": "doc-9fdc9c2ded364f7739940150ca551e0a",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

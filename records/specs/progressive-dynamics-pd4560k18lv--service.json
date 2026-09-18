@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd4560k18lv--service",
+  "model": "progressive-dynamics-pd4560k18lv",
+  "name": "Service",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-0f5ed09dbf95c4eb32cb827899564ff6",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

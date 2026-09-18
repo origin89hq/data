@@ -1,0 +1,10 @@
+{
+  "id": "surecall-sc-fusion2go3-rv--power-consumption",
+  "model": "surecall-sc-fusion2go3-rv",
+  "name": "Power Consumption",
+  "value": "≤10W",
+  "source": "doc-724f1918caff7acd8329e4b73f811441",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

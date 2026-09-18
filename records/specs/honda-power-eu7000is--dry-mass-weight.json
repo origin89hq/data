@@ -1,0 +1,10 @@
+{
+  "id": "honda-power-eu7000is--dry-mass-weight",
+  "model": "honda-power-eu7000is",
+  "name": "Dry mass (weight)",
+  "value": "263.2 lbs (119.4 kg)",
+  "source": "doc-311eda81944ed7606fc98e1f1492582d",
+  "page": 103,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

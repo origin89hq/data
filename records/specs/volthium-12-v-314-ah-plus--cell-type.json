@@ -1,0 +1,9 @@
+{
+  "id": "volthium-12-v-314-ah-plus--cell-type",
+  "model": "volthium-12-v-314-ah-plus",
+  "name": "Cell type",
+  "value": "Square Cell - LiFePO4 - 3.2 V - 314 A Grade A+ 4S1P",
+  "source": "doc-077d2d659a35c4c9e5e7cf891e028345",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

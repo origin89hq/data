@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pp-36-l--batteries-in-series",
+  "model": "pulsetech-pp-36-l",
+  "name": "Batteries in Series",
+  "value": "Three 12V",
+  "source": "doc-b875846362fe741363888302e6bdde80",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "surecall-fusion2go-xr-otr--max-gain",
+  "model": "surecall-fusion2go-xr-otr",
+  "name": "Max Gain",
+  "value": "50",
+  "unit": "dB",
+  "source": "doc-b3a75dfc664e7611b7cd67ecdec5fa9e",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

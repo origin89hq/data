@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-sk-12--oxygen-concentration",
+  "model": "morningstar-sk-12",
+  "name": "Oxygen concentration",
+  "value": "<21%",
+  "source": "doc-9c8fca03627e881b29c9764485693776",
+  "page": 14,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

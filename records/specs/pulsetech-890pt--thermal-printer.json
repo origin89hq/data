@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-890pt--thermal-printer",
+  "model": "pulsetech-890pt",
+  "name": "Thermal Printer",
+  "value": "2.25\" (W) Printer",
+  "source": "doc-03b6acecfa18733b3987c167f7f9379d",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

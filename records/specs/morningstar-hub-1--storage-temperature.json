@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-hub-1--storage-temperature",
+  "model": "morningstar-hub-1",
+  "name": "Storage Temperature",
+  "value": "-55°C to +85°C",
+  "source": "doc-5293e48fcf72f901319ac146ef0b40d6",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

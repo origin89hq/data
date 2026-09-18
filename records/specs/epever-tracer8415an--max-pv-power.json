@@ -1,0 +1,10 @@
+{
+  "id": "epever-tracer8415an--max-pv-power",
+  "model": "epever-tracer8415an",
+  "name": "Max. PV power",
+  "value": "1500W/12V 3000W/24V 4500W/36V 6000W/48V",
+  "source": "doc-0d6a013f74408184c3a6e76c131a81f2",
+  "page": 17,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

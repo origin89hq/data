@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-100m-200v--storage-temp-range",
+  "model": "morningstar-gs-mppt-100m-200v",
+  "name": "Storage Temp Range",
+  "value": "-50°C to +80°C",
+  "source": "doc-8064daa49fc5ab905383d7bdc59b841f",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

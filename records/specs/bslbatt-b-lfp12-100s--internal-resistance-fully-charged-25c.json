@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-b-lfp12-100s--internal-resistance-fully-charged-25c",
+  "model": "bslbatt-b-lfp12-100s",
+  "name": "Internal Resistance Fully Charged @25C",
+  "value": "≤5m Ohms",
+  "source": "doc-86c3e874ae2eee0d8976df5b8576fa84",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

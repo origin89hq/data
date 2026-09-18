@@ -1,0 +1,11 @@
+{
+  "id": "primus-wind-power-air-40-air-breeze-48v--circuit-breaker-slow-blow-fuse-sizing-recommendation",
+  "model": "primus-wind-power-air-40-air-breeze-48v",
+  "name": "Circuit breaker slow-blow fuse sizing recommendation",
+  "value": "5",
+  "unit": "A",
+  "source": "doc-cf29a085afbab6cd0bc87e1b22acbc73",
+  "page": 27,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

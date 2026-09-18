@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd5100--generator-power-delay-before-relay-activation",
+  "model": "progressive-dynamics-pd5100",
+  "name": "Generator power delay before relay activation",
+  "value": "20-45 second",
+  "source": "doc-01cbc10abb4dc4de8e704ee77db1bac8",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

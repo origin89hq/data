@@ -1,0 +1,10 @@
+{
+  "id": "surecall-ez-4g--uplink-frequency-range",
+  "model": "surecall-ez-4g",
+  "name": "Uplink Frequency Range",
+  "value": "698-716 / 776 – 787 / 824-849 / 1850-1915 / 1710-1755",
+  "source": "doc-237c5a52d2ace94be8cf449dd645a478",
+  "page": 12,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

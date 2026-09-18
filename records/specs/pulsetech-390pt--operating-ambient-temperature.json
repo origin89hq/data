@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-390pt--operating-ambient-temperature",
+  "model": "pulsetech-390pt",
+  "name": "Operating ambient temperature",
+  "value": "32ºF (0ºC) to 122ºF (50ºC)",
+  "source": "doc-7357b52b665ccf4d40f6634c72ed6cd9",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

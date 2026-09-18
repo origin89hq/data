@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-specifications-12v-100ah--operating-temperature-range-discharge",
+  "model": "powermax-converters-specifications-12v-100ah",
+  "name": "Operating Temperature Range - Discharge",
+  "value": "-40 to 140°F (-40 to 60°C)",
+  "source": "doc-aceddf6feeed98dd56cffa4cfb015d2c",
+  "page": 15,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

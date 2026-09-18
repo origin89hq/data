@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-specifications-12v-230ah--cycle-life",
+  "model": "powermax-converters-specifications-12v-230ah",
+  "name": "Cycle Life",
+  "value": "6000 Cycle",
+  "source": "doc-aceddf6feeed98dd56cffa4cfb015d2c",
+  "page": 19,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

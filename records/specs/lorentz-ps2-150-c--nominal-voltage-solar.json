@@ -1,0 +1,9 @@
+{
+  "id": "lorentz-ps2-150-c--nominal-voltage-solar",
+  "model": "lorentz-ps2-150-c",
+  "name": "Nominal voltage (solar)",
+  "value": "12 - 24",
+  "source": "doc-4884e1f3fb3b081e2563b4b58ea7c88d",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

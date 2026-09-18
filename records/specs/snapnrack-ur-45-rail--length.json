@@ -1,0 +1,11 @@
+{
+  "id": "snapnrack-ur-45-rail--length",
+  "model": "snapnrack-ur-45-rail",
+  "name": "Length",
+  "value": "172",
+  "unit": "in",
+  "source": "doc-98b9c2fda2edced56b366b963374e720",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

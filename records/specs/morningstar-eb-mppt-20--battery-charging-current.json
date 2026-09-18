@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-eb-mppt-20--battery-charging-current",
+  "model": "morningstar-eb-mppt-20",
+  "name": "Battery Charging Current",
+  "value": ">20 Amps<",
+  "source": "doc-63c82097357d9e357915644c11574328",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

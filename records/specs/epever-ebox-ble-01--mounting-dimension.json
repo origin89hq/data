@@ -1,0 +1,11 @@
+{
+  "id": "epever-ebox-ble-01--mounting-dimension",
+  "model": "epever-ebox-ble-01",
+  "name": "Mounting dimension",
+  "value": "41.2",
+  "unit": "mm",
+  "source": "doc-ed8f9177be1bc95783159c5ce0ce282d",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

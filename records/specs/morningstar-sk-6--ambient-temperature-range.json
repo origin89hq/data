@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-sk-6--ambient-temperature-range",
+  "model": "morningstar-sk-6",
+  "name": "Ambient temperature range",
+  "value": "-40ºC / -40ºF bis 70ºC / 158ºF",
+  "source": "doc-9c8fca03627e881b29c9764485693776",
+  "page": 12,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "delta-lightning-arrestors-ca302rg--description",
+  "model": "delta-lightning-arrestors-ca302rg",
+  "name": "Description",
+  "value": "302R with separate ground",
+  "source": "doc-ef5c7c07785b47502585cbfe171ded48",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

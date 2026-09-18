@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-12--offset-load",
+  "model": "pulsetech-sp-12",
+  "name": "Offset load",
+  "value": "750",
+  "unit": "mA",
+  "source": "doc-ef7993ef63d1ae7f44a243ae339e26e9",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

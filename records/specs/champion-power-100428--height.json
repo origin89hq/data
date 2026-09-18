@@ -1,0 +1,10 @@
+{
+  "id": "champion-power-100428--height",
+  "model": "champion-power-100428",
+  "name": "Height",
+  "value": "4.2 in. (10.7 cm)",
+  "source": "doc-b7a025d0c8d715a43c9d66d47cb1d468",
+  "page": 17,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

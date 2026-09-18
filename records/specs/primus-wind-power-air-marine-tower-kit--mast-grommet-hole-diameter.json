@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-marine-tower-kit--mast-grommet-hole-diameter",
+  "model": "primus-wind-power-air-marine-tower-kit",
+  "name": "Mast grommet hole diameter",
+  "value": "7/8 inch (22 mm)",
+  "source": "doc-ddaa7c38a0c1e191ea58fcd20fc4ecbe",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

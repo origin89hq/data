@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-bt-2--charge-current",
+  "model": "pulsetech-bt-2",
+  "name": "Charge current",
+  "value": "10-Amp",
+  "source": "doc-35628088e3fe536bcc096783f3075be9",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

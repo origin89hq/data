@@ -1,0 +1,10 @@
+{
+  "id": "volthium-51-2-314-ess--parallel-and-series-connection",
+  "model": "volthium-51-2-314-ess",
+  "name": "Parallel and Series connection",
+  "value": "Support Max. 32 in parallel",
+  "source": "doc-70b77cf2d1e1ebb8fadfde03a8d95990",
+  "page": 13,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-325l-b--defrost",
+  "model": "unique-appliances-ugp-325l-b",
+  "name": "Defrost",
+  "value": "FROST FREE",
+  "source": "doc-66962ad14b4fc16a982601236e6e5785",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

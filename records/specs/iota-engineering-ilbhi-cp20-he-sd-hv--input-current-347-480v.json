@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilbhi-cp20-he-sd-hv--input-current-347-480v",
+  "model": "iota-engineering-ilbhi-cp20-he-sd-hv",
+  "name": "Input Current (347/480V)",
+  "value": "0.015A (max)",
+  "source": "doc-a673ea88f41cd0933c5f1577a9b859ac",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-xr--exterior-cable",
+  "model": "surecall-fusion2go-xr",
+  "name": "Exterior Cable",
+  "value": "LMR100 / 12.5 ft",
+  "source": "doc-489b28de8fa17020ba61f7eeb4f96e30",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

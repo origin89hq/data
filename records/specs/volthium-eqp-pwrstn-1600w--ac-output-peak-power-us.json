@@ -1,0 +1,11 @@
+{
+  "id": "volthium-eqp-pwrstn-1600w--ac-output-peak-power-us",
+  "model": "volthium-eqp-pwrstn-1600w",
+  "name": "AC output peak power US",
+  "value": "100",
+  "unit": "W",
+  "source": "doc-3fc12c58a7dbea3701ac9cccf68420ba",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "epever-vs6024bn--rated-discharge-current",
+  "model": "epever-vs6024bn",
+  "name": "Rated discharge current",
+  "value": "60",
+  "unit": "A",
+  "source": "doc-c3b3144afa7f664d41ac67c03e2feecf",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

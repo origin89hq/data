@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-24vpsc-10w--box-to-panel-wire-length",
+  "model": "pulsetech-24vpsc-10w",
+  "name": "Box to Panel Wire Length",
+  "value": "15",
+  "source": "doc-b14d6e36ce207a807b211f076834e7ad",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

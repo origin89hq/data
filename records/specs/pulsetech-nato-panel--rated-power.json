@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-nato-panel--rated-power",
+  "model": "pulsetech-nato-panel",
+  "name": "Rated power",
+  "value": "12-Watt",
+  "source": "doc-67090b2d347619ad738c6ffae473b2ef",
+  "page": 19,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

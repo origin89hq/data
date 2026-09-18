@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-power-control-system-50a--torque-specifications-ground-neutral-bar",
+  "model": "precision-circuits-power-control-system-50a",
+  "name": "Torque Specifications Ground/Neutral Bar",
+  "value": "14-10 25-35",
+  "source": "doc-177d61e85ea797f76313f9af96b45147",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

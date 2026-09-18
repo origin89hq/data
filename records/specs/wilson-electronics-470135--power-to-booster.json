@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-470135--power-to-booster",
+  "model": "wilson-electronics-470135",
+  "name": "Power to booster",
+  "value": "12 V / 1.5 A",
+  "source": "doc-d6fcb2d425742fd610b8d03b3fc36d56",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

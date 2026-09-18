@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmbc-100-se--test-output-voltage",
+  "model": "powermax-converters-pmbc-100-se",
+  "name": "Test output voltage",
+  "value": "14.4 +/- 0.2 VDC",
+  "source": "doc-554e50421ecfb6d771e2afd1452e961a",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

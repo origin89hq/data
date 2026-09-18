@@ -1,0 +1,11 @@
+{
+  "id": "wilson-electronics-460020--antenna-impedance",
+  "model": "wilson-electronics-460020",
+  "name": "Antenna Impedance",
+  "value": "75",
+  "unit": "Ω",
+  "source": "doc-442f3f3fe1acf3a5ae38e048775c469d",
+  "page": 16,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

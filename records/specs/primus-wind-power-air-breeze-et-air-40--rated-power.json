@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-breeze-et-air-40--rated-power",
+  "model": "primus-wind-power-air-breeze-et-air-40",
+  "name": "Rated power",
+  "value": "160 watts @ 28 mph / 12.5 m/s de vitesse du vent",
+  "source": "doc-3eb33c3b389736d6aacda91bdc77371f",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

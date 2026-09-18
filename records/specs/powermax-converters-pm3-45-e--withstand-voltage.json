@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pm3-45-e--withstand-voltage",
+  "model": "powermax-converters-pm3-45-e",
+  "name": "Withstand voltage",
+  "value": "1240V @ Leads",
+  "source": "doc-de727abd1d0b2f73b03fe57feddd50a7",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

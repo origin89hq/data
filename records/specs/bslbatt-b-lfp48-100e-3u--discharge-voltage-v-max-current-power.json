@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-b-lfp48-100e-3u--discharge-voltage-v-max-current-power",
+  "model": "bslbatt-b-lfp48-100e-3u",
+  "name": "Discharge Voltage (V) - Max. Current / Power",
+  "value": "110A / 5.632kW",
+  "source": "doc-a5280ed309433548bf133d18361db832",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

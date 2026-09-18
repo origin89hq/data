@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-24vpsc-10w--weight",
+  "model": "pulsetech-24vpsc-10w",
+  "name": "Weight",
+  "value": "5.5 lbs (2.49 kg)",
+  "source": "doc-b14d6e36ce207a807b211f076834e7ad",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

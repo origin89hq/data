@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion4home--max-uplink-power",
+  "model": "surecall-fusion4home",
+  "name": "Max Uplink Power",
+  "value": "26.0 dBm",
+  "source": "doc-2e0c4747311fab9e7645c70978fc292e",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

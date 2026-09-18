@@ -1,0 +1,10 @@
+{
+  "id": "sunpower-rec470aa-pure-rx--nominal-power-current-impp-nmot",
+  "model": "sunpower-rec470aa-pure-rx",
+  "name": "Nominal Power Current - IMPP (NMOT)",
+  "value": "6.86",
+  "unit": "A",
+  "source": "doc-0be4d97cdd84e6e6a5d778d6316a1276",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

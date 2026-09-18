@@ -1,0 +1,13 @@
+{
+  "id": "iota-engineering-ilbhi-cp20-he-sd-hv--weight-dual-flex",
+  "model": "iota-engineering-ilbhi-cp20-he-sd-hv",
+  "name": "Weight (dual flex)",
+  "value": "5.0",
+  "unit": "lbs",
+  "source": "doc-a673ea88f41cd0933c5f1577a9b859ac",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc",
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-18"
+}

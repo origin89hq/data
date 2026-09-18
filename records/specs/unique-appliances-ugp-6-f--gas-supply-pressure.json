@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-6-f--gas-supply-pressure",
+  "model": "unique-appliances-ugp-6-f",
+  "name": "Gas supply pressure",
+  "value": "not more than 12\" water column and no less than 11\" water column (Max setting)",
+  "source": "doc-2ded12939db1a6dc1a3309490a1b238f",
+  "page": 6,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

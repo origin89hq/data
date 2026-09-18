@@ -1,0 +1,10 @@
+{
+  "id": "lorentz-ps2-100--pv-module-power-range",
+  "model": "lorentz-ps2-100",
+  "name": "PV module power range",
+  "value": "180 Wp to 260 Wp",
+  "source": "doc-666f559fc38b84cf4c381d238bf12212",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

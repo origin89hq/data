@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-max--downlink-frequency-range",
+  "model": "surecall-fusion2go-max",
+  "name": "Downlink frequency range",
+  "value": "728-746 / 746 – 757 / 869-894 / 1930-1995 / 2110-2155 (G Block Included)",
+  "source": "doc-e2480c97013e077f943b5000b1f6ec68",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

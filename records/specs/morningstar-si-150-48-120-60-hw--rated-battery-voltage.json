@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-si-150-48-120-60-hw--rated-battery-voltage",
+  "model": "morningstar-si-150-48-120-60-hw",
+  "name": "Rated Battery Voltage",
+  "value": "48",
+  "unit": "V",
+  "source": "doc-9d24c6fe1606ecc4c1e36f6cb5ae7bb7",
+  "page": 62,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

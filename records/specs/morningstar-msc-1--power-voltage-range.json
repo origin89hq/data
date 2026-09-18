@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-msc-1--power-voltage-range",
+  "model": "morningstar-msc-1",
+  "name": "POWER Voltage Range",
+  "value": "8V – 15.5Vdc",
+  "source": "doc-cade2f95b4cce5dbc73fece20efd57e9",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pt20--maximum-open-circuit-solar-panel-voltage",
+  "model": "pulsetech-pt20",
+  "name": "Maximum Open Circuit Solar Panel Voltage",
+  "value": "50V(recommended <28V for 12V)",
+  "source": "doc-23626c7771110fd9944d219a50d60d5f",
+  "page": 12,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

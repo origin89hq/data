@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-30--maximum-wind-speed-for-energy-production-before-regulation",
+  "model": "primus-wind-power-air-30",
+  "name": "Maximum wind speed for energy production before regulation",
+  "value": "14 m/s (35 mph)",
+  "source": "doc-e0af56fd8224288b383ac8c5efa4c08b",
+  "page": 30,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

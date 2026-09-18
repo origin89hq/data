@@ -1,0 +1,9 @@
+{
+  "id": "bslbatt-b-lfp48-300pw--cooling-type",
+  "model": "bslbatt-b-lfp48-300pw",
+  "name": "Cooling Type",
+  "value": "Nature",
+  "source": "doc-382c5a7971015da9db65bfbb1c541856",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

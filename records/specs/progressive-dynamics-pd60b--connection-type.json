@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd60b--connection-type",
+  "model": "progressive-dynamics-pd60b",
+  "name": "Connection type",
+  "value": "WAGO Lever",
+  "source": "doc-5257e9f86ada66ff017f7bf7ea750761",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

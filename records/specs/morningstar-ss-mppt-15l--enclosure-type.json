@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ss-mppt-15l--enclosure-type",
+  "model": "morningstar-ss-mppt-15l",
+  "name": "Enclosure type",
+  "value": "Aluminiumdruckguss mit Kunststoffabdeckung IP10, Typ 1",
+  "source": "doc-af22fe14d72253d58e18896733cb9521",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

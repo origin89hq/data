@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-bt-2--stations",
+  "model": "pulsetech-bt-2",
+  "name": "Stations",
+  "value": "2",
+  "source": "doc-35628088e3fe536bcc096783f3075be9",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

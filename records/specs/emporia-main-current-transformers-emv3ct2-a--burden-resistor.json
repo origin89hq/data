@@ -1,0 +1,10 @@
+{
+  "id": "emporia-main-current-transformers-emv3ct2-a--burden-resistor",
+  "model": "emporia-main-current-transformers-emv3ct2-a",
+  "name": "Burden resistor",
+  "value": "5, 1%, 1/4",
+  "source": "doc-e44cae2a6b8535ee6806ff6f5600735d",
+  "page": 37,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

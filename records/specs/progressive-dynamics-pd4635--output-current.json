@@ -1,0 +1,9 @@
+{
+  "id": "progressive-dynamics-pd4635--output-current",
+  "model": "progressive-dynamics-pd4635",
+  "name": "Output current",
+  "value": "35 AmpAC to DC power converter",
+  "source": "doc-75fd5b55776be4b8a2f07f1f7f4feaff",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

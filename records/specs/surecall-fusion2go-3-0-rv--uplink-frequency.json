@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-3-0-rv--uplink-frequency",
+  "model": "surecall-fusion2go-3-0-rv",
+  "name": "Uplink Frequency",
+  "value": "698–716 / 776–787 / 824–849 / 1850–1915 / 1710–1755 (G Block Included) MHz",
+  "source": "doc-724f1918caff7acd8329e4b73f811441",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-si-300-48-230-50-hw--maximum-continuous-dc-input-current-at-48-v",
+  "model": "morningstar-si-300-48-230-50-hw",
+  "name": "Maximum Continuous DC Input Current at 48 V",
+  "value": "8",
+  "unit": "A",
+  "source": "doc-9d24c6fe1606ecc4c1e36f6cb5ae7bb7",
+  "page": 62,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

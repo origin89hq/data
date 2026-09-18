@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-genstar-mppt--full-rated-current-ambient-temperature",
+  "model": "morningstar-genstar-mppt",
+  "name": "Full-rated current ambient temperature",
+  "value": "+45",
+  "unit": "°C",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 105,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

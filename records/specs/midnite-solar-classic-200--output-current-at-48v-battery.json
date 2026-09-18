@@ -1,0 +1,11 @@
+{
+  "id": "midnite-solar-classic-200--output-current-at-48v-battery",
+  "model": "midnite-solar-classic-200",
+  "name": "Output current at 48V battery",
+  "value": "78",
+  "unit": "A",
+  "source": "doc-1a3d5010d988de531d75048b7ab0028a",
+  "page": 15,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

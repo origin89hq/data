@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-275l-w--weight",
+  "model": "unique-appliances-ugp-275l-w",
+  "name": "Weight",
+  "value": "112.4 lbs./51 kg",
+  "source": "doc-72d4edea21f290ad9a4195d19fa8a238",
+  "page": 24,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

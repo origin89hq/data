@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-735x724--application",
+  "model": "pulsetech-735x724",
+  "name": "Application",
+  "value": "equipment with larger batteries",
+  "source": "doc-2601ae949e181db1efbb361e32560869",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

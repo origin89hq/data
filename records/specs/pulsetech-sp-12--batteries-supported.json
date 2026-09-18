@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-12--batteries-supported",
+  "model": "pulsetech-sp-12",
+  "name": "Batteries supported",
+  "value": "3-4",
+  "source": "doc-a841f090a83f8083926291c9590a9c0c",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-890pt--system-test-voltage",
+  "model": "pulsetech-890pt",
+  "name": "System test voltage",
+  "value": "12V & 24V",
+  "source": "doc-507a0bdb8d38534cdb6a80f76139fd85",
+  "page": 6,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

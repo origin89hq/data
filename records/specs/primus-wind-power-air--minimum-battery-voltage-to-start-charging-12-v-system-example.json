@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air--minimum-battery-voltage-to-start-charging-12-v-system-example",
+  "model": "primus-wind-power-air",
+  "name": "Minimum battery voltage to start charging (12 V system example)",
+  "value": "10.5",
+  "source": "doc-c15058cdcf6c0ae389d24523d639366a",
+  "page": 30,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "surecall-sc-flare3us--ac-power-transmitter-output",
+  "model": "surecall-sc-flare3us",
+  "name": "AC Power Transmitter Output",
+  "value": "DC 5V / 3A",
+  "source": "doc-0265182c13db2b24e5dc5caabf89a683",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

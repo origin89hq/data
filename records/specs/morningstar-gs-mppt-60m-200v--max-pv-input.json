@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-60m-200v--max-pv-input",
+  "model": "morningstar-gs-mppt-60m-200v",
+  "name": "Max PV input",
+  "value": "1200W 2400W 4800W",
+  "source": "doc-37633f0a761869b4d7d2f61da8e5f63a",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

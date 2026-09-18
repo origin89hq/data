@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sp-12--main-cable-length",
+  "model": "pulsetech-sp-12",
+  "name": "Main Cable Length",
+  "value": "17",
+  "unit": "ft",
+  "source": "doc-5f21641ad3a9973ffd7fe7869c8cb65b",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

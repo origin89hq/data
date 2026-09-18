@@ -1,0 +1,10 @@
+{
+  "id": "epever-xtra4210n-g3-g3-ble--controller-work-voltage-range",
+  "model": "epever-xtra4210n-g3-g3-ble",
+  "name": "Controller Work Voltage Range",
+  "value": "8V–31V",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 50,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

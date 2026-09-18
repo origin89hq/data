@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc450--float-charge-voltage",
+  "model": "pulsetech-xc450",
+  "name": "Float charge voltage",
+  "value": "13.8V (for 12V batteries)",
+  "source": "doc-21c090a44b6e5a63365ed7e60d79ad85",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

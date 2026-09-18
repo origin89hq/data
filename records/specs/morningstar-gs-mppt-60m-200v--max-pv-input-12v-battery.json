@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-gs-mppt-60m-200v--max-pv-input-12v-battery",
+  "model": "morningstar-gs-mppt-60m-200v",
+  "name": "Max PV Input (12V battery)",
+  "value": "1600",
+  "unit": "W",
+  "source": "doc-2e0d175d4cf50dfa7df1901354c9760f",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

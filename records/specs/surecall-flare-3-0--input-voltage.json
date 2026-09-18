@@ -1,0 +1,10 @@
+{
+  "id": "surecall-flare-3-0--input-voltage",
+  "model": "surecall-flare-3-0",
+  "name": "Input voltage",
+  "value": "5-15V",
+  "source": "doc-4bee76a5ebcfe22b3e44456e2eea1bb6",
+  "page": 15,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

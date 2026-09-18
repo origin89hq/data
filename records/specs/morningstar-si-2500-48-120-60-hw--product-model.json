@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-si-2500-48-120-60-hw--product-model",
+  "model": "morningstar-si-2500-48-120-60-hw",
+  "name": "Product model",
+  "value": "SI-2500-48-120-60-HW",
+  "source": "doc-06f5582f1c8a2eaecb58c51f9cd8eadd",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

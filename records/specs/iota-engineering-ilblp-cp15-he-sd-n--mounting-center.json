@@ -1,0 +1,9 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd-n--mounting-center",
+  "model": "iota-engineering-ilblp-cp15-he-sd-n",
+  "name": "Mounting Center",
+  "value": "21.5",
+  "source": "doc-82edb7c4d7d32658e2770f0aedf0b0dd",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

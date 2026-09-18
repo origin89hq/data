@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-60m-200v--max-input-current-imp-isc",
+  "model": "morningstar-gs-mppt-60m-200v",
+  "name": "Max. Input Current (Imp/Isc)",
+  "value": "56/60 Amps",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 150,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

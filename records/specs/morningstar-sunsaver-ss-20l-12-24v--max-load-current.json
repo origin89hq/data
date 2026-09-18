@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-sunsaver-ss-20l-12-24v--max-load-current",
+  "model": "morningstar-sunsaver-ss-20l-12-24v",
+  "name": "Max. Load Current",
+  "value": "20",
+  "unit": "A",
+  "source": "doc-faccf02ddc4b17991ff29bc933fe693a",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

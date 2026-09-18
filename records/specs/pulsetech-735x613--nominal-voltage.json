@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-735x613--nominal-voltage",
+  "model": "pulsetech-735x613",
+  "name": "Nominal voltage",
+  "value": "12V dc",
+  "source": "doc-ba7da71459330dd1dec34b2c2834d6a9",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

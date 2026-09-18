@@ -1,0 +1,10 @@
+{
+  "id": "epever-epever-ble-rj45-a--connection-cable",
+  "model": "epever-epever-ble-rj45-a",
+  "name": "Connection cable",
+  "value": "Standard network cable (parallel line)",
+  "source": "doc-85367d673127c692c7f7f0c63968f69d",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

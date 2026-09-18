@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd9180al--chemistry",
+  "model": "progressive-dynamics-pd9180al",
+  "name": "Chemistry",
+  "value": "lithium iron phosphate",
+  "source": "doc-085dfc48ebafc1f0cd7bf7c1150db5c9",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

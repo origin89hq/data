@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-sp-12-obd-t--rated-power",
+  "model": "pulsetech-sp-12-obd-t",
+  "name": "Rated power",
+  "value": "12W Charger w/OBD Connector and Suction Cups",
+  "source": "doc-ac334ea2c81f64dbd5904c4f1cc3c52f",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

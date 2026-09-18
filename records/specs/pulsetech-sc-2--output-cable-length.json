@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sc-2--output-cable-length",
+  "model": "pulsetech-sc-2",
+  "name": "Output Cable Length",
+  "value": "1.8 meters - 14 AWG",
+  "source": "doc-06c4ef44dafa61b49912b97079166261",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

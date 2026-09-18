@@ -1,0 +1,13 @@
+{
+  "id": "precision-circuits-power-control-system-50a--torque-specifications-breaker-hold-down-clamp",
+  "model": "precision-circuits-power-control-system-50a",
+  "name": "Torque Specifications Breaker Hold Down Clamp",
+  "value": "3-5",
+  "source": "doc-177d61e85ea797f76313f9af96b45147",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc",
+  "unit": "inch-lbs",
+  "reviewedBy": "lemarier",
+  "checkedAt": "2026-09-18"
+}

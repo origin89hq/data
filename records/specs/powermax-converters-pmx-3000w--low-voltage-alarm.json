@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-3000w--low-voltage-alarm",
+  "model": "powermax-converters-pmx-3000w",
+  "name": "Low Voltage Alarm",
+  "value": "10.5±0.5V",
+  "source": "doc-39140d23c40e0c6d760fa8b9948caf17",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

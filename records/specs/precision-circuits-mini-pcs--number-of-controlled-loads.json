@@ -1,0 +1,10 @@
+{
+  "id": "precision-circuits-mini-pcs--number-of-controlled-loads",
+  "model": "precision-circuits-mini-pcs",
+  "name": "Number of controlled loads",
+  "value": "four",
+  "source": "doc-443fc13123a147bb1a786503b6da6356",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

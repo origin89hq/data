@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-20g-of1--electrical-rating",
+  "model": "unique-appliances-ugp-20g-of1",
+  "name": "Electrical Rating",
+  "value": "1.5V DC. 1.0 A",
+  "source": "doc-a02fce8b3a5ca08271c1d8617ffd4bf0",
+  "page": 20,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

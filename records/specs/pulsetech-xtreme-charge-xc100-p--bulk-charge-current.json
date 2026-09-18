@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xtreme-charge-xc100-p--bulk-charge-current",
+  "model": "pulsetech-xtreme-charge-xc100-p",
+  "name": "Bulk charge current",
+  "value": "0.75 - 2.5A",
+  "source": "doc-1ea49c757d1fcd4bab9baa8102f3cd2f",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

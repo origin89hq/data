@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-100m-200v--product-weight",
+  "model": "morningstar-gs-mppt-100m-200v",
+  "name": "Product weight",
+  "value": "16 磅 7 盎司/7.46 千克",
+  "source": "doc-37633f0a761869b4d7d2f61da8e5f63a",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

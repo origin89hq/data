@@ -1,0 +1,10 @@
+{
+  "id": "epever-it7420nc-g3--mounting-dimension-l-w",
+  "model": "epever-it7420nc-g3",
+  "name": "Mounting dimension (L × W)",
+  "value": "308mm × 140mm",
+  "source": "doc-e571c0928ae9e02fb7adf7a6d9c319ab",
+  "page": 66,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

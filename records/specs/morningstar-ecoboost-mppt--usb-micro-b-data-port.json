@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ecoboost-mppt--usb-micro-b-data-port",
+  "model": "morningstar-ecoboost-mppt",
+  "name": "USB Micro-B data port",
+  "value": "future use",
+  "source": "doc-15aaa2603340519a063c6fdaff24a15e",
+  "page": 6,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "epever-up5000-m10342--max-pv-charging-current",
+  "model": "epever-up5000-m10342",
+  "name": "Max. PV charging current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-c671251fdb0602bd2a8b1634ff16eacc",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

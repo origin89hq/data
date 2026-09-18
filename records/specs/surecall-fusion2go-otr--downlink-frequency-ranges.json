@@ -1,0 +1,9 @@
+{
+  "id": "surecall-fusion2go-otr--downlink-frequency-ranges",
+  "model": "surecall-fusion2go-otr",
+  "name": "Downlink Frequency Ranges",
+  "value": "728-746 / 746-757 / 869-894 / 1930-1995 / 2110-2155",
+  "source": "doc-1a9156d51ecd50bc8f3202040d099930",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

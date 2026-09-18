@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-24vpsc-12w-nato--output-voltage",
+  "model": "pulsetech-24vpsc-12w-nato",
+  "name": "Output Voltage",
+  "value": "33",
+  "unit": "V",
+  "source": "doc-553365674ce12eca786767c9177d7ef7",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

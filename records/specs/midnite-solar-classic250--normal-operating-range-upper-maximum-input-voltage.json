@@ -1,0 +1,11 @@
+{
+  "id": "midnite-solar-classic250--normal-operating-range-upper-maximum-input-voltage",
+  "model": "midnite-solar-classic250",
+  "name": "Normal operating range upper maximum input voltage",
+  "value": "250.0",
+  "unit": "V",
+  "source": "doc-99e13d49dba2dfea2ab587f317bb9af8",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

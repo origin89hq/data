@@ -1,0 +1,9 @@
+{
+  "id": "iota-engineering-ilblp-cp30-he-sd-hv--input-voltage-range",
+  "model": "iota-engineering-ilblp-cp30-he-sd-hv",
+  "name": "Input voltage range",
+  "value": "55-250VDC",
+  "source": "doc-09a924218835dd3d442600441c0a8241",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

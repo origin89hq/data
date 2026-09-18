@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-7-obd-t--lug-cable-length",
+  "model": "pulsetech-sp-7-obd-t",
+  "name": "Lug Cable Length",
+  "value": "3",
+  "source": "doc-cea62aaf4bb36fc851de75ae7885193d",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

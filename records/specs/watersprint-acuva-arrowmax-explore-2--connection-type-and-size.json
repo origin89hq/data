@@ -1,0 +1,9 @@
+{
+  "id": "watersprint-acuva-arrowmax-explore-2--connection-type-and-size",
+  "model": "watersprint-acuva-arrowmax-explore-2",
+  "name": "Connection type and size",
+  "value": "1/4\" OD Push-to-Connect (inlet and outlet)",
+  "source": "doc-58e940db04b47884a527ac6d61304273",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

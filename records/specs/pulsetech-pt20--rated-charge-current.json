@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-pt20--rated-charge-current",
+  "model": "pulsetech-pt20",
+  "name": "Rated Charge Current",
+  "value": "20",
+  "unit": "A",
+  "source": "doc-23626c7771110fd9944d219a50d60d5f",
+  "page": 12,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

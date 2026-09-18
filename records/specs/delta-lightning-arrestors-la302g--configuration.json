@@ -1,0 +1,10 @@
+{
+  "id": "delta-lightning-arrestors-la302g--configuration",
+  "model": "delta-lightning-arrestors-la302g",
+  "name": "Configuration",
+  "value": "4 wire single phase",
+  "source": "doc-ef5c7c07785b47502585cbfe171ded48",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

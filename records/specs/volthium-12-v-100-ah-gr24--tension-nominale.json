@@ -1,0 +1,11 @@
+{
+  "id": "volthium-12-v-100-ah-gr24--tension-nominale",
+  "model": "volthium-12-v-100-ah-gr24",
+  "name": "Tension nominale",
+  "value": "12.8",
+  "unit": "V",
+  "source": "doc-e94e7188cccb97eb7e04ce94039c457c",
+  "page": 6,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

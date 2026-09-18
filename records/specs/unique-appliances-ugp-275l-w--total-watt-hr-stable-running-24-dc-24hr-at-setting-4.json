@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-275l-w--total-watt-hr-stable-running-24-dc-24hr-at-setting-4",
+  "model": "unique-appliances-ugp-275l-w",
+  "name": "Total Watt Hr. Stable Running (24 DC) 24Hr at Setting #4",
+  "value": "584 Wh/24hrs",
+  "source": "doc-72d4edea21f290ad9a4195d19fa8a238",
+  "page": 24,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

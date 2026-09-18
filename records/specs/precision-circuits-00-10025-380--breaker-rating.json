@@ -1,0 +1,9 @@
+{
+  "id": "precision-circuits-00-10025-380--breaker-rating",
+  "model": "precision-circuits-00-10025-380",
+  "name": "Breaker rating",
+  "value": "30A 20A A/C-RR50A GEN WASHER",
+  "source": "doc-b6b85368c53baf896ee43da143e4d539",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "unique-appliances-ugp-36cr--operation",
+  "model": "unique-appliances-ugp-36cr",
+  "name": "Operation",
+  "value": "Natural gas (NG) - Propane (LPG) Conversion included",
+  "source": "doc-667775c850e5e573b22b366d1656bd01",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-560-ah-pro--maximum-unit-in-series",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "Maximum unit in series",
+  "value": "4",
+  "source": "doc-d936948a48804fb1a569a0aaeec6a0d8",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

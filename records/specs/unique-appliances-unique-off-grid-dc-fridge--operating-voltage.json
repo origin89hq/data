@@ -1,0 +1,11 @@
+{
+  "id": "unique-appliances-unique-off-grid-dc-fridge--operating-voltage",
+  "model": "unique-appliances-unique-off-grid-dc-fridge",
+  "name": "Operating voltage",
+  "value": "12/24",
+  "unit": "V",
+  "source": "doc-6d9019a1e78bb7441f365240d881fcb9",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

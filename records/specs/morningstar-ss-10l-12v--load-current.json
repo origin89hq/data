@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ss-10l-12v--load-current",
+  "model": "morningstar-ss-10l-12v",
+  "name": "Load current",
+  "value": "10",
+  "unit": "A",
+  "source": "doc-899310a60c10064b10684f0a8f5ee448",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "volthium-12v-400ah-abs--certifications",
+  "model": "volthium-12v-400ah-abs",
+  "name": "Certifications",
+  "value": "Cells : UL1642 / UL1973 / UL9540A / IEC62619 / IEC62660",
+  "source": "doc-99ceb53b046af7cefe6cab5548609aa3",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

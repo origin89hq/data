@@ -1,0 +1,11 @@
+{
+  "id": "epever-it7420nc-g3--weight-ip43-controller-white-terminal-cover",
+  "model": "epever-it7420nc-g3",
+  "name": "Weight IP43 (controller & white terminal cover)",
+  "value": "6.62",
+  "unit": "kg",
+  "source": "doc-e571c0928ae9e02fb7adf7a6d9c319ab",
+  "page": 66,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

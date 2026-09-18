@@ -1,0 +1,11 @@
+{
+  "id": "volthium-12-v-100-ah-gr24--bms-discharge-reconnection-voltage",
+  "model": "volthium-12-v-100-ah-gr24",
+  "name": "BMS – Discharge reconnection voltage",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-6cf31b135d5d636c7fbcd2d9e1fd28f9",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

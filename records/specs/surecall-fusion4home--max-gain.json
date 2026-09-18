@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion4home--max-gain",
+  "model": "surecall-fusion4home",
+  "name": "Max Gain",
+  "value": "72 dB / Cellular - 65 dB / PCS - 72 dB / LTE(A) - 63.5 dB / LTE(V) - 64 dB / AWS - 71 dB",
+  "source": "doc-2e0c4747311fab9e7645c70978fc292e",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

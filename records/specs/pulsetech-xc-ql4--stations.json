@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc-ql4--stations",
+  "model": "pulsetech-xc-ql4",
+  "name": "Stations",
+  "value": "4-Station",
+  "source": "doc-ed4c47f682eefba856ca59a8e80f80b0",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

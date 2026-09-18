@@ -1,0 +1,11 @@
+{
+  "id": "epever-mt91--power-supply",
+  "model": "epever-mt91",
+  "name": "Power supply",
+  "value": "5",
+  "unit": "V",
+  "source": "doc-85a43b5963b01d0894deeabea7ee8118",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

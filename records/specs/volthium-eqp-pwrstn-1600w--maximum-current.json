@@ -1,0 +1,11 @@
+{
+  "id": "volthium-eqp-pwrstn-1600w--maximum-current",
+  "model": "volthium-eqp-pwrstn-1600w",
+  "name": "Maximum current",
+  "value": "25",
+  "unit": "A",
+  "source": "doc-539db762e00cb2755331d36d5d4e2019",
+  "page": 11,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

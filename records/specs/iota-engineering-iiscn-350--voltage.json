@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-iiscn-350--voltage",
+  "model": "iota-engineering-iiscn-350",
+  "name": "Voltage",
+  "value": "120/208VAC",
+  "source": "doc-8679f62e38c4978e5553237782afd3f3",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

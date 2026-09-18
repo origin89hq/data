@@ -1,0 +1,10 @@
+{
+  "id": "surecall-sc-222w--gain",
+  "model": "surecall-sc-222w",
+  "name": "Gain",
+  "value": "6 dBi / 6 dBi / 6 dBi / 6 dBi / 6 dBi / 6 dBi",
+  "source": "doc-7e08293f87e916929c2e41a58589c5a8",
+  "page": 17,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

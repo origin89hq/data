@@ -1,0 +1,10 @@
+{
+  "id": "volthium-gr24-12v100ah--chemistry",
+  "model": "volthium-gr24-12v100ah",
+  "name": "Chemistry",
+  "value": "lithium",
+  "source": "doc-e94e7188cccb97eb7e04ce94039c457c",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

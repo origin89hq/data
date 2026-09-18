@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd2180--output-voltage",
+  "model": "progressive-dynamics-pd2180",
+  "name": "Output voltage",
+  "value": "13.9",
+  "unit": "V",
+  "source": "doc-7000669d0cfb1665dc1ced5eea152606",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-connect-rv-65--operating-temperature-maximum",
+  "model": "wilson-electronics-connect-rv-65",
+  "name": "Operating temperature maximum",
+  "value": "less than 100 degrees Fahrenheit",
+  "source": "doc-442f3f3fe1acf3a5ae38e048775c469d",
+  "page": 14,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-sk-6--self-consumption-current",
+  "model": "morningstar-sk-6",
+  "name": "Self-consumption Current",
+  "value": "< 7.0 mA",
+  "source": "doc-d82902d49ba6250778d2c652a7ce8eee",
+  "page": 22,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

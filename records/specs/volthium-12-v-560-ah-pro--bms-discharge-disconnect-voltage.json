@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-560-ah-pro--bms-discharge-disconnect-voltage",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "BMS – Discharge disconnect voltage",
+  "value": "11.5",
+  "unit": "V",
+  "source": "doc-d936948a48804fb1a569a0aaeec6a0d8",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

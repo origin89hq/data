@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-560-ah-pro--ingress-protection",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "Ingress protection",
+  "value": "IP66",
+  "source": "doc-aeb5cccfeafcd4e86f6eefd9ccdacbe9",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

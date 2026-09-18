@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-bt-2--output-current",
+  "model": "pulsetech-bt-2",
+  "name": "Output Current",
+  "value": "10 Amps/channel, 20 Amps Max",
+  "source": "doc-5452174c9b3e2d65a71630e4cbe5c979",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

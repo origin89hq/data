@@ -1,0 +1,12 @@
+{
+  "id": "pulsetech-pro12--ac-input-voltage-110-or-220v-ac",
+  "model": "pulsetech-pro12",
+  "name": "AC input voltage",
+  "value": "110/220",
+  "unit": "V",
+  "conditions": "110 or 220V AC",
+  "source": "doc-e0d08e3cccf5f538b9b379eb6f3eacd6",
+  "page": 22,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

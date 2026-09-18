@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ecoboost-mppt--input-voltage",
+  "model": "morningstar-ecoboost-mppt",
+  "name": "Input voltage",
+  "value": "600",
+  "unit": "V",
+  "source": "doc-47359fb2a310fca64c1fea874d6b0587",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

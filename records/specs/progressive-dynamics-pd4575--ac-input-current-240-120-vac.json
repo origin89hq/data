@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4575--ac-input-current-240-120-vac",
+  "model": "progressive-dynamics-pd4575",
+  "name": "AC input current (240/120 VAC)",
+  "value": "50 Amps Maximum",
+  "source": "doc-cc746b613ecdfaa58015ab49a66a9d94",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

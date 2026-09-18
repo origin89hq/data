@@ -1,0 +1,10 @@
+{
+  "id": "epever-it8420nc-g3--controller-operating-voltage-range",
+  "model": "epever-it8420nc-g3",
+  "name": "Controller operating voltage range",
+  "value": "8–62V",
+  "source": "doc-e571c0928ae9e02fb7adf7a6d9c319ab",
+  "page": 65,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

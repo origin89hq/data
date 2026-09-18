@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-xtreme-charge-xc100-p--battery-voltage",
+  "model": "pulsetech-xtreme-charge-xc100-p",
+  "name": "Battery voltage",
+  "value": "12",
+  "unit": "V",
+  "source": "doc-1ea49c757d1fcd4bab9baa8102f3cd2f",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

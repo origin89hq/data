@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ss-10-12v--weight",
+  "model": "morningstar-ss-10-12v",
+  "name": "Weight",
+  "value": "0.23 kg / 8 oz",
+  "source": "doc-faccf02ddc4b17991ff29bc933fe693a",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

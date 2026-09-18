@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd4560li--converter-power",
+  "model": "progressive-dynamics-pd4560li",
+  "name": "Converter power",
+  "value": "1000",
+  "unit": "W",
+  "source": "doc-a8da69b4171db359f3e1bc693fdbc280",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

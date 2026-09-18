@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc-ql4--product-name",
+  "model": "pulsetech-xc-ql4",
+  "name": "Product name",
+  "value": "QuadLink 4-Channel Battery Charger",
+  "source": "doc-04a98f2971e4133df5b343ce37fa51fd",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

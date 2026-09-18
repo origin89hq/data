@@ -1,0 +1,10 @@
+{
+  "id": "bslbatt-b-lfp12-100s--operating-humidity",
+  "model": "bslbatt-b-lfp12-100s",
+  "name": "Operating Humidity",
+  "value": "60 ± 25% R.H.",
+  "source": "doc-86c3e874ae2eee0d8976df5b8576fa84",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

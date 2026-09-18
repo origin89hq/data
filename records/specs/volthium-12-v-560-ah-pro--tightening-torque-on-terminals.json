@@ -1,0 +1,9 @@
+{
+  "id": "volthium-12-v-560-ah-pro--tightening-torque-on-terminals",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "Tightening torque on terminals",
+  "value": "8~10 nm / 6~8 ft/lb",
+  "source": "doc-d936948a48804fb1a569a0aaeec6a0d8",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

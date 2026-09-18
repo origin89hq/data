@@ -1,0 +1,10 @@
+{
+  "id": "epever-it7415nc-g3--grounding-type",
+  "model": "epever-it7415nc-g3",
+  "name": "Grounding type",
+  "value": "Common negative grounding",
+  "source": "doc-e571c0928ae9e02fb7adf7a6d9c319ab",
+  "page": 63,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

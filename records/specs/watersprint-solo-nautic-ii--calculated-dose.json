@@ -1,0 +1,9 @@
+{
+  "id": "watersprint-solo-nautic-ii--calculated-dose",
+  "model": "watersprint-solo-nautic-ii",
+  "name": "Calculated dose",
+  "value": "16 mJ/cm² @ 95 % UVT at 10 l/min",
+  "source": "doc-556a221553770acde089bd5311a06d02",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

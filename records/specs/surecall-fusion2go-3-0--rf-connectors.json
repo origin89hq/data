@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-3-0--rf-connectors",
+  "model": "surecall-fusion2go-3-0",
+  "name": "RF Connectors",
+  "value": "FME Male (both ends)",
+  "source": "doc-9d902254b983884ec3de13ae942c7f89",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

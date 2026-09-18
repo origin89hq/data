@@ -1,0 +1,9 @@
+{
+  "id": "precision-circuits-00-10031-000--screw-terminal-torque",
+  "model": "precision-circuits-00-10031-000",
+  "name": "Screw terminal torque",
+  "value": "9-in-lbs",
+  "source": "doc-7c9245dca1c7660affa59339f0def28a",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

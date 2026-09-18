@@ -1,0 +1,9 @@
+{
+  "id": "precision-circuits-00-10050-000--control-method",
+  "model": "precision-circuits-00-10050-000",
+  "name": "Control method",
+  "value": "Momentarily shedding up to five loads",
+  "source": "doc-ee1ce06ed25b46152fdaba517061568b",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-rb-shunt--shunt-scaling-options",
+  "model": "morningstar-rb-shunt",
+  "name": "Shunt Scaling Options",
+  "value": "50 mV / 100 mV",
+  "source": "doc-4844af010baa4dcda3d2d1d231b41ce2",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

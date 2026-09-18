@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ss-mppt-15l--charging-stages",
+  "model": "morningstar-ss-mppt-15l",
+  "name": "Charging stages",
+  "value": "Haupt-, Absorptions-, Erhaltungs-, Ausgleichsaufladung (optional)",
+  "source": "doc-af22fe14d72253d58e18896733cb9521",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

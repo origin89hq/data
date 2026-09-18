@@ -1,0 +1,11 @@
+{
+  "id": "volthium-12v-300ah--capacity-20a",
+  "model": "volthium-12v-300ah",
+  "name": "Capacity @ 20A",
+  "value": "300",
+  "unit": "Ah",
+  "source": "doc-1f59f71da2d3ceb9721a2230297cbe2c",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

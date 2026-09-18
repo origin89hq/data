@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-30cr-ec--operation",
+  "model": "unique-appliances-ugp-30cr-ec",
+  "name": "Operation",
+  "value": "240 V / AC",
+  "source": "doc-c7d7b5e9f102b8acb17ad5c8bb933fa6",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

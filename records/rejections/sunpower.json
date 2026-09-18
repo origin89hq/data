@@ -1,0 +1,12 @@
+{
+  "id": "sunpower",
+  "rejections": [
+    {
+      "source": "doc-0be4d97cdd84e6e6a5d778d6316a1276",
+      "product": "sunpower-rec470aa-pure-rx",
+      "reason": "The datasheet is the REC Alpha Pure-RX with product code RECxxxAA PURE-RX, and it credits REC Group with manufacturing the panel and SunPower only with the solar innovation behind it.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    }
+  ]
+}

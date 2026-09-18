@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-breeze-et-air-40--weight",
+  "model": "primus-wind-power-air-breeze-et-air-40",
+  "name": "Weight",
+  "value": "13 lb / 6 kg",
+  "source": "doc-3eb33c3b389736d6aacda91bdc77371f",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

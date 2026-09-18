@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sc-2--dimensions",
+  "model": "pulsetech-sc-2",
+  "name": "Dimensions",
+  "value": "15\" x 9.17\" x 3.38\" (boot included)",
+  "source": "doc-bf9be7dbceb7454ea9454d5d314d8a3b",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

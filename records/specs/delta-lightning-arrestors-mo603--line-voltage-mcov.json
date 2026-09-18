@@ -1,0 +1,10 @@
+{
+  "id": "delta-lightning-arrestors-mo603--line-voltage-mcov",
+  "model": "delta-lightning-arrestors-mo603",
+  "name": "Line Voltage MCOV",
+  "value": "480-277 VAC, Three Phase",
+  "source": "doc-ad1998aff20e02b2f0a45cd9219485cd",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

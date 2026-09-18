@@ -1,0 +1,10 @@
+{
+  "id": "midnite-solar-mne250sma-slave--additional-breaker-space",
+  "model": "midnite-solar-mne250sma-slave",
+  "name": "Additional breaker space",
+  "value": "Space provided for 6 additional 1/2\" wide din rail mount AC or DC breakers and up to 12 3/4\" wide panel mount breakers",
+  "source": "doc-f1ffddc8510c912e9f4e1985afe9b586",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

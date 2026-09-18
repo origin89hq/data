@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-7--warranty",
+  "model": "pulsetech-sp-7",
+  "name": "Warranty",
+  "value": "Ten year limited",
+  "source": "doc-feacfcbdccea522ecd1ba703d2e2a49a",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

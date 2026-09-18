@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmmc-070501470-rev1-0--current",
+  "model": "powermax-converters-pmmc-070501470-rev1-0",
+  "name": "Current",
+  "value": "7.2",
+  "unit": "A",
+  "source": "doc-2d60dd84c492d816f310eabe743db17b",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

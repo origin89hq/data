@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-24vpsc-10w--input-electrical",
+  "model": "pulsetech-24vpsc-10w",
+  "name": "Input Electrical",
+  "value": "Solar powered",
+  "source": "doc-b14d6e36ce207a807b211f076834e7ad",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

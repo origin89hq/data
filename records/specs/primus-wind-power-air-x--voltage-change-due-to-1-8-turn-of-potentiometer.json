@@ -1,0 +1,11 @@
+{
+  "id": "primus-wind-power-air-x--voltage-change-due-to-1-8-turn-of-potentiometer",
+  "model": "primus-wind-power-air-x",
+  "name": "Voltage change due to 1/8 turn of potentiometer",
+  "value": "0.56",
+  "unit": "V",
+  "source": "doc-aa3eaa6a084a58206d83d4b229175f24",
+  "page": 26,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

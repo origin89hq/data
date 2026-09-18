@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd2050--output-current",
+  "model": "progressive-dynamics-pd2050",
+  "name": "Output current",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-39647255f1520f8290624f2a53a078b2",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

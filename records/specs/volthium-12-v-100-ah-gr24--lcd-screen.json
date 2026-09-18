@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-100-ah-gr24--lcd-screen",
+  "model": "volthium-12-v-100-ah-gr24",
+  "name": "LCD screen",
+  "value": "No",
+  "source": "doc-6cf31b135d5d636c7fbcd2d9e1fd28f9",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

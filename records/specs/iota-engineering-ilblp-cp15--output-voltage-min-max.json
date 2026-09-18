@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilblp-cp15--output-voltage-min-max",
+  "model": "iota-engineering-ilblp-cp15",
+  "name": "Output Voltage (Min - Max)",
+  "value": "20-55",
+  "unit": "V",
+  "source": "doc-8d09a9f90d309bc90ddc8ef78274f4b7",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

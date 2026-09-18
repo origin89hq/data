@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-marine-tower-kit--stay-mounting-distance-from-mast",
+  "model": "primus-wind-power-air-marine-tower-kit",
+  "name": "Stay mounting distance from mast",
+  "value": "3.5 feet (1.1 m) minimum, 6.5 feet (2.0 m) maximum",
+  "source": "doc-ddaa7c38a0c1e191ea58fcd20fc4ecbe",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

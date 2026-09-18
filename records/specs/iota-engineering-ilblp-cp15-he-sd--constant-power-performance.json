@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd--constant-power-performance",
+  "model": "iota-engineering-ilblp-cp15-he-sd",
+  "name": "Constant Power Performance",
+  "value": "15",
+  "unit": "W",
+  "source": "doc-668127f8728f21471af7b6df6f82db0f",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

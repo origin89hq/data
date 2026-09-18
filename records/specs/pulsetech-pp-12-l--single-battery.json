@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pp-12-l--single-battery",
+  "model": "pulsetech-pp-12-l",
+  "name": "Single Battery",
+  "value": "12-Volt",
+  "source": "doc-b875846362fe741363888302e6bdde80",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

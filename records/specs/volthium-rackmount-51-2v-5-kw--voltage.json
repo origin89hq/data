@@ -1,0 +1,11 @@
+{
+  "id": "volthium-rackmount-51-2v-5-kw--voltage",
+  "model": "volthium-rackmount-51-2v-5-kw",
+  "name": "Voltage",
+  "value": "51.2",
+  "unit": "V",
+  "source": "doc-d64d340b8b0b310296b4dc7519d39d90",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

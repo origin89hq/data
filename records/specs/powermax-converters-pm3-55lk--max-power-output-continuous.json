@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pm3-55lk--max-power-output-continuous",
+  "model": "powermax-converters-pm3-55lk",
+  "name": "Max Power Output Continuous",
+  "value": "800",
+  "unit": "W",
+  "source": "doc-73d2692d88fd6c2869110f519241800a",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

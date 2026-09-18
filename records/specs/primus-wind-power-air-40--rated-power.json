@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-40--rated-power",
+  "model": "primus-wind-power-air-40",
+  "name": "Rated power",
+  "value": "160 watts @ 28 mph / 12.5 m/s Windgeschwindigkeit",
+  "source": "doc-e0af56fd8224288b383ac8c5efa4c08b",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

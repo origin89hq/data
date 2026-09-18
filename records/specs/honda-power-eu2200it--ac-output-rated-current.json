@@ -1,0 +1,11 @@
+{
+  "id": "honda-power-eu2200it--ac-output-rated-current",
+  "model": "honda-power-eu2200it",
+  "name": "AC output Rated current",
+  "value": "15",
+  "unit": "A",
+  "source": "doc-d1046b08ac3886c1c4dcfc20fb1fe4e9",
+  "page": 76,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pm3-75-e--dc-output-voltage-no-load-approx",
+  "model": "powermax-converters-pm3-75-e",
+  "name": "DC Output Voltage (No Load) approx.",
+  "value": "13.2/13.6/14.4V",
+  "source": "doc-de727abd1d0b2f73b03fe57feddd50a7",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

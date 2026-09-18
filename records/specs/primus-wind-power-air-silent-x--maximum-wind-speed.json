@@ -1,0 +1,10 @@
+{
+  "id": "primus-wind-power-air-silent-x--maximum-wind-speed",
+  "model": "primus-wind-power-air-silent-x",
+  "name": "Maximum wind speed",
+  "value": "110 mph (49.2 m/s)",
+  "source": "doc-0e96333eb489fa1e5451a0a8fa59b95d",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

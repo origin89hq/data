@@ -1,0 +1,10 @@
+{
+  "id": "quickcable-5956fv--bend-angle",
+  "model": "quickcable-5956fv",
+  "name": "Bend angle",
+  "value": "45°",
+  "source": "doc-d54e2b95eb9c46901e58f566a2ddee28",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

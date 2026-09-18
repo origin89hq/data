@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-bcd-285--ambient-temperature",
+  "model": "unique-appliances-ugp-bcd-285",
+  "name": "Ambient temperature",
+  "value": "100°F (38°C)",
+  "source": "doc-9bcc835ee16f5f3131b2c08dbbe935fc",
+  "page": 15,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

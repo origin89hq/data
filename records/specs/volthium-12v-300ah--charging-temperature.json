@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12v-300ah--charging-temperature",
+  "model": "volthium-12v-300ah",
+  "name": "Charging temperature",
+  "value": "From 0 to 45°C",
+  "source": "doc-86b33b67dd54decfd8e363ca89befc64",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

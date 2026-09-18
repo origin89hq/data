@@ -1,0 +1,11 @@
+{
+  "id": "progressive-dynamics-pd4135--dc-branch-circuit-rating-2-6",
+  "model": "progressive-dynamics-pd4135",
+  "name": "DC branch circuit rating 2-6",
+  "value": "20",
+  "unit": "A",
+  "source": "doc-02863f66a1a007ef842aa7fba664e0d0",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

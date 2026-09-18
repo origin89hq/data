@@ -1,0 +1,10 @@
+{
+  "id": "volthium-r-b1250a--operation-altitude",
+  "model": "volthium-r-b1250a",
+  "name": "Operation altitude",
+  "value": "< 3000 m",
+  "source": "doc-351fd519eb6040042623bf73c333c5ed",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-12v-erv--solar-panel-physical-description",
+  "model": "pulsetech-12v-erv",
+  "name": "Solar panel physical description",
+  "value": "rectangular clear polyurethane plastic coated",
+  "source": "doc-87d7cc93135717133b1d88e468c5fe5c",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

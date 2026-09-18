@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pm3-55-e--fan-control",
+  "model": "powermax-converters-pm3-55-e",
+  "name": "Fan Control",
+  "value": "Proportional",
+  "source": "doc-de727abd1d0b2f73b03fe57feddd50a7",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

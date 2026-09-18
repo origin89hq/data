@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12v-300ah--ingress-protection-rating",
+  "model": "volthium-12v-300ah",
+  "name": "Ingress protection rating",
+  "value": "IP55 (Against low-pressure water jets and dust)",
+  "source": "doc-86b33b67dd54decfd8e363ca89befc64",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

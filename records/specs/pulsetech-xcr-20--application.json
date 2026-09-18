@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-xcr-20--application",
+  "model": "pulsetech-xcr-20",
+  "name": "Application",
+  "value": "Battery Recovery Charger and Desulfator",
+  "source": "doc-1ab061026dd400d0f48b5ceb0efeb1d7",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

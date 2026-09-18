@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-si-150-48-120-60-hw--maximum-continuous-ac-output-current-at-230-v",
+  "model": "morningstar-si-150-48-120-60-hw",
+  "name": "Maximum Continuous AC Output Current at 230 V",
+  "value": "0.65",
+  "unit": "A",
+  "source": "doc-9d24c6fe1606ecc4c1e36f6cb5ae7bb7",
+  "page": 62,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

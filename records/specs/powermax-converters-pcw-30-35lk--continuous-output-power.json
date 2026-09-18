@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pcw-30-35lk--continuous-output-power",
+  "model": "powermax-converters-pcw-30-35lk",
+  "name": "Continuous Output Power",
+  "value": "476",
+  "unit": "W",
+  "source": "doc-18df3b2bff7fce76a234d3382c63a58a",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

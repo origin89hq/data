@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-470210--booster-dimensions",
+  "model": "wilson-electronics-470210",
+  "name": "Booster Dimensions",
+  "value": "6.25 x 4.5 x 1 in.",
+  "source": "doc-b3904e641cd8119e2f94214dd883afd2",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

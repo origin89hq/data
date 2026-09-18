@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12v-300ah--maximum-unit-in-parallel",
+  "model": "volthium-12v-300ah",
+  "name": "Maximum unit in parallel",
+  "value": "4",
+  "source": "doc-86b33b67dd54decfd8e363ca89befc64",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

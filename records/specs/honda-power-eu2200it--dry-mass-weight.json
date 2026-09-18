@@ -1,0 +1,10 @@
+{
+  "id": "honda-power-eu2200it--dry-mass-weight",
+  "model": "honda-power-eu2200it",
+  "name": "Dry mass [weight]",
+  "value": "46.5 lbs (21.1 kg)",
+  "source": "doc-d1046b08ac3886c1c4dcfc20fb1fe4e9",
+  "page": 76,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

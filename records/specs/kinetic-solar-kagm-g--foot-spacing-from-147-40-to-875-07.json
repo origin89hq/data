@@ -1,0 +1,9 @@
+{
+  "id": "kinetic-solar-kagm-g--foot-spacing-from-147-40-to-875-07",
+  "model": "kinetic-solar-kagm-g",
+  "name": "Foot spacing from 147.40 to 875.07",
+  "value": "147.40, 261.20, 381.74, 504.21, 627.48, 751.16, 875.07",
+  "source": "doc-b9daffe5e28cacd5fbde1ff8847117e2",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

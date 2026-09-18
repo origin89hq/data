@@ -1,0 +1,10 @@
+{
+  "id": "honda-power-eu2200i--noise-level",
+  "model": "honda-power-eu2200i",
+  "name": "Noise Level",
+  "value": "57 dB(A) @ rated load, 65 dB(A) @ max load",
+  "source": "doc-d1046b08ac3886c1c4dcfc20fb1fe4e9",
+  "page": 97,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

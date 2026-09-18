@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-ss-mppt-15l--nominal-load-current",
+  "model": "morningstar-ss-mppt-15l",
+  "name": "Nominal Load Current",
+  "value": "15",
+  "unit": "A",
+  "source": "doc-3753da4c81d5cd18b923af9e2dcefa04",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

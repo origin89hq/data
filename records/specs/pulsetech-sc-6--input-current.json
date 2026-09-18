@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sc-6--input-current",
+  "model": "pulsetech-sc-6",
+  "name": "Input Current",
+  "value": "7.5 Amps Max at 100 VAC (All outputs at 6 Amps)",
+  "source": "doc-a01a6cfa54523c58631d424a3f095fdb",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

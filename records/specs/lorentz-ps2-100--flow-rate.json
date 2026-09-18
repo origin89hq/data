@@ -1,0 +1,9 @@
+{
+  "id": "lorentz-ps2-100--flow-rate",
+  "model": "lorentz-ps2-100",
+  "name": "Flow rate",
+  "value": "2.8 m3/h flow rate",
+  "source": "doc-666f559fc38b84cf4c381d238bf12212",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

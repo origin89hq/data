@@ -1,0 +1,11 @@
+{
+  "id": "precision-circuits-power-control-system-50a--line-current-limit-l2",
+  "model": "precision-circuits-power-control-system-50a",
+  "name": "Line current limit L2",
+  "value": "50",
+  "unit": "A",
+  "source": "doc-b68085d37c23ae16bdf852fc3930ad6f",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

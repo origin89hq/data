@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-eb-mppt-20-m--self-consumption-without-meter",
+  "model": "morningstar-eb-mppt-20-m",
+  "name": "Self-consumption (without meter)",
+  "value": "< 25 mA",
+  "source": "doc-15aaa2603340519a063c6fdaff24a15e",
+  "page": 46,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

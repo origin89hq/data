@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-735x713--voltage",
+  "model": "pulsetech-735x713",
+  "name": "Voltage",
+  "value": "24",
+  "unit": "V",
+  "source": "doc-bf71e064e88eadcf0cce3447abc10185",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

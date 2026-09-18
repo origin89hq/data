@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-jump-start--termination",
+  "model": "pulsetech-jump-start",
+  "name": "Termination",
+  "value": "NATO Connector",
+  "source": "doc-59284c718ad994a2b51e6904f8925db9",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

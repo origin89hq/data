@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-hub-1--dimensions",
+  "model": "morningstar-hub-1",
+  "name": "Dimensions",
+  "value": "13.5 x 10.8 x 3.7 cm\n5.3 x 4.3 x 1.5 inch",
+  "source": "doc-5293e48fcf72f901319ac146ef0b40d6",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

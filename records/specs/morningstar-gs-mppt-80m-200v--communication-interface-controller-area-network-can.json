@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-gs-mppt-80m-200v--communication-interface-controller-area-network-can",
+  "model": "morningstar-gs-mppt-80m-200v",
+  "name": "Communication Interface - Controller Area Network (CAN)",
+  "value": "Yes",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 152,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

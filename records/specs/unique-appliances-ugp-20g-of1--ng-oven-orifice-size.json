@@ -1,0 +1,11 @@
+{
+  "id": "unique-appliances-ugp-20g-of1--ng-oven-orifice-size",
+  "model": "unique-appliances-ugp-20g-of1",
+  "name": "NG oven orifice size",
+  "value": "1.7",
+  "unit": "mm",
+  "source": "doc-a02fce8b3a5ca08271c1d8617ffd4bf0",
+  "page": 19,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

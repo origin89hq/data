@@ -1,0 +1,11 @@
+{
+  "id": "volthium-12v-150ah-battery--maximum-series-bank-voltage",
+  "model": "volthium-12v-150ah-battery",
+  "name": "Maximum series bank voltage",
+  "value": "51.2",
+  "unit": "V",
+  "source": "doc-8232da1aa0b17a21355ea67420f1d693",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

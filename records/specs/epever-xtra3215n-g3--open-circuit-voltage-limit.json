@@ -1,0 +1,11 @@
+{
+  "id": "epever-xtra3215n-g3--open-circuit-voltage-limit",
+  "model": "epever-xtra3215n-g3",
+  "name": "Open-circuit voltage limit",
+  "value": "138",
+  "unit": "V",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 17,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

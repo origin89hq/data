@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pm3-75-e--output-amperage-max-continuous",
+  "model": "powermax-converters-pm3-75-e",
+  "name": "Output Amperage, Max Continuous",
+  "value": "75",
+  "unit": "A",
+  "source": "doc-de727abd1d0b2f73b03fe57feddd50a7",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

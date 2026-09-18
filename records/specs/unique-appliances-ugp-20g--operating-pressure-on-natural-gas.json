@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-20g--operating-pressure-on-natural-gas",
+  "model": "unique-appliances-ugp-20g",
+  "name": "Operating pressure on natural gas",
+  "value": "4",
+  "source": "doc-a02fce8b3a5ca08271c1d8617ffd4bf0",
+  "page": 15,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

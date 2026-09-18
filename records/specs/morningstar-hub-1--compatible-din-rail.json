@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-hub-1--compatible-din-rail",
+  "model": "morningstar-hub-1",
+  "name": "Compatible DIN rail",
+  "value": "35 mm standard",
+  "source": "doc-5293e48fcf72f901319ac146ef0b40d6",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

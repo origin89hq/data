@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-12--leads-box-to-ring-terminal",
+  "model": "pulsetech-sp-12",
+  "name": "Leads (Box to Ring Terminal)",
+  "value": "3",
+  "source": "doc-995db75d36a004a7ee894499a5c004ec",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sc-12--weight",
+  "model": "pulsetech-sc-12",
+  "name": "Weight",
+  "value": "57 lbs with cables",
+  "source": "doc-a01a6cfa54523c58631d424a3f095fdb",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

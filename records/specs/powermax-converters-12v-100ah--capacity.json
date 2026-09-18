@@ -1,0 +1,11 @@
+{
+  "id": "powermax-converters-12v-100ah--capacity",
+  "model": "powermax-converters-12v-100ah",
+  "name": "Capacity",
+  "value": "100",
+  "unit": "Ah",
+  "source": "doc-aceddf6feeed98dd56cffa4cfb015d2c",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

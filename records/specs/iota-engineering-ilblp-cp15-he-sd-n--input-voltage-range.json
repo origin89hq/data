@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd-n--input-voltage-range",
+  "model": "iota-engineering-ilblp-cp15-he-sd-n",
+  "name": "Input voltage range",
+  "value": "10-60VDC",
+  "source": "doc-b41367bdda196b215b9e4ec4e08057b8",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

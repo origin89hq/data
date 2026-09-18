@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-genstar-mppt-60--maximum-open-circuit-solar-input-voltage",
+  "model": "morningstar-genstar-mppt-60",
+  "name": "Maximum open-circuit solar input voltage",
+  "value": "200 Volt DC",
+  "source": "doc-f7aa8cb5379ace6f234e20405baf1570",
+  "page": 11,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

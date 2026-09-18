@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-20g--regulator-rated-maximum-outlet-pressure",
+  "model": "unique-appliances-ugp-20g",
+  "name": "Regulator rated maximum outlet pressure",
+  "value": "1/2 psi (14\" w.c.)",
+  "source": "doc-a02fce8b3a5ca08271c1d8617ffd4bf0",
+  "page": 15,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

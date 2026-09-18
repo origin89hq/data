@@ -1,0 +1,11 @@
+{
+  "id": "volthium-12-v-314-ah-plus--nominal-energy",
+  "model": "volthium-12-v-314-ah-plus",
+  "name": "Nominal energy",
+  "value": "4019.2",
+  "unit": "Wh",
+  "source": "doc-c2aa44762c5f60f01eee0b982da82c62",
+  "page": 10,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

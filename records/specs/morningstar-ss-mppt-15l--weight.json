@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ss-mppt-15l--weight",
+  "model": "morningstar-ss-mppt-15l",
+  "name": "Weight",
+  "value": "0.60 kg / 1.3 lbs",
+  "source": "doc-d9179191e76c8c62cd951e86433433be",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

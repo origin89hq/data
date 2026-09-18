@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-560-ah-pro--short-circuit-protection",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "Short circuit protection",
+  "value": "1800 A @ 500 uS",
+  "source": "doc-aeb5cccfeafcd4e86f6eefd9ccdacbe9",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

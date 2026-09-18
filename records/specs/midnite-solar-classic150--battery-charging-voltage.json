@@ -1,0 +1,11 @@
+{
+  "id": "midnite-solar-classic150--battery-charging-voltage",
+  "model": "midnite-solar-classic150",
+  "name": "Battery charging voltage",
+  "value": "12-72",
+  "unit": "V",
+  "source": "doc-0857c58e2f6e5faa51cb0c3eba1f3a8f",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

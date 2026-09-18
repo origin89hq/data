@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-560-ah-pro--heating-current-required-for-activation",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "Heating current required for activation",
+  "value": "6",
+  "unit": "A",
+  "source": "doc-aeb5cccfeafcd4e86f6eefd9ccdacbe9",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

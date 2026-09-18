@@ -1,0 +1,10 @@
+{
+  "id": "epever-up1000-m3212--no-load-consumption",
+  "model": "epever-up1000-m3212",
+  "name": "No load consumption",
+  "value": "≤1.2A",
+  "source": "doc-c671251fdb0602bd2a8b1634ff16eacc",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

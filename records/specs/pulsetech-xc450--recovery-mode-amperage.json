@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-xc450--recovery-mode-amperage",
+  "model": "pulsetech-xc450",
+  "name": "Recovery Mode Amperage",
+  "value": "2",
+  "unit": "A",
+  "source": "doc-c22d860060a20389dd285ad63350c826",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "volthium-12-v-560-ah-pro--voltage",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "Voltage",
+  "value": "12.8",
+  "unit": "V",
+  "source": "doc-d936948a48804fb1a569a0aaeec6a0d8",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

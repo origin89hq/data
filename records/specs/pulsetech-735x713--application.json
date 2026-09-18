@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-735x713--application",
+  "model": "pulsetech-735x713",
+  "name": "Application",
+  "value": "temp use while equipment is parked",
+  "source": "doc-bf71e064e88eadcf0cce3447abc10185",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

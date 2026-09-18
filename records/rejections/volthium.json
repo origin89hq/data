@@ -62,6 +62,22 @@
       "reason": "The specification table has JP, US and EU/AU/ZA columns, and the manual does not say which the product is; the value is one column's.",
       "reviewedBy": "lemarier",
       "checkedAt": "2026-09-15"
+    },
+    {
+      "source": "doc-5c66a3655476e7c45fb3f10c82718104",
+      "model": "volthium-51-2v-100ah-abs",
+      "name": "Short circuit protection time",
+      "reason": "The technical sheet answers \"Short circuit protection\" with \"Yes\" and prints 300 min as the capacity at 20 A; it gives no short-circuit protection time.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
+    },
+    {
+      "source": "doc-d64d340b8b0b310296b4dc7519d39d90",
+      "model": "volthium-volthium-5-kw-battery",
+      "name": "Discharge current",
+      "reason": "The manual says the 5 kWh batteries push a current parameter of 100 AMP for discharge over the communication link, and that the parameters the battery pushes are conservative, so it is a communicated setting rather than the battery's rated discharge current.",
+      "reviewedBy": "lemarier",
+      "checkedAt": "2026-09-18"
     }
   ]
 }

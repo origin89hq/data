@@ -1,0 +1,11 @@
+{
+  "id": "surecall-sc-fusion2go3-rv--input-output-impedance",
+  "model": "surecall-sc-fusion2go3-rv",
+  "name": "Input / Output Impedance",
+  "value": "50",
+  "unit": "Ω",
+  "source": "doc-724f1918caff7acd8329e4b73f811441",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

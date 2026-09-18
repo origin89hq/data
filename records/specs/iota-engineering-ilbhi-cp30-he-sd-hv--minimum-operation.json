@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilbhi-cp30-he-sd-hv--minimum-operation",
+  "model": "iota-engineering-ilbhi-cp30-he-sd-hv",
+  "name": "Minimum Operation",
+  "value": "90",
+  "unit": "min",
+  "source": "doc-715f0d83d754017d57c444eab0bfb887",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

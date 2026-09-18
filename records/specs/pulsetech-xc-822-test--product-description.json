@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc-822-test--product-description",
+  "model": "pulsetech-xc-822-test",
+  "name": "Product description",
+  "value": "Quick Battery Tester",
+  "source": "doc-21c090a44b6e5a63365ed7e60d79ad85",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

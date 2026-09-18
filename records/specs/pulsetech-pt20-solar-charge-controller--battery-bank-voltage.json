@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pt20-solar-charge-controller--battery-bank-voltage",
+  "model": "pulsetech-pt20-solar-charge-controller",
+  "name": "Battery bank voltage",
+  "value": "12 and 24-volt auto-switching",
+  "source": "doc-23626c7771110fd9944d219a50d60d5f",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

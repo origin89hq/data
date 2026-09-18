@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-24vpsc-10w--electrical-output-current",
+  "model": "pulsetech-24vpsc-10w",
+  "name": "Electrical Output Current",
+  "value": "357",
+  "unit": "mA",
+  "source": "doc-b14d6e36ce207a807b211f076834e7ad",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

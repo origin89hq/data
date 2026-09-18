@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-eb-mppt-30-m--enclosure",
+  "model": "morningstar-eb-mppt-30-m",
+  "name": "Enclosure",
+  "value": "IP20, Type 1",
+  "source": "doc-15aaa2603340519a063c6fdaff24a15e",
+  "page": 23,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

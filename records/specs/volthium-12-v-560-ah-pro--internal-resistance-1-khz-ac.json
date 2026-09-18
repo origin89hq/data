@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-560-ah-pro--internal-resistance-1-khz-ac",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "Internal resistance @ 1 kHz AC",
+  "value": "≤ 20 mΩ",
+  "source": "doc-aeb5cccfeafcd4e86f6eefd9ccdacbe9",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

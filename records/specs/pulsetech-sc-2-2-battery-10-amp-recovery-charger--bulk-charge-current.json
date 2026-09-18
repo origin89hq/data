@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sc-2-2-battery-10-amp-recovery-charger--bulk-charge-current",
+  "model": "pulsetech-sc-2-2-battery-10-amp-recovery-charger",
+  "name": "Bulk charge current",
+  "value": "3.5",
+  "unit": "A",
+  "source": "doc-7527b0bbe7bd1fc3d983a0eba854331c",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

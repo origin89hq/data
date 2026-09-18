@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-sp-50--solar-panel-dimensions",
+  "model": "pulsetech-sp-50",
+  "name": "Solar panel dimensions",
+  "value": "26.25\" x 21.75\" x 0.50",
+  "source": "doc-8be9495f7f8c765bf095c64e22f8a7b8",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

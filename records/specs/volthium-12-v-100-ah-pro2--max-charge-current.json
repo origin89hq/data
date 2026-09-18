@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-100-ah-pro2--max-charge-current",
+  "model": "volthium-12-v-100-ah-pro2",
+  "name": "Max charge current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-7b9c445691ca06789041402ec3fefe03",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

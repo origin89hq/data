@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-3000w--fan-run",
+  "model": "powermax-converters-pmx-3000w",
+  "name": "Fan Run",
+  "value": "inner temperature rising up≥45℃",
+  "source": "doc-39140d23c40e0c6d760fa8b9948caf17",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

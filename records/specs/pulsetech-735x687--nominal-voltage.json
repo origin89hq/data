@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-735x687--nominal-voltage",
+  "model": "pulsetech-735x687",
+  "name": "Nominal voltage",
+  "value": "24",
+  "unit": "V",
+  "source": "doc-9b7ba0466bce797c8c8c4557f27a9c9b",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

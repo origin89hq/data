@@ -1,0 +1,11 @@
+{
+  "id": "pulsetech-sc-6--output-voltage-bulk-charge",
+  "model": "pulsetech-sc-6",
+  "name": "Output Voltage, Bulk Charge",
+  "value": "14.8",
+  "unit": "V",
+  "source": "doc-a01a6cfa54523c58631d424a3f095fdb",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

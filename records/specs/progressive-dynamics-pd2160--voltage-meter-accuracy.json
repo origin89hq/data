@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd2160--voltage-meter-accuracy",
+  "model": "progressive-dynamics-pd2160",
+  "name": "Voltage meter accuracy",
+  "value": "+/- 2%",
+  "source": "doc-df8db387122c45bb72c1ca96984d13b1",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

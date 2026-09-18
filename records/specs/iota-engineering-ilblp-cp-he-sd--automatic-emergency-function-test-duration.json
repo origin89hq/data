@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilblp-cp-he-sd--automatic-emergency-function-test-duration",
+  "model": "iota-engineering-ilblp-cp-he-sd",
+  "name": "Automatic emergency function test duration",
+  "value": "60",
+  "unit": "s",
+  "source": "doc-636c69a8058e5cffba759e4d75496cea",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

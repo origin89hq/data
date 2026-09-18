@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-costar-9rv-sso--trouble-service-condition-indicator",
+  "model": "unique-appliances-costar-9rv-sso",
+  "name": "Trouble/service condition indicator",
+  "value": "alarm will beep and the RED LED flashes once every 30 seconds",
+  "source": "doc-2ded12939db1a6dc1a3309490a1b238f",
+  "page": 28,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

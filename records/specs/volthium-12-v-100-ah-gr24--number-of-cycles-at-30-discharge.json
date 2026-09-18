@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-100-ah-gr24--number-of-cycles-at-30-discharge",
+  "model": "volthium-12-v-100-ah-gr24",
+  "name": "Number of cycles at 30% discharge",
+  "value": "8200 < cycles",
+  "source": "doc-6cf31b135d5d636c7fbcd2d9e1fd28f9",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

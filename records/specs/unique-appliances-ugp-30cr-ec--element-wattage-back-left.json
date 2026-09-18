@@ -1,0 +1,11 @@
+{
+  "id": "unique-appliances-ugp-30cr-ec--element-wattage-back-left",
+  "model": "unique-appliances-ugp-30cr-ec",
+  "name": "Element Wattage: Back Left",
+  "value": "1,200",
+  "unit": "W",
+  "source": "doc-7cc86bd3c7329eddb7c13b40d198769a",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilbhi-cp10-he-sd--input-voltage",
+  "model": "iota-engineering-ilbhi-cp10-he-sd",
+  "name": "Input Voltage",
+  "value": "347 to 480VAC",
+  "source": "doc-d3bff484c0444acac4718437dbb1a4a9",
+  "page": 5,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

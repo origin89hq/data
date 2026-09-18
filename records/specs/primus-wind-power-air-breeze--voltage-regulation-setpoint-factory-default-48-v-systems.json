@@ -1,0 +1,11 @@
+{
+  "id": "primus-wind-power-air-breeze--voltage-regulation-setpoint-factory-default-48-v-systems",
+  "model": "primus-wind-power-air-breeze",
+  "name": "Voltage regulation setpoint (factory default) 48 V systems",
+  "value": "26.4",
+  "unit": "V",
+  "source": "doc-c15058cdcf6c0ae389d24523d639366a",
+  "page": 4,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

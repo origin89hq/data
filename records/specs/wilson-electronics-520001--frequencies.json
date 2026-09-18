@@ -1,0 +1,10 @@
+{
+  "id": "wilson-electronics-520001--frequencies",
+  "model": "wilson-electronics-520001",
+  "name": "Frequencies",
+  "value": "Band 1 2100 MHz\nBand 3 1800 MHz\nBand 8 900 MHz",
+  "source": "doc-81d6899f31f97e6ee0b4263c003c7e89",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

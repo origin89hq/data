@@ -1,0 +1,10 @@
+{
+  "id": "epever-tp20kb-220-220-1--output-thd",
+  "model": "epever-tp20kb-220-220-1",
+  "name": "Output THD",
+  "value": "≤3%",
+  "source": "doc-81e78093b9671e24fe5a3d9c1812a057",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

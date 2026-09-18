@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd--input-frequency",
+  "model": "iota-engineering-ilblp-cp15-he-sd",
+  "name": "Input frequency",
+  "value": "50/60",
+  "unit": "Hz",
+  "source": "doc-668127f8728f21471af7b6df6f82db0f",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

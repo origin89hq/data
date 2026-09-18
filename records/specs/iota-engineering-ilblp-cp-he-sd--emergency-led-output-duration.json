@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilblp-cp-he-sd--emergency-led-output-duration",
+  "model": "iota-engineering-ilblp-cp-he-sd",
+  "name": "Emergency LED output duration",
+  "value": "90",
+  "unit": "min",
+  "source": "doc-8d09a9f90d309bc90ddc8ef78274f4b7",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

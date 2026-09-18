@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-24vpsc-12w-nato--circuit-box-dimensions",
+  "model": "pulsetech-24vpsc-12w-nato",
+  "name": "Circuit Box Dimensions",
+  "value": "4.9\" x 1.8\" x 1",
+  "source": "doc-553365674ce12eca786767c9177d7ef7",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

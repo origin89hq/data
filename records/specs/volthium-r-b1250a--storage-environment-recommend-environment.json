@@ -1,0 +1,9 @@
+{
+  "id": "volthium-r-b1250a--storage-environment-recommend-environment",
+  "model": "volthium-r-b1250a",
+  "name": "Storage environment - Recommend environment",
+  "value": "15 ~ 35 °C | 5 ~ 75 % RH",
+  "source": "doc-351fd519eb6040042623bf73c333c5ed",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

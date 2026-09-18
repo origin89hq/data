@@ -1,0 +1,11 @@
+{
+  "id": "epever-it8420nc-g3--rated-charging-discharging-current",
+  "model": "epever-it8420nc-g3",
+  "name": "Rated charging/discharging current",
+  "value": "80",
+  "unit": "A",
+  "source": "doc-e571c0928ae9e02fb7adf7a6d9c319ab",
+  "page": 67,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

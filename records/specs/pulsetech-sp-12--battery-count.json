@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-12--battery-count",
+  "model": "pulsetech-sp-12",
+  "name": "Battery count",
+  "value": "1-4",
+  "source": "doc-ef7993ef63d1ae7f44a243ae339e26e9",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

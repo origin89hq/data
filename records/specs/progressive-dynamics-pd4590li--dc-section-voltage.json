@@ -1,0 +1,10 @@
+{
+  "id": "progressive-dynamics-pd4590li--dc-section-voltage",
+  "model": "progressive-dynamics-pd4590li",
+  "name": "DC section voltage",
+  "value": "12 VDC 100 Ampères Maximum - 18 Circuits de succursale",
+  "source": "doc-a8da69b4171db359f3e1bc693fdbc280",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

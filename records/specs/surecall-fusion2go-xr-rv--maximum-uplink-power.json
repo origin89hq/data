@@ -1,0 +1,10 @@
+{
+  "id": "surecall-fusion2go-xr-rv--maximum-uplink-power",
+  "model": "surecall-fusion2go-xr-rv",
+  "name": "Maximum Uplink Power",
+  "value": "29.0 dBm",
+  "source": "doc-fd120796536b0cde0d5c9324120411db",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

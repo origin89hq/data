@@ -1,0 +1,10 @@
+{
+  "id": "morningstar-ts-mppt-45--thermal-derating-threshold",
+  "model": "morningstar-ts-mppt-45",
+  "name": "Thermal derating threshold",
+  "value": "80°C heat sink temperature",
+  "source": "doc-687a3ce0efb1ec0ba34bd644ddc9d45d",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

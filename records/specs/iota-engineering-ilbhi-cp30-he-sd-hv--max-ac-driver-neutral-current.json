@@ -1,0 +1,11 @@
+{
+  "id": "iota-engineering-ilbhi-cp30-he-sd-hv--max-ac-driver-neutral-current",
+  "model": "iota-engineering-ilbhi-cp30-he-sd-hv",
+  "name": "Max. AC Driver Neutral Current",
+  "value": "1.5",
+  "unit": "A",
+  "source": "doc-a673ea88f41cd0933c5f1577a9b859ac",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-12--protection-coating",
+  "model": "pulsetech-sp-12",
+  "name": "Protection/Coating",
+  "value": "clear polyurethane plastic coating",
+  "source": "doc-87d7cc93135717133b1d88e468c5fe5c",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

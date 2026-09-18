@@ -1,0 +1,9 @@
+{
+  "id": "pulsetech-pp-12-l--name",
+  "model": "pulsetech-pp-12-l",
+  "name": "Name",
+  "value": "PowerPulse 12V Battery Maintenance System",
+  "source": "doc-87d7cc93135717133b1d88e468c5fe5c",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

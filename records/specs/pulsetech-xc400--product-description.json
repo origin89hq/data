@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-xc400--product-description",
+  "model": "pulsetech-xc400",
+  "name": "Product description",
+  "value": "12V 4 Amp Xtreme Charger w/Pulse Maintenance",
+  "source": "doc-21c090a44b6e5a63365ed7e60d79ad85",
+  "page": 8,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "iota-engineering-ilblp-cp15-he-sd--output-current",
+  "model": "iota-engineering-ilblp-cp15-he-sd",
+  "name": "Output current",
+  "value": "0.75 (@20VDC) - 0.27 (@55VDC)",
+  "unit": "A",
+  "source": "doc-668127f8728f21471af7b6df6f82db0f",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

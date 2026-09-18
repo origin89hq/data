@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-12--solar-charger-power",
+  "model": "pulsetech-sp-12",
+  "name": "Solar charger power",
+  "value": "12W Charger",
+  "source": "doc-2837a39a6e980c02980cf414ed4c195c",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

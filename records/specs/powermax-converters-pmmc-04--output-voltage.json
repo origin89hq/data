@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmmc-04--output-voltage",
+  "model": "powermax-converters-pmmc-04",
+  "name": "Output voltage",
+  "value": "6/12V",
+  "source": "doc-b515fdf6fcbb9f313ca189fc417f743b",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

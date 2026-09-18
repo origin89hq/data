@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-pro-12-rp--voltage",
+  "model": "pulsetech-pro-12-rp",
+  "name": "Voltage",
+  "value": "12-Volt",
+  "source": "doc-bcd0573032d0fbc1e847706d7d978129",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

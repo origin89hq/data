@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-sp-7--operating-temperature",
+  "model": "pulsetech-sp-7",
+  "name": "Operating Temperature",
+  "value": "0ºF to 130ºF (-18ºC to 54ºC)",
+  "source": "doc-8c8c4b700a6308c3cf8994621daf3185",
+  "page": 1,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

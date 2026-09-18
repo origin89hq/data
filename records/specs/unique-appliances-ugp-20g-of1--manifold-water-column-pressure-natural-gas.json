@@ -1,0 +1,10 @@
+{
+  "id": "unique-appliances-ugp-20g-of1--manifold-water-column-pressure-natural-gas",
+  "model": "unique-appliances-ugp-20g-of1",
+  "name": "Manifold water column pressure - natural gas",
+  "value": "4",
+  "source": "doc-a02fce8b3a5ca08271c1d8617ffd4bf0",
+  "page": 19,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

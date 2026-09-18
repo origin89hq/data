@@ -1,0 +1,9 @@
+{
+  "id": "rstc-enterprises-0599--ambient-temperature-range",
+  "model": "rstc-enterprises-0599",
+  "name": "Ambient temperature range",
+  "value": "(-35 °C) à (+75 °C)",
+  "source": "doc-bc3481a09d2fe8327d70fce433fb62e1",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "morningstar-sk-6--self-consumption-charging",
+  "model": "morningstar-sk-6",
+  "name": "Self-Consumption Charging",
+  "value": "7",
+  "unit": "mA",
+  "source": "doc-5d9b386e5c8e37dcd8c171d8dc9605e3",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

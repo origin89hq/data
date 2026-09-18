@@ -1,0 +1,10 @@
+{
+  "id": "powermax-converters-pmx-1000--ac-receptacles",
+  "model": "powermax-converters-pmx-1000",
+  "name": "AC receptacles",
+  "value": "Two, NEMA 5-15 USA",
+  "source": "doc-aa10b2ab94603707e362b938e91785d8",
+  "page": 14,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

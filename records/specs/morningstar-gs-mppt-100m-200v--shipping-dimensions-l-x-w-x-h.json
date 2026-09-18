@@ -1,0 +1,9 @@
+{
+  "id": "morningstar-gs-mppt-100m-200v--shipping-dimensions-l-x-w-x-h",
+  "model": "morningstar-gs-mppt-100m-200v",
+  "name": "Shipping dimensions (L x W x H)",
+  "value": "18.5 x 12.5 x 10.5 英⼨/469.9 x 317.5 x 266.7 毫⽶",
+  "source": "doc-37633f0a761869b4d7d2f61da8e5f63a",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

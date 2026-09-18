@@ -1,0 +1,9 @@
+{
+  "id": "progressive-dynamics-pd9345--input-connection",
+  "model": "progressive-dynamics-pd9345",
+  "name": "Input connection",
+  "value": "15-Amp AC Plug",
+  "source": "doc-f91d951a638434c8e0da8afaece365aa",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

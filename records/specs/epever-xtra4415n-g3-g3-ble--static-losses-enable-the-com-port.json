@@ -1,0 +1,10 @@
+{
+  "id": "epever-xtra4415n-g3-g3-ble--static-losses-enable-the-com-port",
+  "model": "epever-xtra4415n-g3-g3-ble",
+  "name": "Static Losses (Enable the com. port)",
+  "value": "≤ 14mA (12V)\n≤ 9mA (24V)\n≤ 8mA (36V)\n≤ 7mA (48V)",
+  "source": "doc-ca96956cbc8178ba58b655f01dac68a9",
+  "page": 52,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "volthium-12-v-560-ah-pro--weight",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "Weight",
+  "value": "66 kg | 145 lbs",
+  "source": "doc-aeb5cccfeafcd4e86f6eefd9ccdacbe9",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

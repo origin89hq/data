@@ -1,0 +1,10 @@
+{
+  "id": "sunpower-rec470aa-pure-rx--power-density",
+  "model": "sunpower-rec470aa-pure-rx",
+  "name": "Power Density",
+  "value": "21.0 W/ft²",
+  "source": "doc-0be4d97cdd84e6e6a5d778d6316a1276",
+  "page": 2,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

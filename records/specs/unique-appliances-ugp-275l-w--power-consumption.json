@@ -1,0 +1,11 @@
+{
+  "id": "unique-appliances-ugp-275l-w--power-consumption",
+  "model": "unique-appliances-ugp-275l-w",
+  "name": "Power Consumption",
+  "value": "63",
+  "unit": "W",
+  "source": "doc-72d4edea21f290ad9a4195d19fa8a238",
+  "page": 24,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

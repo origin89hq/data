@@ -1,0 +1,9 @@
+{
+  "id": "primus-wind-power-air-30--swept-area",
+  "model": "primus-wind-power-air-30",
+  "name": "Swept area",
+  "value": "1.07 m² (11.5 ft²)",
+  "source": "doc-e77976cddd9bc48dc24e165f74b2ec72",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "pulsetech-746x871--maximum-charge-pulse-current",
+  "model": "pulsetech-746x871",
+  "name": "Maximum Charge (Pulse) Current",
+  "value": "3",
+  "unit": "A",
+  "source": "doc-1e2d879b25b0e888660e43b52662c6ed",
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

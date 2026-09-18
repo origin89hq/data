@@ -1,0 +1,11 @@
+{
+  "id": "bslbatt-bsl-24-100--maxiumum-output-current",
+  "model": "bslbatt-bsl-24-100",
+  "name": "Maxiumum output current",
+  "value": "100",
+  "unit": "A",
+  "source": "doc-40c3daaff587ebd783d97d0fbe3a6a4a",
+  "page": 7,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}

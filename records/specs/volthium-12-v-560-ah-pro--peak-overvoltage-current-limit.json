@@ -1,0 +1,10 @@
+{
+  "id": "volthium-12-v-560-ah-pro--peak-overvoltage-current-limit",
+  "model": "volthium-12-v-560-ah-pro",
+  "name": "Peak/Overvoltage current limit",
+  "value": "1500 A pour 10sec",
+  "source": "doc-aeb5cccfeafcd4e86f6eefd9ccdacbe9",
+  "page": 3,
+  "extractedBy": "ai:@cf/moonshotai/kimi-k2.7-code@p3",
+  "confidence": "vendor-doc"
+}
