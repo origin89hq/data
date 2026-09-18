@@ -37,6 +37,8 @@ export interface Row {
   top: number;
   bottom: number;
   cells: Cell[];
+  /** The size its characters are set in, for telling a heading from the text around it. */
+  size: number;
 }
 
 const median = (numbers: readonly number[]): number =>
@@ -129,6 +131,9 @@ export function rowsOf(chars: readonly Char[]): Row[] {
       .map((row) => ({
         top: row.top,
         bottom: row.bottom,
+        // The font's own size where the document gives it, since a glyph box is only as tall as the
+        // letters in it: a line with no descender is shorter than the same line with one.
+        size: median(row.chars.map((c) => c.size ?? c.top - c.bottom).filter((n) => n > 0)),
         cells: cellsOf([...row.chars].sort((a, b) => a.left - b.left)),
       }))
       // A line of spaces is where a line ended, not a row of the page.
@@ -159,16 +164,31 @@ export const OPENING = 240;
  */
 export function withOpenings(markdown: string, sections: readonly Section[]): Section[] {
   const lines = markdown.split("\n");
+  // Which page each line stands on, so a section is read within its own pages: a heading repeated
+  // in a table of contents would otherwise stand in for the section itself, and a short section
+  // would open with the one after it.
+  const pages: number[] = [];
+  let page = 0;
+  for (const line of lines) {
+    const marked = /^### Page (\d+)$/.exec(line);
+    if (marked) page = Number(marked[1]);
+    pages.push(page);
+  }
   // A heading is matched by its letters: the outline reads a page's own characters and the markdown
   // is written from cells, and the two space a title differently — "MPPVoltage" against "MPP
   // Voltage" — which as an exact match found a heading in one section of eight.
   const same = (text: string): string => text.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, "");
   const folded = lines.map(same);
   return sections.map((section) => {
-    const at = section.title ? folded.indexOf(same(section.title)) : 0;
+    const within = (index: number): boolean =>
+      (pages[index] ?? 0) >= section.from && (pages[index] ?? 0) <= section.to;
+    const at = section.title
+      ? folded.findIndex((line, index) => line === same(section.title) && within(index))
+      : 0;
     if (at < 0) return section;
+    const ends = lines.findIndex((_, index) => index > at && !within(index));
     const after = lines
-      .slice(at + 1)
+      .slice(at + 1, ends < 0 ? undefined : ends)
       .filter((line) => line.trim() && !/^\|[\s|:-]*\|$/.test(line) && !/^### Page \d+$/.test(line))
       .join(" ")
       .replace(/\s+/g, " ")
@@ -227,25 +247,32 @@ export interface Heading {
  * warranties and troubleshooting in the rest. The outline is what lets those be left unread, and it
  * costs nothing to find.
  */
-const NUMBERED = /^\d+(\.\d+)*[.)]?\s+\S/;
+/**
+ * A numbered heading: a section number and words after it. The words matter — "12 V" is a figure,
+ * not a section, and read as one it cut a document into sections at every voltage it printed.
+ */
+const NUMBERED = /^\d+(\.\d+)*[.)]?\s+.*[A-Za-z]{3,}/;
 export function headingsOn(chars: readonly Char[], page: number): Heading[] {
   const rows = rowsOf(chars);
-  const sizes = chars.map((c) => c.size ?? c.top - c.bottom).filter((s) => s > 0);
-  const body = median(sizes);
+  // A heading is set larger than the page's own text, both measured the same way: by the size each
+  // row is set in. Measuring one by the font and the other by its glyph boxes compared one number
+  // with a different one, and a heading set larger could read as body text.
+  const body = median(rows.map((row) => row.size).filter((size) => size > 0));
   const headings: Heading[] = [];
   for (const row of rows) {
     // A heading is a line to itself: a row of several cells is a table's row, not a title. A
     // numbered one is two, since a manual sets the number clear of the words: "2" then
     // "Installation", "2.2" then "Requirements for the PV array".
-    const numbered =
+    const pair =
       row.cells.length === 2 && /^\d+(\.\d+)*[.)]?$/.test(row.cells[0]?.text ?? "")
         ? `${row.cells[0]?.text} ${row.cells[1]?.text}`
         : undefined;
+    const numbered = pair && NUMBERED.test(pair) ? pair : undefined;
     if (row.cells.length !== 1 && !numbered) continue;
     const text = numbered ?? row.cells[0]?.text ?? "";
     if (!text || text.length > 120) continue;
-    const size = row.top - row.bottom;
-    if (size > body * 1.15 || NUMBERED.test(text)) headings.push({ page, text, size });
+    if (row.size > body * 1.15 || NUMBERED.test(text))
+      headings.push({ page, text, size: row.size });
   }
   return headings;
 }
@@ -294,10 +321,30 @@ export function columnsOf(rows: readonly Row[], leastRows = LEAST_ROWS): number[
 }
 
 /** Each row's cells put under the column they start at, as text. */
-export function gridOf(rows: readonly Row[], columns: readonly number[]): string[][] {
+export function gridOf(
+  rows: readonly Row[],
+  columns: readonly number[],
+  ruled = false,
+): string[][] {
   return rows.map((row) => {
     const line = columns.map(() => "");
     for (const cell of row.cells) {
+      // Where a page rules its table, a cell belongs to every column its text stands in: nothing
+      // crosses a rule but a cell drawn across it, and such a cell says its value for both columns.
+      // EPEVER merges XTRA1206N and XTRA2206N for the figures they share, and under one of them
+      // alone the other model took the value of the model after it.
+      const across = ruled
+        ? columns
+            .map((from, i) => ({ i, to: columns[i + 1] ?? Number.POSITIVE_INFINITY, from }))
+            .filter(
+              ({ from, to }) => Math.min(cell.right, to) - Math.max(cell.left, from) > CROSSES,
+            )
+            .map(({ i }) => i)
+        : [];
+      if (across.length > 0) {
+        for (const i of across) line[i] = line[i] ? `${line[i]} ${cell.text}` : cell.text;
+        continue;
+      }
       let best = 0;
       for (let i = 1; i < columns.length; i += 1) {
         const column = columns[i] ?? 0;
@@ -308,6 +355,9 @@ export function gridOf(rows: readonly Row[], columns: readonly number[]): string
     return line;
   });
 }
+
+/** How far into a column a cell must stand to be in it, so a hair over a rule is not two cells. */
+const CROSSES = 1.5;
 
 /** A quarter turn, to the nearest one: 0 along the page, 1 up the side, 2 upside down, 3 down it. */
 function quarterTurn(char: Char): number {
@@ -338,11 +388,24 @@ const escaped = (text: string): string => text.replace(/\|/g, "\\|");
  * lines. A page with one column is prose and is written as prose — a manual's paragraphs are not a
  * table with one cell a row, and reading them as one would put a pipe through every sentence.
  */
-export function markdownOf(chars: readonly Char[]): string {
+/**
+ * The columns a page's own rules give, as the left edge of each: what stands left of the first rule
+ * is a column, and each rule opens another. Two rules a hair apart are one line drawn twice.
+ */
+export function columnsFromRules(rules: readonly number[], leftmost: number): number[] {
+  const apart: number[] = [];
+  for (const rule of [...rules].sort((a, b) => a - b))
+    if (apart.length === 0 || rule - (apart.at(-1) ?? 0) > 3) apart.push(rule);
+  return [leftmost, ...apart.filter((rule) => rule > leftmost + 3)];
+}
+
+export function markdownOf(chars: readonly Char[], rules: readonly number[] = []): string {
   const facing = new Map<number, Char[]>();
   for (const char of chars) {
     const turn = quarterTurn(char);
-    facing.set(turn, [...(facing.get(turn) ?? []), turned(char, turn)]);
+    const side = facing.get(turn);
+    if (side) side.push(turned(char, turn));
+    else facing.set(turn, [turned(char, turn)]);
   }
   // Read what faces along the page first, then each direction printed across it, so a page number
   // up the spine is a line after the page rather than a letter in every row it passes.
@@ -354,8 +417,11 @@ export function markdownOf(chars: readonly Char[]): string {
       .join("\n\n");
   }
   const rows = rowsOf([...facing.values()][0] ?? []);
-  const columns = columnsOf(rows);
-  const grid = columns.length < 2 ? [] : gridOf(rows, columns);
+  // A ruled table says where its columns are; an unruled one is read from where its text sits.
+  const leftmost = Math.min(...rows.flatMap((row) => row.cells.map((cell) => cell.left)), 0);
+  const ruled = rules.length >= 2 ? columnsFromRules(rules, leftmost) : [];
+  const columns = ruled.length >= 2 ? ruled : columnsOf(rows);
+  const grid = columns.length < 2 ? [] : gridOf(rows, columns, ruled.length >= 2);
   // A page is a table when enough of its lines fill more than one column. A paragraph indented here
   // and there fills a second column on a line or two, and written as a table it is mostly pipes: an
   // EPEVER installation page came out as twelve columns of nothing around its sentences.
@@ -368,10 +434,12 @@ export function markdownOf(chars: readonly Char[]): string {
     const filled = line.filter((cell) => cell).length;
     // "2" then "Installation" is a section's heading with its number set clear of it, not a row of
     // two cells. Written as a row it would be a table line in the middle of a manual's prose.
-    const numbered =
+    const joined =
       filled === 2 && /^\d+(\.\d+)*[.)]?$/.test(line[0] ?? "")
         ? line.filter((c) => c).join(" ")
         : undefined;
+    // "12" and "V" is a figure in two cells, not a section number and its name.
+    const numbered = joined && NUMBERED.test(joined) ? joined : undefined;
     if (numbered) {
       if (table) lines.push("");
       table = false;

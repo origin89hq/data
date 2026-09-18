@@ -9,7 +9,7 @@ import {
   sectionsOf,
   withOpenings,
 } from "../src/layout.ts";
-import { SYSTEM } from "../src/reading.ts";
+import { SYSTEM, textLayer } from "../src/reading.ts";
 import {
   charsOn,
   MOSTLY_DRAWN,
@@ -17,8 +17,9 @@ import {
   outlineOf,
   pageCount,
   picturesOn,
+  rulesOn,
 } from "../src/render.ts";
-import { BLACK_BOX, type Placed, pdfium, tinyPdf, writtenPdf } from "./pdf.ts";
+import { BLACK_BOX, GREY_SCAN, type Placed, pdfium, tinyPdf, writtenPdf } from "./pdf.ts";
 
 /** A datasheet's shape: a name at the left and a value under each model's heading. */
 const SHEET: Placed[] = [
@@ -214,6 +215,40 @@ test("a document's outline is its headings, each with the page it stands on", as
   );
 });
 
+test("where a page rules its table, a cell drawn across two columns says its value for both", async () => {
+  // EPEVER's specification table merges XTRA1206N and XTRA2206N into one cell for the figures they
+  // share. Read from where the text sits, the second model took the value of the model after it —
+  // the last wrong value in a manual judged against pictures of its pages. The rules say otherwise.
+  const pdf = writtenPdf(
+    [
+      [
+        { text: "Model", x: 20, y: 170 },
+        { text: "S-550", x: 110, y: 170 },
+        { text: "S-600", x: 210, y: 170 },
+        { text: "Weight", x: 20, y: 150 },
+        // One value centred on the rule between the two models: a cell drawn across both.
+        { text: "42 kg", x: 186, y: 150 },
+        { text: "Capacity", x: 20, y: 130 },
+        { text: "100 Ah", x: 110, y: 130 },
+        { text: "120 Ah", x: 210, y: 130 },
+      ],
+    ],
+    300,
+    200,
+    [],
+    [[100, 200]],
+  );
+  const library = await pdfium();
+  const rules = rulesOn(library, pdf, 1);
+  assert.deepEqual(
+    rules.map((r) => Math.round(r)),
+    [100, 200],
+  );
+  const markdown = markdownOf(charsOn(library, pdf, 1), rules);
+  assert.match(markdown, /\| Weight \| 42 kg \| 42 kg \|/, markdown);
+  assert.match(markdown, /\| Capacity \| 100 Ah \| 120 Ah \|/, markdown);
+});
+
 test("a page that is mostly a picture is marked, so its labels are read as labels", async () => {
   // EPEVER's appendix gives an efficiency curve a page at a time, headed with the conditions it was
   // measured at — "Solar Module MPP Voltage (17V, 34V)/Nominal System Voltage (13V)". Read as a
@@ -245,6 +280,11 @@ test("a page that is mostly a picture is marked, so its labels are read as label
 test("a page drawn as a picture has no characters to read, and is left to the page reader", async () => {
   assert.deepEqual(charsOn(await pdfium(), tinyPdf([BLACK_BOX]), 1), []);
   assert.equal(markdownOf([]), "");
+  // Nor is it called a picture: the notice would be the only text the document had, and a scan
+  // would be stored as converted rather than drawn by the page reader.
+  const scan = markdownOfDocument(await pdfium(), tinyPdf([GREY_SCAN]));
+  assert.ok(!scan.includes("mostly a picture"), scan);
+  assert.equal(textLayer(scan).characters, 0);
 });
 
 test("a section is given with the words it opens with, so its name is not all there is to judge", () => {

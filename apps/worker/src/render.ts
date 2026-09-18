@@ -158,9 +158,13 @@ export function markdownOfDocument(
     out.push(`### Page ${page}`);
     // Said under the heading, not in it: the reader windows on the heading and would not find one
     // written any other way.
-    if (picturesOn(pdfium, bytes, page) >= MOSTLY_DRAWN)
+    const chars = charsOn(pdfium, bytes, page);
+    // Said only where there is text to qualify. A page of pictures and nothing else has nothing to
+    // read, and a notice on it would count as the document's text — an image-only PDF would then
+    // be stored as converted, and never reach the reader that draws its pages.
+    if (chars.length > 0 && picturesOn(pdfium, bytes, page) >= MOSTLY_DRAWN)
       out.push("_This page is mostly a picture; the text on it labels what is drawn._");
-    out.push(markdownOf(charsOn(pdfium, bytes, page)));
+    out.push(markdownOf(chars, rulesOn(pdfium, bytes, page)));
   }
   return `${out.join("\n")}\n`;
 }
@@ -232,6 +236,62 @@ export function picturesOn(pdfium: Pdfium, bytes: Uint8Array, page: number): num
     pdfium.pdfium.wasmExports.free(pointer);
   }
 }
+
+/**
+ * Where a page rules its table: the x of every line drawn down it, in points.
+ *
+ * A ruled table says where its columns are, and reading them from the rules is exact where reading
+ * them from the text is a guess. It is also the only way to see a cell drawn across two columns:
+ * EPEVER's specification table merges XTRA1206N and XTRA2206N into one cell, and placed under one
+ * of them the other model took the value of the model after it.
+ */
+export function rulesOn(pdfium: Pdfium, bytes: Uint8Array, page: number): number[] {
+  const pointer = pdfium.pdfium.wasmExports.malloc(bytes.length);
+  if (!pointer) throw new Error(`PDFium could not make room for ${bytes.length} bytes`);
+  try {
+    heap(pdfium).set(bytes, pointer);
+    const document = pdfium.FPDF_LoadMemDocument64(pointer, bytes.length, "");
+    if (!document) return [];
+    try {
+      const loaded = pdfium.FPDF_LoadPage(document, page - 1);
+      if (!loaded) return [];
+      const box = pdfium.pdfium.wasmExports.malloc(4 * 4);
+      try {
+        if (!box) return [];
+        const down: number[] = [];
+        for (let i = 0; i < pdfium.FPDFPage_CountObjects(loaded); i += 1) {
+          const object = pdfium.FPDFPage_GetObject(loaded, i);
+          // 2 is a path: the lines a table is ruled with, among whatever else is drawn.
+          if (pdfium.FPDFPageObj_GetType(object) !== 2) continue;
+          if (!pdfium.FPDFPageObj_GetBounds(object, box, box + 4, box + 8, box + 12)) continue;
+          const at = new Float32Array(heap(pdfium).buffer, box, 4);
+          const [left, bottom, right, top] = at;
+          if (
+            left === undefined ||
+            bottom === undefined ||
+            right === undefined ||
+            top === undefined
+          )
+            continue;
+          // A rule down the page is thin and long; a box, an arrow or a logo is neither.
+          if (right - left < RULE_THIN && top - bottom > RULE_LONG) down.push((left + right) / 2);
+        }
+        return down.sort((a, b) => a - b);
+      } finally {
+        if (box) pdfium.pdfium.wasmExports.free(box);
+        pdfium.FPDF_ClosePage(loaded);
+      }
+    } finally {
+      pdfium.FPDF_CloseDocument(document);
+    }
+  } finally {
+    pdfium.pdfium.wasmExports.free(pointer);
+  }
+}
+
+/** How thin a drawn line must be to be a rule, and how long, in points. */
+const RULE_THIN = 2;
+const RULE_LONG = 5;
 
 /** How much of a page must be picture before its text is read as labelling one. */
 export const MOSTLY_DRAWN = 0.3;
