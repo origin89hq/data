@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { columnsOf, gridOf, markdownOf, rowsOf } from "../src/layout.ts";
-import { charsOn, markdownOfDocument, pageCount } from "../src/render.ts";
+import { charsOn, markdownOfDocument, outlineOf, pageCount } from "../src/render.ts";
 import { BLACK_BOX, type Placed, pdfium, tinyPdf, writtenPdf } from "./pdf.ts";
 
 /** A datasheet's shape: a name at the left and a value under each model's heading. */
@@ -153,6 +153,48 @@ test("a document longer than the reader takes is cut where the reader stops", as
   assert.deepEqual(
     markdown.split("\n").filter((line) => line.startsWith("### Page")),
     ["### Page 1", "### Page 2"],
+  );
+});
+
+test("a section's heading is a heading, and a line that writes no spaces gets them", async () => {
+  // An EPEVER manual sets the number clear of the words and writes no spaces at all: its page came
+  // out as a table row reading "Becarefulwheninstallingthebatteries".
+  const markdown = markdownOf(
+    await charsOfPage([
+      ...SHEET,
+      { text: "2.2", x: 20, y: 70 },
+      { text: "Requirements for the PV array", x: 45, y: 70 },
+      { text: "Be", x: 20, y: 55 },
+      { text: "careful", x: 37, y: 55 },
+      { text: "when", x: 70, y: 55 },
+    ]),
+  );
+  assert.match(markdown, /^2\.2 Requirements for the PV array$/m, markdown);
+  assert.match(markdown, /Be careful when/, markdown);
+});
+
+test("a document's outline is its headings, each with the page it stands on", async () => {
+  const outline = outlineOf(
+    await pdfium(),
+    writtenPdf([
+      [
+        { text: "1", x: 20, y: 180 },
+        { text: "General information", x: 40, y: 180 },
+        { text: "The controller charges a battery from a solar array.", x: 20, y: 160 },
+      ],
+      [
+        { text: "2.2", x: 20, y: 180 },
+        { text: "Requirements for the PV array", x: 45, y: 180 },
+        { text: "The below table is for reference only.", x: 20, y: 160 },
+      ],
+    ]),
+  );
+  assert.deepEqual(
+    outline.map((heading) => [heading.page, heading.text]),
+    [
+      [1, "1 General information"],
+      [2, "2.2 Requirements for the PV array"],
+    ],
   );
 });
 

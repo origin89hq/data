@@ -21,6 +21,8 @@ export interface Char {
   top: number;
   /** Which way it faces, in radians, when that is not along the page. */
   angle?: number;
+  /** The size it is set in, in points, which is how a heading is told from the text under it. */
+  size?: number;
 }
 
 /** A run of characters with no gap wide enough to be a column: one cell of one row. */
@@ -64,11 +66,19 @@ function cellsOf(chars: readonly Char[]): Cell[] {
     .filter((c) => c.text.trim())
     .map((c) => c.right - c.left)
     .filter((w) => w > 0);
-  const gap = Math.max(median(widths) * 1.2, 3);
+  const letter = median(widths);
+  const gap = Math.max(letter * 1.2, 3);
+  // Some documents set no spaces at all and put their words apart by moving the pen: an EPEVER
+  // manual reads "Becarefulwheninstallingthebatteries". Where a line writes its own spaces they are
+  // the line's, and nothing is added; where it writes none, a gap wider than its letters is one.
+  const spaces = chars.some((c) => /\s/.test(c.text));
+  const space = spaces ? Number.POSITIVE_INFINITY : Math.max(letter * 0.6, 0.6);
   const cells: Cell[] = [];
   for (const char of chars) {
     const open = cells.at(-1);
     if (open && char.left - open.right <= gap) {
+      const apart = char.left - open.right;
+      if (apart > space && !/\s$/.test(open.text) && !/^\s/.test(char.text)) open.text += " ";
       open.text += char.text;
       open.right = Math.max(open.right, char.right);
       continue;
@@ -105,6 +115,46 @@ export function rowsOf(chars: readonly Char[]): Row[] {
       // A line of spaces is where a line ended, not a row of the page.
       .filter((row) => row.cells.length > 0)
   );
+}
+
+/** A line a document sets apart as a heading, with the page it stands on. */
+export interface Heading {
+  page: number;
+  text: string;
+  /** The size it is set in, so a section's heading can be told from its subheadings. */
+  size: number;
+}
+
+/**
+ * A page's headings: the lines set in a larger face than the page's own text, and the numbered
+ * lines a manual titles its sections with ("2.2 Requirements for the PV array") whatever their
+ * size. Both stand alone on their line; a table's cells do not.
+ *
+ * What this is for: a manual states its ratings in a few of its sections, and prints instructions,
+ * warranties and troubleshooting in the rest. The outline is what lets those be left unread, and it
+ * costs nothing to find.
+ */
+const NUMBERED = /^\d+(\.\d+)*[.)]?\s+\S/;
+export function headingsOn(chars: readonly Char[], page: number): Heading[] {
+  const rows = rowsOf(chars);
+  const sizes = chars.map((c) => c.size ?? c.top - c.bottom).filter((s) => s > 0);
+  const body = median(sizes);
+  const headings: Heading[] = [];
+  for (const row of rows) {
+    // A heading is a line to itself: a row of several cells is a table's row, not a title. A
+    // numbered one is two, since a manual sets the number clear of the words: "2" then
+    // "Installation", "2.2" then "Requirements for the PV array".
+    const numbered =
+      row.cells.length === 2 && /^\d+(\.\d+)*[.)]?$/.test(row.cells[0]?.text ?? "")
+        ? `${row.cells[0]?.text} ${row.cells[1]?.text}`
+        : undefined;
+    if (row.cells.length !== 1 && !numbered) continue;
+    const text = numbered ?? row.cells[0]?.text ?? "";
+    if (!text || text.length > 120) continue;
+    const size = row.top - row.bottom;
+    if (size > body * 1.15 || NUMBERED.test(text)) headings.push({ page, text, size });
+  }
+  return headings;
 }
 
 /** How many rows must start a cell at the same place before that place is a column. */
@@ -212,13 +262,29 @@ export function markdownOf(chars: readonly Char[]): string {
   }
   const rows = rowsOf([...facing.values()][0] ?? []);
   const columns = columnsOf(rows);
-  if (columns.length < 2)
+  const grid = columns.length < 2 ? [] : gridOf(rows, columns);
+  // A page is a table when enough of its lines fill more than one column. A paragraph indented here
+  // and there fills a second column on a line or two, and written as a table it is mostly pipes: an
+  // EPEVER installation page came out as twelve columns of nothing around its sentences.
+  const across = grid.filter((line) => line.filter((cell) => cell).length > 1).length;
+  if (columns.length < 2 || across < 3 || across < rows.length * 0.2)
     return rows.map((row) => row.cells.map((c) => c.text).join(" ")).join("\n");
-  const grid = gridOf(rows, columns);
   const lines: string[] = [];
   let table = false;
   for (const line of grid) {
     const filled = line.filter((cell) => cell).length;
+    // "2" then "Installation" is a section's heading with its number set clear of it, not a row of
+    // two cells. Written as a row it would be a table line in the middle of a manual's prose.
+    const numbered =
+      filled === 2 && /^\d+(\.\d+)*[.)]?$/.test(line[0] ?? "")
+        ? line.filter((c) => c).join(" ")
+        : undefined;
+    if (numbered) {
+      if (table) lines.push("");
+      table = false;
+      lines.push(numbered);
+      continue;
+    }
     if (filled < 2) {
       // A line that fills one column is a heading or a sentence between tables, not a row of one.
       if (table) lines.push("");

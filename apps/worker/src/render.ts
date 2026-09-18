@@ -1,5 +1,5 @@
 import { init, type WrappedPdfiumModule } from "@embedpdf/pdfium";
-import { type Char, markdownOf } from "./layout.ts";
+import { type Char, type Heading, headingsOn, markdownOf } from "./layout.ts";
 import { MAX_PAGES } from "./reading.ts";
 
 /**
@@ -14,7 +14,7 @@ import { MAX_PAGES } from "./reading.ts";
  * with the same binary the Worker runs.
  */
 export type Pdfium = WrappedPdfiumModule;
-export type { Char };
+export type { Char, Heading };
 
 /** Pixels on the long edge of a drawn page: small type in a spec table stays legible to the model. */
 export const LONG_EDGE = 1600;
@@ -161,6 +161,19 @@ export function markdownOfDocument(
   return `${out.join("\n")}\n`;
 }
 
+/**
+ * A document's outline: every heading of every page, in order, with the page it stands on. One
+ * short list for a manual of eighty pages, which is what a reader can be asked about before it is
+ * asked to read anything.
+ */
+export function outlineOf(pdfium: Pdfium, bytes: Uint8Array, mostPages = MAX_PAGES): Heading[] {
+  const pages = Math.min(pageCount(pdfium, bytes), mostPages);
+  const outline: Heading[] = [];
+  for (let page = 1; page <= pages; page += 1)
+    outline.push(...headingsOn(charsOn(pdfium, bytes, page), page));
+  return outline;
+}
+
 /** How many pages a document has, without drawing or reading any of them. */
 export function pageCount(pdfium: Pdfium, bytes: Uint8Array): number {
   const pointer = pdfium.pdfium.wasmExports.malloc(bytes.length);
@@ -236,6 +249,8 @@ export function charsOn(pdfium: Pdfium, bytes: Uint8Array, page: number): Char[]
               // its own, and read as though it were upright its letters fall one into each row it
               // passes: a Progressive Dynamics manual came out as "OOCCACC/RERRTREVNERMINRTELE".
               const angle = pdfium.FPDFText_GetCharAngle(text, index);
+              // The size it is set in, which is how a section's heading is told from its text.
+              const size = pdfium.FPDFText_GetFontSize(text, index);
               chars.push({
                 text: String.fromCodePoint(code),
                 left,
@@ -243,6 +258,7 @@ export function charsOn(pdfium: Pdfium, bytes: Uint8Array, page: number): Char[]
                 bottom,
                 top,
                 ...(Number.isFinite(angle) && Math.abs(angle) > 0.01 ? { angle } : {}),
+                ...(Number.isFinite(size) && size > 0 ? { size } : {}),
               });
             }
             return chars;
