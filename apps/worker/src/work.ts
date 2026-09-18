@@ -150,6 +150,8 @@ export const partKey = {
    */
   classified: (classifier: string, input: string) => `guesses/by-input/${classifier}/${input}.json`,
   markdown: (sha256: string, converter: string) => `archive/${sha256}.${converter}.md`,
+  /** A document's headings, beside its markdown, so its sections are known without reading it again. */
+  outline: (sha256: string, converter: string) => `archive/${sha256}.${converter}.outline.json`,
   converted: (manufacturer: string, run: string, sha256: string) =>
     `documents/${manufacturer}/runs/${run}/converted/${sha256}.json`,
   /**

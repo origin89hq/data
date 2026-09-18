@@ -520,6 +520,33 @@ test("the text reader tells the model whose document it reads, by the maker's na
   );
 });
 
+test("a window is read with the section the document prints it in, when the converter found one", async () => {
+  const outline = [
+    { title: "2.3 Wire size and circuit breaker", from: 1, to: 1 },
+    { title: "6 Technical specifications", from: 2, to: 3 },
+  ];
+  const nothing = () => ({ response: JSON.stringify({ products: [] }) });
+  const { env, asked } = world(
+    {
+      ...SORTED,
+      [MARKDOWN]: SHEET,
+      [partKey.outline(SHA, CONVERTER)]: `${JSON.stringify(outline)}\n`,
+    },
+    nothing,
+  );
+  await readDocument(message, env, 1);
+  const said = asked.map((a) => String(a.input.messages[1]?.content));
+  assert.match(said[0] ?? "", /^Maker: maker\nSection: 2\.3 Wire size and circuit breaker\n\n/);
+  assert.match(said[1] ?? "", /^Maker: maker\nSection: 6 Technical specifications\n\n/);
+  // A document converted before there were outlines has none, and is read as it always was.
+  const without = world({ ...SORTED, [MARKDOWN]: SHEET }, nothing);
+  await readDocument(message, without.env, 1);
+  assert.match(String(without.asked[0]?.input.messages[1]?.content), /^Maker: maker\n\n/);
+  // What the section is for is said in the prompt.
+  assert.match(SYSTEM, /THE SECTION IT IS PRINTED IN\./);
+  assert.match(SYSTEM, /is a setting or an instruction, not a rating/);
+});
+
 test("the text reader holds Kimi to the figures schema, with its thinking off and room for a dense table", async () => {
   const { env, asked } = world({ ...SORTED, [MARKDOWN]: SHEET }, reader());
   await readDocument(message, env, 1);

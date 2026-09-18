@@ -1,10 +1,12 @@
 import { answerText } from "./classify.ts";
 import { type DocumentKind, keptKind, leftUnread, sortDocument } from "./gate.ts";
+import type { Section } from "./layout.ts";
 import { makerName } from "./manufacturers.ts";
 import { NotYet, rateLimited, takeTurn, waitTurn } from "./pace.ts";
 import {
   answerObjects,
   asciiSymbols,
+  CONVERTER,
   chunk,
   EXTRACT_MODEL,
   EXTRACTOR_ID,
@@ -97,6 +99,10 @@ export async function readDocument(
     return;
   }
   const windows = chunk(markdown).slice(0, message.maxWindows ?? MAX_WINDOWS);
+  // What the document calls the part of itself each window comes from. The section is what tells a
+  // recommended wire size from a rated current, and the converter wrote it down beside the document.
+  // One converted before there were outlines has none, and is read as it was.
+  const sections = await documentSections(env, message.sha256);
   const kept = await keptWindows(env, message, windows.length);
   const read: ReadWindow[] = [];
   const unread: string[] = [];
@@ -117,7 +123,12 @@ export async function readDocument(
       try {
         answer = {
           window: number,
-          products: await readWindow(env, window, makerName(message.manufacturer)),
+          products: await readWindow(
+            env,
+            window,
+            makerName(message.manufacturer),
+            sectionOver(sections, window.page),
+          ),
         };
       } catch (error) {
         if (mayWait && rateLimited(error)) throw new NotYet(reason(error));
@@ -196,6 +207,21 @@ async function keptWindows(
   );
 }
 
+/** The sections the converter found, or none for a document converted before it wrote them down. */
+async function documentSections(env: Env, sha256: string): Promise<Section[]> {
+  const kept = await env.ARCHIVE.get(partKey.outline(sha256, CONVERTER));
+  if (!kept) return [];
+  const read = await kept.json().catch(() => undefined);
+  return Array.isArray(read) ? (read as Section[]) : [];
+}
+
+/** The innermost section a page falls in: the last one that begins at or before it. */
+function sectionOver(sections: readonly Section[], page: number | undefined): string | undefined {
+  if (!page) return undefined;
+  const holding = sections.filter((s) => s.title && s.from <= page && page <= s.to);
+  return holding.at(-1)?.title;
+}
+
 /** A product and its figures as the model labels them, before only ratings of products are kept. */
 type Labelled = {
   model: string;
@@ -210,12 +236,20 @@ type Labelled = {
  * which the model copies where it garbled the symbols, and its answer is given "≥" and "≤" back
  * where the window prints them (#145).
  */
-async function readWindow(env: Env, window: Window, maker: string): Promise<Reported[]> {
+async function readWindow(
+  env: Env,
+  window: Window,
+  maker: string,
+  section?: string,
+): Promise<Reported[]> {
   const shown: Window = { ...window, text: asciiSymbols(window.text) };
   const response = await env.AI.run(EXTRACT_MODEL, {
     messages: [
       { role: "system", content: SYSTEM },
-      { role: "user", content: `Maker: ${maker}\n\n${shown.text}` },
+      {
+        role: "user",
+        content: `Maker: ${maker}\n${section ? `Section: ${section}\n` : ""}\n${shown.text}`,
+      },
     ],
     // Held to the schema and told not to think, as the page reader's calls to the same model are:
     // without both, Kimi writes its thinking into the answer. (Llama 3.3, the reader before it,
