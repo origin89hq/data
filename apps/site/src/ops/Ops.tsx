@@ -221,9 +221,9 @@ export function Ops() {
               search={{}}
               activeOptions={{ includeSearch: false }}
               aria-current={view === item.id ? "page" : undefined}
-              className="bevel-sm flex min-h-11 items-center gap-3 px-2.5 text-sm text-muted transition-colors hover:bg-surface-raised hover:text-fg aria-[current=page]:bg-surface-raised aria-[current=page]:text-fg aria-[current=page]:shadow-[inset_2px_0_var(--color-signal)] max-[980px]:flex-none max-[980px]:whitespace-nowrap max-[640px]:text-xs"
+              className="group bevel-sm flex min-h-11 items-center gap-3 px-2.5 text-sm text-muted transition-colors hover:bg-surface-raised hover:text-fg aria-[current=page]:bg-surface-raised aria-[current=page]:text-fg aria-[current=page]:shadow-[inset_2px_0_var(--color-signal)] max-[980px]:flex-none max-[980px]:whitespace-nowrap max-[640px]:text-xs"
             >
-              <Icon name={item.icon} className="aria-[current=page]:text-signal" />
+              <Icon name={item.icon} className="group-aria-[current=page]:text-signal" />
               <span>{item.label}</span>
               {item.id === "makers" && runs.value ? (
                 <small className="ml-auto font-data text-xs text-faint tabular-nums max-[980px]:hidden">
