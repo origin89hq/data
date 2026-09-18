@@ -9,7 +9,15 @@ import {
   sectionsOf,
   withOpenings,
 } from "../src/layout.ts";
-import { charsOn, markdownOfDocument, outlineOf, pageCount } from "../src/render.ts";
+import { SYSTEM } from "../src/reading.ts";
+import {
+  charsOn,
+  MOSTLY_DRAWN,
+  markdownOfDocument,
+  outlineOf,
+  pageCount,
+  picturesOn,
+} from "../src/render.ts";
 import { BLACK_BOX, type Placed, pdfium, tinyPdf, writtenPdf } from "./pdf.ts";
 
 /** A datasheet's shape: a name at the left and a value under each model's heading. */
@@ -204,6 +212,34 @@ test("a document's outline is its headings, each with the page it stands on", as
       [2, "2.2 Requirements for the PV array"],
     ],
   );
+});
+
+test("a page that is mostly a picture is marked, so its labels are read as labels", async () => {
+  // EPEVER's appendix gives an efficiency curve a page at a time, headed with the conditions it was
+  // measured at — "Solar Module MPP Voltage (17V, 34V)/Nominal System Voltage (13V)". Read as a
+  // table, ten such headings in sixty figures became ratings of the controller.
+  const pdf = writtenPdf(
+    [
+      [{ text: "Nominal System Voltage (13V)", x: 20, y: 180 }],
+      [{ text: "Rated charging current 20A", x: 20, y: 180 }],
+    ],
+    300,
+    200,
+    // Half of the first page is the curve; the second page has no picture at all.
+    [0.5, 0],
+  );
+  const library = await pdfium();
+  assert.ok(picturesOn(library, pdf, 1) >= MOSTLY_DRAWN, String(picturesOn(library, pdf, 1)));
+  assert.equal(picturesOn(library, pdf, 2), 0);
+  const markdown = markdownOfDocument(library, pdf);
+  assert.match(
+    markdown,
+    /### Page 1\n_This page is mostly a picture; the text on it labels what is drawn\._/,
+  );
+  assert.ok(!/### Page 2\n_This page is mostly a picture/.test(markdown), markdown);
+  // What that mark means is said in the prompt.
+  assert.match(SYSTEM, /A PAGE THAT IS A PICTURE\./);
+  assert.match(SYSTEM, /conditions a curve was measured at/);
 });
 
 test("a page drawn as a picture has no characters to read, and is left to the page reader", async () => {

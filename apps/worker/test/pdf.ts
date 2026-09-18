@@ -45,19 +45,30 @@ export interface Placed {
  * nothing is embedded. What a datasheet does with a table — a name at the left, a value under each
  * model's heading — a test can do in four lines and then read back through PDFium.
  */
-export function writtenPdf(pages: Placed[][], width = 300, height = 200): Uint8Array {
-  const streams = pages.map((page) =>
-    page
-      .map(({ text, x, y, size = 10, turn = 0 }) => {
-        const placed =
-          turn === 1
-            ? `0 1 -1 0 ${x} ${y} Tm`
-            : turn === 3
-              ? `0 -1 1 0 ${x} ${y} Tm`
-              : `${x} ${y} Td`;
-        return `BT /F1 ${size} Tf ${placed} (${text.replace(/([()\\])/g, "\\$1")}) Tj ET`;
-      })
-      .join("\n"),
+export function writtenPdf(
+  pages: Placed[][],
+  width = 300,
+  height = 200,
+  /** How much of each page a picture covers, for a page a document draws rather than tabulates. */
+  drawn: number[] = [],
+): Uint8Array {
+  const streams = pages.map(
+    (page, i) =>
+      (drawn[i]
+        ? // One grey pixel stretched over that share of the page, as a chart is placed.
+          `q ${Math.round(width * (drawn[i] ?? 0))} 0 0 ${Math.round(height * 0.9)} 0 0 cm BI /W 1 /H 1 /CS /G /BPC 8 ID ${String.fromCharCode(0x80)} EI Q\n`
+        : "") +
+      page
+        .map(({ text, x, y, size = 10, turn = 0 }) => {
+          const placed =
+            turn === 1
+              ? `0 1 -1 0 ${x} ${y} Tm`
+              : turn === 3
+                ? `0 -1 1 0 ${x} ${y} Tm`
+                : `${x} ${y} Td`;
+          return `BT /F1 ${size} Tf ${placed} (${text.replace(/([()\\])/g, "\\$1")}) Tj ET`;
+        })
+        .join("\n"),
   );
   const objects: string[] = [];
   const font = 3 + streams.length * 2;

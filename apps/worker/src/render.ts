@@ -156,6 +156,10 @@ export function markdownOfDocument(
   const out: string[] = [];
   for (let page = 1; page <= Math.min(pages, mostPages); page += 1) {
     out.push(`### Page ${page}`);
+    // Said under the heading, not in it: the reader windows on the heading and would not find one
+    // written any other way.
+    if (picturesOn(pdfium, bytes, page) >= MOSTLY_DRAWN)
+      out.push("_This page is mostly a picture; the text on it labels what is drawn._");
     out.push(markdownOf(charsOn(pdfium, bytes, page)));
   }
   return `${out.join("\n")}\n`;
@@ -173,6 +177,64 @@ export function outlineOf(pdfium: Pdfium, bytes: Uint8Array, mostPages = MAX_PAG
     outline.push(...headingsOn(charsOn(pdfium, bytes, page), page));
   return outline;
 }
+
+/**
+ * How much of a page its pictures cover, as a fraction of it.
+ *
+ * A page a document draws is not a page it tabulates. EPEVER's appendix gives a conversion
+ * efficiency curve a page at a time, each headed "Solar Module MPP Voltage (17V, 34V)/Nominal
+ * System Voltage (13V)" — the conditions the curve was measured at, in the shape of a
+ * specification. Read as a table, ten such headings in sixty figures became ratings of a
+ * controller. A product photograph beside a paragraph covers a seventh of its page; these cover
+ * nearly half.
+ */
+export function picturesOn(pdfium: Pdfium, bytes: Uint8Array, page: number): number {
+  const pointer = pdfium.pdfium.wasmExports.malloc(bytes.length);
+  if (!pointer) throw new Error(`PDFium could not make room for ${bytes.length} bytes`);
+  try {
+    heap(pdfium).set(bytes, pointer);
+    const document = pdfium.FPDF_LoadMemDocument64(pointer, bytes.length, "");
+    if (!document) return 0;
+    try {
+      const loaded = pdfium.FPDF_LoadPage(document, page - 1);
+      if (!loaded) return 0;
+      const box = pdfium.pdfium.wasmExports.malloc(4 * 4);
+      try {
+        const width = pdfium.FPDF_GetPageWidthF(loaded);
+        const height = pdfium.FPDF_GetPageHeightF(loaded);
+        if (!(width > 0 && height > 0) || !box) return 0;
+        let covered = 0;
+        for (let i = 0; i < pdfium.FPDFPage_CountObjects(loaded); i += 1) {
+          const object = pdfium.FPDFPage_GetObject(loaded, i);
+          // 3 is an image; text, paths and shading are what a table and its rules are made of.
+          if (pdfium.FPDFPageObj_GetType(object) !== 3) continue;
+          if (!pdfium.FPDFPageObj_GetBounds(object, box, box + 4, box + 8, box + 12)) continue;
+          const at = new Float32Array(heap(pdfium).buffer, box, 4);
+          const [left, bottom, right, top] = at;
+          if (
+            left === undefined ||
+            bottom === undefined ||
+            right === undefined ||
+            top === undefined
+          )
+            continue;
+          covered += Math.max(0, right - left) * Math.max(0, top - bottom);
+        }
+        return covered / (width * height);
+      } finally {
+        if (box) pdfium.pdfium.wasmExports.free(box);
+        pdfium.FPDF_ClosePage(loaded);
+      }
+    } finally {
+      pdfium.FPDF_CloseDocument(document);
+    }
+  } finally {
+    pdfium.pdfium.wasmExports.free(pointer);
+  }
+}
+
+/** How much of a page must be picture before its text is read as labelling one. */
+export const MOSTLY_DRAWN = 0.3;
 
 /** How many pages a document has, without drawing or reading any of them. */
 export function pageCount(pdfium: Pdfium, bytes: Uint8Array): number {

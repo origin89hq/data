@@ -66,6 +66,8 @@ CHEMISTRY. For a battery, report its chemistry as a figure named "Chemistry" wit
 
 THE MAKER'S OWN RATINGS. The message starts with the maker whose document this is. Report the ratings of that maker's own products only. Its documents also print what is not a rating of its products: settings it recommends for another company's battery, inverter or charger; values drawn on a screen, display or app in an illustration; the results of a worked example, a test or a demonstration; and the figures of another company's products listed beside its own. Leave those out.
 
+A PAGE THAT IS A PICTURE. A page marked as mostly a picture is a drawing — a chart, a curve, a diagram — and the text on it names what is drawn. The conditions a curve was measured at, the labels on its axes and the parts named in a diagram are not ratings of the product. Leave them out.
+
 THE SECTION IT IS PRINTED IN. The message may name the section of the document the window was taken from. Weigh it: a figure printed in a section about installing, wiring or mounting the product, about what an installer must choose or size, about what to set, program or select, or in a table the document calls a recommendation or says is for reference only, is a setting or an instruction, not a rating — however much it looks like one. A figure printed among specifications or technical data is a rating.
 
 Do not report prices, warranty periods, part numbers, packaging weights, ordering codes or marketing claims.
