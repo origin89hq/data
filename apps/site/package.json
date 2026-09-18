@@ -10,6 +10,7 @@
     "test": "node --test test/*.test.ts"
   },
   "dependencies": {
+    "@base-ui-components/react": "1.0.0-rc.0",
     "@duckdb/duckdb-wasm": "^1.29.0",
     "@origin89/brand": "0.4.0",
     "@origin89/equipment-schema": "workspace:*",
