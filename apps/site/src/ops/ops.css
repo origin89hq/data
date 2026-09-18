@@ -1786,3 +1786,36 @@ small.ops-note {
     grid-template-columns: 1fr;
   }
 }
+
+/* Touch targets. Last in the sheet so a component rule of the same weight cannot undo them.
+ * The workspace's secondary controls sat at 21-28px, which is a mouse size: sign out, copy view
+ * link, refresh activity and the filter row are exactly what gets reached one-handed away from a
+ * desk, so on touch they take the guide's full target. */
+@media (pointer: coarse) {
+  .ops-quiet,
+  .ops-text-link,
+  .ops-hash,
+  .ops-button,
+  .ops-filters button,
+  .ops-search,
+  .ops-toolbar select,
+  .ops-history-filters select,
+  .ops-history-filters input {
+    min-height: 44px;
+  }
+  .ops-icon-button {
+    width: 44px;
+    height: 44px;
+  }
+  /* The label is the target, so let the field fill it rather than leave a dead 2px band. */
+  .ops-search input {
+    align-self: stretch;
+  }
+  .ops-notice a,
+  .ops-document-list a,
+  .ops-artifacts a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}

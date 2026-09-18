@@ -330,6 +330,12 @@ dialog::backdrop {
   color: var(--color-fg);
   background: var(--color-surface-raised);
 }
+@media (pointer: coarse) {
+  .close-dialog {
+    width: 44px;
+    height: 44px;
+  }
+}
 #detail-content {
   padding: 28px 28px 40px;
 }

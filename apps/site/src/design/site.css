@@ -186,14 +186,35 @@
   }
 }
 @media (max-width: 600px) {
+  /* The desktop top padding clears a 114px navigation; the phone's is 76px including its margin,
+     and the rest was dead field above the copy. */
+  .hero {
+    min-height: max(560px, 78svh);
+    padding-block: 96px 48px;
+  }
   .hero h1 {
     font-size: clamp(38px, 11.6vw, 56px);
   }
+  .hero .lede {
+    margin-top: 20px;
+  }
+  .hero-actions {
+    margin-top: 32px;
+  }
+  .hero-side {
+    margin-top: 32px;
+  }
+  /* Four stacked counts pushed the whole block off the screen; the numbers are short enough to
+     pair up. */
   .hero-counts {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 24px;
   }
   .hero-counts > div:nth-child(2) {
-    border-top: 1px solid var(--color-line);
+    border-top: 0;
+  }
+  .hero-counts dd {
+    font-size: 24px;
   }
 }
 
@@ -331,7 +352,7 @@
   height: 34px;
   flex: none;
   border: 1px solid var(--color-line-strong);
-  font: 11px var(--font-data);
+  font: 12px var(--font-data);
   color: var(--color-signal);
 }
 @media (max-width: 900px) {
@@ -417,6 +438,12 @@ a.record-card:hover {
 .source-mini {
   font: 12px var(--font-data);
   color: var(--color-faint);
+}
+@media (max-width: 560px) {
+  .record-fact {
+    display: grid;
+    gap: 6px;
+  }
 }
 
 /* What the dataset holds. */
@@ -621,7 +648,16 @@ a.record-card:hover {
   font-size: 12px;
 }
 .source-document a {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  margin-right: -10px;
   color: var(--color-link);
+}
+.source-document a:hover {
+  color: var(--color-fg);
 }
 .document-symbol {
   display: grid;
@@ -954,6 +990,12 @@ a.record-card:hover {
   color: var(--color-faint);
   font-size: 13px;
 }
+@media (max-width: 640px) {
+  .code-panel pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+}
 .download-row > .body {
   display: flex;
   flex-wrap: wrap;
@@ -977,5 +1019,21 @@ a.record-card:hover {
 @media (prefers-reduced-motion: reduce) {
   .hero-field {
     animation: none;
+  }
+}
+
+/* Touch targets. Gathered at the end of the sheet so they are not undone by a component rule of
+ * the same weight further down. A coarse pointer cannot aim the way a mouse can, so every control
+ * the page offers takes the guide's full 44px target, whatever the viewport is doing. */
+@media (pointer: coarse) {
+  .segmented button,
+  .code-tabs button,
+  .copy-code,
+  .explorer-tools select {
+    min-height: 44px;
+  }
+  .pillar-foot,
+  .o89-text-link {
+    min-height: 44px;
   }
 }

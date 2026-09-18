@@ -120,7 +120,7 @@ export function SiteFooter() {
         </nav>
         <div className="o89-footer-legal">
           <span>MIT licensed · Public feeds retain their own licences</span>
-          <span>
+          <span className="prose">
             Every figure names its document, so a wrong one can be shown wrong. Corrections are the
             most useful contribution.
           </span>
