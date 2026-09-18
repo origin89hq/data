@@ -13,7 +13,17 @@ import {
   runSettingsError,
   startRun,
 } from "./api.ts";
-import { Button, Drawer, Empty, IconButton, Loading, Notice, Status } from "./ui.tsx";
+import {
+  Button,
+  Drawer,
+  Empty,
+  IconButton,
+  Loading,
+  Notice,
+  Search,
+  Status,
+  TableFoot,
+} from "./ui.tsx";
 import { useResource } from "./useResource.ts";
 import { bytes, count, displayName, needsApproval, type RunRow } from "./workspace.ts";
 
@@ -230,7 +240,7 @@ export function RunDetail({
                       </span>
                     </div>
                   </div>
-                  <label className="ops-search">
+                  <Search>
                     <Icon name="search" />
                     <input
                       aria-label="Search documents"
@@ -241,7 +251,7 @@ export function RunDetail({
                         setDocumentPage(0);
                       }}
                     />
-                  </label>
+                  </Search>
                   <div className="ops-document-list">
                     {matchingDocuments
                       .slice(documentPage * 50, (documentPage + 1) * 50)
@@ -539,7 +549,7 @@ function Pages({
   label: string;
 }) {
   return (
-    <div className="ops-table-foot">
+    <TableFoot>
       <span>
         {total ? `${page * 50 + 1}–${Math.min((page + 1) * 50, total)} of ${total}` : "0 matching"}{" "}
         {label}
@@ -564,6 +574,6 @@ function Pages({
           </IconButton>
         </div>
       )}
-    </div>
+    </TableFoot>
   );
 }

@@ -186,14 +186,6 @@
   color: var(--color-muted);
   font-size: 13px;
 }
-.ops-tag {
-  padding: 5px 8px;
-  border: 1px solid var(--color-line-strong);
-  font: 12px var(--font-data);
-  letter-spacing: 0.04em;
-  color: var(--color-faint);
-  white-space: nowrap;
-}
 .ops-quick-views {
   display: grid;
   margin-top: 16px;
@@ -242,124 +234,10 @@
   font-size: 12px;
   color: var(--color-faint);
 }
-
 /* Toolbar, filters and search. */
-.ops-toolbar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-.ops-search {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex: 1;
-  min-height: 40px;
-  padding: 0 12px;
-  border: 1px solid var(--color-line-strong);
-  border-radius: 8px;
-  corner-shape: bevel;
-  background: var(--color-surface-raised);
-}
-.ops-search > .ui-icon {
-  color: var(--color-muted);
-}
-.ops-search input {
-  width: 100%;
-  min-width: 0;
-  border: 0;
-  padding: 10px 0;
-  background: none;
-  color: var(--color-fg);
-  font-size: 13px;
-  outline: none;
-}
-.ops-search:focus-within {
-  outline: 2px solid var(--color-focus);
-  outline-offset: 2px;
-}
-.ops-search kbd {
-  padding: 2px 6px;
-  border: 1px solid var(--color-line-strong);
-  font: 12px var(--font-data);
-  color: var(--color-faint);
-}
-.ops-toolbar select {
-  min-height: 40px;
-  padding: 0 12px;
-  border: 1px solid var(--color-line-strong);
-  border-radius: 8px;
-  corner-shape: bevel;
-  background: var(--color-surface-raised);
-  color: var(--color-fg);
-  font-size: 13px;
-}
-.ops-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-.ops-filters button {
-  min-height: 32px;
-  padding: 0 10px;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  corner-shape: bevel;
-  color: var(--color-muted);
-  font-size: 12px;
-}
-.ops-filters button:hover {
-  color: var(--color-fg);
-}
-.ops-filters button[aria-pressed="true"] {
-  border-color: var(--color-line-strong);
-  background: var(--color-surface-raised);
-  color: var(--color-fg);
-}
-.ops-filters span {
-  margin-left: 8px;
-  font: 12px var(--font-data);
-  color: var(--color-faint);
-}
 
 /* Tables. */
-.ops-table-scroll {
-  overflow-x: auto;
-  margin: 0 -24px;
-}
-.ops-table {
-  width: 100%;
-  min-width: 750px;
-  border-collapse: collapse;
-  text-align: left;
-  font-size: 13px;
-}
-.ops-table thead th {
-  padding: 12px 20px;
-  border-bottom: 1px solid var(--color-line);
-  background: var(--color-surface-raised);
-  font: 12px var(--font-data);
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--color-faint);
-  white-space: nowrap;
-}
-.ops-table tbody td,
-.ops-table tbody th {
-  padding: 16px 20px;
-  border-top: 1px solid var(--color-line);
-  vertical-align: middle;
-  font-weight: 400;
-  color: var(--color-muted);
-}
-.ops-table tbody tr:hover td,
-.ops-table tbody tr:hover th {
-  background: var(--color-surface-raised);
-  color: var(--color-fg);
-}
+
 .ops-source-button {
   display: flex;
   align-items: center;
@@ -392,33 +270,6 @@
   background: var(--color-surface-raised);
   color: var(--color-muted);
   font: 12px var(--font-data);
-}
-.ops-table details {
-  margin-top: 6px;
-  font-size: 12px;
-  color: var(--color-faint);
-}
-.ops-table details code {
-  display: block;
-  max-width: 230px;
-  margin-top: 6px;
-  white-space: normal;
-  overflow-wrap: anywhere;
-  font-family: var(--font-data);
-}
-.ops-table-foot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 16px 0;
-  color: var(--color-faint);
-  font-size: 12px;
-}
-.ops-table-foot > div {
-  display: flex;
-  align-items: center;
-  gap: 12px;
 }
 /* State. Each one pairs its hue with a shape, so the row still reads in monochrome. */
 
@@ -1181,9 +1032,6 @@ small.ops-note {
   .ops-summary-card {
     padding: 18px;
   }
-  .ops-tag {
-    display: none;
-  }
 }
 @media (max-width: 980px) {
   .ops-activity-columns {
@@ -1204,18 +1052,6 @@ small.ops-note {
   .ops-section-heading {
     flex-wrap: wrap;
     align-items: flex-start;
-  }
-  .ops-toolbar {
-    flex-wrap: wrap;
-  }
-  .ops-toolbar > label {
-    flex-basis: 100%;
-  }
-  .ops-toolbar select {
-    width: 100%;
-  }
-  .ops-table-scroll {
-    margin-inline: -16px;
   }
   .ops-next,
   .ops-approval,
@@ -1273,9 +1109,6 @@ small.ops-note {
   .ops-text-link,
   .ops-hash,
   .ops-button,
-  .ops-filters button,
-  .ops-search,
-  .ops-toolbar select,
   .ops-history-filters select,
   .ops-history-filters input {
     min-height: 44px;
@@ -1285,9 +1118,7 @@ small.ops-note {
     height: 44px;
   }
   /* The label is the target, so let the field fill it rather than leave a dead 2px band. */
-  .ops-search input {
-    align-self: stretch;
-  }
+
   .ops-document-list a,
   .ops-artifacts a {
     display: inline-flex;

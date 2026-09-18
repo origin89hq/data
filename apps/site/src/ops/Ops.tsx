@@ -21,13 +21,19 @@ import {
   Button,
   ButtonLink,
   Empty,
+  Filters,
   IconButton,
   IconLink,
   Loading,
   Notice,
   Panel,
+  Search,
   Status,
+  Table,
+  TableFoot,
+  Tag,
   TextButton,
+  Toolbar,
 } from "./ui.tsx";
 import { useResource } from "./useResource.ts";
 import {
@@ -379,7 +385,7 @@ export function Ops() {
                 <div className="ops-summary-card">
                   <div className="ops-section-heading">
                     <h2>Next up</h2>
-                    <span className="ops-tag">HUMAN IN THE LOOP</span>
+                    <Tag>HUMAN IN THE LOOP</Tag>
                   </div>
                   <p>
                     Review a document plan before its downloads begin. Investigate stopped workflows
@@ -485,8 +491,8 @@ export function Ops() {
                   Export view
                 </Button>
               </div>
-              <div className="ops-toolbar">
-                <label className="ops-search">
+              <Toolbar>
+                <Search>
                   <Icon name="search" />
                   <input
                     ref={search}
@@ -499,7 +505,7 @@ export function Ops() {
                     }}
                   />
                   <kbd>/</kbd>
-                </label>
+                </Search>
                 <select
                   aria-label="Sort runs"
                   value={sort}
@@ -511,8 +517,8 @@ export function Ops() {
                   <option value="name">Name A–Z</option>
                   <option value="recent">Most recent</option>
                 </select>
-              </div>
-              <section className="ops-filters" aria-label="Filter runs">
+              </Toolbar>
+              <Filters aria-label="Filter runs">
                 {FILTERS.filter(
                   (item) => view !== "sellers" || !["review", "readings"].includes(item.id),
                 ).map((item) => (
@@ -534,7 +540,7 @@ export function Ops() {
                     )}
                   </button>
                 ))}
-              </section>
+              </Filters>
               {runs.loading && !runs.value ? (
                 <Loading label="Loading the current collection runs…" />
               ) : !runs.value ? (
@@ -552,7 +558,7 @@ export function Ops() {
                 />
               )}
               {runs.value && (
-                <div className="ops-table-foot">
+                <TableFoot>
                   <span>
                     {shown.length
                       ? `${currentPage * 12 + 1}–${Math.min((currentPage + 1) * 12, shown.length)} of ${shown.length}`
@@ -580,7 +586,7 @@ export function Ops() {
                       <Icon name="arrowRight" />
                     </IconButton>
                   </div>
-                </div>
+                </TableFoot>
               )}
             </Panel>
           )}
@@ -672,61 +678,59 @@ function Metrics({
 }
 function RunTable({ rows, onSelect }: { rows: RunRow[]; onSelect: (row: RunRow) => void }) {
   return (
-    <div className="ops-table-scroll">
-      <table className="ops-table">
-        <thead>
-          <tr>
-            <th scope="col">Source</th>
-            <th scope="col">Workflow</th>
-            <th scope="col">Collection progress</th>
-            <th scope="col">Next step</th>
-            <th scope="col">
-              <span className="sr-only">Inspect</span>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row) => (
-            <tr key={row.key}>
-              <th scope="row">
-                <button type="button" className="ops-source-button" onClick={() => onSelect(row)}>
-                  <span className="ops-source-initial">{row.entity.slice(0, 2).toUpperCase()}</span>
-                  <span>
-                    {displayName(row.entity)}
-                    <small>
-                      {row.kind === "maker" ? "Manufacturer" : "Seller"} · {row.date ?? "No date"}
-                    </small>
-                  </span>
-                </button>
-              </th>
-              <td>
-                <Status value={row.run?.status} />
-              </td>
-              <td>
-                <Progress row={row} />
-              </td>
-              <td>
-                <span className={`ops-next-text ${row.category === "review" ? "warning" : ""}`}>
-                  {row.next}
+    <Table>
+      <thead>
+        <tr>
+          <th scope="col">Source</th>
+          <th scope="col">Workflow</th>
+          <th scope="col">Collection progress</th>
+          <th scope="col">Next step</th>
+          <th scope="col">
+            <span className="sr-only">Inspect</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row) => (
+          <tr key={row.key}>
+            <th scope="row">
+              <button type="button" className="ops-source-button" onClick={() => onSelect(row)}>
+                <span className="ops-source-initial">{row.entity.slice(0, 2).toUpperCase()}</span>
+                <span>
+                  {displayName(row.entity)}
+                  <small>
+                    {row.kind === "maker" ? "Manufacturer" : "Seller"} · {row.date ?? "No date"}
+                  </small>
                 </span>
-                {row.maker?.approvedBy && (
-                  <small className="ops-note">Approved by {row.maker.approvedBy}</small>
-                )}
-              </td>
-              <td>
-                <IconButton
-                  type="button"
-                  aria-label={`Inspect ${row.entity}`}
-                  onClick={() => onSelect(row)}
-                >
-                  <Icon name="arrowRight" />
-                </IconButton>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+              </button>
+            </th>
+            <td>
+              <Status value={row.run?.status} />
+            </td>
+            <td>
+              <Progress row={row} />
+            </td>
+            <td>
+              <span className={`ops-next-text ${row.category === "review" ? "warning" : ""}`}>
+                {row.next}
+              </span>
+              {row.maker?.approvedBy && (
+                <small className="ops-note">Approved by {row.maker.approvedBy}</small>
+              )}
+            </td>
+            <td>
+              <IconButton
+                type="button"
+                aria-label={`Inspect ${row.entity}`}
+                onClick={() => onSelect(row)}
+              >
+                <Icon name="arrowRight" />
+              </IconButton>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </Table>
   );
 }
 function Progress({ row }: { row: RunRow }) {
@@ -803,8 +807,8 @@ function Published({
           Export file index <Icon name="download" />
         </Button>
       </div>
-      <div className="ops-toolbar">
-        <label className="ops-search">
+      <Toolbar>
+        <Search>
           <Icon name="search" />
           <input
             aria-label="Search published files"
@@ -812,7 +816,7 @@ function Published({
             value={query}
             onChange={(event) => onSearch(event.target.value)}
           />
-        </label>
+        </Search>
         <select
           aria-label="File format"
           value={format}
@@ -823,7 +827,7 @@ function Published({
           <option value="csv">CSV</option>
           <option value="json">JSON</option>
         </select>
-      </div>
+      </Toolbar>
       {error && <Notice alarm>{error}</Notice>}
       {copied && <Notice>{copied}</Notice>}
       {loading && !files ? (
@@ -831,54 +835,48 @@ function Published({
       ) : shown.length === 0 ? (
         <Empty title="No files match">Try another table name or format.</Empty>
       ) : (
-        <div className="ops-table-scroll">
-          <table className="ops-table">
-            <thead>
-              <tr>
-                <th scope="col">File</th>
-                <th scope="col">Rows</th>
-                <th scope="col">Size</th>
-                <th scope="col">Content hash</th>
-                <th scope="col">Download</th>
+        <Table>
+          <thead>
+            <tr>
+              <th scope="col">File</th>
+              <th scope="col">Rows</th>
+              <th scope="col">Size</th>
+              <th scope="col">Content hash</th>
+              <th scope="col">Download</th>
+            </tr>
+          </thead>
+          <tbody>
+            {shown.map((file) => (
+              <tr key={file.name}>
+                <th scope="row">
+                  <span className="ops-file-type">{file.name.split(".").pop()}</span>
+                  {file.name}
+                </th>
+                <td className="ops-mono">{count(file.rows)}</td>
+                <td>{bytes(file.bytes)}</td>
+                <td>
+                  <button
+                    type="button"
+                    className="ops-hash"
+                    title={file.sha256}
+                    onClick={() => void copy(file.sha256)}
+                  >
+                    {file.sha256.slice(0, 12)}… <Icon name="copy" />
+                  </button>
+                  <details>
+                    <summary>Full SHA-256</summary>
+                    <code>{file.sha256}</code>
+                  </details>
+                </td>
+                <td>
+                  <IconLink href={`/v1/${file.name}`} download aria-label={`Download ${file.name}`}>
+                    <Icon name="download" />
+                  </IconLink>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {shown.map((file) => (
-                <tr key={file.name}>
-                  <th scope="row">
-                    <span className="ops-file-type">{file.name.split(".").pop()}</span>
-                    {file.name}
-                  </th>
-                  <td className="ops-mono">{count(file.rows)}</td>
-                  <td>{bytes(file.bytes)}</td>
-                  <td>
-                    <button
-                      type="button"
-                      className="ops-hash"
-                      title={file.sha256}
-                      onClick={() => void copy(file.sha256)}
-                    >
-                      {file.sha256.slice(0, 12)}… <Icon name="copy" />
-                    </button>
-                    <details>
-                      <summary>Full SHA-256</summary>
-                      <code>{file.sha256}</code>
-                    </details>
-                  </td>
-                  <td>
-                    <IconLink
-                      href={`/v1/${file.name}`}
-                      download
-                      aria-label={`Download ${file.name}`}
-                    >
-                      <Icon name="download" />
-                    </IconLink>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </Table>
       )}
     </Panel>
   );
