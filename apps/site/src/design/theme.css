@@ -196,6 +196,13 @@ p a:hover {
 .o89-plate:disabled {
   opacity: 0.45;
 }
+/* A touch pointer cannot aim at a 40px control the way a mouse can, so every plate keeps the
+ * guide's full target on touch, whatever the viewport is doing. */
+@media (pointer: coarse) {
+  .o89-plate-sm {
+    min-height: 44px;
+  }
+}
 
 /* A panel that lifts off the page, wearing the plate's clipped corner. */
 .o89-frame {

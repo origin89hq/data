@@ -97,7 +97,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    min-height: 40px;
+    min-height: 44px;
     padding: 0 12px;
     border: 1px solid var(--color-line-strong);
     border-radius: 8px;
@@ -188,6 +188,7 @@
 .o89-footer nav a:hover {
   color: var(--color-fg);
 }
+
 .o89-footer-legal {
   grid-column: 1 / -1;
   display: flex;
@@ -200,11 +201,39 @@
   font: 12px / 1.7 var(--font-data);
   color: var(--color-faint);
 }
+/* A full sentence set in mono is hard work on a narrow column; only the licence line is technical
+ * enough to earn it. */
+.o89-footer-legal .prose {
+  font: 13px / 1.6 var(--font-text);
+}
 @media (max-width: 800px) {
   .o89-footer-grid {
     grid-template-columns: 1fr 1fr;
   }
   .o89-footer-brand {
     grid-column: 1 / -1;
+  }
+}
+
+/* Touch targets. The footer is where a phone reader is most likely to be aiming with a thumb, and
+ * its links were 21px of text separated by a 10px gap. Give each one a row it can be hit in. */
+@media (pointer: coarse) {
+  .o89-footer nav {
+    gap: 0;
+  }
+  .o89-footer nav a,
+  .o89-footer nav b {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    margin-bottom: 0;
+  }
+  .o89-nav-logo,
+  .o89-footer-brand > a {
+    min-height: 44px;
+    align-items: center;
+  }
+  .o89-footer-brand > a {
+    display: flex;
   }
 }
