@@ -13,7 +13,7 @@ import {
   runSettingsError,
   startRun,
 } from "./api.ts";
-import { Drawer, Empty, Loading, Notice, Status } from "./ui.tsx";
+import { Button, Drawer, Empty, IconButton, Loading, Notice, Status } from "./ui.tsx";
 import { useResource } from "./useResource.ts";
 import { bytes, count, displayName, needsApproval, type RunRow } from "./workspace.ts";
 
@@ -154,13 +154,9 @@ export function RunDetail({
               <p className="ops-eyebrow">NEXT STEP</p>
               <h3>{row.next}</h3>
               {reviewing && submission?.state !== "sent" && (
-                <button
-                  type="button"
-                  className="ops-button primary"
-                  onClick={() => view("documents")}
-                >
+                <Button type="button" primary onClick={() => view("documents")}>
                   Review download plan <Icon name="arrowRight" />
-                </button>
+                </Button>
               )}
             </div>
             <dl className="ops-facts">
@@ -209,13 +205,12 @@ export function RunDetail({
               {documents.error && (
                 <Notice alarm>
                   {documents.error}
-                  <button
-                    className="ops-button"
+                  <Button
                     type="button"
                     onClick={() => void documents.load((signal) => plan(run, signal))}
                   >
                     Read plan again
-                  </button>
+                  </Button>
                 </Notice>
               )}
               {selected && (
@@ -311,9 +306,9 @@ export function RunDetail({
                           documents.
                         </span>
                       </label>
-                      <button
+                      <Button
                         type="button"
-                        className="ops-button primary"
+                        primary
                         disabled={
                           documents.loading ||
                           !acknowledged ||
@@ -325,7 +320,7 @@ export function RunDetail({
                         onClick={() => void submit()}
                       >
                         Approve downloads <Icon name="arrowRight" />
-                      </button>
+                      </Button>
                     </div>
                   )}
                   {submission && (
@@ -356,13 +351,12 @@ export function RunDetail({
               {files.error && (
                 <Notice alarm>
                   {files.error}
-                  <button
+                  <Button
                     type="button"
-                    className="ops-button"
                     onClick={() => void files.load((signal) => archive(run, signal))}
                   >
                     Try again
-                  </button>
+                  </Button>
                 </Notice>
               )}
               {files.value?.length === 0 && (
@@ -511,9 +505,9 @@ function NewRun({ row, onChanged }: { row: RunRow; onChanged: () => void }) {
         />
         <span>I want to start this run with these settings.</span>
       </label>
-      <button
+      <Button
         type="button"
-        className="ops-button primary"
+        primary
         disabled={
           !confirm ||
           !!result ||
@@ -527,7 +521,7 @@ function NewRun({ row, onChanged }: { row: RunRow; onChanged: () => void }) {
         onClick={() => void submit()}
       >
         Start new run <Icon name="arrowRight" />
-      </button>
+      </Button>
       {result && <Notice alarm={result.state === "uncertain"}>{result.text}</Notice>}
     </div>
   );
@@ -552,24 +546,22 @@ function Pages({
       </span>
       {total > 50 && (
         <div>
-          <button
+          <IconButton
             type="button"
-            className="ops-icon-button"
             aria-label={`Previous ${label}`}
             disabled={page === 0}
             onClick={() => onPage(page - 1)}
           >
             <Icon name="arrowLeft" />
-          </button>
-          <button
+          </IconButton>
+          <IconButton
             type="button"
-            className="ops-icon-button"
             aria-label={`Next ${label}`}
             disabled={(page + 1) * 50 >= total}
             onClick={() => onPage(page + 1)}
           >
             <Icon name="arrowRight" />
-          </button>
+          </IconButton>
         </div>
       )}
     </div>

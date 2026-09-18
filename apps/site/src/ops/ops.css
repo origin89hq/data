@@ -69,45 +69,6 @@
     background 0.18s var(--ease),
     border-color 0.18s var(--ease);
 }
-.ops-button:not(:disabled):hover {
-  border-color: var(--color-muted);
-}
-.ops-button.primary {
-  border-color: var(--color-action);
-  background: var(--color-action);
-  color: var(--color-on-fill);
-  box-shadow: inset 0 0 0 1px var(--color-action-rim);
-}
-.ops-button.primary:not(:disabled):hover {
-  background: var(--color-action-lit);
-  border-color: var(--color-action-lit);
-}
-.ops-icon-button {
-  display: inline-grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border: 1px solid var(--color-line-strong);
-  border-radius: 8px;
-  corner-shape: bevel;
-  color: var(--color-muted);
-}
-.ops-icon-button:not(:disabled):hover {
-  color: var(--color-fg);
-  background: var(--color-surface-raised);
-}
-.ops-quiet {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 0;
-  color: var(--color-muted);
-  font-size: 13px;
-  text-align: left;
-}
-.ops-quiet:hover {
-  color: var(--color-fg);
-}
 .ops-text-link {
   display: inline-flex;
   align-items: center;
@@ -657,9 +618,6 @@ small.ops-note {
   margin: 16px 0 24px;
   color: var(--color-muted);
 }
-.ops-signin .ops-button {
-  margin-right: 12px;
-}
 
 /* The record drawer: one run, source or release, opened beside the table it came from. */
 .ops-drawer {
@@ -1013,11 +971,6 @@ small.ops-note {
   display: block;
   margin-top: 4px;
   color: var(--color-faint);
-}
-.ops-activity .ops-quiet {
-  margin-bottom: 4px;
-  color: var(--color-fg);
-  font-weight: 500;
 }
 .ops-note-card {
   display: flex;

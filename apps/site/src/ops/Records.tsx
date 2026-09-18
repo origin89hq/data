@@ -11,7 +11,7 @@ import {
   sourceRecord,
 } from "./corrections.ts";
 import { draftObject, editField, fields } from "./fields.ts";
-import { Drawer, Loading, Notice } from "./ui.tsx";
+import { Button, Drawer, Loading, Notice } from "./ui.tsx";
 import { useResource } from "./useResource.ts";
 import { download } from "./workspace.ts";
 export default function Records() {
@@ -42,13 +42,9 @@ export default function Records() {
       {manifest.error ? (
         <Notice alarm>
           {manifest.error}
-          <button
-            type="button"
-            className="ops-button"
-            onClick={() => void manifest.load(() => fetchIndex())}
-          >
+          <Button type="button" onClick={() => void manifest.load(() => fetchIndex())}>
             Try again
-          </button>
+          </Button>
         </Notice>
       ) : (
         <Explorer index={manifest.value} db={db} tier={tier} onCorrect={setTarget} />
@@ -122,13 +118,12 @@ function Correction({ target, onClose }: { target: CorrectionTarget; onClose: ()
       {source.error && (
         <Notice alarm>
           {source.error}
-          <button
+          <Button
             type="button"
-            className="ops-button"
             onClick={() => void source.load((signal) => sourceRecord(target, signal))}
           >
             Try again
-          </button>
+          </Button>
         </Notice>
       )}
       {source.value && (
@@ -274,9 +269,9 @@ function Correction({ target, onClose }: { target: CorrectionTarget; onClose: ()
             </section>
           )}
           <div className="ops-action-row">
-            <button
+            <Button
               type="button"
-              className="ops-button primary"
+              primary
               disabled={!review?.ok || !review.changed.length}
               onClick={() => {
                 if (review?.ok) {
@@ -286,17 +281,16 @@ function Correction({ target, onClose }: { target: CorrectionTarget; onClose: ()
               }}
             >
               Export correction patch <Icon name="download" />
-            </button>
-            <button
+            </Button>
+            <Button
               type="button"
-              className="ops-button"
               onClick={() => {
                 setDraft(undefined);
                 setExported(false);
               }}
             >
               Reset draft
-            </button>
+            </Button>
           </div>
           {exported && (
             <Notice>
