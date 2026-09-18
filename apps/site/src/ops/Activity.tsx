@@ -153,11 +153,14 @@ function ActivityList({
         </Empty>
       ) : (
         value && (
-          <ol className="mt-6 mb-0 list-none p-0 [&>li]:relative [&>li]:flex [&>li]:gap-[18px] [&>li]:pb-7 [&>li]:max-[800px]:gap-3 [&>li:not(:last-child)]:before:absolute [&>li:not(:last-child)]:before:top-8 [&>li:not(:last-child)]:before:bottom-0 [&>li:not(:last-child)]:before:left-[17px] [&>li:not(:last-child)]:before:border-l [&>li:not(:last-child)]:before:border-line [&>li:not(:last-child)]:before:content-['']">
+          <ol className="mt-6 mb-0 list-none p-0 [&>li]:relative [&>li]:flex [&>li]:gap-[18px] [&>li]:pb-7 [&>li]:max-[800px]:gap-3 [&>li:not(:last-child)]:before:absolute [&>li:not(:last-child)]:before:top-8 [&>li:not(:last-child)]:before:bottom-0 [&>li:not(:last-child)]:before:left-[17px] [&>li:not(:last-child)]:before:border-l [&>li:not(:last-child)]:before:border-l-line [&>li:not(:last-child)]:before:content-['']">
             {value.events.map((event) => (
-              <li key={event.id} className={event.kind === "collection_failed" ? "alarm" : ""}>
+              <li
+                key={event.id}
+                className={`group/row ${event.kind === "collection_failed" ? "alarm" : ""}`}
+              >
                 <span
-                  className="grid h-9 flex-[0_0_36px] place-items-center rounded-full border border-line-strong bg-surface text-signal [&_svg]:size-4 group-[.alarm]/row:border-2 group-[.alarm]/row:border-alarm group-[.alarm]/row:text-alarm"
+                  className="grid h-9 flex-[0_0_36px] place-items-center rounded-full border border-line-strong bg-surface text-signal group-[.alarm]/row:border-2 group-[.alarm]/row:border-alarm group-[.alarm]/row:text-alarm"
                   aria-hidden="true"
                 >
                   <Icon name={event.kind === "release" ? "download" : "activity"} />
@@ -170,7 +173,7 @@ function ActivityList({
                     </time>
                   </div>
                   <p>{event.summary}</p>
-                  <div className="flex flex-wrap items-center gap-x-[18px] gap-y-2 text-[12px] text-faint [&_a]:inline-flex [&_a]:items-center [&_a]:gap-1 [&_a]:text-link [&_svg]:size-[13px]">
+                  <div className="flex flex-wrap items-center gap-x-[18px] gap-y-2 text-[12px] text-faint [&_a]:inline-flex [&_a]:items-center [&_a]:gap-1 [&_a]:text-link">
                     <span>{displayName(event.entity)}</span>
                     <span>by {event.actor}</span>
                     {event.run && (
@@ -196,7 +199,7 @@ function ActivityList({
           </ol>
         )
       )}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-t border-line pt-[18px] [&>div]:flex [&>div]:flex-wrap [&>div]:items-center [&>div]:gap-3.5">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-t border-t-line pt-[18px] [&>div]:flex [&>div]:flex-wrap [&>div]:items-center [&>div]:gap-3.5">
         <span className="ops-note">
           {value ? `Recorded history · refreshed ${when(value.at)}` : "Server-recorded history"}
         </span>
