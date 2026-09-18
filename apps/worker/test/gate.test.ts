@@ -53,6 +53,17 @@ function model(kind: object | Error | string) {
 const gateCalls = (asked: { input: TestAiInput }[]) =>
   asked.filter((a) => a.input.messages[0]?.content === GATE_SYSTEM).length;
 
+test("a gate's answer is asked for steadily, since it is kept and stands for good", async () => {
+  const { env, asked } = world(
+    { [MARKDOWN]: DOCUMENT },
+    model({ kind: "datasheet", ownRatings: true, reason: "" }),
+  );
+  await readDocument(message, env, 1);
+  const gate = asked.find((a) => a.input.messages[0]?.content === GATE_SYSTEM);
+  assert.equal(gate?.input.temperature, 0, "the same document must sort the same way twice");
+  assert.deepEqual(gate?.input.chat_template_kwargs, { thinking: false });
+});
+
 test("a document of a kind that rates nothing of the maker's is sorted once and left unread", async () => {
   const note = { kind: "compatibility-note", ownRatings: false, reason: "Partner batteries." };
   const { env, asked, readObject, pace } = world({ [MARKDOWN]: DOCUMENT }, model(note));

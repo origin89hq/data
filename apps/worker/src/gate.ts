@@ -129,6 +129,10 @@ export async function sortDocument(
       json_schema: { name: "document", schema: GATE_SCHEMA, strict: false },
     },
     chat_template_kwargs: { thinking: false },
+    // The answer is kept, so an unsteady one is frozen: the same document sorted twice gave
+    // "read this section" once and "leave it" the next time, and whichever landed first would have
+    // stood for good.
+    temperature: 0,
     max_tokens: 400,
   } as never);
   const sorted = DocumentKind.parse(answerObjects(answerText(response))[0]);
@@ -253,6 +257,7 @@ export async function sortSections(
       json_schema: { name: "sections", schema: SECTIONS_SCHEMA, strict: false },
     },
     chat_template_kwargs: { thinking: false },
+    temperature: 0,
     max_tokens: 600,
   } as never);
   const kept = KeptSections.parse(answerObjects(answerText(response))[0]);
