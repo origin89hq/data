@@ -25,6 +25,7 @@ import {
   IconLink,
   Loading,
   Notice,
+  Panel,
   Status,
   TextButton,
 } from "./ui.tsx";
@@ -461,7 +462,7 @@ export function Ops() {
           )}
           {view === "releases" && <Releases selected={releaseSelection} refresh={historyRefresh} />}
           {(view === "overview" || view === "makers" || view === "sellers") && (
-            <section className="ops-panel">
+            <Panel>
               <div className="ops-section-heading">
                 <div>
                   <p className="ops-eyebrow">
@@ -581,7 +582,7 @@ export function Ops() {
                   </div>
                 </div>
               )}
-            </section>
+            </Panel>
           )}
           {view === "records" && (
             <Suspense fallback={<Loading label="Opening the record workspace…" />}>
@@ -786,7 +787,7 @@ function Published({
     }
   };
   return (
-    <section className="ops-panel">
+    <Panel>
       <div className="ops-section-heading">
         <div>
           <p className="ops-eyebrow">PUBLIC RELEASE</p>
@@ -879,7 +880,7 @@ function Published({
           </table>
         </div>
       )}
-    </section>
+    </Panel>
   );
 }
 function Supervisor({
@@ -894,7 +895,7 @@ function Supervisor({
   onEntity: (entity: string) => void;
 }) {
   return (
-    <section className="ops-panel">
+    <Panel>
       <div className="ops-section-heading">
         <h2>Latest pass</h2>
         {report && <span className="ops-note">{when(report.at)}</span>}
@@ -974,6 +975,6 @@ function Supervisor({
           </div>
         </div>
       )}
-    </section>
+    </Panel>
   );
 }

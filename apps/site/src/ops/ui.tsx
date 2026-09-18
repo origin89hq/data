@@ -58,6 +58,16 @@ export function TextLink({ className = "", ...rest }: ComponentProps<"a">) {
   return <a className={`${TEXT} ${className}`} {...rest} />;
 }
 
+/* A reading's state is never carried by colour alone: each tone pairs its hue with a glyph and a
+ * border treatment, so the row still separates in monochrome or under protanopia. */
+const TONE = {
+  nominal: "text-nominal",
+  alarm: "border-2 text-alarm",
+  warning: "border-dashed text-warning",
+  info: "text-info",
+  faint: "border-dotted text-faint",
+} as const;
+
 export function Status({ value }: { value?: string }) {
   const tone =
     value === "errored" || value === "terminated"
@@ -70,34 +80,48 @@ export function Status({ value }: { value?: string }) {
             ? "faint"
             : "info";
   return (
-    <span className={`ops-status ${tone}`}>
+    <span
+      className={`inline-flex items-center gap-1.5 border border-current px-2 py-[3px] font-data text-[12px] leading-[normal] whitespace-nowrap ${TONE[tone]}`}
+    >
       <span aria-hidden="true">{tone === "nominal" ? "✓" : tone === "alarm" ? "!" : "•"}</span>
       {value ?? "Not reported"}
     </span>
   );
 }
+
 export function Loading({ label = "Loading workspace…" }: { label?: string }) {
   return (
-    <div className="ops-loading">
-      <p role="status">
-        <span className="ops-spinner" aria-hidden="true" />
+    <div className="py-6">
+      <p className="flex items-center gap-2.5 text-[13px] text-muted" role="status">
+        <span
+          className="size-[13px] flex-none animate-ops-spin rounded-full border-2 border-line-strong border-t-signal motion-reduce:animate-none"
+          aria-hidden="true"
+        />
         {label}
       </p>
       <div aria-hidden="true">
         {[0, 1, 2, 3].map((id) => (
-          <span className="ops-skeleton" key={id} />
+          <span
+            className="my-4 block h-8 animate-ops-pulse bg-line even:w-4/5 motion-reduce:animate-none"
+            key={id}
+          />
         ))}
       </div>
     </div>
   );
 }
+
 export function Notice({ children, alarm = false }: { children: ReactNode; alarm?: boolean }) {
   return (
-    <div className={alarm ? "ops-notice alarm" : "ops-notice"} role={alarm ? "alert" : "status"}>
+    <div
+      className={`bevel-[10px] my-4 flex flex-wrap items-center gap-3 border border-line border-l-[3px] bg-surface px-4 py-3.5 text-[13px] leading-[1.65] wrap-anywhere [&_a]:text-inherit [&_a]:underline [&_code]:font-data [&_code]:text-[12px] [@media(pointer:coarse)]:[&_a]:inline-flex [@media(pointer:coarse)]:[&_a]:min-h-11 [@media(pointer:coarse)]:[&_a]:items-center ${alarm ? "border-l-alarm text-alarm" : "border-l-info text-muted"}`}
+      role={alarm ? "alert" : "status"}
+    >
       {children}
     </div>
   );
 }
+
 /**
  * The run drawer.
  *
@@ -143,10 +167,20 @@ export function Drawer({
 
 export function Empty({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <div className="ops-empty">
-      <Icon name="equipment" />
-      <h3>{title}</h3>
-      <p>{children}</p>
+    <div className="px-5 py-12 text-center text-muted">
+      <Icon name="equipment" className="mx-auto mb-4 size-7 text-faint" />
+      <h3 className="mb-2.5 text-[20px] text-fg">{title}</h3>
+      <p className="mx-auto max-w-[450px] text-[13px] leading-[1.6]">{children}</p>
     </div>
+  );
+}
+
+/* A panel. Its heading stays in ops.css: .ops-section-heading styles the h2 and p that callers pass
+ * in, and writing that as [&_h2] variants reads worse than the rule it replaces. */
+export function Panel({ children }: { children: ReactNode }) {
+  return (
+    <section className="bevel min-w-0 border border-line bg-surface px-6 pt-[22px] max-[640px]:px-4 max-[640px]:pt-5">
+      {children}
+    </section>
   );
 }

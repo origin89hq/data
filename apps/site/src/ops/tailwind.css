@@ -41,3 +41,30 @@
   border-radius: 8px;
   corner-shape: bevel;
 }
+/* The chamfer at a radius the two fixed sizes do not cover, so a rule being converted can keep the
+ * exact corner it had rather than being rounded to the nearest utility. */
+@utility bevel-* {
+  border-radius: --value([length]);
+  corner-shape: bevel;
+}
+
+/* The loading affordances keep the motion they had. Tailwind's own animate-pulse runs opacity
+ * 1 to .5, where these skeletons sit between .35 and .7 against the page, and its animate-spin
+ * turns a tenth of a second slower than this one did. */
+@theme {
+  --animate-ops-spin: ops-spin 0.9s linear infinite;
+  --animate-ops-pulse: ops-pulse 1.6s ease-in-out infinite alternate;
+}
+@keyframes ops-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes ops-pulse {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 0.7;
+  }
+}
