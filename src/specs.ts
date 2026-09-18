@@ -153,6 +153,59 @@ export interface SpecsFromResult {
   repeatedRows: Spec[];
 }
 
+/**
+ * A value as the document means it, for telling one figure said twice from two figures that agree.
+ * A range reads the same whichever language writes it — "0 °C to +40 °C" and "0 ºC à +40 ºC" — and
+ * the masculine ordinal a typesetter reaches for is the degree sign.
+ */
+function saidValue(value: string): string {
+  return value
+    .replace(/[º˚]/g, "°")
+    .toLowerCase()
+    .replace(/\s+/g, "")
+    .replace(/(?<=[0-9a-z°%])(?:to|à|a|hasta|até|bis)(?=[-+0-9])/g, "-");
+}
+
+/**
+ * A name to align one language's figure with another's: no accents, no case, no punctuation. Every
+ * script's letters are kept, not the Latin ones alone: stripping them left every Japanese name as
+ * the empty string, and two of a maker's figures would have aligned with each other on nothing.
+ */
+function plainName(name: string): string {
+  return name
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .trim();
+}
+
+/** The numbers a value states, in order, which two sayings of one figure share. */
+function numbersIn(value: string): string {
+  return (value.match(/\d+(?:[.,]\d+)?/g) ?? []).map((n) => n.replace(",", ".")).join(" ");
+}
+
+/** Rows grouped by the numbers they state, so only those stating the same ones are one figure. */
+function sameNumbers(rows: readonly Spec[]): Spec[][] {
+  const groups = new Map<string, Spec[]>();
+  for (const row of rows) {
+    const key = numbersIn(row.value);
+    groups.set(key, [...(groups.get(key) ?? []), row]);
+  }
+  return [...groups.values()].filter((group) => group.length > 1);
+}
+
+/** Of two sayings of one figure, the one to keep: English before foreign, and the plainest of those. */
+function plainest(a: Spec, b: Spec): number {
+  return (
+    Number(looksForeign(a.name)) - Number(looksForeign(b.name)) ||
+    englishWords(b.name) - englishWords(a.name) ||
+    [...a.name].filter((c) => c.charCodeAt(0) > 127).length -
+      [...b.name].filter((c) => c.charCodeAt(0) > 127).length ||
+    a.id.localeCompare(b.id)
+  );
+}
+
 /** Turn a document's reported figures into spec rows, keeping only those whose product we already hold. */
 export function specsFrom({
   reports,
@@ -242,21 +295,14 @@ export function specsFrom({
   const repeated = new Set<string>();
   const byFigure = new Map<string, Spec[]>();
   for (const spec of specs.values()) {
-    const key = `${spec.model}|${spec.value}|${spec.unit ?? ""}`;
+    const key = `${spec.model}|${saidValue(spec.value)}|${spec.unit ?? ""}`;
     byFigure.set(key, [...(byFigure.get(key) ?? []), spec]);
   }
   for (const rows of byFigure.values()) {
     if (rows.length < 2) continue;
     if (multilingual) {
       // Keep one: a name that does not read as foreign, and of those the plainest.
-      const [keep] = [...rows].sort(
-        (a, b) =>
-          Number(looksForeign(a.name)) - Number(looksForeign(b.name)) ||
-          englishWords(b.name) - englishWords(a.name) ||
-          [...a.name].filter((c) => c.charCodeAt(0) > 127).length -
-            [...b.name].filter((c) => c.charCodeAt(0) > 127).length ||
-          a.id.localeCompare(b.id),
-      );
+      const [keep] = [...rows].sort(plainest);
       for (const row of rows) if (row.id !== keep?.id) repeated.add(row.id);
       continue;
     }
@@ -274,6 +320,29 @@ export function specsFrom({
       byEnglish.set(row.english, [...(byEnglish.get(row.english) ?? []), row]);
     }
     for (const said of byEnglish.values()) for (const row of said.slice(1)) repeated.add(row.id);
+  }
+  // The same figure said twice in a value no number can compare: a NOCO charger's internal battery
+  // is "Lithium Ion" on its English page and "Ión de litio" on its Spanish one. What aligns them is
+  // the English name, and what keeps two real figures apart is their numbers: an input "Tension"
+  // and an output "Voltage" both read as "Voltage" and state different volts.
+  if (multilingual) {
+    const byName = new Map<string, Spec[]>();
+    for (const spec of specs.values()) {
+      if (repeated.has(spec.id)) continue;
+      const aligned = plainName(spec.english ?? spec.name);
+      // A name of nothing alignable — punctuation, or a script this has no letters for — aligns
+      // with nothing rather than with every other such name.
+      if (!aligned) continue;
+      const key = `${spec.model}|${aligned}|${spec.unit ?? ""}`;
+      byName.set(key, [...(byName.get(key) ?? []), spec]);
+    }
+    for (const rows of byName.values()) {
+      if (rows.length < 2) continue;
+      for (const said of sameNumbers(rows)) {
+        const [keep] = [...said].sort(plainest);
+        for (const row of said) if (row.id !== keep?.id) repeated.add(row.id);
+      }
+    }
   }
   for (const id of repeated) {
     const row = specs.get(id);
