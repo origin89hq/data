@@ -21,13 +21,19 @@ import {
   Button,
   ButtonLink,
   Empty,
+  EYEBROW,
   Filters,
   IconButton,
   IconLink,
   Loading,
+  MONO,
+  NOTE,
+  NOTE_SMALL,
   Notice,
   Panel,
+  SECTION_HEADING,
   Search,
+  SIGNIN,
   Status,
   Table,
   TableFoot,
@@ -182,7 +188,7 @@ export function Ops() {
   };
   if (!login.value)
     return (
-      <div className="ops-signin">
+      <div className={SIGNIN}>
         <link rel="icon" href={favicon} />
         <img src={logo} alt="Origin89" width="190" />
         {login.error ? (
@@ -307,7 +313,7 @@ export function Ops() {
         >
           <div className="mb-6 flex items-end justify-between gap-6 max-[640px]:flex-col max-[640px]:items-start max-[640px]:gap-4.5">
             <div>
-              <p className="ops-eyebrow">EQUIPMENT KNOWLEDGE / OPERATIONS</p>
+              <p className={EYEBROW}>EQUIPMENT KNOWLEDGE / OPERATIONS</p>
               <h1 className="text-[clamp(28px,2.4vw,40px)] leading-[1.05] font-bold tracking-[-0.035em] max-[640px]:text-[28px]">
                 {TITLES[view][0]}
               </h1>
@@ -383,7 +389,7 @@ export function Ops() {
               />
               <div className="mb-6 grid grid-cols-[1.2fr_1fr] gap-4 max-[1250px]:grid-cols-2 max-[640px]:grid-cols-1 max-[640px]:gap-3.5">
                 <div className="bevel border border-line bg-surface p-[22px] max-[1250px]:p-[18px] [&>p]:my-2.5 [&>p]:text-[13px] [&>p]:leading-[1.65] [&>p]:text-muted">
-                  <div className="ops-section-heading">
+                  <div className={SECTION_HEADING}>
                     <h2>Next up</h2>
                     <Tag>HUMAN IN THE LOOP</Tag>
                   </div>
@@ -420,7 +426,7 @@ export function Ops() {
                   </div>
                 </div>
                 <div className="bevel border border-line border-l-[3px] border-l-signal bg-surface p-[22px] max-[1250px]:p-[18px] [&>p]:my-2.5 [&>p]:text-[13px] [&>p]:leading-[1.65] [&>p]:text-muted">
-                  <div className="ops-section-heading">
+                  <div className={SECTION_HEADING}>
                     <h2>Latest supervisor pass</h2>
                     <TextButton type="button" onClick={() => navigate("supervisor")}>
                       View activity <Icon name="arrowRight" />
@@ -432,7 +438,7 @@ export function Ops() {
                     <Loading label="Reading the latest pass…" />
                   ) : report.value ? (
                     <>
-                      <p className="ops-note">{when(report.value.at)}</p>
+                      <p className={NOTE}>{when(report.value.at)}</p>
                       <div className="my-6 grid grid-cols-3 gap-4 [&_strong]:block [&_strong]:text-[32px] [&_strong]:leading-[1.1] [&_strong]:font-semibold [&_strong]:tracking-[-0.035em] [&_strong]:tabular-nums [&_span]:text-[12px] [&_span]:text-faint">
                         <div>
                           <strong>{report.value.started.length}</strong>
@@ -469,9 +475,9 @@ export function Ops() {
           {view === "releases" && <Releases selected={releaseSelection} refresh={historyRefresh} />}
           {(view === "overview" || view === "makers" || view === "sellers") && (
             <Panel>
-              <div className="ops-section-heading">
+              <div className={SECTION_HEADING}>
                 <div>
-                  <p className="ops-eyebrow">
+                  <p className={EYEBROW}>
                     {view === "overview" ? "YOUR COLLECTION QUEUE" : "CURRENT RUNS"}
                   </p>
                   <h2>
@@ -723,7 +729,7 @@ function RunTable({ rows, onSelect }: { rows: RunRow[]; onSelect: (row: RunRow) 
                 {row.next}
               </span>
               {row.maker?.approvedBy && (
-                <small className="ops-note">Approved by {row.maker.approvedBy}</small>
+                <small className={NOTE_SMALL}>Approved by {row.maker.approvedBy}</small>
               )}
             </td>
             <td>
@@ -800,9 +806,9 @@ function Published({
   };
   return (
     <Panel>
-      <div className="ops-section-heading">
+      <div className={SECTION_HEADING}>
         <div>
-          <p className="ops-eyebrow">PUBLIC RELEASE</p>
+          <p className={EYEBROW}>PUBLIC RELEASE</p>
           <h2>Ready for your next tool.</h2>
         </div>
         <Button
@@ -862,7 +868,7 @@ function Published({
                   </span>
                   {file.name}
                 </th>
-                <td className="ops-mono">{count(file.rows)}</td>
+                <td className={MONO}>{count(file.rows)}</td>
                 <td>{bytes(file.bytes)}</td>
                 <td>
                   <button
@@ -904,9 +910,9 @@ function Supervisor({
 }) {
   return (
     <Panel>
-      <div className="ops-section-heading">
+      <div className={SECTION_HEADING}>
         <h2>Latest pass</h2>
-        {report && <span className="ops-note">{when(report.at)}</span>}
+        {report && <span className={NOTE}>{when(report.at)}</span>}
       </div>
       {error && <Notice alarm>{error}</Notice>}
       {loading && !report ? (
@@ -932,7 +938,7 @@ function Supervisor({
                 </div>
               ))
             ) : (
-              <p className="ops-note">No concerns reported.</p>
+              <p className={NOTE}>No concerns reported.</p>
             )}
           </div>
           <div>
@@ -960,7 +966,7 @@ function Supervisor({
                 </div>
               ))
             ) : (
-              <p className="ops-note">No work was started in this pass.</p>
+              <p className={NOTE}>No work was started in this pass.</p>
             )}
           </div>
           <div>
@@ -987,7 +993,7 @@ function Supervisor({
                 </div>
               ))
             ) : (
-              <p className="ops-note">No blocked work reported.</p>
+              <p className={NOTE}>No blocked work reported.</p>
             )}
           </div>
         </div>

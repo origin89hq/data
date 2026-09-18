@@ -4,11 +4,12 @@ import { createRoot } from "react-dom/client";
 import { Ops } from "./Ops.tsx";
 import { createOpsRouter } from "./router.ts";
 import "./tailwind.css";
+import { SIGNIN } from "./ui.tsx";
 
 const router = createOpsRouter({
   component: Ops,
   notFoundComponent: () => (
-    <div className="ops-signin">
+    <div className={SIGNIN}>
       <h1>Workspace page not found</h1>
       <Link to="/ops/$view" params={{ view: "overview" }} search={{}}>
         Back to overview

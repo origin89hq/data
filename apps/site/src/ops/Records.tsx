@@ -11,7 +11,17 @@ import {
   sourceRecord,
 } from "./corrections.ts";
 import { draftObject, editField, fields } from "./fields.ts";
-import { Button, Drawer, Loading, Notice } from "./ui.tsx";
+import {
+  Button,
+  Drawer,
+  EYEBROW,
+  LINK,
+  Loading,
+  MONO,
+  NOTE,
+  Notice,
+  SECTION_HEADING,
+} from "./ui.tsx";
 import { useResource } from "./useResource.ts";
 import { download } from "./workspace.ts";
 export default function Records() {
@@ -24,11 +34,13 @@ export default function Records() {
   }, [manifest.load]);
   return (
     <>
-      <div className="ops-section-heading">
+      <div className={SECTION_HEADING}>
         <div>
-          <p className="ops-eyebrow">SOURCE-BACKED CORRECTIONS</p>
+          <p className={EYEBROW}>SOURCE-BACKED CORRECTIONS</p>
           <h2>Find it. Check it. Make it clearer.</h2>
-          <p>Inspect a record to prepare a correction against its authored JSON file.</p>
+          <p className="mt-2.5 text-[13px] text-muted">
+            Inspect a record to prepare a correction against its authored JSON file.
+          </p>
         </div>
         <label className="flex items-center gap-2.5 text-[13px] whitespace-nowrap max-[640px]:whitespace-normal [&_input]:accent-action">
           Include public feeds
@@ -102,12 +114,12 @@ function Correction({ target, onClose }: { target: CorrectionTarget; onClose: ()
       eyebrow={`${target.table.toUpperCase()} / ${target.id}`}
       onClose={close}
     >
-      <p className="ops-note">
+      <p className={NOTE}>
         The original file stays untouched. Export a patch, apply it in your checkout, and submit it
         for review.
       </p>
       <a
-        className="ops-text-link"
+        className={LINK}
         href={`https://github.com/origin89hq/offgrid-equipment/blob/main/${path}`}
         target="_blank"
         rel="noopener"
@@ -150,7 +162,7 @@ function Correction({ target, onClose }: { target: CorrectionTarget; onClose: ()
           {editor === "fields" ? (
             object ? (
               <>
-                <p className="ops-note">
+                <p className={NOTE}>
                   Leave optional fields blank when unknown. Use Record JSON for nested lists and
                   other fields. Review and extraction metadata stay unchanged; corrections are
                   approved through repository review.
@@ -217,7 +229,7 @@ function Correction({ target, onClose }: { target: CorrectionTarget; onClose: ()
                 className="mt-5 mb-3 grid gap-2 text-[13px] [&_span]:text-[12px] [&_span]:text-faint [&_span]:wrap-anywhere"
                 htmlFor="record-editor"
               >
-                Record JSON <span className="ops-mono">{path}</span>
+                Record JSON <span className={MONO}>{path}</span>
               </label>
               <textarea
                 id="record-editor"
