@@ -10,8 +10,7 @@
 .ops-app a {
   text-decoration: none;
 }
-.ops-app .ui-icon,
-.ops-drawer .ui-icon {
+.ops-app .ui-icon {
   width: 18px;
   height: 18px;
 }
@@ -116,7 +115,7 @@ small.ops-note {
   font-size: 12px;
   overflow-wrap: anywhere;
 }
-.ops-drawer .ops-code-editor {
+.ops-code-editor {
   display: block;
   width: 100%;
   min-height: 370px;
