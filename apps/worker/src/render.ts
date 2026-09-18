@@ -1,4 +1,5 @@
 import { init, type WrappedPdfiumModule } from "@embedpdf/pdfium";
+import type { Char } from "./layout.ts";
 
 /**
  * Drawing a PDF page inside a Worker, which has no canvas.
@@ -12,6 +13,7 @@ import { init, type WrappedPdfiumModule } from "@embedpdf/pdfium";
  * with the same binary the Worker runs.
  */
 export type Pdfium = WrappedPdfiumModule;
+export type { Char };
 
 /** Pixels on the long edge of a drawn page: small type in a spec table stays legible to the model. */
 export const LONG_EDGE = 1600;
@@ -141,6 +143,73 @@ export function renderPage(
 
 const heap = (pdfium: Pdfium): Uint8Array =>
   (pdfium.pdfium as unknown as { HEAPU8: Uint8Array }).HEAPU8;
+
+/**
+ * Every character of a page, with the box PDFium says it occupies, in points from the bottom left.
+ *
+ * The same library the page reader draws with knows where each character sits, so a table can be
+ * read from the page rather than from a stream of text that lost its columns. A page drawn as
+ * pictures has no characters and gives none: that is what the page reader is for.
+ *
+ * Synchronous from opening the document to closing it, for the reason `renderPage` is.
+ */
+export function charsOn(pdfium: Pdfium, bytes: Uint8Array, page: number): Char[] {
+  const pointer = pdfium.pdfium.wasmExports.malloc(bytes.length);
+  if (!pointer) throw new Error(`PDFium could not make room for ${bytes.length} bytes`);
+  try {
+    heap(pdfium).set(bytes, pointer);
+    const document = pdfium.FPDF_LoadMemDocument64(pointer, bytes.length, "");
+    if (!document)
+      throw new Error(
+        `PDFium could not open it: ${LOAD_ERRORS[pdfium.FPDF_GetLastError()] ?? "an unknown error"}`,
+      );
+    try {
+      const pages = pdfium.FPDF_GetPageCount(document);
+      if (page < 1 || page > pages) throw new Error(`there is no page ${page} in ${pages}`);
+      const loaded = pdfium.FPDF_LoadPage(document, page - 1);
+      if (!loaded) throw new Error(`PDFium could not load page ${page}`);
+      try {
+        const text = pdfium.FPDFText_LoadPage(loaded);
+        if (!text) throw new Error(`PDFium could not read the text of page ${page}`);
+        try {
+          // Four doubles, written by PDFium and read back after every call: left, right, bottom, top.
+          const box = pdfium.pdfium.wasmExports.malloc(8 * 4);
+          if (!box) throw new Error("PDFium could not make room for a character box");
+          try {
+            const chars: Char[] = [];
+            const count = pdfium.FPDFText_CountChars(text);
+            for (let index = 0; index < count; index += 1) {
+              if (!pdfium.FPDFText_GetCharBox(text, index, box, box + 8, box + 16, box + 24))
+                continue;
+              const at = new Float64Array(heap(pdfium).buffer, box, 4);
+              const code = pdfium.FPDFText_GetUnicode(text, index);
+              const [left, right, bottom, top] = at;
+              if (
+                left === undefined ||
+                right === undefined ||
+                bottom === undefined ||
+                top === undefined
+              )
+                continue;
+              chars.push({ text: String.fromCodePoint(code), left, right, bottom, top });
+            }
+            return chars;
+          } finally {
+            pdfium.pdfium.wasmExports.free(box);
+          }
+        } finally {
+          pdfium.FPDFText_ClosePage(text);
+        }
+      } finally {
+        pdfium.FPDF_ClosePage(loaded);
+      }
+    } finally {
+      pdfium.FPDF_CloseDocument(document);
+    }
+  } finally {
+    pdfium.pdfium.wasmExports.free(pointer);
+  }
+}
 
 const CRC_TABLE = (() => {
   const table = new Uint32Array(256);

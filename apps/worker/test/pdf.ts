@@ -30,6 +30,53 @@ export function tinyPdf(pages: string[], width = 200, height = 100): Uint8Array 
   return Uint8Array.from(out, (c) => c.charCodeAt(0));
 }
 
+/** One string of a written page, placed by its left edge and its baseline, in points. */
+export interface Placed {
+  text: string;
+  x: number;
+  y: number;
+  size?: number;
+}
+
+/**
+ * A page of real text at places a test chooses, in one of the fourteen fonts every reader has, so
+ * nothing is embedded. What a datasheet does with a table — a name at the left, a value under each
+ * model's heading — a test can do in four lines and then read back through PDFium.
+ */
+export function writtenPdf(pages: Placed[][], width = 300, height = 200): Uint8Array {
+  const streams = pages.map((page) =>
+    page
+      .map(
+        ({ text, x, y, size = 10 }) =>
+          `BT /F1 ${size} Tf ${x} ${y} Td (${text.replace(/([()\\])/g, "\\$1")}) Tj ET`,
+      )
+      .join("\n"),
+  );
+  const objects: string[] = [];
+  const font = 3 + streams.length * 2;
+  objects.push("<< /Type /Catalog /Pages 2 0 R >>");
+  objects.push(
+    `<< /Type /Pages /Kids [${streams.map((_, i) => `${3 + i * 2} 0 R`).join(" ")}] /Count ${streams.length} >>`,
+  );
+  for (const [i, content] of streams.entries()) {
+    objects.push(
+      `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${width} ${height}] /Contents ${4 + i * 2} 0 R /Resources << /Font << /F1 ${font} 0 R >> >> >>`,
+    );
+    objects.push(`<< /Length ${content.length} >>\nstream\n${content}\nendstream`);
+  }
+  objects.push("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>");
+  let out = "%PDF-1.4\n";
+  const offsets: number[] = [];
+  for (const [i, body] of objects.entries()) {
+    offsets.push(out.length);
+    out += `${i + 1} 0 obj\n${body}\nendobj\n`;
+  }
+  const xref = out.length;
+  out += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n${offsets.map((o) => `${String(o).padStart(10, "0")} 00000 n \n`).join("")}`;
+  out += `trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF\n`;
+  return Uint8Array.from(out, (c) => c.charCodeAt(0));
+}
+
 /** A black box, drawn as a path the way outlined type is: no image in it anywhere. */
 export const BLACK_BOX = "0 0 0 rg 50 25 100 50 re f";
 
