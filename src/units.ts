@@ -354,8 +354,13 @@ function withoutRepeatedUnit(value: string, unit: Unit): string {
 export function splitValueUnit(
   value: string,
   unit: string | undefined,
+  name = "",
 ): { value: string; unit?: string } {
   const canonical = canonicalUnit(unit);
+  // A battery sheet writes a charge or discharge rate as a multiple of its capacity: "0.5C", "1C".
+  // Read as a unit, the C is degrees Celsius, and BSL's "Working Current 0.5C" was published as
+  // half a degree. A bare C is a temperature only where the figure's name says so.
+  if (!temperatureFigure(name) && cRate(value, unit)) return { value: value.trim() };
   const match = /^([-+]?\d+(?:[.,]\d+)?)\s*([A-Za-zΩ°℃µ%][A-Za-zΩ°℃µ%²³/·.]{0,9})$/.exec(
     value.trim(),
   );
@@ -376,6 +381,26 @@ export function splitValueUnit(
   return pulled && match
     ? { value: decimalPoint(match[1]), unit: pulled }
     : { value: decimalPoint(value.trim()) };
+}
+
+/** Whether a figure's name says it states a temperature, which is what makes a bare C degrees. */
+function temperatureFigure(name: string): boolean {
+  return /temperatur|thermal|ambient|\bheat\b|°\s*c\b|℃/i.test(name);
+}
+
+/**
+ * Whether the value states a rate against capacity rather than a temperature: a number with a bare
+ * C on it, or one whose unit field is a bare C. Spelled "°C", "℃" or "Celsius", it is a
+ * temperature wherever it stands, and a number over ten is one too: no sheet rates a battery at
+ * twenty-five times its capacity, and "@25C" is room temperature.
+ */
+const C_RATE = /^([-+]?\d+(?:[.,]\d+)?)\s*[cC]$/;
+function cRate(value: string, unit: string | undefined): boolean {
+  const printed = C_RATE.exec(value.trim());
+  const number = printed?.[1] ?? (/^[cC]$/.test((unit ?? "").trim()) ? value.trim() : undefined);
+  if (number === undefined) return false;
+  const size = Number(number.replace(",", "."));
+  return Number.isFinite(size) && Math.abs(size) <= 10;
 }
 
 /**

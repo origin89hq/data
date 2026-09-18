@@ -188,7 +188,11 @@ export function specsFrom({
       // A value that kept the next key of the answer it was written in — "1000W', 'unit': " — is
       // cut back to what the document prints, and a unit named in that tail is the figure's (#188).
       const printed = withoutAnswerTail(repairMojibake(value));
-      const { value: cleanValue, unit } = splitValueUnit(printed.value, split.unit ?? printed.unit);
+      const { value: cleanValue, unit } = splitValueUnit(
+        printed.value,
+        split.unit ?? printed.unit,
+        name,
+      );
       // A value that is a piece of the JSON it was read out of is not a doubtful figure, it is not
       // a figure. Refused rather than published with a caveat nobody can resolve.
       if (looksTruncated(cleanValue) || statesNothing(cleanValue)) {
