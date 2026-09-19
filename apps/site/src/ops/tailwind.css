@@ -21,6 +21,7 @@
  */
 @import "../design/theme.css" layer(base);
 @import "../design/data.css" layer(components);
+@import "@origin89/ui-react/styles.css" layer(components);
 
 /* The workspace's icon size, and the one rule here that has to stay CSS rather than become a
  * utility on the root. In `components` a caller's own size-* still beats it, which is what Empty's
@@ -53,25 +54,4 @@
 @utility bevel-* {
   border-radius: --value([length]);
   corner-shape: bevel;
-}
-
-/* The loading affordances keep the motion they had. Tailwind's own animate-pulse runs opacity
- * 1 to .5, where these skeletons sit between .35 and .7 against the page, and its animate-spin
- * turns a tenth of a second slower than this one did. */
-@theme {
-  --animate-ops-spin: ops-spin 0.9s linear infinite;
-  --animate-ops-pulse: ops-pulse 1.6s ease-in-out infinite alternate;
-}
-@keyframes ops-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-@keyframes ops-pulse {
-  from {
-    opacity: 0.35;
-  }
-  to {
-    opacity: 0.7;
-  }
 }

@@ -146,6 +146,9 @@ importers:
       '@origin89/equipment-schema':
         specifier: workspace:*
         version: link:../../packages/schema
+      '@origin89/ui-react':
+        specifier: 0.2.0
+        version: 0.2.0(react@19.3.0)
       '@tanstack/react-router':
         specifier: 1.170.35
         version: 1.170.35(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -876,9 +879,18 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
+  '@origin89/brand@0.4.0':
+    resolution: {integrity: sha512-vX9eehWsu+7J81k685wKlR+G+VtyfMnk0bk9JVM1YNfCWtD0hQLe8fC+xGzLTu2kFJUQWFW3qWh3uwNhS7sbBQ==}
+    engines: {node: '>=22.12.0'}
+
   '@origin89/brand@0.5.0':
     resolution: {integrity: sha512-oth7NIfEkwjW793FmOYdmd2FEq0xnuD7KEZxANtRfRK8WCAT6sMlReSVjIQ4PY+pxu3qX89SePnZGEXATkgdtQ==}
     engines: {node: '>=22.12.0'}
+
+  '@origin89/ui-react@0.2.0':
+    resolution: {integrity: sha512-uwiJ+hx86es/+DqAGkuRu9aBZWscv4w3O3tMseh/jFTdIY9tfBsb6pCK96dCCKbi78C9lzKkBUMaaLwap7SsVA==}
+    peerDependencies:
+      react: ^19.2.8
 
   '@oxc-project/types@0.149.0':
     resolution: {integrity: sha512-Efcc+iF0j3Bf67YjEqIqWXbX5XddXoK/Mw4K1/JuXwRCZ8N16VR7iT23nlCc9XrveFVh/E5Rqs2StT0V8v9LdA==}
@@ -2209,7 +2221,14 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.6.0
 
+  '@origin89/brand@0.4.0': {}
+
   '@origin89/brand@0.5.0': {}
+
+  '@origin89/ui-react@0.2.0(react@19.3.0)':
+    dependencies:
+      '@origin89/brand': 0.4.0
+      react: 19.3.0
 
   '@oxc-project/types@0.149.0': {}
 
