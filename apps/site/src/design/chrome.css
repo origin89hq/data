@@ -5,7 +5,7 @@
   position: sticky;
   z-index: 50;
   top: calc(env(safe-area-inset-top, 0px) + 12px);
-  width: min(100% - 2 * var(--gutter) + 24px, calc(var(--max) + 24px));
+  width: min(100% - 2 * var(--o89-gutter) + 24px, calc(var(--o89-max) + 24px));
   margin: 12px auto 0;
   display: flex;
   align-items: center;

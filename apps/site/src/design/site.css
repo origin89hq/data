@@ -153,7 +153,7 @@
 @media (prefers-reduced-motion: no-preference) {
   .hero-main > *,
   .hero-side {
-    animation: hero-rise 0.9s var(--ease) both;
+    animation: hero-rise 0.9s var(--o89-ease) both;
   }
   .hero .lede {
     animation-delay: 0.08s;
@@ -385,7 +385,7 @@
   border-radius: 14px;
   corner-shape: bevel;
   background: var(--color-surface-raised);
-  transition: border-color 0.22s var(--ease);
+  transition: border-color 0.22s var(--o89-ease);
 }
 a.record-card:hover {
   border-color: var(--color-signal);
@@ -472,8 +472,8 @@ a.record-card:hover {
   corner-shape: bevel;
   background: var(--color-surface);
   transition:
-    border-color 0.22s var(--ease),
-    background 0.22s var(--ease);
+    border-color 0.22s var(--o89-ease),
+    background 0.22s var(--o89-ease);
 }
 .pillar:hover {
   border-color: var(--color-line-strong);
@@ -522,7 +522,7 @@ a.record-card:hover {
 }
 .pillar-foot .ui-icon {
   color: var(--color-muted);
-  transition: transform 0.24s var(--ease);
+  transition: transform 0.24s var(--o89-ease);
 }
 .pillar:hover .pillar-foot .ui-icon {
   transform: translateX(4px);
@@ -790,7 +790,7 @@ a.record-card:hover {
 .bar-fill {
   height: 100%;
   background: var(--color-signal);
-  transition: width 0.24s var(--ease);
+  transition: width 0.24s var(--o89-ease);
 }
 .bar-count {
   font: 14px var(--font-data);

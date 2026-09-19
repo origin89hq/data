@@ -10,6 +10,7 @@
  * scale with a 4/8/16/24/40/64 spacing rhythm.
  */
 @import "@origin89/brand/tokens/themes.css";
+@import "@origin89/brand/tokens/plate.css";
 
 @font-face {
   font-family: Concept;
@@ -27,11 +28,6 @@
 :root {
   --font-text: Concept, "Helvetica Neue", Arial, sans-serif;
   --font-data: Technical, ui-monospace, "SF Mono", Menlo, monospace;
-  --max: 1320px;
-  --gutter: clamp(16px, 4vw, 56px);
-  /* The chamfer, at the scale a 14px frame can carry. */
-  --cut: 10px;
-  --ease: cubic-bezier(0.16, 1, 0.3, 1);
   color-scheme: dark;
   scroll-behavior: smooth;
   /* Clears the floating navigation when a hash lands on a section. */
@@ -104,10 +100,6 @@ a {
   background: var(--color-action-lit);
   color: var(--color-on-fill);
 }
-:focus-visible {
-  outline: 2px solid var(--color-focus);
-  outline-offset: 3px;
-}
 /* Bridge blue measures 2.40:1 on ink and cannot carry running text; the lightened link token can. */
 .prose a,
 p a {
@@ -116,119 +108,6 @@ p a {
 .prose a:hover,
 p a:hover {
   color: var(--color-fg);
-}
-
-.o89-wrap {
-  width: min(100% - 2 * var(--gutter), var(--max));
-  margin-inline: auto;
-}
-
-/* Plate buttons. The fill is 2.40:1 against its own ground, so the rim carries the control
- * boundary rather than the fill. Removing it is an accessibility regression, not a style change. */
-.o89-plate {
-  --c: var(--cut);
-  position: relative;
-  isolation: isolate;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  min-height: 48px;
-  padding: 0 22px;
-  border: 0;
-  cursor: pointer;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 15px;
-  white-space: nowrap;
-  clip-path: polygon(
-    var(--c) 0,
-    calc(100% - var(--c)) 0,
-    100% var(--c),
-    100% calc(100% - var(--c)),
-    calc(100% - var(--c)) 100%,
-    var(--c) 100%,
-    0 calc(100% - var(--c)),
-    0 var(--c)
-  );
-  transition: background 0.22s var(--ease);
-}
-.o89-plate::before {
-  content: "";
-  position: absolute;
-  inset: 1px;
-  z-index: -1;
-  clip-path: inherit;
-  transition: background 0.22s var(--ease);
-}
-.o89-plate-action {
-  background: var(--color-action-rim);
-  color: var(--color-on-fill);
-}
-.o89-plate-action::before {
-  background: var(--color-action);
-}
-.o89-plate-action:hover::before {
-  background: var(--color-action-lit);
-}
-.o89-plate-ghost {
-  background: var(--color-line-strong);
-  color: var(--color-fg);
-}
-.o89-plate-ghost::before {
-  background: var(--color-page);
-}
-.o89-plate-ghost:hover {
-  background: var(--color-muted);
-}
-.o89-plate-ghost:is([aria-pressed="true"], [aria-selected="true"]) {
-  background: var(--color-fg);
-}
-.o89-plate-ghost:is([aria-pressed="true"], [aria-selected="true"])::before {
-  background: var(--color-surface-raised);
-}
-.o89-plate-sm {
-  --c: 7px;
-  min-height: 40px;
-  padding: 0 16px;
-  font-size: 14px;
-}
-.o89-plate:disabled {
-  opacity: 0.45;
-}
-/* A touch pointer cannot aim at a 40px control the way a mouse can, so every plate keeps the
- * guide's full target on touch, whatever the viewport is doing. */
-@media (pointer: coarse) {
-  .o89-plate-sm {
-    min-height: 44px;
-  }
-}
-
-/* A panel that lifts off the page, wearing the plate's clipped corner. */
-.o89-frame {
-  border: 1px solid var(--color-line-strong);
-  border-radius: 14px;
-  corner-shape: bevel;
-  background: var(--color-surface);
-}
-
-.o89-text-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 44px;
-  color: var(--color-fg);
-  font-weight: 600;
-  font-size: 15px;
-}
-.o89-text-link svg {
-  transition: transform 0.24s var(--ease);
-}
-.o89-text-link:hover {
-  color: var(--color-link);
-}
-.o89-text-link:hover svg {
-  transform: translateX(4px);
 }
 
 /* Eyebrows, captions, readings and identifiers: the technical voice. */

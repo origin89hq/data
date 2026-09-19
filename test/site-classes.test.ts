@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { readdirSync, readFileSync } from "node:fs";
+import { createRequire } from "node:module";
 import { join } from "node:path";
 import { test } from "node:test";
 
@@ -14,10 +15,19 @@ import { test } from "node:test";
 const DESIGN = new URL("../apps/site/src/design/", import.meta.url).pathname;
 const COMPONENTS = new URL("../apps/site/src/", import.meta.url).pathname;
 
-const stylesheet = readdirSync(DESIGN)
-  .filter((file) => file.endsWith(".css"))
-  .map((file) => readFileSync(join(DESIGN, file), "utf8"))
-  .join("\n");
+// The plate — the clipped control, the content column, the frame — comes from @origin89/brand
+// rather than being copied into the design folder, so the package's sheet is part of what the
+// design defines. Reading it here also means this test fails if the package stops providing it.
+// Resolved from the site, which is where the dependency is declared, not from this file.
+const PLATE = createRequire(new URL("../apps/site/package.json", import.meta.url)).resolve(
+  "@origin89/brand/tokens/plate.css",
+);
+const stylesheet = [
+  ...readdirSync(DESIGN)
+    .filter((file) => file.endsWith(".css"))
+    .map((file) => readFileSync(join(DESIGN, file), "utf8")),
+  readFileSync(PLATE, "utf8"),
+].join("\n");
 const defined = new Set([...stylesheet.matchAll(/\.([a-zA-Z][\w-]*)/g)].map((match) => match[1]));
 // The draft's own markup counts too. A few of its classes carry no rule of their own because the
 // stylesheet reaches them through a parent — `.coverage-grid > div` styles `.coverage-chart` — and
@@ -48,6 +58,7 @@ test("every class a component uses is one the design defines", () => {
 test("the check would notice a class that does not exist", () => {
   // The guard above is only worth having if it can fail, and the failure is silent in a browser.
   assert.equal(defined.has("explorer"), true, "a class the stylesheet really defines");
+  assert.equal(defined.has("o89-plate"), true, "a class the brand package defines, not this repo");
   assert.equal(
     defined.has("record-dialog-backdrop"),
     false,
