@@ -126,6 +126,31 @@ test("a scan converted before is looked at once more, and not sent to toMarkdown
   assert.equal(sent.length, 2);
 });
 
+test("a conversion made before stands when the new one does not only add to it", async () => {
+  // A scan with a typed page past page 80 was toMarkdown's when the converter stopped at 80, and has
+  // characters now. The windows read of toMarkdown's text are taken up by their place in it, so
+  // replacing that text would have them stand for words it no longer holds.
+  const scan =
+    "# manual.pdf\n## Metadata\n- PageCount=3\n## Contents\n### Page 1\n### Page 2\n### Page 3\n";
+  const { env, calls, sent, text, read } = withToMarkdown({
+    [SOURCE]: manual(3),
+    [MARKDOWN]: scan,
+  });
+  await convertDocument(message, env, pdfium);
+  assert.equal(text(MARKDOWN), scan);
+  assert.equal(read(OUTLINE), undefined, "and no outline of a text it does not keep");
+  assert.deepEqual((await env.ARCHIVE.head(MARKDOWN))?.customMetadata, {
+    pages: "3",
+    converted: "3",
+  });
+  assert.equal(calls.length, 0);
+
+  await env.ARCHIVE.delete(SOURCE);
+  await convertDocument(message, env, pdfium);
+  assert.equal(text(MARKDOWN), scan, "and it is not looked at again");
+  assert.equal(sent.length, 2);
+});
+
 test("a scan converted for the first time goes to toMarkdown, and counts its pages", async () => {
   const { env, calls, text } = withToMarkdown({ [SOURCE]: tinyPdf([GREY_SCAN]) }, "# A scan\n");
   await convertDocument(message, env, pdfium);

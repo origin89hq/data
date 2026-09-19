@@ -52,6 +52,11 @@ export function pagesUnconverted(metadata: Record<string, string> | undefined): 
  * still stand, and only the pages it did not have are read. Every PDF's conversion says it, a scan's
  * too, so that once is once: a scan whose conversion said nothing was looked at again at every
  * convert.
+ *
+ * The new conversion replaces the one kept only where it adds to it. Windows already read are taken
+ * up again by their place in the text, so a text that changed before its end would have them stand
+ * for words it no longer holds. A scan with a typed page past page 80 was `toMarkdown`'s then and
+ * would be read from its characters now: it keeps what `toMarkdown` wrote.
  */
 export async function convertDocument(
   message: ConvertMessage,
@@ -69,21 +74,29 @@ export async function convertDocument(
     const bytes = new Uint8Array(await object.arrayBuffer());
     let text: string | undefined;
     let pages: Record<string, string> | undefined;
+    let outline: string | undefined;
     if (pdf) {
       const read = convertPdf(await library(), bytes);
       pages = pageMetadata(read);
       if (textLayer(read.markdown).characters > 0) {
         text = read.markdown;
-        await env.ARCHIVE.put(
-          partKey.outline(message.sha256, CONVERTER),
-          `${JSON.stringify(withOpenings(text, sectionsOf(read.outline, read.pages)))}\n`,
-          { httpMetadata: { contentType: "application/json" } },
-        );
+        outline = `${JSON.stringify(withOpenings(text, sectionsOf(read.outline, read.pages)))}\n`;
       }
     }
-    // A scan converted before was `toMarkdown`'s, and asking it again would only ask it again: what
-    // it wrote stands, written back with its pages counted, and the page reader reads the pages.
-    if (text === undefined && unsure) text = await (await env.ARCHIVE.get(markdown))?.text();
+    // A conversion made before stands unless this one only adds to it, and is written back with its
+    // pages counted. A scan's was `toMarkdown`'s, and asking it again would only ask it again: what
+    // it wrote stands, and the page reader reads the pages.
+    if (unsure) {
+      const before = await (await env.ARCHIVE.get(markdown))?.text();
+      if (before !== undefined && !text?.startsWith(before)) {
+        text = before;
+        outline = undefined;
+      }
+    }
+    if (outline !== undefined)
+      await env.ARCHIVE.put(partKey.outline(message.sha256, CONVERTER), outline, {
+        httpMetadata: { contentType: "application/json" },
+      });
     if (text === undefined) {
       const blob = new Blob([bytes], { type: message.contentType });
       const name = new URL(message.url).pathname.split("/").pop() || message.sha256;
