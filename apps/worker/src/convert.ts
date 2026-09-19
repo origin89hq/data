@@ -43,7 +43,9 @@ export function pagesUnconverted(metadata: Record<string, string> | undefined): 
  * conversion said how many pages it wrote was written by a converter that stopped at page 80 and did
  * not say so, and 69 of wave 2's documents were cut there. Such a conversion is made again, once:
  * the pages it had come out the same, character for character, so the windows already read of them
- * still stand, and only the pages it did not have are read.
+ * still stand, and only the pages it did not have are read. Every PDF's conversion says it, a scan's
+ * too, so that once is once: a scan whose conversion said nothing was looked at again at every
+ * convert.
  */
 export async function convertDocument(
   message: ConvertMessage,
@@ -63,9 +65,9 @@ export async function convertDocument(
     let pages: Record<string, string> | undefined;
     if (pdf) {
       const read = convertPdf(await library(), bytes);
+      pages = pageMetadata(read);
       if (textLayer(read.markdown).characters > 0) {
         text = read.markdown;
-        pages = pageMetadata(read);
         await env.ARCHIVE.put(
           partKey.outline(message.sha256, CONVERTER),
           `${JSON.stringify(withOpenings(text, sectionsOf(read.outline, read.pages)))}\n`,
@@ -74,32 +76,31 @@ export async function convertDocument(
       }
     }
     // A scan converted before was `toMarkdown`'s, and asking it again would only ask it again: what
-    // it wrote stands, and the page reader reads the pages.
-    if (text !== undefined || !unsure) {
-      if (text === undefined) {
-        const blob = new Blob([bytes], { type: message.contentType });
-        const name = new URL(message.url).pathname.split("/").pop() || message.sha256;
-        const result = await env.AI.toMarkdown({ name, blob });
-        const one = Array.isArray(result) ? result[0] : result;
-        if (!one || one.format === "error" || typeof one.data !== "string") {
-          // A scanned manual with no text layer is an answer about the maker's catalogue, not a
-          // failure to retry. It is recorded and the message is done.
-          await env.ARCHIVE.put(
-            partKey.converted(message.manufacturer, message.run, message.sha256),
-            JSON.stringify({ ...message, error: one?.error ?? "the converter returned no text" }),
-            { httpMetadata: { contentType: "application/json" } },
-          );
-          return;
-        }
-        text = one.data;
+    // it wrote stands, written back with its pages counted, and the page reader reads the pages.
+    if (text === undefined && unsure) text = await (await env.ARCHIVE.get(markdown))?.text();
+    if (text === undefined) {
+      const blob = new Blob([bytes], { type: message.contentType });
+      const name = new URL(message.url).pathname.split("/").pop() || message.sha256;
+      const result = await env.AI.toMarkdown({ name, blob });
+      const one = Array.isArray(result) ? result[0] : result;
+      if (!one || one.format === "error" || typeof one.data !== "string") {
+        // A scanned manual with no text layer is an answer about the maker's catalogue, not a
+        // failure to retry. It is recorded and the message is done.
+        await env.ARCHIVE.put(
+          partKey.converted(message.manufacturer, message.run, message.sha256),
+          JSON.stringify({ ...message, error: one?.error ?? "the converter returned no text" }),
+          { httpMetadata: { contentType: "application/json" } },
+        );
+        return;
       }
-      const written = text ?? "";
-      await env.ARCHIVE.put(markdown, written, {
-        httpMetadata: { contentType: "text/markdown" },
-        ...(pages ? { customMetadata: pages } : {}),
-      });
-      size = new TextEncoder().encode(written).length;
+      text = one.data;
     }
+    const written = text ?? "";
+    await env.ARCHIVE.put(markdown, written, {
+      httpMetadata: { contentType: "text/markdown" },
+      ...(pages ? { customMetadata: pages } : {}),
+    });
+    size = new TextEncoder().encode(written).length;
   }
   await env.ARCHIVE.put(
     partKey.converted(message.manufacturer, message.run, message.sha256),

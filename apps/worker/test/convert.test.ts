@@ -104,24 +104,41 @@ test("a conversion that says how many pages it wrote is kept as it is", async ()
   assert.equal(sent.length, 1);
 });
 
-test("a scan converted before is not sent to toMarkdown again", async () => {
+test("a scan converted before is looked at once more, and not sent to toMarkdown again", async () => {
   // What toMarkdown wrote stands, and the page reader reads the pages; asking again asks the same.
+  const scan = "# manual.pdf\n## Contents\n### Page 1\n";
   const { env, calls, sent, text } = withToMarkdown({
     [SOURCE]: tinyPdf([GREY_SCAN]),
-    [MARKDOWN]: "# manual.pdf\n## Contents\n### Page 1\n",
+    [MARKDOWN]: scan,
   });
   await convertDocument(message, env, pdfium);
   assert.equal(calls.length, 0);
-  assert.equal(text(MARKDOWN), "# manual.pdf\n## Contents\n### Page 1\n");
-  assert.equal(sent.length, 1);
+  assert.equal(text(MARKDOWN), scan);
+  assert.deepEqual((await env.ARCHIVE.head(MARKDOWN))?.customMetadata, {
+    pages: "1",
+    converted: "1",
+  });
+
+  // Its pages counted now, it is not looked at again: without them, every convert opened it.
+  await env.ARCHIVE.delete(SOURCE);
+  await convertDocument(message, env, pdfium);
+  assert.equal(text(MARKDOWN), scan);
+  assert.equal(sent.length, 2);
 });
 
-test("a scan converted for the first time goes to toMarkdown, as it did", async () => {
+test("a scan converted for the first time goes to toMarkdown, and counts its pages", async () => {
   const { env, calls, text } = withToMarkdown({ [SOURCE]: tinyPdf([GREY_SCAN]) }, "# A scan\n");
   await convertDocument(message, env, pdfium);
   assert.deepEqual(calls, ["manual.pdf"]);
   assert.equal(text(MARKDOWN), "# A scan\n");
-  assert.deepEqual((await env.ARCHIVE.head(MARKDOWN))?.customMetadata, {});
+  assert.deepEqual((await env.ARCHIVE.head(MARKDOWN))?.customMetadata, {
+    pages: "1",
+    converted: "1",
+  });
+
+  await env.ARCHIVE.delete(SOURCE);
+  await convertDocument(message, env, pdfium);
+  assert.equal(calls.length, 1, "and is not converted again");
 });
 
 test("a document that is not a PDF, converted before, is kept as it is", async () => {
