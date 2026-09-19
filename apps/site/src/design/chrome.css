@@ -1,71 +1,19 @@
-/* Navigation and footer, carrying the same chrome as origin89.com so the dataset reads as part of
- * the product rather than as a separate site. Ported from the website's chrome, with the wordmark
- * qualified by "data". */
-.o89-nav {
-  position: sticky;
-  z-index: 50;
-  top: calc(env(safe-area-inset-top, 0px) + 12px);
-  width: min(100% - 2 * var(--o89-gutter) + 24px, calc(var(--o89-max) + 24px));
-  margin: 12px auto 0;
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  padding: 10px 10px 10px 20px;
-  background: rgb(10 13 17 / 0.8);
-  border: 1px solid rgb(255 255 255 / 0.07);
-  border-radius: 14px;
-  corner-shape: bevel;
-  backdrop-filter: blur(14px) saturate(1.2);
-  -webkit-backdrop-filter: blur(14px) saturate(1.2);
-}
+/* What this site adds to the shared chrome: the wordmark qualified by "data", a Buddy link, the
+ * details menu the bar collapses into, the legal strip under the footer, and which state the
+ * footer dot reports. The bar, the links, the GitHub button and the footer are
+ * @origin89/brand's — the chrome is origin89.com's, and this is the same product. */
+@import "@origin89/brand/tokens/chrome.css";
 .o89-nav-logo {
   display: flex;
   align-items: center;
   gap: 14px;
 }
-.o89-nav-logo img {
-  width: auto;
-  height: 22px;
-}
-/* The dataset is Origin89's, and says so in the technical voice rather than in a second wordmark. */
 .o89-nav-logo span {
   padding-left: 14px;
   border-left: 1px solid var(--color-line-strong);
   font: 13px var(--font-data);
   letter-spacing: 0.08em;
   color: var(--color-muted);
-}
-.o89-nav > nav {
-  display: flex;
-  gap: 22px;
-  margin-right: auto;
-}
-.o89-nav > nav a {
-  color: var(--color-muted);
-  font-size: 14px;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-.o89-nav > nav a:hover,
-.o89-nav > nav a[aria-current="page"] {
-  color: var(--color-fg);
-}
-.o89-nav-github {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  corner-shape: bevel;
-  color: var(--color-muted);
-}
-.o89-nav-github:hover {
-  color: var(--color-fg);
-  background: var(--color-surface-raised);
-}
-.o89-nav-github svg {
-  width: 20px;
-  height: 20px;
 }
 .o89-nav-cta img {
   width: 22px;
@@ -135,58 +83,9 @@
   }
 }
 
-.o89-footer {
-  margin-top: clamp(64px, 8vw, 120px);
-  border-top: 1px solid var(--color-line);
-  padding-block: 64px calc(64px + env(safe-area-inset-bottom, 0px));
-  color: var(--color-muted);
-  font-size: 14px;
-}
-.o89-footer-grid {
-  display: grid;
-  grid-template-columns: 1.3fr repeat(3, 1fr);
-  gap: 40px 24px;
-}
-.o89-footer-brand {
-  display: grid;
-  gap: 16px;
-  align-content: start;
-}
-.o89-footer-brand img {
-  width: auto;
-  height: 28px;
-}
-.o89-footer-brand p {
-  max-width: 36ch;
-  line-height: 1.6;
-}
+/* Green, because this reports a dataset that built and published. */
 .o89-footer-status {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 13px;
-}
-.o89-footer-status i {
-  width: 7px;
-  height: 7px;
-  margin-top: 0.55lh;
-  translate: 0 -50%;
-  border-radius: 50%;
-  background: var(--color-nominal);
-  flex: none;
-}
-.o89-footer nav {
-  display: grid;
-  gap: 10px;
-  align-content: start;
-}
-.o89-footer nav b {
-  color: var(--color-fg);
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-.o89-footer nav a:hover {
-  color: var(--color-fg);
+  --o89-chrome-status: var(--color-nominal);
 }
 
 .o89-footer-legal {
@@ -206,15 +105,6 @@
 .o89-footer-legal .prose {
   font: 13px / 1.6 var(--font-text);
 }
-@media (max-width: 800px) {
-  .o89-footer-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-  .o89-footer-brand {
-    grid-column: 1 / -1;
-  }
-}
-
 /* Touch targets. The footer is where a phone reader is most likely to be aiming with a thumb, and
  * its links were 21px of text separated by a 10px gap. Give each one a row it can be hit in. */
 @media (pointer: coarse) {
