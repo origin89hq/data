@@ -22,6 +22,12 @@ export function pageMetadata(read: Pick<ConvertedPdf, "pages" | "converted">): {
   return { pages: String(read.pages), converted: String(read.converted) };
 }
 
+/** Pages a conversion wrote down, from what it says of itself; none for one that says nothing. */
+export function pagesConverted(metadata: Record<string, string> | undefined): number {
+  const converted = Number(metadata?.converted);
+  return Number.isSafeInteger(converted) ? converted : 0;
+}
+
 /** Pages of a document its conversion did not write down, from what the conversion says of itself. */
 export function pagesUnconverted(metadata: Record<string, string> | undefined): number {
   const pages = Number(metadata?.pages);

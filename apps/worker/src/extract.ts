@@ -1,5 +1,5 @@
 import { answerText } from "./classify.ts";
-import { pagesUnconverted } from "./convert.ts";
+import { pagesConverted, pagesUnconverted } from "./convert.ts";
 import { type DocumentKind, keptKind, leftUnread, sortDocument } from "./gate.ts";
 import type { Section } from "./layout.ts";
 import { makerName } from "./manufacturers.ts";
@@ -40,8 +40,17 @@ export interface ReadWindow {
 interface KeptReading {
   windows: number;
   unread?: number;
+  /** The length of the text it read, so a text that grew inside its last window is seen to. */
+  characters?: number;
   skipped?: DocumentKind;
 }
+
+/**
+ * Pages the converter wrote down before it wrote them all. A reading made then, which does not say
+ * how much text it read, read at most this much of a document; one converted past it since has
+ * grown, even where it gained no window.
+ */
+export const EARLIER_PAGES = 80;
 
 const READER = readerKey(EXTRACTOR_ID);
 const AS_JSON = { httpMetadata: { contentType: "application/json" } };
@@ -89,7 +98,9 @@ export async function readDocument(
   // for. A document the gate left unread is finished whatever the cap.
   const written = await env.ARCHIVE.get(reading);
   const before = written ? await written.json<KeptReading>() : undefined;
-  if (before && (before.skipped !== undefined || before.windows >= cap)) return;
+  if (before?.skipped !== undefined) return;
+  // Stopped at this cap and saying so, it is partial whatever its text holds now.
+  if (before?.unread !== undefined && before.windows >= cap) return;
   const object = await env.ARCHIVE.get(message.key);
   if (!object) {
     if (before) return;
@@ -97,7 +108,15 @@ export async function readDocument(
   }
   const markdown = await object.text();
   const all = chunk(markdown);
-  if (before && before.windows >= all.length) return;
+  // Whether the text is longer than the reading read. A window count alone misses text added
+  // inside the last window, so a reading says how long its text was; one written before readings
+  // said so was read from a conversion that stopped at page 80.
+  const grown =
+    before !== undefined &&
+    (before.characters !== undefined
+      ? markdown.length > before.characters
+      : all.length > before.windows || pagesConverted(object.customMetadata) > EARLIER_PAGES);
+  if (before && !grown && before.windows >= all.length) return;
   // Pages the converter did not write down, which no window can have read.
   const unconverted = pagesUnconverted(object.customMetadata);
   // The document is sorted by kind before any window is read, with a turn of its own. A kind that
@@ -136,10 +155,11 @@ export async function readDocument(
   // One converted before there were outlines has none, and is read as it was.
   const sections = await documentSections(env, message.sha256);
   const kept = await keptWindows(env, message, windows.length);
-  // A reading of the whole of a shorter text ended on that text's last window, cut off where the
-  // text ended. In the longer text the same window runs to its full length, and what it now holds
-  // past the old end can lie before the next window starts, read by neither: so it is read again.
-  // A reading stopped by the cap ended on a full window, and has no such gap.
+  // A reading that got this far without stopping at a cap read the whole of a text that has since
+  // grown. It ended on that text's last window, cut off where the text ended. In the longer text the
+  // same window runs to its full length, and what it now holds past the old end can lie before the
+  // next window starts, read by neither: so it is read again. A reading stopped by the cap ended on
+  // a full window, and has no such gap.
   if (before && before.unread === undefined) kept.delete(before.windows);
   const read: ReadWindow[] = [];
   const unread: string[] = [];
@@ -209,6 +229,7 @@ export async function readDocument(
       products: mergeReports(read.flatMap((w) => w.products)),
       windows: windows.length,
       failed: read.filter((w) => w.failed).length,
+      characters: markdown.length,
       // A document longer than the cap is read as far as the cap, and the reading says how much it
       // left. Without this a reading that stopped looked like one of the whole document, and a
       // manual's specifications went missing with nothing anywhere to say they had been skipped.

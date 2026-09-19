@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { MAX_WINDOWS, type ReadWindow, readDocument } from "../src/extract.ts";
+import { EARLIER_PAGES, MAX_WINDOWS, type ReadWindow, readDocument } from "../src/extract.ts";
 import { gateKey } from "../src/gate.ts";
 import { MAX_DOCUMENT_WAITS, MAX_WAITS } from "../src/pace.ts";
 import {
@@ -585,6 +585,68 @@ test("a whole reading whose text has grown is read on from its last window, whic
     [reading.windows, reading.products.map((p) => p.model)],
     [3, ["S-600", "S-650"]],
   );
+});
+
+/** A reading written whole, of a text `characters` long, with its windows kept beside it. */
+function keptReading(windows: number, extra: Record<string, unknown> = {}): Record<string, string> {
+  const objects: Record<string, string> = {
+    ...SORTED,
+    [readingKey]: `${JSON.stringify({ sha256: SHA, url: message.url, products: [], windows, failed: 0, ...extra })}\n`,
+  };
+  for (let window = 1; window <= windows; window += 1)
+    objects[windowKey(window)] = `${JSON.stringify({ window, products: [] })}\n`;
+  return objects;
+}
+
+test("a text that grew inside its last window is read again there, though it gained no window", async () => {
+  // A window count alone says nothing of text added short of the next window: the reading says how
+  // long its text was, and a longer one is read again from its last window.
+  const short = "### Page 1\nWeight 42 kg\n";
+  const longer = `${short}### Page 2\nWeight 51 kg\n`;
+  assert.equal(chunk(longer).length, 1);
+  const { env, asked, readObject } = world(
+    { ...keptReading(1, { characters: short.length }), [MARKDOWN]: longer },
+    nothing,
+  );
+  await readDocument(message, env, 1);
+  assert.equal(asked.length, 1, "window 1, read again");
+  assert.equal(readObject<Reading & { characters: number }>(readingKey).characters, longer.length);
+});
+
+test("a whole reading of the text it has is left alone before its windows are listed", async () => {
+  const { env, asked, listed } = world(
+    { ...keptReading(3, { characters: SHEET.length }), [MARKDOWN]: SHEET },
+    reader(),
+  );
+  const lists = listed.length;
+  await readDocument(message, env, 1);
+  assert.deepEqual([asked.length, listed.length], [0, lists]);
+});
+
+test("a reading written at the cap without saying so is checked against its text, and marked partial", async () => {
+  // Read to exactly the cap before readings said where they stopped, it looked whole; the longer
+  // text a conversion gave since would have gone unread, and its figures taken back.
+  const { env, asked, readObject } = world({ ...keptReading(2), [MARKDOWN]: SHEET }, reader());
+  await readDocument({ ...message, maxWindows: 2 }, env, 1);
+  assert.equal(asked.length, 1, "window 2, which ended where the shorter text did");
+  const reading = readObject<Reading>(readingKey);
+  assert.deepEqual([reading.windows, reading.unread], [2, 1]);
+});
+
+test("a reading made before readings said their length is read again at its end if its document now runs past page 80", async () => {
+  // Made when the converter stopped at page 80, it read less than a document converted in full
+  // since, even where the pages it gained added no window.
+  assert.equal(EARLIER_PAGES, 80);
+  const past = world({ ...keptReading(3) }, reader());
+  await past.env.ARCHIVE.put(MARKDOWN, SHEET, { customMetadata: { pages: "85", converted: "85" } });
+  await readDocument(message, past.env, 1);
+  assert.equal(past.asked.length, 1, "window 3");
+
+  // A document no longer than eighty pages was read whole then, and is left alone.
+  const within = world({ ...keptReading(3) }, reader());
+  await within.env.ARCHIVE.put(MARKDOWN, SHEET, { customMetadata: { pages: "3", converted: "3" } });
+  await readDocument(message, within.env, 1);
+  assert.equal(within.asked.length, 0);
 });
 
 test("a reading of a document converted only in part says how many pages it never saw", async () => {
