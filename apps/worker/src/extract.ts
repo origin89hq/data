@@ -19,7 +19,7 @@ import {
   TEXT_RESPONSE_SCHEMA,
   type Window,
 } from "./reading.ts";
-import { LAST_ATTEMPT, partKey, readerKey, type Work } from "./work.ts";
+import { LAST_ATTEMPT, MOST_WINDOWS, partKey, readerKey, type Work } from "./work.ts";
 
 /**
  * The text reader: a converted document read for figures a window at a time. Kept out of the queue
@@ -35,12 +35,27 @@ export interface ReadWindow {
   failed?: string;
 }
 
+/** As much of a reading already written as says how far it got. */
+interface KeptReading {
+  windows: number;
+  skipped?: DocumentKind;
+}
+
 const READER = readerKey(EXTRACTOR_ID);
 const AS_JSON = { httpMetadata: { contentType: "application/json" } };
 const reason = (error: unknown): string => (error instanceof Error ? error.message : String(error));
 
-/** Windows a message reads when it does not say, so one long manual cannot spend a run's budget. */
-export const MAX_WINDOWS = 60;
+/**
+ * Windows a message reads when it does not say, so one long manual cannot spend a run's budget.
+ *
+ * As many as one message may ask for. It was sixty, which a manual fitted when it came from
+ * `toMarkdown`. Read from its pages, a manual of ruled tables runs longer: Magnum's MS-PAE manual
+ * went from 35 windows to 119 and prints its specifications in window 105, so sixty read the
+ * installation chapters and stopped before a single rating. A manual keeps its specifications at
+ * the back, which is the part a cap cuts: 49 of wave 2's documents had fitted under sixty before
+ * and did not after.
+ */
+export const MAX_WINDOWS = MOST_WINDOWS;
 
 /**
  * Room for one window's answer. A dense table of several models runs past two thousand tokens, and
@@ -61,13 +76,25 @@ export async function readDocument(
   attempt: number,
 ): Promise<void> {
   const reading = partKey.reading(message.sha256, message.manufacturer, READER);
+  const cap = message.maxWindows ?? MAX_WINDOWS;
   // Reading a document is the expensive step, and both the document and the reading are
   // addressed by content, so a reading that exists is a reading of exactly these bytes by
   // exactly this reader for this maker — whichever of its runs asked for it.
-  if (await env.ARCHIVE.head(reading)) return;
+  //
+  // It is finished unless it stopped at a lower cap than this one. Then it is read on from where
+  // it stopped: its windows are kept beside it and are not read again, so only what the cap left
+  // out is paid for. A document the gate left unread is finished whatever the cap.
+  const written = await env.ARCHIVE.get(reading);
+  const before = written ? await written.json<KeptReading>() : undefined;
+  if (before && (before.skipped !== undefined || before.windows >= cap)) return;
   const object = await env.ARCHIVE.get(message.key);
-  if (!object) throw new Error(`${message.key} is gone`);
+  if (!object) {
+    if (before) return;
+    throw new Error(`${message.key} is gone`);
+  }
   const markdown = await object.text();
+  const all = chunk(markdown);
+  if (before && before.windows >= all.length) return;
   // The document is sorted by kind before any window is read, with a turn of its own. A kind that
   // states no ratings of the maker's products is written down as read with nothing in it, so the
   // run counts it read and the pull clears figures it gave before. A document the gate cannot sort
@@ -98,7 +125,7 @@ export async function readDocument(
     );
     return;
   }
-  const windows = chunk(markdown).slice(0, message.maxWindows ?? MAX_WINDOWS);
+  const windows = all.slice(0, cap);
   // What the document calls the part of itself each window comes from. The section is what tells a
   // recommended wire size from a rated current, and the converter wrote it down beside the document.
   // One converted before there were outlines has none, and is read as it was.
@@ -172,6 +199,10 @@ export async function readDocument(
       products: mergeReports(read.flatMap((w) => w.products)),
       windows: windows.length,
       failed: read.filter((w) => w.failed).length,
+      // A document longer than the cap is read as far as the cap, and the reading says how much it
+      // left. Without this a reading that stopped looked like one of the whole document, and a
+      // manual's specifications went missing with nothing anywhere to say they had been skipped.
+      ...(all.length > windows.length ? { unread: all.length - windows.length } : {}),
     })}\n`,
     AS_JSON,
   );

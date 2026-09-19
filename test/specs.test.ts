@@ -11,6 +11,7 @@ import {
   matchModel,
   mintedWithFigures,
   pullWrites,
+  readInFull,
   sameName,
   specId,
   specsFrom,
@@ -640,6 +641,15 @@ test("a run that read none of the documents the records cite removes nothing", (
   const cited = [figure({ source: "doc-aaaa" }), weight({ source: "doc-bbbb" })];
   assert.deepEqual(staleFigures(cited, rollsRun(["doc-cccc"])), []);
   assert.deepEqual(staleFigures(cited, rollsRun([])), [], "nor does a run with no whole reading");
+});
+
+test("only a reading of the whole document takes figures back: not one refused, cut by a failed window, or stopped at the cap", () => {
+  assert.equal(readInFull({}), true);
+  assert.equal(readInFull({ failed: 0 }), true, "no window failed");
+  assert.equal(readInFull({ refused: "no text layer" }), false);
+  assert.equal(readInFull({ failed: 1 }), false);
+  // Magnum's MS-PAE manual, stopped at window 60 of 119 with its specifications in window 105.
+  assert.equal(readInFull({ unread: 59 }), false);
 });
 
 test("a figure read again, held by a person, or on another maker's model is never stale", () => {
