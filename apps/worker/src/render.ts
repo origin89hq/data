@@ -1,5 +1,5 @@
 import { init, type WrappedPdfiumModule } from "@embedpdf/pdfium";
-import { type Char, type Heading, headingsOn, markdownOf } from "./layout.ts";
+import { type Char, type Heading, headingsOn, markdownOf, type Rule } from "./layout.ts";
 
 /**
  * Drawing a PDF page inside a Worker, which has no canvas.
@@ -13,7 +13,7 @@ import { type Char, type Heading, headingsOn, markdownOf } from "./layout.ts";
  * with the same binary the Worker runs.
  */
 export type Pdfium = WrappedPdfiumModule;
-export type { Char, Heading };
+export type { Char, Heading, Rule };
 
 /** Pixels on the long edge of a drawn page: small type in a spec table stays legible to the model. */
 export const LONG_EDGE = 1600;
@@ -318,14 +318,22 @@ function picturesOfPage(pdfium: Pdfium, document: number, page: number): number 
 }
 
 /**
- * Where a page rules its table: the x of every line drawn down it, in points.
+ * Where a page rules its table: every line drawn down it, where it stands and how far it runs, in
+ * points.
  *
  * A ruled table says where its columns are, and reading them from the rules is exact where reading
  * them from the text is a guess. It is also the only way to see a cell drawn across two columns:
  * EPEVER's specification table merges XTRA1206N and XTRA2206N into one cell, and placed under one
  * of them the other model took the value of the model after it.
+ *
+ * How far a line runs is kept, because where it stands is not enough to tell a table's rule from
+ * anything else drawn thin and upright. A table draws its rule down the whole table, or a piece a
+ * row, the pieces meeting end to end; they are joined here into the line they draw. A letter drawn
+ * as a shape rather than as text has upright strokes too, each as tall as the letter: Victron's
+ * off-grid booklet has 57 of them on one page, and taken for rules they cut every sentence on it
+ * into as many columns, the same words written into each.
  */
-export function rulesOn(pdfium: Pdfium, bytes: Uint8Array, page: number): number[] {
+export function rulesOn(pdfium: Pdfium, bytes: Uint8Array, page: number): Rule[] {
   return opened(
     pdfium,
     bytes,
@@ -335,13 +343,13 @@ export function rulesOn(pdfium: Pdfium, bytes: Uint8Array, page: number): number
 }
 
 /** `rulesOn` for a page of a document already open. */
-function rulesOfPage(pdfium: Pdfium, document: number, page: number): number[] {
+function rulesOfPage(pdfium: Pdfium, document: number, page: number): Rule[] {
   const loaded = pdfium.FPDF_LoadPage(document, page - 1);
   if (!loaded) return [];
   const box = pdfium.pdfium.wasmExports.malloc(4 * 4);
   try {
     if (!box) return [];
-    const down: number[] = [];
+    const pieces: Rule[] = [];
     for (let i = 0; i < pdfium.FPDFPage_CountObjects(loaded); i += 1) {
       const object = pdfium.FPDFPage_GetObject(loaded, i);
       // 2 is a path: the lines a table is ruled with, among whatever else is drawn.
@@ -352,18 +360,54 @@ function rulesOfPage(pdfium: Pdfium, document: number, page: number): number[] {
       if (left === undefined || bottom === undefined || right === undefined || top === undefined)
         continue;
       // A rule down the page is thin and long; a box, an arrow or a logo is neither.
-      if (right - left < RULE_THIN && top - bottom > RULE_LONG) down.push((left + right) / 2);
+      if (right - left < RULE_THIN && top - bottom > RULE_LONG)
+        pieces.push({ x: (left + right) / 2, bottom, top });
     }
-    return down.sort((a, b) => a - b);
+    return joined(pieces);
   } finally {
     if (box) pdfium.pdfium.wasmExports.free(box);
     pdfium.FPDF_ClosePage(loaded);
   }
 }
 
+/**
+ * Pieces of one line joined into the line: the same x, each starting where the last one ended. A
+ * table drawn a row at a time is ruled in pieces a row tall, and each on its own is no taller than
+ * the letters beside it.
+ */
+export function joined(pieces: readonly Rule[]): Rule[] {
+  // Across first, then down: pieces a hair apart across are one line, whatever order they come in,
+  // and down it each joins the one before only where the two meet. Taken in one pass sorted across,
+  // a piece drawn a fraction left of the one above it came second, joined it, and its own height was
+  // lost: the rule was gone from the rows it had divided.
+  const across: Rule[][] = [];
+  for (const piece of [...pieces].sort((a, b) => a.x - b.x)) {
+    const group = across.at(-1);
+    if (group && piece.x - (group[0]?.x ?? piece.x) <= SAME_X) group.push(piece);
+    else across.push([piece]);
+  }
+  const lines: Rule[] = [];
+  for (const group of across) {
+    let line: Rule | undefined;
+    for (const piece of group.sort((a, b) => a.bottom - b.bottom)) {
+      if (line && piece.bottom <= line.top + MEETS) {
+        line.top = Math.max(line.top, piece.top);
+        continue;
+      }
+      line = { ...piece };
+      lines.push(line);
+    }
+  }
+  return lines;
+}
+
 /** How thin a drawn line must be to be a rule, and how long, in points. */
 const RULE_THIN = 2;
 const RULE_LONG = 5;
+
+/** Two pieces are one line when they stand this close across and meet this close end to end. */
+const SAME_X = 1;
+const MEETS = 2;
 
 /** How finely a page is divided to measure what its pictures cover between them. */
 const GRID = 64;

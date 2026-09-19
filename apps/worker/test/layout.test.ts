@@ -13,6 +13,7 @@ import { SYSTEM, textLayer } from "../src/reading.ts";
 import {
   charsOn,
   convertPdf,
+  joined,
   MOST_TEXT_PAGES,
   MOSTLY_DRAWN,
   markdownOfDocument,
@@ -286,7 +287,7 @@ test("where a page rules its table, a cell drawn across two columns says its val
   const library = await pdfium();
   const rules = rulesOn(library, pdf, 1);
   assert.deepEqual(
-    rules.map((r) => Math.round(r)),
+    rules.map((r) => Math.round(r.x)),
     [100, 200],
   );
   const markdown = markdownOf(charsOn(library, pdf, 1), rules);
@@ -294,6 +295,306 @@ test("where a page rules its table, a cell drawn across two columns says its val
   assert.match(markdown, /\| Capacity \| 100 Ah \| 120 Ah \|/, markdown);
 });
 
+/** A page's markdown as the converter writes it, rules and all. */
+async function ruledPage(page: Placed[], rules: (number | [number, number, number])[]) {
+  const library = await pdfium();
+  const pdf = writtenPdf([page], 300, 200, [], [rules]);
+  return markdownOf(charsOn(library, pdf, 1), rulesOn(library, pdf, 1));
+}
+
+/** How many times a piece of text is written. */
+const times = (markdown: string, text: string): number => markdown.split(text).length - 1;
+
+/** A table of two models between rules at 100 and 200, from y 100 to 165. */
+const MODELS: Placed[] = [
+  { text: "Model", x: 20, y: 150 },
+  { text: "S-550", x: 110, y: 150 },
+  { text: "S-600", x: 210, y: 150 },
+  { text: "Weight", x: 20, y: 130 },
+  { text: "42 kg", x: 186, y: 130 },
+  { text: "Capacity", x: 20, y: 110 },
+  { text: "100 Ah", x: 110, y: 110 },
+  { text: "120 Ah", x: 210, y: 110 },
+];
+
+test("pieces of one line drawn end to end are the line they draw", () => {
+  assert.deepEqual(
+    joined([
+      { x: 100, bottom: 20, top: 40 },
+      { x: 100.4, bottom: 41, top: 60 },
+      { x: 100, bottom: 90, top: 100 },
+      { x: 200, bottom: 20, top: 40 },
+    ]).map((r) => [Math.round(r.x), r.bottom, r.top]),
+    [
+      [100, 20, 60],
+      [100, 90, 100],
+      [200, 20, 40],
+    ],
+  );
+  assert.deepEqual(joined([]), []);
+  // A piece drawn a fraction left of the one above it is still its own height of the line.
+  assert.deepEqual(
+    joined([
+      { x: 100.4, bottom: 20, top: 40 },
+      { x: 100, bottom: 90, top: 100 },
+    ]).map((r) => [r.bottom, r.top]),
+    [
+      [20, 40],
+      [90, 100],
+    ],
+  );
+});
+
+test("a table ruled a row at a time is read by the lines its pieces draw", async () => {
+  const library = await pdfium();
+  const pdf = writtenPdf(
+    [[{ text: "Model", x: 20, y: 150 }]],
+    300,
+    200,
+    [],
+    [
+      [
+        [100, 20, 40],
+        [100, 40, 60],
+        [100, 90, 100],
+      ],
+    ],
+  );
+  // Within the width of the stroke: PDFium's bounds take in the line's ends.
+  const near = (a: number, b: number) => Math.abs(a - b) <= 1.5;
+  const rules = rulesOn(library, pdf, 1);
+  assert.equal(rules.length, 2, JSON.stringify(rules));
+  for (const [rule, [x, bottom, top]] of rules.map(
+    (r, i) =>
+      [
+        r,
+        [
+          [100, 20, 60],
+          [100, 90, 100],
+        ][i],
+      ] as const,
+  ))
+    assert.ok(
+      near(rule.x, x ?? 0) && near(rule.bottom, bottom ?? 0) && near(rule.top, top ?? 0),
+      JSON.stringify(rules),
+    );
+});
+
+test("the strokes of letters drawn as shapes are not a table's rules", async () => {
+  // Victron's off-grid booklet draws some letters as shapes: 57 upright strokes on one page, each
+  // as tall as a letter. Taken for rules, they cut every sentence on the page into columns and
+  // wrote it into each: one of its sentences 14 times.
+  const sentence = "Read the manual before you install the inverter";
+  const lines = [170, 150, 130, 110];
+  const markdown = await ruledPage(
+    lines.map((y) => ({ text: sentence, x: 20, y })),
+    lines.flatMap((y) =>
+      [60, 110, 160, 210].map((x): [number, number, number] => [x, y - 1, y + 6]),
+    ),
+  );
+  assert.equal(times(markdown, sentence), 4, markdown);
+  assert.ok(!markdown.includes("|"), markdown);
+});
+
+test("a sentence above a ruled table is written once, and the table's shared cell under both columns", async () => {
+  // Across one of the table's rules and not the other: a line as wide as the table is said once
+  // whatever the rules, so only a narrower one shows whether the rules reach it.
+  const sentence = "Read this manual first.";
+  const markdown = await ruledPage(
+    [{ text: sentence, x: 20, y: 185 }, ...MODELS],
+    [
+      [100, 100, 165],
+      [200, 100, 165],
+    ],
+  );
+  assert.equal(times(markdown, sentence), 1, markdown);
+  assert.match(markdown, /\| Weight \| 42 kg \| 42 kg \|/, markdown);
+});
+
+test("a rule broken to the foot of its table still divides the rows under it", async () => {
+  // EPEVER's rule between XTRA1206N and XTRA2206N stops above its last rows, where the two share
+  // their static losses in one cell. Taken as only as tall as it is drawn, the shared value was left
+  // under the first model alone.
+  const markdown = await ruledPage(
+    [
+      { text: "Model", x: 20, y: 150 },
+      { text: "S-550", x: 110, y: 150 },
+      { text: "S-600", x: 210, y: 150 },
+      { text: "Weight", x: 20, y: 130 },
+      { text: "42 kg", x: 110, y: 130 },
+      { text: "51 kg", x: 210, y: 130 },
+      { text: "Capacity", x: 20, y: 110 },
+      { text: "100 Ah", x: 186, y: 110 },
+    ],
+    [
+      [100, 100, 165],
+      [200, 125, 165],
+    ],
+  );
+  assert.match(markdown, /\| Capacity \| 100 Ah \| 100 Ah \|/, markdown);
+});
+
+test("the sides of boxes are not a table's rules, and do not make two boxes one table", async () => {
+  // A Rolls installation guide boxes its reference documents at the top of a page and a table at
+  // the foot, and draws the sides of both as one line down the page. Taken for rules, the sides made
+  // the page one table, and the sentence between the boxes was written into its columns.
+  const sentence = "Refer to the manufacturer for the latest documents.";
+  const markdown = await ruledPage(
+    [
+      { text: "Victron docs", x: 20, y: 188 },
+      { text: "Rolls docs", x: 160, y: 188 },
+      { text: "Manual", x: 20, y: 177 },
+      { text: "Datasheet", x: 160, y: 177 },
+      { text: sentence, x: 20, y: 160 },
+      { text: "Weight", x: 20, y: 130 },
+      { text: "42 kg", x: 110, y: 130 },
+      { text: "51 kg", x: 210, y: 130 },
+      { text: "Capacity", x: 20, y: 110 },
+      { text: "100 Ah", x: 110, y: 110 },
+      { text: "120 Ah", x: 210, y: 110 },
+    ],
+    [
+      [15, 100, 198],
+      [285, 100, 198],
+      [150, 172, 198],
+      [100, 100, 145],
+      [200, 100, 145],
+    ],
+  );
+  assert.equal(times(markdown, sentence), 1, markdown);
+  for (const value of ["42 kg", "51 kg", "100 Ah", "120 Ah"])
+    assert.equal(times(markdown, value), 1, markdown);
+});
+
+test("two tables ruled at the same edge divide only their own rows, not the page between them", async () => {
+  // Rules two points apart across, in two tables one above the other, are one edge of the page,
+  // but each divides its own table: the sentence between the tables is in neither.
+  const sentence = "See the notes below.";
+  const markdown = await ruledPage(
+    [
+      { text: "Model", x: 20, y: 170 },
+      { text: "S-550", x: 110, y: 170 },
+      { text: "S-600", x: 210, y: 170 },
+      { text: "Weight", x: 20, y: 160 },
+      { text: "42 kg", x: 110, y: 160 },
+      { text: "51 kg", x: 210, y: 160 },
+      // Shared by both models of the upper table, across its own rule at 200.
+      { text: "Colour", x: 20, y: 150 },
+      { text: "grey", x: 190, y: 150 },
+      { text: sentence, x: 20, y: 130 },
+      { text: "Input", x: 20, y: 105 },
+      { text: "12 V", x: 110, y: 105 },
+      { text: "24 V", x: 210, y: 105 },
+      { text: "Output", x: 20, y: 90 },
+      { text: "120 V", x: 110, y: 90 },
+      { text: "230 V", x: 210, y: 90 },
+      // Shared by both models of the lower table, across its own rule at 202.
+      { text: "Phase", x: 20, y: 75 },
+      { text: "single", x: 186, y: 75 },
+    ],
+    [
+      [100, 145, 180],
+      [200, 145, 180],
+      [102, 70, 116],
+      [202, 70, 116],
+    ],
+  );
+  assert.equal(times(markdown, sentence), 1, markdown);
+  assert.match(markdown, /\| Colour \| grey \| grey \|/, markdown);
+  assert.match(markdown, /\| Phase \| single \| single \|/, markdown);
+});
+
+test("a caption across its own table is written once, whatever another table on the page rules", async () => {
+  // The page's columns are every table's rules together. A caption across one table crosses that
+  // table's rules and some of the other's edges, but not every column of the page.
+  const caption = "All values measured at 25 degrees C, 50 Hz.";
+  const markdown = await ruledPage(
+    [
+      { text: "Model", x: 20, y: 175 },
+      { text: "S-550", x: 110, y: 175 },
+      { text: "S-600", x: 210, y: 175 },
+      { text: "Weight", x: 20, y: 165 },
+      { text: "42 kg", x: 110, y: 165 },
+      { text: "51 kg", x: 210, y: 165 },
+      { text: caption, x: 80, y: 155 },
+      { text: "In", x: 20, y: 110 },
+      { text: "12 V", x: 60, y: 110 },
+      { text: "24 V", x: 160, y: 110 },
+      { text: "Out", x: 20, y: 100 },
+      { text: "120 V", x: 60, y: 100 },
+      { text: "230 V", x: 160, y: 100 },
+    ],
+    [
+      [100, 150, 182],
+      [200, 150, 182],
+      [50, 95, 118],
+      [150, 95, 118],
+    ],
+  );
+  assert.equal(times(markdown, caption), 1, markdown);
+});
+
+test("a note as wide as its table is written once, not into each column", async () => {
+  const note = "Values measured at 25 degrees C unless stated.";
+  const markdown = await ruledPage(
+    [...MODELS, { text: note, x: 20, y: 95 }],
+    [
+      [100, 88, 165],
+      [200, 88, 165],
+    ],
+  );
+  assert.equal(times(markdown, note), 1, markdown);
+  assert.match(markdown, /\| Capacity \| 100 Ah \| 120 Ah \|/, markdown);
+});
+
+test("a rule drawn only on the rows it divides still opens its column", async () => {
+  // OutBack's FLEXmax settings divide their 24, 36 and 48 volt columns only on the rows that set a
+  // value for each: pieces a row tall, a third taller than the letters beside them.
+  const markdown = await ruledPage(
+    [
+      { text: "Low battery", x: 20, y: 150 },
+      { text: "23.0 Vdc", x: 110, y: 150 },
+      { text: "34.5 Vdc", x: 210, y: 150 },
+      { text: "Range", x: 20, y: 130 },
+      { text: "20 to 68 Vdc", x: 110, y: 130 },
+      { text: "High battery", x: 20, y: 110 },
+      { text: "28.0 Vdc", x: 110, y: 110 },
+      { text: "42.0 Vdc", x: 210, y: 110 },
+    ],
+    [
+      [100, 95, 165],
+      [200, 146, 158],
+      [200, 106, 118],
+    ],
+  );
+  assert.match(markdown, /\| Low battery \| 23\.0 Vdc \| 34\.5 Vdc \|/, markdown);
+  assert.match(markdown, /\| High battery \| 28\.0 Vdc \| 42\.0 Vdc \|/, markdown);
+});
+
+test("short upright marks level with the text are not rules, even where text stands either side", async () => {
+  // Letters drawn as shapes at the same place on each line of a table: text stands on both sides of
+  // them, as it does of a rule, but none is taller than the letters. Taken for rules, they cut the
+  // note under the table into two columns and wrote it into both.
+  const note = "See page 12 for the wiring.";
+  const rows = [160, 140, 120, 100];
+  const markdown = await ruledPage(
+    [
+      { text: "Model", x: 20, y: 160 },
+      { text: "S-550", x: 110, y: 160 },
+      { text: "S-600", x: 210, y: 160 },
+      { text: "Weight", x: 20, y: 140 },
+      { text: "42 kg", x: 110, y: 140 },
+      { text: "51 kg", x: 210, y: 140 },
+      { text: "Capacity", x: 20, y: 120 },
+      { text: "100 Ah", x: 110, y: 120 },
+      { text: "120 Ah", x: 210, y: 120 },
+      { text: note, x: 20, y: 100 },
+    ],
+    rows.flatMap((y) => [100, 200].map((x): [number, number, number] => [x, y - 1, y + 5])),
+  );
+  assert.equal(times(markdown, note), 1, markdown);
+  assert.match(markdown, /\| Weight \| 42 kg \| 51 kg \|/, markdown);
+});
 test("a page that is mostly a picture is marked, so its labels are read as labels", async () => {
   // EPEVER's appendix gives an efficiency curve a page at a time, headed with the conditions it was
   // measured at — "Solar Module MPP Voltage (17V, 34V)/Nominal System Voltage (13V)". Read as a

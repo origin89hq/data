@@ -25,6 +25,13 @@ export interface Char {
   size?: number;
 }
 
+/** A line drawn down a page: where it stands, and the height it runs between, in points. */
+export interface Rule {
+  x: number;
+  bottom: number;
+  top: number;
+}
+
 /** A run of characters with no gap wide enough to be a column: one cell of one row. */
 export interface Cell {
   text: string;
@@ -320,19 +327,43 @@ export function columnsOf(rows: readonly Row[], leastRows = LEAST_ROWS): number[
   return merged.map((column) => column.at);
 }
 
-/** Each row's cells put under the column they start at, as text. */
+/**
+ * A column a page's rules give: its left edge, and the heights it divides — the tables with a rule
+ * at that edge, each from the lowest piece of its rules to the highest, gaps and all. A rule stops
+ * where a cell is drawn across it, and that cell is still in the table. Two tables on a page can
+ * rule a column at the same edge; the page between them is in neither.
+ */
+export interface RuledColumn {
+  at: number;
+  spans: { bottom: number; top: number }[];
+}
+
+/**
+ * Each row's cells put under the column they start at, as text.
+ *
+ * Where the columns are a page's rules, a cell belongs to every column its text stands in, but only
+ * across a rule that runs past its row. EPEVER merges XTRA1206N and XTRA2206N into one cell for the
+ * figures they share, and under one of them alone the other model took the value of the model after
+ * it. A line of text above the table crosses nothing of the table's, and split at every upright
+ * line on its page, one sentence of Victron's booklet was written into 14 columns. And a cell
+ * across every rule of its row's table is a note or a caption across it, said once, not a value of
+ * each of its columns; the page's other tables have rules of their own, at other edges.
+ */
 export function gridOf(
   rows: readonly Row[],
   columns: readonly number[],
-  ruled = false,
+  ruled?: readonly RuledColumn[],
 ): string[][] {
   return rows.map((row) => {
     const line = columns.map(() => "");
+    const middle = (row.top + row.bottom) / 2;
+    const runsPast = (i: number): boolean =>
+      !ruled?.[i] ||
+      (ruled[i]?.spans.some((span) => middle >= span.bottom - PAST && middle <= span.top + PAST) ??
+        false);
+    // The rules of this row's table: where a new column opens on this row.
+    const active = ruled ? columns.map((_, i) => i).filter((i) => i > 0 && runsPast(i)) : [];
     for (const cell of row.cells) {
-      // Where a page rules its table, a cell belongs to every column its text stands in: nothing
-      // crosses a rule but a cell drawn across it, and such a cell says its value for both columns.
-      // EPEVER merges XTRA1206N and XTRA2206N for the figures they share, and under one of them
-      // alone the other model took the value of the model after it.
       const across = ruled
         ? columns
             .map((from, i) => ({ i, to: columns[i + 1] ?? Number.POSITIVE_INFINITY, from }))
@@ -342,7 +373,10 @@ export function gridOf(
             .map(({ i }) => i)
         : [];
       if (across.length > 0) {
-        for (const i of across) line[i] = line[i] ? `${line[i]} ${cell.text}` : cell.text;
+        // A new column only where the rule opening it runs past this row; else still the last one.
+        const split = across.filter((i, k) => k === 0 || runsPast(i));
+        const into = split.length - 1 === active.length ? split.slice(0, 1) : split;
+        for (const i of into) line[i] = line[i] ? `${line[i]} ${cell.text}` : cell.text;
         continue;
       }
       let best = 0;
@@ -358,6 +392,21 @@ export function gridOf(
 
 /** How far into a column a cell must stand to be in it, so a hair over a rule is not two cells. */
 const CROSSES = 1.5;
+
+/** How far past a rule's end a row may stand and still be beside it, in points. */
+const PAST = 2;
+
+/**
+ * How much taller than a line of text one piece of a rule must be to be a table's. A table's rule
+ * runs the height of a row at least, the text in it and the space above and below; a letter drawn
+ * as a shape has upright strokes no taller than itself. On Victron's page the strokes are 5 and 6
+ * points beside lines of 7 and 8. OutBack's FLEXmax settings rule their 24, 36 and 48 volt columns
+ * only on the rows that set a value for each, a piece a row tall: 10 to 13 points beside lines of 7.
+ */
+const RULE_LINE = 1.3;
+
+/** How many rows beside a rule must start a cell in the column it opens for it to be a table's. */
+const HOLDS = 2;
 
 /** A quarter turn, to the nearest one: 0 along the page, 1 up the side, 2 upside down, 3 down it. */
 function quarterTurn(char: Char): number {
@@ -389,17 +438,73 @@ const escaped = (text: string): string => text.replace(/\|/g, "\\|");
  * table with one cell a row, and reading them as one would put a pipe through every sentence.
  */
 /**
- * The columns a page's own rules give, as the left edge of each: what stands left of the first rule
- * is a column, and each rule opens another. Two rules a hair apart are one line drawn twice.
+ * The columns a page's own rules give: what stands left of the first rule is a column, and each
+ * rule opens another. Two rules a hair apart are one line drawn twice.
+ *
+ * A rule is a table's only if one piece of it is taller than a line of text (`RULE_LINE`); what is
+ * drawn upright and shorter is the stroke of a letter, or a tick. And only if it stands between
+ * text: on `HOLDS` rows beside it a cell starts left of it, and on as many a cell starts in the
+ * column it opens. A box's sides have text on one side only, and taken for columns, the sides of
+ * two boxes on one of Rolls's pages joined them into one table the height of the page, and every
+ * sentence between them became a row of it.
  */
-export function columnsFromRules(rules: readonly number[], leftmost: number): number[] {
-  const apart: number[] = [];
-  for (const rule of [...rules].sort((a, b) => a - b))
-    if (apart.length === 0 || rule - (apart.at(-1) ?? 0) > 3) apart.push(rule);
-  return [leftmost, ...apart.filter((rule) => rule > leftmost + 3)];
+export function columnsFromRules(rules: readonly Rule[], rows: readonly Row[]): RuledColumn[] {
+  const leftmost = Math.min(...rows.flatMap((row) => row.cells.map((cell) => cell.left)), 0);
+  const line = median(rows.map((row) => row.top - row.bottom).filter((height) => height > 0));
+  const long = rules
+    .filter((rule) => rule.x > leftmost + 3 && rule.top - rule.bottom >= RULE_LINE * line)
+    .sort((a, b) => a.x - b.x);
+  // Rules a hair apart across stand at one edge, and whether text stands either side of an edge is
+  // judged over all its rules together: a rule drawn only on the rows it divides is a row tall.
+  const edges: Rule[][] = [];
+  for (const rule of long) {
+    const edge = edges.at(-1);
+    if (edge && rule.x - (edge[0]?.x ?? rule.x) <= 3) edge.push(rule);
+    else edges.push([rule]);
+  }
+  const standing = edges
+    .filter((edge, i) => {
+      const at = edge[0]?.x ?? 0;
+      const to = edges[i + 1]?.[0]?.x ?? Number.POSITIVE_INFINITY;
+      const beside = rows.filter((row) => {
+        const middle = (row.top + row.bottom) / 2;
+        return edge.some((rule) => middle >= rule.bottom - PAST && middle <= rule.top + PAST);
+      });
+      const left = beside.filter((row) => row.cells.some((cell) => cell.left < at - PAST));
+      const right = beside.filter((row) =>
+        row.cells.some((cell) => cell.left >= at - PAST && cell.left < to),
+      );
+      return left.length >= HOLDS && right.length >= HOLDS;
+    })
+    .flat();
+  // A rule runs past the rows of the whole table it belongs to, not only the rows it is drawn
+  // beside: a rule broken for a cell drawn across it can stay broken to the table's foot, as
+  // EPEVER's does under its last rows, where XTRA1206N and XTRA2206N share their static losses.
+  // Rules whose heights meet are one table, however many meet through one another.
+  const tables: { bottom: number; top: number; rules: Rule[] }[] = [];
+  for (const rule of [...standing].sort((a, b) => a.bottom - b.bottom)) {
+    const table = tables.at(-1);
+    if (table && rule.bottom <= table.top + PAST) {
+      table.top = Math.max(table.top, rule.top);
+      table.rules.push(rule);
+    } else tables.push({ bottom: rule.bottom, top: rule.top, rules: [rule] });
+  }
+  const columns: RuledColumn[] = [];
+  for (const table of tables)
+    for (const rule of table.rules) {
+      const column = columns.find((c) => Math.abs(c.at - rule.x) <= 3);
+      const span = { bottom: table.bottom, top: table.top };
+      if (!column) columns.push({ at: rule.x, spans: [span] });
+      else if (!column.spans.some((s) => s.bottom === span.bottom && s.top === span.top))
+        column.spans.push(span);
+    }
+  return [
+    { at: leftmost, spans: [{ bottom: Number.NEGATIVE_INFINITY, top: Number.POSITIVE_INFINITY }] },
+    ...columns.sort((a, b) => a.at - b.at),
+  ];
 }
 
-export function markdownOf(chars: readonly Char[], rules: readonly number[] = []): string {
+export function markdownOf(chars: readonly Char[], rules: readonly Rule[] = []): string {
   const facing = new Map<number, Char[]>();
   for (const char of chars) {
     const turn = quarterTurn(char);
@@ -418,10 +523,10 @@ export function markdownOf(chars: readonly Char[], rules: readonly number[] = []
   }
   const rows = rowsOf([...facing.values()][0] ?? []);
   // A ruled table says where its columns are; an unruled one is read from where its text sits.
-  const leftmost = Math.min(...rows.flatMap((row) => row.cells.map((cell) => cell.left)), 0);
-  const ruled = rules.length >= 2 ? columnsFromRules(rules, leftmost) : [];
-  const columns = ruled.length >= 2 ? ruled : columnsOf(rows);
-  const grid = columns.length < 2 ? [] : gridOf(rows, columns, ruled.length >= 2);
+  const ruled = rules.length >= 2 ? columnsFromRules(rules, rows) : [];
+  const columns = ruled.length >= 2 ? ruled.map((column) => column.at) : columnsOf(rows);
+  const grid =
+    columns.length < 2 ? [] : gridOf(rows, columns, ruled.length >= 2 ? ruled : undefined);
   // A page is a table when enough of its lines fill more than one column. A paragraph indented here
   // and there fills a second column on a line or two, and written as a table it is mostly pipes: an
   // EPEVER installation page came out as twelve columns of nothing around its sentences.

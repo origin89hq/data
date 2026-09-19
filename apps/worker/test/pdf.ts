@@ -51,14 +51,22 @@ export function writtenPdf(
   height = 200,
   /** How much of each page a picture covers, for a page a document draws rather than tabulates. */
   drawn: number[] = [],
-  /** Where each page rules its table, as the x of a line drawn down it. */
-  rules: number[][] = [],
+  /**
+   * Where each page rules its table: the x of a line drawn down it, or [x, bottom, top] for a piece
+   * drawn between two heights.
+   */
+  rules: (number | [number, number, number])[][] = [],
   /** Pictures placed on each page, as [x, y, width, height] in points, to overlap or hang off it. */
   pictures: [number, number, number, number][][] = [],
 ): Uint8Array {
   const streams = pages.map(
     (page, i) =>
-      (rules[i] ?? []).map((x) => `q 0.5 w ${x} 10 m ${x} ${height - 10} l S Q\n`).join("") +
+      (rules[i] ?? [])
+        .map((rule) => {
+          const [x, bottom, top] = typeof rule === "number" ? [rule, 10, height - 10] : rule;
+          return `q 0.5 w ${x} ${bottom} m ${x} ${top} l S Q\n`;
+        })
+        .join("") +
       (pictures[i] ?? [])
         .map(
           ([x, y, w, h]) =>
