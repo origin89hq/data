@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { type ReadWindow, readDocument } from "../src/extract.ts";
+import { MAX_WINDOWS, type ReadWindow, readDocument } from "../src/extract.ts";
 import { gateKey } from "../src/gate.ts";
 import { MAX_DOCUMENT_WAITS, MAX_WAITS } from "../src/pace.ts";
 import {
@@ -23,7 +23,7 @@ import {
   statesOneFigure,
   TEXT_RESPONSE_SCHEMA,
 } from "../src/reading.ts";
-import { LAST_ATTEMPT, partKey, readerKey } from "../src/work.ts";
+import { LAST_ATTEMPT, MOST_WINDOWS, partKey, readerKey } from "../src/work.ts";
 import { type TestAiInput, world } from "./world.ts";
 
 test("a short document is one window, and an empty one is none", () => {
@@ -253,6 +253,7 @@ interface Reading {
   products: Reported[];
   windows: number;
   failed: number;
+  unread?: number;
 }
 
 /**
@@ -475,6 +476,92 @@ test("more windows kept than one listing returns are all found, so only the miss
   await readDocument({ ...message, maxWindows: count }, env, 1);
   assert.equal(asked.length, 1, "window 1,002 alone");
   assert.equal(readObject<Reading>(readingKey).windows, count);
+});
+
+/** A model that finds nothing, for the tests that count windows rather than read them. */
+const nothing = () => ({ response: JSON.stringify({ products: [] }) });
+
+test("a manual past sixty windows is read to the end, where it prints its specifications", async () => {
+  // Magnum's MS-PAE manual, read from its pages: 119 windows, its specifications in window 105.
+  // A cap of sixty read the installation chapters and stopped before a single rating.
+  const manual = "x".repeat(5400 * 118 + 6000);
+  const count = chunk(manual).length;
+  assert.equal(count, 119);
+  const { env, asked, readObject } = world({ ...SORTED, [MARKDOWN]: manual }, nothing);
+  await readDocument(message, env, 1);
+  assert.equal(asked.length, count);
+  const reading = readObject<Reading>(readingKey);
+  assert.deepEqual([reading.windows, reading.unread], [count, undefined]);
+});
+
+test("a document past the cap is read as far as it, and its reading says how much it left", async () => {
+  assert.equal(MAX_WINDOWS, MOST_WINDOWS, "as many as one message may ask for");
+  const long = "x".repeat(5400 * (MAX_WINDOWS + 4) + 6000);
+  const count = chunk(long).length;
+  const { env, asked, listed, readObject } = world({ ...SORTED, [MARKDOWN]: long }, nothing);
+  await readDocument(message, env, 1);
+  assert.equal(asked.length, MAX_WINDOWS);
+  const reading = readObject<Reading>(readingKey);
+  assert.deepEqual([reading.windows, reading.unread], [MAX_WINDOWS, count - MAX_WINDOWS]);
+
+  // Read again under the same cap, it is left alone before its windows are so much as listed: a
+  // queue batch lists every kept window of every message in it, and three of these would be 450.
+  const lists = listed.length;
+  await readDocument(message, env, 1);
+  assert.equal(asked.length, MAX_WINDOWS);
+  assert.equal(listed.length, lists, "its kept windows are not listed");
+});
+
+test("a reading cut short by a lower cap is read on where it stopped, and only what it left is paid for", async () => {
+  const { env, asked, listed, readObject } = world({ ...SORTED, [MARKDOWN]: SHEET }, reader());
+  await readDocument({ ...message, maxWindows: 2 }, env, 1);
+  assert.equal(asked.length, 2);
+  const cut = readObject<Reading>(readingKey);
+  assert.deepEqual([cut.windows, cut.unread], [2, 1]);
+
+  await readDocument(message, env, 1);
+  assert.equal(asked.length, 3, "window 3 alone: the two before it are kept, not read again");
+  const whole = readObject<Reading>(readingKey);
+  assert.deepEqual([whole.windows, whole.unread], [3, undefined]);
+  assert.deepEqual(
+    whole.products.map((p) => p.model),
+    ["S-550", "S-600", "S-650"],
+  );
+
+  // Whole now, it is left alone before its windows are listed, though it is under the cap.
+  const lists = listed.length;
+  await readDocument(message, env, 1);
+  assert.equal(asked.length, 3);
+  assert.equal(listed.length, lists, "a whole reading's windows are not listed");
+});
+
+test("a document the gate left unread stays unread when the cap rises", async () => {
+  const left = {
+    sha256: SHA,
+    url: message.url,
+    products: [],
+    windows: 0,
+    failed: 0,
+    skipped: { kind: "installation", ownRatings: false, reason: "An installation guide." },
+  };
+  const { env, asked, readObject } = world(
+    { ...SORTED, [MARKDOWN]: SHEET, [readingKey]: `${JSON.stringify(left)}\n` },
+    reader(),
+  );
+  await readDocument(message, env, 1);
+  assert.equal(asked.length, 0);
+  assert.deepEqual(readObject<typeof left>(readingKey), left);
+});
+
+test("a reading whose converted text is gone stands, rather than failing its message", async () => {
+  const cut = { sha256: SHA, url: message.url, products: [], windows: 2, failed: 0, unread: 1 };
+  const { env, asked, readObject } = world(
+    { ...SORTED, [readingKey]: `${JSON.stringify(cut)}\n` },
+    reader(),
+  );
+  await readDocument(message, env, 1);
+  assert.equal(asked.length, 0);
+  assert.deepEqual(readObject<typeof cut>(readingKey), cut);
 });
 
 test("both readers are told to carry a table's header unit into each figure and to report a battery's chemistry", () => {

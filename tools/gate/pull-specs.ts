@@ -29,6 +29,7 @@ import {
   mintedWithFigures,
   pullWrites,
   type ReportedProduct,
+  readInFull,
   specsFrom,
   staleFigures,
 } from "../../src/specs.ts";
@@ -81,6 +82,8 @@ const readings: {
     products: (ReportedProduct & { specs: { page?: number }[] })[];
     /** Windows the reader gave up on at its last attempt, so the reading is partial. */
     failed?: number;
+    /** Windows past the reader's cap, never read, so the reading is partial too. */
+    unread?: number;
     refused?: string;
   }[];
 } = { readings: [] };
@@ -352,9 +355,7 @@ const mine = new Set(
 );
 const produced = new Set(aligned.keep.map((spec) => spec.id));
 const reread = new Set(
-  everyReading
-    .filter((reading) => !reading.refused && !reading.failed)
-    .map((reading) => `doc-${reading.sha256.slice(0, 32)}`),
+  everyReading.filter(readInFull).map((reading) => `doc-${reading.sha256.slice(0, 32)}`),
 );
 const staleSpecs = staleFigures(records.specs, { models: mine, produced, reread });
 for (const spec of records.specs) {
@@ -495,6 +496,12 @@ console.log(
   `${readings.readings.length} readings${pending > 0 ? `, ${pending} approved documents still converting or queued` : ""}`,
 );
 for (const [reader, n] of byReader) console.log(`  ${n} by ${reader}`);
+// Named, because a reading that stopped at the cap is a document whose back pages nobody has read,
+// and a manual keeps its specifications there.
+for (const r of everyReading.filter((reading) => reading.unread))
+  console.log(
+    `  read only as far as the cap, ${r.unread} windows unread: ${r.url.split("/").pop()}`,
+  );
 for (const r of refused) console.log(`  not drawn, ${r.refused}: ${r.url.split("/").pop()}`);
 if (withheld.length) {
   console.log(

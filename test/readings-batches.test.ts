@@ -156,6 +156,8 @@ test("the figures pull writes through the guard that keeps a person's figures, a
     /const reconciled = keepFullerOnMain\(held\.write, records\.specs\);\s*for \(const spec of reconciled\.write\) collected\.set\(spec\.id, spec\);/,
   );
   assert.match(source, /staleFigures\(records\.specs, \{ models: mine, produced, reread \}\)/);
+  // Only a document read to its end can take a figure back; one stopped at the cap is partial.
+  assert.match(source, /const reread = new Set\(\s*everyReading\s*\.filter\(readInFull\)/);
   assert.match(source, /for \(const spec of dryRun \? \[\] : staleSpecs\) \{\s*rmSync\(/);
 });
 
