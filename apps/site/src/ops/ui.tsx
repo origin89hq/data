@@ -1,4 +1,13 @@
 import { Dialog } from "@base-ui-components/react/dialog";
+import {
+  type StatusTone,
+  Empty as Surface,
+  Loading as SurfaceLoading,
+  Notice as SurfaceNotice,
+  Panel as SurfacePanel,
+  Status as SurfaceStatus,
+  Tag as SurfaceTag,
+} from "@origin89/ui-react";
 import type { ComponentProps, ReactNode } from "react";
 import { Icon } from "../icons.tsx";
 
@@ -128,75 +137,31 @@ export function Filters({ children, ...rest }: ComponentProps<"section">) {
 }
 
 export function Tag({ children }: { children: ReactNode }) {
-  return (
-    <span className="border border-line-strong px-2 py-[5px] font-data text-[12px] leading-[normal] tracking-[0.04em] whitespace-nowrap text-faint max-[1250px]:hidden">
-      {children}
-    </span>
-  );
+  return <SurfaceTag>{children}</SurfaceTag>;
 }
 
 /* A reading's state is never carried by colour alone: each tone pairs its hue with a glyph and a
  * border treatment, so the row still separates in monochrome or under protanopia. */
-const TONE = {
-  nominal: "text-nominal",
-  alarm: "border-2 text-alarm",
-  warning: "border-dashed text-warning",
-  info: "text-info",
-  faint: "border-dotted text-faint",
-} as const;
+/* What counts as an alarm is this workspace's judgement, not the chip's: the package knows tones,
+ * and the run vocabulary that maps onto them stays here. */
+function toneFor(value?: string): StatusTone {
+  if (value === "errored" || value === "terminated") return "alarm";
+  if (value === "complete") return "nominal";
+  if (value === "waiting" || value === "paused") return "warning";
+  if (!value || value === "unknown") return "faint";
+  return "info";
+}
 
 export function Status({ value }: { value?: string }) {
-  const tone =
-    value === "errored" || value === "terminated"
-      ? "alarm"
-      : value === "complete"
-        ? "nominal"
-        : value === "waiting" || value === "paused"
-          ? "warning"
-          : !value || value === "unknown"
-            ? "faint"
-            : "info";
-  return (
-    <span
-      className={`inline-flex items-center gap-1.5 border border-current px-2 py-[3px] font-data text-[12px] leading-[normal] whitespace-nowrap ${TONE[tone]}`}
-    >
-      <span aria-hidden="true">{tone === "nominal" ? "✓" : tone === "alarm" ? "!" : "•"}</span>
-      {value ?? "Not reported"}
-    </span>
-  );
+  return <SurfaceStatus tone={toneFor(value)}>{value ?? "Not reported"}</SurfaceStatus>;
 }
 
 export function Loading({ label = "Loading workspace…" }: { label?: string }) {
-  return (
-    <div className="py-6">
-      <p className="flex items-center gap-2.5 text-[13px] text-muted" role="status">
-        <span
-          className="size-[13px] flex-none animate-ops-spin rounded-full border-2 border-line-strong border-t-signal motion-reduce:animate-none"
-          aria-hidden="true"
-        />
-        {label}
-      </p>
-      <div aria-hidden="true">
-        {[0, 1, 2, 3].map((id) => (
-          <span
-            className="my-4 block h-8 animate-ops-pulse bg-line even:w-4/5 motion-reduce:animate-none"
-            key={id}
-          />
-        ))}
-      </div>
-    </div>
-  );
+  return <SurfaceLoading label={label} />;
 }
 
 export function Notice({ children, alarm = false }: { children: ReactNode; alarm?: boolean }) {
-  return (
-    <div
-      className={`bevel-[10px] my-4 flex flex-wrap items-center gap-3 border border-line border-l-[3px] bg-surface px-4 py-3.5 text-[13px] leading-[1.65] wrap-anywhere [&_a]:text-inherit [&_a]:underline [&_code]:font-data [&_code]:text-[12px] [@media(pointer:coarse)]:[&_a]:inline-flex [@media(pointer:coarse)]:[&_a]:min-h-11 [@media(pointer:coarse)]:[&_a]:items-center ${alarm ? "border-l-alarm text-alarm" : "border-l-info text-muted"}`}
-      role={alarm ? "alert" : "status"}
-    >
-      {children}
-    </div>
-  );
+  return <SurfaceNotice tone={alarm ? "alarm" : "info"}>{children}</SurfaceNotice>;
 }
 
 /**
@@ -244,20 +209,14 @@ export function Drawer({
 
 export function Empty({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <div className="px-5 py-12 text-center text-muted">
-      <Icon name="equipment" className="mx-auto mb-4 size-7 text-faint" />
-      <h3 className="mb-2.5 text-[20px] text-fg">{title}</h3>
-      <p className="mx-auto max-w-[450px] text-[13px] leading-[1.6]">{children}</p>
-    </div>
+    <Surface title={title} mark={<Icon name="equipment" className="size-7" />}>
+      {children}
+    </Surface>
   );
 }
 
 /* A panel. Its heading is SECTION_HEADING, which a caller puts on the div wrapping the h2 it
  * passes in. */
 export function Panel({ children }: { children: ReactNode }) {
-  return (
-    <section className="bevel min-w-0 border border-line bg-surface px-6 pt-[22px] max-[640px]:px-4 max-[640px]:pt-5">
-      {children}
-    </section>
-  );
+  return <SurfacePanel>{children}</SurfacePanel>;
 }
