@@ -254,6 +254,7 @@ interface Reading {
   windows: number;
   failed: number;
   unread?: number;
+  unconverted?: number;
 }
 
 /**
@@ -562,6 +563,43 @@ test("a reading whose converted text is gone stands, rather than failing its mes
   await readDocument(message, env, 1);
   assert.equal(asked.length, 0);
   assert.deepEqual(readObject<typeof cut>(readingKey), cut);
+});
+
+test("a whole reading whose text has grown is read on from its last window, which ended short", async () => {
+  // A PDF converted again has the pages its first conversion left out. The reading of the shorter
+  // text ended on a window cut off where that text ended, so that window is read again with what
+  // follows it; the ones before it are the same text, and are not.
+  const whole = { sha256: SHA, url: message.url, products: [], windows: 2, failed: 0 };
+  const objects: Record<string, string> = {
+    ...SORTED,
+    [MARKDOWN]: SHEET,
+    [readingKey]: `${JSON.stringify(whole)}\n`,
+  };
+  for (const window of [1, 2])
+    objects[windowKey(window)] = `${JSON.stringify({ window, products: [] })}\n`;
+  const { env, asked, readObject } = world(objects, reader());
+  await readDocument(message, env, 1);
+  assert.equal(asked.length, 2, "windows 2 and 3");
+  const reading = readObject<Reading>(readingKey);
+  assert.deepEqual(
+    [reading.windows, reading.products.map((p) => p.model)],
+    [3, ["S-600", "S-650"]],
+  );
+});
+
+test("a reading of a document converted only in part says how many pages it never saw", async () => {
+  const { env, readObject } = world({ ...SORTED }, reader());
+  await env.ARCHIVE.put(MARKDOWN, SHEET, {
+    customMetadata: { pages: "2500", converted: "2000" },
+  });
+  await readDocument(message, env, 1);
+  assert.equal(readObject<Reading>(readingKey).unconverted, 500);
+
+  // And one converted whole says nothing of it.
+  const all = world({ ...SORTED }, reader());
+  await all.env.ARCHIVE.put(MARKDOWN, SHEET, { customMetadata: { pages: "3", converted: "3" } });
+  await readDocument(message, all.env, 1);
+  assert.equal(all.readObject<Reading>(readingKey).unconverted, undefined);
 });
 
 test("both readers are told to carry a table's header unit into each figure and to report a battery's chemistry", () => {

@@ -84,6 +84,8 @@ const readings: {
     failed?: number;
     /** Windows past the reader's cap, never read, so the reading is partial too. */
     unread?: number;
+    /** Pages past the converter's limit, never written down, so the reading is partial too. */
+    unconverted?: number;
     refused?: string;
   }[];
 } = { readings: [] };
@@ -501,6 +503,10 @@ for (const [reader, n] of byReader) console.log(`  ${n} by ${reader}`);
 for (const r of everyReading.filter((reading) => reading.unread))
   console.log(
     `  read only as far as the cap, ${r.unread} windows unread: ${r.url.split("/").pop()}`,
+  );
+for (const r of everyReading.filter((reading) => reading.unconverted))
+  console.log(
+    `  converted only in part, ${r.unconverted} pages never written down: ${r.url.split("/").pop()}`,
   );
 for (const r of refused) console.log(`  not drawn, ${r.refused}: ${r.url.split("/").pop()}`);
 if (withheld.length) {

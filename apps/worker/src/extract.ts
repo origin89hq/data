@@ -1,4 +1,5 @@
 import { answerText } from "./classify.ts";
+import { pagesUnconverted } from "./convert.ts";
 import { type DocumentKind, keptKind, leftUnread, sortDocument } from "./gate.ts";
 import type { Section } from "./layout.ts";
 import { makerName } from "./manufacturers.ts";
@@ -38,6 +39,7 @@ export interface ReadWindow {
 /** As much of a reading already written as says how far it got. */
 interface KeptReading {
   windows: number;
+  unread?: number;
   skipped?: DocumentKind;
 }
 
@@ -81,9 +83,10 @@ export async function readDocument(
   // addressed by content, so a reading that exists is a reading of exactly these bytes by
   // exactly this reader for this maker — whichever of its runs asked for it.
   //
-  // It is finished unless it stopped at a lower cap than this one. Then it is read on from where
-  // it stopped: its windows are kept beside it and are not read again, so only what the cap left
-  // out is paid for. A document the gate left unread is finished whatever the cap.
+  // It is finished unless it stopped at a lower cap than this one, or its text has grown since: a
+  // PDF converted again has the pages its first conversion left out. Then it is read on from where
+  // it stopped: its windows are kept beside it and are not read again, so only what is new is paid
+  // for. A document the gate left unread is finished whatever the cap.
   const written = await env.ARCHIVE.get(reading);
   const before = written ? await written.json<KeptReading>() : undefined;
   if (before && (before.skipped !== undefined || before.windows >= cap)) return;
@@ -95,6 +98,8 @@ export async function readDocument(
   const markdown = await object.text();
   const all = chunk(markdown);
   if (before && before.windows >= all.length) return;
+  // Pages the converter did not write down, which no window can have read.
+  const unconverted = pagesUnconverted(object.customMetadata);
   // The document is sorted by kind before any window is read, with a turn of its own. A kind that
   // states no ratings of the maker's products is written down as read with nothing in it, so the
   // run counts it read and the pull clears figures it gave before. A document the gate cannot sort
@@ -131,6 +136,11 @@ export async function readDocument(
   // One converted before there were outlines has none, and is read as it was.
   const sections = await documentSections(env, message.sha256);
   const kept = await keptWindows(env, message, windows.length);
+  // A reading of the whole of a shorter text ended on that text's last window, cut off where the
+  // text ended. In the longer text the same window runs to its full length, and what it now holds
+  // past the old end can lie before the next window starts, read by neither: so it is read again.
+  // A reading stopped by the cap ended on a full window, and has no such gap.
+  if (before && before.unread === undefined) kept.delete(before.windows);
   const read: ReadWindow[] = [];
   const unread: string[] = [];
   let turnedAway: NotYet | undefined;
@@ -203,6 +213,8 @@ export async function readDocument(
       // left. Without this a reading that stopped looked like one of the whole document, and a
       // manual's specifications went missing with nothing anywhere to say they had been skipped.
       ...(all.length > windows.length ? { unread: all.length - windows.length } : {}),
+      // And the pages the converter never wrote down, for a document longer than it writes.
+      ...(unconverted > 0 ? { unconverted } : {}),
     })}\n`,
     AS_JSON,
   );

@@ -492,15 +492,17 @@ export function staleFigures(
 /**
  * Whether a reading covers its whole document, so it can take back a figure it no longer gives.
  * A window the reader gave up on may have been the one that stated it, and so may the windows past
- * the reader's cap. A manual prints its specifications at the back, which is where a cap cuts:
- * Magnum's MS-PAE manual stopped at window 60 of 119, and taken as whole, 75 of its 82 figures went.
+ * the reader's cap, and so may the pages the converter never wrote down. A manual prints its
+ * specifications at the back, which is where a cap cuts: Magnum's MS-PAE manual stopped at window 60
+ * of 119, and taken as whole, 75 of its 82 figures went.
  */
 export function readInFull(reading: {
   refused?: string;
   failed?: number;
   unread?: number;
+  unconverted?: number;
 }): boolean {
-  return !reading.refused && !reading.failed && !reading.unread;
+  return !reading.refused && !reading.failed && !reading.unread && !reading.unconverted;
 }
 
 /** An id a run gave a figure with its unit in it, because it read the same name in another unit. */

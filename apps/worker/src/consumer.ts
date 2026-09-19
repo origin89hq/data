@@ -1,11 +1,9 @@
 import { CLASSIFIER_ID } from "./classify.ts";
+import { convertDocument } from "./convert.ts";
 import { readDocument } from "./extract.ts";
 import { USER_AGENT } from "./feeds.ts";
 import { classifyPart } from "./guesses.ts";
-import { sectionsOf, withOpenings } from "./layout.ts";
 import { pdfium } from "./pdfium.ts";
-import { CONVERTER, textLayer } from "./reading.ts";
-import { markdownOfDocument, outlineOf, pageCount } from "./render.ts";
 import { settle } from "./settle.ts";
 import { parseSpecTables, TABLE_READER } from "./spec-table.ts";
 import { seeDocument, seePage, seeWindow } from "./vision.ts";
@@ -26,74 +24,7 @@ export async function handle(message: Work, env: Env, attempt = 1): Promise<void
       return;
     }
     case "convert": {
-      const markdown = partKey.markdown(message.sha256, CONVERTER);
-      const already = await env.ARCHIVE.head(markdown);
-      if (!already) {
-        const object = await env.ARCHIVE.get(`archive/${message.sha256}`);
-        if (!object) throw new Error(`archive/${message.sha256} is not in the archive`);
-        const bytes = new Uint8Array(await object.arrayBuffer());
-        // A PDF is read from where its characters sit: a table keeps its columns, and a value stays
-        // under the model it belongs to. Its headings are kept beside it, so the sections it states
-        // its ratings in are known without opening the document again. A PDF of pictures has no
-        // characters and gives nothing here, which is what the page reader is for.
-        let text: string | undefined;
-        if (/pdf/i.test(message.contentType)) {
-          const library = await pdfium();
-          const read = markdownOfDocument(library, bytes);
-          if (textLayer(read).characters > 0) {
-            text = read;
-            await env.ARCHIVE.put(
-              partKey.outline(message.sha256, CONVERTER),
-              `${JSON.stringify(withOpenings(text, sectionsOf(outlineOf(library, bytes), pageCount(library, bytes))))}\n`,
-              { httpMetadata: { contentType: "application/json" } },
-            );
-          }
-        }
-        if (text === undefined) {
-          const blob = new Blob([bytes], { type: message.contentType });
-          const name = new URL(message.url).pathname.split("/").pop() || message.sha256;
-          const result = await env.AI.toMarkdown({ name, blob });
-          const one = Array.isArray(result) ? result[0] : result;
-          if (!one || one.format === "error" || typeof one.data !== "string") {
-            // A scanned manual with no text layer is an answer about the maker's catalogue, not a
-            // failure to retry. It is recorded and the message is done.
-            await env.ARCHIVE.put(
-              partKey.converted(message.manufacturer, message.run, message.sha256),
-              JSON.stringify({ ...message, error: one?.error ?? "the converter returned no text" }),
-              { httpMetadata: { contentType: "application/json" } },
-            );
-            return;
-          }
-          text = one.data;
-        }
-        await env.ARCHIVE.put(markdown, text ?? "", {
-          httpMetadata: { contentType: "text/markdown" },
-        });
-      }
-      const size = already?.size ?? (await env.ARCHIVE.head(markdown))?.size;
-      await env.ARCHIVE.put(
-        partKey.converted(message.manufacturer, message.run, message.sha256),
-        JSON.stringify({
-          sha256: message.sha256,
-          url: message.url,
-          key: markdown,
-          characters: size ?? 0,
-        }),
-        {
-          httpMetadata: { contentType: "application/json" },
-        },
-      );
-      // Converting and reading are two units, and the second only exists once the first has
-      // produced something. Chaining them here is what makes the pipeline run without a caller.
-      await env.WORK.send({
-        kind: "extract",
-        manufacturer: message.manufacturer,
-        date: message.date,
-        run: message.run,
-        sha256: message.sha256,
-        url: message.url,
-        key: markdown,
-      });
+      await convertDocument(message, env, pdfium);
       return;
     }
     case "spec-table": {
