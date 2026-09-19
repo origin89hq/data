@@ -12,6 +12,8 @@ import {
 import { SYSTEM, textLayer } from "../src/reading.ts";
 import {
   charsOn,
+  convertPdf,
+  MOST_TEXT_PAGES,
   MOSTLY_DRAWN,
   markdownOfDocument,
   outlineOf,
@@ -164,13 +166,56 @@ test("a document reads page by page, under the headings the reader windows on", 
   assert.match(markdown, /### Page 2\nRead this manual before installing the inverter\./);
 });
 
-test("a document longer than the reader takes is cut where the reader stops", async () => {
+test("a document longer than the converter writes is cut where it stops, and says so", async () => {
   const pages = Array.from({ length: 4 }, (_, i) => [{ text: `Page ${i + 1}`, x: 20, y: 180 }]);
-  const markdown = markdownOfDocument(await pdfium(), writtenPdf(pages), 2);
+  const converted = convertPdf(await pdfium(), writtenPdf(pages), 2);
   assert.deepEqual(
-    markdown.split("\n").filter((line) => line.startsWith("### Page")),
+    converted.markdown.split("\n").filter((line) => line.startsWith("### Page")),
     ["### Page 1", "### Page 2"],
   );
+  assert.deepEqual([converted.pages, converted.converted], [4, 2]);
+});
+
+test("a manual past eighty pages is written down to its last page, where it prints its specifications", async () => {
+  // The converter stopped at page 80 and said nothing: Victron's off-grid booklet has 140 pages,
+  // and its battery tables are past the eightieth.
+  assert.ok(MOST_TEXT_PAGES >= 513, "the longest of wave 2's documents has 513 pages");
+  const pages: Placed[][] = Array.from({ length: 85 }, (_, i) => [
+    { text: `Installation, page ${i + 1}`, x: 20, y: 180 },
+  ]);
+  pages[84] = [
+    { text: "9.1 Specifications", x: 20, y: 180 },
+    { text: "Continuous power 3000 W", x: 20, y: 150 },
+  ];
+  const converted = convertPdf(await pdfium(), writtenPdf(pages));
+  assert.deepEqual([converted.pages, converted.converted], [85, 85]);
+  assert.match(converted.markdown, /### Page 85\n[\s\S]*Continuous power 3000 W/);
+  assert.deepEqual(
+    converted.outline.filter((heading) => heading.page === 85).map((heading) => heading.text),
+    ["9.1 Specifications"],
+    "and the sections past page 80 are in its outline",
+  );
+});
+
+test("a document is opened once to be converted, however many pages it has", async () => {
+  // Opened again for each thing asked of each page, a 513-page manual was parsed over two thousand
+  // times and took over a minute: past what a Worker may spend on one message.
+  const library = await pdfium();
+  let opens = 0;
+  const counted = new Proxy(library, {
+    get(target, property, receiver) {
+      const value = Reflect.get(target, property, receiver);
+      if (property !== "FPDF_LoadMemDocument64" || typeof value !== "function") return value;
+      return (...args: unknown[]) => {
+        opens += 1;
+        return value.apply(target, args);
+      };
+    },
+  });
+  const pages = Array.from({ length: 6 }, (_, i) => [{ text: `Page ${i + 1}`, x: 20, y: 180 }]);
+  const converted = convertPdf(counted, writtenPdf(pages));
+  assert.equal(converted.converted, 6);
+  assert.equal(opens, 1);
 });
 
 test("a section's heading is a heading, and a line that writes no spaces gets them", async () => {

@@ -650,6 +650,8 @@ test("only a reading of the whole document takes figures back: not one refused, 
   assert.equal(readInFull({ failed: 1 }), false);
   // Magnum's MS-PAE manual, stopped at window 60 of 119 with its specifications in window 105.
   assert.equal(readInFull({ unread: 59 }), false);
+  // A document longer than the converter writes, whose last pages no window saw.
+  assert.equal(readInFull({ unconverted: 500 }), false);
 });
 
 test("a figure read again, held by a person, or on another maker's model is never stale", () => {

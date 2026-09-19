@@ -39,8 +39,9 @@ export function world(
     [...store.keys()].map((key, i) => [key, new Date(EPOCH + i * 1000)]),
   );
   const etag = (bytes: Uint8Array) => createHash("md5").update(bytes).digest("hex");
-  const body = (bytes: Uint8Array) => ({
+  const body = (bytes: Uint8Array, customMetadata: Record<string, string> = {}) => ({
     size: bytes.length,
+    customMetadata,
     get body() {
       return new Blob([bytes.slice()]).stream();
     },
@@ -106,7 +107,8 @@ export function world(
       },
       get: async (key: string) => {
         const bytes = store.get(key);
-        return bytes === undefined ? null : body(bytes);
+        // What a writer attached comes back on a get as well as a head, as R2 hands it back.
+        return bytes === undefined ? null : body(bytes, metadata.get(key));
       },
       put: async (
         key: string,
