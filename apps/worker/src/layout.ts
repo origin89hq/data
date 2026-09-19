@@ -193,6 +193,9 @@ interface Building {
  */
 const OFF_BASELINE = 0.6;
 
+/** How much shorter than a line's letters a figure raised or dropped from it is set in. */
+const APART = 0.75;
+
 /** Whether a character's box is as tall as its line's letters: a space's or a dash's is not. */
 const drawnTall = (char: Char): boolean => /[\p{L}\p{N}]/u.test(char.text);
 
@@ -215,55 +218,121 @@ export function rowsOf(chars: readonly Char[]): Row[] {
   // Taken from the top of the page down: by baseline, and by the top of its box, as before, where
   // PDFium gives none.
   const line = (char: Char): number => char.baseline ?? char.top;
-  const all = placed(chars);
-  // Every character is measured by the tallest letter set on its baseline, so a line is taken into
-  // another whole or not at all. Measured by its own height, a "c" was left off the line the "V"
-  // and "i" before it were taken into, and Victron's name read "Vi" on one line, "ctron" on the next.
-  const tallest = new Map<number, number>();
-  for (const char of all)
-    if (char.baseline !== undefined && drawnTall(char))
-      tallest.set(char.baseline, Math.max(tallest.get(char.baseline) ?? 0, char.top - char.bottom));
-  for (const char of all.sort((a, b) => line(b) - line(a) || a.left - b.left)) {
-    // A line break is not on the page; a space is, and it is what holds "42 kg" together.
-    if (/[\r\n]/.test(char.text)) continue;
+  const all = placed(chars).filter((char) => !/[\r\n]/.test(char.text));
+  // The characters set on each baseline, and the tallest letter among them, which every one of them
+  // is measured by: a line is taken into another whole or not at all. Measured by its own height, a
+  // "c" was left off the line the "V" and "i" before it were taken into, and Victron's name read
+  // "Vi" on one line and "ctron" on the next.
+  const lines = new Map<number, Building>();
+  const loose: Char[] = [];
+  for (const char of all) {
     const height = char.top - char.bottom;
     // A character with no height is placed by its box as before, which puts it on no line.
-    const baseline = height > 0 ? char.baseline : undefined;
-    const tall = baseline === undefined ? 0 : (tallest.get(baseline) ?? 0);
+    if (char.baseline === undefined || height <= 0) {
+      loose.push(char);
+      continue;
+    }
+    const tall = drawnTall(char) ? height : 0;
+    const set = lines.get(char.baseline);
+    if (!set) {
+      lines.set(char.baseline, {
+        top: char.top,
+        bottom: char.bottom,
+        chars: [char],
+        baseline: char.baseline,
+        height: tall,
+      });
+      continue;
+    }
+    set.chars.push(char);
+    set.top = Math.max(set.top, char.top);
+    set.bottom = Math.min(set.bottom, char.bottom);
+    set.height = Math.max(set.height, tall);
+  }
+  // Where each character has been put, and where it stands in the text, for a figure raised from
+  // its line to be read on the line the text writes it next to.
+  const placedIn = new Map<Char, Building>();
+  const written = new Map<Char, number>(all.map((char, at) => [char, at]));
+  /** The line the text writes a raised or dropped figure next to, where it is beside that line. */
+  const raisedFrom = (set: Building, rows: readonly Building[]): Building | undefined => {
+    const taller = rows.some((r) => set.height < r.height * APART && sharesLine(r, set));
+    if (!taller) return undefined;
+    const at = set.chars.map((char) => written.get(char) ?? -1).filter((i) => i >= 0);
+    for (const [from, step] of [
+      [Math.min(...at), -1],
+      [Math.max(...at), 1],
+    ] as const) {
+      for (let i = from + step; i >= 0 && i < all.length; i += step) {
+        const char = all[i];
+        if (!char?.text.trim()) continue;
+        const row = placedIn.get(char);
+        if (!row || set.height >= row.height * APART || !sharesLine(row, set)) return undefined;
+        // Beside the letter it is written next to, as a raised figure is: a marker standing off at
+        // the end of a line is written after it too, and belongs to no line but its own.
+        const [left, right] = edgesOf(set.chars);
+        const apart = Math.max(left - char.right, char.left - right);
+        return apart <= columnGap(row.chars) ? row : undefined;
+      }
+    }
+    return undefined;
+  };
+  // The tallest lines first, so that a raised figure or a dropped one joins whichever line it is
+  // nearest, and not merely the nearest of those above it. Taken from the top down, a figure set
+  // between two lines close together was read on the one above before its own line existed at all,
+  // "upper line2 of text" for "area 5 m2" beneath it.
+  for (const set of [...lines.values()].sort(
+    (a, b) => b.height - a.height || (b.baseline ?? 0) - (a.baseline ?? 0),
+  )) {
+    const baseline = set.baseline ?? 0;
     // Measured from the baseline the row was begun on, not from any it has taken since: taken from
     // any, a line reached the next through a raised figure or a cell set half a line lower. Of the
     // lines in reach, the nearest: OutBack sets its labels in bold a fifth of a point under the
     // regular text after them, and a space between two lines is on the one it is set on.
     let row: Building | undefined;
-    if (baseline === undefined)
-      row = rows.find((r) => r.baseline === undefined && sharesLine(r, char));
-    else {
-      let nearest = Number.POSITIVE_INFINITY;
-      for (const r of rows) {
-        if (r.baseline === undefined) continue;
-        const off = Math.abs(r.baseline - baseline);
-        const shorter = tall && r.height ? Math.min(tall, r.height) : tall || r.height || height;
-        if (off <= OFF_BASELINE * shorter && off < nearest) {
-          row = r;
-          nearest = off;
-        }
+    let nearest = Number.POSITIVE_INFINITY;
+    for (const r of rows) {
+      if (r.baseline === undefined) continue;
+      const off = Math.abs(r.baseline - baseline);
+      const shorter =
+        set.height && r.height
+          ? Math.min(set.height, r.height)
+          : set.height || r.height || set.top - set.bottom;
+      if (off <= OFF_BASELINE * shorter && off < nearest) {
+        row = r;
+        nearest = off;
       }
     }
+    // A figure raised or dropped from its line is set in letters much shorter than the line's, and
+    // stands between two baselines: raised half the way to the line above, it is nearer that line
+    // than its own, and "area 5 m2" was read as "area 5 m" under "upper line2 of text". Which line
+    // it belongs to is not in where it is set but in the text, which writes it next to the letter
+    // it goes with, "m" then "2".
+    const beside = raisedFrom(set, rows) ?? row;
+    if (beside) row = beside;
+    if (!row) {
+      rows.push(set);
+      for (const char of set.chars) placedIn.set(char, set);
+      continue;
+    }
+    row.chars.push(...set.chars);
+    row.top = Math.max(row.top, set.top);
+    row.bottom = Math.min(row.bottom, set.bottom);
+    row.height = Math.max(row.height, set.height);
+    for (const char of set.chars) placedIn.set(char, row);
+  }
+  // What PDFium gives no baseline for keeps its own rows, made by their boxes from the top down.
+  for (const char of loose.sort((a, b) => b.top - a.top || a.left - b.left)) {
+    const row = rows.find((r) => r.baseline === undefined && sharesLine(r, char));
     if (row) {
       row.chars.push(char);
       row.top = Math.max(row.top, char.top);
       row.bottom = Math.min(row.bottom, char.bottom);
-      row.height = Math.max(row.height, tall);
       continue;
     }
-    rows.push({
-      top: char.top,
-      bottom: char.bottom,
-      chars: [char],
-      ...(baseline === undefined ? {} : { baseline }),
-      height: tall,
-    });
+    rows.push({ top: char.top, bottom: char.bottom, chars: [char], height: 0 });
   }
+  // Every row stands where its first character does, top of the page first.
+  rows.sort((a, b) => line(b.chars[0] as Char) - line(a.chars[0] as Char));
   return (
     beside(rows)
       .map((row) => ({

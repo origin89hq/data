@@ -191,6 +191,19 @@ test("a raised figure is read on the line it belongs to", async () => {
   );
 });
 
+test("a raised figure between two lines close together is read on the one it is written by", async () => {
+  // Raised more than half the way to the line above, it is nearer that line than its own, and
+  // where it is set cannot say which it belongs to. The text can: it writes it next to its letter.
+  const between = (x: number): Placed[] => [
+    { text: "upper line of text", x: 20, y: 106, size: 11 },
+    { text: "area 5 m", x: 20, y: 100, size: 11 },
+    { text: "2", x, y: 103.5, size: 7 },
+  ];
+  assert.deepEqual(await cellsOfPage(between(66)), [["upper line of text"], ["area 5 m 2"]]);
+  // Standing off at the end of a line, it is written after that line too and belongs to neither.
+  assert.deepEqual(await cellsOfPage(between(200)), [["upper line of text", "2"], ["area 5 m"]]);
+});
+
 test("a space PDFium guesses is kept between words and left out inside one", async () => {
   // PDFium puts a space of its own wherever the pen jumps, and gives it no box. Victron leaves the
   // space out of "may be" and the pen jumps a space's width; between the arm of an "F" and the
