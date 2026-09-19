@@ -141,8 +141,8 @@ importers:
         specifier: ^1.29.0
         version: 1.32.0
       '@origin89/brand':
-        specifier: 0.5.0
-        version: 0.5.0
+        specifier: 0.6.0
+        version: 0.6.0
       '@origin89/equipment-schema':
         specifier: workspace:*
         version: link:../../packages/schema
@@ -883,8 +883,8 @@ packages:
     resolution: {integrity: sha512-vX9eehWsu+7J81k685wKlR+G+VtyfMnk0bk9JVM1YNfCWtD0hQLe8fC+xGzLTu2kFJUQWFW3qWh3uwNhS7sbBQ==}
     engines: {node: '>=22.12.0'}
 
-  '@origin89/brand@0.5.0':
-    resolution: {integrity: sha512-oth7NIfEkwjW793FmOYdmd2FEq0xnuD7KEZxANtRfRK8WCAT6sMlReSVjIQ4PY+pxu3qX89SePnZGEXATkgdtQ==}
+  '@origin89/brand@0.6.0':
+    resolution: {integrity: sha512-MuRv/vLNNtIRKR9acA8m+nUkOICMELJQSAlWz1qNffrT3g1naDZKyWC8i0Dhr3wxnezAD0We4GXBjK2jfGCl8w==}
     engines: {node: '>=22.12.0'}
 
   '@origin89/ui-react@0.2.0':
@@ -2223,7 +2223,7 @@ snapshots:
 
   '@origin89/brand@0.4.0': {}
 
-  '@origin89/brand@0.5.0': {}
+  '@origin89/brand@0.6.0': {}
 
   '@origin89/ui-react@0.2.0(react@19.3.0)':
     dependencies:
