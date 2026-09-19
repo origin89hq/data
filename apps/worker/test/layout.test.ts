@@ -332,6 +332,17 @@ test("pieces of one line drawn end to end are the line they draw", () => {
     ],
   );
   assert.deepEqual(joined([]), []);
+  // A piece drawn a fraction left of the one above it is still its own height of the line.
+  assert.deepEqual(
+    joined([
+      { x: 100.4, bottom: 20, top: 40 },
+      { x: 100, bottom: 90, top: 100 },
+    ]).map((r) => [r.bottom, r.top]),
+    [
+      [20, 40],
+      [90, 100],
+    ],
+  );
 });
 
 test("a table ruled a row at a time is read by the lines its pieces draw", async () => {
@@ -453,6 +464,74 @@ test("the sides of boxes are not a table's rules, and do not make two boxes one 
   assert.equal(times(markdown, sentence), 1, markdown);
   for (const value of ["42 kg", "51 kg", "100 Ah", "120 Ah"])
     assert.equal(times(markdown, value), 1, markdown);
+});
+
+test("two tables ruled at the same edge divide only their own rows, not the page between them", async () => {
+  // Rules two points apart across, in two tables one above the other, are one edge of the page,
+  // but each divides its own table: the sentence between the tables is in neither.
+  const sentence = "See the notes below.";
+  const markdown = await ruledPage(
+    [
+      { text: "Model", x: 20, y: 170 },
+      { text: "S-550", x: 110, y: 170 },
+      { text: "S-600", x: 210, y: 170 },
+      { text: "Weight", x: 20, y: 160 },
+      { text: "42 kg", x: 110, y: 160 },
+      { text: "51 kg", x: 210, y: 160 },
+      // Shared by both models of the upper table, across its own rule at 200.
+      { text: "Colour", x: 20, y: 150 },
+      { text: "grey", x: 190, y: 150 },
+      { text: sentence, x: 20, y: 130 },
+      { text: "Input", x: 20, y: 105 },
+      { text: "12 V", x: 110, y: 105 },
+      { text: "24 V", x: 210, y: 105 },
+      { text: "Output", x: 20, y: 90 },
+      { text: "120 V", x: 110, y: 90 },
+      { text: "230 V", x: 210, y: 90 },
+      // Shared by both models of the lower table, across its own rule at 202.
+      { text: "Phase", x: 20, y: 75 },
+      { text: "single", x: 186, y: 75 },
+    ],
+    [
+      [100, 145, 180],
+      [200, 145, 180],
+      [102, 70, 116],
+      [202, 70, 116],
+    ],
+  );
+  assert.equal(times(markdown, sentence), 1, markdown);
+  assert.match(markdown, /\| Colour \| grey \| grey \|/, markdown);
+  assert.match(markdown, /\| Phase \| single \| single \|/, markdown);
+});
+
+test("a caption across its own table is written once, whatever another table on the page rules", async () => {
+  // The page's columns are every table's rules together. A caption across one table crosses that
+  // table's rules and some of the other's edges, but not every column of the page.
+  const caption = "All values measured at 25 degrees C, 50 Hz.";
+  const markdown = await ruledPage(
+    [
+      { text: "Model", x: 20, y: 175 },
+      { text: "S-550", x: 110, y: 175 },
+      { text: "S-600", x: 210, y: 175 },
+      { text: "Weight", x: 20, y: 165 },
+      { text: "42 kg", x: 110, y: 165 },
+      { text: "51 kg", x: 210, y: 165 },
+      { text: caption, x: 80, y: 155 },
+      { text: "In", x: 20, y: 110 },
+      { text: "12 V", x: 60, y: 110 },
+      { text: "24 V", x: 160, y: 110 },
+      { text: "Out", x: 20, y: 100 },
+      { text: "120 V", x: 60, y: 100 },
+      { text: "230 V", x: 160, y: 100 },
+    ],
+    [
+      [100, 150, 182],
+      [200, 150, 182],
+      [50, 95, 118],
+      [150, 95, 118],
+    ],
+  );
+  assert.equal(times(markdown, caption), 1, markdown);
 });
 
 test("a note as wide as its table is written once, not into each column", async () => {

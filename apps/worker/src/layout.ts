@@ -328,14 +328,14 @@ export function columnsOf(rows: readonly Row[], leastRows = LEAST_ROWS): number[
 }
 
 /**
- * A column a page's rules give: its left edge, and the height the rule opening it runs between —
- * the whole of the table at that edge, from the lowest piece of the rule to the highest, gaps and
- * all. A rule stops where a cell is drawn across it, and that cell is still in the table.
+ * A column a page's rules give: its left edge, and the heights it divides — the tables with a rule
+ * at that edge, each from the lowest piece of its rules to the highest, gaps and all. A rule stops
+ * where a cell is drawn across it, and that cell is still in the table. Two tables on a page can
+ * rule a column at the same edge; the page between them is in neither.
  */
 export interface RuledColumn {
   at: number;
-  bottom: number;
-  top: number;
+  spans: { bottom: number; top: number }[];
 }
 
 /**
@@ -345,9 +345,9 @@ export interface RuledColumn {
  * across a rule that runs past its row. EPEVER merges XTRA1206N and XTRA2206N into one cell for the
  * figures they share, and under one of them alone the other model took the value of the model after
  * it. A line of text above the table crosses nothing of the table's, and split at every upright
- * line on its page, one sentence of Victron's booklet was written into 14 columns. And a cell as
- * wide as the whole table is a note or a caption across it, said once, not a value of each of its
- * columns.
+ * line on its page, one sentence of Victron's booklet was written into 14 columns. And a cell
+ * across every rule of its row's table is a note or a caption across it, said once, not a value of
+ * each of its columns; the page's other tables have rules of their own, at other edges.
  */
 export function gridOf(
   rows: readonly Row[],
@@ -357,10 +357,12 @@ export function gridOf(
   return rows.map((row) => {
     const line = columns.map(() => "");
     const middle = (row.top + row.bottom) / 2;
-    const runsPast = (i: number): boolean => {
-      const rule = ruled?.[i];
-      return !rule || (middle >= rule.bottom - PAST && middle <= rule.top + PAST);
-    };
+    const runsPast = (i: number): boolean =>
+      !ruled?.[i] ||
+      (ruled[i]?.spans.some((span) => middle >= span.bottom - PAST && middle <= span.top + PAST) ??
+        false);
+    // The rules of this row's table: where a new column opens on this row.
+    const active = ruled ? columns.map((_, i) => i).filter((i) => i > 0 && runsPast(i)) : [];
     for (const cell of row.cells) {
       const across = ruled
         ? columns
@@ -373,7 +375,7 @@ export function gridOf(
       if (across.length > 0) {
         // A new column only where the rule opening it runs past this row; else still the last one.
         const split = across.filter((i, k) => k === 0 || runsPast(i));
-        const into = across.length === columns.length ? split.slice(0, 1) : split;
+        const into = split.length - 1 === active.length ? split.slice(0, 1) : split;
         for (const i of into) line[i] = line[i] ? `${line[i]} ${cell.text}` : cell.text;
         continue;
       }
@@ -449,55 +451,56 @@ const escaped = (text: string): string => text.replace(/\|/g, "\\|");
 export function columnsFromRules(rules: readonly Rule[], rows: readonly Row[]): RuledColumn[] {
   const leftmost = Math.min(...rows.flatMap((row) => row.cells.map((cell) => cell.left)), 0);
   const line = median(rows.map((row) => row.top - row.bottom).filter((height) => height > 0));
-  const apart: (RuledColumn & { longest: number })[] = [];
-  for (const rule of [...rules].sort((a, b) => a.x - b.x)) {
-    const last = apart.at(-1);
-    if (last && rule.x - last.at <= 3) {
-      last.bottom = Math.min(last.bottom, rule.bottom);
-      last.top = Math.max(last.top, rule.top);
-      last.longest = Math.max(last.longest, rule.top - rule.bottom);
-      continue;
-    }
-    apart.push({ at: rule.x, bottom: rule.bottom, top: rule.top, longest: rule.top - rule.bottom });
+  const long = rules
+    .filter((rule) => rule.x > leftmost + 3 && rule.top - rule.bottom >= RULE_LINE * line)
+    .sort((a, b) => a.x - b.x);
+  // Rules a hair apart across stand at one edge, and whether text stands either side of an edge is
+  // judged over all its rules together: a rule drawn only on the rows it divides is a row tall.
+  const edges: Rule[][] = [];
+  for (const rule of long) {
+    const edge = edges.at(-1);
+    if (edge && rule.x - (edge[0]?.x ?? rule.x) <= 3) edge.push(rule);
+    else edges.push([rule]);
   }
-  const long = apart.filter((rule) => rule.at > leftmost + 3 && rule.longest >= RULE_LINE * line);
-  const kept = long
-    .filter((rule, i) => {
-      const to = long[i + 1]?.at ?? Number.POSITIVE_INFINITY;
+  const standing = edges
+    .filter((edge, i) => {
+      const at = edge[0]?.x ?? 0;
+      const to = edges[i + 1]?.[0]?.x ?? Number.POSITIVE_INFINITY;
       const beside = rows.filter((row) => {
         const middle = (row.top + row.bottom) / 2;
-        return middle >= rule.bottom - PAST && middle <= rule.top + PAST;
+        return edge.some((rule) => middle >= rule.bottom - PAST && middle <= rule.top + PAST);
       });
-      const left = beside.filter((row) => row.cells.some((cell) => cell.left < rule.at - PAST));
+      const left = beside.filter((row) => row.cells.some((cell) => cell.left < at - PAST));
       const right = beside.filter((row) =>
-        row.cells.some((cell) => cell.left >= rule.at - PAST && cell.left < to),
+        row.cells.some((cell) => cell.left >= at - PAST && cell.left < to),
       );
       return left.length >= HOLDS && right.length >= HOLDS;
     })
-    .map(({ at, bottom, top }) => ({ at, bottom, top }));
+    .flat();
   // A rule runs past the rows of the whole table it belongs to, not only the rows it is drawn
   // beside: a rule broken for a cell drawn across it can stay broken to the table's foot, as
   // EPEVER's does under its last rows, where XTRA1206N and XTRA2206N share their static losses.
-  // Rules whose heights meet are one table, and each takes the table's height.
-  const tables: { bottom: number; top: number; columns: RuledColumn[] }[] = [];
-  for (const column of [...kept].sort((a, b) => a.bottom - b.bottom)) {
-    const table = tables.find(
-      (t) => column.bottom <= t.top + PAST && column.top >= t.bottom - PAST,
-    );
-    if (table) {
-      table.bottom = Math.min(table.bottom, column.bottom);
-      table.top = Math.max(table.top, column.top);
-      table.columns.push(column);
-    } else tables.push({ bottom: column.bottom, top: column.top, columns: [column] });
+  // Rules whose heights meet are one table, however many meet through one another.
+  const tables: { bottom: number; top: number; rules: Rule[] }[] = [];
+  for (const rule of [...standing].sort((a, b) => a.bottom - b.bottom)) {
+    const table = tables.at(-1);
+    if (table && rule.bottom <= table.top + PAST) {
+      table.top = Math.max(table.top, rule.top);
+      table.rules.push(rule);
+    } else tables.push({ bottom: rule.bottom, top: rule.top, rules: [rule] });
   }
+  const columns: RuledColumn[] = [];
   for (const table of tables)
-    for (const column of table.columns) {
-      column.bottom = table.bottom;
-      column.top = table.top;
+    for (const rule of table.rules) {
+      const column = columns.find((c) => Math.abs(c.at - rule.x) <= 3);
+      const span = { bottom: table.bottom, top: table.top };
+      if (!column) columns.push({ at: rule.x, spans: [span] });
+      else if (!column.spans.some((s) => s.bottom === span.bottom && s.top === span.top))
+        column.spans.push(span);
     }
   return [
-    { at: leftmost, bottom: Number.NEGATIVE_INFINITY, top: Number.POSITIVE_INFINITY },
-    ...kept,
+    { at: leftmost, spans: [{ bottom: Number.NEGATIVE_INFINITY, top: Number.POSITIVE_INFINITY }] },
+    ...columns.sort((a, b) => a.at - b.at),
   ];
 }
 

@@ -376,17 +376,27 @@ function rulesOfPage(pdfium: Pdfium, document: number, page: number): Rule[] {
  * the letters beside it.
  */
 export function joined(pieces: readonly Rule[]): Rule[] {
+  // Across first, then down: pieces a hair apart across are one line, whatever order they come in,
+  // and down it each joins the one before only where the two meet. Taken in one pass sorted across,
+  // a piece drawn a fraction left of the one above it came second, joined it, and its own height was
+  // lost: the rule was gone from the rows it had divided.
+  const across: Rule[][] = [];
+  for (const piece of [...pieces].sort((a, b) => a.x - b.x)) {
+    const group = across.at(-1);
+    if (group && piece.x - (group[0]?.x ?? piece.x) <= SAME_X) group.push(piece);
+    else across.push([piece]);
+  }
   const lines: Rule[] = [];
-  const sorted = [...pieces].sort((a, b) => a.x - b.x || a.bottom - b.bottom);
-  for (const piece of sorted) {
-    const line = lines.find(
-      (l) => Math.abs(l.x - piece.x) <= SAME_X && piece.bottom <= l.top + MEETS,
-    );
-    if (line) {
-      line.top = Math.max(line.top, piece.top);
-      continue;
+  for (const group of across) {
+    let line: Rule | undefined;
+    for (const piece of group.sort((a, b) => a.bottom - b.bottom)) {
+      if (line && piece.bottom <= line.top + MEETS) {
+        line.top = Math.max(line.top, piece.top);
+        continue;
+      }
+      line = { ...piece };
+      lines.push(line);
     }
-    lines.push({ ...piece });
   }
   return lines;
 }
