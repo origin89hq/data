@@ -23,6 +23,13 @@ export interface Char {
   angle?: number;
   /** The size it is set in, in points, which is how a heading is told from the text under it. */
   size?: number;
+  /** The height of the line it is set on, in points: where its origin stands. */
+  baseline?: number;
+  /**
+   * A space PDFium put in where it saw a gap, with no box of its own. It is a guess: where the
+   * letters are spaced out it is put inside words.
+   */
+  guessed?: boolean;
 }
 
 /** A run of characters with no gap wide enough to be a column: one cell of one row. */
@@ -52,9 +59,14 @@ function sharesLine(
   a: { top: number; bottom: number },
   b: { top: number; bottom: number },
 ): boolean {
+  return overlapOf(a, b) > 0.4;
+}
+
+/** How much of two boxes' heights overlap, as a fraction of the shorter one. */
+function overlapOf(a: { top: number; bottom: number }, b: { top: number; bottom: number }): number {
   const overlap = Math.min(a.top, b.top) - Math.max(a.bottom, b.bottom);
   const shorter = Math.min(a.top - a.bottom, b.top - b.bottom);
-  return shorter > 0 && overlap / shorter > 0.4;
+  return shorter > 0 ? overlap / shorter : 0;
 }
 
 /**
@@ -63,13 +75,7 @@ function sharesLine(
  * since a heading's spaces are wider than a footnote's letters.
  */
 function cellsOf(chars: readonly Char[]): Cell[] {
-  // A space's own box is a letter wide, and counting it would make every gap look ordinary.
-  const widths = chars
-    .filter((c) => c.text.trim())
-    .map((c) => c.right - c.left)
-    .filter((w) => w > 0);
-  const letter = median(widths);
-  const gap = Math.max(letter * 1.2, 3);
+  const gap = columnGap(chars);
   const cells: (Cell & { chars: Char[] })[] = [];
   for (const char of chars) {
     const open = cells.at(-1);
@@ -82,8 +88,18 @@ function cellsOf(chars: readonly Char[]): Cell[] {
     cells.push({ text: char.text, left: char.left, right: char.right, chars: [char] });
   }
   return cells
-    .map(({ chars: run, ...cell }) => ({ ...cell, text: spaced(run, cell.text).trim() }))
+    .map(({ chars: run, ...cell }) => ({ ...cell, text: spaced(run).trim() }))
     .filter((cell) => cell.text);
+}
+
+/** The narrowest gap between two cells of a line: wider than its own letters. */
+function columnGap(chars: readonly Char[]): number {
+  // A space's own box is a letter wide, and counting it would make every gap look ordinary.
+  const widths = chars
+    .filter((c) => c.text.trim())
+    .map((c) => c.right - c.left)
+    .filter((w) => w > 0);
+  return Math.max(median(widths) * 1.2, 3);
 }
 
 /**
@@ -93,13 +109,11 @@ function cellsOf(chars: readonly Char[]): Cell[] {
  * nothing is added; where it writes none, a gap much wider than the ones between its letters is a
  * space.
  */
-function spaced(run: readonly Char[], text: string): string {
+function spaced(run: readonly Char[]): string {
+  if (run.some((c) => c.guessed)) return guessedSpaces(run);
+  const text = run.map((c) => c.text).join("");
   if (/\s/.test(text) || run.length < 3) return text.replace(/\s+/g, " ");
-  const between: number[] = [];
-  for (let i = 1; i < run.length; i += 1) {
-    const apart = (run[i]?.left ?? 0) - (run[i - 1]?.right ?? 0);
-    if (apart > 0) between.push(apart);
-  }
+  const between = gapsInWords(run);
   if (between.length === 0) return text;
   const widths = run.map((c) => c.right - c.left).filter((w) => w > 0);
   const space = Math.max(median(between) * 2.5, median(widths) * 0.45);
@@ -111,34 +125,346 @@ function spaced(run: readonly Char[], text: string): string {
   return out;
 }
 
-/** A page's characters as rows of cells, top of the page first. */
+/** The gaps between letters with no space, written or guessed, between them. */
+function gapsInWords(run: readonly Char[]): number[] {
+  const between: number[] = [];
+  for (let i = 1; i < run.length; i += 1) {
+    const [before, after] = [run[i - 1], run[i]];
+    if (!before?.text.trim() || !after?.text.trim()) continue;
+    const apart = after.left - before.right;
+    if (apart > 0) between.push(apart);
+  }
+  return between;
+}
+
+/**
+ * The words of a cell PDFium guessed spaces in. Its guesses are where a space may go, and a gap is
+ * one where the pen moved much further than between letters, and near as far as over the spaces
+ * the run writes itself. Victron writes most of its spaces and leaves some out, "may be" among
+ * them; a French manual leaves every one out, "par le fabricant". But PDFium also guesses inside
+ * words: in a manual whose letters are spaced out, "The g reen LED s ta tu s", and after a capital
+ * whose arm ends short of its advance, "F lange nut", two points where a written space is three.
+ */
+function guessedSpaces(run: readonly Char[]): string {
+  const letters = run.filter((c) => c.text.trim());
+  // The letters either side of each space, as they are read: a kerned "o" starts before the "M" it
+  // follows ends, and a space put after the "M" is read after the "o".
+  const across = (i: number): number | undefined => {
+    let before: Char | undefined;
+    for (let j = i - 1; j >= 0 && !before; j -= 1) if (run[j]?.text.trim()) before = run[j];
+    const after = run.slice(i + 1).find((c) => c.text.trim());
+    return before && after ? after.left - before.right : undefined;
+  };
+  const written = run.flatMap((c, i) => (c.guessed || c.text.trim() ? [] : [across(i) ?? 0]));
+  const space = Math.max(
+    median(gapsInWords(run)) * 2.5,
+    median(letters.map((c) => c.right - c.left).filter((w) => w > 0)) * 0.45,
+    median(written.filter((gap) => gap > 0)) * 0.75,
+  );
+  let out = "";
+  for (const [i, char] of run.entries()) {
+    if (!char.guessed) out += char.text;
+    else if ((across(i) ?? 0) > space) out += " ";
+  }
+  return out.replace(/\s+/g, " ");
+}
+
+/** A row as it is built: its box, its characters, and the baseline it is set on. */
+interface Building {
+  top: number;
+  bottom: number;
+  chars: Char[];
+  /** The baseline the row was begun on, which every character after is measured from. */
+  baseline?: number;
+  /** The tallest of its letters and figures, as drawn, or 0 while it has none. */
+  height: number;
+}
+
+/**
+ * How far off a line's baseline a character may be set and still be on it, as a share of the
+ * height of the shorter of the two: the character's letters or the line's. A superscript is raised
+ * about half its own height, and two fonts of one line can stand a fraction of a point apart; the
+ * next line, even in type four times the size, is further off than its own letters are tall. By the
+ * taller, "40-60A" set 47 points high took in "Battery Voltage Model" 24 points under it.
+ *
+ * The height as drawn, not the size PDFium gives: EPEVER sets its type at 139 and scales it down
+ * to five points, and its spaces at 1. Measured by that, every line of a page was within reach of
+ * the next, and pages were read as one row.
+ */
+const OFF_BASELINE = 0.6;
+
+/** How much shorter than a line's letters a figure raised or dropped from it is set in. */
+const APART = 0.75;
+
+/** Whether a character's box is as tall as its line's letters: a space's or a dash's is not. */
+const drawnTall = (char: Char): boolean => /[\p{L}\p{N}]/u.test(char.text);
+
+/**
+ * A page's characters as rows of cells, top of the page first.
+ *
+ * A line is the characters set on one baseline, which PDFium gives for each. They were put together
+ * by the overlap of their boxes, and a row's box grew with every character it took: a bracket or a
+ * comma is taller than the letters around it, and grown by a few of those, the box of a row in an
+ * Energizer Solar manual reached the line above. The two lines were read as one with their letters
+ * shuffled together, "Phosphate (P1o-)l,y Hetehxyaleflnueo ro-" for "Phosphate (1-), Hexafluoro-"
+ * under "Polyethylene"; NOCO's guides lost whole paragraphs that way, and Victron's booklet its
+ * default charge voltages. A baseline does not grow. Every character of a line is set on it: the
+ * tall "l" and the descending "g", a bracket, an accent, a space.
+ *
+ * A character PDFium gives no baseline for is placed by its box, as before.
+ */
 export function rowsOf(chars: readonly Char[]): Row[] {
-  const rows: { top: number; bottom: number; chars: Char[] }[] = [];
-  for (const char of [...chars].sort((a, b) => b.top - a.top || a.left - b.left)) {
-    // A line break is not on the page; a space is, and it is what holds "42 kg" together.
-    if (/[\r\n]/.test(char.text)) continue;
-    const row = rows.find((r) => sharesLine(r, char));
+  const rows: Building[] = [];
+  // Taken from the top of the page down: by baseline, and by the top of its box, as before, where
+  // PDFium gives none.
+  const line = (char: Char): number => char.baseline ?? char.top;
+  const all = placed(chars).filter((char) => !/[\r\n]/.test(char.text));
+  // The characters set on each baseline, and the tallest letter among them, which every one of them
+  // is measured by: a line is taken into another whole or not at all. Measured by its own height, a
+  // "c" was left off the line the "V" and "i" before it were taken into, and Victron's name read
+  // "Vi" on one line and "ctron" on the next.
+  const lines = new Map<number, Building>();
+  const loose: Char[] = [];
+  for (const char of all) {
+    const height = char.top - char.bottom;
+    // A character with no height is placed by its box as before, which puts it on no line.
+    if (char.baseline === undefined || height <= 0) {
+      loose.push(char);
+      continue;
+    }
+    const tall = drawnTall(char) ? height : 0;
+    const set = lines.get(char.baseline);
+    if (!set) {
+      lines.set(char.baseline, {
+        top: char.top,
+        bottom: char.bottom,
+        chars: [char],
+        baseline: char.baseline,
+        height: tall,
+      });
+      continue;
+    }
+    set.chars.push(char);
+    set.top = Math.max(set.top, char.top);
+    set.bottom = Math.min(set.bottom, char.bottom);
+    set.height = Math.max(set.height, tall);
+  }
+  // Where each character has been put, and where it stands in the text, for a figure raised from
+  // its line to be read on the line the text writes it next to.
+  const placedIn = new Map<Char, Building>();
+  const written = new Map<Char, number>(all.map((char, at) => [char, at]));
+  /** The line the text writes a raised or dropped figure next to, where it is beside that line. */
+  const raisedFrom = (set: Building, rows: readonly Building[]): Building | undefined => {
+    const taller = rows.some((r) => set.height < r.height * APART && sharesLine(r, set));
+    if (!taller) return undefined;
+    const at = set.chars.map((char) => written.get(char) ?? -1).filter((i) => i >= 0);
+    for (const [from, step] of [
+      [Math.min(...at), -1],
+      [Math.max(...at), 1],
+    ] as const) {
+      for (let i = from + step; i >= 0 && i < all.length; i += step) {
+        const char = all[i];
+        if (!char?.text.trim()) continue;
+        const row = placedIn.get(char);
+        if (!row || set.height >= row.height * APART || !sharesLine(row, set)) return undefined;
+        // Beside the letter it is written next to, as a raised figure is: a marker standing off at
+        // the end of a line is written after it too, and belongs to no line but its own.
+        const [left, right] = edgesOf(set.chars);
+        const apart = Math.max(left - char.right, char.left - right);
+        return apart <= columnGap(row.chars) ? row : undefined;
+      }
+    }
+    return undefined;
+  };
+  // The tallest lines first, so that a raised figure or a dropped one joins whichever line it is
+  // nearest, and not merely the nearest of those above it. Taken from the top down, a figure set
+  // between two lines close together was read on the one above before its own line existed at all,
+  // "upper line2 of text" for "area 5 m2" beneath it.
+  for (const set of [...lines.values()].sort(
+    (a, b) => b.height - a.height || (b.baseline ?? 0) - (a.baseline ?? 0),
+  )) {
+    const baseline = set.baseline ?? 0;
+    // Measured from the baseline the row was begun on, not from any it has taken since: taken from
+    // any, a line reached the next through a raised figure or a cell set half a line lower. Of the
+    // lines in reach, the nearest: OutBack sets its labels in bold a fifth of a point under the
+    // regular text after them, and a space between two lines is on the one it is set on.
+    let row: Building | undefined;
+    let nearest = Number.POSITIVE_INFINITY;
+    for (const r of rows) {
+      if (r.baseline === undefined) continue;
+      const off = Math.abs(r.baseline - baseline);
+      const shorter =
+        set.height && r.height
+          ? Math.min(set.height, r.height)
+          : set.height || r.height || set.top - set.bottom;
+      if (off <= OFF_BASELINE * shorter && off < nearest) {
+        row = r;
+        nearest = off;
+      }
+    }
+    // A figure raised or dropped from its line is set in letters much shorter than the line's, and
+    // stands between two baselines: raised half the way to the line above, it is nearer that line
+    // than its own, and "area 5 m2" was read as "area 5 m" under "upper line2 of text". Which line
+    // it belongs to is not in where it is set but in the text, which writes it next to the letter
+    // it goes with, "m" then "2".
+    const beside = raisedFrom(set, rows) ?? row;
+    if (beside) row = beside;
+    if (!row) {
+      rows.push(set);
+      for (const char of set.chars) placedIn.set(char, set);
+      continue;
+    }
+    row.chars.push(...set.chars);
+    row.top = Math.max(row.top, set.top);
+    row.bottom = Math.min(row.bottom, set.bottom);
+    row.height = Math.max(row.height, set.height);
+    for (const char of set.chars) placedIn.set(char, row);
+  }
+  // What PDFium gives no baseline for keeps its own rows, made by their boxes from the top down.
+  for (const char of loose.sort((a, b) => b.top - a.top || a.left - b.left)) {
+    const row = rows.find((r) => r.baseline === undefined && sharesLine(r, char));
     if (row) {
       row.chars.push(char);
       row.top = Math.max(row.top, char.top);
       row.bottom = Math.min(row.bottom, char.bottom);
       continue;
     }
-    rows.push({ top: char.top, bottom: char.bottom, chars: [char] });
+    rows.push({ top: char.top, bottom: char.bottom, chars: [char], height: 0 });
   }
+  // Every row stands where its first character does, top of the page first.
+  rows.sort((a, b) => line(b.chars[0] as Char) - line(a.chars[0] as Char));
   return (
-    rows
+    beside(rows)
       .map((row) => ({
         top: row.top,
         bottom: row.bottom,
         // The font's own size where the document gives it, since a glyph box is only as tall as the
         // letters in it: a line with no descender is shorter than the same line with one.
-        size: median(row.chars.map((c) => c.size ?? c.top - c.bottom).filter((n) => n > 0)),
+        size: median(
+          row.chars
+            .filter((c) => !c.guessed)
+            .map((c) => c.size ?? c.top - c.bottom)
+            .filter((n) => n > 0),
+        ),
         cells: cellsOf([...row.chars].sort((a, b) => a.left - b.left)),
       }))
       // A line of spaces is where a line ended, not a row of the page.
       .filter((row) => row.cells.length > 0)
   );
+}
+
+/**
+ * A page's characters, with each space PDFium gives no box for put where the text puts it: just
+ * after the character before it, when that one is set on the same baseline. Victron sets such a
+ * space after some words, a little left of their last letter, and placed by its box it was read
+ * before that letter, "senso r"; left off its line, as rows made by their boxes left it, a French
+ * manual reads "levierde la borne".
+ */
+function placed(chars: readonly Char[]): Char[] {
+  const out: Char[] = [];
+  for (const char of chars) {
+    const before = out.at(-1);
+    out.push(
+      /^\s$/.test(char.text) &&
+        char.top <= char.bottom &&
+        char.right <= char.left &&
+        before?.baseline !== undefined &&
+        before.baseline === char.baseline &&
+        before.top > before.bottom
+        ? {
+            ...char,
+            left: before.right,
+            right: before.right,
+            bottom: before.bottom,
+            top: before.top,
+            guessed: true,
+          }
+        : char,
+    );
+  }
+  return out;
+}
+
+/** Whether a character would stand over one a row already has. */
+function collides(row: { chars: readonly Char[] }, char: Char): boolean {
+  const width = char.right - char.left;
+  return row.chars.some(
+    (other) =>
+      Math.min(other.right, char.right) - Math.max(other.left, char.left) >
+      Math.min(width, other.right - other.left) * COLLIDES,
+  );
+}
+
+/** How much two lines' boxes must overlap for one to be a value wrapped beside the other. */
+const WRAPPED = 0.2;
+
+/**
+ * Whether two lines are set in one size and stand a column apart, every cell of each clear of
+ * every cell of the other. In another size, a heading taken in with the small print beside it was
+ * cut at its own kerning, "User Inte rface"; nearer than a column, two cells were read as one.
+ */
+function wrappedBeside(a: Building, b: Building): boolean {
+  if (Math.min(a.height, b.height) < Math.max(a.height, b.height) * 0.8) return false;
+  const gap = columnGap([...a.chars, ...b.chars]);
+  // Where one line stands wholly left or right of the other, what is between them is between their
+  // nearest cells, and neither has to be cut into cells to tell.
+  const [left, right] = [edgesOf(a.chars), edgesOf(b.chars)];
+  if (right[0] > left[1] || left[0] > right[1])
+    return Math.max(right[0] - left[1], left[0] - right[1]) > gap;
+  const cells = (row: Building) => cellsOf([...row.chars].sort((x, y) => x.left - y.left));
+  const theirs = cells(b);
+  return cells(a).every((mine) =>
+    theirs.every((cell) => cell.left - mine.right > gap || mine.left - cell.right > gap),
+  );
+}
+
+/** How far a line reaches across the page: the left of its first letter, the right of its last. */
+function edgesOf(chars: readonly Char[]): [number, number] {
+  let left = Number.POSITIVE_INFINITY;
+  let right = Number.NEGATIVE_INFINITY;
+  for (const char of chars) {
+    if (!char.text.trim()) continue;
+    left = Math.min(left, char.left);
+    right = Math.max(right, char.right);
+  }
+  return [left, right];
+}
+
+/** How much of the narrower of two characters must lie over the other for them to collide. */
+const COLLIDES = 0.3;
+
+/**
+ * Lines that are cells of one row of a table, put together. Two ways: their boxes share a line and
+ * no character of one stands over a character of the other, which is a raised figure or a word set
+ * in another font; or their boxes overlap a little and every cell of each stands clear of the
+ * other's, which is a value wrapped onto two lines beside a label of one. NOCO sets such a value
+ * half a line above and below its label, "Accutypes" beside "Alleen loodzuur 12 V (nat, gel, MF,
+ * EFB," and "AGM)", and read as three lines the value is left out of its row. The first way alone
+ * can interleave two lines whose letters fall in each other's gaps, and a line only brushing
+ * another is not taken in by it.
+ */
+function beside(rows: readonly Building[]): Building[] {
+  const out: Building[] = [];
+  for (const row of rows) {
+    const next =
+      row.baseline === undefined
+        ? undefined
+        : out.find(
+            (r) =>
+              r.baseline !== undefined &&
+              ((sharesLine(r, row) && !row.chars.some((c) => collides(r, c))) ||
+                (overlapOf(r, row) > WRAPPED && wrappedBeside(r, row))),
+          );
+    if (!next) {
+      out.push({ ...row, chars: [...row.chars] });
+      continue;
+    }
+    next.chars.push(...row.chars);
+    next.top = Math.max(next.top, row.top);
+    next.bottom = Math.min(next.bottom, row.bottom);
+    next.height = Math.max(next.height, row.height);
+  }
+  return out;
 }
 
 /** A stretch of a document under one heading: what it is called, and the pages it runs over. */
@@ -370,8 +696,11 @@ function quarterTurn(char: Char): number {
  */
 function turned(char: Char, turn: number): Char {
   // The angle goes with the turn: placed along the page, the character faces along it, and a
-  // second turn would take it off again.
-  const { left, right, bottom, top, angle: _placed, ...rest } = char;
+  // second turn would take it off again. So does a turned character's baseline, which was measured
+  // up the page it was printed across; placed by its box, it is read as it always was.
+  const { left, right, bottom, top, angle: _placed, ...upright } = char;
+  const { baseline: _across, ...rest } = upright;
+  if (turn === 0) return { ...upright, left, right, bottom, top };
   // A quarter turn one way reads down the page, the other reads up it; the line beside it is the
   // next column of the page it was printed on.
   if (turn === 1) return { ...rest, left: -top, right: -bottom, bottom: -right, top: -left };

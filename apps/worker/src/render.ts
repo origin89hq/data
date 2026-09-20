@@ -402,17 +402,19 @@ function charsOfPage(pdfium: Pdfium, document: number, page: number): Char[] {
     const text = pdfium.FPDFText_LoadPage(loaded);
     if (!text) throw new Error(`PDFium could not read the text of page ${page}`);
     try {
-      // Four doubles, written by PDFium and read back after every call: left, right, bottom, top.
-      const box = pdfium.pdfium.wasmExports.malloc(8 * 4);
+      // Six doubles, written by PDFium and read back after every call: left, right, bottom, top, and
+      // the x and y of the point the character is set from, on its baseline.
+      const box = pdfium.pdfium.wasmExports.malloc(8 * 6);
       if (!box) throw new Error("PDFium could not make room for a character box");
       try {
         const chars: Char[] = [];
         const count = pdfium.FPDFText_CountChars(text);
         for (let index = 0; index < count; index += 1) {
           if (!pdfium.FPDFText_GetCharBox(text, index, box, box + 8, box + 16, box + 24)) continue;
-          const at = new Float64Array(heap(pdfium).buffer, box, 4);
+          const origin = pdfium.FPDFText_GetCharOrigin(text, index, box + 32, box + 40);
+          const at = new Float64Array(heap(pdfium).buffer, box, 6);
           const code = pdfium.FPDFText_GetUnicode(text, index);
-          const [left, right, bottom, top] = at;
+          const [left, right, bottom, top, , baseline] = at;
           if (
             left === undefined ||
             right === undefined ||
@@ -434,6 +436,7 @@ function charsOfPage(pdfium: Pdfium, document: number, page: number): Char[] {
             top,
             ...(Number.isFinite(angle) && Math.abs(angle) > 0.01 ? { angle } : {}),
             ...(Number.isFinite(size) && size > 0 ? { size } : {}),
+            ...(origin && baseline !== undefined && Number.isFinite(baseline) ? { baseline } : {}),
           });
         }
         return chars;

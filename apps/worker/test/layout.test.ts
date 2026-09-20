@@ -151,6 +151,127 @@ test("a page typeset sideways reads as the page it is", async () => {
   assert.match(markdown, /\| Rated capacity \| 100 Ah \|/, markdown);
 });
 
+/** The rows of a page as their cells, for a test to read at a glance. */
+const cellsOfPage = async (page: Placed[]) =>
+  rowsOf(await charsOfPage(page)).map((row) => row.cells.map((cell) => cell.text));
+
+test("a line is the letters set on its baseline, not the letters whose boxes meet it", async () => {
+  // An Energizer Solar manual sets these five points apart. A bracket is taller than the letters
+  // around it, and a row grown by a few of those reached the line above: the two were read as one
+  // with their letters shuffled together, "Phosphate (P1o-)l,y Hetehxyaleflnueo ro-".
+  assert.deepEqual(
+    await cellsOfPage([
+      { text: "Polyethylene", x: 20, y: 105 },
+      { text: "Phosphate (1-), Hexafluoro-", x: 20, y: 100 },
+    ]),
+    [["Polyethylene"], ["Phosphate (1-), Hexafluoro-"]],
+  );
+});
+
+test("type four times the size does not take in the line under it", async () => {
+  // How far off its baseline a character may be set is measured by the shorter of the two lines'
+  // letters. By the taller, "40-60A" set 47 points high took in the line under it, and a datasheet
+  // read "B4attery0 Volta-ge 6Mode0lA".
+  assert.deepEqual(
+    await cellsOfPage([
+      { text: "40-60A", x: 20, y: 130, size: 47 },
+      { text: "Battery Voltage Model", x: 20, y: 112 },
+    ]),
+    [["40-60A"], ["Battery Voltage Model"]],
+  );
+});
+
+test("a raised figure is read on the line it belongs to", async () => {
+  assert.deepEqual(
+    await cellsOfPage([
+      { text: "Area 5 m", x: 20, y: 100 },
+      { text: "2", x: 60, y: 103, size: 6 },
+    ]),
+    [["Area 5 m2"]],
+  );
+});
+
+test("a raised figure between two lines close together is read on the one it is written by", async () => {
+  // Raised more than half the way to the line above, it is nearer that line than its own, and
+  // where it is set cannot say which it belongs to. The text can: it writes it next to its letter.
+  const between = (x: number): Placed[] => [
+    { text: "upper line of text", x: 20, y: 106, size: 11 },
+    { text: "area 5 m", x: 20, y: 100, size: 11 },
+    { text: "2", x, y: 103.5, size: 7 },
+  ];
+  assert.deepEqual(await cellsOfPage(between(66)), [["upper line of text"], ["area 5 m 2"]]);
+  // Standing off at the end of a line, it is written after that line too and belongs to neither.
+  assert.deepEqual(await cellsOfPage(between(200)), [["upper line of text", "2"], ["area 5 m"]]);
+});
+
+test("a space PDFium guesses is kept between words and left out inside one", async () => {
+  // PDFium puts a space of its own wherever the pen jumps, and gives it no box. Victron leaves the
+  // space out of "may be" and the pen jumps a space's width; between the arm of an "F" and the
+  // letter after it the jump is a third of that, and a space there reads "F lange nut".
+  assert.deepEqual(
+    await cellsOfPage([
+      { text: "may", x: 20, y: 100 },
+      { text: "be present", x: 42, y: 100 },
+    ]),
+    [["may be present"]],
+  );
+  assert.deepEqual(
+    await cellsOfPage([
+      { text: "F", x: 20, y: 100 },
+      { text: "lange nut", x: 28, y: 100 },
+    ]),
+    [["Flange nut"]],
+  );
+});
+
+test("a value wrapped onto two lines beside its label is read in its row", async () => {
+  // NOCO sets such a value half a line above its label and half a line below, and read as three
+  // lines "Accutypes" is left with no value at all.
+  assert.deepEqual(
+    await cellsOfPage([
+      { text: "Accutypes", x: 20, y: 100 },
+      { text: "Alleen loodzuur 12 V (nat, gel,", x: 120, y: 107 },
+      { text: "MF, EFB, AGM)", x: 120, y: 93 },
+    ]),
+    [["Accutypes", "Alleen loodzuur 12 V (nat, gel,"], ["MF, EFB, AGM)"]],
+  );
+});
+
+test("a line set on two baselines is one line, whole", async () => {
+  // Victron sets its footer in two pieces two points apart. Measured by its own letters a short
+  // "c" could not reach the line the "V" and "i" before it were on, and the name came out as "Vi"
+  // on one line and "ctron" on the next; every letter is measured by the tallest on its baseline.
+  assert.deepEqual(
+    await cellsOfPage([
+      { text: "Victron Ene", x: 20, y: 100, size: 6.5 },
+      { text: "rgy B.V. | De Paal 35", x: 52, y: 102.4, size: 6.5 },
+    ]),
+    [["Victron Energy B.V. | De Paal 35"]],
+  );
+});
+
+test("a line is read beside another only where it stands a column clear of it", async () => {
+  // Three points from the end of a heading, a line taken into its row is read as part of it,
+  // "KEY TO DIMENSIONSLISTED".
+  const listed = (x: number): Placed[] => [
+    { text: "KEY TO DIMENSIONS", x: 20, y: 100 },
+    { text: "LISTED", x, y: 105 },
+  ];
+  assert.deepEqual(await cellsOfPage(listed(108)), [["LISTED"], ["KEY TO DIMENSIONS"]]);
+  assert.deepEqual(await cellsOfPage(listed(140)), [["KEY TO DIMENSIONS", "LISTED"]]);
+});
+
+test("a line in another size beside a heading is not read as a cell of its row", async () => {
+  // Taken in with the small print beside it, a heading is cut at its own kerning by the narrower
+  // letters it is measured with: an OutBack manual read "User Inte rface".
+  const beside = (size: number): Placed[] => [
+    { text: "Models", x: 20, y: 100, size: 14 },
+    { text: "two-way radio", x: 120, y: 110, size },
+  ];
+  assert.deepEqual(await cellsOfPage(beside(8)), [["two-way radio"], ["Models"]]);
+  assert.deepEqual(await cellsOfPage(beside(14)), [["Models", "two-way radio"]]);
+});
+
 test("a document reads page by page, under the headings the reader windows on", async () => {
   const pdf = writtenPdf([
     SHEET,
