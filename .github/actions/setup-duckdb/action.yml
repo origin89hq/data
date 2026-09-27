@@ -4,7 +4,7 @@ runs:
   using: composite
   steps:
     - shell: bash
-      run: |
+      run: | # zizmor: ignore[github-env] appends a fixed RUNNER_TEMP path holding the checksum-verified CLI
         set -euo pipefail
         archive="$RUNNER_TEMP/duckdb-cli.zip"
         install_dir="$RUNNER_TEMP/duckdb-cli"
