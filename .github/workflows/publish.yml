@@ -9,7 +9,7 @@ name: Publish the dataset
 # much again when it is retired. That is about $2.50 a version, and four merges that touched
 # records in a day were four of them for one day's figures. A day's merges now go out together.
 # `workflow_dispatch` publishes at once when something should not wait.
-on:
+on: # zizmor: ignore[dangerous-triggers] reviewed: only the manual main-branch deploy triggers it, and it checks out main, not the run's head
   schedule:
     # Eleven hours after the daily pull opens its pull request, so a day's records go out the
     # evening they are merged.
